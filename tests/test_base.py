@@ -10,6 +10,7 @@ def test_health_uses_postgresql(client):
     assert response.json() == {"status": "ok"}
 
 
+@pytest.mark.django_db
 @pytest.mark.parametrize("language", ["es", "en"])
 def test_local_home_security_and_language(client, language):
     response = client.get(f"/{language}/")

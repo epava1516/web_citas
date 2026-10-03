@@ -77,3 +77,5 @@ Reclamación fotos accepted local cruzada:10 dirigidas passed39.61s, cuatro nave
 BASE fixture v1 implementado:seed_demo con8 usuarios/4 personas/roles/estados/fotos propias; tres pruebas passed12.50s, rollback/credenciales privadas/idempotencia/producción. Próximo build/migración/seed en volumen Docker y regresión común para cerrar BASE/CR-06. Claude2/3.
 
 BASE/CR-06 accepted local:acta01,135 comunes passed299.22s; ajuste fixture3 passed12.44s; Docker no-root/migraciones/SSR/MFA/fotos/worker real2.803s verificados. Próximo CR-07; GS-01/B-F/B-B/C y producción pendientes. Claude2/3.
+
+CR-07 running: filtros/pgFTS/listado SSR y móvil conectados. Seis servidor/base passed17.22s, navegador1 passed12.84s. Conteos solo tras elegibilidad; optimización/carga B-B pendiente. Próximo ficha completa ES/EN/contactos/atributos, etiquetas específicas, geo dependiente y paginación/ranking. Claude2/3.

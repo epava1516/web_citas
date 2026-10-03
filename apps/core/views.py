@@ -1,6 +1,7 @@
 from django.db import DatabaseError, connection
 from django.http import JsonResponse
-from django.shortcuts import render
+
+from apps.listings.discovery import results
 
 
 def health(request):
@@ -13,4 +14,4 @@ def health(request):
 
 
 def home(request):
-    return render(request, "core/home.html")
+    return results(request)

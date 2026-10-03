@@ -55,3 +55,5 @@ No considerar una propuesta aprobada por el mero hecho de estar documentada. Dif
 
 - [Datos sintéticos reproducibles](contratos/07-datos-sinteticos.md).
 - [Acta BASE/CR-06 local](actas/01-base-cr06-local.md).
+
+- [CR-07 — Descubrimiento en curso](contratos/08-descubrimiento.md).
