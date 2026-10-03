@@ -24,6 +24,29 @@ docker compose up -d app worker beat caddy
 ```
 Abrir http://localhost:18080/es/ (Caddy sirve CSS y Gunicorn HTML). El runserver sirve CSS en desarrollo usando DJANGO_DEBUG=1.
 
+## Demostración sintética
+
+```sh
+read -rsp 'Contraseña de demostración: ' DEMO_PASSWORD
+export DEMO_PASSWORD
+uv run python manage.py seed_demo
+unset DEMO_PASSWORD
+```
+
+Con Docker, después de construir/migrar:
+
+```sh
+read -rsp 'Contraseña de demostración: ' DEMO_PASSWORD
+export DEMO_PASSWORD
+docker compose run --rm -e DEMO_PASSWORD app python manage.py seed_demo --credentials-file /app/media/private/demo-credentials.json
+mkdir -p .ai
+docker compose cp app:/app/media/private/demo-credentials.json .ai/demo-credentials.json
+chmod 600 .ai/demo-credentials.json
+unset DEMO_PASSWORD
+```
+
+El archivo privado contiene accesos y claves TOTP sintéticos; no se imprime ni se versiona. Repetir conserva cambios existentes. [Contenido y límites de la muestra](docs/contratos/07-datos-sinteticos.md).
+
 ## Verificación
 ```sh
 uv run python manage.py check

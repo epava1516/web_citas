@@ -73,3 +73,5 @@ Regresión común accepted local sobre27cd772:123 passed en268.14s, PostgreSQL/C
 Avisos privados de fotos accepted local:7 pruebas junto a coincidencias passed27.61s; tres finales aviso/móvil/historia passed16.22s. mediafiles0006 aplicada. Próximo conectar reclamación del aviso con revisión independiente/versión y concurrencia, luego fixtures/regresión/Docker CR-06. Claude2/3.
 
 Reclamación fotos accepted local cruzada:10 dirigidas passed39.61s, cuatro navegador/concurrencia passed21.93s, cinco finales COI ambos sujetos passed20.25s. mediafiles0007 aplicada; original/historia/SHA conservados, reapertura no republica. Próximo fixtures completos y cierre común/Docker CR-06 antes de CR-07. Claude2/3.
+
+BASE fixture v1 implementado:seed_demo con8 usuarios/4 personas/roles/estados/fotos propias; tres pruebas passed12.50s, rollback/credenciales privadas/idempotencia/producción. Próximo build/migración/seed en volumen Docker y regresión común para cerrar BASE/CR-06. Claude2/3.
