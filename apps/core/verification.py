@@ -336,6 +336,8 @@ def phone_start(request, person_id):
 @login_required
 @require_http_methods(["GET", "POST"])
 def phone_confirm(request, challenge_id):
+    if settings.PRODUCTION or settings.VERIFICATION_PROVIDER != "simulator":
+        return HttpResponse("Phone verification adapter not integrated", status=503)
     challenge = get_object_or_404(
         PhoneChallenge, pk=challenge_id, person__in=person_queryset(request.user)
     )
@@ -379,7 +381,8 @@ def phone_confirm(request, challenge_id):
                             status=409,
                         )
                     claim.verified_at = timezone.now()
-                    claim.save(update_fields=["verified_at"])
+                    claim.verification_procedure = "simulator-v1"
+                    claim.save(update_fields=["verified_at", "verification_procedure"])
                     person.phone_claim = claim
                     person.save(update_fields=["phone_claim"])
                     challenge.used_at = timezone.now()

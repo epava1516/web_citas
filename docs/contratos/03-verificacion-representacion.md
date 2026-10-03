@@ -30,3 +30,8 @@ Esta entrega utiliza cuenta privada del representado para autorización directa.
 Pendientes compartidos: CR-04 acepta obligación del anunciante y liga contacto al anuncio; CR-06 implementa retirada/pausa de versiones publicadas al revocar/transferir; CR-09 reclamación pública sin cuenta. No marcar estas funciones como implementadas por existir requisitos de elegibilidad.
 
 Ampliación CR-06: transferencia versionada, reintento exacto302 sin reset, versión/destino obsoletos409 e inválidos400; revisión humana del gestor y control del equipo anterior en contratos/06. Pausa/derivados privados ya conectados; navegador/agencia completa/reclamación todavía pendientes.
+
+
+Ampliación compatible CR-07 — procedencia de comprobaciones: PhoneClaim conserva verification_procedure; confirmar el OTP local guarda simulator-v1. La migración core0011 deja vacío el origen de registros antiguos, sin atribuirles pruebas reales. Solicitud y confirmación del OTP simulado devuelven503 si se cambia el proveedor o se activa producción, incluso con un desafío anterior todavía vigente.
+
+En producción, elegibilidad exige un proveedor de edad distinto de simulator y coincidente con el configurado, contacto sms-v1 y, para agencias, procedimiento organization-v1. Estos identificadores preparan el contrato de futuros adaptadores; no acreditan que exista integración real. Los simuladores actuales nunca generan esos procedimientos reales. La ficha y el listado leen la procedencia del registro, no infieren comprobaciones reales por el entorno. Un origen desconocido se presenta como sin acreditar.

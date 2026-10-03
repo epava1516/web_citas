@@ -14,6 +14,7 @@ from apps.catalog.models import Category, Municipality, PostalCode, Province, Re
 from .forms import DetailsForm
 from .models import Listing
 from .moderation import publicly_visible
+from .presentation import describe
 
 
 class CatalogChoices(forms.ModelMultipleChoiceField):
@@ -200,11 +201,13 @@ def results(request):
             or not revision.description_alternative
             else revision.description_alternative
         )
+        public = describe(listing, request.LANGUAGE_CODE)
         cards.append(
             {
                 "listing": listing,
                 "revision": revision,
                 "description": description,
+                "public": public,
                 "photo": revision.photos.filter(
                     approved=True, removed_at__isnull=True, blob__status="ready"
                 ).first(),

@@ -30,6 +30,17 @@ def publication_ready(person):
         and phone.individual_id == person.individual_id
         and phone.agency_id == person.agency_id
     )
+    if settings.PRODUCTION:
+        check = person.verificationcheck_set.order_by("-created_at").first()
+        if (
+            not phone
+            or phone.verification_procedure != "sms-v1"
+            or not check
+            or check.provider == "simulator"
+            or check.provider != settings.VERIFICATION_PROVIDER
+            or (person.agency_id and person.agency.verification_procedure != "organization-v1")
+        ):
+            return False
     return bool(
         person.subject_id
         and person.age_status == "passed"

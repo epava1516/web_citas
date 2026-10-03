@@ -170,6 +170,7 @@ class Person(models.Model):
 
 
 class PhoneClaim(models.Model):
+    verification_procedure = models.CharField(max_length=32, blank=True)
     phone = models.CharField(max_length=16, unique=True)
     individual = models.ForeignKey(User, null=True, blank=True, on_delete=models.PROTECT)
     agency = models.ForeignKey(Agency, null=True, blank=True, on_delete=models.PROTECT)

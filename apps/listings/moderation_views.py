@@ -16,6 +16,7 @@ from .moderation import (
     reviewer_allowed,
     unresolved_matches,
 )
+from .presentation import describe
 
 
 class DecisionForm(forms.Form):
@@ -115,6 +116,7 @@ def public_detail(request, listing_id):
         {
             "listing": listing,
             "revision": listing.approved_revision,
+            "public": describe(listing, request.LANGUAGE_CODE),
             "photos": listing.approved_revision.photos.filter(
                 approved=True, removed_at__isnull=True
             ),

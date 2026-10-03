@@ -89,6 +89,7 @@ def test_individual_prerequisites_persistence_phone_replay(ready_accounts):
     assert phone(client, person, "600 111 222").status_code == 302
     person.refresh_from_db()
     assert person.phone_claim.phone == "+34600111222"
+    assert person.phone_claim.verification_procedure == "simulator-v1"
     assert publication_ready(person)
     assert (
         b"Requisitos locales completos"
@@ -235,3 +236,24 @@ def test_concurrent_phone_cannot_be_claimed_by_two_individuals(ready_accounts):
         assert sorted(executor.map(consume, prepared)) == [302, 409]
     assert PhoneClaim.objects.count() == 1
     assert Person.objects.filter(phone_claim__isnull=False).count() == 1
+
+
+def test_phone_challenge_created_in_dev_cannot_be_consumed_after_provider_switch(
+    ready_accounts, settings
+):
+    user, client = account("phone-provenance")
+    client.post("/es/person/create/", {"alias": "Synthetic"})
+    person = Person.objects.get(individual=user)
+    response = client.post(f"/es/person/{person.pk}/phone/", {"phone": "600123876"})
+    assert response.status_code == 302
+    challenge = person.phonechallenge_set.get()
+    code = mail.outbox[-1].body
+    settings.VERIFICATION_PROVIDER = "future-provider"
+    assert client.post(response.url, {"code": code}).status_code == 503
+    settings.VERIFICATION_PROVIDER = "simulator"
+    settings.PRODUCTION = True
+    assert client.post(response.url, {"code": code}).status_code == 503
+    challenge.refresh_from_db()
+    person.refresh_from_db()
+    assert challenge.used_at is None and challenge.attempts == 0
+    assert person.phone_claim_id is None

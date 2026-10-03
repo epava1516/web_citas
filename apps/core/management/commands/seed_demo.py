@@ -156,7 +156,10 @@ class Command(BaseCommand):
                 document = LegalDocument.objects.get(slug="publishing", language="es", active=True)
                 city = Municipality.objects.get(code="demo-south")
                 shared_phone = PhoneClaim.objects.create(
-                    agency=agency, phone="+349990001001", verified_at=timezone.now()
+                    agency=agency,
+                    phone="+349990001001",
+                    verified_at=timezone.now(),
+                    verification_procedure="simulator-v1",
                 )
                 for index, name in enumerate(["individual", "model-a", "model-b", "withdrawn"]):
                     managed_by_agency = name.startswith("model-")
@@ -169,6 +172,7 @@ class Command(BaseCommand):
                             individual=subject,
                             phone=f"+34999000100{index + 2}",
                             verified_at=timezone.now(),
+                            verification_procedure="simulator-v1",
                         )
                     )
                     person = Person.objects.create(
