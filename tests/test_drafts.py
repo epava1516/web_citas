@@ -170,13 +170,22 @@ def test_private_drafts_csrf_obsolete_manager_and_quota(scenario):
     assert strict.post(f"/es/draft/{revision.pk}/1/", details(revision)).status_code == 403
     person.manager_version += 1
     person.save()
-    assert client.post(f"/es/draft/{revision.pk}/1/", details(revision)).status_code == 409
+    assert client.post(f"/es/draft/{revision.pk}/1/", details(revision)).status_code == 404
     Revision.objects.create(
         listing=revision.listing, manager_version=person.manager_version, status="pending"
     )
     Revision.objects.create(
         listing=revision.listing, manager_version=person.manager_version, status="pending"
     )
+    response = client.post(f"/es/person/{person.pk}/listing/start/")
+    assert response.status_code == 302
+    new_revision = Revision.objects.get(
+        listing=revision.listing, status="draft", manager_version=person.manager_version
+    )
+    assert new_revision.source_revision_id != revision.pk
+    assert new_revision.source_revision.manager_version == person.manager_version
+    new_revision.status = "pending"
+    new_revision.save(update_fields=["status"])
     assert client.post(f"/es/person/{person.pk}/listing/start/").status_code == 409
 
 

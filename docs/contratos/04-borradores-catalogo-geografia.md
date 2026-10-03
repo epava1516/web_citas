@@ -16,7 +16,7 @@ Título120 caracteres, descripciones6000; texto plano escapado, enlaces/contacto
 
 Región/provincia/municipio coherentes, zona del municipio y CP asociado. CP opcional muy recomendado; se rechaza precisión no habilitada para exposición pública. No coordenadas/domicilio. Código postal conserva cinco dígitos y puede asociarse a varios municipios. JavaScript local filtra selectores y limpia selecciones incompatibles; sin JavaScript conserva validación completa servidor y selectores HTML.
 
-`edit_version` evita que una pestaña sobrescriba otra. Revision mantiene manager_version y estado; solo draft vigente editable. Máximo tres revisiones draft/processing/pending por persona. Start concurrente retoma la misma revisión, no incrementa cantidad de anuncios.
+`edit_version` evita que una pestaña sobrescriba otra. Revision mantiene manager_version y estado; solo draft vigente editable. Máximo tres revisiones draft/processing/pending por persona bajo el manager_version vigente. Start concurrente retoma la misma revisión, no incrementa cantidad de anuncios.
 
 Tarifas: fixed/from con Decimal positivo; consult exige importe vacío, EUR fijado servidor; concepto80 caracteres, duración opcional1–10080 minutos. Formset máximo10 filas, adición/edición/eliminación. Restricción PostgreSQL evita fixed/from nulo o no positivo. La duración no implica reserva o pago por servicios.
 
@@ -33,3 +33,5 @@ Metadatos declarados no prueban licencia/revisión jurídica ni cobertura. Datas
 ## Dependencias pendientes
 
 Fotos y estados de procesamiento CR-05, aprobación y revisión inmutable CR-06, filtros/índice público CR-07. La interfaz sigue indicando esas partes pendientes; no sustituirlas por respuestas ficticias. Títulos, etiquetas y accesibilidad se refinan en B-F después de conectar todos los flujos.
+
+Tras cambiar gestor, editar, consultar estado y enviar una revisión de manager_version anterior devuelve404, incluido el titular que vuelve a gestionar su propia persona. El histórico permanece para auditoría autorizada, sin copiar contactos/textos/fotos al nuevo gestor. Las revisiones antiguas no consumen la cuota de tres vigente; una corrección puede copiar una revisión del gestor actual.

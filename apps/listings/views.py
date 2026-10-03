@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.db.models import F
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods, require_POST
@@ -27,7 +28,10 @@ class SubmissionForm(forms.Form):
 @require_POST
 def send_for_review(request, revision_id):
     revision = get_object_or_404(
-        Revision, pk=revision_id, listing__person__in=person_queryset(request.user)
+        Revision,
+        pk=revision_id,
+        listing__person__in=person_queryset(request.user),
+        manager_version=F("listing__person__manager_version"),
     )
     form = SubmissionForm(request.POST)
     if form.is_valid():
@@ -49,7 +53,10 @@ def send_for_review(request, revision_id):
 @login_required
 def revision_status(request, revision_id):
     revision = get_object_or_404(
-        Revision, pk=revision_id, listing__person__in=person_queryset(request.user)
+        Revision,
+        pk=revision_id,
+        listing__person__in=person_queryset(request.user),
+        manager_version=F("listing__person__manager_version"),
     )
     return render(request, "listings/submission.html", {"revision": revision})
 
@@ -68,7 +75,13 @@ def start(request, person_id):
             .first()
         )
         if not revision:
-            if listing.revisions.filter(status__in=["draft", "processing", "pending"]).count() >= 3:
+            if (
+                listing.revisions.filter(
+                    status__in=["draft", "processing", "pending"],
+                    manager_version=person.manager_version,
+                ).count()
+                >= 3
+            ):
                 return HttpResponse("Pending revision quota reached", status=409)
             revision = create_draft(listing, person)
     return redirect("draft_edit", revision_id=revision.pk, step=1)
@@ -81,6 +94,7 @@ def edit(request, revision_id, step):
         Revision.objects.select_related("listing__person", "municipality__province__region"),
         pk=revision_id,
         listing__person__in=person_queryset(request.user),
+        manager_version=F("listing__person__manager_version"),
     )
     if step not in [1, 2, 3, 4]:
         return HttpResponse("Unknown step", status=404)

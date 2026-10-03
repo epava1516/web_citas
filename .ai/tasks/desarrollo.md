@@ -55,3 +55,5 @@ Transferencia agencia → propia en navegador móvil accepted local:1 passed en1
 Cuota de altas alineada con perfiles pendientes, configuración positiva y queryset distinct:5 pruebas agencia/MFA passed en9.54s; check/migraciones limpios. Próximo aplicar cuota a transferencias entrantes y recorrido agencia completo. CR-06 running.
 
 Cuota de transferencias entrantes accepted local:14 pruebas gestor/agencia/MFA passed en30.70s, incluida concurrencia por última plaza y repetición idempotente. Próximo recorrido completo agencia y restricciones/reclamaciones restantes. CR-06 running, Claude2/3.
+
+Privacidad estado/edición/envío de gestor anterior y cuota vigente accepted local:26 pruebas passed en52.48s. Histórico conservado, revisiones actuales reutilizables. Próximo agencia completa y otros tipos de reclamación. CR-06 running.

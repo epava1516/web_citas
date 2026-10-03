@@ -27,6 +27,22 @@ def test_transfer_requires_current_human_review_before_readiness(request):
     )
     person.refresh_from_db()
     assert owner.get(f"/es/photos/{photo.pk}/private/").status_code == 404
+    from django.urls import reverse
+
+    old_revision = photo.revision
+    assert (
+        owner.get(reverse("revision_status", kwargs={"revision_id": old_revision.pk})).status_code
+        == 404
+    )
+    assert (
+        owner.post(
+            reverse("submit_revision", kwargs={"revision_id": old_revision.pk}),
+            {"edit_version": old_revision.edit_version, "declaration": "on"},
+        ).status_code
+        == 404
+    )
+    assert owner.get(f"/es/draft/{old_revision.pk}/1/").status_code == 404
+
     assert person.manager_review_status == "pending" and not publication_ready(person)
     path = f"/es/moderation/managers/{person.pk}/"
     data = {
