@@ -7,6 +7,7 @@ from apps.mediafiles import views as mediafiles
 from . import (
     accounts,
     agencies,
+    agency_appeals,
     legal,
     manager_appeals,
     manager_review,
@@ -16,6 +17,17 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "agency/decisions/<int:decision_id>/appeal/",
+        agency_appeals.submit,
+        name="agency_appeal_submit",
+    ),
+    path("moderation/agency-appeals/", agency_appeals.queue, name="agency_appeal_queue"),
+    path(
+        "moderation/agency-appeals/<int:appeal_id>/",
+        agency_appeals.review,
+        name="agency_appeal_review",
+    ),
     path(
         "person/manager-decisions/<int:decision_id>/appeal/",
         manager_appeals.submit,
