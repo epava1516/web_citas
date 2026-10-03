@@ -22,6 +22,7 @@ from apps.listings.moderation import conflict_of_interest
 
 from .crypto import digest, seal, unseal
 from .models import Report, ReportAccess
+from .notices import enqueue_ack
 
 
 class ReportForm(forms.Form):
@@ -146,6 +147,8 @@ def submit(request):
                             "receipt_expires_at": timezone.now() + timedelta(days=30),
                         },
                     )
+                    if created:
+                        enqueue_ack(report, data.get("email"))
                 if (
                     not constant_time_compare(report.receipt_digest, digest(secret))
                     or report.payload_digest != fingerprint
@@ -169,7 +172,16 @@ def receipt(request, report_id, secret):
         or not constant_time_compare(report.receipt_digest, digest(secret))
     ):
         raise Http404
-    return private(render(request, "safety/receipt.html", {"report": report}))
+    return private(
+        render(
+            request,
+            "safety/receipt.html",
+            {
+                "report": report,
+                "notices": report.notices.only("kind", "status", "created_at").order_by("pk"),
+            },
+        )
+    )
 
 
 @login_required

@@ -70,3 +70,20 @@ class Restriction(models.Model):
     )
     reviewed_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ReportNotice(models.Model):
+    event_key = models.CharField(max_length=80, unique=True)
+    report = models.ForeignKey(Report, on_delete=models.PROTECT, related_name="notices")
+    action = models.ForeignKey(ReportAction, null=True, on_delete=models.PROTECT)
+    kind = models.CharField(max_length=12)
+    encrypted_payload = models.TextField()
+    status = models.CharField(max_length=16, default="queued")
+    created_at = models.DateTimeField(auto_now_add=True)
+    simulated_at = models.DateTimeField(null=True)
+
+
+class SimulatedNoticeDelivery(models.Model):
+    notice = models.OneToOneField(ReportNotice, on_delete=models.PROTECT)
+    procedure = models.CharField(max_length=32, default="simulator-v1")
+    created_at = models.DateTimeField(auto_now_add=True)

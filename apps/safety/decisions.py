@@ -10,6 +10,7 @@ from apps.listings.models import Listing
 
 from .crypto import digest, seal
 from .models import Report, ReportAccess, ReportAction, Restriction
+from .notices import enqueue_outcome
 
 
 @transaction.atomic
@@ -225,4 +226,5 @@ def act(
             "manager_version",
         ]
     )
+    enqueue_outcome(report, action)
     return report

@@ -135,15 +135,21 @@ def test_mobile_report_without_account_and_private_receipt_reload(live_server, r
             assert target
             page.locator("[name=mode]").select_option("general")
             page.locator("[name=reason]").select_option("nonconsent")
+            page.locator("[name=email]").fill("mobile-recipient@example.invalid")
             page.locator("[name=explanation]").fill(
                 "Synthetic report for a privacy review, without real personal data."
             )
             page.locator("[name=good_faith]").check()
             page.get_by_role("button", name="Send report", exact=True).click()
             expect(page.get_by_role("heading", name="Report received", exact=True)).to_be_visible()
+            expect(page.get_by_role("heading", name="Notices", exact=True)).to_be_visible()
+            expect(
+                page.get_by_text("ack · Queued; delivery not confirmed.", exact=True)
+            ).to_be_visible()
             page.reload()
             expect(page.get_by_role("heading", name="Report received", exact=True)).to_be_visible()
             assert "/account/" not in page.url
+            assert "mobile-recipient@example.invalid" not in page.content()
         finally:
             browser.close()
 
