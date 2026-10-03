@@ -7,7 +7,15 @@ import pytest
 from config.gunicorn_logging import SafeAccessLogger
 
 
-@pytest.mark.parametrize("path", ["/es/draft/private-id/", "/en/photos/private-id/private/"])
+@pytest.mark.parametrize(
+    "path",
+    [
+        "/es/draft/private-id/",
+        "/en/photos/private-id/private/",
+        "/en/favorites/private-id/remove/",
+        "/es/listing/private-id/favorite/",
+    ],
+)
 def test_photo_and_draft_access_logs_hide_private_identifiers(path):
     logger = SimpleNamespace(access_log=Mock())
     SafeAccessLogger.access(

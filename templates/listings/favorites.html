@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Your private favorites{% else %}Tus favoritos privados{% endif %}</h1>
+<p>{% if english %}Only you can see this list.{% else %}Solo tú puedes ver esta lista.{% endif %}</p>
+{% for entry in entries %}<article>{% if entry.visible %}<h2><a href="{% url 'listing_detail' entry.favorite.listing_id %}">{{ entry.favorite.listing.approved_revision.title }}</a></h2>{% else %}<p>{% if english %}Listing unavailable{% else %}Anuncio no disponible{% endif %}</p>{% endif %}<form method="post" action="{% url 'favorite_remove' entry.favorite.pk %}">{% csrf_token %}<button type="submit">{% if english %}Remove favorite{% else %}Eliminar favorito{% endif %}</button></form></article>{% empty %}<p>{% if english %}You have no favorites yet.{% else %}Todavía no tienes favoritos.{% endif %}</p>{% endfor %}
+<nav aria-label="{% if english %}Pagination{% else %}Paginación{% endif %}">{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">{% if english %}Previous{% else %}Anterior{% endif %}</a>{% endif %}<span>{{ page.number }} / {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?page={{ page.next_page_number }}">{% if english %}Next{% else %}Siguiente{% endif %}</a>{% endif %}</nav>
+{% endblock %}

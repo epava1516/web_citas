@@ -1,6 +1,6 @@
 # CR-08 — Favoritos y ciclo de vida, diseño pendiente de implementación
 
-Estado: propuesta interna compatible con el contrato funcional; no evidencia de funcionamiento. Se implementará tras cierre CR-07. ES/EN SSR y PostgreSQL, acciones POST con CSRF; GET no cambia estados.
+Estado: CR-08 en curso; favoritos implementados y verificados localmente, acciones de ciclo de vida todavía son diseño pendiente. CR-07 cerrado localmente en acta02. ES/EN SSR y PostgreSQL, acciones POST con CSRF; GET no cambia estados.
 
 ## Favoritos privados
 
@@ -31,3 +31,10 @@ Servidor y navegador móvil ES/EN: alta/eliminación/lista privada de favoritos,
 
 
 Dependencias comprobadas antes de implementar: moderation.decide cambia revisión/estado/fechas al aprobar; verification.revoke y transfer pausan mediante actualización queryset; match_review.resolve pausa ante conflicto. CR-08 debe incrementar/invalidar versión en estos puntos además de sus acciones propias, sin perder bloqueos existentes. Al aprobar una revisión nueva, limpiar disponible ahora: una confirmación asociada a la revisión anterior no acredita disponibilidad de la nueva. La fixture seed_demo modifica un estado para pruebas y no sustituye estos servicios.
+
+
+Interfaz de favoritos implementada: GET /favorites/ solo cuenta autenticada, paginación24, private/no-store. POST /listing/{UUID}/favorite/ comprueba elegibilidad bajo bloqueo Person→Listing y crea relación única user/listing; reintento302 sin duplicar. GET de alta405; anónimo requiere acceso. POST /favorites/{ID relación}/remove/ consulta exclusivamente user actual; éxito302, ID ajeno/inexistente o repetición tras eliminar404, conservando efecto idempotente de eliminación. El UUID del anuncio retirado no aparece en la entrada genérica: solo ID privado de la relación propia para poder borrarla. No avisos al anunciante ni datos de otras cuentas.
+
+Pantallas: enlace Favoritos/Favorites en navegación autenticada, botón de guardar desde ficha elegible y lista privada con botón eliminar. Lista sin elementos y anuncios no disponibles tienen mensajes ES/EN. Migración listings0009 añade Favorite y unicidad. Este avance no implementa pausa/renovación/retirada/disponibilidad ni cierra CR-08.
+
+Logs Gunicorn: rutas favorites y favorite se reducen a /private-operation/, sin ID de relación/anuncio o parámetros. Verificación local:4 pruebas finales servidor/navegador/concurrencia y4 de logs; ciclo de vida pendiente.

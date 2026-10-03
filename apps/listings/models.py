@@ -130,3 +130,17 @@ class Appeal(models.Model):
     reason = models.CharField(max_length=1000, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     resolved_at = models.DateTimeField(null=True)
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey("core.User", on_delete=models.CASCADE, related_name="favorites")
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="favorites")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "listing"], name="one_favorite_per_user_listing"
+            )
+        ]
+        ordering = ["-created_at", "-pk"]

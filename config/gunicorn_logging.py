@@ -14,6 +14,8 @@ class SafeAccessLogger(Logger):
             or "/draft/" in path
             or "/photos/" in path
             or "/moderation/" in path
+            or "/favorites/" in path
+            or "/favorite/" in path
         ):
             path = "/private-operation/"
         self.access_log.info(

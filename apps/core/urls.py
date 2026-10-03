@@ -1,6 +1,13 @@
 from django.urls import path
 
-from apps.listings import appeals, match_views, moderation_views, photo_appeals, photo_restrictions
+from apps.listings import (
+    appeals,
+    favorites,
+    match_views,
+    moderation_views,
+    photo_appeals,
+    photo_restrictions,
+)
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 
@@ -17,6 +24,9 @@ from . import (
 )
 
 urlpatterns = [
+    path("favorites/", favorites.index, name="favorites"),
+    path("listing/<uuid:listing_id>/favorite/", favorites.add, name="favorite_add"),
+    path("favorites/<int:favorite_id>/remove/", favorites.remove, name="favorite_remove"),
     path("moderation/photo-appeals/", photo_appeals.queue, name="photo_appeal_queue"),
     path(
         "moderation/photo-appeals/<int:appeal_id>/",
