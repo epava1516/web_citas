@@ -11,5 +11,6 @@
 {% else %}
 <p>{{ revision.status }}</p>
 {% if revision.status == 'pending' %}<p>{% if english %}Awaiting human review. This version is saved and cannot be edited. It has not been published.{% else %}Pendiente de revisión humana. Esta versión está guardada y no se puede editar. Todavía no se ha publicado.{% endif %}</p>{% endif %}
+{% for decision in revision.decisions.all %}<article><p>{{ decision.outcome }} · {{ decision.created_at }}</p><p>{{ decision.reason }}</p></article>{% endfor %}
 {% endif %}
 {% endblock %}

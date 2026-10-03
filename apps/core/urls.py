@@ -1,11 +1,25 @@
 from django.urls import path
 
+from apps.listings import moderation_views
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 
 from . import accounts, agencies, legal, mfa, organization_review, verification
 
 urlpatterns = [
+    path("moderation/listings/", moderation_views.queue, name="moderation_queue"),
+    path(
+        "moderation/listings/<uuid:revision_id>/", moderation_views.review, name="moderation_review"
+    ),
+    path(
+        "moderation/photos/<uuid:photo_id>/", moderation_views.review_photo, name="moderation_photo"
+    ),
+    path("listing/<uuid:listing_id>/", moderation_views.public_detail, name="listing_detail"),
+    path(
+        "listing/<uuid:listing_id>/photo/<uuid:photo_id>/",
+        moderation_views.public_photo,
+        name="public_photo",
+    ),
     path("moderation/organizations/", organization_review.queue, name="organization_queue"),
     path(
         "moderation/organizations/<uuid:agency_id>/",

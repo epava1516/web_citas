@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}<h1>{{ revision.title }}</h1>
+{% if listing.person.agency_id %}<p>{% if english %}Managed by{% else %}Gestionado por{% endif %} {{ listing.person.agency.name }}</p>{% endif %}
+<p>{{ revision.description|linebreaksbr }}</p><p>{{ revision.municipality }}</p>
+{% for photo in photos %}<img src="{% url 'public_photo' listing.pk photo.pk %}" alt="{{ revision.title }}" width="500">{% endfor %}
+{% for rate in revision.rates.all %}<p>{{ rate.concept }} · {% if rate.mode == 'consult' %}{% if english %}Consult{% else %}Consultar{% endif %}{% else %}{{ rate.amount }} {{ rate.currency }}{% endif %}</p>{% endfor %}
+<p><a href="tel:{{ revision.phone }}">{{ revision.phone }}</a></p>
+{% endblock %}

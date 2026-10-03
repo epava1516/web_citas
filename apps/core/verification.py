@@ -394,6 +394,11 @@ def revoke(request, person_id):
         person.manager_version += 1
         person.age_status = "pending"
         person.save(update_fields=["consent_revoked_at", "manager_version", "age_status"])
+        from apps.listings.models import Listing
+
+        Listing.objects.filter(person=person, status="published").update(
+            status="paused", available_until=None
+        )
         RepresentationAction.objects.create(
             person=person,
             subject=request.user,
@@ -427,6 +432,11 @@ def transfer(request, person_id):
             person.consent_revoked_at = timezone.now()
             person.age_status = "pending"
             person.save()
+            from apps.listings.models import Listing
+
+            Listing.objects.filter(person=person, status="published").update(
+                status="paused", available_until=None
+            )
             RepresentationAction.objects.create(
                 person=person,
                 subject=request.user,

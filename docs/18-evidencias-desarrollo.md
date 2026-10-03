@@ -63,3 +63,9 @@ CR-06, comprobación de agencias: cola privada y permiso core.review_agency con 
 Cuatro pruebas de organización passed en6.71s. Recorrido navegador con contraseña/MFA y regresión de envíos/agencias:16 passed en31.87s; tras reforzar la coincidencia exacta de gestor en autorización directa,16 passed en29.69s. Sin skips. No aprobación de anuncios ni integración real de comprobación. Próximo: revisión de anuncios, transferencias, reclamación y publicación de versión aprobada.
 
 Regresión específica de autorización ligada a gestor distinto:1 passed,11 deselected en4.93s; el envío rechaza una evidencia con manager_id obsoleto aunque coincida el contador de versión.
+
+CR-06, anuncios: cola y revisión humana con permiso listings.review_listing/MFA y prevención de autoevaluación; decisiones motivadas y versión exacta aprobada. La aprobación vuelve a validar requisitos y rechaza coincidencias pendientes en ambas direcciones. Ficha y derivados públicos comprueban elegibilidad/caducidad; originales y borradores siguen privados. Revocación o transferencia pausa publicación dentro de la transacción y elimina disponible-ahora.
+
+Seis pruebas servidor passed en15.69s. Recorrido navegador del moderador con contraseña/MFA, inspección de derivado, aprobación y ficha móvil pública, junto a regresión de representación:12 passed en29.67s. Regresión común:85 passed en121.91s, PostgreSQL/Chromium, sin skips. Ruff/check/migraciones/diff-check limpios; migración listings0005 aplicada localmente. Docker aún corresponde al cierre CR-05, se actualizará al cerrar CR-06 integrado.
+
+No cierre CR-06: resolución de coincidencias, clonación/edición sensible, reclamación, revisión específica de transferencia y recorrido agencia completo siguen pendientes. Las integraciones de verificación continúan simuladas; no preparación real de producción ni publicación externa.

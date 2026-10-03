@@ -1,0 +1,2 @@
+{% extends 'base.html' %}{% block content %}<h1>{% if english %}Listing review queue{% else %}Cola de revisión de anuncios{% endif %}</h1>
+{% for revision in revisions %}<p><a href="{% url 'moderation_review' revision.pk %}">{{ revision.title }}</a></p>{% empty %}<p>{% if english %}No pending listings{% else %}No hay anuncios pendientes{% endif %}</p>{% endfor %}{% endblock %}

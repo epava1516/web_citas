@@ -97,3 +97,14 @@ class Submission(models.Model):
     document = models.ForeignKey("core.LegalDocument", on_delete=models.PROTECT)
     declaration_version = models.CharField(max_length=32, default="truth-and-rights-v1")
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ModerationDecision(models.Model):
+    revision = models.ForeignKey(Revision, on_delete=models.PROTECT, related_name="decisions")
+    reviewer = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    outcome = models.CharField(max_length=12)
+    reason = models.CharField(max_length=1000)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [("review_listing", "Review listing revisions")]

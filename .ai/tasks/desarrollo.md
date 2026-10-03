@@ -27,3 +27,7 @@ CR-06 en curso: Submission, declaración por revisión y envío SSR con validaci
 CR-06: cola de organizaciones con permiso review_agency/MFA, decisión motivada auditada y concurrencia. Simulador bloqueado en producción. Cuatro pruebas dirigidas pasan en6.71s; navegador/MFA y regresión conjunta en curso. Próximo: cola de anuncios/decisión, transferencias y versión pública.
 
 Comprobación de agencias verificada localmente:4 pruebas dirigidas,16 conjuntas incluyendo navegador/MFA y una regresión de snapshot de gestor pasan. CR-06 sigue running; siguiente revisión de anuncios/transferencias y publicación.
+
+CR-06: moderación de anuncios con permiso/MFA/conflicto de interés, revalidación al aprobar, decisiones motivadas, ficha y derivados aprobados públicos. Revocación/transferencia pausa publicación. Doce pruebas dirigidas navegador/servidor/representación pasan en29.67s. Regresión común en curso. Pendientes resolución de coincidencias, clonación, reclamación, revisión específica de transferencia y recorrido de agencia.
+
+CR-06 anuncios: regresión común85 passed en121.91s sin saltos, Ruff/check/migraciones limpios. Cambios locales listos para integración; etapa incompleta por coincidencias/clonación/reclamación/transferencia/agencia. Próximo implementar esos flujos; no pasar a CR-07 aún. Claude2/3.
