@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.listings import appeals, match_views, moderation_views, photo_restrictions
+from apps.listings import appeals, match_views, moderation_views, photo_appeals, photo_restrictions
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 
@@ -17,6 +17,12 @@ from . import (
 )
 
 urlpatterns = [
+    path("moderation/photo-appeals/", photo_appeals.queue, name="photo_appeal_queue"),
+    path(
+        "moderation/photo-appeals/<int:appeal_id>/",
+        photo_appeals.review,
+        name="photo_appeal_review",
+    ),
     path(
         "person/photo-restrictions/<int:restriction_id>/",
         photo_restrictions.detail,

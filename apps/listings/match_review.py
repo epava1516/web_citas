@@ -11,10 +11,8 @@ from .models import Listing
 from .moderation import conflict_of_interest
 
 
-@transaction.atomic
-def resolve(user, match_id, version, outcome, reason, evidence_reference):
-    if not user.has_perm("listings.review_listing") or not user.mfa_enabled:
-        raise PermissionDenied("Moderator permission and MFA required")
+def locked_pair(match_id):
+    """Acquire agency/person/listing/match locks in the shared order inside atomic."""
     initial = Match.objects.select_related(
         "photo__revision__listing", "candidate__revision__listing"
     ).get(pk=match_id)
@@ -39,13 +37,21 @@ def resolve(user, match_id, version, outcome, reason, evidence_reference):
     listings = list(
         Listing.objects.select_for_update().filter(person_id__in=person_ids).order_by("pk")
     )
-    if any(conflict_of_interest(user, person) for person in people):
-        raise PermissionDenied("Cannot review a conflict involving your own profile")
     pair = Q(photo_id=initial.photo_id, candidate_id=initial.candidate_id) | Q(
         photo_id=initial.candidate_id, candidate_id=initial.photo_id
     )
     matches = list(Match.objects.select_for_update().filter(pair).order_by("pk"))
     current = next(m for m in matches if m.pk == match_id)
+    return initial, people, listings, matches, current
+
+
+@transaction.atomic
+def resolve(user, match_id, version, outcome, reason, evidence_reference):
+    if not user.has_perm("listings.review_listing") or not user.mfa_enabled:
+        raise PermissionDenied("Moderator permission and MFA required")
+    initial, people, listings, matches, current = locked_pair(match_id)
+    if any(conflict_of_interest(user, person) for person in people):
+        raise PermissionDenied("Cannot review a conflict involving your own profile")
     if (
         Photo.objects.filter(
             pk__in=[initial.photo_id, initial.candidate_id], removed_at__isnull=True

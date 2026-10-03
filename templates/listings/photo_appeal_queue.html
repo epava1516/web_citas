@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h1>{% if english %}Photo appeals{% else %}Reclamaciones de fotos{% endif %}</h1>{% for appeal in appeals %}<p><a href="{% url 'photo_appeal_review' appeal.pk %}">{{ appeal.restriction.person.alias }}</a></p>{% empty %}<p>{% if english %}No pending appeals{% else %}Sin reclamaciones pendientes{% endif %}</p>{% endfor %}{% endblock %}

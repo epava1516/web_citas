@@ -93,3 +93,20 @@ class PhotoRestriction(models.Model):
                 fields=["person", "decision"], name="one_photo_restriction_per_person_decision"
             )
         ]
+
+
+class PhotoAppeal(models.Model):
+    restriction = models.OneToOneField(
+        PhotoRestriction, on_delete=models.PROTECT, related_name="appeal"
+    )
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT, related_name="photo_appeals")
+    review_version = models.PositiveIntegerField()
+    explanation = models.CharField(max_length=2000)
+    status = models.CharField(max_length=12, default="open")
+    reviewer = models.ForeignKey(
+        "core.User", null=True, on_delete=models.PROTECT, related_name="photo_appeals_reviewed"
+    )
+    result = models.CharField(max_length=12, blank=True)
+    reason = models.CharField(max_length=1000, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    resolved_at = models.DateTimeField(null=True)
