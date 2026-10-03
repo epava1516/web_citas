@@ -13,3 +13,7 @@ Delegación 1: cr01-security-design rechazada exit66 por informe inconsistente; 
 CR-03 implementado y pruebas dirigidas7 passed en21.56s. Regresión ampliada con teléfono concurrente en proceso; contratos/03 documenta simulaciones y dependencias CR-04/06/09. Próximo CR-04.
 
 CR-03: regresión27 passed en35.26s, sin skips, PostgreSQL+Chromium. Estado accepted local con límites de integración externa. Siguiente CR-04.
+
+CR-04 implementado; catálogos e importador, wizard y concurrencia. Suite completa en proceso. Próximo CR-05: fotos, worker y comparación exacta/visual/regional. Claude consumido1/3 (sin nuevas invocaciones).
+
+CR-04 accepted local:35 passed en49.54s, sin skips, Ruff/check/migrations limpios. Siguiente CR-05; BASE y producción pendientes según docs/17.

@@ -46,6 +46,7 @@ class LegalDocument(models.Model):
 
 
 class LegalAcceptance(models.Model):
+    agency = models.ForeignKey("Agency", null=True, blank=True, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     document = models.ForeignKey(LegalDocument, on_delete=models.PROTECT)
     action = models.CharField(max_length=32)
@@ -53,7 +54,11 @@ class LegalAcceptance(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=["user", "document", "action"], name="legal_accept_once")
+            models.UniqueConstraint(
+                fields=["user", "document", "action", "agency"],
+                name="legal_accept_once",
+                nulls_distinct=False,
+            )
         ]
 
 
@@ -206,9 +211,17 @@ class RepresentationInvitation(models.Model):
 
 
 class RepresentationAction(models.Model):
+    manager_kind = models.CharField(max_length=12, default="")
+    manager_id = models.CharField(max_length=64, default="")
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     subject = models.ForeignKey(User, on_delete=models.PROTECT)
     manager_version = models.PositiveIntegerField()
     action = models.CharField(max_length=16)
     document = models.ForeignKey(LegalDocument, null=True, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.manager_id:
+            self.manager_kind = "agency" if self.person.agency_id else "individual"
+            self.manager_id = str(self.person.agency_id or self.person.individual_id)
+        super().save(*args, **kwargs)

@@ -1,8 +1,12 @@
 from django.urls import path
 
+from apps.listings import views as listings
+
 from . import accounts, agencies, legal, mfa, verification
 
 urlpatterns = [
+    path("person/<uuid:person_id>/listing/start/", listings.start, name="listing_start"),
+    path("draft/<uuid:revision_id>/<int:step>/", listings.edit, name="draft_edit"),
     path("person/create/", verification.individual, name="individual_create"),
     path("person/<uuid:person_id>/verification/", verification.status, name="person_verification"),
     path("person/<uuid:person_id>/age/", verification.age, name="age_check"),

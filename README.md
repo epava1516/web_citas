@@ -8,6 +8,7 @@ uv sync --python 3.12 --locked
 docker compose up -d --wait db redis
 uv run python manage.py migrate
 uv run python manage.py bootstrap
+uv run python manage.py seed_catalog
 DJANGO_DEBUG=1 uv run python manage.py runserver 127.0.0.1:8000
 ```
 Configuración local coincide con `.env.example`; exportar variables al cambiarlas. Base obligatoriamente PostgreSQL.
@@ -17,6 +18,7 @@ Configuración local coincide con `.env.example`; exportar variables al cambiarl
 docker compose build
 docker compose run --rm app python manage.py migrate
 docker compose run --rm app python manage.py bootstrap
+docker compose run --rm app python manage.py seed_catalog
 docker compose run --rm app python manage.py collectstatic --noinput
 docker compose up -d app worker caddy
 ```

@@ -46,3 +46,5 @@ No considerar una propuesta aprobada por el mero hecho de estar documentada. Dif
 - [Contrato agencias y MFA](contratos/02-agencias-mfa.md)
 
 - [Contrato verificación y representación](contratos/03-verificacion-representacion.md)
+
+- [Contrato borradores, catálogos y geografía](contratos/04-borradores-catalogo-geografia.md)
