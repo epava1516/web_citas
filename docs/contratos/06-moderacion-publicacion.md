@@ -80,3 +80,11 @@ Integración aún parcial: faltan recorrido navegador, pruebas completas entre a
 Transferencia guarda previous_manager_kind/id junto al snapshot del gestor nuevo. Review excluye titular y miembros actuales o revocados de la agencia anterior, además de sujeto/gestor actual. Para eventos anteriores sin esos campos se consulta el último snapshot de representación previo; si no puede reconstruirse el origen, la revisión queda bloqueada para corregir datos con evidencia. No inferir ausencia de conflicto por falta de histórico.
 
 Los derivados privados del gestor requieren que la revisión pertenezca a la versión vigente del gestor. Tras transferir, las fotos privadas de revisiones del gestor anterior no se entregan mediante la ruta del nuevo gestor. Las rutas de moderación mantienen su autorización separada para examinar evidencias; no se abren originales.
+
+## Transferencia versionada e idempotente
+
+El formulario HTML incluye manager_version oculto obligatorio (entero mínimo1), además de destino y confirmación. Es una ampliación interna compatible con la navegación actual; formularios anteriores sin versión se rechazan400 para recargar. Antes de cambiar se bloquean agencias origen/destino en orden estable y persona; se vuelve a comprobar el sujeto.
+
+POST con versión vigente realiza una única transición. Repetir exactamente el traslado ya aplicado (misma versión origen, destino y sujeto, evento persistido) devuelve302 sin incrementar contador, reiniciar edad/contacto/consentimiento ni crear otro evento. Una versión antigua con otro destino o más transiciones intermedias devuelve409. GET no consume ni cambia estado. No usar solamente destino coincidente como prueba de reintento: se exige el evento/version correspondiente.
+
+Pendientes para cierre de este tramo: recorrido navegador y agencia completa, revisión de rechazo y reclamaciones; no se considera CR-06 terminado por estas pruebas servidor.

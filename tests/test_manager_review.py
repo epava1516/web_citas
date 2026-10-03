@@ -1,4 +1,9 @@
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
+
 import pytest
+from django.db import close_old_connections, connections
+from django.test import Client
 from test_drafts import scenario  # noqa: F401
 from test_listing_moderation import pending  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
@@ -13,7 +18,13 @@ def test_transfer_requires_current_human_review_before_readiness(request):
     person, owner, _, _, reviewer = request.getfixturevalue("pending")
     phone = person.phone_claim
     photo = person.listing.revisions.get().photos.get()
-    assert owner.post(f"/es/person/{person.pk}/transfer/", {"confirm": "on"}).status_code == 302
+    assert (
+        owner.post(
+            f"/es/person/{person.pk}/transfer/",
+            {"confirm": "on", "manager_version": person.manager_version},
+        ).status_code
+        == 302
+    )
     person.refresh_from_db()
     assert owner.get(f"/es/photos/{photo.pk}/private/").status_code == 404
     assert person.manager_review_status == "pending" and not publication_ready(person)
@@ -62,7 +73,10 @@ def test_previous_agency_cannot_review_its_transfer(request, association, legacy
         manager_kind="agency", manager_id=str(agency.pk)
     )
     assert (
-        subject_client.post(f"/es/person/{person.pk}/transfer/", {"confirm": "on"}).status_code
+        subject_client.post(
+            f"/es/person/{person.pk}/transfer/",
+            {"confirm": "on", "manager_version": person.manager_version},
+        ).status_code
         == 302
     )
     person.refresh_from_db()
@@ -85,3 +99,55 @@ def test_previous_agency_cannot_review_its_transfer(request, association, legacy
         == 403
     )
     assert not ManagerReview.objects.exists()
+
+
+@pytest.mark.django_db(transaction=True)
+def test_transfer_double_submit_does_not_reset_new_authorization(request):
+    person, owner, _, _, _ = request.getfixturevalue("pending")
+    data = {"confirm": "on", "manager_version": person.manager_version}
+    path = f"/es/person/{person.pk}/transfer/"
+    assert owner.post(path, data).status_code == 302
+    person.refresh_from_db()
+    assert (
+        owner.post(
+            f"/es/person/{person.pk}/consent/", {"authorize": "on", "version": "dev-1"}
+        ).status_code
+        == 302
+    )
+    assert owner.post(path, data).status_code == 302
+    person.refresh_from_db()
+    assert person.manager_version == data["manager_version"] + 1
+    assert person.consent_version == person.manager_version and not person.consent_revoked_at
+    assert person.representationaction_set.filter(action="transfer").count() == 1
+    assert owner.post(path, {"confirm": "on"}).status_code == 400
+    agency = Agency.objects.create(
+        owner=User.objects.create_user(
+            username="different-target", email="different-target@example.invalid"
+        ),
+        name="Otra agencia sintética",
+    )
+    assert owner.post(path, {**data, "target_agency": str(agency.pk)}).status_code == 409
+
+
+@pytest.mark.django_db(transaction=True)
+def test_concurrent_transfer_retries_create_one_event(request):
+    person, _, _, _, _ = request.getfixturevalue("pending")
+    subject = person.subject
+    barrier = Barrier(2)
+    data = {"confirm": "on", "manager_version": person.manager_version}
+
+    def transfer():
+        close_old_connections()
+        try:
+            client = Client()
+            client.force_login(subject)
+            barrier.wait(timeout=5)
+            return client.post(f"/es/person/{person.pk}/transfer/", data).status_code
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        assert list(executor.map(lambda _: transfer(), range(2))) == [302, 302]
+    person.refresh_from_db()
+    assert person.manager_version == data["manager_version"] + 1
+    assert person.representationaction_set.filter(action="transfer").count() == 1

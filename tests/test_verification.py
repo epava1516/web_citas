@@ -158,7 +158,12 @@ def test_agency_direct_consent_shared_phone_and_transfer(ready_accounts):
     assert publication_ready(person)
     assert (
         subject_client.post(
-            f"/es/person/{person.pk}/transfer/", {"target_agency": str(target.pk), "confirm": "on"}
+            f"/es/person/{person.pk}/transfer/",
+            {
+                "target_agency": str(target.pk),
+                "confirm": "on",
+                "manager_version": person.manager_version,
+            },
         ).status_code
         == 302
     )

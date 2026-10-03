@@ -13,7 +13,7 @@ Prefijos ES/EN, HTML SSR, sesión confirmada y documentos vigentes. Particular t
 | /person/{id}/phone/ | GET/POST | gestor; E.164, OTP simulado entregado por correo de pruebas |
 | /phone/{challenge}/confirm/ | GET/POST | gestor vigente; código diez minutos, cinco intentos, consumo único |
 | /person/{id}/revoke/ | POST | representado; invalida versión del gestor y edad; publicación no elegible |
-| /person/{id}/transfer/ | GET/POST | representado; agencia destino UUID o autogestión, ID persona conservado |
+| /person/{id}/transfer/ | GET/POST | representado; manager_version oculto obligatorio, agencia destino UUID o autogestión, ID persona conservado |
 
 Edad y autorización separadas. Una casilla no prueba edad. `publication_ready` requiere sujeto, edad passed, consentimiento actual no revocado y teléfono verificado perteneciente al mismo gestor. Esto es elegibilidad local, no prueba real ni aprobación de anuncio: CR-06 volverá a comprobarlo al publicar y servir versiones públicas.
 
@@ -28,3 +28,5 @@ Recorrido particular: crear persona → autorizar publicación → simulador eda
 Esta entrega utiliza cuenta privada del representado para autorización directa. No implica perfil público de visitante. El canal público sin cuenta para personas representadas, reclamaciones y retirada se implementa en CR-09. No exigir acceso a la cuenta de agencia para ejercer derechos.
 
 Pendientes compartidos: CR-04 acepta obligación del anunciante y liga contacto al anuncio; CR-06 implementa retirada/pausa de versiones publicadas al revocar/transferir; CR-09 reclamación pública sin cuenta. No marcar estas funciones como implementadas por existir requisitos de elegibilidad.
+
+Ampliación CR-06: transferencia versionada, reintento exacto302 sin reset, versión/destino obsoletos409 e inválidos400; revisión humana del gestor y control del equipo anterior en contratos/06. Pausa/derivados privados ya conectados; navegador/agencia completa/reclamación todavía pendientes.

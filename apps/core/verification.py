@@ -85,6 +85,7 @@ class SimulationForm(forms.Form):
 
 
 class TransferForm(forms.Form):
+    manager_version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     target_agency = forms.UUIDField(
         required=False,
         label="ID de nueva agencia; vacío para gestionar personalmente / New agency ID; empty for self-management",
@@ -412,7 +413,7 @@ def revoke(request, person_id):
 @require_http_methods(["GET", "POST"])
 def transfer(request, person_id):
     person = get_object_or_404(Person, pk=person_id, subject=request.user)
-    form = TransferForm(request.POST or None)
+    form = TransferForm(request.POST or None, initial={"manager_version": person.manager_version})
     if request.method == "POST" and form.is_valid():
         agency = (
             get_object_or_404(Agency, pk=form.cleaned_data["target_agency"])
@@ -422,7 +423,38 @@ def transfer(request, person_id):
         if not agency and request.user.role == "agency":
             return HttpResponse("Agency owner cannot become individual", status=409)
         with transaction.atomic():
+            list(
+                Agency.objects.select_for_update()
+                .filter(
+                    pk__in={
+                        value
+                        for value in [person.agency_id, agency.pk if agency else None]
+                        if value
+                    }
+                )
+                .order_by("pk")
+            )
             person = Person.objects.select_for_update().get(pk=person.pk)
+            if person.subject_id != request.user.pk:
+                return HttpResponse("Subject changed", status=403)
+            expected = form.cleaned_data["manager_version"]
+            if person.manager_version != expected:
+                repeated = (
+                    person.manager_version == expected + 1
+                    and person.agency_id == (agency.pk if agency else None)
+                    and person.individual_id == (None if agency else request.user.pk)
+                    and RepresentationAction.objects.filter(
+                        person=person,
+                        subject=request.user,
+                        manager_version=person.manager_version,
+                        action="transfer",
+                    ).exists()
+                )
+                if repeated:
+                    return redirect("person_verification", person_id=person.pk)
+                return HttpResponse(
+                    "Transfer changed; reload / Traslado cambiado; recarga", status=409
+                )
             previous_manager_kind = "agency" if person.agency_id else "individual"
             previous_manager_id = str(person.agency_id or person.individual_id)
             person.agency = agency
@@ -449,4 +481,9 @@ def transfer(request, person_id):
                 previous_manager_id=previous_manager_id,
             )
         return redirect("person_verification", person_id=person.pk)
-    return render(request, "core/form.html", {"form": form, "kind": "transfer"})
+    return render(
+        request,
+        "core/form.html",
+        {"form": form, "kind": "transfer"},
+        status=400 if request.method == "POST" else 200,
+    )

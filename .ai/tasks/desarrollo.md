@@ -41,3 +41,7 @@ CR-06 transferencia: estado pendiente y revisión humana versionada conectados, 
 CR-06: snapshot del gestor anterior y exclusión de titular/antiguo editor para revisar su transferencia. Ocho pruebas de gestor/representación pasan en15.97s; regresión legacy ampliada en curso. Pendientes navegador, agencia completa y reclamaciones.
 
 Transferencias:5 pruebas ampliadas owner/editor/legacy passed en13.48s; se corrige además acceso privado a fotos de revisiones de gestor obsoleto, regresión conjunta en curso. Pendientes versión/idempotencia de formulario de transferencia, navegador, agencias y reclamación antes de cerrar CR-06.
+
+Traslado versionado: manager_version obligatorio en formulario, bloqueo agencias/persona y reintento exacto sin reiniciar verificaciones. Versión antigua/destino distinto409, inválido400. Dos nuevas pruebas de repetición y concurrencia en proceso junto a regresión de representación. Próximo navegador/agencias/reclamaciones.
+
+Traslado versionado accepted local:12 pruebas passed en23.02s, check/migraciones/Ruff limpios. Próximo navegador de transferencia, agencia completa y reclamaciones; no CR-07 aún.
