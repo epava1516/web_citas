@@ -1,5 +1,6 @@
-from django.conf import settings
 from django.utils import timezone
+
+from apps.core.verification_services import real_checks
 
 
 def describe(listing, language):
@@ -41,20 +42,21 @@ def describe(listing, language):
         "evening": ("Noche", "Evening"),
     }
     age = listing.person.verificationcheck_set.order_by("-created_at").first()
-    age_simulated = bool(age and age.provider == "simulator")
+    age_simulated = bool(age and (age.provider == "simulator" or age.procedure == "simulator-v1"))
+    checked = real_checks(listing.person, age)
     phone_procedure = listing.person.phone_claim.verification_procedure
     checks = [
         ("Edad: simulada", "Age: simulated")
         if age_simulated
         else ("Edad comprobada", "Age checked")
-        if age and age.provider and age.provider == settings.VERIFICATION_PROVIDER
+        if checked["age"]
         else ("Edad: comprobación sin acreditar", "Age: check not accredited")
     ]
     checks.append(
         ("Contacto: simulado", "Contact: simulated")
         if phone_procedure == "simulator-v1"
         else ("Control del contacto confirmado", "Contact control confirmed")
-        if phone_procedure == "sms-v1"
+        if checked["contact"]
         else ("Contacto: comprobación sin acreditar", "Contact: check not accredited")
     )
     if listing.person.agency_id:
@@ -63,7 +65,7 @@ def describe(listing, language):
             ("Agencia: comprobación simulada", "Agency: simulated check")
             if procedure == "simulator-v1"
             else ("Comprobación de agencia", "Agency check")
-            if procedure == "organization-v1"
+            if checked["agency"]
             else ("Agencia: comprobación sin acreditar", "Agency: check not accredited")
         )
     postal = revision.postal_code

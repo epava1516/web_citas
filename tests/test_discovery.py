@@ -156,6 +156,9 @@ def test_simulation_provenance_survives_provider_switch_and_blocks_production(di
     assert not publication_ready(person)
     person.phone_claim.verification_procedure = "sms-v1"
     person.phone_claim.save(update_fields=["verification_procedure"])
+    assert not publication_ready(person)
+    check.procedure = "age-v1"
+    check.save(update_fields=["procedure"])
     assert publication_ready(person)
     agency_person = Person.objects.get(subject__username="fixture-v1-model-a")
     agency_person.verificationcheck_set.update(provider="future-provider")
@@ -302,3 +305,66 @@ def test_search_title_weight_precedes_newer_description_and_private_text(directo
         description="Private unapproved material",
     )
     assert directory.get("/en/", {"q": "HiddenExclusiveTerm"}).context["page"].paginator.count == 0
+
+
+@pytest.mark.django_db(transaction=True)
+def test_specific_real_checks_exclude_simulated_or_obsolete_proofs(directory, settings):
+    from apps.core.models import VerificationCheck
+
+    assert (
+        directory.get("/en/", {"checked": ["age", "contact", "agency"]})
+        .context["page"]
+        .paginator.count
+        == 0
+    )
+    assert directory.get("/en/", {"checked": ["complete"]}).status_code == 400
+    person = Person.objects.get(individual__username="fixture-v1-individual")
+    check = person.verificationcheck_set.latest("created_at")
+    settings.VERIFICATION_PROVIDER = "future-provider"
+    check.provider = "future-provider"
+    check.save(update_fields=["provider"])
+    assert directory.get("/en/", {"checked": ["age"]}).context["page"].paginator.count == 0
+    check.procedure = "age-v1"
+    check.save(update_fields=["procedure"])
+    assert directory.get("/en/", {"checked": ["age"]}).context["page"].paginator.count == 1
+    assert directory.get("/en/", {"checked": ["contact"]}).context["page"].paginator.count == 0
+    assert (
+        directory.get("/en/", {"checked": ["age", "agency"]}).context["page"].paginator.count == 1
+    )
+    assert (
+        directory.get("/en/", {"checked": ["age"], "q": "absent-term"})
+        .context["page"]
+        .paginator.count
+        == 0
+    )
+    VerificationCheck.objects.create(
+        person=person,
+        subject=person.subject,
+        manager_version=person.manager_version,
+        provider="simulator",
+        status="passed",
+    )
+    assert directory.get("/en/", {"checked": ["age"]}).context["page"].paginator.count == 0
+
+
+@pytest.mark.django_db(transaction=True)
+def test_contact_and_agency_checks_are_specific_and_require_current_evidence(directory):
+    person = Person.objects.get(subject__username="fixture-v1-model-a")
+    phone = person.phone_claim
+    phone.verification_procedure = "sms-v1"
+    phone.save(update_fields=["verification_procedure"])
+    response = directory.get("/en/", {"checked": ["contact"]})
+    assert response.context["page"].paginator.count == 1
+    assert (
+        b"Contact control confirmed" in response.content and b"Age: simulated" in response.content
+    )
+    assert directory.get("/en/", {"checked": ["agency"]}).context["page"].paginator.count == 0
+    person.agency.verification_procedure = "organization-v1"
+    person.agency.save(update_fields=["verification_procedure"])
+    assert directory.get("/en/", {"checked": ["agency"]}).context["page"].paginator.count == 1
+    phone.verified_at = None
+    phone.save(update_fields=["verified_at"])
+    assert (
+        directory.get("/en/", {"checked": ["contact", "agency"]}).context["page"].paginator.count
+        == 0
+    )

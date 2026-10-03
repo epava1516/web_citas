@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.utils import timezone
 
 from apps.catalog.models import Category, Municipality, PostalCode, Province, Region, Service, Zone
+from apps.core.verification_services import real_checks
 
 from .forms import DetailsForm, RelatedSelect
 from .models import Listing
@@ -69,6 +70,14 @@ class SearchForm(forms.Form):
         required=False,
         choices=[("phone", "Teléfono / Phone"), ("whatsapp", "WhatsApp"), ("telegram", "Telegram")],
     )
+    checked = forms.MultipleChoiceField(
+        required=False,
+        choices=[
+            ("age", "Edad / Age"),
+            ("contact", "Control del contacto / Contact control"),
+            ("agency", "Agencia / Agency"),
+        ],
+    )
     reception = forms.BooleanField(required=False, label="Recepción / Reception")
     travel = forms.BooleanField(required=False, label="Desplazamiento / Travel")
     available = forms.BooleanField(required=False, label="Disponible ahora / Available now")
@@ -92,6 +101,7 @@ class SearchForm(forms.Form):
             "day": ("Días", "Days"),
             "time_slot": ("Horario", "Time slots"),
             "channel": ("Contacto", "Contact"),
+            "checked": ("Comprobaciones reales específicas", "Specific real checks"),
         }
         for name, labels_for_field in labels.items():
             self.fields[name].label = labels_for_field[int(english)]
@@ -203,6 +213,13 @@ def candidates(data):
     return query.distinct()
 
 
+def matches_checks(person, selected):
+    if not selected:
+        return True
+    checks = real_checks(person)
+    return any(checks[name] for name in selected)
+
+
 def results(request):
     form = SearchForm(request.GET, english=request.LANGUAGE_CODE == "en")
     valid = form.is_valid()
@@ -213,7 +230,12 @@ def results(request):
     number = int(raw_page) if valid else 1
     # Correct eligibility/counts first. Batch/index optimization is measured in B-B.
     visible = (
-        [listing for listing in candidates(form.cleaned_data) if publicly_visible(listing)]
+        [
+            listing
+            for listing in candidates(form.cleaned_data)
+            if publicly_visible(listing)
+            and matches_checks(listing.person, form.cleaned_data.get("checked"))
+        ]
         if valid
         else []
     )

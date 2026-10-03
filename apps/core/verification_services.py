@@ -21,6 +21,35 @@ def normalize_phone(value):
     return value
 
 
+def real_checks(person, age=None):
+    age = age or person.verificationcheck_set.order_by("-created_at").first()
+    phone = person.phone_claim
+    return {
+        "age": bool(
+            age
+            and age.provider
+            and age.provider != "simulator"
+            and age.provider == settings.VERIFICATION_PROVIDER
+            and age.procedure == "age-v1"
+            and age.status == "passed"
+            and age.subject_id == person.subject_id
+            and age.manager_version == person.manager_version
+        ),
+        "contact": bool(
+            phone
+            and phone.verified_at
+            and phone.verification_procedure == "sms-v1"
+            and phone.individual_id == person.individual_id
+            and phone.agency_id == person.agency_id
+        ),
+        "agency": bool(
+            person.agency_id
+            and person.agency.verification_status == "passed"
+            and person.agency.verification_procedure == "organization-v1"
+        ),
+    }
+
+
 def publication_ready(person):
     consent = person.consent_version == person.manager_version and not person.consent_revoked_at
     phone = person.phone_claim
@@ -31,14 +60,11 @@ def publication_ready(person):
         and phone.agency_id == person.agency_id
     )
     if settings.PRODUCTION:
-        check = person.verificationcheck_set.order_by("-created_at").first()
+        checks = real_checks(person)
         if (
-            not phone
-            or phone.verification_procedure != "sms-v1"
-            or not check
-            or check.provider == "simulator"
-            or check.provider != settings.VERIFICATION_PROVIDER
-            or (person.agency_id and person.agency.verification_procedure != "organization-v1")
+            not checks["age"]
+            or not checks["contact"]
+            or (person.agency_id and not checks["agency"])
         ):
             return False
     return bool(
