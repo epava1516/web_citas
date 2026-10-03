@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.utils import timezone
 
 
 class Report(models.Model):
@@ -97,15 +98,20 @@ class RightsRequest(models.Model):
     encrypted_payload = models.TextField()
     actor = models.ForeignKey("core.User", null=True, on_delete=models.SET_NULL)
     kind = models.CharField(max_length=24)
+    priority = models.PositiveSmallIntegerField(default=1)
     status = models.CharField(max_length=20, default="received")
     created_at = models.DateTimeField(auto_now_add=True)
     received_at = models.DateTimeField()
     initial_due_at = models.DateTimeField()
     receipt_expires_at = models.DateTimeField()
 
+    @property
+    def overdue(self):
+        return self.status == "received" and self.initial_due_at <= timezone.now()
+
     class Meta:
         permissions = [("review_rights_request", "Review private rights requests")]
-        ordering = ["initial_due_at", "created_at", "pk"]
+        ordering = ["priority", "initial_due_at", "created_at", "pk"]
 
 
 class RightsAccess(models.Model):

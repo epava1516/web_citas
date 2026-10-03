@@ -95,6 +95,7 @@ def submit(request):
                         "payload_digest": signature,
                         "encrypted_payload": seal(data),
                         "kind": data["kind"],
+                        "priority": 0 if data["kind"] == "representation" else 1,
                         "actor": request.user if request.user.is_authenticated else None,
                         "received_at": now,
                         "initial_due_at": next_month(now),
