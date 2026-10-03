@@ -14,6 +14,7 @@ class SafeAccessLogger(Logger):
             or "/draft/" in path
             or "/photos/" in path
             or "/moderation/" in path
+            or "/safety/" in path
             or "/favorites/" in path
             or "/favorite/" in path
             or path.endswith("/manage/")

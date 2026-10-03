@@ -37,6 +37,11 @@ class AccountGateMiddleware:
         from .accounts import ACCOUNT_DOCUMENTS, docs
         from .models import LegalAcceptance
 
+        if request.resolver_match and request.resolver_match.url_name in {
+            "report_create",
+            "report_receipt",
+        }:
+            return None
         if not request.user.email_verified_at:
             logout(request)
             return redirect("login")

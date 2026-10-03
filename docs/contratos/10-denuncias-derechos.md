@@ -1,6 +1,6 @@
 # CR-09 — Denuncias, derechos y reclamación sin cuenta
 
-Estado: diseño interno pendiente de implementación y verificación, conforme a contratos14/15/16. No acredita procedimiento operativo real ni revisión jurídica. CR-08 debe cerrar antes de conectar este flujo. Nuevas reglas requieren servidor y navegador conjuntamente; no tratar esta entrega como pulido frontend.
+Estado: CR-09 en curso; recepción/acuse web/cola básica implementados y verificados localmente, resto pendiente, conforme a contratos14/15/16. No acredita procedimiento operativo real ni revisión jurídica. CR-08 cerrado localmente en acta03. Nuevas reglas requieren servidor y navegador conjuntamente; no tratar esta entrega como pulido frontend.
 
 ## Entradas separadas
 
@@ -44,3 +44,18 @@ Consecuencia técnica: la denuncia general puede ser anónima; la modalidad form
 Derechos: art12 RGPD establece respuesta en un mes desde recepción y, cuando proceda, extensión motivada de hasta dos meses más comunicada dentro del primero; art15.4 protege derechos de terceros en la copia. Fuente: [RGPD arts12/15, BOE](https://www.boe.es/buscar/doc.php?id=DOUE-L-2016-80807). Diseñar vencimiento por mes natural, no treinta días fijos; petición de aclaraciones no reinicia el reloj automáticamente. Prórroga exige motivo/evento/aviso, no cambio silencioso de estado. Procedimiento definitivo sujeto a revisión jurídica.
 
 La identidad se comprobará de forma proporcionada; no se exige copia de DNI por defecto. Información adicional solo cuando sea necesaria ante dudas razonables, sin habilitar subidas de documentos por este diseño. Fuente: [AEPD, identificación al ejercer derechos](https://www.aepd.es/preguntas-frecuentes/1-tus-derechos/3-identificacion-con-dni/FAQ-0108-para-el-ejercicio-de-estos-derechos-es-necesario-facilitar-la-copia-del-dni). OTP acredita control del canal, no identidad ni titularidad por sí solo.
+
+
+## Recepción pública implementada, ampliación parcial
+
+Nueva app safety y migración0001. GET/POST /safety/report/ sin registro ni aceptación de contrato de cuenta; disponible también si una sesión existente tiene email sin confirmar o aceptación antigua. Formulario key(UUID)/receipt_secret(43 caracteres aleatorios URLsafe)/target firmado(opcional)/mode general-formal/reason/reference/explanation20–4000/name120/email/exception/good_faith. Formal requiere nombre/email salvo excepción declarada; siempre referencia exacta y buena fe. La declaración no acredita hechos ni decide automáticamente aplicabilidad de la excepción.
+
+Ficha enlaza target firmado de Listing/revisión exacta con vigencia2h y referencia pública, sin consulta a URLs externas. Formulario genérico sirve para una referencia sin confirmar existencia de un perfil privado. POST válido302 a acuse privado; error400, repetición incompatible409, límite20 intentos/15min por fuente HMAC429. Reintento exacto conserva un solo Report/acuse; concurrencia PostgreSQL verificada.
+
+Report conserva metadatos mínimos/actor opcional/referencia interna; nombre/email/explicación/referencia/declaraciones quedan en encrypted_payload Fernet con SAFETY_ENCRYPTION_KEY dedicada obligatoria en producción. Desarrollo deriva clave con propósito separado; no evidencia de claves/proveedores reales. receipt_digest HMAC y payload_digest evitan guardar secreto de seguimiento en claro y detectan replay incompatible. Rotación/restauración de claves y retención siguen B-B.
+
+GET /safety/receipt/{UUID}/{secret}/ válido30d solo muestra recepción/fecha/estado; enlace inválido/caducado404, ningún nombre/email/texto de denuncia. No ejecuta decisión ni verifica identidad. private/no-store, noindex/nofollow y Referrer-Policy same-origin; logs Gunicorn, django.request y django.server ocultan ruta/secreto de safety. Variables/POST sensibles se ocultan al reportero de errores.
+
+GET /moderation/reports/ exige review_report/MFA; cola ordenada priorizando menores/explotación/no consentimiento, excluye autor y conflicto con perfil/gestor. Solo metadatos, aún sin consulta de evidencia/decisión/alerta real. Acuse web implementado; entrega de notificaciones, triage, asignación, resoluciones/restricción/reclamación, derechos/exportación/supresión y revisión sin cuenta todavía pendientes. No interpretar esta ampliación como mecanismo DSA/RGPD completo.
+
+Pruebas: cuatro iniciales servidor/concurrencia/Chromium sin cuenta passed25.33s; once conjuntas report/logs passed23.29s; diez finales caducidad/clave/privacidad de logs passed9.17s. Ruff/format/check/migraciones/diff-check limpios. Datos sintéticos; sin comunicaciones externas.

@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
+from django.core import signing
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.http import FileResponse, Http404, HttpResponse
@@ -117,6 +118,10 @@ def public_detail(request, listing_id):
             "listing": listing,
             "revision": listing.approved_revision,
             "public": describe(listing, request.LANGUAGE_CODE),
+            "report_target": signing.dumps(
+                {"listing": str(listing.pk), "revision": str(listing.approved_revision_id)},
+                salt="public-report-target-v1",
+            ),
             "photos": listing.approved_revision.photos.filter(
                 approved=True, removed_at__isnull=True
             ),

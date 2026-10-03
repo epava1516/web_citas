@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "apps.catalog",
     "apps.listings",
     "apps.mediafiles",
+    "apps.safety",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -153,3 +154,17 @@ elif MEDIA_STORAGE_PROVIDER != "local":
 AGENCY_PENDING_PERSON_LIMIT = int(os.getenv("AGENCY_PENDING_PERSON_LIMIT", "10"))
 if AGENCY_PENDING_PERSON_LIMIT < 1:
     raise ImproperlyConfigured("AGENCY_PENDING_PERSON_LIMIT must be positive")
+
+SAFETY_ENCRYPTION_KEY = os.getenv("SAFETY_ENCRYPTION_KEY", "")
+if PRODUCTION and not SAFETY_ENCRYPTION_KEY:
+    raise ImproperlyConfigured("Safety encryption key required in production")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"private_requests": {"()": "config.private_logging.PrivateRequestFilter"}},
+    "loggers": {
+        "django.request": {"filters": ["private_requests"], "propagate": True},
+        "django.server": {"filters": ["private_requests"], "propagate": True},
+    },
+}

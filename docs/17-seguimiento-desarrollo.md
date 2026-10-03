@@ -23,7 +23,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 | CR-06 | Moderación/publicación | Verificado local | 135 comunes PostgreSQL/Chromium, reclamaciones/transferencias/agencia y Docker/worker; acta01 |
 | CR-07 | Búsqueda y fichas ES/EN | Verificado local |149 comunes PostgreSQL/Chromium, pgFTS/paginación/geo/comprobaciones; Docker; acta02 |
 | CR-08 | Favoritos y ciclo de vida | Verificado local |166 comunes+2 límites finales, PostgreSQL/Chromium, agencias y worker/Beat/Docker; acta03 |
-| CR-09 | Denuncias, derechos y reclamaciones | Pendiente | — |
+| CR-09 | Denuncias, derechos y reclamaciones | En curso | Recepción sin cuenta/acuse/cola básica verificados; decisiones/derechos/exportación/supresión pendientes |
 | CR-10 | Promociones preparadas sin venta real | Pendiente | — |
 | GS-01 | Contratos estables y prueba de separación | Pendiente | — |
 | B-F | Terminación frontend | Pendiente | — |

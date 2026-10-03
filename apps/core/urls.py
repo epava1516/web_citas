@@ -11,6 +11,7 @@ from apps.listings import (
 )
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
+from apps.safety import views as safety
 
 from . import (
     accounts,
@@ -25,6 +26,9 @@ from . import (
 )
 
 urlpatterns = [
+    path("safety/report/", safety.submit, name="report_create"),
+    path("safety/receipt/<uuid:report_id>/<str:secret>/", safety.receipt, name="report_receipt"),
+    path("moderation/reports/", safety.queue, name="report_queue"),
     path("listing/<uuid:listing_id>/manage/", lifecycle.panel, name="listing_lifecycle"),
     path("favorites/", favorites.index, name="favorites"),
     path("listing/<uuid:listing_id>/favorite/", favorites.add, name="favorite_add"),
