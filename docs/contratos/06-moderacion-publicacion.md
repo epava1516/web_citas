@@ -1,6 +1,6 @@
 # CR-06 — Moderación y publicación, interfaz v1 en curso
 
-Esta entrega todavía no está cerrada. Implementados: envío y congelación, comprobación de organización simulada, cola de anuncios, aprobación/rechazo motivado y ficha/derivados públicos de revisión aprobada. Implementadas también revisiones sensibles y resolución humana de coincidencias. Revisión específica de transferencia, agencia integrada y reclamaciones de rechazo de anuncio/gestor conectadas. Reclamaciones de organización y coincidencias conectadas. Pendientes: fixtures y cierre integrado.
+Entrega verificada localmente en acta01 (docs/actas/01-base-cr06-local.md). Las notas de pendientes de los primeros apartados reflejan iteraciones históricas; los apartados posteriores y el acta registran su resolución. Descubrimiento/ficha completa continúa CR-07; derechos/reclamación pública sin cuenta CR-09. No preparación real de producción.
 
 ## Envío y estados privados
 

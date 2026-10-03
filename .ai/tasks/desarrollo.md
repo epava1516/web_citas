@@ -5,7 +5,7 @@ Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
 Estado: running. Inicio autorizado 2026-10-03.
 Invocaciones Claude consumidas: 2/3 para el objetivo completo.
-Próximo paso: CR-06. BASE parcial (fixtures pendientes de publicación), CR-01…CR-05 verificados localmente; última regresión común123 pruebas pasa en268.14s, sin skips, sin saltos.
+Próximo paso: CR-07. BASE y CR-01…CR-06 verificados localmente;135 pruebas comunes passed299.22s, ajuste fixture3 passed12.44s y Docker/worker real verificados.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
 
 Delegación 1: cr01-security-design rechazada exit66 por informe inconsistente; sin reintento. Implementación Codex local.
@@ -75,3 +75,5 @@ Avisos privados de fotos accepted local:7 pruebas junto a coincidencias passed27
 Reclamación fotos accepted local cruzada:10 dirigidas passed39.61s, cuatro navegador/concurrencia passed21.93s, cinco finales COI ambos sujetos passed20.25s. mediafiles0007 aplicada; original/historia/SHA conservados, reapertura no republica. Próximo fixtures completos y cierre común/Docker CR-06 antes de CR-07. Claude2/3.
 
 BASE fixture v1 implementado:seed_demo con8 usuarios/4 personas/roles/estados/fotos propias; tres pruebas passed12.50s, rollback/credenciales privadas/idempotencia/producción. Próximo build/migración/seed en volumen Docker y regresión común para cerrar BASE/CR-06. Claude2/3.
+
+BASE/CR-06 accepted local:acta01,135 comunes passed299.22s; ajuste fixture3 passed12.44s; Docker no-root/migraciones/SSR/MFA/fotos/worker real2.803s verificados. Próximo CR-07; GS-01/B-F/B-B/C y producción pendientes. Claude2/3.

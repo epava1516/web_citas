@@ -51,4 +51,7 @@ No considerar una propuesta aprobada por el mero hecho de estar documentada. Dif
 
 - [Contrato fotografías y coincidencias](contratos/05-fotografias-coincidencias.md)
 
-- [CR-06 — Moderación y publicación, en curso](contratos/06-moderacion-publicacion.md).
+- [CR-06 — Moderación y publicación, verificado local](contratos/06-moderacion-publicacion.md).
+
+- [Datos sintéticos reproducibles](contratos/07-datos-sinteticos.md).
+- [Acta BASE/CR-06 local](actas/01-base-cr06-local.md).

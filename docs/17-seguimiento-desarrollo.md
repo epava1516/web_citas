@@ -4,9 +4,9 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 ## Estado actual
 
-- Fase: BASE parcial; CR-01 a CR-05 verificados localmente; implementación autorizada el 2026-10-03.
-- Próximo paso: CR-06 (moderación, revisión inmutable y publicación).
-- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; última regresión común123 pruebas pasan con PostgreSQL y Chromium (268.14s, sin skips); verificación y representación conectadas con simuladores explícitos.
+- Fase: BASE y CR-01 a CR-06 verificados localmente; implementación autorizada el 2026-10-03.
+- Próximo paso: CR-07 (descubrimiento, filtros y fichas ES/EN).
+- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; última regresión común135 pruebas pasan con PostgreSQL y Chromium (299.22s, sin skips); ajuste de fixture3 pruebas y Docker real verificados; verificación y representación conectadas con simuladores explícitos.
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
 
@@ -14,13 +14,13 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 | ID | Entrega | Estado | Evidencia |
 | --- | --- | --- | --- |
-| BASE | ADR, Docker, estructura, contratos y fixtures iniciales | En curso | ADR-001, Compose, uv.lock; fixtures completos pendientes |
+| BASE | ADR, Docker, estructura, contratos y fixtures iniciales | Verificado local | ADR-001, Compose, uv.lock, seed_demo; acta01 |
 | CR-01 | Registro, acceso y aceptación legal | Verificado local | 16 tests PostgreSQL/Chromium ES/EN; docs/18 y contratos/01 |
 | CR-02 | Roles, agencias y MFA | Verificado local | 21 pruebas comunes; agencia/MFA navegador, aislamiento, revocación y recuperación concurrente |
 | CR-03 | Verificación y representación | Verificado local | 27 pruebas comunes; SSR, identidad/edad simuladas, autorización directa, transferencia y teléfono concurrente |
 | CR-04 | Borrador, campos, geografía, tarifas/contactos | Verificado local | 35 pruebas comunes PostgreSQL/Chromium; wizard, geografía, consult y concurrencia |
 | CR-05 | Fotos y coincidencias | Verificado local | 58 pruebas comunes y dos de logs; worker/Beat Docker real; contratos/05 y docs/18 |
-| CR-06 | Moderación/publicación | En curso | Envío/congelación, organizaciones y aprobación/rechazo/ficha pública conectados; coincidencias y clonación conectadas; reclamación de rechazo conectada; transferencia móvil verificada; recorrido integrado de agencia con dos personas verificado; reclamación de gestor conectada; reclamaciones de organización/coincidencias conectadas; cierre común/fixtures/Docker pendientes, contratos/06 |
+| CR-06 | Moderación/publicación | Verificado local | 135 comunes PostgreSQL/Chromium, reclamaciones/transferencias/agencia y Docker/worker; acta01 |
 | CR-07 | Búsqueda y fichas ES/EN | Pendiente | — |
 | CR-08 | Favoritos y ciclo de vida | Pendiente | — |
 | CR-09 | Denuncias, derechos y reclamaciones | Pendiente | — |
@@ -44,4 +44,4 @@ Tarifas y pasarela condicionan futura venta, no lanzamiento gratuito. No realiza
 
 ## Cierre
 
-Existe scaffold inicial; no existe todavía entrega técnica completa. Separar su futura aceptación de preparación real de producción. No completar filas o gates sin evidencia.
+BASE y primeros seis flujos están verificados localmente; todavía no existe entrega técnica completa. Separar su futura aceptación de preparación real de producción. No completar filas o gates sin evidencia.
