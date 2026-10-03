@@ -30,6 +30,7 @@ urlpatterns = [
     path("safety/rights/", rights.submit, name="rights_create"),
     path("safety/rights/<uuid:case_id>/<str:secret>/", rights.receipt, name="rights_receipt"),
     path("moderation/rights/", rights.queue, name="rights_queue"),
+    path("moderation/rights/<uuid:case_id>/action/", rights.action, name="rights_action"),
     path("moderation/rights/<uuid:case_id>/", rights.inspect, name="rights_inspect"),
     path("moderation/reports/<uuid:report_id>/decision/", safety.decision, name="report_decision"),
     path("moderation/reports/<uuid:report_id>/", safety.inspect, name="report_inspect"),

@@ -6,6 +6,7 @@ from datetime import timedelta
 
 from django import forms
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
@@ -139,7 +140,9 @@ def allowed(request):
 def queue(request):
     if not allowed(request):
         return private(HttpResponse("Forbidden", status=403))
-    cases = RightsRequest.objects.filter(status="received").exclude(actor=request.user)
+    cases = RightsRequest.objects.filter(status__in=["received", "reviewing"]).exclude(
+        actor=request.user
+    )
     return private(render(request, "safety/rights_queue.html", {"cases": cases}))
 
 
@@ -173,4 +176,52 @@ def inspect(request, case_id):
             {"case": case, "form": form, "payload": payload},
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )
+    )
+
+
+class ActionForm(forms.Form):
+    key = forms.UUIDField(widget=forms.HiddenInput)
+    version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    operation = forms.ChoiceField(
+        choices=[
+            ("claim", "Asignarme la solicitud / Assign request to me"),
+            ("unassign", "Devolver a cola (coordinación) / Return to queue (coordination)"),
+        ]
+    )
+    reason = forms.CharField(
+        min_length=10,
+        max_length=2000,
+        widget=forms.Textarea,
+        label="Motivo privado / Private reason",
+    )
+
+
+@login_required
+@sensitive_post_parameters("reason")
+@sensitive_variables()
+@require_http_methods(["GET", "POST"])
+def action(request, case_id):
+    from .rights_actions import act
+
+    if not allowed(request):
+        return private(HttpResponse("Forbidden", status=403))
+    case = RightsRequest.objects.filter(pk=case_id).first()
+    if not case:
+        raise Http404
+    if case.actor_id == request.user.pk:
+        return private(HttpResponse("Conflict of interest", status=403))
+    form = ActionForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
+    status = 400 if request.method == "POST" else 200
+    if request.method == "POST" and form.is_valid():
+        try:
+            act(request.user, case_id, **form.cleaned_data)
+        except PermissionDenied:
+            return private(HttpResponse("Forbidden", status=403))
+        except ValidationError as error:
+            form.add_error(None, error)
+            status = 409
+        else:
+            return private(redirect("rights_inspect", case_id=case.pk))
+    return private(
+        render(request, "safety/rights_action.html", {"case": case, "form": form}, status=status)
     )

@@ -100,6 +100,10 @@ class RightsRequest(models.Model):
     kind = models.CharField(max_length=24)
     priority = models.PositiveSmallIntegerField(default=1)
     status = models.CharField(max_length=20, default="received")
+    version = models.PositiveIntegerField(default=1)
+    assigned_to = models.ForeignKey(
+        "core.User", null=True, on_delete=models.SET_NULL, related_name="assigned_rights_requests"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     received_at = models.DateTimeField()
     initial_due_at = models.DateTimeField()
@@ -107,10 +111,13 @@ class RightsRequest(models.Model):
 
     @property
     def overdue(self):
-        return self.status == "received" and self.initial_due_at <= timezone.now()
+        return self.status in {"received", "reviewing"} and self.initial_due_at <= timezone.now()
 
     class Meta:
-        permissions = [("review_rights_request", "Review private rights requests")]
+        permissions = [
+            ("review_rights_request", "Review private rights requests"),
+            ("manage_rights_assignment", "Manage private rights assignments"),
+        ]
         ordering = ["priority", "initial_due_at", "created_at", "pk"]
 
 
@@ -118,4 +125,15 @@ class RightsAccess(models.Model):
     request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT, related_name="accesses")
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
     purpose = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsAction(models.Model):
+    key = models.UUIDField(unique=True)
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT, related_name="actions")
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    expected_version = models.PositiveIntegerField()
+    operation = models.CharField(max_length=20)
+    payload_digest = models.CharField(max_length=64)
+    encrypted_reason = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

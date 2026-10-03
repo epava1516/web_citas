@@ -43,7 +43,7 @@ def test_representation_is_prioritized_without_resetting_deadline_or_hiding_over
 
 def test_existing_representation_migration_preserves_original_deadline_and_payload():
     old = [("safety", "0007_rightsrequest_rightsaccess")]
-    current = [("safety", "0009_prioritize_existing_representation_requests")]
+    current = MigrationExecutor(connection).loader.graph.leaf_nodes("safety")
     executor = MigrationExecutor(connection)
     executor.migrate(old)
     try:
