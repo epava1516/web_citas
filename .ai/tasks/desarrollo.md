@@ -59,3 +59,5 @@ Cuota de transferencias entrantes accepted local:14 pruebas gestor/agencia/MFA p
 Privacidad estado/edición/envío de gestor anterior y cuota vigente accepted local:26 pruebas passed en52.48s. Histórico conservado, revisiones actuales reutilizables. Próximo agencia completa y otros tipos de reclamación. CR-06 running.
 
 Agencia integrada con dos personas accepted local:2 pruebas passed en16.67s; servidor real desde creación/autorizaciones/wizard/envío, Chromium moderación/MFA/fichas móviles. Editor aislado, teléfono compartido y revocación independiente. Próximo restantes restricciones/reclamaciones y fixtures/regresión/Docker CR-06. Claude2/3.
+
+Reclamación rechazo gestor accepted local:12 dirigidas passed27.55s, navegador móvil1 passed11.66s, cuatro finales con concurrencia passed12.87s. ManagerReview conservado, otro moderador/MFA y resolución sin publicación. core0009 aplicada; próximo reclamaciones organización/coincidencias y cierre fixtures/regresión/Docker. CR-06 running, Claude2/3.

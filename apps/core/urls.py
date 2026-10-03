@@ -4,9 +4,29 @@ from apps.listings import appeals, match_views, moderation_views
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 
-from . import accounts, agencies, legal, manager_review, mfa, organization_review, verification
+from . import (
+    accounts,
+    agencies,
+    legal,
+    manager_appeals,
+    manager_review,
+    mfa,
+    organization_review,
+    verification,
+)
 
 urlpatterns = [
+    path(
+        "person/manager-decisions/<int:decision_id>/appeal/",
+        manager_appeals.submit,
+        name="manager_appeal_submit",
+    ),
+    path("moderation/manager-appeals/", manager_appeals.queue, name="manager_appeal_queue"),
+    path(
+        "moderation/manager-appeals/<int:appeal_id>/",
+        manager_appeals.review,
+        name="manager_appeal_review",
+    ),
     path("draft/decisions/<int:decision_id>/appeal/", appeals.submit, name="appeal_submit"),
     path("moderation/appeals/", appeals.queue, name="appeal_queue"),
     path("moderation/appeals/<int:appeal_id>/", appeals.review, name="appeal_review"),

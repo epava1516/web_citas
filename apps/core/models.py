@@ -260,3 +260,17 @@ class RepresentationAction(models.Model):
             self.manager_kind = "agency" if self.person.agency_id else "individual"
             self.manager_id = str(self.person.agency_id or self.person.individual_id)
         super().save(*args, **kwargs)
+
+
+class ManagerAppeal(models.Model):
+    decision = models.OneToOneField(ManagerReview, on_delete=models.PROTECT, related_name="appeal")
+    actor = models.ForeignKey(User, on_delete=models.PROTECT, related_name="manager_appeals")
+    explanation = models.CharField(max_length=2000)
+    status = models.CharField(max_length=12, default="open")
+    reviewer = models.ForeignKey(
+        User, null=True, on_delete=models.PROTECT, related_name="manager_appeals_reviewed"
+    )
+    result = models.CharField(max_length=12, blank=True)
+    reason = models.CharField(max_length=1000, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    resolved_at = models.DateTimeField(null=True)

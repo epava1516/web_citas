@@ -1,6 +1,6 @@
 # CR-06 — Moderación y publicación, interfaz v1 en curso
 
-Esta entrega todavía no está cerrada. Implementados: envío y congelación, comprobación de organización simulada, cola de anuncios, aprobación/rechazo motivado y ficha/derivados públicos de revisión aprobada. Implementadas también revisiones sensibles y resolución humana de coincidencias. Pendientes: revisión específica de transferencia, reclamaciones y recorrido completo de agencia hasta publicación.
+Esta entrega todavía no está cerrada. Implementados: envío y congelación, comprobación de organización simulada, cola de anuncios, aprobación/rechazo motivado y ficha/derivados públicos de revisión aprobada. Implementadas también revisiones sensibles y resolución humana de coincidencias. Revisión específica de transferencia, agencia integrada y reclamaciones de rechazo de anuncio/gestor conectadas. Pendientes: reclamaciones de organización/coincidencias, fixtures y cierre integrado.
 
 ## Envío y estados privados
 
@@ -100,3 +100,9 @@ Reconsider devuelve la revisión a pending, no publica. Exige versión del gesto
 Wireframe: estado rechazado → solicitar revisión → explicación → acuse/estado privado → otro moderador con MFA inspecciona evidencia → respuesta motivada → solicitante recarga y consulta. No pedir documentos originales para este formulario.
 
 Alcance todavía parcial: este flujo cubre rechazos de anuncios. Pausas por coincidencia, decisiones de agencia/gestor, reclamaciones públicas sin cuenta y derechos requieren sus caminos correspondientes; no tratarlos como resueltos por reutilizar esta pantalla. CR-06 no cerrado y CR-09 sigue pendiente. Textos/plazos legales definitivos requieren revisión externa; no se acredita cumplimiento por estas pruebas locales.
+
+## Reclamación del rechazo de gestor
+
+GET/POST /person/manager-decisions/{decision}/appeal/ permite al sujeto o gestor vigente reclamar un ManagerReview failed de manager_version actual; ajeno/obsoleto404, entrada inválida400. Una reclamación por decisión, explicación2000, reintento302 sin sobrescribir. GET /moderation/manager-appeals/ y GET/POST /moderation/manager-appeals/{case}/ requieren permiso review_listing/MFA. Autor del rechazo, sujeto, gestor actual y anterior y sus miembros quedan excluidos mediante transfer_conflict.
+
+Resultado explícito upheld/approved, motivo1000 obligatorio, revisión auditada con revisor y fecha. Approved exige misma versión, estado failed, edad passed y autorización no revocada correspondiente, organización passed cuando procede. Cambios impiden aprobación400; caso cerrado409. Se conserva ManagerReview original failed y ManagerAppeal registra su revisión, sin publicar anuncio ni restaurar contactos. Titular ve estado/motivos y enlace desde controles de publicación. Derechos/reclamación pública sin cuenta siguen CR-09, rechazos de organizaciones y conflictos de fotos siguen pendientes.
