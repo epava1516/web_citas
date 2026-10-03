@@ -37,3 +37,7 @@ CR-06: clonación de revisiones, aislamiento de tarifas, base de aprobación con
 Revisiones/coincidencias accepted local:21 pruebas dirigidas finales passed en63.74s; check/migraciones/Ruff limpios. Pendientes CR-06: reclamación, transferencia con revisión específica, agencia completa y fixtures/cierre común/Docker. No pasar CR-07 aún.
 
 CR-06 transferencia: estado pendiente y revisión humana versionada conectados, migración core0007 aplicada. Cinco regresiones de representación pasan en9.41s; prueba dirigida nueva en curso. Próximo reforzar antiguo gestor/navegador/agencias y reclamaciones.
+
+CR-06: snapshot del gestor anterior y exclusión de titular/antiguo editor para revisar su transferencia. Ocho pruebas de gestor/representación pasan en15.97s; regresión legacy ampliada en curso. Pendientes navegador, agencia completa y reclamaciones.
+
+Transferencias:5 pruebas ampliadas owner/editor/legacy passed en13.48s; se corrige además acceso privado a fotos de revisiones de gestor obsoleto, regresión conjunta en curso. Pendientes versión/idempotencia de formulario de transferencia, navegador, agencias y reclamación antes de cerrar CR-06.

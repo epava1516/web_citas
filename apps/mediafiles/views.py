@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.db.models import F
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
@@ -46,6 +47,7 @@ def private_photo(request, photo_id):
         pk=photo_id,
         removed_at__isnull=True,
         revision__listing__person__in=person_queryset(request.user),
+        revision__manager_version=F("revision__listing__person__manager_version"),
     )
     if photo.blob.status != "ready" or not photo.blob.derivative:
         return HttpResponse("Photo processing", status=409)

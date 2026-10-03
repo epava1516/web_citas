@@ -81,3 +81,7 @@ Migraciones listings0006/0007 y mediafiles0005 aplicadas sobre PostgreSQL local.
 Regresión de corrección rechazada con título distinto:1 passed en6.08s; crear borrador conserva el contenido rechazado y su linaje, mientras la ficha pública conserva la versión aprobada.
 
 CR-06 transferencia, integración parcial: manager_review_status=pending tras traslado, revisión humana con permiso/MFA, versión/motivo y registro único persona/versión. Renovar edad/autorización/contacto no habilita publicación antes de aprobar el gestor. Cinco regresiones passed en9.41s y prueba dirigida passed en5.77s. Migración core0007 aplicada. Pendientes antiguo gestor, navegador, agencias y reclamaciones; no cierre de etapa ni producción.
+
+CR-06, conflicto del gestor anterior: la transferencia guarda snapshot previous_manager_kind/id; revisión excluye titular y editores anteriores incluso revocados. Registros legacy se contrastan con snapshots previos; origen desconocido no habilita revisión. Migración core0008 aplicada. Derivados privados del gestor exigen revisión ligada a manager_version vigente, impidiendo acceso a fotos privadas del gestor anterior tras traslado.
+
+Regresión gestor/representación8 passed en15.97s; pruebas ampliadas de snapshot/legacy5 passed en13.48s; tras protección de fotos, conjunto gestor/fotos11 passed en23.52s, sin skips. Ruff/check/migraciones/diff limpios. Pendientes idempotencia/concurrencia del propio formulario de transferencia, navegador, recorrido completo de agencia y reclamaciones. CR-06 sigue en curso; Docker no reconstruido todavía.

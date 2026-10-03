@@ -423,6 +423,8 @@ def transfer(request, person_id):
             return HttpResponse("Agency owner cannot become individual", status=409)
         with transaction.atomic():
             person = Person.objects.select_for_update().get(pk=person.pk)
+            previous_manager_kind = "agency" if person.agency_id else "individual"
+            previous_manager_id = str(person.agency_id or person.individual_id)
             person.agency = agency
             person.individual = None if agency else request.user
             person.assigned_editor = None
@@ -443,6 +445,8 @@ def transfer(request, person_id):
                 subject=request.user,
                 manager_version=person.manager_version,
                 action="transfer",
+                previous_manager_kind=previous_manager_kind,
+                previous_manager_id=previous_manager_id,
             )
         return redirect("person_verification", person_id=person.pk)
     return render(request, "core/form.html", {"form": form, "kind": "transfer"})

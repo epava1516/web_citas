@@ -75,4 +75,8 @@ Un conflicto resuelto como conflict permanece bloqueante aunque tenga resolved_a
 
 Transferir conserva ID y pausa exposición, revoca acceso del antiguo equipo y fija manager_review_status=pending. Renovar edad/consentimiento/teléfono no habilita publicación hasta una revisión humana del gestor vigente. GET /moderation/managers/ y GET/POST /moderation/managers/{person}/ requieren permiso review_listing/MFA. Formulario de versión, resultado explícito y motivo; aprobación exige sujeto, edad, consentimiento vigentes y agencia comprobada cuando corresponde. Decisión por persona/versión registrada; reintento409, inválido400, propio/sin permiso403. No republica automáticamente.
 
-Integración aún parcial: faltan recorrido navegador, conflicto de interés con gestor anterior, pruebas entre agencias y reclamación/revisión de rechazo. No cerrar CR-06 con este primer flujo.
+Integración aún parcial: faltan recorrido navegador, pruebas completas entre agencias y reclamación/revisión de rechazo. El gestor anterior también se excluye según el control descrito a continuación. No cerrar CR-06 con este primer flujo.
+
+Transferencia guarda previous_manager_kind/id junto al snapshot del gestor nuevo. Review excluye titular y miembros actuales o revocados de la agencia anterior, además de sujeto/gestor actual. Para eventos anteriores sin esos campos se consulta el último snapshot de representación previo; si no puede reconstruirse el origen, la revisión queda bloqueada para corregir datos con evidencia. No inferir ausencia de conflicto por falta de histórico.
+
+Los derivados privados del gestor requieren que la revisión pertenezca a la versión vigente del gestor. Tras transferir, las fotos privadas de revisiones del gestor anterior no se entregan mediante la ruta del nuevo gestor. Las rutas de moderación mantienen su autorización separada para examinar evidencias; no se abren originales.

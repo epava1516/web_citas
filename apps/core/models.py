@@ -244,6 +244,8 @@ class RepresentationInvitation(models.Model):
 
 
 class RepresentationAction(models.Model):
+    previous_manager_kind = models.CharField(max_length=12, default="")
+    previous_manager_id = models.CharField(max_length=64, default="")
     manager_kind = models.CharField(max_length=12, default="")
     manager_id = models.CharField(max_length=64, default="")
     person = models.ForeignKey(Person, on_delete=models.CASCADE)

@@ -7,7 +7,43 @@ from django.views.decorators.http import require_http_methods
 
 from apps.listings.moderation import conflict_of_interest, reviewer_allowed
 
-from .models import Agency, ManagerReview, Person
+from .models import Agency, AgencyMember, ManagerReview, Person, RepresentationAction
+
+
+def transfer_conflict(user, person):
+    if conflict_of_interest(user, person):
+        return True
+    action = (
+        RepresentationAction.objects.filter(
+            person=person, manager_version=person.manager_version, action="transfer"
+        )
+        .order_by("-created_at")
+        .first()
+    )
+    if not action:
+        return False
+    kind, manager_id = action.previous_manager_kind, action.previous_manager_id
+    if not manager_id:
+        previous = (
+            RepresentationAction.objects.filter(
+                person=person,
+                manager_version__lt=person.manager_version,
+                created_at__lt=action.created_at,
+            )
+            .exclude(manager_id="")
+            .exclude(manager_kind="")
+            .order_by("-created_at")
+            .first()
+        )
+        if not previous:
+            return True
+        kind, manager_id = previous.manager_kind, previous.manager_id
+    if kind == "individual":
+        return str(user.pk) == manager_id
+    return (
+        Agency.objects.filter(pk=manager_id, owner=user).exists()
+        or AgencyMember.objects.filter(agency_id=manager_id, user=user).exists()
+    )
 
 
 class ReviewForm(forms.Form):
@@ -43,7 +79,7 @@ def review(request, person_id):
     if not reviewer_allowed(request):
         return HttpResponse("Forbidden", status=403)
     person = get_object_or_404(Person, pk=person_id)
-    if conflict_of_interest(request.user, person):
+    if transfer_conflict(request.user, person):
         return HttpResponse("Conflict of interest", status=403)
     form = ReviewForm(request.POST or None, initial={"manager_version": person.manager_version})
     if request.method == "POST" and form.is_valid():
@@ -51,7 +87,7 @@ def review(request, person_id):
             if person.agency_id:
                 Agency.objects.select_for_update().get(pk=person.agency_id)
             person = Person.objects.select_for_update().get(pk=person.pk)
-            if conflict_of_interest(request.user, person):
+            if transfer_conflict(request.user, person):
                 return HttpResponse("Conflict of interest", status=403)
             if (
                 person.manager_review_status != "pending"
