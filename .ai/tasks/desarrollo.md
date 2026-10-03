@@ -57,3 +57,5 @@ Cuota de altas alineada con perfiles pendientes, configuración positiva y query
 Cuota de transferencias entrantes accepted local:14 pruebas gestor/agencia/MFA passed en30.70s, incluida concurrencia por última plaza y repetición idempotente. Próximo recorrido completo agencia y restricciones/reclamaciones restantes. CR-06 running, Claude2/3.
 
 Privacidad estado/edición/envío de gestor anterior y cuota vigente accepted local:26 pruebas passed en52.48s. Histórico conservado, revisiones actuales reutilizables. Próximo agencia completa y otros tipos de reclamación. CR-06 running.
+
+Agencia integrada con dos personas accepted local:2 pruebas passed en16.67s; servidor real desde creación/autorizaciones/wizard/envío, Chromium moderación/MFA/fichas móviles. Editor aislado, teléfono compartido y revocación independiente. Próximo restantes restricciones/reclamaciones y fixtures/regresión/Docker CR-06. Claude2/3.
