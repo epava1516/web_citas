@@ -148,3 +148,7 @@ if MEDIA_STORAGE_PROVIDER == "s3":
     }
 elif MEDIA_STORAGE_PROVIDER != "local":
     raise ImproperlyConfigured("Unsupported media storage provider")
+
+AGENCY_PENDING_PERSON_LIMIT = int(os.getenv("AGENCY_PENDING_PERSON_LIMIT", "10"))
+if AGENCY_PENDING_PERSON_LIMIT < 1:
+    raise ImproperlyConfigured("AGENCY_PENDING_PERSON_LIMIT must be positive")

@@ -194,3 +194,40 @@ def test_concurrent_recovery_code_one_use(settings):
     with ThreadPoolExecutor(max_workers=2) as executor:
         assert sorted(executor.map(lambda _: consume(), range(2))) == [200, 302]
     assert RecoveryCode.objects.filter(user=user, used_at__isnull=False).count() == 1
+
+
+def test_agency_quota_counts_unapproved_current_manager_and_owner_scope(catalog, settings):
+    from apps.core.agencies import person_queryset
+    from apps.listings.models import Listing, Revision
+
+    settings.AGENCY_PENDING_PERSON_LIMIT = 2
+    owner = user_account("quota-owner")
+    client = Client()
+    enroll(client, owner)
+    agency = Agency.objects.create(owner=owner, name="Cuota sintética")
+    for index in range(2):
+        member = user_account(f"quota-editor-{index}")
+        AgencyMember.objects.create(agency=agency, user=member)
+    approved_person = Person.objects.create(agency=agency, alias="Aprobada")
+    listing = Listing.objects.create(person=approved_person, status="paused")
+    revision = Revision.objects.create(listing=listing, manager_version=1, status="approved")
+    listing.approved_revision = revision
+    listing.save(update_fields=["approved_revision"])
+    assert person_queryset(owner).get(pk=approved_person.pk) == approved_person
+    url = f"/es/agency/{agency.pk}/people/add/"
+    assert client.post(url, {"alias": "Pendiente uno"}).status_code == 302
+    assert client.post(url, {"alias": "Pendiente dos"}).status_code == 302
+    assert client.post(url, {"alias": "Exceso"}).status_code == 409
+    assert agency.people.count() == 3
+    pending = agency.people.get(alias="Pendiente uno")
+    pending_listing = Listing.objects.create(person=pending)
+    pending_revision = Revision.objects.create(
+        listing=pending_listing, manager_version=1, status="approved"
+    )
+    pending_listing.approved_revision = pending_revision
+    pending_listing.save(update_fields=["approved_revision"])
+    assert client.post(url, {"alias": "Nuevo pendiente"}).status_code == 302
+    approved_person.manager_version = 2
+    approved_person.save(update_fields=["manager_version"])
+    assert client.post(url, {"alias": "Gestor antiguo no libera cuota"}).status_code == 409
+    assert not agency.people.filter(alias="Gestor antiguo no libera cuota").exists()

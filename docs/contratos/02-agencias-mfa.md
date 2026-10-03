@@ -10,7 +10,7 @@ Todas las rutas bajo /es o /en; sesión confirmada, documentos vigentes y MFA pa
 | /agency/{id}/ | GET | propietario ve todas sus personas/equipo; editor solo asignadas; ajeno 403 |
 | /agency/{id}/invite/ | GET/POST | propietario; email, invitación de dos días; envío simulado/pruebas |
 | /agency/invitation/{id}/{secret}/ | GET/POST | cuenta con email destino y MFA; GET no consume, POST de un solo uso |
-| /agency/{id}/people/add/ | GET/POST | propietario; alias; cuota inicial diez personas, afinada a pendientes en CR-03/06 |
+| /agency/{id}/people/add/ | GET/POST | propietario; alias; cuota de perfiles sin revisión aprobada bajo el gestor vigente, configurable con AGENCY_PENDING_PERSON_LIMIT (por defecto diez) |
 | /agency/{id}/people/{person}/assign/ | GET/POST | propietario; editor debe ser miembro activo de esa agencia; ninguno retira asignación |
 | /agency/{id}/members/{member}/revoke/ | POST | propietario; revoca miembro, asignaciones e invitaciones pendientes al email |
 
@@ -21,3 +21,5 @@ TOTP: secreto cifrado Fernet; clave independiente MFA_ENCRYPTION_KEY exigida en 
 Wireframes: panel cuenta → contraseña actual → clave manual para autenticador → código → códigos de recuperación → agencia → personas y equipo. Agencia no publica modelos automáticamente: pantalla señala verificaciones pendientes. Sin QR externo, tracking ni envío de secretos a terceros.
 
 Pendiente operativo B-B: rotación de clave, recuperación asistida segura, política final y alertas; no soporte que omita MFA. Integraciones reales siguen pendientes.
+
+La cuota de altas cuenta personas sin approved_revision del manager_version vigente. Una publicación previamente aprobada y pausada no consume la cuota de nuevas personas; una aprobación de un gestor antiguo no la libera. La comprobación y el alta bloquean la agencia en una transacción. El queryset de gestión elimina duplicados por miembros, manteniendo permisos de editor asignado. Aplicación de la cuota a transferencias entrantes pendiente de integración CR-06.

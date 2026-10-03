@@ -51,3 +51,5 @@ CR-06 reclamación de rechazo: Appeal/colas/SSR, otro moderador con MFA, histori
 Reclamación privada de rechazo accepted local:12 pruebas conjuntas passed en35.47s, seis finales con inspección de evidencia passed en21.99s; checks limpios. Próximo otros tipos de decisiones/restricciones, navegador transferencia y agencia completa para CR-06; CR-09 público aún pendiente.
 
 Transferencia agencia → propia en navegador móvil accepted local:1 passed en13.43s; autorización/edad/teléfono simulados, revisión humana/MFA, bloqueo previo y foto antigua404. Próximo: agencia completa, cuota de perfiles pendientes y restantes restricciones/reclamaciones. CR-06 sigue running; Claude2/3.
+
+Cuota de altas alineada con perfiles pendientes, configuración positiva y queryset distinct:5 pruebas agencia/MFA passed en9.54s; check/migraciones limpios. Próximo aplicar cuota a transferencias entrantes y recorrido agencia completo. CR-06 running.

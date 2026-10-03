@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.db import transaction
+from django.db.models import F
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -23,7 +24,7 @@ def person_queryset(user):
         | Person.objects.filter(
             agency__memberships__user=user, agency__memberships__active=True, assigned_editor=user
         )
-    )
+    ).distinct()
 
 
 def can_manage_person(user, person):
@@ -205,7 +206,10 @@ def add_person(request, agency_id):
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             Agency.objects.select_for_update().get(pk=agency.pk)
-            if agency.people.count() >= 10:
+            pending_people = agency.people.exclude(
+                listing__approved_revision__manager_version=F("manager_version")
+            ).count()
+            if pending_people >= settings.AGENCY_PENDING_PERSON_LIMIT:
                 return HttpResponse(
                     "Cuota pendiente de revisión / Quota awaiting review", status=409
                 )
