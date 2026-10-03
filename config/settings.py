@@ -127,7 +127,8 @@ if PRODUCTION and not MFA_ENCRYPTION_KEY:
     raise ImproperlyConfigured("Production requires independent MFA encryption key")
 
 CELERY_BEAT_SCHEDULE = {
-    "recover-private-media": {"task": "apps.mediafiles.tasks.recover_media_jobs", "schedule": 60.0}
+    "recover-private-media": {"task": "apps.mediafiles.tasks.recover_media_jobs", "schedule": 60.0},
+    "expire-public-listings": {"task": "apps.listings.tasks.expire_listings", "schedule": 60.0},
 }
 
 MEDIA_STORAGE_PROVIDER = os.getenv("MEDIA_STORAGE_PROVIDER", "local")

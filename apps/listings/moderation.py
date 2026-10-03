@@ -80,7 +80,18 @@ def decide(user, revision_id, version, outcome, reason):
         listing.status = "published"
         listing.published_at = timezone.now()
         listing.expires_at = timezone.now() + timedelta(days=30)
-        listing.save(update_fields=["approved_revision", "status", "published_at", "expires_at"])
+        listing.available_until = None
+        listing.lifecycle_version += 1
+        listing.save(
+            update_fields=[
+                "approved_revision",
+                "status",
+                "published_at",
+                "expires_at",
+                "available_until",
+                "lifecycle_version",
+            ]
+        )
         for superseded in (
             listing.revisions.select_for_update().filter(status="pending").exclude(pk=revision.pk)
         ):
@@ -94,7 +105,8 @@ def decide(user, revision_id, version, outcome, reason):
             )
     elif not listing.approved_revision_id:
         listing.status = "rejected"
-        listing.save(update_fields=["status"])
+        listing.lifecycle_version += 1
+        listing.save(update_fields=["status", "lifecycle_version"])
     revision.status = outcome
     revision.save(update_fields=["status", "updated_at"])
     ModerationDecision.objects.create(

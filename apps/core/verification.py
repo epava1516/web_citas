@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.db import IntegrityError, transaction
+from django.db.models import Case, F, Value, When
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -406,8 +407,10 @@ def revoke(request, person_id):
         person.save(update_fields=["consent_revoked_at", "manager_version", "age_status"])
         from apps.listings.models import Listing
 
-        Listing.objects.filter(person=person, status="published").update(
-            status="paused", available_until=None
+        Listing.objects.filter(person=person).update(
+            status=Case(When(status="published", then=Value("paused")), default=F("status")),
+            available_until=None,
+            lifecycle_version=F("lifecycle_version") + 1,
         )
         RepresentationAction.objects.create(
             person=person,
@@ -483,8 +486,10 @@ def transfer(request, person_id):
             person.save()
             from apps.listings.models import Listing
 
-            Listing.objects.filter(person=person, status="published").update(
-                status="paused", available_until=None
+            Listing.objects.filter(person=person).update(
+                status=Case(When(status="published", then=Value("paused")), default=F("status")),
+                available_until=None,
+                lifecycle_version=F("lifecycle_version") + 1,
             )
             RepresentationAction.objects.create(
                 person=person,

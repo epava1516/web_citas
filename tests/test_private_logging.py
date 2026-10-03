@@ -14,6 +14,7 @@ from config.gunicorn_logging import SafeAccessLogger
         "/en/photos/private-id/private/",
         "/en/favorites/private-id/remove/",
         "/es/listing/private-id/favorite/",
+        "/en/listing/private-id/manage/",
     ],
 )
 def test_photo_and_draft_access_logs_hide_private_identifiers(path):

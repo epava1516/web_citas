@@ -3,6 +3,7 @@ from django.urls import path
 from apps.listings import (
     appeals,
     favorites,
+    lifecycle,
     match_views,
     moderation_views,
     photo_appeals,
@@ -24,6 +25,7 @@ from . import (
 )
 
 urlpatterns = [
+    path("listing/<uuid:listing_id>/manage/", lifecycle.panel, name="listing_lifecycle"),
     path("favorites/", favorites.index, name="favorites"),
     path("listing/<uuid:listing_id>/favorite/", favorites.add, name="favorite_add"),
     path("favorites/<int:favorite_id>/remove/", favorites.remove, name="favorite_remove"),

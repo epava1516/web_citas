@@ -4,6 +4,7 @@ from django.db import models
 
 
 class Listing(models.Model):
+    lifecycle_version = models.PositiveIntegerField(default=1)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     person = models.OneToOneField("core.Person", on_delete=models.PROTECT, related_name="listing")
     status = models.CharField(
@@ -144,3 +145,16 @@ class Favorite(models.Model):
             )
         ]
         ordering = ["-created_at", "-pk"]
+
+
+class LifecycleAction(models.Model):
+    key = models.UUIDField(unique=True)
+    listing = models.ForeignKey(Listing, on_delete=models.PROTECT, related_name="lifecycle_actions")
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    manager_version = models.PositiveIntegerField()
+    expected_version = models.PositiveIntegerField()
+    confirmed = models.BooleanField(default=False)
+    operation = models.CharField(max_length=16)
+    previous_status = models.CharField(max_length=12)
+    resulting_status = models.CharField(max_length=12)
+    created_at = models.DateTimeField(auto_now_add=True)

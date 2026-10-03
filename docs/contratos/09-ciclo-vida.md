@@ -1,6 +1,6 @@
 # CR-08 — Favoritos y ciclo de vida, diseño pendiente de implementación
 
-Estado: CR-08 en curso; favoritos implementados y verificados localmente, acciones de ciclo de vida todavía son diseño pendiente. CR-07 cerrado localmente en acta02. ES/EN SSR y PostgreSQL, acciones POST con CSRF; GET no cambia estados.
+Estado: CR-08 en curso; favoritos implementados y verificados localmente, acciones de ciclo de vida implementadas y en verificación dirigida. CR-07 cerrado localmente en acta02. ES/EN SSR y PostgreSQL, acciones POST con CSRF; GET no cambia estados.
 
 ## Favoritos privados
 
@@ -14,9 +14,9 @@ Panel privado del gestor vigente y asignado, controles por anuncio. Persona repr
 
 - Pausa: published → paused; elimina disponibilidad inmediata. No borra revisión aprobada ni fotos privadas.
 - Reanudación: paused → published solo si todavía vigente, validación completa y revisión actual aprobada, sin restricciones pendientes. No prolonga vigencia ni fecha editorial.
-- Renovación: confirmación explícita, conserva Listing/Person/approved_revision; nueva vigencia de treinta días y fecha real de renovación para ordenar, nunca promoción pagada. Revalida edad/autorización/gestor/agencia/contactos/catálogo/fotos y conflictos. No renueva retirados ni sustituye revisión humana pendiente.
+- Renovación: confirmación explícita, conserva Listing/Person/approved_revision; ventana desde siete días antes de caducar, nueva vigencia de treinta días y fecha real de renovación para ordenar, nunca promoción pagada. Revalida edad/autorización/gestor/agencia/contactos/catálogo/fotos y conflictos. No renueva retirados ni sustituye revisión humana pendiente.
 - Caducidad: tareas pueden pasar published vigente agotado → expired, nunca publicar. El servicio público ya excluye expires_at agotado sin depender de que haya corrido Beat. Tareas atrasadas deben comprobar estado y vigencia actuales, evitando caducar una renovación posterior.
-- Retirada: published/paused/expired → withdrawn, elimina disponibilidad. Repetir retirada no crea anuncios ni vuelve a activar contenido. Volver a publicar requiere nueva revisión aprobada, no una tarea antigua.
+- Retirada: cualquier estado salvo withdrawn → withdrawn, elimina disponibilidad. Repetir retirada no crea anuncios ni vuelve a activar contenido. Volver a publicar requiere nueva revisión aprobada, no una tarea antigua.
 - Disponible ahora: opt-in exclusivo de published elegible, hasta cuatro horas desde confirmación; cancelar disponible de forma explícita. No promete respuesta. Reintento de la misma acción no amplía el periodo. Pausa/retirada/revocación/conflicto/caducidad dejan de mostrar disponibilidad.
 
 ## Versiones, permisos e historia
@@ -38,3 +38,10 @@ Interfaz de favoritos implementada: GET /favorites/ solo cuenta autenticada, pag
 Pantallas: enlace Favoritos/Favorites en navegación autenticada, botón de guardar desde ficha elegible y lista privada con botón eliminar. Lista sin elementos y anuncios no disponibles tienen mensajes ES/EN. Migración listings0009 añade Favorite y unicidad. Este avance no implementa pausa/renovación/retirada/disponibilidad ni cierra CR-08.
 
 Logs Gunicorn: rutas favorites y favorite se reducen a /private-operation/, sin ID de relación/anuncio o parámetros. Verificación local:4 pruebas finales servidor/navegador/concurrencia y4 de logs; ciclo de vida pendiente.
+
+
+Implementación de ciclo de vida en verificación: GET/POST /listing/{UUID}/manage/, gestor vigente con permisos de agencia/editor existentes. ActionForm key UUID/version/operation/confirm, errores de formato400 y estado/versión/clave incompatible409, éxito302; panel/respuestas de error private/no-store y logs /private-operation/. LifecycleAction único key conserva actor/gestor/versión/operación/confirmación/estado previo y resultante. Reintento exacto no modifica estado aunque luego haya otra acción; payload distinto409. No reutiliza la renovación como edición de datos aprobados.
+
+Ventana de renovación gratuita: últimos siete días de vigencia o caducado; evita cambiar fecha editorial continuamente mediante renovaciones anticipadas. Renovar pausado conserva pausa, caducado elegible vuelve a publicado; retirado necesita nueva revisión. Retirada cancela revisiones draft/processing/pending del gestor actual, impidiendo aprobación atrasada. Los borradores nuevos pueden iniciar nuevo recorrido de revisión; tareas de fotos no publican.
+
+Moderación, revocación/transferencia y decisiones de coincidencias incrementan lifecycle_version; revocación/transferencia lo hacen también sobre anuncios ya pausados. Nueva revisión aprobada borra disponibilidad anterior. expire_listings cada60s toma hasta1000 candidatos y expire_one bloquea cada anuncio con skip_locked, revalida estado/fecha actual antes de caducar y nunca publica; una renovación posterior a la selección no caduca por tarea atrasada. Tarea devuelve número de cambios; disponibilidad pública se comprueba por timestamp aunque no se haya ejecutado Beat. Migraciones listings0010/0011 aplicadas localmente. Beat/worker real, historial automático ampliado, agencias/editor y cierre común todavía pendientes.

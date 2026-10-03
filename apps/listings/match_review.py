@@ -108,10 +108,12 @@ def resolve(user, match_id, version, outcome, reason, evidence_reference):
                     decision=current_decision,
                     defaults={"photo": photo, "manager_version": person.manager_version},
                 )
-        for listing in listings:
+    for listing in listings:
+        if outcome == "conflict":
             if listing.status == "published":
                 listing.status = "paused"
-                listing.available_until = None
-                listing.save(update_fields=["status", "available_until"])
+            listing.available_until = None
+        listing.lifecycle_version += 1
+        listing.save(update_fields=["status", "available_until", "lifecycle_version"])
     # Clearing a conflict does not automatically republish a paused listing.
     return current
