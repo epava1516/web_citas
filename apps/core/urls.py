@@ -26,6 +26,7 @@ from . import (
 )
 
 urlpatterns = [
+    path("moderation/reports/<uuid:report_id>/", safety.inspect, name="report_inspect"),
     path("safety/report/", safety.submit, name="report_create"),
     path("safety/receipt/<uuid:report_id>/<str:secret>/", safety.receipt, name="report_receipt"),
     path("moderation/reports/", safety.queue, name="report_queue"),

@@ -28,3 +28,8 @@ def seal(payload):
 
 def digest(value):
     return salted_hmac("safety-report-v1", value, algorithm="sha256").hexdigest()
+
+
+@sensitive_variables()
+def unseal(payload):
+    return json.loads(cipher().decrypt(payload.encode()).decode())

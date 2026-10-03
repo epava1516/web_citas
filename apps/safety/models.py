@@ -12,6 +12,14 @@ class Report(models.Model):
     actor = models.ForeignKey("core.User", null=True, on_delete=models.SET_NULL)
     listing = models.ForeignKey("listings.Listing", null=True, on_delete=models.SET_NULL)
     revision = models.ForeignKey("listings.Revision", null=True, on_delete=models.SET_NULL)
+    reported_agency = models.ForeignKey("core.Agency", null=True, on_delete=models.SET_NULL)
+    reported_individual = models.ForeignKey(
+        "core.User", null=True, on_delete=models.SET_NULL, related_name="reports_about_management"
+    )
+    reported_subject = models.ForeignKey(
+        "core.User", null=True, on_delete=models.SET_NULL, related_name="reports_about_subject"
+    )
+    manager_version = models.PositiveIntegerField(null=True)
     mode = models.CharField(max_length=12)
     reason = models.CharField(max_length=20)
     priority = models.PositiveSmallIntegerField(default=1)
@@ -22,3 +30,10 @@ class Report(models.Model):
     class Meta:
         permissions = [("review_report", "Review private reports")]
         ordering = ["priority", "created_at", "pk"]
+
+
+class ReportAccess(models.Model):
+    report = models.ForeignKey(Report, on_delete=models.PROTECT, related_name="accesses")
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    purpose = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)

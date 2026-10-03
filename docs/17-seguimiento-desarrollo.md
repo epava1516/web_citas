@@ -23,7 +23,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 | CR-06 | Moderación/publicación | Verificado local | 135 comunes PostgreSQL/Chromium, reclamaciones/transferencias/agencia y Docker/worker; acta01 |
 | CR-07 | Búsqueda y fichas ES/EN | Verificado local |149 comunes PostgreSQL/Chromium, pgFTS/paginación/geo/comprobaciones; Docker; acta02 |
 | CR-08 | Favoritos y ciclo de vida | Verificado local |166 comunes+2 límites finales, PostgreSQL/Chromium, agencias y worker/Beat/Docker; acta03 |
-| CR-09 | Denuncias, derechos y reclamaciones | En curso | Recepción sin cuenta/acuse/cola básica verificados; decisiones/derechos/exportación/supresión pendientes |
+| CR-09 | Denuncias, derechos y reclamaciones | En curso | Recepción sin cuenta/acuse/consulta auditada y conflictos históricos verificados; triage/decisiones/derechos/exportación/supresión pendientes |
 | CR-10 | Promociones preparadas sin venta real | Pendiente | — |
 | GS-01 | Contratos estables y prueba de separación | Pendiente | — |
 | B-F | Terminación frontend | Pendiente | — |
@@ -45,3 +45,6 @@ Tarifas y pasarela condicionan futura venta, no lanzamiento gratuito. No realiza
 ## Cierre
 
 BASE y primeros ocho flujos están verificados localmente; todavía no existe entrega técnica completa. Separar su futura aceptación de preparación real de producción. No completar filas o gates sin evidencia.
+
+
+CR-09 consulta privada auditada accepted local parcial: safety0002 aplicada, Report conserva gestor/agencia/sujeto de publicación y versión, ReportAccess registra responsable/motivo/fecha antes de entregar evidencia. GET oculta datos, POST válido los muestra solo en esa respuesta; permiso específico/MFA vigentes y exclusión de autor/sujeto/gestores/agencia original incluso editor revocado. Bloqueos Agency→Person→Report y revalidación; cambio intercalado exige409. Primer ensayo detectó2 fallos PostgreSQL por FOR UPDATE de joins opcionales; corregido con OF self,9 pruebas pasan42.47s. Ampliación13 passed23.70s. Última ampliación de MFA tuvo2 expectativas erróneas (middleware redirige a alta/desafío antes de la vista), corregidas conforme al flujo existente;18 finales PostgreSQL/Chromium/logs passed36.45s sin skips. Ruff/format/check/migraciones/diff-check limpios. Referencia manual sin perfil e identidad anónima requieren triage/recusación; auditoría/retención/seudonimización pendientes, no afirmar conflicto totalmente resuelto. Docker sigue CR-08. Próximo triage/asignación/decisiones/restricciones persistentes/avisos/revisión, derechos sin cuenta/exportación/supresión y cierre CR-09. GS-01/B-F/B-B/C y producción pendientes; Claude2/3.

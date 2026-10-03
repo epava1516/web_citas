@@ -16,6 +16,7 @@ from config.gunicorn_logging import SafeAccessLogger
         "/es/listing/private-id/favorite/",
         "/en/listing/private-id/manage/",
         "/en/safety/receipt/private-id/private-secret/",
+        "/en/moderation/reports/private-id/",
     ],
 )
 def test_photo_and_draft_access_logs_hide_private_identifiers(path):
@@ -33,7 +34,8 @@ def test_photo_and_draft_access_logs_hide_private_identifiers(path):
     assert "secret" not in str(arguments)
 
 
-def test_django_http_warning_hides_report_receipt_secret():
+@pytest.mark.parametrize("scope", ["safety/receipt", "moderation/reports"])
+def test_django_http_warning_hides_report_receipt_secret(scope):
     import logging
 
     from config.private_logging import PrivateRequestFilter
@@ -44,17 +46,18 @@ def test_django_http_warning_hides_report_receipt_secret():
         __file__,
         1,
         "%s: %s",
-        ("Not Found", "/en/safety/receipt/private-id/private-secret/"),
+        ("Not Found", f"/en/{scope}/private-id/private-secret/"),
         None,
     )
-    record.request = SimpleNamespace(path="/en/safety/receipt/private-id/private-secret/")
+    record.request = SimpleNamespace(path=f"/en/{scope}/private-id/private-secret/")
     record.status_code = 404
     assert PrivateRequestFilter().filter(record)
     assert "private-secret" not in record.getMessage() and "private-id" not in record.getMessage()
     assert record.request is None and "404" in record.getMessage()
 
 
-def test_development_http_log_hides_report_capability():
+@pytest.mark.parametrize("scope", ["safety/receipt", "moderation/reports"])
+def test_development_http_log_hides_report_capability(scope):
     import logging
 
     from config.private_logging import PrivateRequestFilter
@@ -65,7 +68,7 @@ def test_development_http_log_hides_report_capability():
         __file__,
         1,
         '"GET %s HTTP/1.1" 200',
-        ("/en/safety/receipt/private-id/private-secret/",),
+        (f"/en/{scope}/private-id/private-secret/",),
         None,
     )
     assert PrivateRequestFilter().filter(record)

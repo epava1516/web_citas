@@ -15,11 +15,12 @@ from django.views.decorators.debug import sensitive_post_parameters, sensitive_v
 from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.core.accounts import limited
+from apps.core.models import Agency, AgencyMember, Person
 from apps.listings.models import Revision
 from apps.listings.moderation import conflict_of_interest
 
-from .crypto import digest, seal
-from .models import Report
+from .crypto import digest, seal, unseal
+from .models import Report, ReportAccess
 
 
 class ReportForm(forms.Form):
@@ -121,6 +122,21 @@ def submit(request):
                             "actor": request.user if request.user.is_authenticated else None,
                             "listing_id": revision.listing_id if revision else None,
                             "revision": revision,
+                            "reported_agency_id": revision.publisher_acceptance.agency_id
+                            if revision
+                            else None,
+                            "reported_individual_id": revision.publisher_acceptance.user_id
+                            if revision and not revision.publisher_acceptance.agency_id
+                            else None,
+                            "reported_subject_id": revision.listing.person.verificationcheck_set.filter(
+                                manager_version=revision.manager_version, status="passed"
+                            )
+                            .order_by("-created_at")
+                            .values_list("subject_id", flat=True)
+                            .first()
+                            if revision
+                            else None,
+                            "manager_version": revision.manager_version if revision else None,
                             "mode": data["mode"],
                             "reason": data["reason"],
                             "priority": 0
@@ -169,9 +185,86 @@ def queue(request):
         .exclude(actor=request.user)
         .select_related("listing__person__agency")
     )
-    allowed = [
-        report
-        for report in reports
-        if not report.listing_id or not conflict_of_interest(request.user, report.listing.person)
-    ]
+    allowed = [report for report in reports if permitted(request.user, report)]
     return private(render(request, "safety/queue.html", {"reports": allowed}))
+
+
+def permitted(user, report):
+    if report.actor_id == user.pk or user.pk in [
+        report.reported_individual_id,
+        report.reported_subject_id,
+    ]:
+        return False
+    if report.reported_agency_id and (
+        report.reported_agency.owner_id == user.pk
+        or AgencyMember.objects.filter(agency_id=report.reported_agency_id, user=user).exists()
+    ):
+        return False
+    if report.revision_id and report.manager_version is None:
+        return False  # Legacy target without a trustworthy snapshot needs separate triage.
+    return not report.listing_id or not conflict_of_interest(user, report.listing.person)
+
+
+class AccessForm(forms.Form):
+    purpose = forms.CharField(
+        min_length=10, max_length=200, label="Motivo de consulta / Purpose of access"
+    )
+
+
+@login_required
+@sensitive_post_parameters("purpose")
+@sensitive_variables()
+@require_http_methods(["GET", "POST"])
+def inspect(request, report_id):
+    if (
+        not request.user.has_perm("safety.review_report")
+        or not request.user.mfa_enabled
+        or request.session.get("mfa_version") != request.user.mfa_version
+    ):
+        return private(HttpResponse("Forbidden", status=403))
+    report = (
+        Report.objects.select_related("listing__person__agency", "reported_agency")
+        .filter(pk=report_id)
+        .first()
+    )
+    if not report:
+        raise Http404
+    if not permitted(request.user, report):
+        return private(HttpResponse("Conflict of interest", status=403))
+    form = AccessForm(request.POST or None)
+    payload = None
+    if request.method == "POST" and form.is_valid():
+        with transaction.atomic():
+            person = report.listing.person if report.listing_id else None
+            agency_ids = {
+                value
+                for value in [report.reported_agency_id, person.agency_id if person else None]
+                if value
+            }
+            list(Agency.objects.select_for_update().filter(pk__in=agency_ids).order_by("pk"))
+            if person:
+                previous_agency = person.agency_id
+                person = Person.objects.select_for_update().get(pk=person.pk)
+                if person.agency_id != previous_agency:
+                    return private(HttpResponse("Management changed; reload", status=409))
+            report = (
+                Report.objects.select_for_update(of=("self",))
+                .select_related("listing__person__agency", "reported_agency")
+                .get(pk=report_id)
+            )
+            if person:
+                report.listing.person = person
+            if not permitted(request.user, report):
+                return private(HttpResponse("Conflict of interest", status=403))
+            payload = unseal(report.encrypted_payload)
+            ReportAccess.objects.create(
+                report=report, actor=request.user, purpose=form.cleaned_data["purpose"]
+            )
+    return private(
+        render(
+            request,
+            "safety/inspect.html",
+            {"report": report, "form": form, "payload": payload},
+            status=400 if request.method == "POST" and not form.is_valid() else 200,
+        )
+    )
