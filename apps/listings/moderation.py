@@ -38,7 +38,10 @@ def conflict_of_interest(user, person):
 def unresolved_matches(revision):
     photos = revision.photos.filter(removed_at__isnull=True)
     return Match.objects.filter(
-        Q(photo__in=photos) | Q(candidate__in=photos), resolved_at__isnull=True
+        Q(photo__in=photos) | Q(candidate__in=photos),
+        Q(resolved_at__isnull=True) | Q(decision="conflict"),
+        photo__removed_at__isnull=True,
+        candidate__removed_at__isnull=True,
     )
 
 
@@ -63,6 +66,10 @@ def decide(user, revision_id, version, outcome, reason):
     if outcome not in {"approved", "rejected"} or not reason.strip() or len(reason) > 1000:
         raise ValidationError("Invalid decision / Decisión inválida")
     if outcome == "approved":
+        if revision.submission.approved_base_id != listing.approved_revision_id:
+            raise ValidationError(
+                "Publicación cambiada; crea una revisión actual / Publication changed; create a current revision"
+            )
         validate_submission(revision, person)
         if unresolved_matches(revision).exists():
             raise ValidationError(
@@ -74,6 +81,17 @@ def decide(user, revision_id, version, outcome, reason):
         listing.published_at = timezone.now()
         listing.expires_at = timezone.now() + timedelta(days=30)
         listing.save(update_fields=["approved_revision", "status", "published_at", "expires_at"])
+        for superseded in (
+            listing.revisions.select_for_update().filter(status="pending").exclude(pk=revision.pk)
+        ):
+            superseded.status = "obsolete"
+            superseded.save(update_fields=["status", "updated_at"])
+            ModerationDecision.objects.create(
+                revision=superseded,
+                reviewer=user,
+                outcome="obsolete",
+                reason="Publicación actualizada por otra revisión; crea un borrador actual / Publication updated by another revision; create a current draft",
+            )
     elif not listing.approved_revision_id:
         listing.status = "rejected"
         listing.save(update_fields=["status"])
@@ -99,5 +117,7 @@ def publicly_visible(listing):
     try:
         validate_submission(revision, listing.person)
     except ValidationError:
+        return False
+    if unresolved_matches(revision).filter(decision="conflict").exists():
         return False
     return True

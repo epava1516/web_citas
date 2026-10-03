@@ -129,7 +129,9 @@ def submit(user, revision_id, edit_version, declared):
     if not declared:
         raise ValidationError("Confirma veracidad y derechos / Confirm accuracy and rights")
     document = validate_submission(revision, person)
-    Submission.objects.create(revision=revision, actor=user, document=document)
+    Submission.objects.create(
+        revision=revision, actor=user, document=document, approved_base=listing.approved_revision
+    )
     revision.status = "pending"
     revision.save(update_fields=["status", "updated_at"])
     if not listing.approved_revision_id:

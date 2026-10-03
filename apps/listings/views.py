@@ -12,6 +12,7 @@ from apps.core.verification import locked_manager_person
 
 from .forms import ContactsForm, DetailsForm, RateFormSet
 from .models import Listing, Revision
+from .revisions import create_draft
 from .submissions import submit
 
 
@@ -60,6 +61,7 @@ def start(request, person_id):
     with transaction.atomic():
         person = locked_manager_person(request.user, person_id)
         listing, _ = Listing.objects.get_or_create(person=person)
+        listing = Listing.objects.select_for_update().get(pk=listing.pk)
         revision = (
             listing.revisions.filter(status="draft", manager_version=person.manager_version)
             .order_by("-created_at")
@@ -68,9 +70,7 @@ def start(request, person_id):
         if not revision:
             if listing.revisions.filter(status__in=["draft", "processing", "pending"]).count() >= 3:
                 return HttpResponse("Pending revision quota reached", status=409)
-            revision = Revision.objects.create(
-                listing=listing, manager_version=person.manager_version
-            )
+            revision = create_draft(listing, person)
     return redirect("draft_edit", revision_id=revision.pk, step=1)
 
 

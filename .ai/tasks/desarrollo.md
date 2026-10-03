@@ -5,7 +5,7 @@ Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
 Estado: running. Inicio autorizado 2026-10-03.
 Invocaciones Claude consumidas: 2/3 para el objetivo completo.
-Próximo paso: CR-06. BASE parcial (fixtures pendientes de publicación), CR-01…CR-05 verificados localmente; 58 pruebas comunes y dos de logs pasan, sin saltos.
+Próximo paso: CR-06. BASE parcial (fixtures pendientes de publicación), CR-01…CR-05 verificados localmente; última regresión común85 y posteriores21 pruebas dirigidas pasan, sin saltos.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
 
 Delegación 1: cr01-security-design rechazada exit66 por informe inconsistente; sin reintento. Implementación Codex local.
@@ -31,3 +31,7 @@ Comprobación de agencias verificada localmente:4 pruebas dirigidas,16 conjuntas
 CR-06: moderación de anuncios con permiso/MFA/conflicto de interés, revalidación al aprobar, decisiones motivadas, ficha y derivados aprobados públicos. Revocación/transferencia pausa publicación. Doce pruebas dirigidas navegador/servidor/representación pasan en29.67s. Regresión común en curso. Pendientes resolución de coincidencias, clonación, reclamación, revisión específica de transferencia y recorrido de agencia.
 
 CR-06 anuncios: regresión común85 passed en121.91s sin saltos, Ruff/check/migraciones limpios. Cambios locales listos para integración; etapa incompleta por coincidencias/clonación/reclamación/transferencia/agencia. Próximo implementar esos flujos; no pasar a CR-07 aún. Claude2/3.
+
+CR-06: clonación de revisiones, aislamiento de tarifas, base de aprobación contra revisiones obsoletas, resolución humana de parejas con historia/conflicto/pausa. Catorce pruebas servidor/pipeline passed en37.84s; siete navegador/resolución passed en39.73s. Regresión ampliada en curso. Pendientes reclamación, revisión específica de transferencia, agencia end-to-end y fixtures/cierre integrado. Claude2/3.
+
+Revisiones/coincidencias accepted local:21 pruebas dirigidas finales passed en63.74s; check/migraciones/Ruff limpios. Pendientes CR-06: reclamación, transferencia con revisión específica, agencia completa y fixtures/cierre común/Docker. No pasar CR-07 aún.

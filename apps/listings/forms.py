@@ -2,7 +2,7 @@ import re
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.forms import inlineformset_factory
+from django.forms import BaseInlineFormSet, inlineformset_factory
 
 from apps.catalog.models import Category, Municipality, PostalCode, Province, Region, Service, Zone
 
@@ -222,6 +222,22 @@ class RateForm(forms.ModelForm):
         return data
 
 
+class AuthorizedRateFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        for form in self.forms:
+            rate = form.cleaned_data.get("id")
+            if rate and rate.revision_id != self.instance.pk:
+                raise ValidationError("Tarifa de otra revisión / Rate belongs to another revision")
+
+
 RateFormSet = inlineformset_factory(
-    Revision, Rate, form=RateForm, extra=1, max_num=10, validate_max=True, can_delete=True
+    Revision,
+    Rate,
+    form=RateForm,
+    formset=AuthorizedRateFormSet,
+    extra=1,
+    max_num=10,
+    validate_max=True,
+    can_delete=True,
 )

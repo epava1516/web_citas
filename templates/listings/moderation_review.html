@@ -12,6 +12,7 @@
 {% for rate in revision.rates.all %}<p>{{ rate.concept }} · {{ rate.mode }} · {{ rate.amount|default_if_none:'' }} {{ rate.currency }}</p>{% endfor %}
 {% for photo in photos %}<img src="{% url 'moderation_photo' photo.pk %}" alt="{% if english %}Private review photo{% else %}Foto privada para revisión{% endif %}" width="300">{% endfor %}
 {% if matches %}<p>{% if english %}Unresolved photo matches prevent approval.{% else %}Las coincidencias de fotos pendientes impiden aprobar.{% endif %}</p>{% endif %}
+{% for match in matches %}<p><a href="{% url 'match_review' match.pk %}">{% if english %}Review match{% else %}Revisar coincidencia{% endif %} {{ match.pk }}</a></p>{% endfor %}
 {% if revision.status == 'pending' %}<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record decision{% else %}Registrar decisión{% endif %}</button></form>{% endif %}
 {% for decision in decisions %}<article><p>{{ decision.outcome }} · {{ decision.created_at }}</p><p>{{ decision.reason }}</p></article>{% endfor %}
 <a href="{% url 'moderation_queue' %}">{% if english %}Return to queue{% else %}Volver a la cola{% endif %}</a>{% endblock %}

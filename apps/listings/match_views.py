@@ -1,0 +1,103 @@
+from django import forms
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+from django.db.models import Q
+from django.http import FileResponse, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_http_methods
+
+from apps.mediafiles.models import Match
+
+from .match_review import resolve
+from .moderation import conflict_of_interest, reviewer_allowed
+
+
+class ResolutionForm(forms.Form):
+    review_version = forms.IntegerField(widget=forms.HiddenInput)
+    outcome = forms.ChoiceField(
+        choices=[
+            ("", "Selecciona / Choose"),
+            ("false_positive", "Falso positivo visual / Visual false positive"),
+            ("distinct_people", "Personas distintas autorizadas / Distinct authorized people"),
+            ("conflict", "Conflicto; restringir publicación / Conflict; restrict publication"),
+        ]
+    )
+    reason = forms.CharField(max_length=1000, label="Motivo / Reason", widget=forms.Textarea)
+    evidence_reference = forms.CharField(
+        max_length=80, label="Referencia de revisión / Review reference"
+    )
+
+
+def allowed_match(request, match_id):
+    match = get_object_or_404(
+        Match.objects.select_related(
+            "photo__revision__listing__person__agency",
+            "candidate__revision__listing__person__agency",
+        ),
+        pk=match_id,
+    )
+    if any(
+        conflict_of_interest(request.user, photo.revision.listing.person)
+        for photo in [match.photo, match.candidate]
+    ):
+        return None
+    return match
+
+
+@login_required
+def queue(request):
+    if not reviewer_allowed(request):
+        return HttpResponse("Forbidden", status=403)
+    matches = Match.objects.filter(
+        Q(resolved_at__isnull=True) | Q(decision="conflict"),
+        photo__removed_at__isnull=True,
+        candidate__removed_at__isnull=True,
+    ).order_by("created_at")[:100]
+    return render(request, "listings/match_queue.html", {"matches": matches})
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def review(request, match_id):
+    if not reviewer_allowed(request):
+        return HttpResponse("Forbidden", status=403)
+    match = allowed_match(request, match_id)
+    if not match:
+        return HttpResponse("Conflict of interest", status=403)
+    form = ResolutionForm(request.POST or None, initial={"review_version": match.review_version})
+    if request.method == "POST" and form.is_valid():
+        try:
+            resolve(
+                request.user,
+                match.pk,
+                form.cleaned_data["review_version"],
+                form.cleaned_data["outcome"],
+                form.cleaned_data["reason"],
+                form.cleaned_data["evidence_reference"],
+            )
+            return redirect("match_review", match_id=match.pk)
+        except ValidationError as error:
+            form.add_error(None, error)
+    return render(
+        request,
+        "listings/match_review.html",
+        {"match": match, "form": form, "resolutions": match.resolutions.order_by("-created_at")},
+        status=400 if request.method == "POST" else 200,
+    )
+
+
+@login_required
+def image(request, match_id, side):
+    if not reviewer_allowed(request):
+        return HttpResponse("Forbidden", status=403)
+    match = allowed_match(request, match_id)
+    if not match:
+        return HttpResponse("Conflict of interest", status=403)
+    if side not in ["photo", "candidate"]:
+        return HttpResponse("Unknown side", status=404)
+    photo = getattr(match, side)
+    if photo.removed_at or photo.blob.status != "ready" or not photo.blob.derivative:
+        return HttpResponse("Photo unavailable", status=404)
+    response = FileResponse(photo.blob.derivative.open("rb"), content_type="image/webp")
+    response["Cache-Control"] = "private, no-store"
+    return response

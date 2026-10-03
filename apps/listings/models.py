@@ -32,6 +32,9 @@ class Listing(models.Model):
 class Revision(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="revisions")
+    source_revision = models.ForeignKey(
+        "self", null=True, blank=True, on_delete=models.SET_NULL, related_name="derived_revisions"
+    )
     manager_version = models.PositiveIntegerField()
     status = models.CharField(max_length=12, default="draft")
     step = models.PositiveSmallIntegerField(default=1)
@@ -94,6 +97,9 @@ class Rate(models.Model):
 class Submission(models.Model):
     revision = models.OneToOneField(Revision, on_delete=models.PROTECT, related_name="submission")
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    approved_base = models.ForeignKey(
+        Revision, null=True, blank=True, on_delete=models.PROTECT, related_name="based_submissions"
+    )
     document = models.ForeignKey("core.LegalDocument", on_delete=models.PROTECT)
     declaration_version = models.CharField(max_length=32, default="truth-and-rights-v1")
     created_at = models.DateTimeField(auto_now_add=True)

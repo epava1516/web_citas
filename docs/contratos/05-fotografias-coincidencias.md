@@ -11,7 +11,7 @@ Paso3: carga → estado queued/processing/ready/failed y comparación pendiente 
 
 ## Datos y procesamiento
 
-Blob global por SHA-256 de bytes, originales con clave aleatoria y privados, derivados recodificados WebP sin EXIF/ICC. Photo liga Blob a revisión, posición, aprobación y comparación completada. Reutilizar bytes no concede derechos de otra cuenta ni muestra su original. Match guarda candidato/método/score/decisión; UploadAttempt observa comportamiento sin copias redundantes. Una Blob puede servir varias revisiones autorizadas; borrarla requiere comprobar referencias/retención.
+Blob global por SHA-256 de bytes, originales con clave aleatoria y privados, derivados recodificados WebP sin EXIF/ICC. Photo liga Blob a revisión, posición, aprobación y comparación completada. Reutilizar bytes no concede derechos de otra cuenta ni muestra su original. Match guarda candidato/método/score/decisión; las señales son dirigidas y pueden existir en ambos sentidos de una pareja; UploadAttempt observa comportamiento sin copias redundantes. Una Blob puede servir varias revisiones autorizadas; borrarla requiere comprobar referencias/retención.
 
 Máximos: ocho fotos activas por revisión, diez MiB por archivo, cuarenta megapíxeles. Solo JPEG/PNG/WebP estáticos. Validar decodificación real, animación, límites y descompresión antes de aceptar; SVG/GIF/PDF no aceptados. No confiar en extensión ni Content-Type declarado. Rate limit treinta cargas por quince minutos, además de cuotas.
 
@@ -34,3 +34,5 @@ Referencias: [OpenCV, correspondencias geométricas](https://docs.opencv.org/4.1
 Local: Django FileSystemStorage bajo MEDIA_ROOT privado, volumen app/worker compartido. S3 compatible: MEDIA_STORAGE_PROVIDER=s3, AWS_STORAGE_BUCKET_NAME, endpoint/región y credenciales estándar; ACL privada, sin URLs públicas. Adaptador configurado, proveedor/bucket/políticas reales no verificados.
 
 B-B debe optimizar recuperación de candidatos (ahora barrido global de firmas en DB), probar volumen/capacidad, retención, limpieza de huérfanos, almacenamiento real y alertas. Moderación/resolución y publicación CR-06. No confundir generación del derivado con aprobación de foto ni comparación pendiente con completada.
+
+CR-06 extiende comparación exacta del worker a referencias de bytes reutilizados/clonados. Resolución humana y evidencias por pareja están descritas en contratos/06; ninguna copia de revisión hereda automáticamente el derecho de publicación o una decisión sobre otra pareja de fotos.

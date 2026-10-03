@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block content %}<h1>{% if english %}Photo match review{% else %}Revisión de coincidencia de fotos{% endif %}</h1>
+<p>{% if english %}A match does not prove identity or ownership. Review authorization for both people; the first uploader has no automatic priority.{% else %}La coincidencia no prueba identidad ni propiedad. Revisa la autorización de ambas personas; el primer uploader no tiene prioridad automática.{% endif %}</p>
+<p>{{ match.method }} · {{ match.decision|default:'pending' }}</p>
+<img src="{% url 'match_image' match.pk 'photo' %}" alt="{% if english %}First review photo{% else %}Primera foto de revisión{% endif %}" width="300"><img src="{% url 'match_image' match.pk 'candidate' %}" alt="{% if english %}Second review photo{% else %}Segunda foto de revisión{% endif %}" width="300">
+<p>{{ match.photo.revision.listing.person.alias }} · {{ match.photo.revision.listing.person.age_status }} · {{ match.photo.revision.listing.person.consent_version }}</p>
+<p>{{ match.candidate.revision.listing.person.alias }} · {{ match.candidate.revision.listing.person.age_status }} · {{ match.candidate.revision.listing.person.consent_version }}</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record resolution{% else %}Registrar resolución{% endif %}</button></form>
+{% for resolution in resolutions %}<article><p>{{ resolution.outcome }} · {{ resolution.created_at }}</p><p>{{ resolution.reason }}</p></article>{% endfor %}
+<a href="{% url 'match_queue' %}">{% if english %}Return to queue{% else %}Volver a la cola{% endif %}</a>{% endblock %}

@@ -6,7 +6,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 - Fase: BASE parcial; CR-01 a CR-05 verificados localmente; implementación autorizada el 2026-10-03.
 - Próximo paso: CR-06 (moderación, revisión inmutable y publicación).
-- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; 58 pruebas comunes y dos pruebas de privacidad de logs pasan con PostgreSQL y Chromium; verificación y representación conectadas con simuladores explícitos.
+- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; última regresión común85 pruebas; posteriores21 dirigidas pasan con PostgreSQL y Chromium; verificación y representación conectadas con simuladores explícitos.
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
 
@@ -20,7 +20,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 | CR-03 | Verificación y representación | Verificado local | 27 pruebas comunes; SSR, identidad/edad simuladas, autorización directa, transferencia y teléfono concurrente |
 | CR-04 | Borrador, campos, geografía, tarifas/contactos | Verificado local | 35 pruebas comunes PostgreSQL/Chromium; wizard, geografía, consult y concurrencia |
 | CR-05 | Fotos y coincidencias | Verificado local | 58 pruebas comunes y dos de logs; worker/Beat Docker real; contratos/05 y docs/18 |
-| CR-06 | Moderación/publicación | En curso | Envío/congelación, organizaciones y aprobación/rechazo/ficha pública conectados; coincidencias, clonación, reclamación y transferencias pendientes, contratos/06 |
+| CR-06 | Moderación/publicación | En curso | Envío/congelación, organizaciones y aprobación/rechazo/ficha pública conectados; coincidencias y clonación conectadas; reclamación, transferencias y agencia completa pendientes, contratos/06 |
 | CR-07 | Búsqueda y fichas ES/EN | Pendiente | — |
 | CR-08 | Favoritos y ciclo de vida | Pendiente | — |
 | CR-09 | Denuncias, derechos y reclamaciones | Pendiente | — |

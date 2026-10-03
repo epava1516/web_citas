@@ -111,7 +111,14 @@ def test_duplicate_is_global_without_account_suspension(request, photo_environme
         session["mfa_version"] = 1
         session.save()
     assert upload(other_client, second, raw_image()).status_code == 302
-    assert Blob.objects.count() == 1 and Photo.objects.count() == 2 and Match.objects.count() == 1
+    assert Blob.objects.count() == 1 and Photo.objects.count() == 2
+    # Exact analysis also discovers the reciprocal direction when bytes are reused.
+    assert Match.objects.filter(
+        photo=second.photos.get(), candidate=first.photos.get(), method="sha256"
+    ).exists()
+    assert Match.objects.filter(
+        photo=first.photos.get(), candidate=second.photos.get(), method="sha256"
+    ).exists()
     other.refresh_from_db()
     assert other.is_active
     assert client.get(f"/es/photos/{second.photos.get().pk}/private/").status_code == 404

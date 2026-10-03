@@ -12,7 +12,11 @@ from .models import Agency, AgencyMember, AgencyReview
 class ReviewForm(forms.Form):
     review_version = forms.IntegerField(widget=forms.HiddenInput)
     outcome = forms.ChoiceField(
-        choices=[("passed", "Aprobar / Approve"), ("failed", "Rechazar / Reject")]
+        choices=[
+            ("", "Selecciona / Choose"),
+            ("passed", "Aprobar / Approve"),
+            ("failed", "Rechazar / Reject"),
+        ]
     )
     reason = forms.CharField(max_length=500, label="Motivo / Reason", widget=forms.Textarea)
     evidence_reference = forms.CharField(

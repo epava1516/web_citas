@@ -50,6 +50,7 @@ class Match(models.Model):
     score = models.FloatField(default=1)
     resolved_at = models.DateTimeField(null=True)
     decision = models.CharField(max_length=16, blank=True)
+    review_version = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -62,4 +63,13 @@ class UploadAttempt(models.Model):
     user = models.ForeignKey("core.User", on_delete=models.CASCADE)
     revision = models.ForeignKey("listings.Revision", on_delete=models.CASCADE)
     result = models.CharField(max_length=24)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class MatchResolution(models.Model):
+    match = models.ForeignKey(Match, on_delete=models.PROTECT, related_name="resolutions")
+    reviewer = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    outcome = models.CharField(max_length=16)
+    reason = models.CharField(max_length=1000)
+    evidence_reference = models.CharField(max_length=80)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -20,7 +20,11 @@ from .moderation import (
 class DecisionForm(forms.Form):
     edit_version = forms.IntegerField(widget=forms.HiddenInput)
     outcome = forms.ChoiceField(
-        choices=[("approved", "Aprobar / Approve"), ("rejected", "Rechazar / Reject")]
+        choices=[
+            ("", "Selecciona / Choose"),
+            ("approved", "Aprobar / Approve"),
+            ("rejected", "Rechazar / Reject"),
+        ]
     )
     reason = forms.CharField(max_length=1000, widget=forms.Textarea, label="Motivo / Reason")
 

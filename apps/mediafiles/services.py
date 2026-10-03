@@ -167,6 +167,14 @@ def detect_matches(blob_id):
     photos_to_compare = list(
         blob.photos.filter(removed_at__isnull=True).select_related("revision__listing")
     )
+    # Reused bytes (including cloned revisions) need global exact candidates too.
+    for photo in photos_to_compare:
+        for candidate in blob.photos.filter(removed_at__isnull=True).exclude(
+            revision__listing__person_id=photo.revision.listing.person_id
+        ):
+            Match.objects.get_or_create(
+                photo=photo, candidate=candidate, defaults={"method": "sha256"}
+            )
     image = None
     for other in Blob.objects.filter(status="ready").exclude(pk=blob.pk).iterator():
         other_signature = stored_signature(other)
