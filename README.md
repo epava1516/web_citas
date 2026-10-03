@@ -55,3 +55,5 @@ uv run pytest
 uv run ruff check .
 ```
 No despliegue público hasta gates legales/operativos y técnicos documentados. Configuración production rechaza simuladores y cobros reales.
+
+Comprobación de descubrimiento de la muestra inicial Docker: `uv run python scripts/probe_demo_discovery.py` (Chromium del sistema, Caddy localhost:18080, dos fichas públicas de seed_demo). Es de solo lectura; presupone ese estado de muestra y no reinicia datos si posteriormente se han cambiado. La regresión aislada usa pytest/PostgreSQL y no depende de conservar la muestra principal.
