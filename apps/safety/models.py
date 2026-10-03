@@ -32,7 +32,10 @@ class Report(models.Model):
     receipt_expires_at = models.DateTimeField()
 
     class Meta:
-        permissions = [("review_report", "Review private reports")]
+        permissions = [
+            ("review_report", "Review private reports"),
+            ("manage_report_assignment", "Manage private report assignments"),
+        ]
         ordering = ["priority", "created_at", "pk"]
 
 

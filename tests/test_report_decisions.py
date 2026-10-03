@@ -178,7 +178,10 @@ def test_mobile_moderator_assigns_inspects_and_restricts(live_server, request, s
     client = request.getfixturevalue("directory")
     person = Person.objects.get(subject__username="fixture-v1-individual")
     report = case(client)
-    reviewer()
+    from django.contrib.auth.models import Permission
+
+    moderator, _ = reviewer()
+    moderator.user_permissions.add(Permission.objects.get(codename="manage_report_assignment"))
     credentials = json.loads((tmp_path / "credentials.json").read_text())
     account = credentials["accounts"]["moderator"]
     report_path = f"/en/moderation/reports/{report.pk}/"
@@ -200,6 +203,16 @@ def test_mobile_moderator_assigns_inspects_and_restricts(live_server, request, s
             page.get_by_role("link", name="Case actions", exact=True).click()
             page.locator("[name=operation]").select_option("claim")
             page.locator("[name=reason]").fill("Assign synthetic case for detailed private review")
+            page.get_by_role("button", name="Record case action", exact=True).click()
+            page.get_by_role("link", name="Case actions", exact=True).click()
+            page.locator("[name=operation]").select_option("unassign")
+            page.locator("[name=reason]").fill("Return synthetic case to queue for reassignment")
+            page.get_by_role("button", name="Record case action", exact=True).click()
+            page.get_by_role("link", name="Case actions", exact=True).click()
+            page.locator("[name=operation]").select_option("claim")
+            page.locator("[name=reason]").fill(
+                "Accept reassigned synthetic case for evidence review"
+            )
             page.get_by_role("button", name="Record case action", exact=True).click()
             page.locator("[name=purpose]").fill("Inspect evidence supporting the synthetic report")
             page.get_by_role("button", name="Record access and inspect", exact=True).click()
@@ -229,7 +242,7 @@ def test_mobile_moderator_assigns_inspects_and_restricts(live_server, request, s
             assert visitor.goto(live_server.url + public_path).status == 404
         finally:
             browser.close()
-    assert Restriction.objects.count() == 1 and ReportAction.objects.count() == 3
+    assert Restriction.objects.count() == 1 and ReportAction.objects.count() == 5
 
 
 def test_same_action_key_racing_across_cases_is_conflict_not_partial_assignment(

@@ -282,6 +282,7 @@ class DecisionForm(forms.Form):
     operation = forms.ChoiceField(
         choices=[
             ("claim", "Asignarme el caso / Assign case to me"),
+            ("unassign", "Devolver caso a cola / Return case to queue"),
             ("link", "Enlazar referencia a anuncio / Link reference to listing"),
             ("restrict", "Restringir publicación / Restrict publication"),
             ("dismiss", "Desestimar denuncia / Dismiss report"),

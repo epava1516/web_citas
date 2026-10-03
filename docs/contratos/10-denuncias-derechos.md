@@ -97,3 +97,13 @@ ReportAction conserva operación/motivo cifrado/huella del payload (incluido des
 La recusación de identidad anónima no demostrada y el procedimiento humano de corrección/reasignación/revisión siguen pendientes. Un enlace motivado por moderador no convierte una referencia en prueba externa ni acredita titularidad. Resultados terminales de servidor/concurrencia/Chromium se registran en docs/18; no cierre CR-09.
 
 Verificación terminal:9 iniciales passed43.06s y11 finales passed54.00s, PostgreSQL/Chromium sin skips. Incluye dos enlaces concurrentes a destinos distintos (una asociación/acción) y editor original revocado tras traslado (403/sin enlace). No regresión común completa ni aceptación final de CR-09.
+
+## Recuperación de asignaciones — verificación local parcial
+
+Operación `unassign` en la pantalla de decisión: exige los permisos `safety.review_report` y `safety.manage_report_assignment`, además de MFA vigente y ausencia de COI. Migración0004 declara el permiso de coordinación; no se concede por rol staff ni automáticamente a todos los moderadores. Devuelve únicamente un caso reviewing con responsable a received/sin asignación. Requiere key/version/motivo cifrado; registra acción y aumenta versión. No necesita leer identidad/evidencia para recuperar una asignación administrativa, y no entrega esos datos en la respuesta.
+
+Un coordinador independiente puede recuperar el caso cuando el responsable original pierde permiso, MFA o resulta implicado; después otro moderador autorizado lo acepta con claim. Autor/sujeto/gestor relacionado tampoco pueden coordinar su propio caso. Casos dismissed/restricted y casos sin asignación no se reabren por unassign. Ninguna restricción se libera mediante esta operación. Reintento de la misma devolución después de una nueva asignación no vuelve a quitarla; se conserva el efecto original.
+
+La versión y bloqueo transaccional compartidos serializan devolución frente a una resolución: solo una operación del mismo estado gana. Historial y restricciones permanecen. No sustituye reclamación, revisión independiente o levantamiento; reasignación es organización del trabajo. Verificación terminal de móvil/permisos/reintentos/concurrencia en docs/18; CR-09 sigue abierto.
+
+Verificación terminal de recuperación:8 iniciales passed42.26s y10 finales passed54.12s sin skips. Chromium móvil incluye devolución/reclaim; concurrencia real PostgreSQL frente a restricción. Evidencia local, no procedimiento humano operativo ni regresión común completa.

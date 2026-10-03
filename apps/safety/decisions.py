@@ -28,6 +28,8 @@ def act(
 
     if not user.has_perm("safety.review_report") or not user.mfa_enabled:
         raise PermissionDenied("Report permission and MFA required")
+    if operation == "unassign" and not user.has_perm("safety.manage_report_assignment"):
+        raise PermissionDenied("Assignment management permission required")
     initial = Report.objects.select_related("listing__person").get(pk=report_id)
     candidate = None
     if operation == "link":
@@ -81,7 +83,13 @@ def act(
         ):
             return report
         raise ValidationError("Conflicting action replay / Reintento incompatible")
-    if report.version != version or operation not in {"claim", "link", "restrict", "dismiss"}:
+    if report.version != version or operation not in {
+        "claim",
+        "link",
+        "restrict",
+        "dismiss",
+        "unassign",
+    }:
         raise ValidationError("Case changed; reload / Caso cambiado; recarga")
     if not 20 <= len(reason.strip()) <= 2000:
         raise ValidationError("Reason required / Motivo obligatorio")
@@ -90,6 +98,11 @@ def act(
             raise ValidationError("Case already assigned / Caso ya asignado")
         report.assigned_to = user
         report.status = "reviewing"
+    elif operation == "unassign":
+        if report.status != "reviewing" or not report.assigned_to_id:
+            raise ValidationError("No active assignment / No hay asignación activa")
+        report.assigned_to = None
+        report.status = "received"
     else:
         if report.status != "reviewing" or report.assigned_to_id != user.pk:
             raise ValidationError("Case not assigned to you / Caso no asignado")
