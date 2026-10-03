@@ -35,6 +35,7 @@ class Report(models.Model):
         permissions = [
             ("review_report", "Review private reports"),
             ("manage_report_assignment", "Manage private report assignments"),
+            ("review_restriction", "Independently review publication restrictions"),
         ]
         ordering = ["priority", "created_at", "pk"]
 
@@ -64,4 +65,8 @@ class Restriction(models.Model):
     manager_version = models.PositiveIntegerField()
     action = models.OneToOneField(ReportAction, on_delete=models.PROTECT)
     active = models.BooleanField(default=True)
+    review_action = models.OneToOneField(
+        ReportAction, null=True, on_delete=models.PROTECT, related_name="reviewed_restriction"
+    )
+    reviewed_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)

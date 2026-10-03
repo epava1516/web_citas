@@ -181,8 +181,11 @@ def queue(request):
         or request.session.get("mfa_version") != request.user.mfa_version
     ):
         return private(HttpResponse("Forbidden", status=403))
+    statuses = ["received", "reviewing"]
+    if request.user.has_perm("safety.review_restriction"):
+        statuses += ["restricted", "upheld"]
     reports = (
-        Report.objects.filter(status__in=["received", "reviewing"])
+        Report.objects.filter(status__in=statuses)
         .exclude(actor=request.user)
         .select_related("listing__person__agency")
     )
@@ -310,6 +313,14 @@ class DecisionForm(forms.Form):
         choices=[
             ("claim", "Asignarme el caso / Assign case to me"),
             ("unassign", "Devolver caso a cola / Return case to queue"),
+            (
+                "uphold",
+                "Confirmar restricción (revisión independiente) / Uphold restriction (independent review)",
+            ),
+            (
+                "lift",
+                "Levantar restricción (revisión independiente) / Lift restriction (independent review)",
+            ),
             ("link", "Enlazar referencia a anuncio / Link reference to listing"),
             ("restrict", "Restringir publicación / Restrict publication"),
             ("dismiss", "Desestimar denuncia / Dismiss report"),

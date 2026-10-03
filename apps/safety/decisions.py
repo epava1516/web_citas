@@ -2,6 +2,7 @@ import json
 
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import IntegrityError, transaction
+from django.utils import timezone
 from django.views.decorators.debug import sensitive_variables
 
 from apps.core.models import Agency, Person
@@ -30,6 +31,8 @@ def act(
         raise PermissionDenied("Report permission and MFA required")
     if operation == "unassign" and not user.has_perm("safety.manage_report_assignment"):
         raise PermissionDenied("Assignment management permission required")
+    if operation in {"uphold", "lift"} and not user.has_perm("safety.review_restriction"):
+        raise PermissionDenied("Independent restriction review permission required")
     initial = Report.objects.select_related("listing__person").get(pk=report_id)
     candidate = None
     if operation == "link":
@@ -89,10 +92,13 @@ def act(
         "restrict",
         "dismiss",
         "unassign",
+        "uphold",
+        "lift",
     }:
         raise ValidationError("Case changed; reload / Caso cambiado; recarga")
     if not 20 <= len(reason.strip()) <= 2000:
         raise ValidationError("Reason required / Motivo obligatorio")
+    restriction = None
     if operation == "claim":
         if report.status != "received" or report.assigned_to_id:
             raise ValidationError("Case already assigned / Caso ya asignado")
@@ -103,6 +109,29 @@ def act(
             raise ValidationError("No active assignment / No hay asignación activa")
         report.assigned_to = None
         report.status = "received"
+    elif operation in {"uphold", "lift"}:
+        restriction = (
+            Restriction.objects.select_for_update().filter(report=report, active=True).first()
+        )
+        if not restriction or report.status not in {"restricted", "upheld"}:
+            raise ValidationError("No active restriction to review / No hay restricción activa")
+        if user.pk == restriction.action.actor_id or (
+            restriction.review_action_id and user.pk == restriction.review_action.actor_id
+        ):
+            raise PermissionDenied("An independent reviewer is required")
+        if not ReportAccess.objects.filter(
+            report=report,
+            actor=user,
+            created_at__gte=restriction.reviewed_at or restriction.created_at,
+        ).exists():
+            raise ValidationError("Inspect current evidence first / Consulta la evidencia actual")
+        if (
+            not listing
+            or listing.approved_revision_id != revision_id
+            or person.manager_version != manager_version
+        ):
+            raise ValidationError("Publication changed; reload / Publicación cambiada; recarga")
+        report.status = "lifted" if operation == "lift" else "upheld"
     else:
         if report.status != "reviewing" or report.assigned_to_id != user.pk:
             raise ValidationError("Case not assigned to you / Caso no asignado")
@@ -174,6 +203,14 @@ def act(
         listing.available_until = None
         listing.lifecycle_version += 1
         listing.save(update_fields=["status", "available_until", "lifecycle_version"])
+    if restriction:
+        restriction.active = operation != "lift"
+        restriction.review_action = action
+        restriction.reviewed_at = timezone.now()
+        restriction.save(update_fields=["active", "review_action", "reviewed_at"])
+        listing.lifecycle_version += 1
+        listing.available_until = None
+        listing.save(update_fields=["lifecycle_version", "available_until"])
     report.version += 1
     report.save(
         update_fields=[
