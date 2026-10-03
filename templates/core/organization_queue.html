@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Organization review queue{% else %}Cola de comprobación de agencias{% endif %}</h1>
+{% for agency in agencies %}<p><a href="{% url 'organization_review' agency.pk %}">{{ agency.name }}</a></p>{% empty %}<p>{% if english %}No pending organizations{% else %}No hay agencias pendientes{% endif %}</p>{% endfor %}
+{% endblock %}

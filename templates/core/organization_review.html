@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{{ agency.name }}</h1>
+<p>{% if english %}Organization verification{% else %}Comprobación de agencia{% endif %}: {{ agency.verification_status }}</p>
+<p>{% if english %}Development simulation. No real organization has been verified through this workflow.{% else %}Simulación de desarrollo. Este recorrido no acredita la comprobación de una organización real.{% endif %}</p>
+{% if agency.verification_status == 'pending' %}<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record decision{% else %}Registrar decisión{% endif %}</button></form>{% endif %}
+{% for review in reviews %}<article><p>{{ review.outcome }} · {{ review.created_at }}</p><p>{{ review.reason }}</p></article>{% endfor %}
+<a href="{% url 'organization_queue' %}">{% if english %}Return to queue{% else %}Volver a la cola{% endif %}</a>
+{% endblock %}

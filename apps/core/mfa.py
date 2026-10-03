@@ -44,6 +44,7 @@ def requires_mfa(user):
     return (
         user.mfa_enabled
         or user.is_staff
+        or user.has_perm("core.review_agency")
         or user.role == "agency"
         or user.agency_memberships.filter(active=True).exists()
     )

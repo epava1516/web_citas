@@ -57,3 +57,9 @@ Envío de revisión y declaración explícita persistida por actor/documento/ver
 Pruebas dirigidas conjuntas:28 passed en44.53s, PostgreSQL/Chromium, sin saltos. Incluyen once pruebas de envío, recorrido móvil y regresión de borradores/fotos/representación. Primer ensayo paralelo de dos runners se interfirió en la misma base test: descartado como evidencia; repetido como un único proceso y aprobado. Primer selector de navegador confundía título con botón: corregido conforme a plantilla y recorrido pasó. Ruff/check/migraciones/diff limpios; migración0004 aplicada localmente.
 
 CR-06 no cerrado: cola humana, agencias/transferencias, decisiones/reclamación, revisión sensible y publicación permanecen pendientes. Ningún anuncio se publica por enviar ni se afirma comprobación real de proveedores. No invocación adicional de Claude.
+
+CR-06, comprobación de agencias: cola privada y permiso core.review_agency con MFA obligatorio incluso para revisor sin is_staff. Decisiones motivadas con referencia sintética, revisor, procedimiento y control de versión; titular/editor activo no puede revisar su agencia. Resultado simulator-v1 visible al titular y bloqueado en producción. Migración core0006 aplicada localmente; imagen Docker se actualizará junto al cierre integrado CR-06.
+
+Cuatro pruebas de organización passed en6.71s. Recorrido navegador con contraseña/MFA y regresión de envíos/agencias:16 passed en31.87s; tras reforzar la coincidencia exacta de gestor en autorización directa,16 passed en29.69s. Sin skips. No aprobación de anuncios ni integración real de comprobación. Próximo: revisión de anuncios, transferencias, reclamación y publicación de versión aprobada.
+
+Regresión específica de autorización ligada a gestor distinto:1 passed,11 deselected en4.93s; el envío rechaza una evidencia con manager_id obsoleto aunque coincida el contador de versión.

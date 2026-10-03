@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
 
@@ -23,7 +24,10 @@ def validate_submission(revision, person):
             "Verifica edad, autorización y teléfono / Verify age, authorization and phone"
         )
     # Organization verification is a separate prerequisite, never implied by MFA.
-    if person.agency_id:
+    if person.agency_id and (
+        person.agency.verification_status != "passed"
+        or (settings.PRODUCTION and person.agency.verification_procedure == "simulator-v1")
+    ):
         raise ValidationError("Comprobación de agencia pendiente / Agency review pending")
     document = current_publishing_document()
     acceptance = revision.publisher_acceptance
@@ -41,6 +45,8 @@ def validate_submission(revision, person):
         person=person,
         subject_id=person.subject_id,
         manager_version=person.manager_version,
+        manager_kind="agency" if person.agency_id else "individual",
+        manager_id=str(person.agency_id or person.individual_id),
         action="grant",
         document__slug="publishing",
         document__version=document.version,

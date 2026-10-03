@@ -90,6 +90,22 @@ class Agency(models.Model):
     name = models.CharField(max_length=120)
     owner = models.OneToOneField(User, on_delete=models.PROTECT, related_name="owned_agency")
     created_at = models.DateTimeField(auto_now_add=True)
+    verification_status = models.CharField(max_length=12, default="pending")
+    verification_procedure = models.CharField(max_length=32, blank=True)
+    review_version = models.PositiveIntegerField(default=1)
+
+
+class AgencyReview(models.Model):
+    agency = models.ForeignKey(Agency, on_delete=models.PROTECT, related_name="reviews")
+    reviewer = models.ForeignKey(User, on_delete=models.PROTECT)
+    outcome = models.CharField(max_length=12)
+    reason = models.CharField(max_length=500)
+    evidence_reference = models.CharField(max_length=80)
+    procedure = models.CharField(max_length=32)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [("review_agency", "Review organization verification")]
 
 
 class AgencyMember(models.Model):

@@ -76,7 +76,18 @@ def test_submission_frozen_idempotent_and_private(prepared):
 
 
 @pytest.mark.parametrize(
-    "failure", ["age", "consent", "photo", "phone", "legal", "catalog", "version", "declaration"]
+    "failure",
+    [
+        "age",
+        "consent",
+        "photo",
+        "phone",
+        "legal",
+        "catalog",
+        "version",
+        "declaration",
+        "manager_snapshot",
+    ],
 )
 def test_submission_rejects_invalid_or_pending_state(prepared, failure):
     _, person, client, revision = prepared
@@ -106,6 +117,8 @@ def test_submission_rejects_invalid_or_pending_state(prepared, failure):
         revision.services.update(active=False)
     elif failure == "version":
         data["edit_version"] -= 1
+    elif failure == "manager_snapshot":
+        person.representationaction_set.update(manager_id="obsolete-manager")
     else:
         data.pop("declaration")
     assert client.post(f"/es/draft/{revision.pk}/submit/", data).status_code == 400

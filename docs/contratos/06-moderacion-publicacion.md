@@ -1,6 +1,6 @@
 # CR-06 — Moderación y publicación, interfaz v1 en curso
 
-Esta entrega todavía no está cerrada. Implementado: envío de particular a revisión y congelación de la revisión. Pendientes: comprobación de organización/transferencia, cola humana, decisiones y reclamaciones, resolución de coincidencias, clonación de revisiones sensibles, ficha pública y derivados públicos autorizados. No existe aún una operación que publique anuncios.
+Esta entrega todavía no está cerrada. Implementado: envío de particular a revisión y congelación de la revisión. Implementada también la comprobación de organización simulada con cola privada. Pendientes: revisión de transferencia, cola humana de anuncios, decisiones y reclamaciones, resolución de coincidencias, clonación de revisiones sensibles, ficha pública y derivados públicos autorizados. No existe aún una operación que publique anuncios.
 
 ## Envío y estados privados
 
@@ -19,8 +19,16 @@ Edad aprobada mediante última comprobación del sujeto/gestor vigente, consenti
 
 Bloqueos transaccionales: gestor/persona → Listing → Revision; la fila Submission única protege reintentos. La revisión pendiente deja de ser editable en las operaciones existentes. Todavía falta la aprobación que compruebe de nuevo todas estas condiciones y las coincidencias actuales.
 
-Las agencias quedan temporalmente bloqueadas para envío con mensaje de comprobación pendiente hasta conectar su revisión: MFA no acredita la organización. No sustituir este estado por una casilla ni considerar CR-06 completado con solo particular. Los simuladores de edad/contacto siguen identificados y no acreditan integraciones reales.
+Las agencias pendientes/fallidas quedan bloqueadas para envío; una comprobación simulada aprobada habilita las demás validaciones únicamente en desarrollo: MFA no acredita la organización. No sustituir este estado por una casilla ni considerar CR-06 completado con solo particular. Los simuladores de edad/contacto siguen identificados y no acreditan integraciones reales.
 
 ## Próxima integración requerida
 
 Moderador con permiso explícito y MFA, sin autoaprobación; revisión de organización y transferencias; decisiones motivadas y canal de reclamación. Resolver coincidencias en ambas direcciones sin atribuir propiedad al primer uploader. Publicar exactamente la versión revisada, preservar la anterior ante cambios sensibles y retirar exposición al revocar representación o perder elegibilidad. Probar recorrido humano particular/agencia y recursos públicos/privados antes de cerrar CR-06.
+
+## Comprobación de organizaciones
+
+GET `/{es|en}/moderation/organizations/` lista hasta cien pendientes por antigüedad. GET/POST `/{es|en}/moderation/organizations/{agency}/` requiere permiso explícito `core.review_agency` y MFA vigente, incluso sin bandera is_staff. Titular y editor activo de la propia organización tienen acceso denegado para esta revisión. Cola y evidencias son privadas no-store. Logs ocultan identificadores de moderación.
+
+Formulario: versión de revisión oculta, resultado passed/failed, motivo obligatorio máximo500 caracteres y referencia sintética máxima80. No adjuntar documentos ni introducir identificadores reales en desarrollo. POST inválido400, ajeno/sin permiso403, versión/estado cambiado409, éxito302 con decisión persistida. AgencyReview guarda revisor, resultado, motivo, referencia, procedimiento e instante; bloqueo de agencia impide dos decisiones simultáneas. El titular puede ver estado y motivo en su panel, no datos internos del revisor.
+
+Procedimiento disponible: simulator-v1, explícito en interfaz. POST producción o proveedor distinto del simulador devuelve503 sin alterar estado: integración real pendiente. El envío impide usar simulator-v1 como comprobación real en producción. La decisión de organización no aprueba ninguno de sus anuncios ni las autorizaciones de personas. Transferencias y decisión humana sobre anuncio se implementarán antes de cerrar CR-06.

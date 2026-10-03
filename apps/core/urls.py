@@ -3,9 +3,15 @@ from django.urls import path
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 
-from . import accounts, agencies, legal, mfa, verification
+from . import accounts, agencies, legal, mfa, organization_review, verification
 
 urlpatterns = [
+    path("moderation/organizations/", organization_review.queue, name="organization_queue"),
+    path(
+        "moderation/organizations/<uuid:agency_id>/",
+        organization_review.review,
+        name="organization_review",
+    ),
     path("draft/<uuid:revision_id>/submit/", listings.send_for_review, name="submit_revision"),
     path("draft/<uuid:revision_id>/status/", listings.revision_status, name="revision_status"),
     path("photos/<uuid:photo_id>/reorder/", mediafiles.reorder, name="photo_reorder"),
