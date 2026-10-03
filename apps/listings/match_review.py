@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from apps.core.models import Agency, Person
 from apps.core.verification_services import publication_ready
-from apps.mediafiles.models import Match, MatchResolution, Photo
+from apps.mediafiles.models import Match, MatchResolution, Photo, PhotoRestriction
 
 from .models import Listing
 from .moderation import conflict_of_interest
@@ -79,18 +79,29 @@ def resolve(user, match_id, version, outcome, reason, evidence_reference):
             "Direct authorizations of distinct subjects required / Se requieren autorizaciones directas de sujetos distintos"
         )
     now = timezone.now()
+    current_decision = None
     for match in matches:
-        MatchResolution.objects.create(
+        decision = MatchResolution.objects.create(
             match=match,
             reviewer=user,
             outcome=outcome,
             reason=reason.strip(),
             evidence_reference=evidence_reference.strip(),
         )
+        if match.pk == current.pk:
+            current_decision = decision
         match.resolved_at, match.decision = now, outcome
         match.review_version += 1
         match.save(update_fields=["resolved_at", "decision", "review_version"])
     if outcome == "conflict":
+        for photo in [initial.photo, initial.candidate]:
+            person = next(p for p in people if p.pk == photo.revision.listing.person_id)
+            if photo.revision.manager_version == person.manager_version:
+                PhotoRestriction.objects.get_or_create(
+                    person=person,
+                    decision=current_decision,
+                    defaults={"photo": photo, "manager_version": person.manager_version},
+                )
         for listing in listings:
             if listing.status == "published":
                 listing.status = "paused"

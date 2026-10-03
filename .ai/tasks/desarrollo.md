@@ -69,3 +69,5 @@ Reclamación agencia accepted local cruzada:4 pruebas con Chromium móvil y conc
 Regresión común detenida:38 passed, fallo de página Chromium al reload inmediato en transferencia. Espera explícita del resultado previo a recargar añadida; tres navegador passed25.79s. Próximo repetir común (123 recogidos), luego coincidencias/fixtures/Docker; no cerrar CR-06.
 
 Regresión común accepted local sobre27cd772:123 passed en268.14s, PostgreSQL/Chromium, sin skips. Próximo aviso privado/reclamación conflictos de fotos, fixtures completos y cierre Docker CR-06; no CR-07 aún. Claude2/3.
+
+Avisos privados de fotos accepted local:7 pruebas junto a coincidencias passed27.61s; tres finales aviso/móvil/historia passed16.22s. mediafiles0006 aplicada. Próximo conectar reclamación del aviso con revisión independiente/versión y concurrencia, luego fixtures/regresión/Docker CR-06. Claude2/3.

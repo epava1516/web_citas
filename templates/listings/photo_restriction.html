@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Photo restriction{% else %}Restricción de fotografía{% endif %}</h1>
+<p>{{ restriction.person.alias }} · {{ restriction.created_at }}</p>
+<p>{% if english %}A human review confirmed a conflict involving a photo used in more than one profile. Publication is restricted until the conflict is clarified. This decision does not establish identity or ownership and does not suspend your account.{% else %}Una revisión humana confirmó un conflicto sobre una foto utilizada en más de un perfil. La publicación queda restringida hasta aclarar el conflicto. Esta decisión no acredita identidad ni propiedad y no suspende tu cuenta.{% endif %}</p>
+<p>{% if english %}Your photo reference{% else %}Referencia de tu foto{% endif %}: {{ restriction.photo_id }}</p>
+<p>{% if active %}{% if english %}Restriction remains active.{% else %}La restricción continúa activa.{% endif %}{% else %}{% if english %}The photo conflict is no longer active. Publication still requires its own checks and moderation.{% else %}El conflicto de fotografía ya no está activo. La publicación sigue sujeta a sus propios controles y moderación.{% endif %}{% endif %}</p>
+<a href="{% url 'person_verification' restriction.person_id %}">{% if english %}Publication checks{% else %}Controles para publicar{% endif %}</a>
+{% endblock %}

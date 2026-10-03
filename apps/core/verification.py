@@ -133,6 +133,9 @@ def status(request, person_id):
             "manager": manager,
             "subject": subject,
             "ready": publication_ready(person),
+            "photo_restrictions": person.photo_restrictions.filter(
+                manager_version=person.manager_version
+            ).order_by("-created_at"),
             "manager_decision": person.manager_reviews.filter(
                 manager_version=person.manager_version
             ).first(),

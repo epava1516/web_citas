@@ -73,3 +73,23 @@ class MatchResolution(models.Model):
     reason = models.CharField(max_length=1000)
     evidence_reference = models.CharField(max_length=80)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class PhotoRestriction(models.Model):
+    person = models.ForeignKey(
+        "core.Person", on_delete=models.PROTECT, related_name="photo_restrictions"
+    )
+    manager_version = models.PositiveIntegerField()
+    photo = models.ForeignKey(Photo, on_delete=models.PROTECT, related_name="restrictions")
+    decision = models.ForeignKey(
+        MatchResolution, on_delete=models.PROTECT, related_name="restrictions"
+    )
+    reason_code = models.CharField(max_length=40, default="shared_photo_conflict")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["person", "decision"], name="one_photo_restriction_per_person_decision"
+            )
+        ]
