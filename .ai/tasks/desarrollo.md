@@ -4,8 +4,8 @@ Baseline: carpeta con 18 documentos; sin código ni repositorio Git antes del in
 Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
 Estado: running. Inicio autorizado 2026-10-03.
-Invocaciones Claude consumidas: 1/3 para el objetivo completo.
-Próximo paso: CR-03. BASE parcial (fixtures pendientes de modelos completos), CR-01 y CR-02 verificados localmente; 21 tests pasan, sin saltos.
+Invocaciones Claude consumidas: 2/3 para el objetivo completo.
+Próximo paso: CR-06. BASE parcial (fixtures pendientes de publicación), CR-01…CR-05 verificados localmente; 58 pruebas comunes y dos de logs pasan, sin saltos.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
 
 Delegación 1: cr01-security-design rechazada exit66 por informe inconsistente; sin reintento. Implementación Codex local.
@@ -17,3 +17,7 @@ CR-03: regresión27 passed en35.26s, sin skips, PostgreSQL+Chromium. Estado acce
 CR-04 implementado; catálogos e importador, wizard y concurrencia. Suite completa en proceso. Próximo CR-05: fotos, worker y comparación exacta/visual/regional. Claude consumido1/3 (sin nuevas invocaciones).
 
 CR-04 accepted local:35 passed en49.54s, sin skips, Ruff/check/migrations limpios. Siguiente CR-05; BASE y producción pendientes según docs/17.
+
+Delegación2 cr05-crop-matching: report complete/exit0; Codex integró y verificó16 casos. CR-05 common56 passed y worker real procesa en1.132s. Final dirigida en curso; próxima CR-06. Última llamada Claude reservada revisión.
+
+CR-05 accepted local:58 passed en74.61s y dos pruebas de ocultación de identificadores privados passed en0.06s. Seis pruebas de pipeline incluyen particulares/agencias con teléfonos distintos y carga tardía. Imagen Docker actualizada; CR-06 siguiente. Claude2/3 consumidas.

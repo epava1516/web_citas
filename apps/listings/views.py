@@ -129,6 +129,13 @@ def edit(request, revision_id, step):
     return render(
         request,
         "listings/draft.html",
-        {"revision": revision, "step": step, "form": form, "rates": rates, "document": document},
+        {
+            "revision": revision,
+            "step": step,
+            "form": form,
+            "rates": rates,
+            "document": document,
+            "photos": revision.photos.filter(removed_at__isnull=True).select_related("blob"),
+        },
         status=400 if request.method == "POST" and form is not None else 200,
     )

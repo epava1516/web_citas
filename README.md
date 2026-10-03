@@ -20,7 +20,7 @@ docker compose run --rm app python manage.py migrate
 docker compose run --rm app python manage.py bootstrap
 docker compose run --rm app python manage.py seed_catalog
 docker compose run --rm app python manage.py collectstatic --noinput
-docker compose up -d app worker caddy
+docker compose up -d app worker beat caddy
 ```
 Abrir http://localhost:18080/es/ (Caddy sirve CSS y Gunicorn HTML). El runserver sirve CSS en desarrollo usando DJANGO_DEBUG=1.
 

@@ -6,3 +6,5 @@ Dependencias adicionales: Argon2 contraseñas, pyotp TOTP, Pillow/ImageHash medi
 El host tiene Python 3.9; usar uv con Python 3.12 instalado. No SQLite como sustituto de PostgreSQL.
 
 Cifrado TOTP Fernet con cryptography50.0.2; rango actualizado tras auditoría de vulnerabilidades. Auditoría continua obligatoria, sin fijar rangos antiguos por costumbre.
+
+CR-05 añade OpenCV headless4.14.0.94 para confirmación geométrica ORB/RANSAC de candidatos regionales, CPU un hilo y sin modelos biométricos. Fuentes/umbrales en contratos/05 y similarity.py; versión exacta lock auditada.

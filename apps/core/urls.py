@@ -1,10 +1,15 @@
 from django.urls import path
 
 from apps.listings import views as listings
+from apps.mediafiles import views as mediafiles
 
 from . import accounts, agencies, legal, mfa, verification
 
 urlpatterns = [
+    path("photos/<uuid:photo_id>/reorder/", mediafiles.reorder, name="photo_reorder"),
+    path("draft/<uuid:revision_id>/photos/upload/", mediafiles.upload, name="photo_upload"),
+    path("photos/<uuid:photo_id>/private/", mediafiles.private_photo, name="private_photo"),
+    path("photos/<uuid:photo_id>/remove/", mediafiles.remove, name="photo_remove"),
     path("person/<uuid:person_id>/listing/start/", listings.start, name="listing_start"),
     path("draft/<uuid:revision_id>/<int:step>/", listings.edit, name="draft_edit"),
     path("person/create/", verification.individual, name="individual_create"),

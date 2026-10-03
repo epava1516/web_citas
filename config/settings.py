@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.catalog",
     "apps.listings",
+    "apps.mediafiles",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -124,3 +125,26 @@ CELERY_TASK_SOFT_TIME_LIMIT = 90
 MFA_ENCRYPTION_KEY = os.getenv("MFA_ENCRYPTION_KEY", "")
 if PRODUCTION and not MFA_ENCRYPTION_KEY:
     raise ImproperlyConfigured("Production requires independent MFA encryption key")
+
+CELERY_BEAT_SCHEDULE = {
+    "recover-private-media": {"task": "apps.mediafiles.tasks.recover_media_jobs", "schedule": 60.0}
+}
+
+MEDIA_STORAGE_PROVIDER = os.getenv("MEDIA_STORAGE_PROVIDER", "local")
+if MEDIA_STORAGE_PROVIDER == "s3":
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "bucket_name": os.environ["AWS_STORAGE_BUCKET_NAME"],
+                "endpoint_url": os.getenv("AWS_S3_ENDPOINT_URL") or None,
+                "region_name": os.getenv("AWS_S3_REGION_NAME", "eu-west-1"),
+                "default_acl": "private",
+                "querystring_auth": True,
+                "file_overwrite": False,
+            },
+        },
+        "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+    }
+elif MEDIA_STORAGE_PROVIDER != "local":
+    raise ImproperlyConfigured("Unsupported media storage provider")
