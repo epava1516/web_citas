@@ -81,6 +81,8 @@ def test_renewal_same_id_confirmation_expiry_and_delayed_task(request):
     assert Client().get(f"/es/listing/{listing.pk}/").status_code == 404
     assert expire_one(listing.pk)
     assert not expire_one(listing.pk)
+    expiry = LifecycleAction.objects.get(listing=listing, operation="expire")
+    assert expiry.actor_id is None and expiry.approved_revision_id == approved
     assert client.post(path, payload(listing, "renew")).status_code == 409
     data = payload(listing, "renew", confirm="on")
     assert client.post(path, data).status_code == 302
@@ -92,6 +94,9 @@ def test_renewal_same_id_confirmation_expiry_and_delayed_task(request):
     assert client.post(path, data).status_code == 302
     listing.refresh_from_db()
     assert listing.expires_at == expires and Listing.objects.filter(pk=listing.pk).count() == 1
+    renewal = LifecycleAction.objects.get(listing=listing, operation="renew")
+    assert renewal.approved_revision_id == approved and renewal.confirmed
+    assert LifecycleAction.objects.filter(listing=listing, operation="expire").count() == 1
     assert client.post(path, data | {"confirm": ""}).status_code == 409
 
 
@@ -205,6 +210,52 @@ def test_mobile_pause_resume_withdraw_persists(live_server, request, settings):
                 expect(page.get_by_text(status, exact=True)).to_be_visible()
                 page.reload()
                 expect(page.get_by_text(status, exact=True)).to_be_visible()
+                expect(
+                    page.get_by_role("heading", name="Recent actions", exact=True)
+                ).to_be_visible()
             assert page.request.get(live_server.url + f"/en/listing/{listing_id}/").status == 404
         finally:
             browser.close()
+
+
+def test_expiry_concurrent_tasks_record_one_system_event(request):
+    request.getfixturevalue("directory")
+    _, listing, client = own()
+    Listing.objects.filter(pk=listing.pk).update(expires_at=timezone.now() - timedelta(seconds=1))
+    barrier = Barrier(2)
+
+    def expire():
+        close_old_connections()
+        try:
+            barrier.wait(timeout=10)
+            return expire_one(listing.pk)
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        results = [executor.submit(expire) for _ in range(2)]
+        assert sum(future.result() for future in results) == 1
+    assert (
+        LifecycleAction.objects.filter(
+            listing=listing, operation="expire", actor__isnull=True
+        ).count()
+        == 1
+    )
+    page = client.get(f"/en/listing/{listing.pk}/manage/")
+    assert b"System" in page.content and b"Recent actions" in page.content
+    assert len(page.context["events"]) == 1
+
+
+def test_action_history_does_not_expose_previous_manager_events(request):
+    request.getfixturevalue("directory")
+    _, listing, client = own()
+    assert (
+        client.post(f"/es/listing/{listing.pk}/manage/", payload(listing, "pause")).status_code
+        == 302
+    )
+    event = LifecycleAction.objects.get(listing=listing)
+    event.manager_version = 999
+    event.save(update_fields=["manager_version"])
+    page = client.get(f"/es/listing/{listing.pk}/manage/")
+    assert len(page.context["events"]) == 0
+    assert b"Sin acciones para el gestor actual" in page.content

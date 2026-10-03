@@ -118,6 +118,7 @@ def act(user, listing_id, key, version, operation, confirm=False):
         key=key,
         listing=listing,
         actor=user,
+        approved_revision=listing.approved_revision,
         manager_version=person.manager_version,
         expected_version=version,
         confirmed=confirm,
@@ -163,7 +164,13 @@ def panel(request, listing_id):
     response = render(
         request,
         "listings/lifecycle.html",
-        {"listing": listing, "form": form},
+        {
+            "listing": listing,
+            "form": form,
+            "events": listing.lifecycle_actions.filter(
+                manager_version=listing.person.manager_version
+            ).order_by("-created_at", "-pk")[:20],
+        },
         status=status,
     )
     response["Cache-Control"] = "private, no-store"

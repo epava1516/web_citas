@@ -150,7 +150,8 @@ class Favorite(models.Model):
 class LifecycleAction(models.Model):
     key = models.UUIDField(unique=True)
     listing = models.ForeignKey(Listing, on_delete=models.PROTECT, related_name="lifecycle_actions")
-    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", null=True, blank=True, on_delete=models.PROTECT)
+    approved_revision = models.ForeignKey(Revision, null=True, blank=True, on_delete=models.PROTECT)
     manager_version = models.PositiveIntegerField()
     expected_version = models.PositiveIntegerField()
     confirmed = models.BooleanField(default=False)

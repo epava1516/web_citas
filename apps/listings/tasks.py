@@ -1,8 +1,10 @@
+import uuid
+
 from celery import shared_task
 from django.db import transaction
 from django.utils import timezone
 
-from .models import Listing
+from .models import LifecycleAction, Listing
 
 
 def expire_one(listing_id):
@@ -16,10 +18,22 @@ def expire_one(listing_id):
             or listing.expires_at > now
         ):
             return False
+        version = listing.lifecycle_version
         listing.status = "expired"
         listing.available_until = None
         listing.lifecycle_version += 1
         listing.save(update_fields=["status", "available_until", "lifecycle_version"])
+        LifecycleAction.objects.create(
+            key=uuid.uuid4(),
+            listing=listing,
+            actor=None,
+            approved_revision=listing.approved_revision,
+            manager_version=listing.person.manager_version,
+            expected_version=version,
+            operation="expire",
+            previous_status="published",
+            resulting_status="expired",
+        )
         return True
 
 
