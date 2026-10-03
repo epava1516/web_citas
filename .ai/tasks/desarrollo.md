@@ -45,3 +45,7 @@ Transferencias:5 pruebas ampliadas owner/editor/legacy passed en13.48s; se corri
 Traslado versionado: manager_version obligatorio en formulario, bloqueo agencias/persona y reintento exacto sin reiniciar verificaciones. Versión antigua/destino distinto409, inválido400. Dos nuevas pruebas de repetición y concurrencia en proceso junto a regresión de representación. Próximo navegador/agencias/reclamaciones.
 
 Traslado versionado accepted local:12 pruebas passed en23.02s, check/migraciones/Ruff limpios. Próximo navegador de transferencia, agencia completa y reclamaciones; no CR-07 aún.
+
+CR-06 reclamación de rechazo: Appeal/colas/SSR, otro moderador con MFA, historia/estado privado, reconsideración sin publicación y controles de gestor/base/última decisión/cuota. Doce pruebas dirigidas passed en35.47s. Ampliación de inspección de evidencia navegador en proceso; otros tipos de restricción y CR-09 pendientes.
+
+Reclamación privada de rechazo accepted local:12 pruebas conjuntas passed en35.47s, seis finales con inspección de evidencia passed en21.99s; checks limpios. Próximo otros tipos de decisiones/restricciones, navegador transferencia y agencia completa para CR-06; CR-09 público aún pendiente.

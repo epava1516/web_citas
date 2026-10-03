@@ -88,3 +88,15 @@ El formulario HTML incluye manager_version oculto obligatorio (entero mínimo1),
 POST con versión vigente realiza una única transición. Repetir exactamente el traslado ya aplicado (misma versión origen, destino y sujeto, evento persistido) devuelve302 sin incrementar contador, reiniciar edad/contacto/consentimiento ni crear otro evento. Una versión antigua con otro destino o más transiciones intermedias devuelve409. GET no consume ni cambia estado. No usar solamente destino coincidente como prueba de reintento: se exige el evento/version correspondiente.
 
 Pendientes para cierre de este tramo: recorrido navegador y agencia completa, revisión de rechazo y reclamaciones; no se considera CR-06 terminado por estas pruebas servidor.
+
+## Reclamación privada de rechazo de anuncio, primer flujo
+
+GET/POST /{es|en}/draft/decisions/{decision}/appeal/ admite gestor autorizado de revisión del gestor vigente, decisión rejected, explicación obligatoria máximo2000. GET no crea caso; POST válido302, inválido400, ajeno/gestor obsoleto404. Appeal único por decisión guarda actor, explicación e instante; repetir no sobrescribe ni duplica. El estado y la respuesta se consultan en la misma ruta privada no-store. No se muestran identidades del revisor al solicitante.
+
+GET /moderation/appeals/ cola privada; GET/POST /moderation/appeals/{case}/ requiere permiso review_listing y MFA. Autor de la decisión original, sujeto y gestores con conflicto no resuelven el caso. Resultado explícito upheld/reconsider y motivo obligatorio máximo1000. Resolución registra revisor/resultado/motivo/instante; reintento de caso cerrado409. La inspección de revisión rechazada habilita derivados privados solo cuando existe reclamación abierta, bajo autorización de moderación.
+
+Reconsider devuelve la revisión a pending, no publica. Exige versión del gestor y base pública vigentes, última decisión de rechazo y espacio dentro de tres revisiones pendientes. Aprobación posterior pasa otra vez por validaciones/duplicados y decisión humana. Si el estado cambió,400 sin cerrar ni cambiar la revisión; mantener decisión registra respuesta sin alterar exposición. Bloqueos agencia/persona/listing/revision/appeal impiden dos resoluciones simultáneas.
+
+Wireframe: estado rechazado → solicitar revisión → explicación → acuse/estado privado → otro moderador con MFA inspecciona evidencia → respuesta motivada → solicitante recarga y consulta. No pedir documentos originales para este formulario.
+
+Alcance todavía parcial: este flujo cubre rechazos de anuncios. Pausas por coincidencia, decisiones de agencia/gestor, reclamaciones públicas sin cuenta y derechos requieren sus caminos correspondientes; no tratarlos como resueltos por reutilizar esta pantalla. CR-06 no cerrado y CR-09 sigue pendiente. Textos/plazos legales definitivos requieren revisión externa; no se acredita cumplimiento por estas pruebas locales.

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
@@ -86,7 +87,12 @@ def review_photo(request, photo_id):
     if not reviewer_allowed(request):
         return HttpResponse("Forbidden", status=403)
     photo = get_object_or_404(
-        Photo, pk=photo_id, removed_at__isnull=True, revision__status__in=["pending", "approved"]
+        Photo.objects.filter(
+            Q(revision__status__in=["pending", "approved"])
+            | Q(revision__status="rejected", revision__decisions__appeal__status="open")
+        ).distinct(),
+        pk=photo_id,
+        removed_at__isnull=True,
     )
     if conflict_of_interest(request.user, photo.revision.listing.person):
         return HttpResponse("Conflict of interest", status=403)

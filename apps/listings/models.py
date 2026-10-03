@@ -114,3 +114,19 @@ class ModerationDecision(models.Model):
 
     class Meta:
         permissions = [("review_listing", "Review listing revisions")]
+
+
+class Appeal(models.Model):
+    decision = models.OneToOneField(
+        ModerationDecision, on_delete=models.PROTECT, related_name="appeal"
+    )
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT, related_name="listing_appeals")
+    explanation = models.CharField(max_length=2000)
+    status = models.CharField(max_length=12, default="open")
+    reviewer = models.ForeignKey(
+        "core.User", null=True, on_delete=models.PROTECT, related_name="appeals_reviewed"
+    )
+    result = models.CharField(max_length=12, blank=True)
+    reason = models.CharField(max_length=1000, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    resolved_at = models.DateTimeField(null=True)

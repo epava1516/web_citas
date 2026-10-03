@@ -1,12 +1,15 @@
 from django.urls import path
 
-from apps.listings import match_views, moderation_views
+from apps.listings import appeals, match_views, moderation_views
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 
 from . import accounts, agencies, legal, manager_review, mfa, organization_review, verification
 
 urlpatterns = [
+    path("draft/decisions/<int:decision_id>/appeal/", appeals.submit, name="appeal_submit"),
+    path("moderation/appeals/", appeals.queue, name="appeal_queue"),
+    path("moderation/appeals/<int:appeal_id>/", appeals.review, name="appeal_review"),
     path("moderation/managers/", manager_review.queue, name="manager_queue"),
     path("moderation/managers/<uuid:person_id>/", manager_review.review, name="manager_review"),
     path("moderation/matches/", match_views.queue, name="match_queue"),

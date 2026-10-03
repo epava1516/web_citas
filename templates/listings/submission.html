@@ -12,7 +12,7 @@
 <p>{{ revision.status }}</p>
 {% if revision.status == 'pending' %}<p>{% if english %}Awaiting human review. This version is saved and cannot be edited. It has not been published.{% else %}Pendiente de revisión humana. Esta versión está guardada y no se puede editar. Todavía no se ha publicado.{% endif %}</p>{% endif %}
 {% if revision.status == 'obsolete' %}<p>{% if english %}Another revision updated the public listing. Create a current draft to continue.{% else %}Otra revisión actualizó el anuncio público. Crea un borrador actual para continuar.{% endif %}</p>{% endif %}
-{% for decision in revision.decisions.all %}<article><p>{{ decision.outcome }} · {{ decision.created_at }}</p><p>{{ decision.reason }}</p></article>{% endfor %}
+{% for decision in revision.decisions.all %}<article><p>{{ decision.outcome }} · {{ decision.created_at }}</p><p>{{ decision.reason }}</p>{% if decision.outcome == 'rejected' %}<a href="{% url 'appeal_submit' decision.pk %}">{% if english %}Request review{% else %}Solicitar revisión{% endif %}</a>{% endif %}</article>{% endfor %}
 <form method="post" action="{% url 'listing_start' revision.listing.person_id %}">{% csrf_token %}<button type="submit">{% if english %}Create or resume revised draft{% else %}Crear o retomar borrador revisado{% endif %}</button></form>
 {% endif %}
 {% endblock %}

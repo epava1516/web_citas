@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h1>{% if english %}Decision review queue{% else %}Cola de reclamaciones{% endif %}</h1>{% for appeal in appeals %}<p><a href="{% url 'appeal_review' appeal.pk %}">{{ appeal.decision.revision.title }}</a></p>{% empty %}<p>{% if english %}No pending appeals{% else %}No hay reclamaciones pendientes{% endif %}</p>{% endfor %}{% endblock %}
