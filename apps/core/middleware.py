@@ -40,6 +40,8 @@ class AccountGateMiddleware:
         if request.resolver_match and request.resolver_match.url_name in {
             "report_create",
             "report_receipt",
+            "rights_create",
+            "rights_receipt",
         }:
             return None
         if not request.user.email_verified_at:

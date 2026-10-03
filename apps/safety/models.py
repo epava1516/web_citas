@@ -87,3 +87,29 @@ class SimulatedNoticeDelivery(models.Model):
     notice = models.OneToOneField(ReportNotice, on_delete=models.PROTECT)
     procedure = models.CharField(max_length=32, default="simulator-v1")
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRequest(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    submission_key = models.UUIDField(unique=True)
+    receipt_digest = models.CharField(max_length=64)
+    payload_digest = models.CharField(max_length=64)
+    encrypted_payload = models.TextField()
+    actor = models.ForeignKey("core.User", null=True, on_delete=models.SET_NULL)
+    kind = models.CharField(max_length=24)
+    status = models.CharField(max_length=20, default="received")
+    created_at = models.DateTimeField(auto_now_add=True)
+    received_at = models.DateTimeField()
+    initial_due_at = models.DateTimeField()
+    receipt_expires_at = models.DateTimeField()
+
+    class Meta:
+        permissions = [("review_rights_request", "Review private rights requests")]
+        ordering = ["initial_due_at", "created_at", "pk"]
+
+
+class RightsAccess(models.Model):
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT, related_name="accesses")
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    purpose = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)

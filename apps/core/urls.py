@@ -11,6 +11,7 @@ from apps.listings import (
 )
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
+from apps.safety import rights
 from apps.safety import views as safety
 
 from . import (
@@ -26,6 +27,10 @@ from . import (
 )
 
 urlpatterns = [
+    path("safety/rights/", rights.submit, name="rights_create"),
+    path("safety/rights/<uuid:case_id>/<str:secret>/", rights.receipt, name="rights_receipt"),
+    path("moderation/rights/", rights.queue, name="rights_queue"),
+    path("moderation/rights/<uuid:case_id>/", rights.inspect, name="rights_inspect"),
     path("moderation/reports/<uuid:report_id>/decision/", safety.decision, name="report_decision"),
     path("moderation/reports/<uuid:report_id>/", safety.inspect, name="report_inspect"),
     path("safety/report/", safety.submit, name="report_create"),

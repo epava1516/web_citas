@@ -4,7 +4,7 @@ import logging
 class PrivateRequestFilter(logging.Filter):
     def filter(self, record):
         request = getattr(record, "request", None)
-        scopes = ("/safety/", "/moderation/reports/")
+        scopes = ("/safety/", "/moderation/reports/", "/moderation/rights/")
         if record.name == "django.server" and any(scope in record.getMessage() for scope in scopes):
             record.msg = "Private safety operation (development server)"
             record.args = ()
