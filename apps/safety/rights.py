@@ -7,7 +7,7 @@ from datetime import timedelta
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.db import transaction
+from django.db import IntegrityError, transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -18,7 +18,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 from apps.core.accounts import limited
 
 from .crypto import seal, unseal
-from .models import RightsAccess, RightsRequest
+from .models import RightsAccess, RightsMessage, RightsRequest
 from .rights_scope import locked_case, permitted
 from .views import private
 
@@ -67,6 +67,9 @@ class RequestForm(forms.Form):
 
 
 class RightsAccessForm(forms.Form):
+    message_before = forms.IntegerField(
+        required=False, min_value=1, max_value=9223372036854775807, widget=forms.HiddenInput
+    )
     purpose = forms.CharField(
         min_length=10, max_length=200, label="Motivo de consulta / Purpose of access"
     )
@@ -115,8 +118,20 @@ def submit(request):
     return private(render(request, "safety/rights_form.html", {"form": form}, status=status))
 
 
-@sensitive_variables("secret")
-@require_GET
+class MessageForm(forms.Form):
+    key = forms.UUIDField(widget=forms.HiddenInput)
+    version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    text = forms.CharField(
+        min_length=1,
+        max_length=4000,
+        widget=forms.Textarea,
+        label="Aclaración sobre tu solicitud / Clarification about your request",
+    )
+
+
+@sensitive_post_parameters("text")
+@sensitive_variables()
+@require_http_methods(["GET", "POST"])
 def receipt(request, case_id, secret):
     case = RightsRequest.objects.filter(pk=case_id, receipt_expires_at__gt=timezone.now()).first()
     if (
@@ -125,7 +140,69 @@ def receipt(request, case_id, secret):
         or not constant_time_compare(case.receipt_digest, fingerprint(secret))
     ):
         raise Http404
-    return private(render(request, "safety/rights_receipt.html", {"case": case}))
+    form = MessageForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
+    status = 400 if request.method == "POST" else 200
+    if request.method == "POST":
+        if limited(request, "rights-message", limit=10):
+            return private(HttpResponse("Too many requests / Demasiadas solicitudes", status=429))
+        if form.is_valid():
+            signature = fingerprint(
+                json.dumps(
+                    {
+                        "case": str(case_id),
+                        "version": form.cleaned_data["version"],
+                        "text": form.cleaned_data["text"],
+                    },
+                    sort_keys=True,
+                    ensure_ascii=False,
+                )
+            )
+            with transaction.atomic():
+                case = RightsRequest.objects.select_for_update().get(pk=case_id)
+                if case.receipt_expires_at <= timezone.now() or not constant_time_compare(
+                    case.receipt_digest, fingerprint(secret)
+                ):
+                    raise Http404
+                previous = RightsMessage.objects.filter(key=form.cleaned_data["key"]).first()
+                if previous:
+                    if previous.request_id != case.pk or previous.payload_digest != signature:
+                        form.add_error(None, "Reintento incompatible / Conflicting replay")
+                        status = 409
+                    else:
+                        return private(redirect("rights_receipt", case_id=case.pk, secret=secret))
+                elif case.version != form.cleaned_data["version"] or case.status not in {
+                    "received",
+                    "reviewing",
+                }:
+                    form.add_error(None, "Solicitud cambiada; recarga / Request changed; reload")
+                    status = 409
+                else:
+                    try:
+                        with transaction.atomic():
+                            RightsMessage.objects.create(
+                                key=form.cleaned_data["key"],
+                                request=case,
+                                actor=request.user if request.user.is_authenticated else None,
+                                expected_version=case.version,
+                                payload_digest=signature,
+                                encrypted_payload=seal({"text": form.cleaned_data["text"]}),
+                            )
+                    except IntegrityError:
+                        form.add_error(None, "Clave incompatible / Conflicting request key")
+                        status = 409
+                    else:
+                        case.version += 1
+                        case.scope_status = "unverified"
+                        case.save(update_fields=["version", "scope_status"])
+                        return private(redirect("rights_receipt", case_id=case.pk, secret=secret))
+    return private(
+        render(
+            request,
+            "safety/rights_receipt.html",
+            {"case": case, "form": form, "message_count": case.messages.count()},
+            status=status,
+        )
+    )
 
 
 def allowed(request):
@@ -167,6 +244,8 @@ def inspect(request, case_id):
         return private(HttpResponse("Conflict of interest", status=403))
     form = RightsAccessForm(request.POST or None)
     payload = None
+    messages = []
+    next_message_cursor = None
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             try:
@@ -179,11 +258,30 @@ def inspect(request, case_id):
             RightsAccess.objects.create(
                 request=case, actor=request.user, purpose=form.cleaned_data["purpose"]
             )
+            records = case.messages.order_by("-pk")
+            if form.cleaned_data["message_before"]:
+                records = records.filter(pk__lt=form.cleaned_data["message_before"])
+            records = list(records[:51])
+            messages = [
+                {
+                    "created_at": message.created_at,
+                    "text": unseal(message.encrypted_payload)["text"],
+                }
+                for message in records[:50]
+            ]
+            if len(records) > 50:
+                next_message_cursor = records[49].pk
     return private(
         render(
             request,
             "safety/rights_inspect.html",
-            {"case": case, "form": form, "payload": payload},
+            {
+                "case": case,
+                "form": form,
+                "payload": payload,
+                "messages": messages,
+                "next_message_cursor": next_message_cursor,
+            },
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )
     )

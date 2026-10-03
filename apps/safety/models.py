@@ -160,3 +160,13 @@ class RightsAction(models.Model):
     payload_digest = models.CharField(max_length=64)
     encrypted_reason = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsMessage(models.Model):
+    key = models.UUIDField(unique=True)
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT, related_name="messages")
+    actor = models.ForeignKey("core.User", null=True, on_delete=models.SET_NULL)
+    expected_version = models.PositiveIntegerField()
+    payload_digest = models.CharField(max_length=64)
+    encrypted_payload = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
