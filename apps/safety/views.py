@@ -207,6 +207,9 @@ def permitted(user, report):
 
 
 class AccessForm(forms.Form):
+    action_before = forms.IntegerField(
+        required=False, min_value=1, max_value=9223372036854775807, widget=forms.HiddenInput
+    )
     purpose = forms.CharField(
         min_length=10, max_length=200, label="Motivo de consulta / Purpose of access"
     )
@@ -234,6 +237,8 @@ def inspect(request, report_id):
         return private(HttpResponse("Conflict of interest", status=403))
     form = AccessForm(request.POST or None)
     payload = None
+    history = []
+    next_action_cursor = None
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             person = report.listing.person if report.listing_id else None
@@ -261,11 +266,33 @@ def inspect(request, report_id):
             ReportAccess.objects.create(
                 report=report, actor=request.user, purpose=form.cleaned_data["purpose"]
             )
+            actions = report.actions.order_by("-pk")
+            if form.cleaned_data["action_before"]:
+                actions = actions.filter(pk__lt=form.cleaned_data["action_before"])
+            records = list(actions[:51])
+            for action in records[:50]:
+                history.append(
+                    {
+                        "actor_id": action.actor_id,
+                        "created_at": action.created_at,
+                        "operation": action.operation,
+                        "expected_version": action.expected_version,
+                        "reason": unseal(action.encrypted_reason)["reason"],
+                    }
+                )
+            if len(records) > 50:
+                next_action_cursor = records[49].pk
     return private(
         render(
             request,
             "safety/inspect.html",
-            {"report": report, "form": form, "payload": payload},
+            {
+                "report": report,
+                "form": form,
+                "payload": payload,
+                "history": history,
+                "next_action_cursor": next_action_cursor,
+            },
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )
     )

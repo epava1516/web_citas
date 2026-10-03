@@ -107,3 +107,13 @@ Un coordinador independiente puede recuperar el caso cuando el responsable origi
 La versión y bloqueo transaccional compartidos serializan devolución frente a una resolución: solo una operación del mismo estado gana. Historial y restricciones permanecen. No sustituye reclamación, revisión independiente o levantamiento; reasignación es organización del trabajo. Verificación terminal de móvil/permisos/reintentos/concurrencia en docs/18; CR-09 sigue abierto.
 
 Verificación terminal de recuperación:8 iniciales passed42.26s y10 finales passed54.12s sin skips. Chromium móvil incluye devolución/reclaim; concurrencia real PostgreSQL frente a restricción. Evidencia local, no procedimiento humano operativo ni regresión común completa.
+
+## Historial privado de acciones — verificación local parcial
+
+La consulta POST auditada del expediente muestra acciones atribuidas (ID interno del responsable, fecha, operación, versión anterior y motivo descifrado). GET no entrega motivos/historial; tampoco acuse del denunciante ni público. Comparte permission/MFA/COI, bloqueo y registro ReportAccess con la consulta de evidencia. Texto escapado, cabeceras privadas/no-store/noindex; no se incluyen emails, credenciales o enlaces a cuentas de otros moderadores.
+
+Cada consulta entrega hasta50 acciones, más recientes primero por PK estable, con `action_before` opcional (entero positivo hasta bigint). Si hay más, botón «Registrar consulta y ver acciones anteriores» envía otra consulta con motivo/cursor y deja otra auditoría. Cursor siempre filtra dentro del mismo Report: no sirve para leer acciones de otro caso. GET posterior oculta todo y reinicia consulta. Un cursor permite seguir hacia atrás sin duplicación ante nuevas acciones posteriores; para ver acciones nuevas volver a consultar desde el inicio.
+
+No es un recorte definitivo de historia: anteriores siguen accesibles mediante cursor. El ID y motivo internos no forman parte de la respuesta al anunciante/notificante. Retención y seudonimización siguen pendientes; atribución no justifica conservar indefinidamente. No añade migración ni notificaciones/revisión externa. Verificación de escape/privacidad, más de50 acciones reales de asignación/devolución y navegador móvil en docs/18.
+
+Verificación terminal de historia:9 conjuntas con consulta passed42.76s y3 finales passed22.05s sin skips. Navegador móvil recorre50+2 acciones y comprueba ocultación por GET; preparación usa52 operaciones reales de asignación/devolución, no eventos simulados como prueba de ejecución. No regresión común completa CR-09.
