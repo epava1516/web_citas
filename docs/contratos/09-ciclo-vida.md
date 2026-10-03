@@ -28,3 +28,6 @@ Código esperado: éxito302 a panel propio; acceso no autorizado404/403 conforme
 ## Aceptación pendiente
 
 Servidor y navegador móvil ES/EN: alta/eliminación/lista privada de favoritos, aislamiento, repetición y concurrencia. Panel particular/agencia/editor autorizado: pausa/reanudación, renovación conservando ID y revisión, caducidad por reloj/tarea, disponible4h, retirada y formulario/tarea obsoletos. Verificar búsquedas, ficha y derivados tras cada retirada de exposición; ningún proceso antiguo republica. Documentar servicios de tareas y rutas definitivas al implementar, y corregir este diseño si la evidencia exige ajustes compatibles.
+
+
+Dependencias comprobadas antes de implementar: moderation.decide cambia revisión/estado/fechas al aprobar; verification.revoke y transfer pausan mediante actualización queryset; match_review.resolve pausa ante conflicto. CR-08 debe incrementar/invalidar versión en estos puntos además de sus acciones propias, sin perder bloqueos existentes. Al aprobar una revisión nueva, limpiar disponible ahora: una confirmación asociada a la revisión anterior no acredita disponibilidad de la nueva. La fixture seed_demo modifica un estado para pruebas y no sustituye estos servicios.

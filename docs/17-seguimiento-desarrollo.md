@@ -4,9 +4,9 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 ## Estado actual
 
-- Fase: BASE y CR-01 a CR-06 verificados localmente; implementación autorizada el 2026-10-03.
-- Próximo paso: CR-07 (descubrimiento, filtros y fichas ES/EN).
-- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; última regresión común135 pruebas pasan con PostgreSQL y Chromium (299.22s, sin skips); ajuste de fixture3 pruebas y Docker real verificados; verificación y representación conectadas con simuladores explícitos.
+- Fase: BASE y CR-01 a CR-07 verificados localmente; implementación autorizada el 2026-10-03.
+- Próximo paso: CR-08 (favoritos y ciclo de vida).
+- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; última regresión común149 pruebas pasan con PostgreSQL y Chromium (381.02s, sin skips); Docker de CR-07 verificado; verificación y representación conectadas con simuladores explícitos.
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
 
@@ -21,7 +21,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 | CR-04 | Borrador, campos, geografía, tarifas/contactos | Verificado local | 35 pruebas comunes PostgreSQL/Chromium; wizard, geografía, consult y concurrencia |
 | CR-05 | Fotos y coincidencias | Verificado local | 58 pruebas comunes y dos de logs; worker/Beat Docker real; contratos/05 y docs/18 |
 | CR-06 | Moderación/publicación | Verificado local | 135 comunes PostgreSQL/Chromium, reclamaciones/transferencias/agencia y Docker/worker; acta01 |
-| CR-07 | Búsqueda y fichas ES/EN | En curso | GET filtros/pgFTS/24 por página y navegador móvil; ficha ES/EN y procedencia comprobadas12 pruebas; geo dependiente comprobada8 pruebas; paginación/ranking comprobados3 pruebas finales; filtro comprobaciones específicas comprobado18+3 pruebas; cierre común/Docker pendientes |
+| CR-07 | Búsqueda y fichas ES/EN | Verificado local |149 comunes PostgreSQL/Chromium, pgFTS/paginación/geo/comprobaciones; Docker; acta02 |
 | CR-08 | Favoritos y ciclo de vida | Pendiente | — |
 | CR-09 | Denuncias, derechos y reclamaciones | Pendiente | — |
 | CR-10 | Promociones preparadas sin venta real | Pendiente | — |
@@ -44,4 +44,4 @@ Tarifas y pasarela condicionan futura venta, no lanzamiento gratuito. No realiza
 
 ## Cierre
 
-BASE y primeros seis flujos están verificados localmente; todavía no existe entrega técnica completa. Separar su futura aceptación de preparación real de producción. No completar filas o gates sin evidencia.
+BASE y primeros siete flujos están verificados localmente; todavía no existe entrega técnica completa. Separar su futura aceptación de preparación real de producción. No completar filas o gates sin evidencia.

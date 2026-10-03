@@ -5,7 +5,7 @@ Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
 Estado: running. Inicio autorizado 2026-10-03.
 Invocaciones Claude consumidas: 2/3 para el objetivo completo.
-Próximo paso: CR-07. BASE y CR-01…CR-06 verificados localmente;135 pruebas comunes passed299.22s, ajuste fixture3 passed12.44s y Docker/worker real verificados.
+Próximo paso: CR-08. BASE y CR-01…CR-07 verificados localmente;149 pruebas comunes passed381.02s y Docker/Chromium CR-07 verificados.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
 
 Delegación 1: cr01-security-design rechazada exit66 por informe inconsistente; sin reintento. Implementación Codex local.
@@ -91,3 +91,5 @@ CR-07 comprobaciones específicas accepted local parcial: GET checked age/contac
 Regresión común CR-07 sobre6625454 iniciada: uv run pytest -q, sesión39016. Al retomar comprobar proceso vivo y consultar la misma sesión; no reiniciar por timeout de observación. Resultado todavía pendiente.
 
 CR-07 cierre integrado en curso: Docker app/worker/beat reconstruidos con código6625454, UID10001 en los tres; migrate sin pendientes y collectstatic incorpora search-geography.js al volumen de Caddy. Check Django limpio. Chromium móvil mediante localhost:18080 verifica búsqueda2 fichas, filtro real de edad0, recarga, restauración de resultados, selector territorial dependiente, ficha/tarifas/edad simulada/derivado cargado y credenciales privadas404. Probe reproducible scripts/probe_demo_discovery.py, requiere estado inicial de muestra y no reinicia datos. Ruff detectó únicamente formato/imports del nuevo probe; corregidos, Ruff/format/diff-check finales limpios. Regresión completa sesión39016 todavía viva y avanzando (última salida48%); no cerrar CR-07 hasta resultado. Diseño CR-08 registrado en contratos/09, explícitamente pendiente de implementación. Claude2/3.
+
+CR-07 accepted local:149 comunes passed381.02s sin skips, Docker/Chromium/UID/migraciones/static verificados; acta02. Sesión39016 terminalexit0. Próximo CR-08 favoritos/ciclo de vida; GS-01/B-F/B-B/C y producción pendientes. Claude2/3.
