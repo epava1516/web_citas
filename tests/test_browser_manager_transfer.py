@@ -83,6 +83,9 @@ def test_mobile_agency_transfer_to_self_and_human_review(live_server, request, s
             staff.locator("[name=outcome]").select_option("approved")
             staff.locator("[name=reason]").fill("Transferencia sintética autorizada por su titular")
             staff.get_by_role("button", name="Registrar revisión del gestor").click()
+            expect(
+                staff.get_by_text("Transferencia sintética autorizada por su titular")
+            ).to_be_visible()
             staff.reload()
             expect(
                 staff.get_by_text("Transferencia sintética autorizada por su titular")

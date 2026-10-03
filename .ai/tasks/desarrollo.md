@@ -65,3 +65,5 @@ Reclamación rechazo gestor accepted local:12 dirigidas passed27.55s, navegador 
 Reclamación agencia servidor integrada:6 dirigidas passed11.58s, dos finales passed6.00s; core0010 aplicada. Caso y rechazo conservados, reconsideración solo pending/nueva versión. Próximo navegador/concurrencia agencia, reclamación de coincidencias y cierre integrado CR-06. Claude2/3.
 
 Reclamación agencia accepted local cruzada:4 pruebas con Chromium móvil y concurrencia passed14.67s; contraseña/MFA en ambos roles, pendiente persistido y versión incrementada una vez. Próximo coincidencias, fixtures y cierre común/Docker CR-06.
+
+Regresión común detenida:38 passed, fallo de página Chromium al reload inmediato en transferencia. Espera explícita del resultado previo a recargar añadida; tres navegador passed25.79s. Próximo repetir común (123 recogidos), luego coincidencias/fixtures/Docker; no cerrar CR-06.
