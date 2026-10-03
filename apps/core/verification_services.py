@@ -30,7 +30,13 @@ def publication_ready(person):
         and phone.individual_id == person.individual_id
         and phone.agency_id == person.agency_id
     )
-    return bool(person.subject_id and person.age_status == "passed" and consent and manager_phone)
+    return bool(
+        person.subject_id
+        and person.age_status == "passed"
+        and consent
+        and manager_phone
+        and person.manager_review_status == "approved"
+    )
 
 
 def start_age_check(person, subject):

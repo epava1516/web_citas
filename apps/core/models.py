@@ -146,6 +146,7 @@ class Person(models.Model):
         User, null=True, blank=True, on_delete=models.PROTECT, related_name="represented_person"
     )
     manager_version = models.PositiveIntegerField(default=1)
+    manager_review_status = models.CharField(max_length=12, default="approved")
     age_status = models.CharField(
         max_length=12,
         default="pending",
@@ -182,6 +183,22 @@ class PhoneClaim(models.Model):
                     | models.Q(individual__isnull=True, agency__isnull=False)
                 ),
                 name="phone_exactly_one_manager",
+            )
+        ]
+
+
+class ManagerReview(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.PROTECT, related_name="manager_reviews")
+    reviewer = models.ForeignKey(User, on_delete=models.PROTECT)
+    manager_version = models.PositiveIntegerField()
+    outcome = models.CharField(max_length=12)
+    reason = models.CharField(max_length=1000)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["person", "manager_version"], name="one_manager_review_per_version"
             )
         ]
 

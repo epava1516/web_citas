@@ -428,6 +428,7 @@ def transfer(request, person_id):
             person.assigned_editor = None
             person.phone_claim = None
             person.manager_version += 1
+            person.manager_review_status = "pending"
             person.consent_version = 0
             person.consent_revoked_at = timezone.now()
             person.age_status = "pending"

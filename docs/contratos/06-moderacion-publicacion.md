@@ -70,3 +70,9 @@ Resultados: false_positive solo para similitud visual, rechazado para bytes exac
 MatchResolution mantiene historia de revisor, resultado, motivo, referencia e instante. Se bloquean agencias/personas/listings en orden estable y señales de la pareja; la versión impide dos resoluciones simultáneas. Una decisión cubre las señales recíprocas existentes de las mismas dos fotos; un cambio de fotos o nuevas coincidencias requieren revisión propia. Señal sha256 también se recupera al clonar sin depender de una nueva carga de bytes.
 
 Un conflicto resuelto como conflict permanece bloqueante aunque tenga resolved_at; no confundir «decisión registrada» con «publicación permitida». Retirar una foto quita esa pareja de la cola activa, conservando evidencias conforme a retención pendiente B-B. Limpiar el conflicto no republica automáticamente un anuncio pausado. Las cuentas siguen activas; no existe suspensión automática por estas señales. Fotos nuevas y referencias retenidas no conceden prioridad al primer uploader.
+
+## Transferencias, primera integración en curso
+
+Transferir conserva ID y pausa exposición, revoca acceso del antiguo equipo y fija manager_review_status=pending. Renovar edad/consentimiento/teléfono no habilita publicación hasta una revisión humana del gestor vigente. GET /moderation/managers/ y GET/POST /moderation/managers/{person}/ requieren permiso review_listing/MFA. Formulario de versión, resultado explícito y motivo; aprobación exige sujeto, edad, consentimiento vigentes y agencia comprobada cuando corresponde. Decisión por persona/versión registrada; reintento409, inválido400, propio/sin permiso403. No republica automáticamente.
+
+Integración aún parcial: faltan recorrido navegador, conflicto de interés con gestor anterior, pruebas entre agencias y reclamación/revisión de rechazo. No cerrar CR-06 con este primer flujo.

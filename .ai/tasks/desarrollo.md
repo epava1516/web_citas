@@ -35,3 +35,5 @@ CR-06 anuncios: regresión común85 passed en121.91s sin saltos, Ruff/check/migr
 CR-06: clonación de revisiones, aislamiento de tarifas, base de aprobación contra revisiones obsoletas, resolución humana de parejas con historia/conflicto/pausa. Catorce pruebas servidor/pipeline passed en37.84s; siete navegador/resolución passed en39.73s. Regresión ampliada en curso. Pendientes reclamación, revisión específica de transferencia, agencia end-to-end y fixtures/cierre integrado. Claude2/3.
 
 Revisiones/coincidencias accepted local:21 pruebas dirigidas finales passed en63.74s; check/migraciones/Ruff limpios. Pendientes CR-06: reclamación, transferencia con revisión específica, agencia completa y fixtures/cierre común/Docker. No pasar CR-07 aún.
+
+CR-06 transferencia: estado pendiente y revisión humana versionada conectados, migración core0007 aplicada. Cinco regresiones de representación pasan en9.41s; prueba dirigida nueva en curso. Próximo reforzar antiguo gestor/navegador/agencias y reclamaciones.

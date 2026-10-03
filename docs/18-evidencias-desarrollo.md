@@ -79,3 +79,5 @@ Primer conjunto14 passed en37.84s; dos nuevos recorridos navegador y resolución
 Migraciones listings0006/0007 y mediafiles0005 aplicadas sobre PostgreSQL local. Ruff/check/migraciones/diff-check limpios. CR-06 incompleto por reclamación, revisión específica de transferencia y recorrido completo de agencia; Docker se reconstruirá al cierre integrado. No verificación real/proveedor ni producción completa. Claude continúa2/3, sin delegación nueva.
 
 Regresión de corrección rechazada con título distinto:1 passed en6.08s; crear borrador conserva el contenido rechazado y su linaje, mientras la ficha pública conserva la versión aprobada.
+
+CR-06 transferencia, integración parcial: manager_review_status=pending tras traslado, revisión humana con permiso/MFA, versión/motivo y registro único persona/versión. Renovar edad/autorización/contacto no habilita publicación antes de aprobar el gestor. Cinco regresiones passed en9.41s y prueba dirigida passed en5.77s. Migración core0007 aplicada. Pendientes antiguo gestor, navegador, agencias y reclamaciones; no cierre de etapa ni producción.

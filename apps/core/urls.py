@@ -4,9 +4,11 @@ from apps.listings import match_views, moderation_views
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 
-from . import accounts, agencies, legal, mfa, organization_review, verification
+from . import accounts, agencies, legal, manager_review, mfa, organization_review, verification
 
 urlpatterns = [
+    path("moderation/managers/", manager_review.queue, name="manager_queue"),
+    path("moderation/managers/<uuid:person_id>/", manager_review.review, name="manager_review"),
     path("moderation/matches/", match_views.queue, name="match_queue"),
     path("moderation/matches/<int:match_id>/", match_views.review, name="match_review"),
     path(
