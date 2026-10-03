@@ -380,3 +380,44 @@ def test_mobile_renewal_confirms_data_and_preserves_publication(live_server, req
     listing.refresh_from_db()
     assert listing.approved_revision_id == approved
     assert listing.expires_at > timezone.now() + timedelta(days=29)
+
+
+def test_availability_expires_without_beat_and_resume_preserves_dates(request, monkeypatch):
+    request.getfixturevalue("directory")
+    _, listing, client = own()
+    path = f"/en/listing/{listing.pk}/manage/"
+    editorial, expiry, approved = (
+        listing.published_at,
+        listing.expires_at,
+        listing.approved_revision_id,
+    )
+    assert client.post(path, payload(listing, "available")).status_code == 302
+    listing.refresh_from_db()
+    until = listing.available_until
+    assert Client().get("/en/", {"available": "on"}).context["page"].paginator.count == 1
+    monkeypatch.setattr(timezone, "now", lambda: until + timedelta(seconds=1))
+    assert Client().get("/en/", {"available": "on"}).context["page"].paginator.count == 0
+    detail = Client().get(f"/en/listing/{listing.pk}/")
+    assert detail.status_code == 200 and b"Available now;" not in detail.content
+    assert client.post(path, payload(listing, "pause")).status_code == 302
+    assert client.post(path, payload(listing, "resume")).status_code == 302
+    listing.refresh_from_db()
+    assert (listing.published_at, listing.expires_at, listing.approved_revision_id) == (
+        editorial,
+        expiry,
+        approved,
+    )
+    assert listing.available_until is None
+
+
+def test_renewing_paused_listing_keeps_it_private(request):
+    request.getfixturevalue("directory")
+    _, listing, client = own()
+    path = f"/es/listing/{listing.pk}/manage/"
+    assert client.post(path, payload(listing, "pause")).status_code == 302
+    Listing.objects.filter(pk=listing.pk).update(expires_at=timezone.now() + timedelta(days=3))
+    assert client.post(path, payload(listing, "renew", confirm="on")).status_code == 302
+    listing.refresh_from_db()
+    assert listing.status == "paused" and listing.expires_at > timezone.now() + timedelta(days=29)
+    assert Client().get(f"/es/listing/{listing.pk}/").status_code == 404
+    assert not expire_one(listing.pk)

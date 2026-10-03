@@ -1,6 +1,6 @@
 # CR-08 — Favoritos y ciclo de vida, diseño pendiente de implementación
 
-Estado: CR-08 en curso; favoritos implementados y verificados localmente, acciones de ciclo de vida implementadas y en verificación dirigida. CR-07 cerrado localmente en acta02. ES/EN SSR y PostgreSQL, acciones POST con CSRF; GET no cambia estados.
+Estado: CR-08 verificado localmente; acta03 con regresión común, límites finales y Docker/worker/Beat. CR-07 cerrado localmente en acta02. ES/EN SSR y PostgreSQL, acciones POST con CSRF; GET no cambia estados.
 
 ## Favoritos privados
 
@@ -50,3 +50,5 @@ Moderación, revocación/transferencia y decisiones de coincidencias incrementan
 Historia reforzada: listings0012 permite actor nulo exclusivamente para acción automática expire y guarda approved_revision. Caducidad y evento se escriben en la misma transacción; repetición/concurrencia no duplican eventos. Historial antiguo conserva referencia vacía cuando no se registró, sin reconstruir evidencia inventada. Panel muestra hasta20 acciones recientes del manager_version actual, con sistema/gestor y fechas, sin identidades de actores ni datos del gestor anterior. Incluye instante de fin de disponibilidad. Retención del historial y ejercicio de derechos continúan pendientes en CR-09/B-B. Seis pruebas ciclo de vida passed33.02s; tres finales historia/concurrencia de caducidad/Chromium passed20.93s.
 
 Operación local verificada: worker/Redis y Beat realizan caducidad con evento único en registros sintéticos aislados inelegibles; scripts/probe_expiry_worker.py reproduce ambos modos sin producción. Resultado Celery ignorado por configuración: verificar estado PostgreSQL y logs, no inferir terminación por .get. Pruebas nuevas de editor/MFA/revocación, carrera renovación/caducidad y renovación móvil pasan19.06s. Regresión común y cierre CR-08 aún pendientes.
+
+Cierre local CR-08: actas/03-cr08-local.md;166 comunes450.45s y dos límites finales14.47s. Las notas anteriores de «pendiente» reflejan la progresión histórica de implementación; retención/derechos/producción siguen pendientes en las etapas indicadas.

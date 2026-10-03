@@ -5,7 +5,7 @@ Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
 Estado: running. Inicio autorizado 2026-10-03.
 Invocaciones Claude consumidas: 2/3 para el objetivo completo.
-Próximo paso: CR-08. BASE y CR-01…CR-07 verificados localmente;149 pruebas comunes passed381.02s y Docker/Chromium CR-07 verificados.
+Próximo paso: CR-09. BASE y CR-01…CR-08 verificados localmente;166 comunes passed450.45s y dos límites finales14.47s; Docker privado/worker/Beat verificados.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
 
 Delegación 1: cr01-security-design rechazada exit66 por informe inconsistente; sin reintento. Implementación Codex local.
@@ -105,3 +105,5 @@ CR-08 permisos/renovación y operación: tres nuevas pruebas PostgreSQL/Chromium
 Regresión común CR-08 iniciada sobre844630c: uv run pytest -q, sesión89046. Al retomar confirmar proceso/consultar la misma sesión; no reiniciar por timeout. Próximo probe privado Docker mientras corre sobre DB de pruebas separada, luego auditar cierre CR-08.
 
 CR-08 probe privado Docker accepted: Chromium móvil/Caddy/Gunicorn con credenciales sintéticas leídas localmente sin stdout verifica dos sesiones (visitante y particular), guardar favorito/recarga, disponible→pausa→reanudación→cancelar disponible, ficha404 en pausa y entrada genérica del favorito, restauración200 y eliminación. Muestra termina publicada sin disponibilidad, IDs/revisión conservados y nueva historia intencionada. scripts/probe_demo_lifecycle.py reproducible, presupone favorito vacío y ficha publicada; no resetea datos ni repite automáticamente si falla. Excepciones del probe se presentan sin trazas de datos de acceso. Ruff/format/diff-check limpios. Regresión común sesión89046 confirmada viva a5min09 y avanzando, resultado pendiente: no cerrar CR-08. Diseño CR-09 registrado en contratos/10, aún sin implementación ni aceptación jurídica. Claude2/3.
+
+CR-08 accepted local:166 comunes passed450.45s sin skips, sesión89046 terminalexit0; dos límites finales passed14.47s sin cambios de aplicación (no168 comunes en una sola suite). Docker privado/worker/Beat e historia/permisos verificados; acta03. Próximo CR-09; diseño actualizado con fuentes primarias DSA/RGPD/AEPD, diferenciando notificación formal/excepción, contacto/control de canal/identidad y plazo por mes natural. No acreditación jurídica ni integración real. GS-01/B-F/B-B/C y producción pendientes; Claude2/3.

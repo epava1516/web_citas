@@ -4,9 +4,9 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 ## Estado actual
 
-- Fase: BASE y CR-01 a CR-07 verificados localmente; implementación autorizada el 2026-10-03.
-- Próximo paso: CR-08 (favoritos y ciclo de vida).
-- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; última regresión común149 pruebas pasan con PostgreSQL y Chromium (381.02s, sin skips); Docker de CR-07 verificado; verificación y representación conectadas con simuladores explícitos.
+- Fase: BASE y CR-01 a CR-08 verificados localmente; implementación autorizada el 2026-10-03.
+- Próximo paso: CR-09 (denuncias, derechos y reclamación sin cuenta).
+- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; última regresión común166 pruebas pasan con PostgreSQL y Chromium (450.45s, sin skips), dos límites finales14.47s; Docker/worker/Beat de CR-08 verificados; verificación y representación conectadas con simuladores explícitos.
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
 
@@ -22,7 +22,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 | CR-05 | Fotos y coincidencias | Verificado local | 58 pruebas comunes y dos de logs; worker/Beat Docker real; contratos/05 y docs/18 |
 | CR-06 | Moderación/publicación | Verificado local | 135 comunes PostgreSQL/Chromium, reclamaciones/transferencias/agencia y Docker/worker; acta01 |
 | CR-07 | Búsqueda y fichas ES/EN | Verificado local |149 comunes PostgreSQL/Chromium, pgFTS/paginación/geo/comprobaciones; Docker; acta02 |
-| CR-08 | Favoritos y ciclo de vida | En curso | Favoritos conectados4 pruebas servidor/Chromium+4 logs; ciclo de vida23 pruebas servidor/Chromium; historia/caducidad6+3 pruebas; editor/renovación móvil3 pruebas y worker/Beat reales verificados; probe privado Docker verificado; cierre común en proceso |
+| CR-08 | Favoritos y ciclo de vida | Verificado local |166 comunes+2 límites finales, PostgreSQL/Chromium, agencias y worker/Beat/Docker; acta03 |
 | CR-09 | Denuncias, derechos y reclamaciones | Pendiente | — |
 | CR-10 | Promociones preparadas sin venta real | Pendiente | — |
 | GS-01 | Contratos estables y prueba de separación | Pendiente | — |
@@ -44,4 +44,4 @@ Tarifas y pasarela condicionan futura venta, no lanzamiento gratuito. No realiza
 
 ## Cierre
 
-BASE y primeros siete flujos están verificados localmente; todavía no existe entrega técnica completa. Separar su futura aceptación de preparación real de producción. No completar filas o gates sin evidencia.
+BASE y primeros ocho flujos están verificados localmente; todavía no existe entrega técnica completa. Separar su futura aceptación de preparación real de producción. No completar filas o gates sin evidencia.
