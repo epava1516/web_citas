@@ -27,6 +27,12 @@ def person_queryset(user):
     ).distinct()
 
 
+def pending_person_count(agency):
+    return agency.people.exclude(
+        listing__approved_revision__manager_version=F("manager_version")
+    ).count()
+
+
 def can_manage_person(user, person):
     return person_queryset(user).filter(pk=person.pk).exists()
 
@@ -206,9 +212,7 @@ def add_person(request, agency_id):
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             Agency.objects.select_for_update().get(pk=agency.pk)
-            pending_people = agency.people.exclude(
-                listing__approved_revision__manager_version=F("manager_version")
-            ).count()
+            pending_people = pending_person_count(agency)
             if pending_people >= settings.AGENCY_PENDING_PERSON_LIMIT:
                 return HttpResponse(
                     "Cuota pendiente de revisión / Quota awaiting review", status=409

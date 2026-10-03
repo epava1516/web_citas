@@ -14,7 +14,7 @@ from django.utils.crypto import constant_time_compare, salted_hmac
 from django.views.decorators.http import require_http_methods, require_POST
 
 from .accounts import limited
-from .agencies import PersonForm, person_queryset
+from .agencies import PersonForm, pending_person_count, person_queryset
 from .models import (
     Agency,
     LegalDocument,
@@ -455,6 +455,11 @@ def transfer(request, person_id):
                 return HttpResponse(
                     "Transfer changed; reload / Traslado cambiado; recarga", status=409
                 )
+            if agency and person.agency_id != agency.pk:
+                if pending_person_count(agency) >= settings.AGENCY_PENDING_PERSON_LIMIT:
+                    return HttpResponse(
+                        "Cuota pendiente de revisión / Quota awaiting review", status=409
+                    )
             previous_manager_kind = "agency" if person.agency_id else "individual"
             previous_manager_id = str(person.agency_id or person.individual_id)
             person.agency = agency

@@ -9,7 +9,7 @@ from test_listing_moderation import pending  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 from test_submissions import prepared  # noqa: F401
 
-from apps.core.models import Agency, AgencyMember, ManagerReview, User
+from apps.core.models import Agency, AgencyMember, ManagerReview, Person, User
 from apps.core.verification_services import publication_ready
 
 
@@ -151,3 +151,76 @@ def test_concurrent_transfer_retries_create_one_event(request):
     person.refresh_from_db()
     assert person.manager_version == data["manager_version"] + 1
     assert person.representationaction_set.filter(action="transfer").count() == 1
+
+
+@pytest.mark.django_db(transaction=True)
+def test_transfer_to_full_agency_preserves_management_and_retry(request, settings):
+    person, subject_client, _, _, _ = request.getfixturevalue("pending")
+    settings.AGENCY_PENDING_PERSON_LIMIT = 1
+    agency = Agency.objects.create(
+        owner=User.objects.create_user(username="full-agency", email="full@example.invalid"),
+        name="Destino limitado",
+    )
+    existing = Person.objects.create(agency=agency, alias="Pendiente previa")
+    path = f"/es/person/{person.pk}/transfer/"
+    data = {
+        "confirm": "on",
+        "manager_version": person.manager_version,
+        "target_agency": str(agency.pk),
+    }
+    old_phone = person.phone_claim_id
+    assert subject_client.post(path, data).status_code == 409
+    person.refresh_from_db()
+    assert person.agency_id is None and person.manager_version == 1
+    assert person.phone_claim_id == old_phone and not person.consent_revoked_at
+    assert not person.representationaction_set.filter(action="transfer").exists()
+    existing.delete()
+    assert subject_client.post(path, data).status_code == 302
+    assert subject_client.post(path, data).status_code == 302
+    person.refresh_from_db()
+    assert person.agency_id == agency.pk and person.manager_version == 2
+    assert person.representationaction_set.filter(action="transfer").count() == 1
+
+
+@pytest.mark.django_db(transaction=True)
+def test_concurrent_transfers_share_agency_quota(request, settings):
+    person, _, _, _, _ = request.getfixturevalue("pending")
+    settings.AGENCY_PENDING_PERSON_LIMIT = 1
+    agency = Agency.objects.create(
+        owner=User.objects.create_user(
+            username="quota-target", email="quota-target@example.invalid"
+        ),
+        name="Destino concurrente",
+    )
+    subject = User.objects.create_user(
+        username="second-subject",
+        email="second@example.invalid",
+        email_verified_at=person.subject.email_verified_at,
+    )
+    from apps.core.models import LegalAcceptance
+
+    for acceptance in LegalAcceptance.objects.filter(user=person.subject):
+        LegalAcceptance.objects.create(
+            user=subject, document=acceptance.document, action=acceptance.action
+        )
+    second = Person.objects.create(individual=subject, subject=subject, alias="Segunda persona")
+    inputs = [(person.pk, person.subject), (second.pk, subject)]
+    barrier = Barrier(2)
+
+    def transfer(item):
+        close_old_connections()
+        try:
+            client = Client()
+            client.force_login(item[1])
+            barrier.wait(timeout=5)
+            return client.post(
+                f"/es/person/{item[0]}/transfer/",
+                {"confirm": "on", "manager_version": 1, "target_agency": str(agency.pk)},
+            ).status_code
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        outcomes = list(executor.map(transfer, inputs))
+    assert sorted(outcomes) == [302, 409]
+    assert agency.people.count() == 1

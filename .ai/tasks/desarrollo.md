@@ -53,3 +53,5 @@ Reclamación privada de rechazo accepted local:12 pruebas conjuntas passed en35.
 Transferencia agencia → propia en navegador móvil accepted local:1 passed en13.43s; autorización/edad/teléfono simulados, revisión humana/MFA, bloqueo previo y foto antigua404. Próximo: agencia completa, cuota de perfiles pendientes y restantes restricciones/reclamaciones. CR-06 sigue running; Claude2/3.
 
 Cuota de altas alineada con perfiles pendientes, configuración positiva y queryset distinct:5 pruebas agencia/MFA passed en9.54s; check/migraciones limpios. Próximo aplicar cuota a transferencias entrantes y recorrido agencia completo. CR-06 running.
+
+Cuota de transferencias entrantes accepted local:14 pruebas gestor/agencia/MFA passed en30.70s, incluida concurrencia por última plaza y repetición idempotente. Próximo recorrido completo agencia y restricciones/reclamaciones restantes. CR-06 running, Claude2/3.
