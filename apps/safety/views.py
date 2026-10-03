@@ -6,6 +6,7 @@ from datetime import timedelta
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core import signing
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
@@ -181,7 +182,7 @@ def queue(request):
     ):
         return private(HttpResponse("Forbidden", status=403))
     reports = (
-        Report.objects.filter(status="received")
+        Report.objects.filter(status__in=["received", "reviewing"])
         .exclude(actor=request.user)
         .select_related("listing__person__agency")
     )
@@ -267,4 +268,71 @@ def inspect(request, report_id):
             {"report": report, "form": form, "payload": payload},
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )
+    )
+
+
+class DecisionForm(forms.Form):
+    key = forms.UUIDField(widget=forms.HiddenInput)
+    version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    manager_version = forms.IntegerField(required=False, min_value=1, widget=forms.HiddenInput)
+    revision_id = forms.UUIDField(required=False, widget=forms.HiddenInput)
+    operation = forms.ChoiceField(
+        choices=[
+            ("claim", "Asignarme el caso / Assign case to me"),
+            ("restrict", "Restringir publicación / Restrict publication"),
+            ("dismiss", "Desestimar denuncia / Dismiss report"),
+        ]
+    )
+    reason = forms.CharField(
+        min_length=20,
+        max_length=2000,
+        widget=forms.Textarea,
+        label="Motivo privado fundamentado / Private reason with evidence",
+    )
+
+
+@login_required
+@sensitive_post_parameters("reason")
+@sensitive_variables()
+@require_http_methods(["GET", "POST"])
+def decision(request, report_id):
+    from .decisions import act
+
+    if (
+        not request.user.has_perm("safety.review_report")
+        or not request.user.mfa_enabled
+        or request.session.get("mfa_version") != request.user.mfa_version
+    ):
+        return private(HttpResponse("Forbidden", status=403))
+    report = (
+        Report.objects.filter(pk=report_id)
+        .select_related("listing__person__agency", "reported_agency")
+        .first()
+    )
+    if not report:
+        raise Http404
+    if not permitted(request.user, report):
+        return private(HttpResponse("Conflict of interest", status=403))
+    form = DecisionForm(
+        request.POST or None,
+        initial={
+            "key": uuid.uuid4(),
+            "version": report.version,
+            "manager_version": report.listing.person.manager_version if report.listing_id else None,
+            "revision_id": report.listing.approved_revision_id if report.listing_id else None,
+        },
+    )
+    status = 400 if request.method == "POST" else 200
+    if request.method == "POST" and form.is_valid():
+        try:
+            act(request.user, report_id, **form.cleaned_data)
+        except PermissionDenied:
+            return private(HttpResponse("Forbidden", status=403))
+        except ValidationError as error:
+            form.add_error(None, error)
+            status = 409
+        else:
+            return private(redirect("report_inspect", report_id=report.pk))
+    return private(
+        render(request, "safety/decision.html", {"form": form, "report": report}, status=status)
     )

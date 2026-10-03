@@ -19,6 +19,10 @@ def current_publishing_document():
 
 
 def validate_submission(revision, person):
+    from apps.safety.models import Restriction
+
+    if Restriction.objects.filter(listing_id=revision.listing_id, active=True).exists():
+        raise ValidationError("Restricción pendiente de revisión / Restriction awaiting review")
     if revision.manager_version != person.manager_version or not publication_ready(person):
         raise ValidationError(
             "Verifica edad, autorización y teléfono / Verify age, authorization and phone"
