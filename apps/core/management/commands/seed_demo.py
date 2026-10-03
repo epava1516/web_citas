@@ -109,7 +109,11 @@ class Command(BaseCommand):
                         email=f"fixture-{name}@example.invalid",
                         password=password,
                         email_verified_at=timezone.now(),
-                        role="agency" if name == "agency" else "visitor",
+                        role="agency"
+                        if name == "agency"
+                        else "individual"
+                        if name in ["individual", "withdrawn"]
+                        else "visitor",
                         mfa_enabled=mfa,
                         mfa_version=1 if mfa else 0,
                     )

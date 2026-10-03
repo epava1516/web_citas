@@ -24,6 +24,7 @@ def test_demo_fixture_reproducible_private_credentials_and_real_publication(
     output = io.StringIO()
     call_command("seed_demo", credentials_file=str(target), stdout=output)
     assert User.objects.count() == 8 and Person.objects.count() == 4
+    assert User.objects.filter(role="individual").count() == 2
     assert Submission.objects.count() == 4 and Photo.objects.count() == 4
     assert sorted(Listing.objects.values_list("status", flat=True)) == [
         "pending",
