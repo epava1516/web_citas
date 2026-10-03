@@ -19,6 +19,7 @@ from apps.core.accounts import limited
 
 from .crypto import seal, unseal
 from .models import RightsAccess, RightsRequest
+from .rights_scope import locked_case, permitted
 from .views import private
 
 
@@ -143,7 +144,13 @@ def queue(request):
     cases = RightsRequest.objects.filter(status__in=["received", "reviewing"]).exclude(
         actor=request.user
     )
-    return private(render(request, "safety/rights_queue.html", {"cases": cases}))
+    return private(
+        render(
+            request,
+            "safety/rights_queue.html",
+            {"cases": [case for case in cases if permitted(request.user, case)]},
+        )
+    )
 
 
 @login_required
@@ -156,14 +163,17 @@ def inspect(request, case_id):
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case:
         raise Http404
-    if case.actor_id == request.user.pk:
+    if not permitted(request.user, case):
         return private(HttpResponse("Conflict of interest", status=403))
     form = RightsAccessForm(request.POST or None)
     payload = None
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
-            case = RightsRequest.objects.select_for_update().get(pk=case.pk)
-            if case.actor_id == request.user.pk:
+            try:
+                case, _, _ = locked_case(case.pk)
+            except ValidationError:
+                return private(HttpResponse("Management changed; reload", status=409))
+            if not permitted(request.user, case):
                 return private(HttpResponse("Conflict of interest", status=403))
             payload = unseal(case.encrypted_payload)
             RightsAccess.objects.create(
@@ -182,9 +192,13 @@ def inspect(request, case_id):
 class ActionForm(forms.Form):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    link_listing_id = forms.UUIDField(
+        required=False, label="ID del anuncio de referencia / Referenced listing ID"
+    )
     operation = forms.ChoiceField(
         choices=[
             ("claim", "Asignarme la solicitud / Assign request to me"),
+            ("link", "Vincular referencia al perfil / Link reference to profile"),
             ("unassign", "Devolver a cola (coordinación) / Return to queue (coordination)"),
         ]
     )
@@ -208,7 +222,7 @@ def action(request, case_id):
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case:
         raise Http404
-    if case.actor_id == request.user.pk:
+    if not permitted(request.user, case):
         return private(HttpResponse("Conflict of interest", status=403))
     form = ActionForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
     status = 400 if request.method == "POST" else 200

@@ -104,6 +104,29 @@ class RightsRequest(models.Model):
     assigned_to = models.ForeignKey(
         "core.User", null=True, on_delete=models.SET_NULL, related_name="assigned_rights_requests"
     )
+    person = models.ForeignKey(
+        "core.Person", null=True, on_delete=models.SET_NULL, related_name="rights_requests"
+    )
+    referenced_revision = models.ForeignKey(
+        "listings.Revision", null=True, on_delete=models.SET_NULL
+    )
+    manager_version = models.PositiveIntegerField(null=True)
+    reported_agency = models.ForeignKey(
+        "core.Agency", null=True, on_delete=models.SET_NULL, related_name="rights_requests"
+    )
+    reported_individual = models.ForeignKey(
+        "core.User",
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="rights_requests_about_management",
+    )
+    reported_subject = models.ForeignKey(
+        "core.User",
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="rights_requests_about_subject",
+    )
+    scope_status = models.CharField(max_length=16, default="unverified")
     created_at = models.DateTimeField(auto_now_add=True)
     received_at = models.DateTimeField()
     initial_due_at = models.DateTimeField()
