@@ -49,3 +49,5 @@ Traslado versionado accepted local:12 pruebas passed en23.02s, check/migraciones
 CR-06 reclamación de rechazo: Appeal/colas/SSR, otro moderador con MFA, historia/estado privado, reconsideración sin publicación y controles de gestor/base/última decisión/cuota. Doce pruebas dirigidas passed en35.47s. Ampliación de inspección de evidencia navegador en proceso; otros tipos de restricción y CR-09 pendientes.
 
 Reclamación privada de rechazo accepted local:12 pruebas conjuntas passed en35.47s, seis finales con inspección de evidencia passed en21.99s; checks limpios. Próximo otros tipos de decisiones/restricciones, navegador transferencia y agencia completa para CR-06; CR-09 público aún pendiente.
+
+Transferencia agencia → propia en navegador móvil accepted local:1 passed en13.43s; autorización/edad/teléfono simulados, revisión humana/MFA, bloqueo previo y foto antigua404. Próximo: agencia completa, cuota de perfiles pendientes y restantes restricciones/reclamaciones. CR-06 sigue running; Claude2/3.

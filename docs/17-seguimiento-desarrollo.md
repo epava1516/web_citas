@@ -20,7 +20,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 | CR-03 | Verificación y representación | Verificado local | 27 pruebas comunes; SSR, identidad/edad simuladas, autorización directa, transferencia y teléfono concurrente |
 | CR-04 | Borrador, campos, geografía, tarifas/contactos | Verificado local | 35 pruebas comunes PostgreSQL/Chromium; wizard, geografía, consult y concurrencia |
 | CR-05 | Fotos y coincidencias | Verificado local | 58 pruebas comunes y dos de logs; worker/Beat Docker real; contratos/05 y docs/18 |
-| CR-06 | Moderación/publicación | En curso | Envío/congelación, organizaciones y aprobación/rechazo/ficha pública conectados; coincidencias y clonación conectadas; reclamación de rechazo conectada; otros tipos de decisión, navegador de transferencia y agencia completa pendientes, contratos/06 |
+| CR-06 | Moderación/publicación | En curso | Envío/congelación, organizaciones y aprobación/rechazo/ficha pública conectados; coincidencias y clonación conectadas; reclamación de rechazo conectada; transferencia móvil verificada; otros tipos de decisión y agencia completa pendientes, contratos/06 |
 | CR-07 | Búsqueda y fichas ES/EN | Pendiente | — |
 | CR-08 | Favoritos y ciclo de vida | Pendiente | — |
 | CR-09 | Denuncias, derechos y reclamaciones | Pendiente | — |
