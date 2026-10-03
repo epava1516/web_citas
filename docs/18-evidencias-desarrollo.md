@@ -1,0 +1,32 @@
+# Evidencias de desarrollo
+
+## Inicio y BASE, 2026-10-03
+
+Usuario autorizó ejecutar contrato completo. Baseline: 18 documentos de planificación, ningún código ni Git. Se inicializa Git local sin commits; documentación preservada. AGENTS.md referencia contrato de delegación externo para próximas sesiones.
+
+Python host 3.9 no compatible: uv usa Python 3.12.13 local; imagen 3.12-slim resolvió 3.12.15. Django resuelto 5.2.17; versiones exactas en uv.lock. Compose levantó PostgreSQL17 y Redis7.4 con healthchecks reales. Migraciones y bootstrap legal ejecutados sobre PostgreSQL. Imagen Docker inicial construida no-root; verificación integrada final en curso.
+
+BASE sigue parcial: fixtures de agencia/modelos y contratos restantes se completarán al existir sus modelos. No cobertura territorial nacional ni datos reales.
+
+## Delegación Claude 1/3
+
+Tarea cr01-security-design, CLI2.1.288, contrato1.0.1, 300 segundos máximos, propuesta sin herramientas. Adaptador devolvió exit66: STATUS complete incompatible con UNRESOLVED_ISSUES no vacío. Resultado rechazado; no ejecución de pruebas ni modificaciones atribuibles a Claude. Sin reintento. Codex revisa posibles escenarios y verifica implementación localmente. Evidencias brutas permanecen fuera del repositorio en arquitectura_codex/.ai/results; no son aceptación.
+
+## CR-01 en verificación
+
+Implementación: cuentas con correo único case-insensitive PostgreSQL, contraseña Argon2, aceptación versionada, confirmación/recuperación/reenvío, CSRF, throttle, sesiones y políticas no-store. Legal SSR ES/EN con textos sintéticos explícitos. Modelo de tokens con huella de usuario y consumo transaccional. Documento de interfaces en contratos/01-cuentas-legal.md.
+
+Pruebas detectaron y corrigieron política de referer sobrescrita por middleware y no-referrer incompatible con Origin/CSRF en Chromium (usamos same-origin). Tests de email ejecutan transacciones reales para comprobar callbacks on_commit. Concurrencia usa conexiones independientes y cierre explícito.
+
+Suite CR-01: 16 passed en 14.47s, PostgreSQL17 y Chromium headless. Incluye dos idiomas móvil, confirmación GET sin consumo, recuperación, invalidación/replay/concurrencia, legal actualizado, email case-insensitive y fallos SMTP indistinguibles. Ruff/check/makemigrations limpios; pip-audit sin vulnerabilidades conocidas. No auditoría independiente de seguridad.
+
+Smoke Docker real: /health/ ok, HTML200 y CSS200 detrás Caddy, UID10001(app), worker Celery respondió pong. Puerto8080 ya ocupado por servicio ajeno: se eligió18080, sin tocar servicio existente. Primer smoke se lanzó antes de arranque completo; segunda inspección confirmó procesos y respuestas. Compose es local, no despliegue público.
+
+## CR-02
+Agencias, personas y asignaciones con aislamiento servidor; invitaciones por email limitadas y consumibles, revocación inmediata; MFA TOTP cifrado, recuperación hash y bloqueo replay. Tres pruebas de integración permisos/MFA pasan junto a CR-01: 19 passed en19.08s. Recorrido navegador específico agencia/MFA completado: añade dos personas y conserva datos tras recarga. Suite ampliada final: 21 passed en24.11s, incluido consumo concurrente de código de recuperación e imposibilidad de eludir actualización legal cambiando al idioma de traducción antigua. BASE fixtures completos todavía pendiente. Interfaces en contratos/02-agencias-mfa.md.
+
+No afirmar cierre del proyecto ni preparación de producción.
+
+Auditoría al incorporar cifrado detectó avisos en cryptography47: actualizado a50.0.2 (versión mantenida). [Aviso oficial](https://github.com/pyca/cryptography/security/advisories/GHSA-537c-gmf6-5ccf), [release PyPI](https://pypi.org/project/cryptography/50.0.2/). Se repiten suite y build afectados. Infra delegación verify-ai:20 tests passed, gates passed; no nuevas invocaciones Claude.
+
+Tras actualizar cryptography: suite21 passed en24.13s, Ruff limpio, pip-audit sin vulnerabilidades conocidas; imágenes app/worker reconstruidas y reiniciadas correctamente con50.0.2. Estado de entrega: CR-01/02 verificados local; siguientes CR pendientes y BASE fixtures parcial.

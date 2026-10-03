@@ -1,0 +1,63 @@
+name: web-modelos
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-clasificados}
+      POSTGRES_USER: ${POSTGRES_USER:-clasificados}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-development-only}
+    ports: ["127.0.0.1:55432:5432"]
+    volumes: ["postgres_data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports: ["127.0.0.1:56379:6379"]
+    volumes: ["redis_data:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  app:
+    build: .
+    env_file: .env
+    environment:
+      PUBLIC_ORIGIN: ${DOCKER_PUBLIC_ORIGIN:-http://localhost:18080}
+      DB_HOST: db
+      DB_PORT: 5432
+      REDIS_URL: redis://redis:6379/0
+    ports: ["127.0.0.1:8000:8000"]
+    depends_on:
+      db: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    volumes: ["private_media:/app/media/private", "static_data:/app/staticfiles"]
+  worker:
+    build: .
+    command: ["celery", "-A", "config", "worker", "--loglevel=INFO", "--concurrency=2"]
+    env_file: .env
+    environment:
+      PUBLIC_ORIGIN: ${DOCKER_PUBLIC_ORIGIN:-http://localhost:18080}
+      DB_HOST: db
+      DB_PORT: 5432
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    volumes: ["private_media:/app/media/private"]
+  caddy:
+    image: caddy:2-alpine
+    ports: ["127.0.0.1:${HTTP_PORT:-18080}:80"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - static_data:/srv/static:ro
+    depends_on: [app]
+volumes:
+  postgres_data:
+  redis_data:
+  private_media:
+  static_data:

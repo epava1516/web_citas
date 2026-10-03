@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h1>{% if english %}Legal and safety{% else %}Información legal y seguridad{% endif %}</h1>{% for doc in documents %}<p><a href="{% url 'legal_document' doc.slug %}">{{ doc.title }}</a> · {{ doc.version }}</p>{% endfor %}{% endblock %}

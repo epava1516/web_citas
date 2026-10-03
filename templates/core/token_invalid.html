@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h1>{% if english %}Link unavailable{% else %}Enlace no disponible{% endif %}</h1><p>{% if english %}The link expired or has already been used.{% else %}El enlace ha caducado o ya se ha utilizado.{% endif %}</p><a href="{% url 'recover' %}">{% if english %}Recover access{% else %}Recuperar acceso{% endif %}</a>{% endblock %}

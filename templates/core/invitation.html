@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h1>{% if english %}Editor invitation{% else %}Invitación de editor{% endif %}</h1><p>{{ agency.name }}</p><form method="post">{% csrf_token %}<button type="submit">{% if english %}Accept invitation{% else %}Aceptar invitación{% endif %}</button></form>{% endblock %}
