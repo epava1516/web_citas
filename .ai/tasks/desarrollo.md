@@ -63,3 +63,5 @@ Agencia integrada con dos personas accepted local:2 pruebas passed en16.67s; ser
 Reclamación rechazo gestor accepted local:12 dirigidas passed27.55s, navegador móvil1 passed11.66s, cuatro finales con concurrencia passed12.87s. ManagerReview conservado, otro moderador/MFA y resolución sin publicación. core0009 aplicada; próximo reclamaciones organización/coincidencias y cierre fixtures/regresión/Docker. CR-06 running, Claude2/3.
 
 Reclamación agencia servidor integrada:6 dirigidas passed11.58s, dos finales passed6.00s; core0010 aplicada. Caso y rechazo conservados, reconsideración solo pending/nueva versión. Próximo navegador/concurrencia agencia, reclamación de coincidencias y cierre integrado CR-06. Claude2/3.
+
+Reclamación agencia accepted local cruzada:4 pruebas con Chromium móvil y concurrencia passed14.67s; contraseña/MFA en ambos roles, pendiente persistido y versión incrementada una vez. Próximo coincidencias, fixtures y cierre común/Docker CR-06.

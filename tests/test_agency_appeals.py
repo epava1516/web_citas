@@ -104,3 +104,43 @@ def test_agency_appeal_cannot_reopen_changed_state_or_be_resolved_by_member(reje
     )
     appeal.refresh_from_db()
     assert appeal.status == "open"
+
+
+@pytest.mark.django_db(transaction=True)
+def test_concurrent_agency_appeal_resolution_changes_version_once(rejected_agency):
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Barrier
+
+    from django.db import close_old_connections, connections
+
+    agency, owner, _, independent, decision = rejected_agency
+    assert (
+        owner.post(
+            f"/es/agency/decisions/{decision.pk}/appeal/", {"explanation": "Nueva revisión"}
+        ).status_code
+        == 302
+    )
+    appeal = AgencyAppeal.objects.get()
+    moderator = User.objects.get(pk=independent.session["_auth_user_id"])
+    barrier = Barrier(2)
+
+    def resolve():
+        close_old_connections()
+        try:
+            client = Client()
+            client.force_login(moderator)
+            session = client.session
+            session["mfa_version"] = 1
+            session.save()
+            barrier.wait(timeout=5)
+            return client.post(
+                f"/es/moderation/agency-appeals/{appeal.pk}/",
+                {"result": "reconsider", "reason": "Nueva comprobación necesaria"},
+            ).status_code
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        assert sorted(executor.map(lambda _: resolve(), range(2))) == [302, 409]
+    agency.refresh_from_db()
+    assert agency.review_version == 3 and agency.verification_status == "pending"
