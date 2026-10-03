@@ -162,3 +162,25 @@ def test_simulation_provenance_survives_provider_switch_and_blocks_production(di
     agency_person.phone_claim.verification_procedure = "sms-v1"
     agency_person.phone_claim.save(update_fields=["verification_procedure"])
     assert not publication_ready(agency_person)
+
+
+@pytest.mark.django_db(transaction=True)
+def test_geography_checks_postal_and_zone_ancestry_without_selected_city(directory):
+    from apps.catalog.models import Zone
+
+    north = Municipality.objects.get(code="demo-north")
+    south = Municipality.objects.get(code="demo-south")
+    postal = PostalCode.objects.get(code="29001")
+    zone = Zone.objects.filter(municipality=south).first()
+    assert zone is not None
+    for child in [{"postal_code": [postal.pk]}, {"zone": [zone.pk]}]:
+        for parent in [
+            {"region": [north.province.region_id]},
+            {"province": [north.province_id]},
+            {"city": [north.pk]},
+        ]:
+            assert directory.get("/en/", child | parent).status_code == 400
+        assert (
+            directory.get("/en/", child | {"region": [south.province.region_id]}).status_code == 200
+        )
+        assert directory.get("/en/", child | {"city": [north.pk, south.pk]}).status_code == 200

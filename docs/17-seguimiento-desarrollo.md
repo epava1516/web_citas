@@ -21,7 +21,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 | CR-04 | Borrador, campos, geografía, tarifas/contactos | Verificado local | 35 pruebas comunes PostgreSQL/Chromium; wizard, geografía, consult y concurrencia |
 | CR-05 | Fotos y coincidencias | Verificado local | 58 pruebas comunes y dos de logs; worker/Beat Docker real; contratos/05 y docs/18 |
 | CR-06 | Moderación/publicación | Verificado local | 135 comunes PostgreSQL/Chromium, reclamaciones/transferencias/agencia y Docker/worker; acta01 |
-| CR-07 | Búsqueda y fichas ES/EN | En curso | GET filtros/pgFTS/24 por página y navegador móvil; ficha ES/EN y procedencia comprobadas12 pruebas; geo dependiente/paginación/ranking y cierre pendientes |
+| CR-07 | Búsqueda y fichas ES/EN | En curso | GET filtros/pgFTS/24 por página y navegador móvil; ficha ES/EN y procedencia comprobadas12 pruebas; geo dependiente comprobada8 pruebas; paginación/ranking y cierre pendientes |
 | CR-08 | Favoritos y ciclo de vida | Pendiente | — |
 | CR-09 | Denuncias, derechos y reclamaciones | Pendiente | — |
 | CR-10 | Promociones preparadas sin venta real | Pendiente | — |

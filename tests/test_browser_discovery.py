@@ -51,3 +51,42 @@ def test_mobile_search_service_modes_language_and_public_card(live_server, reque
             assert image.evaluate("img => img.complete && img.naturalWidth > 0")
         finally:
             browser.close()
+
+
+@pytest.mark.django_db(transaction=True)
+def test_mobile_geo_dependencies_clear_children_and_preserve_url(live_server, request, settings):
+    from apps.catalog.models import Municipality, PostalCode
+
+    settings.DEBUG = True
+    request.getfixturevalue("directory")
+    north = Municipality.objects.select_related("province").get(code="demo-north")
+    south = Municipality.objects.select_related("province").get(code="demo-south")
+    north_region, south_region = str(north.province.region_id), str(south.province.region_id)
+    north_city, south_city = str(north.pk), str(south.pk)
+    postal = str(PostalCode.objects.get(code="29001").pk)
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(
+            executable_path=os.getenv("BROWSER_EXECUTABLE") or shutil.which("chromium-browser"),
+            args=["--no-sandbox"],
+        )
+        try:
+            page = browser.new_page(viewport={"width": 390, "height": 844})
+            page.goto(live_server.url + "/en/")
+            page.locator("[name=region]").select_option(south_region)
+            expect(page.locator(f'[name=city] option[value="{north_city}"]')).to_have_count(0)
+            page.locator("[name=city]").select_option(south_city)
+            page.locator("[name=postal_code]").select_option(postal)
+            page.get_by_role("button", name="Search", exact=True).click()
+            expect(page.get_by_text("0 results", exact=True)).to_be_visible()
+            page.reload()
+            expect(page.locator("[name=city]")).to_have_values([south_city])
+            expect(page.locator("[name=postal_code]")).to_have_values([postal])
+            page.locator("[name=region]").select_option(north_region)
+            expect(page.locator("[name=city]")).to_have_values([])
+            expect(page.locator("[name=postal_code]")).to_have_values([])
+            page.locator("[name=region]").select_option([])
+            expect(page.locator(f'[name=city] option[value="{south_city}"]')).to_have_count(1)
+            page.get_by_role("button", name="Search", exact=True).click()
+            expect(page.get_by_text("2 results", exact=True)).to_be_visible()
+        finally:
+            browser.close()

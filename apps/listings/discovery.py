@@ -11,7 +11,7 @@ from django.utils import timezone
 
 from apps.catalog.models import Category, Municipality, PostalCode, Province, Region, Service, Zone
 
-from .forms import DetailsForm
+from .forms import DetailsForm, RelatedSelect
 from .models import Listing
 from .moderation import publicly_visible
 from .presentation import describe
@@ -20,6 +20,10 @@ from .presentation import describe
 class CatalogChoices(forms.ModelMultipleChoiceField):
     def label_from_instance(self, item):
         return getattr(item, "name_en" if self.english else "name_es")
+
+
+class RelatedMultipleSelect(RelatedSelect, forms.SelectMultiple):
+    pass
 
 
 class SearchForm(forms.Form):
@@ -35,14 +39,23 @@ class SearchForm(forms.Form):
         required=False, choices=[("any", "Cualquiera / Any"), ("all", "Todos / All")]
     )
     region = forms.ModelMultipleChoiceField(required=False, queryset=Region.objects.all())
-    province = forms.ModelMultipleChoiceField(required=False, queryset=Province.objects.all())
-    city = forms.ModelMultipleChoiceField(
-        required=False, queryset=Municipality.objects.filter(active=True)
+    province = forms.ModelMultipleChoiceField(
+        required=False, queryset=Province.objects.all(), widget=RelatedMultipleSelect("region_id")
     )
-    zone = forms.ModelMultipleChoiceField(required=False, queryset=Zone.objects.filter(active=True))
+    city = forms.ModelMultipleChoiceField(
+        required=False,
+        queryset=Municipality.objects.filter(active=True).select_related("province"),
+        widget=RelatedMultipleSelect("province_id"),
+    )
+    zone = forms.ModelMultipleChoiceField(
+        required=False,
+        queryset=Zone.objects.filter(active=True, municipality__active=True),
+        widget=RelatedMultipleSelect("municipality_id"),
+    )
     postal_code = forms.ModelMultipleChoiceField(
         required=False,
-        queryset=PostalCode.objects.filter(public_safe=True),
+        queryset=PostalCode.objects.filter(public_safe=True).prefetch_related("municipalities"),
+        widget=RelatedMultipleSelect("municipalities"),
         help_text="Solo códigos con exposición pública permitida / Publicly allowed postal codes only",
     )
     language = forms.MultipleChoiceField(
@@ -94,6 +107,22 @@ class SearchForm(forms.Form):
             self.add_error("city", "Ubicación incompatible / Incompatible location")
         if cities and data.get("zone") and data["zone"].exclude(municipality__in=cities).exists():
             self.add_error("zone", "Ubicación incompatible / Incompatible location")
+        compatible = Municipality.objects.filter(active=True)
+        if regions:
+            compatible = compatible.filter(province__region__in=regions)
+        if provinces:
+            compatible = compatible.filter(province__in=provinces)
+        if cities:
+            compatible = compatible.filter(pk__in=cities)
+        zones = data.get("zone")
+        if zones and zones.exclude(municipality__in=compatible).exists():
+            self.add_error("zone", "Ubicación incompatible / Incompatible location")
+        postals = data.get("postal_code")
+        if postals:
+            for postal in postals:
+                if not postal.municipalities.filter(pk__in=compatible).exists():
+                    self.add_error("postal_code", "Ubicación incompatible / Incompatible location")
+                    break
         return data
 
 
