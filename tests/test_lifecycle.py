@@ -259,3 +259,124 @@ def test_action_history_does_not_expose_previous_manager_events(request):
     page = client.get(f"/es/listing/{listing.pk}/manage/")
     assert len(page.context["events"]) == 0
     assert b"Sin acciones para el gestor actual" in page.content
+
+
+def test_agency_editor_assignment_mfa_and_revocation(request):
+    from apps.core.models import AgencyMember
+
+    request.getfixturevalue("directory")
+    person = Person.objects.get(subject__username="fixture-v1-model-a")
+    other = Person.objects.get(subject__username="fixture-v1-model-b")
+    editor = User.objects.get(username="fixture-v1-editor")
+    client = Client()
+    client.force_login(editor)
+    path = f"/en/listing/{person.listing.pk}/manage/"
+    assert client.get(path).status_code == 302  # MFA required before private operations.
+    session = client.session
+    session["mfa_version"] = editor.mfa_version
+    session.save()
+    assert client.get(path).status_code == 200
+    assert client.get(f"/en/listing/{other.listing.pk}/manage/").status_code == 404
+    listing = person.listing
+    assert client.post(path, payload(listing, "pause")).status_code == 302
+    AgencyMember.objects.filter(user=editor, agency=person.agency).update(active=False)
+    listing.refresh_from_db()
+    version = listing.lifecycle_version
+    assert client.get(path).status_code == 404
+    assert client.post(path, payload(listing, "resume")).status_code == 404
+    listing.refresh_from_db()
+    assert listing.status == "paused" and listing.lifecycle_version == version
+    owner = Client()
+    owner.force_login(person.agency.owner)
+    session = owner.session
+    session["mfa_version"] = person.agency.owner.mfa_version
+    session.save()
+    assert owner.post(path, payload(listing, "resume")).status_code == 302
+
+
+def test_expiry_racing_renewal_never_expires_new_period(request):
+    request.getfixturevalue("directory")
+    person, listing, client = own()
+    Listing.objects.filter(pk=listing.pk).update(expires_at=timezone.now() - timedelta(seconds=1))
+    data = payload(listing, "renew", confirm="on")
+    barrier = Barrier(2)
+
+    def task():
+        close_old_connections()
+        try:
+            barrier.wait(timeout=10)
+            return expire_one(listing.pk)
+        finally:
+            connections.close_all()
+
+    def renew():
+        close_old_connections()
+        try:
+            current = Client()
+            current.force_login(User.objects.get(pk=person.individual_id))
+            barrier.wait(timeout=10)
+            return current.post(f"/en/listing/{listing.pk}/manage/", data).status_code
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        task_result = executor.submit(task)
+        action_result = executor.submit(renew)
+        expired, response = task_result.result(), action_result.result()
+    assert response in [302, 409]
+    if response == 409:
+        assert expired
+        assert (
+            client.post(
+                f"/en/listing/{listing.pk}/manage/", payload(listing, "renew", confirm="on")
+            ).status_code
+            == 302
+        )
+    listing.refresh_from_db()
+    assert listing.status == "published" and listing.expires_at > timezone.now() + timedelta(
+        days=29
+    )
+    assert not expire_one(listing.pk)
+    assert LifecycleAction.objects.filter(listing=listing, operation="renew").count() == 1
+    assert LifecycleAction.objects.filter(listing=listing, operation="expire").count() <= 1
+
+
+def test_mobile_renewal_confirms_data_and_preserves_publication(live_server, request, settings):
+    import shutil
+
+    from playwright.sync_api import expect, sync_playwright
+
+    settings.DEBUG = True
+    request.getfixturevalue("directory")
+    _, listing, _ = own()
+    listing_id, approved = listing.pk, listing.approved_revision_id
+    Listing.objects.filter(pk=listing_id).update(expires_at=timezone.now() + timedelta(days=3))
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(
+            executable_path=shutil.which("chromium-browser"), args=["--no-sandbox"]
+        )
+        try:
+            page = browser.new_page(viewport={"width": 390, "height": 844})
+            page.goto(live_server.url + "/en/account/login/")
+            page.locator("[name=email]").fill("fixture-individual@example.invalid")
+            page.locator("[name=password]").fill("Long-directory-fixture-password!873")
+            page.locator("button[type=submit]").click()
+            page.goto(live_server.url + f"/en/listing/{listing_id}/manage/")
+            page.locator("[name=operation]").select_option("renew")
+            page.get_by_role("button", name="Apply action", exact=True).click()
+            expect(
+                page.get_by_text(
+                    "Confirm data; renewal opens seven days before expiry", exact=False
+                )
+            ).to_be_visible()
+            page.locator("[name=confirm]").check()
+            page.get_by_role("button", name="Apply action", exact=True).click()
+            expect(page.locator("p").filter(has_text=" · renew · ")).to_be_visible()
+            page.reload()
+            expect(page.locator("p").filter(has_text=" · renew · ")).to_be_visible()
+            assert str(listing_id) in page.url
+        finally:
+            browser.close()
+    listing.refresh_from_db()
+    assert listing.approved_revision_id == approved
+    assert listing.expires_at > timezone.now() + timedelta(days=29)

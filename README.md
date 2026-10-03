@@ -57,3 +57,5 @@ uv run ruff check .
 No despliegue público hasta gates legales/operativos y técnicos documentados. Configuración production rechaza simuladores y cobros reales.
 
 Comprobación de descubrimiento de la muestra inicial Docker: `uv run python scripts/probe_demo_discovery.py` (Chromium del sistema, Caddy localhost:18080, dos fichas públicas de seed_demo). Es de solo lectura; presupone ese estado de muestra y no reinicia datos si posteriormente se han cambiado. La regresión aislada usa pytest/PostgreSQL y no depende de conservar la muestra principal.
+
+Probe de caducidad con Redis/worker real: `docker compose exec -T app python < scripts/probe_expiry_worker.py`; con Beat sin envío manual: `docker compose exec -T app python - --beat < scripts/probe_expiry_worker.py`. Solo desarrollo: crea registros sintéticos aislados, sin revisión aprobada y siempre inelegibles públicamente; no resetea la muestra. Contrastar logs worker/Beat con el estado/evento PostgreSQL. Celery ignora resultados: el probe consulta el estado real, no interpreta AsyncResult.get como finalización.

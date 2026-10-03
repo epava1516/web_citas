@@ -22,7 +22,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 | CR-05 | Fotos y coincidencias | Verificado local | 58 pruebas comunes y dos de logs; worker/Beat Docker real; contratos/05 y docs/18 |
 | CR-06 | Moderación/publicación | Verificado local | 135 comunes PostgreSQL/Chromium, reclamaciones/transferencias/agencia y Docker/worker; acta01 |
 | CR-07 | Búsqueda y fichas ES/EN | Verificado local |149 comunes PostgreSQL/Chromium, pgFTS/paginación/geo/comprobaciones; Docker; acta02 |
-| CR-08 | Favoritos y ciclo de vida | En curso | Favoritos conectados4 pruebas servidor/Chromium+4 logs; ciclo de vida23 pruebas servidor/Chromium; historia/caducidad6+3 pruebas; agencias/tareas/Docker y cierre pendientes |
+| CR-08 | Favoritos y ciclo de vida | En curso | Favoritos conectados4 pruebas servidor/Chromium+4 logs; ciclo de vida23 pruebas servidor/Chromium; historia/caducidad6+3 pruebas; editor/renovación móvil3 pruebas y worker/Beat reales verificados; probe privado Docker/cierre común pendientes |
 | CR-09 | Denuncias, derechos y reclamaciones | Pendiente | — |
 | CR-10 | Promociones preparadas sin venta real | Pendiente | — |
 | GS-01 | Contratos estables y prueba de separación | Pendiente | — |
