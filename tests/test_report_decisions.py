@@ -177,7 +177,7 @@ def test_mobile_moderator_assigns_inspects_and_restricts(live_server, request, s
     settings.DEBUG = True
     client = request.getfixturevalue("directory")
     person = Person.objects.get(subject__username="fixture-v1-individual")
-    report = case(client, person)
+    report = case(client)
     reviewer()
     credentials = json.loads((tmp_path / "credentials.json").read_text())
     account = credentials["accounts"]["moderator"]
@@ -207,6 +207,13 @@ def test_mobile_moderator_assigns_inspects_and_restricts(live_server, request, s
                 page.get_by_role("heading", name="Restricted information", exact=True)
             ).to_be_visible()
             page.get_by_role("link", name="Case actions", exact=True).click()
+            page.locator("[name=operation]").select_option("link")
+            page.locator("[name=link_listing_id]").fill(public_path.split("/")[3])
+            page.locator("[name=reason]").fill(
+                "Manual reference identifies this synthetic publication"
+            )
+            page.get_by_role("button", name="Record case action", exact=True).click()
+            page.get_by_role("link", name="Case actions", exact=True).click()
             page.locator("[name=operation]").select_option("restrict")
             page.locator("[name=reason]").fill(
                 "Synthetic evidence supports preventive restriction pending independent review"
@@ -222,7 +229,7 @@ def test_mobile_moderator_assigns_inspects_and_restricts(live_server, request, s
             assert visitor.goto(live_server.url + public_path).status == 404
         finally:
             browser.close()
-    assert Restriction.objects.count() == 1 and ReportAction.objects.count() == 2
+    assert Restriction.objects.count() == 1 and ReportAction.objects.count() == 3
 
 
 def test_same_action_key_racing_across_cases_is_conflict_not_partial_assignment(

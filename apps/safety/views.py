@@ -276,9 +276,13 @@ class DecisionForm(forms.Form):
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     manager_version = forms.IntegerField(required=False, min_value=1, widget=forms.HiddenInput)
     revision_id = forms.UUIDField(required=False, widget=forms.HiddenInput)
+    link_listing_id = forms.UUIDField(
+        required=False, label="ID del anuncio referenciado / Referenced listing ID"
+    )
     operation = forms.ChoiceField(
         choices=[
             ("claim", "Asignarme el caso / Assign case to me"),
+            ("link", "Enlazar referencia a anuncio / Link reference to listing"),
             ("restrict", "Restringir publicación / Restrict publication"),
             ("dismiss", "Desestimar denuncia / Dismiss report"),
         ]

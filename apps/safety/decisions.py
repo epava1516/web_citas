@@ -13,18 +13,41 @@ from .models import Report, ReportAccess, ReportAction, Restriction
 
 @transaction.atomic
 @sensitive_variables()
-def act(user, report_id, key, version, operation, reason, manager_version=None, revision_id=None):
+def act(
+    user,
+    report_id,
+    key,
+    version,
+    operation,
+    reason,
+    manager_version=None,
+    revision_id=None,
+    link_listing_id=None,
+):
     from .views import permitted
 
     if not user.has_perm("safety.review_report") or not user.mfa_enabled:
         raise PermissionDenied("Report permission and MFA required")
     initial = Report.objects.select_related("listing__person").get(pk=report_id)
+    candidate = None
+    if operation == "link":
+        candidate = Listing.objects.select_related("person").filter(pk=link_listing_id).first()
+        if not candidate:
+            raise ValidationError("Publication unidentified / Publicación sin identificar")
+        if initial.listing_id and initial.listing_id != candidate.pk:
+            raise ValidationError("Reference already linked / Referencia ya enlazada")
+        if not initial.listing_id:
+            initial.listing = candidate
     person = initial.listing.person if initial.listing_id else None
     agency_ids = {
         value
         for value in [initial.reported_agency_id, person.agency_id if person else None]
         if value
     }
+    if candidate and candidate.approved_revision_id:
+        acceptance = candidate.approved_revision.publisher_acceptance
+        if acceptance and acceptance.agency_id:
+            agency_ids.add(acceptance.agency_id)
     list(Agency.objects.select_for_update().filter(pk__in=agency_ids).order_by("pk"))
     listing = None
     if person:
@@ -34,23 +57,21 @@ def act(user, report_id, key, version, operation, reason, manager_version=None, 
             raise ValidationError("Management changed; reload / Gestor cambiado; recarga")
         listing = Listing.objects.select_for_update().get(pk=initial.listing_id)
     report = Report.objects.select_for_update().get(pk=report_id)
-    if listing:
+    if listing and report.listing_id == listing.pk:
         listing.person = person
         report.listing = listing
     if not permitted(user, report):
         raise PermissionDenied("Conflict of interest")
-    fingerprint = digest(
-        json.dumps(
-            {
-                "version": version,
-                "operation": operation,
-                "reason": reason,
-                "manager_version": manager_version,
-                "revision_id": str(revision_id) if revision_id else None,
-            },
-            sort_keys=True,
-        )
-    )
+    action_payload = {
+        "version": version,
+        "operation": operation,
+        "reason": reason,
+        "manager_version": manager_version,
+        "revision_id": str(revision_id) if revision_id else None,
+    }
+    if operation == "link":
+        action_payload["link_listing_id"] = str(link_listing_id)
+    fingerprint = digest(json.dumps(action_payload, sort_keys=True))
     previous = ReportAction.objects.filter(key=key).first()
     if previous:
         if (
@@ -60,7 +81,7 @@ def act(user, report_id, key, version, operation, reason, manager_version=None, 
         ):
             return report
         raise ValidationError("Conflicting action replay / Reintento incompatible")
-    if report.version != version or operation not in {"claim", "restrict", "dismiss"}:
+    if report.version != version or operation not in {"claim", "link", "restrict", "dismiss"}:
         raise ValidationError("Case changed; reload / Caso cambiado; recarga")
     if not 20 <= len(reason.strip()) <= 2000:
         raise ValidationError("Reason required / Motivo obligatorio")
@@ -74,7 +95,34 @@ def act(user, report_id, key, version, operation, reason, manager_version=None, 
             raise ValidationError("Case not assigned to you / Caso no asignado")
         if not ReportAccess.objects.filter(report=report, actor=user).exists():
             raise ValidationError("Inspect evidence first / Consulta primero la evidencia")
-        if operation == "restrict":
+        if operation == "link":
+            if report.listing_id or not listing or not listing.approved_revision_id:
+                raise ValidationError(
+                    "Reference already linked or publication unidentified / Referencia enlazada o publicación sin identificar"
+                )
+            revision = listing.approved_revision
+            if revision.status != "approved" or not revision.publisher_acceptance_id:
+                raise ValidationError(
+                    "Published revision required / Revisión publicada obligatoria"
+                )
+            acceptance = revision.publisher_acceptance
+            report.listing = listing
+            listing.person = person
+            report.revision = revision
+            report.reported_agency_id = acceptance.agency_id
+            report.reported_individual_id = acceptance.user_id if not acceptance.agency_id else None
+            report.reported_subject_id = (
+                person.verificationcheck_set.filter(
+                    manager_version=revision.manager_version, status="passed"
+                )
+                .order_by("-created_at")
+                .values_list("subject_id", flat=True)
+                .first()
+            )
+            report.manager_version = revision.manager_version
+            if not permitted(user, report):
+                raise PermissionDenied("Conflict of interest with identified publication")
+        elif operation == "restrict":
             if (
                 not listing
                 or not revision_id
@@ -114,5 +162,17 @@ def act(user, report_id, key, version, operation, reason, manager_version=None, 
         listing.lifecycle_version += 1
         listing.save(update_fields=["status", "available_until", "lifecycle_version"])
     report.version += 1
-    report.save(update_fields=["status", "assigned_to", "version"])
+    report.save(
+        update_fields=[
+            "status",
+            "assigned_to",
+            "version",
+            "listing",
+            "revision",
+            "reported_agency",
+            "reported_individual",
+            "reported_subject",
+            "manager_version",
+        ]
+    )
     return report
