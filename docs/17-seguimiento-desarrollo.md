@@ -6,7 +6,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 - Fase: BASE parcial; CR-01 a CR-05 verificados localmente; implementación autorizada el 2026-10-03.
 - Próximo paso: CR-06 (moderación, revisión inmutable y publicación).
-- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; última regresión común85 pruebas; posteriores21 dirigidas pasan con PostgreSQL y Chromium; verificación y representación conectadas con simuladores explícitos.
+- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; última regresión común123 pruebas pasan con PostgreSQL y Chromium (268.14s, sin skips); verificación y representación conectadas con simuladores explícitos.
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
 

@@ -5,7 +5,7 @@ Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
 Estado: running. Inicio autorizado 2026-10-03.
 Invocaciones Claude consumidas: 2/3 para el objetivo completo.
-Próximo paso: CR-06. BASE parcial (fixtures pendientes de publicación), CR-01…CR-05 verificados localmente; última regresión común85 y posteriores21 pruebas dirigidas pasan, sin saltos.
+Próximo paso: CR-06. BASE parcial (fixtures pendientes de publicación), CR-01…CR-05 verificados localmente; última regresión común123 pruebas pasa en268.14s, sin skips, sin saltos.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
 
 Delegación 1: cr01-security-design rechazada exit66 por informe inconsistente; sin reintento. Implementación Codex local.
@@ -67,3 +67,5 @@ Reclamación agencia servidor integrada:6 dirigidas passed11.58s, dos finales pa
 Reclamación agencia accepted local cruzada:4 pruebas con Chromium móvil y concurrencia passed14.67s; contraseña/MFA en ambos roles, pendiente persistido y versión incrementada una vez. Próximo coincidencias, fixtures y cierre común/Docker CR-06.
 
 Regresión común detenida:38 passed, fallo de página Chromium al reload inmediato en transferencia. Espera explícita del resultado previo a recargar añadida; tres navegador passed25.79s. Próximo repetir común (123 recogidos), luego coincidencias/fixtures/Docker; no cerrar CR-06.
+
+Regresión común accepted local sobre27cd772:123 passed en268.14s, PostgreSQL/Chromium, sin skips. Próximo aviso privado/reclamación conflictos de fotos, fixtures completos y cierre Docker CR-06; no CR-07 aún. Claude2/3.
