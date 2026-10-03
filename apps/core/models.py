@@ -121,6 +121,18 @@ class Person(models.Model):
     assigned_editor = models.ForeignKey(
         User, null=True, blank=True, on_delete=models.SET_NULL, related_name="assigned_people"
     )
+    subject = models.OneToOneField(
+        User, null=True, blank=True, on_delete=models.PROTECT, related_name="represented_person"
+    )
+    manager_version = models.PositiveIntegerField(default=1)
+    age_status = models.CharField(
+        max_length=12,
+        default="pending",
+        choices=[("pending", "Pending"), ("passed", "Passed"), ("failed", "Failed")],
+    )
+    consent_version = models.PositiveIntegerField(default=0)
+    consent_revoked_at = models.DateTimeField(null=True, blank=True)
+    phone_claim = models.ForeignKey("PhoneClaim", null=True, blank=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -133,3 +145,70 @@ class Person(models.Model):
                 name="person_exactly_one_manager",
             )
         ]
+
+
+class PhoneClaim(models.Model):
+    phone = models.CharField(max_length=16, unique=True)
+    individual = models.ForeignKey(User, null=True, blank=True, on_delete=models.PROTECT)
+    agency = models.ForeignKey(Agency, null=True, blank=True, on_delete=models.PROTECT)
+    verified_at = models.DateTimeField(null=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=(
+                    models.Q(individual__isnull=False, agency__isnull=True)
+                    | models.Q(individual__isnull=True, agency__isnull=False)
+                ),
+                name="phone_exactly_one_manager",
+            )
+        ]
+
+
+class PhoneChallenge(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    manager_version = models.PositiveIntegerField()
+    digest = models.CharField(max_length=64)
+    phone = models.CharField(max_length=16)
+    expires_at = models.DateTimeField()
+    used_at = models.DateTimeField(null=True)
+    attempts = models.PositiveIntegerField(default=0)
+
+
+class VerificationCheck(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    subject = models.ForeignKey(User, on_delete=models.PROTECT)
+    manager_version = models.PositiveIntegerField()
+    provider = models.CharField(max_length=32)
+    procedure = models.CharField(max_length=32, default="simulator-v1")
+    status = models.CharField(max_length=12, default="pending")
+    completed_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class VerificationEvent(models.Model):
+    event_id = models.UUIDField(primary_key=True)
+    verification = models.ForeignKey(VerificationCheck, on_delete=models.CASCADE)
+    outcome = models.CharField(max_length=12)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RepresentationInvitation(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    email = models.EmailField()
+    manager_version = models.PositiveIntegerField()
+    digest = models.CharField(max_length=64, unique=True)
+    expires_at = models.DateTimeField()
+    used_at = models.DateTimeField(null=True)
+
+
+class RepresentationAction(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    subject = models.ForeignKey(User, on_delete=models.PROTECT)
+    manager_version = models.PositiveIntegerField()
+    action = models.CharField(max_length=16)
+    document = models.ForeignKey(LegalDocument, null=True, on_delete=models.PROTECT)
+    created_at = models.DateTimeField(auto_now_add=True)

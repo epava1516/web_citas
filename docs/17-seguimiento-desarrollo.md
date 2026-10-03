@@ -4,9 +4,9 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 ## Estado actual
 
-- Fase: BASE parcial; CR-01 y CR-02 verificados localmente; implementación autorizada el 2026-10-03.
-- Próximo paso: CR-03 (verificación/representación), después CR-04 según contrato.
-- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; 21 pruebas pasan con PostgreSQL y Chromium.
+- Fase: BASE parcial; CR-01 a CR-03 verificados localmente; implementación autorizada el 2026-10-03.
+- Próximo paso: CR-04 (borradores, catálogo, geografía, tarifas y contactos).
+- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; 27 pruebas pasan con PostgreSQL y Chromium; verificación y representación conectadas con simuladores explícitos.
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
 
@@ -17,7 +17,7 @@ Actualizado: 2026-10-03. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 | BASE | ADR, Docker, estructura, contratos y fixtures iniciales | En curso | ADR-001, Compose, uv.lock; fixtures completos pendientes |
 | CR-01 | Registro, acceso y aceptación legal | Verificado local | 16 tests PostgreSQL/Chromium ES/EN; docs/18 y contratos/01 |
 | CR-02 | Roles, agencias y MFA | Verificado local | 21 pruebas comunes; agencia/MFA navegador, aislamiento, revocación y recuperación concurrente |
-| CR-03 | Verificación y representación | Pendiente | — |
+| CR-03 | Verificación y representación | Verificado local | 27 pruebas comunes; SSR, identidad/edad simuladas, autorización directa, transferencia y teléfono concurrente |
 | CR-04 | Borrador, campos, geografía, tarifas/contactos | Pendiente | — |
 | CR-05 | Fotos y coincidencias | Pendiente | — |
 | CR-06 | Moderación/publicación | Pendiente | — |

@@ -9,3 +9,7 @@ Próximo paso: CR-03. BASE parcial (fixtures pendientes de modelos completos), C
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
 
 Delegación 1: cr01-security-design rechazada exit66 por informe inconsistente; sin reintento. Implementación Codex local.
+
+CR-03 implementado y pruebas dirigidas7 passed en21.56s. Regresión ampliada con teléfono concurrente en proceso; contratos/03 documenta simulaciones y dependencias CR-04/06/09. Próximo CR-04.
+
+CR-03: regresión27 passed en35.26s, sin skips, PostgreSQL+Chromium. Estado accepted local con límites de integración externa. Siguiente CR-04.

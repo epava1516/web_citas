@@ -44,3 +44,5 @@ No considerar una propuesta aprobada por el mero hecho de estar documentada. Dif
 - [Contrato de cuentas y legal](contratos/01-cuentas-legal.md)
 
 - [Contrato agencias y MFA](contratos/02-agencias-mfa.md)
+
+- [Contrato verificación y representación](contratos/03-verificacion-representacion.md)

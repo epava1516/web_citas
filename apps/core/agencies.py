@@ -157,6 +157,7 @@ def accept_invitation(request, invitation_id, raw):
         return redirect("mfa_enroll" if not request.user.mfa_enabled else "mfa_challenge")
     if request.method == "POST":
         with transaction.atomic():
+            Agency.objects.select_for_update().get(pk=invitation.agency_id)
             invitation = AgencyInvitation.objects.select_for_update().get(pk=invitation.pk)
             if (
                 invitation.revoked_at
@@ -178,6 +179,7 @@ def accept_invitation(request, invitation_id, raw):
 def revoke_member(request, agency_id, member_id):
     agency = owned_agency(request.user, agency_id)
     with transaction.atomic():
+        Agency.objects.select_for_update().get(pk=agency.pk)
         membership = get_object_or_404(
             AgencyMember.objects.select_for_update(), pk=member_id, agency=agency
         )
@@ -222,6 +224,7 @@ def assign(request, agency_id, person_id):
     )
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
+            Agency.objects.select_for_update().get(pk=agency.pk)
             # Lock membership to serialize with revocation; never trust the dropdown alone.
             editor = form.cleaned_data["editor"]
             if (

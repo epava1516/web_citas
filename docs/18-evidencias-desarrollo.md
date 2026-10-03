@@ -30,3 +30,8 @@ No afirmar cierre del proyecto ni preparación de producción.
 Auditoría al incorporar cifrado detectó avisos en cryptography47: actualizado a50.0.2 (versión mantenida). [Aviso oficial](https://github.com/pyca/cryptography/security/advisories/GHSA-537c-gmf6-5ccf), [release PyPI](https://pypi.org/project/cryptography/50.0.2/). Se repiten suite y build afectados. Infra delegación verify-ai:20 tests passed, gates passed; no nuevas invocaciones Claude.
 
 Tras actualizar cryptography: suite21 passed en24.13s, Ruff limpio, pip-audit sin vulnerabilidades conocidas; imágenes app/worker reconstruidas y reiniciadas correctamente con50.0.2. Estado de entrega: CR-01/02 verificados local; siguientes CR pendientes y BASE fixtures parcial.
+
+## CR-03, 2026-10-03
+Migración0004 aplicada sobre PostgreSQL. SSR de particular, consentimientos específicos, simulador de edad y OTP, revocación y transferencia. Eventos firmados/idempotentes vinculados a gestor/sujeto; teléfonos únicos por gestor con compartición en agencia. Pruebas dirigidas7 passed en21.56s, incluido navegador móvil particular y bloqueo ante fallo/revocación; suite común y teléfono concurrente en ejecución. Campos privados no pasan a fichas públicas (estas aún pendientes). Interfaces y límites en contratos/03-verificacion-representacion.md.
+
+Cierre local CR-03:27 passed en35.26s, sin saltos; carrera de contacto entre particulares produce un éxito y un conflicto, una sola PhoneClaim. Reenvío OTP invalida código anterior; ajeno no accede. Ruff/check/makemigrations/diff-check limpios. No prueba real de SMS/edad ni cierre del contrato completo.

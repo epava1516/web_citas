@@ -1,8 +1,28 @@
 from django.urls import path
 
-from . import accounts, agencies, legal, mfa
+from . import accounts, agencies, legal, mfa, verification
 
 urlpatterns = [
+    path("person/create/", verification.individual, name="individual_create"),
+    path("person/<uuid:person_id>/verification/", verification.status, name="person_verification"),
+    path("person/<uuid:person_id>/age/", verification.age, name="age_check"),
+    path("person/<uuid:person_id>/phone/", verification.phone_start, name="phone_start"),
+    path("phone/<uuid:challenge_id>/confirm/", verification.phone_confirm, name="phone_confirm"),
+    path(
+        "person/<uuid:person_id>/consent/invite/",
+        verification.invite_consent,
+        name="consent_invite",
+    ),
+    path("person/<uuid:person_id>/consent/", verification.self_consent, name="self_consent"),
+    path(
+        "representation/<uuid:invitation_id>/<str:raw>/",
+        verification.accept_consent,
+        name="consent_accept",
+    ),
+    path("person/<uuid:person_id>/revoke/", verification.revoke, name="representation_revoke"),
+    path(
+        "person/<uuid:person_id>/transfer/", verification.transfer, name="representation_transfer"
+    ),
     path("account/mfa/enroll/", mfa.enroll, name="mfa_enroll"),
     path("account/mfa/", mfa.challenge, name="mfa_challenge"),
     path("agency/create/", agencies.create, name="agency_create"),
