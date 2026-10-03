@@ -52,7 +52,12 @@ def act(user, case_id, key, version, operation, reason, link_listing_id=None):
             raise ValidationError(
                 "Request not assigned or already linked / Solicitud no asignada o ya vinculada"
             )
-        if not candidate or not RightsAccess.objects.filter(request=case, actor=user).exists():
+        if (
+            not candidate
+            or not RightsAccess.objects.filter(
+                request=case, actor=user, case_version=case.version, message_before__isnull=True
+            ).exists()
+        ):
             raise ValidationError("Inspect the reference first / Consulta primero la referencia")
         case.person = person
         case.referenced_revision = candidate.approved_revision

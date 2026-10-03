@@ -256,7 +256,11 @@ def inspect(request, case_id):
                 return private(HttpResponse("Conflict of interest", status=403))
             payload = unseal(case.encrypted_payload)
             RightsAccess.objects.create(
-                request=case, actor=request.user, purpose=form.cleaned_data["purpose"]
+                request=case,
+                actor=request.user,
+                purpose=form.cleaned_data["purpose"],
+                case_version=case.version,
+                message_before=form.cleaned_data["message_before"],
             )
             records = case.messages.order_by("-pk")
             if form.cleaned_data["message_before"]:
