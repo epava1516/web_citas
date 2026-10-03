@@ -6,6 +6,8 @@ from apps.mediafiles import views as mediafiles
 from . import accounts, agencies, legal, mfa, verification
 
 urlpatterns = [
+    path("draft/<uuid:revision_id>/submit/", listings.send_for_review, name="submit_revision"),
+    path("draft/<uuid:revision_id>/status/", listings.revision_status, name="revision_status"),
     path("photos/<uuid:photo_id>/reorder/", mediafiles.reorder, name="photo_reorder"),
     path("draft/<uuid:revision_id>/photos/upload/", mediafiles.upload, name="photo_upload"),
     path("photos/<uuid:photo_id>/private/", mediafiles.private_photo, name="private_photo"),

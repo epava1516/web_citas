@@ -89,3 +89,11 @@ class Rate(models.Model):
                 name="valid_rate_amount",
             )
         ]
+
+
+class Submission(models.Model):
+    revision = models.OneToOneField(Revision, on_delete=models.PROTECT, related_name="submission")
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    document = models.ForeignKey("core.LegalDocument", on_delete=models.PROTECT)
+    declaration_version = models.CharField(max_length=32, default="truth-and-rights-v1")
+    created_at = models.DateTimeField(auto_now_add=True)

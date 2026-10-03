@@ -1,4 +1,6 @@
+from django import forms
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,6 +12,45 @@ from apps.core.verification import locked_manager_person
 
 from .forms import ContactsForm, DetailsForm, RateFormSet
 from .models import Listing, Revision
+from .submissions import submit
+
+
+class SubmissionForm(forms.Form):
+    edit_version = forms.IntegerField(widget=forms.HiddenInput)
+    declaration = forms.BooleanField(
+        label="Confirmo datos veraces y derechos para publicar textos y fotos / I confirm accurate details and rights to publish texts and photos"
+    )
+
+
+@login_required
+@require_POST
+def send_for_review(request, revision_id):
+    revision = get_object_or_404(
+        Revision, pk=revision_id, listing__person__in=person_queryset(request.user)
+    )
+    form = SubmissionForm(request.POST)
+    if form.is_valid():
+        try:
+            submit(
+                request.user,
+                revision.pk,
+                form.cleaned_data["edit_version"],
+                form.cleaned_data["declaration"],
+            )
+            return redirect("revision_status", revision_id=revision.pk)
+        except ValidationError as error:
+            form.add_error(None, error)
+    return render(
+        request, "listings/submission.html", {"revision": revision, "form": form}, status=400
+    )
+
+
+@login_required
+def revision_status(request, revision_id):
+    revision = get_object_or_404(
+        Revision, pk=revision_id, listing__person__in=person_queryset(request.user)
+    )
+    return render(request, "listings/submission.html", {"revision": revision})
 
 
 @login_required
@@ -135,6 +176,7 @@ def edit(request, revision_id, step):
             "form": form,
             "rates": rates,
             "document": document,
+            "submission_form": SubmissionForm(initial={"edit_version": revision.edit_version}),
             "photos": revision.photos.filter(removed_at__isnull=True).select_related("blob"),
         },
         status=400 if request.method == "POST" and form is not None else 200,

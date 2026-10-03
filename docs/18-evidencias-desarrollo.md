@@ -49,3 +49,11 @@ Prueba Docker: una imagen geométrica sintética cargada desde app con almacenam
 Delegación2/3, cr05-crop-matching: adaptador exit0, informe complete válido, ningún archivo/test ejecutado por Claude. Codex leyó fuente propuesta, integró módulo puro, adaptó serialización JSON de tuplas y validó candidatos/confirmaciones con16 tests propios. Aceptación local de propuesta acotada; no aprobación global de Claude ni sustituto de revisión independiente. Evidencia bruta externa/ignorada; módulo integrado y límites en contratos/05. Última invocación reservada para revisión final.
 
 Cierre local CR-05: suite58 passed en74.61s sin saltos; seis pruebas de fotos passed en13.76s. Incluye coincidencia exacta global particular/agencia con distintos teléfonos y regresión de carga durante comparación. Se añaden dos pruebas de privacidad de logs passed en0.06s: borradores/fotos ocultan identificadores y no registran query strings. Ruff/check/migraciones limpios. Build Docker actualizado; no cierre técnico global ni preparación de producción.
+
+## CR-06, primer flujo en curso
+
+Envío de revisión y declaración explícita persistida por actor/documento/version, estado privado al recargar y bloqueo de edición/fotos posterior. Revalidación de edad, consentimiento vigente, teléfono, datos, catálogo, tarifas y procesamiento de fotos. Condiciones actualizadas requieren renovar aceptación y consentimiento directo; corregido el flujo de renovación sin cambiar gestor ni persona.
+
+Pruebas dirigidas conjuntas:28 passed en44.53s, PostgreSQL/Chromium, sin saltos. Incluyen once pruebas de envío, recorrido móvil y regresión de borradores/fotos/representación. Primer ensayo paralelo de dos runners se interfirió en la misma base test: descartado como evidencia; repetido como un único proceso y aprobado. Primer selector de navegador confundía título con botón: corregido conforme a plantilla y recorrido pasó. Ruff/check/migraciones/diff limpios; migración0004 aplicada localmente.
+
+CR-06 no cerrado: cola humana, agencias/transferencias, decisiones/reclamación, revisión sensible y publicación permanecen pendientes. Ningún anuncio se publica por enviar ni se afirma comprobación real de proveedores. No invocación adicional de Claude.

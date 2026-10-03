@@ -21,3 +21,5 @@ CR-04 accepted local:35 passed en49.54s, sin skips, Ruff/check/migrations limpio
 Delegación2 cr05-crop-matching: report complete/exit0; Codex integró y verificó16 casos. CR-05 common56 passed y worker real procesa en1.132s. Final dirigida en curso; próxima CR-06. Última llamada Claude reservada revisión.
 
 CR-05 accepted local:58 passed en74.61s y dos pruebas de ocultación de identificadores privados passed en0.06s. Seis pruebas de pipeline incluyen particulares/agencias con teléfonos distintos y carga tardía. Imagen Docker actualizada; CR-06 siguiente. Claude2/3 consumidas.
+
+CR-06 en curso: Submission, declaración por revisión y envío SSR con validación actual/congelación. Once pruebas servidor y navegador móvil en verificación conjunta con borradores/fotos/representación. Pendientes cola humana, revisión de agencia/transferencia, decisiones/reclamación, clonación y publicación. No nueva delegación.

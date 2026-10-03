@@ -245,7 +245,19 @@ def self_consent(request, person_id):
             person = Person.objects.select_for_update().get(pk=person.pk)
             if person.individual_id != request.user.pk:
                 return HttpResponse("Manager changed", status=409)
-            if person.consent_version != person.manager_version or person.consent_revoked_at:
+            current_grant = RepresentationAction.objects.filter(
+                person=person,
+                subject=request.user,
+                manager_version=person.manager_version,
+                action="grant",
+                document__slug="publishing",
+                document__version=document.version,
+            ).exists()
+            if (
+                person.consent_version != person.manager_version
+                or person.consent_revoked_at
+                or not current_grant
+            ):
                 person.consent_version = person.manager_version
                 person.consent_revoked_at = None
                 person.save(update_fields=["consent_version", "consent_revoked_at"])

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% if english %}Publication review{% else %}Revisión de publicación{% endif %}</h1>
+<h2>{{ revision.title }}</h2>
+{% if form %}
+<form method="post" action="{% url 'submit_revision' revision.pk %}">
+{% csrf_token %}{{ form.as_p }}
+<button type="submit">{% if english %}Send for review{% else %}Enviar a revisión{% endif %}</button>
+</form>
+<a href="{% url 'draft_edit' revision.pk 4 %}">{% if english %}Return to draft{% else %}Volver al borrador{% endif %}</a>
+{% else %}
+<p>{{ revision.status }}</p>
+{% if revision.status == 'pending' %}<p>{% if english %}Awaiting human review. This version is saved and cannot be edited. It has not been published.{% else %}Pendiente de revisión humana. Esta versión está guardada y no se puede editar. Todavía no se ha publicado.{% endif %}</p>{% endif %}
+{% endif %}
+{% endblock %}

@@ -50,3 +50,5 @@ No considerar una propuesta aprobada por el mero hecho de estar documentada. Dif
 - [Contrato borradores, catálogos y geografía](contratos/04-borradores-catalogo-geografia.md)
 
 - [Contrato fotografías y coincidencias](contratos/05-fotografias-coincidencias.md)
+
+- [CR-06 — Moderación y publicación, en curso](contratos/06-moderacion-publicacion.md).
