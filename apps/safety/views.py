@@ -21,7 +21,7 @@ from apps.listings.models import Revision
 from apps.listings.moderation import conflict_of_interest
 
 from .crypto import digest, seal, unseal
-from .models import Report, ReportAccess
+from .models import Report, ReportAccess, UrgentReportAlert
 from .notices import enqueue_ack
 
 
@@ -149,6 +149,8 @@ def submit(request):
                     )
                     if created:
                         enqueue_ack(report, data.get("email"))
+                        if report.priority == 0:
+                            UrgentReportAlert.objects.create(report=report)
                 if (
                     not constant_time_compare(report.receipt_digest, digest(secret))
                     or report.payload_digest != fingerprint

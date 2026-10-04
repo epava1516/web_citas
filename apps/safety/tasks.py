@@ -13,6 +13,21 @@ def deliver_safety_notices():
 
 
 @shared_task
+def reconcile_urgent_report_alerts():
+    from .models import Report, UrgentReportAlert
+
+    with transaction.atomic():
+        reports = list(
+            Report.objects.select_for_update(skip_locked=True, of=("self",))
+            .filter(priority=0, urgent_alert__isnull=True)
+            .order_by("created_at", "pk")[:100]
+        )
+        for report in reports:
+            UrgentReportAlert.objects.get_or_create(report=report)
+        return {"reconciled": len(reports)}
+
+
+@shared_task
 def purge_expired_exports():
     """Remove transient copy content only; keep audit and source data separate."""
     with transaction.atomic():

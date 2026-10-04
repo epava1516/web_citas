@@ -41,6 +41,24 @@ class Report(models.Model):
         ordering = ["priority", "created_at", "pk"]
 
 
+class UrgentReportAlert(models.Model):
+    report = models.OneToOneField(Report, on_delete=models.PROTECT, related_name="urgent_alert")
+    created_at = models.DateTimeField(auto_now_add=True)
+    acknowledged_at = models.DateTimeField(null=True)
+    acknowledged_by = models.ForeignKey("core.User", null=True, on_delete=models.PROTECT)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=(
+                    models.Q(acknowledged_at__isnull=True, acknowledged_by__isnull=True)
+                    | models.Q(acknowledged_at__isnull=False, acknowledged_by__isnull=False)
+                ),
+                name="urgent_report_ack_pair",
+            )
+        ]
+
+
 class Complaint(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     submission_key = models.UUIDField(unique=True)

@@ -23,6 +23,7 @@ from apps.safety import (
     rights_exports,
     rights_responses,
     rights_verification,
+    urgent_alerts,
 )
 from apps.safety import views as safety
 
@@ -140,6 +141,7 @@ urlpatterns = [
     path("safety/report/", safety.submit, name="report_create"),
     path("safety/receipt/<uuid:report_id>/<str:secret>/", safety.receipt, name="report_receipt"),
     path("moderation/reports/", safety.queue, name="report_queue"),
+    path("moderation/reports/urgent-alerts/", urgent_alerts.queue, name="urgent_report_alerts"),
     path("listing/<uuid:listing_id>/manage/", lifecycle.panel, name="listing_lifecycle"),
     path("favorites/", favorites.index, name="favorites"),
     path("listing/<uuid:listing_id>/favorite/", favorites.add, name="favorite_add"),
