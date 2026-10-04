@@ -612,3 +612,110 @@ def test_details_form_validates_choices_lists_and_active_travel_cities(
     assert unseal(RightsRectificationProposal.objects.get().encrypted_changes) == {"details": valid}
     assert source(revision) == original
     assert staff.get(path).context["source_fields"] is None
+
+
+@pytest.mark.parametrize("field", ["title", "description", "description_alternative"])
+def test_correction_text_obeys_listing_editor_limits_and_contact_rules(
+    request, settings, monkeypatch, field
+):
+    import uuid
+
+    from django.core.exceptions import ValidationError
+
+    from apps.listings.forms import DetailsForm
+    from apps.safety.rights_rectification import propose, validated_changes
+
+    case, moderator, staff, _, _, person = ready(request, settings, monkeypatch, "rectify")
+    path = f"/en/moderation/rights/{case.pk}/rectification/"
+    initial = staff.get(path).context["form"].initial
+    maximum = DetailsForm.base_fields[field].max_length
+    page = staff.post(
+        path,
+        initial
+        | {"operation": "preview", "purpose": "Inspect current text source before correction"},
+    )
+    assert page.status_code == 200
+    assert page.context["form"].fields[field].max_length == maximum
+    data = initial | {
+        "operation": "propose",
+        "fields": [field],
+        "reason": REASON,
+        field: "x" * (maximum + 1),
+    }
+    assert staff.post(path, data).status_code == 400
+    with pytest.raises(ValidationError):
+        propose(
+            moderator, case.pk, uuid.uuid4(), case.version, {field: "x" * (maximum + 1)}, REASON
+        )
+    for unsafe in [
+        "Synthetic text https://example.invalid",
+        "Synthetic text www.example.invalid",
+        "Synthetic contact @example_name",
+        "Synthetic phone +34 600 000 991",
+    ]:
+        with pytest.raises(ValidationError):
+            validated_changes({field: unsafe})
+        assert staff.post(path, data | {field: unsafe}).status_code == 409
+    assert not RightsRectificationProposal.objects.exists()
+    revision = person.listing.approved_revision
+    before = getattr(revision, field)
+    valid = "x" * maximum
+    assert staff.post(path, data | {field: valid}).status_code == 302
+    assert unseal(RightsRectificationProposal.objects.get().encrypted_changes) == {field: valid}
+    revision.refresh_from_db()
+    assert getattr(revision, field) == before
+    if field == "description_alternative":
+        assert validated_changes({field: ""}) == {field: ""}
+
+
+def test_public_names_do_not_bypass_contact_fields_and_correction_preserves_exact_text(
+    request, settings, monkeypatch
+):
+    from django.core.exceptions import ValidationError
+
+    from apps.core.agencies import AgencyForm, PersonForm
+    from apps.safety.rights_rectification import validated_changes
+
+    for unsafe in [
+        "Synthetic https://example.invalid",
+        "Synthetic @public_contact",
+        "Synthetic +34 600 000 991",
+    ]:
+        assert not AgencyForm({"name": unsafe}).is_valid()
+        assert not PersonForm({"alias": unsafe}).is_valid()
+        with pytest.raises(ValidationError):
+            validated_changes({"alias": unsafe})
+    assert AgencyForm({"name": "Synthetic public agency"}).is_valid()
+    assert PersonForm({"alias": "Synthetic public profile"}).is_valid()
+    case, _, staff, _, _, person = ready(request, settings, monkeypatch, "rectify")
+    revision = person.listing.approved_revision
+    before = revision.description
+    path = f"/en/moderation/rights/{case.pk}/rectification/"
+    initial = staff.get(path).context["form"].initial
+    assert (
+        staff.post(
+            path,
+            initial
+            | {"operation": "preview", "purpose": "Inspect exact text before reviewed correction"},
+        ).status_code
+        == 200
+    )
+    data = initial | {
+        "operation": "propose",
+        "fields": ["alias"],
+        "alias": "Synthetic @public_contact",
+        "reason": REASON,
+    }
+    assert staff.post(path, data).status_code == 409
+    assert not RightsRectificationProposal.objects.exists()
+    exact = "  Synthetic corrected paragraph.\n\nSecond paragraph.  "
+    assert validated_changes({"description": exact}) == {"description": exact}
+    assert (
+        staff.post(path, data | {"fields": ["description"], "description": exact}).status_code
+        == 302
+    )
+    assert unseal(RightsRectificationProposal.objects.get().encrypted_changes) == {
+        "description": exact
+    }
+    revision.refresh_from_db()
+    assert revision.description == before

@@ -14,6 +14,7 @@ from django.views.decorators.debug import sensitive_post_parameters, sensitive_v
 from django.views.decorators.http import require_http_methods
 
 from apps.catalog.models import Category, Municipality, PostalCode, Service, Zone
+from apps.listings.forms import DetailsForm, validate_listing_text
 from apps.listings.models import Revision
 
 from . import (
@@ -36,7 +37,13 @@ from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
 from .views import private
 
-FIELDS = {"alias": 80, "title": 120, "description": 10000, "description_alternative": 10000}
+FIELDS = {
+    "alias": 80,
+    **{
+        field: DetailsForm.base_fields[field].max_length
+        for field in ["title", "description", "description_alternative"]
+    },
+}
 
 
 @sensitive_variables()
@@ -71,6 +78,9 @@ def validated_changes(value, person=None):
             or (field != "description_alternative" and not text.strip())
         ):
             raise ValidationError("Invalid correction / Corrección no válida")
+        if field != "alias":
+            DetailsForm.base_fields[field].clean(text)
+        validate_listing_text(text)
     return value
 
 
@@ -280,17 +290,17 @@ class ProposalForm(rectification_details.Editor):
         label="Campos que se propone corregir / Fields proposed for correction",
     )
     alias = forms.CharField(required=False, max_length=80, label="Nombre del perfil / Profile name")
-    title = forms.CharField(required=False, max_length=120, label="Título / Title")
+    title = forms.CharField(required=False, max_length=FIELDS["title"], label="Título / Title")
     description = forms.CharField(
         required=False,
-        max_length=10000,
+        max_length=FIELDS["description"],
         strip=False,
         widget=forms.Textarea,
         label="Descripción / Description",
     )
     description_alternative = forms.CharField(
         required=False,
-        max_length=10000,
+        max_length=FIELDS["description_alternative"],
         strip=False,
         widget=forms.Textarea,
         label="Descripción alternativa / Alternative description",

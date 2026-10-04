@@ -3,6 +3,7 @@ import re
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet, inlineformset_factory
+from django.views.decorators.debug import sensitive_variables
 
 from apps.catalog.models import Category, Municipality, PostalCode, Province, Region, Service, Zone
 
@@ -165,15 +166,23 @@ class DetailsForm(forms.ModelForm):
                 "services", "Servicio fuera de las categorías / Service outside selected categories"
             )
         for field in ["description", "description_alternative", "title"]:
-            if re.search(
-                r"(?:https?://|www\.|@[\w]+|\+?\d[\d ()-]{7,})", data.get(field, ""), re.I
-            ):
-                self.add_error(
-                    field, "Usa los campos de contacto autorizados / Use authorized contact fields"
-                )
+            try:
+                validate_listing_text(data.get(field, ""))
+            except ValidationError as error:
+                self.add_error(field, error)
         return data
 
 
+@sensitive_variables()
+def validate_listing_text(value):
+    if re.search(r"(?:https?://|www\.|@[\w]+|\+?\d[\d ()-]{7,})", value, re.I):
+        raise ValidationError(
+            "Usa los campos de contacto autorizados / Use authorized contact fields"
+        )
+    return value
+
+
+@sensitive_variables()
 def normalize_telegram(value):
     value = value.lstrip("@").strip()
     if value and not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{4,31}", value):

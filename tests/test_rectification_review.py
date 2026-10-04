@@ -14,6 +14,7 @@ from apps.safety.rights_rectification import preview, propose
 
 pytestmark = pytest.mark.django_db(transaction=True)
 REASON = "Independent synthetic correction assessment with minimized internal grounds"
+EXACT_DESCRIPTION = "  Corrected synthetic description.\n\nSecond paragraph.  "
 
 
 def independent_case(
@@ -659,7 +660,7 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         changes={
             "alias": "Synthetic reviewed correction",
             "title": "Corrected synthetic title",
-            "description": "Corrected synthetic description",
+            "description": EXACT_DESCRIPTION,
         },
     )
     reviewer.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
@@ -954,7 +955,7 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
             .values_list("pk", "phone_claim_id")
         ) == sorted(other_shared)
         assert corrected.title == "Corrected synthetic title"
-        assert corrected.description == "Corrected synthetic description"
+        assert corrected.description == EXACT_DESCRIPTION
         assert rates_source(corrected) == unseal(proposal.encrypted_changes)["rates"]
         assert rates_source(old_revision) == old_rate_values
         assert unseal(applied.encrypted_previous_values)["rates"] == old_rate_values

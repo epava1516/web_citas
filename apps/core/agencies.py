@@ -13,6 +13,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods, require_POST
 
+from apps.listings.forms import validate_listing_text
+
 from .accounts import limited
 from .models import Agency, AgencyInvitation, AgencyMember, Person, User
 
@@ -50,6 +52,9 @@ def owned_agency(user, agency_id):
 class AgencyForm(forms.Form):
     name = forms.CharField(label="Nombre de agencia / Agency name", max_length=120)
 
+    def clean_name(self):
+        return validate_listing_text(self.cleaned_data["name"])
+
 
 class InvitationForm(forms.Form):
     email = forms.EmailField(label="Email del editor / Editor email")
@@ -57,6 +62,9 @@ class InvitationForm(forms.Form):
 
 class PersonForm(forms.Form):
     alias = forms.CharField(label="Alias público / Public alias", max_length=80)
+
+    def clean_alias(self):
+        return validate_listing_text(self.cleaned_data["alias"])
 
 
 class AssignmentForm(forms.Form):

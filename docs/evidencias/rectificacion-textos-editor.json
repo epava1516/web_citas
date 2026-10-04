@@ -1,0 +1,70 @@
+{
+  "scope": "Límites de texto y contactos en nombres coherentes con editor, preservación exacta de descripción",
+  "results": [
+    {
+      "artifact": "rectification-text-names-final.xml",
+      "sha256": "d044a6380dfab2fbcafda384e5dc46bf78ad2ef9e92ed5dfca6bc3d0828de984",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "31",
+          "time": "133.908",
+          "timestamp": "2026-10-04T20:47:10.505618+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-exact-text-execution.xml",
+      "sha256": "4da01c3697c68df0a9d5e352fae3bbb404c5dd188695f98e1969d68b16265f79",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "42.131",
+          "timestamp": "2026-10-04T20:52:17.967104+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    }
+  ],
+  "database": "PostgreSQL real",
+  "browser": "Chromium: propuestas/borradores/agenciaMFA/verificación; segunda batería HTTP completa agenciaindividual",
+  "verified": [
+    "Título120/descripciones6000 derivados de editor, máximo exacto aceptado/+1 bloqueado HTTP400/servicio",
+    "Contactos teléfono/URL/www/menciones bloqueados en editor, propuestas y nombres públicos",
+    "AgencyForm/PersonForm y aliasrectificado rechazan contactos fuera de canales",
+    "Validación no altera espacios/saltos de descripción cifrada ni ejecutada",
+    "Fuente histórica refrescadaDB permanece intacta, review/recepción/proof/execute mantienen huellas y exactitud",
+    "RegresiónDrafts/agenciasMFA/verificación"
+  ],
+  "docker": {
+    "schema": "safety0053 sin nueva migración",
+    "uid": 10001,
+    "health": 200,
+    "hashes": {
+      "apps/listings/forms.py": "c72373055d5faee2cb9b89e1eb2616e2fa71ed1c5caaa1d7850fcfa98e4fe330",
+      "apps/core/agencies.py": "94e4284d051445b9e709f6edab75727fdf97ca798f0eff6860017f3ef1599a7c",
+      "apps/safety/rights_rectification.py": "0eb5a23cc88db3d71c60db665a565ed0e85fdf9d7bbc0749abbad8ca36167fc0"
+    }
+  },
+  "ci_observed": {
+    "commit": "36ced071a5c41ab1f01231d35957f3d6a8267727",
+    "run": 37225258925,
+    "status": "in_progress",
+    "phase": "pytest",
+    "url": "https://github.com/epava1516/web_citas/actions/runs/37225258925"
+  },
+  "limits": [
+    "31+2 son baterías con solapamiento, no suite común33;2casos seleccionados/4variantes excluidas deliberadamente",
+    "30pruebas previas corresponden a validación anterior al ajuste preserve-text, no se adjudican al final",
+    "Identidad/SMS simulados explícitos, no proveedorreal",
+    "No moderación jurídica automática ni derecho completo/CR09/CR10/GS01/BF/BB/C aceptados"
+  ]
+}
