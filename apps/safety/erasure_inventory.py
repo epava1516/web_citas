@@ -207,6 +207,22 @@ def source_manifest(person):
             ["pk", "action_id", "previous_version", "previous_attempts"],
         )
     )
+    scopes.extend(
+        [
+            (
+                "safety.RightsRectificationProposal",
+                Q(person=person),
+                "dependent_evidence",
+                ["pk", "action_id", "proof_id", "source_revision_id", "created_at"],
+            ),
+            (
+                "safety.RightsRectificationSourceRead",
+                Q(request__person=person),
+                "dependent_evidence",
+                ["pk", "case_version", "proof_id", "created_at"],
+            ),
+        ]
+    )
     report_scope = Q(report__listing__person=person)
     complaint_scope = Q(decision__report__listing__person=person) | Q(
         listing_decision__revision__listing__person=person

@@ -1,0 +1,311 @@
+"""Scoped encrypted correction proposals; execution requires a separate reviewed step."""
+
+import json
+import uuid
+
+from django import forms
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied, ValidationError
+from django.db import IntegrityError, transaction
+from django.http import Http404, HttpResponse
+from django.shortcuts import redirect, render
+from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
+from django.views.decorators.http import require_http_methods
+
+from apps.listings.models import Revision
+
+from .crypto import seal
+from .models import (
+    RightsAction,
+    RightsRectificationProposal,
+    RightsRectificationSourceRead,
+    RightsRequest,
+)
+from .rights import allowed, fingerprint
+from .rights_responses import complete_response_read
+from .rights_scope import locked_case, permitted
+from .rights_verification import authorized_proof, complete_read
+from .views import private
+
+FIELDS = {"alias": 80, "title": 120, "description": 10000, "description_alternative": 10000}
+
+
+@sensitive_variables()
+def validated_changes(value):
+    if not isinstance(value, dict) or not value or set(value) - set(FIELDS):
+        raise ValidationError("Unsupported correction fields / Campos de corrección no admitidos")
+    for field, text in value.items():
+        if (
+            not isinstance(text, str)
+            or len(text) > FIELDS[field]
+            or (field != "description_alternative" and not text.strip())
+        ):
+            raise ValidationError("Invalid correction / Corrección no válida")
+    return value
+
+
+@transaction.atomic
+@sensitive_variables()
+def propose(user, case_id, key, version, changes, reason):
+    if (
+        not user.mfa_enabled
+        or not user.has_perm("safety.review_rights_request")
+        or not user.has_perm("safety.execute_rights_request")
+    ):
+        raise PermissionDenied
+    case, person, listing = locked_case(case_id, lock_listing=True)
+    if not permitted(user, case):
+        raise PermissionDenied
+    changes = validated_changes(changes)
+    signature = fingerprint(
+        json.dumps({"version": version, "changes": changes, "reason": reason}, sort_keys=True)
+    )
+    previous = RightsAction.objects.filter(key=key).first()
+    if previous:
+        if (
+            previous.request_id == case.pk
+            and previous.actor_id == user.pk
+            and previous.operation == "rectify_plan"
+            and previous.payload_digest == signature
+        ):
+            return RightsRectificationProposal.objects.get(action=previous)
+        raise ValidationError("Conflicting proposal key / Clave incompatible")
+    if (
+        case.kind != "rectify"
+        or case.version != version
+        or case.status != "reviewing"
+        or case.assigned_to_id != user.pk
+        or not 20 <= len(reason.strip()) <= 2000
+        or not complete_read(user, case)
+        or not complete_response_read(user, case)
+    ):
+        raise ValidationError(
+            "Inspect current assigned correction request / Consulta la solicitud asignada vigente"
+        )
+    proof = authorized_proof(case, person, "rectify")
+    revision, source = source_snapshot(case, person, listing)
+    if set(changes) - {"alias"} and (
+        not revision or revision.manager_version != person.manager_version
+    ):
+        raise ValidationError("Current revision required / Revisión vigente obligatoria")
+    source_digest = fingerprint(json.dumps(source, sort_keys=True))
+    if not RightsRectificationSourceRead.objects.filter(
+        request=case,
+        actor=user,
+        proof=proof,
+        case_version=case.version,
+        source_digest=source_digest,
+    ).exists():
+        raise ValidationError(
+            "Read current correction source first / Consulta primero la fuente de rectificación vigente"
+        )
+    try:
+        with transaction.atomic():
+            action = RightsAction.objects.create(
+                key=key,
+                request=case,
+                actor=user,
+                expected_version=version,
+                operation="rectify_plan",
+                payload_digest=signature,
+                encrypted_reason=seal({"reason": reason}),
+            )
+            proposal = RightsRectificationProposal.objects.create(
+                action=action,
+                proof=proof,
+                person=person,
+                source_revision=revision,
+                source_digest=source_digest,
+                encrypted_changes=seal(changes),
+            )
+    except IntegrityError as error:
+        raise ValidationError("Conflicting proposal key / Clave incompatible") from error
+    case.version += 1
+    case.scope_status = "unverified"
+    case.save(update_fields=["version", "scope_status"])
+    return proposal
+
+
+@sensitive_variables()
+def source_snapshot(case, person, listing):
+    revision = None
+    if listing and listing.approved_revision_id:
+        revision = Revision.objects.select_for_update().get(pk=listing.approved_revision_id)
+    source = {
+        "person": str(person.pk),
+        "subject": str(person.subject_id),
+        "manager_version": person.manager_version,
+        "rights_version": person.rights_version,
+        "channel": case.receipt_digest,
+        "alias": person.alias,
+        "publication_erased_at": person.publication_erased_at.isoformat()
+        if person.publication_erased_at
+        else None,
+        "listing_status": listing.status if listing else None,
+        "listing_lifecycle_version": listing.lifecycle_version if listing else None,
+        "revision": str(revision.pk) if revision else None,
+        "revision_version": revision.edit_version if revision else None,
+        "revision_status": revision.status if revision else None,
+        "fields": {field: getattr(revision, field) for field in FIELDS if field != "alias"}
+        if revision
+        else {},
+    }
+    return revision, source
+
+
+@transaction.atomic
+@sensitive_variables()
+def preview(user, case_id, version, purpose):
+    if (
+        not user.mfa_enabled
+        or not user.has_perm("safety.review_rights_request")
+        or not user.has_perm("safety.execute_rights_request")
+    ):
+        raise PermissionDenied
+    case, person, listing = locked_case(case_id, lock_listing=True)
+    if not permitted(user, case):
+        raise PermissionDenied
+    if (
+        case.kind != "rectify"
+        or case.version != version
+        or case.status != "reviewing"
+        or case.assigned_to_id != user.pk
+        or not complete_read(user, case)
+        or not complete_response_read(user, case)
+        or not 10 <= len(purpose.strip()) <= 200
+    ):
+        raise ValidationError(
+            "Inspect current assigned correction source / Consulta la fuente asignada vigente"
+        )
+    proof = authorized_proof(case, person, "rectify")
+    _, source = source_snapshot(case, person, listing)
+    RightsRectificationSourceRead.objects.create(
+        request=case,
+        actor=user,
+        proof=proof,
+        case_version=case.version,
+        source_digest=fingerprint(json.dumps(source, sort_keys=True)),
+        purpose=purpose,
+    )
+    return {"alias": source["alias"], **source["fields"]}
+
+
+class ProposalForm(forms.Form):
+    key = forms.UUIDField(widget=forms.HiddenInput)
+    version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    operation = forms.ChoiceField(
+        choices=[
+            ("preview", "Consultar fuente (auditoría) / Inspect source (audited)"),
+            ("propose", "Registrar propuesta / Record proposal"),
+        ]
+    )
+    purpose = forms.CharField(
+        required=False, min_length=10, max_length=200, label="Motivo de consulta / Access purpose"
+    )
+    fields = forms.MultipleChoiceField(
+        required=False,
+        choices=[
+            ("alias", "Nombre del perfil / Profile name"),
+            ("title", "Título / Title"),
+            ("description", "Descripción / Description"),
+            ("description_alternative", "Descripción alternativa / Alternative description"),
+        ],
+        widget=forms.CheckboxSelectMultiple,
+        label="Campos que se propone corregir / Fields proposed for correction",
+    )
+    alias = forms.CharField(required=False, max_length=80, label="Nombre del perfil / Profile name")
+    title = forms.CharField(required=False, max_length=120, label="Título / Title")
+    description = forms.CharField(
+        required=False,
+        max_length=10000,
+        strip=False,
+        widget=forms.Textarea,
+        label="Descripción / Description",
+    )
+    description_alternative = forms.CharField(
+        required=False,
+        max_length=10000,
+        strip=False,
+        widget=forms.Textarea,
+        label="Descripción alternativa / Alternative description",
+    )
+    reason = forms.CharField(
+        required=False,
+        min_length=20,
+        max_length=2000,
+        widget=forms.Textarea,
+        label="Motivo privado / Private reason",
+    )
+
+    def clean(self):
+        data = super().clean()
+        if data.get("operation") == "propose":
+            selected = data.get("fields", [])
+            if not selected:
+                raise forms.ValidationError(
+                    "Selecciona los campos que se propone corregir / Select fields proposed for correction"
+                )
+            data["changes"] = {field: data.get(field, "") for field in selected}
+        return data
+
+
+@login_required
+@sensitive_post_parameters(
+    "alias", "title", "description", "description_alternative", "reason", "purpose"
+)
+@sensitive_variables()
+@require_http_methods(["GET", "POST"])
+def prepare(request, case_id):
+    if not allowed(request) or not request.user.has_perm("safety.execute_rights_request"):
+        return private(HttpResponse("Forbidden", status=403))
+    case = RightsRequest.objects.filter(pk=case_id).first()
+    if not case:
+        raise Http404
+    if not permitted(request.user, case):
+        return private(HttpResponse("Forbidden", status=403))
+    if case.kind != "rectify":
+        return private(HttpResponse("Unsupported request type", status=409))
+    form = ProposalForm(
+        request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
+    )
+    source_fields = None
+    status = 400 if request.method == "POST" else 200
+    if request.method == "POST" and form.is_valid():
+        try:
+            data = form.cleaned_data
+            if data["operation"] == "preview":
+                source_fields = preview(request.user, case.pk, data["version"], data["purpose"])
+            else:
+                propose(
+                    request.user,
+                    case.pk,
+                    data["key"],
+                    data["version"],
+                    data["changes"],
+                    data["reason"],
+                )
+        except PermissionDenied:
+            return private(HttpResponse("Forbidden", status=403))
+        except ValidationError as error:
+            form.add_error(None, error)
+            status = 409
+        else:
+            if source_fields is None:
+                return private(redirect("rights_inspect", case_id=case.pk))
+            status = 200
+            form = ProposalForm(
+                initial={
+                    "key": uuid.uuid4(),
+                    "version": case.version,
+                    "operation": "propose",
+                    **source_fields,
+                }
+            )
+    return private(
+        render(
+            request,
+            "safety/rights_rectification.html",
+            {"case": case, "form": form, "source_fields": source_fields},
+            status=status,
+        )
+    )

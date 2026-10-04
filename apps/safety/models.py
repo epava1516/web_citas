@@ -597,3 +597,23 @@ class RightsExtension(models.Model):
     reason_code = models.CharField(max_length=12)
     new_due_at = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRectificationProposal(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    person = models.ForeignKey("core.Person", on_delete=models.PROTECT)
+    source_revision = models.ForeignKey("listings.Revision", null=True, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    encrypted_changes = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRectificationSourceRead(models.Model):
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    case_version = models.PositiveIntegerField()
+    source_digest = models.CharField(max_length=64)
+    purpose = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)

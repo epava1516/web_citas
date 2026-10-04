@@ -23,6 +23,7 @@ from apps.safety import (
     privacy_release,
     rights,
     rights_exports,
+    rights_rectification,
     rights_responses,
     rights_verification,
     urgent_alerts,
@@ -42,6 +43,11 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "moderation/rights/<uuid:case_id>/rectification/",
+        rights_rectification.prepare,
+        name="rights_rectification",
+    ),
     path(
         "moderation/rights/<uuid:case_id>/erasure-execute/<uuid:plan_id>/",
         erasure_execution.apply,

@@ -63,3 +63,6 @@ REQ-CR09-COPY-PARTS-01: integración final38 passed238.05s, exit0 sin errores/fa
 
 
 Supresión explícita de partes: batería terminal15 passed117.71s, exit0 sin fallos/errores/skips PostgreSQL real. Resultado parts_cleared1/borrado ciphertext/auditoría retenida en supresión transitoria y replay; ejecución authentication-only preserva parte/imagen/JSON y parts_cleared0. Refuerza fixture de recorridos existentes de permisos/versiones/producción/idempotencia/concurrencia. XML/hash docs/evidencias/supresion-partes.json. Imports ordenados tras terminal; ruff/diff limpios. Solo pruebas/documentación, runtime ec33f3c funcional sin modificaciones y sin reconstrucción necesaria. No acredita inventario/supresión completos ni cumplimiento jurídico; CR09/contrato pendientes. Claude3/3.
+
+
+REQ-CR09-RECTIFICATION-PROPOSAL-01: batería conjunta14 passed102.54s, exit0 sin fallos/errores/skips PostgreSQL/Chromium. Evidencia normalizada/XML/hash docs/evidencias/rectificacion-propuesta-integracion.json. Cubre fuente auditada/HMAC contra cambio de texto, propuesta cifrada campos seleccionados, replay/conflicto/CSRF/GET privado/publicación y plazos intactos, móvilMFA, cautelas/inventario existentes. Ruff/check/makemigrations/diff limpios. Docker0044–45 en sincronización; no ejecución de corrección, respuesta final ni aceptación integral CR09. Resto contrato preservado; Claude3/3.
