@@ -747,3 +747,107 @@ def test_public_names_do_not_bypass_contact_fields_and_correction_preserves_exac
     }
     revision.refresh_from_db()
     assert revision.description == before
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("status", "erased"),
+        ("derivative", "derivatives/synthetic-replacement.webp"),
+        ("sha256", "f" * 64),
+    ],
+)
+def test_media_source_change_invalidates_audited_correction(
+    request, settings, monkeypatch, field, value
+):
+    case, _, staff, _, _, person = ready(request, settings, monkeypatch, "rectify")
+    revision = person.listing.approved_revision
+    photo = revision.photos.filter(removed_at__isnull=True).first()
+    assert photo is not None
+    blob = photo.blob
+    previous = getattr(blob, field)
+    path = f"/en/moderation/rights/{case.pk}/rectification/"
+    initial = staff.get(path).context["form"].initial
+    response = staff.post(
+        path,
+        initial
+        | {"operation": "preview", "purpose": "Inspect media bound to correction before proposal"},
+    )
+    assert response.status_code == 200
+    data = initial | {
+        "operation": "propose",
+        "fields": ["title"],
+        "title": "Corrected synthetic title",
+        "reason": REASON,
+    }
+    setattr(blob, field, value)
+    blob.save(update_fields=[field])
+    assert staff.post(path, data).status_code == 409
+    assert not RightsRectificationProposal.objects.exists()
+    # Restore synthetic metadata without changing file contents; a fresh read
+    # of the same complete source authorizes the still-current proposal.
+    setattr(blob, field, previous)
+    blob.save(update_fields=[field])
+    assert staff.post(path, data).status_code == 302
+    assert blob.sha256.encode() not in staff.get(path).content
+    assert str(blob.pk).encode() not in staff.get(path).content
+
+
+def test_media_snapshot_serializes_blob_mutation(request, settings, monkeypatch):
+    from concurrent.futures import ThreadPoolExecutor
+    from queue import Queue
+    from threading import Event
+    from time import monotonic
+
+    from django.db import connection, connections, transaction
+
+    from apps.mediafiles.models import Blob
+    from apps.safety.rights_rectification import source_snapshot
+
+    case, _, _, _, _, person = ready(request, settings, monkeypatch, "rectify")
+    listing = person.listing
+    blob = listing.approved_revision.photos.filter(removed_at__isnull=True).first().blob
+    original = blob.derivative.name
+    writer_pid = Queue()
+    pause = Event()
+
+    def mutate():
+        connections.close_all()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT pg_backend_pid()")
+                writer_pid.put(cursor.fetchone()[0])
+            Blob.objects.filter(pk=blob.pk).update(
+                derivative="derivatives/concurrent-synthetic.webp"
+            )
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        with transaction.atomic():
+            _, snapshot = source_snapshot(case, person, listing)
+            assert any(
+                row["id"] == str(blob.pk) and row["derivative"] == original
+                for row in snapshot["copied_source"]["blobs"]
+            )
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT pg_backend_pid()")
+                holder_pid = cursor.fetchone()[0]
+            pending = pool.submit(mutate)
+            pid = writer_pid.get(timeout=5)
+            deadline = monotonic() + 5
+            blockers = []
+            while monotonic() < deadline:
+                with connection.cursor() as cursor:
+                    cursor.execute("SELECT pg_blocking_pids(%s)", [pid])
+                    blockers = cursor.fetchone()[0]
+                if holder_pid in blockers:
+                    break
+                pause.wait(0.01)
+            assert holder_pid in blockers
+            assert not pending.done()
+        pending.result(timeout=5)
+    blob.refresh_from_db()
+    assert blob.derivative.name == "derivatives/concurrent-synthetic.webp"
+    # Test-only metadata update; no synthetic storage bytes were changed.
+    Blob.objects.filter(pk=blob.pk).update(derivative=original)

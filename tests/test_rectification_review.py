@@ -867,6 +867,13 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     Person.objects.filter(pk=person.pk).update(phone_claim=replacement_binding)
     assert other.post(path, payload).status_code == 409
     Person.objects.filter(pk=person.pk).update(phone_claim=original_claim)
+    from apps.mediafiles.models import Blob
+
+    copied_blob = old_revision.photos.filter(removed_at__isnull=True).first().blob
+    original_derivative = copied_blob.derivative.name
+    Blob.objects.filter(pk=copied_blob.pk).update(derivative="derivatives/synthetic-changed.webp")
+    assert other.post(path, payload).status_code == 409
+    Blob.objects.filter(pk=copied_blob.pk).update(derivative=original_derivative)
     ongoing = Revision.objects.create(
         listing=person.listing, manager_version=person.manager_version
     )

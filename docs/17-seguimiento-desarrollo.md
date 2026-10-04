@@ -573,3 +573,12 @@ CI completa recuperada de ejecución terminal37224543121/commit4789079:493 passe
 
 
 Corrección de tarifas: el editor mantenía extra=1 pese a documentar diez filas. El límite HTTP anterior no probaba la capacidad de la interfaz. Cambiado a extra=10 y verificado en Chromium móvil editando primera y décima filas, con persistencia cifrada de ambas. RateForm.clean_concept aplica validación compartida de textos públicos en borradores, propuestas y publicación: rechaza URL/www/menciones/teléfonos fuera de canales autorizados. Batería24 passed127.46s PostgreSQL/Chromium; envío12 passed40.59s separado, sin fallos/errores/skips; no sumar como suite común. Ruff/check/makemigrations/diff limpios, sin migración nueva. Docker app/worker/Beat reconstruidos/recreados, hashes coinciden, UID10001/health200. Evidencia docs/evidencias/rectificacion-tarifas-contactos.json. CI36ced07 terminal494 passed1420.52s; no incluye cambios posteriores. CR09 y contrato completo abiertos, Claude3/3 sin llamadas.
+
+
+### Fuente de imágenes de rectificación
+
+La huella ahora incluye metadatos y estado de los Blob referenciados por las fotos. Bloqueo de blobs por UUID antes de leer Photo; cambiar SHA, derivado o estado invalida la lectura previa. El nuevo formato requiere reconstruir y revisar propuestas anteriores, sin migrar autorizaciones. No habilita aún selección/sustitución de fotografías; el recorrido pendiente se detalla en docs/43.
+
+Verificación: 18 pruebas de propuestas pasan en 130.27s con PostgreSQL/Chromium. Segunda batería: 3 pasan en 44.79s (ejecución particular/agencia y bloqueo concurrente real observado mediante pg_blocking_pids), 4 variantes excluidas explícitamente. No sumar como suite común. Ruff/format/check/makemigrations/diff limpios; sin migración nueva. Docker app/worker/Beat reconstruidos/recreados, hash de fuente coincide, UID10001 y health200. [Evidencia](evidencias/rectificacion-fuente-imagenes.json).
+
+CR09, CR10, GS01, BF/BB/C y producción siguen pendientes; Claude3/3, continuación local.

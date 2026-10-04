@@ -16,6 +16,7 @@ from django.views.decorators.http import require_http_methods
 from apps.catalog.models import Category, Municipality, PostalCode, Service, Zone
 from apps.listings.forms import DetailsForm, validate_listing_text
 from apps.listings.models import Revision
+from apps.mediafiles.models import Blob
 
 from . import (
     rectification_catalog,
@@ -174,6 +175,26 @@ def source_snapshot(case, person, listing):
     copied_source = None
     if revision:
         # Bind every copied value and relation, not only corrected text fields.
+        # Lock shared media in UUID order before reading Photo rows. A reference
+        # alone does not bind the bytes or their current erasure state.
+        blob_ids = list(revision.photos.order_by("blob_id").values_list("blob_id", flat=True))
+        blobs = list(
+            Blob.objects.select_for_update()
+            .filter(pk__in=blob_ids)
+            .order_by("pk")
+            .values(
+                "id",
+                "sha256",
+                "original",
+                "derivative",
+                "status",
+                "width",
+                "height",
+                "phash",
+                "signature",
+                "regional_hashes",
+            )
+        )
         copied_source = {
             "values": {
                 field.attname: getattr(revision, field.attname)
@@ -187,6 +208,7 @@ def source_snapshot(case, person, listing):
             },
             "rates": list(revision.rates.select_for_update().order_by("pk").values()),
             "photos": list(revision.photos.select_for_update().order_by("pk").values()),
+            "blobs": blobs,
         }
         copied_source = json.loads(json.dumps(copied_source, sort_keys=True, default=str))
     source = {
