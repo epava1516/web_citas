@@ -140,6 +140,7 @@ class RightsRequest(models.Model):
         permissions = [
             ("review_rights_request", "Review private rights requests"),
             ("manage_rights_assignment", "Manage private rights assignments"),
+            ("verify_rights_scope", "Independently verify rights identity and scope"),
         ]
         ordering = ["priority", "initial_due_at", "created_at", "pk"]
 
@@ -172,4 +173,35 @@ class RightsMessage(models.Model):
     expected_version = models.PositiveIntegerField()
     payload_digest = models.CharField(max_length=64)
     encrypted_payload = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsProof(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    key = models.UUIDField(unique=True)
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT, related_name="proofs")
+    person = models.ForeignKey("core.Person", on_delete=models.PROTECT)
+    initiated_by = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    case_version = models.PositiveIntegerField()
+    manager_version = models.PositiveIntegerField()
+    subject_id_snapshot = models.CharField(max_length=64, blank=True)
+    scope = models.CharField(max_length=24)
+    channel_digest = models.CharField(max_length=64)
+    provider = models.CharField(max_length=32)
+    procedure = models.CharField(max_length=32)
+    status = models.CharField(max_length=12, default="pending")
+    payload_digest = models.CharField(max_length=64)
+    encrypted_reason = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+
+
+class RightsProofEvent(models.Model):
+    key = models.UUIDField(unique=True)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT, related_name="events")
+    verifier = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    outcome = models.CharField(max_length=12)
+    expected_version = models.PositiveIntegerField()
+    payload_digest = models.CharField(max_length=64)
+    encrypted_reason = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
