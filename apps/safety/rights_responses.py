@@ -10,11 +10,20 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import IntegrityError, transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
+from django.utils import timezone
+from django.utils.crypto import constant_time_compare
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_POST
 
 from .crypto import seal, unseal
-from .models import RightsAccess, RightsNotice, RightsRequest, RightsResponse, RightsWithdrawal
+from .models import (
+    RightsAccess,
+    RightsNotice,
+    RightsRequest,
+    RightsResponse,
+    RightsResponseAcknowledgement,
+    RightsWithdrawal,
+)
 from .rights import allowed, fingerprint
 from .rights_scope import locked_case, permitted
 from .rights_verification import PROCEDURE, complete_read, enabled
@@ -242,13 +251,45 @@ def respond(request, case_id):
     )
 
 
+@sensitive_variables("secret")
+@require_POST
+def acknowledge(request, case_id, secret, response_id):
+    with transaction.atomic():
+        case = (
+            RightsRequest.objects.select_for_update()
+            .filter(pk=case_id, receipt_expires_at__gt=timezone.now())
+            .first()
+        )
+        if (
+            not case
+            or len(secret) != 43
+            or not constant_time_compare(case.receipt_digest, fingerprint(secret))
+        ):
+            raise Http404
+        response = RightsResponse.objects.filter(pk=response_id, request=case).first()
+        if not response:
+            raise Http404
+        if request.POST.get("received") != "yes":
+            return private(HttpResponse("Explicit receipt confirmation required", status=400))
+        RightsResponseAcknowledgement.objects.get_or_create(
+            response=response, defaults={"channel_digest": case.receipt_digest}
+        )
+    return private(redirect("rights_receipt", case_id=case.pk, secret=secret))
+
+
 def response_page(case, before=None):
-    records = case.responses.select_related("rightsnotice").order_by("-pk")
+    records = case.responses.select_related("rightsnotice", "receipt_acknowledgement").order_by(
+        "-pk"
+    )
     if before:
         records = records.filter(pk__lt=before)
     items = list(records[:51])
     return [
         {
+            "id": item.pk,
+            "acknowledged_at": getattr(
+                getattr(item, "receipt_acknowledgement", None), "created_at", None
+            ),
             "created_at": item.created_at,
             "kind": item.kind,
             "body": unseal(item.encrypted_response),

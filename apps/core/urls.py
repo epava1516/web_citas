@@ -109,6 +109,11 @@ urlpatterns = [
     path("safety/rights/", rights.submit, name="rights_create"),
     path("safety/rights/<uuid:case_id>/<str:secret>/", rights.receipt, name="rights_receipt"),
     path(
+        "safety/rights/<uuid:case_id>/<str:secret>/response/<int:response_id>/acknowledge/",
+        rights_responses.acknowledge,
+        name="rights_response_acknowledge",
+    ),
+    path(
         "moderation/rights/<uuid:case_id>/verification/",
         rights_verification.verification,
         name="rights_verification",

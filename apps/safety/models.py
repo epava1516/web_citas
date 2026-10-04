@@ -429,6 +429,14 @@ class RightsWithdrawal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+class RightsResponseAcknowledgement(models.Model):
+    response = models.OneToOneField(
+        RightsResponse, on_delete=models.PROTECT, related_name="receipt_acknowledgement"
+    )
+    channel_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class PrivacyPublicationHold(models.Model):
     action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
     proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
