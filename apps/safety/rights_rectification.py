@@ -6,6 +6,7 @@ import uuid
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.paginator import Paginator
 from django.db import IntegrityError, transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
@@ -305,7 +306,18 @@ def prepare(request, case_id):
         render(
             request,
             "safety/rights_rectification.html",
-            {"case": case, "form": form, "source_fields": source_fields},
+            {
+                "case": case,
+                "form": form,
+                "source_fields": source_fields,
+                "proposals": Paginator(
+                    RightsRectificationProposal.objects.filter(action__request=case)
+                    .select_related("action")
+                    .defer("encrypted_changes", "action__encrypted_reason")
+                    .order_by("-created_at", "-pk"),
+                    50,
+                ).get_page(request.GET.get("proposals_page")),
+            },
             status=status,
         )
     )

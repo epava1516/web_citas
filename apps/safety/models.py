@@ -322,6 +322,7 @@ class RightsRequest(models.Model):
             ("execute_rights_request", "Execute scoped private rights requests"),
             ("extend_rights_deadline", "Extend rights response target with recorded grounds"),
             ("review_privacy_hold", "Independently review privacy publication holds"),
+            ("review_rectification", "Independently review proposed data corrections"),
         ]
         ordering = ["priority", "initial_due_at", "created_at", "pk"]
 
@@ -616,4 +617,23 @@ class RightsRectificationSourceRead(models.Model):
     case_version = models.PositiveIntegerField()
     source_digest = models.CharField(max_length=64)
     purpose = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRectificationProposalRead(models.Model):
+    proposal = models.ForeignKey(RightsRectificationProposal, on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    case_version = models.PositiveIntegerField()
+    changes_digest = models.CharField(max_length=64)
+    purpose = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRectificationReview(models.Model):
+    proposal = models.OneToOneField(RightsRectificationProposal, on_delete=models.PROTECT)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    outcome = models.CharField(max_length=12)
+    changes_digest = models.CharField(max_length=64)
     created_at = models.DateTimeField(auto_now_add=True)
