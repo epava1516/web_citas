@@ -9,7 +9,7 @@ Actualizado: 2026-10-04. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 - Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; regresión común histórica CR-08:166 pruebas pasan con PostgreSQL y Chromium (450.45s, sin skips), dos límites finales14.47s; Docker/worker/Beat de CR-08 verificados; verificación y representación conectadas con simuladores explícitos.
 - Docker actual: aplicación/worker/Beat reconstruidos y recreados con procesamiento de avisos; migraciones core0015/safety0041/mediafiles0009 confirmadas. Salud200 detrás de Caddy, UID10001 y backend de avisos disabled; el backend de resultados sigue desactivado en la aplicación normal. No regresión común completa CR-09 aceptada.
 - Regresión común más reciente sobre e6727bb:426 passed1776.17s, exit0/sin skips; aislamiento de migraciones corregido. Integra funcionalidades implementadas, no acepta CR-09 completo.
-- Regresión actual sobre f5c636c en curso: `uv run pytest -q --junitxml=/tmp/web-modelos-f5c636c-regression.xml`. Recoger resultado terminal antes de modificar código o ejecutar otra batería sobre la misma base.
+- Regresión actual sobre f5c636c terminada:444 passed1922.29s, exit0/sin errores/fallos/skips. Integra cambios hasta safety0041; no acepta CR09 completo. Continuar requisitos pendientes de acta04/docs40.
 - Regresión histórica CR-09 sobre35b1f53:285 passed/1 failed969.51s, sin skips; fallo de recarga Chromium investigado; sincronización observable reforzada,20 pruebas afectadas passed95.28s. No aceptada como suite completa.
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
@@ -309,3 +309,6 @@ Regresión final25 passed185.51s PostgreSQL/Chromium sin skips (erasure_executio
 
 
 Docker inventario actualizado: app/worker/Beat reconstruidos/recreados; sin migración nueva, safety0041 confirmada/UID10001/backends derechos y avisos disabled/healthCaddy200. SHA256 erasure_inventory.py host/contenedorf1d6965f7610676d360198f2fd8dd7adf0d7e901b94bc900fa63af91471f94b8 coincide. Sin cambios en tareas/schedule ni nuevo ensayo operativo necesario para fuente HTTP.
+
+
+Regresión completa sobre **f5c636c** terminada: **444 passed1922.29s (32:02), exit0, sin fallos/errores/skips**, PostgreSQL/Chromium reales. Comando `uv run pytest -q --junitxml=/tmp/web-modelos-f5c636c-regression.xml`; XML contrastado444 testcase/0 failure/0 error/0 skipped. Resumen normalizado y SHA256 del XML en docs/evidencias/regresion-f5c636c.json. Código funcional permaneció estable; fc2d91b posterior solo modifica documentación de seguimiento/auditoría. Integra alertas/recepción/levantamiento cautelas y dependencias de inventario con flujos previos. No satisface acceso-portabilidad/rectificación/otros tratamientos/conservación-reconciliación-restauración/respuestas y demás requisitos pendientes del acta04/docs40. CR09 continúa abierto; CR10→GS01→BF/BB→C y producción pendientes. Claude3/3 sin nuevas llamadas. No repetir suite común sin cambios/fallos/incertidumbre nuevos.

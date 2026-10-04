@@ -410,3 +410,6 @@ Regresión final25 passed185.51s PostgreSQL/Chromium sin skips (erasure_executio
 
 
 Docker inventario actualizado: app/worker/Beat reconstruidos/recreados; sin migración nueva, safety0041 confirmada/UID10001/backends derechos y avisos disabled/healthCaddy200. SHA256 erasure_inventory.py host/contenedorf1d6965f7610676d360198f2fd8dd7adf0d7e901b94bc900fa63af91471f94b8 coincide. Sin cambios en tareas/schedule ni nuevo ensayo operativo necesario para fuente HTTP.
+
+
+Regresión completa sobre **f5c636c** terminada: **444 passed1922.29s (32:02), exit0, sin fallos/errores/skips**, PostgreSQL/Chromium reales. Comando `uv run pytest -q --junitxml=/tmp/web-modelos-f5c636c-regression.xml`; XML contrastado444 testcase/0 failure/0 error/0 skipped. Resumen normalizado y SHA256 del XML en docs/evidencias/regresion-f5c636c.json. Código funcional permaneció estable; fc2d91b posterior solo modifica documentación de seguimiento/auditoría. Integra alertas/recepción/levantamiento cautelas y dependencias de inventario con flujos previos. No satisface acceso-portabilidad/rectificación/otros tratamientos/conservación-reconciliación-restauración/respuestas y demás requisitos pendientes del acta04/docs40. CR09 continúa abierto; CR10→GS01→BF/BB→C y producción pendientes. Claude3/3 sin nuevas llamadas. No repetir suite común sin cambios/fallos/incertidumbre nuevos.
