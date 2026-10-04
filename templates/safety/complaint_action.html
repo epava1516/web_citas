@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h1>{% if english %}Review request actions{% else %}Acciones de reclamación{% endif %}</h1><p>{{ complaint.status }}</p><form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record request action{% else %}Registrar acción{% endif %}</button></form>{% endblock %}

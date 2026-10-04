@@ -50,11 +50,17 @@ class Complaint(models.Model):
     actor = models.ForeignKey("core.User", null=True, on_delete=models.SET_NULL)
     status = models.CharField(max_length=20, default="received")
     version = models.PositiveIntegerField(default=1)
+    assigned_to = models.ForeignKey(
+        "core.User", null=True, on_delete=models.SET_NULL, related_name="assigned_complaints"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     receipt_expires_at = models.DateTimeField()
 
     class Meta:
-        permissions = [("review_complaint", "Review private decision complaints")]
+        permissions = [
+            ("review_complaint", "Review private decision complaints"),
+            ("manage_complaint_assignment", "Manage decision complaint assignments"),
+        ]
         ordering = ["created_at", "pk"]
 
 
@@ -63,6 +69,17 @@ class ComplaintAccess(models.Model):
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
     purpose = models.CharField(max_length=200)
     case_version = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ComplaintAction(models.Model):
+    key = models.UUIDField(unique=True)
+    complaint = models.ForeignKey(Complaint, on_delete=models.PROTECT, related_name="actions")
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    expected_version = models.PositiveIntegerField()
+    operation = models.CharField(max_length=16)
+    payload_digest = models.CharField(max_length=64)
+    encrypted_reason = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
 

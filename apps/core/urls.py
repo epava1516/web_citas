@@ -35,6 +35,11 @@ urlpatterns = [
     ),
     path("moderation/complaints/", complaints.queue, name="complaint_queue"),
     path(
+        "moderation/complaints/<uuid:complaint_id>/action/",
+        complaints.action,
+        name="complaint_action",
+    ),
+    path(
         "moderation/complaints/<uuid:complaint_id>/", complaints.inspect, name="complaint_inspect"
     ),
     path("safety/rights/", rights.submit, name="rights_create"),
