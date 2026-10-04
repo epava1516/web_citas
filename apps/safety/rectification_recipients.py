@@ -73,6 +73,11 @@ def snapshot(person, execution):
         .order_by("pk")
         .values("pk", "recipient_id", "manager_version", "acknowledged_at")
     )
+    # A notice identifies a concrete account, even if no publishing action exists.
+    # This evidence proves only that an internal notice was created, not that the
+    # account previously received the corrected personal data.
+    for notice in notices:
+        add("account", notice["recipient_id"], "internal_correction_notice", notice["pk"])
     data = {
         "candidates": [candidates[key] for key in sorted(candidates)],
         "manager_notices": notices,

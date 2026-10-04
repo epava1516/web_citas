@@ -1,0 +1,39 @@
+{
+  "scope": "Candidatos account de avisos internos y acuses por destinatario concreto",
+  "results": {
+    "artifact": "recipient-concrete-account-receipts.xml",
+    "sha256": "f68f116d48f9f728e416ce2d59fd22e38b0ab8a3d8e33cbb1c01ad0e8b10fb8a",
+    "suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "11",
+        "time": "118.619",
+        "timestamp": "2026-10-04T19:47:47.821813+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ]
+  },
+  "database": "PostgreSQL real",
+  "browser": "Chromium móvil ES/EN390x844",
+  "docker": {
+    "schema": "safety0053; sin migración nueva",
+    "uid": 10001,
+    "health": 200,
+    "recipients_sha256": "6805665c1f76050659ccb0d5bfb400691e38470789da87fce0ae284ad75dc55d"
+  },
+  "verified": [
+    "Cada aviso añade candidato account con evidencia internal_correction_notice",
+    "Acuse del propietario permite communicated solo para su cuenta",
+    "Editor revocado sin acuse y entidad agencia no se acreditan por acuse ajeno",
+    "Fuente cambiada invalida inventarios/propuestas anteriores; reconstrucción auditada necesaria",
+    "Solicitud permanece reviewing; no publicación ni envío externo"
+  ],
+  "limits": [
+    "Aviso no prueba divulgación histórica",
+    "Identidad simulada explícita en pruebas",
+    "Otros destinatarios y lagunas pendientes; sin respuesta final ni cierre CR09"
+  ]
+}

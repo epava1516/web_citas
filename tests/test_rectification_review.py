@@ -814,6 +814,18 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
 
     notices = RightsRectificationManagerNotice.objects.filter(execution=applied)
     assert notices.count() == (2 if person.agency_id else 1)
+    # Every notice is attributable to its concrete account, including editors
+    # without publishing/representation actions. A notice is not disclosure proof.
+    for recorded_notice in notices:
+        candidate = next(
+            row
+            for row in recipient_data["candidates"]
+            if row["kind"] == "account" and row["reference"] == str(recorded_notice.recipient_id)
+        )
+        assert {
+            "basis": "internal_correction_notice",
+            "record": str(recorded_notice.pk),
+        } in candidate["evidence"]
     manager = person.agency.owner if person.agency_id else person.individual
     manager.mfa_enabled = True
     manager.save(update_fields=["mfa_enabled"])
@@ -899,6 +911,42 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         }
         for key in targets(updated_data)
     }
+    from apps.safety.recipient_assessments import validate_decisions
+
+    manager_target = next(
+        token
+        for token, candidate in targets(updated_data).items()
+        if candidate
+        and candidate["kind"] == "account"
+        and candidate["reference"] == str(manager.pk)
+    )
+    values[manager_target]["outcome"] = "communicated"
+    assert validate_decisions(updated_data, values) == values
+    if person.agency_id:
+        editor_target = next(
+            token
+            for token, candidate in targets(updated_data).items()
+            if candidate
+            and candidate["kind"] == "account"
+            and candidate["reference"] == str(editor.pk)
+        )
+        # Revoked editor has an unacknowledged notice: another account's receipt
+        # cannot establish communication to this historical recipient.
+        values[editor_target]["outcome"] = "communicated"
+        with pytest.raises(ValidationError, match="Recorded recipient receipt required"):
+            validate_decisions(updated_data, values)
+        values[editor_target]["outcome"] = "pending"
+        agency_target = next(
+            token
+            for token, candidate in targets(updated_data).items()
+            if candidate
+            and candidate["kind"] == "agency"
+            and candidate["reference"] == str(person.agency_id)
+        )
+        values[agency_target]["outcome"] = "communicated"
+        with pytest.raises(ValidationError, match="Recorded recipient receipt required"):
+            validate_decisions(updated_data, values)
+        values[agency_target]["outcome"] = "pending"
     values["gap:public_audience_and_reuse_without_identified_recipients"]["outcome"] = "impossible"
     assessment_key = uuid.uuid4()
     assessment_version = case.version
