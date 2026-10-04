@@ -19,12 +19,18 @@ from .models import Agency, AgencyInvitation, AgencyMember, Person, User
 
 def person_queryset(user):
     return (
-        Person.objects.filter(individual=user)
-        | Person.objects.filter(agency__owner=user)
-        | Person.objects.filter(
-            agency__memberships__user=user, agency__memberships__active=True, assigned_editor=user
+        (
+            Person.objects.filter(individual=user)
+            | Person.objects.filter(agency__owner=user)
+            | Person.objects.filter(
+                agency__memberships__user=user,
+                agency__memberships__active=True,
+                assigned_editor=user,
+            )
         )
-    ).distinct()
+        .filter(publication_erased_at__isnull=True)
+        .distinct()
+    )
 
 
 def pending_person_count(agency):

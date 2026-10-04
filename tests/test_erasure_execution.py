@@ -21,7 +21,7 @@ REASON = "Execute selected scoped deletion after synthetic independent identity 
 PURPOSES = ["authentication", "account_preferences", "transient_copy"]
 
 
-def plan_fixture(request, settings, monkeypatch):
+def plan_fixture(request, settings, monkeypatch, selected_purposes=None):
     case, user, staff, client, receipt, person, _, decisions = prepared(
         request, settings, monkeypatch
     )
@@ -73,7 +73,9 @@ def plan_fixture(request, settings, monkeypatch):
         "Prepare current inventory with synthetic account and copy records",
     )
     selected = [
-        row | {"operation": "erase", "review_on": None} if row["purpose"] in PURPOSES else row
+        row | {"operation": "erase", "review_on": None}
+        if row["purpose"] in (selected_purposes or PURPOSES)
+        else row
         for row in decisions
     ]
     plan = record(user, case.pk, snapshot.pk, uuid.uuid4(), case.version, selected)
@@ -160,9 +162,9 @@ def test_no_deletion_with_stale_plan_review_choice_scope_csrf_or_production(
     data = payload(case)
     assert Client(enforce_csrf_checks=True).post(path, data).status_code == 403
     assert staff.post(path, data | {"confirmed": False}).status_code == 400
-    assert staff.post(path, data | {"purposes": ["profile"]}).status_code == 400
+    assert staff.post(path, data | {"purposes": ["media"]}).status_code == 400
     with pytest.raises(ValidationError):
-        execute(user, case.pk, plan.pk, **(data | {"purposes": ["publication"]}))
+        execute(user, case.pk, plan.pk, **(data | {"purposes": ["media"]}))
     settings.PRODUCTION = True
     assert staff.post(path, data).status_code == 409
     settings.PRODUCTION = False
@@ -201,8 +203,9 @@ def test_execution_concurrent_same_key_has_one_effect(request, settings, monkeyp
     assert ErasureExecution.objects.count() == 1
 
 
+@pytest.mark.parametrize("selected_purposes", [PURPOSES, ["profile", "publication"]])
 def test_mobile_partial_execution_reports_open_request(
-    live_server, request, settings, monkeypatch, tmp_path
+    live_server, request, settings, monkeypatch, tmp_path, selected_purposes
 ):
     import json
     import shutil
@@ -211,7 +214,9 @@ def test_mobile_partial_execution_reports_open_request(
     from playwright.sync_api import expect, sync_playwright
 
     settings.DEBUG = True
-    case, _, _, _, _, _, plan, _, _, _ = plan_fixture(request, settings, monkeypatch)
+    case, _, _, _, _, _, plan, _, _, _ = plan_fixture(
+        request, settings, monkeypatch, selected_purposes=selected_purposes
+    )
     credentials = json.loads((tmp_path / "credentials.json").read_text())
     account = credentials["accounts"]["moderator"]
     with sync_playwright() as playwright:
@@ -229,7 +234,7 @@ def test_mobile_partial_execution_reports_open_request(
             page.goto(
                 live_server.url + f"/en/moderation/rights/{case.pk}/erasure-execute/{plan.pk}/"
             )
-            for purpose in PURPOSES:
+            for purpose in selected_purposes:
                 page.locator(f"[name=purposes][value={purpose}]").check()
             page.locator("[name=reason]").fill(REASON)
             page.locator("[name=confirmed]").check()
@@ -316,3 +321,142 @@ def test_person_privacy_version_revokes_existing_copy_download(request, settings
     assert client.post(path, {"key": uuid.uuid4()}).status_code == 404
     export.refresh_from_db()
     assert export.encrypted_payload and export.purged_at is None
+
+
+def test_publication_and_alias_erasure_preserves_other_model_and_blocks_republication(
+    request, settings, monkeypatch
+):
+    from django.core.exceptions import PermissionDenied
+    from django.db import transaction
+    from django.urls import reverse
+
+    from apps.core.agencies import person_queryset
+    from apps.core.models import Person
+    from apps.core.verification import locked_manager_person
+    from apps.listings.models import Listing, Revision
+    from apps.listings.revisions import create_draft
+    from apps.listings.submissions import validate_submission
+
+    selected = ["profile", "publication"]
+    case, actor, staff, client, _, person, plan, _, _, _ = plan_fixture(
+        request, settings, monkeypatch, selected_purposes=selected
+    )
+    listing = person.listing
+    prior = listing.approved_revision
+    photo = prior.photos.first()
+    peer = Person.objects.get(subject__username="fixture-v1-model-b")
+    peer_before = list(Revision.objects.filter(listing__person=peer).values())
+    original_blobs = list(prior.photos.values_list("blob_id", flat=True))
+    path = reverse("erasure_execute", kwargs={"case_id": case.pk, "plan_id": plan.pk})
+    data = payload(case) | {"purposes": selected}
+    assert staff.post(path, data).status_code == 200
+    assert staff.post(path, data).status_code == 200
+    person.refresh_from_db()
+    listing.refresh_from_db()
+    prior.refresh_from_db()
+    assert person.alias == "" and person.assigned_editor_id is None
+    assert person.publication_erased_at and listing.status == "withdrawn"
+    assert listing.approved_revision_id is None and not listing.available_until
+    for revision in listing.revisions.all():
+        assert revision.status == "withdrawn"
+        assert not any(
+            [
+                revision.title,
+                revision.description,
+                revision.description_alternative,
+                revision.phone,
+                revision.telegram,
+                revision.profile_type,
+            ]
+        )
+        assert revision.municipality_id is revision.postal_code_id is revision.zone_id is None
+        assert not revision.rates.exists() and not revision.categories.exists()
+        assert not revision.services.exists() and not revision.travel_areas.exists()
+    assert list(Revision.objects.filter(listing__person=peer).values()) == peer_before
+    assert list(prior.photos.values_list("blob_id", flat=True)) == original_blobs
+    manager = person.agency.owner
+    assert not person_queryset(manager).filter(pk=person.pk).exists()
+    assert person_queryset(manager).filter(pk=peer.pk).exists()
+    with transaction.atomic(), pytest.raises(PermissionDenied):
+        locked_manager_person(manager, person.pk)
+    with pytest.raises(ValidationError):
+        create_draft(listing, person)
+    # Force old exposure metadata to ensure the persistent person guard still wins.
+    Listing.objects.filter(pk=listing.pk).update(status="published", approved_revision=prior)
+    with pytest.raises(ValidationError):
+        validate_submission(prior, person)
+    assert client.get(f"/en/listing/{listing.pk}/").status_code == 404
+    assert (
+        client.get(
+            reverse("public_photo", kwargs={"listing_id": listing.pk, "photo_id": photo.pk})
+        ).status_code
+        == 404
+    )
+    result = unseal(ErasureExecution.objects.get().encrypted_result)
+    assert result["revisions_cleared"] == listing.revisions.count()
+    assert result["profile_alias_cleared"]
+    case.refresh_from_db()
+    assert case.status == "reviewing"
+
+
+def test_publication_requires_erase_decision_and_profile_requires_publication(
+    request, settings, monkeypatch
+):
+    case, actor, _, _, _, person, plan, _, _, _ = plan_fixture(request, settings, monkeypatch)
+    before = person.alias
+    with pytest.raises(ValidationError):
+        execute(actor, case.pk, plan.pk, **(payload(case) | {"purposes": ["profile"]}))
+    with pytest.raises(ValidationError):
+        execute(actor, case.pk, plan.pk, **(payload(case) | {"purposes": ["publication"]}))
+    person.refresh_from_db()
+    assert person.alias == before and not person.publication_erased_at
+    assert not ErasureExecution.objects.exists()
+
+
+def test_inflight_draft_creation_is_denied_after_publication_erasure(
+    request, settings, monkeypatch
+):
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Event
+
+    from django.db import close_old_connections, connections
+
+    from apps.listings import views
+
+    case, actor, _, _, _, person, plan, _, _, _ = plan_fixture(
+        request, settings, monkeypatch, selected_purposes=["publication"]
+    )
+    manager = person.agency.owner
+    client = Client()
+    client.force_login(manager)
+    session = client.session
+    session["mfa_version"] = manager.mfa_version
+    session.save()
+    reached, resume = Event(), Event()
+    locked = views.locked_manager_person
+    before = person.listing.revisions.count()
+
+    def wait_before_lock(user, person_id):
+        reached.set()
+        assert resume.wait(timeout=30)
+        return locked(user, person_id)
+
+    monkeypatch.setattr(views, "locked_manager_person", wait_before_lock)
+
+    def start_draft():
+        close_old_connections()
+        try:
+            return client.post(f"/en/person/{person.pk}/listing/start/").status_code
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        future = pool.submit(start_draft)
+        try:
+            assert reached.wait(timeout=15)
+            execute(actor, case.pk, plan.pk, **(payload(case) | {"purposes": ["publication"]}))
+        finally:
+            resume.set()
+        assert future.result(timeout=30) == 403
+    person.refresh_from_db()
+    assert person.publication_erased_at and person.listing.revisions.count() == before

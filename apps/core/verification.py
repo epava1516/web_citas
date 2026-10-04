@@ -40,6 +40,10 @@ def locked_manager_person(user, person_id):
     if snapshot.agency_id:
         Agency.objects.select_for_update().get(pk=snapshot.agency_id)
     person = Person.objects.select_for_update().get(pk=person_id)
+    if person.publication_erased_at:
+        from django.core.exceptions import PermissionDenied
+
+        raise PermissionDenied("Publication erased")
     if person.individual_id == user.pk or (person.agency_id and person.agency.owner_id == user.pk):
         return person
     if person.assigned_editor_id == user.pk and person.agency_id:

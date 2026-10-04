@@ -398,3 +398,8 @@ REQ-CR09-ERASURE-PLAN-01. GET/POST /moderation/rights/{caseUUID}/erasure-plan/{i
 ## REQ-CR09-ERASURE-EXECUTE-01
 
 Contrato de ejecución parcial en [docs/28](../28-ejecucion-supresion-ambitos.md). GET/POST erasure-execute exige review/execute/MFA/COI; POST fields key/version/purposes/reason/confirmed. Éxito200, entrada400, conflicto/ámbito obsoleto409, permiso403, referencia404; CSRF403. Solo authentication/account_preferences/transient_copy decididos erase; no cierre de solicitud ni borrado de perfil. Migraciones core0012/safety0036/0037. Epoch de privacidad y comprobación account_version revocan autorizaciones anteriores. ErasureExecution cifra contadores y conserva evidencia protegida.
+
+
+## REQ-CR09-ERASURE-PUBLICATION-01
+
+Extensión profile/publication de erasure-execute, documentada en [docs/29](../29-supresion-contenido-publicacion.md). Profile requiere publication en la misma operación; ambas decisiones erase. Vacía alias/editor y contenido editorial/rates/M2M según selección; conserva filas/referencias de evidencia. core0013 Person.publication_erased_at bloquea gestión y exposición posterior incluso con status forzado. Caso abierto, sin cierre integral. Resultado cifra revisions_cleared/rates_deleted/profile_alias_cleared; mismo UUID/permiso/CSRF/HMAC que REQ-CR09-ERASURE-EXECUTE-01.

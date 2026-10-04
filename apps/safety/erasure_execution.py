@@ -5,7 +5,7 @@ import uuid
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.db import IntegrityError, transaction
+from django.db import IntegrityError, models, transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
@@ -13,7 +13,7 @@ from django.views.decorators.debug import sensitive_post_parameters, sensitive_v
 from django.views.decorators.http import require_http_methods
 
 from apps.core.models import AccountToken, RecoveryCode, User
-from apps.listings.models import Favorite
+from apps.listings.models import Favorite, Listing, Rate, Revision
 
 from .crypto import seal, unseal
 from .erasure_inventory import canonical
@@ -31,6 +31,8 @@ from .rights_scope import locked_case, permitted
 from .views import private
 
 SUPPORTED = [
+    ("profile", "Alias público / Public alias"),
+    ("publication", "Contenido de anuncio / Listing content"),
     ("authentication", "Tokens, códigos y sesiones / Tokens, codes and sessions"),
     ("account_preferences", "Favoritos propios / Own favorites"),
     ("transient_copy", "Contenido de copias transitorias / Transient copy contents"),
@@ -57,6 +59,10 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         or not set(purposes) <= {value for value, _ in SUPPORTED}
     ):
         raise ValidationError("Select supported scopes / Selecciona ámbitos implementados")
+    if "profile" in purposes and "publication" not in purposes:
+        raise ValidationError(
+            "Erase publication together with profile / Suprime publicación junto al perfil"
+        )
     signature = fingerprint(
         canonical(
             {
@@ -113,6 +119,11 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         list(
             RightsExportImage.objects.select_for_update().filter(export__in=exports).order_by("pk")
         )
+    revisions = (
+        list(Revision.objects.select_for_update().filter(listing__person=person).order_by("pk"))
+        if "publication" in purposes
+        else []
+    )
     inventory, _ = authorized_inventory(user, case, person, plan.inventory_id)
     if inventory.source_digest != plan.source_digest:
         raise ValidationError("Plan source changed / Fuente del plan cambiada")
@@ -147,7 +158,55 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 "copies_cleared": 0,
                 "images_cleared": 0,
                 "sessions_revoked": False,
+                "revisions_cleared": 0,
+                "rates_deleted": 0,
+                "profile_alias_cleared": False,
             }
+            if "publication" in purposes:
+                ids = [revision.pk for revision in revisions]
+                result["revisions_cleared"] = len(ids)
+                result["rates_deleted"] = Rate.objects.filter(revision_id__in=ids).count()
+                Rate.objects.filter(revision_id__in=ids).delete()
+                for revision in revisions:
+                    revision.categories.clear()
+                    revision.services.clear()
+                    revision.travel_areas.clear()
+                Revision.objects.filter(pk__in=ids).update(
+                    status="withdrawn",
+                    edit_version=models.F("edit_version") + 1,
+                    title="",
+                    description="",
+                    description_alternative="",
+                    profile_type="",
+                    municipality=None,
+                    postal_code=None,
+                    zone=None,
+                    spoken_languages=[],
+                    days=[],
+                    time_slot="",
+                    reception=False,
+                    travel=False,
+                    phone="",
+                    whatsapp=False,
+                    telegram="",
+                    contact_exposure_accepted=False,
+                    updated_at=timezone.now(),
+                )
+                Listing.objects.filter(person=person).update(
+                    status="withdrawn",
+                    approved_revision=None,
+                    available_until=None,
+                    published_at=None,
+                    expires_at=None,
+                    lifecycle_version=models.F("lifecycle_version") + 1,
+                )
+                person.publication_erased_at = timezone.now()
+                person.save(update_fields=["publication_erased_at"])
+            if "profile" in purposes:
+                person.alias = ""
+                person.assigned_editor = None
+                person.save(update_fields=["alias", "assigned_editor"])
+                result["profile_alias_cleared"] = True
             if "authentication" in purposes:
                 result["tokens_deleted"] = AccountToken.objects.filter(user=subject).count()
                 result["recovery_codes_deleted"] = RecoveryCode.objects.filter(user=subject).count()

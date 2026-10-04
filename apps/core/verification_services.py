@@ -51,6 +51,8 @@ def real_checks(person, age=None):
 
 
 def publication_ready(person):
+    if person.publication_erased_at:
+        return False
     consent = person.consent_version == person.manager_version and not person.consent_revoked_at
     phone = person.phone_claim
     manager_phone = (

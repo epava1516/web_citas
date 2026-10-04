@@ -21,6 +21,8 @@ def current_publishing_document():
 def validate_submission(revision, person):
     from apps.safety.models import PrivacyPublicationHold, Restriction
 
+    if person.publication_erased_at:
+        raise ValidationError("Publicación suprimida / Publication erased")
     if PrivacyPublicationHold.objects.filter(person=person, active=True).exists():
         raise ValidationError(
             "Publicación limitada por privacidad / Publication limited for privacy"

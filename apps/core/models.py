@@ -131,6 +131,7 @@ class AgencyInvitation(models.Model):
 
 
 class Person(models.Model):
+    publication_erased_at = models.DateTimeField(null=True, blank=True)
     rights_version = models.PositiveIntegerField(default=1)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     alias = models.CharField(max_length=80)

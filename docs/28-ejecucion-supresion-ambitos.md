@@ -2,7 +2,9 @@
 
 Fecha: 2026-10-04. Requisito: REQ-CR09-ERASURE-EXECUTE-01. CR-09 sigue en curso. Complementa [inventario](26-inventario-supresion-retencion.md) y [decisiones](27-decisiones-supresion-retencion.md); no sustituye los requisitos del derecho completo ni acredita cumplimiento jurídico.
 
-## Operaciones conectadas
+## Operaciones de la primera entrega 9acfc48
+
+La ampliación vigente de alias y contenido editorial se especifica en [docs/29](29-supresion-contenido-publicacion.md). La tabla siguiente conserva el alcance verificado de la primera entrega.
 
 POST `/en/moderation/rights/<case>/erasure-execute/<plan>/` (también ES) ejecuta exclusivamente finalidades seleccionadas cuya decisión del plan es `erase`:
 

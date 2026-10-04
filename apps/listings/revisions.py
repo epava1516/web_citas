@@ -1,5 +1,6 @@
 from copy import deepcopy
 
+from django.core.exceptions import ValidationError
 from django.db import transaction
 
 from apps.mediafiles.models import Photo
@@ -11,6 +12,8 @@ from .models import Rate, Revision
 
 def create_draft(listing, person):
     """Called under manager/person/listing locks; approved content is never edited."""
+    if person.publication_erased_at:
+        raise ValidationError("Publication erased / Publicación suprimida")
     source = listing.approved_revision
     if source and source.manager_version != person.manager_version:
         source = None
