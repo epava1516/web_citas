@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.utils import timezone
 
 
 class Blob(models.Model):
@@ -110,3 +111,17 @@ class PhotoAppeal(models.Model):
     reason = models.CharField(max_length=1000, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     resolved_at = models.DateTimeField(null=True)
+
+
+class MediaErasure(models.Model):
+    blob = models.OneToOneField(Blob, on_delete=models.PROTECT, related_name="erasure")
+    execution = models.ForeignKey(
+        "safety.ErasureExecution", on_delete=models.PROTECT, related_name="media_jobs"
+    )
+    encrypted_paths = models.TextField()
+    status = models.CharField(max_length=12, default="queued", db_index=True)
+    attempts = models.PositiveIntegerField(default=0)
+    next_attempt_at = models.DateTimeField(default=timezone.now)
+    completed_at = models.DateTimeField(null=True)
+    error_code = models.CharField(max_length=40, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)

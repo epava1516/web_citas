@@ -28,3 +28,10 @@ def recover_media_jobs():
     ).distinct()
     for blob_id in pending.values_list("pk", flat=True)[:100]:
         process_blob.delay(str(blob_id))
+
+
+@shared_task
+def erase_media_files():
+    from .erasure import erase_due_media
+
+    return erase_due_media()

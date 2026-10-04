@@ -1,5 +1,6 @@
 """Actual local deletion of reviewed scopes; broader erasure remains open."""
 
+import hashlib
 import uuid
 
 from django import forms
@@ -14,6 +15,7 @@ from django.views.decorators.http import require_http_methods
 
 from apps.core.models import AccountToken, RecoveryCode, User
 from apps.listings.models import Favorite, Listing, Rate, Revision
+from apps.mediafiles.models import Blob, MediaErasure, Photo
 
 from .crypto import seal, unseal
 from .erasure_inventory import canonical
@@ -31,6 +33,7 @@ from .rights_scope import locked_case, permitted
 from .views import private
 
 SUPPORTED = [
+    ("media", "Archivos y huellas propios / Own files and fingerprints"),
     ("profile", "Alias público / Public alias"),
     ("publication", "Contenido de anuncio / Listing content"),
     ("authentication", "Tokens, códigos y sesiones / Tokens, codes and sessions"),
@@ -124,6 +127,31 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         if "publication" in purposes
         else []
     )
+    media = []
+    if "media" in purposes:
+        blob_ids = Photo.objects.filter(revision__listing__person=person).values_list(
+            "blob_id", flat=True
+        )
+        media = list(Blob.objects.select_for_update().filter(pk__in=blob_ids).order_by("pk"))
+        for blob in media:
+            if Photo.objects.filter(blob=blob).exclude(revision__listing__person=person).exists():
+                raise ValidationError(
+                    "Shared image requires separate scoped review / Imagen compartida requiere revisión de ámbito"
+                )
+        for blob in media:
+            names = [value for value in [blob.original.name, blob.derivative.name] if value]
+            if (
+                names
+                and Blob.objects.exclude(pk=blob.pk)
+                .filter(models.Q(original__in=names) | models.Q(derivative__in=names))
+                .exists()
+            ):
+                raise ValidationError("Storage path shared / Ruta de almacenamiento compartida")
+        list(
+            Photo.objects.select_for_update()
+            .filter(revision__listing__person=person)
+            .order_by("pk")
+        )
     inventory, _ = authorized_inventory(user, case, person, plan.inventory_id)
     if inventory.source_digest != plan.source_digest:
         raise ValidationError("Plan source changed / Fuente del plan cambiada")
@@ -161,6 +189,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 "revisions_cleared": 0,
                 "rates_deleted": 0,
                 "profile_alias_cleared": False,
+                "media_jobs_queued": 0,
             }
             if "publication" in purposes:
                 ids = [revision.pk for revision in revisions]
@@ -239,6 +268,40 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 person=person,
                 encrypted_result=seal(result),
             )
+            if "media" in purposes:
+                Photo.objects.filter(revision__listing__person=person).update(
+                    removed_at=timezone.now(), approved=False, comparison_complete=True
+                )
+                for blob in media:
+                    if blob.status in {"erasing", "erased"}:
+                        continue
+                    MediaErasure.objects.create(
+                        blob=blob,
+                        execution=record,
+                        encrypted_paths=seal(
+                            {"original": blob.original.name, "derivative": blob.derivative.name}
+                        ),
+                    )
+                    blob.status = "erasing"
+                    blob.sha256 = hashlib.sha256(uuid.uuid4().bytes).hexdigest()
+                    blob.phash, blob.signature, blob.regional_hashes = "", {}, []
+                    blob.width = blob.height = 0
+                    blob.error_code = ""
+                    blob.save(
+                        update_fields=[
+                            "status",
+                            "sha256",
+                            "phash",
+                            "signature",
+                            "regional_hashes",
+                            "width",
+                            "height",
+                            "error_code",
+                        ]
+                    )
+                    result["media_jobs_queued"] += 1
+                record.encrypted_result = seal(result)
+                record.save(update_fields=["encrypted_result"])
             person.rights_version += 1
             person.save(update_fields=["rights_version"])
             case.version += 1

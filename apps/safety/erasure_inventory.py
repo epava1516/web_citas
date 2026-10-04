@@ -47,6 +47,12 @@ def source_manifest(person):
         ("listings.Rate", Q(revision__listing__person=person), "publication", None),
         ("mediafiles.Photo", Q(**{profile: person}), "media", None),
         (
+            "mediafiles.MediaErasure",
+            Q(execution__person=person),
+            "media",
+            ["pk", "blob_id", "status", "attempts", "next_attempt_at", "completed_at"],
+        ),
+        (
             "mediafiles.UploadAttempt",
             Q(**{profile: person}),
             "media",

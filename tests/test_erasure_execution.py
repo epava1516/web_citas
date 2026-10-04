@@ -162,9 +162,9 @@ def test_no_deletion_with_stale_plan_review_choice_scope_csrf_or_production(
     data = payload(case)
     assert Client(enforce_csrf_checks=True).post(path, data).status_code == 403
     assert staff.post(path, data | {"confirmed": False}).status_code == 400
-    assert staff.post(path, data | {"purposes": ["media"]}).status_code == 400
+    assert staff.post(path, data | {"purposes": ["evidence"]}).status_code == 400
     with pytest.raises(ValidationError):
-        execute(user, case.pk, plan.pk, **(data | {"purposes": ["media"]}))
+        execute(user, case.pk, plan.pk, **(data | {"purposes": ["evidence"]}))
     settings.PRODUCTION = True
     assert staff.post(path, data).status_code == 409
     settings.PRODUCTION = False
@@ -203,7 +203,7 @@ def test_execution_concurrent_same_key_has_one_effect(request, settings, monkeyp
     assert ErasureExecution.objects.count() == 1
 
 
-@pytest.mark.parametrize("selected_purposes", [PURPOSES, ["profile", "publication"]])
+@pytest.mark.parametrize("selected_purposes", [PURPOSES, ["profile", "publication"], ["media"]])
 def test_mobile_partial_execution_reports_open_request(
     live_server, request, settings, monkeypatch, tmp_path, selected_purposes
 ):

@@ -111,3 +111,6 @@ Primero se envía la tarea real a Redis y se coteja resultado1; repetición resu
 El launcher elimina contenedores/base y vacía la cola temporal en finally incluso si falla; el estado de timeout se imprime minimizado para diagnóstico. Observar el proceso mediante sesión del comando; no repetir mientras sigue vivo. El nombre temporal se incluye en resultado para comprobar eliminación posteriormente. No datos reales ni comunicación externa.
 
 El ensayo histórico de JSON del 2026-10-04 utilizó el comando anterior sin argumento y --beat sobre servicios principales:0.501s manual y61.352s automático, código histórico d2bb585/safety0018. Estos comandos se sustituyen por launch y no deben copiarse para la versión actual. La evidencia nueva de imágenes se registra por separado en docs/18; no ampliar retroactivamente el alcance de la histórica.
+
+
+Ensayo físico de supresión local: `uv run python -m scripts.probe_media_erasure_worker launch`. Crea DB/cola/worker/Beat media_probe_UUID, PNG original/WebP derivado sintéticos y archivos vigentes de control; identidad pending/plan-ejecución fixture, no decisión acreditada. Worker manual y Beat60s de la aplicación; cleanup de DB/contenedores/cola y archivos solo del namespace del probe. Evidencias finales en docs/30/18. No S3/versiones/CDN/backups comprobados.

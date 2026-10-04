@@ -403,3 +403,8 @@ Contrato de ejecución parcial en [docs/28](../28-ejecucion-supresion-ambitos.md
 ## REQ-CR09-ERASURE-PUBLICATION-01
 
 Extensión profile/publication de erasure-execute, documentada en [docs/29](../29-supresion-contenido-publicacion.md). Profile requiere publication en la misma operación; ambas decisiones erase. Vacía alias/editor y contenido editorial/rates/M2M según selección; conserva filas/referencias de evidencia. core0013 Person.publication_erased_at bloquea gestión y exposición posterior incluso con status forzado. Caso abierto, sin cierre integral. Resultado cifra revisions_cleared/rates_deleted/profile_alias_cleared; mismo UUID/permiso/CSRF/HMAC que REQ-CR09-ERASURE-EXECUTE-01.
+
+
+## REQ-CR09-ERASURE-MEDIA-01
+
+Extensión media de erasure-execute en [docs/30](../30-supresion-imagenes-almacenamiento.md). Solo erase vigente/unshared: retirada de Photo, huellas vacías y trabajo durable de archivos, resultado media_jobs_queued; misma validación/idempotencia/CSRF/permisos que docs/28. MediaErasure/0008, tarea erase_media_files/Beat60s, backoff y completed tras confirmación física. No cierre de solicitud ni borrar archivos de otro perfil.

@@ -69,6 +69,8 @@ def ingest(user, revision_id, upload):
                 raise ValidationError("Maximum eight photos")
             blob, created = Blob.objects.get_or_create(sha256=sha)
             blob = Blob.objects.select_for_update().get(pk=blob.pk)
+            if blob.status in {"erasing", "erased"}:
+                raise ValidationError("Image unavailable during erasure")
             if created:
                 blob.width, blob.height = image.size
                 blob.original.save(str(uuid.uuid4()), ContentFile(raw), save=False)
@@ -107,6 +109,8 @@ def process(blob_id):
     ready = False
     with transaction.atomic():
         blob = Blob.objects.select_for_update().get(pk=blob_id)
+        if blob.status in {"erasing", "erased"}:
+            return
         ready = blob.status == "ready"
         if not ready:
             if (
@@ -135,6 +139,8 @@ def process(blob_id):
         image.save(output, format="WEBP", quality=85, method=4)
         with transaction.atomic():
             blob = Blob.objects.select_for_update().get(pk=blob_id)
+            if blob.status in {"erasing", "erased"}:
+                return
             blob.derivative.save(
                 str(uuid.uuid4()) + ".webp", ContentFile(output.getvalue()), save=False
             )
@@ -144,7 +150,7 @@ def process(blob_id):
             blob.save()
         detect_matches(blob_id)
     except (OSError, ValidationError, UnidentifiedImageError, Image.DecompressionBombError):
-        Blob.objects.filter(pk=blob_id).update(
+        Blob.objects.filter(pk=blob_id).exclude(status__in=["erasing", "erased"]).update(
             status="failed", error_code="decode_or_storage_failed"
         )
         raise
@@ -157,6 +163,21 @@ def stored_signature(blob):
     values["rotated_hashes"] = tuple(values["rotated_hashes"])
     values["window_hashes"] = tuple((tuple(item[0]), item[1]) for item in values["window_hashes"])
     return Signature(**values)
+
+
+def record_match(photo, candidate, defaults):
+    # Erasure and uploads serialize on Blob. Order both IDs to avoid pair inversion.
+    with transaction.atomic():
+        blobs = list(
+            Blob.objects.select_for_update()
+            .filter(pk__in=[photo.blob_id, candidate.blob_id])
+            .order_by("pk")
+        )
+        if any(blob.status in {"erasing", "erased"} for blob in blobs):
+            return
+        if Photo.objects.filter(pk__in=[photo.pk, candidate.pk], removed_at__isnull=False).exists():
+            return
+        Match.objects.get_or_create(photo=photo, candidate=candidate, defaults=defaults)
 
 
 def detect_matches(blob_id):
@@ -172,9 +193,7 @@ def detect_matches(blob_id):
         for candidate in blob.photos.filter(removed_at__isnull=True).exclude(
             revision__listing__person_id=photo.revision.listing.person_id
         ):
-            Match.objects.get_or_create(
-                photo=photo, candidate=candidate, defaults={"method": "sha256"}
-            )
+            record_match(photo, candidate, {"method": "sha256"})
     image = None
     for other in Blob.objects.filter(status="ready").exclude(pk=blob.pk).iterator():
         other_signature = stored_signature(other)
@@ -195,9 +214,7 @@ def detect_matches(blob_id):
             for candidate in other.photos.filter(removed_at__isnull=True).exclude(
                 revision__listing__person_id=photo.revision.listing.person_id
             ):
-                Match.objects.get_or_create(
-                    photo=photo, candidate=candidate, defaults={"method": method, "score": score}
-                )
+                record_match(photo, candidate, {"method": method, "score": score})
 
     blob.photos.filter(
         pk__in=[photo.pk for photo in photos_to_compare], removed_at__isnull=True
