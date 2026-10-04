@@ -115,7 +115,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
     from apps.mediafiles.models import Photo
     from apps.mediafiles.tasks import process_blob
 
-    from . import rectification_location
+    from . import rectification_catalog, rectification_location
     from .models import RightsRectificationExecution
 
     permission(user)
@@ -211,16 +211,18 @@ def execute(user, case_id, proposal_id, key, version, reason):
                     {
                         field: getattr(source, field)
                         for field in changes
-                        if field not in {"alias", "location"}
+                        if field not in {"alias", "location", "catalog"}
                     }
                 )
                 values.update(
                     {
                         field: text
                         for field, text in changes.items()
-                        if field not in {"alias", "location"}
+                        if field not in {"alias", "location", "catalog"}
                     }
                 )
+                if "catalog" in changes:
+                    before["catalog"] = rectification_catalog.source(source)
                 if "location" in changes:
                     before["location"] = rectification_location.source(source)
                     values.update(
@@ -236,7 +238,10 @@ def execute(user, case_id, proposal_id, key, version, reason):
                     **values,
                 )
                 for field in Revision._meta.many_to_many:
-                    getattr(corrected, field.name).set(getattr(source, field.name).all())
+                    if "catalog" in changes and field.name in {"categories", "services"}:
+                        getattr(corrected, field.name).set(changes["catalog"][field.name])
+                    else:
+                        getattr(corrected, field.name).set(getattr(source, field.name).all())
                 for rate in source.rates.all():
                     Rate.objects.create(
                         revision=corrected,

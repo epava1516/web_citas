@@ -13,10 +13,10 @@ from django.shortcuts import redirect, render
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
 
-from apps.catalog.models import Municipality, PostalCode, Zone
+from apps.catalog.models import Category, Municipality, PostalCode, Service, Zone
 from apps.listings.models import Revision
 
-from . import rectification_location
+from . import rectification_catalog, rectification_location
 from .crypto import seal
 from .models import (
     RightsAction,
@@ -35,9 +35,18 @@ FIELDS = {"alias": 80, "title": 120, "description": 10000, "description_alternat
 
 @sensitive_variables()
 def validated_changes(value):
-    if not isinstance(value, dict) or not value or set(value) - (set(FIELDS) | {"location"}):
+    if (
+        not isinstance(value, dict)
+        or not value
+        or set(value) - (set(FIELDS) | {"location", "catalog"})
+    ):
         raise ValidationError("Unsupported correction fields / Campos de corrección no admitidos")
-    for field, text in value.items():
+    value = value.copy()
+    for field in sorted(value):
+        text = value[field]
+        if field == "catalog":
+            value[field] = rectification_catalog.validate(text)
+            continue
         if field == "location":
             rectification_location.validate(text)
             continue
@@ -177,6 +186,7 @@ def source_snapshot(case, person, listing):
     }
     if revision:
         source["fields"]["location"] = rectification_location.source(revision)
+        source["fields"]["catalog"] = rectification_catalog.source(revision)
     return revision, source
 
 
@@ -237,6 +247,7 @@ class ProposalForm(forms.Form):
             ("description", "Descripción / Description"),
             ("description_alternative", "Descripción alternativa / Alternative description"),
             ("location", "Ubicación completa / Complete location"),
+            ("catalog", "Categorías y servicios / Categories and services"),
         ],
         widget=forms.CheckboxSelectMultiple,
         label="Campos que se propone corregir / Fields proposed for correction",
@@ -269,6 +280,18 @@ class ProposalForm(forms.Form):
     zone = forms.ModelChoiceField(
         queryset=Zone.objects.filter(active=True), required=False, label="Zona / Area"
     )
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.filter(active=True),
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        label="Categorías / Categories",
+    )
+    services = forms.ModelMultipleChoiceField(
+        queryset=Service.objects.filter(active=True),
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        label="Servicios / Services",
+    )
     reason = forms.CharField(
         required=False,
         min_length=20,
@@ -286,7 +309,9 @@ class ProposalForm(forms.Form):
                     "Selecciona los campos que se propone corregir / Select fields proposed for correction"
                 )
             data["changes"] = {
-                field: data.get(field, "") for field in selected if field != "location"
+                field: data.get(field, "")
+                for field in selected
+                if field not in {"location", "catalog"}
             }
             if "location" in selected:
                 data["changes"]["location"] = {
@@ -294,6 +319,13 @@ class ProposalForm(forms.Form):
                     for field in ["municipality", "postal_code", "zone"]
                 }
                 rectification_location.validate(data["changes"]["location"])
+            if "catalog" in selected:
+                data["changes"]["catalog"] = rectification_catalog.validate(
+                    {
+                        field: [row.pk for row in data.get(field, [])]
+                        for field in ["categories", "services"]
+                    }
+                )
         return data
 
 
@@ -306,6 +338,8 @@ class ProposalForm(forms.Form):
     "municipality",
     "postal_code",
     "zone",
+    "categories",
+    "services",
     "reason",
     "purpose",
 )
@@ -357,9 +391,10 @@ def prepare(request, case_id):
                     **{
                         field: value
                         for field, value in source_fields.items()
-                        if field != "location"
+                        if field not in {"location", "catalog"}
                     },
                     **source_fields.get("location", {}),
+                    **source_fields.get("catalog", {}),
                 }
             )
     return private(

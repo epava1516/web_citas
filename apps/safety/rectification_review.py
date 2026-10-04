@@ -242,6 +242,15 @@ def prepare(request, case_id, proposal_id):
                     from .rectification_location import display
 
                     changes = {**changes, "location": display(changes["location"])}
+                if "catalog" in changes:
+                    from .rectification_catalog import display as display_catalog
+
+                    changes = {
+                        **changes,
+                        "catalog": display_catalog(
+                            changes["catalog"], request.LANGUAGE_CODE == "en"
+                        ),
+                    }
                 status = 200
             elif data["operation"] in {"notify", "execute"}:
                 from .rectification_execution import execute, notify

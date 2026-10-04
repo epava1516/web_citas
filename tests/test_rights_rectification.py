@@ -145,6 +145,19 @@ def test_mobile_source_review_and_field_proposal(
         .first()
     )
     assert new_city
+    from apps.catalog.models import Category, Service
+
+    new_category = Category.objects.create(
+        slug="synthetic-browser-corrected-category",
+        name_es="Synthetic browser category",
+        name_en="Synthetic browser category",
+    )
+    new_service = Service.objects.create(
+        slug="synthetic-browser-corrected-service",
+        category=new_category,
+        name_es="Synthetic browser service",
+        name_en="Synthetic browser service",
+    )
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(
             executable_path=shutil.which("chromium-browser"), args=["--no-sandbox"]
@@ -174,6 +187,12 @@ def test_mobile_source_review_and_field_proposal(
             page.locator("[name=municipality]").select_option(str(new_city.pk))
             page.locator("[name=postal_code]").select_option("")
             page.locator("[name=zone]").select_option("")
+            page.locator('[name=fields][value="catalog"]').check()
+            for field in ["categories", "services"]:
+                for checkbox in page.locator(f"[name={field}]").all():
+                    checkbox.uncheck()
+            page.locator(f'[name=categories][value="{new_category.pk}"]').check()
+            page.locator(f'[name=services][value="{new_service.pk}"]').check()
             page.locator("[name=reason]").fill(REASON)
             page.get_by_role("button", name="Record correction action", exact=True).click()
             expect(
@@ -187,6 +206,7 @@ def test_mobile_source_review_and_field_proposal(
     proposal = RightsRectificationProposal.objects.get()
     assert unseal(proposal.encrypted_changes) == {
         "alias": "Synthetic browser correction",
+        "catalog": {"categories": [new_category.pk], "services": [new_service.pk]},
         "location": {"municipality": new_city.pk, "postal_code": None, "zone": None},
     }
     person.refresh_from_db()
@@ -248,3 +268,61 @@ def test_location_form_requires_coherent_public_safe_city_postal_and_zone(
     revision.refresh_from_db()
     assert revision.municipality_id == city.pk
     assert staff.get(path).context["source_fields"] is None
+
+
+def test_catalog_form_requires_active_compatible_categories_and_services(
+    request, settings, monkeypatch
+):
+    from django.core.exceptions import ValidationError
+
+    from apps.catalog.models import Category, Service
+    from apps.safety.rectification_catalog import source as catalog_source
+    from apps.safety.rectification_catalog import validate
+
+    case, _, staff, _, _, person = ready(request, settings, monkeypatch, "rectify")
+    revision = person.listing.approved_revision
+    original = catalog_source(revision)
+    category = Category.objects.create(
+        slug="synthetic-catalog-proposal",
+        name_es="Synthetic proposal category",
+        name_en="Synthetic proposal category",
+    )
+    service = Service.objects.create(
+        slug="synthetic-catalog-proposal",
+        category=category,
+        name_es="Synthetic proposal service",
+        name_en="Synthetic proposal service",
+        active=False,
+    )
+    path = f"/en/moderation/rights/{case.pk}/rectification/"
+    initial = staff.get(path).context["form"].initial
+    page = staff.post(
+        path,
+        initial
+        | {"operation": "preview", "purpose": "Inspect current catalog before scoped correction"},
+    )
+    assert page.status_code == 200 and page.context["source_fields"]["catalog"] == original
+    assert staff.get(path).context["source_fields"] is None
+    data = initial | {
+        "operation": "propose",
+        "fields": ["catalog"],
+        "categories": [category.pk],
+        "services": [service.pk],
+        "reason": REASON,
+    }
+    assert staff.post(path, data).status_code == 400
+    service.active = True
+    service.save(update_fields=["active"])
+    assert staff.post(path, data | {"categories": original["categories"]}).status_code == 400
+    assert staff.post(path, data | {"categories": []}).status_code == 400
+    assert staff.post(path, data | {"services": []}).status_code == 400
+    with pytest.raises(ValidationError):
+        validate({"categories": [category.pk, category.pk], "services": [service.pk]})
+    with pytest.raises(ValidationError):
+        validate({"categories": [True], "services": [service.pk]})
+    assert not RightsRectificationProposal.objects.exists()
+    assert staff.post(path, data).status_code == 302
+    assert unseal(RightsRectificationProposal.objects.get().encrypted_changes) == {
+        "catalog": {"categories": [category.pk], "services": [service.pk]}
+    }
+    assert catalog_source(revision) == original

@@ -1,0 +1,45 @@
+{
+  "scope": "Rectificación de categorías y servicios en nueva revisión mediante circuito independiente",
+  "results": {
+    "artifact": "rectification-catalog-crossflow.xml",
+    "sha256": "2841457909610739e6bd87fbd9977515c457f076d20c9719b19d35c955457298",
+    "suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "15",
+        "time": "160.201",
+        "timestamp": "2026-10-04T20:02:35.462751+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ]
+  },
+  "database": "PostgreSQL real",
+  "browser": "Chromium390x844: formulario propuesta EN y review/recepción/ejecución ESEN",
+  "verified": [
+    "Ambas selecciones activas/no vacías, IDs enteros/sin duplicados y pertenencia a categorías",
+    "Propuesta bloquea inactivo/incompatible/vacío y ejecución bloquea servicio desactivado después de review",
+    "GETno fuente; POSTauditado muestra selección y review usa nombres ESEN",
+    "Nueva revisión sustituye categories/services, source antigua conserva todas relaciones y valoresprevios cifrados",
+    "Otras relaciones/rates/photos y comprobación/recepción/asignación/replay/CSRF permanecen protegidos",
+    "Estado reviewing, sin publicación ni cierre automático"
+  ],
+  "docker": {
+    "schema": "safety0053 sin nueva migración",
+    "uid": 10001,
+    "health": 200,
+    "hashes": {
+      "apps/safety/rectification_catalog.py": "2c1ed3e36c320b769859ba0f7584b19165cd69dbcfb5527f86d0017ddd9af7e2",
+      "apps/safety/rights_rectification.py": "90a9dee9bfbcfcf10509d73ff925f6fece476e3454f0ef5455699811f38b7930",
+      "apps/safety/rectification_execution.py": "67d4d93a088c70b44547fd15e09387a75814df79cea86a1e9c34b2877c50c6f0"
+    }
+  },
+  "limits": [
+    "Identidad simulada explícita, no proveedor ni entrega externa",
+    "Solo catálogo acordado; nuevas etiquetas son fixtures sintéticas",
+    "Tarifas/contactos y otros campos, comunicación histórica/retención/respuesta final pendientes",
+    "CR09 y fases CR10/GS01/BF/BB/C pendientes"
+  ]
+}

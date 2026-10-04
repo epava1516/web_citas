@@ -25,6 +25,7 @@ def independent_case(
     changes=None,
     subject_username="fixture-v1-model-a",
     correct_location=False,
+    correct_catalog=False,
 ):
     case, original, staff, client, receipt, person = ready(
         request, settings, monkeypatch, "rectify", subject_username=subject_username
@@ -52,6 +53,24 @@ def independent_case(
                 "postal_code": postal.pk,
                 "zone": zone.pk,
             },
+        }
+    if correct_catalog:
+        from apps.catalog.models import Category, Service
+
+        category = Category.objects.create(
+            slug="synthetic-corrected-category",
+            name_es="Synthetic corrected category",
+            name_en="Synthetic corrected category",
+        )
+        service = Service.objects.create(
+            slug="synthetic-corrected-service",
+            category=category,
+            name_es="Synthetic corrected service",
+            name_en="Synthetic corrected service",
+        )
+        changes = {
+            **(changes or {"alias": "Synthetic reviewed correction"}),
+            "catalog": {"categories": [category.pk], "services": [service.pk]},
         }
     original.user_permissions.add(
         *Permission.objects.filter(
@@ -177,7 +196,12 @@ def test_mobile_independent_source_and_proposal_review(
 
     settings.DEBUG = True
     case, reviewer, other, person, proposal, path, client, receipt = independent_case(
-        request, settings, monkeypatch, with_receipt=True, correct_location=True
+        request,
+        settings,
+        monkeypatch,
+        with_receipt=True,
+        correct_location=True,
+        correct_catalog=True,
     )
     path = path.replace("/en/", f"/{language}/")
     reviewer.user_permissions.add(
@@ -244,6 +268,8 @@ def test_mobile_independent_source_and_proposal_review(
                 )
             ).to_be_visible()
             expect(page.get_by_text("Synthetic correction area", exact=False)).to_be_visible()
+            expect(page.get_by_text("Synthetic corrected category", exact=False)).to_be_visible()
+            expect(page.get_by_text("Synthetic corrected service", exact=False)).to_be_visible()
             assert "'municipality':" not in page.locator("main").inner_text()
             page.locator("[name=operation]").select_option("review")
             page.locator("[name=outcome]").select_option("approved")
@@ -530,6 +556,7 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         with_receipt=True,
         subject_username=subject_username,
         correct_location=True,
+        correct_catalog=True,
         changes={
             "alias": "Synthetic reviewed correction",
             "title": "Corrected synthetic title",
@@ -628,6 +655,9 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     from apps.safety.rectification_location import source as location_source
 
     old_location = location_source(old_revision)
+    from apps.safety.rectification_catalog import source as catalog_source
+
+    old_catalog = catalog_source(old_revision)
     old_description = old_revision.description
     old_rates = list(
         old_revision.rates.values_list("concept", "mode", "amount", "currency", "duration_minutes")
@@ -669,6 +699,16 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     assert other.post(path, payload).status_code == 409
     destination_postal.public_safe = True
     destination_postal.save(update_fields=["public_safe"])
+    from apps.catalog.models import Service
+
+    destination_service = Service.objects.get(
+        pk=unseal(proposal.encrypted_changes)["catalog"]["services"][0]
+    )
+    destination_service.active = False
+    destination_service.save(update_fields=["active"])
+    assert other.post(path, payload).status_code == 409
+    destination_service.active = True
+    destination_service.save(update_fields=["active"])
     ongoing = Revision.objects.create(
         listing=person.listing, manager_version=person.manager_version
     )
@@ -735,6 +775,10 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert location_source(corrected) == unseal(proposal.encrypted_changes)["location"]
         assert unseal(applied.encrypted_previous_values)["location"] == old_location
         assert location_source(corrected) != old_location
+        assert catalog_source(old_revision) == old_catalog
+        assert catalog_source(corrected) == unseal(proposal.encrypted_changes)["catalog"]
+        assert unseal(applied.encrypted_previous_values)["catalog"] == old_catalog
+        assert catalog_source(corrected) != old_catalog
         assert corrected.title == "Corrected synthetic title"
         assert corrected.description == "Corrected synthetic description"
         assert (
@@ -749,7 +793,13 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert not corrected.photos.filter(approved=True).exists()
         # Local eager processing may already have completed comparisons; dispatch is asserted above.
         for field, ids in old_relations.items():
-            assert set(getattr(corrected, field).values_list("pk", flat=True)) == ids
+            expected = (
+                set(unseal(proposal.encrypted_changes)["catalog"][field])
+                if field in {"categories", "services"}
+                else ids
+            )
+            assert set(getattr(corrected, field).values_list("pk", flat=True)) == expected
+            assert set(getattr(old_revision, field).values_list("pk", flat=True)) == ids
         assert person.listing.approved_revision_id == old_revision.pk
         assert applied.corrected_revision.source_revision_id == old_revision.pk
         assert applied.corrected_revision.status == "draft"
