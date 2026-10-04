@@ -49,7 +49,10 @@ def resolve(
     ):
         raise PermissionDenied("Independent complaint resolution permission required")
     complaint, source = locked(complaint_id)
-    if not permitted(user, complaint) or not source_permission(user, complaint):
+    unidentified = not complaint.decision_id and not complaint.listing_decision_id
+    if not permitted(user, complaint) or (
+        not unidentified and not source_permission(user, complaint)
+    ):
         raise PermissionDenied("Source permission and independent review required")
     payload = {
         "version": version,
@@ -74,17 +77,32 @@ def resolve(
         complaint.version != version
         or complaint.status != "reviewing"
         or complaint.assigned_to_id != user.pk
-        or not source
-        or outcome not in {"upheld", "reconsidered"}
+        or (unidentified and outcome != "unidentified")
+        or (not unidentified and (not source or outcome not in {"upheld", "reconsidered"}))
     ):
         raise ValidationError("Case changed or not assigned / Caso cambiado o no asignado")
-    current_source = (
-        source.report.version if complaint.decision_id else source.revision.edit_version
-    )
-    if current_source != source_version or complaint.decision_case_version != source_version:
-        raise ValidationError(
-            "Source changed; reassessment required / Origen cambiado; requiere nueva evaluación"
+    if unidentified:
+        question = (
+            complaint.actions.filter(operation="clarify", clarification_prompt="reference_unknown")
+            .order_by("-pk")
+            .first()
         )
+        if (
+            source_version is not None
+            or not question
+            or not complaint.messages.filter(created_at__gt=question.created_at).exists()
+        ):
+            raise ValidationError(
+                "Read clarification after reference question first / Revisa la aclaración posterior a la pregunta"
+            )
+    else:
+        current_source = (
+            source.report.version if complaint.decision_id else source.revision.edit_version
+        )
+        if current_source != source_version or complaint.decision_case_version != source_version:
+            raise ValidationError(
+                "Source changed; reassessment required / Origen cambiado; requiere nueva evaluación"
+            )
     from .complaint_messages import complete_read
 
     if not complete_read(user, complaint, source_version):
@@ -114,7 +132,7 @@ def resolve(
                 "Remove notifier information / Elimina información del notificante"
             )
         resolve_report(user, complaint, source, outcome, reason)
-    else:
+    elif complaint.listing_decision_id:
         required_photos = set(
             source.revision.photos.filter(removed_at__isnull=True).values_list("pk", flat=True)
         )

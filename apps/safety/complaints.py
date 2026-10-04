@@ -383,11 +383,12 @@ def photo(request, complaint_id, photo_id):
 class ResolutionForm(forms.Form):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
-    source_version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    source_version = forms.IntegerField(min_value=1, required=False, widget=forms.HiddenInput)
     outcome = forms.ChoiceField(
         choices=[
             ("upheld", "Mantener decisión / Uphold decision"),
             ("reconsidered", "Reconsiderar decisión / Reconsider decision"),
+            ("unidentified", "Referencia sin identificar / Reference unidentified"),
         ]
     )
     reason = forms.CharField(
@@ -420,7 +421,10 @@ def resolve(request, complaint_id):
     complaint = Complaint.objects.filter(pk=complaint_id).first()
     if not complaint:
         raise Http404
-    if not permitted(request.user, complaint) or not source_permission(request.user, complaint):
+    if not permitted(request.user, complaint) or (
+        (complaint.decision_id or complaint.listing_decision_id)
+        and not source_permission(request.user, complaint)
+    ):
         return private(HttpResponse("Forbidden", status=403))
     form = ResolutionForm(
         request.POST or None,

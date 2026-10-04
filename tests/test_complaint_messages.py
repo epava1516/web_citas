@@ -224,3 +224,48 @@ def test_mobile_question_reply_and_audited_inspection(live_server, request, sett
             browser.close()
     case.refresh_from_db()
     assert case.status == "reviewing" and ComplaintMessage.objects.count() == 1
+
+
+def test_unidentified_resolution_requires_reply_and_current_read(request):
+    from test_complaint_resolutions import permissions, resolution
+
+    from apps.safety.models import ComplaintNotice, ComplaintResolution
+
+    case, user, staff, receipt = ready(request)
+    permissions(user)
+    dates = case.created_at, case.receipt_expires_at
+    path, data = resolution(staff, case, outcome="unidentified", source_version="")
+    assert staff.post(path, data).status_code == 409
+    act(
+        user,
+        case.pk,
+        uuid.uuid4(),
+        case.version,
+        "clarify",
+        REASON,
+        clarification_prompt="reference_unknown",
+    )
+    case.refresh_from_db()
+    _, data = resolution(staff, case, outcome="unidentified", source_version="")
+    assert staff.post(path, data).status_code == 409
+    secret = receipt.rstrip("/").split("/")[-1]
+    case = append(case.pk, secret, uuid.uuid4(), case.version, TEXT)
+    _, data = resolution(staff, case, outcome="unidentified", source_version="")
+    assert staff.post(path, data).status_code == 409
+    assert (
+        staff.post(f"/en/moderation/complaints/{case.pk}/", {"purpose": REASON}).status_code == 200
+    )
+    assert staff.post(path, data).status_code == 302
+    assert staff.post(path, data).status_code == 302
+    case.refresh_from_db()
+    assert case.status == "resolved" and (case.created_at, case.receipt_expires_at) == dates
+    assert not case.decision_id and not case.listing_decision_id
+    assert ComplaintResolution.objects.get().outcome == "unidentified"
+    assert ComplaintNotice.objects.count() == 1
+    assert b"Reference could not be identified" in Client().get(receipt).content
+    assert (
+        Client()
+        .post(receipt + "message/", dict(key=uuid.uuid4(), version=case.version, text=TEXT))
+        .status_code
+        == 409
+    )
