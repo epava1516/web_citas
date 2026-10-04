@@ -1,0 +1,31 @@
+{
+  "scope": "Inventario cifrado de candidatos históricos y consulta auditada ES/EN",
+  "result": "12 passed114.58s exit0",
+  "sha256": "568d132a7daa72eb34ded87379a45148c392ff0a94ea700ce8e9561bc155e081",
+  "suites": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "12",
+      "time": "114.486",
+      "timestamp": "2026-10-04T18:59:28.301358+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "database": "PostgreSQL real",
+  "browser": "Chromium390x844 ES/EN contraseña/TOTP revisor y gestor; GET sin resumen, POST auditado",
+  "docker": {
+    "migration": "safety0051 aplicada",
+    "uid": 10001,
+    "health": 200,
+    "recipient_module_sha256": "ba7cfdd04978077027374e11f26e5b2fd3f4d4ef8192d05d7070ed750c569b79"
+  },
+  "limits": [
+    "Roles históricos son candidatos, no prueba de divulgación",
+    "Inventario expresamente incompleto",
+    "Identidad simulada explícita; no envío externo",
+    "Sin cierreCR09 ni destinatarios históricos comunicados/retención completa"
+  ]
+}

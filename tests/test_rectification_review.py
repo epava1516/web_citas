@@ -135,6 +135,10 @@ def test_mobile_independent_source_and_proposal_review(
         "Private correction notices": "Avisos privados de rectificación",
         "Confirm receipt": "Confirmar recepción",
         "Receipt recorded": "Recepción registrada",
+        "Review recipient history": "Revisar historial de destinatarios",
+        "Correction recipient history": "Historial de destinatarios de rectificación",
+        "Record access and review history": "Registrar consulta y revisar historial",
+        "Audited historical summary": "Resumen histórico consultado",
     }
 
     def label(value):
@@ -265,6 +269,30 @@ def test_mobile_independent_source_and_proposal_review(
             expect(
                 page.get_by_role("heading", name=label("Private rights inspection"), exact=True)
             ).to_be_visible()
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                pool.submit(refresh_verification).result(timeout=30)
+            page.goto(live_server.url + path)
+            page.get_by_role("link", name=label("Review recipient history"), exact=True).click()
+            expect(
+                page.get_by_role("heading", name=label("Correction recipient history"), exact=True)
+            ).to_be_visible()
+            page.locator("[name=purpose]").fill(
+                "Assess historical recipients after applied correction"
+            )
+            page.get_by_role(
+                "button", name=label("Record access and review history"), exact=True
+            ).click()
+            expect(
+                page.get_by_role("heading", name=label("Audited historical summary"), exact=True)
+            ).to_be_visible()
+            assert ("Incompleto:" if language == "es" else "Incomplete:") in page.content()
+            page.goto(page.url)  # Explicit GET; reloading a POST resubmits the audited form.
+            assert (
+                page.get_by_role(
+                    "heading", name=label("Audited historical summary"), exact=True
+                ).count()
+                == 0
+            )
             page.goto(live_server.url + path)
             assert "Synthetic reviewed correction" not in page.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
@@ -581,6 +609,100 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
 
         with pytest.raises(ValidationError, match="Corrected historical version"):
             validate_submission(old_revision, person)
+
+    from apps.safety.crypto import unseal
+    from apps.safety.rectification_recipients import prepare as prepare_recipients
+
+    case.refresh_from_db()
+    recipient_key = uuid.uuid4()
+    with pytest.raises(ValidationError):
+        prepare_recipients(
+            reviewer,
+            case.pk,
+            applied.pk,
+            recipient_key,
+            case.version,
+            "Assess historical recipients after correction",
+        )
+    fresh(case, reviewer, other, original, staff)
+    recipients = prepare_recipients(
+        reviewer,
+        case.pk,
+        applied.pk,
+        recipient_key,
+        case.version,
+        "Assess historical recipients after correction",
+    )
+    assert (
+        prepare_recipients(
+            reviewer,
+            case.pk,
+            applied.pk,
+            recipient_key,
+            case.version,
+            "Assess historical recipients after correction",
+        ).pk
+        == recipients.pk
+    )
+    recipients_path = (
+        f"/en/moderation/rights/{case.pk}/rectification-execution/{applied.pk}/recipients/"
+    )
+    assert other.get(recipients_path).context["inventory"] is None
+    assert Client(enforce_csrf_checks=True).post(recipients_path).status_code == 403
+    page = other.post(
+        recipients_path,
+        {
+            "key": recipient_key,
+            "version": case.version,
+            "purpose": "Assess historical recipients after correction",
+        },
+    )
+    assert page.status_code == 200
+    from datetime import timedelta
+
+    from django.utils import timezone
+
+    proof = recipients.proof
+    expires_at = proof.expires_at
+    proof.expires_at = timezone.now() - timedelta(seconds=1)
+    proof.save(update_fields=["expires_at"])
+    assert (
+        other.post(
+            recipients_path,
+            {
+                "key": recipient_key,
+                "version": case.version,
+                "purpose": "Assess historical recipients after correction",
+            },
+        ).status_code
+        == 409
+    )
+    proof.expires_at = expires_at
+    proof.save(update_fields=["expires_at"])
+    assert b"Incomplete:" in page.content
+    assert b"Corrected synthetic description" not in page.content
+    assert other.get(recipients_path).context["inventory"] is None
+    recipient_data = unseal(recipients.encrypted_inventory)
+    assert recipient_data["complete"] is False and recipient_data["pending"]
+    expected_kind = "agency" if person.agency_id else "individual"
+    assert any(
+        row["kind"] == expected_kind
+        and row["reference"] == str(person.agency_id or person.individual_id)
+        for row in recipient_data["candidates"]
+    )
+    assert "Corrected synthetic description" not in recipients.encrypted_inventory
+    assert all(
+        set(row) == {"kind", "reference", "evidence"} for row in recipient_data["candidates"]
+    )
+    with pytest.raises(ValidationError):
+        prepare_recipients(
+            reviewer,
+            case.pk,
+            applied.pk,
+            recipient_key,
+            case.version,
+            "Different historical recipients access purpose",
+        )
 
     from apps.safety.models import RightsRectificationManagerNotice
 

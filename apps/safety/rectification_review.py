@@ -15,6 +15,7 @@ from django.views.decorators.http import require_http_methods
 from .crypto import seal, unseal
 from .models import (
     RightsAction,
+    RightsRectificationExecution,
     RightsRectificationProposal,
     RightsRectificationProposalRead,
     RightsRectificationReview,
@@ -266,7 +267,16 @@ def prepare(request, case_id, proposal_id):
         render(
             request,
             "safety/rectification_review.html",
-            {"case": case, "form": form, "changes": changes},
+            {
+                "case": case,
+                "form": form,
+                "changes": changes,
+                "execution": RightsRectificationExecution.objects.filter(
+                    notification__review__proposal=proposal
+                )
+                .only("pk")
+                .first(),
+            },
             status=status,
         )
     )
