@@ -257,6 +257,12 @@ def source_manifest(person):
                     "created_at",
                 ],
             ),
+            (
+                "safety.RightsRectificationManagerNotice",
+                Q(execution__notification__review__proposal__person=person),
+                "dependent_evidence",
+                ["pk", "execution_id", "manager_version", "acknowledged_at", "created_at"],
+            ),
         ]
     )
     report_scope = Q(report__listing__person=person)

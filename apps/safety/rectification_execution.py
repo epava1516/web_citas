@@ -118,6 +118,8 @@ def execute(user, case_id, proposal_id, key, version, reason):
     from .models import RightsRectificationExecution
 
     permission(user)
+    if not user.has_perm("safety.respond_rights_request"):
+        raise PermissionDenied
     case, person, listing = locked_case(case_id, lock_listing=True)
     if not permitted(user, case):
         raise PermissionDenied
@@ -260,6 +262,27 @@ def execute(user, case_id, proposal_id, key, version, reason):
             )
     except IntegrityError as error:
         raise ValidationError("Conflicting execution / Ejecución incompatible") from error
+    response = issue(
+        user,
+        case.pk,
+        uuid.uuid4(),
+        case.version,
+        case.response_version,
+        "progress",
+        reason,
+        "Se han aplicado cambios al perfil y, cuando existe anuncio, se ha preparado una nueva versión corregida. "
+        "La publicación permanece pausada y requiere revisión antes de reanudarse. La solicitud sigue abierta. "
+        "Simulación de desarrollo; identidad no comprobada. / Changes have been applied to the profile and, "
+        "where a listing exists, a corrected version has been prepared. Publication remains paused and "
+        "requires review before resuming. The request remains open. Development simulation; identity not verified.",
+        True,
+    )
+    from .rectification_notices import create as create_manager_notices
+
+    create_manager_notices(result, person)
+    result.response = response
+    result.save(update_fields=["response"])
+    case.refresh_from_db()
     case.version += 1
     case.scope_status = "unverified"
     case.save(update_fields=["version", "scope_status"])

@@ -16,10 +16,19 @@ pytestmark = pytest.mark.django_db(transaction=True)
 REASON = "Independent synthetic correction assessment with minimized internal grounds"
 
 
-def independent_case(request, settings, monkeypatch, *, with_receipt=False, changes=None):
+def independent_case(
+    request,
+    settings,
+    monkeypatch,
+    *,
+    with_receipt=False,
+    changes=None,
+    subject_username="fixture-v1-model-a",
+):
     case, original, staff, client, receipt, person = ready(
-        request, settings, monkeypatch, "rectify"
+        request, settings, monkeypatch, "rectify", subject_username=subject_username
     )
+    assert person.subject.username == subject_username
     original.user_permissions.add(
         *Permission.objects.filter(
             codename__in=["manage_rights_assignment", "verify_rights_scope", "review_rectification"]
@@ -279,9 +288,16 @@ def test_proposal_history_pages_do_not_reveal_proposed_text(request, settings, m
     assert "encrypted_changes" in first.context["proposals"][0].get_deferred_fields()
 
 
-@pytest.mark.parametrize("outcome", ["approved", "rejected"])
+@pytest.mark.parametrize(
+    "outcome,subject_username",
+    [
+        ("approved", "fixture-v1-model-a"),
+        ("rejected", "fixture-v1-model-a"),
+        ("approved", "fixture-v1-individual"),
+    ],
+)
 def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
-    request, settings, monkeypatch, outcome
+    request, settings, monkeypatch, outcome, subject_username
 ):
     from django.core.exceptions import ValidationError
 
@@ -293,6 +309,7 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         settings,
         monkeypatch,
         with_receipt=True,
+        subject_username=subject_username,
         changes={
             "alias": "Synthetic reviewed correction",
             "title": "Corrected synthetic title",
@@ -369,6 +386,8 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     from apps.safety.crypto import unseal
     from apps.safety.rectification_execution import execute
 
+    reviewer.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
+    reviewer = User.objects.get(pk=reviewer.pk)
     case.refresh_from_db()
     execution_key = uuid.uuid4()
     with pytest.raises(ValidationError):
@@ -430,10 +449,32 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         return original_delay(blob_id)
 
     monkeypatch.setattr(process_blob, "delay", record_dispatch)
+    from apps.safety import rectification_execution
+    from apps.safety.models import RightsAction, RightsRectificationExecution
+
+    revision_count = person.listing.revisions.count()
+    response_count = case.responses.count()
+
+    def fail_response(*args, **kwargs):
+        raise ValidationError("Synthetic response transaction failure")
+
+    with monkeypatch.context() as patch:
+        patch.setattr(rectification_execution, "issue", fail_response)
+        assert other.post(path, payload).status_code == 409
+    person.refresh_from_db()
+    person.listing.refresh_from_db()
+    assert person.alias == before[0] and person.rights_version == old_rights_version
+    assert person.listing.lifecycle_version == before[2]
+    assert person.listing.revisions.count() == revision_count
+    assert case.responses.count() == response_count
+    assert not RightsAction.objects.filter(key=execution_key).exists()
+    assert not RightsRectificationExecution.objects.exists()
+    from apps.safety.models import RightsRectificationManagerNotice
+
+    assert not RightsRectificationManagerNotice.objects.exists()
+    assert dispatched == []
     assert other.post(path, payload).status_code == 302
     assert set(dispatched) == {str(blob_id) for blob_id, _ in old_photos}
-    from apps.safety.models import RightsRectificationExecution
-
     applied = RightsRectificationExecution.objects.get()
     assert (
         execute(reviewer, case.pk, proposal.pk, execution_key, execution_version, REASON).pk
@@ -441,6 +482,12 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     )
     person.refresh_from_db()
     person.listing.refresh_from_db()
+    assert applied.response is not None and applied.response.kind == "progress"
+    receipt_page = client.get(receipt)
+    assert b"The request remains open" in receipt_page.content
+    assert REASON.encode() not in receipt_page.content
+    case.refresh_from_db()
+    assert case.status == "reviewing"
     assert person.alias == "Synthetic reviewed correction"
     assert person.rights_version == old_rights_version + 1
     assert person.listing.status != "published"
@@ -471,3 +518,54 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert applied.corrected_revision.status == "draft"
         assert not applied.corrected_revision.publisher_acceptance_id
         assert not applied.corrected_revision.contact_exposure_accepted
+
+    from apps.safety.models import RightsRectificationManagerNotice
+
+    notices = RightsRectificationManagerNotice.objects.filter(execution=applied)
+    assert notices.count() == (2 if person.agency_id else 1)
+    manager = person.agency.owner if person.agency_id else person.individual
+    manager.mfa_enabled = True
+    manager.save(update_fields=["mfa_enabled"])
+    manager_client = Client()
+    manager_client.force_login(manager)
+    session = manager_client.session
+    session["mfa_version"] = manager.mfa_version
+    session.save()
+    notice = notices.get(recipient=manager)
+    inbox = "/en/account/correction-notices/"
+    page = manager_client.get(inbox)
+    assert page.status_code == 200 and len(page.context["notices"]) == 1
+    assert (
+        REASON.encode() not in page.content
+        and b"Corrected synthetic description" not in page.content
+    )
+    assert page["Cache-Control"] == "private, no-store" and "noindex" in page["X-Robots-Tag"]
+    acknowledge = inbox + f"{notice.pk}/acknowledge/"
+    assert Client(enforce_csrf_checks=True).post(acknowledge).status_code == 403
+    assert other.post(acknowledge).status_code == 404
+    assert manager_client.post(acknowledge).status_code == 302
+    notice.refresh_from_db()
+    acknowledged_at = notice.acknowledged_at
+    assert acknowledged_at is not None
+    assert manager_client.post(acknowledge).status_code == 302
+    notice.refresh_from_db()
+    assert notice.acknowledged_at == acknowledged_at
+    if person.agency_id:
+        editor_notice = notices.get(recipient=person.assigned_editor)
+        editor = person.assigned_editor
+        editor.mfa_enabled = True
+        editor.save(update_fields=["mfa_enabled"])
+        editor_client = Client()
+        editor_client.force_login(editor)
+        session = editor_client.session
+        session["mfa_version"] = editor.mfa_version
+        session.save()
+        assert len(editor_client.get(inbox).context["notices"]) == 1
+        from apps.core.models import AgencyMember
+
+        AgencyMember.objects.filter(agency=person.agency, user=editor).update(active=False)
+        assert len(editor_client.get(inbox).context["notices"]) == 0
+        assert editor_client.post(inbox + f"{editor_notice.pk}/acknowledge/").status_code == 404
+    type(person).objects.filter(pk=person.pk).update(manager_version=person.manager_version + 1)
+    assert len(manager_client.get(inbox).context["notices"]) == 0
+    assert manager_client.post(acknowledge).status_code == 404

@@ -21,6 +21,7 @@ from apps.safety import (
     notice_operations,
     privacy_holds,
     privacy_release,
+    rectification_notices,
     rectification_review,
     rights,
     rights_exports,
@@ -44,6 +45,12 @@ from . import (
 )
 
 urlpatterns = [
+    path("account/correction-notices/", rectification_notices.inbox, name="rectification_notices"),
+    path(
+        "account/correction-notices/<int:notice_id>/acknowledge/",
+        rectification_notices.acknowledge,
+        name="rectification_notice_acknowledge",
+    ),
     path(
         "moderation/rights/<uuid:case_id>/rectification/<int:proposal_id>/review/",
         rectification_review.prepare,

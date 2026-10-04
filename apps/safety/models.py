@@ -652,9 +652,25 @@ class RightsRectificationExecution(models.Model):
     notification = models.OneToOneField(RightsRectificationNotification, on_delete=models.PROTECT)
     action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
     proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    response = models.OneToOneField(RightsResponse, null=True, on_delete=models.PROTECT)
     corrected_revision = models.OneToOneField(
         "listings.Revision", null=True, on_delete=models.PROTECT
     )
     encrypted_previous_values = models.TextField()
     resulting_rights_version = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRectificationManagerNotice(models.Model):
+    execution = models.ForeignKey(RightsRectificationExecution, on_delete=models.PROTECT)
+    recipient = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    manager_version = models.PositiveIntegerField()
+    acknowledged_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["execution", "recipient"], name="rectification_manager_notice_once"
+            )
+        ]
