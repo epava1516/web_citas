@@ -174,6 +174,13 @@ class DetailsForm(forms.ModelForm):
         return data
 
 
+def normalize_telegram(value):
+    value = value.lstrip("@").strip()
+    if value and not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{4,31}", value):
+        raise ValidationError("Usuario Telegram no válido / Invalid Telegram username")
+    return value
+
+
 class ContactsForm(forms.ModelForm):
     contact_exposure_accepted = forms.BooleanField(
         label="Comprendo que teléfono y canales serán públicos y pueden copiarse / I understand contacts will be public and may be copied"
@@ -188,10 +195,7 @@ class ContactsForm(forms.ModelForm):
         fields = ["whatsapp", "telegram", "contact_exposure_accepted"]
 
     def clean_telegram(self):
-        value = self.cleaned_data["telegram"].lstrip("@").strip()
-        if value and not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{4,31}", value):
-            raise ValidationError("Usuario Telegram no válido / Invalid Telegram username")
-        return value
+        return normalize_telegram(self.cleaned_data["telegram"])
 
 
 class RateForm(forms.ModelForm):

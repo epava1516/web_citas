@@ -28,6 +28,8 @@ def independent_case(
     correct_catalog=False,
     correct_rates=False,
     clear_rates=False,
+    correct_contacts=False,
+    clear_contacts=False,
 ):
     case, original, staff, client, receipt, person = ready(
         request, settings, monkeypatch, "rectify", subject_username=subject_username
@@ -97,6 +99,27 @@ def independent_case(
     if clear_rates:
         assert correct_rates
         changes["rates"] = []
+    if correct_contacts:
+        from django.utils import timezone
+
+        from apps.core.models import PhoneClaim
+
+        # Synthetic verification record, not evidence of delivery of a real SMS.
+        replacement = PhoneClaim.objects.create(
+            phone="+34600000991",
+            individual_id=person.individual_id,
+            agency_id=person.agency_id,
+            verified_at=timezone.now(),
+            verification_procedure="simulator-v1",
+        )
+        changes = {
+            **(changes or {"alias": "Synthetic reviewed correction"}),
+            "contacts": {
+                "phone": "" if clear_contacts else replacement.phone,
+                "whatsapp": not clear_contacts,
+                "telegram": "" if clear_contacts else "synthetic_contact",
+            },
+        }
     original.user_permissions.add(
         *Permission.objects.filter(
             codename__in=["manage_rights_assignment", "verify_rights_scope", "review_rectification"]
@@ -228,6 +251,7 @@ def test_mobile_independent_source_and_proposal_review(
         correct_location=True,
         correct_catalog=True,
         correct_rates=True,
+        correct_contacts=True,
     )
     path = path.replace("/en/", f"/{language}/")
     reviewer.user_permissions.add(
@@ -298,6 +322,7 @@ def test_mobile_independent_source_and_proposal_review(
             expect(page.get_by_text("Synthetic corrected service", exact=False)).to_be_visible()
             expect(page.get_by_text("Synthetic corrected consult", exact=False)).to_be_visible()
             expect(page.get_by_text("90.00 EUR", exact=False)).to_be_visible()
+            expect(page.get_by_text("synthetic_contact", exact=False)).to_be_visible()
             assert "'municipality':" not in page.locator("main").inner_text()
             page.locator("[name=operation]").select_option("review")
             page.locator("[name=outcome]").select_option("approved")
@@ -568,6 +593,7 @@ def test_proposal_history_pages_do_not_reveal_proposed_text(request, settings, m
         ("rejected", "fixture-v1-model-a", "accepted", False),
         ("approved", "fixture-v1-individual", "accepted", False),
         ("approved", "fixture-v1-individual", "accepted", True),
+        ("approved", "fixture-v1-model-a", "accepted", True),
     ],
 )
 def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
@@ -585,9 +611,11 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         with_receipt=True,
         subject_username=subject_username,
         clear_rates=clear_rates,
+        clear_contacts=clear_rates,
         correct_location=True,
         correct_catalog=True,
         correct_rates=True,
+        correct_contacts=True,
         changes={
             "alias": "Synthetic reviewed correction",
             "title": "Corrected synthetic title",
@@ -703,6 +731,35 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         field.name: set(getattr(old_revision, field.name).values_list("pk", flat=True))
         for field in old_revision._meta.many_to_many
     }
+    from apps.core.models import Person, PhoneClaim
+    from apps.safety.rectification_contacts import binding
+    from apps.safety.rectification_contacts import source as contact_source
+
+    old_contacts = contact_source(old_revision)
+    old_binding = binding(person)
+    original_claim = person.phone_claim
+    other_shared = list(
+        Person.objects.filter(phone_claim=original_claim)
+        .exclude(pk=person.pk)
+        .values_list("pk", "phone_claim_id")
+    )
+    if person.agency_id:
+        assert other_shared
+    from datetime import timedelta
+
+    from django.utils import timezone
+    from django.utils.crypto import salted_hmac
+
+    from apps.core.models import PhoneChallenge
+
+    stale_phone = PhoneChallenge.objects.create(
+        person=person,
+        manager_version=person.manager_version,
+        person_rights_version=person.rights_version,
+        phone=original_claim.phone,
+        digest=salted_hmac("phone-otp", "654321", algorithm="sha256").hexdigest(),
+        expires_at=timezone.now() + timedelta(minutes=5),
+    )
     old_rights_version = person.rights_version
     execution_version = case.version
     payload = {
@@ -743,6 +800,19 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     assert other.post(path, payload).status_code == 409
     destination_service.active = True
     destination_service.save(update_fields=["active"])
+    target_phone = unseal(proposal.encrypted_changes)["contacts"]["phone"]
+    if target_phone:
+        target_claim = PhoneClaim.objects.get(phone=target_phone)
+        original_verification = target_claim.verified_at
+        target_claim.verified_at = None
+        target_claim.save(update_fields=["verified_at"])
+        assert other.post(path, payload).status_code == 409
+        target_claim.verified_at = original_verification
+        target_claim.save(update_fields=["verified_at"])
+    replacement_binding = PhoneClaim.objects.get(phone="+34600000991")
+    Person.objects.filter(pk=person.pk).update(phone_claim=replacement_binding)
+    assert other.post(path, payload).status_code == 409
+    Person.objects.filter(pk=person.pk).update(phone_claim=original_claim)
     ongoing = Revision.objects.create(
         listing=person.listing, manager_version=person.manager_version
     )
@@ -771,6 +841,7 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     person.refresh_from_db()
     person.listing.refresh_from_db()
     assert person.alias == before[0] and person.rights_version == old_rights_version
+    assert person.phone_claim_id == original_claim.pk
     assert person.listing.lifecycle_version == before[2]
     assert person.listing.revisions.count() == revision_count
     assert case.responses.count() == response_count
@@ -813,6 +884,18 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert catalog_source(corrected) == unseal(proposal.encrypted_changes)["catalog"]
         assert unseal(applied.encrypted_previous_values)["catalog"] == old_catalog
         assert catalog_source(corrected) != old_catalog
+        assert contact_source(old_revision) == old_contacts
+        assert contact_source(corrected) == unseal(proposal.encrypted_changes)["contacts"]
+        assert unseal(applied.encrypted_previous_values)["contacts"] == old_contacts
+        assert unseal(applied.encrypted_previous_values)["phone_binding"] == old_binding
+        assert (person.phone_claim.phone if person.phone_claim else "") == corrected.phone
+        original_claim.refresh_from_db()
+        assert original_claim.phone == old_binding["phone"] and original_claim.verified_at
+        assert list(
+            Person.objects.filter(pk__in=[pk for pk, _ in other_shared])
+            .order_by("pk")
+            .values_list("pk", "phone_claim_id")
+        ) == sorted(other_shared)
         assert corrected.title == "Corrected synthetic title"
         assert corrected.description == "Corrected synthetic description"
         assert rates_source(corrected) == unseal(proposal.encrypted_changes)["rates"]
@@ -959,6 +1042,18 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     session["mfa_version"] = manager.mfa_version
     session.save()
     notice = notices.get(recipient=manager)
+    from django.urls import reverse
+
+    assert (
+        manager_client.post(
+            reverse("phone_confirm", args=[stale_phone.pk]), {"code": "654321"}
+        ).status_code
+        == 400
+    )
+    stale_phone.refresh_from_db()
+    assert stale_phone.used_at is None and stale_phone.attempts == 0
+    person.refresh_from_db()
+    assert (person.phone_claim.phone if person.phone_claim else "") == target_phone
     resume = manager_client.post(
         f"/en/listing/{person.listing.pk}/manage/",
         {"key": uuid.uuid4(), "version": person.listing.lifecycle_version, "operation": "resume"},
@@ -967,7 +1062,10 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     assert b"Corrected historical version" in resume.content
     person.listing.refresh_from_db()
     assert person.listing.status != "published"
-    with pytest.raises(ValidationError, match="Publishing terms updated"):
+    with pytest.raises(
+        ValidationError,
+        match="Publishing terms updated" if target_phone else "Verify age, authorization and phone",
+    ):
         validate_submission(applied.corrected_revision, person)
     inbox = "/en/account/correction-notices/"
     page = manager_client.get(inbox)

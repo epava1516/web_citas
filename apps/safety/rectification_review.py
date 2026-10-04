@@ -87,7 +87,7 @@ def current(user, case_id, proposal_id, version):
         raise ValidationError(
             "Review current source with fresh scoped proof / Revisa la fuente vigente con nueva comprobación de ámbito"
         )
-    changes = validated_changes(unseal(proposal.encrypted_changes))
+    changes = validated_changes(unseal(proposal.encrypted_changes), person)
     return case, proposal, proof, changes
 
 
@@ -257,6 +257,15 @@ def prepare(request, case_id, proposal_id):
                     changes = {
                         **changes,
                         "rates": display_rates(changes["rates"], request.LANGUAGE_CODE == "en"),
+                    }
+                if "contacts" in changes:
+                    from .rectification_contacts import display as display_contacts
+
+                    changes = {
+                        **changes,
+                        "contacts": display_contacts(
+                            changes["contacts"], request.LANGUAGE_CODE == "en"
+                        ),
                     }
                 status = 200
             elif data["operation"] in {"notify", "execute"}:

@@ -145,6 +145,17 @@ def test_mobile_source_review_and_field_proposal(
         .first()
     )
     assert new_city
+    from django.utils import timezone
+
+    from apps.core.models import PhoneClaim
+
+    replacement_phone = PhoneClaim.objects.create(
+        phone="+34600000992",
+        agency_id=person.agency_id,
+        individual_id=person.individual_id,
+        verified_at=timezone.now(),
+        verification_procedure="simulator-v1",
+    )
     from apps.catalog.models import Category, Service
 
     new_category = Category.objects.create(
@@ -201,6 +212,10 @@ def test_mobile_source_review_and_field_proposal(
             page.locator("[name=rates-0-mode]").select_option("consult")
             page.locator("[name=rates-0-amount]").fill("")
             page.locator("[name=rates-0-duration_minutes]").fill("")
+            page.locator('[name=fields][value="contacts"]').check()
+            page.locator("[name=phone]").fill(replacement_phone.phone)
+            page.locator("[name=whatsapp]").check()
+            page.locator("[name=telegram]").fill("synthetic_browser")
             page.locator("[name=reason]").fill(REASON)
             page.get_by_role("button", name="Record correction action", exact=True).click()
             expect(
@@ -214,6 +229,11 @@ def test_mobile_source_review_and_field_proposal(
     proposal = RightsRectificationProposal.objects.get()
     assert unseal(proposal.encrypted_changes) == {
         "alias": "Synthetic browser correction",
+        "contacts": {
+            "phone": replacement_phone.phone,
+            "whatsapp": True,
+            "telegram": "synthetic_browser",
+        },
         "rates": [
             {
                 "concept": "Synthetic browser rate",
@@ -434,3 +454,67 @@ def test_rate_table_form_validates_management_amount_duration_and_deletion(
         "rates": expected
     }
     assert rates_source(revision) == before
+
+
+def test_contact_proposal_requires_verified_owner_and_audited_binding(
+    request, settings, monkeypatch
+):
+    from django.utils import timezone
+
+    from apps.core.models import PhoneClaim, User
+    from apps.safety.rectification_contacts import source as contacts_source
+
+    case, _, staff, _, _, person = ready(request, settings, monkeypatch, "rectify")
+    revision = person.listing.approved_revision
+    old = contacts_source(revision)
+    old_claim = person.phone_claim
+    path = f"/en/moderation/rights/{case.pk}/rectification/"
+    initial = staff.get(path).context["form"].initial
+    page = staff.post(
+        path,
+        initial
+        | {"operation": "preview", "purpose": "Inspect current contact and verification binding"},
+    )
+    assert page.status_code == 200 and page.context["source_fields"]["contacts"] == old
+    assert old["phone"].encode() not in staff.get(path).content
+    data = initial | {
+        "operation": "propose",
+        "fields": ["contacts"],
+        "phone": "+34600000993",
+        "whatsapp": "on",
+        "telegram": "synthetic_contact",
+        "reason": REASON,
+    }
+    assert staff.post(path, data).status_code == 409  # No verified claim is invented.
+    foreign = PhoneClaim.objects.create(
+        phone=data["phone"],
+        individual=User.objects.get(username="fixture-v1-visitor"),
+        verified_at=timezone.now(),
+        verification_procedure="simulator-v1",
+    )
+    assert staff.post(path, data).status_code == 409
+    foreign.delete()  # Synthetic unused record, no user content.
+    target = PhoneClaim.objects.create(
+        phone=data["phone"],
+        agency_id=person.agency_id,
+        individual_id=person.individual_id,
+        verification_procedure="simulator-v1",
+    )
+    assert staff.post(path, data).status_code == 409
+    target.verified_at = timezone.now()
+    target.save(update_fields=["verified_at"])
+    assert staff.post(path, data | {"telegram": "invalid/path"}).status_code == 400
+    assert staff.post(path, data | {"phone": ""}).status_code == 400
+    original_verified = old_claim.verified_at
+    old_claim.verified_at = None
+    old_claim.save(update_fields=["verified_at"])
+    assert staff.post(path, data).status_code == 409  # Source binding changed without case version.
+    old_claim.verified_at = original_verified
+    old_claim.save(update_fields=["verified_at"])
+    assert not RightsRectificationProposal.objects.exists()
+    assert staff.post(path, data).status_code == 302
+    assert unseal(RightsRectificationProposal.objects.get().encrypted_changes) == {
+        "contacts": {"phone": target.phone, "whatsapp": True, "telegram": "synthetic_contact"}
+    }
+    person.refresh_from_db()
+    assert person.phone_claim_id == old_claim.pk and contacts_source(revision) == old

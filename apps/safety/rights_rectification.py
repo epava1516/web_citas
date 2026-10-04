@@ -16,7 +16,12 @@ from django.views.decorators.http import require_http_methods
 from apps.catalog.models import Category, Municipality, PostalCode, Service, Zone
 from apps.listings.models import Revision
 
-from . import rectification_catalog, rectification_location, rectification_rates
+from . import (
+    rectification_catalog,
+    rectification_contacts,
+    rectification_location,
+    rectification_rates,
+)
 from .crypto import seal
 from .models import (
     RightsAction,
@@ -34,16 +39,19 @@ FIELDS = {"alias": 80, "title": 120, "description": 10000, "description_alternat
 
 
 @sensitive_variables()
-def validated_changes(value):
+def validated_changes(value, person=None):
     if (
         not isinstance(value, dict)
         or not value
-        or set(value) - (set(FIELDS) | {"location", "catalog", "rates"})
+        or set(value) - (set(FIELDS) | {"location", "catalog", "rates", "contacts"})
     ):
         raise ValidationError("Unsupported correction fields / Campos de corrección no admitidos")
     value = value.copy()
     for field in sorted(value):
         text = value[field]
+        if field == "contacts":
+            value[field] = rectification_contacts.validate(text, person)
+            continue
         if field == "rates":
             value[field] = rectification_rates.validate(text)
             continue
@@ -74,7 +82,7 @@ def propose(user, case_id, key, version, changes, reason):
     case, person, listing = locked_case(case_id, lock_listing=True)
     if not permitted(user, case):
         raise PermissionDenied
-    changes = validated_changes(changes)
+    changes = validated_changes(changes, person)
     signature = fingerprint(
         json.dumps({"version": version, "changes": changes, "reason": reason}, sort_keys=True)
     )
@@ -175,6 +183,7 @@ def source_snapshot(case, person, listing):
         "rights_version": person.rights_version,
         "channel": case.receipt_digest,
         "alias": person.alias,
+        "phone_binding": rectification_contacts.binding(person),
         "publication_erased_at": person.publication_erased_at.isoformat()
         if person.publication_erased_at
         else None,
@@ -191,6 +200,7 @@ def source_snapshot(case, person, listing):
         source["fields"]["location"] = rectification_location.source(revision)
         source["fields"]["catalog"] = rectification_catalog.source(revision)
         source["fields"]["rates"] = rectification_rates.source(revision)
+        source["fields"]["contacts"] = rectification_contacts.source(revision)
     return revision, source
 
 
@@ -253,6 +263,7 @@ class ProposalForm(forms.Form):
             ("location", "Ubicación completa / Complete location"),
             ("catalog", "Categorías y servicios / Categories and services"),
             ("rates", "Tabla de tarifas / Tariff table"),
+            ("contacts", "Teléfono y canales / Phone and channels"),
         ],
         widget=forms.CheckboxSelectMultiple,
         label="Campos que se propone corregir / Fields proposed for correction",
@@ -297,6 +308,11 @@ class ProposalForm(forms.Form):
         widget=forms.CheckboxSelectMultiple,
         label="Servicios / Services",
     )
+    phone = forms.CharField(
+        required=False, max_length=30, label="Teléfono ya verificado / Already verified phone"
+    )
+    whatsapp = forms.BooleanField(required=False, label="WhatsApp")
+    telegram = forms.CharField(required=False, max_length=32, label="Telegram")
     reason = forms.CharField(
         required=False,
         min_length=20,
@@ -316,8 +332,16 @@ class ProposalForm(forms.Form):
             data["changes"] = {
                 field: data.get(field, "")
                 for field in selected
-                if field not in {"location", "catalog", "rates"}
+                if field not in {"location", "catalog", "rates", "contacts"}
             }
+            if "contacts" in selected:
+                data["changes"]["contacts"] = rectification_contacts.validate(
+                    {
+                        "phone": data.get("phone", ""),
+                        "whatsapp": data.get("whatsapp", False),
+                        "telegram": data.get("telegram", ""),
+                    }
+                )
             if "location" in selected:
                 data["changes"]["location"] = {
                     field: data[field].pk if data.get(field) else None
@@ -396,10 +420,11 @@ def prepare(request, case_id):
                     **{
                         field: value
                         for field, value in source_fields.items()
-                        if field not in {"location", "catalog", "rates"}
+                        if field not in {"location", "catalog", "rates", "contacts"}
                     },
                     **source_fields.get("location", {}),
                     **source_fields.get("catalog", {}),
+                    **source_fields.get("contacts", {}),
                 }
             )
     return private(

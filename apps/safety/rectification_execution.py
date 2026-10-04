@@ -115,7 +115,12 @@ def execute(user, case_id, proposal_id, key, version, reason):
     from apps.mediafiles.models import Photo
     from apps.mediafiles.tasks import process_blob
 
-    from . import rectification_catalog, rectification_location, rectification_rates
+    from . import (
+        rectification_catalog,
+        rectification_contacts,
+        rectification_location,
+        rectification_rates,
+    )
     from .models import RightsRectificationExecution
 
     permission(user)
@@ -211,16 +216,20 @@ def execute(user, case_id, proposal_id, key, version, reason):
                     {
                         field: getattr(source, field)
                         for field in changes
-                        if field not in {"alias", "location", "catalog", "rates"}
+                        if field not in {"alias", "location", "catalog", "rates", "contacts"}
                     }
                 )
                 values.update(
                     {
                         field: text
                         for field, text in changes.items()
-                        if field not in {"alias", "location", "catalog", "rates"}
+                        if field not in {"alias", "location", "catalog", "rates", "contacts"}
                     }
                 )
+                if "contacts" in changes:
+                    before["contacts"] = rectification_contacts.source(source)
+                    before["phone_binding"] = rectification_contacts.binding(person)
+                    values.update(changes["contacts"])
                 if "rates" in changes:
                     before["rates"] = rectification_rates.source(source)
                 if "catalog" in changes:
@@ -264,8 +273,10 @@ def execute(user, case_id, proposal_id, key, version, reason):
                     )
             if "alias" in changes:
                 person.alias = changes["alias"]
+            if "contacts" in changes:
+                person.phone_claim = rectification_contacts.claim(changes["contacts"], person)
             person.rights_version += 1
-            person.save(update_fields=["alias", "rights_version"])
+            person.save(update_fields=["alias", "rights_version", "phone_claim"])
             if listing:
                 if listing.status == "published":
                     listing.status = "paused"

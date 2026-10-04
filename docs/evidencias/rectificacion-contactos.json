@@ -1,0 +1,66 @@
+{
+  "scope": "Rectificación teléfono/canales por perfil conservando registros compartidos y guardas de titularidad",
+  "results": [
+    {
+      "artifact": "rectification-contacts-crossflow.xml",
+      "sha256": "adef8d9b53af9c3b88b16cfe66a600d46386167800d990ba4d46543a1a8bfdec",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "21",
+          "time": "207.277",
+          "timestamp": "2026-10-04T20:19:53.987660+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-contacts-stale-otp-drafts.xml",
+      "sha256": "a28f8186873c82b0dc580e99bb3e8496a920e52751541675592bb9f8083e2874",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "90.995",
+          "timestamp": "2026-10-04T20:24:35.682208+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    }
+  ],
+  "database": "PostgreSQL real",
+  "browser": "Chromium390x844: propuesta EN y review/recepción/ejecución ESEN en primera batería",
+  "verified": [
+    "PhoneClaim de sustitución debe existir/verificado/pertenecer exactamente al gestor; ajeno/ausente/pending bloqueados",
+    "E164/Telegram normalizados y WhatsApp sinphone bloqueado",
+    "Sustituye o desvincula solo Person y nuevaRevision; claimoriginal/otrosperfiles intactos, valores y bindinganteriores cifrados",
+    "Pérdida de targetverified_at y sourcePhoneClaim/Personbinding cambiados sincaseversion bloquean409",
+    "Fallo de respuesta revierte también Person.phone_claim",
+    "OTP previo con digest válido rechaza400 antes de attempts/used_at y no repone teléfono anterior",
+    "GETsincontactos/POSTauditado/reviewprivado y publicación pendiente/rights_version++/replay existentes",
+    "RegresiónDrafts de ContactsForm y helperTelegram"
+  ],
+  "docker": {
+    "schema": "safety0053; sin nueva migración",
+    "uid": 10001,
+    "health": 200,
+    "hashes": {
+      "apps/safety/rectification_contacts.py": "ccd1f09e17756b0fa2370dd6b9d2d3b62a3c99dab46f77cdc228f9beb4c9be7d",
+      "apps/safety/rights_rectification.py": "a69b914ac2bce2bac8497fe4f516ebcd92d8548a8be5b9011199394fedcee632",
+      "apps/safety/rectification_execution.py": "82175c6eda51fbbb62037ba7dfcb7d66dd898dc017f0d522cd5a5d86ee08631d",
+      "apps/listings/forms.py": "24b23da8589a4d21f8e4dbeaa5d1bcc60103dd807af9eb71eae1cf82d039bfc3"
+    }
+  },
+  "limits": [
+    "21+11 son baterías con solapamiento, no suite común32",
+    "PhoneClaim/challenge de pruebas son fixtures sintéticas; no SMS externo ni posesión real acreditada",
+    "Identidad de derechos simulada explícita; proveedores normales desactivados",
+    "Identidadcuenta/otroscampos, comunicación histórica/retención/respuesta final y CR09/CR10/GS01/BF/BB/C pendientes"
+  ]
+}
