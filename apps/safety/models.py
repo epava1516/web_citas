@@ -240,6 +240,7 @@ class RightsExport(models.Model):
     encrypted_payload = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField()
+    purged_at = models.DateTimeField(null=True)
 
 
 class RightsExportDownload(models.Model):

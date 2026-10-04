@@ -381,6 +381,9 @@ def case_export_forms(case):
     return [
         {"id": item.pk, "expires_at": item.expires_at, "key": uuid.uuid4()}
         for item in RightsExport.objects.filter(
-            action__request=case, case_version=case.version, expires_at__gt=timezone.now()
+            action__request=case,
+            case_version=case.version,
+            expires_at__gt=timezone.now(),
+            purged_at__isnull=True,
         ).order_by("-created_at")[:10]
     ]

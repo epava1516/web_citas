@@ -334,7 +334,8 @@ def download(request, case_id, secret, export_id):
         ):
             raise Http404
         export = (
-            RightsExport.objects.select_related("proof", "action")
+            RightsExport.objects.select_for_update(of=("self",))
+            .select_related("proof", "action")
             .filter(pk=export_id, action__request=case)
             .first()
         )
@@ -343,6 +344,8 @@ def download(request, case_id, secret, export_id):
             not export
             or not person
             or export.expires_at <= now
+            or export.purged_at is not None
+            or not export.encrypted_payload
             or case.version != export.case_version
             or case.status != "reviewing"
             or case.person_id != export.person_id
