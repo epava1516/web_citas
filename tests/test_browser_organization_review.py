@@ -40,6 +40,9 @@ def test_browser_moderator_mfa_and_organization_decision(live_server, request, s
             page.locator("[name=reason]").fill("Organización sintética revisada en pruebas")
             page.locator("[name=evidence_reference]").fill("synthetic-browser-reference")
             page.get_by_role("button", name="Registrar decisión").click()
+            # Confirm the persisted result before navigating again after the POST redirect.
+            expect(page.get_by_text("Organización sintética revisada en pruebas")).to_be_visible()
+            expect(page.get_by_role("button", name="Registrar decisión")).to_have_count(0)
             page.reload()
             expect(page.get_by_text("Organización sintética revisada en pruebas")).to_be_visible()
             expect(page.get_by_text("Comprobación de agencia: passed")).to_be_visible()

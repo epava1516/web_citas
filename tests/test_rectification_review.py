@@ -1664,6 +1664,65 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert old_title.encode() not in page.content
     old_revision.refresh_from_db()
     assert old_revision.title == old_title and old_revision.description == old_description
+    # Actual executed correction -> ordinary reupload -> independent scoped review.
+    from django.core.files.uploadedfile import SimpleUploadedFile
+
+    from apps.listings.submissions import validate_submission
+    from apps.mediafiles.services import ingest
+    from apps.safety.models import RightsPhotoReintroduction
+    from apps.safety.photo_dispositions import active_withdrawals
+    from apps.safety.photo_reintroduction_review import (
+        decide as decide_reuse,
+    )
+    from apps.safety.photo_reintroduction_review import (
+        inspect as inspect_reuse,
+    )
+    from apps.safety.photo_reintroduction_review import (
+        publication_pending,
+    )
+
+    withdrawn = active_withdrawals(person.pk).filter(execution=applied).first()
+    assert withdrawn is not None
+    with withdrawn.blob.original.open("rb") as original_bytes:
+        reuploaded = ingest(
+            manager,
+            blank.pk,
+            SimpleUploadedFile(
+                "synthetic-reupload.jpg",
+                original_bytes.read(),
+                content_type="image/jpeg",
+            ),
+        )
+    candidate = RightsPhotoReintroduction.objects.get(photo=reuploaded, disposition=withdrawn)
+    assert candidate.method == "sha256" and candidate.uploaded_blob_id == withdrawn.blob_id
+    assert publication_pending(blank)
+    with pytest.raises(ValidationError, match="private review"):
+        validate_submission(blank, person)
+    independent = User.objects.create_user(
+        username=f"reuse-independent-{person.pk}",
+        mfa_enabled=True,
+    )
+    independent.user_permissions.add(Permission.objects.get(codename="review_photo_reintroduction"))
+    reuse_read = inspect_reuse(
+        independent,
+        candidate.pk,
+        uuid.uuid4(),
+        1,
+        "Review current permission after an executed correction",
+    )
+    decide_reuse(
+        independent,
+        candidate.pk,
+        reuse_read.pk,
+        uuid.uuid4(),
+        1,
+        "authorize",
+        "Independent evidence of current image permission assessed",
+        "synthetic-execution-ref",
+    )
+    assert not publication_pending(blank)
+    assert blank.status == "draft" and person.listing.status != "published"
+    assert applied.photo_dispositions.filter(pk=withdrawn.pk, outcome="withdrawn").exists()
     type(person).objects.filter(pk=person.pk).update(manager_version=person.manager_version + 1)
     assert len(manager_client.get(inbox).context["notices"]) == 0
     assert manager_client.post(acknowledge).status_code == 404

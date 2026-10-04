@@ -748,6 +748,7 @@ class RightsRectificationPhotoDisposition(models.Model):
 
 
 class RightsPhotoReintroduction(models.Model):
+    review_version = models.PositiveIntegerField(default=1)
     photo = models.ForeignKey("mediafiles.Photo", on_delete=models.PROTECT)
     uploaded_blob = models.ForeignKey("mediafiles.Blob", on_delete=models.PROTECT)
     disposition = models.ForeignKey(RightsRectificationPhotoDisposition, on_delete=models.PROTECT)
@@ -765,5 +766,49 @@ class RightsPhotoReintroduction(models.Model):
             models.CheckConstraint(
                 condition=models.Q(method__in=["sha256", "regional"]),
                 name="rights_photo_reintroduction_method",
+            ),
+        ]
+        permissions = [
+            ("review_photo_reintroduction", "Independently review protected photo reuse")
+        ]
+
+
+class RightsPhotoReintroductionRead(models.Model):
+    key = models.UUIDField(unique=True)
+    candidate = models.ForeignKey(RightsPhotoReintroduction, on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    review_version = models.PositiveIntegerField()
+    source_digest = models.CharField(max_length=64)
+    purpose = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsPhotoReintroductionDecision(models.Model):
+    key = models.UUIDField(unique=True)
+    read = models.ForeignKey(RightsPhotoReintroductionRead, on_delete=models.PROTECT)
+    candidate = models.ForeignKey(
+        RightsPhotoReintroduction, on_delete=models.PROTECT, related_name="decisions"
+    )
+    review_version = models.PositiveIntegerField()
+    source_digest = models.CharField(max_length=64)
+    outcome = models.CharField(
+        max_length=16,
+        choices=[
+            ("maintain", "Maintain withdrawal"),
+            ("false_positive", "Visual false positive"),
+            ("authorize", "Authorize current use"),
+        ],
+    )
+    encrypted_reason = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["candidate", "review_version"], name="rights_reuse_decision_version_once"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["maintain", "false_positive", "authorize"]),
+                name="rights_reuse_decision_outcome",
             ),
         ]

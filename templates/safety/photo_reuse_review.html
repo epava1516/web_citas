@@ -1,0 +1,15 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Private image reuse review{% else %}Revisión privada de recarga de imagen{% endif %}</h1>
+<p>{% if english %}A visual candidate does not prove identity or authorization. Review evidence before deciding.{% else %}Un candidato visual no demuestra identidad ni autorización. Revisa la evidencia antes de decidir.{% endif %}</p>
+{{ decision.errors }}
+{% if latest_decision and not decision_current %}<p role="status">{% if english %}Resources changed; the previous decision requires a new review.{% else %}Los recursos han cambiado; la decisión anterior requiere una nueva revisión.{% endif %}</p>{% endif %}
+{% if latest_decision %}<p>{% if english %}Recorded decision{% else %}Decisión registrada{% endif %}: {% if latest_decision.outcome == 'maintain' %}{% if english %}Withdrawal maintained{% else %}Retirada mantenida{% endif %}{% elif latest_decision.outcome == 'authorize' %}{% if english %}Current use authorized{% else %}Uso actual autorizado{% endif %}{% else %}{% if english %}Visual false positive{% else %}Falso positivo visual{% endif %}{% endif %}</p>{% endif %}
+{% if read %}
+<h2>{% if english %}Audited image comparison{% else %}Comparación de imágenes consultada{% endif %}</h2>
+<img src="{% url 'photo_reuse_image' candidate.pk read.pk 'uploaded' %}" width="300" alt="{% if english %}Uploaded image{% else %}Imagen cargada{% endif %}">
+<img src="{% url 'photo_reuse_image' candidate.pk read.pk 'withdrawn' %}" width="300" alt="{% if english %}Withdrawn image{% else %}Imagen retirada{% endif %}">
+<form method="post">{% csrf_token %}<input type="hidden" name="operation" value="decide">{{ decision.as_p }}<button type="submit">{% if english %}Record independent decision{% else %}Registrar decisión independiente{% endif %}</button></form>
+{% else %}
+<form method="post">{% csrf_token %}<input type="hidden" name="operation" value="inspect">{{ audit.as_p }}<button type="submit">{% if english %}Record access and inspect images{% else %}Registrar consulta y revisar imágenes{% endif %}</button></form>
+{% endif %}
+<a href="{% url 'photo_reuse_queue' %}">{% if english %}Return to private queue{% else %}Volver a la cola privada{% endif %}</a>{% endblock %}

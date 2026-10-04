@@ -34,6 +34,10 @@ def validate_submission(revision, person):
         raise ValidationError(
             "Versión histórica rectificada; usa una nueva revisión / Corrected historical version; use a new revision"
         )
+    from apps.safety.photo_reintroduction_review import publication_pending
+
+    if publication_pending(revision):
+        raise ValidationError("Image requires private review / La imagen requiere revisión privada")
     if person.publication_erased_at:
         raise ValidationError("Publicación suprimida / Publication erased")
     if PrivacyPublicationHold.objects.filter(person=person, active=True).exists():

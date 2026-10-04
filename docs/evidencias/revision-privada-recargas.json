@@ -1,0 +1,191 @@
+{
+  "status": "Verificación local parcial:49 conjuntas antes de refuerzo,7 finales afectadas después; no sumar ni declarar suite común actual",
+  "services_initial": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "3",
+    "time": "31.764",
+    "timestamp": "2026-10-05T00:27:40.992907+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "current_tests": {
+    "status": "terminal0",
+    "session": 75572,
+    "xml": "/tmp/photo-reuse-proof-final.xml"
+  },
+  "migration": "safety0057 aplicada en PostgreSQL local (97934 terminal0)",
+  "pending": [
+    "regresión común CI actual",
+    "exportación/retención/legado",
+    "resto CR09 y contrato"
+  ],
+  "http_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "15",
+    "time": "66.983",
+    "timestamp": "2026-10-05T00:33:15.589321+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "browser_initial": {
+    "passed": 2,
+    "failed": 2,
+    "seconds": 41.77,
+    "reason": "Playwright buscó headless shell por defecto; se usa chromium-browser como resto del proyecto",
+    "xml": "/tmp/private-photo-reuse-mobile-browser-config-error.xml"
+  },
+  "browser_csp_test_error": {
+    "passed": 2,
+    "failed": 2,
+    "seconds": 44.86,
+    "reason": "wait_for_function con string requiere eval bloqueado por CSP; reemplazado por load + evaluate_all",
+    "xml": "/tmp/private-photo-reuse-mobile-csp-test-error.xml",
+    "csp_weakened": false
+  },
+  "mobile_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "4",
+    "time": "46.678",
+    "timestamp": "2026-10-05T00:37:38.113488+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "runtime": {
+    "build": 29610,
+    "migration": 97934,
+    "recreate": 86446,
+    "status": "terminal0",
+    "host_container_hashes_equal": true,
+    "check": "sin incidencias",
+    "health_http": 200,
+    "hashes": {
+      "apps/safety/photo_reintroduction_review.py": "edd79b4b17a9233416fd0fd8b6ecc95d3a66dae13973ecc6beb3a7060211e2c5",
+      "apps/listings/submissions.py": "780c0d14081f730c7905edae61ff68c7605d0ae5732afb4a7d5f30fd83340704"
+    },
+    "includes_latest_changes": false
+  },
+  "stale_csrf_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "4",
+    "time": "48.951",
+    "timestamp": "2026-10-05T00:41:17.738460+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "race_initial": {
+    "passed": 1,
+    "failed": 1,
+    "seconds": 37.81,
+    "reason": "observador solo comprobaba bloqueo directo; ampliado a cadena recursiva de pg_blocking_pids",
+    "xml": "/tmp/private-photo-reuse-pg-direct-observer-error.xml"
+  },
+  "race_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "2",
+    "time": "31.911",
+    "timestamp": "2026-10-05T00:45:11.489901+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "executed_correction_initial": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "3",
+    "skipped": "0",
+    "tests": "6",
+    "time": "115.436",
+    "timestamp": "2026-10-05T00:47:50.590317+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com",
+    "reason": "La detección privada exacta quedaba detrás del retorno por ausencia de firma perceptual en Blob legado listo."
+  },
+  "executed_correction_fixed": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "6",
+    "time": "122.213",
+    "timestamp": "2026-10-05T00:52:41.579680+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com",
+    "scope": "Seis variantes, una rechazada no ejecuta; cinco excluidas. Recarga ordinaria tras ejecución local; comprobación de identidad de desarrollo simulada."
+  },
+  "runtime_final": {
+    "build": 89690,
+    "recreate": 86812,
+    "status": "terminal0",
+    "migration_check": "sin migraciones pendientes",
+    "check": "sin incidencias",
+    "uid": 10001,
+    "health_http": 200,
+    "host_container_hashes_equal": true,
+    "hashes": {
+      "apps/safety/photo_reintroduction_review.py": "edd79b4b17a9233416fd0fd8b6ecc95d3a66dae13973ecc6beb3a7060211e2c5",
+      "apps/safety/photo_reintroduction_views.py": "a523d7aa79fb430e446d4ab90053b8cd8231db533649033d9688e6937b0a5e4a",
+      "apps/mediafiles/services.py": "ac33ae2eb746d6a723d839156c3e07bc3eef83eaf5b45d8cac9e7a66c06e4fb2",
+      "apps/listings/submissions.py": "780c0d14081f730c7905edae61ff68c7605d0ae5732afb4a7d5f30fd83340704",
+      "templates/safety/photo_reuse_review.html": "a029c02c259275734329220602fd67c32533331c404c43247518e303c442b8f9"
+    },
+    "includes_proof_refresh": false
+  },
+  "common_before_proof_fix": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "49",
+    "time": "419.049",
+    "timestamp": "2026-10-05T00:55:02.653326+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "proof_before_fix": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "1",
+    "skipped": "0",
+    "tests": "1",
+    "time": "23.522",
+    "timestamp": "2026-10-05T01:02:19.764332+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com",
+    "failure": "Consulta bloqueada registra lectura tras autoridad passed→pending; snapshot previo"
+  },
+  "proof_final_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "7",
+    "time": "75.260",
+    "timestamp": "2026-10-05T01:03:03.878937+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "runtime_proof_refresh": {
+    "build": 37331,
+    "recreate": 7483,
+    "status": "terminal0",
+    "uid": 10001,
+    "health_http": 200,
+    "check": "sin incidencias",
+    "migration_check": "sin pendientes",
+    "hashes_equal_app_worker_beat": true,
+    "service_sha256_before_format": "32a52de95789146b31f0c3f1fb5e081c39e2bc23ac7a011a04bb4d028dc6b112",
+    "format_only_rebuild_pending": false
+  },
+  "runtime_formatted_final": {
+    "build": 99273,
+    "recreate": 40292,
+    "status": "terminal0",
+    "hashes_equal_app_worker_beat": true,
+    "service_sha256": "f5ded763210fe07d1f9d12e79067b12323d0e5ad4e1d374736ff3dab06de0998",
+    "change_from_tested_source": "normalización Ruff sin cambio semántico"
+  }
+}

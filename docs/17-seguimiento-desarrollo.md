@@ -5,16 +5,16 @@ Actualizado: 2026-10-04. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 ## Estado actual
 
 - Fase: BASE y CR-01 a CR-08 verificados localmente; implementación autorizada el 2026-10-03.
-- Próximo paso: CR-09; implementar recarga/rehabilitación revisada de imágenes y conservación histórica por finalidad; identidad de cuenta, decisiones/comunicaciones pendientes y respuesta final. Continuar también los demás derechos, retención y huecos de docs40; no iniciar CR10/GS01 como si CR09 estuviera aceptado.
+- Próximo paso: CR-09; completar exportación/retención de revisión de recargas, casos legados y conservación histórica por finalidad; identidad de cuenta, decisiones/comunicaciones pendientes y respuesta final. Continuar también los demás derechos, retención y huecos de docs40; no iniciar CR10/GS01 como si CR09 estuviera aceptado.
 - Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; regresión común histórica CR-08:166 pruebas pasan con PostgreSQL y Chromium (450.45s, sin skips), dos límites finales14.47s; Docker/worker/Beat de CR-08 verificados; verificación y representación conectadas con simuladores explícitos.
-- Docker actual: app/worker/Beat reconstruidos y recreados; core0015/safety0054/mediafiles0010 confirmadas, Caddy health200 y UID10001. Backends de identidad de derechos y avisos desactivados en runtime normal. Inventario, evaluación y revisión independiente de candidatos conectados; regresión conjunta verificada localmente y cierre pendiente. No aceptación completa CR-09.
+- Docker actual: app/worker/Beat reconstruidos y recreados; core0015/safety0057/mediafiles0010 confirmadas, Caddy health200 y UID10001. Backends de identidad de derechos y avisos desactivados en runtime normal. Inventario, evaluación y revisión independiente de candidatos conectados; regresión conjunta verificada localmente y cierre pendiente. No aceptación completa CR-09.
 - Regresión común histórica sobre e6727bb:426 passed1776.17s, exit0/sin skips; aislamiento de migraciones corregido. Integra funcionalidades implementadas, no acepta CR-09 completo.
 - Regresión histórica sobre f5c636c terminada:444 passed1922.29s, exit0/sin errores/fallos/skips. Integra cambios hasta safety0041; no acepta CR09 completo. Continuar requisitos pendientes de acta04/docs40.
 - Regresión histórica CR-09 sobre35b1f53:285 passed/1 failed969.51s, sin skips; fallo de recarga Chromium investigado; sincronización observable reforzada,20 pruebas afectadas passed95.28s. No aceptada como suite completa.
 - Regresión completa CI sobre4789079:493 passed1378.93s, job integration success; PostgreSQL/Chromium, ruff/check/migraciones pasan. [Evidencia](evidencias/regresion-ci-4789079.json). No incluye36ced07/a5c9d7b posteriores; no aceptaCR09 completo.
 - Regresión completa CI sobre36ced07:494 passed1420.52s, run37225258925 success. [Evidencia](evidencias/regresion-ci-36ced07.json). No incluye textos posteriores ni corrección de tarifas; CR09 permanece abierto.
 - Regresión completa CI sobrea5c9d7b:498 passed1444.36s, run37226297758 success. [Evidencia](evidencias/regresion-ci-a5c9d7b.json). No incluye tarifas/fuenteBlob/selección de fotos posteriores; CR09 sigue abierto.
-- Regresión CI más reciente: e7d0679, 528 pruebas correctas1292.39s, run37236298045 success; incluye acceso histórico del gestor, anterior a colas generales en desarrollo. [Evidencia](evidencias/regresion-ci-e7d0679.json).
+- Regresión CI más reciente:1ad2412,532 pruebas correctas1708.09s, run37239889995 success; incluye candidatos privados, anterior a revisión safety0057 y cambios actuales. [Evidencia](evidencias/regresion-ci-1ad2412.json).
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
 - Herramientas: Graphify0.9.74/skill Codex instalados y usados; [resultados/incidencia](19-graphify-analisis-local.md). Claude3/3 consumidas; continuar localmente. [Auditoría pendiente CR-09](actas/04-cr09-auditoria-pendiente.md).
@@ -698,3 +698,58 @@ Batería87572 terminal0:13 passed82.36s sin fallos/errores/omisiones. Incluye up
 
 
 Candidatos de recarga verificados localmente en su alcance:13 correctas82.36s PG, sin fallos/errores/omisiones. Anterior8 correctas40.94s corresponde a versión sin uploaded_blob; no sumar. Detector privado registra exactos y candidatos regionales por perfil/archivo retirado, con vínculo protegido a bytes detectados e idempotencia; no declara igualdad visual ni autorización. safety0056 aplicada; Docker reconstruido/recreado, hashes iguales/UID10001/check sin incidencias/health200. Revisión auditada, decisión independiente, bloqueo central de publicación, UI ES/EN, concurrencia y exportación/retención pendientes (docs48). Claude3/3; contrato completo abierto.
+
+
+Revisión de recargas en curso (docs48): safety0057, permiso/lectura/decisión versionadas y cifradas, servicios3 passed31.83s. Añadidos cola/GET sin imágenes/POST auditado/imagen ligada a lectura, resultado visible ES/EN, dashboard y aviso genérico editor; validate_submission bloquea candidatos activos sin decisión vigente. Inventario incluye lectura/decisión. Batería45876/XML /tmp/private-photo-reuse-http-publication.xml en curso, fuente congelada. Ruff detectó solo falta de línea entre imports de test; corregir tras terminal. safety0057 Docker pendiente. Navegador/concurrencia/negativos y flujo de ejecución previo por probar; no aceptación completa CR09. Claude3/3, contrato entero abierto.
+
+HTTP/publicación45876 terminal0:15 passed67.04s sin fallos/errores/omisiones. GET sin imágenes/auditoría/bytes privados/COI del sujeto/lectura obsoleta/guardia central verificados con ledgers sintéticos, no autorización humana. Aviso Ruff corregido (separación imports). Solo tests ampliados a navegador móvil ES/EN, sesión80833/XML /tmp/private-photo-reuse-mobile-bilingual.xml en curso; fuente funcional estable. safety0057 Docker todavía pendiente, no commit hasta terminal.
+
+Navegador80833 terminal1:2 correctas/2 fallidas41.77s, ejecutable headless por defecto ausente. Corregida configuración como pruebas existentes: chromium-browser explícito/--no-sandbox. Repetición92160/XML /tmp/private-photo-reuse-mobile-bilingual.xml en curso; fuente funcional estable. Refuerzo de test: lectura fresca y versión actual antes de cambiar firmas para comprobar invalidación por huella. Aviso Ruff orden import shutil pendiente tras terminal.
+
+Navegador92160 terminal1:2 correctas/2 fallidas44.86s, wait_for_function string exige eval bloqueado por CSP. Sustituido por load + evaluate_all sobre imágenes, sin debilitar CSP, sleeps ni retries. Orden de import shutil normalizado. Repetición17968/XML /tmp/private-photo-reuse-mobile-bilingual.xml en curso; fuente funcional estable. Confirmar resultado, luego concurrencia/flujo ejecución previa y Docker safety0057.
+
+Navegador17968 terminal0:4 passed46.77s sin fallos/errores/omisiones. Incluye Chromium390x844 ES/EN, ambas imágenes realmente decodificadas tras auditoría y decisión visible antes/después de reload; sesión Django sintética, no proveedor. Fuente funcional estable. Build safety0057 iniciado; migración/recreación/runtime y concurrencia/flujo ejecución previa pendientes antes de aceptación. CI710c856 terminalsuccess530 correctas1217.41s, evidencia normalizada sin log íntegro.
+
+Build29610 terminal0 para implementación revisada; migración safety0057 iniciada en Docker local. Antes de cerrar: probar concurrencia real/flujo ejecución previa, resultados negativos/CSRF, y mostrar explícitamente decisión obsoleta cuando cambia la huella (la etiqueta de resultado registrado no debe confundirse con autorización vigente). No declarar gate completo.
+
+Runtime revisión recargas confirmado: safety0057 aplicada, recreación86446 terminal0, hashes review/submissions iguales host/app, check sin incidencias/health200. Trabajo sin commit: faltan UI de decisión obsoleta, CSRF/negativos, concurrencia real PostgreSQL y prueba desde ejecución de rectificación antes de batería conjunta/commit. HTTP15 y móvil4 anteriores no cubren esas condiciones. Fuente funcional actual estable, sin tests activos. Claude3/3; contrato entero abierto.
+
+Aviso de decisión obsoleta y errores de formulario visibles implementados. Batería91166 terminal0:4 correctas49.06s (ESEN móvil/HTTP/huella/CSRF/MFA caducada), sin fallos/errores/omisiones. Runtime Docker previo no incluye este último cambio de UI; reconstruir antes de cerrar. Pruebas96782/XML /tmp/private-photo-reuse-pg-races.xml en curso: lectura espera bloqueo y execute de redacción real local; dos decisores bloqueados sobre versión1 producen una decisión/version2 y un conflicto. Autoridad de recarga sintética, no aprobación humana. Fuente funcional congelada. Falta recorrido desde rectificación previa ejecutada, batería conjunta, runtime final/contrato/commit; Claude3/3 y contrato entero abiertos.
+
+Carreras96782 terminal1:1 correcta/1 fallida37.81s. Lectura bloqueada devuelve404 tras execute real local de redacción; peer conserva archivos. Observador de dos revisores no encontró al holder como bloqueo directo; ampliado a cadena recursiva pg_blocking_pids (sin cambiar locks funcionales ni admitir un wait no observado). Repetición20484/XML /tmp/private-photo-reuse-pg-races.xml en curso. Fuente funcional sigue estable; UI última aún fuera del Docker anterior.
+
+Carreras20484 terminal0:2 passed31.98s, cero fallos/errores/omisiones; cadena PostgreSQL realmente observada, redacción de medios ejecutada y solo una decisión por versión. Prueba desde rectificación ejecutada29210/XML /tmp/photo-reuse-executed-correction.xml en curso, seis variantes seleccionadas (una rechazada no ejecuta); fuente funcional estable. Incluye reupload normal y revisión independiente sin publicar.
+
+Porcentajes consultados de nuevo: se mantienen orientativamente CR09≈70% completado/30% pendiente y contrato≈50%/50%. La revisión de recargas aún no está cerrada ni justifica aceptación de derechos, gates o contrato completo.
+
+
+Flujo29210 terminal1:3 correctas/3 fallidas115.53s (5 excluidas). Las variantes sin vaciado de fotos reintroducen bytes de un Blob legado listo sin firma perceptual: detect_matches retornaba antes de registrar igualdad SHA. Detector privado movido antes del retorno por ausencia de firma; comparación visual conserva su requisito. No fabricar firmas ni autorizar archivos por similitud. Repetir flujo y pruebas afectadas antes de aceptación/runtime.
+
+
+CI4779385 run37239382822 terminalfailure:530 correctas/1 fallida1634.70s. Fallo Page.reload «Not attached to an active page» en test_browser_organization_review: recarga inmediatamente tras POST/redirección. Test reforzado esperando resultado persistido visible y desaparición del formulario antes de reload; sin sleeps/retries ni cambios funcionales. Prueba dirigida pendiente tras terminal89922. CI1ad2412 run37239889995 sigue in_progress en consulta actual; no reiniciada.
+
+
+Flujo89922 terminal0:6 correctas122.31s,5 excluidas, sin fallos/errores/omisiones. Corrección detecta recarga SHA de Blob listo sin firma perceptual tras ejecución real local; revisión independiente conserva retirada original y borrador sin publicación. Una variante rechazada termina antes de ejecución. Iniciar batería conjunta afectada antes de runtime/commit; no sumar pruebas anteriores ni cerrar CR09.
+
+
+Batería conjunta28575 activa, XML /tmp/private-photo-reuse-common.xml: autoridad/disposiciones, carreras PG, rectificación, uploads, limpieza, inventario, publicación, fotos y navegador organizaciones con resultado confirmado antes de reload. Fuente congelada. Recuperar mismo handle hasta terminal; Docker final y aceptación/commit aún pendientes. Claude3/3; objetivo completo permanece abierto.
+
+
+Docker final recargas build89690/recreate86812 terminal0; safety0057 vigente sin migraciones pendientes, UID10001/check limpio/health200. Hashes host/app iguales para service/view/validador/matcher/template, incluidos último aviso obsoleto y detección SHA sin firma. Evidencia normalizada. CI1ad2412 run37239889995 success532 correctas1708.09s; cubre candidatos, no cambios actuales0057. Batería conjunta28575 sigue viva; no commit ni aceptación antes de terminal.
+
+
+Auditoría de revisión durante batería28575: locked carga execution.proof antes de esperar locked_case y comprueba ese objeto ya leído. Falta comprobar revocación de autoridad original mientras espera: recargar execution/proof después de locks y añadir carrera PG de inspect con proof passed→pending durante bloqueo. No modificar fuente mientras batería común activa; no aceptar esta entrega ni commit hasta probar esta condición y actualizar runtime de su corrección.
+
+
+Batería28575 terminal0:49 correctas419.13s, cero fallos/errores/omisiones, PG/Chromium. Incluye corrección navegador organizaciones, detección SHA sin firma y flujo ejecutado. No cubre revalidación proof tras bloqueo identificada por auditoría. Reproducción36009/XML /tmp/photo-reuse-proof-before-fix.xml en curso: bloqueo PG observado y proof passed→pending antes de liberar; se espera denegación sin lectura nueva. Fuente congelada durante reproducción.
+
+
+Reproducción36009 terminal1:1 fallida23.63s,2 excluidas. Consulta bloqueada registraba lectura tras proof pasado a pending bajo lock, confirmando snapshot previo obsoleto. Corregido locked: recarga ejecución/proof/propuesta después de locked_case antes de autorización. Repetir carreras y autoridad/HTTP/navegador antes de runtime/commit;49 anteriores corresponden a versión previa.
+
+
+### Revisión privada de recargas: verificación local parcial
+
+Consulta auditada, decisión independiente versionada/cifrada, UI móvil ES/EN y bloqueo central de publicación implementados con safety0057.49 conjuntas correctas419,13 s antes del refuerzo de autoridad;7 finales afectadas correctas75,37 s después, no sumar. Carrera nueva reprodujo lectura admitida tras cambio proof durante espera (1 fallida23,63 s); corregida reconsulta después de locks y verificada denegación sin lectura durable. Retirada real local durante lectura y dos decisores sobre una versión también cubiertos. Docker/check/migraciones/UID10001/health200/hashes verificados, normalización de formato sin cambio semántico requiere última reconstrucción. Identidad y autoridad humanas siguen simuladas en pruebas, no proveedores reales. [Detalle](48-revision-privada-recargas.md) y [evidencia](evidencias/revision-privada-recargas.json). Exportación integral, retención/legado, cuenta/comunicaciones/cierre y resto contrato pendientes; CR09 abierto, Claude3/3.
+
+
+Normalización Ruff final sin cambio semántico; rebuild99273/recreate40292 terminal0 y hash del servicio igual en host/app/worker/Beat f5ded763210fe07d1f9d12e79067b12323d0e5ad4e1d374736ff3dab06de0998. No pruebas activas. Entrega lista para commit/push de desarrollo, no aceptación completa CR09 ni producción.

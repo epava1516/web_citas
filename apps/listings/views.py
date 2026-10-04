@@ -10,6 +10,7 @@ from django.views.decorators.http import require_http_methods, require_POST
 from apps.core.agencies import person_queryset
 from apps.core.models import LegalAcceptance, LegalDocument
 from apps.core.verification import locked_manager_person
+from apps.safety.photo_reintroduction_review import publication_pending
 
 from .forms import ContactsForm, DetailsForm, RateFormSet
 from .models import Listing, Revision
@@ -207,6 +208,7 @@ def edit(request, revision_id, step):
             "rates": rates,
             "document": document,
             "submission_form": SubmissionForm(initial={"edit_version": revision.edit_version}),
+            "private_review_pending": publication_pending(revision),
             "photos": revision.photos.filter(removed_at__isnull=True).select_related("blob"),
         },
         status=400 if request.method == "POST" and form is not None else 200,

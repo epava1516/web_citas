@@ -208,9 +208,6 @@ def record_match(photo, candidate, defaults):
 
 def detect_matches(blob_id):
     blob = Blob.objects.get(pk=blob_id)
-    signature = stored_signature(blob)
-    if not signature:
-        return
     photos_to_compare = list(
         blob.photos.filter(removed_at__isnull=True)
         .exclude(revision_id__in=rectification_history_ids())
@@ -222,6 +219,9 @@ def detect_matches(blob_id):
 
     for photo in photos_to_compare:
         detect_reintroduction(photo.pk)
+    signature = stored_signature(blob)
+    if not signature:
+        return
     candidates = (
         Photo.objects.filter(removed_at__isnull=True)
         .exclude(revision_id__in=rectification_history_ids())
