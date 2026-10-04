@@ -17,6 +17,7 @@ from django.views.decorators.debug import sensitive_post_parameters, sensitive_v
 from django.views.decorators.http import require_http_methods, require_POST
 
 from apps.core.accounts import limited
+from apps.core.models import User
 
 from .crypto import cipher, seal, unseal
 from .models import (
@@ -42,6 +43,9 @@ def canonical(value):
 
 @sensitive_variables()
 def source_copy(person, listing):
+    # Same account lock as preference writers; held through snapshot generation.
+    if person.subject_id:
+        User.objects.select_for_update(no_key=True).get(pk=person.subject_id)
     revisions = []
     if listing:
         # Profile lock prevents a cooperating editor adding another revision mid-copy.

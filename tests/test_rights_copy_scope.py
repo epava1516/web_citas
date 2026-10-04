@@ -140,3 +140,55 @@ def test_favorites_projection_is_own_activity_and_drift_blocks_stale_copy(reques
         client.post(url(receipt, export), {"key": uuid.uuid4()}).json()["account_activity"]
         == source["account_activity"]
     )
+
+
+def test_copy_account_lock_blocks_concurrent_favorite_removal(request, settings):
+    import time
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Event
+
+    from django.db import close_old_connections, connection, connections, transaction
+    from django.test import Client
+
+    from apps.listings.models import Favorite
+    from apps.safety.rights_exports import source_copy
+
+    _, _, _, _, _, person = prepared(request, settings)
+    favorite = Favorite.objects.create(user=person.subject, listing=person.listing)
+    client = Client()
+    client.force_login(person.subject)
+    ready = Event()
+    backend = {}
+
+    def remove():
+        close_old_connections()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT pg_backend_pid()")
+                backend["pid"] = cursor.fetchone()[0]
+            ready.set()
+            return client.post(f"/en/favorites/{favorite.pk}/remove/").status_code
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        with transaction.atomic():
+            copy = source_copy(person, person.listing)
+            assert len(copy["account_activity"]["favorites"]) == 1
+            future = pool.submit(remove)
+            assert ready.wait(timeout=5)
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT pg_backend_pid()")
+                own_pid = cursor.fetchone()[0]
+                deadline = time.monotonic() + 5
+                blocked = False
+                while time.monotonic() < deadline:
+                    cursor.execute("SELECT pg_blocking_pids(%s)", [backend["pid"]])
+                    blocked = own_pid in cursor.fetchone()[0]
+                    if blocked:
+                        break
+                    time.sleep(0.02)
+            assert blocked and not future.done()
+            assert Favorite.objects.filter(pk=favorite.pk).exists()
+        assert future.result(timeout=10) == 302
+    assert not Favorite.objects.filter(pk=favorite.pk).exists()

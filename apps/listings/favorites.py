@@ -47,6 +47,12 @@ def add(request, listing_id):
 @login_required
 @require_POST
 def remove(request, favorite_id):
-    favorite = get_object_or_404(Favorite, pk=favorite_id, user=request.user)
-    Favorite.objects.filter(pk=favorite.pk, user=request.user).delete()
+    with transaction.atomic():
+        actor = User.objects.select_for_update().get(pk=request.user.pk)
+        if not actor.is_active or request.session.get("account_version") != actor.session_version:
+            return HttpResponse(
+                "Session changed; sign in again / Sesión cambiada; accede de nuevo", status=409
+            )
+        favorite = get_object_or_404(Favorite, pk=favorite_id, user=actor)
+        Favorite.objects.filter(pk=favorite.pk, user=actor).delete()
     return redirect("favorites")
