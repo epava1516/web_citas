@@ -1,0 +1,15 @@
+{
+  "command": "uv run pytest -q tests/test_rights_copy_parts.py tests/test_rights_part_delivery.py tests/test_rights_images.py tests/test_rights_exports.py tests/test_rights_export_retention.py tests/test_erasure_inventory.py tests/test_erasure_execution.py --junitxml=/tmp/rights-parts-final-integration.xml",
+  "result": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "38",
+    "time": "237.957",
+    "timestamp": "2026-10-04T17:16:21.227538+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "sha256_xml": "33428640bf51ca11d46de412c6f80d0be39dbbb971f2b1e13fc20860fb666fa2",
+  "scope": "PostgreSQL/Chromium actual, builder/archive, part downloads/purge, >64MiB actual synthetic files, mobile ES/EN, prior export/image/proof/replay/concurrency, inventory and scoped erasure. Not complete CR09/global contract."
+}

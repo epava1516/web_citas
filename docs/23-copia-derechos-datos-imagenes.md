@@ -16,7 +16,7 @@ POST /moderation/rights/{case}/image/{photo}/ requiere responsable asignado, per
 
 En el JSON revisado, content_included=true y exclusion_code vacío seleccionan una imagen. Solo puede generarse si el mismo revisor consultó esos bytes con la versión actual del caso. Fotografías no seleccionadas conservan awaiting_review o una exclusión declarada third_party/unavailable. Abrir un recurso no demuestra comprensión, titularidad o revisión humana suficiente. Para ocultar una zona de una imagen se necesita un procedimiento de redacción adicional; esta versión permite excluirla íntegramente, sin transformar una fotografía arbitrariamente.
 
-Los bytes seleccionados se congelan en RightsExportImage cifrado, asociado al artefacto y fotografía. El JSON contiene attachment UUID, sin ruta de almacenamiento ni acceso público. Se bloquean blobs compartidos en orden estable y después fotos; contenido individual limitado10MiB, conjunto64MiB. Un exceso rechaza toda la entrega y exige partición, sin truncar silenciosamente. Contenido faltante/no listo/inválido o auditoría de bytes anterior no autoriza release.
+Los bytes seleccionados se congelan en RightsExportImage cifrado, asociado al artefacto y fotografía. El JSON contiene attachment UUID, sin ruta de almacenamiento ni acceso público. Se bloquean blobs compartidos en orden estable y después fotos; contenido individual limitado10MiB. La ampliación de docs42 prepara paquetes ZIP de hasta64MiB reales por parte sin límite agregado de64MiB; su regresión final38 pruebas pasó238.05s (docs42). No truncar silenciosamente ni declarar un paquete incompleto como entrega íntegra. Contenido faltante/no listo/inválido o auditoría de bytes anterior no autoriza release.
 
 ## Entrega y caducidad
 

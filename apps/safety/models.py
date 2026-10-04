@@ -563,7 +563,24 @@ class RightsExportImage(models.Model):
         ]
 
 
+class RightsExportPart(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    export = models.ForeignKey(RightsExport, on_delete=models.PROTECT, related_name="parts")
+    position = models.PositiveIntegerField()
+    encrypted_content = models.TextField()
+    attachments = models.JSONField(default=list)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["export", "position"], name="rights_export_part_position_once"
+            )
+        ]
+
+
 class RightsExportDownload(models.Model):
+    part = models.ForeignKey(RightsExportPart, null=True, on_delete=models.PROTECT)
     image = models.ForeignKey(RightsExportImage, null=True, on_delete=models.PROTECT)
     key = models.UUIDField(unique=True)
     export = models.ForeignKey(RightsExport, on_delete=models.PROTECT)

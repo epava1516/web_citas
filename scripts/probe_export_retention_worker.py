@@ -86,6 +86,7 @@ def fixture():
         RightsExport,
         RightsExportDownload,
         RightsExportImage,
+        RightsExportPart,
         RightsImageAccess,
         RightsProof,
         RightsRequest,
@@ -182,6 +183,17 @@ def fixture():
                     export=export, photo=photo, encrypted_content=cipher().encrypt(content).decode()
                 )
                 RightsExportDownload.objects.create(key=uuid.uuid4(), export=export, image=image)
+            from apps.safety.rights_copy_parts import packages
+
+            snapshots = [(image.pk, content) for image in export.images.order_by("pk")]
+            package = next(packages(snapshots))
+            part = RightsExportPart.objects.create(
+                export=export,
+                position=1,
+                attachments=package["attachments"],
+                encrypted_content=cipher().encrypt(package["content"]).decode(),
+            )
+            RightsExportDownload.objects.create(key=uuid.uuid4(), export=export, part=part)
     print(
         json.dumps(
             {
@@ -204,6 +216,7 @@ def state(app, task_id):
         RightsExport,
         RightsExportDownload,
         RightsExportImage,
+        RightsExportPart,
         RightsImageAccess,
         RightsProof,
     )
@@ -212,10 +225,13 @@ def state(app, task_id):
     expired = RightsExport.objects.filter(expires_at__lte=timezone.now()).order_by("pk")
     live_images = RightsExportImage.objects.filter(export__in=live).order_by("pk")
     expired_images = RightsExportImage.objects.filter(export__in=expired)
+    live_parts = RightsExportPart.objects.filter(export__in=live).order_by("pk")
+    expired_parts = RightsExportPart.objects.filter(export__in=expired)
     # Ciphertext comparisons establish byte preservation without exposing copy contents.
     preservation = (
         list(live.values_list("pk", "encrypted_payload", "purged_at"))
         + list(live_images.values_list("pk", "encrypted_content"))
+        + list(live_parts.values_list("pk", "encrypted_content", "attachments"))
         + list(Blob.objects.order_by("pk").values_list("pk", "sha256", "status", "width", "height"))
     )
     data = {
@@ -223,11 +239,15 @@ def state(app, task_id):
         "purged": expired.filter(purged_at__isnull=False, encrypted_payload="").count(),
         "expired_images": expired_images.count(),
         "empty_expired_images": expired_images.filter(encrypted_content="").count(),
+        "expired_parts": expired_parts.count(),
+        "empty_expired_parts": expired_parts.filter(encrypted_content="").count(),
+        "live_parts": live_parts.count(),
         "live": live.count(),
         "live_images": live_images.count(),
         "live_content_preserved": not live.filter(encrypted_payload="").exists()
         and not live.filter(purged_at__isnull=False).exists()
-        and not live_images.filter(encrypted_content="").exists(),
+        and not live_images.filter(encrypted_content="").exists()
+        and not live_parts.filter(encrypted_content="").exists(),
         "preservation_digest": hashlib.sha256(repr(preservation).encode()).hexdigest(),
         "purge_dates": list(expired.values_list("purged_at", flat=True)),
         "actions": RightsAction.objects.count(),
@@ -255,16 +275,18 @@ def wait(prefix, expired, task_id="", timeout=40):
         if (
             result["expired"] == result["purged"] == expired
             and result["expired_images"] == result["empty_expired_images"] == expired * 2
+            and result["expired_parts"] == result["empty_expired_parts"] == expired
             and (not task_id or result["task"]["status"] == "SUCCESS")
         ):
             assert (
                 result["live"] == expired
                 and result["live_images"] == expired * 2
+                and result["live_parts"] == expired
                 and result["live_content_preserved"]
             )
             assert result["actions"] == expired * 2 and result["proofs"] == expired
             assert result["image_accesses"] == result["source_photos"] == expired * 2
-            assert result["downloads"] == expired * 4 and result["source_revisions"] == expired
+            assert result["downloads"] == expired * 6 and result["source_revisions"] == expired
             return result
         time.sleep(1)
     print(json.dumps({"probe_timeout_state": result}), flush=True)

@@ -1,0 +1,29 @@
+{
+  "command": "uv run python -m scripts.probe_export_retention_worker launch",
+  "worker": {
+    "passed": true,
+    "elapsed_seconds": 13.64,
+    "task_ids": [
+      "cdb8929f-eb1e-40e9-b144-96dcdc6a4f76",
+      "1556d46a-84b3-4fef-997c-de77f2ccde67"
+    ],
+    "results": [
+      1,
+      0
+    ]
+  },
+  "beat": {
+    "passed": true,
+    "elapsed_seconds": 68.11,
+    "automatic_task_ids": [
+      "5e771812-6a13-4e14-b580-7ef59bb6f10f"
+    ],
+    "manual_dispatch": false
+  },
+  "scope": "Real isolated PostgreSQL/Redis/Celery worker/Beat; launcher guards verify expired ZIP ciphertext emptied, live ZIP ciphertext unchanged, audits/source rows preserved. Synthetic fixture does not establish identity or original-media-file purge.",
+  "isolated_database": "retention_probe_721cab549223",
+  "cleanup": {
+    "database_count": 0,
+    "container_count": 0
+  }
+}

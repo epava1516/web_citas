@@ -1,0 +1,15 @@
+{
+  "command": "uv run pytest -q tests/test_rights_part_delivery.py::test_generation_over_64mib_delivers_every_reviewed_image_in_bounded_parts --tb=short --junitxml=/tmp/rights-parts-large.xml",
+  "result": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "1",
+    "time": "37.397",
+    "timestamp": "2026-10-04T17:10:33.983931+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "sha256_xml": "343d4c3ad82e67d57d33cd84d3dfd8e64c8b0f2d29d25ce195269b94c11d1d38",
+  "scope": "Actual synthetic lossless WebP >64MiB total, PostgreSQL generation, private ZIP POST downloads, recovered SHA256 per image; retained derivative fixture bypasses ingestion. No actual identity provider."
+}

@@ -33,6 +33,7 @@ from .models import (
     RightsAction,
     RightsExport,
     RightsExportImage,
+    RightsExportPart,
     RightsRequest,
 )
 from .rights import allowed, fingerprint
@@ -232,6 +233,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 "favorites_deleted": 0,
                 "copies_cleared": 0,
                 "images_cleared": 0,
+                "parts_cleared": 0,
                 "sessions_revoked": False,
                 "revisions_cleared": 0,
                 "rates_deleted": 0,
@@ -395,6 +397,12 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                     .count()
                 )
                 RightsExportImage.objects.filter(export_id__in=ids).update(encrypted_content="")
+                result["parts_cleared"] = (
+                    RightsExportPart.objects.filter(export_id__in=ids)
+                    .exclude(encrypted_content="")
+                    .count()
+                )
+                RightsExportPart.objects.filter(export_id__in=ids).update(encrypted_content="")
                 RightsExport.objects.filter(pk__in=ids).update(
                     encrypted_payload="", purged_at=timezone.now()
                 )

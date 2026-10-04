@@ -25,6 +25,7 @@ from .models import (
     RightsExport,
     RightsExportDownload,
     RightsExportImage,
+    RightsExportPart,
     RightsExportPreview,
     RightsImageAccess,
     RightsRequest,
@@ -267,29 +268,25 @@ def generate(user, case_id, key, version, reason, copy):
         )
         .order_by("pk")
     )
-    image_snapshots = []
-    total_bytes = 0
-    for revision in cleaned["revisions"]:
-        for image in revision["images"]:
-            if not image["content_included"]:
-                continue
-            photo, content = image_content(person, image["photo"])
-            if not RightsImageAccess.objects.filter(
-                request=case,
-                actor=user,
-                photo=photo,
-                case_version=case.version,
-                content_digest=hashlib.sha256(content).hexdigest(),
-            ).exists():
-                raise ValidationError(
-                    "Inspect each selected image first / Consulta cada imagen seleccionada"
-                )
-            total_bytes += len(content)
-            if total_bytes > 64 * 1024 * 1024:
-                raise ValidationError(
-                    "Copy requires partitioned review / La copia requiere revisión por partes"
-                )
-            image_snapshots.append((image, photo, content))
+
+    def audited_snapshots():
+        for revision in cleaned["revisions"]:
+            for image in revision["images"]:
+                if not image["content_included"]:
+                    continue
+                photo, content = image_content(person, image["photo"])
+                if not RightsImageAccess.objects.filter(
+                    request=case,
+                    actor=user,
+                    photo=photo,
+                    case_version=case.version,
+                    content_digest=hashlib.sha256(content).hexdigest(),
+                ).exists():
+                    raise ValidationError(
+                        "Inspect each selected image first / Consulta cada imagen seleccionada"
+                    )
+                yield image, photo, content
+
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(
@@ -312,7 +309,7 @@ def generate(user, case_id, key, version, reason, copy):
                 encrypted_payload="",
                 expires_at=min(proof.expires_at, timezone.now() + timedelta(hours=24)),
             )
-            for image, photo, content in image_snapshots:
+            for image, photo, content in audited_snapshots():
                 attachment = RightsExportImage.objects.create(
                     export=export, photo=photo, encrypted_content=cipher().encrypt(content).decode()
                 )
@@ -323,6 +320,27 @@ def generate(user, case_id, key, version, reason, copy):
                 for image in revision["images"]
             ):
                 cleaned["pending_review"].remove("image_content")
+            from .rights_copy_parts import packages
+
+            cleaned["parts"] = []
+            snapshots = (
+                (attachment.pk, cipher().decrypt(attachment.encrypted_content.encode()))
+                for attachment in export.images.order_by("created_at", "pk").iterator(chunk_size=1)
+            )
+            for position, package in enumerate(packages(snapshots), start=1):
+                part = RightsExportPart.objects.create(
+                    export=export,
+                    position=position,
+                    attachments=package["attachments"],
+                    encrypted_content=cipher().encrypt(package["content"]).decode(),
+                )
+                cleaned["parts"].append(
+                    {
+                        "id": str(part.pk),
+                        "position": position,
+                        "attachments": package["attachments"],
+                    }
+                )
             export.encrypted_payload = seal(cleaned)
             export.save(update_fields=["encrypted_payload"])
     except IntegrityError as error:
@@ -424,7 +442,7 @@ def prepare(request, case_id):
 
 @require_POST
 @sensitive_variables()
-def download(request, case_id, secret, export_id, image_id=None):
+def download(request, case_id, secret, export_id, image_id=None, part_id=None):
     if not enabled():
         raise Http404
     with transaction.atomic():
@@ -473,6 +491,13 @@ def download(request, case_id, secret, export_id, image_id=None):
             or case.proofs.order_by("-created_at", "-pk").first().pk != export.proof_id
         ):
             raise Http404
+        part = None
+        if part_id:
+            if image_id:
+                raise Http404
+            part = RightsExportPart.objects.filter(pk=part_id, export=export).first()
+            if not part or not part.encrypted_content:
+                raise Http404
         image = None
         if image_id:
             image = RightsExportImage.objects.filter(pk=image_id, export=export).first()
@@ -490,15 +515,23 @@ def download(request, case_id, secret, export_id, image_id=None):
                 defaults={
                     "export": export,
                     "image": image,
+                    "part": part,
                     "actor": request.user if request.user.is_authenticated else None,
                 },
             )
         if (
-            recorded.image_id != image_id
+            recorded.part_id != part_id
+            or recorded.image_id != image_id
             or recorded.export_id != export.pk
             or recorded.actor_id != (request.user.pk if request.user.is_authenticated else None)
         ):
             return private(HttpResponse("Conflicting download key", status=409))
+        if part:
+            response = HttpResponse(
+                cipher().decrypt(part.encrypted_content.encode()), content_type="application/zip"
+            )
+            response["Content-Disposition"] = 'attachment; filename="rights-part.zip"'
+            return private(response)
         if image:
             response = HttpResponse(
                 cipher().decrypt(image.encrypted_content.encode()), content_type="image/webp"

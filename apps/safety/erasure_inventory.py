@@ -181,6 +181,12 @@ def source_manifest(person):
             ["pk", "expires_at", "purged_at"],
         ),
         (
+            "safety.RightsExportPart",
+            Q(export__person=person),
+            "transient_copy",
+            ["pk", "export_id", "position"],
+        ),
+        (
             "safety.RightsExportImage",
             Q(export__person=person),
             "transient_copy",

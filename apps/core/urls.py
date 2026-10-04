@@ -136,6 +136,11 @@ urlpatterns = [
         name="rights_image_download",
     ),
     path(
+        "safety/rights/<uuid:case_id>/<str:secret>/export/<uuid:export_id>/part/<uuid:part_id>/",
+        rights_exports.download,
+        name="rights_part_download",
+    ),
+    path(
         "moderation/rights/<uuid:case_id>/export/",
         rights_exports.prepare,
         name="rights_export_prepare",
