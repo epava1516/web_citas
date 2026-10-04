@@ -470,3 +470,54 @@ def test_inflight_draft_creation_is_denied_after_publication_erasure(
         assert future.result(timeout=30) == 403
     person.refresh_from_db()
     assert person.publication_erased_at and person.listing.revisions.count() == before
+
+
+def test_response_receipt_invalidates_source_without_changing_case_and_requires_new_review(
+    request, settings, monkeypatch
+):
+    from test_rights_responses import values
+    from test_rights_verification import read
+
+    from apps.safety.erasure_inventory import canonical, source_manifest
+    from apps.safety.rights import fingerprint
+    from apps.safety.rights_responses import issue
+
+    case, user, staff, client, receipt, person, oldplan, _, _, _ = plan_fixture(
+        request, settings, monkeypatch
+    )
+    response = issue(user, case.pk, **values(case))
+    case.refresh_from_db()
+    read(staff, case)
+    snapshot = inventory(
+        user,
+        case.pk,
+        uuid.uuid4(),
+        case.version,
+        "Review inventory before pending response receipt",
+    )
+    decisions = unseal(oldplan.encrypted_decisions)["decisions"]
+    plan = record(user, case.pk, snapshot.pk, uuid.uuid4(), case.version, decisions)
+    before = (case.version, case.response_version)
+    assert (
+        client.post(
+            receipt + f"response/{response.pk}/acknowledge/", {"received": "yes"}
+        ).status_code
+        == 302
+    )
+    case.refresh_from_db()
+    assert (case.version, case.response_version) == before
+    assert fingerprint(canonical(source_manifest(person))) != snapshot.source_digest
+    with pytest.raises(ValidationError):
+        execute(user, case.pk, plan.pk, **payload(case))
+    assert AccountToken.objects.filter(user=person.subject).exists()
+    assert not ErasureExecution.objects.exists()
+    current = inventory(
+        user,
+        case.pk,
+        uuid.uuid4(),
+        case.version,
+        "Review changed receipt dependency before scoped execution",
+    )
+    updated = record(user, case.pk, current.pk, uuid.uuid4(), case.version, decisions)
+    assert execute(user, case.pk, updated.pk, **payload(case))
+    assert not AccountToken.objects.filter(user=person.subject).exists()

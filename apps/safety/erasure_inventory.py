@@ -213,6 +213,11 @@ def source_manifest(person):
             ["pk", "operation", "expected_version", "created_at"],
         ),
         ("safety.ReportNotice", report_scope, ["pk", "status", "attempts", "recovery_version"]),
+        (
+            "safety.UrgentReportAlert",
+            report_scope | Q(report__reported_subject_id=subject) if subject else report_scope,
+            ["pk", "report_id", "created_at", "acknowledged_at", "acknowledged_by_id"],
+        ),
         ("safety.Complaint", complaint_scope, ["pk", "version", "status"]),
         (
             "safety.ComplaintAction",
@@ -239,6 +244,24 @@ def source_manifest(person):
             "safety.RightsNotice",
             Q(response__request__person=person),
             ["pk", "status", "attempts", "recovery_version"],
+        ),
+        (
+            "safety.RightsResponseAcknowledgement",
+            Q(response__request__person=person),
+            ["pk", "response_id", "created_at"],
+        ),
+        (
+            "safety.PrivacyHoldReleaseProposal",
+            Q(hold__person=person),
+            [
+                "pk",
+                "hold_id",
+                "action_id",
+                "response_id",
+                "released_action_id",
+                "released_proof_id",
+                "released_at",
+            ],
         ),
         (
             "safety.RightsImageAccess",
