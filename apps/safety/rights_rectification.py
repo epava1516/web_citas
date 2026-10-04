@@ -132,7 +132,26 @@ def source_snapshot(case, person, listing):
     revision = None
     if listing and listing.approved_revision_id:
         revision = Revision.objects.select_for_update().get(pk=listing.approved_revision_id)
+    copied_source = None
+    if revision:
+        # Bind every copied value and relation, not only corrected text fields.
+        copied_source = {
+            "values": {
+                field.attname: getattr(revision, field.attname)
+                for field in Revision._meta.concrete_fields
+            },
+            "relations": {
+                field.name: list(
+                    getattr(revision, field.name).order_by("pk").values_list("pk", flat=True)
+                )
+                for field in Revision._meta.many_to_many
+            },
+            "rates": list(revision.rates.select_for_update().order_by("pk").values()),
+            "photos": list(revision.photos.select_for_update().order_by("pk").values()),
+        }
+        copied_source = json.loads(json.dumps(copied_source, sort_keys=True, default=str))
     source = {
+        "copied_source": copied_source,
         "person": str(person.pk),
         "subject": str(person.subject_id),
         "manager_version": person.manager_version,

@@ -16,7 +16,7 @@ pytestmark = pytest.mark.django_db(transaction=True)
 REASON = "Independent synthetic correction assessment with minimized internal grounds"
 
 
-def independent_case(request, settings, monkeypatch, *, with_receipt=False):
+def independent_case(request, settings, monkeypatch, *, with_receipt=False, changes=None):
     case, original, staff, client, receipt, person = ready(
         request, settings, monkeypatch, "rectify"
     )
@@ -26,6 +26,11 @@ def independent_case(request, settings, monkeypatch, *, with_receipt=False):
         )
     )
     original = User.objects.get(pk=original.pk)
+    if changes:
+        source = person.listing.approved_revision
+        assert source is not None and source.municipality_id
+        # Include a synthetic travel area before proposal, so every relation copy is exercised.
+        source.travel_areas.add(source.municipality)
     preview(
         original, case.pk, case.version, "Inspect scoped current fields for correction proposal"
     )
@@ -34,7 +39,7 @@ def independent_case(request, settings, monkeypatch, *, with_receipt=False):
         case.pk,
         uuid.uuid4(),
         case.version,
-        {"alias": "Synthetic reviewed correction"},
+        changes or {"alias": "Synthetic reviewed correction"},
         REASON,
     )
     path = f"/en/moderation/rights/{case.pk}/rectification/{proposal.pk}/review/"
@@ -112,7 +117,9 @@ def test_mobile_independent_source_and_proposal_review(
     from playwright.sync_api import expect, sync_playwright
 
     settings.DEBUG = True
-    case, reviewer, other, person, proposal, path = independent_case(request, settings, monkeypatch)
+    case, reviewer, other, person, proposal, path, client, receipt = independent_case(
+        request, settings, monkeypatch, with_receipt=True
+    )
     reviewer.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
     reviewer = User.objects.get(pk=reviewer.pk)
     from apps.core.mfa import encrypt
@@ -160,8 +167,8 @@ def test_mobile_independent_source_and_proposal_review(
             # Synthetic identity provider only; actual PG proof/read guards and browser MFA.
             from concurrent.futures import ThreadPoolExecutor
 
-            def refresh_verification():
-                from django.db import close_old_connections
+            def refresh_verification(confirm=False):
+                from django.db import close_old_connections, connections
 
                 close_old_connections()
                 try:
@@ -171,10 +178,19 @@ def test_mobile_independent_source_and_proposal_review(
                     session = staff.session
                     session["mfa_version"] = original.mfa_version
                     session.save()
+                    if confirm:
+                        notification = RightsRectificationNotification.objects.get()
+                        assert (
+                            client.post(
+                                receipt + f"response/{notification.response_id}/acknowledge/",
+                                {"received": "yes"},
+                            ).status_code
+                            == 302
+                        )
                     case.refresh_from_db()
                     fresh(case, reviewer, other, original, staff)
                 finally:
-                    close_old_connections()
+                    connections.close_all()
 
             with ThreadPoolExecutor(max_workers=1) as pool:
                 pool.submit(refresh_verification).result(timeout=30)
@@ -193,6 +209,25 @@ def test_mobile_independent_source_and_proposal_review(
             expect(
                 page.get_by_role("heading", name="Private rights inspection", exact=True)
             ).to_be_visible()
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                pool.submit(refresh_verification, True).result(timeout=30)
+            page.goto(live_server.url + f"/en/moderation/rights/{case.pk}/rectification/")
+            page.locator("[name=operation]").select_option("preview")
+            page.locator("[name=purpose]").fill(
+                "Read current received source before executing correction"
+            )
+            page.get_by_role("button", name="Record correction action", exact=True).click()
+            page.get_by_role("link", name="Review correction proposal", exact=True).click()
+            page.locator("[name=purpose]").fill(
+                "Read approved received changes before correction execution"
+            )
+            page.get_by_role("button", name="Record review action", exact=True).click()
+            page.locator("[name=operation]").select_option("execute")
+            page.locator("[name=reason]").fill(REASON)
+            page.get_by_role("button", name="Record review action", exact=True).click()
+            expect(
+                page.get_by_role("heading", name="Private rights inspection", exact=True)
+            ).to_be_visible()
             page.goto(live_server.url + path)
             assert "Synthetic reviewed correction" not in page.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
@@ -200,7 +235,10 @@ def test_mobile_independent_source_and_proposal_review(
             browser.close()
     assert RightsRectificationReview.objects.get().outcome == "approved"
     person.refresh_from_db()
-    assert person.alias == alias_before
+    assert person.alias != alias_before
+    assert person.alias == "Synthetic reviewed correction"
+    person.listing.refresh_from_db()
+    assert person.listing.status != "published"
     assert RightsRectificationNotification.objects.count() == 1
 
 
@@ -251,7 +289,15 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     from apps.safety.rectification_review import inspect, review
 
     case, reviewer, other, person, proposal, path, client, receipt = independent_case(
-        request, settings, monkeypatch, with_receipt=True
+        request,
+        settings,
+        monkeypatch,
+        with_receipt=True,
+        changes={
+            "alias": "Synthetic reviewed correction",
+            "title": "Corrected synthetic title",
+            "description": "Corrected synthetic description",
+        },
     )
     reviewer.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
     reviewer = User.objects.get(pk=reviewer.pk)
@@ -319,3 +365,109 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     person.refresh_from_db()
     person.listing.refresh_from_db()
     assert (person.alias, person.listing.status, person.listing.lifecycle_version) == before
+
+    from apps.safety.crypto import unseal
+    from apps.safety.rectification_execution import execute
+
+    case.refresh_from_db()
+    execution_key = uuid.uuid4()
+    with pytest.raises(ValidationError):
+        execute(reviewer, case.pk, proposal.pk, execution_key, case.version, REASON)
+    reviewer = User.objects.get(pk=reviewer.pk)
+    fresh(case, reviewer, other, original, staff)
+    preview(reviewer, case.pk, case.version, "Read received correction source before execution")
+    inspect(
+        reviewer,
+        case.pk,
+        proposal.pk,
+        case.version,
+        "Read received approved changes before execution",
+    )
+    old_revision = person.listing.approved_revision
+    assert old_revision is not None
+    old_title = old_revision.title
+    old_description = old_revision.description
+    old_rates = list(
+        old_revision.rates.values_list("concept", "mode", "amount", "currency", "duration_minutes")
+    )
+    old_photos = list(
+        old_revision.photos.filter(removed_at__isnull=True).values_list("blob_id", "position")
+    )
+    old_relations = {
+        field.name: set(getattr(old_revision, field.name).values_list("pk", flat=True))
+        for field in old_revision._meta.many_to_many
+    }
+    old_rights_version = person.rights_version
+    execution_version = case.version
+    payload = {
+        "key": execution_key,
+        "version": execution_version,
+        "operation": "execute",
+        "reason": REASON,
+    }
+    assert Client(enforce_csrf_checks=True).post(path, payload).status_code == 403
+    from apps.listings.models import Revision
+    from apps.mediafiles.tasks import process_blob
+
+    assert old_rates and old_photos and all(old_relations.values())
+    rate = old_revision.rates.first()
+    original_concept = rate.concept
+    rate.concept = "Changed synthetic source rate"
+    rate.save(update_fields=["concept"])
+    assert other.post(path, payload).status_code == 409
+    rate.concept = original_concept
+    rate.save(update_fields=["concept"])
+    ongoing = Revision.objects.create(
+        listing=person.listing, manager_version=person.manager_version
+    )
+    assert other.post(path, payload).status_code == 409
+    ongoing.delete()  # Test-only competing draft, no user content.
+    dispatched = []
+    original_delay = process_blob.delay
+
+    def record_dispatch(blob_id):
+        dispatched.append(blob_id)
+        return original_delay(blob_id)
+
+    monkeypatch.setattr(process_blob, "delay", record_dispatch)
+    assert other.post(path, payload).status_code == 302
+    assert set(dispatched) == {str(blob_id) for blob_id, _ in old_photos}
+    from apps.safety.models import RightsRectificationExecution
+
+    applied = RightsRectificationExecution.objects.get()
+    assert (
+        execute(reviewer, case.pk, proposal.pk, execution_key, execution_version, REASON).pk
+        == applied.pk
+    )
+    person.refresh_from_db()
+    person.listing.refresh_from_db()
+    assert person.alias == "Synthetic reviewed correction"
+    assert person.rights_version == old_rights_version + 1
+    assert person.listing.status != "published"
+    assert person.listing.available_until is None
+    assert unseal(applied.encrypted_previous_values)["alias"] == before[0]
+    if old_revision:
+        old_revision.refresh_from_db()
+        assert old_revision.title == old_title
+        assert old_revision.description == old_description
+        corrected = applied.corrected_revision
+        assert corrected.title == "Corrected synthetic title"
+        assert corrected.description == "Corrected synthetic description"
+        assert (
+            list(
+                corrected.rates.values_list(
+                    "concept", "mode", "amount", "currency", "duration_minutes"
+                )
+            )
+            == old_rates
+        )
+        assert set(corrected.photos.values_list("blob_id", "position")) == set(old_photos)
+        assert not corrected.photos.filter(approved=True).exists()
+        # Local eager processing may already have completed comparisons; dispatch is asserted above.
+        for field, ids in old_relations.items():
+            assert set(getattr(corrected, field).values_list("pk", flat=True)) == ids
+        assert person.listing.approved_revision_id == old_revision.pk
+        assert applied.corrected_revision.source_revision_id == old_revision.pk
+        assert applied.corrected_revision.status == "draft"
+        assert not applied.corrected_revision.publisher_acceptance_id
+        assert not applied.corrected_revision.contact_exposure_accepted

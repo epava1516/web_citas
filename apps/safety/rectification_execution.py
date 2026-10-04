@@ -104,3 +104,163 @@ def notify(user, case_id, proposal_id, key, version, reason):
     case.scope_status = "unverified"
     case.save(update_fields=["version", "scope_status"])
     return result
+
+
+@transaction.atomic
+@sensitive_variables()
+def execute(user, case_id, proposal_id, key, version, reason):
+    from copy import deepcopy
+
+    from apps.listings.models import Rate, Revision
+    from apps.mediafiles.models import Photo
+    from apps.mediafiles.tasks import process_blob
+
+    from .models import RightsRectificationExecution
+
+    permission(user)
+    case, person, listing = locked_case(case_id, lock_listing=True)
+    if not permitted(user, case):
+        raise PermissionDenied
+    signature = fingerprint(
+        json.dumps({"proposal": proposal_id, "version": version, "reason": reason}, sort_keys=True)
+    )
+    previous = RightsAction.objects.filter(key=key).first()
+    if previous:
+        if (
+            previous.request_id == case.pk
+            and previous.actor_id == user.pk
+            and previous.operation == "rectify_execute"
+            and previous.payload_digest == signature
+        ):
+            return RightsRectificationExecution.objects.get(action=previous)
+        raise ValidationError("Conflicting execution key / Clave incompatible")
+    case, proposal, proof, changes = current(user, case_id, proposal_id, version)
+    notification = (
+        RightsRectificationNotification.objects.select_for_update()
+        .select_related("review__action", "response")
+        .filter(review__proposal=proposal)
+        .first()
+    )
+    ack = getattr(notification.response, "receipt_acknowledgement", None) if notification else None
+    if (
+        not notification
+        or notification.review.outcome != "approved"
+        or notification.review.action.actor_id != user.pk
+        or notification.source_digest != proposal.source_digest
+        or notification.review.changes_digest != fingerprint(json.dumps(changes, sort_keys=True))
+        or notification.response.response_version != case.response_version
+        or not ack
+        or ack.channel_digest != case.receipt_digest
+        or proof.created_at <= ack.created_at
+        or proof.created_at <= notification.created_at
+        or not 20 <= len(reason.strip()) <= 2000
+        or RightsRectificationExecution.objects.filter(notification=notification).exists()
+        or not RightsRectificationProposalRead.objects.filter(
+            proposal=proposal,
+            actor=user,
+            proof=proof,
+            case_version=version,
+            changes_digest=notification.review.changes_digest,
+        ).exists()
+        or person.publication_erased_at
+    ):
+        raise ValidationError(
+            "Current received correction and fresh check required / Rectificación recibida vigente y nueva comprobación obligatorias"
+        )
+    if listing and listing.revisions.filter(status__in=["draft", "processing", "pending"]).exists():
+        raise ValidationError(
+            "Resolve ongoing revisions first / Resuelve primero las revisiones en curso"
+        )
+    source = proposal.source_revision
+    corrected = None
+    before = {"alias": person.alias}
+    try:
+        with transaction.atomic():
+            action = RightsAction.objects.create(
+                key=key,
+                request=case,
+                actor=user,
+                expected_version=version,
+                operation="rectify_execute",
+                payload_digest=signature,
+                encrypted_reason=seal({"reason": reason}),
+            )
+            if source:
+                excluded = {
+                    "id",
+                    "listing",
+                    "source_revision",
+                    "manager_version",
+                    "status",
+                    "step",
+                    "edit_version",
+                    "created_at",
+                    "updated_at",
+                    "publisher_acceptance",
+                    "contact_exposure_accepted",
+                }
+                values = {
+                    field.attname: deepcopy(getattr(source, field.attname))
+                    for field in Revision._meta.concrete_fields
+                    if field.name not in excluded
+                }
+                before.update(
+                    {field: getattr(source, field) for field in changes if field != "alias"}
+                )
+                values.update({field: text for field, text in changes.items() if field != "alias"})
+                corrected = Revision.objects.create(
+                    listing=listing,
+                    source_revision=source,
+                    manager_version=person.manager_version,
+                    **values,
+                )
+                for field in Revision._meta.many_to_many:
+                    getattr(corrected, field.name).set(getattr(source, field.name).all())
+                for rate in source.rates.all():
+                    Rate.objects.create(
+                        revision=corrected,
+                        concept=rate.concept,
+                        mode=rate.mode,
+                        amount=rate.amount,
+                        currency=rate.currency,
+                        duration_minutes=rate.duration_minutes,
+                    )
+                Photo.objects.bulk_create(
+                    [
+                        Photo(revision=corrected, blob_id=photo.blob_id, position=photo.position)
+                        for photo in source.photos.filter(removed_at__isnull=True)
+                    ]
+                )
+                for blob_id in set(
+                    str(value)
+                    for value in source.photos.filter(removed_at__isnull=True).values_list(
+                        "blob_id", flat=True
+                    )
+                ):
+                    transaction.on_commit(
+                        lambda blob_id=blob_id: process_blob.delay(blob_id), robust=True
+                    )
+            if "alias" in changes:
+                person.alias = changes["alias"]
+            person.rights_version += 1
+            person.save(update_fields=["alias", "rights_version"])
+            if listing:
+                if listing.status == "published":
+                    listing.status = "paused"
+                listing.available_until = None
+                listing.lifecycle_version += 1
+                listing.save(update_fields=["status", "available_until", "lifecycle_version"])
+            result = RightsRectificationExecution.objects.create(
+                notification=notification,
+                action=action,
+                proof=proof,
+                corrected_revision=corrected,
+                encrypted_previous_values=seal(before),
+                resulting_rights_version=person.rights_version,
+            )
+    except IntegrityError as error:
+        raise ValidationError("Conflicting execution / Ejecución incompatible") from error
+    case.version += 1
+    case.scope_status = "unverified"
+    case.save(update_fields=["version", "scope_status"])
+    return result

@@ -646,3 +646,15 @@ class RightsRectificationNotification(models.Model):
     proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
     source_digest = models.CharField(max_length=64)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRectificationExecution(models.Model):
+    notification = models.OneToOneField(RightsRectificationNotification, on_delete=models.PROTECT)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    corrected_revision = models.OneToOneField(
+        "listings.Revision", null=True, on_delete=models.PROTECT
+    )
+    encrypted_previous_values = models.TextField()
+    resulting_rights_version = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
