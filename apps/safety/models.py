@@ -637,3 +637,12 @@ class RightsRectificationReview(models.Model):
     outcome = models.CharField(max_length=12)
     changes_digest = models.CharField(max_length=64)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRectificationNotification(models.Model):
+    review = models.OneToOneField(RightsRectificationReview, on_delete=models.PROTECT)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    response = models.OneToOneField(RightsResponse, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -8,7 +8,7 @@ from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_responses import ready
 
 from apps.core.models import User
-from apps.safety.models import RightsRectificationReview
+from apps.safety.models import RightsRectificationNotification, RightsRectificationReview
 from apps.safety.rights_actions import act
 from apps.safety.rights_rectification import preview, propose
 
@@ -16,8 +16,10 @@ pytestmark = pytest.mark.django_db(transaction=True)
 REASON = "Independent synthetic correction assessment with minimized internal grounds"
 
 
-def independent_case(request, settings, monkeypatch):
-    case, original, staff, _, _, person = ready(request, settings, monkeypatch, "rectify")
+def independent_case(request, settings, monkeypatch, *, with_receipt=False):
+    case, original, staff, client, receipt, person = ready(
+        request, settings, monkeypatch, "rectify"
+    )
     original.user_permissions.add(
         *Permission.objects.filter(
             codename__in=["manage_rights_assignment", "verify_rights_scope", "review_rectification"]
@@ -54,7 +56,8 @@ def independent_case(request, settings, monkeypatch):
     case.refresh_from_db()
     act(reviewer, case.pk, uuid.uuid4(), case.version, "claim", REASON)
     fresh(case, reviewer, other, original, staff)
-    return case, reviewer, other, person, proposal, path
+    result = case, reviewer, other, person, proposal, path
+    return (*result, client, receipt) if with_receipt else result
 
 
 @pytest.mark.parametrize("outcome", ["approved", "rejected"])
@@ -109,7 +112,9 @@ def test_mobile_independent_source_and_proposal_review(
     from playwright.sync_api import expect, sync_playwright
 
     settings.DEBUG = True
-    case, reviewer, _, person, _, path = independent_case(request, settings, monkeypatch)
+    case, reviewer, other, person, proposal, path = independent_case(request, settings, monkeypatch)
+    reviewer.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
+    reviewer = User.objects.get(pk=reviewer.pk)
     from apps.core.mfa import encrypt
 
     secret = pyotp.random_base32()
@@ -152,6 +157,42 @@ def test_mobile_independent_source_and_proposal_review(
             expect(
                 page.get_by_role("heading", name="Private rights inspection", exact=True)
             ).to_be_visible()
+            # Synthetic identity provider only; actual PG proof/read guards and browser MFA.
+            from concurrent.futures import ThreadPoolExecutor
+
+            def refresh_verification():
+                from django.db import close_old_connections
+
+                close_old_connections()
+                try:
+                    original = proposal.action.actor
+                    staff = Client()
+                    staff.force_login(original)
+                    session = staff.session
+                    session["mfa_version"] = original.mfa_version
+                    session.save()
+                    case.refresh_from_db()
+                    fresh(case, reviewer, other, original, staff)
+                finally:
+                    close_old_connections()
+
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                pool.submit(refresh_verification).result(timeout=30)
+            page.goto(live_server.url + f"/en/moderation/rights/{case.pk}/rectification/")
+            page.locator("[name=operation]").select_option("preview")
+            page.locator("[name=purpose]").fill(
+                "Read current source before communicating approved correction"
+            )
+            page.get_by_role("button", name="Record correction action", exact=True).click()
+            page.get_by_role("link", name="Review correction proposal", exact=True).click()
+            page.locator("[name=purpose]").fill("Read approved changes before prior communication")
+            page.get_by_role("button", name="Record review action", exact=True).click()
+            page.locator("[name=operation]").select_option("notify")
+            page.locator("[name=reason]").fill(REASON)
+            page.get_by_role("button", name="Record review action", exact=True).click()
+            expect(
+                page.get_by_role("heading", name="Private rights inspection", exact=True)
+            ).to_be_visible()
             page.goto(live_server.url + path)
             assert "Synthetic reviewed correction" not in page.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
@@ -160,6 +201,7 @@ def test_mobile_independent_source_and_proposal_review(
     assert RightsRectificationReview.objects.get().outcome == "approved"
     person.refresh_from_db()
     assert person.alias == alias_before
+    assert RightsRectificationNotification.objects.count() == 1
 
 
 def test_proposal_history_pages_do_not_reveal_proposed_text(request, settings, monkeypatch):
@@ -197,3 +239,83 @@ def test_proposal_history_pages_do_not_reveal_proposed_text(request, settings, m
     )
     assert b"Private historical correction" not in first.content + second.content
     assert "encrypted_changes" in first.context["proposals"][0].get_deferred_fields()
+
+
+@pytest.mark.parametrize("outcome", ["approved", "rejected"])
+def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
+    request, settings, monkeypatch, outcome
+):
+    from django.core.exceptions import ValidationError
+
+    from apps.safety.rectification_execution import notify
+    from apps.safety.rectification_review import inspect, review
+
+    case, reviewer, other, person, proposal, path, client, receipt = independent_case(
+        request, settings, monkeypatch, with_receipt=True
+    )
+    reviewer.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
+    reviewer = User.objects.get(pk=reviewer.pk)
+    preview(reviewer, case.pk, case.version, "Read current source before independent review")
+    inspect(reviewer, case.pk, proposal.pk, case.version, "Read proposed changes independently")
+    review(reviewer, case.pk, proposal.pk, uuid.uuid4(), case.version, outcome, REASON)
+    case.refresh_from_db()
+    key = uuid.uuid4()
+    with pytest.raises(ValidationError):
+        notify(reviewer, case.pk, proposal.pk, key, case.version, REASON)
+    original = proposal.action.actor
+    staff = Client()
+    staff.force_login(original)
+    session = staff.session
+    session["mfa_version"] = original.mfa_version
+    session.save()
+    fresh(case, reviewer, other, original, staff)
+    preview(reviewer, case.pk, case.version, "Read unchanged current source before communication")
+    inspect(
+        reviewer,
+        case.pk,
+        proposal.pk,
+        case.version,
+        "Read approved correction before communication",
+    )
+    version = case.version
+    before = person.alias, person.listing.status, person.listing.lifecycle_version
+    data = {"key": key, "version": version, "operation": "notify", "reason": REASON}
+    if outcome == "rejected":
+        assert other.post(path, data).status_code == 409
+        assert not RightsRectificationNotification.objects.exists()
+        return
+    assert Client(enforce_csrf_checks=True).post(path, data).status_code == 403
+    assert other.post(path, {**data, "version": version - 1}).status_code == 409
+    # Writer changes source without touching case.version: source HMAC must catch it.
+    old_alias = person.alias
+    type(person).objects.filter(pk=person.pk).update(alias="Changed synthetic current source")
+    responses_before = case.responses.count()
+    assert other.post(path, data).status_code == 409
+    assert not RightsRectificationNotification.objects.exists()
+    assert case.responses.count() == responses_before
+    type(person).objects.filter(pk=person.pk).update(alias=old_alias)
+    assert other.post(path, data).status_code == 302
+    result = RightsRectificationNotification.objects.get()
+    assert other.post(path, data).status_code == 302
+    assert RightsRectificationNotification.objects.count() == 1
+    assert other.post(path, {**data, "reason": REASON + " changed"}).status_code == 409
+    reviewer.user_permissions.remove(Permission.objects.get(codename="respond_rights_request"))
+    assert other.post(path, data).status_code == 403
+    received = client.get(receipt)
+    assert received.status_code == 200
+    assert b"No changes have been applied yet" in received.content
+    assert REASON.encode() not in received.content
+    assert b"Synthetic reviewed correction" not in received.content
+    acknowledgement = receipt + f"response/{result.response_id}/acknowledge/"
+    assert (
+        Client(enforce_csrf_checks=True).post(acknowledgement, {"received": "yes"}).status_code
+        == 403
+    )
+    assert client.post(acknowledgement, {"received": "yes"}).status_code == 302
+    assert client.post(acknowledgement, {"received": "yes"}).status_code == 302
+    assert result.response.receipt_acknowledgement.channel_digest == case.receipt_digest
+    assert result.response.kind == "progress"
+    assert result.review.outcome == "approved"
+    person.refresh_from_db()
+    person.listing.refresh_from_db()
+    assert (person.alias, person.listing.status, person.listing.lifecycle_version) == before

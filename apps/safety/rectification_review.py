@@ -185,6 +185,7 @@ class ReviewForm(forms.Form):
         choices=[
             ("inspect", "Consultar propuesta (auditoría) / Inspect proposal (audited)"),
             ("review", "Registrar revisión / Record review"),
+            ("notify", "Comunicar propuesta aprobada / Communicate approved proposal"),
         ]
     )
     purpose = forms.CharField(
@@ -236,6 +237,13 @@ def prepare(request, case_id, proposal_id):
                     request.user, case_id, proposal_id, data["version"], data["purpose"]
                 )
                 status = 200
+            elif data["operation"] == "notify":
+                from .rectification_execution import notify
+
+                notify(
+                    request.user, case_id, proposal_id, data["key"], data["version"], data["reason"]
+                )
+                return private(redirect("rights_inspect", case_id=case.pk))
             else:
                 review(
                     request.user,

@@ -1,0 +1,64 @@
+{
+  "scope": "Comunicación previa de rectificación aprobada y recepción privada; sin ejecución",
+  "results": [
+    {
+      "xml": "/tmp/rectification-notify-http.xml",
+      "sha256": "3f59b828f1618cabda2358ccc8241f99b640a0461b6316ce4065942ec4bd9581",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "10",
+          "time": "77.857",
+          "timestamp": "2026-10-04T18:09:29.555206+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "xml": "/tmp/rectification-notify-receipt.xml",
+      "sha256": "8d1698ad63efa8b0a650c54413acb9838aa3d51231eee258478a9e846f0c764d",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "27.442",
+          "timestamp": "2026-10-04T18:11:17.389630+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Proveedor de identidad simulado explícito; PostgreSQL/HTTP/Chromium reales",
+    "Sin entrega externa ni prueba de colisión concurrente de clave",
+    "Sin ejecución de rectificación, avisos finales ni aceptación completa CR09"
+  ],
+  "final": {
+    "sha256": "58f61f5a1969051b57866f3d3de4c928fd0effea579eadeef0f97c25a0bb1e2e",
+    "suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "16",
+        "time": "117.575",
+        "timestamp": "2026-10-04T18:14:15.286247+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "result": "16 passed117.69s exit0"
+  },
+  "docker": {
+    "migration": "safety0047 aplicada",
+    "uid": 10001,
+    "health": 200,
+    "execution_module_sha256": "4bd7a6aeda9b21efc0544069670926e1ef0edadd682bc326caace37a348b2c1c"
+  }
+}
