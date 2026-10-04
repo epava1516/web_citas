@@ -261,6 +261,7 @@ def source_manifest(person):
                     "first_name",
                     "last_name",
                     "is_active",
+                    "account_erased_at",
                     "role",
                     "session_version",
                     "mfa_version",
@@ -345,6 +346,9 @@ def source_manifest(person):
             Agency.objects.filter(owner_id=subject).exists()
             or AgencyMember.objects.filter(user_id=subject).exists()
             or Person.objects.filter(individual_id=subject).exclude(pk=person.pk).exists()
+            or Person.objects.filter(assigned_editor_id=subject).exclude(pk=person.pk).exists()
+            or person.subject.groups.exists()
+            or person.subject.user_permissions.exists()
             or person.subject.is_staff
             or person.subject.is_superuser
         )

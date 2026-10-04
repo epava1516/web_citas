@@ -203,7 +203,15 @@ def test_execution_concurrent_same_key_has_one_effect(request, settings, monkeyp
     assert ErasureExecution.objects.count() == 1
 
 
-@pytest.mark.parametrize("selected_purposes", [PURPOSES, ["profile", "publication"], ["media"]])
+@pytest.mark.parametrize(
+    "selected_purposes",
+    [
+        PURPOSES,
+        ["profile", "publication"],
+        ["media"],
+        ["account", "authentication", "account_preferences", "publication"],
+    ],
+)
 def test_mobile_partial_execution_reports_open_request(
     live_server, request, settings, monkeypatch, tmp_path, selected_purposes
 ):

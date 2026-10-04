@@ -6,6 +6,7 @@ from django.db.models.functions import Lower
 
 
 class User(AbstractUser):
+    account_erased_at = models.DateTimeField(null=True, blank=True)
     email = models.EmailField(unique=True)
     email_verified_at = models.DateTimeField(null=True, blank=True)
     role = models.CharField(

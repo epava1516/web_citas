@@ -146,6 +146,8 @@ def send_token(user, purpose, language):
     now = timezone.now()
     with transaction.atomic():
         user = User.objects.select_for_update().get(pk=user.pk)
+        if user.account_erased_at:
+            return None
         AccountToken.objects.filter(user=user, purpose=purpose, used_at__isnull=True).update(
             used_at=now
         )
@@ -287,7 +289,9 @@ def token_view(request, token_id, raw):
         if form is None or form.is_valid():
             with transaction.atomic():
                 user = User.objects.select_for_update().get(pk=token.user_id)
-                locked = AccountToken.objects.select_for_update().get(pk=token.pk)
+                locked = AccountToken.objects.select_for_update().filter(pk=token.pk).first()
+                if not locked or user.account_erased_at:
+                    return render(request, "core/token_invalid.html", status=400)
                 now = timezone.now()
                 if (
                     locked.used_at

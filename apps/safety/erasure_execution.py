@@ -40,6 +40,7 @@ from .rights_verification import enabled
 from .views import private
 
 SUPPORTED = [
+    ("account", "Identidad y acceso de cuenta / Account identity and access"),
     ("contact", "Desafíos de teléfono / Phone challenges"),
     ("representation", "Invitaciones de representación / Representation invitations"),
     ("shared_contact_review", "Asociación al teléfono / Phone association"),
@@ -117,7 +118,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         )
     # Account writers lock User before tokens/codes. Favorite writers lock it after target Listing.
     subject = None
-    if set(purposes) & {"authentication", "account_preferences"}:
+    if set(purposes) & {"account", "authentication", "account_preferences"}:
         if not person or not person.subject_id:
             raise ValidationError(
                 "Subject account unidentified / Cuenta del sujeto sin identificar"
@@ -173,7 +174,18 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
             .filter(revision__listing__person=person)
             .order_by("pk")
         )
-    inventory, _ = authorized_inventory(user, case, person, plan.inventory_id)
+    inventory, manifest = authorized_inventory(user, case, person, plan.inventory_id)
+    if "account" in purposes:
+        if manifest["account_has_other_responsibilities"]:
+            raise ValidationError(
+                "Account has other responsibilities / Cuenta con otras responsabilidades"
+            )
+        if not {"authentication", "account_preferences"} <= set(purposes) or (
+            "publication" not in purposes and not person.publication_erased_at
+        ):
+            raise ValidationError(
+                "Review credentials, preferences and publication together / Revisa credenciales, preferencias y publicación conjuntamente"
+            )
     if inventory.source_digest != plan.source_digest:
         raise ValidationError("Plan source changed / Fuente del plan cambiada")
     approved = {
@@ -227,6 +239,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 "phone_challenges_deleted": 0,
                 "representation_invitations_deleted": 0,
                 "phone_association_detached": False,
+                "account_fields_cleared": False,
             }
             if "contact" in purposes:
                 result["phone_challenges_deleted"] = PhoneChallenge.objects.filter(
@@ -309,6 +322,38 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
             if "account_preferences" in purposes:
                 result["favorites_deleted"] = Favorite.objects.filter(user=subject).count()
                 Favorite.objects.filter(user=subject).delete()
+            if "account" in purposes:
+                marker = uuid.uuid4().hex
+                subject.username = "erased-" + marker
+                subject.email = marker + "@example.invalid"
+                subject.first_name = subject.last_name = ""
+                subject.email_verified_at = None
+                subject.is_active = False
+                subject.role = "visitor"
+                subject.last_login = None
+                subject.mfa_secret_encrypted = ""
+                subject.mfa_enabled = False
+                subject.mfa_last_counter = -1
+                subject.account_erased_at = timezone.now()
+                subject.set_unusable_password()
+                subject.save(
+                    update_fields=[
+                        "username",
+                        "email",
+                        "first_name",
+                        "last_name",
+                        "email_verified_at",
+                        "is_active",
+                        "role",
+                        "last_login",
+                        "mfa_secret_encrypted",
+                        "mfa_enabled",
+                        "mfa_last_counter",
+                        "account_erased_at",
+                        "password",
+                    ]
+                )
+                result["account_fields_cleared"] = True
             if subject:
                 subject.session_version += 1
                 subject.mfa_version += 1

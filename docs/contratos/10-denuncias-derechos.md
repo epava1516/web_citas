@@ -423,3 +423,8 @@ Extensión media redact del ejecutor en [docs/32](../32-redaccion-imagenes-compa
 ## REQ-CR09-CONTACT-ERASURE-01
 
 Extensión de erasure-execute en [docs/33](../33-supresion-contactos-invitaciones.md): contact/representation erase y shared_contact_review redact; deja Claim global/grants/auditoría y expediente abiertos. Core0014 person_rights_version de códigos; callbacks epoch/missing bajo lock, emisión inicial captura/revalida epoch para no recrear después de erasure. Sin nuevo endpoint de derechos; campos/resultados privados según docs/28. Cuenta/contactos libres/consentimiento vigente y evidencia siguen pendientes.
+
+
+## REQ-CR09-ACCOUNT-ERASURE-01
+
+Extensión del ejecutor existente: `account` con decisión erase requiere authentication/account_preferences y publication suprimida conjuntamente o previamente. Fuente de inventario excluye cuentas con otras responsabilidades; core0015 persiste account_erased_at. Identidad vaciada, cuenta inactiva, contraseña inutilizable, secreto MFA eliminado; ID/auditorías preservados, resultado privado account_fields_cleared, expediente abierto. Los escritores de cuenta revalidan la marca bajo bloqueo. [Alcance y pendientes](../34-supresion-cuenta.md).

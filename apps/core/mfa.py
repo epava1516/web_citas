@@ -108,6 +108,10 @@ def enroll(request):
         if form.is_valid():
             with transaction.atomic():
                 user = User.objects.select_for_update().get(pk=request.user.pk)
+                if user.account_erased_at or not user.is_active:
+                    return HttpResponse(
+                        "Account access revoked / Acceso a cuenta revocado", status=409
+                    )
                 if user.mfa_enabled:
                     return redirect("mfa_challenge")
                 if request.POST.get("stage") == "confirm":
@@ -150,6 +154,10 @@ def challenge(request):
         if form.is_valid():
             with transaction.atomic():
                 user = User.objects.select_for_update().get(pk=request.user.pk)
+                if user.account_erased_at or not user.is_active:
+                    return HttpResponse(
+                        "Account access revoked / Acceso a cuenta revocado", status=409
+                    )
                 code = form.cleaned_data["code"]
                 valid = consume_totp(user, code)
                 if not valid:

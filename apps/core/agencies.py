@@ -87,6 +87,8 @@ def create(request):
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             user = User.objects.select_for_update().get(pk=request.user.pk)
+            if user.account_erased_at or not user.is_active:
+                return HttpResponse("Account access revoked", status=409)
             agency, _ = Agency.objects.get_or_create(
                 owner=user, defaults={"name": form.cleaned_data["name"]}
             )
@@ -178,8 +180,11 @@ def accept_invitation(request, invitation_id, raw):
                 or invitation.expires_at <= timezone.now()
             ):
                 return HttpResponse("Invitation unavailable", status=409)
+            user = User.objects.select_for_update().get(pk=request.user.pk)
+            if user.account_erased_at or not user.is_active:
+                return HttpResponse("Account access revoked", status=409)
             AgencyMember.objects.update_or_create(
-                agency=invitation.agency, user=request.user, defaults={"active": True}
+                agency=invitation.agency, user=user, defaults={"active": True}
             )
             invitation.accepted_at = timezone.now()
             invitation.save(update_fields=["accepted_at"])

@@ -114,6 +114,8 @@ def individual(request):
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             user = User.objects.select_for_update().get(pk=request.user.pk)
+            if user.account_erased_at or not user.is_active:
+                return HttpResponse("Account access revoked", status=409)
             person, _ = Person.objects.get_or_create(
                 individual=user, defaults={"alias": form.cleaned_data["alias"], "subject": user}
             )
