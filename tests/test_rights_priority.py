@@ -43,7 +43,10 @@ def test_representation_is_prioritized_without_resetting_deadline_or_hiding_over
 
 def test_existing_representation_migration_preserves_original_deadline_and_payload():
     old = [("safety", "0007_rightsrequest_rightsaccess")]
-    current = MigrationExecutor(connection).loader.graph.leaf_nodes("safety")
+    # Reversing safety also reverses dependent migrations in other applications.
+    # Restore the complete original graph so subsequent tests keep their schema.
+    current = MigrationExecutor(connection).loader.graph.leaf_nodes()
+    tables_before = set(connection.introspection.table_names())
     executor = MigrationExecutor(connection)
     executor.migrate(old)
     try:
@@ -68,3 +71,4 @@ def test_existing_representation_migration_preserves_original_deadline_and_paylo
         assert row.encrypted_payload == "synthetic historical ciphertext preserved verbatim"
     finally:
         MigrationExecutor(connection).migrate(current)
+        assert set(connection.introspection.table_names()) == tables_before
