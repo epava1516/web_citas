@@ -360,3 +360,14 @@ Contrato de tarea/estados/reintentos y límites de simulación en [procesamiento
 ### Recuperación operativa de avisos
 
 GET /moderation/notices/ muestra avisos pendientes del ámbito permitido por tipo report/complaint; kind y after validan tipo/bigint, errores400, páginas50. GET/POST /moderation/notices/{kind}/{id}/ muestra estado/historia, requiere manage_notice_delivery + review_report/review_complaint, MFA y COI. POST key UUID/version de ciclo>=0/reason20–2000:302 si recuperación o replay exacto,400 por formulario inválido,409 por estado/ciclo/caducidad/key incompatible,403 permisos/COI,404 tipo/ID desconocido o fuera de bigint. Historial GET before con cursor bigint positivo,50 por respuesta. POST CSRF obligatorio. Ningún contexto incluye sobre/destinatario/motivo cifrado de recuperación. Detalles y aceptación en docs/22 y docs/18.
+
+
+## Copia de sujeto y adjuntos — versión2
+
+Las nuevas copias amplían profile-copy-v1 a subject-profile-copy-v2; los artefactos anteriores conservan su snapshot cifrado. [Datos/campos/privacidad y pendientes](../23-copia-derechos-datos-imagenes.md). Cuenta únicamente del sujeto, aceptaciones y comprobaciones propias; contactos compartidos excluidos. JSON mantiene partial y pending_review; no cierra expediente ni acredita acceso integral/portabilidad.
+
+POST /moderation/rights/{UUID}/image/{photoUUID}/: revisión/ejecución, MFA, asignación, lectura integral y proof actual; purpose10–200,200 WebP privado/auditoría,400 propósito inválido,409 ámbito/evidencia/bytes no disponibles,403 permiso/COI,404 foto ajena o inexistente. GET autenticado405. Errores incluidos en políticas no-store/noindex/logs minimizados.
+
+Selección de images.content_included=true con exclusion_code vacío en JSON requiere RightsImageAccess actual del mismo revisor y bytes actuales; false admite awaiting_review/third_party/unavailable. UUID de foto/estructura se conservan. Generación crea RightsExportImage cifrado, añade attachment UUID y consume proof para el artefacto. Límite individual10MiB y conjunto64MiB; exceso rechaza toda la copia, procedimiento por partes pendiente.
+
+POST /safety/rights/{caseUUID}/{secret}/export/{exportUUID}/image/{imageUUID}/: mismos controles que descarga JSON, recurso debe estar asociado a ese export y conservar contenido vigente. Key de descarga distingue imagen/JSON,400 inválida409 conflicto,404 ámbitos inválidos/caducados o producción,200 attachment rights-image.webp. CSRF obligatorio, límite compartido30/15min para permitir adjuntos. Acuse ofrece botones sin mostrar cuerpo de datos. Purga caducada vacía también contenido de imágenes preservando origen y auditoría; no equivale a supresión de perfil/backups.

@@ -1,5 +1,6 @@
-"""Private reviewed profile copy. Accounts and image content require further scope."""
+"""Reviewed subject-scoped private copy; outstanding content remains explicit."""
 
+import hashlib
 import json
 import uuid
 from datetime import timedelta
@@ -17,15 +18,18 @@ from django.views.decorators.http import require_http_methods, require_POST
 
 from apps.core.accounts import limited
 
-from .crypto import seal, unseal
+from .crypto import cipher, seal, unseal
 from .models import (
     RightsAction,
     RightsExport,
     RightsExportDownload,
+    RightsExportImage,
     RightsExportPreview,
+    RightsImageAccess,
     RightsRequest,
 )
 from .rights import allowed, fingerprint
+from .rights_copy_data import contact_data, image_inventory, subject_data
 from .rights_scope import locked_case, permitted
 from .rights_verification import PROCEDURE, authorized_proof, complete_read, enabled
 from .views import private
@@ -72,6 +76,8 @@ def source_copy(person, listing):
                     "time_slot": revision.time_slot,
                     "reception": revision.reception,
                     "travel": revision.travel,
+                    "contacts": contact_data(person, revision),
+                    "images": image_inventory(revision),
                     "rates": [
                         {
                             "concept": rate.concept,
@@ -84,16 +90,18 @@ def source_copy(person, listing):
                     ],
                 }
             )
+    subject = subject_data(person)
     return {
-        "schema": "profile-copy-v1",
+        "schema": "subject-profile-copy-v2",
         "partial": True,
         "simulation": True,
         "pending_review": [
-            "account_data",
             "image_content",
             "shared_contacts",
             "additional_rights_information",
+            *([] if subject["subject_account"] else ["unlinked_subject_account"]),
         ],
+        **subject,
         "profile": {"alias": person.alias, "created_at": person.created_at.isoformat()},
         "revisions": revisions,
     }
@@ -110,6 +118,20 @@ def reviewed_copy(source, value):
         if not isinstance(alias, str) or len(alias) > 80:
             raise ValueError
         expected["profile"]["alias"] = alias
+        if expected["subject_account"] is not None:
+            for field, maximum in [
+                ("username", 150),
+                ("email", 254),
+                ("first_name", 150),
+                ("last_name", 150),
+            ]:
+                text = value["subject_account"][field]
+                if not isinstance(text, str) or len(text) > maximum:
+                    raise ValueError
+                # Redaction may remove material, but cannot add a different account identity.
+                if text not in [expected["subject_account"][field], ""]:
+                    raise ValueError
+                expected["subject_account"][field] = text
         if len(value["revisions"]) != len(expected["revisions"]):
             raise ValueError
         for original, edited in zip(expected["revisions"], value["revisions"], strict=True):
@@ -118,6 +140,23 @@ def reviewed_copy(source, value):
                 if not isinstance(text, str) or len(text) > (120 if field == "title" else 10000):
                     raise ValueError
                 original[field] = text
+            if edited["contacts"]["phone"] not in [original["contacts"]["phone"], ""]:
+                raise ValueError
+            original["contacts"]["phone"] = edited["contacts"]["phone"]
+            if not edited["contacts"]["phone"]:
+                original["contacts"]["whatsapp"] = False
+            if len(edited["images"]) != len(original["images"]):
+                raise ValueError
+            for image, changed in zip(original["images"], edited["images"], strict=True):
+                if not isinstance(changed["content_included"], bool):
+                    raise ValueError
+                image["content_included"] = changed["content_included"]
+                code = changed["exclusion_code"]
+                if code not in {"", "awaiting_review", "third_party", "unavailable"}:
+                    raise ValueError
+                if image["content_included"] != (code == ""):
+                    raise ValueError
+                image["exclusion_code"] = code
             if len(edited["rates"]) != len(original["rates"]):
                 raise ValueError
             for rate, changed in zip(original["rates"], edited["rates"], strict=True):
@@ -207,6 +246,46 @@ def generate(user, case_id, key, version, reason, copy):
     ).exists():
         raise ValidationError("Preview current source first / Consulta primero la copia actual")
     cleaned = reviewed_copy(source, copy)
+    from apps.mediafiles.models import Blob, Photo
+
+    selected_ids = [
+        image["photo"]
+        for revision in cleaned["revisions"]
+        for image in revision["images"]
+        if image["content_included"]
+    ]
+    list(
+        Blob.objects.select_for_update()
+        .filter(
+            pk__in=Photo.objects.filter(
+                pk__in=selected_ids, revision__listing__person=person
+            ).values("blob_id")
+        )
+        .order_by("pk")
+    )
+    image_snapshots = []
+    total_bytes = 0
+    for revision in cleaned["revisions"]:
+        for image in revision["images"]:
+            if not image["content_included"]:
+                continue
+            photo, content = image_content(person, image["photo"])
+            if not RightsImageAccess.objects.filter(
+                request=case,
+                actor=user,
+                photo=photo,
+                case_version=case.version,
+                content_digest=hashlib.sha256(content).hexdigest(),
+            ).exists():
+                raise ValidationError(
+                    "Inspect each selected image first / Consulta cada imagen seleccionada"
+                )
+            total_bytes += len(content)
+            if total_bytes > 64 * 1024 * 1024:
+                raise ValidationError(
+                    "Copy requires partitioned review / La copia requiere revisión por partes"
+                )
+            image_snapshots.append((image, photo, content))
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(
@@ -226,9 +305,22 @@ def generate(user, case_id, key, version, reason, copy):
                 manager_version=person.manager_version,
                 subject_snapshot=str(person.subject_id or ""),
                 channel_digest=case.receipt_digest,
-                encrypted_payload=seal(cleaned),
+                encrypted_payload="",
                 expires_at=min(proof.expires_at, timezone.now() + timedelta(hours=24)),
             )
+            for image, photo, content in image_snapshots:
+                attachment = RightsExportImage.objects.create(
+                    export=export, photo=photo, encrypted_content=cipher().encrypt(content).decode()
+                )
+                image["attachment"] = str(attachment.pk)
+            if all(
+                image["content_included"] or image["exclusion_code"] == "third_party"
+                for revision in cleaned["revisions"]
+                for image in revision["images"]
+            ):
+                cleaned["pending_review"].remove("image_content")
+            export.encrypted_payload = seal(cleaned)
+            export.save(update_fields=["encrypted_payload"])
     except IntegrityError as error:
         raise ValidationError("Conflicting export key / Clave incompatible") from error
     case.version += 1
@@ -311,7 +403,16 @@ def prepare(request, case_id):
         render(
             request,
             "safety/rights_export.html",
-            {"case": case, "form": form, "source": source},
+            {
+                "case": case,
+                "form": form,
+                "source": source,
+                "source_photos": [
+                    image for revision in source["revisions"] for image in revision["images"]
+                ]
+                if source
+                else [],
+            },
             status=status,
         )
     )
@@ -319,7 +420,7 @@ def prepare(request, case_id):
 
 @require_POST
 @sensitive_variables()
-def download(request, case_id, secret, export_id):
+def download(request, case_id, secret, export_id, image_id=None):
     if not enabled():
         raise Http404
     with transaction.atomic():
@@ -367,7 +468,12 @@ def download(request, case_id, secret, export_id):
             or case.proofs.order_by("-created_at", "-pk").first().pk != export.proof_id
         ):
             raise Http404
-        if limited(request, "rights-export-download", limit=10):
+        image = None
+        if image_id:
+            image = RightsExportImage.objects.filter(pk=image_id, export=export).first()
+            if not image or not image.encrypted_content:
+                raise Http404
+        if limited(request, "rights-export-download", limit=30):
             return private(HttpResponse("Too many requests", status=429))
         try:
             key = forms.UUIDField().clean(request.POST.get("key"))
@@ -378,16 +484,89 @@ def download(request, case_id, secret, export_id):
                 key=key,
                 defaults={
                     "export": export,
+                    "image": image,
                     "actor": request.user if request.user.is_authenticated else None,
                 },
             )
-        if recorded.export_id != export.pk or recorded.actor_id != (
-            request.user.pk if request.user.is_authenticated else None
+        if (
+            recorded.image_id != image_id
+            or recorded.export_id != export.pk
+            or recorded.actor_id != (request.user.pk if request.user.is_authenticated else None)
         ):
             return private(HttpResponse("Conflicting download key", status=409))
+        if image:
+            response = HttpResponse(
+                cipher().decrypt(image.encrypted_content.encode()), content_type="image/webp"
+            )
+            response["Content-Disposition"] = 'attachment; filename="rights-image.webp"'
+            return private(response)
         response = HttpResponse(
             json.dumps(unseal(export.encrypted_payload), ensure_ascii=False, indent=2),
             content_type="application/json; charset=utf-8",
         )
         response["Content-Disposition"] = 'attachment; filename="rights-profile.json"'
         return private(response)
+
+
+@sensitive_variables()
+def image_content(person, photo_id):
+    from apps.mediafiles.models import Blob, Photo
+
+    photo = Photo.objects.filter(pk=photo_id, revision__listing__person=person).first()
+    if not photo:
+        raise Http404
+    blob = Blob.objects.select_for_update().get(pk=photo.blob_id)
+    photo = Photo.objects.select_for_update().get(pk=photo.pk)
+    if photo.blob_id != blob.pk or blob.status != "ready" or not blob.derivative:
+        raise ValidationError("Image unavailable for review / Imagen no disponible para revisión")
+    try:
+        with blob.derivative.open("rb") as stream:
+            content = stream.read(10 * 1024 * 1024 + 1)
+    except OSError:
+        raise ValidationError(
+            "Image unavailable for review / Imagen no disponible para revisión"
+        ) from None
+    if (
+        len(content) > 10 * 1024 * 1024
+        or not content.startswith(b"RIFF")
+        or content[8:12] != b"WEBP"
+    ):
+        raise ValidationError("Image unavailable for review / Imagen no disponible para revisión")
+    return photo, content
+
+
+@login_required
+@require_POST
+@sensitive_post_parameters("purpose")
+@sensitive_variables()
+def inspect_image(request, case_id, photo_id):
+    if not allowed(request):
+        return private(HttpResponse("Forbidden", status=403))
+    try:
+        with transaction.atomic():
+            case, person, _ = reviewer_case(request.user, case_id)
+            can_prepare(request.user, case, person)
+            purpose = request.POST.get("purpose", "")
+            if not 10 <= len(purpose.strip()) <= 200:
+                return private(HttpResponse("Purpose required", status=400))
+            photo, content = image_content(person, photo_id)
+            RightsImageAccess.objects.create(
+                request=case,
+                actor=request.user,
+                photo=photo,
+                case_version=case.version,
+                content_digest=hashlib.sha256(content).hexdigest(),
+                purpose=purpose,
+            )
+    except RightsRequest.DoesNotExist:
+        raise Http404 from None
+    except PermissionDenied:
+        return private(HttpResponse("Forbidden", status=403))
+    except ValidationError:
+        return private(
+            HttpResponse(
+                "Review current scope and image first / Revisa el ámbito y la imagen actual",
+                status=409,
+            )
+        )
+    return private(HttpResponse(content, content_type="image/webp"))

@@ -377,7 +377,31 @@ class RightsExport(models.Model):
     purged_at = models.DateTimeField(null=True)
 
 
+class RightsImageAccess(models.Model):
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    photo = models.ForeignKey("mediafiles.Photo", on_delete=models.PROTECT)
+    case_version = models.PositiveIntegerField()
+    content_digest = models.CharField(max_length=64)
+    purpose = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsExportImage(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    export = models.ForeignKey(RightsExport, on_delete=models.PROTECT, related_name="images")
+    photo = models.ForeignKey("mediafiles.Photo", on_delete=models.PROTECT)
+    encrypted_content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["export", "photo"], name="rights_export_photo_once")
+        ]
+
+
 class RightsExportDownload(models.Model):
+    image = models.ForeignKey(RightsExportImage, null=True, on_delete=models.PROTECT)
     key = models.UUIDField(unique=True)
     export = models.ForeignKey(RightsExport, on_delete=models.PROTECT)
     actor = models.ForeignKey("core.User", null=True, on_delete=models.SET_NULL)

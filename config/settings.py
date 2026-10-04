@@ -175,6 +175,7 @@ LOGGING = {
     "filters": {"private_requests": {"()": "config.private_logging.PrivateRequestFilter"}},
     "loggers": {
         "django.request": {"filters": ["private_requests"], "propagate": True},
+        "django.security.csrf": {"filters": ["private_requests"], "propagate": True},
         "django.server": {"filters": ["private_requests"], "propagate": True},
     },
 }

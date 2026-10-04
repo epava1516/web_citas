@@ -122,7 +122,11 @@ def test_encrypted_reviewed_copy_download_without_account_excludes_other_data(re
     serialized = json.dumps(copy)
     assert str(other.pk) not in serialized
     assert "rights-private@example.invalid" not in serialized
-    assert "payload_digest" not in serialized and "phone" not in serialized
+    assert "payload_digest" not in serialized
+    assert all(item["contacts"]["phone"] == "" for item in copy["revisions"])
+    assert copy["subject_account"]["email"] == person.subject.email
+    assert person.agency.owner.email not in serialized
+    assert other.subject.email not in serialized
     assert "Independent synthetic" not in serialized
     assert client.post(path, payload).status_code == 200
     assert RightsExportDownload.objects.count() == 1

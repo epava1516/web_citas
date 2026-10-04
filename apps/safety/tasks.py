@@ -2,7 +2,7 @@ from celery import shared_task
 from django.db import transaction
 from django.utils import timezone
 
-from .models import RightsExport
+from .models import RightsExport, RightsExportImage
 
 
 @shared_task
@@ -23,4 +23,5 @@ def purge_expired_exports():
             .order_by("pk")
             .values_list("pk", flat=True)[:1000]
         )
+        RightsExportImage.objects.filter(export_id__in=ids).update(encrypted_content="")
         return RightsExport.objects.filter(pk__in=ids).update(encrypted_payload="", purged_at=now)

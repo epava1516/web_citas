@@ -66,6 +66,16 @@ urlpatterns = [
         name="rights_verification",
     ),
     path(
+        "moderation/rights/<uuid:case_id>/image/<uuid:photo_id>/",
+        rights_exports.inspect_image,
+        name="rights_image_inspect",
+    ),
+    path(
+        "safety/rights/<uuid:case_id>/<str:secret>/export/<uuid:export_id>/image/<uuid:image_id>/",
+        rights_exports.download,
+        name="rights_image_download",
+    ),
+    path(
         "moderation/rights/<uuid:case_id>/export/",
         rights_exports.prepare,
         name="rights_export_prepare",

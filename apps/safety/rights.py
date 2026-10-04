@@ -406,7 +406,12 @@ def case_export_forms(case):
         return []
 
     return [
-        {"id": item.pk, "expires_at": item.expires_at, "key": uuid.uuid4()}
+        {
+            "id": item.pk,
+            "expires_at": item.expires_at,
+            "key": uuid.uuid4(),
+            "images": [{"id": image.pk, "key": uuid.uuid4()} for image in item.images.all()],
+        }
         for item in RightsExport.objects.filter(
             action__request=case,
             case_version=case.version,

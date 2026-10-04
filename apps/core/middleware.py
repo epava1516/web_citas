@@ -12,6 +12,7 @@ class SecurityHeadersMiddleware:
         if (
             "/safety/" in request.path
             or "/moderation/complaints/" in request.path
+            or "/moderation/rights/" in request.path
             or "/moderation/notices/" in request.path
         ):
             # Errors rejected by decorators/resolution still belong to a private channel.
