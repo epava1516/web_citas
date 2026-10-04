@@ -251,6 +251,13 @@ def prepare(request, case_id, proposal_id):
                             changes["catalog"], request.LANGUAGE_CODE == "en"
                         ),
                     }
+                if "rates" in changes:
+                    from .rectification_rates import display as display_rates
+
+                    changes = {
+                        **changes,
+                        "rates": display_rates(changes["rates"], request.LANGUAGE_CODE == "en"),
+                    }
                 status = 200
             elif data["operation"] in {"notify", "execute"}:
                 from .rectification_execution import execute, notify

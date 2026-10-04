@@ -115,7 +115,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
     from apps.mediafiles.models import Photo
     from apps.mediafiles.tasks import process_blob
 
-    from . import rectification_catalog, rectification_location
+    from . import rectification_catalog, rectification_location, rectification_rates
     from .models import RightsRectificationExecution
 
     permission(user)
@@ -211,16 +211,18 @@ def execute(user, case_id, proposal_id, key, version, reason):
                     {
                         field: getattr(source, field)
                         for field in changes
-                        if field not in {"alias", "location", "catalog"}
+                        if field not in {"alias", "location", "catalog", "rates"}
                     }
                 )
                 values.update(
                     {
                         field: text
                         for field, text in changes.items()
-                        if field not in {"alias", "location", "catalog"}
+                        if field not in {"alias", "location", "catalog", "rates"}
                     }
                 )
+                if "rates" in changes:
+                    before["rates"] = rectification_rates.source(source)
                 if "catalog" in changes:
                     before["catalog"] = rectification_catalog.source(source)
                 if "location" in changes:
@@ -242,15 +244,9 @@ def execute(user, case_id, proposal_id, key, version, reason):
                         getattr(corrected, field.name).set(changes["catalog"][field.name])
                     else:
                         getattr(corrected, field.name).set(getattr(source, field.name).all())
-                for rate in source.rates.all():
-                    Rate.objects.create(
-                        revision=corrected,
-                        concept=rate.concept,
-                        mode=rate.mode,
-                        amount=rate.amount,
-                        currency=rate.currency,
-                        duration_minutes=rate.duration_minutes,
-                    )
+                rate_values = changes.get("rates", rectification_rates.source(source))
+                for rate in rate_values:
+                    Rate.objects.create(revision=corrected, **rate)
                 Photo.objects.bulk_create(
                     [
                         Photo(revision=corrected, blob_id=photo.blob_id, position=photo.position)

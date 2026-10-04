@@ -16,7 +16,7 @@ from django.views.decorators.http import require_http_methods
 from apps.catalog.models import Category, Municipality, PostalCode, Service, Zone
 from apps.listings.models import Revision
 
-from . import rectification_catalog, rectification_location
+from . import rectification_catalog, rectification_location, rectification_rates
 from .crypto import seal
 from .models import (
     RightsAction,
@@ -38,12 +38,15 @@ def validated_changes(value):
     if (
         not isinstance(value, dict)
         or not value
-        or set(value) - (set(FIELDS) | {"location", "catalog"})
+        or set(value) - (set(FIELDS) | {"location", "catalog", "rates"})
     ):
         raise ValidationError("Unsupported correction fields / Campos de corrección no admitidos")
     value = value.copy()
     for field in sorted(value):
         text = value[field]
+        if field == "rates":
+            value[field] = rectification_rates.validate(text)
+            continue
         if field == "catalog":
             value[field] = rectification_catalog.validate(text)
             continue
@@ -187,6 +190,7 @@ def source_snapshot(case, person, listing):
     if revision:
         source["fields"]["location"] = rectification_location.source(revision)
         source["fields"]["catalog"] = rectification_catalog.source(revision)
+        source["fields"]["rates"] = rectification_rates.source(revision)
     return revision, source
 
 
@@ -248,6 +252,7 @@ class ProposalForm(forms.Form):
             ("description_alternative", "Descripción alternativa / Alternative description"),
             ("location", "Ubicación completa / Complete location"),
             ("catalog", "Categorías y servicios / Categories and services"),
+            ("rates", "Tabla de tarifas / Tariff table"),
         ],
         widget=forms.CheckboxSelectMultiple,
         label="Campos que se propone corregir / Fields proposed for correction",
@@ -311,7 +316,7 @@ class ProposalForm(forms.Form):
             data["changes"] = {
                 field: data.get(field, "")
                 for field in selected
-                if field not in {"location", "catalog"}
+                if field not in {"location", "catalog", "rates"}
             }
             if "location" in selected:
                 data["changes"]["location"] = {
@@ -330,19 +335,7 @@ class ProposalForm(forms.Form):
 
 
 @login_required
-@sensitive_post_parameters(
-    "alias",
-    "title",
-    "description",
-    "description_alternative",
-    "municipality",
-    "postal_code",
-    "zone",
-    "categories",
-    "services",
-    "reason",
-    "purpose",
-)
+@sensitive_post_parameters()
 @sensitive_variables()
 @require_http_methods(["GET", "POST"])
 def prepare(request, case_id):
@@ -358,6 +351,9 @@ def prepare(request, case_id):
     form = ProposalForm(
         request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
     )
+    rate_editor = rectification_rates.Editor(
+        request.POST if request.method == "POST" else None, prefix="rates"
+    )
     source_fields = None
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
@@ -366,6 +362,12 @@ def prepare(request, case_id):
             if data["operation"] == "preview":
                 source_fields = preview(request.user, case.pk, data["version"], data["purpose"])
             else:
+                if "rates" in data["fields"]:
+                    if not rate_editor.is_valid():
+                        raise ValidationError(
+                            "Review rate table errors / Revisa los errores de tarifas"
+                        )
+                    data["changes"]["rates"] = rectification_rates.changes(rate_editor)
                 propose(
                     request.user,
                     case.pk,
@@ -383,6 +385,9 @@ def prepare(request, case_id):
             if source_fields is None:
                 return private(redirect("rights_inspect", case_id=case.pk))
             status = 200
+            rate_editor = rectification_rates.Editor(
+                initial=source_fields.get("rates", []), prefix="rates"
+            )
             form = ProposalForm(
                 initial={
                     "key": uuid.uuid4(),
@@ -391,7 +396,7 @@ def prepare(request, case_id):
                     **{
                         field: value
                         for field, value in source_fields.items()
-                        if field not in {"location", "catalog"}
+                        if field not in {"location", "catalog", "rates"}
                     },
                     **source_fields.get("location", {}),
                     **source_fields.get("catalog", {}),
@@ -405,6 +410,7 @@ def prepare(request, case_id):
                 "case": case,
                 "form": form,
                 "source_fields": source_fields,
+                "rate_editor": rate_editor,
                 "proposals": Paginator(
                     RightsRectificationProposal.objects.filter(action__request=case)
                     .select_related("action")

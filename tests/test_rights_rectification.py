@@ -193,6 +193,14 @@ def test_mobile_source_review_and_field_proposal(
                     checkbox.uncheck()
             page.locator(f'[name=categories][value="{new_category.pk}"]').check()
             page.locator(f'[name=services][value="{new_service.pk}"]').check()
+            page.locator('[name=fields][value="rates"]').check()
+            for checkbox in page.locator('[name$="-DELETE"]').all():
+                checkbox.check()
+            page.locator("[name=rates-0-DELETE]").uncheck()
+            page.locator("[name=rates-0-concept]").fill("Synthetic browser rate")
+            page.locator("[name=rates-0-mode]").select_option("consult")
+            page.locator("[name=rates-0-amount]").fill("")
+            page.locator("[name=rates-0-duration_minutes]").fill("")
             page.locator("[name=reason]").fill(REASON)
             page.get_by_role("button", name="Record correction action", exact=True).click()
             expect(
@@ -206,6 +214,15 @@ def test_mobile_source_review_and_field_proposal(
     proposal = RightsRectificationProposal.objects.get()
     assert unseal(proposal.encrypted_changes) == {
         "alias": "Synthetic browser correction",
+        "rates": [
+            {
+                "concept": "Synthetic browser rate",
+                "mode": "consult",
+                "amount": None,
+                "currency": "EUR",
+                "duration_minutes": None,
+            }
+        ],
         "catalog": {"categories": [new_category.pk], "services": [new_service.pk]},
         "location": {"municipality": new_city.pk, "postal_code": None, "zone": None},
     }
@@ -326,3 +343,94 @@ def test_catalog_form_requires_active_compatible_categories_and_services(
         "catalog": {"categories": [category.pk], "services": [service.pk]}
     }
     assert catalog_source(revision) == original
+
+
+@pytest.mark.parametrize("table_mode", ["fixed", "clear", "maximum"])
+def test_rate_table_form_validates_management_amount_duration_and_deletion(
+    request, settings, monkeypatch, table_mode
+):
+    from django.core.exceptions import ValidationError
+
+    from apps.safety.rectification_rates import source as rates_source
+    from apps.safety.rectification_rates import validate
+
+    case, _, staff, _, _, person = ready(request, settings, monkeypatch, "rectify")
+    revision = person.listing.approved_revision
+    before = rates_source(revision)
+    assert before
+    path = f"/en/moderation/rights/{case.pk}/rectification/"
+    initial = staff.get(path).context["form"].initial
+    page = staff.post(
+        path,
+        initial
+        | {"operation": "preview", "purpose": "Inspect tariff source before complete replacement"},
+    )
+    assert page.status_code == 200 and page.context["source_fields"]["rates"] == before
+    assert staff.get(path).context["source_fields"] is None
+    data = initial | {
+        "operation": "propose",
+        "fields": ["rates"],
+        "reason": REASON,
+        "rates-TOTAL_FORMS": "1",
+        "rates-INITIAL_FORMS": "0",
+        "rates-0-concept": "Synthetic corrected tariff",
+        "rates-0-mode": "consult",
+        "rates-0-amount": "50",
+        "rates-0-duration_minutes": "60",
+    }
+    assert staff.post(path, data).status_code == 409
+    assert (
+        staff.post(path, data | {"rates-0-mode": "fixed", "rates-0-amount": "0"}).status_code == 409
+    )
+    assert (
+        staff.post(
+            path, data | {"rates-0-mode": "fixed", "rates-0-duration_minutes": "10081"}
+        ).status_code
+        == 409
+    )
+    assert (
+        staff.post(
+            path, {key: value for key, value in data.items() if key != "rates-TOTAL_FORMS"}
+        ).status_code
+        == 409
+    )
+    assert staff.post(path, data | {"rates-TOTAL_FORMS": "1000000"}).status_code == 409
+    assert not RightsRectificationProposal.objects.exists()
+    row = {
+        "concept": "Synthetic corrected tariff",
+        "mode": "fixed",
+        "amount": "50.00",
+        "currency": "EUR",
+        "duration_minutes": 60,
+    }
+    for invalid in [
+        {**row, "currency": "USD"},
+        {**row, "amount": 50.0},
+        {**row, "duration_minutes": True},
+        {**row, "amount": "NaN"},
+    ]:
+        with pytest.raises(ValidationError):
+            validate([invalid])
+    valid = data | {"rates-0-mode": "fixed"}
+    expected = [row]
+    if table_mode == "clear":
+        valid["rates-0-DELETE"] = "on"
+        expected = []
+    elif table_mode == "maximum":
+        valid["rates-TOTAL_FORMS"] = "10"
+        expected = []
+        for index in range(10):
+            current = {**row, "concept": f"Synthetic corrected tariff {index}"}
+            expected.append(current)
+            valid.update(
+                {
+                    f"rates-{index}-{field}": value
+                    for field, value in current.items()
+                    if field != "currency"
+                }
+            )
+    assert staff.post(path, valid).status_code == 302
+    assert unseal(RightsRectificationProposal.objects.get().encrypted_changes) == {
+        "rates": expected
+    }
+    assert rates_source(revision) == before

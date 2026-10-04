@@ -26,6 +26,8 @@ def independent_case(
     subject_username="fixture-v1-model-a",
     correct_location=False,
     correct_catalog=False,
+    correct_rates=False,
+    clear_rates=False,
 ):
     case, original, staff, client, receipt, person = ready(
         request, settings, monkeypatch, "rectify", subject_username=subject_username
@@ -72,6 +74,29 @@ def independent_case(
             **(changes or {"alias": "Synthetic reviewed correction"}),
             "catalog": {"categories": [category.pk], "services": [service.pk]},
         }
+    if correct_rates:
+        changes = {
+            **(changes or {"alias": "Synthetic reviewed correction"}),
+            "rates": [
+                {
+                    "concept": "Synthetic corrected consult",
+                    "mode": "consult",
+                    "amount": None,
+                    "currency": "EUR",
+                    "duration_minutes": None,
+                },
+                {
+                    "concept": "Synthetic corrected fixed",
+                    "mode": "fixed",
+                    "amount": "90.00",
+                    "currency": "EUR",
+                    "duration_minutes": 60,
+                },
+            ],
+        }
+    if clear_rates:
+        assert correct_rates
+        changes["rates"] = []
     original.user_permissions.add(
         *Permission.objects.filter(
             codename__in=["manage_rights_assignment", "verify_rights_scope", "review_rectification"]
@@ -202,6 +227,7 @@ def test_mobile_independent_source_and_proposal_review(
         with_receipt=True,
         correct_location=True,
         correct_catalog=True,
+        correct_rates=True,
     )
     path = path.replace("/en/", f"/{language}/")
     reviewer.user_permissions.add(
@@ -270,6 +296,8 @@ def test_mobile_independent_source_and_proposal_review(
             expect(page.get_by_text("Synthetic correction area", exact=False)).to_be_visible()
             expect(page.get_by_text("Synthetic corrected category", exact=False)).to_be_visible()
             expect(page.get_by_text("Synthetic corrected service", exact=False)).to_be_visible()
+            expect(page.get_by_text("Synthetic corrected consult", exact=False)).to_be_visible()
+            expect(page.get_by_text("90.00 EUR", exact=False)).to_be_visible()
             assert "'municipality':" not in page.locator("main").inner_text()
             page.locator("[name=operation]").select_option("review")
             page.locator("[name=outcome]").select_option("approved")
@@ -533,16 +561,17 @@ def test_proposal_history_pages_do_not_reveal_proposed_text(request, settings, m
 
 
 @pytest.mark.parametrize(
-    "outcome,subject_username,recipient_outcome",
+    "outcome,subject_username,recipient_outcome,clear_rates",
     [
-        ("approved", "fixture-v1-model-a", "accepted"),
-        ("approved", "fixture-v1-model-a", "rejected"),
-        ("rejected", "fixture-v1-model-a", "accepted"),
-        ("approved", "fixture-v1-individual", "accepted"),
+        ("approved", "fixture-v1-model-a", "accepted", False),
+        ("approved", "fixture-v1-model-a", "rejected", False),
+        ("rejected", "fixture-v1-model-a", "accepted", False),
+        ("approved", "fixture-v1-individual", "accepted", False),
+        ("approved", "fixture-v1-individual", "accepted", True),
     ],
 )
 def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
-    request, settings, monkeypatch, outcome, subject_username, recipient_outcome
+    request, settings, monkeypatch, outcome, subject_username, recipient_outcome, clear_rates
 ):
     from django.core.exceptions import ValidationError
 
@@ -555,8 +584,10 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         monkeypatch,
         with_receipt=True,
         subject_username=subject_username,
+        clear_rates=clear_rates,
         correct_location=True,
         correct_catalog=True,
+        correct_rates=True,
         changes={
             "alias": "Synthetic reviewed correction",
             "title": "Corrected synthetic title",
@@ -658,6 +689,9 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     from apps.safety.rectification_catalog import source as catalog_source
 
     old_catalog = catalog_source(old_revision)
+    from apps.safety.rectification_rates import source as rates_source
+
+    old_rate_values = rates_source(old_revision)
     old_description = old_revision.description
     old_rates = list(
         old_revision.rates.values_list("concept", "mode", "amount", "currency", "duration_minutes")
@@ -781,14 +815,10 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert catalog_source(corrected) != old_catalog
         assert corrected.title == "Corrected synthetic title"
         assert corrected.description == "Corrected synthetic description"
-        assert (
-            list(
-                corrected.rates.values_list(
-                    "concept", "mode", "amount", "currency", "duration_minutes"
-                )
-            )
-            == old_rates
-        )
+        assert rates_source(corrected) == unseal(proposal.encrypted_changes)["rates"]
+        assert rates_source(old_revision) == old_rate_values
+        assert unseal(applied.encrypted_previous_values)["rates"] == old_rate_values
+        assert rates_source(corrected) != old_rate_values
         assert set(corrected.photos.values_list("blob_id", "position")) == set(old_photos)
         assert not corrected.photos.filter(approved=True).exists()
         # Local eager processing may already have completed comparisons; dispatch is asserted above.
