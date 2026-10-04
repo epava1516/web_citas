@@ -273,6 +273,10 @@ class ActionForm(forms.Form):
             ("link", "Enlazar decisión / Link decision"),
             ("link_listing", "Enlazar revisión de anuncio / Link listing review"),
             ("clarify", "Solicitar aclaración de referencia / Request reference clarification"),
+            (
+                "reassess",
+                "Reevaluar versión de la decisión enlazada / Reassess linked decision version",
+            ),
         ]
     )
     decision_id = forms.IntegerField(

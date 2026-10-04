@@ -33,8 +33,13 @@ def act(
     )
     if not permitted(user, complaint):
         raise PermissionDenied("Conflict of interest")
+    if operation == "reassess":
+        from .complaint_resolutions import source_permission
+
+        if not user.has_perm("safety.resolve_complaint") or not source_permission(user, complaint):
+            raise PermissionDenied("Independent source reassessment permission required")
     payload = {"version": version, "operation": operation, "reason": reason}
-    if operation in {"link", "link_listing"}:
+    if operation in {"link", "link_listing", "reassess"}:
         payload.update(decision_id=decision_id, decision_case_version=decision_case_version)
     if operation == "clarify":
         payload["clarification_prompt"] = clarification_prompt
@@ -54,10 +59,12 @@ def act(
         "link",
         "link_listing",
         "clarify",
+        "reassess",
     }:
         raise ValidationError("Case changed; reload / Caso cambiado; recarga")
     if not 10 <= len(reason.strip()) <= 2000:
         raise ValidationError("Reason required / Motivo obligatorio")
+    previous_source_version = complaint.decision_case_version
     if operation == "claim":
         if complaint.status != "received" or complaint.assigned_to_id:
             raise ValidationError("Already assigned / Caso ya asignado")
@@ -68,6 +75,11 @@ def act(
             raise ValidationError("No active assignment / No hay asignación activa")
         complaint.assigned_to = None
         complaint.status = "received"
+    elif operation == "reassess":
+        from .complaint_reassessment import validate
+
+        validate(user, complaint, decision, decision_id, decision_case_version)
+        complaint.decision_case_version = decision_case_version
     elif operation == "clarify":
         from .complaint_messages import PROMPTS, complete_read
         from .complaint_resolutions import source_permission, source_version
@@ -142,7 +154,15 @@ def act(
                 expected_version=version,
                 operation=operation,
                 payload_digest=signature,
-                encrypted_reason=seal({"reason": reason}),
+                encrypted_reason=seal(
+                    {
+                        "reason": reason,
+                        "previous_source_version": previous_source_version,
+                        "reviewed_source_version": decision_case_version,
+                    }
+                    if operation == "reassess"
+                    else {"reason": reason}
+                ),
                 clarification_prompt=clarification_prompt if operation == "clarify" else "",
             )
     except IntegrityError as error:

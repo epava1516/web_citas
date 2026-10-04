@@ -269,3 +269,48 @@ def test_unidentified_resolution_requires_reply_and_current_read(request):
         .status_code
         == 409
     )
+
+
+def test_linked_source_reassessment_is_explicit_and_preserves_publication(request):
+    from test_complaint_resolutions import inspection, listing_case, resolution
+
+    from apps.safety.models import ComplaintAction
+
+    case, _, decision, user, staff, receipt = listing_case(request)
+    revision = decision.revision
+    case.refresh_from_db()
+    original_version = case.decision_case_version
+    revision.edit_version += 1
+    revision.save(update_fields=["edit_version"])
+    current = revision.edit_version
+    key = uuid.uuid4()
+    path = f"/en/moderation/complaints/{case.pk}/action/"
+    data = {
+        "key": key,
+        "version": case.version,
+        "operation": "reassess",
+        "decision_id": decision.pk,
+        "decision_case_version": current,
+        "reason": REASON,
+    }
+    assert staff.post(path, data).status_code == 409
+    assert inspection(staff, case).status_code == 200
+    listing = revision.listing
+    listing.refresh_from_db()
+    before = listing.status, listing.lifecycle_version, listing.approved_revision_id
+    assert staff.post(path, data).status_code == 302
+    assert staff.post(path, data).status_code == 302
+    case.refresh_from_db()
+    assert case.decision_case_version == current and case.listing_decision_id == decision.pk
+    audit = unseal(ComplaintAction.objects.get(key=key).encrypted_reason)
+    assert (
+        audit["previous_source_version"] == original_version
+        and audit["reviewed_source_version"] == current
+    )
+    listing.refresh_from_db()
+    assert (listing.status, listing.lifecycle_version, listing.approved_revision_id) == before
+    resolve_path, payload = resolution(staff, case, outcome="upheld")
+    assert staff.post(resolve_path, payload).status_code == 409
+    assert inspection(staff, case).status_code == 200
+    assert staff.post(resolve_path, payload).status_code == 302
+    assert b"Decision upheld" in Client().get(receipt).content
