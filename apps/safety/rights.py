@@ -316,6 +316,7 @@ class ActionForm(forms.Form):
             ("claim", "Asignarme la solicitud / Assign request to me"),
             ("link", "Vincular referencia al perfil / Link reference to profile"),
             ("clarify", "Pedir aclaración / Request clarification"),
+            ("withdraw", "Retirar representación comprobada / Withdraw checked representation"),
             ("unassign", "Devolver a cola (coordinación) / Return to queue (coordination)"),
         ]
     )

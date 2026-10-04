@@ -40,7 +40,7 @@ def permitted(user, case):
     return True
 
 
-def locked_case(case_id, link_listing_id=None):
+def locked_case(case_id, link_listing_id=None, lock_listing=False, allow_version_change=False):
     if not connection.in_atomic_block:
         raise RuntimeError("Rights locks require an enclosing transaction")
     initial = RightsRequest.objects.select_related(
@@ -89,10 +89,14 @@ def locked_case(case_id, link_listing_id=None):
         previous_agency = person.agency_id
         previous_version = person.manager_version
         person = Person.objects.select_for_update().get(pk=person.pk)
-        if person.agency_id != previous_agency or person.manager_version != previous_version:
+        if person.agency_id != previous_agency or (
+            person.manager_version != previous_version and not allow_version_change
+        ):
             raise ValidationError("Management changed; reload / Gestor cambiado; recarga")
     if candidate:
         candidate = Listing.objects.select_for_update().get(pk=candidate.pk)
+    elif lock_listing and person:
+        candidate = Listing.objects.select_for_update().filter(person=person).first()
     case = RightsRequest.objects.select_for_update().get(pk=case_id)
     if person and case.person_id == person.pk:
         case.person = person

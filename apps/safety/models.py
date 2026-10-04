@@ -141,6 +141,7 @@ class RightsRequest(models.Model):
             ("review_rights_request", "Review private rights requests"),
             ("manage_rights_assignment", "Manage private rights assignments"),
             ("verify_rights_scope", "Independently verify rights identity and scope"),
+            ("execute_rights_request", "Execute scoped private rights requests"),
         ]
         ordering = ["priority", "initial_due_at", "created_at", "pk"]
 
@@ -204,4 +205,15 @@ class RightsProofEvent(models.Model):
     expected_version = models.PositiveIntegerField()
     payload_digest = models.CharField(max_length=64)
     encrypted_reason = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsWithdrawal(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    person = models.ForeignKey("core.Person", on_delete=models.PROTECT)
+    previous_manager_version = models.PositiveIntegerField()
+    resulting_manager_version = models.PositiveIntegerField()
+    previous_listing_status = models.CharField(max_length=12, blank=True)
+    previous_lifecycle_version = models.PositiveIntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
