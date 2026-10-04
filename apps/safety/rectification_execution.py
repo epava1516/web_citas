@@ -123,7 +123,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
         rectification_photos,
         rectification_rates,
     )
-    from .models import RightsRectificationExecution
+    from .models import RightsRectificationExecution, RightsRectificationPhotoDisposition
 
     permission(user)
     if not user.has_perm("safety.respond_rights_request"):
@@ -338,6 +338,23 @@ def execute(user, case_id, proposal_id, key, version, reason):
                 encrypted_previous_values=seal(before),
                 resulting_rights_version=person.rights_version,
             )
+            if source and "photos" in changes:
+                selected_blobs = {photo.blob_id for photo in selected_photos}
+                references = {
+                    photo.pk: photo for photo in source.photos.filter(removed_at__isnull=True)
+                }
+                references.update({photo.pk: photo for photo in selected_photos})
+                RightsRectificationPhotoDisposition.objects.bulk_create(
+                    [
+                        RightsRectificationPhotoDisposition(
+                            execution=result,
+                            source_photo=photo,
+                            blob_id=photo.blob_id,
+                            outcome="retained" if photo.blob_id in selected_blobs else "withdrawn",
+                        )
+                        for photo in references.values()
+                    ]
+                )
     except IntegrityError as error:
         raise ValidationError("Conflicting execution / Ejecución incompatible") from error
     response = issue(

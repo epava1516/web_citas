@@ -12,6 +12,7 @@ from django.views.decorators.debug import sensitive_variables
 from apps.safety.crypto import seal, unseal
 from apps.safety.models import (
     RightsExportImage,
+    RightsRectificationPhotoDisposition,
     RightsRectificationPhotoUpload,
     RightsRectificationProposal,
 )
@@ -23,6 +24,8 @@ def retention_reason(blob):
     # Call only under the Blob lock. All supported reference creation uses that lock.
     if Photo.objects.filter(blob=blob, rectification_upload__isnull=True).exists():
         return "shared_reference"
+    if RightsRectificationPhotoDisposition.objects.filter(blob=blob).exists():
+        return "rectification_evidence"
     paths = [name for name in [blob.original.name, blob.derivative.name] if name]
     if (
         paths

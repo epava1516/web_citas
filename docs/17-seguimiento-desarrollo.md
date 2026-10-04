@@ -658,3 +658,27 @@ Batería46996 terminal0:47 passed328.40s, cero fallos/errores/omisiones. Refuerz
 ### Historial en colas generales: verificación local parcial
 
 47 pruebas conjuntas correctas328.40s PG/Chromium, cero fallos/errores/omisiones. Refuerzo posterior6 correctas110.68s con Submission válida (5 casos excluidos explícitamente por selección); no sumar baterías. Concurrencia3 correctas39.36s solapada con47. Docker reconstruido/recreado, hashes actuales iguales, UID10001/check/health200, ruff/format/makemigrations/diff limpios; sin migración nueva. CI anterior e7d0679:528 correctas1292.39s. Disposiciones de recarga/rehabilitación docs47 todavía diseño, no implementadas. Conservación por finalidad/cuenta/comunicaciones/cierre y contrato entero pendientes. Claude3/3; sin delegaciones.
+
+
+### Disposición de fotos: implementación en curso
+
+Entrega previa de colas generales commit710c856 subida a origin/master. Se inicia docs47: RightsRectificationPhotoDisposition/safety0055 y snapshot transaccional de retained/withdrawn por Blob al ejecutar selección revisada; erasure_inventory incorpora registros. Sin backfill desde revisiones editables. Pruebas75900 activas/XML /tmp/rectification-photo-dispositions.xml, seis variantes; no verificado aún ni aplicado en Docker. Detector/validador/revisión auditada/rehabilitación/UI/exportación/retención pendientes. Claude3/3; contrato íntegro abierto.
+
+CI de710c856f45c5e8b5371490dbefc5f81760784b0d confirmada in_progress: run37238707076. Cubre colas generales, no disposition/safety0055 posterior. No reiniciar ni cancelar esa ejecución.
+
+Disposición fotos primera batería75900 terminal6 passed106.70s,5 casos excluidos por selección. Helper SQL active_withdrawals por persona/Blob y protección conservadora de Blob en limpieza añadidos; batería6241/XML /tmp/photo-dispositions-inventory-cleanup.xml en curso, fuente congelada. Build Docker iniciado/safety0055 runtime pendiente. No detector ni rehabilitación completa todavía. Próximo confirmar batería/build, aplicar migración local/verificar inventario/runtime y avanzar detector/revisión privada. CI710c856 run37238707076 sigue activa; no sustituirla con estos resultados posteriores.
+
+Build51012 terminal0. Migrate local Docker86033 terminal0: safety0055 aplicada OK sobre PostgreSQL de integración. Recreación app/worker/Beat en curso; comprobaciones runtime pendientes. Batería6241 observada viva30 casos seleccionados, no reiniciar.
+
+Runtime disposition confirmado: recreación57895 terminal0, safety0055 marcada aplicada, hashes disposition/execute/cleanup iguales entre host y app, check sin incidencias/health200. Batería6241 continúa viva sin fallos observados; confirmar terminal antes de commit. No detector/rehabilitación implementados.
+
+Prueba SQL específica preparada en tests/test_photo_disposition_authority.py, aún no ejecutada. Cubre decisiones posteriores por archivo, aislamiento entre archivos/personas y desempate temporal con registros sintéticos (no revisión humana). Ejecutar después del terminal de6241. Fuente funcional sigue congelada.
+
+Batería6241 terminal0:30 passed318.44s, cero fallos/errores/omisiones. Fuente funcional y runtime verificados en ese alcance. Iniciada prueba SQL específica autoridad por archivo/persona, XML /tmp/photo-disposition-authority.xml; confirmar resultado antes de commit. Detector/revisión/rehabilitación siguen pendientes.
+
+Prueba autoridad69038 terminal1:1 fallo20.62s de fixture (perfil peer no tiene approved_revision; FK Photo no admite NULL). Corregida usando su revisión existente; repetir solo prueba afectada. Fuente funcional no cambia.
+
+Repetición autoridad27243 activa/XML /tmp/photo-disposition-authority.xml; confirmar resultado antes de commit. Error inicial preservado en /tmp/photo-disposition-authority-fixture-error.xml.
+
+
+Registro de disposición verificado localmente:30 correctas318.44s en batería conjunta PG/Chromium; prueba SQL independiente1 correcta19.73s, con ledgers sintéticos (no prueba de aprobación humana). Primera invocación de esa prueba falló por fixture sin revisión aprobada; corregida usando revisión existente. Snapshot conserva selección por Blob y no depende del borrador mutable. Autoridad por archivo/persona y desempate temporal verificados. safety0055 aplicada, Docker/hashes/check/health200 verificados; detector/revisión/rehabilitación/exportación/retención final siguen pendientes. Claude3/3; contrato entero abierto.

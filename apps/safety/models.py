@@ -722,3 +722,26 @@ class RightsRectificationRecipientReview(models.Model):
     source_digest = models.CharField(max_length=64)
     decisions_digest = models.CharField(max_length=64)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRectificationPhotoDisposition(models.Model):
+    execution = models.ForeignKey(
+        RightsRectificationExecution, on_delete=models.PROTECT, related_name="photo_dispositions"
+    )
+    source_photo = models.ForeignKey("mediafiles.Photo", on_delete=models.PROTECT)
+    blob = models.ForeignKey("mediafiles.Blob", on_delete=models.PROTECT)
+    outcome = models.CharField(
+        max_length=12, choices=[("retained", "Retained"), ("withdrawn", "Withdrawn")]
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["execution", "source_photo"], name="rectification_photo_disposition_once"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["retained", "withdrawn"]),
+                name="rectification_photo_disposition_outcome",
+            ),
+        ]

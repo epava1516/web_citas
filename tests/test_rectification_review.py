@@ -1062,6 +1062,41 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert photo_source(old_revision) == old_photo_ids
         assert set(old_revision.photos.values_list("blob_id", "position")) == set(old_photos)
         assert unseal(applied.encrypted_previous_values)["photos"] == old_photo_ids
+        dispositions = list(
+            applied.photo_dispositions.order_by("source_photo_id").values_list(
+                "source_photo_id", "blob_id", "outcome"
+            )
+        )
+        selected_blobs = {blob_id for blob_id, _ in expected_photos}
+        from apps.safety.photo_dispositions import active_withdrawals
+
+        assert set(active_withdrawals(person.pk).values_list("blob_id", flat=True)) == {
+            blob_id for _, blob_id, outcome in dispositions if outcome == "withdrawn"
+        }
+        original_refs = old_revision.photos.filter(removed_at__isnull=True)
+        by_photo = {photo_id: (blob_id, outcome) for photo_id, blob_id, outcome in dispositions}
+        for source_photo in original_refs:
+            assert by_photo[source_photo.pk] == (
+                source_photo.blob_id,
+                "retained" if source_photo.blob_id in selected_blobs else "withdrawn",
+            )
+        assert {
+            blob_id for _, blob_id, outcome in dispositions if outcome == "retained"
+        } == selected_blobs
+        from apps.safety.erasure_inventory import source_manifest
+
+        assert "safety.RightsRectificationPhotoDisposition" in str(source_manifest(person))
+        corrected.photos.update(position=7)
+        assert (
+            list(
+                applied.photo_dispositions.order_by("source_photo_id").values_list(
+                    "source_photo_id", "blob_id", "outcome"
+                )
+            )
+            == dispositions
+        )
+        for blob_id, position in expected_photos:
+            corrected.photos.filter(blob_id=blob_id).update(position=position)
         assert not corrected.photos.filter(approved=True).exists()
         # Local eager processing may already have completed comparisons; dispatch is asserted above.
         for field, ids in old_relations.items():

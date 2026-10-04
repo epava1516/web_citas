@@ -289,6 +289,12 @@ def source_manifest(person):
                 ],
             ),
             (
+                "safety.RightsRectificationPhotoDisposition",
+                Q(execution__notification__review__proposal__person=person),
+                "dependent_evidence",
+                ["pk", "execution_id", "source_photo_id", "blob_id", "outcome", "created_at"],
+            ),
+            (
                 "safety.RightsRectificationManagerNotice",
                 Q(execution__notification__review__proposal__person=person),
                 "dependent_evidence",

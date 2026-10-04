@@ -1,0 +1,71 @@
+{
+  "scope": "CR09: snapshot de selección/retirada, autoridad por persona y Blob",
+  "status": "registro y consulta de autoridad verificados localmente; detector/revisión pendientes",
+  "initial_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "6",
+    "time": "106.623",
+    "timestamp": "2026-10-05T00:07:03.495395+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "current_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "30",
+    "time": "318.305",
+    "timestamp": "2026-10-05T00:09:22.070050+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "migration": "safety0055",
+  "runtime": {
+    "build_session": 51012,
+    "migration_session": 86033,
+    "recreate_session": 57895,
+    "status": "terminal0; safety0055 aplicada",
+    "check": "sin incidencias",
+    "health_http": 200,
+    "host_container_hashes_equal": true,
+    "hashes": {
+      "apps/safety/photo_dispositions.py": "1e57763d4c28c12d50166594c54f34541e0cd0c4b29bb6c36df2c814b9f0472f",
+      "apps/safety/rectification_execution.py": "70ed4d84c50e3dc08210eb1874e2d55702c369ccab5c8a27a72e4dea31c67480",
+      "apps/mediafiles/preparation_cleanup.py": "8a7981dd7269e06b5332530a69d5362af505b528a517ab8ffcc0e6fadd64e841"
+    }
+  },
+  "pending": [
+    "detector de recargas exactas/visuales",
+    "revisión privada auditada",
+    "rehabilitación independiente",
+    "validador e interfaz ES/EN",
+    "exportación/retención final",
+    "casos anteriores y correcciones sucesivas",
+    "resto del contrato"
+  ],
+  "claude_invocations": "3/3; ninguna nueva",
+  "authority_test": {
+    "file": "tests/test_photo_disposition_authority.py",
+    "status": "correcta",
+    "scope": "SQL PostgreSQL sobre ledgers sintéticos; aislamiento por persona/archivo y decisión posterior",
+    "human_approval_verified": false,
+    "session": 27243,
+    "initial_result": {
+      "failed": 1,
+      "seconds": 20.62,
+      "reason": "fixture peer sin approved_revision; corregida revisión existente"
+    },
+    "result": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "19.654",
+      "timestamp": "2026-10-05T00:15:35.373397+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  }
+}

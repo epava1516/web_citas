@@ -636,3 +636,8 @@ Clasificación SQL central compartida; candidatos y colas ordinarias excluyen hi
 ### Historial en colas generales: verificación local parcial
 
 47 pruebas conjuntas correctas328.40s PG/Chromium, cero fallos/errores/omisiones. Refuerzo posterior6 correctas110.68s con Submission válida (5 casos excluidos explícitamente por selección); no sumar baterías. Concurrencia3 correctas39.36s solapada con47. Docker reconstruido/recreado, hashes actuales iguales, UID10001/check/health200, ruff/format/makemigrations/diff limpios; sin migración nueva. CI anterior e7d0679:528 correctas1292.39s. Disposiciones de recarga/rehabilitación docs47 todavía diseño, no implementadas. Conservación por finalidad/cuenta/comunicaciones/cierre y contrato entero pendientes. Claude3/3; sin delegaciones.
+
+Disposición de fotos docs47 en curso: modelo/safety0055, snapshot al ejecutar y dependencia en inventario. Pruebas75900 pendientes; no bloqueo de recarga ni rehabilitación implementados aún. Claude3/3 sin invocaciones nuevas; continuar localmente.
+
+
+Registro de disposición verificado localmente:30 correctas318.44s en batería conjunta PG/Chromium; prueba SQL independiente1 correcta19.73s, con ledgers sintéticos (no prueba de aprobación humana). Primera invocación de esa prueba falló por fixture sin revisión aprobada; corregida usando revisión existente. Snapshot conserva selección por Blob y no depende del borrador mutable. Autoridad por archivo/persona y desempate temporal verificados. safety0055 aplicada, Docker/hashes/check/health200 verificados; detector/revisión/rehabilitación/exportación/retención final siguen pendientes. Claude3/3; contrato entero abierto.

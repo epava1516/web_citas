@@ -566,3 +566,10 @@ Clasificación SQL compartida aplicada antes de paginar colas de moderación, co
 Consulta directa de coincidencias históricas e imágenes devuelve403; consulta de anuncio/foto/reclamación histórica devuelve404. Si la referencia deja de estar disponible mientras espera el bloqueo, la lectura de imagen devuelve404. resolve y decide revalidan historial bajo bloqueos; decide también rechaza marcadores de preparación, tanto para aprobar como para rechazar. Las reclamaciones revalidan antes de modificar estados. No añade rutas ni migraciones.
 
 Lecturas de fotos adquieren bloqueos de agencia/persona y revisión o anuncio y recargan Photo antes de abrir bytes. Las consultas específicas de derechos conservan ámbito/acreditación/auditoría independientes. Conservación por finalidad, recarga manual, variantes y rehabilitación siguen pendientes. [Verificación](../46-historial-colas-generales.md).
+
+
+## REQ-CR09-PHOTO-DISPOSITION-01
+
+RightsRectificationPhotoDisposition registra ejecución, foto fuente, Blob y retained/withdrawn dentro de la ejecución revisada de selección de fotos. Selección compara Blob para conservar sustituciones con los mismos bytes. No registra si no se rectifican fotos ni reconstruye ejecuciones antiguas desde borradores editables. Unicidad ejecución/foto, resultados restringidos por constraints y FK protegidas (safety0055). No añade endpoint público.
+
+active_withdrawals identifica la última decisión explícita de cada Blob para una persona; otra persona u otro archivo no cancelan la retirada. Limpieza de preparación conserva referencias de disposición como evidencia; inventario de supresión incorpora registros como dependent_evidence. No es retención jurídica definitiva ni protección de recarga terminada. [Detalle y evidencia](../47-reintroduccion-imagenes.md).
