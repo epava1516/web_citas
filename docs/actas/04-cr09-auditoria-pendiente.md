@@ -256,3 +256,8 @@ Ruff/check/format/makemigrations/diff limpios; sin migración nueva. Docker app/
 ### Sustitución de fotografías: evidencia parcial
 
 Cargas privadas y descarte lógico implementados con safety0054. Baterías finales separadas: 33 y 8 pruebas pasan con PostgreSQL/Chromium, con solapamiento; no son 41 pruebas de regresión común. Docker y hashes verificados. Registro de dependencias adicional: RightsRectificationPhotoUpload, RightsAction, RightsProof, revisión rights-stage, Photo, Blob, derivados y coincidencias. Caducidad/descarte no borran archivos ni cierran el derecho. Retención física, referencias históricas, reintroducción, comunicaciones y respuesta final pendientes. Claude 3/3; sin delegaciones nuevas. Evidencia: docs/evidencias/rectificacion-cargas-sustitucion.json.
+
+
+### Limpieza de preparación: aceptación local parcial
+
+Implementada limpieza técnica durable con mediafiles0010 y referencias de carga/trabajo incorporadas al inventario seleccionado. 35 pruebas finales correctas en 329.86s; anteriores 20/33 se solapan. Docker/migración/hashes/UID10001/health200 verificados; transporte real de tarea vacía y borrado local en pruebas diferenciados. CI histórica 7f00034:517 correctas1049.74s, no incluye limpieza. Documentación: docs/44-conservacion-cargas-preparadas.md; evidencia: docs/evidencias/conservacion-cargas-preparadas.json. Se mantienen retención final de evidencias/metadatos, acceso histórico/reintroducción, cuenta, comunicaciones/cierre y contrato completo pendientes. Claude3/3; sin invocaciones nuevas.

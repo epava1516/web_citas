@@ -134,6 +134,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "apps.safety.tasks.reconcile_urgent_report_alerts",
         "schedule": 60.0,
     },
+    "cleanup-prepared-private-media": {
+        "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+        "schedule": 60.0,
+    },
     "erase-private-media": {"task": "apps.mediafiles.tasks.erase_media_files", "schedule": 60.0},
     "deliver-private-safety-notices": {
         "task": "apps.safety.tasks.deliver_safety_notices",

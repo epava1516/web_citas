@@ -238,3 +238,14 @@ El marcador permanente `Photo.rectification_upload` impide acceso o edición des
 Verificación: batería final de aislamiento de 33 pruebas y batería de interfaz de 8 pruebas, con PostgreSQL y Chromium, sin fallos, errores ni skips. Son baterías separadas con solapamiento. Se conservan en la evidencia los fallos iniciales y sus correcciones. Docker actualizado, safety0054 aplicada, UID10001, health200 y hashes de código coincidentes. No acredita proveedor externo ni ejecución por broker de este nuevo flujo. [Evidencia](evidencias/rectificacion-cargas-sustitucion.json).
 
 Siguen pendientes conservación física de las cargas, restricciones históricas, reintroducción de fotografías, identidad de cuenta, comunicaciones/respuesta final y demás derechos de CR-09. El contrato completo continúa abierto; Claude 3/3 consumidas, sin nuevas invocaciones.
+
+
+## Limpieza técnica de cargas preparadas — aceptación parcial
+
+Implementados trabajos durables MediaPreparationCleanup (mediafiles0010), confirmación independiente de rutas/estado antes de borrar, eliminación con reintentos y guardas purging/purged en ingestión/procesamiento. Eliminar una carga exclusiva libera el SHA original y deja sus referencias antiguas apuntando a un objeto vacío; una futura carga legítima crea otro Blob y se modera de nuevo. Conserva archivos con referencias ordinarias/históricas, cargas activas, propuestas del expediente, evidencias de revisión/copia o rutas compartidas entre Blobs. El inventario incluye ahora cargas preparadas y metadatos de sus trabajos.
+
+Batería final: 35 pruebas correctas en 329.86s con PostgreSQL/Chromium, sin fallos/errores/skips. Incluye interrupción antes y después de eliminar un archivo, procesamiento concurrente con fallo, bloqueo comprobado mediante pg_blocking_pids, rutas compartidas y revisión móvil ES/EN. Baterías anteriores de 20 y 33 pruebas corresponden a versiones anteriores y se solapan; no sumar. Docker reconstruido/recreado, migración aplicada, hashes iguales, UID10001 y health200. Broker/worker/Beat reales ejecutan la tarea nueva con cola vacía; las imágenes se verifican por pruebas locales, sin atribuirlas al broker. [Detalle](44-conservacion-cargas-preparadas.md) y [evidencia](evidencias/conservacion-cargas-preparadas.json).
+
+CI histórica 7f00034: 517 pruebas correctas en 1049.74s, run37232805530 success. Incluye cargas de sustitución, pero no esta limpieza ni mediafiles0010. [Evidencia](evidencias/regresion-ci-7f00034.json). CI a36eca3/run37232838985 todavía estaba activa al comprobarse; no reiniciada ni cancelada.
+
+Siguen abiertos retención final/evidencias/tombstones/restauración, acceso histórico y reintroducción, identidad de cuenta, comunicaciones/respuesta final y resto CR09. CR10, GS01, B-F/B-B/C y producción pendientes. Claude 3/3; sin nuevas delegaciones.

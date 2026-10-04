@@ -519,7 +519,7 @@ Seleccionar `fields=photos` habilita el formset `photos-*`: `photo_id` oculto, `
 
 POSTinspect independiente muestra selección en orden y miniaturas con el mismo control de fuente. GET no muestra selección ni imágenes. Review/notify/recepción/proof nuevo/execute conservan controles existentes. Execute crea fotos nuevas de los blobs seleccionados, posiciones contiguas y aprobación/comparación reiniciadas; procesa solo blobs conservados. Cifra selección anterior y conserva filas/bytes históricos y otros perfiles. No publica, no borra archivos físicos ni cierra el derecho.
 
-Pendientes: cargas de sustitución vinculadas al expediente, conservación/acceso restringido a referencias históricas, reintroducción de imágenes que hayan motivado una rectificación, comunicaciones a destinatarios efectivos y respuesta final. No se declara rectificación de fotos integral ni supresión por este bloque.
+Cargas de sustitución implementadas en REQ-CR09-RECTIFICATION-UPLOADS-01. Pendientes: conservación/acceso restringido a referencias históricas, reintroducción de imágenes que hayan motivado una rectificación, comunicaciones a destinatarios efectivos y respuesta final. No se declara rectificación de fotos integral ni supresión por este bloque.
 
 
 ## REQ-CR09-RECTIFICATION-UPLOADS-01
@@ -534,4 +534,15 @@ La fuente incorpora referencias y estado de cargas elegibles del caso sin inclui
 
 La revisión independiente valida fuente y selección; ejecutar copia las referencias elegidas a nueva revisión pendiente, conserva fuente y archivos, reinicia aprobación/comparación y no publica. La marca permanente de carga excluye rutas ordinarias del gestor, cola general y bloqueos de publicación por coincidencias de preparación. Los clones ordinarios vuelven a pasar el control habitual.
 
-Descartar/caducar no implica borrado físico. Retención, restricciones históricas, reintroducción y respuesta final permanecen pendientes. Evidencia local: [cargas de sustitución](../evidencias/rectificacion-cargas-sustitucion.json); no acredita proveedor real ni aceptación integral CR09.
+Descartar/caducar no ejecuta borrado dentro de la petición. La tarea de REQ-CR09-PREPARATION-CLEANUP-01 elimina archivos exclusivos sin dependencias protegidas. Retención final de evidencias, restricciones históricas, reintroducción y respuesta final permanecen pendientes. Evidencia local: [cargas de sustitución](../evidencias/rectificacion-cargas-sustitucion.json); no acredita proveedor real ni aceptación integral CR09.
+
+
+## REQ-CR09-PREPARATION-CLEANUP-01
+
+Operación interna sin endpoint público: cleanup_prepared_media, Beat cada60s, hasta100 nuevos trabajos y100 vencidos por pasada. MediaPreparationCleanup tiene relación única con Blob, estados queued|retained|failed|completed, motivo técnico, contador/fecha de reintento, rutas cifradas pendientes y fecha de terminación. Retención vuelve a comprobarse después de una hora; fallos de almacenamiento reintentan desde60s con límite de espera de una hora.
+
+Exige carga descartada/caducada, ninguna activa del archivo, ninguna referencia ordinaria (incluso retirada/histórica), ninguna ruta usada por otro Blob, ninguna propuesta de su expediente ni evidencia de revisión/restricción/copia referida. Supresión jurídica erasing/erased conserva su propia tarea. No descifra propuestas desde el worker: conserva de forma preventiva todas las cargas de un caso con propuesta hasta decidir la retención de evidencia.
+
+Preparación confirma rutas y Blob.purging en transacción independiente. Borrado vuelve a bloquear Blob/trabajo y comprobar dependencias; ejecución dentro de una transacción externa se rechaza. Fallo o corte conservan guardas/rutas y permiten repetir un borrado parcial. Ingestión, procesamiento y coincidencias no reactivan purging/purged. Al terminar vacía archivos/huellas/dimensiones, reemplaza SHA por valor aleatorio y retira referencias preparadas. Una nueva carga de los mismos bytes crea otro Blob; las referencias antiguas no lo recuperan.
+
+No elimina referencias ordinarias ni evidencia protegida; no cierra el derecho ni establece plazos jurídicos. Conservación final de metadatos/evidencias, alertas y restauración/conciliación pendientes. Inventario incorpora RightsRectificationPhotoUpload y metadatos de MediaPreparationCleanup; cambios invalidan huella anterior. [Especificación y pruebas](../44-conservacion-cargas-preparadas.md).

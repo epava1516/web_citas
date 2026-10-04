@@ -137,3 +137,16 @@ class MediaErasureRecovery(models.Model):
     previous_version = models.PositiveIntegerField()
     previous_attempts = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class MediaPreparationCleanup(models.Model):
+    """Technical disposal of private preparation; separate from a rights erasure."""
+
+    blob = models.OneToOneField(Blob, on_delete=models.PROTECT, related_name="preparation_cleanup")
+    encrypted_paths = models.TextField(blank=True)
+    status = models.CharField(max_length=12, default="queued", db_index=True)
+    reason_code = models.CharField(max_length=32, blank=True)
+    attempts = models.PositiveIntegerField(default=0)
+    next_attempt_at = models.DateTimeField(default=timezone.now)
+    completed_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)

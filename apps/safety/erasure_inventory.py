@@ -47,6 +47,37 @@ def source_manifest(person):
         ("listings.Rate", Q(revision__listing__person=person), "publication", None),
         ("mediafiles.Photo", Q(**{profile: person}), "media", None),
         (
+            "safety.RightsRectificationPhotoUpload",
+            Q(photo__revision__listing__person=person),
+            "media",
+            [
+                "pk",
+                "photo_id",
+                "action_id",
+                "proof_id",
+                "source_digest",
+                "person_rights_version",
+                "expires_at",
+                "discarded_at",
+                "created_at",
+            ],
+        ),
+        (
+            "mediafiles.MediaPreparationCleanup",
+            Q(blob__photos__revision__listing__person=person),
+            "media",
+            [
+                "pk",
+                "blob_id",
+                "status",
+                "reason_code",
+                "attempts",
+                "next_attempt_at",
+                "completed_at",
+                "created_at",
+            ],
+        ),
+        (
             "mediafiles.MediaErasure",
             Q(execution__person=person),
             "media",
@@ -396,7 +427,7 @@ def source_manifest(person):
     entries = []
     for label, scope, purpose, fields in scopes:
         model = apps.get_model(label)
-        rows = list(model.objects.filter(scope).order_by("pk").values(*(fields or [])))
+        rows = list(model.objects.filter(scope).order_by("pk").values(*(fields or [])).distinct())
         # Raw values never leave this function: no account secret or intake body is read.
         entries.append(
             {

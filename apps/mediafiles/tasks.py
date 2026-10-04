@@ -35,3 +35,10 @@ def erase_media_files():
     from .erasure import erase_due_media
 
     return erase_due_media()
+
+
+@shared_task
+def cleanup_prepared_media():
+    from .preparation_cleanup import cleanup_due_preparations
+
+    return cleanup_due_preparations()

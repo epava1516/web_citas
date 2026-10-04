@@ -1,0 +1,78 @@
+{
+  "scope": "Limpieza técnica de cargas preparadas exclusivas, conservación de archivos compartidos/evidencias, recuperación y aislamiento del pipeline; aceptación parcial CR09",
+  "results": [
+    {
+      "artifact": "preparation-cleanup-integration.xml",
+      "scope": "Primera implementación, antes del refuerzo de fases independientes",
+      "sha256": "5619ea65b08fd4ec5452163a9cf4cc16603c7a68dc7bb25ce69fd78a5211fd00",
+      "suites": [
+        {
+          "tests": "20",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "148.726"
+        }
+      ]
+    },
+    {
+      "artifact": "preparation-cleanup-final.xml",
+      "scope": "Fases independientes confirmadas, antes del control de rutas compartidas",
+      "sha256": "8df33ee9338722572afee071c9a27d9c76f3d6dc94c1d0eb895c7d41b941465f",
+      "suites": [
+        {
+          "tests": "33",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "308.871"
+        }
+      ]
+    },
+    {
+      "artifact": "preparation-cleanup-storage-final.xml",
+      "scope": "Código final: rutas compartidas, corte parcial y bloqueo observado en PostgreSQL",
+      "sha256": "8e7ca912d9dd0e3c24beb816c964851487ff700154c0d5a21b1bed5078abca6d",
+      "suites": [
+        {
+          "tests": "35",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "329.716"
+        }
+      ]
+    }
+  ],
+  "interpretation": "La batería final contiene 35 pruebas correctas, sin fallos, errores ni skips. Las anteriores 20 y 33 tienen solapamiento y corresponden a versiones anteriores; no sumarlas. Se ejecutan PostgreSQL e imágenes sintéticas reales en almacenamiento local; identidad simulada explícita y procesamiento eager.",
+  "runtime": {
+    "migration": "mediafiles0010 aplicada; safety0054 vigente",
+    "host_container_sha256": {
+      "apps/mediafiles/preparation_cleanup.py": "5c68331809a22759107c4066b654bba5422381818c70ac8d5425870aa40d28ec",
+      "apps/mediafiles/services.py": "407f17f27e6b2ee21253b80de90ba8d8ddcbb9d5dbf642ea1e019cafaa4cff5e",
+      "apps/safety/erasure_inventory.py": "879aaa4d2f516f73c844d80d07d523286864f2cbb09ccd2b86fcc79fec751f90"
+    },
+    "uid": 10001,
+    "health_http": 200,
+    "check": "sin incidencias",
+    "broker": {
+      "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+      "eager": false,
+      "ignore_result": true,
+      "explicit_probe_id": "dbfd40bf-bf2e-484b-977b-e34b53140e67",
+      "final_runtime_beat_probe_id": "0a55d7a2-bc58-4156-9fb0-c52f35b8c97b",
+      "worker_logged_result": {
+        "queued": 0,
+        "completed": 0
+      },
+      "scope": "Transporte real y ejecución con cola vacía; no acredita borrado de imágenes por broker ni proveedor externo"
+    }
+  },
+  "remaining": [
+    "Retención final de evidencias y metadatos mínimos",
+    "Restricciones históricas y reintroducción de imágenes",
+    "Comunicaciones y respuesta final",
+    "Identidad de cuenta y demás derechos CR09",
+    "Regresión común del commit actual y contrato completo"
+  ]
+}

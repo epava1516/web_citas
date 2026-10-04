@@ -143,7 +143,7 @@ def upload(user, case_id, key, version, image, reason):
             digest = baseline(case, person, listing)
             blob, created = Blob.objects.get_or_create(sha256=sha)
             blob = Blob.objects.select_for_update().get(pk=blob.pk)
-            if blob.status in {"erasing", "erased"}:
+            if blob.status in {"erasing", "erased", "purging", "purged"}:
                 raise ValidationError("Image unavailable / Imagen no disponible")
             if created:
                 blob.width, blob.height = decoded.size

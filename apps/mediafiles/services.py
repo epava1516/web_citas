@@ -81,7 +81,7 @@ def ingest(user, revision_id, upload):
                 raise ValidationError("Maximum eight photos")
             blob, created = Blob.objects.get_or_create(sha256=sha)
             blob = Blob.objects.select_for_update().get(pk=blob.pk)
-            if blob.status in {"erasing", "erased"}:
+            if blob.status in {"erasing", "erased", "purging", "purged"}:
                 raise ValidationError("Image unavailable during erasure")
             if created:
                 blob.width, blob.height = image.size
@@ -124,7 +124,7 @@ def process(blob_id):
     ready = False
     with transaction.atomic():
         blob = Blob.objects.select_for_update().get(pk=blob_id)
-        if blob.status in {"erasing", "erased"}:
+        if blob.status in {"erasing", "erased", "purging", "purged"}:
             return
         ready = blob.status == "ready"
         if not ready:
@@ -154,7 +154,7 @@ def process(blob_id):
         image.save(output, format="WEBP", quality=85, method=4)
         with transaction.atomic():
             blob = Blob.objects.select_for_update().get(pk=blob_id)
-            if blob.status in {"erasing", "erased"}:
+            if blob.status in {"erasing", "erased", "purging", "purged"}:
                 return
             blob.derivative.save(
                 str(uuid.uuid4()) + ".webp", ContentFile(output.getvalue()), save=False
@@ -165,9 +165,9 @@ def process(blob_id):
             blob.save()
         detect_matches(blob_id)
     except (OSError, ValidationError, UnidentifiedImageError, Image.DecompressionBombError):
-        Blob.objects.filter(pk=blob_id).exclude(status__in=["erasing", "erased"]).update(
-            status="failed", error_code="decode_or_storage_failed"
-        )
+        Blob.objects.filter(pk=blob_id).exclude(
+            status__in=["erasing", "erased", "purging", "purged"]
+        ).update(status="failed", error_code="decode_or_storage_failed")
         raise
 
 
@@ -192,7 +192,7 @@ def record_match(photo, candidate, defaults):
             return
         if Photo.objects.filter(pk=candidate.pk, revision__status="rights-stage").exists():
             return
-        if any(blob.status in {"erasing", "erased"} for blob in blobs):
+        if any(blob.status in {"erasing", "erased", "purging", "purged"} for blob in blobs):
             return
         if Photo.objects.filter(pk__in=[photo.pk, candidate.pk], removed_at__isnull=False).exists():
             return
