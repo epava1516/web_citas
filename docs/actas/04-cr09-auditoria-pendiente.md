@@ -228,3 +228,5 @@ Supresión explícita de partes: batería terminal15 passed117.71s, exit0 sin fa
 
 
 REQ-CR09-RECTIFICATION-PROPOSAL-01: batería conjunta14 passed102.54s, exit0 sin fallos/errores/skips PostgreSQL/Chromium. Evidencia normalizada/XML/hash docs/evidencias/rectificacion-propuesta-integracion.json. Cubre fuente auditada/HMAC contra cambio de texto, propuesta cifrada campos seleccionados, replay/conflicto/CSRF/GET privado/publicación y plazos intactos, móvilMFA, cautelas/inventario existentes. Ruff/check/makemigrations/diff limpios. Docker0044–45 en sincronización; no ejecución de corrección, respuesta final ni aceptación integral CR09. Resto contrato preservado; Claude3/3.
+
+Regresión común remota confirmada:4789079/CI37224543121 integration success,493 passed1378.93s en PostgreSQL/Chromium, calidad/migraciones pasan. Evidencia normalizada ../evidencias/regresion-ci-4789079.json. Actualiza evidencia histórica444/f5c636c únicamente en alcance del commit4789079; atributos36ced07 y textos a5c9d7b quedan fuera y su CI pendiente. No cerrar requisitos derechos/copia integral/retención/comunicaciones/respuestas ni aceptaciónCR09 por esta suite.
