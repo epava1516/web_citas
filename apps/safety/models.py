@@ -410,6 +410,24 @@ class RightsWithdrawal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+class PrivacyPublicationHold(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    person = models.ForeignKey(
+        "core.Person", on_delete=models.PROTECT, related_name="privacy_publication_holds"
+    )
+    subject_snapshot = models.CharField(max_length=64)
+    manager_version = models.PositiveIntegerField()
+    ground = models.CharField(max_length=24)
+    active = models.BooleanField(default=True)
+    previous_listing_status = models.CharField(max_length=12, blank=True)
+    previous_lifecycle_version = models.PositiveIntegerField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [models.Index(fields=["person", "active"])]
+
+
 class RightsExportPreview(models.Model):
     request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)

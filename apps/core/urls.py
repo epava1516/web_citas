@@ -14,6 +14,7 @@ from apps.mediafiles import views as mediafiles
 from apps.safety import (
     complaints,
     notice_operations,
+    privacy_holds,
     rights,
     rights_exports,
     rights_responses,
@@ -34,6 +35,11 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "moderation/rights/<uuid:case_id>/publication-hold/",
+        privacy_holds.apply,
+        name="privacy_publication_hold",
+    ),
     path(
         "moderation/rights/<uuid:case_id>/response/",
         rights_responses.respond,
