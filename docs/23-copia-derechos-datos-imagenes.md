@@ -32,4 +32,9 @@ No proveedor real de identidad o envío contratado; todo proof actual es simulad
 
 ## Evidencia local
 
-Migración safety0030 aplicada;34 pruebas afectadas pasan88.48s con PostgreSQL y Chromium sin skips, incluidos recorrido móvil completo, privacidad/logs CSRF y purga de snapshots mediante tarea local. Los errores de fixtures y su corrección están en docs/18. No es regresión comúnCR09, entrega real ni ensayo de purga de imágenes con worker/Beat; ese ensayo operativo sigue pendiente.
+Migración safety0030 aplicada;34 pruebas afectadas pasan88.48s con PostgreSQL y Chromium sin skips, incluidos recorrido móvil completo, privacidad/logs CSRF y purga de snapshots mediante tarea local. Los errores de fixtures y su corrección están en docs/18. Esta batería no es regresión comúnCR09 ni entrega real. El ensayo operativo posterior de purga de imágenes con worker/Beat se registra a continuación y por separado en docs/18.
+
+
+## Ensayo operativo de caducidad de adjuntos
+
+Procedimiento actual en [operación](12-operacion-seguridad.md): launcher con base/cola/worker/Beat aislados. Comprueba tarea real de purga del contenido JSON y WebP cifrado de copias caducadas, repetición sin efectos, copia vigente y filas de origen/auditoría intactas. Fixture sintético: no originales físicos, identidad comprobada ni decisión de derechos. Resultado terminal: worker1/0 en13.208s; Beat automático67.59s, cuatro adjuntos caducados vacíos y cuatro vigentes conservados. Detalles, IDs y cleanup en docs/18; no inferir borrado de origen/backups ni cumplimiento legal.

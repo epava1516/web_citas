@@ -95,15 +95,19 @@ Medir detección, contención, retirada, recuperación y resolución; evitar que
 
 ## Ensayo local de limpieza de copias con worker/Beat
 
-`python -m scripts.probe_export_retention_worker` se ejecuta en el contenedor app de desarrollo, con PostgreSQL/Redis y worker reales. Rechaza PRODUCTION. Crea un expediente operativo sintético, Proof pending y copias caducada/vigente: no simula identidad aprobada ni crea publicación. Comprueba purga de contenido vencido, preservación del vigente y auditoría; elimina exclusivamente su fixture al pasar. Fallo deja fixture para diagnóstico. No ejecutar sobre datos reales.
-
-Para distinguir worker de Beat, detener Beat durante prueba manual; preservar resto de servicios:
+El comando vigente se lanza desde el host con la configuración local de desarrollo y Docker disponibles:
 
 ```bash
-docker compose stop beat
-docker compose exec -T app python -m scripts.probe_export_retention_worker
-docker compose up -d beat
-docker compose exec -T app python -m scripts.probe_export_retention_worker --beat
+docker compose build worker beat
+uv run python -m scripts.probe_export_retention_worker launch
 ```
 
-En modo normal envía dos jobs y muestra sus IDs: cotejar received/succeeded en logs de worker. En modo Beat no publica jobs, espera hasta75s y emite task_ids vacío; cotejar envío purge-expired-private-copies en scheduler y resultado en worker. Observar proceso mediante sesión del comando, sin repetir por falta temporal de salida. Tiempo medido no es SLA ni carga:0.501s manual,61.352s automático en ensayo2026-10-04. Docker ejecuta código d2bb585/probe, migra hasta0018; servicios de DB/Redis y datos anteriores preservados. Ningún envío de email/proveedor, borrado físico/backups ni cumplimiento jurídico acreditado.
+El launcher crea una base PostgreSQL retention_probe_UUID y una cola Redis del mismo nombre. Levanta worker y Beat temporales, migra únicamente esa base y ejecuta fixtures sintéticos. Los modos internos fixture/state/dispatch/worker/beat rechazan una base fuera de ese prefijo; las operaciones de tareas exigen cola igual a la base. PRODUCCIÓN prohibida y adaptadores de derechos/avisos disabled. No detener ni sustituir los servicios principales.
+
+Por tanda se crean dos copias (caducada/vigente), dos imágenes WebP cifradas por copia y filas sintéticas de persona, revisión, fotos y auditoría. Proof pending; no son una comprobación de identidad, revisión humana ni decisión real de derechos. La revisión está en draft, sin publicación ni originales físicos. El ensayo comprueba snapshots cifrados de DB y filas de origen; no verifica archivos originales, WAL, réplicas o backups.
+
+Primero se envía la tarea real a Redis y se coteja resultado1; repetición resultado0 y fechas de purga idénticas. JSON e imágenes caducados vacíos, copias vigentes y metadatos de Blob comparados por digest de bytes antes/después, filas de acceso/descarga/action/proof/fotos conservadas. Después se crea una segunda tanda y se observa Beat sin dispatch manual, conservando la tarea e intervalo60s de la aplicación; los otros schedules no se cargan en este Beat aislado. Logs received/succeeded del worker y envío del scheduler deben coincidir con IDs de tareas. Result backend/ignore_result se habilitan solo dentro de procesos de ensayo, no en configuración de aplicación.
+
+El launcher elimina contenedores/base y vacía la cola temporal en finally incluso si falla; el estado de timeout se imprime minimizado para diagnóstico. Observar el proceso mediante sesión del comando; no repetir mientras sigue vivo. El nombre temporal se incluye en resultado para comprobar eliminación posteriormente. No datos reales ni comunicación externa.
+
+El ensayo histórico de JSON del 2026-10-04 utilizó el comando anterior sin argumento y --beat sobre servicios principales:0.501s manual y61.352s automático, código histórico d2bb585/safety0018. Estos comandos se sustituyen por launch y no deben copiarse para la versión actual. La evidencia nueva de imágenes se registra por separado en docs/18; no ampliar retroactivamente el alcance de la histórica.
