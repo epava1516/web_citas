@@ -6,9 +6,10 @@ Actualizado: 2026-10-04. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 - Fase: BASE y CR-01 a CR-08 verificados localmente; implementación autorizada el 2026-10-03.
 - Próximo paso: CR-09 (denuncias, derechos y reclamación sin cuenta).
-- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; última regresión común166 pruebas pasan con PostgreSQL y Chromium (450.45s, sin skips), dos límites finales14.47s; Docker/worker/Beat de CR-08 verificados; verificación y representación conectadas con simuladores explícitos.
+- Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; regresión común histórica CR-08:166 pruebas pasan con PostgreSQL y Chromium (450.45s, sin skips), dos límites finales14.47s; Docker/worker/Beat de CR-08 verificados; verificación y representación conectadas con simuladores explícitos.
 - Docker actual: aplicación/worker/Beat reconstruidos y recreados con procesamiento de avisos; migraciones core0015/safety0041/mediafiles0009 confirmadas. Salud200 detrás de Caddy, UID10001 y backend de avisos disabled; el backend de resultados sigue desactivado en la aplicación normal. No regresión común completa CR-09 aceptada.
 - Regresión común más reciente sobre e6727bb:426 passed1776.17s, exit0/sin skips; aislamiento de migraciones corregido. Integra funcionalidades implementadas, no acepta CR-09 completo.
+- Regresión actual sobre f5c636c en curso: `uv run pytest -q --junitxml=/tmp/web-modelos-f5c636c-regression.xml`. Recoger resultado terminal antes de modificar código o ejecutar otra batería sobre la misma base.
 - Regresión histórica CR-09 sobre35b1f53:285 passed/1 failed969.51s, sin skips; fallo de recarga Chromium investigado; sincronización observable reforzada,20 pruebas afectadas passed95.28s. No aceptada como suite completa.
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
