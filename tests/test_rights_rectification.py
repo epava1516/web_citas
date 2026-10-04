@@ -197,6 +197,66 @@ def test_mobile_source_review_and_field_proposal(
             expect(
                 page.get_by_role("heading", name="Audited current fields", exact=True)
             ).to_be_visible()
+            from test_photos import raw_image
+
+            page.get_by_role("link", name="Prepare replacement images", exact=True).click()
+            page.locator("[name=image]").set_input_files(
+                {
+                    "name": "synthetic-replacement.jpg",
+                    "mimeType": "image/jpeg",
+                    "buffer": raw_image(946),
+                }
+            )
+            page.locator("[name=reason]").fill(
+                "Synthetic browser replacement image scoped for independent review"
+            )
+            page.get_by_role("button", name="Record image preparation", exact=True).click()
+            expect(
+                page.get_by_role("heading", name="Propose data correction", exact=True)
+            ).to_be_visible()
+            page.locator("[name=operation]").select_option("preview")
+            page.locator("[name=purpose]").fill(
+                "Inspect processed replacement and original source before selection"
+            )
+            page.get_by_role("button", name="Record correction action", exact=True).click()
+            page.get_by_role("link", name="Discard prepared image", exact=True).click()
+            expect(
+                page.get_by_role("heading", name="Discard prepared image", exact=True)
+            ).to_be_visible()
+            page.locator("[name=reason]").fill(
+                "Discard synthetic prepared image before a fresh scoped replacement"
+            )
+            page.get_by_role("button", name="Record image preparation", exact=True).click()
+            expect(
+                page.get_by_role("heading", name="Propose data correction", exact=True)
+            ).to_be_visible()
+            page.locator("[name=operation]").select_option("preview")
+            page.locator("[name=purpose]").fill(
+                "Inspect source after discarded preparation before new upload"
+            )
+            page.get_by_role("button", name="Record correction action", exact=True).click()
+            expect(page.locator('[name^="photos-"][name$="-photo_id"]')).to_have_count(2)
+            page.get_by_role("link", name="Prepare replacement images", exact=True).click()
+            page.locator("[name=image]").set_input_files(
+                {
+                    "name": "synthetic-replacement.jpg",
+                    "mimeType": "image/jpeg",
+                    "buffer": raw_image(946),
+                }
+            )
+            page.locator("[name=reason]").fill(
+                "Synthetic browser replacement image scoped for independent review"
+            )
+            page.get_by_role("button", name="Record image preparation", exact=True).click()
+            expect(
+                page.get_by_role("heading", name="Propose data correction", exact=True)
+            ).to_be_visible()
+            page.locator("[name=operation]").select_option("preview")
+            page.locator("[name=purpose]").fill(
+                "Inspect processed replacement and original source before selection"
+            )
+            page.get_by_role("button", name="Record correction action", exact=True).click()
+            staged_id = page.locator("[name=photos-2-photo_id]").input_value()
             expect(page.locator("[name=alias]")).to_have_value(alias_before)
             page.locator('[name=fields][value="alias"]').check()
             page.locator("[name=alias]").fill("Synthetic browser correction")
@@ -226,11 +286,17 @@ def test_mobile_source_review_and_field_proposal(
             page.locator("[name=rates-9-duration_minutes]").fill("")
             page.locator('[name=fields][value="photos"]').check()
             expect(page.get_by_alt_text("Source photo 1", exact=True)).to_be_visible()
-            page.wait_for_function(
-                "document.querySelector('img[alt=\"Source photo 1\"]').naturalWidth > 0"
+            assert page.get_by_alt_text("Source photo 1", exact=True).evaluate(
+                "image => image.decode().then(() => image.naturalWidth > 0)"
             )
             page.locator("[name=photos-0-position]").fill("1")
             page.locator("[name=photos-1-position]").fill("0")
+            page.locator("[name=photos-2-DELETE]").uncheck()
+            page.locator("[name=photos-2-position]").fill("2")
+            expect(page.get_by_alt_text("Source photo 3", exact=True)).to_be_visible()
+            assert page.get_by_alt_text("Source photo 3", exact=True).evaluate(
+                "image => image.decode().then(() => image.naturalWidth > 0)"
+            )
             page.locator('[name=fields][value="contacts"]').check()
             page.locator("[name=phone]").fill(replacement_phone.phone)
             page.locator("[name=whatsapp]").check()
@@ -291,7 +357,7 @@ def test_mobile_source_review_and_field_proposal(
                 "duration_minutes": None,
             },
         ],
-        "photos": list(reversed(photo_ids)),
+        "photos": [*reversed(photo_ids), staged_id],
         "catalog": {"categories": [new_category.pk], "services": [new_service.pk]},
         "location": {"municipality": new_city.pk, "postal_code": None, "zone": None},
     }

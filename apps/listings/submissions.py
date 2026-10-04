@@ -19,6 +19,14 @@ def current_publishing_document():
 
 
 def validate_submission(revision, person):
+    if (
+        revision.status == "rights-stage"
+        or revision.photos.filter(rectification_upload__isnull=False).exists()
+    ):
+        raise ValidationError(
+            "Rights image preparation cannot publish / Preparación de imágenes de derechos no publicable"
+        )
+
     from apps.safety.models import PrivacyPublicationHold, Restriction, RightsRectificationExecution
 
     if RightsRectificationExecution.objects.filter(

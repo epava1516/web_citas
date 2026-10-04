@@ -1,0 +1,91 @@
+{
+  "scope": "Cargas privadas de sustitución, descarte lógico, selección, revisión ES/EN y aislamiento de coincidencias; aceptación parcial CR-09",
+  "results": [
+    {
+      "artifact": "rectification-upload-pipeline.xml",
+      "sha256": "c5d7104699be09e8ef5d9be46d08b63a9553704346dee9fbcec09251026d75d3",
+      "suites": [
+        {
+          "tests": "21",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "time": "111.702"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-upload-crossflow.xml",
+      "sha256": "41d9ea8c3229aba54503a9812bf8e87fe8c4eb20fc4feb7e25628b209629f386",
+      "suites": [
+        {
+          "tests": "35",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "time": "310.882"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-upload-browser-final.xml",
+      "sha256": "ec6ef7de66553ae0fc21a9195828b8ea12d4cff266b6ce9d1f58c6388d37bb31",
+      "suites": [
+        {
+          "tests": "3",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "80.716"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-upload-editor-final.xml",
+      "sha256": "28c4a56f4222dc9c3475161104ab58d0aa33878c563f72747686eb991dd5586c",
+      "suites": [
+        {
+          "tests": "8",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "126.234"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-upload-isolation-final.xml",
+      "sha256": "180327b14895592eebaba172d20a0ca11a6efcb6a488b455ae0a53ab6fb2a815",
+      "suites": [
+        {
+          "tests": "33",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "287.188"
+        }
+      ]
+    }
+  ],
+  "interpretation": "Las baterías finales de 8 y 33 pruebas se solapan: no sumarlas como una regresión común. Las baterías iniciales conservan fallos reales corregidos. PostgreSQL e imágenes reales sintéticas; tareas eager, identidad simulada explícita; no acredita proveedor ni broker real para este flujo.",
+  "corrections": [
+    "Operación de descarte ajustada al máximo del modelo; fixture MFA llega al permiso real.",
+    "Browser obtiene referencia del DOM sin ORM dentro de Playwright; decodificación de miniaturas compatible con CSP, sin unsafe-eval.",
+    "Marcador permanente de preparación excluido de vistas genéricas, revisión de coincidencias y bloqueos de publicación ajena."
+  ],
+  "runtime": {
+    "migration": "safety0054 aplicada",
+    "uid": 10001,
+    "health_http": 200,
+    "host_container_hashes_match": true,
+    "rectification_uploads_sha256": "ded9b3a9f91d79ba31725418b3cdc55a2fa49ef5ce790981cddbdfba484835bb",
+    "media_services_sha256": "d2a4147983138de8ea07b561abc6795d698a1bef6ff8fd3602d3aa58ec33341d"
+  },
+  "remaining": [
+    "Retención y borrado físico de cargas transitorias",
+    "Restricción de referencias históricas y reintroducción",
+    "Comunicaciones y respuesta final",
+    "Resto CR09 y contrato completo",
+    "Regresión común CI sobre nuevo commit"
+  ]
+}

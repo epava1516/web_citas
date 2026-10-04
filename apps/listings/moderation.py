@@ -37,11 +37,15 @@ def conflict_of_interest(user, person):
 
 def unresolved_matches(revision):
     photos = revision.photos.filter(removed_at__isnull=True)
-    return Match.objects.filter(
-        Q(photo__in=photos) | Q(candidate__in=photos),
-        Q(resolved_at__isnull=True) | Q(decision="conflict"),
-        photo__removed_at__isnull=True,
-        candidate__removed_at__isnull=True,
+    return (
+        Match.objects.filter(
+            Q(photo__in=photos) | Q(candidate__in=photos),
+            Q(resolved_at__isnull=True) | Q(decision="conflict"),
+            photo__removed_at__isnull=True,
+            candidate__removed_at__isnull=True,
+        )
+        .exclude(photo__rectification_upload__isnull=False)
+        .exclude(candidate__rectification_upload__isnull=False)
     )
 
 

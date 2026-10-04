@@ -4,7 +4,7 @@ import uuid
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.db.models import F
+from django.db.models import F, Q
 from django.forms import formset_factory
 from django.views.decorators.debug import sensitive_variables
 
@@ -14,10 +14,11 @@ from apps.mediafiles.models import Photo
 class PhotoForm(forms.Form):
     photo_id = forms.UUIDField(widget=forms.HiddenInput)
     position = forms.IntegerField(min_value=0, max_value=7, label="Orden / Order")
+    state = forms.CharField(required=False, disabled=True, label="Estado / State")
 
 
 Editor = formset_factory(
-    PhotoForm, extra=0, max_num=8, absolute_max=9, validate_max=True, can_delete=True
+    PhotoForm, extra=0, max_num=8, absolute_max=17, validate_max=True, can_delete=True
 )
 
 
@@ -32,7 +33,7 @@ def source(revision):
 
 
 @sensitive_variables()
-def validate(value, person=None):
+def validate(value, person=None, case=None):
     if not isinstance(value, list) or len(value) > 8:
         raise ValidationError("At most eight photos / Máximo ocho fotografías")
     try:
@@ -46,24 +47,57 @@ def validate(value, person=None):
     if len(set(normalized)) != len(normalized):
         raise ValidationError("Repeated photos / Fotografías repetidas")
     if person and normalized:
-        photos = Photo.objects.filter(
-            pk__in=normalized,
-            revision__listing__person=person,
-            revision__listing__approved_revision_id=F("revision_id"),
-            revision__manager_version=person.manager_version,
-            removed_at__isnull=True,
-            blob__status="ready",
-        ).exclude(blob__derivative="")
+        photos = available(person, case).filter(pk__in=normalized)
         if photos.count() != len(normalized):
             raise ValidationError(
                 "Current available profile photos required / Fotografías vigentes y disponibles del perfil obligatorias"
             )
+        if photos.values("blob_id").distinct().count() != len(normalized):
+            raise ValidationError("Same image selected twice / Misma imagen seleccionada dos veces")
     return normalized
 
 
 @sensitive_variables()
-def initial(value):
-    return [{"photo_id": identifier, "position": index} for index, identifier in enumerate(value)]
+def available(person, case=None):
+    originals = Q(revision__listing__approved_revision_id=F("revision_id"))
+    staged = Q(pk__in=[])
+    if case:
+        from .rectification_uploads import baseline, eligible
+
+        ids = eligible(case, person, baseline(case, person, person.listing)).values_list(
+            "photo_id", flat=True
+        )
+        staged = Q(pk__in=ids, comparison_complete=True)
+    return Photo.objects.filter(
+        originals | staged,
+        revision__listing__person=person,
+        revision__manager_version=person.manager_version,
+        removed_at__isnull=True,
+        blob__status="ready",
+    ).exclude(blob__derivative="")
+
+
+@sensitive_variables()
+def initial(value, uploads=()):
+    states = dict(
+        Photo.objects.filter(pk__in=list(value) + list(uploads)).values_list("pk", "blob__status")
+    )
+    labels = {
+        "ready": "Ready / Preparada",
+        "failed": "Failed / Fallida",
+        "queued": "Processing / Procesando",
+        "processing": "Processing / Procesando",
+    }
+    return [
+        {
+            "photo_id": identifier,
+            "position": index % 8,
+            "DELETE": identifier in uploads,
+            "is_upload": identifier in uploads,
+            "state": labels.get(states.get(uuid.UUID(identifier)), "Unavailable / No disponible"),
+        }
+        for index, identifier in enumerate(list(value) + list(uploads))
+    ]
 
 
 @sensitive_variables()

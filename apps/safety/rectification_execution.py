@@ -293,7 +293,16 @@ def execute(user, case_id, proposal_id, key, version, reason):
                 )
                 if "photos" in changes:
                     before["photos"] = rectification_photos.source(source)
-                    by_id = {str(photo.pk): photo for photo in selected_photos}
+                    by_id = {
+                        str(photo.pk): photo
+                        for photo in rectification_photos.available(person, case).filter(
+                            pk__in=changes["photos"]
+                        )
+                    }
+                    if set(changes["photos"]) - set(by_id):
+                        raise ValidationError(
+                            "Selected images expired or unavailable / Imágenes seleccionadas caducadas o no disponibles"
+                        )
                     selected_photos = [by_id[identifier] for identifier in changes["photos"]]
                 Photo.objects.bulk_create(
                     [

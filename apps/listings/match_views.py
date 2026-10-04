@@ -36,6 +36,20 @@ def allowed_match(request, match_id):
         ),
         pk=match_id,
     )
+    if (
+        Match.objects.filter(pk=match.pk)
+        .filter(
+            Q(photo__rectification_upload__isnull=False)
+            | Q(candidate__rectification_upload__isnull=False)
+        )
+        .exists()
+    ):
+        return None
+    if (
+        match.photo.revision.status == "rights-stage"
+        or match.candidate.revision.status == "rights-stage"
+    ):
+        return None
     if any(
         conflict_of_interest(request.user, photo.revision.listing.person)
         for photo in [match.photo, match.candidate]
@@ -48,11 +62,18 @@ def allowed_match(request, match_id):
 def queue(request):
     if not reviewer_allowed(request):
         return HttpResponse("Forbidden", status=403)
-    matches = Match.objects.filter(
-        Q(resolved_at__isnull=True) | Q(decision="conflict"),
-        photo__removed_at__isnull=True,
-        candidate__removed_at__isnull=True,
-    ).order_by("created_at")[:100]
+    matches = (
+        Match.objects.filter(
+            Q(resolved_at__isnull=True) | Q(decision="conflict"),
+            photo__removed_at__isnull=True,
+            candidate__removed_at__isnull=True,
+        )
+        .exclude(photo__revision__status="rights-stage")
+        .exclude(candidate__revision__status="rights-stage")
+        .exclude(photo__rectification_upload__isnull=False)
+        .exclude(candidate__rectification_upload__isnull=False)
+        .order_by("created_at")[:100]
+    )
     return render(request, "listings/match_queue.html", {"matches": matches})
 
 

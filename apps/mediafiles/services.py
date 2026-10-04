@@ -11,6 +11,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.db import transaction
 from django.utils import timezone
+from django.views.decorators.debug import sensitive_variables
 from PIL import Image, ImageOps, UnidentifiedImageError
 
 from apps.core.verification import locked_manager_person
@@ -23,6 +24,7 @@ MAX_BYTES = 10 * 1024 * 1024
 MAX_PIXELS = 40_000_000
 
 
+@sensitive_variables()
 def decode_image(raw):
     with warnings.catch_warnings():
         warnings.simplefilter("error", Image.DecompressionBombWarning)
@@ -37,7 +39,8 @@ def decode_image(raw):
         return ImageOps.exif_transpose(image).convert("RGB")
 
 
-def ingest(user, revision_id, upload):
+@sensitive_variables()
+def read_upload(upload):
     if upload.size > MAX_BYTES:
         raise ValidationError("Image exceeds ten MiB")
     raw = upload.read(MAX_BYTES + 1)
@@ -53,13 +56,22 @@ def ingest(user, revision_id, upload):
     ) as error:
         raise ValidationError("Invalid or unsafe image") from error
     sha = hashlib.sha256(raw).hexdigest()
+    return raw, image, sha
+
+
+def ingest(user, revision_id, upload):
+    raw, image, sha = read_upload(upload)
     written = None
     try:
         with transaction.atomic():
             initial = Revision.objects.get(pk=revision_id)
             person = locked_manager_person(user, initial.listing.person_id)
             revision = Revision.objects.select_for_update().get(pk=revision_id)
-            if revision.status != "draft" or revision.manager_version != person.manager_version:
+            if (
+                revision.status != "draft"
+                or revision.manager_version != person.manager_version
+                or revision.photos.filter(rectification_upload__isnull=False).exists()
+            ):
                 raise ValidationError("Revision is no longer editable")
             existing = revision.photos.filter(blob__sha256=sha, removed_at__isnull=True).first()
             if existing:
@@ -82,8 +94,11 @@ def ingest(user, revision_id, upload):
                 position=revision.photos.filter(removed_at__isnull=True).count(),
             )
             # Exact candidates are global, never limited to contact or agency.
-            for candidate in Photo.objects.filter(blob=blob, removed_at__isnull=True).exclude(
-                revision__listing__person_id=person.pk
+            for candidate in (
+                Photo.objects.filter(blob=blob, removed_at__isnull=True)
+                .exclude(revision__status="rights-stage")
+                .exclude(rectification_upload__isnull=False)
+                .exclude(revision__listing__person_id=person.pk)
             ):
                 Match.objects.get_or_create(
                     photo=photo, candidate=candidate, defaults={"method": "sha256"}
@@ -173,6 +188,10 @@ def record_match(photo, candidate, defaults):
             .filter(pk__in=[photo.blob_id, candidate.blob_id])
             .order_by("pk")
         )
+        if Photo.objects.filter(pk=candidate.pk, rectification_upload__isnull=False).exists():
+            return
+        if Photo.objects.filter(pk=candidate.pk, revision__status="rights-stage").exists():
+            return
         if any(blob.status in {"erasing", "erased"} for blob in blobs):
             return
         if Photo.objects.filter(pk__in=[photo.pk, candidate.pk], removed_at__isnull=False).exists():

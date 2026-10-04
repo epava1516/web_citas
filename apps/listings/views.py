@@ -58,6 +58,11 @@ def revision_status(request, revision_id):
         listing__person__in=person_queryset(request.user),
         manager_version=F("listing__person__manager_version"),
     )
+    if (
+        revision.status == "rights-stage"
+        or revision.photos.filter(rectification_upload__isnull=False).exists()
+    ):
+        return HttpResponse("Not found", status=404)
     return render(request, "listings/submission.html", {"revision": revision})
 
 
@@ -98,6 +103,8 @@ def edit(request, revision_id, step):
     )
     if step not in [1, 2, 3, 4]:
         return HttpResponse("Unknown step", status=404)
+    if revision.photos.filter(rectification_upload__isnull=False).exists():
+        return HttpResponse("Not found", status=404)
     if (
         revision.status != "draft"
         or revision.manager_version != revision.listing.person.manager_version

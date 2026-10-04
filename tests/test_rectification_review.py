@@ -35,6 +35,7 @@ def independent_case(
     clear_details=False,
     correct_photos=False,
     clear_photos=False,
+    replacement_photo=False,
 ):
     case, original, staff, client, receipt, person = ready(
         request, settings, monkeypatch, "rectify", subject_username=subject_username
@@ -182,6 +183,34 @@ def independent_case(
     preview(
         original, case.pk, case.version, "Inspect scoped current fields for correction proposal"
     )
+    if replacement_photo:
+        source = person.listing.approved_revision
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from test_photos import raw_image
+
+        from apps.safety.rectification_uploads import upload
+
+        item = upload(
+            original,
+            case.pk,
+            uuid.uuid4(),
+            case.version,
+            SimpleUploadedFile(
+                "synthetic-replacement.jpg", raw_image(947), content_type="image/jpeg"
+            ),
+            REASON,
+        )
+        if not clear_photos:
+            changes["photos"] = [
+                str(item.photo_id),
+                str(source.photos.filter(removed_at__isnull=True).first().pk),
+            ]
+        preview(
+            original,
+            case.pk,
+            case.version,
+            "Inspect source and processed replacement before proposed correction",
+        )
     proposal = propose(
         original,
         case.pk,
@@ -267,6 +296,7 @@ def test_mobile_independent_source_and_proposal_review(
 
     labels = {
         "Your account": "Tu cuenta",
+        "Independent correction review": "Revisión independiente de rectificación",
         "Record correction action": "Registrar acción de rectificación",
         "Review correction proposal": "Revisar propuesta de rectificación",
         "Record review action": "Registrar acción de revisión",
@@ -302,6 +332,7 @@ def test_mobile_independent_source_and_proposal_review(
         correct_contacts=True,
         correct_details=True,
         correct_photos=True,
+        replacement_photo=True,
     )
     path = path.replace("/en/", f"/{language}/")
     reviewer.user_permissions.add(
@@ -356,6 +387,10 @@ def test_mobile_independent_source_and_proposal_review(
             )
             page.get_by_role("button", name=label("Record correction action"), exact=True).click()
             page.get_by_role("link", name=label("Review correction proposal"), exact=True).click()
+            expect(page).to_have_url(live_server.url + path)
+            expect(
+                page.get_by_role("heading", name=label("Independent correction review"), exact=True)
+            ).to_be_visible()
             page.locator("[name=purpose]").fill(
                 "Read proposed changes before independent correction decision"
             )
@@ -379,10 +414,10 @@ def test_mobile_independent_source_and_proposal_review(
                 "Fotografía propuesta 1" if language == "es" else "Proposed photo 1"
             )
             expect(page.get_by_alt_text(proposed_photo_label, exact=True)).to_be_visible()
-            page.wait_for_function(
-                "document.querySelectorAll('figure img').length === 2 && Array.from(document.querySelectorAll('figure img')).every(image => image.naturalWidth > 0)"
+            expect(page.locator("figure img")).to_have_count(2)
+            assert page.locator("figure img").evaluate_all(
+                "images => Promise.all(images.map(image => image.decode().then(() => image.naturalWidth > 0))).then(results => results.every(Boolean))"
             )
-
             assert "'spoken_languages':" not in page.locator("main").inner_text()
             assert "'municipality':" not in page.locator("main").inner_text()
             page.locator("[name=operation]").select_option("review")
@@ -681,6 +716,7 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         correct_contacts=True,
         correct_details=True,
         correct_photos=True,
+        replacement_photo=True,
         changes={
             "alias": "Synthetic reviewed correction",
             "title": "Corrected synthetic title",
@@ -795,12 +831,14 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     from apps.safety.rectification_photos import source as photo_source
 
     old_photo_ids = photo_source(old_revision)
-    old_photo_rows = {
-        str(photo.pk): photo for photo in old_revision.photos.filter(removed_at__isnull=True)
-    }
     selected_photo_ids = unseal(proposal.encrypted_changes)["photos"]
+    from apps.mediafiles.models import Photo
+
+    selected_rows = {
+        str(photo.pk): photo for photo in Photo.objects.filter(pk__in=selected_photo_ids)
+    }
     expected_photos = [
-        (old_photo_rows[identifier].blob_id, index)
+        (selected_rows[identifier].blob_id, index)
         for index, identifier in enumerate(selected_photo_ids)
     ]
     old_relations = {

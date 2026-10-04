@@ -26,6 +26,7 @@ from apps.safety import (
     rectification_notices,
     rectification_recipients,
     rectification_review,
+    rectification_uploads,
     rights,
     rights_exports,
     rights_rectification,
@@ -83,6 +84,11 @@ urlpatterns = [
         "moderation/rights/<uuid:case_id>/rectification/photos/<uuid:photo_id>/",
         rights_rectification.source_photo,
         name="rights_rectification_photo",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/rectification/uploads/",
+        rectification_uploads.prepare,
+        name="rectification_uploads",
     ),
     path(
         "moderation/rights/<uuid:case_id>/erasure-execute/<uuid:plan_id>/",

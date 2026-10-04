@@ -87,8 +87,8 @@ def current(user, case_id, proposal_id, version):
         raise ValidationError(
             "Review current source with fresh scoped proof / Revisa la fuente vigente con nueva comprobación de ámbito"
         )
-    changes = validated_changes(unseal(proposal.encrypted_changes), person)
-    validate_copy(changes, revision, person)
+    changes = validated_changes(unseal(proposal.encrypted_changes), person, case)
+    validate_copy(changes, revision, person, case)
     return case, proposal, proof, changes
 
 

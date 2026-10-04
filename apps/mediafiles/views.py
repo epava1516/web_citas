@@ -48,7 +48,10 @@ def private_photo(request, photo_id):
         removed_at__isnull=True,
         revision__listing__person__in=person_queryset(request.user),
         revision__manager_version=F("revision__listing__person__manager_version"),
+        rectification_upload__isnull=True,
     )
+    if photo.revision.status == "rights-stage":
+        return HttpResponse("Not found", status=404)
     if photo.blob.status != "ready" or not photo.blob.derivative:
         return HttpResponse("Photo processing", status=409)
     response = FileResponse(photo.blob.derivative.open("rb"), content_type="image/webp")
@@ -61,7 +64,10 @@ def private_photo(request, photo_id):
 @require_POST
 def remove(request, photo_id):
     initial = get_object_or_404(
-        Photo, pk=photo_id, revision__listing__person__in=person_queryset(request.user)
+        Photo,
+        pk=photo_id,
+        rectification_upload__isnull=True,
+        revision__listing__person__in=person_queryset(request.user),
     )
     with transaction.atomic():
         person = locked_manager_person(request.user, initial.revision.listing.person_id)
@@ -84,6 +90,7 @@ def reorder(request, photo_id):
         pk=photo_id,
         removed_at__isnull=True,
         revision__listing__person__in=person_queryset(request.user),
+        rectification_upload__isnull=True,
     )
     with transaction.atomic():
         person = locked_manager_person(request.user, initial.revision.listing.person_id)

@@ -38,3 +38,8 @@ Copia de favoritos propios: regresión terminal test_rights_copy_scope5 passed35
 ### Referencias históricas después de rectificar fotografías
 
 La selección de fotografías se puede corregir en una revisión pendiente, con fuente histórica preservada. Esto no equivale a supresión ni determina por sí solo qué actores deben poder consultar referencias históricas. Verificar la ruta genérica `private_photo` del gestor, previsualizaciones de moderación y cada derivado/copia/exportación que conserve una referencia anterior. Establecer disposición motivada por ámbito y finalidad, sin afectar otro perfil que comparta bytes. Incluir futuras cargas de los mismos bytes y conciliación/restauración. El caso permanece abierto mientras estas disposiciones y comunicaciones no estén resueltas.
+
+
+### Sustitución de fotografías: evidencia parcial
+
+Cargas privadas y descarte lógico implementados con safety0054. Baterías finales separadas: 33 y 8 pruebas pasan con PostgreSQL/Chromium, con solapamiento; no son 41 pruebas de regresión común. Docker y hashes verificados. Registro de dependencias adicional: RightsRectificationPhotoUpload, RightsAction, RightsProof, revisión rights-stage, Photo, Blob, derivados y coincidencias. Caducidad/descarte no borran archivos ni cierran el derecho. Retención física, referencias históricas, reintroducción, comunicaciones y respuesta final pendientes. Claude 3/3; sin delegaciones nuevas. Evidencia: docs/evidencias/rectificacion-cargas-sustitucion.json.

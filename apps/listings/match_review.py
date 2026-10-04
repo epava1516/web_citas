@@ -16,6 +16,24 @@ def locked_pair(match_id):
     initial = Match.objects.select_related(
         "photo__revision__listing", "candidate__revision__listing"
     ).get(pk=match_id)
+    if (
+        Match.objects.filter(pk=initial.pk)
+        .filter(
+            Q(photo__rectification_upload__isnull=False)
+            | Q(candidate__rectification_upload__isnull=False)
+        )
+        .exists()
+    ):
+        raise ValidationError(
+            "Prepared rights images require scoped review / Las imágenes preparadas de derechos requieren revisión de ámbito"
+        )
+    if (
+        initial.photo.revision.status == "rights-stage"
+        or initial.candidate.revision.status == "rights-stage"
+    ):
+        raise ValidationError(
+            "Prepared rights images require scoped review / Las imágenes preparadas de derechos requieren revisión de ámbito"
+        )
     person_ids = {
         initial.photo.revision.listing.person_id,
         initial.candidate.revision.listing.person_id,

@@ -611,3 +611,8 @@ Añadido bloque photos (lista ordenada0–8 de fotos actuales) y formset con ord
 Primera batería20 fallidas/3 correctas150.47s por conversor int de expediente UUID; ruta corregida. Segunda33 correctas/1 fallida294.54s: test esperaba403 ante MFA caducada, pero la redirección vigente302 a MFA bloquea los bytes; corregida expectativa. Final afectada9 correctas111.95s sin fallos/errores/skips: seis pruebas de fotos y tres móviles, miniaturas realmente decodificadas en propuesta EN/revisión ESEN. No sumar33+9 ni declarar suite común aprobada. Evidencia en docs/evidencias/rectificacion-seleccion-fotografias.json.
 
 Ruff/check/format/makemigrations/diff limpios; sin migración nueva. Docker app/worker/Beat reconstruidos/recreados, hashes coinciden, UID10001/health200. CI anteriora5c9d7b terminal498 passed1444.36s, evidencia separada; no incluye esta entrega. Faltan sustituciones, acceso/conservación de referencias históricas/reintroducción de bytes, comunicaciones/respuesta final y demás derechos de CR09, además de CR10/GS01/BF/BB/C. Claude3/3, sin nuevas llamadas.
+
+
+### Sustitución de fotografías: evidencia parcial
+
+Cargas privadas y descarte lógico implementados con safety0054. Baterías finales separadas: 33 y 8 pruebas pasan con PostgreSQL/Chromium, con solapamiento; no son 41 pruebas de regresión común. Docker y hashes verificados. Registro de dependencias adicional: RightsRectificationPhotoUpload, RightsAction, RightsProof, revisión rights-stage, Photo, Blob, derivados y coincidencias. Caducidad/descarte no borran archivos ni cierran el derecho. Retención física, referencias históricas, reintroducción, comunicaciones y respuesta final pendientes. Claude 3/3; sin delegaciones nuevas. Evidencia: docs/evidencias/rectificacion-cargas-sustitucion.json.

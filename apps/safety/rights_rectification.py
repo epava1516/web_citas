@@ -29,6 +29,7 @@ from . import (
 from .crypto import seal
 from .models import (
     RightsAction,
+    RightsRectificationPhotoUpload,
     RightsRectificationProposal,
     RightsRectificationSourceRead,
     RightsRequest,
@@ -49,7 +50,7 @@ FIELDS = {
 
 
 @sensitive_variables()
-def validated_changes(value, person=None):
+def validated_changes(value, person=None, case=None):
     if (
         not isinstance(value, dict)
         or not value
@@ -61,7 +62,7 @@ def validated_changes(value, person=None):
     for field in sorted(value):
         text = value[field]
         if field == "photos":
-            value[field] = rectification_photos.validate(text, person)
+            value[field] = rectification_photos.validate(text, person, case)
             continue
         if field == "details":
             value[field] = rectification_details.validate(text)
@@ -91,12 +92,12 @@ def validated_changes(value, person=None):
 
 
 @sensitive_variables()
-def validate_copy(changes, revision, person):
+def validate_copy(changes, revision, person, case):
     if set(changes) - {"alias"}:
         if not revision or revision.manager_version != person.manager_version:
             raise ValidationError("Current revision required / Revisión vigente obligatoria")
         rectification_photos.validate(
-            changes.get("photos", rectification_photos.source(revision)), person
+            changes.get("photos", rectification_photos.source(revision)), person, case
         )
 
 
@@ -112,7 +113,7 @@ def propose(user, case_id, key, version, changes, reason):
     case, person, listing = locked_case(case_id, lock_listing=True)
     if not permitted(user, case):
         raise PermissionDenied
-    changes = validated_changes(changes, person)
+    changes = validated_changes(changes, person, case)
     signature = fingerprint(
         json.dumps({"version": version, "changes": changes, "reason": reason}, sort_keys=True)
     )
@@ -140,7 +141,7 @@ def propose(user, case_id, key, version, changes, reason):
         )
     proof = authorized_proof(case, person, "rectify")
     revision, source = source_snapshot(case, person, listing)
-    validate_copy(changes, revision, person)
+    validate_copy(changes, revision, person, case)
     source_digest = fingerprint(json.dumps(source, sort_keys=True))
     if not RightsRectificationSourceRead.objects.filter(
         request=case,
@@ -180,10 +181,28 @@ def propose(user, case_id, key, version, changes, reason):
 
 
 @sensitive_variables()
-def source_snapshot(case, person, listing):
+def source_snapshot(case, person, listing, include_uploads=True, additional_blob_ids=()):
     revision = None
     if listing and listing.approved_revision_id:
         revision = Revision.objects.select_for_update().get(pk=listing.approved_revision_id)
+    from django.utils import timezone
+
+    uploads = list(
+        RightsRectificationPhotoUpload.objects.select_for_update(of=("self",))
+        .filter(
+            action__request=case,
+            proof__person=person,
+            person_rights_version=person.rights_version,
+            photo__revision__manager_version=person.manager_version,
+            expires_at__gt=timezone.now(),
+            discarded_at__isnull=True,
+        )
+        .order_by("pk")
+        .values()
+    )
+    upload_ids = [row["photo_id"] for row in uploads]
+    staged_photos = list(Photo.objects.filter(pk__in=upload_ids).order_by("pk").values())
+    staged_blob_ids = [row["blob_id"] for row in staged_photos]
     copied_source = None
     if revision:
         # Bind every copied value and relation, not only corrected text fields.
@@ -192,7 +211,7 @@ def source_snapshot(case, person, listing):
         blob_ids = list(revision.photos.order_by("blob_id").values_list("blob_id", flat=True))
         blobs = list(
             Blob.objects.select_for_update()
-            .filter(pk__in=blob_ids)
+            .filter(pk__in=blob_ids + staged_blob_ids + list(additional_blob_ids))
             .order_by("pk")
             .values(
                 "id",
@@ -220,7 +239,7 @@ def source_snapshot(case, person, listing):
             },
             "rates": list(revision.rates.select_for_update().order_by("pk").values()),
             "photos": list(revision.photos.select_for_update().order_by("pk").values()),
-            "blobs": blobs,
+            "blobs": [row for row in blobs if row["id"] in set(blob_ids)],
         }
         copied_source = json.loads(json.dumps(copied_source, sort_keys=True, default=str))
     source = {
@@ -251,6 +270,38 @@ def source_snapshot(case, person, listing):
         source["fields"]["contacts"] = rectification_contacts.source(revision)
         source["fields"]["details"] = rectification_details.source(revision)
         source["fields"]["photos"] = rectification_photos.source(revision)
+    if include_uploads:
+        base_digest = fingerprint(json.dumps(source, sort_keys=True))
+        from .rectification_uploads import eligible
+
+        choices = list(
+            eligible(case, person, base_digest).order_by("pk").values_list("photo_id", flat=True)
+        )
+        source["uploads"] = json.loads(json.dumps(uploads, sort_keys=True, default=str))
+        source["staged_photos"] = json.loads(
+            json.dumps(
+                list(
+                    Photo.objects.select_for_update()
+                    .filter(pk__in=upload_ids)
+                    .order_by("pk")
+                    .values()
+                ),
+                sort_keys=True,
+                default=str,
+            )
+        )
+        source["staged_blobs"] = (
+            json.loads(
+                json.dumps(
+                    [row for row in blobs if row["id"] in set(staged_blob_ids)],
+                    sort_keys=True,
+                    default=str,
+                )
+            )
+            if revision
+            else []
+        )
+        source["upload_choices"] = [str(identifier) for identifier in choices]
     return revision, source
 
 
@@ -288,7 +339,11 @@ def preview(user, case_id, version, purpose):
         source_digest=fingerprint(json.dumps(source, sort_keys=True)),
         purpose=purpose,
     )
-    return {"alias": source["alias"], **source["fields"]}
+    return {
+        "alias": source["alias"],
+        **source["fields"],
+        "upload_choices": source.get("upload_choices", []),
+    }
 
 
 class ProposalForm(rectification_details.Editor):
@@ -486,7 +541,9 @@ def prepare(request, case_id):
                 initial=source_fields.get("rates", []), prefix="rates"
             )
             photo_editor = rectification_photos.Editor(
-                initial=rectification_photos.initial(source_fields.get("photos", [])),
+                initial=rectification_photos.initial(
+                    source_fields.get("photos", []), source_fields.get("upload_choices", [])
+                ),
                 prefix="photos",
             )
             form = ProposalForm(
@@ -498,7 +555,15 @@ def prepare(request, case_id):
                         field: value
                         for field, value in source_fields.items()
                         if field
-                        not in {"location", "catalog", "rates", "contacts", "details", "photos"}
+                        not in {
+                            "location",
+                            "catalog",
+                            "rates",
+                            "contacts",
+                            "details",
+                            "photos",
+                            "upload_choices",
+                        }
                     },
                     **source_fields.get("location", {}),
                     **source_fields.get("catalog", {}),
@@ -561,14 +626,9 @@ def source_photo(request, case_id, photo_id):
         ).exists():
             raise ValidationError("Audited source required")
         photo = (
-            Photo.objects.select_related("blob")
-            .filter(
-                pk=photo_id,
-                revision=revision,
-                revision__manager_version=person.manager_version,
-                removed_at__isnull=True,
-                blob__status="ready",
-            )
+            rectification_photos.available(person, case)
+            .select_related("blob")
+            .filter(pk=photo_id)
             .first()
         )
         if not photo or not photo.blob.derivative:

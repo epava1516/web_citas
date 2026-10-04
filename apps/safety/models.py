@@ -610,6 +610,19 @@ class RightsRectificationProposal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+class RightsRectificationPhotoUpload(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    photo = models.OneToOneField(
+        "mediafiles.Photo", on_delete=models.PROTECT, related_name="rectification_upload"
+    )
+    source_digest = models.CharField(max_length=64)
+    person_rights_version = models.PositiveIntegerField()
+    expires_at = models.DateTimeField()
+    discarded_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class RightsRectificationSourceRead(models.Model):
     request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
