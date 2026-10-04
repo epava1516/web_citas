@@ -383,3 +383,8 @@ Consulta de derechos añade response_before cursor bigint positivo; respuesta PO
 ## Medida de privacidad sobre publicación
 
 REQ-CR09-PRIVACY-PUBLICATION-01. GET/POST /moderation/rights/{caseUUID}/publication-hold/, permiso de revisión y ejecución, MFA, independencia/asignación/lectura integral versionada y proof actual del tipo restriction/object/rectify. Campos key/version/ground/reason. Activa una medida persistente por Person, quita publicación y disponibilidad e invalida acciones antiguas; no cierra solicitud ni suprime datos. No permite reabrir mediante renovación, aprobación o traslado. Contrato, fundamentos y otros tratamientos aún pendientes en [docs/25](../25-medidas-privacidad-publicacion.md). No es ejecución integral del artículo18 ni comprobación real de identidad.
+
+
+## Inventario privado previo a supresión
+
+REQ-CR09-ERASURE-INVENTORY-01. GET/POST /moderation/rights/{caseUUID}/erasure-inventory/: GET formulario sin manifest; POST key/version/purpose20–200 exige review+execute/MFA/COI/asignación/lectura integral/proof erase actual, devuelve200 con inventario cifrado auditado,400 formulario409 conflicto403 permiso404 desconocido. Replay exacto muestra snapshot original tras revalidar ámbito. No borra ni cambia estado/fechas/proof de solicitud. Contrato de recursos, compartidos, digests y ejecución aún pendiente en [docs/26](../26-inventario-supresion-retencion.md). Preparación no demuestra cumplimiento del derecho ni habilita ejecución automática.

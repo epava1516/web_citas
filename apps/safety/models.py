@@ -428,6 +428,16 @@ class PrivacyPublicationHold(models.Model):
         indexes = [models.Index(fields=["person", "active"])]
 
 
+class ErasureInventory(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    person = models.ForeignKey("core.Person", on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    encrypted_manifest = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class RightsExportPreview(models.Model):
     request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
