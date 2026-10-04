@@ -47,6 +47,7 @@ def requires_mfa(user):
         or user.has_perm("safety.manage_notice_delivery")
         or user.has_perm("safety.review_report")
         or user.has_perm("safety.review_complaint")
+        or user.has_perm("safety.respond_rights_request")
         or user.has_perm("safety.review_rights_request")
         or user.has_perm("safety.verify_rights_scope")
         or user.has_perm("safety.execute_rights_request")

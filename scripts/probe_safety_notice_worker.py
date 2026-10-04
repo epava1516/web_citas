@@ -61,8 +61,10 @@ def main():
         from apps.safety.models import (
             ComplaintNotice,
             ReportNotice,
+            RightsNotice,
             SimulatedComplaintNoticeDelivery,
             SimulatedNoticeDelivery,
+            SimulatedRightsNoticeDelivery,
         )
 
         jobs = [app.AsyncResult(key) for key in options.task_id]
@@ -70,9 +72,11 @@ def main():
             json.dumps(
                 {
                     "simulated": SimulatedComplaintNoticeDelivery.objects.count()
-                    + SimulatedNoticeDelivery.objects.count(),
+                    + SimulatedNoticeDelivery.objects.count()
+                    + SimulatedRightsNoticeDelivery.objects.count(),
                     "attempts": list(ComplaintNotice.objects.values_list("attempts", flat=True))
-                    + list(ReportNotice.objects.values_list("attempts", flat=True)),
+                    + list(ReportNotice.objects.values_list("attempts", flat=True))
+                    + list(RightsNotice.objects.values_list("attempts", flat=True)),
                     "tasks": [
                         {
                             "id": job.id,
@@ -102,6 +106,9 @@ def fixture():
         ComplaintResolution,
         Report,
         ReportNotice,
+        RightsNotice,
+        RightsRequest,
+        RightsResponse,
     )
 
     with transaction.atomic():
@@ -152,7 +159,31 @@ def fixture():
         ReportNotice.objects.create(
             event_key="probe:" + marker, report=report, kind="ack", encrypted_payload=payload
         )
-    print(json.dumps({"synthetic_notices_created": 2, "identity_verified": False}), flush=True)
+        now = timezone.now()
+        rights = RightsRequest.objects.create(
+            submission_key=uuid.uuid4(),
+            receipt_digest="0" * 64,
+            payload_digest="0" * 64,
+            encrypted_payload=seal({"synthetic_only": True}),
+            kind="access",
+            response_version=1,
+            received_at=now,
+            initial_due_at=now + timedelta(days=1),
+            receipt_expires_at=now + timedelta(days=1),
+        )
+        response = RightsResponse.objects.create(
+            key=uuid.uuid4(),
+            request=rights,
+            actor=actor,
+            case_version=1,
+            response_version=1,
+            kind="progress",
+            payload_digest="0" * 64,
+            encrypted_reason=seal({"reason": "Synthetic task fixture only"}),
+            encrypted_response=seal({"text": "Synthetic task fixture only", "simulation": True}),
+        )
+        RightsNotice.objects.create(response=response, encrypted_payload=payload)
+    print(json.dumps({"synthetic_notices_created": 3, "identity_verified": False}), flush=True)
 
 
 def launch(settings):
@@ -207,10 +238,10 @@ def launch(settings):
         command(prefix + ["fixture"])
         job = json.loads(command(prefix + ["dispatch", "--queue", database]))["task_id"]
         started = time.monotonic()
-        state = wait(prefix, simulated=2, task_id=job)
-        assert state["tasks"][0]["result"]["simulated"] == 2
+        state = wait(prefix, simulated=3, task_id=job)
+        assert state["tasks"][0]["result"]["simulated"] == 3
         repeat = json.loads(command(prefix + ["dispatch", "--queue", database]))["task_id"]
-        state = wait(prefix, simulated=2, task_id=repeat)
+        state = wait(prefix, simulated=3, task_id=repeat)
         assert state["tasks"][0]["result"]["processed"] == 0
         print(
             json.dumps(
@@ -243,8 +274,8 @@ def launch(settings):
             ]
         )
         started = time.monotonic()
-        state = wait(prefix, simulated=4, timeout=85)
-        assert state["attempts"] == [1, 1, 1, 1]
+        state = wait(prefix, simulated=6, timeout=85)
+        assert state["attempts"] == [1, 1, 1, 1, 1, 1]
         beat_output = subprocess.run(
             ["docker", "logs", beat], capture_output=True, text=True, check=True
         )
@@ -260,7 +291,7 @@ def launch(settings):
                 {
                     "beat_passed": True,
                     "manual_dispatch_for_beat": False,
-                    "simulated_records": 4,
+                    "simulated_records": 6,
                     "elapsed_seconds": round(time.monotonic() - started, 3),
                     "real_channel_used": False,
                     "isolated_database": database,

@@ -10,7 +10,13 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_variables
 
 from .crypto import unseal
-from .models import ComplaintNotice, ReportNotice, SimulatedComplaintNoticeDelivery
+from .models import (
+    ComplaintNotice,
+    ReportNotice,
+    RightsNotice,
+    SimulatedComplaintNoticeDelivery,
+    SimulatedRightsNoticeDelivery,
+)
 from .notices import simulate_delivery
 
 
@@ -24,7 +30,12 @@ def simulated_adapter(notice):
         if not simulate_delivery(notice.pk):
             raise ValueError("Simulator unavailable")
     else:
-        SimulatedComplaintNoticeDelivery.objects.create(notice=notice)
+        delivery_model = (
+            SimulatedRightsNoticeDelivery
+            if isinstance(notice, RightsNotice)
+            else SimulatedComplaintNoticeDelivery
+        )
+        delivery_model.objects.create(notice=notice)
         notice.status = "simulated"
         notice.simulated_at = timezone.now()
         notice.save(update_fields=["status", "simulated_at"])
@@ -39,7 +50,7 @@ def process_outbox(limit=100):
     # Interleave both kinds, avoiding starvation by an always-busy report queue.
     while result["processed"] < limit:
         found = False
-        for model in [ReportNotice, ComplaintNotice]:
+        for model in [ReportNotice, ComplaintNotice, RightsNotice]:
             if result["processed"] >= limit:
                 break
             with transaction.atomic():

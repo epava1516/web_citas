@@ -182,6 +182,7 @@ class ReportNotice(models.Model):
 class NoticeRecovery(models.Model):
     key = models.UUIDField(unique=True)
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    rights_notice = models.ForeignKey("RightsNotice", null=True, on_delete=models.PROTECT)
     report_notice = models.ForeignKey(ReportNotice, null=True, on_delete=models.PROTECT)
     complaint_notice = models.ForeignKey(ComplaintNotice, null=True, on_delete=models.PROTECT)
     expected_version = models.PositiveIntegerField()
@@ -195,8 +196,21 @@ class NoticeRecovery(models.Model):
         constraints = [
             models.CheckConstraint(
                 condition=(
-                    models.Q(report_notice__isnull=False, complaint_notice__isnull=True)
-                    | models.Q(report_notice__isnull=True, complaint_notice__isnull=False)
+                    models.Q(
+                        report_notice__isnull=False,
+                        complaint_notice__isnull=True,
+                        rights_notice__isnull=True,
+                    )
+                    | models.Q(
+                        report_notice__isnull=True,
+                        complaint_notice__isnull=False,
+                        rights_notice__isnull=True,
+                    )
+                    | models.Q(
+                        report_notice__isnull=True,
+                        complaint_notice__isnull=True,
+                        rights_notice__isnull=False,
+                    )
                 ),
                 name="notice_recovery_exactly_one_source",
             )
@@ -210,6 +224,7 @@ class SimulatedNoticeDelivery(models.Model):
 
 
 class RightsRequest(models.Model):
+    response_version = models.PositiveIntegerField(default=0)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     submission_key = models.UUIDField(unique=True)
     receipt_digest = models.CharField(max_length=64)
@@ -280,7 +295,49 @@ class RightsRequest(models.Model):
         ordering = ["priority", "initial_due_at", "created_at", "pk"]
 
 
+class RightsResponse(models.Model):
+    key = models.UUIDField(unique=True)
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT, related_name="responses")
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    case_version = models.PositiveIntegerField()
+    response_version = models.PositiveIntegerField()
+    kind = models.CharField(max_length=24)
+    payload_digest = models.CharField(max_length=64)
+    encrypted_reason = models.TextField()
+    encrypted_response = models.TextField()
+    withdrawal = models.OneToOneField("RightsWithdrawal", null=True, on_delete=models.PROTECT)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [("respond_rights_request", "Issue private motivated rights responses")]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["request", "response_version"], name="rights_response_sequence_once"
+            )
+        ]
+
+
+class RightsNotice(models.Model):
+    response = models.OneToOneField(RightsResponse, on_delete=models.PROTECT)
+    encrypted_payload = models.TextField()
+    status = models.CharField(max_length=16, default="queued")
+    recovery_version = models.PositiveIntegerField(default=0)
+    attempts = models.PositiveSmallIntegerField(default=0)
+    next_attempt_at = models.DateTimeField(null=True)
+    error_code = models.CharField(max_length=32, blank=True)
+    simulated_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class SimulatedRightsNoticeDelivery(models.Model):
+    notice = models.OneToOneField(RightsNotice, on_delete=models.PROTECT)
+    procedure = models.CharField(max_length=32, default="simulator-v1")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class RightsAccess(models.Model):
+    response_version = models.PositiveIntegerField(null=True)
+    response_before = models.PositiveBigIntegerField(null=True)
     request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT, related_name="accesses")
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
     purpose = models.CharField(max_length=200)

@@ -75,6 +75,9 @@ class RequestForm(forms.Form):
 
 
 class RightsAccessForm(forms.Form):
+    response_before = forms.IntegerField(
+        required=False, min_value=1, max_value=9223372036854775807, widget=forms.HiddenInput
+    )
     message_before = forms.IntegerField(
         required=False, min_value=1, max_value=9223372036854775807, widget=forms.HiddenInput
     )
@@ -148,6 +151,15 @@ def receipt(request, case_id, secret):
         or not constant_time_compare(case.receipt_digest, fingerprint(secret))
     ):
         raise Http404
+    from .rights_responses import response_page
+
+    try:
+        before = forms.IntegerField(
+            required=False, min_value=1, max_value=9223372036854775807
+        ).clean(request.GET.get("response_before"))
+    except ValidationError:
+        return private(HttpResponse("Invalid response cursor", status=400))
+    responses, response_cursor = response_page(case, before)
     form = MessageForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
     status = 400 if request.method == "POST" else 200
     if request.method == "POST":
@@ -209,6 +221,8 @@ def receipt(request, case_id, secret):
             "safety/rights_receipt.html",
             {
                 "case": case,
+                "responses": responses,
+                "response_cursor": response_cursor,
                 "form": form,
                 "message_count": case.messages.count(),
                 "exports": case_export_forms(case),
@@ -273,6 +287,8 @@ def inspect(request, case_id):
     payload = None
     messages = []
     next_message_cursor = None
+    outgoing_responses = []
+    outgoing_cursor = None
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             try:
@@ -288,6 +304,13 @@ def inspect(request, case_id):
                 purpose=form.cleaned_data["purpose"],
                 case_version=case.version,
                 message_before=form.cleaned_data["message_before"],
+                response_version=case.response_version,
+                response_before=form.cleaned_data["response_before"],
+            )
+            from .rights_responses import response_page
+
+            outgoing_responses, outgoing_cursor = response_page(
+                case, form.cleaned_data["response_before"]
             )
             records = case.messages.order_by("-pk")
             if form.cleaned_data["message_before"]:
@@ -312,6 +335,8 @@ def inspect(request, case_id):
                 "payload": payload,
                 "messages": messages,
                 "next_message_cursor": next_message_cursor,
+                "outgoing_responses": outgoing_responses,
+                "outgoing_cursor": outgoing_cursor,
             },
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )

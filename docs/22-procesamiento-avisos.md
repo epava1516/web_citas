@@ -4,7 +4,7 @@ Estado: implementación local parcial; no entrega a canales reales ni cierre de 
 
 ## Contrato de tarea
 
-`apps.safety.tasks.deliver_safety_notices` procesa como máximo100 avisos por ejecución. Beat la programa cada60 segundos. Alterna `ReportNotice` y `ComplaintNotice`; selecciona avisos queued/retry cuyo objetivo de reintento ha vencido, con menos de cinco intentos. PostgreSQL `FOR UPDATE SKIP LOCKED` permite workers concurrentes sin esperar por una fila ocupada.
+`apps.safety.tasks.deliver_safety_notices` procesa como máximo100 avisos por ejecución. Beat la programa cada60 segundos. Alterna `ReportNotice`, `ComplaintNotice` y `RightsNotice`; selecciona avisos queued/retry cuyo objetivo de reintento ha vencido, con menos de cinco intentos. PostgreSQL `FOR UPDATE SKIP LOCKED` permite workers concurrentes sin esperar por una fila ocupada.
 
 Cada aviso se procesa en una transacción independiente. Un savepoint revierte cambios parciales del adaptador si falla. El resultado contiene exclusivamente contadores processed/simulated/retry/failed y disabled. Nunca devuelve destinatario, contenido ni texto de excepción.
 
@@ -44,10 +44,12 @@ Recuperación autorizada de failed con historia, alertas operativas, política d
 
 ## Recuperación operativa — verificada localmente
 
-`/moderation/notices/` y `/moderation/notices/{report|complaint}/{id}/` requieren manage_notice_delivery, MFA actual y permiso de revisión de la clase de expediente. El conflicto de interés se evalúa con las reglas del expediente y vuelve a verificarse bajo locks canónicos al recuperar; el permiso operativo no concede acceso a destinatarios, sobres cifrados ni razones originales.
+`/moderation/notices/` y `/moderation/notices/{report|complaint|rights}/{id}/` requieren manage_notice_delivery, MFA actual y permiso de revisión de la clase de expediente. El conflicto de interés se evalúa con las reglas del expediente y vuelve a verificarse bajo locks canónicos al recuperar; el permiso operativo no concede acceso a destinatarios, sobres cifrados ni razones originales.
 
 La cola separa denuncias/reclamaciones y ofrece paginación de50 elementos, sin totales globales que revelen expedientes excluidos. Muestra estado, fecha, intentos y objetivo de reintento. El aviso failed exige motivo privado20–2000 caracteres y versión del ciclo. Una recuperación incrementa recovery_version, registra NoticeRecovery con intentos previos/motivo cifrado/actor/key única y vuelve a queued con intentos0. No modifica decisión, estado o versión del expediente ni genera un aviso nuevo.
 
 Repetición exacta no repite efectos, aunque el aviso haya avanzado de estado; clave incompatible, formulario de un ciclo anterior o estado distinto de failed produce409. Caso con acuse caducado no se recupera automáticamente: requiere procedimiento separado. PostgreSQL serializa dos recuperaciones y el worker concurrente mediante el lock de aviso. La recuperación no habilita el backend desactivado ni confirma entrega.
 
 Las rutas tienen no-store/noindex y enmascarado de logs también para errores previos a la vista. El historial visible contiene solo metadatos del ciclo; motivos cifrados permanecen en auditoría. Historial con paginación por cursor (50 por respuesta), sin corte permanente. La verificación terminal está registrada en docs/18:16 pruebas afectadas84.53s y1 adicional14.96s, ejecuciones separadas con PostgreSQL/Chromium sin skips. Docker local actualizado hasta0029; backend disabled. Alertas externas, política de caducidad definitiva y entrega real permanecen pendientes.
+
+Avisos de derechos incorporados en safety0031/0032: procesamiento/recuperación incluyen RightsNotice con review_rights_request y COI. Probe actualizado valida tres clases,6 simulaciones únicas en dos tandas y disparo de Beat real; derechos nunca se enviaron a un canal externo. Docs/24 y evidencia docs/18.

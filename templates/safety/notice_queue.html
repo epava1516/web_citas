@@ -1,7 +1,7 @@
 {% extends 'base.html' %}{% block content %}
 <h1>{% if english %}Private notice operations{% else %}Operación de avisos privados{% endif %}</h1>
 <p>{% if english %}Pending notices are not confirmed deliveries. Failed notices require review before recovery.{% else %}Los avisos pendientes no confirman entrega. Los fallidos requieren revisión antes de recuperarlos.{% endif %}</p>
-<nav><a href="?kind=report">{% if english %}Reports{% else %}Denuncias{% endif %}</a> · <a href="?kind=complaint">{% if english %}Review requests{% else %}Reclamaciones{% endif %}</a></nav>
+<nav><a href="?kind=report">{% if english %}Reports{% else %}Denuncias{% endif %}</a> · <a href="?kind=complaint">{% if english %}Review requests{% else %}Reclamaciones{% endif %}</a> · <a href="?kind=rights">{% if english %}Rights requests{% else %}Solicitudes de derechos{% endif %}</a></nav>
 {% for item in items %}<p><a href="{% url 'notice_recover' item.kind item.notice.pk %}">{% if english %}Inspect notice state{% else %}Consultar estado de aviso{% endif %}</a> · {{ item.notice.status }} · {{ item.notice.created_at }} · {% if english %}Attempts{% else %}Intentos{% endif %}: {{ item.notice.attempts }}{% if item.notice.next_attempt_at %} · {{ item.notice.next_attempt_at }}{% endif %}</p>{% empty %}<p>{% if english %}No pending notices in your scope{% else %}Sin avisos pendientes en tu ámbito{% endif %}</p>{% endfor %}
 {% if cursor %}<p><a href="?kind={{ kind }}&amp;after={{ cursor }}">{% if english %}Next page{% else %}Página siguiente{% endif %}</a></p>{% endif %}
 {% endblock %}

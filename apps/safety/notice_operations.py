@@ -19,11 +19,11 @@ from apps.listings.models import Listing
 from .complaint_scope import locked as locked_complaint
 from .complaint_scope import permitted as complaint_permitted
 from .crypto import digest, seal
-from .models import ComplaintNotice, NoticeRecovery, Report, ReportNotice
+from .models import ComplaintNotice, NoticeRecovery, Report, ReportNotice, RightsNotice
 from .views import permitted as report_permitted
 from .views import private
 
-MODELS = {"report": ReportNotice, "complaint": ComplaintNotice}
+MODELS = {"report": ReportNotice, "complaint": ComplaintNotice, "rights": RightsNotice}
 
 
 def allowed(user):
@@ -33,6 +33,12 @@ def allowed(user):
 def scoped(user, kind, notice):
     if kind == "report":
         return user.has_perm("safety.review_report") and report_permitted(user, notice.report)
+    if kind == "rights":
+        from .rights_scope import permitted as rights_permitted
+
+        return user.has_perm("safety.review_rights_request") and rights_permitted(
+            user, notice.response.request
+        )
     return user.has_perm("safety.review_complaint") and complaint_permitted(
         user, notice.resolution.complaint
     )
@@ -75,11 +81,17 @@ def requeue(user, kind, notice_id, key, version, reason):
     # Cooperates with publication/management locks; worker holds only the notice lock.
     if kind == "report":
         source = locked_report(initial.report_id)
+    elif kind == "rights":
+        from .rights_scope import locked_case
+
+        source, _, _ = locked_case(initial.response.request_id, allow_version_change=True)
     else:
         source, _ = locked_complaint(initial.resolution.complaint_id)
     notice = model.objects.select_for_update().get(pk=notice_id)
     if kind == "report":
         notice.report = source
+    elif kind == "rights":
+        notice.response.request = source
     else:
         notice.resolution.complaint = source
     if not scoped(user, kind, notice):
