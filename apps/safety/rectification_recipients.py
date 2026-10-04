@@ -198,6 +198,7 @@ def prepare_view(request, case_id, execution_id):
         request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
     )
     data = None
+    record = None
     status = 200 if request.method == "GET" else 400
     if request.method == "POST" and form.is_valid():
         try:
@@ -221,7 +222,7 @@ def prepare_view(request, case_id, execution_id):
         render(
             request,
             "safety/rectification_recipients.html",
-            {"form": form, "inventory": data},
+            {"form": form, "inventory": data, "record": record, "case": case},
             status=status,
         )
     )

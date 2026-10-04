@@ -683,3 +683,12 @@ class RightsRectificationRecipientInventory(models.Model):
     source_digest = models.CharField(max_length=64)
     encrypted_inventory = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRectificationRecipientAssessment(models.Model):
+    inventory = models.ForeignKey(RightsRectificationRecipientInventory, on_delete=models.PROTECT)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    encrypted_decisions = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

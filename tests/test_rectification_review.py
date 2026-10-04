@@ -139,6 +139,9 @@ def test_mobile_independent_source_and_proposal_review(
         "Correction recipient history": "Historial de destinatarios de rectificación",
         "Record access and review history": "Registrar consulta y revisar historial",
         "Audited historical summary": "Resumen histórico consultado",
+        "Assess recipients and gaps": "Evaluar destinatarios y lagunas",
+        "Propose recipient assessment": "Proponer evaluación de destinatarios",
+        "Record assessment action": "Registrar acción de evaluación",
     }
 
     def label(value):
@@ -286,7 +289,29 @@ def test_mobile_independent_source_and_proposal_review(
                 page.get_by_role("heading", name=label("Audited historical summary"), exact=True)
             ).to_be_visible()
             assert ("Incompleto:" if language == "es" else "Incomplete:") in page.content()
-            page.goto(page.url)  # Explicit GET; reloading a POST resubmits the audited form.
+            recipient_history_url = page.url
+            page.get_by_role("link", name=label("Assess recipients and gaps"), exact=True).click()
+            expect(
+                page.get_by_role("heading", name=label("Propose recipient assessment"), exact=True)
+            ).to_be_visible()
+            assessment_url = page.url
+            page.locator("[name=purpose]").fill(
+                "Read recipient and gap fields before motivated decisions"
+            )
+            page.get_by_role("button", name=label("Record assessment action"), exact=True).click()
+            assert page.locator("fieldset").count() > 0
+            for textarea in page.locator("textarea[name$='-reason']").all():
+                textarea.fill(REASON)
+            for textarea in page.locator("textarea[name$='-evidence']").all():
+                textarea.fill("Synthetic source evidence awaiting independent review")
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            page.get_by_role("button", name=label("Record assessment action"), exact=True).click()
+            expect(
+                page.get_by_role("heading", name=label("Private rights inspection"), exact=True)
+            ).to_be_visible()
+            page.goto(assessment_url)
+            assert page.locator("fieldset").count() == 0
+            page.goto(recipient_history_url)  # Explicit GET to the original inventory.
             assert (
                 page.get_by_role(
                     "heading", name=label("Audited historical summary"), exact=True
@@ -761,6 +786,90 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         AgencyMember.objects.filter(agency=person.agency, user=editor).update(active=False)
         assert len(editor_client.get(inbox).context["notices"]) == 0
         assert editor_client.post(inbox + f"{editor_notice.pk}/acknowledge/").status_code == 404
+    from apps.safety.recipient_assessments import propose as propose_assessment
+    from apps.safety.recipient_assessments import targets
+
+    old_decisions = {
+        key: {
+            "outcome": "pending",
+            "reason": "Synthetic recipient evaluation awaiting independent review",
+            "evidence": "Synthetic source records require further scope assessment",
+        }
+        for key in targets(recipient_data)
+    }
+    with pytest.raises(ValidationError, match="Recipient history changed"):
+        propose_assessment(
+            reviewer, case.pk, recipients.pk, uuid.uuid4(), case.version, old_decisions
+        )
+    updated_inventory = prepare_recipients(
+        reviewer,
+        case.pk,
+        applied.pk,
+        uuid.uuid4(),
+        case.version,
+        "Assess recipient history after recorded acknowledgement",
+    )
+    updated_data = unseal(updated_inventory.encrypted_inventory)
+    values = {
+        key: {
+            "outcome": "pending",
+            "reason": "Synthetic recipient evaluation awaiting independent review",
+            "evidence": "Synthetic source records require further scope assessment",
+        }
+        for key in targets(updated_data)
+    }
+    values["gap:public_audience_and_reuse_without_identified_recipients"]["outcome"] = "impossible"
+    assessment_key = uuid.uuid4()
+    assessment_version = case.version
+    with pytest.raises(ValidationError, match="Read recipient assessment fields first"):
+        propose_assessment(
+            reviewer, case.pk, updated_inventory.pk, assessment_key, assessment_version, values
+        )
+    assessment_path = (
+        f"/en/moderation/rights/{case.pk}/recipient-inventory/{updated_inventory.pk}/assessment/"
+    )
+    assert other.get(assessment_path).context["decisions"] is None
+    assert Client(enforce_csrf_checks=True).post(assessment_path).status_code == 403
+    inspected = other.post(
+        assessment_path,
+        {
+            "key": uuid.uuid4(),
+            "version": assessment_version,
+            "operation": "inspect",
+            "purpose": "Read each recipient and gap before motivated assessment",
+        },
+    )
+    assert inspected.status_code == 200 and len(inspected.context["decisions"].forms) == len(values)
+    payload = {
+        "key": assessment_key,
+        "version": assessment_version,
+        "operation": "propose",
+        "decisions-TOTAL_FORMS": len(values),
+        "decisions-INITIAL_FORMS": len(values),
+        "decisions-MIN_NUM_FORMS": 0,
+        "decisions-MAX_NUM_FORMS": 1000,
+    }
+    for index, (token, value) in enumerate(values.items()):
+        payload[f"decisions-{index}-target"] = token
+        for field, text in value.items():
+            payload[f"decisions-{index}-{field}"] = text
+    assert other.post(assessment_path, {**payload, "decisions-0-evidence": ""}).status_code == 400
+    assert other.post(assessment_path, payload).status_code == 302
+    assert other.post(assessment_path, payload).status_code == 302
+    from apps.safety.models import RightsRectificationRecipientAssessment
+
+    assessment = RightsRectificationRecipientAssessment.objects.get()
+    assert other.get(assessment_path).context["decisions"] is None
+    assert (
+        propose_assessment(
+            reviewer, case.pk, updated_inventory.pk, assessment_key, assessment_version, values
+        ).pk
+        == assessment.pk
+    )
+    assert unseal(assessment.encrypted_decisions) == values
+    case.refresh_from_db()
+    assert case.status == "reviewing" and case.scope_status == "unverified"
+    assert case.version == assessment_version + 1
     type(person).objects.filter(pk=person.pk).update(manager_version=person.manager_version + 1)
     assert len(manager_client.get(inbox).context["notices"]) == 0
     assert manager_client.post(acknowledge).status_code == 404

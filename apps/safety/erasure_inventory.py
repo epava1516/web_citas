@@ -269,6 +269,12 @@ def source_manifest(person):
                 "dependent_evidence",
                 ["pk", "execution_id", "action_id", "proof_id", "created_at"],
             ),
+            (
+                "safety.RightsRectificationRecipientAssessment",
+                Q(inventory__execution__notification__review__proposal__person=person),
+                "dependent_evidence",
+                ["pk", "inventory_id", "action_id", "proof_id", "created_at"],
+            ),
         ]
     )
     report_scope = Q(report__listing__person=person)
