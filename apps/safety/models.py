@@ -53,6 +53,8 @@ class Complaint(models.Model):
     assigned_to = models.ForeignKey(
         "core.User", null=True, on_delete=models.SET_NULL, related_name="assigned_complaints"
     )
+    decision = models.ForeignKey("ReportAction", null=True, on_delete=models.PROTECT)
+    decision_case_version = models.PositiveIntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     receipt_expires_at = models.DateTimeField()
 

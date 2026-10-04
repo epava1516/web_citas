@@ -18,6 +18,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.core.accounts import limited
 
+from .complaint_scope import locked, permitted
 from .crypto import digest, seal, unseal
 from .models import Complaint, ComplaintAccess
 from .views import private
@@ -131,7 +132,8 @@ def queue(request):
         .exclude(actor=request.user)
         .select_related("assigned_to")
     )
-    return private(render(request, "safety/complaint_queue.html", {"complaints": complaints[:100]}))
+    visible = [case for case in complaints[:100] if permitted(request.user, case)]
+    return private(render(request, "safety/complaint_queue.html", {"complaints": visible}))
 
 
 class AccessForm(forms.Form):
@@ -150,14 +152,17 @@ def inspect(request, complaint_id):
     complaint = Complaint.objects.filter(pk=complaint_id).first()
     if not complaint:
         raise Http404
-    if complaint.actor_id == request.user.pk:
+    if not permitted(request.user, complaint):
         return private(HttpResponse("Conflict of interest", status=403))
     form = AccessForm(request.POST or None)
     payload = None
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
-            complaint = Complaint.objects.select_for_update().get(pk=complaint_id)
-            if complaint.actor_id == request.user.pk or not allowed(request):
+            try:
+                complaint, _ = locked(complaint_id)
+            except ValidationError:
+                return private(HttpResponse("Case changed; reload", status=409))
+            if not permitted(request.user, complaint) or not allowed(request):
                 return private(HttpResponse("Forbidden", status=403))
             ComplaintAccess.objects.create(
                 complaint=complaint,
@@ -187,7 +192,19 @@ class ActionForm(forms.Form):
         choices=[
             ("claim", "Asignarme la reclamación / Assign request to me"),
             ("unassign", "Devolver a cola / Return request to queue"),
+            ("link", "Enlazar decisión / Link decision"),
         ]
+    )
+    decision_id = forms.IntegerField(
+        required=False,
+        min_value=1,
+        max_value=9223372036854775807,
+        label="ID de decisión / Decision ID",
+    )
+    decision_case_version = forms.IntegerField(
+        required=False,
+        min_value=1,
+        label="Versión del expediente de decisión / Decision case version",
     )
     reason = forms.CharField(
         min_length=10,
@@ -209,7 +226,7 @@ def action(request, complaint_id):
     complaint = Complaint.objects.filter(pk=complaint_id).first()
     if not complaint:
         raise Http404
-    if complaint.actor_id == request.user.pk:
+    if not permitted(request.user, complaint):
         return private(HttpResponse("Conflict of interest", status=403))
     form = ActionForm(
         request.POST or None, initial={"key": uuid.uuid4(), "version": complaint.version}
