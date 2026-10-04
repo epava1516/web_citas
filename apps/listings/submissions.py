@@ -19,8 +19,15 @@ def current_publishing_document():
 
 
 def validate_submission(revision, person):
-    from apps.safety.models import PrivacyPublicationHold, Restriction
+    from apps.safety.models import PrivacyPublicationHold, Restriction, RightsRectificationExecution
 
+    if RightsRectificationExecution.objects.filter(
+        notification__review__proposal__source_revision=revision,
+        notification__review__proposal__person=person,
+    ).exists():
+        raise ValidationError(
+            "Versión histórica rectificada; usa una nueva revisión / Corrected historical version; use a new revision"
+        )
     if person.publication_erased_at:
         raise ValidationError("Publicación suprimida / Publication erased")
     if PrivacyPublicationHold.objects.filter(person=person, active=True).exists():

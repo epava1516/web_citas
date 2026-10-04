@@ -116,8 +116,9 @@ def test_independent_audited_review_needs_fresh_source_and_preserves_publication
     assert other.post(path, data).status_code == 403
 
 
+@pytest.mark.parametrize("language", ["es", "en"])
 def test_mobile_independent_source_and_proposal_review(
-    live_server, request, settings, monkeypatch, tmp_path
+    live_server, request, settings, monkeypatch, tmp_path, language
 ):
     import json
     import shutil
@@ -125,10 +126,25 @@ def test_mobile_independent_source_and_proposal_review(
     import pyotp
     from playwright.sync_api import expect, sync_playwright
 
+    labels = {
+        "Your account": "Tu cuenta",
+        "Record correction action": "Registrar acción de rectificación",
+        "Review correction proposal": "Revisar propuesta de rectificación",
+        "Record review action": "Registrar acción de revisión",
+        "Private rights inspection": "Consulta privada de derechos",
+        "Private correction notices": "Avisos privados de rectificación",
+        "Confirm receipt": "Confirmar recepción",
+        "Receipt recorded": "Recepción registrada",
+    }
+
+    def label(value):
+        return labels[value] if language == "es" else value
+
     settings.DEBUG = True
     case, reviewer, other, person, proposal, path, client, receipt = independent_case(
         request, settings, monkeypatch, with_receipt=True
     )
+    path = path.replace("/en/", f"/{language}/")
     reviewer.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
     reviewer = User.objects.get(pk=reviewer.pk)
     from apps.core.mfa import encrypt
@@ -138,6 +154,12 @@ def test_mobile_independent_source_and_proposal_review(
     reviewer.save(update_fields=["mfa_secret_encrypted"])
     credentials = json.loads((tmp_path / "credentials.json").read_text())
     account = credentials["accounts"]["visitor"]
+    manager = person.agency.owner
+    manager_secret = pyotp.random_base32()
+    manager.mfa_enabled = True
+    manager.mfa_secret_encrypted = encrypt(manager_secret)
+    manager.save(update_fields=["mfa_enabled", "mfa_secret_encrypted"])
+    manager_account = credentials["accounts"]["agency"]
     alias_before = person.alias
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(
@@ -145,33 +167,39 @@ def test_mobile_independent_source_and_proposal_review(
         )
         try:
             page = browser.new_page(viewport={"width": 390, "height": 844})
-            page.goto(live_server.url + "/en/account/login/")
+            page.goto(live_server.url + f"/{language}/account/login/")
             page.locator("[name=email]").fill(account["email"])
             page.locator("[name=password]").fill(credentials["password"])
             page.locator("button[type=submit]").click()
             page.locator("[name=code]").fill(pyotp.TOTP(secret).now())
             page.locator("button[type=submit]").click()
-            expect(page.get_by_role("heading", name="Your account", exact=True)).to_be_visible()
-            page.goto(live_server.url + f"/en/moderation/rights/{case.pk}/rectification/")
+            expect(
+                page.get_by_role("heading", name=label("Your account"), exact=True)
+            ).to_be_visible()
+            page.goto(live_server.url + f"/{language}/moderation/rights/{case.pk}/rectification/")
             page.locator("[name=operation]").select_option("preview")
             page.locator("[name=purpose]").fill(
                 "Read current fields before independent proposed correction review"
             )
-            page.get_by_role("button", name="Record correction action", exact=True).click()
-            page.get_by_role("link", name="Review correction proposal", exact=True).click()
+            page.get_by_role("button", name=label("Record correction action"), exact=True).click()
+            page.get_by_role("link", name=label("Review correction proposal"), exact=True).click()
             page.locator("[name=purpose]").fill(
                 "Read proposed changes before independent correction decision"
             )
-            page.get_by_role("button", name="Record review action", exact=True).click()
+            page.get_by_role("button", name=label("Record review action"), exact=True).click()
             expect(
-                page.get_by_text("Profile name: Synthetic reviewed correction", exact=False)
+                page.get_by_text(
+                    ("Nombre del perfil" if language == "es" else "Profile name")
+                    + ": Synthetic reviewed correction",
+                    exact=False,
+                )
             ).to_be_visible()
             page.locator("[name=operation]").select_option("review")
             page.locator("[name=outcome]").select_option("approved")
             page.locator("[name=reason]").fill(REASON)
-            page.get_by_role("button", name="Record review action", exact=True).click()
+            page.get_by_role("button", name=label("Record review action"), exact=True).click()
             expect(
-                page.get_by_role("heading", name="Private rights inspection", exact=True)
+                page.get_by_role("heading", name=label("Private rights inspection"), exact=True)
             ).to_be_visible()
             # Synthetic identity provider only; actual PG proof/read guards and browser MFA.
             from concurrent.futures import ThreadPoolExecutor
@@ -203,43 +231,74 @@ def test_mobile_independent_source_and_proposal_review(
 
             with ThreadPoolExecutor(max_workers=1) as pool:
                 pool.submit(refresh_verification).result(timeout=30)
-            page.goto(live_server.url + f"/en/moderation/rights/{case.pk}/rectification/")
+            page.goto(live_server.url + f"/{language}/moderation/rights/{case.pk}/rectification/")
             page.locator("[name=operation]").select_option("preview")
             page.locator("[name=purpose]").fill(
                 "Read current source before communicating approved correction"
             )
-            page.get_by_role("button", name="Record correction action", exact=True).click()
-            page.get_by_role("link", name="Review correction proposal", exact=True).click()
+            page.get_by_role("button", name=label("Record correction action"), exact=True).click()
+            page.get_by_role("link", name=label("Review correction proposal"), exact=True).click()
             page.locator("[name=purpose]").fill("Read approved changes before prior communication")
-            page.get_by_role("button", name="Record review action", exact=True).click()
+            page.get_by_role("button", name=label("Record review action"), exact=True).click()
             page.locator("[name=operation]").select_option("notify")
             page.locator("[name=reason]").fill(REASON)
-            page.get_by_role("button", name="Record review action", exact=True).click()
+            page.get_by_role("button", name=label("Record review action"), exact=True).click()
             expect(
-                page.get_by_role("heading", name="Private rights inspection", exact=True)
+                page.get_by_role("heading", name=label("Private rights inspection"), exact=True)
             ).to_be_visible()
             with ThreadPoolExecutor(max_workers=1) as pool:
                 pool.submit(refresh_verification, True).result(timeout=30)
-            page.goto(live_server.url + f"/en/moderation/rights/{case.pk}/rectification/")
+            page.goto(live_server.url + f"/{language}/moderation/rights/{case.pk}/rectification/")
             page.locator("[name=operation]").select_option("preview")
             page.locator("[name=purpose]").fill(
                 "Read current received source before executing correction"
             )
-            page.get_by_role("button", name="Record correction action", exact=True).click()
-            page.get_by_role("link", name="Review correction proposal", exact=True).click()
+            page.get_by_role("button", name=label("Record correction action"), exact=True).click()
+            page.get_by_role("link", name=label("Review correction proposal"), exact=True).click()
             page.locator("[name=purpose]").fill(
                 "Read approved received changes before correction execution"
             )
-            page.get_by_role("button", name="Record review action", exact=True).click()
+            page.get_by_role("button", name=label("Record review action"), exact=True).click()
             page.locator("[name=operation]").select_option("execute")
             page.locator("[name=reason]").fill(REASON)
-            page.get_by_role("button", name="Record review action", exact=True).click()
+            page.get_by_role("button", name=label("Record review action"), exact=True).click()
             expect(
-                page.get_by_role("heading", name="Private rights inspection", exact=True)
+                page.get_by_role("heading", name=label("Private rights inspection"), exact=True)
             ).to_be_visible()
             page.goto(live_server.url + path)
             assert "Synthetic reviewed correction" not in page.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            manager_page = browser.new_page(viewport={"width": 390, "height": 844})
+            manager_page.goto(live_server.url + f"/{language}/account/login/")
+            manager_page.locator("[name=email]").fill(manager_account["email"])
+            manager_page.locator("[name=password]").fill(credentials["password"])
+            manager_page.locator("button[type=submit]").click()
+            manager_page.locator("[name=code]").fill(pyotp.TOTP(manager_secret).now())
+            manager_page.locator("button[type=submit]").click()
+            expect(
+                manager_page.get_by_role("heading", name=label("Your account"), exact=True)
+            ).to_be_visible()
+            manager_page.get_by_role(
+                "link", name=label("Private correction notices"), exact=True
+            ).click()
+            expect(
+                manager_page.get_by_role(
+                    "heading", name=label("Private correction notices"), exact=True
+                )
+            ).to_be_visible()
+            assert REASON not in manager_page.content()
+            manager_page.get_by_role("button", name=label("Confirm receipt"), exact=True).click()
+            expect(manager_page.get_by_text(label("Receipt recorded"), exact=False)).to_be_visible()
+            manager_page.reload()
+            assert (
+                manager_page.get_by_role(
+                    "button", name=label("Confirm receipt"), exact=True
+                ).count()
+                == 0
+            )
+            assert manager_page.evaluate(
+                "document.documentElement.scrollWidth <= window.innerWidth"
+            )
         finally:
             browser.close()
     assert RightsRectificationReview.objects.get().outcome == "approved"
@@ -518,6 +577,10 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert applied.corrected_revision.status == "draft"
         assert not applied.corrected_revision.publisher_acceptance_id
         assert not applied.corrected_revision.contact_exposure_accepted
+        from apps.listings.submissions import validate_submission
+
+        with pytest.raises(ValidationError, match="Corrected historical version"):
+            validate_submission(old_revision, person)
 
     from apps.safety.models import RightsRectificationManagerNotice
 
@@ -532,6 +595,16 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     session["mfa_version"] = manager.mfa_version
     session.save()
     notice = notices.get(recipient=manager)
+    resume = manager_client.post(
+        f"/en/listing/{person.listing.pk}/manage/",
+        {"key": uuid.uuid4(), "version": person.listing.lifecycle_version, "operation": "resume"},
+    )
+    assert resume.status_code == 409
+    assert b"Corrected historical version" in resume.content
+    person.listing.refresh_from_db()
+    assert person.listing.status != "published"
+    with pytest.raises(ValidationError, match="Publishing terms updated"):
+        validate_submission(applied.corrected_revision, person)
     inbox = "/en/account/correction-notices/"
     page = manager_client.get(inbox)
     assert page.status_code == 200 and len(page.context["notices"]) == 1
