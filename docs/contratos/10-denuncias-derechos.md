@@ -388,3 +388,8 @@ REQ-CR09-PRIVACY-PUBLICATION-01. GET/POST /moderation/rights/{caseUUID}/publicat
 ## Inventario privado previo a supresión
 
 REQ-CR09-ERASURE-INVENTORY-01. GET/POST /moderation/rights/{caseUUID}/erasure-inventory/: GET formulario sin manifest; POST key/version/purpose20–200 exige review+execute/MFA/COI/asignación/lectura integral/proof erase actual, devuelve200 con inventario cifrado auditado,400 formulario409 conflicto403 permiso404 desconocido. Replay exacto muestra snapshot original tras revalidar ámbito. No borra ni cambia estado/fechas/proof de solicitud. Contrato de recursos, compartidos, digests y ejecución aún pendiente en [docs/26](../26-inventario-supresion-retencion.md). Preparación no demuestra cumplimiento del derecho ni habilita ejecución automática.
+
+
+## Decisiones por finalidad
+
+REQ-CR09-ERASURE-PLAN-01. GET/POST /moderation/rights/{caseUUID}/erasure-plan/{inventoryUUID}/: exige ámbito/permiso/MFA/lectura/proof/inventario actuales, formulario de key/version y decisions formset completo y acotado. Cada finalidad con operación, ámbito/fundamento/motivo y fecha de revisión cuando se conserva/revisa. GET no entrega decisiones previas; POST200 prepara/replay,400 campos409 fuente/clave/evidencia/compartidos403 permiso404 referencia. No cambia Case ni borra datos; execution_ready=false. [Esquema, revisión operativa y distinción de bloqueo legal](../27-planes-supresion-conservacion.md).

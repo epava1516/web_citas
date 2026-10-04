@@ -438,6 +438,16 @@ class ErasureInventory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+class ErasurePlan(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    inventory = models.ForeignKey(ErasureInventory, on_delete=models.PROTECT)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    encrypted_decisions = models.TextField()
+    review_on = models.DateField(null=True, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class RightsExportPreview(models.Model):
     request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)

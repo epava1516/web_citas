@@ -423,6 +423,7 @@ def inspect(request, case_id):
         request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
     )
     manifest = None
+    inventory = None
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
         try:
@@ -439,7 +440,7 @@ def inspect(request, case_id):
         render(
             request,
             "safety/erasure_inventory.html",
-            {"case": case, "form": form, "manifest": manifest},
+            {"case": case, "form": form, "manifest": manifest, "inventory": inventory},
             status=status,
         )
     )
