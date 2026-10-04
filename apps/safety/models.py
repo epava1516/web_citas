@@ -692,3 +692,20 @@ class RightsRectificationRecipientAssessment(models.Model):
     source_digest = models.CharField(max_length=64)
     encrypted_decisions = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [
+            ("review_recipient_assessment", "Independently review recipient assessments")
+        ]
+
+
+class RightsRectificationRecipientReview(models.Model):
+    assessment = models.OneToOneField(
+        RightsRectificationRecipientAssessment, on_delete=models.PROTECT
+    )
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    outcome = models.CharField(max_length=12)
+    source_digest = models.CharField(max_length=64)
+    decisions_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)

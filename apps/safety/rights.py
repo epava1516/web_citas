@@ -362,6 +362,20 @@ def inspect(request, case_id):
             ]
             if len(records) > 50:
                 next_message_cursor = records[49].pk
+    from django.core.paginator import Paginator
+
+    from .models import RightsRectificationRecipientAssessment
+
+    recipient_assessments = None
+    if request.user.has_perm("safety.review_recipient_assessment"):
+        recipient_assessments = Paginator(
+            RightsRectificationRecipientAssessment.objects.filter(action__request=case)
+            .exclude(action__actor=request.user)
+            .select_related("action")
+            .only("pk", "created_at", "action__actor_id")
+            .order_by("-created_at", "-pk"),
+            50,
+        ).get_page(request.GET.get("recipient_page"))
     return private(
         render(
             request,
@@ -374,6 +388,7 @@ def inspect(request, case_id):
                 "next_message_cursor": next_message_cursor,
                 "outgoing_responses": outgoing_responses,
                 "outgoing_cursor": outgoing_cursor,
+                "recipient_assessments": recipient_assessments,
             },
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )

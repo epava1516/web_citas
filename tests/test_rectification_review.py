@@ -142,6 +142,10 @@ def test_mobile_independent_source_and_proposal_review(
         "Assess recipients and gaps": "Evaluar destinatarios y lagunas",
         "Propose recipient assessment": "Proponer evaluación de destinatarios",
         "Record assessment action": "Registrar acción de evaluación",
+        "Review recipient assessment": "Revisar evaluación de destinatarios",
+        "Independent recipient assessment review": "Revisión independiente de destinatarios",
+        "Record independent review action": "Registrar acción de revisión independiente",
+        "Audited proposed decisions": "Decisiones propuestas consultadas",
     }
 
     def label(value):
@@ -152,7 +156,15 @@ def test_mobile_independent_source_and_proposal_review(
         request, settings, monkeypatch, with_receipt=True
     )
     path = path.replace("/en/", f"/{language}/")
-    reviewer.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
+    reviewer.user_permissions.add(
+        *Permission.objects.filter(
+            codename__in=[
+                "respond_rights_request",
+                "manage_rights_assignment",
+                "review_recipient_assessment",
+            ]
+        )
+    )
     reviewer = User.objects.get(pk=reviewer.pk)
     from apps.core.mfa import encrypt
 
@@ -167,6 +179,12 @@ def test_mobile_independent_source_and_proposal_review(
     manager.mfa_secret_encrypted = encrypt(manager_secret)
     manager.save(update_fields=["mfa_enabled", "mfa_secret_encrypted"])
     manager_account = credentials["accounts"]["agency"]
+    independent = proposal.action.actor
+    independent.user_permissions.add(Permission.objects.get(codename="review_recipient_assessment"))
+    independent_secret = pyotp.random_base32()
+    independent.mfa_secret_encrypted = encrypt(independent_secret)
+    independent.save(update_fields=["mfa_secret_encrypted"])
+    independent_account = credentials["accounts"]["moderator"]
     alias_before = person.alias
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(
@@ -211,7 +229,7 @@ def test_mobile_independent_source_and_proposal_review(
             # Synthetic identity provider only; actual PG proof/read guards and browser MFA.
             from concurrent.futures import ThreadPoolExecutor
 
-            def refresh_verification(confirm=False):
+            def refresh_verification(confirm=False, recipient_handoff=False):
                 from django.db import close_old_connections, connections
 
                 close_old_connections()
@@ -232,7 +250,16 @@ def test_mobile_independent_source_and_proposal_review(
                             == 302
                         )
                     case.refresh_from_db()
-                    fresh(case, reviewer, other, original, staff)
+                    if recipient_handoff:
+                        from test_rights_verification import read
+
+                        read(other, case)
+                        act(reviewer, case.pk, uuid.uuid4(), case.version, "unassign", REASON)
+                        case.refresh_from_db()
+                        act(original, case.pk, uuid.uuid4(), case.version, "claim", REASON)
+                        fresh(case, original, staff, reviewer, other)
+                    else:
+                        fresh(case, reviewer, other, original, staff)
                 finally:
                     connections.close_all()
 
@@ -321,6 +348,59 @@ def test_mobile_independent_source_and_proposal_review(
             page.goto(live_server.url + path)
             assert "Synthetic reviewed correction" not in page.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                pool.submit(refresh_verification, False, True).result(timeout=30)
+            review_page = browser.new_page(viewport={"width": 390, "height": 844})
+            review_page.goto(live_server.url + f"/{language}/account/login/")
+            review_page.locator("[name=email]").fill(independent_account["email"])
+            review_page.locator("[name=password]").fill(credentials["password"])
+            review_page.locator("button[type=submit]").click()
+            review_page.locator("[name=code]").fill(pyotp.TOTP(independent_secret).now())
+            review_page.locator("button[type=submit]").click()
+            expect(
+                review_page.get_by_role("heading", name=label("Your account"), exact=True)
+            ).to_be_visible()
+            review_page.goto(live_server.url + f"/{language}/moderation/rights/{case.pk}/")
+            review_page.get_by_role(
+                "link", name=label("Review recipient assessment"), exact=True
+            ).click()
+            review_url = review_page.url
+            expect(
+                review_page.get_by_role(
+                    "heading", name=label("Independent recipient assessment review"), exact=True
+                )
+            ).to_be_visible()
+            review_page.locator("[name=purpose]").fill(
+                "Read proposed recipient decisions and evidence independently"
+            )
+            review_page.get_by_role(
+                "button", name=label("Record independent review action"), exact=True
+            ).click()
+            expect(
+                review_page.get_by_role(
+                    "heading", name=label("Audited proposed decisions"), exact=True
+                )
+            ).to_be_visible()
+            assert "Synthetic source evidence awaiting independent review" in review_page.content()
+            assert review_page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            review_page.locator("[name=operation]").select_option("review")
+            review_page.locator("[name=outcome]").select_option("accepted")
+            review_page.locator("[name=reason]").fill(REASON)
+            review_page.get_by_role(
+                "button", name=label("Record independent review action"), exact=True
+            ).click()
+            expect(
+                review_page.get_by_role(
+                    "heading", name=label("Private rights inspection"), exact=True
+                )
+            ).to_be_visible()
+            review_page.goto(review_url)
+            assert (
+                review_page.get_by_role(
+                    "heading", name=label("Audited proposed decisions"), exact=True
+                ).count()
+                == 0
+            )
             manager_page = browser.new_page(viewport={"width": 390, "height": 844})
             manager_page.goto(live_server.url + f"/{language}/account/login/")
             manager_page.locator("[name=email]").fill(manager_account["email"])
@@ -401,15 +481,16 @@ def test_proposal_history_pages_do_not_reveal_proposed_text(request, settings, m
 
 
 @pytest.mark.parametrize(
-    "outcome,subject_username",
+    "outcome,subject_username,recipient_outcome",
     [
-        ("approved", "fixture-v1-model-a"),
-        ("rejected", "fixture-v1-model-a"),
-        ("approved", "fixture-v1-individual"),
+        ("approved", "fixture-v1-model-a", "accepted"),
+        ("approved", "fixture-v1-model-a", "rejected"),
+        ("rejected", "fixture-v1-model-a", "accepted"),
+        ("approved", "fixture-v1-individual", "accepted"),
     ],
 )
 def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
-    request, settings, monkeypatch, outcome, subject_username
+    request, settings, monkeypatch, outcome, subject_username, recipient_outcome
 ):
     from django.core.exceptions import ValidationError
 
@@ -870,6 +951,116 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     case.refresh_from_db()
     assert case.status == "reviewing" and case.scope_status == "unverified"
     assert case.version == assessment_version + 1
+    from django.core.exceptions import PermissionDenied
+    from test_rights_verification import read
+
+    from apps.safety.recipient_review import inspect as inspect_review
+    from apps.safety.recipient_review import review as review_assessment
+
+    reviewer.user_permissions.add(
+        *Permission.objects.filter(
+            codename__in=[
+                "manage_rights_assignment",
+                "verify_rights_scope",
+                "review_recipient_assessment",
+            ]
+        )
+    )
+    original.user_permissions.add(Permission.objects.get(codename="review_recipient_assessment"))
+    reviewer = User.objects.get(pk=reviewer.pk)
+    original = User.objects.get(pk=original.pk)
+    with pytest.raises(PermissionDenied):
+        inspect_review(
+            reviewer,
+            case.pk,
+            assessment.pk,
+            case.version,
+            "Attempt own assessment review must be rejected",
+        )
+    read(other, case)
+    act(reviewer, case.pk, uuid.uuid4(), case.version, "unassign", REASON)
+    case.refresh_from_db()
+    act(original, case.pk, uuid.uuid4(), case.version, "claim", REASON)
+    case.refresh_from_db()
+    with pytest.raises(ValidationError):
+        inspect_review(
+            original,
+            case.pk,
+            assessment.pk,
+            case.version,
+            "Fresh post-assessment procedure is still required",
+        )
+    fresh(case, original, staff, reviewer, other)
+    review_key = uuid.uuid4()
+    review_version = case.version
+    with pytest.raises(ValidationError, match="Read assessment"):
+        review_assessment(
+            original, case.pk, assessment.pk, review_key, review_version, recipient_outcome, REASON
+        )
+    from apps.safety.models import RightsRectificationManagerNotice
+
+    changed_notice = RightsRectificationManagerNotice.objects.get(
+        execution=applied, recipient=manager
+    )
+    receipt_time = changed_notice.acknowledged_at
+    changed_notice.acknowledged_at = None
+    changed_notice.save(update_fields=["acknowledged_at"])
+    with pytest.raises(ValidationError, match="unchanged recipient history"):
+        inspect_review(
+            original,
+            case.pk,
+            assessment.pk,
+            review_version,
+            "Read modified history must require reassessment",
+        )
+    changed_notice.acknowledged_at = receipt_time
+    changed_notice.save(update_fields=["acknowledged_at"])
+    review_path = f"/en/moderation/rights/{case.pk}/recipient-assessment/{assessment.pk}/review/"
+    assert other.get(review_path).status_code == 403
+    page = staff.get(f"/en/moderation/rights/{case.pk}/")
+    assert len(page.context["recipient_assessments"]) == 1
+    assert b"Read recipient grounds" not in page.content
+    assert staff.get(review_path).context["rows"] is None
+    assert Client(enforce_csrf_checks=True).post(review_path).status_code == 403
+    inspected = staff.post(
+        review_path,
+        {
+            "key": uuid.uuid4(),
+            "version": review_version,
+            "operation": "inspect",
+            "purpose": "Read recipient grounds and evidence independently",
+        },
+    )
+    assert inspected.status_code == 200 and len(inspected.context["rows"]) == len(values)
+    assert staff.get(review_path).context["rows"] is None
+    payload = {
+        "key": review_key,
+        "version": review_version,
+        "operation": "review",
+        "outcome": recipient_outcome,
+        "reason": REASON,
+    }
+    assert staff.post(review_path, payload).status_code == 302
+    assert staff.post(review_path, payload).status_code == 302
+    from apps.safety.models import RightsRectificationRecipientReview
+
+    checked = RightsRectificationRecipientReview.objects.get()
+    assert (
+        review_assessment(
+            original, case.pk, assessment.pk, review_key, review_version, recipient_outcome, REASON
+        ).pk
+        == checked.pk
+    )
+    assert checked.outcome == recipient_outcome
+    original.user_permissions.remove(Permission.objects.get(codename="review_recipient_assessment"))
+    original = User.objects.get(pk=original.pk)
+    with pytest.raises(PermissionDenied):
+        review_assessment(
+            original, case.pk, assessment.pk, review_key, review_version, recipient_outcome, REASON
+        )
+    case.refresh_from_db()
+    assert case.status == "reviewing" and case.version == review_version + 1
+    assert person.listing.status != "published"
     type(person).objects.filter(pk=person.pk).update(manager_version=person.manager_version + 1)
     assert len(manager_client.get(inbox).context["notices"]) == 0
     assert manager_client.post(acknowledge).status_code == 404

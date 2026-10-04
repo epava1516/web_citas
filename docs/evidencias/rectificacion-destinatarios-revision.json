@@ -1,0 +1,73 @@
+{
+  "scope": "Revisión independiente de evaluaciones de destinatarios; no cierre de derechos",
+  "results": [
+    {
+      "artifact": "recipient-independent-review-http.xml",
+      "sha256": "aa80c667d4ba153d72cd9812c767fb5fd36f511b694544a89b225d563ad3a95e",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "8",
+          "time": "86.236",
+          "timestamp": "2026-10-04T19:31:54.257257+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "artifact": "recipient-independent-review-mobile.xml",
+      "sha256": "9f65152f7af4dbfba20b22abf3efd7e737485a2296cfa1d5586ed1c172bbc2f8",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "58.842",
+          "timestamp": "2026-10-04T19:34:21.145789+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "artifact": "recipient-independent-review-final.xml",
+      "sha256": "2d4c5d7350ca910e3d4a5b2891652a6c8f280f166eeeb394d47424c790a3cd0f",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "15",
+          "time": "143.034",
+          "timestamp": "2026-10-04T19:43:20.238627+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    }
+  ],
+  "database": "PostgreSQL real",
+  "browser": "Chromium móvil ES/EN390x844; contraseña/TOTP y segundo moderador",
+  "docker": {
+    "migration": "safety0053 aplicada",
+    "uid": 10001,
+    "health": 200,
+    "review_sha256": "dd0044d107123b271dba8c736891489f0c29f16af0f9d07858c22ad41524235d",
+    "view_sha256": "57174c26db6c6139dd6c2f0145c0e3dff544f9fd30a09d071917a1d90dc56a68",
+    "identity_backend": "disabled",
+    "notice_backend": "disabled"
+  },
+  "limits": [
+    "Identidad sintética simulada explícita en pruebas",
+    "Sin envío externo ni aceptación jurídica de excepciones",
+    "Comunicaciones pendientes, respuesta final, retención y aceptación CR09 abiertas"
+  ],
+  "incidents": [
+    "Primera dirigida: operación auditoría21 caracteres excedía max20; corregida a recipient_check_read sin ampliar columna",
+    "Migración generada normalizada con Ruff después de terminal; sin cambio semántico"
+  ]
+}

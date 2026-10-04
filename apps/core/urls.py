@@ -22,6 +22,7 @@ from apps.safety import (
     privacy_holds,
     privacy_release,
     recipient_assessment_views,
+    recipient_review_views,
     rectification_notices,
     rectification_recipients,
     rectification_review,
@@ -47,6 +48,11 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "moderation/rights/<uuid:case_id>/recipient-assessment/<int:assessment_id>/review/",
+        recipient_review_views.prepare,
+        name="recipient_assessment_review",
+    ),
     path(
         "moderation/rights/<uuid:case_id>/recipient-inventory/<int:inventory_id>/assessment/",
         recipient_assessment_views.prepare,
