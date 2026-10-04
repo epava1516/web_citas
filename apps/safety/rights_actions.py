@@ -6,8 +6,8 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_variables
 
 from .crypto import seal
-from .models import RightsAccess, RightsAction, RightsWithdrawal
-from .rights import fingerprint
+from .models import RightsAccess, RightsAction, RightsExtension, RightsWithdrawal
+from .rights import calendar_months, fingerprint
 from .rights_prompts import PROMPTS
 from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
@@ -16,7 +16,16 @@ from .rights_verification import authorized_proof, complete_read
 @transaction.atomic
 @sensitive_variables()
 def act(
-    user, case_id, key, version, operation, reason, link_listing_id=None, clarification_prompt=""
+    user,
+    case_id,
+    key,
+    version,
+    operation,
+    reason,
+    link_listing_id=None,
+    clarification_prompt="",
+    additional_months=None,
+    extension_reason="",
 ):
     if not user.has_perm("safety.review_rights_request") or not user.mfa_enabled:
         raise PermissionDenied("Rights permission and MFA required")
@@ -24,6 +33,8 @@ def act(
         raise PermissionDenied("Rights coordination permission required")
     if operation == "withdraw" and not user.has_perm("safety.execute_rights_request"):
         raise PermissionDenied("Rights execution permission required")
+    if operation == "extend" and not user.has_perm("safety.extend_rights_deadline"):
+        raise PermissionDenied("Deadline extension permission required")
     case, person, candidate = locked_case(
         case_id,
         link_listing_id if operation == "link" else None,
@@ -33,6 +44,10 @@ def act(
     if not permitted(user, case):
         raise PermissionDenied("Conflict of interest")
     payload = {"version": version, "operation": operation, "reason": reason}
+    if operation == "extend":
+        payload.update(additional_months=additional_months, extension_reason=extension_reason)
+    elif additional_months is not None or extension_reason:
+        raise ValidationError("Extension fields only for extension / Campos solo para ampliación")
     if operation == "link":
         payload["link_listing_id"] = str(link_listing_id)
     if operation == "clarify":
@@ -57,12 +72,26 @@ def act(
         "link",
         "clarify",
         "withdraw",
+        "extend",
     }:
         raise ValidationError("Request changed; reload / Solicitud cambiada; recarga")
     if not 10 <= len(reason.strip()) <= 2000:
         raise ValidationError("Reason required / Motivo obligatorio")
     proof = None
-    if operation == "withdraw":
+    if operation == "extend":
+        if (
+            case.status != "reviewing"
+            or case.assigned_to_id != user.pk
+            or additional_months not in {1, 2}
+            or extension_reason not in {"complexity", "volume"}
+            or case.initial_due_at <= timezone.now()
+            or hasattr(case, "extension")
+            or not complete_read(user, case)
+        ):
+            raise ValidationError(
+                "Extension unavailable; inspect current request / Ampliación no disponible; consulta la solicitud actual"
+            )
+    elif operation == "withdraw":
         if (
             case.kind != "representation"
             or case.assigned_to_id != user.pk
@@ -127,6 +156,14 @@ def act(
             )
     except IntegrityError as error:
         raise ValidationError("Conflicting action key / Clave incompatible") from error
+    if operation == "extend":
+        RightsExtension.objects.create(
+            request=case,
+            action=recorded_action,
+            additional_months=additional_months,
+            reason_code=extension_reason,
+            new_due_at=calendar_months(case.received_at, 1 + additional_months),
+        )
     if proof:
         RightsWithdrawal.objects.create(
             action=recorded_action,

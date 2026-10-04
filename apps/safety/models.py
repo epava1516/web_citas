@@ -133,8 +133,22 @@ class RightsRequest(models.Model):
     receipt_expires_at = models.DateTimeField()
 
     @property
+    def effective_due_at(self):
+        extension = getattr(self, "extension", None)
+        return extension.new_due_at if extension else self.initial_due_at
+
+    @property
     def overdue(self):
-        return self.status in {"received", "reviewing"} and self.initial_due_at <= timezone.now()
+        return self.status in {"received", "reviewing"} and self.effective_due_at <= timezone.now()
+
+    @property
+    def extension_notice_overdue(self):
+        # Only receipt publication exists; no delivery adapter is connected yet.
+        return bool(
+            getattr(self, "extension", None)
+            and self.status in {"received", "reviewing"}
+            and self.initial_due_at <= timezone.now()
+        )
 
     class Meta:
         permissions = [
@@ -142,6 +156,7 @@ class RightsRequest(models.Model):
             ("manage_rights_assignment", "Manage private rights assignments"),
             ("verify_rights_scope", "Independently verify rights identity and scope"),
             ("execute_rights_request", "Execute scoped private rights requests"),
+            ("extend_rights_deadline", "Extend rights response target with recorded grounds"),
         ]
         ordering = ["priority", "initial_due_at", "created_at", "pk"]
 
@@ -247,4 +262,15 @@ class RightsExportDownload(models.Model):
     key = models.UUIDField(unique=True)
     export = models.ForeignKey(RightsExport, on_delete=models.PROTECT)
     actor = models.ForeignKey("core.User", null=True, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsExtension(models.Model):
+    request = models.OneToOneField(
+        RightsRequest, on_delete=models.PROTECT, related_name="extension"
+    )
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    additional_months = models.PositiveSmallIntegerField()
+    reason_code = models.CharField(max_length=12)
+    new_due_at = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)

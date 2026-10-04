@@ -8,6 +8,7 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import IntegrityError, transaction
+from django.db.models.functions import Coalesce
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -28,12 +29,18 @@ def fingerprint(value):
     return salted_hmac("rights-request-v1", value, algorithm="sha256").hexdigest()
 
 
-def next_month(value):
+def calendar_months(value, months):
+    if months not in {1, 2, 3}:
+        raise ValueError("Unsupported calendar target")
     local = timezone.localtime(value)
-    month = local.month % 12 + 1
-    year = local.year + (local.month == 12)
+    year, offset = divmod(local.year * 12 + local.month - 1 + months, 12)
+    month = offset + 1
     day = min(local.day, calendar.monthrange(year, month)[1])
     return local.replace(year=year, month=month, day=day)
+
+
+def next_month(value):
+    return calendar_months(value, 1)
 
 
 class RequestForm(forms.Form):
@@ -234,8 +241,12 @@ def allowed(request):
 def queue(request):
     if not allowed(request):
         return private(HttpResponse("Forbidden", status=403))
-    cases = RightsRequest.objects.filter(status__in=["received", "reviewing"]).exclude(
-        actor=request.user
+    cases = (
+        RightsRequest.objects.filter(status__in=["received", "reviewing"])
+        .exclude(actor=request.user)
+        .select_related("extension")
+        .annotate(current_target=Coalesce("extension__new_due_at", "initial_due_at"))
+        .order_by("priority", "current_target", "created_at", "pk")
     )
     return private(
         render(
@@ -319,6 +330,7 @@ class ActionForm(forms.Form):
             ("link", "Vincular referencia al perfil / Link reference to profile"),
             ("clarify", "Pedir aclaración / Request clarification"),
             ("withdraw", "Retirar representación comprobada / Withdraw checked representation"),
+            ("extend", "Ampliar objetivo de respuesta / Extend response target"),
             ("unassign", "Devolver a cola (coordinación) / Return to queue (coordination)"),
         ]
     )
@@ -337,6 +349,21 @@ class ActionForm(forms.Form):
         max_length=2000,
         widget=forms.Textarea,
         label="Motivo privado / Private reason",
+    )
+    additional_months = forms.IntegerField(
+        required=False,
+        min_value=1,
+        max_value=2,
+        label="Meses adicionales (solo ampliación) / Additional months (extension only)",
+    )
+    extension_reason = forms.ChoiceField(
+        required=False,
+        choices=[
+            ("", "---------"),
+            ("complexity", "Complejidad / Complexity"),
+            ("volume", "Número de solicitudes / Number of requests"),
+        ],
+        label="Motivo comunicable de ampliación / Communicable extension grounds",
     )
 
 

@@ -48,6 +48,7 @@ def requires_mfa(user):
         or user.has_perm("safety.review_rights_request")
         or user.has_perm("safety.verify_rights_scope")
         or user.has_perm("safety.execute_rights_request")
+        or user.has_perm("safety.extend_rights_deadline")
         or user.has_perm("core.review_agency")
         or user.has_perm("listings.review_listing")
         or user.role == "agency"
