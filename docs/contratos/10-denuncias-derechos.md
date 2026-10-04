@@ -433,3 +433,8 @@ Extensión del ejecutor existente: `account` con decisión erase requiere authen
 ## REQ-CR09-REPRESENTATION-ERASURE-01
 
 La finalidad representation erase ahora borra invitaciones y revoca consentimiento vigente bajo el mismo ejecutor, pausa publicación activa y conserva acciones históricas. Incrementa manager_version, invalida edad anterior y registra RepresentationAction revoke. Resultado privado representation_revoked. Consentimiento particular revalida epoch/cuenta/publication_erased bajo bloqueo; peticiones antiguas409, petición explícita nueva no publica ni verifica edad automáticamente. Sin migración/tarea nueva. [Alcance](../35-supresion-representacion.md).
+
+
+## REQ-CR09-RIGHTS-ATTENTION-01
+
+GET rights_queue incorpora attention all/overdue/due_soon/priority/unassigned/media_failed y page50. Filtro desconocido400; media_failed sin permiso operativo403. COI y MFA antes de resultados/paginación, sin contenido descifrado ni mutación, headers privados. media_failed contempla casos cerrados con trabajo agotado y enlace a media_erasure_jobs. Ventana7d operativa no cambia plazos. [Contrato y límites](../36-atencion-derechos.md).

@@ -7,7 +7,9 @@ from datetime import timedelta
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.paginator import Paginator
 from django.db import IntegrityError, transaction
+from django.db.models import Exists, OuterRef
 from django.db.models.functions import Coalesce
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
@@ -255,18 +257,53 @@ def allowed(request):
 def queue(request):
     if not allowed(request):
         return private(HttpResponse("Forbidden", status=403))
+    attention = request.GET.get("attention", "all")
+    choices = {"all", "overdue", "due_soon", "priority", "unassigned", "media_failed"}
+    media_access = request.user.has_perm("mediafiles.manage_media_erasure")
+    if attention not in choices:
+        return private(HttpResponse("Invalid attention filter", status=400))
+    if attention == "media_failed" and not media_access:
+        return private(HttpResponse("Forbidden", status=403))
     cases = (
-        RightsRequest.objects.filter(status__in=["received", "reviewing"])
+        RightsRequest.objects.all()
         .exclude(actor=request.user)
-        .select_related("extension")
+        .select_related("extension", "person", "referenced_revision__publisher_acceptance")
         .annotate(current_target=Coalesce("extension__new_due_at", "initial_due_at"))
         .order_by("priority", "current_target", "created_at", "pk")
     )
+    if media_access:
+        from apps.mediafiles.models import MediaErasure
+
+        cases = cases.annotate(
+            exhausted_media=Exists(
+                MediaErasure.objects.filter(
+                    execution__action__request_id=OuterRef("pk"),
+                    status="failed",
+                    attempts__gte=5,
+                )
+            )
+        )
+    if attention == "media_failed":
+        # Physical deletion may remain outstanding even after the case changes status.
+        cases = cases.filter(exhausted_media=True)
+    else:
+        cases = cases.filter(status__in=["received", "reviewing"])
+    now = timezone.now()
+    if attention == "overdue":
+        cases = cases.filter(current_target__lte=now)
+    elif attention == "due_soon":
+        cases = cases.filter(current_target__gt=now, current_target__lte=now + timedelta(days=7))
+    elif attention == "priority":
+        cases = cases.filter(priority=0)
+    elif attention == "unassigned":
+        cases = cases.filter(assigned_to__isnull=True)
+    visible = [case for case in cases if permitted(request.user, case)]
+    page = Paginator(visible, 50).get_page(request.GET.get("page"))
     return private(
         render(
             request,
             "safety/rights_queue.html",
-            {"cases": [case for case in cases if permitted(request.user, case)]},
+            {"cases": page, "page": page, "attention": attention, "media_access": media_access},
         )
     )
 
