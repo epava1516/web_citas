@@ -110,3 +110,33 @@ def test_missing_subject_never_substitutes_agency_owner_or_requester(request):
     assert result["subject_account"] is None and not result["legal_acceptances"]
     assert person.agency.owner.email not in json.dumps(result)
     assert not result["representation"]["verifications"]
+
+
+def test_favorites_projection_is_own_activity_and_drift_blocks_stale_copy(request, settings):
+    from apps.listings.models import Favorite
+
+    case, user, _, client, receipt, person = prepared(request, settings)
+    owner = person.agency.owner
+    own = Favorite.objects.create(user=person.subject, listing=person.listing)
+    Favorite.objects.create(user=owner, listing=person.listing)
+    source = preview(
+        user, case.pk, case.version, "Inspect subject favorite activity before release"
+    )
+    assert source["account_activity"]["favorites"] == [
+        {"listing_reference": str(own.listing_id), "created_at": own.created_at.isoformat()}
+    ]
+    assert owner.email not in json.dumps(source["account_activity"])
+    own.delete()
+    with pytest.raises(ValidationError):
+        generate(
+            user, case.pk, uuid.uuid4(), case.version, "Release stale subject favorite copy", source
+        )
+    source = preview(user, case.pk, case.version, "Inspect refreshed subject favorite activity")
+    assert source["account_activity"]["favorites"] == []
+    export = generate(
+        user, case.pk, uuid.uuid4(), case.version, "Release reviewed subject favorite copy", source
+    )
+    assert (
+        client.post(url(receipt, export), {"key": uuid.uuid4()}).json()["account_activity"]
+        == source["account_activity"]
+    )

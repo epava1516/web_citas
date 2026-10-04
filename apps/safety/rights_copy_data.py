@@ -1,6 +1,7 @@
 """Explicit subject-only projections for reviewed rights copies; no secret fields."""
 
 from apps.core.models import LegalAcceptance, User, VerificationCheck
+from apps.listings.models import Favorite
 
 
 def date(value):
@@ -57,6 +58,14 @@ def subject_data(person):
     return {
         "subject_account": account,
         "legal_acceptances": acceptances,
+        "account_activity": {
+            "favorites": [
+                {"listing_reference": str(item.listing_id), "created_at": date(item.created_at)}
+                for item in Favorite.objects.filter(user=user).order_by("pk")
+            ]
+            if user
+            else [],
+        },
         "representation": {
             "manager_type": "agency" if person.agency_id else "individual",
             "manager_version": person.manager_version,
