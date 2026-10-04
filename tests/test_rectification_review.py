@@ -30,6 +30,8 @@ def independent_case(
     clear_rates=False,
     correct_contacts=False,
     clear_contacts=False,
+    correct_details=False,
+    clear_details=False,
 ):
     case, original, staff, client, receipt, person = ready(
         request, settings, monkeypatch, "rectify", subject_username=subject_username
@@ -120,6 +122,38 @@ def independent_case(
                 "telegram": "" if clear_contacts else "synthetic_contact",
             },
         }
+    if correct_details:
+        from apps.catalog.models import Municipality
+
+        travel_city = (
+            Municipality.objects.filter(active=True)
+            .exclude(pk=person.listing.approved_revision.municipality_id)
+            .first()
+        )
+        assert travel_city
+        changes = {
+            **(changes or {"alias": "Synthetic reviewed correction"}),
+            "details": {
+                "content_language": "en",
+                "profile_type": "other",
+                "spoken_languages": ["en", "fr"],
+                "days": ["2", "5"],
+                "time_slot": "evening",
+                "reception": True,
+                "travel": True,
+                "travel_areas": [travel_city.pk],
+            },
+        }
+    if clear_details:
+        assert correct_details
+        changes["details"].update(
+            spoken_languages=[],
+            days=[],
+            time_slot="",
+            reception=False,
+            travel=False,
+            travel_areas=[],
+        )
     original.user_permissions.add(
         *Permission.objects.filter(
             codename__in=["manage_rights_assignment", "verify_rights_scope", "review_rectification"]
@@ -252,6 +286,7 @@ def test_mobile_independent_source_and_proposal_review(
         correct_catalog=True,
         correct_rates=True,
         correct_contacts=True,
+        correct_details=True,
     )
     path = path.replace("/en/", f"/{language}/")
     reviewer.user_permissions.add(
@@ -323,6 +358,9 @@ def test_mobile_independent_source_and_proposal_review(
             expect(page.get_by_text("Synthetic corrected consult", exact=False)).to_be_visible()
             expect(page.get_by_text("90.00 EUR", exact=False)).to_be_visible()
             expect(page.get_by_text("synthetic_contact", exact=False)).to_be_visible()
+            expect(page.get_by_text("Tipo de perfil / Profile type", exact=False)).to_be_visible()
+            expect(page.get_by_text("Otro / Other", exact=False)).to_be_visible()
+            assert "'spoken_languages':" not in page.locator("main").inner_text()
             assert "'municipality':" not in page.locator("main").inner_text()
             page.locator("[name=operation]").select_option("review")
             page.locator("[name=outcome]").select_option("approved")
@@ -612,10 +650,12 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         subject_username=subject_username,
         clear_rates=clear_rates,
         clear_contacts=clear_rates,
+        clear_details=clear_rates,
         correct_location=True,
         correct_catalog=True,
         correct_rates=True,
         correct_contacts=True,
+        correct_details=True,
         changes={
             "alias": "Synthetic reviewed correction",
             "title": "Corrected synthetic title",
@@ -734,7 +774,10 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     from apps.core.models import Person, PhoneClaim
     from apps.safety.rectification_contacts import binding
     from apps.safety.rectification_contacts import source as contact_source
+    from apps.safety.rectification_details import source as details_source
 
+    old_details = details_source(old_revision)
+    old_identity = person.subject_id, person.age_status, person.consent_version
     old_contacts = contact_source(old_revision)
     old_binding = binding(person)
     original_claim = person.phone_claim
@@ -809,6 +852,16 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert other.post(path, payload).status_code == 409
         target_claim.verified_at = original_verification
         target_claim.save(update_fields=["verified_at"])
+    from apps.catalog.models import Municipality
+
+    travel_destinations = unseal(proposal.encrypted_changes)["details"]["travel_areas"]
+    if travel_destinations:
+        target_city = Municipality.objects.get(pk=travel_destinations[0])
+        target_city.active = False
+        target_city.save(update_fields=["active"])
+        assert other.post(path, payload).status_code == 409
+        target_city.active = True
+        target_city.save(update_fields=["active"])
     replacement_binding = PhoneClaim.objects.get(phone="+34600000991")
     Person.objects.filter(pk=person.pk).update(phone_claim=replacement_binding)
     assert other.post(path, payload).status_code == 409
@@ -884,6 +937,10 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert catalog_source(corrected) == unseal(proposal.encrypted_changes)["catalog"]
         assert unseal(applied.encrypted_previous_values)["catalog"] == old_catalog
         assert catalog_source(corrected) != old_catalog
+        assert details_source(old_revision) == old_details
+        assert details_source(corrected) == unseal(proposal.encrypted_changes)["details"]
+        assert unseal(applied.encrypted_previous_values)["details"] == old_details
+        assert (person.subject_id, person.age_status, person.consent_version) == old_identity
         assert contact_source(old_revision) == old_contacts
         assert contact_source(corrected) == unseal(proposal.encrypted_changes)["contacts"]
         assert unseal(applied.encrypted_previous_values)["contacts"] == old_contacts
@@ -909,7 +966,11 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
             expected = (
                 set(unseal(proposal.encrypted_changes)["catalog"][field])
                 if field in {"categories", "services"}
-                else ids
+                else (
+                    set(unseal(proposal.encrypted_changes)["details"]["travel_areas"])
+                    if field == "travel_areas"
+                    else ids
+                )
             )
             assert set(getattr(corrected, field).values_list("pk", flat=True)) == expected
             assert set(getattr(old_revision, field).values_list("pk", flat=True)) == ids

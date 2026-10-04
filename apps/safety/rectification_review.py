@@ -267,6 +267,10 @@ def prepare(request, case_id, proposal_id):
                             changes["contacts"], request.LANGUAGE_CODE == "en"
                         ),
                     }
+                if "details" in changes:
+                    from .rectification_details import display as display_details
+
+                    changes = {**changes, "details": display_details(changes["details"])}
                 status = 200
             elif data["operation"] in {"notify", "execute"}:
                 from .rectification_execution import execute, notify

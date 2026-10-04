@@ -118,6 +118,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
     from . import (
         rectification_catalog,
         rectification_contacts,
+        rectification_details,
         rectification_location,
         rectification_rates,
     )
@@ -216,16 +217,26 @@ def execute(user, case_id, proposal_id, key, version, reason):
                     {
                         field: getattr(source, field)
                         for field in changes
-                        if field not in {"alias", "location", "catalog", "rates", "contacts"}
+                        if field
+                        not in {"alias", "location", "catalog", "rates", "contacts", "details"}
                     }
                 )
                 values.update(
                     {
                         field: text
                         for field, text in changes.items()
-                        if field not in {"alias", "location", "catalog", "rates", "contacts"}
+                        if field
+                        not in {"alias", "location", "catalog", "rates", "contacts", "details"}
                     }
                 )
+                if "details" in changes:
+                    before["details"] = rectification_details.source(source)
+                    values.update(
+                        {
+                            field: changes["details"][field]
+                            for field in rectification_details.SCALARS
+                        }
+                    )
                 if "contacts" in changes:
                     before["contacts"] = rectification_contacts.source(source)
                     before["phone_binding"] = rectification_contacts.binding(person)
@@ -251,6 +262,8 @@ def execute(user, case_id, proposal_id, key, version, reason):
                 for field in Revision._meta.many_to_many:
                     if "catalog" in changes and field.name in {"categories", "services"}:
                         getattr(corrected, field.name).set(changes["catalog"][field.name])
+                    elif "details" in changes and field.name == "travel_areas":
+                        corrected.travel_areas.set(changes["details"]["travel_areas"])
                     else:
                         getattr(corrected, field.name).set(getattr(source, field.name).all())
                 rate_values = changes.get("rates", rectification_rates.source(source))

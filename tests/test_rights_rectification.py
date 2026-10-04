@@ -216,6 +216,18 @@ def test_mobile_source_review_and_field_proposal(
             page.locator("[name=phone]").fill(replacement_phone.phone)
             page.locator("[name=whatsapp]").check()
             page.locator("[name=telegram]").fill("synthetic_browser")
+            page.locator('[name=fields][value="details"]').check()
+            page.locator("[name=content_language]").select_option("en")
+            page.locator("[name=profile_type]").select_option("other")
+            for field in ["spoken_languages", "days", "travel_areas"]:
+                for checkbox in page.locator(f"[name={field}]").all():
+                    checkbox.uncheck()
+            page.locator('[name=spoken_languages][value="en"]').check()
+            page.locator('[name=days][value="3"]').check()
+            page.locator("[name=time_slot]").select_option("morning")
+            page.locator("[name=reception]").check()
+            page.locator("[name=travel]").check()
+            page.locator(f'[name=travel_areas][value="{new_city.pk}"]').check()
             page.locator("[name=reason]").fill(REASON)
             page.get_by_role("button", name="Record correction action", exact=True).click()
             expect(
@@ -229,6 +241,16 @@ def test_mobile_source_review_and_field_proposal(
     proposal = RightsRectificationProposal.objects.get()
     assert unseal(proposal.encrypted_changes) == {
         "alias": "Synthetic browser correction",
+        "details": {
+            "content_language": "en",
+            "profile_type": "other",
+            "spoken_languages": ["en"],
+            "days": ["3"],
+            "time_slot": "morning",
+            "reception": True,
+            "travel": True,
+            "travel_areas": [new_city.pk],
+        },
         "contacts": {
             "phone": replacement_phone.phone,
             "whatsapp": True,
@@ -518,3 +540,75 @@ def test_contact_proposal_requires_verified_owner_and_audited_binding(
     }
     person.refresh_from_db()
     assert person.phone_claim_id == old_claim.pk and contacts_source(revision) == old
+
+
+def test_details_form_validates_choices_lists_and_active_travel_cities(
+    request, settings, monkeypatch
+):
+    from django.core.exceptions import ValidationError
+
+    from apps.catalog.models import Municipality
+    from apps.safety.rectification_details import source, validate
+
+    case, _, staff, _, _, person = ready(request, settings, monkeypatch, "rectify")
+    revision = person.listing.approved_revision
+    original = source(revision)
+    city = Municipality.objects.filter(active=True).exclude(pk=revision.municipality_id).first()
+    assert city
+    path = f"/en/moderation/rights/{case.pk}/rectification/"
+    initial = staff.get(path).context["form"].initial
+    page = staff.post(
+        path,
+        initial
+        | {"operation": "preview", "purpose": "Inspect profile attributes before correction"},
+    )
+    assert page.status_code == 200 and page.context["source_fields"]["details"] == original
+    data = initial | {
+        "operation": "propose",
+        "fields": ["details"],
+        "reason": REASON,
+        "content_language": "en",
+        "profile_type": "other",
+        "spoken_languages": ["en", "fr"],
+        "days": ["2"],
+        "time_slot": "evening",
+        "reception": "on",
+        "travel": "on",
+        "travel_areas": [city.pk],
+    }
+    for field, value in [
+        ("profile_type", "unknown"),
+        ("content_language", "xx"),
+        ("days", ["9"]),
+        ("spoken_languages", ["xx"]),
+        ("time_slot", "unknown"),
+    ]:
+        assert staff.post(path, data | {field: value}).status_code == 400
+    city.active = False
+    city.save(update_fields=["active"])
+    assert staff.post(path, data).status_code == 400
+    city.active = True
+    city.save(update_fields=["active"])
+    valid = {
+        "content_language": "en",
+        "profile_type": "other",
+        "spoken_languages": ["en", "fr"],
+        "days": ["2"],
+        "time_slot": "evening",
+        "reception": True,
+        "travel": True,
+        "travel_areas": [city.pk],
+    }
+    for invalid in [
+        {**valid, "days": [2]},
+        {**valid, "days": ["2", "2"]},
+        {**valid, "travel_areas": [True]},
+        {**valid, "travel": 1},
+    ]:
+        with pytest.raises(ValidationError):
+            validate(invalid)
+    assert not RightsRectificationProposal.objects.exists()
+    assert staff.post(path, data).status_code == 302
+    assert unseal(RightsRectificationProposal.objects.get().encrypted_changes) == {"details": valid}
+    assert source(revision) == original
+    assert staff.get(path).context["source_fields"] is None

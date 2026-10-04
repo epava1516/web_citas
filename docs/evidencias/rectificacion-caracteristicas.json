@@ -1,0 +1,63 @@
+{
+  "scope": "Rectificación de atributos e idiomas/horario/desplazamientos de anuncio",
+  "results": [
+    {
+      "artifact": "rectification-details-crossflow.xml",
+      "sha256": "b7315cc90111ae92e5721814235a2f2200166e4eab5a38c8c8d83f1023040f56",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "22",
+          "time": "217.796",
+          "timestamp": "2026-10-04T20:30:55.138000+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-details-clear-mobile.xml",
+      "sha256": "71e494f4b61bdf5033429a5ed01b32623c4b486ecfd834a9b2b476b672cfa6e2",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "8",
+          "time": "127.245",
+          "timestamp": "2026-10-04T20:35:10.895739+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    }
+  ],
+  "database": "PostgreSQL real",
+  "browser": "Chromium390x844: selección EN y review/recepción/ejecución ESEN; refuerzo etiquetas sin JSON",
+  "verified": [
+    "Opciones editor compartidas, listas sin duplicados/tipos estrictos y ciudades activas",
+    "Valores inválidos/ciudad desactivada antes de execute bloqueados",
+    "Listas/horario/flags/travelareas pueden retirarse en circuito agencia/individual",
+    "Nueva revisión scalars/travelareas correctos, antigua intacta y valoresprevios cifrados",
+    "Identidad/edadverificada/consentimiento de Person permanecen iguales",
+    "GETsinfuente, POSTauditado/guardasMFA/COI/proof/recepción/replay/códigosOTP/versiones conservadas"
+  ],
+  "docker": {
+    "schema": "safety0053 sin nueva migración",
+    "uid": 10001,
+    "health": 200,
+    "hashes": {
+      "apps/safety/rectification_details.py": "28009dd0d4e08e5c2b1ae73e60d2b1c0b8030a0ca16d59d632807d856417c314",
+      "apps/safety/rights_rectification.py": "0456667670b7e094e73f11f6506c9e83255a99ab94f4c5115e8e01a03c31dc30",
+      "apps/safety/rectification_execution.py": "4baf0945ef4e9de8bb6a01e3311f32a608de18dcc9f418b53540f1c2f7e445af"
+    }
+  },
+  "limits": [
+    "22+8 son baterías con solapamiento, no suite común30",
+    "Identidad/PhoneClaim fixtures sintéticas, sin SMS/servicio externo real",
+    "Campos autodescritos de anuncio no cambian identidad verificadade cuenta",
+    "Identidadcuenta/fotos/retención/comunicacioneshistóricas/finalresponse y CR09/CR10/GS01/BF/BB/C pendientes"
+  ]
+}

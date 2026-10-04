@@ -19,6 +19,7 @@ from apps.listings.models import Revision
 from . import (
     rectification_catalog,
     rectification_contacts,
+    rectification_details,
     rectification_location,
     rectification_rates,
 )
@@ -43,12 +44,15 @@ def validated_changes(value, person=None):
     if (
         not isinstance(value, dict)
         or not value
-        or set(value) - (set(FIELDS) | {"location", "catalog", "rates", "contacts"})
+        or set(value) - (set(FIELDS) | {"location", "catalog", "rates", "contacts", "details"})
     ):
         raise ValidationError("Unsupported correction fields / Campos de corrección no admitidos")
     value = value.copy()
     for field in sorted(value):
         text = value[field]
+        if field == "details":
+            value[field] = rectification_details.validate(text)
+            continue
         if field == "contacts":
             value[field] = rectification_contacts.validate(text, person)
             continue
@@ -201,6 +205,7 @@ def source_snapshot(case, person, listing):
         source["fields"]["catalog"] = rectification_catalog.source(revision)
         source["fields"]["rates"] = rectification_rates.source(revision)
         source["fields"]["contacts"] = rectification_contacts.source(revision)
+        source["fields"]["details"] = rectification_details.source(revision)
     return revision, source
 
 
@@ -241,7 +246,12 @@ def preview(user, case_id, version, purpose):
     return {"alias": source["alias"], **source["fields"]}
 
 
-class ProposalForm(forms.Form):
+class ProposalForm(rectification_details.Editor):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in rectification_details.FIELDS:
+            self.fields[field].required = False
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     operation = forms.ChoiceField(
@@ -264,6 +274,7 @@ class ProposalForm(forms.Form):
             ("catalog", "Categorías y servicios / Categories and services"),
             ("rates", "Tabla de tarifas / Tariff table"),
             ("contacts", "Teléfono y canales / Phone and channels"),
+            ("details", "Características y desplazamientos / Attributes and travel"),
         ],
         widget=forms.CheckboxSelectMultiple,
         label="Campos que se propone corregir / Fields proposed for correction",
@@ -332,8 +343,15 @@ class ProposalForm(forms.Form):
             data["changes"] = {
                 field: data.get(field, "")
                 for field in selected
-                if field not in {"location", "catalog", "rates", "contacts"}
+                if field not in {"location", "catalog", "rates", "contacts", "details"}
             }
+            if "details" in selected:
+                data["changes"]["details"] = rectification_details.validate(
+                    {
+                        **{field: data.get(field) for field in rectification_details.SCALARS},
+                        "travel_areas": [row.pk for row in data.get("travel_areas", [])],
+                    }
+                )
             if "contacts" in selected:
                 data["changes"]["contacts"] = rectification_contacts.validate(
                     {
@@ -420,11 +438,12 @@ def prepare(request, case_id):
                     **{
                         field: value
                         for field, value in source_fields.items()
-                        if field not in {"location", "catalog", "rates", "contacts"}
+                        if field not in {"location", "catalog", "rates", "contacts", "details"}
                     },
                     **source_fields.get("location", {}),
                     **source_fields.get("catalog", {}),
                     **source_fields.get("contacts", {}),
+                    **source_fields.get("details", {}),
                 }
             )
     return private(
