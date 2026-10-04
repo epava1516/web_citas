@@ -13,9 +13,14 @@ Actualizado: 2026-10-04. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 - Regresión histórica CR-09 sobre35b1f53:285 passed/1 failed969.51s, sin skips; fallo de recarga Chromium investigado; sincronización observable reforzada,20 pruebas afectadas passed95.28s. No aceptada como suite completa.
 - Regresión completa CI sobre4789079:493 passed1378.93s, job integration success; PostgreSQL/Chromium, ruff/check/migraciones pasan. [Evidencia](evidencias/regresion-ci-4789079.json). No incluye36ced07/a5c9d7b posteriores; no aceptaCR09 completo.
 - Regresión completa CI sobre36ced07:494 passed1420.52s, run37225258925 success. [Evidencia](evidencias/regresion-ci-36ced07.json). No incluye textos posteriores ni corrección de tarifas; CR09 permanece abierto.
+- Regresión completa CI sobrea5c9d7b:498 passed1444.36s, run37226297758 success. [Evidencia](evidencias/regresion-ci-a5c9d7b.json). No incluye tarifas/fuenteBlob/selección de fotos posteriores; CR09 sigue abierto.
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
 - Herramientas: Graphify0.9.74/skill Codex instalados y usados; [resultados/incidencia](19-graphify-analisis-local.md). Claude3/3 consumidas; continuar localmente. [Auditoría pendiente CR-09](actas/04-cr09-auditoria-pendiente.md).
+
+## Estimación orientativa solicitada
+
+A 2026-10-04: CR-09 aproximadamente70% completado/30% pendiente; contrato completo aproximadamente50% completado/50% pendiente. Estimación de trabajo y complejidad, sin fórmula de ponderación ni equivalencia a aceptación jurídica o gates. BASE/CR01–08 verificados no implican80% del contrato: faltan CR10/GS01, acabado BF/BB y pruebas finales/operación. Mantener estados y evidencias del backlog como autoridad.
 
 ## Backlog ordenado
 
@@ -582,3 +587,12 @@ La huella ahora incluye metadatos y estado de los Blob referenciados por las fot
 Verificación: 18 pruebas de propuestas pasan en 130.27s con PostgreSQL/Chromium. Segunda batería: 3 pasan en 44.79s (ejecución particular/agencia y bloqueo concurrente real observado mediante pg_blocking_pids), 4 variantes excluidas explícitamente. No sumar como suite común. Ruff/format/check/makemigrations/diff limpios; sin migración nueva. Docker app/worker/Beat reconstruidos/recreados, hash de fuente coincide, UID10001 y health200. [Evidencia](evidencias/rectificacion-fuente-imagenes.json).
 
 CR09, CR10, GS01, BF/BB/C y producción siguen pendientes; Claude3/3, continuación local.
+
+
+### Selección y orden de fotografías — aceptación local parcial
+
+Añadido bloque photos (lista ordenada0–8 de fotos actuales) y formset con orden/DELETE, consulta visual privada ligada a lectura auditada/proof/versión/huella/roles, revisión visual independiente ES/EN y ejecución sobre nueva revisión pendiente. Conserva fuente y bytes; solo despacha blobs seleccionados, reinicia aprobación y cifra selección anterior. Rechaza referencias ajenas/históricas/no disponibles y copia implícita de imágenes no disponibles. Omitir toda la selección no borra archivos ni cierra el derecho.
+
+Primera batería20 fallidas/3 correctas150.47s por conversor int de expediente UUID; ruta corregida. Segunda33 correctas/1 fallida294.54s: test esperaba403 ante MFA caducada, pero la redirección vigente302 a MFA bloquea los bytes; corregida expectativa. Final afectada9 correctas111.95s sin fallos/errores/skips: seis pruebas de fotos y tres móviles, miniaturas realmente decodificadas en propuesta EN/revisión ESEN. No sumar33+9 ni declarar suite común aprobada. Evidencia en docs/evidencias/rectificacion-seleccion-fotografias.json.
+
+Ruff/check/format/makemigrations/diff limpios; sin migración nueva. Docker app/worker/Beat reconstruidos/recreados, hashes coinciden, UID10001/health200. CI anteriora5c9d7b terminal498 passed1444.36s, evidencia separada; no incluye esta entrega. Faltan sustituciones, acceso/conservación de referencias históricas/reintroducción de bytes, comunicaciones/respuesta final y demás derechos de CR09, además de CR10/GS01/BF/BB/C. Claude3/3, sin nuevas llamadas.

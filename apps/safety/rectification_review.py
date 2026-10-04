@@ -23,7 +23,7 @@ from .models import (
     RightsRequest,
 )
 from .rights import allowed, fingerprint
-from .rights_rectification import source_snapshot, validated_changes
+from .rights_rectification import source_snapshot, validate_copy, validated_changes
 from .rights_responses import complete_response_read
 from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
@@ -74,7 +74,7 @@ def current(user, case_id, proposal_id, version):
         .first()
     )
     proof = authorized_proof(case, person, "rectify")
-    _, source = source_snapshot(case, person, listing)
+    revision, source = source_snapshot(case, person, listing)
     digest = fingerprint(json.dumps(source, sort_keys=True))
     if (
         latest.pk != proposal.pk
@@ -88,6 +88,7 @@ def current(user, case_id, proposal_id, version):
             "Review current source with fresh scoped proof / Revisa la fuente vigente con nueva comprobación de ámbito"
         )
     changes = validated_changes(unseal(proposal.encrypted_changes), person)
+    validate_copy(changes, revision, person)
     return case, proposal, proof, changes
 
 
@@ -230,6 +231,7 @@ def prepare(request, case_id, proposal_id):
         return private(HttpResponse("Forbidden", status=403))
     form = ReviewForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
     changes = None
+    photo_selection = None
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
         try:
@@ -238,6 +240,16 @@ def prepare(request, case_id, proposal_id):
                 changes = inspect(
                     request.user, case_id, proposal_id, data["version"], data["purpose"]
                 )
+                if "photos" in changes:
+                    photo_selection = changes["photos"]
+                    changes = {
+                        **changes,
+                        "photos": (
+                            "Selection shown below / Selección mostrada abajo"
+                            if photo_selection
+                            else "No photos / Sin fotografías"
+                        ),
+                    }
                 if "location" in changes:
                     from .rectification_location import display
 
@@ -304,6 +316,7 @@ def prepare(request, case_id, proposal_id):
                 "case": case,
                 "form": form,
                 "changes": changes,
+                "photo_selection": photo_selection,
                 "execution": RightsRectificationExecution.objects.filter(
                     notification__review__proposal=proposal
                 )

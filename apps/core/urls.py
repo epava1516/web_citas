@@ -80,6 +80,11 @@ urlpatterns = [
         name="rights_rectification",
     ),
     path(
+        "moderation/rights/<uuid:case_id>/rectification/photos/<uuid:photo_id>/",
+        rights_rectification.source_photo,
+        name="rights_rectification_photo",
+    ),
+    path(
         "moderation/rights/<uuid:case_id>/erasure-execute/<uuid:plan_id>/",
         erasure_execution.apply,
         name="erasure_execute",

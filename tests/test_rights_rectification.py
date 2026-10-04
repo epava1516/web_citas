@@ -137,6 +137,12 @@ def test_mobile_source_review_and_field_proposal(
     credentials = json.loads((tmp_path / "credentials.json").read_text())
     account = credentials["accounts"]["moderator"]
     alias_before = person.alias
+    from test_rectification_photos import add_source_photo
+
+    from apps.safety.rectification_photos import source as photo_source
+
+    add_source_photo(person.listing.approved_revision)
+    photo_ids = photo_source(person.listing.approved_revision)
     from apps.catalog.models import Municipality
 
     new_city = (
@@ -205,7 +211,7 @@ def test_mobile_source_review_and_field_proposal(
             page.locator(f'[name=categories][value="{new_category.pk}"]').check()
             page.locator(f'[name=services][value="{new_service.pk}"]').check()
             page.locator('[name=fields][value="rates"]').check()
-            for checkbox in page.locator('[name$="-DELETE"]').all():
+            for checkbox in page.locator('[name^="rates-"][name$="-DELETE"]').all():
                 checkbox.check()
             expect(page.locator('[name$="-concept"]')).to_have_count(10)
             page.locator("[name=rates-0-DELETE]").uncheck()
@@ -218,6 +224,13 @@ def test_mobile_source_review_and_field_proposal(
             page.locator("[name=rates-9-mode]").select_option("consult")
             page.locator("[name=rates-9-amount]").fill("")
             page.locator("[name=rates-9-duration_minutes]").fill("")
+            page.locator('[name=fields][value="photos"]').check()
+            expect(page.get_by_alt_text("Source photo 1", exact=True)).to_be_visible()
+            page.wait_for_function(
+                "document.querySelector('img[alt=\"Source photo 1\"]').naturalWidth > 0"
+            )
+            page.locator("[name=photos-0-position]").fill("1")
+            page.locator("[name=photos-1-position]").fill("0")
             page.locator('[name=fields][value="contacts"]').check()
             page.locator("[name=phone]").fill(replacement_phone.phone)
             page.locator("[name=whatsapp]").check()
@@ -278,6 +291,7 @@ def test_mobile_source_review_and_field_proposal(
                 "duration_minutes": None,
             },
         ],
+        "photos": list(reversed(photo_ids)),
         "catalog": {"categories": [new_category.pk], "services": [new_service.pk]},
         "location": {"municipality": new_city.pk, "postal_code": None, "zone": None},
     }

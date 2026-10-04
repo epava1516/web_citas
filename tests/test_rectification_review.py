@@ -33,6 +33,8 @@ def independent_case(
     clear_contacts=False,
     correct_details=False,
     clear_details=False,
+    correct_photos=False,
+    clear_photos=False,
 ):
     case, original, staff, client, receipt, person = ready(
         request, settings, monkeypatch, "rectify", subject_username=subject_username
@@ -155,6 +157,17 @@ def independent_case(
             travel=False,
             travel_areas=[],
         )
+    if correct_photos:
+        from test_rectification_photos import add_source_photo
+
+        from apps.safety.rectification_photos import source as photo_source
+
+        source = person.listing.approved_revision
+        add_source_photo(source)
+        changes = {
+            **(changes or {"alias": "Synthetic reviewed correction"}),
+            "photos": [] if clear_photos else list(reversed(photo_source(source))),
+        }
     original.user_permissions.add(
         *Permission.objects.filter(
             codename__in=["manage_rights_assignment", "verify_rights_scope", "review_rectification"]
@@ -288,6 +301,7 @@ def test_mobile_independent_source_and_proposal_review(
         correct_rates=True,
         correct_contacts=True,
         correct_details=True,
+        correct_photos=True,
     )
     path = path.replace("/en/", f"/{language}/")
     reviewer.user_permissions.add(
@@ -361,6 +375,14 @@ def test_mobile_independent_source_and_proposal_review(
             expect(page.get_by_text("synthetic_contact", exact=False)).to_be_visible()
             expect(page.get_by_text("Tipo de perfil / Profile type", exact=False)).to_be_visible()
             expect(page.get_by_text("Otro / Other", exact=False)).to_be_visible()
+            proposed_photo_label = (
+                "Fotografía propuesta 1" if language == "es" else "Proposed photo 1"
+            )
+            expect(page.get_by_alt_text(proposed_photo_label, exact=True)).to_be_visible()
+            page.wait_for_function(
+                "document.querySelectorAll('figure img').length === 2 && Array.from(document.querySelectorAll('figure img')).every(image => image.naturalWidth > 0)"
+            )
+
             assert "'spoken_languages':" not in page.locator("main").inner_text()
             assert "'municipality':" not in page.locator("main").inner_text()
             page.locator("[name=operation]").select_option("review")
@@ -652,11 +674,13 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         clear_rates=clear_rates,
         clear_contacts=clear_rates,
         clear_details=clear_rates,
+        clear_photos=clear_rates,
         correct_location=True,
         correct_catalog=True,
         correct_rates=True,
         correct_contacts=True,
         correct_details=True,
+        correct_photos=True,
         changes={
             "alias": "Synthetic reviewed correction",
             "title": "Corrected synthetic title",
@@ -768,6 +792,17 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     old_photos = list(
         old_revision.photos.filter(removed_at__isnull=True).values_list("blob_id", "position")
     )
+    from apps.safety.rectification_photos import source as photo_source
+
+    old_photo_ids = photo_source(old_revision)
+    old_photo_rows = {
+        str(photo.pk): photo for photo in old_revision.photos.filter(removed_at__isnull=True)
+    }
+    selected_photo_ids = unseal(proposal.encrypted_changes)["photos"]
+    expected_photos = [
+        (old_photo_rows[identifier].blob_id, index)
+        for index, identifier in enumerate(selected_photo_ids)
+    ]
     old_relations = {
         field.name: set(getattr(old_revision, field.name).values_list("pk", flat=True))
         for field in old_revision._meta.many_to_many
@@ -913,7 +948,7 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     assert not RightsRectificationManagerNotice.objects.exists()
     assert dispatched == []
     assert other.post(path, payload).status_code == 302
-    assert set(dispatched) == {str(blob_id) for blob_id, _ in old_photos}
+    assert set(dispatched) == {str(blob_id) for blob_id, _ in expected_photos}
     applied = RightsRectificationExecution.objects.get()
     assert (
         execute(reviewer, case.pk, proposal.pk, execution_key, execution_version, REASON).pk
@@ -967,7 +1002,10 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert rates_source(old_revision) == old_rate_values
         assert unseal(applied.encrypted_previous_values)["rates"] == old_rate_values
         assert rates_source(corrected) != old_rate_values
-        assert set(corrected.photos.values_list("blob_id", "position")) == set(old_photos)
+        assert set(corrected.photos.values_list("blob_id", "position")) == set(expected_photos)
+        assert photo_source(old_revision) == old_photo_ids
+        assert set(old_revision.photos.values_list("blob_id", "position")) == set(old_photos)
+        assert unseal(applied.encrypted_previous_values)["photos"] == old_photo_ids
         assert not corrected.photos.filter(approved=True).exists()
         # Local eager processing may already have completed comparisons; dispatch is asserted above.
         for field, ids in old_relations.items():

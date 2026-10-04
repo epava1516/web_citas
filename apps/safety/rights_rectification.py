@@ -8,21 +8,22 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.paginator import Paginator
 from django.db import IntegrityError, transaction
-from django.http import Http404, HttpResponse
+from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.catalog.models import Category, Municipality, PostalCode, Service, Zone
 from apps.listings.forms import DetailsForm, validate_listing_text
 from apps.listings.models import Revision
-from apps.mediafiles.models import Blob
+from apps.mediafiles.models import Blob, Photo
 
 from . import (
     rectification_catalog,
     rectification_contacts,
     rectification_details,
     rectification_location,
+    rectification_photos,
     rectification_rates,
 )
 from .crypto import seal
@@ -52,12 +53,16 @@ def validated_changes(value, person=None):
     if (
         not isinstance(value, dict)
         or not value
-        or set(value) - (set(FIELDS) | {"location", "catalog", "rates", "contacts", "details"})
+        or set(value)
+        - (set(FIELDS) | {"location", "catalog", "rates", "contacts", "details", "photos"})
     ):
         raise ValidationError("Unsupported correction fields / Campos de corrección no admitidos")
     value = value.copy()
     for field in sorted(value):
         text = value[field]
+        if field == "photos":
+            value[field] = rectification_photos.validate(text, person)
+            continue
         if field == "details":
             value[field] = rectification_details.validate(text)
             continue
@@ -83,6 +88,16 @@ def validated_changes(value, person=None):
             DetailsForm.base_fields[field].clean(text)
         validate_listing_text(text)
     return value
+
+
+@sensitive_variables()
+def validate_copy(changes, revision, person):
+    if set(changes) - {"alias"}:
+        if not revision or revision.manager_version != person.manager_version:
+            raise ValidationError("Current revision required / Revisión vigente obligatoria")
+        rectification_photos.validate(
+            changes.get("photos", rectification_photos.source(revision)), person
+        )
 
 
 @transaction.atomic
@@ -125,10 +140,7 @@ def propose(user, case_id, key, version, changes, reason):
         )
     proof = authorized_proof(case, person, "rectify")
     revision, source = source_snapshot(case, person, listing)
-    if set(changes) - {"alias"} and (
-        not revision or revision.manager_version != person.manager_version
-    ):
-        raise ValidationError("Current revision required / Revisión vigente obligatoria")
+    validate_copy(changes, revision, person)
     source_digest = fingerprint(json.dumps(source, sort_keys=True))
     if not RightsRectificationSourceRead.objects.filter(
         request=case,
@@ -238,6 +250,7 @@ def source_snapshot(case, person, listing):
         source["fields"]["rates"] = rectification_rates.source(revision)
         source["fields"]["contacts"] = rectification_contacts.source(revision)
         source["fields"]["details"] = rectification_details.source(revision)
+        source["fields"]["photos"] = rectification_photos.source(revision)
     return revision, source
 
 
@@ -305,6 +318,7 @@ class ProposalForm(rectification_details.Editor):
             ("location", "Ubicación completa / Complete location"),
             ("catalog", "Categorías y servicios / Categories and services"),
             ("rates", "Tabla de tarifas / Tariff table"),
+            ("photos", "Selección y orden de fotografías / Photo selection and order"),
             ("contacts", "Teléfono y canales / Phone and channels"),
             ("details", "Características y desplazamientos / Attributes and travel"),
         ],
@@ -375,7 +389,7 @@ class ProposalForm(rectification_details.Editor):
             data["changes"] = {
                 field: data.get(field, "")
                 for field in selected
-                if field not in {"location", "catalog", "rates", "contacts", "details"}
+                if field not in {"location", "catalog", "rates", "contacts", "details", "photos"}
             }
             if "details" in selected:
                 data["changes"]["details"] = rectification_details.validate(
@@ -428,6 +442,9 @@ def prepare(request, case_id):
     rate_editor = rectification_rates.Editor(
         request.POST if request.method == "POST" else None, prefix="rates"
     )
+    photo_editor = rectification_photos.Editor(
+        request.POST if request.method == "POST" else None, prefix="photos"
+    )
     source_fields = None
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
@@ -442,6 +459,12 @@ def prepare(request, case_id):
                             "Review rate table errors / Revisa los errores de tarifas"
                         )
                     data["changes"]["rates"] = rectification_rates.changes(rate_editor)
+                if "photos" in data["fields"]:
+                    if not photo_editor.is_valid():
+                        raise ValidationError(
+                            "Review photo selection errors / Revisa los errores de selección de fotografías"
+                        )
+                    data["changes"]["photos"] = rectification_photos.changes(photo_editor)
                 propose(
                     request.user,
                     case.pk,
@@ -462,6 +485,10 @@ def prepare(request, case_id):
             rate_editor = rectification_rates.Editor(
                 initial=source_fields.get("rates", []), prefix="rates"
             )
+            photo_editor = rectification_photos.Editor(
+                initial=rectification_photos.initial(source_fields.get("photos", [])),
+                prefix="photos",
+            )
             form = ProposalForm(
                 initial={
                     "key": uuid.uuid4(),
@@ -470,7 +497,8 @@ def prepare(request, case_id):
                     **{
                         field: value
                         for field, value in source_fields.items()
-                        if field not in {"location", "catalog", "rates", "contacts", "details"}
+                        if field
+                        not in {"location", "catalog", "rates", "contacts", "details", "photos"}
                     },
                     **source_fields.get("location", {}),
                     **source_fields.get("catalog", {}),
@@ -487,6 +515,7 @@ def prepare(request, case_id):
                 "form": form,
                 "source_fields": source_fields,
                 "rate_editor": rate_editor,
+                "photo_editor": photo_editor,
                 "proposals": Paginator(
                     RightsRectificationProposal.objects.filter(action__request=case)
                     .select_related("action")
@@ -498,3 +527,56 @@ def prepare(request, case_id):
             status=status,
         )
     )
+
+
+@login_required
+@require_GET
+@transaction.atomic
+@sensitive_variables()
+def source_photo(request, case_id, photo_id):
+    """Private bytes only after an explicit audit of the same current source."""
+    if not allowed(request) or not request.user.has_perm("safety.execute_rights_request"):
+        return private(HttpResponse("Forbidden", status=403))
+    try:
+        case, person, listing = locked_case(case_id, lock_listing=True)
+        if not permitted(request.user, case):
+            raise PermissionDenied
+        if (
+            case.kind != "rectify"
+            or case.status != "reviewing"
+            or case.assigned_to_id != request.user.pk
+            or not complete_read(request.user, case)
+            or not complete_response_read(request.user, case)
+        ):
+            raise ValidationError("Current source unavailable")
+        proof = authorized_proof(case, person, "rectify")
+        revision, snapshot = source_snapshot(case, person, listing)
+        digest = fingerprint(json.dumps(snapshot, sort_keys=True))
+        if not RightsRectificationSourceRead.objects.filter(
+            request=case,
+            actor=request.user,
+            proof=proof,
+            case_version=case.version,
+            source_digest=digest,
+        ).exists():
+            raise ValidationError("Audited source required")
+        photo = (
+            Photo.objects.select_related("blob")
+            .filter(
+                pk=photo_id,
+                revision=revision,
+                revision__manager_version=person.manager_version,
+                removed_at__isnull=True,
+                blob__status="ready",
+            )
+            .first()
+        )
+        if not photo or not photo.blob.derivative:
+            raise ValidationError("Photo unavailable")
+        response = FileResponse(photo.blob.derivative.open("rb"), content_type="image/webp")
+    except (RightsRequest.DoesNotExist, ValidationError, OSError):
+        return private(HttpResponse("Not found", status=404))
+    except PermissionDenied:
+        return private(HttpResponse("Forbidden", status=403))
+    response["X-Content-Type-Options"] = "nosniff"
+    return private(response)

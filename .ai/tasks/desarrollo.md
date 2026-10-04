@@ -602,3 +602,12 @@ La huella ahora incluye metadatos y estado de los Blob referenciados por las fot
 Verificación: 18 pruebas de propuestas pasan en 130.27s con PostgreSQL/Chromium. Segunda batería: 3 pasan en 44.79s (ejecución particular/agencia y bloqueo concurrente real observado mediante pg_blocking_pids), 4 variantes excluidas explícitamente. No sumar como suite común. Ruff/format/check/makemigrations/diff limpios; sin migración nueva. Docker app/worker/Beat reconstruidos/recreados, hash de fuente coincide, UID10001 y health200. [Evidencia](../../docs/evidencias/rectificacion-fuente-imagenes.json).
 
 CR09, CR10, GS01, BF/BB/C y producción siguen pendientes; Claude3/3, continuación local.
+
+
+### Selección y orden de fotografías — aceptación local parcial
+
+Añadido bloque photos (lista ordenada0–8 de fotos actuales) y formset con orden/DELETE, consulta visual privada ligada a lectura auditada/proof/versión/huella/roles, revisión visual independiente ES/EN y ejecución sobre nueva revisión pendiente. Conserva fuente y bytes; solo despacha blobs seleccionados, reinicia aprobación y cifra selección anterior. Rechaza referencias ajenas/históricas/no disponibles y copia implícita de imágenes no disponibles. Omitir toda la selección no borra archivos ni cierra el derecho.
+
+Primera batería20 fallidas/3 correctas150.47s por conversor int de expediente UUID; ruta corregida. Segunda33 correctas/1 fallida294.54s: test esperaba403 ante MFA caducada, pero la redirección vigente302 a MFA bloquea los bytes; corregida expectativa. Final afectada9 correctas111.95s sin fallos/errores/skips: seis pruebas de fotos y tres móviles, miniaturas realmente decodificadas en propuesta EN/revisión ESEN. No sumar33+9 ni declarar suite común aprobada. Evidencia en docs/evidencias/rectificacion-seleccion-fotografias.json.
+
+Ruff/check/format/makemigrations/diff limpios; sin migración nueva. Docker app/worker/Beat reconstruidos/recreados, hashes coinciden, UID10001/health200. CI anteriora5c9d7b terminal498 passed1444.36s, evidencia separada; no incluye esta entrega. Faltan sustituciones, acceso/conservación de referencias históricas/reintroducción de bytes, comunicaciones/respuesta final y demás derechos de CR09, además de CR10/GS01/BF/BB/C. Claude3/3, sin nuevas llamadas.

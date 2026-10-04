@@ -194,7 +194,7 @@ Coherencia textos aceptación local:31 passed134.02s PG/Chromium (rectifier/Draf
 
 La fuente de rectificación vincula las filas `Photo` y los valores de sus `Blob`: ID, SHA-256, original, derivado, estado, dimensiones y huellas visuales. Se bloquean los blobs por UUID antes de leer las fotos. Esos valores se utilizan en la huella privada; no se incorporan al formulario ni al acuse público. Un cambio requiere volver a consultar y, si ya existe una propuesta, reconstruirla y revisarla. No se convierten autorizaciones anteriores al nuevo formato de fuente.
 
-Esta protección no permite todavía corregir la selección de fotografías. Para completar el recorrido de fotos dentro de CR-09 quedan los siguientes trabajos:
+La vinculación de fuente se ha ampliado con selección y orden de las fotos actuales (ver entrega siguiente). Para completar el recorrido de fotos dentro de CR-09, verificar y cerrar cada requisito restante:
 
 - Consulta visual privada ligada al caso, responsable, ámbito, versión y lectura auditada vigente; ninguna URL debe conferir acceso por sí sola. GET de la pantalla general no debe consultar fotos privadas.
 - Selección y orden completos de hasta ocho fotografías, incluida retirada total. Solo referencias autorizadas del perfil; rechazar IDs ajenos, repetidos, retirados o de archivos no disponibles.
@@ -205,3 +205,21 @@ Esta protección no permite todavía corregir la selección de fotografías. Par
 - Pruebas de navegador ES/EN, fuente intercalada, referencias ajenas, sustitución, retirada, límites, acceso revocado, concurrencia, fallos de almacenamiento y aislamiento de otro perfil que comparte bytes.
 
 La vinculación de metadatos no comprueba un cambio de bytes realizado fuera del almacenamiento autorizado manteniendo los mismos metadatos. La integridad y restauración del almacenamiento siguen sujetas a los controles de operación.
+
+
+## Selección y orden de fotografías actuales
+
+Implementados formulario de selección/orden, miniaturas privadas ligadas a consulta auditada vigente, revisión independiente visual y copia de la selección a una revisión pendiente. Se puede retirar toda la selección; se conservan fuente y bytes, sin publicación ni borrado físico. El contrato preciso está en REQ-CR09-RECTIFICATION-PHOTOS-01 de docs/contratos/10.
+
+El endpoint de miniaturas vuelve a comprobar responsable, permisos/MFA, COI, ámbito/proof, lecturas y huella. Un cambio de versión/estado/archivo o un gestor obsoleto impide la entrega. Consultar la pantalla por GET no concede acceso. La fuente y la selección están ordenadas y acotadas; ni una URL ni el identificador de un blob acreditan autorización.
+
+Las cargas de sustitución y la conservación histórica quedan abiertas. La ruta genérica de fotos privadas del gestor todavía debe incorporar la disposición motivada de imágenes históricas: omitir una foto en la nueva revisión no borra ni revoca por sí solo todas sus referencias anteriores. También debe decidirse y comprobarse el tratamiento de una futura carga de los mismos bytes. No marcar el derecho de fotos completo hasta resolverlo, comunicar lo correspondiente y emitir respuesta final.
+
+
+### Selección y orden de fotografías — aceptación local parcial
+
+Añadido bloque photos (lista ordenada0–8 de fotos actuales) y formset con orden/DELETE, consulta visual privada ligada a lectura auditada/proof/versión/huella/roles, revisión visual independiente ES/EN y ejecución sobre nueva revisión pendiente. Conserva fuente y bytes; solo despacha blobs seleccionados, reinicia aprobación y cifra selección anterior. Rechaza referencias ajenas/históricas/no disponibles y copia implícita de imágenes no disponibles. Omitir toda la selección no borra archivos ni cierra el derecho.
+
+Primera batería20 fallidas/3 correctas150.47s por conversor int de expediente UUID; ruta corregida. Segunda33 correctas/1 fallida294.54s: test esperaba403 ante MFA caducada, pero la redirección vigente302 a MFA bloquea los bytes; corregida expectativa. Final afectada9 correctas111.95s sin fallos/errores/skips: seis pruebas de fotos y tres móviles, miniaturas realmente decodificadas en propuesta EN/revisión ESEN. No sumar33+9 ni declarar suite común aprobada. Evidencia en docs/evidencias/rectificacion-seleccion-fotografias.json.
+
+Ruff/check/format/makemigrations/diff limpios; sin migración nueva. Docker app/worker/Beat reconstruidos/recreados, hashes coinciden, UID10001/health200. CI anteriora5c9d7b terminal498 passed1444.36s, evidencia separada; no incluye esta entrega. Faltan sustituciones, acceso/conservación de referencias históricas/reintroducción de bytes, comunicaciones/respuesta final y demás derechos de CR09, además de CR10/GS01/BF/BB/C. Claude3/3, sin nuevas llamadas.

@@ -33,3 +33,8 @@ Acceso/copia — actividad propia de favoritos (en verificación): rights_copy_d
 
 
 Copia de favoritos propios: regresión terminal test_rights_copy_scope5 passed35.88s, exit0. Cubre proyección sujeto/ausencia de sustitución por gestor, contacto compartido, deriva de cuenta/imágenes, nueva deriva de favorito y descarga privada de copia revisada. No suite común completa ni aceptación integral acceso/portabilidad. Ruff/check/makemigrations/diff limpios. Docker app/worker/Beat reconstruidos/recreados sin migración nueva; health200/hash rights_copy_data.py host/contenedor15ad800229539c133ca49ca9d4a68a2cbaa8a3dbc0075647e2997469626e025f coincide. Copia sigue parcial/simulada, sin terceros ni verificación externa real. Claude3/3; CR09 y resto del contrato pendientes.
+
+
+### Referencias históricas después de rectificar fotografías
+
+La selección de fotografías se puede corregir en una revisión pendiente, con fuente histórica preservada. Esto no equivale a supresión ni determina por sí solo qué actores deben poder consultar referencias históricas. Verificar la ruta genérica `private_photo` del gestor, previsualizaciones de moderación y cada derivado/copia/exportación que conserve una referencia anterior. Establecer disposición motivada por ámbito y finalidad, sin afectar otro perfil que comparta bytes. Incluir futuras cargas de los mismos bytes y conciliación/restauración. El caso permanece abierto mientras estas disposiciones y comunicaciones no estén resueltas.

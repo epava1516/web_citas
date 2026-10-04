@@ -120,6 +120,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
         rectification_contacts,
         rectification_details,
         rectification_location,
+        rectification_photos,
         rectification_rates,
     )
     from .models import RightsRectificationExecution
@@ -218,7 +219,15 @@ def execute(user, case_id, proposal_id, key, version, reason):
                         field: getattr(source, field)
                         for field in changes
                         if field
-                        not in {"alias", "location", "catalog", "rates", "contacts", "details"}
+                        not in {
+                            "alias",
+                            "location",
+                            "catalog",
+                            "rates",
+                            "contacts",
+                            "details",
+                            "photos",
+                        }
                     }
                 )
                 values.update(
@@ -226,7 +235,15 @@ def execute(user, case_id, proposal_id, key, version, reason):
                         field: text
                         for field, text in changes.items()
                         if field
-                        not in {"alias", "location", "catalog", "rates", "contacts", "details"}
+                        not in {
+                            "alias",
+                            "location",
+                            "catalog",
+                            "rates",
+                            "contacts",
+                            "details",
+                            "photos",
+                        }
                     }
                 )
                 if "details" in changes:
@@ -269,18 +286,26 @@ def execute(user, case_id, proposal_id, key, version, reason):
                 rate_values = changes.get("rates", rectification_rates.source(source))
                 for rate in rate_values:
                     Rate.objects.create(revision=corrected, **rate)
+                selected_photos = list(
+                    source.photos.filter(removed_at__isnull=True).order_by(
+                        "position", "created_at", "pk"
+                    )
+                )
+                if "photos" in changes:
+                    before["photos"] = rectification_photos.source(source)
+                    by_id = {str(photo.pk): photo for photo in selected_photos}
+                    selected_photos = [by_id[identifier] for identifier in changes["photos"]]
                 Photo.objects.bulk_create(
                     [
-                        Photo(revision=corrected, blob_id=photo.blob_id, position=photo.position)
-                        for photo in source.photos.filter(removed_at__isnull=True)
+                        Photo(
+                            revision=corrected,
+                            blob_id=photo.blob_id,
+                            position=index if "photos" in changes else photo.position,
+                        )
+                        for index, photo in enumerate(selected_photos)
                     ]
                 )
-                for blob_id in set(
-                    str(value)
-                    for value in source.photos.filter(removed_at__isnull=True).values_list(
-                        "blob_id", flat=True
-                    )
-                ):
+                for blob_id in sorted({str(photo.blob_id) for photo in selected_photos}):
                     transaction.on_commit(
                         lambda blob_id=blob_id: process_blob.delay(blob_id), robust=True
                     )

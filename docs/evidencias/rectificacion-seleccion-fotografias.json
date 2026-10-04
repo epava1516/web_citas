@@ -1,0 +1,87 @@
+{
+  "scope": "Rectificación de selección y orden de fotos actuales, sin sustitución/retención/cierre integral",
+  "results": [
+    {
+      "artifact": "rectification-photo-selection.xml",
+      "sha256": "dfb250a0ac88363bdd999c0395dd75415828ae7bd0fc36d7f7385c677e4e62b7",
+      "suites": [
+        {
+          "tests": "23",
+          "errors": "0",
+          "failures": "20",
+          "skipped": "0",
+          "time": "150.331"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-photo-selection-final.xml",
+      "sha256": "ba81c5a23a640d0b5237490f28dc42d841670ae78878a2558b7f3050ec65a81f",
+      "suites": [
+        {
+          "tests": "34",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "time": "294.424"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-photo-browser-final.xml",
+      "sha256": "9b7b6aaa24aefd1a2276c4400b6961a0a1eb6201ca27e9fdaab618b887c09f99",
+      "suites": [
+        {
+          "tests": "9",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "111.853"
+        }
+      ]
+    }
+  ],
+  "environment": {
+    "database": "PostgreSQL real",
+    "browser": "Chromium móvil; imágenes decodificadas por naturalWidth en propuesta EN y revisión ES/EN",
+    "fixtures": "Imágenes sintéticas generadas localmente; proof de identidad/ámbito simulado, no proveedor real"
+  },
+  "verified": [
+    "GET general sin selección ni grant; derivado requiere SourceRead propio/proof/caseversion/huella vigente y permisos/MFA/COI/responsable",
+    "Formset máx8/absolute9, posiciones0–7 distintas, UUID propios vigentes y disponibles; rechaza foreign/historical/removed/duplicate/unavailable/management excesivo o ausente",
+    "Primera/décima fila de tarifas y nuevas fotos se mantienen independientes; móviles sin fuente en GET",
+    "Selección de ocho aceptada HTTP, orden inverso persistido cifrado; DELETE todo permite selección vacía",
+    "Copiar revisión con fotos no disponibles rechazado; omisión explícita permite excluirlas sin mutar fuente",
+    "Revisión/notify/recepción/prueba nueva/execute agencia y particular; fuente intacta, selecciónanterior cifrada, filas nuevas con orden contiguo/aprobación reiniciada",
+    "Blob tasks solo de fotos conservadas; retirada total no despacha fotos; aislamiento de contactos/agencias/replay/rollback/concurrencia de fuente cubiertos en batería amplia"
+  ],
+  "incidents": [
+    "Primera batería20failed/3passed150.47s: ruta case_id int incompatible con UUID; corregida a UUID, repetición amplia",
+    "Segunda33passed/1failed294.54s: expectativa403 con MFA caducada; respuesta real302 a MFA sin bytes. Se corrige prueba, no guarda de aplicación",
+    "Final9passed111.95s sin fallos/errores/skips; seis pruebas de fotos y tres móviles afectados. No sumar con33 como suite común aceptada"
+  ],
+  "runtime": {
+    "app_worker_beat": "Reconstruidos/recreados localmente",
+    "uid": 10001,
+    "health_http": 200,
+    "hashes": {
+      "apps/safety/rectification_photos.py": "c6e379a3db3cc32b2a10bc2ed318072751f6e922bd195f2bcb76f16c32d88434",
+      "apps/safety/rights_rectification.py": "20ec5c6d70206b70f017ca26593e845b5358f4ceebefc468e3cfd9b6e0451923",
+      "apps/safety/rectification_execution.py": "db0d81d2114d53b2647ec8dbea985bb0a47c111e3f8f2f800eb027ec268599f3"
+    }
+  },
+  "checks": [
+    "ruff check .",
+    "ruff format --check archivos afectados",
+    "manage.py check host y Docker",
+    "makemigrations --check --dry-run sin nueva migración",
+    "git diff --check"
+  ],
+  "limits": [
+    "No cargas de sustitución vinculadas al expediente",
+    "Conservación/acceso a refs históricas y reintroducción de bytes pendientes, ver docs40/43",
+    "No entrega/identidad reales, borrado físico, publicación, respuesta final ni aceptación CR09",
+    "CIa5c9d7b498passed1444.36s es anterior a esta entrega",
+    "Contrato CR09→CR10→GS01→BF/BB→C íntegro, Claude3/3 sin llamadas"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "scope": "Regresión completa CI sobrea5c9d7b; no aceptación integral CR09",
+  "commit": "a5c9d7b084942ac91e165d0a06a8a6a55aa7bfde",
+  "run_id": 37226297758,
+  "url": "https://github.com/epava1516/web_citas/actions/runs/37226297758",
+  "conclusion": "success",
+  "tests": {
+    "command": "uv run pytest",
+    "passed": 498,
+    "seconds": 1444.36,
+    "summary": "498 passed in 1444.36s",
+    "failures_reported": false,
+    "skips_reported": false
+  },
+  "log_sha256": "f0405ad80ce6345c577f215338fa16db749e22cc795a32ec47cd4e6ec1f3d95f",
+  "environment": {
+    "runner": "ubuntu-latest GitHub Actions",
+    "database": "Servicio PostgreSQL17-alpine; configuración Django PostgreSQL",
+    "browser": "Chromium instalado por Playwright; pruebas de navegador ejecutadas",
+    "data": "Fixtures sintéticas; no identidad/SMS/entrega externa real"
+  },
+  "checks": [
+    "uv sync --locked",
+    "ruff check .",
+    "manage.py check",
+    "makemigrations --check --dry-run",
+    "playwright install --with-deps chromium",
+    "pytest"
+  ],
+  "limits": [
+    "No incluye corrección de tarifas ec0c005, fuente Blob afc934d ni selección de fotos posterior",
+    "No mide carga ni backup/restore/despliegue ni prueba externa independiente",
+    "CR09/CR10/GS01/BF/BB/C y producción pendientes"
+  ]
+}
