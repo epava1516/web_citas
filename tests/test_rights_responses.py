@@ -22,7 +22,7 @@ pytestmark = pytest.mark.django_db(transaction=True)
 TEXT = "Se ha revisado el alcance de la solicitud y las actuaciones indicadas. La información aquí facilitada no incluye datos de terceros."
 
 
-def ready(request, settings, monkeypatch, kind="access"):
+def ready(request, settings, monkeypatch, kind="access", subject_username="fixture-v1-model-a"):
     import test_rights_exports
 
     original = test_rights_exports.data
@@ -32,7 +32,7 @@ def ready(request, settings, monkeypatch, kind="access"):
             "data",
             lambda client, **changes: original(client, **(changes | {"kind": kind})),
         )
-        result = test_rights_exports.prepared(request, settings)
+        result = test_rights_exports.prepared(request, settings, subject_username=subject_username)
     case, user, staff, client, receipt, person = result
     user.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
     user = User.objects.get(pk=user.pk)

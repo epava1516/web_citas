@@ -17,6 +17,7 @@ from apps.core.models import (
     AccountToken,
     PhoneChallenge,
     RecoveryCode,
+    RepresentationAction,
     RepresentationInvitation,
     User,
 )
@@ -42,7 +43,7 @@ from .views import private
 SUPPORTED = [
     ("account", "Identidad y acceso de cuenta / Account identity and access"),
     ("contact", "Desafíos de teléfono / Phone challenges"),
-    ("representation", "Invitaciones de representación / Representation invitations"),
+    ("representation", "Autorización e invitaciones / Authorization and invitations"),
     ("shared_contact_review", "Asociación al teléfono / Phone association"),
     ("media", "Archivos y huellas propios / Own files and fingerprints"),
     ("profile", "Alias público / Public alias"),
@@ -62,7 +63,9 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         or not user.has_perm("safety.execute_rights_request")
     ):
         raise PermissionDenied
-    case, person, _ = locked_case(case_id, lock_listing=True)
+    # Our own revocation changes manager_version while another identical request waits.
+    # Re-read it under lock before replay; new executions still validate proof and source below.
+    case, person, _ = locked_case(case_id, lock_listing=True, allow_version_change=True)
     if not permitted(user, case):
         raise PermissionDenied
     if (
@@ -238,6 +241,9 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 "exclusive_media_pending": 0,
                 "phone_challenges_deleted": 0,
                 "representation_invitations_deleted": 0,
+                "representation_revoked": False,
+                "previous_manager_version": person.manager_version,
+                "resulting_manager_version": person.manager_version,
                 "phone_association_detached": False,
                 "account_fields_cleared": False,
             }
@@ -251,6 +257,27 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                     RepresentationInvitation.objects.filter(person=person).count()
                 )
                 RepresentationInvitation.objects.filter(person=person).delete()
+                person.consent_revoked_at = timezone.now()
+                person.manager_version += 1
+                case.manager_version = person.manager_version
+                result["resulting_manager_version"] = person.manager_version
+                person.age_status = "pending"
+                person.save(update_fields=["consent_revoked_at", "manager_version", "age_status"])
+                RepresentationAction.objects.create(
+                    person=person,
+                    subject=person.subject,
+                    manager_version=person.manager_version,
+                    action="revoke",
+                )
+                Listing.objects.filter(person=person).update(
+                    status=models.Case(
+                        models.When(status="published", then=models.Value("paused")),
+                        default=models.F("status"),
+                    ),
+                    available_until=None,
+                    lifecycle_version=models.F("lifecycle_version") + 1,
+                )
+                result["representation_revoked"] = True
             if "shared_contact_review" in purposes:
                 person.phone_claim = None
                 person.save(update_fields=["phone_claim"])
@@ -430,7 +457,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
             person.save(update_fields=["rights_version"])
             case.version += 1
             case.scope_status = "unverified"
-            case.save(update_fields=["version", "scope_status"])
+            case.save(update_fields=["version", "scope_status", "manager_version"])
             return record
     except IntegrityError as error:
         raise ValidationError("Execution conflict / Conflicto de ejecución") from error

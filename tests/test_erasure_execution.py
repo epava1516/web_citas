@@ -21,9 +21,11 @@ REASON = "Execute selected scoped deletion after synthetic independent identity 
 PURPOSES = ["authentication", "account_preferences", "transient_copy"]
 
 
-def plan_fixture(request, settings, monkeypatch, selected_purposes=None):
+def plan_fixture(
+    request, settings, monkeypatch, selected_purposes=None, subject_username="fixture-v1-model-a"
+):
     case, user, staff, client, receipt, person, _, decisions = prepared(
-        request, settings, monkeypatch
+        request, settings, monkeypatch, subject_username=subject_username
     )
     subject = person.subject
     AccountToken.objects.create(

@@ -27,7 +27,7 @@ from apps.safety.rights_verification import receive_event, simulate_event, start
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def prepared(request, settings):
+def prepared(request, settings, subject_username="fixture-v1-model-a"):
     request.getfixturevalue("directory")
     settings.RIGHTS_VERIFICATION_BACKEND = "simulator"
     client = Client()
@@ -40,7 +40,7 @@ def prepared(request, settings):
     path, claim = action(staff, case, "claim")
     assert staff.post(path, claim).status_code == 302
     read(staff, case)
-    person = Person.objects.get(subject__username="fixture-v1-model-a")
+    person = Person.objects.get(subject__username=subject_username)
     path, linked = link(staff, case, person)
     assert staff.post(path, linked).status_code == 302
     read(staff, case)

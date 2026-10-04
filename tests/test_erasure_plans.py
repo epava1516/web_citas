@@ -21,8 +21,10 @@ REASON = "Synthetic minimized per-purpose assessment, without third-party identi
 SCOPE = "Only this subject's scoped resources, excluding other models and managers"
 
 
-def prepared(request, settings, monkeypatch):
-    case, user, staff, client, receipt, person = ready(request, settings, monkeypatch, "erase")
+def prepared(request, settings, monkeypatch, subject_username="fixture-v1-model-a"):
+    case, user, staff, client, receipt, person = ready(
+        request, settings, monkeypatch, "erase", subject_username=subject_username
+    )
     snapshot = inventory(
         user,
         case.pk,

@@ -428,3 +428,8 @@ Extensión de erasure-execute en [docs/33](../33-supresion-contactos-invitacione
 ## REQ-CR09-ACCOUNT-ERASURE-01
 
 Extensión del ejecutor existente: `account` con decisión erase requiere authentication/account_preferences y publication suprimida conjuntamente o previamente. Fuente de inventario excluye cuentas con otras responsabilidades; core0015 persiste account_erased_at. Identidad vaciada, cuenta inactiva, contraseña inutilizable, secreto MFA eliminado; ID/auditorías preservados, resultado privado account_fields_cleared, expediente abierto. Los escritores de cuenta revalidan la marca bajo bloqueo. [Alcance y pendientes](../34-supresion-cuenta.md).
+
+
+## REQ-CR09-REPRESENTATION-ERASURE-01
+
+La finalidad representation erase ahora borra invitaciones y revoca consentimiento vigente bajo el mismo ejecutor, pausa publicación activa y conserva acciones históricas. Incrementa manager_version, invalida edad anterior y registra RepresentationAction revoke. Resultado privado representation_revoked. Consentimiento particular revalida epoch/cuenta/publication_erased bajo bloqueo; peticiones antiguas409, petición explícita nueva no publica ni verifica edad automáticamente. Sin migración/tarea nueva. [Alcance](../35-supresion-representacion.md).

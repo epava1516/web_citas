@@ -257,6 +257,7 @@ def accept_consent(request, invitation_id, raw):
 @require_http_methods(["GET", "POST"])
 def self_consent(request, person_id):
     person = get_object_or_404(Person, pk=person_id, individual=request.user, subject=request.user)
+    expected_rights_version = person.rights_version
     document = get_object_or_404(
         LegalDocument, slug="publishing", language=request.LANGUAGE_CODE, active=True
     )
@@ -268,8 +269,15 @@ def self_consent(request, person_id):
     ):
         with transaction.atomic():
             person = Person.objects.select_for_update().get(pk=person.pk)
-            if person.individual_id != request.user.pk:
+            if (
+                person.individual_id != request.user.pk
+                or person.rights_version != expected_rights_version
+                or person.publication_erased_at
+            ):
                 return HttpResponse("Manager changed", status=409)
+            user = User.objects.select_for_update().get(pk=request.user.pk)
+            if user.account_erased_at or not user.is_active:
+                return HttpResponse("Account access revoked", status=409)
             current_grant = RepresentationAction.objects.filter(
                 person=person,
                 subject=request.user,

@@ -114,10 +114,25 @@ def test_delete_codes_and_detach_phone_preserves_other_model_and_consent_evidenc
         not revision.phone and not revision.whatsapp for revision in person.listing.revisions.all()
     )
     assert list(peer.listing.revisions.values()) == peer_before
-    assert RepresentationAction.objects.filter(person=person).count() == grants
+    assert RepresentationAction.objects.filter(person=person).count() == grants + 1
+    assert person.consent_revoked_at and person.age_status == "pending"
+    assert person.consent_version != person.manager_version
+    assert person.listing.status == "paused"
+    assert RepresentationAction.objects.filter(person=person, action="revoke").count() == 1
     data = unseal(result.encrypted_result)
     assert data["phone_association_detached"] and data["phone_challenges_deleted"] == 1
     assert data["representation_invitations_deleted"] == 1
+    assert data["representation_revoked"]
+    assert (
+        execute(
+            actor,
+            case.pk,
+            plan.pk,
+            **(payload(case) | {"key": result.action.key, "purposes": SELECTED}),
+        ).pk
+        == result.pk
+    )
+    assert RepresentationAction.objects.filter(person=person, action="revoke").count() == 1
     case.refresh_from_db()
     assert case.status == "reviewing"
 
