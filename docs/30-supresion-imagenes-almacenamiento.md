@@ -32,3 +32,5 @@ Ensayo operativo media terminado: `uv run python -m scripts.probe_media_erasure_
 Docker principal app/worker/Beat reconstruidos/recreados, app confirma mediafiles0008/UID10001/adaptadores disabled/schedule erase-private-media60s y salud Caddy200. SHA256 host/contenedor erasure_execution=f536eb92817ce709e3bed1d99fd650088cb9bc4db3008d0d068317bee0ac3368 y mediafiles/services=2ac5b1550320923ca1d919d9c67fb43c72a0a809c17cc6061c35c5392cef4eb9 coinciden.
 
 Regresión final de alias físico:1 passed17.98s PostgreSQL, distinto Blob apunta al derivado del objetivo como original; ejecución rechazada y archivo preservado/sin job. Fuente funcional idéntica a27 pruebas/probe; solo prueba añadida. No sumar como suite común.
+
+Recuperación revisada de agotados implementada posteriormente en [docs/31](31-recuperacion-borrado-archivos.md); avisos entregados al operador siguen pendientes.

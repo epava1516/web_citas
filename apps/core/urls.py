@@ -16,6 +16,7 @@ from apps.safety import (
     erasure_execution,
     erasure_inventory,
     erasure_plans,
+    media_operations,
     notice_operations,
     privacy_holds,
     rights,
@@ -62,6 +63,16 @@ urlpatterns = [
         "moderation/rights/<uuid:case_id>/response/",
         rights_responses.respond,
         name="rights_response",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/media-jobs/",
+        media_operations.queue,
+        name="media_erasure_jobs",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/media-jobs/<int:job_id>/",
+        media_operations.recover,
+        name="media_erasure_recover",
     ),
     path("moderation/notices/", notice_operations.queue, name="notice_queue"),
     path(

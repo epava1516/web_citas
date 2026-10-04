@@ -50,7 +50,15 @@ def source_manifest(person):
             "mediafiles.MediaErasure",
             Q(execution__person=person),
             "media",
-            ["pk", "blob_id", "status", "attempts", "next_attempt_at", "completed_at"],
+            [
+                "pk",
+                "blob_id",
+                "status",
+                "attempts",
+                "next_attempt_at",
+                "completed_at",
+                "recovery_version",
+            ],
         ),
         (
             "mediafiles.UploadAttempt",
@@ -177,6 +185,14 @@ def source_manifest(person):
             ["pk", "active", "manager_version"],
         ),
     ]
+    scopes.append(
+        (
+            "mediafiles.MediaErasureRecovery",
+            Q(job__execution__person=person),
+            "dependent_evidence",
+            ["pk", "action_id", "previous_version", "previous_attempts"],
+        )
+    )
     report_scope = Q(report__listing__person=person)
     complaint_scope = Q(decision__report__listing__person=person) | Q(
         listing_decision__revision__listing__person=person

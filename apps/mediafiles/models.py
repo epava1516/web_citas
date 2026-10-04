@@ -114,6 +114,7 @@ class PhotoAppeal(models.Model):
 
 
 class MediaErasure(models.Model):
+    recovery_version = models.PositiveIntegerField(default=1)
     blob = models.OneToOneField(Blob, on_delete=models.PROTECT, related_name="erasure")
     execution = models.ForeignKey(
         "safety.ErasureExecution", on_delete=models.PROTECT, related_name="media_jobs"
@@ -124,4 +125,15 @@ class MediaErasure(models.Model):
     next_attempt_at = models.DateTimeField(default=timezone.now)
     completed_at = models.DateTimeField(null=True)
     error_code = models.CharField(max_length=40, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [("manage_media_erasure", "Recover exhausted media erasure jobs")]
+
+
+class MediaErasureRecovery(models.Model):
+    job = models.ForeignKey(MediaErasure, on_delete=models.PROTECT, related_name="recoveries")
+    action = models.OneToOneField("safety.RightsAction", on_delete=models.PROTECT)
+    previous_version = models.PositiveIntegerField()
+    previous_attempts = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)

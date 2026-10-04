@@ -408,3 +408,8 @@ Extensión profile/publication de erasure-execute, documentada en [docs/29](../2
 ## REQ-CR09-ERASURE-MEDIA-01
 
 Extensión media de erasure-execute en [docs/30](../30-supresion-imagenes-almacenamiento.md). Solo erase vigente/unshared: retirada de Photo, huellas vacías y trabajo durable de archivos, resultado media_jobs_queued; misma validación/idempotencia/CSRF/permisos que docs/28. MediaErasure/0008, tarea erase_media_files/Beat60s, backoff y completed tras confirmación física. No cierre de solicitud ni borrar archivos de otro perfil.
+
+
+## REQ-CR09-MEDIA-RECOVERY-01
+
+Contrato ES/EN de cola/detalle/requeue por caso en [docs/31](../31-recuperacion-borrado-archivos.md), mediafiles0009. GET jobs50/página/estados sin rutas, POST key/version/reason con manage_media_erasure/review/MFA/COI. Solo failed>=5/erasing;302 éxito400 entrada409 incompatible403 autorización404 referencia. Auditoría globalRightsAction/MediaErasureRecovery, recovery_version independiente y replay sin reiniciar posteriores. No ejecución de archivos en HTTP/cierre del derecho ni comunicación externa.
