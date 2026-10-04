@@ -1,0 +1,67 @@
+{
+  "scope": "Acceso ordinario del gestor a historial rectificado, prevención de copia automática y lectura concurrente tras redacción de medios; aceptación parcial CR09",
+  "results": [
+    {
+      "artifact": "rectification-historical-manager.xml",
+      "scope": "Primera versión: fuente directa y copia automática",
+      "sha256": "01f561851a70648009297979620f70a9963cfece1822041254106af690b369b5",
+      "suites": [
+        {
+          "tests": "37",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "252.381"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-historical-race-final.xml",
+      "scope": "Versión final: revisiones anteriores y retirada concurrente",
+      "sha256": "cec0174eb6eab7f5a6ede60d781983c45b70c82d89637835b827753eac845d6c",
+      "suites": [
+        {
+          "tests": "43",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "285.964"
+        }
+      ]
+    },
+    {
+      "artifact": "agency-appeal-navigation-final.xml",
+      "scope": "Batería independiente de navegación y reclamación de agencia",
+      "sha256": "8449c975b38ccc94d938efe9b5b0965c0b93292b34c884a09e862ade3f436a6f",
+      "suites": [
+        {
+          "tests": "8",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "time": "33.389"
+        }
+      ]
+    }
+  ],
+  "interpretation": "43 pruebas finales correctas en286.11s y batería independiente8 correctas33.50s. No sumar con37 anteriores ni declarar regresión común completa. PostgreSQL/Chromium, almacenamiento local e imágenes sintéticas; identidad simulada explícita.",
+  "runtime": {
+    "migration": "sin migración nueva; core0015/safety0054/mediafiles0010",
+    "host_container_sha256": {
+      "apps/listings/revisions.py": "2713c9023f8c38470f29bde05d1ef11957745ae95d771201bcad5398be03cc9e",
+      "apps/mediafiles/views.py": "8fe1d9395a3816a4793ab572a1a68c00c1cd89d8681d37568cd60959413ba788",
+      "templates/listings/draft.html": "de1db4cb1229b29c944e14ef2614c19c2fb7cf0e75f0ff4f7cdf675f9141f997"
+    },
+    "uid": 10001,
+    "health_http": 200,
+    "check": "sin incidencias"
+  },
+  "concurrency": "Dos conexiones y pg_blocking_pids prueban espera real. Ejecuta servicio de redacción de derechos con plan/proof sintéticos autorizado; referencia retirada devuelve404 y perfil ajeno compartido mantiene acceso.",
+  "remaining": [
+    "Recarga manual de bytes retirados y variaciones visuales",
+    "Rehabilitación revisada de referencias",
+    "Acceso a históricos desde colas generales y conservación por finalidad",
+    "Identidad de cuenta, destinatarios, respuesta final y demás derechos",
+    "Regresión común del nuevo commit y contrato completo"
+  ]
+}

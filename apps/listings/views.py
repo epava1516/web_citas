@@ -13,7 +13,7 @@ from apps.core.verification import locked_manager_person
 
 from .forms import ContactsForm, DetailsForm, RateFormSet
 from .models import Listing, Revision
-from .revisions import create_draft
+from .revisions import create_draft, is_rectification_history
 from .submissions import submit
 
 
@@ -59,7 +59,8 @@ def revision_status(request, revision_id):
         manager_version=F("listing__person__manager_version"),
     )
     if (
-        revision.status == "rights-stage"
+        is_rectification_history(revision)
+        or revision.status == "rights-stage"
         or revision.photos.filter(rectification_upload__isnull=False).exists()
     ):
         return HttpResponse("Not found", status=404)
@@ -103,7 +104,10 @@ def edit(request, revision_id, step):
     )
     if step not in [1, 2, 3, 4]:
         return HttpResponse("Unknown step", status=404)
-    if revision.photos.filter(rectification_upload__isnull=False).exists():
+    if (
+        is_rectification_history(revision)
+        or revision.photos.filter(rectification_upload__isnull=False).exists()
+    ):
         return HttpResponse("Not found", status=404)
     if (
         revision.status != "draft"
@@ -194,6 +198,11 @@ def edit(request, revision_id, step):
         {
             "revision": revision,
             "step": step,
+            "history_excluded": (
+                revision.source_revision_id is None
+                and revision.listing.approved_revision is not None
+                and is_rectification_history(revision.listing.approved_revision)
+            ),
             "form": form,
             "rates": rates,
             "document": document,

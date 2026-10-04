@@ -8,6 +8,7 @@ from apps.core.verification_services import publication_ready
 
 from .forms import ContactsForm, DetailsForm, RateForm
 from .models import Listing, Revision, Submission
+from .revisions import is_rectification_history
 
 
 def current_publishing_document():
@@ -27,12 +28,9 @@ def validate_submission(revision, person):
             "Rights image preparation cannot publish / Preparación de imágenes de derechos no publicable"
         )
 
-    from apps.safety.models import PrivacyPublicationHold, Restriction, RightsRectificationExecution
+    from apps.safety.models import PrivacyPublicationHold, Restriction
 
-    if RightsRectificationExecution.objects.filter(
-        notification__review__proposal__source_revision=revision,
-        notification__review__proposal__person=person,
-    ).exists():
+    if is_rectification_history(revision):
         raise ValidationError(
             "Versión histórica rectificada; usa una nueva revisión / Corrected historical version; use a new revision"
         )

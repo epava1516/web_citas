@@ -249,3 +249,16 @@ Batería final: 35 pruebas correctas en 329.86s con PostgreSQL/Chromium, sin fal
 CI histórica 7f00034: 517 pruebas correctas en 1049.74s, run37232805530 success. Incluye cargas de sustitución, pero no esta limpieza ni mediafiles0010. [Evidencia](evidencias/regresion-ci-7f00034.json). CI a36eca3/run37232838985 todavía estaba activa al comprobarse; no reiniciada ni cancelada.
 
 Siguen abiertos retención final/evidencias/tombstones/restauración, acceso histórico y reintroducción, identidad de cuenta, comunicaciones/respuesta final y resto CR09. CR10, GS01, B-F/B-B/C y producción pendientes. Claude 3/3; sin nuevas delegaciones.
+
+
+## Acceso ordinario del gestor a historial rectificado
+
+Regla central por persona y ejecución: versiones anteriores/fuente restringidas; nueva revisión corregida utilizable, y una ejecución posterior restringe también las correcciones previas. Rutas de imágenes privadas, estado/editor y publicación respetan la clasificación. Crear borrador no copia una base histórica: crea uno vacío y lo explica en ES/EN. No cambia ni borra la fuente, ni restringe otro perfil que comparta bytes.
+
+La lectura privada bloquea gestor/persona/revisión y vuelve a leer Photo después de esperar. Una redacción real del servicio de derechos puede retirar/desvincular la referencia durante la espera: el endpoint devuelve404 y no entrega el archivo anterior. Prueba con dos conexiones y pg_blocking_pids, datos sintéticos y proof de identidad simulado explícito; el perfil ajeno compartido mantiene acceso.
+
+Batería final43 correctas286.11s con PostgreSQL/Chromium; anterior37 correctas252.51s corresponde a versión previa. Batería independiente de reclamación de agencia8 correctas33.50s: espera estado visible guardado antes de reload, sin sleeps/retries ni debilitar CSP. No sumar como regresión común. Docker reconstruido/recreado, hashes iguales, UID10001/health200, check/migraciones/ruff/diff limpios; sin migración nueva. [Detalle](45-acceso-historico-rectificacion.md) y [evidencia](evidencias/acceso-historico-rectificacion.json).
+
+CI fdc3a49/run37234446974:527 correctas1073.80s, success; incluye limpieza técnica, no esta entrega. CI a36eca3/run37232838985:516 correctas/1 fallida1487.26s, reload de reclamación de agencia con error de protocolo Chromium; no aceptada. Se conserva el fallo y no se acredita su causa interna ni una regresión común nueva mediante los8 tests locales. Evidencias separadas en docs/evidencias/regresion-ci-fdc3a49.json y regresion-ci-a36eca3.json.
+
+Pendientes: recarga manual de imágenes/variaciones/rehabilitación, acceso a históricos desde colas generales y conservación por finalidad, identidad de cuenta, comunicaciones/respuesta final y demás derechos. CR09 y contrato completo abiertos; Claude3/3 consumidas, sin nuevas delegaciones. Graphify consultado como mapa previo (1185 nodos), sin reconstrucción ni uso como prueba de aceptación.

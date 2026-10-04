@@ -1,0 +1,13 @@
+{
+  "run": 37232838985,
+  "head": "a36eca373c0b9587c8728bf057d7d5387a3d0c0e",
+  "status": "completed",
+  "conclusion": "failure",
+  "passed": 516,
+  "failed": 1,
+  "duration_seconds": 1487.26,
+  "failed_test": "tests/test_browser_agency_appeal.py::test_mobile_agency_rejection_appeal",
+  "error": "Page.reload: Protocol error (Page.reload): Not attached to an active page",
+  "log_sha256": "3032fe28373987e5aa847e8bb4ccbb3f13ff707a1818e162d2a68ed58fcdf154",
+  "interpretation": "Regresión histórica no aceptada. Primer reload inmediatamente después de submit. Se añade espera de estado observable guardado antes de recargar, sin retries/sleeps ni desactivar CSP. La causa interna de Chromium no queda acreditada por el log."
+}

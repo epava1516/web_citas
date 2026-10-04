@@ -621,3 +621,8 @@ Cargas privadas y descarte lógico implementados con safety0054. Baterías final
 ### Limpieza de preparación: aceptación local parcial
 
 Implementada limpieza técnica durable con mediafiles0010 y referencias de carga/trabajo incorporadas al inventario seleccionado. 35 pruebas finales correctas en 329.86s; anteriores 20/33 se solapan. Docker/migración/hashes/UID10001/health200 verificados; transporte real de tarea vacía y borrado local en pruebas diferenciados. CI histórica 7f00034:517 correctas1049.74s, no incluye limpieza. Documentación: docs/44-conservacion-cargas-preparadas.md; evidencia: docs/evidencias/conservacion-cargas-preparadas.json. Se mantienen retención final de evidencias/metadatos, acceso histórico/reintroducción, cuenta, comunicaciones/cierre y contrato completo pendientes. Claude3/3; sin invocaciones nuevas.
+
+
+### Acceso ordinario al historial: aceptación parcial
+
+Centralizada restricción del gestor para versiones anteriores a rectificación y prevención de copia automática; nueva corrección y otros perfiles no bloqueados. Lectura privada revalida referencia tras locks.43 finales correctas286.11s PG/Chromium; 37 anteriores no sumables. Navegación/reclamación agencia8 correctas33.50s separadas; no regresión común. Docker/hashes/check/migraciones/ruff/diff/UID10001/health200 verificados, sin migración nueva. CI fdc3a49 termina527 correctas1073.80s, anterior a este cambio; a36eca3 falla1/516 correctas1487.26s en reload de agencia, evidencia conservada. docs/45 y evidencias/acceso-historico-rectificacion.json. Recarga manual/variaciones/rehabilitación, colas generales/históricos, retención, cuenta/comunicaciones/cierre y resto contrato pendientes. Claude3/3; sin invocaciones nuevas.

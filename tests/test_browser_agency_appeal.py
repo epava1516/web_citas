@@ -38,6 +38,10 @@ def test_mobile_agency_rejection_appeal(live_server, request, settings):
             page.get_by_role("link", name="Reclamar rechazo de agencia").click()
             page.locator("[name=explanation]").fill("Solicito una nueva comprobación de agencia")
             page.get_by_role("button", name="Enviar reclamación").click()
+            expect(page.get_by_role("button", name="Enviar reclamación")).not_to_be_visible()
+            expect(
+                page.get_by_text("Solicito una nueva comprobación de agencia", exact=False)
+            ).to_be_visible()
             page.reload()
             expect(
                 page.get_by_text("Solicito una nueva comprobación de agencia", exact=False)
@@ -49,6 +53,12 @@ def test_mobile_agency_rejection_appeal(live_server, request, settings):
             staff.locator("[name=result]").select_option("reconsider")
             staff.locator("[name=reason]").fill("Se reabre para comprobar nuevas evidencias")
             staff.get_by_role("button", name="Resolver reclamación de agencia").click()
+            expect(
+                staff.get_by_role("button", name="Resolver reclamación de agencia")
+            ).not_to_be_visible()
+            expect(
+                staff.get_by_text("Se reabre para comprobar nuevas evidencias", exact=False)
+            ).to_be_visible()
             page.reload()
             expect(
                 page.get_by_text("Se reabre para comprobar nuevas evidencias", exact=False)

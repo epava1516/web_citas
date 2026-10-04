@@ -546,3 +546,14 @@ Exige carga descartada/caducada, ninguna activa del archivo, ninguna referencia 
 Preparación confirma rutas y Blob.purging en transacción independiente. Borrado vuelve a bloquear Blob/trabajo y comprobar dependencias; ejecución dentro de una transacción externa se rechaza. Fallo o corte conservan guardas/rutas y permiten repetir un borrado parcial. Ingestión, procesamiento y coincidencias no reactivan purging/purged. Al terminar vacía archivos/huellas/dimensiones, reemplaza SHA por valor aleatorio y retira referencias preparadas. Una nueva carga de los mismos bytes crea otro Blob; las referencias antiguas no lo recuperan.
 
 No elimina referencias ordinarias ni evidencia protegida; no cierra el derecho ni establece plazos jurídicos. Conservación final de metadatos/evidencias, alertas y restauración/conciliación pendientes. Inventario incorpora RightsRectificationPhotoUpload y metadatos de MediaPreparationCleanup; cambios invalidan huella anterior. [Especificación y pruebas](../44-conservacion-cargas-preparadas.md).
+
+
+## REQ-CR09-HISTORICAL-MANAGER-01
+
+Clasificación central is_rectification_history por persona: existe ejecución posterior a la revisión o cuya fuente es esa revisión, excluyendo la nueva revisión de esa misma ejecución. Otra ejecución posterior puede restringirla. Conserva fuente y metadatos; no es eliminación ni prohibición global de archivos compartidos.
+
+Rutas ordinarias privadas de fotos/estado/editor devuelven404 ante versiones históricas rectificadas. validate_submission impide republicarlas. La selección de base en create_draft descarta historial restringido: si no hay corrección utilizable, crea revisión sin source_revision ni copia de texto/fotos/tarifas/relaciones. Editor muestra history_excluded y mensaje ES/EN cuando corresponde. No añade endpoint ni confiere al gestor acceso al expediente.
+
+private_photo adquiere locks de gestor/persona y revisión, y vuelve a leer Photo tras esperar, comprobando retirada, revisión y marcador de preparación. Revalida manager_version y clasificación antes de abrir el derivado. Cache privada/no-store, respuestas privadas conforme a middleware. Autorización al abrir, sin garantía de revocación de bytes previamente entregados. La consulta específica de derechos sigue requiriendo ámbito, proof y auditoría propios.
+
+No resuelve recarga manual de bytes/recortes, rehabilitación, acceso histórico desde otras colas ni conservación final de evidencia. [Especificación y pruebas](../45-acceso-historico-rectificacion.md).

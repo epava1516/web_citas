@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import transaction
 from django.db.models import F
 from django.http import FileResponse, HttpResponse
@@ -12,6 +12,7 @@ from apps.core.accounts import limited
 from apps.core.agencies import person_queryset
 from apps.core.verification import locked_manager_person
 from apps.listings.models import Revision
+from apps.listings.revisions import is_rectification_history
 
 from .models import Photo, UploadAttempt
 from .services import ingest
@@ -41,6 +42,7 @@ def upload(request, revision_id):
 
 
 @login_required
+@transaction.atomic
 def private_photo(request, photo_id):
     photo = get_object_or_404(
         Photo,
@@ -50,8 +52,26 @@ def private_photo(request, photo_id):
         revision__manager_version=F("revision__listing__person__manager_version"),
         rectification_upload__isnull=True,
     )
-    if photo.revision.status == "rights-stage":
+    try:
+        person = locked_manager_person(request.user, photo.revision.listing.person_id)
+    except PermissionDenied:
         return HttpResponse("Not found", status=404)
+    revision = Revision.objects.select_for_update().get(pk=photo.revision_id)
+    if (
+        revision.status == "rights-stage"
+        or revision.manager_version != person.manager_version
+        or is_rectification_history(revision)
+    ):
+        return HttpResponse("Not found", status=404)
+    # A rights operation may have detached or withdrawn the reference while
+    # this request waited for its manager/person lock. Read it again afterwards.
+    photo = get_object_or_404(
+        Photo,
+        pk=photo.pk,
+        revision=revision,
+        removed_at__isnull=True,
+        rectification_upload__isnull=True,
+    )
     if photo.blob.status != "ready" or not photo.blob.derivative:
         return HttpResponse("Photo processing", status=409)
     response = FileResponse(photo.blob.derivative.open("rb"), content_type="image/webp")

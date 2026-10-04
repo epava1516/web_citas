@@ -334,6 +334,7 @@ def test_mobile_independent_source_and_proposal_review(
         correct_photos=True,
         replacement_photo=True,
     )
+    historic_photo_ids = list(person.listing.approved_revision.photos.values_list("pk", flat=True))
     path = path.replace("/en/", f"/{language}/")
     reviewer.user_permissions.add(
         *Permission.objects.filter(
@@ -633,6 +634,11 @@ def test_mobile_independent_source_and_proposal_review(
             assert manager_page.evaluate(
                 "document.documentElement.scrollWidth <= window.innerWidth"
             )
+            for photo_id in historic_photo_ids:
+                response = manager_page.goto(
+                    live_server.url + f"/{language}/photos/{photo_id}/private/"
+                )
+                assert response.status == 404
         finally:
             browser.close()
     assert RightsRectificationReview.objects.get().outcome == "approved"
@@ -963,6 +969,18 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     from apps.safety import rectification_execution
     from apps.safety.models import RightsAction, RightsRectificationExecution
 
+    historical = Revision.objects.create(
+        listing=person.listing,
+        manager_version=person.manager_version,
+        status="rejected",
+        title=old_title,
+        description=old_description,
+    )
+    historical_photo = Photo.objects.create(
+        revision=historical,
+        blob=old_revision.photos.first().blob,
+        comparison_complete=True,
+    )
     revision_count = person.listing.revisions.count()
     response_count = case.responses.count()
 
@@ -1186,6 +1204,18 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     session = manager_client.session
     session["mfa_version"] = manager.mfa_version
     session.save()
+    for historic_photo in old_revision.photos.all():
+        assert manager_client.get(f"/en/photos/{historic_photo.pk}/private/").status_code == 404
+        assert historic_photo.blob.original.storage.exists(historic_photo.blob.original.name)
+    assert manager_client.get(f"/en/photos/{historical_photo.pk}/private/").status_code == 404
+    assert manager_client.get(f"/en/draft/{historical.pk}/status/").status_code == 404
+    assert manager_client.get(f"/en/draft/{old_revision.pk}/status/").status_code == 404
+    assert manager_client.get(f"/en/draft/{old_revision.pk}/1/").status_code == 404
+    assert manager_client.get(f"/en/draft/{corrected.pk}/status/").status_code == 200
+    for current_photo in corrected.photos.all():
+        image = manager_client.get(f"/en/photos/{current_photo.pk}/private/")
+        assert image.status_code == 200 and b"".join(image.streaming_content)
+        image.close()
     notice = notices.get(recipient=manager)
     from django.urls import reverse
 
@@ -1476,6 +1506,23 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     case.refresh_from_db()
     assert case.status == "reviewing" and case.version == review_version + 1
     assert person.listing.status != "published"
+    # If the usable correction is withdrawn, ordinary draft creation must not
+    # fall back to cloning the still-preserved historical approved version.
+    corrected.status = "withdrawn"
+    corrected.save(update_fields=["status"])
+    assert manager_client.post(f"/en/person/{person.pk}/listing/start/").status_code == 302
+    blank = person.listing.revisions.filter(status="draft").get()
+    assert blank.source_revision_id is None
+    assert not blank.title and not blank.description and not blank.photos.exists()
+    assert not blank.rates.exists() and not blank.categories.exists()
+    for language in ["es", "en"]:
+        page = manager_client.get(f"/{language}/draft/{blank.pk}/1/")
+        assert page.status_code == 200 and page.context["history_excluded"] is True
+        text = "This draft started empty" if language == "en" else "Este borrador se inició vacío"
+        assert text.encode() in page.content
+        assert old_title.encode() not in page.content
+    old_revision.refresh_from_db()
+    assert old_revision.title == old_title and old_revision.description == old_description
     type(person).objects.filter(pk=person.pk).update(manager_version=person.manager_version + 1)
     assert len(manager_client.get(inbox).context["notices"]) == 0
     assert manager_client.post(acknowledge).status_code == 404
