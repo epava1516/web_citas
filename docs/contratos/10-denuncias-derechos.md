@@ -1,5 +1,19 @@
 # CR-09 — Denuncias, derechos y reclamación sin cuenta
 
+## REQ-CR09-COMPLAINT-01 — Entrada pública de reclamación
+
+Ampliación 2026-10-04, safety0021: Complaint separado de Report y RightsRequest. Una persona representada, anunciante, notificante u otra persona puede solicitar revisión sin registrarse ni entrar a la agencia. Relación declarada no comprobada; referencia manual no confirma existencia de decisión ni concede acceso al expediente referido. No se enlazan casos automáticamente por UUID/URL ni se descargan referencias externas.
+
+GET/POST `/safety/complaints/`: key UUID y receipt_secret43 URLsafe ocultos; relationship represented/advertiser/notifier/other, reference obligatoria hasta600, explanation20–4000, name opcional120, email propio opcional. CSRF, escape de salida y límite10 intentos/15min por fuente HMAC/REMOTE_ADDR. Nombre/contacto/referencia/texto/relación cifrados; fingerprint incluye actor opcional para rechazar replay entre actores distintos. Clave única y get_or_create transaccional: repetición exacta conserva caso/acuse, incompatible409, entrada inválida400, límite429.
+
+302 a `/safety/complaints/{UUID}/{secret}/`: acuse técnico180d, HMAC del secreto, GET no cambia estado, secreto ajeno/caducado404. Solo fecha/estado y aviso de recepción; no se devuelve texto/contacto/relación, ni datos de otro expediente. Private/no-store, noindex/nofollow y referrer same-origin; logs de safety y moderation/complaints ocultos. Los 180d son vigencia técnica del enlace, no plazo jurídico ni borrado del caso. Acuse web disponible; no se envió email ni hay prueba de canal/identidad.
+
+GET `/moderation/complaints/` y GET/POST `/moderation/complaints/{UUID}/`: permiso separado review_complaint, MFA habilitado/vigente incluso no-staff. Cola recibidos por fecha, muestra metadatos y hasta100; paginación/alertas completas pendientes. Autor registrado excluido. GET oculta payload, POST purpose10–200 crea ComplaintAccess con actor/motivo/version bajo lock y descifra solo en esa respuesta. GET posterior vuelve a ocultar. Esto es triage de referencia no enlazada: las relaciones de gestor/agencia/sujeto aún no están identificadas; recusación humana necesaria, no afirmar COI plenamente resuelto.
+
+Footer ofrece el formulario público; enlaces de entrada separan denunciar contenido, reclamar decisión y derechos. Las rutas públicas siguen disponibles con una sesión sin confirmar o aceptación antigua, sin obligar a cerrar sesión para reclamar. La solicitud no crea Report/Restriction ni modifica decisiones/publicación/propiedad. Falta implementar asignación/enlace comprobado/snapshots/independencia/resolución/avisos y seguimiento de esos estados, incluidos caminos del notificante y anunciante sobre decisiones conocidas. No cerrar CR-09 por esta entrada.
+
+Panel de cuenta muestra la cola a review_complaint; el servidor conserva su propia autorización. Middleware aplica privacidad también a 404/405/errores de safety y moderation/complaints que pueden producirse antes de ejecutar la vista. Reproducción previa real en Django Client: POST de acuse rechazado405 sin Cache-Control/X-Robots-Tag; corregida en middleware y cubierta por método no permitido/referencia inválida/secreto desconocido. No equivaler filtros de logs/cabeceras a auditoría de seguridad completa.
+
 ## REQ-CR09-READ-01 — Evidencia de denuncia versionada
 
 Ampliación técnica 2026-10-04, safety0020. ReportAccess guarda case_version y action_before bajo el bloqueo del caso, en la misma consulta POST que entrega evidencia. Ambos campos admiten null para conservar registros previos: no reconstruir una lectura vigente a partir de una auditoría histórica sin versión.

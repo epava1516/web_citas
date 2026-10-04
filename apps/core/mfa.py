@@ -45,6 +45,7 @@ def requires_mfa(user):
         user.mfa_enabled
         or user.is_staff
         or user.has_perm("safety.review_report")
+        or user.has_perm("safety.review_complaint")
         or user.has_perm("safety.review_rights_request")
         or user.has_perm("safety.verify_rights_scope")
         or user.has_perm("safety.execute_rights_request")

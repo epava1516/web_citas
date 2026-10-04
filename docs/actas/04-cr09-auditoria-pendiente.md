@@ -37,3 +37,5 @@ Este orden puede ajustarse ante fallos o dependencias demostradas; no elimina fi
 Verificación afectada del punto1 finalizada:20 passed95.28s, PostgreSQL/Chromium sin skips. Nueva regresión común completa pendiente; continuar punto2 sin afirmar cierre.
 
 REQ-CR09-READ-01 verificado local: safety0020/read version actual y página reciente,26 pruebas finales130.76s PostgreSQL/Chromium. Entrada pública de recurso sigue pendiente; no cerrar punto2 ni CR-09 con este fundamento.
+
+REQ-CR09-COMPLAINT-01 entrada/acuse/cola/consulta auditada implementados safety0021 y verificados con PostgreSQL/Chromium. Reclamación del representado sin cuenta disponible con canal propio, sin acceso automático a decisión ajena ni levantar restricción. Falta asignar/enlazar/identificar ámbito y resolver/revisar/notificar; no cerrar punto2 ni CR09. Final29 passed127.30s, cobertura adicional42 passed101.92s por separado.

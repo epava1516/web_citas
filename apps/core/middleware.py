@@ -9,6 +9,11 @@ class SecurityHeadersMiddleware:
         )
         response.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
         response["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+        if "/safety/" in request.path or "/moderation/complaints/" in request.path:
+            # Errors rejected by decorators/resolution still belong to a private channel.
+            response["Cache-Control"] = "private, no-store"
+            response["X-Robots-Tag"] = "noindex, nofollow"
+            response["Referrer-Policy"] = "same-origin"
         if (
             "/account/" in request.path
             or "/agency/" in request.path
@@ -40,6 +45,8 @@ class AccountGateMiddleware:
         if request.resolver_match and request.resolver_match.url_name in {
             "report_create",
             "report_receipt",
+            "complaint_create",
+            "complaint_receipt",
             "rights_create",
             "rights_receipt",
             "rights_export_download",

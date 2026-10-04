@@ -19,6 +19,8 @@ from config.gunicorn_logging import SafeAccessLogger
         "/en/moderation/reports/private-id/",
         "/en/safety/rights/private-id/private-secret/",
         "/en/moderation/rights/private-id/",
+        "/en/safety/complaints/private-id/private-secret/",
+        "/en/moderation/complaints/private-id/",
     ],
 )
 def test_photo_and_draft_access_logs_hide_private_identifiers(path):
@@ -36,7 +38,9 @@ def test_photo_and_draft_access_logs_hide_private_identifiers(path):
     assert "secret" not in str(arguments)
 
 
-@pytest.mark.parametrize("scope", ["safety/receipt", "moderation/reports", "moderation/rights"])
+@pytest.mark.parametrize(
+    "scope", ["safety/receipt", "moderation/reports", "moderation/rights", "moderation/complaints"]
+)
 def test_django_http_warning_hides_report_receipt_secret(scope):
     import logging
 
@@ -58,7 +62,9 @@ def test_django_http_warning_hides_report_receipt_secret(scope):
     assert record.request is None and "404" in record.getMessage()
 
 
-@pytest.mark.parametrize("scope", ["safety/receipt", "moderation/reports", "moderation/rights"])
+@pytest.mark.parametrize(
+    "scope", ["safety/receipt", "moderation/reports", "moderation/rights", "moderation/complaints"]
+)
 def test_development_http_log_hides_report_capability(scope):
     import logging
 
