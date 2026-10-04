@@ -19,6 +19,7 @@ from apps.core.accounts import limited
 
 from .crypto import seal, unseal
 from .models import RightsAccess, RightsMessage, RightsRequest
+from .rights_prompts import PROMPTS
 from .rights_scope import locked_case, permitted
 from .views import private
 
@@ -199,7 +200,20 @@ def receipt(request, case_id, secret):
         render(
             request,
             "safety/rights_receipt.html",
-            {"case": case, "form": form, "message_count": case.messages.count()},
+            {
+                "case": case,
+                "form": form,
+                "message_count": case.messages.count(),
+                "questions": [
+                    {
+                        "created_at": item.created_at,
+                        "es": PROMPTS[item.clarification_prompt][0],
+                        "en": PROMPTS[item.clarification_prompt][1],
+                    }
+                    for item in case.actions.filter(operation="clarify").order_by("-pk")[:50]
+                    if item.clarification_prompt in PROMPTS
+                ],
+            },
             status=status,
         )
     )
@@ -301,8 +315,19 @@ class ActionForm(forms.Form):
         choices=[
             ("claim", "Asignarme la solicitud / Assign request to me"),
             ("link", "Vincular referencia al perfil / Link reference to profile"),
+            ("clarify", "Pedir aclaración / Request clarification"),
             ("unassign", "Devolver a cola (coordinación) / Return to queue (coordination)"),
         ]
+    )
+    clarification_prompt = forms.ChoiceField(
+        required=False,
+        choices=[
+            ("", "---------"),
+            ("reference", "Referencia / Reference"),
+            ("scope", "Alcance / Scope"),
+            ("contact", "Contacto propio opcional / Optional own contact"),
+        ],
+        label="Pregunta al solicitante (solo aclaración) / Requester question (clarification only)",
     )
     reason = forms.CharField(
         min_length=10,

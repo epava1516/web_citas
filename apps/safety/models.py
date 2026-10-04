@@ -161,6 +161,7 @@ class RightsAction(models.Model):
     operation = models.CharField(max_length=20)
     payload_digest = models.CharField(max_length=64)
     encrypted_reason = models.TextField()
+    clarification_prompt = models.CharField(max_length=30, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
