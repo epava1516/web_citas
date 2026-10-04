@@ -1,6 +1,6 @@
 """Explicit subject-only projections for reviewed rights copies; no secret fields."""
 
-from apps.core.models import LegalAcceptance, User, VerificationCheck
+from apps.core.models import LegalAcceptance, RepresentationAction, User, VerificationCheck
 from apps.listings.models import Favorite
 
 
@@ -74,6 +74,29 @@ def subject_data(person):
             "consent_version": person.consent_version,
             "consent_revoked_at": date(person.consent_revoked_at),
             "verifications": verifications,
+            "history": [
+                {
+                    "action": item.action,
+                    "manager_version": item.manager_version,
+                    "manager_type": item.manager_kind,
+                    "previous_manager_type": item.previous_manager_kind,
+                    "created_at": date(item.created_at),
+                    "document": {
+                        "slug": item.document.slug,
+                        "version": item.document.version,
+                        "language": item.document.language,
+                    }
+                    if item.document_id
+                    else None,
+                }
+                for item in RepresentationAction.objects.filter(
+                    person=person, subject_id=person.subject_id
+                )
+                .select_related("document")
+                .order_by("created_at", "pk")
+            ]
+            if person.subject_id
+            else [],
         },
     }
 

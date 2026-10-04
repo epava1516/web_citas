@@ -192,3 +192,69 @@ def test_copy_account_lock_blocks_concurrent_favorite_removal(request, settings)
             assert Favorite.objects.filter(pk=favorite.pk).exists()
         assert future.result(timeout=10) == 302
     assert not Favorite.objects.filter(pk=favorite.pk).exists()
+
+
+def test_representation_history_is_scoped_and_new_action_invalidates_preview(request, settings):
+    from apps.core.models import RepresentationAction
+
+    case, user, _, client, receipt, person = prepared(request, settings)
+    subject = person.subject
+    foreign_person = Person.objects.exclude(pk=person.pk).first()
+    RepresentationAction.objects.create(
+        person=foreign_person,
+        subject=subject,
+        manager_version=999,
+        action="transfer",
+        manager_kind="agency",
+        manager_id="foreign-manager-secret",
+    )
+    RepresentationAction.objects.create(
+        person=person,
+        subject=person.agency.owner,
+        manager_version=998,
+        action="revoke",
+        manager_kind="agency",
+        manager_id="other-subject-secret",
+    )
+    action = RepresentationAction.objects.create(
+        person=person,
+        subject=subject,
+        manager_version=person.manager_version,
+        action="authorize",
+        manager_kind="agency",
+        manager_id="private-manager-identifier",
+    )
+    source = preview(
+        user, case.pk, case.version, "Inspect own representation history before copy release"
+    )
+    history = source["representation"]["history"]
+    assert any(
+        item["created_at"] == action.created_at.isoformat() and item["action"] == "authorize"
+        for item in history
+    )
+    assert not any(item["manager_version"] in {998, 999} for item in history)
+    assert all("manager_id" not in item and "subject" not in item for item in history)
+    assert "private-manager-identifier" not in json.dumps(source)
+    RepresentationAction.objects.create(
+        person=person, subject=subject, manager_version=person.manager_version, action="revoke"
+    )
+    with pytest.raises(ValidationError):
+        generate(
+            user,
+            case.pk,
+            uuid.uuid4(),
+            case.version,
+            "Release outdated representation history copy",
+            source,
+        )
+    fresh = preview(user, case.pk, case.version, "Inspect refreshed own representation history")
+    export = generate(
+        user,
+        case.pk,
+        uuid.uuid4(),
+        case.version,
+        "Release reviewed representation history copy",
+        fresh,
+    )
+    copy = client.post(url(receipt, export), {"key": uuid.uuid4()}).json()
+    assert copy["representation"]["history"] == fresh["representation"]["history"]
