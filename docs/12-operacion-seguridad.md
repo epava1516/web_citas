@@ -91,3 +91,19 @@ Distinguir parches urgentes de cambios de funcionalidades; no aplazar una vulner
 Realizar antes de lanzar: restauración completa, toma de cuenta de agencia, retirada urgente y caída de worker/broker. Repetir cuando cambien componentes o aparezcan fallos que lo justifiquen; periodicidad ordinaria pendiente.
 
 Medir detección, contención, retirada, recuperación y resolución; evitar que los indicadores incentiven cierre de denuncias sin revisar. Registrar hallazgos y tareas correctoras en el plan de seguridad. Ningún simulacro ha sido ejecutado todavía.
+
+
+## Ensayo local de limpieza de copias con worker/Beat
+
+`python -m scripts.probe_export_retention_worker` se ejecuta en el contenedor app de desarrollo, con PostgreSQL/Redis y worker reales. Rechaza PRODUCTION. Crea un expediente operativo sintético, Proof pending y copias caducada/vigente: no simula identidad aprobada ni crea publicación. Comprueba purga de contenido vencido, preservación del vigente y auditoría; elimina exclusivamente su fixture al pasar. Fallo deja fixture para diagnóstico. No ejecutar sobre datos reales.
+
+Para distinguir worker de Beat, detener Beat durante prueba manual; preservar resto de servicios:
+
+```bash
+docker compose stop beat
+docker compose exec -T app python -m scripts.probe_export_retention_worker
+docker compose up -d beat
+docker compose exec -T app python -m scripts.probe_export_retention_worker --beat
+```
+
+En modo normal envía dos jobs y muestra sus IDs: cotejar received/succeeded en logs de worker. En modo Beat no publica jobs, espera hasta75s y emite task_ids vacío; cotejar envío purge-expired-private-copies en scheduler y resultado en worker. Observar proceso mediante sesión del comando, sin repetir por falta temporal de salida. Tiempo medido no es SLA ni carga:0.501s manual,61.352s automático en ensayo2026-10-04. Docker ejecuta código d2bb585/probe, migra hasta0018; servicios de DB/Redis y datos anteriores preservados. Ningún envío de email/proveedor, borrado físico/backups ni cumplimiento jurídico acreditado.
