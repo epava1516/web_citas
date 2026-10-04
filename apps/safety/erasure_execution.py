@@ -13,7 +13,13 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
 
-from apps.core.models import AccountToken, RecoveryCode, User
+from apps.core.models import (
+    AccountToken,
+    PhoneChallenge,
+    RecoveryCode,
+    RepresentationInvitation,
+    User,
+)
 from apps.listings.models import Favorite, Listing, Rate, Revision
 from apps.mediafiles.models import Blob, MediaErasure, Photo
 
@@ -34,6 +40,9 @@ from .rights_verification import enabled
 from .views import private
 
 SUPPORTED = [
+    ("contact", "Desafíos de teléfono / Phone challenges"),
+    ("representation", "Invitaciones de representación / Representation invitations"),
+    ("shared_contact_review", "Asociación al teléfono / Phone association"),
     ("media", "Archivos y huellas propios / Own files and fingerprints"),
     ("profile", "Alias público / Public alias"),
     ("publication", "Contenido de anuncio / Listing content"),
@@ -125,7 +134,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         )
     revisions = (
         list(Revision.objects.select_for_update().filter(listing__person=person).order_by("pk"))
-        if "publication" in purposes
+        if set(purposes) & {"publication", "shared_contact_review"}
         else []
     )
     if not enabled():
@@ -167,7 +176,13 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
     inventory, _ = authorized_inventory(user, case, person, plan.inventory_id)
     if inventory.source_digest != plan.source_digest:
         raise ValidationError("Plan source changed / Fuente del plan cambiada")
-    approved = {purpose for purpose, operation in operations.items() if operation == "erase"}
+    approved = {
+        purpose
+        for purpose, operation in operations.items()
+        if operation == "erase" and purpose != "shared_contact_review"
+    }
+    if operations.get("shared_contact_review") == "redact":
+        approved.add("shared_contact_review")
     if media_redaction:
         if not shared_ids:
             raise ValidationError(
@@ -209,7 +224,38 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 "media_jobs_queued": 0,
                 "media_refs_detached": 0,
                 "exclusive_media_pending": 0,
+                "phone_challenges_deleted": 0,
+                "representation_invitations_deleted": 0,
+                "phone_association_detached": False,
             }
+            if "contact" in purposes:
+                result["phone_challenges_deleted"] = PhoneChallenge.objects.filter(
+                    person=person
+                ).count()
+                PhoneChallenge.objects.filter(person=person).delete()
+            if "representation" in purposes:
+                result["representation_invitations_deleted"] = (
+                    RepresentationInvitation.objects.filter(person=person).count()
+                )
+                RepresentationInvitation.objects.filter(person=person).delete()
+            if "shared_contact_review" in purposes:
+                person.phone_claim = None
+                person.save(update_fields=["phone_claim"])
+                Revision.objects.filter(listing__person=person).update(
+                    phone="",
+                    whatsapp=False,
+                    edit_version=models.F("edit_version") + 1,
+                    updated_at=timezone.now(),
+                )
+                Listing.objects.filter(person=person).update(
+                    status=models.Case(
+                        models.When(status="published", then=models.Value("paused")),
+                        default=models.F("status"),
+                    ),
+                    available_until=None,
+                    lifecycle_version=models.F("lifecycle_version") + 1,
+                )
+                result["phone_association_detached"] = True
             if "publication" in purposes:
                 ids = [revision.pk for revision in revisions]
                 result["revisions_cleared"] = len(ids)

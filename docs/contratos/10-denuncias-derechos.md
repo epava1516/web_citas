@@ -418,3 +418,8 @@ Contrato ES/EN de cola/detalle/requeue por caso en [docs/31](../31-recuperacion-
 ## REQ-CR09-SHARED-MEDIA-REDACTION-01
 
 Extensión media redact del ejecutor en [docs/32](../32-redaccion-imagenes-compartidas.md). La finalidad media admite erase exclusivo o redact de referencias compartidas, resto de finalidades mantienen erase únicamente. Campos/ruta/COI/MFA/fuente/replay de docs/28, resultado media_refs_detached/exclusive_media_pending. Blob vacío sustituye asociación propia, peer conserva bytes/huellas/ref. Exclusivos pendientes necesitan nuevo proof/inventario/plan erase; petición sigue abierta y no se decide propiedad de otro modelo. Sin nueva migración/tarea.
+
+
+## REQ-CR09-CONTACT-ERASURE-01
+
+Extensión de erasure-execute en [docs/33](../33-supresion-contactos-invitaciones.md): contact/representation erase y shared_contact_review redact; deja Claim global/grants/auditoría y expediente abiertos. Core0014 person_rights_version de códigos; callbacks epoch/missing bajo lock, emisión inicial captura/revalida epoch para no recrear después de erasure. Sin nuevo endpoint de derechos; campos/resultados privados según docs/28. Cuenta/contactos libres/consentimiento vigente y evidencia siguen pendientes.

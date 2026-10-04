@@ -160,13 +160,19 @@ def invite_consent(request, person_id):
         if limited(request, "representation-invite", 5):
             return HttpResponse("Too many attempts", status=429)
         raw = secrets.token_urlsafe(32)
-        invitation = RepresentationInvitation.objects.create(
-            person=person,
-            email=form.cleaned_data["email"].lower(),
-            manager_version=person.manager_version,
-            digest=hashlib.sha256(raw.encode()).hexdigest(),
-            expires_at=timezone.now() + timedelta(days=2),
-        )
+        expected_privacy = person.rights_version
+        with transaction.atomic():
+            person = locked_manager_person(request.user, person.pk)
+            if person.rights_version != expected_privacy:
+                return HttpResponse("Privacy scope changed; reload", status=409)
+            invitation = RepresentationInvitation.objects.create(
+                person=person,
+                email=form.cleaned_data["email"].lower(),
+                manager_version=person.manager_version,
+                person_rights_version=person.rights_version,
+                digest=hashlib.sha256(raw.encode()).hexdigest(),
+                expires_at=timezone.now() + timedelta(days=2),
+            )
         url = (
             settings.PUBLIC_ORIGIN
             + f"/{request.LANGUAGE_CODE}/representation/{invitation.pk}/{raw}/"
@@ -204,13 +210,18 @@ def accept_consent(request, invitation_id, raw):
         else:
             try:
                 with transaction.atomic():
-                    Person.objects.select_for_update().get(pk=invitation.person_id)
-                    invitation = RepresentationInvitation.objects.select_for_update().get(
-                        pk=invitation.pk
+                    person = Person.objects.select_for_update().get(pk=invitation.person_id)
+                    invitation = (
+                        RepresentationInvitation.objects.select_for_update()
+                        .filter(pk=invitation.pk)
+                        .first()
                     )
-                    person = invitation.person
+                    if not invitation:
+                        return HttpResponse("Authorization unavailable", status=409)
                     if (
                         invitation.used_at
+                        or invitation.person_rights_version != person.rights_version
+                        or person.publication_erased_at
                         or invitation.manager_version != person.manager_version
                         or invitation.expires_at <= timezone.now()
                     ):
@@ -315,8 +326,11 @@ def phone_start(request, person_id):
         if limited(request, "phone-request", 5):
             return HttpResponse("Too many attempts", status=429)
         code = f"{secrets.randbelow(1000000):06}"
+        expected_privacy = person.rights_version
         with transaction.atomic():
             person = locked_manager_person(request.user, person.pk)
+            if person.rights_version != expected_privacy:
+                return HttpResponse("Privacy scope changed; reload", status=409)
             PhoneChallenge.objects.filter(person=person, used_at__isnull=True).update(
                 used_at=timezone.now()
             )
@@ -324,6 +338,7 @@ def phone_start(request, person_id):
                 person=person,
                 manager_version=person.manager_version,
                 phone=form.cleaned_data["phone"],
+                person_rights_version=person.rights_version,
                 digest=salted_hmac("phone-otp", code, algorithm="sha256").hexdigest(),
                 expires_at=timezone.now() + timedelta(minutes=10),
             )
@@ -351,9 +366,14 @@ def phone_confirm(request, challenge_id):
         try:
             with transaction.atomic():
                 person = locked_manager_person(request.user, challenge.person_id)
-                challenge = PhoneChallenge.objects.select_for_update().get(pk=challenge.pk)
+                challenge = (
+                    PhoneChallenge.objects.select_for_update().filter(pk=challenge.pk).first()
+                )
+                if not challenge:
+                    return HttpResponse("Code unavailable", status=409)
                 if (
                     challenge.used_at
+                    or challenge.person_rights_version != person.rights_version
                     or challenge.expires_at <= timezone.now()
                     or challenge.manager_version != person.manager_version
                     or challenge.attempts >= 5

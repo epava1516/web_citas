@@ -89,13 +89,21 @@ def source_manifest(person):
             "core.PhoneChallenge",
             Q(person=person),
             "contact",
-            ["pk", "manager_version", "expires_at", "used_at"],
+            [
+                "pk",
+                "manager_version",
+                "person_rights_version",
+                "phone",
+                "expires_at",
+                "used_at",
+                "attempts",
+            ],
         ),
         (
             "core.RepresentationInvitation",
             Q(person=person),
             "representation",
-            ["pk", "manager_version", "expires_at", "used_at"],
+            ["pk", "manager_version", "person_rights_version", "email", "expires_at", "used_at"],
         ),
         (
             "core.RepresentationAction",

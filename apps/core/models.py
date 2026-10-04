@@ -207,6 +207,7 @@ class ManagerReview(models.Model):
 
 
 class PhoneChallenge(models.Model):
+    person_rights_version = models.PositiveIntegerField(default=1)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     manager_version = models.PositiveIntegerField()
@@ -237,6 +238,7 @@ class VerificationEvent(models.Model):
 
 
 class RepresentationInvitation(models.Model):
+    person_rights_version = models.PositiveIntegerField(default=1)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     email = models.EmailField()
