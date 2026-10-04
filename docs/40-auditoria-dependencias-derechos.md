@@ -43,3 +43,10 @@ La selección de fotografías se puede corregir en una revisión pendiente, con 
 ### Sustitución de fotografías: evidencia parcial
 
 Cargas privadas y descarte lógico implementados con safety0054. Baterías finales separadas: 33 y 8 pruebas pasan con PostgreSQL/Chromium, con solapamiento; no son 41 pruebas de regresión común. Docker y hashes verificados. Registro de dependencias adicional: RightsRectificationPhotoUpload, RightsAction, RightsProof, revisión rights-stage, Photo, Blob, derivados y coincidencias. Caducidad/descarte no borran archivos ni cierran el derecho. Retención física, referencias históricas, reintroducción, comunicaciones y respuesta final pendientes. Claude 3/3; sin delegaciones nuevas. Evidencia: docs/evidencias/rectificacion-cargas-sustitucion.json.
+
+
+### Próximo recorrido: retirada física de cargas preparadas
+
+Inspección del código tras 7f00034: `MediaErasure` exige una `ErasureExecution` y supone borrado jurídico con estado terminal `erased`; no debe usarse directamente como caducidad técnica de preparación. La ingestión rechaza `erased`, por lo que reutilizar ese estado impondría una prohibición permanente injustificada a una carga descartada. Se requiere distinguir eliminación de preparación y supresión jurídica, con trabajo durable y reintentos, comprobación de referencias compartidas bajo bloqueo y semántica explícita de una futura carga legítima.
+
+El inventario de supresión incluye Photo y Revision, pero no incorpora aún explícitamente RightsRectificationPhotoUpload. Añadir esa relación y sus dependencias al inventario antes de afirmar cobertura. Casos obligatorios para la próxima entrega: archivo exclusivo descartado/caducado, archivo compartido con anuncio normal o corrección aplicada, carga elegible en otro expediente, fallo parcial de almacenamiento, reintento y carrera con nueva referencia. No eliminar archivos compartidos ni evidencia necesaria por el mero vencimiento técnico del enlace.
