@@ -193,6 +193,7 @@ class ActionForm(forms.Form):
             ("claim", "Asignarme la reclamación / Assign request to me"),
             ("unassign", "Devolver a cola / Return request to queue"),
             ("link", "Enlazar decisión / Link decision"),
+            ("link_listing", "Enlazar revisión de anuncio / Link listing review"),
         ]
     )
     decision_id = forms.IntegerField(

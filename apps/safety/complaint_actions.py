@@ -25,11 +25,15 @@ def act(
         raise PermissionDenied("Complaint permission and MFA required")
     if operation == "unassign" and not user.has_perm("safety.manage_complaint_assignment"):
         raise PermissionDenied("Assignment coordination permission required")
-    complaint, decision = locked(complaint_id, decision_id if operation == "link" else None)
+    complaint, decision = locked(
+        complaint_id,
+        decision_id if operation == "link" else None,
+        decision_id if operation == "link_listing" else None,
+    )
     if not permitted(user, complaint):
         raise PermissionDenied("Conflict of interest")
     payload = {"version": version, "operation": operation, "reason": reason}
-    if operation == "link":
+    if operation in {"link", "link_listing"}:
         payload.update(decision_id=decision_id, decision_case_version=decision_case_version)
     signature = digest(json.dumps(payload, sort_keys=True))
     previous = ComplaintAction.objects.filter(key=key).first()
@@ -41,7 +45,12 @@ def act(
         ):
             return complaint
         raise ValidationError("Conflicting replay / Reintento incompatible")
-    if complaint.version != version or operation not in {"claim", "unassign", "link"}:
+    if complaint.version != version or operation not in {
+        "claim",
+        "unassign",
+        "link",
+        "link_listing",
+    }:
         raise ValidationError("Case changed; reload / Caso cambiado; recarga")
     if not 10 <= len(reason.strip()) <= 2000:
         raise ValidationError("Reason required / Motivo obligatorio")
@@ -58,6 +67,7 @@ def act(
     else:
         if (
             complaint.decision_id
+            or complaint.listing_decision_id
             or complaint.status != "reviewing"
             or complaint.assigned_to_id != user.pk
         ):
@@ -66,13 +76,32 @@ def act(
             complaint=complaint, actor=user, case_version=complaint.version
         ).exists():
             raise ValidationError("Inspect current request first / Consulta la reclamación actual")
-        if not decision or decision.operation not in {"restrict", "dismiss", "uphold", "lift"}:
-            raise ValidationError("Decision required / Decisión obligatoria")
-        if decision.report.version != decision_case_version:
-            raise ValidationError(
-                "Decision case changed; reload / Expediente de decisión cambiado; recarga"
+        if operation == "link":
+            if not decision or decision.operation not in {"restrict", "dismiss", "uphold", "lift"}:
+                raise ValidationError("Decision required / Decisión obligatoria")
+            if decision.report.version != decision_case_version:
+                raise ValidationError(
+                    "Decision case changed; reload / Expediente de decisión cambiado; recarga"
+                )
+            complaint.decision = decision
+        else:
+            if (
+                not decision
+                or decision.outcome not in {"approved", "rejected"}
+                or decision.revision.edit_version != decision_case_version
+            ):
+                raise ValidationError(
+                    "Revision decision changed or unidentified / Decisión de revisión cambiada o sin identificar"
+                )
+            complaint.listing_decision = decision
+            complaint.listing_decision_subject_id = (
+                decision.revision.listing.person.verificationcheck_set.filter(
+                    manager_version=decision.revision.manager_version, status="passed"
+                )
+                .order_by("-created_at")
+                .values_list("subject_id", flat=True)
+                .first()
             )
-        complaint.decision = decision
         complaint.decision_case_version = decision_case_version
         if not permitted(user, complaint):
             raise PermissionDenied("Conflict of interest with decision")
@@ -91,6 +120,14 @@ def act(
         raise ValidationError("Conflicting replay / Reintento incompatible") from error
     complaint.version += 1
     complaint.save(
-        update_fields=["assigned_to", "status", "version", "decision", "decision_case_version"]
+        update_fields=[
+            "assigned_to",
+            "status",
+            "version",
+            "decision",
+            "decision_case_version",
+            "listing_decision",
+            "listing_decision_subject",
+        ]
     )
     return complaint

@@ -55,10 +55,25 @@ class Complaint(models.Model):
     )
     decision = models.ForeignKey("ReportAction", null=True, on_delete=models.PROTECT)
     decision_case_version = models.PositiveIntegerField(null=True)
+    listing_decision = models.ForeignKey(
+        "listings.ModerationDecision", null=True, on_delete=models.PROTECT
+    )
+    listing_decision_subject = models.ForeignKey(
+        "core.User",
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="complaints_about_listing_subject",
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     receipt_expires_at = models.DateTimeField()
 
     class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(decision__isnull=True) | models.Q(listing_decision__isnull=True),
+                name="complaint_one_decision_source",
+            )
+        ]
         permissions = [
             ("review_complaint", "Review private decision complaints"),
             ("manage_complaint_assignment", "Manage decision complaint assignments"),
