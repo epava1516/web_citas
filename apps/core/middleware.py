@@ -47,6 +47,14 @@ class AccountGateMiddleware:
         from .accounts import ACCOUNT_DOCUMENTS, docs
         from .models import LegalAcceptance
 
+        version = request.session.get("account_version")
+        if version is None and request.user.session_version == 0:
+            # Compatibility for initial local sessions; revoked versions never auto-bind.
+            request.session["account_version"] = 0
+        elif version != request.user.session_version:
+            logout(request)
+            return None
+
         if request.resolver_match and request.resolver_match.url_name in {
             "report_create",
             "report_receipt",

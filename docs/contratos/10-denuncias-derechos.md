@@ -393,3 +393,8 @@ REQ-CR09-ERASURE-INVENTORY-01. GET/POST /moderation/rights/{caseUUID}/erasure-in
 ## Decisiones por finalidad
 
 REQ-CR09-ERASURE-PLAN-01. GET/POST /moderation/rights/{caseUUID}/erasure-plan/{inventoryUUID}/: exige ámbito/permiso/MFA/lectura/proof/inventario actuales, formulario de key/version y decisions formset completo y acotado. Cada finalidad con operación, ámbito/fundamento/motivo y fecha de revisión cuando se conserva/revisa. GET no entrega decisiones previas; POST200 prepara/replay,400 campos409 fuente/clave/evidencia/compartidos403 permiso404 referencia. No cambia Case ni borra datos; execution_ready=false. [Esquema, revisión operativa y distinción de bloqueo legal](../27-planes-supresion-conservacion.md).
+
+
+## REQ-CR09-ERASURE-EXECUTE-01
+
+Contrato de ejecución parcial en [docs/28](../28-ejecucion-supresion-ambitos.md). GET/POST erasure-execute exige review/execute/MFA/COI; POST fields key/version/purposes/reason/confirmed. Éxito200, entrada400, conflicto/ámbito obsoleto409, permiso403, referencia404; CSRF403. Solo authentication/account_preferences/transient_copy decididos erase; no cierre de solicitud ni borrado de perfil. Migraciones core0012/safety0036/0037. Epoch de privacidad y comprobación account_version revocan autorizaciones anteriores. ErasureExecution cifra contadores y conserva evidencia protegida.

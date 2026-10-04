@@ -266,10 +266,11 @@ def prepare(request, case_id, inventory_id):
     for decision, purpose in zip(formset.forms, purposes):
         decision.purpose_label = LABELS.get(purpose, purpose)
     result = None
+    plan = None
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid() and formset.is_valid():
         try:
-            record(
+            plan = record(
                 request.user,
                 case.pk,
                 inventory_id,
@@ -288,7 +289,7 @@ def prepare(request, case_id, inventory_id):
         render(
             request,
             "safety/erasure_plan.html",
-            {"case": case, "form": form, "formset": formset, "recorded": result},
+            {"case": case, "form": form, "formset": formset, "recorded": result, "plan": plan},
             status=status,
         )
     )

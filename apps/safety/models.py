@@ -369,6 +369,7 @@ class RightsMessage(models.Model):
 
 
 class RightsProof(models.Model):
+    person_rights_version = models.PositiveIntegerField(default=1)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     key = models.UUIDField(unique=True)
     request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT, related_name="proofs")
@@ -445,6 +446,16 @@ class ErasurePlan(models.Model):
     source_digest = models.CharField(max_length=64)
     encrypted_decisions = models.TextField()
     review_on = models.DateField(null=True, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ErasureExecution(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    plan = models.OneToOneField(ErasurePlan, on_delete=models.PROTECT)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    person = models.ForeignKey("core.Person", on_delete=models.PROTECT)
+    encrypted_result = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
 

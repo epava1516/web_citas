@@ -459,6 +459,7 @@ def download(request, case_id, secret, export_id, image_id=None):
             or case.kind not in {"access", "portability"}
             or export.proof.scope != case.kind
             or export.proof.person_id != export.person_id
+            or export.proof.person_rights_version != person.rights_version
             or export.proof.manager_version != export.manager_version
             or case.manager_version != export.manager_version
             or export.proof.subject_id_snapshot != export.subject_snapshot

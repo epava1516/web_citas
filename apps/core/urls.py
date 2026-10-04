@@ -13,6 +13,7 @@ from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 from apps.safety import (
     complaints,
+    erasure_execution,
     erasure_inventory,
     erasure_plans,
     notice_operations,
@@ -37,6 +38,11 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "moderation/rights/<uuid:case_id>/erasure-execute/<uuid:plan_id>/",
+        erasure_execution.apply,
+        name="erasure_execute",
+    ),
     path(
         "moderation/rights/<uuid:case_id>/erasure-plan/<uuid:inventory_id>/",
         erasure_plans.prepare,

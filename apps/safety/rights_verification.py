@@ -51,6 +51,7 @@ def compatible(case, person, proof):
     return bool(
         person
         and proof.person_id == case.person_id == person.pk
+        and proof.person_rights_version == person.rights_version
         and proof.manager_version == case.manager_version == person.manager_version
         and proof.subject_id_snapshot == str(person.subject_id or "")
         and proof.scope == case.kind
@@ -122,6 +123,7 @@ def start(user, case_id, key, version, reason):
                 initiated_by=user,
                 case_version=case.version + 1,
                 manager_version=person.manager_version,
+                person_rights_version=person.rights_version,
                 subject_id_snapshot=str(person.subject_id or ""),
                 scope=case.kind,
                 channel_digest=case.receipt_digest,
