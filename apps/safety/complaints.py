@@ -103,6 +103,10 @@ def submit(request):
 @sensitive_variables("secret")
 @require_GET
 def receipt(request, complaint_id, secret):
+    from django.core.paginator import Paginator
+
+    from .complaint_messages import PROMPTS, MessageForm
+
     complaint = Complaint.objects.filter(
         pk=complaint_id, receipt_expires_at__gt=timezone.now()
     ).first()
@@ -121,6 +125,23 @@ def receipt(request, complaint_id, secret):
             "safety/complaint_receipt.html",
             {
                 "complaint": complaint,
+                "secret": secret,
+                "message_form": MessageForm(
+                    initial={"key": uuid.uuid4(), "version": complaint.version}
+                ),
+                "message_count": complaint.messages.count(),
+                "questions": Paginator(
+                    [
+                        {
+                            "created_at": action.created_at,
+                            "es": PROMPTS[action.clarification_prompt][0],
+                            "en": PROMPTS[action.clarification_prompt][1],
+                        }
+                        for action in complaint.actions.filter(operation="clarify").order_by("-pk")
+                        if action.clarification_prompt in PROMPTS
+                    ],
+                    50,
+                ).get_page(request.GET.get("questions_page")),
                 "resolution": resolution,
                 "response": response,
                 "notice": notice,
@@ -155,6 +176,9 @@ def queue(request):
 
 
 class AccessForm(forms.Form):
+    message_before = forms.IntegerField(
+        required=False, min_value=1, max_value=9223372036854775807, widget=forms.HiddenInput
+    )
     purpose = forms.CharField(
         min_length=10, max_length=200, label="Motivo de consulta / Purpose of access"
     )
@@ -175,6 +199,8 @@ def inspect(request, complaint_id):
     form = AccessForm(request.POST or None)
     payload = None
     source_evidence = None
+    messages = []
+    next_message_cursor = None
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             try:
@@ -197,8 +223,18 @@ def inspect(request, complaint_id):
                 purpose=form.cleaned_data["purpose"],
                 case_version=complaint.version,
                 source_version=source_version(complaint) if source_allowed else None,
+                message_before=form.cleaned_data["message_before"],
             )
             payload = unseal(complaint.encrypted_payload)
+            records = complaint.messages.order_by("-pk")
+            if form.cleaned_data["message_before"]:
+                records = records.filter(pk__lt=form.cleaned_data["message_before"])
+            rows = list(records[:51])
+            messages = [
+                {"created_at": row.created_at, "text": unseal(row.encrypted_payload)["text"]}
+                for row in rows[:50]
+            ]
+            next_message_cursor = rows[49].pk if len(rows) > 50 else None
     return private(
         render(
             request,
@@ -208,6 +244,8 @@ def inspect(request, complaint_id):
                 "form": form,
                 "payload": payload,
                 "source_evidence": source_evidence,
+                "clarification_messages": messages,
+                "next_message_cursor": next_message_cursor,
                 "source_photos": source_evidence.revision.photos.filter(removed_at__isnull=True)
                 if source_evidence
                 else [],
@@ -218,6 +256,14 @@ def inspect(request, complaint_id):
 
 
 class ActionForm(forms.Form):
+    from .complaint_messages import PROMPTS
+
+    clarification_prompt = forms.ChoiceField(
+        required=False,
+        choices=[("", "—")]
+        + [(key, value[0] + " / " + value[1]) for key, value in PROMPTS.items()],
+        label="Pregunta pública minimizada / Minimized public question",
+    )
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     operation = forms.ChoiceField(
@@ -226,6 +272,7 @@ class ActionForm(forms.Form):
             ("unassign", "Devolver a cola / Return request to queue"),
             ("link", "Enlazar decisión / Link decision"),
             ("link_listing", "Enlazar revisión de anuncio / Link listing review"),
+            ("clarify", "Solicitar aclaración de referencia / Request reference clarification"),
         ]
     )
     decision_id = forms.IntegerField(

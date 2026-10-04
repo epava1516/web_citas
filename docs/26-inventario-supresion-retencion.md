@@ -54,3 +54,6 @@ Regresión final25 passed185.51s PostgreSQL/Chromium sin skips (erasure_executio
 
 
 Docker inventario actualizado: app/worker/Beat reconstruidos/recreados; sin migración nueva, safety0041 confirmada/UID10001/backends derechos y avisos disabled/healthCaddy200. SHA256 erasure_inventory.py host/contenedorf1d6965f7610676d360198f2fd8dd7adf0d7e901b94bc900fa63af91471f94b8 coincide. Sin cambios en tareas/schedule ni nuevo ensayo operativo necesario para fuente HTTP.
+
+
+REQ-CR09-COMPLAINT-CLARIFICATION-01: solicitud prefijada y aportación privada cifrada con idempotencia/versión/CSRF/límite; lectura completa paginada auditada antes de enlace/pregunta/resolución. Corrige colisión messages de contexto con avisos Django. Regresión15 passed101.83s PostgreSQL/Chromium, móvil reforzado1 passed21.05s; evidencia docs/evidencias/aclaraciones-reclamaciones.json. Docker app/worker/Beat reconstruidos/recreados; safety0042 aplicada/UID10001/health200. ComplaintMessage entra como metadatos dependent_evidence, sin nuevas operaciones de supresión. Ruff/check/makemigrations/diff limpios. No resolución final de referencias desconocidas/obsoletas ni avisos externos; CR09 y contrato completo abiertos. Claude3/3 sin llamadas.

@@ -85,13 +85,9 @@ def resolve(
         raise ValidationError(
             "Source changed; reassessment required / Origen cambiado; requiere nueva evaluación"
         )
-    if not ComplaintAccess.objects.filter(
-        complaint=complaint,
-        actor=user,
-        case_version=version,
-        source_version=source_version,
-        kind="intake",
-    ).exists():
+    from .complaint_messages import complete_read
+
+    if not complete_read(user, complaint, source_version):
         raise ValidationError(
             "Inspect current linked evidence first / Consulta la evidencia enlazada actual"
         )

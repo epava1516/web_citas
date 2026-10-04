@@ -208,6 +208,12 @@ def source_manifest(person):
     for label, scope, fields in [
         ("safety.ReportAccess", report_scope, ["pk", "case_version", "created_at"]),
         (
+            "safety.ComplaintMessage",
+            Q(complaint__decision__report__listing__person=person)
+            | Q(complaint__listing_decision__revision__listing__person=person),
+            ["pk", "expected_version", "created_at"],
+        ),
+        (
             "safety.ReportAction",
             report_scope,
             ["pk", "operation", "expected_version", "created_at"],

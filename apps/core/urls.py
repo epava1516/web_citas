@@ -12,6 +12,7 @@ from apps.listings import (
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 from apps.safety import (
+    complaint_messages,
     complaints,
     erasure_execution,
     erasure_inventory,
@@ -93,6 +94,11 @@ urlpatterns = [
         name="complaint_resolve",
     ),
     path("safety/complaints/", complaints.submit, name="complaint_create"),
+    path(
+        "safety/complaints/<uuid:complaint_id>/<str:secret>/message/",
+        complaint_messages.submit,
+        name="complaint_message",
+    ),
     path(
         "safety/complaints/<uuid:complaint_id>/<str:secret>/",
         complaints.receipt,

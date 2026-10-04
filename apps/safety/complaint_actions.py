@@ -6,7 +6,7 @@ from django.views.decorators.debug import sensitive_variables
 
 from .complaint_scope import locked, permitted
 from .crypto import digest, seal
-from .models import ComplaintAccess, ComplaintAction
+from .models import ComplaintAction
 
 
 @transaction.atomic
@@ -20,6 +20,7 @@ def act(
     reason,
     decision_id=None,
     decision_case_version=None,
+    clarification_prompt="",
 ):
     if not user.has_perm("safety.review_complaint") or not user.mfa_enabled:
         raise PermissionDenied("Complaint permission and MFA required")
@@ -35,6 +36,8 @@ def act(
     payload = {"version": version, "operation": operation, "reason": reason}
     if operation in {"link", "link_listing"}:
         payload.update(decision_id=decision_id, decision_case_version=decision_case_version)
+    if operation == "clarify":
+        payload["clarification_prompt"] = clarification_prompt
     signature = digest(json.dumps(payload, sort_keys=True))
     previous = ComplaintAction.objects.filter(key=key).first()
     if previous:
@@ -50,6 +53,7 @@ def act(
         "unassign",
         "link",
         "link_listing",
+        "clarify",
     }:
         raise ValidationError("Case changed; reload / Caso cambiado; recarga")
     if not 10 <= len(reason.strip()) <= 2000:
@@ -64,6 +68,30 @@ def act(
             raise ValidationError("No active assignment / No hay asignación activa")
         complaint.assigned_to = None
         complaint.status = "received"
+    elif operation == "clarify":
+        from .complaint_messages import PROMPTS, complete_read
+        from .complaint_resolutions import source_permission, source_version
+
+        linked = bool(complaint.decision_id or complaint.listing_decision_id)
+        current_source = source_version(complaint) if source_permission(user, complaint) else None
+        if (
+            complaint.status != "reviewing"
+            or complaint.assigned_to_id != user.pk
+            or clarification_prompt not in PROMPTS
+            or not complete_read(user, complaint, current_source)
+            or (clarification_prompt == "reference_unknown" and linked)
+            or (
+                clarification_prompt == "reference_stale"
+                and (
+                    not linked
+                    or current_source is None
+                    or current_source == complaint.decision_case_version
+                )
+            )
+        ):
+            raise ValidationError(
+                "Inspect the current assigned reference / Consulta la referencia asignada vigente"
+            )
     else:
         if (
             complaint.decision_id
@@ -72,9 +100,9 @@ def act(
             or complaint.assigned_to_id != user.pk
         ):
             raise ValidationError("Case not available for linking / Caso no disponible para enlace")
-        if not ComplaintAccess.objects.filter(
-            complaint=complaint, actor=user, case_version=complaint.version
-        ).exists():
+        from .complaint_messages import complete_read
+
+        if not complete_read(user, complaint):
             raise ValidationError("Inspect current request first / Consulta la reclamación actual")
         if operation == "link":
             if not decision or decision.operation not in {"restrict", "dismiss", "uphold", "lift"}:
@@ -115,6 +143,7 @@ def act(
                 operation=operation,
                 payload_digest=signature,
                 encrypted_reason=seal({"reason": reason}),
+                clarification_prompt=clarification_prompt if operation == "clarify" else "",
             )
     except IntegrityError as error:
         raise ValidationError("Conflicting replay / Reintento incompatible") from error

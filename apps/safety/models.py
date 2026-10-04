@@ -101,6 +101,7 @@ class Complaint(models.Model):
 
 
 class ComplaintAccess(models.Model):
+    message_before = models.PositiveBigIntegerField(null=True)
     complaint = models.ForeignKey(Complaint, on_delete=models.PROTECT, related_name="accesses")
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
     purpose = models.CharField(max_length=200)
@@ -112,6 +113,7 @@ class ComplaintAccess(models.Model):
 
 
 class ComplaintAction(models.Model):
+    clarification_prompt = models.CharField(max_length=24, blank=True)
     key = models.UUIDField(unique=True)
     complaint = models.ForeignKey(Complaint, on_delete=models.PROTECT, related_name="actions")
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
@@ -119,6 +121,16 @@ class ComplaintAction(models.Model):
     operation = models.CharField(max_length=16)
     payload_digest = models.CharField(max_length=64)
     encrypted_reason = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ComplaintMessage(models.Model):
+    key = models.UUIDField(unique=True)
+    complaint = models.ForeignKey(Complaint, on_delete=models.PROTECT, related_name="messages")
+    actor = models.ForeignKey("core.User", null=True, on_delete=models.SET_NULL)
+    expected_version = models.PositiveIntegerField()
+    payload_digest = models.CharField(max_length=64)
+    encrypted_payload = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
 
