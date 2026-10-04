@@ -212,6 +212,9 @@ class RateForm(forms.ModelForm):
         model = Rate
         fields = ["concept", "mode", "amount", "duration_minutes"]
 
+    def clean_concept(self):
+        return validate_listing_text(self.cleaned_data["concept"])
+
     def clean_duration_minutes(self):
         value = self.cleaned_data.get("duration_minutes")
         if value is not None and not 1 <= value <= 10080:

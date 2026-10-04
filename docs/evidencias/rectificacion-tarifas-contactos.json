@@ -1,0 +1,58 @@
+{
+  "scope": "Conceptos de tarifa sin contactos externos y diez filas editables de rectificación",
+  "results": [
+    {
+      "artifact": "rectification-rate-contact.xml",
+      "sha256": "92bdcea14204cc725d9032da6c32a4472338ccfdfffb0e71140af7784ab3ed7f",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "24",
+          "time": "127.359",
+          "timestamp": "2026-10-04T21:04:52.357908+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "artifact": "rate-contact-submissions.xml",
+      "sha256": "5c2313a05edbde0da7122bae9e1b72ba3aad9722ced163febc96e5f1e94260a2",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "12",
+          "time": "40.495",
+          "timestamp": "2026-10-04T21:07:18.684773+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    }
+  ],
+  "database": "PostgreSQL real",
+  "browser": "Chromium móvil: edición de primera y décima fila, propuesta cifrada verificada",
+  "verified": [
+    "Borrador rechaza URL/www/mención/teléfono en concepto sin persistir ni avanzar versión",
+    "Rectificación HTTP y validación directa rechazan concepto con contactos",
+    "Editor ofrece diez filas; DELETE conserva solo primera y décima elegidas en navegador",
+    "Regresión de envío/publicación con RateForm compartido"
+  ],
+  "runtime": {
+    "build": "app/worker/beat reconstruidos y recreados",
+    "uid": 10001,
+    "health_http": 200,
+    "forms_sha256": "397a6a4af79384b7f01a37b3e48621cbc00ecbafddcd8622858530d840d97e46",
+    "rates_sha256": "4649f3fb6f44e04b7daae8ea0147b7ebf3eff422196f39fb46940113a6fc018b"
+  },
+  "limits": [
+    "Dos baterías separadas, no suite común de36",
+    "Diez filas documentadas antes pero extra=1: bug real corregido; prueba HTTP anterior no verificaba capacidad UI",
+    "No proveedor, identidad o comunicación externa real; no cumplimiento integral CR09",
+    "Resto del contrato y producción pendientes"
+  ]
+}

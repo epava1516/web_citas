@@ -207,11 +207,17 @@ def test_mobile_source_review_and_field_proposal(
             page.locator('[name=fields][value="rates"]').check()
             for checkbox in page.locator('[name$="-DELETE"]').all():
                 checkbox.check()
+            expect(page.locator('[name$="-concept"]')).to_have_count(10)
             page.locator("[name=rates-0-DELETE]").uncheck()
             page.locator("[name=rates-0-concept]").fill("Synthetic browser rate")
             page.locator("[name=rates-0-mode]").select_option("consult")
             page.locator("[name=rates-0-amount]").fill("")
             page.locator("[name=rates-0-duration_minutes]").fill("")
+            page.locator("[name=rates-9-DELETE]").uncheck()
+            page.locator("[name=rates-9-concept]").fill("Synthetic tenth browser rate")
+            page.locator("[name=rates-9-mode]").select_option("consult")
+            page.locator("[name=rates-9-amount]").fill("")
+            page.locator("[name=rates-9-duration_minutes]").fill("")
             page.locator('[name=fields][value="contacts"]').check()
             page.locator("[name=phone]").fill(replacement_phone.phone)
             page.locator("[name=whatsapp]").check()
@@ -263,7 +269,14 @@ def test_mobile_source_review_and_field_proposal(
                 "amount": None,
                 "currency": "EUR",
                 "duration_minutes": None,
-            }
+            },
+            {
+                "concept": "Synthetic tenth browser rate",
+                "mode": "consult",
+                "amount": None,
+                "currency": "EUR",
+                "duration_minutes": None,
+            },
         ],
         "catalog": {"categories": [new_category.pk], "services": [new_service.pk]},
         "location": {"municipality": new_city.pk, "postal_code": None, "zone": None},
@@ -453,6 +466,21 @@ def test_rate_table_form_validates_management_amount_duration_and_deletion(
     ]:
         with pytest.raises(ValidationError):
             validate([invalid])
+    for concept in [
+        "https://external.invalid",
+        "www.external.invalid",
+        "@synthetic_contact",
+        "+34999999999",
+    ]:
+        assert (
+            staff.post(
+                path, data | {"rates-0-mode": "fixed", "rates-0-concept": concept}
+            ).status_code
+            == 409
+        )
+        with pytest.raises(ValidationError):
+            validate([{**row, "concept": concept}])
+    assert not RightsRectificationProposal.objects.exists()
     valid = data | {"rates-0-mode": "fixed"}
     expected = [row]
     if table_mode == "clear":

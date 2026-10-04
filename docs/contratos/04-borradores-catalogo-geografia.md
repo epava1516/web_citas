@@ -35,3 +35,6 @@ Metadatos declarados no prueban licencia/revisión jurídica ni cobertura. Datas
 Fotos y estados de procesamiento CR-05, aprobación y revisión inmutable CR-06, filtros/índice público CR-07. La interfaz sigue indicando esas partes pendientes; no sustituirlas por respuestas ficticias. Títulos, etiquetas y accesibilidad se refinan en B-F después de conectar todos los flujos.
 
 Tras cambiar gestor, editar, consultar estado y enviar una revisión de manager_version anterior devuelve404, incluido el titular que vuelve a gestionar su propia persona. El histórico permanece para auditoría autorizada, sin copiar contactos/textos/fotos al nuevo gestor. Las revisiones antiguas no consumen la cuota de tres vigente; una corrección puede copiar una revisión del gestor actual.
+
+
+Los conceptos de tarifas aplican la validación de texto público compartida (`RateForm.clean_concept`): teléfonos, URL/www y menciones se rechazan en el formulario y en la validación de publicación. No sustituyen los canales de contacto autorizados.

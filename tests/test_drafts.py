@@ -112,6 +112,27 @@ def test_wizard_persists_real_fields_contact_and_consult_rate(scenario):
     assert Listing.objects.count() == Revision.objects.count() == 1
 
 
+@pytest.mark.parametrize(
+    "concept",
+    ["https://external.invalid", "www.external.invalid", "@synthetic_contact", "+34999999999"],
+)
+def test_tariff_cannot_publish_unverified_contact(scenario, concept):
+    _, _, client = scenario
+    person = scenario[1]
+    client.post(f"/es/person/{person.pk}/listing/start/")
+    revision = Revision.objects.get()
+    assert client.post(f"/es/draft/{revision.pk}/1/", details(revision)).status_code == 302
+    revision.refresh_from_db()
+    version = revision.edit_version
+    response = client.post(
+        f"/es/draft/{revision.pk}/2/", contacts(revision, **{"rates-0-concept": concept})
+    )
+    assert response.status_code == 400
+    revision.refresh_from_db()
+    assert revision.edit_version == version
+    assert not Rate.objects.filter(revision=revision).exists()
+
+
 def test_invalid_geography_service_contact_and_version(scenario):
     user, person, client = scenario
     client.post(f"/es/person/{person.pk}/listing/start/")

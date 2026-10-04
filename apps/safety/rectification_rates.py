@@ -7,7 +7,7 @@ from django.views.decorators.debug import sensitive_variables
 from apps.listings.forms import RateForm
 
 Editor = formset_factory(
-    RateForm, extra=1, max_num=10, absolute_max=11, validate_max=True, can_delete=True
+    RateForm, extra=10, max_num=10, absolute_max=11, validate_max=True, can_delete=True
 )
 
 
