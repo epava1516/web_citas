@@ -130,6 +130,10 @@ if PRODUCTION and not MFA_ENCRYPTION_KEY:
     raise ImproperlyConfigured("Production requires independent MFA encryption key")
 
 CELERY_BEAT_SCHEDULE = {
+    "deliver-private-safety-notices": {
+        "task": "apps.safety.tasks.deliver_safety_notices",
+        "schedule": 60.0,
+    },
     "purge-expired-private-copies": {
         "task": "apps.safety.tasks.purge_expired_exports",
         "schedule": 60.0,

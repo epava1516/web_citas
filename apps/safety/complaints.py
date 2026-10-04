@@ -6,6 +6,7 @@ import uuid
 from datetime import timedelta
 
 from django import forms
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import transaction
@@ -20,7 +21,7 @@ from apps.core.accounts import limited
 
 from .complaint_scope import locked, permitted
 from .crypto import digest, seal, unseal
-from .models import Complaint, ComplaintAccess, ComplaintResolution
+from .models import Complaint, ComplaintAccess, ComplaintNotice, ComplaintResolution
 from .views import private
 
 
@@ -112,12 +113,21 @@ def receipt(request, complaint_id, secret):
     ):
         raise Http404
     resolution = ComplaintResolution.objects.filter(complaint=complaint).first()
+    notice = ComplaintNotice.objects.filter(resolution=resolution).first() if resolution else None
     response = unseal(resolution.encrypted_response)["response"] if resolution else None
     return private(
         render(
             request,
             "safety/complaint_receipt.html",
-            {"complaint": complaint, "resolution": resolution, "response": response},
+            {
+                "complaint": complaint,
+                "resolution": resolution,
+                "response": response,
+                "notice": notice,
+                "notice_simulator": bool(
+                    notice and notice.status == "simulated" and not settings.PRODUCTION
+                ),
+            },
         )
     )
 

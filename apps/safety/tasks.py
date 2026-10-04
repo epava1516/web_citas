@@ -6,6 +6,13 @@ from .models import RightsExport
 
 
 @shared_task
+def deliver_safety_notices():
+    from .notice_delivery import process_outbox
+
+    return process_outbox()
+
+
+@shared_task
 def purge_expired_exports():
     """Remove transient copy content only; keep audit and source data separate."""
     with transaction.atomic():

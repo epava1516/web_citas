@@ -116,6 +116,16 @@ class ComplaintNotice(models.Model):
     resolution = models.OneToOneField(ComplaintResolution, on_delete=models.PROTECT)
     encrypted_payload = models.TextField()
     status = models.CharField(max_length=16, default="queued")
+    attempts = models.PositiveSmallIntegerField(default=0)
+    next_attempt_at = models.DateTimeField(null=True)
+    error_code = models.CharField(max_length=32, blank=True)
+    simulated_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class SimulatedComplaintNoticeDelivery(models.Model):
+    notice = models.OneToOneField(ComplaintNotice, on_delete=models.PROTECT)
+    procedure = models.CharField(max_length=32, default="simulator-v1")
     created_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -160,6 +170,9 @@ class ReportNotice(models.Model):
     kind = models.CharField(max_length=12)
     encrypted_payload = models.TextField()
     status = models.CharField(max_length=16, default="queued")
+    attempts = models.PositiveSmallIntegerField(default=0)
+    next_attempt_at = models.DateTimeField(null=True)
+    error_code = models.CharField(max_length=32, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     simulated_at = models.DateTimeField(null=True)
 
