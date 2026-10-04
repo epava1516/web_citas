@@ -7,7 +7,7 @@ Fecha: 2026-10-04. Referencia funcional: 14/15/16 y contratos/10. Código base d
 | Requisito | Implementación/evidencia actual | Trabajo pendiente antes de cerrar el flujo |
 | --- | --- | --- |
 | Denuncia pública general/formal sin cuenta, ES/EN y móvil | safety/forms/views, Report; test_reports, navegador/CSRF/acuse/HMAC/cifrado | Regresión común y recorrido Docker del estado final |
-| Datos del denunciante privados y consultas auditadas | ReportAccess, permisos/MFA/COI y snapshots históricos; test_report_inspection | Versionar evidencia cuando se incorporen nuevas aportaciones/reclamaciones; audit legacy no equivale a lectura actual |
+| Datos del denunciante privados y consultas auditadas | ReportAccess, permisos/MFA/COI y snapshots históricos; test_report_inspection | Versionado case_version/action_before implementado safety0020 y verificado; integrar aportaciones/reclamaciones futuras, no considerar audit legacy lectura actual |
 | Prioridad urgente y responsable efectivo | Cola prioriza menores/explotación/no consentimiento, asignación/recuperación versionada | Alertas internas duraderas/worker/adaptador explícito, destinatarios reales como gate externo; una cola ordenada no prueba recepción humana |
 | Decisión restrictiva/desestimación motivada | ReportAction, Restriction y guardas comunes; test_report_decisions/assignment/linking | Motivo público minimizado independiente del privado, revisión de alcance/cierre y aviso a afectados sin identidad del denunciante |
 | Restricción quita búsqueda/ficha/foto y bloquea publicación obsoleta | publicly_visible→validate_submission; tests de decisiones/restricciones/ciclo de vida | Caché/CDN/storage externos y conciliación transversal B-B/C; nuevo recurso no debe reabrir publicación automáticamente |
@@ -35,3 +35,5 @@ Fecha: 2026-10-04. Referencia funcional: 14/15/16 y contratos/10. Código base d
 Este orden puede ajustarse ante fallos o dependencias demostradas; no elimina filas pendientes. La instalación/consulta Graphify en docs/19 verifica herramientas y relaciones estructurales, no completa esta matriz. Claude3/3 consumidas, incluida incidencia de etiquetado automático; el resto continúa localmente.
 
 Verificación afectada del punto1 finalizada:20 passed95.28s, PostgreSQL/Chromium sin skips. Nueva regresión común completa pendiente; continuar punto2 sin afirmar cierre.
+
+REQ-CR09-READ-01 verificado local: safety0020/read version actual y página reciente,26 pruebas finales130.76s PostgreSQL/Chromium. Entrada pública de recurso sigue pendiente; no cerrar punto2 ni CR-09 con este fundamento.

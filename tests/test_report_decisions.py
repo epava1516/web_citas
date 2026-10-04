@@ -226,6 +226,10 @@ def test_mobile_moderator_assigns_inspects_and_restricts(live_server, request, s
                 "Manual reference identifies this synthetic publication"
             )
             page.get_by_role("button", name="Record case action", exact=True).click()
+            page.locator("[name=purpose]").fill(
+                "Inspect linked reference and evidence at current version"
+            )
+            page.get_by_role("button", name="Record access and inspect", exact=True).click()
             page.get_by_role("link", name="Case actions", exact=True).click()
             page.locator("[name=operation]").select_option("restrict")
             page.locator("[name=reason]").fill(

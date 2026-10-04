@@ -279,7 +279,11 @@ def inspect(request, report_id):
                 return private(HttpResponse("Conflict of interest", status=403))
             payload = unseal(report.encrypted_payload)
             ReportAccess.objects.create(
-                report=report, actor=request.user, purpose=form.cleaned_data["purpose"]
+                report=report,
+                actor=request.user,
+                purpose=form.cleaned_data["purpose"],
+                case_version=report.version,
+                action_before=form.cleaned_data["action_before"],
             )
             actions = report.actions.order_by("-pk")
             if form.cleaned_data["action_before"]:

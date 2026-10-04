@@ -45,6 +45,8 @@ class ReportAccess(models.Model):
     report = models.ForeignKey(Report, on_delete=models.PROTECT, related_name="accesses")
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
     purpose = models.CharField(max_length=200)
+    case_version = models.PositiveIntegerField(null=True)
+    action_before = models.PositiveBigIntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 

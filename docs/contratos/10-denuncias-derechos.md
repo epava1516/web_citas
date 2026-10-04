@@ -1,5 +1,15 @@
 # CR-09 — Denuncias, derechos y reclamación sin cuenta
 
+## REQ-CR09-READ-01 — Evidencia de denuncia versionada
+
+Ampliación técnica 2026-10-04, safety0020. ReportAccess guarda case_version y action_before bajo el bloqueo del caso, en la misma consulta POST que entrega evidencia. Ambos campos admiten null para conservar registros previos: no reconstruir una lectura vigente a partir de una auditoría histórica sin versión.
+
+Link/restrict/dismiss requieren consulta del actor de la versión actual y página reciente (action_before null). Uphold/lift conservan además la exigencia de consulta posterior a restricción/última revisión y la independencia del revisor. Leer una página de acciones anteriores no concede autorización para decidir; GET no registra ni entrega lectura privada. Una nueva versión del caso o un enlace de referencia invalida lecturas anteriores aunque el formulario de decisión tenga una versión actual. Reconsultar después de link antes de restringir.
+
+Se mantienen rutas/formularios/códigos existentes: POST de consulta entrega la evidencia actual y estampa su versión en servidor; no se incorpora todavía un campo de versión obligatorio al formulario de inspección. Decisión sin lectura vigente409, falta de permiso/COI403, reintento exacto de acción aceptada conserva idempotencia. La auditoría de entrega no acredita comprensión humana ni lectura integral de todas las páginas históricas.
+
+Preparación necesaria para incorporar nuevas reclamaciones/clarificaciones; **no significa que la entrada pública de recurso esté implementada**. El test que aumenta Report.version representa una intercalación controlada de evidencia, no una reclamación recibida por una ruta inexistente. Evidencias de PostgreSQL/Chromium y pendientes en docs/18 y acta04.
+
 Estado: CR-09 en curso; recepción/acuse web/consulta auditada implementados y verificados localmente, resto pendiente, conforme a contratos14/15/16. No acredita procedimiento operativo real ni revisión jurídica. CR-08 cerrado localmente en acta03. Nuevas reglas requieren servidor y navegador conjuntamente; no tratar esta entrega como pulido frontend.
 
 ## Entradas separadas

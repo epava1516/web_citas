@@ -111,6 +111,7 @@ def test_lifting_one_case_does_not_release_other_active_restrictions(request):
     inspect(first, second)
     path, data = action(first, second, "link", link_listing_id=person.listing.pk)
     assert first.post(path, data).status_code == 302
+    inspect(first, second)
     path, data = action(first, second, "restrict")
     assert first.post(path, data).status_code == 302
     inspect(staff, report)

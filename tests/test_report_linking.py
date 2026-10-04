@@ -45,6 +45,14 @@ def test_manual_reference_link_preserves_payload_and_snapshot_then_allows_review
     path, changed = action(staff, report, "link", link_listing_id=other.listing.pk)
     assert staff.post(path, changed).status_code == 409
     path, data = action(staff, report, "restrict")
+    assert staff.post(path, data).status_code == 409
+    assert (
+        staff.post(
+            f"/en/moderation/reports/{report.pk}/",
+            {"purpose": "Inspect linked publication and current evidence before restriction"},
+        ).status_code
+        == 200
+    )
     assert staff.post(path, data).status_code == 302
 
 

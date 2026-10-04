@@ -123,6 +123,8 @@ def act(
         if not ReportAccess.objects.filter(
             report=report,
             actor=user,
+            case_version=report.version,
+            action_before__isnull=True,
             created_at__gte=restriction.reviewed_at or restriction.created_at,
         ).exists():
             raise ValidationError("Inspect current evidence first / Consulta la evidencia actual")
@@ -136,7 +138,9 @@ def act(
     else:
         if report.status != "reviewing" or report.assigned_to_id != user.pk:
             raise ValidationError("Case not assigned to you / Caso no asignado")
-        if not ReportAccess.objects.filter(report=report, actor=user).exists():
+        if not ReportAccess.objects.filter(
+            report=report, actor=user, case_version=report.version, action_before__isnull=True
+        ).exists():
             raise ValidationError("Inspect evidence first / Consulta primero la evidencia")
         if operation == "link":
             if report.listing_id or not listing or not listing.approved_revision_id:
