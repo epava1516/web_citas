@@ -314,3 +314,113 @@ def test_linked_source_reassessment_is_explicit_and_preserves_publication(reques
     assert inspection(staff, case).status_code == 200
     assert staff.post(resolve_path, payload).status_code == 302
     assert b"Decision upheld" in Client().get(receipt).content
+
+
+@pytest.mark.parametrize("change", ["superseded", "manager", "status", "version"])
+def test_reassessment_rejects_changed_original_without_writing(request, change):
+    from test_complaint_resolutions import inspection, listing_case
+
+    from apps.safety.models import ComplaintAction
+
+    case, _, decision, _, staff, _ = listing_case(request)
+    case.refresh_from_db()
+    revision = decision.revision
+    revision.edit_version += 1
+    revision.save(update_fields=["edit_version"])
+    assert inspection(staff, case).status_code == 200
+    data = {
+        "key": uuid.uuid4(),
+        "version": case.version,
+        "operation": "reassess",
+        "decision_id": decision.pk,
+        "decision_case_version": revision.edit_version,
+        "reason": REASON,
+    }
+    if change == "superseded":
+        type(decision).objects.create(
+            revision=revision,
+            reviewer=decision.reviewer,
+            outcome=decision.outcome,
+            reason="Synthetic newer decision for concurrency guard",
+        )
+    elif change == "manager":
+        revision.manager_version += 1
+        revision.save(update_fields=["manager_version"])
+    elif change == "status":
+        revision.status = "pending"
+        revision.save(update_fields=["status"])
+    else:
+        revision.edit_version += 1
+        revision.save(update_fields=["edit_version"])
+    initial = case.version, case.decision_case_version
+    listing = revision.listing
+    listing.refresh_from_db()
+    publication = listing.status, listing.lifecycle_version, listing.approved_revision_id
+    assert staff.post(f"/en/moderation/complaints/{case.pk}/action/", data).status_code == 409
+    case.refresh_from_db()
+    listing.refresh_from_db()
+    assert (case.version, case.decision_case_version) == initial
+    assert (listing.status, listing.lifecycle_version, listing.approved_revision_id) == publication
+    assert not ComplaintAction.objects.filter(key=data["key"]).exists()
+
+
+def test_reassessment_replay_rechecks_revoked_resolution_permission(request):
+    from django.contrib.auth.models import Permission
+    from test_complaint_resolutions import inspection, listing_case
+
+    case, _, decision, user, staff, _ = listing_case(request)
+    case.refresh_from_db()
+    revision = decision.revision
+    revision.edit_version += 1
+    revision.save(update_fields=["edit_version"])
+    assert inspection(staff, case).status_code == 200
+    data = {
+        "key": uuid.uuid4(),
+        "version": case.version,
+        "operation": "reassess",
+        "decision_id": decision.pk,
+        "decision_case_version": revision.edit_version,
+        "reason": REASON,
+    }
+    path = f"/en/moderation/complaints/{case.pk}/action/"
+    assert Client(enforce_csrf_checks=True).post(path, data).status_code == 403
+    assert staff.post(path, data).status_code == 302
+    user.user_permissions.remove(Permission.objects.get(codename="resolve_complaint"))
+    case.refresh_from_db()
+    version = case.version
+    assert staff.post(path, data).status_code == 403
+    case.refresh_from_db()
+    assert case.version == version
+
+
+def test_report_reassessment_requires_current_original_evidence(request):
+    from test_complaint_resolutions import inspection, report_case
+
+    from apps.safety.models import Restriction
+
+    case, report, _, staff, _ = report_case(request)
+    case.refresh_from_db()
+    report.refresh_from_db()
+    # Controlled version interleaving, not a synthetic replacement moderation action.
+    report.version += 1
+    report.save(update_fields=["version"])
+    assert inspection(staff, case).status_code == 200
+    data = {
+        "key": uuid.uuid4(),
+        "version": case.version,
+        "operation": "reassess",
+        "decision_id": case.decision_id,
+        "decision_case_version": report.version,
+        "reason": REASON,
+    }
+    path = f"/en/moderation/complaints/{case.pk}/action/"
+    assert staff.post(path, data).status_code == 409
+    assert (
+        staff.post(f"/en/moderation/reports/{report.pk}/", {"purpose": REASON}).status_code == 200
+    )
+    assert staff.post(path, data).status_code == 302
+    case.refresh_from_db()
+    report.refresh_from_db()
+    assert case.decision_case_version == report.version
+    assert report.status == "restricted" and Restriction.objects.get(report=report).active
+    assert Client().get(f"/en/listing/{report.listing_id}/").status_code == 404

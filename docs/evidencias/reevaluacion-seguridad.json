@@ -1,0 +1,15 @@
+{
+  "result": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "5",
+    "time": "37.663",
+    "timestamp": "2026-10-04T16:48:05.685096+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "sha256_xml": "c0ecc7d5050f2c2b75a228cd6ce094a2078d15fc5bb2aca05e0ba005cb5c2a22",
+  "command": "uv run pytest -q tests/test_complaint_messages.py::test_reassessment_rejects_changed_original_without_writing tests/test_complaint_messages.py::test_reassessment_replay_rechecks_revoked_resolution_permission --tb=short --junitxml=/tmp/complaint-reassessment-security.xml",
+  "scope": "PostgreSQL real; substituted decision/manager/status/version, CSRF and revoked resolution permission on replay. No global acceptance."
+}
