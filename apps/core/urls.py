@@ -11,7 +11,7 @@ from apps.listings import (
 )
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
-from apps.safety import rights, rights_verification
+from apps.safety import rights, rights_exports, rights_verification
 from apps.safety import views as safety
 
 from . import (
@@ -33,6 +33,16 @@ urlpatterns = [
         "moderation/rights/<uuid:case_id>/verification/",
         rights_verification.verification,
         name="rights_verification",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/export/",
+        rights_exports.prepare,
+        name="rights_export_prepare",
+    ),
+    path(
+        "safety/rights/<uuid:case_id>/<str:secret>/export/<uuid:export_id>/",
+        rights_exports.download,
+        name="rights_export_download",
     ),
     path("moderation/rights/", rights.queue, name="rights_queue"),
     path("moderation/rights/<uuid:case_id>/action/", rights.action, name="rights_action"),

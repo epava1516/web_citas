@@ -42,6 +42,7 @@ class AccountGateMiddleware:
             "report_receipt",
             "rights_create",
             "rights_receipt",
+            "rights_export_download",
         }:
             return None
         if not request.user.email_verified_at:

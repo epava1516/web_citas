@@ -1,0 +1,390 @@
+"""Private reviewed profile copy. Accounts and image content require further scope."""
+
+import json
+import uuid
+from datetime import timedelta
+
+from django import forms
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied, ValidationError
+from django.db import IntegrityError, transaction
+from django.http import Http404, HttpResponse
+from django.shortcuts import redirect, render
+from django.utils import timezone
+from django.utils.crypto import constant_time_compare
+from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
+from django.views.decorators.http import require_http_methods, require_POST
+
+from apps.core.accounts import limited
+
+from .crypto import seal, unseal
+from .models import (
+    RightsAction,
+    RightsExport,
+    RightsExportDownload,
+    RightsExportPreview,
+    RightsRequest,
+)
+from .rights import allowed, fingerprint
+from .rights_scope import locked_case, permitted
+from .rights_verification import PROCEDURE, authorized_proof, complete_read, enabled
+from .views import private
+
+
+@sensitive_variables()
+def canonical(value):
+    return json.dumps(value, sort_keys=True, ensure_ascii=False)
+
+
+@sensitive_variables()
+def source_copy(person, listing):
+    revisions = []
+    if listing:
+        # Profile lock prevents a cooperating editor adding another revision mid-copy.
+        records = listing.revisions.select_for_update().order_by("created_at", "pk")
+        for revision in records:
+            revisions.append(
+                {
+                    "revision": str(revision.pk),
+                    "status": revision.status,
+                    "created_at": revision.created_at.isoformat(),
+                    "title": revision.title,
+                    "description": revision.description,
+                    "description_alternative": revision.description_alternative,
+                    "profile_type": revision.profile_type,
+                    "content_language": revision.content_language,
+                    "categories": list(
+                        revision.categories.order_by("slug").values_list("slug", flat=True)
+                    ),
+                    "services": list(
+                        revision.services.order_by("slug").values_list("slug", flat=True)
+                    ),
+                    "municipality": revision.municipality.code
+                    if revision.municipality_id
+                    else None,
+                    "postal_code": revision.postal_code.code if revision.postal_code_id else None,
+                    "zone": revision.zone.code if revision.zone_id else None,
+                    "travel_areas": list(
+                        revision.travel_areas.order_by("code").values_list("code", flat=True)
+                    ),
+                    "spoken_languages": revision.spoken_languages,
+                    "days": revision.days,
+                    "time_slot": revision.time_slot,
+                    "reception": revision.reception,
+                    "travel": revision.travel,
+                    "rates": [
+                        {
+                            "concept": rate.concept,
+                            "mode": rate.mode,
+                            "amount": str(rate.amount) if rate.amount is not None else None,
+                            "currency": rate.currency,
+                            "duration_minutes": rate.duration_minutes,
+                        }
+                        for rate in revision.rates.order_by("pk")
+                    ],
+                }
+            )
+    return {
+        "schema": "profile-copy-v1",
+        "partial": True,
+        "simulation": True,
+        "pending_review": [
+            "account_data",
+            "image_content",
+            "shared_contacts",
+            "additional_rights_information",
+        ],
+        "profile": {"alias": person.alias, "created_at": person.created_at.isoformat()},
+        "revisions": revisions,
+    }
+
+
+@sensitive_variables()
+def reviewed_copy(source, value):
+    # JSONField accepts objects directly and rejects invalid JSON before this service.
+    if not isinstance(value, dict) or set(value) != set(source):
+        raise ValidationError("Copy schema changed / Esquema de copia cambiado")
+    expected = json.loads(canonical(source))
+    try:
+        alias = value["profile"]["alias"]
+        if not isinstance(alias, str) or len(alias) > 80:
+            raise ValueError
+        expected["profile"]["alias"] = alias
+        if len(value["revisions"]) != len(expected["revisions"]):
+            raise ValueError
+        for original, edited in zip(expected["revisions"], value["revisions"], strict=True):
+            for field in ["title", "description", "description_alternative"]:
+                text = edited[field]
+                if not isinstance(text, str) or len(text) > (120 if field == "title" else 10000):
+                    raise ValueError
+                original[field] = text
+            if len(edited["rates"]) != len(original["rates"]):
+                raise ValueError
+            for rate, changed in zip(original["rates"], edited["rates"], strict=True):
+                if not isinstance(changed["concept"], str) or len(changed["concept"]) > 80:
+                    raise ValueError
+                rate["concept"] = changed["concept"]
+    except (TypeError, ValueError, KeyError, IndexError) as error:
+        raise ValidationError("Invalid reviewed copy / Copia revisada no válida") from error
+    if canonical(expected) != canonical(value):
+        raise ValidationError("Only text redaction allowed / Solo se permite revisar los textos")
+    return expected
+
+
+def reviewer_case(user, case_id):
+    case, person, listing = locked_case(case_id, lock_listing=True)
+    if (
+        not user.has_perm("safety.review_rights_request")
+        or not user.mfa_enabled
+        or not permitted(user, case)
+    ):
+        raise PermissionDenied
+    return case, person, listing
+
+
+def can_prepare(user, case, person):
+    if not user.has_perm("safety.execute_rights_request"):
+        raise PermissionDenied
+    if (
+        case.kind not in {"access", "portability"}
+        or case.assigned_to_id != user.pk
+        or not complete_read(user, case)
+    ):
+        raise ValidationError(
+            "Inspect assigned access request / Consulta la solicitud de acceso asignada"
+        )
+    return authorized_proof(case, person, case.kind)
+
+
+@transaction.atomic
+@sensitive_variables()
+def preview(user, case_id, version, purpose):
+    case, person, listing = reviewer_case(user, case_id)
+    if case.version != version or not 10 <= len(purpose.strip()) <= 200:
+        raise ValidationError(
+            "Request changed or purpose required / Solicitud cambiada o motivo obligatorio"
+        )
+    can_prepare(user, case, person)
+    source = source_copy(person, listing)
+    RightsExportPreview.objects.create(
+        request=case,
+        actor=user,
+        case_version=case.version,
+        source_digest=fingerprint(canonical(source)),
+        purpose=purpose,
+    )
+    return source
+
+
+@transaction.atomic
+@sensitive_variables()
+def generate(user, case_id, key, version, reason, copy):
+    case, person, listing = reviewer_case(user, case_id)
+    if not user.has_perm("safety.execute_rights_request"):
+        raise PermissionDenied
+    signature = fingerprint(canonical({"version": version, "reason": reason, "copy": copy}))
+    previous = RightsAction.objects.filter(key=key).first()
+    if previous:
+        if (
+            previous.request_id == case.pk
+            and previous.actor_id == user.pk
+            and previous.operation == "export"
+            and previous.payload_digest == signature
+        ):
+            return RightsExport.objects.get(action=previous)
+        raise ValidationError("Conflicting export key / Clave de exportación incompatible")
+    if case.version != version or not 10 <= len(reason.strip()) <= 2000:
+        raise ValidationError(
+            "Request changed or reason required / Solicitud cambiada o motivo obligatorio"
+        )
+    proof = can_prepare(user, case, person)
+    source = source_copy(person, listing)
+    if not RightsExportPreview.objects.filter(
+        request=case,
+        actor=user,
+        case_version=case.version,
+        source_digest=fingerprint(canonical(source)),
+    ).exists():
+        raise ValidationError("Preview current source first / Consulta primero la copia actual")
+    cleaned = reviewed_copy(source, copy)
+    try:
+        with transaction.atomic():
+            action = RightsAction.objects.create(
+                key=key,
+                request=case,
+                actor=user,
+                expected_version=version,
+                operation="export",
+                payload_digest=signature,
+                encrypted_reason=seal({"reason": reason}),
+            )
+            export = RightsExport.objects.create(
+                action=action,
+                proof=proof,
+                person=person,
+                case_version=case.version + 1,
+                manager_version=person.manager_version,
+                subject_snapshot=str(person.subject_id or ""),
+                channel_digest=case.receipt_digest,
+                encrypted_payload=seal(cleaned),
+                expires_at=min(proof.expires_at, timezone.now() + timedelta(hours=24)),
+            )
+    except IntegrityError as error:
+        raise ValidationError("Conflicting export key / Clave incompatible") from error
+    case.version += 1
+    case.scope_status = "unverified"
+    # Partial copy is not a final resolution of the access/portability request.
+    case.save(update_fields=["version", "scope_status"])
+    return export
+
+
+class ExportForm(forms.Form):
+    key = forms.UUIDField(widget=forms.HiddenInput)
+    version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    operation = forms.ChoiceField(
+        choices=[
+            ("preview", "Consultar copia (auditoría) / Preview copy (audited)"),
+            ("generate", "Crear copia revisada / Create reviewed copy"),
+        ]
+    )
+    purpose = forms.CharField(
+        required=False, min_length=10, max_length=200, label="Motivo de consulta / Access purpose"
+    )
+    reason = forms.CharField(
+        required=False,
+        min_length=10,
+        max_length=2000,
+        widget=forms.Textarea,
+        label="Motivo privado de entrega / Private release reason",
+    )
+    copy = forms.JSONField(
+        required=False,
+        widget=forms.Textarea,
+        label="Copia revisada; redacta datos ajenos / Reviewed copy; redact other people's data",
+    )
+
+
+@login_required
+@sensitive_post_parameters("copy", "reason", "purpose")
+@sensitive_variables()
+@require_http_methods(["GET", "POST"])
+def prepare(request, case_id):
+    if not allowed(request):
+        return private(HttpResponse("Forbidden", status=403))
+    case = RightsRequest.objects.filter(pk=case_id).first()
+    if not case:
+        raise Http404
+    if not permitted(request.user, case):
+        return private(HttpResponse("Forbidden", status=403))
+    form = ExportForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
+    status = 400 if request.method == "POST" else 200
+    source = None
+    if request.method == "POST" and form.is_valid():
+        values = form.cleaned_data
+        try:
+            if values["operation"] == "preview":
+                source = preview(request.user, case_id, values["version"], values["purpose"])
+                form = ExportForm(
+                    initial={
+                        "key": uuid.uuid4(),
+                        "version": case.version,
+                        "operation": "generate",
+                        "copy": source,
+                    }
+                )
+            else:
+                generate(
+                    request.user,
+                    case_id,
+                    values["key"],
+                    values["version"],
+                    values["reason"],
+                    values["copy"],
+                )
+                return private(redirect("rights_inspect", case_id=case.pk))
+        except PermissionDenied:
+            return private(HttpResponse("Forbidden", status=403))
+        except ValidationError as error:
+            form.add_error(None, error)
+            status = 409
+    return private(
+        render(
+            request,
+            "safety/rights_export.html",
+            {"case": case, "form": form, "source": source},
+            status=status,
+        )
+    )
+
+
+@require_POST
+@sensitive_variables()
+def download(request, case_id, secret, export_id):
+    if not enabled():
+        raise Http404
+    with transaction.atomic():
+        try:
+            case, person, _ = locked_case(case_id)
+        except (RightsRequest.DoesNotExist, ValidationError):
+            raise Http404 from None
+        if (
+            len(secret) != 43
+            or not constant_time_compare(case.receipt_digest, fingerprint(secret))
+            or case.receipt_expires_at <= timezone.now()
+        ):
+            raise Http404
+        export = (
+            RightsExport.objects.select_related("proof", "action")
+            .filter(pk=export_id, action__request=case)
+            .first()
+        )
+        now = timezone.now()
+        if (
+            not export
+            or not person
+            or export.expires_at <= now
+            or case.version != export.case_version
+            or case.status != "reviewing"
+            or case.person_id != export.person_id
+            or person.manager_version != export.manager_version
+            or export.subject_snapshot != str(person.subject_id or "")
+            or export.channel_digest != case.receipt_digest
+            or export.proof.provider != "simulator"
+            or export.proof.procedure != PROCEDURE
+            or export.proof.status != "passed"
+            or case.kind not in {"access", "portability"}
+            or export.proof.scope != case.kind
+            or export.proof.person_id != export.person_id
+            or export.proof.manager_version != export.manager_version
+            or case.manager_version != export.manager_version
+            or export.proof.subject_id_snapshot != export.subject_snapshot
+            or export.proof.channel_digest != export.channel_digest
+            or export.proof.expires_at <= now
+            or export.proof.case_version + 1 != export.case_version
+            or case.proofs.order_by("-created_at", "-pk").first().pk != export.proof_id
+        ):
+            raise Http404
+        if limited(request, "rights-export-download", limit=10):
+            return private(HttpResponse("Too many requests", status=429))
+        try:
+            key = forms.UUIDField().clean(request.POST.get("key"))
+        except ValidationError:
+            return private(HttpResponse("Invalid download key", status=400))
+        with transaction.atomic():
+            recorded, _ = RightsExportDownload.objects.get_or_create(
+                key=key,
+                defaults={
+                    "export": export,
+                    "actor": request.user if request.user.is_authenticated else None,
+                },
+            )
+        if recorded.export_id != export.pk or recorded.actor_id != (
+            request.user.pk if request.user.is_authenticated else None
+        ):
+            return private(HttpResponse("Conflicting download key", status=409))
+        response = HttpResponse(
+            json.dumps(unseal(export.encrypted_payload), ensure_ascii=False, indent=2),
+            content_type="application/json; charset=utf-8",
+        )
+        response["Content-Disposition"] = 'attachment; filename="rights-profile.json"'
+        return private(response)

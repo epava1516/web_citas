@@ -204,6 +204,8 @@ def receipt(request, case_id, secret):
                 "case": case,
                 "form": form,
                 "message_count": case.messages.count(),
+                "exports": case_export_forms(case),
+                "secret": secret,
                 "questions": [
                     {
                         "created_at": item.created_at,
@@ -367,3 +369,18 @@ def action(request, case_id):
     return private(
         render(request, "safety/rights_action.html", {"case": case, "form": form}, status=status)
     )
+
+
+def case_export_forms(case):
+    from .models import RightsExport
+    from .rights_verification import enabled
+
+    if not enabled():
+        return []
+
+    return [
+        {"id": item.pk, "expires_at": item.expires_at, "key": uuid.uuid4()}
+        for item in RightsExport.objects.filter(
+            action__request=case, case_version=case.version, expires_at__gt=timezone.now()
+        ).order_by("-created_at")[:10]
+    ]

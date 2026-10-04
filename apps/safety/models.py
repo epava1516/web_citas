@@ -217,3 +217,33 @@ class RightsWithdrawal(models.Model):
     previous_listing_status = models.CharField(max_length=12, blank=True)
     previous_lifecycle_version = models.PositiveIntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsExportPreview(models.Model):
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    case_version = models.PositiveIntegerField()
+    source_digest = models.CharField(max_length=64)
+    purpose = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsExport(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    person = models.ForeignKey("core.Person", on_delete=models.PROTECT)
+    case_version = models.PositiveIntegerField()
+    manager_version = models.PositiveIntegerField()
+    subject_snapshot = models.CharField(max_length=64, blank=True)
+    channel_digest = models.CharField(max_length=64)
+    encrypted_payload = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+
+
+class RightsExportDownload(models.Model):
+    key = models.UUIDField(unique=True)
+    export = models.ForeignKey(RightsExport, on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", null=True, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True)
