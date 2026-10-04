@@ -34,3 +34,5 @@ Docker principal app/worker/Beat reconstruidos/recreados, app confirma mediafile
 Regresión final de alias físico:1 passed17.98s PostgreSQL, distinto Blob apunta al derivado del objetivo como original; ejecución rechazada y archivo preservado/sin job. Fuente funcional idéntica a27 pruebas/probe; solo prueba añadida. No sumar como suite común.
 
 Recuperación revisada de agotados implementada posteriormente en [docs/31](31-recuperacion-borrado-archivos.md); avisos entregados al operador siguen pendientes.
+
+Redacción revisada de asociación propia con archivos compartidos implementada posteriormente en [docs/32](32-redaccion-imagenes-compartidas.md). Conserva archivos del otro perfil; no determina su propiedad ni elimina datos en evidencia histórica.

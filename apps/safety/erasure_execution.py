@@ -30,6 +30,7 @@ from .models import (
 )
 from .rights import allowed, fingerprint
 from .rights_scope import locked_case, permitted
+from .rights_verification import enabled
 from .views import private
 
 SUPPORTED = [
@@ -127,7 +128,15 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         if "publication" in purposes
         else []
     )
+    if not enabled():
+        raise ValidationError(
+            "Identity and scope not established / Identidad y alcance no comprobados"
+        )
+    decisions = unseal(plan.encrypted_decisions)
+    operations = {row["purpose"]: row["operation"] for row in decisions["decisions"]}
+    media_redaction = "media" in purposes and operations.get("media") == "redact"
     media = []
+    shared_ids = set()
     if "media" in purposes:
         blob_ids = Photo.objects.filter(revision__listing__person=person).values_list(
             "blob_id", flat=True
@@ -135,9 +144,11 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         media = list(Blob.objects.select_for_update().filter(pk__in=blob_ids).order_by("pk"))
         for blob in media:
             if Photo.objects.filter(blob=blob).exclude(revision__listing__person=person).exists():
-                raise ValidationError(
-                    "Shared image requires separate scoped review / Imagen compartida requiere revisión de ámbito"
-                )
+                shared_ids.add(blob.pk)
+                if not media_redaction:
+                    raise ValidationError(
+                        "Shared image requires separate scoped review / Imagen compartida requiere revisión de ámbito"
+                    )
         for blob in media:
             names = [value for value in [blob.original.name, blob.derivative.name] if value]
             if (
@@ -146,7 +157,8 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 .filter(models.Q(original__in=names) | models.Q(derivative__in=names))
                 .exists()
             ):
-                raise ValidationError("Storage path shared / Ruta de almacenamiento compartida")
+                if not media_redaction:
+                    raise ValidationError("Storage path shared / Ruta de almacenamiento compartida")
         list(
             Photo.objects.select_for_update()
             .filter(revision__listing__person=person)
@@ -155,8 +167,13 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
     inventory, _ = authorized_inventory(user, case, person, plan.inventory_id)
     if inventory.source_digest != plan.source_digest:
         raise ValidationError("Plan source changed / Fuente del plan cambiada")
-    decisions = unseal(plan.encrypted_decisions)
-    approved = {row["purpose"] for row in decisions["decisions"] if row["operation"] == "erase"}
+    approved = {purpose for purpose, operation in operations.items() if operation == "erase"}
+    if media_redaction:
+        if not shared_ids:
+            raise ValidationError(
+                "No shared media to detach / No hay imágenes compartidas que desvincular"
+            )
+        approved.add("media")
     if not set(purposes) <= approved:
         raise ValidationError(
             "Each selected purpose must be reviewed for erasure / Cada finalidad seleccionada debe decidir supresión"
@@ -190,6 +207,8 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 "rates_deleted": 0,
                 "profile_alias_cleared": False,
                 "media_jobs_queued": 0,
+                "media_refs_detached": 0,
+                "exclusive_media_pending": 0,
             }
             if "publication" in purposes:
                 ids = [revision.pk for revision in revisions]
@@ -272,7 +291,21 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 Photo.objects.filter(revision__listing__person=person).update(
                     removed_at=timezone.now(), approved=False, comparison_complete=True
                 )
-                for blob in media:
+                if media_redaction:
+                    placeholder = Blob.objects.create(
+                        sha256=hashlib.sha256(uuid.uuid4().bytes).hexdigest(), status="erased"
+                    )
+                    result["media_refs_detached"] = Photo.objects.filter(
+                        revision__listing__person=person, blob_id__in=shared_ids
+                    ).update(blob=placeholder)
+                    result["exclusive_media_pending"] = sum(
+                        blob.pk not in shared_ids and blob.status != "erased" for blob in media
+                    )
+                    if result["exclusive_media_pending"]:
+                        result["pending_purposes"] = sorted(
+                            set(result["pending_purposes"]) | {"media"}
+                        )
+                for blob in [] if media_redaction else media:
                     if blob.status in {"erasing", "erased"}:
                         continue
                     MediaErasure.objects.create(

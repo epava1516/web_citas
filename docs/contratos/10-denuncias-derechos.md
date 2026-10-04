@@ -413,3 +413,8 @@ Extensión media de erasure-execute en [docs/30](../30-supresion-imagenes-almace
 ## REQ-CR09-MEDIA-RECOVERY-01
 
 Contrato ES/EN de cola/detalle/requeue por caso en [docs/31](../31-recuperacion-borrado-archivos.md), mediafiles0009. GET jobs50/página/estados sin rutas, POST key/version/reason con manage_media_erasure/review/MFA/COI. Solo failed>=5/erasing;302 éxito400 entrada409 incompatible403 autorización404 referencia. Auditoría globalRightsAction/MediaErasureRecovery, recovery_version independiente y replay sin reiniciar posteriores. No ejecución de archivos en HTTP/cierre del derecho ni comunicación externa.
+
+
+## REQ-CR09-SHARED-MEDIA-REDACTION-01
+
+Extensión media redact del ejecutor en [docs/32](../32-redaccion-imagenes-compartidas.md). La finalidad media admite erase exclusivo o redact de referencias compartidas, resto de finalidades mantienen erase únicamente. Campos/ruta/COI/MFA/fuente/replay de docs/28, resultado media_refs_detached/exclusive_media_pending. Blob vacío sustituye asociación propia, peer conserva bytes/huellas/ref. Exclusivos pendientes necesitan nuevo proof/inventario/plan erase; petición sigue abierta y no se decide propiedad de otro modelo. Sin nueva migración/tarea.
