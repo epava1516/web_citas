@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Private notice state{% else %}Estado de aviso privado{% endif %}</h1>
+<p><a href="{% url 'notice_queue' %}">{% if english %}Notice operations{% else %}Operación de avisos{% endif %}</a></p>
+<p>{{ notice.status }} · {% if english %}Attempts{% else %}Intentos{% endif %}: {{ notice.attempts }}{% if notice.next_attempt_at %} · {{ notice.next_attempt_at }}{% endif %}</p>
+<p>{% if english %}Recovery queues another attempt; it does not confirm delivery or change the case decision.{% else %}La recuperación programa otro intento; no confirma entrega ni cambia la decisión del expediente.{% endif %}</p>
+{% if notice.status == 'failed' %}<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record reason and recover notice{% else %}Registrar motivo y recuperar aviso{% endif %}</button></form>{% else %}{{ form.non_field_errors }}{% endif %}
+<h2>{% if english %}Recovery history{% else %}Historial de recuperación{% endif %}</h2>
+{% for action in history %}<p>{{ action.created_at }} · {% if english %}Cycle{% else %}Ciclo{% endif %} {{ action.expected_version }} · {% if english %}Prior attempts{% else %}Intentos previos{% endif %}: {{ action.previous_attempts }}</p>{% empty %}<p>{% if english %}No recovery actions{% else %}Sin acciones de recuperación{% endif %}</p>{% endfor %}
+{% if history_cursor %}<p><a href="?before={{ history_cursor }}">{% if english %}Earlier recovery actions{% else %}Recuperaciones anteriores{% endif %}</a></p>{% endif %}
+{% endblock %}

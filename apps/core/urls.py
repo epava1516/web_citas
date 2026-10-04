@@ -11,7 +11,7 @@ from apps.listings import (
 )
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
-from apps.safety import complaints, rights, rights_exports, rights_verification
+from apps.safety import complaints, notice_operations, rights, rights_exports, rights_verification
 from apps.safety import views as safety
 
 from . import (
@@ -27,6 +27,12 @@ from . import (
 )
 
 urlpatterns = [
+    path("moderation/notices/", notice_operations.queue, name="notice_queue"),
+    path(
+        "moderation/notices/<str:kind>/<int:notice_id>/",
+        notice_operations.recover,
+        name="notice_recover",
+    ),
     path(
         "moderation/complaints/<uuid:complaint_id>/photo/<uuid:photo_id>/",
         complaints.photo,

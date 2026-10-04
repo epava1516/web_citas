@@ -9,6 +9,7 @@ class PrivateRequestFilter(logging.Filter):
             "/moderation/reports/",
             "/moderation/rights/",
             "/moderation/complaints/",
+            "/moderation/notices/",
         )
         if record.name == "django.server" and any(scope in record.getMessage() for scope in scopes):
             record.msg = "Private safety operation (development server)"

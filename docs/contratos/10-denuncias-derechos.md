@@ -355,3 +355,8 @@ No comprensión/identidad/canal acreditados, entrega real, resolución de fuente
 ## Outbox local de avisos
 
 Contrato de tarea/estados/reintentos y límites de simulación en [procesamiento de avisos](../22-procesamiento-avisos.md). Las filas simulated no acreditan entrega real; configuración de producción permanece desactivada.
+
+
+### Recuperación operativa de avisos
+
+GET /moderation/notices/ muestra avisos pendientes del ámbito permitido por tipo report/complaint; kind y after validan tipo/bigint, errores400, páginas50. GET/POST /moderation/notices/{kind}/{id}/ muestra estado/historia, requiere manage_notice_delivery + review_report/review_complaint, MFA y COI. POST key UUID/version de ciclo>=0/reason20–2000:302 si recuperación o replay exacto,400 por formulario inválido,409 por estado/ciclo/caducidad/key incompatible,403 permisos/COI,404 tipo/ID desconocido o fuera de bigint. Historial GET before con cursor bigint positivo,50 por respuesta. POST CSRF obligatorio. Ningún contexto incluye sobre/destinatario/motivo cifrado de recuperación. Detalles y aceptación en docs/22 y docs/18.

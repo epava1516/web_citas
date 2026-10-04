@@ -9,7 +9,11 @@ class SecurityHeadersMiddleware:
         )
         response.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
         response["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
-        if "/safety/" in request.path or "/moderation/complaints/" in request.path:
+        if (
+            "/safety/" in request.path
+            or "/moderation/complaints/" in request.path
+            or "/moderation/notices/" in request.path
+        ):
             # Errors rejected by decorators/resolution still belong to a private channel.
             response["Cache-Control"] = "private, no-store"
             response["X-Robots-Tag"] = "noindex, nofollow"

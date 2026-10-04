@@ -116,6 +116,7 @@ class ComplaintNotice(models.Model):
     resolution = models.OneToOneField(ComplaintResolution, on_delete=models.PROTECT)
     encrypted_payload = models.TextField()
     status = models.CharField(max_length=16, default="queued")
+    recovery_version = models.PositiveIntegerField(default=0)
     attempts = models.PositiveSmallIntegerField(default=0)
     next_attempt_at = models.DateTimeField(null=True)
     error_code = models.CharField(max_length=32, blank=True)
@@ -170,11 +171,36 @@ class ReportNotice(models.Model):
     kind = models.CharField(max_length=12)
     encrypted_payload = models.TextField()
     status = models.CharField(max_length=16, default="queued")
+    recovery_version = models.PositiveIntegerField(default=0)
     attempts = models.PositiveSmallIntegerField(default=0)
     next_attempt_at = models.DateTimeField(null=True)
     error_code = models.CharField(max_length=32, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     simulated_at = models.DateTimeField(null=True)
+
+
+class NoticeRecovery(models.Model):
+    key = models.UUIDField(unique=True)
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    report_notice = models.ForeignKey(ReportNotice, null=True, on_delete=models.PROTECT)
+    complaint_notice = models.ForeignKey(ComplaintNotice, null=True, on_delete=models.PROTECT)
+    expected_version = models.PositiveIntegerField()
+    previous_attempts = models.PositiveSmallIntegerField()
+    encrypted_reason = models.TextField()
+    payload_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [("manage_notice_delivery", "Recover failed private notices")]
+        constraints = [
+            models.CheckConstraint(
+                condition=(
+                    models.Q(report_notice__isnull=False, complaint_notice__isnull=True)
+                    | models.Q(report_notice__isnull=True, complaint_notice__isnull=False)
+                ),
+                name="notice_recovery_exactly_one_source",
+            )
+        ]
 
 
 class SimulatedNoticeDelivery(models.Model):

@@ -40,3 +40,14 @@ Recuperación autorizada de failed con historia, alertas operativas, política d
 ## Evidencia aceptada localmente
 
 20 pruebas afectadas pasan104.77s, PostgreSQL/Chromium sin skips. Probe real terminal: worker10.264s y Beat66.579s; cuatro simulaciones únicas, segunda tanda disparada automáticamente, limpieza confirmada. Docker principal actualizado hasta safety0028, salud200 y backend disabled. Historial de correcciones del probe y UUID de tareas en docs/18. No correo real ni cierre de CR-09.
+
+
+## Recuperación operativa — verificada localmente
+
+`/moderation/notices/` y `/moderation/notices/{report|complaint}/{id}/` requieren manage_notice_delivery, MFA actual y permiso de revisión de la clase de expediente. El conflicto de interés se evalúa con las reglas del expediente y vuelve a verificarse bajo locks canónicos al recuperar; el permiso operativo no concede acceso a destinatarios, sobres cifrados ni razones originales.
+
+La cola separa denuncias/reclamaciones y ofrece paginación de50 elementos, sin totales globales que revelen expedientes excluidos. Muestra estado, fecha, intentos y objetivo de reintento. El aviso failed exige motivo privado20–2000 caracteres y versión del ciclo. Una recuperación incrementa recovery_version, registra NoticeRecovery con intentos previos/motivo cifrado/actor/key única y vuelve a queued con intentos0. No modifica decisión, estado o versión del expediente ni genera un aviso nuevo.
+
+Repetición exacta no repite efectos, aunque el aviso haya avanzado de estado; clave incompatible, formulario de un ciclo anterior o estado distinto de failed produce409. Caso con acuse caducado no se recupera automáticamente: requiere procedimiento separado. PostgreSQL serializa dos recuperaciones y el worker concurrente mediante el lock de aviso. La recuperación no habilita el backend desactivado ni confirma entrega.
+
+Las rutas tienen no-store/noindex y enmascarado de logs también para errores previos a la vista. El historial visible contiene solo metadatos del ciclo; motivos cifrados permanecen en auditoría. Historial con paginación por cursor (50 por respuesta), sin corte permanente. La verificación terminal está registrada en docs/18:16 pruebas afectadas84.53s y1 adicional14.96s, ejecuciones separadas con PostgreSQL/Chromium sin skips. Docker local actualizado hasta0029; backend disabled. Alertas externas, política de caducidad definitiva y entrega real permanecen pendientes.
