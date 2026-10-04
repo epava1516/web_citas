@@ -137,6 +137,14 @@ def test_mobile_source_review_and_field_proposal(
     credentials = json.loads((tmp_path / "credentials.json").read_text())
     account = credentials["accounts"]["moderator"]
     alias_before = person.alias
+    from apps.catalog.models import Municipality
+
+    new_city = (
+        Municipality.objects.filter(active=True)
+        .exclude(pk=person.listing.approved_revision.municipality_id)
+        .first()
+    )
+    assert new_city
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(
             executable_path=shutil.which("chromium-browser"), args=["--no-sandbox"]
@@ -162,6 +170,10 @@ def test_mobile_source_review_and_field_proposal(
             expect(page.locator("[name=alias]")).to_have_value(alias_before)
             page.locator('[name=fields][value="alias"]').check()
             page.locator("[name=alias]").fill("Synthetic browser correction")
+            page.locator('[name=fields][value="location"]').check()
+            page.locator("[name=municipality]").select_option(str(new_city.pk))
+            page.locator("[name=postal_code]").select_option("")
+            page.locator("[name=zone]").select_option("")
             page.locator("[name=reason]").fill(REASON)
             page.get_by_role("button", name="Record correction action", exact=True).click()
             expect(
@@ -173,6 +185,66 @@ def test_mobile_source_review_and_field_proposal(
         finally:
             browser.close()
     proposal = RightsRectificationProposal.objects.get()
-    assert unseal(proposal.encrypted_changes) == {"alias": "Synthetic browser correction"}
+    assert unseal(proposal.encrypted_changes) == {
+        "alias": "Synthetic browser correction",
+        "location": {"municipality": new_city.pk, "postal_code": None, "zone": None},
+    }
     person.refresh_from_db()
     assert person.alias == alias_before
+
+
+def test_location_form_requires_coherent_public_safe_city_postal_and_zone(
+    request, settings, monkeypatch
+):
+    from apps.catalog.models import Municipality, PostalCode, Zone
+    from apps.safety.rectification_location import source as location_source
+
+    case, _, staff, _, _, person = ready(request, settings, monkeypatch, "rectify")
+    revision = person.listing.approved_revision
+    city = revision.municipality
+    other = Municipality.objects.filter(active=True).exclude(pk=city.pk).first()
+    assert other
+    postal = PostalCode.objects.create(code="99982", source=city.source, public_safe=False)
+    postal.municipalities.add(city)
+    zone = Zone.objects.create(
+        code="synthetic-location-test",
+        name="Synthetic location test",
+        municipality=city,
+        source=city.source,
+    )
+    path = f"/en/moderation/rights/{case.pk}/rectification/"
+    initial = staff.get(path).context["form"].initial
+    page = staff.post(
+        path,
+        initial
+        | {"operation": "preview", "purpose": "Inspect current location before scoped correction"},
+    )
+    assert page.status_code == 200
+    assert page.context["source_fields"]["location"] == location_source(revision)
+    assert staff.get(path).context["source_fields"] is None
+    data = initial | {
+        "operation": "propose",
+        "fields": ["location"],
+        "municipality": other.pk,
+        "postal_code": postal.pk,
+        "zone": zone.pk,
+        "reason": REASON,
+    }
+    assert staff.post(path, data).status_code == 400  # Restricted precision cannot be selected.
+    postal.public_safe = True
+    postal.save(update_fields=["public_safe"])
+    assert staff.post(path, data).status_code == 400  # CP and area belong to the old city.
+    assert staff.post(path, data | {"postal_code": ""}).status_code == 400
+    assert (
+        staff.post(path, data | {"municipality": "", "postal_code": "", "zone": ""}).status_code
+        == 400
+    )
+    assert not RightsRectificationProposal.objects.exists()
+    assert staff.post(path, data | {"postal_code": "", "zone": ""}).status_code == 302
+    proposal = RightsRectificationProposal.objects.get()
+    assert unseal(proposal.encrypted_changes) == {
+        "location": {"municipality": other.pk, "postal_code": None, "zone": None}
+    }
+    revision.refresh_from_db()
+    assert revision.municipality_id == city.pk
+    assert staff.get(path).context["source_fields"] is None

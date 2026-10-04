@@ -24,11 +24,35 @@ def independent_case(
     with_receipt=False,
     changes=None,
     subject_username="fixture-v1-model-a",
+    correct_location=False,
 ):
     case, original, staff, client, receipt, person = ready(
         request, settings, monkeypatch, "rectify", subject_username=subject_username
     )
     assert person.subject.username == subject_username
+    if correct_location:
+        from apps.catalog.models import Municipality, PostalCode, Zone
+
+        source = person.listing.approved_revision
+        assert source and source.municipality_id
+        city = Municipality.objects.filter(active=True).exclude(pk=source.municipality_id).first()
+        assert city is not None
+        postal = PostalCode.objects.create(code="99981", source=city.source, public_safe=True)
+        postal.municipalities.add(city)
+        zone = Zone.objects.create(
+            code="synthetic-correction-area",
+            name="Synthetic correction area",
+            municipality=city,
+            source=city.source,
+        )
+        changes = {
+            **(changes or {"alias": "Synthetic reviewed correction"}),
+            "location": {
+                "municipality": city.pk,
+                "postal_code": postal.pk,
+                "zone": zone.pk,
+            },
+        }
     original.user_permissions.add(
         *Permission.objects.filter(
             codename__in=["manage_rights_assignment", "verify_rights_scope", "review_rectification"]
@@ -153,7 +177,7 @@ def test_mobile_independent_source_and_proposal_review(
 
     settings.DEBUG = True
     case, reviewer, other, person, proposal, path, client, receipt = independent_case(
-        request, settings, monkeypatch, with_receipt=True
+        request, settings, monkeypatch, with_receipt=True, correct_location=True
     )
     path = path.replace("/en/", f"/{language}/")
     reviewer.user_permissions.add(
@@ -219,6 +243,8 @@ def test_mobile_independent_source_and_proposal_review(
                     exact=False,
                 )
             ).to_be_visible()
+            expect(page.get_by_text("Synthetic correction area", exact=False)).to_be_visible()
+            assert "'municipality':" not in page.locator("main").inner_text()
             page.locator("[name=operation]").select_option("review")
             page.locator("[name=outcome]").select_option("approved")
             page.locator("[name=reason]").fill(REASON)
@@ -503,6 +529,7 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         monkeypatch,
         with_receipt=True,
         subject_username=subject_username,
+        correct_location=True,
         changes={
             "alias": "Synthetic reviewed correction",
             "title": "Corrected synthetic title",
@@ -598,6 +625,9 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     old_revision = person.listing.approved_revision
     assert old_revision is not None
     old_title = old_revision.title
+    from apps.safety.rectification_location import source as location_source
+
+    old_location = location_source(old_revision)
     old_description = old_revision.description
     old_rates = list(
         old_revision.rates.values_list("concept", "mode", "amount", "currency", "duration_minutes")
@@ -629,6 +659,16 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     assert other.post(path, payload).status_code == 409
     rate.concept = original_concept
     rate.save(update_fields=["concept"])
+    from apps.catalog.models import PostalCode
+
+    destination_postal = PostalCode.objects.get(
+        pk=unseal(proposal.encrypted_changes)["location"]["postal_code"]
+    )
+    destination_postal.public_safe = False
+    destination_postal.save(update_fields=["public_safe"])
+    assert other.post(path, payload).status_code == 409
+    destination_postal.public_safe = True
+    destination_postal.save(update_fields=["public_safe"])
     ongoing = Revision.objects.create(
         listing=person.listing, manager_version=person.manager_version
     )
@@ -691,6 +731,10 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert old_revision.title == old_title
         assert old_revision.description == old_description
         corrected = applied.corrected_revision
+        assert location_source(old_revision) == old_location
+        assert location_source(corrected) == unseal(proposal.encrypted_changes)["location"]
+        assert unseal(applied.encrypted_previous_values)["location"] == old_location
+        assert location_source(corrected) != old_location
         assert corrected.title == "Corrected synthetic title"
         assert corrected.description == "Corrected synthetic description"
         assert (

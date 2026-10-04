@@ -115,6 +115,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
     from apps.mediafiles.models import Photo
     from apps.mediafiles.tasks import process_blob
 
+    from . import rectification_location
     from .models import RightsRectificationExecution
 
     permission(user)
@@ -207,9 +208,27 @@ def execute(user, case_id, proposal_id, key, version, reason):
                     if field.name not in excluded
                 }
                 before.update(
-                    {field: getattr(source, field) for field in changes if field != "alias"}
+                    {
+                        field: getattr(source, field)
+                        for field in changes
+                        if field not in {"alias", "location"}
+                    }
                 )
-                values.update({field: text for field, text in changes.items() if field != "alias"})
+                values.update(
+                    {
+                        field: text
+                        for field, text in changes.items()
+                        if field not in {"alias", "location"}
+                    }
+                )
+                if "location" in changes:
+                    before["location"] = rectification_location.source(source)
+                    values.update(
+                        {
+                            field + "_id": identifier
+                            for field, identifier in changes["location"].items()
+                        }
+                    )
                 corrected = Revision.objects.create(
                     listing=listing,
                     source_revision=source,

@@ -13,8 +13,10 @@ from django.shortcuts import redirect, render
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
 
+from apps.catalog.models import Municipality, PostalCode, Zone
 from apps.listings.models import Revision
 
+from . import rectification_location
 from .crypto import seal
 from .models import (
     RightsAction,
@@ -33,9 +35,12 @@ FIELDS = {"alias": 80, "title": 120, "description": 10000, "description_alternat
 
 @sensitive_variables()
 def validated_changes(value):
-    if not isinstance(value, dict) or not value or set(value) - set(FIELDS):
+    if not isinstance(value, dict) or not value or set(value) - (set(FIELDS) | {"location"}):
         raise ValidationError("Unsupported correction fields / Campos de corrección no admitidos")
     for field, text in value.items():
+        if field == "location":
+            rectification_location.validate(text)
+            continue
         if (
             not isinstance(text, str)
             or len(text) > FIELDS[field]
@@ -170,6 +175,8 @@ def source_snapshot(case, person, listing):
         if revision
         else {},
     }
+    if revision:
+        source["fields"]["location"] = rectification_location.source(revision)
     return revision, source
 
 
@@ -229,6 +236,7 @@ class ProposalForm(forms.Form):
             ("title", "Título / Title"),
             ("description", "Descripción / Description"),
             ("description_alternative", "Descripción alternativa / Alternative description"),
+            ("location", "Ubicación completa / Complete location"),
         ],
         widget=forms.CheckboxSelectMultiple,
         label="Campos que se propone corregir / Fields proposed for correction",
@@ -249,6 +257,18 @@ class ProposalForm(forms.Form):
         widget=forms.Textarea,
         label="Descripción alternativa / Alternative description",
     )
+    municipality = forms.ModelChoiceField(
+        queryset=Municipality.objects.filter(active=True), required=False, label="Ciudad / City"
+    )
+    postal_code = forms.ModelChoiceField(
+        queryset=PostalCode.objects.filter(public_safe=True),
+        required=False,
+        label="Código postal / Postal code",
+        help_text="Recomendado; sin domicilio / Recommended; no street address",
+    )
+    zone = forms.ModelChoiceField(
+        queryset=Zone.objects.filter(active=True), required=False, label="Zona / Area"
+    )
     reason = forms.CharField(
         required=False,
         min_length=20,
@@ -265,13 +285,29 @@ class ProposalForm(forms.Form):
                 raise forms.ValidationError(
                     "Selecciona los campos que se propone corregir / Select fields proposed for correction"
                 )
-            data["changes"] = {field: data.get(field, "") for field in selected}
+            data["changes"] = {
+                field: data.get(field, "") for field in selected if field != "location"
+            }
+            if "location" in selected:
+                data["changes"]["location"] = {
+                    field: data[field].pk if data.get(field) else None
+                    for field in ["municipality", "postal_code", "zone"]
+                }
+                rectification_location.validate(data["changes"]["location"])
         return data
 
 
 @login_required
 @sensitive_post_parameters(
-    "alias", "title", "description", "description_alternative", "reason", "purpose"
+    "alias",
+    "title",
+    "description",
+    "description_alternative",
+    "municipality",
+    "postal_code",
+    "zone",
+    "reason",
+    "purpose",
 )
 @sensitive_variables()
 @require_http_methods(["GET", "POST"])
@@ -318,7 +354,12 @@ def prepare(request, case_id):
                     "key": uuid.uuid4(),
                     "version": case.version,
                     "operation": "propose",
-                    **source_fields,
+                    **{
+                        field: value
+                        for field, value in source_fields.items()
+                        if field != "location"
+                    },
+                    **source_fields.get("location", {}),
                 }
             )
     return private(

@@ -238,6 +238,10 @@ def prepare(request, case_id, proposal_id):
                 changes = inspect(
                     request.user, case_id, proposal_id, data["version"], data["purpose"]
                 )
+                if "location" in changes:
+                    from .rectification_location import display
+
+                    changes = {**changes, "location": display(changes["location"])}
                 status = 200
             elif data["operation"] in {"notify", "execute"}:
                 from .rectification_execution import execute, notify

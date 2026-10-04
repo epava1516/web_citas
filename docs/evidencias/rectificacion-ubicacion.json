@@ -1,0 +1,62 @@
+{
+  "scope": "Rectificación ciudad/CP/zona mediante propuesta, revisión, recepción y ejecución privada",
+  "results": [
+    {
+      "artifact": "rectification-location-crossflow.xml",
+      "sha256": "9659a5b9d69b9dd06aed8f03f7ddad38c22dc686466982847a294909da479da0",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "14",
+          "time": "145.298",
+          "timestamp": "2026-10-04T19:53:33.083835+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "artifact": "rectification-location-final.xml",
+      "sha256": "878a16e20716e6b162923b1cebd35793e91f73bafbd035a2c225fec1b05dd5b3",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "14",
+          "time": "148.871",
+          "timestamp": "2026-10-04T19:56:27.262380+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    }
+  ],
+  "database": "PostgreSQL real",
+  "browser": "Chromium390x844: formulario ubicación EN y revisión/ejecución ESEN",
+  "verified": [
+    "Ciudad obligatoria activa, CP public_safe compatible y zona activa de la ciudad",
+    "Retirada explícita de CP/zona sin omitir ciudad",
+    "Cambiar CP a restringido después de revisión bloquea execute409",
+    "GETno fuente, POSTauditado muestra ubicación y revisión usa nombres escapados",
+    "Nueva revisión usa ubicación corregida; fuente histórica intacta y ubicación previa cifrada",
+    "Propuesta/review/recepción/proof/ejecución/replay conservan guardas previas y estado reviewing"
+  ],
+  "docker": {
+    "migration": "sin nueva migración; safety0053",
+    "health": 200,
+    "hashes": {
+      "apps/safety/rectification_location.py": "5296a4a8698511662c23cf6adf784f6134f1c272d3ea91043416a35cb92df83f",
+      "apps/safety/rights_rectification.py": "8c2845af33ebff564ef4416a70be0ee5a11599bef6f80a78b8c3ff546525007f",
+      "apps/safety/rectification_execution.py": "85e1cf81efcb36503ac938054ae04e86542325698b4fca6496679ee2f600a366"
+    }
+  },
+  "limits": [
+    "Identidad sintética simulada explícita; sin proveedor real ni envío externo",
+    "Catálogo geográfico sintético; no cobertura nacional acreditada",
+    "Otros campos/contactos, comunicaciones históricas, conservación y respuesta final pendientes",
+    "CR09/CR10/GS01/BF/BB/C pendientes; no aceptación integral"
+  ]
+}
