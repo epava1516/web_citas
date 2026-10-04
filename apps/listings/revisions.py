@@ -2,30 +2,13 @@ from copy import deepcopy
 
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.db.models import Q
 
 from apps.mediafiles.models import Photo
 from apps.mediafiles.tasks import process_blob
 
 from .forms import DetailsForm
+from .history import is_rectification_history
 from .models import Rate, Revision
-
-
-def is_rectification_history(revision):
-    """Historic correction evidence is not an ordinary manager source."""
-    from apps.safety.models import RightsRectificationExecution
-
-    return (
-        RightsRectificationExecution.objects.filter(
-            notification__review__proposal__person_id=revision.listing.person_id,
-        )
-        .exclude(corrected_revision_id=revision.pk)
-        .filter(
-            Q(notification__review__proposal__source_revision_id=revision.pk)
-            | Q(created_at__gt=revision.created_at)
-        )
-        .exists()
-    )
 
 
 def create_draft(listing, person):

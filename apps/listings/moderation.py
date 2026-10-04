@@ -8,6 +8,7 @@ from django.utils import timezone
 from apps.core.models import Agency, AgencyMember, Person
 from apps.mediafiles.models import Match
 
+from .history import is_rectification_history, ordinary_matches
 from .models import Listing, ModerationDecision, Revision
 from .submissions import validate_submission
 
@@ -37,15 +38,13 @@ def conflict_of_interest(user, person):
 
 def unresolved_matches(revision):
     photos = revision.photos.filter(removed_at__isnull=True)
-    return (
+    return ordinary_matches(
         Match.objects.filter(
             Q(photo__in=photos) | Q(candidate__in=photos),
             Q(resolved_at__isnull=True) | Q(decision="conflict"),
             photo__removed_at__isnull=True,
             candidate__removed_at__isnull=True,
         )
-        .exclude(photo__rectification_upload__isnull=False)
-        .exclude(candidate__rectification_upload__isnull=False)
     )
 
 
@@ -62,7 +61,9 @@ def decide(user, revision_id, version, outcome, reason):
     if conflict_of_interest(user, person):
         raise PermissionDenied("Cannot review your own listing")
     if (
-        revision.status != "pending"
+        is_rectification_history(revision)
+        or revision.photos.filter(rectification_upload__isnull=False).exists()
+        or revision.status != "pending"
         or revision.edit_version != version
         or not hasattr(revision, "submission")
     ):

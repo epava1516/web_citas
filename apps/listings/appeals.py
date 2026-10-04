@@ -11,6 +11,7 @@ from apps.core.agencies import person_queryset
 from apps.core.models import Agency, Person
 from apps.core.verification import locked_manager_person
 
+from .history import is_rectification_history, rectification_history_ids
 from .models import Appeal, Listing, ModerationDecision, Revision
 from .moderation import conflict_of_interest, reviewer_allowed
 
@@ -36,7 +37,7 @@ class ReviewForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def submit(request, decision_id):
     decision = get_object_or_404(
-        ModerationDecision,
+        ModerationDecision.objects.exclude(revision_id__in=rectification_history_ids()),
         pk=decision_id,
         revision__listing__person__in=person_queryset(request.user),
         outcome="rejected",
@@ -48,7 +49,10 @@ def submit(request, decision_id):
             person = locked_manager_person(request.user, decision.revision.listing.person_id)
             Listing.objects.select_for_update().get(pk=decision.revision.listing_id)
             revision = Revision.objects.select_for_update().get(pk=decision.revision_id)
-            if revision.manager_version != person.manager_version:
+            if (
+                is_rectification_history(revision)
+                or revision.manager_version != person.manager_version
+            ):
                 return HttpResponse("Manager changed", status=409)
             Appeal.objects.get_or_create(
                 decision=decision,
@@ -74,7 +78,11 @@ def queue(request):
     return render(
         request,
         "listings/appeal_queue.html",
-        {"appeals": Appeal.objects.filter(status="open").order_by("created_at")[:100]},
+        {
+            "appeals": Appeal.objects.filter(status="open")
+            .exclude(decision__revision_id__in=rectification_history_ids())
+            .order_by("created_at")[:100]
+        },
     )
 
 
@@ -83,7 +91,9 @@ def queue(request):
 def review(request, appeal_id):
     if not reviewer_allowed(request):
         return HttpResponse("Forbidden", status=403)
-    appeal = get_object_or_404(Appeal, pk=appeal_id)
+    appeal = get_object_or_404(
+        Appeal.objects.exclude(decision__revision_id__in=rectification_history_ids()), pk=appeal_id
+    )
     person = appeal.decision.revision.listing.person
     if appeal.decision.reviewer_id == request.user.pk or conflict_of_interest(request.user, person):
         return HttpResponse("Independent reviewer required", status=403)
@@ -98,6 +108,8 @@ def review(request, appeal_id):
             )
             revision = Revision.objects.select_for_update().get(pk=appeal.decision.revision_id)
             appeal = Appeal.objects.select_for_update().get(pk=appeal.pk)
+            if is_rectification_history(revision):
+                return HttpResponse("Review unavailable", status=404)
             if conflict_of_interest(request.user, person):
                 return HttpResponse("Conflict of interest", status=403)
             if appeal.status != "open":

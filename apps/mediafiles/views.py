@@ -92,7 +92,11 @@ def remove(request, photo_id):
     with transaction.atomic():
         person = locked_manager_person(request.user, initial.revision.listing.person_id)
         revision = Revision.objects.select_for_update().get(pk=initial.revision_id)
-        if revision.status != "draft" or revision.manager_version != person.manager_version:
+        if (
+            is_rectification_history(revision)
+            or revision.status != "draft"
+            or revision.manager_version != person.manager_version
+        ):
             return HttpResponse("Revision not editable", status=409)
         photo = Photo.objects.select_for_update().get(pk=initial.pk)
         photo.removed_at = timezone.now()
@@ -115,7 +119,11 @@ def reorder(request, photo_id):
     with transaction.atomic():
         person = locked_manager_person(request.user, initial.revision.listing.person_id)
         revision = Revision.objects.select_for_update().get(pk=initial.revision_id)
-        if revision.status != "draft" or revision.manager_version != person.manager_version:
+        if (
+            is_rectification_history(revision)
+            or revision.status != "draft"
+            or revision.manager_version != person.manager_version
+        ):
             return HttpResponse("Revision not editable", status=409)
         photos = list(
             revision.photos.filter(removed_at__isnull=True).order_by("position", "created_at")

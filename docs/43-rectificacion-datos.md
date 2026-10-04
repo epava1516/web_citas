@@ -262,3 +262,13 @@ Batería final43 correctas286.11s con PostgreSQL/Chromium; anterior37 correctas2
 CI fdc3a49/run37234446974:527 correctas1073.80s, success; incluye limpieza técnica, no esta entrega. CI a36eca3/run37232838985:516 correctas/1 fallida1487.26s, reload de reclamación de agencia con error de protocolo Chromium; no aceptada. Se conserva el fallo y no se acredita su causa interna ni una regresión común nueva mediante los8 tests locales. Evidencias separadas en docs/evidencias/regresion-ci-fdc3a49.json y regresion-ci-a36eca3.json.
 
 Pendientes: recarga manual de imágenes/variaciones/rehabilitación, acceso a históricos desde colas generales y conservación por finalidad, identidad de cuenta, comunicaciones/respuesta final y demás derechos. CR09 y contrato completo abiertos; Claude3/3 consumidas, sin nuevas delegaciones. Graphify consultado como mapa previo (1185 nodos), sin reconstrucción ni uso como prueba de aceptación.
+
+
+### Historial en colas generales: entrega en verificación
+
+Clasificación SQL central compartida; candidatos y colas ordinarias excluyen historial/preparación. decide/resolve revalidan tras locks; lecturas recargan Photo antes de abrir bytes. Concurrencia3 correctas39.36s; batería45 anterior322.529s sin fallos, no cubre última guarda. Batería47 sesión46996 pendiente, Docker reconstruido/recreación64463 pendiente. No acepta CR09 ni retención/reintroducción/rehabilitación. [Detalle](46-historial-colas-generales.md). Claude3/3; sin delegaciones. Contrato íntegro abierto.
+
+
+### Historial en colas generales: verificación local parcial
+
+47 pruebas conjuntas correctas328.40s PG/Chromium, cero fallos/errores/omisiones. Refuerzo posterior6 correctas110.68s con Submission válida (5 casos excluidos explícitamente por selección); no sumar baterías. Concurrencia3 correctas39.36s solapada con47. Docker reconstruido/recreado, hashes actuales iguales, UID10001/check/health200, ruff/format/makemigrations/diff limpios; sin migración nueva. CI anterior e7d0679:528 correctas1292.39s. Disposiciones de recarga/rehabilitación docs47 todavía diseño, no implementadas. Conservación por finalidad/cuenta/comunicaciones/cierre y contrato entero pendientes. Claude3/3; sin delegaciones.

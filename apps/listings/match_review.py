@@ -7,6 +7,7 @@ from apps.core.models import Agency, Person
 from apps.core.verification_services import publication_ready
 from apps.mediafiles.models import Match, MatchResolution, Photo, PhotoRestriction
 
+from .history import is_rectification_history
 from .models import Listing
 from .moderation import conflict_of_interest
 
@@ -55,6 +56,12 @@ def locked_pair(match_id):
     listings = list(
         Listing.objects.select_for_update().filter(person_id__in=person_ids).order_by("pk")
     )
+    if any(
+        is_rectification_history(photo.revision) for photo in [initial.photo, initial.candidate]
+    ):
+        raise ValidationError(
+            "Correction history requires scoped rights review / El historial rectificado requiere revisión de derechos"
+        )
     pair = Q(photo_id=initial.photo_id, candidate_id=initial.candidate_id) | Q(
         photo_id=initial.candidate_id, candidate_id=initial.photo_id
     )

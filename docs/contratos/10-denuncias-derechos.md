@@ -557,3 +557,12 @@ Rutas ordinarias privadas de fotos/estado/editor devuelven404 ante versiones his
 private_photo adquiere locks de gestor/persona y revisión, y vuelve a leer Photo tras esperar, comprobando retirada, revisión y marcador de preparación. Revalida manager_version y clasificación antes de abrir el derivado. Cache privada/no-store, respuestas privadas conforme a middleware. Autorización al abrir, sin garantía de revocación de bytes previamente entregados. La consulta específica de derechos sigue requiriendo ámbito, proof y auditoría propios.
 
 No resuelve recarga manual de bytes/recortes, rehabilitación, acceso histórico desde otras colas ni conservación final de evidencia. [Especificación y pruebas](../45-acceso-historico-rectificacion.md).
+
+
+## REQ-CR09-GENERAL-HISTORY-01
+
+Clasificación SQL compartida aplicada antes de paginar colas de moderación, coincidencias y reclamaciones. Historial y cargas preparadas quedan fuera de consultas ordinarias y candidatos de detección; una coincidencia archivada no bloquea otro anuncio. No elimina decisiones/restricciones anteriores ni autoriza su rehabilitación.
+
+Consulta directa de coincidencias históricas e imágenes devuelve403; consulta de anuncio/foto/reclamación histórica devuelve404. Si la referencia deja de estar disponible mientras espera el bloqueo, la lectura de imagen devuelve404. resolve y decide revalidan historial bajo bloqueos; decide también rechaza marcadores de preparación, tanto para aprobar como para rechazar. Las reclamaciones revalidan antes de modificar estados. No añade rutas ni migraciones.
+
+Lecturas de fotos adquieren bloqueos de agencia/persona y revisión o anuncio y recargan Photo antes de abrir bytes. Las consultas específicas de derechos conservan ámbito/acreditación/auditoría independientes. Conservación por finalidad, recarga manual, variantes y rehabilitación siguen pendientes. [Verificación](../46-historial-colas-generales.md).

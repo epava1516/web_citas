@@ -1216,6 +1216,112 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         image = manager_client.get(f"/en/photos/{current_photo.pk}/private/")
         assert image.status_code == 200 and b"".join(image.streaming_content)
         image.close()
+    # Previously created matches remain as evidence, but are absent from
+    # ordinary review and cannot block an unrelated current publication.
+    from apps.core.models import Person
+    from apps.listings.match_review import resolve
+    from apps.listings.moderation import unresolved_matches
+    from apps.mediafiles.models import Match
+    from apps.mediafiles.services import process
+
+    peer = Person.objects.exclude(pk=person.pk).get(subject__username="fixture-v1-model-b")
+    peer_photo, _ = Photo.objects.get_or_create(
+        revision=peer.listing.revisions.first(),
+        blob=historical_photo.blob,
+    )
+    old_match, _ = Match.objects.get_or_create(
+        photo=historical_photo,
+        candidate=peer_photo,
+        defaults={"method": "sha256"},
+    )
+    reviewer.user_permissions.add(Permission.objects.get(codename="review_listing"))
+    reviewer = User.objects.get(pk=reviewer.pk)
+    for side in ["photo", "candidate"]:
+        assert other.get(f"/en/moderation/matches/{old_match.pk}/{side}/image/").status_code == 403
+    assert other.get(f"/en/moderation/matches/{old_match.pk}/").status_code == 403
+    queue = other.get("/en/moderation/matches/")
+    assert queue.status_code == 200
+    assert old_match.pk not in [row.pk for row in queue.context["matches"]]
+    assert not unresolved_matches(peer_photo.revision).filter(pk=old_match.pk).exists()
+    with pytest.raises(ValidationError, match="Correction history"):
+        resolve(
+            reviewer, old_match.pk, old_match.review_version, "conflict", REASON, "Synthetic case"
+        )
+    from apps.core.models import LegalDocument
+    from apps.listings.models import Appeal, ModerationDecision, Submission
+    from apps.mediafiles.models import MatchResolution, PhotoAppeal, PhotoRestriction
+
+    assert other.get(f"/en/moderation/listings/{old_revision.pk}/").status_code == 404
+    assert other.get(f"/en/moderation/photos/{old_revision.photos.first().pk}/").status_code == 404
+    Revision.objects.filter(pk=historical.pk).update(status="pending")
+    from apps.listings.moderation import decide
+
+    Submission.objects.create(
+        revision=historical,
+        actor=manager,
+        document=LegalDocument.objects.first(),
+        approved_base=corrected,
+    )
+    historical.refresh_from_db()
+    assert historical.status == "pending" and historical.submission.pk
+    for outcome in ["approved", "rejected"]:
+        with pytest.raises(ValidationError, match="Review changed"):
+            decide(reviewer, historical.pk, historical.edit_version, outcome, REASON)
+    assert not historical.decisions.exists()
+    queue = other.get("/en/moderation/listings/")
+    assert historical.pk not in [row.pk for row in queue.context["revisions"]]
+    Revision.objects.filter(pk=historical.pk).update(status="rejected")
+    old_decision = ModerationDecision.objects.create(
+        revision=historical,
+        reviewer=original,
+        outcome="rejected",
+        reason=REASON,
+    )
+    old_appeal = Appeal.objects.create(decision=old_decision, actor=manager, explanation=REASON)
+    assert manager_client.get(f"/en/draft/decisions/{old_decision.pk}/appeal/").status_code == 404
+    assert other.get(f"/en/moderation/appeals/{old_appeal.pk}/").status_code == 404
+    queue = other.get("/en/moderation/appeals/")
+    assert old_appeal.pk not in [row.pk for row in queue.context["appeals"]]
+    old_resolution = MatchResolution.objects.create(
+        match=old_match,
+        reviewer=original,
+        outcome="conflict",
+        reason=REASON,
+        evidence_reference="Synthetic stored historical decision",
+    )
+    old_restriction = PhotoRestriction.objects.create(
+        person=person,
+        manager_version=person.manager_version,
+        photo=historical_photo,
+        decision=old_resolution,
+    )
+    old_photo_appeal = PhotoAppeal.objects.create(
+        restriction=old_restriction,
+        actor=manager,
+        review_version=old_match.review_version,
+        explanation=REASON,
+    )
+    from django.urls import reverse
+
+    assert (
+        manager_client.get(reverse("photo_restriction", args=[old_restriction.pk])).status_code
+        == 404
+    )
+    assert other.get(reverse("photo_appeal_review", args=[old_photo_appeal.pk])).status_code == 404
+    queue = other.get(reverse("photo_appeal_queue"))
+    assert old_photo_appeal.pk not in [row.pk for row in queue.context["appeals"]]
+    count = Match.objects.filter(photo=historical_photo).count()
+    process(historical_photo.blob_id)
+    assert Match.objects.filter(photo=historical_photo).count() == count
+    if corrected.photos.filter(blob=historical_photo.blob).exists():
+        current_match = Match.objects.get(
+            photo__revision=corrected,
+            photo__blob=historical_photo.blob,
+            candidate=peer_photo,
+        )
+        image = other.get(f"/en/moderation/matches/{current_match.pk}/photo/image/")
+        assert image.status_code == 200 and b"".join(image.streaming_content)
+        image.close()
     notice = notices.get(recipient=manager)
     from django.urls import reverse
 

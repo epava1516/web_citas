@@ -5,7 +5,7 @@ Actualizado: 2026-10-04. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 ## Estado actual
 
 - Fase: BASE y CR-01 a CR-08 verificados localmente; implementación autorizada el 2026-10-03.
-- Próximo paso: CR-09; completar acceso histórico desde colas generales y recarga/rehabilitación revisada de imágenes; identidad de cuenta, decisiones/comunicaciones pendientes y respuesta final. Continuar también los demás derechos, retención y huecos de docs40; no iniciar CR10/GS01 como si CR09 estuviera aceptado.
+- Próximo paso: CR-09; implementar recarga/rehabilitación revisada de imágenes y conservación histórica por finalidad; identidad de cuenta, decisiones/comunicaciones pendientes y respuesta final. Continuar también los demás derechos, retención y huecos de docs40; no iniciar CR10/GS01 como si CR09 estuviera aceptado.
 - Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; regresión común histórica CR-08:166 pruebas pasan con PostgreSQL y Chromium (450.45s, sin skips), dos límites finales14.47s; Docker/worker/Beat de CR-08 verificados; verificación y representación conectadas con simuladores explícitos.
 - Docker actual: app/worker/Beat reconstruidos y recreados; core0015/safety0054/mediafiles0010 confirmadas, Caddy health200 y UID10001. Backends de identidad de derechos y avisos desactivados en runtime normal. Inventario, evaluación y revisión independiente de candidatos conectados; regresión conjunta verificada localmente y cierre pendiente. No aceptación completa CR-09.
 - Regresión común histórica sobre e6727bb:426 passed1776.17s, exit0/sin skips; aislamiento de migraciones corregido. Integra funcionalidades implementadas, no acepta CR-09 completo.
@@ -14,7 +14,7 @@ Actualizado: 2026-10-04. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 - Regresión completa CI sobre4789079:493 passed1378.93s, job integration success; PostgreSQL/Chromium, ruff/check/migraciones pasan. [Evidencia](evidencias/regresion-ci-4789079.json). No incluye36ced07/a5c9d7b posteriores; no aceptaCR09 completo.
 - Regresión completa CI sobre36ced07:494 passed1420.52s, run37225258925 success. [Evidencia](evidencias/regresion-ci-36ced07.json). No incluye textos posteriores ni corrección de tarifas; CR09 permanece abierto.
 - Regresión completa CI sobrea5c9d7b:498 passed1444.36s, run37226297758 success. [Evidencia](evidencias/regresion-ci-a5c9d7b.json). No incluye tarifas/fuenteBlob/selección de fotos posteriores; CR09 sigue abierto.
-- Regresión CI más reciente: fdc3a49, 527 pruebas correctas1073.80s, run37234446974 success; anterior al acceso histórico del gestor. CI del nuevo cambio pendiente.
+- Regresión CI más reciente: e7d0679, 528 pruebas correctas1292.39s, run37236298045 success; incluye acceso histórico del gestor, anterior a colas generales en desarrollo. [Evidencia](evidencias/regresion-ci-e7d0679.json).
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
 - Herramientas: Graphify0.9.74/skill Codex instalados y usados; [resultados/incidencia](19-graphify-analisis-local.md). Claude3/3 consumidas; continuar localmente. [Auditoría pendiente CR-09](actas/04-cr09-auditoria-pendiente.md).
@@ -638,3 +638,23 @@ Batería final43 correctas286.11s con PostgreSQL/Chromium; anterior37 correctas2
 CI fdc3a49/run37234446974:527 correctas1073.80s, success; incluye limpieza técnica, no esta entrega. CI a36eca3/run37232838985:516 correctas/1 fallida1487.26s, reload de reclamación de agencia con error de protocolo Chromium; no aceptada. Se conserva el fallo y no se acredita su causa interna ni una regresión común nueva mediante los8 tests locales. Evidencias separadas en docs/evidencias/regresion-ci-fdc3a49.json y regresion-ci-a36eca3.json.
 
 Pendientes: recarga manual de imágenes/variaciones/rehabilitación, acceso a históricos desde colas generales y conservación por finalidad, identidad de cuenta, comunicaciones/respuesta final y demás derechos. CR09 y contrato completo abiertos; Claude3/3 consumidas, sin nuevas delegaciones. Graphify consultado como mapa previo (1185 nodos), sin reconstrucción ni uso como prueba de aceptación.
+
+
+### Colas generales: verificación en curso
+
+45 pruebas correctas322.529s PG/Chromium; selección inicial errónea0 pruebas/exit4 conservada. CI e7d0679 termina528 correctas1292.39s, anterior al trabajo actual. Concurrencia ampliada primera batería2 correctas/1 fixture incorrecto34.44s; corregido method, sesión62901 activa. Revisar resultado y guardas de mutación histórica después de locks antes de commit. Docker hashes/check/health200 verificados. [Detalle](46-historial-colas-generales.md). Claude3/3; contrato entero abierto.
+
+La segunda batería de concurrencia terminó2 correctas/1 fallida36.68s: añadir Match invalidó correctamente el inventario de borrado. Fixture corregida renovando inventario y plan antes de la carrera; ejecución62901 pendiente. No se debilita la comprobación de huella.
+
+Concurrencia62901 terminal3 correctas39.36s. Guarda decide tras locks añadida para historial y marcador de preparación (aprobación y rechazo). Regresión conjunta46996 en curso/XML /tmp/rectification-general-queues-locked-final.xml; fuente congelada. Reconstruir Docker y completar evidencia antes de commit/push.
+
+Runtime última guarda confirmado: recreación64463 terminal0; hashes moderation.py/history.py coinciden, UID10001/check sin incidencias/health200. makemigrations sin cambios. Batería46996 observada viva; no reiniciar por expiración de observación.
+
+Diseño de siguiente entrega: [recarga y rehabilitación](47-reintroduccion-imagenes.md), explícitamente no implementado. Disposición inmutable por ejecución/persona, revisión protegida separada de Match ordinario y ningún bloqueo global automático de bytes compartidos.
+
+Batería46996 terminal0:47 passed328.40s, cero fallos/errores/omisiones. Refuerzo exclusivamente tests44367 en curso/XML /tmp/historical-decision-valid-submission.xml: seis variantes de ejecución, historial pending con Submission válida, para distinguir la guarda de historial de la ausencia de presentación. Fuente funcional estable/Docker verificado. Esperar ese resultado y completar evidencia/commit/push antes de implementación docs47. Claude3/3, contrato entero abierto.
+
+
+### Historial en colas generales: verificación local parcial
+
+47 pruebas conjuntas correctas328.40s PG/Chromium, cero fallos/errores/omisiones. Refuerzo posterior6 correctas110.68s con Submission válida (5 casos excluidos explícitamente por selección); no sumar baterías. Concurrencia3 correctas39.36s solapada con47. Docker reconstruido/recreado, hashes actuales iguales, UID10001/check/health200, ruff/format/makemigrations/diff limpios; sin migración nueva. CI anterior e7d0679:528 correctas1292.39s. Disposiciones de recarga/rehabilitación docs47 todavía diseño, no implementadas. Conservación por finalidad/cuenta/comunicaciones/cierre y contrato entero pendientes. Claude3/3; sin delegaciones.

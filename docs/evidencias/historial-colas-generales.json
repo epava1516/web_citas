@@ -1,0 +1,88 @@
+{
+  "scope": "CR-09: historial rectificado fuera de colas generales",
+  "status": "verificado local parcial; CR09 abierto",
+  "tests": {
+    "general_queues": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "45",
+      "time": "322.529",
+      "timestamp": "2026-10-04T23:45:53.156989+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    },
+    "selection_error": {
+      "tests": 0,
+      "exit_code": 4,
+      "reason": "nombre de archivo incorrecto; corregido"
+    },
+    "race_initial": {
+      "passed": 2,
+      "failed": 1,
+      "seconds": 34.44,
+      "reason": "fixture usa kind en lugar de method; corregido"
+    },
+    "race_final": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "3",
+      "time": "39.185",
+      "timestamp": "2026-10-04T23:56:57.348376+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    },
+    "race_stale_plan": {
+      "passed": 2,
+      "failed": 1,
+      "seconds": 36.68,
+      "reason": "fixture añadió Match después del inventario; rechazo correcto de plan obsoleto; inventario y plan se renuevan"
+    },
+    "locked_final": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "47",
+      "time": "328.279",
+      "timestamp": "2026-10-04T23:57:55.557657+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    },
+    "valid_submission": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "6",
+      "time": "110.572",
+      "timestamp": "2026-10-05T00:03:39.172350+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  },
+  "previous_ci": {
+    "run": 37236298045,
+    "head": "e7d0679334fdca6c5f4187f46241aebe6f1468e7",
+    "conclusion": "success",
+    "passed": 528,
+    "seconds": 1292.39,
+    "log_sha256": "f78dc65d16d090ef8bc73d8a0cd65eb7d601811e7f4aa7c03d00fa1d9cd3e654"
+  },
+  "runtime": {
+    "health_http": 200,
+    "django_check": "sin incidencias",
+    "host_container_hashes_equal": true,
+    "current_guard_verified": true,
+    "uid": 10001,
+    "migration_check": "sin cambios",
+    "hashes": {
+      "apps/listings/moderation.py": "413e071dfb86a2c44ace284c722783f874d4e4b8c8c47695a531ad1b139b5f4e",
+      "apps/listings/history.py": "c115ad2abe7a2963b2ee4feff89dd048ef1dbcc9cf349dcf8ffbbf83f4218193"
+    }
+  },
+  "pending": [
+    "recarga y rehabilitación",
+    "conservación por finalidad",
+    "resto CR09 y contrato"
+  ]
+}

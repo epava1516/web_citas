@@ -2,13 +2,16 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core import signing
 from django.core.exceptions import ValidationError
+from django.db import transaction
 from django.db.models import Q
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
+from apps.core.models import Agency, Person
 from apps.mediafiles.models import Photo
 
+from .history import is_rectification_history, rectification_history_ids
 from .models import Listing, Revision
 from .moderation import (
     conflict_of_interest,
@@ -40,9 +43,10 @@ def queue(request):
         request,
         "listings/moderation_queue.html",
         {
-            "revisions": Revision.objects.filter(status="pending").order_by(
-                "submission__created_at"
-            )[:100]
+            "revisions": Revision.objects.filter(status="pending")
+            .exclude(pk__in=rectification_history_ids())
+            .exclude(photos__rectification_upload__isnull=False)
+            .order_by("submission__created_at")[:100]
         },
     )
 
@@ -53,7 +57,10 @@ def review(request, revision_id):
     if not reviewer_allowed(request):
         return HttpResponse("Forbidden", status=403)
     revision = get_object_or_404(
-        Revision.objects.select_related("listing__person__agency"), pk=revision_id
+        Revision.objects.select_related("listing__person__agency")
+        .exclude(pk__in=rectification_history_ids())
+        .exclude(photos__rectification_upload__isnull=False),
+        pk=revision_id,
     )
     if conflict_of_interest(request.user, revision.listing.person):
         return HttpResponse("Conflict of interest", status=403)
@@ -85,6 +92,7 @@ def review(request, revision_id):
 
 
 @login_required
+@transaction.atomic
 def review_photo(request, photo_id):
     if not reviewer_allowed(request):
         return HttpResponse("Forbidden", status=403)
@@ -92,11 +100,32 @@ def review_photo(request, photo_id):
         Photo.objects.filter(
             Q(revision__status__in=["pending", "approved"])
             | Q(revision__status="rejected", revision__decisions__appeal__status="open")
-        ).distinct(),
+        )
+        .exclude(revision_id__in=rectification_history_ids())
+        .distinct(),
+        rectification_upload__isnull=True,
         pk=photo_id,
         removed_at__isnull=True,
     )
-    if conflict_of_interest(request.user, photo.revision.listing.person):
+    initial_person = photo.revision.listing.person
+    if initial_person.agency_id:
+        Agency.objects.select_for_update().get(pk=initial_person.agency_id)
+    person = Person.objects.select_for_update().get(pk=initial_person.pk)
+    revision = Revision.objects.select_for_update().get(pk=photo.revision_id)
+    if (
+        person.agency_id != initial_person.agency_id
+        or revision.manager_version != person.manager_version
+        or is_rectification_history(revision)
+    ):
+        return HttpResponse("Photo unavailable", status=404)
+    photo = get_object_or_404(
+        Photo,
+        pk=photo_id,
+        revision=revision,
+        removed_at__isnull=True,
+        rectification_upload__isnull=True,
+    )
+    if conflict_of_interest(request.user, person):
         return HttpResponse("Conflict of interest", status=403)
     if photo.blob.status != "ready" or not photo.blob.derivative:
         return HttpResponse("Photo processing", status=409)

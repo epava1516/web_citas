@@ -7,9 +7,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
 from apps.core.agencies import person_queryset
-from apps.mediafiles.models import PhotoAppeal, PhotoRestriction
+from apps.mediafiles.models import Match, PhotoAppeal, PhotoRestriction
 
 from .appeals import AppealForm
+from .history import ordinary_matches
 from .match_review import locked_pair
 
 
@@ -18,7 +19,8 @@ from .match_review import locked_pair
 def detail(request, restriction_id):
     restriction = get_object_or_404(
         PhotoRestriction.objects.filter(
-            Q(person__subject=request.user) | Q(person__in=person_queryset(request.user))
+            Q(person__subject=request.user) | Q(person__in=person_queryset(request.user)),
+            decision__match__in=ordinary_matches(Match.objects.all()),
         ),
         pk=restriction_id,
         manager_version=F("person__manager_version"),

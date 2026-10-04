@@ -15,6 +15,7 @@ from django.views.decorators.debug import sensitive_variables
 from PIL import Image, ImageOps, UnidentifiedImageError
 
 from apps.core.verification import locked_manager_person
+from apps.listings.history import is_rectification_history, rectification_history_ids
 from apps.listings.models import Revision
 
 from .models import Blob, Match, Photo, UploadAttempt
@@ -68,7 +69,8 @@ def ingest(user, revision_id, upload):
             person = locked_manager_person(user, initial.listing.person_id)
             revision = Revision.objects.select_for_update().get(pk=revision_id)
             if (
-                revision.status != "draft"
+                is_rectification_history(revision)
+                or revision.status != "draft"
                 or revision.manager_version != person.manager_version
                 or revision.photos.filter(rectification_upload__isnull=False).exists()
             ):
@@ -96,6 +98,7 @@ def ingest(user, revision_id, upload):
             # Exact candidates are global, never limited to contact or agency.
             for candidate in (
                 Photo.objects.filter(blob=blob, removed_at__isnull=True)
+                .exclude(revision_id__in=rectification_history_ids())
                 .exclude(revision__status="rights-stage")
                 .exclude(rectification_upload__isnull=False)
                 .exclude(revision__listing__person_id=person.pk)
@@ -192,6 +195,10 @@ def record_match(photo, candidate, defaults):
             return
         if Photo.objects.filter(pk=candidate.pk, revision__status="rights-stage").exists():
             return
+        if Photo.objects.filter(
+            pk__in=[photo.pk, candidate.pk], revision_id__in=rectification_history_ids()
+        ).exists():
+            return
         if any(blob.status in {"erasing", "erased", "purging", "purged"} for blob in blobs):
             return
         if Photo.objects.filter(pk__in=[photo.pk, candidate.pk], removed_at__isnull=False).exists():
@@ -205,16 +212,31 @@ def detect_matches(blob_id):
     if not signature:
         return
     photos_to_compare = list(
-        blob.photos.filter(removed_at__isnull=True).select_related("revision__listing")
+        blob.photos.filter(removed_at__isnull=True)
+        .exclude(revision_id__in=rectification_history_ids())
+        .select_related("revision__listing")
+    )
+    if not photos_to_compare:
+        return
+    candidates = (
+        Photo.objects.filter(removed_at__isnull=True)
+        .exclude(revision_id__in=rectification_history_ids())
+        .exclude(revision__status="rights-stage")
+        .exclude(rectification_upload__isnull=False)
     )
     # Reused bytes (including cloned revisions) need global exact candidates too.
     for photo in photos_to_compare:
-        for candidate in blob.photos.filter(removed_at__isnull=True).exclude(
+        for candidate in candidates.filter(blob=blob).exclude(
             revision__listing__person_id=photo.revision.listing.person_id
         ):
             record_match(photo, candidate, {"method": "sha256"})
     image = None
-    for other in Blob.objects.filter(status="ready").exclude(pk=blob.pk).iterator():
+    for other in (
+        Blob.objects.filter(status="ready", photos__in=candidates)
+        .exclude(pk=blob.pk)
+        .distinct()
+        .iterator()
+    ):
         other_signature = stored_signature(other)
         if not other_signature:
             continue
@@ -230,7 +252,7 @@ def detect_matches(blob_id):
         method = "orb" if confirmation.status == "confirmed" else "regional"
         score = confirmation.inlier_ratio if method == "orb" else 1 - candidate_result.distance / 64
         for photo in photos_to_compare:
-            for candidate in other.photos.filter(removed_at__isnull=True).exclude(
+            for candidate in candidates.filter(blob=other).exclude(
                 revision__listing__person_id=photo.revision.listing.person_id
             ):
                 record_match(photo, candidate, {"method": method, "score": score})

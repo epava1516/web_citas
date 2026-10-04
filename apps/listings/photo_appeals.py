@@ -6,9 +6,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 
-from apps.mediafiles.models import MatchResolution, PhotoAppeal
+from apps.mediafiles.models import Match, MatchResolution, PhotoAppeal
 
 from .appeals import ReviewForm
+from .history import ordinary_matches
 from .match_review import locked_pair
 from .moderation import conflict_of_interest, reviewer_allowed
 
@@ -21,7 +22,10 @@ def queue(request):
         request,
         "listings/photo_appeal_queue.html",
         {
-            "appeals": PhotoAppeal.objects.filter(status="open")
+            "appeals": PhotoAppeal.objects.filter(
+                status="open",
+                restriction__decision__match__in=ordinary_matches(Match.objects.all()),
+            )
             .select_related("restriction__person")
             .order_by("created_at")[:100]
         },
@@ -33,7 +37,12 @@ def queue(request):
 def review(request, appeal_id):
     if not reviewer_allowed(request):
         return HttpResponse("Forbidden", status=403)
-    appeal = get_object_or_404(PhotoAppeal, pk=appeal_id)
+    appeal = get_object_or_404(
+        PhotoAppeal.objects.filter(
+            restriction__decision__match__in=ordinary_matches(Match.objects.all())
+        ),
+        pk=appeal_id,
+    )
     match = appeal.restriction.decision.match
     people = [match.photo.revision.listing.person, match.candidate.revision.listing.person]
     if appeal.restriction.decision.reviewer_id == request.user.pk or any(

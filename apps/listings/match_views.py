@@ -1,14 +1,16 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
+from django.db import transaction
 from django.db.models import Q
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
-from apps.mediafiles.models import Match
+from apps.mediafiles.models import Match, Photo
 
-from .match_review import resolve
+from .history import is_rectification_history, ordinary_matches
+from .match_review import locked_pair, resolve
 from .moderation import conflict_of_interest, reviewer_allowed
 
 
@@ -50,6 +52,8 @@ def allowed_match(request, match_id):
         or match.candidate.revision.status == "rights-stage"
     ):
         return None
+    if any(is_rectification_history(photo.revision) for photo in [match.photo, match.candidate]):
+        return None
     if any(
         conflict_of_interest(request.user, photo.revision.listing.person)
         for photo in [match.photo, match.candidate]
@@ -62,18 +66,13 @@ def allowed_match(request, match_id):
 def queue(request):
     if not reviewer_allowed(request):
         return HttpResponse("Forbidden", status=403)
-    matches = (
+    matches = ordinary_matches(
         Match.objects.filter(
             Q(resolved_at__isnull=True) | Q(decision="conflict"),
             photo__removed_at__isnull=True,
             candidate__removed_at__isnull=True,
         )
-        .exclude(photo__revision__status="rights-stage")
-        .exclude(candidate__revision__status="rights-stage")
-        .exclude(photo__rectification_upload__isnull=False)
-        .exclude(candidate__rectification_upload__isnull=False)
-        .order_by("created_at")[:100]
-    )
+    ).order_by("created_at")[:100]
     return render(request, "listings/match_queue.html", {"matches": matches})
 
 
@@ -108,6 +107,7 @@ def review(request, match_id):
 
 
 @login_required
+@transaction.atomic
 def image(request, match_id, side):
     if not reviewer_allowed(request):
         return HttpResponse("Forbidden", status=403)
@@ -116,7 +116,13 @@ def image(request, match_id, side):
         return HttpResponse("Conflict of interest", status=403)
     if side not in ["photo", "candidate"]:
         return HttpResponse("Unknown side", status=404)
-    photo = getattr(match, side)
+    try:
+        _, people, _, _, _ = locked_pair(match_id)
+    except ValidationError:
+        return HttpResponse("Photo unavailable", status=404)
+    if any(conflict_of_interest(request.user, person) for person in people):
+        return HttpResponse("Forbidden", status=403)
+    photo = Photo.objects.select_related("blob").get(pk=getattr(match, side).pk)
     if photo.removed_at or photo.blob.status != "ready" or not photo.blob.derivative:
         return HttpResponse("Photo unavailable", status=404)
     response = FileResponse(photo.blob.derivative.open("rb"), content_type="image/webp")

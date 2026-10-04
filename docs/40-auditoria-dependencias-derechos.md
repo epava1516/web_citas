@@ -60,3 +60,13 @@ Implementada limpieza técnica durable con mediafiles0010 y referencias de carga
 ### Acceso ordinario al historial: aceptación parcial
 
 Centralizada restricción del gestor para versiones anteriores a rectificación y prevención de copia automática; nueva corrección y otros perfiles no bloqueados. Lectura privada revalida referencia tras locks.43 finales correctas286.11s PG/Chromium; 37 anteriores no sumables. Navegación/reclamación agencia8 correctas33.50s separadas; no regresión común. Docker/hashes/check/migraciones/ruff/diff/UID10001/health200 verificados, sin migración nueva. CI fdc3a49 termina527 correctas1073.80s, anterior a este cambio; a36eca3 falla1/516 correctas1487.26s en reload de agencia, evidencia conservada. docs/45 y evidencias/acceso-historico-rectificacion.json. Recarga manual/variaciones/rehabilitación, colas generales/históricos, retención, cuenta/comunicaciones/cierre y resto contrato pendientes. Claude3/3; sin invocaciones nuevas.
+
+
+### Historial en colas generales: entrega en verificación
+
+Clasificación SQL central compartida; candidatos y colas ordinarias excluyen historial/preparación. decide/resolve revalidan tras locks; lecturas recargan Photo antes de abrir bytes. Concurrencia3 correctas39.36s; batería45 anterior322.529s sin fallos, no cubre última guarda. Batería47 sesión46996 pendiente, Docker reconstruido/recreación64463 pendiente. No acepta CR09 ni retención/reintroducción/rehabilitación. [Detalle](46-historial-colas-generales.md). Claude3/3; sin delegaciones. Contrato íntegro abierto.
+
+
+### Historial en colas generales: verificación local parcial
+
+47 pruebas conjuntas correctas328.40s PG/Chromium, cero fallos/errores/omisiones. Refuerzo posterior6 correctas110.68s con Submission válida (5 casos excluidos explícitamente por selección); no sumar baterías. Concurrencia3 correctas39.36s solapada con47. Docker reconstruido/recreado, hashes actuales iguales, UID10001/check/health200, ruff/format/makemigrations/diff limpios; sin migración nueva. CI anterior e7d0679:528 correctas1292.39s. Disposiciones de recarga/rehabilitación docs47 todavía diseño, no implementadas. Conservación por finalidad/cuenta/comunicaciones/cierre y contrato entero pendientes. Claude3/3; sin delegaciones.
