@@ -9,7 +9,7 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import transaction
-from django.http import Http404, HttpResponse
+from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.utils.crypto import constant_time_compare
@@ -20,7 +20,7 @@ from apps.core.accounts import limited
 
 from .complaint_scope import locked, permitted
 from .crypto import digest, seal, unseal
-from .models import Complaint, ComplaintAccess
+from .models import Complaint, ComplaintAccess, ComplaintResolution
 from .views import private
 
 
@@ -111,7 +111,15 @@ def receipt(request, complaint_id, secret):
         or not constant_time_compare(complaint.receipt_digest, digest(secret))
     ):
         raise Http404
-    return private(render(request, "safety/complaint_receipt.html", {"complaint": complaint}))
+    resolution = ComplaintResolution.objects.filter(complaint=complaint).first()
+    response = unseal(resolution.encrypted_response)["response"] if resolution else None
+    return private(
+        render(
+            request,
+            "safety/complaint_receipt.html",
+            {"complaint": complaint, "resolution": resolution, "response": response},
+        )
+    )
 
 
 def allowed(request):
@@ -156,6 +164,7 @@ def inspect(request, complaint_id):
         return private(HttpResponse("Conflict of interest", status=403))
     form = AccessForm(request.POST or None)
     payload = None
+    source_evidence = None
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             try:
@@ -164,11 +173,20 @@ def inspect(request, complaint_id):
                 return private(HttpResponse("Case changed; reload", status=409))
             if not permitted(request.user, complaint) or not allowed(request):
                 return private(HttpResponse("Forbidden", status=403))
+            from .complaint_resolutions import source_permission, source_version
+
+            source_allowed = source_permission(request.user, complaint)
+            source_evidence = (
+                complaint.listing_decision
+                if source_allowed and complaint.listing_decision_id
+                else None
+            )
             ComplaintAccess.objects.create(
                 complaint=complaint,
                 actor=request.user,
                 purpose=form.cleaned_data["purpose"],
                 case_version=complaint.version,
+                source_version=source_version(complaint) if source_allowed else None,
             )
             payload = unseal(complaint.encrypted_payload)
     return private(
@@ -179,6 +197,10 @@ def inspect(request, complaint_id):
                 "complaint": complaint,
                 "form": form,
                 "payload": payload,
+                "source_evidence": source_evidence,
+                "source_photos": source_evidence.revision.photos.filter(removed_at__isnull=True)
+                if source_evidence
+                else [],
             },
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )
@@ -248,6 +270,125 @@ def action(request, complaint_id):
             request,
             "safety/complaint_action.html",
             {"form": form, "complaint": complaint},
+            status=status,
+        )
+    )
+
+
+@login_required
+@sensitive_variables()
+@require_GET
+def photo(request, complaint_id, photo_id):
+    from .complaint_resolutions import source_version
+
+    if not allowed(request) or not request.user.has_perm("listings.review_listing"):
+        return private(HttpResponse("Forbidden", status=403))
+    if not Complaint.objects.filter(pk=complaint_id).exists():
+        raise Http404
+    with transaction.atomic():
+        try:
+            complaint, _ = locked(complaint_id)
+        except ValidationError:
+            return private(HttpResponse("Case changed; reload", status=409))
+        if not permitted(request.user, complaint) or not complaint.listing_decision_id:
+            return private(HttpResponse("Forbidden", status=403))
+        current_version = source_version(complaint)
+        if not ComplaintAccess.objects.filter(
+            complaint=complaint,
+            actor=request.user,
+            case_version=complaint.version,
+            source_version=current_version,
+            kind="intake",
+        ).exists():
+            return private(HttpResponse("Inspect current request first", status=409))
+        photo = (
+            complaint.listing_decision.revision.photos.filter(pk=photo_id, removed_at__isnull=True)
+            .select_related("blob")
+            .first()
+        )
+        if not photo:
+            raise Http404
+        if photo.blob.status != "ready" or not photo.blob.derivative:
+            return private(HttpResponse("Image processing", status=409))
+        response = FileResponse(photo.blob.derivative.open("rb"), content_type="image/webp")
+        ComplaintAccess.objects.create(
+            complaint=complaint,
+            actor=request.user,
+            purpose="Linked revision image delivery",
+            case_version=complaint.version,
+            source_version=current_version,
+            kind="image",
+            photo=photo,
+        )
+    return private(response)
+
+
+class ResolutionForm(forms.Form):
+    key = forms.UUIDField(widget=forms.HiddenInput)
+    version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    source_version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    outcome = forms.ChoiceField(
+        choices=[
+            ("upheld", "Mantener decisión / Uphold decision"),
+            ("reconsidered", "Reconsiderar decisión / Reconsider decision"),
+        ]
+    )
+    reason = forms.CharField(
+        min_length=20,
+        max_length=2000,
+        widget=forms.Textarea,
+        label="Motivo interno / Internal reason",
+    )
+    response = forms.CharField(
+        min_length=50,
+        max_length=2000,
+        widget=forms.Textarea,
+        label="Respuesta motivada al solicitante, sin información de terceros / Motivated response to requester, without third party information",
+    )
+    redaction_confirmed = forms.BooleanField(
+        label="He revisado la respuesta y eliminado datos de terceros y notas internas / I reviewed the response and removed third party information and internal notes"
+    )
+
+
+@login_required
+@sensitive_post_parameters("reason", "response")
+@sensitive_variables()
+@require_http_methods(["GET", "POST"])
+def resolve(request, complaint_id):
+    from .complaint_resolutions import resolve as resolve_case
+    from .complaint_resolutions import source_permission, source_version
+
+    if not allowed(request) or not request.user.has_perm("safety.resolve_complaint"):
+        return private(HttpResponse("Forbidden", status=403))
+    complaint = Complaint.objects.filter(pk=complaint_id).first()
+    if not complaint:
+        raise Http404
+    if not permitted(request.user, complaint) or not source_permission(request.user, complaint):
+        return private(HttpResponse("Forbidden", status=403))
+    form = ResolutionForm(
+        request.POST or None,
+        initial={
+            "key": uuid.uuid4(),
+            "version": complaint.version,
+            "source_version": source_version(complaint),
+        },
+    )
+    status = 400 if request.method == "POST" else 200
+    if request.method == "POST" and form.is_valid():
+        try:
+            resolve_case(request.user, complaint_id, **form.cleaned_data)
+        except PermissionDenied:
+            return private(HttpResponse("Forbidden", status=403))
+        except ValidationError as error:
+            form.add_error(None, error)
+            status = 409
+        else:
+            return private(redirect("complaint_inspect", complaint_id=complaint.pk))
+    return private(
+        render(
+            request,
+            "safety/complaint_resolution.html",
+            {"complaint": complaint, "form": form},
             status=status,
         )
     )

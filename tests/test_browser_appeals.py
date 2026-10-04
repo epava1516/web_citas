@@ -33,7 +33,7 @@ def test_browser_appeal_and_independent_mfa_review(live_server, request, setting
             owner_page.locator("[name=password]").fill("Long-draft-password!847")
             owner_page.locator("button[type=submit]").click()
             owner_page.goto(live_server.url + f"/es/draft/{revision.pk}/status/")
-            owner_page.get_by_role("link", name="Solicitar revisión").click()
+            owner_page.get_by_role("link", name="Solicitar revisión", exact=True).click()
             owner_page.locator("[name=explanation]").fill(
                 "Solicito comprobar nuevamente el contenido sintético"
             )

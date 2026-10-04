@@ -33,6 +33,7 @@ def enqueue_outcome(report, action):
         "dismiss": "Denuncia desestimada tras evaluación / Report dismissed after review",
         "uphold": "Restricción confirmada en revisión / Restriction upheld on review",
         "lift": "Restricción de este caso levantada; publicación sujeta a controles / This case restriction was lifted; publication remains subject to checks",
+        "reopen": "Comunicación reabierta para nueva evaluación / Report reopened for further assessment",
     }
     if action.operation not in messages:
         return

@@ -77,6 +77,7 @@ class Complaint(models.Model):
         permissions = [
             ("review_complaint", "Review private decision complaints"),
             ("manage_complaint_assignment", "Manage decision complaint assignments"),
+            ("resolve_complaint", "Resolve independent decision complaints"),
         ]
         ordering = ["created_at", "pk"]
 
@@ -86,6 +87,9 @@ class ComplaintAccess(models.Model):
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
     purpose = models.CharField(max_length=200)
     case_version = models.PositiveIntegerField()
+    source_version = models.PositiveIntegerField(null=True)
+    kind = models.CharField(max_length=12, default="intake")
+    photo = models.ForeignKey("mediafiles.Photo", null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -97,6 +101,21 @@ class ComplaintAction(models.Model):
     operation = models.CharField(max_length=16)
     payload_digest = models.CharField(max_length=64)
     encrypted_reason = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ComplaintResolution(models.Model):
+    complaint = models.OneToOneField(Complaint, on_delete=models.PROTECT, related_name="resolution")
+    action = models.OneToOneField(ComplaintAction, on_delete=models.PROTECT)
+    outcome = models.CharField(max_length=16)
+    encrypted_response = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ComplaintNotice(models.Model):
+    resolution = models.OneToOneField(ComplaintResolution, on_delete=models.PROTECT)
+    encrypted_payload = models.TextField()
+    status = models.CharField(max_length=16, default="queued")
     created_at = models.DateTimeField(auto_now_add=True)
 
 

@@ -49,6 +49,7 @@ def rejected(request):
 
 def test_appeal_private_idempotent_and_independent_review(rejected):
     _, owner, revision, original_reviewer, _, independent = rejected
+    original_version = revision.edit_version
     moderation_decision = revision.decisions.get()
     path = f"/es/draft/decisions/{moderation_decision.pk}/appeal/"
     assert (
@@ -77,6 +78,14 @@ def test_appeal_private_idempotent_and_independent_review(rejected):
     revision.refresh_from_db()
     assert appeal.status == "resolved" and appeal.resolved_at
     assert revision.status == "pending" and not revision.listing.approved_revision_id
+    assert revision.edit_version == original_version + 1
+    assert (
+        original_reviewer.post(
+            f"/es/moderation/listings/{revision.pk}/",
+            decision(revision, edit_version=original_version),
+        ).status_code
+        == 400
+    )
     assert b"Procede nueva" in owner.get(path).content
     assert (
         independent.post(review_path, {"result": "upheld", "reason": "Repeat"}).status_code == 409

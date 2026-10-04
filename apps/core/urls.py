@@ -27,6 +27,16 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "moderation/complaints/<uuid:complaint_id>/photo/<uuid:photo_id>/",
+        complaints.photo,
+        name="complaint_photo",
+    ),
+    path(
+        "moderation/complaints/<uuid:complaint_id>/resolve/",
+        complaints.resolve,
+        name="complaint_resolve",
+    ),
     path("safety/complaints/", complaints.submit, name="complaint_create"),
     path(
         "safety/complaints/<uuid:complaint_id>/<str:secret>/",

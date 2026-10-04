@@ -121,7 +121,8 @@ def review(request, appeal_id):
             else:
                 if form.cleaned_data["result"] == "reconsider":
                     revision.status = "pending"
-                    revision.save(update_fields=["status", "updated_at"])
+                    revision.edit_version += 1
+                    revision.save(update_fields=["status", "edit_version", "updated_at"])
                     if not listing.approved_revision_id:
                         listing.status = "pending"
                         listing.save(update_fields=["status"])

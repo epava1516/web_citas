@@ -170,6 +170,10 @@ def act(
             if not permitted(user, report):
                 raise PermissionDenied("Conflict of interest with identified publication")
         elif operation == "restrict":
+            if Restriction.objects.filter(report=report, active=True).exists():
+                raise ValidationError(
+                    "Active restriction requires independent review / Restricción activa requiere revisión independiente"
+                )
             if (
                 not listing
                 or not revision_id
@@ -196,12 +200,18 @@ def act(
     except IntegrityError as error:
         raise ValidationError("Conflicting action replay / Reintento incompatible") from error
     if operation == "restrict":
-        Restriction.objects.create(
+        Restriction.objects.update_or_create(
             report=report,
-            listing=listing,
-            revision_id=revision_id,
-            manager_version=manager_version,
-            action=action,
+            defaults={
+                "listing": listing,
+                "revision_id": revision_id,
+                "manager_version": manager_version,
+                "action": action,
+                "active": True,
+                "review_action": None,
+                "reviewed_at": None,
+                "created_at": timezone.now(),
+            },
         )
         if listing.status == "published":
             listing.status = "paused"

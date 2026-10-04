@@ -65,11 +65,13 @@ def locked(complaint_id, candidate_id=None, candidate_listing_id=None):
             if current.agency_id != person.agency_id:
                 raise ValidationError("Management changed; reload / Gestor cambiado; recarga")
             person = current
+            listing = Listing.objects.select_for_update().get(pk=report.listing_id)
         current_report = Report.objects.select_for_update().get(pk=report.pk)
         if current_report.listing_id != report.listing_id:
             raise ValidationError("Reference changed; reload / Referencia cambiada; recarga")
         if person:
-            current_report.listing.person = person
+            listing.person = person
+            current_report.listing = listing
         decision.report = current_report
     complaint = Complaint.objects.select_for_update().get(pk=complaint_id)
     if (
