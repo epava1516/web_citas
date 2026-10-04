@@ -1,0 +1,40 @@
+{
+  "status": "verificado localmente en alcance seleccionado",
+  "initial": {
+    "tests": "3",
+    "failures": "2",
+    "errors": "0",
+    "skipped": "0",
+    "time": "41.320"
+  },
+  "initial_failure": "Versión del candidato y motivo cifrado no alteraban la huella seleccionada",
+  "change": "Añadidos review_version y encrypted_reason al hash interno; contenido nunca proyectado ni descifrado",
+  "current_tests": {
+    "session": 96333,
+    "xml": "/tmp/photo-reuse-inventory-final.xml",
+    "status": "terminal0"
+  },
+  "scope": "Inventario seleccionado por perfil, denegación antes de execute, no modificación ajena ni exposición de motivo",
+  "limitations": [
+    "Autoridad humana de desarrollo simulada",
+    "Exportación y retención integral pendientes",
+    "CR09 y contrato completo abiertos"
+  ],
+  "runtime": {
+    "build": 88611,
+    "recreate": 86940,
+    "status": "terminal0",
+    "migration": "sin cambios",
+    "check": "sin incidencias",
+    "health_http": 200,
+    "host_app_worker_beat_hashes_equal": true,
+    "inventory_sha256": "640c4148ff2d194c37c22de1ec7457c6fc9690363ff91ec1ea5034ab6127b057"
+  },
+  "final": {
+    "tests": "17",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "149.308"
+  }
+}

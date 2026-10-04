@@ -73,3 +73,13 @@ Consulta auditada, decisión independiente versionada/cifrada, UI móvil ES/EN y
 
 
 Normalización Ruff final sin cambio semántico; rebuild99273/recreate40292 terminal0 y hash del servicio igual en host/app/worker/Beat f5ded763210fe07d1f9d12e79067b12323d0e5ad4e1d374736ff3dab06de0998. No pruebas activas. Entrega lista para commit/push de desarrollo, no aceptación completa CR09 ni producción.
+
+
+## Integración de autoridad en planes de supresión
+
+La huella seleccionada ahora incluye review_version del candidato y encrypted_reason de la decisión. El contenido cifrado solo participa en HMAC interno; no se descifra ni aparece en metadatos de pantalla. Un plan existente requiere preparar y revisar de nuevo si cambian esos recursos o se registra una lectura posterior. No se eliminan auditorías por esta incorporación ni se declara conservación definitiva.
+
+La reproducción previa dio 2 fallos/1 caso correcto41,46 s: versión y motivo no invalidaban fuente; nueva lectura sí. Batería conjunta de inventario/planes/carreras96333 en curso, resultado pendiente. [Evidencia](evidencias/inventario-revision-recargas.json).
+
+
+Inventario de revisión de recargas:17 conjuntas correctas149,41 s, cero fallos/errores/omisiones PG/Chromium. Incluye cambios de versión/motivo/lectura, rechazo antes de execute sin eliminar archivos, aislamiento de otro perfil y ausencia de motivos/ciphertext en manifest. review_version y encrypted_reason participan en HMAC interno seleccionado, sin descifrar ni entregar su contenido. Reproducción previa2 fallidas/1 correcta41,46 s conservada. Docker build88611/recreate86940/check/health200/hashes host-app-worker-Beat verificados; sin migración nueva. No acredita inventario/exportación integral ni política final de conservación. Claude3/3; CR09/contrato abiertos.

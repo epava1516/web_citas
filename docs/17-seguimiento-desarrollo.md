@@ -753,3 +753,18 @@ Consulta auditada, decisión independiente versionada/cifrada, UI móvil ES/EN y
 
 
 Normalización Ruff final sin cambio semántico; rebuild99273/recreate40292 terminal0 y hash del servicio igual en host/app/worker/Beat f5ded763210fe07d1f9d12e79067b12323d0e5ad4e1d374736ff3dab06de0998. No pruebas activas. Entrega lista para commit/push de desarrollo, no aceptación completa CR09 ni producción.
+
+
+Entrega e2c5ef247689c4bcf5110be1313d522e4ddbc94b commit/push confirmados, autor Eduardo David Paredes Vara <Paredes1516@hotmail.es>. CI run37242529548 in_progress confirmada; cubre revisión de recargas y correcciones finales, no declarar éxito antes de terminal ni reiniciar. Tests locales sin sesiones activas. Continuación CR09: completar alcance seleccionado de inventarios (incluida versión mutable de candidato), exportación/retención/legado, después identidad de cuenta, comunicaciones/respuesta final y demás derechos. No cierre de CR09/contrato/producción.
+
+
+Inventario de recargas: inspección detecta review_version del candidato y encrypted_reason de decisión fuera de la huella seleccionada. Nueva prueba22496/XML /tmp/photo-reuse-inventory-before.xml en curso: cambios aislados de versión/motivo y nueva consulta deben invalidar plan antes de execute, sin afectar otro perfil ni revelar motivo/ciphertext. Reproducción previa sin cambio funcional; identidad de desarrollo simulada. CIe2c5ef2 run37242529548 confirmada viva, no reiniciada.
+
+
+Inventario22496 terminal1:2 fallidas/1 correcta41.46s. Cambios aislados de review_version y encrypted_reason no alteraban huella; nueva consulta sí. Añadidos ambos campos al hash interno sin descifrar ni proyectar contenido al manifest. Dirigida a repetir después de corrección; no nueva migración. Identidad simulada, transacciones/borrado locales reales diferenciados; CR09 abierto.
+
+
+Batería96333 viva:17 seleccionadas, nuevas3 correctas; inventarios anteriores4 correctas y planes en curso. Build88611/recreate86940 terminal0; hash inventario640c4148ff2d194c37c22de1ec7457c6fc9690363ff91ec1ea5034ab6127b057 igual host/app/worker/Beat, check limpio/health200, sin nueva migración. Fuente congelada, esperar mismo handle hasta terminal antes de commit. Retención/exportación/cuenta/comunicaciones y contrato íntegro siguen pendientes.
+
+
+Inventario de revisión de recargas:17 conjuntas correctas149,41 s, cero fallos/errores/omisiones PG/Chromium. Incluye cambios de versión/motivo/lectura, rechazo antes de execute sin eliminar archivos, aislamiento de otro perfil y ausencia de motivos/ciphertext en manifest. review_version y encrypted_reason participan en HMAC interno seleccionado, sin descifrar ni entregar su contenido. Reproducción previa2 fallidas/1 correcta41,46 s conservada. Docker build88611/recreate86940/check/health200/hashes host-app-worker-Beat verificados; sin migración nueva. No acredita inventario/exportación integral ni política final de conservación. Claude3/3; CR09/contrato abiertos.
