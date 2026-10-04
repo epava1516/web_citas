@@ -1,0 +1,15 @@
+{
+  "command": "uv run pytest -q tests/test_erasure_execution.py --tb=short --junitxml=/tmp/rights-part-erasure.xml",
+  "result": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "15",
+    "time": "117.592",
+    "timestamp": "2026-10-04T17:23:08.150530+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "sha256_xml": "e954f17916f28c0372af79fc038db06235a1e04af147b539aa97dd9195008475",
+  "scope": "Actual PostgreSQL scoped erasure including retained encrypted part fixture and download audit; selected transient copy cleared, authentication-only retains copy; prior permissions/version/replay/concurrency checks. Fixture is not a delivered or validated ZIP."
+}

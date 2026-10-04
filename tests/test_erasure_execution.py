@@ -14,7 +14,14 @@ from apps.safety.crypto import cipher, seal, unseal
 from apps.safety.erasure_execution import execute
 from apps.safety.erasure_inventory import prepare as inventory
 from apps.safety.erasure_plans import record
-from apps.safety.models import ErasureExecution, RightsAction, RightsExport, RightsExportImage
+from apps.safety.models import (
+    ErasureExecution,
+    RightsAction,
+    RightsExport,
+    RightsExportDownload,
+    RightsExportImage,
+    RightsExportPart,
+)
 
 pytestmark = pytest.mark.django_db(transaction=True)
 REASON = "Execute selected scoped deletion after synthetic independent identity assessment"
@@ -67,6 +74,13 @@ def plan_fixture(
         photo=photo,
         encrypted_content=cipher().encrypt(b"synthetic snapshot contents").decode(),
     )
+    part = RightsExportPart.objects.create(
+        export=stored,
+        position=1,
+        attachments=[str(image.pk)],
+        encrypted_content=cipher().encrypt(b"synthetic retained ZIP snapshot fixture").decode(),
+    )
+    RightsExportDownload.objects.create(key=uuid.uuid4(), export=stored, part=part)
     snapshot = inventory(
         user,
         case.pk,
@@ -120,7 +134,7 @@ def test_actual_scoped_deletion_replay_isolated_sources_and_sessions(
         == result["favorites_deleted"]
         == 1
     )
-    assert result["copies_cleared"] == result["images_cleared"] == 1
+    assert result["copies_cleared"] == result["images_cleared"] == result["parts_cleared"] == 1
     assert (
         not AccountToken.objects.filter(user=subject).exists()
         and not RecoveryCode.objects.filter(user=subject).exists()
@@ -134,6 +148,9 @@ def test_actual_scoped_deletion_replay_isolated_sources_and_sessions(
     person.refresh_from_db()
     case.refresh_from_db()
     assert stored.purged_at and not stored.encrypted_payload and not image.encrypted_content
+    part = stored.parts.get()
+    assert part.encrypted_content == ""
+    assert RightsExportDownload.objects.filter(part=part).count() == 1
     assert (
         person.listing.status == listing_status
         and person.listing.revisions.first().photos.count() == source_photos
@@ -521,3 +538,25 @@ def test_response_receipt_invalidates_source_without_changing_case_and_requires_
     updated = record(user, case.pk, current.pk, uuid.uuid4(), case.version, decisions)
     assert execute(user, case.pk, updated.pk, **payload(case))
     assert not AccountToken.objects.filter(user=person.subject).exists()
+
+
+def test_unselected_copy_parts_and_their_audit_are_preserved(request, settings, monkeypatch):
+    case, _, staff, _, _, _, plan, stored, image, _ = plan_fixture(
+        request, settings, monkeypatch, selected_purposes=["authentication"]
+    )
+    part = stored.parts.get()
+    content = part.encrypted_content
+    data = payload(case) | {"purposes": ["authentication"]}
+    assert (
+        staff.post(f"/en/moderation/rights/{case.pk}/erasure-execute/{plan.pk}/", data).status_code
+        == 200
+    )
+    result = unseal(ErasureExecution.objects.get().encrypted_result)
+    assert result["copies_cleared"] == result["images_cleared"] == result["parts_cleared"] == 0
+    stored.refresh_from_db()
+    image.refresh_from_db()
+    part.refresh_from_db()
+    assert (
+        stored.encrypted_payload and image.encrypted_content and part.encrypted_content == content
+    )
+    assert not stored.purged_at and RightsExportDownload.objects.filter(part=part).count() == 1
