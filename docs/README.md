@@ -57,3 +57,6 @@ No considerar una propuesta aprobada por el mero hecho de estar documentada. Dif
 - [Acta BASE/CR-06 local](actas/01-base-cr06-local.md).
 
 - [CR-07 — Descubrimiento en curso](contratos/08-descubrimiento.md).
+
+- [Graphify: instalación, uso local e incidencia](19-graphify-analisis-local.md).
+- [Auditoría de requisitos pendientes CR-09](actas/04-cr09-auditoria-pendiente.md).

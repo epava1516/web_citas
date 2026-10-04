@@ -41,6 +41,9 @@ def test_browser_listing_review_and_public_version(live_server, request, setting
             page.locator("[name=outcome]").select_option("approved")
             page.locator("[name=reason]").fill("Publicación sintética revisada por moderador")
             page.get_by_role("button", name="Registrar decisión").click()
+            # Observe the redirected decision page before initiating another navigation.
+            expect(page.get_by_text("Publicación sintética revisada por moderador")).to_be_visible()
+            expect(page.get_by_role("button", name="Registrar decisión")).to_have_count(0)
             page.reload()
             expect(page.get_by_text("Publicación sintética revisada por moderador")).to_be_visible()
             guest = browser.new_page(viewport={"width": 390, "height": 844})
