@@ -309,6 +309,7 @@ class RightsRequest(models.Model):
             ("verify_rights_scope", "Independently verify rights identity and scope"),
             ("execute_rights_request", "Execute scoped private rights requests"),
             ("extend_rights_deadline", "Extend rights response target with recorded grounds"),
+            ("review_privacy_hold", "Independently review privacy publication holds"),
         ]
         ordering = ["priority", "initial_due_at", "created_at", "pk"]
 
@@ -453,6 +454,24 @@ class PrivacyPublicationHold(models.Model):
 
     class Meta:
         indexes = [models.Index(fields=["person", "active"])]
+
+
+class PrivacyHoldReleaseProposal(models.Model):
+    released_proof = models.ForeignKey(
+        RightsProof, null=True, on_delete=models.PROTECT, related_name="privacy_hold_releases"
+    )
+    hold = models.ForeignKey(
+        PrivacyPublicationHold, on_delete=models.PROTECT, related_name="release_proposals"
+    )
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    response = models.OneToOneField(RightsResponse, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    released_action = models.OneToOneField(
+        RightsAction, null=True, on_delete=models.PROTECT, related_name="privacy_hold_release"
+    )
+    released_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class ErasureInventory(models.Model):

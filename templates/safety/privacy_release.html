@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% if english %}Review privacy hold release{% else %}Revisar levantamiento de cautela{% endif %}</h1>
+<p>{% if english %}Notify the proposal, wait for explicit receipt, then obtain a fresh identity and scope check before execution. Release does not publish the listing or close the rights request.{% else %}Comunica la propuesta, espera la recepción explícita y obtén una nueva comprobación de identidad y alcance antes de ejecutar. El levantamiento no publica el anuncio ni cierra el derecho.{% endif %}</p>
+<p>{% if english %}Active hold{% else %}Cautela activa{% endif %}: {{ hold.active }}</p>
+{% for proposal in proposals %}<article><p>{% if english %}Proposal{% else %}Propuesta{% endif %}: {{ proposal.pk }} · {{ proposal.created_at }}</p><p>{% if english %}Receipt{% else %}Recepción{% endif %}: {{ proposal.response.receipt_acknowledgement.created_at|default:'—' }}</p>{% if proposal.released_at %}<p>{% if english %}Release recorded{% else %}Levantamiento registrado{% endif %}: {{ proposal.released_at }}</p>{% endif %}</article>{% endfor %}
+{% if proposals.has_previous %}<a href="?page={{ proposals.previous_page_number }}">{% if english %}Previous{% else %}Anterior{% endif %}</a>{% endif %}<p>{{ proposals.number }} / {{ proposals.paginator.num_pages }}</p>{% if proposals.has_next %}<a href="?page={{ proposals.next_page_number }}">{% if english %}Next{% else %}Siguiente{% endif %}</a>{% endif %}{% if hold.active %}<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record reviewed release action{% else %}Registrar acción revisada de levantamiento{% endif %}</button></form>{% endif %}
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Inspect rights request{% else %}Consultar solicitud{% endif %}</a></p>
+{% endblock %}
