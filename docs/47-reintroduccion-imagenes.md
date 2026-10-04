@@ -54,3 +54,17 @@ Batería ampliada6241 terminal0:30 correctas318.44s, cero fallos/errores/omision
 
 
 Registro de disposición verificado localmente:30 correctas318.44s en batería conjunta PG/Chromium; prueba SQL independiente1 correcta19.73s, con ledgers sintéticos (no prueba de aprobación humana). Primera invocación de esa prueba falló por fixture sin revisión aprobada; corregida usando revisión existente. Snapshot conserva selección por Blob y no depende del borrador mutable. Autoridad por archivo/persona y desempate temporal verificados. safety0055 aplicada, Docker/hashes/check/health200 verificados; detector/revisión/rehabilitación/exportación/retención final siguen pendientes. Claude3/3; contrato entero abierto.
+
+
+### Candidatos privados de recarga: en desarrollo
+
+Registro previo commit4779385 subido. Añadidos RightsPhotoReintroduction/safety0056 y detector por persona/Blob retirado vigente. Bloquea agencia/persona y blobs en orden, recarga Photo y excluye historial/preparación/gestor obsoleto/retirada/blob no ready. Registra exactos sha256 y candidatos regionales a partir de firmas sin abrir evidencia histórica; no los inserta en Match ni declara igualdad visual. Invocado desde detect_matches antes de completar comparación; inventario incorpora registros dependientes. Idempotencia por foto/disposición. No impide publicar todavía ni ofrece revisión/rehabilitación: faltan contrato de decisión, consulta auditada y UI ES/EN.
+
+Pruebas94041 activas/XML /tmp/protected-photo-reintroduction.xml (autoridad, exactos, recompresión/recorte y fotos generales). Fuente congelada; safety0056 aún no aplicada en Docker. Confirmar terminal antes de modificar detector. Claude3/3; sin nuevas delegaciones; contrato entero abierto.
+
+Candidatos recarga94041 terminal0:8 passed40.94s, cero fallos/errores/omisiones. Pruebas con registros sintéticos y procesamiento real local: bytes iguales/idempotencia, otro perfil, JPEG recompreso y recorte. No prueba igualdad jurídica/decisión humana ni protección de publicación terminada. Runtime safety0056 pendiente; concurrencia/revisión auditada/validador/UI/exportación/retención pendientes antes de aceptación. Evidencia docs/evidencias/candidatos-recarga-fotos.json. CI710c856 y4779385 confirmadas activas por IDs37238707076/37239382822, no reiniciadas.
+
+Registro candidato incluye uploaded_blob como referencia protegida a los bytes detectados. Batería ampliada87572/XML /tmp/protected-photo-reintroduction-binding.xml en curso; anterior8 no cubre este último vínculo. [Revisión privada, decisión e interfaz pendientes](48-revision-privada-recargas.md).
+
+
+Candidatos de recarga verificados localmente en su alcance:13 correctas82.36s PG, sin fallos/errores/omisiones. Anterior8 correctas40.94s corresponde a versión sin uploaded_blob; no sumar. Detector privado registra exactos y candidatos regionales por perfil/archivo retirado, con vínculo protegido a bytes detectados e idempotencia; no declara igualdad visual ni autorización. safety0056 aplicada; Docker reconstruido/recreado, hashes iguales/UID10001/check sin incidencias/health200. Revisión auditada, decisión independiente, bloqueo central de publicación, UI ES/EN, concurrencia y exportación/retención pendientes (docs48). Claude3/3; contrato completo abierto.

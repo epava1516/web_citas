@@ -1,0 +1,65 @@
+{
+  "scope": "registro privado de candidatos exactos y visuales por perfil",
+  "status": "13 pruebas correctas; revisión y publicación pendientes",
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "8",
+    "time": "40.845",
+    "timestamp": "2026-10-05T00:18:37.578573+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "migration": "safety0056 aplicada en PostgreSQL local",
+  "behavior": [
+    "no duplica registros al repetir detección",
+    "otros perfiles no reciben coincidencia de derechos por los mismos bytes",
+    "recompresión y recorte sintéticos generan candidatos regionales",
+    "no lee bytes históricos para esta recuperación por firmas"
+  ],
+  "limitations": [
+    "candidato visual no acredita igualdad ni autorización",
+    "no hay bloqueo central de publicación todavía",
+    "no hay consulta auditada ni decisión independiente ni rehabilitación",
+    "faltan pruebas de concurrencia y gestión de errores",
+    "falta exportación/retención final",
+    "CR09 y contrato entero abiertos"
+  ],
+  "ci_previous": [
+    {
+      "run": 37238707076,
+      "head": "710c856",
+      "status": "in_progress"
+    },
+    {
+      "run": 37239382822,
+      "head": "4779385",
+      "status": "in_progress"
+    }
+  ],
+  "binding_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "13",
+    "time": "82.270",
+    "timestamp": "2026-10-05T00:21:54.039490+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "runtime": {
+    "build": 5998,
+    "migration": 56790,
+    "recreate": 94366,
+    "status": "terminal0",
+    "host_container_hashes_equal": true,
+    "health_http": 200,
+    "uid": 10001,
+    "check": "sin incidencias",
+    "hashes": {
+      "apps/safety/photo_reintroduction.py": "01e49a9ccee66717502479cb264f18ec3d6be906384593ecdd88481168cb8c2b",
+      "apps/mediafiles/services.py": "c13d0766d38a23020924cd5950c729d79cab4c8058716fe754a2c9909ae5bf37"
+    }
+  }
+}

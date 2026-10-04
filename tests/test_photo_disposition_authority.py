@@ -124,3 +124,64 @@ def test_latest_explicit_file_decision_is_scoped_and_survives_unrelated_correcti
     ).update(created_at=timezone.now())
     assert set(active_withdrawals(person.pk).values_list("pk", flat=True)) == {b.pk, latest.pk}
     assert not active_withdrawals(peer.pk).exists()
+
+
+def test_protected_exact_and_visual_candidates_are_private_and_scoped(request):
+    import hashlib
+    import io
+
+    from django.core.files.base import ContentFile
+    from PIL import Image
+
+    from apps.listings.models import Revision
+    from apps.mediafiles.services import process
+    from apps.safety.photo_reintroduction import detect
+
+    request.getfixturevalue("directory")
+    person = Person.objects.get(subject__username="fixture-v1-model-a")
+    peer = Person.objects.get(subject__username="fixture-v1-model-b")
+    original = person.listing.approved_revision.photos.first()
+    execution = ledger(person)
+    disposition = models.RightsRectificationPhotoDisposition.objects.create(
+        execution=execution,
+        source_photo=original,
+        blob=original.blob,
+        outcome="withdrawn",
+    )
+    revision = Revision.objects.create(
+        listing=person.listing,
+        manager_version=person.manager_version,
+        status="draft",
+    )
+    photo = Photo.objects.create(revision=revision, blob=original.blob)
+    detect(photo.pk)
+    detect(photo.pk)
+    event = models.RightsPhotoReintroduction.objects.get(photo=photo)
+    assert event.disposition_id == disposition.pk and event.method == "sha256"
+    assert event.uploaded_blob_id == photo.blob_id
+    peer_revision = Revision.objects.create(
+        listing=peer.listing,
+        manager_version=peer.manager_version,
+        status="draft",
+    )
+    peer_photo = Photo.objects.create(revision=peer_revision, blob=original.blob)
+    detect(peer_photo.pk)
+    assert not models.RightsPhotoReintroduction.objects.filter(photo=peer_photo).exists()
+    with original.blob.derivative.open("rb") as source:
+        image = Image.open(source).convert("RGB")
+    for cropped in [False, True]:
+        variant = image
+        if cropped:
+            width, height = image.size
+            variant = image.crop((width // 10, height // 10, width * 9 // 10, height * 9 // 10))
+        output = io.BytesIO()
+        variant.save(output, format="JPEG", quality=72)
+        raw = output.getvalue()
+        blob = Blob.objects.create(sha256=hashlib.sha256(raw).hexdigest())
+        blob.original.save(str(uuid4()), ContentFile(raw))
+        uploaded = Photo.objects.create(revision=revision, blob=blob, position=2 + int(cropped))
+        process(blob.pk)
+        candidate = models.RightsPhotoReintroduction.objects.get(photo=uploaded)
+        assert candidate.disposition_id == disposition.pk and candidate.method == "regional"
+    assert models.RightsPhotoReintroduction.objects.filter(photo=photo).count() == 1
+    assert not models.RightsPhotoReintroduction.objects.filter(photo=original).exists()

@@ -218,6 +218,10 @@ def detect_matches(blob_id):
     )
     if not photos_to_compare:
         return
+    from apps.safety.photo_reintroduction import detect as detect_reintroduction
+
+    for photo in photos_to_compare:
+        detect_reintroduction(photo.pk)
     candidates = (
         Photo.objects.filter(removed_at__isnull=True)
         .exclude(revision_id__in=rectification_history_ids())

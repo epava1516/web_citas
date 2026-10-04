@@ -573,3 +573,10 @@ Lecturas de fotos adquieren bloqueos de agencia/persona y revisión o anuncio y 
 RightsRectificationPhotoDisposition registra ejecución, foto fuente, Blob y retained/withdrawn dentro de la ejecución revisada de selección de fotos. Selección compara Blob para conservar sustituciones con los mismos bytes. No registra si no se rectifican fotos ni reconstruye ejecuciones antiguas desde borradores editables. Unicidad ejecución/foto, resultados restringidos por constraints y FK protegidas (safety0055). No añade endpoint público.
 
 active_withdrawals identifica la última decisión explícita de cada Blob para una persona; otra persona u otro archivo no cancelan la retirada. Limpieza de preparación conserva referencias de disposición como evidencia; inventario de supresión incorpora registros como dependent_evidence. No es retención jurídica definitiva ni protección de recarga terminada. [Detalle y evidencia](../47-reintroduccion-imagenes.md).
+
+
+## REQ-CR09-PHOTO-REINTRODUCTION-CANDIDATE-01
+
+RightsPhotoReintroduction vincula Photo, uploaded_blob protegido, disposición, método sha256/regional, score y fecha; unicidad foto/disposición y métodos restringidos (safety0056). Detector adquiere agencia/persona y Blob ordenados, recarga Photo y excluye historial/preparación/retirada/gestor obsoleto/archivo no ready. Solo compara disposiciones retiradas activas de la misma persona. Recuperación visual usa firmas sin abrir bytes históricos; no acredita igualdad.
+
+Integrado antes de completar comparación en procesamiento ordinario. No crea Match ni publica datos del expediente. Inventario incorpora registros como dependent_evidence. No habilita revisión ni rehabilitación y todavía no bloquea publicación por estos registros: implementación de esas operaciones pendiente en docs48. [Evidencia](../evidencias/candidatos-recarga-fotos.json).

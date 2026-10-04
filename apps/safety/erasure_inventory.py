@@ -289,6 +289,20 @@ def source_manifest(person):
                 ],
             ),
             (
+                "safety.RightsPhotoReintroduction",
+                Q(photo__revision__listing__person=person),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "photo_id",
+                    "uploaded_blob_id",
+                    "disposition_id",
+                    "method",
+                    "score",
+                    "created_at",
+                ],
+            ),
+            (
                 "safety.RightsRectificationPhotoDisposition",
                 Q(execution__notification__review__proposal__person=person),
                 "dependent_evidence",

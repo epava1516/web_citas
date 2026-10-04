@@ -73,3 +73,6 @@ Clasificación SQL central compartida; candidatos y colas ordinarias excluyen hi
 
 
 Registro de disposición verificado localmente:30 correctas318.44s en batería conjunta PG/Chromium; prueba SQL independiente1 correcta19.73s, con ledgers sintéticos (no prueba de aprobación humana). Primera invocación de esa prueba falló por fixture sin revisión aprobada; corregida usando revisión existente. Snapshot conserva selección por Blob y no depende del borrador mutable. Autoridad por archivo/persona y desempate temporal verificados. safety0055 aplicada, Docker/hashes/check/health200 verificados; detector/revisión/rehabilitación/exportación/retención final siguen pendientes. Claude3/3; contrato entero abierto.
+
+
+Candidatos de recarga verificados localmente en su alcance:13 correctas82.36s PG, sin fallos/errores/omisiones. Anterior8 correctas40.94s corresponde a versión sin uploaded_blob; no sumar. Detector privado registra exactos y candidatos regionales por perfil/archivo retirado, con vínculo protegido a bytes detectados e idempotencia; no declara igualdad visual ni autorización. safety0056 aplicada; Docker reconstruido/recreado, hashes iguales/UID10001/check sin incidencias/health200. Revisión auditada, decisión independiente, bloqueo central de publicación, UI ES/EN, concurrencia y exportación/retención pendientes (docs48). Claude3/3; contrato completo abierto.

@@ -745,3 +745,25 @@ class RightsRectificationPhotoDisposition(models.Model):
                 name="rectification_photo_disposition_outcome",
             ),
         ]
+
+
+class RightsPhotoReintroduction(models.Model):
+    photo = models.ForeignKey("mediafiles.Photo", on_delete=models.PROTECT)
+    uploaded_blob = models.ForeignKey("mediafiles.Blob", on_delete=models.PROTECT)
+    disposition = models.ForeignKey(RightsRectificationPhotoDisposition, on_delete=models.PROTECT)
+    method = models.CharField(
+        max_length=16, choices=[("sha256", "Exact bytes"), ("regional", "Visual candidate")]
+    )
+    score = models.FloatField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["photo", "disposition"], name="rights_photo_reintroduction_once"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(method__in=["sha256", "regional"]),
+                name="rights_photo_reintroduction_method",
+            ),
+        ]
