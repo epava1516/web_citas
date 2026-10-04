@@ -1,0 +1,33 @@
+{
+  "feature": "REQ-CR09-URGENT-ALERT-01",
+  "functional_commit": "de74e20",
+  "command": "uv run python -m scripts.probe_urgent_alert_worker launch",
+  "exit_code": 0,
+  "worker_passed": true,
+  "task_ids": [
+    "db36a5d4-f866-4a2f-afa5-6ebb0c5bf3b0",
+    "895f1e66-421a-4913-a14e-8d4580b9f81b"
+  ],
+  "worker_seconds": 9.666,
+  "beat_passed": true,
+  "beat_seconds": 67.527,
+  "manual_dispatch_for_beat": false,
+  "persistent_alerts": 2,
+  "acknowledged": 0,
+  "report_versions": [
+    1,
+    1
+  ],
+  "real_channel_used": false,
+  "isolated_database": "alert_probe_90298012ea02",
+  "remaining_probe_databases": 0,
+  "remaining_probe_containers": 0,
+  "runtime": {
+    "uid": 10001,
+    "safety0038": true,
+    "health_http": 200,
+    "rights_backend": "disabled",
+    "notice_backend": "disabled",
+    "task_sha256": "1c6a8f672554ea89b9c5a13fb3081c9d26788386f3572868a1500e26d39ae12c"
+  }
+}
