@@ -1095,3 +1095,60 @@ class PurposeCalendarEvent(models.Model):
         permissions = [
             ("review_purpose_calendar", "Review operational purpose restriction calendar")
         ]
+
+
+class PurposeExceptionProposal(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    subject = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    plan = models.ForeignKey(ErasurePlan, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    encrypted_scope = models.TextField()
+    expires_at = models.DateTimeField(db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [
+            ("review_purpose_exception", "Independently review scoped processing exceptions")
+        ]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(expires_at__gt=models.F("created_at")),
+                name="purpose_exception_future_expiry",
+            )
+        ]
+
+
+class PurposeExceptionRead(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proposal = models.ForeignKey(PurposeExceptionProposal, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class PurposeExceptionReview(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proposal = models.OneToOneField(PurposeExceptionProposal, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    outcome = models.CharField(max_length=10)
+    consumed_action = models.OneToOneField(
+        RightsAction,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="purpose_exception_consumption",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["approved", "rejected"]),
+                name="purpose_exception_valid_outcome",
+            ),
+            models.CheckConstraint(
+                condition=models.Q(consumed_action__isnull=True) | models.Q(outcome="approved"),
+                name="purpose_exception_only_approved_consumed",
+            ),
+        ]

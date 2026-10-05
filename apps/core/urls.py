@@ -25,6 +25,7 @@ from apps.safety import (
     privacy_release,
     processing_views,
     purpose_calendar_views,
+    purpose_exception_views,
     purpose_release_views,
     recipient_assessment_views,
     recipient_review_views,
@@ -55,6 +56,11 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "moderation/rights/<uuid:case_id>/exceptions/<uuid:plan_id>/prepare/",
+        purpose_exception_views.prepare,
+        name="purpose_exception_prepare",
+    ),
     path(
         "moderation/rights/restrictions/calendar/",
         purpose_calendar_views.queue,

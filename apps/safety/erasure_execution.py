@@ -553,7 +553,7 @@ def apply(request, case_id, plan_id):
         render(
             request,
             "safety/erasure_execution.html",
-            {"case": case, "form": form, "result": result},
+            {"case": case, "plan_id": plan_id, "form": form, "result": result},
             status=status,
         )
     )

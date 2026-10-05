@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Prepare a scoped exception{% else %}Preparar excepción acotada{% endif %}</h1>
+<p>{% if english %}This proposal covers a single reviewed erasure operation. All active preference restrictions are included. Preparing it does not authorize processing, lift restrictions or erase data. Independent review and consumption remain pending.{% else %}Esta propuesta comprende una operación de supresión revisada. Incluye todas las restricciones activas de preferencias. Prepararla no autoriza tratamiento, levanta restricciones ni borra datos. La revisión independiente y el consumo siguen pendientes.{% endif %}</p>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Inspect request{% else %}Consultar solicitud{% endif %}</a></p>
+{% if proposal %}<p role="status">{% if english %}Proposal recorded; restrictions remain active{% else %}Propuesta registrada; las restricciones siguen activas{% endif %}</p><p>{{ proposal.pk }} · {{ proposal.expires_at }}</p>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record proposal{% else %}Registrar propuesta{% endif %}</button></form>
+{% endblock %}

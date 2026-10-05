@@ -128,6 +128,8 @@ def source(case):
     # Current inventory/plan/execution artifacts are deliberately excluded: creating
     # them must not invalidate their own source. Other cases retain their metadata.
     procedure_operations = ["erasure_inventory", "erasure_plan", "erasure_execute"]
+    if case.kind == "erase":
+        procedure_operations.append("exception_prepare")
     if case.kind in {"restriction", "object"}:
         procedure_operations.extend(
             ["processing_prepare", "processing_preview", "processing_inspect", "processing_review"]

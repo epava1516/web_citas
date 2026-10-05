@@ -1,6 +1,6 @@
 # Excepciones acotadas a restricciones de tratamiento
 
-Fecha: 2026-10-05. Estado: decisión de arquitectura; implementación y aceptación pendientes. CR-09 sigue abierto. Complementa docs58–61; no sustituye el levantamiento comunicado de docs60.
+Fecha: 2026-10-05. Estado: preparación en implementación/verificación; revisión independiente, consumo y aceptación pendientes. CR-09 sigue abierto. Complementa docs58–61; no sustituye el levantamiento comunicado de docs60.
 
 ## Problema verificado
 
@@ -41,3 +41,15 @@ Verificar con PostgreSQL y navegador móvil ES/EN: propuesta→consulta→aproba
 Casos obligatorios: aprobación propia, otro sujeto/plan/expediente, segunda restricción no revisada, nueva medida, versión modificada, fuente alterada, prueba o permisos revocados durante espera, expiración, rechazo, cifrado corrupto, claves incompatibles y fallo posterior al consumo. Concurrencia real de dos conexiones: doble consumo, supresión frente a alta de medida y consumo frente a revocación/revisión. Observar bloqueos reales; no sustituir estas carreras por estados precargados.
 
 La aceptación exige regresión conjunta de restricciones, levantamiento, calendario, supresión y favoritos; migración/runtime Docker app-worker-Beat comprobados y fuentes coincidentes. Identidad externa continúa simulada hasta contar con proveedor real; no declarar cumplimiento jurídico ni CR-09 completo por esta entrega.
+
+## Preparación implementada, todavía sin permiso de tratamiento
+
+Migración0072 añade propuesta, lectura y revisión como registros separados. La revisión tiene resultado aprobado/rechazado, propuesta única y consumo ligado a una acción única; una restricción de base de datos impide consumir un rechazo. Los servicios de revisión y consumo todavía no están implementados.
+
+`purpose_exceptions.propose` exige permisos frescos/MFA/COI, expediente de supresión asignado vigente, inventario comprobado y plan firmado sin ejecutar. Bloquea el sujeto y todas sus medidas activas de preferencias; verifica ámbito y conflicto en los expedientes de origen. Registra la acción antes de descifrar los planes originales, conservando solo sus decisiones pertinentes en la propuesta cifrada. Incluye versión, fuente, plan y finalidades de ejecución; expiración técnica24h. Preparación/replay no alteran medidas, datos o expediente. La acción `exception_prepare` se excluye solo de la fuente del mismo procedimiento de supresión para evitar autoinvalidación.
+
+Ruta privada `purpose_exception_prepare`: `/es|en/moderation/rights/<uuid:case_id>/exceptions/<uuid:plan_id>/prepare/`, GET/POST, formulario key/version/purposes/basis/reason; enlace desde supresión. GET muestra formulario sin fundamentos; POST correcto muestra identificador/expiración y declara que revisión/consumo siguen pendientes.403 permisos/CSRF,400 validación de formulario,409 conflicto del servicio; respuesta privada sin caché. No modifica la guarda `require_unrestricted` ni concede excepciones a favoritos.
+
+Primera batería28307 terminó1:2 fallidas39,07s por consulta de ámbitos inexistentes directamente en ErasurePlan. Corregida a inventory__person/inventory__account_subject_id. Repetición42452 terminó0:2 correctas36,81s PostgreSQL. Prueba usa ejecución real local de restricción y un nuevo expediente real local de supresión con comprobación explícitamente simulada. Reproduce propuesta/replay, firma incompatible, permiso revocado y plan alterado, conservando favoritos y denegando supresión. No verifica aprobación independiente ni consumo.
+
+Ampliación49932 terminal0:6 conjuntas correctas66,35s PostgreSQL, sin fallos/errores/skips; preparación/HTTP/CSRF/replay/GET sin fundamentos y restricción efectiva anterior verificadas sobre la misma fuente. Evidencia `evidencias/excepciones-preparacion-regresion.json`.0072 no aplicada al runtime normal; pendiente navegador móvil/carreras, integración de lectura/revisión/consumo e inventario de nuevas evidencias. No aceptar CR09 ni esta entrega completa por la preparación.
