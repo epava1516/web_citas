@@ -1,5 +1,16 @@
 # CR-09 — Denuncias, derechos y reclamación sin cuenta
 
+## REQ-CR09-PURPOSE-EXCEPTION-01 — Preparación y revisión independientes
+
+Esquema0072 y [docs62](../62-excepciones-acotadas-tratamiento.md). Autorización futura de operación única ligada al plan, fuente y conjunto completo de medidas activas; preparar o aprobar no permite actualmente supresión ni levanta medidas. Consumo transaccional pendiente.
+
+| Nombre | Ruta relativa ES/EN | Métodos | Entrada POST |
+| --- | --- | --- | --- |
+| purpose_exception_prepare | moderation/rights/UUID/exceptions/PLAN_UUID/prepare/ | GET/POST | key UUID, version entero positivo, purposes lista de finalidades, basis20–1000, reason20–2000 |
+| purpose_exception_review | moderation/rights/UUID/exceptions/PROPOSAL_ID/review/ | GET/POST | key UUID, version entero positivo, operation inspect/review, reason20–2000, outcome vacío en inspect o approved/rejected en review |
+
+Permisos review_rights_request/execute_rights_request/review_purpose_exception, MFA/sesión vigentes y ausencia de conflicto; revisión requiere actor distinto del proponente y consulta auditada propia actual. Fuente/prueba/plan/medidas se revalidan bajo bloqueos. GET no entrega fundamentos; POST inspect registra auditoría antes de descifrar. Respuestas privadas/no-store:200 registro o lectura,400 formulario,403 permisos/CSRF,404 ámbito inexistente,409 conflicto de estado/fuente/clave. Replay exacto reproduce registro; nueva decisión sobre propuesta ya revisada deniega. Motivos cifrados y sin datos de terceros. Identidad externa simulada en pruebas; no aceptar cumplimiento jurídico o CR09 completo.
+
 ## REQ-CR09-COMPLAINT-01 — Entrada pública de reclamación
 
 Ampliación 2026-10-04, safety0021: Complaint separado de Report y RightsRequest. Una persona representada, anunciante, notificante u otra persona puede solicitar revisión sin registrarse ni entrar a la agencia. Relación declarada no comprobada; referencia manual no confirma existencia de decisión ni concede acceso al expediente referido. No se enlazan casos automáticamente por UUID/URL ni se descargan referencias externas.

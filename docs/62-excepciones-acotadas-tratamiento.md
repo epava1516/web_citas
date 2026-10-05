@@ -1,6 +1,6 @@
 # Excepciones acotadas a restricciones de tratamiento
 
-Fecha: 2026-10-05. Estado: preparación en implementación/verificación; revisión independiente, consumo y aceptación pendientes. CR-09 sigue abierto. Complementa docs58–61; no sustituye el levantamiento comunicado de docs60.
+Fecha: 2026-10-05. Estado: preparación verificada parcialmente y revisión independiente en verificación; consumo y aceptación pendientes. CR-09 sigue abierto. Complementa docs58–61; no sustituye el levantamiento comunicado de docs60.
 
 ## Problema verificado
 
@@ -53,3 +53,19 @@ Ruta privada `purpose_exception_prepare`: `/es|en/moderation/rights/<uuid:case_i
 Primera batería28307 terminó1:2 fallidas39,07s por consulta de ámbitos inexistentes directamente en ErasurePlan. Corregida a inventory__person/inventory__account_subject_id. Repetición42452 terminó0:2 correctas36,81s PostgreSQL. Prueba usa ejecución real local de restricción y un nuevo expediente real local de supresión con comprobación explícitamente simulada. Reproduce propuesta/replay, firma incompatible, permiso revocado y plan alterado, conservando favoritos y denegando supresión. No verifica aprobación independiente ni consumo.
 
 Ampliación49932 terminal0:6 conjuntas correctas66,35s PostgreSQL, sin fallos/errores/skips; preparación/HTTP/CSRF/replay/GET sin fundamentos y restricción efectiva anterior verificadas sobre la misma fuente. Evidencia `evidencias/excepciones-preparacion-regresion.json`.0072 no aplicada al runtime normal; pendiente navegador móvil/carreras, integración de lectura/revisión/consumo e inventario de nuevas evidencias. No aceptar CR09 ni esta entrega completa por la preparación.
+
+## Revisión independiente en verificación
+
+`purpose_exceptions.record` conecta consulta auditada y decisión approved/rejected. Exige permiso específico/frescura MFA/sesión/COI, lectura completa del expediente/respuestas, prueba proporcional vigente después de bloqueos y misma versión/fuente del plan. Consulta registra acción antes de descifrar. La propuesta cifrada y la firma original deben coincidir con sujeto, expediente, plan, inventario y todas las medidas actuales con sus versiones, modos y fundamentos de origen. Revisión excluye al proponente y exige consulta propia del mismo snapshot/prueba. Replay exacto no crea segunda lectura o decisión; un cambio de clave/firma incompatible deniega. Ninguna decisión consume permiso, modifica restricciones ni permite actualmente supresión.
+
+Para evitar causalidad circular, la fuente seleccionada de cuenta excluye `exception_inspect`/`exception_review` y lecturas RightsAccess solo del procedimiento de supresión actual, igual que sus inventarios/planes. Evidencias y actuaciones de otros expedientes siguen incluidas. Un inventario anterior cuyo digest no coincida con la fuente nueva requiere preparación de nuevo; no se acepta por legado ni se omite la comprobación.
+
+Ruta `purpose_exception_review`: `/es|en/moderation/rights/<uuid:case_id>/exceptions/<int:proposal_id>/review/`, GET/POST. Formulario key/version/operation/reason/outcome; operaciones inspect/review, resultado vacío en consulta o aprobado/rechazado en decisión. GET solo metadatos/formulario, POST inspect muestra fundamentos minimizados y medidas, POST review muestra resultado sin fundamentos.403 permisos/CSRF,400 formulario,409 estado/fuente/conflicto; `private, no-store`. Enlace desde confirmación de preparación y consulta del expediente desde revisión. Interfaz declara consumo pendiente.
+
+Batería47140 terminal0:6 correctas67,52s PostgreSQL, preparación y revisión conjunta. Verifica aprobación y rechazo independientes después de lectura propia, denegación del proponente, replay, cambios de versión de medida y cifrado dañado sin lectura durable. Aprobación/rechazo conservan datos y supresión denegada. Ampliación88647 terminal0:9 correctas91,39s PostgreSQL, HTTP/CSRF/GET limpio/revocación e inventario de cuenta. No sumar ejecuciones como una sola suite.
+
+Refuerzo posterior: frescura de permisos después de bloqueos y caducidad comprobada otra vez al consultar contenido. Batería final1558 terminal0:11 conjuntas correctas114,10s PostgreSQL/Chromium, sin fallos/errores/skips, con móvil ESEN390px, login/MFA real→consulta actual→inspección auditada→aprobación independiente→reload POST idempotente→GET sin fundamentos y sin overflow. Caso/version/plazo/favoritos y medidas activas preservados; aprobación sin consumo. Evidencia `evidencias/excepciones-revision-regresion.json` corresponde a esta fuente final.
+
+Docker: build84986, migrate14987 y recreate55845 terminal0; auditoría4640 terminal0,11 fuentes iguales host/app/worker/Beat, UID10001,0072 aplicada/check/migrate--check/health200. Identidad/avisos/confirmación disabled. Evidencia `evidencias/excepciones-revision-runtime.json`; no proveedor real ni ensayo de operación en producción. No hay pruebas locales activas al terminar esta verificación.
+
+Siguiente entrega: consumo atómico ligado a acción de supresión, ampliación de integridad y ámbito, carreras reales, fuente/inventario de nuevos registros y regresión común. Antes de conectar consumo, mantener orden sujeto→propuesta/medidas también en ámbito de perfil para evitar inversión con la supresión. Revalidar las firmas y autoridad de acciones/planes en el consumidor después de todas las esperas. Excepciones a otras finalidades, retención/backup/restauración, acceso integral, comunicaciones/cierre y CR09 íntegro siguen pendientes; no iniciar CR10/GS01 por una aprobación parcial.

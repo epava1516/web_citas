@@ -11,8 +11,8 @@ from django.views.decorators.debug import sensitive_post_parameters, sensitive_v
 from django.views.decorators.http import require_http_methods
 
 from .erasure_execution import SUPPORTED
-from .models import ErasurePlan, RightsRequest
-from .purpose_exceptions import propose
+from .models import ErasurePlan, PurposeExceptionProposal, RightsRequest
+from .purpose_exceptions import propose, record
 from .rights import allowed
 from .rights_scope import permitted
 from .views import private
@@ -87,6 +87,74 @@ def prepare(request, case_id, plan_id):
             request,
             "safety/purpose_exception_prepare.html",
             {"case": case, "plan_id": plan_id, "form": form, "proposal": proposal},
+            status=status,
+        )
+    )
+
+
+class ReviewForm(forms.Form):
+    key = forms.UUIDField(widget=forms.HiddenInput)
+    version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    operation = forms.ChoiceField(
+        choices=[
+            ("inspect", "Consulta auditada / Audited inspection"),
+            ("review", "Revisión independiente / Independent review"),
+        ],
+        label="Operación / Operation",
+    )
+    reason = forms.CharField(
+        min_length=20,
+        max_length=2000,
+        widget=forms.Textarea,
+        label="Motivo minimizado / Minimized reason",
+    )
+    outcome = forms.ChoiceField(
+        required=False,
+        choices=[
+            ("", "Selecciona solo para revisión / Select only for review"),
+            ("approved", "Aprobar / Approve"),
+            ("rejected", "Rechazar / Reject"),
+        ],
+        label="Resultado / Outcome",
+    )
+
+
+@login_required
+@sensitive_post_parameters()
+@sensitive_variables()
+@require_http_methods(["GET", "POST"])
+def review(request, case_id, proposal_id):
+    if not allowed(request) or not all(
+        request.user.has_perm("safety." + p)
+        for p in ["execute_rights_request", "review_purpose_exception"]
+    ):
+        return private(HttpResponse("Forbidden", status=403))
+    case = RightsRequest.objects.filter(pk=case_id).first()
+    proposal = PurposeExceptionProposal.objects.filter(pk=proposal_id, action__request=case).first()
+    if not case or not proposal:
+        raise Http404
+    if not permitted(request.user, case):
+        return private(HttpResponse("Forbidden", status=403))
+    form = ReviewForm(request.POST or None, initial={"key": uuid4(), "version": case.version})
+    body = decision = None
+    status = 400 if request.method == "POST" else 200
+    if request.method == "POST" and form.is_valid():
+        try:
+            result, body = record(request.user, case.pk, proposal.pk, **form.cleaned_data)
+        except PermissionDenied:
+            return private(HttpResponse("Forbidden", status=403))
+        except ValidationError as error:
+            form.add_error(None, error)
+            status = 409
+        else:
+            status = 200
+            decision = result.outcome if form.cleaned_data["operation"] == "review" else None
+            form = ReviewForm(initial={"key": uuid4(), "version": case.version})
+    return private(
+        render(
+            request,
+            "safety/purpose_exception_review.html",
+            {"case": case, "proposal": proposal, "form": form, "body": body, "decision": decision},
             status=status,
         )
     )

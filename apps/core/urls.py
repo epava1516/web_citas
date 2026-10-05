@@ -57,6 +57,11 @@ from . import (
 
 urlpatterns = [
     path(
+        "moderation/rights/<uuid:case_id>/exceptions/<int:proposal_id>/review/",
+        purpose_exception_views.review,
+        name="purpose_exception_review",
+    ),
+    path(
         "moderation/rights/<uuid:case_id>/exceptions/<uuid:plan_id>/prepare/",
         purpose_exception_views.prepare,
         name="purpose_exception_prepare",

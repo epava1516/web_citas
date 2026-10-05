@@ -1,0 +1,30 @@
+{
+  "tests": 11,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "time_seconds": 113.99,
+  "source_hashes": {
+    "apps/safety/purpose_exceptions.py": "b44a3ec1b52457a280fceb3acb33dfe5cdeb521371153717b6175ac7d268c2b8",
+    "apps/safety/purpose_exception_views.py": "c1b5266e3cfd5cbdcb9f7ba7dc9e533fd95871d0ad81d3204decc568797971c9",
+    "apps/safety/models.py": "d200e29431aa5b480041204750d5260fc5fade8e39fc50477f5d9f295b70dc43",
+    "apps/safety/account_erasure_inventory.py": "bb6779bec559fa0964f6bb93317a839a02c68d29556427f0716f077ff4c10f9c",
+    "apps/safety/erasure_execution.py": "856fa630250b7d122fd0677bc4b17b3c08b46dbdcbc84b028df55cd66e2e8dac",
+    "apps/core/urls.py": "173cebab2a970b1e19d5f4260888f6083703b429bc4273959394ad948fbf8d60",
+    "apps/safety/migrations/0072_purposeexceptionproposal_purposeexceptionread_and_more.py": "5318f6354b0a1d4554e7414ee06bac8444b1aff527d6733ca72b6c07cd9f1572",
+    "templates/safety/purpose_exception_prepare.html": "cd21274249a574e59472abb0b9370b21c92ab33ebadb56d506db393115022dc7",
+    "templates/safety/purpose_exception_review.html": "b9bc51c27fb72191449d3d3f2731894e800bab8a1bfa50eb2bb62b3b61331876",
+    "templates/safety/erasure_execution.html": "bfb6734ea55bb3cbb834292bfdc6bc7b42db5326c661dc94bd79655b7391d159",
+    "tests/test_purpose_exception_preparation.py": "9d25b0c4b6a4c400afcaba58851c0b5b2b7270e8ec47dbc64e69a981b1f4fc04",
+    "tests/test_purpose_exception_review.py": "7397e95659f9bf64a5d79dac988ed3478cbf7c9ab33cf20dbc4842ba546f1d23",
+    "tests/test_purpose_exception_review_mobile.py": "002fa1f271fdbe45eaec5daa78a0d8e9de78abc3004d972879887d247f497580",
+    "tests/test_account_erasure_inventory.py": "57cf125c50459ba9ba97f81571d8d00cf1224465eacabd4789e8896a22abe702"
+  },
+  "scope": "Preparación/revisión independientes, móvil ESEN real y frontera de inventario de cuenta; PostgreSQL/Chromium",
+  "limitations": [
+    "Identidad externa simulada",
+    "Consumo no implementado: decisiones no autorizan supresión",
+    "Carreras, inventario de nuevos registros y CR09 íntegro pendientes"
+  ],
+  "cr09_accepted": false
+}

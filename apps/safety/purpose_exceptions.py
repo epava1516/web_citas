@@ -11,19 +11,23 @@ from django.views.decorators.debug import sensitive_variables
 from apps.core.models import User
 
 from .crypto import seal, unseal
-from .erasure_inventory import canonical
+from .erasure_inventory import canonical, source_manifest
 from .erasure_plans import authorized_inventory
 from .models import (
     ErasureExecution,
     ErasurePlan,
     PurposeExceptionProposal,
+    PurposeExceptionRead,
+    PurposeExceptionReview,
     PurposeRestriction,
     RightsAction,
 )
 from .processing_review import authorize
 from .purpose_release import original_plan
 from .rights import fingerprint
+from .rights_responses import complete_response_read
 from .rights_scope import locked_case, permitted
+from .rights_verification import authorized_proof, complete_read
 
 
 @transaction.atomic
@@ -196,3 +200,200 @@ def propose(user, case_id, plan_id, key, version, purposes, reason, basis):
             return result
     except IntegrityError as error:
         raise ValidationError("Conflicting action / Acción incompatible") from error
+
+
+@sensitive_variables()
+def proposal_contents(proposal, case, manifest, measures):
+    """Call only after recording an authorized read or decision action."""
+    try:
+        body = unseal(proposal.encrypted_scope)
+        reason = unseal(proposal.action.encrypted_reason)["reason"]
+        signature = fingerprint(
+            canonical(
+                {
+                    "plan": str(proposal.plan_id),
+                    "version": proposal.action.expected_version,
+                    "purposes": body["purposes"],
+                    "reason": reason,
+                    "basis": body["basis"],
+                }
+            )
+        )
+        if (
+            fingerprint(canonical(body)) != proposal.source_digest
+            or proposal.action.payload_digest != signature
+            or body["schema"] != "purpose-exception-proposal-v1"
+            or body["approved"] is not False
+            or body["consumed"] is not False
+            or body["operation"] != "erasure_execute"
+            or body["purpose"] != "account_preferences"
+            or body["case"] != str(case.pk)
+            or body["case_version"] != case.version
+            or body["subject"] != str(proposal.subject_id)
+            or body["plan"] != str(proposal.plan_id)
+            or body["plan_digest"] != fingerprint(proposal.plan.encrypted_decisions)
+            or body["source_digest"] != proposal.plan.source_digest
+            or body["manifest_digest"] != fingerprint(canonical(manifest))
+            or len(body["restrictions"]) != len(measures)
+            or proposal.expires_at <= timezone.now()
+            or proposal.expires_at > proposal.created_at + timedelta(hours=24)
+        ):
+            raise ValueError
+        for selected, measure in zip(body["restrictions"], measures, strict=True):
+            original = original_plan(measure)
+            expected = {
+                "id": measure.pk,
+                "version": measure.version,
+                "mode": measure.mode,
+                "execution": measure.execution_id,
+                "case": str(measure.execution.action.request_id),
+                "plan_digest": fingerprint(measure.execution.review.plan.encrypted_plan),
+                "decision": next(
+                    item for item in original["decisions"] if item["purpose"] == measure.purpose
+                ),
+            }
+            if selected != expected:
+                raise ValueError
+        return body
+    except (InvalidToken, ValueError, KeyError, TypeError, StopIteration) as error:
+        raise ValidationError("Exception source changed / Fuente de excepción cambiada") from error
+
+
+@transaction.atomic
+@sensitive_variables()
+def record(user, case_id, proposal_id, key, version, operation, reason, outcome=""):
+    case, person, _ = locked_case(case_id, lock_listing=True)
+    fresh = authorize(user, case, review_permission=False)
+    if not fresh.has_perm("safety.review_purpose_exception"):
+        raise PermissionDenied
+    proposal = (
+        PurposeExceptionProposal.objects.select_for_update(of=("self",))
+        .select_related("action", "plan__inventory", "plan__action")
+        .filter(pk=proposal_id, action__request=case)
+        .first()
+    )
+    if not proposal:
+        raise PermissionDenied
+    if (
+        case.kind != "erase"
+        or case.status != "reviewing"
+        or case.version != version
+        or proposal.action.expected_version != version
+        or proposal.expires_at <= timezone.now()
+        or not complete_read(fresh, case)
+        or not complete_response_read(fresh, case)
+        or operation not in {"inspect", "review"}
+        or not isinstance(reason, str)
+        or not 20 <= len(reason.strip()) <= 2000
+        or (operation == "inspect" and outcome)
+        or (operation == "review" and outcome not in {"approved", "rejected"})
+    ):
+        raise ValidationError(
+            "Inspect current scoped exception / Consulta excepción de ámbito vigente"
+        )
+    subject_id = case.account_subject_id or (person.subject_id if person else None)
+    if subject_id != proposal.subject_id or (
+        proposal.plan.inventory.person_id != case.person_id
+        or proposal.plan.inventory.account_subject_id != case.account_subject_id
+        or proposal.plan.action.request_id != case.pk
+        or proposal.plan.action.actor_id != proposal.action.actor_id
+        or ErasureExecution.objects.filter(plan=proposal.plan).exists()
+        or (proposal.plan.review_on and proposal.plan.review_on <= timezone.localdate())
+    ):
+        raise ValidationError("Exception scope changed / Ámbito de excepción cambiado")
+    subject = User.objects.select_for_update().get(pk=subject_id)
+    measures = list(
+        PurposeRestriction.objects.select_for_update(of=("self",))
+        .select_related("execution__action__request", "execution__review__plan__action")
+        .filter(subject=subject, purpose="account_preferences", active=True)
+        .order_by("pk")
+    )
+    for measure in measures:
+        if not permitted(fresh, measure.execution.action.request):
+            raise PermissionDenied
+    # Proof and source are fetched after all waits, without inheriting proposer authority.
+    fresh = authorize(user, case, review_permission=False)
+    if not fresh.has_perm("safety.review_purpose_exception"):
+        raise PermissionDenied
+    proof = authorized_proof(case, person, "erase")
+    manifest = source_manifest(person, case)
+    if (
+        proof.pk != proposal.proof_id
+        or proof.pk != proposal.plan.inventory.proof_id
+        or proposal.plan.inventory.action.expected_version != version
+        or proposal.plan.source_digest != proposal.plan.inventory.source_digest
+        or fingerprint(canonical(manifest)) != proposal.plan.source_digest
+    ):
+        raise ValidationError("Plan or proof changed / Plan o comprobación cambiados")
+    signature = fingerprint(
+        canonical(
+            {
+                "proposal": proposal.pk,
+                "version": version,
+                "operation": operation,
+                "reason": reason,
+                "outcome": outcome,
+                "source": proposal.source_digest,
+            }
+        )
+    )
+    previous = RightsAction.objects.filter(key=key).first()
+    if previous:
+        if (
+            previous.request_id != case.pk
+            or previous.actor_id != fresh.pk
+            or previous.operation != "exception_" + operation
+            or previous.payload_digest != signature
+        ):
+            raise ValidationError("Conflicting replay / Reintento incompatible")
+        body = proposal_contents(proposal, case, manifest, measures)
+        result = (
+            PurposeExceptionRead.objects.get(action=previous)
+            if operation == "inspect"
+            else PurposeExceptionReview.objects.get(action=previous)
+        )
+        return result, body if operation == "inspect" else None
+    if operation == "review":
+        if fresh.pk == proposal.action.actor_id:
+            raise PermissionDenied("Independent reviewer required")
+        if (
+            PurposeExceptionReview.objects.filter(proposal=proposal).exists()
+            or not PurposeExceptionRead.objects.filter(
+                proposal=proposal,
+                action__actor=fresh,
+                action__expected_version=version,
+                proof=proof,
+                source_digest=proposal.source_digest,
+            ).exists()
+        ):
+            raise ValidationError(
+                "Inspect before independent review / Consulta antes de revisión independiente"
+            )
+    try:
+        with transaction.atomic():
+            action = RightsAction.objects.create(
+                key=key,
+                request=case,
+                actor=fresh,
+                expected_version=version,
+                operation="exception_" + operation,
+                payload_digest=signature,
+                encrypted_reason=seal({"reason": reason}),
+            )
+            body = proposal_contents(proposal, case, manifest, measures)
+            fields = dict(
+                action=action, proposal=proposal, proof=proof, source_digest=proposal.source_digest
+            )
+            result = (
+                PurposeExceptionRead.objects.create(**fields)
+                if operation == "inspect"
+                else PurposeExceptionReview.objects.create(**fields, outcome=outcome)
+            )
+            fresh = authorize(user, case, review_permission=False)
+            if not fresh.has_perm("safety.review_purpose_exception"):
+                raise PermissionDenied
+            return result, body if operation == "inspect" else None
+    except IntegrityError as error:
+        raise ValidationError(
+            "Conflicting exception decision / Decisión de excepción incompatible"
+        ) from error

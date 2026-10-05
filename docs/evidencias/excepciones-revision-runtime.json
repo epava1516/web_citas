@@ -1,0 +1,40 @@
+{
+  "files": {
+    "apps/safety/purpose_exceptions.py": "b44a3ec1b52457a280fceb3acb33dfe5cdeb521371153717b6175ac7d268c2b8",
+    "apps/safety/purpose_exception_views.py": "c1b5266e3cfd5cbdcb9f7ba7dc9e533fd95871d0ad81d3204decc568797971c9",
+    "apps/safety/models.py": "d200e29431aa5b480041204750d5260fc5fade8e39fc50477f5d9f295b70dc43",
+    "apps/safety/account_erasure_inventory.py": "bb6779bec559fa0964f6bb93317a839a02c68d29556427f0716f077ff4c10f9c",
+    "apps/safety/erasure_execution.py": "856fa630250b7d122fd0677bc4b17b3c08b46dbdcbc84b028df55cd66e2e8dac",
+    "apps/safety/purpose_restrictions.py": "f6116b2da1e124a33d69edaf0aaf7720874b5604a91106ffa81e356670a0b00b",
+    "apps/core/urls.py": "173cebab2a970b1e19d5f4260888f6083703b429bc4273959394ad948fbf8d60",
+    "apps/safety/migrations/0072_purposeexceptionproposal_purposeexceptionread_and_more.py": "5318f6354b0a1d4554e7414ee06bac8444b1aff527d6733ca72b6c07cd9f1572",
+    "templates/safety/purpose_exception_prepare.html": "cd21274249a574e59472abb0b9370b21c92ab33ebadb56d506db393115022dc7",
+    "templates/safety/purpose_exception_review.html": "b9bc51c27fb72191449d3d3f2731894e800bab8a1bfa50eb2bb62b3b61331876",
+    "templates/safety/erasure_execution.html": "bfb6734ea55bb3cbb834292bfdc6bc7b42db5326c661dc94bd79655b7391d159"
+  },
+  "services": {
+    "app": {
+      "hashes_match": true,
+      "uid": 10001
+    },
+    "worker": {
+      "hashes_match": true,
+      "uid": 10001
+    },
+    "beat": {
+      "hashes_match": true,
+      "uid": 10001
+    }
+  },
+  "providers": {
+    "RIGHTS_VERIFICATION_BACKEND": "disabled",
+    "SAFETY_NOTICE_BACKEND": "disabled",
+    "ACCOUNT_CORRECTION_DELIVERY_BACKEND": "disabled"
+  },
+  "migration_applied": true,
+  "health_http_status": 200,
+  "check_passed": true,
+  "migrate_check_passed": true,
+  "scope": "Preparación y revisión independientes; consumo no implementado",
+  "cr09_accepted": false
+}
