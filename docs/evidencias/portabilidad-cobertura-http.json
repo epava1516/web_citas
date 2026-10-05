@@ -1,0 +1,21 @@
+{
+  "scope": "PostgreSQL and Django HTTP client, synthetic profile/account fixtures; not real browser",
+  "xml": "/tmp/portability-coverage-http-current.xml",
+  "passed": 2,
+  "checks": [
+    "MFA session",
+    "GET without restored values/evidence or new audit",
+    "POST audited page and save",
+    "exact replay",
+    "CSRF403",
+    "anonymous302",
+    "private no-store"
+  ],
+  "pending": [
+    "browser",
+    "independent coverage review",
+    "binary omission UI",
+    "runtime0091",
+    "final response"
+  ]
+}

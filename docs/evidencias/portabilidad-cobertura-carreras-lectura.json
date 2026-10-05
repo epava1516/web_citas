@@ -1,0 +1,19 @@
+{
+  "scope": "Observed PostgreSQL independent coverage scalar account reads, synthetic data",
+  "xml": "/tmp/portability-coverage-observed-read-races.xml",
+  "passed": 8,
+  "observed": "2 workers and holder with distinct backend PIDs; pg_blocking_pids before mutation",
+  "checks": [
+    "one read exact concurrent replay",
+    "permission/proof/session/MFA/source/ciphertext/expiry changes deny both waiters",
+    "denials rollback audits and reads",
+    "case unchanged"
+  ],
+  "pending": [
+    "coverage approval races",
+    "profile and binary mode races",
+    "runtime0091-93",
+    "common regression",
+    "final closure"
+  ]
+}

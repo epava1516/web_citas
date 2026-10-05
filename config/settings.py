@@ -152,6 +152,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
         "schedule": 60.0,
     },
+    "purge-expired-portability-coverage": {
+        "task": "apps.safety.tasks.purge_expired_portability_coverage",
+        "schedule": 60.0,
+    },
     "purge-expired-portability-selections": {
         "task": "apps.safety.tasks.purge_expired_portability_selections",
         "schedule": 60.0,

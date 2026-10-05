@@ -1,0 +1,48 @@
+{
+  "scope": "Local Docker only; no external deployment",
+  "services": {
+    "app": {
+      "matched_files": 22,
+      "uid": "10001"
+    },
+    "worker": {
+      "matched_files": 22,
+      "uid": "10001"
+    },
+    "beat": {
+      "matched_files": 22,
+      "uid": "10001"
+    }
+  },
+  "hashes": {
+    "apps/safety/models.py": "6b61556334325c62a98e5149d68362ef6c49d13ece1c1eaff26053524a9690f6",
+    "apps/core/urls.py": "c46f92070c716935af185b55794bd651c179092e309f9c56110647ae96297932",
+    "apps/safety/rights.py": "5ef7c5505933d1b89b82afb64d90ee58e0e3eb0999fe5e23204a7bc9bfa31cc3",
+    "apps/safety/tasks.py": "c069c2cbabb35da880238a22e752c5987e8d9e79ba1bd0ec64845fb8955cb548",
+    "apps/safety/erasure_inventory.py": "b42a7a43a971f5afd66d6adfb1973fef996201e647fe4fbce50af1ae1d638af5",
+    "apps/safety/account_erasure_inventory.py": "825165ed8b144c2efbb3ec07f770b5f6393ee4a54e68bd4feaf0f2bb02a4e623",
+    "config/settings.py": "da4b799bdc510c0e04187917ebfc17e19aa3afed1be0735788a13774f7678dc4",
+    "apps/safety/rights_portability_coverage.py": "641e17ad816fb2fb7a37c0cdb9786e7cc3af57319964a3c07d049d67a45c495a",
+    "apps/safety/rights_portability_coverage_store.py": "f65508a1822d05985a87e075576e9ff164680dfc2e430a88c865ccf2f5c11381",
+    "apps/safety/rights_portability_coverage_pages.py": "eef6824f3e1bb8a47d686a31db8a02be321272b88fa00a72bbd9561ff49ea164",
+    "apps/safety/rights_portability_coverage_views.py": "511009005f3cb3205037fbf368d48c790a8ba877a3a3687c2ab7fcb43da3b2fb",
+    "apps/safety/rights_portability_coverage_images.py": "2efdbb714bbfd5ef389eca98e59d5651491d3949bbb58d5d1c4291c7d49e006e",
+    "apps/safety/rights_portability_coverage_inspection.py": "2085504940f2b41ca8bd4c09cefab52df7bd8d648ee777d04c8e83734bd0b518",
+    "apps/safety/rights_portability_coverage_read_gate.py": "931a376cf04039e84c655c1a982fec66fc6ecbf6dde0a15a40605a28a8243cef",
+    "apps/safety/rights_portability_coverage_review.py": "042ba708776a5fa003e0a99ad398868ccd459444f017edd112cbc89660a608ea",
+    "apps/safety/rights_portability_coverage_review_views.py": "4ed608bac18f404f57f3899beaef2dfb3b307a6145a7dba95f36bf5de37948e7",
+    "apps/safety/migrations/0091_portability_coverage.py": "02ca8ceae3acdc0ddc1d92575eecafa6f82daa9978205adf9d87cda1f7809df8",
+    "apps/safety/migrations/0092_portability_coverage_read.py": "58682161bcdb2a5834c857ee90187cbf35e096f50d8b987dc7f09acbc74f8196",
+    "apps/safety/migrations/0093_portability_coverage_review.py": "6eadfc389b295eafc7b0e6c1ac6e36ce3d463aba0018430ea2dca85edac0c2b5",
+    "templates/safety/rights_portability_coverage.html": "eae9378baff749754c555ffa6d2da8bae5d9afb12e2e68be9fbde1481a978d7b",
+    "templates/safety/rights_portability_coverage_review.html": "b19a68201a395ad46e6cb40711208ecfd1a6b79ca16465e24f2f2851b1a62126",
+    "templates/safety/rights_inspect.html": "38672ecfbdd4fa873719d513d5bae85b7ff7c7449624617e03015dd37ce319d7"
+  },
+  "migrations": [
+    "0091",
+    "0092",
+    "0093"
+  ],
+  "checks": "Django check, migrate --check, makemigrations --check clean; health ok",
+  "worker_purge_probe": "passed separately, see portabilidad-cobertura-worker-beat.json"
+}

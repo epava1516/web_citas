@@ -1,0 +1,19 @@
+{
+  "scope": "PostgreSQL independent coverage page records and dependency census, synthetic fixtures",
+  "xml": "/tmp/portability-coverage-read-records.xml",
+  "passed": 4,
+  "migration": "0092_portability_coverage_read",
+  "checks": [
+    "scalar profile/account and binary metadata reads",
+    "exact replay record",
+    "tampered page digest rejects",
+    "inventory dependency census60"
+  ],
+  "pending": [
+    "non-empty inventory sensitivity",
+    "complete page gate and approval",
+    "runtime0091/0092",
+    "HTTP/browser review",
+    "final closure"
+  ]
+}

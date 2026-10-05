@@ -385,10 +385,15 @@ def inspect(request, case_id):
                 .order_by("-created_at", "-pk"),
                 50,
             ).get_page(request.GET.get("information_page"))
+    portability_coverages = None
     portability_selections = None
     portability_drafts = None
     if case.kind == "portability" and request.user.has_perm("safety.review_portability"):
-        from .models import RightsPortabilityAssessment, RightsPortabilitySelection
+        from .models import (
+            RightsPortabilityAssessment,
+            RightsPortabilityCoverage,
+            RightsPortabilitySelection,
+        )
         from .rights_portability_review import authorize as authorize_portability
 
         try:
@@ -405,6 +410,15 @@ def inspect(request, case_id):
                 .order_by("-created_at", "-pk"),
                 50,
             ).get_page(request.GET.get("portability_page"))
+            portability_coverages = Paginator(
+                RightsPortabilityCoverage.objects.filter(
+                    request=case, purged_at__isnull=True, expires_at__gt=timezone.now()
+                )
+                .exclude(actor=request.user)
+                .only("pk", "version", "created_at")
+                .order_by("-created_at", "-pk"),
+                50,
+            ).get_page(request.GET.get("coverage_page"))
             portability_selections = Paginator(
                 RightsPortabilitySelection.objects.filter(
                     request=case, purged_at__isnull=True, expires_at__gt=timezone.now()
@@ -440,6 +454,7 @@ def inspect(request, case_id):
                 "information_drafts": information_drafts,
                 "portability_drafts": portability_drafts,
                 "portability_selections": portability_selections,
+                "portability_coverages": portability_coverages,
             },
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )

@@ -1,0 +1,22 @@
+{
+  "scope": "Cobertura persistente, integridad de evidencia perfil/cuenta",
+  "tests": 2,
+  "duration_seconds": 48.64,
+  "failures": 0,
+  "errors": 0,
+  "junit": "/tmp/portability-coverage-evidence-tamper.xml",
+  "checks": [
+    "Motivo cifrado alterado rechazado",
+    "Actor de fila alterado rechazado",
+    "Ciphertext corrupto rechazado y original restaurado",
+    "Replay no duplica acciones ni fila",
+    "Inventarios y purga conservan metadata",
+    "Caso y plazo intactos"
+  ],
+  "limits": [
+    "No frontend de cobertura ni revisión independiente",
+    "Purga directa, no worker/Beat",
+    "Runtime0091 pendiente"
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true
+}

@@ -1,0 +1,29 @@
+{
+  "scope": "Cobertura guardada: verificación inicial parcial",
+  "tests": 22,
+  "duration_seconds": 59.14,
+  "failures": 0,
+  "errors": 0,
+  "junit": "/tmp/portability-coverage-storage-final.xml",
+  "composition": {
+    "pure": 19,
+    "postgresql_profile_account": 2,
+    "inventory_census": 1
+  },
+  "checks": [
+    "Cifrado y firma/vínculos",
+    "Replay y clave distinta con omisiones incompletas",
+    "Corrupción cuerpo rechazado",
+    "Inventario no vacío perfil/cuenta, censo59",
+    "Purga directa/retry0, metadatos preservados",
+    "Expediente/plazo intactos"
+  ],
+  "limits": [
+    "No aprobación independiente de cobertura",
+    "No interfaz/HTTP de cobertura",
+    "Nueva purga invocada directamente, no worker/Beat",
+    "Runtime0091 pendiente",
+    "Nuevas pruebas de razón/actor en ejecución separada"
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true
+}

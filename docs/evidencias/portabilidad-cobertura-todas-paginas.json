@@ -1,0 +1,20 @@
+{
+  "scope": "Exact independent current page gate, synthetic PostgreSQL account; pure boundary tests separately",
+  "xml": "/tmp/portability-coverage-all-pages.xml",
+  "postgresql_passed": 1,
+  "pure_passed_separate": 2,
+  "checks": [
+    "missing pages deny",
+    "complete original read IDs accepted",
+    "partial explicit IDs deny",
+    "altered page digest deny",
+    "case unchanged"
+  ],
+  "pending": [
+    "approval integration",
+    "observed concurrency",
+    "UI",
+    "runtime0091/92",
+    "final response"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "scope": "Observed PostgreSQL account decisions with synthetic partial rejected/full approved coverage",
+  "separate_runs": [
+    {
+      "xml": "/tmp/portability-coverage-observed-review-races.xml",
+      "passed": 8,
+      "outcome": "rejected"
+    },
+    {
+      "xml": "/tmp/portability-coverage-observed-approval-races.xml",
+      "passed": 8,
+      "outcome": "approved"
+    }
+  ],
+  "checks": [
+    "2 worker backends and holder distinct; pg_blocking_pids observed",
+    "exact concurrent replay one decision",
+    "permission/proof/session/MFA/source/ciphertext/expiry changes deny",
+    "prior reads retained; failed decision audits rollback",
+    "case unchanged"
+  ],
+  "pending": [
+    "profile/binary races",
+    "conflicting different decision keys",
+    "runtime0091-93",
+    "common regression",
+    "final rights response"
+  ]
+}

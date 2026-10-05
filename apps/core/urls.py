@@ -40,6 +40,8 @@ from apps.safety import (
     rights_copy_information_views,
     rights_exports,
     rights_information_review_views,
+    rights_portability_coverage_review_views,
+    rights_portability_coverage_views,
     rights_portability_export_views,
     rights_portability_image_views,
     rights_portability_prepare_selection_views,
@@ -270,6 +272,21 @@ urlpatterns = [
         "moderation/rights/<uuid:case_id>/information/<int:information_id>/review/",
         rights_information_review_views.review,
         name="rights_information_review",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/portability/coverage/<int:coverage_id>/review/",
+        rights_portability_coverage_review_views.review,
+        name="rights_portability_coverage_review",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/portability/coverage/images/",
+        rights_portability_coverage_views.prepare_image_omissions,
+        name="rights_portability_image_coverage",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/portability/coverage/",
+        rights_portability_coverage_views.prepare,
+        name="rights_portability_coverage",
     ),
     path(
         "moderation/rights/<uuid:case_id>/portability/images/",

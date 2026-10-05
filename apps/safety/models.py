@@ -1447,3 +1447,75 @@ class RightsPortabilityImageRead(models.Model):
     original_session_version = models.PositiveIntegerField()
     original_mfa_version = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsPortabilityCoverage(models.Model):
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    selection_review = models.ForeignKey(RightsPortabilitySelectionReview, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    selection_digest = models.CharField(max_length=64)
+    coverage_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    version = models.PositiveIntegerField()
+    encrypted_coverage = models.TextField()
+    expires_at = models.DateTimeField(db_index=True)
+    purged_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["request", "actor", "version"], name="portability_coverage_once"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(version__gte=1), name="portability_coverage_positive"
+            ),
+        ]
+
+
+class RightsPortabilityCoverageRead(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    coverage = models.ForeignKey(RightsPortabilityCoverage, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    coverage_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    dataset = models.CharField(max_length=40)
+    row_index = models.PositiveIntegerField()
+    field_page = models.PositiveIntegerField()
+    binary = models.BooleanField(default=False)
+    page_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(field_page__gte=1), name="portability_coverage_read_page"
+            ),
+        ]
+
+
+class RightsPortabilityCoverageReview(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    coverage = models.OneToOneField(RightsPortabilityCoverage, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    coverage_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    read_ids = models.JSONField(default=list)
+    outcome = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["approved", "rejected"]),
+                name="portability_coverage_review_outcome",
+            )
+        ]

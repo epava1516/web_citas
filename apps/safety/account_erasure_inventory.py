@@ -478,6 +478,77 @@ def source(case):
                 ],
             ),
             (
+                "safety.RightsPortabilityCoverageReview",
+                (
+                    Q(coverage__request__account_subject=user)
+                    | Q(coverage__request__person__subject=user)
+                )
+                & ~Q(coverage__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "coverage_id",
+                    "proof_id",
+                    "source_digest",
+                    "coverage_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "read_ids",
+                    "outcome",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsPortabilityCoverageRead",
+                (
+                    Q(coverage__request__account_subject=user)
+                    | Q(coverage__request__person__subject=user)
+                )
+                & ~Q(coverage__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "coverage_id",
+                    "proof_id",
+                    "source_digest",
+                    "coverage_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "dataset",
+                    "row_index",
+                    "field_page",
+                    "binary",
+                    "page_digest",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsPortabilityCoverage",
+                (Q(request__account_subject=user) | Q(request__person__subject=user))
+                & ~Q(request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "request_id",
+                    "actor_id",
+                    "action_id",
+                    "selection_review_id",
+                    "proof_id",
+                    "source_digest",
+                    "selection_digest",
+                    "coverage_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "version",
+                    "encrypted_coverage",
+                    "expires_at",
+                    "purged_at",
+                    "created_at",
+                ],
+            ),
+            (
                 "safety.RightsPortabilityImageRead",
                 (
                     Q(selection__request__account_subject=user)

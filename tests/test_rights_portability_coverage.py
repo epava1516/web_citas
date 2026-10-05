@@ -205,3 +205,70 @@ def test_source_binary_duplicates_rejected_even_when_excluded():
         omissions["revisions"][row_reference("revisions", index, row)] = {"all": excluded}
     with pytest.raises(ValidationError, match="Duplicate source binary"):
         compile_coverage(source, assessment, selection, omissions, [], {photo: excluded})
+
+
+def test_pending_draft_counts_missing_fields_without_excluding_them():
+    source, assessment, selection, omissions, _, _ = fixture()
+    omissions["profile"] = {}
+    result = compile_coverage(source, assessment, selection, omissions, [], {}, allow_partial=True)
+    assert result["schema"] == "portability-coverage-pending-v1"
+    assert result["complete"] is False
+    assert result["datasets"]["profile"]["pending_fields"] == 1
+    assert result["datasets"]["profile"]["excluded_fields"] == 0
+    with pytest.raises(ValidationError):
+        compile_coverage(source, assessment, selection, omissions, [], {})
+
+
+def test_pending_draft_preserves_definite_decisions_and_rejects_foreign_paths():
+    source, assessment, selection, omissions, reference, facts = fixture()
+    source["profile"]["second_generated"] = "synthetic generated value"
+    reference = row_reference("profile", 0, source["profile"])
+    selection["profile"][0]["row"] = reference
+    omissions["profile"] = {
+        reference: {
+            "fields": {"/generated_reference": dict(facts, status="excluded", origin="inferred")}
+        }
+    }
+    result = compile_coverage(source, assessment, selection, omissions, [], {}, allow_partial=True)
+    assert result["datasets"]["profile"]["excluded_fields"] == 1
+    assert result["datasets"]["profile"]["pending_fields"] == 1
+    omissions["profile"][reference]["fields"]["/alias"] = dict(
+        facts, status="excluded", origin="inferred"
+    )
+    with pytest.raises(ValidationError):
+        compile_coverage(source, assessment, selection, omissions, [], {}, allow_partial=True)
+
+
+def test_pending_binary_does_not_become_excluded_and_unknown_decision_still_fails():
+    source, assessment, _, _, _, facts = fixture()
+    source["profile"] = None
+    photo = "00000000-0000-0000-0000-000000000001"
+    source["revisions"] = [{"images": [{"photo": photo}]}]
+    reference = row_reference("revisions", 0, source["revisions"][0])
+    selection = {name: [] for name in DATASETS}
+    selection["revisions"] = [{"row": reference, "fields": ["/images/0/photo"]}]
+    omissions = {name: {} for name in DATASETS}
+    result = compile_coverage(source, assessment, selection, omissions, [], {}, allow_partial=True)
+    assert result["pending_images"] == 1
+    assert result["excluded_images"] == 0
+    assert result["complete"] is False
+    with pytest.raises(ValidationError):
+        compile_coverage(
+            source,
+            assessment,
+            selection,
+            omissions,
+            [],
+            {photo: dict(facts, status="pending")},
+            allow_partial=True,
+        )
+
+
+def test_completed_draft_still_requires_strict_compilation():
+    source, assessment, selection, omissions, _, _ = fixture()
+    draft = compile_coverage(source, assessment, selection, omissions, [], {}, allow_partial=True)
+    assert draft["complete"] is True
+    assert draft["schema"] == "portability-coverage-pending-v1"
+    final = compile_coverage(source, assessment, selection, omissions, [], {})
+    assert final["schema"] == "portability-coverage-v1"
+    assert "complete" not in final

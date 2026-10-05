@@ -127,3 +127,21 @@ def purge_expired_portability_selections():
         return RightsPortabilitySelection.objects.filter(pk__in=ids).update(
             encrypted_selection="", purged_at=now
         )
+
+
+@shared_task
+def purge_expired_portability_coverage():
+    """Clear transient coverage bodies while preserving signed audit metadata."""
+    from .models import RightsPortabilityCoverage
+
+    with transaction.atomic():
+        now = timezone.now()
+        ids = list(
+            RightsPortabilityCoverage.objects.select_for_update(skip_locked=True)
+            .filter(expires_at__lte=now, purged_at__isnull=True)
+            .order_by("pk")
+            .values_list("pk", flat=True)[:100]
+        )
+        return RightsPortabilityCoverage.objects.filter(pk__in=ids).update(
+            encrypted_coverage="", purged_at=now
+        )

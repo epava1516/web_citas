@@ -14,6 +14,7 @@ from pathlib import Path
 TASKS = {
     "assessments": "apps.safety.tasks.purge_expired_portability_assessments",
     "selections": "apps.safety.tasks.purge_expired_portability_selections",
+    "coverage": "apps.safety.tasks.purge_expired_portability_coverage",
 }
 
 
@@ -110,7 +111,7 @@ def fixture():
                 original_session_version=actor.session_version,
                 original_mfa_version=actor.mfa_version,
             )
-            models.RightsPortabilitySelection.objects.create(
+            selection = models.RightsPortabilitySelection.objects.create(
                 request=case,
                 actor=actor,
                 action=action("selection_save"),
@@ -127,6 +128,41 @@ def fixture():
                 encrypted_selection=seal({"synthetic_task_fixture": marker}),
                 expires_at=expiry,
             )
+            selection_read = models.RightsPortabilitySelectionRead.objects.create(
+                action=action("selection_inspect"),
+                selection=selection,
+                proof=proof,
+                source_digest=digest,
+                selection_digest=digest,
+                original_session_version=actor.session_version,
+                original_mfa_version=actor.mfa_version,
+            )
+            selection_review = models.RightsPortabilitySelectionReview.objects.create(
+                action=action("selection_review"),
+                selection=selection,
+                read=selection_read,
+                proof=proof,
+                source_digest=digest,
+                selection_digest=digest,
+                outcome="rejected",
+                original_session_version=actor.session_version,
+                original_mfa_version=actor.mfa_version,
+            )
+            models.RightsPortabilityCoverage.objects.create(
+                request=case,
+                actor=actor,
+                action=action("coverage_save"),
+                selection_review=selection_review,
+                proof=proof,
+                source_digest=digest,
+                selection_digest=digest,
+                coverage_digest=digest,
+                original_session_version=actor.session_version,
+                original_mfa_version=actor.mfa_version,
+                version=version,
+                encrypted_coverage=seal({"synthetic_task_fixture": marker}),
+                expires_at=expiry,
+            )
     print(json.dumps({"fixture_created": True, "identity_approved": False}), flush=True)
 
 
@@ -140,6 +176,7 @@ def state(app, jobs):
     for label, name, body in [
         ("assessments", "RightsPortabilityAssessment", "encrypted_assessment"),
         ("selections", "RightsPortabilitySelection", "encrypted_selection"),
+        ("coverage", "RightsPortabilityCoverage", "encrypted_coverage"),
     ]:
         model = getattr(models, name)
         fields = [
@@ -164,6 +201,8 @@ def state(app, jobs):
         models.RightsAction,
         models.RightsPortabilityRead,
         models.RightsPortabilityReview,
+        models.RightsPortabilitySelectionRead,
+        models.RightsPortabilitySelectionReview,
     ]:
         preserved.append(list(model.objects.order_by("pk").values()))
     data["preservation_digest"] = hashlib.sha256(
@@ -215,6 +254,7 @@ def main():
             for name in [
                 "purge-expired-portability-assessments",
                 "purge-expired-portability-selections",
+                "purge-expired-portability-coverage",
             ]
         }
         return app.Beat(loglevel="INFO", schedule="/tmp/portability-probe-beat").run()

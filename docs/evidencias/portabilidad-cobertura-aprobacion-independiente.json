@@ -1,0 +1,24 @@
+{
+  "scope": "PostgreSQL independent coverage review account synthetic facts plus dependency census61; no legal factual review or UI",
+  "xml": "/tmp/portability-coverage-independent-review.xml",
+  "passed": 3,
+  "migration": "0093_portability_coverage_review",
+  "checks": [
+    "missing reads deny",
+    "pending omissions deny approval",
+    "complete coverage approved",
+    "partial rejected",
+    "original read IDs preserved after later read",
+    "altered IDs reject replay",
+    "author rejected",
+    "case unchanged"
+  ],
+  "pending": [
+    "profile and binary approval",
+    "observed races",
+    "nonempty inventory",
+    "HTTP/browser",
+    "runtime0091-93",
+    "final closure"
+  ]
+}

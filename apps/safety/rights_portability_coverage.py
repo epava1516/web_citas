@@ -16,8 +16,18 @@ def exclusion(value):
 
 
 def compile_coverage(
-    source, assessment, selection, omissions, images, image_omissions, *, field_evidence=None
+    source,
+    assessment,
+    selection,
+    omissions,
+    images,
+    image_omissions,
+    *,
+    field_evidence=None,
+    allow_partial=False,
 ):
+    if type(allow_partial) is not bool:
+        raise ValidationError("Invalid partial coverage mode")
     assessment = checked_assessment(assessment)
     if any(facts["status"] == "pending" for facts in assessment.values()):
         raise ValidationError("Pending datasets prevent final coverage")
@@ -47,37 +57,47 @@ def compile_coverage(
             continue
         selectors = {item["row"]: set(item["fields"]) for item in selection[name]}
         missing_rows = set()
-        included_count = excluded_count = 0
+        included_count = excluded_count = pending_count = 0
         for index, row in enumerate(rows):
             reference = row_reference(name, index, row)
             paths = {item["path"] for item in scalar_fields(row)}
             selected = selectors.get(reference, set())
             missing = paths - selected
             included_count += len(selected)
-            excluded_count += len(missing)
             if not missing:
                 continue
             missing_rows.add(reference)
             decision = row_decisions.get(reference)
+            if reference not in row_decisions and allow_partial:
+                pending_count += len(missing)
+                continue
             if not isinstance(decision, dict):
                 raise ValidationError("Every omitted row or field needs evidence")
             if set(decision) == {"all"}:
                 exclusion(decision["all"])
+                excluded_count += len(missing)
             elif set(decision) == {"fields"} and isinstance(decision["fields"], dict):
-                if set(decision["fields"]) != missing:
+                declared = set(decision["fields"])
+                if not declared <= missing or (not allow_partial and declared != missing):
                     raise ValidationError("Cover exactly the omitted scalar fields")
+                excluded_count += len(declared)
+                pending_count += len(missing - declared)
                 for facts in decision["fields"].values():
                     exclusion(facts)
             else:
                 raise ValidationError("Invalid omission coverage schema")
-        if set(row_decisions) != missing_rows:
+        if not set(row_decisions) <= missing_rows or (
+            not allow_partial and set(row_decisions) != missing_rows
+        ):
             raise ValidationError("Coverage contains unavailable or already included rows")
         datasets[name] = {
-            "status": "covered",
+            "status": "pending" if pending_count else "covered",
             "rows": len(rows),
             "included_fields": included_count,
             "excluded_fields": excluded_count,
         }
+        if allow_partial:
+            datasets[name]["pending_fields"] = pending_count
     photos = [image["photo"] for row in source["revisions"] for image in row["images"]]
     if len(set(photos)) != len(photos):
         raise ValidationError("Duplicate source binary references")
@@ -88,14 +108,27 @@ def compile_coverage(
         if included or image_omissions:
             raise ValidationError("Revision exclusion already covers its binaries")
     else:
-        if set(image_omissions) != set(photos) - included:
+        missing_images = set(photos) - included
+        if not set(image_omissions) <= missing_images or (
+            not allow_partial and set(image_omissions) != missing_images
+        ):
             raise ValidationError("Every omitted binary needs its own coverage")
         for facts in image_omissions.values():
             exclusion(facts)
-    return {
+    result = {
         "schema": "portability-coverage-v1",
         "datasets": datasets,
         "included_images": len(included),
-        "excluded_images": len(photos) - len(included),
+        "excluded_images": (
+            len(photos) if assessment["revisions"]["status"] == "excluded" else len(image_omissions)
+        ),
         "projection": projection,
     }
+
+    if allow_partial:
+        result["schema"] = "portability-coverage-pending-v1"
+        result["pending_images"] = len(photos) - len(included) - result["excluded_images"]
+        result["complete"] = not result["pending_images"] and not any(
+            item.get("pending_fields", 0) for item in datasets.values()
+        )
+    return result
