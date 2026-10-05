@@ -75,7 +75,7 @@ def account_source_digest(case):
     )
 
 
-def compatible(case, person, proof):
+def compatible(case, person, proof, *, case_version=None):
     if case.account_subject_id:
         scoped = bool(
             not person
@@ -100,7 +100,7 @@ def compatible(case, person, proof):
     return bool(
         scoped
         and proof.scope == case.kind
-        and proof.case_version == case.version
+        and proof.case_version == (case.version if case_version is None else case_version)
         and proof.channel_digest == case.receipt_digest
         and proof.expires_at > timezone.now()
         and case.receipt_expires_at > timezone.now()

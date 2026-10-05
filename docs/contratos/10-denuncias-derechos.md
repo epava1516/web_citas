@@ -698,3 +698,23 @@ Una copia revisada serializada mayor de8MiB produce un manifiesto rights-data-ma
 ### Consulta paginada de fuentes de copia
 
 La ruta de preparación añade POST `operation=inspect_page`, `section` (revisions/legal_acceptances/favorites/verifications/representation_history), `page` positivo y `cursor` firmado para continuación, además de key/version/purpose existentes. Resultado200 devuelve page_data con hasta10 entradas, has_next y cursor; inválidos400/estado o fuente409/permisos403. GET no recupera contenidos. Cada consulta registra RightsAction copy_page_read, misma clave compatible no duplica y unicidad concurrente se traduce a conflicto controlado. El cursor liga actor/sesión/MFA/caso/versión/prueba/fuente/sección y caduca1h. Versiones de sesión/MFA originales se comparan tras adquirir locks y autoridad se revalida antes de devolver datos. No crea RightsExportPreview completo ni autoriza generar una copia desde páginas. Límites y aprobación pendiente en docs68.
+
+## Revisión persistente y generación desde páginas — entrega parcial
+
+Ruta compartida: `/<idioma>/moderation/rights/<case_id>/export/`, GET/POST, sesión/MFA y permisos de consulta/ejecución; se aplican asignación, independencia del revisor, ámbito y prueba vigente. Respuestas privadas no-store/noindex, CSRF obligatorio. GET no recupera cuerpos/motivos guardados. La ficha conserva sus advertencias de simulación y alcance parcial.
+
+| operation | Entrada específica | Resultado |
+| --- | --- | --- |
+| inspect_page | purpose10–200, section, page≥1, cursor para continuación | Lote≤10 entradas, read_id, page_version y formulario de revisión; auditoría antes de respuesta |
+| save_page | read_id≥1, page_version≥0, reason10–2000, entries JSON list | Decisión cifrada e inmutable versionada; respuesta solo metadatos, no aprobación global |
+| inspect_saved_page | review_id≥1, purpose10–200 | Contenido de decisión después de acceso auditado y revalidación de firma/fuente/prueba; GET posterior limpio |
+| compile_pages | reason10–2000 | Exige última decisión vigente de todas las páginas/secciones, incluidas vacías; crea vista previa y formulario de generación existente |
+| generate_pages | reason10–2000; no cuerpo de copia necesario | Compila y genera en servidor;302 a consulta privada; reintento exacto devuelve misma exportación vigente |
+
+Todas incluyen key UUID y version del expediente. Secciones: profile, subject_account, revisions, legal_acceptances, favorites, verifications y representation_history. Redacciones siguen reviewed_copy: alias y textos autorizados revisables; identidad solo original/vacía; metadatos y relaciones inmutables; imágenes requieren decisión y auditoría de contenido cuando se incluyen.
+
+Formularios inválidos400, conflicto/fuente/prueba/versión/decisión indisponible409, permiso/independencia inválidos403. Nunca usar el control oculto de versión, referencia o cursor como autorización. save_page incrementa solo versión de decisión; generate_pages consume la prueba según exportación existente e incrementa versión del expediente, manteniéndolo abierto.
+
+RightsCopyPageReview se liga a expediente, actor, prueba, lectura y acción de guardado; contenido cifrado caduca≤24h/prueba. Purga conserva metadatos; no acredita borrado de backups. Inventarios seleccionados detectan cambios del ciphertext sin descifrar; el de cuenta excluye su propio procedimiento.
+
+La compilación y generación directa siguen materializando la fuente y resultado completos en memoria. Sus verificaciones se documentan en docs69/70; aceptación conjunta actual en curso. No constituye cumplimiento integral de acceso/portabilidad ni resolución final de CR-09.

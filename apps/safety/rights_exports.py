@@ -436,6 +436,8 @@ class ExportForm(forms.Form):
             ("preview", "Consultar copia (auditoría) / Preview copy (audited)"),
             ("inspect_page", "Consultar sección por páginas / Inspect section pages"),
             ("inspect_saved_page", "Consultar decisiones guardadas / Inspect saved decisions"),
+            ("compile_pages", "Compilar páginas revisadas / Compile reviewed pages"),
+            ("generate_pages", "Generar desde páginas revisadas / Generate from reviewed pages"),
             ("generate", "Crear copia revisada / Create reviewed copy"),
         ]
     )
@@ -551,6 +553,28 @@ def prepare(request, case_id):
                     }
                 )
                 status = 200
+            elif values["operation"] == "generate_pages":
+                from .rights_copy_page_review import generate_pages
+
+                generate_pages(
+                    request.user, case_id, values["version"], values["key"], values["reason"]
+                )
+                return private(redirect("rights_inspect", case_id=case.pk))
+            elif values["operation"] == "compile_pages":
+                from .rights_copy_page_review import compile_pages
+
+                source = compile_pages(
+                    request.user, case_id, values["version"], values["key"], values["reason"]
+                )
+                status = 200
+                form = ExportForm(
+                    initial={
+                        "key": uuid.uuid4(),
+                        "version": case.version,
+                        "operation": "generate",
+                        "copy": source,
+                    }
+                )
             elif values["operation"] == "preview":
                 source = preview(request.user, case_id, values["version"], values["purpose"])
                 status = 200
