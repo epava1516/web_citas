@@ -967,3 +967,30 @@ Diseño inventario por finalidad de cuenta documentado docs53 con fuentes reales
 
 
 41927 terminal1:1f/15p134,21s por preparación sin review_rectification en negativo de destinatarios. Corregida preparación;95107 terminal0:1p22,31s, cinco consumidores exclusivos de Person deniegan cuenta comprobada sin side effects. Sin cambio funcional entre estas baterías.38 anteriores420,96s no cubrían estas guardas; no sumar como suite54. Build8757/recreate78192 terminal0; runtime/check/migraciones/18 hashes/UID10001/health200 en verificación39320. Documentados contratos y docs51/53; cuenta propia todavía sin copia/inventario/limitación/supresión/conservación integral/móvil/carreras, CR09/contrato enteros abiertos.
+
+
+Entrega98c66a6555ce5433849e7dbcb17838314053a689 commit/push confirmados, autor Eduardo David Paredes Vara <Paredes1516@hotmail.es>. CI37251194236 queued; dafb67c/37249296120 sigue in_progress (SHA dafb67cb14a0e809faf7f47d0a0d180c752e9311). Recuperar mismos IDs, no reiniciar ni declarar aceptación CI. Sin pytest activo. Se restauraron nueve cambios incidentales de formato en migraciones0044–0052 con AST comprobado idéntico al HEAD, sin alterar semántica ni funciones verificadas. Próximo implementar copia/inventario y otros derechos de cuenta sin perfil, carreras/móvil propios; resto CR09→CR10→GS01→BF/BB→C íntegro pendiente. Claude3/3, sin delegación.
+
+
+Copia de cuenta sin Person iniciada docs54: fuente explícita User/aceptaciones/favoritos sin secretos/relaciones de modelos, snapshot RightsExport con account_subject/constraint0063, redacción/replay y descarga ligada a estado User/canal/version/prueba.79996 terminal0:10p79,74s PostgreSQL,4 propias y copia/perfil/negativos previos. Amplificación19241 activa13 casos /tmp/account-only-copy-retention.xml HTTP/imágenes ajenas/favoritos/purga/retención anteriores; fuente congelada. Docker sigue0062, inventario integral/otros derechos/móvil/concurrencia/worker snapshot propios pendientes. CI37249296120/dafb67c completed success confirmado, log/evidencia final aún pendiente; CI37251194236/98c66a6 activa según última consulta.
+
+
+19241 terminal1:4f/9p94,79s, preview HTTP válido conservaba400 pese a fuente entregada. Corregida rights_exports.prepare status200 después de preview correcto; repetición47178 activa13 casos /tmp/account-only-copy-retention-final.xml, fuente congelada. CI37249296120/dafb67c success569p1942,30s normalizada, anterior a cambios de cuenta. Docker sigue0062 y copia0063/guardas actuales de copia aún no runtime. No aceptar copia/CR09 ni contrato.
+
+
+Copia propia47178 terminal0:13p89,19s después de corregir previewHTTP400→200, incluye fuente/CSRF/imágenes ajenas/favoritos/retención previas. Carreras56120 terminal0:3p34,94s PG bloqueoUser observado, deniega preview/generate/download con MFA/favoritos cambiados sin efectos. Probe45794 terminal0 worker1/replay0 y Beat automático2caducados/2vigentes, auditoría/cuenta intactas, identitypending/backendsdisabled; cleanup confirmado docs54/evidencia. Docker0063 aplicada,build23023/recreate56577/check/migraciones/UID10001/health200/hashes verificados. UI distingue copia propia yperfil; móvil45717 activoESEN, fuente congelada; reconstrucción final de plantillas y regresión común/exportación integral/demás derechos siguen pendientes.
+
+
+Corrección de anotación móvil anterior:45717 terminal1:2f35,46s; JSONField sin fuente mostraba literalnull. ExportForm usa ReviewedCopyField que representa None vacío, conserva limpieza JSON.66710 activo2ESEN /tmp/account-copy-mobile-final.xml, fuente congelada. Runtime última forma/plantillas pendiente de reconstrucción, resto copia integral/otros derechos y contrato sigue abierto.
+
+
+66710 terminal0:2p39,77s móvilesESEN cuenta propia, login/MFA→previewauditado→generate→reload→acuseanónimo→descarga→reload, JSON cuenta parcial/correopropio/ningúnperfil/nooverflow. Check/migraciones/ruff/diff limpios. Sin pytest activo hasta iniciar regresión conjunta final de copia/formulario/plantillas; runtime final aún pendiente. Inventario integral/limitación/oposición/supresión/conservación/respuestas y resto CR09→CR10→GS01→BF/BB→C permanecen pendientes.
+
+
+Regresión58410 confirmada viva27 pruebas /tmp/account-copy-common.xml, copia propia/móvil/carreras y exportación/copia/retención/imágenes de perfiles previas sobre formulario/plantillas actuales. Fuente congelada hasta terminal; no reiniciar por espera. Build2856 final de app/worker/Beat en curso, recreación/runtime final después. Claude3/3 y contrato completo abierto.
+
+
+Runtime final de copia verificado tras recreate47037: check/migrate--check limpios, safety0063, UID10001/health200, hashes exports/account_copy/models/plantillas/probe iguales host/app/worker/Beat. Evidencia copia-cuenta-runtime.json. Ruff/checkformato9archivos/diff limpios. Regresión58410 terminal0:27 correctas196,99s sin fallos/errores/omisiones, evidencia copia-cuenta-regresion.json; fuente descongelada tras terminal. Siguiente inventario/planes/ejecución por finalidad de cuenta sin Person con conservación de ámbito/historia; no transferir propiedad de agencia ni borrar modelos por cascada.
+
+
+Entrega de copia propia preparada:27 conjuntas196,99s final y runtime/workerBeat verificados por separado con alcance explícito. Partial=true conserva huecos de inventario/información adicional/otros registros, no resuelve acceso/portabilidad integral ni CR09. Sin pytest activo; continuar inventario/planes/supresión/limitación/oposición/respuesta final y resto contrato.

@@ -43,7 +43,11 @@ def canonical(value):
 
 
 @sensitive_variables()
-def source_copy(person, listing):
+def source_copy(person, listing, case=None):
+    if case and case.account_subject_id:
+        from .rights_account_copy import source
+
+        return source(case)
     # Same account lock as preference writers; held through snapshot generation.
     if person.subject_id:
         User.objects.select_for_update(no_key=True).get(pk=person.subject_id)
@@ -119,10 +123,11 @@ def reviewed_copy(source, value):
         raise ValidationError("Copy schema changed / Esquema de copia cambiado")
     expected = json.loads(canonical(source))
     try:
-        alias = value["profile"]["alias"]
-        if not isinstance(alias, str) or len(alias) > 80:
-            raise ValueError
-        expected["profile"]["alias"] = alias
+        if expected["profile"] is not None:
+            alias = value["profile"]["alias"]
+            if not isinstance(alias, str) or len(alias) > 80:
+                raise ValueError
+            expected["profile"]["alias"] = alias
         if expected["subject_account"] is not None:
             for field, maximum in [
                 ("username", 150),
@@ -187,8 +192,6 @@ def reviewer_case(user, case_id):
 
 
 def can_prepare(user, case, person):
-    if not person or case.account_subject_id:
-        raise ValidationError("Profile scope required / Ámbito de perfil obligatorio")
     if not user.has_perm("safety.execute_rights_request"):
         raise PermissionDenied
     if (
@@ -211,7 +214,7 @@ def preview(user, case_id, version, purpose):
             "Request changed or purpose required / Solicitud cambiada o motivo obligatorio"
         )
     can_prepare(user, case, person)
-    source = source_copy(person, listing)
+    source = source_copy(person, listing, case)
     RightsExportPreview.objects.create(
         request=case,
         actor=user,
@@ -244,7 +247,7 @@ def generate(user, case_id, key, version, reason, copy):
             "Request changed or reason required / Solicitud cambiada o motivo obligatorio"
         )
     proof = can_prepare(user, case, person)
-    source = source_copy(person, listing)
+    source = source_copy(person, listing, case)
     if not RightsExportPreview.objects.filter(
         request=case,
         actor=user,
@@ -304,9 +307,12 @@ def generate(user, case_id, key, version, reason, copy):
                 action=action,
                 proof=proof,
                 person=person,
+                account_subject_id=case.account_subject_id,
                 case_version=case.version + 1,
-                manager_version=person.manager_version,
-                subject_snapshot=str(person.subject_id or ""),
+                manager_version=person.manager_version if person else None,
+                subject_snapshot=str(person.subject_id or "")
+                if person
+                else str(case.account_subject_id),
                 channel_digest=case.receipt_digest,
                 encrypted_payload="",
                 expires_at=min(proof.expires_at, timezone.now() + timedelta(hours=24)),
@@ -321,7 +327,8 @@ def generate(user, case_id, key, version, reason, copy):
                 for revision in cleaned["revisions"]
                 for image in revision["images"]
             ):
-                cleaned["pending_review"].remove("image_content")
+                if "image_content" in cleaned["pending_review"]:
+                    cleaned["pending_review"].remove("image_content")
             from .rights_copy_parts import packages
 
             cleaned["parts"] = []
@@ -354,6 +361,11 @@ def generate(user, case_id, key, version, reason, copy):
     return export
 
 
+class ReviewedCopyField(forms.JSONField):
+    def prepare_value(self, value):
+        return "" if value is None else super().prepare_value(value)
+
+
 class ExportForm(forms.Form):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
@@ -373,7 +385,7 @@ class ExportForm(forms.Form):
         widget=forms.Textarea,
         label="Motivo privado de entrega / Private release reason",
     )
-    copy = forms.JSONField(
+    copy = ReviewedCopyField(
         required=False,
         widget=forms.Textarea,
         label="Copia revisada; redacta datos ajenos / Reviewed copy; redact other people's data",
@@ -400,6 +412,7 @@ def prepare(request, case_id):
         try:
             if values["operation"] == "preview":
                 source = preview(request.user, case_id, values["version"], values["purpose"])
+                status = 200
                 form = ExportForm(
                     initial={
                         "key": uuid.uuid4(),
@@ -465,27 +478,37 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
             .first()
         )
         now = timezone.now()
+        scope_matches = False
+        if export:
+            if case.account_subject_id:
+                from .rights_account_copy import scope_matches as account_scope_matches
+
+                scope_matches = account_scope_matches(case, export)
+            else:
+                scope_matches = bool(
+                    person
+                    and not export.account_subject_id
+                    and not export.proof.account_subject_id
+                    and case.person_id == export.person_id == export.proof.person_id
+                    and person.manager_version == export.manager_version == case.manager_version
+                    and export.subject_snapshot == str(person.subject_id or "")
+                    and export.proof.person_rights_version == person.rights_version
+                    and export.proof.manager_version == export.manager_version
+                )
         if (
             not export
-            or not person
+            or not scope_matches
             or export.expires_at <= now
             or export.purged_at is not None
             or not export.encrypted_payload
             or case.version != export.case_version
             or case.status != "reviewing"
-            or case.person_id != export.person_id
-            or person.manager_version != export.manager_version
-            or export.subject_snapshot != str(person.subject_id or "")
             or export.channel_digest != case.receipt_digest
             or export.proof.provider != "simulator"
             or export.proof.procedure != PROCEDURE
             or export.proof.status != "passed"
             or case.kind not in {"access", "portability"}
             or export.proof.scope != case.kind
-            or export.proof.person_id != export.person_id
-            or export.proof.person_rights_version != person.rights_version
-            or export.proof.manager_version != export.manager_version
-            or case.manager_version != export.manager_version
             or export.proof.subject_id_snapshot != export.subject_snapshot
             or export.proof.channel_digest != export.channel_digest
             or export.proof.expires_at <= now
@@ -544,7 +567,11 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
             json.dumps(unseal(export.encrypted_payload), ensure_ascii=False, indent=2),
             content_type="application/json; charset=utf-8",
         )
-        response["Content-Disposition"] = 'attachment; filename="rights-profile.json"'
+        response["Content-Disposition"] = (
+            'attachment; filename="rights-account.json"'
+            if case.account_subject_id
+            else 'attachment; filename="rights-profile.json"'
+        )
         return private(response)
 
 

@@ -553,15 +553,25 @@ class RightsExport(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
     proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
-    person = models.ForeignKey("core.Person", on_delete=models.PROTECT)
+    person = models.ForeignKey("core.Person", null=True, on_delete=models.PROTECT)
+    account_subject = models.ForeignKey("core.User", null=True, on_delete=models.PROTECT)
     case_version = models.PositiveIntegerField()
-    manager_version = models.PositiveIntegerField()
+    manager_version = models.PositiveIntegerField(null=True)
     subject_snapshot = models.CharField(max_length=64, blank=True)
     channel_digest = models.CharField(max_length=64)
     encrypted_payload = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField()
     purged_at = models.DateTimeField(null=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=(models.Q(person__isnull=False) & models.Q(account_subject__isnull=True))
+                | (models.Q(person__isnull=True) & models.Q(account_subject__isnull=False)),
+                name="rights_export_exactly_one_scope",
+            ),
+        ]
 
 
 class RightsImageAccess(models.Model):

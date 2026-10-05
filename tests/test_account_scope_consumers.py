@@ -14,7 +14,6 @@ from apps.safety.models import RightsAction
 from apps.safety.privacy_holds import hold
 from apps.safety.rectification_recipients import prepare as recipients
 from apps.safety.rectification_uploads import discard
-from apps.safety.rights_exports import preview as profile_copy
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
@@ -30,7 +29,6 @@ def test_profile_consumers_reject_checked_account_without_side_effects(request, 
         lambda: erasure_inventory(actor, case.pk, uuid4(), case.version, reason),
         lambda: recipients(actor, case.pk, uuid4(), uuid4(), case.version, reason),
         lambda: discard(actor, case.pk, uuid4(), case.version, uuid4(), reason),
-        lambda: profile_copy(actor, case.pk, case.version, reason),
     ]
     for operation in operations:
         with pytest.raises(ValidationError, match="Profile scope required"):
