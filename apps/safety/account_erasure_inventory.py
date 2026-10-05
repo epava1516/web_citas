@@ -268,6 +268,199 @@ def source(case):
             ),
         ]
     )
+
+    # Procedure artifacts cannot invalidate their own preparation. Actual measures
+    # remain visible, and other procedures retain their opaque integrity metadata.
+    def scoped(prefix=""):
+        return Q(**{prefix + "account_subject": user}) | Q(**{prefix + "person__subject": user})
+
+    processing = scoped() & ~Q(action__request=case)
+    processing_child = scoped("plan__") & ~Q(plan__action__request=case)
+    restriction_child = Q(restriction__subject=user)
+    exception = Q(subject=user) & ~Q(action__request=case)
+    exception_child = Q(proposal__subject=user) & ~Q(proposal__action__request=case)
+    retention = scoped("plan__inventory__") & ~Q(plan__action__request=case)
+    retention_child = scoped("review__plan__inventory__") & ~Q(review__plan__action__request=case)
+    specs.extend(
+        [
+            (
+                "safety.ProcessingPurposePlan",
+                processing,
+                "dependent_evidence",
+                ["pk", "action_id", "proof_id", "source_digest", "encrypted_plan", "created_at"],
+            ),
+            (
+                "safety.ProcessingPlanRead",
+                processing_child,
+                "dependent_evidence",
+                [
+                    "pk",
+                    "plan_id",
+                    "action_id",
+                    "proof_id",
+                    "plan_digest",
+                    "source_digest",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.ProcessingPlanReview",
+                processing_child,
+                "dependent_evidence",
+                [
+                    "pk",
+                    "plan_id",
+                    "action_id",
+                    "proof_id",
+                    "plan_digest",
+                    "source_digest",
+                    "outcome",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.ProcessingExecution",
+                scoped() & ~Q(action__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "review_id",
+                    "proof_id",
+                    "source_digest",
+                    "encrypted_result",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.PurposeRestriction",
+                Q(subject=user),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "execution_id",
+                    "purpose",
+                    "mode",
+                    "version",
+                    "active",
+                    "initial_review_on",
+                    "review_on",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.PurposeRestrictionRead",
+                restriction_child,
+                "dependent_evidence",
+                ["pk", "restriction_id", "action_id", "proof_id", "source_digest", "created_at"],
+            ),
+            (
+                "safety.PurposeReleaseProposal",
+                restriction_child,
+                "dependent_evidence",
+                [
+                    "pk",
+                    "restriction_id",
+                    "action_id",
+                    "proof_id",
+                    "source_digest",
+                    "response_id",
+                    "ground",
+                    "resume_message_id",
+                    "released_action_id",
+                    "released_proof_id",
+                    "released_at",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.PurposeCalendarEvent",
+                restriction_child,
+                "dependent_evidence",
+                [
+                    "pk",
+                    "restriction_id",
+                    "action_id",
+                    "expected_version",
+                    "encrypted_snapshot",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.PurposeExceptionProposal",
+                exception,
+                "dependent_evidence",
+                [
+                    "pk",
+                    "subject_id",
+                    "plan_id",
+                    "action_id",
+                    "proof_id",
+                    "source_digest",
+                    "encrypted_scope",
+                    "expires_at",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.PurposeExceptionRead",
+                exception_child,
+                "dependent_evidence",
+                ["pk", "proposal_id", "action_id", "proof_id", "source_digest", "created_at"],
+            ),
+            (
+                "safety.PurposeExceptionReview",
+                exception_child,
+                "dependent_evidence",
+                [
+                    "pk",
+                    "proposal_id",
+                    "action_id",
+                    "proof_id",
+                    "source_digest",
+                    "outcome",
+                    "consumed_action_id",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RetentionReview",
+                retention,
+                "dependent_evidence",
+                [
+                    "pk",
+                    "plan_id",
+                    "purpose",
+                    "operation",
+                    "initial_review_on",
+                    "next_review_on",
+                    "responsible_id",
+                    "version",
+                    "last_reviewed_at",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RetentionReviewEvent",
+                retention_child,
+                "dependent_evidence",
+                [
+                    "pk",
+                    "review_id",
+                    "actor_id",
+                    "expected_version",
+                    "case_version",
+                    "operation",
+                    "plan_digest",
+                    "payload_digest",
+                    "encrypted_reason",
+                    "encrypted_result",
+                    "next_review_on",
+                    "created_at",
+                ],
+            ),
+        ]
+    )
     entries = []
     for label, scope, purpose, fields in specs:
         rows = list(apps.get_model(label).objects.filter(scope).order_by("pk").values(*fields))

@@ -29,7 +29,8 @@ def test_dependency_change_invalidates_plan_without_reading_body_or_circular_art
     manifest = unseal(snapshot.encrypted_manifest)
     rows = {row["model"]: row for row in manifest["entries"]}
     assert manifest["schema"] == "account-erasure-inventory-v2"
-    assert rows["safety.RightsAccess"]["count"] > 0
+    # Reading the same erasure procedure must not invalidate its own plan.
+    assert rows["safety.RightsAccess"]["count"] == 0
     assert rows["safety.RightsProofEvent"]["count"] == 1
     assert (
         rows["safety.ErasureInventory"]["count"]
