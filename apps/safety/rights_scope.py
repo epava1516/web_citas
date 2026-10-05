@@ -40,7 +40,13 @@ def permitted(user, case):
     return True
 
 
-def locked_case(case_id, link_listing_id=None, lock_listing=False, allow_version_change=False):
+def locked_case(
+    case_id,
+    link_listing_id=None,
+    lock_listing=False,
+    allow_version_change=False,
+    link_person_id=None,
+):
     if not connection.in_atomic_block:
         raise RuntimeError("Rights locks require an enclosing transaction")
     initial = RightsRequest.objects.select_related(
@@ -48,6 +54,13 @@ def locked_case(case_id, link_listing_id=None, lock_listing=False, allow_version
     ).get(pk=case_id)
     candidate = None
     person = initial.person
+    if link_person_id:
+        if link_listing_id:
+            raise ValidationError("Select one reference / Selecciona una referencia")
+        selected = Person.objects.filter(pk=link_person_id).first()
+        if not selected or (person and person.pk != selected.pk):
+            raise ValidationError("Profile unavailable / Perfil no disponible")
+        person = selected
     if link_listing_id:
         candidate = (
             Listing.objects.select_related("person", "approved_revision__publisher_acceptance")
@@ -93,6 +106,8 @@ def locked_case(case_id, link_listing_id=None, lock_listing=False, allow_version
             person.manager_version != previous_version and not allow_version_change
         ):
             raise ValidationError("Management changed; reload / Gestor cambiado; recarga")
+    if link_person_id and Listing.objects.filter(person=person).exists():
+        raise ValidationError("Use the listing reference / Usa la referencia del anuncio")
     if candidate:
         candidate = Listing.objects.select_for_update().get(pk=candidate.pk)
     elif lock_listing and person:

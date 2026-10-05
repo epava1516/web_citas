@@ -401,6 +401,10 @@ class ActionForm(forms.Form):
     link_listing_id = forms.UUIDField(
         required=False, label="ID del anuncio de referencia / Referenced listing ID"
     )
+    link_person_id = forms.UUIDField(
+        required=False,
+        label="ID de perfil sin anuncio / Profile ID without listing",
+    )
     operation = forms.ChoiceField(
         choices=[
             ("claim", "Asignarme la solicitud / Assign request to me"),

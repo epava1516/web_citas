@@ -580,3 +580,10 @@ active_withdrawals identifica la última decisión explícita de cada Blob para 
 RightsPhotoReintroduction vincula Photo, uploaded_blob protegido, disposición, método sha256/regional, score y fecha; unicidad foto/disposición y métodos restringidos (safety0056). Detector adquiere agencia/persona y Blob ordenados, recarga Photo y excluye historial/preparación/retirada/gestor obsoleto/archivo no ready. Solo compara disposiciones retiradas activas de la misma persona. Recuperación visual usa firmas sin abrir bytes históricos; no acredita igualdad.
 
 Integrado antes de completar comparación en procesamiento ordinario. No crea Match ni publica datos del expediente. Inventario incorpora registros como dependent_evidence. No habilita revisión ni rehabilitación y todavía no bloquea publicación por estos registros: implementación de esas operaciones pendiente en docs48. [Evidencia](../evidencias/candidatos-recarga-fotos.json).
+
+
+## Referencia de derechos a persona sin anuncio
+
+Ruta privada de acciones GET/POST `/[es|en]/moderation/rights/<case_id>/action/` conserva autorización/MFA, consulta auditada vigente, responsable asignado, versión, clave y motivo privado. `link_person_id` UUID opcional solo para `operation=link`, persona existente sin anuncio; alternativa a `link_listing_id`, nunca ambos. Persona con anuncio exige referencia de anuncio para conservar historia editorial. POST vuelve a comprobar ausencia de anuncio y manager_version bajo locks Agency→Person→RightsRequest.
+
+Vinculación estampa sujeto/gestor/version y deja ámbito unverified, sin prueba de identidad ni publicación. COI y permiso deniegan403; ambas referencias, persona inexistente, anuncio surgido durante espera, cambio de gestión, versión obsoleta o lectura ausente deniegan409; formato/formulario inválido400; CSRF403. Éxito302 y replay idéntico no crea otra acción. Campo nuevo incluido en digest cuando se utiliza; firmas antiguas sin campo conservadas. No modifica acuse público ni crea cuentas/perfiles. [Contrato y evidencias](../50-vinculacion-perfil-sin-anuncio.md); no acredita identidad/proveedor reales ni derechos de cuenta sin perfil.

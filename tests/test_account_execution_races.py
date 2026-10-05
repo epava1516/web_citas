@@ -27,14 +27,27 @@ from apps.safety.rights_rectification import preview
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def execution_ready(request, settings, monkeypatch, *, email=False, mixed=False):
+def execution_ready(
+    request,
+    settings,
+    monkeypatch,
+    *,
+    email=False,
+    mixed=False,
+    subject_username="fixture-v1-model-a",
+):
     changes = {"account": {"first_name": "Concurrent synthetic correction"}}
     if email:
         changes["account"]["email"] = "concurrent-destination@example.invalid"
     if mixed:
         changes["title"] = "Corrected listing with confirmed account destination"
     case, actor, staff, person, proposal, path, data, client, receipt = prepared(
-        request, settings, monkeypatch, with_receipt=True, changes=changes
+        request,
+        settings,
+        monkeypatch,
+        with_receipt=True,
+        changes=changes,
+        subject_username=subject_username,
     )
     actor.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
     actor = User.objects.get(pk=actor.pk)

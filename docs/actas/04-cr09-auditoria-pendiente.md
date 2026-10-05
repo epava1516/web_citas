@@ -290,3 +290,6 @@ Consulta auditada, decisión independiente versionada/cifrada, UI móvil ES/EN y
 
 
 Rectificación de cuenta parcial (docs49): fuente/propuesta auditadas, confirmación de buzón explícitamente simulada, comunicación/recepción y ejecución con invalidación de sesiones/tokens, nombres solos y cambios mixtos, carreras PG de confirmación/ejecución/unicidad y limpieza.30 pruebas afectadas correctas350,14s después de reproducir/corregir prueba de ámbito obsoleta durante espera. Docker0058 y transporte worker/Beat0 verificados; no ejecución externa ni purga no vacía por worker. Vinculación de personas sin anuncio y pantallas integrales/copia/retención/comunicación final siguen pendientes, junto con resto matriz. No aceptar CR09 por esta entrega.
+
+
+Vínculo de derechos a persona sin anuncio (docs50): SSR link_person_id sin crear perfil ni conceder identidad; obliga anuncio cuando existe, COI y lectura/version/replay bajo locks. Nombres solos ejecutados para particular/agencia sin anuncio mediante aprobación/comunicación/recepción/prueba fresca. Carreras gestor/anuncio durante espera deniegan sin acción.45 conjuntas correctas431,58s PG/Chromium,2 móviles ESEN correctas33,86s por separado; Docker/hash/check/UID10001/health200 verificados. Cuenta sin ningún perfil y demás copia/retención/comunicaciones/cierre siguen pendientes; no aceptación CR09 ni producción.

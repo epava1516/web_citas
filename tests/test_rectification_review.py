@@ -175,7 +175,7 @@ def independent_case(
         )
     )
     original = User.objects.get(pk=original.pk)
-    if changes:
+    if changes and hasattr(person, "listing"):
         source = person.listing.approved_revision
         assert source is not None and source.municipality_id
         # Include a synthetic travel area before proposal, so every relation copy is exercised.

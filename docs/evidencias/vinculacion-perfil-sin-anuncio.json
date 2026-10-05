@@ -1,0 +1,69 @@
+{
+  "status": "Vínculo de perfil sin anuncio verificado localmente en alcance declarado",
+  "linking_tests": {
+    "tests": "15",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "time": "102.266"
+  },
+  "xml": "/tmp/rights-person-linking.xml",
+  "identity_provider": "simulado, vinculación no acredita identidad",
+  "pending": [
+    "CI del commit final",
+    "resto del recorrido de rectificación de cuenta móvil integral",
+    "cuentas sin ningún perfil",
+    "CR09 y contrato completo"
+  ],
+  "complete_races_tests": {
+    "xml": "/tmp/rights-person-linking-complete-races.xml",
+    "result": {
+      "tests": "6",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "49.388"
+    },
+    "scope": "Rectificación de nombres sin anuncio para particular/agencia, recepción y prueba fresca; revalida manager_version y aparición de anuncio tras espera Person realmente observada"
+  },
+  "runtime": {
+    "build_session": 85920,
+    "recreate_session": 12447,
+    "status": "terminal0",
+    "schema": "sin migración nueva; migrate--check limpio sobre safety0058",
+    "check": "sin problemas",
+    "uid": 10001,
+    "health": 200,
+    "sha256": {
+      "rights_scope.py": "d3171557515e78cd64fa043db0ec27be9a2cc66f4b81fdb9ffef5d96cafb6563",
+      "rights_actions.py": "3f40d386ce5161229555e55230653be677341af8f4d0724511c92925401a48ae",
+      "rights.py": "b2cc537effe3ccdaa47161744722ace6ae24b461baf574e14a4c64bcba5e2351"
+    },
+    "hash_scope": "host/app/worker/Beat iguales",
+    "limitation": "No sustituye recorrido móvil ni regresión común final"
+  },
+  "current_tests": {
+    "session": 32502,
+    "xml": "/tmp/rights-person-linking-common.xml",
+    "status": "terminal0",
+    "selected": 45,
+    "result": {
+      "tests": "45",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "431.460"
+    }
+  },
+  "mobile_tests": {
+    "xml": "/tmp/rights-person-linking-mobile.xml",
+    "result": {
+      "tests": "2",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "33.745"
+    },
+    "scope": "Chromium390x844 ESEN login+TOTP→link_person SSR→resultado observable→reload/persistencia/sin overflow"
+  }
+}

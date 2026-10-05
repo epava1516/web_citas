@@ -19,13 +19,22 @@ from apps.safety.rights_rectification import preview
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def prepared(request, settings, monkeypatch, *, with_receipt=False, changes=None):
+def prepared(
+    request,
+    settings,
+    monkeypatch,
+    *,
+    with_receipt=False,
+    changes=None,
+    subject_username="fixture-v1-model-a",
+):
     settings.ACCOUNT_CORRECTION_DELIVERY_BACKEND = "simulator"
     result = independent_case(
         request,
         settings,
         monkeypatch,
         with_receipt=with_receipt,
+        subject_username=subject_username,
         changes=changes
         or {
             "account": {

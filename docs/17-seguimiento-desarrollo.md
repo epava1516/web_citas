@@ -874,3 +874,30 @@ Docker cuenta: build83711/migrate61400/recreate31532 terminal0; safety0058 aplic
 
 
 Batería97343 terminal0:30 correctas350,14s PostgreSQL/Chromium, cero fallos/errores/omisiones. Incluye corrección de revalidación authorized_proof tras espera real User; deniega ejecución sin mutar si prueba original se revoca durante espera. Cuenta/destino/carreras/mixto/limpieza y rectificación anteriores pasan conjuntamente. Runtime0058/check/UID10001/health200/hashes y transporte worker/Beat resultado0 verificados por separado. Falta cuenta sin anuncio accesible desde vínculo de ámbito, interfaz integral ESEN, purga no vacía worker, inventarios/exportación/retención final y CI común. No aceptación CR09/contrato/producción; no pytest activo. Claude3/3, sin delegación adicional.
+
+
+Entrega6972785f8ab4622bd1c70a625609bf2c32a9d386 commit/push confirmados, autor Eduardo David Paredes Vara <Paredes1516@hotmail.es>. CI37246617009 in_progress confirmada; recuperar mismo ID hasta terminal, no reiniciar ni declarar éxito. No pytest activo. Continuación: vinculación de ámbito de persona sin anuncio y pantallas integrales ESEN, purga con contenido por worker, inventarios/exportación/retención/comunicación/cierre y resto CR09→CR10→GS01→BF/BB→C. Backend de destino disabled en runtime; nada publicado/contratado.
+
+
+Vinculación de persona sin anuncio iniciada (docs50): link_person_id en SSR y acción, ámbito bloqueado/COI/version/consulta auditada, identidad sigue unverified. Rechaza ambos tipos de referencia y exige anuncio cuando existe para no eludir historia editorial. Sin migración; runtime aún commit6972785. Batería39353 /tmp/rights-person-linking.xml en curso: nuevas2 y vínculo/asignación anteriores. Fuente congelada. CI6972785 run37246617009 confirmada in_progress, no reiniciar. Recorrido completo sin anuncio/concurrencia/móvil y demás contrato pendientes.
+
+
+39353 terminal0:15 correctas102,35s PostgreSQL/Chromium, cero fallos/errores/omisiones. Nuevo vínculo sin anuncio/CSRF/replay/ámbito unverified/COI y vínculos/asignación anteriores pasan juntos; check/migraciones/diff limpios. Extendida preparación de pruebas para sujeto sin anuncio y recorrido aprobado/comunicado/recibido/ejecutado, batería /tmp/rights-person-linking-execution.xml en curso; fuente congelada. No aceptar ejecución hasta terminal.
+
+
+10471 terminal1:2 correctas/1 fallida32,94s; preparación independent_case asumía revisión aprobada al añadir área sintética incluso en corrección solo de cuenta sin anuncio. Corregida preparación para no exigir relación editorial inexistente, sin cambio de aplicación. Ampliadas variantes particular/agencia sin anuncio y carreras PG por cambio manager_version o creación de Listing mientras link espera Person. Batería /tmp/rights-person-linking-complete-races.xml en curso6 casos, fuente congelada; no aceptar recorrido completo hasta terminal.
+
+
+53918 terminal0:6 correctas49,49s PostgreSQL, sin errores/fallos/omisiones. Vínculo sin anuncio y rectificación de nombres particular/agencia aprobada/comunicada/recibida con comprobación fresca aplica sin crear anuncio ni revisión; conserva correo y session_version. Cambio manager_version o creación de Listing durante espera Person observada deniega vínculo sin acción/versión cambiadas. Identidad sigue simulada. Cuenta sin ningún perfil, SSR móvil ESEN, runtime/CI y resto CR09/contrato pendientes.
+
+
+Batería conjunta32502 activa, XML /tmp/rights-person-linking-common.xml: vínculo/asignación/cuenta/destino/carreras/revisión de rectificación. Fuente congelada hasta terminal; recuperar mismo handle sin reinicio. Runtime aún6972785, cambios de vínculo sin anuncio no desplegados en Docker ni commit; CI6972785 run37246617009 sigue in_progress confirmada. Claude3/3, objetivo completo abierto.
+
+
+Docker vínculo sin anuncio: build85920/recreate12447 terminal0. Check limpio, migrate--check sin pendientes/sin migración nueva, UID10001 y Caddy health200. Hashes rights_scope/rights_actions/rights iguales host/app/worker/Beat; evidencia normalizada. Ruff/diff limpios. Batería conjunta32502 sigue activa, fuente congelada; no commit ni aceptación común antes de terminal. CI6972785 run37246617009 in_progress confirmada, anterior a estos cambios. SSR móvil ESEN y demás CR09/contrato siguen pendientes.
+
+
+32502 terminal0:45 correctas431,58s PostgreSQL/Chromium, cero fallos/errores/omisiones. Vínculos/asignación/cuenta/destino/carreras/revisión pasan conjuntamente sobre cambios actuales; runtime/hash ya comprobados. Añadidas pruebas móviles Chromium ESEN login+MFA→vínculo SSR de perfil sin anuncio→resultado visible→reload y persistencia, XML /tmp/rights-person-linking-mobile.xml en curso. Solo ampliación de pruebas, fuente funcional sin cambios. No sumar baterías ni aceptar móvil antes de terminal.
+
+
+87211 terminal0:2 móviles correctas33,86s (6 excluidas), Chromium390x844 ESEN. Login/MFA reales→vínculo de persona sin anuncio por formulario SSR→resultado observado→reload/persistencia; sin overflow, una acción, sin revisión referenciada y ámbito unverified. No sumar a45 conjuntas como suite47; no altera fuente funcional ya comprobada en Docker. Sin pytest activo. Permanece pendiente recorrido integral de cuenta móvil, derechos de cuenta sin ningún perfil y resto CR09/contrato; CI6972785 aún in_progress.
