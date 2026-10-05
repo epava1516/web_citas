@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Select portable images{% else %}Seleccionar imágenes para portabilidad{% endif %}</h1>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></p>
+<p>{% if english %}Inspect an image and assess its eligibility. Saving creates a new draft and preserves other fields and images. Independent review is required before delivery.{% else %}Consulta una imagen y evalúa su elegibilidad. Guardar crea un nuevo borrador y conserva los otros campos e imágenes. La entrega requiere revisión independiente.{% endif %}</p>
+{% for error in errors %}<p role="alert">{{ error }}</p>{% endfor %}
+{% if saved %}<p role="status">{% if english %}Image selection saved{% else %}Selección de imagen guardada{% endif %}: {{ saved.version }}</p>{% endif %}
+<form method="post">{% csrf_token %}{{ catalog_form.as_p }}<button type="submit">{% if english %}Inspect image page{% else %}Consultar página de imagen{% endif %}</button></form>
+{% if image_data %}<img src="{{ image_data }}" alt="{% if english %}Selected image for private review{% else %}Imagen seleccionada para revisión privada{% endif %}" width="300">{% endif %}
+{% if save_form %}<form method="post">{% csrf_token %}{{ save_form.as_p }}{% if facts_form %}<fieldset><legend>{% if english %}Image eligibility{% else %}Elegibilidad de la imagen{% endif %}</legend>{{ facts_form.as_p }}</fieldset>{% endif %}<button type="submit">{% if english %}Save image selection{% else %}Guardar selección de imagen{% endif %}</button></form>{% endif %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{
+  "scope": "independently approved portable image encrypted snapshots, private JSON/WebP/ZIP delivery, corruption rollback and JSON fragment reconstruction; no browser or production acceptance",
+  "runs": [
+    {
+      "session": 80619,
+      "exit_code": 0,
+      "tests": 16,
+      "seconds_reported": 71.82,
+      "xml": "/tmp/portability-binary-snapshot-delivery.xml",
+      "sha256": "5539ec8b5e44e4e3015356781f889234b660e26948c8025e86b5187118381d08"
+    },
+    {
+      "session": 89911,
+      "exit_code": 0,
+      "tests": 2,
+      "seconds_reported": 52.99,
+      "xml": "/tmp/portability-binary-data-fragments.xml",
+      "sha256": "e1ae27c0dd0a7ccee86a49575c718ab9deb94c21ef988d0bdee1b7441e1ce135"
+    }
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true,
+  "fragment_limit_is_synthetic": 256,
+  "runtime_current": false,
+  "pending": [
+    "preparation/editor binary UI",
+    "complete browser binary flow",
+    "binary races and nonempty inventory",
+    "purge with binary binding data",
+    "runtime0090",
+    "actual 8MiB load and memory bounds",
+    "joint regression",
+    "partial commit/push",
+    "final response and full contract"
+  ]
+}

@@ -288,6 +288,11 @@ def generate(user, case_id, key, version, reason, copy, *, information_review_id
     case, person, listing = reviewer_case(user, case_id)
     if not user.has_perm("safety.execute_rights_request"):
         raise PermissionDenied
+    if case.kind == "portability":
+        raise ValidationError(
+            "Portability requires independently approved field selection / "
+            "La portabilidad requiere una selección de campos aprobada independientemente"
+        )
     signature_input = {"version": version, "reason": reason, "copy": copy}
     if information_review_id is not None:
         signature_input["information_review"] = information_review_id
@@ -840,6 +845,9 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
             from .rights_information_export import validate_export_binding
 
             validate_export_binding(case, person, export)
+            from .rights_portability_export import validate_export_binding as validate_portability
+
+            validate_portability(case, person, export)
             if part:
                 response = HttpResponse(
                     cipher().decrypt(part.encrypted_content.encode()),

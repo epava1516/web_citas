@@ -1,0 +1,73 @@
+{
+  "scope": "Runtime local0090, verificación parcial",
+  "migration": "safety.0090_portability_binary_read applied",
+  "build_session": 88166,
+  "migrate_session": 51586,
+  "recreate_session": 67422,
+  "checks_session": 16771,
+  "hashes_session": 18254,
+  "all_sessions_exit_code": 0,
+  "django_check": "passed",
+  "migrate_check": "passed",
+  "makemigrations_check": "No changes detected",
+  "health": {
+    "url": "http://localhost:18080/health/",
+    "body": {
+      "status": "ok"
+    }
+  },
+  "host_hashes": {
+    "apps/core/urls.py": "f97fd1ab6c30907e6f784dbf8a4b04563e0c874ab07106473612a295ba903df1",
+    "apps/safety/account_erasure_inventory.py": "b192d02178191e1092c4d9389b056bf85ae1994b07b3e198ce3d5a3cae0fbb15",
+    "apps/safety/erasure_inventory.py": "682de810f51aa6dbfad31bb591f14bca6e541905aaf829da8dda426b478eede3",
+    "apps/safety/migrations/0090_portability_binary_read.py": "00083690fecf60d02f997d357b129d478c57da869c8a9c19dee8162e3852e59f",
+    "apps/safety/models.py": "4c8de31f58788fd6d264535a523a8eba2973abddb1026c426ebd22e995291fb8",
+    "apps/safety/rights_portability.py": "bd287c5f43f219afdc82384f49c19a140b339a292db4d236bd0fdcd4d25f0e3c",
+    "apps/safety/rights_portability_catalog.py": "3200c5b55e5b05b4723c9a1b7e82a83bcd5de759b1859e79760e8256bbf5febd",
+    "apps/safety/rights_portability_export.py": "513bdfeddf384211c07572ee46d936d70e3c965b6d8fdeb227cab8b36ee03b88",
+    "apps/safety/rights_portability_export_views.py": "fc18bd3a2701bd022bb0d587d51c94a0dbc0c806cfa34377fd584ca4783f2613",
+    "apps/safety/rights_portability_image_read.py": "c957bf98e8fbc47f717ccae58b21af8bf49f1c508de254109ab218bfd5500011",
+    "apps/safety/rights_portability_image_selection.py": "768ca6f2b4718343b3b43eedd70e630bc348c26091ed63e6cc64a5955c80a55b",
+    "apps/safety/rights_portability_image_views.py": "77fd1fb2f01bd2472a97e8d72c70da6a4347063f57b96c79da65e906f1c0f806",
+    "apps/safety/rights_portability_images.py": "62342b4cc27beb5a8a653e50daae9cf4c05fba93c92e75e0589afab1f9e2e20c",
+    "apps/safety/rights_portability_page_selection.py": "794c9ef5ecf5bdf8b969ea742bf4b7421b21c357e6f4a910111fb928aa5a76c4",
+    "apps/safety/rights_portability_prepare_selection_views.py": "67914b35513ed01b3aba42af1c646a135d36de4ffc6e2085d9cb7f8112128a3f",
+    "apps/safety/rights_portability_reset_selection.py": "3cc7e5f2b36bce533b34f7bbdcb2e7383c68bd5727de9021b393db8edcfc36a1",
+    "apps/safety/rights_portability_review.py": "fbb9ba565419538f43b4e43323e43edaa19c89af3cd4a01645513c52e5dc7085",
+    "apps/safety/rights_portability_review_views.py": "5e9f56be30d32f5f2a352a7d251ab2835b0adbf86ddef7c78e4f8278ec3f9621",
+    "apps/safety/rights_portability_selected_use.py": "4c6f34c599f1626c61ad81ae285ccdab1069282b515470a771b9ea035b40048e",
+    "apps/safety/rights_portability_selection.py": "875676502ac4d00e885994506bdfd809030153c30f440471b04bcb22ed6eb7ff",
+    "apps/safety/rights_portability_selection_review.py": "99fc8c154739bf42d9ca0b549578ebd5f6015c06d48d02d914330b7beb0edb85",
+    "apps/safety/rights_portability_selection_store.py": "79a32be77d3d095a0e598933a9f93b745da9f376a4d4a7887b5c9062a6045a4a",
+    "apps/safety/rights_portability_selection_views.py": "9ffcf70382183c5542888a05ce6ab6d611c32e425b939f19446d3b221b315efc",
+    "apps/safety/rights_portability_use.py": "3712cdfb85c7270468e35ea1e582cf80c7a9c3c8045d325e9a20eca291a6af7c",
+    "apps/safety/rights_portability_views.py": "01c1021b6ec2307b41feab1481322521d79bd119ffe959cb919ce079c401bf33",
+    "apps/safety/tasks.py": "846e144d1b80b1f96d399e5256aba6a54066ff703122c67c274e2544dbc961fe",
+    "config/settings.py": "3539fd0b47c1178fcfed8322203f5a6d77234ec721cc30987d96a4f3092bd6c2",
+    "templates/safety/rights_portability.html": "daa1b8efde7329ce19135d9447c58d26395e53c7c18e31db80900c23b7ed5132",
+    "templates/safety/rights_portability_export.html": "9308f5e9e349dd3c8436d23ada09b9fe529f77205679e159d28eb0944d16e3cc",
+    "templates/safety/rights_portability_images.html": "210b077ce55393090124a16b49af6608b3eed1ba4736714879caacccb37f6f73",
+    "templates/safety/rights_portability_review.html": "8680b8f9926353fb60f015c134ab0603f4788ce7218fb559d30dc520f1fc95f0",
+    "templates/safety/rights_portability_select.html": "ec385fb70f2cb7e9e421e7c9d5dcc8edd7b94a4e8fbfd235c71aba34fa3da739",
+    "templates/safety/rights_portability_selection_review.html": "39aacd3a24e0081091db05890404e000207d8dff1b445c1da8cab6c543aab424"
+  },
+  "services": {
+    "app": {
+      "matched_files": 33,
+      "uid": "10001"
+    },
+    "worker": {
+      "matched_files": 33,
+      "uid": "10001"
+    },
+    "beat": {
+      "matched_files": 33,
+      "uid": "10001"
+    }
+  },
+  "limits": [
+    "No aceptación integral CR09",
+    "Navegador binario en ejecución separada",
+    "No despliegue externo ni producción acreditada"
+  ]
+}

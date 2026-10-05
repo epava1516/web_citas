@@ -1,0 +1,23 @@
+{
+  "scope": "Inventario de perfil y purga de exportación binaria: parcial PostgreSQL/HTTP",
+  "tests": 2,
+  "failures": 0,
+  "errors": 0,
+  "duration_seconds": 58.61,
+  "junit": "/tmp/portability-binary-inventory-purge.xml",
+  "checks": [
+    "Censo no vacío de dos lecturas binarias",
+    "Cambio content_digest altera state_digest",
+    "Inventario no expone contenido cifrado",
+    "Purga elimina JSON/WebP/ZIP caducados y retry0",
+    "IDs/metadata/lecturas/selección preservados",
+    "Descargas posteriores404 sin auditoría adicional"
+  ],
+  "limits": [
+    "Tarea invocada directamente: no worker/Beat en esta batería",
+    "Inventario binario de cuenta pendiente",
+    "No aceptación CR09",
+    "Posterior cambio de memoria requiere regresión propia"
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true
+}

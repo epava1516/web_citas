@@ -1,0 +1,32 @@
+{
+  "scope": "independent exact binary inspection and signed approval binding, including private POST and CSRF; no binary export/download",
+  "migration": "0090_portability_binary_read",
+  "runs": [
+    {
+      "session": 13151,
+      "xml": "/tmp/portability-independent-binary-read-final.xml",
+      "sha256": "82a0406ed3c4b6de9a6bd31545553c81d88a7f8e2d052f568e80928c07735736",
+      "tests": 1,
+      "exit_code": 0
+    },
+    {
+      "session": 75469,
+      "xml": "/tmp/portability-independent-binary-http.xml",
+      "sha256": "87d42cd5a4b47454603a90ac13c1979513eda1d7bc68057c3fd243ffde4e1db4",
+      "tests": 1,
+      "exit_code": 0
+    }
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true,
+  "runtime_current": false,
+  "pending": [
+    "browser binary review",
+    "binary declaration preparation/editor UI",
+    "encrypted snapshots and private binary download",
+    "binary races and nonempty inventory",
+    "runtime0090",
+    "joint regression",
+    "partial commit/push",
+    "final response and full contract"
+  ]
+}

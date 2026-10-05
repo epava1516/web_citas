@@ -1292,3 +1292,158 @@ class RightsExportInformationBinding(models.Model):
     inspection_digest = models.CharField(max_length=64)
     decision_digest = models.CharField(max_length=64)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsExportPortabilityBinding(models.Model):
+    export = models.OneToOneField(
+        RightsExport, on_delete=models.PROTECT, related_name="portability_binding"
+    )
+    review = models.ForeignKey("RightsPortabilitySelectionReview", on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    selection_digest = models.CharField(max_length=64)
+    ciphertext_digest = models.CharField(max_length=64)
+    inspection_digest = models.CharField(max_length=64)
+    decision_digest = models.CharField(max_length=64)
+    payload_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsPortabilityAssessment(models.Model):
+    request = models.ForeignKey(
+        RightsRequest, on_delete=models.PROTECT, related_name="portability_assessments"
+    )
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    version = models.PositiveIntegerField()
+    encrypted_assessment = models.TextField()
+    expires_at = models.DateTimeField(db_index=True)
+    purged_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["request", "actor", "version"], name="portability_assessment_once"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(version__gte=1), name="portability_assessment_positive"
+            ),
+        ]
+
+
+class RightsPortabilityRead(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    assessment = models.ForeignKey(RightsPortabilityAssessment, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    assessment_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsPortabilityReview(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    assessment = models.OneToOneField(RightsPortabilityAssessment, on_delete=models.PROTECT)
+    read = models.ForeignKey(RightsPortabilityRead, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    assessment_digest = models.CharField(max_length=64)
+    outcome = models.CharField(max_length=10)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [("review_portability", "Independently review portability assessments")]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["approved", "rejected"]),
+                name="portability_review_outcome",
+            )
+        ]
+
+
+class RightsPortabilitySelection(models.Model):
+    request = models.ForeignKey(
+        RightsRequest, on_delete=models.PROTECT, related_name="portability_selections"
+    )
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    assessment_review = models.ForeignKey(RightsPortabilityReview, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    assessment_digest = models.CharField(max_length=64)
+    inspection_digest = models.CharField(max_length=64)
+    decision_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    version = models.PositiveIntegerField()
+    selection_digest = models.CharField(max_length=64)
+    encrypted_selection = models.TextField()
+    expires_at = models.DateTimeField(db_index=True)
+    purged_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["request", "actor", "version"], name="portability_selection_once"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(version__gte=1), name="portability_selection_positive"
+            ),
+        ]
+
+
+class RightsPortabilitySelectionRead(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    selection = models.ForeignKey(RightsPortabilitySelection, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    selection_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsPortabilitySelectionReview(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    selection = models.OneToOneField(RightsPortabilitySelection, on_delete=models.PROTECT)
+    image_reads = models.JSONField(default=list)
+    read = models.ForeignKey(RightsPortabilitySelectionRead, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    selection_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    outcome = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["approved", "rejected"]),
+                name="portability_selection_review_outcome",
+            ),
+        ]
+
+
+class RightsPortabilityImageRead(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    selection = models.ForeignKey(RightsPortabilitySelection, on_delete=models.PROTECT)
+    selection_read = models.ForeignKey(RightsPortabilitySelectionRead, on_delete=models.PROTECT)
+    photo = models.ForeignKey("mediafiles.Photo", on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    selection_digest = models.CharField(max_length=64)
+    content_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)

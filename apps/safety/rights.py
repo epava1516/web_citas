@@ -385,6 +385,35 @@ def inspect(request, case_id):
                 .order_by("-created_at", "-pk"),
                 50,
             ).get_page(request.GET.get("information_page"))
+    portability_selections = None
+    portability_drafts = None
+    if case.kind == "portability" and request.user.has_perm("safety.review_portability"):
+        from .models import RightsPortabilityAssessment, RightsPortabilitySelection
+        from .rights_portability_review import authorize as authorize_portability
+
+        try:
+            authorize_portability(request.user, case)
+        except PermissionDenied:
+            pass
+        else:
+            portability_drafts = Paginator(
+                RightsPortabilityAssessment.objects.filter(
+                    request=case, purged_at__isnull=True, expires_at__gt=timezone.now()
+                )
+                .exclude(actor=request.user)
+                .only("pk", "version", "created_at")
+                .order_by("-created_at", "-pk"),
+                50,
+            ).get_page(request.GET.get("portability_page"))
+            portability_selections = Paginator(
+                RightsPortabilitySelection.objects.filter(
+                    request=case, purged_at__isnull=True, expires_at__gt=timezone.now()
+                )
+                .exclude(actor=request.user)
+                .only("pk", "version", "created_at")
+                .order_by("-created_at", "-pk"),
+                50,
+            ).get_page(request.GET.get("selection_page"))
     recipient_assessments = None
     if request.user.has_perm("safety.review_recipient_assessment"):
         recipient_assessments = Paginator(
@@ -409,6 +438,8 @@ def inspect(request, case_id):
                 "outgoing_cursor": outgoing_cursor,
                 "recipient_assessments": recipient_assessments,
                 "information_drafts": information_drafts,
+                "portability_drafts": portability_drafts,
+                "portability_selections": portability_selections,
             },
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )

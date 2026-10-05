@@ -1,0 +1,49 @@
+{
+  "scope": "isolated real PostgreSQL/Redis/Celery worker and automatic Beat purges of synthetic assessment and selected field draft bodies",
+  "session": 23627,
+  "exit_code": 0,
+  "log": "/tmp/portability-retention-worker-beat-readable.log",
+  "log_sha256": "2486f5675f74de3e0ed963c0525cd74e6ae83a3d8c2e28ab712762efe6f051e4",
+  "probe": "scripts/probe_portability_retention_worker.py",
+  "schedule_seconds": 60,
+  "results": [
+    {
+      "worker_passed": true,
+      "jobs": {
+        "assessments": "55dcd4f2-4650-424b-ba36-6c0ee7c8af00",
+        "selections": "948ea97d-2cb0-4341-8cce-2cecb148b88e"
+      },
+      "repeat": {
+        "assessments": "c935323f-c622-4333-860f-f0d617531ef6",
+        "selections": "846b7f15-0753-4b28-a273-a9db26b67110"
+      },
+      "audit_and_live_content_preserved": true
+    },
+    {
+      "beat_passed": true,
+      "automatic_jobs": {
+        "assessments": [
+          "0f703720-06cd-4914-9204-8914c5bed141"
+        ],
+        "selections": [
+          "0edaa6ee-203e-4a63-ad84-d64303462b70"
+        ]
+      },
+      "manual_dispatch_for_beat": false,
+      "preservation_digest": "a3c182ae5b15af5d56e958471912fd11907700b0655a454fb4e31207bb0303f6",
+      "isolated_database": "portability_probe_044039b72cb9",
+      "identity_verified": false
+    },
+    {
+      "isolated_database_and_containers_removed": true
+    }
+  ],
+  "identity_real": false,
+  "external_delivery": false,
+  "pending": [
+    "image content",
+    "actual 8MiB load",
+    "joint regression and partial commit/push",
+    "final response and full contract"
+  ]
+}

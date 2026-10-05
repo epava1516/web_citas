@@ -1,0 +1,31 @@
+{
+  "scope": "different generation keys, scope, proof/selection expiry, channel; observed PostgreSQL races",
+  "runs": [
+    {
+      "xml": "/tmp/portability-export-scope-expiry-races.xml",
+      "sha256": "341fb3936681244a24a0ba709cdfe29be357dc6b0e66facbb08c1d92c2e44336",
+      "tests": 18,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "xml": "/tmp/portability-profile-scope-races-final.xml",
+      "sha256": "43c8dd05ab1cd44cf42a6543f83215aaf5eb8098e2905957fc0aa9e3e6147442",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true,
+  "failure_cause": "test holder inverted Person then RightsRequest canonical locking order; corrected fixture and repeated only two affected profile cases",
+  "remaining_cases_passed_in_initial_run": 16,
+  "pending": [
+    "joint regression",
+    "image content",
+    "actual 8MiB load",
+    "worker/Beat retention",
+    "final response and full contract"
+  ]
+}

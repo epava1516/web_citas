@@ -1,0 +1,19 @@
+{
+  "scope": "Deriva física de archivo aprobado: PostgreSQL/HTTP",
+  "tests": 2,
+  "failures": 0,
+  "errors": 0,
+  "seconds": 61.32,
+  "junit": "/tmp/portability-physical-bytes-corruption.xml",
+  "checks": [
+    "Modificar bytes sin tocarBD bloquea WebP/ZIP y replaygeneración",
+    "Rechazo no añadeacciones ni descargas",
+    "Restaurar bytes recupera entrega original y mismoexportID",
+    "Regresión inventariosperfil/cuenta/aislamiento ypurga simple/fragmentada"
+  ],
+  "limits": [
+    "Modificación secuencial, no carrera de escritura del archivo",
+    "No aceptación integral CR09"
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true
+}

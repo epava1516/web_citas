@@ -1,0 +1,11 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Assess portability datasets{% else %}Evaluar conjuntos de portabilidad{% endif %}</h1>
+<p>{% if english %}Saving records a draft. It does not approve delivery or resolve the request. Unknown conditions remain pending.{% else %}Guardar registra un borrador. No aprueba la entrega ni resuelve la solicitud. Las condiciones desconocidas permanecen pendientes.{% endif %}</p>
+{% if saved %}<p role="status">{% if english %}Assessment draft saved{% else %}Borrador de evaluación guardado{% endif %}: {{ saved.pk }} · {{ saved.version }}</p>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}{{ datasets.management_form }}{{ datasets.non_form_errors }}
+{% for dataset in datasets %}<fieldset><legend>{{ dataset.dataset_label }}</legend>{{ dataset.as_p }}</fieldset>{% endfor %}
+<button type="submit">{% if english %}Save assessment draft{% else %}Guardar borrador de evaluación{% endif %}</button></form>
+<h2>{% if english %}Inspect saved assessment{% else %}Consultar evaluación guardada{% endif %}</h2>
+<form method="post">{% csrf_token %}{{ read_form.as_p }}<button type="submit">{% if english %}Record access and inspect assessment{% else %}Registrar acceso y consultar evaluación{% endif %}</button></form>
+{% for item in loaded %}<article><h3>{{ item.label }}</h3><p>{{ item.decision }} · {{ item.basis }} · {{ item.origin }}</p><p>{{ item.reason|linebreaksbr }}</p><p>{{ item.evidence|linebreaksbr }}</p></article>{% endfor %}
+{% endblock %}

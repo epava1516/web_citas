@@ -350,6 +350,177 @@ def source(case):
                 ],
             ),
             (
+                "safety.RightsPortabilityRead",
+                (
+                    Q(assessment__request__account_subject=user)
+                    | Q(assessment__request__person__subject=user)
+                )
+                & ~Q(assessment__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "assessment_id",
+                    "action_id",
+                    "proof_id",
+                    "source_digest",
+                    "assessment_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsPortabilityReview",
+                (
+                    Q(assessment__request__account_subject=user)
+                    | Q(assessment__request__person__subject=user)
+                )
+                & ~Q(assessment__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "read_id",
+                    "outcome",
+                    "assessment_id",
+                    "action_id",
+                    "proof_id",
+                    "source_digest",
+                    "assessment_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsPortabilitySelectionReview",
+                (
+                    Q(selection__request__account_subject=user)
+                    | Q(selection__request__person__subject=user)
+                )
+                & ~Q(selection__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "selection_id",
+                    "read_id",
+                    "outcome",
+                    "image_reads",
+                    "proof_id",
+                    "source_digest",
+                    "selection_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsPortabilitySelectionRead",
+                (
+                    Q(selection__request__account_subject=user)
+                    | Q(selection__request__person__subject=user)
+                )
+                & ~Q(selection__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "selection_id",
+                    "proof_id",
+                    "source_digest",
+                    "selection_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsPortabilitySelection",
+                (Q(request__account_subject=user) | Q(request__person__subject=user))
+                & ~Q(request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "assessment_review_id",
+                    "proof_id",
+                    "source_digest",
+                    "assessment_digest",
+                    "inspection_digest",
+                    "decision_digest",
+                    "version",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "selection_digest",
+                    "encrypted_selection",
+                    "expires_at",
+                    "purged_at",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsPortabilityAssessment",
+                (Q(request__account_subject=user) | Q(request__person__subject=user))
+                & ~Q(request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "proof_id",
+                    "source_digest",
+                    "version",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "encrypted_assessment",
+                    "expires_at",
+                    "purged_at",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsPortabilityImageRead",
+                (
+                    Q(selection__request__account_subject=user)
+                    | Q(selection__request__person__subject=user)
+                )
+                & ~Q(selection__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "selection_id",
+                    "selection_read_id",
+                    "photo_id",
+                    "proof_id",
+                    "source_digest",
+                    "selection_digest",
+                    "content_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsExportPortabilityBinding",
+                (Q(export__account_subject=user) | Q(export__person__subject=user))
+                & ~Q(export__action__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "export_id",
+                    "review_id",
+                    "source_digest",
+                    "selection_digest",
+                    "ciphertext_digest",
+                    "inspection_digest",
+                    "decision_digest",
+                    "payload_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "created_at",
+                ],
+            ),
+            (
                 "safety.RightsExportInformationBinding",
                 (Q(export__account_subject=user) | Q(export__person__subject=user))
                 & ~Q(export__action__request=case),

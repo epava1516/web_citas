@@ -1,0 +1,20 @@
+{
+  "scope": "Inventario binario perfil/cuenta y aislamiento",
+  "tests": 2,
+  "failures": 0,
+  "errors": 0,
+  "duration_seconds": 62.35,
+  "junit": "/tmp/portability-binary-account-inventory.xml",
+  "checks": [
+    "Dos lecturas en inventarios de perfil y cuenta del sujeto",
+    "Cero lecturas en otra cuenta",
+    "Cambio de huella detectado en ambos inventarios",
+    "Sin exposición de ciphertext",
+    "Regresión generación/revisión/entrega/purga simple y fragmentada"
+  ],
+  "limits": [
+    "Tarea invocada directamente, no worker/Beat",
+    "No aceptación integral CR09"
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true
+}

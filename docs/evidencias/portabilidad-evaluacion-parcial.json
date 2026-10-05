@@ -1,0 +1,211 @@
+{
+  "scope": "Partial portability assessment and independently approved scalar selection; no portable export delivery or full CR09 acceptance",
+  "separate_runs_do_not_sum_as_unique_tests": true,
+  "runs": [
+    {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-assessment-read-http.xml",
+      "sha256": "f7c0ae326e161eeabc89380ede58642f82c1290033c14eb56fdfb5190aca5501"
+    },
+    {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-assessment-retention.xml",
+      "sha256": "a67d22abf8880bdca000f37d4893309996f06ddc36e1d22a9ab175fe008f8163"
+    },
+    {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-assessment-inventory-final.xml",
+      "sha256": "d63693414fc2ce1168f5a019e4fdd39ef524843743783f7f6ee73e2e98976b20"
+    },
+    {
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-review-exact-inspection.xml",
+      "seconds": 84.664,
+      "sha256": "2b3d90e1efff3acf071a8590defe95c6bcbef6d8bfe8490bc98bb53436ac7d2b"
+    },
+    {
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-exclusion-integration.xml",
+      "seconds": 85.571,
+      "sha256": "1d3103c33461d7127450acb91a96160aebbfb56f5aa9b3575d4c29a64b0b1b16"
+    },
+    {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-selection-retention.xml",
+      "seconds": 52.418,
+      "sha256": "65762833303c8c47ab770d6621c2d2fce357530a71a131be59279bcaa846d995"
+    },
+    {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-selection-inspection.xml",
+      "seconds": 41.581,
+      "sha256": "dc2c2cbafa601be57d1ea3a84d25d3e7a1f169674eb553424423932a01654dab"
+    },
+    {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-selection-independent-read.xml",
+      "seconds": 54.312,
+      "sha256": "a4c9cfd726c51f949b4aa265bcc3325879777a98029c04c407eca60e3f021c09"
+    },
+    {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-selection-independent-decision.xml",
+      "seconds": 54.291,
+      "sha256": "09acb5b447fd096c464641da126549bd5b6360cabffe1c5daa1498cce1121ecf"
+    },
+    {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-selected-use.xml",
+      "seconds": 44.815,
+      "sha256": "dc846e1f2dcdba3c5c9928ba469960fc2ec1adec865126d310e41274168e7453"
+    },
+    {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-selection-mobile.xml",
+      "seconds": 49.006,
+      "sha256": "d42b9ce0c5bf48c4ef73dddb354a0f28a8a65dfe0011aabcf766ff53bf7360b5",
+      "scope": "Independent selection review mobile ES/EN, PostgreSQL/Chromium 390px; selection prepared through backend synthetic fixture"
+    },
+    {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-selection-guided-mobile.xml",
+      "seconds": 54.117,
+      "sha256": "ee926c442b9983d6b6fac3084b4da6b53d162d65a03668518ac26abeea5fe652",
+      "scope": "Guided preparation and independent selection review through two mobile sessions ES/EN, PostgreSQL/Chromium 390px; assessment synthetic backend fixture"
+    },
+    {
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-selection-observed-races.xml",
+      "seconds": 118.681,
+      "sha256": "2447b825e9129c5323a025394fd8880946304a7d6986dd4a31dff402435fba11",
+      "scope": "Observed PostgreSQL waits, two decision workers plus holder, profile/account; replay/conflict/permission/proof/session/mfa/source; nonempty dependent inventories for admitted cases"
+    },
+    {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "artifact": "/tmp/portability-granular-mobile.xml",
+      "seconds": 83.254,
+      "sha256": "9bd1648eb541cb5ea08f2dcc57ce1e3024ff7bf132d2d8d79d8ff0eae5a7a908",
+      "scope": "ES/EN simple and granular field preparation/review, separate mobile sessions, PostgreSQL/Chromium 390px; approved projection excludes internal evidence"
+    }
+  ],
+  "runtime": {
+    "host": {
+      "apps/safety/rights_portability.py": "4eebc2953b511551dbf8d9422996e9be8ec82017b98d75c1a048f50519f69ec5",
+      "apps/safety/rights_portability_views.py": "12476337cac3d310c563938eaeb2b9b4215f75296e402dd1a33e23d8fb217603",
+      "apps/safety/models.py": "857b83211383f4d0ae63aac3d936451da61eeb0247e47b0e75304ef3711b69de",
+      "apps/safety/tasks.py": "701e737aaa16f1f4beb3cac45f0a64009ee0fdccbc515725043e568b70ea31da",
+      "apps/safety/account_erasure_inventory.py": "36605aa46f7a37cb398150e3e9b9bfd7dcec02d60131e23bd883a455424bf96f",
+      "apps/safety/erasure_inventory.py": "f34192a06bca7f4c31171af1bf581fe5fa0f398230f2609e6c896c05fe31f944",
+      "apps/core/urls.py": "fbfea4bdde718821060663cd3ea770691586644f5188833b952464712c091188",
+      "config/settings.py": "a9f0b436d8a736794090e6c163331da9c76953df7711e5605b5a6ae389c710b8",
+      "templates/safety/rights_portability.html": "daa1b8efde7329ce19135d9447c58d26395e53c7c18e31db80900c23b7ed5132",
+      "templates/safety/rights_inspect.html": "033a204595c4703a898f7b0297685f1a75e98cbee3149cc778fb60909eaeccbe",
+      "apps/safety/migrations/0084_rightsportabilityassessment.py": "9cbfe466f0fdfffe9b21eb3ffe7e33361fed1d77e2c3b3f55de98c1fa6a7fdba"
+    },
+    "app": {
+      "apps/safety/rights_portability.py": "4eebc2953b511551dbf8d9422996e9be8ec82017b98d75c1a048f50519f69ec5",
+      "apps/safety/rights_portability_views.py": "12476337cac3d310c563938eaeb2b9b4215f75296e402dd1a33e23d8fb217603",
+      "apps/safety/models.py": "857b83211383f4d0ae63aac3d936451da61eeb0247e47b0e75304ef3711b69de",
+      "apps/safety/tasks.py": "701e737aaa16f1f4beb3cac45f0a64009ee0fdccbc515725043e568b70ea31da",
+      "apps/safety/account_erasure_inventory.py": "36605aa46f7a37cb398150e3e9b9bfd7dcec02d60131e23bd883a455424bf96f",
+      "apps/safety/erasure_inventory.py": "f34192a06bca7f4c31171af1bf581fe5fa0f398230f2609e6c896c05fe31f944",
+      "apps/core/urls.py": "fbfea4bdde718821060663cd3ea770691586644f5188833b952464712c091188",
+      "config/settings.py": "a9f0b436d8a736794090e6c163331da9c76953df7711e5605b5a6ae389c710b8",
+      "templates/safety/rights_portability.html": "daa1b8efde7329ce19135d9447c58d26395e53c7c18e31db80900c23b7ed5132",
+      "templates/safety/rights_inspect.html": "033a204595c4703a898f7b0297685f1a75e98cbee3149cc778fb60909eaeccbe",
+      "apps/safety/migrations/0084_rightsportabilityassessment.py": "9cbfe466f0fdfffe9b21eb3ffe7e33361fed1d77e2c3b3f55de98c1fa6a7fdba"
+    },
+    "app_uid": "10001",
+    "worker": {
+      "apps/safety/rights_portability.py": "4eebc2953b511551dbf8d9422996e9be8ec82017b98d75c1a048f50519f69ec5",
+      "apps/safety/rights_portability_views.py": "12476337cac3d310c563938eaeb2b9b4215f75296e402dd1a33e23d8fb217603",
+      "apps/safety/models.py": "857b83211383f4d0ae63aac3d936451da61eeb0247e47b0e75304ef3711b69de",
+      "apps/safety/tasks.py": "701e737aaa16f1f4beb3cac45f0a64009ee0fdccbc515725043e568b70ea31da",
+      "apps/safety/account_erasure_inventory.py": "36605aa46f7a37cb398150e3e9b9bfd7dcec02d60131e23bd883a455424bf96f",
+      "apps/safety/erasure_inventory.py": "f34192a06bca7f4c31171af1bf581fe5fa0f398230f2609e6c896c05fe31f944",
+      "apps/core/urls.py": "fbfea4bdde718821060663cd3ea770691586644f5188833b952464712c091188",
+      "config/settings.py": "a9f0b436d8a736794090e6c163331da9c76953df7711e5605b5a6ae389c710b8",
+      "templates/safety/rights_portability.html": "daa1b8efde7329ce19135d9447c58d26395e53c7c18e31db80900c23b7ed5132",
+      "templates/safety/rights_inspect.html": "033a204595c4703a898f7b0297685f1a75e98cbee3149cc778fb60909eaeccbe",
+      "apps/safety/migrations/0084_rightsportabilityassessment.py": "9cbfe466f0fdfffe9b21eb3ffe7e33361fed1d77e2c3b3f55de98c1fa6a7fdba"
+    },
+    "worker_uid": "10001",
+    "beat": {
+      "apps/safety/rights_portability.py": "4eebc2953b511551dbf8d9422996e9be8ec82017b98d75c1a048f50519f69ec5",
+      "apps/safety/rights_portability_views.py": "12476337cac3d310c563938eaeb2b9b4215f75296e402dd1a33e23d8fb217603",
+      "apps/safety/models.py": "857b83211383f4d0ae63aac3d936451da61eeb0247e47b0e75304ef3711b69de",
+      "apps/safety/tasks.py": "701e737aaa16f1f4beb3cac45f0a64009ee0fdccbc515725043e568b70ea31da",
+      "apps/safety/account_erasure_inventory.py": "36605aa46f7a37cb398150e3e9b9bfd7dcec02d60131e23bd883a455424bf96f",
+      "apps/safety/erasure_inventory.py": "f34192a06bca7f4c31171af1bf581fe5fa0f398230f2609e6c896c05fe31f944",
+      "apps/core/urls.py": "fbfea4bdde718821060663cd3ea770691586644f5188833b952464712c091188",
+      "config/settings.py": "a9f0b436d8a736794090e6c163331da9c76953df7711e5605b5a6ae389c710b8",
+      "templates/safety/rights_portability.html": "daa1b8efde7329ce19135d9447c58d26395e53c7c18e31db80900c23b7ed5132",
+      "templates/safety/rights_inspect.html": "033a204595c4703a898f7b0297685f1a75e98cbee3149cc778fb60909eaeccbe",
+      "apps/safety/migrations/0084_rightsportabilityassessment.py": "9cbfe466f0fdfffe9b21eb3ffe7e33361fed1d77e2c3b3f55de98c1fa6a7fdba"
+    },
+    "beat_uid": "10001"
+  },
+  "runtime_migration": "safety.0084",
+  "pending": [
+    "remaining mixed provenance profile/concurrency/coverage",
+    "explicit draft reset and mixed provenance field assessment/review interface",
+    "remaining selection write/read/use/reset concurrency and broader profile coverage",
+    "actual export generation/download and final responses",
+    "worker/Beat effective purge verification",
+    "current Docker runtime through 0088",
+    "joint regression and full CR09/contract"
+  ],
+  "observed_races": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 69.12,
+    "artifact": "/tmp/portability-assessment-observed-races.xml",
+    "sha256": "ccaf727862179c3437c5dc0696c6f4e9b4a44701ae635a47d29bf3673cdcc2cd"
+  },
+  "runtime_is_current": false,
+  "runtime_note": "Historical 0084 snapshot; later 0085 verified separately. Current working tree through 0088 requires rebuild and verification."
+}

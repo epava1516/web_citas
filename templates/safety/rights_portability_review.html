@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Independent portability review{% else %}Revisión independiente de portabilidad{% endif %}</h1>
+<p>{% if english %}Inspect the request and assessment before deciding. Pending datasets cannot be approved. Approval does not close the request or release data.{% else %}Consulta la solicitud y la evaluación antes de decidir. Los conjuntos pendientes no se pueden aprobar. Aprobar no cierra la solicitud ni entrega datos.{% endif %}</p>
+<a href="{% url 'rights_inspect' case.pk %}">{% if english %}Inspect request{% else %}Consultar solicitud{% endif %}</a>
+{% for item in reviewed_fields %}<article><h2>{{ item.label }}</h2><p>{{ item.status }} · {{ item.basis }} · {{ item.origin }}</p><p>{{ item.reason|linebreaksbr }}</p><p>{{ item.evidence|linebreaksbr }}</p></article>{% endfor %}
+{% if decision %}<p role="status">{% if english %}Decision recorded{% else %}Decisión registrada{% endif %}: {{ decision.outcome }}</p>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record review action{% else %}Registrar acción de revisión{% endif %}</button></form>
+{% endblock %}

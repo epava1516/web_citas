@@ -91,3 +91,39 @@ def purge_expired_copy_information():
         return RightsCopyInformation.objects.filter(pk__in=ids).update(
             encrypted_information="", purged_at=now
         )
+
+
+@shared_task
+def purge_expired_portability_assessments():
+    """Remove expired draft bodies in bounded batches while preserving audit links."""
+    from .models import RightsPortabilityAssessment
+
+    with transaction.atomic():
+        now = timezone.now()
+        ids = list(
+            RightsPortabilityAssessment.objects.select_for_update(skip_locked=True)
+            .filter(expires_at__lte=now, purged_at__isnull=True)
+            .order_by("pk")
+            .values_list("pk", flat=True)[:100]
+        )
+        return RightsPortabilityAssessment.objects.filter(pk__in=ids).update(
+            encrypted_assessment="", purged_at=now
+        )
+
+
+@shared_task
+def purge_expired_portability_selections():
+    """Clear expired selected-field drafts while preserving their audit records."""
+    from .models import RightsPortabilitySelection
+
+    with transaction.atomic():
+        now = timezone.now()
+        ids = list(
+            RightsPortabilitySelection.objects.select_for_update(skip_locked=True)
+            .filter(expires_at__lte=now, purged_at__isnull=True)
+            .order_by("pk")
+            .values_list("pk", flat=True)[:100]
+        )
+        return RightsPortabilitySelection.objects.filter(pk__in=ids).update(
+            encrypted_selection="", purged_at=now
+        )

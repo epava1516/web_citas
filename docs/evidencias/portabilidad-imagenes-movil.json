@@ -1,0 +1,34 @@
+{
+  "scope": "Recorrido móvil parcial de portabilidad con imagen",
+  "engine": "Chromium + PostgreSQL",
+  "tests": 4,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "deselected": 8,
+  "duration_seconds": 112.96,
+  "junit": "/tmp/portability-binary-mobile-current.xml",
+  "variants": [
+    "ES simple",
+    "ES granular",
+    "EN simple",
+    "EN granular"
+  ],
+  "checks": [
+    "Login y MFA en sesiones separadas",
+    "Selección escalar conservada al guardar imagen",
+    "GET sin bytes ni evidencia",
+    "Consulta binaria independiente en pestaña privada y GET405",
+    "Aprobación independiente",
+    "Generación y descarga pública privada de JSON",
+    "JSON incluye metadatos de imagen y paquete sin evidencia interna",
+    "Versión incrementada una vez y plazo intacto",
+    "Ancho móvil390 sin desbordamiento"
+  ],
+  "limits": [
+    "Descargas WebP/ZIP comprobadas separadamente por HTTP, no por esta batería de navegador",
+    "No aceptación integral CR09",
+    "No carga8MiB ni memoria acotada verificadas"
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true
+}

@@ -1,0 +1,48 @@
+{
+  "scope": "Regresión conjunta de portabilidad/exportaciones/inventarios actuales",
+  "tests": 229,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "duration_seconds": 1539.8,
+  "junit": "/tmp/portability-joint-current.xml",
+  "measured_properties": {
+    "test_large_approved_history_uses_actual_8mib_transport": {
+      "generation_seconds": "18.912807310931385",
+      "generation_python_peak_bytes": "100165575",
+      "document_bytes": "9051401",
+      "historical_revisions": "1500"
+    },
+    "test_portable_large_images_cross_actual_package_limit": {
+      "generation_seconds": "23.2513772030361",
+      "generation_python_peak_bytes": "601329282",
+      "source_image_bytes": "75499866"
+    },
+    "test_profile_copy_queries_are_batched_without_losing_historical_revisions[30]": {
+      "baseline_queries": "16",
+      "historical_queries": "15",
+      "historical_revisions": "31"
+    },
+    "test_profile_copy_queries_are_batched_without_losing_historical_revisions[80]": {
+      "baseline_queries": "16",
+      "historical_queries": "20",
+      "historical_revisions": "81"
+    }
+  },
+  "warnings": [
+    "Cuatro record_property/xunit2; propiedades presentes y leídas"
+  ],
+  "coverage": [
+    "Portabilidad evaluación/selección/revisión/móvil ESEN/carreras PostgreSQL",
+    "JSON8MiB y WebP/ZIP64MiB reales",
+    "Exportaciones de acceso y paquetes/reconstrucción",
+    "Inventarios de perfil/cuenta/finalidades/dependencias"
+  ],
+  "limits": [
+    "No suite íntegra del repositorio",
+    "Nuevo módulo cobertura declarado no incluido;19unitarias separadas",
+    "Sin proveedor real ni derecho integral/respuesta final acreditados",
+    "Memoria de grandes imágenes alta, pendiente optimización"
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true
+}

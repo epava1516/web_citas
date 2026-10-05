@@ -1,0 +1,29 @@
+{
+  "scope": "Portabilidad de imágenes >64MiB, PostgreSQL/HTTP real",
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "seconds": 90.2,
+  "junit": "/tmp/portability-real64mib-images.xml",
+  "images": 8,
+  "source_image_bytes": 75499866,
+  "generation_seconds": 23.20011752517894,
+  "generation_python_peak_bytes": 601363900,
+  "checks": [
+    "WebP sintéticos≤10MiB cadauno, total>64MiB",
+    "Condiciones y lectura propias del responsable y revisor por imagen",
+    "Aprobación independiente",
+    "ZIP≤64MiB, reconstrucción por UUID y SHA de todas las imágenes sin duplicados",
+    "Caso+1 sin cierre"
+  ],
+  "limits": [
+    "Fixture de derivados retenidos, no ingestión",
+    "Pico Python elevado: pendiente optimización, no RSS ni garantía de memoria constante",
+    "Instrumentación afecta tiempo; no benchmark de producción",
+    "No aceptación integral CR09"
+  ],
+  "warnings": [
+    "record_property/xunit2: propiedades presentes y verificadas"
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true
+}

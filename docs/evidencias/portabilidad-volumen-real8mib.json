@@ -1,0 +1,32 @@
+{
+  "scope": "Portabilidad: volumen real de JSON y medición puntual de generación",
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "seconds": 84.39,
+  "junit": "/tmp/portability-real8mib-history.xml",
+  "data": "1500 revisiones sintéticas retenidas, descripciones de6000 dentro del límite del formulario; bulk fixture no prueba ingestión",
+  "threshold_bytes": 8388608,
+  "document_bytes": 9051401,
+  "generation_seconds": 17.921016114763916,
+  "generation_python_peak_bytes": 100208066,
+  "checks": [
+    "Evaluación y aprobación independientes",
+    "Generación y replay conservan ID y caso+1",
+    "Descarga HTTP de manifiesto y cada ZIP≤8MiB",
+    "Reconstrucción operativa verifica hashes/tamaño/UTF8 y1500descripciones",
+    "Evidencia interna excluida"
+  ],
+  "limits": [
+    "Tracemalloc mide asignaciones Python, no RSS ni memoria del servidor PG",
+    "Medición con instrumentación, no benchmark de producción",
+    "Fuente completa y estructuras JSON siguen en memoria; no consumo constante demostrado",
+    "Sin medición de grandes imágenes en esta prueba",
+    "No respuesta final ni aceptación CR09"
+  ],
+  "warnings": [
+    "record_property incompatible con xunit2: propiedades presentes y leídas del XML"
+  ],
+  "separate_runs_do_not_sum_as_unique_tests": true
+}
