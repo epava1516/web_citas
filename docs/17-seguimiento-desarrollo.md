@@ -13,6 +13,10 @@ Actualizado: 2026-10-05. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 ### Registro reciente de avances y arranques históricos
 
+- Estado de anuncio en copia privada: fuente de perfil ampliada con referencia/estado/fechas y revisión aprobada del Listing comprobado; cuenta sin perfil mantiene profile=null. Sin autores/motivos internos/otros perfiles. Batería88799 terminal0:18 correctas129,01s PostgreSQL, XML /tmp/copy-listing-state.xml/log homónimo. Deriva de ciclo de vida/inyección extranjera/descarga y flujos anteriores verificados; evidencia copia-estado-anuncio.json. Runtime51826 terminal0:hash host/app/worker/Beat idéntico, UID10001/check/migrate-check/makemigrations/health200 correctos tras build1880/recreate83498. Evidencia copia-estado-anuncio-runtime.json; entrega parcial lista para commit/push, sin aceptación integral CR09.
+- Entrega de documentos aceptados2b402f3 subida con identidad autorizada. CI37313881081 terminal failure sin pasos iniciados por facturación/límite de gasto GitHub, confirmado por anotación111775658892. No prueba ejecutada ni CI aceptada; continuar localmente.
+
+
 - Acceso: copia de aceptaciones ampliada con título/texto/fecha de la versión referenciada, incluidas versiones inactivas; proyección común de perfil y cuenta, siempre por sujeto. Prueba añadida verifica aislamiento del gestor, deriva del documento y entrega privada. Batería44857 terminal0:12 correctas94,93s PostgreSQL, XML /tmp/legal-copy-documents.xml; Ruff/check/makemigrations correctos. Aserciones explícitas de contenido en cuatro variantes de cuenta40719 terminal0:4 correctas44,93s; ejecución separada, no sumar como una suite16. Evidencia docs/evidencias/copia-documentos-aceptados.json; Docker build73738/recreate69834/check30039 terminal0: ambos hashes iguales host/app/worker/Beat, UID10001/check/migrate-check/makemigrations correctos y health200. Evidencia copia-documentos-runtime.json. Entrega parcial preparada para commit/push; no acceso/portabilidad integral ni CR09 aceptado. Copia parcial, sin aceptación integral de acceso/portabilidad.
 
 

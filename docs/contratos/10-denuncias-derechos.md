@@ -683,3 +683,8 @@ GET/POST `moderation/rights/restrictions/<restriction_id>/follow-up/`, nombre pu
 ### Contenido de versiones legales aceptadas en copias privadas
 
 Las nuevas fuentes de copia de perfil y cuenta añaden `title`, `body` y `published_at` a cada entrada de `legal_acceptances`. La selección sigue ligada a `LegalAcceptance.user` del sujeto comprobado; incluye la versión referenciada aunque esté inactiva. No sustituye esa versión por el documento activo ni incluye aceptaciones del gestor. Los campos forman parte de la fuente de preview y su digest: una modificación del documento exige nueva consulta antes de generar. La copia conserva `partial=true`; esta ampliación no completa la información adicional de acceso ni determina la elegibilidad jurídica para portabilidad.
+
+
+### Estado del anuncio en la copia de perfil
+
+Las nuevas fuentes incluyen `profile.listing`: referencia del anuncio, estado, fecha de creación, publicación, caducidad, disponibilidad y revisión aprobada. Es `null` si no existe anuncio. La fuente queda ligada al perfil comprobado; no contiene autores, decisiones ni motivos internos. Una modificación de esos valores invalida el preview anterior antes de generar. La copia de cuenta sin perfil conserva `profile=null`. Los snapshots existentes permanecen cifrados sin rellenado retrospectivo. Sigue siendo una copia parcial, no resolución del derecho.

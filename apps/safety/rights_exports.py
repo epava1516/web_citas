@@ -111,7 +111,25 @@ def source_copy(person, listing, case=None):
             *([] if subject["subject_account"] else ["unlinked_subject_account"]),
         ],
         **subject,
-        "profile": {"alias": person.alias, "created_at": person.created_at.isoformat()},
+        "profile": {
+            "alias": person.alias,
+            "created_at": person.created_at.isoformat(),
+            "listing": {
+                "reference": str(listing.pk),
+                "status": listing.status,
+                "created_at": listing.created_at.isoformat(),
+                "published_at": listing.published_at.isoformat() if listing.published_at else None,
+                "expires_at": listing.expires_at.isoformat() if listing.expires_at else None,
+                "available_until": listing.available_until.isoformat()
+                if listing.available_until
+                else None,
+                "approved_revision": str(listing.approved_revision_id)
+                if listing.approved_revision_id
+                else None,
+            }
+            if listing
+            else None,
+        },
         "revisions": revisions,
     }
 

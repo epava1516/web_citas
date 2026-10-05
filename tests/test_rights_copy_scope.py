@@ -305,3 +305,47 @@ def test_accepted_document_snapshot_is_historical_scoped_and_drift_checked(reque
     delivered = client.post(url(receipt, export), {"key": uuid.uuid4()}).json()
     assert delivered["legal_acceptances"] == source["legal_acceptances"]
     assert delivered["partial"] and "OWNER_ONLY_DOCUMENT_BODY" not in json.dumps(delivered)
+
+
+def test_listing_state_copy_rejects_stale_lifecycle_and_foreign_injection(request, settings):
+    from copy import deepcopy
+
+    from apps.listings.models import Listing
+
+    case, user, _, client, receipt, person = prepared(request, settings)
+    source = preview(user, case.pk, case.version, "Inspect scoped listing publication state")
+    listing = person.listing
+    assert source["profile"]["listing"]["reference"] == str(listing.pk)
+    assert source["profile"]["listing"]["status"] == listing.status
+    assert source["profile"]["listing"]["published_at"] == listing.published_at.isoformat()
+    foreign = deepcopy(source)
+    foreign["profile"]["listing"]["reference"] = str(
+        Listing.objects.exclude(pk=listing.pk).first().pk
+    )
+    with pytest.raises(ValidationError):
+        generate(
+            user,
+            case.pk,
+            uuid.uuid4(),
+            case.version,
+            "Reject foreign publication metadata",
+            foreign,
+        )
+    Listing.objects.filter(pk=listing.pk).update(status="paused", available_until=None)
+    with pytest.raises(ValidationError):
+        generate(
+            user,
+            case.pk,
+            uuid.uuid4(),
+            case.version,
+            "Reject stale publication state source",
+            source,
+        )
+    source = preview(user, case.pk, case.version, "Inspect current paused publication state")
+    export = generate(
+        user, case.pk, uuid.uuid4(), case.version, "Release scoped publication state copy", source
+    )
+    delivered = client.post(url(receipt, export), {"key": uuid.uuid4()}).json()
+    assert delivered["profile"]["listing"] == source["profile"]["listing"]
+    assert delivered["profile"]["listing"]["status"] == "paused"
+    assert delivered["partial"]
