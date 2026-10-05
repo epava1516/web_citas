@@ -496,7 +496,12 @@ def case_export_forms(case):
             "key": uuid.uuid4(),
             "images": [{"id": image.pk, "key": uuid.uuid4()} for image in item.images.all()],
             "parts": [
-                {"id": part.pk, "key": uuid.uuid4(), "position": part.position}
+                {
+                    "id": part.pk,
+                    "key": uuid.uuid4(),
+                    "position": part.position,
+                    "data": not part.attachments,
+                }
                 for part in item.parts.order_by("position")
             ],
         }

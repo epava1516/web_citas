@@ -277,3 +277,41 @@ def test_concurrent_generation_is_one_encrypted_copy_and_one_case_version(reques
     export.proof.save(update_fields=["scope"])
     assert client.post(url(receipt, export), {"key": uuid.uuid4()}).status_code == 404
     assert not RightsExportDownload.objects.exists()
+
+
+@pytest.mark.parametrize("damage", ["token", "json", "shape", "part"])
+def test_damaged_private_copy_is_unavailable_without_download_record(request, settings, damage):
+    from apps.safety.crypto import cipher, seal
+    from apps.safety.models import RightsExportPart
+
+    case, user, _, client, receipt, _ = prepared(request, settings)
+    export = make_copy(case, user)
+    path = url(receipt, export)
+    if damage == "part":
+        part = RightsExportPart.objects.create(
+            export=export, position=1, attachments=[], encrypted_content="damaged-token"
+        )
+        from django.urls import reverse
+
+        path = reverse(
+            "rights_part_download",
+            kwargs={
+                "case_id": case.pk,
+                "secret": receipt.rstrip("/").rsplit("/", 1)[-1],
+                "export_id": export.pk,
+                "part_id": part.pk,
+            },
+        )
+    else:
+        export.encrypted_payload = {
+            "token": "damaged-token",
+            "json": cipher().encrypt(b"not-json").decode(),
+            "shape": seal([]),
+        }[damage]
+        export.save(update_fields=["encrypted_payload"])
+    response = client.post(path, {"key": uuid.uuid4()})
+    assert response.status_code == 404
+    assert "no-store" in response["Cache-Control"]
+    assert not RightsExportDownload.objects.filter(export=export).exists()
+    case.refresh_from_db()
+    assert case.status == "reviewing" and case.version == export.case_version

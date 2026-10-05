@@ -688,3 +688,8 @@ Las nuevas fuentes de copia de perfil y cuenta añaden `title`, `body` y `publis
 ### Estado del anuncio en la copia de perfil
 
 Las nuevas fuentes incluyen `profile.listing`: referencia del anuncio, estado, fecha de creación, publicación, caducidad, disponibilidad y revisión aprobada. Es `null` si no existe anuncio. La fuente queda ligada al perfil comprobado; no contiene autores, decisiones ni motivos internos. Una modificación de esos valores invalida el preview anterior antes de generar. La copia de cuenta sin perfil conserva `profile=null`. Los snapshots existentes permanecen cifrados sin rellenado retrospectivo. Sigue siendo una copia parcial, no resolución del derecho.
+
+
+### Transporte JSON por paquetes
+
+Una copia revisada serializada mayor de8MiB produce un manifiesto rights-data-manifest-v1; el JSON original se divide en fragmentos dentro de RightsExportPart cifrados, ZIPs de hasta8MiB. El manifiesto indica hashes/tamaños/orden y conserva partial/simulation/pending_review; no cambia el ámbito comprobado. La descarga existente aplica prueba/canal/versión/caducidad/auditoría/CSRF/replay, y la purga vacía esos paquetes. Los paquetes de datos usan nombres rights-data-part-N.zip y etiquetas ESEN diferenciadas. Los pequeños conservan el JSON original; imágenes mantienen su formato anterior. Reconstrucción local y límites pendientes: docs67. Corrupción de cifrado/JSON/forma de la copia principal devuelve404 y revierte registro de descarga fallida.

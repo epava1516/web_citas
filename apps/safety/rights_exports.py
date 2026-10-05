@@ -5,6 +5,7 @@ import json
 import uuid
 from datetime import timedelta
 
+from cryptography.fernet import InvalidToken
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
@@ -368,7 +369,9 @@ def generate(user, case_id, key, version, reason, copy):
                         "attachments": package["attachments"],
                     }
                 )
-            export.encrypted_payload = seal(cleaned)
+            from .rights_data_parts import stored_payload
+
+            export.encrypted_payload = stored_payload(export, cleaned)
             export.save(update_fields=["encrypted_payload"])
     except IntegrityError as error:
         raise ValidationError("Conflicting export key / Clave incompatible") from error
@@ -569,28 +572,39 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
             or recorded.actor_id != (request.user.pk if request.user.is_authenticated else None)
         ):
             return private(HttpResponse("Conflicting download key", status=409))
-        if part:
+        try:
+            if part:
+                response = HttpResponse(
+                    cipher().decrypt(part.encrypted_content.encode()),
+                    content_type="application/zip",
+                )
+                response["Content-Disposition"] = (
+                    f'attachment; filename="rights-data-part-{part.position}.zip"'
+                    if not part.attachments
+                    else 'attachment; filename="rights-part.zip"'
+                )
+                return private(response)
+            if image:
+                response = HttpResponse(
+                    cipher().decrypt(image.encrypted_content.encode()), content_type="image/webp"
+                )
+                response["Content-Disposition"] = 'attachment; filename="rights-image.webp"'
+                return private(response)
+            payload = unseal(export.encrypted_payload)
+            if not isinstance(payload, dict):
+                raise Http404
             response = HttpResponse(
-                cipher().decrypt(part.encrypted_content.encode()), content_type="application/zip"
+                json.dumps(payload, ensure_ascii=False, indent=2),
+                content_type="application/json; charset=utf-8",
             )
-            response["Content-Disposition"] = 'attachment; filename="rights-part.zip"'
-            return private(response)
-        if image:
-            response = HttpResponse(
-                cipher().decrypt(image.encrypted_content.encode()), content_type="image/webp"
+            response["Content-Disposition"] = (
+                'attachment; filename="rights-account.json"'
+                if case.account_subject_id
+                else 'attachment; filename="rights-profile.json"'
             )
-            response["Content-Disposition"] = 'attachment; filename="rights-image.webp"'
             return private(response)
-        response = HttpResponse(
-            json.dumps(unseal(export.encrypted_payload), ensure_ascii=False, indent=2),
-            content_type="application/json; charset=utf-8",
-        )
-        response["Content-Disposition"] = (
-            'attachment; filename="rights-account.json"'
-            if case.account_subject_id
-            else 'attachment; filename="rights-profile.json"'
-        )
-        return private(response)
+        except (InvalidToken, UnicodeDecodeError, json.JSONDecodeError):
+            raise Http404 from None
 
 
 @sensitive_variables()
