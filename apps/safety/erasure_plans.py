@@ -183,7 +183,7 @@ def record(user, case_id, inventory_id, key, version, decisions):
                     {"reason": "Recorded per-purpose decisions; execution remains pending"}
                 ),
             )
-            return ErasurePlan.objects.create(
+            plan = ErasurePlan.objects.create(
                 inventory=inventory,
                 action=action,
                 source_digest=inventory.source_digest,
@@ -191,7 +191,12 @@ def record(user, case_id, inventory_id, key, version, decisions):
                     {"schema": "erasure-plan-v1", "decisions": decisions, "execution_ready": False}
                 ),
                 review_on=min(dates) if dates else None,
+                retention_purpose_count=len(dates),
             )
+            from .retention_reviews import schedule
+
+            schedule(plan, decisions)
+            return plan
     except IntegrityError as error:
         raise ValidationError("Conflicting action key / Clave incompatible") from error
 

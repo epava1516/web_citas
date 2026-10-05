@@ -48,3 +48,10 @@ def purge_expired_account_confirmation_delivery():
     from .account_email_confirmation import purge_expired_delivery
 
     return purge_expired_delivery()
+
+
+@shared_task
+def reconcile_retention_reviews():
+    from .retention_reviews import reconcile
+
+    return reconcile()

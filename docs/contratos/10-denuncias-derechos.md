@@ -620,3 +620,12 @@ Lectura auditada, gestión procedimental y respuesta de progreso pueden bloquear
 ### Inventario de cuenta v2 y compatibilidad histórica
 
 account-erasure-inventory-v2 amplía a31 modelos seleccionados de metadatos; no entrega cuerpos ni autoriza operaciones nuevas por propiedad de organización/intervención como actor. Las acciones erasure_inventory/plan/execute y artefactos de supresión del expediente actual se excluyen explícitamente de su fuente mutable; los de otros expedientes propios permanecen inventariados. Lecturas/mensajes/respuestas/avisos pertinentes participan en estado seleccionado y cambios exigen nueva preparación. Snapshotv1 no se reescribe ni se promueve silenciosamente: su plan frente a fuentev2 se deniega por Resources changed. Replay de ejecución ya realizada conserva contrato anterior. Baterías10/4/1 y runtime14 hashes verificados por separado, sin aceptación integral CR09. [Ámbitos, causalidad y evidencia](../56-dependencias-inventario-cuenta.md).
+
+
+## Calendario por finalidad —0066
+
+GET retention_queue (/es|en/moderation/rights/retention/): attention due/soon/all, page; paginación50, metadatos autorizados sin motivos. GET/POST retention_review (/es|en/moderation/rights/retention/<UUID>/): permisos review_rights_request y review_retention, MFA/sesión actual, COI. GET no descifra. POST key UUID, version/case_version enteros, operation inspect/follow_up, reason20–2000; next_review_on solo seguimiento, history_before cursor opcional solo consulta. Error formulario400, conflicto409, autorización403 o redirección de autenticación/MFA, éxito200 privado no-store.
+
+Inspect exige lecturas actuales completas del caso/respuestas, audita antes de descifrar y devuelve snapshot cifrado reproducible con historial50/cursor. Follow_up exige consulta de todas las páginas actuales, autor independiente del creador del plan y fecha futura dentro de365 días técnicos; aumenta versión de revisión/asigna responsable sin modificar decisión original ni plazo de derechos. Repetición exacta no duplica. Contexto decision solo POST autorizado; GET no presenta fundamentos/historia privada.
+
+Tarea reconcile_retention_reviews: sin entrada, lote100, resultado plans/scheduled/failed; Beat60s. Repara calendarios ausentes/parciales, valida firma/cifrado y no sobrescribe seguimientos. No autoriza conservación, supresión ni respuesta final. Detalles/evidencias: docs57.

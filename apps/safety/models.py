@@ -537,7 +537,59 @@ class ErasurePlan(models.Model):
     source_digest = models.CharField(max_length=64)
     encrypted_decisions = models.TextField()
     review_on = models.DateField(null=True, db_index=True)
+    retention_purpose_count = models.PositiveSmallIntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RetentionReview(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    plan = models.ForeignKey(
+        ErasurePlan, on_delete=models.PROTECT, related_name="retention_reviews"
+    )
+    purpose = models.CharField(max_length=40)
+    operation = models.CharField(max_length=10)
+    initial_review_on = models.DateField()
+    next_review_on = models.DateField(db_index=True)
+    responsible = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    version = models.PositiveIntegerField(default=1)
+    last_reviewed_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [("review_retention", "Independently review per-purpose retention follow-up")]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["plan", "purpose"], name="retention_review_one_purpose"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(operation__in=["retain", "review"]),
+                name="retention_review_supported_operation",
+            ),
+        ]
+
+
+class RetentionReviewEvent(models.Model):
+    key = models.UUIDField(unique=True)
+    review = models.ForeignKey(RetentionReview, on_delete=models.PROTECT, related_name="events")
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    expected_version = models.PositiveIntegerField()
+    case_version = models.PositiveIntegerField()
+    operation = models.CharField(max_length=12)
+    history_before = models.PositiveBigIntegerField(null=True)
+    plan_digest = models.CharField(max_length=64)
+    payload_digest = models.CharField(max_length=64)
+    encrypted_reason = models.TextField()
+    encrypted_result = models.TextField(default="")
+    next_review_on = models.DateField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(operation__in=["inspect", "follow_up"]),
+                name="retention_event_supported_operation",
+            )
+        ]
 
 
 class ErasureExecution(models.Model):

@@ -29,6 +29,7 @@ from apps.safety import (
     rectification_recipients,
     rectification_review,
     rectification_uploads,
+    retention_views,
     rights,
     rights_exports,
     rights_rectification,
@@ -51,6 +52,12 @@ from . import (
 )
 
 urlpatterns = [
+    path("moderation/rights/retention/", retention_views.queue, name="retention_queue"),
+    path(
+        "moderation/rights/retention/<uuid:review_id>/",
+        retention_views.inspect,
+        name="retention_review",
+    ),
     path(
         "moderation/rights/<uuid:case_id>/recipient-assessment/<int:assessment_id>/review/",
         recipient_review_views.prepare,

@@ -131,6 +131,10 @@ if PRODUCTION and not MFA_ENCRYPTION_KEY:
     raise ImproperlyConfigured("Production requires independent MFA encryption key")
 
 CELERY_BEAT_SCHEDULE = {
+    "reconcile-retention-reviews": {
+        "task": "apps.safety.tasks.reconcile_retention_reviews",
+        "schedule": 60.0,
+    },
     "reconcile-urgent-report-alerts": {
         "task": "apps.safety.tasks.reconcile_urgent_report_alerts",
         "schedule": 60.0,
