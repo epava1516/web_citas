@@ -948,3 +948,53 @@ class RightsAccountEmailConfirmation(models.Model):
     consumed_at = models.DateTimeField(null=True, blank=True)
     revoked_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ProcessingPurposePlan(models.Model):
+    """Reviewed preparation only; enforcement and final response are separate."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    person = models.ForeignKey("core.Person", null=True, on_delete=models.PROTECT)
+    account_subject = models.ForeignKey("core.User", null=True, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    encrypted_plan = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=(models.Q(person__isnull=False) & models.Q(account_subject__isnull=True))
+                | (models.Q(person__isnull=True) & models.Q(account_subject__isnull=False)),
+                name="processing_plan_exactly_one_scope",
+            ),
+        ]
+
+
+class ProcessingPlanRead(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    plan = models.ForeignKey(ProcessingPurposePlan, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    plan_digest = models.CharField(max_length=64)
+    source_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ProcessingPlanReview(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    plan = models.OneToOneField(ProcessingPurposePlan, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    plan_digest = models.CharField(max_length=64)
+    source_digest = models.CharField(max_length=64)
+    outcome = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [("review_processing_plan", "Independently review purpose processing plans")]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["approved", "rejected"]),
+                name="processing_review_valid_outcome",
+            )
+        ]

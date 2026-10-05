@@ -629,3 +629,15 @@ GET retention_queue (/es|en/moderation/rights/retention/): attention due/soon/al
 Inspect exige lecturas actuales completas del caso/respuestas, audita antes de descifrar y devuelve snapshot cifrado reproducible con historial50/cursor. Follow_up exige consulta de todas las páginas actuales, autor independiente del creador del plan y fecha futura dentro de365 días técnicos; aumenta versión de revisión/asigna responsable sin modificar decisión original ni plazo de derechos. Repetición exacta no duplica. Contexto decision solo POST autorizado; GET no presenta fundamentos/historia privada.
 
 Tarea reconcile_retention_reviews: sin entrada, lote100, resultado plans/scheduled/failed; Beat60s. Repara calendarios ausentes/parciales, valida firma/cifrado y no sobrescribe seguimientos. No autoriza conservación, supresión ni respuesta final. Detalles/evidencias: docs57.
+
+
+## Preparación por finalidad de limitación/oposición — en verificación0067
+
+GET/POST processing_prepare, /es|en/moderation/rights/<UUID>/processing/. Permisos review_rights_request/execute_rights_request, MFA/sesión vigentes, COI; solo restriction/object. GET formulario vacío sin fundamentos ni datos. POST operation preview/prepare, key UUID, version entero, reason20–2000. Preview audita consulta de fuente seleccionada con comprobación actual del derecho y entrega snapshot solo en respuesta POST; inicializa decisiones sin inventar fundamento. Prepare requiere decisions lista JSON y source_digest64 del snapshot actual; cada finalidad una sola vez, operación restrict/cease/continue/review, basis/reason/scope minimizados y fecha futura de revisión. Estado400 formulario inválido,409 conflicto,403 permisos o redirección autenticación/MFA,200 correcto; privado no-store.
+
+Preparación registrada no modifica tratamientos ni cierra solicitud. Plan cifrado partial=true/enforced=false, UUID visible tras registro, no cuerpo por GET. Pendientes consulta auditada del plan, revisión independiente y aplicación de restricciones en operaciones servidor antes de aceptar el derecho. Detalles docs58.
+
+
+## Revisión de preparación por finalidad — en verificación0068
+
+GET/POST processing_review /es|en/moderation/rights/<UUID>/processing/<planUUID>/. Requiere review_processing_plan además de revisión/ejecución de derechos y MFA/sesión vigente/COI. GET formulario sin decisiones. POST key/version/operation inspect|review/reason20–2000/outcome vacío en inspect o approved|rejected en review. Caso, plan, fuente y comprobación deben estar vigentes; lectura actual del expediente/respuestas requerida. Inspect audita antes de descifrar y valida firma original; review exige lectura propia de ese plan/digest/prueba, actor independiente de preparador y resultado único. Aprobación no admite finalidades review pendientes. Error400 formulario,409 estado/fuente/firma/replay,403 autorización,200 éxito privado no-store. Decisiones solo respuesta POST inspect; GET posterior no muestra cuerpo. Aprobación no ejecuta tratamientos ni cierra solicitud.

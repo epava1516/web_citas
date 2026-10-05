@@ -23,6 +23,7 @@ from apps.safety import (
     photo_reintroduction_views,
     privacy_holds,
     privacy_release,
+    processing_views,
     recipient_assessment_views,
     recipient_review_views,
     rectification_notices,
@@ -52,6 +53,16 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "moderation/rights/<uuid:case_id>/processing/",
+        processing_views.preparation,
+        name="processing_prepare",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/processing/<uuid:plan_id>/",
+        processing_views.review,
+        name="processing_review",
+    ),
     path("moderation/rights/retention/", retention_views.queue, name="retention_queue"),
     path(
         "moderation/rights/retention/<uuid:review_id>/",

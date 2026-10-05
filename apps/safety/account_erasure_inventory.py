@@ -128,6 +128,10 @@ def source(case):
     # Current inventory/plan/execution artifacts are deliberately excluded: creating
     # them must not invalidate their own source. Other cases retain their metadata.
     procedure_operations = ["erasure_inventory", "erasure_plan", "erasure_execute"]
+    if case.kind in {"restriction", "object"}:
+        procedure_operations.extend(
+            ["processing_prepare", "processing_preview", "processing_inspect", "processing_review"]
+        )
     specs.extend(
         [
             (
@@ -138,7 +142,8 @@ def source(case):
             ),
             (
                 "safety.RightsAccess",
-                Q(request_id__in=case_ids) | Q(actor=user),
+                (Q(request_id__in=case_ids) | Q(actor=user))
+                & (~Q(request=case) if case.kind in {"restriction", "object"} else Q()),
                 "dependent_evidence",
                 [
                     "pk",
