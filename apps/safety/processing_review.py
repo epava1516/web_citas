@@ -17,7 +17,7 @@ from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
 
 
-def authorize(user, case):
+def authorize(user, case, review_permission=True):
     fresh = User.objects.get(pk=user.pk)
     if (
         not fresh.is_active
@@ -26,7 +26,10 @@ def authorize(user, case):
         or fresh.session_version != user.session_version
         or not all(
             fresh.has_perm("safety." + p)
-            for p in ["review_rights_request", "execute_rights_request", "review_processing_plan"]
+            for p in (
+                ["review_rights_request", "execute_rights_request"]
+                + (["review_processing_plan"] if review_permission else [])
+            )
         )
         or not permitted(fresh, case)
     ):
@@ -35,9 +38,9 @@ def authorize(user, case):
 
 
 @sensitive_variables()
-def current(user, case_id, plan_id, version):
+def current(user, case_id, plan_id, version, review_permission=True):
     case, person, _ = locked_case(case_id, lock_listing=True)
-    fresh = authorize(user, case)
+    fresh = authorize(user, case, review_permission)
     plan = (
         ProcessingPurposePlan.objects.select_for_update(of=("self",))
         .select_related("action", "proof")

@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_GET, require_POST
 
 from apps.core.models import Person, User
+from apps.safety.purpose_restrictions import blocked_response, restricted
 
 from .models import Favorite, Listing
 from .moderation import publicly_visible
@@ -13,7 +14,15 @@ from .moderation import publicly_visible
 
 @login_required
 @require_GET
+@transaction.atomic
 def index(request):
+    actor = User.objects.select_for_update(no_key=True).get(pk=request.user.pk)
+    if not actor.is_active or request.session.get("account_version") != actor.session_version:
+        return HttpResponse(
+            "Session changed; sign in again / Sesión cambiada; accede de nuevo", status=409
+        )
+    if restricted(actor, "account_preferences"):
+        return blocked_response()
     favorites = Favorite.objects.filter(user=request.user).select_related(
         "listing__approved_revision", "listing__person__agency", "listing__person__phone_claim"
     )
@@ -40,6 +49,8 @@ def add(request, listing_id):
             return HttpResponse(
                 "Session changed; sign in again / Sesión cambiada; accede de nuevo", status=409
             )
+        if restricted(actor, "account_preferences"):
+            return blocked_response()
         Favorite.objects.get_or_create(user=actor, listing=listing)
     return redirect("favorites")
 
@@ -53,6 +64,8 @@ def remove(request, favorite_id):
             return HttpResponse(
                 "Session changed; sign in again / Sesión cambiada; accede de nuevo", status=409
             )
+        if restricted(actor, "account_preferences"):
+            return blocked_response()
         favorite = get_object_or_404(Favorite, pk=favorite_id, user=actor)
         Favorite.objects.filter(pk=favorite.pk, user=actor).delete()
     return redirect("favorites")

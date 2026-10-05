@@ -195,3 +195,64 @@ def review(request, case_id, plan_id):
             status=status,
         )
     )
+
+
+class ExecutionForm(forms.Form):
+    key = forms.UUIDField(widget=forms.HiddenInput)
+    version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    purposes = forms.MultipleChoiceField(
+        choices=[("account_preferences", "Preferencias de cuenta / Account preferences")],
+        widget=forms.CheckboxSelectMultiple,
+    )
+    reason = forms.CharField(
+        min_length=20,
+        max_length=2000,
+        widget=forms.Textarea,
+        label="Motivo minimizado / Minimized reason",
+    )
+    confirmed = forms.BooleanField(
+        label="Confirmo esta ejecución parcial / I confirm this partial execution"
+    )
+
+
+@login_required
+@sensitive_post_parameters("reason")
+@sensitive_variables()
+@require_http_methods(["GET", "POST"])
+def execution(request, case_id, plan_id):
+    from .models import ProcessingPurposePlan
+    from .processing_execution import execute
+
+    if not allowed(request) or not request.user.has_perm("safety.execute_rights_request"):
+        return private(HttpResponse("Forbidden", status=403))
+    case = RightsRequest.objects.filter(pk=case_id).first()
+    if (
+        not case
+        or not ProcessingPurposePlan.objects.filter(pk=plan_id, action__request=case).exists()
+    ):
+        raise Http404
+    if not permitted(request.user, case):
+        return private(HttpResponse("Forbidden", status=403))
+    form = ExecutionForm(
+        request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
+    )
+    result, status = None, 400 if request.method == "POST" else 200
+    if request.method == "POST" and form.is_valid():
+        try:
+            result = execute(request.user, case.pk, plan_id, **form.cleaned_data)
+            case.refresh_from_db()
+            form = ExecutionForm(initial={"key": uuid.uuid4(), "version": case.version})
+            status = 200
+        except PermissionDenied:
+            return private(HttpResponse("Forbidden", status=403))
+        except ValidationError as error:
+            form.add_error(None, error)
+            status = 409
+    return private(
+        render(
+            request,
+            "safety/processing_execute.html",
+            {"case": case, "plan_id": plan_id, "form": form, "executed": result},
+            status=status,
+        )
+    )

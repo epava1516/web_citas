@@ -140,6 +140,10 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         subject = User.objects.select_for_update(no_key=True).get(
             pk=case.account_subject_id or person.subject_id
         )
+    if subject and "account_preferences" in purposes:
+        from .purpose_restrictions import require_unrestricted
+
+        require_unrestricted(subject, "account_preferences")
     exports = (
         list(
             RightsExport.objects.select_for_update()

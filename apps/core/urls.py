@@ -63,6 +63,11 @@ urlpatterns = [
         processing_views.review,
         name="processing_review",
     ),
+    path(
+        "moderation/rights/<uuid:case_id>/processing/<uuid:plan_id>/execute/",
+        processing_views.execution,
+        name="processing_execute",
+    ),
     path("moderation/rights/retention/", retention_views.queue, name="retention_queue"),
     path(
         "moderation/rights/retention/<uuid:review_id>/",

@@ -998,3 +998,44 @@ class ProcessingPlanReview(models.Model):
                 name="processing_review_valid_outcome",
             )
         ]
+
+
+class ProcessingExecution(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    review = models.ForeignKey(ProcessingPlanReview, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    person = models.ForeignKey("core.Person", null=True, on_delete=models.PROTECT)
+    account_subject = models.ForeignKey("core.User", null=True, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    encrypted_result = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=(models.Q(person__isnull=False) & models.Q(account_subject__isnull=True))
+                | (models.Q(person__isnull=True) & models.Q(account_subject__isnull=False)),
+                name="processing_execution_exact_scope",
+            )
+        ]
+
+
+class PurposeRestriction(models.Model):
+    execution = models.ForeignKey(ProcessingExecution, on_delete=models.PROTECT)
+    subject = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    purpose = models.CharField(max_length=40)
+    mode = models.CharField(max_length=10)
+    review_on = models.DateField(db_index=True)
+    active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["execution", "purpose"], name="purpose_restriction_once"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(mode__in=["restrict", "cease"]),
+                name="purpose_restriction_valid_mode",
+            ),
+        ]
