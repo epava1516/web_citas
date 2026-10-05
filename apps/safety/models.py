@@ -1214,3 +1214,29 @@ class RightsCopyPageReview(models.Model):
                 name="copy_page_review_positive_versions",
             ),
         ]
+
+
+class RightsCopyInformation(models.Model):
+    request = models.ForeignKey(
+        RightsRequest, on_delete=models.PROTECT, related_name="copy_information"
+    )
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    policy_version = models.CharField(max_length=80)
+    version = models.PositiveIntegerField()
+    encrypted_information = models.TextField()
+    expires_at = models.DateTimeField(db_index=True)
+    purged_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["request", "actor", "version"], name="copy_information_version_once"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(version__gte=1), name="copy_information_positive_version"
+            ),
+        ]

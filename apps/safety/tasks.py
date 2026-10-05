@@ -73,3 +73,21 @@ def purge_expired_copy_page_reviews():
         return RightsCopyPageReview.objects.filter(pk__in=ids).update(
             encrypted_entries="", purged_at=now
         )
+
+
+@shared_task
+def purge_expired_copy_information():
+    """Empty temporary information drafts, preserving minimal version metadata."""
+    from .models import RightsCopyInformation
+
+    with transaction.atomic():
+        now = timezone.now()
+        ids = list(
+            RightsCopyInformation.objects.select_for_update(skip_locked=True)
+            .filter(expires_at__lte=now, purged_at__isnull=True)
+            .order_by("pk")
+            .values_list("pk", flat=True)[:100]
+        )
+        return RightsCopyInformation.objects.filter(pk__in=ids).update(
+            encrypted_information="", purged_at=now
+        )

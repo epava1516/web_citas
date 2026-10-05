@@ -350,6 +350,25 @@ def source(case):
                 ],
             ),
             (
+                "safety.RightsCopyInformation",
+                (Q(request__account_subject=user) | Q(request__person__subject=user))
+                & ~Q(request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "request_id",
+                    "actor_id",
+                    "action_id",
+                    "proof_id",
+                    "source_digest",
+                    "policy_version",
+                    "version",
+                    "encrypted_information",
+                    "expires_at",
+                    "purged_at",
+                ],
+            ),
+            (
                 "safety.RightsCopyPageReview",
                 (Q(request__account_subject=user) | Q(request__person__subject=user))
                 & ~Q(request=case),

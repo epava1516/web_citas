@@ -457,6 +457,23 @@ def source_manifest(person, case=None):
             ["pk", "response_id", "created_at"],
         ),
         (
+            "safety.RightsCopyInformation",
+            Q(request__person=person),
+            [
+                "pk",
+                "request_id",
+                "actor_id",
+                "action_id",
+                "proof_id",
+                "source_digest",
+                "policy_version",
+                "version",
+                "encrypted_information",
+                "expires_at",
+                "purged_at",
+            ],
+        ),
+        (
             "safety.RightsCopyPageReview",
             Q(request__person=person),
             [
