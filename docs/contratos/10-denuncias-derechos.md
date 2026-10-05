@@ -718,3 +718,5 @@ Formularios inválidos400, conflicto/fuente/prueba/versión/decisión indisponib
 RightsCopyPageReview se liga a expediente, actor, prueba, lectura y acción de guardado; contenido cifrado caduca≤24h/prueba. Purga conserva metadatos; no acredita borrado de backups. Inventarios seleccionados detectan cambios del ciphertext sin descifrar; el de cuenta excluye su propio procedimiento.
 
 La compilación y generación directa siguen materializando la fuente y resultado completos en memoria. Sus verificaciones se documentan en docs69/70; aceptación conjunta actual en curso. No constituye cumplimiento integral de acceso/portabilidad ni resolución final de CR-09.
+
+Ampliación personal_contacts (docs71): account_activity incorpora exclusivamente PhoneClaim.individual=cuenta del titular y agency=null, con phone/verified_at/verification_procedure/scope=account_owned_claim. Es atribución registrada, no inferencia de teléfono personal verificado. Sección paginada incluida en compilación; revisión conserva número original o vacío, sin cambiar estado ni procedimiento. No incluye retos/códigos/tokens ni teléfonos de gestores/agencias. Copia continúa parcial y simulada.

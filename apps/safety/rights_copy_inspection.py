@@ -23,6 +23,7 @@ SECTIONS = {
     ),
     "revisions": lambda source: source["revisions"],
     "legal_acceptances": lambda source: source["legal_acceptances"],
+    "personal_contacts": lambda source: source["account_activity"]["personal_contacts"],
     "favorites": lambda source: source["account_activity"]["favorites"],
     "verifications": lambda source: (source.get("representation") or {}).get("verifications", []),
     "representation_history": lambda source: (source.get("representation") or {}).get(

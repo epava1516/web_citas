@@ -11,6 +11,7 @@ from test_account_copy_races import prepared_account
 from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_copy_compilation import review_all
 
+from apps.core.models import PhoneClaim
 from apps.safety.models import RightsExportDownload
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -22,6 +23,7 @@ def test_mobile_direct_account_copy_generation_and_download(
 ):
     settings.DEBUG = True
     case, actor, _, subject, _, receipt = prepared_account(request, settings, monkeypatch)
+    claim = PhoneClaim.objects.create(phone="+34960000096", individual=subject)
     review_all(case, actor)
     credentials = json.loads((tmp_path / "credentials.json").read_text())
     moderator = credentials["accounts"]["moderator"]
@@ -58,6 +60,27 @@ def test_mobile_direct_account_copy_generation_and_download(
                 page.locator("[name=copy]").input_value() == ""
                 and subject.email not in page.content()
             )
+            assert claim.phone not in page.content()
+            page.locator("[name=operation]").select_option("inspect_page")
+            page.locator("[name=section]").select_option("personal_contacts")
+            page.locator("[name=purpose]").fill(
+                "Inspect owned phone claims before mobile redaction"
+            )
+            page.get_by_role("button", name=submit, exact=True).click()
+            expect(page.locator("#inspection-page-output")).to_contain_text(claim.phone)
+            save_label = "Save page decisions" if english else "Guardar decisiones de página"
+            save_form = page.locator("form").filter(
+                has=page.get_by_role("button", name=save_label, exact=True)
+            )
+            contacts = json.loads(save_form.locator("[name=entries]").input_value())
+            for contact in contacts:
+                contact["phone"] = ""
+            save_form.locator("[name=entries]").fill(json.dumps(contacts))
+            save_form.locator("[name=reason]").fill("Redact phone values before mobile delivery")
+            save_form.get_by_role("button", name=save_label, exact=True).click()
+            expect(page.get_by_role("status")).to_contain_text("personal_contacts")
+            page.goto(live_server.url + f"/{language}/moderation/rights/{case.pk}/export/")
+            assert claim.phone not in page.content()
             page.locator("[name=operation]").select_option("generate_pages")
             page.locator("[name=reason]").fill(
                 "Generate synthetic copy directly from reviewed pages"
@@ -92,6 +115,11 @@ def test_mobile_direct_account_copy_generation_and_download(
             assert copied["schema"] == "subject-account-copy-v1" and copied["partial"] is True
             assert copied["subject_account"]["email"] == ""
             assert copied["profile"] is None and copied["revisions"] == []
+            assert copied["account_activity"]["personal_contacts"]
+            assert all(
+                contact["phone"] == ""
+                for contact in copied["account_activity"]["personal_contacts"]
+            )
             anonymous.reload()
             assert subject.email not in anonymous.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
@@ -99,3 +127,5 @@ def test_mobile_direct_account_copy_generation_and_download(
         finally:
             browser.close()
     assert RightsExportDownload.objects.filter(export__account_subject=subject).count() == 1
+    claim.refresh_from_db()
+    assert claim.phone == "+34960000096"

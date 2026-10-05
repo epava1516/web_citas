@@ -1,6 +1,12 @@
 """Explicit subject-only projections for reviewed rights copies; no secret fields."""
 
-from apps.core.models import LegalAcceptance, RepresentationAction, User, VerificationCheck
+from apps.core.models import (
+    LegalAcceptance,
+    PhoneClaim,
+    RepresentationAction,
+    User,
+    VerificationCheck,
+)
 from apps.listings.models import Favorite
 
 
@@ -24,6 +30,21 @@ def legal_acceptances(user):
         for item in LegalAcceptance.objects.filter(user=user)
         .select_related("document")
         .order_by("pk")
+    ]
+
+
+def personal_contacts(user):
+    """Account-owned claims; verification status is explicit, never inferred from publication."""
+    if not user:
+        return []
+    return [
+        {
+            "phone": claim.phone,
+            "verified_at": date(claim.verified_at),
+            "verification_procedure": claim.verification_procedure,
+            "scope": "account_owned_claim",
+        }
+        for claim in PhoneClaim.objects.filter(individual=user, agency__isnull=True).order_by("pk")
     ]
 
 
@@ -67,6 +88,7 @@ def subject_data(person):
         "subject_account": account,
         "legal_acceptances": acceptances,
         "account_activity": {
+            "personal_contacts": personal_contacts(user),
             "favorites": [
                 {"listing_reference": str(item.listing_id), "created_at": date(item.created_at)}
                 for item in Favorite.objects.filter(user=user).order_by("pk")

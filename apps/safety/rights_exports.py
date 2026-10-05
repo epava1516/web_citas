@@ -185,6 +185,20 @@ def reviewed_copy(source, value):
                 if text not in [expected["subject_account"][field], ""]:
                     raise ValueError
                 expected["subject_account"][field] = text
+        if "personal_contacts" in expected.get("account_activity", {}):
+            original_contacts = expected["account_activity"]["personal_contacts"]
+            changed_contacts = value["account_activity"]["personal_contacts"]
+            if not isinstance(changed_contacts, list) or len(changed_contacts) != len(
+                original_contacts
+            ):
+                raise ValueError
+            for original_contact, changed_contact in zip(
+                original_contacts, changed_contacts, strict=True
+            ):
+                phone = changed_contact["phone"]
+                if phone not in [original_contact["phone"], ""]:
+                    raise ValueError
+                original_contact["phone"] = phone
         if len(value["revisions"]) != len(expected["revisions"]):
             raise ValueError
         for original, edited in zip(expected["revisions"], value["revisions"], strict=True):
@@ -461,6 +475,7 @@ class ExportForm(forms.Form):
                 "revisions",
                 "legal_acceptances",
                 "favorites",
+                "personal_contacts",
                 "verifications",
                 "representation_history",
             ]

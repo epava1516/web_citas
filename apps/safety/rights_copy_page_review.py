@@ -32,6 +32,15 @@ def checked_entries(source, section, original, proposed):
         scoped[section] = original[0]
         value = {**scoped, section: proposed[0]}
         return [reviewed_copy(scoped, value)[section]]
+    if section == "personal_contacts":
+        scoped = {
+            "profile": None,
+            "subject_account": None,
+            "revisions": [],
+            "account_activity": {"personal_contacts": original},
+        }
+        value = {**scoped, "account_activity": {"personal_contacts": proposed}}
+        return reviewed_copy(scoped, value)["account_activity"]["personal_contacts"]
     if section == "revisions":
         # Reuse the established text/image redaction rules on just this revision batch.
         scoped = {"profile": None, "subject_account": None, "revisions": original}
@@ -351,8 +360,8 @@ def compile_pages(user, case_id, case_version, key, reason):
             entries.extend(recovered["entries"])
         if section in {"profile", "subject_account"}:
             compiled[section] = entries[0] if entries else None
-        elif section == "favorites":
-            compiled["account_activity"]["favorites"] = entries
+        elif section in {"favorites", "personal_contacts"}:
+            compiled["account_activity"][section] = entries
         elif section in {"verifications", "representation_history"}:
             if compiled["representation"] is not None:
                 compiled["representation"][
