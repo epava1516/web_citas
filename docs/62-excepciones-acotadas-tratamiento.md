@@ -1,6 +1,6 @@
 # Excepciones acotadas a restricciones de tratamiento
 
-Fecha: 2026-10-05. Estado: preparación verificada parcialmente y revisión independiente en verificación; consumo y aceptación pendientes. CR-09 sigue abierto. Complementa docs58–61; no sustituye el levantamiento comunicado de docs60.
+Fecha: 2026-10-05. Estado: preparación/revisión verificadas parcialmente, consumo transaccional en verificación; aceptación integral pendiente. CR-09 sigue abierto. Complementa docs58–61; no sustituye el levantamiento comunicado de docs60.
 
 ## Problema verificado
 
@@ -69,3 +69,17 @@ Refuerzo posterior: frescura de permisos después de bloqueos y caducidad compro
 Docker: build84986, migrate14987 y recreate55845 terminal0; auditoría4640 terminal0,11 fuentes iguales host/app/worker/Beat, UID10001,0072 aplicada/check/migrate--check/health200. Identidad/avisos/confirmación disabled. Evidencia `evidencias/excepciones-revision-runtime.json`; no proveedor real ni ensayo de operación en producción. No hay pruebas locales activas al terminar esta verificación.
 
 Siguiente entrega: consumo atómico ligado a acción de supresión, ampliación de integridad y ámbito, carreras reales, fuente/inventario de nuevos registros y regresión común. Antes de conectar consumo, mantener orden sujeto→propuesta/medidas también en ámbito de perfil para evitar inversión con la supresión. Revalidar las firmas y autoridad de acciones/planes en el consumidor después de todas las esperas. Excepciones a otras finalidades, retención/backup/restauración, acceso integral, comunicaciones/cierre y CR09 íntegro siguen pendientes; no iniciar CR10/GS01 por una aprobación parcial.
+
+## Consumo conectado en verificación
+
+`erasure_execution.execute` acepta `exception_id` opcional, entero positivo acotado; la firma idempotente lo incluye solo cuando se proporciona, conservando las firmas anteriores sin excepción. La pantalla de supresión incluye campo opcional y la revisión aprobada enlaza a esa operación. Una excepción para otra finalidad o una referencia incompatible no concede autoridad.
+
+Sin referencia, la guarda existente sigue denegando preferencias restringidas. Con referencia, primero se validan el plan/inventario y decisiones de supresión. La acción de ejecución se registra antes de consultar los fundamentos privados. `purpose_exceptions.consume` bloquea propuesta/medidas/revisión tras el sujeto, recarga la fuente después de las esperas y exige aprobación sin usar del mismo sujeto/expediente/plan/prueba/versiones/conjunto de finalidades. Comprueba firma de plan y aprobación, caducidad, independencia y permisos actuales tanto del ejecutor como del aprobador y COI en los expedientes de origen. Registra consumed_action dentro de la misma transacción que elimina favoritos; fallo posterior revierte consumo, acción y eliminación. No desactiva medidas ni concede operaciones ordinarias de favoritos.
+
+La consulta/revisión también adquiere sujeto antes de propuesta para conservar el mismo orden en ámbitos de perfil. Las garantías de supresión existentes siguen vigentes: revocación de sesiones, caso abierto, comprobación de identidad simulada, resultado parcial y finalidades no seleccionadas conservadas.
+
+Primera91557 terminal1:3 correctas/1 fallida54,48s. El consumo/replay funcionaron; la prueba usaba force_login sin la nueva account_version después de la revocación de sesiones y recibía302 correctamente. Cliente de prueba actualizado a versión actual, sin relajar servidor. Batería43251 terminal0:14 conjuntas correctas124,55s PostgreSQL, consumo/preparación/revisión/restricción anterior. Cubre consumo único, firma/versión alteradas, rechazo de nuevo key y fallo provocado después del consumo con rollback completo. No sumar con ejecuciones separadas.
+
+Ampliación67173 terminal0:6 correctas78,94s PostgreSQL/Chromium, sin fallos/errores/skips. Dos conexiones con bloqueo observado prueban replay/conflicto/permiso revocado y seguimiento real de medida que invalida aprobación. Móvil ESEN390px con login/MFA real→formulario de supresión con referencia de excepción→consumo→reload POST único→GET sin resultado; caso sigue abierto, versión aumenta una sola vez, plazo original conservado y medida activa. Evidencias separadas `evidencias/excepciones-consumo-regresion.json` (14) y `evidencias/excepciones-consumo-ampliacion.json` (6); no presentar como una ejecución común20.
+
+Docker: build87423 y recreate57271 terminal0, runtime normal conserva0072 (no migración nueva). Auditoría10 fuentes app/worker/Beat, UID10001/check/migrate--check/health200 y proveedores disabled, evidencia `evidencias/excepciones-consumo-runtime.json`. No operación con proveedor real. Inventario de nuevas evidencias, variantes de ámbito/modo/otras finalidades, nuevas medidas/proofs durante espera, aceptación conjunta y CR09 completo pendientes.

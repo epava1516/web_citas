@@ -2,7 +2,9 @@
 
 ## REQ-CR09-PURPOSE-EXCEPTION-01 — Preparación y revisión independientes
 
-Esquema0072 y [docs62](../62-excepciones-acotadas-tratamiento.md). Autorización futura de operación única ligada al plan, fuente y conjunto completo de medidas activas; preparar o aprobar no permite actualmente supresión ni levanta medidas. Consumo transaccional pendiente.
+Esquema0072 y [docs62](../62-excepciones-acotadas-tratamiento.md). Autorización de operación única ligada al plan, fuente y conjunto completo de medidas activas; preparar o aprobar no ejecuta supresión ni levanta medidas. La operación de supresión consume explícitamente una aprobación vigente y compatible dentro de su transacción.
+
+Actualización de consumo en verificación: `erasure_execute` GET/POST admite exception_id opcional, entero1–9223372036854775807. La referencia se vincula a firma idempotente y operación exacta; no es un permiso general. Aprobación independiente vigente/sin usar y fuente/prueba actuales obligatorias; consumo y eliminación son atómicos. Restricciones permanecen activas y favoritos ordinarios denegados. Sin excepción, firmas y guarda anteriores conservadas. Detalle y límites en docs62; no aceptar CR09 por este consumidor parcial.
 
 | Nombre | Ruta relativa ES/EN | Métodos | Entrada POST |
 | --- | --- | --- | --- |

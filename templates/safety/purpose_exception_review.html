@@ -1,10 +1,10 @@
 {% extends 'base.html' %}{% block content %}
 <h1>{% if english %}Review scoped exception{% else %}Revisar excepción acotada{% endif %}</h1>
-<p>{% if english %}Inspect the current request and proposal before deciding. The reviewer must differ from the proposer. A decision does not lift restrictions or execute erasure; transactional consumption remains pending.{% else %}Consulta la solicitud y propuesta vigentes antes de decidir. El revisor debe ser distinto del proponente. La decisión no levanta restricciones ni ejecuta supresión; el consumo transaccional sigue pendiente.{% endif %}</p>
+<p>{% if english %}Inspect the current request and proposal before deciding. The reviewer must differ from the proposer. A decision does not lift restrictions or execute erasure. An approval permits only its exact operation after fresh checks.{% else %}Consulta la solicitud y propuesta vigentes antes de decidir. El revisor debe ser distinto del proponente. La decisión no levanta restricciones ni ejecuta supresión. Una aprobación permite únicamente su operación exacta tras comprobaciones vigentes.{% endif %}</p>
 <p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Inspect request{% else %}Consultar solicitud{% endif %}</a></p>
 <p>{{ proposal.pk }} · {{ proposal.expires_at }}</p>
 {% if body %}<h2>{% if english %}Audited proposal{% else %}Propuesta consultada con auditoría{% endif %}</h2><p>{{ body.basis }}</p><p>{{ body.purposes|join:', ' }}</p>
 {% for measure in body.restrictions %}<h3>{{ measure.id }} · {{ measure.mode }} · {{ measure.version }}</h3><p>{{ measure.decision.basis }}</p><p>{{ measure.decision.reason }}</p><p>{{ measure.decision.scope }}</p>{% endfor %}{% endif %}
-{% if decision %}<p role="status">{% if english %}Independent decision recorded; restrictions remain active{% else %}Decisión independiente registrada; las restricciones siguen activas{% endif %}</p><p>{{ decision }}</p>{% endif %}
+{% if decision == "approved" %}<p><a href="{% url 'erasure_execute' case.pk proposal.plan_id %}">{% if english %}Execute reviewed operation{% else %}Ejecutar operación revisada{% endif %}</a></p>{% endif %}{% if decision %}<p role="status">{% if english %}Independent decision recorded; restrictions remain active{% else %}Decisión independiente registrada; las restricciones siguen activas{% endif %}</p><p>{{ decision }}</p>{% endif %}
 <form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record review action{% else %}Registrar acción de revisión{% endif %}</button></form>
 {% endblock %}

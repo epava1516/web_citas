@@ -263,6 +263,11 @@ def proposal_contents(proposal, case, manifest, measures):
 @sensitive_variables()
 def record(user, case_id, proposal_id, key, version, operation, reason, outcome=""):
     case, person, _ = locked_case(case_id, lock_listing=True)
+    subject_id = case.account_subject_id or (person.subject_id if person else None)
+    if not subject_id:
+        raise ValidationError("Subject unidentified / Sujeto sin identificar")
+    # Consumption also holds the subject before locking the proposal, including profiles.
+    User.objects.select_for_update().get(pk=subject_id)
     fresh = authorize(user, case, review_permission=False)
     if not fresh.has_perm("safety.review_purpose_exception"):
         raise PermissionDenied
@@ -397,3 +402,117 @@ def record(user, case_id, proposal_id, key, version, operation, reason, outcome=
         raise ValidationError(
             "Conflicting exception decision / Decisión de excepción incompatible"
         ) from error
+
+
+@sensitive_variables()
+def consume(user, case, person, subject, plan, manifest, purposes, proposal_id, action):
+    """Caller holds scope locks; use and deletion share the enclosing transaction."""
+    from django.db import connection
+
+    if not connection.in_atomic_block:
+        raise RuntimeError("Exception consumption requires the scoped execution transaction")
+    fresh = authorize(user, case, review_permission=False)
+    if not fresh.has_perm("safety.review_purpose_exception"):
+        raise PermissionDenied
+    proposal = (
+        PurposeExceptionProposal.objects.select_for_update(of=("self",))
+        .select_related("action", "plan__inventory", "plan__action")
+        .filter(pk=proposal_id, action__request=case, subject=subject, plan=plan)
+        .first()
+    )
+    if not proposal:
+        raise ValidationError("Scoped exception unavailable / Excepción de ámbito no disponible")
+    measures = list(
+        PurposeRestriction.objects.select_for_update(of=("self",))
+        .select_related("execution__action__request", "execution__review__plan__action")
+        .filter(subject=subject, purpose="account_preferences", active=True)
+        .order_by("pk")
+    )
+    review = (
+        PurposeExceptionReview.objects.select_for_update(of=("self",))
+        .select_related("action")
+        .filter(proposal=proposal)
+        .first()
+    )
+    proof = authorized_proof(case, person, "erase")
+    manifest = source_manifest(person, case)
+    if (
+        not measures
+        or not review
+        or review.outcome != "approved"
+        or review.consumed_action_id
+        or proposal.action.actor_id != fresh.pk
+        or review.action.actor_id == proposal.action.actor_id
+        or review.action.request_id != case.pk
+        or review.action.expected_version != case.version
+        or review.proof_id != proof.pk
+        or proposal.proof_id != proof.pk
+        or review.source_digest != proposal.source_digest
+        or proposal.plan.inventory.proof_id != proof.pk
+        or proposal.plan.inventory.person_id != case.person_id
+        or proposal.plan.inventory.account_subject_id != case.account_subject_id
+        or proposal.plan.action.request_id != case.pk
+        or proposal.plan.action.actor_id != fresh.pk
+        or proposal.plan.source_digest != proposal.plan.inventory.source_digest
+        or fingerprint(canonical(manifest)) != proposal.plan.source_digest
+    ):
+        raise ValidationError(
+            "Current unused approval required / Aprobación vigente sin usar obligatoria"
+        )
+    approver = User.objects.get(pk=review.action.actor_id)
+    authorize(approver, case, review_permission=False)
+    if not approver.has_perm("safety.review_purpose_exception"):
+        raise PermissionDenied
+    for measure in measures:
+        if not permitted(fresh, measure.execution.action.request) or not permitted(
+            approver, measure.execution.action.request
+        ):
+            raise PermissionDenied
+        execution = measure.execution
+        bound = execution.account_subject_id or (
+            execution.person.subject_id if execution.person_id else None
+        )
+        if bound != subject.pk:
+            raise ValidationError("Restriction scope changed / Ámbito de restricción cambiado")
+    body = proposal_contents(proposal, case, manifest, measures)
+    try:
+        decisions = unseal(plan.encrypted_decisions)["decisions"]
+        review_reason = unseal(review.action.encrypted_reason)["reason"]
+        if (
+            body["purposes"] != sorted(purposes)
+            or plan.action.payload_digest
+            != fingerprint(
+                canonical(
+                    {
+                        "inventory": str(plan.inventory_id),
+                        "version": plan.action.expected_version,
+                        "decisions": decisions,
+                    }
+                )
+            )
+            or review.action.operation != "exception_review"
+            or review.action.payload_digest
+            != fingerprint(
+                canonical(
+                    {
+                        "proposal": proposal.pk,
+                        "version": case.version,
+                        "operation": "review",
+                        "reason": review_reason,
+                        "outcome": "approved",
+                        "source": proposal.source_digest,
+                    }
+                )
+            )
+        ):
+            raise ValueError
+    except (InvalidToken, ValueError, KeyError, TypeError) as error:
+        raise ValidationError(
+            "Approval integrity changed / Integridad de aprobación cambiada"
+        ) from error
+    fresh = authorize(user, case, review_permission=False)
+    if not fresh.has_perm("safety.review_purpose_exception"):
+        raise PermissionDenied
+    review.consumed_action = action
+    review.save(update_fields=["consumed_action"])
+    return review

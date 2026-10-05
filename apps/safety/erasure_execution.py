@@ -57,7 +57,7 @@ SUPPORTED = [
 
 @transaction.atomic
 @sensitive_variables()
-def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
+def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, exception_id=None):
     if (
         not user.mfa_enabled
         or not user.has_perm("safety.review_rights_request")
@@ -91,6 +91,15 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         raise ValidationError(
             "Erase publication together with profile / Suprime publicación junto al perfil"
         )
+    exception_signature = {} if exception_id is None else {"exception": exception_id}
+    if exception_id is not None and (
+        isinstance(exception_id, bool)
+        or not isinstance(exception_id, int)
+        or exception_id < 1
+        or exception_id > 9223372036854775807
+        or "account_preferences" not in purposes
+    ):
+        raise ValidationError("Invalid scoped exception / Excepción de ámbito inválida")
     signature = fingerprint(
         canonical(
             {
@@ -99,6 +108,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 "purposes": sorted(purposes),
                 "reason": reason,
                 "confirmed": confirmed,
+                **exception_signature,
             }
         )
     )
@@ -140,7 +150,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         subject = User.objects.select_for_update(no_key=True).get(
             pk=case.account_subject_id or person.subject_id
         )
-    if subject and "account_preferences" in purposes:
+    if subject and "account_preferences" in purposes and exception_id is None:
         from .purpose_restrictions import require_unrestricted
 
         require_unrestricted(subject, "account_preferences")
@@ -240,6 +250,10 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 payload_digest=signature,
                 encrypted_reason=seal({"reason": reason}),
             )
+            if exception_id is not None:
+                from .purpose_exceptions import consume
+
+                consume(user, case, person, subject, plan, manifest, purposes, exception_id, action)
             result = {
                 "schema": "account-erasure-execution-v1"
                 if account_scope
@@ -512,6 +526,12 @@ class ExecutionForm(forms.Form):
     )
     confirmed = forms.BooleanField(
         label="Confirmo la ejecución parcial irreversible del ámbito / I confirm irreversible partial scoped execution"
+    )
+    exception_id = forms.IntegerField(
+        required=False,
+        min_value=1,
+        max_value=9223372036854775807,
+        label="Excepción acotada aprobada (si hay restricción) / Approved scoped exception (if restricted)",
     )
 
 
