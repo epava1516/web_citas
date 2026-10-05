@@ -172,3 +172,90 @@ def test_account_wait_precedes_revision_and_blob_locks_and_refreshes_credentials
         result = future.result(timeout=10)
     assert result["authentication_digest"] == expected_digest
     assert user.password not in str(result)
+
+
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_mobile_account_proposal_login_mfa_audited_source_and_reload(
+    live_server, request, settings, monkeypatch, tmp_path, language
+):
+    import json
+    import shutil
+
+    import pyotp
+    from playwright.sync_api import expect, sync_playwright
+    from test_rights_responses import ready
+
+    from apps.safety.crypto import unseal
+    from apps.safety.models import RightsRectificationProposal
+
+    settings.DEBUG = True
+    case, _, _, _, _, person = ready(request, settings, monkeypatch, "rectify")
+    before = person.subject.email, person.subject.first_name, person.subject.session_version
+    revisions = person.listing.revisions.count()
+    credentials = json.loads((tmp_path / "credentials.json").read_text())
+    moderator = credentials["accounts"]["moderator"]
+    path = f"/{language}/moderation/rights/{case.pk}/rectification/"
+    labels = {
+        "account": "Your account" if language == "en" else "Tu cuenta",
+        "inspect": "Private rights inspection"
+        if language == "en"
+        else "Consulta privada de derechos",
+        "submit": "Record correction action"
+        if language == "en"
+        else "Registrar acción de rectificación",
+    }
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(
+            executable_path=shutil.which("chromium-browser"), args=["--no-sandbox"]
+        )
+        try:
+            page = browser.new_page(viewport={"width": 390, "height": 844})
+            page.goto(live_server.url + f"/{language}/account/login/")
+            page.locator("[name=email]").fill(moderator["email"])
+            page.locator("[name=password]").fill(credentials["password"])
+            page.locator("button[type=submit]").click()
+            page.locator("[name=code]").fill(pyotp.TOTP(moderator["totp_secret"]).now())
+            page.locator("button[type=submit]").click()
+            expect(page.get_by_role("heading", name=labels["account"], exact=True)).to_be_visible()
+            page.goto(live_server.url + path)
+            expect(page.locator("[name=account_email]")).to_have_value("")
+            page.locator("[name=operation]").select_option("preview")
+            page.locator("[name=purpose]").fill(
+                "Inspect scoped subject account fields before mobile correction proposal"
+            )
+            page.get_by_role("button", name=labels["submit"], exact=True).click()
+            expect(page.locator("[name=account_email]")).to_have_value(before[0])
+            page.locator("[name=fields][value=account]").check()
+            page.locator("[name=account_first_name]").fill("Mobile proposed account name")
+            page.locator("[name=account_last_name]").fill("Mobile proposed surname")
+            page.locator("[name=account_email]").fill("mobile-proposed@example.invalid")
+            page.locator("[name=operation]").select_option("propose")
+            page.locator("[name=reason]").fill(
+                "Independent scoped correction requested through mobile form"
+            )
+            page.get_by_role("button", name=labels["submit"], exact=True).click()
+            expect(page.get_by_role("heading", name=labels["inspect"], exact=True)).to_be_visible()
+            page.reload()
+            expect(page.get_by_role("heading", name=labels["inspect"], exact=True)).to_be_visible()
+            page.goto(live_server.url + path)
+            expect(page.locator("[name=account_email]")).to_have_value("")
+            assert "mobile-proposed@example.invalid" not in page.content()
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+        finally:
+            browser.close()
+    person.subject.refresh_from_db()
+    proposal = RightsRectificationProposal.objects.get()
+    assert unseal(proposal.encrypted_changes) == {
+        "account": {
+            "first_name": "Mobile proposed account name",
+            "last_name": "Mobile proposed surname",
+            "email": "mobile-proposed@example.invalid",
+        }
+    }
+    assert "mobile-proposed@example.invalid" not in proposal.encrypted_changes
+    assert (
+        person.subject.email,
+        person.subject.first_name,
+        person.subject.session_version,
+    ) == before
+    assert person.listing.revisions.count() == revisions

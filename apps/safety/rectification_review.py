@@ -285,6 +285,15 @@ def prepare(request, case_id, proposal_id):
                             changes["contacts"], request.LANGUAGE_CODE == "en"
                         ),
                     }
+                if "account" in changes:
+                    from .rectification_account import display as display_account
+
+                    changes = {
+                        **changes,
+                        "account": display_account(
+                            changes["account"], request.LANGUAGE_CODE == "en"
+                        ),
+                    }
                 if "details" in changes:
                     from .rectification_details import display as display_details
 

@@ -84,3 +84,8 @@ Consulta auditada, decisión independiente versionada/cifrada, UI móvil ES/EN y
 
 
 Inventario de revisión de recargas:17 conjuntas correctas149,41 s, cero fallos/errores/omisiones PG/Chromium. Incluye cambios de versión/motivo/lectura, rechazo antes de execute sin eliminar archivos, aislamiento de otro perfil y ausencia de motivos/ciphertext en manifest. review_version y encrypted_reason participan en HMAC interno seleccionado, sin descifrar ni entregar su contenido. Reproducción previa2 fallidas/1 correcta41,46 s conservada. Docker build88611/recreate86940/check/health200/hashes host-app-worker-Beat verificados; sin migración nueva. No acredita inventario/exportación integral ni política final de conservación. Claude3/3; CR09/contrato abiertos.
+
+
+### Cuentas sin ningún perfil
+
+Docs50 cubre Person sin Listing; no User sin Person. Dependencias obligatorias a Person en pruebas/propuestas/inventarios/ejecuciones impiden aceptar derechos propios de visitantes o propietarios de agencia sin perfil. Requisitos de continuación y aceptación en [docs51](51-derechos-cuentas-sin-perfil.md). No crear perfiles técnicos para eludir este alcance ni equiparar vínculo con comprobación de identidad.

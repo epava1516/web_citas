@@ -901,3 +901,36 @@ Docker vínculo sin anuncio: build85920/recreate12447 terminal0. Check limpio, m
 
 
 87211 terminal0:2 móviles correctas33,86s (6 excluidas), Chromium390x844 ESEN. Login/MFA reales→vínculo de persona sin anuncio por formulario SSR→resultado observado→reload/persistencia; sin overflow, una acción, sin revisión referenciada y ámbito unverified. No sumar a45 conjuntas como suite47; no altera fuente funcional ya comprobada en Docker. Sin pytest activo. Permanece pendiente recorrido integral de cuenta móvil, derechos de cuenta sin ningún perfil y resto CR09/contrato; CI6972785 aún in_progress.
+
+
+Entrega86f4bee6361bae813174c3f4a2a1bf333f79eb9f commit/push confirmados, autor Eduardo David Paredes Vara <Paredes1516@hotmail.es>. CI37247694341 in_progress confirmada; CI anterior6972785/37246617009 también activa. Consultar mismos IDs hasta terminal, no reiniciar ni declarar éxito antes. No pytest activo. Continuar cuenta móvil integral y derechos de cuenta sin perfil, inventarios/copia/retención/comunicaciones/cierre y resto CR09→CR10→GS01→BF/BB→C. Claude3/3.
+
+
+Cuenta móvil integral20479 en curso2 variantes ESEN, XML /tmp/account-mobile-integral.xml. Recorrido de revisión anterior ampliado con datos de cuenta, solicitud SSR de confirmación, buzón de entrega local simulado y navegador anónimo para GET/reload/POST destino, nueva comprobación/lectura, comunicación/recepción/ejecución y revisión de destinatarios. Cuenta en revisión muestra etiquetas nombre/apellidos/correo, no repr del diccionario; solo después de consulta auditada, valores escapados por plantilla. Fuente congelada hasta terminal. No aceptar móvil integral/entrega externa ni actualizar runtime hasta resultado; CI86f4bee y6972785 pendientes.
+
+
+20479 terminal1:2 móviles fallidas72,16s (9 excluidas). Ejecución mixta correo+fotografías preparadas denegaba «Selected images expired or unavailable»: apply de cuenta modificaba source/baseline antes de available para fotos staged. Movida aplicación de cuenta después de preparar/clonar selección editorial y antes de modificar person/lifecycle, en misma transacción; colisiones o confirmación inválida siguen revirtiendo todo. Repetición /tmp/account-mobile-integral-final.xml en curso; fuente congelada, no aceptación hasta terminal. El test empieza con propuesta creada por helper backend real, no prueba aún escritura de propuesta por navegador móvil.
+
+
+Corrección del registro anterior: primer script no aplicó cambio (AssertionError por formato Ruff multilinea); repetición12852 iniciada con código anterior, detenida explícitamente SIGINT al detectar fallo de edición, terminal2/KeyboardInterrupt23,15s sin tests completos. No evidencia verde ni fallo funcional nuevo. Tras terminal se movió realmente apply cuenta después de selección editorial; repetición /tmp/account-mobile-integral-after-order.xml activa. Fuente congelada; conservar20479 como reproducción funcional.
+
+
+75883 terminal0:2 móviles ESEN correctas76,12s (9 excluidas). Orden de aplicación corregido permite correo+fotos staged en mismo atomic; revisión/confirmación simulada/nueva comprobación/lecturas/comunicación/recepción/ejecución y evaluación de destinatarios/avisos pasan. Modelo recibe correo/session_version+1 y confirmación consumida. La propuesta inicial sigue preparada por servicios backend reales, no escritura móvil. Nueva regresión conjunta afectada pendiente antes de Docker/commit. No entrega/identidad externas ni cierre CR09.
+
+
+Batería conjunta45758 activa, XML /tmp/account-mobile-common.xml:30 cuenta/destino/ejecución/carreras/fuente/revisión incluidos móviles ESEN ampliados. Fuente congelada hasta terminal; recuperar mismo handle sin reiniciar. Reconstrucción Docker de display/orden de apply iniciada por separado, sin declarar runtime hasta comprobación final. Escritura móvil de propuesta y cuentas sin perfil, purga worker con contenido y demás CR09/contrato siguen pendientes. Claude3/3.
+
+
+Build8870 terminal0: app/worker/Beat construidos con orden corregido y etiquetas de cuenta. Recreate/check/health/hashes pendientes; runtime existente aún entrega86f4bee. Ruff/diff limpios. Regresión45758 sigue activa; no commit/push ni aceptación final antes de terminal.
+
+
+Docker corrección móvil: build8870/recreate81441 terminal0, check/migrate--check limpios sin migración nueva, UID10001/health200. Hashes account/execution/review iguales host/app/worker/Beat, incluye display y orden de aplicación corregido. Ruff/diff limpios. Batería45758 aún viva:10 cuenta/destino correctas dentro de suite30, concurrencia/revisión en curso; fuente congelada, sin commit ni aceptación antes de terminal.
+
+
+Auditoría independiente del código congelado: requisitos de derechos de User sin Person documentados en docs51 y enlazados desde docs40; modelos obligatorios a Person siguen siendo hueco técnico. Docs50 no lo acepta. Batería45758 sigue viva sobre fuente actual; próximo trabajo incluye escritura móvil de propuesta y este ámbito de cuenta, además de inventario/copia/retención/comunicaciones/cierre y contrato íntegro.
+
+
+45758 terminal0:30 correctas361,44s PostgreSQL/Chromium, cero fallos/errores/omisiones; incluye display y corrección correo+staged junto a cuenta/confirmación/carreras/revisión. Docker final ya verificado. Añadidas2 pruebas de escritura de propuesta por formulario móvil ESEN: login/MFA→GET sin valores→consulta auditada→editar bloque cuenta→propose→resultado/reload→GET sin valores, sin mutar User/anuncio. Batería /tmp/account-mobile-proposal.xml en curso, solo ampliación de pruebas; no aceptar hasta terminal ni sumar con30 como suite32.
+
+
+1173 terminal0:2 propuestas móviles ESEN correctas36,12s (4 excluidas), Chromium390x844. Login/MFA reales, GET sin valores, consulta auditada de cuenta del sujeto, escritura de bloque account, propuesta cifrada persistida, resultado/reload y GET posterior sin valores. Sin mutación de User/session_version ni clon editorial.30 comunes361,44s prueban fuente funcional actual por separado; no sumar suites como32. Docker/hash/check/health200 verificados, solo pruebas/documentación añadidas después. Sin pytest activo. Cuenta sin perfil/docs51, purga worker con contenido, copia/inventarios/retención/comunicaciones/cierre y contrato completo pendientes; CI anteriores activas.

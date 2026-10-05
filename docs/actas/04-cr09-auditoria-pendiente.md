@@ -293,3 +293,6 @@ Rectificación de cuenta parcial (docs49): fuente/propuesta auditadas, confirmac
 
 
 Vínculo de derechos a persona sin anuncio (docs50): SSR link_person_id sin crear perfil ni conceder identidad; obliga anuncio cuando existe, COI y lectura/version/replay bajo locks. Nombres solos ejecutados para particular/agencia sin anuncio mediante aprobación/comunicación/recepción/prueba fresca. Carreras gestor/anuncio durante espera deniegan sin acción.45 conjuntas correctas431,58s PG/Chromium,2 móviles ESEN correctas33,86s por separado; Docker/hash/check/UID10001/health200 verificados. Cuenta sin ningún perfil y demás copia/retención/comunicaciones/cierre siguen pendientes; no aceptación CR09 ni producción.
+
+
+Rectificación móvil de cuenta: corrección mixta de nuevo correo y fotografías preparadas reproducía fallo de baseline (2 móviles fallidas72,16s); movido apply de cuenta después de selección editorial dentro de atomic,2 móviles ESEN correctas76,12s y30 conjuntas correctas361,44s. Escritura de propuesta SSR móvil ESEN separada2 correctas36,12s, cifrado/GET sin datos/no mutación. Docker/hashes/check/UID10001/health200 verificados. Identidad/entrega simuladas; User sin Person pendiente en docs51, junto con purga worker no vacía, copia/inventarios/retención/comunicaciones/respuesta final. CR09 no aceptado.

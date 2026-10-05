@@ -119,3 +119,26 @@ Docker cuenta: build83711/migrate61400/recreate31532 terminal0; safety0058 aplic
 
 
 Batería97343 terminal0:30 correctas350,14s PostgreSQL/Chromium, cero fallos/errores/omisiones. Incluye corrección de revalidación authorized_proof tras espera real User; deniega ejecución sin mutar si prueba original se revoca durante espera. Cuenta/destino/carreras/mixto/limpieza y rectificación anteriores pasan conjuntamente. Runtime0058/check/UID10001/health200/hashes y transporte worker/Beat resultado0 verificados por separado. Falta cuenta sin anuncio accesible desde vínculo de ámbito, interfaz integral ESEN, purga no vacía worker, inventarios/exportación/retención final y CI común. No aceptación CR09/contrato/producción; no pytest activo. Claude3/3, sin delegación adicional.
+
+
+## Recorrido móvil de cuenta
+
+Pruebas ESEN integran cuenta en revisión de cambios mixtos: consulta auditada, aprobación independiente, solicitud de destino SSR, confirmación en navegador anónimo mediante entrega expresamente simulada, nueva comprobación y consultas, comunicación/recepción/ejecución. Validación posterior exige correo aplicado, versión de sesión incrementada y token consumido; sigue revisión de destinatarios y avisos del gestor del contenido editorial. En revisión, display_account limita proyección a tres campos autorizados con etiquetas humanas, sin datos técnicos; GET no presenta valores. Batería20479 en curso, sin aceptación todavía. Identidad y entrega siguen simuladas.
+
+
+20479 terminal1:2 móviles fallidas72,16s (9 excluidas). Ejecución mixta correo+fotografías preparadas denegaba «Selected images expired or unavailable»: apply de cuenta modificaba source/baseline antes de available para fotos staged. Movida aplicación de cuenta después de preparar/clonar selección editorial y antes de modificar person/lifecycle, en misma transacción; colisiones o confirmación inválida siguen revirtiendo todo. Repetición /tmp/account-mobile-integral-final.xml en curso; fuente congelada, no aceptación hasta terminal. El test empieza con propuesta creada por helper backend real, no prueba aún escritura de propuesta por navegador móvil.
+
+
+Primera edición de orden no aplicada por AssertionError (formato multilinea); prueba12852 detenida explícitamente, terminal2/KeyboardInterrupt sin resultados completos. Después de terminal, cambio aplicado realmente: prepare editorial/selección de staged intactos y apply cuenta justo antes de alias/person/lifecycle, mismo atomic. Repetición75883 /tmp/account-mobile-integral-after-order.xml activa, fuente congelada; no afirmar corrección verificada hasta terminal.
+
+
+75883 terminal0:2 móviles ESEN correctas76,12s (9 excluidas). Orden de aplicación corregido permite correo+fotos staged en mismo atomic; revisión/confirmación simulada/nueva comprobación/lecturas/comunicación/recepción/ejecución y evaluación de destinatarios/avisos pasan. Modelo recibe correo/session_version+1 y confirmación consumida. La propuesta inicial sigue preparada por servicios backend reales, no escritura móvil. Nueva regresión conjunta afectada pendiente antes de Docker/commit. No entrega/identidad externas ni cierre CR09.
+
+
+Docker corrección móvil: build8870/recreate81441 terminal0, check/migrate--check limpios sin migración nueva, UID10001/health200. Hashes account/execution/review iguales host/app/worker/Beat, incluye display y orden de aplicación corregido. Ruff/diff limpios. Batería45758 aún viva:10 cuenta/destino correctas dentro de suite30, concurrencia/revisión en curso; fuente congelada, sin commit ni aceptación antes de terminal.
+
+
+45758 terminal0:30 correctas361,44s PostgreSQL/Chromium, cero fallos/errores/omisiones; incluye display y corrección correo+staged junto a cuenta/confirmación/carreras/revisión. Docker final ya verificado. Añadidas2 pruebas de escritura de propuesta por formulario móvil ESEN: login/MFA→GET sin valores→consulta auditada→editar bloque cuenta→propose→resultado/reload→GET sin valores, sin mutar User/anuncio. Batería /tmp/account-mobile-proposal.xml en curso, solo ampliación de pruebas; no aceptar hasta terminal ni sumar con30 como suite32.
+
+
+1173 terminal0:2 propuestas móviles ESEN correctas36,12s (4 excluidas), Chromium390x844. Login/MFA reales, GET sin valores, consulta auditada de cuenta del sujeto, escritura de bloque account, propuesta cifrada persistida, resultado/reload y GET posterior sin valores. Sin mutación de User/session_version ni clon editorial.30 comunes361,44s prueban fuente funcional actual por separado; no sumar suites como32. Docker/hash/check/health200 verificados, solo pruebas/documentación añadidas después. Sin pytest activo. Cuenta sin perfil/docs51, purga worker con contenido, copia/inventarios/retención/comunicaciones/cierre y contrato completo pendientes; CI anteriores activas.

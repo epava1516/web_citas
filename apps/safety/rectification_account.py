@@ -118,3 +118,16 @@ def apply(person, proposal, value):
         confirmation.encrypted_delivery = ""
         confirmation.save(update_fields=["consumed_at", "encrypted_delivery"])
     return previous
+
+
+def display(value, english=False):
+    """Human labels for an already authorized projection; never include technical fields."""
+    labels = {
+        "first_name": "First name" if english else "Nombre",
+        "last_name": "Last name" if english else "Apellidos",
+        "email": "Email" if english else "Correo electrónico",
+    }
+    empty = "(empty)" if english else "(vacío)"
+    return "\n".join(
+        f"{label}: {value[field] or empty}" for field, label in labels.items() if field in value
+    )

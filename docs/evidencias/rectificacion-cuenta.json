@@ -22,14 +22,12 @@
   },
   "scope": "Cuenta del sujeto, propuesta auditada/cifrada sin mutación; control de fuente y precedencia User→Revision/Blob",
   "pending": [
-    "cuenta sin anuncio y correo+título",
-    "ejecución concurrente y colisiones de correo durante espera",
-    "limpieza concurrente y worker/Beat real",
-    "SSR integral ESEN y presentación de campos de cuenta",
+    "CI del commit final",
+    "derechos de cuentas sin ningún perfil",
+    "purga no vacía por worker real",
     "inventarios/exportación/retención por finalidad",
-    "runtime0058",
-    "regresión CI del commit final",
-    "CR09 y contrato completo"
+    "comunicaciones/respuestas finales y demás CR09",
+    "contrato completo"
   ],
   "provider_verification": "No comprobación externa real",
   "lock_order_before": {
@@ -215,5 +213,68 @@
       "time": "350.008"
     },
     "scope": "Cuenta/destino/revisión/ejecución/carreras/limpieza PostgreSQL y Chromium; incluye revalidación de prueba tras espera"
+  },
+  "mobile_integral_before": {
+    "xml": "/tmp/account-mobile-integral.xml",
+    "result": {
+      "tests": "2",
+      "errors": "0",
+      "failures": "2",
+      "skipped": "0",
+      "time": "72.047"
+    },
+    "failure": "Correo aplicado antes de seleccionar fotografías preparadas invalidaba baseline y denegaba ejecución mixta"
+  },
+  "mobile_integral_after_order": {
+    "session": 75883,
+    "xml": "/tmp/account-mobile-integral-after-order.xml",
+    "result": {
+      "tests": "2",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "76.036"
+    },
+    "scope": "Móvil ESEN revisión→confirmación destino simulada→nuevo ámbito/consulta→comunicación/recepción→ejecución mixta correo/fotos→destinatarios/avisos",
+    "limitation": "Propuesta inicial preparada mediante servicios backend reales; escritura de propuesta por navegador aún pendiente"
+  },
+  "mobile_runtime": {
+    "build": 8870,
+    "recreate": 81441,
+    "status": "terminal0",
+    "health": 200,
+    "uid": 10001,
+    "check": "limpio, migrate--check sin pendientes",
+    "schema": "sin migración nueva",
+    "sha256": {
+      "rectification_account.py": "52ef5a9378a3e22f72fbfa782d7692d761dc3eba3569910f6fc305c786796cb0",
+      "rectification_execution.py": "b5018f3af9f2bf0c79cad71760bd1eb622a723071b96610480cabbe8e8f5e854",
+      "rectification_review.py": "46ee1b9d3eeddd5af99bdc0e97b2bcbac683dd1531a6bd001a98727627aed48b"
+    },
+    "hash_scope": "host/app/worker/Beat iguales",
+    "limitation": "Regresión45758 aún activa; no aceptación CR09 ni proveedores reales"
+  },
+  "mobile_common": {
+    "xml": "/tmp/account-mobile-common.xml",
+    "session": 45758,
+    "result": {
+      "tests": "30",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "361.330"
+    }
+  },
+  "mobile_proposal": {
+    "session": 1173,
+    "xml": "/tmp/account-mobile-proposal.xml",
+    "result": {
+      "tests": "2",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "36.038"
+    },
+    "scope": "Móvil ESEN login+MFA→consulta auditada→crear propuesta account cifrada→resultado/reload→GET sin datos; User/anuncio intactos"
   }
 }

@@ -321,11 +321,20 @@ def test_mobile_independent_source_and_proposal_review(
         return labels[value] if language == "es" else value
 
     settings.DEBUG = True
+    settings.ACCOUNT_CORRECTION_DELIVERY_BACKEND = "simulator"
     case, reviewer, other, person, proposal, path, client, receipt = independent_case(
         request,
         settings,
         monkeypatch,
         with_receipt=True,
+        changes={
+            "alias": "Synthetic reviewed correction",
+            "account": {
+                "first_name": "Mobile synthetic name",
+                "last_name": "Mobile synthetic surname",
+                "email": "mobile-subject@example.invalid",
+            },
+        },
         correct_location=True,
         correct_catalog=True,
         correct_rates=True,
@@ -366,6 +375,7 @@ def test_mobile_independent_source_and_proposal_review(
     independent.save(update_fields=["mfa_secret_encrypted"])
     independent_account = credentials["accounts"]["moderator"]
     alias_before = person.alias
+    account_session_before = person.subject.session_version
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(
             executable_path=shutil.which("chromium-browser"), args=["--no-sandbox"]
@@ -419,6 +429,9 @@ def test_mobile_independent_source_and_proposal_review(
             assert page.locator("figure img").evaluate_all(
                 "images => Promise.all(images.map(image => image.decode().then(() => image.naturalWidth > 0))).then(results => results.every(Boolean))"
             )
+            expect(page.get_by_text("Mobile synthetic name", exact=False)).to_be_visible()
+            expect(page.get_by_text("mobile-subject@example.invalid", exact=False)).to_be_visible()
+            assert "'first_name':" not in page.locator("main").inner_text()
             assert "'spoken_languages':" not in page.locator("main").inner_text()
             assert "'municipality':" not in page.locator("main").inner_text()
             page.locator("[name=operation]").select_option("review")
@@ -475,6 +488,59 @@ def test_mobile_independent_source_and_proposal_review(
             page.get_by_role("button", name=label("Record correction action"), exact=True).click()
             page.get_by_role("link", name=label("Review correction proposal"), exact=True).click()
             page.locator("[name=purpose]").fill("Read approved changes before prior communication")
+            page.get_by_role("button", name=label("Record review action"), exact=True).click()
+            page.locator("[name=operation]").select_option("confirm_email")
+            page.locator("[name=reason]").fill(REASON)
+            page.get_by_role("button", name=label("Record review action"), exact=True).click()
+            expect(
+                page.get_by_role("heading", name=label("Private rights inspection"), exact=True)
+            ).to_be_visible()
+
+            def simulated_destination_url():
+                from django.db import connections
+
+                from apps.safety.crypto import unseal
+                from apps.safety.models import RightsAccountEmailConfirmation
+
+                connections.close_all()
+                try:
+                    from urllib.parse import urlsplit
+
+                    token = RightsAccountEmailConfirmation.objects.get()
+                    return urlsplit(unseal(token.encrypted_delivery)["url"]).path
+                finally:
+                    connections.close_all()
+
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                destination_path = pool.submit(simulated_destination_url).result(timeout=30)
+            destination_page = browser.new_page(viewport={"width": 390, "height": 844})
+            destination_page.goto(live_server.url + destination_path)
+            destination_page.reload()
+            expect(destination_page.locator("[name=confirmed]")).to_be_visible()
+            destination_page.locator("[name=confirmed]").check()
+            destination_page.get_by_role(
+                "button",
+                name="Confirm destination" if language == "en" else "Confirmar destino",
+                exact=True,
+            ).click()
+            expect(destination_page.get_by_role("status")).to_contain_text(
+                "Destination confirmed." if language == "en" else "Destino confirmado."
+            )
+            destination_page.reload()
+            expect(destination_page.locator("form")).to_have_count(0)
+            destination_page.close()
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                pool.submit(refresh_verification).result(timeout=30)
+            page.goto(live_server.url + f"/{language}/moderation/rights/{case.pk}/rectification/")
+            page.locator("[name=operation]").select_option("preview")
+            page.locator("[name=purpose]").fill(
+                "Read current source after simulated destination confirmation"
+            )
+            page.get_by_role("button", name=label("Record correction action"), exact=True).click()
+            page.get_by_role("link", name=label("Review correction proposal"), exact=True).click()
+            page.locator("[name=purpose]").fill(
+                "Read approved changes after simulated destination confirmation"
+            )
             page.get_by_role("button", name=label("Record review action"), exact=True).click()
             page.locator("[name=operation]").select_option("notify")
             page.locator("[name=reason]").fill(REASON)
@@ -648,6 +714,12 @@ def test_mobile_independent_source_and_proposal_review(
     person.listing.refresh_from_db()
     assert person.listing.status != "published"
     assert RightsRectificationNotification.objects.count() == 1
+    person.subject.refresh_from_db()
+    assert person.subject.email == "mobile-subject@example.invalid"
+    assert person.subject.session_version == account_session_before + 1
+    from apps.safety.models import RightsAccountEmailConfirmation
+
+    assert RightsAccountEmailConfirmation.objects.get().consumed_at is not None
 
 
 def test_proposal_history_pages_do_not_reveal_proposed_text(request, settings, monkeypatch):

@@ -201,10 +201,6 @@ def execute(user, case_id, proposal_id, key, version, reason):
                 payload_digest=signature,
                 encrypted_reason=seal({"reason": reason}),
             )
-            if "account" in changes:
-                before["account"] = rectification_account.apply(
-                    person, proposal, changes["account"]
-                )
             if source and publication_changes:
                 excluded = {
                     "id",
@@ -330,6 +326,11 @@ def execute(user, case_id, proposal_id, key, version, reason):
                     transaction.on_commit(
                         lambda blob_id=blob_id: process_blob.delay(blob_id), robust=True
                     )
+            # Preserve the authorized baseline until staged photos have been selected.
+            if "account" in changes:
+                before["account"] = rectification_account.apply(
+                    person, proposal, changes["account"]
+                )
             if "alias" in changes:
                 person.alias = changes["alias"]
             if "contacts" in changes:
