@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Purpose restrictions{% else %}Restricciones por finalidad{% endif %}</h1>
+<p>{% if english %}Review dates never release restrictions automatically.{% else %}Las fechas de revisión nunca levantan restricciones automáticamente.{% endif %}</p>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Inspect request{% else %}Consultar solicitud{% endif %}</a></p>
+<form method="get">{{ form.as_p }}<button type="submit">{% if english %}Filter{% else %}Filtrar{% endif %}</button></form>
+{% for measure in measures %}<article><p>{{ measure.purpose }} · {{ measure.mode }} · {{ measure.review_on }}</p><a href="{% url 'purpose_restriction_release' case.pk measure.pk %}">{% if english %}Review restriction{% else %}Revisar restricción{% endif %}</a></article>{% empty %}<p>{% if english %}No matching restrictions{% else %}Sin restricciones coincidentes{% endif %}</p>{% endfor %}
+{% if measures.has_previous %}<a href="?{{ filters }}&amp;page={{ measures.previous_page_number }}">{% if english %}Previous{% else %}Anterior{% endif %}</a>{% endif %}
+{% if measures.has_next %}<a href="?{{ filters }}&amp;page={{ measures.next_page_number }}">{% if english %}Next{% else %}Siguiente{% endif %}</a>{% endif %}
+{% endblock %}

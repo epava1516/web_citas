@@ -1039,3 +1039,42 @@ class PurposeRestriction(models.Model):
                 name="purpose_restriction_valid_mode",
             ),
         ]
+
+
+class PurposeRestrictionRead(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    restriction = models.ForeignKey(PurposeRestriction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class PurposeReleaseProposal(models.Model):
+    restriction = models.ForeignKey(
+        PurposeRestriction, on_delete=models.PROTECT, related_name="release_proposals"
+    )
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    response = models.OneToOneField(RightsResponse, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    ground = models.CharField(max_length=24)
+    resume_message = models.ForeignKey(RightsMessage, null=True, on_delete=models.PROTECT)
+    released_action = models.OneToOneField(
+        RightsAction, null=True, on_delete=models.PROTECT, related_name="purpose_release_execution"
+    )
+    released_proof = models.ForeignKey(
+        RightsProof, null=True, on_delete=models.PROTECT, related_name="purpose_releases"
+    )
+    released_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [
+            ("release_purpose_restriction", "Independently propose and execute purpose releases")
+        ]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(ground__in=["restriction_resolved", "resume_requested"]),
+                name="purpose_release_valid_ground",
+            )
+        ]

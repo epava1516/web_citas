@@ -94,6 +94,9 @@ def test_browser_match_resolution_and_pending_approval(live_server, request, set
             )
             page.locator("[name=evidence_reference]").fill("synthetic-browser-review")
             page.get_by_role("button", name="Registrar resolución").click()
+            expect(
+                page.get_by_text("Autorizaciones sintéticas directas de ambas personas revisadas")
+            ).to_be_visible()
             page.reload()
             expect(
                 page.get_by_text("Autorizaciones sintéticas directas de ambas personas revisadas")

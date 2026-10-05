@@ -5,9 +5,9 @@ Actualizado: 2026-10-05. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 ## Estado actual
 
 - Fase: BASE y CR-01 a CR-08 verificados localmente; implementación autorizada el 2026-10-03.
-- Próximo paso: CR-09; levantamiento comunicado de restricciones por finalidad (docs60), calendario/excepciones/otras finalidades, conservación histórica, acceso integral y comunicaciones/respuestas finales. No iniciar CR10/GS01 como si CR09 estuviera aceptado.
+- Próximo paso: CR-09; calendario operativo global de restricciones (docs61), excepciones/otras finalidades, conservación histórica, acceso integral y comunicaciones/respuestas finales. Levantamiento parcial0070 (docs60) verificado localmente. No iniciar CR10/GS01 como si CR09 estuviera aceptado.
 - Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; regresión común histórica CR-08:166 pruebas pasan con PostgreSQL y Chromium (450.45s, sin skips), dos límites finales14.47s; Docker/worker/Beat de CR-08 verificados; verificación y representación conectadas con simuladores explícitos.
-- Docker actual: app/worker/Beat0069,12 fuentes iguales host/servicios, UID10001/health200/check/migrate--check; proveedores de identidad/avisos/confirmación disabled. Preparación/revisión y restricción efectiva de preferencias verificadas conjuntamente en35 pruebas257,01s PG/Chromium. Finalidades restantes/levantamiento/excepciones y CR09 íntegro pendientes.
+- Docker actual: app/worker/Beat0070,8 fuentes de levantamiento iguales host/servicios, UID10001/health200/check/migrate--check; proveedores de identidad/avisos/confirmación disabled. Levantamiento parcial24 comunes221,47s PG/Chromium, móvilESEN y carreras reales verificados. Preparación/revisión y restricción efectiva de preferencias verificadas conjuntamente en35 pruebas257,01s PG/Chromium. Finalidades restantes/levantamiento/excepciones y CR09 íntegro pendientes.
 - Regresión común histórica sobre e6727bb:426 passed1776.17s, exit0/sin skips; aislamiento de migraciones corregido. Integra funcionalidades implementadas, no acepta CR-09 completo.
 - Regresión histórica sobre f5c636c terminada:444 passed1922.29s, exit0/sin errores/fallos/skips. Integra cambios hasta safety0041; no acepta CR09 completo. Continuar requisitos pendientes de acta04/docs40.
 - Regresión histórica CR-09 sobre35b1f53:285 passed/1 failed969.51s, sin skips; fallo de recarga Chromium investigado; sincronización observable reforzada,20 pruebas afectadas passed95.28s. No aceptada como suite completa.
@@ -1126,3 +1126,92 @@ Runtime0069: migración39997/recreate78191 terminal0. Check56261 y hash43686 en 
 
 
 27968 terminal0:35 conjuntas257,01s PostgreSQL/Chromium sobre fuente final0069, sin fallos/errores/skips. Preparación/revisión/cuentas/perfiles/ejecución/revocación tardía/concurrencia/móvil/favoritos/supresión pasan juntos. Runtime0069/12 hashes/UID10001/health200/check/proveedores disabled comprobados por separado. Evidencias restricciones-finalidad-{regresion,runtime}.json. CI calendario70114b2/37257818467 completed success616p2080,40s confirmada/log /tmp/ci-70114b2.log normalizada, anterior a0067–0069. F164550/37259279275 sigue in_progress confirmado. No pytest activo; Ruff/diff limpios. Siguiente levantamiento comunicado concreto docs60 (diseño no implementado), calendario/excepciones/otras finalidades/inventario/retención/copia integral/respuestas finales y resto CR09→CR10→GS01→BF/BB→C. Claude3/3; ninguna aceptación integral CR09/producción.
+
+
+Entregae3ea093d0924e0f85178b7f8c1b209dc49e1f25c commit/push confirmados, Eduardo David Paredes Vara <Paredes1516@hotmail.es>. CI37260770856 confirmada in_progress; preparaciónf164550/37259279275 también activa. Recuperar mismosIDs hasta terminal, no reiniciar ni declarar fuente verde.35 conjuntas257,01s/runtime0069/12 hashes/health200/UID10001 verificados. Ningún pytest activo. Continuar levantamiento comunicado docs60 con actor independiente/prueba posterior a recepción/revalidación tras locks, calendario/excepciones/otras finalidades/conservación/copia integral/respuestas finales y resto contrato. Medida de preferencias no equivale a cumplimiento integral ni cierre CR09/producción; Claude3/3.
+
+
+Consulta/propuesta0070 iniciadas:PurposeRestrictionRead/PurposeReleaseProposal, permiso dedicado release_purpose_restriction, revisor distinto al ejecutor original, asignación/lectura/prueba vigentes y snapshot/HMAC por medida/cuenta/mensajes/favoritos/otras medidas activas/plan original. Consulta audita antes de descifrar y valida firma histórica sin imponer fecha futura al plan antiguo. Restrict exige fundamento resuelto; cease exige mensaje nuevo del sujeto (no moderador) revisado. Propuesta emite respuesta privada fija/minimizada progress, conserva medida/caso abiertos, invalida prueba para siguiente actuación. UI GET sin fundamentos/POST inspect-propose conectada; ejecución/recepción/prueba posterior/cola/carreras/móvil/runtime pendientes.6914 terminal1:2 fallidas36,07s por operation más larga que RightsAction.max_length20; abreviadas purpose_rel_inspect/propose sin alterar columna. Check48121 terminal0/no cambios, Ruff/diff limpios. Repetición /tmp/purpose-release-proposal-final.xml activa, fuente congelada.0070 no runtime ni aceptada.
+
+
+8355 terminal0:2 propias36,22s PG sin fallos/errores/skips. Consulta/propuesta HTTP, idempotencia/GET sin fundamentos, comunicación progress privada y medida activa/solicitud abierta comprobadas; autor original denegado y cambio improcedente a resume_requested rechazado. Después de terminal añadida ejecución purpose_release.execute y UIoperationexecute: selecciona propuesta concreta bajo locks, recepción del canal, prueba diferente/posterior a propuesta y acuse, última propuesta/versionrespuesta/HMAC vigentes; desactiva solo medida y guarda acción/prueba/fecha, mantiene solicitud abierta.89697 activa3 casos /tmp/purpose-release-execution.xml, fuente congelada;0070 no runtime, cola/carreras/móvil/regresión pendientes.
+
+
+89697 terminal0:3 propias43,72s PG sin fallos/errores/skips. Recorrido reasignación/revisor independiente/comprobación simulada→consulta→propuesta/aviso→recepción anónima del canal→comprobación posterior→levantamiento/replay conserva favoritos y vuelve a permitir ruta ordinaria, caso sigue reviewing/unverified. Original privado no aparece GET. Tras terminal reforzada firma de propuesta almacenada y recarga del estado de prueba original después de lock de propuesta, evitando caché previa a espera. Batería conjunta6 iniciada /tmp/purpose-release-common.xml; fuente congelada. Cola/varias medidas/cease/newrequest/negativos ampliados/carreras/móvil/runtime0070/regresión final pendientes; no aceptar CR09.
+
+
+CI f164550/run37259279275 terminal success:634 passed1474,82s, PostgreSQL/Chromium y calidad. Evidencia docs/evidencias/regresion-ci-f164550.json; acepta regresión del commit de preparación/revisión0067–0068, no ejecución0069 ni levantamiento0070 ni CR09 completo. Batería local conjunta0070+0069 terminal0:6 passed66,58s (/tmp/purpose-release-common.xml). Tras terminal, motivos de propuesta dañados producen ValidationError controlada; añadidas tres regresiones de cifrado inválido/campo ausente/fundamento alterado, sin efectos parciales. Batería /tmp/purpose-release-integrity.xml en curso; fuente funcional congelada.
+
+
+98152 terminal0:6 pruebas propias66,13s PostgreSQL, sin fallos/errores/skips (/tmp/purpose-release-integrity.xml). Rechazo controlado de motivo cifrado inválido, objeto sin reason y ground alterado; restricción activa, propuesta sin liberación, versión/estado del caso, acciones y favoritos preservados tras rollback. Tres recorridos anteriores siguen pasando. Cola, varias medidas, cease/solicitud nueva, concurrencia, móvil y runtime0070 pendientes; CR09 abierto.
+
+
+Cola0070 por expediente implementada GET/paginación25/filtros state,due,purpose, vínculo desde consulta de derechos, sin motivos y excluyendo ejecutor original. Contrato10 actualizado. Batería62750 /tmp/purpose-release-queue.xml activa6 casos; fuente congelada, runtime y cola global/calendario todavía pendientes.
+
+
+62750 terminal0:6 propias68,56s PG sin fallos/errores/skips (/tmp/purpose-release-queue.xml). Cola GET enlaza medida, no revela REASON, private/no-store, released vacío, filtro finalidad desconocida400 y POST405; recorridos de propuesta/levantamiento/integridad siguen pasando. Ruff/check/makemigrations--check/diff limpios;91932 terminal0/no cambios. Cola por expediente verificada HTTP; calendario global, varias medidas, cease, carreras, móvil y runtime0070 pendientes.
+
+
+Prueba de cease0070 añadida mediante preparación/revisión/ejecución reales sobre PostgreSQL: helper selecciona operación cease antes de firmar plan, sin alterar ledger tras ejecución. Comprueba rechazo tanto de restriction_resolved como resume_requested sin mensaje nuevo y ausencia de aviso/propuesta/levantamiento. Batería30039 activa7 casos /tmp/purpose-release-cease.xml; fuente congelada. Ruff detectó orden de imports del helper, pendiente normalizar al terminal; no fallo funcional confirmado. Solicitud nueva válida/carreras/móvil/runtime pendientes.
+
+
+30039 terminal0:7 propias74,80s PostgreSQL sin fallos/errores/skips (/tmp/purpose-release-cease.xml). Cease preparado/revisado/ejecutado por servicios reales conserva medida/favoritos y rechaza dos fundamentos sin solicitud nueva, sin propuesta/respuesta. Orden de imports normalizado después de terminal; Ruff/diff limpios. No acredita aún solicitud nueva válida, autor ajeno, concurrencia, móvil ni runtime0070; CR09 abierto.
+
+
+Solicitud nueva0070 en pruebas: tres remitentes por POST real del canal privado (sujeto autenticado, portador anónimo, moderador autenticado), nueva lectura y comprobación posterior por adaptador simulado, consulta de medida y propuesta resume_requested. Esperado aceptar sujeto/portador tras revisión y comprobación, rechazar moderador sin propuesta/respuesta; medida permanece activa. Canal anónimo no acredita identidad humana; comprobación simulada explícita y procedimiento no habilitado en producción. Batería63122 activa10 casos /tmp/purpose-release-new-request.xml; fuente congelada hasta terminal.
+
+
+63122 terminal0:10 propias91,12s PostgreSQL sin fallos/errores/skips (/tmp/purpose-release-new-request.xml). Mensaje real POST canal→nueva lectura/comprobación simulada→consulta→propuesta: sujeto autenticado y portador anónimo admitidos bajo comprobación/revisión; moderador autenticado rechazado sin propuesta/respuesta. En los tres casos medida permanece activa; comunicación nunca libera por sí sola. Recorridos previos/integridad/cola/cease pasan conjuntamente. Ruff/diff limpios. Levantamiento posterior de cease, varias medidas, carreras, móvil y runtime0070 todavía pendientes.
+
+
+CI e3ea093/run37260770856 terminal failure:644 passed/1 failed1486,49s. Fallo Chromium tests/test_browser_revised_listings.py:97 Page.reload Not attached to an active page inmediatamente tras POST resolución de coincidencia. Evidencia docs/evidencias/regresion-ci-e3ea093.json; no aceptar suite. Batería local71038 activa11 casos /tmp/purpose-release-mode-integrity.xml tras comparar modo del ledger con decisión firmada original; fuente congelada. Investigar y sincronizar resultado observable antes de recarga tras terminal, conservando test persistencia. Varias medidas/carreras/móvil/runtime0070 pendientes.
+
+
+71038 terminal0:11 propias98,43s PostgreSQL sin fallos/errores/skips (/tmp/purpose-release-mode-integrity.xml). Consulta rechaza modo alterado respecto a decisión original firmada y revierte auditoría parcial; recorridos anteriores pasan. Tras terminal corregida sincronización de test_browser_revised_listings: esperar resultado visible de resolución antes de reload, conservando comprobación posterior de persistencia. Reproducción afectada en verificación; CI previa permanece failure, no redefinir como verde.
+
+
+80221 terminal0:2 navegador40,13s PostgreSQL/Chromium sin fallos/errores/skips (/tmp/browser-revised-listings-navigation.xml). Resolución de coincidencia espera motivo visible antes de recargar y valida persistencia; revisión/publicación móvil también pasa. Corrección local verificada, regresión completa e3ea093 continúa registrada failure hasta nueva suite sobre commit posterior. Varias medidas/carreras/móvil levantamiento/runtime0070 y cierre completo siguen pendientes.
+
+
+Concurrencia0070 iniciada: dos conexiones reales bloqueadas por holder de PurposeRestriction, espera observada vía pg_blocking_pids recursivo. Misma clave/versión propone una sola comunicación y acción; variante revoca release_purpose_restriction durante espera y exige ambas denegadas sin cambio de caso/medida/favoritos. Batería83519 activa2 casos /tmp/purpose-release-proposal-races.xml; fuente congelada. Carreras de ejecución/levantamiento, varias medidas, móvil/runtime y regresión común pendientes.
+
+
+83519 terminal0:2 carreras35,47s PostgreSQL sin fallos/errores/skips (/tmp/purpose-release-proposal-races.xml). Esperas observadas de dos conexiones sobre holder real: misma clave genera una sola propuesta/respuesta y versión+1; permiso revocado durante espera deniega ambas sin avisos/propuestas/versiones nuevas. Medida activa/favoritos conservados. No simular bloqueos ni sumar como regresión común; carreras de ejecución/pruebas revocadas, varias medidas, móvil/runtime0070 y aceptación común pendientes. Ruff/diff limpios.
+
+
+Carreras ejecución0070 añadidas: dos conexiones con misma key/version, holder de propuesta y espera pg_blocking_pids observada; variante revoca prueba inicial o fresca durante espera. Esperado una liberación/acción/version+1 en replay exacto; revocaciones rechazan ambas y conservan medida/caso/favoritos sin acción. Revocación de status inyectada en fixture concurrente para verificar defensa, no procedimiento de revocación UI.20411 activa5 casos /tmp/purpose-release-execution-races.xml, fuente congelada. Varias medidas, móvil/runtime y común siguen pendientes.
+
+
+20411 terminal0:5 carreras60,37s PostgreSQL sin fallos/errores/skips (/tmp/purpose-release-execution-races.xml). Dos propuestas idempotentes/permiso revocado y tres ejecuciones concurrentes: replay misma clave libera una vez/una acción/version+1; revocar prueba inicial o fresca durante espera observada de propuesta rechaza ambas sin acción/versiones nuevas, medida activa/favoritos intactos. Carreras verificadas sobre conexiones reales y pg_blocking_pids; status failed inyectado solo como fixture de revocación, no flujo de proveedor real. Ruff/diff limpios. Varias medidas, interfaz móvil, Docker0070 y regresión común pendientes; CR09 abierto.
+
+
+Aislamiento de múltiples medidas0070 en pruebas: recorrido real de propuesta/recepción/nueva comprobación/levantamiento, variante con segunda medida preexistente sintética en PostgreSQL para mismo sujeto/finalidad. Fixture segunda ejecución/acción/ledger no acredita otro recorrido de preparación/revisión; sí verifica que la ejecución no toca segunda medida y favoritos409 conservados.67382 activa2 casos /tmp/purpose-release-multiple-measures.xml; fuente congelada. Móvil/runtime/regresión conjunta y calendario/otras finalidades pendientes.
+
+
+67382 terminal0:2 seleccionadas36,66s PostgreSQL,10 deselected por -k (no skips), /tmp/purpose-release-multiple-measures.xml. Una medida levantada devuelve favoritos200; segunda medida sintética activa para misma cuenta/finalidad conserva favoritos409 y segundo ledger sin propuesta/alteración. No acredita segundo workflow de creación. Iniciada regresión común de12 propias+5 carreras+3 ejecución0069+2 navegador corregido; fuente congelada hasta terminal. Móvil/runtime0070/calendario/finalidades restantes y CR09 global pendientes.
+
+Regresión común handle15137, XML /tmp/purpose-release-joint.xml; recuperar mismo proceso/sesión/XML, no reiniciar por timeout. Fuente funcional congelada hasta terminal.
+
+
+15137 terminal0:22 comunes183,61s PostgreSQL/Chromium sin fallos/errores/skips (/tmp/purpose-release-joint.xml).12 levantamiento+5 carreras+3 ejecución0069+2 navegador corregido, una sola batería; evidencia normalizada con hashes docs/evidencias/levantamiento-finalidad-regresion.json. No sumar ensayos anteriores. Móvil levantamiento/runtime0070/toda regresión CR09 pendientes, última CI e3ea093 sigue failure anterior a corrección. Fuente descongelada tras terminal; continuar móvil/operación0070 sin aceptar CR09 íntegro.
+
+
+Móvil0070 ESEN iniciado: login/MFA real→lectura→cola→consulta→propuesta→reload con metadatos de última propuesta recuperables; form proposal_id preseleccionado tras recarga, GET sin fundamentos. Recepción por Client HTTP y comprobación posterior por adaptador de desarrollo fuera del bucle Playwright; sesión real guardada/reabierta→lectura vigente→ejecución UI/reload/persistencia/viewport390.12739 activa2 casos /tmp/purpose-release-mobile.xml; fuente congelada, runtime0070 y regresión tras modificación vista pendientes.
+
+
+12739 terminal0:2 móvilESEN49,47s PostgreSQL/Chromium sin fallos/errores/skips (/tmp/purpose-release-mobile.xml). Login/MFA/lectura/cola→consulta/propuesta→reload con última propuesta y proposal_id→recepción HTTP/nueva comprobación simulada→sesión reabierta/lectura→ejecución/reload, medida levantada/caso abierto/favoritos conservados/viewport390 sin overflow. Recepción y prueba posterior verificadas HTTP/servicio fuera del browser; no proveedor real. Vista GET recupera solo metadatos de última propuesta, nunca motivos. Regresión común anterior22 no incluye modificación vista; ampliar batería común después de runtime/verificación final.
+
+
+Docker0070 verificado:build26066/migrate19342/recreate19746/check77476/hash39410/providers77064 terminal0. Migración0070 aplicada;check/migrate--check limpios,8 fuentes host/app/worker/Beat idénticas, UID10001, healthHTTP200, identidad derechos/avisos/confirmación disabled. Evidencia docs/evidencias/levantamiento-finalidad-runtime.json. Dos móvil49,47s anteriores pasan; regresión22 anterior no incluye última vista GET recuperable, ampliar común antes de commit/aceptación parcial. CR09/finalidades/calendario global/conservación integral siguen pendientes.
+
+
+Regresión final0070 activa24 casos handle10389 XML /tmp/purpose-release-final-joint.xml; fuente congelada hasta terminal. Próxima entrega especificada docs61 calendario operativo global de medidas, paginación acotada/autoridad fresca/versiones/historial sin levantar medidas ni ampliar conservación. No implementación/aceptación todavía; continuar tras entrega0070 con calendario→excepciones/otras finalidades y todo contrato.
+
+
+10389 terminal0:24 comunes221,47s PostgreSQL/Chromium sin fallos/errores/skips (/tmp/purpose-release-final-joint.xml).12 levantamiento+5 carreras+2 móvilESEN+3 ejecución0069+2 navegador corregido, sobre última vista GET recuperable y runtime0070. Evidencia normalizada actualizada docs/evidencias/levantamiento-finalidad-regresion.json; no sumar ensayos anteriores. Entrega parcial0070 lista para commit/push con identidad autorizada; siguiente docs61 calendario global, luego excepciones/otras finalidades/conservación integral y pendientes CR09 antes de CR10/GS01/BF/BB/C. CI completa nueva necesaria; CI e3ea093 anterior permanece failure.
+
+
+Control global ruff format--check detectó13 migraciones sin normalizar (12 históricas y0070); no alterar históricas ajenas a entrega.0070 normalizada tras tests; formato de6 archivos nuevos comprobado, Ruff limpio/check/makemigrations no cambios. Evidencia registra hash probado y hash posterior de formato de0070 sin fingir segunda batería. Imágenes rebuild7008 terminal0/recreación82248 en verificación; refrescar runtime/check/hashes antes de commit.
+
+
+82248/7439 terminal0:runtime reconstruido tras formato0070,8 hashes idénticos app/worker/Beat y UID10001;check/migrate--check/providersdisabled/health200 nuevamente correctos. Evidencia runtime actualizada.24 comunes221,47s aceptan entrega técnica parcial de levantamiento account_preferences; no CI completa ni calendario/otras finalidades ni CR09 íntegro. Próximo docs61.

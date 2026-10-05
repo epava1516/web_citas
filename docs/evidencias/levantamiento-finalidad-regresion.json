@@ -1,0 +1,35 @@
+{
+  "tests": 24,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "time_seconds": 221.377,
+  "source_hashes": {
+    "apps/safety/purpose_release.py": "8aa94398851281941cbc403b5bdef3f6c4414ad4311ac538309832a9295615d4",
+    "apps/safety/purpose_release_views.py": "37113d271bbaba59f88523d62c8350a8063a723be7b8e1e6e4ab1ab2ccd3fbee",
+    "apps/safety/models.py": "75e1677f46b0d492cf88c54dd883e946a8351229572fce7db103638d3afc6a37",
+    "apps/core/urls.py": "9b25f1239142b63e23450beb13b8a29f8615a0241a4838708079d2533275b6f4",
+    "templates/safety/purpose_release.html": "43cfcef8dea02841fa7370b23036fd370fcf04abc19b9860bdb12fe766c15508",
+    "templates/safety/purpose_restriction_queue.html": "25102f82e3fd85c1c3f80078174954b7737642901ba81954a75f6f1cc8956af9",
+    "templates/safety/rights_inspect.html": "6e53c8416d2903f7689dc63007a9a622c6122339cd071e9fa8822d40cbc09dcf",
+    "tests/test_purpose_release.py": "0592b1321d9ebe5e6031f12f44168bc45c160058fd576c667e39134aa9e5bdbe",
+    "tests/test_purpose_release_races.py": "203d7c91a34811db476a6a0d8cba200c8e4ee86e7ccdcbe108ee88472367b74a",
+    "tests/test_browser_revised_listings.py": "5541539163e44c036fb39afd399b49b80a467d70f6437d80ddae812ef3d751ff",
+    "tests/test_purpose_release_mobile.py": "ec7f01094d7a8fda9ad7903b4d658c0e9017a71d07bccb34534dee020479f03d",
+    "apps/safety/migrations/0070_purposerestrictionread_purposereleaseproposal.py": "0346dca819067729ed868cc5b1539a192f9e768378dba630b224e661909d9f27"
+  },
+  "scope": "24 casos PostgreSQL/Chromium:12 levantamiento,5 concurrencia,2 móvilESEN,3 ejecución0069,2 navegación corregida",
+  "limitations": [
+    "Identidad/comprobación simulada, sin proveedor real",
+    "Segunda medida preexistente sintética; prueba aislamiento de efectos",
+    "No acredita CR09 íntegro ni regresión completa del repositorio"
+  ],
+  "cr09_accepted": false,
+  "post_test_format_only": {
+    "apps/safety/migrations/0070_purposerestrictionread_purposereleaseproposal.py": {
+      "tested_sha256": "0346dca819067729ed868cc5b1539a192f9e768378dba630b224e661909d9f27",
+      "formatted_sha256": "cf8e804d95828bbb083af3aa5e3b66c9bed8b5392edf9f748a4161e224d7f9fb",
+      "operation": "ruff format; no schema changes"
+    }
+  }
+}
