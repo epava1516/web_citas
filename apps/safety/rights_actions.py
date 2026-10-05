@@ -46,6 +46,7 @@ def act(
         allow_version_change=operation == "withdraw",
         link_person_id=link_person_id if operation == "link" else None,
         link_account_id=link_account_id if operation == "link" else None,
+        allow_erased_account=operation != "link",
     )
     if not permitted(user, case):
         raise PermissionDenied("Conflict of interest")

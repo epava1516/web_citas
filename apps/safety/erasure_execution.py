@@ -37,8 +37,7 @@ from .models import (
     RightsRequest,
 )
 from .rights import allowed, fingerprint
-from .rights_scope import locked_profile_case as locked_case
-from .rights_scope import permitted
+from .rights_scope import locked_case, permitted
 from .rights_verification import enabled
 from .views import private
 
@@ -67,9 +66,12 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         raise PermissionDenied
     # Our own revocation changes manager_version while another identical request waits.
     # Re-read it under lock before replay; new executions still validate proof and source below.
-    case, person, _ = locked_case(case_id, lock_listing=True, allow_version_change=True)
+    case, person, _ = locked_case(
+        case_id, lock_listing=True, allow_version_change=True, allow_erased_account=True
+    )
     if not permitted(user, case):
         raise PermissionDenied
+    account_scope = bool(case.account_subject_id)
     if (
         not isinstance(purposes, list)
         or not purposes
@@ -78,6 +80,13 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         or not set(purposes) <= {value for value, _ in SUPPORTED}
     ):
         raise ValidationError("Select supported scopes / Selecciona ámbitos implementados")
+    if account_scope and not set(purposes) <= {
+        "account",
+        "authentication",
+        "account_preferences",
+        "transient_copy",
+    }:
+        raise ValidationError("Account scopes only / Solo ámbitos de cuenta")
     if "profile" in purposes and "publication" not in purposes:
         raise ValidationError(
             "Erase publication together with profile / Suprime publicación junto al perfil"
@@ -124,13 +133,19 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
     # Account writers lock User before tokens/codes. Favorite writers lock it after target Listing.
     subject = None
     if set(purposes) & {"account", "authentication", "account_preferences"}:
-        if not person or not person.subject_id:
+        if not case.account_subject_id and (not person or not person.subject_id):
             raise ValidationError(
                 "Subject account unidentified / Cuenta del sujeto sin identificar"
             )
-        subject = User.objects.select_for_update(no_key=True).get(pk=person.subject_id)
+        subject = User.objects.select_for_update(no_key=True).get(
+            pk=case.account_subject_id or person.subject_id
+        )
     exports = (
-        list(RightsExport.objects.select_for_update().filter(person=person).order_by("pk"))
+        list(
+            RightsExport.objects.select_for_update()
+            .filter(person=person, account_subject_id=case.account_subject_id)
+            .order_by("pk")
+        )
         if "transient_copy" in purposes
         else []
     )
@@ -186,7 +201,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 "Account has other responsibilities / Cuenta con otras responsabilidades"
             )
         if not {"authentication", "account_preferences"} <= set(purposes) or (
-            "publication" not in purposes and not person.publication_erased_at
+            not account_scope and "publication" not in purposes and not person.publication_erased_at
         ):
             raise ValidationError(
                 "Review credentials, preferences and publication together / Revisa credenciales, preferencias y publicación conjuntamente"
@@ -222,7 +237,10 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 encrypted_reason=seal({"reason": reason}),
             )
             result = {
-                "schema": "erasure-execution-v1",
+                "schema": "account-erasure-execution-v1"
+                if account_scope
+                else "erasure-execution-v1",
+                "account_subject": str(case.account_subject_id) if account_scope else None,
                 "executed_purposes": sorted(purposes),
                 "pending_purposes": sorted(
                     {row["purpose"] for row in decisions["decisions"]} - set(purposes)
@@ -245,8 +263,8 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 "phone_challenges_deleted": 0,
                 "representation_invitations_deleted": 0,
                 "representation_revoked": False,
-                "previous_manager_version": person.manager_version,
-                "resulting_manager_version": person.manager_version,
+                "previous_manager_version": person.manager_version if person else None,
+                "resulting_manager_version": person.manager_version if person else None,
                 "phone_association_detached": False,
                 "account_fields_cleared": False,
             }
@@ -412,6 +430,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                 action=action,
                 proof=inventory.proof,
                 person=person,
+                account_subject_id=case.account_subject_id,
                 encrypted_result=seal(result),
             )
             if "media" in purposes:
@@ -462,8 +481,9 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                     result["media_jobs_queued"] += 1
                 record.encrypted_result = seal(result)
                 record.save(update_fields=["encrypted_result"])
-            person.rights_version += 1
-            person.save(update_fields=["rights_version"])
+            if person:
+                person.rights_version += 1
+                person.save(update_fields=["rights_version"])
             case.version += 1
             case.scope_status = "unverified"
             case.save(update_fields=["version", "scope_status", "manager_version"])
@@ -506,6 +526,12 @@ def apply(request, case_id, plan_id):
     form = ExecutionForm(
         request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
     )
+    if case.account_subject_id:
+        form.fields["purposes"].choices = [
+            row
+            for row in SUPPORTED
+            if row[0] in {"account", "authentication", "account_preferences", "transient_copy"}
+        ]
     result = None
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():

@@ -9,7 +9,6 @@ from test_account_only_rectification import verified
 from test_reports import directory, photo_environment  # noqa: F401
 
 from apps.core.models import User
-from apps.safety.erasure_inventory import prepare as erasure_inventory
 from apps.safety.models import RightsAction
 from apps.safety.privacy_holds import hold
 from apps.safety.rectification_recipients import prepare as recipients
@@ -26,7 +25,6 @@ def test_profile_consumers_reject_checked_account_without_side_effects(request, 
     reason = "Independent synthetic own account scope request"
     operations = [
         lambda: hold(actor, case.pk, uuid4(), case.version, reason, "accuracy"),
-        lambda: erasure_inventory(actor, case.pk, uuid4(), case.version, reason),
         lambda: recipients(actor, case.pk, uuid4(), uuid4(), case.version, reason),
         lambda: discard(actor, case.pk, uuid4(), case.version, uuid4(), reason),
     ]

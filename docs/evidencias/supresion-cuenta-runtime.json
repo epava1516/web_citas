@@ -1,0 +1,50 @@
+{
+  "scope": "Docker local y CSS servido; no aceptación jurídica/producción/CR09",
+  "services": {
+    "app": {
+      "source_hashes_match": true,
+      "uid": 10001
+    },
+    "worker": {
+      "source_hashes_match": true,
+      "uid": 10001
+    },
+    "beat": {
+      "source_hashes_match": true,
+      "uid": 10001
+    }
+  },
+  "hashes": {
+    "apps/safety/account_erasure_inventory.py": "57491e6898e09843ab6ea0a2e143231efb9eff588083562510651ba167c03975",
+    "apps/safety/erasure_inventory.py": "79de00f0fc85ad4b9e005766e49130d633880a8bf0e2101ef1ab7fd777fd4550",
+    "apps/safety/erasure_plans.py": "805d4da357e6c5c07df327438a034d88f128d0532102251503d21aae04b3535e",
+    "apps/safety/erasure_execution.py": "f2a4d4b2581699e2ba37dc33050d71a69919cd04c02c8ada9fa04bfec8b91eb9",
+    "apps/safety/rights_scope.py": "b47d30ef0b2a3ec9dd8fe10482d51a564b3a9cb78ea9a9f34314121f6b08e494",
+    "apps/safety/rights_actions.py": "985e66efe9b20d5a57bc875b6f9f2d8a4945f8fd4b8d6a47688479eb6aad892b",
+    "apps/safety/rights.py": "5d16fb23d1aabf206791b8c4d10bbbb14e53f00d4dbd1e8817663dcb31df56cd",
+    "apps/safety/rights_responses.py": "feb184f3c46c5372db5b8a5d759a7f0487dd2d954abc70872cf70173d2b33a15",
+    "apps/safety/models.py": "5605925601746228f26e28d6776ffbe064b552e6d0b886438126bed896b23680",
+    "apps/safety/migrations/0064_erasureinventory_account_subject_and_more.py": "be2b608ea13de39a1a543faf81d219485a7695882827153065cbbc703ffb1946",
+    "apps/safety/migrations/0065_erasureexecution_account_subject_and_more.py": "64e2fa75dbbe6632c2d684e9caabcc508b83d0b6e09947d026a205867c2434d4",
+    "templates/safety/erasure_inventory.html": "3a48fcf762ac96c9a622caf079f72825cebefba49d7b7ce29343e84ee6afa596",
+    "templates/safety/erasure_execution.html": "a1a36e8a32bcbec5dee18bbd7d4405a22757587632683190f0f373239cf3fd95",
+    "static/app.css": "c3b98448dbcb3bac469a7c2b7b956257d34cf9ec4246fbe68c0f9c47457045af"
+  },
+  "health_status": 200,
+  "served_css_matches_source": true,
+  "runtime": {
+    "production": false,
+    "rights_backend": "disabled",
+    "notice_backend": "disabled",
+    "confirmation_backend": "disabled",
+    "migrations": [
+      "0060_rightsproof_account_source_digest_and_more",
+      "0061_rightsrectificationproposal_account_subject_and_more",
+      "0062_alter_rightsrectificationexecution_resulting_rights_version",
+      "0063_rightsexport_account_subject_and_more",
+      "0064_erasureinventory_account_subject_and_more",
+      "0065_erasureexecution_account_subject_and_more"
+    ]
+  },
+  "checks": "manage.py check y migrate --check terminal0; collectstatic sobre volumen persistente terminal0"
+}

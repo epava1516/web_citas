@@ -114,3 +114,9 @@ El ensayo histórico de JSON del 2026-10-04 utilizó el comando anterior sin arg
 
 
 Ensayo físico de supresión local: `uv run python -m scripts.probe_media_erasure_worker launch`. Crea DB/cola/worker/Beat media_probe_UUID, PNG original/WebP derivado sintéticos y archivos vigentes de control; identidad pending/plan-ejecución fixture, no decisión acreditada. Worker manual y Beat60s de la aplicación; cleanup de DB/contenedores/cola y archivos solo del namespace del probe. Evidencias finales en docs/30/18. No S3/versiones/CDN/backups comprobados.
+
+## Estáticos en actualizaciones locales Docker
+
+El build recoge estáticos en la imagen, pero Compose monta static_data persistente en /app/staticfiles y Caddy lo lee desde ese volumen. Recrear app no sustituye el contenido existente del volumen. Tras reconstruir/recrear y aplicar migraciones, ejecutar `docker compose exec -T app python manage.py collectstatic --noinput` y verificar el archivo servido por Caddy contra el SHA-256 de static/app.css. No borrar el volumen para actualizar CSS.
+
+Detectado durante supresión de cuenta: los14 archivos fuente coincidían host/app/worker/Beat, pero el CSS HTTP de Caddy seguía siendo anterior. collectstatic copió128 archivos y dejó2 sin cambios; comprobación62078 terminal0 confirmó CSS servido igual a fuente, evidencia supresion-cuenta-runtime.json. La futura automatización de despliegue en B-B debe incluir esta fase antes de aceptar la versión; health200 por sí solo no demuestra que los estáticos coincidan.

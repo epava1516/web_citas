@@ -48,6 +48,7 @@ def locked_case(
     allow_version_change=False,
     link_person_id=None,
     link_account_id=None,
+    allow_erased_account=False,
 ):
     if not connection.in_atomic_block:
         raise RuntimeError("Rights locks require an enclosing transaction")
@@ -126,7 +127,9 @@ def locked_case(
     account_id = link_account_id or case.account_subject_id
     if account_id:
         account = User.objects.select_for_update().filter(pk=account_id).first()
-        if not account or account.account_erased_at:
+        if not account or (
+            account.account_erased_at and (link_account_id or not allow_erased_account)
+        ):
             raise ValidationError("Account unavailable / Cuenta no disponible")
         if case.account_subject_id:
             case.account_subject = account

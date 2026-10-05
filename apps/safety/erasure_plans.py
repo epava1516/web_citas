@@ -18,8 +18,7 @@ from .erasure_inventory import canonical, source_manifest
 from .models import ErasureInventory, ErasurePlan, RightsAction, RightsRequest
 from .rights import allowed, fingerprint
 from .rights_responses import complete_response_read
-from .rights_scope import locked_profile_case as locked_case
-from .rights_scope import permitted
+from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
 from .views import private
 
@@ -31,6 +30,7 @@ OPERATIONS = [
     ("review", "Pendiente de revisión / Awaiting review"),
 ]
 LABELS = {
+    "organization_responsibilities": "Responsabilidades de organización / Organization responsibilities",
     "profile": "Perfil / Profile",
     "publication": "Publicación / Publication",
     "media": "Imágenes / Images",
@@ -129,6 +129,7 @@ def authorized_inventory(user, case, person, inventory_id):
         action__request=case,
         action__actor=user,
         person=person,
+        account_subject_id=case.account_subject_id,
         action__expected_version=case.version,
         proof=proof,
     ).first()
@@ -139,7 +140,7 @@ def authorized_inventory(user, case, person, inventory_id):
     manifest = unseal(inventory.encrypted_manifest)
     if (
         fingerprint(canonical(manifest)) != inventory.source_digest
-        or fingerprint(canonical(source_manifest(person))) != inventory.source_digest
+        or fingerprint(canonical(source_manifest(person, case))) != inventory.source_digest
     ):
         raise ValidationError(
             "Resources changed; prepare and review again / Recursos cambiados; prepara y revisa de nuevo"

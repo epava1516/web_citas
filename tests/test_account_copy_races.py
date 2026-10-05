@@ -24,7 +24,7 @@ pytestmark = pytest.mark.django_db(transaction=True)
 REASON = "Independent synthetic own account copy review"
 
 
-def prepared_account(request, settings, monkeypatch):
+def prepared_account(request, settings, monkeypatch, kind="access"):
     import test_rights_exports
 
     request.getfixturevalue("directory")
@@ -35,7 +35,7 @@ def prepared_account(request, settings, monkeypatch):
         return path, values | {"link_account_id": subject.pk}
 
     monkeypatch.setattr(test_rights_exports, "link", link_account)
-    case, actor, staff, public, receipt, _ = ready(request, settings, monkeypatch, "access")
+    case, actor, staff, public, receipt, _ = ready(request, settings, monkeypatch, kind)
     return case, actor, staff, subject, public, receipt
 
 

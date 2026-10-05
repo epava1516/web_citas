@@ -21,8 +21,7 @@ from .crypto import seal, unseal
 from .models import ErasureInventory, RightsAction, RightsRequest
 from .rights import allowed, fingerprint
 from .rights_responses import complete_response_read
-from .rights_scope import locked_profile_case as locked_case
-from .rights_scope import permitted
+from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
 from .views import private
 
@@ -32,7 +31,11 @@ def canonical(value):
 
 
 @sensitive_variables()
-def source_manifest(person):
+def source_manifest(person, case=None):
+    if case and case.account_subject_id:
+        from .account_erasure_inventory import source
+
+        return source(case)
     subject = person.subject_id
     profile = "revision__listing__person"
     scopes = [
@@ -621,7 +624,7 @@ def prepare(user, case_id, key, version, purpose):
         ):
             return ErasureInventory.objects.get(action=previous)
         raise ValidationError("Conflicting action key / Clave incompatible")
-    manifest = source_manifest(person)
+    manifest = source_manifest(person, case)
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(
@@ -637,6 +640,7 @@ def prepare(user, case_id, key, version, purpose):
                 action=action,
                 proof=proof,
                 person=person,
+                account_subject_id=case.account_subject_id,
                 source_digest=fingerprint(canonical(manifest)),
                 encrypted_manifest=seal(manifest),
             )

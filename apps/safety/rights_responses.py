@@ -55,7 +55,9 @@ def issue(
         or not user.has_perm("safety.respond_rights_request")
     ):
         raise PermissionDenied
-    case, person, listing = locked_case(case_id, lock_listing=True, allow_version_change=True)
+    case, person, listing = locked_case(
+        case_id, lock_listing=True, allow_version_change=True, allow_erased_account=True
+    )
     if not permitted(user, case):
         raise PermissionDenied
     signature = fingerprint(

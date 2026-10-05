@@ -329,7 +329,7 @@ def inspect(request, case_id):
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             try:
-                case, _, _ = locked_case(case.pk)
+                case, _, _ = locked_case(case.pk, allow_erased_account=True)
             except ValidationError:
                 return private(HttpResponse("Management changed; reload", status=409))
             if not permitted(request.user, case):

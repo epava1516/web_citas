@@ -1,6 +1,6 @@
 # Inventario de derechos de cuenta por finalidad
 
-Estado: especificación técnica pendiente de implementación y aceptación. Complementa docs/51 y la matriz CR-09; no sustituye revisión jurídica ni aprueba conservación definitiva.
+Estado: especificación con implementación parcial; aceptación integral pendiente. Copia propia en docs/54 e inventario/planes/ejecución en verificación en docs/55. Complementa docs/51 y la matriz CR-09; no sustituye revisión jurídica ni aprueba conservación definitiva.
 
 ## Regla de ámbito
 
