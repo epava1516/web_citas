@@ -1,6 +1,6 @@
 # Inventario y decisiones de supresión de cuenta propia
 
-Estado: inventario/planes y ejecución parcial propios comprobados en baterías locales; regresión conjunta65 correcta473,24s. Docker0064/0065 y CSS servido verificados. Sin aceptación integral de supresión de cuenta ni CR09. Complementa docs/51, docs/53 y docs/54; CR-09 permanece abierto.
+Estado: inventario/planes y ejecución parcial propios comprobados en baterías locales; entregav1 tiene regresión conjunta65 correcta473,24s. Ampliación del censov2 y verificación actual en docs/56. Docker0064/0065 y CSS servido verificados. Sin aceptación integral de supresión de cuenta ni CR09. Complementa docs/51, docs/53 y docs/54; CR-09 permanece abierto.
 
 ## Ámbito y fuente
 

@@ -65,7 +65,7 @@ def test_account_inventory_and_reviewed_plan_http_are_scoped_and_non_destructive
     inventory = response.context["inventory"]
     manifest = response.context["manifest"]
     assert inventory.account_subject_id == subject.pk and inventory.person_id is None
-    assert manifest["schema"] == "account-erasure-inventory-v1" and manifest["person"] is None
+    assert manifest["schema"] == "account-erasure-inventory-v2" and manifest["person"] is None
     assert manifest["account_has_other_responsibilities"] == agency
     assert subject.email not in str(manifest) and subject.password not in str(manifest)
     assert all("count" in row and len(row["state_digest"]) == 64 for row in manifest["entries"])

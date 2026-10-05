@@ -16,6 +16,7 @@ from .rights import fingerprint
 def source(case):
     user = locked_subject(None, case)
     scoped_cases = Q(account_subject=user) | Q(actor=user)
+    case_ids = apps.get_model("safety.RightsRequest").objects.filter(scoped_cases).values("pk")
     specs = [
         (
             "core.User",
@@ -124,6 +125,142 @@ def source(case):
             ["pk", "actor_id", "status", "created_at"],
         ),
     ]
+    # Current inventory/plan/execution artifacts are deliberately excluded: creating
+    # them must not invalidate their own source. Other cases retain their metadata.
+    procedure_operations = ["erasure_inventory", "erasure_plan", "erasure_execute"]
+    specs.extend(
+        [
+            (
+                "core.AgencyInvitation",
+                Q(agency__owner=user),
+                "organization_responsibilities",
+                ["pk", "agency_id", "expires_at", "accepted_at", "revoked_at"],
+            ),
+            (
+                "safety.RightsAccess",
+                Q(request_id__in=case_ids) | Q(actor=user),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "request_id",
+                    "actor_id",
+                    "case_version",
+                    "response_version",
+                    "message_before",
+                    "response_before",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsAction",
+                (Q(request_id__in=case_ids) | Q(actor=user))
+                & ~Q(request=case, operation__in=procedure_operations),
+                "dependent_evidence",
+                ["pk", "request_id", "actor_id", "expected_version", "operation", "created_at"],
+            ),
+            (
+                "safety.RightsMessage",
+                Q(request_id__in=case_ids) | Q(actor=user),
+                "third_party_evidence",
+                ["pk", "request_id", "actor_id", "expected_version", "created_at"],
+            ),
+            (
+                "safety.RightsProofEvent",
+                Q(proof__account_subject=user) | Q(verifier=user),
+                "dependent_evidence",
+                ["pk", "proof_id", "verifier_id", "outcome", "expected_version", "created_at"],
+            ),
+            (
+                "safety.RightsResponse",
+                Q(request_id__in=case_ids) | Q(actor=user),
+                "third_party_evidence",
+                [
+                    "pk",
+                    "request_id",
+                    "actor_id",
+                    "case_version",
+                    "response_version",
+                    "kind",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsResponseAcknowledgement",
+                Q(response__request_id__in=case_ids),
+                "dependent_evidence",
+                ["pk", "response_id", "created_at"],
+            ),
+            (
+                "safety.RightsNotice",
+                Q(response__request_id__in=case_ids),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "response_id",
+                    "status",
+                    "recovery_version",
+                    "attempts",
+                    "next_attempt_at",
+                    "simulated_at",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.SimulatedRightsNoticeDelivery",
+                Q(notice__response__request_id__in=case_ids),
+                "dependent_evidence",
+                ["pk", "notice_id", "procedure", "created_at"],
+            ),
+            (
+                "safety.RightsExtension",
+                Q(request_id__in=case_ids),
+                "dependent_evidence",
+                ["pk", "request_id", "action_id", "additional_months", "new_due_at"],
+            ),
+            (
+                "safety.RightsExportPreview",
+                Q(request_id__in=case_ids) | Q(actor=user),
+                "dependent_evidence",
+                ["pk", "request_id", "actor_id", "case_version", "source_digest", "created_at"],
+            ),
+            (
+                "safety.RightsExportDownload",
+                Q(export__account_subject=user) | Q(actor=user),
+                "dependent_evidence",
+                ["pk", "export_id", "actor_id", "part_id", "created_at"],
+            ),
+            (
+                "safety.Complaint",
+                Q(actor=user),
+                "third_party_evidence",
+                ["pk", "actor_id", "status", "version", "created_at"],
+            ),
+            (
+                "safety.ComplaintMessage",
+                Q(actor=user) | Q(complaint__actor=user),
+                "third_party_evidence",
+                ["pk", "complaint_id", "actor_id", "expected_version", "created_at"],
+            ),
+            (
+                "safety.ErasureInventory",
+                Q(account_subject=user) & ~Q(action__request=case),
+                "dependent_evidence",
+                ["pk", "action_id", "proof_id", "source_digest", "created_at"],
+            ),
+            (
+                "safety.ErasurePlan",
+                Q(inventory__account_subject=user) & ~Q(action__request=case),
+                "dependent_evidence",
+                ["pk", "inventory_id", "action_id", "source_digest", "review_on", "created_at"],
+            ),
+            (
+                "safety.ErasureExecution",
+                Q(account_subject=user) & ~Q(action__request=case),
+                "dependent_evidence",
+                ["pk", "plan_id", "action_id", "proof_id", "created_at"],
+            ),
+        ]
+    )
     entries = []
     for label, scope, purpose, fields in specs:
         rows = list(apps.get_model(label).objects.filter(scope).order_by("pk").values(*fields))
@@ -148,7 +285,7 @@ def source(case):
         or user.is_superuser
     )
     return {
-        "schema": "account-erasure-inventory-v1",
+        "schema": "account-erasure-inventory-v2",
         "account_subject": str(user.pk),
         "person": None,
         "manager_version": None,
@@ -160,6 +297,7 @@ def source(case):
         "pending": [
             "per_purpose_legal_review",
             "other_account_records_and_dependencies",
+            "current_procedure_audit_excluded",
             "third_party_redaction",
             "sessions_logs_cache_and_backups",
             "recipient_notifications",

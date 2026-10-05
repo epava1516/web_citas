@@ -1,0 +1,43 @@
+{
+  "schema": "account-erasure-inventory-v2",
+  "scope": "Censo seleccionado de31 modelos y causalidad de inventario/planes propios; PostgreSQL/Chromium",
+  "runs": [
+    {
+      "session": 58613,
+      "xml": "/tmp/account-inventory-dependencies.xml",
+      "passed": 10,
+      "time_seconds": 79.93,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "session": 97846,
+      "xml": "/tmp/account-inventory-v2-boundaries.xml",
+      "passed": 4,
+      "time_seconds": 58.758,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "session": 3973,
+      "xml": "/tmp/account-inventory-v2-legacy.xml",
+      "passed": 1,
+      "time_seconds": 25.865,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "Snapshot v1 sintético histórico inmutable, inventario/revisión nueva v2 requeridos; no migración de datos reales"
+    }
+  ],
+  "coverage": [
+    "inventario/ejecución/carreras propios",
+    "crear inventario/plan no invalida su propio digest",
+    "mensaje nuevo invalida plan sin proyectar texto/ciphertext",
+    "móvil ESEN completo sobrev2",
+    "copias de otra cuenta preservadas",
+    "legado v1 permanece cifrado, digest inmutable y nueva revisión v2 obligatoria"
+  ],
+  "limitation": "Baterías10/4/1 separadas; no una suite15, ni conservación/supresión integral o CR09 completo"
+}
