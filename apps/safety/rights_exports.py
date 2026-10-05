@@ -284,11 +284,24 @@ def preview(user, case_id, version, purpose):
 
 @transaction.atomic
 @sensitive_variables()
-def generate(user, case_id, key, version, reason, copy):
+def generate(user, case_id, key, version, reason, copy, *, information_review_id=None):
     case, person, listing = reviewer_case(user, case_id)
     if not user.has_perm("safety.execute_rights_request"):
         raise PermissionDenied
-    signature = fingerprint(canonical({"version": version, "reason": reason, "copy": copy}))
+    signature_input = {"version": version, "reason": reason, "copy": copy}
+    if information_review_id is not None:
+        signature_input["information_review"] = information_review_id
+        signature_input["session"] = user.session_version
+        signature_input["mfa"] = user.mfa_version
+        from apps.core.models import User
+
+        from .rights_copy_page_review import fresh_authority
+
+        fresh = User.objects.get(pk=user.pk)
+        if not fresh.is_active:
+            raise PermissionDenied
+        fresh_authority(fresh, case, user.session_version, user.mfa_version)
+    signature = fingerprint(canonical(signature_input))
     previous = RightsAction.objects.filter(key=key).first()
     if previous:
         if (
@@ -297,7 +310,25 @@ def generate(user, case_id, key, version, reason, copy):
             and previous.operation == "export"
             and previous.payload_digest == signature
         ):
-            return RightsExport.objects.get(action=previous)
+            export = RightsExport.objects.select_related("proof").get(action=previous)
+            if information_review_id is not None:
+                from .models import RightsExportInformationBinding
+                from .rights_copy_page_review import validate_generated_scope
+                from .rights_information_export import validate_export_binding
+
+                binding = RightsExportInformationBinding.objects.filter(
+                    export=export, review_id=information_review_id
+                ).first()
+                if not binding:
+                    raise ValidationError("Export information binding unavailable")
+                validate_generated_scope(
+                    case, person, listing, export, user, version, binding.source_digest
+                )
+                validate_export_binding(case, person, export)
+                fresh_authority(
+                    User.objects.get(pk=user.pk), case, user.session_version, user.mfa_version
+                )
+            return export
         raise ValidationError("Conflicting export key / Clave de exportación incompatible")
     if case.version != version or not 10 <= len(reason.strip()) <= 2000:
         raise ValidationError(
@@ -313,6 +344,31 @@ def generate(user, case_id, key, version, reason, copy):
     ).exists():
         raise ValidationError("Preview current source first / Consulta primero la copia actual")
     cleaned = reviewed_copy(source, copy)
+    information_review, information = None, None
+    if information_review_id is not None:
+        from uuid import uuid5
+
+        from .rights_information_export import consume_approved
+
+        information_review, information = consume_approved(
+            user,
+            case.pk,
+            version,
+            information_review_id,
+            uuid5(key, "approved-information-use"),
+            reason,
+        )
+        cleaned["additional_information"] = {
+            "access": information["access"],
+            "policy": {
+                "version": information_review.information.policy_version,
+                "language": information_review.information.policy_document.language,
+                "digest": information_review.information.policy_digest,
+            },
+        }
+        cleaned["pending_review"] = [
+            item for item in cleaned["pending_review"] if item != "additional_rights_information"
+        ]
     from apps.mediafiles.models import Blob, Photo
 
     selected_ids = [
@@ -374,6 +430,21 @@ def generate(user, case_id, key, version, reason, copy):
                 encrypted_payload="",
                 expires_at=min(proof.expires_at, timezone.now() + timedelta(hours=24)),
             )
+            if information_review is not None:
+                from .models import RightsExportInformationBinding
+
+                row = information_review.information
+                export.expires_at = min(export.expires_at, row.expires_at)
+                export.save(update_fields=["expires_at"])
+                RightsExportInformationBinding.objects.create(
+                    export=export,
+                    review=information_review,
+                    source_digest=row.source_digest,
+                    information_digest=fingerprint(row.encrypted_information),
+                    policy_digest=row.policy_digest,
+                    inspection_digest=information_review.read.action.payload_digest,
+                    decision_digest=information_review.action.payload_digest,
+                )
             for image, photo, content in audited_snapshots():
                 attachment = RightsExportImage.objects.create(
                     export=export, photo=photo, encrypted_content=cipher().encrypt(content).decode()
@@ -417,6 +488,11 @@ def generate(user, case_id, key, version, reason, copy):
     case.scope_status = "unverified"
     # Partial copy is not a final resolution of the access/portability request.
     case.save(update_fields=["version", "scope_status"])
+    if information_review_id is not None:
+        from .rights_information_export import validate_export_binding
+
+        validate_export_binding(case, person, export)
+        fresh_authority(User.objects.get(pk=user.pk), case, user.session_version, user.mfa_version)
     return export
 
 
@@ -452,6 +528,10 @@ class ExportForm(forms.Form):
             ("inspect_saved_page", "Consultar decisiones guardadas / Inspect saved decisions"),
             ("compile_pages", "Compilar páginas revisadas / Compile reviewed pages"),
             ("generate_pages", "Generar desde páginas revisadas / Generate from reviewed pages"),
+            (
+                "generate_pages_with_information",
+                "Generar páginas con información aprobada / Generate pages with approved information",
+            ),
             ("generate", "Crear copia revisada / Create reviewed copy"),
         ]
     )
@@ -483,6 +563,11 @@ class ExportForm(forms.Form):
         ],
     )
     page = forms.IntegerField(required=False, min_value=1, initial=1)
+    information_review_id = forms.IntegerField(
+        required=False,
+        min_value=1,
+        label="Referencia de aprobación de información / Information approval reference",
+    )
     review_id = forms.IntegerField(
         required=False, min_value=1, label="Referencia de revisión / Review reference"
     )
@@ -569,11 +654,26 @@ def prepare(request, case_id):
                     }
                 )
                 status = 200
-            elif values["operation"] == "generate_pages":
+            elif values["operation"] in {"generate_pages", "generate_pages_with_information"}:
                 from .rights_copy_page_review import generate_pages
 
+                information_id = (
+                    values["information_review_id"]
+                    if values["operation"] == "generate_pages_with_information"
+                    else None
+                )
+                if (
+                    values["operation"] == "generate_pages_with_information"
+                    and information_id is None
+                ):
+                    raise ValidationError("Information approval reference required")
                 generate_pages(
-                    request.user, case_id, values["version"], values["key"], values["reason"]
+                    request.user,
+                    case_id,
+                    values["version"],
+                    values["key"],
+                    values["reason"],
+                    information_review_id=information_id,
                 )
                 return private(redirect("rights_inspect", case_id=case.pk))
             elif values["operation"] == "compile_pages":
@@ -737,6 +837,9 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
         ):
             return private(HttpResponse("Conflicting download key", status=409))
         try:
+            from .rights_information_export import validate_export_binding
+
+            validate_export_binding(case, person, export)
             if part:
                 response = HttpResponse(
                     cipher().decrypt(part.encrypted_content.encode()),
@@ -767,7 +870,7 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
                 else 'attachment; filename="rights-profile.json"'
             )
             return private(response)
-        except (InvalidToken, UnicodeDecodeError, json.JSONDecodeError):
+        except (InvalidToken, UnicodeDecodeError, json.JSONDecodeError, ValidationError):
             raise Http404 from None
 
 

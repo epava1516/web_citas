@@ -263,8 +263,8 @@ def test_direct_generation_rolls_back_if_proof_changes_before_final_return(
     version = case.version
     original = rights_exports.generate
 
-    def invalidate(*args):
-        export = original(*args)
+    def invalidate(*args, **kwargs):
+        export = original(*args, **kwargs)
         case.proofs.update(status="failed")
         return export
 

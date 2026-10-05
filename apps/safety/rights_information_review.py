@@ -146,6 +146,8 @@ def record(user, case_id, information_id, key, version, operation, reason, outco
                 raise ValidationError("Unresolved information or portability cannot be approved")
             fields = dict(
                 action=action,
+                original_session_version=user.session_version,
+                original_mfa_version=user.mfa_version,
                 information=row,
                 proof=proof,
                 source_digest=source_digest,
@@ -183,3 +185,90 @@ def record(user, case_id, information_id, key, version, operation, reason, outco
             return result, body if operation == "inspect" else None
     except IntegrityError as error:
         raise ValidationError("Conflicting information review") from error
+
+
+@sensitive_variables()
+def validate_action_evidence(evidence, row, case, proof):
+    """Validate an inspection/decision signature; caller retains access authorization."""
+    if not transaction.get_connection().in_atomic_block:
+        raise RuntimeError("Review evidence requires an atomic transaction")
+    action = evidence.action
+    operation = "review" if isinstance(evidence, RightsCopyInformationReview) else "inspect"
+    outcome = evidence.outcome if operation == "review" else ""
+    if (
+        evidence.original_session_version is None
+        or evidence.original_mfa_version is None
+        or evidence.information_id != row.pk
+        or evidence.proof_id != proof.pk
+        or evidence.source_digest != row.source_digest
+        or evidence.information_digest != fingerprint(row.encrypted_information)
+        or evidence.policy_digest != row.policy_digest
+        or action.request_id != case.pk
+        or action.expected_version != case.version
+        or action.actor_id == row.actor_id
+        or action.operation != "copy_info_" + operation
+        or (operation == "review" and outcome not in {"approved", "rejected"})
+    ):
+        raise ValidationError("Review evidence unavailable")
+    try:
+        reason = unseal(action.encrypted_reason)["reason"]
+    except (InvalidToken, ValueError, TypeError, KeyError) as error:
+        raise ValidationError("Review evidence unavailable") from error
+    if not isinstance(reason, str) or not 20 <= len(reason.strip()) <= 2000:
+        raise ValidationError("Review evidence unavailable")
+    signature = fingerprint(
+        canonical(
+            {
+                "information": row.pk,
+                "version": action.expected_version,
+                "operation": operation,
+                "reason": reason,
+                "outcome": outcome,
+                "source": evidence.source_digest,
+                "body": evidence.information_digest,
+                "policy": evidence.policy_digest,
+                "session": evidence.original_session_version,
+                "mfa": evidence.original_mfa_version,
+            }
+        )
+    )
+    if signature != action.payload_digest:
+        raise ValidationError("Review evidence changed")
+
+
+@sensitive_variables()
+def validate_approved_evidence(review, row, case, proof, source_digest, information):
+    """Validate linked approval evidence; caller must audit and authorize delivery."""
+    if not transaction.get_connection().in_atomic_block:
+        raise RuntimeError("Approval evidence requires an atomic transaction")
+    latest = (
+        RightsCopyInformation.objects.filter(request=case).order_by("-created_at", "-pk").first()
+    )
+    if (
+        case.kind != "access"
+        or review.outcome != "approved"
+        or review.information_id != row.pk
+        or not row.policy_document_id
+        or latest is None
+        or latest.pk != row.pk
+    ):
+        raise ValidationError("Current approved access information required")
+    inspection = (
+        RightsCopyInformationRead.objects.select_for_update(of=("self",))
+        .select_related("action")
+        .filter(pk=review.read_id)
+        .first()
+    )
+    if (
+        inspection is None
+        or inspection.information_id != row.pk
+        or inspection.action.actor_id != review.action.actor_id
+        or inspection.action.expected_version != review.action.expected_version
+    ):
+        raise ValidationError("Approval inspection evidence unavailable")
+    validate_action_evidence(inspection, row, case, proof)
+    validate_action_evidence(review, row, case, proof)
+    cleaned = validate_saved_evidence(row, case, proof, source_digest, information)
+    if any(item["status"] != "reviewed" for item in cleaned["access"].values()):
+        raise ValidationError("Unresolved access information")
+    return cleaned

@@ -427,7 +427,7 @@ def validate_generated_scope(case, person, listing, export, actor, version, sour
 
 @transaction.atomic
 @sensitive_variables()
-def generate_pages(user, case_id, case_version, key, reason):
+def generate_pages(user, case_id, case_version, key, reason, *, information_review_id=None):
     """Generate server-side from latest decisions; retry returns only a still-valid export."""
     from uuid import uuid5
 
@@ -441,7 +441,10 @@ def generate_pages(user, case_id, case_version, key, reason):
     case, person, listing = reviewer_case(user, case_id)
     actor = User.objects.get(pk=user.pk)
     fresh_authority(actor, case, session_version, mfa_version)
-    signature = fingerprint(canonical({"version": case_version, "reason": reason}))
+    signature_input = {"version": case_version, "reason": reason}
+    if information_review_id is not None:
+        signature_input["information_review"] = information_review_id
+    signature = fingerprint(canonical(signature_input))
     previous = RightsAction.objects.filter(key=key).first()
     export_key = uuid5(key, "reviewed-pages-export")
     if previous:
@@ -494,11 +497,28 @@ def generate_pages(user, case_id, case_version, key, reason):
         validate_generated_scope(
             case, person, listing, export, actor, case_version, facts["source"]
         )
+        if information_review_id is not None:
+            from .models import RightsExportInformationBinding
+            from .rights_information_export import validate_export_binding
+
+            if not RightsExportInformationBinding.objects.filter(
+                export=export, review_id=information_review_id
+            ).exists():
+                raise ValidationError("Export information binding unavailable")
+            validate_export_binding(case, person, export)
         fresh_authority(actor, case, session_version, mfa_version)
         return export
     compiled = compile_pages(user, case_id, case_version, uuid5(key, "compile-pages"), reason)
     source_digest = fingerprint(canonical(source_copy(person, listing, case)))
-    export = generate(actor, case_id, export_key, case_version, reason, compiled)
+    export = generate(
+        actor,
+        case_id,
+        export_key,
+        case_version,
+        reason,
+        compiled,
+        information_review_id=information_review_id,
+    )
     try:
         with transaction.atomic():
             RightsAction.objects.create(

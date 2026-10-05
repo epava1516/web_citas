@@ -1253,6 +1253,8 @@ class RightsCopyInformationRead(models.Model):
     source_digest = models.CharField(max_length=64)
     information_digest = models.CharField(max_length=64)
     policy_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField(null=True)
+    original_mfa_version = models.PositiveIntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -1265,6 +1267,8 @@ class RightsCopyInformationReview(models.Model):
     information_digest = models.CharField(max_length=64)
     policy_digest = models.CharField(max_length=64)
     outcome = models.CharField(max_length=10)
+    original_session_version = models.PositiveIntegerField(null=True)
+    original_mfa_version = models.PositiveIntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -1275,3 +1279,16 @@ class RightsCopyInformationReview(models.Model):
                 name="copy_information_review_outcome",
             ),
         ]
+
+
+class RightsExportInformationBinding(models.Model):
+    export = models.OneToOneField(
+        RightsExport, on_delete=models.PROTECT, related_name="information_binding"
+    )
+    review = models.ForeignKey(RightsCopyInformationReview, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    information_digest = models.CharField(max_length=64)
+    policy_digest = models.CharField(max_length=64)
+    inspection_digest = models.CharField(max_length=64)
+    decision_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -88,6 +88,8 @@ def test_independent_review_requires_audited_read_and_resolved_information(
     inspection, body = record(
         reviewer, case.pk, row.pk, inspection_key, case.version, "inspect", reason
     )
+    assert inspection.original_session_version == reviewer.session_version
+    assert inspection.original_mfa_version == reviewer.mfa_version
     assert body == value
     assert (
         record(reviewer, case.pk, row.pk, inspection_key, case.version, "inspect", reason)[0].pk
@@ -99,12 +101,67 @@ def test_independent_review_requires_audited_read_and_resolved_information(
             record(reviewer, case.pk, row.pk, key, case.version, "review", reason, "approved")
     outcome = "approved" if complete else "rejected"
     decision, body = record(reviewer, case.pk, row.pk, key, case.version, "review", reason, outcome)
+    assert decision.original_session_version == reviewer.session_version
+    assert decision.original_mfa_version == reviewer.mfa_version
     assert body is None and decision.read_id == inspection.pk
     assert (
         record(reviewer, case.pk, row.pk, key, case.version, "review", reason, outcome)[0].pk
         == decision.pk
     )
     assert RightsCopyInformationReview.objects.count() == 1
+    from apps.safety.rights_information_review import validate_action_evidence
+
+    with transaction.atomic():
+        validate_action_evidence(inspection, row, case, row.proof)
+        validate_action_evidence(decision, row, case, row.proof)
+    decision.original_mfa_version += 1
+    with transaction.atomic(), pytest.raises(ValidationError, match="evidence"):
+        validate_action_evidence(decision, row, case, row.proof)
+    decision.original_mfa_version -= 1
+    from apps.safety.rights_information_review import validate_approved_evidence
+
+    with transaction.atomic():
+        if complete:
+            assert (
+                validate_approved_evidence(decision, row, case, row.proof, row.source_digest, value)
+                == value
+            )
+        else:
+            with pytest.raises(ValidationError, match="approved"):
+                validate_approved_evidence(decision, row, case, row.proof, row.source_digest, value)
+    if complete:
+        from apps.safety.rights_information_export import consume_approved
+
+        use_key = uuid4()
+        used, approved_body = consume_approved(
+            author,
+            case.pk,
+            case.version,
+            decision.pk,
+            use_key,
+            "Prepare reviewed information for export generation",
+        )
+        assert used.pk == decision.pk and approved_body == value
+        assert (
+            consume_approved(
+                author,
+                case.pk,
+                case.version,
+                decision.pk,
+                use_key,
+                "Prepare reviewed information for export generation",
+            )[0].pk
+            == decision.pk
+        )
+        assert RightsAction.objects.filter(request=case, operation="copy_info_use").count() == 1
+        RightsCopyInformationRead.objects.filter(pk=inspection.pk).update(
+            original_session_version=inspection.original_session_version + 1
+        )
+        with transaction.atomic(), pytest.raises(ValidationError, match="evidence"):
+            validate_approved_evidence(decision, row, case, row.proof, row.source_digest, value)
+        RightsCopyInformationRead.objects.filter(pk=inspection.pk).update(
+            original_session_version=inspection.original_session_version
+        )
     from apps.safety.erasure_inventory import source_manifest
 
     manifest = source_manifest(person)

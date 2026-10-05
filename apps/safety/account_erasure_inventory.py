@@ -350,6 +350,23 @@ def source(case):
                 ],
             ),
             (
+                "safety.RightsExportInformationBinding",
+                (Q(export__account_subject=user) | Q(export__person__subject=user))
+                & ~Q(export__action__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "export_id",
+                    "review_id",
+                    "source_digest",
+                    "information_digest",
+                    "policy_digest",
+                    "inspection_digest",
+                    "decision_digest",
+                    "created_at",
+                ],
+            ),
+            (
                 "safety.RightsCopyInformationRead",
                 (
                     Q(information__request__account_subject=user)
@@ -364,6 +381,8 @@ def source(case):
                     "proof_id",
                     "source_digest",
                     "information_digest",
+                    "original_session_version",
+                    "original_mfa_version",
                     "policy_digest",
                     "created_at",
                     "action__actor_id",
@@ -387,6 +406,8 @@ def source(case):
                     "proof_id",
                     "source_digest",
                     "information_digest",
+                    "original_session_version",
+                    "original_mfa_version",
                     "policy_digest",
                     "created_at",
                     "action__actor_id",
