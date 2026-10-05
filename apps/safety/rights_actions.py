@@ -27,6 +27,7 @@ def act(
     additional_months=None,
     extension_reason="",
     link_person_id=None,
+    link_account_id=None,
 ):
     if not user.has_perm("safety.review_rights_request") or not user.mfa_enabled:
         raise PermissionDenied("Rights permission and MFA required")
@@ -36,7 +37,7 @@ def act(
         raise PermissionDenied("Rights execution permission required")
     if operation == "extend" and not user.has_perm("safety.extend_rights_deadline"):
         raise PermissionDenied("Deadline extension permission required")
-    if link_person_id and operation != "link":
+    if (link_person_id or link_account_id) and operation != "link":
         raise ValidationError("Profile reference only for linking / Referencia solo para vincular")
     case, person, candidate = locked_case(
         case_id,
@@ -44,6 +45,7 @@ def act(
         lock_listing=operation == "withdraw",
         allow_version_change=operation == "withdraw",
         link_person_id=link_person_id if operation == "link" else None,
+        link_account_id=link_account_id if operation == "link" else None,
     )
     if not permitted(user, case):
         raise PermissionDenied("Conflict of interest")
@@ -56,6 +58,8 @@ def act(
         payload["link_listing_id"] = str(link_listing_id)
         if link_person_id:
             payload["link_person_id"] = str(link_person_id)
+        if link_account_id:
+            payload["link_account_id"] = str(link_account_id)
     if operation == "clarify":
         payload["clarification_prompt"] = clarification_prompt
     elif clarification_prompt:
@@ -129,22 +133,35 @@ def act(
                 "Inspect current evidence first / Consulta primero la evidencia actual"
             )
     else:
-        if case.status != "reviewing" or case.assigned_to_id != user.pk or case.person_id:
+        if (
+            case.status != "reviewing"
+            or case.assigned_to_id != user.pk
+            or case.person_id
+            or case.account_subject_id
+        ):
             raise ValidationError(
                 "Request not assigned or already linked / Solicitud no asignada o ya vinculada"
             )
         if (
-            not person or (not candidate and not link_person_id)
+            (not person or (not candidate and not link_person_id)) and not link_account_id
         ) or not RightsAccess.objects.filter(
             request=case, actor=user, case_version=case.version, message_before__isnull=True
         ).exists():
             raise ValidationError("Inspect the reference first / Consulta primero la referencia")
-        case.person = person
-        case.referenced_revision = candidate.approved_revision if candidate else None
-        case.manager_version = person.manager_version
-        case.reported_agency_id = person.agency_id
-        case.reported_individual_id = person.individual_id
-        case.reported_subject_id = person.subject_id
+        if link_account_id:
+            if case.kind == "representation":
+                raise ValidationError(
+                    "Representation requires a profile / Representación requiere perfil"
+                )
+            case.account_subject_id = link_account_id
+            case.reported_subject_id = link_account_id
+        else:
+            case.person = person
+            case.referenced_revision = candidate.approved_revision if candidate else None
+            case.manager_version = person.manager_version
+            case.reported_agency_id = person.agency_id
+            case.reported_individual_id = person.individual_id
+            case.reported_subject_id = person.subject_id
         if not permitted(user, case):
             raise PermissionDenied("Conflict with identified profile")
     try:
@@ -213,6 +230,7 @@ def act(
             "version",
             "scope_status",
             "person",
+            "account_subject",
             "referenced_revision",
             "manager_version",
             "reported_agency",

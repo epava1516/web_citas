@@ -271,6 +271,9 @@ class RightsRequest(models.Model):
     person = models.ForeignKey(
         "core.Person", null=True, on_delete=models.SET_NULL, related_name="rights_requests"
     )
+    account_subject = models.ForeignKey(
+        "core.User", null=True, on_delete=models.PROTECT, related_name="account_rights_requests"
+    )
     referenced_revision = models.ForeignKey(
         "listings.Revision", null=True, on_delete=models.SET_NULL
     )
@@ -315,6 +318,13 @@ class RightsRequest(models.Model):
         )
 
     class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(account_subject__isnull=True)
+                | (models.Q(person__isnull=True) & models.Q(referenced_revision__isnull=True)),
+                name="rights_account_scope_excludes_profile",
+            ),
+        ]
         permissions = [
             ("review_rights_request", "Review private rights requests"),
             ("manage_rights_assignment", "Manage private rights assignments"),
@@ -405,10 +415,14 @@ class RightsProof(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     key = models.UUIDField(unique=True)
     request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT, related_name="proofs")
-    person = models.ForeignKey("core.Person", on_delete=models.PROTECT)
+    person = models.ForeignKey("core.Person", null=True, on_delete=models.PROTECT)
+    account_subject = models.ForeignKey(
+        "core.User", null=True, on_delete=models.PROTECT, related_name="account_rights_proofs"
+    )
+    account_source_digest = models.CharField(max_length=64, blank=True)
     initiated_by = models.ForeignKey("core.User", on_delete=models.PROTECT)
     case_version = models.PositiveIntegerField()
-    manager_version = models.PositiveIntegerField()
+    manager_version = models.PositiveIntegerField(null=True)
     subject_id_snapshot = models.CharField(max_length=64, blank=True)
     scope = models.CharField(max_length=24)
     channel_digest = models.CharField(max_length=64)
@@ -419,6 +433,15 @@ class RightsProof(models.Model):
     encrypted_reason = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField()
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=(models.Q(person__isnull=False) & models.Q(account_subject__isnull=True))
+                | (models.Q(person__isnull=True) & models.Q(account_subject__isnull=False)),
+                name="rights_proof_exactly_one_scope",
+            ),
+        ]
 
 
 class RightsProofEvent(models.Model):
@@ -603,11 +626,25 @@ class RightsExtension(models.Model):
 class RightsRectificationProposal(models.Model):
     action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
     proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
-    person = models.ForeignKey("core.Person", on_delete=models.PROTECT)
+    person = models.ForeignKey("core.Person", null=True, on_delete=models.PROTECT)
+    account_subject = models.ForeignKey("core.User", null=True, on_delete=models.PROTECT)
     source_revision = models.ForeignKey("listings.Revision", null=True, on_delete=models.PROTECT)
     source_digest = models.CharField(max_length=64)
     encrypted_changes = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=(models.Q(person__isnull=False) & models.Q(account_subject__isnull=True))
+                | (
+                    models.Q(person__isnull=True)
+                    & models.Q(account_subject__isnull=False)
+                    & models.Q(source_revision__isnull=True)
+                ),
+                name="rectification_proposal_exactly_one_scope",
+            ),
+        ]
 
 
 class RightsRectificationPhotoUpload(models.Model):
@@ -670,7 +707,7 @@ class RightsRectificationExecution(models.Model):
         "listings.Revision", null=True, on_delete=models.PROTECT
     )
     encrypted_previous_values = models.TextField()
-    resulting_rights_version = models.PositiveIntegerField()
+    resulting_rights_version = models.PositiveIntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 

@@ -37,7 +37,8 @@ from .models import (
     RightsRequest,
 )
 from .rights import allowed, fingerprint
-from .rights_scope import locked_case, permitted
+from .rights_scope import locked_profile_case as locked_case
+from .rights_scope import permitted
 from .rights_verification import enabled
 from .views import private
 

@@ -20,7 +20,8 @@ from .crypto import seal
 from .erasure_inventory import canonical
 from .models import RightsAction, RightsRequest
 from .rights import allowed, fingerprint
-from .rights_scope import locked_case, permitted
+from .rights_scope import locked_profile_case as locked_case
+from .rights_scope import permitted
 from .views import private
 
 

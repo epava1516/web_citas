@@ -28,7 +28,8 @@ from .models import (
 from .rectification_review import permission
 from .rights import allowed, fingerprint
 from .rights_responses import complete_response_read
-from .rights_scope import locked_case, permitted
+from .rights_scope import locked_profile_case as locked_case
+from .rights_scope import permitted
 from .rights_verification import authorized_proof, complete_read
 from .views import private
 

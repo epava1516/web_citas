@@ -9,7 +9,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core import signing
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.db import IntegrityError, transaction
+from django.db import IntegrityError, connection, transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -47,13 +47,58 @@ def complete_read(user, case):
     return required <= delivered
 
 
+@sensitive_variables()
+def account_source_digest(case):
+    """Fresh locked account state, HMAC only; no credentials projected."""
+    from apps.core.accounts import token_user_state
+    from apps.core.models import User
+
+    if not connection.in_atomic_block:
+        raise RuntimeError("Account authority requires case and account locks")
+    account = User.objects.select_for_update().get(pk=case.account_subject_id)
+    if account.account_erased_at:
+        raise ValidationError("Account erased / Cuenta suprimida")
+    return fingerprint(
+        json.dumps(
+            {
+                "id": account.pk,
+                "first_name": account.first_name,
+                "last_name": account.last_name,
+                "email": account.email,
+                "active": account.is_active,
+                "verified": str(account.email_verified_at),
+                "authentication": token_user_state(account),
+                "mfa_version": account.mfa_version,
+            },
+            sort_keys=True,
+        )
+    )
+
+
 def compatible(case, person, proof):
+    if case.account_subject_id:
+        scoped = bool(
+            not person
+            and not case.person_id
+            and not proof.person_id
+            and proof.account_subject_id == case.account_subject_id
+            and proof.subject_id_snapshot == str(case.account_subject_id)
+            and proof.manager_version is None
+            and case.manager_version is None
+            and proof.account_source_digest == account_source_digest(case)
+            and case.kind != "representation"
+        )
+    else:
+        scoped = bool(
+            person
+            and not proof.account_subject_id
+            and proof.person_id == case.person_id == person.pk
+            and proof.person_rights_version == person.rights_version
+            and proof.manager_version == case.manager_version == person.manager_version
+            and proof.subject_id_snapshot == str(person.subject_id or "")
+        )
     return bool(
-        person
-        and proof.person_id == case.person_id == person.pk
-        and proof.person_rights_version == person.rights_version
-        and proof.manager_version == case.manager_version == person.manager_version
-        and proof.subject_id_snapshot == str(person.subject_id or "")
+        scoped
         and proof.scope == case.kind
         and proof.case_version == case.version
         and proof.channel_digest == case.receipt_digest
@@ -108,7 +153,14 @@ def start(user, case_id, key, version, reason):
         raise ValidationError("Conflicting proof key / Clave de comprobación incompatible")
     if case.version != version or case.status != "reviewing" or case.assigned_to_id != user.pk:
         raise ValidationError("Request changed or not assigned / Solicitud cambiada o no asignada")
-    if not person or case.manager_version != person.manager_version or not current_read(user, case):
+    if (
+        (
+            not case.account_subject_id
+            and (not person or case.manager_version != person.manager_version)
+        )
+        or (case.account_subject_id and case.kind == "representation")
+        or not current_read(user, case)
+    ):
         raise ValidationError(
             "Link and inspect current reference first / Vincula y consulta la referencia actual"
         )
@@ -122,9 +174,15 @@ def start(user, case_id, key, version, reason):
                 person=person,
                 initiated_by=user,
                 case_version=case.version + 1,
-                manager_version=person.manager_version,
-                person_rights_version=person.rights_version,
-                subject_id_snapshot=str(person.subject_id or ""),
+                account_subject_id=case.account_subject_id,
+                account_source_digest=account_source_digest(case)
+                if case.account_subject_id
+                else "",
+                manager_version=person.manager_version if person else None,
+                person_rights_version=person.rights_version if person else 1,
+                subject_id_snapshot=str(person.subject_id or "")
+                if person
+                else str(case.account_subject_id),
                 scope=case.kind,
                 channel_digest=case.receipt_digest,
                 provider="simulator",

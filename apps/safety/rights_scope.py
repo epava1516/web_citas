@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import connection
 
 from apps.core.manager_review import transfer_conflict
-from apps.core.models import Agency, AgencyMember, Person, RepresentationAction
+from apps.core.models import Agency, AgencyMember, Person, RepresentationAction, User
 from apps.listings.models import Listing
 
 from .models import RightsRequest
@@ -22,6 +22,7 @@ def permitted(user, case):
     if case.actor_id == user.pk or user.pk in [
         case.reported_individual_id,
         case.reported_subject_id,
+        case.account_subject_id,
     ]:
         return False
     if agency_conflict(user, case.reported_agency_id):
@@ -46,12 +47,21 @@ def locked_case(
     lock_listing=False,
     allow_version_change=False,
     link_person_id=None,
+    link_account_id=None,
 ):
     if not connection.in_atomic_block:
         raise RuntimeError("Rights locks require an enclosing transaction")
     initial = RightsRequest.objects.select_related(
         "person", "referenced_revision__publisher_acceptance"
     ).get(pk=case_id)
+    if sum(bool(value) for value in (link_listing_id, link_person_id, link_account_id)) > 1:
+        raise ValidationError("Select one reference / Selecciona una referencia")
+    if initial.account_subject_id and (link_listing_id or link_person_id):
+        raise ValidationError("Account scope already linked / Ámbito de cuenta ya vinculado")
+    if link_account_id and (initial.person_id or initial.account_subject_id):
+        # Exact replay is handled by act; retain the same account reference only.
+        if initial.person_id or initial.account_subject_id != link_account_id:
+            raise ValidationError("Reference already linked / Referencia ya vinculada")
     candidate = None
     person = initial.person
     if link_person_id:
@@ -113,6 +123,21 @@ def locked_case(
     elif lock_listing and person:
         candidate = Listing.objects.select_for_update().filter(person=person).first()
     case = RightsRequest.objects.select_for_update().get(pk=case_id)
+    account_id = link_account_id or case.account_subject_id
+    if account_id:
+        account = User.objects.select_for_update().filter(pk=account_id).first()
+        if not account or account.account_erased_at:
+            raise ValidationError("Account unavailable / Cuenta no disponible")
+        if case.account_subject_id:
+            case.account_subject = account
     if person and case.person_id == person.pk:
         case.person = person
     return case, person, candidate
+
+
+def locked_profile_case(*args, **kwargs):
+    """Profile-only consumers cannot acquire account-only authority."""
+    case, person, listing = locked_case(*args, **kwargs)
+    if not person or case.account_subject_id:
+        raise ValidationError("Profile scope required / Ámbito de perfil obligatorio")
+    return case, person, listing

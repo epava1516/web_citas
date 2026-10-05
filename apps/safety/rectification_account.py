@@ -11,22 +11,27 @@ from apps.core.models import User
 FIELDS = {"first_name", "last_name", "email"}
 
 
-def locked_subject(person):
+def locked_subject(person, case=None):
     if not connection.in_atomic_block:
         raise RuntimeError("Account source requires scope locks and an enclosing transaction")
-    if not person or not person.subject_id:
+    account_id = (
+        case.account_subject_id
+        if case and case.account_subject_id
+        else (person.subject_id if person else None)
+    )
+    if not account_id:
         raise ValidationError(
             "Linked subject account required / Cuenta del sujeto vinculada obligatoria"
         )
-    user = User.objects.select_for_update().get(pk=person.subject_id)
+    user = User.objects.select_for_update().get(pk=account_id)
     if user.account_erased_at:
         raise ValidationError("Subject account erased / Cuenta del sujeto suprimida")
     return user
 
 
 @sensitive_variables()
-def source(person):
-    user = locked_subject(person)
+def source(person, case=None):
+    user = locked_subject(person, case)
     return {
         "subject": str(user.pk),
         "first_name": user.first_name,
@@ -41,10 +46,10 @@ def source(person):
 
 
 @sensitive_variables()
-def validate(value, person):
+def validate(value, person, case=None):
     if not isinstance(value, dict) or not value or set(value) - FIELDS:
         raise ValidationError("Invalid account correction / Corrección de cuenta no válida")
-    user = locked_subject(person)
+    user = locked_subject(person, case)
     result = {}
     for field, text in value.items():
         if not isinstance(text, str):
@@ -62,7 +67,7 @@ def validate(value, person):
 
 
 @sensitive_variables()
-def apply(person, proposal, value):
+def apply(person, proposal, value, case=None):
     """Apply only after the caller validates review, receipt and fresh scoped proof."""
     from django.utils import timezone
 
@@ -71,8 +76,8 @@ def apply(person, proposal, value):
     from .models import RightsAccountEmailConfirmation
     from .rights import fingerprint
 
-    user = locked_subject(person)
-    changes = validate(value, person)
+    user = locked_subject(person, case)
+    changes = validate(value, person, case)
     previous = {field: getattr(user, field) for field in changes}
     changed_email = "email" in changes and changes["email"] != user.email.lower()
     confirmation = None

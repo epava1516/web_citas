@@ -50,7 +50,12 @@ def current(user, case_id, proposal_id, version):
         raise PermissionDenied
     proposal = (
         RightsRectificationProposal.objects.select_for_update()
-        .filter(pk=proposal_id, action__request=case, person=person)
+        .filter(
+            pk=proposal_id,
+            action__request=case,
+            person=person,
+            account_subject_id=case.account_subject_id,
+        )
         .first()
     )
     if not proposal:
@@ -119,7 +124,10 @@ def review(user, case_id, proposal_id, key, version, outcome, reason):
     if not permitted(user, case):
         raise PermissionDenied
     proposal = RightsRectificationProposal.objects.filter(
-        pk=proposal_id, action__request=case, person=person
+        pk=proposal_id,
+        action__request=case,
+        person=person,
+        account_subject_id=case.account_subject_id,
     ).first()
     if not proposal or proposal.action.actor_id == user.pk:
         raise PermissionDenied

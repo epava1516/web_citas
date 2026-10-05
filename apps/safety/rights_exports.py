@@ -187,6 +187,8 @@ def reviewer_case(user, case_id):
 
 
 def can_prepare(user, case, person):
+    if not person or case.account_subject_id:
+        raise ValidationError("Profile scope required / Ámbito de perfil obligatorio")
     if not user.has_perm("safety.execute_rights_request"):
         raise PermissionDenied
     if (

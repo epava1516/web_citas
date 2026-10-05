@@ -20,7 +20,8 @@ from .models import (
 )
 from .photo_dispositions import active_withdrawals
 from .rights import fingerprint
-from .rights_scope import locked_case, permitted
+from .rights_scope import locked_profile_case as locked_case
+from .rights_scope import permitted
 
 
 def permission(user):

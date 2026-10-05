@@ -401,6 +401,9 @@ class ActionForm(forms.Form):
     link_listing_id = forms.UUIDField(
         required=False, label="ID del anuncio de referencia / Referenced listing ID"
     )
+    link_account_id = forms.IntegerField(
+        required=False, min_value=1, label="Cuenta propia: ID / Own account: ID"
+    )
     link_person_id = forms.UUIDField(
         required=False,
         label="ID de perfil sin anuncio / Profile ID without listing",

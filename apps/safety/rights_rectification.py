@@ -62,11 +62,13 @@ def validated_changes(value, person=None, case=None):
         )
     ):
         raise ValidationError("Unsupported correction fields / Campos de corrección no admitidos")
+    if case and case.account_subject_id and set(value) != {"account"}:
+        raise ValidationError("Account scope only / Solo ámbito de cuenta")
     value = value.copy()
     for field in sorted(value):
         text = value[field]
         if field == "account":
-            value[field] = rectification_account.validate(text, person)
+            value[field] = rectification_account.validate(text, person, case)
             continue
         if field == "photos":
             value[field] = rectification_photos.validate(text, person, case)
@@ -175,6 +177,7 @@ def propose(user, case_id, key, version, changes, reason):
                 action=action,
                 proof=proof,
                 person=person,
+                account_subject_id=case.account_subject_id,
                 source_revision=revision,
                 source_digest=source_digest,
                 encrypted_changes=seal(changes),
@@ -189,6 +192,16 @@ def propose(user, case_id, key, version, changes, reason):
 
 @sensitive_variables()
 def source_snapshot(case, person, listing, include_uploads=True, additional_blob_ids=()):
+    if case.account_subject_id:
+        if person or listing:
+            raise ValidationError("Incompatible scope / Ámbito incompatible")
+        return None, {
+            "account_subject": str(case.account_subject_id),
+            "channel": case.receipt_digest,
+            "account": rectification_account.source(None, case),
+            "fields": {},
+            "alias": "",
+        }
     # Account writers and access-copy snapshots acquire User before revision/media rows.
     account_source = rectification_account.source(person) if person.subject_id else None
     revision = None
@@ -648,6 +661,8 @@ def source_photo(request, case_id, photo_id):
             or not complete_response_read(request.user, case)
         ):
             raise ValidationError("Current source unavailable")
+        if not person:
+            raise ValidationError("Profile image unavailable / Imagen de perfil no disponible")
         proof = authorized_proof(case, person, "rectify")
         revision, snapshot = source_snapshot(case, person, listing)
         digest = fingerprint(json.dumps(snapshot, sort_keys=True))

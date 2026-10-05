@@ -174,7 +174,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
             case_version=version,
             changes_digest=notification.review.changes_digest,
         ).exists()
-        or person.publication_erased_at
+        or (person and person.publication_erased_at)
     ):
         raise ValidationError(
             "Current received correction and fresh check required / Rectificación recibida vigente y nueva comprobación obligatorias"
@@ -189,7 +189,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
         )
     source = proposal.source_revision
     corrected = None
-    before = {"alias": person.alias}
+    before = {"alias": person.alias} if person else {}
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(
@@ -329,14 +329,15 @@ def execute(user, case_id, proposal_id, key, version, reason):
             # Preserve the authorized baseline until staged photos have been selected.
             if "account" in changes:
                 before["account"] = rectification_account.apply(
-                    person, proposal, changes["account"]
+                    person, proposal, changes["account"], case
                 )
             if "alias" in changes:
                 person.alias = changes["alias"]
             if "contacts" in changes:
                 person.phone_claim = rectification_contacts.claim(changes["contacts"], person)
-            person.rights_version += 1
-            person.save(update_fields=["alias", "rights_version", "phone_claim"])
+            if person:
+                person.rights_version += 1
+                person.save(update_fields=["alias", "rights_version", "phone_claim"])
             if listing and publication_changes:
                 if listing.status == "published":
                     listing.status = "paused"
@@ -349,7 +350,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
                 proof=proof,
                 corrected_revision=corrected,
                 encrypted_previous_values=seal(before),
-                resulting_rights_version=person.rights_version,
+                resulting_rights_version=person.rights_version if person else None,
             )
             if source and "photos" in changes:
                 selected_blobs = {photo.blob_id for photo in selected_photos}

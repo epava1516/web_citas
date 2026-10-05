@@ -14,7 +14,7 @@ from django.views.decorators.debug import sensitive_variables
 
 from .crypto import seal, unseal
 from .models import RightsAccountEmailConfirmation, RightsAction, RightsRectificationProposalRead
-from .rectification_account import validate
+from .rectification_account import locked_subject, validate
 from .rectification_review import current, permission
 from .rights import fingerprint
 from .rights_rectification import source_snapshot
@@ -79,7 +79,7 @@ def start(user, case_id, proposal_id, key, version, reason, language="es"):
             "Current approved account correction required / Corrección de cuenta aprobada vigente obligatoria"
         )
     destination = changes["account"].get("email")
-    if not destination or destination == person.subject.email.lower():
+    if not destination or destination == locked_subject(person, case).email.lower():
         raise ValidationError("A changed destination is required / Es obligatorio un destino nuevo")
     raw = secrets.token_urlsafe(32)
     now = timezone.now()
@@ -106,7 +106,7 @@ def start(user, case_id, proposal_id, key, version, reason, language="es"):
         action=action,
         proposal=proposal,
         proof=proof,
-        subject_id=person.subject_id,
+        subject_id=locked_subject(person, case).pk,
         digest=hashlib.sha256(raw.encode()).hexdigest(),
         source_digest=proposal.source_digest,
         destination_digest=fingerprint(destination),
@@ -131,7 +131,7 @@ def inspect_token(confirmation_id, raw, confirm=False):
         pk=confirmation_id
     )
     case, person, listing = locked_case(initial.proposal.action.request_id, lock_listing=True)
-    if not person:
+    if not person and not case.account_subject_id:
         raise ValidationError("Confirmation unavailable / Confirmación no disponible")
     _, source = source_snapshot(case, person, listing)
     token = RightsAccountEmailConfirmation.objects.select_for_update().get(pk=initial.pk)
@@ -142,12 +142,12 @@ def inspect_token(confirmation_id, raw, confirm=False):
         .first()
     )
     changes = unseal(token.proposal.encrypted_changes)
-    account = validate(changes.get("account"), person)
+    account = validate(changes.get("account"), person, case)
     if (
         case.status != "reviewing"
         or not latest
         or latest.pk != token.proposal_id
-        or person.subject_id != token.subject_id
+        or locked_subject(person, case).pk != token.subject_id
         or token.proof.status != "passed"
         or token.revoked_at
         or token.consumed_at
