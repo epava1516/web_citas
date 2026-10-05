@@ -193,3 +193,35 @@ def test_mobile_anonymous_data_packages_and_manifest_download(
         finally:
             browser.close()
     assert RightsExportDownload.objects.filter(export=export).count() == 1 + export.parts.count()
+
+
+def test_incremental_json_packages_match_complete_encoding_across_chunk_boundaries():
+    from apps.safety.rights_data_parts import chunk_packages, json_chunks
+
+    value = {"records": [{"value": "🙂漢字á" * 19, "position": n} for n in range(100)]}
+    content = json.dumps(value, ensure_ascii=False, sort_keys=True).encode()
+    chunks = list(json_chunks(value))
+    assert b"".join(chunks) == content
+    summary = {}
+    incremental = list(chunk_packages(iter(chunks), summary, limit=512))
+    assert incremental == list(data_packages(content, limit=512))
+    assert summary == {"size": len(content), "sha256": hashlib.sha256(content).hexdigest()}
+
+
+def test_incremental_packager_yields_before_input_is_exhausted():
+    from apps.safety.rights_data_parts import chunk_packages
+
+    consumed = []
+
+    def source():
+        for index in range(20):
+            consumed.append(index)
+            yield b"x" * 100
+
+    summary = {}
+    iterator = chunk_packages(source(), summary, limit=256)
+    first = next(iterator)
+    assert len(consumed) < 20 and len(first["content"]) <= 256
+    assert summary == {}
+    list(iterator)
+    assert summary["size"] == 2000 and len(consumed) == 20

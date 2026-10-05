@@ -10,6 +10,7 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import IntegrityError, transaction
+from django.db.models import Prefetch
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -55,8 +56,37 @@ def source_copy(person, listing, case=None):
     revisions = []
     if listing:
         # Profile lock prevents a cooperating editor adding another revision mid-copy.
-        records = listing.revisions.select_for_update().order_by("created_at", "pk")
-        for revision in records:
+        from apps.catalog.models import Category, Municipality, Service
+        from apps.listings.models import Rate
+        from apps.mediafiles.models import Photo
+
+        records = (
+            listing.revisions.select_for_update(of=("self",))
+            .select_related("municipality", "postal_code", "zone")
+            .order_by("created_at", "pk")
+            .prefetch_related(
+                Prefetch(
+                    "categories",
+                    queryset=Category.objects.order_by("slug"),
+                    to_attr="copy_categories",
+                ),
+                Prefetch(
+                    "services", queryset=Service.objects.order_by("slug"), to_attr="copy_services"
+                ),
+                Prefetch(
+                    "travel_areas",
+                    queryset=Municipality.objects.order_by("code"),
+                    to_attr="copy_travel_areas",
+                ),
+                Prefetch("rates", queryset=Rate.objects.order_by("pk"), to_attr="copy_rates"),
+                Prefetch(
+                    "photos",
+                    queryset=Photo.objects.select_related("blob").order_by("created_at", "pk"),
+                    to_attr="copy_photos",
+                ),
+            )
+        )
+        for revision in records.iterator(chunk_size=50):
             revisions.append(
                 {
                     "revision": str(revision.pk),
@@ -67,20 +97,14 @@ def source_copy(person, listing, case=None):
                     "description_alternative": revision.description_alternative,
                     "profile_type": revision.profile_type,
                     "content_language": revision.content_language,
-                    "categories": list(
-                        revision.categories.order_by("slug").values_list("slug", flat=True)
-                    ),
-                    "services": list(
-                        revision.services.order_by("slug").values_list("slug", flat=True)
-                    ),
+                    "categories": [item.slug for item in revision.copy_categories],
+                    "services": [item.slug for item in revision.copy_services],
                     "municipality": revision.municipality.code
                     if revision.municipality_id
                     else None,
                     "postal_code": revision.postal_code.code if revision.postal_code_id else None,
                     "zone": revision.zone.code if revision.zone_id else None,
-                    "travel_areas": list(
-                        revision.travel_areas.order_by("code").values_list("code", flat=True)
-                    ),
+                    "travel_areas": [item.code for item in revision.copy_travel_areas],
                     "spoken_languages": revision.spoken_languages,
                     "days": revision.days,
                     "time_slot": revision.time_slot,
@@ -96,7 +120,7 @@ def source_copy(person, listing, case=None):
                             "currency": rate.currency,
                             "duration_minutes": rate.duration_minutes,
                         }
-                        for rate in revision.rates.order_by("pk")
+                        for rate in revision.copy_rates
                     ],
                 }
             )

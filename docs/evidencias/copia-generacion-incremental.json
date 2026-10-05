@@ -1,0 +1,57 @@
+{
+  "session": 8914,
+  "exit_code": 0,
+  "tests": 33,
+  "failures": 0,
+  "errors": 0,
+  "duration_seconds": 128.55,
+  "xml_sha256": "fb4218cb3f91eec3de46ffe88a325bfbcdebf478d399c5057a92c887d06085aa",
+  "source_hashes": {
+    "apps/safety/rights_exports.py": "09e9f1019fb4a6cd037020d5d9d943cd0c72e8d616080835babf8058a731da3b",
+    "apps/safety/rights_copy_data.py": "dd6ffc7b47f18de46525298d7c377d7f3ed4c70ec055bc8c574795796e98af8a",
+    "apps/safety/rights_data_parts.py": "a5c379314094978fd65b6a5794f80a7e066eeab8e7023fb3aacfe5e598075f15"
+  },
+  "scope": "Batched profile source, incremental JSON, private multipart downloads/mobile, reconstruction, own-account and source drift regressions",
+  "reproduction": {
+    "session": 97863,
+    "exit_code": 1,
+    "duration_seconds": 31.68,
+    "baseline_queries": 14,
+    "historical_queries": 193,
+    "additional_revisions": 30
+  },
+  "limitations": [
+    "Full reviewed source still materialized",
+    "Single JSON encoder string may allocate per-field data",
+    "No asynchronous/paginated reviewer flow or large POST acceptance",
+    "Synthetic identity provider",
+    "Not full repository or CR09 acceptance"
+  ],
+  "query_measurements": {
+    "session": 66900,
+    "exit_code": 0,
+    "tests": 2,
+    "duration_seconds": 38.55,
+    "deselected": 9,
+    "warnings": "record_property with xunit2; properties inspected and present",
+    "xml_sha256": "dabb634897c46a24f7ecb2aea516b89e2e7ded79454d98af681334e0e7a2c758",
+    "cases": [
+      {
+        "name": "test_profile_copy_queries_are_batched_without_losing_historical_revisions[30]",
+        "properties": {
+          "baseline_queries": "13",
+          "historical_queries": "12",
+          "historical_revisions": "31"
+        }
+      },
+      {
+        "name": "test_profile_copy_queries_are_batched_without_losing_historical_revisions[80]",
+        "properties": {
+          "baseline_queries": "13",
+          "historical_queries": "17",
+          "historical_revisions": "81"
+        }
+      }
+    ]
+  }
+}

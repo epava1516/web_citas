@@ -349,3 +349,55 @@ def test_listing_state_copy_rejects_stale_lifecycle_and_foreign_injection(reques
     assert delivered["profile"]["listing"] == source["profile"]["listing"]
     assert delivered["profile"]["listing"]["status"] == "paused"
     assert delivered["partial"]
+
+
+@pytest.mark.parametrize("history_count", [30, 80])
+def test_profile_copy_queries_are_batched_without_losing_historical_revisions(
+    request, settings, history_count, record_property
+):
+    from django.db import connection, transaction
+    from django.test.utils import CaptureQueriesContext
+
+    from apps.listings.models import Rate, Revision
+    from apps.safety.rights_exports import source_copy
+
+    case, _, _, _, _, person = prepared(request, settings)
+    listing = person.listing
+    base = listing.revisions.first()
+    with transaction.atomic(), CaptureQueriesContext(connection) as small_queries:
+        small = source_copy(person, listing, case)
+    added = Revision.objects.bulk_create(
+        [
+            Revision(
+                listing=listing,
+                manager_version=person.manager_version,
+                title=f"Synthetic historical revision {n}",
+                municipality=base.municipality,
+                postal_code=base.postal_code,
+                zone=base.zone,
+            )
+            for n in range(history_count)
+        ]
+    )
+    for item in added:
+        item.categories.set(base.categories.all())
+        item.services.set(base.services.all())
+        item.travel_areas.set(base.travel_areas.all())
+        Rate.objects.create(revision=item, concept="Synthetic historical rate", mode="consult")
+    with transaction.atomic(), CaptureQueriesContext(connection) as large_queries:
+        large = source_copy(person, listing, case)
+    assert len(large["revisions"]) == len(small["revisions"]) + history_count
+    by_id = {row["revision"]: row for row in large["revisions"]}
+    assert all(by_id[row["revision"]] == row for row in small["revisions"])
+    for revision in added:
+        row = by_id[str(revision.pk)]
+        assert row["title"] == revision.title
+        assert row["rates"][0]["concept"] == "Synthetic historical rate"
+        assert row["categories"] == sorted(base.categories.values_list("slug", flat=True))
+    small_batches = (len(small["revisions"]) + 49) // 50
+    large_batches = (len(large["revisions"]) + 49) // 50
+    record_property("baseline_queries", len(small_queries))
+    record_property("historical_queries", len(large_queries))
+    record_property("historical_revisions", len(large["revisions"]))
+    assert len(large_queries) <= len(small_queries) + 5 * (large_batches - small_batches) + 1
+    assert len(large_queries) <= 20 + 5 * (large_batches - 1)

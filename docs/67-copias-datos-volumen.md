@@ -35,3 +35,11 @@ La herramienta no extrae rutas del ZIP, no envía datos a servicios, verifica ha
 ## Evidencia local de la entrega de transporte
 
 Regresión común13901:40 correctas207,78s. Dirigida47135:3 correctas40,26s (móvil ESEN con umbral4096 y unidad de límite8MiB), no sumar como una sola batería43. Docker:5 hashes iguales en aplicación/worker/Beat, UID10001 y comprobaciones/health correctos. Evidencias copia-paquetes-regresion.json, copia-paquetes-movil-tamano.json y copia-paquetes-runtime.json. No acredita generación asíncrona, revisión paginada, POST8MiB, carga concurrente ni inventario integral de datos.
+
+## Serialización incremental en desarrollo
+
+La ampliación posterior sustituye JSON completo en bytes por JSONEncoder.iterencode y consumo por fragmentos. Prefijo hasta el umbral más un bloque decide si mantener copia pequeña; los ZIPs y el hash global se generan secuencialmente. La fuente/revisión aún materializa objetos y el encoder puede crear una cadena grande para un solo campo. Esta mejora no acredita memoria acotada de todo el procedimiento ni POST grande, generación asíncrona o revisión paginada. Batería59816 terminal0:23 correctas68,53s.
+
+## Lectura por lotes en desarrollo
+
+La prueba con30 revisiones adicionales reproduce14→193 consultas en la fuente antigua. La ampliación conecta geografía por select_related y cinco relaciones por prefetch, con iterator de50 revisiones y locks sobre Revision únicamente para permitir joins geográficos nullable. La salida completa aún se materializa; el lote reduce consultas y cachés intermedias, sin completar revisión paginada ni generación asíncrona. Batería8914 terminal0:33 correctas128,55s. Medición66900:31 revisiones12 consultas;81 revisiones17 consultas;2 correctas38,55s, evidencia separada. Runtime incremental verificado en copia-generacion-incremental-runtime.json.

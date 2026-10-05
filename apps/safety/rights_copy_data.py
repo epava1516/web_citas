@@ -129,6 +129,9 @@ def contact_data(person, revision):
 
 
 def image_inventory(revision):
+    photos = getattr(revision, "copy_photos", None)
+    if photos is None:
+        photos = revision.photos.select_related("blob").order_by("created_at", "pk")
     return [
         {
             "photo": str(photo.pk),
@@ -141,5 +144,5 @@ def image_inventory(revision):
             "content_included": False,
             "exclusion_code": "awaiting_review",
         }
-        for photo in revision.photos.select_related("blob").order_by("created_at", "pk")
+        for photo in photos
     ]
