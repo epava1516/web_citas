@@ -934,3 +934,12 @@ Auditoría independiente del código congelado: requisitos de derechos de User s
 
 
 1173 terminal0:2 propuestas móviles ESEN correctas36,12s (4 excluidas), Chromium390x844. Login/MFA reales, GET sin valores, consulta auditada de cuenta del sujeto, escritura de bloque account, propuesta cifrada persistida, resultado/reload y GET posterior sin valores. Sin mutación de User/session_version ni clon editorial.30 comunes361,44s prueban fuente funcional actual por separado; no sumar suites como32. Docker/hash/check/health200 verificados, solo pruebas/documentación añadidas después. Sin pytest activo. Cuenta sin perfil/docs51, purga worker con contenido, copia/inventarios/retención/comunicaciones/cierre y contrato completo pendientes; CI anteriores activas.
+
+
+Entrega c23da3a8a0337781bc524760276fdf2ef0a20b8f commit/push confirmados, autor Eduardo David Paredes Vara <Paredes1516@hotmail.es>. CI37248770066 queued confirmada; anterior86f4bee/37247694341 in_progress. CI6972785/37246617009 completed success559 correctas1871,13s; evidencia normalizada docs/evidencias/regresion-ci-6972785.json, anterior a vínculo sin anuncio/corrección móvil. Recuperar mismos IDs, no reiniciar ni declarar fuente actual verde. No pytest activo. Continuación derechos de cuenta sin Person/docs51 y purga worker con contenido, inventarios/copia/retención/comunicaciones/cierre y resto CR09→CR10→GS01→BF/BB→C. Claude3/3.
+
+
+Ensayo de purga no vacía iniciado (docs52/script nuevo), log /tmp/account-delivery-worker.log. Build worker/Beat56746 terminal0; contenedores de aplicación existentes no recreados ni modificados. Prueba aislada DB/cola con identidad/avisos/correo disabled, comprobación pendiente y sin cambios de cuenta. Fuente de script congelada hasta terminal; no declarar worker/Beat verificados con contenido antes de resultado. CIc23da3a/37248770066 y86f4bee/37247694341 confirmadas in_progress. Claude3/3, contrato completo abierto.
+
+
+Purga de confirmación con contenido terminada: worker1/repetición0, Beat automático sin despacho manual, dos caducadas vacías y dos vigentes conservadas. Huellas de cuentas/auditoría/ámbito intactas, identidad pendiente y proveedores disabled. Proceso ausente, contenedores temporales ausentes, pg_database cero bases de ensayo; docs52/evidencia normalizada. Ruff/formato/diff limpios. CI37248770066 y37247694341 confirmadas in_progress; no afirmar éxito. Derechos de User sin Person/docs51 y resto CR09→CR10→GS01→BF/BB→C continúan pendientes.
