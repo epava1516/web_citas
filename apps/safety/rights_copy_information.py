@@ -15,6 +15,7 @@ from .models import RightsAction, RightsCopyInformation
 from .rights import fingerprint
 from .rights_copy_page_review import fresh_authority
 from .rights_exports import can_prepare, canonical, reviewer_case, source_copy
+from .rights_information_policy import published_policy
 
 FIELDS = (
     "processing",
@@ -80,6 +81,8 @@ def record(
     information,
     *,
     expected_source_digest=None,
+    policy_document_id=None,
+    expected_policy_digest=None,
 ):
     if (
         type(information_version) is not int
@@ -101,9 +104,32 @@ def record(
     digest = fingerprint(canonical(source_copy(person, listing, case)))
     if expected_source_digest is not None and expected_source_digest != digest:
         raise ValidationError("Information source changed")
+    policy = None
+    policy_digest = ""
+    if policy_document_id is not None:
+        if not isinstance(expected_policy_digest, str) or len(expected_policy_digest) != 64:
+            raise ValidationError("Reviewed policy fingerprint required")
+        from apps.core.models import LegalDocument
+
+        language = (
+            LegalDocument.objects.filter(pk=policy_document_id)
+            .values_list("language", flat=True)
+            .first()
+        )
+        policy, policy_digest = published_policy(
+            policy_document_id, language, expected_digest=expected_policy_digest
+        )
+        if policy_version != policy.version:
+            raise ValidationError("Policy version mismatch")
+    elif expected_policy_digest is not None:
+        raise ValidationError("Policy reference required")
+    policy_evidence = (
+        {"policy_document": policy.pk, "policy_digest": policy_digest} if policy else {}
+    )
     signature = fingerprint(
         canonical(
             {
+                **policy_evidence,
                 "version": case_version,
                 "information_version": information_version,
                 "policy": policy_version,
@@ -160,6 +186,8 @@ def record(
                     proof=proof,
                     source_digest=digest,
                     policy_version=policy_version,
+                    policy_document=policy,
+                    policy_digest=policy_digest,
                     version=information_version + 1,
                     encrypted_information=seal(cleaned),
                     expires_at=min(proof.expires_at, timezone.now() + timedelta(hours=24)),
@@ -172,6 +200,8 @@ def record(
         raise ValidationError("Information unavailable") from error
     if (
         canonical(stored) != canonical(cleaned)
+        or row.policy_document_id != (policy.pk if policy else None)
+        or row.policy_digest != policy_digest
         or row.policy_version != policy_version
         or row.version != information_version + 1
     ):
@@ -262,6 +292,8 @@ def inspect(user, case_id, case_version, key, information_id, purpose):
         row.policy_version,
         reason,
         information,
+        policy_document_id=row.policy_document_id,
+        expected_policy_digest=row.policy_digest if row.policy_document_id else None,
     )
     fresh_authority(actor, case, session_version, mfa_version)
     return row, information

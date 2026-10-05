@@ -267,3 +267,120 @@ def test_account_inventory_excludes_current_information_and_tracks_prior_subject
     assert changed["state_digest"] != visible["state_digest"]
     assert snapshot(foreign.pk) == excluded
     assert snapshot(case.pk)["count"] == 0
+
+
+def test_bound_policy_rejects_changed_content_on_save_replay_and_audited_read(request, settings):
+    from django.db import transaction
+    from test_rights_information_policy import policy
+
+    from apps.core.models import LegalDocument
+    from apps.safety.models import RightsAction
+    from apps.safety.rights_copy_information import inspect
+    from apps.safety.rights_information_policy import published_policy
+
+    case, actor, _, _, _, _ = prepared(request, settings)
+    LegalDocument.objects.filter(slug="privacy", language="es", active=True).update(active=False)
+    document = policy()
+    with transaction.atomic():
+        _, digest = published_policy(document.pk, "es")
+    key = uuid4()
+    reason = "Bind synthetic policy version to information draft"
+    row = record(
+        actor,
+        case.pk,
+        case.version,
+        key,
+        0,
+        document.version,
+        reason,
+        draft(),
+        policy_document_id=document.pk,
+        expected_policy_digest=digest,
+    )
+    assert row.policy_document_id == document.pk and row.policy_digest == digest
+    assert (
+        inspect(
+            actor, case.pk, case.version, uuid4(), row.pk, "Read draft with unchanged bound policy"
+        )[0].pk
+        == row.pk
+    )
+    before = RightsAction.objects.count()
+    LegalDocument.objects.filter(pk=document.pk).update(body="Changed synthetic policy")
+    with pytest.raises(ValidationError, match="changed"):
+        record(
+            actor,
+            case.pk,
+            case.version,
+            key,
+            0,
+            document.version,
+            reason,
+            draft(),
+            policy_document_id=document.pk,
+            expected_policy_digest=digest,
+        )
+    with pytest.raises(ValidationError, match="changed"):
+        inspect(
+            actor, case.pk, case.version, uuid4(), row.pk, "Read draft after bound policy changed"
+        )
+    assert RightsAction.objects.count() == before
+
+
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_guided_bound_policy_rejects_tampering_and_content_drift(request, settings, language):
+    from django.urls import reverse
+    from django.utils.translation import override
+
+    from apps.core.models import LegalDocument
+
+    case, actor, staff, _, _, _ = prepared(request, settings)
+    with override(language):
+        path = reverse("rights_copy_information_prepare", kwargs={"case_id": case.pk})
+    first = staff.get(path)
+    current = first.context["policy"]
+    assert current.language == language
+    initial = first.context["form"].initial
+    payload = {
+        "operation": "record",
+        "key": str(uuid4()),
+        "version": case.version,
+        "information_version": 0,
+        "policy_version": current.version,
+        "reason": "Bind displayed synthetic privacy policy through form",
+        "bind_policy": "on",
+        "policy_document": current.pk,
+        "policy_digest": initial["policy_digest"],
+        "source_digest": initial["source_digest"],
+        "information-TOTAL_FORMS": 10,
+        "information-INITIAL_FORMS": 10,
+        "information-MIN_NUM_FORMS": 10,
+        "information-MAX_NUM_FORMS": 10,
+    }
+    for index, field in enumerate(FIELDS):
+        payload.update(
+            {
+                f"information-{index}-field": field,
+                f"information-{index}-status": "pending",
+                f"information-{index}-source": "unknown",
+                f"information-{index}-text": "",
+            }
+        )
+    assert staff.post(path, payload | {"policy_digest": "0" * 64}).status_code == 409
+    assert staff.post(path, payload | {"policy_document": current.pk + 1000}).status_code == 409
+    assert not RightsCopyInformation.objects.filter(request=case).exists()
+    response = staff.post(path, payload)
+    assert response.status_code == 200
+    row = response.context["saved"]
+    assert row.policy_document_id == current.pk and row.policy_digest == initial["policy_digest"]
+    assert staff.post(path, payload).status_code == 200
+    LegalDocument.objects.filter(pk=current.pk).update(body="Changed synthetic privacy text")
+    assert staff.post(path, payload).status_code == 409
+    reading = {
+        "operation": "inspect",
+        "key": str(uuid4()),
+        "version": case.version,
+        "information_id": row.pk,
+        "purpose": "Read bound draft after policy changed",
+    }
+    assert staff.post(path, reading).status_code == 409
+    assert RightsCopyInformation.objects.filter(request=case).count() == 1

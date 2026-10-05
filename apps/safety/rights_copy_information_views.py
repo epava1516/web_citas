@@ -8,21 +8,30 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
+from django.utils import timezone
 from django.utils.translation import get_language
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
 
-from apps.core.models import User
+from apps.core.models import LegalDocument, User
 
 from .models import RightsCopyInformation, RightsRequest
 from .rights import allowed, fingerprint
 from .rights_copy_information import FIELDS, inspect, record
 from .rights_copy_page_review import fresh_authority
 from .rights_exports import can_prepare, canonical, reviewer_case, source_copy
+from .rights_information_policy import published_policy
 from .views import private
 
 
 class InformationForm(forms.Form):
+    bind_policy = forms.BooleanField(
+        required=False, label="Vincular política mostrada / Bind displayed policy"
+    )
+    policy_document = forms.IntegerField(required=False, min_value=1, widget=forms.HiddenInput)
+    policy_digest = forms.CharField(
+        required=False, min_length=64, max_length=64, widget=forms.HiddenInput
+    )
     source_digest = forms.CharField(min_length=64, max_length=64, widget=forms.HiddenInput)
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
@@ -129,6 +138,15 @@ def prepare(request, case_id):
             fresh_authority(actor, case, request.user.session_version, request.user.mfa_version)
             can_prepare(actor, case, person)
             source_digest = fingerprint(canonical(source_copy(person, listing, case)))
+            policy = LegalDocument.objects.filter(
+                slug="privacy",
+                language=(get_language() or "es")[:2],
+                active=True,
+                published_at__lte=timezone.now(),
+            ).first()
+            policy_digest = ""
+            if policy:
+                policy, policy_digest = published_policy(policy.pk, policy.language)
             latest = (
                 RightsCopyInformation.objects.filter(request=case, actor=actor)
                 .order_by("-version")
@@ -139,6 +157,9 @@ def prepare(request, case_id):
     except ValidationError:
         return private(HttpResponse("Inspect assigned verified request first", status=409))
     initial = {
+        "policy_document": policy.pk if policy else None,
+        "policy_digest": policy_digest,
+        "policy_version": policy.version if policy else "",
         "source_digest": source_digest,
         "key": uuid4(),
         "version": case.version,
@@ -188,6 +209,13 @@ def prepare(request, case_id):
                 else None,
             }
             values = form.cleaned_data
+            if values["bind_policy"] and (
+                not values["policy_document"]
+                or not values["policy_digest"]
+                or not policy
+                or values["policy_document"] != policy.pk
+            ):
+                raise ValidationError("Displayed privacy policy unavailable or changed")
             saved = record(
                 request.user,
                 case_id,
@@ -198,6 +226,8 @@ def prepare(request, case_id):
                 values["reason"],
                 information,
                 expected_source_digest=values["source_digest"],
+                policy_document_id=values["policy_document"] if values["bind_policy"] else None,
+                expected_policy_digest=values["policy_digest"] if values["bind_policy"] else None,
             )
             form = InformationForm(initial={**initial, "information_version": saved.version})
             fields = FieldSet(initial=initial_fields(), prefix="information")
@@ -211,7 +241,14 @@ def prepare(request, case_id):
         render(
             request,
             "safety/rights_copy_information.html",
-            {"case": case, "form": form, "fields": fields, "read_form": read_form, "saved": saved},
+            {
+                "case": case,
+                "form": form,
+                "fields": fields,
+                "read_form": read_form,
+                "saved": saved,
+                "policy": policy,
+            },
             status=status,
         )
     )

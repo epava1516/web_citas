@@ -362,6 +362,8 @@ def source(case):
                     "proof_id",
                     "source_digest",
                     "policy_version",
+                    "policy_document_id",
+                    "policy_digest",
                     "version",
                     "encrypted_information",
                     "expires_at",

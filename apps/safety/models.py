@@ -1224,6 +1224,8 @@ class RightsCopyInformation(models.Model):
     action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
     proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
     source_digest = models.CharField(max_length=64)
+    policy_document = models.ForeignKey("core.LegalDocument", null=True, on_delete=models.PROTECT)
+    policy_digest = models.CharField(max_length=64, blank=True, default="")
     policy_version = models.CharField(max_length=80)
     version = models.PositiveIntegerField()
     encrypted_information = models.TextField()

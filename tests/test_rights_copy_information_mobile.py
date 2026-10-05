@@ -10,6 +10,7 @@ from playwright.sync_api import expect, sync_playwright
 from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_exports import prepared
 
+from apps.core.models import LegalDocument
 from apps.safety.models import RightsAction, RightsCopyInformation
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -23,6 +24,7 @@ def test_mobile_information_save_audited_read_replay_and_clean_get(
     case, _, _, _, _, _ = prepared(request, settings)
     credentials = json.loads((tmp_path / "credentials.json").read_text())
     moderator = credentials["accounts"]["moderator"]
+    policy = LegalDocument.objects.get(slug="privacy", language=language, active=True)
     english = language == "en"
     path = f"/{language}/moderation/rights/{case.pk}/information/"
     with sync_playwright() as playwright:
@@ -56,7 +58,8 @@ def test_mobile_information_save_audited_read_replay_and_clean_get(
             form = page.locator("form").filter(
                 has=page.get_by_role("button", name=save_label, exact=True)
             )
-            form.locator("[name=policy_version]").fill("synthetic-mobile-policy-v1")
+            form.locator("[name=policy_version]").fill(policy.version)
+            form.locator("[name=bind_policy]").check()
             form.locator("[name=reason]").fill(
                 "Save partial information through guided mobile form"
             )
@@ -91,5 +94,7 @@ def test_mobile_information_save_audited_read_replay_and_clean_get(
         finally:
             browser.close()
     assert RightsCopyInformation.objects.filter(request=case).count() == 1
+    saved = RightsCopyInformation.objects.get(request=case)
+    assert saved.policy_document_id == policy.pk and len(saved.policy_digest) == 64
     assert RightsAction.objects.filter(request=case, operation="copy_info_save").count() == 1
     assert RightsAction.objects.filter(request=case, operation="copy_info_read").count() == 1

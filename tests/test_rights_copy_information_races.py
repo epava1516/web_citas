@@ -200,3 +200,91 @@ def test_information_read_rechecks_authority_and_body_after_observed_wait(
         assert rows.count() == 1
     case.refresh_from_db()
     assert case.version == version and case.status == "reviewing"
+
+
+@pytest.mark.parametrize("operation", ["save", "read"])
+@pytest.mark.parametrize("change", ["content", "inactive", "future"])
+def test_policy_change_during_observed_policy_lock_wait_rolls_back(
+    operation, change, request, settings
+):
+    from datetime import timedelta
+
+    from apps.core.models import LegalDocument
+    from apps.safety.rights_information_policy import published_policy
+
+    case, actor, _, _, _, _ = prepared(request, settings)
+    document = LegalDocument.objects.get(slug="privacy", language="es", active=True)
+    with transaction.atomic():
+        _, digest = published_policy(document.pk, "es")
+    kwargs = dict(policy_document_id=document.pk, expected_policy_digest=digest)
+    saved = None
+    if operation == "read":
+        saved = record(
+            actor,
+            case.pk,
+            case.version,
+            uuid4(),
+            0,
+            document.version,
+            "Save synthetic policy-bound information before race",
+            draft(),
+            **kwargs,
+        )
+    before = RightsAction.objects.count()
+    pids = Queue()
+
+    def attempt():
+        connections.close_all()
+        try:
+            user = User.objects.get(pk=actor.pk)
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT pg_backend_pid()")
+                pids.put(cursor.fetchone()[0])
+            try:
+                if operation == "save":
+                    record(
+                        user,
+                        case.pk,
+                        case.version,
+                        uuid4(),
+                        0,
+                        document.version,
+                        "Save policy-bound information after observed wait",
+                        draft(),
+                        **kwargs,
+                    )
+                else:
+                    inspect(
+                        user,
+                        case.pk,
+                        case.version,
+                        uuid4(),
+                        saved.pk,
+                        "Read policy-bound information after observed wait",
+                    )
+            except ValidationError:
+                return "denied"
+            return "admitted"
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        with transaction.atomic():
+            LegalDocument.objects.select_for_update().get(pk=document.pk)
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT pg_backend_pid()")
+                holder = cursor.fetchone()[0]
+            future = pool.submit(attempt)
+            worker = pids.get(timeout=5)
+            assert worker != holder
+            observe_blocked(worker, holder)
+            assert not future.done()
+            changes = {
+                "content": {"body": "Changed synthetic policy during lock wait"},
+                "inactive": {"active": False},
+                "future": {"published_at": timezone.now() + timedelta(days=1)},
+            }
+            LegalDocument.objects.filter(pk=document.pk).update(**changes[change])
+        assert future.result(timeout=15) == "denied"
+    assert RightsAction.objects.count() == before
+    assert RightsCopyInformation.objects.filter(request=case).count() == (1 if saved else 0)
