@@ -1,6 +1,8 @@
 """Explicit subject-only projections for reviewed rights copies; no secret fields."""
 
 from apps.core.models import (
+    Agency,
+    AgencyMember,
     LegalAcceptance,
     PhoneClaim,
     RepresentationAction,
@@ -48,6 +50,30 @@ def personal_contacts(user):
     ]
 
 
+def agency_relationships(user):
+    """Own relationships only; no agency roster, managed profiles or private names."""
+    if not user:
+        return []
+    owners = [
+        {
+            "agency_reference": str(item.pk),
+            "relationship": "owner",
+            "created_at": date(item.created_at),
+        }
+        for item in Agency.objects.filter(owner=user).order_by("pk")
+    ]
+    members = [
+        {
+            "agency_reference": str(item.agency_id),
+            "relationship": "member",
+            "active": item.active,
+            "created_at": date(item.created_at),
+        }
+        for item in AgencyMember.objects.filter(user=user).order_by("agency_id", "pk")
+    ]
+    return owners + members
+
+
 def subject_data(person):
     # A manager, editor or requesting account is never substituted for the represented subject.
     user = User.objects.filter(pk=person.subject_id).first() if person.subject_id else None
@@ -89,6 +115,7 @@ def subject_data(person):
         "legal_acceptances": acceptances,
         "account_activity": {
             "personal_contacts": personal_contacts(user),
+            "agency_relationships": agency_relationships(user),
             "favorites": [
                 {"listing_reference": str(item.listing_id), "created_at": date(item.created_at)}
                 for item in Favorite.objects.filter(user=user).order_by("pk")

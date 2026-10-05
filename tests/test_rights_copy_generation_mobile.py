@@ -11,7 +11,7 @@ from test_account_copy_races import prepared_account
 from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_copy_compilation import review_all
 
-from apps.core.models import PhoneClaim
+from apps.core.models import Agency, AgencyMember, PhoneClaim
 from apps.safety.models import RightsExportDownload
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -24,6 +24,8 @@ def test_mobile_direct_account_copy_generation_and_download(
     settings.DEBUG = True
     case, actor, _, subject, _, receipt = prepared_account(request, settings, monkeypatch)
     claim = PhoneClaim.objects.create(phone="+34960000096", individual=subject)
+    owned = Agency.objects.create(owner=subject, name="PRIVATE_MOBILE_AGENCY_NAME")
+    membership = AgencyMember.objects.create(agency=owned, user=subject, active=False)
     review_all(case, actor)
     credentials = json.loads((tmp_path / "credentials.json").read_text())
     moderator = credentials["accounts"]["moderator"]
@@ -81,6 +83,23 @@ def test_mobile_direct_account_copy_generation_and_download(
             expect(page.get_by_role("status")).to_contain_text("personal_contacts")
             page.goto(live_server.url + f"/{language}/moderation/rights/{case.pk}/export/")
             assert claim.phone not in page.content()
+            assert str(owned.pk) not in page.content()
+            page.locator("[name=operation]").select_option("inspect_page")
+            page.locator("[name=section]").select_option("agency_relationships")
+            page.locator("[name=purpose]").fill("Inspect agency relationships on mobile device")
+            page.get_by_role("button", name=submit, exact=True).click()
+            expect(page.locator("#inspection-page-output")).to_contain_text(str(owned.pk))
+            assert owned.name not in page.content()
+            relation_form = page.locator("form").filter(
+                has=page.get_by_role("button", name=save_label, exact=True)
+            )
+            relation_form.locator("[name=reason]").fill(
+                "Confirm unchanged own relationships before delivery"
+            )
+            relation_form.get_by_role("button", name=save_label, exact=True).click()
+            expect(page.get_by_role("status")).to_contain_text("agency_relationships")
+            page.goto(live_server.url + f"/{language}/moderation/rights/{case.pk}/export/")
+            assert str(owned.pk) not in page.content()
             page.locator("[name=operation]").select_option("generate_pages")
             page.locator("[name=reason]").fill(
                 "Generate synthetic copy directly from reviewed pages"
@@ -115,6 +134,18 @@ def test_mobile_direct_account_copy_generation_and_download(
             assert copied["schema"] == "subject-account-copy-v1" and copied["partial"] is True
             assert copied["subject_account"]["email"] == ""
             assert copied["profile"] is None and copied["revisions"] == []
+            relations = copied["account_activity"]["agency_relationships"]
+            assert any(
+                row["agency_reference"] == str(owned.pk) and row["relationship"] == "owner"
+                for row in relations
+            )
+            assert any(
+                row["agency_reference"] == str(owned.pk)
+                and row["relationship"] == "member"
+                and row["active"] is False
+                for row in relations
+            )
+            assert owned.name not in str(copied)
             assert copied["account_activity"]["personal_contacts"]
             assert all(
                 contact["phone"] == ""
@@ -129,3 +160,5 @@ def test_mobile_direct_account_copy_generation_and_download(
     assert RightsExportDownload.objects.filter(export__account_subject=subject).count() == 1
     claim.refresh_from_db()
     assert claim.phone == "+34960000096"
+    membership.refresh_from_db()
+    assert membership.active is False

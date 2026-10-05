@@ -476,6 +476,7 @@ class ExportForm(forms.Form):
                 "legal_acceptances",
                 "favorites",
                 "personal_contacts",
+                "agency_relationships",
                 "verifications",
                 "representation_history",
             ]

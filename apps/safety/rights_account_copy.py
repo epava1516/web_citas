@@ -6,7 +6,7 @@ from django.views.decorators.debug import sensitive_variables
 from apps.listings.models import Favorite
 
 from .rectification_account import locked_subject
-from .rights_copy_data import date, legal_acceptances, personal_contacts
+from .rights_copy_data import agency_relationships, date, legal_acceptances, personal_contacts
 
 
 @sensitive_variables()
@@ -37,6 +37,7 @@ def source(case):
         "legal_acceptances": legal_acceptances(user),
         "account_activity": {
             "personal_contacts": personal_contacts(user),
+            "agency_relationships": agency_relationships(user),
             "favorites": [
                 {"listing_reference": str(item.listing_id), "created_at": date(item.created_at)}
                 for item in Favorite.objects.filter(user=user).order_by("pk")

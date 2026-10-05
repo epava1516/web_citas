@@ -360,7 +360,7 @@ def compile_pages(user, case_id, case_version, key, reason):
             entries.extend(recovered["entries"])
         if section in {"profile", "subject_account"}:
             compiled[section] = entries[0] if entries else None
-        elif section in {"favorites", "personal_contacts"}:
+        elif section in {"favorites", "personal_contacts", "agency_relationships"}:
             compiled["account_activity"][section] = entries
         elif section in {"verifications", "representation_history"}:
             if compiled["representation"] is not None:
