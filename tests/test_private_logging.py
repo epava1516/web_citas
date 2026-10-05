@@ -21,6 +21,7 @@ from config.gunicorn_logging import SafeAccessLogger
         "/en/moderation/rights/private-id/",
         "/en/safety/complaints/private-id/private-secret/",
         "/en/moderation/complaints/private-id/",
+        "/en/moderation/publication-calendar/private-id/",
     ],
 )
 def test_photo_and_draft_access_logs_hide_private_identifiers(path):
@@ -39,7 +40,14 @@ def test_photo_and_draft_access_logs_hide_private_identifiers(path):
 
 
 @pytest.mark.parametrize(
-    "scope", ["safety/receipt", "moderation/reports", "moderation/rights", "moderation/complaints"]
+    "scope",
+    [
+        "safety/receipt",
+        "moderation/reports",
+        "moderation/rights",
+        "moderation/complaints",
+        "moderation/publication-calendar",
+    ],
 )
 def test_django_http_warning_hides_report_receipt_secret(scope):
     import logging
@@ -63,7 +71,14 @@ def test_django_http_warning_hides_report_receipt_secret(scope):
 
 
 @pytest.mark.parametrize(
-    "scope", ["safety/receipt", "moderation/reports", "moderation/rights", "moderation/complaints"]
+    "scope",
+    [
+        "safety/receipt",
+        "moderation/reports",
+        "moderation/rights",
+        "moderation/complaints",
+        "moderation/publication-calendar",
+    ],
 )
 def test_development_http_log_hides_report_capability(scope):
     import logging
@@ -81,3 +96,17 @@ def test_development_http_log_hides_report_capability(scope):
     )
     assert PrivateRequestFilter().filter(record)
     assert "private-secret" not in record.getMessage() and "private-id" not in record.getMessage()
+
+
+@pytest.mark.parametrize("status", [302, 400, 403, 404, 405])
+def test_publication_queue_early_responses_receive_private_headers(status):
+    from django.http import HttpResponse
+
+    from apps.core.middleware import SecurityHeadersMiddleware
+
+    request = SimpleNamespace(
+        path="/en/moderation/publication-calendar/", user=SimpleNamespace(is_authenticated=False)
+    )
+    response = SecurityHeadersMiddleware(lambda request: HttpResponse(status=status))(request)
+    assert response["Cache-Control"] == "private, no-store"
+    assert response["X-Robots-Tag"] == "noindex, nofollow"

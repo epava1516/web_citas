@@ -475,6 +475,9 @@ class RightsResponseAcknowledgement(models.Model):
 
 
 class PrivacyPublicationHold(models.Model):
+    version = models.PositiveIntegerField(default=1)
+    purpose_review_on = models.DateField(null=True, db_index=True)
+    initial_purpose_review_on = models.DateField(null=True)
     action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
     proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
     person = models.ForeignKey(
@@ -492,7 +495,26 @@ class PrivacyPublicationHold(models.Model):
         indexes = [models.Index(fields=["person", "active"])]
 
 
+class PublicationCalendarEvent(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    hold = models.ForeignKey(
+        PrivacyPublicationHold,
+        on_delete=models.PROTECT,
+        related_name="calendar_events",
+    )
+    expected_version = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class PrivacyHoldReleaseProposal(models.Model):
+    purpose_read = models.ForeignKey(
+        RightsAction,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="publication_release_proposals",
+    )
+    ground = models.CharField(max_length=24, blank=True)
+    resume_message = models.ForeignKey(RightsMessage, null=True, on_delete=models.PROTECT)
     released_proof = models.ForeignKey(
         RightsProof, null=True, on_delete=models.PROTECT, related_name="privacy_hold_releases"
     )
@@ -1006,6 +1028,12 @@ class ProcessingExecution(models.Model):
     proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
     person = models.ForeignKey("core.Person", null=True, on_delete=models.PROTECT)
     account_subject = models.ForeignKey("core.User", null=True, on_delete=models.PROTECT)
+    publication_hold = models.OneToOneField(
+        PrivacyPublicationHold,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="purpose_execution",
+    )
     source_digest = models.CharField(max_length=64)
     encrypted_result = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -1,0 +1,10 @@
+{
+  "passed": 1,
+  "time_seconds": 40.47,
+  "database": "PostgreSQL",
+  "scope": "Dos conexiones pg_backend_pid distintos y barrera, misma versión/fecha con claves distintas: un cambio y un conflicto, una nueva acción/evento; flujo52/historial50+2 posterior",
+  "limitations": [
+    "No pg_blocking_pids observado ni revocación intercalada",
+    "Sin concurrencia de levantamiento/móvil/cola/backfill/Docker0076"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "passed": 2,
+  "time_seconds": 50.35,
+  "database": "PostgreSQL",
+  "browser": "Chromium, viewport 390x844, ES/EN",
+  "xml_sha256": "61165cd040c58fdce06510225d90b9f9ed7aca2d2d86860adf163d9593fd2b5a",
+  "scope": "Login y TOTP reales con credencial sintética, cola a consulta auditada, POST repetido sin nueva acción, GET posterior sin motivo y sin desbordamiento horizontal",
+  "limitations": [
+    "No proveedor real de identidad",
+    "Seguimiento/historia/levantamiento completos en móvil pendientes",
+    "Backfill, Docker0076 y aceptación conjunta pendientes"
+  ],
+  "previous_failures": [
+    "Reentrada de preparación TOTP corregida",
+    "Recarga POST confundida con navegación GET",
+    "2 fallos en 46.63s por ORM dentro del bucle Playwright; consulta trasladada a hilo con conexión propia sin desactivar protección async"
+  ]
+}

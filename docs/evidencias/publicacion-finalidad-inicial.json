@@ -1,0 +1,18 @@
+{
+  "status": "verified_local_partial",
+  "passed": 4,
+  "time_seconds": 50.74,
+  "database": "PostgreSQL",
+  "test_files": [
+    "tests/test_processing_publication.py",
+    "tests/test_processing_execution.py"
+  ],
+  "scope": "Ejecución backend publication, pausa, conservación, replay, aislamiento de otras publicaciones y guarda central ante status forzado; regresión de preferencias",
+  "limitations": [
+    "Identidad simulada",
+    "No navegador ni carrera de publication",
+    "Levantamiento específico, calendario, inventario, ámbito sin cuenta y selección mixta pendientes",
+    "Docker sigue0072; migración0073 solo verificada en base de pruebas",
+    "Interfaz no ofrece publication todavía; CR09 no aceptado"
+  ]
+}

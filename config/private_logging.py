@@ -6,6 +6,7 @@ class PrivateRequestFilter(logging.Filter):
         request = getattr(record, "request", None)
         scopes = (
             "/safety/",
+            "/moderation/publication-calendar/",
             "/moderation/reports/",
             "/moderation/rights/",
             "/moderation/complaints/",

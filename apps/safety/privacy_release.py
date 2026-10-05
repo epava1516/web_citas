@@ -46,6 +46,9 @@ def source(case, person, listing, hold):
                 else [],
                 "active": hold.active,
                 "ground": hold.ground,
+                "hold_version": hold.version,
+                "purpose_review_on": hold.purpose_review_on,
+                "initial_purpose_review_on": hold.initial_purpose_review_on,
                 "listing": None
                 if not listing
                 else [
@@ -76,6 +79,11 @@ def actor_check(user, case, hold):
         or not permitted(user, case)
     ):
         raise PermissionDenied
+    if hasattr(hold, "purpose_execution"):
+        raise ValidationError(
+            "Purpose measure requires purpose-specific reviewed release / "
+            "La medida por finalidad exige levantamiento específico revisado"
+        )
     if user.pk == hold.action.actor_id:
         raise PermissionDenied("Independent reviewer required")
 
@@ -291,6 +299,8 @@ def review(request, case_id):
         actor_check(request.user, case, hold)
     except PermissionDenied:
         return private(HttpResponse("Forbidden", status=403))
+    except ValidationError:
+        return private(HttpResponse("Purpose-specific release required", status=409))
     form = ReleaseForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():

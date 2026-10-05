@@ -1,0 +1,12 @@
+{
+  "passed": 1,
+  "time_seconds": 33.76,
+  "database": "PostgreSQL",
+  "xml_sha256": "71ba41b7b9e59a638ca06b601c11b645c574f26c2e83103418626d8c00d97102",
+  "scope": "Worker caches release permission, actual proposal-lock wait observed through pg_blocking_pids; permission removed before release of lock; denied operation leaves hold active/proposal unreleased/no new RightsAction; permission restored and normal full flow continues",
+  "limitations": [
+    "Proof/session/source mutations during wait not covered",
+    "Synthetic identity, no external verification",
+    "CR09 complete acceptance pending"
+  ]
+}

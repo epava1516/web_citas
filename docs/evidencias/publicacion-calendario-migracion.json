@@ -1,0 +1,16 @@
+{
+  "passed": 1,
+  "time_seconds": 37.04,
+  "database": "PostgreSQL test database nonempty",
+  "xml_sha256": "88d58469e4560c4e6b0667e0d2254ceb474f0211dfdd914dd3b0fc06be2ed258",
+  "schema_transitions": [
+    "0074→0076: existing reviewed publication measure without date fields",
+    "0075→0076: two signed follow-ups/version3/dates, no event table"
+  ],
+  "scope": "MigrationExecutor historical models, recover signed initial dates/events, preserve original action timestamps and active state; preview/application/idempotence/corruption rejection and subsequent release flow",
+  "limitations": [
+    "Test database only, not production",
+    "New recovery service/command not yet included in Docker",
+    "CR09 complete acceptance pending"
+  ]
+}

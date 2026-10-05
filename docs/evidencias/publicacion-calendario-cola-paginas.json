@@ -1,0 +1,11 @@
+{
+  "passed": 1,
+  "time_seconds": 50.68,
+  "database": "PostgreSQL",
+  "scope": "101 medidas,100+1 sin solapamiento y cursor finalnull; cursor rechaza cambio de filtro",
+  "limitations": [
+    "100 medidas/ejecuciones insertadas como fixture sintético, no100 procedimientos revisados",
+    "No aislamiento de cursor por otro actor ni mfa/sessioncaducidad todavía",
+    "Móvil/backfill/Docker0076 pendientes"
+  ]
+}

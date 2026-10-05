@@ -38,6 +38,9 @@ def test_browser_appeal_and_independent_mfa_review(live_server, request, setting
                 "Solicito comprobar nuevamente el contenido sintético"
             )
             owner_page.get_by_role("button", name="Enviar reclamación").click()
+            expect(
+                owner_page.get_by_text("Solicito comprobar nuevamente el contenido sintético")
+            ).to_be_visible()
             owner_page.reload()
             expect(
                 owner_page.get_by_text("Solicito comprobar nuevamente el contenido sintético")

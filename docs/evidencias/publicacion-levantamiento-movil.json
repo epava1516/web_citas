@@ -1,0 +1,17 @@
+{
+  "passed": 2,
+  "time_seconds": 54.68,
+  "database": "PostgreSQL",
+  "browser": "Chromium 390x844 ES/EN",
+  "xml_sha256": "25e3b12bed2cb074a9f3680109b28493d05a1ef33c45a2b62e14e42b1f4f8715",
+  "scope": "Received restrict proposal execution via real browser/login/TOTP, replay same key, clean GET, paused listing and open/unverified request; correct executed status",
+  "limitations": [
+    "Proposal/receipt prepared by Django HTTP flow, not yet full browser journey",
+    "Synthetic identity check; no provider accreditation",
+    "Cease mobile, late authority and complete CR09 acceptance pending"
+  ],
+  "previous_failures": [
+    "64908:1 failed/1 passed52.49s ambiguous nested GET context",
+    "98050:2 failed49.93s final captured context was widget; replaced positional context assertion with HTTP body and persisted proposal checks"
+  ]
+}

@@ -198,6 +198,18 @@ def review(request, case_id, plan_id):
 
 
 class ExecutionForm(forms.Form):
+    def __init__(self, *args, case=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if case is not None:
+            choices = []
+            if case.account_subject_id or (case.person_id and case.person.subject_id):
+                choices.append(
+                    ("account_preferences", "Preferencias de cuenta / Account preferences")
+                )
+            if case.person_id and not case.account_subject_id:
+                choices.append(("publication", "Publicación del perfil / Profile publication"))
+            self.fields["purposes"].choices = choices
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     purposes = forms.MultipleChoiceField(
@@ -234,14 +246,14 @@ def execution(request, case_id, plan_id):
     if not permitted(request.user, case):
         return private(HttpResponse("Forbidden", status=403))
     form = ExecutionForm(
-        request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
+        request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}, case=case
     )
     result, status = None, 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
         try:
             result = execute(request.user, case.pk, plan_id, **form.cleaned_data)
             case.refresh_from_db()
-            form = ExecutionForm(initial={"key": uuid.uuid4(), "version": case.version})
+            form = ExecutionForm(initial={"key": uuid.uuid4(), "version": case.version}, case=case)
             status = 200
         except PermissionDenied:
             return private(HttpResponse("Forbidden", status=403))

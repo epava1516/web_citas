@@ -4,6 +4,141 @@ Actualizado: 2026-10-05. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 ## Estado actual
 
+- Fase: BASE y CR-01 a CR-08 verificados localmente; CR-09 en curso. CR-10/GS-01/B-F/B-B/C pendientes. Claude3/3 agotado; sin nuevas delegaciones.
+- Publicación por finalidad: ejecución inicial HTTP y móvil, levantamiento/acuse, calendario/historial/cola y recuperación histórica implementados y probados por partes con PostgreSQL/Chromium. Identidad/entrega siguen sintéticas o desactivadas; no producción acreditada.
+- Regresión57769 terminal0:74 correctas545,87s; corrección de permiso calendario confirmada88344 terminal0 con4 afectadas100,09s. Evidencias respectivas separadas; no suite íntegra del repositorio ni CR09 aceptado.
+- Runtime actual:build24605/recreate7105/check99010/probe58158 terminal0,24 hashes iguales/UID10001/health200/check/migraciones/providersdisabled. Sin procesos locales de prueba pendientes.
+- Siguiente:commit/push/CI de esta entrega parcial; continuar requisitos de CR09 (acceso/portabilidad integral, otras finalidades, conservación/supresión histórica/backups, respuestas/cierres y operación). No iniciar CR10/GS01 como si CR09 estuviera aceptado.
+
+### Registro reciente de avances y arranques históricos
+
+- Entrada móvil31916 terminal0:2 ES/EN PostgreSQL/Chromium correctas56,29s, selección/confirmación/POST/replay/GET limpio y flujo completo backend. Siguiente integrar regresión actual/Docker/revisión/commit/CI; resto CR09 sigue abierto.
+
+- Entrada inicial35252 terminal0:9 PostgreSQL correctas109,23s, publicación HTTP/replay/variantes/sin cuenta/regresión preferencias. Móvil31916 activo2 ES/EN; XML/tmp/publication-initial-mobile.xml/log/tmp/publication-initial-mobile.log. Recuperar hasta terminal sin editar fuente; Docker/finalización vertical pendientes.
+
+- Autoridad68313 terminal0:3 PostgreSQL correctas56,08s proof/session/source tras bloqueo observado. Formulario inicial publication implementado condicionado al ámbito;35252 activa9 casos HTTP/publication/sin-cuenta/preferencias. XML/tmp/publication-initial-http.xml/log/tmp/publication-initial-http.log; recuperar hasta terminal sin editar fuente.
+
+- Variantes autoridad68313 activas:proof/session/source durante espera PostgreSQL observada sobre propuesta; permiso previamente verificado excluido. XML/tmp/publication-release-authority.xml/log/tmp/publication-release-authority.log; recuperar misma sesión hasta terminal, no editar fuente.
+
+- Revocación durante espera34220 terminal0:1 PostgreSQL correcta33,76s, pg_blocking_pids observado; permiso retirado→denegación/hold activo/propuesta no ejecutada/sin acción nueva. Restaurado permiso y flujo válido posterior. Proof/sesión/fuente y demás requisitos CR09 pendientes.
+
+- Cease45870 terminal0:4 móviles ES/EN correctas90,23s; propuesta/acuse y ejecución navegador separados, nueva instrucción referenciada. Carrera34220 activa: revocación durante espera real sobre propuesta, pg_blocking_pids; XML/tmp/publication-release-race.xml/log/tmp/publication-release-race.log; recuperar hasta terminal, código estable.
+
+- Cease45870 activo tras69204 terminal1 (2 correctas/2 fallidas74,09s): referencia de servicio en vista parcheada explícitamente por caso para asegurar recorrido navegador y aislamiento.4 casos ES/EN; XML/tmp/publication-cease-mobile-final.xml/log/tmp/publication-cease-mobile-final.log. Recuperar hasta terminal sin editar fuente.
+
+- Cease móvil69204 activo:4 seleccionados ES/EN propuesta/acuse y ejecución por separado, resume_message_id en formulario. Mensaje sujeto y proof sintéticos HTTP. XML/tmp/publication-cease-mobile.xml/log/tmp/publication-cease-mobile.log; recuperar hasta terminal sin editar código.
+
+- Propuesta/acuse37857 terminal0:2 ES/EN PostgreSQL/Chromium correctas56,27s; propuesta navegador/replay/acuse anónimo y posterior ejecución HTTP. Ejecución móvil probada separadamente27548; unión del recorrido/cease/autoridad tardía/entrada inicial pendientes, CR09 abierto.
+
+- Propuesta/acuse móviles37857 activos:ES/EN login/TOTP/propuesta POST-replay/acuse anónimo navegador; después comprobación sintética/ejecución HTTP. XML/tmp/publication-proposal-receipt-mobile.xml/log/tmp/publication-proposal-receipt-mobile.log; recuperar hasta terminal sin editar fuente.
+
+- Ejecución móvil27548 terminal0:2 ES/EN PostgreSQL/Chromium correctas54,68s; POST/replay/GET/estado ejecutado/anuncio pausado/expediente abierto. Propuesta/acuse HTTP preparatorios; recorrido completo móvil/cease/autoridad tardía/entrada inicial pendientes. Contrato interno docs/contratos/09 añadido; CR09 abierto.
+
+- Ejecución móvil27548 activa tras98050 terminal1 (2 fallidas49,93s por contexto de widget): prueba verifica resultado HTTP y propuesta persistida en vez de posición de señales anidadas. XML/tmp/publication-release-mobile-final.xml/log/tmp/publication-release-mobile-final.log; recuperar misma sesión hasta terminal.
+
+- Móvil ejecución98050 en curso tras64908 terminal1 (1 fallida/1 correcta52,49s): selección de contexto capturado corregida para respuesta externa final. XML/tmp/publication-release-mobile-final.xml/log/tmp/publication-release-mobile-final.log; recuperar hasta terminal. No fuente funcional mientras corre.
+
+- Ejecución publication móvil64908 activa: ES/EN login/TOTP/POST/replay/GET tras acuse/nueva prueba sintéticos; estado de pantalla distingue levantamiento/propuesta. XML/tmp/publication-release-mobile.xml/log/tmp/publication-release-mobile.log; recuperar misma sesión sin editar código hasta terminal. No propuesta/acuse completos móviles aún.
+
+- Navegación publication59846 terminal0:2 móviles ES/EN PostgreSQL/Chromium correctas56,07s, derechos→calendario→detalle→retorno/filtro all/misma medida; resto seguimiento/historia/consulta preservado.37973 terminal1 por filtro due en expectativa, corregido. Docker anterior a enlaces; siguiente levantamiento completo móvil/autoridad intercalada/entrada inicial y aceptación.
+
+- Navegación publication conectada; móvil37973 activo desde derechos→calendario→detalle→retorno. XML/tmp/publication-calendar-navigation.xml/log/tmp/publication-calendar-navigation.log. Recuperar misma sesión sin editar fuente hasta terminal; Docker anterior a enlaces.
+
+- Recuperación Docker incluida:build41028/recreate39092/check37323/probe61943 terminal0,21 hashes iguales/UID10001/health200/check/migrate--check/providersdisabled/comando --help disponible. Sin recuperación operativa aplicada. Próximo navegación/levantamiento completo móvil/autoridad intercalada/entrada publication y aceptación restante CR09.
+
+- Ensayo esquemas91513 terminal0:1 PostgreSQL correcta37,04s,0074→0076 y0075→0076 no vacíos; fechas/acciones/active/version originales y recuperación de eventos preservadas. Evidencia publicacion-calendario-migracion.json. Docker de recuperación y resto CR09 pendientes; arranque anterior histórico.
+
+- Ensayo esquema publication91513 activo: PostgreSQL de pruebas no vacío,0074→0076 sin fechas y0075→0076 con dos acciones/versión3 sin tabla de eventos. Restauración esquema en finally. XML/tmp/publication-calendar-schema-upgrade.xml/log/tmp/publication-calendar-schema-upgrade.log; recuperar misma sesión sin editar fuente hasta terminal.
+
+- Comando recuperación2943 terminal0:1 PostgreSQL correcta34,65s; preview no persiste fechas/eventos, --apply e idempotencia, errores minimizados y timestamps originales. Evidencia publicacion-calendario-comando.json. Migración entre esquemas/Docker/común y resto CR09 pendientes; entradas previas de arranque históricas.
+
+- Comando restore_publication_calendar añadido: previsualización por defecto/--apply explícito/una medida/salida minimizada. Prueba2943 activa, XML/tmp/publication-calendar-command.xml/log/tmp/publication-calendar-command.log; recuperar misma sesión hasta terminal sin editar fuente. Docker sin comando aún.
+
+- Recuperación publication27951 terminal0:1 PostgreSQL correcta34,04s; fechas/eventos ausentes/idempotencia/firma alterada/rollback/timestamps/active verificados sobre datos no vacíos. Comando administrativo/ensayo de migración/runtime nuevos pendientes; resto CR09 abierto. Registro anterior de arranque histórico.
+
+- Recuperación publication implementada, prueba27951 activa: XML/tmp/publication-calendar-upgrade.xml y log/tmp/publication-calendar-upgrade.log. Fecha de plan y seguimientos firmados, transacción por medida/idempotencia/created_at originales; no aceptar hasta terminal. Código congelado durante prueba; Docker0076 sin nuevo servicio de recuperación.
+
+- Regresión publication integrada terminada: sesión19696 terminal0,32 correctas309,51s PostgreSQL/Chromium,0 fallos/errores/omisiones. Evidencia publicacion-finalidad-integrada.json. Próximo recuperación de históricos, levantamiento completo móvil/permisos intercalados y restantes requisitos; no aceptación CR09 ni suite total.
+
+- Runtime publication0076 actualizado (docs66):build/migración/recreación/check terminal0,14 hashes iguales app/worker/Beat,UID10001/health200/proveedores disabled. Backfill histórico/levantamiento móvil/regresión conjunta y CR09 íntegro pendientes.
+
+- Seguimiento/historial publication móvil ES/EN (docs66):2 PostgreSQL/Chromium correctas54,65s; confirmación accesible añadida, replay sin duplicado/GET limpio/medida activa y fecha inicial conservada. Levantamiento completo móvil/backfill/Docker0076/común pendientes; CR09 abierto.
+
+- Consulta publication móvil ES/EN (docs66):2 PostgreSQL/Chromium correctas50,35s; login/TOTP, cola→consulta, replay POST sin duplicado y GET limpio. Fallos de preparación/semántica reload/ORM async corregidos en prueba. Seguimiento/historia/levantamiento móvil, backfill, Docker0076 y común pendientes; CR09 abierto.
+
+- Recusación sujeto publication (docs66):1 PostgreSQL correcta51,41s, sujeto con permisos y estado MFA de fixture no ve medidas propias y recibe403 al consultar historia. No altaMFA real ni gestor/agencia histórica; móvil/backfill/Docker0076 y común pendientes.
+
+- Cursor publication ligado (docs66):1 PostgreSQL correcta52,14s,otro actor400/session-MFA-caducidad-pkbool inválidos400;100+1 y flujo posterior. Tokens recifrados por test, no falsificación ni espera1h. Recusación/móvil/backfill/Docker0076 y común pendientes.
+
+- Cola publication100+1 (docs66):1 PostgreSQL correcta50,68s;100 clones sintéticos+medida del flujo, páginas sin solapamiento/finalnull y token con filtro distinto400. No100 procedimientos reales; otros actores/session/MFA/caducidad/móvil/backfill/Docker0076 pendientes.
+
+- Logs/errores cola publication (docs66):27 unitarias correctas0,24s; filtro Django y cabeceras privadas tempranas, Gunicorn genérico comprobado por unidad. Sin tráfico operativo ni PostgreSQL en esta batería; Docker/cola ampliada/móvil/backfill y común pendientes.
+
+- Filtros/errores cola publication (docs66):1 PostgreSQL correcta38,87s,due/soon/all/mode,400/405/403 y no-store/fecha/active conservados. Cursor válido/paginación100/recusación/móvil/logs/backfill/Docker0076 y común pendientes.
+
+- Primera cola publication (docs66):1 PostgreSQL correcta40,98s; all muestra medida autorizada sin motivos. Cursor cifrado/filtros/paginación implementados no probados todavía; móvil/backfill/Docker0076 y común pendientes.
+
+- Concurrencia seguimiento publication (docs66):1 PostgreSQL correcta40,47s, dos conexiones distintas/barrera/misma versión, un cambio y un conflicto sin evento parcial. No pg_blocking_pids ni revocación tardía; levantamiento/móvil/cola/backfill/Docker0076 y común pendientes.
+
+- Firma eventos calendario publication (docs66):1 PostgreSQL correcta40,77s; firma alterada rechazada/lectura auditada revertida;50+2/HTTP conservados. Cola/móvil/carreras/backfill/Docker0076 y aceptación pendientes.
+
+- Fuente cifrada eventos publication (docs66):2 PostgreSQL correctas47,21s; HMAC incluye ciphertext/firma opacos, alteración de fixture cambia digest sin revelar bytes. Cola/backfill/móvil/carreras/Docker0076 y común pendientes.
+
+- Eventos publication en fuente (docs66):2 PostgreSQL correctas47,75s; cuenta45 modelos seleccionados y perfil52 eventos proyectados sin motivos. No inventario integral ni HMAC específico de motivos por evento; cola/backfill/móvil/carreras/Docker0076 y común pendientes.
+
+- Historia HTTP publication (docs66):1 PostgreSQL correcta40,38s,POST50+2 por operador calendario/GET limpio; expectativa choices antigua corregida. Cola/móvil/carreras/fuente/backfill/Docker0076 y común pendientes.
+
+- Historia publication50+2 (docs66):1 PostgreSQL correcta40,93s,52 seguimientos por servicio sobre datos sintéticos; páginas sin solapamiento, cursor inválido sin acción/replay/initial/active. No revisión humana real; UI/cola/móvil/carreras/inventario/backfill/Docker0076 pendientes.
+
+- Historial calendario publication backend (docs66):1 PostgreSQL correcta34,96s, auditoría previa a descifrado/resultado cifrado/replay y evento propio. Paginación50 implementada no validada50+2; UI/cola/permisos tardíos/corrupción/inventario/backfill/Docker0076 y común pendientes.
+
+- Evento calendario publication0076 (docs66):1 PostgreSQL correcta34,55s, vínculo protegido hold/action/version1 y replay único en seguimiento HTTP. Historial/fuente/backfill/cola/móvil/carreras pendientes; Docker0075.
+
+- Calendario publication regresión/runtime0075 (docs66):14 PostgreSQL correctas145,77s; Docker actualizado,10 fuentes iguales app/worker/Beat,UID10001/health200/check/migrate--check. Cola/historial/móvil/carreras y aceptación común CR09 pendientes.
+
+- Permiso calendario publication separado (docs66):1 PostgreSQL correcta32,97s, operador sin permiso de levantamiento solo follow_up, execute403 y seguimiento200. Cola/historial/móvil/carreras/Docker0075 y común pendientes.
+
+- Seguimiento HTTP publication (docs66):1 PostgreSQL correcta33,32s; formulario fecha/versión y POST auditado conectado, active/initial preservados. Acceso solo calendario/cola/historial/móvil/carreras/Docker0075 y común pendientes.
+
+- Seguimiento publication backend (docs66):1 PostgreSQL correcta33,79s; fecha operativa/version2/acción cifrada/replay, medida activa e inicial preservada. Primer fallo longitud operation corregido; cola/UI/historial/invalidez aislada/carreras/móvil/Docker0075 pendientes.
+
+- Fechas publication0075 (docs66):11 PostgreSQL correctas119,99s, fecha aprobada/inicial y versión guardadas, regresión cautelar. Cautelas legacy sin fechas inventadas; cola/seguimiento/backfill publication previo y prueba específica de invalidación pendientes. Docker0074, CR09 abierto.
+
+- Publication sin cuenta (docs66):2 PostgreSQL correctas43,16s, restrict/cease completo HTTP sobre perfil con subject null antes del enlace/prueba simulada. No baja real ni móvil/selección mixta. Código/runtime0074 sin cambios; calendario/carreras/móvil y aceptación pendientes.
+
+- Docker publication actualizado0074 (docs66):build/migraciones/recreación terminal0,9 fuentes iguales host/app/worker/Beat, UID10001/health200/check/migrate--check; proveedores disabled. Calendario/sin cuenta/carreras/móvil y aceptación CR09 pendientes.
+
+- Regresión publication dirigida terminal:28 correctas245,17s PostgreSQL, sesión90363; evidencia publicacion-finalidad-regresion.json. Fallo histórico de navegación de reclamación corregido con espera observable,1 prueba Chromium/PostgreSQL correcta31,63s, sesión24270. No CI nueva ni aceptación CR09; calendario/sin cuenta/carreras/móvil publication/Docker pendientes.
+
+- CI terminal contrastada: c4bd268/run37293150130 success707 pruebas1724,60s;65bc2d4/run37293697467 failure707 correctas/1 fallo2426,18s en Chromium test_browser_appeals Page.reload sin página activa. Evidencias respectivas en docs/evidencias; no incluye publication0073/74. Investigar sincronización tras terminar batería local actual.
+- Regresión local publication terminada: sesión90363,28 pruebas correctas245,17s; registro histórico de arranque:28 pruebas seleccionadas, XML/tmp/publication-purpose-common.xml y log/tmp/publication-purpose-common.log; último poll confirmó proceso vivo, sin resultado terminal. Ruff global/makemigrations/diff-check correctos. Recuperar misma sesión; no editar código funcional hasta que termine ni reiniciar por observación.
+
+- Flujo HTTP publication (docs66):4 PostgreSQL correctas61,61s cliente Django; proposal/execute/replay por interfaz, CSRF403 y referencias ausentes400, cuatro variantes. Móvil/ESEN visual, calendario/carreras/sin cuenta/Docker/común siguen pendientes.
+
+- Primera interfaz publication (docs66):4 PostgreSQL correctas61,90s cliente Django, GET privado sin motivos/POST inspect/GET limpio y backend de cuatro variantes. Ruta ESEN consulta/propuesta/ejecución añadida; POST propuesta/ejecución UI/móvil/CSRF específicos pendientes, sin ofrecer publication en ejecución inicial aún. Calendario/sin cuenta/carreras/Docker/común pendientes.
+
+- Firma aprobación publication (docs66):4 PostgreSQL correctas61,58s; revisión original firmada y vinculada a plan/expediente, firma alterada rechazada. Permisos tardíos/carreras/UI/calendario/sin cuenta/Docker y común pendientes; CR09 abierto.
+
+- Integridad publication (docs66):4 PostgreSQL correctas60,99s; firma de consulta y outcome/independencia/source de aprobación exigidos; mutaciones de fixture rechazadas y flujos válidos conservados. No carreras ni firma completa de revisión/permisos tardíos; resto de integración y CR09 pendientes.
+
+- Fuente publication (docs66):6 pruebas PostgreSQL correctas74,08s, variantes y dependencias de cuenta. Metadatos de medida/propuesta y vínculo de ejecución incluidos; ground alterado cambia fuente sin exponer razón. No inventario integral; calendario/UI/carreras/sin cuenta/Docker y común pendientes.
+
+- Publication oposición/robustez (docs66):4 PostgreSQL correctas57,14s camino cease con nueva instrucción por acuse;4 correctas57,60s después de añadir rechazo de consulta cifrada dañada, por separado. Restrict/cease simple/mixta completos en backend, identidad simulada. Carreras/permisos tardíos/UI/calendario/inventario/Docker y común pendientes; CR09 abierto.
+
+- Levantamiento publication backend parcial (docs66):4 pruebas PostgreSQL correctas55,42s; restrict simple/mixta con recepción/nueva prueba simulada/ejecución/replay, anuncio pausado y preferencias conservadas. Cease válido/carreras/robustez/UI/calendario/inventario/Docker pendientes; no aceptar flujo íntegro ni CR09.
+
+- Propuesta publication parcial0074 (docs66):4 pruebas PostgreSQL correctas57,34s; consulta ligada, progreso/replay restrict y rechazo cease sin nueva instrucción, medida activa. Recepción/ejecución específicas, cease válido, robustez e integración restantes pendientes; Docker0072/UI sin cambios.
+
+- Consulta para levantar publication (docs66):4 variantes PostgreSQL correctas53,67s; reasignación/comprobación simulada nuevas, auditoría previa a descifrado, plan original/modo/ámbito y replay. Propuesta/recepción/ejecución de levantamiento específico pendientes; medida sigue activa, UI y Docker no ampliados.
+
+- Variantes publication (docs66):11 correctas107,73s PostgreSQL antes de ajuste HTTP;4 correctas54,12s después, por separado. Restrict/cease simple/mixta, replay, conservación/aislamiento y GET del levantamiento genérico409 privado comprobados. Levantamiento específico y demás alcance permanecen pendientes; UI no ofrece publication.
+
+- Publication backend parcial0073 (docs66):4 pruebas PostgreSQL correctas50,74s; ejecución aprobada, pausa/conservación/replay/guarda central y regresión de preferencias. Levantamiento genérico bloqueado para estas medidas; específico/calendario/inventario/variantes/UI/Docker pendientes. No aceptar flujo completo ni CR09.
+
+- Diseño de integración publication contrastado con código actual: [docs66](66-publicacion-finalidad-diseno.md). Especifica ámbito Person sin cuenta obligatoria, atomicidad mixta, guarda central, separación de cautela/decisión y levantamiento restrict/cease; integración backend inicial y pruebas parciales registradas más abajo; flujo completo pendiente. No se añadió publication a la interfaz ni se amplió la aceptación de CR09.
+
+- CI contrastada el 2026-10-05: d8a8d84/run37288262500 success,684 pruebas2387,10s ([evidencia](evidencias/regresion-ci-d8a8d84.json));5330a97/run37289806244 failure,689 correctas/1 fallida1672,38s ([evidencia](evidencias/regresion-ci-5330a97.json)). Fallo de expectativa circular RightsAccess ya corregido en d65c0d4; CI de esa revisión y posteriores siguen in_progress, incluida65bc2d4/run37293697467. No reiniciadas ni aceptadas anticipadamente.
+
 - Fase: BASE y CR-01 a CR-08 verificados localmente; implementación autorizada el 2026-10-03.
 - Nueva medida durante espera (docs65):1 prueba32,84s PostgreSQL. Entrada/asignación/enlace/prueba simulada/preparación/revisión/ejecución de segundo expediente mientras supresión espera bloqueo observado; nueva medida confirmada, supresión denegada y dos medidas/datos/aprobación sin consumir conservados. Código funcional/runtime sin cambios. Próximo finalidades pendientes, variantes de interfaz y aceptación conjunta; CR09 íntegro abierto.
 - Variantes de excepción (docs64):4 casos de autoridad tras espera en bloqueo de revisión56,54s PostgreSQL; oposición/cease1 caso31,95s y ámbito de perfil1 caso33,27s por separado. Datos/medidas conservados al denegar, oposición no reanudada, perfil/agencias intactos al consumir. Solo nuevas pruebas/documentación; fuente funcional y runtime0072 sin cambios. Nueva medida durante espera verificada en docs65; pendientes interfaz de variantes/regresión conjunta y requisitos restantes de CR09.
@@ -25,7 +160,7 @@ Actualizado: 2026-10-05. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 ## Estimación orientativa solicitada
 
-Excepciones2026-10-05: [docs62](62-excepciones-acotadas-tratamiento.md), preparación/revisión/consumo cifrados y auditados, interfaz privada ESEN.14 comunes correctas124,55s PostgreSQL y6 carreras/móvil78,94s por separado; no sumar como suite única20. Consumo de preferencias elimina el ámbito aprobado una vez y conserva restricciones; fuente de nuevas evidencias ampliada a44 modelos seleccionados (docs63); faltan variantes, cobertura integral y finalidades restantes. Docker0072 comprobado; CR09 abierto. CI dacae44/run37286409175 terminó success681 correctas1620,41s ([evidencia](evidencias/regresion-ci-dacae44.json)), anterior a excepciones. CI d8a8d84/37288262500 y5330a97/37289806244 confirmadas in_progress; recuperar mismosIDs.
+Excepciones2026-10-05: [docs62](62-excepciones-acotadas-tratamiento.md), preparación/revisión/consumo cifrados y auditados, interfaz privada ESEN.14 comunes correctas124,55s PostgreSQL y6 carreras/móvil78,94s por separado; no sumar como suite única20. Consumo de preferencias elimina el ámbito aprobado una vez y conserva restricciones; fuente de nuevas evidencias ampliada a44 modelos seleccionados (docs63); faltan variantes, cobertura integral y finalidades restantes. Docker0072 comprobado; CR09 abierto. CI dacae44/run37286409175 terminó success681 correctas1620,41s ([evidencia](evidencias/regresion-ci-dacae44.json)), anterior a excepciones. CI d8a8d84/37288262500 terminó success684 pruebas;5330a97/37289806244 terminó failure689 correctas/1 fallida por expectativa circular ya corregida en d65c0d4; ver evidencias y estado actual.
 
 A 2026-10-04: CR-09 aproximadamente70% completado/30% pendiente; contrato completo aproximadamente50% completado/50% pendiente. Estimación de trabajo y complejidad, sin fórmula de ponderación ni equivalencia a aceptación jurídica o gates. BASE/CR01–08 verificados no implican80% del contrato: faltan CR10/GS01, acabado BF/BB y pruebas finales/operación. Mantener estados y evidencias del backlog como autoridad.
 

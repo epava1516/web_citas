@@ -14,6 +14,7 @@ class SecurityHeadersMiddleware:
             or "/moderation/complaints/" in request.path
             or "/moderation/rights/" in request.path
             or "/moderation/notices/" in request.path
+            or "/moderation/publication-calendar/" in request.path
         ):
             # Errors rejected by decorators/resolution still belong to a private channel.
             response["Cache-Control"] = "private, no-store"

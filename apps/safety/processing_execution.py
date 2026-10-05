@@ -10,18 +10,24 @@ from apps.core.models import User
 
 from .crypto import seal
 from .erasure_inventory import canonical
-from .models import ProcessingExecution, ProcessingPlanReview, PurposeRestriction, RightsAction
+from .models import (
+    PrivacyPublicationHold,
+    ProcessingExecution,
+    ProcessingPlanReview,
+    PurposeRestriction,
+    RightsAction,
+)
 from .processing_review import authorize, contents, current
 from .rights import fingerprint
 from .rights_scope import locked_case
 
-SUPPORTED = {"account_preferences"}
+SUPPORTED = {"account_preferences", "publication"}
 
 
 @transaction.atomic
 @sensitive_variables()
 def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
-    case, person, _ = locked_case(
+    case, person, listing = locked_case(
         case_id, lock_listing=True, allow_version_change=True, allow_erased_account=True
     )
     fresh = authorize(user, case, review_permission=False)
@@ -66,9 +72,17 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
         raise PermissionDenied("Assigned executor required")
     review = ProcessingPlanReview.objects.select_for_update().filter(plan=plan).first()
     subject_id = case.account_subject_id or (person.subject_id if person else None)
-    if not subject_id:
+    if "publication" in purposes and (not person or case.account_subject_id):
+        raise ValidationError(
+            "Publication requires profile scope / Publicación exige ámbito de perfil"
+        )
+    if "account_preferences" in purposes and not subject_id:
         raise ValidationError("Subject account unidentified / Cuenta del sujeto sin identificar")
-    subject = User.objects.select_for_update(no_key=True).get(pk=subject_id)
+    subject = (
+        User.objects.select_for_update(no_key=True).get(pk=subject_id)
+        if "account_preferences" in purposes
+        else None
+    )
     # Authority/source must be read after the approval and target-account waits.
     fresh, case, plan, proof, manifest = current(
         user, case_id, plan_id, version, review_permission=False
@@ -94,6 +108,13 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
             "Selected purposes have no approved restriction / Finalidades seleccionadas sin restricción aprobada"
         )
     if PurposeRestriction.objects.filter(execution__review=review, purpose__in=purposes).exists():
+        raise ValidationError("Purpose already executed / Finalidad ya ejecutada")
+    if (
+        "publication" in purposes
+        and ProcessingExecution.objects.filter(
+            review=review, publication_hold__isnull=False
+        ).exists()
+    ):
         raise ValidationError("Purpose already executed / Finalidad ya ejecutada")
     try:
         with transaction.atomic():
@@ -125,6 +146,30 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
             )
             for purpose in purposes:
                 decision = decisions[purpose]
+                if purpose == "publication":
+                    hold = PrivacyPublicationHold.objects.create(
+                        action=action,
+                        proof=proof,
+                        person=person,
+                        subject_snapshot=str(person.subject_id or ""),
+                        manager_version=person.manager_version,
+                        ground="purpose_" + decision["operation"],
+                        purpose_review_on=date.fromisoformat(decision["review_on"]),
+                        initial_purpose_review_on=date.fromisoformat(decision["review_on"]),
+                        previous_listing_status=listing.status if listing else "",
+                        previous_lifecycle_version=listing.lifecycle_version if listing else None,
+                    )
+                    result.publication_hold = hold
+                    result.save(update_fields=["publication_hold"])
+                    if listing:
+                        if listing.status == "published":
+                            listing.status = "paused"
+                        listing.available_until = None
+                        listing.lifecycle_version += 1
+                        listing.save(
+                            update_fields=["status", "available_until", "lifecycle_version"]
+                        )
+                    continue
                 PurposeRestriction.objects.create(
                     execution=result,
                     subject=subject,

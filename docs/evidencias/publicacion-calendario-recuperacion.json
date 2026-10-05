@@ -1,0 +1,12 @@
+{
+  "passed": 1,
+  "time_seconds": 34.04,
+  "database": "PostgreSQL",
+  "xml_sha256": "35c174c3fdda8edfa1730e54f19fb283e511167923ac3fd17cd269dd30da4445",
+  "scope": "Datos no vacíos: recuperar fechas del plan, reconstruir dos eventos de acciones firmadas, conservar timestamps/version/active, idempotencia y rechazo de firma alterada sin escritura parcial; después flujo completo de levantamiento",
+  "limitations": [
+    "No ensayo de migración de esquema entre bases históricas",
+    "No comando administrativo ni runtime de recuperación actualizado",
+    "No aceptación completa CR09"
+  ]
+}

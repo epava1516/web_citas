@@ -325,6 +325,7 @@ def source(case):
                 [
                     "pk",
                     "action_id",
+                    "publication_hold_id",
                     "review_id",
                     "proof_id",
                     "source_digest",
@@ -346,6 +347,20 @@ def source(case):
                     "initial_review_on",
                     "review_on",
                     "created_at",
+                ],
+            ),
+            (
+                "safety.PublicationCalendarEvent",
+                Q(hold__person__subject=user),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "hold_id",
+                    "action_id",
+                    "expected_version",
+                    "created_at",
+                    "action__encrypted_reason",
+                    "action__payload_digest",
                 ],
             ),
             (
