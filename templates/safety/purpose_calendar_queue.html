@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Restriction review calendar{% else %}Calendario de revisión de restricciones{% endif %}</h1>
+<p>{% if english %}An overdue review does not release a restriction or extend retention.{% else %}Una revisión vencida no levanta la restricción ni amplía conservación.{% endif %}</p>
+<form method="get">{{ form.as_p }}<button type="submit">{% if english %}Filter{% else %}Filtrar{% endif %}</button></form>
+{% for restriction in restrictions %}<article><p>{{ restriction.purpose }} · {{ restriction.mode }} · {{ restriction.review_on }}</p><a href="{% url 'purpose_calendar_detail' restriction.pk %}">{% if english %}Follow up{% else %}Seguimiento{% endif %}</a> · <a href="{% url 'rights_inspect' restriction.execution.action.request_id %}">{% if english %}Inspect request{% else %}Consultar solicitud{% endif %}</a></article>{% empty %}<p>{% if english %}No visible restrictions in this batch{% else %}Sin restricciones visibles en este lote{% endif %}</p>{% endfor %}
+{% if next_cursor %}<a href="?{{ filters }}&amp;cursor={{ next_cursor|urlencode }}">{% if english %}Next batch{% else %}Siguiente lote{% endif %}</a>{% endif %}
+{% endblock %}

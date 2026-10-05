@@ -55,7 +55,14 @@ def source(case, restriction, subject):
                 ),
                 "restriction": list(
                     PurposeRestriction.objects.filter(pk=restriction.pk).values(
-                        "pk", "execution_id", "subject_id", "purpose", "mode", "active", "review_on"
+                        "pk",
+                        "execution_id",
+                        "subject_id",
+                        "purpose",
+                        "mode",
+                        "active",
+                        "review_on",
+                        "version",
                     )
                 ),
                 "other_active": list(

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}{% block content %}
+<p><a href="{% url 'purpose_calendar_queue' %}">{% if english %}Restriction calendar{% else %}Calendario de restricciones{% endif %}</a></p><h1>{% if english %}Operational restriction follow-up{% else %}Seguimiento operativo de restricción{% endif %}</h1>
+<p>{{ restriction.purpose }} · {{ restriction.mode }} · {{ restriction.review_on }}</p>
+<p>{% if english %}Follow-up changes the review date only. The restriction remains in force until a separately notified release.{% else %}El seguimiento cambia solo la fecha de revisión. La restricción continúa hasta un levantamiento comunicado por separado.{% endif %}</p>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Inspect request{% else %}Consultar solicitud{% endif %}</a></p>
+{% if recorded %}<p role="status">{% if english %}Follow-up recorded; restriction unchanged{% else %}Seguimiento registrado; restricción intacta{% endif %}</p>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record calendar action{% else %}Registrar acción de calendario{% endif %}</button></form>
+{% if snapshot %}<h2>{% if english %}Audited follow-up history{% else %}Historial de seguimiento auditado{% endif %}</h2>
+{% for item in snapshot.history %}<article><p>{{ item.created_at }}</p><p>{{ item.reason|linebreaksbr }}</p></article>{% empty %}<p>{% if english %}No earlier follow-ups{% else %}Sin seguimientos anteriores{% endif %}</p>{% endfor %}
+{% if snapshot.next_cursor %}<form method="post">{% csrf_token %}{{ form.as_p }}<input type="hidden" name="operation" value="inspect"><input type="hidden" name="history_before" value="{{ snapshot.next_cursor }}"><button type="submit">{% if english %}Audit older follow-ups{% else %}Auditar seguimientos anteriores{% endif %}</button></form>{% endif %}
+{% endif %}{% endblock %}

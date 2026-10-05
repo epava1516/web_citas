@@ -658,3 +658,10 @@ Consumidores: favoritos GET/add/remove bajo bloqueo User retornan409 privado cua
 - Propuesta emite comunicación privada minimizada y mantiene medida activa. Ejecución exige recepción por canal, nueva comprobación posterior, propuesta última y fuente/respuestas vigentes; desactiva exclusivamente la medida elegida, conserva favoritos y expediente abierto. Comprobación de desarrollo simulada, sin identidad real acreditada. Cola por expediente no sustituye calendario operativo global, todavía pendiente.
 
 GET de levantamiento recupera metadatos de última propuesta y preselecciona proposal_id para continuidad tras recarga; no devuelve encrypted_reason ni decisiones privadas. Estado de propuesta/ejecución persistente no implica comprobar autoridad para ejecutar: POST vuelve a verificar todos los requisitos.
+
+
+### Calendario operativo0071 (en verificación)
+
+GET `moderation/rights/restrictions/calendar/`, nombre purpose_calendar_queue: attention due/soon/all (due predeterminado), purpose vacío/account_preferences, mode vacío/restrict/cease. Hasta101 candidatos,100 examinados, keyset review_on/PK, permisos por fila antes de mostrar. Cursor cifrado ligado a usuario/sesión/MFA/filtros y caducidad1h; filtro/cursor inválido400, permiso403, POST405. Un lote sin filas visibles puede tener continuación.
+
+GET/POST `moderation/rights/restrictions/<restriction_id>/follow-up/`, nombre purpose_calendar_detail: versión de medida y expediente, key UUID, operación inspect/follow_up, motivo20–2000, fecha siguiente requerida para seguimiento (futura≤90 días técnicos), history_before opcional para consulta paginada. GET metadatos sin motivos; POST audita antes de revelar historial50. Seguimiento solo fecha/version/fecha original, nunca active/plazos/pruebas/favoritos. Permiso review_purpose_calendar junto revisión/ejecución derechos y MFA/sesión/COI; ejecutor original excluido. Fechas/versiones/conflictos409, formulario inválido400, permiso403/inexistente404. Replay devuelve snapshot histórico, no reescribe fecha vigente.

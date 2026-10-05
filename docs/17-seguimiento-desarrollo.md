@@ -5,9 +5,9 @@ Actualizado: 2026-10-05. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 ## Estado actual
 
 - Fase: BASE y CR-01 a CR-08 verificados localmente; implementación autorizada el 2026-10-03.
-- Próximo paso: CR-09; calendario operativo global de restricciones (docs61), excepciones/otras finalidades, conservación histórica, acceso integral y comunicaciones/respuestas finales. Levantamiento parcial0070 (docs60) verificado localmente. No iniciar CR10/GS01 como si CR09 estuviera aceptado.
+- Próximo paso: CR-09; excepciones acotadas y otras finalidades; calendario operativo global de restricciones0071 (docs61) verificado localmente, conservación histórica, acceso integral y comunicaciones/respuestas finales. Levantamiento parcial0070 (docs60) verificado localmente. No iniciar CR10/GS01 como si CR09 estuviera aceptado.
 - Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; regresión común histórica CR-08:166 pruebas pasan con PostgreSQL y Chromium (450.45s, sin skips), dos límites finales14.47s; Docker/worker/Beat de CR-08 verificados; verificación y representación conectadas con simuladores explícitos.
-- Docker actual: app/worker/Beat0070,8 fuentes de levantamiento iguales host/servicios, UID10001/health200/check/migrate--check; proveedores de identidad/avisos/confirmación disabled. Levantamiento parcial24 comunes221,47s PG/Chromium, móvilESEN y carreras reales verificados. Preparación/revisión y restricción efectiva de preferencias verificadas conjuntamente en35 pruebas257,01s PG/Chromium. Finalidades restantes/levantamiento/excepciones y CR09 íntegro pendientes.
+- Docker actual: app/worker/Beat0071,10 fuentes de calendario iguales host/servicios, UID10001/health200/check/migrate--check; proveedores de identidad/avisos/confirmación disabled. Levantamiento parcial24 comunes221,47s PG/Chromium, móvilESEN y carreras reales verificados. Preparación/revisión y restricción efectiva de preferencias verificadas conjuntamente en35 pruebas257,01s PG/Chromium. Finalidades restantes/levantamiento/excepciones y CR09 íntegro pendientes.
 - Regresión común histórica sobre e6727bb:426 passed1776.17s, exit0/sin skips; aislamiento de migraciones corregido. Integra funcionalidades implementadas, no acepta CR-09 completo.
 - Regresión histórica sobre f5c636c terminada:444 passed1922.29s, exit0/sin errores/fallos/skips. Integra cambios hasta safety0041; no acepta CR09 completo. Continuar requisitos pendientes de acta04/docs40.
 - Regresión histórica CR-09 sobre35b1f53:285 passed/1 failed969.51s, sin skips; fallo de recarga Chromium investigado; sincronización observable reforzada,20 pruebas afectadas passed95.28s. No aceptada como suite completa.
@@ -1215,3 +1215,65 @@ Control global ruff format--check detectó13 migraciones sin normalizar (12 hist
 
 
 82248/7439 terminal0:runtime reconstruido tras formato0070,8 hashes idénticos app/worker/Beat y UID10001;check/migrate--check/providersdisabled/health200 nuevamente correctos. Evidencia runtime actualizada.24 comunes221,47s aceptan entrega técnica parcial de levantamiento account_preferences; no CI completa ni calendario/otras finalidades ni CR09 íntegro. Próximo docs61.
+
+
+Calendario0071 iniciado: PurposeRestriction.version/initial_review_on y PurposeCalendarEvent(action/medida/version/snapshot cifrado), permiso review_purpose_calendar. Servicio record operativo inspect/follow_up bajo locks de caso/medida, autoridad fresca/independencia/scope, key global/replay histórico, fechas futuras≤90 días técnicos e historial50 auditado antes de descifrar. Seguimiento solo fecha/version/fecha original, sin activar/desactivar ni plazos/pruebas/favoritos. Fuente de propuestas incluye version de medida para invalidar fuente previa tras seguimiento. Migración24062 terminal0 generada/normalizada; Ruff limpio.85348 activa2 casos /tmp/purpose-calendar-service.xml; fuente congelada. Cola/pantallas/carreras/móvil/runtime0071/backfill fecha original/regresión común pendientes. CI ccb78bd/run37264092465 pendiente de resultado.
+
+
+85348 terminal0:2 servicio35,34s PostgreSQL sin fallos/errores/skips (/tmp/purpose-calendar-service.xml). Seguimiento fecha/version+replay snapshot inmutable, fecha original conservada, expediente/version/scope/plazos intactos, favoritos409 preservados e historial auditado; fechas hoy/>90/version obsoleta/ejecutor original rechazan sin eventos. Servicio parcial verificado, no recorrido frontend/backend ni calendario aceptado. Cola/pantallas/backfill/motivos históricos dañados/carreras/móvil/runtime0071/regresión con levantamiento pendientes.
+
+
+Calendario0071 pantalla detalle GET/POST ESEN conectada a record, GET metadatos sin historial/motivos, POST seguimiento/consulta con auditoría y motivos cifrados. Replay snapshot cifrado dañado→ValidationError controlado. Migración0071 preserva fechas originales existentes mediante RunPython/F(review_on) sin sobreescribir valores presentes; nuevas ejecuciones guardan fecha original.7433 activa4 casos /tmp/purpose-calendar-http.xml, fuente congelada hasta terminal. Cola global acotada/navegación/carreras/móvil/runtime0071/regresión con levantamiento pendientes.
+
+
+7433 terminal0:4 calendario52,16s PostgreSQL sin fallos/errores/skips (/tmp/purpose-calendar-http.xml). Seguimiento HTTP200/recarga GET oculta motivo/private-no-store/consulta POST auditada muestra historial/permiso revocado403, snapshot de replay dañado ValidationError sin cambio ni evento extra; casos de servicio/version/fecha/independencia previos pasan.52199 check/makemigrations terminal0/no cambios, Ruff/diff limpios. No móvil ni cola global ni runtime0071; calendario/CR09 abiertos.
+
+
+Cola global calendario0071 implementada GET, attention due/soon/all y purpose/mode; keyset por review_on/PK con≤101 candidatos por respuesta, permisos/COI frescos por fila y cursor cifrado ligado a usuario/sesión/MFA/filtros/caducidad1h. Lote invisible conserva avance si quedan candidatos; cursor no revela IDs/fechas excluidos. Navegación cola derechos→calendario→detalle→expediente.83155 activa5 casos /tmp/purpose-calendar-queue.xml; fuente congelada. Paginación de lote totalmente excluido/carreras/móvil/runtime0071/regresión con levantamiento pendientes.
+
+
+83155 terminal0:5 calendario56,59s PostgreSQL sin fallos/errores/skips (/tmp/purpose-calendar-queue.xml). Cola global fila autorizada/private-no-store/sin REASON, filtro cease vacío, attention/cursor inválidos400, POST405, ejecutor original con permiso excluido;4 casos previos pasan. Tras terminal añadida paginación:100 medidas sintéticas excluidas por actor original→lote vacío con cursor cifrado→siguiente medida autorizada, cambio filtro400/permiso revocado403.69751 activa1 seleccionada /tmp/purpose-calendar-invisible-batch.xml; fuente congelada. Estados previos sintéticos solo prueban paginación, no workflows de creación.
+
+
+69751 terminal0:1 seleccionada28,96s PostgreSQL,5 deselected por -k (no skips). Primer lote100 excluidas entrega cero filas visibles y continuación cifrada; segundo lote muestra solo medida autorizada, sin siguiente cursor. Cambio de filtro400/permiso revocado403, sin persistir autorizaciones del cursor. Fixture de101 medidas prueba paginación/acceso, no creación de101 workflows. Cinco comunes anteriores56,59s y esta ejecución separadas; no sumar como suite común. Carreras/móvil/runtime0071 y regresión con levantamiento pendientes.
+
+
+Concurrencia calendario0071 iniciada: cuatro escenarios con dos conexiones PostgreSQL bloqueadas por medida y espera observada pg_blocking_pids. Replay misma key→un evento; keys distintas/misma versión→un ganador y otro conflicto; permiso revocado durante espera→ambas denegadas; medida desactivada durante espera→ambas denegadas. Inactive se inyecta solo como estado concurrente para verificar guarda, no procedimiento real de levantamiento. Caso/plazos/favoritos conservados.14896 activa4 casos /tmp/purpose-calendar-races.xml, fuente congelada. Carrera integrada levantamiento/seguimiento, clave entre medidas, móvil/runtime0071 y regresión pendientes.
+
+
+14896 terminal0:4 carreras52,25s PostgreSQL sin fallos/errores/skips (/tmp/purpose-calendar-races.xml). Dos conexiones bloqueadas observadas: misma key un evento/replay; keys distintas un ganador/conflicto/version2; permiso revocado ambas denegadas; inactive concurrente ambas denegadas sin evento/fecha/version nuevos. En todos los escenarios caso/version/scope/plazos/favoritos preservados. Inactive es fixture de estado concurrente, no levanta medida por procedimiento ni acredita carrera integrada con release. Clave entre medidas/carrera real release/móvil/runtime0071/regresión conjunta siguen pendientes. Ruff/diff limpios.
+
+
+Móvil calendario0071 iniciado ESEN: login/MFA real→cola derechos→calendario(all)→seguimiento fecha/motivo→reload GET sin motivo→consulta auditada POST→historial→reload sin motivo/viewport390. Comprueba medida activa/versión2/fecha original y caso/scope/plazos/sesión/favoritos intactos.74395 activa2 casos /tmp/purpose-calendar-mobile.xml, fuente congelada. Carrera integrada release/clave entre medidas/runtime0071/regresión conjunta pendientes.
+
+
+74395 terminal1:2 móvil fallidas46,91s. Tras consulta auditada, page.reload conserva historial porque recarga POST/replay, no GET; la prueba asumía GET incorrectamente. Sin alterar regla servidor ni quitar persistencia: comprobar método de reloadPOST/resultado idempotente y luego page.goto URLGET oculta motivo. Conteo final2 eventos exige que reload no duplique seguimiento/consulta. Nueva batería móvil en verificación.
+
+
+99384 terminal0:2 móvilESEN47,02s PostgreSQL/Chromium sin fallos/errores/skips (/tmp/purpose-calendar-mobile-final.xml). Login/MFA→cola→seguimiento→reload→consulta auditada→reloadPOST observado/idempotente→GET explícito oculta motivos/viewport390. Dos eventos finales (un seguimiento/una consulta), restricción activa/versión2/fecha original, caso/scope/plazos/sesión/favoritos preservados. Primera expectativa de reloadGET corregida, no cambiar regla de autorización ni ocultar fallo inicial. Carrera integrada release/clave entre medidas/historial amplio/runtime0071/regresión conjunta todavía pendientes; CR09 abierto.
+
+
+Carrera integrada calendario/release0071 añadida en ambos órdenes: recorrido real propuesta/recepción/comprobación simulada previa; holder de RightsRequest y espera observada, ganador ejecuta servicio record o release antes de commit. Follow_up invalida fuente de propuesta anterior por versión y mantiene medida; release impide seguimiento posterior sin resucitar medida.4755 activa6 casos /tmp/purpose-calendar-release-races.xml; fuente congelada. Ruff detectó orden import interno execute as release junto inspect/propose, normalizar tras terminal. Clave entre medidas/historial amplio/runtime/regresión comunes pendientes.
+
+
+4755 terminal0:6 carreras65,05s PostgreSQL sin fallos/errores/skips. Dos órdenes reales calendario/release: seguimiento/version invalida propuesta recibida con prueba posterior; release bloquea seguimiento esperando, ninguna medida resucitada/evento parcial. Orden imports normalizado tras terminal. Tras revisión reforzado binding execution.action.request_id==case.pk después de espera;24174 activa7 carreras /tmp/purpose-calendar-scope-races.xml, fixture destino sintético y cambio de FK durante lock comprueba scope, no procedimiento de traslado. Fuente congelada. Clave entre medidas/historial amplio/runtime0071/regresión conjunta pendientes.
+
+
+24174 terminal0:7 carreras71,30s PostgreSQL sin fallos/errores/skips (/tmp/purpose-calendar-scope-races.xml). Casos de replay/version/permiso/inactive y dos órdenes release real/seguimiento pasan; cambio de referencia de expediente durante espera observada denegado con medida/version intactas y sin evento. Destino/cambioFK sintéticos prueban binding/COI, no flujo de traslado. Ruff/diff limpios. Clave entre medidas, historial amplio, runtime0071 y regresión conjunta pendientes; CR09 abierto y CI ccb78bd todavía in_progress confirmado.
+
+
+Historial amplio calendario0071 iniciado:52 seguimientos reales por record, consultas auditadas50+2 sin solapamientos/corte, cursor inválido sin evento, seguimiento posterior y replay de consulta previa conservan snapshot histórico sin duplicar auditoría/efectos.88994 activa1 seleccionada /tmp/purpose-calendar-full-history.xml; fuente congelada. Clave entre medidas/runtime0071/regresión conjunta pendientes.
+
+
+88994 terminal0:1 seleccionada32,43s PostgreSQL,6 deselected (no skips).52 seguimientos reales→consultas50+2 cubren todos sin duplicados; cursor inválido no crea evento; nuevo seguimiento no altera replay snapshot de lectura previa. Clave entre medidas74460 activa1 seleccionada /tmp/purpose-calendar-cross-measure-key.xml: dos conexiones bloqueadas en mismo caso, segunda medida sintética solo verifica invariantes de key/version (no workflow creación), un ganador/otro sin cambios. Fuente congelada hasta terminal. Runtime/regresión conjunta/calendario entrega pendientes.
+
+
+74460 terminal0:1 seleccionada28,28s PostgreSQL,7 deselected (no skips). Misma key en dos medidas bajo bloqueo observado deja un evento/versión2 y medida perdedora versión1, ambas activas; segunda fila sintética solo fixture de key/version. Historial amplio y key entre medidas completados, iniciar regresión común calendario/levantamiento/ejecución antes de runtime/commit; no sumar baterías anteriores.
+
+Regresión conjunta activa handle33017, XML /tmp/purpose-calendar-final-joint.xml: calendario servicio/carreras/móvil, levantamiento servicio/carreras/móvil, ejecución servicio/carreras/móvil y navegador corregido. Recuperar mismo handle/XML, no reiniciar por timeout; fuente congelada hasta terminal. Docker actual0070, aún no0071.
+
+
+33017 terminal0:49 comunes416,82s PostgreSQL/Chromium sin fallos/errores/skips; evidencia calendario-restricciones-regresion.json. Build69732/migrate75632/recreate40639/runtime11948 terminal0:0071 aplicada,10 hashes host/app/worker/Beat iguales, UID10001/check/migrate--check/providersdisabled/health200. Probe35548 falló por case_version omitida en fixture histórico antes de comprobar0071; corregida,29927 terminal0:base aislada PostgreSQL no vacía0070→0071 conserva fecha original/review_on/active/version1; base temporal eliminada/ausencia verificada. Evidencias runtime/migracion en docs/evidencias. Entrega calendario local pendiente commit/push; CR09 íntegro/otras finalidades/excepciones/conservación integral/acceso/comunicaciones finales pendientes. Estimación orientativa anterior70% CR09/50%contrato no recalculada, sin fórmula.
+
+
+Calendario0071 entrega local verificada:49 comunes416,82s PG/Chromium (servicios/carreras/móvilESEN/historial/paginación), Docker y migración aislada no vacía. Evidencias hashes coinciden al registrar entrega. CI ccb78bd/run37264092465 terminal success:664 passed2347,55s, evidencia regresion-ci-ccb78bd.json; anterior a0071, no usar como aceptación de calendario ni CR09 global. Siguiente excepciones acotadas/otras finalidades, conservación histórica integral/acceso/comunicaciones/respuestas finales, después CR10→GS01→BF/BB→C. Claude3/3, no nuevas invocaciones.

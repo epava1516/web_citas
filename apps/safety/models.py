@@ -1021,6 +1021,8 @@ class ProcessingExecution(models.Model):
 
 
 class PurposeRestriction(models.Model):
+    version = models.PositiveIntegerField(default=1)
+    initial_review_on = models.DateField(null=True)
     execution = models.ForeignKey(ProcessingExecution, on_delete=models.PROTECT)
     subject = models.ForeignKey("core.User", on_delete=models.PROTECT)
     purpose = models.CharField(max_length=40)
@@ -1077,4 +1079,19 @@ class PurposeReleaseProposal(models.Model):
                 condition=models.Q(ground__in=["restriction_resolved", "resume_requested"]),
                 name="purpose_release_valid_ground",
             )
+        ]
+
+
+class PurposeCalendarEvent(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    restriction = models.ForeignKey(
+        PurposeRestriction, on_delete=models.PROTECT, related_name="calendar_events"
+    )
+    expected_version = models.PositiveIntegerField()
+    encrypted_snapshot = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [
+            ("review_purpose_calendar", "Review operational purpose restriction calendar")
         ]

@@ -131,6 +131,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed):
                     purpose=purpose,
                     mode=decision["operation"],
                     review_on=date.fromisoformat(decision["review_on"]),
+                    initial_review_on=date.fromisoformat(decision["review_on"]),
                 )
             case.version += 1
             case.scope_status = "unverified"

@@ -24,6 +24,7 @@ from apps.safety import (
     privacy_holds,
     privacy_release,
     processing_views,
+    purpose_calendar_views,
     purpose_release_views,
     recipient_assessment_views,
     recipient_review_views,
@@ -54,6 +55,16 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "moderation/rights/restrictions/calendar/",
+        purpose_calendar_views.queue,
+        name="purpose_calendar_queue",
+    ),
+    path(
+        "moderation/rights/restrictions/<int:restriction_id>/follow-up/",
+        purpose_calendar_views.detail,
+        name="purpose_calendar_detail",
+    ),
     path(
         "moderation/rights/<uuid:case_id>/restrictions/",
         purpose_release_views.queue,
