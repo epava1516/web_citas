@@ -350,6 +350,27 @@ def source(case):
                 ],
             ),
             (
+                "safety.RightsCopyPageReview",
+                (Q(request__account_subject=user) | Q(request__person__subject=user))
+                & ~Q(request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "request_id",
+                    "actor_id",
+                    "action_id",
+                    "read_action_id",
+                    "proof_id",
+                    "source_digest",
+                    "section",
+                    "page",
+                    "version",
+                    "encrypted_entries",
+                    "expires_at",
+                    "purged_at",
+                ],
+            ),
+            (
                 "safety.PublicationCalendarEvent",
                 Q(hold__person__subject=user),
                 "dependent_evidence",

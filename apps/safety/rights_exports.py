@@ -411,6 +411,23 @@ class ReviewedCopyField(forms.JSONField):
         return "" if value is None else super().prepare_value(value)
 
 
+class PageReviewForm(forms.Form):
+    key = forms.UUIDField(widget=forms.HiddenInput)
+    version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    operation = forms.CharField(initial="save_page", widget=forms.HiddenInput)
+    read_id = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
+    page_version = forms.IntegerField(min_value=0, widget=forms.HiddenInput)
+    reason = forms.CharField(
+        min_length=10,
+        max_length=2000,
+        widget=forms.Textarea,
+        label="Motivo privado de revisión / Private review reason",
+    )
+    entries = ReviewedCopyField(
+        widget=forms.Textarea, label="Entradas revisadas / Reviewed entries"
+    )
+
+
 class ExportForm(forms.Form):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
@@ -418,6 +435,7 @@ class ExportForm(forms.Form):
         choices=[
             ("preview", "Consultar copia (auditoría) / Preview copy (audited)"),
             ("inspect_page", "Consultar sección por páginas / Inspect section pages"),
+            ("inspect_saved_page", "Consultar decisiones guardadas / Inspect saved decisions"),
             ("generate", "Crear copia revisada / Create reviewed copy"),
         ]
     )
@@ -436,6 +454,8 @@ class ExportForm(forms.Form):
         choices=[
             (name, name)
             for name in [
+                "profile",
+                "subject_account",
                 "revisions",
                 "legal_acceptances",
                 "favorites",
@@ -445,6 +465,9 @@ class ExportForm(forms.Form):
         ],
     )
     page = forms.IntegerField(required=False, min_value=1, initial=1)
+    review_id = forms.IntegerField(
+        required=False, min_value=1, label="Referencia de revisión / Review reference"
+    )
     cursor = forms.CharField(required=False, max_length=2000, widget=forms.HiddenInput)
     copy = ReviewedCopyField(
         required=False,
@@ -454,7 +477,7 @@ class ExportForm(forms.Form):
 
 
 @login_required
-@sensitive_post_parameters("copy", "reason", "purpose")
+@sensitive_post_parameters("copy", "reason", "purpose", "entries")
 @sensitive_variables()
 @require_http_methods(["GET", "POST"])
 def prepare(request, case_id):
@@ -466,13 +489,45 @@ def prepare(request, case_id):
     if not permitted(request.user, case):
         return private(HttpResponse("Forbidden", status=403))
     form = ExportForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
+    page_review_form = None
+    saved_page = None
+    saved_page_data = None
+    if request.method == "POST" and request.POST.get("operation") == "save_page":
+        form = PageReviewForm(request.POST)
     status = 400 if request.method == "POST" else 200
     source = None
     page_data = None
     if request.method == "POST" and form.is_valid():
         values = form.cleaned_data
         try:
-            if values["operation"] == "inspect_page":
+            if values["operation"] == "save_page":
+                from .rights_copy_page_review import record
+
+                saved_page = record(
+                    request.user,
+                    case_id,
+                    values["version"],
+                    values["key"],
+                    values["read_id"],
+                    values["page_version"],
+                    values["reason"],
+                    values["entries"],
+                )
+                form = ExportForm(initial={"key": uuid.uuid4(), "version": case.version})
+                status = 200
+            elif values["operation"] == "inspect_saved_page":
+                from .rights_copy_page_review import inspect_saved
+
+                saved_page_data = inspect_saved(
+                    request.user,
+                    case_id,
+                    values["version"],
+                    values["key"],
+                    values["review_id"],
+                    values["purpose"],
+                )
+                status = 200
+            elif values["operation"] == "inspect_page":
                 from .rights_copy_inspection import inspect_page
 
                 page_data = inspect_page(
@@ -484,6 +539,16 @@ def prepare(request, case_id):
                     values["section"] or "revisions",
                     values["page"] or 1,
                     values["cursor"],
+                )
+                page_review_form = PageReviewForm(
+                    initial={
+                        "key": uuid.uuid4(),
+                        "version": case.version,
+                        "operation": "save_page",
+                        "read_id": page_data["read_id"],
+                        "page_version": page_data["page_version"],
+                        "entries": page_data["entries"],
+                    }
                 )
                 status = 200
             elif values["operation"] == "preview":
@@ -521,6 +586,9 @@ def prepare(request, case_id):
                 "form": form,
                 "source": source,
                 "page_data": page_data,
+                "page_review_form": page_review_form,
+                "saved_page": saved_page,
+                "saved_page_data": saved_page_data,
                 "source_photos": [
                     image for revision in source["revisions"] for image in revision["images"]
                 ]

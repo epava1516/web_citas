@@ -55,3 +55,21 @@ def reconcile_retention_reviews():
     from .retention_reviews import reconcile
 
     return reconcile()
+
+
+@shared_task
+def purge_expired_copy_page_reviews():
+    """Clear temporary reviewed content; preserve scoped minimal decision metadata."""
+    from .models import RightsCopyPageReview
+
+    with transaction.atomic():
+        now = timezone.now()
+        ids = list(
+            RightsCopyPageReview.objects.select_for_update(skip_locked=True)
+            .filter(expires_at__lte=now, purged_at__isnull=True)
+            .order_by("pk")
+            .values_list("pk", flat=True)[:100]
+        )
+        return RightsCopyPageReview.objects.filter(pk__in=ids).update(
+            encrypted_entries="", purged_at=now
+        )

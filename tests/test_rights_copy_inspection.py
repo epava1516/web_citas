@@ -364,15 +364,56 @@ def test_mobile_page_inspection_login_next_replay_and_clean_get(
                 "Inspect second source page on synthetic mobile session"
             )
             next_form.get_by_role("button", name=next_label, exact=True).click()
-            expect(page.get_by_role("heading", level=2)).to_contain_text("2")
+            expect(
+                page.get_by_role(
+                    "heading",
+                    name=("Section inspection only:" if english else "Solo consulta de sección:"),
+                )
+            ).to_contain_text("2")
             page.reload()
             expect(page.locator("#inspection-page-output")).to_contain_text("PRIVATE_PAGE_TEXT_")
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            save_label = "Save page decisions" if english else "Guardar decisiones de página"
+            save_form = page.locator("form").filter(
+                has=page.get_by_role("button", name=save_label, exact=True)
+            )
+            entries = json.loads(save_form.locator("[name=entries]").input_value())
+            entries[0]["description"] = "PRIVATE_SAVED_MOBILE_TEXT"
+            save_form.locator("[name=entries]").fill(json.dumps(entries))
+            save_form.locator("[name=reason]").fill("Review saved decisions on mobile device")
+            save_form.get_by_role("button", name=save_label, exact=True).click()
+            expect(page.get_by_role("status")).to_contain_text("revisions")
+            import re
+
+            reference = re.search(
+                r"(\d+) · revisions", page.get_by_role("status").inner_text()
+            ).group(1)
+            assert "PRIVATE_SAVED_MOBILE_TEXT" not in page.content()
+            page.reload()
+            expect(page.get_by_role("status")).to_contain_text("revisions")
+            assert "PRIVATE_SAVED_MOBILE_TEXT" not in page.content()
             page.goto(live_server.url + path)
             assert "PRIVATE_PAGE_TEXT_" not in page.content()
+            assert "PRIVATE_SAVED_MOBILE_TEXT" not in page.content()
+            page.locator("[name=operation]").select_option("inspect_saved_page")
+            page.locator("[name=review_id]").fill(reference)
+            page.locator("[name=purpose]").fill("Inspect saved page decisions on mobile device")
+            page.get_by_role(
+                "button",
+                name="Record copy action" if english else "Registrar acción de copia",
+                exact=True,
+            ).click()
+            expect(page.locator("#saved-page-output")).to_contain_text("PRIVATE_SAVED_MOBILE_TEXT")
+            page.reload()
+            expect(page.locator("#saved-page-output")).to_contain_text("PRIVATE_SAVED_MOBILE_TEXT")
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            page.goto(live_server.url + path)
+            assert "PRIVATE_SAVED_MOBILE_TEXT" not in page.content()
         finally:
             browser.close()
     assert RightsAction.objects.filter(request=case, operation="copy_page_read").count() == 2
+    assert RightsAction.objects.filter(request=case, operation="copy_page_save").count() == 1
+    assert RightsAction.objects.filter(request=case, operation="copy_review_read").count() == 1
     assert not RightsExportPreview.objects.filter(request=case).exists()
 
 

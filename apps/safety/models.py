@@ -1180,3 +1180,37 @@ class PurposeExceptionReview(models.Model):
                 name="purpose_exception_only_approved_consumed",
             ),
         ]
+
+
+class RightsCopyPageReview(models.Model):
+    request = models.ForeignKey(
+        RightsRequest, on_delete=models.PROTECT, related_name="copy_page_reviews"
+    )
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    action = models.OneToOneField(
+        RightsAction, on_delete=models.PROTECT, related_name="copy_page_review"
+    )
+    read_action = models.ForeignKey(
+        RightsAction, on_delete=models.PROTECT, related_name="copy_page_review_reads"
+    )
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    section = models.CharField(max_length=32)
+    page = models.PositiveIntegerField()
+    version = models.PositiveIntegerField()
+    encrypted_entries = models.TextField()
+    expires_at = models.DateTimeField(db_index=True)
+    purged_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["request", "actor", "source_digest", "section", "page", "version"],
+                name="copy_page_review_version_once",
+            ),
+            models.CheckConstraint(
+                condition=models.Q(page__gte=1, version__gte=1),
+                name="copy_page_review_positive_versions",
+            ),
+        ]

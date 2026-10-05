@@ -10,13 +10,17 @@ from django.views.decorators.debug import sensitive_variables
 from apps.core.models import User
 
 from .crypto import seal
-from .models import RightsAction
+from .models import RightsAction, RightsCopyPageReview
 from .rights import fingerprint
 from .rights_exports import can_prepare, canonical, reviewer_case, source_copy
 from .rights_scope import permitted
 
 PAGE_SIZE = 10
 SECTIONS = {
+    "profile": lambda source: [source["profile"]] if source["profile"] is not None else [],
+    "subject_account": lambda source: (
+        [source["subject_account"]] if source["subject_account"] is not None else []
+    ),
     "revisions": lambda source: source["revisions"],
     "legal_acceptances": lambda source: source["legal_acceptances"],
     "favorites": lambda source: source["account_activity"]["favorites"],
@@ -26,6 +30,19 @@ SECTIONS = {
     ),
 }
 SALT = "rights-copy-inspection-v1"
+
+
+def inspection_binding(actor, case, proof, source, section):
+    return {
+        "actor": actor.pk,
+        "session": actor.session_version,
+        "mfa": actor.mfa_version,
+        "case": str(case.pk),
+        "version": case.version,
+        "proof": str(proof.pk),
+        "source": fingerprint(canonical(source)),
+        "section": section,
+    }
 
 
 @transaction.atomic
@@ -54,16 +71,7 @@ def inspect_page(user, case_id, version, key, purpose, section="revisions", page
         raise ValidationError("Request changed")
     proof = can_prepare(actor, case, person)
     source = source_copy(person, listing, case)
-    binding = {
-        "actor": actor.pk,
-        "session": actor.session_version,
-        "mfa": actor.mfa_version,
-        "case": str(case.pk),
-        "version": case.version,
-        "proof": str(proof.pk),
-        "source": fingerprint(canonical(source)),
-        "section": section,
-    }
+    binding = inspection_binding(actor, case, proof, source, section)
     if cursor:
         try:
             received = signing.loads(cursor, salt=SALT, max_age=3600)
@@ -90,7 +98,7 @@ def inspect_page(user, case_id, version, key, purpose, section="revisions", page
     else:
         try:
             with transaction.atomic():
-                RightsAction.objects.create(
+                previous = RightsAction.objects.create(
                     key=key,
                     request=case,
                     actor=actor,
@@ -111,9 +119,18 @@ def inspect_page(user, case_id, version, key, purpose, section="revisions", page
         or not permitted(fresh, case)
     ):
         raise PermissionDenied
+    latest = (
+        RightsCopyPageReview.objects.filter(
+            request=case, actor=actor, source_digest=binding["source"], section=section, page=page
+        )
+        .order_by("-version")
+        .first()
+    )
     return {
+        "page_version": latest.version if latest else 0,
         "schema": "rights-copy-inspection-page-v1",
         "inspection_only": True,
+        "read_id": previous.pk,
         "section": section,
         "page": page,
         "entries": rows[start : start + PAGE_SIZE],
