@@ -417,6 +417,7 @@ class ExportForm(forms.Form):
     operation = forms.ChoiceField(
         choices=[
             ("preview", "Consultar copia (auditoría) / Preview copy (audited)"),
+            ("inspect_page", "Consultar sección por páginas / Inspect section pages"),
             ("generate", "Crear copia revisada / Create reviewed copy"),
         ]
     )
@@ -430,6 +431,21 @@ class ExportForm(forms.Form):
         widget=forms.Textarea,
         label="Motivo privado de entrega / Private release reason",
     )
+    section = forms.ChoiceField(
+        required=False,
+        choices=[
+            (name, name)
+            for name in [
+                "revisions",
+                "legal_acceptances",
+                "favorites",
+                "verifications",
+                "representation_history",
+            ]
+        ],
+    )
+    page = forms.IntegerField(required=False, min_value=1, initial=1)
+    cursor = forms.CharField(required=False, max_length=2000, widget=forms.HiddenInput)
     copy = ReviewedCopyField(
         required=False,
         widget=forms.Textarea,
@@ -452,10 +468,25 @@ def prepare(request, case_id):
     form = ExportForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
     status = 400 if request.method == "POST" else 200
     source = None
+    page_data = None
     if request.method == "POST" and form.is_valid():
         values = form.cleaned_data
         try:
-            if values["operation"] == "preview":
+            if values["operation"] == "inspect_page":
+                from .rights_copy_inspection import inspect_page
+
+                page_data = inspect_page(
+                    request.user,
+                    case_id,
+                    values["version"],
+                    values["key"],
+                    values["purpose"],
+                    values["section"] or "revisions",
+                    values["page"] or 1,
+                    values["cursor"],
+                )
+                status = 200
+            elif values["operation"] == "preview":
                 source = preview(request.user, case_id, values["version"], values["purpose"])
                 status = 200
                 form = ExportForm(
@@ -489,6 +520,7 @@ def prepare(request, case_id):
                 "case": case,
                 "form": form,
                 "source": source,
+                "page_data": page_data,
                 "source_photos": [
                     image for revision in source["revisions"] for image in revision["images"]
                 ]

@@ -1,0 +1,32 @@
+{
+  "session": 91711,
+  "exit_code": 0,
+  "tests": 30,
+  "failures": 0,
+  "errors": 0,
+  "duration_seconds": 198.45,
+  "xml_sha256": "75bbd1a500d2dd6ad803215ff92d0395b450bd0fec71794152bc3b59f7ed3b0f",
+  "source_hashes": {
+    "apps/safety/rights_copy_inspection.py": "601447b914b047e00d2e17b1da22aa5e13aef0ee072c5ed74e5627375faa599b",
+    "apps/safety/rights_exports.py": "aca6161ef667e0076741c34a3bb15d577b463adc64b8e485142b7e5263e4c0e7",
+    "templates/safety/rights_export.html": "199136e5a988123471246a81f2f2b66b344cd83cae14bfe41461dbe6542b99fe",
+    "static/app.css": "bf502d5c85a4d283630e8f3f1adff9d63a4d3ac441c82f44bf4b318a80629ed8",
+    "tests/test_rights_copy_inspection.py": "08bcb4396a96d016762eab0642b3b5e15477740105e65bcfb82b505e28da013f",
+    "tests/test_rights_copy_inspection_races.py": "9a21e01f1c265fb883f3fcf2e325599c80b397c7ca4f4d7223928cb7cd9994c6"
+  },
+  "scope": "Audited page inspection, sections/isolation, expiry/revocations, two-worker PostgreSQL observed waits, mobile ES/EN, existing exports/account regression",
+  "reproduction": {
+    "session": 30696,
+    "exit_code": 1,
+    "tests": 1,
+    "duration_seconds": 30.62,
+    "defect": "Session version changed during observed lock wait was incorrectly admitted; original versions now checked after locks"
+  },
+  "limitations": [
+    "Inspection only; no persistent page approval/redaction",
+    "Source still fully materialized to compare digest",
+    "Individual entries may be large",
+    "Synthetic identity procedures; no external provider acceptance",
+    "Not full repository regression or CR09 acceptance"
+  ]
+}

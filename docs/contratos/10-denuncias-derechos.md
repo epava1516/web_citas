@@ -693,3 +693,8 @@ Las nuevas fuentes incluyen `profile.listing`: referencia del anuncio, estado, f
 ### Transporte JSON por paquetes
 
 Una copia revisada serializada mayor de8MiB produce un manifiesto rights-data-manifest-v1; el JSON original se divide en fragmentos dentro de RightsExportPart cifrados, ZIPs de hasta8MiB. El manifiesto indica hashes/tamaños/orden y conserva partial/simulation/pending_review; no cambia el ámbito comprobado. La descarga existente aplica prueba/canal/versión/caducidad/auditoría/CSRF/replay, y la purga vacía esos paquetes. Los paquetes de datos usan nombres rights-data-part-N.zip y etiquetas ESEN diferenciadas. Los pequeños conservan el JSON original; imágenes mantienen su formato anterior. Reconstrucción local y límites pendientes: docs67. Corrupción de cifrado/JSON/forma de la copia principal devuelve404 y revierte registro de descarga fallida.
+
+
+### Consulta paginada de fuentes de copia
+
+La ruta de preparación añade POST `operation=inspect_page`, `section` (revisions/legal_acceptances/favorites/verifications/representation_history), `page` positivo y `cursor` firmado para continuación, además de key/version/purpose existentes. Resultado200 devuelve page_data con hasta10 entradas, has_next y cursor; inválidos400/estado o fuente409/permisos403. GET no recupera contenidos. Cada consulta registra RightsAction copy_page_read, misma clave compatible no duplica y unicidad concurrente se traduce a conflicto controlado. El cursor liga actor/sesión/MFA/caso/versión/prueba/fuente/sección y caduca1h. Versiones de sesión/MFA originales se comparan tras adquirir locks y autoridad se revalida antes de devolver datos. No crea RightsExportPreview completo ni autoriza generar una copia desde páginas. Límites y aprobación pendiente en docs68.
