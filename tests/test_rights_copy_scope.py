@@ -258,3 +258,50 @@ def test_representation_history_is_scoped_and_new_action_invalidates_preview(req
     )
     copy = client.post(url(receipt, export), {"key": uuid.uuid4()}).json()
     assert copy["representation"]["history"] == fresh["representation"]["history"]
+
+
+def test_accepted_document_snapshot_is_historical_scoped_and_drift_checked(request, settings):
+    from django.utils import timezone
+
+    from apps.core.models import LegalDocument
+
+    case, user, _, client, receipt, person = prepared(request, settings)
+    document = LegalDocument.objects.create(
+        slug="synthetic-archived-copy",
+        version="old",
+        language="en",
+        title="Synthetic archived agreement",
+        body="Synthetic accepted historical terms",
+        published_at=timezone.now(),
+        active=False,
+    )
+    acceptance = LegalAcceptance.objects.create(
+        user=person.subject, document=document, action="synthetic-copy"
+    )
+    other = LegalDocument.objects.create(
+        slug="synthetic-owner-only",
+        version="old",
+        language="en",
+        title="Owner only",
+        body="OWNER_ONLY_DOCUMENT_BODY",
+        published_at=timezone.now(),
+        active=False,
+    )
+    LegalAcceptance.objects.create(user=person.agency.owner, document=other, action="owner-only")
+    source = preview(user, case.pk, case.version, "Inspect accepted historical document versions")
+    item = next(item for item in source["legal_acceptances"] if item["document"] == document.slug)
+    assert item["body"] == document.body and item["title"] == document.title
+    assert item["accepted_at"] == acceptance.created_at.isoformat()
+    assert "OWNER_ONLY_DOCUMENT_BODY" not in json.dumps(source)
+    LegalDocument.objects.filter(pk=document.pk).update(body="Changed historical snapshot")
+    with pytest.raises(ValidationError):
+        generate(
+            user, case.pk, uuid.uuid4(), case.version, "Release stale historical version", source
+        )
+    source = preview(user, case.pk, case.version, "Inspect refreshed historical document source")
+    export = generate(
+        user, case.pk, uuid.uuid4(), case.version, "Release reviewed historical version", source
+    )
+    delivered = client.post(url(receipt, export), {"key": uuid.uuid4()}).json()
+    assert delivered["legal_acceptances"] == source["legal_acceptances"]
+    assert delivered["partial"] and "OWNER_ONLY_DOCUMENT_BODY" not in json.dumps(delivered)

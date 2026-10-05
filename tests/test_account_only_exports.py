@@ -87,6 +87,12 @@ def test_own_account_copy_review_download_and_changed_authority(
         }
     ]
     assert [row["action"] for row in source["legal_acceptances"]] == ["own_account_fixture"]
+    accepted_document = LegalDocument.objects.first()
+    assert source["legal_acceptances"][0]["body"] == accepted_document.body
+    assert source["legal_acceptances"][0]["title"] == accepted_document.title
+    assert (
+        source["legal_acceptances"][0]["published_at"] == accepted_document.published_at.isoformat()
+    )
     assert subject.password not in str(source) and "mfa_secret" not in str(source)
     injected = deepcopy(source)
     injected["subject_account"]["email"] = actor.email

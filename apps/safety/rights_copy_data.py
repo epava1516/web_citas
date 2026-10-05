@@ -8,6 +8,25 @@ def date(value):
     return value.isoformat() if value else None
 
 
+def legal_acceptances(user):
+    """Include the exact referenced version, including inactive historical documents."""
+    return [
+        {
+            "document": item.document.slug,
+            "version": item.document.version,
+            "language": item.document.language,
+            "title": item.document.title,
+            "body": item.document.body,
+            "published_at": date(item.document.published_at),
+            "action": item.action,
+            "accepted_at": date(item.created_at),
+        }
+        for item in LegalAcceptance.objects.filter(user=user)
+        .select_related("document")
+        .order_by("pk")
+    ]
+
+
 def subject_data(person):
     # A manager, editor or requesting account is never substituted for the represented subject.
     user = User.objects.filter(pk=person.subject_id).first() if person.subject_id else None
@@ -26,18 +45,7 @@ def subject_data(person):
             "active": user.is_active,
             "mfa_enabled": user.mfa_enabled,
         }
-        acceptances = [
-            {
-                "document": item.document.slug,
-                "version": item.document.version,
-                "language": item.document.language,
-                "action": item.action,
-                "accepted_at": date(item.created_at),
-            }
-            for item in LegalAcceptance.objects.filter(user=user)
-            .select_related("document")
-            .order_by("pk")
-        ]
+        acceptances = legal_acceptances(user)
     verifications = (
         [
             {

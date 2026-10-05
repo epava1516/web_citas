@@ -3,11 +3,10 @@
 from django.core.exceptions import ValidationError
 from django.views.decorators.debug import sensitive_variables
 
-from apps.core.models import LegalAcceptance
 from apps.listings.models import Favorite
 
 from .rectification_account import locked_subject
-from .rights_copy_data import date
+from .rights_copy_data import date, legal_acceptances
 
 
 @sensitive_variables()
@@ -35,18 +34,7 @@ def source(case):
             "other_account_records",
         ],
         "subject_account": account,
-        "legal_acceptances": [
-            {
-                "document": item.document.slug,
-                "version": item.document.version,
-                "language": item.document.language,
-                "action": item.action,
-                "accepted_at": date(item.created_at),
-            }
-            for item in LegalAcceptance.objects.filter(user=user)
-            .select_related("document")
-            .order_by("pk")
-        ],
+        "legal_acceptances": legal_acceptances(user),
         "account_activity": {
             "favorites": [
                 {"listing_reference": str(item.listing_id), "created_at": date(item.created_at)}
