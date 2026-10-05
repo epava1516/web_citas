@@ -21,6 +21,8 @@ Actualizado: 2026-10-05. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 ## Estimación orientativa solicitada
 
+Decisión de excepciones2026-10-05: [docs62](62-excepciones-acotadas-tratamiento.md) define autorización de un único uso ligada a ejecución concreta de supresión, plan/fuente y conjunto completo de medidas activas, revisión independiente y consumo atómico. Consumidores actuales inspeccionados: favoritos ordinarios y supresión de preferencias deniegan por medida activa. Implementación/UI/migración/pruebas pendientes; no se ha añadido bypass ni aceptado esta entrega. CI dacae44/run37286409175 confirmada in_progress durante esta revisión; recuperar mismoID.
+
 A 2026-10-04: CR-09 aproximadamente70% completado/30% pendiente; contrato completo aproximadamente50% completado/50% pendiente. Estimación de trabajo y complejidad, sin fórmula de ponderación ni equivalencia a aceptación jurídica o gates. BASE/CR01–08 verificados no implican80% del contrato: faltan CR10/GS01, acabado BF/BB y pruebas finales/operación. Mantener estados y evidencias del backlog como autoridad.
 
 ## Backlog ordenado
