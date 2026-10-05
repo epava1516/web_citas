@@ -39,6 +39,7 @@ from apps.safety import (
     rights,
     rights_copy_information_views,
     rights_exports,
+    rights_information_review_views,
     rights_rectification,
     rights_responses,
     rights_verification,
@@ -258,6 +259,11 @@ urlpatterns = [
         "safety/rights/<uuid:case_id>/<str:secret>/export/<uuid:export_id>/part/<uuid:part_id>/",
         rights_exports.download,
         name="rights_part_download",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/information/<int:information_id>/review/",
+        rights_information_review_views.review,
+        name="rights_information_review",
     ),
     path(
         "moderation/rights/<uuid:case_id>/information/",

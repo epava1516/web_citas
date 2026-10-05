@@ -384,3 +384,40 @@ def test_guided_bound_policy_rejects_tampering_and_content_drift(request, settin
     }
     assert staff.post(path, reading).status_code == 409
     assert RightsCopyInformation.objects.filter(request=case).count() == 1
+
+
+@pytest.mark.parametrize("damage", ["session", "mfa", "historical"])
+def test_original_information_evidence_rejects_tampering_without_using_live_author_session(
+    request, settings, damage
+):
+    from django.db import transaction
+
+    from apps.core.models import User
+    from apps.safety.rights_copy_information import validate_saved_evidence
+
+    case, actor, _, _, _, _ = prepared(request, settings)
+    value = draft()
+    row = record(
+        actor,
+        case.pk,
+        case.version,
+        uuid4(),
+        0,
+        "synthetic-policy-v1",
+        "Store original access evidence for independent review",
+        value,
+    )
+    assert row.original_session_version == actor.session_version
+    assert row.original_mfa_version == actor.mfa_version
+    # This validates historical evidence, not authorization to access or approve it.
+    User.objects.filter(pk=actor.pk).update(session_version=actor.session_version + 1)
+    with transaction.atomic():
+        assert validate_saved_evidence(row, case, row.proof, row.source_digest, value) == value
+    if damage == "historical":
+        row.original_session_version = None
+    elif damage == "session":
+        row.original_session_version += 1
+    else:
+        row.original_mfa_version += 1
+    with transaction.atomic(), pytest.raises(ValidationError, match="evidence"):
+        validate_saved_evidence(row, case, row.proof, row.source_digest, value)

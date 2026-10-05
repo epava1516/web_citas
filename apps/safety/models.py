@@ -1227,6 +1227,8 @@ class RightsCopyInformation(models.Model):
     policy_document = models.ForeignKey("core.LegalDocument", null=True, on_delete=models.PROTECT)
     policy_digest = models.CharField(max_length=64, blank=True, default="")
     policy_version = models.CharField(max_length=80)
+    original_session_version = models.PositiveIntegerField(null=True)
+    original_mfa_version = models.PositiveIntegerField(null=True)
     version = models.PositiveIntegerField()
     encrypted_information = models.TextField()
     expires_at = models.DateTimeField(db_index=True)
@@ -1240,5 +1242,36 @@ class RightsCopyInformation(models.Model):
             ),
             models.CheckConstraint(
                 condition=models.Q(version__gte=1), name="copy_information_positive_version"
+            ),
+        ]
+
+
+class RightsCopyInformationRead(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    information = models.ForeignKey(RightsCopyInformation, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    information_digest = models.CharField(max_length=64)
+    policy_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsCopyInformationReview(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    information = models.OneToOneField(RightsCopyInformation, on_delete=models.PROTECT)
+    read = models.ForeignKey(RightsCopyInformationRead, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    source_digest = models.CharField(max_length=64)
+    information_digest = models.CharField(max_length=64)
+    policy_digest = models.CharField(max_length=64)
+    outcome = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        permissions = [("review_copy_information", "Independently review access information")]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["approved", "rejected"]),
+                name="copy_information_review_outcome",
             ),
         ]

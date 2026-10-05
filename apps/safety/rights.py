@@ -366,6 +366,25 @@ def inspect(request, case_id):
 
     from .models import RightsRectificationRecipientAssessment
 
+    information_drafts = None
+    if request.user.has_perm("safety.review_copy_information"):
+        from .models import RightsCopyInformation
+        from .rights_information_review import authorize
+
+        try:
+            authorize(request.user, case)
+        except PermissionDenied:
+            pass
+        else:
+            information_drafts = Paginator(
+                RightsCopyInformation.objects.filter(
+                    request=case, purged_at__isnull=True, expires_at__gt=timezone.now()
+                )
+                .exclude(actor=request.user)
+                .only("pk", "version", "created_at")
+                .order_by("-created_at", "-pk"),
+                50,
+            ).get_page(request.GET.get("information_page"))
     recipient_assessments = None
     if request.user.has_perm("safety.review_recipient_assessment"):
         recipient_assessments = Paginator(
@@ -389,6 +408,7 @@ def inspect(request, case_id):
                 "outgoing_responses": outgoing_responses,
                 "outgoing_cursor": outgoing_cursor,
                 "recipient_assessments": recipient_assessments,
+                "information_drafts": information_drafts,
             },
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )

@@ -188,6 +188,8 @@ def record(
                     policy_version=policy_version,
                     policy_document=policy,
                     policy_digest=policy_digest,
+                    original_session_version=session_version,
+                    original_mfa_version=mfa_version,
                     version=information_version + 1,
                     encrypted_information=seal(cleaned),
                     expires_at=min(proof.expires_at, timezone.now() + timedelta(hours=24)),
@@ -297,3 +299,64 @@ def inspect(user, case_id, case_version, key, information_id, purpose):
     )
     fresh_authority(actor, case, session_version, mfa_version)
     return row, information
+
+
+@sensitive_variables()
+def validate_saved_evidence(row, case, proof, source_digest, information):
+    """Evidence only: caller must authorize and audit access before decrypting the body."""
+    if not transaction.get_connection().in_atomic_block:
+        raise RuntimeError("Information evidence requires an atomic transaction")
+    action = row.action
+    if (
+        row.original_session_version is None
+        or row.original_mfa_version is None
+        or row.request_id != case.pk
+        or action.request_id != case.pk
+        or action.actor_id != row.actor_id
+        or action.operation != "copy_info_save"
+        or action.expected_version != case.version
+        or row.proof_id != proof.pk
+        or row.source_digest != source_digest
+        or row.purged_at is not None
+        or row.expires_at <= timezone.now()
+        or not row.encrypted_information
+    ):
+        raise ValidationError("Information evidence unavailable")
+    cleaned = checked_information(case.kind, information)
+    try:
+        reason = unseal(action.encrypted_reason)["reason"]
+    except (InvalidToken, ValueError, TypeError, KeyError) as error:
+        raise ValidationError("Information evidence unavailable") from error
+    if not isinstance(reason, str) or not 10 <= len(reason.strip()) <= 2000:
+        raise ValidationError("Information evidence unavailable")
+    policy_evidence = {}
+    if row.policy_document_id:
+        policy, digest = published_policy(
+            row.policy_document_id,
+            row.policy_document.language,
+            expected_digest=row.policy_digest,
+        )
+        if policy.version != row.policy_version:
+            raise ValidationError("Policy version mismatch")
+        policy_evidence = {"policy_document": policy.pk, "policy_digest": digest}
+    elif row.policy_digest:
+        raise ValidationError("Policy evidence unavailable")
+    signature = fingerprint(
+        canonical(
+            {
+                **policy_evidence,
+                "version": action.expected_version,
+                "information_version": row.version - 1,
+                "policy": row.policy_version,
+                "reason": reason,
+                "information": cleaned,
+                "source": source_digest,
+                "proof": str(proof.pk),
+                "session": row.original_session_version,
+                "mfa": row.original_mfa_version,
+            }
+        )
+    )
+    if signature != action.payload_digest:
+        raise ValidationError("Information evidence changed")
+    return cleaned

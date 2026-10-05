@@ -350,6 +350,54 @@ def source(case):
                 ],
             ),
             (
+                "safety.RightsCopyInformationRead",
+                (
+                    Q(information__request__account_subject=user)
+                    | Q(information__request__person__subject=user)
+                )
+                & ~Q(information__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "information_id",
+                    "action_id",
+                    "proof_id",
+                    "source_digest",
+                    "information_digest",
+                    "policy_digest",
+                    "created_at",
+                    "action__actor_id",
+                    "action__expected_version",
+                    "action__payload_digest",
+                    "action__encrypted_reason",
+                ],
+            ),
+            (
+                "safety.RightsCopyInformationReview",
+                (
+                    Q(information__request__account_subject=user)
+                    | Q(information__request__person__subject=user)
+                )
+                & ~Q(information__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "information_id",
+                    "action_id",
+                    "proof_id",
+                    "source_digest",
+                    "information_digest",
+                    "policy_digest",
+                    "created_at",
+                    "action__actor_id",
+                    "action__expected_version",
+                    "action__payload_digest",
+                    "action__encrypted_reason",
+                    "read_id",
+                    "outcome",
+                ],
+            ),
+            (
                 "safety.RightsCopyInformation",
                 (Q(request__account_subject=user) | Q(request__person__subject=user))
                 & ~Q(request=case),
@@ -364,6 +412,8 @@ def source(case):
                     "policy_version",
                     "policy_document_id",
                     "policy_digest",
+                    "original_session_version",
+                    "original_mfa_version",
                     "version",
                     "encrypted_information",
                     "expires_at",

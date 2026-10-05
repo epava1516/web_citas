@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Independent information review{% else %}Revisión independiente de información{% endif %}</h1>
+<p>{% if english %}Inspect the current request and draft before deciding. Approval does not close the request or authorize final delivery.{% else %}Consulta la solicitud vigente y el borrador antes de decidir. Aprobar no cierra la solicitud ni autoriza la entrega final.{% endif %}</p>
+<a href="{% url 'rights_inspect' case.pk %}">{% if english %}Inspect request{% else %}Consultar solicitud{% endif %}</a>
+{% if body %}{% for item in reviewed_fields %}<article><h2>{{ item.label }}</h2><p>{{ item.status }} · {{ item.source }}</p><p>{{ item.text|linebreaksbr }}</p></article>{% endfor %}{% endif %}
+{% if decision %}<p role="status">{% if english %}Decision recorded{% else %}Decisión registrada{% endif %}: {{ decision.outcome }}</p>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record review action{% else %}Registrar acción de revisión{% endif %}</button></form>
+{% endblock %}
