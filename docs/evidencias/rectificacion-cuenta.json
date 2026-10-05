@@ -1,0 +1,219 @@
+{
+  "status": "Implementación parcial verificada en batería afectada y Docker; CR09 abierto",
+  "proposal_tests": {
+    "tests": "22",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "time": "177.089"
+  },
+  "current_tests": {
+    "session": 97901,
+    "xml": "/tmp/account-email-confirmation-clean-url.xml",
+    "status": "terminal0",
+    "scope": "HTTP y Chromium ESEN con intercambio GET a cookie HttpOnly y formulario sin secreto en URL",
+    "result": {
+      "tests": "4",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "52.894"
+    }
+  },
+  "scope": "Cuenta del sujeto, propuesta auditada/cifrada sin mutación; control de fuente y precedencia User→Revision/Blob",
+  "pending": [
+    "cuenta sin anuncio y correo+título",
+    "ejecución concurrente y colisiones de correo durante espera",
+    "limpieza concurrente y worker/Beat real",
+    "SSR integral ESEN y presentación de campos de cuenta",
+    "inventarios/exportación/retención por finalidad",
+    "runtime0058",
+    "regresión CI del commit final",
+    "CR09 y contrato completo"
+  ],
+  "provider_verification": "No comprobación externa real",
+  "lock_order_before": {
+    "tests": "1",
+    "failures": "1",
+    "errors": "0",
+    "skipped": "0",
+    "time": "22.807",
+    "failure": "NOWAIT no pudo bloquear Revision mientras la fuente esperaba User"
+  },
+  "lock_order_final": {
+    "tests": "4",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "39.846"
+  },
+  "destination_initial": {
+    "tests": "2",
+    "failures": "2",
+    "errors": "0",
+    "skipped": "0",
+    "time": "32.136"
+  },
+  "destination_header_error": {
+    "tests": "2",
+    "failures": "1",
+    "errors": "0",
+    "skipped": "0",
+    "time": "31.307"
+  },
+  "destination_before_proof_binding": {
+    "tests": "6",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "53.218"
+  },
+  "destination_proof_inventory_tests": {
+    "tests": "10",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "87.497"
+  },
+  "destination_browser_initial": {
+    "tests": "4",
+    "failures": "2",
+    "errors": "0",
+    "skipped": "0",
+    "time": "51.162",
+    "failure": "ORM síncrono dentro del event loop Playwright; se comprueba formulario vigente en navegador y DB fuera"
+  },
+  "destination_browser_csrf_origin_error": {
+    "tests": "2",
+    "failures": "2",
+    "errors": "0",
+    "skipped": "0",
+    "time": "46.913",
+    "failure": "Origin null en POST desde página no-referrer; Django rechaza CSRF correctamente"
+  },
+  "account_only_execution": {
+    "xml": "/tmp/account-only-execution-final.xml",
+    "result": {
+      "tests": "1",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "25.850"
+    },
+    "scope": "Aprobación, destino simulado confirmado, comunicación y recepción, prueba fresca, ejecución y replay; anuncio intacto, sin aviso a gestor"
+  },
+  "execution_common": {
+    "xml": "/tmp/account-execution-common.xml",
+    "result": {
+      "tests": "20",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "269.439"
+    }
+  },
+  "retention_tests": {
+    "xml": "/tmp/account-execution-retention.xml",
+    "result": {
+      "tests": "6",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "71.879"
+    },
+    "scope": "6 HTTP/móvil/ejecución/limpieza, identidad y entrega simuladas"
+  },
+  "authentication_negatives": {
+    "xml": "/tmp/account-execution-auth-negatives-final.xml",
+    "result": {
+      "tests": "1",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "27.641"
+    },
+    "scope": "Rechazo de confirmación no confirmada/caducada/revocada/consumida y producción; reset previo HTTP400, sesión antigua cerrada y MFA intacto"
+  },
+  "names_mixed_tests": {
+    "xml": "/tmp/account-name-mixed-execution.xml",
+    "result": {
+      "tests": "2",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "33.020"
+    }
+  },
+  "confirmation_authority_races": {
+    "xml": "/tmp/account-confirmation-authority-races.xml",
+    "result": {
+      "tests": "2",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "31.220"
+    },
+    "scope": "Bloqueo User realmente observado por pg_blocking_pids; nombre cambiado o prueba original revocada durante espera deniega confirmación sin mutación"
+  },
+  "execution_races": {
+    "xml": "/tmp/account-execution-races.xml",
+    "result": {
+      "tests": "2",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "35.532"
+    },
+    "scope": "Dos ejecutores misma clave/versión; destino reservado durante espera real de índice lower(email), rollback integral"
+  },
+  "mixed_cleanup_races": {
+    "xml": "/tmp/account-execution-races-mixed-cleanup.xml",
+    "result": {
+      "tests": "4",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "54.220"
+    }
+  },
+  "execution_proof_before": {
+    "xml": "/tmp/account-execution-proof-before.xml",
+    "result": {
+      "tests": "1",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "time": "25.294"
+    },
+    "failure": "Ejecución aplicada con prueba revocada mientras esperaba lock User"
+  },
+  "runtime": {
+    "build_session": 83711,
+    "migrate_session": 61400,
+    "recreate_session": 31532,
+    "status": "terminal0",
+    "migration": "safety0058 aplicada",
+    "check": "sin problemas ni migraciones pendientes",
+    "uid": 10001,
+    "caddy_health": 200,
+    "delivery_backend": "disabled",
+    "review_sha256": "e65095b80366033de2dc7967d10ab873925bffa3158788755533973f9416b88e",
+    "confirmation_sha256": "e03885a60acfc604060cd675de2cf753cbb15721add369a96620694cf13d8914",
+    "hash_scope": "host/app/worker/Beat iguales",
+    "worker_task": "08a4b59f-1a3a-4756-a300-6b7129e31cf7 succeeded resultado0",
+    "beat": "envío periódico observado cada60s",
+    "limitation": "Transporte real con cero registros elegibles; no acredita purga no vacía por worker ni identidad o entrega externa"
+  },
+  "final_common": {
+    "session": 97343,
+    "xml": "/tmp/account-execution-proof-common-final.xml",
+    "result": {
+      "tests": "30",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "350.008"
+    },
+    "scope": "Cuenta/destino/revisión/ejecución/carreras/limpieza PostgreSQL y Chromium; incluye revalidación de prueba tras espera"
+  }
+}

@@ -12,6 +12,7 @@ from apps.listings import (
 from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 from apps.safety import (
+    account_email_views,
     complaint_messages,
     complaints,
     erasure_execution,
@@ -346,6 +347,16 @@ urlpatterns = [
     path("account/logout/", accounts.signout, name="logout"),
     path("account/recover/", accounts.recover, name="recover"),
     path("account/token/<uuid:token_id>/<str:raw>/", accounts.token_view, name="account_token"),
+    path(
+        "safety/account-email-confirm/<uuid:confirmation_id>/",
+        account_email_views.confirm,
+        name="account_email_confirmation",
+    ),
+    path(
+        "safety/account-email/<uuid:confirmation_id>/<str:raw>/",
+        account_email_views.exchange,
+        name="account_email_confirmation_exchange",
+    ),
     path("account/", accounts.dashboard, name="dashboard"),
     path("legal/", legal.index, name="legal_index"),
     path("legal/<slug:slug>/", legal.document, name="legal_document"),

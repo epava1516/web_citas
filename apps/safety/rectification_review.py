@@ -75,6 +75,8 @@ def current(user, case_id, proposal_id, version):
     )
     proof = authorized_proof(case, person, "rectify")
     revision, source = source_snapshot(case, person, listing)
+    # Source reads may wait on User/Revision/Blob; authority must still be current afterward.
+    proof = authorized_proof(case, person, "rectify")
     digest = fingerprint(json.dumps(source, sort_keys=True))
     if (
         latest.pk != proposal.pk
@@ -187,6 +189,10 @@ class ReviewForm(forms.Form):
         choices=[
             ("inspect", "Consultar propuesta (auditoría) / Inspect proposal (audited)"),
             ("review", "Registrar revisión / Record review"),
+            (
+                "confirm_email",
+                "Solicitar confirmación de nuevo correo / Request new email confirmation",
+            ),
             ("notify", "Comunicar propuesta aprobada / Communicate approved proposal"),
             ("execute", "Ejecutar rectificación recibida / Execute received correction"),
         ]
@@ -284,6 +290,19 @@ def prepare(request, case_id, proposal_id):
 
                     changes = {**changes, "details": display_details(changes["details"])}
                 status = 200
+            elif data["operation"] == "confirm_email":
+                from .account_email_confirmation import start
+
+                start(
+                    request.user,
+                    case_id,
+                    proposal_id,
+                    data["key"],
+                    data["version"],
+                    data["reason"],
+                    request.LANGUAGE_CODE,
+                )
+                return private(redirect("rights_inspect", case_id=case.pk))
             elif data["operation"] in {"notify", "execute"}:
                 from .rectification_execution import execute, notify
 

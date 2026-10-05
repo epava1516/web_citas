@@ -116,6 +116,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
     from apps.mediafiles.tasks import process_blob
 
     from . import (
+        rectification_account,
         rectification_catalog,
         rectification_contacts,
         rectification_details,
@@ -145,6 +146,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
             return RightsRectificationExecution.objects.get(action=previous)
         raise ValidationError("Conflicting execution key / Clave incompatible")
     case, proposal, proof, changes = current(user, case_id, proposal_id, version)
+    publication_changes = bool(set(changes) - {"account"})
     notification = (
         RightsRectificationNotification.objects.select_for_update()
         .select_related("review__action", "response")
@@ -177,7 +179,11 @@ def execute(user, case_id, proposal_id, key, version, reason):
         raise ValidationError(
             "Current received correction and fresh check required / Rectificación recibida vigente y nueva comprobación obligatorias"
         )
-    if listing and listing.revisions.filter(status__in=["draft", "processing", "pending"]).exists():
+    if (
+        publication_changes
+        and listing
+        and listing.revisions.filter(status__in=["draft", "processing", "pending"]).exists()
+    ):
         raise ValidationError(
             "Resolve ongoing revisions first / Resuelve primero las revisiones en curso"
         )
@@ -195,7 +201,11 @@ def execute(user, case_id, proposal_id, key, version, reason):
                 payload_digest=signature,
                 encrypted_reason=seal({"reason": reason}),
             )
-            if source:
+            if "account" in changes:
+                before["account"] = rectification_account.apply(
+                    person, proposal, changes["account"]
+                )
+            if source and publication_changes:
                 excluded = {
                     "id",
                     "listing",
@@ -220,6 +230,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
                         for field in changes
                         if field
                         not in {
+                            "account",
                             "alias",
                             "location",
                             "catalog",
@@ -236,6 +247,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
                         for field, text in changes.items()
                         if field
                         not in {
+                            "account",
                             "alias",
                             "location",
                             "catalog",
@@ -324,7 +336,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
                 person.phone_claim = rectification_contacts.claim(changes["contacts"], person)
             person.rights_version += 1
             person.save(update_fields=["alias", "rights_version", "phone_claim"])
-            if listing:
+            if listing and publication_changes:
                 if listing.status == "published":
                     listing.status = "paused"
                 listing.available_until = None
@@ -365,16 +377,23 @@ def execute(user, case_id, proposal_id, key, version, reason):
         case.response_version,
         "progress",
         reason,
-        "Se han aplicado cambios al perfil y, cuando existe anuncio, se ha preparado una nueva versión corregida. "
-        "La publicación permanece pausada y requiere revisión antes de reanudarse. La solicitud sigue abierta. "
-        "Simulación de desarrollo; identidad no comprobada. / Changes have been applied to the profile and, "
-        "where a listing exists, a corrected version has been prepared. Publication remains paused and "
-        "requires review before resuming. The request remains open. Development simulation; identity not verified.",
+        (
+            "Se han corregido los datos de cuenta. El anuncio conserva su estado. La solicitud sigue abierta. / "
+            "Account details have been corrected. The listing retains its state. The request remains open. "
+            "Development simulation; identity not verified."
+            if not publication_changes
+            else "Se han aplicado cambios al perfil y, cuando existe anuncio, se ha preparado una nueva versión corregida. "
+            "La publicación permanece pausada y requiere revisión antes de reanudarse. La solicitud sigue abierta. "
+            "Simulación de desarrollo; identidad no comprobada. / Changes have been applied to the profile and, "
+            "where a listing exists, a corrected version has been prepared. Publication remains paused and "
+            "requires review before resuming. The request remains open. Development simulation; identity not verified."
+        ),
         True,
     )
     from .rectification_notices import create as create_manager_notices
 
-    create_manager_notices(result, person)
+    if publication_changes:
+        create_manager_notices(result, person)
     result.response = response
     result.save(update_fields=["response"])
     case.refresh_from_db()

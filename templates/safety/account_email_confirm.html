@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Confirm correction destination{% else %}Confirmar destino de rectificación{% endif %}</h1>
+{% if unavailable %}<p>{% if english %}This confirmation is unavailable. Request a current confirmation through the review procedure.{% else %}Esta confirmación no está disponible. Solicita una confirmación vigente mediante el procedimiento de revisión.{% endif %}</p>
+{% elif confirmed %}<p role="status">{% if english %}Destination confirmed. Your sign-in email has not changed. The correction still requires reviewed execution.{% else %}Destino confirmado. Tu correo de acceso no ha cambiado. La rectificación sigue requiriendo ejecución revisada.{% endif %}</p>
+{% else %}<p>{% if english %}Confirm access to this destination for the proposed correction. This does not change account access or apply the correction.{% else %}Confirma el acceso a este destino para la rectificación propuesta. Esto no cambia el acceso a la cuenta ni aplica la rectificación.{% endif %}</p><form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Confirm destination{% else %}Confirmar destino{% endif %}</button></form>{% endif %}
+{% endblock %}

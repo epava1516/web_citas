@@ -18,7 +18,9 @@ class SecurityHeadersMiddleware:
             # Errors rejected by decorators/resolution still belong to a private channel.
             response["Cache-Control"] = "private, no-store"
             response["X-Robots-Tag"] = "noindex, nofollow"
-            response["Referrer-Policy"] = "same-origin"
+            response["Referrer-Policy"] = (
+                "no-referrer" if "/safety/account-email/" in request.path else "same-origin"
+            )
         if (
             "/account/" in request.path
             or "/agency/" in request.path
@@ -81,6 +83,8 @@ class AccountGateMiddleware:
             "recover",
             "resend",
             "account_token",
+            "account_email_confirmation",
+            "account_email_confirmation_exchange",
             "accept_current",
             "mfa_enroll",
             "mfa_challenge",

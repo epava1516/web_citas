@@ -165,6 +165,8 @@ def test_browser_individual_verification(live_server, settings):
             page.locator("button[type=submit]").click()
             page.locator("input[name=code]").fill(mail.outbox[-1].body)
             page.locator("button[type=submit]").click()
+            expect(page.get_by_text("Requisitos locales completos", exact=False)).to_be_visible()
+            expect(page.locator("input[name=code]")).to_have_count(0)
             page.reload()
             expect(page.get_by_text("Requisitos locales completos", exact=False)).to_be_visible()
             page.get_by_role("button", name="Revocar autorización").click()

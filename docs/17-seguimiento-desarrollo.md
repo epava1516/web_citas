@@ -1,20 +1,20 @@
 # Seguimiento de ejecución del contrato
 
-Actualizado: 2026-10-04. Contrato: [ejecución v1](16-contrato-ejecucion-desarrollo.md).
+Actualizado: 2026-10-05. Contrato: [ejecución v1](16-contrato-ejecucion-desarrollo.md).
 
 ## Estado actual
 
 - Fase: BASE y CR-01 a CR-08 verificados localmente; implementación autorizada el 2026-10-03.
 - Próximo paso: CR-09; completar exportación/retención de revisión de recargas, casos legados y conservación histórica por finalidad; identidad de cuenta, decisiones/comunicaciones pendientes y respuesta final. Continuar también los demás derechos, retención y huecos de docs40; no iniciar CR10/GS01 como si CR09 estuviera aceptado.
 - Frontend/backend: cuentas, documentos, agencias, asignaciones y MFA conectados; regresión común histórica CR-08:166 pruebas pasan con PostgreSQL y Chromium (450.45s, sin skips), dos límites finales14.47s; Docker/worker/Beat de CR-08 verificados; verificación y representación conectadas con simuladores explícitos.
-- Docker actual: app/worker/Beat reconstruidos y recreados; core0015/safety0057/mediafiles0010 confirmadas, Caddy health200 y UID10001. Backends de identidad de derechos y avisos desactivados en runtime normal. Inventario, evaluación y revisión independiente de candidatos conectados; regresión conjunta verificada localmente y cierre pendiente. No aceptación completa CR-09.
+- Docker actual: app/worker/Beat reconstruidos y recreados; core0015/safety0058/mediafiles0010 confirmadas, Caddy health200 y UID10001. Backends de identidad de derechos, avisos y confirmación de correo desactivados en runtime normal. Inventario, evaluación y revisión independiente de candidatos conectados; regresión conjunta verificada localmente y cierre pendiente. No aceptación completa CR-09.
 - Regresión común histórica sobre e6727bb:426 passed1776.17s, exit0/sin skips; aislamiento de migraciones corregido. Integra funcionalidades implementadas, no acepta CR-09 completo.
 - Regresión histórica sobre f5c636c terminada:444 passed1922.29s, exit0/sin errores/fallos/skips. Integra cambios hasta safety0041; no acepta CR09 completo. Continuar requisitos pendientes de acta04/docs40.
 - Regresión histórica CR-09 sobre35b1f53:285 passed/1 failed969.51s, sin skips; fallo de recarga Chromium investigado; sincronización observable reforzada,20 pruebas afectadas passed95.28s. No aceptada como suite completa.
 - Regresión completa CI sobre4789079:493 passed1378.93s, job integration success; PostgreSQL/Chromium, ruff/check/migraciones pasan. [Evidencia](evidencias/regresion-ci-4789079.json). No incluye36ced07/a5c9d7b posteriores; no aceptaCR09 completo.
 - Regresión completa CI sobre36ced07:494 passed1420.52s, run37225258925 success. [Evidencia](evidencias/regresion-ci-36ced07.json). No incluye textos posteriores ni corrección de tarifas; CR09 permanece abierto.
 - Regresión completa CI sobrea5c9d7b:498 passed1444.36s, run37226297758 success. [Evidencia](evidencias/regresion-ci-a5c9d7b.json). No incluye tarifas/fuenteBlob/selección de fotos posteriores; CR09 sigue abierto.
-- Regresión CI más reciente:1ad2412,532 pruebas correctas1708.09s, run37239889995 success; incluye candidatos privados, anterior a revisión safety0057 y cambios actuales. [Evidencia](evidencias/regresion-ci-1ad2412.json).
+- CI terminal: e2c5ef2/run37242529548 success537 correctas1755,51s; e0e2e75/run37242879951 failure539 correctas/1 fallida1684,40s por reload Chromium tras POST de teléfono. Evidencias en docs/evidencias/regresion-ci-e2c5ef2.json y regresion-ci-e0e2e75.json. No incluyen cuenta actual ni aceptan CR09.
 - GS-01: no satisfecho; no separar trabajo todavía.
 - Producción: pendiente; ningún gate verificado.
 - Herramientas: Graphify0.9.74/skill Codex instalados y usados; [resultados/incidencia](19-graphify-analisis-local.md). Claude3/3 consumidas; continuar localmente. [Auditoría pendiente CR-09](actas/04-cr09-auditoria-pendiente.md).
@@ -768,3 +768,109 @@ Batería96333 viva:17 seleccionadas, nuevas3 correctas; inventarios anteriores4 
 
 
 Inventario de revisión de recargas:17 conjuntas correctas149,41 s, cero fallos/errores/omisiones PG/Chromium. Incluye cambios de versión/motivo/lectura, rechazo antes de execute sin eliminar archivos, aislamiento de otro perfil y ausencia de motivos/ciphertext en manifest. review_version y encrypted_reason participan en HMAC interno seleccionado, sin descifrar ni entregar su contenido. Reproducción previa2 fallidas/1 correcta41,46 s conservada. Docker build88611/recreate86940/check/health200/hashes host-app-worker-Beat verificados; sin migración nueva. No acredita inventario/exportación integral ni política final de conservación. Claude3/3; CR09/contrato abiertos.
+
+
+Inventario e0e2e75 commit/push confirmados. Siguiente recorrido de cuenta definido en docs/49-rectificacion-cuenta.md: bloque cifrado en propuesta/revisión/comunicación/ejecución existentes, sujeto real vinculado, confirmación específica de nuevo buzón, revocación de sesiones/enlaces y sin clonar anuncio por cambios solo de cuenta. Diseño todavía no implementado ni aceptado; mantener exportación/retención/otros derechos y resto contrato en backlog. Claude3/3; sin nuevas invocaciones.
+
+
+CI confirmadas vivas: e2c5ef2 run37242529548 y e0e2e75 run37242879951, ambas in_progress. No reiniciar ni cancelar; consultar sus IDs hasta terminal. Sin pytest local activo. Diseño docs49 y esta continuación sin commit todavía; próximo implementar recorrido de cuenta conforme a ese contrato.
+
+
+Rectificación de cuenta iniciada: rectification_account.py delimita fuente de person.subject bajo transacción/lock de User, whitelist nombre/apellidos/email, normalización y unicidad de correo; fuente incluye estampa HMAC de credenciales sin contraseña/MFA/tokens. Rechaza cuenta ausente/suprimida y campos técnicos; no muta usuarios. Pruebas52543/XML /tmp/rectification-account-source.xml en curso. Aún sin conectar a propuesta/revisión/ejecución/SSR ni confirmar nuevo buzón; no aceptar recorrido ni actualizar runtime como implementado. Diseño docs49 íntegro vigente; Claude3/3.
+
+
+Fuente/validación52543 terminal0:2 correctas25,76 s PostgreSQL, sin fallos/errores/omisiones. Sujeto de agencia distinto de propietario, cuenta no vinculada/suprimida, cambios de credenciales, ausencia de contraseña en fuente, whitelist, capitalización/colisión y no mutación verificados. Sin pytest activo. Siguiente integrar bloque de cuenta en fuente/propuesta auditada y pantallas con los controles definidos, después confirmación de nuevo buzón y ejecución. Funciones actuales todavía sin uso en recorrido público; no aceptación CR09.
+
+
+Cuenta conectada a fuente/propuesta: source_snapshot incluye estado de cuenta para HMAC y preview proyecta solo nombre/apellidos/email; formulario bloque account y validación bajo User lock, propuesta cifrada con fuente obsoleta409. validate_copy distingue cuenta de datos de revisión. execute rechaza bloque account explícitamente hasta confirmación/ejecución integral, antes de mutar. Pruebas31331/XML /tmp/rectification-account-proposal.xml activas:22 seleccionadas (3 cuenta,19 rectificación). Fuente congelada. Auditoría pendiente: mover lectura/lock de User al principio de source_snapshot antes de Revision/Blob, coherente con copia y supresión, probar orden/concurrencia; no aceptar esta versión como completa. Revisiones/comunicación/destino/ejecución/SSR móvil/inventario aún pendientes. Claude3/3.
+
+
+31331 terminal0:22 correctas177,19 s PG/Chromium, cero fallos/errores/omisiones. Incluye propuesta de cuenta auditada/cifrada y fuentes obsoletas, sin mutación. Carrera29869/XML /tmp/rectification-account-lock-order-before.xml activa: lector bloqueado por User debe dejar Revision/Blob libres para NOWAIT y recuperar nuevas credenciales tras liberación. Probar fallo previo antes de mover lectura de cuenta al principio de source_snapshot. No runtime/commit ni ejecución integral aún.
+
+
+Carrera29869 terminal1:1 fallida22,90 s,3 excluidas; PostgreSQL NOWAIT confirma Revision ya bloqueada mientras la fuente esperaba User. Movida lectura/lock User al inicio de source_snapshot antes de Revision/Blob. Batería92284/XML /tmp/rectification-account-lock-order-final.xml activa:4 cuenta, incluye bloqueos realmente observados y credenciales modificadas durante espera.22 anteriores pertenecen a fuente previa; no sumar ni declarar regresión común final. Confirmación de destino y ejecución siguen pendientes.
+
+
+Cuenta92284 terminal0:4 correctas39,92 s PostgreSQL, sin fallos/errores/omisiones. NOWAIT sobre Revision/Blob disponible mientras lector espera User; tras liberar obtiene HMAC de nuevas credenciales, sin contraseña en fuente.22 anteriores no se suman ni equivalen a regresión común de la corrección final. Sin pruebas locales activas. Próximo confirmación del correo ligada a propuesta/sujeto/fuente, token de uso único por POST y entrega local simulada; después ejecución/comunicaciones/SSR móvil/inventario/runtime y aceptación. Claude3/3; sin nueva delegación.
+
+
+Confirmación de destino implementada en desarrollo: safety0058/registro cifrado ligado a propuesta/sujeto/fuente, tokenSHA256 y plazo24h, revocación al reemitir y borrado del contenido de entrega al confirmar. start requiere revisión independiente aprobada/lectura vigente/comprobación fresca; journal y versión de caso, backend disabled por defecto y solo simulación fuera de producción. Ruta safety/account-email privada/noindex/no-referrer; GET no confirma, POST CSRF confirma posesión sin cambiar User ni anuncio. Operación SSR confirm_email conectada a revisión. Pruebas19426 terminal1:2 fallidas32,23s por nombre de operación21 caracteres en RightsAction(max20); abreviado account_email, sin ampliar límites. Repetición23628/XML /tmp/account-email-confirmation-http-final.xml activa; source congelada. MigrationRuff import corregido. Falta revisar excepción de unicidad/carreras, headers de errores, inventario/purga, navegador ESEN, confirmación→ejecución y runtime; no aceptación CR09.
+
+
+Confirmación23628 terminal1:1 correcta/1 fallida31,40s. Middleware sobreescribía no-referrer con same-origin; corregido para ruta safety/account-email incluyendo errores rechazados antes de view. Capturado IntegrityError de clave de acción para revertir solicitud/revocaciones en atomic. Script de refuerzo de aserción CSRF-header no aplicó (assertion por formato de test); no afirmar cobertura de ese header en CSRF hasta añadirlo tras terminal. Batería82227/XML /tmp/account-email-confirmation-final.xml activa6 pruebas de destino/cuenta. Modelo0058 solo en PostgreSQL de tests; runtime/confirmación→ejecución/inventario/limpieza/carreras/navegador pendientes, no aceptación CR09.
+
+
+82227 terminal0:6 correctas53,34s PG, sin fallos/errores/omisiones. HTTP GET inocuo/POSTCSRF/confirmación idempotente/enlace incorrecto-caducado/fuente cambiada/backends producción-disabled/no mutación User, y cuenta/locks pasan. Después se añadió aserción no-referrer en403CSRF, vínculo proof protegido a confirmación y revalidación status passed tras locks; metadata/ciphertext solo en HMAC de inventario dependiente. safety0058 CreateModel ajustada antes de aplicarse al runtime; check de migraciones sin cambios. Batería27576/XML /tmp/account-email-confirmation-proof-inventory.xml activa10 pruebas destino/cuenta/inventarios, fuente congelada. No sumar6 previas ni aceptar prueba negativa de revocación original aún. Runtime0058/navegador/carreras/limpieza/enlace con ejecución y cierre pendientes. Claude3/3.
+
+
+27576 terminal0:10 correctas87,58s PG, sin fallos/errores/omisiones. Header CSRF403 no-referrer y vínculo proof/inventario incluidos; no acreditaba aún revocación de prueba original ni navegador. Ampliados solo tests: restaurar credenciales antes de mutar status proof para aislar revocación; Chromium390x844 ES/EN confirma trasGET/reload inocuos, resultado visible antes/después de recarga y sin mutar correo. Batería76047/XML /tmp/account-email-confirmation-browser.xml activa4 casos, fuente funcional congelada. safety0058 sin aplicar en runtime; faltan concurrencia/limpieza/ejecución completa/runtime/aceptación CR09. Claude3/3.
+
+
+76047 terminal1:2 HTTP correctas/2 móviles fallidas51,23s. ORM síncrono dentro del event loop Playwright dispara SynchronousOnlyOperation. Eliminada lectura DB dentro del navegador: trasGET/reload se comprueba checkbox visible (el resultado confirmado oculta formulario); estado DB se verifica fuera del contexto Playwright. No desactivar protección async ni debilitar comprobación de GET inocuo. Repetir dos móviles afectados; revocación original HTTP sí pasó. Fuente funcional sin cambios.
+
+
+39736 terminal1:2 móviles fallidas47,02s (2 HTTP excluidas). Chromium POST desde página no-referrer envía Origin null y Django rechazaCSRF. Corregido recorrido sin confiar null ni quitarCSRF: GET enlace validado intercambia credencial a cookie firmada/HttpOnly/SameSiteStrict/TTL24h (Secure en producción) y redirige con no-referrer a safety/account-email-confirm/<id>/ sin secreto. Formulario limpio usa same-origin; solo POST confirma y GET no consume. Backend externo sigue disabled; solo simulación desarrollo. Pruebas97901/XML /tmp/account-email-confirmation-clean-url.xml activas4 HTTP+móvilESEN. Fuente congelada; runtime0058/limpieza/carreras/ejecución pendientes.
+
+
+Confirmación97901 terminal0:4 correctas52,98s, sin fallos/errores/omisiones. HTTP y Chromium móvil ES/EN verifican intercambio a cookie HttpOnly, URL limpia, GET inocuo, POST CSRF y resultado persistido sin cambiar cuenta. XML /tmp/account-email-confirmation-clean-url.xml. No pytest activo; ejecución integral, limpieza, concurrencia, runtime0058 y aceptación CR09 siguen pendientes.
+
+
+Continuación cuenta: ejecución implementada pendiente de aceptación; cambios solo de cuenta no crean revisión ni alteran lifecycle/publicación, no generan avisos de cuenta para gestores de agencia. Correo nuevo requiere confirmación vigente ligada a propuesta/sujeto/fuente/destino/prueba; consumo atómico, email_verified_at, incremento session_version e invalidación de AccountToken. Prueba53507 terminal1:1 fallida23,91s por sesión MFA ausente del verificador en fixture, antes de ejecutar cambio; corregida preparación sin relajar MFA. Repetición26450 /tmp/account-only-execution-final.xml en curso; fuente congelada. No aceptar ejecución hasta resultado ni sustituir regresión común.
+
+CI consultada por IDs originales: e2c5ef2/run37242529548 completed success. e0e2e75/run37242879951 completed failure:539 correctas/1 fallida1684,40s; test_browser_accounts::test_browser_individual_verification Page.reload «Not attached to an active page». Log /tmp/ci-e0e2e75-failed.log; requiere investigar sincronización navegador, no declarar regresión final verde ni reiniciar automáticamente. Estas CI no incluyen trabajo actual de cuenta.
+
+
+Ejecución26450 terminal0:1 correcta25,96s (4 excluidas), PostgreSQL/HTTP. Recorrido aprobado→confirmación simulada→comunicación/recepción→nueva comprobación→ejecución: correo aplicado, verificación fechada, session_version incrementada y confirmación consumida; anuncio sin clon/cambio de estado/lifecycle, sin aviso de datos de cuenta al gestor; replay no repite cambio. No acredita todavía nombres solos, cambios mixtos, tokens/sesiones HTTP, carreras, limpieza o runtime0058. Continuar batería conjunta afectada y escenarios faltantes antes de aceptación CR09.
+
+
+Batería cuenta/revisión38545 activa:20 seleccionadas, XML /tmp/account-execution-common.xml; fuente congelada hasta terminal. No sustituye regresión completa CI.
+
+
+Batería38545 terminal0:20 correctas269,52s, cero fallos/errores/omisiones, PostgreSQL/Chromium. Cuenta, confirmación y revisión/ejecución de rectificación anteriores pasan juntos. Ruff/check/makemigrations/diff limpios. No acredita requisitos pendientes de cuenta, limpieza o runtime ni cierre CR09.
+
+
+Navegador individual57021 terminal0:1 correcta23,32s (3 excluidas), Chromium móvil. Antes de reload se exige resultado «Requisitos locales completos» visible y formulario de código ausente; no sleeps/retries ni cambio funcional. Fallo CI original conservado; no afirmar CI común reparada hasta nueva ejecución.
+
+Limpieza de entrega de confirmación implementada: selección acotada100, locks ámbito/cuenta/confirmación y revalidación de caducidad tras espera; vacía solo encrypted_delivery, sin borrar journal/prueba/propuesta ni cerrar caso. Beat cada60s, independiente de backend de envío desactivado. Ejecución de correo rechaza backend desactivado/producción también al consumir confirmación. Batería36442 en curso6 pruebas cuenta/destino/limpieza, XML /tmp/account-execution-retention.xml; fuente congelada. Runtime0058/worker/Beat aún no actualizados.
+
+
+36442 terminal0:6 correctas71,95s, sin fallos/errores/omisiones; confirmación HTTP/móvil ESEN, ejecución de cuenta y purga de contenido caducado verificadas. Limpieza mediante invocación síncrona de tarea, todavía sin worker/Beat real. Refuerzo19236 terminal1:1 fallida27,22s (5 excluidas), URL de mail locmem extraída incluyendo prefijo y endpoint health localizado inexistente. Corregida extracción última línea y /health/ real; sin cambio funcional. Repetición /tmp/account-execution-auth-negatives-final.xml en curso; preserva rechazo de confirmado/caducado/revocado/consumido inválidos y producción, tokens/sesión antiguos y MFA.
+
+
+Autenticación10944 terminal0:1 correcta27,72s (5 excluidas). Rechaza confirmación sin confirmar/caducada/revocada/consumida y ejecución en producción sin mutar cuenta ni crear ejecución; después aplica con confirmación vigente, invalida AccountToken, enlace reset anterior HTTP400 y sesión anterior cerrada por middleware real. MFA conserva secreto/version/estado; anuncio intacto y replay no repite cambio. Correo locmem explícitamente simulado. Ruff/check/makemigrations/diff limpios; sin pytest activo. Pendiente nombres solos, cuenta sin anuncio, cambios mixtos, concurrencia y colisiones, interfaz integral, runtime0058/worker/Beat y regresión CI final. CR09/contrato abiertos; Claude3/3.
+
+
+Variantes10442 en curso:2 pruebas nombres solos y nombres+título, XML /tmp/account-name-mixed-execution.xml. Recorrido revisión independiente→comunicación/acuse→comprobación fresca→ejecución sin backend de correo. Comprueba correo/verificación/sesión/contraseña intactos; nombres solos conserva anuncio sin clon, mixto crea draft sin aceptación editorial y pausa sin modificar título de revisión aprobada. Fuente congelada hasta terminal.
+
+
+Variantes10442 terminal0:2 correctas33,12s,6 excluidas, PostgreSQL. Nombres solos no requieren backend de correo ni confirmación, conservan cuenta salvo nombres y anuncio completo; nombres+título aplica cuenta y crea revisión draft sin aceptación editorial, pausa publicación y mantiene versión aprobada histórica. No acredita todavía cuenta sin anuncio ni correo+título ni carreras.
+
+
+Carreras24979 activas:2 PostgreSQL, XML /tmp/account-confirmation-authority-races.xml. Retiene User en conexión principal, observa pg_blocking_pids de confirmación concurrente y modifica nombre o revoca status de proof antes de liberar; debe denegar sin confirmar ni cambiar correo. Fuente congelada hasta terminal; no declarar cobertura antes de resultado.
+
+
+Carreras24979 terminal0:2 correctas31,30s,8 excluidas. pg_blocking_pids confirma espera sobre User; cambio de nombre o revocación de comprobación original durante espera deniega confirmación tras liberar, sin confirmed_at/consumed_at ni cambio de correo. PostgreSQL real, entrega e identidad simuladas. No prueba todavía dos ejecutores, colisión de correo ni limpieza concurrente. Sin pytest activo; siguiente completar estas carreras y correo+título/cuenta sin anuncio, interfaz integral y runtime antes de aceptación.
+
+
+Carreras ejecución17254 en curso:2 pruebas, XML /tmp/account-execution-races.xml. Dos conexiones ejecutan misma clave/versión con barrera: deben devolver misma ejecución y aumentar rights_version una vez. Colisión de destino reservada por otra cuenta con capitalización distinta en transacción no visible: observar bloqueo PostgreSQL en índice y exigir rollback completo de usuario/acción/ejecución/consumo/respuesta tras commit competidor. Preparación usa recorrido revisión/comunicación/acuse/comprobación fresca; identidad y entrega simuladas. Fuente congelada hasta terminal.
+
+
+Carreras17254 terminal0:2 correctas35,61s, PostgreSQL. Dos conexiones aplican misma clave/versión con resultado único y rights_version +1; reserva de destino por otra cuenta no confirmada mientras execute espera índice case-insensitive produce conflicto y rollback de cuenta/acción/ejecución/consumo/respuesta. Bloqueo realmente observado por pg_blocking_pids. Identidad y entrega siguen simuladas; no aceptación CR09.
+
+
+Batería74037 activa4 carreras/mixto/limpieza, XML /tmp/account-execution-races-mixed-cleanup.xml. Añade correo confirmado+título atómicos y limpieza que espera User y revalida nueva caducidad antes de vaciar. Fuente congelada. Auditoría identifica necesidad de revalidar authorized_proof tras source_snapshot potencialmente bloqueante en rectification_review.current; reproducir revocación/caducidad durante espera antes de modificar código. No aceptación final.
+
+
+74037 terminal0:4 correctas54,35s PostgreSQL, sin fallos/errores/omisiones. Dos ejecutores/colisión previas pasan; correo+título aplica atómicamente, consume confirmación y deja anuncio pausado con nuevo draft sin aceptación; limpieza espera User observado y conserva entrega si caducidad cambia antes de liberar. No suma baterías ni verifica worker real. Reproducción adicional de prueba de ámbito revocada durante espera en ejecución en curso, XML /tmp/account-execution-proof-before.xml; fuente congelada.
+
+
+Reproducción1422 terminal1:1 fallida25,39s,4 excluidas; execute aplicó corrección con prueba de ámbito revocada durante espera User observada. Corregido rectification_review.current: authorized_proof se revalida después de source_snapshot potencialmente bloqueante, antes de admitir cambios/consulta/revisión/comunicación/confirmación/ejecución. Batería conjunta afectada en curso /tmp/account-execution-proof-common-final.xml (cuenta/destino/carreras/rectificación); fuente congelada. No aceptación de corrección hasta terminal ni sustituir regresión CI/runtime.
+
+
+Batería final97343 confirmada activa:30 seleccionadas, XML /tmp/account-execution-proof-common-final.xml. Ruff/check/makemigrations/diff limpios. Recuperar mismo handle hasta terminal, no reiniciar por timeout. Fuente congelada; cuenta sin anuncio/SSR integral/runtime0058/workerBeat/CI y CR09/contrato completos siguen pendientes.
+
+
+Docker cuenta: build83711/migrate61400/recreate31532 terminal0; safety0058 aplicada, check limpio/migrate--check sin pendientes, UID10001, Caddy health200. Hashes review/confirmación iguales host/app/worker/Beat; backend entrega disabled. Worker ejecutó tarea08a4b59f-1a3a-4756-a300-6b7129e31cf7 con resultado0; Beat envío periódico observado. Transporte real sobre cero registros elegibles, no purga con contenido ni proveedor/identidad reales. Batería97343 sigue activa y fuente congelada; no aceptación CR09.
+
+
+Batería97343 terminal0:30 correctas350,14s PostgreSQL/Chromium, cero fallos/errores/omisiones. Incluye corrección de revalidación authorized_proof tras espera real User; deniega ejecución sin mutar si prueba original se revoca durante espera. Cuenta/destino/carreras/mixto/limpieza y rectificación anteriores pasan conjuntamente. Runtime0058/check/UID10001/health200/hashes y transporte worker/Beat resultado0 verificados por separado. Falta cuenta sin anuncio accesible desde vínculo de ámbito, interfaz integral ESEN, purga no vacía worker, inventarios/exportación/retención final y CI común. No aceptación CR09/contrato/producción; no pytest activo. Claude3/3, sin delegación adicional.

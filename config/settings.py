@@ -95,6 +95,7 @@ LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "home"
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 SAFETY_NOTICE_BACKEND = os.getenv("SAFETY_NOTICE_BACKEND", "disabled")
+ACCOUNT_CORRECTION_DELIVERY_BACKEND = os.getenv("ACCOUNT_CORRECTION_DELIVERY_BACKEND", "disabled")
 RIGHTS_VERIFICATION_BACKEND = os.getenv("RIGHTS_VERIFICATION_BACKEND", "disabled")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@example.invalid")
 PUBLIC_ORIGIN = os.getenv("PUBLIC_ORIGIN", "http://localhost:8000").rstrip("/")
@@ -141,6 +142,10 @@ CELERY_BEAT_SCHEDULE = {
     "erase-private-media": {"task": "apps.mediafiles.tasks.erase_media_files", "schedule": 60.0},
     "deliver-private-safety-notices": {
         "task": "apps.safety.tasks.deliver_safety_notices",
+        "schedule": 60.0,
+    },
+    "purge-expired-account-confirmation-delivery": {
+        "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
         "schedule": 60.0,
     },
     "purge-expired-private-copies": {

@@ -19,6 +19,7 @@ from apps.listings.models import Revision
 from apps.mediafiles.models import Blob, Photo
 
 from . import (
+    rectification_account,
     rectification_catalog,
     rectification_contacts,
     rectification_details,
@@ -55,12 +56,18 @@ def validated_changes(value, person=None, case=None):
         not isinstance(value, dict)
         or not value
         or set(value)
-        - (set(FIELDS) | {"location", "catalog", "rates", "contacts", "details", "photos"})
+        - (
+            set(FIELDS)
+            | {"location", "catalog", "rates", "contacts", "details", "photos", "account"}
+        )
     ):
         raise ValidationError("Unsupported correction fields / Campos de corrección no admitidos")
     value = value.copy()
     for field in sorted(value):
         text = value[field]
+        if field == "account":
+            value[field] = rectification_account.validate(text, person)
+            continue
         if field == "photos":
             value[field] = rectification_photos.validate(text, person, case)
             continue
@@ -93,7 +100,7 @@ def validated_changes(value, person=None, case=None):
 
 @sensitive_variables()
 def validate_copy(changes, revision, person, case):
-    if set(changes) - {"alias"}:
+    if set(changes) - {"alias", "account"}:
         if not revision or revision.manager_version != person.manager_version:
             raise ValidationError("Current revision required / Revisión vigente obligatoria")
         rectification_photos.validate(
@@ -182,6 +189,8 @@ def propose(user, case_id, key, version, changes, reason):
 
 @sensitive_variables()
 def source_snapshot(case, person, listing, include_uploads=True, additional_blob_ids=()):
+    # Account writers and access-copy snapshots acquire User before revision/media rows.
+    account_source = rectification_account.source(person) if person.subject_id else None
     revision = None
     if listing and listing.approved_revision_id:
         revision = Revision.objects.select_for_update().get(pk=listing.approved_revision_id)
@@ -263,6 +272,7 @@ def source_snapshot(case, person, listing, include_uploads=True, additional_blob
         if revision
         else {},
     }
+    source["account"] = account_source
     if revision:
         source["fields"]["location"] = rectification_location.source(revision)
         source["fields"]["catalog"] = rectification_catalog.source(revision)
@@ -341,6 +351,9 @@ def preview(user, case_id, version, purpose):
     )
     return {
         "alias": source["alias"],
+        "account": {field: source["account"][field] for field in rectification_account.FIELDS}
+        if source["account"]
+        else None,
         **source["fields"],
         "upload_choices": source.get("upload_choices", []),
     }
@@ -366,6 +379,7 @@ class ProposalForm(rectification_details.Editor):
     fields = forms.MultipleChoiceField(
         required=False,
         choices=[
+            ("account", "Datos de cuenta del sujeto / Subject account details"),
             ("alias", "Nombre del perfil / Profile name"),
             ("title", "Título / Title"),
             ("description", "Descripción / Description"),
@@ -379,6 +393,15 @@ class ProposalForm(rectification_details.Editor):
         ],
         widget=forms.CheckboxSelectMultiple,
         label="Campos que se propone corregir / Fields proposed for correction",
+    )
+    account_first_name = forms.CharField(
+        required=False, max_length=150, label="Nombre de cuenta / Account first name"
+    )
+    account_last_name = forms.CharField(
+        required=False, max_length=150, label="Apellidos de cuenta / Account last name"
+    )
+    account_email = forms.EmailField(
+        required=False, max_length=254, label="Correo de cuenta / Account email"
     )
     alias = forms.CharField(required=False, max_length=80, label="Nombre del perfil / Profile name")
     title = forms.CharField(required=False, max_length=FIELDS["title"], label="Título / Title")
@@ -444,8 +467,14 @@ class ProposalForm(rectification_details.Editor):
             data["changes"] = {
                 field: data.get(field, "")
                 for field in selected
-                if field not in {"location", "catalog", "rates", "contacts", "details", "photos"}
+                if field
+                not in {"location", "catalog", "rates", "contacts", "details", "photos", "account"}
             }
+            if "account" in selected:
+                data["changes"]["account"] = {
+                    field: data.get("account_" + field, "")
+                    for field in rectification_account.FIELDS
+                }
             if "details" in selected:
                 data["changes"]["details"] = rectification_details.validate(
                     {
@@ -563,7 +592,12 @@ def prepare(request, case_id):
                             "details",
                             "photos",
                             "upload_choices",
+                            "account",
                         }
+                    },
+                    **{
+                        "account_" + field: value
+                        for field, value in (source_fields.get("account") or {}).items()
                     },
                     **source_fields.get("location", {}),
                     **source_fields.get("catalog", {}),

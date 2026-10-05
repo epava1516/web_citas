@@ -812,3 +812,20 @@ class RightsPhotoReintroductionDecision(models.Model):
                 name="rights_reuse_decision_outcome",
             ),
         ]
+
+
+class RightsAccountEmailConfirmation(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    proposal = models.ForeignKey(RightsRectificationProposal, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    subject = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    digest = models.CharField(max_length=64, unique=True)
+    source_digest = models.CharField(max_length=64)
+    destination_digest = models.CharField(max_length=64)
+    encrypted_delivery = models.TextField()
+    expires_at = models.DateTimeField()
+    confirmed_at = models.DateTimeField(null=True, blank=True)
+    consumed_at = models.DateTimeField(null=True, blank=True)
+    revoked_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)

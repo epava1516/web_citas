@@ -41,3 +41,10 @@ def purge_expired_exports():
         RightsExportImage.objects.filter(export_id__in=ids).update(encrypted_content="")
         RightsExportPart.objects.filter(export_id__in=ids).update(encrypted_content="")
         return RightsExport.objects.filter(pk__in=ids).update(encrypted_payload="", purged_at=now)
+
+
+@shared_task
+def purge_expired_account_confirmation_delivery():
+    from .account_email_confirmation import purge_expired_delivery
+
+    return purge_expired_delivery()
