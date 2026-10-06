@@ -47,3 +47,5 @@ RightsRecipientNotice se incorpora como dependent_evidence a los inventarios de 
 La fuente de cuenta contiene75 modelos seleccionados tras esta ampliación. Metadatos de envío/acuse y ciphertext se incorporan a huellas de estado sin descifrarlos ni devolverlos en el manifiesto. Cambios propios alteran la fuente; cambios de avisos ajenos no. Los procedimientos erase/restriction/object excluyen avisos del propio expediente, como evidencia actual pendiente de contabilización aparte; el censo de acceso excluye siempre los registros del expediente actual mediante sus rutas FK. No declarar completo el derecho por esta exclusión.
 
 [Verificación](evidencias/censo-avisos-derechos0110.json):3 pruebas de ámbito/opacidad/dependencias y7 de integración con acceso/comunicaciones. No migración, tarea, política jurídica o autorización de destrucción nuevas.
+
+Fuente del censo2991e4e, [Docker0110 verificado](evidencias/censo-avisos-derechos-runtime0110.json):53 archivos coincidentes; sin migración/tarea nueva.

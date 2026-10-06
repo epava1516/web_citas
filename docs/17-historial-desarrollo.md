@@ -2413,3 +2413,8 @@ Valoraciónv4 cambia únicamente comunicaciones60→70 por nuevo alcance interno
 ## 2026-10-06 — Censo de dependencias de notificación0110
 
 Detectada omisión del nuevo RightsRecipientNotice en inventarios de conservación/acceso: incorporada selección explícita de ámbito y campos opacos. Cuenta selecciona expedientes propios/recepción propia sin recorrer modelos de agencia; perfil solo sus expedientes. Procedimientos actuales excluidos y pendientes explícitos; cambios de ciphertext propio afectan HMAC sin descifrar, ajenos no.3 específicas/dependencias66,96s y7 integración acceso/comunicaciones192,55s correctas. Primer ensayo2 fallos de fixture por campos obligatorios de RightsRequest omitidos/1 correcta; corregida fixture sin debilitar restricciones. [Evidencia](evidencias/censo-avisos-derechos0110.json). Sin migración ni tarea/política/borrado nuevo. Porcentajesv4 intactos y resto contrato pendiente.
+
+
+## 2026-10-06 — Entrega censo de avisos y runtime0110
+
+2991e4e commit/push confirmado. Logs reales parciales conservados antes de recreación en /tmp/rights-notice-census-predeploy0110-dzg0uf2y/access-log-origins.encrypted a13:33:43UTC; cuatro pendientes operacionales intactos. Build/recreación solo app/worker/Beat correctos;53 SHA256 idénticos host/servicios, UID10001/PG/0110/whitelist, check/migratecheck, HTTP8000+18080=200 y CSS servido correctos. [Runtime](evidencias/censo-avisos-derechos-runtime0110.json). Sin cambio de tarea/migración ni repetición de purga aceptada. Seguimiento17 actualizado en su sitio. Censo operacional completo y conservación reservada/disparadores por finalidad pendientes; porcentajesv4 intactos, contrato completo activo.
