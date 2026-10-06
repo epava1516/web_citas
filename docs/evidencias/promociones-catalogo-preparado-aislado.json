@@ -1,0 +1,39 @@
+{
+  "observed_at": "2026-10-06T18:24:16.724446+00:00",
+  "status": "isolated_implementation_pending_integration",
+  "worktree": "/home/felidae/proyectos/web_modelos_cr10prep",
+  "branch": "codex/cr10-catalog-prep",
+  "commit": "db0f03f42550d7a0dcfbad2764bad9d6e957f9ec",
+  "source_sha256": {
+    "apps/catalog/migrations/0002_promotionproduct_promotionproductversion.py": "241851c3fc3ac4921697fa21e2004d8b71967da666204ea67600f43c51b69a0e",
+    "apps/catalog/models.py": "bd35cf503b08bab5ee31e32d77c1e76318c05cf1fcac7d4ed9f76b61bd328df7",
+    "apps/catalog/promotion_forms.py": "23274cc6002a849df0faac7156f32e62b7623cc2dc64bd4e94c4ce6bcaf72d4d",
+    "apps/catalog/promotion_models.py": "1670e77b3b51767aca55fda7503aaa8467a825e0a3a725434f5c43aa252669ad",
+    "apps/catalog/promotion_services.py": "778893601e6394aa55ece46dd8c682b71f20a5535f289db820b988c5e74ad1e1",
+    "apps/catalog/promotion_urls.py": "5e787a20ffc9a3832172675f9a628d4589b4aa0a7897d52172870ea92bf01cea",
+    "apps/catalog/promotion_views.py": "b5dd38ca400190a0949098e223a6807fc1c81396742b8814aa0337aba61e6a18",
+    "config/urls.py": "b2b3d95d511262e893853e76c2686359ba1d460d9722ed7a053ffd5336ecad16",
+    "templates/catalog/promotion_edit.html": "32167b78b8d5107ca74b09497ce39d94c15f70f81c2c54eeb084352eeda3c523",
+    "templates/catalog/promotion_preview.html": "bb129051a42c4546ca8174640d1ada33c95b60b37d9bb0bb88c64eae8561c971",
+    "templates/catalog/promotion_products.html": "f7d5ef37e7069fff38cfe0b93c5059cfbcd8e8a7ac18bcf38ffad31eb7bd7f79",
+    "templates/catalog/promotion_versions.html": "a6911aa873af0241372560f4604aa6f7edaa717a39e45ac95e57c90662c9c779",
+    "tests/test_promotion_catalog.py": "d1c23ba80edeabbdbe6c3e8602c786f84283d4105c5aa6984d791fce1b9efeae"
+  },
+  "scope": "Nonpersonal product/version catalogue, defaults without prices, editable drafts/released snapshots, authority after locks, current version uniqueness, ES/EN SSR forms and private preview. No checkout/customer/entitlement/ranking/task/provider integration.",
+  "checks": {
+    "ruff": "passed",
+    "django_check": "passed;0 issues",
+    "migration": "Django generated catalog0002 from model state; no schema applied. Connection history check deliberately unavailable; not PostgreSQL evidence."
+  },
+  "pending": [
+    "PostgreSQL migration and meaningful permission/HTTP/concurrency tests queued in separate disposable database after volume benchmark to avoid resource contention.",
+    "Browser ES/EN/mobile/keyboard, operational navigation and independent review of supported write invariants before local acceptance.",
+    "Audit of privileged catalogue mutations and its correspondence to existing staff-account rights/retention must be resolved before integration acceptance; catalogue itself has no user/customer FK.",
+    "Merge only after live benchmark terminal and integration gates; root application/runtime still5df91ea."
+  ],
+  "limits": [
+    "No tests declared passed beyond static Ruff and Django system check.",
+    "Not deployed, merged, accepted CR10/GS01 or production-ready.",
+    "No real tariff, provider, purchase or charge activated."
+  ]
+}

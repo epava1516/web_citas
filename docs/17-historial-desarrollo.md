@@ -2582,3 +2582,8 @@ Fuente5df91ea/Docker verificados72 archivos/3 servicios/PG0110/UID10001/Recovery
 ## 2026-10-06 — Preparación independiente CR10 mientras continúa el ensayo
 
 Proceso16353/PID1452324 confirmado vivo y argumentos exactos, misma ejecución del ensayo grande; no reiniciada ni aceptada. Preparado contratos/11-promociones-preparacion.md desde requisitos existentes14/16: catálogo sin clientes/configuración pendiente/versiones, dependencias personales/ranking/pagos exclusivamente de pruebas, evidencia CR10 completa. No código de aplicación cambiado, productos/precios/pedidos implementados ni cobros/proveedor activados. Bloque independiente CR10-PREP-01 documentado en17; v7 sin cambios.
+
+
+## 2026-10-06 — Catálogo de promociones desarrollado en worktree aislado
+
+CR10-PREP-01, /home/felidae/proyectos/web_modelos_cr10prep/rama codex/cr10-catalog-prep/db0f03f: modelos estáticos/versiones/formularios/servicios/SSR ES-EN y pruebas escritas. Ruff y Django check0 correctos, migración generada sin aplicar; no PG/navegador/deploy ni aceptación. Valores monetarios pendientes, sellableFalse, sin pedidos/clientes/derechos/ranking/tareas. Mantiene la aplicación del benchmark16353 intacta; proceso confirmado vivo,325 lecturas terminadas/1082,46s en último corte. Auditoría privilegiada y correspondencia de cuentas del operador pendientes explícitos antes de integrar; validación PG aislada se pospone por medición de recursos. No fuentes/censo/comercio aceptados ni cambio v7.
