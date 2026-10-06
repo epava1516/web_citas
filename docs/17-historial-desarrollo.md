@@ -2484,3 +2484,8 @@ Metadatos derivados únicamente de contenido público aprobado, canonical con or
 Los4 reservados capturados de la base AOF son tareas periódicas tipadas sin argumentos de sujeto según el validador compartido; cabeceras adicionales y otras claves/cortes siguen sin cobertura exhaustiva. [Clasificación parcial](evidencias/redis-base-reservados-clasificacion0110.json). Porcentajes v5 intactos.
 
 SEO-PREP-01 integrado en1745dc2 y publicado en origin/master conforme a autorización Git (sin publicar la web). Docker local:67 hashes iguales app/worker/Beat, PG0110/UID10001/RecoveryModeFalse; check/migrate-check/salud/CSS y cabeceras ES/EN correctos. Logs previos cifrados preservados. [Runtime](evidencias/seo-publico-runtime0110.json). Criterio local entregado, sin aceptación integral ni cambio de porcentajes.
+
+
+## 2026-10-06 — Diferencias de contenido base Redis frente al estado actual
+
+Observación real de DB0 por EVAL_RO atómico y acotado en cada fuente: copia base aislada de solo lectura, misma imagen Redis, sin red/workers ni volumen anónimo, y servicio actual sin modificar. Límites1000 claves/1000 pasos/256KiB valor/8MiB agregado; huellas de DUMP comparadas privadamente y referencias HMAC en evidencia.77 claves base/80 actuales:73 huellas iguales,5 solo actuales,2 solo base,2 serializadas distintas.71 claves de otros namespaces aún requieren ámbito/asociación. Diferencia serializada puede ser orden interno; no acredita cambio semántico ni titularidad. Contenedor/copia temporal retirados. [Evidencia](evidencias/redis-base-contenido-diferencias0110.json). El primer intento no importó config por PYTHONPATH del script temporal; corregido antes de crear revisión. Cobertura/corte coherente pendientes y porcentajes intactos.
