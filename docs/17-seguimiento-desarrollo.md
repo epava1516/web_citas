@@ -70,6 +70,9 @@ Sesiones locales0100 en workspace:clear_recovery_sessions exige modo recuperaci�
 
 Entrega recursos locales0100 verificada:86 pruebas conjuntas correctas313,03s, sin fallos/errores/omitidas;589 fuentes intactas. Docker actualizado;2 hashes afectados idénticos host/app/worker/Beat, UID10001, namespace clasificados:v1:/cola clasificados confirmado en tres servicios, Django check/migrate-check y salud200. [Evidencia](evidencias/recuperacion-recursos-integrada-runtime0100.json). Cola antigua por defecto observada0 antes de transición; ninguna purga/flush/migración automática. Destrucción de sesiones solo ejecutada en tests aislados, no runtime normal. Prevalece sobre estados de código sin entregar; CR09 abierto. Siguiente matriz de derechos/finalidades, no nueva ampliación de recuperación salvo requisito/fallo concreto.
 
+
+Matriz por derecho revisada sobre53b9628: [docs88](88-matriz-cierre-derechos.md), fuentes/funciones/hashes verificables. Respuestas generales solo progress/representation_complete; portabilidad dispone de cierre separado; acceso, rectificación, supresión y medidas por finalidad aún necesitan cierres propios. Siguiente desarrollo cruzado: respuesta final/revisión/cierre de acceso ligados a información y copia cubiertas, con descargas posteriores. No nuevos tests ejecutados por esta auditoría estática ni fase aceptada; no aumenta porcentaje por documentar.
+
 ## Historial de observaciones anteriores al resumen normalizado
 
 Los registros siguientes se preservan como historial. Los estados «activa» o «pendiente» antiguos no prevalecen sobre el resumen vigente y resultados terminales posteriores.
@@ -2208,3 +2211,5 @@ Complementaria0093:48664 activa /tmp/portability-coverage-complement0093.log/xml
 48664 terminal0:12 correctas59,47s reconstruccióncopias/inventarioperfil,0fallos/errores/skips,basePGpruebaseparadaverificada. Evidencia portabilidad-cobertura-regresion-complementaria0093.json.88778 sigueviva ylog22casos iniciales sinfallosregistrados; no resultadofinal ni sumas como suiteúnica. Fuente/testscongelados hasta88778terminal.
 
 88778/PID3507877 confirmado vivo en nuevaobservación; log28casos iniciales sinfallosregistrados, sinresultadofinal. Huellas640archivosfuente/templates/config/tests/scripts en evidencia portabilidad-cobertura-fuente-regresion0093.json para contrastarantesentrega; manifiestonoresultadotest/aceptación. Código/tests siguencongelados.
+
+Preparación de respuesta de acceso 0101: modelo/borrador cifrado vinculados a información aprobada, nueva prueba posterior a exportación, auditoría e idempotencia. Inventarios actualizados y purga programada. PostgreSQL: 3 pruebas correctas en 56,51s; Ruff/makemigrations check correctos. Evidencia acceso-borrador0101.json y docs88. Entrega parcial interna: faltan interfaz, revisión/evidencia independiente, cobertura y cierre; runtime Docker/worker/Beat nuevos no verificados. CR09 y contrato completos siguen abiertos; sin aumento de estimación.

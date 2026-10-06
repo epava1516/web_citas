@@ -1,0 +1,96 @@
+{
+  "scope": "Static source traceability only, not test execution or acceptance",
+  "files": {
+    "apps/safety/rights_responses.py": {
+      "sha256": "1fc0ef767ce297de7d4b6ca2d4649e49dacdcf837615a4ca8387292dda3c7712",
+      "functions": {
+        "complete_response_read": 35,
+        "current_response_actor": 53,
+        "issue": 72,
+        "respond": 243,
+        "acknowledge": 279,
+        "response_page": 303
+      }
+    },
+    "apps/safety/rights_portability_close.py": {
+      "sha256": "12763d19136d042525954ee567e92cd6ba913e4b6546c7b8fa56e5ad1b2072a7",
+      "functions": {
+        "signature": 27,
+        "closure_for_export": 46,
+        "validate_closure": 73,
+        "close": 136
+      }
+    },
+    "apps/safety/rights_copy_information.py": {
+      "sha256": "82b10e1c4924cb3d2276364d62fb594d9bc8f8170e1342372888af077a3ea0ec",
+      "functions": {
+        "checked_information": 34,
+        "record": 73,
+        "inspect": 222,
+        "validate_saved_evidence": 305
+      }
+    },
+    "apps/safety/rights_information_review.py": {
+      "sha256": "a4c52db27cbf44eca0915c795fde4547842752fc54b2d44fa1230398682c2186",
+      "functions": {
+        "authorize": 25,
+        "record": 48,
+        "validate_action_evidence": 191,
+        "validate_approved_evidence": 240
+      }
+    },
+    "apps/safety/rights_information_export.py": {
+      "sha256": "6a9b471db3f5d5f106887991342ccc50df756b54c961cf24d687a4eb4ae805f3",
+      "functions": {
+        "consume_approved": 20,
+        "validate_export_binding": 96
+      }
+    },
+    "apps/safety/rectification_execution.py": {
+      "sha256": "4713629bbada211f1be3b64c98240fa9fc1b2a40cf58db2a49bb588ec5f397f2",
+      "functions": {
+        "notify": 25,
+        "execute": 111
+      }
+    },
+    "apps/safety/rectification_recipients.py": {
+      "sha256": "63da0bab2afa5623c13391e4e55eaaf983a1fafa7cbfa26fd3ef1994c7f70fdb",
+      "functions": {
+        "snapshot": 38,
+        "prepare": 103,
+        "prepare_view": 184
+      }
+    },
+    "apps/safety/erasure_execution.py": {
+      "sha256": "2313955eb553155ef89506b1dbb6aa6b42dc83cb6edcf123f18f070d12cee74c",
+      "functions": {
+        "current_erasure_actor": 59,
+        "execute": 77,
+        "apply": 576
+      }
+    },
+    "apps/safety/processing_execution.py": {
+      "sha256": "c97e7ef19c0036b8d9aa8f26280a805cd81b555b1d95e83b2a4e68d10c640cce",
+      "functions": {
+        "execute": 29
+      }
+    },
+    "apps/safety/purpose_restrictions.py": {
+      "sha256": "f6116b2da1e124a33d69edaf0aaf7720874b5604a91106ffa81e356670a0b00b",
+      "functions": {
+        "restricted": 10,
+        "require_unrestricted": 16,
+        "blocked_response": 23
+      }
+    }
+  },
+  "baseline_commit": "53b9628",
+  "observations": [
+    "General issue permits progress and representation_complete only",
+    "Portability close is separate and resolves portability only",
+    "Rectification execution creates progress and leaves case open",
+    "Recipient snapshot explicitly complete:false",
+    "Erasure receipt records pending purposes; destruction is not final closure"
+  ],
+  "next": "Implement reviewed access final-response/closure binding without repurposing portability or generic progress"
+}
