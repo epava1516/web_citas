@@ -398,8 +398,8 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
 
             historical_body = unseal(archive_path.read_text())
             historical_body["captured_at"] = (inventory.created_at - timedelta(seconds=1)).isoformat()
-            for row in historical_body["records"]:
-                row["container_created_at"] = event_time.isoformat()
+            for service_record in historical_body["records"]:
+                service_record["container_created_at"] = event_time.isoformat()
             archive_path.write_text(module.seal(historical_body))
             selected = tmp_path / "selected-history"
             selected.mkdir(mode=0o700)
