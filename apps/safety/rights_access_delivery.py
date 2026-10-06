@@ -91,7 +91,11 @@ def safe_json(value):
 
 @sensitive_variables()
 def session_records(owner, cutoff):
-    """Read the configured database session store without releasing capabilities."""
+    """Account for retained DB sessions, including expired rows, without capabilities.
+
+    ``authenticated`` identifies a stored account association, not a currently
+    valid credential. Expired rows remain personal data until actually removed.
+    """
     result = {"copy": [], "evidence": [], "blocked": []}
     if settings.SESSION_ENGINE != "django.contrib.sessions.backends.db":
         result["blocked"].append({"resource": "sessions", "reason": "unsupported_session_store"})
@@ -104,9 +108,10 @@ def session_records(owner, cutoff):
         "_auth_user_hash",
         "account_version",
         "mfa_version",
+        "_session_expiry",
     }
     supported = security_fields | {"django_language"}
-    for row in Session.objects.filter(expire_date__gt=cutoff).order_by("pk").iterator():
+    for row in Session.objects.order_by("pk").iterator(chunk_size=500):
         decoded = row.get_decoded()
         if str(decoded.get("_auth_user_id")) != str(owner):
             continue
@@ -121,7 +126,11 @@ def session_records(owner, cutoff):
             result["blocked"].append(
                 {"resource": "sessions", "reference": reference, "fields": ["django_language"]}
             )
-        copy = {"expires_at": row.expire_date.isoformat(), "authenticated": True}
+        copy = {
+            "expires_at": row.expire_date.isoformat(),
+            "authenticated": True,
+            "expired_at_cutoff": row.expire_date <= cutoff,
+        }
         if language in {"es", "en"}:
             copy["language"] = language
         result["copy"].append(copy)

@@ -121,22 +121,35 @@ def test_session_scope_reads_owned_records_without_exposing_authentication_mater
     expired.set_expiry(cutoff - timedelta(seconds=1))
     expired.save()
     captured = session_records(101, cutoff)
-    assert not captured["blocked"]
-    assert len(captured["copy"]) == len(captured["evidence"]) == 1
-    assert captured["copy"][0]["language"] == "en"
+    assert [row["fields"] for row in captured["blocked"]] == [["expired_subject_data"]]
+    assert len(captured["copy"]) == len(captured["evidence"]) == 2
+    active_copy = next(row for row in captured["copy"] if not row["expired_at_cutoff"])
+    assert active_copy["language"] == "en"
+    assert sum(row["expired_at_cutoff"] for row in captured["copy"]) == 1
     assert captured["copy"][0]["authenticated"] is True
     assert own.session_key not in str(captured)
     assert other.session_key not in str(captured)
     assert "synthetic-authentication-material" not in str(captured)
     assert "other-subject-only" not in str(captured)
     assert "expired-only" not in str(captured)
-    previous = captured["evidence"][0]["content"]
+    previous = {row["reference"]: row["content"] for row in captured["evidence"]}
     own["unknown_personal_data"] = "requires-an-adapter"
     own.save()
     changed = session_records(101, cutoff)
-    assert changed["evidence"][0]["content"] != previous
-    assert changed["blocked"][0]["fields"] == ["unknown_personal_data"]
+    assert {row["reference"]: row["content"] for row in changed["evidence"]} != previous
+    assert {tuple(row["fields"]) for row in changed["blocked"]} == {
+        ("unknown_personal_data",),
+        ("expired_subject_data",),
+    }
     assert "requires-an-adapter" not in str(changed)
+    # Cleanup is separate from disclosure: census must observe actual removal.
+    from django.contrib.sessions.models import Session
+
+    Session.objects.filter(session_key=expired.session_key).delete()
+    retained = session_records(101, cutoff)
+    assert len(retained["copy"]) == 1 and not retained["copy"][0]["expired_at_cutoff"]
+    assert len(retained["blocked"]) == 1
+    assert other.session_key not in str(retained)
     settings.SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
     assert session_records(101, cutoff)["blocked"] == [
         {"resource": "sessions", "reason": "unsupported_session_store"}

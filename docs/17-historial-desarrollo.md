@@ -2418,3 +2418,8 @@ Detectada omisión del nuevo RightsRecipientNotice en inventarios de conservaci�
 ## 2026-10-06 — Entrega censo de avisos y runtime0110
 
 2991e4e commit/push confirmado. Logs reales parciales conservados antes de recreación en /tmp/rights-notice-census-predeploy0110-dzg0uf2y/access-log-origins.encrypted a13:33:43UTC; cuatro pendientes operacionales intactos. Build/recreación solo app/worker/Beat correctos;53 SHA256 idénticos host/servicios, UID10001/PG/0110/whitelist, check/migratecheck, HTTP8000+18080=200 y CSS servido correctos. [Runtime](evidencias/censo-avisos-derechos-runtime0110.json). Sin cambio de tarea/migración ni repetición de purga aceptada. Seguimiento17 actualizado en su sitio. Censo operacional completo y conservación reservada/disparadores por finalidad pendientes; porcentajesv4 intactos, contrato completo activo.
+
+
+## 2026-10-06 — Sesiones caducadas todavía retenidas
+
+Omisión reproducible por expire_date>cutoff en censo existente: ahora examina filas Session persistidas propias aunque estén caducadas, marca expired_at_cutoff y no certifica credencial vigente con authenticated. Claves/hash/campos internos excluidos; desconocidos bloqueados y ajenas omitidas. Primera prueba falló por _session_expiry de Django no clasificado; añadido como técnico excluido.1 PG33,89s correcta y2 integración completa perfil/cuenta147,94s correctas, con sesión caducada real sintética/copia/cierre/descarga sin capacidades. [Evidencia](evidencias/sesiones-caducadas-retenidas0110.json). Orígenes revisados de infraestructura sintéticos, no censo externo real. No purga/tarea ni eliminación de sesiones principales. Estimaciónv4 sin cambios; resto contrato activo.

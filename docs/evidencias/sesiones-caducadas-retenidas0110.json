@@ -1,0 +1,48 @@
+{
+  "status": "verified_retained_expired_session_census_and_access",
+  "runs": [
+    {
+      "xml": "/tmp/retained-expired-session-census0110.xml",
+      "sha256": "92c2eb80499d73ebc24b56e923fa2721cf4d182af0d2aabe1eda4dd4dad1ca98",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "33.798",
+        "timestamp": "2026-10-06T15:38:06.219065+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      },
+      "exit_code": 0
+    },
+    {
+      "xml": "/tmp/retained-expired-session-access0110.xml",
+      "sha256": "fa4da117999e63d8d26dfc0e2eb66bfd676bfd51f0679c1529a4a8b37b5647ee",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "2",
+        "time": "147.797",
+        "timestamp": "2026-10-06T15:39:22.023303+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      },
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "apps/safety/rights_access_delivery.py": "3c3feb417537340164a31770ea553bd19866e29321410bf7dda7930dcebfe197"
+  },
+  "initial_correction": "Expired session test exposed Django internal _session_expiry; explicitly classified as excluded technical metadata, unknown personal fields still blocked.",
+  "limits": [
+    "Actual PostgreSQL Session rows with synthetic subjects",
+    "Expired retained rows included; expired_at_cutoff is relative to fixed snapshot cutoff",
+    "authenticated means stored account association, not current session validity",
+    "No credentials/session keys/session payloads released",
+    "No main database session deletion, new task or automatic cleanup",
+    "Corrupt/unattributed sessions and non-DB stores remain outside proven own scope; operational census remains partial",
+    "Integrated profile/account full closure uses reviewed synthetic resource origins, not actual external operational completeness"
+  ]
+}

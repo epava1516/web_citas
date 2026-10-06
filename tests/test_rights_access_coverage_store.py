@@ -35,10 +35,24 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
     finish=False,
     finish_mode="http",
     finish_language="en",
+    retained_expired_session=False,
 ):
     case, author, staff, public, receipt, _, _, _, decision, _, _ = approved_information(
         request, settings, monkeypatch, account_only
     )
+    retained_session = None
+    if retained_expired_session:
+        from datetime import timedelta
+
+        from django.contrib.sessions.backends.db import SessionStore
+        from django.utils import timezone
+
+        retained_session = SessionStore()
+        retained_session["_auth_user_id"] = str(case.account_subject_id or case.person.subject_id)
+        retained_session["_auth_user_hash"] = "synthetic-expired-capability-not-for-delivery"
+        retained_session["django_language"] = "en"
+        retained_session.set_expiry(timezone.now() - timedelta(days=1))
+        retained_session.save()
     reason = "Synthetic coverage preparation with exact evidence references"
     author.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
     author = User.objects.get(pk=author.pk)
@@ -717,6 +731,15 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
         assert downloaded.status_code == 200, downloaded.content.decode()
         assert downloaded.json() == recipient_payload(completed_body)
         assert downloaded.json()["simulation"] is True
+        if retained_session is not None:
+            session_copy = downloaded.json()["copy"]["sessions"]
+            assert any(
+                row["expired_at_cutoff"] and row.get("language") == "en" for row in session_copy
+            )
+            assert retained_session.session_key not in downloaded.content.decode()
+            assert (
+                "synthetic-expired-capability-not-for-delivery" not in downloaded.content.decode()
+            )
         assert "review_material" not in downloaded.content.decode()
         assert "origin_digest" not in downloaded.content.decode()
         assert public.post(url(receipt, export), {"key": uuid4()}).json() == downloaded.json()
@@ -822,4 +845,21 @@ def test_integrated_access_concurrent_closure_has_one_response_and_notice(
         tmp_path,
         finish=True,
         finish_mode="concurrent",
+    )
+
+
+@pytest.mark.parametrize("account_only", [False, True])
+def test_integrated_access_includes_retained_expired_session_without_capabilities(
+    request, settings, monkeypatch, account_only, live_server, tmp_path
+):
+    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
+        request,
+        settings,
+        monkeypatch,
+        account_only,
+        live_server,
+        False,
+        tmp_path,
+        finish=True,
+        retained_expired_session=True,
     )
