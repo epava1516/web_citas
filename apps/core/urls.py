@@ -45,6 +45,7 @@ from apps.safety import (
     rights_portability_export_views,
     rights_portability_image_views,
     rights_portability_prepare_selection_views,
+    rights_portability_response_views,
     rights_portability_review_views,
     rights_portability_selection_views,
     rights_portability_views,
@@ -297,6 +298,21 @@ urlpatterns = [
         "moderation/rights/<uuid:case_id>/portability/export/",
         rights_portability_export_views.prepare,
         name="rights_portability_export",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/portability/response/",
+        rights_portability_response_views.prepare_response,
+        name="rights_portability_response_prepare",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/portability/response/<int:draft_id>/review/",
+        rights_portability_response_views.review_response,
+        name="rights_portability_response_review",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/portability/response/<int:review_id>/close/",
+        rights_portability_response_views.close_response,
+        name="rights_portability_response_close",
     ),
     path(
         "moderation/rights/<uuid:case_id>/portability/select/",

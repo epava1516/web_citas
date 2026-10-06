@@ -1,0 +1,59 @@
+{
+  "scope": "Isolated PostgreSQL producer; no external export",
+  "passed": 1,
+  "seconds": 40.73,
+  "snapshot": "/tmp/web-modelos-recovery-ledger0099",
+  "xml": "/tmp/recovery-producer0099.xml",
+  "files": [
+    {
+      "path": "apps/safety/models.py",
+      "before_sha256": "9e1a1c167d05c20980b58d92c6ebf09b151a380f0a45bd0a1eb91cc526d645b5",
+      "after_sha256": "0e51eaf7945cd81b779e7a99bc0617fa70a524e8905089acf6d6ff22699f8333"
+    },
+    {
+      "path": "apps/safety/migrations/0099_recovery_ledger_producer.py",
+      "before_sha256": null,
+      "after_sha256": "10fc1dfd304d2c200d2f4bcec9e8e716c4ea97395246980d8bb5f2028454ba71"
+    },
+    {
+      "path": "apps/safety/recovery_ledger_producer.py",
+      "before_sha256": null,
+      "after_sha256": "311540bd6bed72377ff6c08a12fd4b8a4c34343232b4faf2e8059b9d451f851d"
+    },
+    {
+      "path": "apps/safety/account_erasure_inventory.py",
+      "before_sha256": "f66800a77d19bcec62cbe0f5af270d796b173de2d1f5c258494ed528b52e97aa",
+      "after_sha256": "7027f5e5bf93f14a359794dfea5a4e8cdf93242b140c16073f53210153ce1443"
+    },
+    {
+      "path": "apps/safety/erasure_inventory.py",
+      "before_sha256": "ab49062726938f463406a36133e80e86b4aa90ebeef78f8cfe13ccd564fe9bd6",
+      "after_sha256": "1f036ca85e874923809704b5d99fd04322b34aa3884a352fd6fe115dc2c74fb3"
+    },
+    {
+      "path": "scripts/recovery_ledger.py",
+      "before_sha256": null,
+      "after_sha256": "7eb0cdcf58f1cf8abf2160becb21aa65bf6bed1cf8c67865773721784548c850"
+    },
+    {
+      "path": "tests/test_recovery_ledger_producer.py",
+      "before_sha256": null,
+      "after_sha256": "869f75b1ff94d16e2e2766bf02e74eca7f733e804e8fda78e36617146f3f7b44"
+    }
+  ],
+  "patch_sha256": "156ca97667f0f014db95962d728b029fb16caf343105c3b7f0581df3fc40c56b",
+  "coverage": [
+    "Two concurrent producer transactions",
+    "Exact record replay",
+    "Wrong key rejection",
+    "Record tamper rejection",
+    "No state advance after failure",
+    "Export marker remains null"
+  ],
+  "limits": [
+    "No observed pg_blocking_pids assertion",
+    "No external file durability",
+    "No trusted external checkpoint custody",
+    "No restore acceptance"
+  ]
+}

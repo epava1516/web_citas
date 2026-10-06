@@ -1,0 +1,53 @@
+{
+  "session_id": 62469,
+  "exit_code": 0,
+  "scope": "Real isolated PostgreSQL/Redis/Celery worker and automatic Beat; four retention tasks including response drafts; exact namespaced schedule",
+  "results": [
+    {
+      "worker_passed": true,
+      "jobs": {
+        "assessments": "390e789e-7724-4861-a269-957d62962065",
+        "selections": "f895bfe3-9776-423c-a7c6-2d8c012fc289",
+        "coverage": "3ca8bcb6-2293-46bc-90ef-ad11412fc989",
+        "response_drafts": "4c9221ce-d82e-4766-b64a-39d44041f1e4"
+      },
+      "repeat": {
+        "assessments": "cca268a8-c673-407a-af32-7377acae55e6",
+        "selections": "abe59e40-3ae7-47a4-bddf-37837419c93a",
+        "coverage": "ea1753de-fe6f-4a93-aea2-882cf6dd6c52",
+        "response_drafts": "235f1f60-1f65-4293-b456-90707ed3c342"
+      },
+      "audit_and_live_content_preserved": true
+    },
+    {
+      "beat_passed": true,
+      "automatic_jobs": {
+        "assessments": [
+          "c21a8a9b-7652-4cd9-9add-d2ac4a2f0b27"
+        ],
+        "selections": [
+          "8ee05532-6b4d-4a9a-9163-ad5990f8efa4"
+        ],
+        "coverage": [
+          "e6d5914a-ed5b-4953-acdf-5ba8832d4633"
+        ],
+        "response_drafts": [
+          "e03390c0-f070-447f-8fc0-52329e037a15"
+        ]
+      },
+      "manual_dispatch_for_beat": false,
+      "preservation_digest": "f5e347174065a508a0923f1e6fe3bf246596dbc6e74c264ec0ee3c841f2fc2a7",
+      "isolated_database": "portability_probe_ee12f157f5b5",
+      "identity_verified": false
+    },
+    {
+      "isolated_database_and_containers_removed": true
+    }
+  ],
+  "cleanup_independently_verified": true,
+  "log_sha256": "b580b5c6521e0805e2923c8ddb48ec6c31b72b768290d3da909e9ae9b380e38c",
+  "limits": [
+    "Synthetic rejected-review fixtures, no identity approval or email delivery",
+    "Separate from common393 regression"
+  ]
+}

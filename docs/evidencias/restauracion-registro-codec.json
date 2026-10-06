@@ -1,0 +1,22 @@
+{
+  "scope": "Pure synthetic codec verification; no outbox, PostgreSQL recovery or effects acceptance",
+  "tests": 18,
+  "failures": 0,
+  "xml": "/tmp/recovery-ledger-codec.xml",
+  "files": {
+    "scripts/recovery_ledger.py": "2a4319bb37eb9b855e7928d486c714e22e288b106ca0ac2dcb1036d99fba0740",
+    "tests/test_recovery_ledger_codec.py": "39ccf00bdcca11f24eaa0793fd2bc0c261dffa2383ba18a6d0ea0c79203dfd59"
+  },
+  "original_regression_source_differences": [
+    "scripts/probe_portability_retention_worker.py"
+  ],
+  "new_files_not_selected_by_original_regression": true,
+  "additional_checks": [
+    "No decryption before complete checkpoint verification",
+    "Signed malformed events rejected",
+    "Encoded/decoded encryption key reuse rejected",
+    "Aggregate bundle size limited"
+  ],
+  "seconds": 0.21,
+  "formatting_verification": "Ruff check/format, rerun18 passed"
+}

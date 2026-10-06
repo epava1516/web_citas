@@ -1,0 +1,136 @@
+--- a/scripts/recovery_store.py
++++ b/scripts/recovery_store.py
+@@ -161,6 +161,19 @@
+         self._write(self.checkpoint_directory, "checkpoint.json", value, replace=True)
+         return self.checkpoint()
+ 
++    def confirm(self, record):
++        """Confirm an older durable record after a rolled-back DB acknowledgement."""
++        with self._locked():
++            current = self.checkpoint()
++            if record["ledger"] != current.ledger or record["sequence"] > current.sequence:
++                raise LedgerIntegrityError("Record not checkpointed")
++            filename = f"{record['sequence']:020d}.json"
++            if self._read(self.records_directory, filename) != record:
++                raise LedgerIntegrityError("Durable record mismatch")
++            start = Checkpoint(current.ledger, record["sequence"] - 1, record["previous"])
++            self._recover(start)
++            return current
++
+     def recover(self, start):
+         with self._locked():
+             return self._recover(start)
+--- /dev/null
++++ b/apps/safety/recovery_ledger_export.py
+@@ -0,0 +1,39 @@
++"""Local durable export; file writes survive transaction rollback by design."""
++
++from django.db import connection, transaction
++from django.utils import timezone
++from django.views.decorators.debug import sensitive_variables
++
++from scripts.recovery_ledger import LedgerIntegrityError
++
++from .models import RecoveryOutbox
++from .recovery_ledger_producer import prepare_batch
++
++
++@sensitive_variables()
++def export_batch(store, limit=100):
++    if connection.in_atomic_block:
++        raise RuntimeError("Exporter requires committed producer transactions")
++    state, _ = prepare_batch(store.codec, limit)
++    with transaction.atomic():
++        with connection.cursor() as cursor:
++            cursor.execute("SELECT pg_advisory_xact_lock(%s)", [82940100])
++        external = store.checkpoint()
++        if external.ledger != state.ledger or external.sequence > state.sequence:
++            raise LedgerIntegrityError("Restored or mismatched business ledger; reconcile first")
++        if external.sequence == state.sequence and external.head != state.head:
++            raise LedgerIntegrityError("Checkpoint head mismatch")
++        events = list(
++            RecoveryOutbox.objects.select_for_update()
++            .filter(exported_at__isnull=True, sequence__isnull=False)
++            .order_by("sequence")[:limit]
++        )
++        for event in events:
++            current = store.checkpoint()
++            if event.sequence <= current.sequence:
++                store.confirm(event.encoded_record)
++            else:
++                store.append(event.encoded_record)
++            event.exported_at = timezone.now()
++            event.save(update_fields=["exported_at"])
++        return len(events)
+--- /dev/null
++++ b/tests/test_recovery_ledger_export.py
+@@ -0,0 +1,69 @@
++from uuid import uuid4
++
++import pytest
++from cryptography.fernet import Fernet
++from django.db import transaction
++from test_account_erasure_execution import prepared_erasure
++from test_erasure_plans import REASON
++from test_reports import directory, photo_environment  # noqa: F401
++
++from apps.safety.erasure_execution import execute
++from apps.safety.models import RecoveryLedgerState, RecoveryOutbox
++from apps.safety.recovery_ledger_export import export_batch
++from apps.safety.recovery_ledger_producer import prepare_batch
++from scripts.recovery_ledger import ZERO, Checkpoint, LedgerIntegrityError, RecoveryLedger
++from scripts.recovery_store import RecoveryStore
++
++pytestmark = pytest.mark.django_db(transaction=True)
++
++
++def test_committed_file_survives_db_failure_and_retry_confirms_it(
++    request, settings, monkeypatch, tmp_path
++):
++    case, actor, staff, subject, public, receipt, plan, purposes, stored, acceptance = (
++        prepared_erasure(request, settings, monkeypatch, agency=True)
++    )
++    execution = execute(actor, case.pk, plan.pk, uuid4(), case.version, purposes, REASON, True)
++    codec = RecoveryLedger(Fernet.generate_key(), b"e" * 32)
++    state, records = prepare_batch(codec)
++    records_dir, authority_dir = tmp_path / "records", tmp_path / "authority"
++    records_dir.mkdir(mode=0o700)
++    authority_dir.mkdir(mode=0o700)
++    store = RecoveryStore(records_dir, authority_dir, codec)
++    start = Checkpoint(state.ledger, 0, ZERO)
++    with pytest.raises(LedgerIntegrityError):
++        export_batch(store)
++    assert RecoveryOutbox.objects.get(execution=execution).exported_at is None
++    store.initialize(start)
++    original_save = RecoveryOutbox.save
++
++    def fail_ack(self, *args, **kwargs):
++        if kwargs.get("update_fields") == ["exported_at"]:
++            raise RuntimeError("Synthetic DB acknowledgement failure")
++        return original_save(self, *args, **kwargs)
++
++    with monkeypatch.context() as patch:
++        patch.setattr(RecoveryOutbox, "save", fail_ack)
++        with pytest.raises(RuntimeError):
++            export_batch(store)
++    assert store.checkpoint() == state
++    event = RecoveryOutbox.objects.get(execution=execution)
++    assert event.exported_at is None
++    assert store.recover(start)[0]["execution"] == str(execution.pk)
++    assert export_batch(store) == 1
++    event.refresh_from_db()
++    assert event.exported_at is not None and event.encoded_record == records[0]
++    assert export_batch(store) == 0
++    assert len(list(records_dir.glob("*.json"))) == 1
++    with transaction.atomic(), pytest.raises(RuntimeError):
++        export_batch(store)
++    # A business backup rolled back behind the independent checkpoint cannot export.
++    RecoveryOutbox.objects.filter(pk=event.pk).update(
++        sequence=None, encoded_record=None, exported_at=None
++    )
++    RecoveryLedgerState.objects.update(sequence=0, head=ZERO)
++    # Producer would create a fresh randomized record with the same sequence;
++    # its head differs from the already checkpointed artifact and must be rejected.
++    with pytest.raises(LedgerIntegrityError):
++        export_batch(store)
++    assert store.checkpoint() == state

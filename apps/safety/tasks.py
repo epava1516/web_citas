@@ -145,3 +145,21 @@ def purge_expired_portability_coverage():
         return RightsPortabilityCoverage.objects.filter(pk__in=ids).update(
             encrypted_coverage="", purged_at=now
         )
+
+
+@shared_task
+def purge_expired_portability_response_drafts():
+    """Clear expired final draft text; preserve protected audit references."""
+    from .models import RightsPortabilityResponseDraft
+
+    with transaction.atomic():
+        now = timezone.now()
+        ids = list(
+            RightsPortabilityResponseDraft.objects.select_for_update(skip_locked=True)
+            .filter(expires_at__lte=now, purged_at__isnull=True)
+            .order_by("pk")
+            .values_list("pk", flat=True)[:100]
+        )
+        return RightsPortabilityResponseDraft.objects.filter(pk__in=ids).update(
+            encrypted_response="", purged_at=now
+        )

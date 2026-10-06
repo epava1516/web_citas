@@ -1,0 +1,32 @@
+{
+  "scope": "Synthetic account PostgreSQL final approval after observed case lock wait, two workers and holder with distinct backend PIDs",
+  "session_id": 23013,
+  "exit_code": 0,
+  "passed": 10,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 177.29,
+  "xml_sha256": "8233374cc3faf1b450a62300fda39ea3929ffa69668788610c442870678234b5",
+  "changes": [
+    "replay",
+    "reviewer_permission",
+    "reviewer_session",
+    "reviewer_mfa",
+    "author_permission",
+    "author_session",
+    "proof",
+    "source",
+    "ciphertext",
+    "expiry"
+  ],
+  "invariants": [
+    "One decision/action on replay",
+    "No new decisions/actions on denial",
+    "Case versions/status/deadline unchanged"
+  ],
+  "limits": [
+    "Account only",
+    "No preparation/inspection/closure races in this execution"
+  ]
+}

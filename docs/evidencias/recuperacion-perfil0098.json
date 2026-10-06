@@ -1,0 +1,50 @@
+{
+  "scope": "Isolated own-profile/account receipt and inventories",
+  "passed": 2,
+  "seconds": 43.6,
+  "xml": "/tmp/recovery-profile0098.xml",
+  "files": [
+    {
+      "path": "apps/safety/models.py",
+      "before_sha256": "0b01f11b5630378f619012fe9ef9a3679c80931f6330403b078aaa569737676f",
+      "after_sha256": "9e1a1c167d05c20980b58d92c6ebf09b151a380f0a45bd0a1eb91cc526d645b5"
+    },
+    {
+      "path": "apps/safety/erasure_execution.py",
+      "before_sha256": "026b0a360f255b475809384dfdeaa166b2de6244de3b046f3da56c5f10048cf1",
+      "after_sha256": "de5b7138b38c3b27086391694d5ad650e71d8f9e38ad5a0c7eb97c52f1e3216c"
+    },
+    {
+      "path": "apps/safety/migrations/0098_recovery_outbox.py",
+      "before_sha256": null,
+      "after_sha256": "7240aee82a20aa77871dc1e829ae63a13e35ac9128e7677ea91f594c6517cc17"
+    },
+    {
+      "path": "apps/safety/account_erasure_inventory.py",
+      "before_sha256": "031d1f5cffd54977a9bb9b310826cb9ae2562d1288e0d66a7996f71861ee520e",
+      "after_sha256": "f66800a77d19bcec62cbe0f5af270d796b173de2d1f5c258494ed528b52e97aa"
+    },
+    {
+      "path": "apps/safety/erasure_inventory.py",
+      "before_sha256": "7cba1ff63a5c9094f1a7fddb36c23caf2ddb5011576c44f7579bfcecc5bc0347",
+      "after_sha256": "ab49062726938f463406a36133e80e86b4aa90ebeef78f8cfe13ccd564fe9bd6"
+    },
+    {
+      "path": "tests/test_recovery_outbox.py",
+      "before_sha256": null,
+      "after_sha256": "4390adb52af944aaed26736bea34ae13c6079e080ec4b9570861c7946fa4b002"
+    },
+    {
+      "path": "tests/test_purpose_inventory_dependencies.py",
+      "before_sha256": "715aaa231eb69b99d615e0f5d74c0218a0e2df56831946722cb8f5188cc9e553",
+      "after_sha256": "1fd9965aa400834b92dd97b6036a74c84ee05842ee15ca1615848c62fe20aa19"
+    }
+  ],
+  "patch_sha256": "6b279d64f8a7560d92e61a50afc896fd067b63840e11ea55dde6f07b6f43aadf",
+  "limits": [
+    "Not restore acceptance",
+    "No independent export",
+    "No shared media destruction test in this run",
+    "Not integrated"
+  ]
+}

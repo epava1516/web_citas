@@ -1,0 +1,34 @@
+{
+  "scope": "Synthetic account PostgreSQL independent final draft read after observed wait, two workers and holder with distinct backend PIDs",
+  "session_id": 72443,
+  "exit_code": 0,
+  "passed": 10,
+  "deselected": 10,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 184.62,
+  "xml_sha256": "d838856135828e952db11a31347aab86542f3f6b3230507ecc0bbb12b233a22c",
+  "changes": [
+    "replay",
+    "reviewer_permission",
+    "reviewer_session",
+    "reviewer_mfa",
+    "author_permission",
+    "author_session",
+    "proof",
+    "source",
+    "ciphertext",
+    "expiry"
+  ],
+  "invariants": [
+    "One inspection action on replay",
+    "No new audit action or review on denial",
+    "Case versions/status/deadline unchanged"
+  ],
+  "limits": [
+    "Account only",
+    "Not a single combined suite with prior approval10",
+    "No preparation or closure concurrency verified"
+  ]
+}

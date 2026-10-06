@@ -1,0 +1,12 @@
+{
+  "scope": "Read-only local Django/Celery configuration reproduction; no task dispatch",
+  "lower_assignment_effective_tasks": 15,
+  "namespaced_assignment_effective_tasks": 1,
+  "selected": "purge-expired-portability-response-drafts",
+  "cause": "config_from_object namespace CELERY retains uppercase schedule over lower-case assignment",
+  "proposed_probe_fix": "app.conf.update(CELERY_BEAT_SCHEDULE=selected); assert exact keys/tasks before Beat startup",
+  "limits": [
+    "Not worker or Beat runtime acceptance",
+    "Probe source unchanged during frozen393 regression"
+  ]
+}

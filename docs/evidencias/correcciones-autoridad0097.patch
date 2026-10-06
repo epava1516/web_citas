@@ -1,0 +1,200 @@
+--- a/apps/safety/rights_responses.py
++++ b/apps/safety/rights_responses.py
+@@ -13,6 +13,8 @@
+ from django.utils.crypto import constant_time_compare
+ from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
+ from django.views.decorators.http import require_http_methods, require_POST
++
++from apps.core.models import User
+ 
+ from .crypto import seal, unseal
+ from .models import (
+@@ -48,11 +50,29 @@
+     return required <= read
+ 
+ 
++def current_response_actor(user, case, session_version, mfa_version, *, execution=False):
++    actor = User.objects.get(pk=user.pk)
++    if (
++        not actor.is_active
++        or not actor.mfa_enabled
++        or actor.session_version != session_version
++        or actor.mfa_version != mfa_version
++        or not actor.has_perm("safety.review_rights_request")
++        or not actor.has_perm("safety.respond_rights_request")
++        or (execution and not actor.has_perm("safety.execute_rights_request"))
++        or case.assigned_to_id != actor.pk
++        or not permitted(actor, case)
++    ):
++        raise PermissionDenied
++    return actor
++
++
+ @transaction.atomic
+ @sensitive_variables()
+ def issue(
+     user, case_id, key, version, response_version, kind, reason, response, redaction_confirmed
+ ):
++    session_version, mfa_version = user.session_version, user.mfa_version
+     if (
+         not user.mfa_enabled
+         or not user.has_perm("safety.review_rights_request")
+@@ -62,8 +82,9 @@
+     case, person, listing = locked_case(
+         case_id, lock_listing=True, allow_version_change=True, allow_erased_account=True
+     )
+-    if not permitted(user, case):
+-        raise PermissionDenied
++    user = current_response_actor(
++        user, case, session_version, mfa_version, execution=kind == "representation_complete"
++    )
+     signature = fingerprint(
+         json.dumps(
+             {
+@@ -84,6 +105,10 @@
+             and previous.actor_id == user.pk
+             and previous.payload_digest == signature
+         ):
++            current_response_actor(
++                user, case, session_version, mfa_version,
++                execution=kind == "representation_complete",
++            )
+             return previous
+         raise ValidationError("Conflicting response key / Clave de respuesta incompatible")
+     if (
+@@ -175,6 +200,9 @@
+         case.scope_status = "unverified"
+     # An outgoing progress message changes neither input evidence nor authorization of an existing copy.
+     case.save(update_fields=["response_version", "status", "version", "scope_status"])
++    current_response_actor(
++        user, case, session_version, mfa_version, execution=bool(withdrawal)
++    )
+     return recorded
+ 
+ 
+--- a/apps/safety/erasure_execution.py
++++ b/apps/safety/erasure_execution.py
+@@ -55,9 +55,26 @@
+ ]
+ 
+ 
++def current_erasure_actor(user, case, session_version, mfa_version):
++    actor = User.objects.get(pk=user.pk)
++    if (
++        not actor.is_active
++        or not actor.mfa_enabled
++        or actor.session_version != session_version
++        or actor.mfa_version != mfa_version
++        or not actor.has_perm("safety.review_rights_request")
++        or not actor.has_perm("safety.execute_rights_request")
++        or case.assigned_to_id != actor.pk
++        or not permitted(actor, case)
++    ):
++        raise PermissionDenied
++    return actor
++
++
+ @transaction.atomic
+ @sensitive_variables()
+ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, exception_id=None):
++    session_version, mfa_version = user.session_version, user.mfa_version
+     if (
+         not user.mfa_enabled
+         or not user.has_perm("safety.review_rights_request")
+@@ -69,8 +86,7 @@
+     case, person, _ = locked_case(
+         case_id, lock_listing=True, allow_version_change=True, allow_erased_account=True
+     )
+-    if not permitted(user, case):
+-        raise PermissionDenied
++    user = current_erasure_actor(user, case, session_version, mfa_version)
+     account_scope = bool(case.account_subject_id)
+     if (
+         not isinstance(purposes, list)
+@@ -120,6 +136,7 @@
+             and previous.operation == "erasure_execute"
+             and previous.payload_digest == signature
+         ):
++            current_erasure_actor(user, case, session_version, mfa_version)
+             return ErasureExecution.objects.get(action=previous)
+         raise ValidationError("Conflicting action key / Clave incompatible")
+     if (
+@@ -505,6 +522,7 @@
+             case.version += 1
+             case.scope_status = "unverified"
+             case.save(update_fields=["version", "scope_status", "manager_version"])
++            current_erasure_actor(user, case, session_version, mfa_version)
+             return record
+     except IntegrityError as error:
+         raise ValidationError("Execution conflict / Conflicto de ejecución") from error
+--- a/apps/safety/rights_actions.py
++++ b/apps/safety/rights_actions.py
+@@ -4,6 +4,8 @@
+ from django.db import IntegrityError, transaction
+ from django.utils import timezone
+ from django.views.decorators.debug import sensitive_variables
++
++from apps.core.models import User
+ 
+ from .crypto import seal
+ from .models import RightsAccess, RightsAction, RightsExtension, RightsWithdrawal
+@@ -11,6 +13,27 @@
+ from .rights_prompts import PROMPTS
+ from .rights_scope import locked_case, permitted
+ from .rights_verification import authorized_proof, complete_read
++
++
++def current_action_actor(user, case, session_version, mfa_version, operation):
++    actor = User.objects.get(pk=user.pk)
++    required = ["safety.review_rights_request"]
++    if operation == "unassign":
++        required.append("safety.manage_rights_assignment")
++    elif operation == "withdraw":
++        required.append("safety.execute_rights_request")
++    elif operation == "extend":
++        required.append("safety.extend_rights_deadline")
++    if (
++        not actor.is_active
++        or not actor.mfa_enabled
++        or actor.session_version != session_version
++        or actor.mfa_version != mfa_version
++        or any(not actor.has_perm(permission) for permission in required)
++        or not permitted(actor, case)
++    ):
++        raise PermissionDenied("Current rights authority required")
++    return actor
+ 
+ 
+ @transaction.atomic
+@@ -29,6 +52,7 @@
+     link_person_id=None,
+     link_account_id=None,
+ ):
++    session_version, mfa_version = user.session_version, user.mfa_version
+     if not user.has_perm("safety.review_rights_request") or not user.mfa_enabled:
+         raise PermissionDenied("Rights permission and MFA required")
+     if operation == "unassign" and not user.has_perm("safety.manage_rights_assignment"):
+@@ -48,8 +72,7 @@
+         link_account_id=link_account_id if operation == "link" else None,
+         allow_erased_account=operation != "link",
+     )
+-    if not permitted(user, case):
+-        raise PermissionDenied("Conflict of interest")
++    user = current_action_actor(user, case, session_version, mfa_version, operation)
+     payload = {"version": version, "operation": operation, "reason": reason}
+     if operation == "extend":
+         payload.update(additional_months=additional_months, extension_reason=extension_reason)
+@@ -75,6 +98,7 @@
+             and previous.actor_id == user.pk
+             and previous.payload_digest == signature
+         ):
++            current_action_actor(user, case, session_version, mfa_version, operation)
+             return case
+         raise ValidationError("Conflicting replay / Reintento incompatible")
+     if case.version != version or operation not in {
+@@ -239,4 +263,5 @@
+             "reported_subject",
+         ]
+     )
++    current_action_actor(user, case, session_version, mfa_version, operation)
+     return case

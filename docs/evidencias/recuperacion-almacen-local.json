@@ -1,0 +1,26 @@
+{
+  "scope": "Local filesystem adapter and codec; no PostgreSQL exporter or restore proof",
+  "passed": 26,
+  "xml": "/tmp/recovery-store.xml",
+  "files": {
+    "scripts/recovery_store.py": "36dece33153952829d0907eb68633b7915c17cafcba977d169c9b39b3e4be33f",
+    "tests/test_recovery_store.py": "de9c490125bf6112d56db3a011d216e2a295767252f8b590adbc8f65d6d36164",
+    "scripts/recovery_ledger.py": "2a4319bb37eb9b855e7928d486c714e22e288b106ca0ac2dcb1036d99fba0740",
+    "tests/test_recovery_ledger_codec.py": "39ccf00bdcca11f24eaa0793fd2bc0c261dffa2383ba18a6d0ea0c79203dfd59"
+  },
+  "coverage": [
+    "fsync record and checkpoint",
+    "Exact replay across reopen",
+    "Concurrent same record append",
+    "Crash after record before checkpoint",
+    "Missing/tampered artifacts",
+    "Private modes and symlink refusal",
+    "Aggregate loading limit"
+  ],
+  "limits": [
+    "Same-host directories not off-host backup",
+    "No outbox exported_at update",
+    "No recovery effects applied",
+    "POSIX flock local filesystem, not distributed lock"
+  ]
+}

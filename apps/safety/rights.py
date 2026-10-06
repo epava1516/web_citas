@@ -385,6 +385,7 @@ def inspect(request, case_id):
                 .order_by("-created_at", "-pk"),
                 50,
             ).get_page(request.GET.get("information_page"))
+    portability_response_drafts = None
     portability_coverages = None
     portability_selections = None
     portability_drafts = None
@@ -392,6 +393,7 @@ def inspect(request, case_id):
         from .models import (
             RightsPortabilityAssessment,
             RightsPortabilityCoverage,
+            RightsPortabilityResponseDraft,
             RightsPortabilitySelection,
         )
         from .rights_portability_review import authorize as authorize_portability
@@ -401,6 +403,20 @@ def inspect(request, case_id):
         except PermissionDenied:
             pass
         else:
+            if request.user.has_perm("safety.respond_rights_request"):
+                portability_response_drafts = Paginator(
+                    RightsPortabilityResponseDraft.objects.filter(
+                        request=case,
+                        case_version=case.version,
+                        response_version=case.response_version,
+                        purged_at__isnull=True,
+                        expires_at__gt=timezone.now(),
+                    )
+                    .exclude(actor=request.user)
+                    .only("pk", "created_at", "expires_at")
+                    .order_by("-created_at", "-pk"),
+                    50,
+                ).get_page(request.GET.get("response_draft_page"))
             portability_drafts = Paginator(
                 RightsPortabilityAssessment.objects.filter(
                     request=case, purged_at__isnull=True, expires_at__gt=timezone.now()
@@ -455,6 +471,7 @@ def inspect(request, case_id):
                 "portability_drafts": portability_drafts,
                 "portability_selections": portability_selections,
                 "portability_coverages": portability_coverages,
+                "portability_response_drafts": portability_response_drafts,
             },
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )
@@ -555,6 +572,22 @@ def case_export_forms(case):
     if not enabled():
         return []
 
+    from django.db.models import Q
+
+    eligibility = Q(case_version=case.version)
+    if case.kind == "portability" and case.status == "resolved":
+        from .models import RightsPortabilityClosure
+
+        eligibility = Q(
+            pk__in=RightsPortabilityClosure.objects.filter(
+                action__request=case,
+                review__draft__request=case,
+                closed_case_version=case.version,
+                closed_response_version=case.response_version,
+                channel_digest=case.receipt_digest,
+            ).values("review__draft__export_id")
+        )
+
     return [
         {
             "id": item.pk,
@@ -572,8 +605,8 @@ def case_export_forms(case):
             ],
         }
         for item in RightsExport.objects.filter(
+            eligibility,
             action__request=case,
-            case_version=case.version,
             expires_at__gt=timezone.now(),
             purged_at__isnull=True,
         ).order_by("-created_at")[:10]

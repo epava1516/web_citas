@@ -1532,3 +1532,79 @@ class RightsPortabilityCoverageReview(models.Model):
                 name="portability_coverage_review_outcome",
             )
         ]
+
+
+class RightsPortabilityResponseDraft(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    export = models.ForeignKey(RightsExport, on_delete=models.PROTECT)
+    coverage_review = models.ForeignKey(RightsPortabilityCoverageReview, on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    case_version = models.PositiveIntegerField()
+    response_version = models.PositiveIntegerField()
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    export_digest = models.CharField(max_length=64)
+    coverage_digest = models.CharField(max_length=64)
+    text_digest = models.CharField(max_length=64)
+    encrypted_response = models.TextField()
+    expires_at = models.DateTimeField(db_index=True)
+    purged_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsPortabilityResponseReview(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    draft = models.OneToOneField(RightsPortabilityResponseDraft, on_delete=models.PROTECT)
+    read_action = models.ForeignKey(
+        RightsAction, on_delete=models.PROTECT, related_name="final_response_reviews"
+    )
+    text_digest = models.CharField(max_length=64)
+    ciphertext_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    outcome = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["approved", "rejected"]),
+                name="portability_response_review_outcome",
+            )
+        ]
+
+
+class RightsPortabilityClosure(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    response = models.OneToOneField(RightsResponse, on_delete=models.PROTECT)
+    review = models.OneToOneField(RightsPortabilityResponseReview, on_delete=models.PROTECT)
+    closed_case_version = models.PositiveIntegerField()
+    closed_response_version = models.PositiveIntegerField()
+    channel_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RecoveryOutbox(models.Model):
+    """Transactional execution receipt; independent export remains required."""
+    id = models.BigAutoField(primary_key=True)
+    event_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    execution = models.OneToOneField(ErasureExecution, on_delete=models.PROTECT)
+    sequence = models.PositiveBigIntegerField(null=True, unique=True)
+    encoded_record = models.JSONField(null=True)
+    encrypted_event = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    exported_at = models.DateTimeField(null=True)
+
+
+class RecoveryLedgerState(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True, default=1)
+    ledger_id = models.UUIDField(default=uuid.uuid4, unique=True)
+    sequence = models.PositiveBigIntegerField(default=0)
+    head = models.CharField(max_length=64, default="0" * 64)
+
+    class Meta:
+        constraints = [models.CheckConstraint(condition=models.Q(id=1), name="recovery_ledger_singleton")]

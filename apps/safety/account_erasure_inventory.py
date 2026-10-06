@@ -572,6 +572,78 @@ def source(case):
                 ],
             ),
             (
+                "safety.RecoveryOutbox",
+                (Q(execution__account_subject=user) | Q(execution__person__subject=user))
+                & ~Q(execution__action__request=case),
+                "dependent_evidence",
+                ["pk", "event_id", "execution_id", "encrypted_event", "sequence", "encoded_record", "created_at", "exported_at"],
+            ),
+            (
+                "safety.RightsPortabilityClosure",
+                (
+                    Q(review__draft__request__account_subject=user)
+                    | Q(review__draft__request__person__subject=user)
+                )
+                & ~Q(review__draft__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "response_id",
+                    "review_id",
+                    "closed_case_version",
+                    "closed_response_version",
+                    "channel_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsPortabilityResponseReview",
+                (Q(draft__request__account_subject=user) | Q(draft__request__person__subject=user))
+                & ~Q(draft__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "draft_id",
+                    "read_action_id",
+                    "text_digest",
+                    "ciphertext_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "outcome",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RightsPortabilityResponseDraft",
+                (Q(request__account_subject=user) | Q(request__person__subject=user))
+                & ~Q(request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "request_id",
+                    "actor_id",
+                    "export_id",
+                    "coverage_review_id",
+                    "proof_id",
+                    "case_version",
+                    "response_version",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "export_digest",
+                    "coverage_digest",
+                    "text_digest",
+                    "encrypted_response",
+                    "expires_at",
+                    "purged_at",
+                    "created_at",
+                ],
+            ),
+            (
                 "safety.RightsExportPortabilityBinding",
                 (Q(export__account_subject=user) | Q(export__person__subject=user))
                 & ~Q(export__action__request=case),

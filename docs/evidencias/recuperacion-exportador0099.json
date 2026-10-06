@@ -1,0 +1,40 @@
+{
+  "scope": "Isolated real PostgreSQL and local synthetic filesystem exporter",
+  "passed": 9,
+  "seconds": 38.04,
+  "snapshot": "/tmp/web-modelos-recovery-export0099",
+  "xml": "/tmp/recovery-export0099.xml",
+  "files": [
+    {
+      "path": "scripts/recovery_store.py",
+      "before_sha256": "36dece33153952829d0907eb68633b7915c17cafcba977d169c9b39b3e4be33f",
+      "after_sha256": "428217a5dbc5b976c75edeac1ac7987a5d48e1a7d5949f9753e9f1f39622e8b4"
+    },
+    {
+      "path": "apps/safety/recovery_ledger_export.py",
+      "before_sha256": null,
+      "after_sha256": "598c79aae9456b190e22371152ffa0fba4099eddef6b022d8fa27d8ac93b6d31"
+    },
+    {
+      "path": "tests/test_recovery_ledger_export.py",
+      "before_sha256": null,
+      "after_sha256": "e0d3f5e772dfce79ba1c34c775a60fa1e78418105ec1f3e3363420561f74f970"
+    }
+  ],
+  "patch_sha256": "1e863408e498479d2ce5595db478cc064c3c67b2edf5bdf01ec877bb875b061c",
+  "coverage": [
+    "Actual approved erasure produces event",
+    "Missing independent checkpoint blocks acknowledgement",
+    "File commit then DB acknowledgement failure",
+    "Retry confirms durable record without duplication",
+    "Exported_at only after durability",
+    "Replay returns zero exported events",
+    "Caller outer transaction refused",
+    "Rolled-back business chain cannot replace external checkpoint"
+  ],
+  "limits": [
+    "Not distributed/off-host storage",
+    "No actual pg_dump restore test",
+    "Not current workspace exporter integration"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "scope": "Newer isolated receipt with concrete references; older regression does not cover this change",
+  "passed": 2,
+  "seconds": 47.96,
+  "snapshot": "/tmp/web-modelos-recovery-effects0098",
+  "xml": "/tmp/recovery-refs0098.xml",
+  "files": [
+    {
+      "path": "apps/safety/recovery_effects.py",
+      "before_sha256": null,
+      "after_sha256": "16193aff467984f189b1bc4c893bbf2e48a6989d9dff63afdacd7f2ee6815dd9"
+    },
+    {
+      "path": "apps/safety/erasure_execution.py",
+      "before_sha256": "de5b7138b38c3b27086391694d5ad650e71d8f9e38ad5a0c7eb97c52f1e3216c",
+      "after_sha256": "d5b82f7df88b003e9d6f04f3c0bee7185dd263baa8664ababa0d7e884d7cff51"
+    },
+    {
+      "path": "tests/test_recovery_outbox.py",
+      "before_sha256": "4390adb52af944aaed26736bea34ae13c6079e080ec4b9570861c7946fa4b002",
+      "after_sha256": "8aad6fcf6937e20fbe0bb5099d19dfdfae5fcb499a404c1250d54e49eff4b703"
+    }
+  ],
+  "patch_sha256": "eaaa38485600b5c6cd21b3ecece671b272c6d9b53b9e29909ebfa2e156f326e3",
+  "coverage": [
+    "Selected account token IDs",
+    "Exact own export ID",
+    "Only own favorites selected; other user favorite preserved",
+    "Minimum session and MFA epochs"
+  ],
+  "startup_error": "First invocation used workspace cwd: no tests ran, exit4; corrected cwd then passed",
+  "limits": [
+    "No typed recovery applier",
+    "No independent export/checkpoint custody",
+    "No shared-media recovery proof",
+    "No current workspace integration"
+  ]
+}

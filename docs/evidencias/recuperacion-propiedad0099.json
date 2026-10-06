@@ -1,0 +1,23 @@
+{
+  "scope": "Real PostgreSQL synthetic current data ownership gate; not actual restored database",
+  "passed": 2,
+  "seconds": 44.77,
+  "xml": "/tmp/recovery-ownership0099.xml",
+  "files": {
+    "apps/safety/recovery_ownership.py": "d1fb97c21af25e1a00d84d45d1d6104685269c8eb49fc2b9dd3c311ae81a73dd",
+    "tests/test_recovery_ownership.py": "496554e6025cc2b81da05c05a037f4262a134717887fd465b6dc1b8cbbfb4d19",
+    "scripts/recovery_receipts.py": "00ad23268a4094999bdb03fa9d53756a1199dd16eee23968962fe8d6888069a7"
+  },
+  "coverage": [
+    "Valid service-produced profile/account references accepted",
+    "Foreign favorite reference rejected",
+    "Transaction required",
+    "Shared media reference rejected without deletion"
+  ],
+  "limits": [
+    "No pg_dump restore",
+    "No effects applied",
+    "No physical recovery job implementation",
+    "Does not establish operational maintenance gate"
+  ]
+}

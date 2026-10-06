@@ -1,0 +1,42 @@
+{
+  "scope": "Reviewable prepared authority corrections, not applied to workspace",
+  "patch": "docs/evidencias/correcciones-autoridad0097.patch",
+  "patch_sha256": "3c09a30fcaff1af767308a4c539441a8d52d4446e76b63081b042fd2236449ee",
+  "files": [
+    {
+      "path": "apps/safety/rights_responses.py",
+      "before_sha256": "cf23717c5ed9073051f7cb85f3074159e535c0c3498e377a833c7e5e5f1039fa",
+      "after_sha256": "1fc0ef767ce297de7d4b6ca2d4649e49dacdcf837615a4ca8387292dda3c7712"
+    },
+    {
+      "path": "apps/safety/erasure_execution.py",
+      "before_sha256": "c6096d72fe5629c8d0195c0cd5eef40db711b9ab97bc88e6238bd451eb14fbcc",
+      "after_sha256": "026b0a360f255b475809384dfdeaa166b2de6244de3b046f3da56c5f10048cf1"
+    },
+    {
+      "path": "apps/safety/rights_actions.py",
+      "before_sha256": "985e66efe9b20d5a57bc875b6f9f2d8a4945f8fd4b8d6a47688479eb6aad892b",
+      "after_sha256": "7f6f277db9ba4aaeb4e2de861e7aaa955da57a7596e531423fa40c1f80cd8d4b"
+    }
+  ],
+  "required_before_apply": [
+    "Original393 regression74215 terminal",
+    "Verify before hashes; preserve user changes"
+  ],
+  "verification": [
+    "Responses28 passed130.48s isolated",
+    "Erasure48 passed429.36s isolated",
+    "Actions27 passed199.39s isolated",
+    "Specific permissions30 passed195.81s isolated"
+  ],
+  "limits": [
+    "Separate runs, not a single133-case suite",
+    "No current workspace/runtime acceptance"
+  ],
+  "joint_verification": {
+    "session_id": 50660,
+    "passed": 87,
+    "seconds": 599.82,
+    "evidence": "docs/evidencias/autoridad-derechos-regresion-conjunta0097.json"
+  }
+}

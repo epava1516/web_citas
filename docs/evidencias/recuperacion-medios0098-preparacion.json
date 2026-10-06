@@ -1,0 +1,30 @@
+{
+  "scope": "Prepared media recovery references, pending test result",
+  "session": 55319,
+  "snapshot": "/tmp/web-modelos-recovery-effects0098",
+  "xml": "/tmp/recovery-media0098.xml",
+  "log": "/tmp/recovery-media0098.log",
+  "files": [
+    {
+      "path": "apps/safety/recovery_effects.py",
+      "before_sha256": null,
+      "after_sha256": "c9e93e8f6131ed8419a67c2f151ece193eea98b4a1efb36127fccaf7ae1297cd"
+    },
+    {
+      "path": "apps/safety/erasure_execution.py",
+      "before_sha256": "de5b7138b38c3b27086391694d5ad650e71d8f9e38ad5a0c7eb97c52f1e3216c",
+      "after_sha256": "51e8aa0997c81f4f5c9974eed535b7c19592a752cb039dea5f0a70a3542ba624"
+    },
+    {
+      "path": "tests/test_recovery_outbox.py",
+      "before_sha256": "4390adb52af944aaed26736bea34ae13c6079e080ec4b9570861c7946fa4b002",
+      "after_sha256": "8bfd08dea2d958fbb5115db76db5a946db67c7882b6acdafa844c9ed9d3560f0"
+    }
+  ],
+  "patch_sha256": "ebabf4d46fe7b1822cd42ab87d9fc36bae090d70fabeb5eedf8a19e5450d7dc6",
+  "limits": [
+    "Not independent export",
+    "Not restored backup validation",
+    "Encrypted recovery paths require explicit retention/access policy"
+  ]
+}

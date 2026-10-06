@@ -1,0 +1,104 @@
+{
+  "scope": "Consolidated reviewable authority and recovery producer patch, not applied",
+  "snapshot": "/tmp/web-modelos-recovery-ledger0099",
+  "files": [
+    {
+      "path": "apps/safety/models.py",
+      "before_sha256": "0b01f11b5630378f619012fe9ef9a3679c80931f6330403b078aaa569737676f",
+      "after_sha256": "0e51eaf7945cd81b779e7a99bc0617fa70a524e8905089acf6d6ff22699f8333"
+    },
+    {
+      "path": "apps/safety/rights_responses.py",
+      "before_sha256": "cf23717c5ed9073051f7cb85f3074159e535c0c3498e377a833c7e5e5f1039fa",
+      "after_sha256": "1fc0ef767ce297de7d4b6ca2d4649e49dacdcf837615a4ca8387292dda3c7712"
+    },
+    {
+      "path": "apps/safety/rights_actions.py",
+      "before_sha256": "985e66efe9b20d5a57bc875b6f9f2d8a4945f8fd4b8d6a47688479eb6aad892b",
+      "after_sha256": "7f6f277db9ba4aaeb4e2de861e7aaa955da57a7596e531423fa40c1f80cd8d4b"
+    },
+    {
+      "path": "apps/safety/erasure_execution.py",
+      "before_sha256": "c6096d72fe5629c8d0195c0cd5eef40db711b9ab97bc88e6238bd451eb14fbcc",
+      "after_sha256": "51e8aa0997c81f4f5c9974eed535b7c19592a752cb039dea5f0a70a3542ba624"
+    },
+    {
+      "path": "apps/safety/account_erasure_inventory.py",
+      "before_sha256": "031d1f5cffd54977a9bb9b310826cb9ae2562d1288e0d66a7996f71861ee520e",
+      "after_sha256": "7027f5e5bf93f14a359794dfea5a4e8cdf93242b140c16073f53210153ce1443"
+    },
+    {
+      "path": "apps/safety/erasure_inventory.py",
+      "before_sha256": "7cba1ff63a5c9094f1a7fddb36c23caf2ddb5011576c44f7579bfcecc5bc0347",
+      "after_sha256": "1f036ca85e874923809704b5d99fd04322b34aa3884a352fd6fe115dc2c74fb3"
+    },
+    {
+      "path": "apps/safety/recovery_effects.py",
+      "before_sha256": null,
+      "after_sha256": "06bed0e23c295c96568d7e7cba4ec90cb1479172ccbe90ebf48e4d1fe645da5d"
+    },
+    {
+      "path": "apps/safety/recovery_ledger_producer.py",
+      "before_sha256": null,
+      "after_sha256": "fd2d01ade56007ddd14acc6ed76e236495831baba404e40a5b6d7ed574ebbbba"
+    },
+    {
+      "path": "apps/safety/migrations/0098_recovery_outbox.py",
+      "before_sha256": null,
+      "after_sha256": "eab3a34381205187c4402668b8cb11cf510150ff9dbe9794d28c0b5f42680762"
+    },
+    {
+      "path": "apps/safety/migrations/0099_recovery_ledger_producer.py",
+      "before_sha256": null,
+      "after_sha256": "fbb81999f8c05b940bdb2975aa841ee9fe29e98b0c1420eda62f49f26b6fa0bf"
+    },
+    {
+      "path": "tests/test_recovery_outbox.py",
+      "before_sha256": null,
+      "after_sha256": "f77ec7163dba6452e9de33a64d0d979061b87a77aea820ca32ccfa70d9ca1857"
+    },
+    {
+      "path": "tests/test_recovery_ledger_producer.py",
+      "before_sha256": null,
+      "after_sha256": "cc3d5fc89a9375e88a8b990d2eff28224eef34dc227cb04eac9b52ed0a638501"
+    },
+    {
+      "path": "tests/test_purpose_inventory_dependencies.py",
+      "before_sha256": "715aaa231eb69b99d615e0f5d74c0218a0e2df56831946722cb8f5188cc9e553",
+      "after_sha256": "1fd9965aa400834b92dd97b6036a74c84ee05842ee15ca1615848c62fe20aa19"
+    }
+  ],
+  "patch_sha256": "804a069e0a8535c09685a9f781c0354407201a779b388817d0b29db53ab40eb7",
+  "xml": "/tmp/recovery-consolidated0099.xml",
+  "required": [
+    "Original regression74215 terminal",
+    "Check before hashes and preserve user work",
+    "Verify integrated workspace/runtime and affected regression"
+  ],
+  "limits": [
+    "No external export",
+    "No complete restore acceptance"
+  ],
+  "verification": {
+    "scope": "Consolidated receipt/references/media/producer/inventory tests on isolated snapshot",
+    "session": 40338,
+    "passed": 5,
+    "seconds": 71.63,
+    "source_files": 671,
+    "snapshot": "/tmp/web-modelos-recovery-ledger0099",
+    "xml": "/tmp/recovery-consolidated0099.xml",
+    "checks": [
+      "Ruff selected files passed",
+      "Django check passed",
+      "No ungenerated migrations",
+      "Consolidated git apply --check passed"
+    ],
+    "limits": [
+      "Not full authority regression on this version",
+      "No independent export",
+      "No backup restore test",
+      "Not workspace/runtime integrated"
+    ]
+  },
+  "integration": "Applied after original393 terminal and matching before hashes; after hashes match isolated snapshot"
+}

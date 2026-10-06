@@ -1,6 +1,7 @@
 # Portabilidad: vincular cobertura, entrega y respuesta final
 
-Estado vigente: consumo auditado y exportación ligada a cobertura implementados en0094, con verificaciones específicas y runtime Docker local actualizado. Su regresión conjunta48910 terminó339 correctas/4 fallidas: variable binary del bucle sobrescribía parámetro del test. Corregido solo test, repetición51876 con6 correctas249,55s; complementaria1151 con12 correctas58,85s por separado. Código funcional sin cambios desde la regresión. Evidencia portabilidad-exportacion-cubierta-regresion0094.json; aceptación técnica parcial, no CR09 ni suite íntegra. Respuesta final y cierre siguen sin implementar. Continúa CR-09 y el contrato completo. La regresión0093 terminó con294 pruebas correctas y su entrega parcial es d49d863. Los apartados posteriores conservan la secuencia de diseño y las evidencias históricas; este estado prevalece sobre sus menciones antiguas de implementación o runtime pendientes.
+Estado vigente: cobertura/entrega0094 y respuesta independiente/cierre0095–97 implementados y verificados localmente. Regresión original393 correcta;124 pruebas de integración posterior y48 de recuperación/exportación finales correctas en ejecuciones separadas. RuntimeDocker0099 actualizado. [Seguimiento vigente](17-seguimiento-desarrollo.md) y [resultados](evidencias/recuperacion-final0099-resultados.json). CR-09 y el contrato completo siguen abiertos. Los hallazgos/diseños/resultados posteriores se preservan como historial; las menciones antiguas de “sin implementar”, “activa” o “runtime pendiente” no prevalecen sobre este estado.
+
 
 ## Hallazgos comprobados en código
 
@@ -92,3 +93,38 @@ La inspección de modelos confirma que RightsExportDownload registra clave, expo
 RightsResponseAcknowledgement acredita únicamente la confirmación explícita de una respuesta a través del canal del expediente; no identifica la exportación ni sus partes. La revisión final deberá distinguir copia disponible, descargas autorizadas, confirmación explícita de recepción y aviso simulado/desactivado. Si el flujo incorpora confirmación de exportación, ligarla a exportación y canal exactos, conservar las referencias y verificar cada parte requerida; no reutilizar automáticamente el acuse de respuesta como acuse de copia.
 
 La disponibilidad/entrega necesaria para emitir respuesta y cerrar deberá quedar definida explícitamente en el servicio y en su interfaz, sin condicionar artificialmente el cierre a una lectura supuesta ni dar por real el transporte simulado. Las pruebas deben demostrar esos estados y los límites de su evidencia. Esta decisión de implementación sigue pendiente de ejecutar; no acredita cumplimiento jurídico ni envío real.
+
+
+## Transición de autorización después de exportar: requisito del vínculo final
+
+Inspección de rights_verification.initiate/receive_event: iniciar una nueva prueba incrementa case.version una vez y aceptar su resultado independiente la incrementa de nuevo. La prueba nueva termina ligada a esa versión actual. La exportación0094 conserva la prueba anterior y su case_version posterior a generar; por tanto una nueva comprobación bloquea la descarga actual incluso antes del cierre. No actualizar export.case_version ni la prueba original para hacerlas pasar como actuales.
+
+La preparación final debe persistir referencias protegidas a exportación, cobertura y nueva prueba actual, junto a versiones de expediente/respuestas, canal, actor y épocas. La validación de la entrega anterior puede reconstruir un snapshot de expediente con export.case_version para verificar su evidencia histórica; esto solo es admisible dentro de una autorización actual auditada y no concede descarga por sí mismo. La compatibilidad posterior al cierre deberá apoyarse en la respuesta final aprobada y su vínculo exacto, y seguir comprobando caducidad, ámbito, canal, fuente, prueba original y autoridades de selección/cobertura. No basta aceptar resolved ni permitir cualquier incremento de versión.
+
+La aprobación final debe comprobar la nueva prueba vigente y lecturas actuales de expediente/respuestas, revisar el texto y las referencias exactas con un actor independiente, y revalidar todos los vínculos bajo los bloqueos canónicos antes de emitir respuesta/aviso/cierre atómicos. El inventario y la retención deben incorporar esa dependencia. Estas condiciones siguen pendientes de implementación y verificación.
+
+Validador de texto público compartido rights_response_text integrado en respuestas existentes:73973 terminal0,22 correctas92,08s, incluye tipos inválidos, confirmación booleana, contactos/enlaces y regresión PostgreSQL de respuestas/acuses. No concede revisión legal, autoridad de cierre ni protección automática contra cualquier dato de tercero escrito en prosa; la revisión independiente sigue requerida.
+
+
+## Preparación y revisión de respuesta final0095–96: estado técnico vigente
+
+RightsPortabilityResponseDraft conserva FK protegidas a exportación/cobertura/nueva prueba, versiones de expediente/respuestas, épocas del autor, huellas y texto cifrado con caducidad acotada. prepare exige comprobación nueva posterior a la exportación y lecturas actuales, permiso responder/ejecutar/asignación/ámbito, registra portability_draft antes de reconstruir entrega histórica y conserva estado/plazos. Reintentos validan texto y referencias exactos. Texto dañado genera ValidationError controlado.
+
+final_draft_read exige actor independiente con permisos y épocas vigentes, prueba actual y lecturas completas; audita antes del descifrado y revalida preparación original usando las épocas del autor. RightsPortabilityResponseReview protege esa lectura original, decisión y huellas exactas; record revalida lectura y preparación, controla reintentos/corrupción y no emite respuesta ni cierra. Inventarios perfil/cuenta incorporan ambas dependencias sin exponer texto/ciphertext. Tarea de purga configurada60s/lote100 limpia solo texto caducado y conserva metadatos; comprobada mediante invocación directa PostgreSQL, todavía no worker/Beat real.
+
+Pantallas preparación/revisión y descubrimiento paginado desde expediente implementados. Verificaciones HTTP separadas y Chromium90513:4 correctas130,50s ESEN×perfil/cuenta390px; autor prepara, revisor descubre/consulta/aprueba y GET retira texto, sin overflow ni modificación de plazos. Identidad/sesiones/hechos sintéticos, navegador real. Evidencias respuesta correspondientes en docs/evidencias. No acredita rechazo completo, concurrencia observada, emisión/cierre, descarga después de cierre, runtime0095–96, regresión íntegra ni revisión legal real.
+
+## Cierre0097: implementación y verificación parcial vigente
+
+El cierre ya está implementado mediante RightsPortabilityClosure, con referencias protegidas a acción, respuesta y aprobación independiente. Reconstruye el snapshot exacto del borrador y revalida firmas, fuente, pruebas, canal y épocas originales frente a la autoridad actual. Emisión, aviso en cola y resolución ocurren en una transacción; conserva fechas y plazos. La validación histórica no concede autoridad por sí sola y ninguna decisión rechazada permite cerrar.
+
+La descarga posterior solo admite la exportación referenciada por ese cierre, con versiones y canal exactos. Después de auditar el intento, valida el cierre y la evidencia original de exportación; no modifica el payload firmado ni acepta cualquier expediente resolved. Descargar no confirma automáticamente recepción de la respuesta. El aviso en cola no es un envío real.
+
+Verificación separada: batería67236,5 correctas141,74s PostgreSQL/HTTP aprobado-rechazado×perfil-cuenta, inventarios no vacíos y sensibilidad/restauración de huella, descarga JSON posterior y frontera histórica50→51. Chromium móvil,4 correctas139,04s ESEN×perfil-cuenta hasta cierre y descarga. Ambas usan datos e identidades sintéticos; no sumar como suite única ni extrapolar a proveedores reales. Carrera de cierre2766 actualmente activa con12 variantes de cuenta; resultado pendiente. Binarios posteriores al cierre, runtime0095–97, worker/Beat y regresión común siguen pendientes. Este apartado actualiza el estado de implementación descrito anteriormente, sin aceptar CR-09 íntegro.
+
+
+## Actualización operativa0097 y aceptación pendiente
+
+Cierre observado2766 terminal0:12 carreras cuenta correctas227,04s; entrega binaria63942 terminal0:1correcta63,35s, JSON/WebP/ZIP y corrupción con rollback de auditoría. Docker0095–97 aplicado, trece hashes host/app/worker/Beat iguales, UID10001 y health/check/migraciones correctos. Purga worker/Beat62469 terminal0: cuatro tareas exactas, caducado/vigente, replay y referencias conservadas; recursos aislados eliminados y ausencia verificada. Estos resultados actualizan los pendientes operativos descritos antes; son ejecuciones separadas y no una suite única.
+
+Regresión393 original74215 aún activa. Se confirmaron por reproducciones independientes defectos de autoridad en respuestas antiguas, ejecución de supresión y acciones generales. Correcciones en snapshots con resultados28/48/27 y permisos específicos30 correctos por separado; batería conjunta50660 activa. Ninguna corrección aplicada al workspace/runtime todavía. Los recorridos0097 correctos no acreditan seguridad global, aceptación CR-09 ni preparación de producción. Estado vigente y evidencias en seguimiento17/auditoría83.

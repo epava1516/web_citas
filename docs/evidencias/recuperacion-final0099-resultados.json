@@ -1,0 +1,108 @@
+{
+  "scope": "Final integrated exporter/preflight/ownership/typed codec/store/producer tests",
+  "passed": 48,
+  "seconds": 73.11,
+  "xml": "/tmp/recovery-final0099.xml",
+  "runtime": {
+    "expected": {
+      "apps/safety/models.py": "0e51eaf7945cd81b779e7a99bc0617fa70a524e8905089acf6d6ff22699f8333",
+      "apps/safety/rights_responses.py": "1fc0ef767ce297de7d4b6ca2d4649e49dacdcf837615a4ca8387292dda3c7712",
+      "apps/safety/rights_actions.py": "7f6f277db9ba4aaeb4e2de861e7aaa955da57a7596e531423fa40c1f80cd8d4b",
+      "apps/safety/erasure_execution.py": "2313955eb553155ef89506b1dbb6aa6b42dc83cb6edcf123f18f070d12cee74c",
+      "apps/safety/account_erasure_inventory.py": "7027f5e5bf93f14a359794dfea5a4e8cdf93242b140c16073f53210153ce1443",
+      "apps/safety/erasure_inventory.py": "1f036ca85e874923809704b5d99fd04322b34aa3884a352fd6fe115dc2c74fb3",
+      "apps/safety/recovery_effects.py": "06bed0e23c295c96568d7e7cba4ec90cb1479172ccbe90ebf48e4d1fe645da5d",
+      "apps/safety/recovery_ledger_producer.py": "fd2d01ade56007ddd14acc6ed76e236495831baba404e40a5b6d7ed574ebbbba",
+      "apps/safety/recovery_ledger_export.py": "598c79aae9456b190e22371152ffa0fba4099eddef6b022d8fa27d8ac93b6d31",
+      "apps/safety/recovery_ownership.py": "d1fb97c21af25e1a00d84d45d1d6104685269c8eb49fc2b9dd3c311ae81a73dd",
+      "apps/safety/management/commands/check_recovery_ledger.py": "a1505b1534d9473d2948ce437660eb6d3bad729825d44bc2294158ae2d9c35ad",
+      "scripts/recovery_ledger.py": "2a4319bb37eb9b855e7928d486c714e22e288b106ca0ac2dcb1036d99fba0740",
+      "scripts/recovery_store.py": "428217a5dbc5b976c75edeac1ac7987a5d48e1a7d5949f9753e9f1f39622e8b4",
+      "scripts/recovery_receipts.py": "00ad23268a4094999bdb03fa9d53756a1199dd16eee23968962fe8d6888069a7",
+      "apps/safety/migrations/0098_recovery_outbox.py": "eab3a34381205187c4402668b8cb11cf510150ff9dbe9794d28c0b5f42680762",
+      "apps/safety/migrations/0099_recovery_ledger_producer.py": "fbb81999f8c05b940bdb2975aa841ee9fe29e98b0c1420eda62f49f26b6fa0bf"
+    },
+    "services": {
+      "app": {
+        "uid": 10001,
+        "hashes": {
+          "apps/safety/models.py": "0e51eaf7945cd81b779e7a99bc0617fa70a524e8905089acf6d6ff22699f8333",
+          "apps/safety/rights_responses.py": "1fc0ef767ce297de7d4b6ca2d4649e49dacdcf837615a4ca8387292dda3c7712",
+          "apps/safety/rights_actions.py": "7f6f277db9ba4aaeb4e2de861e7aaa955da57a7596e531423fa40c1f80cd8d4b",
+          "apps/safety/erasure_execution.py": "2313955eb553155ef89506b1dbb6aa6b42dc83cb6edcf123f18f070d12cee74c",
+          "apps/safety/account_erasure_inventory.py": "7027f5e5bf93f14a359794dfea5a4e8cdf93242b140c16073f53210153ce1443",
+          "apps/safety/erasure_inventory.py": "1f036ca85e874923809704b5d99fd04322b34aa3884a352fd6fe115dc2c74fb3",
+          "apps/safety/recovery_effects.py": "06bed0e23c295c96568d7e7cba4ec90cb1479172ccbe90ebf48e4d1fe645da5d",
+          "apps/safety/recovery_ledger_producer.py": "fd2d01ade56007ddd14acc6ed76e236495831baba404e40a5b6d7ed574ebbbba",
+          "apps/safety/recovery_ledger_export.py": "598c79aae9456b190e22371152ffa0fba4099eddef6b022d8fa27d8ac93b6d31",
+          "apps/safety/recovery_ownership.py": "d1fb97c21af25e1a00d84d45d1d6104685269c8eb49fc2b9dd3c311ae81a73dd",
+          "apps/safety/management/commands/check_recovery_ledger.py": "a1505b1534d9473d2948ce437660eb6d3bad729825d44bc2294158ae2d9c35ad",
+          "scripts/recovery_ledger.py": "2a4319bb37eb9b855e7928d486c714e22e288b106ca0ac2dcb1036d99fba0740",
+          "scripts/recovery_store.py": "428217a5dbc5b976c75edeac1ac7987a5d48e1a7d5949f9753e9f1f39622e8b4",
+          "scripts/recovery_receipts.py": "00ad23268a4094999bdb03fa9d53756a1199dd16eee23968962fe8d6888069a7",
+          "apps/safety/migrations/0098_recovery_outbox.py": "eab3a34381205187c4402668b8cb11cf510150ff9dbe9794d28c0b5f42680762",
+          "apps/safety/migrations/0099_recovery_ledger_producer.py": "fbb81999f8c05b940bdb2975aa841ee9fe29e98b0c1420eda62f49f26b6fa0bf"
+        }
+      },
+      "worker": {
+        "uid": 10001,
+        "hashes": {
+          "apps/safety/models.py": "0e51eaf7945cd81b779e7a99bc0617fa70a524e8905089acf6d6ff22699f8333",
+          "apps/safety/rights_responses.py": "1fc0ef767ce297de7d4b6ca2d4649e49dacdcf837615a4ca8387292dda3c7712",
+          "apps/safety/rights_actions.py": "7f6f277db9ba4aaeb4e2de861e7aaa955da57a7596e531423fa40c1f80cd8d4b",
+          "apps/safety/erasure_execution.py": "2313955eb553155ef89506b1dbb6aa6b42dc83cb6edcf123f18f070d12cee74c",
+          "apps/safety/account_erasure_inventory.py": "7027f5e5bf93f14a359794dfea5a4e8cdf93242b140c16073f53210153ce1443",
+          "apps/safety/erasure_inventory.py": "1f036ca85e874923809704b5d99fd04322b34aa3884a352fd6fe115dc2c74fb3",
+          "apps/safety/recovery_effects.py": "06bed0e23c295c96568d7e7cba4ec90cb1479172ccbe90ebf48e4d1fe645da5d",
+          "apps/safety/recovery_ledger_producer.py": "fd2d01ade56007ddd14acc6ed76e236495831baba404e40a5b6d7ed574ebbbba",
+          "apps/safety/recovery_ledger_export.py": "598c79aae9456b190e22371152ffa0fba4099eddef6b022d8fa27d8ac93b6d31",
+          "apps/safety/recovery_ownership.py": "d1fb97c21af25e1a00d84d45d1d6104685269c8eb49fc2b9dd3c311ae81a73dd",
+          "apps/safety/management/commands/check_recovery_ledger.py": "a1505b1534d9473d2948ce437660eb6d3bad729825d44bc2294158ae2d9c35ad",
+          "scripts/recovery_ledger.py": "2a4319bb37eb9b855e7928d486c714e22e288b106ca0ac2dcb1036d99fba0740",
+          "scripts/recovery_store.py": "428217a5dbc5b976c75edeac1ac7987a5d48e1a7d5949f9753e9f1f39622e8b4",
+          "scripts/recovery_receipts.py": "00ad23268a4094999bdb03fa9d53756a1199dd16eee23968962fe8d6888069a7",
+          "apps/safety/migrations/0098_recovery_outbox.py": "eab3a34381205187c4402668b8cb11cf510150ff9dbe9794d28c0b5f42680762",
+          "apps/safety/migrations/0099_recovery_ledger_producer.py": "fbb81999f8c05b940bdb2975aa841ee9fe29e98b0c1420eda62f49f26b6fa0bf"
+        }
+      },
+      "beat": {
+        "uid": 10001,
+        "hashes": {
+          "apps/safety/models.py": "0e51eaf7945cd81b779e7a99bc0617fa70a524e8905089acf6d6ff22699f8333",
+          "apps/safety/rights_responses.py": "1fc0ef767ce297de7d4b6ca2d4649e49dacdcf837615a4ca8387292dda3c7712",
+          "apps/safety/rights_actions.py": "7f6f277db9ba4aaeb4e2de861e7aaa955da57a7596e531423fa40c1f80cd8d4b",
+          "apps/safety/erasure_execution.py": "2313955eb553155ef89506b1dbb6aa6b42dc83cb6edcf123f18f070d12cee74c",
+          "apps/safety/account_erasure_inventory.py": "7027f5e5bf93f14a359794dfea5a4e8cdf93242b140c16073f53210153ce1443",
+          "apps/safety/erasure_inventory.py": "1f036ca85e874923809704b5d99fd04322b34aa3884a352fd6fe115dc2c74fb3",
+          "apps/safety/recovery_effects.py": "06bed0e23c295c96568d7e7cba4ec90cb1479172ccbe90ebf48e4d1fe645da5d",
+          "apps/safety/recovery_ledger_producer.py": "fd2d01ade56007ddd14acc6ed76e236495831baba404e40a5b6d7ed574ebbbba",
+          "apps/safety/recovery_ledger_export.py": "598c79aae9456b190e22371152ffa0fba4099eddef6b022d8fa27d8ac93b6d31",
+          "apps/safety/recovery_ownership.py": "d1fb97c21af25e1a00d84d45d1d6104685269c8eb49fc2b9dd3c311ae81a73dd",
+          "apps/safety/management/commands/check_recovery_ledger.py": "a1505b1534d9473d2948ce437660eb6d3bad729825d44bc2294158ae2d9c35ad",
+          "scripts/recovery_ledger.py": "2a4319bb37eb9b855e7928d486c714e22e288b106ca0ac2dcb1036d99fba0740",
+          "scripts/recovery_store.py": "428217a5dbc5b976c75edeac1ac7987a5d48e1a7d5949f9753e9f1f39622e8b4",
+          "scripts/recovery_receipts.py": "00ad23268a4094999bdb03fa9d53756a1199dd16eee23968962fe8d6888069a7",
+          "apps/safety/migrations/0098_recovery_outbox.py": "eab3a34381205187c4402668b8cb11cf510150ff9dbe9794d28c0b5f42680762",
+          "apps/safety/migrations/0099_recovery_ledger_producer.py": "fbb81999f8c05b940bdb2975aa841ee9fe29e98b0c1420eda62f49f26b6fa0bf"
+        }
+      }
+    }
+  },
+  "migrations": [
+    "0098_recovery_outbox",
+    "0099_recovery_ledger_producer"
+  ],
+  "checks": [
+    "Ruff global passed",
+    "Django check passed host/runtime",
+    "No missing migrations",
+    "git diff --check passed",
+    "Health HTTP200 status ok"
+  ],
+  "limits": [
+    "Not all repository tests",
+    "No real pg_dump restore",
+    "No off-host provider",
+    "CR09 open"
+  ]
+}

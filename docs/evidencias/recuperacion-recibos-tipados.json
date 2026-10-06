@@ -1,0 +1,20 @@
+{
+  "scope": "Typed pure validation plus separate isolated service-produced receipts",
+  "unit_passed": 16,
+  "service_passed": 2,
+  "service_seconds": 47.64,
+  "xmls": [
+    "/tmp/recovery-receipts.xml",
+    "/tmp/recovery-typed0099.xml"
+  ],
+  "files": {
+    "scripts/recovery_receipts.py": "00ad23268a4094999bdb03fa9d53756a1199dd16eee23968962fe8d6888069a7",
+    "tests/test_recovery_receipts.py": "b8094bf662103a875a5c18c3c46a3f6e715458f00bebde081761b5e5949d9ac5"
+  },
+  "limits": [
+    "Not resource ownership verification against restored database",
+    "No recovery mutation yet",
+    "Separate runs, not single18-case suite"
+  ],
+  "startup_error": "First service run used wrong cwd; no tests ran; corrected snapshot run passed"
+}

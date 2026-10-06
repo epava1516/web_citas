@@ -5,12 +5,35 @@ from django.db import IntegrityError, transaction
 from django.utils import timezone
 from django.views.decorators.debug import sensitive_variables
 
+from apps.core.models import User
+
 from .crypto import seal
 from .models import RightsAccess, RightsAction, RightsExtension, RightsWithdrawal
 from .rights import calendar_months, fingerprint
 from .rights_prompts import PROMPTS
 from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
+
+
+def current_action_actor(user, case, session_version, mfa_version, operation):
+    actor = User.objects.get(pk=user.pk)
+    required = ["safety.review_rights_request"]
+    if operation == "unassign":
+        required.append("safety.manage_rights_assignment")
+    elif operation == "withdraw":
+        required.append("safety.execute_rights_request")
+    elif operation == "extend":
+        required.append("safety.extend_rights_deadline")
+    if (
+        not actor.is_active
+        or not actor.mfa_enabled
+        or actor.session_version != session_version
+        or actor.mfa_version != mfa_version
+        or any(not actor.has_perm(permission) for permission in required)
+        or not permitted(actor, case)
+    ):
+        raise PermissionDenied("Current rights authority required")
+    return actor
 
 
 @transaction.atomic
@@ -29,6 +52,7 @@ def act(
     link_person_id=None,
     link_account_id=None,
 ):
+    session_version, mfa_version = user.session_version, user.mfa_version
     if not user.has_perm("safety.review_rights_request") or not user.mfa_enabled:
         raise PermissionDenied("Rights permission and MFA required")
     if operation == "unassign" and not user.has_perm("safety.manage_rights_assignment"):
@@ -48,8 +72,7 @@ def act(
         link_account_id=link_account_id if operation == "link" else None,
         allow_erased_account=operation != "link",
     )
-    if not permitted(user, case):
-        raise PermissionDenied("Conflict of interest")
+    user = current_action_actor(user, case, session_version, mfa_version, operation)
     payload = {"version": version, "operation": operation, "reason": reason}
     if operation == "extend":
         payload.update(additional_months=additional_months, extension_reason=extension_reason)
@@ -75,6 +98,7 @@ def act(
             and previous.actor_id == user.pk
             and previous.payload_digest == signature
         ):
+            current_action_actor(user, case, session_version, mfa_version, operation)
             return case
         raise ValidationError("Conflicting replay / Reintento incompatible")
     if case.version != version or operation not in {
@@ -239,4 +263,5 @@ def act(
             "reported_subject",
         ]
     )
+    current_action_actor(user, case, session_version, mfa_version, operation)
     return case

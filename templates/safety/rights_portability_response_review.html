@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% if english %}Review final portability response{% else %}Revisar respuesta final de portabilidad{% endif %}</h1>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></p>
+<p>{% if english %}Review the delivered scope, exclusions and third-party privacy. This decision does not issue the response or close the request.{% else %}Revisa el alcance entregado, las exclusiones y la privacidad de terceros. Esta decisión no emite la respuesta ni cierra la solicitud.{% endif %}</p>
+<form method="post">{% csrf_token %}<input type="hidden" name="operation" value="inspect">{{ form.as_p }}<button type="submit">{% if english %}Inspect response draft{% else %}Consultar borrador de respuesta{% endif %}</button></form>
+{% if public %}<h2>{% if english %}Proposed response{% else %}Respuesta propuesta{% endif %}</h2><p>{{ public.text|linebreaksbr }}</p><p>{% if english %}Synthetic authorization; no real delivery{% else %}Autorización sintética; sin entrega real{% endif %}</p><p>{{ public.export }}</p>{% endif %}
+<form method="post">{% csrf_token %}<input type="hidden" name="operation" value="review">{{ decision_form.as_p }}<button type="submit">{% if english %}Record independent decision{% else %}Registrar decisión independiente{% endif %}</button></form>
+{% if decision %}<p role="status">{% if english %}Decision recorded{% else %}Decisión registrada{% endif %}: {{ decision.outcome }}</p>{% endif %}
+{% endblock %}

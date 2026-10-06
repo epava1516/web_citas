@@ -37,9 +37,9 @@ from apps.safety.rights_portability_selection import row_reference
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def approved_coverage(request, settings, monkeypatch, account_only):
+def approved_coverage(request, settings, monkeypatch, account_only, *, binary=False):
     case, author, selection, selected_review, profile, subject, receipt = (
-        prepared_covered_selection(request, settings, monkeypatch, account_only)
+        prepared_covered_selection(request, settings, monkeypatch, account_only, binary)
     )
     with transaction.atomic():
         locked, person, listing = reviewer_case(author, case.pk)

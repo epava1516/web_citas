@@ -785,14 +785,19 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
                     and export.proof.person_rights_version == person.rights_version
                     and export.proof.manager_version == export.manager_version
                 )
+        from .rights_portability_close import closure_for_export
+
+        closure = closure_for_export(case, export) if export else None
         if (
             not export
             or not scope_matches
             or export.expires_at <= now
             or export.purged_at is not None
             or not export.encrypted_payload
-            or case.version != export.case_version
-            or case.status != "reviewing"
+            or (
+                closure is None
+                and (case.version != export.case_version or case.status != "reviewing")
+            )
             or export.channel_digest != case.receipt_digest
             or export.proof.provider != "simulator"
             or export.proof.procedure != PROCEDURE
@@ -803,7 +808,10 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
             or export.proof.channel_digest != export.channel_digest
             or export.proof.expires_at <= now
             or export.proof.case_version + 1 != export.case_version
-            or case.proofs.order_by("-created_at", "-pk").first().pk != export.proof_id
+            or (
+                closure is None
+                and case.proofs.order_by("-created_at", "-pk").first().pk != export.proof_id
+            )
         ):
             raise Http404
         part = None
@@ -842,12 +850,22 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
         ):
             return private(HttpResponse("Conflicting download key", status=409))
         try:
+            delivery_case = case
+            if closure is not None:
+                from copy import copy
+
+                from .rights_portability_close import validate_closure
+
+                validate_closure(closure, case, person)
+                delivery_case = copy(case)
+                delivery_case.version = export.case_version
+                delivery_case.status = "reviewing"
             from .rights_information_export import validate_export_binding
 
-            validate_export_binding(case, person, export)
+            validate_export_binding(delivery_case, person, export)
             from .rights_portability_export import validate_export_binding as validate_portability
 
-            validate_portability(case, person, export)
+            validate_portability(delivery_case, person, export)
             if part:
                 response = HttpResponse(
                     cipher().decrypt(part.encrypted_content.encode()),

@@ -15,6 +15,7 @@ TASKS = {
     "assessments": "apps.safety.tasks.purge_expired_portability_assessments",
     "selections": "apps.safety.tasks.purge_expired_portability_selections",
     "coverage": "apps.safety.tasks.purge_expired_portability_coverage",
+    "response_drafts": "apps.safety.tasks.purge_expired_portability_response_drafts",
 }
 
 
@@ -148,7 +149,7 @@ def fixture():
                 original_session_version=actor.session_version,
                 original_mfa_version=actor.mfa_version,
             )
-            models.RightsPortabilityCoverage.objects.create(
+            coverage = models.RightsPortabilityCoverage.objects.create(
                 request=case,
                 actor=actor,
                 action=action("coverage_save"),
@@ -162,6 +163,53 @@ def fixture():
                 version=version,
                 encrypted_coverage=seal({"synthetic_task_fixture": marker}),
                 expires_at=expiry,
+            )
+            coverage_review = models.RightsPortabilityCoverageReview.objects.create(
+                action=action("coverage_review"),
+                coverage=coverage,
+                proof=proof,
+                source_digest=digest,
+                coverage_digest=digest,
+                original_session_version=actor.session_version,
+                original_mfa_version=actor.mfa_version,
+                outcome="rejected",
+            )
+            export = models.RightsExport.objects.create(
+                action=action("portability_export"),
+                proof=proof,
+                account_subject=actor,
+                case_version=1,
+                subject_snapshot=str(actor.pk),
+                channel_digest=digest,
+                encrypted_payload=seal({"synthetic_task_fixture": marker}),
+                expires_at=expiry,
+            )
+            draft = models.RightsPortabilityResponseDraft.objects.create(
+                action=action("portability_draft"),
+                request=case,
+                actor=actor,
+                export=export,
+                coverage_review=coverage_review,
+                proof=proof,
+                case_version=1,
+                response_version=0,
+                original_session_version=actor.session_version,
+                original_mfa_version=actor.mfa_version,
+                export_digest=digest,
+                coverage_digest=digest,
+                text_digest=digest,
+                encrypted_response=seal({"synthetic_task_fixture": marker}),
+                expires_at=expiry,
+            )
+            models.RightsPortabilityResponseReview.objects.create(
+                action=action("final_draft_review"),
+                draft=draft,
+                read_action=action("final_draft_read"),
+                text_digest=digest,
+                ciphertext_digest=digest,
+                original_session_version=actor.session_version,
+                original_mfa_version=actor.mfa_version,
+                outcome="rejected",
             )
     print(json.dumps({"fixture_created": True, "identity_approved": False}), flush=True)
 
@@ -177,6 +225,7 @@ def state(app, jobs):
         ("assessments", "RightsPortabilityAssessment", "encrypted_assessment"),
         ("selections", "RightsPortabilitySelection", "encrypted_selection"),
         ("coverage", "RightsPortabilityCoverage", "encrypted_coverage"),
+        ("response_drafts", "RightsPortabilityResponseDraft", "encrypted_response"),
     ]:
         model = getattr(models, name)
         fields = [
@@ -203,6 +252,9 @@ def state(app, jobs):
         models.RightsPortabilityReview,
         models.RightsPortabilitySelectionRead,
         models.RightsPortabilitySelectionReview,
+        models.RightsPortabilityCoverageReview,
+        models.RightsExport,
+        models.RightsPortabilityResponseReview,
     ]:
         preserved.append(list(model.objects.order_by("pk").values()))
     data["preservation_digest"] = hashlib.sha256(
@@ -249,14 +301,19 @@ def main():
     if args.mode == "beat":
         assert args.queue == database
         app.conf.task_default_queue = database
-        app.conf.beat_schedule = {
+        selected_schedule = {
             name: settings.CELERY_BEAT_SCHEDULE[name]
             for name in [
                 "purge-expired-portability-assessments",
                 "purge-expired-portability-selections",
                 "purge-expired-portability-coverage",
+                "purge-expired-portability-response-drafts",
             ]
         }
+        # The Django CELERY namespace takes precedence over lower-case updates.
+        app.conf.update(CELERY_BEAT_SCHEDULE=selected_schedule)
+        assert app.conf.beat_schedule == selected_schedule
+        assert {entry["task"] for entry in app.conf.beat_schedule.values()} == set(TASKS.values())
         return app.Beat(loglevel="INFO", schedule="/tmp/portability-probe-beat").run()
     if args.mode == "fixture":
         return fixture()

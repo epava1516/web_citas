@@ -30,6 +30,7 @@ from .erasure_plans import authorized_inventory
 from .models import (
     ErasureExecution,
     ErasurePlan,
+    RecoveryOutbox,
     RightsAction,
     RightsExport,
     RightsExportImage,
@@ -55,9 +56,26 @@ SUPPORTED = [
 ]
 
 
+def current_erasure_actor(user, case, session_version, mfa_version):
+    actor = User.objects.get(pk=user.pk)
+    if (
+        not actor.is_active
+        or not actor.mfa_enabled
+        or actor.session_version != session_version
+        or actor.mfa_version != mfa_version
+        or not actor.has_perm("safety.review_rights_request")
+        or not actor.has_perm("safety.execute_rights_request")
+        or case.assigned_to_id != actor.pk
+        or not permitted(actor, case)
+    ):
+        raise PermissionDenied
+    return actor
+
+
 @transaction.atomic
 @sensitive_variables()
 def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, exception_id=None):
+    session_version, mfa_version = user.session_version, user.mfa_version
     if (
         not user.mfa_enabled
         or not user.has_perm("safety.review_rights_request")
@@ -69,8 +87,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, e
     case, person, _ = locked_case(
         case_id, lock_listing=True, allow_version_change=True, allow_erased_account=True
     )
-    if not permitted(user, case):
-        raise PermissionDenied
+    user = current_erasure_actor(user, case, session_version, mfa_version)
     account_scope = bool(case.account_subject_id)
     if (
         not isinstance(purposes, list)
@@ -120,6 +137,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, e
             and previous.operation == "erasure_execute"
             and previous.payload_digest == signature
         ):
+            current_erasure_actor(user, case, session_version, mfa_version)
             return ErasureExecution.objects.get(action=previous)
         raise ValidationError("Conflicting action key / Clave incompatible")
     if (
@@ -239,6 +257,9 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, e
         raise ValidationError(
             "Each selected purpose must be reviewed for erasure / Cada finalidad seleccionada debe decidir supresión"
         )
+    from .recovery_effects import capture, finalized
+
+    recovery_refs = capture(person, subject, purposes, exports, shared_ids, media_redaction)
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(
@@ -505,6 +526,19 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, e
             case.version += 1
             case.scope_status = "unverified"
             case.save(update_fields=["version", "scope_status", "manager_version"])
+            current_erasure_actor(user, case, session_version, mfa_version)
+            RecoveryOutbox.objects.create(
+                execution=record,
+                encrypted_event=seal({
+                    "schema": "recovery-execution-receipt-v1",
+                    "execution": str(record.pk),
+                    "scope": "account" if account_scope else "person",
+                    "subject": str(case.account_subject_id if account_scope else person.pk),
+                    "purposes": sorted(purposes),
+                    "pending_purposes": sorted(result.get("pending_purposes", [])),
+                    "references": finalized(recovery_refs, person, subject, purposes, record),
+                }),
+            )
             return record
     except IntegrityError as error:
         raise ValidationError("Execution conflict / Conflicto de ejecución") from error

@@ -1,7 +1,6 @@
 """Motivated private responses; closure requires recorded, current execution evidence."""
 
 import json
-import re
 import uuid
 
 from django import forms
@@ -15,6 +14,8 @@ from django.utils.crypto import constant_time_compare
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods, require_POST
 
+from apps.core.models import User
+
 from .crypto import seal, unseal
 from .models import (
     RightsAccess,
@@ -25,13 +26,18 @@ from .models import (
     RightsWithdrawal,
 )
 from .rights import allowed, fingerprint
+from .rights_response_text import checked_response_text
 from .rights_scope import locked_case, permitted
 from .rights_verification import PROCEDURE, complete_read, enabled
 from .views import private
 
 
 def complete_response_read(user, case):
-    ids = list(case.responses.order_by("-pk").values_list("pk", flat=True))
+    ids = list(
+        case.responses.filter(response_version__lte=case.response_version)
+        .order_by("-pk")
+        .values_list("pk", flat=True)
+    )
     required = {None} | {ids[index] for index in range(49, len(ids) - 1, 50)}
     read = set(
         RightsAccess.objects.filter(
@@ -44,11 +50,29 @@ def complete_response_read(user, case):
     return required <= read
 
 
+def current_response_actor(user, case, session_version, mfa_version, *, execution=False):
+    actor = User.objects.get(pk=user.pk)
+    if (
+        not actor.is_active
+        or not actor.mfa_enabled
+        or actor.session_version != session_version
+        or actor.mfa_version != mfa_version
+        or not actor.has_perm("safety.review_rights_request")
+        or not actor.has_perm("safety.respond_rights_request")
+        or (execution and not actor.has_perm("safety.execute_rights_request"))
+        or case.assigned_to_id != actor.pk
+        or not permitted(actor, case)
+    ):
+        raise PermissionDenied
+    return actor
+
+
 @transaction.atomic
 @sensitive_variables()
 def issue(
     user, case_id, key, version, response_version, kind, reason, response, redaction_confirmed
 ):
+    session_version, mfa_version = user.session_version, user.mfa_version
     if (
         not user.mfa_enabled
         or not user.has_perm("safety.review_rights_request")
@@ -58,8 +82,9 @@ def issue(
     case, person, listing = locked_case(
         case_id, lock_listing=True, allow_version_change=True, allow_erased_account=True
     )
-    if not permitted(user, case):
-        raise PermissionDenied
+    user = current_response_actor(
+        user, case, session_version, mfa_version, execution=kind == "representation_complete"
+    )
     signature = fingerprint(
         json.dumps(
             {
@@ -80,6 +105,10 @@ def issue(
             and previous.actor_id == user.pk
             and previous.payload_digest == signature
         ):
+            current_response_actor(
+                user, case, session_version, mfa_version,
+                execution=kind == "representation_complete",
+            )
             return previous
         raise ValidationError("Conflicting response key / Clave de respuesta incompatible")
     if (
@@ -92,18 +121,7 @@ def issue(
         raise ValidationError(
             "Inspect the current assigned request / Consulta la solicitud asignada actual"
         )
-    if (
-        not 20 <= len(reason.strip()) <= 2000
-        or not 50 <= len(response.strip()) <= 4000
-        or not redaction_confirmed
-    ):
-        raise ValidationError(
-            "Motivated reviewed response required / Respuesta motivada y revisada obligatoria"
-        )
-    if re.search(r"https?://|www\.|[\w.+-]+@[\w.-]+|(?:\d[\s().+-]*){7}", response, re.I):
-        raise ValidationError(
-            "Remove contact details and external references / Retira contactos y referencias externas"
-        )
+    checked_response_text(reason, response, redaction_confirmed)
     withdrawal = None
     if kind == "progress":
         if case.status not in {"reviewing", "withdrawn"}:
@@ -182,6 +200,9 @@ def issue(
         case.scope_status = "unverified"
     # An outgoing progress message changes neither input evidence nor authorization of an existing copy.
     case.save(update_fields=["response_version", "status", "version", "scope_status"])
+    current_response_actor(
+        user, case, session_version, mfa_version, execution=bool(withdrawal)
+    )
     return recorded
 
 

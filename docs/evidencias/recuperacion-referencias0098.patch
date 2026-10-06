@@ -1,0 +1,98 @@
+--- /dev/null
++++ b/apps/safety/recovery_effects.py
+@@ -0,0 +1,51 @@
++"""Minimized resource references captured inside an authorized erasure transaction.
++
++References are private evidence, not permission to erase other resources. This
++schema needs an independent export and a typed reconciler before recovery use.
++"""
++from django.views.decorators.debug import sensitive_variables
++from apps.core.models import AccountToken, PhoneChallenge, RecoveryCode, RepresentationInvitation
++from apps.listings.models import Favorite, Listing, Revision
++from apps.mediafiles.models import Photo
++
++
++def ids(query):
++    return [str(pk) for pk in query.order_by('pk').values_list('pk', flat=True)]
++
++
++@sensitive_variables()
++def capture(person, subject, purposes, exports, shared_ids, media_redaction):
++    refs = {}
++    if 'authentication' in purposes:
++        refs['tokens'] = ids(AccountToken.objects.filter(user=subject))
++        refs['recovery_codes'] = ids(RecoveryCode.objects.filter(user=subject))
++    if 'account_preferences' in purposes:
++        refs['favorites'] = ids(Favorite.objects.filter(user=subject))
++    if 'contact' in purposes:
++        refs['phone_challenges'] = ids(PhoneChallenge.objects.filter(person=person))
++    if 'representation' in purposes:
++        refs['representation_invitations'] = ids(RepresentationInvitation.objects.filter(person=person))
++    if set(purposes) & {'publication', 'representation', 'shared_contact_review'}:
++        refs['listings'] = ids(Listing.objects.filter(person=person))
++    if set(purposes) & {'publication', 'shared_contact_review'}:
++        refs['revisions'] = ids(Revision.objects.filter(listing__person=person))
++    if 'transient_copy' in purposes:
++        refs['exports'] = [str(export.pk) for export in exports if not export.purged_at]
++    if 'media' in purposes:
++        photos = list(Photo.objects.filter(revision__listing__person=person).order_by('pk').values_list('pk', 'blob_id'))
++        refs['photos'] = [{'photo': str(pk), 'blob': str(blob), 'shared': blob in shared_ids} for pk, blob in photos]
++        refs['media_operation'] = 'detach_shared_and_review_exclusive' if media_redaction else 'erase_exclusive'
++    return refs
++
++
++@sensitive_variables()
++def finalized(refs, person, subject, purposes):
++    value = {'schema': 'recovery-resource-references-v1', 'resources': refs}
++    if subject:
++        value['account'] = {'id': str(subject.pk), 'minimum_session_version': subject.session_version,
++                            'minimum_mfa_version': subject.mfa_version,
++                            'anonymize': 'account' in purposes}
++    if person:
++        value['person'] = {'id': str(person.pk), 'minimum_rights_version': person.rights_version,
++                           'minimum_manager_version': person.manager_version}
++    return value
+--- a/apps/safety/erasure_execution.py
++++ b/apps/safety/erasure_execution.py
+@@ -257,6 +257,9 @@
+         raise ValidationError(
+             "Each selected purpose must be reviewed for erasure / Cada finalidad seleccionada debe decidir supresión"
+         )
++    from .recovery_effects import capture, finalized
++
++    recovery_refs = capture(person, subject, purposes, exports, shared_ids, media_redaction)
+     try:
+         with transaction.atomic():
+             action = RightsAction.objects.create(
+@@ -533,6 +536,7 @@
+                     "subject": str(case.account_subject_id if account_scope else person.pk),
+                     "purposes": sorted(purposes),
+                     "pending_purposes": sorted(result.get("pending_purposes", [])),
++                    "references": finalized(recovery_refs, person, subject, purposes),
+                 }),
+             )
+             return record
+--- a/tests/test_recovery_outbox.py
++++ b/tests/test_recovery_outbox.py
+@@ -32,6 +32,10 @@
+     assert payload['scope'] == 'account'
+     assert payload['subject'] == str(subject.pk)
+     assert payload['purposes'] == sorted(purposes)
++    assert len(payload['references']['resources']['tokens']) == tokens
++    subject.refresh_from_db()
++    assert payload['references']['account']['minimum_session_version'] == subject.session_version
++    assert payload['references']['account']['minimum_mfa_version'] == subject.mfa_version
+     assert 'reason' not in payload and 'email' not in payload
+     assert event.exported_at is None
+     assert execute(actor, case.pk, plan.pk, key, version, purposes, REASON, True).pk == execution.pk
+@@ -69,6 +73,10 @@
+     event = RecoveryOutbox.objects.get(execution=execution)
+     body = unseal(event.encrypted_event)
+     assert body['scope'] == 'person' and body['subject'] == str(person.pk)
++    assert body['references']['resources']['exports'] == [str(stored.pk)]
++    assert len(body['references']['resources']['favorites']) == 1
++    from apps.listings.models import Favorite
++    assert Favorite.objects.filter(user=outsider, listing=person.listing).exists()
+     def snapshot(target):
+         with transaction.atomic():
+             locked = Person.objects.select_for_update().get(pk=target.pk)

@@ -1,0 +1,37 @@
+{
+  "scope": "Isolated transactional execution receipt, not full recovery or current workspace acceptance",
+  "snapshot": "/tmp/web-modelos-recovery-outbox0098",
+  "requires": "Apply authority0097 corrections first; original393 regression terminal",
+  "files": [
+    {
+      "path": "apps/safety/models.py",
+      "before_sha256": "0b01f11b5630378f619012fe9ef9a3679c80931f6330403b078aaa569737676f",
+      "after_sha256": "9e1a1c167d05c20980b58d92c6ebf09b151a380f0a45bd0a1eb91cc526d645b5"
+    },
+    {
+      "path": "apps/safety/erasure_execution.py",
+      "before_sha256": "026b0a360f255b475809384dfdeaa166b2de6244de3b046f3da56c5f10048cf1",
+      "after_sha256": "de5b7138b38c3b27086391694d5ad650e71d8f9e38ad5a0c7eb97c52f1e3216c"
+    },
+    {
+      "path": "apps/safety/migrations/0098_recovery_outbox.py",
+      "before_sha256": null,
+      "after_sha256": "7240aee82a20aa77871dc1e829ae63a13e35ac9128e7677ea91f594c6517cc17"
+    },
+    {
+      "path": "tests/test_recovery_outbox.py",
+      "before_sha256": null,
+      "after_sha256": "05fa995450a52ad3217f310b5d2bcab9aa9a7b4ada7f9cc982f829374f88dfda"
+    }
+  ],
+  "passed": 1,
+  "seconds": 38.86,
+  "xml": "/tmp/recovery-outbox0098.xml",
+  "database": "test_recovery_outbox0098",
+  "not_implemented": [
+    "Independent export/checkpoint custody",
+    "Exact per-resource recovery effects",
+    "Inventories registration",
+    "Real pg_dump and media restore"
+  ]
+}
