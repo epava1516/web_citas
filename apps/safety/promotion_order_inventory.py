@@ -55,7 +55,15 @@ def specs(*, person=None, user=None):
         (
             "PromotionEntitlement",
             Q(order_id__in=order_ids),
-            ["pk", "order_id", "starts_at", "ends_at", "suspended_at", "last_bumped_at"],
+            [
+                "pk",
+                "order_id",
+                "starts_at",
+                "ends_at",
+                "suspended_at",
+                "last_bumped_at",
+                "last_checked_at",
+            ],
         ),
         (
             "PromotionBumpExecution",

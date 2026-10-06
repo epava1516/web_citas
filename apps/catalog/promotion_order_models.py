@@ -102,6 +102,7 @@ class PromotionEntitlement(models.Model):
     ends_at = models.DateTimeField()
     suspended_at = models.DateTimeField(null=True)
     last_bumped_at = models.DateTimeField(null=True)
+    last_checked_at = models.DateTimeField(null=True)
 
     class Meta:
         constraints = [

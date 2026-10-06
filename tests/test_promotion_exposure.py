@@ -76,3 +76,50 @@ def test_bump_window_quota_replay_and_editorial_state_preserved(request, setting
     assert not bump_one(entitlement.pk, now=now + timedelta(days=1))
     settings.RECOVERY_MODE = True
     assert not bump_one(entitlement.pk, now=now)
+
+
+def test_task_bounded_scan_advances_past_one_hundred_ineligible_entitlements(
+    request, settings, monkeypatch
+):
+    from apps.catalog.promotion_order_models import PromotionEntitlement, PromotionOrder
+    from apps.catalog.tasks import bump_promotions
+
+    _, listing, entitlement = purchased(request, settings, "autobump")
+    now = entitlement.starts_at + timedelta(minutes=11)
+    source = entitlement.order
+    for index in range(1, 101):
+        order = PromotionOrder.objects.create(
+            buyer=source.buyer,
+            listing=listing,
+            product_version=source.product_version,
+            manager_version=source.manager_version + 1,
+            idempotency_key=uuid.uuid4(),
+            request_digest="0" * 64,
+            amount=source.amount,
+            currency=source.currency,
+            tax_rate=source.tax_rate,
+            tax_amount=source.tax_amount,
+            net_amount=source.net_amount,
+            kind="autobump",
+            duration_days=10,
+            bump_interval_minutes=10,
+            daily_bump_limit=2,
+            status="paid",
+        )
+        PromotionEntitlement.objects.create(
+            id=uuid.UUID(int=index),
+            order=order,
+            starts_at=entitlement.starts_at,
+            ends_at=entitlement.ends_at,
+        )
+    monkeypatch.setattr("apps.catalog.tasks.timezone.now", lambda: now)
+    assert bump_promotions.run() == 0
+    assert PromotionEntitlement.objects.filter(last_checked_at=now).count() == 100
+    entitlement.refresh_from_db()
+    assert entitlement.last_checked_at is None and entitlement.last_bumped_at is None
+    assert bump_promotions.run() == 1
+    entitlement.refresh_from_db()
+    assert entitlement.last_checked_at == now and entitlement.last_bumped_at == now
+    assert PromotionEntitlement.objects.filter(last_checked_at__isnull=True).count() == 0
+    assert PromotionBumpExecution.objects.count() == 1
+    # This invokes the task body synchronously on actual PostgreSQL, not a worker/Beat verification.

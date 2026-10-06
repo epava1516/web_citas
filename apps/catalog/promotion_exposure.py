@@ -114,6 +114,8 @@ def bump_one(entitlement_id, *, now=None):
         .get(pk=entitlement_id)
     )
     order = entitlement.order
+    entitlement.last_checked_at = now
+    entitlement.save(update_fields=["last_checked_at"])
     if (
         not eligible(entitlement, listing, now)
         or order.kind != "autobump"
