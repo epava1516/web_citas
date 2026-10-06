@@ -2811,3 +2811,6 @@ Verificación incremental de selección histórica: productor CLI y lector por i
 **N2 terminal81013 correcto:** fuente73d28f6,17 casos PG/CLI/Chromium correctos,0 fallos/errores/skips; informe automático/JUnit revisados, fuentes intactas y bases/medios retirados. Integración ya en master con huellas coincidentes. Siguiente cierre exigido: conservar logs previos cifrados, reconstruir/recrear exclusivamente app/worker/Beat y comprobar hashes/PG/UID/migraciones/HTTP/modos seguros con /tmp/cr09-historical-log-deploy0110.py y -runtime0110.py. No activar orígenes normales ni aceptar CR09. Fuentes congeladas durante build/runtime.
 
 Todas las sesiones citadas arriba son terminales; cierre y cola vigentes únicamente en seguimiento17. Invocación4 de revisión rechazada exit64 antes de iniciar Claude por CONTEXT de tipo objeto; sin reintento automático, revisión Codex local aplicada.
+
+
+Comparación finita de23 capturas tras cierre4c63e35: sesión27345 terminal exit0,239479 observaciones/43575 unión máxima de bytes por contenedor-stream,3,993s, sin fuentes alteradas ni plaintext. Evidencia logs-historicos-solapamientos0110.json; no eventos deduplicados ni asociación/retención acreditada. Cola en17.
