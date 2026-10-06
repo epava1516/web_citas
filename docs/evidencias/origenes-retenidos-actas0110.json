@@ -1,0 +1,45 @@
+{
+  "schema": "retained-origins-actas-v1",
+  "origins": [
+    {
+      "acta": "redis-base-aof-origen0110.json",
+      "ciphertext_sha256": "32781976c4d49bf0459d68a15f2666d258da8a84bcac7f7d38e80009677ed883",
+      "ciphertext_bytes": 27276,
+      "source_sha256": "e0dd91e281d1fe6b6aeab46e914d5be71e0fbddb59b33daa403c6921058b027f",
+      "source_bytes": 15000,
+      "schema": "local-redis-base-origin-v1",
+      "payload_matches_acta": true
+    },
+    {
+      "acta": "redis-aof-lectura-incremental0110.json",
+      "ciphertext_sha256": "02383adf2230cb39a45aa78df85a9d712e719065ef792f2d0e52cc2d0f0e08d8",
+      "ciphertext_bytes": 72008268,
+      "source_sha256": "3af27eb360b56196f8128771bebc5589933a13edcb12de0388b6162bedd26aad",
+      "source_bytes": 40504424,
+      "schema": "local-redis-aof-origin-v1",
+      "payload_matches_acta": true
+    },
+    {
+      "acta": "redis-base-sufijo-corte0110.json",
+      "ciphertext_sha256": "e94857ea5a3b29bc4815ca0643f361e320ed910ace7fb646256cf4a0edfb6528",
+      "ciphertext_bytes": 111302884,
+      "source_sha256": "27fa257db01ce780f23202c0f7e52b61cb583d5047560b9d0c274c51ce270a31",
+      "source_bytes": 62607648,
+      "schema": "local-redis-aof-origin-v1",
+      "payload_matches_acta": true
+    }
+  ],
+  "observed_seconds": 4.868664049077779,
+  "partial": true,
+  "pending": [
+    "subject_association",
+    "case_final_cut",
+    "independent_review",
+    "other_sources",
+    "retention_authority"
+  ],
+  "limits": [
+    "Offline source identity verification; no Redis replay, mutation or subject disclosure.",
+    "Source hashes do not attest retention authority or exhaustive coverage."
+  ]
+}

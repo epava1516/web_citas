@@ -81,3 +81,22 @@ El ejecutorcd0da56 requiere credenciales PostgreSQL, pero si falta SAFETY_ENCRYP
 ## Cierre local verificado
 
 Catálogo integrado, migraciones aplicadas y Docker comprobado. Evidencia inicial40 casos correctos, repetición dirigida4 correctos y dependencia común22 correctos son runs separados, sin aceptación N3. Informes: [corregidos](../evidencias/promociones-catalogo-gates-corregidos0110.json), [integración](../evidencias/promociones-catalogo-integracion0110.json), [runtime](../evidencias/promociones-catalogo-runtime0110.json). El catálogo nunca concede promoción ni activa venta. La segunda entrega comercial y los gates de fase/producción permanecen pendientes.
+
+## Correspondencia de datos para la entrega comercial completa
+
+Diseño previo a introducir persistencia de cliente; nombres propuestos, no modelos existentes ni cobertura ya implementada. La entrega permanece conjunta: pedido, evento de pago sintético, derecho promocional, exposición pública y autosubida deben verificarse con derechos antes de cerrarse.
+
+| Registro propuesto | Asociación y minimización | Correspondencia exigida |
+| --- | --- | --- |
+| PromotionOrder | Comprador, persona/anuncio, versión de gestión, versión de producto y snapshot comercial; sin teléfono, fotos ni notas libres duplicadas | Cuenta por comprador; perfil por persona; contraparte como referencia técnica revisada, sin datos ajenos. Digest de estado/snapshot; revisión dependent_evidence |
+| PromotionPaymentAttempt | Pedido, identificador opaco, estado, importe/moneda y entorno sintético explícito; sin tarjeta ni datos de proveedor | Hereda ámbito del pedido; acceso a estados propios revisados, no secretos/capacidades. Fallo/pendiente no crean derecho |
+| PromotionPaymentEvent | Intento, identificador idempotente, tipo/resultado y huella de entrada autenticada; no almacenar cuerpo libre ni firma secreta | Evidencia dependiente del pedido; alteración cambia inventario. Eventos inválidos no conceden ni filtran pedidos ajenos |
+| PromotionEntitlement | Pedido único, persona/anuncio, gestor original, inicio/fin y suspensión | Perfil/persona y comprador; estado actual y dependencias en inventario. Visibilidad revalidada, suspensión no destruye evidencia |
+| PromotionBumpExecution | Derecho y ventana/cupo, fecha comercial separada | Hereda ámbito; unicidad derecho/ventana, sin nueva revisión editorial ni duplicación de anuncio |
+| PromotionOrderAudit | Actor/operación/objeto/fecha/huella mínima | Actor en cuenta y persona cuando corresponde al pedido; sin atribuir toda la auditoría al operador actual |
+
+Cada alta o cambio de estos registros debe invalidar el inventario correspondiente por huella; ámbito extranjero no cambia conteo/huella propios. Actor y persona pueden coincidir: evitar doble conteo. La agencia no concede automáticamente acceso a todos los datos del comprador; mantener representación y autoridad vigentes. Transferencia conserva snapshot histórico y suspende exposición si su autoridad ya no es válida.
+
+Supresión/conservación: registrarlos como evidencia dependiente con revisión y finalidad pendientes, no borrado automático ni plazo inventado. Limitación/oposición/retiro bloquean exposición conforme a estado actual; conservar decisión auditada. Restauración debe aplicar eventos de derechos antes de habilitar exposición/tareas y no resucitar promociones revocadas. Rectificación no modifica snapshots comerciales publicados: corrección revisada y trazable cuando proceda.
+
+Pruebas de integración antes de aceptar: perfil/cuenta propios frente a terceros/agencia revocada; inserción/mutación de cada registro cambia inventario; bloqueo del cierre completo ante finalidad/cobertura pendientes; evento inválido/replay/carreras sin concesión duplicada; restauración/suspensión sin reactivación. PostgreSQL obligatorio; adaptador de pago sintético expresamente identificado. Ninguno de estos criterios se acredita por esta tabla documental.
