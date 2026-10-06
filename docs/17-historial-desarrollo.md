@@ -2547,3 +2547,8 @@ Fuente39b4e46 y Docker local70 archivos iguales app/worker/Beat, UID10001/PG0110
 ## 2026-10-06 — Inspección acotada de bindings concluida
 
 Lectura EVAL_RO de base RDB aislada y Redis actual,77/80 claves y82 en unión;52 conjuntos de bindings. Evidencia redis-bindings-procedencia0110.json:81/84 tuplas observadas,9/10 candidatas por nombre de cola,36/36 no asociadas,18/19 candidatas de control y18/19 de eventos. Hashes de las9 actas de referencia comprobados; nombres/valores permanecen ocultos mediante referencias HMAC. No atribuir procedencia por isolated_database ni excluir datos por sintaxis. Entorno de revisión y plaintext retirados, sin volumen anónimo ni escritura al servicio normal. Cierra la ejecución de esta inspección; procedencia/conservación/censo integral siguen abiertos. No cambios funcionales ni nueva batería necesaria; v6 sin cambios. Cola vigente y siguiente evidencia requerida actualizadas en17.
+
+
+## 2026-10-06 — Contraste de procedencia sin repetir pruebas worker
+
+Auditoría acotada de las36 tuplas de cola aún sin asociación: no hay worker.log conservados en el directorio pytest examinado; no inventar procedencia. Captura actual cifrada y hash conservados para continuar offline. Contraste de generadores literales del código:29 candidatos coincidentes por prefijo/sufijo hexadecimal y7 sin coincidencia; fuente/hashes registrados en redis-bindings-patrones-fuente0110.json. Ni coincidencia de nombre ni sintaxis acreditan creación/ausencia de datos personales. No ejecuciones worker/Beat nuevas ni escrituras/borrados Redis. Censo y v6 permanecen abiertos/sin cambios. Preparado PERF-URGENTES-01 con equivalencia de permisos y prueba PostgreSQL antes de optimizar, para avanzar sin repetir arqueología sin fuente nueva.
