@@ -16,6 +16,7 @@ from .forms import DetailsForm, RelatedSelect
 from .models import Listing
 from .moderation import publicly_visible
 from .presentation import describe
+from .seo import directory_metadata
 
 
 class CatalogChoices(forms.ModelMultipleChoiceField):
@@ -269,7 +270,13 @@ def results(request):
     response = render(
         request,
         "listings/results.html",
-        {"form": form, "page": page, "cards": cards, "query_string": params.urlencode()},
+        {
+            "form": form,
+            "page": page,
+            "cards": cards,
+            "query_string": params.urlencode(),
+            "seo": directory_metadata(request, valid=valid, page=page.number),
+        },
         status=200 if valid else 400,
     )
     response["Cache-Control"] = "no-store"

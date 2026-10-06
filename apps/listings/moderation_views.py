@@ -135,6 +135,8 @@ def review_photo(request, photo_id):
 
 
 def public_detail(request, listing_id):
+    from .seo import listing_metadata
+
     listing = get_object_or_404(
         Listing.objects.select_related("person__agency", "approved_revision"), pk=listing_id
     )
@@ -145,6 +147,7 @@ def public_detail(request, listing_id):
         "listings/public_detail.html",
         {
             "listing": listing,
+            "seo": listing_metadata(request, listing),
             "revision": listing.approved_revision,
             "public": describe(listing, request.LANGUAGE_CODE),
             "report_target": signing.dumps(

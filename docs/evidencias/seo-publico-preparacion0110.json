@@ -1,0 +1,45 @@
+{
+  "verified_at": "2026-10-06T15:32:17.212655+00:00",
+  "source_sha256": {
+    "apps/listings/seo.py": "14789e7529ebed5dc09dee8ac61cbd010b50b0c9953e0fa1ab21055e40cb3bce",
+    "apps/listings/discovery.py": "b1cfb0f8823e779d82fb2a80e56695b2be2c374d0882a33d36036995b67b2097",
+    "apps/listings/moderation_views.py": "f809729efd51b05332e600045e0006b0dee83aa2ffc5a181a0b8c369626fa8db",
+    "templates/base.html": "afc6e89e867f7a356f08347c9c7fd70fe0fa50bba75f3bd3ea089660b82b1827",
+    "tests/test_public_seo.py": "67a0944bf9163ee64a466e498259f1cce41169366524ced6b2867119dd20330c"
+  },
+  "requirement": "SEO-PREP-01: metadata of existing authorized public ES/EN pages, approved revisions only, private/filter indexing excluded",
+  "tests": [
+    {
+      "log": "/tmp/public-seo.log",
+      "passed": 13,
+      "failed": 1,
+      "seconds": 136.25,
+      "failure": "Browser fixture lazy synchronous ORM access inside Playwright; production semantics passed HTTP checks."
+    },
+    {
+      "log": "/tmp/public-seo-browser-final.log",
+      "passed": 1,
+      "failed": 0,
+      "seconds": 41.49,
+      "scope": "Corrected browser fixture; public metadata and withdrawal visibility."
+    },
+    {
+      "log": "/tmp/seo-private-mobile-final.log",
+      "passed": 2,
+      "failed": 0,
+      "seconds": 54.87,
+      "scope": "Shared base template private retention mobile ES/EN regression."
+    }
+  ],
+  "static_checks": {
+    "ruff": "passed",
+    "git_diff_check": "passed"
+  },
+  "limits": [
+    "Separate affected runs, not a common full-phase battery.",
+    "Production indexing branch checked explicitly by template rendering; synthetic development data do not establish production identity verification.",
+    "No sitemap, structured data, geographic landing routes or full BF/BB/GS01 acceptance.",
+    "Historical Redis census and full CR09 remain pending."
+  ],
+  "percentages_unchanged": true
+}

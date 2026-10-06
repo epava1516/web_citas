@@ -2475,3 +2475,10 @@ Detectado límite previo solo de cantidad, con comprobación de bytes después d
 2026-10-06 — Autoridad de planesfd545b1 desplegada:63 hashes iguales host/app/worker/Beat, PG0110/UID10001/cola-prefijo originales/RecoveryModeFalse/cache sin almacenamiento; Django/migraciones0, salud200 y CSS coincidente. [Runtime](evidencias/autoridad-planes-runtime0110.json). No repetición de23 PG correctas ni tareas sin cambio. Bloque activo sigue censo/conservación, siguiente baseAOF. MOD-01/v5 preservados.
 
 2026-10-06 — Continúa mismo bloque activo MOD-01: baseAOF real15000bytes cifrada con manifiesto estable y revisión aislada sin red/workers/volumen anónimo.77 claves/4 reservados contra80/0 vivos, diferencia material que no puede excluirse por cola vacía. [Evidencia](evidencias/redis-base-aof-origen0110.json). Contenedor/tempplaintext retirados; origen cifrado conservado. Censo abierto por asociación/diferencias/corte coherente base-prefijo-sufijo/históricohost; no aumento por observación, v5 71%/60,65% intacta.
+
+
+## 2026-10-06 — SEO-PREP-01 y clasificación parcial de base AOF
+
+Metadatos derivados únicamente de contenido público aprobado, canonical con origen configurado, alternancias ES/EN solo para versiones reales, filtros/privados/desarrollo fuera de indexación.13 pruebas HTTP/descubrimiento correctas; fallo de fixture navegador corregido y1 navegador final correcto;2 regresiones móviles privadas correctas. Runs separados, sin aceptación integral de fase. Evidencia: [SEO](evidencias/seo-publico-preparacion0110.json).
+
+Los4 reservados capturados de la base AOF son tareas periódicas tipadas sin argumentos de sujeto según el validador compartido; cabeceras adicionales y otras claves/cortes siguen sin cobertura exhaustiva. [Clasificación parcial](evidencias/redis-base-reservados-clasificacion0110.json). Porcentajes v5 intactos.
