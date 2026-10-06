@@ -1,0 +1,32 @@
+{
+  "captured_at": "2026-10-06T15:13:59.073045+00:00",
+  "source_name": "appendonly.aof.2.base.rdb",
+  "source_bytes": 15000,
+  "source_sha256": "e0dd91e281d1fe6b6aeab46e914d5be71e0fbddb59b33daa403c6921058b027f",
+  "manifest_sha256": "88b2ada3303b36cbd7c98f2635e6626986e0273b334f26a86bf7531207811d63",
+  "manifest_stable_during_capture": true,
+  "encrypted_origin": "/tmp/redis-aof-base-origin0110-t8f9qgfy/redis-aof-base-origin.encrypted",
+  "base_inventory": {
+    "key_count": 77,
+    "normal_queue_messages": 0,
+    "normal_reserved_messages": 4
+  },
+  "live_inventory": {
+    "key_count": 80,
+    "normal_queue_messages": 0,
+    "normal_reserved_messages": 0
+  },
+  "review_no_network": true,
+  "review_no_workers": true,
+  "review_no_anonymous_volume": true,
+  "review_container_removed": true,
+  "temporary_plaintext_removed": true,
+  "partial": true,
+  "limits": [
+    "Key/queue counts do not prove content equality, ownership or full coverage.",
+    "Base and incremental captures are at separate observation times; a coherent per-case final cut remains required.",
+    "Original key timestamps, associated personal values, inactive namespaces/DBs and older archives not inspected.",
+    "Current Redis unchanged; no command replay or message consumption.",
+    "No complete CR09 acceptance; prior unidentified review volumes not removed by guesswork."
+  ]
+}
