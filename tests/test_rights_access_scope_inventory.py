@@ -52,6 +52,79 @@ def test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes(
     assert owner.email not in str(manifest)
     assert "core.User.groups" in [entry["model"] for entry in manifest["entries"]]
     before = case.version, case.response_version, case.status
+    from django.test import Client
+    from django.urls import reverse
+    from test_rights_portability_response_draft import operator
+
+    path = reverse("rights_access_scope", args=[case.pk])
+    client = operator(author)
+    assert path in client.get(reverse("rights_inspect", args=[case.pk])).content.decode()
+    actions = RightsAction.objects.count()
+    response = client.get(path)
+    assert response.status_code == 200 and manifest["digest"] not in response.content.decode()
+    assert "no-store" in response["Cache-Control"]
+    assert RightsAction.objects.count() == actions
+    assert Client().get(path).status_code == 302
+    csrf = Client(enforce_csrf_checks=True)
+    csrf.force_login(author)
+    assert csrf.post(path, {}).status_code == 403
+    values = {
+        "key": key,
+        "version": case.version,
+        "response_version": case.response_version,
+        "reason": reason,
+        "page": 1,
+    }
+    response = client.post(path, values)
+    assert response.status_code == 200 and manifest["digest"] in response.content.decode()
+    assert len(response.context["entries"]) <= 25
+    response = client.post(path, values | {"page": 2})
+    assert response.status_code == 200 and response.context["entries"].number == 2
+    assert RightsAction.objects.count() == actions
+    assert manifest["digest"] not in client.get(path).content.decode()
+    assert owner.email not in response.content.decode()
+    import shutil
+
+    from django.conf import settings as django_settings
+    from django.utils import translation
+    from playwright.sync_api import expect, sync_playwright
+
+    settings.DEBUG = True
+    live_server = request.getfixturevalue("live_server")
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(
+            executable_path=shutil.which("chromium-browser"), args=["--no-sandbox"]
+        )
+        try:
+            context = browser.new_context(viewport={"width": 390, "height": 844})
+            context.add_cookies(
+                [
+                    {
+                        "name": django_settings.SESSION_COOKIE_NAME,
+                        "value": client.cookies[django_settings.SESSION_COOKIE_NAME].value,
+                        "url": live_server.url,
+                    }
+                ]
+            )
+            browser_page = context.new_page()
+            for language, button, next_button in [
+                ("es", "Registrar consulta y ver", "Siguiente"),
+                ("en", "Record access and inspect", "Next"),
+            ]:
+                with translation.override(language):
+                    browser_path = reverse("rights_access_scope", args=[case.pk])
+                browser_page.goto(live_server.url + browser_path)
+                assert manifest["digest"] not in browser_page.locator("body").inner_text()
+                browser_page.locator("#id_reason").fill(reason)
+                browser_page.get_by_role("button", name=button, exact=True).click()
+                expect(browser_page.locator("body")).to_contain_text(manifest["digest"])
+                browser_page.get_by_role("button", name=next_button, exact=True).click()
+                expect(browser_page.locator("body")).to_contain_text(manifest["digest"])
+                assert browser_page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+                browser_page.goto(browser_page.url)
+                assert manifest["digest"] not in browser_page.locator("body").inner_text()
+        finally:
+            browser.close()
     # A field omitted by the older erasure projection must still change access scope.
     User.objects.filter(pk=owner.pk).update(last_name="Changed synthetic subject identity")
     from django.db import transaction

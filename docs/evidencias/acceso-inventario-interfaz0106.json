@@ -1,0 +1,68 @@
+{
+  "scope": "Private audited access scope inventory UI; no data release or access closure",
+  "integration": {
+    "database": "PostgreSQL",
+    "synthetic_data": true,
+    "tests": 2,
+    "seconds": 73.51,
+    "xml": "/tmp/access-scope-browser0106.xml",
+    "browser": "Chromium 390x844 ES/EN profile/account, real GET/form/POST/pagination/reload"
+  },
+  "runtime": {
+    "migration": "0106",
+    "health": 200,
+    "uid": 10001,
+    "check": true,
+    "migrate_check": true,
+    "hashes": {
+      "app": {
+        "apps/safety/rights_access_scope_inventory.py": "1a72c290e5c2a82d1b3af1b6b5f36caa33c8c3e65acccc466e5d9583e7c2de76",
+        "apps/safety/rights_access_scope_store.py": "1a9dc751c105113037f8bfa392aa5d8f2cb47044b6515590371a2531816ca6d1",
+        "apps/safety/rights_access_scope_views.py": "883f61c9fbbace594052207c96581737d76a383ae033ae69b87422c27e9ffb53",
+        "apps/safety/migrations/0106_access_scope_inventory.py": "6d9672fee20d571fbff01117e411d47c736764ab809b311e15ab6b4a58a78a76",
+        "apps/safety/models.py": "adb7241773de7b8d337c33a842f6531cb644e47bb9c08ceaf50e1189a91774c7",
+        "apps/safety/tasks.py": "4d2618b4525437a66e5deafbcd39160e253bbd538033687e97de6ce91424914a",
+        "apps/safety/erasure_inventory.py": "f4b32905a53645a242701159bb12b1044ca3cfd2411da713f4d1b6e438d69955",
+        "apps/safety/account_erasure_inventory.py": "8cbefbbceca43ba749d7e0a8d8185004ac42033a47890dd51c891c863c7f4e7c",
+        "config/settings.py": "6de2f8c1b0b47edf24fe809256cf955392492903ed013cea43e2383454e8a08d",
+        "apps/core/urls.py": "e6fea432efaf8300817acd92463f78cf4fa917fe874f052b24b68abddec7fcab",
+        "templates/safety/rights_access_scope.html": "f068105a7aeedd9f31f2f7de76a022b480555e6e64c0f2603ede50da8526e0d1",
+        "templates/safety/rights_inspect.html": "ecc2c8e82518b6b030c7506fa145ea6cfb2b5bdf517360adf5c10bd1e93fc749"
+      },
+      "worker": {
+        "apps/safety/rights_access_scope_inventory.py": "1a72c290e5c2a82d1b3af1b6b5f36caa33c8c3e65acccc466e5d9583e7c2de76",
+        "apps/safety/rights_access_scope_store.py": "1a9dc751c105113037f8bfa392aa5d8f2cb47044b6515590371a2531816ca6d1",
+        "apps/safety/rights_access_scope_views.py": "883f61c9fbbace594052207c96581737d76a383ae033ae69b87422c27e9ffb53",
+        "apps/safety/migrations/0106_access_scope_inventory.py": "6d9672fee20d571fbff01117e411d47c736764ab809b311e15ab6b4a58a78a76",
+        "apps/safety/models.py": "adb7241773de7b8d337c33a842f6531cb644e47bb9c08ceaf50e1189a91774c7",
+        "apps/safety/tasks.py": "4d2618b4525437a66e5deafbcd39160e253bbd538033687e97de6ce91424914a",
+        "apps/safety/erasure_inventory.py": "f4b32905a53645a242701159bb12b1044ca3cfd2411da713f4d1b6e438d69955",
+        "apps/safety/account_erasure_inventory.py": "8cbefbbceca43ba749d7e0a8d8185004ac42033a47890dd51c891c863c7f4e7c",
+        "config/settings.py": "6de2f8c1b0b47edf24fe809256cf955392492903ed013cea43e2383454e8a08d",
+        "apps/core/urls.py": "e6fea432efaf8300817acd92463f78cf4fa917fe874f052b24b68abddec7fcab",
+        "templates/safety/rights_access_scope.html": "f068105a7aeedd9f31f2f7de76a022b480555e6e64c0f2603ede50da8526e0d1",
+        "templates/safety/rights_inspect.html": "ecc2c8e82518b6b030c7506fa145ea6cfb2b5bdf517360adf5c10bd1e93fc749"
+      },
+      "beat": {
+        "apps/safety/rights_access_scope_inventory.py": "1a72c290e5c2a82d1b3af1b6b5f36caa33c8c3e65acccc466e5d9583e7c2de76",
+        "apps/safety/rights_access_scope_store.py": "1a9dc751c105113037f8bfa392aa5d8f2cb47044b6515590371a2531816ca6d1",
+        "apps/safety/rights_access_scope_views.py": "883f61c9fbbace594052207c96581737d76a383ae033ae69b87422c27e9ffb53",
+        "apps/safety/migrations/0106_access_scope_inventory.py": "6d9672fee20d571fbff01117e411d47c736764ab809b311e15ab6b4a58a78a76",
+        "apps/safety/models.py": "adb7241773de7b8d337c33a842f6531cb644e47bb9c08ceaf50e1189a91774c7",
+        "apps/safety/tasks.py": "4d2618b4525437a66e5deafbcd39160e253bbd538033687e97de6ce91424914a",
+        "apps/safety/erasure_inventory.py": "f4b32905a53645a242701159bb12b1044ca3cfd2411da713f4d1b6e438d69955",
+        "apps/safety/account_erasure_inventory.py": "8cbefbbceca43ba749d7e0a8d8185004ac42033a47890dd51c891c863c7f4e7c",
+        "config/settings.py": "6de2f8c1b0b47edf24fe809256cf955392492903ed013cea43e2383454e8a08d",
+        "apps/core/urls.py": "e6fea432efaf8300817acd92463f78cf4fa917fe874f052b24b68abddec7fcab",
+        "templates/safety/rights_access_scope.html": "f068105a7aeedd9f31f2f7de76a022b480555e6e64c0f2603ede50da8526e0d1",
+        "templates/safety/rights_inspect.html": "ecc2c8e82518b6b030c7506fa145ea6cfb2b5bdf517360adf5c10bd1e93fc749"
+      }
+    }
+  },
+  "limits": [
+    "No per-field data release/decision validation",
+    "Current procedure and resources outside collected scopes pending",
+    "No access issuance/closure or full CR09 acceptance",
+    "No expired content destruction by Beat verified"
+  ]
+}

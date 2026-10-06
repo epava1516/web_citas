@@ -39,6 +39,7 @@ from apps.safety import (
     rights,
     rights_access_coverage_review_views,
     rights_access_response_views,
+    rights_access_scope_views,
     rights_copy_information_views,
     rights_exports,
     rights_information_review_views,
@@ -71,6 +72,11 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "rights/<uuid:case_id>/access/scope/",
+        rights_access_scope_views.inventory,
+        name="rights_access_scope",
+    ),
     path(
         "moderation/rights/<uuid:case_id>/access/coverage/<int:coverage_id>/review/",
         rights_access_coverage_review_views.review,
