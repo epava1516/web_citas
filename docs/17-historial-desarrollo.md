@@ -2577,3 +2577,8 @@ Ensayo5bc4f8f con1500 revisiones sintéticas/source9893757bytes, lectura nativa 
 ## 2026-10-06 — Source_copy lote250 entregado y avance v7
 
 Fuente5df91ea/Docker verificados72 archivos/3 servicios/PG0110/UID10001/RecoveryModeFalse/check/migrate-check/salud/CSS/SEO; logs anteriores cifrados.12 PG correctas138,83s, equivalencia exacta de contenido/orden con lote50 y relaciones pobladas, privacidad/origen/cuenta bloqueada. Primera página1500 revisiones9,89MB:764→284 consultas/11,529→9,940s instrumentados/pico Python41,65→41,70MB. Origen final materializado y relaciones no acotadas por lote. V7 acepta solo tramo de preparación/lectura optimizado: rendimiento35→40, pesos/demás grados intactos; CR0971,75%/contrato60,7625%, aceptación integral0. Aprobación/cierre/descarga grandes/censo/conservación/externos pendientes.
+
+
+## 2026-10-06 — Preparación independiente CR10 mientras continúa el ensayo
+
+Proceso16353/PID1452324 confirmado vivo y argumentos exactos, misma ejecución del ensayo grande; no reiniciada ni aceptada. Preparado contratos/11-promociones-preparacion.md desde requisitos existentes14/16: catálogo sin clientes/configuración pendiente/versiones, dependencias personales/ranking/pagos exclusivamente de pruebas, evidencia CR10 completa. No código de aplicación cambiado, productos/precios/pedidos implementados ni cobros/proveedor activados. Bloque independiente CR10-PREP-01 documentado en17; v7 sin cambios.
