@@ -1,0 +1,34 @@
+{
+  "schema": "retained-origin-inventory-v1",
+  "observed_at": "2026-10-06T20:17:48.704371+00:00",
+  "origins": [
+    {
+      "path": "/tmp/redis-aof-base-origin0110-t8f9qgfy/redis-aof-base-origin.encrypted",
+      "bytes": 27276,
+      "sha256": "32781976c4d49bf0459d68a15f2666d258da8a84bcac7f7d38e80009677ed883"
+    },
+    {
+      "path": "/tmp/redis-aof-origin0110-tj8esko8/redis-aof-origin.encrypted",
+      "bytes": 72008268,
+      "sha256": "02383adf2230cb39a45aa78df85a9d712e719065ef792f2d0e52cc2d0f0e08d8"
+    }
+  ],
+  "partial": true,
+  "subject_association_verified": false,
+  "pending": [
+    "other_retained_sources",
+    "subject_association",
+    "retention_authority"
+  ],
+  "observed_seconds": 0.34446231834590435,
+  "private_report_sha256": "91a022fef7f026b450575a81d802b843e8fe13370609aac493d3beb089457285",
+  "limits": [
+    "Explicit two retained encrypted captures only; no decryption or subject association.",
+    "File tests are filesystem checks, not PostgreSQL integration or legal review.",
+    "No application/runtime changes; no phase acceptance."
+  ],
+  "tests": {
+    "passed": 2,
+    "seconds": 0.19
+  }
+}
