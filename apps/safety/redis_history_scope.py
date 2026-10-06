@@ -220,6 +220,10 @@ def history_records(blob_ids, cutoff, *, case=None, inventory=None):
         body = checked_body(encrypted.decode())
         if not isinstance(body, dict):
             raise ValueError
+        if body.get("schema") == "local-redis-retained-origins-scoped-v1":
+            from .retained_redis_origins import read_bundle
+
+            return read_bundle(body, blob_ids, cutoff, case=case, inventory=inventory)
         common = {"schema", "project", "captured_at", "sha256", "content_base64", "partial"}
         scoped = body.get("schema") == "local-redis-aof-scoped-origin-v1"
         expected = common | {"request", "inventory", "source_digest", "cutoff"} if scoped else common

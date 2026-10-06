@@ -15,7 +15,7 @@ from test_redis_retained_history import command
 
 from apps.safety.crypto import seal, unseal
 from apps.safety.redis_history_scope import history_records
-from scripts.scope_retained_redis_origin import prepare_origin
+from scripts.scope_retained_redis_origin import prepare_origin, prepare_origins
 
 
 def origins(tmp_path, settings):
@@ -127,3 +127,12 @@ def test_valid_encryption_with_non_object_json_is_rejected_as_invalid_origin(tmp
     path.write_text(seal(["schema", "project", "captured_at", "sha256", "content_base64", "partial"]))
     with pytest.raises(ValidationError):
         read(settings, case, inventory, {own})
+
+
+def test_producer_rejects_non_object_origin_without_creating_destination(tmp_path, settings):
+    source, _, inventory, _, _ = origins(tmp_path, settings)
+    source.write_text(seal(["schema"]))
+    before = set(tmp_path.iterdir())
+    with pytest.raises(ValueError, match="Retained origin object required"):
+        prepare_origins([source], tmp_path, inventory)
+    assert set(tmp_path.iterdir()) == before
