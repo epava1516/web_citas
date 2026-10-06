@@ -56,3 +56,21 @@ El actor es dato personal: censo de cuenta y perfil sujeto incluye únicamente s
 Rama aislada, scripts/verify_promotion_catalogue.py (1657f1f): ejecutor preparado, no ejecutado. Tras confirmar terminal el benchmark, usar el intérprete .venv del proyecto principal y pasar --env-file con su .env y --output con directorio privado nuevo absoluto de /tmp. El ejecutor exige fuentes confirmadas en Git; crea una base promotion_gate_UUID y la base de tests correspondiente, aplica migraciones reales y ejecuta catálogo/auditoría/móvil junto con regresiones de avisos, dependencias de inventario y ámbito de copia. Captura logs privados, JUnit, commit y SHA256 de artefactos; elimina únicamente las dos bases de su invocación y verifica ausencia. No altera ni borra la base principal. PostgreSQL desechable no significa servicios externos aislados/verificados: worker/Beat no se prueban en esta batería, los fixtures conservan sus adaptadores explícitos.
 
 Gate positivo requiere migration_exit=0, pytest_exit=0, cleanup_verified=true y revisión del JUnit y su alcance; phase_accepted permanece false. Ruff/compilación del ejecutor son comprobaciones estáticas, no evidencia de ejecución, restauración o limpieza real. La migración y las regresiones compartidas deben pasar antes de integrar la rama y verificar Docker.
+
+
+## Interfaces del catálogo implementadas en rama aislada
+
+Corte ce4729e; pendiente de integración. Prefijo /{es|en}/operations/promotion-products/. Todas las operaciones requieren cuenta activa, MFA habilitado, versiones de sesión/MFA vigentes y permiso catalog.manage_promotion_products. El servidor reconsulta autoridad; ocultar navegación no sustituye autorización. Datos de catálogo privados, respuestas de pantalla con no-store/noindex; sin rutas de compra ni concesión de promociones.
+
+| Ruta relativa y nombre | GET | POST |
+| --- | --- | --- |
+| vacío, promotion_products | Listado paginado50 y formulario | Crear producto y primer borrador;302 a edición |
+| {product_uuid}/, promotion_product_versions | Versiones paginadas50 | Crear borrador siguiente bajo bloqueo de producto;302 a edición |
+| {product_uuid}/versions/{number}/, promotion_version_edit | Edición de borrador; publicada sin formulario editable | Guardar datos válidos con edit_version esperado;302 a preview |
+| {product_uuid}/versions/{number}/preview/, promotion_version_preview | Duración, configuración pendiente/completa y patrocinio de muestra | Publicar configuración con edit_version esperado;302 al mismo preview; replay actual conserva estado/auditoría |
+
+Producto: slug obligatorio, único, máximo64; kind obligatorio entre premium/top/autobump. Versión: nombres ES/EN obligatorios máximo100, duration_days entero positivo; amount decimal positivo o ausente, currency EUR o ausente, tax_rate decimal0–100 o ausente; bump_interval_minutes/daily_bump_limit enteros positivos opcionales únicamente para autosubida. edit_version entero positivo oculto, ligado a versión persistida; el cliente no fija producto/version/published_at/is_current/actor. Configuración incompleta puede publicarse como configuración pendiente, siempre sellable=false. No equivale a activación comercial.
+
+Entrada inválida de formulario:400 sin mutación. Conflicto de edición/configuración publicada o contador inválido de release:409. Producto/versión inexistentes:404 tras autorización. Sin login:302 al login; sin autoridad:403. Métodos distintos de GET/POST:405. POST exige CSRF; GET no crea auditoría ni cambia estado. Los contadores/paginación son del catálogo privado autorizado.
+
+Pruebas nuevas preparadas, no ejecutadas: GET privado sin efectos, acceso GET/POST directo denegado tras retirada del permiso, formularios inválidos sin cambio, publicación simultánea de dos versiones conserva ambas configuraciones y exactamente una vigente. Junto a replays/CSRF/MFA/revocaciones/aislamiento/auditoría/móvil, deben pasar sobre la misma versión de rama antes de integrar.
