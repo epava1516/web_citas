@@ -145,8 +145,8 @@ def test_native_closed_selected_json_over_local_tcp(
                                   uuid4(), baseline.version, REASON, body["selection"],
                                   field_evidence=body["field_evidence"])
         reviewer = User.objects.get(pk=previous.action.actor_id)
-        selection_review(reviewer, case.pk, case.version, selected.pk, uuid4(), REASON)
-        decision, projection = selection_review(reviewer, case.pk, case.version, selected.pk,
+        _, projection = selection_review(reviewer, case.pk, case.version, selected.pk, uuid4(), REASON)
+        decision, _ = selection_review(reviewer, case.pk, case.version, selected.pk,
                                                 uuid4(), REASON, "review", "approved")
         assert projection["datasets"]["revisions"] == [
             {"fields": {"/description": description}} for _ in range(history_count)

@@ -2817,3 +2817,5 @@ Comparación finita de23 capturas tras cierre4c63e35: sesión27345 terminal exit
 
 
 Diagnóstico estructural de23 capturas: sesión59927 terminal exit0,239479 líneas/38970240bytes/3,543s, sin firmado subject-operation ni MIME soportado; no procedencia de sujeto acreditada ni adaptador ausente demostrado. Evidencia logs-historicos-formatos0110.json; limitación precisa y siguiente requisito local en seguimiento17.
+
+JSON TCP funcional inicial133cb43/sesión76476 terminal:1 fallo46,28s por aserción nueva que usaba projection=None de review; migraciones0/limpieza correcta. Obtener proyección de inspect, aprobación permanece nativa. Sin defecto de aplicación acreditado; repetir solo caso funcional afectado.
