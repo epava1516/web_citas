@@ -30,7 +30,14 @@ REASON = "Independent synthetic correction of own account data"
 @pytest.mark.parametrize("email", [False, True])
 @pytest.mark.parametrize("agency", [False, True])
 def test_account_without_profile_review_receive_and_execute(
-    request, settings, email, agency, recipient_flow=False
+    request,
+    settings,
+    email,
+    agency,
+    recipient_flow=False,
+    final_flow=False,
+    pending=True,
+    race=False,
 ):
     request.getfixturevalue("directory")
     settings.RIGHTS_VERIFICATION_BACKEND = "simulator"
@@ -224,7 +231,7 @@ def test_account_without_profile_review_receive_and_execute(
         assert inspected.status_code == 200, inspected.content.decode()
         assessments = {
             target: {
-                "outcome": "pending",
+                "outcome": "pending" if pending else "not_disclosed",
                 "reason": REASON,
                 "evidence": "Synthetic concrete recipient evidence awaiting scope resolution",
             }
@@ -266,6 +273,168 @@ def test_account_without_profile_review_receive_and_execute(
         case.refresh_from_db()
         assert case.status == "reviewing" and case.scope_status == "unverified"
         assert list(Person.objects.order_by("pk").values()) == profile_before
+        if final_flow:
+            from apps.safety import rectification_final
+            from apps.safety.models import RightsAction, RightsNotice, RightsResponse
+
+            original.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
+            original = User.objects.get(pk=original.pk)
+            fresh(case, original, staff, independent, other)
+            read(other, case)
+            text = "La rectificación solicitada ha sido aplicada y revisada. Consulta el resultado privado. / The requested correction has been applied and reviewed."
+            draft_key = uuid4()
+            final_path = reverse("rectification_final", args=[case.pk])
+            metadata = staff.get(final_path)
+            assert metadata.status_code == 200
+            assert metadata["Cache-Control"] == "private, no-store"
+            submitted = {
+                "key": draft_key,
+                "version": case.version,
+                "responses": case.response_version,
+                "operation": "prepare",
+                "recipient_review": decision.pk,
+                "reason": REASON,
+                "text": text,
+                "confirmed": True,
+            }
+            prepared_response = staff.post(final_path, submitted)
+            assert prepared_response.status_code == 302, prepared_response.content.decode()
+            draft = RightsAction.objects.get(key=draft_key)
+            assert text.encode() not in staff.get(final_path).content
+            assert (
+                rectification_final.prepare(
+                    original,
+                    case.pk,
+                    case.version,
+                    case.response_version,
+                    decision.pk,
+                    draft_key,
+                    REASON,
+                    text,
+                    True,
+                ).pk
+                == draft.pk
+            )
+            with pytest.raises(PermissionDenied):
+                rectification_final.inspect(
+                    original, case.pk, case.version, case.response_version, draft.pk, REASON
+                )
+            inspected_response = other.post(
+                final_path,
+                {
+                    "operation": "inspect",
+                    "key": uuid4(),
+                    "version": case.version,
+                    "responses": case.response_version,
+                    "draft": draft.pk,
+                    "purpose": REASON,
+                },
+            )
+            assert inspected_response.status_code == 200, inspected_response.content.decode()
+            assert text.encode() in inspected_response.content
+            inspected = inspected_response.context["material"]
+            audited = RightsAction.objects.get(
+                pk=inspected_response.context["form"].initial["read"]
+            )
+            assert inspected["evidence"]["pending"] is pending
+            assert text.encode() not in other.get(final_path).content
+            review_key = uuid4()
+            reviewed_response = other.post(
+                final_path,
+                {
+                    "operation": "review",
+                    "key": review_key,
+                    "version": case.version,
+                    "responses": case.response_version,
+                    "draft": draft.pk,
+                    "read": audited.pk,
+                    "outcome": "approved",
+                    "reason": REASON,
+                },
+            )
+            assert reviewed_response.status_code == 302, reviewed_response.content.decode()
+            approved = RightsAction.objects.get(key=review_key)
+            version, responses = case.version, case.response_version
+            counts = RightsResponse.objects.count(), RightsNotice.objects.count()
+            closure_key = uuid4()
+            close_data = {
+                "operation": "close",
+                "key": closure_key,
+                "version": version,
+                "responses": responses,
+                "review": approved.pk,
+            }
+            before_name = subject.first_name
+            subject.first_name = "Changed after final independent review"
+            subject.save(update_fields=["first_name"])
+            assert staff.post(final_path, close_data).status_code == 409
+            subject.first_name = before_name
+            subject.save(update_fields=["first_name"])
+            old_session_version = independent.session_version
+            independent.session_version += 1
+            independent.save(update_fields=["session_version"])
+            assert staff.post(final_path, close_data).status_code == 403
+            independent.session_version = old_session_version
+            independent.save(update_fields=["session_version"])
+            audit_cipher = audited.encrypted_reason
+            audited.encrypted_reason = "damaged encrypted audited read"
+            audited.save(update_fields=["encrypted_reason"])
+            assert staff.post(final_path, close_data).status_code == 409
+            audited.encrypted_reason = audit_cipher
+            audited.save(update_fields=["encrypted_reason"])
+            if pending:
+                assert staff.post(final_path, close_data).status_code == 409
+                with pytest.raises(ValidationError, match="Unresolved recipient"):
+                    rectification_final.close(
+                        original, case.pk, version, responses, approved.pk, closure_key
+                    )
+                case.refresh_from_db()
+                assert case.status == "reviewing" and case.version == version
+                assert (RightsResponse.objects.count(), RightsNotice.objects.count()) == counts
+            else:
+                if race:
+                    from concurrent.futures import ThreadPoolExecutor
+                    from threading import Barrier
+
+                    from django.db import close_old_connections, connections
+
+                    barrier = Barrier(2)
+
+                    def concurrently_close():
+                        close_old_connections()
+                        try:
+                            participant = User.objects.get(pk=original.pk)
+                            barrier.wait(timeout=20)
+                            return rectification_final.close(
+                                participant, case.pk, version, responses, approved.pk, closure_key
+                            ).pk
+                        finally:
+                            connections.close_all()
+
+                    with ThreadPoolExecutor(max_workers=2) as pool:
+                        futures = [pool.submit(concurrently_close) for _ in range(2)]
+                        results = [future.result(timeout=40) for future in futures]
+                    assert results[0] == results[1]
+                    with pytest.raises(ValidationError):
+                        rectification_final.close(
+                            original, case.pk, version, responses, approved.pk, uuid4()
+                        )
+                issued = staff.post(final_path, close_data)
+                assert issued.status_code == 302, issued.content.decode()
+                result = RightsResponse.objects.get(key=closure_key)
+                assert (
+                    rectification_final.close(
+                        original, case.pk, version, responses, approved.pk, closure_key
+                    ).pk
+                    == result.pk
+                )
+                case.refresh_from_db()
+                assert case.status == "resolved" and case.version == version + 1
+                assert case.response_version == responses + 1 and result.kind == "rectify_complete"
+                assert RightsResponse.objects.count() == counts[0] + 1
+                assert RightsNotice.objects.count() == counts[1] + 1
+                assert unseal(result.encrypted_response)["simulation"] is True
+                assert list(Person.objects.order_by("pk").values()) == profile_before
 
 
 @pytest.mark.parametrize("email", [False, True])
@@ -274,4 +443,30 @@ def test_account_recipient_flow_does_not_require_or_modify_owned_agency_profiles
 ):
     test_account_without_profile_review_receive_and_execute(
         request, settings, email=email, agency=True, recipient_flow=True
+    )
+
+
+@pytest.mark.parametrize("pending", [True, False])
+def test_account_final_rectification_review_and_atomic_close(request, settings, pending):
+    test_account_without_profile_review_receive_and_execute(
+        request,
+        settings,
+        email=False,
+        agency=True,
+        recipient_flow=True,
+        final_flow=True,
+        pending=pending,
+    )
+
+
+def test_account_final_rectification_concurrent_close(request, settings):
+    test_account_without_profile_review_receive_and_execute(
+        request,
+        settings,
+        email=False,
+        agency=True,
+        recipient_flow=True,
+        final_flow=True,
+        pending=False,
+        race=True,
     )

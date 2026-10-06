@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="rectification-final">
+<h1>{% if english %}Final correction response{% else %}Respuesta final de rectificación{% endif %}</h1>
+<p>{% if english %}Development simulation; identity and external delivery are not verified. Preparation and approval keep the request open. Pending recipient decisions prevent completion. This action does not publish a listing.{% else %}Simulación de desarrollo; identidad y entrega externa no comprobadas. Preparación y aprobación mantienen la solicitud abierta. Las decisiones pendientes de destinatarios impiden completar el cierre. Esta acción no publica el anuncio.{% endif %}</p>
+<p>{% if english %}Accepted recipient reviews{% else %}Revisiones de destinatarios aceptadas{% endif %}: {% for id in recipient_reviews %}{{ id }} {% empty %}—{% endfor %}</p>
+{% if material %}
+<h2>{% if english %}Audited exact response{% else %}Respuesta exacta consultada con auditoría{% endif %}</h2>
+<p>{{ material.text|linebreaksbr }}</p><p>{{ material.reason|linebreaksbr }}</p>
+<p>{% if english %}Pending decisions{% else %}Decisiones pendientes{% endif %}: {{ material.evidence.pending|yesno:"Sí / Yes,No" }}</p>
+<p>{% if english %}Publication state{% else %}Estado de publicación{% endif %}: {{ material.evidence.publication_status|default_if_none:"—" }}</p>
+<p>{% if english %}Corrected revision state{% else %}Estado de versión corregida{% endif %}: {{ material.evidence.corrected_revision_status|default_if_none:"—" }}</p>
+{% for field,value in material.evidence.changes.items %}<p>{{ field }}: {{ value|linebreaksbr }}</p>{% endfor %}
+{% for outcome,count in material.evidence.recipient_outcomes.items %}<p>{{ outcome }}: {{ count }}</p>{% endfor %}
+{% endif %}
+<table><caption>{% if english %}Recorded actions{% else %}Acciones registradas{% endif %}</caption><thead><tr><th>ID</th><th>{% if english %}Action{% else %}Acción{% endif %}</th><th>{% if english %}Actor{% else %}Responsable{% endif %}</th><th>{% if english %}Date{% else %}Fecha{% endif %}</th></tr></thead><tbody>{% for action in actions %}<tr><td>{{ action.pk }}</td><td>{{ action.operation }}</td><td>{{ action.actor_id }}</td><td>{{ action.created_at }}</td></tr>{% endfor %}</tbody></table>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record action{% else %}Registrar acción{% endif %}</button></form>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Back to request{% else %}Volver al expediente{% endif %}</a></p>
+</section>
+{% endblock %}

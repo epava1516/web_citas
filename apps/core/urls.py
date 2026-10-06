@@ -31,6 +31,7 @@ from apps.safety import (
     purpose_release_views,
     recipient_assessment_views,
     recipient_review_views,
+    rectification_final_views,
     rectification_notices,
     rectification_recipients,
     rectification_review,
@@ -159,6 +160,11 @@ urlpatterns = [
         "moderation/rights/<uuid:case_id>/restrictions/<int:restriction_id>/release/",
         purpose_release_views.release,
         name="purpose_restriction_release",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/rectification/final/",
+        rectification_final_views.final,
+        name="rectification_final",
     ),
     path("moderation/rights/retention/", retention_views.queue, name="retention_queue"),
     path(

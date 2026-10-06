@@ -1,0 +1,130 @@
+{
+  "schema": "rectification-final-evidence-v1",
+  "baseline_commit": "da62130",
+  "runs": [
+    {
+      "xml": "/tmp/rectification-final-service0108.xml",
+      "exit_code": 1,
+      "scope": "Initial fixture lacked response permission; two cases rejected before preparation",
+      "xml_sha256": "0944f38f02727881fa66ee6fb1d64149fa79bdc31263fe219473b2e64e060ac6",
+      "counts": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 48.805
+    },
+    {
+      "xml": "/tmp/rectification-final-service-fixed0108.xml",
+      "exit_code": 0,
+      "scope": "Two own-account service flows with pending and complete decisions",
+      "xml_sha256": "c4e0f97c0e1603fa849693a42083e97f2545b0356ecc09517ad8d0b670cda76e",
+      "counts": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 49.375
+    },
+    {
+      "xml": "/tmp/rectification-final-http0108.xml",
+      "exit_code": 0,
+      "scope": "Two own-account HTTP flows; source/session/audited-read tampering rejected",
+      "xml_sha256": "e8c8a616bc2b975a324eabf8aa5ca62035ad13ae68a8c97f6f170151ec0f6b58",
+      "counts": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 50.973
+    },
+    {
+      "xml": "/tmp/rectification-final-profile-mobile0108.xml",
+      "exit_code": 2,
+      "scope": "Explicitly interrupted after static test errors; no verification claimed",
+      "xml_sha256": "da4c9d71bd9ded0b4f8f68c67bb48b79f2add699889274f310c14fe5246c5765",
+      "counts": {
+        "tests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 17.781
+    },
+    {
+      "xml": "/tmp/rectification-final-profile-mobile-fixed0108.xml",
+      "exit_code": 1,
+      "scope": "ES horizontal overflow reproduced; EN full native profile closure passed",
+      "xml_sha256": "380a516d63f50ac49c10627a019674b764c5467dc876db3cd08d3144076c82ef",
+      "counts": {
+        "tests": 2,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 106.39
+    },
+    {
+      "xml": "/tmp/rectification-final-integrated0108.xml",
+      "exit_code": 0,
+      "scope": "Four integrated flows: account pending/complete and full mobile profile ES/EN",
+      "xml_sha256": "c876eab73176f711650bdcca7aaacf73969f55852d07192929ecda778a3c3739",
+      "counts": {
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 123.477
+    },
+    {
+      "xml": "/tmp/rectification-final-concurrent0108.xml",
+      "exit_code": 0,
+      "scope": "Two simultaneous closes with one key; one response/outbox, replay and different-key rejection",
+      "xml_sha256": "2c219b92dc3664d5b1dabc3109a41c2b822885ed527a58d77037ab9bc4fa0e8a",
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 43.295
+    },
+    {
+      "xml": "/tmp/rectification-shared-receipt-portability0108.xml",
+      "exit_code": 0,
+      "scope": "Two approved portability profile/account flows on the shared receipt template",
+      "xml_sha256": "952c0685bb3885ffea4a24ec473776bac30c6c349bce8d64107ab2cedc1943d9",
+      "counts": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 84.606
+    }
+  ],
+  "source_snapshot_at_delivery": {
+    "apps/safety/rectification_final.py": "681e1311cee1e3bc3bc0424544a1841664652b7b177381cf56aaef73af5333dd",
+    "apps/safety/rectification_final_views.py": "06097dc62b89d4cbf832d71bee0de4915adb1e5a3d22c187f9947f7ababdddd1",
+    "apps/core/urls.py": "a41ab32cfe2cd046b7687b4cb58c38f9eba0d148733107b8b5af0edbdb56aebb",
+    "templates/safety/rectification_final.html": "fd1497ff52024e85eebfdda0d7d5f7e326e153e61151ca49745fcb288cb0a8c2",
+    "templates/safety/rights_inspect.html": "2775c5a3a8a8a3995943b2e22bd15ba7d5dfe605b3f7074838350a0e0f5a725b",
+    "templates/safety/rights_receipt.html": "4716f3ec8c0739f3c9ea888cd86552f706a2211be378bf60538a90f75e629770",
+    "static/app.css": "820e5736504ea97fd348d86ffff001b639ae80528ea64d08f4c10fd71016a955",
+    "tests/test_account_only_execution.py": "e4f1eed2cf851aa801cb000b5cea2581e9cd57219a9294fd60aa514008bc0942",
+    "tests/test_rectification_review.py": "b4491e607dd42ad2bf53655d55dd7c1d78f3c0db6873629329f67544516011af"
+  },
+  "limits": [
+    "PostgreSQL, HTTP, Chromium and concurrency are real; identity, email and exception evidence are synthetic.",
+    "Tests do not prove actual external recipient census, legal admissibility of exceptions or provider delivery.",
+    "No new model or migration; final draft/read/review/closure use encrypted, signed RightsAction records.",
+    "Drafts expire logically after 24 hours; encrypted evidence retention/purge remains in the global retention work.",
+    "No listing publication is performed by final response issuance.",
+    "Docker still runs f252ae0/0108 at this source checkpoint; deployment verification is separate.",
+    "CR09, CI execution and the complete development contract remain open."
+  ]
+}

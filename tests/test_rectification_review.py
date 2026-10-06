@@ -286,7 +286,7 @@ def test_independent_audited_review_needs_fresh_source_and_preserves_publication
 
 @pytest.mark.parametrize("language", ["es", "en"])
 def test_mobile_independent_source_and_proposal_review(
-    live_server, request, settings, monkeypatch, tmp_path, language
+    live_server, request, settings, monkeypatch, tmp_path, language, final_flow=False
 ):
     import json
     import shutil
@@ -595,6 +595,9 @@ def test_mobile_independent_source_and_proposal_review(
             )
             page.get_by_role("button", name=label("Record assessment action"), exact=True).click()
             assert page.locator("fieldset").count() > 0
+            if final_flow:
+                for choice in page.locator("select[name$='-outcome']").all():
+                    choice.select_option("disproportionate")
             for textarea in page.locator("textarea[name$='-reason']").all():
                 textarea.fill(REASON)
             for textarea in page.locator("textarea[name$='-evidence']").all():
@@ -669,6 +672,71 @@ def test_mobile_independent_source_and_proposal_review(
                 ).count()
                 == 0
             )
+            if final_flow:
+
+                def final_authority():
+                    from django.db import close_old_connections, connections
+                    from test_rights_verification import read
+
+                    from apps.safety.models import RightsRectificationRecipientReview
+
+                    close_old_connections()
+                    try:
+                        original = User.objects.get(pk=proposal.action.actor_id)
+                        original.user_permissions.add(
+                            *Permission.objects.filter(
+                                codename__in=["respond_rights_request", "review_rectification"]
+                            )
+                        )
+                        original = User.objects.get(pk=original.pk)
+                        assigned_client = Client()
+                        assigned_client.force_login(original)
+                        current_session = assigned_client.session
+                        current_session["mfa_version"] = original.mfa_version
+                        current_session.save()
+                        fresh(case, original, assigned_client, reviewer, other)
+                        read(other, case)
+                        return RightsRectificationRecipientReview.objects.get().pk
+                    finally:
+                        connections.close_all()
+
+                with ThreadPoolExecutor(max_workers=1) as pool:
+                    recipient_review_id = pool.submit(final_authority).result(timeout=30)
+                final_url = (
+                    live_server.url
+                    + f"/{language}/moderation/rights/{case.pk}/rectification/final/"
+                )
+                final_text = "Se han aplicado los cambios revisados. La publicación requiere revisión separada. / Reviewed changes have been applied. Publication requires separate review."
+                review_page.goto(final_url)
+                review_page.locator("[name=recipient_review]").fill(str(recipient_review_id))
+                review_page.locator("[name=reason]").fill(REASON)
+                review_page.locator("[name=text]").fill(final_text)
+                review_page.locator("[name=confirmed]").check()
+                review_page.locator("button[type=submit]").click()
+                assert final_text not in review_page.content()
+                draft_id = review_page.locator("tbody tr").first.locator("td").first.inner_text()
+                page.goto(final_url)
+                page.locator("[name=operation]").select_option("inspect")
+                page.locator("[name=draft]").fill(draft_id)
+                page.locator("[name=purpose]").fill(
+                    "Read the exact final correction and recipient exceptions"
+                )
+                page.locator("button[type=submit]").click()
+                expect(page.get_by_text(final_text, exact=True)).to_be_visible()
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+                page.locator("[name=outcome]").select_option("approved")
+                page.locator("[name=reason]").fill(REASON)
+                page.locator("button[type=submit]").click()
+                assert final_text not in page.content()
+                final_review_id = page.locator("tbody tr").first.locator("td").first.inner_text()
+                review_page.goto(final_url)
+                review_page.locator("[name=operation]").select_option("close")
+                review_page.locator("[name=review]").fill(final_review_id)
+                review_page.locator("button[type=submit]").click()
+                expect(review_page.locator("tbody")).to_contain_text("rectify_final_close")
+                receipt_page = browser.new_page(viewport={"width": 390, "height": 844})
+                receipt_page.goto(live_server.url + receipt.replace("/en/", f"/{language}/"))
+                expect(receipt_page.get_by_text(final_text, exact=True)).to_be_visible()
             manager_page = browser.new_page(viewport={"width": 390, "height": 844})
             manager_page.goto(live_server.url + f"/{language}/account/login/")
             manager_page.locator("[name=email]").fill(manager_account["email"])
@@ -1798,3 +1866,27 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     type(person).objects.filter(pk=person.pk).update(manager_version=person.manager_version + 1)
     assert len(manager_client.get(inbox).context["notices"]) == 0
     assert manager_client.post(acknowledge).status_code == 404
+
+
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_mobile_final_profile_correction_response_and_close(
+    live_server, request, settings, monkeypatch, tmp_path, language
+):
+    test_mobile_independent_source_and_proposal_review(
+        live_server,
+        request,
+        settings,
+        monkeypatch,
+        tmp_path,
+        language,
+        final_flow=True,
+    )
+    from apps.safety.crypto import unseal
+    from apps.safety.models import RightsRequest, RightsResponse
+
+    case = RightsRequest.objects.get()
+    response = RightsResponse.objects.get(kind="rectify_complete")
+    assert case.status == "resolved" and case.scope_status == "unverified"
+    assert case.person.listing.status != "published"
+    assert unseal(response.encrypted_response)["simulation"] is True
+    assert "recipient_review" not in unseal(response.encrypted_response)
