@@ -1,14 +1,15 @@
 """Catalogue-only flow, permissions, versions and PostgreSQL concurrency."""
 
 import shutil
+import time
 from concurrent.futures import ThreadPoolExecutor
 from decimal import Decimal
-from threading import Barrier
+from threading import Barrier, Event
 
 import pytest
 from django.contrib.auth.models import Permission
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.db import close_old_connections, connections
+from django.db import close_old_connections, connection, connections, transaction
 from django.test import Client
 from playwright.sync_api import expect, sync_playwright
 from test_reports import directory, photo_environment  # noqa: F401
@@ -262,3 +263,66 @@ def test_audit_is_atomic_minimal_and_release_replay_does_not_duplicate(request, 
         create_product(*auth, {"slug": "synthetic_rollback", "kind": "premium"})
     assert not PromotionProduct.objects.filter(slug="synthetic_rollback").exists()
     assert PromotionCatalogueAudit.objects.count() == 3
+
+
+@pytest.mark.parametrize("operation", ["create", "update", "publish", "replay"])
+@pytest.mark.parametrize("change", ["permission", "session", "mfa"])
+def test_revocation_during_observed_product_lock_denies_without_effects(request, operation, change):
+    actor, _ = manager(request)
+    auth = actor, actor.mfa_version, actor.session_version
+    row = create_product(*auth, {"slug": "synthetic_locked", "kind": "top"})
+    if operation == "replay":
+        publish_version(*auth, row.product_id, 1, row.edit_version)
+    original_audits = PromotionCatalogueAudit.objects.count()
+    ready = Event()
+    backend = {}
+
+    def mutate():
+        close_old_connections()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT pg_backend_pid()")
+                backend["pid"] = cursor.fetchone()[0]
+            user = User.objects.get(pk=actor.pk)
+            ready.set()
+            args = user, user.mfa_version, user.session_version
+            try:
+                if operation == "create":
+                    create_version(*args, row.product_id)
+                elif operation == "update":
+                    update_version(*args, row.product_id, 1, row.edit_version, data(row))
+                else:
+                    publish_version(*args, row.product_id, 1, row.edit_version)
+            except PermissionDenied:
+                return "denied"
+            return "allowed"
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        with transaction.atomic():
+            PromotionProduct.objects.select_for_update().get(pk=row.product_id)
+            future = pool.submit(mutate)
+            assert ready.wait(timeout=5)
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT pg_backend_pid()")
+                own_pid = cursor.fetchone()[0]
+                deadline = time.monotonic() + 5
+                blocked = False
+                while time.monotonic() < deadline:
+                    cursor.execute("SELECT pg_blocking_pids(%s)", [backend["pid"]])
+                    blocked = own_pid in cursor.fetchone()[0]
+                    if blocked:
+                        break
+                    time.sleep(0.02)
+            assert blocked and not future.done()
+            if change == "permission":
+                actor.user_permissions.clear()
+            else:
+                field = "session_version" if change == "session" else "mfa_version"
+                User.objects.filter(pk=actor.pk).update(**{field: getattr(actor, field) + 1})
+        assert future.result(timeout=10) == "denied"
+    row.refresh_from_db()
+    assert row.product.versions.count() == 1 and row.edit_version == 1
+    assert bool(row.published_at) == (operation == "replay")
+    assert PromotionCatalogueAudit.objects.count() == original_audits
