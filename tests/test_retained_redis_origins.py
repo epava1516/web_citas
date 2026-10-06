@@ -89,7 +89,8 @@ def test_unknown_and_repeated_aux_names_remain_separate_unassociated_review_entr
     rows = result["metadata_review"][0]["records"][-2:]
     assert all(row["recognized_field"] is None for row in rows)
     assert rows[0]["reference"] != rows[1]["reference"]
-    assert rows[0]["content"] == rows[1]["content"] == entry
+    assert "value_hex" not in str(result["metadata_review"])
+    assert rows[0]["content_digest"] == rows[1]["content_digest"]
     assert "snapshot_metadata_scope_review" in result["pending"]
     assert "PRIVATE AUX VALUE" not in str(result["records"])
     aux["entries"][0]["field_hex"] = "00" * 4097

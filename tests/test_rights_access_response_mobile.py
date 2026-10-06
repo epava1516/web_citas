@@ -36,13 +36,14 @@ def test_mobile_final_response_preparation_and_independent_decision(
     author.user_permissions.add(respond)
     reviewer.user_permissions.add(respond, Permission.objects.get(codename="verify_rights_scope"))
     author, reviewer = User.objects.get(pk=author.pk), User.objects.get(pk=reviewer.pk)
+    source_copy = preview(author, case.pk, case.version, REASON)
     export = generate(
         author,
         case.pk,
         uuid4(),
         case.version,
         REASON,
-        preview(author, case.pk, case.version, REASON),
+        source_copy,
         information_review_id=decision.pk,
     )
     case.refresh_from_db()
@@ -62,8 +63,37 @@ def test_mobile_final_response_preparation_and_independent_decision(
         from test_redis_history_scope import message
 
         from apps.safety.crypto import seal, unseal
+        from apps.safety.rights import fingerprint
+        from apps.safety.rights_access_coverage import UNPROJECTED
+        from apps.safety.rights_access_coverage_review import inspect as inspect_coverage
+        from apps.safety.rights_access_coverage_review import record as record_coverage
+        from apps.safety.rights_access_coverage_store import required_references, save
         from apps.safety.rights_access_scope_store import inspect
+        from apps.safety.rights_copy_inspection import SECTIONS
+        from apps.safety.rights_exports import canonical
+        from apps.safety.rights_portability_selection import row_reference
         from scripts.scope_retained_redis_origin import prepare_origins
+
+        delivered = unseal(export.encrypted_payload)
+        declarations = {
+            "sections": {
+                section: [{"row": row_reference(section, index, row), "delivered_index": index, "decisions": {}}
+                          for index, row in enumerate(project(source_copy))]
+                for section, project in SECTIONS.items()
+            },
+            "boundaries": {name: {"status": "excluded", "reason": REASON, "evidence": "Synthetic referenced information review; no real identity or legal approval"}
+                           for name in set(source_copy["pending_review"]) | set(delivered["pending_review"]) | UNPROJECTED},
+        }
+        action = decision.action
+        reference = {"action": action.pk, "request": str(action.request_id), "actor": action.actor_id,
+                     "version": action.expected_version, "operation": action.operation,
+                     "payload": action.payload_digest, "reason_ciphertext": fingerprint(action.encrypted_reason)}
+        refs = {label: {"action": action.pk, "digest": fingerprint(canonical(reference))}
+                for label in required_references(declarations)}
+        coverage = save(author, case.pk, case.version, case.response_version, export.pk, uuid4(), REASON,
+                        delivered, declarations, refs, fingerprint(canonical(source_copy)), fingerprint(canonical(delivered)))
+        _, _, coverage_read = inspect_coverage(reviewer, case.pk, case.version, coverage.pk, uuid4(), REASON)
+        coverage_review = record_coverage(reviewer, case.pk, case.version, coverage.pk, coverage_read.pk, uuid4(), REASON, "approved")
 
         inventory, _ = inspect(author, case.pk, case.version, case.response_version, uuid4(), REASON)
         manifest = unseal(inventory.encrypted_inventory)
@@ -111,6 +141,7 @@ def test_mobile_final_response_preparation_and_independent_decision(
             page.locator("#id_redaction_confirmed").check()
             if metadata:
                 page.locator("#id_scope_inventory").select_option(str(inventory.pk))
+                page.locator("#id_coverage_review").select_option(str(coverage_review.pk))
                 page.get_by_role("button", name="Inspect access package" if english else "Consultar paquete de acceso", exact=True).click()
                 expect(page.locator(".rights-access-coverage")).to_contain_text("metadata_review")
                 decisions = json.loads(page.locator("#id_delivery_decisions").input_value())

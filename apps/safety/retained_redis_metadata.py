@@ -49,7 +49,8 @@ def review_material(metadata, origin_digest):
             "recognized_field": field.decode("ascii") if field in KNOWN else None,
             "field_digest": fingerprint(canonical({"field_hex": entry["field_hex"]})),
             "content_digest": fingerprint(canonical(entry)),
-            "content": entry,
+            "field_bytes": len(entry["field_hex"]) // 2,
+            "value_bytes": len(entry["value_hex"]) // 2,
             "association": "infrastructure_scope_unreviewed",
         })
     return {
