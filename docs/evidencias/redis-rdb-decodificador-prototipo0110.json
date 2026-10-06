@@ -15,7 +15,7 @@
         "PEXPIREAT": 28
       },
       "pending": [],
-      "decoder_seconds": 0.016366434283554554
+      "decoder_seconds": 0.02098115812987089
     },
     {
       "source_evidence": "redis-base-aof-origen0110.json",
@@ -31,7 +31,7 @@
         "HSET": 4
       },
       "pending": [],
-      "decoder_seconds": 0.01949203386902809
+      "decoder_seconds": 0.013964815065264702
     }
   ],
   "synthetic_expired_fixture": {
@@ -50,17 +50,25 @@
     "Prototype native decoder only; multi-source per-inventory package integration and mandatory gates not delivered.",
     "Generated reconstruction was inspected, never executed. Original source metadata/association/retention review remains pending."
   ],
-  "decoder_source_commit": "79790d70bb4152d1c5d512e50e8dc47f0f498900",
+  "decoder_source_commit": "ec8b31ddd7c1985cf9e39732ee013a28aa71bfdf",
+  "decoder_source_sha256": "8d1e303d7e6c02f9d0a86491726bca0c9cad274002e7270eff0dc0484994d08c",
   "decoder_plaintext_temporaries_remaining": 0,
-  "decoder_source_sha256": "963e4ad5d7775f02c4a866cb6e958367ab64ebb59ca18575b3d6e4186c4b18e3",
+  "native_log_confined_to_private_temporary_directory": true,
+  "prior_native_log_custody": {
+    "encrypted_origin": "/tmp/cr09-rdb-parser-log-custody0110/rdb-cli-log.encrypted",
+    "source_bytes": 683,
+    "source_sha256": "ea7d58919400a82d935fab08215566eaee6b0ddce771e739850de88174ab8e92",
+    "plaintext_removed": true,
+    "partial": true
+  },
   "prior_attempts": [
-    "Native binary group/other-writable; permission guard rejected it; local compiled binary changed to0755.",
-    "Expired upstream fixture was a SET string; incorrect SADD expectation corrected after typed command inspection."
+    "Native binary group/other-writable rejected; permissions corrected to0755.",
+    "Expired fixture is SET string; incorrect SADD expectation corrected after typed inspection.",
+    "Native CLI created log in working directory; preserved encrypted and decoder cwd moved to private temporary directory."
   ],
   "pending": [
-    "Package per-inventory integration of RDB and AOF origins together",
-    "Typed subject scope, source metadata, unknown formats and expiration fields review",
-    "N2 PostgreSQL/native/file/privacy/compatibility/cleanup and runtime gates",
-    "Coherent cut and final retention authority"
+    "RDB/AOF origins together in scoped package and mandatory N2/runtime gates",
+    "Typed source metadata/expiration/unknown-format review and subject association",
+    "Coherent full cut and final retention authority"
   ]
 }
