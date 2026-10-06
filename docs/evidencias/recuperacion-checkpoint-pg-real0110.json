@@ -1,0 +1,38 @@
+{
+  "source_commit": "7a7812a",
+  "application_runtime_source": "86ffe85",
+  "verified_at": "2026-10-06T17:34:56.994633+00:00",
+  "scope": "RESTORE-CHECKPOINT-01 real synthetic PostgreSQL dump/restore plus media, independent expected checkpoint, rejection before effects and successful reconciliation/replay.",
+  "test": "tests/test_recovery_pg_restore.py",
+  "test_source_sha256": "7e5c8860586b78034c75d6a524b1fb6cf8216abbe2669cd5e9964b5eda00ced5",
+  "junit_sha256": "9c41c570adee0a05c19c91cca0df6e704430b5c1e61bf8c2c1c5a2f5d021830d",
+  "private_log": "/tmp/restore-checkpoint-final.log",
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "suite_seconds": 49.007,
+  "properties": {
+    "independent_authority_verified": "True",
+    "wrong_authority_rejected_without_effects": "True",
+    "real_restore": "True",
+    "effects_applied": "True",
+    "media_deleted": "True",
+    "peer_preserved": "True",
+    "old_session_rejected": "True",
+    "replay_idempotent": "True",
+    "publication_authorized": "False",
+    "backup_bytes": "883424",
+    "backup_seconds": "0.8661242411471903",
+    "restore_and_reconcile_seconds": "5.58674251800403"
+  },
+  "cleanup": "Test finally block drops only newly created recovery_restore database and verifies exact database absence; passed.",
+  "project": "web-modelos",
+  "limits": [
+    "Synthetic identities/dataset only. Reference obtained from original source before isolated restore; no external authority custodian or provider attestation.",
+    "Backup883424 bytes and observed timing do not establish production capacity, RPO or RTO.",
+    "One affected integration test, not full recovery/CR09 regression.",
+    "No application/model/route/migration change; existing local runtime remains86ffe85, no rebuild required.",
+    "Resource census, legal retention, full recovery operation and CR09 acceptance remain pending."
+  ]
+}

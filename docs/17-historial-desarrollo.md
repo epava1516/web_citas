@@ -2557,3 +2557,8 @@ Auditoría acotada de las36 tuplas de cola aún sin asociación: no hay worker.l
 ## 2026-10-06 — Paginación SQL de alertas entregada
 
 PERF-URGENTES-01, fuente86ffe85 enviada y Docker local actualizado. Conteo y LIMIT50 tras exclusiones equivalentes a permitted; subconsultas de membresía evitan duplicaciones/N consultas por fila, semántica histórica/actual preservada.16 pruebas afectadas correctas en run integrado y1 final específica de páginas/SQL37,48s; captura SQL inicial defectuosa corregida y registrada, no falsa reproducción de producción.70 hashes/3 servicios/PG0110/UID10001/RecoveryModeFalse/check/migrate-check/HTTP/CSS/SEO correctos; logs anteriores cifrados preservados. No modelos/rutas/estados/permisos/tareas/migración nuevos. Evidencias alertas-paginacion-sql0110 y runtime0110. No aceptación de carga/conservación/CR09 integral ni cambio ponderado v6.
+
+
+## 2026-10-06 — Checkpoint esperado integrado en restauración real
+
+RESTORE-CHECKPOINT-01 fuente7a7812a: pg_dump/pg_restore reales y medios sintéticos en base desechable. Checkpoint incorrecto rechaza antes de aplicaciones/borrados; correcto aplica y replay conserva tercero/revoca sesión/elimina propios.1 prueba PostgreSQL correcta49,007s;883424bytes de backup,0,866s copia y5,587s restauración+reconciliación observadas. Base retirada/ausencia comprobada en finally. Evidencia recuperacion-checkpoint-pg-real0110.json; no cambio de aplicación ni reconstrucción requerida, runtime86ffe85. Integra el pendiente específico de docs83; no acredita custodia externa/RPO/RTO/capacidad/restauración integral. V6 sin cambios.
