@@ -111,3 +111,17 @@ def test_periodic_payload_children_traceback_and_invalid_counts_remain_blocked()
         data = inspect(queue + result(own, **fields), own)
         assert data["blocked"] and not data["technical_result_evidence"]
         assert "PRIVATE" not in str(data)
+
+
+def test_duplicate_result_keys_cannot_hide_unreviewed_payload():
+    own = str(uuid4())
+    task_id = "private-task-id-" + own
+    payload = json.dumps(
+        {"task_id": task_id, "status": "SUCCESS", "result": 0, "traceback": None}
+    ).replace('"result": 0', '"result": "PRIVATE", "result": 0')
+    raw = command(b"LPUSH", b"fixture:q", periodic_message(task_id)) + command(
+        b"SET", ("celery-task-meta-" + task_id).encode(), payload.encode()
+    )
+    data = inspect(raw, own)
+    assert data["blocked"] and not data["technical_result_evidence"]
+    assert "PRIVATE" not in str(data)

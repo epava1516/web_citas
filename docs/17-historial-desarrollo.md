@@ -2531,3 +2531,10 @@ Cuatro actas previas vinculan20 tareas; log de un intento anterior, coincidente 
 Adaptador AOF reconoce cinco purgas periódicas explícitas, identidad exacta, SUCCESS/entero0..200/no booleano, sin traceback/hijos/campos extra y fecha consciente si existe. Evidencia técnica HMAC preservada; no copia de sujeto ni falso bloqueo por contador conocido; formatos desconocidos aún bloquean y cobertura parcial conserva pendiente.11 pruebas correctas54,73s incluyendo PG perfil/cuenta/regresiones y negativos. Ruff final correcto tras ordenar imports. [Pruebas](evidencias/redis-periodicos-contadores0110.json). Host/backups/otras generaciones/revisión/conservación integral siguen pendientes.
 
 Fuente8114457 y Docker local70 hashes/3 servicios, PG0110/UID10001/RecoveryModeFalse/check/migrate-check/salud/CSS/XML/robots correctos; logs previos cifrados conservados. [Runtime](evidencias/redis-periodicos-runtime0110.json). V6 actualiza solo recursos55→60 por nuevo tipo de recurso entregado con procedencia y adaptación técnica; pesos/demás grados intactos. CR0971,50%, contrato60,725%; estimación de ingeniería, no aceptación integral.
+
+
+## 2026-10-06 — Cabeceras tipadas y JSON sin descarte de datos
+
+Defectos reproducidos:7 campos/representaciones/stamps/enlaces/JSON duplicado ignorados;4 tipos/argumento foto estructurado descartado como ajeno;1 overflow numérico y1 JSON de resultado duplicado ocultando payload. Corregidos en validador compartido: allowlist y tipos nativos, representaciones coherentes, sin stamps/alias no examinados, ruta configurada, UUID foto y rechazo de claves duplicadas.23 pruebas PG/Redis correctas; overflow1 y parser/esquema/resultados/Redis final20 correctos en runs separados. [Evidencia](evidencias/broker-cabeceras-esquema0110.json).
+
+Cuatro reservados de base real capturada pasan esquema actualizado:19 campos de cabecera/7 propiedades conocidas, sin revelar valores. [Base](evidencias/redis-base-cabeceras-formato0110.json). Se cierra este formato observado, no el censo/namespace/host/backups entero. Sin tareas/rutas/modelos/migraciones/permisos nuevos; v6 intacta por ser corrección de seguridad.

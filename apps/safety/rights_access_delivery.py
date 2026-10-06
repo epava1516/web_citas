@@ -322,7 +322,7 @@ def broker_records(blob_ids):
         try:
             from .broker_message_projection import project_message
 
-            projected_message = project_message(raw, blob_ids, state, periodic)
+            projected_message = project_message(raw, blob_ids, state, periodic, queue=queue)
             if projected_message is not None:
                 data, content = projected_message
                 result["copy"].append(data)

@@ -1,0 +1,67 @@
+{
+  "verified_at": "2026-10-06T17:00:08.661479+00:00",
+  "requirement": "Reject unexamined envelope fields/values and duplicate JSON before technical or foreign-subject exclusion; exact configured routing and typed UUID photo arguments",
+  "source_sha256": {
+    "apps/safety/broker_message_projection.py": "bdba1faab197a4f19701e8fb8e4162da1093b8cd947cbc1bbaa8a636861924af",
+    "apps/safety/redis_result_projection.py": "088c2dfa1e7590b871868067f3b032d2a7a399f57576f3031e6afee8ff7da007",
+    "apps/safety/redis_history_scope.py": "6f67bce6f8c0c098e98c22bb6f0525582639d3d2e65a2d0d7835bfc481af6c69",
+    "apps/safety/rights_access_delivery.py": "2e4f65224c7079e39cddfe3f7715204d0da5133c9fb27e6bff3df27589a907a4",
+    "tests/test_broker_envelope_schema.py": "e382b08ae26cff34a4e299d183af7e735dfd3801dee7a7a67d9f1a5ba6d7a32f",
+    "tests/test_redis_result_projection.py": "6d86fb45d66af0aa8bced62e543355ea3f7f59d71679e54be217841892c89156"
+  },
+  "reproductions": [
+    {
+      "log": "/tmp/broker-envelope-before.log",
+      "failed": 7,
+      "seconds": 0.52,
+      "scope": "Unknown headers/properties/stamps/representations/null-link keys/duplicate JSON silently ignored"
+    },
+    {
+      "log": "/tmp/broker-field-types-before.log",
+      "failed": 4,
+      "seconds": 0.44,
+      "scope": "Native field types and structured photo argument mistaken for foreign subject"
+    },
+    {
+      "log": "/tmp/broker-large-number-before.log",
+      "failed": 1,
+      "seconds": 0.52,
+      "scope": "Numeric overflow instead of typed rejection"
+    },
+    {
+      "log": "/tmp/result-duplicate-before.log",
+      "failed": 1,
+      "seconds": 0.67,
+      "scope": "Duplicate result key hides unexamined payload"
+    }
+  ],
+  "verified_runs": [
+    {
+      "log": "/tmp/broker-envelope-integration-final.log",
+      "passed": 23,
+      "failed": 0,
+      "seconds": 53.74,
+      "scope": "Broker schema, own/foreign/result/history PG snapshots and actual Redis queue/reserved preservation"
+    },
+    {
+      "log": "/tmp/broker-large-number-final.log",
+      "passed": 1,
+      "failed": 0,
+      "scope": "Overflow correction"
+    },
+    {
+      "log": "/tmp/broker-envelope-shared-final.log",
+      "passed": 20,
+      "failed": 0,
+      "seconds": 1.14,
+      "scope": "Final parser/schema/results shared regressions and actual Redis after duplicate-result correction"
+    }
+  ],
+  "actual_base_evidence": "redis-base-cabeceras-formato0110.json",
+  "limits": [
+    "Separate affected runs; not a whole-phase common-version acceptance.",
+    "No tasks/routes/models/migrations/permission changes; source census and retention/review remain incomplete.",
+    "Correction of unsupported formats does not change weighted progress v6.",
+    "Native broker transport is real Redis/Kombu; test subjects and payloads are synthetic."
+  ]
+}

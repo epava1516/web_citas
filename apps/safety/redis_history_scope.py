@@ -56,7 +56,7 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
             try:
                 if message is None:
                     raise ValueError("Unmaterialized message")
-                projected = project_message(message, blob_ids, state, periodic)
+                projected = project_message(message, blob_ids, state, periodic, queue=queue)
                 envelope = json.loads(message)
                 if state == "reserved":
                     envelope = envelope[0]
