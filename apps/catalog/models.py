@@ -83,4 +83,8 @@ class Zone(models.Model):
         return self.name
 
 
-from .promotion_models import PromotionProduct, PromotionProductVersion  # noqa: E402,F401
+from .promotion_models import (  # noqa: E402,F401
+    PromotionCatalogueAudit,
+    PromotionProduct,
+    PromotionProductVersion,
+)

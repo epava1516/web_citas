@@ -1133,6 +1133,22 @@ def source(case, *, capture=None):
             NOTICE_FIELDS,
         )
     )
+    specs.append(
+        (
+            "catalog.PromotionCatalogueAudit",
+            Q(actor=user),
+            "dependent_evidence",
+            [
+                "pk",
+                "actor_id",
+                "product_version_id",
+                "operation",
+                "edit_version",
+                "payload_digest",
+                "created_at",
+            ],
+        )
+    )
     entries = []
     for label, scope, purpose, fields in specs:
         queryset = apps.get_model(label).objects.filter(scope)
