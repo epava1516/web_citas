@@ -2540,3 +2540,5 @@ Defectos reproducidos:7 campos/representaciones/stamps/enlaces/JSON duplicado ig
 Cuatro reservados de base real capturada pasan esquema actualizado:19 campos de cabecera/7 propiedades conocidas, sin revelar valores. [Base](evidencias/redis-base-cabeceras-formato0110.json). Se cierra este formato observado, no el censo/namespace/host/backups entero. Sin tareas/rutas/modelos/migraciones/permisos nuevos; v6 intacta por ser corrección de seguridad.
 
 JSON compartido acotado a64 niveles antes de decodificar, respetando cadenas/escapes;22 verificaciones finales correctas1,17s con Redis real. Los2 casos de profundidad ya rechazaban por estructura antes: endurecimiento de límite previo, sin inventar fallo anterior. Misma política/métricas/estados, actualizado hash de evidencia final.
+
+Fuente39b4e46 y Docker local70 archivos iguales app/worker/Beat, UID10001/PG0110/RecoveryModeFalse/check/migrate-check/salud/CSS/XML/robots correctos; logs previos cifrados conservados. [Runtime](evidencias/broker-esquema-runtime0110.json). Cabeceras/JSON cerrados para alcance probado; censo completo/finalidades/host/backups siguen pendientes. V6 intacta.
