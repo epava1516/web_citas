@@ -2562,3 +2562,8 @@ PERF-URGENTES-01, fuente86ffe85 enviada y Docker local actualizado. Conteo y LIM
 ## 2026-10-06 — Checkpoint esperado integrado en restauración real
 
 RESTORE-CHECKPOINT-01 fuente7a7812a: pg_dump/pg_restore reales y medios sintéticos en base desechable. Checkpoint incorrecto rechaza antes de aplicaciones/borrados; correcto aplica y replay conserva tercero/revoca sesión/elimina propios.1 prueba PostgreSQL correcta49,007s;883424bytes de backup,0,866s copia y5,587s restauración+reconciliación observadas. Base retirada/ausencia comprobada en finally. Evidencia recuperacion-checkpoint-pg-real0110.json; no cambio de aplicación ni reconstrucción requerida, runtime86ffe85. Integra el pendiente específico de docs83; no acredita custodia externa/RPO/RTO/capacidad/restauración integral. V6 sin cambios.
+
+
+## 2026-10-06 — Revalidación de cobertura en lote integrada
+
+PERF-COBERTURA-01 fuentec0f58fc enviada y desplegada Docker local: validador compartido gate/histórico con fuente única y auditorías subordinadas en lote. Reproducción44 reconstrucciones del origen por replay; regresión final0 de los servicios de inspección, conserva checks padre inicial/final e IDs originales.11 PG integración226,13s y19 bloqueos/revocaciones209,34s correctas, runs separados.72 hashes/3 servicios/PG0110/UID10001/RecoveryModeFalse/check/migrate-check/HTTP/CSS/SEO correctos; logs cifrados anteriores preservados. Sin modelo/ruta/permiso/tarea nueva. Medición grande y cierre/descarga completa siguen pendientes, no aceptación integral ni cambio v6. Evidencias portabilidad-cobertura-validacion-lote0110 y lote-runtime0110.

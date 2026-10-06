@@ -1,0 +1,51 @@
+{
+  "source_commit": "c0f58fc",
+  "verified_at": "2026-10-06T17:47:05.572818+00:00",
+  "requirement": "Validate every original coverage page once against the locked source, preserving audit IDs, signature, purpose, digest, current epochs, proof, selection and final authority/source checks.",
+  "implementation": "Shared validate_coverage_pages used by current read gate and historical coverage evidence; child reads fetched as one batch; no page service replay or new substitute read.",
+  "reproduction": "Approval replay rebuilt source44 times via inspection/selection services; regression test failed53.49s. Same scenario passes with0 calls to those source rebuild paths. Parent initial/final source checks retained.",
+  "runs": [
+    {
+      "private_log": "/tmp/coverage-batch-before.log",
+      "junit_sha256": "4ca1124aa2048411290f755f4d6ef01f4f02aa0f6a1bfd0cc473ef40afb066ad",
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "suite_seconds": 53.396
+    },
+    {
+      "private_log": "/tmp/coverage-batch-integration.log",
+      "junit_sha256": "a3e269086c2d8bbd98189f50620f4ce12a435261d61eddee09700ba62a5fc1de",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suite_seconds": 226.045
+    },
+    {
+      "private_log": "/tmp/coverage-batch-authority.log",
+      "junit_sha256": "7a368b0b355d7110e4752e030dd74a415cf06b2677724331b149caf9b97c3f90",
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suite_seconds": 209.248
+    }
+  ],
+  "setup_correction": "Initial follow-up referred to absent test filename and collected0 tests; also fixed a Ruff-detected local ids reference before the actual integrated runs. These are not functional regression results.",
+  "scope": [
+    "11 integrated PostgreSQL tests passed226.13s: approval/rejection/replay/coverage use/historical digest corruption and profile/account variants.",
+    "19 observed PostgreSQL lock/revocation tests passed209.34s: approve/use, permission/session/MFA/proof/source/ciphertext/expiry and author authority."
+  ],
+  "limits": [
+    "Separate affected runs, not full CR09 or full repository acceptance.",
+    "No large-history latency/queries/memory acceptance yet; original independent page intake still builds a source per user page request.",
+    "No migration/model/route/permission/task change; no worker or Beat task probes repeated."
+  ],
+  "source_sha256": {
+    "apps/safety/rights_portability_coverage_evidence.py": "140e91aa4f6e0b62350dcfeee1e58bacc54083120dedc598cd979c2de580c50c",
+    "apps/safety/rights_portability_coverage_read_gate.py": "02047b4d1e7669aeb0db0f789eae0557fac88abee911219197bc0ccdd929ffa2",
+    "tests/test_portability_coverage_batch_validation.py": "125b4e472362cab7062957a19cdfb8bf11e16c90fb8ff14977e8b1eb83e97925"
+  }
+}
