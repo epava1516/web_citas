@@ -124,3 +124,13 @@ def test_historical_reader_rejects_candidate_after_original_capture(tmp_path, se
             case=case,
             inventory=inventory,
         )
+
+
+def test_historical_preparation_bounds_serialized_envelope_before_writing(tmp_path, settings, monkeypatch):
+    from apps.safety import retained_log_origins
+
+    paths, case, inventory = origins(tmp_path, settings)
+    monkeypatch.setattr(retained_log_origins, "MAX_CONTENT_BYTES", 1024)
+    with pytest.raises(ValueError, match="serialized"):
+        prepare_origins([paths[0]], tmp_path, inventory)
+    assert not list(tmp_path.glob("access-logs-*.encrypted"))

@@ -394,8 +394,6 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             inventory_id=inventory.pk,
         )
         if historical_logs:
-            from scripts.scope_retained_log_origins import prepare_origins
-
             historical_body = unseal(archive_path.read_text())
             historical_body["captured_at"] = (inventory.created_at - timedelta(seconds=1)).isoformat()
             for service_record in historical_body["records"]:
@@ -403,7 +401,23 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             archive_path.write_text(module.seal(historical_body))
             selected = tmp_path / "selected-history"
             selected.mkdir(mode=0o700)
-            archive_path = prepare_origins([archive_path], selected, inventory)
+            import os
+            import subprocess
+            import sys
+
+            from django.db import connection
+
+            expected_path = selected / scoped_origin_name("logs", case.pk, inventory.pk)
+            cli_env = os.environ.copy()
+            cli_env["POSTGRES_DB"] = connection.settings_dict["NAME"]
+            command = [sys.executable, "-m", "scripts.scope_retained_log_origins", "--origin", str(archive_path),
+                       "--output-directory", str(selected), "--request", str(case.pk), "--inventory", str(inventory.pk)]
+            cli = subprocess.run(command, env=cli_env, capture_output=True, text=True, timeout=30)
+            assert cli.returncode == 0, cli.stderr
+            assert cli.stdout.strip() == str(expected_path)
+            duplicate = subprocess.run(command, env=cli_env, capture_output=True, text=True, timeout=30)
+            assert duplicate.returncode == 2 and "no accepted artifact" in duplicate.stderr
+            archive_path = expected_path
             archive_directory = selected
         settings.ACCESS_LOG_ORIGIN_BUNDLE = str(archive_directory)
         with transaction.atomic():

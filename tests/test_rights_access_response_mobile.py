@@ -96,25 +96,51 @@ def test_mobile_final_response_preparation_and_independent_decision(
         coverage_review = record_coverage(reviewer, case.pk, case.version, coverage.pk, coverage_read.pk, uuid4(), REASON, "approved")
 
         inventory, _ = inspect(author, case.pk, case.version, case.response_version, uuid4(), REASON)
-        manifest = unseal(inventory.encrypted_inventory)
-        blob = manifest["media"][0]["blob"] if manifest["media"] else str(uuid4())
-        body, _ = capture(tmp_path / "native", inventory.created_at, [message(blob)])
-        source = tmp_path / "snapshot.encrypted"
-        source.write_text(seal(body))
-        source.chmod(0o600)
-        folder = tmp_path / "origins"
-        folder.mkdir(mode=0o700)
-        decoder, digest = native_decoder()
-        if metadata == "physical":
-            aux, aux_hash = metadata_decoder()
-            options = {"metadata_decoder": aux, "metadata_decoder_sha256": aux_hash}
+        if metadata == "logs":
+            from datetime import timedelta
+
+            from test_rights_access_recipient_payload import synthetic_log_bundle
+
+            from scripts.collect_access_resource_logs import signed_subject_log_event
+            from scripts.scope_retained_log_origins import prepare_origins as prepare_logs
+
+            event_time = inventory.created_at - timedelta(seconds=2)
+            event = signed_subject_log_event(
+                "account" if account_only else "person",
+                case.account_subject_id if account_only else case.person_id,
+                "profile_updated", "succeeded", event_time,
+            )
+            captured = inventory.created_at - timedelta(seconds=1)
+            body = synthetic_log_bundle(captured, f"{event_time.isoformat()} {json.dumps(event)}\n")
+            for service_record in body["records"]:
+                service_record["container_created_at"] = event_time.isoformat()
+            source = tmp_path / "logs.encrypted"
+            source.write_text(seal(body))
+            source.chmod(0o600)
+            folder = tmp_path / "logs"
+            folder.mkdir(mode=0o700)
+            prepare_logs([source], folder, inventory)
+            settings.ACCESS_LOG_ORIGIN_BUNDLE = str(folder)
         else:
-            aux, aux_hash = aux_decoder()
-            options = {"aux_decoder": aux, "aux_decoder_sha256": aux_hash}
-        prepare_origins([source], folder, inventory, decoder=decoder, decoder_sha256=digest, **options)
-        settings.ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = str(folder)
-        settings.CELERY_BROKER_TRANSPORT_OPTIONS = {"global_keyprefix": "fixture:"}
-        settings.CELERY_TASK_DEFAULT_QUEUE = "q"
+            manifest = unseal(inventory.encrypted_inventory)
+            blob = manifest["media"][0]["blob"] if manifest["media"] else str(uuid4())
+            body, _ = capture(tmp_path / "native", inventory.created_at, [message(blob)])
+            source = tmp_path / "snapshot.encrypted"
+            source.write_text(seal(body))
+            source.chmod(0o600)
+            folder = tmp_path / "origins"
+            folder.mkdir(mode=0o700)
+            decoder, digest = native_decoder()
+            if metadata == "physical":
+                aux, aux_hash = metadata_decoder()
+                options = {"metadata_decoder": aux, "metadata_decoder_sha256": aux_hash}
+            else:
+                aux, aux_hash = aux_decoder()
+                options = {"aux_decoder": aux, "aux_decoder_sha256": aux_hash}
+            prepare_origins([source], folder, inventory, decoder=decoder, decoder_sha256=digest, **options)
+            settings.ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = str(folder)
+            settings.CELERY_BROKER_TRANSPORT_OPTIONS = {"global_keyprefix": "fixture:"}
+            settings.CELERY_TASK_DEFAULT_QUEUE = "q"
     cookies = [
         client.cookies[django_settings.SESSION_COOKIE_NAME].value for client in (staff, other)
     ]
@@ -148,10 +174,11 @@ def test_mobile_final_response_preparation_and_independent_decision(
                 page.locator("#id_scope_inventory").select_option(str(inventory.pk))
                 page.locator("#id_coverage_review").select_option(str(coverage_review.pk))
                 page.get_by_role("button", name="Inspect access package" if english else "Consultar paquete de acceso", exact=True).click()
-                expect(page.locator(".rights-access-coverage")).to_contain_text("metadata_review")
+                expect(page.locator(".rights-access-coverage")).to_contain_text("historical_log_capture_coverage" if metadata == "logs" else "metadata_review")
                 decisions = json.loads(page.locator("#id_delivery_decisions").input_value())
                 assert decisions["resources"]["status"] == "pending"
-                assert len(decisions["resources"]["redis_metadata_digest"]) == 64
+                if metadata != "logs":
+                    assert len(decisions["resources"]["redis_metadata_digest"]) == 64
                 for decision in decisions["models"].values():
                     decision.update(status="omitted", reason=REASON)
                 decisions["resources"].update(status="reviewed", reason=REASON)
@@ -182,7 +209,7 @@ def test_mobile_final_response_preparation_and_independent_decision(
             ).click()
             expect(page.locator("body")).to_contain_text(TEXT)
             if metadata:
-                expect(page.locator(".rights-access-coverage")).to_contain_text("snapshot_metadata_scope_review")
+                expect(page.locator(".rights-access-coverage")).to_contain_text("infrastructure_content_accounting" if metadata == "logs" else "snapshot_metadata_scope_review")
                 expect(page.locator(".rights-access-coverage")).to_contain_text("infrastructure_scope_unreviewed")
             page.locator("#decision_reason").fill(REASON)
             page.locator("#decision_outcome").select_option("approved")
@@ -223,4 +250,14 @@ def test_mobile_physical_census_uses_existing_review_and_independent_decision(
 ):
     test_mobile_final_response_preparation_and_independent_decision(
         live_server, request, settings, monkeypatch, tmp_path, language, False, metadata="physical"
+    )
+
+
+@pytest.mark.parametrize("language", ["es", "en"])
+@pytest.mark.parametrize("account_only", [False, True])
+def test_mobile_historical_logs_use_existing_private_review_and_stay_partial(
+    live_server, request, settings, monkeypatch, tmp_path, language, account_only
+):
+    test_mobile_final_response_preparation_and_independent_decision(
+        live_server, request, settings, monkeypatch, tmp_path, language, account_only, metadata="logs"
     )

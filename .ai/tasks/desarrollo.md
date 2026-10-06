@@ -4,7 +4,7 @@ Baseline: carpeta con 18 documentos; sin código ni repositorio Git antes del in
 Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
 Estado: running. Inicio autorizado 2026-10-03.
-Invocaciones Claude consumidas: 3 acumuladas, sin máximo numérico vigente. La tercera fue automática fuera del adaptador (incidencia Graphify), cuyo registro se conserva. Política modificada por autorización explícita del usuario el2026-10-06: límite de3 eliminado, contador no reiniciado. Nuevas invocaciones mediante scripts/claude-task del contrato adoptado; Claude propone, Codex aplica y verifica. Las referencias3/3 o restricciones de nuevas llamadas en la cronología inferior describen la política histórica, no la vigente.
+Invocaciones Claude consumidas: 4 acumuladas, sin máximo numérico vigente. La tercera fue automática fuera del adaptador (incidencia Graphify), cuyo registro se conserva. Política modificada por autorización explícita del usuario el2026-10-06: límite de3 eliminado, contador no reiniciado. Nuevas invocaciones mediante scripts/claude-task del contrato adoptado; Claude propone, Codex aplica y verifica. Las referencias3/3 o restricciones de nuevas llamadas en la cronología inferior describen la política histórica, no la vigente.
 Próximo paso: CR-09. BASE y CR-01…CR-08 verificados localmente;166 comunes passed450.45s y dos límites finales14.47s; Docker privado/worker/Beat verificados.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
 
@@ -663,3 +663,8 @@ Consulta auditada, decisión independiente versionada/cifrada, UI móvil ES/EN y
 
 
 Inventario de revisión de recargas:17 conjuntas correctas149,41 s, cero fallos/errores/omisiones PG/Chromium. Incluye cambios de versión/motivo/lectura, rechazo antes de execute sin eliminar archivos, aislamiento de otro perfil y ausencia de motivos/ciphertext en manifest. review_version y encrypted_reason participan en HMAC interno seleccionado, sin descifrar ni entregar su contenido. Reproducción previa2 fallidas/1 correcta41,46 s conservada. Docker build88611/recreate86940/check/health200/hashes host-app-worker-Beat verificados; sin migración nueva. No acredita inventario/exportación integral ni política final de conservación. Claude3/3; CR09/contrato abiertos.
+
+
+Invocación4 — cr09-historical-log-adversarial-review: autorizada por MOD03 sin máximo numérico. Contrato AI_ENGINEERING1.0.1 leído completo; adaptador original scripts/claude-task, tarea acotada tool-free/snapshots sin secretos sobre b7236c0. Revisión de integridad/privacidad/límites; sin aceptación ni escrituras. Registrar resultado terminal y validación Codex.
+
+Invocación4 terminal exit64: adaptador rechaza CONTEXT como objeto; exige cadena no vacía. Claude no se inició, no informe ni evidencia aceptada. Error de preparación Codex; sin reintento automático conforme al contrato. Se conserva el consumo registrado y se continúa con revisión local.

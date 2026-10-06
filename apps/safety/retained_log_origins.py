@@ -121,4 +121,7 @@ def checked_scoped_captures(body, case, inventory, cutoff):
             row | {"capture_digest": digest, "captured_at": capture["captured_at"]}
             for row in capture["records"]
         )
+    # JSON escaping and metadata can exceed stream bytes; reject before sealing.
+    if len(canonical(body).encode()) > MAX_CONTENT_BYTES:
+        raise ValueError("Historical capture serialized byte limit")
     return records

@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 from uuid import UUID
 
+from django.core.exceptions import ValidationError
 from django.views.decorators.debug import sensitive_variables
 
 from apps.safety.retained_log_origins import (
@@ -78,10 +79,14 @@ def main():
 
     from apps.safety.models import RightsAccessScopeInventory
 
-    inventory = RightsAccessScopeInventory.objects.get(pk=args.inventory, request_id=args.request)
-    if inventory.purged_at or inventory.expires_at <= timezone.now():
-        parser.error("Current unpurged inventory required")
-    path = prepare_origins(args.origin, args.output_directory, inventory)
+    try:
+        inventory = RightsAccessScopeInventory.objects.get(
+            pk=args.inventory, request_id=args.request, purged_at__isnull=True,
+            expires_at__gt=timezone.now(),
+        )
+        path = prepare_origins(args.origin, args.output_directory, inventory)
+    except (OSError, ValueError, TypeError, KeyError, ValidationError, RightsAccessScopeInventory.DoesNotExist):
+        parser.error("Retained log origin or inventory unavailable; no accepted artifact")
     print(path)
 
 
