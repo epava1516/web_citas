@@ -2587,3 +2587,8 @@ Proceso16353/PID1452324 confirmado vivo y argumentos exactos, misma ejecución d
 ## 2026-10-06 — Catálogo de promociones desarrollado en worktree aislado
 
 CR10-PREP-01, /home/felidae/proyectos/web_modelos_cr10prep/rama codex/cr10-catalog-prep/db0f03f: modelos estáticos/versiones/formularios/servicios/SSR ES-EN y pruebas escritas. Ruff y Django check0 correctos, migración generada sin aplicar; no PG/navegador/deploy ni aceptación. Valores monetarios pendientes, sellableFalse, sin pedidos/clientes/derechos/ranking/tareas. Mantiene la aplicación del benchmark16353 intacta; proceso confirmado vivo,325 lecturas terminadas/1082,46s en último corte. Auditoría privilegiada y correspondencia de cuentas del operador pendientes explícitos antes de integrar; validación PG aislada se pospone por medición de recursos. No fuentes/censo/comercio aceptados ni cambio v7.
+
+
+### Preparación aislada de navegación del catálogo
+
+Rama codex/cr10-catalog-prep, commit92972f3: acceso desde panel por permiso y prueba móvil ES/EN preparada para creación, guardado, release y recarga. Ruff/diff correctos; no ejecutada integración ni navegador mientras el benchmark1452324 sigue activo (475 páginas observadas). No integración en master, aceptación ni cambio de porcentajes. Pendiente trazabilidad privilegiada y gates de catálogo indicados en seguimiento17.
