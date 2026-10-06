@@ -10,6 +10,7 @@ from apps.core.models import Agency, AgencyMember, Person
 
 from .rectification_account import locked_subject
 from .rights import fingerprint
+from .rights_notice_inventory import NOTICE_FIELDS
 
 
 @sensitive_variables()
@@ -1120,6 +1121,17 @@ def source(case, *, capture=None):
                 ],
             ),
         ]
+    )
+    notice_scope = Q(request_id__in=case_ids) | Q(recipient=user)
+    if case.kind in {"erase", "restriction", "object"}:
+        notice_scope &= ~Q(request=case)
+    specs.append(
+        (
+            "safety.RightsRecipientNotice",
+            notice_scope,
+            "dependent_evidence",
+            NOTICE_FIELDS,
+        )
     )
     entries = []
     for label, scope, purpose, fields in specs:

@@ -38,3 +38,12 @@ Esta entrega interna usa PostgreSQL y el buzón de la propia aplicación. No acr
 
 
 Evidencias de entrega0110: [baterías](evidencias/comunicaciones-derechos-integradas0110.json), [runtime](evidencias/comunicaciones-derechos-runtime0110.json). Fuente637e456; no reabrir el recorrido interno verificado salvo defecto/requisito concreto.
+
+
+## Integración en inventarios de conservación y acceso
+
+RightsRecipientNotice se incorpora como dependent_evidence a los inventarios de perfil y cuenta. La cuenta recoge avisos de sus expedientes y avisos recibidos por ella; un aviso sobre un modelo recibido por un propietario es evidencia de esa recepción, no autoridad sobre el modelo ni acceso automático a su contenido. El perfil recoge únicamente avisos de expedientes vinculados a esa persona. No se recorre la colección de modelos de una agencia.
+
+La fuente de cuenta contiene75 modelos seleccionados tras esta ampliación. Metadatos de envío/acuse y ciphertext se incorporan a huellas de estado sin descifrarlos ni devolverlos en el manifiesto. Cambios propios alteran la fuente; cambios de avisos ajenos no. Los procedimientos erase/restriction/object excluyen avisos del propio expediente, como evidencia actual pendiente de contabilización aparte; el censo de acceso excluye siempre los registros del expediente actual mediante sus rutas FK. No declarar completo el derecho por esta exclusión.
+
+[Verificación](evidencias/censo-avisos-derechos0110.json):3 pruebas de ámbito/opacidad/dependencias y7 de integración con acceso/comunicaciones. No migración, tarea, política jurídica o autorización de destrucción nuevas.

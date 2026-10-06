@@ -20,6 +20,7 @@ from apps.mediafiles.models import Blob, Photo
 from .crypto import seal, unseal
 from .models import ErasureInventory, RightsAction, RightsRequest
 from .rights import allowed, fingerprint
+from .rights_notice_inventory import NOTICE_FIELDS
 from .rights_responses import complete_response_read
 from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
@@ -1030,6 +1031,17 @@ def source_manifest(person, case=None, *, capture=None):
         ("safety.RightsExportDownload", Q(export__person=person), ["pk", "created_at"]),
     ]:
         scopes.append((label, scope, "dependent_evidence", fields))
+    notice_scope = Q(request__person=person)
+    if case and case.kind in {"erase", "restriction", "object"}:
+        notice_scope &= ~Q(request=case)
+    scopes.append(
+        (
+            "safety.RightsRecipientNotice",
+            notice_scope,
+            "dependent_evidence",
+            NOTICE_FIELDS,
+        )
+    )
     if subject:
         scopes += [
             (

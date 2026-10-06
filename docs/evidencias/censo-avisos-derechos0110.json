@@ -1,0 +1,47 @@
+{
+  "status": "verified_opaque_subject_scoped_census",
+  "runs": [
+    {
+      "xml": "/tmp/rights-notice-census0110.xml",
+      "sha256": "a145ce5c826c7da2b9e21999bc317813bb3d87e92d452a2804fbb5319b164f69",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "3",
+        "time": "66.844",
+        "timestamp": "2026-10-06T15:27:48.592270+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      },
+      "exit_code": 0
+    },
+    {
+      "xml": "/tmp/rights-notice-census-integrated0110.xml",
+      "sha256": "d1c4c6c17bcef9c4455787fc2a8591d2f667dbe6c09dd692785a1067bbb11797",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "7",
+        "time": "192.462",
+        "timestamp": "2026-10-06T15:29:37.884920+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      },
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "apps/safety/account_erasure_inventory.py": "a2b223ce31e86c488452d24d348fc3d46fe49653382267a7901649ca1c37275a",
+    "apps/safety/erasure_inventory.py": "a4e63b66d1f7a6383e96c4a2bb7fb847e3767c438a7ac17a24302d53c2495417",
+    "apps/safety/rights_notice_inventory.py": "948b843bd525940595fefbf5e6ee93711354cbdedf72a8a92c37b519821b3f14"
+  },
+  "initial_test_correction": "Historical synthetic census fixture omitted required RightsRequest fields; corrected submission key/dates before terminal3-pass run. No weakening of DB constraints.",
+  "limits": [
+    "Census metadata/state only; malformed ciphertext deliberately remains opaque",
+    "Synthetic ledger in census-specific tests is not approved actual delivery",
+    "Actual in-app delivery and access workflows separately covered in seven-case integrated run",
+    "Current procedure deliberately excluded; no complete operational census or retention/deletion authorization"
+  ]
+}
