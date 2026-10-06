@@ -1,0 +1,53 @@
+{
+  "source_commit": "72ff79a",
+  "probe_sha256": "0d1d91f4c84af4e7c6b01ecdec50955405a40bd6ad1436058af0d7fda45e6649",
+  "log_sha256": "54f7b5af964f3789c2c5a26cbb5cea2ca5b2499edb7218d95995f80fbf535ae8",
+  "exit_code": 0,
+  "results": [
+    {
+      "worker_passed": true,
+      "jobs": {
+        "drafts": "82900a6a-a943-4f92-a717-b31311ea731e"
+      },
+      "repeat": {
+        "drafts": "69c80021-755e-41e8-9d07-6bd5dbb5ea13"
+      },
+      "audit_and_live_content_preserved": true
+    },
+    {
+      "beat_passed": true,
+      "automatic_jobs": {
+        "drafts": [
+          "0c975bea-a792-4070-b0e3-e96835e4343f"
+        ]
+      },
+      "manual_dispatch_for_beat": false,
+      "preservation_digest": "16befa8a6c77f22b7c278fb1fde126d7fa6ee0c081e2cc94e4e6da4e2f66bb74",
+      "isolated_database": "fdprobe_1cedcd6ec92e",
+      "identity_verified": false
+    },
+    {
+      "isolated_database_and_containers_removed": true
+    }
+  ],
+  "limits": [
+    "Isolated real PostgreSQL/Redis/Celery/Beat, synthetic ledger fixtures only",
+    "No actual identity or legally approved rights response claimed",
+    "Only unused draft bodies are purged; issued evidence retained",
+    "Main database and normal queue untouched by fixture; no Redis flush"
+  ],
+  "setup_failures": [
+    {
+      "log": "/tmp/final-draft-retention-worker0109.log",
+      "reason": "Mounted script not readable by container UID10001"
+    },
+    {
+      "log": "/tmp/final-draft-retention-worker0109-diagnostic.log",
+      "reason": "Same setup failure; private diagnostic captured"
+    },
+    {
+      "log": "/tmp/final-draft-retention-worker0109-fixed.log",
+      "reason": "Isolated Redis generation contained underscore, rejected by settings"
+    }
+  ]
+}
