@@ -1,4 +1,4 @@
-# Contrato de ejecución del desarrollo — versión 1.1
+# Contrato de ejecución del desarrollo — versión 1.2
 
 Fecha: 2026-10-03. Estado: ejecución iniciada por autorización del usuario el 2026-10-03. Tipo: especificación de ejecución y aceptación, no contrato mercantil ni acreditación jurídica.
 
@@ -205,3 +205,52 @@ Mantener como máximo un bloque de integración activo y un bloque independiente
 Después de cada cambio ejecutar las pruebas afectadas y las de riesgos compartidos identificados; permisos, privacidad, concurrencia y migraciones se incluyen cuando corresponda. Registrar versión, alcance y resultado para reutilizar evidencia aún válida. Repetir por cambio relevante, fallo o incertidumbre documentada, no por rutina. En el cierre integral de CR09 ejecutar su batería conjunta sobre una misma versión; conservar regresión completa y gates exigidos en GS01/faseC, sin sumar resultados de versiones diferentes como una verificación común. PostgreSQL sigue siendo obligatorio.
 
 Actualizar la estimación ponderada al aceptar alcance nuevo usando los mismos pesos y justificando el cambio por bloque. El número de pruebas y el tiempo invertido no son avance aceptado. El contrato continúa hasta completar todas sus fases; esta modalidad no reduce comprobaciones ni permite declarar preparación de producción con revisión jurídica, seguridad o proveedores pendientes.
+
+
+## 14. Ejecución eficiente — MOD-02
+
+Adenda autorizada por el usuario en conversación lateral: implementar las propuestas de aceleración y avisar al hilo principal. Versión1.2. Complementa MOD01 y concreta secciones9/10/12/13; conserva alcance, pesos, seguridad, PostgreSQL obligatorio, aceptación de fases y gates externos. Se aplica al siguiente paso sin detener ni alterar procesos ya lanzados. No autoriza agentes adicionales, proveedores, publicación ni datos reales.
+
+### Tres niveles de verificación
+
+| Nivel | Cuándo | Evidencia exigida |
+| --- | --- | --- |
+| N1, feedback durante edición | Cambio reversible o reproducción de defecto | Ruff/diff/check y prueba significativa mínima afectada. Si necesita persistencia/locks, PostgreSQL real con dataset pequeño; unitarios/simuladores no sustituyen esa evidencia. |
+| N2, cierre del bloque | Implementación completa con interfaz/contrato conocido | Migraciones, HTTP y navegador/idiomas/roles afectados; autorización, privacidad, revocación, concurrencia e idempotencia según riesgo. Recursos desechables y limpieza; resultado completo, no marcadores parciales. |
+| N3, aceptación de fase | CR09 conjunto, GS01 y entrega final según contrato | Batería conjunta sobre una misma versión y carga/recuperación exigidas. Mantener todos los escenarios críticos; evidencia de bloques separada no equivale a batería conjunta. |
+
+Antes de lanzar cada batería, registrar requisito, fuentes/commit, selección de casos, recurso/handle y condición de salida en seguimiento17. No ejecutar N3 ni ensayos largos tras cada edición. Repetir solo por cambio relevante, fallo o incertidumbre explícita; un cambio exclusivo de documentación no invalida pruebas funcionales. Ante un fallo, esperar terminal, identificar su causa, corregir y repetir casos afectados; ampliar solo por riesgo compartido. No retocar fuentes que usa un proceso vivo.
+
+### Funcionalidad y rendimiento separados
+
+Los casos funcionales pequeños cubren decisiones, permisos, errores, replays y carreras reales antes del volumen; reducir el dataset no reduce esos escenarios. Los ensayos grandes acreditan volumen, memoria, latencia/consultas y transporte en su alcance real. Primero probar funcionalidad; después medir cuando el cambio afecte al camino costoso o sea requisito de aceptación. Eliminar la obligación rutinaria de repetir un recorrido de89 minutos para cambios ajenos a ese recorrido; no eliminar el ensayo requerido al aceptar la fase ni la regresión grande afectada por una optimización.
+
+Para una optimización: comparar la etapa afectada con evidencia anterior válida, mismo dataset/instrumentación y contexto de recursos documentado. Después ejecutar recorrido amplio si el cambio/riesgo lo requiere. Un resultado más rápido no acredita equivalencia, seguridad ni capacidad total. Las condiciones externas y pruebas de identidad/entrega no se acreditan con simuladores.
+
+### Trabajo útil durante esperas
+
+Mantener un bloque de integración activo y un independiente preparado, como MOD01. Durante N2/N3 se puede completar interfaz, accesibilidad, traducciones, contratos o trabajo independiente en archivos/worktree que no usa la prueba. No introducir dependencias personales fuera del censo ni aceptar fases anticipadamente. Una medición de rendimiento exige recursos estables: evitar otra carga PG/browser/build competidora mientras se mide; esa restricción temporal no congela todo el desarrollo. Las pruebas funcionales pueden coexistir únicamente con aislamiento real documentado y sin cambiar las fuentes probadas; no inferir aislamiento porque las bases tengan nombres distintos si comparten recursos relevantes.
+
+### Entregas completas y criterio de parada
+
+Precisión autorizada por el usuario en conversación lateral: la unidad de entrega es una funcionalidad completa y verificable, con resultado observable y criterio de aceptación definido antes de implementarla. No limitar ni dividir entregas por número de archivos, commits o duración. Los pasos internos preservan trabajo y permiten feedback, pero no son entregas independientes, cierres ni avance aceptado por sí mismos.
+
+Dividir un bloque únicamente cuando cada parte tenga utilidad y aceptación propias, con integración y pruebas pertinentes completas. Si para verificar una parte es necesario terminar la siguiente, mantenerlas en la misma entrega. Priorizar cerrar los bloques actuales antes de abrir nuevas subdivisiones; conservar los pendientes reales de fase y producción sin convertirlos en cierres ficticios. Esta precisión complementa MOD-02 sin cambiar alcance, pesos ni gates.
+
+Agrupar implementación, pruebas relevantes, contrato, integración/runtime y evidencia en una entrega por bloque. Los commits intermedios sirven para preservar trabajo; no son cierres ni obligan a una batería completa por commit. Una vez cumplido el criterio del bloque, registrar cerrado localmente, pendientes de fase/producción por separado y pasar al siguiente bloque preparado. No seguir puliendo/reabriendo el mismo componente sin defecto, requisito o riesgo concreto. La revisión inicial y el despliegue siguen sujetos a las reglas existentes.
+
+Seguimiento17 contiene la próxima acción única y el próximo independiente. La cronología va al historial. Registrar avance al entregar o descubrir un fallo/dependencia material; durante esperas, verificar el handle y comunicar estado sin crear otra cola o volver a listar una preparación como nueva entrega.
+
+### Dependencias externas desde ahora
+
+Mantener en la cola un registro de requisito externo, responsable requerido (pendiente de designación si no existe), evidencia faltante, impacto local/producción y trabajo que puede continuar. Referenciar operación12/marco legal06 y gates existentes; no inventar responsables, plazos o aceptación. Proveedores/revisión jurídica/identidad real no paralizan trabajo local independiente. Las tarifas aún no decididas y los cobros reales fuera de v1 no bloquean la preparación técnica comercial ni autorizan activar ventas.
+
+### Medidas adicionales de eficiencia autorizadas
+
+Ampliación de MOD-02 solicitada por el usuario en conversación lateral el2026-10-06. Mantiene la entrega por funcionalidad completa definida arriba y todos los controles del contrato. Incorporar estas medidas al siguiente trabajo pertinente; no reiniciar procesos activos ni introducir una fase de optimización que impida cerrar los bloques actuales.
+
+- **Entornos reutilizables y aislados:** reutilizar imágenes Docker, dependencias instaladas y constructores de fixtures sintéticos pequeños cuando sus versiones sigan siendo válidas. Cada ejecución conserva bases, medios, colas y limpieza propios según sus riesgos; no reutilizar datos mutables o evidencia antigua como un resultado nuevo. PostgreSQL real sigue siendo obligatorio en integración. Reconstruir los componentes afectados cuando cambien sus fuentes/configuración.
+- **Diagnóstico con condición de salida:** antes de investigar registrar defecto o incertidumbre, hipótesis, evidencia nueva esperada y condición de salida. Si una iteración no aporta evidencia nueva, resumir lo descartado y cambiar de estrategia o registrar la dependencia real para avanzar trabajo independiente. No repetir pruebas o búsquedas idénticas sin cambio, hipótesis o fuente nueva; no declarar resuelto un requisito por agotar la investigación.
+- **Informe de cierre automatizado:** aprovechar y completar los ejecutores existentes para reunir versión/huellas probadas, comando y selección de casos, resultado terminal, recursos y limpieza, enlaces de evidencia y pendientes. Generar un resumen por entrega completa; revisión de Codex antes de actualizar el seguimiento. No inferir aprobación desde marcadores parciales, mezclar versiones ni acreditar producción automáticamente. Implementar la automatización incrementalmente cuando sirva al bloque actual, sin crear otro bloque preparatorio innecesario.
+- **Prioridad por dependencias reales:** resolver primero contratos de datos, permisos e interfaces compartidas que desbloqueen el siguiente resultado verificable. Documentar la dependencia concreta; no reabrir contratos ya correctos por prioridad abstracta. Reservar ajustes visuales y otros trabajos independientes para esperas compatibles con las restricciones de recursos de MOD-02.
+- **Medición del tiempo perdido:** en los próximos ejecutores pertinentes registrar por separado preparación del entorno/fixtures, ejecución de pruebas, diagnóstico y corrección, e integración/verificación runtime. Distinguir duración observada y estimaciones; no reconstruir tiempos pasados sin evidencia ni convertirlos en avance porcentual. Usar los resultados para elegir la siguiente mejora del cuello de botella real, sin añadir instrumentación costosa a todas las operaciones ni confundir tiempos de test con latencia/capacidad del producto.
