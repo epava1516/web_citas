@@ -1,0 +1,47 @@
+{
+  "source_commit": "86ffe85",
+  "verified_at": "2026-10-06T17:31:37.027158+00:00",
+  "requirement": "Count and page urgent alerts with exact permitted conflict exclusions before SQL LIMIT; never count hidden reports.",
+  "implementation": "SQL exclusion with membership subqueries: historical all-members/current active-members, nullable targets, select-related page of50; POST unchanged.",
+  "runs": [
+    {
+      "log": "/tmp/urgent-sql-before.log",
+      "junit_sha256": "67bf171c3fcdaf72fb8c89be935f14c2c2476653933a3ceace4675ed9aff9ff1",
+      "tests": "1",
+      "failures": "1",
+      "errors": "0",
+      "time": "38.331"
+    },
+    {
+      "log": "/tmp/urgent-sql-final.log",
+      "junit_sha256": "71d024251c823cc00070328dad4ed569e732652f464aa11b7a60957bb7c10c18",
+      "tests": "17",
+      "failures": "1",
+      "errors": "0",
+      "time": "126.479"
+    },
+    {
+      "log": "/tmp/urgent-sql-capture-final.log",
+      "junit_sha256": "6292af84b393d2e602ebbbeb02d448da333dfdee8a652fa54481de8e9182194f",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "time": "37.360"
+    }
+  ],
+  "validation": [
+    "57 visible plus11 actor-conflicted reports: total57, disjoint50/7 pages, one alert selection LIMIT50.",
+    "Scope matches permitted for historical/current agency owners, active/revoked membership, model subject, report actor/reported identities and legacy revision without manager snapshot.",
+    "16 affected tests passed in integrated run; corrected SQL capture test1 passed separately."
+  ],
+  "initial_failure": "First runs failed SQL capture assertion because second Client request reset first query log; snapshot corrected before second request. This failure is not evidence of a reproduced production bug.",
+  "limits": [
+    "Separate affected runs, not joint CR09/full repository acceptance.",
+    "No load/capacity or retention acceptance; censo pending.",
+    "Browser evidence reused; no template/route/POST/model/state change."
+  ],
+  "source_sha256": {
+    "apps/safety/urgent_alerts.py": "ccac06980b06b9eed8091058de291c4f542f81e0c72649401491ba87911e2703",
+    "tests/test_urgent_alert_pagination.py": "c4a581122007b008c8ac7056097a58403b247326e30c0db56ad08b1f58e38cdb"
+  }
+}

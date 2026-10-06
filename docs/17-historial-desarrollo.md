@@ -2552,3 +2552,8 @@ Lectura EVAL_RO de base RDB aislada y Redis actual,77/80 claves y82 en unión;52
 ## 2026-10-06 — Contraste de procedencia sin repetir pruebas worker
 
 Auditoría acotada de las36 tuplas de cola aún sin asociación: no hay worker.log conservados en el directorio pytest examinado; no inventar procedencia. Captura actual cifrada y hash conservados para continuar offline. Contraste de generadores literales del código:29 candidatos coincidentes por prefijo/sufijo hexadecimal y7 sin coincidencia; fuente/hashes registrados en redis-bindings-patrones-fuente0110.json. Ni coincidencia de nombre ni sintaxis acreditan creación/ausencia de datos personales. No ejecuciones worker/Beat nuevas ni escrituras/borrados Redis. Censo y v6 permanecen abiertos/sin cambios. Preparado PERF-URGENTES-01 con equivalencia de permisos y prueba PostgreSQL antes de optimizar, para avanzar sin repetir arqueología sin fuente nueva.
+
+
+## 2026-10-06 — Paginación SQL de alertas entregada
+
+PERF-URGENTES-01, fuente86ffe85 enviada y Docker local actualizado. Conteo y LIMIT50 tras exclusiones equivalentes a permitted; subconsultas de membresía evitan duplicaciones/N consultas por fila, semántica histórica/actual preservada.16 pruebas afectadas correctas en run integrado y1 final específica de páginas/SQL37,48s; captura SQL inicial defectuosa corregida y registrada, no falsa reproducción de producción.70 hashes/3 servicios/PG0110/UID10001/RecoveryModeFalse/check/migrate-check/HTTP/CSS/SEO correctos; logs anteriores cifrados preservados. No modelos/rutas/estados/permisos/tareas/migración nuevos. Evidencias alertas-paginacion-sql0110 y runtime0110. No aceptación de carga/conservación/CR09 integral ni cambio ponderado v6.
