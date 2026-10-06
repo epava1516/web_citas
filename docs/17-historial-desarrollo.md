@@ -2515,3 +2515,8 @@ Prefijo AOF íntegro leído con callback acotado y20 archivos cifrados de logs d
 Base offline real: checksum/RDB válidos,77 claves/26 expiraciones/0 ya caducadas; la duda de pérdida por caducidad queda resuelta para este corte, sin inferir futuras fechas de revisión. Captura AOF62607648bytes/22103224bytes de sufijo, base/manifiesto/inode estables y prefijo original íntegro.106048 comandos sin RESP pendiente. [Corte](evidencias/redis-base-sufijo-corte0110.json). Directorio appendonly observado:base2/incr2/manifiesto; no archivos previos en ese directorio.
 
 [Asociación ampliada](evidencias/redis-resultados-procedencia-sufijo0110.json) mantiene26 claves sin vínculo y2 conocidas. No volver a buscar en mismos bytes/logs sin cambio; fuentes anteriores/procedencia/revisor/corte por expediente y censo host/backups pendientes. SEO-PREP-02 preparado en cola única, sin iniciar ni aceptar fases. No cambios funcionales: pruebas previas no repetidas. Porcentajes intactos.
+
+
+## 2026-10-06 — SEO-PREP-02 implementado y probado
+
+Sitemap index/directorio/documentos de100 candidatos y robots globales; URLs con origen configurado, disponibilidad ES/EN compartida con canonical y publicly_visible sin alterar permisos/estados. No URLs privadas/pending/contactos/filtros; retirada/consentimiento revocado excluidos; desarrollo robots bloqueado/metadata XML noindex. Capacidad del índice acotada, exceso503 sin truncamiento; offset/latencia global siguen pendientes.5 HTTP PG y1 navegador móvil correctos en runs separados, sin fallos; [evidencia](evidencias/sitemaps-preparacion0110.json), [operación SEO](04-seo.md). Sin aceptación integral ni cambio de porcentajes.

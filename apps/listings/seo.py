@@ -40,13 +40,17 @@ def directory_metadata(request, *, valid, page):
     }
 
 
-def listing_metadata(request, listing):
-    revision = listing.approved_revision
-    primary = revision.content_language
+def listing_languages(revision):
     translated = bool(plain(revision.description_alternative)) and (
         plain(revision.description_alternative) != plain(revision.description)
     )
-    languages = ["es", "en"] if translated else [primary]
+    return ["es", "en"] if translated else [revision.content_language]
+
+
+def listing_metadata(request, listing):
+    revision = listing.approved_revision
+    primary = revision.content_language
+    languages = listing_languages(revision)
     requested = request.LANGUAGE_CODE
     actual = requested if requested in languages else primary
     description = revision.description if actual == primary else revision.description_alternative

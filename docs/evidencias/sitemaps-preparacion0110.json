@@ -1,0 +1,35 @@
+{
+  "verified_at": "2026-10-06T16:11:03.259706+00:00",
+  "requirement": "SEO-PREP-02: public canonical sitemap and robots policy without private/filter/unavailable-language URLs",
+  "source_sha256": {
+    "apps/core/sitemaps.py": "fc4a10139464e364b07aac5cc4e31a60958d17d841a1d4cf7115ba3f4fb9005e",
+    "apps/listings/seo.py": "8daf88f25c215955fe3b817b3716bcb74300fd618d0191b24dd98651662c850e",
+    "config/urls.py": "980cd10460c04c80c82fdc8dd6830acd831909f9b1ecf95cf39f74af332dac04",
+    "tests/test_sitemaps.py": "9c7777f5522c05c3b4645acf9ae7a8b0f078d6c9614cda74cc372074e8f8b829"
+  },
+  "tests": [
+    {
+      "log": "/tmp/sitemaps-final.log",
+      "passed": 5,
+      "failed": 0,
+      "seconds": 56.79,
+      "scope": "Real PostgreSQL HTTP sitemap XML, paging, consent withdrawal, ES/EN alternates, metadata shared regression, robots policy branches"
+    },
+    {
+      "log": "/tmp/sitemap-browser-final.log",
+      "passed": 1,
+      "failed": 0,
+      "seconds": 42.09,
+      "scope": "Mobile Chromium follows sitemap to public canonical, PostgreSQL withdrawal removes URL and public page returns404"
+    }
+  ],
+  "static_checks": "Ruff and git diff check passed",
+  "limits": [
+    "Development synthetic fixtures, not production provider verification. Production robots branch checked as policy only.",
+    "Separate affected runs, not whole-phase common-version acceptance.",
+    "100 candidates/page, at most200 language URLs; exact public visibility checks retained. Query cost/offset paging at large inventory needs performance gate.",
+    "Index at most50000 references including directory; exceeding capacity yields503, no silent URL truncation.",
+    "No geographic landings, structured data or full GS01/BF/BB acceptance."
+  ],
+  "percentages_unchanged": true
+}

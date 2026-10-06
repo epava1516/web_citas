@@ -1,6 +1,6 @@
 # SEO y competitividad
 
-Actualizado: 2026-10-03. Estado: propuesta.
+Actualizado: 2026-10-06. Estado: implementación técnica parcial local; estrategia y aceptación integral pendientes.
 
 ## Diseño técnico
 
@@ -30,3 +30,16 @@ No garantizar posiciones ni superioridad competitiva. Establecer objetivos medib
 
 - [Core Web Vitals y búsqueda, Google](https://developers.google.com/search/docs/appearance/core-web-vitals).
 - [Guía SEO para desarrolladores, Google](https://developers.google.com/search/docs/fundamentals/get-started-developers).
+
+
+## Implementación local y operación
+
+SEO-PREP-01 aporta title/description/canonical/hreflang de catálogo y fichas públicas; filtros/privados noindex, desarrollo noindex y versiones de contenido reales según revisión aprobada. [Evidencia](evidencias/seo-publico-preparacion0110.json).
+
+SEO-PREP-02 añade `/robots.txt`, `/sitemap.xml`, `/sitemaps/directory.xml` y `/sitemaps/listings/<page>.xml`. URLs absolutas desde PUBLIC_ORIGIN configurado, nunca desde Host. Cada candidato se verifica con publicly_visible; estados retirados/caducados/revisión privada/consentimiento revocado no aportan URLs públicas. Los idiomas comparten la misma función de disponibilidad que canonical/hreflang: una ficha sin traducción diferente solo aparece en su idioma original. No se incluyen búsquedas, contactos, pendientes ni rutas privadas. No se inventan lastmod.
+
+Cada documento de anuncios procesa100 candidatos (hasta200 URLs de idioma); índice con máximo50000 referencias incluyendo catálogo, HTTP503 si se supera la capacidad, sin truncar URLs silenciosamente. La paginación por offset puede desplazarse si cambia el inventario entre peticiones; se reconstruye en cada petición con no-store y vuelve a validar visibilidad. Consulta y latencia a gran volumen siguen sujetas al gate de rendimiento; la paginación no lo acredita por sí sola.
+
+Desarrollo: robots bloquea todo y documentos XML tienen X-Robots-Tag noindex/nofollow. Producción: robots declara sitemap y excluye prefijos privados ES/EN; no sustituye autenticación ni las políticas noindex de las páginas. No activar producción con proveedores/identidad/legalidad ficticios. La rama de robots de producción se prueba como política, no como verificación de proveedor real.
+
+HTTP PostgreSQL5 y navegador móvil1 correctos en runs separados; [evidencia](evidencias/sitemaps-preparacion0110.json). Acabado visual, landings geográficas, datos estructurados, mediciones comparativas y aceptación GS01/BF/BB siguen pendientes. Runtime y cola vigentes en [seguimiento único](17-seguimiento-desarrollo.md).
