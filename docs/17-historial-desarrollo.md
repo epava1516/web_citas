@@ -2542,3 +2542,8 @@ Cuatro reservados de base real capturada pasan esquema actualizado:19 campos de 
 JSON compartido acotado a64 niveles antes de decodificar, respetando cadenas/escapes;22 verificaciones finales correctas1,17s con Redis real. Los2 casos de profundidad ya rechazaban por estructura antes: endurecimiento de límite previo, sin inventar fallo anterior. Misma política/métricas/estados, actualizado hash de evidencia final.
 
 Fuente39b4e46 y Docker local70 archivos iguales app/worker/Beat, UID10001/PG0110/RecoveryModeFalse/check/migrate-check/salud/CSS/XML/robots correctos; logs previos cifrados conservados. [Runtime](evidencias/broker-esquema-runtime0110.json). Cabeceras/JSON cerrados para alcance probado; censo completo/finalidades/host/backups siguen pendientes. V6 intacta.
+
+
+## 2026-10-06 — Inspección acotada de bindings concluida
+
+Lectura EVAL_RO de base RDB aislada y Redis actual,77/80 claves y82 en unión;52 conjuntos de bindings. Evidencia redis-bindings-procedencia0110.json:81/84 tuplas observadas,9/10 candidatas por nombre de cola,36/36 no asociadas,18/19 candidatas de control y18/19 de eventos. Hashes de las9 actas de referencia comprobados; nombres/valores permanecen ocultos mediante referencias HMAC. No atribuir procedencia por isolated_database ni excluir datos por sintaxis. Entorno de revisión y plaintext retirados, sin volumen anónimo ni escritura al servicio normal. Cierra la ejecución de esta inspección; procedencia/conservación/censo integral siguen abiertos. No cambios funcionales ni nueva batería necesaria; v6 sin cambios. Cola vigente y siguiente evidencia requerida actualizadas en17.
