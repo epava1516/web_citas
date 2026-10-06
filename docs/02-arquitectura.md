@@ -149,3 +149,8 @@ Fuentes oficiales consultadas:
 - [Pillow: formatos de imágenes](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html).
 
 Ninguna de estas propuestas garantiza por sí sola rendimiento, seguridad o cumplimiento; validarlos sobre la implementación y el despliegue concretos.
+
+
+## Caché de aplicación explícita
+
+Decisión2026-10-06: CACHES.default usa DummyCache de Django, sin almacenamiento. No hay usos de API de caché Django en apps/config/templates/scripts revisados; no se conserva LocMemCache implícita sin política de invalidación/retención. Redis mantiene broker/tareas y persistencia existentes. Esta decisión no impide optimizar consultas, índices, imágenes o estáticos. Una futura caché de datos/respuestas deberá definir clave por autoridad/idioma/versión, exclusiones de contenido privado, TTL e invalidación por retirada/cambio de gestor/consentimiento/derechos, y verificarlo antes de activarse. Las cachés del navegador, proxies externos, backups y copia histórica del host se contabilizan por separado. [Runtime](evidencias/cache-aplicacion-runtime0110.json).
