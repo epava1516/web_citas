@@ -10,6 +10,7 @@ import hashlib
 import json
 import os
 import stat
+import subprocess
 from datetime import datetime
 from pathlib import Path
 from uuid import UUID
@@ -83,9 +84,54 @@ def prepare_origin(path, directory, inventory):
     )
 
 
+def prepare_origins(paths, directory, inventory, *, decoder=None, decoder_sha256=None):
+    from apps.safety.retained_redis_origins import checked_origin
+
+    if not 1 <= len(paths) <= 16:
+        raise ValueError("Bounded retained origins required")
+    bodies = [read_origin(path) for path in paths]
+    if any(not isinstance(body, dict) for body in bodies):
+        raise ValueError("Retained origin object required")
+    if len(bodies) == 1 and bodies[0].get("schema") == "local-redis-aof-origin-v1":
+        return write_bundle(
+            directory, scoped_body(bodies[0], inventory),
+            case_id=inventory.request_id, inventory_id=inventory.pk, kind="redis-history",
+        )
+    origins, identities, total = [], set(), 0
+    for body in bodies:
+        if isinstance(body, dict) and body.get("schema") == "local-redis-aof-origin-v1":
+            origin = body
+        else:
+            if decoder is None or decoder_sha256 is None:
+                raise ValueError("Pinned operator decoder required for RDB")
+            from scripts.decode_retained_rdb_origin import decode_body
+
+            origin = decode_body(body, decoder, decoder_sha256=decoder_sha256)
+        raw, kind, identity = checked_origin(origin, inventory.created_at)
+        if (kind, identity) in identities:
+            raise ValueError("Duplicate retained physical origin")
+        identities.add((kind, identity))
+        total += len(raw)
+        if total > MAX_BYTES:
+            raise ValueError("Retained origin aggregate byte limit")
+        origins.append(origin)
+    body = {
+        "schema": "local-redis-retained-origins-scoped-v1", "project": "web-modelos",
+        "request": str(inventory.request_id), "inventory": inventory.pk,
+        "source_digest": inventory.source_digest, "cutoff": inventory.created_at.isoformat(),
+        "origins": origins, "partial": True,
+    }
+    return write_bundle(
+        directory, body, case_id=inventory.request_id, inventory_id=inventory.pk,
+        kind="redis-history",
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--origin", type=Path, required=True)
+    parser.add_argument("--origin", type=Path, action="append", required=True)
+    parser.add_argument("--decoder", type=Path)
+    parser.add_argument("--decoder-sha256")
     parser.add_argument("--output-directory", type=Path, required=True)
     parser.add_argument("--request", type=UUID, required=True)
     parser.add_argument("--inventory", type=int, required=True)
@@ -103,8 +149,11 @@ def main():
             pk=args.inventory, request_id=args.request, purged_at__isnull=True,
             expires_at__gt=timezone.now(),
         )
-        path = prepare_origin(args.origin, args.output_directory, inventory)
-    except (OSError, ValueError, TypeError, KeyError, ValidationError, RightsAccessScopeInventory.DoesNotExist):
+        path = prepare_origins(
+            args.origin, args.output_directory, inventory,
+            decoder=args.decoder, decoder_sha256=args.decoder_sha256,
+        )
+    except (OSError, ValueError, TypeError, KeyError, ValidationError, subprocess.SubprocessError, RightsAccessScopeInventory.DoesNotExist):
         parser.error("Retained origin or inventory unavailable; no accepted artifact")
     print(json.dumps({"encrypted_artifact": str(path), "partial": True, "coverage_accepted": False}))
 
