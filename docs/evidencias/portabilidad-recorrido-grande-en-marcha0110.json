@@ -1,0 +1,52 @@
+{
+  "observed_at": "2026-10-06T18:07:07.969375+00:00",
+  "status": "running_not_passed",
+  "tool_session_id": 16353,
+  "pytest_pid": 1452324,
+  "progress_origin": "/tmp/pytest-of-felidae/pytest-1003/test_large_history_native_appr0/native-closed-flow-progress.json",
+  "progress_snapshot": {
+    "state": {
+      "active": "coverage_page_intake",
+      "terminal": false,
+      "success": false
+    },
+    "stages": {
+      "selection_preparation": {
+        "calls": 1,
+        "sql_queries": 2741,
+        "seconds_total_instrumented": 28.77922901092097,
+        "seconds_max_instrumented": 28.77922901092097,
+        "sampled_process_rss_peak_bytes": 258781184
+      },
+      "coverage_preparation": {
+        "calls": 1,
+        "sql_queries": 436,
+        "seconds_total_instrumented": 4.798236317001283,
+        "seconds_max_instrumented": 4.798236317001283,
+        "sampled_process_rss_peak_bytes": 260714496
+      },
+      "coverage_page_intake": {
+        "calls": 50,
+        "sql_queries": 14502,
+        "seconds_total_instrumented": 169.17581801395863,
+        "seconds_max_instrumented": 3.820388881955296,
+        "sampled_process_rss_peak_bytes": 260726784
+      }
+    }
+  },
+  "test_sha256": "7dcbb025d88939efeebf0b3a1b536b887c741c2c1ed5de8f7c531b17d89b3360",
+  "application_runtime_source": "5df91ea",
+  "private_log": "/tmp/portability-large-closed-flow-final.log",
+  "junit_origin": "/tmp/portability-large-closed-flow-final.xml",
+  "prior_interrupted_attempt": {
+    "tool_session_id": 40884,
+    "exit_code": 2,
+    "reason": "Incorrect final test assertion field identified early; exact pytest SIGINT and terminal confirmed before editing, then corrected FK path. Not a functional regression result."
+  },
+  "limits": [
+    "Process and handle confirmed live at observed cut. This snapshot is not authority for future liveness; poll same handle or inspect exact PID on resume.",
+    "Not passed/accepted; no count-derived full coverage or phase completion.",
+    "Native full page intake, synthetic identity/processing conditions; large history mostly excluded from delivered fields, normal small WebP.",
+    "RSS is sampled process total, not traced Python peak or database/worker memory."
+  ]
+}
