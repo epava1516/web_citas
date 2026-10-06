@@ -2433,3 +2433,8 @@ Omisión reproducible por expire_date>cutoff en censo existente: ahora examina f
 ## 2026-10-06 — Bytes acotados antes de transferir censo Redis
 
 Detectado límite previo solo de cantidad, con comprobación de bytes después de recibir todos los valores. Lua EVAL_RO ahora rechaza por256KiB/mensaje u8MiB agregados entre prioridades/reservados antes de devolverlos al cliente. Cantidad1000 porbucket conservada. Redis/Kombu real aislado:1 prueba final1,04s correcta, incluyendo flujo válido/ajeno/reservado/prioridad, payload individual/reservado grande, acumulado entre buckets y no consumo. Preliminar1,03s ampliado; no contar como dos pruebas distintas. [Evidencia](evidencias/censo-colas-limites-bytes0110.json). Sin task/migración ni cola normal afectada; memoria/latencia interna Redis no acreditadas. CR09/contrato y porcentajesv4 intactos.
+
+
+## 2026-10-06 — Entrega lectura acotada de colas0110
+
+43250d0 commit/push confirmado. Captura cifrada de seis servicios conservada antes de recreación en /tmp/queue-census-predeploy0110-gxcqjwnl/access-log-origins.encrypted a13:50:35UTC; parcial y pendientes originales intactos. Build/recreación limitada a app/worker/Beat correctos.53 SHA256 host/servicios coinciden, UID10001/PG/0110/cola clasificados/prefijo clasificados:v1:/RecoveryModeFalse. Lectura real de cola normal EVAL_RO con scope vacío desde los tres servicios sin bloqueos; no consume/modifica mensajes ni prueba asociación individual completa. Check/migratecheck/HTTP8000+18080=200/CSS correctos. [Runtime](evidencias/censo-colas-limites-runtime0110.json). Sin migración/tarea ni repetición de purga aceptada; v4 intacta y contrato completo activo.
