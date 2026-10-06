@@ -8,8 +8,10 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 import sys
+import time
 import uuid
 from pathlib import Path
 
@@ -28,11 +30,23 @@ TESTS = [
 
 
 def main():
+    started = time.perf_counter()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--env-file", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--test",
+        action="append",
+        dest="tests",
+        help="Affected pytest selector; repeat to select cases",
+    )
     args = parser.parse_args()
+    selected = args.tests or TESTS
     root = Path(__file__).resolve().parents[1]
+    for selector in selected:
+        path = (root / selector.split("::", 1)[0]).resolve()
+        if not path.is_file() or not path.is_relative_to(root / "tests"):
+            parser.error("Test selection must refer to an existing file under tests/")
     env = os.environ.copy()
     allowed = {"POSTGRES_DB", "POSTGRES_USER", "POSTGRES_PASSWORD", "SAFETY_ENCRYPTION_KEY"}
     for line in args.env_file.read_text().splitlines():
@@ -50,19 +64,46 @@ def main():
     os.chmod(args.output, 0o700)
     name = "promotion_gate_" + uuid.uuid4().hex
     names = ("test_" + name, name)
+    source_paths = subprocess.check_output(
+        [
+            "git",
+            "ls-files",
+            "apps",
+            "config",
+            "templates",
+            "static",
+            "tests",
+            "scripts",
+            "pyproject.toml",
+        ],
+        cwd=root,
+        text=True,
+    ).splitlines()
+    source_hashes = {
+        path: hashlib.sha256((root / path).read_bytes()).hexdigest()
+        for path in source_paths
+        if (root / path).is_file()
+    }
     result = {
         "schema": "promotion-catalogue-isolated-gates-v1",
         "source_commit": subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=root, text=True
         ).strip(),
         "synthetic_data": True,
+        "source_sha256": source_hashes,
+        "sources_unchanged": False,
         "ephemeral_test_encryption_key": ephemeral_key,
-        "tests": TESTS,
+        "tests": selected,
+        "timing_seconds": {"configuration": time.perf_counter() - started},
+        "diagnosis_timing": "Not measured in this invocation",
+        "integration_timing": "Outside this invocation",
+        "test_media_removed": False,
         "migration_exit": None,
         "pytest_exit": None,
         "cleanup_verified": False,
         "phase_accepted": False,
     }
+    env_started = time.perf_counter()
     admin = psycopg.connect(
         dbname=env["POSTGRES_DB"],
         user=env["POSTGRES_USER"],
@@ -75,8 +116,10 @@ def main():
     try:
         admin.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(name)))
         created = True
+        result["timing_seconds"]["database_preparation"] = time.perf_counter() - env_started
         env["POSTGRES_DB"] = name
         env["PYTHONPATH"] = str(root)
+        stage_started = time.perf_counter()
         with (args.output / "migration.log").open("w") as log:
             result["migration_exit"] = subprocess.run(
                 [sys.executable, "manage.py", "migrate", "--noinput"],
@@ -85,14 +128,20 @@ def main():
                 stdout=log,
                 stderr=subprocess.STDOUT,
             ).returncode
+        result["timing_seconds"]["migration"] = time.perf_counter() - stage_started
         if result["migration_exit"] == 0:
+            stage_started = time.perf_counter()
             with (args.output / "pytest.log").open("w") as log:
                 result["pytest_exit"] = subprocess.run(
                     [
                         sys.executable,
                         "-m",
                         "pytest",
-                        *TESTS,
+                        *selected,
+                        "-p",
+                        "scripts.catalogue_gate_timings",
+                        "--gate-timings-output=" + str(args.output.resolve() / "test-timings.json"),
+                        "--basetemp=" + str(args.output.resolve() / "pytest-temp"),
                         "-q",
                         "--junitxml=" + str(args.output.resolve() / "pytest.xml"),
                     ],
@@ -101,7 +150,9 @@ def main():
                     stdout=log,
                     stderr=subprocess.STDOUT,
                 ).returncode
+            result["timing_seconds"]["pytest"] = time.perf_counter() - stage_started
     finally:
+        cleanup_started = time.perf_counter()
         # Exact UUID namespace created by this invocation only; never project DB.
         try:
             for database in names if created else ():
@@ -114,8 +165,20 @@ def main():
                 "SELECT datname FROM pg_database WHERE datname = ANY(%s)", [list(names)]
             ).fetchall()
             result["cleanup_verified"] = not present
+            # Owned synthetic fixture directory from this invocation only.
+            media = args.output / "pytest-temp"
+            if media.exists():
+                shutil.rmtree(media)
+            result["test_media_removed"] = not media.exists()
+            result["timing_seconds"]["cleanup"] = time.perf_counter() - cleanup_started
         finally:
             admin.close()
+            result["sources_unchanged"] = all(
+                (root / path).is_file()
+                and hashlib.sha256((root / path).read_bytes()).hexdigest() == digest
+                for path, digest in source_hashes.items()
+            )
+            result["timing_seconds"]["total"] = time.perf_counter() - started
             result["artifact_sha256"] = {
                 path.name: hashlib.sha256(path.read_bytes()).hexdigest()
                 for path in args.output.iterdir()
@@ -142,6 +205,8 @@ def main():
             result["migration_exit"] == 0
             and result["pytest_exit"] == 0
             and result["cleanup_verified"]
+            and result["test_media_removed"]
+            and result["sources_unchanged"]
         )
         else 1
     )

@@ -97,8 +97,8 @@ def test_legacy_inventory_requires_fresh_review_and_keeps_original_ciphertext(
     case, actor, _, subject, _, _ = prepared_account(request, settings, monkeypatch, "erase")
     current_source = account_erasure_inventory.source
 
-    def legacy_source(current):
-        manifest = current_source(current)
+    def legacy_source(current, *, capture=None):
+        manifest = current_source(current, capture=capture)
         manifest["schema"] = "account-erasure-inventory-v1"
         manifest["entries"] = manifest["entries"][:14]
         manifest["pending"].remove("current_procedure_audit_excluded")
