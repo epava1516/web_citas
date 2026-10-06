@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ product.slug }}</h1>
+<a href="{% url 'promotion_products' %}">{% if english %}Catalogue{% else %}Catálogo{% endif %}</a>
+<form method="post">{% csrf_token %}<button type="submit">{% if english %}Create new version{% else %}Crear nueva versión{% endif %}</button></form>
+{% for row in page %}<p><a href="{% url 'promotion_version_preview' product.pk row.version %}">{% if english %}Version{% else %}Versión{% endif %} {{ row.version }}</a> · {% if row.published_at %}{% if english %}Released{% else %}Publicada{% endif %}{% else %}<a href="{% url 'promotion_version_edit' product.pk row.version %}">{% if english %}Edit draft{% else %}Editar borrador{% endif %}</a>{% endif %}</p>{% endfor %}
+{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">{% if english %}Previous{% else %}Anterior{% endif %}</a>{% endif %}
+{% if page.has_next %}<a href="?page={{ page.next_page_number }}">{% if english %}Next{% else %}Siguiente{% endif %}</a>{% endif %}
+{% endblock %}

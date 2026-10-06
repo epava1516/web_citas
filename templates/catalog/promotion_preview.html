@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% if english %}{{ row.name_en }}{% else %}{{ row.name_es }}{% endif %}</h1>
+<p>{{ row.duration_days }} {% if english %}days{% else %}días{% endif %}</p>
+<p>{% if row.configuration_ready %}{% if english %}Complete configuration. Sales inactive.{% else %}Configuración completa. Ventas inactivas.{% endif %}{% else %}{% if english %}Configuration pending. Sales inactive.{% else %}Pendiente de configurar. Ventas inactivas.{% endif %}{% endif %}</p>
+{% if row.configuration_ready %}<p>{{ row.amount }} {{ row.currency }} · {% if english %}before tax{% else %}sin impuestos{% endif %} · {{ row.tax_rate }}%</p>{% endif %}
+<p>{% if english %}Sponsored placement preview only. No promotion has been granted.{% else %}Solo previsualización de patrocinio. No se ha concedido ninguna promoción.{% endif %}</p>
+{% if error %}<p role="alert">{{ error }}</p>{% endif %}
+{% if not row.published_at %}<form method="post">{% csrf_token %}<input type="hidden" name="edit_version" value="{{ row.edit_version }}"><button type="submit">{% if english %}Release configuration{% else %}Publicar configuración{% endif %}</button></form><a href="{% url 'promotion_version_edit' row.product_id row.version %}">{% if english %}Edit draft{% else %}Editar borrador{% endif %}</a>{% endif %}
+<a href="{% url 'promotion_product_versions' row.product_id %}">{% if english %}Versions{% else %}Versiones{% endif %}</a>
+{% endblock %}

@@ -15,5 +15,6 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path("", home, name="home"),
     path("admin/", admin.site.urls),
+    path("operations/promotion-products/", include("apps.catalog.promotion_urls")),
     path("", include("apps.core.urls")),
 )

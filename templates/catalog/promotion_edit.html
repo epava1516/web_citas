@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% if english %}Product version{% else %}Versión de producto{% endif %} {{ row.version }}</h1>
+<a href="{% url 'promotion_product_versions' row.product_id %}">{% if english %}Versions{% else %}Versiones{% endif %}</a>
+{% if row.published_at %}<p>{% if english %}Released configuration is immutable. Create a new version.{% else %}La configuración publicada es inmutable. Crea una nueva versión.{% endif %}</p>{% else %}<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Save draft{% else %}Guardar borrador{% endif %}</button></form>{% endif %}
+<a href="{% url 'promotion_version_preview' row.product_id row.version %}">{% if english %}Preview{% else %}Previsualizar{% endif %}</a>
+{% endblock %}
