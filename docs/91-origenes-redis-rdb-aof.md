@@ -41,7 +41,7 @@ La batería funcional usa el ejecutor existente `scripts/verify_promotion_catalo
 Entrega comprobada:58 pruebas PG/nativas correctas, fuentes y limpieza verificadas; integración/runtime112 hashes en3 servicios correctos. [Informe](evidencias/redis-rdb-aof-origenes0110.json), [runtime](evidencias/redis-rdb-aof-origenes-runtime0110.json). Pendientes de fase: cobertura histórica integral, metadatos AUX/desconocidos y conservación/revisión independientes; nunca declarar completitud por contar claves o mensajes.
 
 
-## Diagnóstico AUX residual — integración pendiente
+## Diagnóstico AUX residual — evidencia histórica
 
 [Diagnóstico](evidencias/redis-rdb-aux-diagnostico0110.json): cinco campos AUX en snapshot y base: redis-ver, redis-bits, ctime, used-mem y aof-base. Ningún AUX desconocido en estas dos capturas; valores conservados solo cifrados y vinculados a hash/captura originales. No son originales sustitutos ni decisiones de exclusión. ctime no acredita fecha de cada mensaje ni titularidad.
 
@@ -56,4 +56,13 @@ cc -std=c99 -Wall -Wextra -Werror -fstack-protector-all \
   -o /ruta/privada/retained-rdb-aux
 ```
 
-Extractor de operador en desarrollo; fuera de HTTP/servicios normales. Diagnóstico ejecutado con cwd privado, límites/no-new-privileges/timeout del wrapper existente. Dos capturas conservadas del entorno sintético y fixture oficial con corrupción CRC comprobadas; no N2 ni entrega nueva aceptada. Funciones/módulos/metadatos adicionales y revisión por inventario pendientes. Próximo resultado funcional: integrar AUX/procedencia en censo/revisión/paquete PostgreSQL, con desconocidos y cobertura integral pendientes.
+Estado durante el diagnóstico: extractor de operador en desarrollo, fuera de HTTP/servicios normales. Su integración posterior queda acreditada abajo. Diagnóstico ejecutado con cwd privado, límites/no-new-privileges/timeout del wrapper existente. Dos capturas conservadas del entorno sintético y fixture oficial con corrupción CRC comprobadas; no N2 ni entrega nueva aceptada. En ese corte estaban pendientes funciones/módulos/metadatos adicionales y revisión por inventario; esta última se entregó posteriormente. El resultado funcional de integración posterior está entregado abajo; no repetir este diagnóstico ni tratarlo como cola vigente. Metadatos no AUX/desconocidos y cobertura integral pendientes.
+
+
+## Preparación integrada AUX — entrega local
+
+Una vez contrastados código/bibliotecas, hash del binario y propietario, instalar el collector con0755 (umask de este host puede producir0776; ese permiso se rechaza). Usar las opciones `--aux-decoder /ruta/privada/retained-rdb-aux --aux-decoder-sha256 HUELLA_VERIFICADA` junto al comando por inventario. Cifrado de AUX dentro del nuevo origen RDBv2; no usar el archivo de diagnóstico como origen completo ni copiar datos a medios públicos. El proceso web solo lee/valida el archivo preparado.
+
+La inspección privada propone huella `redis_metadata_digest` con estado pending. El operador debe motivar su evaluación y conservar esa huella exacta; después se aplica la revisión independiente existente. Un campo técnico reconocido no autoriza entregar valores globales ni excluir los desconocidos. Campos repetidos mantienen referencias distintas; la vista por expediente muestra huellas y tamaños opacos. Valores completos solo en el origen cifrado de operador, sin atribuirlos a una persona ni mostrar valores globales/posibles capacidades a quien solo revisa ese expediente. No interpretar ni ejecutar contenido. AUX no se incorpora a `copy`, y los pendientes de metadatos/cobertura se conservan.
+
+Las nuevas pruebas requieren además `RETAINED_RDB_AUX_BIN` y `RETAINED_RDB_AUX_SHA256` verificados. N2 incluye productor CLI/PG perfil-cuenta, huella ausente/alterada, contenido privado/paquete parcial, desconocidos y duplicados/bytes, CRC y Chromium móvil ES/EN con preparación/revisión. Cierre técnico local:27 pruebas afectadas finales correctas, runtime115 hashes/3 servicios y limpieza comprobados; [informe](evidencias/redis-rdb-aux-integrado0110.json), [runtime](evidencias/redis-rdb-aux-runtime0110.json). Runs inicial/final separados, sin batería75 falsa; no capacidad ni aceptación jurídica.
