@@ -1,6 +1,6 @@
 # Medición del avance del contrato
 
-Estado vigente: revisión ponderada v2 al final, basada en entregas hasta `187b8e6`. v1 se conserva como corte histórico; pesos y denominador no cambian.
+Estado vigente: revisión ponderada v3 al final, basada en entregas hasta `38140e9`. v1/v2 se conservan como cortes históricos; pesos y denominador no cambian.
 
 ## Corrección del seguimiento
 
@@ -97,3 +97,10 @@ Conservar exactamente los pesos de v1. Solo actualizar dos juicios de avance por
 Son estimaciones de ingeniería, no horas medidas ni aceptación formal; el grado de cada bloque conserva incertidumbre. Cambios aportan2,8 puntos a CR09 y0,42 al contrato, cuya fase CR09 pesa15%. Cálculo reproducible: **CR09 66,25% avanzado y33,75% pendiente; contrato59,9375% avanzado y40,0625% pendiente**. Comunicar66,3% y59,9% con una decimal cuando se solicite, dejando clara su naturaleza estimada. El contador de hitos sigue9/15; CR09 todavía abierto.
 
 [Datos y cálculo v2](evidencias/avance-ponderado-v2.json). La revisión sustituye63,45/59,5175 como valoración vigente y conserva v1 como histórico. Las cifras no acreditan producción; CR10/GS01/BF/BB/C continúan pendientes como fases.
+
+
+## Revisión ponderada v3 — 2026-10-06, fuente38140e9
+
+Se mantiene todo el denominador de v2. Solo flujos por finalidad/verificación/autoridad pasa75→85: supresión, limitación y oposición incorporan respuestas parciales propias con preparación/lectura/revisión/emisión/acuse, perfil/cuenta/publicación/calendario, medios y concurrencia. El motor compartido y el acuse mantienen supresión/portabilidad en batería integrada20 y Docker verificado. El incremento corresponde a alcance funcional entregado, no al número de pruebas. Siguen pendientes sus cierres integrales y el censo operacional real, conservación y comunicaciones: los grados de esos bloques y aceptación integral no aumentan.
+
+CR09:66,25 + (20 ×10/100) = **68,25% avanzado /31,75% pendiente**. Contrato:59,9375 + (15 ×2/100) = **60,2375% avanzado /39,7625% pendiente**. Comunicar68,3% y60,2%. CR09 conserva peso15% del contrato y continúa abierto. Son estimaciones de ingeniería explícitas, no esfuerzo medido ni aceptación de producción. [Cálculo v3](evidencias/avance-ponderado-v3.json), [resultados](evidencias/limitacion-oposicion-final0108-en-desarrollo.json), [runtime](evidencias/limitacion-oposicion-final-runtime0108.json).
