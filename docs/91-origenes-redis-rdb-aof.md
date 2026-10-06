@@ -39,3 +39,21 @@ Las pruebas nativas requieren `RETAINED_RDB_DECODER_BIN` y `RETAINED_RDB_DECODER
 La batería funcional usa el ejecutor existente `scripts/verify_promotion_catalogue.py` con selección explícita, PostgreSQL UUID/medios propios y retirada comprobada. Sus nombres históricos no limitan su selección. Resultado terminal, huellas, preparación/migración/pytest/limpieza son automáticos; revisión del alcance y aceptación corresponden a Codex. El ensayo funcional nativo no acredita capacidad, RPO/RTO, custodia externa ni identidad jurídica.
 
 Entrega comprobada:58 pruebas PG/nativas correctas, fuentes y limpieza verificadas; integración/runtime112 hashes en3 servicios correctos. [Informe](evidencias/redis-rdb-aof-origenes0110.json), [runtime](evidencias/redis-rdb-aof-origenes-runtime0110.json). Pendientes de fase: cobertura histórica integral, metadatos AUX/desconocidos y conservación/revisión independientes; nunca declarar completitud por contar claves o mensajes.
+
+
+## Diagnóstico AUX residual — integración pendiente
+
+[Diagnóstico](evidencias/redis-rdb-aux-diagnostico0110.json): cinco campos AUX en snapshot y base: redis-ver, redis-bits, ctime, used-mem y aof-base. Ningún AUX desconocido en estas dos capturas; valores conservados solo cifrados y vinculados a hash/captura originales. No son originales sustitutos ni decisiones de exclusión. ctime no acredita fecha de cada mensaje ni titularidad.
+
+La proyección JSON estándar con opciones AUX/func/stream/db-info fue rechazada por el lector estricto; salida descartada y temporales retirados. Se cambió a callbacks de la API oficial. Extractor propuesto `scripts/native/retained_rdb_aux.c`: pares hexadecimales,64 campos/4096bytes por nombre/256KiB por valor/1MiB agregado; lectura completa con CRC. Su primer intento mezclaba el logger predeterminado con stdout, también rechazado; corregido mediante logger silencioso y retorno de error. Nunca aceptar stdout parcial ante exit distinto de0.
+
+Compilar con fuentes/bibliotecas fijadas y verificar la huella del resultado:
+
+```bash
+cc -std=c99 -Wall -Wextra -Werror -fstack-protector-all \
+  -I /ruta/privada/librdb/api scripts/native/retained_rdb_aux.c \
+  /ruta/privada/librdb/lib/librdb-ext.a /ruta/privada/librdb/lib/librdb.a \
+  -o /ruta/privada/retained-rdb-aux
+```
+
+Extractor de operador en desarrollo; fuera de HTTP/servicios normales. Diagnóstico ejecutado con cwd privado, límites/no-new-privileges/timeout del wrapper existente. Dos capturas conservadas del entorno sintético y fixture oficial con corrupción CRC comprobadas; no N2 ni entrega nueva aceptada. Funciones/módulos/metadatos adicionales y revisión por inventario pendientes. Próximo resultado funcional: integrar AUX/procedencia en censo/revisión/paquete PostgreSQL, con desconocidos y cobertura integral pendientes.

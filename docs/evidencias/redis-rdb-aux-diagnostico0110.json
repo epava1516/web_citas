@@ -1,0 +1,96 @@
+{
+  "schema": "redis-rdb-aux-callback-diagnostic-v1",
+  "collector_source_sha256": "41825a8c72d6171881ea36221419d2561cf2c52b1549bbec59cfcd0a7a38c318",
+  "collector_binary_sha256": "ce89127665f87ac8dbf6364ab7e6b4217727b465bb4d35bb3b6f69a7cb509af1",
+  "sources": [
+    {
+      "source_evidence": "redis-snapshot-origen0110.json",
+      "source_sha256": "c383ad04f16c316bdd053a4a5d873d5f2ec262fb2a154bfddb3f68ec117bf9b4",
+      "captured_at": "2026-10-06T14:39:42.940958+00:00",
+      "aux_count": 5,
+      "recognized_field_names": [
+        "aof-base",
+        "ctime",
+        "redis-bits",
+        "redis-ver",
+        "used-mem"
+      ],
+      "unrecognized_field_name_sha256": [],
+      "aux_value_types": [
+        "str"
+      ],
+      "native_json_sha256": "36b3a946a322df5e7740fe1e11238ffa66a00237f8089ba228f5a8b96b8e404a",
+      "native_json_bytes": 294,
+      "metadata_encrypted_origin": "/tmp/cr09-rdb-metadata-custody0110-m58pd9r0/redis-snapshot-origen0110.json.encrypted",
+      "metadata_ciphertext_sha256": "ee744d0857a37d29f5a46d605967d550518fca427b7d380433da4768db124451",
+      "decoder_observed_seconds": 0.010752118192613125,
+      "function_scope_examined": false,
+      "json_top_level_count": 1,
+      "accepted_scope_decision": false
+    },
+    {
+      "source_evidence": "redis-base-aof-origen0110.json",
+      "source_sha256": "e0dd91e281d1fe6b6aeab46e914d5be71e0fbddb59b33daa403c6921058b027f",
+      "captured_at": "2026-10-06T15:13:59.073045+00:00",
+      "aux_count": 5,
+      "recognized_field_names": [
+        "aof-base",
+        "ctime",
+        "redis-bits",
+        "redis-ver",
+        "used-mem"
+      ],
+      "unrecognized_field_name_sha256": [],
+      "aux_value_types": [
+        "str"
+      ],
+      "native_json_sha256": "d456c29a8aa64afeb32853ce57d82115f6949533362ed83c265ba61b6bc1148d",
+      "native_json_bytes": 294,
+      "metadata_encrypted_origin": "/tmp/cr09-rdb-metadata-custody0110-m58pd9r0/redis-base-aof-origen0110.json.encrypted",
+      "metadata_ciphertext_sha256": "dcd478c19b8ea6d84455e1a7c37abb08187e67f083a581847270fad8e8446dfe",
+      "decoder_observed_seconds": 0.010699595790356398,
+      "function_scope_examined": false,
+      "json_top_level_count": 1,
+      "accepted_scope_decision": false
+    }
+  ],
+  "private_plaintext_removed": true,
+  "normal_redis_accessed": false,
+  "commands_executed": false,
+  "partial": true,
+  "phase_accepted": false,
+  "pending": [
+    "independent metadata content and provenance review",
+    "full metadata coverage; JSON projection is not original RDB",
+    "historical_redis_coverage"
+  ],
+  "source_commit_before_diagnostic": "aa06cf861bd5da74e5a6f87b40bf46a7ef90f61e",
+  "collector_source": "scripts/native/retained_rdb_aux.c",
+  "parser_source_commit": "bc5f295c98b40c2c33099d9d72ab30ce9e595dc7",
+  "hiredis_commit": "869f3d0ef1513dd0258ad7190c9914df16dcc4a4",
+  "crc_check": {
+    "synthetic_fixture_sha256": "bbcb3b1b75ecf3c4281779878d853ef04bdb88903bfe95cf2ae564c983b901c6",
+    "valid_fixture_exit": 0,
+    "checksum_corruption_exit": 4,
+    "temporary_directory_removed": true,
+    "partial_output_not_accepted": true
+  },
+  "initial_json_attempt": {
+    "session": 45486,
+    "exit": 1,
+    "error": "JSONDecodeError at line1 column12",
+    "accepted": false,
+    "plaintext_temporaries_removed": true
+  },
+  "callback_first_attempt": {
+    "session": 42854,
+    "exit": 1,
+    "error": "JSONDecodeError at line1 column1; default library logger polluted stdout",
+    "correction": "Install quiet logger before parsing; data output exclusively hex encoded AUX records",
+    "accepted": false
+  },
+  "terminal_session": 79475,
+  "terminal_exit": 0,
+  "delivery_closed": false,
+  "review_integration_pending": true
+}
