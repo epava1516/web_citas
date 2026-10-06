@@ -74,3 +74,6 @@ Producto: slug obligatorio, único, máximo64; kind obligatorio entre premium/to
 Entrada inválida de formulario:400 sin mutación. Conflicto de edición/configuración publicada o contador inválido de release:409. Producto/versión inexistentes:404 tras autorización. Sin login:302 al login; sin autoridad:403. Métodos distintos de GET/POST:405. POST exige CSRF; GET no crea auditoría ni cambia estado. Los contadores/paginación son del catálogo privado autorizado.
 
 Pruebas nuevas preparadas, no ejecutadas: GET privado sin efectos, acceso GET/POST directo denegado tras retirada del permiso, formularios inválidos sin cambio, publicación simultánea de dos versiones conserva ambas configuraciones y exactamente una vigente. Junto a replays/CSRF/MFA/revocaciones/aislamiento/auditoría/móvil, deben pasar sobre la misma versión de rama antes de integrar.
+
+
+El ejecutorcd0da56 requiere credenciales PostgreSQL, pero si falta SAFETY_ENCRYPTION_KEY genera una clave Fernet efímera para esta invocación de datos sintéticos. No escribe esa clave en archivos/logs ni modifica la aplicación principal; base/resultados personales permanecen desechables. El primer arranque abortó antes de crear bases por la exigencia innecesaria de esa clave. Esto no acredita configuración de cifrado productiva.
