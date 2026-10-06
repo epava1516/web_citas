@@ -248,16 +248,20 @@ def snapshot(case, person, listing, execution_id):
 
 
 def _projection(material, text):
+    from .rights_communications import public_summary
+
     pending = bool(
         material["pending_execution_purposes"]
         or material["remaining_decisions"]
         or material["operational_pending"]
+        or material["communications"]["pending"]
     )
     # Only purpose/status/date summaries reach the requester. Legal notes, paths,
     # resource identifiers and third-party evidence remain in the private ledger.
     response_body = {
         "text": text,
         "simulation": True,
+        "communications": public_summary(material["communications"]),
         "erasure": {
             "complete": not pending,
             "completed_purposes": material["completed_purposes"],

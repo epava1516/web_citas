@@ -96,6 +96,15 @@ def _record(user, case, key, operation, body):
     )
 
 
+@sensitive_variables()
+def _material(policy, case, person, listing, execution_id):
+    from .rights_communications import final_material
+
+    material = policy.snapshot(case, person, listing, execution_id)
+    material["communications"] = final_material(case, person, listing, execution_id)
+    return material
+
+
 @transaction.atomic
 @sensitive_variables()
 def prepare(policy, user, case_id, version, responses, execution_id, key, reason, text, confirmed):
@@ -103,7 +112,7 @@ def prepare(policy, user, case_id, version, responses, execution_id, key, reason
 
     checked_response_text(reason, text, confirmed)
     case, person, listing = _context(policy, user, case_id, version, responses, assigned=True)
-    material = policy.snapshot(case, person, listing, execution_id)
+    material = _material(policy, case, person, listing, execution_id)
     latest = (
         policy.execution_model.objects.filter(action__request=case).order_by("-action_id").first()
     )
@@ -169,7 +178,7 @@ def _draft(policy, user, case_id, version, responses, draft_id, *, assigned):
         or timezone.now() >= draft.created_at + timedelta(hours=24)
         or not latest_execution
         or str(latest_execution.pk) != str(body["material"]["execution"])
-        or canonical(policy.snapshot(case, person, listing, body["material"]["execution"]))
+        or canonical(_material(policy, case, person, listing, body["material"]["execution"]))
         != canonical(body["material"])
     ):
         raise ValidationError("Final rights draft or execution changed or expired")

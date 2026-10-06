@@ -190,10 +190,17 @@ def snapshot(case, person, listing, execution_id):
 
 
 def _projection(material, text):
-    pending = bool(material["pending_purposes"] or material["operational_pending"])
+    from .rights_communications import public_summary
+
+    pending = bool(
+        material["pending_purposes"]
+        or material["operational_pending"]
+        or material["communications"]["pending"]
+    )
     return pending, {
         "text": text,
         "simulation": True,
+        "communications": public_summary(material["communications"]),
         "processing": {
             "kind": material["kind"],
             "complete": not pending,

@@ -1,0 +1,75 @@
+{
+  "status": "verified_postgresql_in_app_delivery_and_partial_response",
+  "runs": [
+    {
+      "xml": "/tmp/rights-recipient-notices-integrated0110.xml",
+      "sha256": "f2bdc2046a94de1d07e7f5df0c1d63ded9bd6a499543d07429eb6cc7ba5a7284",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "21",
+        "time": "261.929",
+        "timestamp": "2026-10-06T15:11:34.097630+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      },
+      "exit_code": 0
+    },
+    {
+      "xml": "/tmp/rights-recipient-notices-races0110.xml",
+      "sha256": "156e641ebf107a407a177cd66040b3ddf6de6c4fa547a9b8653ecf75d363b727",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "2",
+        "time": "49.649",
+        "timestamp": "2026-10-06T15:17:08.553679+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      },
+      "exit_code": 0
+    },
+    {
+      "xml": "/tmp/rights-recipient-notices-mobile0110.xml",
+      "sha256": "58d44975c68556fe14fe00c5adb296df39e1a8a8bcb9e079126d833dca76806f",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "45.629",
+        "timestamp": "2026-10-06T15:18:43.054137+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      },
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "apps/safety/communication_notices.py": "3ce0bc564fd36e5b60fda3aee761fa4e44919826add1e08d2cd791b4b8a5937d",
+    "apps/safety/communication_notice_views.py": "47ec6a5723c19c4dae02f4b5111333e58431a1d30203c5062b68571edca6edc5",
+    "apps/safety/rights_communications.py": "e66ad8c7b4b879c8b0de56a27c364698016eeb7a6da48baf4aa919c1c34f6cd8",
+    "apps/safety/rights_communication_views.py": "3ca478b80dbe90cae4d5889fe687058a6336920a7d5a0cd95a61bd07a84d029a",
+    "apps/safety/rights_final_response.py": "8d889a2ae088e658fccb689fc1a22f9c2d5b4c04d17812a2ab4724c2a346577d",
+    "apps/safety/erasure_final.py": "1de9ea47489e61650ed7d2cddcb2daeee918b85fb09f57d3901c6d95a148957b",
+    "apps/safety/processing_final.py": "8ae8c099162e94cbe707e8dede5ad70af83a75057e6722b650af931ad876450c",
+    "apps/safety/models.py": "f0c062a8f57bd4a9afd9a596c387abd40de232e5a849e1c922acf48d2a0a12f1",
+    "apps/safety/migrations/0110_recipient_execution_notices.py": "715ed98f445d6a8264eacd8890db7cd09688ebcef84dfc10a8961a11df591177",
+    "apps/core/urls.py": "5b44a50adf63a24c7038a6af9a1224da6bb18c057e5e0b1afd7ecf7961c9fed2",
+    "templates/core/dashboard.html": "a1cffa48a86b590d3ebbdde4cdbf775fbaa1a4104fc372db6a9810a1c01ec0a0",
+    "templates/safety/rights_communications.html": "191722bfc51cc54d2353bde3af18d1b258281e986bca6d1effeb88cc013507b8",
+    "templates/safety/rights_recipient_notices.html": "1e1bd0ad7c973ce1cd82af3dd5d80a2405b58d5fd5d30cf394a807d3a6e7477d",
+    "templates/safety/erasure_final.html": "308bccc79a1b2b3052bdd943f1430f1ef48650a99170d7b77ec1860149daa885",
+    "templates/safety/processing_final.html": "8815419150886533edf9e2b86a15481ea3c3e0bb42f3ac23c53908524c815789",
+    "templates/safety/rights_inspect.html": "984cd09bfb1b074735104a34aab93a94c0752cd21bec1ee21e74ca16b3f172dc"
+  },
+  "limits": [
+    "Synthetic identities; no external identity or recipient transport",
+    "Actual application notices, reads and cryptographically bound acknowledgements",
+    "Operational census remains incomplete; partial responses do not close cases",
+    "Local 390x844 browser assessment/inbox ES+EN; no production acceptance",
+    "No new task/scheduler or provider integration"
+  ]
+}

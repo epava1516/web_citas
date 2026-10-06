@@ -13,6 +13,7 @@ from apps.listings import views as listings
 from apps.mediafiles import views as mediafiles
 from apps.safety import (
     account_email_views,
+    communication_notice_views,
     complaint_messages,
     complaints,
     erasure_execution,
@@ -79,6 +80,9 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "account/rights-notices/", communication_notice_views.inbox, name="rights_recipient_notices"
+    ),
     path(
         "moderation/rights/<uuid:case_id>/communications/",
         rights_communication_views.communications,

@@ -1792,3 +1792,49 @@ class RightsAccessClosure(models.Model):
     original_session_version = models.PositiveIntegerField()
     original_mfa_version = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsRecipientNotice(models.Model):
+    """Minimal private notice of one execution to one currently authorized account."""
+
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
+    action = models.ForeignKey(RightsAction, on_delete=models.PROTECT)
+    execution_key = models.CharField(max_length=36)
+    recipient = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    authorization_version = models.CharField(max_length=30)
+    encrypted_payload = models.TextField()
+    payload_digest = models.CharField(max_length=64)
+    acknowledged_at = models.DateTimeField(null=True)
+    acknowledged_read = models.ForeignKey(
+        RightsAction, null=True, on_delete=models.PROTECT, related_name="recipient_notice_acks"
+    )
+    acknowledged_action = models.ForeignKey(
+        RightsAction,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name="recipient_notice_ack_actions",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["request", "execution_key", "recipient", "authorization_version"],
+                name="rights_recipient_execution_once",
+            ),
+            models.CheckConstraint(
+                condition=(
+                    models.Q(
+                        acknowledged_at__isnull=True,
+                        acknowledged_read__isnull=True,
+                        acknowledged_action__isnull=True,
+                    )
+                    | models.Q(
+                        acknowledged_at__isnull=False,
+                        acknowledged_read__isnull=False,
+                        acknowledged_action__isnull=False,
+                    )
+                ),
+                name="rights_recipient_ack_has_read",
+            ),
+        ]

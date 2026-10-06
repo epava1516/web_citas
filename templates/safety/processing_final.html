@@ -4,7 +4,7 @@
 <h1>{% if english %}Processing response{% else %}Respuesta sobre el tratamiento{% endif %}</h1>
 <p>{% if english %}Development simulation. Preparation and approval do not close the request. Outstanding decisions and operational checks remain pending after a partial response.{% else %}Simulación de desarrollo. Preparar y aprobar no cierran la solicitud. Las decisiones y comprobaciones operativas pendientes siguen abiertas tras una respuesta parcial.{% endif %}</p>
 <p>{% if english %}Recorded executions{% else %}Ejecuciones registradas{% endif %}: {% for id in executions %}{{ id }} {% empty %}—{% endfor %}</p>
-{% if material %}
+{% if material %}<p>{% if english %}Recipient communications{% else %}Comunicaciones a destinatarios{% endif %}: {{ material.material.communications.state }} · {% if english %}Delivered{% else %}Entregadas{% endif %}: {{ material.material.communications.delivered }} · {% if english %}Acknowledged{% else %}Con acuse{% endif %}: {{ material.material.communications.acknowledged }}</p>
 <h2>{% if english %}Audited exact response{% else %}Respuesta exacta consultada con auditoría{% endif %}</h2>
 <p>{{ material.text|linebreaksbr }}</p><p>{{ material.reason|linebreaksbr }}</p>
 <p>{% if english %}These operations preserve data. This request concerns{% else %}Estas operaciones conservan los datos. La solicitud corresponde a{% endif %}: {% if case.kind == 'object' %}{% if english %}objection{% else %}oposición{% endif %}{% else %}{% if english %}restriction{% else %}limitación{% endif %}{% endif %}.</p>

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% if english %}Private rights notices{% else %}Notificaciones privadas sobre derechos{% endif %}</h1>
+<p>{% if english %}Acknowledgement records receipt. It does not certify legal compliance or close the request.{% else %}El acuse registra la recepción. No certifica el cumplimiento legal ni cierra el expediente.{% endif %}</p>
+{% for notice in notices %}<p>{{ notice.pk }} · {{ notice.created_at }} · {{ notice.acknowledged_at|default_if_none:"—" }}</p>{% empty %}<p>{% if english %}No available notices{% else %}Sin notificaciones disponibles{% endif %}</p>{% endfor %}
+{% if notices.has_previous %}<a href="?page={{ notices.previous_page_number }}">{% if english %}Previous{% else %}Anterior{% endif %}</a>{% endif %}{% if notices.has_next %}<a href="?page={{ notices.next_page_number }}">{% if english %}Next{% else %}Siguiente{% endif %}</a>{% endif %}
+{% if payload %}<h2>{% if english %}Audited notice{% else %}Notificación consultada con auditoría{% endif %}</h2><p>{{ payload.kind }} · {% if english %}Development simulation; request remains open.{% else %}Simulación de desarrollo; expediente abierto.{% endif %}</p>{% for row in payload.purposes %}<p>{{ row.purpose }} · {{ row.state }}</p>{% endfor %}{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record action{% else %}Registrar acción{% endif %}</button></form>
+{% endblock %}

@@ -30,10 +30,12 @@ class CommunicationForm(forms.Form):
             ("propose", "Proponer evaluación / Propose assessment"),
             ("inspect", "Consulta independiente / Independent inspection"),
             ("review", "Revisión independiente / Independent review"),
+            ("deliver", "Crear notificaciones revisadas / Create reviewed notices"),
         ]
     )
     execution = forms.CharField(required=False, max_length=36, label="Ejecución / Execution")
     plan = forms.IntegerField(required=False, min_value=1, label="Evaluación / Assessment")
+    review = forms.IntegerField(required=False, min_value=1, label="Revisión / Review")
     read = forms.IntegerField(required=False, min_value=1, label="Consulta / Audited read")
     purpose = forms.CharField(
         required=False, min_length=10, max_length=200, label="Motivo de consulta / Access purpose"
@@ -60,6 +62,7 @@ class CommunicationForm(forms.Form):
             "propose": ["execution", "purpose"],
             "inspect": ["plan", "purpose"],
             "review": ["plan", "read", "reason", "outcome"],
+            "deliver": ["review"],
         }
         for field in fields.get(values.get("operation"), []):
             if not values.get(field):
@@ -96,6 +99,7 @@ def communications(request, case_id):
     )
     decisions = None
     inspected = None
+    notice_preview = None
     status = 200 if request.method == "GET" else 400
     if request.method == "POST" and form.is_valid():
         values = form.cleaned_data
@@ -103,6 +107,7 @@ def communications(request, case_id):
         try:
             if values["operation"] == "source":
                 _, source = service.inspect_source(*common, values["execution"], values["purpose"])
+                notice_preview = source["notice_payload"]
                 decisions = Decisions(
                     prefix="decisions",
                     initial=[{"target": token, "outcome": "pending"} for token in targets(source)],
@@ -135,7 +140,7 @@ def communications(request, case_id):
                     initial={**values, "key": uuid4(), "operation": "review", "read": audited.pk}
                 )
                 status = 200
-            else:
+            elif values["operation"] == "review":
                 service.review(
                     *common,
                     values["plan"],
@@ -144,6 +149,11 @@ def communications(request, case_id):
                     values["outcome"],
                     values["reason"],
                 )
+                return private(redirect("rights_communications", case_id=case.pk))
+            else:
+                from .communication_notices import deliver
+
+                deliver(*common, values["review"], values["key"])
                 return private(redirect("rights_communications", case_id=case.pk))
         except PermissionDenied:
             return private(HttpResponse("Forbidden", status=403))
@@ -164,6 +174,7 @@ def communications(request, case_id):
                 "form": form,
                 "decisions": decisions,
                 "inspected": inspected,
+                "notice_preview": notice_preview,
                 "executions": backend._POLICY.execution_model.objects.filter(
                     action__request=case
                 ).values_list("pk", flat=True),

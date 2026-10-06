@@ -42,6 +42,8 @@ def snapshot(case, person, listing, execution_id):
     latest = model.objects.filter(action__request=case).order_by("-action_id").first()
     if not latest or latest.pk != execution.pk:
         raise ValidationError("Latest own-scope communication execution required")
+    from .communication_notices import authorized_targets, delivery_evidence, notice_payload
+
     candidates = {}
 
     def add(kind, reference, basis, record):
@@ -66,6 +68,9 @@ def snapshot(case, person, listing, execution_id):
         .order_by("pk")
     ):
         add("account", access.actor_id, "historical_rights_procedure_access", access.pk)
+    notice_targets = authorized_targets(case, person)
+    for target in notice_targets:
+        add("account", target["recipient"], "current_authorized_notice_recipient", case.pk)
     return {
         "schema": "rights-communication-source-v1",
         "kind": case.kind,
@@ -75,7 +80,9 @@ def snapshot(case, person, listing, execution_id):
         "account_subject": str(case.account_subject_id) if case.account_subject_id else None,
         "cutoff": execution.created_at.isoformat(),
         "candidates": [candidates[key] for key in sorted(candidates)],
-        "manager_notices": [],
+        "manager_notices": delivery_evidence(case, execution.pk),
+        "notice_targets": notice_targets,
+        "notice_payload": notice_payload(case, effects),
         "complete": False,
         "pending": [
             "actual_disclosures_and_recipient_scope_review",
@@ -308,3 +315,75 @@ def review(user, case_id, version, responses, plan_id, read_id, key, outcome, re
             "mfa": user.mfa_version,
         },
     )
+
+
+@sensitive_variables()
+def final_material(case, person, listing, execution_id):
+    """Private exact assessment binding; no recipient identity in public projection."""
+    from .communication_notices import approved
+
+    source = snapshot(case, person, listing, execution_id)
+    plan = (
+        RightsAction.objects.filter(
+            request=case,
+            operation="rights_comms_plan",
+            expected_version=case.version,
+        )
+        .order_by("-pk")
+        .first()
+    )
+    result = {
+        "source_digest": _digest(source),
+        "assessment": plan.pk if plan else None,
+        "assessment_digest": plan.payload_digest if plan else None,
+        "review": None,
+        "review_digest": None,
+        "state": "awaiting_review" if plan else "not_assessed",
+        "pending": True,
+        "outcomes": {},
+        "delivered": len(source["manager_notices"]),
+        "acknowledged": sum(bool(row["acknowledged_at"]) for row in source["manager_notices"]),
+    }
+    if not plan:
+        return result
+    reviewed = (
+        RightsAction.objects.filter(
+            request=case,
+            operation="rights_comms_review",
+            expected_version=case.version,
+        )
+        .order_by("-pk")
+        .first()
+    )
+    if not reviewed:
+        return result
+    body = checked_body(reviewed.encrypted_reason)
+    if _digest(body) != reviewed.payload_digest:
+        raise ValidationError("Recipient review integrity changed")
+    if body.get("plan") != plan.pk:
+        return result
+    result.update(review=reviewed.pk, review_digest=reviewed.payload_digest)
+    if body.get("outcome") != "approved":
+        result["state"] = "rejected"
+        return result
+    _, data = approved(
+        case.assigned_to,
+        case,
+        case.version,
+        case.response_version,
+        reviewed.pk,
+        current_source=True,
+    )
+    counts = {}
+    for decision in data["decisions"].values():
+        outcome = decision["outcome"]
+        counts[outcome] = counts.get(outcome, 0) + 1
+    result.update(state="reviewed_partial", outcomes=counts)
+    # Reviewed exceptions do not certify the still-incomplete operational census.
+    return result
+
+
+def public_summary(material):
+    return {
+        key: material[key] for key in ["state", "pending", "outcomes", "delivered", "acknowledged"]
+    }
