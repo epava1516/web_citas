@@ -54,7 +54,7 @@ def listing_metadata(request, listing):
     requested = request.LANGUAGE_CODE
     actual = requested if requested in languages else primary
     description = revision.description if actual == primary else revision.description_alternative
-    return {
+    metadata = {
         "title": plain(revision.title) + " · " + str(revision.municipality),
         "description": plain(description)[:160],
         "noindex": requested not in languages,
@@ -63,3 +63,15 @@ def listing_metadata(request, listing):
             (lang, absolute("listing_detail", lang, args=[listing.pk])) for lang in languages
         ],
     }
+
+    if requested in languages:
+        metadata["structured_data"] = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": metadata["canonical"],
+            "name": metadata["title"],
+            "description": metadata["description"],
+            "inLanguage": actual,
+            "about": {"@type": "Person", "name": listing.person.alias},
+        }
+    return metadata
