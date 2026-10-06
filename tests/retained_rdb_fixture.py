@@ -18,6 +18,10 @@ def aux_decoder():
     return Path(os.environ["RETAINED_RDB_AUX_BIN"]), os.environ["RETAINED_RDB_AUX_SHA256"]
 
 
+def metadata_decoder():
+    return Path(os.environ["RETAINED_RDB_METADATA_BIN"]), os.environ["RETAINED_RDB_METADATA_SHA256"]
+
+
 def capture(directory, captured_at, values):
     directory.mkdir(mode=0o700)
     socket = directory / "redis.sock"

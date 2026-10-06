@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 from django.core.exceptions import ValidationError
-from retained_rdb_fixture import aux_decoder, capture, native_decoder
+from retained_rdb_fixture import aux_decoder, capture, metadata_decoder, native_decoder
 from test_redis_history_scope import message
 from test_scoped_redis_history_origins import origins, read
 
@@ -25,7 +25,10 @@ def combined(tmp_path, settings, *, metadata=False):
     snapshot.chmod(0o600)
     decoder, digest = native_decoder()
     extra = {}
-    if metadata:
+    if metadata == "physical":
+        decoder_metadata, metadata_hash = metadata_decoder()
+        extra = {"metadata_decoder": decoder_metadata, "metadata_decoder_sha256": metadata_hash}
+    elif metadata:
         aux, aux_hash = aux_decoder()
         extra = {"aux_decoder": aux, "aux_decoder_sha256": aux_hash}
     path = prepare_origins([source, snapshot], tmp_path, inventory, decoder=decoder, decoder_sha256=digest, **extra)

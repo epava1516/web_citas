@@ -98,7 +98,7 @@ def test_encrypted_history_reader_binds_source_cutoff_and_preserves_partial(sett
 
 @pytest.mark.django_db(transaction=True)
 @pytest.mark.parametrize("account_only", [False, True])
-@pytest.mark.parametrize("scoped", [False, True, "combined", "metadata"])
+@pytest.mark.parametrize("scoped", [False, True, "combined", "metadata", "physical"])
 def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim_complete(
     request, settings, monkeypatch, tmp_path, account_only, scoped
 ):
@@ -168,7 +168,7 @@ def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim
         args = [sys.executable, "-m", "scripts.scope_retained_redis_origin", "--origin", str(path),
                 "--output-directory", str(directory_path), "--request", str(case.pk),
                 "--inventory", str(inventory.pk)]
-        if scoped in {"combined", "metadata"}:
+        if scoped in {"combined", "metadata", "physical"}:
             from retained_rdb_fixture import capture, native_decoder
 
             rdb_body, _ = capture(tmp_path / "native", inventory.created_at, [message(blob), message(str(uuid4()))])
@@ -177,11 +177,17 @@ def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim
             rdb_path.chmod(0o600)
             decoder, decoder_digest = native_decoder()
             args.extend(["--origin", str(rdb_path), "--decoder", str(decoder), "--decoder-sha256", decoder_digest])
-            if scoped == "metadata":
+            if scoped in {"metadata", "physical"}:
                 from retained_rdb_fixture import aux_decoder
 
-                aux, aux_hash = aux_decoder()
-                args.extend(["--aux-decoder", str(aux), "--aux-decoder-sha256", aux_hash])
+                if scoped == "physical":
+                    from retained_rdb_fixture import metadata_decoder
+
+                    aux, aux_hash = metadata_decoder()
+                    args.extend(["--metadata-decoder", str(aux), "--metadata-decoder-sha256", aux_hash])
+                else:
+                    aux, aux_hash = aux_decoder()
+                    args.extend(["--aux-decoder", str(aux), "--aux-decoder-sha256", aux_hash])
         completed = subprocess.run(args, env=env, capture_output=True, timeout=30, check=True)
         assert json.loads(completed.stdout)["coverage_accepted"] is False
         path = directory_path / scoped_origin_name("redis-history", case.pk, inventory.pk)
@@ -190,7 +196,7 @@ def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim
         wrong[wrong.index("--request") + 1] = str(uuid4())
         rejected = subprocess.run(wrong, env=env, capture_output=True, timeout=30)
         assert rejected.returncode == 2 and path.read_bytes() == original_ciphertext
-        body = unseal(path.read_text()) if scoped in {"combined", "metadata"} else scoped_body(body, inventory)
+        body = unseal(path.read_text()) if scoped in {"combined", "metadata", "physical"} else scoped_body(body, inventory)
         settings.ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = str(directory_path)
     else:
         settings.ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = str(path)
@@ -214,17 +220,17 @@ def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim
             "historical_redis_coverage",
             "historical_result_payload_review",
         ]
-        if scoped in {"combined", "metadata"}:
+        if scoped in {"combined", "metadata", "physical"}:
             expected_pending.append("snapshot_metadata_scope_review")
         assert original["redis_history"]["pending"] == expected_pending
         assert len(original["groups"]["operations.TaskResultHistory"]) == 1
-    assert len(original["redis_history"]["records"]) == (0 if account_only else (2 if scoped in {"combined", "metadata"} else 1))
+    assert len(original["redis_history"]["records"]) == (0 if account_only else (2 if scoped in {"combined", "metadata", "physical"} else 1))
     reason = "Synthetic reviewed historical scope, no assertion of exhaustive infrastructure"
     decisions = {
         "models": {model: {"status": "omitted", "reason": reason} for model in original["groups"]},
         "resources": {"status": "reviewed", "reason": reason},
     }
-    if scoped == "metadata":
+    if scoped in {"metadata", "physical"}:
         with pytest.raises(ValidationError, match="infrastructure scope"):
             compile_package(inventory, SimpleNamespace(pk=uuid4()), original, decisions, cutoff=inventory.created_at, projected=projected)
         decisions["resources"]["redis_metadata_digest"] = "altered"
@@ -248,7 +254,7 @@ def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim
     assert package["partial"] and "historical_redis_coverage" in package["pending"]
     assert "private-task-id" not in str(package["copy"])
     assert "PRIVATE RESULT PAYLOAD" not in str(package)
-    if scoped == "metadata":
+    if scoped in {"metadata", "physical"}:
         assert package["review_material"]["redis_history"]["metadata_review"]
         assert "metadata_review" not in str(package["copy"])
         assert "snapshot_metadata_scope_review" in package["pending"]

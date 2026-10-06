@@ -59,7 +59,7 @@ def test_mobile_final_response_preparation_and_independent_decision(
     original = case.version, case.response_version, case.status, case.initial_due_at
     inventory = None
     if metadata:
-        from retained_rdb_fixture import aux_decoder, capture, native_decoder
+        from retained_rdb_fixture import aux_decoder, capture, metadata_decoder, native_decoder
         from test_redis_history_scope import message
 
         from apps.safety.crypto import seal, unseal
@@ -105,8 +105,13 @@ def test_mobile_final_response_preparation_and_independent_decision(
         folder = tmp_path / "origins"
         folder.mkdir(mode=0o700)
         decoder, digest = native_decoder()
-        aux, aux_hash = aux_decoder()
-        prepare_origins([source], folder, inventory, decoder=decoder, decoder_sha256=digest, aux_decoder=aux, aux_decoder_sha256=aux_hash)
+        if metadata == "physical":
+            aux, aux_hash = metadata_decoder()
+            options = {"metadata_decoder": aux, "metadata_decoder_sha256": aux_hash}
+        else:
+            aux, aux_hash = aux_decoder()
+            options = {"aux_decoder": aux, "aux_decoder_sha256": aux_hash}
+        prepare_origins([source], folder, inventory, decoder=decoder, decoder_sha256=digest, **options)
         settings.ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = str(folder)
         settings.CELERY_BROKER_TRANSPORT_OPTIONS = {"global_keyprefix": "fixture:"}
         settings.CELERY_TASK_DEFAULT_QUEUE = "q"
@@ -209,4 +214,13 @@ def test_mobile_aux_inspection_requires_exact_metadata_review_and_stays_partial(
 ):
     test_mobile_final_response_preparation_and_independent_decision(
         live_server, request, settings, monkeypatch, tmp_path, language, False, metadata=True
+    )
+
+
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_mobile_physical_census_uses_existing_review_and_independent_decision(
+    live_server, request, settings, monkeypatch, tmp_path, language
+):
+    test_mobile_final_response_preparation_and_independent_decision(
+        live_server, request, settings, monkeypatch, tmp_path, language, False, metadata="physical"
     )

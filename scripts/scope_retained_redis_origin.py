@@ -84,11 +84,15 @@ def prepare_origin(path, directory, inventory):
     )
 
 
-def prepare_origins(paths, directory, inventory, *, decoder=None, decoder_sha256=None, aux_decoder=None, aux_decoder_sha256=None):
+def prepare_origins(paths, directory, inventory, *, decoder=None, decoder_sha256=None, aux_decoder=None, aux_decoder_sha256=None, metadata_decoder=None, metadata_decoder_sha256=None):
     from apps.safety.retained_redis_origins import checked_origin
 
     if not 1 <= len(paths) <= 16:
         raise ValueError("Bounded retained origins required")
+    if (metadata_decoder is not None or metadata_decoder_sha256 is not None) and (aux_decoder is not None or aux_decoder_sha256 is not None):
+        raise ValueError("Choose one metadata collector; physical census includes AUX")
+    if (metadata_decoder is None) != (metadata_decoder_sha256 is None):
+        raise ValueError("Physical metadata collector and hash required together")
     bodies = [read_origin(path) for path in paths]
     if any(not isinstance(body, dict) for body in bodies):
         raise ValueError("Retained origin object required")
@@ -113,6 +117,10 @@ def prepare_origins(paths, directory, inventory, *, decoder=None, decoder_sha256
                 from scripts.collect_retained_rdb_aux import collect_aux
 
                 origin = collect_aux(body, origin, aux_decoder, decoder_sha256=aux_decoder_sha256)
+            if metadata_decoder is not None:
+                from scripts.collect_retained_rdb_metadata import collect_physical
+
+                origin = collect_physical(body, origin, metadata_decoder, decoder_sha256=metadata_decoder_sha256)
         raw, kind, identity = checked_origin(origin, inventory.created_at)
         if (kind, identity) in identities:
             raise ValueError("Duplicate retained physical origin")
@@ -122,6 +130,10 @@ def prepare_origins(paths, directory, inventory, *, decoder=None, decoder_sha256
             from apps.safety.rights_exports import canonical
 
             total += len(canonical(origin["aux_metadata"]).encode())
+        if "physical_metadata" in origin:
+            from apps.safety.rights_exports import canonical
+
+            total += len(canonical(origin["physical_metadata"]).encode())
         if total > MAX_BYTES:
             raise ValueError("Retained origin aggregate byte limit")
         origins.append(origin)
@@ -144,6 +156,8 @@ def main():
     parser.add_argument("--decoder-sha256")
     parser.add_argument("--aux-decoder", type=Path)
     parser.add_argument("--aux-decoder-sha256")
+    parser.add_argument("--metadata-decoder", type=Path)
+    parser.add_argument("--metadata-decoder-sha256")
     parser.add_argument("--output-directory", type=Path, required=True)
     parser.add_argument("--request", type=UUID, required=True)
     parser.add_argument("--inventory", type=int, required=True)
@@ -165,6 +179,7 @@ def main():
             args.origin, args.output_directory, inventory,
             decoder=args.decoder, decoder_sha256=args.decoder_sha256,
             aux_decoder=args.aux_decoder, aux_decoder_sha256=args.aux_decoder_sha256,
+            metadata_decoder=args.metadata_decoder, metadata_decoder_sha256=args.metadata_decoder_sha256,
         )
     except (OSError, ValueError, TypeError, KeyError, ValidationError, subprocess.SubprocessError, RightsAccessScopeInventory.DoesNotExist):
         parser.error("Retained origin or inventory unavailable; no accepted artifact")

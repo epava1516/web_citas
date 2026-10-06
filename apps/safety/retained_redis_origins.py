@@ -42,9 +42,10 @@ def transport_scope():
 def checked_origin(origin, cutoff):
     if not isinstance(origin, dict) or origin.get("partial") is not True:
         raise ValueError("Partial retained origin required")
+    with_physical = origin.get("schema") == "local-redis-rdb-reconstruction-v3"
     with_aux = origin.get("schema") == "local-redis-rdb-reconstruction-v2"
-    rdb = with_aux or origin.get("schema") == "local-redis-rdb-reconstruction-v1"
-    expected = RDB_FIELDS | {"aux_metadata"} if with_aux else (RDB_FIELDS if rdb else AOF_FIELDS)
+    rdb = with_physical or with_aux or origin.get("schema") == "local-redis-rdb-reconstruction-v1"
+    expected = RDB_FIELDS | {"physical_metadata"} if with_physical else RDB_FIELDS | {"aux_metadata"} if with_aux else (RDB_FIELDS if rdb else AOF_FIELDS)
     if set(origin) != expected:
         raise ValueError("Exact retained origin fields required")
     captured = datetime.fromisoformat(origin["captured_at"])
@@ -78,6 +79,10 @@ def checked_origin(origin, cutoff):
         ])
     ):
         raise ValueError("RDB reconstruction provenance changed")
+    if with_physical:
+        from .retained_rdb_physical_metadata import checked_physical
+
+        checked_physical(origin["physical_metadata"], origin)
     if with_aux:
         from .retained_redis_metadata import checked_aux
 
@@ -154,11 +159,17 @@ def read_bundle(body, blob_ids, cutoff, *, case, inventory):
         total += len(raw)
         if "aux_metadata" in origin:
             total += len(canonical(origin["aux_metadata"]).encode())
+        if "physical_metadata" in origin:
+            total += len(canonical(origin["physical_metadata"]).encode())
         if total > MAX_BYTES:
             raise ValueError("Retained origin aggregate byte limit")
         digest = fingerprint(canonical(origin))
         result = scoped_history(raw, blob_ids, prefix=prefix, queue=queue, origin_digest=digest)
         if kind == "rdb_snapshot_state":
+            if "physical_metadata" in origin:
+                from .retained_rdb_physical_metadata import physical_review
+
+                combined["metadata_review"].append(physical_review(origin["physical_metadata"], digest))
             if "aux_metadata" in origin:
                 from .retained_redis_metadata import review_material
 
