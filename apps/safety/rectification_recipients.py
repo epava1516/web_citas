@@ -14,9 +14,6 @@ from django.shortcuts import render
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
 
-from apps.core.models import RepresentationAction
-from apps.listings.models import Revision, Submission
-
 from .crypto import seal, unseal
 from .models import (
     RightsAction,
@@ -94,33 +91,10 @@ def snapshot(person, execution, case=None):
         for row in RightsRectificationProposalRead.objects.filter(proposal=proposal).order_by("pk"):
             add("account", row.actor_id, "audited_account_changes_read", row.pk)
     else:
-        add(
-            "agency" if person.agency_id else "individual",
-            person.agency_id or person.individual_id,
-            "current_manager",
-            person.pk,
-        )
-        for row in RepresentationAction.objects.filter(person=person).order_by("pk"):
-            add(row.manager_kind, row.manager_id, "representation_history", row.pk)
-            add(
-                row.previous_manager_kind,
-                row.previous_manager_id,
-                "previous_representation",
-                row.pk,
-            )
-        for row in Submission.objects.filter(revision__listing__person=person).order_by("pk"):
-            add("account", row.actor_id, "submission_actor", row.pk)
-        for row in (
-            Revision.objects.filter(listing__person=person, publisher_acceptance__isnull=False)
-            .select_related("publisher_acceptance")
-            .order_by("pk")
-        ):
-            add(
-                "account",
-                row.publisher_acceptance.user_id,
-                "publishing_acceptance",
-                row.publisher_acceptance_id,
-            )
+        from .recipient_candidates import manager_evidence
+
+        for evidence in manager_evidence(person):
+            add(*evidence)
     notices = list(
         RightsRectificationManagerNotice.objects.filter(execution=execution)
         .order_by("pk")

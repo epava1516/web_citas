@@ -71,3 +71,5 @@ No considerar una propuesta aprobada por el mero hecho de estar documentada. Dif
 
 - [Graphify: instalación, uso local e incidencia](19-graphify-analisis-local.md).
 - [Auditoría de requisitos pendientes CR-09](actas/04-cr09-auditoria-pendiente.md).
+
+- [Comunicaciones de derechos ejecutados: evaluación y pendientes](90-comunicaciones-derechos-ejecutados.md).

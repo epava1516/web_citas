@@ -19,7 +19,7 @@ Fecha:2026-10-06. Referencia vinculante: contrato16 y seguimiento17. Este invent
 
 La cola de ejecución, el runtime y el trabajo local vigente se mantienen únicamente en [seguimiento17](17-seguimiento-desarrollo.md). Esta auditoría enumera requisitos y condiciones de aceptación, no una segunda lista de próximos pasos. Las entradas posteriores a esta sección son antecedentes fechados y no indican procesos actualmente activos.
 
-Las respuestas de supresión/limitación/oposición ya están integradas y desplegadas en `38140e9`; siguen pendientes el cierre integral y los requisitos residuales de esta tabla. La purga0109 está en desarrollo local, no entregada.
+Las respuestas de supresión/limitación/oposición ya están integradas y desplegadas en `38140e9`; siguen pendientes el cierre integral y los requisitos residuales de esta tabla. La purga0109 está entregada y verificada en el alcance descrito en el seguimiento17.
 
 El inventario `pending` de los servicios es evidencia de alcance todavía abierto. No eliminar esas marcas para aparentar cumplimiento; deben cambiar únicamente cuando implementación y verificaciones demuestren el requisito.
 

@@ -1,0 +1,41 @@
+{
+  "status": "local_assessment_review_verified_not_integrated_delivery",
+  "runs": [
+    {
+      "xml": "/tmp/rights-communications-review.xml",
+      "sha256": "fd8f1a10efb2c94747e65d1ef6b84c705d9c602049bfe3aa39e3f55a9a114e54",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "3",
+        "time": "60.685",
+        "timestamp": "2026-10-06T14:56:13.060351+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      },
+      "exit_code": 0
+    },
+    {
+      "xml": "/tmp/rectification-recipient-extraction.xml",
+      "sha256": "17e8011978c0c96906b07593abeb98af74187c8f3d49617dcf4f496858243ffb",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "54.268",
+        "timestamp": "2026-10-06T14:57:19.461524+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      },
+      "exit_code": 0
+    }
+  ],
+  "limits": [
+    "Synthetic identity, real PostgreSQL executions",
+    "No internal or external recipient delivery implemented",
+    "No HTTP workflow or final-response consumption yet",
+    "Partial assessment approval never closes the rights case"
+  ]
+}
