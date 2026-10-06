@@ -365,8 +365,20 @@ def log_records(
         if len(ciphertext) > MAX_SERVICE_BYTES * len(SERVICES) * 2:
             raise ValueError
         body = checked_body(ciphertext.decode())
-        captured_at = datetime.fromisoformat(body["captured_at"])
-        if (
+        historical = body.get("schema") == "local-log-retained-origins-scoped-v1"
+        if historical:
+            from .retained_log_origins import MAX_CIPHERTEXT_BYTES, PENDING, checked_scoped_captures
+
+            if len(ciphertext) > MAX_CIPHERTEXT_BYTES:
+                raise ValueError
+            records = checked_scoped_captures(body, case, inventory, cutoff)
+            captured_at = cutoff
+            pending = PENDING + ["historical_log_capture_coverage"]
+        else:
+            captured_at = datetime.fromisoformat(body["captured_at"])
+            records = body["records"]
+            pending = body["pending"]
+        if not historical and (
             body["schema"] != "local-access-log-origins-v1"
             or body["project"] != PROJECT
             or captured_at.tzinfo is None
@@ -386,10 +398,12 @@ def log_records(
         candidates, origins, projected, projected_mail = [], [], [], []
         subjects = subjects or {}
         identifiers = {value for value in identifiers if isinstance(value, str) and len(value) >= 8}
-        for row in body["records"]:
+        for row in records:
             origin = {
                 key: row[key] for key in ["service", "container", "image", "container_created_at"]
             }
+            if historical:
+                origin.update({key: row[key] for key in ("capture_digest", "captured_at")})
             for name in ["stdout", "stderr"]:
                 content = row[name]
                 if (
@@ -427,6 +441,8 @@ def log_records(
                         raise ValueError
                     if timestamp > cutoff:
                         continue
+                    if historical and timestamp > datetime.fromisoformat(row["captured_at"]):
+                        raise ValueError
                     reference = fingerprint(
                         canonical(
                             {
@@ -434,6 +450,7 @@ def log_records(
                                 "stream": name,
                                 "position": position,
                                 "line": line,
+                                **({"capture_digest": row["capture_digest"]} if historical else {}),
                             }
                         )
                     )
@@ -525,7 +542,7 @@ def log_records(
             "unprojected_candidates": [
                 row["record"] for row in candidates if row["record"] not in projected_references
             ],
-            "pending": body["pending"],
+            "pending": pending,
         }
     except (OSError, KeyError, TypeError, ValueError, ValidationError):
         raise ValidationError("Retained log origin unavailable, stale or altered") from None

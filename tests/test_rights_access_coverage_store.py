@@ -37,6 +37,7 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
     finish_language="en",
     retained_expired_session=False,
     retained_console_mail=False,
+    historical_logs=False,
 ):
     case, author, staff, public, receipt, _, _, _, decision, _, _ = approved_information(
         request, settings, monkeypatch, account_only
@@ -367,18 +368,23 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             write_bundle,
         )
 
+        event_time = inventory.created_at
+        if historical_logs:
+            from datetime import timedelta
+
+            event_time -= timedelta(seconds=2)
         event = signed_subject_log_event(
             "account" if account_only else "person",
             case.account_subject_id if account_only else case.person_id,
             "profile_updated",
             "succeeded",
-            inventory.created_at,
+            event_time,
         )
         log_content = "".join(
             f"{inventory.created_at.isoformat()} {line}\n" for line in console_output.splitlines()
         )
-        log_content += f"{inventory.created_at.isoformat()} {json.dumps(event)}\n"
-        log_content += f"{inventory.created_at.isoformat()} {json.dumps(event | {'subject_id': str(uuid4())})}\n"
+        log_content += f"{event_time.isoformat()} {json.dumps(event)}\n"
+        log_content += f"{event_time.isoformat()} {json.dumps(event | {'subject_id': str(uuid4())})}\n"
         archive_directory = tmp_path / "operational-fixture"
         archive_directory.mkdir(mode=0o700)
         archive_path = write_bundle(
@@ -387,6 +393,18 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             case_id=case.pk,
             inventory_id=inventory.pk,
         )
+        if historical_logs:
+            from scripts.scope_retained_log_origins import prepare_origins
+
+            historical_body = unseal(archive_path.read_text())
+            historical_body["captured_at"] = (inventory.created_at - timedelta(seconds=1)).isoformat()
+            for row in historical_body["records"]:
+                row["container_created_at"] = event_time.isoformat()
+            archive_path.write_text(module.seal(historical_body))
+            selected = tmp_path / "selected-history"
+            selected.mkdir(mode=0o700)
+            archive_path = prepare_origins([archive_path], selected, inventory)
+            archive_directory = selected
         settings.ACCESS_LOG_ORIGIN_BUNDLE = str(archive_directory)
         with transaction.atomic():
             original_scope = snapshot(
@@ -540,8 +558,9 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
 
         original_archive = archive_path.read_text()
         changed_archive = unseal(original_archive)
+        changed_capture = changed_archive["origins"][0]["capture"] if historical_logs else changed_archive
         changed_lines = []
-        for line in changed_archive["records"][0]["stdout"].splitlines():
+        for line in changed_capture["records"][0]["stdout"].splitlines():
             timestamp, content = line.split(" ", 1)
             try:
                 changed_event = json.loads(content)
@@ -552,10 +571,12 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             changed_event["outcome"] = "failed"
             changed_event["signature"] = subject_log_signature(changed_event)
             changed_lines.append(f"{timestamp} {json.dumps(changed_event)}\n")
-        changed_archive["records"][0]["stdout"] = "".join(changed_lines)
-        changed_archive["records"][0]["stdout_sha256"] = hashlib.sha256(
-            changed_archive["records"][0]["stdout"].encode()
+        changed_capture["records"][0]["stdout"] = "".join(changed_lines)
+        changed_capture["records"][0]["stdout_sha256"] = hashlib.sha256(
+            changed_capture["records"][0]["stdout"].encode()
         ).hexdigest()
+        if historical_logs:
+            changed_archive["origins"][0]["capture_sha256"] = hashlib.sha256(canonical(changed_capture).encode()).hexdigest()
         archive_path.write_text(module.seal(changed_archive))
         with (
             transaction.atomic(),
@@ -914,4 +935,14 @@ def test_integrated_access_includes_console_mail_without_authentication_link(
         tmp_path,
         finish=True,
         retained_console_mail=True,
+    )
+
+
+@pytest.mark.parametrize("account_only", [False, True])
+def test_historical_log_selection_uses_audited_package_review_and_blocks_full_close(
+    request, settings, monkeypatch, account_only, live_server, tmp_path
+):
+    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
+        request, settings, monkeypatch, account_only, live_server, False, tmp_path,
+        historical_logs=True,
     )
