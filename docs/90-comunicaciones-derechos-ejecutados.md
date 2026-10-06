@@ -30,8 +30,11 @@ Esta entrega interna usa PostgreSQL y el buzón de la propia aplicación. No acr
 
 - Gestionar destinatarios históricos sin canal autorizado y destinos/encargados externos.
 - Registro de procesadores/destinos externos y demostración de entregas/fallos cuando exista transporte autorizado. No enviar mensajes externos ni contratar proveedores en esta fase.
-- Pruebas de aislamiento entre sujetos, variantes de agencias, concurrencia y recorrido móvil y despliegue Docker antes de aceptar el componente integrado.
+- Pruebas de aislamiento entre sujetos, variantes de agencias, concurrencia y variantes operacionales antes de aceptar íntegramente el requisito. El alcance local0110 está verificado en PostgreSQL/HTTP/móvil y Docker.
 
 ## Verificación local
 
 `tests/test_rights_communications.py` ejecuta operaciones de supresión/limitación/oposición reales sobre PostgreSQL con identidades sintéticas. Verifica propuesta/replay, independencia, consulta auditada antes de descifrado, revisión/replay, rechazo de permisos retirados, consulta previa del autor y preservación del expediente abierto. El recorrido HTTP incluye GET sin contenido privado, CSRF, consulta de inventario, propuesta estructurada, consulta independiente y revisión. El recorrido ampliado cubre entrega interna revisada, consulta/acuses, replay, alteración de evidencias, invalidación de borrador anterior, reevaluación y emisión privada parcial. No verifica identidad externa ni entrega fuera del buzón de la aplicación. Los resultados terminales y el alcance exacto se registran en el seguimiento/historial.
+
+
+Evidencias de entrega0110: [baterías](evidencias/comunicaciones-derechos-integradas0110.json), [runtime](evidencias/comunicaciones-derechos-runtime0110.json). Fuente637e456; no reabrir el recorrido interno verificado salvo defecto/requisito concreto.

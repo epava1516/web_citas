@@ -1,6 +1,6 @@
 # Seguimiento de ejecución del contrato
 
-Actualizado: 2026-10-06. Corte documental: código de purga `72ff79a`, código desplegado `9be0044`, migración Docker `0109`. [Contrato completo](16-contrato-ejecucion-desarrollo.md).
+Actualizado: 2026-10-06. Corte documental: código de purga `72ff79a`, código desplegado `637e456`, migración Docker `0110`. [Contrato completo](16-contrato-ejecucion-desarrollo.md).
 
 ## Estado vigente para reanudar
 
@@ -12,14 +12,14 @@ Actualizado: 2026-10-06. Corte documental: código de purga `72ff79a`, código d
 | Recorridos locales entregados | Acceso y portabilidad con revisión/cierre/descarga; rectificación de perfil/cuenta con respuesta/revisión/cierre. [Matriz por derecho](88-matriz-cierre-derechos.md). |
 | Respuestas parciales entregadas | Supresión, limitación y oposición: preparación, consulta auditada, revisión independiente, emisión y acuse; perfiles/cuentas, publicación/calendario, medios y concurrencia en el alcance probado. No cerrar íntegramente estos derechos ante pendientes. |
 | Integración entregada | Núcleo `72ff79a`:26 pruebas PostgreSQL correctas de purga, limitación/oposición, supresión, rectificación y portabilidad. [Resultados](evidencias/conservacion-borradores-finales0109.json). No es regresión completa del repositorio. |
-| Docker verificado | App/worker/Beat fuente `9be0044`, migración0109 y43 archivos coincidentes; PostgreSQL/columnas, UID10001, rutas, salud HTTP y CSS correctos. [Runtime](evidencias/conservacion-borradores-finales0109-runtime.json). |
+| Docker verificado | App/worker/Beat fuente `637e456`, migración0110 y52 archivos coincidentes; PostgreSQL/restricciones de avisos, UID10001, rutas, salud HTTP y CSS correctos. [Runtime](evidencias/comunicaciones-derechos-runtime0110.json). |
 | Purga automática verificada | Borradores caducados no emitidos, lote≤100; vigentes/evidencia emitida/auditoría conservados. Worker y Beat reales sobre PG/Redis/cola/prefijo aislados; repetición/automatismo/retirada del entorno comprobados. [Operación](evidencias/conservacion-borradores-finales0109-worker-beat.json). Conservación jurídica integral y otros artefactos siguen pendientes. |
-| Comunicaciones integradas localmente | Supresión/limitación/oposición: evaluación/revisión, notificación mínima revisada a cuentas autorizadas, buzón/consulta/acuse auditado, reevaluación y consumo en respuesta final parcial. Migración0110. Batería integrada21 correcta, concurrencia/aislamiento2 correctas y móvil ES/EN1 correcta; [evidencia](evidencias/comunicaciones-derechos-integradas0110.json), [alcance90](90-comunicaciones-derechos-ejecutados.md). Docker aún0109; transporte externo/censo integral pendientes. |
+| Comunicaciones integradas localmente | Supresión/limitación/oposición: evaluación/revisión, notificación mínima revisada a cuentas autorizadas, buzón/consulta/acuse auditado, reevaluación y consumo en respuesta final parcial. Migración0110. Batería integrada21 correcta, concurrencia/aislamiento2 correctas y móvil ES/EN1 correcta; [evidencia](evidencias/comunicaciones-derechos-integradas0110.json), [alcance90](90-comunicaciones-derechos-ejecutados.md). Docker0110 verificado; transporte externo/censo integral pendientes. |
 | Fases posteriores | CR10, GS01, BF, BB y C pendientes como fases. Ya existe frontend/backend de los recorridos cruzados; esto no acepta sus fases separadas. |
 
 ## Próximo trabajo y criterio de salida
 
-1. Desplegar/verificar fuente y migración0110 en Docker local; después completar censo de recursos/destinatarios y conservación por finalidad de CR09, preservando las comunicaciones internas verificadas; no reabrir purga0109 ni recorridos entregados salvo defecto/requisito concreto.
+1. Completar censo de recursos/destinatarios y conservación por finalidad de CR09, preservando las comunicaciones internas verificadas0110; no reabrir purga0109 ni recorridos entregados salvo defecto/requisito concreto.
 2. Completar los requisitos residuales de CR09 en [auditoría83](83-auditoria-pendientes-cr09.md): conservación/destrucción por finalidad, comunicaciones/destinatarios, atención/escalado, rendimiento y censo operacional real. La prioridad de esta lista no elimina ningún requisito del contrato.
 3. Integrar evidencia de la misma versión contra todos los requisitos para aceptar CR09; continuar CR10 → GS01 → BF/BB → C. No saltar gates ni sustituirlos por porcentajes.
 
@@ -29,10 +29,10 @@ Las fuentes operativas siguen sin censo completo: asociación al sujeto, contene
 
 | Alcance | Avanzado | Pendiente |
 | --- | ---: | ---: |
-| CR09 | 68,25% | 31,75% |
-| Contrato completo | 60,2375% | 39,7625% |
+| CR09 | 69,05% | 30,95% |
+| Contrato completo | 60,3575% | 39,6425% |
 
-Fuente de cálculo: [v3](evidencias/avance-ponderado-v3.json); método y cortes anteriores en [medición86](86-medicion-avance-contrato.md). Pesos estables, CR09 pesa15% del contrato. Estimación de ingeniería por alcance entregado, no horas ni aceptación formal. La entrega0109 completa el pendiente operativo de esos borradores; no aumenta automáticamente porcentajes por sus pruebas. BASE/CR01–08 son9/15 hitos verificados localmente; ese60% de hitos no es el porcentaje ponderado.
+Fuente de cálculo: [v4](evidencias/avance-ponderado-v4.json); método y cortes anteriores en [medición86](86-medicion-avance-contrato.md). Pesos estables, CR09 pesa15% del contrato. Estimación de ingeniería por alcance entregado, no horas ni aceptación formal. La entrega0110 eleva únicamente el bloque de comunicaciones60→70 por su nuevo alcance interno entregado. Los demás pesos/grados no cambian; no aumentar porcentajes por repetir pruebas. BASE/CR01–08 son9/15 hitos verificados localmente; ese60% de hitos no es el porcentaje ponderado.
 
 ## Cómo mantener el seguimiento sin fragmentarlo
 
