@@ -1,0 +1,90 @@
+{
+  "scope": "Independent access accounting review and private comparison UI, not complete access scope",
+  "service_http_inventory": {
+    "tests": 3,
+    "seconds": 65.29,
+    "xml": "/tmp/access-coverage-review-ui0104.xml",
+    "source_scope": "Before original/delivered comparison UI extension"
+  },
+  "current_mobile_http": {
+    "tests": 2,
+    "seconds": 58.2,
+    "xml": "/tmp/access-coverage-review-csp0104.xml",
+    "subjects": [
+      "profile",
+      "account"
+    ],
+    "language": "es",
+    "browser": "Chromium",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  "runtime": {
+    "migrations": [
+      "0103",
+      "0104"
+    ],
+    "check": true,
+    "migrate_check": true,
+    "health200": true,
+    "app_uid": 10001,
+    "purge_tasks_registered": true,
+    "served_css_matches_host": true,
+    "hashes": {
+      "app": {
+        "apps/safety/models.py": "f14a536297ff3d3b1af7ebed09a528018fce950023949148b08e35f1c0cd2f57",
+        "apps/safety/rights.py": "cc0405647e3e2aa4b7cadec169423fce31dc3328264d35b323eeb2fdc1a98328",
+        "apps/core/urls.py": "5755b7e67d010a07beae7757a2dba6153697aa283f026047701717cbc6010dad",
+        "apps/safety/tasks.py": "063e61994564c84a441c618779dfdbad1f9a5a717f00c5c692d72f0884c186a6",
+        "config/settings.py": "a35eced958e8c00b5daad5f4300ee8d3528672591bcfdb3745b012c340eec09d",
+        "apps/safety/rights_access_coverage_store.py": "fe17c4b25fbb787adfbbf88d7abb3ae42646dfe8a9e698acf7f52ec8c36959f3",
+        "apps/safety/rights_access_coverage_review.py": "28282c14a052fbe575ff418aa4f14bebc51d9cf6390b1e4dc1ce835714539ab3",
+        "apps/safety/rights_access_coverage_review_views.py": "327c72a4d01cd6701c426438aaa864f56ad42a0c31e19d26f77f3ae3671319f5",
+        "apps/safety/erasure_inventory.py": "64eeb6d5b80c86e41bb1070e2b1a6a6580ec25b77e5523ddbaeef7773cb13b9a",
+        "apps/safety/account_erasure_inventory.py": "0c421b4a95b324f3cb9c87a742facfe8b0f3e53c3495b79a3741150c9075c1ca",
+        "templates/safety/rights_access_coverage_review.html": "bc12b7f7d5b8e675eb5520208afe303d3367da238fea054ea3653063aa47f221",
+        "templates/safety/rights_inspect.html": "bd57ae71a038c52512b713445087f700c0d12e13e6ae3ccfd1bad4ca3b9cf45a",
+        "static/app.css": "81366444074d0e983a85acd5342acee63bd1a60fb2308c67f819af9d7cbcdd70"
+      },
+      "worker": {
+        "apps/safety/models.py": "f14a536297ff3d3b1af7ebed09a528018fce950023949148b08e35f1c0cd2f57",
+        "apps/safety/rights.py": "cc0405647e3e2aa4b7cadec169423fce31dc3328264d35b323eeb2fdc1a98328",
+        "apps/core/urls.py": "5755b7e67d010a07beae7757a2dba6153697aa283f026047701717cbc6010dad",
+        "apps/safety/tasks.py": "063e61994564c84a441c618779dfdbad1f9a5a717f00c5c692d72f0884c186a6",
+        "config/settings.py": "a35eced958e8c00b5daad5f4300ee8d3528672591bcfdb3745b012c340eec09d",
+        "apps/safety/rights_access_coverage_store.py": "fe17c4b25fbb787adfbbf88d7abb3ae42646dfe8a9e698acf7f52ec8c36959f3",
+        "apps/safety/rights_access_coverage_review.py": "28282c14a052fbe575ff418aa4f14bebc51d9cf6390b1e4dc1ce835714539ab3",
+        "apps/safety/rights_access_coverage_review_views.py": "327c72a4d01cd6701c426438aaa864f56ad42a0c31e19d26f77f3ae3671319f5",
+        "apps/safety/erasure_inventory.py": "64eeb6d5b80c86e41bb1070e2b1a6a6580ec25b77e5523ddbaeef7773cb13b9a",
+        "apps/safety/account_erasure_inventory.py": "0c421b4a95b324f3cb9c87a742facfe8b0f3e53c3495b79a3741150c9075c1ca",
+        "templates/safety/rights_access_coverage_review.html": "bc12b7f7d5b8e675eb5520208afe303d3367da238fea054ea3653063aa47f221",
+        "templates/safety/rights_inspect.html": "bd57ae71a038c52512b713445087f700c0d12e13e6ae3ccfd1bad4ca3b9cf45a",
+        "static/app.css": "81366444074d0e983a85acd5342acee63bd1a60fb2308c67f819af9d7cbcdd70"
+      },
+      "beat": {
+        "apps/safety/models.py": "f14a536297ff3d3b1af7ebed09a528018fce950023949148b08e35f1c0cd2f57",
+        "apps/safety/rights.py": "cc0405647e3e2aa4b7cadec169423fce31dc3328264d35b323eeb2fdc1a98328",
+        "apps/core/urls.py": "5755b7e67d010a07beae7757a2dba6153697aa283f026047701717cbc6010dad",
+        "apps/safety/tasks.py": "063e61994564c84a441c618779dfdbad1f9a5a717f00c5c692d72f0884c186a6",
+        "config/settings.py": "a35eced958e8c00b5daad5f4300ee8d3528672591bcfdb3745b012c340eec09d",
+        "apps/safety/rights_access_coverage_store.py": "fe17c4b25fbb787adfbbf88d7abb3ae42646dfe8a9e698acf7f52ec8c36959f3",
+        "apps/safety/rights_access_coverage_review.py": "28282c14a052fbe575ff418aa4f14bebc51d9cf6390b1e4dc1ce835714539ab3",
+        "apps/safety/rights_access_coverage_review_views.py": "327c72a4d01cd6701c426438aaa864f56ad42a0c31e19d26f77f3ae3671319f5",
+        "apps/safety/erasure_inventory.py": "64eeb6d5b80c86e41bb1070e2b1a6a6580ec25b77e5523ddbaeef7773cb13b9a",
+        "apps/safety/account_erasure_inventory.py": "0c421b4a95b324f3cb9c87a742facfe8b0f3e53c3495b79a3741150c9075c1ca",
+        "templates/safety/rights_access_coverage_review.html": "bc12b7f7d5b8e675eb5520208afe303d3367da238fea054ea3653063aa47f221",
+        "templates/safety/rights_inspect.html": "bd57ae71a038c52512b713445087f700c0d12e13e6ae3ccfd1bad4ca3b9cf45a",
+        "static/app.css": "81366444074d0e983a85acd5342acee63bd1a60fb2308c67f819af9d7cbcdd70"
+      }
+    }
+  },
+  "limits": [
+    "Not full access final response or closure",
+    "Referenced body validation and unprojected scope inventory still required at approval consumption",
+    "No Chromium EN acceptance for this coverage UI",
+    "No expired content purge through Beat verified",
+    "No full CR09 or production acceptance"
+  ]
+}

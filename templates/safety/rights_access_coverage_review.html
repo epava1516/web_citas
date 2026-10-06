@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="rights-access-coverage">
+<h1>{% if english %}Review access coverage{% else %}Revisar cobertura de acceso{% endif %}</h1>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></p>
+<p>{% if english %}Check omissions, redactions and evidence. This accounting decision does not close the request or certify all personal records have been delivered.{% else %}Comprueba omisiones, redacciones y evidencias. Esta decisión de contabilidad no cierra la solicitud ni acredita la entrega de todos los registros personales.{% endif %}</p>
+<form method="post">{% csrf_token %}<input type="hidden" name="operation" value="inspect">{{ form.as_p }}<button type="submit">{% if english %}Inspect coverage{% else %}Consultar cobertura{% endif %}</button></form>
+{% if body %}<h2>{% if english %}Original scoped records{% else %}Registros originales del alcance{% endif %}</h2><pre class="rights-copy-page">{{ original_json }}</pre><h2>{% if english %}Exact delivered copy{% else %}Copia exacta entregada{% endif %}</h2><pre class="rights-copy-page">{{ delivered_json }}</pre><h2>{% if english %}Scope boundaries{% else %}Límites del alcance{% endif %}</h2>{% for name,item in body.declarations.boundaries.items %}<article><h3>{{ name }}</h3><p>{{ item.status }}</p><p>{{ item.reason|linebreaksbr }}</p><p>{{ item.evidence|linebreaksbr }}</p></article>{% endfor %}<h2>{% if english %}Row decisions{% else %}Decisiones por registro{% endif %}</h2>{% for name,rows in body.declarations.sections.items %}<h3>{{ name }}</h3>{% for row in rows %}<p>{{ row.row }} · {{ row.delivered_index }}</p>{% for path,item in row.decisions.items %}<article><p>{{ path }} · {{ item.status }}</p><p>{{ item.reason|linebreaksbr }}</p><p>{{ item.evidence|linebreaksbr }}</p></article>{% endfor %}{% endfor %}{% endfor %}{% endif %}
+<form method="post">{% csrf_token %}<input type="hidden" name="operation" value="review">{{ decision_form.as_p }}<button type="submit">{% if english %}Record coverage decision{% else %}Registrar decisión de cobertura{% endif %}</button></form>
+{% if decision %}<p role="status">{% if english %}Decision recorded{% else %}Decisión registrada{% endif %}: {{ decision.outcome }}</p>{% endif %}
+</section>
+{% endblock %}

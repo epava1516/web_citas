@@ -37,6 +37,7 @@ from apps.safety import (
     rectification_uploads,
     retention_views,
     rights,
+    rights_access_coverage_review_views,
     rights_access_response_views,
     rights_copy_information_views,
     rights_exports,
@@ -70,6 +71,11 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "moderation/rights/<uuid:case_id>/access/coverage/<int:coverage_id>/review/",
+        rights_access_coverage_review_views.review,
+        name="rights_access_coverage_review",
+    ),
     path(
         "moderation/publication-calendar/",
         publication_calendar_queue.queue,

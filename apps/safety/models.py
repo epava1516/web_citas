@@ -1702,3 +1702,25 @@ class RightsAccessCoverage(models.Model):
     expires_at = models.DateTimeField(db_index=True)
     purged_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsAccessCoverageReview(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    coverage = models.OneToOneField(RightsAccessCoverage, on_delete=models.PROTECT)
+    read_action = models.ForeignKey(
+        RightsAction, on_delete=models.PROTECT, related_name="access_coverage_reviews"
+    )
+    accounting_digest = models.CharField(max_length=64)
+    ciphertext_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    outcome = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["approved", "rejected"]),
+                name="access_coverage_review_outcome",
+            )
+        ]

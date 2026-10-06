@@ -653,6 +653,27 @@ def source(case):
                 ],
             ),
             (
+                "safety.RightsAccessCoverageReview",
+                (
+                    Q(coverage__request__account_subject=user)
+                    | Q(coverage__request__person__subject=user)
+                )
+                & ~Q(coverage__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "coverage_id",
+                    "read_action_id",
+                    "accounting_digest",
+                    "ciphertext_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "outcome",
+                    "created_at",
+                ],
+            ),
+            (
                 "safety.RightsAccessResponseReview",
                 (Q(draft__request__account_subject=user) | Q(draft__request__person__subject=user))
                 & ~Q(draft__request=case),
