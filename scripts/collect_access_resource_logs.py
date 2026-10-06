@@ -22,7 +22,7 @@ MAX_SERVICE_BYTES = 32 * 1024 * 1024
 
 def scoped_origin_name(kind, case_id, inventory_id):
     """Immutable per-case/inventory slots; never accept arbitrary path components."""
-    if kind not in {"logs", "resources"} or type(inventory_id) is not int or inventory_id < 1:
+    if kind not in {"logs", "resources", "redis-history"} or type(inventory_id) is not int or inventory_id < 1:
         raise ValueError("Exact resource kind and positive inventory required")
     case_id = UUID(str(case_id))
     return f"access-{kind}-{case_id}-{inventory_id}.encrypted"
@@ -103,7 +103,7 @@ def collect():
     }
 
 
-def write_bundle(directory, body, *, case_id=None, inventory_id=None):
+def write_bundle(directory, body, *, case_id=None, inventory_id=None, kind="logs"):
     from apps.safety.crypto import seal
 
     directory = Path(directory)
@@ -112,8 +112,10 @@ def write_bundle(directory, body, *, case_id=None, inventory_id=None):
         raise ValueError("Existing private directory with mode0700 required")
     if (case_id is None) != (inventory_id is None):
         raise ValueError("Case and inventory must be supplied together")
+    if kind != "logs" and (kind != "redis-history" or case_id is None or metadata.st_uid != os.geteuid()):
+        raise ValueError("Owned directory and exact scoped Redis history required")
     name = (
-        scoped_origin_name("logs", case_id, inventory_id)
+        scoped_origin_name(kind, case_id, inventory_id)
         if case_id is not None
         else "access-log-origins.encrypted"
     )
