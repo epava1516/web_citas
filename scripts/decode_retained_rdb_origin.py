@@ -69,9 +69,9 @@ def decode_body(body, decoder, *, decoder_sha256):
             source.flush()
         with private_file(directory / "resp.private") as output, private_file(directory / "errors.private") as errors:
             completed = subprocess.run(
-                [str(decoder), str(source_path), "resp"],
+                [str(decoder.absolute()), str(source_path), "resp"],
                 stdin=subprocess.DEVNULL, stdout=output, stderr=errors,
-                env={"PATH": "/usr/bin:/bin", "LC_ALL": "C"},
+                env={"PATH": "/usr/bin:/bin", "LC_ALL": "C"}, cwd=directory,
                 timeout=15, check=False, preexec_fn=decoder_limits,
             )
             if completed.returncode:
