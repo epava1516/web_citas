@@ -1,0 +1,161 @@
+{
+  "method": "Engineering estimate by weighted scope and complexity; completion scores are explicit technical judgement, not hours or formal acceptance",
+  "cr09": {
+    "blocks": [
+      {
+        "name": "Portabilidad y respuesta privada",
+        "weight": 15,
+        "estimated_completion": 90
+      },
+      {
+        "name": "Purga de contenido caducado",
+        "weight": 5,
+        "estimated_completion": 100
+      },
+      {
+        "name": "Flujos de denuncias y derechos por finalidad, verificación y autoridad",
+        "weight": 20,
+        "estimated_completion": 75
+      },
+      {
+        "name": "Conservación y destrucción por finalidad",
+        "weight": 10,
+        "estimated_completion": 50
+      },
+      {
+        "name": "Restauración de datos y medios",
+        "weight": 15,
+        "estimated_completion": 85
+      },
+      {
+        "name": "Sesiones, cachés, colas, logs y recursos externos",
+        "weight": 10,
+        "estimated_completion": 45
+      },
+      {
+        "name": "Comunicaciones y destinatarios",
+        "weight": 8,
+        "estimated_completion": 60
+      },
+      {
+        "name": "Atención urgente y escalado",
+        "weight": 7,
+        "estimated_completion": 60
+      },
+      {
+        "name": "Rendimiento de expedientes grandes",
+        "weight": 5,
+        "estimated_completion": 30
+      },
+      {
+        "name": "Aceptación integral CR09",
+        "weight": 5,
+        "estimated_completion": 0
+      }
+    ],
+    "calculated": 66.25
+  },
+  "contract": {
+    "blocks": [
+      {
+        "name": "BASE",
+        "weight": 5,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR01",
+        "weight": 4,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR02",
+        "weight": 6,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR03",
+        "weight": 6,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR04",
+        "weight": 5,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR05",
+        "weight": 8,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR06",
+        "weight": 6,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR07",
+        "weight": 6,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR08",
+        "weight": 4,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR09",
+        "weight": 15,
+        "estimated_completion": 66.25
+      },
+      {
+        "name": "CR10",
+        "weight": 5,
+        "estimated_completion": 0
+      },
+      {
+        "name": "GS01",
+        "weight": 3,
+        "estimated_completion": 0
+      },
+      {
+        "name": "BF",
+        "weight": 10,
+        "estimated_completion": 0
+      },
+      {
+        "name": "BB",
+        "weight": 10,
+        "estimated_completion": 0
+      },
+      {
+        "name": "C",
+        "weight": 7,
+        "estimated_completion": 0
+      }
+    ],
+    "calculated": 59.9375
+  },
+  "limits": [
+    "Weights are a planning baseline, not measured effort",
+    "Completion scores are estimates grounded in docs83/17 and current delivered/workspace evidence",
+    "No production readiness claim; external providers/legal gates remain separately pending",
+    "Do not increase percentage from test count alone; update block scores only with scope/evidence change",
+    "v2 keeps every v1 weight and changes two completion judgements from delivered scope; no inference from test counts or measured hours."
+  ],
+  "version": 2,
+  "basis_commit": "187b8e6",
+  "changes_from_v1": [
+    {
+      "block": "Flujos de denuncias y derechos por finalidad, verificación y autoridad",
+      "from": 65,
+      "to": 75,
+      "reason": "Acceso tiene cierre/descarga local perfil/cuenta; rectificación integra respuesta/revisión/cierre perfil/cuenta en HTTP/Chromium y carrera. Supresión/limitación/oposición y aceptación global continúan pendientes."
+    },
+    {
+      "block": "Comunicaciones y destinatarios",
+      "from": 50,
+      "to": 60,
+      "reason": "Destinatarios de cuenta sin perfil y emisión final privada con aviso único verificados; cobertura real externa, entrega de proveedores y conservación siguen pendientes."
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Medición del avance del contrato
 
+Estado vigente: revisión ponderada v2 al final, basada en entregas hasta `187b8e6`. v1 se conserva como corte histórico; pesos y denominador no cambian.
+
 ## Corrección del seguimiento
 
 Las cifras82% CR09 y56% contrato eran estimaciones sin desglose de pesos ni denominador verificable. Repetirlas tras entregas nuevas no permite medir avance: quedan como referencia histórica, no como medición actual. No sustituirlas por otra cifra subjetiva.
@@ -86,3 +88,12 @@ Revisión sobre HEAD036a1a0 y remoto master confirmado al mismo hash. Desde83c9d
 El diff83c9d63..036a1a0 contiene46 archivos,2837 inserciones/47 borrados, incluyendo aplicación, pruebas y evidencias. Son señales de actividad y entregas concretas, no una medida de esfuerzo o aceptación. El historial anterior también concentra commits en portabilidad/derechos; las tres últimas entregas siguen dentro de recuperación de CR09. No se ha avanzado a CR10 ni cerrado otro hito durante este tramo.
 
 Conclusión: avance funcional real y comprobable, sin bloqueo técnico; concentración prolongada en un subsistema y ritmo de cierre de hitos bajo. No presentar repetir regresiones o documentar un mismo componente como requisitos distintos terminados. Próximo: concluir entrega de sesiones/colas actualmente en verificación y trabajar la matriz restante de derechos/finalidades. No ampliar recuperación con requisitos inventados; resolver defectos/requisitos concretos conservando el alcance del contrato.
+
+
+## Revisión ponderada v2 — 2026-10-06, 187b8e6
+
+Conservar exactamente los pesos de v1. Solo actualizar dos juicios de avance por alcance entregado: flujos65→75 por acceso completo local y respuesta/revisión/cierre de rectificación perfil/cuenta; comunicaciones/destinatarios50→60 por cuenta sin perfil y emisión final privada/aviso único. Referencias: f252ae0,02210aa,187b8e6, docs88 y evidencias de acceso/rectificación. No elevar recursos operativos45, conservación50 ni aceptación integral0: sus pendientes siguen reales. No contar correcciones, commits, tests repetidos o filas auxiliares como nuevos requisitos.
+
+Son estimaciones de ingeniería, no horas medidas ni aceptación formal; el grado de cada bloque conserva incertidumbre. Cambios aportan2,8 puntos a CR09 y0,42 al contrato, cuya fase CR09 pesa15%. Cálculo reproducible: **CR09 66,25% avanzado y33,75% pendiente; contrato59,9375% avanzado y40,0625% pendiente**. Comunicar66,3% y59,9% con una decimal cuando se solicite, dejando clara su naturaleza estimada. El contador de hitos sigue9/15; CR09 todavía abierto.
+
+[Datos y cálculo v2](evidencias/avance-ponderado-v2.json). La revisión sustituye63,45/59,5175 como valoración vigente y conserva v1 como histórico. Las cifras no acreditan producción; CR10/GS01/BF/BB/C continúan pendientes como fases.
