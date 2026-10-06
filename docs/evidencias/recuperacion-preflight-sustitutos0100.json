@@ -1,0 +1,35 @@
+{
+  "scope": "Preflight and application share private empty replacement validation",
+  "reproduction": {
+    "xml": "/tmp/recovery-preflight-target-before0100.xml",
+    "failed": 2,
+    "passed": 2,
+    "seconds": 63.63,
+    "cause": "Preflight reported success for populated or foreign placeholder that application refused"
+  },
+  "corrected": {
+    "xml": "/tmp/recovery-preflight-target-corrected0100.xml",
+    "tests": 8,
+    "seconds": 97.35,
+    "failures": 0,
+    "errors": 0
+  },
+  "covered": [
+    "preflight rejects populated replacement without output or DB effects",
+    "preflight rejects foreign photo references",
+    "original ID collision rejected and legacy single-redaction receipt accepted",
+    "two authorized media events preflight non-mutating then recover and replay",
+    "existing ownership and missing-key preflight regressions"
+  ],
+  "files": {
+    "apps/safety/recovery_ownership.py": "44d0afb6b4dbc1f91ccbf4c571602558121c018894bd1986144237f5a4ed64a9",
+    "apps/safety/recovery_apply.py": "993ce018a578abfc9caf33280fea8a701ed305805e7dda83445c14f35dd4cd52",
+    "tests/test_recovery_replacement_security.py": "0967016235a7f5d3301660b2d3c91a2e6c0b46c3a421adadd91a6fb4e9c9c1c1"
+  },
+  "limits": [
+    "Targeted8-case suite only",
+    "Docker remains delivered c004262, correction uncommitted",
+    "No independent latest authority/provider proof or publication authorization",
+    "CR09 and full contract remain open"
+  ]
+}

@@ -30,7 +30,7 @@ from .models import (
     RightsExportImage,
     RightsExportPart,
 )
-from .recovery_ownership import validate_ownership
+from .recovery_ownership import validate_empty_replacement, validate_ownership
 
 
 def queue_media(application, receipt):
@@ -211,22 +211,7 @@ def apply_database(receipt):
                         "status": "erased",
                     },
                 )
-                if (
-                    placeholder.status != "erased"
-                    or placeholder.original
-                    or placeholder.derivative
-                    or placeholder.phash
-                    or placeholder.signature
-                    or placeholder.regional_hashes
-                    or placeholder.width
-                    or placeholder.height
-                    or Photo.objects.filter(blob=placeholder)
-                    .exclude(revision__listing__person=person)
-                    .exists()
-                ):
-                    raise LedgerIntegrityError(
-                        "Recovery replacement is not a private empty placeholder"
-                    )
+                validate_empty_replacement(placeholder, person.pk)
                 Photo.objects.filter(
                     pk=reference["photo"], revision__listing__person=person
                 ).update(blob=placeholder)

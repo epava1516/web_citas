@@ -4,7 +4,7 @@ Actualizado: 2026-10-06. Contrato: [ejecución v1](16-contrato-ejecucion-desarro
 
 ## Estado actual
 
-Fecha de corte:2026-10-06. CR-09 abierto; contrato completo activo. BASE y CR-01–08 verificados localmente. CR-10, GS-01, B-F, B-B y C pendientes como fases. Estimaciones orientativas anteriores82% CR-09/56% contrato, sin ponderación formal ni equivalencia a aceptación; no recalculadas por resultados parciales.
+Fecha de corte:2026-10-06. CR-09 abierto; contrato completo activo. BASE y CR-01–08 verificados localmente. CR-10, GS-01, B-F, B-B y C pendientes como fases. Las cifras anteriores82% CR-09/56% contrato quedan retiradas como estimación vigente: no disponían de denominador ni pesos reproducibles y no se recalcularon. Consultar [medición del avance](86-medicion-avance-contrato.md). BASE/CR01–08 son9 de15 hitos verificados localmente (60% del número de hitos, no del esfuerzo ni aceptación de producción). CR09 parcialmente implementado y probado; porcentaje de trabajo completado aún no medido.
 
 | Área | Estado y evidencia vigente | Siguiente paso |
 | --- | --- | --- |
@@ -49,6 +49,15 @@ Sustitución firmada0100 corregida en workspace: recibos nuevos incluyen campo o
 
 
 Entrega de sustitutos0100 verificada:76 pruebas conjuntas correctas306,30s, sin fallos/errores/omitidas;587 hashes congelados intactos. Docker app/worker/Beat recreados con corrección;5 hashes afectados coinciden host/tres servicios, UID10001, check/migrate-check y salud200 correctos. [Evidencia](evidencias/recuperacion-sustitutos-integrada-runtime0100.json). Prevalece sobre estados anteriores de corrección no integrada/runtime b50e69f. CR09 sigue abierto, estimaciones orientativas82%/56% sin recalcular; siguiente matriz residual y operación/cachés/autoridad vigente. No aceptación global ni producción.
+
+
+Preflight de sustitutos0100: reproducción2 fallos/2 correctas63,63s confirma que comprobación previa aceptaba sustituto poblado o referenciado por otro perfil mientras aplicación lo rechazaba. Validación única validate_empty_replacement incorporada a ownership/preflight y reaplicación.8 pruebas correctas97,35s; errores sin salida de éxito ni cambios DB, compatibilidad antigua y secuencia válida de dos eventos conservadas. [Evidencia](evidencias/recuperacion-preflight-sustitutos0100.json). Corrección solo workspace, runtime c004262; siguientes vigencia independiente del checkpoint/cachés/operación/matriz residual. CR09 y contrato abiertos.
+
+
+Referencia independiente0100 implementada en workspace: comandos check/apply exigen expected-ledger/sequence/head; RecoveryStore compara exactamente la referencia suministrada con checkpoint firmado bajo lock antes de verificar/descifrar sufijo.19 pruebas correctas88,27s; rollback firmado válido se rechaza con referencia más reciente y diferencias ledger/head/sequence también. Incluye validación compartida de sustitutos y secuencia de dos ejecuciones. [Evidencia](evidencias/recuperacion-checkpoint-independiente0100.json). No acredita procedencia/vigencia de una autoridad externa; custodia independiente operacional pendiente. Runtime c004262, fuente no entregada; CR09 y contrato abiertos. Cifras82/56 retiradas como medición vigente conforme docs86.
+
+
+Entrega de autoridad0100 verificada:80 pruebas conjuntas correctas320,56s, sin fallos/errores/omitidas;587 hashes congelados intactos. Docker actualizado app/worker/Beat;4 hashes afectados coinciden host/tres servicios, UID10001, Django check/migrate-check y salud200 correctos. [Evidencia](evidencias/recuperacion-autoridad-integrada-runtime0100.json). Prevalece sobre estado anterior de checkpoint esperado/preflight solo workspace. Referencia independiente obligatoria en CLI; procedencia/custodia externa pendiente. CR09 abierto; seguir recursos locales y matriz residual, CR10→GS01→BF/BB→C pendientes. Cifras82/56 retiradas como medición vigente; seguimiento por requisitos en docs83/86.
 
 ## Historial de observaciones anteriores al resumen normalizado
 

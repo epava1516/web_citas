@@ -102,3 +102,39 @@ def test_recovery_bounds_memory_before_loading_full_suffix(tmp_path, monkeypatch
     monkeypatch.setattr(module, "MAX_BUNDLE_BYTES", 1)
     with pytest.raises(LedgerIntegrityError):
         store.recover(start)
+
+
+def test_independent_checkpoint_rejects_valid_signed_rollback(tmp_path):
+    store, start, record, end = fixture(tmp_path)
+    checkpoint_path = store.checkpoint_directory / "checkpoint.json"
+    previous_signed_checkpoint = checkpoint_path.read_bytes()
+    store.append(record)
+    anchored = RecoveryStore(
+        store.records_directory, store.checkpoint_directory, store.codec, expected_checkpoint=end
+    )
+    assert anchored.recover(start) == [{"synthetic": "erasure"}]
+    # Both signatures are genuine: an independent anchor must reject the old one.
+    checkpoint_path.write_bytes(previous_signed_checkpoint)
+    checkpoint_path.chmod(0o600)
+    assert store.recover(start) == []
+    with pytest.raises(LedgerIntegrityError):
+        anchored.recover(start)
+
+
+@pytest.mark.parametrize("difference", ["ledger", "head", "sequence"])
+def test_independent_checkpoint_requires_exact_identity(tmp_path, difference):
+    store, start, record, end = fixture(tmp_path)
+    store.append(record)
+    expected = Checkpoint(
+        str(uuid4()) if difference == "ledger" else end.ledger,
+        end.sequence + 1 if difference == "sequence" else end.sequence,
+        "a" * 64 if difference == "head" else end.head,
+    )
+    anchored = RecoveryStore(
+        store.records_directory,
+        store.checkpoint_directory,
+        store.codec,
+        expected_checkpoint=expected,
+    )
+    with pytest.raises(LedgerIntegrityError):
+        anchored.recover(start)

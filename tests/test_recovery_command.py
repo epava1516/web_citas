@@ -38,7 +38,11 @@ def test_command_requires_isolation_and_valid_authority_then_deletes_and_replays
     store.initialize(start)
     encoded, _ = codec.append(start, str(uuid4()), receipt)
     store.append(encoded)
+    expected = store.checkpoint()
     arguments = dict(
+        expected_ledger=expected.ledger,
+        expected_sequence=expected.sequence,
+        expected_head=expected.head,
         records_directory=str(records),
         checkpoint_directory=str(authority),
         backup_ledger=start.ledger,

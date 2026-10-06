@@ -40,7 +40,11 @@ def test_preflight_checks_real_receipt_without_applying_effects(
     store.initialize(start)
     record, end = codec.append(start, str(uuid4()), event)
     store.append(record)
+    expected = store.checkpoint()
     arguments = dict(
+        expected_ledger=expected.ledger,
+        expected_sequence=expected.sequence,
+        expected_head=expected.head,
         records_directory=str(records),
         checkpoint_directory=str(authority),
         backup_ledger=start.ledger,

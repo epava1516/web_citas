@@ -21,6 +21,9 @@ class Command(BaseCommand):
         parser.add_argument("--backup-ledger", required=True)
         parser.add_argument("--backup-sequence", required=True, type=int)
         parser.add_argument("--backup-head", required=True)
+        parser.add_argument("--expected-ledger", required=True)
+        parser.add_argument("--expected-sequence", required=True, type=int)
+        parser.add_argument("--expected-head", required=True)
 
     def recovery_store(self, options):
         encryption = os.environ["RECOVERY_ENCRYPTION_KEY"].encode("ascii")
@@ -31,8 +34,14 @@ class Command(BaseCommand):
         start = Checkpoint(
             options["backup_ledger"], options["backup_sequence"], options["backup_head"]
         )
+        expected = Checkpoint(
+            options["expected_ledger"], options["expected_sequence"], options["expected_head"]
+        )
         return RecoveryStore(
-            options["records_directory"], options["checkpoint_directory"], codec
+            options["records_directory"],
+            options["checkpoint_directory"],
+            codec,
+            expected_checkpoint=expected,
         ), start
 
     def handle(self, *args, **options):

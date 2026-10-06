@@ -22,8 +22,11 @@ from .recovery_ledger import (
 
 
 class RecoveryStore:
-    def __init__(self, records_directory, checkpoint_directory, codec):
+    def __init__(self, records_directory, checkpoint_directory, codec, *, expected_checkpoint=None):
         self.codec = codec
+        if expected_checkpoint is not None and not isinstance(expected_checkpoint, Checkpoint):
+            raise ValueError("Typed independent checkpoint required")
+        self.expected_checkpoint = expected_checkpoint
         self.records_directory = Path(records_directory)
         self.checkpoint_directory = Path(checkpoint_directory)
         if self.records_directory.resolve() == self.checkpoint_directory.resolve():
@@ -180,6 +183,8 @@ class RecoveryStore:
 
     def _recover(self, start):
         expected = self.checkpoint()
+        if self.expected_checkpoint is not None and expected != self.expected_checkpoint:
+            raise LedgerIntegrityError("Recovery checkpoint differs from independent authority")
         if start.ledger != expected.ledger or start.sequence > expected.sequence:
             raise LedgerIntegrityError("Checkpoint rollback or ledger mismatch")
         if expected.sequence - start.sequence > MAX_EVENTS:

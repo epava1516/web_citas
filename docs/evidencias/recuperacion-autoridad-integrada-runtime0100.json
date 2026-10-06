@@ -1,0 +1,46 @@
+{
+  "scope": "Integrated recovery/census with independent expected checkpoint and shared replacement validation",
+  "tests": 80,
+  "seconds": 320.56,
+  "xml": "/tmp/recovery-anchor-integrated0100.xml",
+  "frozen_sources": 587,
+  "source_unchanged": true,
+  "runtime": {
+    "app": {
+      "uid": 10001,
+      "files": {
+        "apps/safety/recovery_apply.py": "993ce018a578abfc9caf33280fea8a701ed305805e7dda83445c14f35dd4cd52",
+        "apps/safety/recovery_ownership.py": "44d0afb6b4dbc1f91ccbf4c571602558121c018894bd1986144237f5a4ed64a9",
+        "apps/safety/management/commands/check_recovery_ledger.py": "6337a5522b3dd0864589c800e4cb0bf56f17607ef925d6961dfd294ef74cd68a",
+        "scripts/recovery_store.py": "714a65fe122da8c76376242bbb6e4f82d6363efb10599f3d85702a80d5c25878"
+      }
+    },
+    "worker": {
+      "uid": 10001,
+      "files": {
+        "apps/safety/recovery_apply.py": "993ce018a578abfc9caf33280fea8a701ed305805e7dda83445c14f35dd4cd52",
+        "apps/safety/recovery_ownership.py": "44d0afb6b4dbc1f91ccbf4c571602558121c018894bd1986144237f5a4ed64a9",
+        "apps/safety/management/commands/check_recovery_ledger.py": "6337a5522b3dd0864589c800e4cb0bf56f17607ef925d6961dfd294ef74cd68a",
+        "scripts/recovery_store.py": "714a65fe122da8c76376242bbb6e4f82d6363efb10599f3d85702a80d5c25878"
+      }
+    },
+    "beat": {
+      "uid": 10001,
+      "files": {
+        "apps/safety/recovery_apply.py": "993ce018a578abfc9caf33280fea8a701ed305805e7dda83445c14f35dd4cd52",
+        "apps/safety/recovery_ownership.py": "44d0afb6b4dbc1f91ccbf4c571602558121c018894bd1986144237f5a4ed64a9",
+        "apps/safety/management/commands/check_recovery_ledger.py": "6337a5522b3dd0864589c800e4cb0bf56f17607ef925d6961dfd294ef74cd68a",
+        "scripts/recovery_store.py": "714a65fe122da8c76376242bbb6e4f82d6363efb10599f3d85702a80d5c25878"
+      }
+    }
+  },
+  "health200": true,
+  "django_check_ok": true,
+  "migrate_check_ok": true,
+  "limits": [
+    "80 selected recovery/census tests, not whole project or CR09 acceptance",
+    "Caller-supplied checkpoint validated; external provenance/freshness/custody not demonstrated",
+    "Synthetic local PostgreSQL/files/worker/Beat and actual backup restore",
+    "No publication authorization; all remaining contract phases retained"
+  ]
+}

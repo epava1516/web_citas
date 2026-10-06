@@ -20,7 +20,10 @@ uv run python manage.py check_recovery_ledger \
   --checkpoint-directory /ruta/reservada/autoridad \
   --backup-ledger UUID_DEL_MANIFIESTO \
   --backup-sequence SECUENCIA_DEL_MANIFIESTO \
-  --backup-head SHA256_DEL_MANIFIESTO
+  --backup-head SHA256_DEL_MANIFIESTO \
+  --expected-ledger UUID_DE_AUTORIDAD_VIGENTE \
+  --expected-sequence SECUENCIA_DE_AUTORIDAD_VIGENTE \
+  --expected-head SHA256_DE_AUTORIDAD_VIGENTE
 ```
 
 Estos valores proceden del manifiesto de backup verificado. El comando no verifica todavía por sí mismo dicho manifiesto ni implementa el aislamiento operativo; son condiciones que debe cumplir el ensayo. No sustituirlos por los valores más recientes para omitir operaciones posteriores al backup.
@@ -54,6 +57,9 @@ uv run python manage.py apply_recovery_ledger \
   --backup-ledger UUID_DEL_MANIFIESTO \
   --backup-sequence SECUENCIA_DEL_MANIFIESTO \
   --backup-head SHA256_DEL_MANIFIESTO \
+  --expected-ledger UUID_DE_AUTORIDAD_VIGENTE \
+  --expected-sequence SECUENCIA_DE_AUTORIDAD_VIGENTE \
+  --expected-head SHA256_DE_AUTORIDAD_VIGENTE \
   --media-limit 100
 ```
 
@@ -68,3 +74,13 @@ Entrega técnica parcial0100 preparada: batería integrada de recuperación y ce
 Sustitución firmada0100 corregida en workspace: recibos nuevos incluyen campo opcional replacement UUID en fotos compartidas, ligado a redacción y distinto de todos los blobs originales. Se reconstruye exactamente ese sustituto vacío y privado; datos/archivos/huellas/dimensiones o referencias de otro perfil impiden aplicación. Recibos anteriores sin campo conservan redacción aislada; cadenas históricas sin trazabilidad pueden rechazar de forma segura y no se infiere autorización. Preflight proyecta enlaces autorizados en memoria entre eventos sin escribir sustitutos/auditorías. Resultados separados:20 pruebas iniciales65,97s,4 de preflight/ownership63,38s y14 finales142,05s de seguridad/medios/eventos/secuencia real. [Evidencia y versiones](evidencias/recuperacion-sustitucion-firmada0100.json). Sustituto eliminado antes del ensayo para representar su ausencia en copia vieja; se recuperan dos ejecuciones autorizadas con identidad sintética, tercero preservado y borrado exclusivo real. Runtime b50e69f no actualizado; falta regresión integrada y entrega. CR09/contrato abiertos.
 
 Entrega de sustitutos0100 verificada:76 pruebas conjuntas correctas306,30s, sin fallos/errores/omitidas;587 hashes congelados intactos. Docker app/worker/Beat recreados con corrección;5 hashes afectados coinciden host/tres servicios, UID10001, check/migrate-check y salud200 correctos. [Evidencia](evidencias/recuperacion-sustitutos-integrada-runtime0100.json). Prevalece sobre estados anteriores de corrección no integrada/runtime b50e69f. CR09 sigue abierto, estimaciones orientativas82%/56% sin recalcular; siguiente matriz residual y operación/cachés/autoridad vigente. No aceptación global ni producción.
+
+Preflight de sustitutos0100: reproducción2 fallos/2 correctas63,63s confirma que comprobación previa aceptaba sustituto poblado o referenciado por otro perfil mientras aplicación lo rechazaba. Validación única validate_empty_replacement incorporada a ownership/preflight y reaplicación.8 pruebas correctas97,35s; errores sin salida de éxito ni cambios DB, compatibilidad antigua y secuencia válida de dos eventos conservadas. [Evidencia](evidencias/recuperacion-preflight-sustitutos0100.json). Corrección solo workspace, runtime c004262; siguientes vigencia independiente del checkpoint/cachés/operación/matriz residual. CR09 y contrato abiertos.
+
+## Referencia independiente vigente
+
+Los comandos check_recovery_ledger y apply_recovery_ledger exigen expected-ledger/sequence/head además del checkpoint del backup. Obtenerlos de la autoridad operacional independiente antes de recuperar; no derivarlos del archivo que se está validando ni de la copia restaurada. RecoveryStore compara bajo el mismo lock la identidad exacta del checkpoint firmado con la referencia esperada antes de descifrar/aplicar efectos. Firma válida con checkpoint antiguo o distinto se rechaza. Si el registro avanza mientras se recupera, mantener aislamiento y obtener una referencia vigente mediante procedimiento controlado; no ignorar la discrepancia. El mecanismo local verifica una referencia suministrada, no acredita su procedencia/vigencia externa ni reemplaza contratación/custodia de una autoridad fuera del servidor.
+
+Referencia independiente0100 implementada en workspace: comandos check/apply exigen expected-ledger/sequence/head; RecoveryStore compara exactamente la referencia suministrada con checkpoint firmado bajo lock antes de verificar/descifrar sufijo.19 pruebas correctas88,27s; rollback firmado válido se rechaza con referencia más reciente y diferencias ledger/head/sequence también. Incluye validación compartida de sustitutos y secuencia de dos ejecuciones. [Evidencia](evidencias/recuperacion-checkpoint-independiente0100.json). No acredita procedencia/vigencia de una autoridad externa; custodia independiente operacional pendiente. Runtime c004262, fuente no entregada; CR09 y contrato abiertos. Cifras82/56 retiradas como medición vigente conforme docs86.
+
+Entrega de autoridad0100 verificada:80 pruebas conjuntas correctas320,56s, sin fallos/errores/omitidas;587 hashes congelados intactos. Docker actualizado app/worker/Beat;4 hashes afectados coinciden host/tres servicios, UID10001, Django check/migrate-check y salud200 correctos. [Evidencia](evidencias/recuperacion-autoridad-integrada-runtime0100.json). Prevalece sobre estado anterior de checkpoint esperado/preflight solo workspace. Referencia independiente obligatoria en CLI; procedencia/custodia externa pendiente. CR09 abierto; seguir recursos locales y matriz residual, CR10→GS01→BF/BB→C pendientes. Cifras82/56 retiradas como medición vigente; seguimiento por requisitos en docs83/86.

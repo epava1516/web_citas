@@ -89,6 +89,9 @@ def test_two_authorized_media_executions_recover_from_before_shared_redaction(
     output = StringIO()
     call_command(
         "check_recovery_ledger",
+        expected_ledger=store.checkpoint().ledger,
+        expected_sequence=store.checkpoint().sequence,
+        expected_head=store.checkpoint().head,
         records_directory=str(store.records_directory),
         checkpoint_directory=str(store.checkpoint_directory),
         backup_ledger=checkpoint.ledger,

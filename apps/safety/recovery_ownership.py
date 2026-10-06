@@ -20,6 +20,21 @@ from scripts.recovery_receipts import validate_receipt
 from .models import RightsExport
 
 
+def validate_empty_replacement(blob, person_id):
+    if blob and (
+        blob.status != "erased"
+        or blob.original
+        or blob.derivative
+        or blob.phash
+        or blob.signature
+        or blob.regional_hashes
+        or blob.width
+        or blob.height
+        or Photo.objects.filter(blob=blob).exclude(revision__listing__person_id=person_id).exists()
+    ):
+        raise LedgerIntegrityError("Recovery replacement is not a private empty placeholder")
+
+
 @sensitive_variables()
 def validate_ownership(receipt, *, projected_photo_blobs=None):
     if not connection.in_atomic_block:
@@ -63,6 +78,11 @@ def validate_ownership(receipt, *, projected_photo_blobs=None):
             != reference["blob"]
         ):
             raise LedgerIntegrityError("Recovery photo scope or blob changed")
+        if "replacement" in reference:
+            replacement = (
+                Blob.objects.select_for_update().filter(pk=reference["replacement"]).first()
+            )
+            validate_empty_replacement(replacement, person_id)
     for job in refs.get("media_jobs", []):
         blob = Blob.objects.select_for_update().filter(pk=job["blob"]).first()
         if (

@@ -1,6 +1,11 @@
+import base64
+from io import StringIO
 from uuid import uuid4
 
 import pytest
+from cryptography.fernet import Fernet
+from django.core.management import call_command
+from django.core.management.base import CommandError
 from test_erasure_execution import payload
 from test_recovery_apply import stored_receipt
 from test_reports import directory, photo_environment  # noqa: F401
@@ -44,7 +49,29 @@ def test_signed_replacement_cannot_reuse_data_or_foreign_resource(
     for row in before:
         Photo.objects.filter(pk=row["id"]).update(**{k: v for k, v in row.items() if k != "id"})
     restored = list(Photo.objects.values())
-    store, checkpoint = stored_receipt(tmp_path, receipt)
+    encryption, signing = Fernet.generate_key(), b"p" * 32
+    store, checkpoint = stored_receipt(tmp_path, receipt, encryption=encryption, signing=signing)
+    monkeypatch.setenv("RECOVERY_ENCRYPTION_KEY", encryption.decode())
+    monkeypatch.setenv("RECOVERY_SIGNING_KEY", base64.urlsafe_b64encode(signing).decode())
+    expected = store.checkpoint()
+    arguments = dict(
+        expected_ledger=expected.ledger,
+        expected_sequence=expected.sequence,
+        expected_head=expected.head,
+        records_directory=str(store.records_directory),
+        checkpoint_directory=str(store.checkpoint_directory),
+        backup_ledger=checkpoint.ledger,
+        backup_sequence=0,
+        backup_head=checkpoint.head,
+    )
+    output = StringIO()
+    if collision != "legacy":
+        with pytest.raises(CommandError):
+            call_command("check_recovery_ledger", stdout=output, **arguments)
+        assert not output.getvalue()
+    else:
+        call_command("check_recovery_ledger", stdout=output, **arguments)
+    assert not RecoveryApplication.objects.exists() and list(Photo.objects.values()) == restored
     settings.RECOVERY_MODE = True
     if collision != "legacy":
         with pytest.raises(LedgerIntegrityError):
