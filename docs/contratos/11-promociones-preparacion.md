@@ -1,10 +1,10 @@
 # CR-10 — Contrato de preparación comercial
 
-Fecha:2026-10-06. Estado: catálogo implementado en rama aislada, pruebas de integración pendientes; CR10 no aceptado. Vinculantes: contrato funcional14 §7 y ejecución16 §4/§13. No cambia el alcance, activa ventas ni acredita proveedor, fiscalidad o condiciones comerciales. La cola y aceptación vigentes están en seguimiento17.
+Fecha:2026-10-06. Estado: catálogo completo integrado y verificado localmente en df88067; CR10 comercial no aceptado. Evidencias/cola vigentes en seguimiento17. Vinculantes: contrato funcional14 §7 y ejecución16 §4/§13. No cambia el alcance, activa ventas ni acredita proveedor, fiscalidad o condiciones comerciales. La cola y aceptación vigentes están en seguimiento17.
 
 ## Entrega independiente inicial: catálogo sin datos de clientes
 
-Preparar primero productos/versiones, administración, validaciones y previsualización ES/EN. La metadata del catálogo no necesita pedidos ni cuentas de clientes. Su auditoría identifica al operador y requiere correspondencia con derechos, descrita al final. MOD01 permite preparación en worktree aislado. El ensayo grande16353 ya terminó correctamente y su congelación está levantada. El orden vigente es verificar PERF-INSPECCIÓN-02 y después los gates del catálogo, sin cargas PG simultáneas; consultar seguimiento17 para handles actuales.
+Preparar primero productos/versiones, administración, validaciones y previsualización ES/EN. La metadata del catálogo no necesita pedidos ni cuentas de clientes. Su auditoría identifica al operador y requiere correspondencia con derechos, descrita al final. MOD01 permite preparación en worktree aislado. El ensayo grande16353 ya terminó correctamente y su congelación está levantada. PERF-INSPECCIÓN-02 y catálogo están cerrados localmente; consultar seguimiento17 para el siguiente trabajo.
 
 | Identificador propuesto | Tipo | Duración inicial | Presentación |
 | --- | --- | ---: | --- |
@@ -46,21 +46,21 @@ Premium/Top se muestran en bloques identificados como patrocinados, siempre desp
 
 ## Auditoría del catálogo y dependencia de derechos
 
-Preparado en rama aislada d772ea0, pendiente de pruebas PG/navegador y aceptación: PromotionCatalogueAudit registra actor, versión de producto, operación, edit_version, fecha y SHA256 del contenido canónico. No conserva nombres/contactos del cliente ni cuerpo libre de solicitud. El evento se inserta en la misma transacción que el cambio; fallo de auditoría debe revertir el cambio. Replay de publicación vigente no añade evento. Los servicios soportados son la vía de escritura; no se acredita protección contra modificaciones directas de DBA.
+Implementado originalmente en d772ea0 e integrado/verificado localmente en df88067: PromotionCatalogueAudit registra actor, versión de producto, operación, edit_version, fecha y SHA256 del contenido canónico. No conserva nombres/contactos del cliente ni cuerpo libre de solicitud. El evento se inserta en la misma transacción que el cambio; fallo de auditoría debe revertir el cambio. Replay de publicación vigente no añade evento. Los servicios soportados son la vía de escritura; no se acredita protección contra modificaciones directas de DBA.
 
-El actor es dato personal: censo de cuenta y perfil sujeto incluye únicamente sus eventos como dependent_evidence, con revisión requerida y digest sensible a cambios. La configuración del catálogo no concede autoridad sobre otros operadores. Esto introduce dependencia explícita con fuentes de CR09 y exige regresiones de acceso/conservación/aislamiento antes de integrar. No fija automáticamente plazo legal ni borrado; esos mecanismos requieren la decisión de finalidad y conservación ya prevista. Migración catalog0003 sin aplicar; pruebas escritas, no ejecutadas.
+El actor es dato personal: censo de cuenta y perfil sujeto incluye únicamente sus eventos como dependent_evidence, con revisión requerida y digest sensible a cambios. La configuración del catálogo no concede autoridad sobre otros operadores. Esto introduce dependencia explícita con fuentes de CR09 y exige regresiones de acceso/conservación/aislamiento antes de integrar. No fija automáticamente plazo legal ni borrado; esos mecanismos requieren la decisión de finalidad y conservación ya prevista. Migración catalog0003 aplicada en PostgreSQL local; regresiones de derechos y aislamiento correctas. No acredita conservación jurídica integral.
 
 
 ## Ejecución reproducible de gates pendientes
 
-Rama aislada, scripts/verify_promotion_catalogue.py (1657f1f): ejecutor preparado, no ejecutado. Después de la carga activa indicada en seguimiento17 y de revisar su resultado, usar el intérprete .venv del proyecto principal y pasar --env-file con su .env y --output con directorio privado nuevo absoluto de /tmp. El ejecutor exige fuentes confirmadas en Git; crea una base promotion_gate_UUID y la base de tests correspondiente, aplica migraciones reales y ejecuta catálogo/auditoría/móvil junto con regresiones de avisos, dependencias de inventario y ámbito de copia. Captura logs privados, JUnit, commit y SHA256 de artefactos; elimina únicamente las dos bases de su invocación y verifica ausencia. No altera ni borra la base principal. PostgreSQL desechable no significa servicios externos aislados/verificados: worker/Beat no se prueban en esta batería, los fixtures conservan sus adaptadores explícitos.
+Rama aislada, scripts/verify_promotion_catalogue.py (1657f1f): ejecutor utilizado en bases PostgreSQL desechables; informes revisados en seguimiento17. Después de la carga activa indicada en seguimiento17 y de revisar su resultado, usar el intérprete .venv del proyecto principal y pasar --env-file con su .env y --output con directorio privado nuevo absoluto de /tmp. El ejecutor exige fuentes confirmadas en Git; crea una base promotion_gate_UUID y la base de tests correspondiente, aplica migraciones reales y ejecuta catálogo/auditoría/móvil junto con regresiones de avisos, dependencias de inventario y ámbito de copia. Captura logs privados, JUnit, commit y SHA256 de artefactos; elimina únicamente las dos bases de su invocación y verifica ausencia. No altera ni borra la base principal. PostgreSQL desechable no significa servicios externos aislados/verificados: worker/Beat no se prueban en esta batería, los fixtures conservan sus adaptadores explícitos.
 
 Gate positivo requiere migration_exit=0, pytest_exit=0, cleanup_verified=true y revisión del JUnit y su alcance; phase_accepted permanece false. Ruff/compilación del ejecutor son comprobaciones estáticas, no evidencia de ejecución, restauración o limpieza real. La migración y las regresiones compartidas deben pasar antes de integrar la rama y verificar Docker.
 
 
 ## Interfaces del catálogo implementadas en rama aislada
 
-Corte ce4729e; pendiente de integración. Prefijo /{es|en}/operations/promotion-products/. Todas las operaciones requieren cuenta activa, MFA habilitado, versiones de sesión/MFA vigentes y permiso catalog.manage_promotion_products. El servidor reconsulta autoridad; ocultar navegación no sustituye autorización. Datos de catálogo privados, respuestas de pantalla con no-store/noindex; sin rutas de compra ni concesión de promociones.
+Interfaces ce4729e integradas en df88067 y comprobadas localmente. Prefijo /{es|en}/operations/promotion-products/. Todas las operaciones requieren cuenta activa, MFA habilitado, versiones de sesión/MFA vigentes y permiso catalog.manage_promotion_products. El servidor reconsulta autoridad; ocultar navegación no sustituye autorización. Datos de catálogo privados, respuestas de pantalla con no-store/noindex; sin rutas de compra ni concesión de promociones.
 
 | Ruta relativa y nombre | GET | POST |
 | --- | --- | --- |
@@ -73,7 +73,11 @@ Producto: slug obligatorio, único, máximo64; kind obligatorio entre premium/to
 
 Entrada inválida de formulario:400 sin mutación. Conflicto de edición/configuración publicada o contador inválido de release:409. Producto/versión inexistentes:404 tras autorización. Sin login:302 al login; sin autoridad:403. Métodos distintos de GET/POST:405. POST exige CSRF; GET no crea auditoría ni cambia estado. Los contadores/paginación son del catálogo privado autorizado.
 
-Pruebas nuevas preparadas, no ejecutadas: GET privado sin efectos, acceso GET/POST directo denegado tras retirada del permiso, formularios inválidos sin cambio, publicación simultánea de dos versiones conserva ambas configuraciones y exactamente una vigente. Junto a replays/CSRF/MFA/revocaciones/aislamiento/auditoría/móvil, deben pasar sobre la misma versión de rama antes de integrar.
+Pruebas ejecutadas correctamente en el gate inicial: GET privado sin efectos, acceso GET/POST directo denegado tras retirada del permiso, formularios inválidos sin cambio, publicación simultánea de dos versiones conserva ambas configuraciones y exactamente una vigente. Junto a replays/CSRF/MFA/revocaciones/aislamiento/auditoría/móvil, deben pasar sobre la misma versión de rama antes de integrar.
 
 
 El ejecutorcd0da56 requiere credenciales PostgreSQL, pero si falta SAFETY_ENCRYPTION_KEY genera una clave Fernet efímera para esta invocación de datos sintéticos. No escribe esa clave en archivos/logs ni modifica la aplicación principal; base/resultados personales permanecen desechables. El primer arranque abortó antes de crear bases por la exigencia innecesaria de esa clave. Esto no acredita configuración de cifrado productiva.
+
+## Cierre local verificado
+
+Catálogo integrado, migraciones aplicadas y Docker comprobado. Evidencia inicial40 casos correctos, repetición dirigida4 correctos y dependencia común22 correctos son runs separados, sin aceptación N3. Informes: [corregidos](../evidencias/promociones-catalogo-gates-corregidos0110.json), [integración](../evidencias/promociones-catalogo-integracion0110.json), [runtime](../evidencias/promociones-catalogo-runtime0110.json). El catálogo nunca concede promoción ni activa venta. La segunda entrega comercial y los gates de fase/producción permanecen pendientes.
