@@ -1,0 +1,132 @@
+{
+  "schema": "portability-native-large-closed-flow-v1",
+  "application_source": "5df91ea",
+  "test_source": "844085f",
+  "postgresql": true,
+  "synthetic_data": true,
+  "result": {
+    "tests": "1",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "5338.103"
+  },
+  "progress": {
+    "state": {
+      "active": null,
+      "terminal": true,
+      "success": true
+    },
+    "stages": {
+      "selection_preparation": {
+        "calls": 1,
+        "sql_queries": 2741,
+        "seconds_total_instrumented": 28.77922901092097,
+        "seconds_max_instrumented": 28.77922901092097,
+        "sampled_process_rss_peak_bytes": 258781184
+      },
+      "coverage_preparation": {
+        "calls": 1,
+        "sql_queries": 436,
+        "seconds_total_instrumented": 4.798236317001283,
+        "seconds_max_instrumented": 4.798236317001283,
+        "sampled_process_rss_peak_bytes": 260714496
+      },
+      "coverage_page_intake": {
+        "calls": 1511,
+        "sql_queries": 438192,
+        "seconds_total_instrumented": 5127.241752516478,
+        "seconds_max_instrumented": 4.151612313929945,
+        "sampled_process_rss_peak_bytes": 260726784
+      },
+      "coverage_approval": {
+        "calls": 1,
+        "sql_queries": 175,
+        "seconds_total_instrumented": 6.990470876917243,
+        "seconds_max_instrumented": 6.990470876917243,
+        "sampled_process_rss_peak_bytes": 259702784
+      },
+      "covered_generation": {
+        "calls": 1,
+        "sql_queries": 1154,
+        "seconds_total_instrumented": 23.050503008067608,
+        "seconds_max_instrumented": 23.050503008067608,
+        "sampled_process_rss_peak_bytes": 269946880
+      },
+      "final_draft_preparation": {
+        "calls": 1,
+        "sql_queries": 341,
+        "seconds_total_instrumented": 13.04687793366611,
+        "seconds_max_instrumented": 13.04687793366611,
+        "sampled_process_rss_peak_bytes": 270004224
+      },
+      "final_draft_inspection": {
+        "calls": 1,
+        "sql_queries": 390,
+        "seconds_total_instrumented": 13.54870177200064,
+        "seconds_max_instrumented": 13.54870177200064,
+        "sampled_process_rss_peak_bytes": 270069760
+      },
+      "final_approval": {
+        "calls": 1,
+        "sql_queries": 616,
+        "seconds_total_instrumented": 19.745952554047108,
+        "seconds_max_instrumented": 19.745952554047108,
+        "sampled_process_rss_peak_bytes": 270053376
+      },
+      "closure": {
+        "calls": 1,
+        "sql_queries": 424,
+        "seconds_total_instrumented": 13.283789081964642,
+        "seconds_max_instrumented": 13.283789081964642,
+        "sampled_process_rss_peak_bytes": 269991936
+      },
+      "closure_replay": {
+        "calls": 1,
+        "sql_queries": 224,
+        "seconds_total_instrumented": 6.720791393890977,
+        "seconds_max_instrumented": 6.720791393890977,
+        "sampled_process_rss_peak_bytes": 269926400
+      },
+      "manifest_download": {
+        "calls": 1,
+        "sql_queries": 339,
+        "seconds_total_instrumented": 14.044829872436821,
+        "seconds_max_instrumented": 14.044829872436821,
+        "sampled_process_rss_peak_bytes": 269996032
+      },
+      "image_download": {
+        "calls": 1,
+        "sql_queries": 337,
+        "seconds_total_instrumented": 14.008333600126207,
+        "seconds_max_instrumented": 14.008333600126207,
+        "sampled_process_rss_peak_bytes": 270000128
+      },
+      "zip_download": {
+        "calls": 1,
+        "sql_queries": 337,
+        "seconds_total_instrumented": 14.064071807079017,
+        "seconds_max_instrumented": 14.064071807079017,
+        "sampled_process_rss_peak_bytes": 270069760
+      }
+    }
+  },
+  "artifacts": {
+    "/tmp/pytest-of-felidae/pytest-1003/test_large_history_native_appr0/native-closed-flow-progress.json": "3dda4cfbeeb16996a2389429888e411797e7ad7cccd1afdc75a44d0f4e2bcf37",
+    "/tmp/portability-large-closed-flow-final.xml": "8b3c20ef59944dc2347f3f842a2dec495f6219a8df80e2b7d40a99ca14e37ce5",
+    "/tmp/portability-large-closed-flow-final.log": "e2c84b6879031c2e5d2d0fb5519751bdf5e350c22c4f9f869dc577f088747cc5"
+  },
+  "verified": [
+    "1511 native coverage page reads",
+    "final approval and resolved closure",
+    "closure replay preserves response and unique closure/notice",
+    "private JSON/WebP/ZIP downloads and matching SHA/content"
+  ],
+  "limits": [
+    "History mostly excluded from delivered fields",
+    "Normal small WebP; no large binary or selected-history transport acceptance",
+    "Synthetic proof/eligibility/exclusions; no provider/legal attestation",
+    "89 minutes; throughput optimization and capacity remain pending",
+    "Not full CR09 phase regression"
+  ]
+}
