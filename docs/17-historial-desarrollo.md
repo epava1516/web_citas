@@ -2592,3 +2592,8 @@ CR10-PREP-01, /home/felidae/proyectos/web_modelos_cr10prep/rama codex/cr10-catal
 ### Preparación aislada de navegación del catálogo
 
 Rama codex/cr10-catalog-prep, commit92972f3: acceso desde panel por permiso y prueba móvil ES/EN preparada para creación, guardado, release y recarga. Ruff/diff correctos; no ejecutada integración ni navegador mientras el benchmark1452324 sigue activo (475 páginas observadas). No integración en master, aceptación ni cambio de porcentajes. Pendiente trazabilidad privilegiada y gates de catálogo indicados en seguimiento17.
+
+
+### Auditoría de catálogo preparada con dependencia explícita
+
+Rama codex/cr10-catalog-prep d772ea0: evento mínimo transaccional por operador/cambio, replay de release sin duplicación y censo propio cuenta/perfil como evidencia dependiente. Migración catalog0003 generada sin aplicar. Tests de rollback/replay y censo/aislamiento preparados, no ejecutados; Ruff/check correctos. No cambios en aplicación principal mientras benchmark1452324 continúa (500 páginas observadas, proceso vivo). Pendiente validación PG/navegador y regresiones de derechos; sin aceptación ni modificación de v7.

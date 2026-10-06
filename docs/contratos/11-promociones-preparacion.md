@@ -42,3 +42,10 @@ Premium/Top se muestran en bloques identificados como patrocinados, siempre desp
 5. Pausa/caducidad/retiro/transferencia y tarea antigua detienen exposición; snapshots comerciales y auditoría conservan su significado.
 6. Nuevos datos personales incorporados a derechos, conservación y recuperación antes de aceptar su cobertura; sin pagos por servicios de anunciantes, créditos, recurrencias o reservas.
 7. Docker, contratos concretos de rutas/formularios/eventos y batería integrada sobre misma versión; declarar adaptador de pruebas y gates externos pendientes. Solo entonces considerar aceptación CR10 y requisitos GS01.
+
+
+## Auditoría del catálogo y dependencia de derechos
+
+Preparado en rama aislada d772ea0, pendiente de pruebas PG/navegador y aceptación: PromotionCatalogueAudit registra actor, versión de producto, operación, edit_version, fecha y SHA256 del contenido canónico. No conserva nombres/contactos del cliente ni cuerpo libre de solicitud. El evento se inserta en la misma transacción que el cambio; fallo de auditoría debe revertir el cambio. Replay de publicación vigente no añade evento. Los servicios soportados son la vía de escritura; no se acredita protección contra modificaciones directas de DBA.
+
+El actor es dato personal: censo de cuenta y perfil sujeto incluye únicamente sus eventos como dependent_evidence, con revisión requerida y digest sensible a cambios. La configuración del catálogo no concede autoridad sobre otros operadores. Esto introduce dependencia explícita con fuentes de CR09 y exige regresiones de acceso/conservación/aislamiento antes de integrar. No fija automáticamente plazo legal ni borrado; esos mecanismos requieren la decisión de finalidad y conservación ya prevista. Migración catalog0003 sin aplicar; pruebas escritas, no ejecutadas.
