@@ -1,0 +1,48 @@
+{
+  "tests": 76,
+  "seconds": 306.179,
+  "xml": "/tmp/recovery-replacements-integrated0100.xml",
+  "frozen_sources": 587,
+  "source_unchanged": true,
+  "runtime": {
+    "app": {
+      "uid": 10001,
+      "files": {
+        "apps/safety/recovery_apply.py": "c13b4f8e9d1b218b6fbd535c79318a1800e90049816972425922e8eab180b22a",
+        "apps/safety/recovery_effects.py": "2ca6bfb9e73356d51d96413f146e42355dfccc4417e7b30bb1766b2363025a97",
+        "apps/safety/recovery_ownership.py": "86ca9908c58f60e8ec4b92a2884a66d1fc37d4f3da0814e09b6224303e8a12cc",
+        "apps/safety/management/commands/check_recovery_ledger.py": "4a8656cdcec7442b471ea0b787cecb80419f55d3538cd4c88134f77f191b664f",
+        "scripts/recovery_receipts.py": "9a306dd8ff887952d573d246de51a3d35bdac30fc0814894a392809e6cbe285c"
+      }
+    },
+    "worker": {
+      "uid": 10001,
+      "files": {
+        "apps/safety/recovery_apply.py": "c13b4f8e9d1b218b6fbd535c79318a1800e90049816972425922e8eab180b22a",
+        "apps/safety/recovery_effects.py": "2ca6bfb9e73356d51d96413f146e42355dfccc4417e7b30bb1766b2363025a97",
+        "apps/safety/recovery_ownership.py": "86ca9908c58f60e8ec4b92a2884a66d1fc37d4f3da0814e09b6224303e8a12cc",
+        "apps/safety/management/commands/check_recovery_ledger.py": "4a8656cdcec7442b471ea0b787cecb80419f55d3538cd4c88134f77f191b664f",
+        "scripts/recovery_receipts.py": "9a306dd8ff887952d573d246de51a3d35bdac30fc0814894a392809e6cbe285c"
+      }
+    },
+    "beat": {
+      "uid": 10001,
+      "files": {
+        "apps/safety/recovery_apply.py": "c13b4f8e9d1b218b6fbd535c79318a1800e90049816972425922e8eab180b22a",
+        "apps/safety/recovery_effects.py": "2ca6bfb9e73356d51d96413f146e42355dfccc4417e7b30bb1766b2363025a97",
+        "apps/safety/recovery_ownership.py": "86ca9908c58f60e8ec4b92a2884a66d1fc37d4f3da0814e09b6224303e8a12cc",
+        "apps/safety/management/commands/check_recovery_ledger.py": "4a8656cdcec7442b471ea0b787cecb80419f55d3538cd4c88134f77f191b664f",
+        "scripts/recovery_receipts.py": "9a306dd8ff887952d573d246de51a3d35bdac30fc0814894a392809e6cbe285c"
+      }
+    }
+  },
+  "health200": true,
+  "django_check_ok": true,
+  "migrate_check_ok": true,
+  "limits": [
+    "Recovery modules and inventory census only, not full repository regression",
+    "Synthetic local PostgreSQL/files/worker/Beat and actual backup restore",
+    "Legacy chains lacking exact replacement mappings may fail closed",
+    "No external checkpoint freshness/CDN/provider or global CR09 acceptance"
+  ]
+}

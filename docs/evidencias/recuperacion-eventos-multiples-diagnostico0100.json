@@ -1,0 +1,26 @@
+{
+  "scope": "Multiple signed events and actual two-execution shared-media sequence",
+  "signed_suffix_tests": 4,
+  "signed_suffix_seconds": 58.63,
+  "actual_sequence_tests": 1,
+  "actual_sequence_failures": 1,
+  "actual_sequence_seconds": 39.67,
+  "xmls": [
+    "/tmp/recovery-multiple0100.xml",
+    "/tmp/recovery-media-sequence-before0100.xml"
+  ],
+  "actual_defect": "First redaction recovery creates a fresh placeholder Blob UUID; second authorized execution references original placeholder and ownership rejects changed blob",
+  "safe_behavior": "Atomic recovery application rolls back; no physical deletion performed; publication remains isolated",
+  "next_required_change": "Record authorized photo-to-placeholder replacement identifiers in independently signed receipt, validate bindings and reconstruct same safe empty replacement during recovery; retain fail-closed checks for unrelated resources",
+  "limits": [
+    "Four signed suffix tests use synthetic derived receipt, not four actual rights executions",
+    "Two-media test uses real execution services with synthetic identity verification",
+    "No global acceptance or production readiness"
+  ],
+  "files": {
+    "tests/test_recovery_multiple_events.py": "d5bf210c7d6a2d5b4a3908cc23074880b940ad16cb52ae5557f1ff983a17a15b",
+    "tests/test_recovery_media_sequence.py": "00e52930f25027bdd02e4add2918657af2bb5274252235dda7cd12e16eb6f592",
+    "apps/safety/recovery_apply.py": "292f9fe6de98c94794aa4a70b2544312dbf4f25b2f85619a9902d93ff9792945",
+    "apps/safety/recovery_ownership.py": "d1fb97c21af25e1a00d84d45d1d6104685269c8eb49fc2b9dd3c311ae81a73dd"
+  }
+}

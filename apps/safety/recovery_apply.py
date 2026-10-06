@@ -1,6 +1,7 @@
 """Offline typed database reconciliation. Physical deletion is a separate stage."""
 
 import uuid
+from hashlib import sha256
 
 from cryptography.fernet import InvalidToken
 from django.conf import settings
@@ -198,18 +199,37 @@ def apply_database(receipt):
             Photo.objects.filter(revision__listing__person=person).update(
                 removed_at=now, approved=False, comparison_complete=True
             )
-            shared = [
-                reference["photo"]
-                for reference in refs["resources"]["photos"]
-                if reference["shared"]
-            ]
-            if shared:
-                placeholder = Blob.objects.create(
-                    sha256=uuid.uuid4().hex + uuid.uuid4().hex, status="erased"
+            shared = [reference for reference in refs["resources"]["photos"] if reference["shared"]]
+            for reference in shared:
+                replacement = reference.get("replacement", str(uuid.uuid4()))
+                placeholder, _ = Blob.objects.select_for_update().get_or_create(
+                    pk=replacement,
+                    defaults={
+                        "sha256": sha256(
+                            ("recovery-placeholder:" + replacement).encode()
+                        ).hexdigest(),
+                        "status": "erased",
+                    },
                 )
-                Photo.objects.filter(pk__in=shared, revision__listing__person=person).update(
-                    blob=placeholder
-                )
+                if (
+                    placeholder.status != "erased"
+                    or placeholder.original
+                    or placeholder.derivative
+                    or placeholder.phash
+                    or placeholder.signature
+                    or placeholder.regional_hashes
+                    or placeholder.width
+                    or placeholder.height
+                    or Photo.objects.filter(blob=placeholder)
+                    .exclude(revision__listing__person=person)
+                    .exists()
+                ):
+                    raise LedgerIntegrityError(
+                        "Recovery replacement is not a private empty placeholder"
+                    )
+                Photo.objects.filter(
+                    pk=reference["photo"], revision__listing__person=person
+                ).update(blob=placeholder)
         person.rights_version = max(
             person.rights_version + 1, refs["person"]["minimum_rights_version"]
         )

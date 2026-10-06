@@ -18,11 +18,11 @@ from scripts.recovery_store import RecoveryStore
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def stored_receipt(tmp_path, receipt):
+def stored_receipt(tmp_path, receipt, *, encryption=None, signing=None):
     records, checkpoints = tmp_path / "records", tmp_path / "checkpoints"
     records.mkdir(mode=0o700)
     checkpoints.mkdir(mode=0o700)
-    codec = RecoveryLedger(Fernet.generate_key(), b"a" * 32)
+    codec = RecoveryLedger(encryption or Fernet.generate_key(), signing or b"a" * 32)
     store = RecoveryStore(records, checkpoints, codec)
     start = Checkpoint(str(uuid4()), 0, ZERO)
     store.initialize(start)

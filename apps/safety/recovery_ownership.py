@@ -21,7 +21,7 @@ from .models import RightsExport
 
 
 @sensitive_variables()
-def validate_ownership(receipt):
+def validate_ownership(receipt, *, projected_photo_blobs=None):
     if not connection.in_atomic_block:
         raise RuntimeError("Recovery ownership requires an enclosing transaction")
     validate_receipt(receipt)
@@ -59,7 +59,8 @@ def validate_ownership(receipt):
         photo = Photo.objects.select_for_update().filter(pk=reference["photo"]).first()
         if photo and (
             str(photo.revision.listing.person_id) != person_id
-            or str(photo.blob_id) != reference["blob"]
+            or (projected_photo_blobs or {}).get(str(photo.pk), str(photo.blob_id))
+            != reference["blob"]
         ):
             raise LedgerIntegrityError("Recovery photo scope or blob changed")
     for job in refs.get("media_jobs", []):

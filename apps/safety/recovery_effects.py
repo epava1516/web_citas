@@ -70,6 +70,15 @@ def finalized(refs, person, subject, purposes, execution):
             "minimum_manager_version": person.manager_version,
         }
     if "media" in purposes:
+        replacements = dict(
+            Photo.objects.filter(
+                pk__in=[row["photo"] for row in refs["photos"] if row["shared"]]
+            ).values_list("pk", "blob_id")
+        )
+        if refs["media_operation"] == "detach_shared_and_review_exclusive":
+            for row in refs["photos"]:
+                if row["shared"]:
+                    row["replacement"] = str(replacements[Photo._meta.pk.to_python(row["photo"])])
         value["media_jobs"] = [
             {"job": str(job.pk), "blob": str(job.blob_id), "paths": unseal(job.encrypted_paths)}
             for job in MediaErasure.objects.filter(execution=execution).order_by("pk")

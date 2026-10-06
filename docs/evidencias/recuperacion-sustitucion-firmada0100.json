@@ -1,0 +1,46 @@
+{
+  "scope": "Signed photo replacement traceability and consecutive authorized media executions",
+  "runs": [
+    {
+      "xml": "/tmp/recovery-replacement0100.xml",
+      "tests": 20,
+      "seconds": 65.858
+    },
+    {
+      "xml": "/tmp/recovery-replacement-preflight0100.xml",
+      "tests": 4,
+      "seconds": 63.295
+    },
+    {
+      "xml": "/tmp/recovery-replacement-security0100.xml",
+      "tests": 14,
+      "seconds": 141.92
+    }
+  ],
+  "runs_are_separate_not_summed": true,
+  "covered": [
+    "real execution services generate signed exact replacement identifiers",
+    "absent backup placeholder reconstructed with same UUID",
+    "two actual authorized media receipts preflight without DB writes then apply and physically delete exclusive file",
+    "shared peer preserved and replay idempotent",
+    "reject replacement with data or foreign photo reference and original ID collision; transaction rollback",
+    "legacy receipt without replacement still handles single redaction"
+  ],
+  "files": {
+    "apps/safety/recovery_effects.py": "2ca6bfb9e73356d51d96413f146e42355dfccc4417e7b30bb1766b2363025a97",
+    "apps/safety/recovery_apply.py": "c13b4f8e9d1b218b6fbd535c79318a1800e90049816972425922e8eab180b22a",
+    "apps/safety/recovery_ownership.py": "86ca9908c58f60e8ec4b92a2884a66d1fc37d4f3da0814e09b6224303e8a12cc",
+    "apps/safety/management/commands/check_recovery_ledger.py": "4a8656cdcec7442b471ea0b787cecb80419f55d3538cd4c88134f77f191b664f",
+    "scripts/recovery_receipts.py": "9a306dd8ff887952d573d246de51a3d35bdac30fc0814894a392809e6cbe285c",
+    "tests/test_recovery_media_sequence.py": "8fe67a81f0c5c024d1b882e098ccd9716de61a9fad874641648797b381f28752",
+    "tests/test_recovery_replacement_security.py": "46609f410d9f01684c1d7face3f1268c25ad49150456b4bd0b217708d92daa9c",
+    "tests/test_recovery_multiple_events.py": "d5bf210c7d6a2d5b4a3908cc23074880b940ad16cb52ae5557f1ff983a17a15b"
+  },
+  "limits": [
+    "First20 run predates preflight projection change; final14 covers current media and event sources, not full recovery suite",
+    "Legacy historical multi-event receipts without exact mapping may still reject safely; no inferred authorization",
+    "Synthetic identities and local storage; no provider proof",
+    "Runtime remains delivered b50e69f; corrections uncommitted",
+    "Full recovery regression, Docker and contract acceptance pending"
+  ]
+}

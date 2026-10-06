@@ -130,10 +130,21 @@ def _validate_receipt(value):
         require(isinstance(resources["photos"], list) and isinstance(refs.get("media_jobs"), list))
         seen = set()
         for photo in resources["photos"]:
-            require(isinstance(photo, dict) and set(photo) == {"photo", "blob", "shared"})
+            require(
+                isinstance(photo, dict)
+                and set(photo)
+                in ({"photo", "blob", "shared"}, {"photo", "blob", "shared", "replacement"})
+            )
             identifier(photo["photo"])
             identifier(photo["blob"])
             require(type(photo["shared"]) is bool and photo["photo"] not in seen)
+            if "replacement" in photo:
+                require(
+                    photo["shared"]
+                    and resources["media_operation"] == "detach_shared_and_review_exclusive"
+                )
+                require(str(UUID(photo["replacement"])) == photo["replacement"])
+                require(all(row["blob"] != photo["replacement"] for row in resources["photos"]))
             seen.add(photo["photo"])
         seen_jobs, seen_blobs = set(), set()
         for job in refs["media_jobs"]:

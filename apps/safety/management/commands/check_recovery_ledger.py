@@ -40,8 +40,12 @@ class Command(BaseCommand):
             store, start = self.recovery_store(options)
             receipts = store.recover(start)
             with transaction.atomic():
+                projected_photo_blobs = {}
                 for receipt in receipts:
-                    validate_ownership(receipt)
+                    validate_ownership(receipt, projected_photo_blobs=projected_photo_blobs)
+                    for photo in receipt["references"]["resources"].get("photos", []):
+                        if "replacement" in photo:
+                            projected_photo_blobs[photo["photo"]] = photo["replacement"]
         except (ValueError, KeyError, OSError, TypeError) as error:
             raise CommandError("Recovery preflight failed; keep recovery isolated") from error
         self.stdout.write(
