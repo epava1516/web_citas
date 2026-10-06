@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Synthetic promotion order{% else %}Pedido sintético de promoción{% endif %}</h1>
+<p>{% if english %}Simulation only. No real payment or service booking.{% else %}Solo simulación. Sin pago real ni reserva de servicios.{% endif %}</p>
+<dl><dt>{% if english %}Listing{% else %}Anuncio{% endif %}</dt><dd>{{ order.listing.person.alias }}</dd><dt>{% if english %}Product{% else %}Producto{% endif %}</dt><dd>{{ order.kind }}</dd><dt>{% if english %}Total (tax included){% else %}Total (impuestos incluidos){% endif %}</dt><dd>{{ order.amount }} {{ order.currency }}</dd><dt>{% if english %}Tax amount{% else %}Importe de impuestos{% endif %}</dt><dd>{{ order.tax_amount }} {{ order.currency }}</dd><dt>{% if english %}Days{% else %}Días{% endif %}</dt><dd>{{ order.duration_days }}</dd><dt>{% if english %}Test status{% else %}Estado de prueba{% endif %}</dt><dd>{% if order.status == "paid" %}{% if english %}Confirmed simulated payment{% else %}Pago simulado confirmado{% endif %}{% elif order.status == "cancelled" %}{% if english %}Cancelled{% else %}Cancelado{% endif %}{% else %}{% if english %}Pending{% else %}Pendiente{% endif %}{% endif %}</dd></dl>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Simulate outcome{% else %}Simular resultado{% endif %}</button></form>
+<a href="{% url 'promotion_orders' %}">{% if english %}My test orders{% else %}Mis pedidos de prueba{% endif %}</a>
+{% endblock %}

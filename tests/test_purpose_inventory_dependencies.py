@@ -24,7 +24,17 @@ def test_same_procedure_excluded_other_procedure_visible_and_opaque_cipher_chang
     case, _, _, plan, _, proposal, _, _ = approved(request, settings, monkeypatch)
     current = snapshot(case.pk)
     rows = {item["model"]: item for item in current["entries"]}
-    assert len(rows) == 76
+    assert len(rows) == 82
+    for name in [
+        "PromotionOrder",
+        "PromotionPaymentAttempt",
+        "PromotionPaymentEvent",
+        "PromotionEntitlement",
+        "PromotionBumpExecution",
+        "PromotionOrderAudit",
+    ]:
+        assert rows["catalog." + name]["count"] == 0
+        assert rows["catalog." + name]["purpose"] == "dependent_evidence"
     assert rows["catalog.PromotionCatalogueAudit"]["count"] == 0
     assert rows["catalog.PromotionCatalogueAudit"]["purpose"] == "dependent_evidence"
     assert rows["safety.PublicationCalendarEvent"]["count"] == 0

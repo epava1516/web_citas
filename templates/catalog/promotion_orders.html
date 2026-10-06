@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Test promotion orders{% else %}Pedidos de promociones de prueba{% endif %}</h1>
+<p>{% if english %}Simulation only. No money is charged. Promotions do not change editorial publication dates.{% else %}Solo simulación. No se cobra dinero. Las promociones no cambian las fechas editoriales de publicación.{% endif %}</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Create test order{% else %}Crear pedido de prueba{% endif %}</button></form>
+<ul>{% for order in page %}<li><a href="{% url 'promotion_order_detail' order_id=order.pk %}">{{ order.listing.person.alias }} · {{ order.kind }} · {{ order.amount }} {{ order.currency }}</a></li>{% empty %}<li>{% if english %}No test orders{% else %}Sin pedidos de prueba{% endif %}</li>{% endfor %}</ul>
+{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">{% if english %}Previous{% else %}Anterior{% endif %}</a>{% endif %} {% if page.has_next %}<a href="?page={{ page.next_page_number }}">{% if english %}Next{% else %}Siguiente{% endif %}</a>{% endif %}
+{% endblock %}
