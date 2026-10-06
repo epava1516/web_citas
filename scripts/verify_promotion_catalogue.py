@@ -14,6 +14,7 @@ import uuid
 from pathlib import Path
 
 import psycopg
+from cryptography.fernet import Fernet
 from psycopg import sql
 
 TESTS = [
@@ -38,8 +39,11 @@ def main():
         key, separator, value = line.partition("=")
         if separator and key in allowed:
             env[key] = value.strip().strip("\"'")
-    if not allowed <= env.keys():
-        parser.error("Required database/encryption configuration missing")
+    if not (allowed - {"SAFETY_ENCRYPTION_KEY"}) <= env.keys():
+        parser.error("Required database configuration missing")
+    ephemeral_key = not env.get("SAFETY_ENCRYPTION_KEY")
+    if ephemeral_key:
+        env["SAFETY_ENCRYPTION_KEY"] = Fernet.generate_key().decode("ascii")
     if subprocess.run(["git", "diff", "--quiet", "HEAD"], cwd=root).returncode:
         parser.error("Commit the tested source before running these gates")
     args.output.mkdir(mode=0o700, parents=True, exist_ok=False)
@@ -52,6 +56,7 @@ def main():
             ["git", "rev-parse", "HEAD"], cwd=root, text=True
         ).strip(),
         "synthetic_data": True,
+        "ephemeral_test_encryption_key": ephemeral_key,
         "tests": TESTS,
         "migration_exit": None,
         "pytest_exit": None,
