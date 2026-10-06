@@ -2428,3 +2428,8 @@ Omisión reproducible por expire_date>cutoff en censo existente: ahora examina f
 ## 2026-10-06 — Entrega sesiones retenidas y runtime0110
 
 552e9b6 commit/push confirmado. Captura previa cifrada de seis servicios a13:43:50UTC en /tmp/retained-sessions-predeploy0110-6cu0gjhj/access-log-origins.encrypted, parcial y cuatro pendientes originales conservados. Build/recreación solo app/worker/Beat correctos.53 SHA256 host/servicios iguales, UID10001/PG/0110/session backendDB, conteos reales de sesiones totales/caducadas consultados solo lectura, RecoveryModeFalse y cola/prefijo normal. Check/migratecheck/HTTP8000+18080=200/CSS correctos. [Runtime](evidencias/sesiones-caducadas-runtime0110.json). Conteo global no acredita asociación completa por titular; no eliminar sesiones principales ni extrapolar a cachés/backups/host. Sin tarea nueva ni repetición de purga aceptada. Seguimiento17 actualizado, v4 intacta, contrato completo continúa abierto.
+
+
+## 2026-10-06 — Bytes acotados antes de transferir censo Redis
+
+Detectado límite previo solo de cantidad, con comprobación de bytes después de recibir todos los valores. Lua EVAL_RO ahora rechaza por256KiB/mensaje u8MiB agregados entre prioridades/reservados antes de devolverlos al cliente. Cantidad1000 porbucket conservada. Redis/Kombu real aislado:1 prueba final1,04s correcta, incluyendo flujo válido/ajeno/reservado/prioridad, payload individual/reservado grande, acumulado entre buckets y no consumo. Preliminar1,03s ampliado; no contar como dos pruebas distintas. [Evidencia](evidencias/censo-colas-limites-bytes0110.json). Sin task/migración ni cola normal afectada; memoria/latencia interna Redis no acreditadas. CR09/contrato y porcentajesv4 intactos.

@@ -1,0 +1,39 @@
+{
+  "status": "verified_read_only_redis_census_byte_bounds",
+  "run": {
+    "xml": "/tmp/bounded-redis-resource-census0110.xml",
+    "sha256": "75e921edf13ce96f747e37c96d2ea0d5c71c010f062711dd311b8611fe40d3d3",
+    "statistics": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "0.976",
+      "timestamp": "2026-10-06T15:48:24.967290+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    },
+    "exit_code": 0
+  },
+  "source_sha256": {
+    "apps/safety/rights_access_delivery.py": "1998dc0c088bdc75af28f2948a49b6cf95b548979522a424296689c47fb6d8ee"
+  },
+  "bounds": {
+    "messages_per_bucket": 1000,
+    "message_bytes": 262144,
+    "aggregate_bytes": 8388608
+  },
+  "covered": [
+    "Actual Kombu queued/priority/reserved records, own/foreign scopes",
+    "Single oversized queued and reserved payloads rejected before Redis response transfer",
+    "Aggregate limit across priority buckets",
+    "No consumption/acknowledgement/mutation by census; only isolated fixture cleanup",
+    "Existing invalid-message/count limits retained"
+  ],
+  "limits": [
+    "Application transfer bounded; Lua still inspects stored strings on Redis server",
+    "No complete queue routing/host/cache/backup operational census claimed",
+    "Isolated queue/prefix only; normal project queue untouched",
+    "Earlier1.03s run extended with reserved/cross-priority byte checks; final1.04s run is authoritative, not two distinct tests"
+  ]
+}

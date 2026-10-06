@@ -64,3 +64,10 @@ El censo de sesión examina filas que aún existen, incluidas las caducadas. Su 
 La selección compara únicamente el titular autorizado; datos/claves de sesiones ajenas no salen en el resultado. Las huellas propias cambian cuando cambia su contenido o se elimina una fila. Recorrido PostgreSQL de perfil/cuenta verifica respuesta/cierre/descarga con sesión caducada sin capacidades ni claves. [Evidencia](evidencias/sesiones-caducadas-retenidas0110.json). Fuentes operativas configuradas en esas pruebas siguen siendo sintéticas. Sesiones dañadas/no atribuibles, almacenes distintos de DB y el censo operativo integral continúan pendientes. No tarea, purga automática ni eliminación de sesiones de la base principal añadidas.
 
 Fuente552e9b6 desplegada; [runtime0110](evidencias/sesiones-caducadas-runtime0110.json) verifica53 archivos entre host/app/worker/Beat y consulta solo lectura de sesiones DB. No es certificación del censo operacional completo.
+
+
+## Límites de lectura de colas Redis
+
+El censo atómico EVAL_RO aplica antes de devolver los valores:1000 mensajes por bucket,256KiB por mensaje y8MiB agregados entre colas de prioridades y reservados. Sobrepasar bytes deja queues/bounded_read_bytes pendiente, sin devolver cuerpos parciales ni descartarlos como revisados. El límite de cantidad conserva bounded_read_limit. La lectura no consume ni confirma trabajos; datos ajenos siguen excluidos y mensajes no soportados permanecen pendientes. La inspección de strings sucede en Redis: esto limita la transferencia hacia la aplicación, no acredita memoria/latencia máximas del servidor.
+
+[Prueba real Redis/Kombu](evidencias/censo-colas-limites-bytes0110.json):colas vigentes/reservadas/prioridades, alcance propio/ajeno, límites individuales/reservados/agregados entre buckets y preservación del contenido. Cola/prefijo aislados; no flush ni cambios en cola normal. Sin tarea/migración nueva ni aceptación de censo integral.

@@ -280,12 +280,23 @@ def broker_records(blob_ids):
             captured = client.eval_ro(
                 """
                 local values = {}
+                local total = 0
+                local function within_byte_limit(messages)
+                    for _, raw in ipairs(messages) do
+                        if string.len(raw) > 262144 then return false end
+                        total = total + string.len(raw)
+                        if total > 8388608 then return false end
+                    end
+                    return true
+                end
                 for i = 1, 4 do
                     if redis.call('LLEN', KEYS[i]) > 1000 then return {0} end
-                    values[i] = redis.call('LRANGE', KEYS[i], 0, 1000)
+                    values[i] = redis.call('LRANGE', KEYS[i], 0, 999)
+                    if not within_byte_limit(values[i]) then return {2} end
                 end
                 if redis.call('HLEN', KEYS[5]) > 1000 then return {0} end
                 values[5] = redis.call('HVALS', KEYS[5])
+                if not within_byte_limit(values[5]) then return {2} end
                 return {1, values}
                 """,
                 5,
@@ -296,7 +307,12 @@ def broker_records(blob_ids):
         result["blocked"].append({"resource": "queues", "reason": "broker_unavailable"})
         return result
     if captured[0] != 1:
-        result["blocked"].append({"resource": "queues", "reason": "bounded_read_limit"})
+        result["blocked"].append(
+            {
+                "resource": "queues",
+                "reason": "bounded_read_bytes" if captured[0] == 2 else "bounded_read_limit",
+            }
+        )
         return result
     wire = [(raw, "queued") for messages in captured[1][:4] for raw in messages]
     wire.extend((raw, "reserved") for raw in captured[1][4])

@@ -217,6 +217,35 @@ def test_broker_scope_reads_actual_owned_queued_and_reserved_messages_without_co
             client.lpush(key, b"invalid-synthetic-message")
             assert broker_records({own})["blocked"][0]["reason"] == "unsupported_message"
             client.lpop(key)
+            # Limits must reject oversized wire on Redis before sending it back.
+            oversized = b"x" * (256 * 1024 + 1)
+            client.lpush(key, oversized)
+            assert broker_records({own})["blocked"] == [
+                {"resource": "queues", "reason": "bounded_read_bytes"}
+            ]
+            assert client.lpop(key) == oversized
+            unacked_key = prefix + "unacked"
+            client.hset(unacked_key, "oversized-fixture", oversized)
+            assert broker_records({own})["blocked"] == [
+                {"resource": "queues", "reason": "bounded_read_bytes"}
+            ]
+            assert client.hget(unacked_key, "oversized-fixture") == oversized
+            client.hdel(unacked_key, "oversized-fixture")
+            aggregate = b"x" * (256 * 1024)
+            priority_key = key + "\x06\x16" + "3"
+            for _ in range(16):
+                client.lpush(key, aggregate)
+            for _ in range(17):
+                client.lpush(priority_key, aggregate)
+            length_before = (client.llen(key), client.llen(priority_key))
+            assert broker_records({own})["blocked"] == [
+                {"resource": "queues", "reason": "bounded_read_bytes"}
+            ]
+            assert (client.llen(key), client.llen(priority_key)) == length_before
+            for _ in range(16):
+                assert client.lpop(key) == aggregate
+            for _ in range(17):
+                assert client.lpop(priority_key) == aggregate
             for _ in range(1001):
                 client.lpush(key, b"synthetic-limit-marker")
             assert broker_records({own})["blocked"] == [
