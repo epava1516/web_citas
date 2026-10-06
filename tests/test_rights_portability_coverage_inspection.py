@@ -78,7 +78,7 @@ def test_independent_read_includes_pending_omissions_and_audits_before_decrypt(
     assert RightsPortabilityCoverageRead.objects.filter(coverage=row).count() == 1
     recorded.page_digest = "0" * 64
     recorded.save(update_fields=["page_digest"])
-    with pytest.raises(ValidationError, match="Original coverage page digest changed"):
+    with pytest.raises(ValidationError, match="Coverage page record changed"):
         inspection.inspect_page(reviewer, case.pk, case.version, row.pk, key, reason, dataset)
 
 
