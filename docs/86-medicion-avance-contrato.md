@@ -132,3 +132,10 @@ DeltaCR09=10×5/100=0,50; **CR0971,50% avanzado/28,50% pendiente; contrato60,725
 Pesos y todos los grados de v6 intactos salvo rendimiento35→40: gate de cobertura valida lecturas originales sin repetir reconstrucciones y source_copy prepara relaciones en lotes250, con equivalencia íntegra respecto a50. Primera página nativa con1500 revisiones/9,89MB:764→284 consultas,11,529→9,940s bajo instrumentación y pico Python prácticamente igual; pruebas de privacidad/origen/bloqueos y Docker verificados. Es aceptación del tramo de preparación/lectura optimizado, no del rendimiento integral ni un cálculo proporcional a consultas/tests. [Evidencia](evidencias/copia-origen-lote2500110.json), [runtime](evidencias/copia-origen-lote250-runtime0110.json).
 
 DeltaCR09=5×5/100=0,25; **CR0971,75% avanzado/28,25% pendiente; contrato60,7625% avanzado/39,2375% pendiente**. Juicio de ingeniería, no horas o aceptación de fase; CR09 conserva peso15%. Conservación50/recursos60/aceptación integral0 y fases posteriores sin cambio. Aprobación/cierre/descarga grandes, binarios/capacidad/censo/legal/externos siguen pendientes. [Cálculo v7](evidencias/avance-ponderado-v7.json).
+
+
+## Revisión ponderada v8 — recorrido grande terminal
+
+Pesos y grados intactos salvo rendimiento40→45 por recorrido nativo PG completo sobre1500 revisiones: cobertura original auditada, aprobación/revisión/cierre/replay y descargas JSON/WebP/ZIP correctas. [Evidencia](evidencias/portabilidad-recorrido-grande-cerrado0110.json). El historial está mayoritariamente excluido de entrega y la imagen es pequeña; no se acredita transporte seleccionado>8MiB/binarios grandes, proveedor/legal ni capacidad o throughput objetivo.5338,103s evidencian coste alto, cuya optimización sigue pendiente.45 es juicio de alcance verificado, no porcentaje de velocidad/pruebas.
+
+DeltaCR09=5×5/100=0,25; CR09 **72,00% avanzado/28,00% pendiente**, contrato **60,80% avanzado/39,20% pendiente**. [Cálculo v8](evidencias/avance-ponderado-v8.json). Aceptación integral0, conservación50/recursos60 y fases posteriores sin cambios.
