@@ -67,7 +67,8 @@ def audit(user, order, operation):
 
 def authorize(user, person, listing, mfa_version, account_version):
     current = actor(user, mfa_version, account_version)
-    if not can_manage_person(current, person) or not publicly_visible(listing):
+    fresh_listing = Listing.objects.select_related("approved_revision", "person").get(pk=listing.pk)
+    if not can_manage_person(current, fresh_listing.person) or not publicly_visible(fresh_listing):
         raise PermissionDenied("Publication or management no longer eligible")
     return current
 
@@ -79,7 +80,7 @@ def create_order(user, listing_id, product_version_id, key, *, mfa_version, acco
     initial = Listing.objects.get(pk=listing_id)
     person = locked_manager_person(current, initial.person_id)
     listing = (
-        Listing.objects.select_for_update()
+        Listing.objects.select_for_update(of=("self",))
         .select_related("approved_revision", "person")
         .get(pk=listing_id)
     )
@@ -188,7 +189,7 @@ def receive_event(user, payload, signature, *, mfa_version, account_version):
         raise PermissionDenied
     person = locked_manager_person(current, initial.order.listing.person_id)
     listing = (
-        Listing.objects.select_for_update()
+        Listing.objects.select_for_update(of=("self",))
         .select_related("approved_revision", "person")
         .get(pk=initial.order.listing_id)
     )
