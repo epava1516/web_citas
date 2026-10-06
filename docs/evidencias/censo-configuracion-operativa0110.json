@@ -1,0 +1,137 @@
+{
+  "verified_at": "2026-10-06T14:22:47.111958+00:00",
+  "commit": "ec3ea109b938696bcf9c3ea2281048bda5ef220b",
+  "project": "web-modelos",
+  "method": "Read-only selected Docker metadata and backend configuration in fresh interpreter; Redis CONFIG GET persistence only. No environment dumps, message bodies, cache values or database records.",
+  "services": {
+    "app": {
+      "container_created_at": "2026-10-06T14:20:28.536978289Z",
+      "logging_driver": "json-file",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/app/staticfiles",
+          "read_write": true,
+          "volume": "web-modelos_static_data"
+        },
+        {
+          "type": "volume",
+          "destination": "/app/media/private",
+          "read_write": true,
+          "volume": "web-modelos_private_media"
+        }
+      ],
+      "configured_backends": {
+        "email_backend": "django.core.mail.backends.console.EmailBackend",
+        "session_engine": "django.contrib.sessions.backends.db",
+        "cache_backends": {
+          "default": "django.core.cache.backends.locmem.LocMemCache"
+        },
+        "log_handlers": {}
+      }
+    },
+    "worker": {
+      "container_created_at": "2026-10-06T14:20:28.535322271Z",
+      "logging_driver": "json-file",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/app/media/private",
+          "read_write": true,
+          "volume": "web-modelos_private_media"
+        }
+      ],
+      "configured_backends": {
+        "email_backend": "django.core.mail.backends.console.EmailBackend",
+        "session_engine": "django.contrib.sessions.backends.db",
+        "cache_backends": {
+          "default": "django.core.cache.backends.locmem.LocMemCache"
+        },
+        "log_handlers": {}
+      }
+    },
+    "beat": {
+      "container_created_at": "2026-10-06T14:20:28.534464149Z",
+      "logging_driver": "json-file",
+      "mounts": [],
+      "configured_backends": {
+        "email_backend": "django.core.mail.backends.console.EmailBackend",
+        "session_engine": "django.contrib.sessions.backends.db",
+        "cache_backends": {
+          "default": "django.core.cache.backends.locmem.LocMemCache"
+        },
+        "log_handlers": {}
+      }
+    },
+    "db": {
+      "container_created_at": "2026-10-03T15:15:06.885101315Z",
+      "logging_driver": "json-file",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/lib/postgresql/data",
+          "read_write": true,
+          "volume": "web-modelos_postgres_data"
+        }
+      ]
+    },
+    "redis": {
+      "container_created_at": "2026-10-03T15:15:06.884985417Z",
+      "logging_driver": "json-file",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/data",
+          "read_write": true,
+          "volume": "web-modelos_redis_data"
+        }
+      ]
+    },
+    "caddy": {
+      "container_created_at": "2026-10-03T15:25:43.823196762Z",
+      "logging_driver": "json-file",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/srv/static",
+          "read_write": false,
+          "volume": "web-modelos_static_data"
+        },
+        {
+          "type": "bind",
+          "destination": "/etc/caddy/Caddyfile",
+          "read_write": false,
+          "volume": null
+        }
+      ]
+    }
+  },
+  "redis_persistence": {
+    "appenddirname": "appendonlydir",
+    "save": "3600 1 300 100 60 10000",
+    "appendfilename": "appendonly.aof",
+    "appendonly": "yes",
+    "dbfilename": "dump.rdb"
+  },
+  "source_sha256": {
+    "compose.yaml": "0dd3f4a319915909824701e13c208f4f57f9db87a346763320b5d38b03099e6e",
+    "Caddyfile": "0eb5fcfd1ddca3e78d6cc0635b35b65800cde512b18c7ff59b57c696c7c93de3",
+    "config/settings.py": "2cf3f13ca8e3efc4484bf55449ef2624ffd8e98554c73e40ca1b2386eb7fc530",
+    "scripts/recovery_store.py": "714a65fe122da8c76376242bbb6e4f82d6363efb10599f3d85702a80d5c25878",
+    "scripts/recovery_ledger.py": "2a4319bb37eb9b855e7928d486c714e22e288b106ca0ac2dcb1036d99fba0740"
+  },
+  "findings": [
+    "Console mail backend outputs mail into process logs; locmem mail adapter does not cover these persisted log originals.",
+    "Configured LocMemCache is per process; inspecting configuration in a helper does not inspect live app/worker cache contents.",
+    "Redis AOF and snapshot configuration represent potential historical retained data beyond current queue census.",
+    "Current project Docker mounts establish storage locations, not absence of host archives or deleted historical containers.",
+    "Caddy configuration has no application response cache directive; this says nothing about browser or external caches."
+  ],
+  "pending": [
+    "Project Docker log history association, console-mail bodies and authentication-link exclusion/redaction.",
+    "Live per-process cache accounting and invalidation proof, including unassociated records.",
+    "Redis persistence history and backup/archive differences compared with current database and media.",
+    "Host mail/log sources, removed containers, historical project archives and independent resource review."
+  ],
+  "partial": true
+}

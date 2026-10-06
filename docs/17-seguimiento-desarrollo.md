@@ -25,7 +25,7 @@ Actualizado: 2026-10-06. Corte documental: código de purga `72ff79a`, código d
 
 ## Próximo trabajo y criterio de salida
 
-1. Completar censo de recursos/destinatarios y conservación por finalidad de CR09, preservando las comunicaciones internas verificadas0110; no reabrir purga0109 ni recorridos entregados salvo defecto/requisito concreto.
+1. Completar censo de recursos/destinatarios y conservación por finalidad de CR09: adaptar el correo console retenido en originales de logs al paquete/revisión existentes; después contrastar persistencia Redis/backups y cachés vivas. [Configuración real parcial](evidencias/censo-configuracion-operativa0110.json) confirma estas fuentes, sin acreditar su contenido íntegro. Preservar comunicaciones0110/purga0109/recorridos entregados salvo defecto o requisito concreto.
 2. Completar los requisitos residuales de CR09 en [auditoría83](83-auditoria-pendientes-cr09.md): conservación/destrucción por finalidad, comunicaciones/destinatarios, atención/escalado, rendimiento y censo operacional real. La prioridad de esta lista no elimina ningún requisito del contrato.
 3. Integrar evidencia de la misma versión contra todos los requisitos para aceptar CR09; continuar CR10 → GS01 → BF/BB → C. No saltar gates ni sustituirlos por porcentajes.
 
