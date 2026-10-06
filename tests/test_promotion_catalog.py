@@ -1,5 +1,6 @@
 """Catalogue-only flow, permissions, versions and PostgreSQL concurrency."""
 
+import shutil
 from concurrent.futures import ThreadPoolExecutor
 from decimal import Decimal
 from threading import Barrier
@@ -9,6 +10,7 @@ from django.contrib.auth.models import Permission
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import close_old_connections, connections
 from django.test import Client
+from playwright.sync_api import expect, sync_playwright
 from test_reports import directory, photo_environment  # noqa: F401
 
 from apps.catalog.promotion_models import PromotionProductVersion
@@ -163,3 +165,70 @@ def test_concurrent_new_versions_serialize_on_product(request):
     with ThreadPoolExecutor(max_workers=2) as pool:
         futures = [pool.submit(create) for _ in range(2)]
         assert sorted(f.result(timeout=20) for f in futures) == [2, 3]
+
+
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_mobile_catalogue_navigation_save_release_reload(request, live_server, settings, language):
+    settings.DEBUG = True
+    actor, staff = manager(request)
+    cookie = staff.cookies[settings.SESSION_COOKIE_NAME].value
+    english = language == "en"
+    catalogue = "Promotion catalogue" if english else "Catálogo de promociones"
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(
+            executable_path=shutil.which("chromium-browser"), args=["--no-sandbox"]
+        )
+        try:
+            context = browser.new_context(viewport={"width": 390, "height": 844})
+            context.add_cookies(
+                [
+                    {
+                        "name": settings.SESSION_COOKIE_NAME,
+                        "value": cookie,
+                        "url": live_server.url,
+                    }
+                ]
+            )
+            page = context.new_page()
+            page.goto(live_server.url + f"/{language}/account/")
+            page.get_by_role("link", name=catalogue, exact=True).click()
+            expect(page.get_by_role("heading", name=catalogue, exact=True)).to_be_visible()
+            page.locator("[name=slug]").fill("synthetic_mobile_top")
+            page.locator("[name=kind]").select_option("top")
+            page.get_by_role(
+                "button", name="Create product" if english else "Crear producto"
+            ).click()
+            page.locator("[name=name_es]").fill("Promoción móvil sintética")
+            page.locator("[name=name_en]").fill("Synthetic mobile promotion")
+            page.get_by_role("button", name="Save draft" if english else "Guardar borrador").click()
+            expect(
+                page.get_by_role(
+                    "heading",
+                    name=("Synthetic mobile promotion" if english else "Promoción móvil sintética"),
+                    exact=True,
+                )
+            ).to_be_visible()
+            expect(
+                page.get_by_text(
+                    "Configuration pending. Sales inactive."
+                    if english
+                    else "Pendiente de configurar. Ventas inactivas.",
+                    exact=True,
+                )
+            ).to_be_visible()
+            page.get_by_role(
+                "button", name=("Release configuration" if english else "Publicar configuración")
+            ).click()
+            page.reload()
+            expect(
+                page.get_by_role(
+                    "button",
+                    name=("Release configuration" if english else "Publicar configuración"),
+                )
+            ).to_have_count(0)
+            assert "0.00" not in page.content()
+        finally:
+            browser.close()
+    row = PromotionProductVersion.objects.get(product__slug="synthetic_mobile_top")
+    assert row.published_at and row.is_current and not row.sellable
+    assert row.amount is None and row.name_en == "Synthetic mobile promotion"
