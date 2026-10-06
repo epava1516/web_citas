@@ -202,8 +202,9 @@ def test_final_draft_requires_independent_read_and_current_execution(
     assert case.status == "reviewing" and not case.responses.exists()
 
 
+@pytest.mark.parametrize("race", [False, True])
 def test_final_http_issues_partial_response_once_with_private_receipt(
-    request, settings, monkeypatch
+    request, settings, monkeypatch, race
 ):
     from django.contrib.auth.models import Permission
     from django.test import Client
@@ -280,7 +281,28 @@ def test_final_http_issues_partial_response_once_with_private_receipt(
         "responses": responses,
         "review": approved.pk,
     }
-    assert staff.post(path, payload).status_code == 302
+    if race:
+        from concurrent.futures import ThreadPoolExecutor
+        from threading import Barrier
+
+        from django.db import close_old_connections, connections
+
+        barrier = Barrier(2)
+
+        def concurrent_issue():
+            close_old_connections()
+            try:
+                current_actor = User.objects.get(pk=user.pk)
+                barrier.wait(timeout=10)
+                return issue(current_actor, case.pk, version, responses, approved.pk, key).pk
+            finally:
+                connections.close_all()
+
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            futures = [pool.submit(concurrent_issue) for _ in range(2)]
+            assert futures[0].result(timeout=30) == futures[1].result(timeout=30)
+    else:
+        assert staff.post(path, payload).status_code == 302
     assert staff.post(path, payload).status_code == 302
     result = RightsResponse.objects.get(key=key)
     assert (
@@ -519,3 +541,36 @@ def test_mobile_erasure_response_review_issue_and_acknowledgement(
             assert case.status == "reviewing"
         finally:
             browser.close()
+
+
+def test_final_media_requires_actual_file_absence_even_after_completed_job(
+    request, settings, monkeypatch
+):
+    from apps.mediafiles.erasure import erase_due_media
+    from apps.mediafiles.models import Blob, MediaErasure
+
+    case, actor, _, _, _, person, plan, _, _, _ = plan_fixture(
+        request, settings, monkeypatch, selected_purposes=["media"]
+    )
+    blob = person.listing.approved_revision.photos.first().blob
+    paths = {field: getattr(blob, field).name for field in ["original", "derivative"]}
+    assert all(Blob._meta.get_field(field).storage.exists(path) for field, path in paths.items())
+    execution = execute(actor, case.pk, plan.pk, uuid4(), case.version, ["media"], REASON, True)
+    case.refresh_from_db()
+    assert material(case, execution)["pending_execution_purposes"] == ["media"]
+    assert erase_due_media() >= 1
+    result = material(case, execution)
+    assert result["completed_purposes"] == ["media"] and not result["pending_execution_purposes"]
+    job = MediaErasure.objects.get(blob=blob)
+    assert job.status == "completed" and not job.encrypted_paths
+    storage = Blob._meta.get_field("original").storage
+    with storage.open(paths["original"], "wb") as stream:
+        stream.write(b"synthetic reintroduced file")
+    try:
+        observed = material(case, execution)
+        assert observed["pending_execution_purposes"] == ["media"]
+        assert not observed["completed_purposes"]
+    finally:
+        storage.delete(paths["original"])
+    assert material(case, execution) == result
+    assert result["operational_pending"] and result["remaining_decisions"]

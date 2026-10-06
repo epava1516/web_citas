@@ -1,5 +1,5 @@
 {
-  "status": "in_development_not_deployed",
+  "status": "partial_response_deployed_not_integral_erasure",
   "database": "PostgreSQL",
   "identity": "simulator_not_real_provider",
   "runs": [
@@ -146,12 +146,27 @@
         "timestamp": "2026-10-06T13:45:39.147612+02:00",
         "hostname": "almasrv.thehomelesssherlock.com"
       }
+    },
+    {
+      "xml": "/tmp/erasure-final-media-race0108.xml",
+      "sha256": "f83f3e2777ba2a6a78d2cb57f9babb8bc5fc88d9fffd9ab79049a42279773b63",
+      "exit_code": 0,
+      "description": "Dos conexiones PostgreSQL emiten un solo resultado; archivos reales ausentes y reintroducidos tras trabajo completado",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "2",
+        "time": "48.298",
+        "timestamp": "2026-10-06T13:50:20.102973+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
     }
   ],
   "pending": [
     "Cobertura operacional real, conservación y comunicaciones",
-    "Variantes físicas/medios y carreras de emisión",
-    "Despliegue Docker y verificación de fuente",
+    "Cierre integral de supresión y demás derechos",
     "Aceptación integral CR09 y resto del contrato"
   ],
   "source_hashes": {
@@ -161,6 +176,7 @@
     "templates/safety/erasure_final.html": "d60d53cfe7cdcbeadc56c758b961970d385378638a7c4a449a0a68ed61abe1a4",
     "templates/safety/rights_receipt.html": "5d246401557019ee0613f0a90e059131cc88319838806c490ed6167a4e0299a5",
     "templates/safety/rights_inspect.html": "6b7bb8299ec95a55a386028e89eddc81937b7ae55e1a8df0960338dfe85dbd80",
-    "tests/test_erasure_final.py": "04a69574f4d841031aba19aa4302a6026f369d9f80a7cb1eefd304d39d9fef41"
-  }
+    "tests/test_erasure_final.py": "ac1cd5d9417b94d9a693b97b728dba189a45f86c4c493729d58f70d3be995a1d"
+  },
+  "runtime_evidence": "supresion-final-runtime0108.json"
 }
