@@ -1,0 +1,66 @@
+{
+  "source_commit": "5df91ea",
+  "verified_at": "2026-10-06T17:57:49.133930+00:00",
+  "requirement": "Reduce repeated five-relation prefetch queries without changing scoped source content, ordering, locks or authority; measure memory tradeoff on1500 retained revisions.",
+  "implementation": "COPY_REVISION_BATCH_SIZE250; same queryset/projection/locking, iterator remains bounded by revision batch.",
+  "tests": 12,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "suite_seconds": 138.749,
+  "private_log": "/tmp/source-batch250-integration.log",
+  "junit_sha256": "42ba2300e4968414942fa9fd6e0f3de50623e7555c9dd90e46f270be7630c236",
+  "measurements": [
+    {
+      "test": "test_profile_copy_queries_are_batched_without_losing_historical_revisions[30]",
+      "measurements": {
+        "baseline_queries": "16",
+        "historical_queries": "15",
+        "historical_revisions": "31"
+      }
+    },
+    {
+      "test": "test_profile_copy_queries_are_batched_without_losing_historical_revisions[280]",
+      "measurements": {
+        "baseline_queries": "16",
+        "historical_queries": "20",
+        "historical_revisions": "281"
+      }
+    },
+    {
+      "test": "test_first_audited_coverage_page_with_large_retained_source",
+      "measurements": {
+        "historical_revisions": "1500",
+        "source_bytes": "9893757",
+        "page_seconds_instrumented": "9.940292573068291",
+        "page_python_peak_bytes": "41695648",
+        "page_sql_queries": "284",
+        "scope": "First native audited coverage page only; no full approval/closure acceptance"
+      }
+    }
+  ],
+  "baseline_evidence": "portabilidad-cobertura-primera-pagina-grande0110.json",
+  "comparison": {
+    "baseline_queries": 764,
+    "queries": 284,
+    "query_reduction_percent": 62.82722513089005,
+    "baseline_seconds_instrumented": 11.529447404667735,
+    "seconds_instrumented": 9.940292573068291,
+    "baseline_python_peak_bytes": 41651227,
+    "python_peak_bytes": 41695648
+  },
+  "equivalence": "Full source dictionaries compared under the same fixture state against legacy batch50; populated relations and31/281 revisions, including crossed250 boundary. All scoped copy tests pass, including secrecy/drift/subject/contact/representation/account locking/lifecycle.",
+  "source_sha256": {
+    "apps/safety/rights_exports.py": "0663a48509ca7476a859c3866bb1c66f0899b73f2abe31715091f8317bd91501",
+    "tests/test_rights_copy_scope.py": "6de106b72e2a90abc7c3e08ca968348aa2a4962d97257b181d7be4258e17fa1e",
+    "tests/test_portability_large_coverage_read.py": "d0da1263b63a114b67238578bd6a5671ee95e2f9951783ab7f32887e2d014373"
+  },
+  "limits": [
+    "First audited page only: full1500-page approval/intake/close/download and binaries remain pending.",
+    "Single controlled synthetic comparison, not statistical HTTP latency or production capacity.",
+    "Python traced peak excludes total RSS/native/database/other worker memory; final source still materialized.",
+    "Relation cardinality is not itself bounded by250; this bounds revision ORM batch, not aggregate request data.",
+    "Ruff final change only import spacing; no functional source edits after integrated run.",
+    "Existing small coverage gate/revocation evidence reused because no authorization/coverage logic change."
+  ]
+}

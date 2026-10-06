@@ -2572,3 +2572,8 @@ PERF-COBERTURA-01 fuentec0f58fc enviada y desplegada Docker local: validador com
 ## 2026-10-06 — Primera página de cobertura grande medida
 
 Ensayo5bc4f8f con1500 revisiones sintéticas/source9893757bytes, lectura nativa PostgreSQL y auditoría real;1 prueba correcta74,44s. Etapa inspect_page:764 consultas/11,529s/pico Python41651227bytes bajo instrumentación. No aprobación/cierre/descarga completos, capacidad/p95/RSS ni identidad jurídica reales. Fuente de aplicación/runtimec0f58fc sin cambio ni reconstrucción nueva. Evidencia portabilidad-cobertura-primera-pagina-grande0110.json orienta siguiente optimización a preparación de source_copy/repetición, preservando checks; v6 sin cambio.
+
+
+## 2026-10-06 — Source_copy lote250 entregado y avance v7
+
+Fuente5df91ea/Docker verificados72 archivos/3 servicios/PG0110/UID10001/RecoveryModeFalse/check/migrate-check/salud/CSS/SEO; logs anteriores cifrados.12 PG correctas138,83s, equivalencia exacta de contenido/orden con lote50 y relaciones pobladas, privacidad/origen/cuenta bloqueada. Primera página1500 revisiones9,89MB:764→284 consultas/11,529→9,940s instrumentados/pico Python41,65→41,70MB. Origen final materializado y relaciones no acotadas por lote. V7 acepta solo tramo de preparación/lectura optimizado: rendimiento35→40, pesos/demás grados intactos; CR0971,75%/contrato60,7625%, aceptación integral0. Aprobación/cierre/descarga grandes/censo/conservación/externos pendientes.

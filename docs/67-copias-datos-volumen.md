@@ -43,3 +43,8 @@ La ampliación posterior sustituye JSON completo en bytes por JSONEncoder.iteren
 ## Lectura por lotes en desarrollo
 
 La prueba con30 revisiones adicionales reproduce14→193 consultas en la fuente antigua. La ampliación conecta geografía por select_related y cinco relaciones por prefetch, con iterator de50 revisiones y locks sobre Revision únicamente para permitir joins geográficos nullable. La salida completa aún se materializa; el lote reduce consultas y cachés intermedias, sin completar revisión paginada ni generación asíncrona. Batería8914 terminal0:33 correctas128,55s. Medición66900:31 revisiones12 consultas;81 revisiones17 consultas;2 correctas38,55s, evidencia separada. Runtime incremental verificado en copia-generacion-incremental-runtime.json.
+
+
+## Preparación de origen, lote250 — 2026-10-06
+
+Fuente5df91ea mantiene queryset/locks/orden/proyección e iterator con250 revisiones por lote. Comparación íntegra contra lote50 y relaciones pobladas/31 y281 revisiones correctas; batería afectada12 PG correcta. Primera página de cobertura sobre1500 revisiones/9893757bytes:764→284 consultas,11,529→9,940s instrumentados,41651227→41695648bytes pico Python. [Evidencia](evidencias/copia-origen-lote2500110.json), [Docker](evidencias/copia-origen-lote250-runtime0110.json). La materialización final de la copia permanece y el lote de revisiones no limita cardinalidad de todas las relaciones. No p95/throughput ni aceptación de cierre/descarga grande; seguimiento vigente en17.

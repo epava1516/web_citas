@@ -1,0 +1,228 @@
+{
+  "method": "Engineering estimate by weighted scope and complexity; completion scores are explicit technical judgement, not hours or formal acceptance",
+  "cr09": {
+    "blocks": [
+      {
+        "name": "Portabilidad y respuesta privada",
+        "weight": 15,
+        "estimated_completion": 90
+      },
+      {
+        "name": "Purga de contenido caducado",
+        "weight": 5,
+        "estimated_completion": 100
+      },
+      {
+        "name": "Flujos de denuncias y derechos por finalidad, verificación y autoridad",
+        "weight": 20,
+        "estimated_completion": 85
+      },
+      {
+        "name": "Conservación y destrucción por finalidad",
+        "weight": 10,
+        "estimated_completion": 50
+      },
+      {
+        "name": "Restauración de datos y medios",
+        "weight": 15,
+        "estimated_completion": 85
+      },
+      {
+        "name": "Sesiones, cachés, colas, logs y recursos externos",
+        "weight": 10,
+        "estimated_completion": 60
+      },
+      {
+        "name": "Comunicaciones y destinatarios",
+        "weight": 8,
+        "estimated_completion": 70
+      },
+      {
+        "name": "Atención urgente y escalado",
+        "weight": 7,
+        "estimated_completion": 70
+      },
+      {
+        "name": "Rendimiento de expedientes grandes",
+        "weight": 5,
+        "estimated_completion": 40
+      },
+      {
+        "name": "Aceptación integral CR09",
+        "weight": 5,
+        "estimated_completion": 0
+      }
+    ],
+    "calculated": 71.75
+  },
+  "contract": {
+    "blocks": [
+      {
+        "name": "BASE",
+        "weight": 5,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR01",
+        "weight": 4,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR02",
+        "weight": 6,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR03",
+        "weight": 6,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR04",
+        "weight": 5,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR05",
+        "weight": 8,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR06",
+        "weight": 6,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR07",
+        "weight": 6,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR08",
+        "weight": 4,
+        "estimated_completion": 100
+      },
+      {
+        "name": "CR09",
+        "weight": 15,
+        "estimated_completion": 71.75
+      },
+      {
+        "name": "CR10",
+        "weight": 5,
+        "estimated_completion": 0
+      },
+      {
+        "name": "GS01",
+        "weight": 3,
+        "estimated_completion": 0
+      },
+      {
+        "name": "BF",
+        "weight": 10,
+        "estimated_completion": 0
+      },
+      {
+        "name": "BB",
+        "weight": 10,
+        "estimated_completion": 0
+      },
+      {
+        "name": "C",
+        "weight": 7,
+        "estimated_completion": 0
+      }
+    ],
+    "calculated": 60.7625
+  },
+  "limits": [
+    "Weights are a planning baseline, not measured effort",
+    "Completion scores are estimates grounded in docs83/17 and current delivered/workspace evidence",
+    "No production readiness claim; external providers/legal gates remain separately pending",
+    "Do not increase percentage from test count alone; update block scores only with scope/evidence change",
+    "v2 keeps every v1 weight and changes two completion judgements from delivered scope; no inference from test counts or measured hours.",
+    "v3 keeps all weights and increases only the delivered workflow judgement; pending operational coverage, retention, communications and integral acceptance are unchanged.",
+    "v4 preserves every weight and changes only communications60 to70 from delivered internal-recipient scope; other block scores and formal gates unchanged.",
+    "v7 preserves all weights and other grades; performance35 to40 is engineering scope judgement from delivered measured optimization, not query-reduction percentage or test count. Integral phase acceptance0 and later phases unchanged."
+  ],
+  "version": 7,
+  "basis_commit": "5df91ea",
+  "changes_from_v1": [
+    {
+      "block": "Flujos de denuncias y derechos por finalidad, verificación y autoridad",
+      "from": 65,
+      "to": 75,
+      "reason": "Acceso tiene cierre/descarga local perfil/cuenta; rectificación integra respuesta/revisión/cierre perfil/cuenta en HTTP/Chromium y carrera. Supresión/limitación/oposición y aceptación global continúan pendientes."
+    },
+    {
+      "block": "Comunicaciones y destinatarios",
+      "from": 50,
+      "to": 60,
+      "reason": "Destinatarios de cuenta sin perfil y emisión final privada con aviso único verificados; cobertura real externa, entrega de proveedores y conservación siguen pendientes."
+    }
+  ],
+  "changes_from_v2": [
+    {
+      "block": "Flujos de denuncias y derechos por finalidad, verificación y autoridad",
+      "from": 75,
+      "to": 85,
+      "reason": "Respuestas propias de supresión, limitación y oposición integradas con consulta/revisión/emisión/acuse, cuenta/perfil/publicación/calendario, medios y concurrencia; Docker y batería común verificados. Censos operativos/conservación/comunicaciones/cierres integrales continúan pendientes y sus bloques no aumentan."
+    }
+  ],
+  "changes_from_v3": [
+    {
+      "block": "Comunicaciones y destinatarios",
+      "from": 60,
+      "to": 70,
+      "reason": "Evaluación independiente, avisos internos mínimos a destinatarios vigentes, consulta/acuse auditados, reevaluación y consumo en respuesta final parcial de supresión/limitación/oposición entregados y verificados PostgreSQL/HTTP/móvil/Docker0110. Sigue pendiente completar destinatarios históricos, censo/destinos externos y aceptación integral; no elevar por número de pruebas."
+    }
+  ],
+  "changes_from_v4": [
+    {
+      "block": "Sesiones, cachés, colas, logs y recursos externos",
+      "from": 45,
+      "to": 55
+    },
+    {
+      "block": "Atención urgente y escalado",
+      "from": 60,
+      "to": 70
+    },
+    {
+      "block": "Rendimiento de expedientes grandes",
+      "from": 30,
+      "to": 35
+    }
+  ],
+  "changes_from_v4_reasons": {
+    "resources": "Own expired retained sessions, console mail in actual reviewed profile/account copies, byte-bounded real queue census, explicit no-store application cache and typed retained AOF association delivered locally. Historical/host/external coverage incomplete.",
+    "urgent": "Acknowledged unresolved urgent reports remain actionable through existing inspection/assignment, ES/EN and mobile verified; staffed/external escalation incomplete.",
+    "performance": "Retention calendar avoids whole eligible list loading,1100-row ordered navigation verified; AOF prefix streaming measured. Full-case prepare/review/close/download performance incomplete.",
+    "unchanged": "Retention/destruction grade stays50: existing follow-up was already counted and authority bug correction does not introduce new legal retention scope. No other score/phase accepted."
+  },
+  "accepted_scope_runtime": "5df91ea",
+  "changes_from_v5": [
+    {
+      "block": "resources",
+      "from": 55,
+      "to": 60
+    }
+  ],
+  "changes_from_v5_reasons": {
+    "resources": "New retained-result resource type delivered: exact original-worker ledger provenance for all28 observed result keys, all54 captured observations validated, strict periodic counter projection with HMAC technical evidence and audited PG regressions. Stable base-prefix-suffix cut and no expiry loss at observed cut supported; other source census/retention remains open. Not a score proportional to key/test count.",
+    "unchanged": "All weights and other completion scores unchanged; conservation50, performance35 and phase acceptance0 retained. Independent SEO preparation does not accept later phases."
+  },
+  "scope_evidence": [
+    "portabilidad-cobertura-validacion-lote0110.json",
+    "copia-origen-lote2500110.json",
+    "copia-origen-lote250-runtime0110.json"
+  ],
+  "changes_from_v6": [
+    {
+      "block": "Rendimiento de expedientes grandes",
+      "from": 35,
+      "to": 40,
+      "reason": "Approval replay now validates original pages against one source without repeated page-service rebuild; source relation reads use bounded250-row batches. Native audited page on1500 revisions/9.89MB shows764 to284 SQL queries with essentially unchanged traced Python peak; scoped content equivalence/authority regressions/local Docker verified. Only this preparation/read performance sub-scope accepted; full review/close/download and capacity remain pending."
+    }
+  ]
+}
