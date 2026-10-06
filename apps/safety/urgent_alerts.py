@@ -4,12 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
+from django.db.models import Q
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 
-from apps.core.models import Agency, Person, User
+from apps.core.models import Agency, AgencyMember, Person, User
 
 from .models import Report, UrgentReportAlert
 from .views import permitted, private
@@ -106,14 +107,27 @@ def queue(request):
         alerts = alerts.filter(acknowledged_at__isnull=False).exclude(
             report__status__in=["dismissed", "lifted"]
         )
-    alerts = (
-        alerts.select_related(
-            "report__listing__person__agency", "report__reported_agency", "report__assigned_to"
-        )
-        .order_by("created_at", "pk")
+    alerts = alerts.select_related(
+        "report__listing__person__agency", "report__reported_agency", "report__assigned_to"
+    ).order_by("created_at", "pk")
+    # Match permitted() before counting/paging; subqueries avoid membership joins
+    # duplicating rows. Historical agency membership intentionally includes revoked
+    # members, while current management only excludes active members.
+    memberships = AgencyMember.objects.filter(user=request.user).values("agency_id")
+    active_memberships = memberships.filter(active=True)
+    conflict = (
+        Q(report__actor=request.user)
+        | Q(report__reported_individual=request.user)
+        | Q(report__reported_subject=request.user)
+        | Q(report__reported_agency__owner=request.user)
+        | Q(report__reported_agency_id__in=memberships)
+        | Q(report__revision__isnull=False, report__manager_version__isnull=True)
+        | Q(report__listing__person__individual=request.user)
+        | Q(report__listing__person__subject=request.user)
+        | Q(report__listing__person__agency__owner=request.user)
+        | Q(report__listing__person__agency_id__in=active_memberships)
     )
-    visible = [alert for alert in alerts if permitted(request.user, alert.report)]
-    page = Paginator(visible, 50).get_page(request.GET.get("page"))
+    page = Paginator(alerts.exclude(conflict), 50).get_page(request.GET.get("page"))
     return private(
         render(request, "safety/urgent_alerts.html", {"page": page, "attention": attention})
     )
