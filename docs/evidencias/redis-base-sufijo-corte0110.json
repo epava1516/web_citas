@@ -1,0 +1,62 @@
+{
+  "captured_at": "2026-10-06T15:58:39.305984+00:00",
+  "source_name": "appendonly.aof.2.incr.aof",
+  "source_bytes": 62607648,
+  "source_sha256": "27fa257db01ce780f23202c0f7e52b61cb583d5047560b9d0c274c51ce270a31",
+  "encrypted_origin": "/tmp/redis-aof-current-origin0110-b2w85ohf/redis-aof-current-origin.encrypted",
+  "base_source_sha256": "e0dd91e281d1fe6b6aeab46e914d5be71e0fbddb59b33daa403c6921058b027f",
+  "manifest_sha256": "88b2ada3303b36cbd7c98f2635e6626986e0273b334f26a86bf7531207811d63",
+  "manifest_and_base_stable": true,
+  "file_inode_stable": true,
+  "captured_prefix_bytes": 40504424,
+  "prior_prefix_hash_matches": true,
+  "new_suffix_bytes": 22103224,
+  "inspection": {
+    "completed_commands": 106048,
+    "command_counts": {
+      "MULTI": 19984,
+      "SELECT": 1,
+      "ZADD": 9990,
+      "HSET": 9993,
+      "EXEC": 19984,
+      "LPUSH": 15145,
+      "RPOP": 9989,
+      "ZREM": 9994,
+      "HDEL": 9997,
+      "SET": 342,
+      "DEL": 345,
+      "SREM": 70,
+      "SADD": 73,
+      "LPOP": 141
+    },
+    "examined_bytes": 62607648,
+    "pending": [],
+    "subject_association_complete": false,
+    "original_command_times_known": false
+  },
+  "base_offline_check": [
+    "[offset 15000] Checksum OK",
+    "[offset 15000] \\o/ RDB looks OK! \\o/",
+    "[info] 77 keys read",
+    "[info] 26 expires",
+    "[info] 0 already expired",
+    "[info] 0 subexpires"
+  ],
+  "temporary_plaintext_removed": true,
+  "review_no_anonymous_volume": true,
+  "partial": true,
+  "limits": [
+    "Captured finite byte boundary; incomplete RESP tail remains pending and is not extended to later events.",
+    "Stable base/manifest/inode and matching prefix establish this source sequence only, not per-case final approval or live queue equality.",
+    "Current RDB/live buckets, older generations and host/backups remain separate census sources."
+  ],
+  "probe_script": "/tmp/redis-source-cut0110.py",
+  "probe_script_sha256": "67e33c0529f85815d076902b409ff18eccb9db69528707cc87125323b727e0a2",
+  "base_expired_entries_at_offline_check": 0,
+  "known_appendonly_directory_files": [
+    "appendonly.aof.2.base.rdb",
+    "appendonly.aof.2.incr.aof",
+    "appendonly.aof.manifest"
+  ],
+  "directory_observation_is_later_than_capture": true
+}

@@ -2508,3 +2508,10 @@ Fuente c2c3c64 enviada y Docker local integrado:68 fuentes coincidentes app/work
 Valores observados de resultado: enteros/SUCCESS, sin traceback/hijos ni campos extra del envoltorio conocido. Captura de valores cifrada0600 en directorio0700 preservada para revisiones posteriores sin recargar Redis. [Contenido](evidencias/redis-resultados-contenido-origen0110.json). La carga RDB puede expirar entradas a fecha de revisión; el fichero original cifrado permanece y no se acredita exhaustividad histórica.
 
 Prefijo AOF íntegro leído con callback acotado y20 archivos cifrados de logs de proyecto examinados:2 claves de resultados vinculadas a tarea periódica tipada sin argumentos;26 claves sin vínculo en esas fuentes. [Procedencia](evidencias/redis-resultados-procedencia-fuentes0110.json). Clasificación no demuestra licitud/conservación ni asociación jurídica; formatos de contenido revisados no eliminan procedencia pendiente. Sin cambios funcionales, no repetir regresiones aceptadas. Host/backups/sufijo/antiguos contenedores y revisión siguen pendientes. Porcentajes intactos.
+
+
+## 2026-10-06 — Secuencia Redis base/prefijo/sufijo capturada
+
+Base offline real: checksum/RDB válidos,77 claves/26 expiraciones/0 ya caducadas; la duda de pérdida por caducidad queda resuelta para este corte, sin inferir futuras fechas de revisión. Captura AOF62607648bytes/22103224bytes de sufijo, base/manifiesto/inode estables y prefijo original íntegro.106048 comandos sin RESP pendiente. [Corte](evidencias/redis-base-sufijo-corte0110.json). Directorio appendonly observado:base2/incr2/manifiesto; no archivos previos en ese directorio.
+
+[Asociación ampliada](evidencias/redis-resultados-procedencia-sufijo0110.json) mantiene26 claves sin vínculo y2 conocidas. No volver a buscar en mismos bytes/logs sin cambio; fuentes anteriores/procedencia/revisor/corte por expediente y censo host/backups pendientes. SEO-PREP-02 preparado en cola única, sin iniciar ni aceptar fases. No cambios funcionales: pruebas previas no repetidas. Porcentajes intactos.
