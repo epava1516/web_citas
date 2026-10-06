@@ -5,7 +5,7 @@ import zipfile
 import pytest
 from django.core.exceptions import ValidationError
 
-from apps.safety.rights_copy_parts import IMAGE_LIMIT, packages
+from apps.safety.rights_copy_parts import IMAGE_LIMIT, archive, packages
 
 
 def test_packages_fit_actual_zip_size_without_losing_or_duplicating_content():
@@ -40,3 +40,14 @@ def test_single_attachment_over_limit_and_duplicate_rejected():
     with pytest.raises(ValidationError):
         list(packages([(identifier, b"x"), (identifier, b"y")]))
     assert list(packages([])) == []
+
+
+def test_archive_consumes_single_pass_images_without_changing_zip_bytes():
+    rows = [(str(uuid.uuid4()), bytes([index]) * 100) for index in range(3)]
+    items = [(identifier, identifier + ".webp", content) for identifier, content in rows]
+    expected = archive(items, 4096)
+    observed = archive(iter(items), 4096)
+    assert observed == expected
+    assert observed["attachments"] == [identifier for identifier, _ in rows]
+    with zipfile.ZipFile(io.BytesIO(observed["content"])) as package:
+        assert {name[:-5]: package.read(name) for name in package.namelist()} == dict(rows)

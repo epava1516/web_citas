@@ -135,13 +135,14 @@ def image_payload(export, declarations, person):
                 "size": len(content),
             }
         )
+        del content, current
     parts, seen = [], []
     for position, part in enumerate(
         export.parts.exclude(attachments=[]).order_by("position").iterator(chunk_size=1), 1
     ):
         if part.position != position or not isinstance(part.attachments, list):
             raise ValidationError("Portable image package changed")
-        items, package_size = [], 22
+        package_size = 22
         for identifier in part.attachments:
             if not isinstance(identifier, str) or identifier not in sizes or identifier in seen:
                 raise ValidationError("Portable image package scope changed")
@@ -150,14 +151,17 @@ def image_payload(export, declarations, person):
             package_size += sizes[identifier] + 76 + 2 * len(name.encode("ascii"))
             if package_size > PART_LIMIT:
                 raise ValidationError("Portable image package exceeds size limit")
-        for identifier in part.attachments:
-            try:
-                image = cipher().decrypt(by_identifier[identifier].encrypted_content.encode())
-            except (InvalidToken, ValueError, TypeError) as error:
-                raise ValidationError("Portable image snapshot unavailable") from error
-            del by_identifier[identifier].encrypted_content
-            items.append((identifier, identifier + ".webp", image))
-        expected = archive(items, PART_LIMIT)["content"]
+        def items():
+            # Rebuild in the same order without retaining all decrypted images.
+            for identifier in part.attachments:
+                try:
+                    image = cipher().decrypt(by_identifier[identifier].encrypted_content.encode())
+                except (InvalidToken, ValueError, TypeError) as error:
+                    raise ValidationError("Portable image snapshot unavailable") from error
+                del by_identifier[identifier].encrypted_content
+                yield identifier, identifier + ".webp", image
+
+        expected = archive(items(), PART_LIMIT)["content"]
         try:
             content = cipher().decrypt(part.encrypted_content.encode())
         except (InvalidToken, ValueError, TypeError) as error:
@@ -165,6 +169,7 @@ def image_payload(export, declarations, person):
         if content != expected:
             raise ValidationError("Portable image package content changed")
         parts.append({"id": str(part.pk), "position": position, "attachments": part.attachments})
+        del expected, content, part.encrypted_content
     if set(seen) != set(sizes):
         raise ValidationError("Portable image packages incomplete")
     return {"images": images, "parts": parts} if declarations else {}

@@ -36,9 +36,11 @@ def packages(snapshots, limit=PART_LIMIT):
         if contribution + 22 > limit:
             raise ValidationError("Attachment exceeds package limit")
         if pending and size + contribution > limit:
-            yield archive(pending, limit)
+            package = archive(pending, limit)
             pending = []
             size = 22
+            yield package
+            del package
         pending.append((identifier, name, content))
         size += contribution
     if pending:
@@ -47,12 +49,14 @@ def packages(snapshots, limit=PART_LIMIT):
 
 def archive(items, limit):
     output = io.BytesIO()
+    attachments = []
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_STORED, allowZip64=False) as package:
-        for _, name, content in items:
+        for identifier, name, content in items:
+            attachments.append(identifier)
             metadata = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
             metadata.external_attr = 0o600 << 16
             package.writestr(metadata, content)
     content = output.getvalue()
     if len(content) > limit:
         raise ValidationError("Package exceeds size limit")
-    return {"attachments": [item[0] for item in items], "content": content}
+    return {"attachments": attachments, "content": content}
