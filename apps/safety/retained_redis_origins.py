@@ -42,8 +42,10 @@ def transport_scope():
 def checked_origin(origin, cutoff):
     if not isinstance(origin, dict) or origin.get("partial") is not True:
         raise ValueError("Partial retained origin required")
-    rdb = origin.get("schema") == "local-redis-rdb-reconstruction-v1"
-    if set(origin) != (RDB_FIELDS if rdb else AOF_FIELDS):
+    with_aux = origin.get("schema") == "local-redis-rdb-reconstruction-v2"
+    rdb = with_aux or origin.get("schema") == "local-redis-rdb-reconstruction-v1"
+    expected = RDB_FIELDS | {"aux_metadata"} if with_aux else (RDB_FIELDS if rdb else AOF_FIELDS)
+    if set(origin) != expected:
         raise ValueError("Exact retained origin fields required")
     captured = datetime.fromisoformat(origin["captured_at"])
     if captured.tzinfo is None or captured > cutoff:
@@ -76,6 +78,10 @@ def checked_origin(origin, cutoff):
         ])
     ):
         raise ValueError("RDB reconstruction provenance changed")
+    if with_aux:
+        from .retained_redis_metadata import checked_aux
+
+        checked_aux(origin["aux_metadata"], origin)
     return raw, "rdb_snapshot_state", (origin["source_origin_sha256"], captured.isoformat())
 
 
@@ -137,7 +143,7 @@ def read_bundle(body, blob_ids, cutoff, *, case, inventory):
     ):
         raise ValueError("Exact scoped retained source bundle required")
     prefix, queue = transport_scope()
-    combined = {"records": [], "result_records": [], "technical_result_evidence": [], "blocked": [], "origins": []}
+    combined = {"records": [], "result_records": [], "technical_result_evidence": [], "blocked": [], "origins": [], "metadata_review": []}
     pending, identities, total = {"historical_redis_coverage"}, set(), 0
     for origin in body["origins"]:
         raw, kind, identity = checked_origin(origin, cutoff)
@@ -146,11 +152,17 @@ def read_bundle(body, blob_ids, cutoff, *, case, inventory):
             raise ValueError("Duplicate retained physical source")
         identities.add(identity)
         total += len(raw)
+        if "aux_metadata" in origin:
+            total += len(canonical(origin["aux_metadata"]).encode())
         if total > MAX_BYTES:
             raise ValueError("Retained origin aggregate byte limit")
         digest = fingerprint(canonical(origin))
         result = scoped_history(raw, blob_ids, prefix=prefix, queue=queue, origin_digest=digest)
         if kind == "rdb_snapshot_state":
+            if "aux_metadata" in origin:
+                from .retained_redis_metadata import review_material
+
+                combined["metadata_review"].append(review_material(origin["aux_metadata"], digest))
             result["blocked"].extend(snapshot_expirations(raw, result, digest))
             for row in result["records"] + result["result_records"]:
                 row["data"]["snapshot_captured_at"] = origin["captured_at"]
@@ -164,4 +176,8 @@ def read_bundle(body, blob_ids, cutoff, *, case, inventory):
             raise ValueError("Retained origin aggregate record limit")
         pending.update(result["pending"])
         combined["origins"].append({"kind": kind, "digest": digest, "captured_at": origin["captured_at"], "representation_sha256": origin["sha256"]})
+    if combined["metadata_review"]:
+        combined["metadata_digest"] = fingerprint(canonical(combined["metadata_review"]))
+    else:
+        combined.pop("metadata_review")
     return combined | {"configured": True, "partial": True, "origin_digest": fingerprint(canonical(body)), "pending": sorted(pending), "blocked": sorted(set(combined["blocked"]))}

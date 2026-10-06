@@ -14,6 +14,10 @@ def native_decoder():
     return Path(os.environ["RETAINED_RDB_DECODER_BIN"]), os.environ["RETAINED_RDB_DECODER_SHA256"]
 
 
+def aux_decoder():
+    return Path(os.environ["RETAINED_RDB_AUX_BIN"]), os.environ["RETAINED_RDB_AUX_SHA256"]
+
+
 def capture(directory, captured_at, values):
     directory.mkdir(mode=0o700)
     socket = directory / "redis.sock"
