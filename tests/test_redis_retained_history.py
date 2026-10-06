@@ -37,5 +37,39 @@ def test_unknown_names_and_inline_formats_never_appear_in_metadata():
 
 
 def test_argument_limits_reject_before_reading_body():
-    result = inspect_aof(BytesIO(b"*2\r\n$3\r\nSET\r\n$262145\r\n"))
+    result = inspect_aof(BytesIO(b"*2\r\n$3\r\nSET\r\n$67108865\r\n"))
     assert result["pending"] == ["argument_byte_limit"] and result["completed_commands"] == 0
+
+
+def test_large_retained_arguments_are_drained_without_materializing_values():
+    import tracemalloc
+
+    from apps.safety.redis_retained_history import READ_CHUNK_BYTES
+
+    class ObservedStream(BytesIO):
+        largest_read = 0
+
+        def read(self, size=-1):
+            self.largest_read = max(self.largest_read, size)
+            return super().read(size)
+
+    source = ObservedStream(command(b"SET", b"private-key", b"x" * (4 * 1024 * 1024)))
+    tracemalloc.start()
+    try:
+        result = inspect_aof(source)
+        _, peak = tracemalloc.get_traced_memory()
+    finally:
+        tracemalloc.stop()
+    assert not result["pending"] and result["completed_commands"] == 1
+    assert source.largest_read <= READ_CHUNK_BYTES
+    assert peak < 1024 * 1024
+
+
+def test_short_reads_and_missing_crlf_are_handled_safely():
+    class ShortRead(BytesIO):
+        def read(self, size=-1):
+            return super().read(min(size, 3))
+
+    source = command(b"HSET", b"private-key", b"field", b"private-value")
+    assert inspect_aof(ShortRead(source))["completed_commands"] == 1
+    assert inspect_aof(BytesIO(source[:-2] + b"xx"))["pending"] == ["incomplete_argument"]

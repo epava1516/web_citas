@@ -1,0 +1,44 @@
+{
+  "verified_at": "2026-10-06T14:46:16.966540+00:00",
+  "origin_sha256": "3af27eb360b56196f8128771bebc5589933a13edcb12de0388b6162bedd26aad",
+  "encrypted_origin": "/tmp/redis-aof-origin0110-tj8esko8/redis-aof-origin.encrypted",
+  "origin_bytes": 40504424,
+  "inspection": {
+    "completed_commands": 90270,
+    "command_counts": {
+      "MULTI": 17282,
+      "SELECT": 1,
+      "ZADD": 8639,
+      "HSET": 8640,
+      "EXEC": 17282,
+      "LPUSH": 11718,
+      "RPOP": 8638,
+      "ZREM": 8643,
+      "HDEL": 8644,
+      "SET": 296,
+      "DEL": 297,
+      "SREM": 58,
+      "SADD": 61,
+      "LPOP": 71
+    },
+    "examined_bytes": 40504424,
+    "pending": [],
+    "subject_association_complete": false,
+    "original_command_times_known": false
+  },
+  "parser_seconds": 4.796,
+  "parser_peak_allocated_bytes": 133053,
+  "tests": {
+    "passed": 6,
+    "seconds": 0.19,
+    "xml": "/tmp/redis-retained-history-streaming.xml"
+  },
+  "partial": true,
+  "limits": [
+    "Parser drains arguments in <=64KiB reads; whole encrypted envelope/base64 decoding not covered by parser memory measurement.",
+    "Captured RESP prefix completely inspected; active concurrent suffix/base snapshot/older history not covered.",
+    "Counts are not exact subject association, original timestamps, authorization or recipient projection.",
+    "No execution, broker reads/mutations or extra containers.",
+    "Not PostgreSQL integration or complete CR09 acceptance; helper not integrated into web resource package yet."
+  ]
+}

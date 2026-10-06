@@ -1,13 +1,15 @@
 """Bounded metadata inspection of RESP AOF; never execute or disclose arguments."""
 
 MAX_BYTES = 64 * 1024 * 1024
-MAX_ARGUMENT_BYTES = 256 * 1024
+MAX_ARGUMENT_BYTES = MAX_BYTES
+READ_CHUNK_BYTES = 64 * 1024
 MAX_ARGUMENTS = 10000
 COMMANDS = frozenset(
     "SELECT SET SETEX PSETEX DEL UNLINK EXPIRE EXPIREAT PEXPIRE PEXPIREAT "
     "LPUSH RPUSH LPOP RPOP LREM LTRIM HSET HMSET HDEL SADD SREM ZADD ZREM "
     "MULTI EXEC INCR INCRBY DECR DECRBY FLUSHDB FLUSHALL XADD XDEL".split()
 )
+COMMAND_BYTES = frozenset(command.encode() for command in COMMANDS)
 
 
 def inspect_aof(stream):
@@ -50,19 +52,28 @@ def inspect_aof(stream):
                     raise ValueError("argument_byte_limit")
                 if consumed + size + 2 > MAX_BYTES:
                     raise ValueError("aggregate_byte_limit")
-                raw = stream.read(size + 2)
-                consumed += len(raw)
-                if len(raw) != size + 2 or not raw.endswith(b"\r\n"):
+                remaining = size
+                command_parts = []
+                while remaining:
+                    raw = stream.read(min(remaining, READ_CHUNK_BYTES))
+                    consumed += len(raw)
+                    if not raw:
+                        raise ValueError("incomplete_argument")
+                    remaining -= len(raw)
+                    if position == 0 and size <= 32:
+                        command_parts.append(raw)
+                trailer = b""
+                while len(trailer) < 2:
+                    raw = stream.read(2 - len(trailer))
+                    consumed += len(raw)
+                    if not raw:
+                        raise ValueError("incomplete_argument")
+                    trailer += raw
+                if trailer != b"\r\n":
                     raise ValueError("incomplete_argument")
                 if position == 0:
-                    # Only fixed command labels appear in metadata; unknown
-                    # names/arguments are never included in the returned value.
-                    command = raw[:-2].upper()
-            label = (
-                command.decode("ascii")
-                if command in {c.encode() for c in COMMANDS}
-                else "unsupported"
-            )
+                    command = b"".join(command_parts).upper()
+            label = command.decode("ascii") if command in COMMAND_BYTES else "unsupported"
             counts[label] = counts.get(label, 0) + 1
             completed += 1
             if label == "unsupported" and "unsupported_command" not in pending:
