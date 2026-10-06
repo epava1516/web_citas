@@ -1,0 +1,75 @@
+{
+  "schema": "retained-log-capture-inventory-v1",
+  "evidence": [
+    {
+      "path": "docs/evidencias/logs-historicos-runtime0110.json",
+      "capture_references": 1
+    }
+  ],
+  "origins": [
+    {
+      "path": "/tmp/cr09-historical-log-predeploy0110-jffic_gk/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/cr09-historical-log-predeploy0110-jffic_gk/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T23:28:12.150905+00:00",
+          "evidence": "docs/evidencias/logs-historicos-runtime0110.json",
+          "evidence_sha256": "131e76c5250f336eeb16648ac171a8dd6e8a404572402ccee2ba3ee27a7411d3",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 638,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2939,
+              "stderr_bytes": 172748
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 81444
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 1043977
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 460212,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2395044,
+      "sha256": "4c52fa4c09385b0e43d0ac89faccef011e2a17ec10e98ff45630bbd5266a8189",
+      "status": "ciphertext_inventoried"
+    }
+  ],
+  "capture_references": 1,
+  "unique_origins": 1,
+  "declared_sources_inventoried": true,
+  "partial": true,
+  "subject_association_verified": false,
+  "pending": [
+    "capture_metadata_and_original_content_validation",
+    "historical_content_differences_and_subject_association",
+    "independent_disclosure_review",
+    "other_retained_host_mail_cache_backup_sources",
+    "retention_authority"
+  ],
+  "observed_at": "2026-10-06T23:29:36.361174+00:00",
+  "observed_seconds": 0.015828645322471857,
+  "scope": "New predeployment capture only; previous22 inventories reused unchanged"
+}

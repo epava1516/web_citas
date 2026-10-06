@@ -2790,3 +2790,24 @@ Reanudación solicitada tras eaabe25: se conserva el estado anterior de pausa de
 
 
 2026-10-06 — MOD-03: usuario autoriza «Elimina el limite y actualizalo». Máximo de3 llamadas Claude eliminado;3 llamadas acumuladas preservadas, adaptador/lectura del contrato/Codex aplica y verifica intactos. AGENTS.md, contrato16 v1.3, seguimiento17 y cabecera del registro de consumo actualizados. Referencias3/3 de la cronología son históricas. No llamada nueva ni cambio de fuentes de la prueba34841 por esta modificación documental.
+
+
+## Selección histórica de logs — cronología anterior al cierre
+
+
+Verificación incremental de selección histórica: productor CLI y lector por inventario implementados, aún sin aceptación ni runtime. N1 inicial10 casos/9 correctos/1 fallo de expectativa sobre nombres de campos excluidos (sin fuga de valores); corregido para comprobar data. Selección PG siguiente: test_historical_log_selection_uses_audited_package_review_and_blocks_full_close (perfil/cuenta) y N1/compatibilidad legacy. Ejecutor existente verify_promotion_catalogue.py, PG UUID/medios propios y limpieza, fuente31c1fb8 congelada hasta terminal. Sesión34841 terminal exit1,10 correctas/2 fallos de fixture111,37s, migraciones0/limpieza exacta y fuentes intactas. Artefactos /tmp/cr09-historical-log-pg0110/. Variable local row del fixture quedó sobrescrita al ajustar metadatos históricos; corregida a service_record, sin cambio funcional de aplicación. Repetir únicamente los dos casos PG afectados; N1/legacy reutilizadas. Salida: todas correctas, hashes intactos y retirada exacta; después navegador y runtime pertinentes antes de cierre local de la funcionalidad. No N3 ni aumento ponderado.
+
+
+**Repetición PG terminal67753:**2 casos correctos116,35s sobre b7236c0; migraciones0/PG-medios retirados/fuentes intactas. Fixture corregido sin modificar aplicación. Revisión local detectó límite pendiente de JSON serializado: streams≤64MiB no garantiza envelope≤128MiB tras escapes/metadatos; productor y lector ahora rechazan antes de crear artefacto si canónico>64MiB, con regresión. CLI maneja errores controlados sin traceback. Se añade CLI real PG y móviles ES/EN perfil-cuenta para cerrar la funcionalidad completa; no reabrir componentes previos.
+
+**N2 siguiente registrado:** selección test_scoped_log_history_origins, compatibilidad legacy del lector, dos recorridos históricos PG con CLI real/replay/paquete/revisión/bloqueo y cuatro móviles Chromium390x844 ES/EN perfil-cuenta. Ejecutor existente, salida /tmp/cr09-historical-log-n2-final0110/, PG UUID/medios propios, fuentes congeladas hasta terminal. Salida:0 fallos/errores/skips, migraciones correctas/fuentes intactas/limpieza; después Docker/runtime local y censo de capturas reales antes de cierre. No N3 ni porcentaje nuevo.
+
+
+**N2 inicial95241 terminal exit1:** fuente023d3f4,17 casos/11 correctos/6 fallos169,19s; migraciones0/fuentes intactas/PG-medios retirados. Dos fallos CLI reproducen import de modelos antes de django.setup; imports movidos a preparación tras setup. Cuatro fallos móviles son aserción de marcador RDB no aplicable a logs; corregida a pendiente histórico real. Revisión local adicional: hash del ciphertext original entra ahora en material de revisión y su cambio invalida paquete; pendiente histórico se propaga al paquete incluso con evaluación de infraestructura para impedir cierre completo de selección parcial. Regresiones de origen y cierre incorporadas. N1 intermedio9 correctas/1 fallo de fixture por antiguo nombre de constante, corregido sin cambios de política.
+
+**Repetición de cierre preparada:** mismo selector17 casos sobre fuente corregida, salida /tmp/cr09-historical-log-n2-bound0110/, runner PG/CLI/Chromium ESEN perfil-cuenta/legacy/límites. Salida exacta0 fallos/errores/skips, limpieza y fuentes intactas; después integración/runtime local. No repetir otras baterías ni aceitar CR09/porcentaje.
+
+
+**N2 terminal81013 correcto:** fuente73d28f6,17 casos PG/CLI/Chromium correctos,0 fallos/errores/skips; informe automático/JUnit revisados, fuentes intactas y bases/medios retirados. Integración ya en master con huellas coincidentes. Siguiente cierre exigido: conservar logs previos cifrados, reconstruir/recrear exclusivamente app/worker/Beat y comprobar hashes/PG/UID/migraciones/HTTP/modos seguros con /tmp/cr09-historical-log-deploy0110.py y -runtime0110.py. No activar orígenes normales ni aceptar CR09. Fuentes congeladas durante build/runtime.
+
+Todas las sesiones citadas arriba son terminales; cierre y cola vigentes únicamente en seguimiento17. Invocación4 de revisión rechazada exit64 antes de iniciar Claude por CONTEXT de tipo objeto; sin reintento automático, revisión Codex local aplicada.
