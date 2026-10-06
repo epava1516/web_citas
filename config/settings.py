@@ -6,6 +6,7 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).resolve().parent.parent
 APP_ENV = os.getenv("APP_ENV", "development")
 PRODUCTION = APP_ENV == "production"
+RECOVERY_MODE = os.getenv("RECOVERY_MODE", "0") == "1"
 DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1" and not PRODUCTION
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "local-development-only-change-before-any-deployment")
 if PRODUCTION and (len(SECRET_KEY) < 50 or SECRET_KEY.startswith("local-")):
@@ -26,6 +27,7 @@ INSTALLED_APPS = [
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "apps.core.middleware.RecoveryGateMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -183,6 +185,11 @@ CELERY_BEAT_SCHEDULE = {
     "recover-private-media": {"task": "apps.mediafiles.tasks.recover_media_jobs", "schedule": 60.0},
     "expire-public-listings": {"task": "apps.listings.tasks.expire_listings", "schedule": 60.0},
 }
+
+if RECOVERY_MODE:
+    CELERY_BEAT_SCHEDULE = {}
+    # Beat otherwise installs backend_cleanup even with an empty schedule.
+    CELERY_RESULT_EXPIRES = None
 
 MEDIA_STORAGE_PROVIDER = os.getenv("MEDIA_STORAGE_PROVIDER", "local")
 if MEDIA_STORAGE_PROVIDER == "s3":

@@ -1590,6 +1590,7 @@ class RightsPortabilityClosure(models.Model):
 
 class RecoveryOutbox(models.Model):
     """Transactional execution receipt; independent export remains required."""
+
     id = models.BigAutoField(primary_key=True)
     event_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     execution = models.OneToOneField(ErasureExecution, on_delete=models.PROTECT)
@@ -1607,4 +1608,35 @@ class RecoveryLedgerState(models.Model):
     head = models.CharField(max_length=64, default="0" * 64)
 
     class Meta:
-        constraints = [models.CheckConstraint(condition=models.Q(id=1), name="recovery_ledger_singleton")]
+        constraints = [
+            models.CheckConstraint(condition=models.Q(id=1), name="recovery_ledger_singleton")
+        ]
+
+
+class RecoveryApplication(models.Model):
+    execution_id = models.UUIDField(primary_key=True)
+    scope = models.CharField(max_length=12)
+    subject_reference = models.CharField(max_length=64)
+    receipt_digest = models.CharField(max_length=64)
+    encrypted_receipt = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RecoveryMediaJob(models.Model):
+    application = models.ForeignKey(RecoveryApplication, on_delete=models.PROTECT)
+    blob = models.ForeignKey("mediafiles.Blob", null=True, on_delete=models.PROTECT)
+    blob_reference = models.UUIDField()
+    encrypted_paths = models.TextField()
+    status = models.CharField(max_length=12, default="queued")
+    attempts = models.PositiveIntegerField(default=0)
+    next_attempt_at = models.DateTimeField(default=timezone.now)
+    completed_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["application", "blob_reference"],
+                name="one_recovery_media_job_per_operation_blob",
+            )
+        ]

@@ -109,3 +109,21 @@ class AccountGateMiddleware:
             ):
                 return redirect("mfa_enroll" if not request.user.mfa_enabled else "mfa_challenge")
         return None
+
+
+class RecoveryGateMiddleware:
+    """Explicit recovery closes all Django HTTP routes, including health."""
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        from django.conf import settings
+        from django.http import HttpResponse
+
+        if settings.RECOVERY_MODE:
+            response = HttpResponse("Service unavailable", status=503)
+            response["Cache-Control"] = "no-store"
+            response["Retry-After"] = "60"
+            return response
+        return self.get_response(request)

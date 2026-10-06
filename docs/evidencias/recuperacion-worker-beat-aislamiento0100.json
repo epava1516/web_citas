@@ -1,0 +1,47 @@
+{
+  "scope": "Local real worker/Beat isolation with PostgreSQL and Redis, synthetic probe only",
+  "tests": 2,
+  "seconds": 43.42,
+  "xml": "/tmp/recovery-worker-beat-cleanup0100.xml",
+  "worker": {
+    "real_worker": true,
+    "results": [
+      {
+        "mode": "recovery",
+        "ignored": true,
+        "task_id": "c551dd0d-2715-475e-a34f-3c603444178b"
+      },
+      {
+        "mode": "normal",
+        "executed": true,
+        "postgres_pid": 556895,
+        "task_id": "a5bd9bab-0a42-4e49-8b5e-acabf7375552"
+      }
+    ],
+    "workers_stopped": true,
+    "isolated_queues_deleted": true,
+    "business_tasks_guarded": 16
+  },
+  "beat": {
+    "real_beat": true,
+    "normal_dispatch_observed": true,
+    "recovery_effective_schedule_empty": true,
+    "old_persisted_entries_removed": true,
+    "processes_stopped": true,
+    "isolated_queue_deleted": true
+  },
+  "files": {
+    "config/celery.py": "5539cdd4d342640802e3304483c31eaf6a16a3899218a4de20c3ccb2ce030d56",
+    "config/settings.py": "0b0195b9435734d24225725beb8ce81b461da694a8f72770cea0abece8b84ebd",
+    "scripts/probe_recovery_task_gate.py": "57ad83dcff440c6dd9a1c11d4d9cd1dcdb5ec6e848f81ba35e61e0d4b57ca547",
+    "tests/test_recovery_task_gate.py": "9fe6a62a1e4b35b0ac049011a23ebfbb1b9cdccf2ffbfddf0d87ac2b5cf3248d"
+  },
+  "limits": [
+    "Runtime Docker remains0099; restart required to activate new guards",
+    "Consumed tasks ignored in recovery are acknowledged; reconstruct authorized work after reconciliation",
+    "No external CDN/provider isolation or publication authorization",
+    "Not full CR09 acceptance"
+  ],
+  "prior_failed_attempt": "Beat retained built-in backend_cleanup; recovery now disables result expiry default entry",
+  "cleanup_improvement": "Beat queue fixture cleanup executes even on assertion failures"
+}

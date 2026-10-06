@@ -1,0 +1,58 @@
+{
+  "scope": "Actual PostgreSQL pg_dump/pg_restore and synthetic local file recovery",
+  "real_restore_tests": 1,
+  "seconds": 43.61,
+  "physical_recovery_tests": 6,
+  "physical_seconds": 72.43,
+  "proof": {
+    "real_restore": true,
+    "effects_applied": true,
+    "media_deleted": true,
+    "peer_preserved": true,
+    "old_session_rejected": true,
+    "replay_idempotent": true,
+    "publication_authorized": false,
+    "backup_bytes": 816540,
+    "backup_seconds": 0.9661958431825042,
+    "restore_and_reconcile_seconds": 5.082305300049484
+  },
+  "backup_sha256": "91843460e9b1afff19b24f4a266a3b532baadc744c61c78a3ae38c027e03ea34",
+  "temporary_restore_database_cleanup_verified": true,
+  "files": {
+    "apps/safety/recovery_apply.py": "d6f1ba41df5003e8d05383b59b6ec198550b53b5424e074edda14a11fbbd49e8",
+    "apps/safety/recovery_media.py": "887f41699420b6323b6f923e8b4c8150612dc7f02b3d72c52cee727e190ab2ca",
+    "apps/safety/models.py": "45ef311067e4515518259f28a3f70beb61e637a795a6fedd20b9619668257a8b",
+    "apps/safety/migrations/0100_recovery_application.py": "b8f8445ee806725f09513304a919e7701937476dedd07613ab25c1af6c4ef2d2",
+    "apps/core/middleware.py": "e26f0a7ba9b8561e44f7c83423ca4eb70013ef11890013a227cf6891665045fd",
+    "config/settings.py": "f55a03d9d7253ac8fdcff59bb8bbbde3fb985497c95bbd3585195617492577f9",
+    "apps/safety/account_erasure_inventory.py": "c3c1adf5709a45bd374bfbefc2c533c0fce7a311a826125a6cba4072fa6c7717",
+    "apps/safety/erasure_inventory.py": "1edae2bd2cb658f627b7d7832fc2c4964ce6749ea050e56a2a1b3635750813ef",
+    "tests/test_recovery_media.py": "b5be35c27a625ce1e5a3e4efc901b5fa4ffbc2c29979c7ae6eb1a6e417f6be2a",
+    "tests/test_recovery_pg_restore.py": "1a10dcb9cad90806908c16b6336e28aa2c99e2093f4fbcc699141235ce711130"
+  },
+  "xmls": [
+    "/tmp/recovery-pg-restore-corrected0100.xml",
+    "/tmp/recovery-media-corrected0100.xml"
+  ],
+  "failed_attempts": [
+    {
+      "xml": "/tmp/recovery-media0100.xml",
+      "passed": 5,
+      "failed": 1,
+      "cause": "JSON order deleted derivative before original; order now explicit"
+    },
+    {
+      "xml": "/tmp/recovery-pg-restore0100.xml",
+      "failed": 1,
+      "cause": "Cleanup verification SQL SELECT1 syntax; corrected and full test repeated"
+    }
+  ],
+  "limits": [
+    "Separate runs, not single7-case suite",
+    "Synthetic identities and local storage only",
+    "Not all rights purposes or shared-media recovery variants",
+    "No off-host provider or real worker/Beat run",
+    "No RPO/RTO capacity accreditation",
+    "Docker still0099"
+  ]
+}

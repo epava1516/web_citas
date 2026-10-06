@@ -572,11 +572,64 @@ def source(case):
                 ],
             ),
             (
+                "safety.RecoveryApplication",
+                Q(scope="account", subject_reference=str(user.pk))
+                | Q(
+                    scope="person",
+                    subject_reference__in=[
+                        str(pk)
+                        for pk in Person.objects.filter(subject=user).values_list("pk", flat=True)
+                    ],
+                ),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "scope",
+                    "subject_reference",
+                    "receipt_digest",
+                    "encrypted_receipt",
+                    "created_at",
+                ],
+            ),
+            (
+                "safety.RecoveryMediaJob",
+                Q(application__scope="account", application__subject_reference=str(user.pk))
+                | Q(
+                    application__scope="person",
+                    application__subject_reference__in=[
+                        str(pk)
+                        for pk in Person.objects.filter(subject=user).values_list("pk", flat=True)
+                    ],
+                ),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "application_id",
+                    "blob_id",
+                    "blob_reference",
+                    "encrypted_paths",
+                    "status",
+                    "attempts",
+                    "next_attempt_at",
+                    "completed_at",
+                    "created_at",
+                ],
+            ),
+            (
                 "safety.RecoveryOutbox",
                 (Q(execution__account_subject=user) | Q(execution__person__subject=user))
                 & ~Q(execution__action__request=case),
                 "dependent_evidence",
-                ["pk", "event_id", "execution_id", "encrypted_event", "sequence", "encoded_record", "created_at", "exported_at"],
+                [
+                    "pk",
+                    "event_id",
+                    "execution_id",
+                    "encrypted_event",
+                    "sequence",
+                    "encoded_record",
+                    "created_at",
+                    "exported_at",
+                ],
             ),
             (
                 "safety.RightsPortabilityClosure",

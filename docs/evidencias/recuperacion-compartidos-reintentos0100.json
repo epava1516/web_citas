@@ -1,0 +1,30 @@
+{
+  "scope": "Integrated typed database reconciliation and physical-media recovery on PostgreSQL",
+  "tests": 11,
+  "seconds": 116.041,
+  "xml": "/tmp/recovery-shared-retry0100.xml",
+  "covered": [
+    "failed physical deletion retains status, attempts, next_attempt_at and encrypted paths across ledger replay",
+    "completed job with reintroduced file starts new deletion cycle",
+    "shared-only and mixed redaction detach own references, preserve peer rows and shared files, leave exclusive review-pending files intact",
+    "all existing account/contact/authentication/copy/ownership/audit/replay cases in selected two modules"
+  ],
+  "reproduction": {
+    "xml": "/tmp/recovery-backoff-before0100.xml",
+    "failed": 1,
+    "seconds": 37.31,
+    "cause": "Reconcile reset failed deletion to queued, attempts0 and immediate retry"
+  },
+  "files": {
+    "apps/safety/recovery_apply.py": "292f9fe6de98c94794aa4a70b2544312dbf4f25b2f85619a9902d93ff9792945",
+    "apps/safety/recovery_media.py": "887f41699420b6323b6f923e8b4c8150612dc7f02b3d72c52cee727e190ab2ca",
+    "tests/test_recovery_apply.py": "66531ca2478169114dbe931ad464dd4d218748969cb273fa8fc399894cc340c9",
+    "tests/test_recovery_media.py": "5fcf32ca600c92cf841eee181d212dca82d2dda0abca5b363b8a7f80702e1ff1"
+  },
+  "limits": [
+    "Synthetic local storage and PostgreSQL",
+    "Prior pg_dump result predates this correction; repeat in final integration",
+    "No provider/CDN isolation or authorization to reopen",
+    "Runtime0099; uncommitted0100; CR09 and contract open"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "scope": "PostgreSQL scoped reconciliation of synthetically restored resources",
+  "tests": 6,
+  "seconds": 73.915,
+  "xml": "/tmp/recovery-scopes0100.xml",
+  "covered": [
+    "authentication, preferences and transient copies with replay and damaged audit rejection",
+    "foreign favorites rejected with transaction rollback",
+    "completed media jobs requeued when old files exist",
+    "contact challenges and invitations removed; restored consent revoked; phone association detached; peer unchanged",
+    "private account anonymized with unusable password; profiles, listings, agencies and legal evidence preserved",
+    "agency-owner account identity preserved when account purpose not authorized; authentication and copies still removed"
+  ],
+  "files": {
+    "apps/safety/recovery_apply.py": "d6f1ba41df5003e8d05383b59b6ec198550b53b5424e074edda14a11fbbd49e8",
+    "tests/test_recovery_apply.py": "66531ca2478169114dbe931ad464dd4d218748969cb273fa8fc399894cc340c9",
+    "apps/safety/recovery_ownership.py": "d1fb97c21af25e1a00d84d45d1d6104685269c8eb49fc2b9dd3c311ae81a73dd",
+    "scripts/recovery_receipts.py": "00ad23268a4094999bdb03fa9d53756a1199dd16eee23968962fe8d6888069a7"
+  },
+  "limits": [
+    "Restored ORM fields in this suite, not new pg_dump/pg_restore coverage",
+    "Real prior backup test covers other selected purposes separately",
+    "No external providers or legal acceptance",
+    "Docker remains0099 and work uncommitted",
+    "Full CR09 and entire contract remain open"
+  ]
+}

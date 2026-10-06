@@ -1,0 +1,73 @@
+{
+  "scope": "Integrated recovery suite and updated local Docker runtime0100",
+  "tests": 67,
+  "seconds": 225.507,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "xml": "/tmp/recovery-integrated0100.xml",
+  "frozen_source_files": 584,
+  "source_unchanged": true,
+  "runtimes": {
+    "app": {
+      "uid": 10001,
+      "files": {
+        "apps/core/middleware.py": "e26f0a7ba9b8561e44f7c83423ca4eb70013ef11890013a227cf6891665045fd",
+        "apps/safety/models.py": "45ef311067e4515518259f28a3f70beb61e637a795a6fedd20b9619668257a8b",
+        "apps/safety/account_erasure_inventory.py": "c3c1adf5709a45bd374bfbefc2c533c0fce7a311a826125a6cba4072fa6c7717",
+        "apps/safety/erasure_inventory.py": "1edae2bd2cb658f627b7d7832fc2c4964ce6749ea050e56a2a1b3635750813ef",
+        "apps/safety/migrations/0100_recovery_application.py": "b8f8445ee806725f09513304a919e7701937476dedd07613ab25c1af6c4ef2d2",
+        "apps/safety/recovery_apply.py": "292f9fe6de98c94794aa4a70b2544312dbf4f25b2f85619a9902d93ff9792945",
+        "apps/safety/recovery_media.py": "887f41699420b6323b6f923e8b4c8150612dc7f02b3d72c52cee727e190ab2ca",
+        "apps/safety/management/commands/apply_recovery_ledger.py": "6a5bca51e18cb3b07eb8084fc8ce9cfcfc542c2293fccf707a8637420fa12dfe",
+        "apps/safety/management/commands/check_recovery_ledger.py": "3fa4c48ce3ccf7ff405e046d6c50937ea8a044f829e6b0e29fb0a32df70363a1",
+        "config/settings.py": "0b0195b9435734d24225725beb8ce81b461da694a8f72770cea0abece8b84ebd",
+        "config/celery.py": "5539cdd4d342640802e3304483c31eaf6a16a3899218a4de20c3ccb2ce030d56"
+      }
+    },
+    "worker": {
+      "uid": 10001,
+      "files": {
+        "apps/core/middleware.py": "e26f0a7ba9b8561e44f7c83423ca4eb70013ef11890013a227cf6891665045fd",
+        "apps/safety/models.py": "45ef311067e4515518259f28a3f70beb61e637a795a6fedd20b9619668257a8b",
+        "apps/safety/account_erasure_inventory.py": "c3c1adf5709a45bd374bfbefc2c533c0fce7a311a826125a6cba4072fa6c7717",
+        "apps/safety/erasure_inventory.py": "1edae2bd2cb658f627b7d7832fc2c4964ce6749ea050e56a2a1b3635750813ef",
+        "apps/safety/migrations/0100_recovery_application.py": "b8f8445ee806725f09513304a919e7701937476dedd07613ab25c1af6c4ef2d2",
+        "apps/safety/recovery_apply.py": "292f9fe6de98c94794aa4a70b2544312dbf4f25b2f85619a9902d93ff9792945",
+        "apps/safety/recovery_media.py": "887f41699420b6323b6f923e8b4c8150612dc7f02b3d72c52cee727e190ab2ca",
+        "apps/safety/management/commands/apply_recovery_ledger.py": "6a5bca51e18cb3b07eb8084fc8ce9cfcfc542c2293fccf707a8637420fa12dfe",
+        "apps/safety/management/commands/check_recovery_ledger.py": "3fa4c48ce3ccf7ff405e046d6c50937ea8a044f829e6b0e29fb0a32df70363a1",
+        "config/settings.py": "0b0195b9435734d24225725beb8ce81b461da694a8f72770cea0abece8b84ebd",
+        "config/celery.py": "5539cdd4d342640802e3304483c31eaf6a16a3899218a4de20c3ccb2ce030d56"
+      }
+    },
+    "beat": {
+      "uid": 10001,
+      "files": {
+        "apps/core/middleware.py": "e26f0a7ba9b8561e44f7c83423ca4eb70013ef11890013a227cf6891665045fd",
+        "apps/safety/models.py": "45ef311067e4515518259f28a3f70beb61e637a795a6fedd20b9619668257a8b",
+        "apps/safety/account_erasure_inventory.py": "c3c1adf5709a45bd374bfbefc2c533c0fce7a311a826125a6cba4072fa6c7717",
+        "apps/safety/erasure_inventory.py": "1edae2bd2cb658f627b7d7832fc2c4964ce6749ea050e56a2a1b3635750813ef",
+        "apps/safety/migrations/0100_recovery_application.py": "b8f8445ee806725f09513304a919e7701937476dedd07613ab25c1af6c4ef2d2",
+        "apps/safety/recovery_apply.py": "292f9fe6de98c94794aa4a70b2544312dbf4f25b2f85619a9902d93ff9792945",
+        "apps/safety/recovery_media.py": "887f41699420b6323b6f923e8b4c8150612dc7f02b3d72c52cee727e190ab2ca",
+        "apps/safety/management/commands/apply_recovery_ledger.py": "6a5bca51e18cb3b07eb8084fc8ce9cfcfc542c2293fccf707a8637420fa12dfe",
+        "apps/safety/management/commands/check_recovery_ledger.py": "3fa4c48ce3ccf7ff405e046d6c50937ea8a044f829e6b0e29fb0a32df70363a1",
+        "config/settings.py": "0b0195b9435734d24225725beb8ce81b461da694a8f72770cea0abece8b84ebd",
+        "config/celery.py": "5539cdd4d342640802e3304483c31eaf6a16a3899218a4de20c3ccb2ce030d56"
+      }
+    }
+  },
+  "migration0100_applied": true,
+  "django_check_ok": true,
+  "migrate_check_ok": true,
+  "health200": true,
+  "isolated_child_recovery_http503_tasks_guarded_beat_empty": "isolated child mode verified",
+  "limits": [
+    "67 tests cover selected recovery modules and inventory census, not whole repository or CR09",
+    "Local synthetic pg_dump/storage/worker/Beat tests only",
+    "No real external checkpoint freshness, CDN or provider verification",
+    "Recovery-mode probe child process only; normal running app not switched to recovery",
+    "Full contract remains open"
+  ]
+}

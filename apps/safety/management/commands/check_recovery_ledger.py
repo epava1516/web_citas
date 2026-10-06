@@ -22,19 +22,22 @@ class Command(BaseCommand):
         parser.add_argument("--backup-sequence", required=True, type=int)
         parser.add_argument("--backup-head", required=True)
 
+    def recovery_store(self, options):
+        encryption = os.environ["RECOVERY_ENCRYPTION_KEY"].encode("ascii")
+        signing = base64.b64decode(
+            os.environ["RECOVERY_SIGNING_KEY"], altchars=b"-_", validate=True
+        )
+        codec = RecoveryLedger(encryption, signing)
+        start = Checkpoint(
+            options["backup_ledger"], options["backup_sequence"], options["backup_head"]
+        )
+        return RecoveryStore(
+            options["records_directory"], options["checkpoint_directory"], codec
+        ), start
+
     def handle(self, *args, **options):
         try:
-            encryption = os.environ["RECOVERY_ENCRYPTION_KEY"].encode("ascii")
-            signing = base64.b64decode(
-                os.environ["RECOVERY_SIGNING_KEY"], altchars=b"-_", validate=True
-            )
-            codec = RecoveryLedger(encryption, signing)
-            start = Checkpoint(
-                options["backup_ledger"], options["backup_sequence"], options["backup_head"]
-            )
-            store = RecoveryStore(
-                options["records_directory"], options["checkpoint_directory"], codec
-            )
+            store, start = self.recovery_store(options)
             receipts = store.recover(start)
             with transaction.atomic():
                 for receipt in receipts:

@@ -10,9 +10,9 @@ Fecha de corte:2026-10-06. CR-09 abierto; contrato completo activo. BASE y CR-01
 | --- | --- | --- |
 | Portabilidad/respuesta0095–97 |393 pruebas originales correctas3788,47s; HTTP/móvil/carreras/binarios y worker/Beat verificados separadamente | No implica aceptación de todos los derechos |
 | Autoridad integrada |124 pruebas integradas correctas814,02s; respuestas/supresión/acciones revalidan permisos/sesiones/MFA | Seguridad integral y resto CR-09 pendientes |
-| Recuperación0098/0099 | Outbox/inventarios/referencias/medios/productor/exportador integrados;48 pruebas finales correctas73,11s | Reaplicación de efectos y ensayo pg_dump/medios pendientes |
-| Comprobación operacional | Comando check_recovery_ledger probado con PostgreSQL; valida sin aplicar efectos ni autorizar publicación | Implementar puerta de aislamiento y reconciliación completa |
-| Docker0099 | Migraciones0098–99 aplicadas;16 hashes coinciden host/app/worker/Beat, UID10001, Django check/health correctos | No acredita almacenamiento externo ni producción |
+| Recuperación0098/0099 | Outbox/inventarios/referencias/medios/productor/exportador integrados;48 pruebas finales correctas73,11s | Aplicador0100 y ensayo real parciales verificados en workspace; integrar runtime y completar variantes |
+| Comprobación operacional | Comando check_recovery_ledger probado con PostgreSQL; valida sin aplicar efectos ni autorizar publicación | Aislamiento HTTP/worker/Beat0100 probado localmente; completar operación y reconciliación |
+| Docker0100 | Migración0100 aplicada;11 hashes de entrega coinciden host/app/worker/Beat, UID10001, Django check/migrate-check/health correctos | No acredita almacenamiento externo ni producción |
 | Calidad | Ruff global, Django/migraciones y git diff --check correctos | CI externo sigue sin ejecutar por facturación/límite |
 | Resto CR-09 | Auditoría docs83; recuperación docs84 y operación docs85 | Derechos por finalidad, conservación/comunicaciones/rendimiento/restauración y aceptación integral |
 
@@ -20,7 +20,26 @@ Resultados separados: [original393](evidencias/portabilidad-regresion-comun0097-
 
 Consolidado0099 y exportador tipado aplicados después de resultados terminales y comparación de hashes. Import desordenado corregido tras13474; Ruff global correcto. No aplicar de nuevo parches de preparación/incrementales históricos. Runtime actualizado a esta versión; las advertencias antiguas de fuente congelada/procesos activos/no aplicado no prevalecen sobre este resumen.
 
-Entrega parcial0095–99 documentada y verificada localmente con autoría autorizada; CR-09 y contrato completo siguen abiertos. Último commit remoto previo a esta entrega: d5bfa8a. CI previo no ejecutó pruebas por facturación/límite de GitHub; no equivale a fallo funcional ni aceptación. Claude3/3 agotado; continuar localmente, sin publicación web ni proveedores.
+Entrega parcial0095–99 subida a origin/master:83c9d637f905d36396fe6361b7c8936681f314f4, autor/committer Eduardo David Paredes Vara <Paredes1516@hotmail.es>; CR-09 y contrato completo siguen abiertos. Último commit remoto previo a esta entrega: d5bfa8a. CI previo no ejecutó pruebas por facturación/límite de GitHub; no equivale a fallo funcional ni aceptación. Claude3/3 agotado; continuar localmente, sin publicación web ni proveedores.
+
+Aplicador0100 inicial implementado en workspace:4 pruebas PostgreSQL correctas64,36s; modo recuperación explícito/HTTP503, credenciales/preferencias/copias reintroducidas eliminadas, terceros conservados, replay/auditoría y reencolado físico. [Evidencia y límites](evidencias/recuperacion-aplicador0100-inicial.json). No ensayo pg_dump ni worker físico; otros ámbitos requieren pruebas. Migración0100 no aplicada al runtime0099; trabajo nuevo sin commit.
+
+Restauración0100:6 pruebas correctas72,43s de motor/aplicador y, separadamente,1 ensayo real pg_dump/pg_restore correcto43,61s; medios/perfil ajeno/sesión/replay comprobados y base temporal eliminada. [Evidencia y límites](evidencias/recuperacion-restauracion-real0100.json). No aceptación global: otros ámbitos, tareas/cachés y operación pendientes; runtime0099.
+
+
+Aislamiento0100: dos pruebas con worker y Beat reales correctas (43.420s). Worker ignora la tarea sintética en recuperación y la ejecuta con PostgreSQL en modo normal; las16 tareas de negocio registradas usan el guard. Beat elimina entradas persistidas, incluido backend_cleanup, y no despacha en recuperación. Procesos detenidos y colas de la repetición eliminadas; limpieza de cola garantizada también ante aserciones fallidas. [Evidencia](evidencias/recuperacion-worker-beat-aislamiento0100.json). Requiere reiniciar cada proceso con RECOVERY_MODE; mensajes ignorados se consumen, reconstruir solo trabajo autorizado. Runtime0099; sin aislamiento de proveedores/CDN ni aceptación CR09.
+
+
+Ámbitos0100:6 pruebas PostgreSQL correctas74,01s en una batería del aplicador. Nuevos casos restauran contacto/representación y cuentas: eliminan códigos/invitaciones, revocan consentimiento, separan teléfono y pausan publicación; conservan perfil ajeno. Cuenta particular se anonimiza y desactiva; propietario de agencia conserva identidad cuando account no está autorizado. Perfiles/anuncios/agencias y evidencia legal conservados; replay sin nueva mutación. [Evidencia](evidencias/recuperacion-ambitos0100.json). Restauración de campos ORM en esta batería, no nuevo ensayo pg_dump; faltan variantes de medios compartidos, eventos múltiples, operación y regresión integral. Runtime0099, cambios sin commit.
+
+
+Medios/reintentos0100:11 pruebas PostgreSQL del aplicador y motor físico correctas116,14s. Reproducción previa falló1 caso37,31s: reconcile reiniciaba backoff/contador de un borrado fallido. Corregido para conservar estado de trabajos pendientes/fallidos y reabrir solo completados con archivos reintroducidos. Casos compartido y mixto conservan filas/archivos del otro perfil, separan referencias propias y preservan archivos exclusivos todavía pendientes de revisión. [Evidencia](evidencias/recuperacion-compartidos-reintentos0100.json). Fuente del aplicador cambia respecto a evidencia pg_dump anterior; repetir restauración en integración final. Runtime0099, sin commit ni aceptación CR09.
+
+
+Operación/restauración0100:3 pruebas PostgreSQL correctas63,67s sobre la misma fuente actual (comando apply_recovery_ledger, preflight y ensayo real pg_dump/pg_restore). Rechazo de modo normal/checkpoint ausente/lote inválido antes de efectos; aplicación/borrado físico y replay sin duplicados. Restauración repetida tras corregir backoff: medios eliminados, tercero preservado, sesión antigua rechazada y DB temporal eliminada. [Evidencia](evidencias/recuperacion-operacion-restauracion0100.json). El comando mantiene aislamiento/publication_authorized:false, informa pendientes/agotados y no acredita vigencia externa del checkpoint, CDN ni RPO/RTO. Runtime0099; falta regresión integrada y entrega0100, CR09 abierto.
+
+
+Entrega técnica parcial0100 preparada: batería integrada de recuperación y censo67 pruebas correctas225,62s, sin fallos/errores/omitidas;584 hashes de fuentes congeladas intactos. Docker construido y app/worker/Beat recreados; migración0100 aplicada,11 hashes idénticos host/tres servicios, UID10001, Django check/migrate-check y salud200. Proceso hijo aislado RECOVERY_MODE=1 verifica HTTP503/guard de tareas/Beat vacío sin cambiar modo del servicio normal. [Evidencia](evidencias/recuperacion-integrada-runtime0100.json). Este resumen prevalece sobre referencias anteriores a runtime0099/cambios no integrados; esas referencias conservan el momento histórico de cada prueba. No es regresión completa del repositorio ni cierre CR09. Siguiente: eventos múltiples y autoridad vigente de recuperación, cachés/colas/operación y matriz residual derechos/finalidades. CR10→GS01→BF/BB→C pendientes; CI externo sin ejecución por facturación.
 
 ## Historial de observaciones anteriores al resumen normalizado
 

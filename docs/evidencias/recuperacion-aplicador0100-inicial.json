@@ -1,0 +1,36 @@
+{
+  "scope": "Initial actual PostgreSQL reconciliation with synthetic ORM reintroduction, not pg_dump restore",
+  "passed": 4,
+  "seconds": 64.36,
+  "xml": "/tmp/recovery-apply-integrity0100.xml",
+  "files": {
+    "apps/safety/recovery_apply.py": "d6f1ba41df5003e8d05383b59b6ec198550b53b5424e074edda14a11fbbd49e8",
+    "apps/safety/models.py": "45ef311067e4515518259f28a3f70beb61e637a795a6fedd20b9619668257a8b",
+    "apps/safety/migrations/0100_recovery_application.py": "b8f8445ee806725f09513304a919e7701937476dedd07613ab25c1af6c4ef2d2",
+    "apps/core/middleware.py": "e26f0a7ba9b8561e44f7c83423ca4eb70013ef11890013a227cf6891665045fd",
+    "config/settings.py": "f55a03d9d7253ac8fdcff59bb8bbbde3fb985497c95bbd3585195617492577f9",
+    "apps/safety/account_erasure_inventory.py": "c3c1adf5709a45bd374bfbefc2c533c0fce7a311a826125a6cba4072fa6c7717",
+    "apps/safety/erasure_inventory.py": "1edae2bd2cb658f627b7d7832fc2c4964ce6749ea050e56a2a1b3635750813ef",
+    "tests/test_recovery_apply.py": "207a025a080141602758dfe39eef8f3462dba77a2735c72153a742a9f9a891b9",
+    "tests/test_purpose_inventory_dependencies.py": "d5e86b154cdce4d487fb75ab90b04f58ddd3ac26813fe48a761b3a07afa5ced1"
+  },
+  "coverage": [
+    "Explicit recovery mode required",
+    "Django routes including health return503/no-store",
+    "Reintroduced own credentials/preferences/copy cleared",
+    "Foreign favorite preserved",
+    "Exact replay does not duplicate application or increment epochs",
+    "Audit ciphertext damage blocks replay",
+    "Foreign scope rejected without mutation",
+    "Old completed media job requeued when files exist",
+    "Account inventory dependency census67"
+  ],
+  "limits": [
+    "Not all database purposes tested",
+    "No physical recovery worker yet",
+    "No real pg_dump/restore",
+    "No worker/Beat stop enforcement",
+    "Docker remains0099 until next verified delivery",
+    "No CR09 acceptance"
+  ]
+}
