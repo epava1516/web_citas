@@ -1,0 +1,28 @@
+{
+  "verified_at": "2026-10-06T14:40:29.669903+00:00",
+  "method": "Actual project RDB captured encrypted, loaded with same Redis image in no-network container running as redis; metadata only DBSIZE/LLEN/HLEN.",
+  "snapshot_sha256": "c383ad04f16c316bdd053a4a5d873d5f2ec262fb2a154bfddb3f68ec117bf9b4",
+  "snapshot_bytes": 12497,
+  "encrypted_origin": "/tmp/redis-snapshot-origin0110-d5ffm1r_/redis-snapshot-origin.encrypted",
+  "snapshot_inventory": {
+    "key_count": 80,
+    "normal_queue_messages": 0,
+    "normal_reserved_messages": 0
+  },
+  "live_inventory": {
+    "key_count": 80,
+    "normal_queue_messages": 0,
+    "normal_reserved_messages": 0
+  },
+  "isolated_container_removed": true,
+  "temporary_plaintext_removed": true,
+  "partial": true,
+  "anonymous_review_volume_cleanup_proven": false,
+  "limits": [
+    "Inventory counts do not prove subject association or full historical coverage.",
+    "AOF incremental history, older snapshots, host archives, all priority buckets and unknown keys remain pending.",
+    "Live broker unchanged: no flush/message consumption/production restore.",
+    "Not a reviewed per-case resource bundle or complete CR09 acceptance."
+  ],
+  "initial_attempt": "Container not ready; removed with temporary plaintext. Entry-point initialization bypassed in successful read-only review."
+}
