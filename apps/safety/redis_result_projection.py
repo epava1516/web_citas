@@ -1,10 +1,21 @@
 """Minimal historical result evidence; payloads still require separate review."""
 
 import json
+from datetime import datetime
 
 from django.views.decorators.debug import sensitive_variables
 
 from .rights import fingerprint
+
+PERIODIC_COUNTER_TASKS = frozenset(
+    {
+        "apps.safety.tasks.purge_expired_portability_assessments",
+        "apps.safety.tasks.purge_expired_portability_selections",
+        "apps.safety.tasks.purge_expired_portability_coverage",
+        "apps.safety.tasks.purge_expired_portability_response_drafts",
+        "apps.safety.tasks.purge_expired_access_response_drafts",
+    }
+)
 
 
 def task_reference(value):
@@ -37,6 +48,31 @@ def project_result(raw, key_id, links):
     if reference not in links:
         raise ValueError("Unassociated result")
     photo = links[reference]
+    if isinstance(photo, dict):
+        if (
+            set(photo) != {"kind", "task"}
+            or photo["kind"] != "periodic_counter"
+            or photo["task"] not in PERIODIC_COUNTER_TASKS
+        ):
+            raise ValueError("Periodic task schema")
+        value = body["result"]
+        if (
+            state != "SUCCESS"
+            or type(value) is not int
+            or not 0 <= value <= 200
+            or body.get("traceback") is not None
+            or body.get("children") not in (None, [])
+        ):
+            raise ValueError("Periodic counter schema")
+        completed = body.get("date_done")
+        if completed is not None:
+            if (
+                not isinstance(completed, str)
+                or len(completed) > 64
+                or datetime.fromisoformat(completed).tzinfo is None
+            ):
+                raise ValueError("Periodic completion time")
+        return None
     if photo is None:
         return None
     return {

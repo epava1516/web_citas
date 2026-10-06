@@ -24,7 +24,7 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
     task_links = {}
     conflicting_tasks = set()
 
-    from .redis_result_projection import project_result, task_reference
+    from .redis_result_projection import PERIODIC_COUNTER_TASKS, project_result, task_reference
 
     def visit(offset, command, arguments):
         nonlocal database
@@ -60,9 +60,19 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
                 envelope = json.loads(message)
                 if state == "reserved":
                     envelope = envelope[0]
-                if envelope["headers"]["task"] == "apps.mediafiles.tasks.process_blob":
+                task_name = envelope["headers"]["task"]
+                if (
+                    task_name == "apps.mediafiles.tasks.process_blob"
+                    or task_name in PERIODIC_COUNTER_TASKS
+                ):
                     task = task_reference(envelope["headers"]["id"])
-                    photo = projected[0]["photo_reference"] if projected else None
+                    photo = (
+                        {"kind": "periodic_counter", "task": task_name}
+                        if task_name in PERIODIC_COUNTER_TASKS
+                        else projected[0]["photo_reference"]
+                        if projected
+                        else None
+                    )
                     if task in task_links and task_links[task] != photo:
                         blocked.append("conflicting_historical_task_identity")
                         conflicting_tasks.add(task)
@@ -98,6 +108,7 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
     inspection = inspect_aof(BytesIO(raw), on_command=visit)
     result_records = []
     result_pending = []
+    technical_results = []
     database = 0
 
     def results_visit(offset, command, arguments):
@@ -124,6 +135,18 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
             position = 2 if command == "SET" else 3
             data = project_result(arguments[position], key_id.decode("ascii"), task_links)
             if data is None:
+                link = task_links.get(task_reference(key_id.decode("ascii")))
+                if isinstance(link, dict):
+                    if len(technical_results) >= 1000:
+                        raise ValueError("Technical result count limit")
+                    technical_results.append(
+                        {
+                            "reference": fingerprint(
+                                canonical({"origin": origin_digest, "result_offset": offset})
+                            ),
+                            "reason": "known_periodic_counter_without_subject_arguments",
+                        }
+                    )
                 return
         except (IndexError, KeyError, TypeError, ValueError, AttributeError):
             blocked.append("unsupported_or_unassociated_historical_result")
@@ -149,6 +172,7 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
     blocked.extend(result_inspection["pending"])
     return {
         "result_records": result_records,
+        "technical_result_evidence": technical_results,
         "pending": sorted(set(result_pending)),
         "records": records,
         "inspection": inspection,
