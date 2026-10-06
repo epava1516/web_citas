@@ -23,7 +23,7 @@ def message(blob):
             "headers": {
                 "task": "apps.mediafiles.tasks.process_blob",
                 "retries": 0,
-                "id": "private-task-id",
+                "id": "private-task-id-" + blob,
             },
             "body": base64.b64encode(json.dumps([[blob], {}, {}]).encode()).decode(),
         }
@@ -127,6 +127,14 @@ def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim
     manifest = unseal(inventory.encrypted_inventory)
     blob = manifest["media"][0]["blob"] if manifest["media"] else str(uuid4())
     raw = command(b"LPUSH", b"fixture:q", message(blob), message(str(uuid4())))
+    result_id = "private-task-id-" + blob
+    raw += command(
+        b"SET",
+        ("celery-task-meta-" + result_id).encode(),
+        json.dumps(
+            {"task_id": result_id, "status": "SUCCESS", "result": "PRIVATE RESULT PAYLOAD"}
+        ).encode(),
+    )
     body = {
         "schema": "local-redis-aof-origin-v1",
         "project": "web-modelos",
@@ -150,7 +158,16 @@ def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim
             cutoff=inventory.created_at,
             projected=projected,
         )
-    assert not original["blocked"]
+    if account_only:
+        assert not original["blocked"]
+        assert "operations.TaskResultHistory" not in original["groups"]
+    else:
+        assert not original["blocked"]
+        assert original["redis_history"]["pending"] == [
+            "historical_redis_coverage",
+            "historical_result_payload_review",
+        ]
+        assert len(original["groups"]["operations.TaskResultHistory"]) == 1
     assert len(original["redis_history"]["records"]) == (0 if account_only else 1)
     reason = "Synthetic reviewed historical scope, no assertion of exhaustive infrastructure"
     decisions = {
@@ -159,6 +176,10 @@ def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim
     }
     if not account_only:
         decisions["models"]["operations.QueueHistory"] = {"status": "included", "reason": reason}
+        decisions["models"]["operations.TaskResultHistory"] = {
+            "status": "included",
+            "reason": reason,
+        }
     package = compile_package(
         inventory,
         SimpleNamespace(pk=uuid4()),
@@ -169,6 +190,13 @@ def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim
     )
     assert package["partial"] and "historical_redis_coverage" in package["pending"]
     assert "private-task-id" not in str(package["copy"])
+    assert "PRIVATE RESULT PAYLOAD" not in str(package)
+    if not account_only:
+        assert "historical_result_payload_review" in package["pending"]
+        assert any(
+            group["model"] == "operations.TaskResultHistory"
+            for group in package["copy"]["additional_records"]
+        )
     with pytest.raises(ValidationError):
         recipient_payload({"access_package": package})
     path.write_text(seal(body | {"content_base64": base64.b64encode(raw + b"altered").decode()}))

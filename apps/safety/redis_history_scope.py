@@ -1,5 +1,6 @@
 """Private per-subject association of a retained AOF prefix, never replayed."""
 
+import json
 from io import BytesIO
 
 from django.views.decorators.debug import sensitive_variables
@@ -20,6 +21,10 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
     records = []
     blocked = []
     periodic = periodic_tasks()
+    task_links = {}
+    conflicting_tasks = set()
+
+    from .redis_result_projection import project_result, task_reference
 
     def visit(offset, command, arguments):
         nonlocal database
@@ -52,6 +57,22 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
                 if message is None:
                     raise ValueError("Unmaterialized message")
                 projected = project_message(message, blob_ids, state, periodic)
+                envelope = json.loads(message)
+                if state == "reserved":
+                    envelope = envelope[0]
+                if envelope["headers"]["task"] == "apps.mediafiles.tasks.process_blob":
+                    task = task_reference(envelope["headers"]["id"])
+                    photo = projected[0]["photo_reference"] if projected else None
+                    if task in task_links and task_links[task] != photo:
+                        blocked.append("conflicting_historical_task_identity")
+                        conflicting_tasks.add(task)
+                        task_links[task] = None
+                    elif task in conflicting_tasks:
+                        task_links[task] = None
+                    elif len(task_links) >= 1000:
+                        blocked.append("history_task_link_limit")
+                    else:
+                        task_links[task] = photo
                 if projected is None:
                     continue
                 data, content = projected
@@ -75,7 +96,60 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
             )
 
     inspection = inspect_aof(BytesIO(raw), on_command=visit)
+    result_records = []
+    result_pending = []
+    database = 0
+
+    def results_visit(offset, command, arguments):
+        nonlocal database
+        if command == "SELECT":
+            try:
+                database = int(arguments[1]) if len(arguments) == 2 else None
+            except (TypeError, ValueError):
+                database = None
+            return
+        if database != 0 or len(arguments) < 2:
+            return
+        key = arguments[1]
+        marker = b"celery-task-meta-"
+        if key is None or marker not in key or command not in {"SET", "SETEX", "PSETEX"}:
+            return
+        namespace, key_id = key.rsplit(marker, 1)
+        if namespace not in {b"", prefix.encode()}:
+            blocked.append("unsupported_result_namespace")
+            return
+        try:
+            if len(result_records) >= 1000:
+                raise ValueError("Result count limit")
+            position = 2 if command == "SET" else 3
+            data = project_result(arguments[position], key_id.decode("ascii"), task_links)
+            if data is None:
+                return
+        except (IndexError, KeyError, TypeError, ValueError, AttributeError):
+            blocked.append("unsupported_or_unassociated_historical_result")
+            return
+        result_pending.append("historical_result_payload_review")
+        result_records.append(
+            {
+                "reference": fingerprint(
+                    canonical({"origin": origin_digest, "result_offset": offset})
+                ),
+                "data": data,
+                "technical_fields_excluded": [
+                    "task_id",
+                    "result_payload",
+                    "traceback",
+                    "children",
+                    "date_done",
+                ],
+            }
+        )
+
+    result_inspection = inspect_aof(BytesIO(raw), on_command=results_visit)
+    blocked.extend(result_inspection["pending"])
     return {
+        "result_records": result_records,
+        "pending": sorted(set(result_pending)),
         "records": records,
         "inspection": inspection,
         "blocked": sorted(set(blocked + inspection["pending"])),
@@ -151,7 +225,7 @@ def history_records(blob_ids, cutoff):
         return result | {
             "configured": True,
             "captured_at": captured.isoformat(),
-            "pending": ["historical_redis_coverage"],
+            "pending": sorted(set(result["pending"] + ["historical_redis_coverage"])),
         }
     except (OSError, KeyError, TypeError, ValueError, ValidationError):
         raise ValidationError(

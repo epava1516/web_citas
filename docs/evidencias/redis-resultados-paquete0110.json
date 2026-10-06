@@ -1,0 +1,51 @@
+{
+  "verified_at": "2026-10-06T15:46:57.842244+00:00",
+  "requirement": "Retained Celery results are a required census source; exact historical task identity links to authorized own photo, never free-text matching",
+  "source_sha256": {
+    "apps/safety/redis_result_projection.py": "48ebebf8ab239afe241c864ceae62b96c06c16505b7b7318d669447f30a4a72a",
+    "apps/safety/redis_history_scope.py": "2aa980fada4bb92447ba80ec923bc3e3702c15eaf735301d3c2838939857dfd7",
+    "apps/safety/rights_access_delivery.py": "ef74134ff54b67f0b6087cddd464f57ca72d3d37959b2690353e214f54a046a2",
+    "tests/test_redis_result_projection.py": "e77f801afb946ccd1e38fc21e20dc7f086f6f965ce8a0ce3814b9d3ee46b73b8",
+    "tests/test_redis_history_scope.py": "af18b8cc42b9a548b2a0d45b1fafdfc3f55238f53a6c0bd69306df815375a16a"
+  },
+  "implementation": "Existing encrypted AOF origin and audited snapshot, operations.TaskResultHistory metadata; shared current namespace or bare backend key; results may precede queue messages; contradictory links remain blocked even after repeated own task",
+  "tests": [
+    {
+      "log": "/tmp/redis-results-final.log",
+      "passed": 15,
+      "failed": 0,
+      "seconds": 54.82,
+      "scope": "Initial projection/history/parser and PostgreSQL snapshot regressions"
+    },
+    {
+      "log": "/tmp/redis-results-integrated-final.log",
+      "passed": 8,
+      "failed": 1,
+      "seconds": 51.58,
+      "failure": "Payload review was classified blocked instead of supported partial-package pending; corrected"
+    },
+    {
+      "log": "/tmp/redis-results-package-final.log",
+      "passed": 8,
+      "failed": 1,
+      "seconds": 51.33,
+      "failure": "New fixture asserted copy dict as list; corrected additional_records path"
+    },
+    {
+      "log": "/tmp/redis-results-profile-final.log",
+      "passed": 1,
+      "failed": 0,
+      "seconds": 43.02,
+      "scope": "Final profile audited PG snapshot and compiled partial package; payload absent, pending retained, complete recipient payload refused"
+    }
+  ],
+  "static_checks": "Ruff and git diff check passed",
+  "limits": [
+    "Separate affected runs, not a full-phase common-version battery.",
+    "Actual base RDB and live results are inventoried but not imported by this AOF-only reader.",
+    "Result/traceback/children/date_done excluded; explicit payload review pending prevents complete access.",
+    "Unlinked, mismatched, oversized or unknown result formats remain blocked; namespace/source provenance and coherent cut remain pending.",
+    "No new provider, model, migration, task, route or authorization state. Synthetic PostgreSQL cases are not real provider/legal verification."
+  ],
+  "percentages_unchanged": true
+}

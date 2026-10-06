@@ -817,6 +817,8 @@ def snapshot(case, person, inventory, *, cutoff, projected):
     )
     if redis_history["records"]:
         groups["operations.QueueHistory"] = redis_history["records"]
+    if redis_history.get("result_records"):
+        groups["operations.TaskResultHistory"] = redis_history["result_records"]
     log_origins = log_records(
         {
             str(case.pk),
