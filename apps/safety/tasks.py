@@ -181,3 +181,21 @@ def purge_expired_access_response_drafts():
         return RightsAccessResponseDraft.objects.filter(pk__in=ids).update(
             encrypted_response="", purged_at=now
         )
+
+
+@shared_task
+def purge_expired_access_coverage():
+    """Clear expired final draft text; preserve protected audit references."""
+    from .models import RightsAccessCoverage
+
+    with transaction.atomic():
+        now = timezone.now()
+        ids = list(
+            RightsAccessCoverage.objects.select_for_update(skip_locked=True)
+            .filter(expires_at__lte=now, purged_at__isnull=True)
+            .order_by("pk")
+            .values_list("pk", flat=True)[:100]
+        )
+        return RightsAccessCoverage.objects.filter(pk__in=ids).update(
+            encrypted_coverage="", purged_at=now
+        )
