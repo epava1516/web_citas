@@ -1,0 +1,1269 @@
+{
+  "schema": "retained-log-capture-inventory-v1",
+  "evidence": [
+    {
+      "path": "docs/evidencias/alertas-paginacion-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/broker-esquema-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/conservacion-borradores-finales0109-runtime.json",
+      "capture_references": 2
+    },
+    {
+      "path": "docs/evidencias/copia-origen-lote250-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/limitacion-oposicion-final-runtime0108.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/portabilidad-binarios-memoria-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/portabilidad-cobertura-lote-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/portabilidad-inspeccion-hotfix-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/promociones-catalogo-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/promociones-comercial-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/rectificacion-final-runtime0108.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/redis-historico-por-expediente-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/redis-periodicos-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/redis-rdb-aof-origenes-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/redis-rdb-aux-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/redis-rdb-physicalmeta-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/redis-resultados-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/seo-estructurado-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/seo-publico-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/sitemaps-runtime0110.json",
+      "capture_references": 1
+    },
+    {
+      "path": "docs/evidencias/supresion-final-runtime0108.json",
+      "capture_references": 1
+    }
+  ],
+  "origins": [
+    {
+      "path": "/tmp/broker-schema-predeploy0110-snjcn13m/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/broker-schema-predeploy0110-snjcn13m/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T17:14:07.788411+00:00",
+          "evidence": "docs/evidencias/broker-esquema-runtime0110.json",
+          "evidence_sha256": "15f66c7ccec4bb5ed3ed6d234d4b2f6d8da4a4a6d3c1a291e16cb2e501086d01",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 329,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 322613
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 152184
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 968950
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 420438,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2534948,
+      "sha256": "aa3274784be3f9907d363d92cb62d041f9cda9b2ae374c6083e6ef77bbbfaf1e",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/coverage-batch-predeploy0110-rue7ub_f/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/coverage-batch-predeploy0110-rue7ub_f/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T17:46:29.487993+00:00",
+          "evidence": "docs/evidencias/portabilidad-cobertura-lote-runtime0110.json",
+          "evidence_sha256": "d3653f3800a28a7cc564d1b402ca403a2a9281fa3041e3c7eba59d30d2d2dcff",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 329,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 112809
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 53148
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 974080
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 423516,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2132068,
+      "sha256": "fac768e758ed1023a8453f7f5271bf0e0e746bdc2ffa61b2ed5b368c3980f078",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/cr09-binary-memory-predeploy0110-8nosod8a/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/cr09-binary-memory-predeploy0110-8nosod8a/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T21:35:55.308401+00:00",
+          "evidence": "docs/evidencias/portabilidad-binarios-memoria-runtime0110.json",
+          "evidence_sha256": "fdbd079bf08021983ecaf1e574fc29780e24d8cdbfb42c9520c62ad570eaa49c",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 329,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2939,
+              "stderr_bytes": 120318
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 56685
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 1028475
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 447114,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2252748,
+      "sha256": "2ab78da7baac5c7a6aabb9eb417dad9c5bfbfba49f86149268f65be028f220d5",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/cr09-rdb-aux-predeploy0110-zvy1czss/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/cr09-rdb-aux-predeploy0110-zvy1czss/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T22:47:02.497098+00:00",
+          "evidence": "docs/evidencias/redis-rdb-aux-runtime0110.json",
+          "evidence_sha256": "2fb09295852b3d6033c4b38e13c820e34e5496b9820dc9a1f48fba9cc2f779aa",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 638,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2939,
+              "stderr_bytes": 157746
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 74370
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 1037062
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 455595,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2349964,
+      "sha256": "ff017815bb3defe83117560108260d91e56ba12b0ab1ad09bca8a2c9535f97e9",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/cr09-rdb-origins-predeploy0110-uvn4y_hd/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/cr09-rdb-origins-predeploy0110-uvn4y_hd/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T22:25:19.025123+00:00",
+          "evidence": "docs/evidencias/redis-rdb-aof-origenes-runtime0110.json",
+          "evidence_sha256": "81c8e8305e3f7a37520040934eeb745d04b532881be4978c53f9aaf11a6d0f01",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 638,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2939,
+              "stderr_bytes": 217704
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 102666
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 1034047
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 452244,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2459704,
+      "sha256": "db4a2573dceb31d635aaedc58b62cc8cf88ab8f5bc4ce9ada2a4a5aad95e4469",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/cr09-rdb-physicalmeta-predeploy0110-s449_jfo/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/cr09-rdb-physicalmeta-predeploy0110-s449_jfo/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T23:04:27.291376+00:00",
+          "evidence": "docs/evidencias/redis-rdb-physicalmeta-runtime0110.json",
+          "evidence_sha256": "c43abdcbcb30c532437238ef1a53144b62863f3bdc006594471138eafb56dc6c",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 638,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2939,
+              "stderr_bytes": 127763
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 60222
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 1039210
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 457647,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2296460,
+      "sha256": "4deb0b748b1237997cc28e87965e36eae5031d8ff7f43bd19f2ed9b6ed27d609",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/cr09-scoped-redis-history-predeploy0110-kuneqden/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/cr09-scoped-redis-history-predeploy0110-kuneqden/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T21:55:29.104746+00:00",
+          "evidence": "docs/evidencias/redis-historico-por-expediente-runtime0110.json",
+          "evidence_sha256": "ac5b86c2bb7c6a2c24c0403c194535438d773aa8a3cfa51d2e823e63b6f2f687",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 638,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2939,
+              "stderr_bytes": 82833
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 39000
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 1032754
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 449166,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2187748,
+      "sha256": "e5490c2de71e3f0dac7fe1c2e1e64b79e4d5828433d70e46c9fea0ce9a581c2e",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/erasure-predeploy0108-9kz69f1j/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/erasure-predeploy0108-9kz69f1j/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T11:51:22.580205+00:00",
+          "evidence": "docs/evidencias/supresion-final-runtime0108.json",
+          "evidence_sha256": "1578422a22258dd1df8a381c48849bf9b275a14870bd3733bceee036345def8c",
+          "pointer": "/predeploy_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 110,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 337605
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 159258
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3018
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 924078
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 386306,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2457420,
+      "sha256": "8291f411eaa5e13a4e7a524aefc56ad2a2f448ef50ad7d65151e22d67397f2af",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/final-retention-finaldeploy0109-7ivpaqg5/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/final-retention-finaldeploy0109-7ivpaqg5/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T12:42:36.669186+00:00",
+          "evidence": "docs/evidencias/conservacion-borradores-finales0109-runtime.json",
+          "evidence_sha256": "d09f9b2c167638663051470ecfab5392dcdb3150739317adc3232cea521c6c76",
+          "pointer": "/predeploy_logs/1",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 0,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 52844
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 24852
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3018
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 931440
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 391436,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 1912268,
+      "sha256": "d424f322d4aa8efa4022b9958c1dc3e4a9cd4c7da765cf25d4b02292b6d87cc0",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/final-retention-predeploy0109-rdsqxqxd/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/final-retention-predeploy0109-rdsqxqxd/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T12:34:39.512797+00:00",
+          "evidence": "docs/evidencias/conservacion-borradores-finales0109-runtime.json",
+          "evidence_sha256": "d09f9b2c167638663051470ecfab5392dcdb3150739317adc3232cea521c6c76",
+          "pointer": "/predeploy_logs/0",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 110,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 165255
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 77907
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3018
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 929693
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 390410,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2130468,
+      "sha256": "1e1855b59db503238585676d1e8dc898b9ac9131050dfec53095ecdefc5feeb3",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/inspection-hotfix-predeploy0110-0vluy0rj/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/inspection-hotfix-predeploy0110-0vluy0rj/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T19:53:27.826672+00:00",
+          "evidence": "docs/evidencias/portabilidad-inspeccion-hotfix-runtime0110.json",
+          "evidence_sha256": "50c2b0fcdb70f35fdd051ad2b0a5290237527be22280e28e0fb6d0aafd88c216",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 329,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 869609
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 410385
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 988894
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 436854,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 3662948,
+      "sha256": "6e4f4abbd007c8fe39413559c510f5c828c62d8de07d88eb18da803aa8f153e6",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/processing-predeploy0108-vq7ggwk7/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/processing-predeploy0108-vq7ggwk7/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T12:12:03.455948+00:00",
+          "evidence": "docs/evidencias/limitacion-oposicion-final-runtime0108.json",
+          "evidence_sha256": "c1fc4aab50e53841beb67a821137cf6ebe71557be9338752c9f7136993dd14ca",
+          "pointer": "/predeploy_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 110,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 150271
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 70833
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3018
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 926687
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 388358,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2094116,
+      "sha256": "abc5379990e404d31eca843a01b9082630e62c1566013c253812ed6bfe1d6208",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/promotion-catalogue-predeploy0110-23050km8/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/promotion-catalogue-predeploy0110-23050km8/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T20:14:47.684718+00:00",
+          "evidence": "docs/evidencias/promociones-catalogo-runtime0110.json",
+          "evidence_sha256": "39c8f79242ec0dbcb33e215b4ea85d68f9dcfcc48cf21fe51f0f5521690acd42",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 329,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 157778
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 74370
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 995810
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 438906,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2270692,
+      "sha256": "63b0c4a5a89fc6c87c4ce13bcb94fe0136b745d0ba0078a3471b4af516f276c6",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/promotion-commercial-predeploy0110-p3__w9fg/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/promotion-commercial-predeploy0110-p3__w9fg/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T21:19:21.041057+00:00",
+          "evidence": "docs/evidencias/promociones-comercial-runtime0110.json",
+          "evidence_sha256": "149d5aba31fe15dc5bab4564bdf98fbbcf943f956d0cce6bfa1fc51cd56c2972",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 0,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2939,
+              "stderr_bytes": 411
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 93
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 1024998
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 445575,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2009036,
+      "sha256": "18bf5f13fb4cb7d51a0f07fb0b6884c5e2d9fe9bf968e90b5816b438ad66e6a9",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/rectification-predeploy0108-gg03hb56/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/rectification-predeploy0108-gg03hb56/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T11:01:49.035896+00:00",
+          "evidence": "docs/evidencias/rectificacion-final-runtime0108.json",
+          "evidence_sha256": "395a0d0263e3987bf843603bb4b4aa20a2eac17d15bc7be146cc73240c8ea224",
+          "pointer": "/log_preservation",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 110,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 420039
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 198165
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3018
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 918853
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 381176,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2606136,
+      "sha256": "e6b31ecf04cb9eb95ff67bf1f950a5118a23eed325e01d588142cb3985270805",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/redis-periodicos-predeploy0110-oxpdksuc/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/redis-periodicos-predeploy0110-oxpdksuc/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T16:29:56.380083+00:00",
+          "evidence": "docs/evidencias/redis-periodicos-runtime0110.json",
+          "evidence_sha256": "54b71386bd1fd1fdcd1b7960cbbaaafa8b3aaedfe80ae7d35e29588adcd863e4",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 329,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 135275
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 63759
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 965981
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 414521,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2153420,
+      "sha256": "77dd1bd4937ea405b31115dc7c9e2fb7c662a67ccc609f21a5f7d942f15049e6",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/redis-results-predeploy0110-zjr0n2ip/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/redis-results-predeploy0110-zjr0n2ip/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T15:47:09.406186+00:00",
+          "evidence": "docs/evidencias/redis-resultados-runtime0110.json",
+          "evidence_sha256": "3558950210bf3106b5858d1471a03924628cabb9ab51bf1d19348744c60313db",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 212,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 105321
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 49611
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 963413
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 410417,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2085176,
+      "sha256": "a61f79a76e2676690ee4186f3fba3303646e80ac06256001f35902741453a5aa",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/seo-predeploy0110-2zvj2b4i/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/seo-predeploy0110-2zvj2b4i/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T15:32:26.510126+00:00",
+          "evidence": "docs/evidencias/seo-publico-runtime0110.json",
+          "evidence_sha256": "ae63b2840dd38f16ffe85eb43f6f144123e7f5682d9da31e8d203e821a7579cd",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 110,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 150286
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 70833
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 960825
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 408878,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2168204,
+      "sha256": "b3e4352cf8931b09f47f3baf2b957b2735d12788c1dd5f7fa3f202625a809712",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/seo-structured-public-predeploy0110-j4lsfnpe/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/seo-structured-public-predeploy0110-j4lsfnpe/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T21:43:56.789416+00:00",
+          "evidence": "docs/evidencias/seo-estructurado-runtime0110.json",
+          "evidence_sha256": "eda9e3a8d5972df06ef92a2cd567b4298eb01c4b6a6e0733b6111412b5081921",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 329,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2939,
+              "stderr_bytes": 52865
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 24852
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 1029771
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 448140,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2122808,
+      "sha256": "2f74f53e14025cdeaa2355cfbb200407339b2f555f8a23e4ad211b06edac6d44",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/sitemaps-predeploy0110-uefhjzi_/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/sitemaps-predeploy0110-uefhjzi_/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T16:11:33.408984+00:00",
+          "evidence": "docs/evidencias/sitemaps-runtime0110.json",
+          "evidence_sha256": "5b1357b0ec78e554dacdd5eca98f63a5f08e14e428dcc093384d732bedb9eef3",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 212,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 180212
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 84981
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 964704
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 412982,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2238136,
+      "sha256": "09015b24a38499c32392b3f33b47f0297c0e361a4cefaa6ac0d253495ab71653",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/source-batch250-predeploy0110-ote_3f8t/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/source-batch250-predeploy0110-ote_3f8t/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T17:56:53.604237+00:00",
+          "evidence": "docs/evidencias/copia-origen-lote250-runtime0110.json",
+          "evidence_sha256": "8ce65662247e88b3fbd49ed71e71873bde8bd7d9bfd15c379e32491babdcbeb0",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 329,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 75334
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 35463
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 975375
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 425055,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2061964,
+      "sha256": "88a4bcdb370806920a4ecb12f0ca2447e421da11848770ff7f4afb279a73c69a",
+      "status": "ciphertext_inventoried"
+    },
+    {
+      "path": "/tmp/urgent-sql-predeploy0110-xjhkob8h/access-log-origins.encrypted",
+      "declarations": [
+        {
+          "path": "/tmp/urgent-sql-predeploy0110-xjhkob8h/access-log-origins.encrypted",
+          "captured_at": "2026-10-06T17:30:28.004228+00:00",
+          "evidence": "docs/evidencias/alertas-paginacion-runtime0110.json",
+          "evidence_sha256": "254950427372117c55d013f61d83bcd18567116f02f3f2429537a9d289f469f4",
+          "pointer": "/predeployment_logs",
+          "declared_services": [
+            {
+              "service": "app",
+              "stdout_bytes": 329,
+              "stderr_bytes": 486
+            },
+            {
+              "service": "worker",
+              "stdout_bytes": 2869,
+              "stderr_bytes": 120282
+            },
+            {
+              "service": "beat",
+              "stdout_bytes": 677,
+              "stderr_bytes": 56685
+            },
+            {
+              "service": "caddy",
+              "stdout_bytes": 0,
+              "stderr_bytes": 3298
+            },
+            {
+              "service": "db",
+              "stdout_bytes": 3823,
+              "stderr_bytes": 971749
+            },
+            {
+              "service": "redis",
+              "stdout_bytes": 421977,
+              "stderr_bytes": 0
+            }
+          ],
+          "declaration_verified_against_content": false
+        }
+      ],
+      "pending": [],
+      "bytes": 2141644,
+      "sha256": "3898a0d616a64d440e95d0aaae7b40153caff34f310b2890f321ea16f2577829",
+      "status": "ciphertext_inventoried"
+    }
+  ],
+  "capture_references": 22,
+  "unique_origins": 22,
+  "declared_sources_inventoried": true,
+  "partial": true,
+  "subject_association_verified": false,
+  "pending": [
+    "capture_metadata_and_original_content_validation",
+    "historical_content_differences_and_subject_association",
+    "independent_disclosure_review",
+    "other_retained_host_mail_cache_backup_sources",
+    "retention_authority"
+  ],
+  "observed_at": "2026-10-06T23:09:08.608766+00:00",
+  "observed_seconds": 0.20305663626641035,
+  "base_commit": "eaabe255106a1057a762b08a1f77fc71c701bf67",
+  "source_sha256": {
+    "scripts/inventory_retained_origins.py": "bde7f637df871a615a5709660bdf178e65ab0d28a8b74652cfceac7d0c835386",
+    "tests/test_retained_origin_inventory.py": "73c6e3412a0c3d9c8c93f8faa9d4907f6fe3f0f3ea1359046b0e122089ed2df4"
+  },
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "scripts.inventory_retained_origins",
+    "--evidence",
+    "docs/evidencias/alertas-paginacion-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/broker-esquema-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/conservacion-borradores-finales0109-runtime.json",
+    "--evidence",
+    "docs/evidencias/copia-origen-lote250-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/limitacion-oposicion-final-runtime0108.json",
+    "--evidence",
+    "docs/evidencias/portabilidad-binarios-memoria-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/portabilidad-cobertura-lote-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/portabilidad-inspeccion-hotfix-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/promociones-catalogo-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/promociones-comercial-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/rectificacion-final-runtime0108.json",
+    "--evidence",
+    "docs/evidencias/redis-historico-por-expediente-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/redis-periodicos-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/redis-rdb-aof-origenes-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/redis-rdb-aux-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/redis-rdb-physicalmeta-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/redis-resultados-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/seo-estructurado-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/seo-publico-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/sitemaps-runtime0110.json",
+    "--evidence",
+    "docs/evidencias/supresion-final-runtime0108.json",
+    "--output",
+    "/tmp/cr09-retained-log-census0110-e216n5ny/inventory.json"
+  ],
+  "private_report": "/tmp/cr09-retained-log-census0110-e216n5ny/inventory.json",
+  "private_report_sha256": "7a086944c6ce7c7bb8698a22f284cb3f17bfe53495a514abd0dde796e21fc165",
+  "tests": {
+    "command": [
+      ".venv/bin/pytest",
+      "tests/test_retained_origin_inventory.py",
+      "-q",
+      "--junitxml=/tmp/retained-log-census-tests0110.xml"
+    ],
+    "summary": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_seconds": 0.257
+    },
+    "scope": "Filesystem checks only; no PostgreSQL integration or browser claimed"
+  },
+  "checks": {
+    "ruff": 0,
+    "diff_check": 0
+  },
+  "bytes": 50328076,
+  "normal_runtime_modified": false,
+  "origins_decrypted": false,
+  "phase_accepted": false,
+  "diagnosis_result": "22 known historical captures retained; legacy log reader accepts only a single recent capture. Historical per-inventory selection and content accounting remain absent.",
+  "limits": [
+    "Declared service metadata and capture times not verified against encrypted content",
+    "Ciphertext hashes prove present identity only; original historical ciphertext hashes absent in capture declarations",
+    "Known acta references only; not a host-wide census or independent custody proof"
+  ]
+}

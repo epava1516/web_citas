@@ -2784,3 +2784,6 @@ Verificación inicial acotada preparada: `/tmp/cr09-rdb-physicalmeta-probe0110.p
 
 
 Resultado terminal:16 N1/7 N2 correctos en selecciones distintas sobre bedc016;850 huellas coincidentes, fuentes/PG/medios propios intactos/retirados. Runtime118 hashes/3servicios correcto. Informe automatizado revisado en [evidencia](evidencias/redis-rdb-physicalmeta-integrado0110.json), [runtime](evidencias/redis-rdb-physicalmeta-runtime0110.json). No N3/aceptación externa ni modificación v9. Se detiene tras este cierre completo por solicitud del usuario, sin abrir otra funcionalidad. Sesiones98015/54624/53193/86938/73296 terminales.
+
+
+Reanudación solicitada tras eaabe25: se conserva el estado anterior de pausa después del cierre físico no AUX: «Se para aquí por petición del usuario». Revocada por nueva instrucción de continuar; procesos actuales comprobados sin pruebas activas. Censo físico y runtime bedc016 cerrados localmente, sin cambio ponderado.
