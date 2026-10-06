@@ -1,0 +1,76 @@
+"""One source per enclosing audited inspection; mandatory fresh check before return.
+
+No cache survives the context. Only the matching active context may defer nested
+source reads. The caller must enclose this context in its atomic transaction.
+"""
+
+from contextlib import contextmanager
+from contextvars import ContextVar
+
+from django.core.exceptions import ValidationError
+from django.db import transaction
+from django.views.decorators.debug import sensitive_variables
+
+from .rights import fingerprint
+from .rights_exports import canonical, source_copy
+
+_current = ContextVar("rights_inspection_source", default=None)
+
+
+def scope(person, listing, case):
+    return (
+        case.pk,
+        case.version,
+        case.person_id,
+        case.account_subject_id,
+        case.manager_version,
+        person.pk if person else None,
+        listing.pk if listing else None,
+    )
+
+
+class _InspectionSource:
+    @sensitive_variables()
+    def __init__(self, person, listing, case):
+        self.scope = scope(person, listing, case)
+        self.connection = transaction.get_connection()
+        self.source = source_copy(person, listing, case)
+        self.digest = fingerprint(canonical(self.source))
+
+    @sensitive_variables()
+    def get(self, person, listing, case):
+        if (
+            _current.get() is not self
+            or transaction.get_connection() is not self.connection
+            or not self.connection.in_atomic_block
+            or scope(person, listing, case) != self.scope
+        ):
+            raise ValidationError("Inspection source context is unavailable or outside its scope")
+        return self.source
+
+
+@sensitive_variables()
+def shared_source(context, person, listing, case):
+    if not isinstance(context, _InspectionSource):
+        raise ValidationError("Invalid inspection source context")
+    return context.get(person, listing, case)
+
+
+@contextmanager
+@sensitive_variables()
+def inspection_source(person, listing, case):
+    if not transaction.get_connection().in_atomic_block:
+        raise RuntimeError("Inspection source requires an enclosing atomic transaction")
+    context = _InspectionSource(person, listing, case)
+    token = _current.set(context)
+    try:
+        yield context
+        context.get(person, listing, case)
+        # Detect accidental mutation of the shared projection as well as DB drift.
+        if (
+            fingerprint(canonical(context.source)) != context.digest
+            or fingerprint(canonical(source_copy(person, listing, case))) != context.digest
+        ):
+            raise ValidationError("Inspection source changed before return")
+    finally:
+        _current.reset(token)

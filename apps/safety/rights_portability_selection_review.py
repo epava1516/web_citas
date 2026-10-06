@@ -14,6 +14,7 @@ from .models import (
 )
 from .rights import fingerprint
 from .rights_exports import canonical, reviewer_case, source_copy
+from .rights_inspection_source import shared_source
 from .rights_portability_review import authorize, validate_approved_assessment
 from .rights_portability_selection import project_selected
 from .rights_portability_selection_store import validate_selection_evidence
@@ -23,7 +24,18 @@ from .rights_verification import authorized_proof, complete_read
 
 @transaction.atomic
 @sensitive_variables()
-def record(user, case_id, version, selection_id, key, purpose, operation="inspect", outcome=""):
+def record(
+    user,
+    case_id,
+    version,
+    selection_id,
+    key,
+    purpose,
+    operation="inspect",
+    outcome="",
+    *,
+    _inspection_source=None,
+):
     case, person, listing = reviewer_case(user, case_id)
     actor = authorize(user, case)
     if (
@@ -61,7 +73,13 @@ def record(user, case_id, version, selection_id, key, purpose, operation="inspec
     ):
         raise ValidationError("Latest portability selection required")
     proof = authorized_proof(case, person, case.kind)
-    source = source_copy(person, listing, case)
+    if _inspection_source is not None and operation != "inspect":
+        raise ValidationError("Shared inspection source cannot authorize a selection decision")
+    source = (
+        shared_source(_inspection_source, person, listing, case)
+        if _inspection_source is not None
+        else source_copy(person, listing, case)
+    )
     source_digest = fingerprint(canonical(source))
     review = row.assessment_review
     previous = RightsAction.objects.filter(key=key).first()
@@ -195,7 +213,14 @@ def record(user, case_id, version, selection_id, key, purpose, operation="inspec
             authorize(user, case)
             if (
                 authorized_proof(case, person, case.kind).pk != proof.pk
-                or fingerprint(canonical(source_copy(person, listing, case))) != source_digest
+                or fingerprint(
+                    canonical(
+                        shared_source(_inspection_source, person, listing, case)
+                        if _inspection_source is not None
+                        else source_copy(person, listing, case)
+                    )
+                )
+                != source_digest
             ):
                 raise ValidationError("Selection inspection source changed")
             if operation == "inspect" and "field_evidence" in binding:

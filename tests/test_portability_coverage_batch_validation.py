@@ -4,7 +4,7 @@ import pytest
 from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_portability_covered_export_races import approved_coverage
 
-from apps.safety import rights_portability_coverage_inspection as inspection
+from apps.safety import rights_inspection_source as inspection
 from apps.safety import rights_portability_selection_review as selected
 from apps.safety.rights_portability_coverage_review import record
 
