@@ -829,3 +829,24 @@ Cambios de versión/fecha de calendario o efecto invalidan la aprobación anteri
 ## Caducidad de texto final no emitido0109
 
 Borradores erase/process/rectify_final_draft caducan para uso24h después de created_at y su texto no emitido se limpia automáticamente en lotes≤100 por la tarea periódica de borradores existente. purged_at identifica limpieza y la fila/digest/key/version permanecen. Borradores vinculados a final_response son evidencia de respuesta emitida y no se eliminan por esta caducidad; su política jurídica integral debe resolverse por finalidad. Emisiones anteriores sin vínculo se reconocen por el registro cifrado firmado y la Response de misma key/expediente. En caso de evidencia de emisión ilegible se conserva para revisión operacional. Locks expediente→acción impiden limpiar evidencia emitida durante una espera. Esto no autoriza borrar consultas/revisiones ni registros de terceros, no completa conservación integral y no cambia el texto/respuesta ya disponibles en el acuse.
+
+
+## REQ-CR09-REDIS-ORIGIN-SCOPE-01 — Cortes conservados por inventario
+
+El histórico AOF parcial usa la misma revisión/paquete de acceso existentes, sin modelos, pantallas ni rutas nuevas. `ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE` admite el archivo legado o un directorio privado0700 propiedad del UID lector. En directorio, el servidor deriva `access-redis-history-REQUEST_UUID-INVENTORY_ID.encrypted` desde el expediente y el inventario autorizados; no acepta componentes de ruta de formularios. Cada archivo es regular0600, propiedad del lector, sin enlace final, cifrado≤128MiB y AOF≤64MiB. El archivo no se reemplaza al preparar otro inventario.
+
+Esquema exacto en directorio: `local-redis-aof-scoped-origin-v1`, `project=web-modelos`, `captured_at`, `sha256`, `content_base64`, `partial=true`, `request`, `inventory` entero positivo, `source_digest` y `cutoff`. Expediente, inventario, huella de origen y corte deben coincidir con el inventario consumido; la captura debe ser consciente de zona horaria y no posterior al corte. El inventario debe pertenecer al expediente. JSON cifrado que no sea objeto, ámbito/huella/corte alterados, formato legado en directorio, permisos inseguros, origen ausente o corrupción se rechazan mediante ValidationError. El archivo individual `local-redis-aof-origin-v1` conserva compatibilidad; sigue parcial y no acredita cortes simultáneos ligados a expedientes.
+
+Preparación de operador sobre origen cifrado existente, entorno/clave y PostgreSQL locales autorizados:
+
+```bash
+python -m scripts.scope_retained_redis_origin \
+  --origin /ruta/privada/captura-aof.encrypted \
+  --output-directory /ruta/privada/origenes \
+  --request UUID_DEL_EXPEDIENTE \
+  --inventory ID_DEL_INVENTARIO
+```
+
+El comando exige inventario existente de ese expediente, no purgado ni caducado. Conserva fecha/hash/bytes de la captura original y escribe exclusivamente un nuevo archivo0600 con O_EXCL; no sobrescribe, no contacta Redis ni ejecuta sus comandos. Un escritor concurrente que pierde la creación recibe error. Verifica permisos/propietario/estabilidad del archivo de entrada; la preparación no comprueba exhaustividad ni decide conservación/identidad o autoriza lectura del caso. No sirve como acta de procedencia de namespaces desconocidos.
+
+Instalar directorio/archivos con propiedad del UID10001 y configuración de cifrado compatible para su lectura en contenedores, como otros orígenes privados; no alojar en medios públicos ni montar el socket Docker en la aplicación. El servicio normal continúa sin origen configurado: esta entrega no instala las capturas históricas ni elimina pendientes. `historical_redis_coverage` y formatos/asociaciones desconocidas siguen impidiendo entrega completa. Contrato de corte integral, base RDB/backups/live/conservación y revisión independiente pendientes. [Evidencia local](../evidencias/redis-historico-por-expediente0110.json).
