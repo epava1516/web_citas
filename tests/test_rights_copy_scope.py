@@ -351,9 +351,9 @@ def test_listing_state_copy_rejects_stale_lifecycle_and_foreign_injection(reques
     assert delivered["partial"]
 
 
-@pytest.mark.parametrize("history_count", [30, 80])
+@pytest.mark.parametrize("history_count", [30, 280])
 def test_profile_copy_queries_are_batched_without_losing_historical_revisions(
-    request, settings, history_count, record_property
+    request, settings, history_count, record_property, monkeypatch
 ):
     from django.db import connection, transaction
     from django.test.utils import CaptureQueriesContext
@@ -394,8 +394,16 @@ def test_profile_copy_queries_are_batched_without_losing_historical_revisions(
         assert row["title"] == revision.title
         assert row["rates"][0]["concept"] == "Synthetic historical rate"
         assert row["categories"] == sorted(base.categories.values_list("slug", flat=True))
-    small_batches = (len(small["revisions"]) + 49) // 50
-    large_batches = (len(large["revisions"]) + 49) // 50
+    from apps.safety import rights_exports
+
+    batch_size = rights_exports.COPY_REVISION_BATCH_SIZE
+    with monkeypatch.context() as legacy:
+        legacy.setattr(rights_exports, "COPY_REVISION_BATCH_SIZE", 50)
+        with transaction.atomic():
+            reference = source_copy(person, listing, case)
+    assert large == reference
+    small_batches = (len(small["revisions"]) + batch_size - 1) // batch_size
+    large_batches = (len(large["revisions"]) + batch_size - 1) // batch_size
     record_property("baseline_queries", len(small_queries))
     record_property("historical_queries", len(large_queries))
     record_property("historical_revisions", len(large["revisions"]))

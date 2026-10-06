@@ -38,6 +38,9 @@ from .rights_scope import locked_case, permitted
 from .rights_verification import PROCEDURE, authorized_proof, complete_read, enabled
 from .views import private
 
+# Keep intermediate ORM objects bounded while amortizing five relation queries.
+COPY_REVISION_BATCH_SIZE = 250
+
 
 @sensitive_variables()
 def canonical(value):
@@ -86,7 +89,7 @@ def source_copy(person, listing, case=None):
                 ),
             )
         )
-        for revision in records.iterator(chunk_size=50):
+        for revision in records.iterator(chunk_size=COPY_REVISION_BATCH_SIZE):
             revisions.append(
                 {
                     "revision": str(revision.pk),
