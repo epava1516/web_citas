@@ -13,6 +13,7 @@ from django.views.decorators.http import require_http_methods
 
 from .models import RightsRequest
 from .rights import allowed
+from .rights_access_field_decision_views import ProposalForm
 from .rights_access_field_read import FIELDS, read
 from .rights_access_response_review import authorize_reviewer
 from .rights_access_response_views import ReviewForm
@@ -49,6 +50,7 @@ def inventory(request, case_id):
         initial={"key": uuid4(), "version": case.version, "response_version": case.response_version}
     )
     row = manifest = page = field_body = None
+    proposal_form = None
     status = 200
     if request.method == "POST":
         form = ScopeForm(request.POST)
@@ -68,7 +70,7 @@ def inventory(request, case_id):
                     target = values["field_target"].split("|")
                     if len(target) != 3 or values["field_key"] is None:
                         raise ValidationError("Exact field inspection target required")
-                    field_body, _ = read(
+                    field_body, field_action = read(
                         request.user,
                         case.pk,
                         values["version"],
@@ -77,6 +79,18 @@ def inventory(request, case_id):
                         *target,
                         values["field_key"],
                         values["reason"],
+                    )
+                if field_body:
+                    proposal_form = ProposalForm(
+                        initial={
+                            "key": uuid4(),
+                            "version": case.version,
+                            "response_version": case.response_version,
+                            "read_id": field_action.pk,
+                            "model": field_body["model"],
+                            "reference": field_body["reference"],
+                            "field": field_body["field"],
+                        }
                     )
                 records = [
                     {
@@ -107,6 +121,7 @@ def inventory(request, case_id):
                 "manifest": manifest,
                 "entries": page,
                 "field_body": field_body,
+                "proposal_form": proposal_form,
                 "field_key": uuid4(),
                 "english": request.LANGUAGE_CODE == "en",
             },

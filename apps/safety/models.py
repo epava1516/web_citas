@@ -1743,3 +1743,32 @@ class RightsAccessScopeInventory(models.Model):
     expires_at = models.DateTimeField(db_index=True)
     purged_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RightsAccessFieldDecision(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    inventory = models.ForeignKey(RightsAccessScopeInventory, on_delete=models.PROTECT)
+    read_action = models.ForeignKey(
+        RightsAction, on_delete=models.PROTECT, related_name="access_field_decisions"
+    )
+    encrypted_body = models.TextField()
+    expires_at = models.DateTimeField(db_index=True)
+    purged_at = models.DateTimeField(null=True)
+    review_action = models.OneToOneField(
+        RightsAction, null=True, on_delete=models.PROTECT, related_name="access_field_review"
+    )
+    outcome = models.CharField(max_length=10, default="pending")
+    review_read_action = models.ForeignKey(
+        RightsAction, null=True, on_delete=models.PROTECT, related_name="access_field_review_reads"
+    )
+    reviewer_session_version = models.PositiveIntegerField(null=True)
+    reviewer_mfa_version = models.PositiveIntegerField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(outcome__in=["pending", "approved", "rejected"]),
+                name="access_field_decision_outcome",
+            )
+        ]

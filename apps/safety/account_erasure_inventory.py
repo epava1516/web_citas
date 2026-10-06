@@ -710,6 +710,30 @@ def source(case, *, capture=None):
                 ],
             ),
             (
+                "safety.RightsAccessFieldDecision",
+                (
+                    Q(inventory__request__account_subject=user)
+                    | Q(inventory__request__person__subject=user)
+                )
+                & ~Q(inventory__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "inventory_id",
+                    "read_action_id",
+                    "encrypted_body",
+                    "expires_at",
+                    "purged_at",
+                    "review_action_id",
+                    "outcome",
+                    "review_read_action_id",
+                    "reviewer_session_version",
+                    "reviewer_mfa_version",
+                    "created_at",
+                ],
+            ),
+            (
                 "safety.RightsAccessScopeInventory",
                 (Q(request__account_subject=user) | Q(request__person__subject=user))
                 & ~Q(request=case),

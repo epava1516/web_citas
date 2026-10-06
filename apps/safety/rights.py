@@ -385,10 +385,15 @@ def inspect(request, case_id):
                 .order_by("-created_at", "-pk"),
                 50,
             ).get_page(request.GET.get("information_page"))
+    access_field_decisions = None
     access_coverage_drafts = None
     access_response_drafts = None
     if case.kind == "access":
-        from .models import RightsAccessCoverage, RightsAccessResponseDraft
+        from .models import (
+            RightsAccessCoverage,
+            RightsAccessFieldDecision,
+            RightsAccessResponseDraft,
+        )
         from .rights_access_response_review import authorize_reviewer
 
         try:
@@ -396,6 +401,19 @@ def inspect(request, case_id):
         except PermissionDenied:
             pass
         else:
+            access_field_decisions = Paginator(
+                RightsAccessFieldDecision.objects.filter(
+                    inventory__request=case,
+                    inventory__case_version=case.version,
+                    inventory__response_version=case.response_version,
+                    purged_at__isnull=True,
+                    expires_at__gt=timezone.now(),
+                )
+                .exclude(action__actor=request.user)
+                .only("pk", "created_at")
+                .order_by("-created_at", "-pk"),
+                50,
+            ).get_page(request.GET.get("access_field_page"))
             access_coverage_drafts = Paginator(
                 RightsAccessCoverage.objects.filter(
                     request=case,
@@ -509,6 +527,7 @@ def inspect(request, case_id):
                 "portability_selections": portability_selections,
                 "portability_coverages": portability_coverages,
                 "portability_response_drafts": portability_response_drafts,
+                "access_field_decisions": access_field_decisions,
                 "access_response_drafts": access_response_drafts,
                 "access_coverage_drafts": access_coverage_drafts,
             },

@@ -217,3 +217,21 @@ def purge_expired_access_scope_inventory():
         return RightsAccessScopeInventory.objects.filter(pk__in=ids).update(
             encrypted_inventory="", purged_at=now
         )
+
+
+@shared_task
+def purge_expired_access_field_decision():
+    """Clear expired proposed field values; preserve protected audit references."""
+    from .models import RightsAccessFieldDecision
+
+    with transaction.atomic():
+        now = timezone.now()
+        ids = list(
+            RightsAccessFieldDecision.objects.select_for_update(skip_locked=True)
+            .filter(expires_at__lte=now, purged_at__isnull=True)
+            .order_by("pk")
+            .values_list("pk", flat=True)[:100]
+        )
+        return RightsAccessFieldDecision.objects.filter(pk__in=ids).update(
+            encrypted_body="", purged_at=now
+        )

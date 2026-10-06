@@ -38,6 +38,7 @@ from apps.safety import (
     retention_views,
     rights,
     rights_access_coverage_review_views,
+    rights_access_field_decision_views,
     rights_access_response_views,
     rights_access_scope_views,
     rights_copy_information_views,
@@ -72,6 +73,16 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "rights/<uuid:case_id>/access/scope/<int:inventory_id>/decision/",
+        rights_access_field_decision_views.prepare,
+        name="rights_access_field_prepare",
+    ),
+    path(
+        "rights/<uuid:case_id>/access/decision/<int:decision_id>/",
+        rights_access_field_decision_views.independent,
+        name="rights_access_field_review",
+    ),
     path(
         "rights/<uuid:case_id>/access/scope/",
         rights_access_scope_views.inventory,

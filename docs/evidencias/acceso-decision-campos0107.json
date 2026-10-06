@@ -1,0 +1,86 @@
+{
+  "scope": "Typed field disclosure proposal, independent review and current approval consumption; incomplete overall access delivery",
+  "migration": "0107",
+  "verification": {
+    "database": "PostgreSQL",
+    "synthetic_data": true,
+    "tests": 7,
+    "seconds": 249.69,
+    "xml": "/tmp/access-field-decision0107-final.xml",
+    "browser": "Chromium 390x844 ES EN profile/account comparison and review",
+    "coverage": [
+      "Inclusion omission redaction",
+      "HTTP proposal replay and navigation",
+      "Independent review and second decision rejection",
+      "Current approved field consumption and reviewer revocation",
+      "Redaction cannot invent content or preserve whole value",
+      "Encrypted-body purge and erasure inventory regression"
+    ]
+  },
+  "runtime": {
+    "health": 200,
+    "uid": 10001,
+    "check": true,
+    "migrate_check": true,
+    "hashes": {
+      "app": {
+        "apps/safety/models.py": "562e3ab0c0704f1b0a49028ab098c2bf6b351e8fa2b3689a11991b1b43d74f60",
+        "apps/safety/rights_access_field_decision.py": "94e74723964707cf7616d3d87936291efe3bbac3ebb28a8b0ce62fb4174b7016",
+        "apps/safety/rights_access_field_decision_views.py": "57c119bc8b4923da33793db3bd3295c8a289841b9543141c35e0c70ddf40b778",
+        "apps/safety/rights_access_scope_views.py": "bda417294d838b3771a506f4bd68c68b94fc00389516ec266917f8a2a580bdb0",
+        "apps/safety/rights.py": "3f1f74bbd193b9b0b2862e8564c4df4f2655f77f70d78a01f1e3410f65a6d952",
+        "apps/safety/tasks.py": "7a94bbc8329226a7e06d9526fb403b11225b5fd61c4bf06f560632c1ddfe7aee",
+        "apps/safety/erasure_inventory.py": "847e2bd135521cdc7516e551ee6377d9a26c96c4f35ca6ccc04574b52a5064da",
+        "apps/safety/account_erasure_inventory.py": "e6dffc37b7a730b6fe874676262b27258477479b9635b8fac098b595edc9bec3",
+        "apps/safety/migrations/0107_access_field_decision.py": "0cec18ed782a79e2b4aee7826e429b5a339b2d40f071338458c12e13aeb8b886",
+        "apps/core/urls.py": "2fbaf31d6f4af93efb7947cdfe67f09718876773c7d3510ddab834c323fdd2fa",
+        "config/settings.py": "d0f04f0edb6e4f72da8885b2c919c508b409f0a015921809f6a1e14e6d09f147",
+        "templates/safety/rights_access_field_decision.html": "cf6c5828310e0df1ede5883a782c9f538ec52ed3c00c62c21d9031e410cb964a",
+        "templates/safety/rights_access_field_review.html": "59a221ee64acc1422509bac0b16bc28fad85b27d344859fa9178944699682924",
+        "templates/safety/rights_access_scope.html": "630203623508e8a74008d639ae4afcb2e0cd328c272c829832cd03deb0423d3f",
+        "templates/safety/rights_inspect.html": "05fa7196d48df42294f5cc712f3bc2729cad0ee42c90909747a687a77cf456a8"
+      },
+      "worker": {
+        "apps/safety/models.py": "562e3ab0c0704f1b0a49028ab098c2bf6b351e8fa2b3689a11991b1b43d74f60",
+        "apps/safety/rights_access_field_decision.py": "94e74723964707cf7616d3d87936291efe3bbac3ebb28a8b0ce62fb4174b7016",
+        "apps/safety/rights_access_field_decision_views.py": "57c119bc8b4923da33793db3bd3295c8a289841b9543141c35e0c70ddf40b778",
+        "apps/safety/rights_access_scope_views.py": "bda417294d838b3771a506f4bd68c68b94fc00389516ec266917f8a2a580bdb0",
+        "apps/safety/rights.py": "3f1f74bbd193b9b0b2862e8564c4df4f2655f77f70d78a01f1e3410f65a6d952",
+        "apps/safety/tasks.py": "7a94bbc8329226a7e06d9526fb403b11225b5fd61c4bf06f560632c1ddfe7aee",
+        "apps/safety/erasure_inventory.py": "847e2bd135521cdc7516e551ee6377d9a26c96c4f35ca6ccc04574b52a5064da",
+        "apps/safety/account_erasure_inventory.py": "e6dffc37b7a730b6fe874676262b27258477479b9635b8fac098b595edc9bec3",
+        "apps/safety/migrations/0107_access_field_decision.py": "0cec18ed782a79e2b4aee7826e429b5a339b2d40f071338458c12e13aeb8b886",
+        "apps/core/urls.py": "2fbaf31d6f4af93efb7947cdfe67f09718876773c7d3510ddab834c323fdd2fa",
+        "config/settings.py": "d0f04f0edb6e4f72da8885b2c919c508b409f0a015921809f6a1e14e6d09f147",
+        "templates/safety/rights_access_field_decision.html": "cf6c5828310e0df1ede5883a782c9f538ec52ed3c00c62c21d9031e410cb964a",
+        "templates/safety/rights_access_field_review.html": "59a221ee64acc1422509bac0b16bc28fad85b27d344859fa9178944699682924",
+        "templates/safety/rights_access_scope.html": "630203623508e8a74008d639ae4afcb2e0cd328c272c829832cd03deb0423d3f",
+        "templates/safety/rights_inspect.html": "05fa7196d48df42294f5cc712f3bc2729cad0ee42c90909747a687a77cf456a8"
+      },
+      "beat": {
+        "apps/safety/models.py": "562e3ab0c0704f1b0a49028ab098c2bf6b351e8fa2b3689a11991b1b43d74f60",
+        "apps/safety/rights_access_field_decision.py": "94e74723964707cf7616d3d87936291efe3bbac3ebb28a8b0ce62fb4174b7016",
+        "apps/safety/rights_access_field_decision_views.py": "57c119bc8b4923da33793db3bd3295c8a289841b9543141c35e0c70ddf40b778",
+        "apps/safety/rights_access_scope_views.py": "bda417294d838b3771a506f4bd68c68b94fc00389516ec266917f8a2a580bdb0",
+        "apps/safety/rights.py": "3f1f74bbd193b9b0b2862e8564c4df4f2655f77f70d78a01f1e3410f65a6d952",
+        "apps/safety/tasks.py": "7a94bbc8329226a7e06d9526fb403b11225b5fd61c4bf06f560632c1ddfe7aee",
+        "apps/safety/erasure_inventory.py": "847e2bd135521cdc7516e551ee6377d9a26c96c4f35ca6ccc04574b52a5064da",
+        "apps/safety/account_erasure_inventory.py": "e6dffc37b7a730b6fe874676262b27258477479b9635b8fac098b595edc9bec3",
+        "apps/safety/migrations/0107_access_field_decision.py": "0cec18ed782a79e2b4aee7826e429b5a339b2d40f071338458c12e13aeb8b886",
+        "apps/core/urls.py": "2fbaf31d6f4af93efb7947cdfe67f09718876773c7d3510ddab834c323fdd2fa",
+        "config/settings.py": "d0f04f0edb6e4f72da8885b2c919c508b409f0a015921809f6a1e14e6d09f147",
+        "templates/safety/rights_access_field_decision.html": "cf6c5828310e0df1ede5883a782c9f538ec52ed3c00c62c21d9031e410cb964a",
+        "templates/safety/rights_access_field_review.html": "59a221ee64acc1422509bac0b16bc28fad85b27d344859fa9178944699682924",
+        "templates/safety/rights_access_scope.html": "630203623508e8a74008d639ae4afcb2e0cd328c272c829832cd03deb0423d3f",
+        "templates/safety/rights_inspect.html": "05fa7196d48df42294f5cc712f3bc2729cad0ee42c90909747a687a77cf456a8"
+      }
+    }
+  },
+  "pending": [
+    "Aggregate supplemental access copy and complete record/field coverage",
+    "Unimplemented typed adapters and pending inventory scopes",
+    "Final access issuance closure and post-closure download",
+    "Remaining rights CR09 and subsequent contract phases",
+    "No expired-content purge via Beat verified"
+  ]
+}

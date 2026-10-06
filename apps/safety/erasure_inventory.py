@@ -744,6 +744,25 @@ def source_manifest(person, case=None, *, capture=None):
             ],
         ),
         (
+            "safety.RightsAccessFieldDecision",
+            Q(inventory__request__person=person),
+            [
+                "pk",
+                "action_id",
+                "inventory_id",
+                "read_action_id",
+                "encrypted_body",
+                "expires_at",
+                "purged_at",
+                "review_action_id",
+                "outcome",
+                "review_read_action_id",
+                "reviewer_session_version",
+                "reviewer_mfa_version",
+                "created_at",
+            ],
+        ),
+        (
             "safety.RightsAccessScopeInventory",
             Q(request__person=person),
             [

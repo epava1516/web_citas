@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block content %}<section class="rights-access-coverage">
+<h1>{% if english %}Proposed field disclosure{% else %}Propuesta de entrega del dato{% endif %}</h1>
+{% if body %}<p>{{ decision.pk }} · {{ body.preparation.model }} · {{ body.preparation.field }} · {{ body.preparation.outcome }}</p><pre class="rights-copy-page">{{ body.value }}</pre><p>{% if english %}Independent review is pending. The request remains open.{% else %}Pendiente de revisión independiente. La solicitud sigue abierta.{% endif %}</p>{% else %}{{ form.errors }}{% endif %}
+<a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></section>{% endblock %}

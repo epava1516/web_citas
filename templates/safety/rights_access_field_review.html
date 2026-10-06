@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block content %}<section class="rights-access-coverage">
+<h1>{% if english %}Independent field disclosure review{% else %}Revisión independiente de entrega del dato{% endif %}</h1>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button name="operation" value="inspect">{% if english %}Inspect decision{% else %}Consultar decisión{% endif %}</button></form>
+{% if body %}<p>{{ body.preparation.model }} · {{ body.preparation.field }} · {{ body.preparation.outcome }}</p><h2>{% if english %}Original value{% else %}Valor original{% endif %}</h2><pre class="rights-copy-page">{{ body.original }}</pre><h2>{% if english %}Proposed copy{% else %}Copia propuesta{% endif %}</h2><pre class="rights-copy-page">{{ body.value }}</pre><p>{{ body.preparation.reason }}</p>{% endif %}
+<form method="post">{% csrf_token %}{{ decision_form.as_p }}<button name="operation" value="review">{% if english %}Record review{% else %}Registrar revisión{% endif %}</button></form>
+{% if decision %}<p>{{ decision.outcome }}</p>{% endif %}<p>{% if english %}This decision does not resolve the access request.{% else %}Esta decisión no resuelve la solicitud de acceso.{% endif %}</p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></section>{% endblock %}
