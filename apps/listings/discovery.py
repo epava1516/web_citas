@@ -240,6 +240,9 @@ def results(request):
         if valid
         else []
     )
+    from apps.catalog.promotion_exposure import ranked
+
+    visible, sponsorship = ranked(visible, text_search=bool(form.cleaned_data.get("q")))
     try:
         page = Paginator(visible, 24).page(number)
     except EmptyPage as error:
@@ -256,6 +259,7 @@ def results(request):
         public = describe(listing, request.LANGUAGE_CODE)
         cards.append(
             {
+                "sponsorship": sponsorship.get(listing.pk),
                 "listing": listing,
                 "revision": revision,
                 "description": description,

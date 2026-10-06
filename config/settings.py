@@ -259,3 +259,6 @@ LOGGING = {
 
 # Synthetic commercial flows require explicit local opt-in; services also reject production.
 PROMOTION_TEST_MODE = os.getenv("PROMOTION_TEST_MODE", "0") == "1" and not PRODUCTION
+
+if PROMOTION_TEST_MODE and not RECOVERY_MODE:
+    CELERY_BEAT_SCHEDULE["synthetic-promotion-bumps"] = {"task": "apps.catalog.tasks.bump_promotions", "schedule": 60.0}
