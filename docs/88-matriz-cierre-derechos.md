@@ -24,6 +24,10 @@ Actualizado el 2026-10-06. Base de las entregas anteriores: `1c69d12` (0107). La
 
 Regla de reapertura: solo defecto reproducible, regresión demostrada o requisito concreto del contrato que este componente todavía deba cumplir. Registrar motivo, alcance afectado y evidencia antes de ampliar una pieza cerrada; repetir únicamente pruebas afectadas. Integrar un componente existente en la siguiente entrega no revoca su cierre local. No ampliar controles por hipótesis ni volver a auditar piezas cerradas para obtener más señales verdes.
 
+## Método de continuación vigente
+
+[Plan de cierre integrado CR09-END-ACCESS](89-plan-cierre-integrado-cr09.md) sustituye la secuencia de nuevas entregas auxiliares. El censo de columnas no equivale a datos personales exigibles ni a aprobación manual obligatoria de cada campo. Integrar un paquete completo con correspondencia comprobable para datos ya proyectados y tratamiento real de omisiones; extender la revisión existente y cerrar/descargar en el mismo recorrido. No ampliar piezas cerradas por hipótesis ni considerar el cambio de método como aceptación.
+
 ## Recorridos y aceptación
 
 | Derecho | Evidencia de implementación existente | Tramo todavía necesario |
