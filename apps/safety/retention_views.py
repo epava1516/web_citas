@@ -5,7 +5,6 @@ import uuid
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
@@ -14,6 +13,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 
 from .erasure_plans import LABELS
 from .models import RetentionReview
+from .retention_calendar import calendar_page
 from .retention_reviews import record
 from .rights import allowed
 from .rights_scope import permitted
@@ -44,12 +44,10 @@ def queue(request):
         from datetime import timedelta
 
         rows = rows.filter(next_review_on__lte=today + timedelta(days=7))
-    visible = []
-    for row in rows:
-        if permitted(request.user, row.plan.action.request):
-            row.purpose_label = LABELS.get(row.purpose, row.purpose)
-            visible.append(row)
-    page = Paginator(visible, 50).get_page(request.GET.get("page"))
+    try:
+        page = calendar_page(request, rows, attention)
+    except ValueError:
+        return private(HttpResponse("Invalid calendar cursor", status=400))
     return private(
         render(request, "safety/retention_queue.html", {"page": page, "attention": attention})
     )

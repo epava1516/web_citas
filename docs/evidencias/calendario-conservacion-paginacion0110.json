@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-06",
+  "scope": "Retention queue keyset pagination; synthetic calendar metadata, real PostgreSQL and mobile ES/EN",
+  "source_sha256": {
+    "apps/safety/retention_calendar.py": "96b6f2518bf78fb89e9d1b2e0e94b7ae587cb545efdbd795d4c8049aeb094f33",
+    "apps/safety/retention_views.py": "9e187e582dcafcd98368151d24b47588102108d435caf0a58e829652f90bd931",
+    "templates/safety/retention_queue.html": "a6ba4a7a78cdc8d1b563839f2e36798870493bf31ecdb5f36bc9d386faca38c0",
+    "tests/test_retention_calendar.py": "234c165f6f2720b97f6829549ce8a8e13e3a45a8f5720233c27b82c1e81e19e9"
+  },
+  "runs": [
+    {
+      "xml": "/tmp/retention-calendar-tests.xml",
+      "passed": 8,
+      "failed": 2,
+      "seconds": 88.11,
+      "limitation": "New tests failed during fixture resolution; existing retention and race tests passed."
+    },
+    {
+      "xml": "/tmp/retention-calendar-new-tests.xml",
+      "passed": 4,
+      "failed": 0,
+      "seconds": 71.4,
+      "coverage": "1100-row complete ordered traversal, ties, previous/next, first-page <=100 model instances, current COI exclusion, date filters, invalid/foreign-scope/expired cursor, mobile ES/EN existing follow-up"
+    }
+  ],
+  "limits": [
+    "All-conflicted calendar may still require linear scanning; bounded batches do not guarantee constant response time.",
+    "Live calendar is not an immutable snapshot across requests.",
+    "No additional retention purpose or destruction authorization.",
+    "Docker still runs 43250d0; deployment of this change pending.",
+    "No CR09 or full-contract acceptance."
+  ],
+  "checks": [
+    "targeted ruff passed",
+    "git diff --check passed"
+  ]
+}
