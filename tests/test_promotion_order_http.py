@@ -23,7 +23,10 @@ def test_private_order_form_simulation_reload_and_ownership(request, settings, l
     path = f"/{language}/account/test-promotions/"
     before = PromotionOrder.objects.count()
     response = client.get(path)
-    assert response.status_code == 200 and response["Cache-Control"] == "no-store"
+    assert response.status_code == 200
+    assert {"private", "no-store"} <= {
+        value.strip() for value in response["Cache-Control"].split(",")
+    }
     assert "noindex" in response["X-Robots-Tag"]
     assert PromotionOrder.objects.count() == before
     payload = {
