@@ -2567,3 +2567,8 @@ RESTORE-CHECKPOINT-01 fuente7a7812a: pg_dump/pg_restore reales y medios sintéti
 ## 2026-10-06 — Revalidación de cobertura en lote integrada
 
 PERF-COBERTURA-01 fuentec0f58fc enviada y desplegada Docker local: validador compartido gate/histórico con fuente única y auditorías subordinadas en lote. Reproducción44 reconstrucciones del origen por replay; regresión final0 de los servicios de inspección, conserva checks padre inicial/final e IDs originales.11 PG integración226,13s y19 bloqueos/revocaciones209,34s correctas, runs separados.72 hashes/3 servicios/PG0110/UID10001/RecoveryModeFalse/check/migrate-check/HTTP/CSS/SEO correctos; logs cifrados anteriores preservados. Sin modelo/ruta/permiso/tarea nueva. Medición grande y cierre/descarga completa siguen pendientes, no aceptación integral ni cambio v6. Evidencias portabilidad-cobertura-validacion-lote0110 y lote-runtime0110.
+
+
+## 2026-10-06 — Primera página de cobertura grande medida
+
+Ensayo5bc4f8f con1500 revisiones sintéticas/source9893757bytes, lectura nativa PostgreSQL y auditoría real;1 prueba correcta74,44s. Etapa inspect_page:764 consultas/11,529s/pico Python41651227bytes bajo instrumentación. No aprobación/cierre/descarga completos, capacidad/p95/RSS ni identidad jurídica reales. Fuente de aplicación/runtimec0f58fc sin cambio ni reconstrucción nueva. Evidencia portabilidad-cobertura-primera-pagina-grande0110.json orienta siguiente optimización a preparación de source_copy/repetición, preservando checks; v6 sin cambio.
