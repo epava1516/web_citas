@@ -13,12 +13,13 @@
   "verification": {
     "xml": "/tmp/urgent-authority-after.xml",
     "passed": 14,
+    "seconds": 113.73,
     "failed": 0,
     "coverage": "Complete urgent alerts module, including mobile/concurrent acknowledgement/reconciliation/management and eight authority regressions"
   },
   "limits": [
     "Revocation is deterministically interleaved in HTTP tests, not a separate observed PostgreSQL lock-wait experiment.",
     "No external delivery, human receipt or escalation responsibility proven.",
-    "Docker update pending; CR09 remains open."
+    "Docker99e67a0 verified separately; CR09 remains open."
   ]
 }
