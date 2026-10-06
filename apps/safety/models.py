@@ -1772,3 +1772,15 @@ class RightsAccessFieldDecision(models.Model):
                 name="access_field_decision_outcome",
             )
         ]
+
+
+class RightsAccessClosure(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    response = models.OneToOneField(RightsResponse, on_delete=models.PROTECT)
+    review = models.OneToOneField(RightsAccessResponseReview, on_delete=models.PROTECT)
+    closed_case_version = models.PositiveIntegerField()
+    closed_response_version = models.PositiveIntegerField()
+    channel_digest = models.CharField(max_length=64)
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)

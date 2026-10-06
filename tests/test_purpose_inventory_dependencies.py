@@ -24,7 +24,7 @@ def test_same_procedure_excluded_other_procedure_visible_and_opaque_cipher_chang
     case, _, _, plan, _, proposal, _, _ = approved(request, settings, monkeypatch)
     current = snapshot(case.pk)
     rows = {item["model"]: item for item in current["entries"]}
-    assert len(rows) == 73
+    assert len(rows) == 74
     assert rows["safety.PublicationCalendarEvent"]["count"] == 0
     assert rows["safety.PurposeRestriction"]["count"] == 1
     assert rows["safety.ProcessingPurposePlan"]["count"] >= 1

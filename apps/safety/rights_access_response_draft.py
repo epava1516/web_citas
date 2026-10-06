@@ -42,7 +42,12 @@ def prepare(
     confirmed,
     *,
     coverage_review_id=None,
+    scope_inventory_id=None,
+    delivery_decisions=None,
+    inspect_only=False,
 ):
+    if not isinstance(inspect_only, bool) or (inspect_only and scope_inventory_id is None):
+        raise ValidationError("Scoped inventory required for package inspection")
     checked_response_text(reason, text, confirmed)
     session_version, mfa_version = user.session_version, user.mfa_version
     case, person, _ = reviewer_case(user, case_id)
@@ -103,7 +108,7 @@ def prepare(
 
         from .rights_access_coverage_use import consume
 
-        accounting_review, _ = consume(
+        accounting_review, accounting_body = consume(
             user,
             case.pk,
             version,
@@ -124,7 +129,89 @@ def prepare(
             "access_accounting_decision": accounting_review.action.payload_digest,
             "access_accounting_digest": accounting_review.coverage.accounting_digest,
         }
-    text_digest = fingerprint(canonical({"text": text, "simulation": True}))
+    response_body = {"text": text, "simulation": True}
+    inventory = None
+    if scope_inventory_id is not None:
+        if accounting_review is None:
+            raise ValidationError("Approved copy accounting required for delivery package")
+        from uuid import uuid5
+
+        from .models import RightsAccessScopeInventory
+        from .rights_access_coverage_review import audit
+        from .rights_access_delivery import compile_package, snapshot
+
+        inventory = (
+            RightsAccessScopeInventory.objects.select_for_update()
+            .filter(
+                pk=scope_inventory_id,
+                request=case,
+                actor=actor,
+                proof=proof,
+                case_version=version,
+                response_version=response_version,
+                original_session_version=session_version,
+                original_mfa_version=mfa_version,
+                purged_at__isnull=True,
+                expires_at__gt=timezone.now(),
+            )
+            .first()
+        )
+        if inventory is None:
+            raise ValidationError("Own current delivery inventory required")
+        package_signature = fingerprint(
+            canonical(
+                {
+                    "inventory": inventory.pk,
+                    "source": inventory.source_digest,
+                    "decisions": delivery_decisions,
+                    "copy": accounting_review.action.payload_digest,
+                    "case": str(case.pk),
+                    "version": version,
+                    "responses": response_version,
+                    "actor": actor.pk,
+                    "session": session_version,
+                    "mfa": mfa_version,
+                }
+            )
+        )
+        audit(
+            case,
+            actor,
+            version,
+            uuid5(key, "access-package"),
+            "access_package_read",
+            package_signature,
+            "Inspect indexed subject scope for final access package",
+        )
+        original = snapshot(
+            case,
+            person,
+            inventory,
+            cutoff=inventory.created_at,
+            projected=accounting_body["delivered"],
+        )
+        if inspect_only:
+            historical = copy(case)
+            historical.version = export.case_version
+            validate_export_binding(historical, person, export)
+            fresh_authority(actor, case, session_version, mfa_version)
+            fresh = User.objects.get(pk=actor.pk)
+            if not fresh.has_perm("safety.respond_rights_request"):
+                raise PermissionDenied
+            if can_prepare(fresh, case, person).pk != proof.pk:
+                raise ValidationError("Final response authorization changed")
+            return original
+        response_body["access_package"] = compile_package(
+            inventory,
+            export,
+            original,
+            delivery_decisions,
+            cutoff=inventory.created_at,
+            projected=accounting_body["delivered"],
+        )
+    elif delivery_decisions is not None:
+        raise ValidationError("Delivery decisions require scoped inventory")
+    text_digest = fingerprint(canonical(response_body))
     signature = fingerprint(
         canonical(
             {
@@ -209,7 +296,7 @@ def prepare(
         )
         if actual != expected or draft.purged_at or draft.expires_at <= timezone.now():
             raise ValidationError("Final response draft changed or expired")
-        if checked_body(draft.encrypted_response) != {"text": text, "simulation": True}:
+        if checked_body(draft.encrypted_response) != response_body:
             raise ValidationError("Final response text changed")
     else:
         draft = RightsAccessResponseDraft.objects.create(
@@ -227,10 +314,11 @@ def prepare(
             export_digest=export.action.payload_digest,
             binding_digest=binding_digest,
             text_digest=text_digest,
-            encrypted_response=seal({"text": text, "simulation": True}),
+            encrypted_response=seal(response_body),
             expires_at=min(
                 export.expires_at,
                 proof.expires_at,
+                inventory.expires_at if inventory else export.expires_at,
                 accounting_review.coverage.expires_at if accounting_review else export.expires_at,
             ),
         )

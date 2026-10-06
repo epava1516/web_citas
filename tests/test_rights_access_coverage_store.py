@@ -1,3 +1,4 @@
+from pathlib import Path
 from uuid import uuid4
 
 import pytest
@@ -24,9 +25,18 @@ pytestmark = pytest.mark.django_db(transaction=True)
 @pytest.mark.parametrize("account_only", [False, True])
 @pytest.mark.parametrize("reference_page", [False, True])
 def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
-    request, settings, monkeypatch, account_only, live_server, reference_page
+    request,
+    settings,
+    monkeypatch,
+    account_only,
+    live_server,
+    reference_page,
+    tmp_path,
+    finish=False,
+    finish_mode="http",
+    finish_language="en",
 ):
-    case, author, staff, _, _, _, _, _, decision, _, _ = approved_information(
+    case, author, staff, public, receipt, _, _, _, decision, _, _ = approved_information(
         request, settings, monkeypatch, account_only
     )
     reason = "Synthetic coverage preparation with exact evidence references"
@@ -303,6 +313,426 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             validate_draft(response_draft, case, None if account_only else case.person)["text"]
             == response_text
         )
+    if not reference_page:
+        from apps.safety.rights_access_close import close
+        from apps.safety.rights_access_delivery import snapshot
+        from apps.safety.rights_access_response_review import inspect as inspect_response
+        from apps.safety.rights_access_response_review import record as review_response
+        from apps.safety.rights_access_scope_store import inspect as inspect_scope
+
+        inventory, _ = inspect_scope(
+            author, case.pk, case.version, case.response_version, uuid4(), reason
+        )
+        import json
+
+        from django.utils import timezone
+        from test_rights_access_recipient_payload import synthetic_log_bundle
+
+        from scripts.collect_access_resource_logs import (
+            signed_subject_log_event,
+            subject_log_signature,
+            write_bundle,
+        )
+
+        event = signed_subject_log_event(
+            "account" if account_only else "person",
+            case.account_subject_id if account_only else case.person_id,
+            "profile_updated",
+            "succeeded",
+            inventory.created_at,
+        )
+        log_content = f"{inventory.created_at.isoformat()} {json.dumps(event)}\n"
+        log_content += f"{inventory.created_at.isoformat()} {json.dumps(event | {'subject_id': str(uuid4())})}\n"
+        archive_directory = tmp_path / "operational-fixture"
+        archive_directory.mkdir(mode=0o700)
+        archive_path = write_bundle(
+            archive_directory, synthetic_log_bundle(timezone.now(), log_content)
+        )
+        settings.ACCESS_LOG_ORIGIN_BUNDLE = str(archive_path)
+        with transaction.atomic():
+            original_scope = snapshot(
+                case,
+                None if account_only else case.person,
+                inventory,
+                cutoff=inventory.created_at,
+                projected=evidence_body["delivered"],
+            )
+        assert not original_scope["blocked"], original_scope["blocked"]
+        assert len(original_scope["groups"]["operations.LogEvent"]) == 1
+        assert not original_scope["log_origins"]["unprojected_candidates"]
+        original_operation = inventory.action.operation
+        inventory.action.operation = "access_draft"
+        inventory.action.save(update_fields=["operation"])
+        with transaction.atomic(), pytest.raises(ValidationError, match="inspection evidence"):
+            snapshot(
+                case,
+                None if account_only else case.person,
+                inventory,
+                cutoff=inventory.created_at,
+                projected=evidence_body["delivered"],
+            )
+        inventory.action.operation = original_operation
+        inventory.action.save(update_fields=["operation"])
+        from apps.safety.models import RightsAccessResponseDraft
+
+        drafts_before = RightsAccessResponseDraft.objects.count()
+        preview_key = uuid4()
+        preview_values = {
+            "operation": "inspect_package",
+            "key": preview_key,
+            "version": case.version,
+            "response_version": case.response_version,
+            "export": export.pk,
+            "coverage_review": approved.pk,
+            "scope_inventory": inventory.pk,
+            "reason": reason,
+            "response": response_text,
+            "redaction_confirmed": True,
+        }
+        package_page = staff.post(response_path, preview_values)
+        assert package_page.status_code == 200, package_page.content.decode()
+        assert package_page.context["package_preview"] == original_scope
+        assert "Original access package" in package_page.content.decode()
+        from django.utils import translation
+
+        with translation.override("es"):
+            spanish_path = reverse("rights_access_response_prepare", args=[case.pk])
+        spanish_page = staff.post(spanish_path, preview_values)
+        assert spanish_page.status_code == 200
+        assert "Paquete original de acceso" in spanish_page.content.decode()
+        assert spanish_page.context["package_preview"] == original_scope
+        assert RightsAccessResponseDraft.objects.count() == drafts_before
+        assert not RightsAction.objects.filter(key=preview_key, operation="access_draft").exists()
+        assert staff.post(response_path, preview_values).status_code == 200
+        assert other.post(response_path, preview_values).status_code == 403
+        action_count = RightsAction.objects.count()
+        page_reload = staff.get(response_path)
+        assert page_reload.status_code == 200
+        assert page_reload.context["package_preview"] is None
+        assert RightsAction.objects.count() == action_count
+        decisions = {
+            "models": {
+                label: {"status": "included", "reason": reason}
+                for label in original_scope["groups"]
+            },
+            "resources": {"status": "reviewed", "reason": reason},
+        }
+        candidates = [
+            (label, row, field, value)
+            for label, rows in original_scope["groups"].items()
+            for row in rows
+            for field, value in row["data"].items()
+        ]
+        redacted_model, redacted_row, redacted_field, original_value = next(
+            (item for item in candidates if isinstance(item[3], str) and len(item[3]) > 3),
+            candidates[0],
+        )
+        redacted_value = (
+            original_value[:1] + "[redacted]"
+            if isinstance(original_value, str) and len(original_value) > 3
+            else None
+        )
+        field_change = (
+            {"status": "omitted", "reason": reason}
+            if redacted_value is None
+            else {"status": "redacted", "reason": reason, "value": redacted_value}
+        )
+        decisions["models"][redacted_model] = {
+            "status": "redacted",
+            "reason": reason,
+            "changes": {redacted_row["reference"]: {redacted_field: field_change}},
+        }
+        package_draft = prepare_response(
+            author,
+            case.pk,
+            case.version,
+            case.response_version,
+            export.pk,
+            uuid4(),
+            reason,
+            response_text,
+            True,
+            coverage_review_id=approved.pk,
+            scope_inventory_id=inventory.pk,
+            delivery_decisions=decisions,
+        )
+        with transaction.atomic():
+            package_body = validate_draft(
+                package_draft, case, None if account_only else case.person
+            )
+        assert package_body["access_package"]["pending"] == ["infrastructure_content_accounting"]
+        delivered_group = next(
+            group
+            for group in package_body["access_package"]["copy"]["additional_records"]
+            if group["model"] == redacted_model
+        )
+        delivered_row = next(
+            row
+            for row in delivered_group["records"]
+            if row["reference"] == redacted_row["reference"]
+        )
+        if redacted_value is None:
+            assert redacted_field not in delivered_row["data"]
+        else:
+            assert delivered_row["data"][redacted_field] == redacted_value
+        assert redacted_row["data"][redacted_field] == original_value
+        package_read_key = uuid4()
+        _, inspected_package = inspect_response(
+            verifier, case.pk, case.version, package_draft.pk, package_read_key, reason
+        )
+        assert inspected_package["access_package"] == package_body["access_package"]
+        package_review = review_response(
+            verifier,
+            case.pk,
+            case.version,
+            package_draft.pk,
+            RightsAction.objects.get(key=package_read_key).pk,
+            uuid4(),
+            reason,
+            "approved",
+        )
+        import hashlib
+
+        original_archive = archive_path.read_text()
+        changed_archive = unseal(original_archive)
+        changed_lines = []
+        for line in changed_archive["records"][0]["stdout"].splitlines():
+            timestamp, content = line.split(" ", 1)
+            changed_event = json.loads(content)
+            changed_event["outcome"] = "failed"
+            changed_event["signature"] = subject_log_signature(changed_event)
+            changed_lines.append(f"{timestamp} {json.dumps(changed_event)}\n")
+        changed_archive["records"][0]["stdout"] = "".join(changed_lines)
+        changed_archive["records"][0]["stdout_sha256"] = hashlib.sha256(
+            changed_archive["records"][0]["stdout"].encode()
+        ).hexdigest()
+        archive_path.write_text(module.seal(changed_archive))
+        with (
+            transaction.atomic(),
+            pytest.raises(ValidationError, match="package contents|original records"),
+        ):
+            validate_draft(package_draft, case, None if account_only else case.person)
+        archive_path.write_text(original_archive)
+        with pytest.raises(ValidationError, match="Complete reviewed access delivery"):
+            close(
+                author,
+                case.pk,
+                case.version,
+                case.response_version,
+                package_review.pk,
+                uuid4(),
+                reason,
+            )
+        source_cipher = package_draft.encrypted_response
+        altered = package_body | {
+            "access_package": package_body["access_package"] | {"pending": [], "partial": False}
+        }
+        package_draft.encrypted_response = module.seal(altered)
+        package_draft.save(update_fields=["encrypted_response"])
+        with transaction.atomic(), pytest.raises(ValidationError, match="package contents"):
+            validate_draft(package_draft, case, None if account_only else case.person)
+        package_draft.encrypted_response = source_cipher
+        package_draft.save(update_fields=["encrypted_response"])
+    if finish:
+        from test_rights_access_recipient_payload import synthetic_resource_census
+        from test_rights_exports import url
+
+        from apps.safety.models import RightsAccessClosure, RightsNotice, RightsResponse
+        from apps.safety.rights_access_delivery import recipient_payload
+
+        census_body = synthetic_resource_census(case, inventory, original_scope)
+        census_path = tmp_path / "synthetic-resource-census.encrypted"
+        census_path.write_text(module.seal(census_body))
+        census_path.chmod(0o600)
+        settings.ACCESS_RESOURCE_ORIGIN_BUNDLE = str(census_path)
+        with transaction.atomic():
+            completed_scope = snapshot(
+                case,
+                None if account_only else case.person,
+                inventory,
+                cutoff=inventory.created_at,
+                projected=evidence_body["delivered"],
+            )
+        assert completed_scope["resource_scope"]["pending"] == []
+        completed_decisions = decisions | {
+            "resources": {
+                "status": "reviewed",
+                "reason": reason,
+                "origin_digest": completed_scope["resource_scope"]["digest"],
+            },
+        }
+        completed_draft = prepare_response(
+            author,
+            case.pk,
+            case.version,
+            case.response_version,
+            export.pk,
+            uuid4(),
+            reason,
+            response_text,
+            True,
+            coverage_review_id=approved.pk,
+            scope_inventory_id=inventory.pk,
+            delivery_decisions=completed_decisions,
+        )
+        completed_read_key = uuid4()
+        _, completed_body = inspect_response(
+            verifier, case.pk, case.version, completed_draft.pk, completed_read_key, reason
+        )
+        assert completed_body["access_package"]["pending"] == []
+        assert completed_body["access_package"]["partial"] is False
+        completed_review = review_response(
+            verifier,
+            case.pk,
+            case.version,
+            completed_draft.pk,
+            RightsAction.objects.get(key=completed_read_key).pk,
+            uuid4(),
+            reason,
+            "approved",
+        )
+        close_path = reverse("rights_access_close", args=[case.pk, completed_review.pk])
+        before = RightsResponse.objects.count(), RightsNotice.objects.count()
+        assert other.get(close_path).status_code == 403
+        action_count = RightsAction.objects.count()
+        assert staff.get(close_path).status_code == 200
+        assert RightsAction.objects.count() == action_count
+        close_values = {
+            "key": uuid4(),
+            "version": case.version,
+            "response_version": case.response_version,
+            "reason": reason,
+        }
+        if finish_mode == "concurrent":
+            from concurrent.futures import ThreadPoolExecutor
+            from copy import deepcopy
+            from threading import Barrier
+
+            from django.db import connections
+
+            barrier = Barrier(2)
+            cookies = deepcopy(staff.cookies)
+
+            def competing_close():
+                client = Client()
+                client.cookies = deepcopy(cookies)
+                try:
+                    barrier.wait(timeout=10)
+                    result = client.post(close_path, close_values)
+                    return result.status_code, result.content.decode()
+                finally:
+                    connections.close_all()
+
+            with ThreadPoolExecutor(max_workers=2) as executor:
+                results = list(executor.map(lambda _: competing_close(), range(2)))
+            assert all(status == 200 for status, _ in results), results
+        elif finish_mode == "browser":
+            with translation.override(finish_language):
+                browser_close_path = reverse(
+                    "rights_access_close", args=[case.pk, completed_review.pk]
+                )
+                browser_receipt = receipt.replace("/en/", f"/{finish_language}/", 1)
+            with sync_playwright() as playwright:
+                browser = playwright.chromium.launch(
+                    executable_path=shutil.which("chromium-browser"), args=["--no-sandbox"]
+                )
+                try:
+                    context = browser.new_context(viewport={"width": 390, "height": 844})
+                    context.add_cookies(
+                        [
+                            {
+                                "name": django_settings.SESSION_COOKIE_NAME,
+                                "value": staff.cookies[django_settings.SESSION_COOKIE_NAME].value,
+                                "url": live_server.url,
+                            }
+                        ]
+                    )
+                    page = context.new_page()
+                    page.goto(live_server.url + browser_close_path)
+                    page.locator("#id_key").evaluate(
+                        "(element, value) => element.value = value", str(close_values["key"])
+                    )
+                    page.locator("#id_reason").fill(reason)
+                    page.get_by_role(
+                        "button",
+                        name=(
+                            "Emitir respuesta y cerrar"
+                            if finish_language == "es"
+                            else "Issue response and close"
+                        ),
+                        exact=True,
+                    ).click()
+                    expect(page.get_by_role("status")).to_contain_text(
+                        "Respuesta final emitida"
+                        if finish_language == "es"
+                        else "Final response issued"
+                    )
+                    public_page = browser.new_page(viewport={"width": 390, "height": 844})
+                    public_page.goto(live_server.url + browser_receipt)
+                    expect(public_page.locator("body")).to_contain_text(
+                        "Paquete de acceso aprobado"
+                        if finish_language == "es"
+                        else "Reviewed access package"
+                    )
+                    expect(public_page.locator("body")).to_contain_text(response_text)
+                    assert not public_page.evaluate(
+                        "() => document.documentElement.scrollWidth > window.innerWidth"
+                    )
+                    with public_page.expect_download() as downloaded_file:
+                        public_page.get_by_role(
+                            "button",
+                            name=(
+                                "Descargar copia privada"
+                                if finish_language == "es"
+                                else "Download private copy"
+                            ),
+                            exact=True,
+                        ).click()
+                    assert json.loads(
+                        Path(downloaded_file.value.path()).read_text()
+                    ) == recipient_payload(completed_body)
+                finally:
+                    browser.close()
+        else:
+            closing = staff.post(close_path, close_values)
+            assert closing.status_code == 200, closing.content.decode()
+        assert staff.post(close_path, close_values).status_code == 200
+        assert staff.post(close_path, close_values | {"key": uuid4()}).status_code == 409
+        case.refresh_from_db()
+        assert (case.version, case.response_version, case.status) == (
+            original[0] + 1,
+            original[1] + 1,
+            "resolved",
+        )
+        assert RightsAccessClosure.objects.count() == 1
+        assert (RightsResponse.objects.count(), RightsNotice.objects.count()) == (
+            before[0] + 1,
+            before[1] + 1,
+        )
+        downloaded = public.post(url(receipt, export), {"key": uuid4()})
+        assert downloaded.status_code == 200, downloaded.content.decode()
+        assert downloaded.json() == recipient_payload(completed_body)
+        assert downloaded.json()["simulation"] is True
+        assert "review_material" not in downloaded.content.decode()
+        assert "origin_digest" not in downloaded.content.decode()
+        assert public.post(url(receipt, export), {"key": uuid4()}).json() == downloaded.json()
+        from apps.safety.rights import case_export_forms
+
+        assert [item["id"] for item in case_export_forms(case)] == [export.pk]
+        for user in (author, verifier):
+            for field in ("session_version", "mfa_version"):
+                original_epoch = getattr(user, field)
+                User.objects.filter(pk=user.pk).update(**{field: original_epoch + 1})
+                assert public.post(url(receipt, export), {"key": uuid4()}).status_code == 404
+                User.objects.filter(pk=user.pk).update(**{field: original_epoch})
+        source_ciphertext = census_path.read_text()
+        changed_census = unseal(source_ciphertext)
+        changed_census["categories"]["backups"]["reason"] += " altered"
+        census_path.write_text(module.seal(changed_census))
+        assert public.post(url(receipt, export), {"key": uuid4()}).status_code == 404
+        census_path.write_text(source_ciphertext)
+        assert public.post(url(receipt, export), {"key": uuid4()}).json() == downloaded.json()
+        return
     original_session = verifier.session_version
     User.objects.filter(pk=verifier.pk).update(session_version=original_session + 1)
     with pytest.raises(PermissionDenied):
@@ -353,3 +783,39 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
     assert purge_expired_access_coverage() == 0
     row.refresh_from_db()
     assert row.purged_at and not row.encrypted_coverage
+
+
+@pytest.mark.parametrize("account_only", [False, True])
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture(
+    request, settings, monkeypatch, account_only, live_server, tmp_path, language
+):
+    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
+        request,
+        settings,
+        monkeypatch,
+        account_only,
+        live_server,
+        False,
+        tmp_path,
+        finish=True,
+        finish_mode="browser",
+        finish_language=language,
+    )
+
+
+@pytest.mark.parametrize("account_only", [False, True])
+def test_integrated_access_concurrent_closure_has_one_response_and_notice(
+    request, settings, monkeypatch, account_only, live_server, tmp_path
+):
+    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
+        request,
+        settings,
+        monkeypatch,
+        account_only,
+        live_server,
+        False,
+        tmp_path,
+        finish=True,
+        finish_mode="concurrent",
+    )

@@ -680,6 +680,22 @@ def source_manifest(person, case=None, *, capture=None):
             ],
         ),
         (
+            "safety.RightsAccessClosure",
+            Q(review__draft__request__person=person),
+            [
+                "pk",
+                "action_id",
+                "response_id",
+                "review_id",
+                "closed_case_version",
+                "closed_response_version",
+                "channel_digest",
+                "original_session_version",
+                "original_mfa_version",
+                "created_at",
+            ],
+        ),
+        (
             "safety.RightsPortabilityClosure",
             Q(review__draft__request__person=person),
             [

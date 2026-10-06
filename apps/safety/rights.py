@@ -633,11 +633,14 @@ def case_export_forms(case):
     from django.db.models import Q
 
     eligibility = Q(case_version=case.version)
-    if case.kind == "portability" and case.status == "resolved":
-        from .models import RightsPortabilityClosure
+    if case.kind in {"access", "portability"} and case.status == "resolved":
+        if case.kind == "access":
+            from .models import RightsAccessClosure as Closure
+        else:
+            from .models import RightsPortabilityClosure as Closure
 
         eligibility = Q(
-            pk__in=RightsPortabilityClosure.objects.filter(
+            pk__in=Closure.objects.filter(
                 action__request=case,
                 review__draft__request=case,
                 closed_case_version=case.version,
@@ -650,6 +653,7 @@ def case_export_forms(case):
         {
             "id": item.pk,
             "expires_at": item.expires_at,
+            "final_access": case.kind == "access" and case.status == "resolved",
             "key": uuid.uuid4(),
             "images": [{"id": image.pk, "key": uuid.uuid4()} for image in item.images.all()],
             "parts": [

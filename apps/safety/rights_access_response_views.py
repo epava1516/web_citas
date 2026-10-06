@@ -15,6 +15,7 @@ from .models import (
     RightsAccessCoverageReview,
     RightsAccessResponseDraft,
     RightsAccessResponseReview,
+    RightsAccessScopeInventory,
     RightsAction,
     RightsExport,
     RightsRequest,
@@ -28,6 +29,17 @@ from .views import private
 
 
 class DraftForm(ResponseForm):
+    scope_inventory = forms.ModelChoiceField(
+        queryset=RightsAccessScopeInventory.objects.none(),
+        required=False,
+        label="Inventario para paquete de acceso / Access package inventory",
+    )
+    delivery_decisions = forms.JSONField(
+        required=False,
+        widget=forms.Textarea,
+        label="Decisiones por grupos y recursos / Group and resource decisions",
+    )
+
     coverage_review = forms.ModelChoiceField(
         queryset=RightsAccessCoverageReview.objects.none(),
         required=False,
@@ -41,6 +53,19 @@ class DraftForm(ResponseForm):
     def __init__(self, *args, case, actor, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields.pop("kind")
+        self.fields["scope_inventory"].queryset = (
+            RightsAccessScopeInventory.objects.filter(
+                request=case,
+                actor=actor,
+                case_version=case.version,
+                response_version=case.response_version,
+                purged_at__isnull=True,
+                expires_at__gt=timezone.now(),
+            )
+            .only("pk")
+            .order_by("-pk")
+        )
+
         self.fields["coverage_review"].queryset = (
             RightsAccessCoverageReview.objects.filter(
                 coverage__request=case,
@@ -99,11 +124,13 @@ def prepare_response(request, case_id):
         },
     )
     draft = None
+    package_preview = None
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
         values = form.cleaned_data
         try:
-            draft = prepare(
+            inspecting = request.POST.get("operation") == "inspect_package"
+            prepared = prepare(
                 request.user,
                 case.pk,
                 values["version"],
@@ -113,19 +140,42 @@ def prepare_response(request, case_id):
                 values["reason"],
                 values["response"],
                 values["redaction_confirmed"],
+                scope_inventory_id=values["scope_inventory"].pk
+                if values["scope_inventory"]
+                else None,
+                delivery_decisions=values["delivery_decisions"],
                 coverage_review_id=values["coverage_review"].pk
                 if values["coverage_review"]
                 else None,
+                inspect_only=inspecting,
             )
-            form = DraftForm(
-                case=case,
-                actor=request.user,
-                initial={
+            if inspecting:
+                package_preview = prepared
+                initial = dict(values)
+                initial["key"] = uuid4()
+                initial["delivery_decisions"] = {
+                    "models": {
+                        label: {"status": "pending", "reason": ""}
+                        for label in package_preview["groups"]
+                    },
+                    "resources": {
+                        "status": "pending",
+                        "reason": "",
+                        **(
+                            {"origin_digest": package_preview["resource_scope"]["digest"]}
+                            if package_preview["resource_scope"].get("configured")
+                            else {}
+                        ),
+                    },
+                }
+            else:
+                draft = prepared
+                initial = {
                     "key": uuid4(),
                     "version": case.version,
                     "response_version": case.response_version,
-                },
-            )
+                }
+            form = DraftForm(case=case, actor=request.user, initial=initial)
             status = 200
         except PermissionDenied:
             return private(HttpResponse("Forbidden", status=403))
@@ -140,6 +190,7 @@ def prepare_response(request, case_id):
                 "case": case,
                 "form": form,
                 "draft": draft,
+                "package_preview": package_preview,
                 "english": request.LANGUAGE_CODE == "en",
                 "approved_drafts": RightsAccessResponseReview.objects.filter(
                     draft__request=case,

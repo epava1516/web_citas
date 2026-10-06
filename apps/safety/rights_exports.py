@@ -785,7 +785,10 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
                     and export.proof.person_rights_version == person.rights_version
                     and export.proof.manager_version == export.manager_version
                 )
-        from .rights_portability_close import closure_for_export
+        if case.kind == "access":
+            from .rights_access_close import closure_for_export
+        else:
+            from .rights_portability_close import closure_for_export
 
         closure = closure_for_export(case, export) if export else None
         if (
@@ -851,12 +854,16 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
             return private(HttpResponse("Conflicting download key", status=409))
         try:
             delivery_case = case
+            final_body = None
             if closure is not None:
                 from copy import copy
 
-                from .rights_portability_close import validate_closure
+                if case.kind == "access":
+                    from .rights_access_close import validate_closure
+                else:
+                    from .rights_portability_close import validate_closure
 
-                validate_closure(closure, case, person)
+                final_body = validate_closure(closure, case, person)
                 delivery_case = copy(case)
                 delivery_case.version = export.case_version
                 delivery_case.status = "reviewing"
@@ -883,7 +890,12 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
                 )
                 response["Content-Disposition"] = 'attachment; filename="rights-image.webp"'
                 return private(response)
-            payload = unseal(export.encrypted_payload)
+            if case.kind == "access" and final_body is not None:
+                from .rights_access_delivery import recipient_payload
+
+                payload = recipient_payload(final_body)
+            else:
+                payload = unseal(export.encrypted_payload)
             if not isinstance(payload, dict):
                 raise Http404
             response = HttpResponse(

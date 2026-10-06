@@ -94,7 +94,7 @@ def validate_draft(draft, case, person):
         from .rights_exports import reviewer_case
 
         _, scoped_person, listing = reviewer_case(actor, case.pk)
-        validate_approval(review, case, scoped_person, listing)
+        accounting_body = validate_approval(review, case, scoped_person, listing)
         accounting_signature = {
             "access_accounting_review": review.pk,
             "access_accounting_decision": review.action.payload_digest,
@@ -106,12 +106,22 @@ def validate_draft(draft, case, person):
     )
     if (
         not isinstance(body, dict)
-        or set(body) != {"text", "simulation"}
+        or set(body) not in ({"text", "simulation"}, {"text", "simulation", "access_package"})
         or body["simulation"] is not True
         or not isinstance(reason_body, dict)
         or set(reason_body) != {"reason"}
     ):
         raise ValidationError("Final response preparation body changed")
+    if "access_package" in body:
+        if not draft.coverage_review_id:
+            raise ValidationError("Package requires independently approved copy accounting")
+        from .rights_access_delivery import validate_package
+
+        actor.session_version = draft.original_session_version
+        actor.mfa_version = draft.original_mfa_version
+        validate_package(
+            body["access_package"], case, person, export, actor, proof, accounting_body["delivered"]
+        )
     checked_response_text(reason_body["reason"], body["text"], True)
     text_digest = fingerprint(canonical(body))
     signature = fingerprint(

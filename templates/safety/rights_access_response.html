@@ -4,6 +4,16 @@
 <p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></p>
 <p>{% if english %}Complete a new identity and scope check after creating the covered copy, then inspect the current request and responses. Explain the delivered scope and exclusions without private evidence or third-party details. Saving this draft does not issue a response or close the request; independent review is required.{% else %}Completa una nueva comprobación de identidad y alcance después de crear la copia cubierta y consulta el expediente y sus respuestas actuales. Explica el alcance entregado y las exclusiones sin evidencias internas ni datos de terceros. Guardar este borrador no emite una respuesta ni cierra la solicitud; requiere revisión independiente.{% endif %}</p>
 {% if draft %}<p role="status">{% if english %}Final response draft prepared{% else %}Borrador de respuesta final preparado{% endif %}: {{ draft.pk }} · {% if english %}Expires{% else %}Caduca{% endif %}: {{ draft.expires_at }}</p>{% endif %}
-<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Save response draft{% else %}Guardar borrador de respuesta{% endif %}</button></form>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit" name="operation" value="inspect_package">{% if english %}Inspect access package{% else %}Consultar paquete de acceso{% endif %}</button> <button type="submit" name="operation" value="prepare">{% if english %}Save response draft{% else %}Guardar borrador de respuesta{% endif %}</button></form>
+{% if package_preview %}
+<section class="rights-access-coverage" aria-label="{% if english %}Original access package{% else %}Paquete original de acceso{% endif %}">
+<h2>{% if english %}Additional records to review{% else %}Registros adicionales que revisar{% endif %}</h2>
+<p>{% if english %}Choose included, omitted or redacted for each group and explain the decision. Redacted groups require changes keyed by the original record reference and field, with a separate reason for each omission or textual redaction. Unmodified fields retain their original contents. Pending decisions cannot prepare a package. Infrastructure coverage remains subject to verification.{% else %}Elige included, omitted o redacted para cada grupo y explica la decisión. Los grupos redacted requieren changes por referencia del registro original y campo, con motivo propio para cada omisión o redacción textual. Los campos sin cambios conservan el contenido original. Las decisiones pending impiden preparar el paquete. La cobertura de infraestructura sigue sujeta a comprobación.{% endif %}</p>
+<pre class="rights-copy-page">{{ package_preview }}</pre>
+</section>
+{% endif %}
 
+{% if approved_drafts %}
+<ul>{% for approval in approved_drafts %}<li><a href="{% url 'rights_access_close' case.pk approval.pk %}">{% if english %}Issue approved response and close{% else %}Emitir respuesta aprobada y cerrar{% endif %} · {{ approval.draft_id }}</a></li>{% endfor %}</ul>
+{% endif %}
 {% endblock %}

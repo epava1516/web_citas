@@ -112,7 +112,7 @@ def inspect(user, case_id, version, draft_id, key, reason):
     body = checked_body(draft.encrypted_response)
     if (
         not isinstance(body, dict)
-        or set(body) != {"text", "simulation"}
+        or set(body) not in ({"text", "simulation"}, {"text", "simulation", "access_package"})
         or body["simulation"] is not True
     ):
         raise ValidationError("Final response body changed")
@@ -129,13 +129,16 @@ def inspect(user, case_id, version, draft_id, key, reason):
         author_reason["reason"],
         body["text"],
         True,
+        coverage_review_id=draft.coverage_review_id,
+        scope_inventory_id=body.get("access_package", {}).get("inventory"),
+        delivery_decisions=body.get("access_package", {}).get("decisions"),
     )
     if prepared.pk != draft.pk:
         raise ValidationError("Final response draft changed")
     authorize_reviewer(user, case)
     if authorized_proof(case, person, case.kind).pk != proof.pk:
         raise ValidationError("Final review authorization changed")
-    return draft, {"text": body["text"], "simulation": True, "export": str(draft.export_id)}
+    return draft, body | {"export": str(draft.export_id)}
 
 
 @transaction.atomic

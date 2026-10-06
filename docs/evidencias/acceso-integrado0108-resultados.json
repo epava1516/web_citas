@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-06",
+  "milestone": "CR09-END-ACCESS",
+  "status": "local_flow_verified_operational_census_and_runtime_pending",
+  "runs_separate_not_summed": [
+    {
+      "name": "mobile_and_concurrent",
+      "xml": "/tmp/access-integrated-mobile-race0108.xml",
+      "xml_sha256": "3df3f378d61e671a6df738bded57f8b5b2b10ebebc65b5a44362a78a66f0380c",
+      "counts": {
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 379.312,
+      "scope": "4 mobile ES/EN profile/account closures and downloads, 2 PostgreSQL races; synthetic resource census"
+    },
+    {
+      "name": "shared_receipt_regression",
+      "xml": "/tmp/access-shared-receipt-regression0108.xml",
+      "xml_sha256": "d41fbb1aa3b5607d2d6d916c3fef9856c73688fea5cc9cd024be2f2876e7aa01",
+      "counts": {
+        "tests": 4,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 84.643,
+      "scope": "2 PostgreSQL portability closures passed; 1 resource privacy unit passed, 1 nondeterministic assertion failed"
+    },
+    {
+      "name": "resource_privacy_final",
+      "xml": "/tmp/access-resource-privacy-final0108.xml",
+      "xml_sha256": "dbdb7f8a9bea5f507717db9e6713d0d41234a43e14e230e2a811532259a88126",
+      "counts": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 0.58,
+      "scope": "2 pure resource privacy tests after replacing hash-substring assertion"
+    }
+  ],
+  "source_sha256": {
+    "apps/safety/rights_access_delivery.py": "5edb222da346d7354ef40141bf5b3b2519c733a17e3f4c9b1d0eba3670a07154",
+    "apps/safety/rights_access_close.py": "fe97ee944f7ed470529868b9837b6a6fefd303557c06594a5d603e29bbb2e7a2",
+    "apps/safety/rights_access_close_views.py": "b2ec49b2fb9f58659865c3ae77fdadc809ae685e8e57787992e7539f1426eab6",
+    "apps/safety/rights.py": "5ea4dc0df74d57aaff76d3bec7c963762f651eacc44154d600299b92850ba58e",
+    "templates/safety/rights_receipt.html": "fd3b34f004f7a39160e19f1503c75c989a593260ec4d269fe43fad78a7fcee73",
+    "tests/test_rights_access_coverage_store.py": "8ce048590e02b4943077445f21292da45d3c61c8441d1d5765389799ef1abddd",
+    "tests/test_rights_access_recipient_payload.py": "8afe4792169151ee37ba3350e6ea1876333baffde3596adbd12717ba163b4da3"
+  },
+  "limits": [
+    "Identity and notices remain simulated.",
+    "Resource census is a synthetic operator-origin fixture, not real host/provider coverage.",
+    "Runtime independently checked at safety0107; migration0108 not deployed.",
+    "CR09 and the full development contract remain open.",
+    "External GitHub CI remains unavailable due to account billing/spending limit."
+  ]
+}

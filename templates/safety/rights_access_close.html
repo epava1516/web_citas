@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% if english %}Issue approved access response and close{% else %}Emitir respuesta de acceso aprobada y cerrar{% endif %}</h1>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></p>
+<p>{% if english %}This action issues the exact independently approved text and closes the request. The linked copy remains downloadable during its validity. Authorization and notice transport are synthetic; no real message is sent.{% else %}Esta acción emite el texto exacto aprobado de forma independiente y cierra la solicitud. La copia vinculada sigue disponible durante su vigencia. La autorización y el transporte del aviso son sintéticos; no se envía un mensaje real.{% endif %}</p>
+{% if response %}<p role="status">{% if english %}Final response issued; request closed{% else %}Respuesta final emitida; solicitud cerrada{% endif %}: {{ response.pk }}</p>{% elif case.status == 'resolved' %}<p>{% if english %}Request already closed{% else %}Solicitud ya cerrada{% endif %}</p>{% else %}<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Issue response and close{% else %}Emitir respuesta y cerrar{% endif %}</button></form>{% endif %}
+{% endblock %}

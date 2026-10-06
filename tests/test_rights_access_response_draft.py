@@ -105,6 +105,26 @@ def test_access_draft_requires_fresh_proof_and_does_not_close(
     from django.test import Client
     from django.urls import reverse
 
+    from apps.safety.rights_access_close import close
+
+    with pytest.raises(ValidationError, match="Complete reviewed access delivery"):
+        close(author, case.pk, case.version, case.response_version, reviewed.pk, uuid4(), REASON)
+    assert not RightsResponse.objects.exists()
+    close_path = reverse("rights_access_close", args=[case.pk, reviewed.pk])
+    assert staff.get(close_path).status_code == 200
+    assert operator(verifier).get(close_path).status_code == 403
+    blocked = staff.post(
+        close_path,
+        {
+            "key": uuid4(),
+            "version": case.version,
+            "response_version": case.response_version,
+            "reason": REASON,
+        },
+    )
+    assert blocked.status_code == 409 and TEXT not in blocked.content.decode()
+    assert not RightsResponse.objects.exists()
+
     path = reverse("rights_access_response_prepare", args=[case.pk])
     review_path = reverse("rights_access_response_review", args=[case.pk, row.pk])
     before = RightsAction.objects.count()
