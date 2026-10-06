@@ -2520,3 +2520,5 @@ Base offline real: checksum/RDB válidos,77 claves/26 expiraciones/0 ya caducada
 ## 2026-10-06 — SEO-PREP-02 implementado y probado
 
 Sitemap index/directorio/documentos de100 candidatos y robots globales; URLs con origen configurado, disponibilidad ES/EN compartida con canonical y publicly_visible sin alterar permisos/estados. No URLs privadas/pending/contactos/filtros; retirada/consentimiento revocado excluidos; desarrollo robots bloqueado/metadata XML noindex. Capacidad del índice acotada, exceso503 sin truncamiento; offset/latencia global siguen pendientes.5 HTTP PG y1 navegador móvil correctos en runs separados, sin fallos; [evidencia](evidencias/sitemaps-preparacion0110.json), [operación SEO](04-seo.md). Sin aceptación integral ni cambio de porcentajes.
+
+SEO-PREP-02 fuente d0aeba3 enviada y Docker local verificado:70 archivos iguales app/worker/Beat, PG0110/UID10001/RecoveryModeFalse/cola normal intactos; check/migrate-check/salud/CSS/metadatos ESEN/XML/robots correctos. [Runtime](evidencias/sitemaps-runtime0110.json). Logs previos conservados cifrados. Criterio local entregado, GS01/BF/BB y censo histórico CR09 pendientes.
