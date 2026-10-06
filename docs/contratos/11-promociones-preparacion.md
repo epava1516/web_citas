@@ -100,3 +100,16 @@ Cada alta o cambio de estos registros debe invalidar el inventario correspondien
 Supresión/conservación: registrarlos como evidencia dependiente con revisión y finalidad pendientes, no borrado automático ni plazo inventado. Limitación/oposición/retiro bloquean exposición conforme a estado actual; conservar decisión auditada. Restauración debe aplicar eventos de derechos antes de habilitar exposición/tareas y no resucitar promociones revocadas. Rectificación no modifica snapshots comerciales publicados: corrección revisada y trazable cuando proceda.
 
 Pruebas de integración antes de aceptar: perfil/cuenta propios frente a terceros/agencia revocada; inserción/mutación de cada registro cambia inventario; bloqueo del cierre completo ante finalidad/cobertura pendientes; evento inválido/replay/carreras sin concesión duplicada; restauración/suspensión sin reactivación. PostgreSQL obligatorio; adaptador de pago sintético expresamente identificado. Ninguno de estos criterios se acredita por esta tabla documental.
+
+## Interfaces comerciales sintéticas preparadas
+
+Rama codex/cr10-commercial, interfaz543a22b/testf26575f; sin integración/runtime comercial ni aceptación. PROMOTION_TEST_MODE exige opt-in local y los servicios rechazan producción. No firma pública de eventos ni pasarela. El usuario solo selecciona un resultado de simulación; el servidor produce/autentica el evento sintético y comprueba importe/moneda del snapshot.
+
+| Ruta localizada | GET | POST |
+| --- | --- | --- |
+| /{es|en}/account/test-promotions/ | Formulario y pedidos del comprador, páginas25, privado/no-store/noindex | key UUID, listing propio gestionable, product version y confirmación de simulación; pedido servidor o error400/409, éxito302 a detalle |
+| /{es|en}/account/test-promotions/{order_uuid}/ | Snapshot propio y formulario de simulación | key UUID, outcome pending/failed/succeeded, confirmación; replay ligado a evento/contenido, éxito302 al detalle; inválido400/conflicto409 |
+
+Login obligatorio y MFA/sesión/cuenta vigentes. Objeto de comprador ajeno404, modo deshabilitado/autoridad inválida403, métodos ajenos405 y POST sin CSRF403. GET no escribe pedidos/eventos. La autorización final reconsulta publicación/gestión; traslado, retirada o revocación impiden concesión. Errores de simulación no muestran payloads ni secretos. Etiqueta explícita sin cobro y sin reserva; importes/configuración provenientes del servidor.
+
+Pruebas HTTP ES/EN finales correctas (2 casos, ver informe/seguimiento17): primera carga se detuvo por expectativa demasiado estricta de Cache-Control, corregida sin cambio funcional; consultar seguimiento17 para resultado terminal. Navegador móvil, agencias y concurrencia observada siguen requeridos antes del cierre.
