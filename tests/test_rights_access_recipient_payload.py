@@ -649,3 +649,106 @@ def test_resource_copy_never_delivers_unreviewed_originals_or_closes_on_generic_
     assert compile_package(inventory, export, original, decisions, cutoff=cutoff, projected={})[
         "pending"
     ] == ["infrastructure_content_accounting"]
+
+
+def test_private_resource_directory_retains_independent_origins_for_two_cases(settings, tmp_path):
+    from types import SimpleNamespace
+    from uuid import uuid4
+
+    from django.utils import timezone
+
+    from apps.safety.crypto import seal
+    from apps.safety.rights_access_delivery import retained_resource_records
+    from scripts.collect_access_resource_logs import scoped_origin_name
+
+    tmp_path.chmod(0o700)
+    settings.ACCESS_RESOURCE_ORIGIN_BUNDLE = str(tmp_path)
+    scope = {
+        "sessions": [],
+        "session_evidence": [],
+        "queued_processing": [],
+        "queue_evidence": [],
+        "mail_scope": {},
+        "log_origins": {},
+    }
+    cases = [
+        SimpleNamespace(pk=uuid4(), account_subject_id=101 + position) for position in range(2)
+    ]
+    inventories = [
+        SimpleNamespace(
+            pk=12 + position, source_digest="synthetic-source", created_at=timezone.now()
+        )
+        for position in range(2)
+    ]
+    artifacts = []
+    for case, inventory in zip(cases, inventories, strict=True):
+        body = synthetic_resource_census(case, inventory, scope)
+        path = tmp_path / scoped_origin_name("resources", case.pk, inventory.pk)
+        path.write_text(seal(body))
+        path.chmod(0o600)
+        artifacts.append((path, body))
+    reads = [
+        retained_resource_records(
+            case, None, inventory, body["dependencies"], {"logs": {}, "mail": {}}
+        )
+        for case, inventory, (_, body) in zip(cases, inventories, artifacts, strict=True)
+    ]
+    assert all(not item["pending"] for item in reads)
+    assert reads[0]["digest"] != reads[1]["digest"]
+    second_path, second_body = artifacts[1]
+    second_body["categories"]["backups"]["reason"] += " changed"
+    second_path.write_text(seal(second_body))
+    assert (
+        retained_resource_records(
+            cases[0],
+            None,
+            inventories[0],
+            artifacts[0][1]["dependencies"],
+            {"logs": {}, "mail": {}},
+        )
+        == reads[0]
+    )
+    first_path, first_body = artifacts[0]
+    first_path.write_text(seal(second_body))
+    with pytest.raises(ValidationError, match="census unavailable"):
+        retained_resource_records(
+            cases[0], None, inventories[0], first_body["dependencies"], {"logs": {}, "mail": {}}
+        )
+    tmp_path.chmod(0o750)
+    with pytest.raises(ValidationError, match="Private scoped resource"):
+        retained_resource_records(
+            cases[0], None, inventories[0], first_body["dependencies"], {"logs": {}, "mail": {}}
+        )
+    with pytest.raises(ValueError):
+        scoped_origin_name("resources", "../../untrusted", 12)
+
+
+def test_private_log_directory_writes_scoped_immutable_archives(settings, tmp_path):
+    from types import SimpleNamespace
+    from uuid import uuid4
+
+    from django.utils import timezone
+
+    from apps.safety.rights_access_delivery import log_records
+    from scripts.collect_access_resource_logs import write_bundle
+
+    cutoff = timezone.now()
+    tmp_path.chmod(0o700)
+    settings.ACCESS_LOG_ORIGIN_BUNDLE = str(tmp_path)
+    cases = [SimpleNamespace(pk=uuid4()) for _ in range(2)]
+    inventories = [SimpleNamespace(pk=12 + position) for position in range(2)]
+    paths = []
+    for case, inventory in zip(cases, inventories, strict=True):
+        own = str(case.pk) + "@example.invalid"
+        content = cutoff.isoformat() + " " + own + " private-scoped-log\n"
+        body = synthetic_log_bundle(timezone.now(), content)
+        path = write_bundle(tmp_path, body, case_id=case.pk, inventory_id=inventory.pk)
+        paths.append(path)
+        read = log_records({own}, cutoff, case=case, inventory=inventory)
+        assert len(read["candidates"]) == 1
+        assert "private-scoped-log" not in str(read)
+        with pytest.raises(FileExistsError):
+            write_bundle(tmp_path, body, case_id=case.pk, inventory_id=inventory.pk)
+    assert paths[0] != paths[1]
+    with pytest.raises(ValidationError, match="Private scoped resource"):
+        log_records({"unknown@example.invalid"}, cutoff)

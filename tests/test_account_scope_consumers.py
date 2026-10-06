@@ -25,12 +25,14 @@ def test_profile_consumers_reject_checked_account_without_side_effects(request, 
     reason = "Independent synthetic own account scope request"
     operations = [
         lambda: hold(actor, case.pk, uuid4(), case.version, reason, "accuracy"),
-        lambda: recipients(actor, case.pk, uuid4(), uuid4(), case.version, reason),
         lambda: discard(actor, case.pk, uuid4(), case.version, uuid4(), reason),
     ]
     for operation in operations:
         with pytest.raises(ValidationError, match="Profile scope required"):
             operation()
+    # Recipient processing supports account scope only after a real scoped execution.
+    with pytest.raises(ValidationError, match="Inspect current executed correction"):
+        recipients(actor, case.pk, 1, uuid4(), case.version, reason)
     case.refresh_from_db()
     assert (RightsAction.objects.count(), case.version, case.scope_status) == before
     subject.refresh_from_db()

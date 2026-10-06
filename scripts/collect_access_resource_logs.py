@@ -13,10 +13,19 @@ import stat
 import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
+from uuid import UUID
 
 PROJECT = "web-modelos"
 SERVICES = ("app", "worker", "beat", "caddy", "db", "redis")
 MAX_SERVICE_BYTES = 32 * 1024 * 1024
+
+
+def scoped_origin_name(kind, case_id, inventory_id):
+    """Immutable per-case/inventory slots; never accept arbitrary path components."""
+    if kind not in {"logs", "resources"} or type(inventory_id) is not int or inventory_id < 1:
+        raise ValueError("Exact resource kind and positive inventory required")
+    case_id = UUID(str(case_id))
+    return f"access-{kind}-{case_id}-{inventory_id}.encrypted"
 
 
 def subject_log_signature(event):
@@ -94,14 +103,21 @@ def collect():
     }
 
 
-def write_bundle(directory, body):
+def write_bundle(directory, body, *, case_id=None, inventory_id=None):
     from apps.safety.crypto import seal
 
     directory = Path(directory)
     metadata = directory.lstat()
     if not stat.S_ISDIR(metadata.st_mode) or stat.S_IMODE(metadata.st_mode) & 0o077:
         raise ValueError("Existing private directory with mode0700 required")
-    path = directory / "access-log-origins.encrypted"
+    if (case_id is None) != (inventory_id is None):
+        raise ValueError("Case and inventory must be supplied together")
+    name = (
+        scoped_origin_name("logs", case_id, inventory_id)
+        if case_id is not None
+        else "access-log-origins.encrypted"
+    )
+    path = directory / name
     descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
     with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
         stream.write(seal(body))
@@ -113,13 +129,22 @@ def write_bundle(directory, body):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-directory", required=True, type=Path)
+    parser.add_argument("--request", type=UUID)
+    parser.add_argument("--inventory", type=int)
     arguments = parser.parse_args()
+    if (arguments.request is None) != (arguments.inventory is None):
+        parser.error("--request and --inventory must be supplied together")
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
     import django
 
     django.setup()
     body = collect()
-    path = write_bundle(arguments.output_directory, body)
+    path = write_bundle(
+        arguments.output_directory,
+        body,
+        case_id=arguments.request,
+        inventory_id=arguments.inventory,
+    )
     print(
         json.dumps(
             {

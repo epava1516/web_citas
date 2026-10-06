@@ -29,7 +29,9 @@ REASON = "Independent synthetic correction of own account data"
 
 @pytest.mark.parametrize("email", [False, True])
 @pytest.mark.parametrize("agency", [False, True])
-def test_account_without_profile_review_receive_and_execute(request, settings, email, agency):
+def test_account_without_profile_review_receive_and_execute(
+    request, settings, email, agency, recipient_flow=False
+):
     request.getfixturevalue("directory")
     settings.RIGHTS_VERIFICATION_BACKEND = "simulator"
     public = Client()
@@ -177,3 +179,99 @@ def test_account_without_profile_review_receive_and_execute(request, settings, e
     assert result.corrected_revision_id is None and result.resulting_rights_version is None
     assert not Person.objects.filter(subject=subject).exists()
     assert case.status == "reviewing" and case.scope_status == "unverified"
+
+    if recipient_flow:
+        from django.core.exceptions import PermissionDenied, ValidationError
+        from django.urls import reverse
+
+        from apps.safety import recipient_assessments, recipient_review
+        from apps.safety.models import RightsAction, RightsRectificationRecipientInventory
+
+        independent.user_permissions.add(
+            Permission.objects.get(codename="manage_rights_assignment")
+        )
+        independent = User.objects.get(pk=independent.pk)
+        fresh(case, independent, other, original, staff)
+        recipient_path = reverse("rectification_recipients", args=[case.pk, result.pk])
+        before_actions = RightsAction.objects.count()
+        assert other.get(recipient_path).status_code == 200
+        assert RightsAction.objects.count() == before_actions
+        inventory_key = uuid4()
+        values = {"key": inventory_key, "version": case.version, "purpose": REASON}
+        posted = other.post(recipient_path, values)
+        assert posted.status_code == 200, posted.content.decode()
+        inventory = RightsRectificationRecipientInventory.objects.get(action__key=inventory_key)
+        assert other.post(recipient_path, values).status_code == 200
+        recipients = posted.context["inventory"]
+        assert recipients["person"] is None
+        assert recipients["account_subject"] == str(subject.pk)
+        assert recipients["pending"] and not recipients["complete"]
+        assert "Corrected own account" not in str(recipients)
+        assert before[2] not in str(recipients)
+        assert all(item["kind"] == "account" for item in recipients["candidates"])
+        assert not Person.objects.filter(subject=subject).exists()
+        assessment_path = reverse("recipient_assessment", args=[case.pk, inventory.pk])
+        assert other.get(assessment_path).status_code == 200
+        inspected = other.post(
+            assessment_path,
+            {
+                "operation": "inspect",
+                "version": case.version,
+                "key": uuid4(),
+                "purpose": REASON,
+            },
+        )
+        assert inspected.status_code == 200, inspected.content.decode()
+        assessments = {
+            target: {
+                "outcome": "pending",
+                "reason": REASON,
+                "evidence": "Synthetic concrete recipient evidence awaiting scope resolution",
+            }
+            for target in recipient_assessments.targets(recipients)
+        }
+        assessment = recipient_assessments.propose(
+            independent, case.pk, inventory.pk, uuid4(), case.version, assessments
+        )
+        case.refresh_from_db()
+        assert case.status == "reviewing"
+        original.user_permissions.add(
+            *Permission.objects.filter(
+                codename__in=["review_recipient_assessment", "review_rectification"]
+            )
+        )
+        original = User.objects.get(pk=original.pk)
+        act(independent, case.pk, uuid4(), case.version, "unassign", REASON)
+        case.refresh_from_db()
+        act(original, case.pk, uuid4(), case.version, "claim", REASON)
+        fresh(case, original, staff, independent, other)
+        with pytest.raises(PermissionDenied):
+            recipient_review.inspect(independent, case.pk, assessment.pk, case.version, REASON)
+        data_read, decisions_read = recipient_review.inspect(
+            original, case.pk, assessment.pk, case.version, REASON
+        )
+        assert data_read["account_subject"] == str(subject.pk)
+        assert decisions_read == assessments
+        previous_name = subject.first_name
+        subject.first_name = "Changed after executed correction"
+        subject.save(update_fields=["first_name"])
+        with pytest.raises(ValidationError):
+            recipient_review.inspect(original, case.pk, assessment.pk, case.version, REASON)
+        subject.first_name = previous_name
+        subject.save(update_fields=["first_name"])
+        decision = recipient_review.review(
+            original, case.pk, assessment.pk, uuid4(), case.version, "accepted", REASON
+        )
+        assert decision.assessment_id == assessment.pk
+        case.refresh_from_db()
+        assert case.status == "reviewing" and case.scope_status == "unverified"
+        assert list(Person.objects.order_by("pk").values()) == profile_before
+
+
+@pytest.mark.parametrize("email", [False, True])
+def test_account_recipient_flow_does_not_require_or_modify_owned_agency_profiles(
+    request, settings, email
+):
+    test_account_without_profile_review_receive_and_execute(
+        request, settings, email=email, agency=True, recipient_flow=True
+    )

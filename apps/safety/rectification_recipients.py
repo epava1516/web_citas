@@ -22,20 +22,58 @@ from .models import (
     RightsAction,
     RightsRectificationExecution,
     RightsRectificationManagerNotice,
+    RightsRectificationProposalRead,
     RightsRectificationRecipientInventory,
+    RightsRectificationSourceRead,
     RightsRequest,
 )
 from .rectification_review import permission
 from .rights import allowed, fingerprint
 from .rights_responses import complete_response_read
-from .rights_scope import locked_profile_case as locked_case
-from .rights_scope import permitted
+from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
 from .views import private
 
 
 @sensitive_variables()
-def snapshot(person, execution):
+def execution_scope_matches(case, person, execution):
+    """An account correction is bound to its own applied values, never owned profiles."""
+    proposal = execution.notification.review.proposal
+    if (
+        execution.action.request_id != case.pk
+        or proposal.action.request_id != case.pk
+        or proposal.person_id != (person.pk if person else None)
+        or proposal.account_subject_id != case.account_subject_id
+    ):
+        return False
+    if person:
+        return execution.resulting_rights_version == person.rights_version
+    if not case.account_subject_id or execution.resulting_rights_version is not None:
+        return False
+    from cryptography.fernet import InvalidToken
+
+    from .rectification_account import FIELDS, source
+
+    try:
+        changes = unseal(proposal.encrypted_changes)
+    except (InvalidToken, ValueError, TypeError):
+        raise ValidationError("Executed account correction contents unavailable") from None
+    if (
+        not isinstance(changes, dict)
+        or set(changes) != {"account"}
+        or not isinstance(changes["account"], dict)
+        or not changes["account"]
+        or set(changes["account"]) - FIELDS
+        or fingerprint(json.dumps(changes, sort_keys=True))
+        != execution.notification.review.changes_digest
+    ):
+        return False
+    current = source(None, case)
+    return all(current[field] == value for field, value in changes["account"].items())
+
+
+@sensitive_variables()
+def snapshot(person, execution, case=None):
     candidates = {}
 
     def add(kind, reference, basis, evidence):
@@ -47,28 +85,42 @@ def snapshot(person, execution):
         )
         candidate["evidence"].append({"basis": basis, "record": str(evidence)})
 
-    add(
-        "agency" if person.agency_id else "individual",
-        person.agency_id or person.individual_id,
-        "current_manager",
-        person.pk,
-    )
-    for row in RepresentationAction.objects.filter(person=person).order_by("pk"):
-        add(row.manager_kind, row.manager_id, "representation_history", row.pk)
-        add(row.previous_manager_kind, row.previous_manager_id, "previous_representation", row.pk)
-    for row in Submission.objects.filter(revision__listing__person=person).order_by("pk"):
-        add("account", row.actor_id, "submission_actor", row.pk)
-    for row in (
-        Revision.objects.filter(listing__person=person, publisher_acceptance__isnull=False)
-        .select_related("publisher_acceptance")
-        .order_by("pk")
-    ):
+    if person is None:
+        if case is None or not execution_scope_matches(case, person, execution):
+            raise ValidationError("Current own-account correction required")
+        proposal = execution.notification.review.proposal
+        for row in RightsRectificationSourceRead.objects.filter(request=case).order_by("pk"):
+            add("account", row.actor_id, "audited_account_source_read", row.pk)
+        for row in RightsRectificationProposalRead.objects.filter(proposal=proposal).order_by("pk"):
+            add("account", row.actor_id, "audited_account_changes_read", row.pk)
+    else:
         add(
-            "account",
-            row.publisher_acceptance.user_id,
-            "publishing_acceptance",
-            row.publisher_acceptance_id,
+            "agency" if person.agency_id else "individual",
+            person.agency_id or person.individual_id,
+            "current_manager",
+            person.pk,
         )
+        for row in RepresentationAction.objects.filter(person=person).order_by("pk"):
+            add(row.manager_kind, row.manager_id, "representation_history", row.pk)
+            add(
+                row.previous_manager_kind,
+                row.previous_manager_id,
+                "previous_representation",
+                row.pk,
+            )
+        for row in Submission.objects.filter(revision__listing__person=person).order_by("pk"):
+            add("account", row.actor_id, "submission_actor", row.pk)
+        for row in (
+            Revision.objects.filter(listing__person=person, publisher_acceptance__isnull=False)
+            .select_related("publisher_acceptance")
+            .order_by("pk")
+        ):
+            add(
+                "account",
+                row.publisher_acceptance.user_id,
+                "publishing_acceptance",
+                row.publisher_acceptance_id,
+            )
     notices = list(
         RightsRectificationManagerNotice.objects.filter(execution=execution)
         .order_by("pk")
@@ -90,11 +142,16 @@ def snapshot(person, execution):
             "processors_and_external_destinations_register",
             "historical_recipient_contact_authorization_and_delivery",
         ],
-        "person": str(person.pk),
-        "manager_version": person.manager_version,
-        "rights_version": person.rights_version,
+        "person": str(person.pk) if person else None,
+        "manager_version": person.manager_version if person else None,
+        "rights_version": person.rights_version if person else None,
         "execution": execution.pk,
     }
+    if person is None:
+        from .rectification_account import source
+
+        data["account_subject"] = str(case.account_subject_id)
+        data["account_state_digest"] = fingerprint(json.dumps(source(None, case), sort_keys=True))
     return json.loads(json.dumps(data, sort_keys=True, default=str))
 
 
@@ -114,6 +171,7 @@ def prepare(user, case_id, execution_id, key, version, purpose):
         pk=execution_id,
         notification__review__proposal__action__request=case,
         notification__review__proposal__person=person,
+        notification__review__proposal__account_subject_id=case.account_subject_id,
     ).first()
     if (
         not execution
@@ -124,7 +182,7 @@ def prepare(user, case_id, execution_id, key, version, purpose):
         or not complete_read(user, case)
         or not complete_response_read(user, case)
         or not 10 <= len(purpose.strip()) <= 200
-        or execution.resulting_rights_version != person.rights_version
+        or not execution_scope_matches(case, person, execution)
     ):
         raise ValidationError(
             "Inspect current executed correction / Consulta la rectificación ejecutada vigente"
@@ -144,7 +202,7 @@ def prepare(user, case_id, execution_id, key, version, purpose):
         ):
             return RightsRectificationRecipientInventory.objects.get(action=previous)
         raise ValidationError("Conflicting inventory key / Clave incompatible")
-    data = snapshot(person, execution)
+    data = snapshot(person, execution, case)
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(

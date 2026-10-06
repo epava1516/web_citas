@@ -27,7 +27,7 @@ def target_title(token, candidate, english):
         label = (
             ("Agency representation" if english else "Representación por agencia")
             if kind == "agency"
-            else ("Publishing or management account" if english else "Cuenta publicadora o gestora")
+            else ("Account with recorded access" if english else "Cuenta con acceso registrado")
         )
         try:
             name = (

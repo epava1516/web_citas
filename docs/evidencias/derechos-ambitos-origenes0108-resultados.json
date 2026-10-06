@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-06",
+  "status": "verified_local_corrections_not_global_CR09_acceptance",
+  "runs_separate_not_summed": [
+    {
+      "name": "account_scope_initial_reproduction",
+      "xml": "/tmp/account-recipient-scope-reproduction0108.xml",
+      "counts": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 39.317,
+      "scope": "Expected failure409: profile scope required for own account recipient inventory",
+      "xml_sha256": "a84232e09caab9f351b1a4270d946ca4e3b5daa5599dff7c8883194e50810acf"
+    },
+    {
+      "name": "account_scope_fixture_coordination_failure",
+      "xml": "/tmp/account-recipient-scope-fixed0108.xml",
+      "counts": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 47.325,
+      "scope": "2 failures in test fixture lacking assignment coordination permission; not weaker production authorization",
+      "xml_sha256": "d12484d69fb6ec10335648893b417d6abc7ee4b9250a6a619ff281cda86fdd41"
+    },
+    {
+      "name": "account_scope_fixed",
+      "xml": "/tmp/account-recipient-scope-final0108.xml",
+      "counts": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 47.761,
+      "scope": "2 own-account recipient inventory/assessment/review flows, with and without confirmed email change",
+      "xml_sha256": "cb96d1d062671839e4b21a1eaefe62979cbbae6be7539ecb5548ad0ab3effdf9"
+    },
+    {
+      "name": "account_and_profile_regression",
+      "xml": "/tmp/rectification-recipient-account-profile0108.xml",
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 118.453,
+      "scope": "2 own-account flows, 2 ES/EN mobile profile flows and profile-only consumer isolation; self-review actor has actual review permission",
+      "xml_sha256": "d2edd6a3087e98b1ae6c98d8447ed3712caf221c2e15204b97e107b9372cf511"
+    },
+    {
+      "name": "scoped_origins",
+      "xml": "/tmp/access-scoped-origins0108.xml",
+      "counts": {
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 265.468,
+      "scope": "4 ES/EN mobile profile/account access closures and downloads with per-inventory origins, 2 real private-file directory tests; synthetic contents",
+      "xml_sha256": "47d2072961c1aca69fe683c923c056a9e288248ab379a908d97eddfb005061c4"
+    }
+  ],
+  "source_sha256": {
+    "apps/safety/rights_access_delivery.py": "fa388c9d40cd6ba004c4d99cd55f64b64d725784b1efa75a675ed8b5d8396de5",
+    "scripts/collect_access_resource_logs.py": "e886eb335a24d0d4f939499ba876c384554e8f16a6e2b242551e4b95b33dbbac",
+    "apps/safety/rectification_recipients.py": "010137afce3374803c854ca5953519d8402322f301ae61fef5e1642225c997d0",
+    "apps/safety/recipient_assessments.py": "6248362fe2f8e3df3bf3d64a336ef9d2ae2ba21f5391e7dcb75815efa9323b61",
+    "apps/safety/recipient_review.py": "926064fd5d7533848d8844ccf8a9d6c1a73b20ee05b3096d3e607c511fe30eb9",
+    "tests/test_account_only_execution.py": "3a1151b86d2107ee02793c50f4f01e9c8ae98b0b6f38bf1be18b552a7a0ee0ac",
+    "tests/test_account_scope_consumers.py": "d6c7457cc372c139d2a960c6a41374eb0a1a01dbdec29577933814a27094bcf4",
+    "tests/test_rights_access_coverage_store.py": "0a2f5171ff2bd0bf540dff7d6806e6970f61655f78fd3f692b519655a5abb432",
+    "tests/test_rights_access_recipient_payload.py": "bd5158bfd93eb06b6796b5690b5dc9ed86cd8b6304cc9c0aba06112d5a6a9d2f"
+  },
+  "limits": [
+    "Identity, notices and resource-origin contents are synthetic in these tests.",
+    "Private-file IO, PostgreSQL, HTTP and Chromium are real local integrations.",
+    "Recipient assessments retain explicit pending entries; no final rectification closure implemented.",
+    "Real operational source census and full CR09 acceptance remain pending.",
+    "Runtime previously deployed at f252ae0; these subsequent source changes are not yet deployed."
+  ]
+}

@@ -12,12 +12,11 @@ from .models import (
     RightsRectificationRecipientAssessment,
     RightsRectificationRecipientInventory,
 )
-from .rectification_recipients import snapshot
+from .rectification_recipients import execution_scope_matches, snapshot
 from .rectification_review import permission
 from .rights import fingerprint
 from .rights_responses import complete_response_read
-from .rights_scope import locked_profile_case as locked_case
-from .rights_scope import permitted
+from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
 
 
@@ -81,6 +80,7 @@ def propose(user, case_id, inventory_id, key, version, decisions):
             pk=inventory_id,
             action__request=case,
             execution__notification__review__proposal__person=person,
+            execution__notification__review__proposal__account_subject_id=case.account_subject_id,
         )
         .first()
     )
@@ -110,13 +110,13 @@ def propose(user, case_id, inventory_id, key, version, decisions):
         or not complete_response_read(user, case)
         or inventory.action.actor_id != user.pk
         or inventory.action.expected_version != version
-        or inventory.execution.resulting_rights_version != person.rights_version
+        or not execution_scope_matches(case, person, inventory.execution)
     ):
         raise ValidationError(
             "Inspect current assigned recipient inventory / Consulta el inventario asignado vigente"
         )
     proof = authorized_proof(case, person, "rectify")
-    data = snapshot(person, inventory.execution)
+    data = snapshot(person, inventory.execution, case)
     if (
         inventory.proof_id != proof.pk
         or fingerprint(json.dumps(data, sort_keys=True)) != inventory.source_digest
@@ -180,6 +180,7 @@ def inspect(user, case_id, inventory_id, version, purpose):
             pk=inventory_id,
             action__request=case,
             execution__notification__review__proposal__person=person,
+            execution__notification__review__proposal__account_subject_id=case.account_subject_id,
         )
         .first()
     )
@@ -193,14 +194,14 @@ def inspect(user, case_id, inventory_id, version, purpose):
         or not complete_response_read(user, case)
         or inventory.action.actor_id != user.pk
         or inventory.action.expected_version != version
-        or inventory.execution.resulting_rights_version != person.rights_version
+        or not execution_scope_matches(case, person, inventory.execution)
         or not 10 <= len(purpose.strip()) <= 200
     ):
         raise ValidationError(
             "Inspect current assigned recipient inventory / Consulta el inventario asignado vigente"
         )
     proof = authorized_proof(case, person, "rectify")
-    data = snapshot(person, inventory.execution)
+    data = snapshot(person, inventory.execution, case)
     if (
         inventory.proof_id != proof.pk
         or fingerprint(json.dumps(data, sort_keys=True)) != inventory.source_digest

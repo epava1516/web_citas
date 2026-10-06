@@ -14,12 +14,11 @@ from .models import (
     RightsRectificationRecipientReview,
 )
 from .recipient_assessments import validate_decisions
-from .rectification_recipients import snapshot
+from .rectification_recipients import execution_scope_matches, snapshot
 from .rectification_review import permission as base_permission
 from .rights import fingerprint
 from .rights_responses import complete_response_read
-from .rights_scope import locked_profile_case as locked_case
-from .rights_scope import permitted
+from .rights_scope import locked_case, permitted
 from .rights_verification import authorized_proof, complete_read
 
 
@@ -42,6 +41,7 @@ def current(user, case_id, assessment_id, version):
             pk=assessment_id,
             action__request=case,
             inventory__execution__notification__review__proposal__person=person,
+            inventory__execution__notification__review__proposal__account_subject_id=case.account_subject_id,
         )
         .first()
     )
@@ -56,7 +56,7 @@ def current(user, case_id, assessment_id, version):
         or case.assigned_to_id != user.pk
         or not complete_read(user, case)
         or not complete_response_read(user, case)
-        or assessment.inventory.execution.resulting_rights_version != person.rights_version
+        or not execution_scope_matches(case, person, assessment.inventory.execution)
     ):
         raise ValidationError(
             "Inspect current assigned assessment / Consulta la evaluación asignada vigente"
@@ -69,7 +69,7 @@ def current(user, case_id, assessment_id, version):
         .first()
     )
     proof = authorized_proof(case, person, "rectify")
-    data = snapshot(person, assessment.inventory.execution)
+    data = snapshot(person, assessment.inventory.execution, case)
     source = fingerprint(json.dumps(data, sort_keys=True))
     if (
         latest.pk != assessment.pk
@@ -128,6 +128,7 @@ def review(user, case_id, assessment_id, key, version, outcome, reason):
             pk=assessment_id,
             action__request=case,
             inventory__execution__notification__review__proposal__person=person,
+            inventory__execution__notification__review__proposal__account_subject_id=case.account_subject_id,
         )
         .select_related("action")
         .first()

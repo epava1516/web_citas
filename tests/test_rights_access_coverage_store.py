@@ -329,6 +329,7 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
         from test_rights_access_recipient_payload import synthetic_log_bundle
 
         from scripts.collect_access_resource_logs import (
+            scoped_origin_name,
             signed_subject_log_event,
             subject_log_signature,
             write_bundle,
@@ -346,9 +347,12 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
         archive_directory = tmp_path / "operational-fixture"
         archive_directory.mkdir(mode=0o700)
         archive_path = write_bundle(
-            archive_directory, synthetic_log_bundle(timezone.now(), log_content)
+            archive_directory,
+            synthetic_log_bundle(timezone.now(), log_content),
+            case_id=case.pk,
+            inventory_id=inventory.pk,
         )
-        settings.ACCESS_LOG_ORIGIN_BUNDLE = str(archive_path)
+        settings.ACCESS_LOG_ORIGIN_BUNDLE = str(archive_directory)
         with transaction.atomic():
             original_scope = snapshot(
                 case,
@@ -541,10 +545,10 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
         from apps.safety.rights_access_delivery import recipient_payload
 
         census_body = synthetic_resource_census(case, inventory, original_scope)
-        census_path = tmp_path / "synthetic-resource-census.encrypted"
+        census_path = tmp_path / scoped_origin_name("resources", case.pk, inventory.pk)
         census_path.write_text(module.seal(census_body))
         census_path.chmod(0o600)
-        settings.ACCESS_RESOURCE_ORIGIN_BUNDLE = str(census_path)
+        settings.ACCESS_RESOURCE_ORIGIN_BUNDLE = str(tmp_path)
         with transaction.atomic():
             completed_scope = snapshot(
                 case,

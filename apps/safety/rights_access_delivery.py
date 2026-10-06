@@ -28,6 +28,29 @@ from .rights_access_response_draft import checked_body
 from .rights_access_scope_inventory import normalized, source
 from .rights_exports import canonical
 
+
+def scoped_origin_path(configured, *, kind, case=None, inventory=None):
+    """A private directory retains separate immutable origins for concurrent cases."""
+    if not configured:
+        return configured
+    try:
+        metadata = os.lstat(configured)
+        if not stat.S_ISDIR(metadata.st_mode):
+            return configured
+        if (
+            stat.S_IMODE(metadata.st_mode) & 0o077
+            or metadata.st_uid != os.geteuid()
+            or case is None
+            or inventory is None
+        ):
+            raise ValueError
+        from scripts.collect_access_resource_logs import scoped_origin_name
+
+        return os.path.join(configured, scoped_origin_name(kind, case.pk, inventory.pk))
+    except (OSError, TypeError, ValueError):
+        raise ValidationError("Private scoped resource origin required") from None
+
+
 SECRET_MARKERS = ("password", "secret", "token", "digest", "receipt", "signature", "path")
 JSON_FIELDS = frozenset(
     {
@@ -331,9 +354,11 @@ def broker_records(blob_ids):
 
 
 @sensitive_variables()
-def log_records(identifiers, cutoff, *, subjects=None):
+def log_records(identifiers, cutoff, *, subjects=None, case=None, inventory=None):
     """Associate real captured origins privately; no automatic log disclosure."""
-    path = settings.ACCESS_LOG_ORIGIN_BUNDLE
+    path = scoped_origin_path(
+        settings.ACCESS_LOG_ORIGIN_BUNDLE, kind="logs", case=case, inventory=inventory
+    )
     if not path:
         return {"configured": False, "pending": ["retained_log_origins"]}
     from scripts.collect_access_resource_logs import (
@@ -519,7 +544,12 @@ def retained_resource_records(case, person, inventory, dependencies, required):
     census. Each source and its actual retained records remain review material.
     Missing categories, ambiguous association and unfinished censuses stay pending.
     """
-    path = getattr(settings, "ACCESS_RESOURCE_ORIGIN_BUNDLE", "")
+    path = scoped_origin_path(
+        getattr(settings, "ACCESS_RESOURCE_ORIGIN_BUNDLE", ""),
+        kind="resources",
+        case=case,
+        inventory=inventory,
+    )
     result = {
         "configured": False,
         "groups": [],
@@ -794,6 +824,8 @@ def snapshot(case, person, inventory, *, cutoff, projected):
             "person": {str(person.pk)} if person else set(),
             "photo_blob": {row["blob"] for row in manifest["media"]},
         },
+        case=case,
+        inventory=inventory,
     )
     if log_origins.get("projected"):
         groups["operations.LogEvent"] = log_origins["projected"]
