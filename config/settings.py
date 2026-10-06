@@ -96,6 +96,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "home"
+# No implicit per-process personal-data store. Introduce response/data caching
+# only with scoped keys, invalidation and retention covered by its contract.
+CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 ACCESS_LOG_ORIGIN_BUNDLE = os.getenv("ACCESS_LOG_ORIGIN_BUNDLE", "")
 ACCESS_RESOURCE_ORIGIN_BUNDLE = os.getenv("ACCESS_RESOURCE_ORIGIN_BUNDLE", "")
