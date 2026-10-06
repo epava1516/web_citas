@@ -514,6 +514,8 @@ def close(user, case_id, version, responses, review_id, key):
         encrypted_reason=seal({"reason": body["reason"]}),
         encrypted_response=seal(response_body),
     )
+    draft.final_response = response
+    draft.save(update_fields=["final_response"])
     contact = unseal(case.encrypted_payload).get("email")
     if contact:
         RightsNotice.objects.create(

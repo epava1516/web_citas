@@ -178,9 +178,13 @@ def purge_expired_access_response_drafts():
             .order_by("pk")
             .values_list("pk", flat=True)[:100]
         )
-        return RightsAccessResponseDraft.objects.filter(pk__in=ids).update(
+        cleared = RightsAccessResponseDraft.objects.filter(pk__in=ids).update(
             encrypted_response="", purged_at=now
         )
+
+    from .rights_final_response import purge_unissued_drafts
+
+    return cleared + purge_unissued_drafts()
 
 
 @shared_task

@@ -419,6 +419,8 @@ def issue(policy, user, case_id, version, responses, review_id, key):
         encrypted_reason=seal({"reason": body["reason"]}),
         encrypted_response=seal(response_body),
     )
+    draft.final_response = response
+    draft.save(update_fields=["final_response"])
     contact = unseal(case.encrypted_payload).get("email")
     if contact:
         RightsNotice.objects.create(
@@ -438,3 +440,80 @@ def issue(policy, user, case_id, version, responses, review_id, key):
         case.status = "resolved"
     case.save(update_fields=["version", "response_version", "scope_status", "status"])
     return response
+
+
+def purge_unissued_drafts():
+    """Clear expired unused bodies, retaining metadata and issued-response evidence."""
+    from datetime import timedelta
+
+    from .models import RightsAction, RightsRequest, RightsResponse
+
+    now = timezone.now()
+    cutoff = now - timedelta(hours=24)
+    candidates = list(
+        RightsAction.objects.filter(
+            operation__in=["erase_final_draft", "process_final_draft", "rectify_final_draft"],
+            created_at__lte=cutoff,
+            purged_at__isnull=True,
+            final_response__isnull=True,
+        )
+        .exclude(encrypted_reason="")
+        .order_by("pk")
+        .values_list("pk", "request_id")[:100]
+    )
+    erased = 0
+    for action_id, case_id in candidates:
+        with transaction.atomic():
+            # Same lock order as issuance: case first, then action. Recheck after waits.
+            case = (
+                RightsRequest.objects.select_for_update(skip_locked=True).filter(pk=case_id).first()
+            )
+            if not case:
+                continue
+            draft = (
+                RightsAction.objects.select_for_update()
+                .filter(
+                    pk=action_id,
+                    created_at__lte=cutoff,
+                    purged_at__isnull=True,
+                    final_response__isnull=True,
+                )
+                .exclude(encrypted_reason="")
+                .first()
+            )
+            if not draft:
+                continue
+            prefix = draft.operation.split("_", 1)[0]
+            issued = list(
+                RightsAction.objects.filter(
+                    request=case,
+                    expected_version=draft.expected_version,
+                    operation=prefix + ("_final_close" if prefix == "rectify" else "_final_issue"),
+                )
+            )
+            protected, intact = None, True
+            for record in issued:
+                try:
+                    body = checked_body(record.encrypted_reason)
+                    if _digest(body) != record.payload_digest:
+                        raise ValidationError("Issuance integrity changed")
+                    if body.get("draft") == draft.pk:
+                        protected = RightsResponse.objects.filter(
+                            key=record.key, request=case
+                        ).first()
+                        if not protected or body.get("draft_digest") != draft.payload_digest:
+                            raise ValidationError("Issued draft binding unavailable")
+                except ValidationError:
+                    intact = False
+                    break
+            if not intact:
+                continue  # Never erase potential issued evidence on an uncertain binding.
+            if protected:
+                draft.final_response = protected
+                draft.save(update_fields=["final_response"])
+                continue
+            draft.encrypted_reason = ""
+            draft.purged_at = now
+            draft.save(update_fields=["encrypted_reason", "purged_at"])
+            erased += 1
+    return erased
