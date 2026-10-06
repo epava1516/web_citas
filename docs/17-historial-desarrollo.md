@@ -2597,3 +2597,8 @@ Rama codex/cr10-catalog-prep, commit92972f3: acceso desde panel por permiso y pr
 ### Auditoría de catálogo preparada con dependencia explícita
 
 Rama codex/cr10-catalog-prep d772ea0: evento mínimo transaccional por operador/cambio, replay de release sin duplicación y censo propio cuenta/perfil como evidencia dependiente. Migración catalog0003 generada sin aplicar. Tests de rollback/replay y censo/aislamiento preparados, no ejecutados; Ruff/check correctos. No cambios en aplicación principal mientras benchmark1452324 continúa (500 páginas observadas, proceso vivo). Pendiente validación PG/navegador y regresiones de derechos; sin aceptación ni modificación de v7.
+
+
+### Autoridad del catálogo preparada para revocación concurrente
+
+Rama codex/cr10-catalog-prep7dbd73e: reconsulta final tras insertar auditoría y12 casos de bloqueo PG observado/revocación permiso-sesión-MFA para nueva versión/edición/publicación/replay. Tests escritos, no ejecutados; Ruff/diff correctos. Mantener rama aislada hasta gates y regresiones de dependencia CR09; porcentajes intactos.
