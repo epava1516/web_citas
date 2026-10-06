@@ -13,7 +13,11 @@ from django.test import Client
 from playwright.sync_api import expect, sync_playwright
 from test_reports import directory, photo_environment  # noqa: F401
 
-from apps.catalog.promotion_models import PromotionProductVersion
+from apps.catalog.promotion_models import (
+    PromotionCatalogueAudit,
+    PromotionProduct,
+    PromotionProductVersion,
+)
 from apps.catalog.promotion_services import (
     create_product,
     create_version,
@@ -232,3 +236,29 @@ def test_mobile_catalogue_navigation_save_release_reload(request, live_server, s
     row = PromotionProductVersion.objects.get(product__slug="synthetic_mobile_top")
     assert row.published_at and row.is_current and not row.sellable
     assert row.amount is None and row.name_en == "Synthetic mobile promotion"
+
+
+def test_audit_is_atomic_minimal_and_release_replay_does_not_duplicate(request, monkeypatch):
+    actor, _ = manager(request)
+    auth = actor, actor.mfa_version, actor.session_version
+    row = create_product(*auth, {"slug": "synthetic_audit", "kind": "top"})
+    event = PromotionCatalogueAudit.objects.get()
+    assert event.actor == actor and event.product_version == row
+    assert event.operation == "create_product" and len(event.payload_digest) == 64
+    row = update_version(*auth, row.product_id, 1, 1, data(row))
+    publish_version(*auth, row.product_id, 1, row.edit_version)
+    publish_version(*auth, row.product_id, 1, row.edit_version)
+    assert list(PromotionCatalogueAudit.objects.values_list("operation", flat=True)) == [
+        "create_product",
+        "update_version",
+        "publish_version",
+    ]
+
+    def fail(*args, **kwargs):
+        raise RuntimeError("Synthetic audit storage failure")
+
+    monkeypatch.setattr(PromotionCatalogueAudit.objects, "create", fail)
+    with pytest.raises(RuntimeError):
+        create_product(*auth, {"slug": "synthetic_rollback", "kind": "premium"})
+    assert not PromotionProduct.objects.filter(slug="synthetic_rollback").exists()
+    assert PromotionCatalogueAudit.objects.count() == 3

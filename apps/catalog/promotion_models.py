@@ -3,6 +3,7 @@
 import uuid
 from decimal import Decimal
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
@@ -106,3 +107,25 @@ class PromotionProductVersion(models.Model):
     def sellable(self):
         # v1 deliberately has no checkout or provider connection.
         return False
+
+
+class PromotionCatalogueAudit(models.Model):
+    """Operator evidence; no customer or free-text request payload."""
+
+    actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    product_version = models.ForeignKey(PromotionProductVersion, on_delete=models.PROTECT)
+    operation = models.CharField(
+        max_length=16,
+        choices=[
+            ("create_product", "Create product"),
+            ("create_version", "Create version"),
+            ("update_version", "Update version"),
+            ("publish_version", "Publish version"),
+        ],
+    )
+    edit_version = models.PositiveIntegerField()
+    payload_digest = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["pk"]

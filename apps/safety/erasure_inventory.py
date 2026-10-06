@@ -1043,6 +1043,22 @@ def source_manifest(person, case=None, *, capture=None):
         )
     )
     if subject:
+        scopes.append(
+            (
+                "catalog.PromotionCatalogueAudit",
+                Q(actor_id=subject),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "actor_id",
+                    "product_version_id",
+                    "operation",
+                    "edit_version",
+                    "payload_digest",
+                    "created_at",
+                ],
+            )
+        )
         scopes += [
             (
                 "core.User",
