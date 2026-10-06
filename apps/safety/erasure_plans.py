@@ -13,6 +13,8 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
 
+from apps.core.models import User
+
 from .crypto import seal, unseal
 from .erasure_inventory import canonical, source_manifest
 from .models import ErasureInventory, ErasurePlan, RightsAction, RightsRequest
@@ -106,7 +108,25 @@ def normalized_decisions(manifest, decisions):
 
 
 @sensitive_variables()
+def current_plan_actor(user, case):
+    actor = User.objects.get(pk=user.pk)
+    if (
+        not actor.is_active
+        or not actor.mfa_enabled
+        or actor.session_version != user.session_version
+        or actor.mfa_version != user.mfa_version
+        or not actor.has_perm("safety.review_rights_request")
+        or not actor.has_perm("safety.execute_rights_request")
+        or not permitted(actor, case)
+    ):
+        raise PermissionDenied
+    return actor
+
+
+@sensitive_variables()
 def authorized_inventory(user, case, person, inventory_id):
+    original_actor = user
+    user = current_plan_actor(user, case)
     if (
         not user.has_perm("safety.review_rights_request")
         or not user.has_perm("safety.execute_rights_request")
@@ -145,6 +165,7 @@ def authorized_inventory(user, case, person, inventory_id):
         raise ValidationError(
             "Resources changed; prepare and review again / Recursos cambiados; prepara y revisa de nuevo"
         )
+    current_plan_actor(original_actor, case)
     return inventory, manifest
 
 
@@ -167,6 +188,7 @@ def record(user, case_id, inventory_id, key, version, decisions):
             and previous.operation == "erasure_plan"
             and previous.payload_digest == signature
         ):
+            current_plan_actor(user, case)
             return ErasurePlan.objects.get(action=previous)
         raise ValidationError("Conflicting action key / Clave incompatible")
     dates = [date.fromisoformat(item["review_on"]) for item in decisions if item["review_on"]]
@@ -196,6 +218,7 @@ def record(user, case_id, inventory_id, key, version, decisions):
             from .retention_reviews import schedule
 
             schedule(plan, decisions)
+            current_plan_actor(user, case)
             return plan
     except IntegrityError as error:
         raise ValidationError("Conflicting action key / Clave incompatible") from error

@@ -1,0 +1,24 @@
+{
+  "scope": "Fresh authority in per-purpose retention/erasure planning, including replay after observed PostgreSQL lock wait; synthetic requests",
+  "source_sha256": {
+    "apps/safety/erasure_plans.py": "82e6766feae32ad464920c6ad1eb4852d9b6d64dac97d7514f64007259afb471",
+    "tests/test_erasure_plan_authority.py": "f45e806a3762552e8ec39e71298ea9f18c9385be9f1010d8a6da9f078a9419cb"
+  },
+  "before": {
+    "xml": "/tmp/erasure-plan-authority-before.xml",
+    "failed": 10,
+    "seconds": 99.94
+  },
+  "after": {
+    "xml": "/tmp/erasure-plan-authority-after.xml",
+    "passed": 23,
+    "failed": 0,
+    "seconds": 195.89,
+    "coverage": "Observed wait permission execute/review/session/MFA/activity revocation x new/replay; all existing plan and retention-review module tests."
+  },
+  "limits": [
+    "Planning does not authorize execution or extend a legal retention term.",
+    "Docker8a689fc still; correction deployment pending.",
+    "No new task/migration/legal policy; full CR09 acceptance remains pending."
+  ]
+}

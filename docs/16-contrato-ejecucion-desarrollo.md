@@ -1,4 +1,4 @@
-# Contrato de ejecución del desarrollo — versión 1
+# Contrato de ejecución del desarrollo — versión 1.1
 
 Fecha: 2026-10-03. Estado: ejecución iniciada por autorización del usuario el 2026-10-03. Tipo: especificación de ejecución y aceptación, no contrato mercantil ni acreditación jurídica.
 
@@ -182,4 +182,26 @@ Los cobros reales siguen fuera de v1 aunque el módulo comercial esté preparado
 
 [Registro de ejecución](17-seguimiento-desarrollo.md) conserva fase actual, próximo paso, resultado de pruebas y pendientes externos. Se actualiza al completar entregas o descubrir bloqueos, no como transcripción de cada comando.
 
-Al retomar leer contrato vigente y registro; continuar próximo paso sin reiniciar fases completadas. Ningún cambio de conversación o sesión reduce las condiciones de terminado. Todos los hitos están pendientes hoy.
+Al retomar leer contrato vigente y registro; continuar próximo paso sin reiniciar fases completadas. Ningún cambio de conversación o sesión reduce las condiciones de terminado. El estado de los hitos es el registrado en el seguimiento vigente.
+
+## 13. Modalidad de ejecución por bloques y dependencias
+
+Cambio MOD-01, autorizado por el usuario el 2026-10-06. Versión1.1. Motivo: reducir fragmentación, verificaciones redundantes y esperas, conservando alcance, seguridad, privacidad y aceptación. Afecta al orden de ejecución de las secciones4,6,9,10 y12; no modifica requisitos funcionales, datos, proveedores ni gates de producción. No autoriza gasto, publicación ni nuevas delegaciones; Claude3/3 consumidas, continuar localmente.
+
+### Una cola y un cierre verificable por bloque
+
+El seguimiento17 contiene la única cola operativa. Antes de desarrollar un bloque, registrar requisito, resultado observable, dependencias reales, evidencia exigida y criterio de cierre. Al entregarlo, registrar commit, pruebas y pendientes. Distinguir componente entregado, aceptación integral de fase y preparación de producción. Reabrir solo por defecto reproducible, regresión o requisito concreto incumplido, registrando motivo y alcance.
+
+Para el censo histórico Redis/AOF de CR09, cerrar primero un inventario de fuentes conocidas: snapshot/base, prefijo y sufijo AOF, colas/reservados, copias y backups pertinentes. Por fuente registrar origen y corte temporal, lectura acotada reproducible, asociación autorizada al titular y tratamiento de formatos desconocidos, diferencias de contenido y cobertura pendiente. Igualdad de cantidades, inspección parcial o captura cifrada no acreditan cobertura completa. Una fuente necesaria no examinada mantiene el censo abierto; no convertirla arbitrariamente en exclusión ni permitir un acceso completo con cobertura parcial. Nuevas fuentes relevantes se añaden con el requisito que justifica incluirlas, sin rehacer componentes correctos.
+
+### Avance independiente sin saltar puertas
+
+La dependencia entre CR se exige cuando exista dependencia funcional real. Se pueden ejecutar tareas preparatorias de CR10 y de acabado visual, accesibilidad, ES/EN, SEO y operación antes del cierre de CR09 si se identifica por escrito que no necesitan modificar sus modelos, permisos, estados, rutas o contratos pendientes. Esto permite preparación anticipada, no acepta CR10 ni inicia formalmente BF/BB: GS01 conserva todas sus condiciones. Una tarea que requiera cambios compartidos sigue siendo un flujo cruzado con integración y prueba navegador.
+
+Mantener como máximo un bloque de integración activo y un bloque independiente preparado para avanzar ante un bloqueo real. Paralelizar trabajo solo cuando responsabilidades, interfaces y archivos afectados permitan integración segura; no implica lanzar agentes ni procesos concurrentes sobre los mismos recursos. Ante una dependencia externa, registrar responsable requerido, evidencia faltante e impacto en aceptación, y continuar trabajo independiente. No sustituirla por un simulador declarado real.
+
+### Verificación proporcionada y progreso
+
+Después de cada cambio ejecutar las pruebas afectadas y las de riesgos compartidos identificados; permisos, privacidad, concurrencia y migraciones se incluyen cuando corresponda. Registrar versión, alcance y resultado para reutilizar evidencia aún válida. Repetir por cambio relevante, fallo o incertidumbre documentada, no por rutina. En el cierre integral de CR09 ejecutar su batería conjunta sobre una misma versión; conservar regresión completa y gates exigidos en GS01/faseC, sin sumar resultados de versiones diferentes como una verificación común. PostgreSQL sigue siendo obligatorio.
+
+Actualizar la estimación ponderada al aceptar alcance nuevo usando los mismos pesos y justificando el cambio por bloque. El número de pruebas y el tiempo invertido no son avance aceptado. El contrato continúa hasta completar todas sus fases; esta modalidad no reduce comprobaciones ni permite declarar preparación de producción con revisión jurídica, seguridad o proveedores pendientes.
