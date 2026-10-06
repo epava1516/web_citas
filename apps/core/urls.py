@@ -24,6 +24,7 @@ from apps.safety import (
     photo_reintroduction_views,
     privacy_holds,
     privacy_release,
+    processing_final_views,
     processing_views,
     publication_calendar_queue,
     publication_purpose_views,
@@ -161,6 +162,11 @@ urlpatterns = [
         "moderation/rights/<uuid:case_id>/restrictions/<int:restriction_id>/release/",
         purpose_release_views.release,
         name="purpose_restriction_release",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/processing/final/",
+        processing_final_views.final,
+        name="processing_final",
     ),
     path(
         "moderation/rights/<uuid:case_id>/erasure/final/",

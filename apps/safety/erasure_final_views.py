@@ -78,19 +78,29 @@ class FinalForm(forms.Form):
 @sensitive_post_parameters()
 @sensitive_variables()
 @require_http_methods(["GET", "POST"])
-def final(request, case_id):
+def final(
+    request,
+    case_id,
+    *,
+    backend=erasure_final,
+    kinds=("erase",),
+    execution_model=ErasureExecution,
+    form_class=FinalForm,
+    template="safety/erasure_final.html",
+    prefix="erase",
+):
     if not allowed(request):
         return private(HttpResponse("Forbidden", status=403))
-    case = RightsRequest.objects.filter(pk=case_id, kind="erase").first()
+    case = RightsRequest.objects.filter(pk=case_id, kind__in=kinds).first()
     if case is None:
         raise Http404
     if not permitted(request.user, case):
         return private(HttpResponse("Forbidden", status=403))
     try:
-        erasure_final._actor(request.user, case, assigned=False)
+        backend._actor(request.user, case, assigned=False)
     except PermissionDenied:
         return private(HttpResponse("Forbidden", status=403))
-    form = FinalForm(
+    form = form_class(
         request.POST or None,
         initial={
             "key": uuid.uuid4(),
@@ -105,7 +115,7 @@ def final(request, case_id):
         common = (request.user, case.pk, values["version"], values["responses"])
         try:
             if values["operation"] == "prepare":
-                erasure_final.prepare(
+                backend.prepare(
                     *common,
                     values["execution"],
                     values["key"],
@@ -114,10 +124,8 @@ def final(request, case_id):
                     values["confirmed"],
                 )
             elif values["operation"] == "inspect":
-                audited, material = erasure_final.inspect(
-                    *common, values["draft"], values["purpose"]
-                )
-                form = FinalForm(
+                audited, material = backend.inspect(*common, values["draft"], values["purpose"])
+                form = form_class(
                     initial={
                         **values,
                         "key": uuid.uuid4(),
@@ -127,7 +135,7 @@ def final(request, case_id):
                 )
                 status = 200
             elif values["operation"] == "review":
-                erasure_final.review(
+                backend.review(
                     *common,
                     values["draft"],
                     values["read"],
@@ -136,9 +144,14 @@ def final(request, case_id):
                     values["reason"],
                 )
             else:
-                erasure_final.issue(*common, values["review"], values["key"])
+                backend.issue(*common, values["review"], values["key"])
             if values["operation"] != "inspect":
-                return private(redirect("erasure_final", case_id=case.pk))
+                return private(
+                    redirect(
+                        "erasure_final" if prefix == "erase" else "processing_final",
+                        case_id=case.pk,
+                    )
+                )
         except PermissionDenied:
             return private(HttpResponse("Forbidden", status=403))
         except (ValidationError, IntegrityError) as error:
@@ -153,7 +166,7 @@ def final(request, case_id):
     return private(
         render(
             request,
-            "safety/erasure_final.html",
+            template,
             {
                 "case": case,
                 "form": form,
@@ -161,15 +174,15 @@ def final(request, case_id):
                 "actions": RightsAction.objects.filter(
                     request=case,
                     operation__in=[
-                        "erase_final_draft",
-                        "erase_final_read",
-                        "erase_final_review",
-                        "erase_final_issue",
+                        prefix + "_final_draft",
+                        prefix + "_final_read",
+                        prefix + "_final_review",
+                        prefix + "_final_issue",
                     ],
                 )
                 .order_by("-pk")
                 .values("pk", "operation", "actor_id", "created_at")[:50],
-                "executions": ErasureExecution.objects.filter(action__request=case).values_list(
+                "executions": execution_model.objects.filter(action__request=case).values_list(
                     "pk", flat=True
                 ),
             },
