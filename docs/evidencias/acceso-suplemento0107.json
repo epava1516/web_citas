@@ -1,0 +1,48 @@
+{
+  "scope": "Materialized supplemental copy preview from approved field decisions, not complete access delivery",
+  "verification": {
+    "database": "PostgreSQL",
+    "tests": 2,
+    "seconds": 291.91,
+    "xml": "/tmp/access-supplement0107.xml",
+    "browser": "Chromium 390x844 ES EN profile/account actual supplemental preparation and reload"
+  },
+  "runtime": {
+    "migration": "0107",
+    "health": 200,
+    "check": true,
+    "migrate_check": true,
+    "hashes": {
+      "app": {
+        "apps/safety/rights_access_supplement.py": "f583661957a61b9633853ed29019d64ca62e5e7980d9b82a57c44fb976e33631",
+        "apps/safety/rights_access_supplement_views.py": "5623fad31cc54e11d2e41c639c9686bc913d34595219bb0ea5543404ef8e7ce0",
+        "apps/core/urls.py": "fdc53b2bc5096314a82672afa398ef7476a3cbf246c79d59fa3296f37e097dee",
+        "templates/safety/rights_access_supplement.html": "1272e64cce6b5bc8280e3d32d3af0d35a90da27635e6c76f11db4a34b7a6513e",
+        "templates/safety/rights_access_scope.html": "f676dcc46c543e692eda5962b1e6af66d4b0293cd528b1ea61e4d327e3398217"
+      },
+      "worker": {
+        "apps/safety/rights_access_supplement.py": "f583661957a61b9633853ed29019d64ca62e5e7980d9b82a57c44fb976e33631",
+        "apps/safety/rights_access_supplement_views.py": "5623fad31cc54e11d2e41c639c9686bc913d34595219bb0ea5543404ef8e7ce0",
+        "apps/core/urls.py": "fdc53b2bc5096314a82672afa398ef7476a3cbf246c79d59fa3296f37e097dee",
+        "templates/safety/rights_access_supplement.html": "1272e64cce6b5bc8280e3d32d3af0d35a90da27635e6c76f11db4a34b7a6513e",
+        "templates/safety/rights_access_scope.html": "f676dcc46c543e692eda5962b1e6af66d4b0293cd528b1ea61e4d327e3398217"
+      },
+      "beat": {
+        "apps/safety/rights_access_supplement.py": "f583661957a61b9633853ed29019d64ca62e5e7980d9b82a57c44fb976e33631",
+        "apps/safety/rights_access_supplement_views.py": "5623fad31cc54e11d2e41c639c9686bc913d34595219bb0ea5543404ef8e7ce0",
+        "apps/core/urls.py": "fdc53b2bc5096314a82672afa398ef7476a3cbf246c79d59fa3296f37e097dee",
+        "templates/safety/rights_access_supplement.html": "1272e64cce6b5bc8280e3d32d3af0d35a90da27635e6c76f11db4a34b7a6513e",
+        "templates/safety/rights_access_scope.html": "f676dcc46c543e692eda5962b1e6af66d4b0293cd528b1ea61e4d327e3398217"
+      }
+    }
+  },
+  "pending": [
+    "Required field and resource scope coverage",
+    "Persisted final copy, recipient delivery, access response and closure/download",
+    "Full CR09 and original development contract acceptance"
+  ],
+  "limits": [
+    "One aggregate field tested, not massive-volume verification",
+    "Always partial while recorded fields/scopes remain pending"
+  ]
+}

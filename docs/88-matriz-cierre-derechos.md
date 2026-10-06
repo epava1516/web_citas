@@ -1,6 +1,28 @@
 # Matriz de ejecución y cierre por derecho — CR09
 
-Corte de código:53b9628, workspace limpio al inicio de esta revisión. Es una matriz técnica para desarrollar los tramos faltantes; no acredita revisión jurídica ni nueva ejecución de pruebas. [Fuentes/funciones/hashes](evidencias/matriz-derechos-fuentes0100.json). Matriz residual global:docs83; ponderación:docs86.
+Referencia histórica inicial:53b9628, workspace limpio al inicio de aquella revisión. Es una matriz técnica para desarrollar los tramos faltantes; no acredita revisión jurídica ni nueva ejecución de pruebas. [Fuentes/funciones/hashes](evidencias/matriz-derechos-fuentes0100.json). Matriz residual global:docs83; ponderación:docs86.
+
+## Estado vigente y componentes cerrados
+
+Actualizado el 2026-10-06. Base de las entregas anteriores: `1c69d12` (0107). La copia suplementaria se verifica en este cambio. Esta tabla consolida el estado actual y prevalece sobre los estados provisionales de las anotaciones históricas inferiores. «Cerrado localmente» significa criterio del componente satisfecho; no aceptación del derecho completo ni de CR09.
+
+| Componente | Estado actual | Alcance cerrado y evidencia | Commit de entrega |
+| --- | --- | --- | --- |
+| Borrador y revisión de respuesta | Cerrado localmente | Preparación/revisión independiente e interfaz PG + Chromium ES/EN; [evidencia0102](evidencias/acceso-revision-runtime0102.json) | `5401c57` |
+| Motor de contabilidad | Cerrado localmente | Validación lógica de referencias, filas, campos y límites; pruebas sin DB, no aceptación web | `71710f8` |
+| Referencias de evidencia | Cerrado localmente | Ámbito/huellas comprobados en PostgreSQL; no aprobación de contenido por sí solas | `237ab13` |
+| Persistencia cifrada de contabilidad | Cerrado localmente | Preparación auditada/replay/purga PG; [evidencia0103](evidencias/acceso-cobertura-persistencia0103.json) | `49c6d9e` |
+| Revisión independiente de contabilidad | Cerrado localmente | Comparación original/copia y decisión privada; [evidencia0104](evidencias/acceso-cobertura-revision0104.json) | `0be7808` |
+| Consumo de evidencias y vínculo a respuesta | Cerrado localmente | Cuerpos tipados/aprobación vigente ligados al borrador; [evidencia0105](evidencias/acceso-consumo-respuesta0105.json) | `4428c22` |
+| Inventario de registros/campos | Cerrado localmente | Ámbitos recogidos, huellas y cifrado PG; [evidencia](evidencias/acceso-inventario0106.json) | `b5b6c24` |
+| Consulta privada del inventario | Cerrado localmente | POST auditado/paginación/GET sin datos PG + Chromium ES/EN; [evidencia](evidencias/acceso-inventario-interfaz0106.json) | `ff0c090` |
+| Consulta tipada de valores | Cerrado localmente | Campos soportados User/Revision/Rate, lectura exacta y UI; [evidencia](evidencias/acceso-lectura-campos0106.json) | `1c23253` |
+| Decisión y revisión por campo | Cerrado localmente | Inclusión/omisión/redacción, revisión/consumo vigente, purga y UI; [evidencia0107](evidencias/acceso-decision-campos0107.json) | `1c69d12` |
+| Copia suplementaria agregada | Cerrado localmente | Materialización de decisiones aprobadas, pendientes explícitos, interfaz PG + Chromium ES/EN; [evidencia](evidencias/acceso-suplemento0107.json) | Esta entrega |
+| Cobertura completa, emisión/cierre/descarga de acceso | Pendiente | Datos/adaptadores/ámbitos restantes y recorrido final aún no aceptados | — |
+| Restantes derechos y fases posteriores del contrato | Pendientes de aceptación | Mantener alcance original y matriz residual; no inferir cierre por componentes de acceso | — |
+
+Regla de reapertura: solo defecto reproducible, regresión demostrada o requisito concreto del contrato que este componente todavía deba cumplir. Registrar motivo, alcance afectado y evidencia antes de ampliar una pieza cerrada; repetir únicamente pruebas afectadas. Integrar un componente existente en la siguiente entrega no revoca su cierre local. No ampliar controles por hipótesis ni volver a auditar piezas cerradas para obtener más señales verdes.
 
 ## Recorridos y aceptación
 
@@ -152,3 +174,14 @@ Frontend/backend conectados: formulario de propuesta desde campo consultado; vis
 Verificación final PostgreSQL: siete pruebas correctas249,69s (`/tmp/access-field-decision0107-final.xml`): perfil/cuenta, tres decisiones, preparación HTTP/replay/lista, consulta/revisión Chromium ESEN390×844, valores original/redactado, recarga sin valor y sin desbordamiento, autor bloqueado/segunda revisión distinta, redacción ajena/sin eliminación rechazadas, consumo de aprobaciones, revocación de sesión del revisor bloquea consumo, purga idempotente y regresiones inventario de supresión/censo. Batería preliminar de tres correctas188,87s no se suma a la final. Ruff/migraciones/diffcheck correctos. Docker0107 aplicado appworkerBeat, check/migratecheck/salud200/UID10001 y 15 hashes iguales host. Evidencia `acceso-decision-campos0107.json`; no acreditar purga con contenido por Beat a partir de programación/hash.
 
 Criterio de propuesta/revisión/consumo individual satisfecho. Pendientes concretos: materializar suplemento agregado y comprobar decisiones de todos los campos/registros requeridos, adaptadores de datos aún no entregados y ámbitos pendientes del inventario (procedimiento actual/recursos externos/no enlazados), vincular esa cobertura completa a emisión/cierre y descarga. No hay cierre de acceso, aceptación CR09 ni cierre del contrato; continuar ese recorrido y después restantes derechos/fases. No ampliar este bloque salvo fallo reproducible o campo requerido por la copia.
+
+
+## Copia suplementaria materializada — 0107
+
+`rights_access_supplement.prepare` materializa decisiones aprobadas de un único inventario actual. Audita antes de consultar cuerpos, reproduce el inventario original y consume cada aprobación vigente con claves derivadas estables. Exige IDs positivos únicos, misma fuente/referencia/huella de campo y una única decisión por campo; rechaza decisiones contradictorias en vez de elegir silenciosamente una. Devuelve inclusión/redacción con valor aprobado, omisión sin valor, referencias de preparación/revisión/consumo, huella agregada y caducidad mínima. Enumera campos y ámbitos pendientes y conserva `partial` cuando existen; no certifica entrega completa.
+
+Ruta privada para actor asignado, enlazada desde inventario consultado. GET no recupera valores; lista paginada solo IDs aprobados. POST con motivo/versiones/CSRF prepara vista previa ES/EN. No persiste ni entrega este suplemento al solicitante, no emite respuesta ni cierra acceso: esos requisitos quedan dentro del recorrido pendiente. No usar esta vista como descarga final.
+
+PostgreSQL/HTTP/Chromium: dos pruebas correctas291,91s (`/tmp/access-supplement0107.xml`), perfil/cuenta, copia exacta/replay, conflicto de decisiones y booleano rechazados, consulta ajena403, preparación móvil ESEN390×844, GET/recarga sin valores y sin desbordamiento; incluyen flujo previo de tres decisiones/revisión/consumo/revocación/purga. No atribuir esta prueba de un campo agregado a volumen masivo ni cobertura de campos aún sin adaptador. Ruff/check/migratecheck/diffcheck correctos. Docker actualizado en0107 appworkerBeat, salud200 y cinco hashes igualeshost. Evidencia `acceso-suplemento0107.json`.
+
+Corrección de ritmo solicitada por el usuario: hay avance verificable, pero las entregas han sido demasiado fragmentadas y el recorrido de acceso sigue abierto. Priorizar la cobertura exigible y emisión/cierre/descarga de extremo a extremo; no ampliar módulos ya cerrados con controles hipotéticos. La tabla de estado vigente al inicio de este documento prevalece sobre notas históricas provisionales, con alcance y evidencias explícitos para impedir reaperturas innecesarias. CR09 y el contrato completo no están aceptados.

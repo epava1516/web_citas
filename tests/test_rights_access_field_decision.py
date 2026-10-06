@@ -183,6 +183,104 @@ def test_typed_field_decisions_and_independent_review(request, settings, monkeyp
             browser.close()
     case.refresh_from_db()
     assert (case.status, case.version, case.response_version) == before
+    from apps.safety.rights_access_supplement import prepare as supplement
+
+    supplement_key = uuid4()
+    copy, copy_action = supplement(
+        author,
+        case.pk,
+        case.version,
+        case.response_version,
+        inventory.pk,
+        [rows[0].pk],
+        supplement_key,
+        reason,
+    )
+    assert copy["partial"] and copy["pending_fields"] and copy["pending_scopes"]
+    assert copy["fields"][0]["value"] == owner.email
+    assert (
+        supplement(
+            author,
+            case.pk,
+            case.version,
+            case.response_version,
+            inventory.pk,
+            [rows[0].pk],
+            supplement_key,
+            reason,
+        )[0]
+        == copy
+    )
+    with pytest.raises(ValidationError, match="Conflicting decisions"):
+        supplement(
+            author,
+            case.pk,
+            case.version,
+            case.response_version,
+            inventory.pk,
+            [rows[0].pk, rows[1].pk],
+            uuid4(),
+            reason,
+        )
+    with pytest.raises(ValidationError, match="Distinct"):
+        supplement(
+            author,
+            case.pk,
+            case.version,
+            case.response_version,
+            inventory.pk,
+            [True],
+            uuid4(),
+            reason,
+        )
+    preview_path = reverse("rights_access_supplement", args=[case.pk, inventory.pk])
+    assert client.get(preview_path).status_code == 200
+    assert owner.email not in client.get(preview_path).content.decode()
+    assert other.get(preview_path).status_code == 403
+    response = client.post(
+        preview_path,
+        {
+            "key": supplement_key,
+            "version": case.version,
+            "response_version": case.response_version,
+            "decisions": str(rows[0].pk),
+            "reason": reason,
+        },
+    )
+    assert response.status_code == 200 and response.context["body"] == copy
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(
+            executable_path=shutil.which("chromium-browser"), args=["--no-sandbox"]
+        )
+        try:
+            context = browser.new_context(viewport={"width": 390, "height": 844})
+            context.add_cookies(
+                [
+                    {
+                        "name": django_settings.SESSION_COOKIE_NAME,
+                        "value": client.cookies[django_settings.SESSION_COOKIE_NAME].value,
+                        "url": live_server.url,
+                    }
+                ]
+            )
+            page = context.new_page()
+            for language, button in [
+                ("es", "Preparar copia suplementaria"),
+                ("en", "Prepare supplemental copy"),
+            ]:
+                with translation.override(language):
+                    preview_path = reverse("rights_access_supplement", args=[case.pk, inventory.pk])
+                page.goto(live_server.url + preview_path)
+                assert owner.email not in page.locator("body").inner_text()
+                page.locator("#id_reason").fill(reason)
+                page.locator("#id_decisions").fill(str(rows[0].pk))
+                page.get_by_role("button", name=button, exact=True).click()
+                expect(page.locator("pre.rights-copy-page")).to_contain_text(owner.email)
+                assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+                page.goto(page.url)
+                assert owner.email not in page.locator("body").inner_text()
+        finally:
+            browser.close()
     for row in rows:
         consumed, body, action = consume(
             author, case.pk, case.version, case.response_version, row.pk, uuid4(), reason

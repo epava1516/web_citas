@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block content %}<section class="rights-access-coverage">
+<h1>{% if english %}Supplemental access copy{% else %}Copia suplementaria de acceso{% endif %}</h1>
+<p>{% if english %}Select one approved decision per field. This preview does not issue a response or resolve the request.{% else %}Selecciona una decisión aprobada por campo. Esta vista previa no emite respuesta ni resuelve la solicitud.{% endif %}</p>
+<p>{% if english %}Approved decision IDs{% else %}IDs de decisiones aprobadas{% endif %}: {% for item in candidates %}{{ item.pk }}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</p>
+{% if candidates.has_previous %}<a href="?page={{ candidates.previous_page_number }}">{% if english %}Previous{% else %}Anterior{% endif %}</a>{% endif %}{% if candidates.has_next %}<a href="?page={{ candidates.next_page_number }}">{% if english %}Next{% else %}Siguiente{% endif %}</a>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button>{% if english %}Prepare supplemental copy{% else %}Preparar copia suplementaria{% endif %}</button></form>
+{% if body %}<h2>{% if english %}Materialized data{% else %}Datos reunidos{% endif %}</h2><pre class="rights-copy-page">{{ copy_json }}</pre><p>{{ body.digest }}</p><p>{% if english %}Pending fields{% else %}Campos pendientes{% endif %}: {{ body.pending_fields|length }}</p><p>{% if english %}Pending scopes{% else %}Ámbitos pendientes{% endif %}: {{ body.pending_scopes|join:', ' }}</p><p>{% if english %}Partial copy{% else %}Copia parcial{% endif %}: {{ body.partial }}</p>{% endif %}
+<a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></section>{% endblock %}
