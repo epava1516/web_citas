@@ -59,7 +59,7 @@ def test_operator_audit_is_scoped_and_changes_invalidate_inventory(
         payload_digest="0" * 64,
     )
     assert capture() == before
-    PromotionCatalogueAudit.objects.create(
+    own = PromotionCatalogueAudit.objects.create(
         actor=subject,
         product_version=row,
         operation="create_product",
@@ -68,4 +68,11 @@ def test_operator_audit_is_scoped_and_changes_invalidate_inventory(
     )
     after = capture()
     assert all(item["count"] == 1 and item["purpose"] == "dependent_evidence" for item in after)
-    assert all(old["state_digest"] != new["state_digest"] for old, new in zip(before, after))
+    for field, old, new in zip(["digest", "state_digest"], before, after):
+        assert old[field] != new[field]
+    own.payload_digest = "2" * 64
+    own.save(update_fields=["payload_digest"])
+    changed = capture()
+    assert all(item["count"] == 1 for item in changed)
+    for field, old, new in zip(["digest", "state_digest"], after, changed):
+        assert old[field] != new[field]
