@@ -1,0 +1,51 @@
+{
+  "scope": "Recovery/census integration plus local sessions and Redis generations",
+  "tests": 86,
+  "seconds": 313.03,
+  "xml": "/tmp/recovery-resources-integrated0100.xml",
+  "frozen_sources": 589,
+  "source_unchanged": true,
+  "runtime": {
+    "app": {
+      "uid": 10001,
+      "generation": "v1",
+      "prefix": "clasificados:v1:",
+      "queue": "clasificados",
+      "files": {
+        "config/settings.py": "2d5c2b8d68c4db4a5e4339ee6ecd2897b573e2594212e62f3f4333f6526ec126",
+        "apps/safety/management/commands/clear_recovery_sessions.py": "e4f107c60594d65902ac89f8a5527fd05abac58f99495354c0fce56628373c0c"
+      }
+    },
+    "worker": {
+      "uid": 10001,
+      "generation": "v1",
+      "prefix": "clasificados:v1:",
+      "queue": "clasificados",
+      "files": {
+        "config/settings.py": "2d5c2b8d68c4db4a5e4339ee6ecd2897b573e2594212e62f3f4333f6526ec126",
+        "apps/safety/management/commands/clear_recovery_sessions.py": "e4f107c60594d65902ac89f8a5527fd05abac58f99495354c0fce56628373c0c"
+      }
+    },
+    "beat": {
+      "uid": 10001,
+      "generation": "v1",
+      "prefix": "clasificados:v1:",
+      "queue": "clasificados",
+      "files": {
+        "config/settings.py": "2d5c2b8d68c4db4a5e4339ee6ecd2897b573e2594212e62f3f4333f6526ec126",
+        "apps/safety/management/commands/clear_recovery_sessions.py": "e4f107c60594d65902ac89f8a5527fd05abac58f99495354c0fce56628373c0c"
+      }
+    }
+  },
+  "health200": true,
+  "django_check_ok": true,
+  "migrate_check_ok": true,
+  "old_default_queue_observed_depth_before_transition": 0,
+  "no_broker_flush_or_automatic_old_message_migration": true,
+  "limits": [
+    "Selected modules, not full CR09 acceptance",
+    "Session purge executed only in isolated synthetic tests, not live local runtime",
+    "v1 is initial namespace, recovery requires fresh externally retained generation",
+    "Business task reconstruction/cache/log/provider acceptance still pending"
+  ]
+}

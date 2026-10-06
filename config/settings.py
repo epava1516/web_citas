@@ -1,4 +1,5 @@
 import os
+import re
 from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
@@ -121,6 +122,11 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 DATA_UPLOAD_MAX_MEMORY_SIZE = 12 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024
 CELERY_BROKER_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:56379/0")
+TASK_QUEUE_GENERATION = os.getenv("TASK_QUEUE_GENERATION", "v1")
+if not re.fullmatch(r"[a-z0-9]{1,32}", TASK_QUEUE_GENERATION):
+    raise ImproperlyConfigured("Task queue generation must contain1–32 lowercase letters/digits")
+CELERY_BROKER_TRANSPORT_OPTIONS = {"global_keyprefix": f"clasificados:{TASK_QUEUE_GENERATION}:"}
+CELERY_TASK_DEFAULT_QUEUE = "clasificados"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"

@@ -1,0 +1,23 @@
+{
+  "scope": "Isolated DB session destruction, operational recovery and Redis namespace tests",
+  "tests": 8,
+  "seconds": 46.84,
+  "xml": "/tmp/recovery-local-resources0100.xml",
+  "covered": [
+    "all synthetic restored DB sessions deleted without returning contents",
+    "normal mode and unreconciled/corrupt audit refuse deletion",
+    "repeated session clear returns0 with publication disabled",
+    "existing operational/preflight and Redis generation cases"
+  ],
+  "files": {
+    "apps/safety/management/commands/clear_recovery_sessions.py": "e4f107c60594d65902ac89f8a5527fd05abac58f99495354c0fce56628373c0c",
+    "tests/test_recovery_command.py": "774d50525ede326efcbce184ae7b89f2585bb87d5f7689546b7695cef5a14068",
+    "config/settings.py": "2d5c2b8d68c4db4a5e4339ee6ecd2897b573e2594212e62f3f4333f6526ec126"
+  },
+  "limits": [
+    "Explicit global recovery operation on configured isolated DB, not per-person erasure",
+    "Caller must retain aggregate command output as private operational evidence",
+    "Runtime036a1a0 not updated; work uncommitted",
+    "No cache/provider or full CR09 acceptance"
+  ]
+}

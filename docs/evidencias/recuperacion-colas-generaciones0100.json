@@ -1,0 +1,23 @@
+{
+  "scope": "Redis transport prefix generations and real worker/Beat isolation",
+  "tests": 8,
+  "seconds": 45.29,
+  "xml": "/tmp/recovery-broker-generation0100.xml",
+  "covered": [
+    "old/fresh/other namespaces preserve independently queued messages with same queue name",
+    "fresh generation cannot consume old messages",
+    "unsafe generation names fail settings startup",
+    "actual worker and persistent Beat recovery guards preserved"
+  ],
+  "files": {
+    "config/settings.py": "2d5c2b8d68c4db4a5e4339ee6ecd2897b573e2594212e62f3f4333f6526ec126",
+    "tests/test_recovery_broker_namespace.py": "2a2a750ea624cbfb62f2047c4554ca5679ea59bbd3bf62799a8e015bf7160489"
+  },
+  "limits": [
+    "Synthetic messages and actual local Redis",
+    "No actual business task reconstruction or automatic old queue purge",
+    "Changing generation requires all processes restart; old default queues not migrated automatically",
+    "Runtime036a1a0 unchanged; workspace not delivered",
+    "Not CR09/global acceptance"
+  ]
+}

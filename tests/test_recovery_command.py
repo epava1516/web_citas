@@ -5,6 +5,8 @@ from uuid import uuid4
 
 import pytest
 from cryptography.fernet import Fernet
+from django.contrib.sessions.backends.db import SessionStore
+from django.contrib.sessions.models import Session
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from test_erasure_execution import payload
@@ -51,11 +53,24 @@ def test_command_requires_isolation_and_valid_authority_then_deletes_and_replays
         media_limit=100,
     )
     original, derivative = blob.original.name, blob.derivative.name
+    for marker in ["synthetic-restored-subject", "synthetic-restored-moderator"]:
+        session = SessionStore()
+        session["synthetic_marker"] = marker
+        session.save()
+    session_count = Session.objects.count()
+    assert session_count >= 2
     settings.RECOVERY_MODE = False
+    session_arguments = {k: v for k, v in arguments.items() if k != "media_limit"}
+    with pytest.raises(CommandError):
+        call_command("clear_recovery_sessions", **session_arguments)
+    assert Session.objects.count() == session_count
     with pytest.raises(CommandError):
         call_command("apply_recovery_ledger", **arguments)
     assert not RecoveryApplication.objects.exists() and blob.original.storage.exists(original)
     settings.RECOVERY_MODE = True
+    with pytest.raises(CommandError):
+        call_command("clear_recovery_sessions", **session_arguments)
+    assert Session.objects.count() == session_count
     with pytest.raises(CommandError):
         call_command("apply_recovery_ledger", **(arguments | {"media_limit": 101}))
     assert not RecoveryApplication.objects.exists()
@@ -80,6 +95,25 @@ def test_command_requires_isolation_and_valid_authority_then_deletes_and_replays
     assert not blob.original.storage.exists(original)
     assert not blob.derivative.storage.exists(derivative)
     assert settings.RECOVERY_MODE
+    application = RecoveryApplication.objects.get()
+    saved_receipt = application.encrypted_receipt
+    application.encrypted_receipt = "Synthetic damaged reconciliation audit"
+    application.save(update_fields=["encrypted_receipt"])
+    with pytest.raises(CommandError):
+        call_command("clear_recovery_sessions", **session_arguments)
+    assert Session.objects.count() == session_count
+    application.encrypted_receipt = saved_receipt
+    application.save(update_fields=["encrypted_receipt"])
+    sessions_output = StringIO()
+    call_command("clear_recovery_sessions", stdout=sessions_output, **session_arguments)
+    assert json.loads(sessions_output.getvalue()) == {
+        "sessions_deleted": session_count,
+        "publication_authorized": False,
+    }
+    assert not Session.objects.exists()
+    sessions_output = StringIO()
+    call_command("clear_recovery_sessions", stdout=sessions_output, **session_arguments)
+    assert json.loads(sessions_output.getvalue())["sessions_deleted"] == 0
     output = StringIO()
     call_command("apply_recovery_ledger", stdout=output, **arguments)
     assert json.loads(output.getvalue())["applied"] == 0
