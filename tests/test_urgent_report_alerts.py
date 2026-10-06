@@ -130,6 +130,22 @@ def test_mobile_attention_persists_after_reload(live_server, request, settings, 
             expect(page.get_by_text("No unacknowledged urgent alerts", exact=True)).to_be_visible()
             page.reload()
             expect(page.get_by_text("No unacknowledged urgent alerts", exact=True)).to_be_visible()
+            page.locator("select[name=attention]").select_option("follow_up")
+            page.get_by_role("button", name="Filter alerts", exact=True).click()
+            expect(
+                page.get_by_text(
+                    "No case owner assigned: inspect the report to assign responsibility.",
+                    exact=False,
+                )
+            ).to_be_visible()
+            page.reload()
+            expect(page.get_by_role("link", name="Inspect report", exact=True)).to_be_visible()
+            assert "private@example.invalid" not in page.content()
+            page.get_by_role("link", name="Inspect report", exact=True).click()
+            expect(
+                page.get_by_role("heading", name="Private report inspection", exact=True)
+            ).to_be_visible()
+            assert "private@example.invalid" not in page.content()
         finally:
             browser.close()
     assert UrgentReportAlert.objects.get(report=report).acknowledged_at
@@ -239,7 +255,36 @@ def test_acknowledgement_rechecks_revoked_authority(request, monkeypatch, revoke
     assert staff.post(PATH, {"report_id": report.pk}).status_code == 403
     after = UrgentReportAlert.objects.get(report=report)
     assert (after.acknowledged_at, after.acknowledged_by_id) == (
-        before.acknowledged_at, before.acknowledged_by_id
+        before.acknowledged_at,
+        before.acknowledged_by_id,
     )
     report.refresh_from_db()
     assert report.version == 1 and not report.actions.exists()
+
+
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_acknowledged_alert_remains_in_scoped_followup_until_terminal(request, language):
+    client = request.getfixturevalue("directory")
+    report = case(client)
+    user, staff = reviewer()
+    path = f"/{language}/moderation/reports/urgent-alerts/"
+    assert len(staff.get(path, {"attention": "follow_up"}).context["page"]) == 0
+    assert staff.post(path, {"report_id": report.pk}).status_code == 302
+    assert len(staff.get(path).context["page"]) == 0
+    for state in ["received", "reviewing", "restricted", "upheld", "unknown_fixture"]:
+        Report.objects.filter(pk=report.pk).update(status=state)
+        response = staff.get(path, {"attention": "follow_up"})
+        assert response.status_code == 200 and len(response.context["page"]) == 1
+        assert response["Cache-Control"] == "private, no-store"
+        assert b"private@example.invalid" not in response.content
+        assert b'name="report_id"' not in response.content
+    for state in ["dismissed", "lifted"]:
+        Report.objects.filter(pk=report.pk).update(status=state)
+        assert len(staff.get(path, {"attention": "follow_up"}).context["page"]) == 0
+    Report.objects.filter(pk=report.pk).update(status="reviewing", assigned_to=user)
+    assert user.username.encode() in staff.get(path, {"attention": "follow_up"}).content
+    Report.objects.filter(pk=report.pk).update(actor=user)
+    assert len(staff.get(path, {"attention": "follow_up"}).context["page"]) == 0
+    assert staff.get(path, {"attention": "invalid"}).status_code == 400
+    report.refresh_from_db()
+    assert report.version == 1 and not report.actions.exists() and not ReportAccess.objects.exists()

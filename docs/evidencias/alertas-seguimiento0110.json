@@ -1,0 +1,37 @@
+{
+  "scope": "Internal urgent-report follow-up after acknowledgement, existing case inspection and assignment; synthetic reports, real PostgreSQL/Chromium",
+  "source_sha256": {
+    "apps/safety/urgent_alerts.py": "9f959713902aa7c36ca8b986fc5bd7078094202a2e71bb486cff3b3bfa023f11",
+    "templates/safety/urgent_alerts.html": "0196acf67734de4e62cfdb19bad4faf7f866f54bd31670d796b3322460a4d149",
+    "tests/test_urgent_report_alerts.py": "d6c24420f0d452608adc2ad1d29a454a468ac9deb1089ba357e43f5de9446e46"
+  },
+  "runs": [
+    {
+      "xml": "/tmp/urgent-followup.xml",
+      "passed": 16,
+      "failed": 0,
+      "seconds": 124.1,
+      "coverage": "Whole urgent alerts module, ES/EN follow-up state filters, authorization revocations, concurrency, reconciliation, existing mobile."
+    },
+    {
+      "xml": "/tmp/urgent-followup-mobile.log",
+      "passed": 0,
+      "failed": 1,
+      "seconds": 46.48,
+      "cause": "Exact text selector expected standalone phrase but paragraph also contains acknowledgement date."
+    },
+    {
+      "xml": "/tmp/urgent-followup-mobile-final.xml",
+      "passed": 1,
+      "failed": 0,
+      "coverage": "Mobile acknowledge -> filter follow-up -> reload -> inspect, no private disclosure on GET."
+    }
+  ],
+  "limits": [
+    "Follow-up view is internal triage, not external alert delivery or staffed response guarantee.",
+    "Unknown report states remain visible; dismissed/lifted leave follow-up, existing unacknowledged queue unchanged.",
+    "No additional assignment, evidence read or decision through follow-up GET.",
+    "Full list authorization before existing numeric pagination remains; performance of urgent queue pending.",
+    "Docker update pending; CR09 remains open."
+  ]
+}

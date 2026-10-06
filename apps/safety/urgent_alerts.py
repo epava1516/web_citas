@@ -44,6 +44,9 @@ def fresh_authority(request):
 def queue(request):
     if not authorized(request):
         raise PermissionDenied
+    attention = request.GET.get("attention", "unacknowledged")
+    if attention not in {"unacknowledged", "follow_up"}:
+        return private(HttpResponse("Invalid attention", status=400))
     if request.method == "POST":
         import uuid
 
@@ -94,11 +97,23 @@ def queue(request):
                 alert.save(update_fields=["acknowledged_at", "acknowledged_by"])
             fresh_authority(request)
         return private(redirect("urgent_report_alerts"))
+    alerts = UrgentReportAlert.objects.all()
+    if attention == "unacknowledged":
+        alerts = alerts.filter(acknowledged_at__isnull=True)
+    else:
+        # Recognition never closes operational follow-up. Unknown states remain
+        # visible for triage rather than being silently classified as resolved.
+        alerts = alerts.filter(acknowledged_at__isnull=False).exclude(
+            report__status__in=["dismissed", "lifted"]
+        )
     alerts = (
-        UrgentReportAlert.objects.filter(acknowledged_at__isnull=True)
-        .select_related("report__listing__person__agency", "report__reported_agency")
+        alerts.select_related(
+            "report__listing__person__agency", "report__reported_agency", "report__assigned_to"
+        )
         .order_by("created_at", "pk")
     )
     visible = [alert for alert in alerts if permitted(request.user, alert.report)]
     page = Paginator(visible, 50).get_page(request.GET.get("page"))
-    return private(render(request, "safety/urgent_alerts.html", {"page": page}))
+    return private(
+        render(request, "safety/urgent_alerts.html", {"page": page, "attention": attention})
+    )
