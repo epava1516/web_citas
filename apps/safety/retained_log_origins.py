@@ -118,7 +118,8 @@ def checked_scoped_captures(body, case, inventory, cutoff):
             raise ValueError("Duplicate, altered or oversized historical captures")
         seen.add(digest)
         records.extend(
-            row | {"capture_digest": digest, "captured_at": capture["captured_at"]}
+            row | {"capture_digest": digest, "captured_at": capture["captured_at"],
+                   "ciphertext_sha256": origin["ciphertext_sha256"]}
             for row in capture["records"]
         )
     # JSON escaping and metadata can exceed stream bytes; reject before sealing.

@@ -12,13 +12,6 @@ from uuid import UUID
 from django.core.exceptions import ValidationError
 from django.views.decorators.debug import sensitive_variables
 
-from apps.safety.retained_log_origins import (
-    MAX_CONTENT_BYTES,
-    PROJECT,
-    checked_capture,
-    checked_scoped_captures,
-)
-from apps.safety.rights_exports import canonical
 from scripts.collect_access_resource_logs import write_bundle
 from scripts.inventory_retained_origins import inspect_origin
 from scripts.scope_retained_redis_origin import read_origin
@@ -28,7 +21,14 @@ from scripts.scope_retained_redis_origin import read_origin
 def prepare_origins(paths, directory, inventory):
     from types import SimpleNamespace
 
-    from apps.safety.retained_log_origins import MAX_CAPTURES
+    from apps.safety.retained_log_origins import (
+        MAX_CAPTURES,
+        MAX_CONTENT_BYTES,
+        PROJECT,
+        checked_capture,
+        checked_scoped_captures,
+    )
+    from apps.safety.rights_exports import canonical
 
     if not 1 <= len(paths) <= MAX_CAPTURES:
         raise ValueError("Bounded explicit capture selection required")

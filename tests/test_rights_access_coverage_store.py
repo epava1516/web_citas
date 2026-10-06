@@ -537,7 +537,12 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             package_body = validate_draft(
                 package_draft, case, None if account_only else case.person
             )
-        assert package_body["access_package"]["pending"] == ["infrastructure_content_accounting"]
+        expected_pending = ["infrastructure_content_accounting"]
+        if historical_logs:
+            from apps.safety.retained_log_origins import PENDING
+
+            expected_pending += PENDING + ["historical_log_capture_coverage"]
+        assert package_body["access_package"]["pending"] == expected_pending
         delivered_group = next(
             group
             for group in package_body["access_package"]["copy"]["additional_records"]
@@ -571,6 +576,13 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
         import hashlib
 
         original_archive = archive_path.read_text()
+        if historical_logs:
+            changed_identity = unseal(original_archive)
+            changed_identity["origins"][0]["ciphertext_sha256"] = "0" * 64
+            archive_path.write_text(module.seal(changed_identity))
+            with transaction.atomic(), pytest.raises(ValidationError, match="package contents|original records"):
+                validate_draft(package_draft, case, None if account_only else case.person)
+            archive_path.write_text(original_archive)
         changed_archive = unseal(original_archive)
         changed_capture = changed_archive["origins"][0]["capture"] if historical_logs else changed_archive
         changed_lines = []

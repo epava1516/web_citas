@@ -403,7 +403,7 @@ def log_records(
                 key: row[key] for key in ["service", "container", "image", "container_created_at"]
             }
             if historical:
-                origin.update({key: row[key] for key in ("capture_digest", "captured_at")})
+                origin.update({key: row[key] for key in ("capture_digest", "captured_at", "ciphertext_sha256")})
             for name in ["stdout", "stderr"]:
                 content = row[name]
                 if (
@@ -1066,6 +1066,8 @@ def compile_package(inventory, export, original, decisions, *, cutoff, projected
     if cutoff != inventory.created_at:
         raise ValidationError("Inventory preparation cutoff required")
     pending.extend(original.get("redis_history", {}).get("pending", []))
+    if "historical_log_capture_coverage" in original.get("log_origins", {}).get("pending", []):
+        pending.extend(original["log_origins"]["pending"])
     package = {
         "schema": "access-delivery-v1",
         "export": str(export.pk),

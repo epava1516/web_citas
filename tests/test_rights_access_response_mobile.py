@@ -210,7 +210,7 @@ def test_mobile_final_response_preparation_and_independent_decision(
             expect(page.locator("body")).to_contain_text(TEXT)
             if metadata:
                 expect(page.locator(".rights-access-coverage")).to_contain_text("infrastructure_content_accounting" if metadata == "logs" else "snapshot_metadata_scope_review")
-                expect(page.locator(".rights-access-coverage")).to_contain_text("infrastructure_scope_unreviewed")
+                expect(page.locator(".rights-access-coverage")).to_contain_text("historical_log_capture_coverage" if metadata == "logs" else "infrastructure_scope_unreviewed")
             page.locator("#decision_reason").fill(REASON)
             page.locator("#decision_outcome").select_option("approved")
             page.get_by_role(

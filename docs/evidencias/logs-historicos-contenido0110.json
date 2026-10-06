@@ -1,0 +1,928 @@
+{
+  "schema": "retained-historical-log-content-validation-v1",
+  "source_commit": "023d3f4193eb69e4b781a9372d20be6be3127cca",
+  "source_sha256": {
+    "apps/safety/retained_log_origins.py": "bbced5674674742a20f8a062d943f69dfa7c5fb18445d3212e301930a746b957",
+    "scripts/scope_retained_log_origins.py": "6a7e2c87f09f5b97a28cd169e096278633d5ceda239d389cdfda2860891cc680",
+    "scripts/inventory_retained_origins.py": "bde7f637df871a615a5709660bdf178e65ab0d28a8b74652cfceac7d0c835386"
+  },
+  "observed_at": "2026-10-06T23:19:27.612622+00:00",
+  "origins": [
+    {
+      "path": "/tmp/broker-schema-predeploy0110-snjcn13m/access-log-origins.encrypted",
+      "ciphertext_sha256": "aa3274784be3f9907d363d92cb62d041f9cda9b2ae374c6083e6ef77bbbfaf1e",
+      "capture_sha256": "603d856978acf7539ac77da2e7e893b4a529e09fefbb11b126be962be7c1cf12",
+      "captured_at": "2026-10-06T17:14:07.788411+00:00",
+      "stream_bytes": 1875667,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 329,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 322613
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 152184
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 968950
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 420438,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/coverage-batch-predeploy0110-rue7ub_f/access-log-origins.encrypted",
+      "ciphertext_sha256": "fac768e758ed1023a8453f7f5271bf0e0e746bdc2ffa61b2ed5b368c3980f078",
+      "capture_sha256": "d2aaf2426fc8779054adebe970368ca9acd4deb2bbb66353eee16a5c9226389f",
+      "captured_at": "2026-10-06T17:46:29.487993+00:00",
+      "stream_bytes": 1575035,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 329,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 112809
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 53148
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 974080
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 423516,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/cr09-binary-memory-predeploy0110-8nosod8a/access-log-origins.encrypted",
+      "ciphertext_sha256": "2ab78da7baac5c7a6aabb9eb417dad9c5bfbfba49f86149268f65be028f220d5",
+      "capture_sha256": "45abce07ed410e323f560a10b0184b62119dfe29719b4a0d59ad7f605087fc73",
+      "captured_at": "2026-10-06T21:35:55.308401+00:00",
+      "stream_bytes": 1664144,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 329,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2939,
+          "stderr_bytes": 120318
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 56685
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 1028475
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 447114,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/cr09-rdb-aux-predeploy0110-zvy1czss/access-log-origins.encrypted",
+      "ciphertext_sha256": "ff017815bb3defe83117560108260d91e56ba12b0ab1ad09bca8a2c9535f97e9",
+      "capture_sha256": "7a63b015e785419b64fc4114eb1ec9c15bb03cba9eadd078fe3ba65bcfeb62a6",
+      "captured_at": "2026-10-06T22:47:02.497098+00:00",
+      "stream_bytes": 1736634,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 638,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2939,
+          "stderr_bytes": 157746
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 74370
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 1037062
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 455595,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/cr09-rdb-origins-predeploy0110-uvn4y_hd/access-log-origins.encrypted",
+      "ciphertext_sha256": "db4a2573dceb31d635aaedc58b62cc8cf88ab8f5bc4ce9ada2a4a5aad95e4469",
+      "capture_sha256": "7095915bf09e9b9ba9f706502a7b7f9e4183bac7594ef23a4f5ef21126ca7d54",
+      "captured_at": "2026-10-06T22:25:19.025123+00:00",
+      "stream_bytes": 1818522,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 638,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2939,
+          "stderr_bytes": 217704
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 102666
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 1034047
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 452244,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/cr09-rdb-physicalmeta-predeploy0110-s449_jfo/access-log-origins.encrypted",
+      "ciphertext_sha256": "4deb0b748b1237997cc28e87965e36eae5031d8ff7f43bd19f2ed9b6ed27d609",
+      "capture_sha256": "65a5dc139269966468802457eb37eeb8c3daf1731021b2612ce9132d4d4775fe",
+      "captured_at": "2026-10-06T23:04:27.291376+00:00",
+      "stream_bytes": 1696703,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 638,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2939,
+          "stderr_bytes": 127763
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 60222
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 1039210
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 457647,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/cr09-scoped-redis-history-predeploy0110-kuneqden/access-log-origins.encrypted",
+      "ciphertext_sha256": "e5490c2de71e3f0dac7fe1c2e1e64b79e4d5828433d70e46c9fea0ce9a581c2e",
+      "capture_sha256": "2f4432bd353e1b4a858f7d76f0cf427325317a008e59d49612a1aebbf3938af8",
+      "captured_at": "2026-10-06T21:55:29.104746+00:00",
+      "stream_bytes": 1615614,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 638,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2939,
+          "stderr_bytes": 82833
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 39000
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 1032754
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 449166,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/erasure-predeploy0108-9kz69f1j/access-log-origins.encrypted",
+      "ciphertext_sha256": "8291f411eaa5e13a4e7a524aefc56ad2a2f448ef50ad7d65151e22d67397f2af",
+      "capture_sha256": "b1d10808e048c3b5c1889c1418d4085498ca7c1367396544796c9547a9e3fe4d",
+      "captured_at": "2026-10-06T11:51:22.580205+00:00",
+      "stream_bytes": 1818230,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 110,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 337605
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 159258
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3018
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 924078
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 386306,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/final-retention-finaldeploy0109-7ivpaqg5/access-log-origins.encrypted",
+      "ciphertext_sha256": "d424f322d4aa8efa4022b9958c1dc3e4a9cd4c7da765cf25d4b02292b6d87cc0",
+      "capture_sha256": "833b6dc3047146e902aafd48f6764df9b4b6a2854f038863322c2a46cfa45cde",
+      "captured_at": "2026-10-06T12:42:36.669186+00:00",
+      "stream_bytes": 1411445,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 0,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 52844
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 24852
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3018
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 931440
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 391436,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/final-retention-predeploy0109-rdsqxqxd/access-log-origins.encrypted",
+      "ciphertext_sha256": "1e1855b59db503238585676d1e8dc898b9ac9131050dfec53095ecdefc5feeb3",
+      "capture_sha256": "a0c3f55f92a36dc2ce0d110f445f1a0ca869cc625347046e1d62b033480b624f",
+      "captured_at": "2026-10-06T12:34:39.512797+00:00",
+      "stream_bytes": 1574248,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 110,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 165255
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 77907
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3018
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 929693
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 390410,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/inspection-hotfix-predeploy0110-0vluy0rj/access-log-origins.encrypted",
+      "ciphertext_sha256": "6e4f4abbd007c8fe39413559c510f5c828c62d8de07d88eb18da803aa8f153e6",
+      "capture_sha256": "2a016d17d16105e2701d56c9b684736ba591ba56da21d10139949f7e2796bbc7",
+      "captured_at": "2026-10-06T19:53:27.826672+00:00",
+      "stream_bytes": 2717224,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 329,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 869609
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 410385
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 988894
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 436854,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/processing-predeploy0108-vq7ggwk7/access-log-origins.encrypted",
+      "ciphertext_sha256": "abc5379990e404d31eca843a01b9082630e62c1566013c253812ed6bfe1d6208",
+      "capture_sha256": "68180d3af56f42da68979daebba1653139e4dd5ed7fa4b2e5ef5cd6c71302f80",
+      "captured_at": "2026-10-06T12:12:03.455948+00:00",
+      "stream_bytes": 1547132,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 110,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 150271
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 70833
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3018
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 926687
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 388358,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/promotion-catalogue-predeploy0110-23050km8/access-log-origins.encrypted",
+      "ciphertext_sha256": "63b0c4a5a89fc6c87c4ce13bcb94fe0136b745d0ba0078a3471b4af516f276c6",
+      "capture_sha256": "544dd6c3317052d12a64e87fe853ffcbb53891e1959e728b584bc1207a4cdb90",
+      "captured_at": "2026-10-06T20:14:47.684718+00:00",
+      "stream_bytes": 1678346,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 329,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 157778
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 74370
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 995810
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 438906,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/promotion-commercial-predeploy0110-p3__w9fg/access-log-origins.encrypted",
+      "ciphertext_sha256": "18bf5f13fb4cb7d51a0f07fb0b6884c5e2d9fe9bf968e90b5816b438ad66e6a9",
+      "capture_sha256": "8dd6538735e5d6301eb423a81627722ea5c6c14709e68912bb38da2bfbdb8148",
+      "captured_at": "2026-10-06T21:19:21.041057+00:00",
+      "stream_bytes": 1482300,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 0,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2939,
+          "stderr_bytes": 411
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 93
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 1024998
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 445575,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/rectification-predeploy0108-gg03hb56/access-log-origins.encrypted",
+      "ciphertext_sha256": "e6b31ecf04cb9eb95ff67bf1f950a5118a23eed325e01d588142cb3985270805",
+      "capture_sha256": "6eebb84090d511f4627936821326abc47b4e1bba7fada1178d374583334420d2",
+      "captured_at": "2026-10-06T11:01:49.035896+00:00",
+      "stream_bytes": 1929216,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 110,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 420039
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 198165
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3018
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 918853
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 381176,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/redis-periodicos-predeploy0110-oxpdksuc/access-log-origins.encrypted",
+      "ciphertext_sha256": "77dd1bd4937ea405b31115dc7c9e2fb7c662a67ccc609f21a5f7d942f15049e6",
+      "capture_sha256": "3dac6cf313d39ac42d0ba59a983a88cc42fa1f9db7f60a0efdeca46eb1d441db",
+      "captured_at": "2026-10-06T16:29:56.380083+00:00",
+      "stream_bytes": 1591018,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 329,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 135275
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 63759
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 965981
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 414521,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/redis-results-predeploy0110-zjr0n2ip/access-log-origins.encrypted",
+      "ciphertext_sha256": "a61f79a76e2676690ee4186f3fba3303646e80ac06256001f35902741453a5aa",
+      "capture_sha256": "c5b04ee18b2a5f83deddcdc5e10337aeebeeed47dd2befb40e9f816c3f6dfecc",
+      "captured_at": "2026-10-06T15:47:09.406186+00:00",
+      "stream_bytes": 1540127,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 212,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 105321
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 49611
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 963413
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 410417,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/seo-predeploy0110-2zvj2b4i/access-log-origins.encrypted",
+      "ciphertext_sha256": "b3e4352cf8931b09f47f3baf2b957b2735d12788c1dd5f7fa3f202625a809712",
+      "capture_sha256": "3aecc24a295e04ed19f44f744d8cd5ebe77cbbd30558d0d8453a789654948853",
+      "captured_at": "2026-10-06T15:32:26.510126+00:00",
+      "stream_bytes": 1602085,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 110,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 150286
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 70833
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 960825
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 408878,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/seo-structured-public-predeploy0110-j4lsfnpe/access-log-origins.encrypted",
+      "ciphertext_sha256": "2f74f53e14025cdeaa2355cfbb200407339b2f555f8a23e4ad211b06edac6d44",
+      "capture_sha256": "c9b92a1512d92510b322c4b5c81dfeb08543253509db47fb54170b99e9a3ea1f",
+      "captured_at": "2026-10-06T21:43:56.789416+00:00",
+      "stream_bytes": 1567180,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 329,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2939,
+          "stderr_bytes": 52865
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 24852
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 1029771
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 448140,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/sitemaps-predeploy0110-uefhjzi_/access-log-origins.encrypted",
+      "ciphertext_sha256": "09015b24a38499c32392b3f33b47f0297c0e361a4cefaa6ac0d253495ab71653",
+      "capture_sha256": "95ee5d30562c588838630f8efa3189c0323c1d3c86781fced7dee8230efc39d2",
+      "captured_at": "2026-10-06T16:11:33.408984+00:00",
+      "stream_bytes": 1654244,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 212,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 180212
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 84981
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 964704
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 412982,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/source-batch250-predeploy0110-ote_3f8t/access-log-origins.encrypted",
+      "ciphertext_sha256": "88a4bcdb370806920a4ecb12f0ca2447e421da11848770ff7f4afb279a73c69a",
+      "capture_sha256": "fe736a36872b1ab8c72a227fb8f5a796f403dc57e2564a7806579687bd2d34d8",
+      "captured_at": "2026-10-06T17:56:53.604237+00:00",
+      "stream_bytes": 1522709,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 329,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 75334
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 35463
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 975375
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 425055,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    },
+    {
+      "path": "/tmp/urgent-sql-predeploy0110-xjhkob8h/access-log-origins.encrypted",
+      "ciphertext_sha256": "3898a0d616a64d440e95d0aaae7b40153caff34f310b2890f321ea16f2577829",
+      "capture_sha256": "7c6b2b8c0d61bb0356b2f86ee6db75f3584a57d847f1ce1b4d153dc5351ddfb4",
+      "captured_at": "2026-10-06T17:30:28.004228+00:00",
+      "stream_bytes": 1582175,
+      "services": [
+        {
+          "service": "app",
+          "stdout_bytes": 329,
+          "stderr_bytes": 486
+        },
+        {
+          "service": "worker",
+          "stdout_bytes": 2869,
+          "stderr_bytes": 120282
+        },
+        {
+          "service": "beat",
+          "stdout_bytes": 677,
+          "stderr_bytes": 56685
+        },
+        {
+          "service": "caddy",
+          "stdout_bytes": 0,
+          "stderr_bytes": 3298
+        },
+        {
+          "service": "db",
+          "stdout_bytes": 3823,
+          "stderr_bytes": 971749
+        },
+        {
+          "service": "redis",
+          "stdout_bytes": 421977,
+          "stderr_bytes": 0
+        }
+      ],
+      "original_content_and_acta_validated": true,
+      "subject_association_verified": false
+    }
+  ],
+  "sources": 22,
+  "plaintext_stream_bytes": 37199998,
+  "observed_seconds": 2.322644257918,
+  "original_sources_preserved": true,
+  "plaintext_files_written": false,
+  "normal_database_or_queue_accessed": false,
+  "partial": true,
+  "phase_accepted": false,
+  "pending": [
+    "subject_association_and_content_differences",
+    "independent_disclosure_review",
+    "other_host_mail_backup_sources",
+    "retention_authority"
+  ]
+}

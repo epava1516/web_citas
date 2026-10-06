@@ -46,6 +46,7 @@ def test_historical_captures_keep_cutoffs_private_subject_projection_and_immutab
         set(), inventory.created_at, subjects={"account": {"101"}}, case=case, inventory=inventory
     )
     assert len(result["origins"]) == 12
+    assert result["origins"][0]["ciphertext_sha256"] == hashlib.sha256(before[0]).hexdigest()
     assert len(result["projected"]) == 2
     assert len({row["reference"] for row in result["projected"]}) == 2
     assert result["pending"][-1] == "historical_log_capture_coverage"
@@ -88,17 +89,14 @@ def test_historical_producer_rejects_duplicates_future_and_aggregate_limits(
     tmp_path, settings, monkeypatch
 ):
     from apps.safety import retained_log_origins
-    from scripts import scope_retained_log_origins
 
     paths, case, inventory = origins(tmp_path, settings)
     with pytest.raises(ValueError, match="Duplicate"):
         prepare_origins([paths[0], paths[0]], tmp_path, inventory)
-    monkeypatch.setattr(scope_retained_log_origins, "MAX_CONTENT_BYTES", 1)
-    with pytest.raises(ValueError, match="aggregate"):
+    monkeypatch.setattr(retained_log_origins, "MAX_CONTENT_BYTES", 1)
+    with pytest.raises(ValueError, match="byte limit"):
         prepare_origins(paths, tmp_path, inventory)
-    monkeypatch.setattr(
-        scope_retained_log_origins, "MAX_CONTENT_BYTES", retained_log_origins.MAX_CONTENT_BYTES
-    )
+    monkeypatch.setattr(retained_log_origins, "MAX_CONTENT_BYTES", 64 * 1024 * 1024)
     body = unseal(paths[0].read_text())
     body["captured_at"] = (inventory.created_at + timedelta(seconds=1)).isoformat()
     paths[0].write_text(seal(body))
