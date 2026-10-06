@@ -12,7 +12,7 @@ COMMANDS = frozenset(
 COMMAND_BYTES = frozenset(command.encode() for command in COMMANDS)
 
 
-def inspect_aof(stream):
+def inspect_aof(stream, *, on_command=None):
     """Counts are evidence of retained commands, not a subject-specific copy.
 
     Reject incomplete/oversized/unknown RESP formats without treating the
@@ -33,6 +33,7 @@ def inspect_aof(stream):
 
     try:
         while True:
+            start_offset = consumed
             first = stream.read(1)
             if not first:
                 break
@@ -43,6 +44,8 @@ def inspect_aof(stream):
             if not 1 <= count <= MAX_ARGUMENTS:
                 raise ValueError("argument_count_limit")
             command = None
+            arguments = []
+            captured_bytes = 0
             for position in range(count):
                 header = line()
                 if not header.startswith(b"$"):
@@ -54,12 +57,20 @@ def inspect_aof(stream):
                     raise ValueError("aggregate_byte_limit")
                 remaining = size
                 command_parts = []
+                capture = (
+                    on_command is not None
+                    and size <= 256 * 1024
+                    and captured_bytes + size <= 1024 * 1024
+                )
+                captured_parts = []
                 while remaining:
                     raw = stream.read(min(remaining, READ_CHUNK_BYTES))
                     consumed += len(raw)
                     if not raw:
                         raise ValueError("incomplete_argument")
                     remaining -= len(raw)
+                    if capture:
+                        captured_parts.append(raw)
                     if position == 0 and size <= 32:
                         command_parts.append(raw)
                 trailer = b""
@@ -71,9 +82,15 @@ def inspect_aof(stream):
                     trailer += raw
                 if trailer != b"\r\n":
                     raise ValueError("incomplete_argument")
+                if on_command is not None:
+                    arguments.append(b"".join(captured_parts) if capture else None)
+                    if capture:
+                        captured_bytes += size
                 if position == 0:
                     command = b"".join(command_parts).upper()
             label = command.decode("ascii") if command in COMMAND_BYTES else "unsupported"
+            if on_command is not None:
+                on_command(start_offset, label, arguments)
             counts[label] = counts.get(label, 0) + 1
             completed += 1
             if label == "unsupported" and "unsupported_command" not in pending:

@@ -4,7 +4,6 @@ This is an internal preparation snapshot, not an assertion of legal sufficiency.
 Unknown encrypted formats remain blocked, never silently declared excluded.
 """
 
-import base64
 import hashlib
 import json
 import os
@@ -316,61 +315,18 @@ def broker_records(blob_ids):
         return result
     wire = [(raw, "queued") for messages in captured[1][:4] for raw in messages]
     wire.extend((raw, "reserved") for raw in captured[1][4])
-    periodic = {
-        "apps.listings.tasks.expire_listings",
-        "apps.mediafiles.tasks.recover_media_jobs",
-        "apps.mediafiles.tasks.erase_media_files",
-        "apps.mediafiles.tasks.cleanup_prepared_media",
-    }
-    from . import tasks
+    from .broker_message_projection import periodic_tasks
 
-    periodic.update(
-        "apps.safety.tasks." + name
-        for name in dir(tasks)
-        if callable(getattr(tasks, name)) and hasattr(getattr(tasks, name), "delay")
-    )
+    periodic = periodic_tasks()
     for raw, state in wire:
         try:
-            if len(raw) > 256 * 1024:
-                raise ValueError
-            message = json.loads(raw)
-            if state == "reserved":
-                if not isinstance(message, list) or len(message) != 3:
-                    raise ValueError
-                message = message[0]
-            if (
-                message.get("content-type") != "application/json"
-                or message.get("content-encoding") != "utf-8"
-                or message.get("headers", {}).get("compression")
-                or message.get("properties", {}).get("body_encoding") != "base64"
-            ):
-                raise ValueError
-            payload = json.loads(base64.b64decode(message["body"], validate=True))
-            args, kwargs, links = payload
-            if not isinstance(args, list) or not isinstance(kwargs, dict):
-                raise ValueError
-            if not isinstance(links, dict) or any(links.values()):
-                raise ValueError
-            headers = message["headers"]
-            task = headers["task"]
-            if task in periodic and not args and not kwargs:
-                continue
-            if task != "apps.mediafiles.tasks.process_blob" or len(args) != 1 or kwargs:
-                raise ValueError
-            if str(args[0]) not in blob_ids:
-                continue
-            retries = headers.get("retries", 0)
-            if not isinstance(retries, int) or isinstance(retries, bool) or retries < 0:
-                raise ValueError
-            content = fingerprint(canonical(message))
-            result["copy"].append(
-                {
-                    "photo_reference": fingerprint(canonical({"blob": str(args[0])})),
-                    "state": state,
-                    "retries": retries,
-                }
-            )
-            result["evidence"].append({"state": state, "content": content})
+            from .broker_message_projection import project_message
+
+            projected_message = project_message(raw, blob_ids, state, periodic)
+            if projected_message is not None:
+                data, content = projected_message
+                result["copy"].append(data)
+                result["evidence"].append({"state": state, "content": content})
         except (KeyError, TypeError, ValueError, AttributeError):
             result["blocked"].append({"resource": "queues", "reason": "unsupported_message"})
     result["copy"].sort(key=canonical)
@@ -853,6 +809,14 @@ def snapshot(case, person, inventory, *, cutoff, projected):
     blocked.extend(sessions["blocked"])
     queued = broker_records({row["blob"] for row in manifest["media"]})
     blocked.extend(queued["blocked"])
+    from .redis_history_scope import history_records
+
+    redis_history = history_records({row["blob"] for row in manifest["media"]}, cutoff)
+    blocked.extend(
+        {"resource": "redis_history", "reason": reason} for reason in redis_history["blocked"]
+    )
+    if redis_history["records"]:
+        groups["operations.QueueHistory"] = redis_history["records"]
     log_origins = log_records(
         {
             str(case.pk),
@@ -884,6 +848,11 @@ def snapshot(case, person, inventory, *, cutoff, projected):
             "mail": fingerprint(canonical(mail_scope)),
             "sessions": fingerprint(canonical(sessions)),
             "queues": fingerprint(canonical(queued)),
+            **(
+                {"redis_history": fingerprint(canonical(redis_history))}
+                if redis_history["configured"]
+                else {}
+            ),
         },
         {
             "logs": {
@@ -930,6 +899,7 @@ def snapshot(case, person, inventory, *, cutoff, projected):
         "session_evidence": sessions["evidence"],
         "queued_processing": queued["copy"],
         "queue_evidence": queued["evidence"],
+        "redis_history": redis_history,
         "log_origins": log_origins,
         "mail_scope": mail_scope,
         "resource_scope": resource_scope,
@@ -1068,6 +1038,7 @@ def compile_package(inventory, export, original, decisions, *, cutoff, projected
         pending.append("external_operation_scope")
     if cutoff != inventory.created_at:
         raise ValidationError("Inventory preparation cutoff required")
+    pending.extend(original.get("redis_history", {}).get("pending", []))
     package = {
         "schema": "access-delivery-v1",
         "export": str(export.pk),

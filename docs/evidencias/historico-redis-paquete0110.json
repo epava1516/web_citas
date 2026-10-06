@@ -1,0 +1,50 @@
+{
+  "scope": "Historical AOF association of exact owned photo-processing queued/reserved messages consumed by existing audited access snapshot and reviewed group decisions; no separate models/screens",
+  "source_sha256": {
+    "apps/safety/broker_message_projection.py": "33304050f943581e569dc1525d11e3dfb7615ac2fc58ae4f4a9ebde7e8337c6e",
+    "apps/safety/redis_history_scope.py": "c62d92b4a34eecc382b8960253c6d7a1769f708a4776f19ada360dda5f3aaeb1",
+    "apps/safety/redis_retained_history.py": "226f10d2af40066c28a6298192d9efdd1d8d3ea02755aba216f227958665b961",
+    "apps/safety/rights_access_delivery.py": "8b72960f3573af1c353eb2ae9c2190af512bebdc795f700cfc4e2543e821b47e",
+    "config/settings.py": "b819e50cfb826f17475446cc849d322adcdcc7ee22bb898ddad833f158dc4682",
+    "tests/test_redis_history_scope.py": "4b5f830cdd1c6f9f0ae38681c7bf239c79855c15a8495020c5e813a803058118",
+    "tests/test_rights_access_recipient_payload.py": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad"
+  },
+  "runs": [
+    {
+      "xml": "/tmp/redis-history-initial.xml",
+      "passed": 10,
+      "failed": 0,
+      "seconds": 1.08
+    },
+    {
+      "xml": "/tmp/redis-history-integrated.xml",
+      "passed": 6,
+      "failed": 1,
+      "seconds": 161.09,
+      "coverage": "Account snapshot and existing console profile/account closure-download regressions passed; new profile fixture lacked respond_rights_request."
+    },
+    {
+      "xml": "/tmp/redis-history-profile-final.xml",
+      "passed": 1,
+      "failed": 0,
+      "seconds": 43.59,
+      "coverage": "Profile audited snapshot, exact own history group, incomplete package blocks recipient delivery, altered origin rejected."
+    },
+    {
+      "xml": "/tmp/redis-history-final-readers.xml",
+      "passed": 10,
+      "failed": 0,
+      "seconds": 1.13,
+      "coverage": "Owned/foreign database+namespace+photo, queued/reserved, incomplete/large/unknown formats, encrypted-origin cutoff/hash and actual Redis/Kombu current census regression."
+    }
+  ],
+  "limits": [
+    "Source is a privately configured captured prefix; no current main runtime history origin configured.",
+    "Original times and full historical coverage unknown; historical_redis_coverage propagated and recipient complete-access delivery blocked.",
+    "AOF command arguments never executed; <=64KiB reads and <=1MiB per command captured for typed validation, >256KiB messages remain blocked.",
+    "Exact configured database0/default queue+priorities/reserved only; unsupported transport config rejected.",
+    "New source binding invalidates prior approved packages; not a new legal retention decision.",
+    "Dockerad57114 remains; deployment pending.",
+    "Not full CR09, legal acceptance or external provider verification."
+  ]
+}

@@ -534,6 +534,11 @@ def synthetic_resource_census(case, inventory, scope):
             "mail": fingerprint(canonical(scope["mail_scope"])),
             "sessions": fingerprint(canonical(sessions)),
             "queues": fingerprint(canonical(queues)),
+            **(
+                {"redis_history": fingerprint(canonical(scope["redis_history"]))}
+                if scope.get("redis_history", {}).get("configured")
+                else {}
+            ),
         },
         "categories": {
             category: {
