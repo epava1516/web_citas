@@ -1,0 +1,66 @@
+{
+  "parser_version": "2.4.0",
+  "parser_commit": "bc5f295c98b40c2c33099d9d72ab30ce9e595dc7",
+  "parser_binary_sha256": "dad6dec19c6de8a7ffbd32647cb17106b877493323eb293732988dc27bb5bb7b",
+  "known_sources": [
+    {
+      "source_evidence": "redis-snapshot-origen0110.json",
+      "source_sha256": "c383ad04f16c316bdd053a4a5d873d5f2ec262fb2a154bfddb3f68ec117bf9b4",
+      "decoded_bytes": 19592,
+      "decoded_sha256": "e34eb97ee0a2df85c185fd1116b2d2a7a0deafcee92dec9dc94631ff0102ae73",
+      "commands": {
+        "SELECT": 1,
+        "SADD": 84,
+        "SET": 28,
+        "PEXPIREAT": 28
+      },
+      "pending": [],
+      "decoder_seconds": 0.016366434283554554
+    },
+    {
+      "source_evidence": "redis-base-aof-origen0110.json",
+      "source_sha256": "e0dd91e281d1fe6b6aeab46e914d5be71e0fbddb59b33daa403c6921058b027f",
+      "decoded_bytes": 23345,
+      "decoded_sha256": "d2ec07455b1935e50bfc08bb7422f9cd2155471b9a5770f46a53391a8d27e213",
+      "commands": {
+        "SELECT": 1,
+        "SADD": 81,
+        "SET": 26,
+        "PEXPIREAT": 26,
+        "ZADD": 4,
+        "HSET": 4
+      },
+      "pending": [],
+      "decoder_seconds": 0.01949203386902809
+    }
+  ],
+  "synthetic_expired_fixture": {
+    "source_sha256": "bbcb3b1b75ecf3c4281779878d853ef04bdb88903bfe95cf2ae564c983b901c6",
+    "commands": {
+      "SELECT": 1,
+      "SET": 1,
+      "PEXPIREAT": 1
+    },
+    "past_expiry_retained": true,
+    "checksum_corruption_rejected": true
+  },
+  "partial": true,
+  "phase_accepted": false,
+  "limits": [
+    "Prototype native decoder only; multi-source per-inventory package integration and mandatory gates not delivered.",
+    "Generated reconstruction was inspected, never executed. Original source metadata/association/retention review remains pending."
+  ],
+  "decoder_source_commit": "79790d70bb4152d1c5d512e50e8dc47f0f498900",
+  "decoder_plaintext_temporaries_remaining": 0,
+  "decoder_source_sha256": "963e4ad5d7775f02c4a866cb6e958367ab64ebb59ca18575b3d6e4186c4b18e3",
+  "prior_attempts": [
+    "Native binary group/other-writable; permission guard rejected it; local compiled binary changed to0755.",
+    "Expired upstream fixture was a SET string; incorrect SADD expectation corrected after typed command inspection."
+  ],
+  "pending": [
+    "Package per-inventory integration of RDB and AOF origins together",
+    "Typed subject scope, source metadata, unknown formats and expiration fields review",
+    "N2 PostgreSQL/native/file/privacy/compatibility/cleanup and runtime gates",
+    "Coherent cut and final retention authority"
+  ]
+}
