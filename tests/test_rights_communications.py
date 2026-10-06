@@ -103,6 +103,19 @@ def test_review_is_independent_exact_audited_and_never_implies_delivery(
             "Assess unsupported recipient delivery",
             false_delivery,
         )
+    with pytest.raises(ValidationError, match="Read the current recipient source"):
+        communications.propose(
+            actor,
+            *common,
+            execution.pk,
+            uuid4(),
+            "Assess source without prior audited access",
+            decisions,
+        )
+    source_audit, inspected_source = communications.inspect_source(
+        actor, *common, execution.pk, "Inspect current recipients before assessment"
+    )
+    assert inspected_source == source and source_audit.operation == "rights_comms_source"
     key = uuid4()
     proposal = communications.propose(
         actor, *common, execution.pk, key, "Assess recipients of the executed right", decisions
@@ -154,3 +167,60 @@ def test_review_is_independent_exact_audited_and_never_implies_delivery(
         )
     case.refresh_from_db()
     assert case.status == "reviewing" and case.version == common[1]
+    reviewer.user_permissions.add(Permission.objects.get(codename="review_recipient_assessment"))
+    path = f"/en/moderation/rights/{case.pk}/communications/"
+    assert staff.get(path).status_code == 200
+    assert b"Read exact recipient" not in staff.get(path).content
+    assert Client(enforce_csrf_checks=True).post(path).status_code == 403
+    metadata = {"version": case.version, "responses": case.response_version, "key": uuid4()}
+    accessed = staff.post(
+        path,
+        metadata
+        | {
+            "operation": "source",
+            "execution": execution.pk,
+            "purpose": "Read recipients through private structured screen",
+        },
+    )
+    assert accessed.status_code == 200 and accessed.context["decisions"]
+    fields = {"decisions-TOTAL_FORMS": len(decisions), "decisions-INITIAL_FORMS": len(decisions)}
+    for number, (token, value) in enumerate(decisions.items()):
+        fields[f"decisions-{number}-target"] = token
+        for field, content in value.items():
+            fields[f"decisions-{number}-{field}"] = content
+    posted = staff.post(
+        path,
+        metadata
+        | fields
+        | {
+            "operation": "propose",
+            "execution": execution.pk,
+            "purpose": "Assess recipients through private structured screen",
+        },
+    )
+    assert posted.status_code == 302
+    latest = RightsAction.objects.filter(request=case, operation="rights_comms_plan").latest("pk")
+    seen = other.post(
+        path,
+        metadata
+        | {
+            "operation": "inspect",
+            "plan": latest.pk,
+            "purpose": "Read proposed recipient decisions independently",
+        },
+    )
+    assert seen.status_code == 200 and seen.context["inspected"]["decisions"] == decisions
+    assert other.get(path).context["inspected"] is None
+    recorded = other.post(
+        path,
+        metadata
+        | {
+            "operation": "review",
+            "key": uuid4(),
+            "plan": latest.pk,
+            "read": seen.context["form"].initial["read"],
+            "outcome": "approved",
+            "reason": REASON,
+        },
+    )
+    assert recorded.status_code == 302, recorded.context["form"].errors

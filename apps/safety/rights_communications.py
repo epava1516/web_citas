@@ -89,6 +89,73 @@ def snapshot(case, person, listing, execution_id):
 
 @transaction.atomic
 @sensitive_variables()
+def inspect_source(user, case_id, version, responses, execution_id, purpose):
+    case, person, listing = _context(
+        backend(case_id)._POLICY, user, case_id, version, responses, assigned=True
+    )
+    if not isinstance(purpose, str) or not 10 <= len(purpose.strip()) <= 200:
+        raise ValidationError("Audited recipient source access purpose required")
+    access = _record(
+        user,
+        case,
+        uuid4(),
+        "comms_source_access",
+        {
+            "execution": str(execution_id),
+            "responses": responses,
+            "channel": case.receipt_digest,
+            "purpose": purpose,
+            "session": user.session_version,
+            "mfa": user.mfa_version,
+        },
+    )
+    source = snapshot(case, person, listing, execution_id)
+    read = _record(
+        user,
+        case,
+        uuid4(),
+        "rights_comms_source",
+        {
+            "execution": str(execution_id),
+            "digest": _digest(source),
+            "access": access.pk,
+            "responses": responses,
+            "channel": case.receipt_digest,
+            "session": user.session_version,
+            "mfa": user.mfa_version,
+        },
+    )
+    return read, source
+
+
+def source_read(user, case, source, responses):
+    read = (
+        RightsAction.objects.filter(
+            request=case,
+            actor=user,
+            expected_version=case.version,
+            operation="rights_comms_source",
+        )
+        .order_by("-pk")
+        .first()
+    )
+    if not read:
+        raise ValidationError("Read the current recipient source before assessment")
+    body = checked_body(read.encrypted_reason)
+    if (
+        _digest(body) != read.payload_digest
+        or body.get("digest") != _digest(source)
+        or body.get("execution") != source["execution"]
+        or body.get("responses") != responses
+        or body.get("channel") != case.receipt_digest
+    ):
+        raise ValidationError("Read the current recipient source before assessment")
+    fresh_authority(user, case, body["session"], body["mfa"])
+    return read
+
+
+@transaction.atomic
+@sensitive_variables()
 def propose(user, case_id, version, responses, execution_id, key, purpose, decisions):
     policy = backend(case_id)._POLICY
     case, person, listing = _context(policy, user, case_id, version, responses, assigned=True)
@@ -96,6 +163,7 @@ def propose(user, case_id, version, responses, execution_id, key, purpose, decis
         raise ValidationError("Audited assessment purpose required")
     source = snapshot(case, person, listing, execution_id)
     validate_decisions(source, decisions)
+    inspected_source = source_read(user, case, source, responses)
     return _record(
         user,
         case,
@@ -107,6 +175,7 @@ def propose(user, case_id, version, responses, execution_id, key, purpose, decis
             "responses": responses,
             "channel": case.receipt_digest,
             "source": source,
+            "source_read": inspected_source.pk,
             "decisions": decisions,
             "purpose": purpose,
             "session": user.session_version,

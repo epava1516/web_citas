@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% if english %}Recipient communications{% else %}Comunicaciones a destinatarios{% endif %}</h1>
+<p>{% if english %}Assess each recipient and unresolved gap. Approval of an assessment does not prove delivery or close the request.{% else %}Evalúa cada destinatario y laguna pendiente. Aprobar una evaluación no acredita la entrega ni cierra el expediente.{% endif %}</p>
+<p>{% if english %}Recorded executions{% else %}Ejecuciones registradas{% endif %}: {% for id in executions %}{{ id }} {% empty %}—{% endfor %}</p>
+{% if inspected %}
+<h2>{% if english %}Independently inspected assessment{% else %}Evaluación consultada de forma independiente{% endif %}</h2>
+{% for token, decision in inspected.decisions.items %}<article><p>{{ decision.outcome }}</p><p>{{ decision.reason|linebreaksbr }}</p><p>{{ decision.evidence|linebreaksbr }}</p></article>{% endfor %}
+{% endif %}
+<table><caption>{% if english %}Recorded actions{% else %}Acciones registradas{% endif %}</caption><thead><tr><th>ID</th><th>{% if english %}Action{% else %}Acción{% endif %}</th><th>{% if english %}Date{% else %}Fecha{% endif %}</th></tr></thead><tbody>{% for action in actions %}<tr><td>{{ action.pk }}</td><td>{{ action.operation }}</td><td>{{ action.created_at }}</td></tr>{% endfor %}</tbody></table>
+<form method="post">{% csrf_token %}{{ form.as_p }}{% if decisions %}{{ decisions.management_form }}{{ decisions.non_form_errors }}{% for decision in decisions %}<fieldset><legend>{{ decision.target_title|default:"Evaluación / Assessment" }}</legend>{{ decision.as_p }}</fieldset>{% endfor %}{% endif %}<button type="submit">{% if english %}Record action{% else %}Registrar acción{% endif %}</button></form>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Back to request{% else %}Volver al expediente{% endif %}</a></p>
+{% endblock %}

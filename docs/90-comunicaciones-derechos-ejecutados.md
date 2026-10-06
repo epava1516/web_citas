@@ -10,18 +10,17 @@ Para perfiles, candidatos de representación, publicaciones y accesos histórico
 
 Cada candidato y cada laguna necesita resultado, motivo y evidencia. El historial de un rol no demuestra divulgación. «Comunicado» exige acuse registrado del destinatario aplicable a esta fuente. La fuente actual no incorpora notificaciones: ese resultado se rechaza. No reutilizar acuses de rectificación como prueba de entrega de otro derecho.
 
-La persona asignada propone; otro operador con permisos vigentes consulta y revisa. La auditoría se registra antes de descifrar la propuesta. Se comprueban la fuente vigente, versiones del expediente/respuestas, canal, integridad, sesión y MFA del autor y del lector. Las claves permiten replay idéntico y rechazan cuerpos distintos. La retirada de permisos se comprueba contra la base de datos, aunque el objeto recibido tenga permisos cacheados.
+La persona asignada consulta primero el inventario con auditoría previa al descifrado; la propuesta exige una consulta de esa misma fuente, ejecución, canal, versiones y sesión/MFA. La pantalla privada reutiliza formularios por destinatario/laguna y no abre contenido en GET. La persona asignada propone; otro operador con permisos vigentes consulta y revisa. La auditoría se registra antes de descifrar la propuesta. Se comprueban la fuente vigente, versiones del expediente/respuestas, canal, integridad, sesión y MFA del autor y del lector. Las claves permiten replay idéntico y rechazan cuerpos distintos. La retirada de permisos se comprueba contra la base de datos, aunque el objeto recibido tenga permisos cacheados.
 
 Una revisión favorable puede confirmar que quedan tareas pendientes; no acredita comunicación completa, no cierra el derecho y no incrementa la versión del expediente. Los registros de evaluación/revisión no son borradores finales: la purga0109 no acredita su conservación jurídica integral.
 
 ## Trabajo todavía necesario
 
-- Consulta auditada del inventario por el autor antes de evaluar y pantallas privadas con CSRF.
 - Notificación interna por destinatario, contenido revisado, autorización y acuse propios de la ejecución; gestionar destinatarios históricos sin canal autorizado.
 - Consumo de la revisión y sus pendientes en el material revisado y la respuesta final, invalidación ante cambios y replay de emisión.
 - Registro de procesadores/destinos externos y demostración de entregas/fallos cuando exista transporte autorizado. No enviar mensajes externos ni contratar proveedores en esta fase.
-- Pruebas de aislamiento entre sujetos, variantes de agencias, concurrencia y recorrido HTTP/móvil antes de aceptar el componente integrado.
+- Pruebas de aislamiento entre sujetos, variantes de agencias, concurrencia y recorrido móvil antes de aceptar el componente integrado.
 
 ## Verificación local
 
-`tests/test_rights_communications.py` ejecuta operaciones de supresión/limitación/oposición reales sobre PostgreSQL con identidades sintéticas. Verifica propuesta/replay, independencia, consulta auditada antes de descifrado, revisión/replay, rechazo de permisos retirados y preservación del expediente abierto. No verifica identidad externa ni entrega de comunicaciones. Los resultados terminales y el alcance exacto se registran en el seguimiento/historial.
+`tests/test_rights_communications.py` ejecuta operaciones de supresión/limitación/oposición reales sobre PostgreSQL con identidades sintéticas. Verifica propuesta/replay, independencia, consulta auditada antes de descifrado, revisión/replay, rechazo de permisos retirados, consulta previa del autor y preservación del expediente abierto. El recorrido HTTP incluye GET sin contenido privado, CSRF, consulta de inventario, propuesta estructurada, consulta independiente y revisión. No verifica identidad externa ni entrega de comunicaciones. Los resultados terminales y el alcance exacto se registran en el seguimiento/historial.

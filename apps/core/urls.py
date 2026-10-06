@@ -46,6 +46,7 @@ from apps.safety import (
     rights_access_response_views,
     rights_access_scope_views,
     rights_access_supplement_views,
+    rights_communication_views,
     rights_copy_information_views,
     rights_exports,
     rights_information_review_views,
@@ -78,6 +79,11 @@ from . import (
 )
 
 urlpatterns = [
+    path(
+        "moderation/rights/<uuid:case_id>/communications/",
+        rights_communication_views.communications,
+        name="rights_communications",
+    ),
     path(
         "rights/<uuid:case_id>/access/close/<int:review_id>/",
         rights_access_close_views.close_response,
