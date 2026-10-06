@@ -183,7 +183,7 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
 
 
 @sensitive_variables()
-def history_records(blob_ids, cutoff):
+def history_records(blob_ids, cutoff, *, case=None, inventory=None):
     import base64
     import hashlib
     import os
@@ -197,11 +197,15 @@ def history_records(blob_ids, cutoff):
     from .redis_retained_history import MAX_BYTES
     from .rights_access_response_draft import checked_body
 
-    path = getattr(settings, "ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE", "")
-    if not path:
+    configured = getattr(settings, "ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE", "")
+    if not configured:
         return {"configured": False, "records": [], "blocked": [], "pending": []}
     try:
-        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+        from .rights_access_delivery import scoped_origin_path
+
+        directory = stat.S_ISDIR(os.lstat(configured).st_mode)
+        path = scoped_origin_path(configured, kind="redis-history", case=case, inventory=inventory)
+        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
         with os.fdopen(fd, "rb") as stream:
             metadata = os.fstat(stream.fileno())
             if (
@@ -214,11 +218,29 @@ def history_records(blob_ids, cutoff):
         if len(encrypted) > 128 * 1024 * 1024:
             raise ValueError
         body = checked_body(encrypted.decode())
+        if not isinstance(body, dict):
+            raise ValueError
+        common = {"schema", "project", "captured_at", "sha256", "content_base64", "partial"}
+        scoped = body.get("schema") == "local-redis-aof-scoped-origin-v1"
+        expected = common | {"request", "inventory", "source_digest", "cutoff"} if scoped else common
         if (
-            set(body) != {"schema", "project", "captured_at", "sha256", "content_base64", "partial"}
-            or body["schema"] != "local-redis-aof-origin-v1"
+            set(body) != expected
+            or body["schema"] not in {"local-redis-aof-origin-v1", "local-redis-aof-scoped-origin-v1"}
             or body["project"] != "web-modelos"
             or body["partial"] is not True
+            or (directory and not scoped)
+        ):
+            raise ValueError
+        if scoped and (
+            case is None
+            or inventory is None
+            or inventory.request_id != case.pk
+            or cutoff != inventory.created_at
+            or body["request"] != str(case.pk)
+            or type(body["inventory"]) is not int
+            or body["inventory"] != inventory.pk
+            or body["source_digest"] != inventory.source_digest
+            or body["cutoff"] != inventory.created_at.isoformat()
         ):
             raise ValueError
         captured = datetime.fromisoformat(body["captured_at"])

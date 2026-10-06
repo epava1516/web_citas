@@ -1,11 +1,15 @@
 import base64
 import hashlib
 import json
+import os
+import subprocess
+import sys
 from datetime import timedelta
 from uuid import uuid4
 
 import pytest
 from django.core.exceptions import ValidationError
+from django.db import connection
 from django.utils import timezone
 from test_redis_retained_history import command
 from test_reports import directory, photo_environment  # noqa: F401
@@ -94,8 +98,9 @@ def test_encrypted_history_reader_binds_source_cutoff_and_preserves_partial(sett
 
 @pytest.mark.django_db(transaction=True)
 @pytest.mark.parametrize("account_only", [False, True])
+@pytest.mark.parametrize("scoped", [False, True])
 def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim_complete(
-    request, settings, monkeypatch, tmp_path, account_only
+    request, settings, monkeypatch, tmp_path, account_only, scoped
 ):
     from types import SimpleNamespace
 
@@ -146,7 +151,35 @@ def test_audited_subject_snapshot_includes_only_profile_history_and_cannot_claim
     path = tmp_path / "history.encrypted"
     path.write_text(seal(body))
     path.chmod(0o600)
-    settings.ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = str(path)
+    if scoped:
+        from scripts.collect_access_resource_logs import scoped_origin_name
+        from scripts.scope_retained_redis_origin import scoped_body
+
+        directory_path = tmp_path / "origins"
+        directory_path.mkdir(mode=0o700)
+        env = os.environ.copy()
+        database = connection.settings_dict
+        env.update(
+            POSTGRES_DB=database["NAME"], POSTGRES_USER=database["USER"],
+            POSTGRES_PASSWORD=database["PASSWORD"], DB_HOST=database["HOST"],
+            DB_PORT=str(database["PORT"]), DJANGO_SECRET_KEY=settings.SECRET_KEY,
+            SAFETY_ENCRYPTION_KEY=settings.SAFETY_ENCRYPTION_KEY,
+        )
+        args = [sys.executable, "-m", "scripts.scope_retained_redis_origin", "--origin", str(path),
+                "--output-directory", str(directory_path), "--request", str(case.pk),
+                "--inventory", str(inventory.pk)]
+        completed = subprocess.run(args, env=env, capture_output=True, timeout=30, check=True)
+        assert json.loads(completed.stdout)["coverage_accepted"] is False
+        path = directory_path / scoped_origin_name("redis-history", case.pk, inventory.pk)
+        original_ciphertext = path.read_bytes()
+        wrong = args.copy()
+        wrong[wrong.index("--request") + 1] = str(uuid4())
+        rejected = subprocess.run(wrong, env=env, capture_output=True, timeout=30)
+        assert rejected.returncode == 2 and path.read_bytes() == original_ciphertext
+        body = scoped_body(body, inventory)
+        settings.ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = str(directory_path)
+    else:
+        settings.ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = str(path)
     settings.CELERY_BROKER_TRANSPORT_OPTIONS = {"global_keyprefix": "fixture:"}
     settings.CELERY_TASK_DEFAULT_QUEUE = "q"
     with transaction.atomic():

@@ -811,7 +811,9 @@ def snapshot(case, person, inventory, *, cutoff, projected):
     blocked.extend(queued["blocked"])
     from .redis_history_scope import history_records
 
-    redis_history = history_records({row["blob"] for row in manifest["media"]}, cutoff)
+    redis_history = history_records(
+        {row["blob"] for row in manifest["media"]}, cutoff, case=case, inventory=inventory
+    )
     blocked.extend(
         {"resource": "redis_history", "reason": reason} for reason in redis_history["blocked"]
     )
