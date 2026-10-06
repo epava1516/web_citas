@@ -326,3 +326,79 @@ def test_revocation_during_observed_product_lock_denies_without_effects(request,
     assert row.product.versions.count() == 1 and row.edit_version == 1
     assert bool(row.published_at) == (operation == "replay")
     assert PromotionCatalogueAudit.objects.count() == original_audits
+
+
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_direct_routes_deny_unprivileged_account_and_get_has_no_effect(request, language):
+    actor, staff = manager(request)
+    row = create_product(
+        actor,
+        actor.mfa_version,
+        actor.session_version,
+        {"slug": "synthetic_private_catalogue", "kind": "top"},
+    )
+    root = f"/{language}/operations/promotion-products/"
+    edit = root + f"{row.product_id}/versions/1/"
+    routes = [root, root + f"{row.product_id}/", edit, edit + "preview/"]
+    before = PromotionCatalogueAudit.objects.count()
+    for route in routes:
+        response = staff.get(route)
+        assert response.status_code == 200
+        assert response["X-Robots-Tag"] == "noindex, nofollow"
+        assert "no-store" in response["Cache-Control"]
+    assert PromotionCatalogueAudit.objects.count() == before
+    actor.user_permissions.clear()
+    for route in routes:
+        for method in [staff.get, staff.post]:
+            response = method(route)
+            assert response.status_code == 403
+            assert b"synthetic_private_catalogue" not in response.content
+    assert PromotionCatalogueAudit.objects.count() == before
+    assert row.product.versions.count() == 1
+
+
+def test_invalid_http_form_returns_error_without_mutating_draft(request):
+    actor, staff = manager(request)
+    root = "/en/operations/promotion-products/"
+    assert staff.post(root, {"slug": "invalid spaces", "kind": "unknown"}).status_code == 400
+    assert not PromotionProduct.objects.exists()
+    row = create_product(
+        actor,
+        actor.mfa_version,
+        actor.session_version,
+        {"slug": "synthetic_invalid_form", "kind": "top"},
+    )
+    edit = root + f"{row.product_id}/versions/1/"
+    assert staff.post(edit, {"edit_version": 1, "duration_days": 0}).status_code == 400
+    assert staff.post(edit + "preview/", {"edit_version": "invalid"}).status_code == 409
+    row.refresh_from_db()
+    assert row.duration_days == 10 and row.edit_version == 1 and row.published_at is None
+    assert PromotionCatalogueAudit.objects.count() == 1
+
+
+def test_concurrent_releases_preserve_one_current_version_and_both_snapshots(request):
+    actor, _ = manager(request)
+    auth = actor, actor.mfa_version, actor.session_version
+    first = create_product(*auth, {"slug": "synthetic_release_race", "kind": "top"})
+    second = create_version(*auth, first.product_id)
+    barrier = Barrier(2)
+
+    def release(number):
+        close_old_connections()
+        try:
+            user = User.objects.get(pk=actor.pk)
+            barrier.wait(timeout=10)
+            return publish_version(
+                user, user.mfa_version, user.session_version, first.product_id, number, 1
+            ).version
+        finally:
+            connections.close_all()
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        futures = [pool.submit(release, row.version) for row in (first, second)]
+        assert sorted(f.result(timeout=20) for f in futures) == [1, 2]
+    rows = first.product.versions.all()
+    assert rows.filter(is_current=True).count() == 1
+    assert rows.filter(published_at__isnull=False).count() == 2
+    assert PromotionCatalogueAudit.objects.filter(operation="publish_version").count() == 2
+    assert all(row.duration_days == 10 and row.amount is None for row in rows)
