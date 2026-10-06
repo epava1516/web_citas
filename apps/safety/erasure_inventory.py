@@ -1092,6 +1092,9 @@ def source_manifest(person, case=None, *, capture=None):
             ),
             ("listings.Favorite", Q(user_id=subject), "account_preferences", ["pk", "created_at"]),
         ]
+    from .promotion_order_inventory import specs as promotion_specs
+
+    scopes.extend(promotion_specs(person=person))
     entries = []
     for label, scope, purpose, fields in scopes:
         model = apps.get_model(label)

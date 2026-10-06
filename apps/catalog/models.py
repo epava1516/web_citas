@@ -88,3 +88,11 @@ from .promotion_models import (  # noqa: E402,F401
     PromotionProduct,
     PromotionProductVersion,
 )
+from .promotion_order_models import (  # noqa: E402,F401
+    PromotionBumpExecution,
+    PromotionEntitlement,
+    PromotionOrder,
+    PromotionOrderAudit,
+    PromotionPaymentAttempt,
+    PromotionPaymentEvent,
+)
