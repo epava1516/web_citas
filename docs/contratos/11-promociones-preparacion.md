@@ -1,10 +1,10 @@
 # CR-10 — Contrato de preparación comercial
 
-Fecha:2026-10-06. Estado: especificación preparada; módulo no implementado ni aceptado. Vinculantes: contrato funcional14 §7 y ejecución16 §4/§13. No cambia el alcance, activa ventas ni acredita proveedor, fiscalidad o condiciones comerciales. La cola y aceptación vigentes están en seguimiento17.
+Fecha:2026-10-06. Estado: catálogo implementado en rama aislada, pruebas de integración pendientes; CR10 no aceptado. Vinculantes: contrato funcional14 §7 y ejecución16 §4/§13. No cambia el alcance, activa ventas ni acredita proveedor, fiscalidad o condiciones comerciales. La cola y aceptación vigentes están en seguimiento17.
 
 ## Entrega independiente inicial: catálogo sin datos de clientes
 
-Preparar primero productos/versiones, administración, validaciones y previsualización ES/EN. Este tramo no necesita pedidos, cuentas de clientes, derechos nuevos ni cambios en permisos/modelos/estados/rutas de CR09. No implementarlo mientras el ensayo actual mantenga congelada la aplicación. Su documentación sí puede prepararse durante la verificación.
+Preparar primero productos/versiones, administración, validaciones y previsualización ES/EN. La metadata del catálogo no necesita pedidos ni cuentas de clientes. Su auditoría identifica al operador y requiere correspondencia con derechos, descrita al final. MOD01 permite preparación en worktree aislado durante el ensayo; la aplicación principal permanece congelada. No integrar ni ejecutar cargas PG/navegador hasta el resultado terminal del ensayo.
 
 | Identificador propuesto | Tipo | Duración inicial | Presentación |
 | --- | --- | ---: | --- |
@@ -49,3 +49,10 @@ Premium/Top se muestran en bloques identificados como patrocinados, siempre desp
 Preparado en rama aislada d772ea0, pendiente de pruebas PG/navegador y aceptación: PromotionCatalogueAudit registra actor, versión de producto, operación, edit_version, fecha y SHA256 del contenido canónico. No conserva nombres/contactos del cliente ni cuerpo libre de solicitud. El evento se inserta en la misma transacción que el cambio; fallo de auditoría debe revertir el cambio. Replay de publicación vigente no añade evento. Los servicios soportados son la vía de escritura; no se acredita protección contra modificaciones directas de DBA.
 
 El actor es dato personal: censo de cuenta y perfil sujeto incluye únicamente sus eventos como dependent_evidence, con revisión requerida y digest sensible a cambios. La configuración del catálogo no concede autoridad sobre otros operadores. Esto introduce dependencia explícita con fuentes de CR09 y exige regresiones de acceso/conservación/aislamiento antes de integrar. No fija automáticamente plazo legal ni borrado; esos mecanismos requieren la decisión de finalidad y conservación ya prevista. Migración catalog0003 sin aplicar; pruebas escritas, no ejecutadas.
+
+
+## Ejecución reproducible de gates pendientes
+
+Rama aislada, scripts/verify_promotion_catalogue.py (1657f1f): ejecutor preparado, no ejecutado. Tras confirmar terminal el benchmark, usar el intérprete .venv del proyecto principal y pasar --env-file con su .env y --output con directorio privado nuevo absoluto de /tmp. El ejecutor exige fuentes confirmadas en Git; crea una base promotion_gate_UUID y la base de tests correspondiente, aplica migraciones reales y ejecuta catálogo/auditoría/móvil junto con regresiones de avisos, dependencias de inventario y ámbito de copia. Captura logs privados, JUnit, commit y SHA256 de artefactos; elimina únicamente las dos bases de su invocación y verifica ausencia. No altera ni borra la base principal. PostgreSQL desechable no significa servicios externos aislados/verificados: worker/Beat no se prueban en esta batería, los fixtures conservan sus adaptadores explícitos.
+
+Gate positivo requiere migration_exit=0, pytest_exit=0, cleanup_verified=true y revisión del JUnit y su alcance; phase_accepted permanece false. Ruff/compilación del ejecutor son comprobaciones estáticas, no evidencia de ejecución, restauración o limpieza real. La migración y las regresiones compartidas deben pasar antes de integrar la rama y verificar Docker.
