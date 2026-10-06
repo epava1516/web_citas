@@ -1,0 +1,79 @@
+{
+  "scope": "Typed historical evidence consumption and access response accounting link; not complete access closure",
+  "integration": {
+    "tests": 6,
+    "seconds": 132.16,
+    "xml": "/tmp/access-response-accounting0105.xml",
+    "database": "PostgreSQL",
+    "coverage_combinations": 4,
+    "legacy_response_cases": 2,
+    "chromium_mobile": "ES coverage/evidence inspection in four coverage combinations"
+  },
+  "authority_regression": {
+    "tests": 1,
+    "deselected": 3,
+    "seconds": 51.71,
+    "xml": "/tmp/access-accounting-authority0105.xml",
+    "cases": [
+      "Reviewer session revoked",
+      "Accounting decision digest altered"
+    ]
+  },
+  "runtime": {
+    "migration": "0105",
+    "health": 200,
+    "uid": 10001,
+    "check": true,
+    "migrate_check": true,
+    "hashes": {
+      "app": {
+        "apps/safety/models.py": "712c65368ded3d20ba5aee1eb6f50d06d1e5a4c3af3319a41c2b825511e963d1",
+        "apps/safety/rights_access_reference_bodies.py": "413de8382a0e0b32b4786939a6b18c1a1b63407f8279ad5cec6192126e02969f",
+        "apps/safety/rights_access_coverage_use.py": "a21eb6199543b42b21e81a9ab49bd281036a8ebf3ac2c3b5e8a836c946e22b47",
+        "apps/safety/rights_access_coverage_review.py": "fc1be0ce4bbcfe4ea17d14a6c56cb438474db6410f382c7bd4ed552ec8cd9f0f",
+        "apps/safety/rights_access_coverage_review_views.py": "2242de9bf76aa134c1f67e4818503e9adb458107f5f88a34950b36e4f242cec4",
+        "apps/safety/rights_access_response_draft.py": "c37315cbe48d4189b1d11fc62f63c28722017bf70c99136bd2378fe7e2e1a77b",
+        "apps/safety/rights_access_response_evidence.py": "62cedb7941cd4358d4bf2654980d52c1e2400c2127fb69a4c99e62cb07d8bee8",
+        "apps/safety/rights_access_response_views.py": "313acabc320210f91f16af6caf71493d8e67f55b6a5eea5ac9edfe4b4e79ddc6",
+        "apps/safety/erasure_inventory.py": "5a73503fced3419a51906704e867d0128b89fd7c6f42b590dfb9f3e0927be3b1",
+        "apps/safety/account_erasure_inventory.py": "de12f24b7d51c3cd26e41832df2c70a8506c8dcb4287b54555b070d595e53461",
+        "apps/safety/migrations/0105_access_response_accounting.py": "1ddfee094be17c09394b70e059819d02be1e4c1fbccb8f68c22d1fb8db9e7cd3",
+        "templates/safety/rights_access_coverage_review.html": "176d4a5a5572a3cd6f1a1900d9a16419c33188e34983cb9c67aa75572450eeb4"
+      },
+      "worker": {
+        "apps/safety/models.py": "712c65368ded3d20ba5aee1eb6f50d06d1e5a4c3af3319a41c2b825511e963d1",
+        "apps/safety/rights_access_reference_bodies.py": "413de8382a0e0b32b4786939a6b18c1a1b63407f8279ad5cec6192126e02969f",
+        "apps/safety/rights_access_coverage_use.py": "a21eb6199543b42b21e81a9ab49bd281036a8ebf3ac2c3b5e8a836c946e22b47",
+        "apps/safety/rights_access_coverage_review.py": "fc1be0ce4bbcfe4ea17d14a6c56cb438474db6410f382c7bd4ed552ec8cd9f0f",
+        "apps/safety/rights_access_coverage_review_views.py": "2242de9bf76aa134c1f67e4818503e9adb458107f5f88a34950b36e4f242cec4",
+        "apps/safety/rights_access_response_draft.py": "c37315cbe48d4189b1d11fc62f63c28722017bf70c99136bd2378fe7e2e1a77b",
+        "apps/safety/rights_access_response_evidence.py": "62cedb7941cd4358d4bf2654980d52c1e2400c2127fb69a4c99e62cb07d8bee8",
+        "apps/safety/rights_access_response_views.py": "313acabc320210f91f16af6caf71493d8e67f55b6a5eea5ac9edfe4b4e79ddc6",
+        "apps/safety/erasure_inventory.py": "5a73503fced3419a51906704e867d0128b89fd7c6f42b590dfb9f3e0927be3b1",
+        "apps/safety/account_erasure_inventory.py": "de12f24b7d51c3cd26e41832df2c70a8506c8dcb4287b54555b070d595e53461",
+        "apps/safety/migrations/0105_access_response_accounting.py": "1ddfee094be17c09394b70e059819d02be1e4c1fbccb8f68c22d1fb8db9e7cd3",
+        "templates/safety/rights_access_coverage_review.html": "176d4a5a5572a3cd6f1a1900d9a16419c33188e34983cb9c67aa75572450eeb4"
+      },
+      "beat": {
+        "apps/safety/models.py": "712c65368ded3d20ba5aee1eb6f50d06d1e5a4c3af3319a41c2b825511e963d1",
+        "apps/safety/rights_access_reference_bodies.py": "413de8382a0e0b32b4786939a6b18c1a1b63407f8279ad5cec6192126e02969f",
+        "apps/safety/rights_access_coverage_use.py": "a21eb6199543b42b21e81a9ab49bd281036a8ebf3ac2c3b5e8a836c946e22b47",
+        "apps/safety/rights_access_coverage_review.py": "fc1be0ce4bbcfe4ea17d14a6c56cb438474db6410f382c7bd4ed552ec8cd9f0f",
+        "apps/safety/rights_access_coverage_review_views.py": "2242de9bf76aa134c1f67e4818503e9adb458107f5f88a34950b36e4f242cec4",
+        "apps/safety/rights_access_response_draft.py": "c37315cbe48d4189b1d11fc62f63c28722017bf70c99136bd2378fe7e2e1a77b",
+        "apps/safety/rights_access_response_evidence.py": "62cedb7941cd4358d4bf2654980d52c1e2400c2127fb69a4c99e62cb07d8bee8",
+        "apps/safety/rights_access_response_views.py": "313acabc320210f91f16af6caf71493d8e67f55b6a5eea5ac9edfe4b4e79ddc6",
+        "apps/safety/erasure_inventory.py": "5a73503fced3419a51906704e867d0128b89fd7c6f42b590dfb9f3e0927be3b1",
+        "apps/safety/account_erasure_inventory.py": "de12f24b7d51c3cd26e41832df2c70a8506c8dcb4287b54555b070d595e53461",
+        "apps/safety/migrations/0105_access_response_accounting.py": "1ddfee094be17c09394b70e059819d02be1e4c1fbccb8f68c22d1fb8db9e7cd3",
+        "templates/safety/rights_access_coverage_review.html": "176d4a5a5572a3cd6f1a1900d9a16419c33188e34983cb9c67aa75572450eeb4"
+      }
+    }
+  },
+  "limits": [
+    "Unprojected scope inventory/decision validation remains incomplete",
+    "No access final response issuance/closure or post-closure downloads",
+    "Legacy drafts without accounting remain partial",
+    "No full CR09, external integration or production acceptance"
+  ]
+}

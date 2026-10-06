@@ -1643,6 +1643,9 @@ class RecoveryMediaJob(models.Model):
 
 
 class RightsAccessResponseDraft(models.Model):
+    coverage_review = models.ForeignKey(
+        "RightsAccessCoverageReview", null=True, on_delete=models.PROTECT
+    )
     action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
     request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
     actor = models.ForeignKey("core.User", on_delete=models.PROTECT)

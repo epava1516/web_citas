@@ -12,6 +12,7 @@ from django.views.decorators.debug import sensitive_post_parameters, sensitive_v
 from django.views.decorators.http import require_http_methods
 
 from .models import (
+    RightsAccessCoverageReview,
     RightsAccessResponseDraft,
     RightsAccessResponseReview,
     RightsAction,
@@ -27,6 +28,11 @@ from .views import private
 
 
 class DraftForm(ResponseForm):
+    coverage_review = forms.ModelChoiceField(
+        queryset=RightsAccessCoverageReview.objects.none(),
+        required=False,
+        label="Contabilidad aprobada / Approved accounting",
+    )
     export = forms.ModelChoiceField(
         queryset=RightsExport.objects.none(),
         label="Copia con información aprobada / Copy with approved information",
@@ -35,6 +41,20 @@ class DraftForm(ResponseForm):
     def __init__(self, *args, case, actor, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields.pop("kind")
+        self.fields["coverage_review"].queryset = (
+            RightsAccessCoverageReview.objects.filter(
+                coverage__request=case,
+                coverage__actor=actor,
+                coverage__case_version=case.version,
+                coverage__response_version=case.response_version,
+                coverage__purged_at__isnull=True,
+                coverage__expires_at__gt=timezone.now(),
+                outcome="approved",
+            )
+            .only("pk")
+            .order_by("-pk")
+        )
+
         self.fields["export"].queryset = (
             RightsExport.objects.filter(
                 action__request=case,
@@ -93,6 +113,9 @@ def prepare_response(request, case_id):
                 values["reason"],
                 values["response"],
                 values["redaction_confirmed"],
+                coverage_review_id=values["coverage_review"].pk
+                if values["coverage_review"]
+                else None,
             )
             form = DraftForm(
                 case=case,

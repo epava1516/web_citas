@@ -30,7 +30,19 @@ def checked_body(ciphertext):
 
 @transaction.atomic
 @sensitive_variables()
-def prepare(user, case_id, version, response_version, export_id, key, reason, text, confirmed):
+def prepare(
+    user,
+    case_id,
+    version,
+    response_version,
+    export_id,
+    key,
+    reason,
+    text,
+    confirmed,
+    *,
+    coverage_review_id=None,
+):
     checked_response_text(reason, text, confirmed)
     session_version, mfa_version = user.session_version, user.mfa_version
     case, person, _ = reviewer_case(user, case_id)
@@ -85,6 +97,33 @@ def prepare(user, case_id, version, response_version, export_id, key, reason, te
             }
         )
     )
+    accounting_review = None
+    if coverage_review_id is not None:
+        from uuid import uuid5
+
+        from .rights_access_coverage_use import consume
+
+        accounting_review, _ = consume(
+            user,
+            case.pk,
+            version,
+            response_version,
+            coverage_review_id,
+            uuid5(key, "access-response-accounting"),
+            "Bind independently approved access accounting to response draft",
+        )
+        if (
+            accounting_review.coverage.export_id != export.pk
+            or accounting_review.coverage.proof_id != proof.pk
+        ):
+            raise ValidationError("Response and accounting must use the exact same delivery")
+    accounting_signature = {}
+    if accounting_review:
+        accounting_signature = {
+            "access_accounting_review": accounting_review.pk,
+            "access_accounting_decision": accounting_review.action.payload_digest,
+            "access_accounting_digest": accounting_review.coverage.accounting_digest,
+        }
     text_digest = fingerprint(canonical({"text": text, "simulation": True}))
     signature = fingerprint(
         canonical(
@@ -102,6 +141,7 @@ def prepare(user, case_id, version, response_version, export_id, key, reason, te
                 "proof": str(proof.pk),
                 "text": text_digest,
                 "reason": reason,
+                **accounting_signature,
             }
         )
     )
@@ -142,6 +182,7 @@ def prepare(user, case_id, version, response_version, export_id, key, reason, te
             actor.pk,
             export.pk,
             binding.review_id,
+            accounting_review.pk if accounting_review else None,
             proof.pk,
             version,
             response_version,
@@ -156,6 +197,7 @@ def prepare(user, case_id, version, response_version, export_id, key, reason, te
             draft.actor_id,
             draft.export_id,
             draft.information_review_id,
+            draft.coverage_review_id,
             draft.proof_id,
             draft.case_version,
             draft.response_version,
@@ -176,6 +218,7 @@ def prepare(user, case_id, version, response_version, export_id, key, reason, te
             actor=actor,
             export=export,
             information_review_id=binding.review_id,
+            coverage_review=accounting_review,
             proof=proof,
             case_version=version,
             response_version=response_version,
@@ -185,7 +228,11 @@ def prepare(user, case_id, version, response_version, export_id, key, reason, te
             binding_digest=binding_digest,
             text_digest=text_digest,
             encrypted_response=seal({"text": text, "simulation": True}),
-            expires_at=min(export.expires_at, proof.expires_at),
+            expires_at=min(
+                export.expires_at,
+                proof.expires_at,
+                accounting_review.coverage.expires_at if accounting_review else export.expires_at,
+            ),
         )
     fresh_authority(actor, case, session_version, mfa_version)
     fresh = User.objects.get(pk=actor.pk)

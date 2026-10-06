@@ -79,6 +79,27 @@ def validate_draft(draft, case, person):
         or draft.expires_at > min(export.expires_at, proof.expires_at)
     ):
         raise ValidationError("Final response preparation references changed")
+    accounting_signature = {}
+    if draft.coverage_review_id:
+        review = draft.coverage_review
+        if (
+            review.coverage.export_id != export.pk
+            or review.coverage.proof_id != proof.pk
+            or review.coverage.actor_id != actor.pk
+            or review.coverage.request_id != case.pk
+            or draft.expires_at > review.coverage.expires_at
+        ):
+            raise ValidationError("Final response accounting references changed")
+        from .rights_access_coverage_use import validate_approval
+        from .rights_exports import reviewer_case
+
+        _, scoped_person, listing = reviewer_case(actor, case.pk)
+        validate_approval(review, case, scoped_person, listing)
+        accounting_signature = {
+            "access_accounting_review": review.pk,
+            "access_accounting_decision": review.action.payload_digest,
+            "access_accounting_digest": review.coverage.accounting_digest,
+        }
     body, reason_body = (
         checked_body(draft.encrypted_response),
         checked_body(draft.action.encrypted_reason),
@@ -109,6 +130,7 @@ def validate_draft(draft, case, person):
                 "proof": str(proof.pk),
                 "text": text_digest,
                 "reason": reason_body["reason"],
+                **accounting_signature,
             }
         )
     )

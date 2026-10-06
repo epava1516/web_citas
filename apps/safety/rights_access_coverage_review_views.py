@@ -96,6 +96,9 @@ def review(request, case_id, coverage_id):
                 "form": form,
                 "decision_form": decision_form,
                 "body": body,
+                "evidence_json": json.dumps(body["evidence_bodies"], ensure_ascii=False, indent=2)
+                if body
+                else None,
                 "original_json": json.dumps(body["original"], ensure_ascii=False, indent=2)
                 if body
                 else None,

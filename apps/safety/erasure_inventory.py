@@ -777,6 +777,7 @@ def source_manifest(person, case=None):
                 "actor_id",
                 "export_id",
                 "information_review_id",
+                "coverage_review_id",
                 "proof_id",
                 "case_version",
                 "response_version",

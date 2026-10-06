@@ -22,8 +22,9 @@ pytestmark = pytest.mark.django_db(transaction=True)
 
 
 @pytest.mark.parametrize("account_only", [False, True])
+@pytest.mark.parametrize("reference_page", [False, True])
 def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
-    request, settings, monkeypatch, account_only, live_server
+    request, settings, monkeypatch, account_only, live_server, reference_page
 ):
     case, author, staff, _, _, _, _, _, decision, _, _ = approved_information(
         request, settings, monkeypatch, account_only
@@ -32,6 +33,10 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
     author.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
     author = User.objects.get(pk=author.pk)
     source = preview(author, case.pk, case.version, reason)
+    if reference_page:
+        from test_rights_copy_compilation import review_all
+
+        review_all(case, author)
     export = generate(
         author, case.pk, uuid4(), case.version, reason, source, information_review_id=decision.pk
     )
@@ -64,6 +69,14 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
         },
     }
     action = decision.action
+    page_evidence = None
+    if reference_page:
+        from apps.safety.models import RightsCopyPageReview
+
+        page_evidence = (
+            RightsCopyPageReview.objects.filter(request=case, actor=author).order_by("pk").first()
+        )
+        action = page_evidence.action
     snapshot = {
         "action": action.pk,
         "request": str(action.request_id),
@@ -227,8 +240,89 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             assert "Synthetic declaration awaiting" not in page.locator("body").inner_text()
         finally:
             browser.close()
+    from apps.safety.rights_access_coverage_use import consume
+
+    use_key = uuid4()
+    import apps.safety.rights_access_reference_bodies as evidence_module
+
+    real_body = evidence_module.checked_body
+
+    def audited_evidence(ciphertext):
+        assert RightsAction.objects.filter(key=use_key, operation="access_cover_use").exists()
+        return real_body(ciphertext)
+
+    monkeypatch.setattr(evidence_module, "checked_body", audited_evidence)
+    used, evidence_body = consume(
+        author, case.pk, case.version, case.response_version, approved.pk, use_key, reason
+    )
+    assert used.pk == approved.pk and evidence_body["evidence_bodies"]
+    assert (
+        consume(author, case.pk, case.version, case.response_version, approved.pk, use_key, reason)[
+            0
+        ].pk
+        == approved.pk
+    )
+    from django.db import transaction
+
+    from apps.safety.rights_access_response_draft import prepare as prepare_response
+    from apps.safety.rights_access_response_evidence import validate_draft
+
+    response_text = "Synthetic reviewed access explanation linked to this private copy and its explicit accounting decisions. Further scope validation remains required."
+    response_key = uuid4()
+    response_draft = prepare_response(
+        author,
+        case.pk,
+        case.version,
+        case.response_version,
+        export.pk,
+        response_key,
+        reason,
+        response_text,
+        True,
+        coverage_review_id=approved.pk,
+    )
+    assert response_draft.coverage_review_id == approved.pk
+    response_path = reverse("rights_access_response_prepare", args=[case.pk])
+    response_page = staff.post(
+        response_path,
+        {
+            "key": response_key,
+            "version": case.version,
+            "response_version": case.response_version,
+            "export": export.pk,
+            "coverage_review": approved.pk,
+            "reason": reason,
+            "response": response_text,
+            "redaction_confirmed": True,
+        },
+    )
+    assert response_page.status_code == 200
+    assert response_text not in response_page.content.decode()
+    with transaction.atomic():
+        assert (
+            validate_draft(response_draft, case, None if account_only else case.person)["text"]
+            == response_text
+        )
+    original_session = verifier.session_version
+    User.objects.filter(pk=verifier.pk).update(session_version=original_session + 1)
+    with pytest.raises(PermissionDenied):
+        consume(author, case.pk, case.version, case.response_version, approved.pk, use_key, reason)
+    User.objects.filter(pk=verifier.pk).update(session_version=original_session)
+    if page_evidence:
+        original_entries = page_evidence.encrypted_entries
+        page_evidence.encrypted_entries = module.seal([{"injected": "Synthetic altered page body"}])
+        page_evidence.save(update_fields=["encrypted_entries"])
+        with pytest.raises(ValidationError):
+            consume(
+                author, case.pk, case.version, case.response_version, approved.pk, use_key, reason
+            )
+        page_evidence.encrypted_entries = original_entries
+        page_evidence.save(update_fields=["encrypted_entries"])
+    monkeypatch.setattr(evidence_module, "checked_body", real_body)
     approved.accounting_digest = "0" * 64
     approved.save(update_fields=["accounting_digest"])
+    with pytest.raises(ValidationError, match="signatures changed"):
+        consume(author, case.pk, case.version, case.response_version, approved.pk, use_key, reason)
     with pytest.raises(ValidationError, match="evidence changed"):
         record(
             verifier,

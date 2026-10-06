@@ -145,7 +145,12 @@ def inspect(user, case_id, version, coverage_id, key, reason):
         raise ValidationError("Access coverage preparation changed")
     authorize_reviewer(user, case)
     _, person, listing = reviewer_case(user, case_id)
-    return row, body | {"original": source_copy(person, listing, case)}, action
+    from .rights_access_reference_bodies import validated_bodies
+
+    original = source_copy(person, listing, case)
+    evidence = validated_bodies(case, row, author, original, body["bound_references"])
+    authorize_reviewer(user, case)
+    return row, body | {"original": original, "evidence_bodies": evidence}, action
 
 
 @transaction.atomic
