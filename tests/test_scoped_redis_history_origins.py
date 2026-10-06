@@ -119,3 +119,11 @@ def test_competing_writers_do_not_overwrite_the_accepted_origin(tmp_path, settin
         outcomes = list(executor.map(lambda _: write(), range(2)))
     assert len([path for path in outcomes if path is not None]) == 1
     assert len(read(settings, case, inventory, {own})["records"]) == 1
+
+
+def test_valid_encryption_with_non_object_json_is_rejected_as_invalid_origin(tmp_path, settings):
+    source, case, inventory, own, _ = origins(tmp_path, settings)
+    path = prepare_origin(source, tmp_path, inventory)
+    path.write_text(seal(["schema", "project", "captured_at", "sha256", "content_base64", "partial"]))
+    with pytest.raises(ValidationError):
+        read(settings, case, inventory, {own})

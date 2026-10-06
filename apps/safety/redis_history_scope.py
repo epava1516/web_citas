@@ -218,6 +218,8 @@ def history_records(blob_ids, cutoff, *, case=None, inventory=None):
         if len(encrypted) > 128 * 1024 * 1024:
             raise ValueError
         body = checked_body(encrypted.decode())
+        if not isinstance(body, dict):
+            raise ValueError
         common = {"schema", "project", "captured_at", "sha256", "content_base64", "partial"}
         scoped = body.get("schema") == "local-redis-aof-scoped-origin-v1"
         expected = common | {"request", "inventory", "source_digest", "cutoff"} if scoped else common
