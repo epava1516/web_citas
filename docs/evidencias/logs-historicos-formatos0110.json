@@ -1,0 +1,3393 @@
+{
+  "schema": "historical-log-structure-diagnosis-v1",
+  "source_commit": "ce9b6ce74ee3ad9011e5264e7dfa7fed596c0acb",
+  "observed_at": "2026-10-06T23:33:57.888835+00:00",
+  "sources": 23,
+  "origins": [
+    {
+      "ciphertext_sha256": "aa3274784be3f9907d363d92cb62d041f9cda9b2ae374c6083e6ef77bbbfaf1e",
+      "captured_at": "2026-10-06T17:14:07.788411+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 6,
+          "bytes": 329,
+          "classes": {
+            "unstructured_or_unrecognized": 6
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 329
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 1638,
+          "bytes": 322613,
+          "classes": {
+            "unstructured_or_unrecognized": 1638
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 322613
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 818,
+          "bytes": 152184,
+          "classes": {
+            "unstructured_or_unrecognized": 818
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 152184
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4661,
+          "bytes": 968950,
+          "classes": {
+            "unstructured_or_unrecognized": 4661
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 968950
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4091,
+          "bytes": 420438,
+          "classes": {
+            "unstructured_or_unrecognized": 4091
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 420438
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "fac768e758ed1023a8453f7f5271bf0e0e746bdc2ffa61b2ed5b368c3980f078",
+      "captured_at": "2026-10-06T17:46:29.487993+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 6,
+          "bytes": 329,
+          "classes": {
+            "unstructured_or_unrecognized": 6
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 329
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 574,
+          "bytes": 112809,
+          "classes": {
+            "unstructured_or_unrecognized": 574
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 112809
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 286,
+          "bytes": 53148,
+          "classes": {
+            "unstructured_or_unrecognized": 286
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 53148
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4689,
+          "bytes": 974080,
+          "classes": {
+            "unstructured_or_unrecognized": 4689
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 974080
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4121,
+          "bytes": 423516,
+          "classes": {
+            "unstructured_or_unrecognized": 4121
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 423516
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "2ab78da7baac5c7a6aabb9eb417dad9c5bfbfba49f86149268f65be028f220d5",
+      "captured_at": "2026-10-06T21:35:55.308401+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 6,
+          "bytes": 329,
+          "classes": {
+            "unstructured_or_unrecognized": 6
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 329
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 39,
+          "bytes": 2939,
+          "classes": {
+            "unstructured_or_unrecognized": 37,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2875,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 612,
+          "bytes": 120318,
+          "classes": {
+            "unstructured_or_unrecognized": 612
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 120318
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 305,
+          "bytes": 56685,
+          "classes": {
+            "unstructured_or_unrecognized": 305
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 56685
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4945,
+          "bytes": 1028475,
+          "classes": {
+            "unstructured_or_unrecognized": 4945
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 1028475
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4351,
+          "bytes": 447114,
+          "classes": {
+            "unstructured_or_unrecognized": 4351
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 447114
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "ff017815bb3defe83117560108260d91e56ba12b0ab1ad09bca8a2c9535f97e9",
+      "captured_at": "2026-10-06T22:47:02.497098+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 638,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 638
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 39,
+          "bytes": 2939,
+          "classes": {
+            "unstructured_or_unrecognized": 37,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2875,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 802,
+          "bytes": 157746,
+          "classes": {
+            "unstructured_or_unrecognized": 802
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 157746
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 400,
+          "bytes": 74370,
+          "classes": {
+            "unstructured_or_unrecognized": 400
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 74370
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4987,
+          "bytes": 1037062,
+          "classes": {
+            "unstructured_or_unrecognized": 4987
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 1037062
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4431,
+          "bytes": 455595,
+          "classes": {
+            "unstructured_or_unrecognized": 4431
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 455595
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "db4a2573dceb31d635aaedc58b62cc8cf88ab8f5bc4ce9ada2a4a5aad95e4469",
+      "captured_at": "2026-10-06T22:25:19.025123+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 638,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 638
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 39,
+          "bytes": 2939,
+          "classes": {
+            "unstructured_or_unrecognized": 37,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2875,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 1106,
+          "bytes": 217704,
+          "classes": {
+            "unstructured_or_unrecognized": 1106
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 217704
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 552,
+          "bytes": 102666,
+          "classes": {
+            "unstructured_or_unrecognized": 552
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 102666
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4973,
+          "bytes": 1034047,
+          "classes": {
+            "unstructured_or_unrecognized": 4973
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 1034047
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4401,
+          "bytes": 452244,
+          "classes": {
+            "unstructured_or_unrecognized": 4401
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 452244
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "4deb0b748b1237997cc28e87965e36eae5031d8ff7f43bd19f2ed9b6ed27d609",
+      "captured_at": "2026-10-06T23:04:27.291376+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 638,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 638
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 39,
+          "bytes": 2939,
+          "classes": {
+            "unstructured_or_unrecognized": 37,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2875,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 650,
+          "bytes": 127763,
+          "classes": {
+            "unstructured_or_unrecognized": 650
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 127763
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 324,
+          "bytes": 60222,
+          "classes": {
+            "unstructured_or_unrecognized": 324
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 60222
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4997,
+          "bytes": 1039210,
+          "classes": {
+            "unstructured_or_unrecognized": 4997
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 1039210
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4451,
+          "bytes": 457647,
+          "classes": {
+            "unstructured_or_unrecognized": 4451
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 457647
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "e5490c2de71e3f0dac7fe1c2e1e64b79e4d5828433d70e46c9fea0ce9a581c2e",
+      "captured_at": "2026-10-06T21:55:29.104746+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 638,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 638
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 39,
+          "bytes": 2939,
+          "classes": {
+            "unstructured_or_unrecognized": 37,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2875,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 422,
+          "bytes": 82833,
+          "classes": {
+            "unstructured_or_unrecognized": 422
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 82833
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 210,
+          "bytes": 39000,
+          "classes": {
+            "unstructured_or_unrecognized": 210
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 39000
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4967,
+          "bytes": 1032754,
+          "classes": {
+            "unstructured_or_unrecognized": 4967
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 1032754
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4371,
+          "bytes": 449166,
+          "classes": {
+            "unstructured_or_unrecognized": 4371
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 449166
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "8291f411eaa5e13a4e7a524aefc56ad2a2f448ef50ad7d65151e22d67397f2af",
+      "captured_at": "2026-10-06T11:51:22.580205+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 2,
+          "bytes": 110,
+          "classes": {
+            "unstructured_or_unrecognized": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 110
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 1714,
+          "bytes": 337605,
+          "classes": {
+            "unstructured_or_unrecognized": 1714
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 337605
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 856,
+          "bytes": 159258,
+          "classes": {
+            "unstructured_or_unrecognized": 856
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 159258
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 19,
+          "bytes": 3018,
+          "classes": {
+            "json_object_without_subject_protocol": 19
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3018
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4439,
+          "bytes": 924078,
+          "classes": {
+            "unstructured_or_unrecognized": 4439
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 924078
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 3761,
+          "bytes": 386306,
+          "classes": {
+            "unstructured_or_unrecognized": 3761
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 386306
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "d424f322d4aa8efa4022b9958c1dc3e4a9cd4c7da765cf25d4b02292b6d87cc0",
+      "captured_at": "2026-10-06T12:42:36.669186+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 270,
+          "bytes": 52844,
+          "classes": {
+            "unstructured_or_unrecognized": 270
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 52844
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 134,
+          "bytes": 24852,
+          "classes": {
+            "unstructured_or_unrecognized": 134
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 24852
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 19,
+          "bytes": 3018,
+          "classes": {
+            "json_object_without_subject_protocol": 19
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3018
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4473,
+          "bytes": 931440,
+          "classes": {
+            "unstructured_or_unrecognized": 4473
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 931440
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 3811,
+          "bytes": 391436,
+          "classes": {
+            "unstructured_or_unrecognized": 3811
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 391436
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "1e1855b59db503238585676d1e8dc898b9ac9131050dfec53095ecdefc5feeb3",
+      "captured_at": "2026-10-06T12:34:39.512797+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 2,
+          "bytes": 110,
+          "classes": {
+            "unstructured_or_unrecognized": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 110
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 840,
+          "bytes": 165255,
+          "classes": {
+            "unstructured_or_unrecognized": 840
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 165255
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 419,
+          "bytes": 77907,
+          "classes": {
+            "unstructured_or_unrecognized": 419
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 77907
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 19,
+          "bytes": 3018,
+          "classes": {
+            "json_object_without_subject_protocol": 19
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3018
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4465,
+          "bytes": 929693,
+          "classes": {
+            "unstructured_or_unrecognized": 4465
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 929693
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 3801,
+          "bytes": 390410,
+          "classes": {
+            "unstructured_or_unrecognized": 3801
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 390410
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "6e4f4abbd007c8fe39413559c510f5c828c62d8de07d88eb18da803aa8f153e6",
+      "captured_at": "2026-10-06T19:53:27.826672+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 6,
+          "bytes": 329,
+          "classes": {
+            "unstructured_or_unrecognized": 6
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 329
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 4412,
+          "bytes": 869609,
+          "classes": {
+            "unstructured_or_unrecognized": 4412
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 869609
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 2205,
+          "bytes": 410385,
+          "classes": {
+            "unstructured_or_unrecognized": 2205
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 410385
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4759,
+          "bytes": 988894,
+          "classes": {
+            "unstructured_or_unrecognized": 4759
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 988894
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4251,
+          "bytes": 436854,
+          "classes": {
+            "unstructured_or_unrecognized": 4251
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 436854
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "abc5379990e404d31eca843a01b9082630e62c1566013c253812ed6bfe1d6208",
+      "captured_at": "2026-10-06T12:12:03.455948+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 2,
+          "bytes": 110,
+          "classes": {
+            "unstructured_or_unrecognized": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 110
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 764,
+          "bytes": 150271,
+          "classes": {
+            "unstructured_or_unrecognized": 764
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 150271
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 381,
+          "bytes": 70833,
+          "classes": {
+            "unstructured_or_unrecognized": 381
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 70833
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 19,
+          "bytes": 3018,
+          "classes": {
+            "json_object_without_subject_protocol": 19
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3018
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4451,
+          "bytes": 926687,
+          "classes": {
+            "unstructured_or_unrecognized": 4451
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 926687
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 3781,
+          "bytes": 388358,
+          "classes": {
+            "unstructured_or_unrecognized": 3781
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 388358
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "63b0c4a5a89fc6c87c4ce13bcb94fe0136b745d0ba0078a3471b4af516f276c6",
+      "captured_at": "2026-10-06T20:14:47.684718+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 6,
+          "bytes": 329,
+          "classes": {
+            "unstructured_or_unrecognized": 6
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 329
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 802,
+          "bytes": 157778,
+          "classes": {
+            "unstructured_or_unrecognized": 802
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 157778
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 400,
+          "bytes": 74370,
+          "classes": {
+            "unstructured_or_unrecognized": 400
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 74370
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4799,
+          "bytes": 995810,
+          "classes": {
+            "unstructured_or_unrecognized": 4799
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 995810
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4271,
+          "bytes": 438906,
+          "classes": {
+            "unstructured_or_unrecognized": 4271
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 438906
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "18bf5f13fb4cb7d51a0f07fb0b6884c5e2d9fe9bf968e90b5816b438ad66e6a9",
+      "captured_at": "2026-10-06T21:19:21.041057+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 39,
+          "bytes": 2939,
+          "classes": {
+            "unstructured_or_unrecognized": 37,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2875,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 4,
+          "bytes": 411,
+          "classes": {
+            "unstructured_or_unrecognized": 4
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 411
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 1,
+          "bytes": 93,
+          "classes": {
+            "unstructured_or_unrecognized": 1
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 93
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4929,
+          "bytes": 1024998,
+          "classes": {
+            "unstructured_or_unrecognized": 4929
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 1024998
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4336,
+          "bytes": 445575,
+          "classes": {
+            "unstructured_or_unrecognized": 4336
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 445575
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "e6b31ecf04cb9eb95ff67bf1f950a5118a23eed325e01d588142cb3985270805",
+      "captured_at": "2026-10-06T11:01:49.035896+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 2,
+          "bytes": 110,
+          "classes": {
+            "unstructured_or_unrecognized": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 110
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 2132,
+          "bytes": 420039,
+          "classes": {
+            "unstructured_or_unrecognized": 2132
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 420039
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 1065,
+          "bytes": 198165,
+          "classes": {
+            "unstructured_or_unrecognized": 1065
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 198165
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 19,
+          "bytes": 3018,
+          "classes": {
+            "json_object_without_subject_protocol": 19
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3018
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4415,
+          "bytes": 918853,
+          "classes": {
+            "unstructured_or_unrecognized": 4415
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 918853
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 3711,
+          "bytes": 381176,
+          "classes": {
+            "unstructured_or_unrecognized": 3711
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 381176
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "77dd1bd4937ea405b31115dc7c9e2fb7c662a67ccc609f21a5f7d942f15049e6",
+      "captured_at": "2026-10-06T16:29:56.380083+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 6,
+          "bytes": 329,
+          "classes": {
+            "unstructured_or_unrecognized": 6
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 329
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 688,
+          "bytes": 135275,
+          "classes": {
+            "unstructured_or_unrecognized": 688
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 135275
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 343,
+          "bytes": 63759,
+          "classes": {
+            "unstructured_or_unrecognized": 343
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 63759
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4647,
+          "bytes": 965981,
+          "classes": {
+            "unstructured_or_unrecognized": 4647
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 965981
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4036,
+          "bytes": 414521,
+          "classes": {
+            "unstructured_or_unrecognized": 4036
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 414521
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "a61f79a76e2676690ee4186f3fba3303646e80ac06256001f35902741453a5aa",
+      "captured_at": "2026-10-06T15:47:09.406186+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 4,
+          "bytes": 212,
+          "classes": {
+            "unstructured_or_unrecognized": 4
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 212
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 536,
+          "bytes": 105321,
+          "classes": {
+            "unstructured_or_unrecognized": 536
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 105321
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 267,
+          "bytes": 49611,
+          "classes": {
+            "unstructured_or_unrecognized": 267
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 49611
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4635,
+          "bytes": 963413,
+          "classes": {
+            "unstructured_or_unrecognized": 4635
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 963413
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 3996,
+          "bytes": 410417,
+          "classes": {
+            "unstructured_or_unrecognized": 3996
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 410417
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "b3e4352cf8931b09f47f3baf2b957b2735d12788c1dd5f7fa3f202625a809712",
+      "captured_at": "2026-10-06T15:32:26.510126+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 2,
+          "bytes": 110,
+          "classes": {
+            "unstructured_or_unrecognized": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 110
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 764,
+          "bytes": 150286,
+          "classes": {
+            "unstructured_or_unrecognized": 764
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 150286
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 381,
+          "bytes": 70833,
+          "classes": {
+            "unstructured_or_unrecognized": 381
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 70833
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4623,
+          "bytes": 960825,
+          "classes": {
+            "unstructured_or_unrecognized": 4623
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 960825
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 3981,
+          "bytes": 408878,
+          "classes": {
+            "unstructured_or_unrecognized": 3981
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 408878
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "2f74f53e14025cdeaa2355cfbb200407339b2f555f8a23e4ad211b06edac6d44",
+      "captured_at": "2026-10-06T21:43:56.789416+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 6,
+          "bytes": 329,
+          "classes": {
+            "unstructured_or_unrecognized": 6
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 329
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 39,
+          "bytes": 2939,
+          "classes": {
+            "unstructured_or_unrecognized": 37,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2875,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 270,
+          "bytes": 52865,
+          "classes": {
+            "unstructured_or_unrecognized": 270
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 52865
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 134,
+          "bytes": 24852,
+          "classes": {
+            "unstructured_or_unrecognized": 134
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 24852
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4951,
+          "bytes": 1029771,
+          "classes": {
+            "unstructured_or_unrecognized": 4951
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 1029771
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4361,
+          "bytes": 448140,
+          "classes": {
+            "unstructured_or_unrecognized": 4361
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 448140
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "09015b24a38499c32392b3f33b47f0297c0e361a4cefaa6ac0d253495ab71653",
+      "captured_at": "2026-10-06T16:11:33.408984+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 4,
+          "bytes": 212,
+          "classes": {
+            "unstructured_or_unrecognized": 4
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 212
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 916,
+          "bytes": 180212,
+          "classes": {
+            "unstructured_or_unrecognized": 916
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 180212
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 457,
+          "bytes": 84981,
+          "classes": {
+            "unstructured_or_unrecognized": 457
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 84981
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4641,
+          "bytes": 964704,
+          "classes": {
+            "unstructured_or_unrecognized": 4641
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 964704
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4021,
+          "bytes": 412982,
+          "classes": {
+            "unstructured_or_unrecognized": 4021
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 412982
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "88a4bcdb370806920a4ecb12f0ca2447e421da11848770ff7f4afb279a73c69a",
+      "captured_at": "2026-10-06T17:56:53.604237+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 6,
+          "bytes": 329,
+          "classes": {
+            "unstructured_or_unrecognized": 6
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 329
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 384,
+          "bytes": 75334,
+          "classes": {
+            "unstructured_or_unrecognized": 384
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 75334
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 191,
+          "bytes": 35463,
+          "classes": {
+            "unstructured_or_unrecognized": 191
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 35463
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4695,
+          "bytes": 975375,
+          "classes": {
+            "unstructured_or_unrecognized": 4695
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 975375
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4136,
+          "bytes": 425055,
+          "classes": {
+            "unstructured_or_unrecognized": 4136
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 425055
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "3898a0d616a64d440e95d0aaae7b40153caff34f310b2890f321ea16f2577829",
+      "captured_at": "2026-10-06T17:30:28.004228+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 6,
+          "bytes": 329,
+          "classes": {
+            "unstructured_or_unrecognized": 6
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 329
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 38,
+          "bytes": 2869,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2805,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 612,
+          "bytes": 120282,
+          "classes": {
+            "unstructured_or_unrecognized": 612
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 120282
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 305,
+          "bytes": 56685,
+          "classes": {
+            "unstructured_or_unrecognized": 305
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 56685
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 4678,
+          "bytes": 971749,
+          "classes": {
+            "unstructured_or_unrecognized": 4678
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 971749
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4106,
+          "bytes": 421977,
+          "classes": {
+            "unstructured_or_unrecognized": 4106
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 421977
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "4c52fa4c09385b0e43d0ac89faccef011e2a17ec10e98ff45630bbd5266a8189",
+      "captured_at": "2026-10-06T23:28:12.150905+00:00",
+      "streams": [
+        {
+          "service": "app",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 638,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 638
+          }
+        },
+        {
+          "service": "app",
+          "stream": "stderr",
+          "lines": 5,
+          "bytes": 486,
+          "classes": {
+            "unstructured_or_unrecognized": 5
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 486
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stdout",
+          "lines": 39,
+          "bytes": 2939,
+          "classes": {
+            "unstructured_or_unrecognized": 37,
+            "empty_payload": 2
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 2875,
+            "empty_payload": 64
+          }
+        },
+        {
+          "service": "worker",
+          "stream": "stderr",
+          "lines": 878,
+          "bytes": 172748,
+          "classes": {
+            "unstructured_or_unrecognized": 878
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 172748
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stdout",
+          "lines": 10,
+          "bytes": 677,
+          "classes": {
+            "unstructured_or_unrecognized": 10
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 677
+          }
+        },
+        {
+          "service": "beat",
+          "stream": "stderr",
+          "lines": 438,
+          "bytes": 81444,
+          "classes": {
+            "unstructured_or_unrecognized": 438
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 81444
+          }
+        },
+        {
+          "service": "caddy",
+          "stream": "stdout",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        },
+        {
+          "service": "caddy",
+          "stream": "stderr",
+          "lines": 21,
+          "bytes": 3298,
+          "classes": {
+            "json_object_without_subject_protocol": 21
+          },
+          "class_bytes": {
+            "json_object_without_subject_protocol": 3298
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stdout",
+          "lines": 48,
+          "bytes": 3823,
+          "classes": {
+            "unstructured_or_unrecognized": 36,
+            "empty_payload": 12
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 3439,
+            "empty_payload": 384
+          }
+        },
+        {
+          "service": "db",
+          "stream": "stderr",
+          "lines": 5019,
+          "bytes": 1043977,
+          "classes": {
+            "unstructured_or_unrecognized": 5019
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 1043977
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stdout",
+          "lines": 4476,
+          "bytes": 460212,
+          "classes": {
+            "unstructured_or_unrecognized": 4476
+          },
+          "class_bytes": {
+            "unstructured_or_unrecognized": 460212
+          }
+        },
+        {
+          "service": "redis",
+          "stream": "stderr",
+          "lines": 0,
+          "bytes": 0,
+          "classes": {},
+          "class_bytes": {}
+        }
+      ]
+    }
+  ],
+  "classes": {
+    "unstructured_or_unrecognized": 238684,
+    "empty_payload": 322,
+    "json_object_without_subject_protocol": 473
+  },
+  "class_bytes": {
+    "unstructured_or_unrecognized": 38885482,
+    "empty_payload": 10304,
+    "json_object_without_subject_protocol": 74454
+  },
+  "console_mime": {},
+  "lines": 239479,
+  "stream_bytes": 38970240,
+  "observed_seconds": 3.543498106300831,
+  "sources_preserved": true,
+  "plaintext_files_written": false,
+  "subject_association_verified": false,
+  "partial": true,
+  "phase_accepted": false,
+  "method_sha256": "099eb512e82d405988b832edd2b0121d9cdf0628b5b99e4fa5f7278335d5775e",
+  "pending": [
+    "structured_format_does_not_accredit_subject_or_disclosure",
+    "unstructured_or_unknown_content_association_and_accounting",
+    "other_host_mail_cache_backup_sources",
+    "retention_authority_and_independent_custody"
+  ],
+  "reproduction": {
+    "command": [
+      "env",
+      "PYTHONPATH=.",
+      ".venv/bin/python",
+      "/tmp/cr09-historical-log-formats0110.py"
+    ],
+    "method_source": "import hashlib,json,os,subprocess,time\nfrom collections import Counter\nfrom datetime import UTC,datetime\nfrom email import policy\nfrom email.parser import Parser\nfrom pathlib import Path\nfrom django.utils.crypto import constant_time_compare\nstarted=time.perf_counter()\nmetadata=json.loads(subprocess.check_output(['docker','inspect','web-modelos-app-1'],text=True))[0]\nfor entry in metadata['Config']['Env']:\n key,_,value=entry.partition('=')\n if key in {'DJANGO_SECRET_KEY','SAFETY_ENCRYPTION_KEY'}:os.environ[key]=value\nos.environ.setdefault('DJANGO_SETTINGS_MODULE','config.settings')\nimport django\ndjango.setup()\nfrom apps.safety.retained_log_origins import checked_capture\nfrom scripts.collect_access_resource_logs import subject_log_signature\nfrom scripts.inventory_retained_origins import inspect_origin\nfrom scripts.scope_retained_redis_origin import read_origin\nexpected={'schema','subject_kind','subject_id','operation','outcome','created_at','signature'}\noperations={'media_processing_started','media_processing_completed','media_processing_failed','profile_viewed','profile_updated','contact_verified','rights_record_read','rights_response_issued'}\nheaders={'content-type','mime-version','content-transfer-encoding','subject','from','to','date','message-id'}\nsources=[]\nfor evidence in ['logs-historicos-inventario0110.json','logs-historicos-nueva-captura0110.json']:\n sources.extend(json.loads((Path('docs/evidencias')/evidence).read_text())['origins'])\nresults=[];total=Counter();total_bytes=Counter();mime_stats=Counter()\nfor source in sources:\n before=inspect_origin(source['path'])\n if before['sha256']!=source['sha256']:raise ValueError('Changed ciphertext')\n body=read_origin(source['path']);checked_capture(body,datetime.now(UTC));streams=[]\n for record in body['records']:\n  for stream in ['stdout','stderr']:\n   lines=record[stream].splitlines(keepends=True);classes=[];raws=[]\n   for line in lines:\n    category='unstructured_or_unrecognized';raw=None;timestamp=None\n    try:\n     timestamp,raw=line.rstrip('\\r\\n').split(' ',1);timestamp=datetime.fromisoformat(timestamp)\n     if timestamp.tzinfo is None:raise ValueError('Naive line timestamp')\n     if timestamp>datetime.fromisoformat(body['captured_at']):\n      category='line_after_capture_pending'\n     elif not raw:\n      category='empty_payload'\n     else:\n      try:event=json.loads(raw)\n      except (ValueError,TypeError):event=None\n      if isinstance(event,dict):\n       category='json_object_without_subject_protocol'\n       if event.get('schema')=='subject-operation-v1':\n        category='subject_protocol_invalid_or_unverifiable'\n        try:\n         event_time=datetime.fromisoformat(event['created_at'])\n         if (set(event)==expected and all(isinstance(event[k],str) for k in expected)\n             and event['subject_kind'] in {'account','person','photo_blob'} and event['subject_id']\n             and event['operation'] in operations and event['outcome'] in {'succeeded','failed','denied','pending'}\n             and event_time.tzinfo is not None and event_time<=timestamp\n             and constant_time_compare(event['signature'],subject_log_signature(event))):\n          category='signed_subject_protocol_association_unreviewed'\n        except (ValueError,TypeError,KeyError):pass\n    except (ValueError,TypeError):category='timestamp_unrecognized_pending'\n    classes.append(category);raws.append(raw)\n   block=[];size=0\n   for index,raw in enumerate(raws):\n    if raw is None:\n     if block:mime_stats['interrupted_blocks']+=1\n     block=[];size=0;continue\n    if raw.startswith('Content-Type:'):\n     if block:mime_stats['superseded_blocks']+=1\n     block=[];size=0\n    if raw=='-'*79 and block:\n     message=Parser(policy=policy.default).parsestr('\\n'.join(raws[i] for i in block))\n     names=[name.lower() for name in message.keys()]\n     valid=(not message.defects and not message.is_multipart() and set(names)==headers and len(names)==len(headers)\n            and message.get_content_type()=='text/plain' and message.get_content_charset()=='utf-8'\n            and not any(getattr(value,'defects',()) for value in message.values()))\n     category='complete_console_mime_association_unreviewed' if valid else 'console_mime_unsupported_pending'\n     for i in block+[index]:classes[i]=category\n     mime_stats['complete_supported_blocks' if valid else 'closed_unsupported_blocks']+=1\n     block=[];size=0\n    elif block or raw.startswith('Content-Type:'):\n     size+=len(raw.encode())\n     if size<=262144:block.append(index)\n     else:\n      mime_stats['oversized_blocks']+=1\n      for i in block+[index]:classes[i]='console_mime_oversized_pending'\n      block=[];size=0\n   if block:\n    mime_stats['unterminated_blocks']+=1\n    for i in block:classes[i]='console_mime_unterminated_pending'\n   counts=Counter(classes);byte_counts=Counter()\n   for line,category in zip(lines,classes,strict=True):byte_counts[category]+=len(line.encode())\n   if sum(byte_counts.values())!=len(record[stream].encode()):raise ValueError('Byte accounting mismatch')\n   total.update(counts);total_bytes.update(byte_counts)\n   streams.append({'service':record['service'],'stream':stream,'lines':len(lines),'bytes':sum(byte_counts.values()),'classes':dict(counts),'class_bytes':dict(byte_counts)})\n if inspect_origin(source['path'])!=before:raise ValueError('Source changed during classification')\n results.append({'ciphertext_sha256':source['sha256'],'captured_at':body['captured_at'],'streams':streams})\nresult={'schema':'historical-log-structure-diagnosis-v1','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'observed_at':datetime.now(UTC).isoformat(),'sources':len(results),'origins':results,'classes':dict(total),'class_bytes':dict(total_bytes),'console_mime':dict(mime_stats),'lines':sum(total.values()),'stream_bytes':sum(total_bytes.values()),'observed_seconds':time.perf_counter()-started,'sources_preserved':True,'plaintext_files_written':False,'subject_association_verified':False,'partial':True,'phase_accepted':False,'method_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'pending':['structured_format_does_not_accredit_subject_or_disclosure','unstructured_or_unknown_content_association_and_accounting','other_host_mail_cache_backup_sources','retention_authority_and_independent_custody'],'reproduction':{'command':['env','PYTHONPATH=.','.venv/bin/python',str(Path(__file__))],'method_source':Path(__file__).read_text()}}\nPath('docs/evidencias/logs-historicos-formatos0110.json').write_text(json.dumps(result,indent=2)+'\\n')\nprint(json.dumps({k:result[k] for k in ['sources','classes','console_mime','lines','stream_bytes','observed_seconds','partial']}))\n"
+  }
+}

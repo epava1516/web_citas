@@ -2814,3 +2814,6 @@ Todas las sesiones citadas arriba son terminales; cierre y cola vigentes únicam
 
 
 Comparación finita de23 capturas tras cierre4c63e35: sesión27345 terminal exit0,239479 observaciones/43575 unión máxima de bytes por contenedor-stream,3,993s, sin fuentes alteradas ni plaintext. Evidencia logs-historicos-solapamientos0110.json; no eventos deduplicados ni asociación/retención acreditada. Cola en17.
+
+
+Diagnóstico estructural de23 capturas: sesión59927 terminal exit0,239479 líneas/38970240bytes/3,543s, sin firmado subject-operation ni MIME soportado; no procedencia de sujeto acreditada ni adaptador ausente demostrado. Evidencia logs-historicos-formatos0110.json; limitación precisa y siguiente requisito local en seguimiento17.
