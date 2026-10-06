@@ -1,6 +1,6 @@
 # CR-10 — Contrato de preparación comercial
 
-Fecha:2026-10-06. Estado: catálogo completo integrado y verificado localmente en df88067; CR10 comercial no aceptado. Evidencias/cola vigentes en seguimiento17. Vinculantes: contrato funcional14 §7 y ejecución16 §4/§13. No cambia el alcance, activa ventas ni acredita proveedor, fiscalidad o condiciones comerciales. La cola y aceptación vigentes están en seguimiento17.
+Fecha:2026-10-06. Estado: catálogo y entrega comercial completa integrados/verificados localmente en8388bef; fase CR10 no aceptada por dependencias abiertas. Evidencias/cola vigentes en seguimiento17. Vinculantes: contrato funcional14 §7 y ejecución16 §4/§13. No cambia el alcance, activa ventas ni acredita proveedor, fiscalidad o condiciones comerciales. La cola y aceptación vigentes están en seguimiento17.
 
 ## Entrega independiente inicial: catálogo sin datos de clientes
 
@@ -123,3 +123,7 @@ Derecho activo requiere intervalo/estado/no suspensión, gestión original vigen
 ## Barrido persistente de autosubida preparado
 
 Fuente4ab1baa: PromotionEntitlement.last_checked_at permite ordenar no comprobados primero y después por última comprobación/PK. Cada candidato bloqueado obtiene nueva marca incluso cuando no puede exponerse; así los siguientes lotes pueden avanzar. No se actualiza last_bumped_at si no se concede autosubida. Marca incluida en censo dependent_evidence y migración0005; no cambio de plazo legal ni borrado. Lote100 y ventana/cupo originales; comprobar más de100 candidatos, posterior revalidación, concurrencia y operación real antes de aceptar. La evidencia de invocación síncrona de tarea no acredita broker, worker ni Beat.
+
+## Cierre local de la entrega comercial completa
+
+Integración25423c1/runtime8388bef; [N2 común](../evidencias/promociones-comercial-n2-final0110.json)81 PG/Chromium correctas, [Docker](../evidencias/promociones-comercial-runtime0110.json)105 hashes/3 servicios y migraciones0004/0005 correctos. Worker/Beat aislados reales y restauración comercial correctos. Los apartados preparados de arriba describen sus cortes históricos; esta sección y seguimiento17 prevalecen para estado actual. Criterios técnicos1–7 verificados localmente dentro de v1 sintética; no identidad/proveedor/retención legal externa, producción ni fase formal CR10. Modo comercial sintético y schedule deshabilitados por defecto y en runtime normal; ningún cobro real. Reabrir solo por requisito/riesgo/defecto concreto, conservando pendientes de contrato sin inventar políticas comerciales.

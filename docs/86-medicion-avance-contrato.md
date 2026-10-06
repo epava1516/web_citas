@@ -1,6 +1,6 @@
 # Medición del avance del contrato
 
-Estado vigente: revisión ponderada v3 al final, basada en entregas hasta `38140e9`. v1/v2 se conservan como cortes históricos; pesos y denominador no cambian.
+Estado vigente: revisión ponderada v9, por entrega comercial completa integrada/verificada; seguimiento17 mantiene la cola y el runtime actuales. v1/v2 se conservan como cortes históricos; pesos y denominador no cambian.
 
 ## Corrección del seguimiento
 
@@ -139,3 +139,11 @@ DeltaCR09=5×5/100=0,25; **CR0971,75% avanzado/28,25% pendiente; contrato60,7625
 Pesos y grados intactos salvo rendimiento40→45 por recorrido nativo PG completo sobre1500 revisiones: cobertura original auditada, aprobación/revisión/cierre/replay y descargas JSON/WebP/ZIP correctas. [Evidencia](evidencias/portabilidad-recorrido-grande-cerrado0110.json). El historial está mayoritariamente excluido de entrega y la imagen es pequeña; no se acredita transporte seleccionado>8MiB/binarios grandes, proveedor/legal ni capacidad o throughput objetivo.5338,103s evidencian coste alto, cuya optimización sigue pendiente.45 es juicio de alcance verificado, no porcentaje de velocidad/pruebas.
 
 DeltaCR09=5×5/100=0,25; CR09 **72,00% avanzado/28,00% pendiente**, contrato **60,80% avanzado/39,20% pendiente**. [Cálculo v8](evidencias/avance-ponderado-v8.json). Aceptación integral0, conservación50/recursos60 y fases posteriores sin cambios.
+
+## Revisión ponderada v9 — entrega comercial completa local
+
+Peso CR10 sigue5%; su grado estimado pasa0→90 por catálogo/productos-versiones, pedidos/snapshots/eventos sintéticos/derechos, UI ES/EN/móvil/agencias, patrocinio/autosubida/cupos/autoridad/rollback/censo/restauración integrados. N281 PG/Chromium comunes correctos, worker/Beat reales aislados y Docker105 hashes/3 servicios correctos; fuentes equivalentes salvo orden de imports de migración comprobado por AST. Evidencias en seguimiento17 y [cálculo v9](evidencias/avance-ponderado-v9.json).
+
+Se reserva10% del grado CR10 por aceptación formal y dependencias abiertas de contrato, incluida CR09; no contar ese hito como aceptado ni iniciar GS01/BF/BB. Es juicio de ingeniería por alcance, no porcentaje medido de tiempo. Cobros reales siguen fuera de v1, modo sintético deshabilitado normalmente, tarifas/fiscalidad/condiciones definitivas pendientes antes de ventas; proveedor/legal/identidad real no se acreditan.
+
+CR09 conserva72,00% (28,00% pendiente); contrato65,30% (34,70% pendiente). La entrega añade4,50 puntos del contrato; pesos/denominadores y los demás grados intactos. No créditos por cantidad de pruebas, commits, velocidad o cierres parciales anteriores.
