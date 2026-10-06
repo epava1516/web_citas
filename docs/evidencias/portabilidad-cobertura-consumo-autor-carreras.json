@@ -1,0 +1,25 @@
+{
+  "scope": "Account approved coverage use; author permission/session/MFA revoked while two distinct PostgreSQL callers wait on observed case lock",
+  "session_id": 21071,
+  "exit_code": 0,
+  "tests": 3,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "deselected": 32,
+  "duration_seconds": 61.73,
+  "xml_sha256": "0dee31b2f5a611c6b497972af3195e958f0687f09017092c8ff6087fdfbdf559",
+  "checks": [
+    "pg_blocking_pids observed before each mutation",
+    "Both callers denied",
+    "No new action or replacement read",
+    "Existing approval and case state preserved"
+  ],
+  "simulation": "Synthetic verification/data; PostgreSQL concurrency real",
+  "remaining": [
+    "Profile and binary authority races",
+    "Export bound to coverage",
+    "Final response/closure",
+    "Runtime and common regression"
+  ]
+}

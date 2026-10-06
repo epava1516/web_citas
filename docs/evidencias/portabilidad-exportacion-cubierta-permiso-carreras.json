@@ -1,0 +1,31 @@
+{
+  "scope": "Covered export reviewer permission revoked during observed PostgreSQL case wait; generation/download profile/account",
+  "session_id": 93397,
+  "exit_code": 0,
+  "tests": 4,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "deselected": 28,
+  "duration_seconds": 97.25,
+  "xml_sha256": "1fcd0181979352b5e442f6a7d3bb21381db844e177cfecc90a0e97e62c3a2abc",
+  "previous_run": {
+    "session_id": 76104,
+    "passed": 30,
+    "failed": 2,
+    "duration_seconds": 565.68,
+    "reason": "Download denied403 instead of contractual404"
+  },
+  "fix": "PermissionDenied during download evidence validation converted to Http404 inside transaction",
+  "checks": [
+    "Both download callers return404",
+    "No download acknowledgement survives",
+    "Generation callers denied without new actions/export",
+    "Case state and deadline preserved"
+  ],
+  "remaining": [
+    "Joint0094 regression48910 running",
+    "Final Docker update",
+    "Final response/closure"
+  ]
+}

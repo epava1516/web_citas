@@ -1,0 +1,35 @@
+{
+  "scope": "Account coverage consumption races; two real PostgreSQL worker connections blocked by observed holder; synthetic identity and data",
+  "session_id": 93183,
+  "exit_code": 0,
+  "tests": 8,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "deselected": 24,
+  "duration_seconds": 130.96,
+  "xml_sha256": "92a7412bd9a326e123ef2ecffbb7899a12f68f69542af93769635064ee9e84df",
+  "changes": [
+    "replay",
+    "reviewer permission",
+    "proof",
+    "reviewer session",
+    "reviewer MFA",
+    "source",
+    "coverage ciphertext",
+    "coverage expiry"
+  ],
+  "checks": [
+    "Distinct three connection PIDs",
+    "pg_blocking_pids observed before mutation",
+    "Identical replay one use and one child action",
+    "Denials rollback new actions and preserve original approval/reads",
+    "Case version/status unchanged"
+  ],
+  "remaining": [
+    "Author revocations currently21071",
+    "Profile/binary races",
+    "Final delivery and closure",
+    "Common regression/runtime"
+  ]
+}

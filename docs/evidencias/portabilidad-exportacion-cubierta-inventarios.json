@@ -1,0 +1,33 @@
+{
+  "scope": "Covered export nonempty profile/account erasure inventories and six binding corruption cases per subject",
+  "session_id": 47086,
+  "exit_code": 0,
+  "tests": 2,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "deselected": 2,
+  "duration_seconds": 96.61,
+  "xml_sha256": "a60ed778799ce7a322b2ab12d531c7ba84c0123ad1e3c75c32c0a4a351a4375d",
+  "fields": [
+    "coverage_review_id",
+    "coverage_use_id",
+    "coverage_digest",
+    "coverage_ciphertext_digest",
+    "coverage_decision_digest",
+    "coverage_reads_digest"
+  ],
+  "checks": [
+    "Binding count one in each inventory",
+    "No private facts/ciphertext in manifest",
+    "Each field mutation changes state_digest",
+    "Each field mutation denies download404 without new download record",
+    "Restoring fields restores inventory digest and download"
+  ],
+  "remaining": [
+    "Binary89692 running",
+    "Races/runtime/common regression",
+    "Final response and closure",
+    "Backup restoration"
+  ]
+}

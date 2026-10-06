@@ -1,0 +1,26 @@
+{
+  "scope": "Private covered export HTTP creation/replay and receipt download, profile/account synthetic data",
+  "session_id": 19709,
+  "exit_code": 0,
+  "tests": 2,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "deselected": 2,
+  "duration_seconds": 86.58,
+  "xml_sha256": "f320c00a5c83af67648f1d2f9d7694d295ac71d756db973c4922e68b6672a1ec",
+  "checks": [
+    "GET metadata only without new audit and no-store",
+    "POST creates covered export and exact replay succeeds",
+    "CSRF and anonymous entry denied",
+    "Receipt download checks binding and tamper returns404",
+    "Final response stays pending; deadline unchanged"
+  ],
+  "remaining": [
+    "Browser11353 running",
+    "Included binary coverage",
+    "Nonempty extended inventories",
+    "Races/runtime/joint regression",
+    "Final response/closure"
+  ]
+}

@@ -777,3 +777,9 @@ POST `operation=save`: key UUID, token, include opcional, reason20–2000 y camp
 
 
 Cobertura de portabilidad (integración en curso): preparaciónprivada de campos e imágenes omitidas mediante rutas rights_portability_coverage y rights_portability_image_coverage; GET sin recuperar valores/evidencias, POSTauditado/token30min/CSRF y borradorescifradosversionados. Decisiónindependiente exige lecturasexactas de todaspáginas(filas50hojas/binarios20,incluyevacíos), actorindependiente, prueba/fuente/épocasvigentes y compilaestricto para aprobar. Lecturasoriginales quedan ligadas a decisión y replay, aunque aparezcan nuevas. Los servicios de lectura/revisión todavía carecen de interfaz; respuesta final/runtime0091–93/aceptación integral pendientes. Evidencias en docs81 y seguimiento17.
+
+## Entrega de portabilidad cubierta0094
+
+El formulario de entrega añade coverage_review opcional: ID de RightsPortabilityCoverageReview aprobada del autor y expediente actuales, validada de nuevo por el servicio. Sin cobertura se conserva la copia parcial. Con ella, generación consume auditadamente su aprobación y lecturas originales y exige coincidencia de selección. Payload covered-portability-v1, partial=False, simulation=True y pending_review=[final_response]; cobertura cuantitativa sin fundamentos privados. No implica respuesta final ni resolución del expediente.
+
+POST idéntico conserva exportación y no duplica acciones; retirar/cambiar cobertura de un replay da409. GET no descifra contenido ni crea lectura y responde no-store. Descarga privada valida el vínculo firmado de cobertura/consumo y reconstruye las páginas originales; permiso revocado o evidencia dañada da404 y revierte el nuevo acuse. CSRF obligatorio. Interfaces perfil/cuenta HTTP y Chromium móvil ES/EN probadas por partes; aceptación conjunta0094 en ejecución48910, sin resultado final todavía.

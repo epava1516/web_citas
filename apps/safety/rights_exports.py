@@ -878,7 +878,13 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
                 else 'attachment; filename="rights-profile.json"'
             )
             return private(response)
-        except (InvalidToken, UnicodeDecodeError, json.JSONDecodeError, ValidationError):
+        except (
+            InvalidToken,
+            UnicodeDecodeError,
+            json.JSONDecodeError,
+            ValidationError,
+            PermissionDenied,
+        ):
             raise Http404 from None
 
 

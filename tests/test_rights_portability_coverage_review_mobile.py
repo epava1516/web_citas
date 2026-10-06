@@ -13,7 +13,7 @@ from test_rights_portability_export_races import prepared_selection
 
 from apps.core.models import User
 from apps.safety.crypto import unseal
-from apps.safety.models import RightsPortabilityCoverageReview
+from apps.safety.models import RightsExport, RightsPortabilityCoverageReview
 from apps.safety.rights_copy_inspection import SECTIONS
 from apps.safety.rights_exports import reviewer_case, source_copy
 from apps.safety.rights_portability_catalog import scalar_fields
@@ -87,6 +87,12 @@ def test_mobile_independent_coverage_approval(
     session["mfa_version"] = reviewer.mfa_version
     session.save()
     cookie = client.cookies[django_settings.SESSION_COOKIE_NAME].value
+    author_client = Client()
+    author_client.force_login(author)
+    author_session = author_client.session
+    author_session["mfa_version"] = author.mfa_version
+    author_session.save()
+    author_cookie = author_client.cookies[django_settings.SESSION_COOKIE_NAME].value
     pages = required_pages(source)
     english = language == "en"
     inspect_url = live_server.url + f"/{language}/moderation/rights/{case.pk}/"
@@ -167,9 +173,57 @@ def test_mobile_independent_coverage_approval(
             assert "PRIVATE_MOBILE_INDEPENDENT_COVERAGE_FACTS" not in page.content()
             assert page.locator("article").count() == 0
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            # Continue as author in a distinct authenticated browser context.
+            author_context = browser.new_context(viewport={"width": 390, "height": 844})
+            author_context.add_cookies(
+                [
+                    {
+                        "name": django_settings.SESSION_COOKIE_NAME,
+                        "value": author_cookie,
+                        "url": live_server.url,
+                    }
+                ]
+            )
+            delivery_page = author_context.new_page()
+            delivery_page.goto(inspect_url + "portability/export/")
+            expect(
+                delivery_page.get_by_role(
+                    "heading",
+                    name="Deliver approved portable fields"
+                    if english
+                    else "Entregar campos de portabilidad aprobados",
+                    exact=True,
+                )
+            ).to_be_visible()
+            assert "PRIVATE_MOBILE_INDEPENDENT_COVERAGE_FACTS" not in delivery_page.content()
+            delivery_page.locator("[name=review]").select_option(str(selected_review.pk))
+            delivery_page.locator("[name=coverage_review]").select_option(
+                label=f"{coverage.pk} · {coverage.version}"
+            )
+            delivery_page.locator("[name=reason]").fill(
+                "Deliver complete approved synthetic coverage through mobile UI"
+            )
+            delivery_page.get_by_role(
+                "button",
+                name="Create approved private copy" if english else "Crear copia privada aprobada",
+                exact=True,
+            ).click()
+            expect(delivery_page.get_by_role("status")).to_contain_text(
+                "Private copy created" if english else "Copia privada creada"
+            )
+            assert "PRIVATE_MOBILE_INDEPENDENT_COVERAGE_FACTS" not in delivery_page.content()
+            assert delivery_page.evaluate(
+                "document.documentElement.scrollWidth <= window.innerWidth"
+            )
         finally:
             browser.close()
     decision = RightsPortabilityCoverageReview.objects.get(coverage=coverage)
     assert decision.outcome == "approved" and len(decision.read_ids) == len(pages)
+    export = RightsExport.objects.get(action__request=case)
+    assert export.portability_binding.coverage_review_id == decision.pk
+    payload = unseal(export.encrypted_payload)
+    assert payload["export_schema"] == "covered-portability-v1" and payload["partial"] is False
+    assert payload["pending_review"] == ["final_response"] and payload["simulation"] is True
     case.refresh_from_db()
-    assert (case.version, case.status, case.initial_due_at) == original
+    assert case.version == original[0] + 1
+    assert (case.status, case.initial_due_at) == original[1:]

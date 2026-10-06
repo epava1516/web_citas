@@ -1,0 +1,43 @@
+{
+  "scope": "Partial regression of portability, private delivery and selected inventories; not whole repository or CR09 acceptance",
+  "session_id": 48910,
+  "exit_code": 1,
+  "tests": 343,
+  "passed": 339,
+  "failed": 4,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 3117.51,
+  "xml_sha256": "99e9d3e14b4ea63452894c982cb0d1d152d96368a84f3cd3b913a0c90d28d5ef",
+  "log_sha256": "e7a9f7e395c821534e6d827a2b3a175cc687f6f3df48052591c586ce2801250d",
+  "failures": [
+    "test_use_approved_coverage_revalidates_original_records_and_authority[service-profile]",
+    "test_use_approved_coverage_revalidates_original_records_and_authority[service-account]",
+    "test_use_approved_coverage_revalidates_original_records_and_authority[http-profile]",
+    "test_use_approved_coverage_revalidates_original_records_and_authority[http-account]"
+  ],
+  "cause": "Test loop overwrote binary parametrization with final required page mode; nonbinary variants incorrectly demanded an image snapshot",
+  "correction": "Rename loop variable to binary_page; only tests/test_rights_portability_coverage_use.py differs from frozen647 manifest",
+  "affected_verification": {
+    "session_id": 51876,
+    "exit_code": 0,
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 249.55,
+    "xml_sha256": "3643b3240f50ac85684726bca1f4e59d766131c9520fd06adcd8ff5c2cbcc483",
+    "scope": "Six variants on corrected test; separate from original343-case regression, not a single green suite"
+  },
+  "acceptance_limit": "Application source unchanged since original regression; corrected test verified separately. Whole repository and CR09 not accepted.",
+  "complementary_verification": {
+    "session_id": 1151,
+    "exit_code": 0,
+    "tests": 12,
+    "passed": 12,
+    "seconds": 58.85,
+    "xml_sha256": "3e746a319720bbe53b5d1a5d808a0b0f39bb6c10e828533a06580795fc12b48a",
+    "scope": "Reconstruction and profile erasure inventory, separate execution"
+  }
+}

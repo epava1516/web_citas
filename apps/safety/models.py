@@ -1299,6 +1299,19 @@ class RightsExportPortabilityBinding(models.Model):
         RightsExport, on_delete=models.PROTECT, related_name="portability_binding"
     )
     review = models.ForeignKey("RightsPortabilitySelectionReview", on_delete=models.PROTECT)
+    coverage_review = models.ForeignKey(
+        "RightsPortabilityCoverageReview", on_delete=models.PROTECT, null=True
+    )
+    coverage_use = models.ForeignKey(
+        RightsAction,
+        on_delete=models.PROTECT,
+        null=True,
+        related_name="covered_portability_exports",
+    )
+    coverage_digest = models.CharField(max_length=64, default="")
+    coverage_ciphertext_digest = models.CharField(max_length=64, default="")
+    coverage_decision_digest = models.CharField(max_length=64, default="")
+    coverage_reads_digest = models.CharField(max_length=64, default="")
     source_digest = models.CharField(max_length=64)
     selection_digest = models.CharField(max_length=64)
     ciphertext_digest = models.CharField(max_length=64)

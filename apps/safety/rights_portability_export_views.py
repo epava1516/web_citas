@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
 
-from .models import RightsPortabilitySelectionReview, RightsRequest
+from .models import RightsPortabilityCoverageReview, RightsPortabilitySelectionReview, RightsRequest
 from .rights import allowed
 from .rights_copy_page_review import fresh_authority
 from .rights_portability_export import generate
@@ -23,12 +23,23 @@ class ApprovedSelection(forms.ModelChoiceField):
         return f"{obj.selection_id} · {obj.selection.version}"
 
 
+class ApprovedCoverage(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return f"{obj.coverage_id} · {obj.coverage.version}"
+
+
 class ExportForm(forms.Form):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     review = ApprovedSelection(
         queryset=RightsPortabilitySelectionReview.objects.none(),
         label="Selección aprobada / Approved selection",
+    )
+    coverage_review = ApprovedCoverage(
+        queryset=RightsPortabilityCoverageReview.objects.none(),
+        required=False,
+        label="Cobertura aprobada / Approved coverage",
+        help_text="Selecciona la cobertura para una entrega completa; sin ella se crea una copia parcial. / Select coverage for a complete delivery; otherwise the copy is partial.",
     )
     reason = forms.CharField(
         min_length=20,
@@ -49,6 +60,18 @@ class ExportForm(forms.Form):
             )
             .select_related("selection")
             .only("pk", "selection_id", "selection__version")
+            .order_by("-pk")
+        )
+        self.fields["coverage_review"].queryset = (
+            RightsPortabilityCoverageReview.objects.filter(
+                coverage__request=case,
+                coverage__actor=actor,
+                outcome="approved",
+                coverage__purged_at__isnull=True,
+                coverage__expires_at__gt=timezone.now(),
+            )
+            .select_related("coverage")
+            .only("pk", "coverage_id", "coverage__version")
             .order_by("-pk")
         )
 
@@ -90,6 +113,9 @@ def prepare(request, case_id):
                 values["review"].pk,
                 values["key"],
                 values["reason"],
+                coverage_review_id=values["coverage_review"].pk
+                if values["coverage_review"]
+                else None,
             )
             case.refresh_from_db()
             form = ExportForm(

@@ -29,14 +29,29 @@ from apps.safety.rights_portability_coverage_inspection import inspect_page
 from apps.safety.rights_portability_coverage_read_gate import required_pages
 from apps.safety.rights_portability_coverage_review import record as review_coverage
 from apps.safety.rights_portability_coverage_store import save_coverage
+from apps.safety.rights_portability_coverage_use import consume_approved_coverage
 from apps.safety.rights_portability_selection import row_reference
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-@pytest.mark.parametrize("operation", ["inspect", "review", "approve"])
 @pytest.mark.parametrize(
-    "change", ["replay", "permission", "proof", "session", "mfa", "source", "ciphertext", "expiry"]
+    ("operation", "change"),
+    [
+        (operation, change)
+        for operation in ["inspect", "review", "approve", "use"]
+        for change in [
+            "replay",
+            "permission",
+            "proof",
+            "session",
+            "mfa",
+            "source",
+            "ciphertext",
+            "expiry",
+        ]
+    ]
+    + [("use", change) for change in ["author_permission", "author_session", "author_mfa"]],
 )
 def test_independent_coverage_read_rechecks_after_observed_wait(
     request, settings, monkeypatch, change, operation
@@ -46,7 +61,7 @@ def test_independent_coverage_read_rechecks_after_observed_wait(
     )
     reason = "Inspect synthetic coverage during observed PostgreSQL wait"
     omissions = {name: {} for name in SECTIONS}
-    if operation == "approve":
+    if operation in {"approve", "use"}:
         with transaction.atomic():
             locked, person, listing = reviewer_case(author, case.pk)
             source = source_copy(person, listing, locked)
@@ -87,7 +102,7 @@ def test_independent_coverage_read_rechecks_after_observed_wait(
         allow_partial=True,
     )
     reviewer = User.objects.get(pk=decision.action.actor_id)
-    if operation in {"review", "approve"}:
+    if operation in {"review", "approve", "use"}:
         with transaction.atomic():
             locked, person, listing = reviewer_case(reviewer, case.pk)
             source = source_copy(person, listing, locked)
@@ -104,6 +119,11 @@ def test_independent_coverage_read_rechecks_after_observed_wait(
                 page,
                 binary=binary,
             )
+    approval = (
+        review_coverage(reviewer, case.pk, case.version, row.pk, uuid4(), reason, "approved")
+        if operation == "use"
+        else None
+    )
     reads_before = RightsPortabilityCoverageRead.objects.filter(coverage=row).count()
     key, pids = uuid4(), Queue()
     baseline = RightsAction.objects.filter(request=case).count()
@@ -111,11 +131,15 @@ def test_independent_coverage_read_rechecks_after_observed_wait(
     def attempt():
         connections.close_all()
         try:
-            actor = User.objects.get(pk=reviewer.pk)
+            actor = User.objects.get(pk=author.pk if operation == "use" else reviewer.pk)
             with connection.cursor() as cursor:
                 cursor.execute("SELECT pg_backend_pid()")
                 pids.put(cursor.fetchone()[0])
             try:
+                if operation == "use":
+                    return consume_approved_coverage(
+                        actor, case.pk, case.version, approval.pk, key, reason
+                    )[0].pk
                 if operation in {"review", "approve"}:
                     return review_coverage(
                         actor,
@@ -147,7 +171,12 @@ def test_independent_coverage_read_rechecks_after_observed_wait(
             for pid in workers:
                 observe_blocked(pid, holder)
             assert not any(future.done() for future in futures)
-            if change == "permission":
+            if change == "author_permission":
+                author.user_permissions.clear()
+            elif change in {"author_session", "author_mfa"}:
+                field = "session_version" if change == "author_session" else "mfa_version"
+                User.objects.filter(pk=author.pk).update(**{field: getattr(author, field) + 1})
+            elif change == "permission":
                 reviewer.user_permissions.clear()
             elif change == "proof":
                 case.proofs.update(status="failed")
@@ -173,14 +202,16 @@ def test_independent_coverage_read_rechecks_after_observed_wait(
             coverage=row
         ).count() == reads_before + (operation == "inspect")
         assert RightsAction.objects.filter(request=case).count() == baseline + (
-            2 if operation == "inspect" else 1
+            2 if operation in {"inspect", "use"} else 1
         )
         if operation in {"review", "approve"}:
             assert RightsPortabilityCoverageReview.objects.filter(coverage=row).count() == 1
     else:
         assert results == [None, None]
         assert RightsPortabilityCoverageRead.objects.filter(coverage=row).count() == reads_before
-        assert not RightsPortabilityCoverageReview.objects.filter(coverage=row).exists()
+        assert RightsPortabilityCoverageReview.objects.filter(coverage=row).count() == (
+            1 if operation == "use" else 0
+        )
         assert RightsAction.objects.filter(request=case).count() == baseline
     case.refresh_from_db()
     assert case.version == row.action.expected_version and case.status == "reviewing"

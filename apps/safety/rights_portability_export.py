@@ -26,7 +26,18 @@ from .rights_portability_selection_review import validate_approved_selection
 from .rights_portability_selection_store import validate_selection_evidence
 
 
-def payload_for(projected):
+def payload_for(projected, coverage=None):
+    if coverage is not None:
+        from .rights_portability_covered_export import coverage_summary
+
+        return {
+            **projected,
+            "export_schema": "covered-portability-v1",
+            "partial": False,
+            "simulation": True,
+            "pending_review": ["final_response"],
+            "coverage": coverage_summary(coverage),
+        }
     return {
         **projected,
         "partial": True,
@@ -46,7 +57,7 @@ def stored_reason(action):
     return reason
 
 
-def signature(binding, version, reason, payload):
+def legacy_signature(binding, version, reason, payload):
     return fingerprint(
         canonical(
             {
@@ -62,6 +73,26 @@ def signature(binding, version, reason, payload):
                 "projection": fingerprint(canonical(payload)),
                 "session": binding.original_session_version,
                 "mfa": binding.original_mfa_version,
+            }
+        )
+    )
+
+
+def signature(binding, version, reason, payload):
+    original = legacy_signature(binding, version, reason, payload)
+    if binding.coverage_review_id is None:
+        return original
+    return fingerprint(
+        canonical(
+            {
+                "schema": "covered-portability-v1",
+                "original": original,
+                "review": binding.coverage_review_id,
+                "use": binding.coverage_use_id,
+                "coverage": binding.coverage_digest,
+                "ciphertext": binding.coverage_ciphertext_digest,
+                "decision": binding.coverage_decision_digest,
+                "reads": binding.coverage_reads_digest,
             }
         )
     )
@@ -267,10 +298,14 @@ def validate_export_binding(case, person, export):
     )
     validate_approved_selection(decision, row, original, export.proof)
     selected = validate_selection_evidence(row, review, original)
+    from .rights_portability_covered_export import validate_binding
+
+    coverage = validate_binding(binding, original, export.proof, source)
     payload = payload_for(
         project_selected(
             source, assessment, selected["selection"], field_evidence=selected.get("field_evidence")
-        )
+        ),
+        coverage,
     )
     payload.update(image_payload(export, selected.get("images", []), person))
     reason = stored_reason(export.action)
@@ -281,7 +316,9 @@ def validate_export_binding(case, person, export):
 
 @transaction.atomic
 @sensitive_variables()
-def generate(user, case_id, version, selection_id, review_id, key, reason):
+def generate(
+    user, case_id, version, selection_id, review_id, key, reason, *, coverage_review_id=None
+):
     if not isinstance(reason, str) or not 20 <= len(reason.strip()) <= 200:
         raise ValidationError("Portability export reason required")
     case, person, listing = reviewer_case(user, case_id)
@@ -305,6 +342,7 @@ def generate(user, case_id, version, selection_id, review_id, key, reason):
             or previous.operation != "portability_export"
             or binding.review_id != review_id
             or binding.review.selection_id != selection_id
+            or binding.coverage_review_id != coverage_review_id
             or binding.original_session_version != user.session_version
             or binding.original_mfa_version != user.mfa_version
         ):
@@ -316,6 +354,21 @@ def generate(user, case_id, version, selection_id, review_id, key, reason):
         if stored_reason(previous) != reason:
             raise ValidationError("Conflicting portability export reason")
         return export
+    coverage_decision, coverage = None, None
+    coverage_key = uuid5(key, "approved-portability-coverage-use")
+    if coverage_review_id is not None:
+        from .rights_portability_coverage_use import consume_approved_coverage
+
+        coverage_decision, coverage = consume_approved_coverage(
+            user,
+            case.pk,
+            version,
+            coverage_review_id,
+            coverage_key,
+            "Validate full approved coverage before portability export",
+        )
+        if coverage_decision.coverage.selection_review_id != review_id:
+            raise ValidationError("Coverage selection approval changed")
     row, projected = consume_selected(
         user,
         case_id,
@@ -325,7 +378,7 @@ def generate(user, case_id, version, selection_id, review_id, key, reason):
         uuid5(key, "approved-portability-selection-use"),
         reason,
     )
-    payload = payload_for(projected)
+    payload = payload_for(projected, coverage)
     image_decisions = unseal(row.encrypted_selection).get("images", [])
     action = RightsAction.objects.create(
         key=key,
@@ -346,7 +399,9 @@ def generate(user, case_id, version, selection_id, review_id, key, reason):
         subject_snapshot=str(person.subject_id or "") if person else str(case.account_subject_id),
         channel_digest=case.receipt_digest,
         encrypted_payload="",
-        expires_at=row.expires_at,
+        expires_at=min(row.expires_at, coverage_decision.coverage.expires_at)
+        if coverage_decision
+        else row.expires_at,
     )
     from .models import RightsPortabilitySelectionReview
     from .rights_data_parts import stored_payload
@@ -391,6 +446,25 @@ def generate(user, case_id, version, selection_id, review_id, key, reason):
         original_session_version=user.session_version,
         original_mfa_version=user.mfa_version,
     )
+    if coverage_decision is not None:
+        binding.coverage_review = coverage_decision
+        binding.coverage_use = RightsAction.objects.get(key=coverage_key)
+        binding.coverage_digest = coverage_decision.coverage.coverage_digest
+        binding.coverage_ciphertext_digest = fingerprint(
+            coverage_decision.coverage.encrypted_coverage
+        )
+        binding.coverage_decision_digest = coverage_decision.action.payload_digest
+        binding.coverage_reads_digest = fingerprint(canonical(coverage_decision.read_ids))
+        binding.save(
+            update_fields=[
+                "coverage_review",
+                "coverage_use",
+                "coverage_digest",
+                "coverage_ciphertext_digest",
+                "coverage_decision_digest",
+                "coverage_reads_digest",
+            ]
+        )
     action.payload_digest = signature(binding, version, reason, payload)
     action.save(update_fields=["payload_digest"])
     case.version += 1

@@ -1,6 +1,5 @@
 """Independent audited coverage pages, including omitted values; no approval."""
 
-from itertools import islice
 from uuid import uuid5
 
 from cryptography.fernet import InvalidToken
@@ -15,11 +14,10 @@ from .models import RightsAction, RightsPortabilityCoverage, RightsPortabilityCo
 from .rights import fingerprint
 from .rights_copy_inspection import SECTIONS
 from .rights_exports import canonical, reviewer_case, source_copy
-from .rights_portability_catalog import FIELD_PAGE_SIZE, scalar_fields
 from .rights_portability_coverage import compile_coverage
+from .rights_portability_coverage_page import coverage_page
 from .rights_portability_coverage_pages import baseline_body
 from .rights_portability_review import authorize
-from .rights_portability_selection import row_reference
 from .rights_portability_selection_review import record, validate_approved_selection
 from .rights_verification import authorized_proof
 
@@ -147,81 +145,15 @@ def inspect_page(
         field_evidence=facts.get("field_evidence"),
         allow_partial=True,
     )
-    if binary:
-        rows = [image for revision in source["revisions"] for image in revision["images"]]
-        start = (field_page - 1) * 20
-        fields = [dict(item) for item in rows[start : start + 20]]
-        if field_page > 1 and not fields:
-            raise ValidationError("Coverage binary page unavailable")
-        included = {item["photo"]: item["conditions"] for item in facts.get("images", [])}
-        for item in fields:
-            if assessment["revisions"]["status"] == "excluded":
-                item.update(status="excluded", conditions=assessment["revisions"])
-            elif item["photo"] in included:
-                item.update(status="included", conditions=included[item["photo"]])
-            else:
-                conditions = body["image_omissions"].get(item["photo"])
-                item.update(status="excluded" if conditions else "pending", conditions=conditions)
-        reference, more = None, start + 20 < len(rows)
-    else:
-        rows = SECTIONS[dataset](source)
-        if not rows:
-            if row_index or field_page != 1:
-                raise ValidationError("Coverage inspection page unavailable")
-            fields, reference, more = [], None, False
-        else:
-            if row_index >= len(rows):
-                raise ValidationError("Coverage inspection row unavailable")
-            row = rows[row_index]
-            reference = row_reference(dataset, row_index, row)
-            start = (field_page - 1) * FIELD_PAGE_SIZE
-            fields = list(islice(scalar_fields(row), start, start + FIELD_PAGE_SIZE + 1))
-            if field_page > 1 and not fields:
-                raise ValidationError("Coverage inspection page unavailable")
-            more, fields = len(fields) > FIELD_PAGE_SIZE, fields[:FIELD_PAGE_SIZE]
-            selected = next(
-                (
-                    set(item["fields"])
-                    for item in facts["selection"].get(dataset, [])
-                    if item["row"] == reference
-                ),
-                set(),
-            )
-            omitted = body["omissions"][dataset].get(reference, {})
-            for item in fields:
-                if assessment[dataset]["status"] == "excluded":
-                    item.update(status="excluded", conditions=assessment[dataset])
-                elif item["path"] in selected:
-                    item.update(
-                        status="included",
-                        conditions=facts.get("field_evidence", {})
-                        .get(dataset, {})
-                        .get(reference, {})
-                        .get(item["path"], assessment[dataset]),
-                    )
-                else:
-                    conditions = omitted.get("all", omitted.get("fields", {}).get(item["path"]))
-                    item.update(
-                        status="excluded" if conditions else "pending", conditions=conditions
-                    )
     authorize(user, case)
     if (
         authorized_proof(case, person, case.kind).pk != proof.pk
         or fingerprint(canonical(source_copy(person, listing, case))) != coverage.source_digest
     ):
         raise ValidationError("Coverage inspection authority or source changed")
-    result = {
-        "dataset": dataset,
-        "binary": binary,
-        "row": reference,
-        "row_index": row_index,
-        "row_count": len(rows),
-        "field_page": field_page,
-        "fields": fields,
-        "has_next_fields": more,
-        "has_next_row": row_index + 1 < len(rows),
-        "summary": {k: v for k, v in summary.items() if k != "projection"},
-    }
+    result = coverage_page(
+        source, assessment, facts, body, summary, dataset, row_index, field_page, binary=binary
+    )
 
     page_digest = fingerprint(canonical(result))
     expected = {
