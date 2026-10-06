@@ -14,7 +14,7 @@
       "coverage": "Whole urgent alerts module, ES/EN follow-up state filters, authorization revocations, concurrency, reconciliation, existing mobile."
     },
     {
-      "xml": "/tmp/urgent-followup-mobile.log",
+      "xml": "/tmp/urgent-followup-mobile.xml",
       "passed": 0,
       "failed": 1,
       "seconds": 46.48,
@@ -23,6 +23,7 @@
     {
       "xml": "/tmp/urgent-followup-mobile-final.xml",
       "passed": 1,
+      "seconds": 44.43,
       "failed": 0,
       "coverage": "Mobile acknowledge -> filter follow-up -> reload -> inspect, no private disclosure on GET."
     }
@@ -32,6 +33,6 @@
     "Unknown report states remain visible; dismissed/lifted leave follow-up, existing unacknowledged queue unchanged.",
     "No additional assignment, evidence read or decision through follow-up GET.",
     "Full list authorization before existing numeric pagination remains; performance of urgent queue pending.",
-    "Docker update pending; CR09 remains open."
+    "Docker124df1a verified separately; CR09 remains open."
   ]
 }
