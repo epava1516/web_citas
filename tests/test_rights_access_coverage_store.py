@@ -36,10 +36,28 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
     finish_mode="http",
     finish_language="en",
     retained_expired_session=False,
+    retained_console_mail=False,
 ):
     case, author, staff, public, receipt, _, _, _, decision, _, _ = approved_information(
         request, settings, monkeypatch, account_only
     )
+    console_output = ""
+    if retained_console_mail:
+        import io
+        from contextlib import redirect_stdout
+
+        from apps.core.accounts import send_token
+
+        # Real local console backend; no external mail transport.
+        settings.EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+        console_stream = io.StringIO()
+        with redirect_stdout(console_stream):
+            send_token(
+                User.objects.get(pk=case.account_subject_id or case.person.subject_id),
+                "verify",
+                "en",
+            )
+        console_output = console_stream.getvalue()
     retained_session = None
     if retained_expired_session:
         from datetime import timedelta
@@ -356,7 +374,10 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             "succeeded",
             inventory.created_at,
         )
-        log_content = f"{inventory.created_at.isoformat()} {json.dumps(event)}\n"
+        log_content = "".join(
+            f"{inventory.created_at.isoformat()} {line}\n" for line in console_output.splitlines()
+        )
+        log_content += f"{inventory.created_at.isoformat()} {json.dumps(event)}\n"
         log_content += f"{inventory.created_at.isoformat()} {json.dumps(event | {'subject_id': str(uuid4())})}\n"
         archive_directory = tmp_path / "operational-fixture"
         archive_directory.mkdir(mode=0o700)
@@ -378,6 +399,12 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
         assert not original_scope["blocked"], original_scope["blocked"]
         assert len(original_scope["groups"]["operations.LogEvent"]) == 1
         assert not original_scope["log_origins"]["unprojected_candidates"]
+        if retained_console_mail:
+            assert len(original_scope["log_origins"]["projected_mail"]) == 1
+            assert any(
+                row["data"]["body"].endswith("[redacted]")
+                for row in original_scope["groups"]["operations.Mail"]
+            )
         original_operation = inventory.action.operation
         inventory.action.operation = "access_draft"
         inventory.action.save(update_fields=["operation"])
@@ -516,7 +543,12 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
         changed_lines = []
         for line in changed_archive["records"][0]["stdout"].splitlines():
             timestamp, content = line.split(" ", 1)
-            changed_event = json.loads(content)
+            try:
+                changed_event = json.loads(content)
+            except ValueError:
+                # Preserve captured MIME lines when testing signed-event drift.
+                changed_lines.append(line + "\n")
+                continue
             changed_event["outcome"] = "failed"
             changed_event["signature"] = subject_log_signature(changed_event)
             changed_lines.append(f"{timestamp} {json.dumps(changed_event)}\n")
@@ -740,6 +772,9 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             assert (
                 "synthetic-expired-capability-not-for-delivery" not in downloaded.content.decode()
             )
+        if retained_console_mail:
+            assert "Single-use link" in downloaded.content.decode()
+            assert "/account/token/" not in downloaded.content.decode()
         assert "review_material" not in downloaded.content.decode()
         assert "origin_digest" not in downloaded.content.decode()
         assert public.post(url(receipt, export), {"key": uuid4()}).json() == downloaded.json()
@@ -862,4 +897,21 @@ def test_integrated_access_includes_retained_expired_session_without_capabilitie
         tmp_path,
         finish=True,
         retained_expired_session=True,
+    )
+
+
+@pytest.mark.parametrize("account_only", [False, True])
+def test_integrated_access_includes_console_mail_without_authentication_link(
+    request, settings, monkeypatch, account_only, live_server, tmp_path
+):
+    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
+        request,
+        settings,
+        monkeypatch,
+        account_only,
+        live_server,
+        False,
+        tmp_path,
+        finish=True,
+        retained_console_mail=True,
     )

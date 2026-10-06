@@ -1,0 +1,47 @@
+{
+  "scope": "Console MIME retained in encrypted timestamped log captures projected into existing reviewed access package; synthetic user/token/report, real Django console, PostgreSQL and local encrypted files",
+  "source_sha256": {
+    "apps/safety/console_mail_projection.py": "a766851c9b683025ca9f0733c4b69ba2122d35204770d6849c7049589260b86d",
+    "apps/safety/rights_access_delivery.py": "bf9707d45b848c2bd807bf77d07ae7c63023c3bb1112f190ef715920025fe347",
+    "tests/test_console_mail_projection.py": "ba8eaee0a486db9b91a02bcb275006490915d302ec5fc69f09d2c8fe4324f705",
+    "tests/test_rights_access_coverage_store.py": "3979c5396f7581d0a7bd5178b3484321cf21f09384319ccd6f1e411012765c58"
+  },
+  "runs": [
+    {
+      "xml": "/tmp/console-mail-initial.xml",
+      "passed": 2,
+      "failed": 0,
+      "seconds": 33.24,
+      "coverage": "Known console token mail projected, authentication link omitted; foreign owner/email, cutoff, incomplete MIME, unknown headers rejected; encrypted log reader and existing signed-log regression."
+    },
+    {
+      "xml": "/tmp/console-mail-integrated.xml",
+      "passed": 0,
+      "failed": 2,
+      "seconds": 100.63,
+      "cause": "Fixture assumed every captured line JSON."
+    },
+    {
+      "xml": "/tmp/console-mail-integrated-final.xml",
+      "passed": 0,
+      "failed": 2,
+      "seconds": 103.25,
+      "cause": "Fixture preserved MIME without newlines, failed planned drift assertion; corrected fixture."
+    },
+    {
+      "xml": "/tmp/console-mail-integrated-verified.xml",
+      "passed": 2,
+      "failed": 0,
+      "coverage": "Profile/account access package includes console mail, independent review, closure/download/replay and altered-origin rejection through existing HTTP workflow."
+    }
+  ],
+  "limits": [
+    "Known account mail template only; unknown/shared/extra-header/attachment messages retain pending accounting.",
+    "Complete <=256KiB MIME block with all timestamps before cutoff and linked token ownership/hash required.",
+    "Token creation timestamp does not prove delivery or receipt.",
+    "Original log digests remain bound to review; source references and capabilities omitted from recipient copy.",
+    "Host/historical containers/mail/cache/Redis persistence/backups coverage remains pending; synthetic resource census not real complete census.",
+    "Docker still124df1a; deployment pending.",
+    "No migrations/tasks/providers or separate review models introduced; CR09 remains open."
+  ]
+}

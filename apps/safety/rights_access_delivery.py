@@ -379,7 +379,9 @@ def broker_records(blob_ids):
 
 
 @sensitive_variables()
-def log_records(identifiers, cutoff, *, subjects=None, case=None, inventory=None):
+def log_records(
+    identifiers, cutoff, *, subjects=None, case=None, inventory=None, owner=None, email=""
+):
     """Associate real captured origins privately; no automatic log disclosure."""
     path = scoped_origin_path(
         settings.ACCESS_LOG_ORIGIN_BUNDLE, kind="logs", case=case, inventory=inventory
@@ -425,7 +427,7 @@ def log_records(identifiers, cutoff, *, subjects=None, case=None, inventory=None
             or {row["service"] for row in body["records"]} != set(SERVICES)
         ):
             raise ValueError
-        candidates, origins, projected = [], [], []
+        candidates, origins, projected, projected_mail = [], [], [], []
         subjects = subjects or {}
         identifiers = {value for value in identifiers if isinstance(value, str) and len(value) >= 8}
         for row in body["records"]:
@@ -441,6 +443,9 @@ def log_records(identifiers, cutoff, *, subjects=None, case=None, inventory=None
                 ):
                     raise ValueError
                 origin[name + "_digest"] = fingerprint(content)
+                from .console_mail_projection import console_mail_projections
+
+                mail_lines = console_mail_projections(content, cutoff, owner=owner, email=email)
                 for position, line in enumerate(content.splitlines()):
                     pieces = line.split(" ", 1)
                     try:
@@ -487,6 +492,17 @@ def log_records(identifiers, cutoff, *, subjects=None, case=None, inventory=None
                             "content_digest": fingerprint(line),
                         }
                     )
+                    if position in mail_lines:
+                        projected_mail.append(
+                            {
+                                "reference": reference,
+                                "data": mail_lines[position],
+                                "technical_fields_excluded": [
+                                    "authentication_link",
+                                    "mime_headers",
+                                ],
+                            }
+                        )
                     event_at = None
                     if owned and isinstance(event.get("created_at"), str):
                         try:
@@ -542,13 +558,14 @@ def log_records(identifiers, cutoff, *, subjects=None, case=None, inventory=None
                             }
                         )
             origins.append(origin)
-        projected_references = {item["reference"] for item in projected}
+        projected_references = {item["reference"] for item in projected + projected_mail}
         return {
             "configured": True,
             "captured_at": captured_at.isoformat(),
             "origins": origins,
             "candidates": candidates,
             "projected": projected,
+            "projected_mail": projected_mail,
             "unprojected_candidates": [
                 row["record"] for row in candidates if row["record"] not in projected_references
             ],
@@ -851,7 +868,11 @@ def snapshot(case, person, inventory, *, cutoff, projected):
         },
         case=case,
         inventory=inventory,
+        owner=owner,
+        email=(projected.get("subject_account") or {}).get("email", ""),
     )
+    if log_origins.get("projected_mail"):
+        groups.setdefault("operations.Mail", []).extend(log_origins["projected_mail"])
     if log_origins.get("projected"):
         groups["operations.LogEvent"] = log_origins["projected"]
     resource_scope = retained_resource_records(
