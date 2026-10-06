@@ -48,12 +48,14 @@ from apps.safety.erasure_inventory import canonical
 from apps.safety.models import RecoveryApplication
 from apps.safety.recovery_apply import reconcile
 from apps.safety.recovery_media import destroy_due
-from scripts.recovery_ledger import Checkpoint,RecoveryLedger
+from scripts.recovery_ledger import Checkpoint,RecoveryLedger,LedgerIntegrityError
 from scripts.recovery_store import RecoveryStore
 config=json.loads(sys.argv[1])
 codec=RecoveryLedger(os.environ['RECOVERY_ENCRYPTION_KEY'].encode(),bytes.fromhex(os.environ['TEST_RECOVERY_SIGNING_HEX']))
-store=RecoveryStore(config['records'],config['authority'],codec)
 start=Checkpoint(**config['start'])
+expected=Checkpoint(**config['expected'])
+assert expected.sequence > start.sequence
+store=RecoveryStore(config['records'],config['authority'],codec,expected_checkpoint=expected)
 with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
     subject=User.objects.get(pk=config['subject'])
     person=Person.objects.get(pk=config['person'])
@@ -63,6 +65,18 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
         assert Blob._meta.get_field('original').storage.exists(paths['original'])
         assert Blob._meta.get_field('derivative').storage.exists(paths['derivative'])
     assert Client().get('/en/').status_code==503
+    wrong=RecoveryStore(config['records'],config['authority'],codec,expected_checkpoint=start)
+    try:
+        reconcile(wrong,start)
+    except LedgerIntegrityError:
+        pass
+    else:
+        raise AssertionError('Independent rollback reference must reject recovery')
+    assert not RecoveryApplication.objects.exists()
+    assert AccountToken.objects.filter(user=subject).exists()
+    for paths in config['paths']:
+        assert Blob._meta.get_field('original').storage.exists(paths['original'])
+        assert Blob._meta.get_field('derivative').storage.exists(paths['derivative'])
     result=reconcile(store,start)
     assert result['applied']==1 and result['publication_authorized'] is False
     assert not AccountToken.objects.filter(user=subject).exists()
@@ -85,12 +99,12 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
         client=Client();client.cookies[settings.SESSION_COOKIE_NAME]=config['old_session']
         response=client.get('/en/')
         assert not response.wsgi_request.user.is_authenticated
-    print(json.dumps({'real_restore':True,'effects_applied':True,'media_deleted':True,'peer_preserved':True,'old_session_rejected':True,'replay_idempotent':True,'publication_authorized':False}))
+    print(json.dumps({'independent_authority_verified':True,'wrong_authority_rejected_without_effects':True,'real_restore':True,'effects_applied':True,'media_deleted':True,'peer_preserved':True,'old_session_rejected':True,'replay_idempotent':True,'publication_authorized':False}))
 """
 
 
 def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
-    request, settings, monkeypatch, tmp_path
+    request, settings, monkeypatch, tmp_path, record_property
 ):
     purposes = [
         "authentication",
@@ -135,6 +149,8 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
             [
                 "docker",
                 "compose",
+                "-p",
+                "web-modelos",
                 "exec",
                 "-T",
                 "db",
@@ -175,6 +191,8 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
             [
                 "docker",
                 "compose",
+                "-p",
+                "web-modelos",
                 "exec",
                 "-T",
                 "db",
@@ -191,7 +209,13 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
             capture_output=True,
             check=True,
         )
+        expected = store.checkpoint()
         config = {
+            "expected": {
+                "ledger": expected.ledger,
+                "sequence": expected.sequence,
+                "head": expected.head,
+            },
             "records": str(records),
             "authority": str(authority),
             "start": {"ledger": start.ledger, "sequence": start.sequence, "head": start.head},
@@ -229,11 +253,15 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
         assert result.returncode == 0, result.stderr[-4000:]
         proof = json.loads(result.stdout.strip().splitlines()[-1])
         assert proof["real_restore"] and not proof["publication_authorized"]
+        assert proof["independent_authority_verified"]
+        assert proof["wrong_authority_rejected_without_effects"]
         proof.update(
             backup_bytes=backup.stat().st_size,
             backup_seconds=backup_seconds,
             restore_and_reconcile_seconds=time.monotonic() - restored_at,
         )
+        for name, value in proof.items():
+            record_property(name, value)
         (tmp_path / "restore-result.json").write_text(json.dumps(proof))
     finally:
         admin.execute(sql.SQL("DROP DATABASE {} WITH (FORCE)").format(sql.Identifier(database)))
