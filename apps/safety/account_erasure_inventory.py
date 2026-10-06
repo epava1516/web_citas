@@ -13,7 +13,7 @@ from .rights import fingerprint
 
 
 @sensitive_variables()
-def source(case):
+def source(case, *, capture=None):
     user = locked_subject(None, case)
     scoped_cases = Q(account_subject=user) | Q(actor=user)
     case_ids = apps.get_model("safety.RightsRequest").objects.filter(scoped_cases).values("pk")
@@ -710,6 +710,28 @@ def source(case):
                 ],
             ),
             (
+                "safety.RightsAccessScopeInventory",
+                (Q(request__account_subject=user) | Q(request__person__subject=user))
+                & ~Q(request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "request_id",
+                    "actor_id",
+                    "proof_id",
+                    "case_version",
+                    "response_version",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "source_digest",
+                    "encrypted_inventory",
+                    "expires_at",
+                    "purged_at",
+                    "created_at",
+                ],
+            ),
+            (
                 "safety.RightsAccessCoverage",
                 (Q(request__account_subject=user) | Q(request__person__subject=user))
                 & ~Q(request=case),
@@ -1056,7 +1078,12 @@ def source(case):
     )
     entries = []
     for label, scope, purpose, fields in specs:
-        rows = list(apps.get_model(label).objects.filter(scope).order_by("pk").values(*fields))
+        queryset = apps.get_model(label).objects.filter(scope)
+        rows = (
+            capture(label, purpose, queryset, fields)
+            if capture
+            else list(queryset.order_by("pk").values(*fields))
+        )
         entries.append(
             {
                 "model": label,

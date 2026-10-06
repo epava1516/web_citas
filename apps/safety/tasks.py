@@ -199,3 +199,21 @@ def purge_expired_access_coverage():
         return RightsAccessCoverage.objects.filter(pk__in=ids).update(
             encrypted_coverage="", purged_at=now
         )
+
+
+@shared_task
+def purge_expired_access_scope_inventory():
+    """Clear expired final draft text; preserve protected audit references."""
+    from .models import RightsAccessScopeInventory
+
+    with transaction.atomic():
+        now = timezone.now()
+        ids = list(
+            RightsAccessScopeInventory.objects.select_for_update(skip_locked=True)
+            .filter(expires_at__lte=now, purged_at__isnull=True)
+            .order_by("pk")
+            .values_list("pk", flat=True)[:100]
+        )
+        return RightsAccessScopeInventory.objects.filter(pk__in=ids).update(
+            encrypted_inventory="", purged_at=now
+        )

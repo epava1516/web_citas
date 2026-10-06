@@ -160,6 +160,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
         "schedule": 60.0,
     },
+    "purge-expired-access-scope-inventory": {
+        "task": "apps.safety.tasks.purge_expired_access_scope_inventory",
+        "schedule": 60.0,
+    },
     "purge-expired-access-coverage": {
         "task": "apps.safety.tasks.purge_expired_access_coverage",
         "schedule": 60.0,

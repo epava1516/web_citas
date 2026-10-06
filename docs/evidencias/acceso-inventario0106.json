@@ -1,0 +1,20 @@
+{
+  "scope": "Internal audited encrypted access record and field inventory; incomplete access scope",
+  "migration": "0106",
+  "integration": {
+    "database": "PostgreSQL",
+    "synthetic_data": true,
+    "tests": 7,
+    "seconds": 91.79,
+    "xml": "/tmp/access-scope-inventory0106.xml"
+  },
+  "checks": {"ruff": true, "migration_consistency": true, "diff": true},
+  "runtime": {"verified_migration": "0105", "0106_verified": false},
+  "pending": [
+    "Private UI and browser verification",
+    "Per-record/field release and omission decisions",
+    "Current procedure data and scopes outside collected models",
+    "Complete access response, closure and post-closure download",
+    "CR09 and remaining development contract acceptance"
+  ]
+}

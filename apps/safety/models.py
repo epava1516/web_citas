@@ -1727,3 +1727,19 @@ class RightsAccessCoverageReview(models.Model):
                 name="access_coverage_review_outcome",
             )
         ]
+
+
+class RightsAccessScopeInventory(models.Model):
+    action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    case_version = models.PositiveIntegerField()
+    response_version = models.PositiveIntegerField()
+    original_session_version = models.PositiveIntegerField()
+    original_mfa_version = models.PositiveIntegerField()
+    source_digest = models.CharField(max_length=64)
+    encrypted_inventory = models.TextField()
+    expires_at = models.DateTimeField(db_index=True)
+    purged_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)

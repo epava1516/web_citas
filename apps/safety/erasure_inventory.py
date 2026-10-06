@@ -31,11 +31,11 @@ def canonical(value):
 
 
 @sensitive_variables()
-def source_manifest(person, case=None):
+def source_manifest(person, case=None, *, capture=None):
     if case and case.account_subject_id:
         from .account_erasure_inventory import source
 
-        return source(case)
+        return source(case, capture=capture)
     subject = person.subject_id
     profile = "revision__listing__person"
     scopes = [
@@ -744,6 +744,26 @@ def source_manifest(person, case=None):
             ],
         ),
         (
+            "safety.RightsAccessScopeInventory",
+            Q(request__person=person),
+            [
+                "pk",
+                "action_id",
+                "request_id",
+                "actor_id",
+                "proof_id",
+                "case_version",
+                "response_version",
+                "original_session_version",
+                "original_mfa_version",
+                "source_digest",
+                "encrypted_inventory",
+                "expires_at",
+                "purged_at",
+                "created_at",
+            ],
+        ),
+        (
             "safety.RightsAccessCoverage",
             Q(request__person=person),
             [
@@ -1012,7 +1032,12 @@ def source_manifest(person, case=None):
     entries = []
     for label, scope, purpose, fields in scopes:
         model = apps.get_model(label)
-        rows = list(model.objects.filter(scope).order_by("pk").values(*(fields or [])).distinct())
+        queryset = model.objects.filter(scope)
+        rows = (
+            capture(label, purpose, queryset, fields)
+            if capture
+            else list(queryset.order_by("pk").values(*(fields or [])).distinct())
+        )
         # Raw values never leave this function: no account secret or intake body is read.
         entries.append(
             {
@@ -1025,8 +1050,11 @@ def source_manifest(person, case=None):
         )
     for field in ["categories", "services", "travel_areas"]:
         through = apps.get_model("listings.Revision")._meta.get_field(field).remote_field.through
-        rows = list(
-            through.objects.filter(revision__listing__person=person).order_by("pk").values()
+        queryset = through.objects.filter(revision__listing__person=person)
+        rows = (
+            capture("listings.Revision." + field, "publication", queryset, None)
+            if capture
+            else list(queryset.order_by("pk").values())
         )
         entries.append(
             {
