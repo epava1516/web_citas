@@ -37,6 +37,7 @@ from apps.safety import (
     rectification_uploads,
     retention_views,
     rights,
+    rights_access_response_views,
     rights_copy_information_views,
     rights_exports,
     rights_information_review_views,
@@ -298,6 +299,16 @@ urlpatterns = [
         "moderation/rights/<uuid:case_id>/portability/export/",
         rights_portability_export_views.prepare,
         name="rights_portability_export",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/access/response/",
+        rights_access_response_views.prepare_response,
+        name="rights_access_response_prepare",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/access/response/<int:draft_id>/review/",
+        rights_access_response_views.review_response,
+        name="rights_access_response_review",
     ),
     path(
         "moderation/rights/<uuid:case_id>/portability/response/",

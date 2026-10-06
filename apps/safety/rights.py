@@ -385,6 +385,29 @@ def inspect(request, case_id):
                 .order_by("-created_at", "-pk"),
                 50,
             ).get_page(request.GET.get("information_page"))
+    access_response_drafts = None
+    if case.kind == "access":
+        from .models import RightsAccessResponseDraft
+        from .rights_access_response_review import authorize_reviewer
+
+        try:
+            authorize_reviewer(request.user, case)
+        except PermissionDenied:
+            pass
+        else:
+            access_response_drafts = Paginator(
+                RightsAccessResponseDraft.objects.filter(
+                    request=case,
+                    case_version=case.version,
+                    response_version=case.response_version,
+                    purged_at__isnull=True,
+                    expires_at__gt=timezone.now(),
+                )
+                .exclude(actor=request.user)
+                .only("pk", "created_at")
+                .order_by("-created_at", "-pk"),
+                50,
+            ).get_page(request.GET.get("access_response_page"))
     portability_response_drafts = None
     portability_coverages = None
     portability_selections = None
@@ -472,6 +495,7 @@ def inspect(request, case_id):
                 "portability_selections": portability_selections,
                 "portability_coverages": portability_coverages,
                 "portability_response_drafts": portability_response_drafts,
+                "access_response_drafts": access_response_drafts,
             },
             status=400 if request.method == "POST" and not form.is_valid() else 200,
         )

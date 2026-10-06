@@ -653,6 +653,24 @@ def source(case):
                 ],
             ),
             (
+                "safety.RightsAccessResponseReview",
+                (Q(draft__request__account_subject=user) | Q(draft__request__person__subject=user))
+                & ~Q(draft__request=case),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "action_id",
+                    "draft_id",
+                    "read_action_id",
+                    "text_digest",
+                    "ciphertext_digest",
+                    "original_session_version",
+                    "original_mfa_version",
+                    "outcome",
+                    "created_at",
+                ],
+            ),
+            (
                 "safety.RightsPortabilityResponseReview",
                 (Q(draft__request__account_subject=user) | Q(draft__request__person__subject=user))
                 & ~Q(draft__request=case),
@@ -696,7 +714,7 @@ def source(case):
                     "created_at",
                 ],
             ),
-(
+            (
                 "safety.RightsPortabilityResponseDraft",
                 (Q(request__account_subject=user) | Q(request__person__subject=user))
                 & ~Q(request=case),

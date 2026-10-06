@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% if english %}Prepare final access response{% else %}Preparar respuesta final de acceso{% endif %}</h1>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></p>
+<p>{% if english %}Complete a new identity and scope check after creating the covered copy, then inspect the current request and responses. Explain the delivered scope and exclusions without private evidence or third-party details. Saving this draft does not issue a response or close the request; independent review is required.{% else %}Completa una nueva comprobación de identidad y alcance después de crear la copia cubierta y consulta el expediente y sus respuestas actuales. Explica el alcance entregado y las exclusiones sin evidencias internas ni datos de terceros. Guardar este borrador no emite una respuesta ni cierra la solicitud; requiere revisión independiente.{% endif %}</p>
+{% if draft %}<p role="status">{% if english %}Final response draft prepared{% else %}Borrador de respuesta final preparado{% endif %}: {{ draft.pk }} · {% if english %}Expires{% else %}Caduca{% endif %}: {{ draft.expires_at }}</p>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Save response draft{% else %}Guardar borrador de respuesta{% endif %}</button></form>
+
+{% endblock %}

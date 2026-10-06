@@ -696,6 +696,22 @@ def source_manifest(person, case=None):
             ],
         ),
         (
+            "safety.RightsAccessResponseReview",
+            Q(draft__request__person=person),
+            [
+                "pk",
+                "action_id",
+                "draft_id",
+                "read_action_id",
+                "text_digest",
+                "ciphertext_digest",
+                "original_session_version",
+                "original_mfa_version",
+                "outcome",
+                "created_at",
+            ],
+        ),
+        (
             "safety.RightsPortabilityResponseReview",
             Q(draft__request__person=person),
             [
@@ -735,7 +751,7 @@ def source_manifest(person, case=None):
                 "created_at",
             ],
         ),
-(
+        (
             "safety.RightsPortabilityResponseDraft",
             Q(request__person=person),
             [

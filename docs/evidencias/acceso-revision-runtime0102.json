@@ -1,0 +1,85 @@
+{
+  "scope": "Independent access response review, private UI/navigation and mobile browser; no final closure",
+  "postgresql_navigation": {
+    "tests": 3,
+    "seconds": 65.02,
+    "xml": "/tmp/access-review-navigation0102.xml"
+  },
+  "chromium_mobile": {
+    "tests": 4,
+    "seconds": 82.43,
+    "languages": [
+      "es",
+      "en"
+    ],
+    "subjects": [
+      "profile",
+      "account"
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "xml": "/tmp/access-review-mobile0102.xml"
+  },
+  "runtime": {
+    "migrations": [
+      "0101",
+      "0102"
+    ],
+    "check": true,
+    "migrate_check": true,
+    "health": 200,
+    "app_uid": 10001,
+    "purge_task_registered": true,
+    "hashes": {
+      "app": {
+        "apps/safety/rights_access_response_draft.py": "d04ee5de8ebeeab581986044d657fe3a96caed970efb7836d479536b94f2fdd5",
+        "apps/safety/rights_access_response_review.py": "35b99397abab7583bc33c0f6ba41c9a32f907083dc5e9a9feb0f55bfe6f7b2f6",
+        "apps/safety/rights_access_response_evidence.py": "8523db92c49339512be5c66bd4718b8dba0f07e8c8d87697d4523dcc2125dd0a",
+        "apps/safety/rights_access_response_views.py": "329eec27ec0208f74e1fe0ea38676b48e499b3fc25b6f82f46443a0846246c22",
+        "apps/safety/models.py": "26fc82981bd807daeb4d6f0c977d60ff0c2f54bc01d5e3e643b81f8aba66c770",
+        "apps/safety/tasks.py": "4289bc477758e1ae0b2c1ba24a87e95464ba04990a8efa5a110d90d9037147b5",
+        "apps/safety/rights.py": "389512bc11d2b42f13ac8a95971e45ad7d56035fc3853914260bf8128c51249c",
+        "apps/core/urls.py": "4e76e2bece7b07c6a25c328b56ad09bc160680c831ef49fbbb4a42a566c5c51a",
+        "config/settings.py": "dddf810fd65f7e121cc7e2e9dbb7df2da439122d7616ff48b662841b820c2c42",
+        "templates/safety/rights_inspect.html": "654e4466c82c53aab06344aca1e675907f93530baa0b6046a16ae5ddb6a45399",
+        "templates/safety/rights_access_response.html": "be9855b7dbcc6f98b7ed2254d73056d13785a60d818cab801ff2b0d5c1bf0341",
+        "templates/safety/rights_access_response_review.html": "28f765aa110f53561fa802749ead1eee7e2d49aefbce378236eeac92775a0900"
+      },
+      "worker": {
+        "apps/safety/rights_access_response_draft.py": "d04ee5de8ebeeab581986044d657fe3a96caed970efb7836d479536b94f2fdd5",
+        "apps/safety/rights_access_response_review.py": "35b99397abab7583bc33c0f6ba41c9a32f907083dc5e9a9feb0f55bfe6f7b2f6",
+        "apps/safety/rights_access_response_evidence.py": "8523db92c49339512be5c66bd4718b8dba0f07e8c8d87697d4523dcc2125dd0a",
+        "apps/safety/rights_access_response_views.py": "329eec27ec0208f74e1fe0ea38676b48e499b3fc25b6f82f46443a0846246c22",
+        "apps/safety/models.py": "26fc82981bd807daeb4d6f0c977d60ff0c2f54bc01d5e3e643b81f8aba66c770",
+        "apps/safety/tasks.py": "4289bc477758e1ae0b2c1ba24a87e95464ba04990a8efa5a110d90d9037147b5",
+        "apps/safety/rights.py": "389512bc11d2b42f13ac8a95971e45ad7d56035fc3853914260bf8128c51249c",
+        "apps/core/urls.py": "4e76e2bece7b07c6a25c328b56ad09bc160680c831ef49fbbb4a42a566c5c51a",
+        "config/settings.py": "dddf810fd65f7e121cc7e2e9dbb7df2da439122d7616ff48b662841b820c2c42",
+        "templates/safety/rights_inspect.html": "654e4466c82c53aab06344aca1e675907f93530baa0b6046a16ae5ddb6a45399",
+        "templates/safety/rights_access_response.html": "be9855b7dbcc6f98b7ed2254d73056d13785a60d818cab801ff2b0d5c1bf0341",
+        "templates/safety/rights_access_response_review.html": "28f765aa110f53561fa802749ead1eee7e2d49aefbce378236eeac92775a0900"
+      },
+      "beat": {
+        "apps/safety/rights_access_response_draft.py": "d04ee5de8ebeeab581986044d657fe3a96caed970efb7836d479536b94f2fdd5",
+        "apps/safety/rights_access_response_review.py": "35b99397abab7583bc33c0f6ba41c9a32f907083dc5e9a9feb0f55bfe6f7b2f6",
+        "apps/safety/rights_access_response_evidence.py": "8523db92c49339512be5c66bd4718b8dba0f07e8c8d87697d4523dcc2125dd0a",
+        "apps/safety/rights_access_response_views.py": "329eec27ec0208f74e1fe0ea38676b48e499b3fc25b6f82f46443a0846246c22",
+        "apps/safety/models.py": "26fc82981bd807daeb4d6f0c977d60ff0c2f54bc01d5e3e643b81f8aba66c770",
+        "apps/safety/tasks.py": "4289bc477758e1ae0b2c1ba24a87e95464ba04990a8efa5a110d90d9037147b5",
+        "apps/safety/rights.py": "389512bc11d2b42f13ac8a95971e45ad7d56035fc3853914260bf8128c51249c",
+        "apps/core/urls.py": "4e76e2bece7b07c6a25c328b56ad09bc160680c831ef49fbbb4a42a566c5c51a",
+        "config/settings.py": "dddf810fd65f7e121cc7e2e9dbb7df2da439122d7616ff48b662841b820c2c42",
+        "templates/safety/rights_inspect.html": "654e4466c82c53aab06344aca1e675907f93530baa0b6046a16ae5ddb6a45399",
+        "templates/safety/rights_access_response.html": "be9855b7dbcc6f98b7ed2254d73056d13785a60d818cab801ff2b0d5c1bf0341",
+        "templates/safety/rights_access_response_review.html": "28f765aa110f53561fa802749ead1eee7e2d49aefbce378236eeac92775a0900"
+      }
+    }
+  },
+  "limits": [
+    "No access complete coverage or final response issuance/closure",
+    "Scheduled content purge by Beat not verified with expired runtime content",
+    "No external integration or production acceptance"
+  ]
+}

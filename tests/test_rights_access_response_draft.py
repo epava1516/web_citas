@@ -71,6 +71,81 @@ def test_access_draft_requires_fresh_proof_and_does_not_close(
     assert unseal(row.encrypted_response) == {"text": TEXT, "simulation": True}
     with pytest.raises(ValidationError, match="Conflicting"):
         invoke(key, TEXT + " Changed scope.")
+    from django.core.exceptions import PermissionDenied
+    from django.db import transaction
+
+    from apps.safety.rights_access_response_evidence import validate_review
+    from apps.safety.rights_access_response_review import inspect, record
+
+    verifier.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
+    verifier = User.objects.get(pk=verifier.pk)
+    read(operator(verifier), case)
+    with pytest.raises(PermissionDenied):
+        inspect(author, case.pk, case.version, row.pk, uuid4(), REASON)
+    with pytest.raises(ValidationError, match="Inspect the exact"):
+        record(verifier, case.pk, case.version, row.pk, 0, uuid4(), REASON, "approved")
+    read_key = uuid4()
+    inspected, body = inspect(verifier, case.pk, case.version, row.pk, read_key, REASON)
+    assert inspected.pk == row.pk and body["text"] == TEXT
+    inspection = RightsAction.objects.get(key=read_key)
+    decision_key = uuid4()
+    reviewed = record(
+        verifier, case.pk, case.version, row.pk, inspection.pk, decision_key, REASON, "approved"
+    )
+    assert (
+        record(
+            verifier, case.pk, case.version, row.pk, inspection.pk, decision_key, REASON, "approved"
+        ).pk
+        == reviewed.pk
+    )
+    with transaction.atomic():
+        assert (
+            validate_review(reviewed, case, None if account_only else case.person)["text"] == TEXT
+        )
+    from django.test import Client
+    from django.urls import reverse
+
+    path = reverse("rights_access_response_prepare", args=[case.pk])
+    review_path = reverse("rights_access_response_review", args=[case.pk, row.pk])
+    before = RightsAction.objects.count()
+    assert staff.get(path).status_code == 200
+    assert TEXT not in staff.get(path).content.decode()
+    other = operator(verifier)
+    inspection_path = reverse("rights_inspect", args=[case.pk])
+    assert path in staff.get(inspection_path).content.decode()
+    assert review_path in other.get(inspection_path).content.decode()
+    assert review_path not in staff.get(inspection_path).content.decode()
+    page = other.get(review_path)
+    assert page.status_code == 200 and "no-store" in page["Cache-Control"]
+    assert TEXT not in page.content.decode() and RightsAction.objects.count() == before
+    assert staff.get(review_path).status_code == 403
+    assert Client().get(path).status_code == 302
+    csrf = Client(enforce_csrf_checks=True)
+    csrf.force_login(verifier)
+    assert csrf.post(review_path, {}).status_code == 403
+    response = other.post(
+        review_path,
+        {"operation": "inspect", "key": read_key, "version": case.version, "reason": REASON},
+    )
+    assert response.status_code == 200 and TEXT in response.content.decode()
+    response = other.post(
+        review_path,
+        {
+            "operation": "review",
+            "key": decision_key,
+            "version": case.version,
+            "reason": REASON,
+            "read_id": inspection.pk,
+            "outcome": "approved",
+        },
+    )
+    assert response.status_code == 200 and TEXT not in response.content.decode()
+
+    reviewed.text_digest = "0" * 64
+    reviewed.save(update_fields=["text_digest"])
+    with transaction.atomic(), pytest.raises(ValidationError, match="signatures changed"):
+        validate_review(reviewed, case, None if account_only else case.person)
+
     row.encrypted_response = "damaged"
     row.save(update_fields=["encrypted_response"])
     with pytest.raises(ValidationError, match="encrypted evidence unavailable"):
