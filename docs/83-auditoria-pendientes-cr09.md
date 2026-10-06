@@ -5,8 +5,8 @@ Fecha:2026-10-06. Referencia vinculante: contrato16 y seguimiento17. Este invent
 | Requisito | Estado y evidencia vigente | Condición pendiente de aceptación |
 | --- | --- | --- |
 | Portabilidad y respuesta privada | Verificado en alcance limitado: borrador/revisión independiente/respuesta/cierre y JSON/WebP/ZIP, HTTP/móvil/carreras; entregas0095–97 | Integrar aceptación por finalidad y rendimiento/variantes; no extrapolar batería original393 a toda la fuente actual |
-| Purga de texto caducado | Verificado localmente con worker/Beat automático y conservación de referencias/contenido vigente | Incluir en conservación integral y regresión de aceptación; proveedor y política jurídica no acreditados |
-| Acceso, rectificación, supresión, limitación y oposición | Implementación parcial con inventarios y recorridos existentes docs24–66 | Matriz de ejecución, revisión independiente, respuesta y cierre por derecho/finalidad; comprobar variantes faltantes antes de aceptar |
+| Purga de texto caducado | Verificado localmente con worker/Beat automático y conservación de referencias/contenido vigente | Entregar ampliación0109 para borradores finales no emitidos; incluir en conservación integral y aceptación; proveedor/política jurídica no acreditados |
+| Acceso, rectificación, supresión, limitación y oposición | Recorridos locales de acceso/rectificación y respuestas parciales integradas de supresión/limitación/oposición; fuente38140e9, matriz88 | Matriz de ejecución, revisión independiente, respuesta y cierre por derecho/finalidad; comprobar variantes faltantes antes de aceptar |
 | Conservación/destrucción por finalidad | Implementación parcial: planes, revisión, ejecuciones y destrucción física con backoff | Completar disparadores, conservación reservada, historial, revisiones vencidas y dependencias; política definitiva externa pendiente |
 | Restauración de datos/medios | Verificado en alcance limitado: aplicador0100, pg_dump/pg_restore real sintético, sesiones revocadas, tercero preservado, replay y fotos compartidas consecutivas; b50e69f/c004262 | Incorporar checkpoint esperado y validación común nuevos; operación integral, recursos externos, dataset/capacidad y RPO/RTO pendientes |
 | Cachés/sesiones/logs/CDN/backups | Sesiones antiguas rechazadas en restauración; HTTP/worker/Beat aislados. Resto inventariado como pendiente | Identificar recursos locales, invalidación/reconstrucción/retención y evidencia; adaptadores/proveedores externos separados |
@@ -15,12 +15,11 @@ Fecha:2026-10-06. Referencia vinculante: contrato16 y seguimiento17. Este invent
 | Rendimiento de expedientes grandes | Mediciones parciales de generación JSON/binarios docs67/80/82 | Medir consultas/tiempo/memoria/latencia de preparación, revisión, cierre y descarga; optimizar sin romper autoridad |
 | Aceptación integral CR09 | Pendiente: suites parciales de módulos, no regresión total ni aceptación de todos los derechos | Misma versión, requisitos trazados y evidencias integrales; CI externo no ejecuta por facturación; CR10/GS01/BF/BB/C pendientes |
 
-## Secuencia inmediata vigente
+## Reanudación y secuencia vigente
 
-1. Batería conjunta de checkpoint esperado y validación común terminada:80 correctas320,56s;587 fuentes intactas.
-2. Docker integrado/verificado y entrega preparada con evidencia de autoridad0100; no implica cierre CR09.
-3. Completar recursos locales de recuperación (cachés/colas/logs) y la matriz por derecho/finalidad, comunicaciones, urgencia y rendimiento.
-4. Aceptar CR09 solo contra todos sus requisitos; continuar CR10→GS01→BF/BB→C bajo el contrato16. Medición honesta en docs86: no reutilizar82/56 como porcentajes actuales.
+La cola de ejecución, el runtime y el trabajo local vigente se mantienen únicamente en [seguimiento17](17-seguimiento-desarrollo.md). Esta auditoría enumera requisitos y condiciones de aceptación, no una segunda lista de próximos pasos. Las entradas posteriores a esta sección son antecedentes fechados y no indican procesos actualmente activos.
+
+Las respuestas de supresión/limitación/oposición ya están integradas y desplegadas en `38140e9`; siguen pendientes el cierre integral y los requisitos residuales de esta tabla. La purga0109 está en desarrollo local, no entregada.
 
 El inventario `pending` de los servicios es evidencia de alcance todavía abierto. No eliminar esas marcas para aparentar cumplimiento; deben cambiar únicamente cuando implementación y verificaciones demuestren el requisito.
 

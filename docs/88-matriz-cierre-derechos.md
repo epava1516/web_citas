@@ -4,7 +4,7 @@ Referencia histórica inicial:53b9628, workspace limpio al inicio de aquella rev
 
 ## Estado vigente y componentes cerrados
 
-Actualizado el 2026-10-06. Base de las entregas anteriores: `1c69d12` (0107). Actualización vigente hasta `187b8e6`: acceso y rectificación con recorridos locales; recursos operativos/aceptación integral pendientes. Esta tabla consolida el estado actual y prevalece sobre los estados provisionales de las anotaciones históricas inferiores. «Cerrado localmente» significa criterio del componente satisfecho; no aceptación del derecho completo ni de CR09.
+Actualizado el 2026-10-06. Base de las entregas anteriores: `1c69d12` (0107). Actualización vigente hasta `38140e9`: acceso/rectificación locales y respuestas parciales de supresión/limitación/oposición integradas; recursos operativos/aceptación integral pendientes. Runtime y próximo trabajo se mantienen únicamente en [seguimiento17](17-seguimiento-desarrollo.md). Esta tabla consolida el estado actual y prevalece sobre los estados provisionales de las anotaciones históricas inferiores. «Cerrado localmente» significa criterio del componente satisfecho; no aceptación del derecho completo ni de CR09.
 
 | Componente | Estado actual | Alcance cerrado y evidencia | Commit de entrega |
 | --- | --- | --- | --- |
@@ -21,6 +21,8 @@ Actualizado el 2026-10-06. Base de las entregas anteriores: `1c69d12` (0107). Ac
 | Copia suplementaria agregada | Cerrado localmente | Materialización de decisiones aprobadas, pendientes explícitos, interfaz PG + Chromium ES/EN; [evidencia](evidencias/acceso-suplemento0107.json) | Esta entrega |
 | Cobertura completa, emisión/cierre/descarga de acceso | Recorrido local verificado; censo operativo real pendiente | PG + Chromium ESEN perfil/cuenta, carreras/revocación/descarga; [resultados](evidencias/acceso-integrado0108-resultados.json) y [runtime0108](evidencias/acceso-runtime0108-resultados.json). Origen de censo sintético en pruebas, no acreditar host/proveedor real | `f252ae0` |
 | Respuesta/revisión/cierre de rectificación perfil/cuenta | Cerrado localmente en alcance probado | Cuatro casos integrados, carrera y regresiones de acuse; [resultados](evidencias/rectificacion-final0108-resultados.json) y [runtime](evidencias/rectificacion-final-runtime0108.json). Decisiones/evidencias sintéticas, no aceptación operativa real | `187b8e6` |
+| Respuestas parciales de supresión/limitación/oposición | Verificadas localmente; aceptación integral pendiente | Motor/acuse compartidos, veinte pruebas conjuntas y Docker; [resultados](evidencias/limitacion-oposicion-final0108-en-desarrollo.json), [runtime](evidencias/limitacion-oposicion-final-runtime0108.json) | `38140e9` |
+| Purga de nuevos borradores finales | Código entregado; runtime y operación pendientes | Migración0109, tarea ampliada y26 pruebas integradas. Falta ejecución periódica/Docker real. [Evidencia](evidencias/conservacion-borradores-finales0109.json); consultar seguimiento17 | `72ff79a` |
 | Restantes derechos y fases posteriores del contrato | Pendientes de aceptación | Mantener alcance original y matriz residual; no inferir cierre por componentes de acceso | — |
 
 Regla de reapertura: solo defecto reproducible, regresión demostrada o requisito concreto del contrato que este componente todavía deba cumplir. Registrar motivo, alcance afectado y evidencia antes de ampliar una pieza cerrada; repetir únicamente pruebas afectadas. Integrar un componente existente en la siguiente entrega no revoca su cierre local. No ampliar controles por hipótesis ni volver a auditar piezas cerradas para obtener más señales verdes.
@@ -43,7 +45,7 @@ Regla de reapertura: solo defecto reproducible, regresión demostrada o requisit
 | Oposición | Plan/revisión/ejecución y respuesta parcial propia object, decisiones cease/continue y pendientes exactos, cuenta/perfil/mezcla/calendario, móvil y Docker38140e9; batería común20 correcta | Cobertura operacional/comunicaciones y cierre integral sobre cada decisión/excepción; no equiparar a limitación ni a denegación genérica |
 | No actuación o actuación parcial | Respuestas progress e inventarios de pendientes | Recorrido motivado con evidencia de alcance y comprobaciones proporcionadas; revisión jurídica externa de motivos. No crear botón genérico denegado para ocultar funciones pendientes |
 
-## Contrato del siguiente flujo: cierre de acceso
+## Especificación conservada del recorrido de acceso
 
 1. Preparación privada sobre expediente access asignado, con lectura auditada completa, identidad/ámbito comprobados, MFA/sesiones/permisos vigentes y ausencia de conflicto.
 2. Borrador liga la respuesta exacta a copia entregable e información/cobertura aprobadas, versión del caso/respuestas, pruebas, origen y caducidad. Las exclusiones y pendientes deben ser explícitos; una copia preparada no demuestra cobertura completa.

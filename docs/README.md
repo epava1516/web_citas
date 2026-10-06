@@ -2,6 +2,17 @@
 
 Fecha de inicio: 2026-10-03. Idioma: español.
 
+
+## Reanudar y consultar el estado
+
+- [Estado vigente, entrega, runtime y próximo trabajo](17-seguimiento-desarrollo.md): entrada única para reanudar.
+- [Matriz por derecho](88-matriz-cierre-derechos.md): componentes/recorridos verificados y criterios aún pendientes.
+- [Auditoría residual CR09](83-auditoria-pendientes-cr09.md): requisitos para aceptación integral.
+- [Medición del avance](86-medicion-avance-contrato.md): método; cálculo vigente en evidencia v3.
+- [Historial archivado](17-historial-desarrollo.md): trazabilidad, sin instrucciones de reanudación.
+
+Las especificaciones y evidencias históricas se conservan; las versiones o próximos pasos antiguos no prevalecen sobre el seguimiento vigente.
+
 ## Índice
 
 - [Producto y alcance](01-producto.md)

@@ -1,6 +1,6 @@
 # Seguimiento de ejecución del contrato
 
-Actualizado: 2026-10-06. Corte documental: HEAD `6e69666`, código desplegado `38140e9`, migración Docker `0108`. [Contrato completo](16-contrato-ejecucion-desarrollo.md).
+Actualizado: 2026-10-06. Corte documental: código de purga `72ff79a`, código desplegado `38140e9`, migración Docker `0108`. [Contrato completo](16-contrato-ejecucion-desarrollo.md).
 
 ## Estado vigente para reanudar
 
@@ -13,7 +13,7 @@ Actualizado: 2026-10-06. Corte documental: HEAD `6e69666`, código desplegado `3
 | Respuestas parciales entregadas | Supresión, limitación y oposición: preparación, consulta auditada, revisión independiente, emisión y acuse; perfiles/cuentas, publicación/calendario, medios y concurrencia en el alcance probado. No cerrar íntegramente estos derechos ante pendientes. |
 | Integración entregada | `38140e9`: veinte pruebas PostgreSQL correctas, incluidas variantes móviles y portabilidad por acuse compartido. [Resultados](evidencias/limitacion-oposicion-final0108-en-desarrollo.json). No es regresión completa del repositorio. |
 | Docker verificado | App/worker/Beat con fuente `38140e9`, migración0108 y40 archivos coincidentes; PostgreSQL, UID10001, rutas, salud HTTP y CSS verificados en la entrega. [Evidencia](evidencias/limitacion-oposicion-final-runtime0108.json). |
-| Desarrollo local pendiente | Purga de borradores finales caducados no emitidos: cambios en modelos, tareas y respuestas; migración0109 y prueba nuevas. Tres pruebas PostgreSQL correctas, XML `/tmp/rights-final-draft-retention0109.xml`. **Sin commit ni despliegue; no incorporado a la aceptación de runtime0108.** |
+| Desarrollo local pendiente | Purga de borradores finales caducados no emitidos, commit `72ff79a`: migración0109 y tarea existente ampliada; **26 pruebas integradas correctas312,68s**. [Evidencia](evidencias/conservacion-borradores-finales0109.json). Falta aplicar/verificar Docker y ejecución periódica real; no incorporada a aceptación del runtime0108. |
 | Fases posteriores | CR10, GS01, BF, BB y C pendientes como fases. Ya existe frontend/backend de los recorridos cruzados; esto no acepta sus fases separadas. |
 
 ## Próximo trabajo y criterio de salida
@@ -43,12 +43,3 @@ Fuente de cálculo: [v3](evidencias/avance-ponderado-v3.json); método y cortes 
 - Una repetición de pruebas se justifica por cambios/fallos/incertidumbre nuevos. No sumar baterías distintas ni anunciar un proceso como vivo sin comprobarlo.
 
 Claude3/3 consumidas; continuar localmente. No publicar la web, contratar proveedores ni utilizar datos reales. Esta consolidación documental no cambia el contrato, el porcentaje ni la aceptación.
-
-
-### 2026-10-06 — Conservación: purga de borradores finales sin emitir0109
-
-Pendiente concreto encontrado tras respuestas nuevas: vigencia24h no eliminaba el texto cifrado. RightsAction incorpora purged_at y final_response nullable (PROTECT), migración0109. Emisión nueva de supresión/limitación/oposición y rectificación liga borrador a Response atómicamente; los emitidos mantienen texto/evidencia/replay para política de conservación posterior. purge_unissued_drafts procesa hasta100 caducados24h sin vínculo, bloquea expediente antes de acción, revalida después de espera y limpia solo encrypted_reason; fechas/IDs/digest/key/version quedan preservados. Histórico emitido sin FK se reconoce por acción firmada de emisión/cierre y Response exacta, se enlaza y no se purga. Vínculo ilegible/alterado conserva potencial evidencia para revisión operacional, no permite purga inferida. Consulta/revisión/otros artefactos y conservación jurídica integral siguen pendientes.
-
-Se incorpora a tarea periódica existente purge_expired_access_response_drafts, después de finalizar su transacción original; mismo nombre/schedule/cola y retorno total de contenidos limpiados, sin tarea nueva. Sesión19311 exit0:3 casos57,36s. Preparación de ampliación no aplicada por AssertionError; sesión18673 repitió únicamente unused40,32s sin cambio: no avance adicional ni testnuevo. Corregido el parche con formato real, sesión43986 exit0:2 variantes51,28s, borrador vigente y lote100→1→0. Lote101 es volumen sintético de ledger en PostgreSQL, no101 ejecuciones autorizadas ni identidad real.
-
-Sesión54333 terminal0: **26 passed312,68s** sobre fuente0109:4 purga,8 limitación/oposición,10 supresión,2 rectificación cuenta,2 portabilidad compartida. No sumar con preliminares. [Evidencia](evidencias/conservacion-borradores-finales0109.json). Ruff global/Django check/makemigrations--check/diff correctos. Sin pytest activo; próximos migración/runtime y worker/Beat automáticos de esta purga, pendientes integralesCR09 y resto contrato. Docker todavía38140e9/0108. Estimaciónv3 sin cambios, Claude3/3.

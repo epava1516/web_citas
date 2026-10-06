@@ -2,6 +2,9 @@
 
 Fecha: 2026-10-06. Autorización: petición del usuario de terminar la fragmentación y desatascar el desarrollo. No cambia el alcance de docs16 ni permite cerrar funciones parciales.
 
+
+**Aplicación actual:** este documento conserva la especificación y la corrección del método de trabajo. El recorrido local de acceso y las respuestas posteriores ya tienen evidencia en la matriz88. Sus listas originales de «trabajo restante» no constituyen una nueva cola de ejecución; consultar únicamente [seguimiento17](17-seguimiento-desarrollo.md) para reanudar. Se mantienen sus exigencias de cobertura real y aceptación integral.
+
 ## Diagnóstico contrastado
 
 La copia de perfil de `rights_exports.source_copy` ya contiene cuenta del sujeto, revisiones, contactos, categorías/servicios, localización, tarifas e inventario de imágenes; `rights_account_copy.source` contiene la proyección propia de cuenta. La nueva consulta por campo vuelve a tratar parte de esos datos. `rights_access_scope_inventory` cataloga todos los campos concretos, incluidos credenciales, claves técnicas y referencias: ese censo no determina por sí mismo qué se debe entregar al solicitante. Exigir aprobación manual de cada columna y añadir persistencia/revisión/interfaz como hitos aislados multiplicó trabajo y no cerró el derecho. Los registros no proyectados y datos compartidos sí requieren tratamiento real; no se pueden ignorar para conseguir verde.
