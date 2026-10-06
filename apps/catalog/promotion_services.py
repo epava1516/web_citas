@@ -83,6 +83,7 @@ def create_product(user, mfa_version, account_version, values):
     row = draft(product, 1)
     actor = fresh_actor(user, mfa_version, account_version)
     audit(actor, row, "create_product")
+    fresh_actor(user, mfa_version, account_version)
     return row
 
 
@@ -95,6 +96,7 @@ def create_version(user, mfa_version, account_version, product_id):
     row = draft(product, number)
     actor = fresh_actor(user, mfa_version, account_version)
     audit(actor, row, "create_version")
+    fresh_actor(user, mfa_version, account_version)
     return row
 
 
@@ -115,6 +117,7 @@ def update_version(user, mfa_version, account_version, product_id, number, edit_
     row.save()
     actor = fresh_actor(user, mfa_version, account_version)
     audit(actor, row, "update_version")
+    fresh_actor(user, mfa_version, account_version)
     return row
 
 
@@ -137,4 +140,5 @@ def publish_version(user, mfa_version, account_version, product_id, number, edit
     row.save(update_fields=["published_at", "is_current"])
     actor = fresh_actor(user, mfa_version, account_version)
     audit(actor, row, "publish_version")
+    fresh_actor(user, mfa_version, account_version)
     return row
