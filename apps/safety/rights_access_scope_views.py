@@ -13,6 +13,7 @@ from django.views.decorators.http import require_http_methods
 
 from .models import RightsRequest
 from .rights import allowed
+from .rights_access_field_read import FIELDS, read
 from .rights_access_response_review import authorize_reviewer
 from .rights_access_response_views import ReviewForm
 from .rights_access_scope_store import inspect
@@ -22,6 +23,8 @@ from .views import private
 class ScopeForm(ReviewForm):
     response_version = forms.IntegerField(min_value=0, widget=forms.HiddenInput)
     page = forms.IntegerField(min_value=1, required=False, widget=forms.HiddenInput)
+    field_target = forms.CharField(max_length=200, required=False)
+    field_key = forms.UUIDField(required=False)
 
 
 @login_required
@@ -45,7 +48,7 @@ def inventory(request, case_id):
     form = ScopeForm(
         initial={"key": uuid4(), "version": case.version, "response_version": case.response_version}
     )
-    row = manifest = page = None
+    row = manifest = page = field_body = None
     status = 200
     if request.method == "POST":
         form = ScopeForm(request.POST)
@@ -61,12 +64,27 @@ def inventory(request, case_id):
                     values["key"],
                     values["reason"],
                 )
+                if values["field_target"]:
+                    target = values["field_target"].split("|")
+                    if len(target) != 3 or values["field_key"] is None:
+                        raise ValidationError("Exact field inspection target required")
+                    field_body, _ = read(
+                        request.user,
+                        case.pk,
+                        values["version"],
+                        values["response_version"],
+                        row.pk,
+                        *target,
+                        values["field_key"],
+                        values["reason"],
+                    )
                 records = [
                     {
                         "model": entry["model"],
                         "purpose": entry["purpose"],
                         "count": entry["count"],
                         "record": record,
+                        "inspectable": FIELDS.get(entry["model"], ()),
                     }
                     for entry in manifest["entries"]
                     for record in (entry["records"] or [None])
@@ -88,6 +106,8 @@ def inventory(request, case_id):
                 "inventory": row,
                 "manifest": manifest,
                 "entries": page,
+                "field_body": field_body,
+                "field_key": uuid4(),
                 "english": request.LANGUAGE_CODE == "en",
             },
             status=status,

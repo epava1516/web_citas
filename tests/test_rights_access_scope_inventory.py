@@ -83,6 +83,82 @@ def test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes(
     assert RightsAction.objects.count() == actions
     assert manifest["digest"] not in client.get(path).content.decode()
     assert owner.email not in response.content.decode()
+    from apps.safety.rights_access_field_read import read
+
+    target = user_entry["records"][0]["reference"]
+    field_key = uuid4()
+    body, field_action = read(
+        author,
+        case.pk,
+        case.version,
+        case.response_version,
+        row.pk,
+        "core.User",
+        target,
+        "email",
+        field_key,
+        reason,
+    )
+    assert body["value"] == owner.email and field_action.operation == "access_field_read"
+    assert (
+        read(
+            author,
+            case.pk,
+            case.version,
+            case.response_version,
+            row.pk,
+            "core.User",
+            target,
+            "email",
+            field_key,
+            reason,
+        )[0]
+        == body
+    )
+    with pytest.raises(ValidationError, match="Conflicting"):
+        read(
+            author,
+            case.pk,
+            case.version,
+            case.response_version,
+            row.pk,
+            "core.User",
+            target,
+            "first_name",
+            field_key,
+            reason,
+        )
+    with pytest.raises(ValidationError, match="Unsupported"):
+        read(
+            author,
+            case.pk,
+            case.version,
+            case.response_version,
+            row.pk,
+            "core.User",
+            target,
+            "password",
+            uuid4(),
+            reason,
+        )
+    with pytest.raises(ValidationError, match="Exact inventoried"):
+        read(
+            author,
+            case.pk,
+            case.version,
+            case.response_version,
+            row.pk,
+            "core.User",
+            "0" * 64,
+            "email",
+            uuid4(),
+            reason,
+        )
+    response = client.post(
+        path, values | {"field_target": f"core.User|{target}|email", "field_key": field_key}
+    )
+    assert response.status_code == 200 and owner.email in response.content.decode()
+    assert owner.email not in client.get(path).content.decode()
     import shutil
 
     from django.conf import settings as django_settings
@@ -121,8 +197,22 @@ def test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes(
                 browser_page.get_by_role("button", name=next_button, exact=True).click()
                 expect(browser_page.locator("body")).to_contain_text(manifest["digest"])
                 assert browser_page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+                browser_page.get_by_role("button", name=button, exact=True).click()
+                email_button = browser_page.locator(
+                    f'button[name="field_target"][value="core.User|{target}|email"]'
+                )
+                for _ in range(10):
+                    if email_button.count():
+                        break
+                    browser_page.get_by_role("button", name=next_button, exact=True).click()
+                assert email_button.count() == 1
+                browser_page.locator("details").filter(has=email_button).locator("summary").click()
+                email_button.click()
+                expect(browser_page.locator("aside.rights-copy-page")).to_contain_text(owner.email)
+                assert browser_page.evaluate("document.documentElement.scrollWidth <= innerWidth")
                 browser_page.goto(browser_page.url)
                 assert manifest["digest"] not in browser_page.locator("body").inner_text()
+                assert owner.email not in browser_page.locator("body").inner_text()
         finally:
             browser.close()
     # A field omitted by the older erasure projection must still change access scope.

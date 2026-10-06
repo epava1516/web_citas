@@ -2,13 +2,14 @@
 <section class="rights-access-coverage">
 <h1>{% if english %}Access scope inventory{% else %}Inventario de alcance de acceso{% endif %}</h1>
 <p>{% if english %}Record and field fingerprints. This inventory does not deliver personal data or resolve the request.{% else %}Huellas de registros y campos. Este inventario no entrega datos personales ni resuelve la solicitud.{% endif %}</p>
-<form method="post">{% csrf_token %}{{ form.key }}{{ form.version }}{{ form.response_version }}{{ form.non_field_errors }}{{ form.reason.as_field_group }}{{ form.page.errors }}
+<form method="post">{% csrf_token %}{{ form.key }}{{ form.version }}{{ form.response_version }}{{ form.non_field_errors }}{{ form.reason.as_field_group }}{{ form.page.errors }}{{ form.field_target.errors }}{{ form.field_key.errors }}<input type="hidden" name="field_key" value="{{ field_key }}">
 <button type="submit" name="page" value="1">{% if english %}Record access and inspect{% else %}Registrar consulta y ver{% endif %}</button>
 {% if entries.has_previous %}<button type="submit" name="page" value="{{ entries.previous_page_number }}">{% if english %}Previous{% else %}Anterior{% endif %}</button>{% endif %}
 {% if entries.has_next %}<button type="submit" name="page" value="{{ entries.next_page_number }}">{% if english %}Next{% else %}Siguiente{% endif %}</button>{% endif %}
-</form>
+
+{% if field_body %}<aside class="rights-copy-page"><h2>{% if english %}Inspected field{% else %}Dato consultado{% endif %}</h2><p>{{ field_body.model }} · {{ field_body.field }} · {{ field_body.reference }}</p><pre>{{ field_body.value }}</pre><p>{% if english %}Inspection does not approve disclosure.{% else %}La consulta no aprueba su entrega.{% endif %}</p></aside>{% endif %}
 {% if manifest %}<p>{{ inventory.pk }} · {{ manifest.digest }}</p><p>{% if english %}Pending scope decisions{% else %}Decisiones de alcance pendientes{% endif %}: {{ manifest.pending|join:', ' }}</p>
 {% for entry in entries %}<article><h2>{{ entry.model }}</h2><p>{{ entry.purpose }} · {{ entry.count }}</p>
-{% if entry.record %}{% with record=entry.record %}<details><summary>{{ record.reference }}</summary><dl>{% for name, fact in record.fields.items %}<dt>{{ name }} · {{ fact.type }}</dt><dd>{{ fact.digest }}</dd>{% endfor %}</dl></details>{% endwith %}{% else %}<p>{% if english %}No scoped records{% else %}Sin registros en este ámbito{% endif %}</p>{% endif %}</article>{% endfor %}
-{% endif %}<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></p>
+{% if entry.record %}{% with record=entry.record %}<details><summary>{{ record.reference }}</summary><dl>{% for name, fact in record.fields.items %}<dt>{{ name }} · {{ fact.type }}</dt><dd>{{ fact.digest }}{% if name in entry.inspectable %}<button type="submit" name="field_target" value="{{ entry.model }}|{{ record.reference }}|{{ name }}">{% if english %}Inspect field{% else %}Consultar dato{% endif %}: {{ name }}</button>{% endif %}</dd>{% endfor %}</dl></details>{% endwith %}{% else %}<p>{% if english %}No scoped records{% else %}Sin registros en este ámbito{% endif %}</p>{% endif %}</article>{% endfor %}
+{% endif %}</form><p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></p>
 </section>{% endblock %}

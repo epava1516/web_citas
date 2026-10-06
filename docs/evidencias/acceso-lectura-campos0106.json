@@ -1,0 +1,47 @@
+{
+  "scope": "Audited typed access field inspection, not release approval or access closure",
+  "supported_models": [
+    "core.User",
+    "listings.Revision",
+    "listings.Rate"
+  ],
+  "verification": {
+    "database": "PostgreSQL",
+    "tests": 2,
+    "seconds": 125.88,
+    "xml": "/tmp/access-field-browser0106.xml",
+    "browser": "Chromium ES EN profile/account 390x844 real pagination/field POST/reload"
+  },
+  "runtime": {
+    "migration": "0106",
+    "health": 200,
+    "check": true,
+    "migrate_check": true,
+    "hashes": {
+      "app": {
+        "apps/safety/rights_access_field_read.py": "f89f4100719ad3b9935ce9625291e78c39ee3ff60c0c3c6a116582e61747576d",
+        "apps/safety/rights_access_scope_inventory.py": "56761a6a4bb28ddfe0e77c4c005a9aa8af7c372a97d16da9bc04661cfd1d54b5",
+        "apps/safety/rights_access_scope_views.py": "c2bb4a27605c40e24add2ada7946894949d89eb20685cb5a43d4d70199a792c5",
+        "templates/safety/rights_access_scope.html": "04c39ede29dfb1066683c96288105c7a4f6c50c0d26757dd07863bce382b82e7"
+      },
+      "worker": {
+        "apps/safety/rights_access_field_read.py": "f89f4100719ad3b9935ce9625291e78c39ee3ff60c0c3c6a116582e61747576d",
+        "apps/safety/rights_access_scope_inventory.py": "56761a6a4bb28ddfe0e77c4c005a9aa8af7c372a97d16da9bc04661cfd1d54b5",
+        "apps/safety/rights_access_scope_views.py": "c2bb4a27605c40e24add2ada7946894949d89eb20685cb5a43d4d70199a792c5",
+        "templates/safety/rights_access_scope.html": "04c39ede29dfb1066683c96288105c7a4f6c50c0d26757dd07863bce382b82e7"
+      },
+      "beat": {
+        "apps/safety/rights_access_field_read.py": "f89f4100719ad3b9935ce9625291e78c39ee3ff60c0c3c6a116582e61747576d",
+        "apps/safety/rights_access_scope_inventory.py": "56761a6a4bb28ddfe0e77c4c005a9aa8af7c372a97d16da9bc04661cfd1d54b5",
+        "apps/safety/rights_access_scope_views.py": "c2bb4a27605c40e24add2ada7946894949d89eb20685cb5a43d4d70199a792c5",
+        "templates/safety/rights_access_scope.html": "04c39ede29dfb1066683c96288105c7a4f6c50c0d26757dd07863bce382b82e7"
+      }
+    }
+  },
+  "pending": [
+    "Unsupported subject fields and external/current-procedure scopes",
+    "Persisted release/omission/redaction decisions and independent review",
+    "Materialized complete access copy and issuance/closure/download",
+    "Remaining CR09 and whole development contract"
+  ]
+}

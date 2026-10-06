@@ -51,7 +51,7 @@ def normalized(value):
 
 
 @sensitive_variables()
-def source(case, person):
+def source(case, person, *, value_sink=None):
     if not transaction.get_connection().in_atomic_block:
         raise RuntimeError("Access scope inventory requires canonical transaction")
     if (
@@ -87,6 +87,8 @@ def source(case, person):
                 for field in model._meta.concrete_fields
             }
             records.append({"reference": reference, "fields": facts})
+            if value_sink is not None:
+                value_sink(label, reference, row)
         entries.append(
             {
                 "model": label,
