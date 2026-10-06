@@ -76,3 +76,16 @@ def test_large_time_limit_integer_is_rejected_without_numeric_overflow():
     raw["headers"]["timelimit"] = [10**400, None]
     with pytest.raises(ValueError):
         project_message(json.dumps(raw).encode(), set(), "queued", {TASK})
+
+
+@pytest.mark.parametrize("section", ["body", "envelope"])
+def test_excessive_json_nesting_becomes_typed_rejection(section):
+    deep = "[" * 2000 + "0" + "]" * 2000
+    if section == "body":
+        raw = message()
+        raw["body"] = base64.b64encode(deep.encode()).decode()
+        encoded = json.dumps(raw).encode()
+    else:
+        encoded = deep.encode()
+    with pytest.raises(ValueError):
+        project_message(encoded, set(), "queued", {TASK})

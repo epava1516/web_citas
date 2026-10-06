@@ -1,6 +1,5 @@
 """Minimal historical result evidence; payloads still require separate review."""
 
-import json
 from datetime import datetime
 
 from django.views.decorators.debug import sensitive_variables
@@ -34,9 +33,9 @@ def task_reference(value):
 def project_result(raw, key_id, links):
     if raw is None or len(raw) > 256 * 1024:
         raise ValueError("Result limit")
-    from .broker_message_projection import unique_object
+    from .broker_message_projection import load_json
 
-    body = json.loads(raw, object_pairs_hook=unique_object)
+    body = load_json(raw)
     if not isinstance(body, dict) or not {"task_id", "status", "result"}.issubset(body):
         raise ValueError("Result envelope")
     if set(body) - {"task_id", "status", "result", "traceback", "children", "date_done"}:

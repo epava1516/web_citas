@@ -2,11 +2,11 @@
   "verified_at": "2026-10-06T17:00:08.661479+00:00",
   "requirement": "Reject unexamined envelope fields/values and duplicate JSON before technical or foreign-subject exclusion; exact configured routing and typed UUID photo arguments",
   "source_sha256": {
-    "apps/safety/broker_message_projection.py": "bdba1faab197a4f19701e8fb8e4162da1093b8cd947cbc1bbaa8a636861924af",
-    "apps/safety/redis_result_projection.py": "088c2dfa1e7590b871868067f3b032d2a7a399f57576f3031e6afee8ff7da007",
+    "apps/safety/broker_message_projection.py": "dc83d61ae0640be484f99bae28a0e14915c00dba2f3880f180d36dbceb38b742",
+    "apps/safety/redis_result_projection.py": "571e807009416ba1cfa7d2b31f7777cacebb49ad8a837f0366c53574651f0993",
     "apps/safety/redis_history_scope.py": "6f67bce6f8c0c098e98c22bb6f0525582639d3d2e65a2d0d7835bfc481af6c69",
     "apps/safety/rights_access_delivery.py": "2e4f65224c7079e39cddfe3f7715204d0da5133c9fb27e6bff3df27589a907a4",
-    "tests/test_broker_envelope_schema.py": "e382b08ae26cff34a4e299d183af7e735dfd3801dee7a7a67d9f1a5ba6d7a32f",
+    "tests/test_broker_envelope_schema.py": "5309634089250b66e1b029a6fdc00cbe71d65a1bb67190381db376d08c5815de",
     "tests/test_redis_result_projection.py": "6d86fb45d66af0aa8bced62e543355ea3f7f59d71679e54be217841892c89156"
   },
   "reproductions": [
@@ -55,6 +55,13 @@
       "failed": 0,
       "seconds": 1.14,
       "scope": "Final parser/schema/results shared regressions and actual Redis after duplicate-result correction"
+    },
+    {
+      "log": "/tmp/broker-json-bounds-final.log",
+      "passed": 22,
+      "failed": 0,
+      "seconds": 1.17,
+      "scope": "Final shared JSON parser,64-level predecode nesting bound, all schema/result cases and actual Redis"
     }
   ],
   "actual_base_evidence": "redis-base-cabeceras-formato0110.json",
@@ -62,6 +69,7 @@
     "Separate affected runs; not a whole-phase common-version acceptance.",
     "No tasks/routes/models/migrations/permission changes; source census and retention/review remain incomplete.",
     "Correction of unsupported formats does not change weighted progress v6.",
-    "Native broker transport is real Redis/Kombu; test subjects and payloads are synthetic."
+    "Native broker transport is real Redis/Kombu; test subjects and payloads are synthetic.",
+    "Depth cases were already rejected by structure before hardening; now bounded before allocation. No new failure reproduction is claimed for these2 cases."
   ]
 }

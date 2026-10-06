@@ -30,6 +30,32 @@ def unique_object(pairs):
 
 
 @sensitive_variables()
+def load_json(raw):
+    text = raw.decode("utf-8") if isinstance(raw, bytes) else raw
+    depth, quoted, escaped = 0, False, False
+    for char in text:
+        if quoted:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                quoted = False
+        elif char == '"':
+            quoted = True
+        elif char in "[{":
+            depth += 1
+            if depth > 64:
+                raise ValueError("JSON nesting limit")
+        elif char in "]}":
+            depth -= 1
+    try:
+        return json.loads(text, object_pairs_hook=unique_object)
+    except RecursionError:
+        raise ValueError("JSON nesting limit") from None
+
+
+@sensitive_variables()
 def validate_envelope(message, args, kwargs, links, *, queue=None):
     if not isinstance(message, dict) or set(message) - {
         "body",
@@ -130,7 +156,7 @@ def project_message(raw, blob_ids, state, periodic, *, queue=None):
 
     if len(raw) > 256 * 1024:
         raise ValueError("Message limit")
-    message = json.loads(raw, object_pairs_hook=unique_object)
+    message = load_json(raw)
     if state == "reserved":
         if not isinstance(message, list) or len(message) != 3:
             raise ValueError("Reserved format")
@@ -151,9 +177,7 @@ def project_message(raw, blob_ids, state, periodic, *, queue=None):
         or message.get("properties", {}).get("body_encoding") != "base64"
     ):
         raise ValueError("Encoding")
-    args, kwargs, links = json.loads(
-        base64.b64decode(message["body"], validate=True), object_pairs_hook=unique_object
-    )
+    args, kwargs, links = load_json(base64.b64decode(message["body"], validate=True))
     if not isinstance(args, list) or not isinstance(kwargs, dict):
         raise ValueError("Arguments")
     if not isinstance(links, dict) or any(links.values()):
