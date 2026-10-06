@@ -2787,3 +2787,6 @@ Resultado terminal:16 N1/7 N2 correctos en selecciones distintas sobre bedc016;8
 
 
 Reanudación solicitada tras eaabe25: se conserva el estado anterior de pausa después del cierre físico no AUX: «Se para aquí por petición del usuario». Revocada por nueva instrucción de continuar; procesos actuales comprobados sin pruebas activas. Censo físico y runtime bedc016 cerrados localmente, sin cambio ponderado.
+
+
+2026-10-06 — MOD-03: usuario autoriza «Elimina el limite y actualizalo». Máximo de3 llamadas Claude eliminado;3 llamadas acumuladas preservadas, adaptador/lectura del contrato/Codex aplica y verifica intactos. AGENTS.md, contrato16 v1.3, seguimiento17 y cabecera del registro de consumo actualizados. Referencias3/3 de la cronología son históricas. No llamada nueva ni cambio de fuentes de la prueba34841 por esta modificación documental.

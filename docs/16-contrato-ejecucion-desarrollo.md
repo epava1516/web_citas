@@ -1,4 +1,4 @@
-# Contrato de ejecución del desarrollo — versión 1.2
+# Contrato de ejecución del desarrollo — versión 1.3
 
 Fecha: 2026-10-03. Estado: ejecución iniciada por autorización del usuario el 2026-10-03. Tipo: especificación de ejecución y aceptación, no contrato mercantil ni acreditación jurídica.
 
@@ -186,7 +186,7 @@ Al retomar leer contrato vigente y registro; continuar próximo paso sin reinici
 
 ## 13. Modalidad de ejecución por bloques y dependencias
 
-Cambio MOD-01, autorizado por el usuario el 2026-10-06. Versión1.1. Motivo: reducir fragmentación, verificaciones redundantes y esperas, conservando alcance, seguridad, privacidad y aceptación. Afecta al orden de ejecución de las secciones4,6,9,10 y12; no modifica requisitos funcionales, datos, proveedores ni gates de producción. No autoriza gasto, publicación ni nuevas delegaciones; Claude3/3 consumidas, continuar localmente.
+Cambio MOD-01, autorizado por el usuario el 2026-10-06. Versión1.1. Motivo: reducir fragmentación, verificaciones redundantes y esperas, conservando alcance, seguridad, privacidad y aceptación. Afecta al orden de ejecución de las secciones4,6,9,10 y12; no modifica requisitos funcionales, datos, proveedores ni gates de producción. MOD-01 no autoriza gasto ni publicación. Su límite histórico de Claude3/3 queda sustituido por la política vigente de §15; se conserva el consumo registrado.
 
 ### Una cola y un cierre verificable por bloque
 
@@ -254,3 +254,12 @@ Ampliación de MOD-02 solicitada por el usuario en conversación lateral el2026-
 - **Informe de cierre automatizado:** aprovechar y completar los ejecutores existentes para reunir versión/huellas probadas, comando y selección de casos, resultado terminal, recursos y limpieza, enlaces de evidencia y pendientes. Generar un resumen por entrega completa; revisión de Codex antes de actualizar el seguimiento. No inferir aprobación desde marcadores parciales, mezclar versiones ni acreditar producción automáticamente. Implementar la automatización incrementalmente cuando sirva al bloque actual, sin crear otro bloque preparatorio innecesario.
 - **Prioridad por dependencias reales:** resolver primero contratos de datos, permisos e interfaces compartidas que desbloqueen el siguiente resultado verificable. Documentar la dependencia concreta; no reabrir contratos ya correctos por prioridad abstracta. Reservar ajustes visuales y otros trabajos independientes para esperas compatibles con las restricciones de recursos de MOD-02.
 - **Medición del tiempo perdido:** en los próximos ejecutores pertinentes registrar por separado preparación del entorno/fixtures, ejecución de pruebas, diagnóstico y corrección, e integración/verificación runtime. Distinguir duración observada y estimaciones; no reconstruir tiempos pasados sin evidencia ni convertirlos en avance porcentual. Usar los resultados para elegir la siguiente mejora del cuello de botella real, sin añadir instrumentación costosa a todas las operaciones ni confundir tiempos de test con latencia/capacidad del producto.
+
+
+## 15. Delegación sin máximo numérico — MOD-03
+
+Cambio autorizado expresamente por el usuario el2026-10-06: «Elimina el limite y actualizalo». Versión1.3. Se elimina el máximo de tres invocaciones Claude para el objetivo completo de desarrollo. No se establece un nuevo máximo numérico ni se reinicia el consumo: tres invocaciones anteriores siguen registradas en .ai/tasks/desarrollo.md y cada nueva llamada se registra allí. Referencias3/3 o «sin nuevas invocaciones» en cronologías y adendas anteriores reflejan la política histórica; esta sección prevalece para la delegación vigente.
+
+Codex conserva arquitectura, integración y aceptación; Claude propone y Codex aplica y verifica. Antes de delegar leer completo /home/felidae/proyectos/arquitectura_codex/docs/AI_ENGINEERING.md (1.0.1) y usar su scripts/claude-task sin copiar ni alterar el adaptador. Elegir tareas acotadas útiles para el objetivo; continuar localmente si una llamada falla. La eliminación del máximo no exige delegar ni relaja aislamiento, fuentes congeladas o controles MOD-02.
+
+Impacto: habilita nuevas invocaciones mediante el adaptador bajo el mismo alcance; consumo y costes reales se registran sin inventar importes. No cambia modelos, datos, alcance funcional, gates, pruebas, pesos o porcentajes; no autoriza publicación, contratación de proveedores ni datos reales. Este cambio documental no invalida evidencia funcional ni requiere reiniciar pruebas activas.

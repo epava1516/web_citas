@@ -4,7 +4,7 @@ Baseline: carpeta con 18 documentos; sin código ni repositorio Git antes del in
 Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
 Estado: running. Inicio autorizado 2026-10-03.
-Invocaciones Claude consumidas: 3/3 para el objetivo completo. La tercera fue automática fuera del adaptador (incidencia Graphify); continuar localmente sin nuevas invocaciones.
+Invocaciones Claude consumidas: 3 acumuladas, sin máximo numérico vigente. La tercera fue automática fuera del adaptador (incidencia Graphify), cuyo registro se conserva. Política modificada por autorización explícita del usuario el2026-10-06: límite de3 eliminado, contador no reiniciado. Nuevas invocaciones mediante scripts/claude-task del contrato adoptado; Claude propone, Codex aplica y verifica. Las referencias3/3 o restricciones de nuevas llamadas en la cronología inferior describen la política histórica, no la vigente.
 Próximo paso: CR-09. BASE y CR-01…CR-08 verificados localmente;166 comunes passed450.45s y dos límites finales14.47s; Docker privado/worker/Beat verificados.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
 
