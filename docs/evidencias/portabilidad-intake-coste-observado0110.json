@@ -1,0 +1,35 @@
+{
+  "schema": "portability-large-intake-cost-observation-v1",
+  "source_commit": "5df91ea7153a0e00d949f142f2caa1dddd45f5a5",
+  "process_confirmed_live": true,
+  "terminal": false,
+  "intake_observation": {
+    "calls": 625,
+    "sql_queries": 181252,
+    "seconds_total_instrumented": 2080.759688856546,
+    "seconds_max_instrumented": 3.822310047224164,
+    "sampled_process_rss_peak_bytes": 260726784
+  },
+  "query_delta_per_page_recent_windows": 290,
+  "static_findings": [
+    {
+      "file": "apps/safety/rights_portability_coverage_inspection.py",
+      "function": "inspect_page",
+      "direct_source_copy_calls": 2,
+      "nested_operation": "rights_portability_selection_review.record"
+    },
+    {
+      "file": "apps/safety/rights_portability_selection_review.py",
+      "function": "record",
+      "direct_source_copy_calls": 2
+    }
+  ],
+  "inference": "Each scalar inspection reconstructs full source repeatedly; with required row pages proportional to source rows, repeated reconstruction can produce quadratic aggregate work.",
+  "limits": [
+    "No SQL stack attribution or isolated comparison yet",
+    "Running benchmark not successful evidence",
+    "Other nested checks and costs not exhaustively profiled"
+  ],
+  "next_after_terminal": "Attribute affected source-copy/query costs; implement bounded shared-context inspection only with fresh authority and initial/final source integrity preserved; reproduce drift/revocation/ciphertext/proof/expiry guards before rerunning affected large path.",
+  "acceptance_changed": false
+}
