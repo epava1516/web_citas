@@ -4,7 +4,7 @@ Fecha:2026-10-06. Estado: catálogo implementado en rama aislada, pruebas de int
 
 ## Entrega independiente inicial: catálogo sin datos de clientes
 
-Preparar primero productos/versiones, administración, validaciones y previsualización ES/EN. La metadata del catálogo no necesita pedidos ni cuentas de clientes. Su auditoría identifica al operador y requiere correspondencia con derechos, descrita al final. MOD01 permite preparación en worktree aislado durante el ensayo; la aplicación principal permanece congelada. No integrar ni ejecutar cargas PG/navegador hasta el resultado terminal del ensayo.
+Preparar primero productos/versiones, administración, validaciones y previsualización ES/EN. La metadata del catálogo no necesita pedidos ni cuentas de clientes. Su auditoría identifica al operador y requiere correspondencia con derechos, descrita al final. MOD01 permite preparación en worktree aislado. El ensayo grande16353 ya terminó correctamente y su congelación está levantada. El orden vigente es verificar PERF-INSPECCIÓN-02 y después los gates del catálogo, sin cargas PG simultáneas; consultar seguimiento17 para handles actuales.
 
 | Identificador propuesto | Tipo | Duración inicial | Presentación |
 | --- | --- | ---: | --- |
@@ -53,7 +53,7 @@ El actor es dato personal: censo de cuenta y perfil sujeto incluye únicamente s
 
 ## Ejecución reproducible de gates pendientes
 
-Rama aislada, scripts/verify_promotion_catalogue.py (1657f1f): ejecutor preparado, no ejecutado. Tras confirmar terminal el benchmark, usar el intérprete .venv del proyecto principal y pasar --env-file con su .env y --output con directorio privado nuevo absoluto de /tmp. El ejecutor exige fuentes confirmadas en Git; crea una base promotion_gate_UUID y la base de tests correspondiente, aplica migraciones reales y ejecuta catálogo/auditoría/móvil junto con regresiones de avisos, dependencias de inventario y ámbito de copia. Captura logs privados, JUnit, commit y SHA256 de artefactos; elimina únicamente las dos bases de su invocación y verifica ausencia. No altera ni borra la base principal. PostgreSQL desechable no significa servicios externos aislados/verificados: worker/Beat no se prueban en esta batería, los fixtures conservan sus adaptadores explícitos.
+Rama aislada, scripts/verify_promotion_catalogue.py (1657f1f): ejecutor preparado, no ejecutado. Después de la carga activa indicada en seguimiento17 y de revisar su resultado, usar el intérprete .venv del proyecto principal y pasar --env-file con su .env y --output con directorio privado nuevo absoluto de /tmp. El ejecutor exige fuentes confirmadas en Git; crea una base promotion_gate_UUID y la base de tests correspondiente, aplica migraciones reales y ejecuta catálogo/auditoría/móvil junto con regresiones de avisos, dependencias de inventario y ámbito de copia. Captura logs privados, JUnit, commit y SHA256 de artefactos; elimina únicamente las dos bases de su invocación y verifica ausencia. No altera ni borra la base principal. PostgreSQL desechable no significa servicios externos aislados/verificados: worker/Beat no se prueban en esta batería, los fixtures conservan sus adaptadores explícitos.
 
 Gate positivo requiere migration_exit=0, pytest_exit=0, cleanup_verified=true y revisión del JUnit y su alcance; phase_accepted permanece false. Ruff/compilación del ejecutor son comprobaciones estáticas, no evidencia de ejecución, restauración o limpieza real. La migración y las regresiones compartidas deben pasar antes de integrar la rama y verificar Docker.
 

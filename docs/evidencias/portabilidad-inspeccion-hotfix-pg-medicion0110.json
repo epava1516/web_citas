@@ -1,0 +1,43 @@
+{
+  "schema": "inspection-source-shared-native-gates-v1",
+  "candidate_application": "85a5c7a",
+  "candidate_test_corrections": "1a4847f",
+  "integrated_source": "4735707",
+  "suite": {
+    "tests": "64",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "559.346"
+  },
+  "cleanup_verified": true,
+  "large_page": {
+    "historical_revisions": "1500",
+    "source_bytes": "9893757",
+    "page_seconds_instrumented": "6.591466173995286",
+    "page_python_peak_bytes": "41738419",
+    "page_sql_queries": "203",
+    "scope": "First native audited coverage page only; no full approval/closure acceptance"
+  },
+  "baseline": {
+    "sql_queries": 284,
+    "seconds_instrumented": 9.94,
+    "python_peak_bytes": 41695648
+  },
+  "scope": [
+    "Coverage/selection observed PostgreSQL lock and revocation races",
+    "Initial/final source checks and original evidence retained",
+    "1500 revisions/9893757 bytes: one native page, not full optimized flow measurement"
+  ],
+  "limits": [
+    "Separate prior equivalence/replay/native gates reused; not combined suite",
+    "Full baseline closure succeeded before this change; no optimized full-volume latency claim",
+    "Tracemalloc peak is not RSS or total DB/service memory",
+    "No HTTP p95 or production capacity inference"
+  ],
+  "artifacts": {
+    "/tmp/inspection-hotfix-races-large.xml": "873d9ed9b443e3c8658b6cfe674235f1811a4dd3b267b24bea838c19b5af48cb",
+    "/tmp/inspection-hotfix-races-large-result.json": "243511e7ea95983fc5e2ec8124dce3ec1ccb6b32a8ce3a51db7ce0e23ea8456a",
+    "/tmp/inspection-hotfix-races-large.log": "6b1e2cfb473211a396d9189dfc2847b40f662c2c13954e5c8729493a1cff4d7e"
+  }
+}
