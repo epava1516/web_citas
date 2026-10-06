@@ -1,0 +1,45 @@
+{
+  "verified_at": "2026-10-06T14:44:13.591869+00:00",
+  "aof_bytes": 40504424,
+  "sha256": "3af27eb360b56196f8128771bebc5589933a13edcb12de0388b6162bedd26aad",
+  "encrypted_origin": "/tmp/redis-aof-origin0110-tj8esko8/redis-aof-origin.encrypted",
+  "inspection": {
+    "completed_commands": 77928,
+    "command_counts": {
+      "MULTI": 15265,
+      "SELECT": 1,
+      "ZADD": 7631,
+      "HSET": 7631,
+      "EXEC": 15265,
+      "LPUSH": 8637,
+      "RPOP": 7630,
+      "ZREM": 7634,
+      "HDEL": 7634,
+      "SET": 258,
+      "DEL": 257,
+      "SREM": 40,
+      "SADD": 43,
+      "LPOP": 2
+    },
+    "examined_bytes": 19535105,
+    "pending": [
+      "argument_byte_limit"
+    ],
+    "subject_association_complete": false,
+    "original_command_times_known": false
+  },
+  "unit_tests": {
+    "passed": 4,
+    "seconds": 0.17,
+    "xml": "/tmp/redis-retained-history-tests.xml"
+  },
+  "partial": true,
+  "limits": [
+    "Read-only prefix captured from actively written AOF; concurrent suffix, rewrite/base RDB and older files not accounted.",
+    "Completed RESP commands counted without argument disclosure or execution.",
+    "Current queue empty does not remove historical LPUSH/HSET/etc arguments.",
+    "Command times and subject association remain unknown; not a recipient copy or per-case reviewed census.",
+    "Anonymous prior review volumes remain unidentified; no unsafe removal.",
+    "CR09/contract remain open; not a PostgreSQL integration acceptance."
+  ]
+}
