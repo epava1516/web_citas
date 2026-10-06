@@ -1,15 +1,12 @@
 """Require exact current independent coverage pages; caller decides approval separately."""
 
-from cryptography.fernet import InvalidToken
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.views.decorators.debug import sensitive_variables
 
-from .crypto import unseal
 from .models import RightsPortabilityCoverageRead
 from .rights_copy_inspection import SECTIONS
 from .rights_portability_catalog import FIELD_PAGE_SIZE, scalar_fields
-from .rights_portability_coverage_inspection import inspect_page
 
 
 def required_pages(source):
@@ -59,28 +56,14 @@ def require_complete_reads(user, case, coverage, source, *, ids=None):
     required = required_pages(source)
     if set(chosen) != set(required) or (ids is not None and len(chosen) != len(ids)):
         raise ValidationError("Inspect every current coverage page before approval")
-    result = []
-    for dataset, row_index, page, binary in required:
-        read = chosen[(dataset, row_index, page, binary)]
-        try:
-            reason = unseal(read.action.encrypted_reason)["reason"]
-        except (InvalidToken, ValueError, TypeError, KeyError) as error:
-            raise ValidationError("Coverage read reason unavailable") from error
-        # Reproduce the exact audited page, validating authority, proof, source,
-        # original action signature and persisted page digest. No new read replaces it.
-        action, _ = inspect_page(
-            user,
-            case.pk,
-            case.version,
-            coverage.pk,
-            read.action.key,
-            reason,
-            dataset,
-            row_index,
-            page,
-            binary=binary,
-        )
-        if action.pk != read.action_id:
-            raise ValidationError("Coverage read changed")
-        result.append(read.pk)
+    result = [chosen[page].pk for page in required]
+    from .rights_portability_coverage_evidence import validate_coverage_pages
+    from .rights_responses import complete_response_read
+    from .rights_verification import complete_read
+
+    if not complete_read(user, case) or not complete_response_read(user, case):
+        raise ValidationError("Inspect current request and responses before coverage approval")
+    validate_coverage_pages(
+        coverage, case, coverage.proof, source, user, result, allow_partial=True
+    )
     return result

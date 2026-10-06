@@ -53,6 +53,141 @@ def checked_action(action, case, actor_id, operation, signature):
 
 
 @sensitive_variables()
+def validate_coverage_pages(row, case, proof, source, user, ids, *, allow_partial=False):
+    """Validate original page evidence against one locked source; never create reads."""
+    if not transaction.get_connection().in_atomic_block:
+        raise RuntimeError("Coverage page evidence requires enclosing transaction")
+    actor = authorize(user, case)
+    if (
+        row.request_id != case.pk
+        or row.proof_id != proof.pk
+        or actor.pk == row.actor_id
+        or fingerprint(canonical(source)) != row.source_digest
+    ):
+        raise ValidationError("Coverage page source or authority changed")
+    selected_review = row.selection_review
+    selection = selected_review.selection
+    assessment_review = selection.assessment_review
+    assessment = validate_approved_assessment(
+        assessment_review,
+        assessment_review.assessment,
+        case,
+        proof,
+        row.source_digest,
+        unseal(assessment_review.assessment.encrypted_assessment),
+    )
+    validate_approved_selection(selected_review, selection, case, proof)
+    facts = validate_selection_evidence(selection, assessment_review, case)
+    body = baseline_body(row, case, User.objects.get(pk=row.actor_id), selection, selected_review)
+    compiled = compile_coverage(
+        source,
+        assessment,
+        facts["selection"],
+        body["omissions"],
+        facts.get("images", []),
+        body["image_omissions"],
+        field_evidence=facts.get("field_evidence"),
+        allow_partial=allow_partial,
+    )
+    summary = compile_coverage(
+        source,
+        assessment,
+        facts["selection"],
+        body["omissions"],
+        facts.get("images", []),
+        body["image_omissions"],
+        field_evidence=facts.get("field_evidence"),
+        allow_partial=True,
+    )
+    if (
+        not isinstance(ids, list)
+        or any(type(pk) is not int for pk in ids)
+        or len(set(ids)) != len(ids)
+    ):
+        raise ValidationError("Invalid coverage read references")
+    reads = {
+        read.pk: read
+        for read in RightsPortabilityCoverageRead.objects.select_related("action").filter(
+            pk__in=ids
+        )
+    }
+    required = required_pages(source)
+    if len(reads) != len(ids) or len(ids) != len(required):
+        raise ValidationError("Every original coverage page required")
+    child_keys = [
+        uuid5(
+            read.action.key,
+            f"coverage-inspection:{read.dataset}:{read.row_index}:{read.field_page}:{read.binary}",
+        )
+        for read in reads.values()
+    ]
+    children = {
+        child.action.key: child
+        for child in RightsPortabilitySelectionRead.objects.select_related("action").filter(
+            action__key__in=child_keys
+        )
+    }
+    for read_id, page in zip(ids, required, strict=True):
+        read = reads[read_id]
+        dataset, row_index, field_page, binary = page
+        if (
+            read.coverage_id != row.pk
+            or read.proof_id != proof.pk
+            or read.source_digest != row.source_digest
+            or read.coverage_digest != row.coverage_digest
+            or read.original_session_version != actor.session_version
+            or read.original_mfa_version != actor.mfa_version
+            or (read.dataset, read.row_index, read.field_page, read.binary) != page
+        ):
+            raise ValidationError("Original coverage page record changed")
+        purpose = checked_reason(read.action)
+        signature = fingerprint(
+            canonical(
+                {
+                    "case": str(case.pk),
+                    "version": case.version,
+                    "actor": actor.pk,
+                    "session": actor.session_version,
+                    "mfa": actor.mfa_version,
+                    "coverage": row.pk,
+                    "coverage_digest": row.coverage_digest,
+                    "ciphertext": fingerprint(row.encrypted_coverage),
+                    "proof": str(proof.pk),
+                    "selection": selection.pk,
+                    "source": row.source_digest,
+                    "dataset": dataset,
+                    "row": row_index,
+                    "page": field_page,
+                    "binary": binary,
+                    "purpose": purpose,
+                }
+            )
+        )
+        checked_action(read.action, case, actor.pk, "coverage_inspect", signature)
+        child_key = uuid5(
+            read.action.key, f"coverage-inspection:{dataset}:{row_index}:{field_page}:{binary}"
+        )
+        child = children.get(child_key)
+        if child is None or child.action.actor_id != actor.pk:
+            raise ValidationError("Original selection inspection required")
+        if (
+            child.original_session_version != actor.session_version
+            or child.original_mfa_version != actor.mfa_version
+        ):
+            raise ValidationError("Original selection reader epochs changed")
+        validate_evidence(child, selection, case, proof)
+        if checked_reason(child.action) != purpose:
+            raise ValidationError("Original selection inspection purpose changed")
+        result = coverage_page(
+            source, assessment, facts, body, summary, dataset, row_index, field_page, binary=binary
+        )
+        if read.page_digest != fingerprint(canonical(result)):
+            raise ValidationError("Original coverage page digest changed")
+    authorize(user, case)
+    return compiled
+
+
+@sensitive_variables()
 def validate_approved_coverage(decision, case, proof, source):
     """Use original case version and audited locked source; never authorize a new closure."""
     if not transaction.get_connection().in_atomic_block:
@@ -81,110 +216,8 @@ def validate_approved_coverage(decision, case, proof, source):
     )
     if latest is None or latest.pk != row.pk:
         raise ValidationError("Latest coverage required")
-    selected_review = row.selection_review
-    selection = selected_review.selection
-    assessment_review = selection.assessment_review
-    assessment = validate_approved_assessment(
-        assessment_review,
-        assessment_review.assessment,
-        case,
-        proof,
-        row.source_digest,
-        unseal(assessment_review.assessment.encrypted_assessment),
-    )
-    validate_approved_selection(selected_review, selection, case, proof)
-    facts = validate_selection_evidence(selection, assessment_review, case)
-    body = baseline_body(row, case, User.objects.get(pk=row.actor_id), selection, selected_review)
-    compiled = compile_coverage(
-        source,
-        assessment,
-        facts["selection"],
-        body["omissions"],
-        facts.get("images", []),
-        body["image_omissions"],
-        field_evidence=facts.get("field_evidence"),
-    )
-    summary = compile_coverage(
-        source,
-        assessment,
-        facts["selection"],
-        body["omissions"],
-        facts.get("images", []),
-        body["image_omissions"],
-        field_evidence=facts.get("field_evidence"),
-        allow_partial=True,
-    )
+    compiled = validate_coverage_pages(row, case, proof, source, actor, decision.read_ids)
     ids = decision.read_ids
-    if (
-        not isinstance(ids, list)
-        or any(type(pk) is not int for pk in ids)
-        or len(set(ids)) != len(ids)
-    ):
-        raise ValidationError("Invalid coverage read references")
-    reads = {
-        read.pk: read
-        for read in RightsPortabilityCoverageRead.objects.select_related("action").filter(
-            pk__in=ids
-        )
-    }
-    required = required_pages(source)
-    if len(reads) != len(ids) or len(ids) != len(required):
-        raise ValidationError("Every original coverage page required")
-    for read_id, page in zip(ids, required, strict=True):
-        read = reads[read_id]
-        dataset, row_index, field_page, binary = page
-        if (
-            read.coverage_id != row.pk
-            or read.proof_id != proof.pk
-            or read.source_digest != row.source_digest
-            or read.coverage_digest != row.coverage_digest
-            or read.original_session_version != decision.original_session_version
-            or read.original_mfa_version != decision.original_mfa_version
-            or (read.dataset, read.row_index, read.field_page, read.binary) != page
-        ):
-            raise ValidationError("Original coverage page record changed")
-        purpose = checked_reason(read.action)
-        signature = fingerprint(
-            canonical(
-                {
-                    "case": str(case.pk),
-                    "version": case.version,
-                    "actor": actor.pk,
-                    "session": decision.original_session_version,
-                    "mfa": decision.original_mfa_version,
-                    "coverage": row.pk,
-                    "coverage_digest": row.coverage_digest,
-                    "ciphertext": fingerprint(row.encrypted_coverage),
-                    "proof": str(proof.pk),
-                    "selection": selection.pk,
-                    "source": row.source_digest,
-                    "dataset": dataset,
-                    "row": row_index,
-                    "page": field_page,
-                    "binary": binary,
-                    "purpose": purpose,
-                }
-            )
-        )
-        checked_action(read.action, case, actor.pk, "coverage_inspect", signature)
-        child_key = uuid5(
-            read.action.key, f"coverage-inspection:{dataset}:{row_index}:{field_page}:{binary}"
-        )
-        child = (
-            RightsPortabilitySelectionRead.objects.select_related("action")
-            .filter(action__key=child_key)
-            .first()
-        )
-        if child is None or child.action.actor_id != actor.pk:
-            raise ValidationError("Original selection inspection required")
-        validate_evidence(child, selection, case, proof)
-        if checked_reason(child.action) != purpose:
-            raise ValidationError("Original selection inspection purpose changed")
-        result = coverage_page(
-            source, assessment, facts, body, summary, dataset, row_index, field_page, binary=binary
-        )
-        if read.page_digest != fingerprint(canonical(result)):
-            raise ValidationError("Original coverage page digest changed")
     reason = checked_reason(decision.action)
     signature = fingerprint(
         canonical(
