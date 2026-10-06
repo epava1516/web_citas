@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="rectification-final">
+<h1>{% if english %}Erasure response{% else %}Respuesta de supresión{% endif %}</h1>
+<p>{% if english %}Development simulation. Preparation and approval do not close the request. Outstanding decisions and operational checks remain pending after a partial response.{% else %}Simulación de desarrollo. Preparar y aprobar no cierran la solicitud. Las decisiones y comprobaciones operativas pendientes siguen abiertas tras una respuesta parcial.{% endif %}</p>
+<p>{% if english %}Recorded executions{% else %}Ejecuciones registradas{% endif %}: {% for id in executions %}{{ id }} {% empty %}—{% endfor %}</p>
+{% if material %}
+<h2>{% if english %}Audited exact response{% else %}Respuesta exacta consultada con auditoría{% endif %}</h2>
+<p>{{ material.text|linebreaksbr }}</p><p>{{ material.reason|linebreaksbr }}</p>
+<p>{% if english %}Completed purposes{% else %}Finalidades comprobadas{% endif %}: {{ material.material.completed_purposes|join:", " }}</p>
+<p>{% if english %}Execution pending{% else %}Ejecución pendiente{% endif %}: {{ material.material.pending_execution_purposes|join:", "|default:"—" }}</p>
+{% for row in material.material.remaining_decisions %}<p>{{ row.purpose }} · {{ row.operation }} · {{ row.review_on|default_if_none:"—" }}</p>{% endfor %}
+<p>{% if english %}Operational checks pending{% else %}Comprobaciones operativas pendientes{% endif %}: {{ material.material.operational_pending|length }}</p>
+{% endif %}
+<table><caption>{% if english %}Recorded actions{% else %}Acciones registradas{% endif %}</caption><thead><tr><th>ID</th><th>{% if english %}Action{% else %}Acción{% endif %}</th><th>{% if english %}Date{% else %}Fecha{% endif %}</th></tr></thead><tbody>{% for action in actions %}<tr><td>{{ action.pk }}</td><td>{{ action.operation }}</td><td>{{ action.created_at }}</td></tr>{% endfor %}</tbody></table>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Record action{% else %}Registrar acción{% endif %}</button></form>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Back to request{% else %}Volver al expediente{% endif %}</a></p>
+</section>
+{% endblock %}

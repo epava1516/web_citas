@@ -1,0 +1,166 @@
+{
+  "status": "in_development_not_deployed",
+  "database": "PostgreSQL",
+  "identity": "simulator_not_real_provider",
+  "runs": [
+    {
+      "xml": "/tmp/erasure-final-material0108.xml",
+      "sha256": "5afae15c93502653ea9b150e041e4f4ff014b775852c3aa57732ded7c3fe6673",
+      "exit_code": 0,
+      "description": "Material propio y manipulación de justificante/plan",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "2",
+        "time": "46.502",
+        "timestamp": "2026-10-06T13:30:00.290942+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    },
+    {
+      "xml": "/tmp/erasure-final-review0108.xml",
+      "sha256": "7be633a7a0f32597b0474eb056bb0691b8ae8e14e9bc78653c35545050fafd01",
+      "exit_code": 1,
+      "description": "Primer intento: sesión de revisor de prueba incompleta",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "1",
+        "time": "40.387",
+        "timestamp": "2026-10-06T13:32:49.049256+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    },
+    {
+      "xml": "/tmp/erasure-final-review-fixed0108.xml",
+      "sha256": "c51801e498dce7acf89b2495a2b51d7e35b894747197e1342a7f5b5942461805",
+      "exit_code": 0,
+      "description": "Preparación cifrada, revisión independiente, replay y fuente modificada",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "42.364",
+        "timestamp": "2026-10-06T13:33:52.909714+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    },
+    {
+      "xml": "/tmp/erasure-final-issuance0108.xml",
+      "sha256": "659e5a869d7f36d201dfd54703f1eb21c47958c7cf51ec937eaa80d3f9cb9b57",
+      "exit_code": 0,
+      "description": "HTTP/emisión parcial/replay/canal privado/CSRF",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "42.609",
+        "timestamp": "2026-10-06T13:36:58.876404+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    },
+    {
+      "xml": "/tmp/erasure-final-account0108.xml",
+      "sha256": "ab8ade17a429c9e70bc8d0e263efdf7423a404a9c20edb9adcb74bc0d9e2cb47",
+      "exit_code": 0,
+      "description": "Cuenta anonimizada y propietario de agencia sin Person",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "2",
+        "time": "46.399",
+        "timestamp": "2026-10-06T13:38:23.979968+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    },
+    {
+      "xml": "/tmp/erasure-final-mobile0108.xml",
+      "sha256": "62894473c9a1af182f7b8725abd86c7eee0eeace17f087d47315ca226ad34308",
+      "exit_code": 1,
+      "description": "Primer móvil: ORM en bucle Playwright del test",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "tests": "2",
+        "time": "54.428",
+        "timestamp": "2026-10-06T13:40:18.637450+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    },
+    {
+      "xml": "/tmp/erasure-final-mobile-fixed0108.xml",
+      "sha256": "830d71db1e72cb691ba837b35cd2500a40086ef610852aa2d8808696bc1f238e",
+      "exit_code": 1,
+      "description": "Segundo móvil: fixture MFA sin secreto TOTP",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "tests": "2",
+        "time": "119.771",
+        "timestamp": "2026-10-06T13:41:37.123220+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    },
+    {
+      "xml": "/tmp/erasure-final-mobile-mfa0108.xml",
+      "sha256": "c558ee7fa6dbeebbd088e962e164ff00ec71269adb0657b3419d445be33fbcb5",
+      "exit_code": 0,
+      "description": "Móvil ES/EN login/MFA/lectura/preparación/revisión/emisión/acuse",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "2",
+        "time": "66.645",
+        "timestamp": "2026-10-06T13:43:54.155042+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    },
+    {
+      "xml": "/tmp/erasure-final-integrated0108.xml",
+      "sha256": "50be19ff329b8b0a4357741d0d75d03c447ee3b37d869f5bcd46c161e4293855",
+      "exit_code": 0,
+      "description": "Batería final conjunta: ocho supresión y dos portabilidad por acuse compartido",
+      "statistics": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "10",
+        "time": "160.365",
+        "timestamp": "2026-10-06T13:45:39.147612+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    }
+  ],
+  "pending": [
+    "Cobertura operacional real, conservación y comunicaciones",
+    "Variantes físicas/medios y carreras de emisión",
+    "Despliegue Docker y verificación de fuente",
+    "Aceptación integral CR09 y resto del contrato"
+  ],
+  "source_hashes": {
+    "apps/safety/erasure_final.py": "fc63be13335e069ce4a803e8cb5f96ade287df1782f8a6ca895b7849f5b2df76",
+    "apps/safety/erasure_final_views.py": "573e1ca1efef39a1ff383e2ecfb4b432e2eb65e3337e24b2144b8a5f0fc275c9",
+    "apps/core/urls.py": "f3a75d207ab92f0ff1eb2aa6ce22a9cb3fbc89fd2474a635ed119809673630eb",
+    "templates/safety/erasure_final.html": "d60d53cfe7cdcbeadc56c758b961970d385378638a7c4a449a0a68ed61abe1a4",
+    "templates/safety/rights_receipt.html": "5d246401557019ee0613f0a90e059131cc88319838806c490ed6167a4e0299a5",
+    "templates/safety/rights_inspect.html": "6b7bb8299ec95a55a386028e89eddc81937b7ae55e1a8df0960338dfe85dbd80",
+    "tests/test_erasure_final.py": "04a69574f4d841031aba19aa4302a6026f369d9f80a7cb1eefd304d39d9fef41"
+  }
+}

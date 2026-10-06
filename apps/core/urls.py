@@ -16,6 +16,7 @@ from apps.safety import (
     complaint_messages,
     complaints,
     erasure_execution,
+    erasure_final_views,
     erasure_inventory,
     erasure_plans,
     media_operations,
@@ -160,6 +161,11 @@ urlpatterns = [
         "moderation/rights/<uuid:case_id>/restrictions/<int:restriction_id>/release/",
         purpose_release_views.release,
         name="purpose_restriction_release",
+    ),
+    path(
+        "moderation/rights/<uuid:case_id>/erasure/final/",
+        erasure_final_views.final,
+        name="erasure_final",
     ),
     path(
         "moderation/rights/<uuid:case_id>/rectification/final/",
