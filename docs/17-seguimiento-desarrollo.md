@@ -19,11 +19,12 @@ Actualizado: 2026-10-06. Corte documental: código de purga `72ff79a`, código d
 | Censo de sesiones caducadas integrado | Las sesiones propias todavía almacenadas se incluyen aunque hayan caducado; metadato de caducidad explícito, capacidades/ajenas excluidas y desconocidos bloqueados.1 prueba PG y2 recorridos integrados perfil/cuenta correctos; [evidencia](evidencias/sesiones-caducadas-retenidas0110.json). Fuente552e9b6 y Docker verificados; sin borrado/tarea nueva. |
 | Lectura de colas limitada integrada | Censo Redis/Kombu real de colas/prioridades/reservados con límite previo a transferencia de256KiB/mensaje y8MiB agregados, preservando mensajes y ámbito.1 prueba correcta; [evidencia](evidencias/censo-colas-limites-bytes0110.json). Fuente43250d0 y Docker verificados; sin tarea nueva. |
 | Calendario paginado integrado | Cursor firmado por usuario/filtro y caducidad, páginas50/lotes100 y autorización por fila. Recorrido sintético1100 entradas y móvil ES/EN:4 pruebas correctas;8 regresiones previas correctas. [Evidencia](evidencias/calendario-conservacion-paginacion0110.json). Docker cacfe94 verificado; no aceptación integral de rendimiento/conservación. |
+| Autoridad de reconocimiento urgente corregida | Reconsulta tras bloqueos y antes de retorno, también replay;8 fallos previos y14 pruebas finales correctas. [Evidencia](evidencias/alertas-autoridad0110.json). Runtime pendiente; escalado integral continúa abierto. |
 | Fases posteriores | CR10, GS01, BF, BB y C pendientes como fases. Ya existe frontend/backend de los recorridos cruzados; esto no acepta sus fases separadas. |
 
 ## Próximo trabajo y criterio de salida
 
-1. Completar censo de recursos/destinatarios y conservación por finalidad de CR09, preservando las comunicaciones internas verificadas0110; no reabrir purga0109 ni recorridos entregados salvo defecto/requisito concreto.
+1. Actualizar Docker con la corrección de autoridad de alertas; después completar censo de recursos/destinatarios y conservación por finalidad de CR09, preservando las comunicaciones internas verificadas0110; no reabrir purga0109 ni recorridos entregados salvo defecto/requisito concreto.
 2. Completar los requisitos residuales de CR09 en [auditoría83](83-auditoria-pendientes-cr09.md): conservación/destrucción por finalidad, comunicaciones/destinatarios, atención/escalado, rendimiento y censo operacional real. La prioridad de esta lista no elimina ningún requisito del contrato.
 3. Integrar evidencia de la misma versión contra todos los requisitos para aceptar CR09; continuar CR10 → GS01 → BF/BB → C. No saltar gates ni sustituirlos por porcentajes.
 

@@ -201,3 +201,45 @@ def test_acknowledgement_rechecks_management_and_historical_conflict(request, mo
     Report.objects.filter(pk=report.pk).update(reported_subject=user)
     assert staff.post(PATH, {"report_id": report.pk}).status_code == 403
     assert not staff.get(PATH).context["page"]
+
+
+@pytest.mark.parametrize("revoked", ["permission", "session", "mfa", "active"])
+@pytest.mark.parametrize("replay", [False, True])
+def test_acknowledgement_rechecks_revoked_authority(request, monkeypatch, revoked, replay):
+    from apps.core.models import User
+    from apps.safety import urgent_alerts
+
+    client = request.getfixturevalue("directory")
+    report = case(client)
+    user, staff = reviewer()
+    if replay:
+        assert staff.post(PATH, {"report_id": report.pk}).status_code == 302
+    before = UrgentReportAlert.objects.get(report=report)
+    original = urgent_alerts.permitted
+    changed = False
+
+    def revoke(actor, candidate):
+        nonlocal changed
+        result = original(actor, candidate)
+        if not changed:
+            changed = True
+            if revoked == "permission":
+                user.user_permissions.clear()
+                user.groups.clear()
+                User.objects.filter(pk=user.pk).update(is_superuser=False)
+            elif revoked == "session":
+                User.objects.filter(pk=user.pk).update(session_version=user.session_version + 1)
+            elif revoked == "mfa":
+                User.objects.filter(pk=user.pk).update(mfa_version=user.mfa_version + 1)
+            else:
+                User.objects.filter(pk=user.pk).update(is_active=False)
+        return result
+
+    monkeypatch.setattr(urgent_alerts, "permitted", revoke)
+    assert staff.post(PATH, {"report_id": report.pk}).status_code == 403
+    after = UrgentReportAlert.objects.get(report=report)
+    assert (after.acknowledged_at, after.acknowledged_by_id) == (
+        before.acknowledged_at, before.acknowledged_by_id
+    )
+    report.refresh_from_db()
+    assert report.version == 1 and not report.actions.exists()

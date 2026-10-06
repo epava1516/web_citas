@@ -1,0 +1,24 @@
+{
+  "scope": "Fresh authorization of urgent alert acknowledgement and replay; real PostgreSQL, synthetic reports",
+  "source_sha256": {
+    "apps/safety/urgent_alerts.py": "c9ee1748449bd9a2122be185f6b4ecc5d4a4d0120a2831a9014a71588c4267f7",
+    "tests/test_urgent_report_alerts.py": "1786a904546c316307d68866abd97594a1e21a2d00bc69016216735a06ad403c"
+  },
+  "reproduction": {
+    "xml": "/tmp/urgent-authority-before.xml",
+    "failed": 8,
+    "seconds": 77.13,
+    "coverage": "Permission/session/MFA/activity revocation after initial permission check, new and replay acknowledgement"
+  },
+  "verification": {
+    "xml": "/tmp/urgent-authority-after.xml",
+    "passed": 14,
+    "failed": 0,
+    "coverage": "Complete urgent alerts module, including mobile/concurrent acknowledgement/reconciliation/management and eight authority regressions"
+  },
+  "limits": [
+    "Revocation is deterministically interleaved in HTTP tests, not a separate observed PostgreSQL lock-wait experiment.",
+    "No external delivery, human receipt or escalation responsibility proven.",
+    "Docker update pending; CR09 remains open."
+  ]
+}
