@@ -81,3 +81,6 @@ class Zone(models.Model):
 
     def __str__(self):
         return self.name
+
+
+from .promotion_models import PromotionProduct, PromotionProductVersion  # noqa: E402,F401

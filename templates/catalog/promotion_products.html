@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% if english %}Promotion catalogue{% else %}Catálogo de promociones{% endif %}</h1>
+<p>{% if english %}Sales are inactive. Create product configurations without granting promotions.{% else %}Ventas inactivas. Crea configuraciones sin conceder promociones.{% endif %}</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">{% if english %}Create product{% else %}Crear producto{% endif %}</button></form>
+{% for product in page %}<p><a href="{% url 'promotion_product_versions' product.pk %}">{{ product.slug }}</a> · {{ product.get_kind_display }}</p>{% empty %}<p>{% if english %}No products configured.{% else %}Sin productos configurados.{% endif %}</p>{% endfor %}
+{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">{% if english %}Previous{% else %}Anterior{% endif %}</a>{% endif %}
+{% if page.has_next %}<a href="?page={{ page.next_page_number }}">{% if english %}Next{% else %}Siguiente{% endif %}</a>{% endif %}
+{% endblock %}
