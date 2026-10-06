@@ -1,0 +1,35 @@
+{
+  "schema": "portability-inspection-side-hotfix-handoff-v1",
+  "branch": "codex/cr09-inspection-hotfix",
+  "implementation_commit": "85a5c7a",
+  "worktree": "/home/felidae/proyectos/web_modelos_cr09hotfix",
+  "integrated_in_main": false,
+  "deployed": false,
+  "unit_result": {
+    "tests": 6,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "postgresql_verification": false
+  },
+  "unit_junit_sha256": "4d0beb4c9e259aa0a02033d61d200b6fa7275781ce6505e1f83f52b81d2bf10f",
+  "source_sha256": {
+    "apps/safety/rights_inspection_source.py": "986ad63f04adbf9701abf7c72847d7156459ace743f5c5e66cfc8f8db677a74f",
+    "apps/safety/rights_portability_coverage_inspection.py": "e948117b6fe338c419241296f89f4ad2786c9c3beae407a079b5cb98eaa283dd",
+    "apps/safety/rights_portability_selection_review.py": "79c7c39a08b1f8cf5dfd12ad707bdeb91540ea47716dee71b03005e09780abf2",
+    "tests/test_rights_inspection_source_unit.py": "725a89dd86ed74aff53d165366784a236e969aa80067c221d7d13052a61feba7",
+    "tests/test_portability_inspection_shared_source.py": "47bb83d044a983189e3cda73653ace35170c4241bffb41602ed0a332749ccd88",
+    "tests/test_portability_coverage_batch_validation.py": "c02096be4a5b65ecae4a96fc28f2ee23c520d80c13bd0d70bdb4c287960a4338"
+  },
+  "native_pg_gates_run": false,
+  "performance_improvement_measured": false,
+  "expected_source_reconstruction_change": "Four direct source reconstructions become initial/final two per page, subject to native verification; not a SQL/time result.",
+  "remaining": [
+    "Native profile/account equivalence and replay tests",
+    "Late drift/permission/session/MFA rollback tests",
+    "Affected coverage/selection concurrency and invalid evidence regressions",
+    "Large page SQL/time/RSS comparison after baseline becomes terminal",
+    "Integrate tested commit then Docker verification with new helper hash and documented runtime"
+  ],
+  "main_thread_notification": "Shared docs17 handoff entry; no direct conversation messaging tool available"
+}
