@@ -1015,14 +1015,20 @@ def compile_package(inventory, export, original, decisions, *, cutoff, projected
             records.append({"model": model, "records": projected_rows})
         exclusions.extend(omitted_fields)
     resources = decisions["resources"]
+    metadata_digest = original.get("redis_history", {}).get("metadata_digest")
+    resource_fields = {"status", "reason"}
+    if metadata_digest:
+        resource_fields.add("redis_metadata_digest")
     if (
         not isinstance(resources, dict)
-        or set(resources) not in ({"status", "reason"}, {"status", "reason", "origin_digest"})
+        or set(resources) not in (resource_fields, resource_fields | {"origin_digest"})
         or resources["status"] != "reviewed"
         or not isinstance(resources["reason"], str)
         or not 20 <= len(resources["reason"].strip()) <= 2000
     ):
         raise ValidationError("Motivated infrastructure scope assessment required")
+    if metadata_digest and resources["redis_metadata_digest"] != metadata_digest:
+        raise ValidationError("Exact Redis metadata review digest required")
     # Local acceptance cannot accredit an external provider or production operations.
     config = original["infrastructure"]
     external = (

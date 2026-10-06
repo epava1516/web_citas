@@ -1,5 +1,6 @@
 """Real Chromium mobile preparation/review with synthetic identity evidence."""
 
+import json
 import shutil
 from uuid import uuid4
 
@@ -24,7 +25,7 @@ pytestmark = pytest.mark.django_db(transaction=True)
 @pytest.mark.parametrize("language", ["es", "en"])
 @pytest.mark.parametrize("account_only", [False, True])
 def test_mobile_final_response_preparation_and_independent_decision(
-    live_server, request, settings, monkeypatch, language, account_only
+    live_server, request, settings, monkeypatch, tmp_path, language, account_only, metadata=False
 ):
     settings.DEBUG = True
     case, author, _, _, _, _, _, _, decision, _, _ = approved_information(
@@ -55,6 +56,30 @@ def test_mobile_final_response_preparation_and_independent_decision(
     read(staff, case)
     read(other, case)
     original = case.version, case.response_version, case.status, case.initial_due_at
+    inventory = None
+    if metadata:
+        from retained_rdb_fixture import aux_decoder, capture, native_decoder
+        from test_redis_history_scope import message
+
+        from apps.safety.crypto import seal, unseal
+        from apps.safety.rights_access_scope_store import inspect
+        from scripts.scope_retained_redis_origin import prepare_origins
+
+        inventory, _ = inspect(author, case.pk, case.version, case.response_version, uuid4(), REASON)
+        manifest = unseal(inventory.encrypted_inventory)
+        blob = manifest["media"][0]["blob"] if manifest["media"] else str(uuid4())
+        body, _ = capture(tmp_path / "native", inventory.created_at, [message(blob)])
+        source = tmp_path / "snapshot.encrypted"
+        source.write_text(seal(body))
+        source.chmod(0o600)
+        folder = tmp_path / "origins"
+        folder.mkdir(mode=0o700)
+        decoder, digest = native_decoder()
+        aux, aux_hash = aux_decoder()
+        prepare_origins([source], folder, inventory, decoder=decoder, decoder_sha256=digest, aux_decoder=aux, aux_decoder_sha256=aux_hash)
+        settings.ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = str(folder)
+        settings.CELERY_BROKER_TRANSPORT_OPTIONS = {"global_keyprefix": "fixture:"}
+        settings.CELERY_TASK_DEFAULT_QUEUE = "q"
     cookies = [
         client.cookies[django_settings.SESSION_COOKIE_NAME].value for client in (staff, other)
     ]
@@ -84,6 +109,17 @@ def test_mobile_final_response_preparation_and_independent_decision(
             page.locator("#id_reason").fill(REASON)
             page.locator("#id_response").fill(TEXT)
             page.locator("#id_redaction_confirmed").check()
+            if metadata:
+                page.locator("#id_scope_inventory").select_option(str(inventory.pk))
+                page.get_by_role("button", name="Inspect access package" if english else "Consultar paquete de acceso", exact=True).click()
+                expect(page.locator(".rights-access-coverage")).to_contain_text("metadata_review")
+                decisions = json.loads(page.locator("#id_delivery_decisions").input_value())
+                assert decisions["resources"]["status"] == "pending"
+                assert len(decisions["resources"]["redis_metadata_digest"]) == 64
+                for decision in decisions["models"].values():
+                    decision.update(status="omitted", reason=REASON)
+                decisions["resources"].update(status="reviewed", reason=REASON)
+                page.locator("#id_delivery_decisions").fill(json.dumps(decisions))
             page.get_by_role(
                 "button",
                 name="Save response draft" if english else "Guardar borrador de respuesta",
@@ -109,6 +145,9 @@ def test_mobile_final_response_preparation_and_independent_decision(
                 exact=True,
             ).click()
             expect(page.locator("body")).to_contain_text(TEXT)
+            if metadata:
+                expect(page.locator(".rights-access-coverage")).to_contain_text("snapshot_metadata_scope_review")
+                expect(page.locator(".rights-access-coverage")).to_contain_text("infrastructure_scope_unreviewed")
             page.locator("#decision_reason").fill(REASON)
             page.locator("#decision_outcome").select_option("approved")
             page.get_by_role(
@@ -131,3 +170,12 @@ def test_mobile_final_response_preparation_and_independent_decision(
     assert draft.actor_id == author.pk and draft.proof_id == proof.pk
     case.refresh_from_db()
     assert (case.version, case.response_version, case.status, case.initial_due_at) == original
+
+
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_mobile_aux_inspection_requires_exact_metadata_review_and_stays_partial(
+    live_server, request, settings, monkeypatch, tmp_path, language
+):
+    test_mobile_final_response_preparation_and_independent_decision(
+        live_server, request, settings, monkeypatch, tmp_path, language, False, metadata=True
+    )

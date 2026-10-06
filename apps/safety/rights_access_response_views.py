@@ -162,6 +162,11 @@ def prepare_response(request, case_id):
                         "status": "pending",
                         "reason": "",
                         **(
+                            {"redis_metadata_digest": package_preview["redis_history"]["metadata_digest"]}
+                            if package_preview["redis_history"].get("metadata_digest")
+                            else {}
+                        ),
+                        **(
                             {"origin_digest": package_preview["resource_scope"]["digest"]}
                             if package_preview["resource_scope"].get("configured")
                             else {}

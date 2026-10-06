@@ -84,7 +84,7 @@ def prepare_origin(path, directory, inventory):
     )
 
 
-def prepare_origins(paths, directory, inventory, *, decoder=None, decoder_sha256=None):
+def prepare_origins(paths, directory, inventory, *, decoder=None, decoder_sha256=None, aux_decoder=None, aux_decoder_sha256=None):
     from apps.safety.retained_redis_origins import checked_origin
 
     if not 1 <= len(paths) <= 16:
@@ -107,11 +107,21 @@ def prepare_origins(paths, directory, inventory, *, decoder=None, decoder_sha256
             from scripts.decode_retained_rdb_origin import decode_body
 
             origin = decode_body(body, decoder, decoder_sha256=decoder_sha256)
+            if aux_decoder is not None or aux_decoder_sha256 is not None:
+                if aux_decoder is None or aux_decoder_sha256 is None:
+                    raise ValueError("AUX collector and verified hash required together")
+                from scripts.collect_retained_rdb_aux import collect_aux
+
+                origin = collect_aux(body, origin, aux_decoder, decoder_sha256=aux_decoder_sha256)
         raw, kind, identity = checked_origin(origin, inventory.created_at)
         if (kind, identity) in identities:
             raise ValueError("Duplicate retained physical origin")
         identities.add((kind, identity))
         total += len(raw)
+        if "aux_metadata" in origin:
+            from apps.safety.rights_exports import canonical
+
+            total += len(canonical(origin["aux_metadata"]).encode())
         if total > MAX_BYTES:
             raise ValueError("Retained origin aggregate byte limit")
         origins.append(origin)
@@ -132,6 +142,8 @@ def main():
     parser.add_argument("--origin", type=Path, action="append", required=True)
     parser.add_argument("--decoder", type=Path)
     parser.add_argument("--decoder-sha256")
+    parser.add_argument("--aux-decoder", type=Path)
+    parser.add_argument("--aux-decoder-sha256")
     parser.add_argument("--output-directory", type=Path, required=True)
     parser.add_argument("--request", type=UUID, required=True)
     parser.add_argument("--inventory", type=int, required=True)
@@ -152,6 +164,7 @@ def main():
         path = prepare_origins(
             args.origin, args.output_directory, inventory,
             decoder=args.decoder, decoder_sha256=args.decoder_sha256,
+            aux_decoder=args.aux_decoder, aux_decoder_sha256=args.aux_decoder_sha256,
         )
     except (OSError, ValueError, TypeError, KeyError, ValidationError, subprocess.SubprocessError, RightsAccessScopeInventory.DoesNotExist):
         parser.error("Retained origin or inventory unavailable; no accepted artifact")
