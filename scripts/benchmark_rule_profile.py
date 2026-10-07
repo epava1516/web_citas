@@ -17,7 +17,7 @@ class RuleProfile:
         @wraps(function)
         def measured(*args, **kwargs):
             parents = self.stack.get()
-            frame = {"children": defaultdict(float), "cpu_children": defaultdict(float)}
+            frame = {"rule": name, "children": defaultdict(float), "cpu_children": defaultdict(float)}
             token = self.stack.set((*parents, frame))
             start = self.clock()
             cpu_start = self.cpu_clock() if self.cpu_clock else None
