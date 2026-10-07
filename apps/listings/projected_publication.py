@@ -88,6 +88,8 @@ def definitions():
                  model_forms.construct_instance, model_forms.model_to_dict,
                  public_validation.validate_publication_binding,
                  public_validation.validate_publication_value_fields,
+                 public_validation.validate_publication_input_fields,
+                 forms.BoundField.__init__, forms.BoundField.data.fget,
                  public_validation.memoize_publication_field_clean, SimpleLazyObject._setup,
                  public_validation.read_publication_values]
     for cls in classes:
@@ -95,7 +97,7 @@ def definitions():
                  "validate_constraints", "_get_unique_checks", "_perform_unique_checks",
                  "_perform_date_checks", "is_valid", "_clean_fields", "_clean_form",
                  "_post_clean", "_update_errors", "_get_validation_exclusions", "_bound_items",
-                 "__getitem__", "_clean_bound_field", "to_python", "validate",
+                 "__getitem__", "get_bound_field", "_widget_data_value", "add_prefix", "_clean_bound_field", "to_python", "validate",
                  "run_validators", "postal_matches", "_check_values", "value_from_datadict",
                  "details", "details_valid", "contacts_valid", "rate_valid", "row",
                  "_bound_validation", "_memoize_field_clean", "fields_for_catalog"}
@@ -129,7 +131,7 @@ def definitions():
     field_options = []
     for cls in [DetailsForm, ContactsForm, RateForm]:
         field_options.append((cls.__name__, cls._meta.model._meta.label,
-                              tuple(cls._meta.fields), cls._meta.exclude))
+                              tuple(cls._meta.fields), cls._meta.exclude, cls.bound_field_class))
         for name, field in cls.base_fields.items():
             attrs = {key: value for key, value in vars(field).items()
                      if key not in {"label", "help_text", "error_messages", "widget",
@@ -154,7 +156,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "fe05c927a31ae9d53a399cbd8d03d399e749b623cfd3f757531bb3dc0f4c1cfd"
+EXPECTED_DEFINITIONS = "12b018f3d2b8e764a91460637f1a010dea7688851e033b805bce74feeae5706b"
 
 
 def definitions_digest():

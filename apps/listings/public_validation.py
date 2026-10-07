@@ -229,6 +229,23 @@ def memoize_publication_field_clean(field, stats):
     field.clean = clean
 
 
+def validate_publication_input_fields(form):
+    """Audited Field._clean_bound_field scalar path without rendering BoundFields.
+
+    Native widget extraction, prefix, Field.clean, clean_<name> and immediate
+    add_error order remain unchanged. Disabled/custom bound fields stay native.
+    """
+    for name, field in form.fields.items():
+        try:
+            value = form._widget_data_value(field.widget, form.add_prefix(name))
+            form.cleaned_data[name] = field.clean(value)
+            cleaner = getattr(form, "clean_" + name, None)
+            if cleaner is not None:
+                form.cleaned_data[name] = cleaner()
+        except ValidationError as error:
+            form.add_error(name, error)
+
+
 def validate_publication_value_fields(form):
     """Model field validation for the audited read-only Revision proof domain.
 
@@ -292,13 +309,23 @@ def validate_publication_binding(prototype, data, revision, *, value_model=False
     form._validate_unique = False
     form.__dict__.pop("changed_data", None)
     form.__dict__.pop("cleaned_data", None)
+    uses_value_kernel = False
     if value_model:
         if type(form) not in (SnapshotDetails, ContactsForm):
             raise ValueError("Value model kernel only supports audited Revision forms")
         # Unknown/omitted defaults, disabled and empty-permitted bindings use
         # the original model path. Normal projection provides every field key.
         complete = all(name in data for name in form.fields)
+        normal_bound_fields = (
+            form.bound_field_class in (None, forms.BoundField)
+            and all(field.bound_field_class in (None, forms.BoundField)
+                    for field in form.fields.values())
+        )
+        if not normal_bound_fields:
+            return False  # Unknown binding semantics require the native eligibility guard.
         if complete and not needs_initial:
+            uses_value_kernel = True
+            form._clean_fields = lambda: validate_publication_input_fields(form)
             form._post_clean = lambda: validate_publication_value_fields(form)
     try:
         return form.is_valid()
@@ -307,6 +334,11 @@ def validate_publication_binding(prototype, data, revision, *, value_model=False
         # only a boolean and are never rendered; release their reverse cache
         # after native cleaning instead of leaving successful cycles for GC.
         form._bound_fields_cache.clear()
+        if uses_value_kernel:
+            # Private callbacks capture the binding; release their reverse refs
+            # on success and exceptions, not only when cyclic GC eventually runs.
+            form.__dict__.pop("_clean_fields", None)
+            form.__dict__.pop("_post_clean", None)
 
 
 class PublicationContext:

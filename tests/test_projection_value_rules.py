@@ -109,7 +109,8 @@ def test_value_model_fields_match_native_model_path(request, kind):
     from django.db import models
     from apps.listings.forms import ContactsForm
     from apps.listings.models import Revision
-    from apps.listings.public_validation import validate_publication_value_fields, SnapshotDetails
+    from apps.listings.public_validation import (validate_publication_value_fields,
+        validate_publication_input_fields, SnapshotDetails)
     request.getfixturevalue("directory")
     context = PublicationContext(candidates({}))
     revision = next(row.approved_revision for row in context.rows
@@ -146,6 +147,7 @@ def test_value_model_fields_match_native_model_path(request, kind):
         actual = factory({**data, **changes})
         native_valid = native.is_valid()
         assert "id" in native._get_validation_exclusions()
+        actual._clean_fields = lambda: validate_publication_input_fields(actual)
         actual._post_clean = lambda: validate_publication_value_fields(actual)
         assert actual.is_valid() == native_valid
         assert actual.errors.as_json() == native.errors.as_json()
@@ -182,3 +184,21 @@ def test_missing_default_input_retains_native_model_path(request, monkeypatch):
     assert public_validation.validate_publication_binding(
         prototype, values, copy(revision), value_model=True) == ContactsForm(
             values, instance=copy(revision)).is_valid()
+
+
+def test_input_kernel_helper_is_fingerprinted(monkeypatch):
+    from apps.listings import public_validation
+    assert projection.supported()
+    monkeypatch.setattr(public_validation, "validate_publication_input_fields", lambda form: None)
+    assert not projection.supported()
+
+
+def test_native_bound_field_rule_changes_disable_projection(monkeypatch):
+    from functools import wraps
+    original = forms.Field._clean_bound_field
+    assert projection.supported()
+    @wraps(original)
+    def changed(self, bound_field):
+        raise ValidationError("Synthetic additional bound-field rule")
+    monkeypatch.setattr(forms.Field, "_clean_bound_field", changed)
+    assert not projection.supported()
