@@ -30,7 +30,10 @@ class SnapshotChoice(forms.Field):
         self.to_field_name = to_field_name
         super().__init__(**kwargs)
 
-    prepare_value = forms.ModelChoiceField.prepare_value
+    def prepare_value(self, value):
+        if hasattr(value, "_meta"):
+            return value.serializable_value(self.to_field_name) if self.to_field_name else value.pk
+        return super().prepare_value(value)
 
     def to_python(self, value):
         if value in self.empty_values:

@@ -41,8 +41,12 @@ def test_prepared_details_preserve_cleaning_and_independent_fields(request):
         assert first.fields[name].widget is not second.fields[name].widget
         if hasattr(first.fields[name], "queryset"):
             assert first.fields[name].queryset is not second.fields[name].queryset
-        else:
+        elif name in context.catalog:
             assert first.fields[name].snapshot is context.catalog[name]
+            assert first.fields[name].prepare_value("missing") == "missing"
+            target = next(iter(context.catalog[name].values()), None)
+            if target is not None:
+                assert first.fields[name].prepare_value(target) == target.pk
     first.fields["description"].required = False
     assert second.fields["description"].required
     assert context.details_fields["description"].required
