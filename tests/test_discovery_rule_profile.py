@@ -25,11 +25,13 @@ def test_discovery_rule_profile_10000(request, monkeypatch, record_property):
     assert connection.vendor == "postgresql"
     # Equivalent operational route without the broad ORM profiler. Ordering is
     # recorded, not randomized: warmed OS/PG caches may bias the second request.
+    control_cpu_start = time.thread_time()
     started = time.perf_counter()
     control = client.get("/es/")
     control_seconds = time.perf_counter() - started
+    control_thread_cpu_seconds = time.thread_time() - control_cpu_start
     assert control.status_code == 200
-    profile = RuleProfile()
+    profile = RuleProfile(cpu_clock=time.thread_time)
     targets = [
         (moderation, "validate_submission"),
         (moderation, "publicly_visible"),
@@ -89,10 +91,12 @@ def test_discovery_rule_profile_10000(request, monkeypatch, record_property):
     def sql_event(execute, sql, params, many, context):
         return profile.wrap("sql.cursor_execute", execute)(sql, params, many, context)
 
+    profile_cpu_start = time.thread_time()
     started = time.perf_counter()
     with connection.execute_wrapper(sql_event):
         response = client.get("/es/")
     measured_seconds = time.perf_counter() - started
+    profile_thread_cpu_seconds = time.thread_time() - profile_cpu_start
     assert response.status_code == 200
     assert response.context["page"].paginator.count == 10000
     assert len(response.context["page"].object_list) == 24
@@ -100,6 +104,9 @@ def test_discovery_rule_profile_10000(request, monkeypatch, record_property):
     record_property("rules", profile.report())
     record_property("control_request_seconds", control_seconds)
     record_property("profiled_request_seconds", measured_seconds)
+    record_property("control_thread_cpu_seconds", control_thread_cpu_seconds)
+    record_property("profiled_thread_cpu_seconds", profile_thread_cpu_seconds)
+    record_property("thread_cpu_scope", "time.thread_time: CPU user+system of this synchronous DjangoClient request thread only; excludes PostgreSQL/other processes and other threads, does not measure DB CPU or concurrent capacity. Direct-child CPU intervals subtracted once, independent of wall-clock subtraction; includes profiler overhead. Paired control/profiler CPU and wall observed, causal overhead not_measured; no retroactive CPU attribution to prior profiles.")
     record_property("overhead_comparison_seconds", measured_seconds - control_seconds)
     record_property("overhead", "Paired route without/with selected wrappers, sequential control then profile, one sample each. Difference includes instrumentation and uncontrolled PG/OS cache effects: causal overhead not_measured; no correction applied.")
     record_property("scope", "Synchronous request only; ContextVar nested stack; subtract direct instrumented child inclusive intervals once, never grandchildren again. Added prefetch by relation, manager construction/_apply_rel_filters and Model.from_db by model; earlier profile did not have these children and exclusive times are not directly comparable. from_db includes construction/state but not prior fetch/JSON conversion. exclusive_time is relative to observed children, includes uninstrumented Python/ORM work. Inline authorization/document/revocation conditions are included in validate_submission, not separately attributed. No arguments/parameters persisted; seconds, optional p95 not_measured. SQL execute may be nested inside forms/render/context; no total-minus-SQL validation attribution. publicly_visible imported alias in discovery is not separately observed; no missing event inferred as zero.")

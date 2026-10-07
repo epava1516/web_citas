@@ -1,0 +1,619 @@
+{
+  "source_commit": "150a942aa297dec2c62c727920a6044165b01b4a",
+  "verification": {
+    "sources_unchanged": true,
+    "migration_exit": 0,
+    "pytest_exit": 0,
+    "cleanup_verified": true,
+    "test_media_removed": true,
+    "artifact_sha256": {
+      "migration.log": "554c86191aa5458fa81d6926cc0060ee8b12abefbb10023fb049f7a28126fb79",
+      "pytest.log": "5c66dd0c53fec1ce506958e6f7f7aec71ab1de5cc4e88f568b18a3990133852c",
+      "pytest.xml": "bfff30269f21dcc83f3c40aea6ba218846712fbfd2d932b2852172478b69d4e4",
+      "test-timings.json": "6c971120972bb0cdeceddc205a9467f437b265144ad696cd7a823dca675df8e5"
+    }
+  },
+  "profile": {
+    "rules": [
+      {
+        "rule": "sql.cursor_execute",
+        "calls": 70,
+        "inclusive_time": 2.787120670080185,
+        "exclusive_time": 2.787120670080185,
+        "max_exclusive_time": 1.3990932358428836,
+        "instrumented_children": {},
+        "mean_exclusive_time": 0.03981600957257407
+      },
+      {
+        "rule": "PublicationContext.__init__",
+        "calls": 1,
+        "inclusive_time": 13.853993761818856,
+        "exclusive_time": 2.4998113089241087,
+        "max_exclusive_time": 2.4998113089241087,
+        "instrumented_children": {
+          "sql.cursor_execute": 0.903099836781621,
+          "from_db.core.LegalDocument": 0.06401471234858036,
+          "json.listings.Revision.spoken_languages": 0.05261819250881672,
+          "json.listings.Revision.days": 0.026978151872754097,
+          "from_db.listings.Listing": 0.09618331678211689,
+          "from_db.core.Person": 0.17511773761361837,
+          "from_db.core.Agency": 0.07104251068085432,
+          "from_db.core.PhoneClaim": 0.07241385476663709,
+          "from_db.listings.Revision": 0.16009286558255553,
+          "from_db.catalog.Municipality": 0.07306853448972106,
+          "from_db.catalog.Province": 1.1058268286287785,
+          "from_db.catalog.Region": 0.05172840319573879,
+          "from_db.core.LegalAcceptance": 0.08029716275632381,
+          "manager.categories.__init__": 0.1042861184105277,
+          "django.db.models.query.prefetch_one_level": 8.109562309458852,
+          "manager.services.__init__": 0.09320293227210641,
+          "manager.travel_areas.__init__": 0.08713139221072197,
+          "manager.rates.__init__": 0.02747909165918827,
+          "from_db.catalog.Category": 1.8354039639234543e-05,
+          "from_db.catalog.Service": 2.014683559536934e-05
+        },
+        "mean_exclusive_time": 2.4998113089241087
+      },
+      {
+        "rule": "apps.listings.moderation.validate_submission",
+        "calls": 10000,
+        "inclusive_time": 8.585597759578377,
+        "exclusive_time": 2.2725588232278824,
+        "max_exclusive_time": 0.0014097997918725014,
+        "instrumented_children": {
+          "apps.listings.submissions.publication_ready": 0.0817219577729702,
+          "PublicationContext.details": 0.0008504479192197323,
+          "manager.categories.__init__": 0.23328630812466145,
+          "manager.services.__init__": 0.150311510078609,
+          "manager.travel_areas.__init__": 0.1320083006285131,
+          "SnapshotDetails.full_clean": 4.083838276565075,
+          "ContactsForm.__init__": 0.00011635385453701019,
+          "ContactsForm.full_clean": 1.5671096066944301,
+          "PublicationContext.rate_valid": 0.06379617471247911
+        },
+        "mean_exclusive_time": 0.00022725588232278823
+      },
+      {
+        "rule": "prefetch.approved_revision___pv_photos",
+        "calls": 1,
+        "inclusive_time": 2.525597338564694,
+        "exclusive_time": 2.1582569968886673,
+        "max_exclusive_time": 2.1582569968886673,
+        "instrumented_children": {
+          "sql.cursor_execute": 0.13033038889989257,
+          "from_db.mediafiles.Photo": 0.10477183293551207,
+          "from_db.mediafiles.Blob": 0.13223811984062195
+        },
+        "mean_exclusive_time": 2.1582569968886673
+      },
+      {
+        "rule": "SnapshotDetails._clean_fields",
+        "calls": 10000,
+        "inclusive_time": 1.8445689170621336,
+        "exclusive_time": 1.8445689170621336,
+        "max_exclusive_time": 0.007140400819480419,
+        "instrumented_children": {},
+        "mean_exclusive_time": 0.00018445689170621337
+      },
+      {
+        "rule": "SnapshotDetails._post_clean",
+        "calls": 10000,
+        "inclusive_time": 1.6154722166247666,
+        "exclusive_time": 1.6154722166247666,
+        "max_exclusive_time": 0.0022783703170716763,
+        "instrumented_children": {},
+        "mean_exclusive_time": 0.00016154722166247665
+      },
+      {
+        "rule": "manager.travel_areas._apply_rel_filters",
+        "calls": 10000,
+        "inclusive_time": 1.4592239037156105,
+        "exclusive_time": 1.4592239037156105,
+        "max_exclusive_time": 1.3345158048905432,
+        "instrumented_children": {},
+        "mean_exclusive_time": 0.00014592239037156105
+      },
+      {
+        "rule": "from_db.catalog.Province",
+        "calls": 10006,
+        "inclusive_time": 1.1059077098034322,
+        "exclusive_time": 1.1059077098034322,
+        "max_exclusive_time": 1.0343118980526924,
+        "instrumented_children": {},
+        "mean_exclusive_time": 0.00011052445630655928
+      },
+      {
+        "rule": "ContactsForm._post_clean",
+        "calls": 10000,
+        "inclusive_time": 0.7150366264395416,
+        "exclusive_time": 0.7150366264395416,
+        "max_exclusive_time": 0.0009304340928792953,
+        "instrumented_children": {},
+        "mean_exclusive_time": 7.150366264395416e-05
+      },
+      {
+        "rule": "ContactsForm._clean_fields",
+        "calls": 10000,
+        "inclusive_time": 0.6178553649224341,
+        "exclusive_time": 0.6178553649224341,
+        "max_exclusive_time": 0.0007625957950949669,
+        "instrumented_children": {},
+        "mean_exclusive_time": 6.17855364922434e-05
+      },
+      {
+        "rule": "manager.categories.__init__",
+        "calls": 30026,
+        "inclusive_time": 0.4580021183937788,
+        "exclusive_time": 0.4580021183937788,
+        "max_exclusive_time": 0.0007288549095392227,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.525351756457e-05
+      },
+      {
+        "rule": "prefetch.approved_revision__rates",
+        "calls": 1,
+        "inclusive_time": 0.8338247807696462,
+        "exclusive_time": 0.4246366284787655,
+        "max_exclusive_time": 0.4246366284787655,
+        "instrumented_children": {
+          "sql.cursor_execute": 0.08850422175601125,
+          "from_db.listings.Rate": 0.058537320233881474,
+          "manager.rates.__init__": 0.03446671552956104,
+          "manager.rates._apply_rel_filters": 0.22767989477142692
+        },
+        "mean_exclusive_time": 0.4246366284787655
+      },
+      {
+        "rule": "prefetch.approved_revision__categories",
+        "calls": 1,
+        "inclusive_time": 2.0811841348186135,
+        "exclusive_time": 0.3790768226608634,
+        "max_exclusive_time": 0.3790768226608634,
+        "instrumented_children": {
+          "sql.cursor_execute": 1.3990932358428836,
+          "from_db.catalog.Category": 0.03570527723059058,
+          "manager.categories.__init__": 0.11953891674056649,
+          "manager.categories._apply_rel_filters": 0.14776988234370947
+        },
+        "mean_exclusive_time": 0.3790768226608634
+      },
+      {
+        "rule": "prefetch.approved_revision__services",
+        "calls": 1,
+        "inclusive_time": 0.7869133851490915,
+        "exclusive_time": 0.3637639246881008,
+        "max_exclusive_time": 0.3637639246881008,
+        "instrumented_children": {
+          "sql.cursor_execute": 0.12327894382178783,
+          "from_db.catalog.Service": 0.04394513042643666,
+          "manager.services.__init__": 0.10967684863135219,
+          "manager.services._apply_rel_filters": 0.14624853758141398
+        },
+        "mean_exclusive_time": 0.3637639246881008
+      },
+      {
+        "rule": "manager.services.__init__",
+        "calls": 30026,
+        "inclusive_time": 0.3536635781638324,
+        "exclusive_time": 0.3536635781638324,
+        "max_exclusive_time": 0.0013940976932644844,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.177857783800148e-05
+      },
+      {
+        "rule": "SnapshotDetails._clean_form",
+        "calls": 10000,
+        "inclusive_time": 0.33849939657375216,
+        "exclusive_time": 0.33849939657375216,
+        "max_exclusive_time": 0.0007577040232717991,
+        "instrumented_children": {},
+        "mean_exclusive_time": 3.384993965737522e-05
+      },
+      {
+        "rule": "manager.travel_areas.__init__",
+        "calls": 30002,
+        "inclusive_time": 0.3304398702457547,
+        "exclusive_time": 0.3304398702457547,
+        "max_exclusive_time": 0.005851009860634804,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.101392807965318e-05
+      },
+      {
+        "rule": "SnapshotDetails.full_clean",
+        "calls": 10000,
+        "inclusive_time": 4.083838276565075,
+        "exclusive_time": 0.2852977463044226,
+        "max_exclusive_time": 0.02327812695875764,
+        "instrumented_children": {
+          "SnapshotDetails._clean_fields": 1.8445689170621336,
+          "SnapshotDetails._clean_form": 0.33849939657375216,
+          "SnapshotDetails._post_clean": 1.6154722166247666
+        },
+        "mean_exclusive_time": 2.852977463044226e-05
+      },
+      {
+        "rule": "prefetch.approved_revision__travel_areas",
+        "calls": 1,
+        "inclusive_time": 1.881745443213731,
+        "exclusive_time": 0.24689191859215498,
+        "max_exclusive_time": 0.24689191859215498,
+        "instrumented_children": {
+          "sql.cursor_execute": 0.06434567971155047,
+          "manager.travel_areas.__init__": 0.11128394119441509,
+          "manager.travel_areas._apply_rel_filters": 1.4592239037156105
+        },
+        "mean_exclusive_time": 0.24689191859215498
+      },
+      {
+        "rule": "manager.rates._apply_rel_filters",
+        "calls": 10000,
+        "inclusive_time": 0.22767989477142692,
+        "exclusive_time": 0.22767989477142692,
+        "max_exclusive_time": 0.0009305807761847973,
+        "instrumented_children": {},
+        "mean_exclusive_time": 2.276798947714269e-05
+      },
+      {
+        "rule": "ContactsForm.full_clean",
+        "calls": 10000,
+        "inclusive_time": 1.5671096066944301,
+        "exclusive_time": 0.22230092715471983,
+        "max_exclusive_time": 0.007076762150973082,
+        "instrumented_children": {
+          "ContactsForm._clean_fields": 0.6178553649224341,
+          "ContactsForm._clean_form": 0.011916688177734613,
+          "ContactsForm._post_clean": 0.7150366264395416
+        },
+        "mean_exclusive_time": 2.2230092715471984e-05
+      },
+      {
+        "rule": "from_db.core.Person",
+        "calls": 10000,
+        "inclusive_time": 0.17511773761361837,
+        "exclusive_time": 0.17511773761361837,
+        "max_exclusive_time": 0.006763627287000418,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.7511773761361836e-05
+      },
+      {
+        "rule": "from_db.listings.Revision",
+        "calls": 10000,
+        "inclusive_time": 0.16009286558255553,
+        "exclusive_time": 0.16009286558255553,
+        "max_exclusive_time": 0.0019922717474400997,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.6009286558255554e-05
+      },
+      {
+        "rule": "manager.categories._apply_rel_filters",
+        "calls": 10000,
+        "inclusive_time": 0.14776988234370947,
+        "exclusive_time": 0.14776988234370947,
+        "max_exclusive_time": 0.0010485313832759857,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.4776988234370947e-05
+      },
+      {
+        "rule": "manager.services._apply_rel_filters",
+        "calls": 10000,
+        "inclusive_time": 0.14624853758141398,
+        "exclusive_time": 0.14624853758141398,
+        "max_exclusive_time": 0.013708072248846292,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.4624853758141399e-05
+      },
+      {
+        "rule": "from_db.mediafiles.Blob",
+        "calls": 10000,
+        "inclusive_time": 0.13223811984062195,
+        "exclusive_time": 0.13223811984062195,
+        "max_exclusive_time": 0.0006648590788245201,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.3223811984062194e-05
+      },
+      {
+        "rule": "from_db.mediafiles.Photo",
+        "calls": 10024,
+        "inclusive_time": 0.10531825944781303,
+        "exclusive_time": 0.10531825944781303,
+        "max_exclusive_time": 0.0021772701293230057,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.0506610080587893e-05
+      },
+      {
+        "rule": "from_db.listings.Listing",
+        "calls": 10000,
+        "inclusive_time": 0.09618331678211689,
+        "exclusive_time": 0.09618331678211689,
+        "max_exclusive_time": 0.00010922783985733986,
+        "instrumented_children": {},
+        "mean_exclusive_time": 9.618331678211689e-06
+      },
+      {
+        "rule": "apps.listings.submissions.publication_ready",
+        "calls": 10000,
+        "inclusive_time": 0.0817219577729702,
+        "exclusive_time": 0.0817219577729702,
+        "max_exclusive_time": 0.0005749291740357876,
+        "instrumented_children": {},
+        "mean_exclusive_time": 8.17219577729702e-06
+      },
+      {
+        "rule": "from_db.core.LegalAcceptance",
+        "calls": 10000,
+        "inclusive_time": 0.08029716275632381,
+        "exclusive_time": 0.08029716275632381,
+        "max_exclusive_time": 0.00012011406943202019,
+        "instrumented_children": {},
+        "mean_exclusive_time": 8.02971627563238e-06
+      },
+      {
+        "rule": "from_db.catalog.Municipality",
+        "calls": 10005,
+        "inclusive_time": 0.07314729643985629,
+        "exclusive_time": 0.07314729643985629,
+        "max_exclusive_time": 6.808433681726456e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 7.311074106932163e-06
+      },
+      {
+        "rule": "from_db.core.PhoneClaim",
+        "calls": 10000,
+        "inclusive_time": 0.07241385476663709,
+        "exclusive_time": 0.07241385476663709,
+        "max_exclusive_time": 6.836792454123497e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 7.241385476663709e-06
+      },
+      {
+        "rule": "from_db.core.Agency",
+        "calls": 9999,
+        "inclusive_time": 0.07104251068085432,
+        "exclusive_time": 0.07104251068085432,
+        "max_exclusive_time": 0.00012684985995292664,
+        "instrumented_children": {},
+        "mean_exclusive_time": 7.104961564241856e-06
+      },
+      {
+        "rule": "from_db.core.LegalDocument",
+        "calls": 10001,
+        "inclusive_time": 0.06401471234858036,
+        "exclusive_time": 0.06401471234858036,
+        "max_exclusive_time": 0.00015456881374120712,
+        "instrumented_children": {},
+        "mean_exclusive_time": 6.400831151742862e-06
+      },
+      {
+        "rule": "PublicationContext.rate_valid",
+        "calls": 10000,
+        "inclusive_time": 0.06379617471247911,
+        "exclusive_time": 0.0622544321231544,
+        "max_exclusive_time": 0.0020205150358378887,
+        "instrumented_children": {
+          "BaseForm.__init__": 0.0002941354177892208,
+          "sql.cursor_execute": 0.001247607171535492
+        },
+        "mean_exclusive_time": 6.22544321231544e-06
+      },
+      {
+        "rule": "manager.rates.__init__",
+        "calls": 20025,
+        "inclusive_time": 0.06211975682526827,
+        "exclusive_time": 0.06211975682526827,
+        "max_exclusive_time": 6.033899262547493e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 3.102110203509027e-06
+      },
+      {
+        "rule": "from_db.listings.Rate",
+        "calls": 10000,
+        "inclusive_time": 0.058537320233881474,
+        "exclusive_time": 0.058537320233881474,
+        "max_exclusive_time": 0.0006037396378815174,
+        "instrumented_children": {},
+        "mean_exclusive_time": 5.853732023388147e-06
+      },
+      {
+        "rule": "json.listings.Revision.spoken_languages",
+        "calls": 10000,
+        "inclusive_time": 0.05261819250881672,
+        "exclusive_time": 0.05261819250881672,
+        "max_exclusive_time": 3.946991637349129e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 5.261819250881672e-06
+      },
+      {
+        "rule": "from_db.catalog.Region",
+        "calls": 10004,
+        "inclusive_time": 0.051776943262666464,
+        "exclusive_time": 0.051776943262666464,
+        "max_exclusive_time": 0.00010336190462112427,
+        "instrumented_children": {},
+        "mean_exclusive_time": 5.175624076635992e-06
+      },
+      {
+        "rule": "from_db.catalog.Service",
+        "calls": 10008,
+        "inclusive_time": 0.04403551109135151,
+        "exclusive_time": 0.04403551109135151,
+        "max_exclusive_time": 0.0006218310445547104,
+        "instrumented_children": {},
+        "mean_exclusive_time": 4.400031084267737e-06
+      },
+      {
+        "rule": "apps.listings.discovery.render",
+        "calls": 1,
+        "inclusive_time": 0.05541117489337921,
+        "exclusive_time": 0.042566790245473385,
+        "max_exclusive_time": 0.042566790245473385,
+        "instrumented_children": {
+          "sql.cursor_execute": 0.010522343683987856,
+          "from_db.catalog.Category": 3.0117109417915344e-05,
+          "from_db.catalog.Service": 7.023382931947708e-05,
+          "from_db.catalog.Region": 4.854006692767143e-05,
+          "from_db.catalog.Province": 8.088117465376854e-05,
+          "from_db.catalog.Municipality": 5.125300958752632e-05,
+          "from_db.catalog.Zone": 5.400786176323891e-05,
+          "from_db.catalog.PostalCode": 2.6359688490629196e-05,
+          "django.db.models.query.prefetch_one_level": 0.001960648223757744
+        },
+        "mean_exclusive_time": 0.042566790245473385
+      },
+      {
+        "rule": "from_db.catalog.Category",
+        "calls": 10004,
+        "inclusive_time": 0.03575374837964773,
+        "exclusive_time": 0.03575374837964773,
+        "max_exclusive_time": 0.0009356047958135605,
+        "instrumented_children": {},
+        "mean_exclusive_time": 3.5739452598608287e-06
+      },
+      {
+        "rule": "json.listings.Revision.days",
+        "calls": 10000,
+        "inclusive_time": 0.026978151872754097,
+        "exclusive_time": 0.026978151872754097,
+        "max_exclusive_time": 2.9410235583782196e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 2.6978151872754098e-06
+      },
+      {
+        "rule": "ContactsForm._clean_form",
+        "calls": 10000,
+        "inclusive_time": 0.011916688177734613,
+        "exclusive_time": 0.011916688177734613,
+        "max_exclusive_time": 4.332931712269783e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.1916688177734614e-06
+      },
+      {
+        "rule": "BaseForm.__init__",
+        "calls": 5,
+        "inclusive_time": 0.0019381744787096977,
+        "exclusive_time": 0.0018450305797159672,
+        "max_exclusive_time": 0.000980433076620102,
+        "instrumented_children": {
+          "SnapshotChoice.__deepcopy__": 9.314389899373055e-05
+        },
+        "mean_exclusive_time": 0.0003690061159431934
+      },
+      {
+        "rule": "prefetch.municipalities",
+        "calls": 1,
+        "inclusive_time": 0.0019399248994886875,
+        "exclusive_time": 0.0010754386894404888,
+        "max_exclusive_time": 0.0010754386894404888,
+        "instrumented_children": {
+          "sql.cursor_execute": 0.000836977269500494,
+          "from_db.catalog.Municipality": 2.7508940547704697e-05
+        },
+        "mean_exclusive_time": 0.0010754386894404888
+      },
+      {
+        "rule": "from_db.core.VerificationCheck",
+        "calls": 24,
+        "inclusive_time": 0.0005422057583928108,
+        "exclusive_time": 0.0005422057583928108,
+        "max_exclusive_time": 3.3528078347444534e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 2.259190659970045e-05
+      },
+      {
+        "rule": "django.db.models.query.prefetch_one_level",
+        "calls": 6,
+        "inclusive_time": 8.11152295768261,
+        "exclusive_time": 0.0003179502673447132,
+        "max_exclusive_time": 8.953968062996864e-05,
+        "instrumented_children": {
+          "prefetch.approved_revision__categories": 2.0811841348186135,
+          "prefetch.approved_revision__services": 0.7869133851490915,
+          "prefetch.approved_revision__travel_areas": 1.881745443213731,
+          "prefetch.approved_revision__rates": 0.8338247807696462,
+          "prefetch.approved_revision___pv_photos": 2.525597338564694,
+          "prefetch.municipalities": 0.0019399248994886875
+        },
+        "mean_exclusive_time": 5.2991711224118866e-05
+      },
+      {
+        "rule": "DetailsForm.__init__",
+        "calls": 1,
+        "inclusive_time": 0.0008236970752477646,
+        "exclusive_time": 0.00016864482313394547,
+        "max_exclusive_time": 0.00016864482313394547,
+        "instrumented_children": {
+          "manager.categories.__init__": 3.7538353353738785e-05,
+          "manager.services.__init__": 2.4366658180952072e-05,
+          "manager.travel_areas.__init__": 1.6236212104558945e-05,
+          "BaseForm.__init__": 0.0005769110284745693
+        },
+        "mean_exclusive_time": 0.00016864482313394547
+      },
+      {
+        "rule": "SnapshotChoice.__deepcopy__",
+        "calls": 5,
+        "inclusive_time": 9.314389899373055e-05,
+        "exclusive_time": 9.314389899373055e-05,
+        "max_exclusive_time": 3.579817712306976e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.862877979874611e-05
+      },
+      {
+        "rule": "from_db.catalog.Zone",
+        "calls": 2,
+        "inclusive_time": 5.400786176323891e-05,
+        "exclusive_time": 5.400786176323891e-05,
+        "max_exclusive_time": 4.09749336540699e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 2.7003930881619453e-05
+      },
+      {
+        "rule": "ContactsForm.__init__",
+        "calls": 1,
+        "inclusive_time": 0.00011635385453701019,
+        "exclusive_time": 2.965889871120453e-05,
+        "max_exclusive_time": 2.965889871120453e-05,
+        "instrumented_children": {
+          "BaseForm.__init__": 8.669495582580566e-05
+        },
+        "mean_exclusive_time": 2.965889871120453e-05
+      },
+      {
+        "rule": "from_db.catalog.PostalCode",
+        "calls": 2,
+        "inclusive_time": 2.6359688490629196e-05,
+        "exclusive_time": 2.6359688490629196e-05,
+        "max_exclusive_time": 1.8795020878314972e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.3179844245314598e-05
+      },
+      {
+        "rule": "SnapshotDetails.__init__",
+        "calls": 1,
+        "inclusive_time": 0.0008382559753954411,
+        "exclusive_time": 1.4558900147676468e-05,
+        "max_exclusive_time": 1.4558900147676468e-05,
+        "instrumented_children": {
+          "DetailsForm.__init__": 0.0008236970752477646
+        },
+        "mean_exclusive_time": 1.4558900147676468e-05
+      },
+      {
+        "rule": "PublicationContext.details",
+        "calls": 1,
+        "inclusive_time": 0.0008504479192197323,
+        "exclusive_time": 1.219194382429123e-05,
+        "max_exclusive_time": 1.219194382429123e-05,
+        "instrumented_children": {
+          "SnapshotDetails.__init__": 0.0008382559753954411
+        },
+        "mean_exclusive_time": 1.219194382429123e-05
+      }
+    ],
+    "control_request_seconds": "17.877443513832986",
+    "profiled_request_seconds": "22.886214963160455",
+    "overhead_comparison_seconds": "5.008771449327469",
+    "overhead": "Paired route without/with selected wrappers, sequential control then profile, one sample each. Difference includes instrumentation and uncontrolled PG/OS cache effects: causal overhead not_measured; no correction applied.",
+    "scope": "Synchronous request only; ContextVar nested stack; subtract direct instrumented child inclusive intervals once, never grandchildren again. Added prefetch by relation, manager construction/_apply_rel_filters and Model.from_db by model; earlier profile did not have these children and exclusive times are not directly comparable. from_db includes construction/state but not prior fetch/JSON conversion. exclusive_time is relative to observed children, includes uninstrumented Python/ORM work. Inline authorization/document/revocation conditions are included in validate_submission, not separately attributed. No arguments/parameters persisted; seconds, optional p95 not_measured. SQL execute may be nested inside forms/render/context; no total-minus-SQL validation attribution. publicly_visible imported alias in discovery is not separately observed; no missing event inferred as zero.",
+    "not_measured": "rows_returned/affected/scanned; CPU/RSS/waits/locks/IO; independent inline predicate timings; causal profiler overhead; concurrent capacity; p95 exclusive"
+  }
+}
