@@ -5,7 +5,7 @@ import time
 import pytest
 from django import forms
 from django.db import connection
-from django.db.models import JSONField
+from django.db.models import JSONField, Model
 from django.db.models import query as query_module
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
@@ -61,6 +61,31 @@ def test_discovery_rule_profile_10000(request, monkeypatch, record_property):
 
     monkeypatch.setattr(JSONField, "from_db_value", json_conversion)
 
+    original_from_db = Model.from_db.__func__
+
+    def from_db(model_class, *args, **kwargs):
+        label = f"from_db.{model_class._meta.label}"
+        return profile.wrap(label, original_from_db)(model_class, *args, **kwargs)
+
+    monkeypatch.setattr(Model, "from_db", classmethod(from_db))
+    original_prefetch = query_module.prefetch_one_level.__wrapped__
+
+    def relation_prefetch(instances, prefetcher, lookup, level):
+        return profile.wrap(f"prefetch.{lookup.prefetch_to}", original_prefetch)(
+            instances, prefetcher, lookup, level
+        )
+
+    monkeypatch.setattr(query_module, "prefetch_one_level", profile.wrap(
+        "django.db.models.query.prefetch_one_level", relation_prefetch
+    ))
+    revision_model = DetailsForm._meta.model
+    for relation in ["categories", "services", "travel_areas", "rates"]:
+        manager_class = getattr(revision_model, relation).related_manager_cls
+        for method in ["__init__", "_apply_rel_filters"]:
+            monkeypatch.setattr(manager_class, method, profile.wrap(
+                f"manager.{relation}.{method}", getattr(manager_class, method)
+            ))
+
     def sql_event(execute, sql, params, many, context):
         return profile.wrap("sql.cursor_execute", execute)(sql, params, many, context)
 
@@ -77,5 +102,5 @@ def test_discovery_rule_profile_10000(request, monkeypatch, record_property):
     record_property("profiled_request_seconds", measured_seconds)
     record_property("overhead_comparison_seconds", measured_seconds - control_seconds)
     record_property("overhead", "Paired route without/with selected wrappers, sequential control then profile, one sample each. Difference includes instrumentation and uncontrolled PG/OS cache effects: causal overhead not_measured; no correction applied.")
-    record_property("scope", "Synchronous request only; ContextVar nested stack; subtract direct instrumented child inclusive intervals once, never grandchildren again. Added prefetch_one_level and JSONField.from_db_value by model/field; earlier profile did not have these children and exclusive times are not directly comparable. exclusive_time is relative to observed children, includes uninstrumented Python/ORM work. Inline authorization/document/revocation conditions are included in validate_submission, not separately attributed. No arguments/parameters persisted; seconds, optional p95 not_measured. SQL execute may be nested inside forms/render/context; no total-minus-SQL validation attribution.")
+    record_property("scope", "Synchronous request only; ContextVar nested stack; subtract direct instrumented child inclusive intervals once, never grandchildren again. Added prefetch by relation, manager construction/_apply_rel_filters and Model.from_db by model; earlier profile did not have these children and exclusive times are not directly comparable. from_db includes construction/state but not prior fetch/JSON conversion. exclusive_time is relative to observed children, includes uninstrumented Python/ORM work. Inline authorization/document/revocation conditions are included in validate_submission, not separately attributed. No arguments/parameters persisted; seconds, optional p95 not_measured. SQL execute may be nested inside forms/render/context; no total-minus-SQL validation attribution. publicly_visible imported alias in discovery is not separately observed; no missing event inferred as zero.")
     record_property("not_measured", "rows_returned/affected/scanned; CPU/RSS/waits/locks/IO; independent inline predicate timings; causal profiler overhead; concurrent capacity; p95 exclusive")
