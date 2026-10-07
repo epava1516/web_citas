@@ -41,6 +41,7 @@ from .public_validation import (
     SnapshotMultipleChoice,
     publication_query,
 )
+from .uuid_batches import CapturedUUIDBatch
 
 
 def code_signature(code):
@@ -190,23 +191,24 @@ class ProjectedPublication:
         self.rows = list(publication_query(query, self.document).values(*columns))
         self.by_id = {row["pk"]: row for row in self.rows}
         revision_ids = [row["approved_revision_id"] for row in self.rows]
+        revision_batch = CapturedUUIDBatch(revision_ids)
         self.memberships = {name: defaultdict(list) for name in
                             ["categories", "services", "travel_areas", "rates", "photos"]}
         for name in ["categories", "services", "travel_areas"]:
             field = Revision._meta.get_field(name)
             through = field.remote_field.through
-            pairs = through.objects.filter(revision_id__in=revision_ids).values_list(
+            pairs = revision_batch.filter(through.objects.all(), "revision_id").values_list(
                 "revision_id", field.m2m_reverse_field_name() + "_id"
             )
             for revision_id, target_id in pairs:
                 self.memberships[name][revision_id].append(target_id)
-        for values in Rate.objects.filter(revision_id__in=revision_ids).values_list(
+        for values in revision_batch.filter(Rate.objects.all(), "revision_id").values_list(
             "revision_id", *RateForm.Meta.fields
         ):
             self.memberships["rates"][values[0]].append(values[1:])
-        for revision_id, ready, complete in Photo.objects.filter(
-            revision_id__in=revision_ids, removed_at__isnull=True
-        ).values_list("revision_id", "blob__status", "comparison_complete"):
+        for revision_id, ready, complete in revision_batch.filter(Photo.objects.filter(
+            removed_at__isnull=True
+        ), "revision_id").values_list("revision_id", "blob__status", "comparison_complete"):
             self.memberships["photos"][revision_id].append((ready, complete))
         self.acceptances = {
             obj.pk: obj for obj in LegalAcceptance.objects.filter(
