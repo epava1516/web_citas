@@ -1,6 +1,6 @@
 # Medición del avance del contrato
 
-Estado vigente: revisión ponderada v9, por entrega comercial completa integrada/verificada; seguimiento17 mantiene la cola y el runtime actuales. v1/v2 se conservan como cortes históricos; pesos y denominador no cambian.
+Estado vigente: revisión ponderada v10, por transporte seleccionado binario/JSON cerrado y medido localmente; seguimiento17 mantiene la cola y el runtime actuales. v1/v2 se conservan como cortes históricos; pesos y denominador no cambian.
 
 ## Corrección del seguimiento
 
@@ -147,3 +147,9 @@ Peso CR10 sigue5%; su grado estimado pasa0→90 por catálogo/productos-versione
 Se reserva10% del grado CR10 por aceptación formal y dependencias abiertas de contrato, incluida CR09; no contar ese hito como aceptado ni iniciar GS01/BF/BB. Es juicio de ingeniería por alcance, no porcentaje medido de tiempo. Cobros reales siguen fuera de v1, modo sintético deshabilitado normalmente, tarifas/fiscalidad/condiciones definitivas pendientes antes de ventas; proveedor/legal/identidad real no se acreditan.
 
 CR09 conserva72,00% (28,00% pendiente); contrato65,30% (34,70% pendiente). La entrega añade4,50 puntos del contrato; pesos/denominadores y los demás grados intactos. No créditos por cantidad de pruebas, commits, velocidad o cierres parciales anteriores.
+
+## Revisión ponderada v10 — transporte seleccionado cerrado
+
+Pesos/denominador y todos los grados intactos salvo rendimiento45→55: binario9437486bytes y JSON8653938bytes realmente seleccionados, aprobados nativamente, cerrados/replay y descargados por TCP local con huellas/contenido exactos. JSON de360 descripciones UTF8 de6000 caracteres reconstruido de dos partes. [Binario](evidencias/portabilidad-binario-cerrado-tcp0110.json), [JSON](evidencias/portabilidad-json-cerrado-tcp0110.json). Son dos dimensiones de alcance antes pendientes, no mejora proporcional a velocidad/tests; ambos casos funcionales precedieron mediciones separadas. Runtime121 hashes reutilizable, sin cambio de aplicación. No capacidad/concurrencia/p95/Gunicorn/Caddy, identidad/legal ni N3 acreditados. Intake JSON509,604s/62627SQL muestra coste residual, no objetivo cumplido de producto.
+
+DeltaCR09=5×10/100=0,50; **CR09 72,50% avanzado/27,50% pendiente**, contrato **65,375% avanzado/34,625% pendiente** (comunicar65,38%). [Cálculo v10](evidencias/avance-ponderado-v10.json). Conservación50/recursos60/aceptación integral0/CR10técnico90 y fases posteriores sin cambios. Juicio de ingeniería por alcance, no esfuerzo ni aceptación de producción.
