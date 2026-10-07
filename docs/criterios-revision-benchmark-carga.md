@@ -44,6 +44,30 @@ Decidir el próximo cambio según evidencia directa:
 
 No elegir paginación anticipada, proyección de elegibilidad o escalado de infraestructura únicamente por el número de objetos o de consultas. Documentar la atribución observada, limitaciones y evidencia que justifica el refactor. La carga contractual conserva sus requisitos y debe verificarse después de las correcciones pertinentes; este checkpoint no la sustituye ni acredita capacidad por sí mismo.
 
+## Perfil por regla y verificación concurrente previa
+
+Ampliación acordada en conversación lateral el 2026-10-07. Incorporar al próximo ciclo compatible con las fuentes congeladas; no modificar una ejecución activa ni reinterpretar evidencias anteriores. Una duración medida dentro de validaciones identifica un contribuyente, pero no atribuye automáticamente ese tiempo a reglas concretas ni constituye una partición exclusiva del request.
+
+Obtener primero un perfil focalizado de10000 candidatos. Por regla registrar:
+
+- `calls`, `inclusive_time`, `exclusive_time`, `mean_exclusive_time` y `max_exclusive_time`; p95 por llamada es opcional cuando la muestra lo permita.
+- Identidad de las llamadas hijas instrumentadas y tiempo descontado para calcular el exclusivo. Describir el alcance: exclusivo respecto a hijos instrumentados, no respecto a todo el trabajo interno no observado.
+- Método de cálculo que evite descontar dos veces descendientes anidados. Si hay concurrencia o intervalos solapados, explicar su tratamiento; no restar duraciones indiscriminadamente.
+- Overhead estimado de instrumentación y método de estimación, preferentemente mediante comparación focalizada equivalente con/sin profiler. Si no puede estimarse fiablemente, declarar `not_measured`; no inventar una corrección ni descontarla del resultado observado.
+- Clave completa de dependencia de cualquier reutilización intra-request y comprobaciones de vigencia/revocación preservadas.
+
+Clasificar las reglas dominantes según dependencias reales: visitante/request, anunciante, anuncio, combinación anunciante/tipo y versión documental, u otras que determine el código. Dos evaluaciones solo pueden compartir resultado cuando coinciden todas sus dependencias relevantes. La etiqueta genérica representación/documentación no acredita invariancia. La reutilización permanece dentro del request y conserva las garantías vigentes ante cambios de autoridad, restricciones, expiración y revocación; no introducir caché entre peticiones ni proyección persistida sin un diseño de consistencia expresamente verificado.
+
+Secuencia de revisión:
+
+1. Perfil focalizado10000: localizar reglas dominantes por tiempos inclusivos y exclusivos, con límites y overhead documentados.
+2. Optimizar las reglas dominantes manteniendo semántica; ejecutar gates funcionales pertinentes y negativas significativas de vigencia/revocación.
+3. Repetir la matriz comparable100/1000/10000 para verificar mejora y escalabilidad; mantener separadas mediciones instrumentadas y latencia operativa sin profiler.
+4. Prueba concurrente corta de30–120s como filtro diagnóstico de saturación evidente, con duración, carga, mezcla y criterios prefijados. Verificar generador y contabilidad; observar latencia, errores y colas/CPU/DB solo donde se midan. Registrar métricas ausentes y justificación concreta para continuar o corregir.
+5. Si esa prueba resulta razonable conforme a sus criterios previos, ejecutar el escenario contractual20rps/900s con los requisitos y umbrales ya fijados. Una latencia aislada<1s no acredita20rps sostenidos.
+
+La prueba corta no sustituye los900s, no cambia p95<800ms/errores<1%, no acredita capacidad contractual y no exige aceptar un nuevo SLO arbitrario. El benchmark anterior declarado INVALID conserva ese veredicto tras cualquier optimización posterior. Actualizar seguimiento con fuente, evidencia y resultados realmente observados, sin aumentos automáticos de avance ni aceptación de fase.
+
 ## Validez del experimento
 
 Congelar antes de la próxima ejecución: fuente, dataset/seed, entorno y recursos, mezcla real, estado frío/caliente, instrumentación, timeout por petición y política de errores. Registrar workers, versiones y límites relevantes. No alterar retrospectivamente criterios tras observar resultados ni reinterpretar una ejecución previa como si incorporase este marco.
