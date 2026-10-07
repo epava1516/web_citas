@@ -4,6 +4,7 @@ from copy import copy
 
 import pytest
 from django.db.models import QuerySet
+from django.db import connection
 from django.utils import timezone
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
@@ -15,6 +16,42 @@ from apps.listings.moderation import publicly_visible
 from apps.listings.public_validation import PublicationContext, SnapshotDetails
 
 pytestmark = pytest.mark.django_db(transaction=True)
+
+
+def test_guard_defers_photo_signatures_without_changing_photo_eligibility(request):
+    request.getfixturevalue("directory")
+    context = PublicationContext(candidates({}))
+    row = next(row for row in context.rows if publicly_visible(row, context=context))
+    revision = row.approved_revision
+    photo = revision._pv_photos[0]
+    assert {"signature", "regional_hashes"} <= photo.blob.get_deferred_fields()
+    sql_seen = []
+
+    def record(execute, sql, params, many, context):
+        sql_seen.append(sql)
+        return execute(sql, params, many, context)
+
+    with connection.execute_wrapper(record):
+        assert publicly_visible(row, context=context)
+    assert not any("mediafiles_blob" in sql for sql in sql_seen)
+
+    def equivalent(expected):
+        fresh = PublicationContext(candidates({}))
+        current = next(item for item in fresh.rows if item.pk == row.pk)
+        assert publicly_visible(current, context=fresh) is expected
+        assert publicly_visible(next(item for item in candidates({}) if item.pk == row.pk)) is expected
+
+    blob_class, photo_class = type(photo.blob), type(photo)
+    blob_class.objects.filter(pk=photo.blob_id).update(status="queued")
+    equivalent(False)
+    blob_class.objects.filter(pk=photo.blob_id).update(status="ready")
+    equivalent(True)
+    photo_class.objects.filter(pk=photo.pk).update(comparison_complete=False)
+    equivalent(False)
+    photo_class.objects.filter(pk=photo.pk).update(comparison_complete=True)
+    equivalent(True)
+    photo_class.objects.filter(pk=photo.pk).update(removed_at=timezone.now())
+    equivalent(False)
 
 
 def test_prepared_details_preserve_cleaning_and_independent_fields(request):

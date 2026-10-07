@@ -169,7 +169,9 @@ class PublicationContext:
         query = query.prefetch_related(
             Prefetch(
                 "approved_revision__photos",
-                queryset=Photo.objects.filter(removed_at__isnull=True).select_related("blob"),
+                queryset=Photo.objects.filter(removed_at__isnull=True)
+                .select_related("blob")
+                .defer("blob__signature", "blob__regional_hashes"),
                 to_attr="_pv_photos",
             )
         )
