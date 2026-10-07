@@ -14,7 +14,24 @@ from .history import ordinary_matches, rectification_history_ids
 from .submissions import current_publishing_document
 
 
-class SnapshotChoice(forms.ModelChoiceField):
+class SnapshotChoice(forms.Field):
+    """Validation-only scalar choice against the current request's catalog.
+
+    No QuerySet is needed or copied: catalog construction already applied the
+    original restricted queryset. Editing forms keep native ModelChoiceField.
+    """
+
+    widget = forms.Select
+    default_error_messages = forms.ModelChoiceField.default_error_messages
+
+    def __init__(self, *, queryset, to_field_name=None, **kwargs):
+        # queryset is accepted for the common field factory, never evaluated or
+        # retained. Membership comes exclusively from the fresh catalog snapshot.
+        self.to_field_name = to_field_name
+        super().__init__(**kwargs)
+
+    prepare_value = forms.ModelChoiceField.prepare_value
+
     def to_python(self, value):
         if value in self.empty_values:
             return None

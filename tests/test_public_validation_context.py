@@ -10,6 +10,7 @@ from test_photos import photo_environment  # noqa: F401
 
 from apps.core.models import Person
 from apps.listings.discovery import candidates
+from apps.listings.forms import DetailsForm
 from apps.listings.moderation import publicly_visible
 from apps.listings.public_validation import PublicationContext, SnapshotDetails
 
@@ -38,6 +39,10 @@ def test_prepared_details_preserve_cleaning_and_independent_fields(request):
     for name in first.fields:
         assert first.fields[name] is not second.fields[name]
         assert first.fields[name].widget is not second.fields[name].widget
+        if hasattr(first.fields[name], "queryset"):
+            assert first.fields[name].queryset is not second.fields[name].queryset
+        else:
+            assert first.fields[name].snapshot is context.catalog[name]
     first.fields["description"].required = False
     assert second.fields["description"].required
     assert context.details_fields["description"].required
@@ -49,8 +54,16 @@ def test_prepared_details_preserve_cleaning_and_independent_fields(request):
         prepared = SnapshotDetails(context.catalog, values, instance=prepared_instance,
                                    prepared_fields=context.details_fields)
         fresh = SnapshotDetails(context.catalog, values, instance=fresh_instance)
+        native = DetailsForm(values, instance=copy(revision))
         assert prepared.is_valid() == fresh.is_valid()
+        assert prepared.is_valid() == native.is_valid()
         assert prepared.errors.as_data() == fresh.errors.as_data()
+        # Snapshot invalid-choice messages differ only by the submitted value
+        # parameter. Compare field names and error codes with the native form.
+        assert {name: [error.code for error in errors]
+                for name, errors in prepared.errors.as_data().items()} == {
+                    name: [error.code for error in errors]
+                    for name, errors in native.errors.as_data().items()}
         assert prepared.cleaned_data.keys() == fresh.cleaned_data.keys()
         for name, value in prepared.cleaned_data.items():
             other = fresh.cleaned_data[name]
