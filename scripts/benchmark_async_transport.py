@@ -186,6 +186,7 @@ async def _run(fetch, routes, *, duration, rps, upload_specs, policy):
         samples=rows,
         uploads=uploads,
         actual_elapsed_seconds=loop.time() - start,
+        monotonic_origin_seconds=start,
         policy=dict(policy),
         drain_deadline_seconds=duration + policy["drain_seconds"],
         clock="asyncio loop.time monotonic; all timestamps relative to same start",

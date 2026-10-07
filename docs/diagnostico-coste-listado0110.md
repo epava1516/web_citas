@@ -99,3 +99,12 @@ Siguiente cambio focalizado: liberar _bound_fields_cache al completar booleano p
 
 
 [N1 liberación3dac278](evidencias/listado-bound-release-n1-0110.json):24PG correctas179,89s, fuente/huellas/limpieza. Cleaning nativo construye BoundFields reales y weakref confirma liberación inmediata del binding válido sin forzarGC; se preservan errores/datos/modelo, fallbackdisabled y permisos/vigencia. Medir matriz yGC con protocolos comparables antes de declarar beneficio. GC observado dentro SQLcursor_execute en7f6dcf5 pertenece al proceso cliente y está incluido en ese intervalo, no es tiempo de motor PostgreSQL. No atribuirlo retrospectivamente a consultas previas; EXPLAIN continúa separado si el criterio medido de predominio lo requiere.
+
+
+## Comparación de liberación: resultado mixto y filtro con observación del cliente
+
+[Matriz/GC873da96](evidencias/listado-bound-release-coste0110.json),4PG correctas/huellas/limpieza.100/1000/10000request0,924385/1,783413/14,497240s,74queries,SQL0,320288/0,327583/1,280558s.10000validación6,416960/contexto7,644021/render0,064379s vs anteriores6,245222/7,825439/0,051842,total14,505050. Total prácticamente igual, no mejora uniforme. Nativevalidaciones10000/formulario, listings/membresías/count/páginas24 intactos.
+
+GCcontrol2176gen0/198gen1/8gen2,2,630858wall/2,572721CPU,control16,372251wall/12,251821CPU; antes2905/264/10,2,984552/2,963697,control13,711397/12,608877. Perfil2173/197/4,GC4,452415wall/4,348074CPU,request25,542646wall/21,237325CPU; antes2881/261/3,GC3,420700/3,371466,request21,162126/19,664904. Menos colecciones no garantiza menos duración en ambas poblaciones. Heap vivo ycontrolretenido/cachés/host varían, ahora perfil después de tres tamaños previos; overhead causalnot_measured. No aceptar mejora global desde el ciclo liberado oCPUcontrol aislada.
+
+Próximo filtro60s prefijado incorpora observación GC del cliente en su propio proceso, para investigar la demora máxima reciente sin modificar política/emisión/backend. Timestampsmonotonic y origenledger explícitos, intersección de unión de eventos con scheduled→emitted sin dobleconteo. Incluye fasesprevias/drain, solo intersecciones de emisión se consideran solapamiento; solapamiento no es prueba de causaúnica. Diezunit10,67s/Ruff correctos; no nuevas conclusiones de capacidad ni comparaciónretroactiva de GC del cliente con perfiles del servidor. CPUglobal/RSS/schedulingcliente fuera deGC yoverheadcausalnot_measured. MantenerINVALID anterior/umbrales/contabilidad,900s únicamente si todoscriteriosdiagnósticoscumplen.

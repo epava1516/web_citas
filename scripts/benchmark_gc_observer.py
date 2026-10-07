@@ -7,8 +7,9 @@ from collections import Counter
 
 
 class GCObserver:
-    def __init__(self, rule_path=lambda: ()):
+    def __init__(self, rule_path=lambda: (), monotonic_clock=None):
         self.rule_path = rule_path
+        self.monotonic_clock = monotonic_clock
         self.events = []
         self.pending = {}
 
@@ -24,12 +25,14 @@ class GCObserver:
         key = (threading.get_ident(), generation)
         if phase == "start":
             self.pending[key] = (
-                time.perf_counter(), time.thread_time(), tuple(self.rule_path())
+                time.perf_counter(), time.thread_time(), tuple(self.rule_path()),
+                self.monotonic_clock() if self.monotonic_clock else None,
             )
         elif phase == "stop":
             end_wall, end_cpu = time.perf_counter(), time.thread_time()
-            start_wall, start_cpu, path = self.pending.pop(key)
-            self.events.append({
+            end_monotonic = self.monotonic_clock() if self.monotonic_clock else None
+            start_wall, start_cpu, path, start_monotonic = self.pending.pop(key)
+            event = {
                 "generation": generation,
                 "wall_seconds": end_wall - start_wall,
                 "collector_thread_cpu_seconds": end_cpu - start_cpu,
@@ -37,7 +40,10 @@ class GCObserver:
                 "active_rule_path": path,
                 "collected": info["collected"],
                 "uncollectable": info["uncollectable"],
-            })
+            }
+            if self.monotonic_clock:
+                event.update(monotonic_start=start_monotonic, monotonic_end=end_monotonic)
+            self.events.append(event)
 
     def __exit__(self, *exc):
         self.stats_after = gc.get_stats()
@@ -64,3 +70,34 @@ class GCObserver:
             "unfinished_events": len(self.pending),
             "scope": "gc.callbacks start/stop intervals of this process; CPU is collector thread only. Includes callback overhead and wall scheduling, not allocations or SQL/ORM rows. Events overlap enclosing rule/request intervals; never add or subtract them as an independent phase. Policy unchanged, no gc.collect/disable/threshold mutation. Causal callback overhead not_measured; no attribution to other processes or earlier runs.",
         }
+
+
+def generator_gc_overlap(events, rows, origin):
+    """Intersect emission delays with observed GC intervals; overlap isn't cause.
+
+    Merge overlapping intervals first, so an interval is never counted twice.
+    Both timestamps must explicitly use time.monotonic (the standard loop clock).
+    """
+    intervals = sorted((event["monotonic_start"] - origin,
+                        event["monotonic_end"] - origin) for event in events)
+    merged = []
+    for start, end in intervals:
+        if merged and start <= merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], end)
+        else:
+            merged.append([start, end])
+    delays = []
+    for row in rows:
+        if row["emitted_at"] is None:
+            continue
+        start, end = row["scheduled_at"], row["emitted_at"]
+        overlap = sum(max(0, min(end, stop) - max(start, begin)) for begin, stop in merged)
+        delays.append({"id": row["id"], "delay_seconds": end - start,
+                       "gc_overlap_seconds": overlap})
+    return {
+        "emitted_population": len(delays),
+        "requests_with_gc_overlap": sum(row["gc_overlap_seconds"] > 0 for row in delays),
+        "largest_delay": max(delays, key=lambda row: row["delay_seconds"], default=None),
+        "overlapping_delays": [row for row in delays if row["gc_overlap_seconds"] > 0],
+        "scope": "Union of client GC intervals intersected with scheduled-to-emitted delays, same monotonic origin. Overlap measured, not sole causal attribution; CPU/scheduling/network/other processes remain separate. GC events before the arrival clock or during drain do not imply arrival delay. No thresholds or collector policy changed.",
+    }

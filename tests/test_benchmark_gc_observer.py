@@ -1,9 +1,10 @@
 import gc
+import time
 import weakref
 
 import pytest
 
-from scripts.benchmark_gc_observer import GCObserver
+from scripts.benchmark_gc_observer import GCObserver, generator_gc_overlap
 
 
 def test_gc_observer_records_real_collection_and_preserves_policy():
@@ -35,3 +36,35 @@ def test_gc_observer_removes_only_its_callback_after_exception():
     with pytest.raises(ValueError), GCObserver():
         raise ValueError("synthetic")
     assert gc.callbacks == before_callbacks
+
+
+def test_generator_overlap_unions_events_and_ignores_unemitted_requests():
+    events = [{"monotonic_start": 10.02, "monotonic_end": 10.08},
+              {"monotonic_start": 10.03, "monotonic_end": 10.05}]
+    rows = [{"id": "d-0", "scheduled_at": 0, "emitted_at": 0.12},
+            {"id": "d-1", "scheduled_at": 0.02, "emitted_at": 0.04},
+            {"id": "d-2", "scheduled_at": 0.1, "emitted_at": None}]
+    report = generator_gc_overlap(events, rows, 10)
+    assert report["emitted_population"] == report["requests_with_gc_overlap"] == 2
+    assert report["largest_delay"]["id"] == "d-0"
+    assert report["largest_delay"]["gc_overlap_seconds"] == pytest.approx(0.06)
+    assert report["overlapping_delays"][1]["gc_overlap_seconds"] == pytest.approx(0.02)
+
+
+def test_gc_timestamps_share_standard_generator_monotonic_origin():
+    from scripts.benchmark_async_transport import run_async_open_loop
+
+    async def fetch(path, **kwargs):
+        gc.collect(2)  # Test deliberately generates observable events.
+        return dict(status=200, unexpected=False, timeout=False, bytes=2)
+
+    with GCObserver(monotonic_clock=time.monotonic) as observer:
+        outcome = run_async_open_loop(fetch, ["/synthetic"], duration=0.15, rps=20,
+                                      upload_specs=[])
+    assert outcome["counts"]["emitted"] == outcome["counts"]["successful"] == 3
+    assert outcome["counts"]["reconciled"]
+    events = observer.report()["events"]
+    assert all(event["monotonic_start"] <= event["monotonic_end"] for event in events)
+    assert any(event["monotonic_start"] >= outcome["monotonic_origin_seconds"] for event in events)
+    assert generator_gc_overlap(events, outcome["samples"],
+                                outcome["monotonic_origin_seconds"])["emitted_population"] == 3
