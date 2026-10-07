@@ -1,0 +1,60 @@
+{
+  "schema": "codex-review-of-extended-claude-session-v1",
+  "source_commit": "bb4af0c0cac1ef30baa7f5f495df1c3b718389dc",
+  "invocations": [
+    7,
+    8
+  ],
+  "claude_elapsed_seconds": 428.413,
+  "format_validated_both_rounds": true,
+  "acceptance": "Review input only, no functional or performance acceptance",
+  "independently_checked": [
+    {
+      "finding": "inspect.unwrap discards a semantic wrapper preserving __wrapped__",
+      "evidence": "Non-mutating Python standard-library probe: unwrap(wrapper) is original; pk=None passes but target syntheticPK raises. Source projected_publication.definitions hashes only unwrapped function.",
+      "scope": "Mechanism and source review; no real Django/PG parity reproduction yet."
+    },
+    {
+      "finding": "PublicationContext content helper definitions absent from guarded classes/functions",
+      "evidence": "Frozen source bb4af0c classes/functions list omits PublicationContext; native helpers in public_validation.py exist.",
+      "scope": "Fingerprint coverage gap by source; concrete count/page divergence still requires PG reproduction."
+    }
+  ],
+  "corrected_claude_claims": [
+    "Approved revisions are not immutable;12PG counterexamples already exist.",
+    "whatsapp is boolean; use valid unique Telegram handles and alphabetic description suffixes for diversity.",
+    "Old clientSQLexecute wall is not DB CPU or a prediction for newSQL.",
+    "200ms derives from mixture mean for4workers20RPS, not every listing.",
+    "PersistentLRU and REPEATABLE READ not accepted without explicit consistency/semantics proof.",
+    "Native photo guard does not require Photo.approved for eligibility; approved is used for displayed card selection.",
+    "Route attribution detects projection/native fallback; it does NOT by itself detect a semantic wrapper accepted by the broken digest.",
+    "Do not clone an active mainrunner database or modify its sources; use owned disposable synthetic PG resources after compatible terminal state.",
+    "Keep100/1000/10000 comparable matrix and all prior validity/drain/pending short-test criteria, not only p95/errors.",
+    "pg_stat_statements optional; EXPLAIN separate if affectedSQL evidence justifies."
+  ],
+  "proposed_order": [
+    {
+      "action": "PG parity regressions for semantic wraps and missing nativehelper guards",
+      "stop_go": "If unsupported correctly or parity equal, record refutation; if mismatch reproduced, repair before equivalence acceptance."
+    },
+    {
+      "action": "Comparable matrix on preserved contractual fixture, route+memo+fallback+hydration+definitions accounting",
+      "stop_go": "Native equivalent functionality first; diagnose measured layer; short60s only when pertinent,900s only after all existing criteria pass."
+    },
+    {
+      "action": "Additional valid synthetic diversity diagnostic, separate fixture/environment",
+      "stop_go": "No new SLO or change to contractual fixture; document loss of memo gain if observed."
+    }
+  ],
+  "not_measured": [
+    "DjangoPG reproduction of newly proposed failures",
+    "new path performance",
+    "causal overhead",
+    "real traffic diversity",
+    "DBCPU/RSS/waits/locks/IO",
+    "Claude tokenusage and monetarycost in text output"
+  ],
+  "main_thread_queue_modified": false,
+  "main_runtime_modified": false,
+  "original_INVALID_preserved": true
+}

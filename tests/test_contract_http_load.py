@@ -174,10 +174,13 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     }
     manifest["worker_observer"] = {
         "enabled": observe_workers,
+        "mode": "route_only" if os.environ.get("WEB_MODELOS_BENCHMARK_ROUTE_ONLY") == "1" else "legacy_wrapped_phases",
         "scope": "Synthetic IDs already emitted by client; WSGI entry/end, inclusive context/validation/render and SQL execute wall/thread CPU; validation snapshots each1000calls, partial events retained; no real URI/SQL/parameters; not TCP accept or exact queue time; causal overhead not_measured",
         "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
         "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition",
     }
+    if observe_workers and os.environ.get("WEB_MODELOS_BENCHMARK_ROUTE_ONLY") == "1":
+        manifest["worker_observer"]["scope"] = "Route events at discovery render; WSGI start/end/render/SQL wall and threadCPU. No wrappers on native rules; context/validation not_measured. Requests without route event remain not_measured, never inferred from HTTP status. Partial work lower bounds; causal overhead not_measured."
     if observe_workers:
         manifest["instrumentation"] += "; opt-in isolated worker observer as described in worker_observer, thread CPU scoped to WSGI request; no DB CPU/RSS sampling"
     if scenario == "short":

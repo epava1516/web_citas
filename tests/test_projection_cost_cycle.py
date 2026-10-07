@@ -3,7 +3,7 @@ import time
 
 import pytest
 from django import forms
-from django.db import connection
+from django.db import connection, transaction
 from django.db.models import Model
 from django.db.models.query import ModelIterable, prefetch_one_level
 from django.db.models.signals import post_init
@@ -63,6 +63,7 @@ def test_projection_comparable_cycle(request, monkeypatch, record_property, coun
             row.telegram = 'bench' + suffix
         Revision.objects.bulk_update(rows, ['description', 'description_alternative', 'telegram'])
     reports = []
+    explain_candidates = []
     expected = None
     for mode in ['native', 'projected']:
         with monkeypatch.context() as patch:
@@ -81,6 +82,7 @@ def test_projection_comparable_cycle(request, monkeypatch, record_property, coun
             sql_seconds = 0.
             queries = 0
             normalization_cache = {}
+            read_queries = {}
 
             def sql_timer(execute, sql, params, many, context):
                 nonlocal sql_seconds, queries
@@ -88,6 +90,8 @@ def test_projection_comparable_cycle(request, monkeypatch, record_property, coun
                 if sql not in normalization_cache:
                     normalization_cache[sql] = query_pattern(sql)
                 pattern = normalization_cache[sql]
+                if sql.lstrip().upper().startswith("SELECT"):
+                    read_queries.setdefault(pattern, (sql, params))
                 bucket = patterns.setdefault(pattern, {'calls': 0, 'total_time': 0.})
                 started = time.perf_counter()
                 try:
@@ -124,6 +128,29 @@ def test_projection_comparable_cycle(request, monkeypatch, record_property, coun
                     'mean_time': bucket['total_time'] / bucket['calls']}
                     for pattern, bucket in sorted(patterns.items(),
                                                   key=lambda item: item[1]['total_time'], reverse=True)]})
+            if sql_seconds >= 0.50 * total:
+                dominant = max(read_queries, key=lambda pattern: patterns[pattern]['total_time'])
+                explain_candidates.append((mode, dominant, read_queries[dominant]))
+    plans = []
+
+    def redact_plan(value):
+        if isinstance(value, dict):
+            return {key: redact_plan(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [redact_plan(item) for item in value]
+        if isinstance(value, str):
+            return query_pattern(value)
+        return value
+
+    # Separate reads after both measured modes. No timer/profile incorporates
+    # EXPLAIN; plans can warm caches, so never execute them between paired modes.
+    for mode, pattern, (sql, params) in explain_candidates:
+        with transaction.atomic(), connection.cursor() as cursor:
+            cursor.execute('SET TRANSACTION READ ONLY')
+            cursor.execute('EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) ' + sql, params)
+            plans.append({'mode': mode, 'query_pattern': pattern,
+                          'plan': redact_plan(cursor.fetchone()[0])})
+    record_property('separate_explain', {'threshold': 'SQL execute >=50% instrumented request is a diagnostic dominance heuristic, not an SLO', 'plans': plans, 'scope': 'Owned synthetic PG read-only SELECT, after both measured requests. Plan actual rows are per-node stream counts with loops, not ORM objects or inferred rows_scanned/request; no statement parameters stored. OS/PG caches warmed, not reset.'})
     record_property('cycle', reports)
     record_property('scope', 'DjangoClient end-to-end excludes fixtures/network/Gunicorn; synchronous sys.setprofile call/return events do not alter native callable chains. Exclusive discounts only direct observed children once; inline/unobserved work remains inside parent. Generator iteration events are yield segments, not unique objects. SQL execute excludes fetch; lazy SQL may overlap validation, hydration, render. Model post_init counts constructions including transient objects, not unique entities or SQL rows. Seconds; thread CPU only this thread. Native then projected, control then observed, shared warmed OS/PG caches, no reset; one sample each, paired difference is not causal overhead. Validity gate requires native full-population count, HTTP body and page24 equivalence; no real data or capacity claim.')
     record_property('not_measured', 'rows_returned; rows_affected; rows_scanned; DB CPU; RSS; waits; locks; IO; causal overhead; p95 exclusive; concurrent capacity')
