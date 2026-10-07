@@ -13,8 +13,28 @@ pytestmark = pytest.mark.django_db(transaction=True)
 
 
 def test_projection_dominant_sql_separate_explain(request, record_property):
+    diagnose(request, record_property, 'contractual')
+
+
+def test_projection_diverse_sql_separate_explain(request, record_property):
+    diagnose(request, record_property, 'diverse')
+
+
+def diagnose(request, record_property, variant):
     client = request.getfixturevalue('directory')
     populate(10000)
+    if variant == 'diverse':
+        from test_projection_cost_cycle import alpha
+
+        from apps.listings.models import Revision
+        rows = list(Revision.objects.filter(status='approved').order_by('pk'))
+        for index, row in enumerate(rows):
+            suffix = alpha(index)
+            row.description += ' ' + suffix
+            if row.description_alternative:
+                row.description_alternative += ' ' + suffix
+            row.telegram = 'bench' + suffix
+        Revision.objects.bulk_update(rows, ['description', 'description_alternative', 'telegram'])
     patterns = {}
     reads = {}
     cache = {}
@@ -59,13 +79,19 @@ def test_projection_dominant_sql_separate_explain(request, record_property):
             cursor.execute('SET TRANSACTION READ ONLY')
             cursor.execute('EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) ' + sql, params)
             plans.append({'query_pattern': pattern, 'plan': redact(cursor.fetchone()[0])})
+    sql_total = sum(b['total_time'] for b in patterns.values())
     record_property('sql_diagnosis', {
+        'variant': variant, 'requests': 1,
+        'plan_selection': 'Top three recorded SELECT patterns by accumulated cursor.execute duration',
+        'plan_coverage_percent': 100 * sum(patterns[p['query_pattern']]['total_time'] for p in plans) / sql_total,
         'trigger': '72 completed projected worker requests: accumulated SQL execute / accumulated WSGI=51.47495%, above prefixed50% diagnostic threshold; DB CPU unknown',
         'request_seconds': elapsed, 'query_count': sum(b['calls'] for b in patterns.values()),
         'sql_execute_seconds': sum(b['total_time'] for b in patterns.values()),
         'route': response.wsgi_request._publication_route,
         'dominant_sql': [{'query_pattern': pattern, **bucket,
-                         'mean_time': bucket['total_time']/bucket['calls']}
+                         'mean_time': bucket['total_time']/bucket['calls'],
+                         'calls_per_request': bucket['calls'],
+                         'percent_observed_sql': 100 * bucket['total_time'] / sql_total}
                         for pattern, bucket in sorted(patterns.items(), key=lambda item: item[1]['total_time'], reverse=True)],
         'separate_plans': plans,
         'scope': 'Fresh owned PG/synthetic10000/one DjangoClient request, lightweight SQL wrapper only, no rule profiler/post_init. Not strictly equivalent to full matrix or concurrent workers; excludes network/fixtures. Parameters never stored; plan strings/literals redact via SQL normalizer. SQL execute contains client binding/driver/server/buffering; excludes subsequent fetch. EXPLAIN selects after request, warmed OS/PG caches, READ ONLY transaction; plan actual rows describe per-node streams and loops, not rows_scanned/request. No pg_stat_statements or config change.',

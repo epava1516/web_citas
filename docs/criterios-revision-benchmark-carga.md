@@ -64,7 +64,7 @@ Secuencia de revisión:
 2. Optimizar las reglas dominantes manteniendo semántica; ejecutar gates funcionales pertinentes y negativas significativas de vigencia/revocación.
 3. Repetir la matriz comparable100/1000/10000 para verificar mejora y escalabilidad; mantener separadas mediciones instrumentadas y latencia operativa sin profiler.
 4. Prueba concurrente corta de30–120s como filtro diagnóstico de saturación evidente, con duración, carga, mezcla y criterios prefijados. Verificar generador y contabilidad; observar latencia, errores y colas/CPU/DB solo donde se midan. Registrar métricas ausentes y justificación concreta para continuar o corregir.
-5. Si esa prueba resulta razonable conforme a sus criterios previos, ejecutar el escenario contractual20rps/900s con los requisitos y umbrales ya fijados. Una latencia aislada<1s no acredita20rps sostenidos.
+5. Solo un PASS completo de todos los criterios prefijados de la prueba corta habilita el escenario contractual20rps/900s. Dejar de colapsar o mejorar parcialmente no basta. Una latencia aislada<1s no acredita20rps sostenidos.
 
 La prueba corta no sustituye los900s, no cambia p95<800ms/errores<1%, no acredita capacidad contractual y no exige aceptar un nuevo SLO arbitrario. El benchmark anterior declarado INVALID conserva ese veredicto tras cualquier optimización posterior. Actualizar seguimiento con fuente, evidencia y resultados realmente observados, sin aumentos automáticos de avance ni aceptación de fase.
 
@@ -107,3 +107,29 @@ Separar RSS baseline/pico/final de workers y PostgreSQL, número de workers y al
 Corrección funcional se verifica por separado y es condición para aceptar una optimización. PASS solo acredita este escenario, entorno, mezcla y estado. No prueba producción, capacidad máxima, equivalencia de tráfico con otro portal ni aceptación integral de CR09. La búsqueda posterior de saturación es un experimento distinto.
 
 Elegir el siguiente cambio según evidencia: consultas repetidas, materialización/CPU, SQL/planes/índices/contención o concurrencia/colas. No escalar infraestructura de antemano para compensar el multiplicador de consultas.
+
+
+## Checkpoint SQL, diversidad controlada y gate completo de carga
+
+Ampliación acordada en conversación lateral el 2026-10-07. Aplicar al siguiente diagnóstico compatible con fuentes congeladas, reutilizando evidencia equivalente ya obtenida. No alterar ensayos activos, sus fuentes o manifiestos ni crear una cola operativa paralela. El FAIL corto y el INVALID contractual anterior conservan sus veredictos; contrato y porcentajes de avance permanecen abiertos sin aceptación nueva.
+
+La observación de referencia es: **51,5 % del tiempo WSGI acumulado observado en requests proyectados completados transcurrió dentro de `cursor.execute`**. Su alcance incluye driver, espera/ejecución del servidor y transferencia/buffering correspondientes al método; no equivale a CPU PostgreSQL ni describe requests sin observación completa. La saturación/cola de cuatro workers es una hipótesis compatible, no una causa medida. Para atribuir espera antes de WSGI hacen falta observaciones de aceptación/dispatch, ocupación de workers y conexiones, con sus límites; las ausentes quedan `not_measured`.
+
+Secuencia del próximo checkpoint:
+
+1. Identificar lecturas SQL dominantes normalizadas por tiempo acumulado para fixtures contractual y diverso de10000 candidatos. Publicar calls/request, total_time, mean_time y porcentaje del SQL observado, con población y alcance. Seleccionar las3–5 lecturas que concentren mayor coste, justificando cobertura; no asumir que pocas sentencias implican poco trabajo interno.
+2. Obtener `EXPLAIN (ANALYZE, BUFFERS)` separado del benchmark, solo sobre esas lecturas en PostgreSQL sintético aislado. Registrar actual time/rows, loops, rows removed, shared hit/read, temp read/written, scans, joins/subplans y tiempos planning/execution cuando estén disponibles. Explicar semántica por nodo y multiplicidad; no convertir filas de nodos en rows_scanned globales. Redactar planes/SQL/valores sensibles y conservar fuentes/estado de cachés. pg_stat_statements es opcional si ya existe.
+3. Perfilar Details y Contacts con entradas repetidas y únicas, manteniendo constantes las demás cardinalidades relevantes. La diversidad observada cambió descripciones/contactos y elevó sus evaluaciones de1 a10000: no demuestra dependencia de anunciantes, representaciones o documentos. Registrar cardinalidades reales del fixture y claves completas de reutilización; variar después cada otra dependencia relevante por separado si la evidencia lo requiere.
+4. Corregir solo el mecanismo demostrado y verificar equivalencia de elegibilidad, orden, recuento y paginación, además de vigencia/revocación. Repetir mediciones comparables100/1000/10000 con iguales instrumentos y controles operativos sin profiler. No atribuir validación a total menos SQL, ni sumar eventos anidados; exclusivos solo descuentan hijos instrumentados documentados.
+5. Ejecutar la prueba corta vigente20RPS/60s únicamente tras los gates funcionales y la revisión de mediciones. Cualquier cambio de duración dentro de30–120s exige manifiesto previo propio, sin reinterpretar el resultado anterior ni relajar criterios. Solo su PASS completo habilita20RPS/900s.
+
+Gate completo vigente, registrado antes del siguiente ensayo corto:
+
+- Generador y escenario válidos; identidades scheduled/emitted/successful/failed/pending/not_emitted reconciliadas tanto al cierre de ventana como después del drain. Definir completed sin sumar otra vez successful/failed; timeouts son subconjunto de failed.
+- No emitidas0%; demora del generador p95≤10ms, p99≤25ms y máximo≤100ms.
+- Timeout por petición65s, drain≤70s, pendientes al cierre de ventana≤20 y pendientes finales0 conforme a la política vigente.
+- p95 observable de todas las dinámicas emitidas terminadas, incluidos errores/timeouts, estrictamente<800ms; errores estrictamente<1%; uploads separados dentro del límite y resultado requerido.
+
+Un incumplimiento de validez del escenario/generador/contabilidad produce INVALID; un experimento válido que incumple objetivos de latencia, errores o criterios diagnósticos de pendientes/drain produce FAIL. Ninguno habilita900s. No cambiar la clasificación después de observar resultados ni convertir éxitos del servidor en éxitos del cliente.
+
+No aumentar workers, escalar PostgreSQL ni añadir caché como parche en este checkpoint. Tampoco declarar necesaria la proyección, SQL como causa general o un gran salto futuro. Actualizar docs/17 con evidencia, limitaciones, decisión y resultado realmente medidos; este acuerdo documental no constituye una mejora aplicada del backend.
