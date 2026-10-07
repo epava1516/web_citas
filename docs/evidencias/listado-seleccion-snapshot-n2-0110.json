@@ -1,0 +1,31 @@
+{
+  "source_commit": "9280c36779f9050a6265d5bafae44de82c75203d",
+  "tests": [
+    "tests/test_privacy_publication_holds.py",
+    "tests/test_rectification_photos.py",
+    "tests/test_listing_moderation.py",
+    "tests/test_public_seo.py",
+    "tests/test_promotion_exposure.py"
+  ],
+  "sources_unchanged": true,
+  "migration_exit": 0,
+  "pytest_exit": 0,
+  "cleanup_verified": true,
+  "test_media_removed": true,
+  "artifact_sha256": {
+    "migration.log": "554c86191aa5458fa81d6926cc0060ee8b12abefbb10023fb049f7a28126fb79",
+    "pytest.log": "0b40003f36e90a73f9fb3e53cb69c6f390e3d0a3c432b95d663825305410be45",
+    "pytest.xml": "9de1f377128627e0119cfff036aa84f357f96ec238000f21f757388a2bed6629",
+    "test-timings.json": "e76bbc0b6acaafa3ab212e803e37b7cbe0192165f487353d3f6914e5ebb8ab51"
+  },
+  "timing_seconds": {
+    "configuration": 0.10090437298640609,
+    "database_preparation": 0.0980852460488677,
+    "migration": 33.882106316275895,
+    "pytest": 188.87518042698503,
+    "cleanup": 0.08703000098466873,
+    "total": 223.11898705689237
+  },
+  "case_count": 25,
+  "scope": "N2 privacy publication holds, rectification photos, listing moderation, public SEO, promotion exposure; no phase acceptance or contractual load claim."
+}
