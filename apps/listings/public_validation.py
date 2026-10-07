@@ -276,8 +276,15 @@ class PublicationContext:
         form = copy(self._validation_prototypes[key])
         form.instance = revision
         form.data = data
-        form.initial = model_to_dict(revision, form._meta.fields, form._meta.exclude)
-        if form_class is SnapshotDetails and revision.municipality_id:
+        # These private, bound forms are validated, never rendered or used for
+        # changed_data. Native cleaning reads initial only for disabled fields
+        # or empty_permitted/has_changed; retain native initial for those cases.
+        needs_initial = form.empty_permitted or any(field.disabled for field in form.fields.values())
+        form.initial = (
+            model_to_dict(revision, form._meta.fields, form._meta.exclude)
+            if needs_initial else {}
+        )
+        if needs_initial and form_class is SnapshotDetails and revision.municipality_id:
             city = revision.municipality
             form.initial.setdefault("province", city.province_id)
             form.initial.setdefault("region", city.province.region_id)

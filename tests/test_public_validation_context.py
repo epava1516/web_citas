@@ -223,6 +223,39 @@ def test_field_clean_reuse_preserves_mutable_results_and_typed_keys(request, mon
     assert fresh.field_clean_cache_stats == {}
 
 
+def test_private_bindings_skip_unused_initial_but_preserve_disabled_fields(request, monkeypatch):
+    request.getfixturevalue("directory")
+    context = PublicationContext(candidates({}))
+    rows = [row for row in context.rows if publicly_visible(row, context=context)]
+    row = rows[0]
+    revision = row.approved_revision
+    from apps.listings import public_validation
+
+    original = public_validation.model_to_dict
+    calls = []
+
+    def observed(instance, *args, **kwargs):
+        calls.append(instance.pk)
+        return original(instance, *args, **kwargs)
+
+    monkeypatch.setattr(public_validation, "model_to_dict", observed)
+    data = {"whatsapp": False, "telegram": "@Valid_name",
+            "contact_exposure_accepted": True, "accept_publishing": True,
+            "legal_version": context.document.version}
+    assert context.contacts_valid(data, revision)
+    assert context.contacts_valid(data, rows[1].approved_revision)
+    assert calls == []
+    prototype = next(form for form in context._validation_prototypes.values()
+                     if isinstance(form, ContactsForm))
+    prototype.fields["telegram"].disabled = True
+    revision.telegram = "Valid_name"
+    # Disabled native fields use the current instance's initial value rather
+    # than the invalid submitted input; fallback is required, not a shortcut.
+    assert context.contacts_valid({**data, "telegram": "invalid!"}, revision)
+    assert calls == [revision.pk]
+    assert revision.telegram == "Valid_name"
+
+
 def test_context_matches_ordinary_visibility_and_fresh_catalog_changes(request):
     request.getfixturevalue("directory")
     person = Person.objects.get(individual__username="fixture-v1-individual")
