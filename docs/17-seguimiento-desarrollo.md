@@ -90,4 +90,3 @@ MOD-01/MOD-02 vigentes: una cola y entrega completa, N1 afectadas/N2 bloque/N3 f
 Aplicación confirmada de avisos: entregas completas, dependencia de censo/paquete priorizada, mediciones separadas y preparación de entornos reutilizada con aislamiento, automatización incremental mediante runner existente y tiempos observados. Avisos anteriores se conservan en historial, no definen procesos vivos. Contrato completo y matriz de nueve bloques leídos; no reducir controles, pesos o alcance.
 
 Claude:4 intentos acumulados, cuarto exit64 no inició Claude. Máximo numérico eliminado por autorización expresa (MOD-03, contrato1.3 §15); conservar consumo/registrar llamadas en .ai/tasks/desarrollo.md. Leer AI_ENGINEERING1.0.1 completo antes de delegar, usar adaptador original scripts/claude-task sin copiar/alterar. Claude propone; Codex aplica/verifica y continúa localmente si falla. No publicar, contratar proveedores ni utilizar datos reales.
-
