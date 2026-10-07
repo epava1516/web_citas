@@ -14,6 +14,36 @@ La matriz debe distinguir consultas/request, crecimiento de consultas por candid
 
 Medir el coste de materialización después de reducir N+1; no asumir que impedirá necesariamente el objetivo contractual. Overfetch no garantiza trabajo acotado si el rechazo residual es alto y no resuelve por sí mismo recuentos exactos. Una proyección persistente de elegibilidad requiere dependencias completas e invalidación o actualización que evite exposición tras revocaciones, restricciones y expiraciones; no introducirla sin esas garantías y pruebas.
 
+## Checkpoint de atribución del coste restante
+
+Ampliación acordada en conversación lateral el 2026-10-07. Aplicar a la próxima medición diagnóstica compatible con las fuentes congeladas y gates vigentes, sin interferir en un ensayo activo. Las observaciones anteriores acreditan reducción fuerte del N+1 hasta100 candidatos y listados HTTP de10000 candidatos de aproximadamente34–39s; estas muestras no son directamente equivalentes. No atribuyen todavía la mayor parte del coste a SQL, materialización, validación o renderizado.
+
+Antes de elegir otro refactor de backend o repetir la carga contractual como diagnóstico del coste, obtener una matriz comparable100/1000/10000 con el mismo entorno, fixture/seed, rutas, estado de cachés y nivel de instrumentación. Reutilizar evidencia previa solo para las métricas realmente medidas. No incorporar columnas nuevas retrospectivamente ni convertir un timeout en duración completada. Una corrección independiente del generador puede avanzar sin atribuirle mejoras del backend.
+
+| Candidatos | Queries | SQL acumulado | Listings materializados | Relaciones materializadas | Validaciones Python | Render/serialización | Total request |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 100 | | | | | | | |
+| 1000 | | | | | | | |
+| 10000 | | | | | | | |
+
+Medir dos capas: tiempo end-to-end del request y eventos internos instrumentados. Registrar ejecución de SQL, materialización de Listings y relaciones por tipo/procedencia, número de validaciones y, cuando se mida directamente, duración de validación y render/serialización. Definir el alcance de cada contador: objetos creados no equivalen necesariamente a entidades únicas ni a filas SQL. Marcar métricas ausentes como `not_measured`.
+
+La evaluación lazy del ORM puede ejecutar SQL durante validación, prefetch o renderizado. Registrar alcance y posibles solapamientos de los temporizadores; no sumar intervalos anidados como si fueran fases exclusivas ni exigir que su suma coincida con el total. Tiempo SQL acumulado debe indicar método y alcance, incluida la ejecución/fetch que realmente observe el instrumento. Total menos SQL no equivale a tiempo de validación ni permite atribuir por sí solo coste a Python.
+
+Presentar las consultas dominantes agrupadas por patrón normalizado y ordenadas por tiempo acumulado, con `query_pattern`, `calls`, `total_time` y `mean_time`. No persistir valores de usuarios, IDs, teléfonos, textos ni parámetros; redactar también literales SQL, no solo parámetros separados. Definir normalización, unidades y población. Distinguir `rows_returned`, `rows_affected` y `rows_examined`/`rows_scanned`; publicar cada métrica solo si su significado y medición son fiables. No inferirlas de objetos ORM o de un `rowcount` ambiguo. Una métrica no disponible queda `not_measured`.
+
+Si SQL domina, analizar por separado las consultas relevantes con `EXPLAIN (ANALYZE, BUFFERS)` en el PostgreSQL sintético aislado. ANALYZE ejecuta la consulta: limitar este diagnóstico a las lecturas afectadas, sin mutaciones ni datos reales. Registrar fuente, consulta/plan redactados, entorno y estado de cachés; no mezclar su duración con el benchmark normal ni extrapolar filas de nodos del plan sin explicar su semántica. `pg_stat_statements` es información adicional si ya está disponible, con alcance/deltas que eviten atribuir actividad ajena; instalarlo o cambiar configuración no es requisito de este checkpoint.
+
+Decidir el próximo cambio según evidencia directa:
+
+- Consultas crecientes: localizar accesos repetidos y distinguir N+1 de consultas justificadas por lotes.
+- Tiempo SQL dominante: revisar planes, EXISTS/subconsultas correlacionadas, joins, ordenación e índices. Pocas consultas no implican poco trabajo de PostgreSQL.
+- SQL barato y materialización dominante: reducir filas y relaciones materializadas, preservando elegibilidad, orden y recuentos.
+- Validaciones dominantes: reformularlas o llevar condiciones equivalentes a SQL, con pruebas de equivalencia.
+- Render/serialización dominante: corregir esa capa.
+
+No elegir paginación anticipada, proyección de elegibilidad o escalado de infraestructura únicamente por el número de objetos o de consultas. Documentar la atribución observada, limitaciones y evidencia que justifica el refactor. La carga contractual conserva sus requisitos y debe verificarse después de las correcciones pertinentes; este checkpoint no la sustituye ni acredita capacidad por sí mismo.
+
 ## Validez del experimento
 
 Congelar antes de la próxima ejecución: fuente, dataset/seed, entorno y recursos, mezcla real, estado frío/caliente, instrumentación, timeout por petición y política de errores. Registrar workers, versiones y límites relevantes. No alterar retrospectivamente criterios tras observar resultados ni reinterpretar una ejecución previa como si incorporase este marco.
