@@ -1,9 +1,9 @@
 """Finite 10k attribution of native bindings/model metadata with GC overlap."""
 
 import pytest
-from django.forms import Form
 from django.forms import models as form_models
 from django.forms.boundfield import BoundField
+from django.forms.forms import BaseForm
 from test_discovery import directory  # noqa: F401
 from test_discovery_gc_profile import test_discovery_gc_profile_10000 as run_gc_profile
 from test_photos import photo_environment  # noqa: F401
@@ -19,7 +19,7 @@ pytestmark = pytest.mark.django_db(transaction=True)
 def test_discovery_binding_detail_profile_10000(request, monkeypatch, record_property):
     profiles = []
     original_init = RuleProfile.__init__
-    targets = [(BoundField, "__init__"), (Form, "_widget_data_value"),
+    targets = [(BoundField, "__init__"), (BaseForm, "_widget_data_value"),
                (form_models, "construct_instance")]
     for cls in [SnapshotDetails, ContactsForm]:
         targets.append((cls, "_get_validation_exclusions"))
@@ -42,7 +42,7 @@ def test_discovery_binding_detail_profile_10000(request, monkeypatch, record_pro
     assert rows["Revision.full_clean"]["calls"] == 20000
     assert rows["Revision.clean_fields"]["calls"] == 20000
     assert rows["BoundField.__init__"]["calls"] >= 20000
-    assert rows["Form._widget_data_value"]["calls"] >= 20000
+    assert rows["BaseForm._widget_data_value"]["calls"] >= 20000
     for row in rows.values():
         assert abs(row["inclusive_time"] - row["exclusive_time"]
                    - sum(row["instrumented_children"].values())) < 1e-7
