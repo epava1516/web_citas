@@ -3,8 +3,8 @@
 from copy import copy
 
 import pytest
-from django.db.models import QuerySet
 from django.db import connection
+from django.db.models import QuerySet
 from django.utils import timezone
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
