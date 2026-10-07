@@ -1,7 +1,6 @@
 """Captured population equivalence and paired PostgreSQL preparation/execute/fetch."""
 import time
 from collections import Counter
-from functools import partial
 from uuid import UUID, uuid4
 
 import pytest
@@ -105,12 +104,13 @@ def test_array_request_preserves_native_count_order_body_and_captured_ids(reques
         assert Counter(left) == Counter(right), name
     listing.status = status
     listing.save(update_fields=['status'])
-    monkeypatch.setattr(projection, 'CapturedUUIDBatch', partial(CapturedUUIDBatch, mode='array'))
+    monkeypatch.setattr(projection, 'CapturedUUIDBatch', lambda identifiers, **kwargs: CapturedUUIDBatch(identifiers, mode='array'))
     assert projection.definitions_digest() == before and projection.supported()
     for language in ['es', 'en']:
         for params in [{}, {'page': 2}, {'page': 3}, {'q': 'photography'}]:
             with monkeypatch.context() as patch:
-                patch.setattr(projection, 'CapturedUUIDBatch', CapturedUUIDBatch)
+                patch.setattr(projection, 'CapturedUUIDBatch',
+                              lambda identifiers, **kwargs: CapturedUUIDBatch(identifiers, mode='in'))
                 original = client.get(f'/{language}/', params)
             array = client.get(f'/{language}/', params)
             assert array.content == original.content

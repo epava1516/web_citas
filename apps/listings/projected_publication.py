@@ -191,7 +191,7 @@ class ProjectedPublication:
         self.rows = list(publication_query(query, self.document).values(*columns))
         self.by_id = {row["pk"]: row for row in self.rows}
         revision_ids = [row["approved_revision_id"] for row in self.rows]
-        revision_batch = CapturedUUIDBatch(revision_ids)
+        revision_batch = CapturedUUIDBatch(revision_ids, mode="array")
         self.memberships = {name: defaultdict(list) for name in
                             ["categories", "services", "travel_areas", "rates", "photos"]}
         for name in ["categories", "services", "travel_areas"]:
