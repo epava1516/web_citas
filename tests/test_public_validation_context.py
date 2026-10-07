@@ -3,6 +3,7 @@
 from copy import copy
 
 import pytest
+from django.db.models import QuerySet
 from django.utils import timezone
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
@@ -50,7 +51,14 @@ def test_prepared_details_preserve_cleaning_and_independent_fields(request):
         fresh = SnapshotDetails(context.catalog, values, instance=fresh_instance)
         assert prepared.is_valid() == fresh.is_valid()
         assert prepared.errors.as_data() == fresh.errors.as_data()
-        assert prepared.cleaned_data == fresh.cleaned_data
+        assert prepared.cleaned_data.keys() == fresh.cleaned_data.keys()
+        for name, value in prepared.cleaned_data.items():
+            other = fresh.cleaned_data[name]
+            if isinstance(value, QuerySet):
+                assert isinstance(other, QuerySet)
+                assert list(value) == list(other)
+            else:
+                assert value == other
         for name in SnapshotDetails.Meta.fields:
             if not revision._meta.get_field(name).many_to_many:
                 assert getattr(prepared_instance, name) == getattr(fresh_instance, name)
