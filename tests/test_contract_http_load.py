@@ -5,6 +5,7 @@ import http.cookies
 import json
 import math
 import os
+import platform
 import queue
 import socket
 import subprocess
@@ -12,6 +13,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from importlib.metadata import version
 from pathlib import Path
 from uuid import uuid4
 
@@ -50,7 +52,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                        DB_HOST=db['HOST'], DB_PORT=str(db['PORT']), APP_ENV='development',
                        DJANGO_DEBUG='0', DJANGO_SETTINGS_MODULE='load_runtime_settings',
                        PYTHONPATH=str(tmp_path)+os.pathsep+str(Path.cwd()), REDIS_URL='memory://',
-                       TASK_QUEUE_GENERATION='load-'+uuid4().hex)
+                       TASK_QUEUE_GENERATION='l'+uuid4().hex[:31])
     (tmp_path / 'load_runtime_settings.py').write_text(
         'from config.settings import *\n'
         + 'MEDIA_ROOT = '+repr(str(django_settings.MEDIA_ROOT))+'\n'
@@ -64,8 +66,19 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     logfile = tmp_path / 'gunicorn-private.log'
     accessfile = tmp_path / 'gunicorn-access.log'
     rows, cold, uploads = [], [], []
+    with connection.cursor() as cursor:
+        cursor.execute('SHOW server_version')
+        postgres_version = cursor.fetchone()[0]
+    resources = {'os': platform.platform(), 'cpu_count': os.cpu_count(), 'cpu_affinity_count': len(os.sched_getaffinity(0)),
+                 'postgres_version': postgres_version, 'gunicorn_version': version('gunicorn'),
+                 'django_version': version('Django'), 'python_version': platform.python_version(),
+                 'pg_server_shared': True, 'limits': 'Runner database isolated; PostgreSQL service and host shared with idle normal stack. No competing test/build workload.'}
+    for name, file in [('memory_total', '/proc/meminfo'), ('cgroup_memory_max', '/sys/fs/cgroup/memory.max'), ('cgroup_cpu_max', '/sys/fs/cgroup/cpu.max')]:
+        if Path(file).is_file():
+            value = Path(file).read_text()
+            resources[name] = value.splitlines()[0] if name == 'memory_total' else value.strip()
     process = None
-    summary = {'dataset': dataset, 'success': False, 'duration_seconds': 900 if large else 2,
+    summary = {'dataset': dataset, 'resources': resources, 'success': False, 'duration_seconds': 900 if large else 2,
                'arrival_rps': 20 if large else 6, 'server': 'Gunicorn4 sync workers local TCP',
                'scope': 'Synthetic local server capacity; external production/identity/CDN excluded. Upload processing eager in request, no real worker throughput claim.'}
     routes = ['/es/', '/en/', '/es/?q=photography', '/en/?q=synthetic',
@@ -157,6 +170,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                        uploads=uploads, samples=rows)
         assert len(rows) == count and all(not row['unexpected'] for row in uploads)
         assert uploads and all(row['bytes'] > 0 for row in rows if row.get('status') == 200)
+        if not large:
+            assert summary['unexpected'] == 0, 'Functional HTTP load returned unexpected results'
         if large:
             assert summary['unexpected']/count < 0.01 and summary['client_p95_seconds'] < 0.8
         summary['success'] = True
@@ -171,6 +186,10 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait(timeout=5)
         summary['gunicorn_stopped'] = process is None or process.poll() is not None
+        if logfile.exists():
+            import re
+
+            summary['startup_error_types'] = re.findall(r'([A-Za-z]+Error):', logfile.read_text())[-10:]
         summary['cold_probes'] = cold
         if accessfile.exists():
             server_rows = [line.split() for line in accessfile.read_text().splitlines()]
