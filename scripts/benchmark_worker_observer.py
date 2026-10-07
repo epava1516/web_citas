@@ -131,7 +131,7 @@ class ObservedResponse:
 def post_worker_init(worker):
     from django.db import connection
 
-    from apps.listings import discovery, moderation, views
+    from apps.listings import discovery, moderation, moderation_views
     from apps.listings.public_validation import PublicationContext
 
     folder = os.environ.get("WEB_MODELOS_BENCHMARK_OBSERVER_DIR")
@@ -143,7 +143,7 @@ def post_worker_init(worker):
     PublicationContext.__init__ = observer.measured("context", PublicationContext.__init__)
     moderation.validate_submission = observer.measured("validation", moderation.validate_submission, progress=True)
     discovery.render = observer.measured("render", discovery.render)
-    views.render = observer.measured("render", views.render)
+    moderation_views.render = observer.measured("render", moderation_views.render)
     connection.execute_wrappers.append(observer.sql)
     worker.wsgi = observer.wsgi(worker.wsgi)
 
