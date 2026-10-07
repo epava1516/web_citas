@@ -1,0 +1,350 @@
+{
+  "analysis": "Secondary analysis of frozen artifacts; no new requests, no reclassification of original FAIL",
+  "source_commit": "c68bcf8837193f8b179a50fce693ac390ec1fb9e",
+  "artifact_sha256": {
+    "benchmark-worker-events.json": "afd44c38793caa005ca0876f8f56e1cb45685ac002d180c5317b6063cfefd9c8",
+    "benchmark-samples.json": "3e4d11cf889d766cb257b4e2060fea0b02e3de53b4964816651a3c33ee804d60"
+  },
+  "clock": "Existing local asyncio default loop.time / time.monotonic, same host. Chronology and WSGI wall deltas reconciled; no independent clock calibration",
+  "population": {
+    "scheduled_emitted": 1200,
+    "wsgi_dynamic_entries_and_ends": 112,
+    "dynamic_without_captured_wsgi_entry": 1088,
+    "upload_entries": 1
+  },
+  "cohorts": {
+    "listing": {
+      "metrics": {
+        "emission_to_wsgi_seconds": {
+          "n": 38,
+          "min": 0.0009122700430452824,
+          "mean": 55.623508105250565,
+          "p50": 55.41235634405166,
+          "p95": 114.24261909583583,
+          "max": 114.26843503396958,
+          "sum": 2113.6933079995215
+        },
+        "wsgi_seconds": {
+          "n": 38,
+          "min": 4.112860993016511,
+          "mean": 7.877796083835787,
+          "p50": 8.270313364919275,
+          "p95": 8.657986630219966,
+          "max": 8.855069333221763,
+          "sum": 299.3562511857599
+        },
+        "sql_execute_seconds": {
+          "n": 38,
+          "min": 0.9397308961488307,
+          "mean": 4.641909202573037,
+          "p50": 5.059361165389419,
+          "p95": 5.359651968348771,
+          "max": 5.658350301440805,
+          "sum": 176.3925496977754
+        },
+        "thread_cpu_seconds": {
+          "n": 38,
+          "min": 2.9460590550000028,
+          "mean": 3.1766783435789474,
+          "p50": 3.172367014999999,
+          "p95": 3.34183331,
+          "max": 3.3508217310000035,
+          "sum": 120.713777056
+        },
+        "sql_thread_cpu_seconds": {
+          "n": 38,
+          "min": 0.05771421699991208,
+          "mean": 0.07053139136842117,
+          "p50": 0.07100541499998059,
+          "p95": 0.09346334200001394,
+          "max": 0.09504913100003165,
+          "sum": 2.6801928720000046
+        },
+        "render_seconds": {
+          "n": 38,
+          "min": 0.03438013885170221,
+          "mean": 0.052078609930743515,
+          "p50": 0.04928324930369854,
+          "p95": 0.08662610314786434,
+          "max": 0.08814206998795271,
+          "sum": 1.9789871773682535
+        },
+        "queries": {
+          "n": 38,
+          "min": 88,
+          "mean": 88,
+          "p50": 88,
+          "p95": 88,
+          "max": 88,
+          "sum": 3344
+        }
+      },
+      "client_success": 20,
+      "client_timeout": 18,
+      "entry_after_client_end": 16,
+      "server_end_after_timeout": 18
+    },
+    "search": {
+      "metrics": {
+        "emission_to_wsgi_seconds": {
+          "n": 38,
+          "min": 0.00120888976380229,
+          "mean": 57.110144361865856,
+          "p50": 56.86689678393304,
+          "p95": 115.29608497116715,
+          "max": 115.30737142963335,
+          "sum": 2170.1854857509024
+        },
+        "wsgi_seconds": {
+          "n": 38,
+          "min": 4.683761641383171,
+          "mean": 5.257673188749897,
+          "p50": 5.254426922649145,
+          "p95": 5.709524084813893,
+          "max": 5.915266499388963,
+          "sum": 199.79158117249608
+        },
+        "sql_execute_seconds": {
+          "n": 38,
+          "min": 1.678336376324296,
+          "mean": 2.038484496248298,
+          "p50": 1.9899343326687813,
+          "p95": 2.461732047609985,
+          "max": 2.5304503571242094,
+          "sum": 77.46241085743532
+        },
+        "thread_cpu_seconds": {
+          "n": 38,
+          "min": 2.950537399999998,
+          "mean": 3.1659316752368425,
+          "p50": 3.164427795999999,
+          "p95": 3.3386139019999987,
+          "max": 3.338648891,
+          "sum": 120.30540365900002
+        },
+        "sql_thread_cpu_seconds": {
+          "n": 38,
+          "min": 0.05798335799995158,
+          "mean": 0.0695814573421093,
+          "p50": 0.0681544500000193,
+          "p95": 0.0810284380000077,
+          "max": 0.08450271799999243,
+          "sum": 2.644095379000153
+        },
+        "render_seconds": {
+          "n": 38,
+          "min": 0.0365044348873198,
+          "mean": 0.05177769525662849,
+          "p50": 0.04855578625574708,
+          "p95": 0.07523612771183252,
+          "max": 0.09231601702049375,
+          "sum": 1.9675524197518826
+        },
+        "queries": {
+          "n": 38,
+          "min": 88,
+          "mean": 88,
+          "p50": 88,
+          "p95": 88,
+          "max": 88,
+          "sum": 3344
+        }
+      },
+      "client_success": 20,
+      "client_timeout": 18,
+      "entry_after_client_end": 16,
+      "server_end_after_timeout": 18
+    },
+    "detail": {
+      "metrics": {
+        "emission_to_wsgi_seconds": {
+          "n": 36,
+          "min": 4.237432301044464,
+          "mean": 58.457093153524006,
+          "p50": 55.44009552290663,
+          "p95": 114.24778604786843,
+          "max": 114.27028563804924,
+          "sum": 2104.455353526864
+        },
+        "wsgi_seconds": {
+          "n": 36,
+          "min": 0.07150810770690441,
+          "mean": 0.09463802020117226,
+          "p50": 0.0900570722296834,
+          "p95": 0.12017639121040702,
+          "max": 0.15473828185349703,
+          "sum": 3.4069687272422016
+        },
+        "sql_execute_seconds": {
+          "n": 36,
+          "min": 0.03031993703916669,
+          "mean": 0.04654216070452498,
+          "p50": 0.04465406946837902,
+          "p95": 0.07193834567442536,
+          "max": 0.07643157197162509,
+          "sum": 1.6755177853628993
+        },
+        "thread_cpu_seconds": {
+          "n": 36,
+          "min": 0.041683947000002775,
+          "mean": 0.05075038938888908,
+          "p50": 0.04886937899999566,
+          "p95": 0.07641910699999954,
+          "max": 0.09082071299999939,
+          "sum": 1.827014018000007
+        },
+        "sql_thread_cpu_seconds": {
+          "n": 36,
+          "min": 0.005026754999988725,
+          "mean": 0.006196541222222931,
+          "p50": 0.006021411000006083,
+          "p95": 0.007339734999998626,
+          "max": 0.009907945999998446,
+          "sum": 0.22307548400002553
+        },
+        "render_seconds": {
+          "n": 36,
+          "min": 0.0052194129675626755,
+          "mean": 0.006971253314986825,
+          "p50": 0.006783472839742899,
+          "p95": 0.009651736821979284,
+          "max": 0.010453187394887209,
+          "sum": 0.2509651193395257
+        },
+        "queries": {
+          "n": 36,
+          "min": 39,
+          "mean": 39,
+          "p50": 39,
+          "p95": 39,
+          "max": 39,
+          "sum": 1404
+        }
+      },
+      "client_success": 20,
+      "client_timeout": 16,
+      "entry_after_client_end": 16,
+      "server_end_after_timeout": 16
+    },
+    "all": {
+      "metrics": {
+        "emission_to_wsgi_seconds": {
+          "n": 112,
+          "min": 0.0009122700430452824,
+          "mean": 57.03869774354722,
+          "p50": 55.44009552290663,
+          "p95": 114.24261909583583,
+          "max": 115.30737142963335,
+          "sum": 6388.334147277288
+        },
+        "wsgi_seconds": {
+          "n": 112,
+          "min": 0.07150810770690441,
+          "mean": 4.487096438263377,
+          "p50": 5.227230868302286,
+          "p95": 8.546365268994123,
+          "max": 8.855069333221763,
+          "sum": 502.5548010854982
+        },
+        "sql_execute_seconds": {
+          "n": 112,
+          "min": 0.03031993703916669,
+          "mean": 2.281522128040836,
+          "p50": 1.9564291960559785,
+          "p95": 5.301178723108023,
+          "max": 5.658350301440805,
+          "sum": 255.5304783405736
+        },
+        "thread_cpu_seconds": {
+          "n": 112,
+          "min": 0.041683947000002775,
+          "mean": 2.1682695958303575,
+          "p50": 3.1066161689999987,
+          "p95": 3.329529506,
+          "max": 3.3508217310000035,
+          "sum": 242.84619473300003
+        },
+        "sql_thread_cpu_seconds": {
+          "n": 112,
+          "min": 0.005026754999988725,
+          "mean": 0.04953003334821592,
+          "p50": 0.0649882539999922,
+          "p95": 0.07865070199999824,
+          "max": 0.09504913100003165,
+          "sum": 5.547363735000183
+        },
+        "render_seconds": {
+          "n": 112,
+          "min": 0.0052194129675626755,
+          "mean": 0.037477720682675554,
+          "p50": 0.042904427740722895,
+          "p95": 0.07096456922590733,
+          "max": 0.09231601702049375,
+          "sum": 4.197504716459662
+        },
+        "queries": {
+          "n": 112,
+          "min": 39,
+          "mean": 72.25,
+          "p50": 88,
+          "p95": 88,
+          "max": 88,
+          "sum": 8092
+        }
+      },
+      "client_success": 60,
+      "client_timeout": 52,
+      "entry_after_client_end": 48,
+      "server_end_after_timeout": 52
+    }
+  },
+  "worker_wsgi_intervals": {
+    "2342464": {
+      "requests": 24,
+      "first_entry": 0.001701833214610815,
+      "last_end": 126.01302170706913,
+      "wsgi_overlap_window_seconds": 59.994665952865034,
+      "wsgi_overlap_full_seconds": 124.96805587830022
+    },
+    "2342485": {
+      "requests": 31,
+      "first_entry": 0.10165675589814782,
+      "last_end": 126.19130339007825,
+      "wsgi_overlap_window_seconds": 59.8930489551276,
+      "wsgi_overlap_full_seconds": 124.86562446085736
+    },
+    "2342504": {
+      "requests": 37,
+      "first_entry": 0.05146006913855672,
+      "last_end": 127.76677686627954,
+      "wsgi_overlap_window_seconds": 59.94224981078878,
+      "wsgi_overlap_full_seconds": 124.9134802208282
+    },
+    "2342550": {
+      "requests": 21,
+      "first_entry": 0.0015464210882782936,
+      "last_end": 127.96035288693383,
+      "wsgi_overlap_window_seconds": 59.99590964568779,
+      "wsgi_overlap_full_seconds": 124.96957987826318
+    }
+  },
+  "limits": [
+    "Captured cohort is selected by server progress, not representative of all1200 requests",
+    "Emission-to-WSGI includes client connection/write, TCP/kernel backlog, acceptance/dispatch; exact queue attribution not_measured",
+    "WSGI intervals exclude accept/pre-WSGI and include waits; occupancy does not imply CPU saturation",
+    "Server completion does not imply client delivery; post-client-timeout WSGI work is observed only for matched requests",
+    "SQL cursor.execute wall and Python thread CPU do not measure PostgreSQL CPU",
+    "No causal benchmark before/after claim; originals retained"
+  ],
+  "analysis_date": "2026-10-07",
+  "provenance": "Derived only from immutable hashes referenced in listado-proyeccion-uuid-array-corta0110.json; original verdicts and measurements untouched",
+  "formulas": {
+    "emission_to_wsgi_seconds": "wsgi_start.started - summary.monotonic_origin_seconds - sample.emitted_at",
+    "wsgi_overlap_window_seconds": "sum of disjoint observed intervals clipped to [origin, window_close], per PID, includes upload",
+    "route_cohort": "ledger path family joined by benchmark ID to captured WSGI start/end/route events"
+  },
+  "recorded_source_paths": [
+    "/tmp/projection-uuid-array-short0110/benchmark-worker-events.json",
+    "/tmp/projection-uuid-array-short0110/benchmark-samples.json"
+  ]
+}
