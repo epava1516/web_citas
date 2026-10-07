@@ -1,0 +1,65 @@
+{
+  "schema": "projection-jit-prefixed-v1",
+  "date": "2026-10-07",
+  "delivery": "CR09-REND-LECTURA/R1",
+  "hypothesis": "JIT compilation materially increases the current captured projection SELECT latency.",
+  "source": "Git HEAD at launch; all tracked source hashes frozen by runner before resource creation",
+  "runner": "/tmp/run-projection-jit0110.py",
+  "output": "/tmp/projection-jit-causal0110",
+  "datasets": [
+    1000,
+    10000
+  ],
+  "fixture": "directory/seed_demo + synthetic_load_dataset.populate; unchanged contractual repeated content; sequential fresh fixtures",
+  "query": "Exact SELECT with AS _pv_check_status captured once from current /es/ projected request; full raw SQL SHA and parameter count/types recorded before paired reads; values stay in memory and are redacted.",
+  "modes": {
+    "A": "Current session settings",
+    "B": "SET LOCAL jit=off in own READ ONLY transaction"
+  },
+  "warmup": [
+    "A",
+    "B"
+  ],
+  "pairs": [
+    [
+      "A",
+      "B"
+    ],
+    [
+      "B",
+      "A"
+    ],
+    [
+      "A",
+      "B"
+    ],
+    [
+      "B",
+      "A"
+    ]
+  ],
+  "select_timeout_seconds": 65,
+  "plans": "One A and one B EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON), after all SELECT pairs per dataset; separate timers.",
+  "equivalence": "Full ordered raw values equality for all rows in memory, expected count=N, unchanged captured SQL and parameters. This is SQL equivalence, not a new native validation acceptance.",
+  "decision": {
+    "confirmed_material_select_effect": "A jit=on; all four paired select savings >=20%, median absolute saving >=0.25 s. Relative threshold filters small drift; absolute threshold represents material cost against existing 0.8s HTTP SLO, not new SLO.",
+    "no_material_select_effect_observed": "Every pair within +/-10% and +/-0.05s; limited to warmed observed population.",
+    "off_slower_in_all_pairs": "Negative absolute saving in all pairs.",
+    "inconclusive_or_mixed": "Any other valid result; retain uncertainty. Cardinalities classified independently; policy decision must explain both."
+  },
+  "resources": "Owned synthetic PostgreSQL databases on existing local cluster port55432; own temporary media and encryption key; shared host/cluster documented, no competing test runner. No scale/global PG config/index/cache change.",
+  "caches": "OS/PG warmed by capture and warmups, not reset. Alternate paired order; no cold-cache or causal overhead claim.",
+  "driver": "Same psycopg cursor in both modes; auto-prepare disabled symmetrically to prevent prior mode determining a cached plan; original setting restored.",
+  "scope": "SQL execute plus fetch directly observed; setup outside timers; no HTTP/load capacity inference. No active execution altered.",
+  "exit": "Two cardinalities terminal, result equality and settings restoration, report reviewed, source hashes and cleanup independently checked; conclude R1 once without blind repeats.",
+  "historical_verdicts": "Short FAIL and original contractual INVALID preserved; 900s blocked until complete short PASS.",
+  "not_measured": [
+    "cold-cache effects",
+    "DB CPU/RSS/waits over time",
+    "rows_scanned",
+    "rows_affected",
+    "causal overhead",
+    "paired HTTP gain",
+    "validation/render/materialization in this SQL-only contrast"
+  ]
+}
