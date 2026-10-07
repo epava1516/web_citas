@@ -184,6 +184,10 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     if observe_workers:
         manifest["instrumentation"] += "; opt-in isolated worker observer as described in worker_observer, thread CPU scoped to WSGI request; no DB CPU/RSS sampling"
     if scenario == "short":
+        assert manifest["policy"]["request_timeout_seconds"] == 65
+        assert manifest["policy"]["drain_seconds"] == 70
+        assert manifest["duration_seconds"] == 60 and manifest["arrival_rps"] == 20
+        assert manifest["dataset"]["published"] == 10000
         manifest["diagnostic_criteria"] = {
             "valid_generator_and_reconciled_accounting": True,
             "p95_seconds_strict_below": 0.8,
@@ -191,6 +195,9 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             "uploads_expected_status": 302,
             "dynamic_pending_at_window_max": 20,
             "final_pending": 0,
+            "request_timeout_seconds": 65,
+            "drain_seconds_max": 70,
+            "verdict_scope": "Complete diagnostic gate, transport verdict retained separately",
             "reason": "Existing latency/error objectives plus at most one second of arrivals outstanding as accumulation filter; generator numeric policy unchanged. No capacity acceptance.",
         }
     (artifact_folder / "benchmark-manifest.json").write_text(json.dumps(manifest, indent=2))
@@ -350,14 +357,23 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         )
         summary["request_samples_artifact"] = str(samples_path)
         if scenario == "short":
+            summary["transport_verdict"] = summary["verdict"]
             summary["diagnostic_checks"] = {
-                "validity": summary["verdict"] != "INVALID",
-                "latency_and_errors": summary["verdict"] == "PASS",
+                "validity": summary["transport_verdict"] != "INVALID",
+                "latency_and_errors": summary["transport_verdict"] == "PASS",
                 "pending_at_window": summary["window_close"]["dynamic"]["pending"] <= 20,
                 "final_pending": summary["counts"]["pending"] == 0,
                 "upload": summary["final_upload_counts"]["successful"] == upload_count,
+                "timeout_policy": manifest["policy"]["request_timeout_seconds"] == 65,
+                "drain": summary["actual_elapsed_seconds"] <= (
+                    manifest["duration_seconds"] + manifest["diagnostic_criteria"]["drain_seconds_max"]
+                ),
             }
             summary["diagnostic_continue_contract"] = all(summary["diagnostic_checks"].values())
+            summary["verdict"] = (
+                "INVALID" if summary["transport_verdict"] == "INVALID" else
+                "PASS" if summary["diagnostic_continue_contract"] else "FAIL"
+            )
         assert summary["counts"]["reconciled"] and summary["final_upload_counts"]["reconciled"]
         if not large:
             assert (
