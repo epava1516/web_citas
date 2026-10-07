@@ -1,0 +1,238 @@
+{
+  "source_commit": "be3753fffd8afb7443acabcdec7192dd3b56a2b4",
+  "verification": {
+    "sources_unchanged": true,
+    "migration_exit": 0,
+    "pytest_exit": 0,
+    "cleanup_verified": true,
+    "test_media_removed": true,
+    "artifact_sha256": {
+      "migration.log": "554c86191aa5458fa81d6926cc0060ee8b12abefbb10023fb049f7a28126fb79",
+      "pytest.log": "abfd6d9b949cc021d8e3e4b400f3fe51748c300a0d8fe59e257150452a04dc5a",
+      "pytest.xml": "8d4e381b989e74f0b833fc5152ec6765964d594f2473cbee4283091ac814a6d4",
+      "test-timings.json": "58489d0d249b62c9a44e9e7e03634c530e1f472ad76e53c0c3070c398a62b6f8"
+    }
+  },
+  "profile": {
+    "rules": [
+      {
+        "rule": "PublicationContext.__init__",
+        "calls": 1,
+        "inclusive_time": 17.665009025018662,
+        "exclusive_time": 12.440668115857989,
+        "max_exclusive_time": 12.440668115857989,
+        "instrumented_children": {
+          "sql.cursor_execute": 5.224340909160674
+        },
+        "mean_exclusive_time": 12.440668115857989
+      },
+      {
+        "rule": "BaseForm.__init__",
+        "calls": 20003,
+        "inclusive_time": 8.049018899910152,
+        "exclusive_time": 5.809126321226358,
+        "max_exclusive_time": 0.0026624538004398346,
+        "instrumented_children": {
+          "SnapshotChoice.__deepcopy__": 2.2398925786837935
+        },
+        "mean_exclusive_time": 0.0002904127541481957
+      },
+      {
+        "rule": "sql.cursor_execute",
+        "calls": 70,
+        "inclusive_time": 5.273149284068495,
+        "exclusive_time": 5.273149284068495,
+        "max_exclusive_time": 2.121788112912327,
+        "instrumented_children": {},
+        "mean_exclusive_time": 0.07533070405812135
+      },
+      {
+        "rule": "SnapshotChoice.__deepcopy__",
+        "calls": 50000,
+        "inclusive_time": 2.2398925786837935,
+        "exclusive_time": 2.2398925786837935,
+        "max_exclusive_time": 0.001048550009727478,
+        "instrumented_children": {},
+        "mean_exclusive_time": 4.479785157367587e-05
+      },
+      {
+        "rule": "SnapshotDetails._clean_fields",
+        "calls": 10000,
+        "inclusive_time": 1.8654863624833524,
+        "exclusive_time": 1.8654863624833524,
+        "max_exclusive_time": 0.0012588570825755596,
+        "instrumented_children": {},
+        "mean_exclusive_time": 0.00018654863624833524
+      },
+      {
+        "rule": "SnapshotDetails._post_clean",
+        "calls": 10000,
+        "inclusive_time": 1.633214205969125,
+        "exclusive_time": 1.633214205969125,
+        "max_exclusive_time": 0.004313698969781399,
+        "instrumented_children": {},
+        "mean_exclusive_time": 0.0001633214205969125
+      },
+      {
+        "rule": "DetailsForm.__init__",
+        "calls": 10000,
+        "inclusive_time": 8.518469498027116,
+        "exclusive_time": 1.381776641588658,
+        "max_exclusive_time": 0.0011448622681200504,
+        "instrumented_children": {
+          "BaseForm.__init__": 7.136692856438458
+        },
+        "mean_exclusive_time": 0.0001381776641588658
+      },
+      {
+        "rule": "ContactsForm._post_clean",
+        "calls": 10000,
+        "inclusive_time": 1.29194964049384,
+        "exclusive_time": 1.29194964049384,
+        "max_exclusive_time": 0.0032656611874699593,
+        "instrumented_children": {},
+        "mean_exclusive_time": 0.000129194964049384
+      },
+      {
+        "rule": "apps.listings.moderation.validate_submission",
+        "calls": 10000,
+        "inclusive_time": 17.272371544502676,
+        "exclusive_time": 1.0871637561358511,
+        "max_exclusive_time": 0.0018856329843401909,
+        "instrumented_children": {
+          "apps.listings.submissions.publication_ready": 0.08271213248372078,
+          "PublicationContext.details": 8.715413724537939,
+          "SnapshotDetails.full_clean": 4.13121444825083,
+          "ContactsForm.__init__": 1.20133808394894,
+          "ContactsForm.full_clean": 1.9791730255819857,
+          "PublicationContext.rate_valid": 0.07535637356340885
+        },
+        "mean_exclusive_time": 0.00010871637561358511
+      },
+      {
+        "rule": "ContactsForm._clean_fields",
+        "calls": 10000,
+        "inclusive_time": 0.47233116580173373,
+        "exclusive_time": 0.47233116580173373,
+        "max_exclusive_time": 0.0013565253466367722,
+        "instrumented_children": {},
+        "mean_exclusive_time": 4.723311658017337e-05
+      },
+      {
+        "rule": "SnapshotDetails._clean_form",
+        "calls": 10000,
+        "inclusive_time": 0.3553229086101055,
+        "exclusive_time": 0.3553229086101055,
+        "max_exclusive_time": 0.0006438116542994976,
+        "instrumented_children": {},
+        "mean_exclusive_time": 3.5532290861010554e-05
+      },
+      {
+        "rule": "ContactsForm.__init__",
+        "calls": 10000,
+        "inclusive_time": 1.20133808394894,
+        "exclusive_time": 0.2899652002379298,
+        "max_exclusive_time": 0.0007689693011343479,
+        "instrumented_children": {
+          "BaseForm.__init__": 0.9113728837110102
+        },
+        "mean_exclusive_time": 2.8996520023792983e-05
+      },
+      {
+        "rule": "SnapshotDetails.full_clean",
+        "calls": 10000,
+        "inclusive_time": 4.13121444825083,
+        "exclusive_time": 0.2771909711882472,
+        "max_exclusive_time": 0.00014880485832691193,
+        "instrumented_children": {
+          "SnapshotDetails._clean_fields": 1.8654863624833524,
+          "SnapshotDetails._clean_form": 0.3553229086101055,
+          "SnapshotDetails._post_clean": 1.633214205969125
+        },
+        "mean_exclusive_time": 2.771909711882472e-05
+      },
+      {
+        "rule": "ContactsForm.full_clean",
+        "calls": 10000,
+        "inclusive_time": 1.9791730255819857,
+        "exclusive_time": 0.20486918184906244,
+        "max_exclusive_time": 0.00023870868608355522,
+        "instrumented_children": {
+          "ContactsForm._clean_fields": 0.47233116580173373,
+          "ContactsForm._clean_form": 0.010023037437349558,
+          "ContactsForm._post_clean": 1.29194964049384
+        },
+        "mean_exclusive_time": 2.0486918184906243e-05
+      },
+      {
+        "rule": "PublicationContext.details",
+        "calls": 10000,
+        "inclusive_time": 8.715413724537939,
+        "exclusive_time": 0.10243158042430878,
+        "max_exclusive_time": 0.0004955446347594261,
+        "instrumented_children": {
+          "SnapshotDetails.__init__": 8.61298214411363
+        },
+        "mean_exclusive_time": 1.0243158042430878e-05
+      },
+      {
+        "rule": "SnapshotDetails.__init__",
+        "calls": 10000,
+        "inclusive_time": 8.61298214411363,
+        "exclusive_time": 0.094512646086514,
+        "max_exclusive_time": 0.0007255417294800282,
+        "instrumented_children": {
+          "DetailsForm.__init__": 8.518469498027116
+        },
+        "mean_exclusive_time": 9.4512646086514e-06
+      },
+      {
+        "rule": "apps.listings.submissions.publication_ready",
+        "calls": 10000,
+        "inclusive_time": 0.08271213248372078,
+        "exclusive_time": 0.08271213248372078,
+        "max_exclusive_time": 6.634090095758438e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 8.271213248372078e-06
+      },
+      {
+        "rule": "PublicationContext.rate_valid",
+        "calls": 10000,
+        "inclusive_time": 0.07535637356340885,
+        "exclusive_time": 0.07065186649560928,
+        "max_exclusive_time": 0.0015880502760410309,
+        "instrumented_children": {
+          "BaseForm.__init__": 0.00024477671831846237,
+          "sql.cursor_execute": 0.004459730349481106
+        },
+        "mean_exclusive_time": 7.065186649560928e-06
+      },
+      {
+        "rule": "apps.listings.discovery.render",
+        "calls": 1,
+        "inclusive_time": 0.04905621940270066,
+        "exclusive_time": 0.04191866284236312,
+        "max_exclusive_time": 0.04191866284236312,
+        "instrumented_children": {
+          "sql.cursor_execute": 0.0071375565603375435
+        },
+        "mean_exclusive_time": 0.04191866284236312
+      },
+      {
+        "rule": "ContactsForm._clean_form",
+        "calls": 10000,
+        "inclusive_time": 0.010023037437349558,
+        "exclusive_time": 0.010023037437349558,
+        "max_exclusive_time": 2.2295862436294556e-05,
+        "instrumented_children": {},
+        "mean_exclusive_time": 1.0023037437349557e-06
+      }
+    ],
+    "control_request_seconds": "30.37124220887199",
+    "profiled_request_seconds": "35.367333333939314",
+    "overhead_comparison_seconds": "4.9960911250673234",
+    "overhead": "Paired route without/with selected wrappers, sequential control then profile, one sample each. Difference includes instrumentation and uncontrolled PG/OS cache effects: causal overhead not_measured; no correction applied.",
+    "scope": "Synchronous request only; ContextVar nested stack; subtract direct instrumented child inclusive intervals once, never grandchildren again. exclusive_time is relative to observed children, includes uninstrumented Python/ORM work. Inline authorization/document/revocation conditions are included in validate_submission, not separately attributed. No arguments/parameters persisted; seconds, optional p95 not_measured. SQL execute may be nested inside forms/render/context; no total-minus-SQL validation attribution.",
+    "not_measured": "rows_returned/affected/scanned; CPU/RSS/waits/locks/IO; independent inline predicate timings; causal profiler overhead; concurrent capacity; p95 exclusive"
+  }
+}
