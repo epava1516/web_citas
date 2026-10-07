@@ -41,7 +41,7 @@ def test_discovery_binding_detail_profile_10000(request, monkeypatch, record_pro
     rows = {row["rule"]: row for row in profiles[0].report()}
     assert rows["Revision.full_clean"]["calls"] == 20000
     assert rows["Revision.clean_fields"]["calls"] == 20000
-    assert rows["BoundField.__init__"]["calls"] > 0
+    assert rows["BoundField.__init__"]["calls"] >= 20000
     assert rows["BaseForm._widget_data_value"]["calls"] >= 20000
     for row in rows.values():
         assert abs(row["inclusive_time"] - row["exclusive_time"]

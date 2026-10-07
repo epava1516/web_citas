@@ -1,14 +1,11 @@
 """Current-request publication validation; no persistent or cross-request cache."""
 
 from copy import copy
-from types import MethodType
 
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db.models import Case, CharField, Exists, OuterRef, Prefetch, Q, Subquery, Value, When
 from django.db.models.functions import Cast
-from django.forms.boundfield import BoundField
-from django.forms.forms import BaseForm
 from django.forms.models import model_to_dict
 from django.utils.translation import get_language
 
@@ -20,50 +17,6 @@ from apps.safety.models import PrivacyPublicationHold, Restriction, RightsPhotoR
 from .forms import ContactsForm, DetailsForm, RateForm
 from .history import ordinary_matches, rectification_history_ids
 from .submissions import current_publishing_document
-
-_NATIVE_ITEMS = BaseForm._bound_items
-_NATIVE_CLEAN_FIELDS = BaseForm._clean_fields
-_NATIVE_FIELD_BOUND_CLEAN = forms.Field._clean_bound_field
-_NATIVE_GET_BOUND = forms.Field.get_bound_field
-
-
-def _method_is_native(method, expected, owner):
-    if getattr(method, "__self__", None) is not owner:
-        return False
-    function = method.__func__
-    # Only explicitly identified observer delegates can preserve identity.
-    # wraps alone is insufficient; copied metadata cannot identify a new wrapper.
-    while getattr(function, "_publication_dependency_wrapper", None) is function:
-        function = getattr(function._publication_dependency_original, "__func__",
-                           function._publication_dependency_original)
-    return function is expected
-
-
-class _ValidationInput:
-    """Native data access without unused rendering metadata in private cleaning."""
-
-    __slots__ = ("form", "field", "name", "html_name")
-    data = BoundField.data
-
-    def __init__(self, form, field, name):
-        self.form, self.field, self.name = form, field, name
-        self.html_name = form.add_prefix(name)
-
-    @property
-    def initial(self):
-        # Preserve native initial if a callback changes disabled after yielding.
-        return self.form[self.name].initial
-
-
-def _validation_items(form):
-    for name in form.fields:
-        field = form.fields[name]
-        if (not field.disabled and field.bound_field_class in (None, BoundField)
-                and _method_is_native(field._clean_bound_field, _NATIVE_FIELD_BOUND_CLEAN, field)
-                and _method_is_native(field.get_bound_field, _NATIVE_GET_BOUND, field)):
-            yield name, _ValidationInput(form, field, name)
-        else:
-            yield name, form[name]
 
 
 class SnapshotChoice(forms.Field):
@@ -341,20 +294,9 @@ class PublicationContext:
         form._validate_unique = False
         form.__dict__.pop("changed_data", None)
         form.__dict__.pop("cleaned_data", None)
-        sparse_items = (
-            not form.empty_permitted
-            and form.bound_field_class in (None, BoundField)
-            and _method_is_native(form._bound_items, _NATIVE_ITEMS, form)
-            and _method_is_native(form._clean_fields, _NATIVE_CLEAN_FIELDS, form)
-        )
-        if sparse_items:
-            form._bound_items = MethodType(_validation_items, form)
         try:
             return form.is_valid()
         finally:
-            if sparse_items:
-                # The temporary bound method also points back to this form.
-                form.__dict__.pop("_bound_items", None)
             # A BoundField points back to its form. These private bindings return
             # only a boolean and are never rendered; release their reverse cache
             # after native cleaning instead of leaving successful cycles for GC.

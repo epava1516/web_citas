@@ -5,7 +5,6 @@ import os
 import platform
 import time
 from collections import Counter
-from functools import wraps
 
 import pytest
 from django.db import connection
@@ -51,7 +50,6 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
         label = f"{form_class.__name__}.{method}"
         bucket = form_events.setdefault(label, {"calls": 0, "seconds": 0.0})
 
-        @wraps(original)
         def measured(self, *args, **kwargs):
             bucket["calls"] += 1
             start = time.perf_counter()
@@ -60,8 +58,6 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
             finally:
                 bucket["seconds"] += time.perf_counter() - start
 
-        measured._publication_dependency_wrapper = measured
-        measured._publication_dependency_original = original
         monkeypatch.setattr(form_class, method, measured)
 
     # Diagnostic subevents only: retain all native construction/cleaning behavior.

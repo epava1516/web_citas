@@ -257,8 +257,7 @@ def test_private_bindings_skip_unused_initial_but_preserve_disabled_fields(reque
     assert revision.telegram == "Valid_name"
 
 
-@pytest.mark.parametrize("native_fallback", [False, True])
-def test_successful_private_binding_is_released_without_forcing_gc(request, monkeypatch, native_fallback):
+def test_successful_private_binding_is_released_without_forcing_gc(request, monkeypatch):
     request.getfixturevalue("directory")
     context = PublicationContext(candidates({}))
     row = next(row for row in context.rows if publicly_visible(row, context=context))
@@ -268,23 +267,9 @@ def test_successful_private_binding_is_released_without_forcing_gc(request, monk
     def capture(form):
         observed.append(ref(form))
         original(form)
-        # construct_instance still creates native BoundFields for model defaults.
-        # Telegram has no model default: only its unknown callback needs metadata.
-        assert ("telegram" in form._bound_fields_cache) is native_fallback
-        assert form.cleaned_data["telegram"] == "Valid_name"
+        assert form._bound_fields_cache  # Native cleaning really built the cycle.
 
     monkeypatch.setattr(ContactsForm, "full_clean", capture)
-    if native_fallback:
-        prototype = next(form for key, form in context._validation_prototypes.items()
-                         if key[0] is ContactsForm)
-        bound_clean = prototype.fields["telegram"]._clean_bound_field
-
-        def with_metadata(bf):
-            assert bf.form.instance is row.approved_revision
-            assert bf.html_initial_name
-            return bound_clean(bf)
-
-        monkeypatch.setattr(prototype.fields["telegram"], "_clean_bound_field", with_metadata)
     data = {"whatsapp": False, "telegram": "@Valid_name",
             "contact_exposure_accepted": True, "accept_publishing": True,
             "legal_version": context.document.version}
@@ -349,48 +334,3 @@ def test_context_matches_ordinary_visibility_and_fresh_catalog_changes(request):
     check.status = "passed"
     check.save(update_fields=["status"])
     verify(True)
-
-
-def test_private_input_respects_custom_bound_field_data(request, monkeypatch):
-    from django.forms.boundfield import BoundField
-
-    request.getfixturevalue("directory")
-    context = PublicationContext(candidates({}))
-    row = next(row for row in context.rows if publicly_visible(row, context=context))
-    prototype = next(form for key, form in context._validation_prototypes.items()
-                     if key[0] is ContactsForm)
-    seen = []
-
-    class CustomInput(BoundField):
-        @property
-        def data(self):
-            seen.append(self.form.instance.pk)
-            return "not valid!"
-
-    monkeypatch.setattr(prototype.fields["telegram"], "bound_field_class", CustomInput)
-    data = {"whatsapp": False, "telegram": "@Valid_name",
-            "contact_exposure_accepted": True, "accept_publishing": True,
-            "legal_version": context.document.version}
-    assert not context.contacts_valid(data, row.approved_revision)
-    assert seen == [row.approved_revision.pk]
-
-
-def test_private_input_unknown_clean_fields_keeps_native_protocol(request, monkeypatch):
-    from django.forms.boundfield import BoundField
-
-    request.getfixturevalue("directory")
-    context = PublicationContext(candidates({}))
-    row = context.rows[0]
-    original = ContactsForm._clean_fields
-    seen = []
-
-    def custom(form):
-        seen.append([isinstance(bf, BoundField) for _, bf in form._bound_items()])
-        return original(form)
-
-    monkeypatch.setattr(ContactsForm, "_clean_fields", custom)
-    data = {"whatsapp": False, "telegram": "@Valid_name",
-            "contact_exposure_accepted": True, "accept_publishing": True,
-            "legal_version": context.document.version}
-    assert context.contacts_valid(data, row.approved_revision)
-    assert len(seen) == 1 and all(seen[0])
