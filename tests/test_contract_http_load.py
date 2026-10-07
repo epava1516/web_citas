@@ -25,7 +25,7 @@ from test_photos import photo_environment, raw_image  # noqa: F401
 from apps.core.models import Person, User
 from apps.listings.models import Revision
 from scripts.benchmark_async_transport import POLICY, fetch_http, run_async_open_loop
-from scripts.benchmark_gc_observer import GCObserver, generator_gc_overlap
+from scripts.benchmark_gc_observer import GCObserver, generator_gc_overlap, prepare_generator_gc
 from scripts.synthetic_load_dataset import populate
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -161,6 +161,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "instrumentation": "Monotonic per-request timestamps/async ledger; client-process GC callbacks during arrivals/drain with monotonic intervals and collector-thread CPU; event overlap reviewed after drain, causal callback overhead not_measured; GC policy unchanged; Gunicorn access logs; no app CPU/DB/RSS sampling",
         "scope": {"measured": "contractual", "short": "60s concurrent diagnostic only; not contractual capacity", "functional": "functional generator calibration only"}[scenario],
         "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
+        "client_fixture_preparation": "One gc.collect(2) after fixture/auth/upload construction, before arrival clock; enabled/thresholds unchanged, automatic GC remains active during load. Previous observed client GC321.913ms overlaps273.107ms of273.462ms maximum emission delay; no backend improvement attributed to this preparation",
     }
     if scenario == "short":
         manifest["diagnostic_criteria"] = {
@@ -299,6 +300,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             }
             for minute, draft in enumerate(draft_rows[:upload_count])
         ]
+        summary["client_gc_preparation"] = prepare_generator_gc()
+        assert summary["client_gc_preparation"]["policy_before"] == summary["client_gc_preparation"]["policy_after"]
         with GCObserver(monotonic_clock=time.monotonic) as client_gc:
             outcome = run_async_open_loop(
                 concurrent_fetch,
@@ -308,6 +311,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 upload_specs=upload_specs,
             )
         summary["client_gc"] = client_gc.report()
+        assert summary["client_gc_preparation"]["completed_at_monotonic"] <= outcome["monotonic_origin_seconds"]
         assert summary["client_gc"]["policy_before"] == summary["client_gc"]["policy_after"]
         assert summary["client_gc"]["unfinished_events"] == 0
         summary["client_gc_emission_overlap"] = generator_gc_overlap(

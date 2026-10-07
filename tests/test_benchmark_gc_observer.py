@@ -4,7 +4,7 @@ import weakref
 
 import pytest
 
-from scripts.benchmark_gc_observer import GCObserver, generator_gc_overlap
+from scripts.benchmark_gc_observer import GCObserver, generator_gc_overlap, prepare_generator_gc
 
 
 def test_gc_observer_records_real_collection_and_preserves_policy():
@@ -68,3 +68,20 @@ def test_gc_timestamps_share_standard_generator_monotonic_origin():
     assert any(event["monotonic_start"] >= outcome["monotonic_origin_seconds"] for event in events)
     assert generator_gc_overlap(events, outcome["samples"],
                                 outcome["monotonic_origin_seconds"])["emitted_population"] == 3
+
+
+def test_client_preparation_reclaims_cycles_without_changing_load_policy():
+    class Cycle:
+        pass
+
+    node = Cycle()
+    node.self_reference = node
+    reference = weakref.ref(node)
+    del node
+    callbacks = list(gc.callbacks)
+    prepared = prepare_generator_gc()
+    assert reference() is None
+    assert prepared["collected_gc_objects"] > 0
+    assert prepared["policy_before"] == prepared["policy_after"]
+    assert prepared["completed_at_monotonic"] <= time.monotonic()
+    assert gc.callbacks == callbacks

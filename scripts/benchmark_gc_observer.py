@@ -6,6 +6,26 @@ import time
 from collections import Counter
 
 
+def prepare_generator_gc():
+    """Reclaim unreachable fixture objects before the load clock, never in-window.
+
+    Collector remains enabled with its existing thresholds. This is client test
+    preparation, not backend GC policy or a measured backend optimization.
+    """
+    policy_before = {"enabled": gc.isenabled(), "thresholds": gc.get_threshold()}
+    start_wall, start_cpu = time.perf_counter(), time.thread_time()
+    collected = gc.collect(2)
+    return {
+        "collected_gc_objects": collected,
+        "wall_seconds": time.perf_counter() - start_wall,
+        "collector_thread_cpu_seconds": time.thread_time() - start_cpu,
+        "completed_at_monotonic": time.monotonic(),
+        "policy_before": policy_before,
+        "policy_after": {"enabled": gc.isenabled(), "thresholds": gc.get_threshold()},
+        "scope": "One full collection in test-client preparation after fixture/auth/upload construction, before asyncio arrival clock. No gc.disable or threshold mutation; collector stays active during load. Objects aren't ORM models or SQL rows; source provenance of individual collected objects not_measured. Backend/Gunicorn processes unaffected.",
+    }
+
+
 class GCObserver:
     def __init__(self, rule_path=lambda: (), monotonic_clock=None):
         self.rule_path = rule_path
