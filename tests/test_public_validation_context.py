@@ -52,7 +52,7 @@ def test_prepared_details_preserve_cleaning_and_independent_fields(request):
     assert context.details_fields["description"].required
     for changes in [{}, {"description": ""}, {"description": "www.invalid.example"},
                     {"description": "x" * 6001}, {"municipality": "missing"},
-                    {"categories": ["missing"]}, {"content_language": "invalid"}]:
+                    {"categories": [999999999]}, {"content_language": "invalid"}]:
         values = {**data, **changes}
         prepared_instance, fresh_instance = copy(revision), copy(revision)
         prepared = SnapshotDetails(context.catalog, values, instance=prepared_instance,
