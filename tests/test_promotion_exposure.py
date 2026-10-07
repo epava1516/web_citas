@@ -46,7 +46,8 @@ def test_sponsorship_uses_filtered_visible_set_and_never_reintroduces_withdrawn_
     listing.status = "published"
     listing.save(update_fields=["status"])
     entitlement.ends_at = timezone.now() - timedelta(seconds=1)
-    entitlement.save(update_fields=["ends_at"])
+    entitlement.starts_at = entitlement.ends_at - timedelta(days=1)
+    entitlement.save(update_fields=["starts_at", "ends_at"])
     assert not ranked([listing])[1]
 
 
