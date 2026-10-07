@@ -27,8 +27,8 @@ def test_previous_manager_is_reviewed_candidate_but_not_authorized_delivery(
     def with_retained_history(*args, **kwargs):
         result = original(*args, **kwargs)
         person = result[5]
-        former = User.objects.create_user(username="synthetic-former-manager")
-        unrelated = User.objects.create_user(username="synthetic-unrelated-manager")
+        former = User.objects.create_user(username="synthetic-former-manager", email="former@example.invalid")
+        unrelated = User.objects.create_user(username="synthetic-unrelated-manager", email="unrelated@example.invalid")
         row = RepresentationAction.objects.create(
             person=person, subject=person.subject, manager_version=person.manager_version,
             action="transfer", previous_manager_kind="individual",
