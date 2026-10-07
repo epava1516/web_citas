@@ -187,6 +187,47 @@ def read_publication_values(query):
         return rows
 
 
+def memoize_publication_field_clean(field, stats):
+    # Field.clean receives only value; instance/cross-field/model/authority
+    # checks are outside it and still run for every fresh binding. Audited
+    # field definitions/catalog/language are fixed in this prototype only.
+    original = field.clean
+    memo = {}
+
+    def freeze(value):
+        if value is None or type(value) in (str, bool, int):
+            return (type(value), value)
+        if type(value) in (list, tuple):
+            return (type(value), tuple(freeze(item) for item in value))
+        raise TypeError("Unsupported field input remains natively validated")
+
+    def independent(value):
+        if isinstance(value, list):
+            return list(value)
+        if hasattr(value, "all"):
+            # Optional empty ModelMultipleChoice returns a native QuerySet.
+            return value.all()
+        return value
+
+    def clean(value):
+        stats["calls"] += 1
+        try:
+            key = freeze(value)
+        except TypeError:
+            stats["misses"] += 1
+            return original(value)
+        if key in memo:
+            stats["hits"] += 1
+            return independent(memo[key])
+        stats["misses"] += 1
+        # Errors are never cached or shared; native exception data stays local.
+        cleaned = original(value)
+        memo[key] = cleaned
+        return independent(cleaned)
+
+    field.clean = clean
+
+
 def validate_publication_binding(prototype, data, revision):
     """Run the native form/model rules on an independent validation-only binding.
 
@@ -340,45 +381,10 @@ class PublicationContext:
         return validate_publication_binding(self._validation_prototypes[key], data, revision)
 
     def _memoize_field_clean(self, name, field):
-        # Field.clean receives only value; instance/cross-field/model/authority
-        # checks are outside it and still run for every fresh binding. Audited
-        # field definitions/catalog/language are fixed in this prototype only.
-        original = field.clean
-        memo = {}
-        stats = self.field_clean_cache_stats.setdefault(name, {"calls": 0, "hits": 0, "misses": 0})
-
-        def freeze(value):
-            if value is None or type(value) in (str, bool, int):
-                return (type(value), value)
-            if type(value) in (list, tuple):
-                return (type(value), tuple(freeze(item) for item in value))
-            raise TypeError("Unsupported field input remains natively validated")
-
-        def independent(value):
-            if isinstance(value, list):
-                return list(value)
-            if hasattr(value, "all"):
-                # Optional empty ModelMultipleChoice returns a native QuerySet.
-                return value.all()
-            return value
-
-        def clean(value):
-            stats["calls"] += 1
-            try:
-                key = freeze(value)
-            except TypeError:
-                stats["misses"] += 1
-                return original(value)
-            if key in memo:
-                stats["hits"] += 1
-                return independent(memo[key])
-            stats["misses"] += 1
-            # Errors are never cached or shared; native exception data stays local.
-            cleaned = original(value)
-            memo[key] = cleaned
-            return independent(cleaned)
-
-        field.clean = clean
+        stats = self.field_clean_cache_stats.setdefault(
+            name, {"calls": 0, "hits": 0, "misses": 0}
+        )
+        memoize_publication_field_clean(field, stats)
 
     def details_valid(self, data, revision):
         return self._bound_validation(SnapshotDetails, data, revision)

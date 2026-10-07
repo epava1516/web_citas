@@ -2,7 +2,7 @@
 
 Fecha: 2026-10-03. Estado: ejecución iniciada por autorización del usuario el 2026-10-03. Tipo: especificación de ejecución y aceptación, no contrato mercantil ni acreditación jurídica.
 
-Actualización: 2026-10-07, MOD-04 (§16), autorizada por el usuario para reajustar contrato y hoja de ruta conforme al análisis del bloqueo de rendimiento. El goal está pausado por petición del usuario; esta revisión documental no lo reanuda. La reanudación requiere una indicación posterior del usuario, sin nuevas confirmaciones rutinarias para ejecutar el alcance ya autorizado una vez reanudado.
+Actualización: 2026-10-07, MOD-04 (§16), autorizada por el usuario para reajustar contrato y hoja de ruta conforme al análisis del bloqueo de rendimiento. En el momento de adoptar MOD-04 el goal estaba pausado; aquella revisión documental no lo reanudó. La indicación posterior del usuario de continuar sí lo reanudó. El estado vigente y la próxima acción se consultan exclusivamente en [seguimiento17](17-seguimiento-desarrollo.md), sin nuevas confirmaciones rutinarias para el alcance autorizado.
 
 ## 1. Objeto y documentos vinculantes
 
@@ -312,4 +312,4 @@ Un PASS contractual acredita únicamente su escenario, fuente y recursos. El cie
 
 ### Impacto y estado de esta modificación
 
-Se adopta la dirección técnica y su secuencia, con implementación y ganancias aún pendientes. Posibles cambios futuros de código/consultas se decidirán por evidencia; ninguna migración, ajuste de servidor o alteración de datos se ejecuta con esta adenda. Aumenta la claridad de los criterios de salida, sin promesas de plazo ni ahorro. Recursos/costes de ensayos se registran realmente; no autoriza gasto ni contratación. Porcentajes vigentes sin cambio: CR09 72,50 % y contrato 65,375 % (65,38 % mostrado). El goal permanece pausado hasta reanudación del usuario.
+Al adoptar esta adenda se acordaron la dirección técnica y su secuencia, con implementación y ganancias aún pendientes en ese momento. Los resultados posteriores y el trabajo restante se registran en seguimiento17; no convierten la propuesta inicial en aceptación de la entrega. Posibles cambios futuros de código/consultas se decidirán por evidencia; ninguna migración, ajuste de servidor o alteración de datos se ejecuta con esta adenda. Aumenta la claridad de los criterios de salida, sin promesas de plazo ni ahorro. Recursos/costes de ensayos se registran realmente; no autoriza gasto ni contratación. Porcentajes vigentes sin cambio: CR09 72,50 % y contrato 65,375 % (65,38 % mostrado). La pausa de la adopción y la posterior reanudación se conservan como hechos históricos; el estado actual se registra únicamente en seguimiento17.

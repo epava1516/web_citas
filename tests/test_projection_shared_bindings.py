@@ -61,6 +61,9 @@ def test_unique_bindings_and_out_of_page_invalid_content_preserve_population(req
     context = projection.ProjectedPublication(candidates({}))
     assert context.visible_ids(candidates({})) == expected
     assert context.stats['native_fallback'] == 1
+    shared = context.field_clean_cache_stats
+    assert shared and sum(stats['hits'] for stats in shared.values()) > 0
+    assert all(stats['calls'] == stats['hits'] + stats['misses'] for stats in shared.values())
     assert all(form._errors is None and not hasattr(form, 'cleaned_data')
                for form in context.validation_prototypes.values())
     for language in ['es', 'en']:

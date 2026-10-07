@@ -30,6 +30,46 @@ class RelatedSelect(forms.Select):
         return option
 
 
+def validate_details_values(data, *, postal_matches, add_error):
+    """Shared cross-field rules; the sink applies errors immediately, in native order.
+
+    Values have already undergone form field conversion. No authority or model
+    checks are memoized here. The supplied postal check uses the current catalog.
+    """
+    city, province, region = data.get("municipality"), data.get("province"), data.get("region")
+    if province and region and province.region_id != region.pk:
+        add_error("province", "Provincia incompatible / Incompatible province")
+    if city and province and city.province_id != province.pk:
+        add_error("municipality", "Ciudad incompatible / Incompatible city")
+    postal = data.get("postal_code")
+    if postal and city:
+        if not postal_matches(postal, city):
+            add_error(
+                "postal_code", "CP no corresponde a la ciudad / Postal code does not match city"
+            )
+        elif not postal.public_safe:
+            add_error(
+                "postal_code",
+                "Precisión restringida por privacidad / Precision restricted for privacy",
+            )
+    if data.get("zone") and city and data["zone"].municipality_id != city.pk:
+        add_error("zone", "Zona incompatible / Incompatible area")
+    categories = data.get("categories")
+    if categories is not None and any(
+        service.category_id not in {cat.pk for cat in categories}
+        for service in data.get("services", [])
+    ):
+        add_error(
+            "services", "Servicio fuera de las categorías / Service outside selected categories"
+        )
+    for field in ["description", "description_alternative", "title"]:
+        try:
+            validate_listing_text(data.get(field, ""))
+        except ValidationError as error:
+            add_error(field, error)
+    return data
+
+
 class DetailsForm(forms.ModelForm):
     description = forms.CharField(max_length=6000, widget=forms.Textarea(attrs={"rows": 6}))
     description_alternative = forms.CharField(
@@ -142,38 +182,9 @@ class DetailsForm(forms.ModelForm):
 
     def clean(self):
         data = super().clean()
-        city, province, region = data.get("municipality"), data.get("province"), data.get("region")
-        if province and region and province.region_id != region.pk:
-            self.add_error("province", "Provincia incompatible / Incompatible province")
-        if city and province and city.province_id != province.pk:
-            self.add_error("municipality", "Ciudad incompatible / Incompatible city")
-        postal = data.get("postal_code")
-        if postal and city:
-            if not self.postal_matches(postal, city):
-                self.add_error(
-                    "postal_code", "CP no corresponde a la ciudad / Postal code does not match city"
-                )
-            elif not postal.public_safe:
-                self.add_error(
-                    "postal_code",
-                    "Precisión restringida por privacidad / Precision restricted for privacy",
-                )
-        if data.get("zone") and city and data["zone"].municipality_id != city.pk:
-            self.add_error("zone", "Zona incompatible / Incompatible area")
-        categories = data.get("categories")
-        if categories is not None and any(
-            service.category_id not in {cat.pk for cat in categories}
-            for service in data.get("services", [])
-        ):
-            self.add_error(
-                "services", "Servicio fuera de las categorías / Service outside selected categories"
-            )
-        for field in ["description", "description_alternative", "title"]:
-            try:
-                validate_listing_text(data.get(field, ""))
-            except ValidationError as error:
-                self.add_error(field, error)
-        return data
+        return validate_details_values(
+            data, postal_matches=self.postal_matches, add_error=self.add_error
+        )
 
 
 @sensitive_variables()

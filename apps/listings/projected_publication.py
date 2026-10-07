@@ -79,14 +79,15 @@ def definitions():
                forms.BooleanField, forms.ChoiceField, forms.MultipleChoiceField,
                forms.ModelChoiceField, forms.ModelMultipleChoiceField, forms.ModelForm,
                forms.TextInput, forms.Select, forms.CheckboxInput, forms.SelectMultiple]
-    functions = [listing_forms.validate_listing_text, listing_forms.normalize_telegram,
+    functions = [listing_forms.validate_details_values, listing_forms.validate_listing_text, listing_forms.normalize_telegram,
                  submissions.validate_submission, moderation.validate_submission,
                  moderation.publicly_visible, verification_services.publication_ready,
                  submissions.publication_ready, submissions.current_publishing_document,
                  publication_query, public_validation.publication_query,
                  history.ordinary_matches, history.rectification_history_ids,
                  model_forms.construct_instance, model_forms.model_to_dict,
-                 public_validation.validate_publication_binding, SimpleLazyObject._setup,
+                 public_validation.validate_publication_binding,
+                 public_validation.memoize_publication_field_clean, SimpleLazyObject._setup,
                  public_validation.read_publication_values]
     for cls in classes:
         names = {"__init__", "clean", "full_clean", "clean_fields", "validate_unique",
@@ -152,7 +153,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "b15fa6375029a714d0624d3922ded579584033168017b4b73d8a8ca21479bfc7"
+EXPECTED_DEFINITIONS = "3f28a9ebac18a1e236ffe080a68ba38579409fbd7f7fd5bfbe1c44a78c15be2f"
 
 
 def definitions_digest():
@@ -181,6 +182,7 @@ class ProjectedPublication:
     def __init__(self, query):
         self.document = submissions.current_publishing_document()
         self.validation_prototypes = {}
+        self.field_clean_cache_stats = {}
         scalar_fields = [field for field in Revision._meta.concrete_fields]
         columns = ["pk", "status", "person_id", "expires_at", "approved_revision_id"]
         columns += ["approved_revision__" + field.attname for field in scalar_fields]
@@ -297,7 +299,15 @@ class ProjectedPublication:
             # binding data/model/errors never belong to a shared prototype.
             prototype_key = (kind, id(self.catalog), get_language())
             if prototype_key not in self.validation_prototypes:
-                self.validation_prototypes[prototype_key] = factory(data, instance)
+                prototype = factory(data, instance)
+                if kind in {"details", "contacts"}:
+                    for name, field in prototype.fields.items():
+                        if name != "title":
+                            stats = self.field_clean_cache_stats.setdefault(
+                                (prototype_key, name), {"calls": 0, "hits": 0, "misses": 0}
+                            )
+                            public_validation.memoize_publication_field_clean(field, stats)
+                self.validation_prototypes[prototype_key] = prototype
             prototype = self.validation_prototypes[prototype_key]
             inputs = dict(zip(RateForm.Meta.fields, data, strict=True)) if kind == "rates" else dict(data)
             if not public_validation.validate_publication_binding(prototype, inputs, instance):
