@@ -1,0 +1,13 @@
+{
+  "scope": "Client accounting/protocol and scheduling regression only; not native backend/PG capacity",
+  "result": "6 passed in10.64s, direct pytest terminal exit0",
+  "command": ".venv/bin/pytest -q tests/test_benchmark_accounting.py tests/test_benchmark_async_transport.py",
+  "source_sha256": {
+    "scripts/benchmark_async_transport.py": "4af7486f8f384159d2e46c1322a110ca2a6e9d65f8c520885408e758123bfe6a",
+    "scripts/benchmark_accounting.py": "324ca2dc29c8ac5937782b91b280b1ad6bd2e3fa05609952ecb1bf709ad1e6fe",
+    "tests/test_benchmark_async_transport.py": "11816aba4491e6e7480fd4eb2537a2fe5382780f0772d38e1675123dbd54212c",
+    "tests/test_benchmark_accounting.py": "b5609cd18cce859a3d6fa6494f39e369bba160688c610fd7cfb40c139e8a52e4"
+  },
+  "cases": "Strict thresholds, timeout/error populations, fixed drain;96 scheduled/emitted at20rps with>80 pending; whole-request deadline; localTCP chunked GET/POST-CSRF header preservation/no redirect follow",
+  "initial_diagnostic": "Initial noncontractual1000rps short-window unit emitted115/120; test replaced by target20rps/96 pending to reproduce actual cap80 defect without asserting1000rps support. No changes to contractual benchmark criteria or retrospective reports."
+}

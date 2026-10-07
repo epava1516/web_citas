@@ -24,7 +24,7 @@ from test_photos import photo_environment, raw_image  # noqa: F401
 
 from apps.core.models import Person, User
 from apps.listings.models import Revision
-from scripts.benchmark_accounting import POLICY, run_open_loop
+from scripts.benchmark_async_transport import POLICY, fetch_http, run_async_open_loop
 from scripts.synthetic_load_dataset import populate
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -102,8 +102,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "dataset": dataset,
         "resources": resources,
         "success": False,
-        "duration_seconds": 900 if large else 2,
-        "arrival_rps": 20 if large else 6,
+        "duration_seconds": 900 if large else 3,
+        "arrival_rps": 20,
         "server": "Gunicorn4 sync workers local TCP",
         "scope": "Synthetic local server capacity; external production/identity/CDN excluded. Upload processing eager in request, no real worker throughput claim.",
         "verdict": "INVALID",
@@ -133,6 +133,11 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "/en/listing/" + dataset["sample_ids"][-1] + "/",
     ]
 
+    async def concurrent_fetch(path, **kwargs):
+        return await fetch_http(
+            origin, path, timeout_seconds=POLICY["request_timeout_seconds"], **kwargs
+        )
+
     artifact_folder = Path(request.config.getoption("--gate-timings-output")).parent
     manifest = {
         "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
@@ -148,8 +153,9 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "uploads_separate": 15 if large else 1,
         "state": "Fresh Gunicorn/DB fixture; six cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
         "error_policy": "Every non200 dynamic response, transport error or timeout is failed; uploads require302; final drain expiry classified failed/timeout",
-        "instrumentation": "Monotonic per-request timestamps/locked ledger; Gunicorn access logs; no app CPU/DB/RSS sampling; aggregation after drain",
+        "instrumentation": "Monotonic per-request timestamps/async ledger; Gunicorn access logs; no app CPU/DB/RSS sampling; aggregation after drain",
         "scope": "contractual" if large else "functional generator calibration only",
+        "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
     }
     (artifact_folder / "benchmark-manifest.json").write_text(json.dumps(manifest, indent=2))
     summary["frozen_manifest"] = manifest
@@ -278,8 +284,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             }
             for minute, draft in enumerate(draft_rows[: 15 if large else 1])
         ]
-        outcome = run_open_loop(
-            fetch,
+        outcome = run_async_open_loop(
+            concurrent_fetch,
             routes,
             duration=summary["duration_seconds"],
             rps=summary["arrival_rps"],
