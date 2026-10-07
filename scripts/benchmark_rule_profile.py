@@ -53,6 +53,8 @@ class RuleProfile:
                         child_cpu[child] = child_cpu.get(child, 0.0) + seconds
                     if parents:
                         parents[-1]["cpu_children"][name] += cpu_elapsed
+        measured._publication_dependency_wrapper = measured
+        measured._publication_dependency_original = function
         return measured
 
     def report(self):
