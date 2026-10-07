@@ -1,0 +1,16 @@
+{
+  "source_commit": "b4b0fc231fd2e3dda6ac005f2f163767b26a1107",
+  "pytest_exit": 1,
+  "cleanup_verified": true,
+  "pytest_seconds": 74.03287831367925,
+  "media_removed": true,
+  "sources_unchanged": true,
+  "artifact_sha256": {
+    "frozen-manifest.json": "d2b5b4283a3aa795eba58d444c9c90ecea810c3d4c0a98ef91db2075ee043f68",
+    "pytest.log": "cadbee4c177b0919928b60d5e0d144f7dab1130c8912fd495f16ef3b257d8bc9",
+    "pytest.xml": "944fd56a606666ddacbe54cbfa9533b8275d7cbcdf0b2c2e91818fb6559a1aa8",
+    "test-timings.json": "261c5fd727aeb5b6f7af5a98026161e74d0c622a457412871fe2c6af0400e918"
+  },
+  "review": "Both cases failed capture uniqueness (2 queries: complete projected values and native page hydration). No paired SELECT or EXPLAIN executed; instrumentation defect, not backend/load FAIL or JIT evidence. Synthetic sources unchanged and owned resources removed. Logs kept under original /tmp path, hashes frozen; parameters not exported.",
+  "output": "/tmp/projection-jit-causal0110"
+}

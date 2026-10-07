@@ -5,7 +5,7 @@
   "hypothesis": "JIT compilation materially increases the current captured projection SELECT latency.",
   "source": "Git HEAD at launch; all tracked source hashes frozen by runner before resource creation",
   "runner": "/tmp/run-projection-jit0110.py",
-  "output": "/tmp/projection-jit-causal0110",
+  "output": "/tmp/projection-jit-causal-corrected0110",
   "datasets": [
     1000,
     10000
@@ -61,5 +61,6 @@
     "causal overhead",
     "paired HTTP gain",
     "validation/render/materialization in this SQL-only contrast"
-  ]
+  ],
+  "capture_selector": "SELECT with annotation AS _pv_check_status AND listings_listing.id AS pk; only scalar projection query, excludes native page hydration"
 }

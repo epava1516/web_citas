@@ -40,7 +40,7 @@ def test_captured_projection_jit(request, record_property, count):
     captured = []
 
     def capture(execute, sql, params, many, context):
-        if sql.lstrip().upper().startswith('SELECT') and 'AS "_pv_check_status"' in sql:
+        if sql.lstrip().upper().startswith('SELECT') and 'AS "_pv_check_status"' in sql and '"listings_listing"."id" AS "pk"' in sql:
             captured.append((sql, tuple(params or ())))
         return execute(sql, params, many, context)
 
