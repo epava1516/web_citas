@@ -5,7 +5,7 @@ import pytest
 from django import forms
 from django.db import connection, transaction
 from django.db.models import Model
-from django.db.models.query import ModelIterable, prefetch_one_level
+from django.db.models.query import ModelIterable, ValuesIterable, prefetch_one_level
 from django.db.models.signals import post_init
 from django.utils.functional import SimpleLazyObject
 from test_discovery import directory  # noqa: F401
@@ -23,6 +23,7 @@ from apps.listings.public_validation import (
     memoize_publication_field_clean,
     validate_publication_value_fields,
     validate_publication_input_fields,
+    read_publication_values,
 )
 from scripts.benchmark_call_profile import CallProfile
 from scripts.query_pattern_redaction import query_pattern
@@ -38,7 +39,8 @@ def targets():
                  ModelIterable.__iter__, prefetch_one_level,
                  validate_publication_binding, SimpleLazyObject._setup,
                  memoize_publication_field_clean, validate_publication_value_fields,
-                 validate_publication_input_fields,
+                 validate_publication_input_fields, read_publication_values,
+                 ValuesIterable.__iter__, projection.freeze,
                  listing_forms.validate_details_values,
                  listing_forms.validate_listing_text.__wrapped__,
                  listing_forms.normalize_telegram.__wrapped__]
@@ -167,5 +169,5 @@ def test_projection_comparable_cycle(request, monkeypatch, record_property, coun
                           'plan': redact_plan(cursor.fetchone()[0])})
     record_property('separate_explain', {'threshold': 'SQL execute >=50% instrumented request is a diagnostic dominance heuristic, not an SLO', 'plans': plans, 'scope': 'Owned synthetic PG read-only SELECT, after both measured requests. Plan actual rows are per-node stream counts with loops, not ORM objects or inferred rows_scanned/request; no statement parameters stored. OS/PG caches warmed, not reset.'})
     record_property('cycle', reports)
-    record_property('scope', 'DjangoClient end-to-end excludes fixtures/network/Gunicorn; synchronous sys.setprofile call/return events do not alter native callable chains. Exclusive discounts only direct observed children once; inline/unobserved work remains inside parent. Generator iteration events are yield segments, not unique objects. SQL execute excludes fetch; lazy SQL may overlap validation, hydration, render. Model post_init counts constructions including transient objects, not unique entities or SQL rows. Shared binding, lazy setup, field memo installation and explicit content/telegram value rules are directly observed in BOTH modes; memo hit closure itself is not a separate target. Text/Telegram targets are the explicitly selected decorated bodies; their outer sensitive-variable wrappers are unobserved. This observer selection does not unwrap or weaken the security fingerprint, which still checks all callable layers. Shared code with different labels is rejected. Child attribution differs from historical profiles without these targets, so exclusive values are not identical instruments across those sources. Seconds; thread CPU only this thread. Native then projected, control then observed, shared warmed OS/PG caches, no reset; one sample each, paired difference is not causal overhead. Validity gate requires native full-population count, HTTP body and page24 equivalence; no real data or capacity claim.')
+    record_property('scope', 'DjangoClient end-to-end excludes fixtures/network/Gunicorn; synchronous sys.setprofile call/return events do not alter native callable chains. Exclusive discounts only direct observed children once; inline/unobserved work remains inside parent. Generator iteration events are yield segments, not unique objects. SQL execute excludes fetch; lazy SQL may overlap validation, hydration, render. Model post_init counts constructions including transient objects, not unique entities or SQL rows. Shared binding, lazy setup, field memo installation and explicit content/telegram value rules are directly observed in BOTH modes; memo hit closure itself is not a separate target. Scalar read helper, ValuesIterable yield segments and projected content freeze are observed directly; recursive inclusive times overlap and cannot be summed as total request. Driver decoding itself remains unobserved. Text/Telegram targets are the explicitly selected decorated bodies; their outer sensitive-variable wrappers are unobserved. This observer selection does not unwrap or weaken the security fingerprint, which still checks all callable layers. Shared code with different labels is rejected. Child attribution differs from historical profiles without these targets, so exclusive values are not identical instruments across those sources. Seconds; thread CPU only this thread. Native then projected, control then observed, shared warmed OS/PG caches, no reset; one sample each, paired difference is not causal overhead. Validity gate requires native full-population count, HTTP body and page24 equivalence; no real data or capacity claim.')
     record_property('not_measured', 'rows_returned; rows_affected; rows_scanned; DB CPU; RSS; waits; locks; IO; causal overhead; p95 exclusive; concurrent capacity')
