@@ -1,5 +1,7 @@
 """Fresh batched publication checks must match the existing guard exactly."""
 
+from copy import copy
+
 import pytest
 from django.utils import timezone
 from test_discovery import directory  # noqa: F401
@@ -8,9 +10,50 @@ from test_photos import photo_environment  # noqa: F401
 from apps.core.models import Person
 from apps.listings.discovery import candidates
 from apps.listings.moderation import publicly_visible
-from apps.listings.public_validation import PublicationContext
+from apps.listings.public_validation import PublicationContext, SnapshotDetails
 
 pytestmark = pytest.mark.django_db(transaction=True)
+
+
+def test_prepared_details_preserve_cleaning_and_independent_fields(request):
+    request.getfixturevalue("directory")
+    context = PublicationContext(candidates({}))
+    row = next(row for row in context.rows if publicly_visible(row, context=context))
+    revision = row.approved_revision
+    data = {
+        name: getattr(revision, name)
+        for name in SnapshotDetails.Meta.fields
+        if not revision._meta.get_field(name).many_to_many
+    }
+    data.update({name: [item.pk for item in getattr(revision, "_pv_" + name)]
+                 for name in ["categories", "services", "travel_areas"]})
+    city = revision.municipality
+    data.update(region=city.province.region_id, province=city.province_id,
+                municipality=city.pk, postal_code=revision.postal_code_id or "",
+                zone=revision.zone_id or "")
+    first = context.details(data, revision)
+    second = context.details(data, revision)
+    assert first.fields is not second.fields
+    for name in first.fields:
+        assert first.fields[name] is not second.fields[name]
+        assert first.fields[name].widget is not second.fields[name].widget
+    first.fields["description"].required = False
+    assert second.fields["description"].required
+    assert context.details_fields["description"].required
+    for changes in [{}, {"description": ""}, {"description": "www.invalid.example"},
+                    {"description": "x" * 6001}, {"municipality": "missing"},
+                    {"categories": ["missing"]}, {"content_language": "invalid"}]:
+        values = {**data, **changes}
+        prepared_instance, fresh_instance = copy(revision), copy(revision)
+        prepared = SnapshotDetails(context.catalog, values, instance=prepared_instance,
+                                   prepared_fields=context.details_fields)
+        fresh = SnapshotDetails(context.catalog, values, instance=fresh_instance)
+        assert prepared.is_valid() == fresh.is_valid()
+        assert prepared.errors.as_data() == fresh.errors.as_data()
+        assert prepared.cleaned_data == fresh.cleaned_data
+        for name in SnapshotDetails.Meta.fields:
+            if not revision._meta.get_field(name).many_to_many:
+                assert getattr(prepared_instance, name) == getattr(fresh_instance, name)
 
 
 def test_context_matches_ordinary_visibility_and_fresh_catalog_changes(request):

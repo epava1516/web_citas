@@ -41,11 +41,11 @@ class SnapshotMultipleChoice(forms.ModelMultipleChoiceField):
 
 
 class SnapshotDetails(DetailsForm):
-    def __init__(self, catalog, *args, **kwargs):
-        self.catalog = catalog
-        super().__init__(*args, **kwargs)
+    @classmethod
+    def fields_for_catalog(cls, catalog):
+        fields = dict(cls.base_fields)
         for name, snapshot in catalog.items():
-            original = self.fields[name]
+            original = fields[name]
             kind = (
                 SnapshotMultipleChoice
                 if isinstance(original, forms.ModelMultipleChoiceField)
@@ -59,7 +59,17 @@ class SnapshotDetails(DetailsForm):
                 to_field_name=original.to_field_name,
             )
             replacement.snapshot = snapshot
-            self.fields[name] = replacement
+            fields[name] = replacement
+        return fields
+
+    def __init__(self, catalog, *args, prepared_fields=None, **kwargs):
+        self.catalog = catalog
+        # BaseForm deep-copies these fields: widgets, errors and validators remain
+        # independent per form. Only the fresh request-local catalog is shared.
+        self.base_fields = (
+            prepared_fields if prepared_fields is not None else self.fields_for_catalog(catalog)
+        )
+        super().__init__(*args, **kwargs)
 
     def _get_validation_exclusions(self):
         # These FK targets were checked against fresh restricted querysets above.
@@ -185,6 +195,7 @@ class PublicationContext:
             prefetch_related_objects(postals, "municipalities")
             for postal in postals:
                 postal._publication_cities = {city.pk for city in postal.municipalities.all()}
+        self.details_fields = SnapshotDetails.fields_for_catalog(self.catalog)
 
     def row(self, revision):
         row = self.by_revision[revision.pk]
@@ -194,7 +205,9 @@ class PublicationContext:
 
     def details(self, data, revision):
         self.row(revision)
-        return SnapshotDetails(self.catalog, data, instance=revision)
+        return SnapshotDetails(
+            self.catalog, data, instance=revision, prepared_fields=self.details_fields
+        )
 
     def rate_valid(self, rate):
         # The existing rate constraint/form depends only on these primitive values.
