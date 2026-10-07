@@ -120,7 +120,7 @@ def decide(user, revision_id, version, outcome, reason):
     return revision
 
 
-def publicly_visible(listing):
+def publicly_visible(listing, *, context=None):
     revision = listing.approved_revision
     if (
         listing.status != "published"
@@ -132,9 +132,13 @@ def publicly_visible(listing):
     ):
         return False
     try:
-        validate_submission(revision, listing.person)
+        validate_submission(revision, listing.person, context=context)
     except ValidationError:
         return False
-    if unresolved_matches(revision).filter(decision="conflict").exists():
+    if (
+        context.row(revision)._pv_conflict
+        if context
+        else unresolved_matches(revision).filter(decision="conflict").exists()
+    ):
         return False
     return True

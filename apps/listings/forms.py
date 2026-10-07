@@ -137,6 +137,9 @@ class DetailsForm(forms.ModelForm):
             self.initial.setdefault("province", city.province_id)
             self.initial.setdefault("region", city.province.region_id)
 
+    def postal_matches(self, postal, city):
+        return postal.municipalities.filter(pk=city.pk).exists()
+
     def clean(self):
         data = super().clean()
         city, province, region = data.get("municipality"), data.get("province"), data.get("region")
@@ -146,7 +149,7 @@ class DetailsForm(forms.ModelForm):
             self.add_error("municipality", "Ciudad incompatible / Incompatible city")
         postal = data.get("postal_code")
         if postal and city:
-            if not postal.municipalities.filter(pk=city.pk).exists():
+            if not self.postal_matches(postal, city):
                 self.add_error(
                     "postal_code", "CP no corresponde a la ciudad / Postal code does not match city"
                 )

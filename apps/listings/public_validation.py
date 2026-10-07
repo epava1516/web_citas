@@ -1,0 +1,206 @@
+"""Current-request publication validation; no persistent or cross-request cache."""
+
+from django import forms
+from django.core.exceptions import ValidationError
+from django.db.models import Case, CharField, Exists, OuterRef, Prefetch, Q, Subquery, Value, When
+from django.db.models.functions import Cast
+
+from apps.core.models import RepresentationAction, VerificationCheck
+from apps.mediafiles.models import Match, Photo
+from apps.safety.models import PrivacyPublicationHold, Restriction, RightsPhotoReintroduction
+
+from .forms import DetailsForm, RateForm
+from .history import ordinary_matches, rectification_history_ids
+from .submissions import current_publishing_document
+
+
+class SnapshotChoice(forms.ModelChoiceField):
+    def to_python(self, value):
+        if value in self.empty_values:
+            return None
+        try:
+            return self.snapshot[str(value)]
+        except (KeyError, TypeError):
+            raise ValidationError(
+                self.error_messages["invalid_choice"],
+                code="invalid_choice",
+                params={"value": value},
+            ) from None
+
+
+class SnapshotMultipleChoice(forms.ModelMultipleChoiceField):
+    def _check_values(self, value):
+        try:
+            return [self.snapshot[str(item)] for item in frozenset(value)]
+        except (KeyError, TypeError):
+            raise ValidationError(
+                self.error_messages["invalid_choice"],
+                code="invalid_choice",
+                params={"value": value},
+            ) from None
+
+
+class SnapshotDetails(DetailsForm):
+    def __init__(self, catalog, *args, **kwargs):
+        self.catalog = catalog
+        super().__init__(*args, **kwargs)
+        for name, snapshot in catalog.items():
+            original = self.fields[name]
+            kind = (
+                SnapshotMultipleChoice
+                if isinstance(original, forms.ModelMultipleChoiceField)
+                else SnapshotChoice
+            )
+            replacement = kind(
+                queryset=original.queryset,
+                required=original.required,
+                validators=original.validators,
+                error_messages=original.error_messages,
+                to_field_name=original.to_field_name,
+            )
+            replacement.snapshot = snapshot
+            self.fields[name] = replacement
+
+    def _get_validation_exclusions(self):
+        # These FK targets were checked against fresh restricted querysets above.
+        return super()._get_validation_exclusions() | {"municipality", "postal_code", "zone"}
+
+    def postal_matches(self, postal, city):
+        return city.pk in postal._publication_cities
+
+
+class PublicationContext:
+    def __init__(self, query):
+        self.document = current_publishing_document()
+        self.rate_checks = {}
+        grant = RepresentationAction.objects.filter(
+            person_id=OuterRef("person_id"),
+            subject_id=OuterRef("person__subject_id"),
+            manager_version=OuterRef("person__manager_version"),
+            action="grant",
+            document__slug="publishing",
+            document__version=self.document.version if self.document else "",
+            manager_kind=Case(
+                When(person__agency_id__isnull=False, then=Value("agency")),
+                default=Value("individual"),
+            ),
+            manager_id=Case(
+                When(
+                    person__agency_id__isnull=False,
+                    then=Cast(OuterRef("person__agency_id"), CharField()),
+                ),
+                default=Cast(OuterRef("person__individual_id"), CharField()),
+            ),
+        )
+        latest = VerificationCheck.objects.filter(person_id=OuterRef("person_id")).order_by(
+            "-created_at"
+        )
+        conflict = ordinary_matches(
+            Match.objects.filter(
+                Q(photo__revision_id=OuterRef("approved_revision_id"))
+                | Q(candidate__revision_id=OuterRef("approved_revision_id")),
+                Q(resolved_at__isnull=True) | Q(decision="conflict"),
+                photo__removed_at__isnull=True,
+                candidate__removed_at__isnull=True,
+                decision="conflict",
+            )
+        )
+        query = query.annotate(
+            _pv_history=Exists(
+                rectification_history_ids().filter(pk=OuterRef("approved_revision_id"))
+            ),
+            _pv_rectification_upload=Exists(
+                Photo.objects.filter(
+                    revision_id=OuterRef("approved_revision_id"), rectification_upload__isnull=False
+                )
+            ),
+            _pv_reintroduction=Exists(
+                RightsPhotoReintroduction.objects.filter(
+                    photo__revision_id=OuterRef("approved_revision_id")
+                )
+            ),
+            _pv_hold=Exists(
+                PrivacyPublicationHold.objects.filter(person_id=OuterRef("person_id"), active=True)
+            ),
+            _pv_restriction=Exists(
+                Restriction.objects.filter(listing_id=OuterRef("pk"), active=True)
+            ),
+            _pv_grant=Exists(grant),
+            _pv_conflict=Exists(conflict),
+            _pv_check_status=Subquery(latest.values("status")[:1]),
+            _pv_check_manager=Subquery(latest.values("manager_version")[:1]),
+            _pv_check_subject=Subquery(latest.values("subject_id")[:1]),
+        ).select_related(
+            "approved_revision__publisher_acceptance__document",
+            "approved_revision__municipality__province__region",
+        )
+        for name in ["categories", "services", "travel_areas", "rates"]:
+            query = query.prefetch_related(
+                Prefetch("approved_revision__" + name, to_attr="_pv_" + name)
+            )
+        query = query.prefetch_related(
+            Prefetch(
+                "approved_revision__photos",
+                queryset=Photo.objects.filter(removed_at__isnull=True).select_related("blob"),
+                to_attr="_pv_photos",
+            )
+        )
+        self.rows = list(query)
+        self.by_revision = {row.approved_revision_id: row for row in self.rows}
+        ids = {
+            name: set()
+            for name in [
+                "categories",
+                "services",
+                "travel_areas",
+                "municipality",
+                "province",
+                "region",
+                "postal_code",
+                "zone",
+            ]
+        }
+        for row in self.rows:
+            revision = row.approved_revision
+            for name in ["categories", "services", "travel_areas"]:
+                ids[name].update(item.pk for item in getattr(revision, "_pv_" + name))
+            city = revision.municipality
+            if city:
+                ids["municipality"].add(city.pk)
+                ids["province"].add(city.province_id)
+                ids["region"].add(city.province.region_id)
+            for name in ["postal_code", "zone"]:
+                if getattr(revision, name + "_id"):
+                    ids[name].add(getattr(revision, name + "_id"))
+        self.catalog = {}
+        for name, values in ids.items():
+            self.catalog[name] = {
+                str(item.pk): item
+                for item in DetailsForm.base_fields[name].queryset.filter(pk__in=values)
+            }
+        postals = list(self.catalog["postal_code"].values())
+        if postals:
+            from django.db.models import prefetch_related_objects
+
+            prefetch_related_objects(postals, "municipalities")
+            for postal in postals:
+                postal._publication_cities = {city.pk for city in postal.municipalities.all()}
+
+    def row(self, revision):
+        row = self.by_revision[revision.pk]
+        if row.approved_revision is not revision:
+            raise ValueError("Publication context requires its own current revision instance")
+        return row
+
+    def details(self, data, revision):
+        self.row(revision)
+        return SnapshotDetails(self.catalog, data, instance=revision)
+
+    def rate_valid(self, rate):
+        # The existing rate constraint/form depends only on these primitive values.
+        values = tuple(getattr(rate, name) for name in RateForm.Meta.fields)
+        if values not in self.rate_checks:
+            self.rate_checks[values] = RateForm(
+                dict(zip(RateForm.Meta.fields, values, strict=True)), instance=rate
+            ).is_valid()
+        return self.rate_checks[values]

@@ -229,15 +229,17 @@ def results(request):
         form.add_error(None, "Página inválida / Invalid page")
         valid = False
     number = int(raw_page) if valid else 1
-    # Correct eligibility/counts first. Batch/index optimization is measured in B-B.
+    from .public_validation import PublicationContext
+
+    context = PublicationContext(candidates(form.cleaned_data)) if valid else None
     visible = (
         [
             listing
-            for listing in candidates(form.cleaned_data)
-            if publicly_visible(listing)
+            for listing in context.rows
+            if publicly_visible(listing, context=context)
             and matches_checks(listing.person, form.cleaned_data.get("checked"))
         ]
-        if valid
+        if context
         else []
     )
     from apps.catalog.promotion_exposure import ranked
