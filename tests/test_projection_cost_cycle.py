@@ -21,6 +21,7 @@ from apps.listings.public_validation import (
     SnapshotDetails,
     validate_publication_binding,
     memoize_publication_field_clean,
+    validate_publication_value_fields,
 )
 from scripts.benchmark_call_profile import CallProfile
 from scripts.query_pattern_redaction import query_pattern
@@ -35,7 +36,8 @@ def targets():
                  submissions.publication_ready, discovery.render, Model.from_db,
                  ModelIterable.__iter__, prefetch_one_level,
                  validate_publication_binding, SimpleLazyObject._setup,
-                 memoize_publication_field_clean, listing_forms.validate_details_values,
+                 memoize_publication_field_clean, validate_publication_value_fields,
+                 listing_forms.validate_details_values,
                  listing_forms.validate_listing_text.__wrapped__,
                  listing_forms.normalize_telegram.__wrapped__]
     for cls in [projection.ProjectedPublication, PublicationContext, SnapshotDetails,

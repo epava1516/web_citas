@@ -1,0 +1,20 @@
+{
+  "schema": "projection-kernel-assignment-guard-unit-v1",
+  "source_commit_at_run": "e0eea094a598381e4b0ea58e05ae99a5fb2b48e6",
+  "scope": "Working tree strengthened footprint after 35PG; no product kernel body change. Four units, not PostgreSQL integration or common N2.",
+  "command": ".venv/bin/python -m pytest tests/test_projection_kernel_footprint.py tests/test_benchmark_profile_aliases.py -q",
+  "reported_passes": 4,
+  "reported_seconds": 0.5,
+  "finding": "Native ContactsForm rejects overlength model value introduced by runtime wraps save_form_data. Deliberately bypassed private value kernel accepts original scalar. Public supported() rejects changed helper after strengthening footprint; actual wrapper layers retained.",
+  "source_sha256": {
+    "apps/listings/projected_publication.py": "b578664f0cc6b7aa883afe84133df1e26cd54d945128ea898b4b38323771bf58",
+    "tests/test_projection_kernel_footprint.py": "2391c7a6761de168479f852ce0f9f65da310770596d20a2e075b23fd615df768",
+    "tests/test_benchmark_profile_aliases.py": "f0721261bfaf725bf6287845e76942505fe1961950522edfc85b78271cdeb8c9"
+  },
+  "not_measured": [
+    "PostgreSQL_case_for_this_new_wrapper",
+    "cost_gain",
+    "runtime",
+    "capacity"
+  ]
+}

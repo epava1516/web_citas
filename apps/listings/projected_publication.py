@@ -105,7 +105,7 @@ def definitions():
     for model in [Revision, Rate]:
         for field in model._meta.concrete_fields:
             functions.extend(getattr(field, name) for name in
-                             ["clean", "validate", "to_python", "run_validators"])
+                             ["clean", "validate", "to_python", "run_validators", "save_form_data"])
             functions.extend(validator if inspect.isfunction(validator) else validator.__call__
                              for validator in field.validators)
     for cls in [DetailsForm, ContactsForm, RateForm]:
@@ -154,7 +154,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "7848aa53edc5cec77a2168cbffce742589d32ab252b972f469badc2681a65086"
+EXPECTED_DEFINITIONS = "fe05c927a31ae9d53a399cbd8d03d399e749b623cfd3f757531bb3dc0f4c1cfd"
 
 
 def definitions_digest():
