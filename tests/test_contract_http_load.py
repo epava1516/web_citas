@@ -39,8 +39,10 @@ def percentile(values, ratio):
     return sorted(values)[max(0, math.ceil(len(values) * ratio) - 1)] if values else None
 
 
-@pytest.mark.parametrize("large", [False, True], ids=["functional", "measured"])
-def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, record_property, large):
+@pytest.mark.parametrize("scenario", ["functional", "short", "measured"])
+def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, record_property, scenario):
+    large = scenario != "functional"
+    upload_count = 15 if scenario == "measured" else 1
     request.getfixturevalue("directory")
     assert connection.vendor == "postgresql"
     dataset = populate(10000 if large else 10)
@@ -102,7 +104,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "dataset": dataset,
         "resources": resources,
         "success": False,
-        "duration_seconds": 900 if large else 3,
+        "duration_seconds": {"functional": 3, "short": 60, "measured": 900}[scenario],
         "arrival_rps": 20,
         "server": "Gunicorn4 sync workers local TCP",
         "scope": "Synthetic local server capacity; external production/identity/CDN excluded. Upload processing eager in request, no real worker throughput claim.",
@@ -150,13 +152,23 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "duration_seconds": summary["duration_seconds"],
         "arrival_rps": summary["arrival_rps"],
         "scheduled_dynamic": int(summary["duration_seconds"] * summary["arrival_rps"]),
-        "uploads_separate": 15 if large else 1,
+        "uploads_separate": upload_count,
         "state": "Fresh Gunicorn/DB fixture; six cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
         "error_policy": "Every non200 dynamic response, transport error or timeout is failed; uploads require302; final drain expiry classified failed/timeout",
         "instrumentation": "Monotonic per-request timestamps/async ledger; Gunicorn access logs; no app CPU/DB/RSS sampling; aggregation after drain",
-        "scope": "contractual" if large else "functional generator calibration only",
+        "scope": {"measured": "contractual", "short": "60s concurrent diagnostic only; not contractual capacity", "functional": "functional generator calibration only"}[scenario],
         "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
     }
+    if scenario == "short":
+        manifest["diagnostic_criteria"] = {
+            "valid_generator_and_reconciled_accounting": True,
+            "p95_seconds_strict_below": 0.8,
+            "error_ratio_strict_below": 0.01,
+            "uploads_expected_status": 302,
+            "dynamic_pending_at_window_max": 20,
+            "final_pending": 0,
+            "reason": "Existing latency/error objectives plus at most one second of arrivals outstanding as accumulation filter; generator numeric policy unchanged. No capacity acceptance.",
+        }
     (artifact_folder / "benchmark-manifest.json").write_text(json.dumps(manifest, indent=2))
     summary["frozen_manifest"] = manifest
 
@@ -282,7 +294,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 "headers": headers,
                 "expected": 302,
             }
-            for minute, draft in enumerate(draft_rows[: 15 if large else 1])
+            for minute, draft in enumerate(draft_rows[:upload_count])
         ]
         outcome = run_async_open_loop(
             concurrent_fetch,
@@ -301,6 +313,15 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             json.dumps({"dynamic": rows, "uploads": uploads, "clock": outcome["clock"]}, indent=2)
         )
         summary["request_samples_artifact"] = str(samples_path)
+        if scenario == "short":
+            summary["diagnostic_checks"] = {
+                "validity": summary["verdict"] != "INVALID",
+                "latency_and_errors": summary["verdict"] == "PASS",
+                "pending_at_window": summary["window_close"]["dynamic"]["pending"] <= 20,
+                "final_pending": summary["counts"]["pending"] == 0,
+                "upload": summary["final_upload_counts"]["successful"] == upload_count,
+            }
+            summary["diagnostic_continue_contract"] = all(summary["diagnostic_checks"].values())
         assert summary["counts"]["reconciled"] and summary["final_upload_counts"]["reconciled"]
         if not large:
             assert (
@@ -311,6 +332,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             assert summary["verdict"] == "PASS", (
                 summary["verdict"] + ": " + repr(summary["invalid_reasons"])
             )
+        if scenario == "short":
+            assert summary["diagnostic_continue_contract"], summary["diagnostic_checks"]
         summary["success"] = True
     finally:
         if process and process.poll() is None:

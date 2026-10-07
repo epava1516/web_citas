@@ -1,0 +1,50 @@
+{
+  "runs": [
+    {
+      "run": "discovery-scalar-choice-n1-0110",
+      "source_commit": "5a3786204624e55e6979174d903503f96eda25b9",
+      "sources_unchanged": true,
+      "migration_exit": 0,
+      "pytest_exit": 1,
+      "cleanup_verified": true,
+      "test_media_removed": true,
+      "artifact_sha256": {
+        "migration.log": "554c86191aa5458fa81d6926cc0060ee8b12abefbb10023fb049f7a28126fb79",
+        "pytest.log": "64f75b2cf9b6dc5fb0fb672d22b1d32b65842fdbdbafc0509dd46b8bb88a38d3",
+        "pytest.xml": "03e0351cd50bc8438d0509892d09c893efb79463a4aecc4b3cf62c8dc52cd0d4",
+        "test-timings.json": "15067852e09197e27598b9d2865521229ec91e8025f0e427a607dde42a5c8933"
+      }
+    },
+    {
+      "run": "discovery-scalar-choice-final-n1-0110",
+      "source_commit": "65a2743c379c7ddf942dd3343e8e4ea76c7355bd",
+      "sources_unchanged": true,
+      "migration_exit": 0,
+      "pytest_exit": 1,
+      "cleanup_verified": true,
+      "test_media_removed": true,
+      "artifact_sha256": {
+        "migration.log": "554c86191aa5458fa81d6926cc0060ee8b12abefbb10023fb049f7a28126fb79",
+        "pytest.log": "b11bb23e52b37546e76f005f758c2029a3aa89025a8a7a5521c0243bd3364e85",
+        "pytest.xml": "a9effcf154b3f7adfd167c245acc16295e5fe839161121a182fa283d812d1aeb",
+        "test-timings.json": "0e2149235178498a7ca863b766855bae8e256e918612e3ca7fbd46f91a791e14"
+      }
+    },
+    {
+      "run": "discovery-scalar-choice-equivalence0110",
+      "source_commit": "7d388207c251ddf7b08d8692daf0988271192a94",
+      "sources_unchanged": true,
+      "migration_exit": 0,
+      "pytest_exit": 0,
+      "cleanup_verified": true,
+      "test_media_removed": true,
+      "artifact_sha256": {
+        "migration.log": "554c86191aa5458fa81d6926cc0060ee8b12abefbb10023fb049f7a28126fb79",
+        "pytest.log": "dbd4553f494bfa1394c2be7c0ffe41355bb333aae910d41fc7f53a421e2bfe8a",
+        "pytest.xml": "d04122b3c8556004ba48507d4133e19e5d9c8c192c527a4de50ad3b911848fdd",
+        "test-timings.json": "0e4b01d170f1e63ab0da2e3432bac97835c8f4deebeaa68810fdffdc5760a0ca"
+      }
+    }
+  ],
+  "scope": "65a2743:11 existing cases pass, new native-comparison assertion fails on pre-existing invalid_choice vs invalid_pk_value for malformed category ID. Test-only typed absent ID correction7d38820:one affected equivalence case passes. No common-suite claim; apps identical between65a2743 and7d38820. Earlier5a37862 new field assertion wrongly included CharField; prepare_value corrected before acceptance."
+}
