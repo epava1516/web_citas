@@ -16,7 +16,8 @@ from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
 from apps.listings import discovery, moderation
-from apps.listings.public_validation import PublicationContext
+from apps.listings.forms import ContactsForm
+from apps.listings.public_validation import PublicationContext, SnapshotDetails
 from scripts.query_pattern_redaction import query_pattern
 from scripts.synthetic_load_dataset import populate
 
@@ -41,6 +42,28 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
     prefetch_calls = Counter()
     sql_execute_seconds = 0.0
     objects = Counter()
+    form_events = {}
+
+    def instrument_form_method(form_class, method):
+        original = getattr(form_class, method)
+        label = f"{form_class.__name__}.{method}"
+        bucket = form_events.setdefault(label, {"calls": 0, "seconds": 0.0})
+
+        def measured(self, *args, **kwargs):
+            bucket["calls"] += 1
+            start = time.perf_counter()
+            try:
+                return original(self, *args, **kwargs)
+            finally:
+                bucket["seconds"] += time.perf_counter() - start
+
+        monkeypatch.setattr(form_class, method, measured)
+
+    # Diagnostic subevents only: retain all native construction/cleaning behavior.
+    # full_clean contains _clean_fields/_clean_form/_post_clean, not exclusive time.
+    for form_class in [SnapshotDetails, ContactsForm]:
+        for method in ["__init__", "full_clean", "_clean_fields", "_clean_form", "_post_clean"]:
+            instrument_form_method(form_class, method)
     stages = {
         "context_seconds": 0.0,
         "validation_seconds": 0.0,
@@ -178,6 +201,7 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
     record_property("total_seconds_instrumented", elapsed)
     record_property("objects_instantiated_by_model", dict(objects))
     record_property("explicit_stages", stages)
+    record_property("form_events", form_events)
     record_property("objects_by_phase_model", {f"{p}:{m}": n for (p, m), n in provenance.items()})
     record_property("from_db_calls_by_model", dict(from_db_calls))
     record_property("from_db_seconds_by_model", dict(from_db_seconds))
