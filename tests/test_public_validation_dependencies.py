@@ -18,6 +18,7 @@ from apps.core.models import Person
 from apps.listings.discovery import candidates
 from apps.listings.models import Rate, Revision
 from apps.listings.moderation import publicly_visible
+from apps.listings.projected_publication import ProjectedPublication, supported
 from apps.listings.public_validation import PublicationContext
 from apps.mediafiles.models import Blob, Photo
 
@@ -40,6 +41,9 @@ def fresh_visibility(listing_id):
     context = PublicationContext(candidates({}))
     batched = [row.pk for row in context.rows if publicly_visible(row, context=context)]
     assert batched == native  # Ordered population, not just count or set.
+    if supported():
+        projection = ProjectedPublication(candidates({}))
+        assert projection.visible_ids(candidates({})) == native
     return listing_id in native
 
 

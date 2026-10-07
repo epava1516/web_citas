@@ -104,70 +104,75 @@ class SnapshotDetails(DetailsForm):
         return city.pk in postal._publication_cities
 
 
+def publication_query(query, document):
+    """Shared fresh authority/history annotations for both read representations."""
+    grant = RepresentationAction.objects.filter(
+        person_id=OuterRef("person_id"),
+        subject_id=OuterRef("person__subject_id"),
+        manager_version=OuterRef("person__manager_version"),
+        action="grant",
+        document__slug="publishing",
+        document__version=document.version if document else "",
+        manager_kind=Case(
+            When(person__agency_id__isnull=False, then=Value("agency")),
+            default=Value("individual"),
+        ),
+        manager_id=Case(
+            When(
+                person__agency_id__isnull=False,
+                then=Cast(OuterRef("person__agency_id"), CharField()),
+            ),
+            default=Cast(OuterRef("person__individual_id"), CharField()),
+        ),
+    )
+    latest = VerificationCheck.objects.filter(person_id=OuterRef("person_id")).order_by(
+        "-created_at"
+    )
+    conflict = ordinary_matches(
+        Match.objects.filter(
+            Q(photo__revision_id=OuterRef("approved_revision_id"))
+            | Q(candidate__revision_id=OuterRef("approved_revision_id")),
+            Q(resolved_at__isnull=True) | Q(decision="conflict"),
+            photo__removed_at__isnull=True,
+            candidate__removed_at__isnull=True,
+            decision="conflict",
+        )
+    )
+    return query.annotate(
+        _pv_history=Exists(
+            rectification_history_ids().filter(pk=OuterRef("approved_revision_id"))
+        ),
+        _pv_rectification_upload=Exists(
+            Photo.objects.filter(
+                revision_id=OuterRef("approved_revision_id"), rectification_upload__isnull=False
+            )
+        ),
+        _pv_reintroduction=Exists(
+            RightsPhotoReintroduction.objects.filter(
+                photo__revision_id=OuterRef("approved_revision_id")
+            )
+        ),
+        _pv_hold=Exists(
+            PrivacyPublicationHold.objects.filter(person_id=OuterRef("person_id"), active=True)
+        ),
+        _pv_restriction=Exists(
+            Restriction.objects.filter(listing_id=OuterRef("pk"), active=True)
+        ),
+        _pv_grant=Exists(grant),
+        _pv_conflict=Exists(conflict),
+        _pv_check_status=Subquery(latest.values("status")[:1]),
+        _pv_check_manager=Subquery(latest.values("manager_version")[:1]),
+        _pv_check_subject=Subquery(latest.values("subject_id")[:1]),
+    )
+
+
 class PublicationContext:
     def __init__(self, query):
         self.document = current_publishing_document()
         self.rate_checks = {}
         self._validation_prototypes = {}
         self.field_clean_cache_stats = {}
-        grant = RepresentationAction.objects.filter(
-            person_id=OuterRef("person_id"),
-            subject_id=OuterRef("person__subject_id"),
-            manager_version=OuterRef("person__manager_version"),
-            action="grant",
-            document__slug="publishing",
-            document__version=self.document.version if self.document else "",
-            manager_kind=Case(
-                When(person__agency_id__isnull=False, then=Value("agency")),
-                default=Value("individual"),
-            ),
-            manager_id=Case(
-                When(
-                    person__agency_id__isnull=False,
-                    then=Cast(OuterRef("person__agency_id"), CharField()),
-                ),
-                default=Cast(OuterRef("person__individual_id"), CharField()),
-            ),
-        )
-        latest = VerificationCheck.objects.filter(person_id=OuterRef("person_id")).order_by(
-            "-created_at"
-        )
-        conflict = ordinary_matches(
-            Match.objects.filter(
-                Q(photo__revision_id=OuterRef("approved_revision_id"))
-                | Q(candidate__revision_id=OuterRef("approved_revision_id")),
-                Q(resolved_at__isnull=True) | Q(decision="conflict"),
-                photo__removed_at__isnull=True,
-                candidate__removed_at__isnull=True,
-                decision="conflict",
-            )
-        )
-        query = query.annotate(
-            _pv_history=Exists(
-                rectification_history_ids().filter(pk=OuterRef("approved_revision_id"))
-            ),
-            _pv_rectification_upload=Exists(
-                Photo.objects.filter(
-                    revision_id=OuterRef("approved_revision_id"), rectification_upload__isnull=False
-                )
-            ),
-            _pv_reintroduction=Exists(
-                RightsPhotoReintroduction.objects.filter(
-                    photo__revision_id=OuterRef("approved_revision_id")
-                )
-            ),
-            _pv_hold=Exists(
-                PrivacyPublicationHold.objects.filter(person_id=OuterRef("person_id"), active=True)
-            ),
-            _pv_restriction=Exists(
-                Restriction.objects.filter(listing_id=OuterRef("pk"), active=True)
-            ),
-            _pv_grant=Exists(grant),
-            _pv_conflict=Exists(conflict),
-            _pv_check_status=Subquery(latest.values("status")[:1]),
-            _pv_check_manager=Subquery(latest.values("manager_version")[:1]),
-            _pv_check_subject=Subquery(latest.values("subject_id")[:1]),
-        ).select_related(None).select_related(
+        query = publication_query(query, self.document).select_related(None).select_related(
             "approved_revision", "person__phone_claim",
         ).prefetch_related(
             "person__agency",

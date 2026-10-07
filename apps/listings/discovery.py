@@ -229,24 +229,28 @@ def results(request):
         form.add_error(None, "Página inválida / Invalid page")
         valid = False
     number = int(raw_page) if valid else 1
+    from .projected_publication import projected_page
     from .public_validation import PublicationContext
 
-    context = PublicationContext(candidates(form.cleaned_data)) if valid else None
-    visible = (
-        [
-            listing
-            for listing in context.rows
-            if publicly_visible(listing, context=context)
-            and matches_checks(listing.person, form.cleaned_data.get("checked"))
-        ]
-        if context
-        else []
-    )
-    from apps.catalog.promotion_exposure import ranked
-
-    visible, sponsorship = ranked(visible, text_search=bool(form.cleaned_data.get("q")))
     try:
-        page = Paginator(visible, 24).page(number)
+        page = (
+            projected_page(candidates(form.cleaned_data), number,
+                           checked=bool(form.cleaned_data.get("checked")))
+            if valid else None
+        )
+        sponsorship = {}
+        if page is None:
+            context = PublicationContext(candidates(form.cleaned_data)) if valid else None
+            visible = (
+                [listing for listing in context.rows
+                 if publicly_visible(listing, context=context)
+                 and matches_checks(listing.person, form.cleaned_data.get("checked"))]
+                if context else []
+            )
+            from apps.catalog.promotion_exposure import ranked
+
+            visible, sponsorship = ranked(visible, text_search=bool(form.cleaned_data.get("q")))
+            page = Paginator(visible, 24).page(number)
     except EmptyPage as error:
         raise Http404 from error
     cards = []
