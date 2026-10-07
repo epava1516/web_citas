@@ -268,7 +268,9 @@ def test_successful_private_binding_is_released_without_forcing_gc(request, monk
     def capture(form):
         observed.append(ref(form))
         original(form)
-        assert bool(form._bound_fields_cache) is native_fallback
+        # construct_instance still creates native BoundFields for model defaults.
+        # Telegram has no model default: only its unknown callback needs metadata.
+        assert ("telegram" in form._bound_fields_cache) is native_fallback
         assert form.cleaned_data["telegram"] == "Valid_name"
 
     monkeypatch.setattr(ContactsForm, "full_clean", capture)
