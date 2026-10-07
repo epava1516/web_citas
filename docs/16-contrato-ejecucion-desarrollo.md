@@ -1,6 +1,8 @@
-# Contrato de ejecución del desarrollo — versión 1.3
+# Contrato de ejecución del desarrollo — versión 1.4
 
 Fecha: 2026-10-03. Estado: ejecución iniciada por autorización del usuario el 2026-10-03. Tipo: especificación de ejecución y aceptación, no contrato mercantil ni acreditación jurídica.
+
+Actualización: 2026-10-07, MOD-04 (§16), autorizada por el usuario para reajustar contrato y hoja de ruta conforme al análisis del bloqueo de rendimiento. El goal está pausado por petición del usuario; esta revisión documental no lo reanuda. La reanudación requiere una indicación posterior del usuario, sin nuevas confirmaciones rutinarias para ejecutar el alcance ya autorizado una vez reanudado.
 
 ## 1. Objeto y documentos vinculantes
 
@@ -263,3 +265,51 @@ Cambio autorizado expresamente por el usuario el2026-10-06: «Elimina el limite 
 Codex conserva arquitectura, integración y aceptación; Claude propone y Codex aplica y verifica. Antes de delegar leer completo /home/felidae/proyectos/arquitectura_codex/docs/AI_ENGINEERING.md (1.0.1) y usar su scripts/claude-task sin copiar ni alterar el adaptador. Elegir tareas acotadas útiles para el objetivo; continuar localmente si una llamada falla. La eliminación del máximo no exige delegar ni relaja aislamiento, fuentes congeladas o controles MOD-02.
 
 Impacto: habilita nuevas invocaciones mediante el adaptador bajo el mismo alcance; consumo y costes reales se registran sin inventar importes. No cambia modelos, datos, alcance funcional, gates, pruebas, pesos o porcentajes; no autoriza publicación, contratación de proveedores ni datos reales. Este cambio documental no invalida evidencia funcional ni requiere reiniciar pruebas activas.
+
+## 16. Consolidación del rendimiento de lectura — MOD-04
+
+Cambio autorizado por el usuario el 2026-10-07: reajustar roadmap y contrato para seguir la solución del [análisis y DAFO](analisis-bloque-rendimiento-dafo0110.md). Versión 1.4. Motivo: el FAIL de carga persiste tras correcciones locales; la evidencia identifica coste de consulta principal y trabajo de validación/materialización por candidato. Afecta a la estrategia y aceptación del trabajo de rendimiento de §7–12 y MOD-02, al objetivo de docs14 §10 y a su trazabilidad en docs83. Conserva producto, fases, pesos, denominador, criterios de carga y gates de producción. El análisis fundamenta la dirección, pero no constituye mejora medida ni aceptación funcional de una implementación futura.
+
+### Una entrega y una cola
+
+Se adopta **CR09-REND-LECTURA: listado y búsqueda con reglas compartidas y coste de lectura controlado**, dentro del bloque de rendimiento vigente. Sus pasos internos no son nuevas fases, unidades ponderadas ni cierres independientes. La hoja de ruta, el estado y la próxima acción se mantienen únicamente en [seguimiento17](17-seguimiento-desarrollo.md); el resto de documentos especifican criterios y evidencias.
+
+El objetivo es reducir el coste absoluto por petición preservando publicación, privacidad, autoridad, normalización, filtros, ranking, orden, recuento y paginación. Se reutilizan las equivalencias y diagnósticos válidos, con sus fuentes y límites. Esta entrega no sustituye los pendientes de rendimiento de expedientes grandes, aceptación integral CR09 ni las fases posteriores.
+
+### Dirección técnica adoptada
+
+1. **Consulta principal:** aislar primero el efecto de JIT mediante lecturas equivalentes en PostgreSQL sintético propio. Comparar configuración vigente con `SET LOCAL jit=off` en transacciones propias, sin modificar la configuración del servidor compartido. Prefijar fuente, consulta, parámetros, cardinalidades, número y orden de parejas, cachés/recursos observados y condición de salida. Separar SELECT cronometrado y EXPLAIN; contrastar resultados. Confirmar o descartar el mecanismo antes de aplicar una política JIT o reformular consultas. No convertir tiempo JIT de un plan en ahorro previsto de un request.
+2. **Reglas compartidas:** extraer gradualmente validaciones explícitas sobre valores para que escritura y lectura usen la misma definición. Conservar conversión, normalización, reglas de campos/modelos, dependencias y errores del contrato. La autoridad y vigencia se comprueban con datos actuales. Las traducciones de reglas a SQL necesitan equivalencia específica; no se presume igualdad de regex, NULL, listas ni desempates.
+3. **Construcción bajo demanda:** evitar objetos y formularios antes de saber que son necesarios para una evaluación. Compartir definiciones verificadas dentro del request, conservando bindings independientes y claves completas de dependencia; no compartir estado mutable ni autoridad entre peticiones. La eliminación de una instancia exige demostrar qué reglas dependen de ella, incluido el PK. No añadir caché persistente ni proyección persistida como parche.
+4. **Conjunto elegible y página:** preservar el conjunto completo y su recuento exacto antes de paginar. Resolver count/orden/página en SQL solo cuando las condiciones correspondientes sean equivalentes; mientras existan reglas residuales, evaluarlas sobre toda la población necesaria. Hidratar la página y conservar el guard de vigencia y la recomputación nativa ante cambios confirmados. No paginación anticipada ni cambio silencioso a cursor.
+5. **Alcance operativo:** cubrir explícitamente las rutas normales, `PRODUCTION`, filtros `checked` y promociones, con sus verificaciones y ranking. Mantener sus guards/fallbacks hasta demostrar equivalencia; no quitar la huella para conseguir una ruta rápida. Un modo puede conservar implementación nativa si se demuestra su comportamiento y coste; consolidar no exige que todos usen la clase de proyección actual. Fixtures de integración siguen siendo sintéticos y no acreditan proveedores reales ni aceptación de producción.
+
+Se conservan los controles de wrappers semánticos, helpers, cambios de reglas, catálogo, documentos, vigencia y revocación. La cobertura de la huella y la medición de ruta son garantías diferentes. No aumentar workers, escalar PostgreSQL ni añadir caché para compensar el coste pendiente en este ciclo.
+
+### Decisión por evidencia y salida del diagnóstico
+
+Cada intervención registra una hipótesis, evidencia nueva esperada, alcance de equivalencia y condición de salida antes de ejecutarse. Un resultado negativo o no concluyente cierra esa iteración como tal; no implica cierre del requisito ni permite repetirla sin un cambio o una incertidumbre concreta que la siguiente medición resuelva. No acumular microoptimizaciones cuyo efecto en la petición no se haya contrastado.
+
+El contraste JIT decide la intervención SQL; el perfil y la diversidad ya obtenidos orientan construcción y validación. La mejora se informa en tiempo absoluto del request sin profiler y en el mecanismo directamente observado, además de consultas/materialización/reglas con instrumentos equivalentes. Usar controles repetidos/únicos para evitar que el fixture repetido oculte el coste. No estimar validación como total−SQL, CPU PostgreSQL desde cursor.execute ni filas SQL desde objetos ORM. Documentar solapamientos lazy, overhead, población observada y `not_measured`.
+
+Con cuatro workers sync y 20 RPS, 200 ms de servicio medio es un límite teórico de ocupación antes de margen y uploads. Se usa como comprobación de viabilidad de la mezcla, no como nuevo SLO ni como prueba suficiente de capacidad. La estabilidad y el p95 deben medirse. Si los controles siguen claramente lejos del presupuesto, revisar el mecanismo o el diseño dentro de la misma entrega antes de repetir carga; no ejecutar 900 s para volver a demostrar ese desfase.
+
+### Verificación y aceptación
+
+Secuencia de aceptación: equivalencia pertinente de cada cambio → integración funcional de la solución → matriz comparable 100/1.000/10.000 con controles sin profiler y diversidad → prueba corta vigente de 20 RPS durante 60 s → ensayo contractual solo tras PASS completo. N1/N2/N3 y PostgreSQL siguen según MOD-02; reutilizar evidencia válida sin sumar versiones diferentes como una batería común. No ejecutar matrices completas por cada edición interna.
+
+| Comprobación | Condición exigida |
+| --- | --- |
+| Equivalencia | Elegibilidad, IDs ordenados, recuento, páginas inicial/intermedias/última, errores/normalización y ranking conservados; negativas fuera de la primera página, helpers/wrappers y carreras de revocación/catálogo/documentos según dependencia afectada. |
+| Alcance de rutas | Matriz explícita de modo/filtro/promoción → ruta real → equivalencia → coste observado → limitación. No extrapolar PASS del fixture a modos excluidos. Los escenarios adicionales se prefijan aparte y no alteran la mezcla contractual. |
+| Generador y contabilidad | Escenario y contabilidad reconciliados; 0 no emitidas; demora p95≤10 ms, p99≤25 ms, máximo≤100 ms; timeout por petición 65 s. |
+| Corta | 10.000 anuncios, 20 RPS durante 60 s, 1.200 dinámicas y 1 upload separado; drain≤70 s, pendientes al cierre≤20 y finales0; p95 observable de todas las dinámicas emitidas terminadas, incluidos errores/timeouts, <800 ms; errores<1 %; upload302 conforme. |
+| Contractual | 10.000 anuncios, 20 RPS durante 900 s, 18.000 dinámicas; mezcla 1/3 listado, 1/3 búsqueda y 1/3 ficha, ES/EN; 15 uploads programados separados, uno/minuto. p95 observable<800 ms y errores<1 %, generador/drain y política contable vigentes, uploads conformes. No trasladar silenciosamente criterios diagnósticos a resultados históricos. |
+
+Validez separada de rendimiento: **INVALID** por escenario, generador o contabilidad inválidos; **FAIL** por objetivos incumplidos en un experimento válido, incluidos pendientes/drain del gate corto; **PASS** solo si cumple todos los criterios prefijados de su escenario. Mantener veredicto de transporte y gate corto completo separados. FAIL/INVALID corto bloquean el contractual. El FAIL corto anterior y el INVALID contractual anterior conservan su clasificación.
+
+Un PASS contractual acredita únicamente su escenario, fuente y recursos. El cierre local de CR09-REND-LECTURA exige además equivalencia y cobertura de las rutas declaradas, integración/runtime pertinente y evidencia revisada. Si falta una ruta o su medición, registrar únicamente el alcance verificado y mantener la entrega abierta; no declarar consolidado el bloque. Producción, proveedores, aceptación integral CR09 y fases posteriores conservan sus gates propios.
+
+### Impacto y estado de esta modificación
+
+Se adopta la dirección técnica y su secuencia, con implementación y ganancias aún pendientes. Posibles cambios futuros de código/consultas se decidirán por evidencia; ninguna migración, ajuste de servidor o alteración de datos se ejecuta con esta adenda. Aumenta la claridad de los criterios de salida, sin promesas de plazo ni ahorro. Recursos/costes de ensayos se registran realmente; no autoriza gasto ni contratación. Porcentajes vigentes sin cambio: CR09 72,50 % y contrato 65,375 % (65,38 % mostrado). El goal permanece pausado hasta reanudación del usuario.

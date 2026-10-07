@@ -175,6 +175,8 @@ Objetivos internos: RPO de una hora para datos de negocio, RTO de ocho horas ant
 
 Prueba de carga inicial: diez mil anuncios sintéticos y veinte peticiones dinámicas por segundo durante quince minutos con mezcla de listados/fichas/búsquedas, además de cargas limitadas simultáneas. Objetivo servidor p95 inferior a 800 ms y errores inesperados inferiores al 1 % en entorno documentado. Son criterios de prueba propuestos por diseño, no previsión de visitas ni capacidad garantizada. Ajustar hardware/consultas hasta verificar o documentar cambio del objetivo.
 
+Aplicación vigente desde 2026-10-07: [MOD-04 del contrato de ejecución 1.4](16-contrato-ejecucion-desarrollo.md#16-consolidación-del-rendimiento-de-lectura--mod-04) adopta la consolidación de lectura mediante consulta controlada y reglas compartidas. El [marco de medición](criterios-revision-benchmark-carga.md) concreta población observable, generador, uploads, drain y gate corto completo previo a los 900 s. En este ciclo se mantienen los recursos: no aumentar workers, escalar PostgreSQL ni añadir caché como parche. Esta precisión de ejecución conserva los objetivos funcionales de esta versión; no acepta capacidad ni modifica resultados anteriores.
+
 No contabilizar imágenes servidas por CDN como peticiones procesadas por Django. Medir frío/caliente y consultas difíciles. Objetivos frontend mediante pruebas móvil y Core Web Vitals cuando haya tráfico suficiente; no garantizar SEO por una puntuación de laboratorio.
 
 Copias, retención, incidentes, seguridad y gates conforme a documentos 03, 06, 10, 11 y 12. No poner datos reales en logs, repositorio, pruebas o artefactos de CI.

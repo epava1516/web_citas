@@ -2,6 +2,8 @@
 
 Fecha: 2026-10-07. Corte de código `c68bcf8`, matriz `2f9f536`, documentos vigentes `ffaf1c0`. Análisis solicitado durante la pausa. No inicia carga, refactor, despliegue ni reanuda el goal. La cola única sigue en [docs/17](17-seguimiento-desarrollo.md). Las decisiones siguientes son propuestas para revisar antes de reanudar.
 
+**Adopción posterior, 2026-10-07:** el usuario autoriza ajustar contrato y hoja de ruta para seguir esta solución. La dirección se adopta en [MOD-04, contrato 1.4](16-contrato-ejecucion-desarrollo.md#16-consolidación-del-rendimiento-de-lectura--mod-04), con secuencia/estado únicamente en [seguimiento17](17-seguimiento-desarrollo.md). Las referencias a «propuesta» de este análisis conservan su momento de elaboración; la implementación, la eficacia de cada intervención y el cierre siguen pendientes de evidencia. El goal continúa pausado.
+
 ## Conclusión
 
 El servicio exige demasiado trabajo por listado/búsqueda para el presupuesto contractual. Reducir N+1 y sustituir cinco lecturas IN por ANY resolvió mecanismos concretos, pero la petición todavía recupera y evalúa la población completa de 10.000 candidatos antes de devolver24. La implementación mantiene coste SQL importante y miles de construcciones/validaciones Python. La repetición del fixture disimula parte del segundo coste.
