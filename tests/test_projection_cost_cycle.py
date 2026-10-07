@@ -7,6 +7,7 @@ from django.db import connection, transaction
 from django.db.models import Model
 from django.db.models.query import ModelIterable, prefetch_one_level
 from django.db.models.signals import post_init
+from django.utils.functional import SimpleLazyObject
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
@@ -14,7 +15,11 @@ from apps.listings import discovery, moderation, submissions
 from apps.listings import projected_publication as projection
 from apps.listings.forms import ContactsForm, DetailsForm, RateForm
 from apps.listings.models import Revision
-from apps.listings.public_validation import PublicationContext, SnapshotDetails
+from apps.listings.public_validation import (
+    PublicationContext,
+    SnapshotDetails,
+    validate_publication_binding,
+)
 from scripts.benchmark_call_profile import CallProfile
 from scripts.query_pattern_redaction import query_pattern
 from scripts.synthetic_load_dataset import populate
@@ -26,7 +31,8 @@ def targets():
     functions = [projection.definitions_digest, projection.projected_page,
                  moderation.validate_submission, moderation.publicly_visible,
                  submissions.publication_ready, discovery.render, Model.from_db,
-                 ModelIterable.__iter__, prefetch_one_level]
+                 ModelIterable.__iter__, prefetch_one_level,
+                 validate_publication_binding, SimpleLazyObject._setup]
     for cls in [projection.ProjectedPublication, PublicationContext, SnapshotDetails,
                 DetailsForm, ContactsForm, RateForm, Revision, forms.Field]:
         for name in ['__init__', 'full_clean', 'clean', '_clean_fields', '_clean_form',
@@ -152,5 +158,5 @@ def test_projection_comparable_cycle(request, monkeypatch, record_property, coun
                           'plan': redact_plan(cursor.fetchone()[0])})
     record_property('separate_explain', {'threshold': 'SQL execute >=50% instrumented request is a diagnostic dominance heuristic, not an SLO', 'plans': plans, 'scope': 'Owned synthetic PG read-only SELECT, after both measured requests. Plan actual rows are per-node stream counts with loops, not ORM objects or inferred rows_scanned/request; no statement parameters stored. OS/PG caches warmed, not reset.'})
     record_property('cycle', reports)
-    record_property('scope', 'DjangoClient end-to-end excludes fixtures/network/Gunicorn; synchronous sys.setprofile call/return events do not alter native callable chains. Exclusive discounts only direct observed children once; inline/unobserved work remains inside parent. Generator iteration events are yield segments, not unique objects. SQL execute excludes fetch; lazy SQL may overlap validation, hydration, render. Model post_init counts constructions including transient objects, not unique entities or SQL rows. Seconds; thread CPU only this thread. Native then projected, control then observed, shared warmed OS/PG caches, no reset; one sample each, paired difference is not causal overhead. Validity gate requires native full-population count, HTTP body and page24 equivalence; no real data or capacity claim.')
+    record_property('scope', 'DjangoClient end-to-end excludes fixtures/network/Gunicorn; synchronous sys.setprofile call/return events do not alter native callable chains. Exclusive discounts only direct observed children once; inline/unobserved work remains inside parent. Generator iteration events are yield segments, not unique objects. SQL execute excludes fetch; lazy SQL may overlap validation, hydration, render. Model post_init counts constructions including transient objects, not unique entities or SQL rows. New shared binding and lazy setup are directly observed in BOTH modes; child attribution differs from historical matrix without these targets, so exclusive values are not identical instruments across those sources. Seconds; thread CPU only this thread. Native then projected, control then observed, shared warmed OS/PG caches, no reset; one sample each, paired difference is not causal overhead. Validity gate requires native full-population count, HTTP body and page24 equivalence; no real data or capacity claim.')
     record_property('not_measured', 'rows_returned; rows_affected; rows_scanned; DB CPU; RSS; waits; locks; IO; causal overhead; p95 exclusive; concurrent capacity')
