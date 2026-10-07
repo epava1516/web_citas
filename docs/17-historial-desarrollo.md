@@ -3058,3 +3058,5 @@ JSON funcional corregido741ed7e/sesión99002 terminal correcto: migraciones0/pyt
 **Handle de medición JSON:** sesión50235 lanzada sobre fuente12e3138, salida privada /tmp/cr09-closed-json-measured0110/. Consultar ese handle antes de otro trabajo; no duplicar ejecución ni modificar tests/apps/config/scripts utilizados. Caso funcional previo1 correcto64,399s JUnit/104,296s total, selección2 revisiones. Mientras medición siga activa no carga PG/browser/build competidora. Registrar resultado terminal antes de aceptación, porcentajes o nueva entrega.
 
 Fin del corte íntegro; consultar seguimiento17 vigente.
+
+Medición JSON inicial12e3138/sesión50235 terminal exit1:585,38s pytest/623,492s totales; fallo de test KeyError images por esperar documento en manifiesto multipart. Cobertura/cierre/replay/manifiesto ejecutados, descarga/reconstrucción todavía no probadas; stage intake514,134s/62627SQL. Fuentes intactas/PG-medios retirados. Evidencia portabilidad-json-cerrado-tcp-inicial0110.json. Corrección exclusiva rama medida: hash de imagen en documento reconstruido, sin modificar aplicación ni caso funcional pequeño. Repetir únicamente medición requerida.

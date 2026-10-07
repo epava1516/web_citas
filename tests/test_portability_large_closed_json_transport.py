@@ -198,7 +198,8 @@ def test_native_closed_selected_json_over_local_tcp(
         manifest = json.loads(manifest_bytes)
         image = draft.export.images.get()
         assert str(image.photo_id) == expected["photo"]
-        assert manifest["images"][0]["sha256"] == expected["sha256"]
+        if not large:
+            assert manifest["images"][0]["sha256"] == expected["sha256"]
         if large:
             assert manifest["schema"] == "rights-data-manifest-v1"
             assert manifest["size"] > 8 * 1024 * 1024 and len(manifest["data_parts"]) >= 2
@@ -214,6 +215,7 @@ def test_native_closed_selected_json_over_local_tcp(
             output_path = tmp_path / "reconstructed.json"
             assert measured("json_reconstruction", reconstruct)(manifest_path, tmp_path, output_path) == manifest["size"]
             delivered = json.loads(output_path.read_bytes())
+            assert delivered["images"][0]["sha256"] == expected["sha256"]
             record_property("selected_json_bytes", manifest["size"])
             record_property("selected_json_sha256", manifest["sha256"])
             record_property("json_parts", len(manifest["data_parts"]))
