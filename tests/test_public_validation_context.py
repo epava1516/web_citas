@@ -1,6 +1,7 @@
 """Fresh batched publication checks must match the existing guard exactly."""
 
 from copy import copy
+from functools import wraps
 from weakref import ref
 
 import pytest
@@ -159,6 +160,7 @@ def test_validation_bindings_do_not_share_cleaned_data_errors_or_instances(reque
     seen = []
     original = ContactsForm.full_clean
 
+    @wraps(original)
     def capture(form):
         original(form)
         seen.append(form)
@@ -183,9 +185,10 @@ def test_validation_bindings_do_not_share_cleaned_data_errors_or_instances(reque
     assert seen[-1].instance is rows[1].approved_revision
     assert seen[0].cleaned_data["telegram"] == "Valid_name"
     stats = context.field_clean_cache_stats["ContactsForm.telegram"]
-    # Raw CharField cleaning is reused; form-specific normalization and rejection
-    # still execute for every independent binding, including cached raw values.
-    assert stats == {"calls": 6, "hits": 4, "misses": 2}
+    # Successful identical contacts skip a second form binding. Invalid results
+    # still execute independently; normalization is applied to each own revision.
+    assert stats == {"calls": 4, "hits": 2, "misses": 2}
+    assert context.contact_validation_stats == {"calls": 6, "hits": 2, "misses": 4, "fallbacks": 0}
 
 
 def test_field_clean_reuse_preserves_mutable_results_and_typed_keys(request, monkeypatch):
@@ -334,3 +337,76 @@ def test_context_matches_ordinary_visibility_and_fresh_catalog_changes(request):
     check.status = "passed"
     check.save(update_fields=["status"])
     verify(True)
+
+
+def test_contacts_success_keys_preserve_native_values_and_failed_inputs(request):
+    request.getfixturevalue("directory")
+    context = PublicationContext(candidates({}))
+    revision = context.rows[0].approved_revision
+    data = {"whatsapp": True, "telegram": "@Valid_name", "contact_exposure_accepted": True,
+            "accept_publishing": True, "legal_version": context.document.version}
+    for changes in [{}, {}, {"telegram": "Valid_name"}, {"whatsapp": False},
+                    {"telegram": "not valid!"}, {"telegram": "not valid!"},
+                    {"contact_exposure_accepted": False}, {"accept_publishing": False},
+                    {"legal_version": ""}, {"legal_version": "other-version"}, {}]:
+        values = {**data, **changes}
+        native = ContactsForm(values, instance=copy(revision))
+        expected = native.is_valid()
+        assert context.contacts_valid(values, revision) is expected
+        for name in ContactsForm.Meta.fields:
+            assert getattr(revision, name) == getattr(native.instance, name)
+    assert context.contact_validation_stats["hits"] == 2
+    assert context.contact_validation_stats["fallbacks"] == 0
+    fresh = PublicationContext(candidates({}))
+    assert fresh.contacts_valid(data, fresh.rows[0].approved_revision)
+    assert fresh.contact_validation_stats["hits"] == 0
+
+
+def test_contacts_custom_model_rule_is_evaluated_for_each_own_revision(request, monkeypatch):
+    from django.core.exceptions import ValidationError
+
+    from apps.listings.models import Revision
+
+    request.getfixturevalue("directory")
+    context = PublicationContext(candidates({}))
+    first, second = [row.approved_revision for row in context.rows[:2]]
+    data = {"whatsapp": True, "telegram": "@Valid_name", "contact_exposure_accepted": True,
+            "accept_publishing": True, "legal_version": context.document.version}
+    assert context.contacts_valid(data, first)
+    seen = []
+
+    def own_record_rule(instance):
+        seen.append(instance.pk)
+        if instance.pk == second.pk:
+            raise ValidationError("Own record must be checked")
+
+    monkeypatch.setattr(Revision, "clean", own_record_rule)
+    assert not context.contacts_valid(data, second)
+    assert context.contacts_valid(data, first)
+    assert seen == [second.pk, first.pk]
+    assert context.contact_validation_stats["fallbacks"] == 2
+    assert context.contact_validation_stats["hits"] == 0
+
+
+@pytest.mark.parametrize("scope", ["form", "model"])
+def test_contacts_changed_validator_cannot_reuse_previous_success(request, monkeypatch, scope):
+    from django.core.exceptions import ValidationError
+
+    request.getfixturevalue("directory")
+    context = PublicationContext(candidates({}))
+    revision = context.rows[0].approved_revision
+    data = {"whatsapp": True, "telegram": "@Valid_name", "contact_exposure_accepted": True,
+            "accept_publishing": True, "legal_version": context.document.version}
+    assert context.contacts_valid(data, revision)
+    prototype = context._validation_prototype(ContactsForm, data, revision)
+    field = (prototype.fields["telegram"] if scope == "form"
+             else revision._meta.get_field("telegram"))
+
+    def reject(value):
+        raise ValidationError("Current validation must run")
+
+    monkeypatch.setattr(field, "validators", [*field.validators, reject])
+    assert not context.contacts_valid(data, revision)
+    assert not context.contacts_valid(data, revision)
+    assert context.contact_validation_stats["fallbacks"] == 2
+    assert context.contact_validation_stats["hits"] == 0

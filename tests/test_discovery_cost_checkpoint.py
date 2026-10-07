@@ -5,6 +5,7 @@ import os
 import platform
 import time
 from collections import Counter
+from functools import wraps
 
 import pytest
 from django.db import connection
@@ -43,6 +44,7 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
     sql_execute_seconds = 0.0
     objects = Counter()
     field_clean_stats = []
+    contact_stats = []
     form_events = {}
 
     def instrument_form_method(form_class, method):
@@ -50,6 +52,7 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
         label = f"{form_class.__name__}.{method}"
         bucket = form_events.setdefault(label, {"calls": 0, "seconds": 0.0})
 
+        @wraps(original)
         def measured(self, *args, **kwargs):
             bucket["calls"] += 1
             start = time.perf_counter()
@@ -150,6 +153,7 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
         try:
             original_init(self, query)
             field_clean_stats.append(self.field_clean_cache_stats)
+            contact_stats.append(self.contact_validation_stats)
         finally:
             stages["context_seconds"] += time.perf_counter() - start
             phase = before
@@ -205,6 +209,7 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
     record_property("explicit_stages", stages)
     record_property("form_events", form_events)
     record_property("field_clean_cache_stats", field_clean_stats)
+    record_property("contact_validation_stats", contact_stats)
     record_property("objects_by_phase_model", {f"{p}:{m}": n for (p, m), n in provenance.items()})
     record_property("from_db_calls_by_model", dict(from_db_calls))
     record_property("from_db_seconds_by_model", dict(from_db_seconds))

@@ -1,6 +1,7 @@
 """Current-request publication validation; no persistent or cross-request cache."""
 
 from copy import copy
+from functools import wraps
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -14,6 +15,12 @@ from apps.core.models import LegalAcceptance, RepresentationAction, Verification
 from apps.mediafiles.models import Blob, Match, Photo
 from apps.safety.models import PrivacyPublicationHold, Restriction, RightsPhotoReintroduction
 
+from .contact_validation import (
+    MODEL_NAMES,
+    contact_success_key,
+    form_fields_signature,
+    form_methods_supported,
+)
 from .forms import ContactsForm, DetailsForm, RateForm
 from .history import ordinary_matches, rectification_history_ids
 from .submissions import current_publishing_document
@@ -110,6 +117,8 @@ class PublicationContext:
         self.rate_checks = {}
         self._validation_prototypes = {}
         self.field_clean_cache_stats = {}
+        self._contact_successes = {}
+        self.contact_validation_stats = {"calls": 0, "hits": 0, "misses": 0, "fallbacks": 0}
         grant = RepresentationAction.objects.filter(
             person_id=OuterRef("person_id"),
             subject_id=OuterRef("person__subject_id"),
@@ -248,21 +257,12 @@ class PublicationContext:
             self.catalog, data, instance=revision, prepared_fields=self.details_fields
         )
 
-    def _bound_validation(self, form_class, data, revision):
-        """Share definitions and successful scalar field cleaning within a request.
-
-        Key: form class, request-owned catalog identity, active language. The
-        source-defined fields/options and restricted catalog belong to this
-        context only. These two forms do not mutate field configuration while
-        cleaning. Memo keys include the prototype's actual field configuration,
-        validators, fresh catalog, language and exact typed input. Mutable result
-        containers are copied; all form/model validation runs on a fresh binding.
-        No representation, document, revocation or eligibility result is reused.
-        """
-        if form_class not in (SnapshotDetails, ContactsForm):
-            raise ValueError("Only the audited stateless publication forms can share definitions")
-        self.row(revision)
+    def _validation_prototype(self, form_class, data, revision):
         key = (form_class, id(self.catalog), get_language())
+        if form_class is ContactsForm:
+            # A changed base definition gets a new request-local prototype. An
+            # unknown configuration cannot reuse a previously validated result.
+            key += (form_fields_signature(ContactsForm.base_fields),)
         if key not in self._validation_prototypes:
             prototype = (
                 self.details(data, revision)
@@ -273,7 +273,24 @@ class PublicationContext:
                 if name != "title":
                     self._memoize_field_clean(form_class.__name__ + "." + name, field)
             self._validation_prototypes[key] = prototype
-        form = copy(self._validation_prototypes[key])
+        return self._validation_prototypes[key]
+
+    def _bound_validation(self, form_class, data, revision, *, native_fields=False):
+        """Share definitions and successful scalar field cleaning within a request.
+
+        Key: form class, request-owned catalog identity, active language. The
+        source-defined fields/options and restricted catalog belong to this
+        context only. These two forms do not mutate field configuration while
+        cleaning. Memo keys include the prototype's actual field configuration,
+        validators, fresh catalog, language and exact typed input. Mutable result
+        containers are copied; native validation runs on every uncached binding.
+        Contact success reuse is separately gated by its complete dependency key.
+        No representation, document, revocation or eligibility result is reused.
+        """
+        if form_class not in (SnapshotDetails, ContactsForm):
+            raise ValueError("Only the audited stateless publication forms can share definitions")
+        self.row(revision)
+        form = copy(self._validation_prototype(form_class, data, revision))
         form.instance = revision
         form.data = data
         # These private, bound forms are validated, never rendered or used for
@@ -289,6 +306,14 @@ class PublicationContext:
             form.initial.setdefault("province", city.province_id)
             form.initial.setdefault("region", city.province.region_id)
         form.fields = dict(form.fields)
+        if native_fields:
+            form.fields = {name: copy(field) for name, field in form.fields.items()}
+            for field in form.fields.values():
+                native = (field._publication_native_clean
+                          if field.clean is getattr(field, "_publication_memo_clean", None)
+                          else field.clean)
+                if hasattr(native, "__func__"):
+                    field.clean = native.__func__.__get__(field, type(field))
         form._errors = None
         form._bound_fields_cache = {}
         form._validate_unique = False
@@ -325,6 +350,7 @@ class PublicationContext:
                 return value.all()
             return value
 
+        @wraps(original)
         def clean(value):
             stats["calls"] += 1
             try:
@@ -341,13 +367,40 @@ class PublicationContext:
             memo[key] = cleaned
             return independent(cleaned)
 
+        field._publication_native_clean = original
+        field._publication_memo_clean = clean
         field.clean = clean
 
     def details_valid(self, data, revision):
         return self._bound_validation(SnapshotDetails, data, revision)
 
     def contacts_valid(self, data, revision):
-        return self._bound_validation(ContactsForm, data, revision)
+        self.row(revision)
+        stats = self.contact_validation_stats
+        stats["calls"] += 1
+        if (not form_methods_supported()
+                or form_fields_signature(ContactsForm.base_fields) is None):
+            stats["fallbacks"] += 1
+            form = ContactsForm(data, instance=revision)
+            try:
+                return form.is_valid()
+            finally:
+                form._bound_fields_cache.clear()
+        prototype = self._validation_prototype(ContactsForm, data, revision)
+        key = contact_success_key(prototype, data, revision, get_language())
+        if key is None:
+            stats["fallbacks"] += 1
+            return self._bound_validation(ContactsForm, data, revision, native_fields=True)
+        if key in self._contact_successes:
+            stats["hits"] += 1
+            for name, value in zip(MODEL_NAMES, self._contact_successes[key], strict=True):
+                setattr(revision, name, value)
+            return True
+        stats["misses"] += 1
+        valid = self._bound_validation(ContactsForm, data, revision)
+        if valid:
+            self._contact_successes[key] = tuple(getattr(revision, name) for name in MODEL_NAMES)
+        return valid
 
     def rate_valid(self, rate):
         # The existing rate constraint/form depends only on these primitive values.
