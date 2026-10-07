@@ -135,9 +135,7 @@ class PublicationContext:
             "approved_revision__municipality__province__region",
         )
         for name in ["categories", "services", "travel_areas", "rates"]:
-            query = query.prefetch_related(
-                Prefetch("approved_revision__" + name, to_attr="_pv_" + name)
-            )
+            query = query.prefetch_related(Prefetch("approved_revision__" + name))
         query = query.prefetch_related(
             Prefetch(
                 "approved_revision__photos",
@@ -162,6 +160,8 @@ class PublicationContext:
         }
         for row in self.rows:
             revision = row.approved_revision
+            for relation in ["categories", "services", "travel_areas", "rates"]:
+                setattr(revision, "_pv_" + relation, list(getattr(revision, relation).all()))
             for name in ["categories", "services", "travel_areas"]:
                 ids[name].update(item.pk for item in getattr(revision, "_pv_" + name))
             city = revision.municipality
@@ -174,10 +174,10 @@ class PublicationContext:
                     ids[name].add(getattr(revision, name + "_id"))
         self.catalog = {}
         for name, values in ids.items():
-            self.catalog[name] = {
-                str(item.pk): item
-                for item in DetailsForm.base_fields[name].queryset.filter(pk__in=values)
-            }
+            catalog_query = DetailsForm.base_fields[name].queryset.filter(pk__in=values)
+            if name == "municipality":
+                catalog_query = catalog_query.select_related("province__region")
+            self.catalog[name] = {str(item.pk): item for item in catalog_query}
         postals = list(self.catalog["postal_code"].values())
         if postals:
             from django.db.models import prefetch_related_objects
