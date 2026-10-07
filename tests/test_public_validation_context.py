@@ -1,6 +1,7 @@
 """Fresh batched publication checks must match the existing guard exactly."""
 
 from copy import copy
+from weakref import ref
 
 import pytest
 from django.db import connection
@@ -254,6 +255,29 @@ def test_private_bindings_skip_unused_initial_but_preserve_disabled_fields(reque
     assert context.contacts_valid({**data, "telegram": "invalid!"}, revision)
     assert calls == [revision.pk]
     assert revision.telegram == "Valid_name"
+
+
+def test_successful_private_binding_is_released_without_forcing_gc(request, monkeypatch):
+    request.getfixturevalue("directory")
+    context = PublicationContext(candidates({}))
+    row = next(row for row in context.rows if publicly_visible(row, context=context))
+    observed = []
+    original = ContactsForm.full_clean
+
+    def capture(form):
+        observed.append(ref(form))
+        original(form)
+        assert form._bound_fields_cache  # Native cleaning really built the cycle.
+
+    monkeypatch.setattr(ContactsForm, "full_clean", capture)
+    data = {"whatsapp": False, "telegram": "@Valid_name",
+            "contact_exposure_accepted": True, "accept_publishing": True,
+            "legal_version": context.document.version}
+    assert context.contacts_valid(data, row.approved_revision)
+    # No gc.collect/disable or threshold change: the completed valid binding
+    # loses its last strong reference as soon as the private method returns.
+    assert len(observed) == 1 and observed[0]() is None
+    assert row.approved_revision.telegram == "Valid_name"
 
 
 def test_context_matches_ordinary_visibility_and_fresh_catalog_changes(request):

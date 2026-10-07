@@ -294,7 +294,13 @@ class PublicationContext:
         form._validate_unique = False
         form.__dict__.pop("changed_data", None)
         form.__dict__.pop("cleaned_data", None)
-        return form.is_valid()
+        try:
+            return form.is_valid()
+        finally:
+            # A BoundField points back to its form. These private bindings return
+            # only a boolean and are never rendered; release their reverse cache
+            # after native cleaning instead of leaving successful cycles for GC.
+            form._bound_fields_cache.clear()
 
     def _memoize_field_clean(self, name, field):
         # Field.clean receives only value; instance/cross-field/model/authority
