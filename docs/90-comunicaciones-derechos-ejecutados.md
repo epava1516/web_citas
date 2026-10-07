@@ -49,3 +49,7 @@ La fuente de cuenta contiene75 modelos seleccionados tras esta ampliación. Meta
 [Verificación](evidencias/censo-avisos-derechos0110.json):3 pruebas de ámbito/opacidad/dependencias y7 de integración con acceso/comunicaciones. No migración, tarea, política jurídica o autorización de destrucción nuevas.
 
 Fuente del censo2991e4e, [Docker0110 verificado](evidencias/censo-avisos-derechos-runtime0110.json):53 archivos coincidentes; sin migración/tarea nueva.
+
+## Comprobación finita de destinatarios históricos — 2026-10-07
+
+[Verificación PG](evidencias/destinatarios-historicos-diagnostico0110.json), fuente2a5bfff: candidato anterior propio retenido/evaluable, historial ajeno excluido, decisión necesaria y comunicado sin acuse rechazado; autorización de entrega limitada a destinatarios actuales. Sin cambio de aplicación. No omisión demostrada en cálculo/validación existente. El pendiente histórico exige evidencia del operador/revisor sobre divulgación y canal/entrega o motivos por candidato; no autoridad por rol pasado ni obligación resuelta con historial sintético. Esta comprobación no acredita entrega externa ni cierre integral.
