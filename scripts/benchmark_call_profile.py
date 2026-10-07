@@ -9,7 +9,13 @@ class CallProfile:
         self.targets = {}
         for function in targets:
             function = getattr(function, '__func__', function)
-            self.targets[function.__code__] = function.__module__ + '.' + function.__qualname__
+            name = function.__module__ + '.' + function.__qualname__
+            existing = self.targets.get(function.__code__)
+            if existing is not None and existing != name:
+                raise ValueError(
+                    'Ambiguous profile code shared by ' + existing + ' and ' + name
+                )
+            self.targets[function.__code__] = name
         self.stack = []
         self.rules = {}
         self.projection_stats = []
