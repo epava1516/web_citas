@@ -1,0 +1,29 @@
+{
+  "source_commit": "01504e07c642b427233eb9af4a75b94e14183908",
+  "tests": [
+    "tests/test_public_validation_context.py",
+    "tests/test_discovery.py",
+    "tests/test_privacy_publication_holds.py"
+  ],
+  "sources_unchanged": true,
+  "migration_exit": 0,
+  "pytest_exit": 0,
+  "cleanup_verified": true,
+  "test_media_removed": true,
+  "artifact_sha256": {
+    "migration.log": "554c86191aa5458fa81d6926cc0060ee8b12abefbb10023fb049f7a28126fb79",
+    "pytest.log": "2ba0830f2e00ede4c257cb011e763ee3d619dd013e2a084dbc5a1ec2265cebca",
+    "pytest.xml": "b2afafa47198ebd8d320e13abce7b4894b4c63d5f393c87771506bdef7cfad77",
+    "test-timings.json": "6c5d82086d05e705b0cf068045b47754a94e6c2260d73b1f4f41a4aa99ada9da"
+  },
+  "timing_seconds": {
+    "configuration": 0.11475038109347224,
+    "database_preparation": 0.12241151696071029,
+    "migration": 34.366154993884265,
+    "pytest": 169.19637081120163,
+    "cleanup": 0.10896600782871246,
+    "total": 203.98805259307846
+  },
+  "case_count": 21,
+  "scope": "Shared FK records by actual PK,100 synthetic native candidates; individual consent revocation remains isolated and fresh failed agency blocks its candidates. Native form/guard equivalence, binding isolation, photo state, catalog/consent/grant/check/discovery/privacy regression. No capacity/phase acceptance."
+}
