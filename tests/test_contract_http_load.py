@@ -121,6 +121,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 time.sleep(0.1)
         for path in routes:
             cold.append(fetch(path))
+            if large and cold[-1]["unexpected"]:
+                break
         summary['cold_probes'] = cold
         assert all(not row['unexpected'] for row in cold), 'Cold HTTP prerequisite failed; full workload not executed'
         if large:
