@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="0.533" timestamp="2026-10-07T09:23:42.423698+02:00" hostname="almasrv.thehomelesssherlock.com"><testcase classname="tests.test_projection_rule_boundary" name="test_changed_submission_authority_alias_is_unsupported" time="0.067"><failure message="AssertionError: assert 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab' != 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab'&#10; +  where 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab' = &lt;function definitions_digest at 0x7fd0ec3b3880&gt;()&#10; +    where &lt;function definitions_digest at 0x7fd0ec3b3880&gt; = projected_publication.definitions_digest">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7fd0ce31f080&gt;
+
+    def test_changed_submission_authority_alias_is_unsupported(monkeypatch):
+        before = projected_publication.definitions_digest()
+        monkeypatch.setattr(submissions, "publication_ready", lambda person: False)
+&gt;       assert projected_publication.definitions_digest() != before
+E       AssertionError: assert 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab' != 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab'
+E        +  where 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab' = &lt;function definitions_digest at 0x7fd0ec3b3880&gt;()
+E        +    where &lt;function definitions_digest at 0x7fd0ec3b3880&gt; = projected_publication.definitions_digest
+
+tests/test_projection_rule_boundary.py:10: AssertionError</failure></testcase><testcase classname="tests.test_projection_rule_boundary" name="test_changed_context_contacts_callback_is_unsupported" time="0.058"><failure message="AssertionError: assert 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab' != 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab'&#10; +  where 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab' = &lt;function definitions_digest at 0x7fd0ec3b3880&gt;()&#10; +    where &lt;function definitions_digest at 0x7fd0ec3b3880&gt; = projected_publication.definitions_digest">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7fd0ce38d010&gt;
+
+    def test_changed_context_contacts_callback_is_unsupported(monkeypatch):
+        before = projected_publication.definitions_digest()
+        monkeypatch.setattr(PublicationContext, "contacts_valid", lambda *args: False)
+&gt;       assert projected_publication.definitions_digest() != before
+E       AssertionError: assert 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab' != 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab'
+E        +  where 'a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab' = &lt;function definitions_digest at 0x7fd0ec3b3880&gt;()
+E        +    where &lt;function definitions_digest at 0x7fd0ec3b3880&gt; = projected_publication.definitions_digest
+
+tests/test_projection_rule_boundary.py:16: AssertionError</failure></testcase></testsuite></testsuites>

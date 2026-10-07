@@ -11,6 +11,7 @@ from test_photos import photo_environment  # noqa: F401
 
 from apps.core.models import Person
 from apps.listings import projected_publication as projection_module
+from apps.listings import submissions
 from apps.listings.discovery import candidates
 from apps.listings.forms import DetailsForm
 from apps.listings.models import Revision
@@ -155,3 +156,42 @@ def test_revocation_committed_between_projection_and_hydration_recomputes_native
     assert listing_id not in actual
     record_property("concurrent_revocation_observed", True)
     record_property("native_population_recomputed", True)
+
+
+def test_changed_authority_alias_outside_page_preserves_complete_count(request, monkeypatch):
+    client = request.getfixturevalue("directory")
+    populate(50)
+    last = candidates({}).last()
+    first_page_ids = native_ids(candidates({}))[:24]
+    assert last.pk not in first_page_ids
+    original = submissions.publication_ready
+
+    def changed(person):
+        return person.pk != last.person_id and original(person)
+
+    monkeypatch.setattr(submissions, "publication_ready", changed)
+    assert not supported()
+    response = client.get("/es/")
+    assert response.context["page"].paginator.count == 49
+    assert [row.pk for row in response.context["page"].object_list] == first_page_ids
+
+
+def test_distinct_content_and_full_unknown_fallback_preserve_native_population(request, record_property):
+    request.getfixturevalue("directory")
+    populate(25)
+    for index, row in enumerate(candidates({})):
+        Revision.objects.filter(pk=row.approved_revision_id).update(
+            description=f"Unique synthetic professional description number {index}."
+        )
+    query = candidates({})
+    projection = ProjectedPublication(query)
+    assert projection.visible_ids(query) == native_ids(query)
+    assert projection.stats["positive"] == projection.stats["details_native"] == 25
+    record_property("distinct_content_stats", dict(projection.stats))
+    Revision.objects.filter(approved_for__status="published").update(spoken_languages={"es": True})
+    query = candidates({})
+    unknown = ProjectedPublication(query)
+    assert unknown.visible_ids(query) == native_ids(query)
+    assert unknown.stats["positive"] == 0 and unknown.stats["native_fallback"] == 25
+    record_property("full_unknown_fallback_stats", dict(unknown.stats))
+    record_property("limits", "Small functional diversity/fallback cases; no latency or capacity claim")

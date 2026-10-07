@@ -29,7 +29,7 @@ from apps.core.models import LegalAcceptance
 from apps.mediafiles.models import Photo
 
 from . import forms as listing_forms
-from . import moderation, submissions
+from . import history, moderation, public_validation, submissions
 from .forms import ContactsForm, DetailsForm, RateForm
 from .models import Rate, Revision
 from .public_validation import (
@@ -48,24 +48,39 @@ def definitions():
     validator, widget/configuration, constraint or instance rule is unsupported.
     The expected digest is reviewed source data, not learnt from a new request.
     """
-    classes = [DetailsForm, ContactsForm, RateForm, SnapshotDetails, SnapshotChoice,
+    classes = [DetailsForm, ContactsForm, RateForm, PublicationContext, SnapshotDetails, SnapshotChoice,
                SnapshotMultipleChoice, Revision, Rate, forms.Field, forms.CharField,
                forms.BooleanField, forms.ChoiceField, forms.MultipleChoiceField,
                forms.ModelChoiceField, forms.ModelMultipleChoiceField, forms.ModelForm,
                forms.TextInput, forms.Select, forms.CheckboxInput, forms.SelectMultiple]
     functions = [listing_forms.validate_listing_text, listing_forms.normalize_telegram,
                  submissions.validate_submission, moderation.validate_submission,
-                 moderation.publicly_visible, verification_services.publication_ready]
+                 moderation.publicly_visible, verification_services.publication_ready,
+                 submissions.publication_ready, submissions.current_publishing_document,
+                 publication_query, public_validation.publication_query,
+                 history.ordinary_matches, history.rectification_history_ids]
     for cls in classes:
         names = {"__init__", "clean", "full_clean", "clean_fields", "validate_unique",
                  "validate_constraints", "_get_unique_checks", "_perform_unique_checks",
                  "_perform_date_checks", "is_valid", "_clean_fields", "_clean_form",
                  "_post_clean", "_get_validation_exclusions", "_bound_items",
                  "__getitem__", "_clean_bound_field", "to_python", "validate",
-                 "run_validators", "postal_matches", "_check_values", "value_from_datadict"}
+                 "run_validators", "postal_matches", "_check_values", "value_from_datadict",
+                 "details", "details_valid", "contacts_valid", "rate_valid", "row",
+                 "_bound_validation", "_memoize_field_clean", "fields_for_catalog"}
         names.update(name for name in dir(cls) if name.startswith("clean_"))
         functions.extend(getattr(cls, name) for name in sorted(names)
                          if callable(getattr(cls, name, None)))
+    for model in [Revision, Rate]:
+        for field in model._meta.concrete_fields:
+            functions.extend(getattr(field, name) for name in
+                             ["clean", "validate", "to_python", "run_validators"])
+            functions.extend(validator if inspect.isfunction(validator) else validator.__call__
+                             for validator in field.validators)
+    for cls in [DetailsForm, ContactsForm, RateForm]:
+        for field in cls.base_fields.values():
+            functions.extend(validator if inspect.isfunction(validator) else validator.__call__
+                             for validator in field.validators)
     code = []
     for function in functions:
         function = inspect.unwrap(function)
@@ -73,7 +88,8 @@ def definitions():
                      hashlib.sha256(inspect.getsource(function).encode()).hexdigest()))
     field_options = []
     for cls in [DetailsForm, ContactsForm, RateForm]:
-        field_options.append((cls.__name__, tuple(cls._meta.fields), cls._meta.exclude))
+        field_options.append((cls.__name__, cls._meta.model._meta.label,
+                              tuple(cls._meta.fields), cls._meta.exclude))
         for name, field in cls.base_fields.items():
             attrs = {key: value for key, value in vars(field).items()
                      if key not in {"label", "help_text", "error_messages", "widget",
@@ -98,7 +114,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "a0c604789e9c0bd69896787c1ed32a2a080d1f0b2a4dd1463d85ce816fb8dcab"
+EXPECTED_DEFINITIONS = "0a2bf933a945c72f0b2b143fa548478ace0bc3b089f20b2929e396e1fec512f4"
 
 
 def definitions_digest():
