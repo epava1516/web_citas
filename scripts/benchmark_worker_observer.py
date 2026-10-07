@@ -145,16 +145,20 @@ def post_worker_init(worker):
         PublicationContext.__init__ = observer.measured("context", PublicationContext.__init__)
         moderation.validate_submission = observer.measured("validation", moderation.validate_submission, progress=True)
     else:
-        original_render = discovery.render
+        original_response = worker.wsgi.get_response
 
-        @wraps(original_render)
-        def route_render(request, *args, **kwargs):
-            state = _CURRENT.get()
-            if state is not None:
-                observer.write(state, "publication_route", **request._publication_route)
-            return original_render(request, *args, **kwargs)
+        def route_response(request):
+            try:
+                return original_response(request)
+            finally:
+                state = _CURRENT.get()
+                if state is not None:
+                    route = getattr(request, "_publication_route", None)
+                    if route is None:
+                        route = {"route": "native", "reason": "handler_without_projection"}
+                    observer.write(state, "publication_route", **route)
 
-        discovery.render = route_render
+        worker.wsgi.get_response = route_response
     discovery.render = observer.measured("render", discovery.render)
     moderation_views.render = observer.measured("render", moderation_views.render)
     connection.execute_wrappers.append(observer.sql)
