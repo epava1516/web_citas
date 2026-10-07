@@ -1,0 +1,5789 @@
+{
+  "events": [
+    {
+      "id": "u-0",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076180.944249349,
+      "started": 3076180.944216765
+    },
+    {
+      "id": "u-0",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076181.760224079,
+      "status": 302,
+      "error_type": null,
+      "wall": 0.8159984932281077,
+      "thread_cpu": 0.6157643320000001,
+      "stages": {},
+      "sql": {
+        "calls": 52,
+        "wall": 0.10327219916507602,
+        "thread_cpu": 0.011271417000000339
+      }
+    },
+    {
+      "id": "d-11",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076181.760651366,
+      "started": 3076181.760642379
+    },
+    {
+      "id": "d-11",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076181.765373127,
+      "stage": "validation"
+    },
+    {
+      "id": "d-11",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076181.877910739,
+      "stage": "render"
+    },
+    {
+      "id": "d-11",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076181.887342735,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.08539833733811975,
+          "thread_cpu": 0.03313808699999998
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.00938255013898015,
+          "thread_cpu": 0.0070377799999998825
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.07429492333903909,
+        "thread_cpu": 0.006793565000000612
+      }
+    },
+    {
+      "id": "d-11",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076181.888619223,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.1279653711244464,
+      "thread_cpu": 0.05710057499999999,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.08539833733811975,
+          "thread_cpu": 0.03313808699999998
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.00938255013898015,
+          "thread_cpu": 0.0070377799999998825
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.07429492333903909,
+        "thread_cpu": 0.006793565000000612
+      }
+    },
+    {
+      "id": "d-13",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076181.88908074,
+      "started": 3076181.889073351
+    },
+    {
+      "id": "d-13",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076181.892390232,
+      "stage": "context"
+    },
+    {
+      "id": "d-13",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076181.963212076,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07076705014333129,
+          "thread_cpu": 0.03724473799999983
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03450462315231562,
+        "thread_cpu": 0.0029220250000003833
+      }
+    },
+    {
+      "id": "d-13",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076181.963315566,
+      "stage": "validation"
+    },
+    {
+      "id": "d-13",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.015377224,
+      "stage": "render"
+    },
+    {
+      "id": "d-13",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076182.061518246,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07076705014333129,
+          "thread_cpu": 0.03724473799999983
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.011219579260796309,
+          "thread_cpu": 0.010606554000000434
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.046087408903986216,
+          "thread_cpu": 0.027600316000000014
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0692687095142901,
+        "thread_cpu": 0.009198059000000036
+      }
+    },
+    {
+      "id": "d-13",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076182.062241901,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.1731618782505393,
+      "thread_cpu": 0.10265898299999998,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07076705014333129,
+          "thread_cpu": 0.03724473799999983
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.011219579260796309,
+          "thread_cpu": 0.010606554000000434
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.046087408903986216,
+          "thread_cpu": 0.027600316000000014
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0692687095142901,
+        "thread_cpu": 0.009198059000000036
+      }
+    },
+    {
+      "id": "d-18",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076182.06260526,
+      "started": 3076182.062598092
+    },
+    {
+      "id": "d-18",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.065890042,
+      "stage": "context"
+    },
+    {
+      "id": "d-18",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076182.139856051,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07392577361315489,
+          "thread_cpu": 0.03530017400000007
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03869742248207331,
+        "thread_cpu": 0.002590399000000021
+      }
+    },
+    {
+      "id": "d-18",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.139953565,
+      "stage": "validation"
+    },
+    {
+      "id": "d-18",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.189226122,
+      "stage": "render"
+    },
+    {
+      "id": "d-18",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076182.248740386,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07392577361315489,
+          "thread_cpu": 0.03530017400000007
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.009959971532225609,
+          "thread_cpu": 0.009260443000000063
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.05944828037172556,
+          "thread_cpu": 0.02916016400000032
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.07722679991275072,
+        "thread_cpu": 0.008012038000001498
+      }
+    },
+    {
+      "id": "d-18",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076182.249512022,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.1869077137671411,
+      "thread_cpu": 0.10045334899999969,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07392577361315489,
+          "thread_cpu": 0.03530017400000007
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.009959971532225609,
+          "thread_cpu": 0.009260443000000063
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.05944828037172556,
+          "thread_cpu": 0.02916016400000032
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.07722679991275072,
+        "thread_cpu": 0.008012038000001498
+      }
+    },
+    {
+      "id": "d-22",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076182.249896604,
+      "started": 3076182.249889319
+    },
+    {
+      "id": "d-22",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.254066358,
+      "stage": "validation"
+    },
+    {
+      "id": "d-22",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.362654874,
+      "stage": "render"
+    },
+    {
+      "id": "d-22",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076182.369289357,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.08523334795609117,
+          "thread_cpu": 0.031609372999999774
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.006591317243874073,
+          "thread_cpu": 0.004309993000000123
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.07240321021527052,
+        "thread_cpu": 0.006016295000000671
+      }
+    },
+    {
+      "id": "d-22",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076182.369916988,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.12002141494303942,
+      "thread_cpu": 0.05164925800000031,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.08523334795609117,
+          "thread_cpu": 0.031609372999999774
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.006591317243874073,
+          "thread_cpu": 0.004309993000000123
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.07240321021527052,
+        "thread_cpu": 0.006016295000000671
+      }
+    },
+    {
+      "id": "d-26",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076182.370253169,
+      "started": 3076182.370246037
+    },
+    {
+      "id": "d-26",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.374790188,
+      "stage": "context"
+    },
+    {
+      "id": "d-26",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076182.543214988,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.16838186187669635,
+          "thread_cpu": 0.12311514499999987
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.04587421007454395,
+        "thread_cpu": 0.003448637000000865
+      }
+    },
+    {
+      "id": "d-26",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.543384047,
+      "stage": "validation"
+    },
+    {
+      "id": "d-26",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.609094716,
+      "stage": "render"
+    },
+    {
+      "id": "d-26",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076182.674625313,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.16838186187669635,
+          "thread_cpu": 0.12311514499999987
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01166644785553217,
+          "thread_cpu": 0.010095703000000622
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06547216232866049,
+          "thread_cpu": 0.03128761099999977
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.10256683640182018,
+        "thread_cpu": 0.009054543000000859
+      }
+    },
+    {
+      "id": "d-26",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076182.675779491,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.3055272442288697,
+      "thread_cpu": 0.19534973900000008,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.16838186187669635,
+          "thread_cpu": 0.12311514499999987
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01166644785553217,
+          "thread_cpu": 0.010095703000000622
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06547216232866049,
+          "thread_cpu": 0.03128761099999977
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.10256683640182018,
+        "thread_cpu": 0.009054543000000859
+      }
+    },
+    {
+      "id": "d-33",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076182.67616426,
+      "started": 3076182.676157952
+    },
+    {
+      "id": "d-33",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.680789588,
+      "stage": "context"
+    },
+    {
+      "id": "d-33",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076182.748266237,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06743621500208974,
+          "thread_cpu": 0.03705898699999999
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03141440451145172,
+        "thread_cpu": 0.00428541999999954
+      }
+    },
+    {
+      "id": "d-33",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.748388624,
+      "stage": "validation"
+    },
+    {
+      "id": "d-33",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.79742294,
+      "stage": "render"
+    },
+    {
+      "id": "d-33",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076182.83879854,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06743621500208974,
+          "thread_cpu": 0.03705898699999999
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010494508314877748,
+          "thread_cpu": 0.009606954999998862
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.041321403812617064,
+          "thread_cpu": 0.02767759500000011
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05666736140847206,
+        "thread_cpu": 0.009569159999999854
+      }
+    },
+    {
+      "id": "d-33",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076182.840376429,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.16421201638877392,
+      "thread_cpu": 0.10422547699999996,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06743621500208974,
+          "thread_cpu": 0.03705898699999999
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010494508314877748,
+          "thread_cpu": 0.009606954999998862
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.041321403812617064,
+          "thread_cpu": 0.02767759500000011
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05666736140847206,
+        "thread_cpu": 0.009569159999999854
+      }
+    },
+    {
+      "id": "d-38",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076182.844653078,
+      "started": 3076182.844644479
+    },
+    {
+      "id": "d-38",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.849542651,
+      "stage": "context"
+    },
+    {
+      "id": "d-38",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076182.918317509,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06871923478320241,
+          "thread_cpu": 0.03858898200000027
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03165577258914709,
+        "thread_cpu": 0.0031681699999994706
+      }
+    },
+    {
+      "id": "d-38",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.918485078,
+      "stage": "validation"
+    },
+    {
+      "id": "d-38",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076182.965336877,
+      "stage": "render"
+    },
+    {
+      "id": "d-38",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076183.016825314,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06871923478320241,
+          "thread_cpu": 0.03858898200000027
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010997677687555552,
+          "thread_cpu": 0.01009379800000021
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.051425158977508545,
+          "thread_cpu": 0.04024666900000007
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05439864983782172,
+        "thread_cpu": 0.008694852999998837
+      }
+    },
+    {
+      "id": "d-38",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076183.018360191,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.17370722722262144,
+      "thread_cpu": 0.11827932200000024,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06871923478320241,
+          "thread_cpu": 0.03858898200000027
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010997677687555552,
+          "thread_cpu": 0.01009379800000021
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.051425158977508545,
+          "thread_cpu": 0.04024666900000007
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05439864983782172,
+        "thread_cpu": 0.008694852999998837
+      }
+    },
+    {
+      "id": "d-41",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076183.018876854,
+      "started": 3076183.018867356
+    },
+    {
+      "id": "d-41",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.024050511,
+      "stage": "validation"
+    },
+    {
+      "id": "d-41",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.111531204,
+      "stage": "render"
+    },
+    {
+      "id": "d-41",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076183.118400011,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.06461462425068021,
+          "thread_cpu": 0.03322542499999992
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.006820820737630129,
+          "thread_cpu": 0.004312289000000025
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.04870456736534834,
+        "thread_cpu": 0.006133228000000379
+      }
+    },
+    {
+      "id": "d-41",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076183.119505268,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.10063168499618769,
+      "thread_cpu": 0.05302686699999981,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.06461462425068021,
+          "thread_cpu": 0.03322542499999992
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.006820820737630129,
+          "thread_cpu": 0.004312289000000025
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.04870456736534834,
+        "thread_cpu": 0.006133228000000379
+      }
+    },
+    {
+      "id": "d-45",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076183.194859624,
+      "started": 3076183.194845956
+    },
+    {
+      "id": "d-45",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.201643611,
+      "stage": "context"
+    },
+    {
+      "id": "d-45",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076183.300346425,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09865007316693664,
+          "thread_cpu": 0.04776614099999987
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.04409790690988302,
+        "thread_cpu": 0.003429020000000005
+      }
+    },
+    {
+      "id": "d-45",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.300521291,
+      "stage": "validation"
+    },
+    {
+      "id": "d-45",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.361287287,
+      "stage": "render"
+    },
+    {
+      "id": "d-45",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076183.415334792,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09865007316693664,
+          "thread_cpu": 0.04776614099999987
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012006709352135658,
+          "thread_cpu": 0.009307858999998864
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.05398109182715416,
+          "thread_cpu": 0.026599732999999848
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09401746327057481,
+        "thread_cpu": 0.008461639000000964
+      }
+    },
+    {
+      "id": "d-45",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076183.416087615,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.22123585501685739,
+      "thread_cpu": 0.1124734700000003,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09865007316693664,
+          "thread_cpu": 0.04776614099999987
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012006709352135658,
+          "thread_cpu": 0.009307858999998864
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.05398109182715416,
+          "thread_cpu": 0.026599732999999848
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09401746327057481,
+        "thread_cpu": 0.008461639000000964
+      }
+    },
+    {
+      "id": "d-50",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076183.444128552,
+      "started": 3076183.444115672
+    },
+    {
+      "id": "d-50",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.450641385,
+      "stage": "context"
+    },
+    {
+      "id": "d-50",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076183.538123724,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08742771577090025,
+          "thread_cpu": 0.040094789999999936
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.04159010527655482,
+        "thread_cpu": 0.0031261260000015056
+      }
+    },
+    {
+      "id": "d-50",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.538303755,
+      "stage": "validation"
+    },
+    {
+      "id": "d-50",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.607943506,
+      "stage": "render"
+    },
+    {
+      "id": "d-50",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076183.666510457,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08742771577090025,
+          "thread_cpu": 0.040094789999999936
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010539019014686346,
+          "thread_cpu": 0.00975397900000008
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.05846554599702358,
+          "thread_cpu": 0.033594684999999735
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09171273792162538,
+        "thread_cpu": 0.009055376000001836
+      }
+    },
+    {
+      "id": "d-50",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076183.667346602,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.22322435025125742,
+      "thread_cpu": 0.11433456000000009,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08742771577090025,
+          "thread_cpu": 0.040094789999999936
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010539019014686346,
+          "thread_cpu": 0.00975397900000008
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.05846554599702358,
+          "thread_cpu": 0.033594684999999735
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09171273792162538,
+        "thread_cpu": 0.009055376000001836
+      }
+    },
+    {
+      "id": "d-55",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076183.695523765,
+      "started": 3076183.695506183
+    },
+    {
+      "id": "d-55",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.700902951,
+      "stage": "context"
+    },
+    {
+      "id": "d-55",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076183.791246345,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0902746208012104,
+          "thread_cpu": 0.045040084000000036
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.046477423049509525,
+        "thread_cpu": 0.0031124119999996758
+      }
+    },
+    {
+      "id": "d-55",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.791359514,
+      "stage": "validation"
+    },
+    {
+      "id": "d-55",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.852790948,
+      "stage": "render"
+    },
+    {
+      "id": "d-55",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076183.91982819,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0902746208012104,
+          "thread_cpu": 0.045040084000000036
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.014212255366146564,
+          "thread_cpu": 0.010083104999999204
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06698406580835581,
+          "thread_cpu": 0.02943574999999976
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.10308962734416127,
+        "thread_cpu": 0.009044737000000858
+      }
+    },
+    {
+      "id": "d-55",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076183.920603247,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.22509018192067742,
+      "thread_cpu": 0.11215589700000006,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0902746208012104,
+          "thread_cpu": 0.045040084000000036
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.014212255366146564,
+          "thread_cpu": 0.010083104999999204
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06698406580835581,
+          "thread_cpu": 0.02943574999999976
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.10308962734416127,
+        "thread_cpu": 0.009044737000000858
+      }
+    },
+    {
+      "id": "d-59",
+      "pid": 747054,
+      "event": "wsgi_start",
+      "monotonic": 3076183.92099745,
+      "started": 3076183.920988046
+    },
+    {
+      "id": "d-59",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076183.927366894,
+      "stage": "validation"
+    },
+    {
+      "id": "d-59",
+      "pid": 747054,
+      "event": "stage_start",
+      "monotonic": 3076184.015948978,
+      "stage": "render"
+    },
+    {
+      "id": "d-59",
+      "pid": 747054,
+      "event": "stage_end",
+      "monotonic": 3076184.021911539,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.06639411905780435,
+          "thread_cpu": 0.036729126
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.005922547075897455,
+          "thread_cpu": 0.0038742149999997366
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.047111635096371174,
+        "thread_cpu": 0.006597634000002017
+      }
+    },
+    {
+      "id": "d-59",
+      "pid": 747054,
+      "event": "wsgi_end",
+      "monotonic": 3076184.022558708,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.10156450886279345,
+      "thread_cpu": 0.05714598000000004,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.06639411905780435,
+          "thread_cpu": 0.036729126
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.005922547075897455,
+          "thread_cpu": 0.0038742149999997366
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.047111635096371174,
+        "thread_cpu": 0.006597634000002017
+      }
+    },
+    {
+      "id": "d-0",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076180.944037747,
+      "started": 3076180.944014504
+    },
+    {
+      "id": "d-0",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076180.949798941,
+      "stage": "context"
+    },
+    {
+      "id": "d-0",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076181.035511724,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08566435007378459,
+          "thread_cpu": 0.04736345799999997
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03369035152718425,
+        "thread_cpu": 0.0027659450000001584
+      }
+    },
+    {
+      "id": "d-0",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.035613035,
+      "stage": "validation"
+    },
+    {
+      "id": "d-0",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.084712151,
+      "stage": "render"
+    },
+    {
+      "id": "d-0",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076181.149983944,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08566435007378459,
+          "thread_cpu": 0.04736345799999997
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010859758127480745,
+          "thread_cpu": 0.009579285999999465
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06519776489585638,
+          "thread_cpu": 0.031426237000000024
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06748908665031195,
+        "thread_cpu": 0.00808339700000027
+      }
+    },
+    {
+      "id": "d-0",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076181.151285338,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.20726405596360564,
+      "thread_cpu": 0.1167259089999999,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08566435007378459,
+          "thread_cpu": 0.04736345799999997
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010859758127480745,
+          "thread_cpu": 0.009579285999999465
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06519776489585638,
+          "thread_cpu": 0.031426237000000024
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06748908665031195,
+        "thread_cpu": 0.00808339700000027
+      }
+    },
+    {
+      "id": "d-3",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076181.151672665,
+      "started": 3076181.151664636
+    },
+    {
+      "id": "d-3",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.163843129,
+      "stage": "context"
+    },
+    {
+      "id": "d-3",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076181.313559786,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.14965785294771194,
+          "thread_cpu": 0.059261593
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.07665942469611764,
+        "thread_cpu": 0.004547362999999249
+      }
+    },
+    {
+      "id": "d-3",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.313826056,
+      "stage": "validation"
+    },
+    {
+      "id": "d-3",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.41354711,
+      "stage": "render"
+    },
+    {
+      "id": "d-3",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076181.526911509,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.14965785294771194,
+          "thread_cpu": 0.059261593
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.05293960403650999,
+          "thread_cpu": 0.016621631999999664
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.1133115328848362,
+          "thread_cpu": 0.03174748199999988
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.15502616157755256,
+        "thread_cpu": 0.011120534999999876
+      }
+    },
+    {
+      "id": "d-3",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076181.528683777,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.37701194267719984,
+      "thread_cpu": 0.14569782099999995,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.14965785294771194,
+          "thread_cpu": 0.059261593
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.05293960403650999,
+          "thread_cpu": 0.016621631999999664
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.1133115328848362,
+          "thread_cpu": 0.03174748199999988
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.15502616157755256,
+        "thread_cpu": 0.011120534999999876
+      }
+    },
+    {
+      "id": "d-7",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076181.529274581,
+      "started": 3076181.529263776
+    },
+    {
+      "id": "d-7",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.533671369,
+      "stage": "context"
+    },
+    {
+      "id": "d-7",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076181.633692599,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09997621597722173,
+          "thread_cpu": 0.03976961499999998
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.039928661193698645,
+        "thread_cpu": 0.002868818000000495
+      }
+    },
+    {
+      "id": "d-7",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.634152935,
+      "stage": "validation"
+    },
+    {
+      "id": "d-7",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.713896842,
+      "stage": "render"
+    },
+    {
+      "id": "d-7",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076181.781251012,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09997621597722173,
+          "thread_cpu": 0.03976961499999998
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.018348492681980133,
+          "thread_cpu": 0.010410084000000097
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06729982420802116,
+          "thread_cpu": 0.03491544699999993
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.10385710699483752,
+        "thread_cpu": 0.00868334400000026
+      }
+    },
+    {
+      "id": "d-7",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076181.782776323,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.25350524904206395,
+      "thread_cpu": 0.1128052289999999,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09997621597722173,
+          "thread_cpu": 0.03976961499999998
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.018348492681980133,
+          "thread_cpu": 0.010410084000000097
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06729982420802116,
+          "thread_cpu": 0.03491544699999993
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.10385710699483752,
+        "thread_cpu": 0.00868334400000026
+      }
+    },
+    {
+      "id": "d-12",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076181.783305122,
+      "started": 3076181.783295422
+    },
+    {
+      "id": "d-12",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.790850321,
+      "stage": "context"
+    },
+    {
+      "id": "d-12",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076181.900230265,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.10932333394885063,
+          "thread_cpu": 0.06513461499999984
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.04377825930714607,
+        "thread_cpu": 0.0032116750000001915
+      }
+    },
+    {
+      "id": "d-12",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.900326787,
+      "stage": "validation"
+    },
+    {
+      "id": "d-12",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076181.958721156,
+      "stage": "render"
+    },
+    {
+      "id": "d-12",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.011278013,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.10932333394885063,
+          "thread_cpu": 0.06513461499999984
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012558850459754467,
+          "thread_cpu": 0.009934620000000338
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.05249933712184429,
+          "thread_cpu": 0.03273505700000001
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.07762859482318163,
+        "thread_cpu": 0.008406824000001256
+      }
+    },
+    {
+      "id": "d-12",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076182.012311069,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.2290067970752716,
+      "thread_cpu": 0.13793961199999982,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.10932333394885063,
+          "thread_cpu": 0.06513461499999984
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012558850459754467,
+          "thread_cpu": 0.009934620000000338
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.05249933712184429,
+          "thread_cpu": 0.03273505700000001
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.07762859482318163,
+        "thread_cpu": 0.008406824000001256
+      }
+    },
+    {
+      "id": "d-16",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076182.012820479,
+      "started": 3076182.012811774
+    },
+    {
+      "id": "d-16",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.018278145,
+      "stage": "validation"
+    },
+    {
+      "id": "d-16",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.101738886,
+      "stage": "render"
+    },
+    {
+      "id": "d-16",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.107787651,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.059907650109380484,
+          "thread_cpu": 0.03546939199999999
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.006002404261380434,
+          "thread_cpu": 0.004152458000000081
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.04187105828896165,
+        "thread_cpu": 0.006395072999999085
+      }
+    },
+    {
+      "id": "d-16",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076182.108526271,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.09570805495604873,
+      "thread_cpu": 0.05579900299999996,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.059907650109380484,
+          "thread_cpu": 0.03546939199999999
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.006002404261380434,
+          "thread_cpu": 0.004152458000000081
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.04187105828896165,
+        "thread_cpu": 0.006395072999999085
+      }
+    },
+    {
+      "id": "d-19",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076182.10889043,
+      "started": 3076182.108883738
+    },
+    {
+      "id": "d-19",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.112772404,
+      "stage": "context"
+    },
+    {
+      "id": "d-19",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.182539039,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06972080236300826,
+          "thread_cpu": 0.03974581399999999
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.029033114202320576,
+        "thread_cpu": 0.0029388749999998964
+      }
+    },
+    {
+      "id": "d-19",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.182681254,
+      "stage": "validation"
+    },
+    {
+      "id": "d-19",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.227782506,
+      "stage": "render"
+    },
+    {
+      "id": "d-19",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.270774978,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06972080236300826,
+          "thread_cpu": 0.03974581399999999
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012142505962401628,
+          "thread_cpu": 0.011627798999999772
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04292182112112641,
+          "thread_cpu": 0.031089193000000126
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.049863635096699,
+        "thread_cpu": 0.00838354299999855
+      }
+    },
+    {
+      "id": "d-19",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076182.271587008,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.16269688587635756,
+      "thread_cpu": 0.10998162999999983,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06972080236300826,
+          "thread_cpu": 0.03974581399999999
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012142505962401628,
+          "thread_cpu": 0.011627798999999772
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04292182112112641,
+          "thread_cpu": 0.031089193000000126
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.049863635096699,
+        "thread_cpu": 0.00838354299999855
+      }
+    },
+    {
+      "id": "d-23",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076182.272047459,
+      "started": 3076182.272040555
+    },
+    {
+      "id": "d-23",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.277369397,
+      "stage": "validation"
+    },
+    {
+      "id": "d-23",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.362498045,
+      "stage": "render"
+    },
+    {
+      "id": "d-23",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.368257873,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.06687711970880628,
+          "thread_cpu": 0.03024395000000002
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.0057137818075716496,
+          "thread_cpu": 0.004092484000000063
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.05281090131029487,
+        "thread_cpu": 0.006013103999999769
+      }
+    },
+    {
+      "id": "d-23",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076182.368907005,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.09686043206602335,
+      "thread_cpu": 0.04855621700000001,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.06687711970880628,
+          "thread_cpu": 0.03024395000000002
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.0057137818075716496,
+          "thread_cpu": 0.004092484000000063
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.05281090131029487,
+        "thread_cpu": 0.006013103999999769
+      }
+    },
+    {
+      "id": "d-25",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076182.369312454,
+      "started": 3076182.369305666
+    },
+    {
+      "id": "d-25",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.372289626,
+      "stage": "context"
+    },
+    {
+      "id": "d-25",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.428864979,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.05653363699093461,
+          "thread_cpu": 0.034759480999999814
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.023235491942614317,
+        "thread_cpu": 0.002650045000000878
+      }
+    },
+    {
+      "id": "d-25",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.428968842,
+      "stage": "validation"
+    },
+    {
+      "id": "d-25",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.488795306,
+      "stage": "render"
+    },
+    {
+      "id": "d-25",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.53978919,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.05653363699093461,
+          "thread_cpu": 0.034759480999999814
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010565067175775766,
+          "thread_cpu": 0.010037265999999656
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.050920236855745316,
+          "thread_cpu": 0.040101597000000044
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06180484173819423,
+        "thread_cpu": 0.008373472000001048
+      }
+    },
+    {
+      "id": "d-25",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076182.540896381,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.17158270673826337,
+      "thread_cpu": 0.11182558399999998,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.05653363699093461,
+          "thread_cpu": 0.034759480999999814
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010565067175775766,
+          "thread_cpu": 0.010037265999999656
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.050920236855745316,
+          "thread_cpu": 0.040101597000000044
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06180484173819423,
+        "thread_cpu": 0.008373472000001048
+      }
+    },
+    {
+      "id": "d-29",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076182.541480693,
+      "started": 3076182.54147007
+    },
+    {
+      "id": "d-29",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.546885812,
+      "stage": "validation"
+    },
+    {
+      "id": "d-29",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.636867178,
+      "stage": "render"
+    },
+    {
+      "id": "d-29",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.643910276,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.07177639985457063,
+          "thread_cpu": 0.031236684000000237
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.006995026953518391,
+          "thread_cpu": 0.003997793999999999
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.05819200957193971,
+        "thread_cpu": 0.005934777000000446
+      }
+    },
+    {
+      "id": "d-29",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076182.644595172,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.10311844618991017,
+      "thread_cpu": 0.049726292000000116,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.07177639985457063,
+          "thread_cpu": 0.031236684000000237
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.006995026953518391,
+          "thread_cpu": 0.003997793999999999
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.05819200957193971,
+        "thread_cpu": 0.005934777000000446
+      }
+    },
+    {
+      "id": "d-32",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076182.644973305,
+      "started": 3076182.644966594
+    },
+    {
+      "id": "d-32",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.64978095,
+      "stage": "context"
+    },
+    {
+      "id": "d-32",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.722607182,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07278240099549294,
+          "thread_cpu": 0.0368554350000001
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.033436805475503206,
+        "thread_cpu": 0.0027796740000001208
+      }
+    },
+    {
+      "id": "d-32",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.723109775,
+      "stage": "validation"
+    },
+    {
+      "id": "d-32",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.766023195,
+      "stage": "render"
+    },
+    {
+      "id": "d-32",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.797403191,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07278240099549294,
+          "thread_cpu": 0.0368554350000001
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012944595888257027,
+          "thread_cpu": 0.009297185999999957
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.03132558707147837,
+          "thread_cpu": 0.02484849899999997
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05215564277023077,
+        "thread_cpu": 0.007432002999999909
+      }
+    },
+    {
+      "id": "d-32",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076182.798169429,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.1531967599876225,
+      "thread_cpu": 0.096515766,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07278240099549294,
+          "thread_cpu": 0.0368554350000001
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012944595888257027,
+          "thread_cpu": 0.009297185999999957
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.03132558707147837,
+          "thread_cpu": 0.02484849899999997
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05215564277023077,
+        "thread_cpu": 0.007432002999999909
+      }
+    },
+    {
+      "id": "d-36",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076182.798534475,
+      "started": 3076182.798527724
+    },
+    {
+      "id": "d-36",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.801876049,
+      "stage": "context"
+    },
+    {
+      "id": "d-36",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.865244348,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06332695437595248,
+          "thread_cpu": 0.036523825000000176
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.028307580389082432,
+        "thread_cpu": 0.0026074729999998603
+      }
+    },
+    {
+      "id": "d-36",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.865340113,
+      "stage": "validation"
+    },
+    {
+      "id": "d-36",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.917936901,
+      "stage": "render"
+    },
+    {
+      "id": "d-36",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076182.957453776,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06332695437595248,
+          "thread_cpu": 0.036523825000000176
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010032967198640108,
+          "thread_cpu": 0.008933481999999326
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.03946030791848898,
+          "thread_cpu": 0.024812762999999904
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06664894800633192,
+        "thread_cpu": 0.007331770999999154
+      }
+    },
+    {
+      "id": "d-36",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076182.95818524,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.15965124685317278,
+      "thread_cpu": 0.09530207999999973,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06332695437595248,
+          "thread_cpu": 0.036523825000000176
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010032967198640108,
+          "thread_cpu": 0.008933481999999326
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.03946030791848898,
+          "thread_cpu": 0.024812762999999904
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06664894800633192,
+        "thread_cpu": 0.007331770999999154
+      }
+    },
+    {
+      "id": "d-40",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076182.958552277,
+      "started": 3076182.95854587
+    },
+    {
+      "id": "d-40",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076182.962292823,
+      "stage": "validation"
+    },
+    {
+      "id": "d-40",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.028753969,
+      "stage": "render"
+    },
+    {
+      "id": "d-40",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076183.036691821,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.049284365959465504,
+          "thread_cpu": 0.02581801699999975
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.007881018798798323,
+          "thread_cpu": 0.0037973180000001605
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.040697138756513596,
+        "thread_cpu": 0.00528360699999908
+      }
+    },
+    {
+      "id": "d-40",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076183.037357698,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.07880601566284895,
+      "thread_cpu": 0.04234030799999999,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.049284365959465504,
+          "thread_cpu": 0.02581801699999975
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.007881018798798323,
+          "thread_cpu": 0.0037973180000001605
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.040697138756513596,
+        "thread_cpu": 0.00528360699999908
+      }
+    },
+    {
+      "id": "d-42",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076183.044349149,
+      "started": 3076183.044341716
+    },
+    {
+      "id": "d-42",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.047398767,
+      "stage": "context"
+    },
+    {
+      "id": "d-42",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076183.111716347,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06427767220884562,
+          "thread_cpu": 0.034526161000000055
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.030143207404762506,
+        "thread_cpu": 0.00253262600000026
+      }
+    },
+    {
+      "id": "d-42",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.111813905,
+      "stage": "validation"
+    },
+    {
+      "id": "d-42",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.160603131,
+      "stage": "render"
+    },
+    {
+      "id": "d-42",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076183.203715529,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06427767220884562,
+          "thread_cpu": 0.034526161000000055
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.00963181210681796,
+          "thread_cpu": 0.009022498999999407
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04305773926898837,
+          "thread_cpu": 0.026399673999999873
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06276687886565924,
+        "thread_cpu": 0.007282330000001114
+      }
+    },
+    {
+      "id": "d-42",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076183.204434099,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.16008616099134088,
+      "thread_cpu": 0.09391198000000012,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06427767220884562,
+          "thread_cpu": 0.034526161000000055
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.00963181210681796,
+          "thread_cpu": 0.009022498999999407
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04305773926898837,
+          "thread_cpu": 0.026399673999999873
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06276687886565924,
+        "thread_cpu": 0.007282330000001114
+      }
+    },
+    {
+      "id": "d-46",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076183.244662913,
+      "started": 3076183.244644526
+    },
+    {
+      "id": "d-46",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.25035918,
+      "stage": "validation"
+    },
+    {
+      "id": "d-46",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.367688468,
+      "stage": "render"
+    },
+    {
+      "id": "d-46",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076183.378759036,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.08484444068744779,
+          "thread_cpu": 0.03040602399999992
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.0110239889472723,
+          "thread_cpu": 0.0043720870000001355
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.08490960020571947,
+        "thread_cpu": 0.006381479999999939
+      }
+    },
+    {
+      "id": "d-46",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076183.379391014,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.13474056916311383,
+      "thread_cpu": 0.052765861000000136,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.08484444068744779,
+          "thread_cpu": 0.03040602399999992
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.0110239889472723,
+          "thread_cpu": 0.0043720870000001355
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.08490960020571947,
+        "thread_cpu": 0.006381479999999939
+      }
+    },
+    {
+      "id": "d-49",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076183.394894898,
+      "started": 3076183.394883381
+    },
+    {
+      "id": "d-49",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.398206459,
+      "stage": "context"
+    },
+    {
+      "id": "d-49",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076183.458684067,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06043426087126136,
+          "thread_cpu": 0.03395672599999999
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.026447186712175608,
+        "thread_cpu": 0.002684287999999313
+      }
+    },
+    {
+      "id": "d-49",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.458787617,
+      "stage": "validation"
+    },
+    {
+      "id": "d-49",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.505721282,
+      "stage": "render"
+    },
+    {
+      "id": "d-49",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076183.548225116,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06043426087126136,
+          "thread_cpu": 0.03395672599999999
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01046051736921072,
+          "thread_cpu": 0.009860363000001371
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.0424402691423893,
+          "thread_cpu": 0.02750867899999987
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0569322626106441,
+        "thread_cpu": 0.00903618699999953
+      }
+    },
+    {
+      "id": "d-49",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076183.548983734,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.15409367578104138,
+      "thread_cpu": 0.09719149799999993,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06043426087126136,
+          "thread_cpu": 0.03395672599999999
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01046051736921072,
+          "thread_cpu": 0.009860363000001371
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.0424402691423893,
+          "thread_cpu": 0.02750867899999987
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0569322626106441,
+        "thread_cpu": 0.00903618699999953
+      }
+    },
+    {
+      "id": "d-52",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076183.549415518,
+      "started": 3076183.549409066
+    },
+    {
+      "id": "d-52",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.555430602,
+      "stage": "validation"
+    },
+    {
+      "id": "d-52",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.71124812,
+      "stage": "render"
+    },
+    {
+      "id": "d-52",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076183.717184177,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.13430058164522052,
+          "thread_cpu": 0.09872147699999978
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.005874957889318466,
+          "thread_cpu": 0.004192774000000288
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.04875602526590228,
+        "thread_cpu": 0.005963160000003409
+      }
+    },
+    {
+      "id": "d-52",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076183.717867735,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.16845245193690062,
+      "thread_cpu": 0.11776971000000014,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.13430058164522052,
+          "thread_cpu": 0.09872147699999978
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.005874957889318466,
+          "thread_cpu": 0.004192774000000288
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.04875602526590228,
+        "thread_cpu": 0.005963160000003409
+      }
+    },
+    {
+      "id": "d-56",
+      "pid": 747070,
+      "event": "wsgi_start",
+      "monotonic": 3076183.744187476,
+      "started": 3076183.744175682
+    },
+    {
+      "id": "d-56",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.75090732,
+      "stage": "context"
+    },
+    {
+      "id": "d-56",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076183.822633464,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0716491979546845,
+          "thread_cpu": 0.038512961999999984
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03540290938690305,
+        "thread_cpu": 0.0030306279999994246
+      }
+    },
+    {
+      "id": "d-56",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.822797665,
+      "stage": "validation"
+    },
+    {
+      "id": "d-56",
+      "pid": 747070,
+      "event": "stage_start",
+      "monotonic": 3076183.881303352,
+      "stage": "render"
+    },
+    {
+      "id": "d-56",
+      "pid": 747070,
+      "event": "stage_end",
+      "monotonic": 3076183.960625528,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0716491979546845,
+          "thread_cpu": 0.038512961999999984
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012950248084962368,
+          "thread_cpu": 0.009574553999999402
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.07926071994006634,
+          "thread_cpu": 0.03603429799999969
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.08679171418771148,
+        "thread_cpu": 0.008458114999999378
+      }
+    },
+    {
+      "id": "d-56",
+      "pid": 747070,
+      "event": "wsgi_end",
+      "monotonic": 3076183.961654213,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.2174700703471899,
+      "thread_cpu": 0.11215719899999987,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0716491979546845,
+          "thread_cpu": 0.038512961999999984
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012950248084962368,
+          "thread_cpu": 0.009574553999999402
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.07926071994006634,
+          "thread_cpu": 0.03603429799999969
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.08679171418771148,
+        "thread_cpu": 0.008458114999999378
+      }
+    },
+    {
+      "id": "d-2",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076181.045179717,
+      "started": 3076181.04515481
+    },
+    {
+      "id": "d-2",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076181.065984826,
+      "stage": "context"
+    },
+    {
+      "id": "d-2",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076181.226947116,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.160875060595572,
+          "thread_cpu": 0.05836703099999996
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.09657992469146848,
+        "thread_cpu": 0.005245535000000023
+      }
+    },
+    {
+      "id": "d-2",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076181.227251134,
+      "stage": "validation"
+    },
+    {
+      "id": "d-2",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076181.342388108,
+      "stage": "render"
+    },
+    {
+      "id": "d-2",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076181.535686054,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.160875060595572,
+          "thread_cpu": 0.05836703099999996
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01891957502812147,
+          "thread_cpu": 0.013439533999999975
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.1932165026664734,
+          "thread_cpu": 0.11387351299999993
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.19103520829230547,
+        "thread_cpu": 0.013218480000000588
+      }
+    },
+    {
+      "id": "d-2",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076181.536503822,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.4913422162644565,
+      "thread_cpu": 0.24600354800000002,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.160875060595572,
+          "thread_cpu": 0.05836703099999996
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01891957502812147,
+          "thread_cpu": 0.013439533999999975
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.1932165026664734,
+          "thread_cpu": 0.11387351299999993
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.19103520829230547,
+        "thread_cpu": 0.013218480000000588
+      }
+    },
+    {
+      "id": "d-8",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076181.536862792,
+      "started": 3076181.536855732
+    },
+    {
+      "id": "d-8",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076181.543674442,
+      "stage": "context"
+    },
+    {
+      "id": "d-8",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076181.638801243,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0950627289712429,
+          "thread_cpu": 0.03929256999999997
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.04970545554533601,
+        "thread_cpu": 0.0030296010000008256
+      }
+    },
+    {
+      "id": "d-8",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076181.638965843,
+      "stage": "validation"
+    },
+    {
+      "id": "d-8",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076181.70195186,
+      "stage": "render"
+    },
+    {
+      "id": "d-8",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076181.741525045,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0950627289712429,
+          "thread_cpu": 0.03929256999999997
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.011756467167288065,
+          "thread_cpu": 0.009799493000000048
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.039500707760453224,
+          "thread_cpu": 0.026767272000000064
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09169896272942424,
+        "thread_cpu": 0.008150666000000806
+      }
+    },
+    {
+      "id": "d-8",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076181.742352685,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.20548907481133938,
+      "thread_cpu": 0.10418320999999997,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0950627289712429,
+          "thread_cpu": 0.03929256999999997
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.011756467167288065,
+          "thread_cpu": 0.009799493000000048
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.039500707760453224,
+          "thread_cpu": 0.026767272000000064
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09169896272942424,
+        "thread_cpu": 0.008150666000000806
+      }
+    },
+    {
+      "id": "d-10",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076181.742763528,
+      "started": 3076181.742755822
+    },
+    {
+      "id": "d-10",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076181.748711574,
+      "stage": "validation"
+    },
+    {
+      "id": "d-10",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076181.911597807,
+      "stage": "render"
+    },
+    {
+      "id": "d-10",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076181.923306431,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.09955955110490322,
+          "thread_cpu": 0.049545701
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.011663571931421757,
+          "thread_cpu": 0.00759315599999999
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.0683893016539514,
+        "thread_cpu": 0.008337015999999808
+      }
+    },
+    {
+      "id": "d-10",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076181.92397527,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.18121313117444515,
+      "thread_cpu": 0.10999121499999998,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.09955955110490322,
+          "thread_cpu": 0.049545701
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.011663571931421757,
+          "thread_cpu": 0.00759315599999999
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.0683893016539514,
+        "thread_cpu": 0.008337015999999808
+      }
+    },
+    {
+      "id": "d-15",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076181.924514566,
+      "started": 3076181.924507346
+    },
+    {
+      "id": "d-15",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076181.930256072,
+      "stage": "context"
+    },
+    {
+      "id": "d-15",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.018669804,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08836823841556907,
+          "thread_cpu": 0.05285210799999995
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03685071552172303,
+        "thread_cpu": 0.0036148749999997953
+      }
+    },
+    {
+      "id": "d-15",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.018863901,
+      "stage": "validation"
+    },
+    {
+      "id": "d-15",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.068836109,
+      "stage": "render"
+    },
+    {
+      "id": "d-15",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.132572599,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08836823841556907,
+          "thread_cpu": 0.05285210799999995
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010457624215632677,
+          "thread_cpu": 0.009732675000000635
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06368345487862825,
+          "thread_cpu": 0.027852806000000063
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.07780337054282427,
+        "thread_cpu": 0.008484695999999792
+      }
+    },
+    {
+      "id": "d-15",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076182.133757629,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.2092441669665277,
+      "thread_cpu": 0.11749538500000001,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08836823841556907,
+          "thread_cpu": 0.05285210799999995
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010457624215632677,
+          "thread_cpu": 0.009732675000000635
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06368345487862825,
+          "thread_cpu": 0.027852806000000063
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.07780337054282427,
+        "thread_cpu": 0.008484695999999792
+      }
+    },
+    {
+      "id": "d-20",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076182.134151916,
+      "started": 3076182.134145131
+    },
+    {
+      "id": "d-20",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.138982402,
+      "stage": "context"
+    },
+    {
+      "id": "d-20",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.202972324,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06393403513357043,
+          "thread_cpu": 0.03862598499999992
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.026927012484520674,
+        "thread_cpu": 0.0042949580000004595
+      }
+    },
+    {
+      "id": "d-20",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.203113492,
+      "stage": "validation"
+    },
+    {
+      "id": "d-20",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.244258353,
+      "stage": "render"
+    },
+    {
+      "id": "d-20",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.290505393,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06393403513357043,
+          "thread_cpu": 0.03862598499999992
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.00999204395338893,
+          "thread_cpu": 0.009101317999999914
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.046193938702344894,
+          "thread_cpu": 0.029255604999999907
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05325667979195714,
+        "thread_cpu": 0.00926749200000021
+      }
+    },
+    {
+      "id": "d-20",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076182.291709396,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.15755824791267514,
+      "thread_cpu": 0.1024473669999999,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06393403513357043,
+          "thread_cpu": 0.03862598499999992
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.00999204395338893,
+          "thread_cpu": 0.009101317999999914
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.046193938702344894,
+          "thread_cpu": 0.029255604999999907
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05325667979195714,
+        "thread_cpu": 0.00926749200000021
+      }
+    },
+    {
+      "id": "d-24",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076182.292153361,
+      "started": 3076182.292146661
+    },
+    {
+      "id": "d-24",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.297249979,
+      "stage": "context"
+    },
+    {
+      "id": "d-24",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.389946687,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09263747604563832,
+          "thread_cpu": 0.05332819500000019
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.04097985662519932,
+        "thread_cpu": 0.0035806289999995577
+      }
+    },
+    {
+      "id": "d-24",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.390072132,
+      "stage": "validation"
+    },
+    {
+      "id": "d-24",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.4356055,
+      "stage": "render"
+    },
+    {
+      "id": "d-24",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.481076737,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09263747604563832,
+          "thread_cpu": 0.05332819500000019
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01137026259675622,
+          "thread_cpu": 0.01003892400000006
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04541583498939872,
+          "thread_cpu": 0.028538457000000017
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0669272025115788,
+        "thread_cpu": 0.009166530999999534
+      }
+    },
+    {
+      "id": "d-24",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076182.482261083,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.19010841101408005,
+      "thread_cpu": 0.11940908299999986,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09263747604563832,
+          "thread_cpu": 0.05332819500000019
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01137026259675622,
+          "thread_cpu": 0.01003892400000006
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04541583498939872,
+          "thread_cpu": 0.028538457000000017
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0669272025115788,
+        "thread_cpu": 0.009166530999999534
+      }
+    },
+    {
+      "id": "d-28",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076182.482641609,
+      "started": 3076182.482634707
+    },
+    {
+      "id": "d-28",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.49318253,
+      "stage": "validation"
+    },
+    {
+      "id": "d-28",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.566240588,
+      "stage": "render"
+    },
+    {
+      "id": "d-28",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.57440829,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.055666033644229174,
+          "thread_cpu": 0.02885947100000008
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.008122643921524286,
+          "thread_cpu": 0.0039228599999998615
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.04372462956234813,
+        "thread_cpu": 0.005755691000000507
+      }
+    },
+    {
+      "id": "d-28",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076182.575515803,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.09287550300359726,
+      "thread_cpu": 0.046472457999999994,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.055666033644229174,
+          "thread_cpu": 0.02885947100000008
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.008122643921524286,
+          "thread_cpu": 0.0039228599999998615
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.04372462956234813,
+        "thread_cpu": 0.005755691000000507
+      }
+    },
+    {
+      "id": "d-30",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076182.575879624,
+      "started": 3076182.575872795
+    },
+    {
+      "id": "d-30",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.579024596,
+      "stage": "context"
+    },
+    {
+      "id": "d-30",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.649799026,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07073219679296017,
+          "thread_cpu": 0.03764677800000005
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03363612201064825,
+        "thread_cpu": 0.0028230480000004388
+      }
+    },
+    {
+      "id": "d-30",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.649896084,
+      "stage": "validation"
+    },
+    {
+      "id": "d-30",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.700895412,
+      "stage": "render"
+    },
+    {
+      "id": "d-30",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.747055874,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07073219679296017,
+          "thread_cpu": 0.03764677800000005
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01210499880835414,
+          "thread_cpu": 0.010207315999999578
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.046050937846302986,
+          "thread_cpu": 0.025180709999999884
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06938348151743412,
+        "thread_cpu": 0.007638322000000253
+      }
+    },
+    {
+      "id": "d-30",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076182.747748468,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.17186947399750352,
+      "thread_cpu": 0.09884634399999981,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07073219679296017,
+          "thread_cpu": 0.03764677800000005
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01210499880835414,
+          "thread_cpu": 0.010207315999999578
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.046050937846302986,
+          "thread_cpu": 0.025180709999999884
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06938348151743412,
+        "thread_cpu": 0.007638322000000253
+      }
+    },
+    {
+      "id": "d-34",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076182.748140089,
+      "started": 3076182.74813387
+    },
+    {
+      "id": "d-34",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.751727231,
+      "stage": "validation"
+    },
+    {
+      "id": "d-34",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.82099208,
+      "stage": "render"
+    },
+    {
+      "id": "d-34",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.828619222,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.04547155788168311,
+          "thread_cpu": 0.02716484100000005
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.007554161828011274,
+          "thread_cpu": 0.004116654000000164
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.03836406720802188,
+        "thread_cpu": 0.00554555400000023
+      }
+    },
+    {
+      "id": "d-34",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076182.829326818,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.0811868542805314,
+      "thread_cpu": 0.047215473999999924,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.04547155788168311,
+          "thread_cpu": 0.02716484100000005
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.007554161828011274,
+          "thread_cpu": 0.004116654000000164
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.03836406720802188,
+        "thread_cpu": 0.00554555400000023
+      }
+    },
+    {
+      "id": "d-37",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076182.829928571,
+      "started": 3076182.82992131
+    },
+    {
+      "id": "d-37",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.833105772,
+      "stage": "context"
+    },
+    {
+      "id": "d-37",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076182.935360705,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.10221372870728374,
+          "thread_cpu": 0.0385794559999999
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.05785287078469992,
+        "thread_cpu": 0.0028633490000002926
+      }
+    },
+    {
+      "id": "d-37",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.93545589,
+      "stage": "validation"
+    },
+    {
+      "id": "d-37",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076182.997100767,
+      "stage": "render"
+    },
+    {
+      "id": "d-37",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076183.026916572,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.10221372870728374,
+          "thread_cpu": 0.0385794559999999
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.013002980500459671,
+          "thread_cpu": 0.012046729999999783
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.02976123197004199,
+          "thread_cpu": 0.023068357000000095
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0923894876614213,
+        "thread_cpu": 0.007682022000000899
+      }
+    },
+    {
+      "id": "d-37",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076183.02760445,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.1976774320937693,
+      "thread_cpu": 0.10031872900000005,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.10221372870728374,
+          "thread_cpu": 0.0385794559999999
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.013002980500459671,
+          "thread_cpu": 0.012046729999999783
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.02976123197004199,
+          "thread_cpu": 0.023068357000000095
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0923894876614213,
+        "thread_cpu": 0.007682022000000899
+      }
+    },
+    {
+      "id": "d-43",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076183.09465484,
+      "started": 3076183.094642172
+    },
+    {
+      "id": "d-43",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.098086363,
+      "stage": "context"
+    },
+    {
+      "id": "d-43",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076183.172062842,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07393409498035908,
+          "thread_cpu": 0.038890285999999996
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03647153778001666,
+        "thread_cpu": 0.002678238999999305
+      }
+    },
+    {
+      "id": "d-43",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.172167461,
+      "stage": "validation"
+    },
+    {
+      "id": "d-43",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.243902976,
+      "stage": "render"
+    },
+    {
+      "id": "d-43",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076183.288808696,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07393409498035908,
+          "thread_cpu": 0.038890285999999996
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.009533330798149109,
+          "thread_cpu": 0.00888428100000005
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.044850942213088274,
+          "thread_cpu": 0.02503793200000004
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09056917577981949,
+        "thread_cpu": 0.007800644999999218
+      }
+    },
+    {
+      "id": "d-43",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076183.289699934,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.19505087612196803,
+      "thread_cpu": 0.09991679199999992,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07393409498035908,
+          "thread_cpu": 0.038890285999999996
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.009533330798149109,
+          "thread_cpu": 0.00888428100000005
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.044850942213088274,
+          "thread_cpu": 0.02503793200000004
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09056917577981949,
+        "thread_cpu": 0.007800644999999218
+      }
+    },
+    {
+      "id": "d-47",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076183.293914356,
+      "started": 3076183.293906375
+    },
+    {
+      "id": "d-47",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.298166339,
+      "stage": "validation"
+    },
+    {
+      "id": "d-47",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.369156908,
+      "stage": "render"
+    },
+    {
+      "id": "d-47",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076183.37775224,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.04965515388175845,
+          "thread_cpu": 0.026284975999999904
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.00854402408003807,
+          "thread_cpu": 0.00430974300000031
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.0428817942738533,
+        "thread_cpu": 0.005405653000000843
+      }
+    },
+    {
+      "id": "d-47",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076183.378425022,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.08451263699680567,
+      "thread_cpu": 0.04594464899999995,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.04965515388175845,
+          "thread_cpu": 0.026284975999999904
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.00854402408003807,
+          "thread_cpu": 0.00430974300000031
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.0428817942738533,
+        "thread_cpu": 0.005405653000000843
+      }
+    },
+    {
+      "id": "d-51",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076183.494212445,
+      "started": 3076183.494201901
+    },
+    {
+      "id": "d-51",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.498956719,
+      "stage": "context"
+    },
+    {
+      "id": "d-51",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076183.57823215,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07921438524499536,
+          "thread_cpu": 0.03671387599999987
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03956108679994941,
+        "thread_cpu": 0.002829382000000269
+      }
+    },
+    {
+      "id": "d-51",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.578400542,
+      "stage": "validation"
+    },
+    {
+      "id": "d-51",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.622411655,
+      "stage": "render"
+    },
+    {
+      "id": "d-51",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076183.658346133,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07921438524499536,
+          "thread_cpu": 0.03671387599999987
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01234992453828454,
+          "thread_cpu": 0.009899752000000372
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.03587575303390622,
+          "thread_cpu": 0.0249070859999998
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0615091142244637,
+        "thread_cpu": 0.007717678000000561
+      }
+    },
+    {
+      "id": "d-51",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076183.659091179,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.16488319030031562,
+      "thread_cpu": 0.0979936979999998,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.07921438524499536,
+          "thread_cpu": 0.03671387599999987
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01234992453828454,
+          "thread_cpu": 0.009899752000000372
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.03587575303390622,
+          "thread_cpu": 0.0249070859999998
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0615091142244637,
+        "thread_cpu": 0.007717678000000561
+      }
+    },
+    {
+      "id": "d-54",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076183.659462757,
+      "started": 3076183.659456396
+    },
+    {
+      "id": "d-54",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.662542519,
+      "stage": "context"
+    },
+    {
+      "id": "d-54",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076183.730149123,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06756471982225776,
+          "thread_cpu": 0.03552843299999964
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.033535856287926435,
+        "thread_cpu": 0.002782568999999846
+      }
+    },
+    {
+      "id": "d-54",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.730260192,
+      "stage": "validation"
+    },
+    {
+      "id": "d-54",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.785705774,
+      "stage": "render"
+    },
+    {
+      "id": "d-54",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076183.840102355,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06756471982225776,
+          "thread_cpu": 0.03552843299999964
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010313832201063633,
+          "thread_cpu": 0.00909647999999974
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.054339232854545116,
+          "thread_cpu": 0.02852153700000004
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.07802031934261322,
+        "thread_cpu": 0.008225318999999676
+      }
+    },
+    {
+      "id": "d-54",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076183.840901829,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.18143933592364192,
+      "thread_cpu": 0.1002206779999999,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06756471982225776,
+          "thread_cpu": 0.03552843299999964
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010313832201063633,
+          "thread_cpu": 0.00909647999999974
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.054339232854545116,
+          "thread_cpu": 0.02852153700000004
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.07802031934261322,
+        "thread_cpu": 0.008225318999999676
+      }
+    },
+    {
+      "id": "d-58",
+      "pid": 747139,
+      "event": "wsgi_start",
+      "monotonic": 3076183.844867259,
+      "started": 3076183.844858765
+    },
+    {
+      "id": "d-58",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.850530933,
+      "stage": "validation"
+    },
+    {
+      "id": "d-58",
+      "pid": 747139,
+      "event": "stage_start",
+      "monotonic": 3076183.961318943,
+      "stage": "render"
+    },
+    {
+      "id": "d-58",
+      "pid": 747139,
+      "event": "stage_end",
+      "monotonic": 3076183.971958153,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.0844814102165401,
+          "thread_cpu": 0.03668112499999987
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.01057300390675664,
+          "thread_cpu": 0.006201517000000045
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.07182457530871034,
+        "thread_cpu": 0.007224018000000942
+      }
+    },
+    {
+      "id": "d-58",
+      "pid": 747139,
+      "event": "wsgi_end",
+      "monotonic": 3076183.973032997,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.12816553469747305,
+      "thread_cpu": 0.06094704200000001,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.0844814102165401,
+          "thread_cpu": 0.03668112499999987
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.01057300390675664,
+          "thread_cpu": 0.006201517000000045
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.07182457530871034,
+        "thread_cpu": 0.007224018000000942
+      }
+    },
+    {
+      "id": "d-1",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076180.994066968,
+      "started": 3076180.994001184
+    },
+    {
+      "id": "d-1",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076180.998615733,
+      "stage": "context"
+    },
+    {
+      "id": "d-1",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076181.087054165,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08837277628481388,
+          "thread_cpu": 0.04855142599999995
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03363651130348444,
+        "thread_cpu": 0.0028435440000000867
+      }
+    },
+    {
+      "id": "d-1",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.08715549,
+      "stage": "validation"
+    },
+    {
+      "id": "d-1",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.148500344,
+      "stage": "render"
+    },
+    {
+      "id": "d-1",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076181.206350355,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08837277628481388,
+          "thread_cpu": 0.04855142599999995
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.011069957632571459,
+          "thread_cpu": 0.00934651799999986
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.05777910677716136,
+          "thread_cpu": 0.030928333999999946
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.07858672738075256,
+        "thread_cpu": 0.00897504899999979
+      }
+    },
+    {
+      "id": "d-1",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076181.207380049,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.21337195299565792,
+      "thread_cpu": 0.12150874000000011,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08837277628481388,
+          "thread_cpu": 0.04855142599999995
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.011069957632571459,
+          "thread_cpu": 0.00934651799999986
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.05777910677716136,
+          "thread_cpu": 0.030928333999999946
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.07858672738075256,
+        "thread_cpu": 0.00897504899999979
+      }
+    },
+    {
+      "id": "d-4",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076181.207781285,
+      "started": 3076181.207772725
+    },
+    {
+      "id": "d-4",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.216997614,
+      "stage": "validation"
+    },
+    {
+      "id": "d-4",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.395639825,
+      "stage": "render"
+    },
+    {
+      "id": "d-4",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076181.411249783,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.1267244229093194,
+          "thread_cpu": 0.04187759899999999
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.015565643087029457,
+          "thread_cpu": 0.004802186999999902
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.1312686656601727,
+        "thread_cpu": 0.008233660000000143
+      }
+    },
+    {
+      "id": "d-4",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076181.412324368,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.20454531302675605,
+      "thread_cpu": 0.06679096699999998,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.1267244229093194,
+          "thread_cpu": 0.04187759899999999
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.015565643087029457,
+          "thread_cpu": 0.004802186999999902
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.1312686656601727,
+        "thread_cpu": 0.008233660000000143
+      }
+    },
+    {
+      "id": "d-5",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076181.412691833,
+      "started": 3076181.412685642
+    },
+    {
+      "id": "d-5",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.422696115,
+      "stage": "validation"
+    },
+    {
+      "id": "d-5",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.502980203,
+      "stage": "render"
+    },
+    {
+      "id": "d-5",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076181.511769583,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.0566801899112761,
+          "thread_cpu": 0.02744697099999982
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.00872488273307681,
+          "thread_cpu": 0.00414271899999985
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.053946951404213905,
+        "thread_cpu": 0.005794998000000273
+      }
+    },
+    {
+      "id": "d-5",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076181.512501808,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.09980954602360725,
+      "thread_cpu": 0.04623213799999992,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.0566801899112761,
+          "thread_cpu": 0.02744697099999982
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.00872488273307681,
+          "thread_cpu": 0.00414271899999985
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.053946951404213905,
+        "thread_cpu": 0.005794998000000273
+      }
+    },
+    {
+      "id": "d-6",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076181.512888988,
+      "started": 3076181.512881828
+    },
+    {
+      "id": "d-6",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.516888066,
+      "stage": "context"
+    },
+    {
+      "id": "d-6",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076181.600729061,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0837817620486021,
+          "thread_cpu": 0.038956224999999955
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.0417522257193923,
+        "thread_cpu": 0.002968458000000229
+      }
+    },
+    {
+      "id": "d-6",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.600850451,
+      "stage": "validation"
+    },
+    {
+      "id": "d-6",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.666894402,
+      "stage": "render"
+    },
+    {
+      "id": "d-6",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076181.721517267,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0837817620486021,
+          "thread_cpu": 0.038956224999999955
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01440538838505745,
+          "thread_cpu": 0.010036256999999882
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.0545696122571826,
+          "thread_cpu": 0.02526391600000011
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09335081279277802,
+        "thread_cpu": 0.008130375000000134
+      }
+    },
+    {
+      "id": "d-6",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076181.722200052,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.20931252976879478,
+      "thread_cpu": 0.10127294300000012,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0837817620486021,
+          "thread_cpu": 0.038956224999999955
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.01440538838505745,
+          "thread_cpu": 0.010036256999999882
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.0545696122571826,
+          "thread_cpu": 0.02526391600000011
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09335081279277802,
+        "thread_cpu": 0.008130375000000134
+      }
+    },
+    {
+      "id": "d-9",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076181.722560709,
+      "started": 3076181.722554616
+    },
+    {
+      "id": "d-9",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.732232425,
+      "stage": "context"
+    },
+    {
+      "id": "d-9",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076181.801891628,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06961596477776766,
+          "thread_cpu": 0.03663296700000007
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.034369485918432474,
+        "thread_cpu": 0.0026289089999995685
+      }
+    },
+    {
+      "id": "d-9",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.802084412,
+      "stage": "validation"
+    },
+    {
+      "id": "d-9",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.866717456,
+      "stage": "render"
+    },
+    {
+      "id": "d-9",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076181.901199937,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06961596477776766,
+          "thread_cpu": 0.03663296700000007
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010324691887944937,
+          "thread_cpu": 0.009478007999999871
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.034425288904458284,
+          "thread_cpu": 0.024919632999999886
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.061249992810189724,
+        "thread_cpu": 0.007629232000000208
+      }
+    },
+    {
+      "id": "d-9",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076181.901906932,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.17934609577059746,
+      "thread_cpu": 0.11095334800000001,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06961596477776766,
+          "thread_cpu": 0.03663296700000007
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010324691887944937,
+          "thread_cpu": 0.009478007999999871
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.034425288904458284,
+          "thread_cpu": 0.024919632999999886
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.061249992810189724,
+        "thread_cpu": 0.007629232000000208
+      }
+    },
+    {
+      "id": "d-14",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076181.902289565,
+      "started": 3076181.90228331
+    },
+    {
+      "id": "d-14",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.906968268,
+      "stage": "context"
+    },
+    {
+      "id": "d-14",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076181.96853955,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.061513825319707394,
+          "thread_cpu": 0.036794921000000036
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.026223075576126575,
+        "thread_cpu": 0.002847881999999524
+      }
+    },
+    {
+      "id": "d-14",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076181.968693053,
+      "stage": "validation"
+    },
+    {
+      "id": "d-14",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.013295328,
+      "stage": "render"
+    },
+    {
+      "id": "d-14",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076182.060386216,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.061513825319707394,
+          "thread_cpu": 0.036794921000000036
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.00970378564670682,
+          "thread_cpu": 0.0089477809999996
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.047042327001690865,
+          "thread_cpu": 0.031470974000000096
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05425330065190792,
+        "thread_cpu": 0.007580420999999449
+      }
+    },
+    {
+      "id": "d-14",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076182.061229212,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.15892785601317883,
+      "thread_cpu": 0.10223044300000006,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.061513825319707394,
+          "thread_cpu": 0.036794921000000036
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.00970378564670682,
+          "thread_cpu": 0.0089477809999996
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.047042327001690865,
+          "thread_cpu": 0.031470974000000096
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05425330065190792,
+        "thread_cpu": 0.007580420999999449
+      }
+    },
+    {
+      "id": "d-17",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076182.062328983,
+      "started": 3076182.062321872
+    },
+    {
+      "id": "d-17",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.068431477,
+      "stage": "validation"
+    },
+    {
+      "id": "d-17",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.143702767,
+      "stage": "render"
+    },
+    {
+      "id": "d-17",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076182.156393355,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.050819871947169304,
+          "thread_cpu": 0.026576845000000127
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.012648272793740034,
+          "thread_cpu": 0.004033881999999878
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.05321892397478223,
+        "thread_cpu": 0.005205612999999332
+      }
+    },
+    {
+      "id": "d-17",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076182.157060358,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.09473292296752334,
+      "thread_cpu": 0.04413948099999998,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.050819871947169304,
+          "thread_cpu": 0.026576845000000127
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.012648272793740034,
+          "thread_cpu": 0.004033881999999878
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.05321892397478223,
+        "thread_cpu": 0.005205612999999332
+      }
+    },
+    {
+      "id": "d-21",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076182.157414779,
+      "started": 3076182.157408773
+    },
+    {
+      "id": "d-21",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.161869644,
+      "stage": "context"
+    },
+    {
+      "id": "d-21",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076182.238107847,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0761926369741559,
+          "thread_cpu": 0.042038700999999845
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03558500111103058,
+        "thread_cpu": 0.003204204999999849
+      }
+    },
+    {
+      "id": "d-21",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.238406466,
+      "stage": "validation"
+    },
+    {
+      "id": "d-21",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.316602569,
+      "stage": "render"
+    },
+    {
+      "id": "d-21",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076182.382647578,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0761926369741559,
+          "thread_cpu": 0.042038700999999845
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.014710571616888046,
+          "thread_cpu": 0.013294152000000059
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06596653303131461,
+          "thread_cpu": 0.041634912999999996
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.08351424755528569,
+        "thread_cpu": 0.009676913999998593
+      }
+    },
+    {
+      "id": "d-21",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076182.383648684,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.22623140923678875,
+      "thread_cpu": 0.13199597799999996,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.0761926369741559,
+          "thread_cpu": 0.042038700999999845
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.014710571616888046,
+          "thread_cpu": 0.013294152000000059
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.06596653303131461,
+          "thread_cpu": 0.041634912999999996
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.08351424755528569,
+        "thread_cpu": 0.009676913999998593
+      }
+    },
+    {
+      "id": "d-27",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076182.384230752,
+      "started": 3076182.384221373
+    },
+    {
+      "id": "d-27",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.389818579,
+      "stage": "context"
+    },
+    {
+      "id": "d-27",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076182.483024069,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.093156891874969,
+          "thread_cpu": 0.045626425000000026
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.04935541236773133,
+        "thread_cpu": 0.003551584999999191
+      }
+    },
+    {
+      "id": "d-27",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.48323317,
+      "stage": "validation"
+    },
+    {
+      "id": "d-27",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.545247251,
+      "stage": "render"
+    },
+    {
+      "id": "d-27",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076182.602022532,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.093156891874969,
+          "thread_cpu": 0.045626425000000026
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.016712334472686052,
+          "thread_cpu": 0.015342041000000028
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.056700814981013536,
+          "thread_cpu": 0.028866088000000012
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0901293340139091,
+        "thread_cpu": 0.00961904999999974
+      }
+    },
+    {
+      "id": "d-27",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076182.604176463,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.21994609897956252,
+      "thread_cpu": 0.12401938999999995,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.093156891874969,
+          "thread_cpu": 0.045626425000000026
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.016712334472686052,
+          "thread_cpu": 0.015342041000000028
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.056700814981013536,
+          "thread_cpu": 0.028866088000000012
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.0901293340139091,
+        "thread_cpu": 0.00961904999999974
+      }
+    },
+    {
+      "id": "d-31",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076182.604614772,
+      "started": 3076182.60460776
+    },
+    {
+      "id": "d-31",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.611378172,
+      "stage": "context"
+    },
+    {
+      "id": "d-31",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076182.680098877,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06866069883108139,
+          "thread_cpu": 0.03644209400000009
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03187168017029762,
+        "thread_cpu": 0.0025817079999994608
+      }
+    },
+    {
+      "id": "d-31",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.680186379,
+      "stage": "validation"
+    },
+    {
+      "id": "d-31",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.732544888,
+      "stage": "render"
+    },
+    {
+      "id": "d-31",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076182.78080121,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06866069883108139,
+          "thread_cpu": 0.03644209400000009
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.0096526057459414,
+          "thread_cpu": 0.008905502000000398
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04820276517421007,
+          "thread_cpu": 0.032280668999999707
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06332228286191821,
+        "thread_cpu": 0.007260231999999922
+      }
+    },
+    {
+      "id": "d-31",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076182.781558272,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.17694457387551665,
+      "thread_cpu": 0.10370686100000004,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06866069883108139,
+          "thread_cpu": 0.03644209400000009
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.0096526057459414,
+          "thread_cpu": 0.008905502000000398
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04820276517421007,
+          "thread_cpu": 0.032280668999999707
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.06332228286191821,
+        "thread_cpu": 0.007260231999999922
+      }
+    },
+    {
+      "id": "d-35",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076182.781898143,
+      "started": 3076182.781891758
+    },
+    {
+      "id": "d-35",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.786265969,
+      "stage": "validation"
+    },
+    {
+      "id": "d-35",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.867243922,
+      "stage": "render"
+    },
+    {
+      "id": "d-35",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076182.876570781,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.06179366586729884,
+          "thread_cpu": 0.030783965999999996
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.009278562851250172,
+          "thread_cpu": 0.0039336109999998925
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.048437243327498436,
+        "thread_cpu": 0.005762486000000955
+      }
+    },
+    {
+      "id": "d-35",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076182.877266558,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.09536855900660157,
+      "thread_cpu": 0.04864864400000002,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.06179366586729884,
+          "thread_cpu": 0.030783965999999996
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.009278562851250172,
+          "thread_cpu": 0.0039336109999998925
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.048437243327498436,
+        "thread_cpu": 0.005762486000000955
+      }
+    },
+    {
+      "id": "d-39",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076182.894395553,
+      "started": 3076182.894382276
+    },
+    {
+      "id": "d-39",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.899496943,
+      "stage": "context"
+    },
+    {
+      "id": "d-39",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076182.960466791,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.060920597054064274,
+          "thread_cpu": 0.03605286499999982
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.0260892603546381,
+        "thread_cpu": 0.0028656509999995805
+      }
+    },
+    {
+      "id": "d-39",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076182.960675211,
+      "stage": "validation"
+    },
+    {
+      "id": "d-39",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.01580343,
+      "stage": "render"
+    },
+    {
+      "id": "d-39",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076183.06085143,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.060920597054064274,
+          "thread_cpu": 0.03605286499999982
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.014146119356155396,
+          "thread_cpu": 0.013587859000000702
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04498307919129729,
+          "thread_cpu": 0.034126548999999784
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05215278593823314,
+        "thread_cpu": 0.008636519000000398
+      }
+    },
+    {
+      "id": "d-39",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076183.061747426,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.16735550994053483,
+      "thread_cpu": 0.11756118000000004,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.060920597054064274,
+          "thread_cpu": 0.03605286499999982
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.014146119356155396,
+          "thread_cpu": 0.013587859000000702
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04498307919129729,
+          "thread_cpu": 0.034126548999999784
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.05215278593823314,
+        "thread_cpu": 0.008636519000000398
+      }
+    },
+    {
+      "id": "d-44",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076183.145028833,
+      "started": 3076183.145011132
+    },
+    {
+      "id": "d-44",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.153378451,
+      "stage": "context"
+    },
+    {
+      "id": "d-44",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076183.24632006,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09288419131189585,
+          "thread_cpu": 0.04668498599999982
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.03900380618870258,
+        "thread_cpu": 0.0030848439999999755
+      }
+    },
+    {
+      "id": "d-44",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.246498383,
+      "stage": "validation"
+    },
+    {
+      "id": "d-44",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.318720236,
+      "stage": "render"
+    },
+    {
+      "id": "d-44",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076183.36265072,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09288419131189585,
+          "thread_cpu": 0.04668498599999982
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012105853762477636,
+          "thread_cpu": 0.009742820000000929
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.043875168077647686,
+          "thread_cpu": 0.026370828999999762
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09315940970554948,
+        "thread_cpu": 0.008132940000002531
+      }
+    },
+    {
+      "id": "d-44",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076183.363410602,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.2183932107873261,
+      "thread_cpu": 0.11139219899999997,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.09288419131189585,
+          "thread_cpu": 0.04668498599999982
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.012105853762477636,
+          "thread_cpu": 0.009742820000000929
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.043875168077647686,
+          "thread_cpu": 0.026370828999999762
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09315940970554948,
+        "thread_cpu": 0.008132940000002531
+      }
+    },
+    {
+      "id": "d-48",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076183.36377854,
+      "started": 3076183.36377206
+    },
+    {
+      "id": "d-48",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.366949448,
+      "stage": "context"
+    },
+    {
+      "id": "d-48",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076183.433412888,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06642082892358303,
+          "thread_cpu": 0.0359696989999998
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.02932146843522787,
+        "thread_cpu": 0.0026836749999996634
+      }
+    },
+    {
+      "id": "d-48",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.433534373,
+      "stage": "validation"
+    },
+    {
+      "id": "d-48",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.488519988,
+      "stage": "render"
+    },
+    {
+      "id": "d-48",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076183.568690244,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06642082892358303,
+          "thread_cpu": 0.0359696989999998
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010648474097251892,
+          "thread_cpu": 0.009449167999999286
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.08011329500004649,
+          "thread_cpu": 0.027338794999999916
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09654136653989553,
+        "thread_cpu": 0.007811592999998673
+      }
+    },
+    {
+      "id": "d-48",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076183.569466761,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.20568868005648255,
+      "thread_cpu": 0.09816108199999984,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.06642082892358303,
+          "thread_cpu": 0.0359696989999998
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.010648474097251892,
+          "thread_cpu": 0.009449167999999286
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.08011329500004649,
+          "thread_cpu": 0.027338794999999916
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09654136653989553,
+        "thread_cpu": 0.007811592999998673
+      }
+    },
+    {
+      "id": "d-53",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076183.595679786,
+      "started": 3076183.595667106
+    },
+    {
+      "id": "d-53",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.605631454,
+      "stage": "validation"
+    },
+    {
+      "id": "d-53",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.791555159,
+      "stage": "render"
+    },
+    {
+      "id": "d-53",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076183.80558815,
+      "stage": "render",
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.0686660478822887,
+          "thread_cpu": 0.0325056039999998
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.013989836908876896,
+          "thread_cpu": 0.004796735999999857
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.06539371609687805,
+        "thread_cpu": 0.006228937999997353
+      }
+    },
+    {
+      "id": "d-53",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076183.806307306,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.21063367975875735,
+      "thread_cpu": 0.12721406700000015,
+      "stages": {
+        "validation": {
+          "calls": 1,
+          "wall": 0.0686660478822887,
+          "thread_cpu": 0.0325056039999998
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.013989836908876896,
+          "thread_cpu": 0.004796735999999857
+        }
+      },
+      "sql": {
+        "calls": 39,
+        "wall": 0.06539371609687805,
+        "thread_cpu": 0.006228937999997353
+      }
+    },
+    {
+      "id": "d-57",
+      "pid": 747184,
+      "event": "wsgi_start",
+      "monotonic": 3076183.806691589,
+      "started": 3076183.806684835
+    },
+    {
+      "id": "d-57",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.81208406,
+      "stage": "context"
+    },
+    {
+      "id": "d-57",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076183.899703095,
+      "stage": "context",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08756744395941496,
+          "thread_cpu": 0.03923779199999977
+        }
+      },
+      "sql": {
+        "calls": 16,
+        "wall": 0.05000178422778845,
+        "thread_cpu": 0.0032297379999994824
+      }
+    },
+    {
+      "id": "d-57",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.899909862,
+      "stage": "validation"
+    },
+    {
+      "id": "d-57",
+      "pid": 747184,
+      "event": "stage_start",
+      "monotonic": 3076183.97009944,
+      "stage": "render"
+    },
+    {
+      "id": "d-57",
+      "pid": 747184,
+      "event": "stage_end",
+      "monotonic": 3076184.01536445,
+      "stage": "render",
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08756744395941496,
+          "thread_cpu": 0.03923779199999977
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.013478574343025684,
+          "thread_cpu": 0.011234348999999977
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04521023016422987,
+          "thread_cpu": 0.027318500999999884
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09779905900359154,
+        "thread_cpu": 0.008987444999999372
+      }
+    },
+    {
+      "id": "d-57",
+      "pid": 747184,
+      "event": "wsgi_end",
+      "monotonic": 3076184.01650108,
+      "status": 200,
+      "error_type": null,
+      "wall": 0.20981043903157115,
+      "thread_cpu": 0.1110396920000003,
+      "stages": {
+        "context": {
+          "calls": 1,
+          "wall": 0.08756744395941496,
+          "thread_cpu": 0.03923779199999977
+        },
+        "validation": {
+          "calls": 10,
+          "wall": 0.013478574343025684,
+          "thread_cpu": 0.011234348999999977
+        },
+        "render": {
+          "calls": 1,
+          "wall": 0.04521023016422987,
+          "thread_cpu": 0.027318500999999884
+        }
+      },
+      "sql": {
+        "calls": 46,
+        "wall": 0.09779905900359154,
+        "thread_cpu": 0.008987444999999372
+      }
+    }
+  ],
+  "parse_errors": [],
+  "scope": "WSGI entry/end and phase snapshots of identified synthetic requests. Partial snapshots are lower-bound observed work, not inferred zeros. Phase/SQL/thread CPU timings include instrumentation and overlap, never sum as a request partition. WSGI entry is not TCP accept; end includes response.close. No raw URI, headers, body, SQL or parameters stored; PostgreSQL CPU/rows/RSS/waits/locks/IO and causal observer overhead not_measured."
+}
