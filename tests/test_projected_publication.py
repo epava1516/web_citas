@@ -1,6 +1,7 @@
 """Functional oracle and fresh-authority coverage for the value projection."""
 
 from concurrent.futures import ThreadPoolExecutor
+from datetime import timedelta
 
 import pytest
 from django.core.exceptions import ValidationError
@@ -14,7 +15,7 @@ from apps.listings import projected_publication as projection_module
 from apps.listings import submissions
 from apps.listings.discovery import candidates
 from apps.listings.forms import DetailsForm
-from apps.listings.models import Revision
+from apps.listings.models import Listing, Revision
 from apps.listings.moderation import publicly_visible
 from apps.listings.projected_publication import ProjectedPublication, projected_page, supported
 from apps.listings.public_validation import PublicationContext
@@ -195,3 +196,20 @@ def test_distinct_content_and_full_unknown_fallback_preserve_native_population(r
     assert unknown.stats["positive"] == 0 and unknown.stats["native_fallback"] == 25
     record_property("full_unknown_fallback_stats", dict(unknown.stats))
     record_property("limits", "Small functional diversity/fallback cases; no latency or capacity claim")
+
+
+def test_inconsistent_duplicate_approved_pointer_preserves_native_error(request):
+    request.getfixturevalue("directory")
+    owner = Person.objects.get(individual__username="fixture-v1-individual").listing
+    other = Listing.objects.exclude(pk=owner.pk).filter(status="published").first()
+    assert other is not None
+    Listing.objects.filter(pk=other.pk).update(
+        approved_revision_id=owner.approved_revision_id,
+        published_at=owner.published_at - timedelta(days=1),
+    )
+    query = candidates({})
+    with pytest.raises(ValueError, match="requires its own current revision instance"):
+        native_ids(query)
+    projection = ProjectedPublication(query)
+    with pytest.raises(ValueError, match="requires its own current revision instance"):
+        projection.visible_ids(query)

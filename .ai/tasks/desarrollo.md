@@ -4,7 +4,7 @@ Baseline: carpeta con 18 documentos; sin código ni repositorio Git antes del in
 Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
 Estado: running. Inicio autorizado 2026-10-03.
-Invocaciones Claude consumidas: 4 acumuladas, sin máximo numérico vigente. La tercera fue automática fuera del adaptador (incidencia Graphify), cuyo registro se conserva. Política modificada por autorización explícita del usuario el2026-10-06: límite de3 eliminado, contador no reiniciado. Nuevas invocaciones mediante scripts/claude-task del contrato adoptado; Claude propone, Codex aplica y verifica. Las referencias3/3 o restricciones de nuevas llamadas en la cronología inferior describen la política histórica, no la vigente.
+Invocaciones Claude consumidas: 8 acumuladas, sin máximo numérico vigente. La tercera fue automática fuera del adaptador (incidencia Graphify), cuyo registro se conserva. Política modificada por autorización explícita del usuario el2026-10-06: límite de3 eliminado, contador no reiniciado. Nuevas invocaciones mediante scripts/claude-task del contrato adoptado; Claude propone, Codex aplica y verifica. Las referencias3/3 o restricciones de nuevas llamadas en la cronología inferior describen la política histórica, no la vigente.
 Próximo paso: CR-09. BASE y CR-01…CR-08 verificados localmente;166 comunes passed450.45s y dos límites finales14.47s; Docker privado/worker/Beat verificados.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
 
@@ -668,3 +668,20 @@ Inventario de revisión de recargas:17 conjuntas correctas149,41 s, cero fallos/
 Invocación4 — cr09-historical-log-adversarial-review: autorizada por MOD03 sin máximo numérico. Contrato AI_ENGINEERING1.0.1 leído completo; adaptador original scripts/claude-task, tarea acotada tool-free/snapshots sin secretos sobre b7236c0. Revisión de integridad/privacidad/límites; sin aceptación ni escrituras. Registrar resultado terminal y validación Codex.
 
 Invocación4 terminal exit64: adaptador rechaza CONTEXT como objeto; exige cadena no vacía. Claude no se inició, no informe ni evidencia aceptada. Error de preparación Codex; sin reintento automático conforme al contrato. Se conserva el consumo registrado y se continúa con revisión local.
+
+
+Invocación5 — revisión de rendimiento solicitada en conversación lateral: preparación excedió64KiB; assert previo impidió crear tarea y shell continuó invocando adaptador original con ruta vacía. Terminal exit64, Claude no iniciado, sin informe ni consumo de tokens demostrado. Error Codex preservado; no reintento automático según AI_ENGINEERING1.0.1. Tarea corregida validada localmente con validate_task/strict_json del adaptador, 40515bytes, snapshotGit 90ad302deaf5629e41259a9ad96c35bdced2cedd. Ubicación temporal /tmp/claude-performance-corrected-3fsl0u_b.json. Pendiente autorización expresa de reintento; no modificar fuentes del hilo principal.
+
+
+Invocación6 — cr09-performance-independent-critique-corrected-20261007: reintento autorizado expresamente por el usuario tras fallo5. Tarea corregida40515bytes validada; adaptador original, máximo300s, tool-free/snapshot90ad302. Revisión independiente de rendimiento y alternativas, sin modificaciones del hilo principal ni aprobación automática. Resultado pendiente.
+
+
+Invocación6 terminal: Claude child_exit0 tras190,494s; adaptador exit66 porque STATUS complete contiene UNRESOLVED_ISSUES. No informe contractual aceptado, sinreintento, sinaplicación de propuestas ni testsClaude. Rawstdout/metadata retenidos en /home/felidae/proyectos/arquitectura_codex/.ai/results/20261007T071603-81152f6d71a94306b88fede15b236889. SHAde tarea verificado; valoraciónCodex en docs/evidencias/claude-rendimiento-revision-lateral0110.json. Útil crítica de costeO(N)/media ponderada/diversidad/fallback; descartadas conclusionesSQLCPU y adopción automática de caché por digest/REPEATABLE READ. No nueva medición/capacidad, cola principal/fuentes en edición intactas. Tokens/coste not_reported/not_measured por salida text del adaptador.
+
+
+Invocación7 — cr09-performance-extended-round1-20261007: usuario autoriza sesiónmás extensa; primera revisión acotada nueva implementación confirmada bb4af0c0cac1ef30baa7f5f495df1c3b718389dc, snapshots/60031bytes validados, sinfuenteslive/secretos. Adaptador original timeout300/tool-free. No reintentoautomático ni aceptación de propuestas; sesiónplanificada de dosrondas, segunda trascontrasteCodex. Resultado pendiente.
+
+
+Invocación7 terminal: child0/wrapper0,247,974s; informe válido reportado/noaceptaciónfuncional, tool-free,ningúnarchivo/testClaude. Ronda1retiraLRU/aislamiento y SQLviejo->nuevo; señala diversidad/memo y lagunadehuella. ContrasteCodex corrige suposiciónapprovedinmutable/whatsappúnico y plantea wrappers inspeccionados. Run /home/felidae/proyectos/arquitectura_codex/.ai/results/20261007T072324-98f6d1c2ae5442fc9747ea5a90435d9e.
+
+Invocación8 — cr09-performance-extended-round2-20261007: segunda ronda planificada autorizada, no reintento. Contexto56540bytes validado; síntesis sobre fuentecongelada bb4af0c0cac1ef30baa7f5f495df1c3b718389dc ycontraargumentosCodex, herramientasdesactivadas/max300s. Sinaplicaciones/gates/carga/colaprincipalmodificados. Resultado pendiente.

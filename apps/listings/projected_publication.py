@@ -314,6 +314,13 @@ class ProjectedPublication:
             return False
 
     def visible_ids(self, query):
+        if len({row["approved_revision_id"] for row in self.rows}) != len(self.rows):
+            # A cross-listing approved pointer can collide in the native
+            # context's by_revision map. Preserve native validation/errors for
+            # that inconsistent population; a partial proof must not hide them.
+            self.stats["native_fallback"] = len(self.rows)
+            native = PublicationContext(query)
+            return [row.pk for row in native.rows if moderation.publicly_visible(row, context=native)]
         positive = set()
         unknown = []
         for row in self.rows:
