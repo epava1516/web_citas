@@ -44,7 +44,68 @@
       },
       "emitted_dynamic_without_completed_route": 1094,
       "scope": "Server completed200/302 only; does not imply client success. Aborted/non200/uncaptured/inflight route not_measured, not inferred as fallback or projection. Native candidate_stats snapshots are actual recorded counts, not proof of fingerprint safety."
-    }
+    },
+    "worker_service": {
+      "projection": {
+        "population": 72,
+        "wsgi_seconds": {
+          "p50": 6.171369950752705,
+          "p95": 9.207138874102384,
+          "p99": 9.571952120866627,
+          "max": 9.571952120866627
+        },
+        "sql_execute_seconds": {
+          "p50": 2.7582871303893626,
+          "p95": 5.786469282582402,
+          "p99": 5.976909486576915,
+          "max": 5.976909486576915
+        },
+        "request_thread_cpu_seconds": {
+          "p50": 3.8156301349999993,
+          "p95": 4.018973591000005,
+          "p99": 4.124858676000002,
+          "max": 4.124858676000002
+        },
+        "sql_share_accumulated_wsgi": 0.5147495456010842,
+        "sql_calls": 6336,
+        "render_seconds": {
+          "p50": 0.046739134937524796,
+          "p95": 0.07353245792910457,
+          "p99": 0.09375429805368185,
+          "max": 0.09375429805368185
+        }
+      },
+      "native": {
+        "population": 34,
+        "wsgi_seconds": {
+          "p50": 0.09543559420853853,
+          "p95": 0.1775273336097598,
+          "p99": 0.20899252220988274,
+          "max": 0.20899252220988274
+        },
+        "sql_execute_seconds": {
+          "p50": 0.05083317728713155,
+          "p95": 0.11186181521043181,
+          "p99": 0.12193009350448847,
+          "max": 0.12193009350448847
+        },
+        "request_thread_cpu_seconds": {
+          "p50": 0.0470940879999997,
+          "p95": 0.07159219300000075,
+          "p99": 0.08354768099999887,
+          "max": 0.08354768099999887
+        },
+        "sql_share_accumulated_wsgi": 0.5525604190599642,
+        "sql_calls": 1326,
+        "render_seconds": {
+          "p50": 0.00784995872527361,
+          "p95": 0.019630579743534327,
+          "p99": 0.02056355681270361,
+          "max": 0.02056355681270361
+        }
+      }
+    },
+    "worker_service_scope": "Completed200 dynamic server subset only:72projection/34native details; no network/preWSGI queue time or client success equivalence. SQL includes driver/server/buffering, not DB CPU. Request thread CPU only, no app/process total. Scope differs from prior wrapped-phase worker profiler; validation/context internals not_measured."
   },
   "manifest": {
     "source_commit": "98f35ea74041670723bd926f268c80d38dd36924",
