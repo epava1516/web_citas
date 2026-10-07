@@ -67,7 +67,7 @@ def test_validation_detail_profile_10000(request, monkeypatch, record_property):
     rows = profile.report()
     by_rule = {row["rule"]: row for row in rows}
     assert by_rule["apps.listings.moderation.validate_submission"]["calls"] == 10000
-    assert 10000 <= by_rule["Revision.full_clean"]["calls"] <= 20000
+    assert by_rule["Revision.full_clean"]["calls"] == 20000
     for row in rows:
         assert abs(row["inclusive_time"] - row["exclusive_time"]
                    - sum(row["instrumented_children"].values())) < 1e-7
