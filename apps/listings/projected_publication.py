@@ -11,6 +11,7 @@ import json
 from collections import defaultdict
 from datetime import date, datetime
 from decimal import Decimal
+from types import CodeType
 from uuid import UUID
 
 from django import forms
@@ -20,6 +21,7 @@ from django.core.paginator import Paginator
 from django.db import connection
 from django.db.migrations.serializer import serializer_factory
 from django.db.models import prefetch_related_objects
+from django.forms import models as model_forms
 from django.utils import timezone
 from django.utils.translation import get_language
 
@@ -41,10 +43,28 @@ from .public_validation import (
 )
 
 
+def code_signature(code):
+    """Executed bytecode/constants, without deployment path or source line numbers.
+
+    Source lookup and inspect.unwrap can hide replacement runtime implementations.
+    Every wrapper layer remains in the signature, including functools.wraps layers.
+    Profiling therefore observes calls without changing the callable chain.
+    This is a reviewed change detector, not a sandbox for arbitrary Python code.
+    """
+    def constant(value):
+        if isinstance(value, CodeType):
+            return code_signature(value)
+        return (type(value).__name__, repr(value))
+    return (code.co_code.hex(), [constant(value) for value in code.co_consts],
+            code.co_names, code.co_varnames, code.co_freevars, code.co_cellvars,
+            code.co_argcount, code.co_posonlyargcount, code.co_kwonlyargcount,
+            code.co_flags, code.co_exceptiontable.hex())
+
+
 def definitions():
     """Serializable audited code/metadata, independent of DB values and locale.
 
-    wraps-based measurement hooks unwrap to the same native definition. A new
+    Actual callable layers are fingerprinted; wraps is not evidence of transparency. A new
     validator, widget/configuration, constraint or instance rule is unsupported.
     The expected digest is reviewed source data, not learnt from a new request.
     """
@@ -58,7 +78,8 @@ def definitions():
                  moderation.publicly_visible, verification_services.publication_ready,
                  submissions.publication_ready, submissions.current_publishing_document,
                  publication_query, public_validation.publication_query,
-                 history.ordinary_matches, history.rectification_history_ids]
+                 history.ordinary_matches, history.rectification_history_ids,
+                 model_forms.construct_instance, model_forms.model_to_dict]
     for cls in classes:
         names = {"__init__", "clean", "full_clean", "clean_fields", "validate_unique",
                  "validate_constraints", "_get_unique_checks", "_perform_unique_checks",
@@ -83,9 +104,18 @@ def definitions():
                              for validator in field.validators)
     code = []
     for function in functions:
-        function = inspect.unwrap(function)
-        code.append((function.__module__, function.__qualname__,
-                     hashlib.sha256(inspect.getsource(function).encode()).hexdigest()))
+        layers = []
+        seen = set()
+        while True:
+            function = getattr(function, "__func__", function)
+            if id(function) in seen:
+                raise ValueError("Cyclic callable wrapper")
+            seen.add(id(function))
+            layers.append(code_signature(function.__code__))
+            if not hasattr(function, "__wrapped__"):
+                break
+            function = function.__wrapped__
+        code.append(layers)
     field_options = []
     for cls in [DetailsForm, ContactsForm, RateForm]:
         field_options.append((cls.__name__, cls._meta.model._meta.label,
@@ -114,7 +144,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "0a2bf933a945c72f0b2b143fa548478ace0bc3b089f20b2929e396e1fec512f4"
+EXPECTED_DEFINITIONS = "88d3073c761ed2fa236803131877dc9ed400e3136628b86adb939e96c1f436df"
 
 
 def definitions_digest():
@@ -336,13 +366,19 @@ class ProjectedPublication:
         return [row["pk"] for row in self.rows if row["pk"] in positive]
 
 
-def projected_page(query, number, *, checked=False):
+def projected_page(query, number, *, checked=False, observation=None):
     """None asks the caller for the complete native path, including ranking."""
+    if observation is not None:
+        observation.update(route="fallback", reason="unsupported_definitions_or_mode")
     if not supported(checked=checked):
         return None
     projection = ProjectedPublication(query)
     ids = projection.visible_ids(query)
+    if observation is not None:
+        observation.update(candidate_stats=dict(projection.stats))
     if not supported(checked=checked):
+        if observation is not None:
+            observation["reason"] = "definitions_changed_during_request"
         return None  # A rule/configuration changed during this request.
     page = Paginator(ids, 24).page(number)
     selected = list(page.object_list)
@@ -354,6 +390,11 @@ def projected_page(query, number, *, checked=False):
                 or not moderation.publicly_visible(row, context=native)):
             # Confirmed change between projection and hydration: recompute native
             # population/count/order, rather than expose a stale/substituted row.
+            if observation is not None:
+                observation["reason"] = "native_page_guard_changed"
             return None
+    if observation is not None:
+        observation.update(route="projection", reason="audited_current_values",
+                           hydrated_count=len(selected))
     page.object_list = [rows[listing_id] for listing_id in selected]
     return page

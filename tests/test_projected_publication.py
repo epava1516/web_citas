@@ -213,3 +213,26 @@ def test_inconsistent_duplicate_approved_pointer_preserves_native_error(request)
     projection = ProjectedPublication(query)
     with pytest.raises(ValueError, match="requires its own current revision instance"):
         projection.visible_ids(query)
+
+
+def test_nonwrapping_profile_preserves_route_and_functional_response(request, monkeypatch):
+    from scripts.benchmark_call_profile import CallProfile
+
+    client = request.getfixturevalue("directory")
+    populate(50)
+    assert supported()
+    before = projection_module.definitions_digest()
+    ordinary = client.get("/es/")
+    with CallProfile([Revision.full_clean, ProjectedPublication.positive]):
+        assert projection_module.definitions_digest() == before
+        measured = client.get("/es/")
+    assert measured.content == ordinary.content
+    assert measured.wsgi_request._publication_route == ordinary.wsgi_request._publication_route
+    assert measured.wsgi_request._publication_route["route"] == "projection"
+    assert projection_module.definitions_digest() == before
+    with monkeypatch.context() as patched:
+        patched.setattr(projection_module, "supported", lambda **kwargs: False)
+        with CallProfile([Revision.full_clean]):
+            native = client.get("/es/")
+        assert native.content == ordinary.content
+        assert native.wsgi_request._publication_route["route"] == "fallback"

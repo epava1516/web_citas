@@ -57,8 +57,11 @@ def test_out_of_page_runtime_rule_probe(request, monkeypatch, record_property, m
         "page1_order_equal": [row.pk for row in observed.context["page"]] == native[:24],
         "eligibility_equal": projected == native,
     })
-    # Initial reproduction: replace by the regression contract after correction.
-    assert len(native) == 49 and len(projected) == 50
-    assert projection.definitions_digest() == before and projection.supported()
-    assert observed.context["page"].paginator.count == 50
-    assert [row.pk for row in observed.context["page"]] == native[:24]
+    assert len(native) == 49
+    assert projection.definitions_digest() != before and not projection.supported()
+    assert projection.projected_page(candidates({}), 1) is None
+    for number in [1, 2, 3]:
+        response = client.get("/es/", {"page": number})
+        assert response.context["page"].paginator.count == 49
+        assert response.context["page"].paginator.num_pages == 3
+        assert [row.pk for row in response.context["page"]] == native[(number - 1)*24:number*24]

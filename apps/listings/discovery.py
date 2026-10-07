@@ -232,10 +232,12 @@ def results(request):
     from .projected_publication import projected_page
     from .public_validation import PublicationContext
 
+    request._publication_route = {"route": "fallback", "reason": "invalid_search"}
     try:
         page = (
             projected_page(candidates(form.cleaned_data), number,
-                           checked=bool(form.cleaned_data.get("checked")))
+                           checked=bool(form.cleaned_data.get("checked")),
+                           observation=request._publication_route)
             if valid else None
         )
         sponsorship = {}
