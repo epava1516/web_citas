@@ -1,0 +1,46 @@
+{
+  "schema": "projection-http-jit-prefixed-v1",
+  "date": "2026-10-07",
+  "delivery": "CR09-REND-LECTURA/R2",
+  "hypothesis": "The main SELECT execute4.25s in measured HTTP differs from the sub1s replay; local JIT versus transaction context must be isolated before policy.",
+  "fixture": "directory + populate10000; original contractual repeated fixture; no active competing test runner",
+  "modes": {
+    "A": "Normal HTTP autocommit unchanged",
+    "C": "HTTP in own READ ONLY transaction, current jit, statement_timeout65s",
+    "B": "Same C context with SET LOCAL jit=off"
+  },
+  "controls_without_wrapper": [
+    "A",
+    "C",
+    "B"
+  ],
+  "triplets": [
+    [
+      "A",
+      "C",
+      "B"
+    ],
+    [
+      "B",
+      "C",
+      "A"
+    ],
+    [
+      "C",
+      "B",
+      "A"
+    ],
+    [
+      "A",
+      "B",
+      "C"
+    ]
+  ],
+  "instruments": "Same lightweight SQL execute wrapper in all measured modes; no rule profiler or definition wrapper. SQL normalization cached; SELECT raw SQL/parameters retained only in memory. Planner-only EXPLAIN (FORMAT JSON) after HTTP timers in each mode; no new ANALYZE needed for this question, existing separate analyzed plans retained.",
+  "equivalence": "All HTTP200, exact body, full count10000/page and real routeprojection. Dataset authority and state unchanged. HTTP parameter timestamps may advance naturally, unlike R1 frozen replay; disclose scope.",
+  "decision": "C minus B: confirm material HTTP effect only if JIT baseline on, all4 relative savings>=20% and median absolute>=0.25s. Small effect absent if allpairs within10% and0.05s. Off slower if allabsolute savingsnegative; otherwise inconclusive. A/C describes context, no JIT attribution from this comparison. Statistics/estimated plan drift or resource uncertainty may further limit causal attribution; no automatic policy from a timing flag alone.",
+  "scope": "DjangoClient not TCP capacity; controls exclude wrapper/transactionsetup/fixture, observed internal SQL may overlap lazy validation/render. No PG CPU/row inference or total-minus-SQL validation. Shared host/PG warmed, no cache reset or PG scaling/global JIT policy.",
+  "output": "/tmp/projection-http-jit-context0110",
+  "runner": "/tmp/run-projection-http-jit0110.py",
+  "exit": "One finite terminal case; reviewed hashes, semantic equality, arithmetic, settings restoration and owned DB/media cleanup, hypothesis decision. No capacity or CR09 closure; old FAIL/INVALID preserved."
+}
