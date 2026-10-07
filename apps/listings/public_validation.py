@@ -367,6 +367,8 @@ class PublicationContext:
             memo[key] = cleaned
             return independent(cleaned)
 
+        clean._publication_dependency_wrapper = clean
+        clean._publication_dependency_original = original
         field._publication_native_clean = original
         field._publication_memo_clean = clean
         field.clean = clean

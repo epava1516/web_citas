@@ -61,6 +61,8 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
             finally:
                 bucket["seconds"] += time.perf_counter() - start
 
+        measured._publication_dependency_wrapper = measured
+        measured._publication_dependency_original = original
         monkeypatch.setattr(form_class, method, measured)
 
     # Diagnostic subevents only: retain all native construction/cleaning behavior.

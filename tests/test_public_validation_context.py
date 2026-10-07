@@ -165,6 +165,8 @@ def test_validation_bindings_do_not_share_cleaned_data_errors_or_instances(reque
         original(form)
         seen.append(form)
 
+    capture._publication_dependency_wrapper = capture
+    capture._publication_dependency_original = original
     monkeypatch.setattr(ContactsForm, "full_clean", capture)
     rows = context.rows[:2]
     assert len(rows) == 2
@@ -409,4 +411,26 @@ def test_contacts_changed_validator_cannot_reuse_previous_success(request, monke
     assert not context.contacts_valid(data, revision)
     assert not context.contacts_valid(data, revision)
     assert context.contact_validation_stats["fallbacks"] == 2
+    assert context.contact_validation_stats["hits"] == 0
+
+
+def test_contacts_unknown_wrapped_method_cannot_share_a_success(request, monkeypatch):
+    from django.core.exceptions import ValidationError
+
+    request.getfixturevalue("directory")
+    context = PublicationContext(candidates({}))
+    revision = context.rows[0].approved_revision
+    data = {"whatsapp": True, "telegram": "@Valid_name", "contact_exposure_accepted": True,
+            "accept_publishing": True, "legal_version": context.document.version}
+    assert context.contacts_valid(data, revision)
+    original = ContactsForm.full_clean
+
+    @wraps(original)
+    def altered(form):
+        original(form)
+        form.add_error(None, ValidationError("Changed behavior behind wraps"))
+
+    monkeypatch.setattr(ContactsForm, "full_clean", altered)
+    assert not context.contacts_valid(data, revision)
+    assert context.contact_validation_stats["fallbacks"] == 1
     assert context.contact_validation_stats["hits"] == 0

@@ -1,7 +1,5 @@
 """Dependencies of successful request-local contact cleaning, never authority."""
 
-from inspect import unwrap
-
 from django import forms
 from django.core.validators import MaxLengthValidator, ProhibitNullCharactersValidator
 from django.db import models
@@ -13,8 +11,11 @@ from .models import Revision
 
 
 def function_token(function):
-    function = unwrap(function)
-    return getattr(function, "__func__", function)
+    function = getattr(function, "__func__", function)
+    while getattr(function, "_publication_dependency_wrapper", None) is function:
+        function = function._publication_dependency_original
+        function = getattr(function, "__func__", function)
+    return function
 
 
 FORM_METHODS = {
@@ -63,15 +64,21 @@ WIDGET_METHODS = {
           for name in ["value_from_datadict", "value_omitted_from_data"]}
     for cls in [forms.TextInput, forms.HiddenInput, forms.CheckboxInput]
 }
-VALIDATOR_METHODS = {cls: function_token(cls.__call__)
-                     for cls in [MaxLengthValidator, ProhibitNullCharactersValidator]}
+VALIDATOR_METHODS = {
+    cls: {name: function_token(getattr(cls, name))
+          for name in (["__call__", "clean", "compare"] if cls is MaxLengthValidator
+                       else ["__call__"])}
+    for cls in [MaxLengthValidator, ProhibitNullCharactersValidator]
+}
 
 
 def validator_signature(validators):
     signature = []
     for validator in validators:
         cls = type(validator)
-        if cls not in VALIDATOR_METHODS or function_token(validator.__call__) is not VALIDATOR_METHODS[cls]:
+        if (cls not in VALIDATOR_METHODS
+                or any(function_token(getattr(validator, name)) is not expected
+                       for name, expected in VALIDATOR_METHODS[cls].items())):
             return None
         if cls is MaxLengthValidator:
             if type(validator.limit_value) is not int:
@@ -120,7 +127,7 @@ def model_signature(revision):
     for name in MODEL_NAMES:
         field = revision._meta.get_field(name)
         cls = type(field)
-        if (cls not in MODEL_FIELD_METHODS or field.unique or field.choices
+        if (cls not in MODEL_FIELD_METHODS or field.generated or field.unique or field.choices
                 or field.unique_for_date or field.unique_for_month or field.unique_for_year
                 or any(function_token(getattr(field, method)) is not expected
                        for method, expected in MODEL_FIELD_METHODS[cls].items())):
