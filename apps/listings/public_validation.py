@@ -17,6 +17,7 @@ from apps.safety.models import PrivacyPublicationHold, Restriction, RightsPhotoR
 
 from .forms import ContactsForm, DetailsForm, RateForm
 from .history import ordinary_matches, rectification_history_ids
+from .models import Revision
 from .submissions import current_publishing_document
 
 
@@ -228,10 +229,44 @@ def memoize_publication_field_clean(field, stats):
     field.clean = clean
 
 
-def validate_publication_binding(prototype, data, revision):
+def validate_publication_value_fields(form):
+    """Model field validation for the audited read-only Revision proof domain.
+
+    Caller requires the unchanged rules fingerprint: Revision has default
+    Model.clean, no constraints and no unique checks apart from excluded PK.
+    SnapshotDetails already validates geo choices against its fresh catalog.
+    Complete input keys prevent construct_instance's omitted-default branch.
+    Writing, Rate and unaudited rules retain native model construction/clean.
+    """
+    excluded_geo = {"municipality", "postal_code", "zone"} if isinstance(form, SnapshotDetails) else set()
+    errors = {}
+    for field in Revision._meta.fields:
+        name = field.name
+        if (name not in form.fields or name in excluded_geo
+                or (form._meta.fields and name not in form._meta.fields)
+                or (form._meta.exclude and name in form._meta.exclude)
+                or name in form._errors or field.generated):
+            continue
+        value = form.cleaned_data.get(name)
+        form_field = form.fields[name]
+        if not field.blank and not form_field.required and value in form_field.empty_values:
+            continue
+        if field.blank and value in field.empty_values:
+            continue
+        try:
+            # Audited scalar model field implementations don't inspect instance.
+            field.clean(value, None)
+        except ValidationError as error:
+            errors[name] = error.error_list
+    if errors:
+        form._update_errors(ValidationError(errors))
+
+
+def validate_publication_binding(prototype, data, revision, *, value_model=False):
     """Run the native form/model rules on an independent validation-only binding.
 
-    Only definition sharing is performed here. The caller owns audited form
+    Default callers run the full native model path. Projection may opt into
+    the separately audited scalar model field kernel. The caller owns audited form
     definitions, a request-local current catalog/language and all eligibility
     dependencies. Every call runs native full_clean; errors/results/BoundFields
     remain on the new binding. Editing/rendered forms keep normal construction.
@@ -257,6 +292,14 @@ def validate_publication_binding(prototype, data, revision):
     form._validate_unique = False
     form.__dict__.pop("changed_data", None)
     form.__dict__.pop("cleaned_data", None)
+    if value_model:
+        if type(form) not in (SnapshotDetails, ContactsForm):
+            raise ValueError("Value model kernel only supports audited Revision forms")
+        # Unknown/omitted defaults, disabled and empty-permitted bindings use
+        # the original model path. Normal projection provides every field key.
+        complete = all(name in data for name in form.fields)
+        if complete and not needs_initial:
+            form._post_clean = lambda: validate_publication_value_fields(form)
     try:
         return form.is_valid()
     finally:

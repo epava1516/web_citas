@@ -58,8 +58,17 @@ def test_unique_bindings_and_out_of_page_invalid_content_preserve_population(req
     expected = native_ids(candidates({}))
     assert len(expected) == 49
     assert projection.supported()
-    context = projection.ProjectedPublication(candidates({}))
-    assert context.visible_ids(candidates({})) == expected
+    constructed = Counter()
+    def observe(sender, **kwargs):
+        if sender is Revision:
+            constructed["Revision"] += 1
+    post_init.connect(observe, weak=False)
+    try:
+        context = projection.ProjectedPublication(candidates({}))
+        assert context.visible_ids(candidates({})) == expected
+    finally:
+        post_init.disconnect(observe)
+    assert constructed["Revision"] < 10
     assert context.stats['native_fallback'] == 1
     shared = context.field_clean_cache_stats
     assert shared and sum(stats['hits'] for stats in shared.values()) > 0

@@ -87,13 +87,14 @@ def definitions():
                  history.ordinary_matches, history.rectification_history_ids,
                  model_forms.construct_instance, model_forms.model_to_dict,
                  public_validation.validate_publication_binding,
+                 public_validation.validate_publication_value_fields,
                  public_validation.memoize_publication_field_clean, SimpleLazyObject._setup,
                  public_validation.read_publication_values]
     for cls in classes:
         names = {"__init__", "clean", "full_clean", "clean_fields", "validate_unique",
                  "validate_constraints", "_get_unique_checks", "_perform_unique_checks",
                  "_perform_date_checks", "is_valid", "_clean_fields", "_clean_form",
-                 "_post_clean", "_get_validation_exclusions", "_bound_items",
+                 "_post_clean", "_update_errors", "_get_validation_exclusions", "_bound_items",
                  "__getitem__", "_clean_bound_field", "to_python", "validate",
                  "run_validators", "postal_matches", "_check_values", "value_from_datadict",
                  "details", "details_valid", "contacts_valid", "rate_valid", "row",
@@ -153,7 +154,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "3f28a9ebac18a1e236ffe080a68ba38579409fbd7f7fd5bfbe1c44a78c15be2f"
+EXPECTED_DEFINITIONS = "7848aa53edc5cec77a2168cbffce742589d32ab252b972f469badc2681a65086"
 
 
 def definitions_digest():
@@ -310,7 +311,8 @@ class ProjectedPublication:
                 self.validation_prototypes[prototype_key] = prototype
             prototype = self.validation_prototypes[prototype_key]
             inputs = dict(zip(RateForm.Meta.fields, data, strict=True)) if kind == "rates" else dict(data)
-            if not public_validation.validate_publication_binding(prototype, inputs, instance):
+            if not public_validation.validate_publication_binding(
+                    prototype, inputs, instance, value_model=kind in {"details", "contacts"}):
                 return False  # Errors are never reused; native fallback owns them.
             self.memo[kind][key] = True
         return True
