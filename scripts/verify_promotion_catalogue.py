@@ -29,6 +29,22 @@ TESTS = [
 ]
 
 
+def unrelated_task_log(root):
+    """Only the independent delegation ledger may differ from the tested commit.
+
+    Never stash, reset or commit a concurrent user's ledger to obtain a clean
+    tree. Every other tracked change, including any tested source, still blocks.
+    The ledger is not a test input; record its starting hash without its content.
+    """
+    changed = subprocess.check_output(
+        ["git", "diff", "--name-only", "-z", "HEAD"], cwd=root
+    ).decode().split("\0")
+    changed = [name for name in changed if name]
+    if any(name != ".ai/tasks/desarrollo.md" for name in changed):
+        raise ValueError("Commit the tested source before running these gates")
+    return {name: hashlib.sha256((root / name).read_bytes()).hexdigest() for name in changed}
+
+
 def main():
     started = time.perf_counter()
     parser = argparse.ArgumentParser(description=__doc__)
@@ -58,8 +74,10 @@ def main():
     ephemeral_key = not env.get("SAFETY_ENCRYPTION_KEY")
     if ephemeral_key:
         env["SAFETY_ENCRYPTION_KEY"] = Fernet.generate_key().decode("ascii")
-    if subprocess.run(["git", "diff", "--quiet", "HEAD"], cwd=root).returncode:
-        parser.error("Commit the tested source before running these gates")
+    try:
+        task_log_hashes = unrelated_task_log(root)
+    except ValueError as error:
+        parser.error(str(error))
     args.output.mkdir(mode=0o700, parents=True, exist_ok=False)
     os.chmod(args.output, 0o700)
     name = "promotion_gate_" + uuid.uuid4().hex
@@ -91,6 +109,8 @@ def main():
         ).strip(),
         "synthetic_data": True,
         "source_sha256": source_hashes,
+        "unrelated_task_log_sha256_at_start": task_log_hashes,
+        "unrelated_task_log_scope": "Independent delegation ledger; not a tested source or acceptance",
         "sources_unchanged": False,
         "ephemeral_test_encryption_key": ephemeral_key,
         "tests": selected,
