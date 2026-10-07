@@ -14,8 +14,40 @@ from apps.listings.discovery import candidates
 from apps.listings.forms import ContactsForm, DetailsForm
 from apps.listings.moderation import publicly_visible
 from apps.listings.public_validation import PublicationContext, SnapshotDetails
+from scripts.synthetic_load_dataset import populate
 
 pytestmark = pytest.mark.django_db(transaction=True)
+
+
+def test_shared_fk_records_are_fresh_and_do_not_share_authorization(request):
+    request.getfixturevalue("directory")
+    populate(100)
+    context = PublicationContext(candidates({}))
+    assert len(context.rows) == 100
+    agency_rows = [row for row in context.rows if row.person.agency_id]
+    for attribute in [lambda row: row.person.agency,
+                      lambda row: row.approved_revision.publisher_acceptance,
+                      lambda row: row.approved_revision.municipality,
+                      lambda row: row.approved_revision._pv_photos[0].blob]:
+        grouped = {}
+        for row in agency_rows:
+            value = attribute(row)
+            grouped.setdefault(value.pk, set()).add(id(value))
+        assert all(len(identities) == 1 for identities in grouped.values())
+    assert all(publicly_visible(row, context=context) for row in context.rows)
+    person = agency_rows[0].person
+    person.consent_revoked_at = timezone.now()
+    person.save(update_fields=["consent_revoked_at"])
+    fresh = PublicationContext(candidates({}))
+    decisions = {row.pk: publicly_visible(row, context=fresh) for row in fresh.rows}
+    assert decisions[agency_rows[0].pk] is False
+    assert sum(decisions.values()) == 99
+    agency = agency_rows[0].person.agency
+    agency.verification_status = "failed"
+    agency.save(update_fields=["verification_status"])
+    fresh = PublicationContext(candidates({}))
+    assert not any(publicly_visible(row, context=fresh)
+                   for row in fresh.rows if row.person.agency_id == agency.pk)
 
 
 def test_guard_defers_photo_signatures_without_changing_photo_eligibility(request):

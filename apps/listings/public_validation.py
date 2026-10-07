@@ -9,8 +9,9 @@ from django.db.models.functions import Cast
 from django.forms.models import model_to_dict
 from django.utils.translation import get_language
 
-from apps.core.models import RepresentationAction, VerificationCheck
-from apps.mediafiles.models import Match, Photo
+from apps.catalog.models import Municipality
+from apps.core.models import LegalAcceptance, RepresentationAction, VerificationCheck
+from apps.mediafiles.models import Blob, Match, Photo
 from apps.safety.models import PrivacyPublicationHold, Restriction, RightsPhotoReintroduction
 
 from .forms import ContactsForm, DetailsForm, RateForm
@@ -165,9 +166,18 @@ class PublicationContext:
             _pv_check_status=Subquery(latest.values("status")[:1]),
             _pv_check_manager=Subquery(latest.values("manager_version")[:1]),
             _pv_check_subject=Subquery(latest.values("subject_id")[:1]),
-        ).select_related(
-            "approved_revision__publisher_acceptance__document",
-            "approved_revision__municipality__province__region",
+        ).select_related(None).select_related(
+            "approved_revision", "person__phone_claim",
+        ).prefetch_related(
+            "person__agency",
+            Prefetch(
+                "approved_revision__publisher_acceptance",
+                queryset=LegalAcceptance.objects.select_related("document"),
+            ),
+            Prefetch(
+                "approved_revision__municipality",
+                queryset=Municipality.objects.select_related("province__region"),
+            ),
         )
         for name in ["categories", "services", "travel_areas", "rates"]:
             query = query.prefetch_related(Prefetch("approved_revision__" + name))
@@ -175,8 +185,9 @@ class PublicationContext:
             Prefetch(
                 "approved_revision__photos",
                 queryset=Photo.objects.filter(removed_at__isnull=True)
-                .select_related("blob")
-                .defer("blob__signature", "blob__regional_hashes"),
+                .prefetch_related(Prefetch(
+                    "blob", queryset=Blob.objects.defer("signature", "regional_hashes")
+                )),
                 to_attr="_pv_photos",
             )
         )
