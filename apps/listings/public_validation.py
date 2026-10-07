@@ -4,6 +4,7 @@ from copy import copy
 
 from django import forms
 from django.core.exceptions import ValidationError
+from django.db import connection, transaction
 from django.db.models import Case, CharField, Exists, OuterRef, Prefetch, Q, Subquery, Value, When
 from django.db.models.functions import Cast
 from django.forms.models import model_to_dict
@@ -164,6 +165,26 @@ def publication_query(query, document):
         _pv_check_manager=Subquery(latest.values("manager_version")[:1]),
         _pv_check_subject=Subquery(latest.values("subject_id")[:1]),
     )
+
+
+def read_publication_values(query):
+    """Materialize the captured scalar SELECT with a request-scoped JIT policy.
+
+    Only this read uses jit=off. Its SQL/parameters and READ COMMITTED statement
+    semantics stay native; no server/session policy is cached or changed.
+    Restore explicitly on success for an enclosing transaction. Atomic rollback
+    restores the local setting/savepoint on errors, without querying a broken
+    transaction. Callers perform authority checks/hydration outside this scope.
+    """
+    with transaction.atomic():
+        with connection.cursor() as cursor:
+            cursor.execute("SHOW jit")
+            previous = cursor.fetchone()[0]
+            cursor.execute("SET LOCAL jit=off")
+        rows = list(query)
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT set_config('jit', %s, true)", [previous])
+        return rows
 
 
 def validate_publication_binding(prototype, data, revision):

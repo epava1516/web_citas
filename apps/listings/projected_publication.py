@@ -86,7 +86,8 @@ def definitions():
                  publication_query, public_validation.publication_query,
                  history.ordinary_matches, history.rectification_history_ids,
                  model_forms.construct_instance, model_forms.model_to_dict,
-                 public_validation.validate_publication_binding, SimpleLazyObject._setup]
+                 public_validation.validate_publication_binding, SimpleLazyObject._setup,
+                 public_validation.read_publication_values]
     for cls in classes:
         names = {"__init__", "clean", "full_clean", "clean_fields", "validate_unique",
                  "validate_constraints", "_get_unique_checks", "_perform_unique_checks",
@@ -151,7 +152,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "9ad47250d29d615705d046a93212ecab051528545ef19751bd512bd4711c4c95"
+EXPECTED_DEFINITIONS = "b15fa6375029a714d0624d3922ded579584033168017b4b73d8a8ca21479bfc7"
 
 
 def definitions_digest():
@@ -191,7 +192,8 @@ class ProjectedPublication:
         columns += ["_pv_" + name for name in ["history", "rectification_upload", "reintroduction",
                     "hold", "restriction", "grant", "conflict", "check_status",
                     "check_manager", "check_subject"]]
-        self.rows = list(publication_query(query, self.document).values(*columns))
+        self.rows = public_validation.read_publication_values(
+            publication_query(query, self.document).values(*columns))
         self.by_id = {row["pk"]: row for row in self.rows}
         revision_ids = [row["approved_revision_id"] for row in self.rows]
         revision_batch = CapturedUUIDBatch(revision_ids, mode="array")
