@@ -42,6 +42,7 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
     prefetch_calls = Counter()
     sql_execute_seconds = 0.0
     objects = Counter()
+    field_clean_stats = []
     form_events = {}
 
     def instrument_form_method(form_class, method):
@@ -148,6 +149,7 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
         start = time.perf_counter()
         try:
             original_init(self, query)
+            field_clean_stats.append(self.field_clean_cache_stats)
         finally:
             stages["context_seconds"] += time.perf_counter() - start
             phase = before
@@ -202,6 +204,7 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
     record_property("objects_instantiated_by_model", dict(objects))
     record_property("explicit_stages", stages)
     record_property("form_events", form_events)
+    record_property("field_clean_cache_stats", field_clean_stats)
     record_property("objects_by_phase_model", {f"{p}:{m}": n for (p, m), n in provenance.items()})
     record_property("from_db_calls_by_model", dict(from_db_calls))
     record_property("from_db_seconds_by_model", dict(from_db_seconds))

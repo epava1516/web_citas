@@ -181,6 +181,46 @@ def test_validation_bindings_do_not_share_cleaned_data_errors_or_instances(reque
     assert seen[0].instance is rows[0].approved_revision
     assert seen[-1].instance is rows[1].approved_revision
     assert seen[0].cleaned_data["telegram"] == "Valid_name"
+    stats = context.field_clean_cache_stats["ContactsForm.telegram"]
+    # Raw CharField cleaning is reused; form-specific normalization and rejection
+    # still execute for every independent binding, including cached raw values.
+    assert stats == {"calls": 6, "hits": 4, "misses": 2}
+
+
+def test_field_clean_reuse_preserves_mutable_results_and_typed_keys(request, monkeypatch):
+    request.getfixturevalue("directory")
+    context = PublicationContext(candidates({}))
+    row = next(row for row in context.rows if publicly_visible(row, context=context))
+    revision = row.approved_revision
+    data = {name: getattr(revision, name) for name in SnapshotDetails.Meta.fields
+            if not revision._meta.get_field(name).many_to_many}
+    data.update({name: [item.pk for item in getattr(revision, "_pv_" + name)]
+                 for name in ["categories", "services", "travel_areas"]})
+    city = revision.municipality
+    data.update(region=city.province.region_id, province=city.province_id,
+                municipality=city.pk, postal_code=revision.postal_code_id or "",
+                zone=revision.zone_id or "")
+    seen = []
+    original = SnapshotDetails.full_clean
+
+    def capture(form):
+        original(form)
+        seen.append(form)
+
+    monkeypatch.setattr(SnapshotDetails, "full_clean", capture)
+    assert context.details_valid(data, revision)
+    expected = list(seen[-1].cleaned_data["categories"])
+    seen[-1].cleaned_data["categories"].clear()
+    assert context.details_valid(data, revision)
+    assert seen[-1].cleaned_data["categories"] == expected
+    assert seen[-1].cleaned_data["categories"] is not seen[-2].cleaned_data["categories"]
+    before = dict(context.field_clean_cache_stats["SnapshotDetails.province"])
+    assert context.details_valid({**data, "province": str(city.province_id)}, revision)
+    after = context.field_clean_cache_stats["SnapshotDetails.province"]
+    assert after["misses"] == before["misses"] + 1
+    # A new request obtains fresh catalog and fresh field memo tables.
+    fresh = PublicationContext(candidates({}))
+    assert fresh.field_clean_cache_stats == {}
 
 
 def test_context_matches_ordinary_visibility_and_fresh_catalog_changes(request):

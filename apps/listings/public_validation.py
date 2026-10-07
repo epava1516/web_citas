@@ -109,6 +109,7 @@ class PublicationContext:
         self.document = current_publishing_document()
         self.rate_checks = {}
         self._validation_prototypes = {}
+        self.field_clean_cache_stats = {}
         grant = RepresentationAction.objects.filter(
             person_id=OuterRef("person_id"),
             subject_id=OuterRef("person__subject_id"),
@@ -248,12 +249,14 @@ class PublicationContext:
         )
 
     def _bound_validation(self, form_class, data, revision):
-        """Share static field definitions, never errors, data or cleaned results.
+        """Share definitions and successful scalar field cleaning within a request.
 
         Key: form class, request-owned catalog identity, active language. The
         source-defined fields/options and restricted catalog belong to this
         context only. These two forms do not mutate field configuration while
-        cleaning; all instance/model validation runs on a fresh binding below.
+        cleaning. Memo keys include the prototype's actual field configuration,
+        validators, fresh catalog, language and exact typed input. Mutable result
+        containers are copied; all form/model validation runs on a fresh binding.
         No representation, document, revocation or eligibility result is reused.
         """
         if form_class not in (SnapshotDetails, ContactsForm):
@@ -261,11 +264,15 @@ class PublicationContext:
         self.row(revision)
         key = (form_class, id(self.catalog), get_language())
         if key not in self._validation_prototypes:
-            self._validation_prototypes[key] = (
+            prototype = (
                 self.details(data, revision)
                 if form_class is SnapshotDetails
                 else form_class(data, instance=revision)
             )
+            for name, field in prototype.fields.items():
+                if name != "title":
+                    self._memoize_field_clean(form_class.__name__ + "." + name, field)
+            self._validation_prototypes[key] = prototype
         form = copy(self._validation_prototypes[key])
         form.instance = revision
         form.data = data
@@ -281,6 +288,47 @@ class PublicationContext:
         form.__dict__.pop("changed_data", None)
         form.__dict__.pop("cleaned_data", None)
         return form.is_valid()
+
+    def _memoize_field_clean(self, name, field):
+        # Field.clean receives only value; instance/cross-field/model/authority
+        # checks are outside it and still run for every fresh binding. Audited
+        # field definitions/catalog/language are fixed in this prototype only.
+        original = field.clean
+        memo = {}
+        stats = self.field_clean_cache_stats.setdefault(name, {"calls": 0, "hits": 0, "misses": 0})
+
+        def freeze(value):
+            if value is None or type(value) in (str, bool, int):
+                return (type(value), value)
+            if type(value) in (list, tuple):
+                return (type(value), tuple(freeze(item) for item in value))
+            raise TypeError("Unsupported field input remains natively validated")
+
+        def independent(value):
+            if isinstance(value, list):
+                return list(value)
+            if hasattr(value, "all"):
+                # Optional empty ModelMultipleChoice returns a native QuerySet.
+                return value.all()
+            return value
+
+        def clean(value):
+            stats["calls"] += 1
+            try:
+                key = freeze(value)
+            except TypeError:
+                stats["misses"] += 1
+                return original(value)
+            if key in memo:
+                stats["hits"] += 1
+                return independent(memo[key])
+            stats["misses"] += 1
+            # Errors are never cached or shared; native exception data stays local.
+            cleaned = original(value)
+            memo[key] = cleaned
+            return independent(cleaned)
+
+        field.clean = clean
 
     def details_valid(self, data, revision):
         return self._bound_validation(SnapshotDetails, data, revision)
