@@ -5,6 +5,8 @@ import time
 import pytest
 from django import forms
 from django.db import connection
+from django.db.models import JSONField
+from django.db.models import query as query_module
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
@@ -40,6 +42,7 @@ def test_discovery_rule_profile_10000(request, monkeypatch, record_property):
         (DetailsForm, "__init__"),
         (forms.BaseForm, "__init__"),
         (SnapshotChoice, "__deepcopy__"),
+        (query_module, "prefetch_one_level"),
     ]
     for cls in [SnapshotDetails, ContactsForm]:
         for method in ["__init__", "full_clean", "_clean_fields", "_clean_form", "_post_clean"]:
@@ -48,6 +51,15 @@ def test_discovery_rule_profile_10000(request, monkeypatch, record_property):
     for owner, name in targets:
         label = f"{getattr(owner, '__name__', str(owner))}.{name}"
         monkeypatch.setattr(owner, name, profile.wrap(label, getattr(owner, name)))
+
+    original_json_conversion = JSONField.from_db_value
+
+    def json_conversion(field, *args, **kwargs):
+        # Model/field names only: never collect the JSON value or query parameters.
+        label = f"json.{field.model._meta.label}.{field.name}"
+        return profile.wrap(label, original_json_conversion)(field, *args, **kwargs)
+
+    monkeypatch.setattr(JSONField, "from_db_value", json_conversion)
 
     def sql_event(execute, sql, params, many, context):
         return profile.wrap("sql.cursor_execute", execute)(sql, params, many, context)
@@ -65,5 +77,5 @@ def test_discovery_rule_profile_10000(request, monkeypatch, record_property):
     record_property("profiled_request_seconds", measured_seconds)
     record_property("overhead_comparison_seconds", measured_seconds - control_seconds)
     record_property("overhead", "Paired route without/with selected wrappers, sequential control then profile, one sample each. Difference includes instrumentation and uncontrolled PG/OS cache effects: causal overhead not_measured; no correction applied.")
-    record_property("scope", "Synchronous request only; ContextVar nested stack; subtract direct instrumented child inclusive intervals once, never grandchildren again. exclusive_time is relative to observed children, includes uninstrumented Python/ORM work. Inline authorization/document/revocation conditions are included in validate_submission, not separately attributed. No arguments/parameters persisted; seconds, optional p95 not_measured. SQL execute may be nested inside forms/render/context; no total-minus-SQL validation attribution.")
+    record_property("scope", "Synchronous request only; ContextVar nested stack; subtract direct instrumented child inclusive intervals once, never grandchildren again. Added prefetch_one_level and JSONField.from_db_value by model/field; earlier profile did not have these children and exclusive times are not directly comparable. exclusive_time is relative to observed children, includes uninstrumented Python/ORM work. Inline authorization/document/revocation conditions are included in validate_submission, not separately attributed. No arguments/parameters persisted; seconds, optional p95 not_measured. SQL execute may be nested inside forms/render/context; no total-minus-SQL validation attribution.")
     record_property("not_measured", "rows_returned/affected/scanned; CPU/RSS/waits/locks/IO; independent inline predicate timings; causal profiler overhead; concurrent capacity; p95 exclusive")
