@@ -1,0 +1,29 @@
+{
+  "source_commit": "928aa1032d8066ee61b5cde65a9b462bea2ff5dd",
+  "tests": [
+    "tests/test_public_validation_context.py",
+    "tests/test_discovery.py",
+    "tests/test_privacy_publication_holds.py"
+  ],
+  "sources_unchanged": true,
+  "migration_exit": 0,
+  "pytest_exit": 0,
+  "cleanup_verified": true,
+  "test_media_removed": true,
+  "artifact_sha256": {
+    "migration.log": "554c86191aa5458fa81d6926cc0060ee8b12abefbb10023fb049f7a28126fb79",
+    "pytest.log": "41bf2037df82abc5320d0a961045e819a9d780b166bfa0582689449b34ead6bf",
+    "pytest.xml": "759c257bd81245b89f02cbfcfa35d472a121a1f99868200d00ff05912bd51bc5",
+    "test-timings.json": "4b1a726725f4976ca4197f7c9fb5ed14ec7921af26666f7cac73bea85130b611"
+  },
+  "timing_seconds": {
+    "configuration": 0.09255540743470192,
+    "database_preparation": 0.12321043806150556,
+    "migration": 34.21672705700621,
+    "pytest": 161.912003651727,
+    "cleanup": 0.1424726559780538,
+    "total": 196.56758782733232
+  },
+  "case_count": 19,
+  "scope": "Deferred blob signatures: unchanged guard decisions for ready/pending, incomplete comparison and removed photo; guard causes no lazy Blob select. Native scalar-form equivalence, field independence, catalog changes, consent/grant/latest check, discovery and privacy holds. Functional only; no performance or phase acceptance."
+}
