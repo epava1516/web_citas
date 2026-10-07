@@ -1,15 +1,19 @@
 """Current-request publication validation; no persistent or cross-request cache."""
 
+from copy import copy
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db.models import Case, CharField, Exists, OuterRef, Prefetch, Q, Subquery, Value, When
 from django.db.models.functions import Cast
+from django.forms.models import model_to_dict
+from django.utils.translation import get_language
 
 from apps.core.models import RepresentationAction, VerificationCheck
 from apps.mediafiles.models import Match, Photo
 from apps.safety.models import PrivacyPublicationHold, Restriction, RightsPhotoReintroduction
 
-from .forms import DetailsForm, RateForm
+from .forms import ContactsForm, DetailsForm, RateForm
 from .history import ordinary_matches, rectification_history_ids
 from .submissions import current_publishing_document
 
@@ -103,6 +107,7 @@ class PublicationContext:
     def __init__(self, query):
         self.document = current_publishing_document()
         self.rate_checks = {}
+        self._validation_prototypes = {}
         grant = RepresentationAction.objects.filter(
             person_id=OuterRef("person_id"),
             subject_id=OuterRef("person__subject_id"),
@@ -230,6 +235,47 @@ class PublicationContext:
         return SnapshotDetails(
             self.catalog, data, instance=revision, prepared_fields=self.details_fields
         )
+
+    def _bound_validation(self, form_class, data, revision):
+        """Share static field definitions, never errors, data or cleaned results.
+
+        Key: form class, request-owned catalog identity, active language. The
+        source-defined fields/options and restricted catalog belong to this
+        context only. These two forms do not mutate field configuration while
+        cleaning; all instance/model validation runs on a fresh binding below.
+        No representation, document, revocation or eligibility result is reused.
+        """
+        if form_class not in (SnapshotDetails, ContactsForm):
+            raise ValueError("Only the audited stateless publication forms can share definitions")
+        self.row(revision)
+        key = (form_class, id(self.catalog), get_language())
+        if key not in self._validation_prototypes:
+            self._validation_prototypes[key] = (
+                self.details(data, revision)
+                if form_class is SnapshotDetails
+                else form_class(data, instance=revision)
+            )
+        form = copy(self._validation_prototypes[key])
+        form.instance = revision
+        form.data = data
+        form.initial = model_to_dict(revision, form._meta.fields, form._meta.exclude)
+        if form_class is SnapshotDetails and revision.municipality_id:
+            city = revision.municipality
+            form.initial.setdefault("province", city.province_id)
+            form.initial.setdefault("region", city.province.region_id)
+        form.fields = dict(form.fields)
+        form._errors = None
+        form._bound_fields_cache = {}
+        form._validate_unique = False
+        form.__dict__.pop("changed_data", None)
+        form.__dict__.pop("cleaned_data", None)
+        return form.is_valid()
+
+    def details_valid(self, data, revision):
+        return self._bound_validation(SnapshotDetails, data, revision)
+
+    def contacts_valid(self, data, revision):
+        return self._bound_validation(ContactsForm, data, revision)
 
     def rate_valid(self, rate):
         # The existing rate constraint/form depends only on these primitive values.

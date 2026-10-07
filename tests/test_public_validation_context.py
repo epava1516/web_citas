@@ -11,7 +11,7 @@ from test_photos import photo_environment  # noqa: F401
 
 from apps.core.models import Person
 from apps.listings.discovery import candidates
-from apps.listings.forms import DetailsForm
+from apps.listings.forms import ContactsForm, DetailsForm
 from apps.listings.moderation import publicly_visible
 from apps.listings.public_validation import PublicationContext, SnapshotDetails
 
@@ -98,6 +98,8 @@ def test_prepared_details_preserve_cleaning_and_independent_fields(request):
         native = DetailsForm(values, instance=copy(revision))
         assert prepared.is_valid() == fresh.is_valid()
         assert prepared.is_valid() == native.is_valid()
+        bound_instance = revision
+        assert context.details_valid(values, bound_instance) == fresh.is_valid()
         assert prepared.errors.as_data() == fresh.errors.as_data()
         # Snapshot invalid-choice messages differ only by the submitted value
         # parameter. Compare field names and error codes with the native form.
@@ -116,6 +118,37 @@ def test_prepared_details_preserve_cleaning_and_independent_fields(request):
         for name in SnapshotDetails.Meta.fields:
             if not revision._meta.get_field(name).many_to_many:
                 assert getattr(prepared_instance, name) == getattr(fresh_instance, name)
+
+
+def test_validation_bindings_do_not_share_cleaned_data_errors_or_instances(request, monkeypatch):
+    request.getfixturevalue("directory")
+    context = PublicationContext(candidates({}))
+    seen = []
+    original = ContactsForm.full_clean
+
+    def capture(form):
+        original(form)
+        seen.append(form)
+
+    monkeypatch.setattr(ContactsForm, "full_clean", capture)
+    rows = context.rows[:2]
+    assert len(rows) == 2
+    for index, row in enumerate(rows):
+        data = {"whatsapp": bool(index), "telegram": "@Valid_name",
+                "contact_exposure_accepted": True, "accept_publishing": True,
+                "legal_version": context.document.version}
+        assert context.contacts_valid(data, row.approved_revision)
+        assert row.approved_revision.telegram == "Valid_name"
+        assert row.approved_revision.whatsapp is bool(index)
+        assert not context.contacts_valid({**data, "telegram": "not valid!"}, row.approved_revision)
+        assert context.contacts_valid(data, row.approved_revision)
+    assert len({id(form) for form in seen}) == len(seen)
+    assert len({id(form.cleaned_data) for form in seen}) == len(seen)
+    assert len({id(form.errors) for form in seen}) == len(seen)
+    assert len({id(form._bound_fields_cache) for form in seen}) == len(seen)
+    assert seen[0].instance is rows[0].approved_revision
+    assert seen[-1].instance is rows[1].approved_revision
+    assert seen[0].cleaned_data["telegram"] == "Valid_name"
 
 
 def test_context_matches_ordinary_visibility_and_fresh_catalog_changes(request):

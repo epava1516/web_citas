@@ -134,20 +134,24 @@ def validate_submission(revision, person, *, context=None):
         postal_code=revision.postal_code_id or "",
         zone=revision.zone_id or "",
     )
-    form = context.details(data, revision) if context else DetailsForm(data, instance=revision)
-    if not form.is_valid():
+    if not (
+        context.details_valid(data, revision)
+        if context
+        else DetailsForm(data, instance=revision).is_valid()
+    ):
         raise ValidationError("Corrige datos y ubicación / Correct details and location")
-    contacts = ContactsForm(
-        {
-            "whatsapp": revision.whatsapp,
-            "telegram": revision.telegram,
-            "contact_exposure_accepted": revision.contact_exposure_accepted,
-            "accept_publishing": True,
-            "legal_version": document.version,
-        },
-        instance=revision,
-    )
-    if not contacts.is_valid():
+    contact_data = {
+        "whatsapp": revision.whatsapp,
+        "telegram": revision.telegram,
+        "contact_exposure_accepted": revision.contact_exposure_accepted,
+        "accept_publishing": True,
+        "legal_version": document.version,
+    }
+    if not (
+        context.contacts_valid(contact_data, revision)
+        if context
+        else ContactsForm(contact_data, instance=revision).is_valid()
+    ):
         raise ValidationError("Corrige los contactos / Correct contacts")
     rates = revision._pv_rates if context else list(revision.rates.all())
     if len(rates) > 10 or any(
