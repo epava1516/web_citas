@@ -34,7 +34,7 @@ def diagnose(request, record_property, variant):
             if row.description_alternative:
                 row.description_alternative += ' ' + suffix
             row.telegram = 'bench' + suffix
-        Revision.objects.bulk_update(rows, ['description', 'description_alternative', 'telegram'])
+        Revision.objects.bulk_update(rows, ['description', 'description_alternative', 'telegram'], batch_size=250)
     patterns = {}
     reads = {}
     cache = {}

@@ -61,7 +61,7 @@ def test_projection_comparable_cycle(request, monkeypatch, record_property, coun
             if row.description_alternative:
                 row.description_alternative += ' ' + suffix
             row.telegram = 'bench' + suffix
-        Revision.objects.bulk_update(rows, ['description', 'description_alternative', 'telegram'])
+        Revision.objects.bulk_update(rows, ['description', 'description_alternative', 'telegram'], batch_size=250)
     reports = []
     explain_candidates = []
     expected = None
