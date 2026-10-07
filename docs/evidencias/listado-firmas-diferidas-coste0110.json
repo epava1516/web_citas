@@ -1,0 +1,1719 @@
+{
+  "source_commit": "9c6a844f3ffa43516187202e98189045a819186e",
+  "verification": {
+    "sources_unchanged": true,
+    "migration_exit": 0,
+    "pytest_exit": 0,
+    "cleanup_verified": true,
+    "test_media_removed": true,
+    "artifact_sha256": {
+      "migration.log": "554c86191aa5458fa81d6926cc0060ee8b12abefbb10023fb049f7a28126fb79",
+      "pytest.log": "1053c97ee9ce9e084b6428ce1f31cb7f1764a822c1f3812d6fdb9ef1894a3e2c",
+      "pytest.xml": "8ccb9ecc50a162a74a9b1bf0766c1f5c8b323fb64f8d62129aa86fb1c9f25087",
+      "test-timings.json": "752c3cd141dced532a996979d28689b0eb87ae93c5dd37928cd36a0fcdba99a9"
+    },
+    "timing_seconds": {
+      "configuration": 0.07850457588210702,
+      "database_preparation": 0.10725985700264573,
+      "migration": 35.36107787583023,
+      "pytest": 186.19967207312584,
+      "cleanup": 0.10709109390154481,
+      "total": 221.9879897776991
+    }
+  },
+  "cases": [
+    {
+      "test": "test_discovery_cost_checkpoint[100]",
+      "metrics": {
+        "dataset_published": "100",
+        "queries": "70",
+        "sql_execute_seconds": "0.37505384208634496",
+        "total_seconds_instrumented": "0.974026647862047",
+        "objects_instantiated_by_model": {
+          "core.LegalDocument": 101,
+          "listings.Listing": 100,
+          "core.Person": 100,
+          "core.Agency": 99,
+          "core.PhoneClaim": 100,
+          "listings.Revision": 100,
+          "catalog.Municipality": 105,
+          "catalog.Province": 106,
+          "catalog.Region": 104,
+          "core.LegalAcceptance": 100,
+          "catalog.Category": 104,
+          "catalog.Service": 108,
+          "listings.Rate": 100,
+          "mediafiles.Photo": 124,
+          "mediafiles.Blob": 100,
+          "core.VerificationCheck": 24,
+          "catalog.Zone": 2,
+          "catalog.PostalCode": 2
+        },
+        "explicit_stages": {
+          "context_seconds": 0.4070112989284098,
+          "validation_seconds": 0.14188183471560478,
+          "render_seconds": 0.0899110371246934,
+          "validation_calls": 100,
+          "candidate_listings": 100,
+          "relation_memberships": {
+            "categories": 100,
+            "services": 100,
+            "travel_areas": 0,
+            "rates": 100,
+            "photos": 100
+          }
+        },
+        "form_events": {
+          "SnapshotDetails.__init__": {
+            "calls": 100,
+            "seconds": 0.05783884413540363
+          },
+          "SnapshotDetails.full_clean": {
+            "calls": 100,
+            "seconds": 0.038100467063486576
+          },
+          "SnapshotDetails._clean_fields": {
+            "calls": 100,
+            "seconds": 0.01796129159629345
+          },
+          "SnapshotDetails._clean_form": {
+            "calls": 100,
+            "seconds": 0.0033687171526253223
+          },
+          "SnapshotDetails._post_clean": {
+            "calls": 100,
+            "seconds": 0.015997571405023336
+          },
+          "ContactsForm.__init__": {
+            "calls": 100,
+            "seconds": 0.010815491899847984
+          },
+          "ContactsForm.full_clean": {
+            "calls": 100,
+            "seconds": 0.020376464817672968
+          },
+          "ContactsForm._clean_fields": {
+            "calls": 100,
+            "seconds": 0.01235297229140997
+          },
+          "ContactsForm._clean_form": {
+            "calls": 100,
+            "seconds": 0.00013427482917904854
+          },
+          "ContactsForm._post_clean": {
+            "calls": 100,
+            "seconds": 0.007244867738336325
+          }
+        },
+        "objects_by_phase_model": {
+          "context:core.LegalDocument": 101,
+          "context:listings.Listing": 100,
+          "context:core.Person": 100,
+          "context:core.Agency": 99,
+          "context:core.PhoneClaim": 100,
+          "context:listings.Revision": 100,
+          "context:catalog.Municipality": 101,
+          "context:catalog.Province": 102,
+          "context:catalog.Region": 102,
+          "context:core.LegalAcceptance": 100,
+          "context:catalog.Category": 101,
+          "context:catalog.Service": 101,
+          "context:listings.Rate": 100,
+          "context:mediafiles.Photo": 100,
+          "context:mediafiles.Blob": 100,
+          "request_other:core.VerificationCheck": 24,
+          "request_other:mediafiles.Photo": 24,
+          "render:catalog.Category": 3,
+          "render:catalog.Service": 7,
+          "render:catalog.Region": 2,
+          "render:catalog.Province": 4,
+          "render:catalog.Municipality": 4,
+          "render:catalog.Zone": 2,
+          "render:catalog.PostalCode": 2
+        },
+        "from_db_calls_by_model": {
+          "core.LegalDocument": 101,
+          "listings.Listing": 100,
+          "core.Person": 100,
+          "core.Agency": 99,
+          "core.PhoneClaim": 100,
+          "listings.Revision": 100,
+          "catalog.Municipality": 105,
+          "catalog.Province": 106,
+          "catalog.Region": 104,
+          "core.LegalAcceptance": 100,
+          "catalog.Category": 104,
+          "catalog.Service": 108,
+          "listings.Rate": 100,
+          "mediafiles.Photo": 124,
+          "mediafiles.Blob": 100,
+          "core.VerificationCheck": 24,
+          "catalog.Zone": 2,
+          "catalog.PostalCode": 2
+        },
+        "from_db_seconds_by_model": {
+          "core.LegalDocument": 0.0011076387017965317,
+          "listings.Listing": 0.0019368883222341537,
+          "core.Person": 0.0018471614457666874,
+          "core.Agency": 0.002549414522945881,
+          "core.PhoneClaim": 0.0012050610966980457,
+          "listings.Revision": 0.002301181200891733,
+          "catalog.Municipality": 0.001439334824681282,
+          "catalog.Province": 0.0014398335479199886,
+          "catalog.Region": 0.0011784695088863373,
+          "core.LegalAcceptance": 0.0013646367006003857,
+          "catalog.Category": 0.0008126166649162769,
+          "catalog.Service": 0.0010325298644602299,
+          "listings.Rate": 0.0017395606264472008,
+          "mediafiles.Photo": 0.0030501997098326683,
+          "mediafiles.Blob": 0.0022771614603698254,
+          "core.VerificationCheck": 0.0009325854480266571,
+          "catalog.Zone": 0.00010239379480481148,
+          "catalog.PostalCode": 8.724071085453033e-05
+        },
+        "orm_iteration_seconds_by_queryset_model": {
+          "catalog.Region": 0.005047372076660395,
+          "catalog.Province": 0.004982807207852602,
+          "catalog.Municipality": 0.014929652214050293,
+          "catalog.Zone": 0.004711920395493507,
+          "catalog.PostalCode": 0.0017969240434467793,
+          "catalog.Category": 0.011001122649759054,
+          "catalog.Service": 0.012551190797239542,
+          "core.LegalDocument": 0.0021176952868700027,
+          "listings.Listing": 0.30421590246260166,
+          "listings.Rate": 0.007980318274348974,
+          "mediafiles.Photo": 0.07860399223864079,
+          "core.VerificationCheck": 0.04232093645259738
+        },
+        "queryset_root_objects_yielded": {
+          "core.LegalDocument": 1,
+          "listings.Listing": 100,
+          "catalog.Category": 104,
+          "catalog.Service": 108,
+          "listings.Rate": 100,
+          "mediafiles.Photo": 124,
+          "catalog.Municipality": 5,
+          "catalog.Province": 3,
+          "catalog.Region": 3,
+          "core.VerificationCheck": 24,
+          "catalog.Zone": 2,
+          "catalog.PostalCode": 2
+        },
+        "prefetch_events_by_relation": {
+          "approved_revision__categories": {
+            "calls": 1,
+            "seconds": 0.00936135882511735
+          },
+          "approved_revision__services": {
+            "calls": 1,
+            "seconds": 0.012993223965168
+          },
+          "approved_revision__travel_areas": {
+            "calls": 1,
+            "seconds": 0.009833822026848793
+          },
+          "approved_revision__rates": {
+            "calls": 1,
+            "seconds": 0.015116697177290916
+          },
+          "approved_revision___pv_photos": {
+            "calls": 1,
+            "seconds": 0.018112731631845236
+          },
+          "municipalities": {
+            "calls": 1,
+            "seconds": 0.0029745642095804214
+          }
+        },
+        "dominant_queries": [
+          {
+            "query_pattern": "SELECT DISTINCT \"listings_listing\".\"lifecycle_version\", \"listings_listing\".\"id\", \"listings_listing\".\"person_id\", \"listings_listing\".\"status\", \"listings_listing\".\"approved_revision_id\", \"listings_listing\".\"published_at\", \"listings_listing\".\"expires_at\", \"listings_listing\".\"available_until\", \"listings_listing\".\"created_at\", EXISTS(SELECT %s AS \"a\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE (EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?) AND V0.\"id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_history\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_photo\" U0 INNER JOIN \"safety_rightsrectificationphotoupload\" U1 ON (U0.\"id\" = U1.\"photo_id\") WHERE (U1.\"id\" IS NOT NULL AND U0.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_rectification_upload\", EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsphotoreintroduction\" U0 INNER JOIN \"mediafiles_photo\" U1 ON (U0.\"photo_id\" = U1.\"id\") WHERE U1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") LIMIT ?) AS \"_pv_reintroduction\", EXISTS(SELECT %s AS \"a\" FROM \"safety_privacypublicationhold\" U0 WHERE (U0.\"active\" AND U0.\"person_id\" = (\"listings_listing\".\"person_id\")) LIMIT ?) AS \"_pv_hold\", EXISTS(SELECT %s AS \"a\" FROM \"safety_restriction\" U0 WHERE (U0.\"active\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\")) LIMIT ?) AS \"_pv_restriction\", EXISTS(SELECT %s AS \"a\" FROM \"core_representationaction\" U0 INNER JOIN \"core_legaldocument\" U1 ON (U0.\"document_id\" = U1.\"id\") INNER JOIN \"core_person\" U2 ON (U0.\"person_id\" = U2.\"id\") WHERE (U0.\"action\" = %s AND U1.\"slug\" = %s AND U1.\"version\" = %s AND U0.\"manager_id\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN (\"core_person\".\"agency_id\")::varchar ELSE (\"core_person\".\"individual_id\")::varchar END) AND U0.\"manager_kind\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN %s ELSE %s END) AND U0.\"manager_version\" = (\"core_person\".\"manager_version\") AND U0.\"person_id\" = (\"listings_listing\".\"person_id\") AND U0.\"subject_id\" = (\"core_person\".\"subject_id\")) LIMIT ?) AS \"_pv_grant\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_match\" W0 INNER JOIN \"mediafiles_photo\" W1 ON (W0.\"photo_id\" = W1.\"id\") INNER JOIN \"listings_revision\" W2 ON (W1.\"revision_id\" = W2.\"id\") INNER JOIN \"mediafiles_photo\" W3 ON (W0.\"candidate_id\" = W3.\"id\") INNER JOIN \"listings_revision\" W4 ON (W3.\"revision_id\" = W4.\"id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W5 ON (W1.\"id\" = W5.\"photo_id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W6 ON (W3.\"id\" = W6.\"photo_id\") WHERE ((W1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") OR W3.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) AND (W0.\"resolved_at\" IS NULL OR W0.\"decision\" = %s) AND W3.\"removed_at\" IS NULL AND W0.\"decision\" = %s AND W1.\"removed_at\" IS NULL AND NOT (W1.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W3.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W2.\"status\" = %s) AND NOT (W4.\"status\" = %s) AND NOT (W5.\"id\" IS NOT NULL) AND NOT (W6.\"id\" IS NOT NULL)) LIMIT ?) AS \"_pv_conflict\", (SELECT U0.\"status\" AS \"status\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_status\", (SELECT U0.\"manager_version\" AS \"manager_version\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_manager\", (SELECT U0.\"subject_id\" AS \"subject_id\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_subject\", \"core_person\".\"publication_erased_at\", \"core_person\".\"rights_version\", \"core_person\".\"id\", \"core_person\".\"alias\", \"core_person\".\"individual_id\", \"core_person\".\"agency_id\", \"core_person\".\"assigned_editor_id\", \"core_person\".\"subject_id\", \"core_person\".\"manager_version\", \"core_person\".\"manager_review_status\", \"core_person\".\"age_status\", \"core_person\".\"consent_version\", \"core_person\".\"consent_revoked_at\", \"core_person\".\"phone_claim_id\", \"core_person\".\"created_at\", \"core_agency\".\"id\", \"core_agency\".\"name\", \"core_agency\".\"owner_id\", \"core_agency\".\"created_at\", \"core_agency\".\"verification_status\", \"core_agency\".\"verification_procedure\", \"core_agency\".\"review_version\", \"core_phoneclaim\".\"id\", \"core_phoneclaim\".\"verification_procedure\", \"core_phoneclaim\".\"phone\", \"core_phoneclaim\".\"individual_id\", \"core_phoneclaim\".\"agency_id\", \"core_phoneclaim\".\"verified_at\", \"listings_revision\".\"id\", \"listings_revision\".\"listing_id\", \"listings_revision\".\"source_revision_id\", \"listings_revision\".\"manager_version\", \"listings_revision\".\"status\", \"listings_revision\".\"step\", \"listings_revision\".\"edit_version\", \"listings_revision\".\"title\", \"listings_revision\".\"description\", \"listings_revision\".\"content_language\", \"listings_revision\".\"description_alternative\", \"listings_revision\".\"profile_type\", \"listings_revision\".\"municipality_id\", \"listings_revision\".\"postal_code_id\", \"listings_revision\".\"zone_id\", \"listings_revision\".\"spoken_languages\", \"listings_revision\".\"days\", \"listings_revision\".\"time_slot\", \"listings_revision\".\"reception\", \"listings_revision\".\"travel\", \"listings_revision\".\"phone\", \"listings_revision\".\"whatsapp\", \"listings_revision\".\"telegram\", \"listings_revision\".\"contact_exposure_accepted\", \"listings_revision\".\"publisher_acceptance_id\", \"listings_revision\".\"created_at\", \"listings_revision\".\"updated_at\", \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\", \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\", \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\", \"core_legalacceptance\".\"id\", \"core_legalacceptance\".\"agency_id\", \"core_legalacceptance\".\"user_id\", \"core_legalacceptance\".\"document_id\", \"core_legalacceptance\".\"action\", \"core_legalacceptance\".\"created_at\", \"core_legaldocument\".\"id\", \"core_legaldocument\".\"slug\", \"core_legaldocument\".\"version\", \"core_legaldocument\".\"language\", \"core_legaldocument\".\"title\", \"core_legaldocument\".\"body\", \"core_legaldocument\".\"published_at\", \"core_legaldocument\".\"active\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") INNER JOIN \"core_person\" ON (\"listings_listing\".\"person_id\" = \"core_person\".\"id\") LEFT OUTER JOIN \"core_agency\" ON (\"core_person\".\"agency_id\" = \"core_agency\".\"id\") LEFT OUTER JOIN \"core_phoneclaim\" ON (\"core_person\".\"phone_claim_id\" = \"core_phoneclaim\".\"id\") LEFT OUTER JOIN \"catalog_municipality\" ON (\"listings_revision\".\"municipality_id\" = \"catalog_municipality\".\"id\") LEFT OUTER JOIN \"catalog_province\" ON (\"catalog_municipality\".\"province_id\" = \"catalog_province\".\"id\") LEFT OUTER JOIN \"catalog_region\" ON (\"catalog_province\".\"region_id\" = \"catalog_region\".\"id\") LEFT OUTER JOIN \"core_legalacceptance\" ON (\"listings_revision\".\"publisher_acceptance_id\" = \"core_legalacceptance\".\"id\") LEFT OUTER JOIN \"core_legaldocument\" ON (\"core_legalacceptance\".\"document_id\" = \"core_legaldocument\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s) ORDER BY \"listings_listing\".\"published_at\" DESC, \"listings_listing\".\"id\" ASC",
+            "pattern_sha256": "5242ed9e10b72c91de22a0c8c867fae8d97dc5bd021d9e6f93fcb824bdd2dc3e",
+            "calls": 1,
+            "total_time": 0.26111428579315543,
+            "parameter_count_max": 22,
+            "mean_time": 0.26111428579315543,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"mediafiles_photo\".\"id\", \"mediafiles_photo\".\"revision_id\", \"mediafiles_photo\".\"blob_id\", \"mediafiles_photo\".\"position\", \"mediafiles_photo\".\"approved\", \"mediafiles_photo\".\"comparison_complete\", \"mediafiles_photo\".\"removed_at\", \"mediafiles_photo\".\"created_at\" FROM \"mediafiles_photo\" INNER JOIN \"mediafiles_blob\" ON (\"mediafiles_photo\".\"blob_id\" = \"mediafiles_blob\".\"id\") WHERE (\"mediafiles_photo\".\"revision_id\" = %s AND \"mediafiles_photo\".\"approved\" AND \"mediafiles_blob\".\"status\" = %s AND \"mediafiles_photo\".\"removed_at\" IS NULL) ORDER BY \"mediafiles_photo\".\"position\" ASC, \"mediafiles_photo\".\"created_at\" ASC LIMIT ?",
+            "pattern_sha256": "b94e98012f5b47436c4b07f51c8ac5872892b0bde5d465003a6bc8744e72c81e",
+            "calls": 24,
+            "total_time": 0.0448193047195673,
+            "parameter_count_max": 2,
+            "mean_time": 0.0018674710299819708,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"core_verificationcheck\".\"id\", \"core_verificationcheck\".\"person_id\", \"core_verificationcheck\".\"subject_id\", \"core_verificationcheck\".\"manager_version\", \"core_verificationcheck\".\"provider\", \"core_verificationcheck\".\"procedure\", \"core_verificationcheck\".\"status\", \"core_verificationcheck\".\"completed_at\", \"core_verificationcheck\".\"created_at\" FROM \"core_verificationcheck\" WHERE \"core_verificationcheck\".\"person_id\" = %s ORDER BY \"core_verificationcheck\".\"created_at\" DESC LIMIT ?",
+            "pattern_sha256": "b336520c18162d7034e567ae4a91112c223b96a92e08a811f1e28f583b8f0d17",
+            "calls": 24,
+            "total_time": 0.02732914872467518,
+            "parameter_count_max": 1,
+            "mean_time": 0.0011387145301947992,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"mediafiles_photo\".\"id\", \"mediafiles_photo\".\"revision_id\", \"mediafiles_photo\".\"blob_id\", \"mediafiles_photo\".\"position\", \"mediafiles_photo\".\"approved\", \"mediafiles_photo\".\"comparison_complete\", \"mediafiles_photo\".\"removed_at\", \"mediafiles_photo\".\"created_at\", \"mediafiles_blob\".\"id\", \"mediafiles_blob\".\"sha256\", \"mediafiles_blob\".\"original\", \"mediafiles_blob\".\"derivative\", \"mediafiles_blob\".\"status\", \"mediafiles_blob\".\"phash\", \"mediafiles_blob\".\"width\", \"mediafiles_blob\".\"height\", \"mediafiles_blob\".\"attempts\", \"mediafiles_blob\".\"started_at\", \"mediafiles_blob\".\"error_code\", \"mediafiles_blob\".\"created_at\" FROM \"mediafiles_photo\" INNER JOIN \"mediafiles_blob\" ON (\"mediafiles_photo\".\"blob_id\" = \"mediafiles_blob\".\"id\") WHERE (\"mediafiles_photo\".\"removed_at\" IS NULL AND \"mediafiles_photo\".\"revision_id\" IN (%s[*])) ORDER BY \"mediafiles_photo\".\"position\" ASC, \"mediafiles_photo\".\"created_at\" ASC",
+            "pattern_sha256": "59b8f03bf8efd001c5f53bd06e0f70ce8d422949a119e2f6fb1b3730f2944345",
+            "calls": 1,
+            "total_time": 0.0049527790397405624,
+            "parameter_count_max": 100,
+            "mean_time": 0.0049527790397405624,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"listings_rate\".\"id\", \"listings_rate\".\"revision_id\", \"listings_rate\".\"concept\", \"listings_rate\".\"mode\", \"listings_rate\".\"amount\", \"listings_rate\".\"currency\", \"listings_rate\".\"duration_minutes\" FROM \"listings_rate\" WHERE \"listings_rate\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "6ec32502cbf5f7245946789556bbc84b9d1e406d9633b583c8556c1ba3a6825f",
+            "calls": 1,
+            "total_time": 0.004038271028548479,
+            "parameter_count_max": 100,
+            "mean_time": 0.004038271028548479,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"listings_revision_services\".\"revision_id\") AS \"_prefetch_related_val_revision_id\", \"catalog_service\".\"id\", \"catalog_service\".\"slug\", \"catalog_service\".\"category_id\", \"catalog_service\".\"name_es\", \"catalog_service\".\"name_en\", \"catalog_service\".\"active\" FROM \"catalog_service\" INNER JOIN \"listings_revision_services\" ON (\"catalog_service\".\"id\" = \"listings_revision_services\".\"service_id\") WHERE \"listings_revision_services\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "299c85b3c2175f9e2cd7069b4d98c02c30c97b46e797e4385154480e3bc3ad4f",
+            "calls": 1,
+            "total_time": 0.003882015123963356,
+            "parameter_count_max": 100,
+            "mean_time": 0.003882015123963356,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"listings_revision_travel_areas\".\"revision_id\") AS \"_prefetch_related_val_revision_id\", \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\" FROM \"catalog_municipality\" INNER JOIN \"listings_revision_travel_areas\" ON (\"catalog_municipality\".\"id\" = \"listings_revision_travel_areas\".\"municipality_id\") WHERE \"listings_revision_travel_areas\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "6230a84167399def158e2755d06ead7b36f463bcb8132dcbd6e0db4adcc8ae54",
+            "calls": 1,
+            "total_time": 0.0035407207906246185,
+            "parameter_count_max": 100,
+            "mean_time": 0.0035407207906246185,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_service\".\"id\", \"catalog_service\".\"slug\", \"catalog_service\".\"category_id\", \"catalog_service\".\"name_es\", \"catalog_service\".\"name_en\", \"catalog_service\".\"active\" FROM \"catalog_service\" INNER JOIN \"catalog_category\" ON (\"catalog_service\".\"category_id\" = \"catalog_category\".\"id\") WHERE (\"catalog_service\".\"active\" AND \"catalog_category\".\"active\")",
+            "pattern_sha256": "18a704c3da01ed21fd104e00a9d1241968fe45deb67abada8d21b129f74f0ce9",
+            "calls": 1,
+            "total_time": 0.002849896904081106,
+            "parameter_count_max": 0,
+            "mean_time": 0.002849896904081106,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"listings_revision_categories\".\"revision_id\") AS \"_prefetch_related_val_revision_id\", \"catalog_category\".\"id\", \"catalog_category\".\"slug\", \"catalog_category\".\"name_es\", \"catalog_category\".\"name_en\", \"catalog_category\".\"active\", \"catalog_category\".\"version\" FROM \"catalog_category\" INNER JOIN \"listings_revision_categories\" ON (\"catalog_category\".\"id\" = \"listings_revision_categories\".\"category_id\") WHERE \"listings_revision_categories\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "24495109fcb9c4867e866f5960260c00d85aff23847fbd8884f791375033de78",
+            "calls": 1,
+            "total_time": 0.0026492527686059475,
+            "parameter_count_max": 100,
+            "mean_time": 0.0026492527686059475,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\", \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\" FROM \"catalog_municipality\" INNER JOIN \"catalog_province\" ON (\"catalog_municipality\".\"province_id\" = \"catalog_province\".\"id\") WHERE \"catalog_municipality\".\"active\"",
+            "pattern_sha256": "2f3832333bc2849e4823e0435ce394eb9564a18b8f779c43b6e569fd0ebed36d",
+            "calls": 1,
+            "total_time": 0.002317299135029316,
+            "parameter_count_max": 0,
+            "mean_time": 0.002317299135029316,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_category\".\"id\", \"catalog_category\".\"slug\", \"catalog_category\".\"name_es\", \"catalog_category\".\"name_en\", \"catalog_category\".\"active\", \"catalog_category\".\"version\" FROM \"catalog_category\" WHERE \"catalog_category\".\"active\"",
+            "pattern_sha256": "4c03ecaa7acf3c169b3cb32eb394f09cd810bd85885dc1b5497f2cad1717430a",
+            "calls": 1,
+            "total_time": 0.001963726244866848,
+            "parameter_count_max": 0,
+            "mean_time": 0.001963726244866848,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_zone\".\"id\", \"catalog_zone\".\"code\", \"catalog_zone\".\"name\", \"catalog_zone\".\"municipality_id\", \"catalog_zone\".\"source_id\", \"catalog_zone\".\"active\" FROM \"catalog_zone\" INNER JOIN \"catalog_municipality\" ON (\"catalog_zone\".\"municipality_id\" = \"catalog_municipality\".\"id\") WHERE (\"catalog_zone\".\"active\" AND \"catalog_municipality\".\"active\")",
+            "pattern_sha256": "2aa36324743771b3aca3afa2e181bd918acac6daed22b5fb953fa6c4a9bfbfc5",
+            "calls": 1,
+            "total_time": 0.0018884972669184208,
+            "parameter_count_max": 0,
+            "mean_time": 0.0018884972669184208,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\" FROM \"catalog_region\"",
+            "pattern_sha256": "60c5433597e88155b6d22d5812f75001eb3be2a2e801eced525afcc5005813c0",
+            "calls": 1,
+            "total_time": 0.0018589948303997517,
+            "parameter_count_max": 0,
+            "mean_time": 0.0018589948303997517,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"catalog_postalcode_municipalities\".\"postalcode_id\") AS \"_prefetch_related_val_postalcode_id\", \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\" FROM \"catalog_municipality\" INNER JOIN \"catalog_postalcode_municipalities\" ON (\"catalog_municipality\".\"id\" = \"catalog_postalcode_municipalities\".\"municipality_id\") WHERE \"catalog_postalcode_municipalities\".\"postalcode_id\" IN (%s[*])",
+            "pattern_sha256": "d31ecf5d1f428bd645f4a04edab730feaed820e4f4c86e779f4f4a80b1f21911",
+            "calls": 1,
+            "total_time": 0.0016837730072438717,
+            "parameter_count_max": 2,
+            "mean_time": 0.0016837730072438717,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\" FROM \"catalog_province\"",
+            "pattern_sha256": "ea29460d8705410d88d33b8a875e88ca690bef882167af627f94cb9595f10567",
+            "calls": 1,
+            "total_time": 0.0016811513341963291,
+            "parameter_count_max": 0,
+            "mean_time": 0.0016811513341963291,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\", \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\", \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\" FROM \"catalog_municipality\" INNER JOIN \"catalog_province\" ON (\"catalog_municipality\".\"province_id\" = \"catalog_province\".\"id\") INNER JOIN \"catalog_region\" ON (\"catalog_province\".\"region_id\" = \"catalog_region\".\"id\") WHERE (\"catalog_municipality\".\"active\" AND \"catalog_municipality\".\"id\" IN (%s))",
+            "pattern_sha256": "19cd87cf4ea353b238ab056b4cd3b33d974d50e992a0bc922bc8c24a09d1730c",
+            "calls": 1,
+            "total_time": 0.0015275576151907444,
+            "parameter_count_max": 1,
+            "mean_time": 0.0015275576151907444,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT %s AS \"_check\" WHERE COALESCE((%s = %s), %s)",
+            "pattern_sha256": "83cb3ef1459b9e0975afae64fe981cfe47bc40342fcc0a7ca1ecb3e396a8fffa",
+            "calls": 2,
+            "total_time": 0.0014559398405253887,
+            "parameter_count_max": 4,
+            "mean_time": 0.0007279699202626944,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_category\".\"id\", \"catalog_category\".\"slug\", \"catalog_category\".\"name_es\", \"catalog_category\".\"name_en\", \"catalog_category\".\"active\", \"catalog_category\".\"version\" FROM \"catalog_category\" WHERE (\"catalog_category\".\"active\" AND \"catalog_category\".\"id\" IN (%s))",
+            "pattern_sha256": "215d32f3ef64d84d3d5e8c8dd956431f969609b7ed86909da89e9df6e482e8b6",
+            "calls": 1,
+            "total_time": 0.0012178639881312847,
+            "parameter_count_max": 1,
+            "mean_time": 0.0012178639881312847,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"core_legaldocument\".\"id\", \"core_legaldocument\".\"slug\", \"core_legaldocument\".\"version\", \"core_legaldocument\".\"language\", \"core_legaldocument\".\"title\", \"core_legaldocument\".\"body\", \"core_legaldocument\".\"published_at\", \"core_legaldocument\".\"active\" FROM \"core_legaldocument\" WHERE (\"core_legaldocument\".\"active\" AND \"core_legaldocument\".\"slug\" = %s) ORDER BY \"core_legaldocument\".\"published_at\" DESC, \"core_legaldocument\".\"id\" DESC LIMIT ?",
+            "pattern_sha256": "fbd64f78eaf29c612bd7f8c5c01d43f6b81df5371ee272e5edaca0f9616aaf50",
+            "calls": 1,
+            "total_time": 0.0010100388899445534,
+            "parameter_count_max": 1,
+            "mean_time": 0.0010100388899445534,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_postalcode\".\"id\", \"catalog_postalcode\".\"code\", \"catalog_postalcode\".\"source_id\", \"catalog_postalcode\".\"public_safe\" FROM \"catalog_postalcode\" WHERE \"catalog_postalcode\".\"public_safe\"",
+            "pattern_sha256": "00e431945f34bbef19061d7843ab36c3201b1a185535e271de7e47e1e0a97018",
+            "calls": 1,
+            "total_time": 0.0009923162870109081,
+            "parameter_count_max": 0,
+            "mean_time": 0.0009923162870109081,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_service\".\"id\", \"catalog_service\".\"slug\", \"catalog_service\".\"category_id\", \"catalog_service\".\"name_es\", \"catalog_service\".\"name_en\", \"catalog_service\".\"active\" FROM \"catalog_service\" WHERE (\"catalog_service\".\"active\" AND \"catalog_service\".\"id\" IN (%s))",
+            "pattern_sha256": "b3c729a26826dcf138bb7cdb4c7865d00135d53a337ff3da350057a52b981dd9",
+            "calls": 1,
+            "total_time": 0.0008041858673095703,
+            "parameter_count_max": 1,
+            "mean_time": 0.0008041858673095703,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\" FROM \"catalog_province\" WHERE \"catalog_province\".\"id\" IN (%s)",
+            "pattern_sha256": "873ed195f9e302f02662324c0a5627a2316c6f67e8be7952b2c3ebd126867318",
+            "calls": 1,
+            "total_time": 0.0007599438540637493,
+            "parameter_count_max": 1,
+            "mean_time": 0.0007599438540637493,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\" FROM \"catalog_region\" WHERE \"catalog_region\".\"id\" IN (%s)",
+            "pattern_sha256": "ac5e7c7e3530ef3fe121964f3087e5761591be165bc8776be991ba419ce667cf",
+            "calls": 1,
+            "total_time": 0.0007168790325522423,
+            "parameter_count_max": 1,
+            "mean_time": 0.0007168790325522423,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          }
+        ],
+        "not_measured": [
+          "rows_returned",
+          "rows_affected",
+          "rows_examined/rows_scanned",
+          "DB CPU/waits/locks/IO",
+          "RSS",
+          "pure serialization separate from HTML render",
+          "pure materialization CPU independent of nested SQL/fetch/conversion"
+        ],
+        "normalization": "Strip comments; replace quoted/dollar SQL literals and numeric constants; collapse variable-length bind lists; collapse whitespace. Parameters never persisted. calls/total_time/mean_time all synchronous cursor.execute calls, seconds; patterns ordered by accumulated client execute time.",
+        "resources": {
+          "python": "3.12.13",
+          "cpu_count": 8,
+          "postgres_shared_service": true,
+          "request_topology": "Django Client single request/PG synthetic isolated",
+          "cache_state": "fresh per-case seeded data, same process and shared PG/OS caches not reset;100 then1000 then10000; DummyCache"
+        },
+        "limits": "End-to-end DjangoClient.get includes middleware/view/render; excludes fixtures/network/Gunicorn. cursor.execute includes driver/server IO/buffering and excludes later ORM iteration conversion/hydration. Model.from_db measures construction/state setup, includes post_init counter overhead; excludes SQL and earlier JSON conversion. ORM iteration intervals include lazy SQL/fetch/conversion/from_db; prefetch includes nested SQL/iteration and relation-cache mapping; context/validation/render include nested events. Timers overlap and cannot be summed as exclusive phases. Model instances/root objects/relation references are not SQL rows or distinct entities. Every dataset uses same instrumentation; no total-minus-SQL Python attribution. If SQL exceeds half of end-to-end in a dataset, run separate EXPLAIN ANALYZE BUFFERS on relevant isolated synthetic SELECTs; otherwise do not invent SQL dominance. No backend changes before reviewed checkpoint. Prior profiles lack these new metrics."
+      }
+    },
+    {
+      "test": "test_discovery_cost_checkpoint[1000]",
+      "metrics": {
+        "dataset_published": "1000",
+        "queries": "70",
+        "sql_execute_seconds": "0.3456503776833415",
+        "total_seconds_instrumented": "2.7764613376930356",
+        "objects_instantiated_by_model": {
+          "core.LegalDocument": 1001,
+          "listings.Listing": 1000,
+          "core.Person": 1000,
+          "core.Agency": 999,
+          "core.PhoneClaim": 1000,
+          "listings.Revision": 1000,
+          "catalog.Municipality": 1005,
+          "catalog.Province": 1006,
+          "catalog.Region": 1004,
+          "core.LegalAcceptance": 1000,
+          "catalog.Category": 1004,
+          "catalog.Service": 1008,
+          "listings.Rate": 1000,
+          "mediafiles.Photo": 1024,
+          "mediafiles.Blob": 1000,
+          "core.VerificationCheck": 24,
+          "catalog.Zone": 2,
+          "catalog.PostalCode": 2
+        },
+        "explicit_stages": {
+          "context_seconds": 0.9785510571673512,
+          "validation_seconds": 1.6035820106044412,
+          "render_seconds": 0.06013546930626035,
+          "validation_calls": 1000,
+          "candidate_listings": 1000,
+          "relation_memberships": {
+            "categories": 1000,
+            "services": 1000,
+            "travel_areas": 0,
+            "rates": 1000,
+            "photos": 1000
+          }
+        },
+        "form_events": {
+          "SnapshotDetails.__init__": {
+            "calls": 1000,
+            "seconds": 0.6348960367031395
+          },
+          "SnapshotDetails.full_clean": {
+            "calls": 1000,
+            "seconds": 0.3909578286111355
+          },
+          "SnapshotDetails._clean_fields": {
+            "calls": 1000,
+            "seconds": 0.1848130584694445
+          },
+          "SnapshotDetails._clean_form": {
+            "calls": 1000,
+            "seconds": 0.0357900420203805
+          },
+          "SnapshotDetails._post_clean": {
+            "calls": 1000,
+            "seconds": 0.16260461555793881
+          },
+          "ContactsForm.__init__": {
+            "calls": 1000,
+            "seconds": 0.11711269989609718
+          },
+          "ContactsForm.full_clean": {
+            "calls": 1000,
+            "seconds": 0.3605694491416216
+          },
+          "ContactsForm._clean_fields": {
+            "calls": 1000,
+            "seconds": 0.2732557072304189
+          },
+          "ContactsForm._clean_form": {
+            "calls": 1000,
+            "seconds": 0.001303776167333126
+          },
+          "ContactsForm._post_clean": {
+            "calls": 1000,
+            "seconds": 0.07951064920052886
+          }
+        },
+        "objects_by_phase_model": {
+          "context:core.LegalDocument": 1001,
+          "context:listings.Listing": 1000,
+          "context:core.Person": 1000,
+          "context:core.Agency": 999,
+          "context:core.PhoneClaim": 1000,
+          "context:listings.Revision": 1000,
+          "context:catalog.Municipality": 1001,
+          "context:catalog.Province": 1002,
+          "context:catalog.Region": 1002,
+          "context:core.LegalAcceptance": 1000,
+          "context:catalog.Category": 1001,
+          "context:catalog.Service": 1001,
+          "context:listings.Rate": 1000,
+          "context:mediafiles.Photo": 1000,
+          "context:mediafiles.Blob": 1000,
+          "request_other:core.VerificationCheck": 24,
+          "request_other:mediafiles.Photo": 24,
+          "render:catalog.Category": 3,
+          "render:catalog.Service": 7,
+          "render:catalog.Region": 2,
+          "render:catalog.Province": 4,
+          "render:catalog.Municipality": 4,
+          "render:catalog.Zone": 2,
+          "render:catalog.PostalCode": 2
+        },
+        "from_db_calls_by_model": {
+          "core.LegalDocument": 1001,
+          "listings.Listing": 1000,
+          "core.Person": 1000,
+          "core.Agency": 999,
+          "core.PhoneClaim": 1000,
+          "listings.Revision": 1000,
+          "catalog.Municipality": 1005,
+          "catalog.Province": 1006,
+          "catalog.Region": 1004,
+          "core.LegalAcceptance": 1000,
+          "catalog.Category": 1004,
+          "catalog.Service": 1008,
+          "listings.Rate": 1000,
+          "mediafiles.Photo": 1024,
+          "mediafiles.Blob": 1000,
+          "core.VerificationCheck": 24,
+          "catalog.Zone": 2,
+          "catalog.PostalCode": 2
+        },
+        "from_db_seconds_by_model": {
+          "core.LegalDocument": 0.009515486657619476,
+          "listings.Listing": 0.012178057339042425,
+          "core.Person": 0.01437279162928462,
+          "core.Agency": 0.012190245557576418,
+          "core.PhoneClaim": 0.008995008654892445,
+          "listings.Revision": 0.015555229503661394,
+          "catalog.Municipality": 0.010772706009447575,
+          "catalog.Province": 0.010357984341681004,
+          "catalog.Region": 0.007941524498164654,
+          "core.LegalAcceptance": 0.009931652341037989,
+          "catalog.Category": 0.005876976065337658,
+          "catalog.Service": 0.0078756851144135,
+          "listings.Rate": 0.007761089131236076,
+          "mediafiles.Photo": 0.009002475067973137,
+          "mediafiles.Blob": 0.011502115987241268,
+          "core.VerificationCheck": 0.000874656718224287,
+          "catalog.Zone": 8.47657211124897e-05,
+          "catalog.PostalCode": 5.282880738377571e-05
+        },
+        "orm_iteration_seconds_by_queryset_model": {
+          "catalog.Region": 0.003800925798714161,
+          "catalog.Province": 0.0030830265022814274,
+          "catalog.Municipality": 0.019225426949560642,
+          "catalog.Zone": 0.0037792096845805645,
+          "catalog.PostalCode": 0.0014100363478064537,
+          "catalog.Category": 0.027448791079223156,
+          "catalog.Service": 0.030981246381998062,
+          "core.LegalDocument": 0.002671592403203249,
+          "listings.Listing": 0.45098375622183084,
+          "listings.Rate": 0.02139767585322261,
+          "mediafiles.Photo": 0.10232746042311192,
+          "core.VerificationCheck": 0.037258710246533155
+        },
+        "queryset_root_objects_yielded": {
+          "core.LegalDocument": 1,
+          "listings.Listing": 1000,
+          "catalog.Category": 1004,
+          "catalog.Service": 1008,
+          "listings.Rate": 1000,
+          "mediafiles.Photo": 1024,
+          "catalog.Municipality": 5,
+          "catalog.Province": 3,
+          "catalog.Region": 3,
+          "core.VerificationCheck": 24,
+          "catalog.Zone": 2,
+          "catalog.PostalCode": 2
+        },
+        "prefetch_events_by_relation": {
+          "approved_revision__categories": {
+            "calls": 1,
+            "seconds": 0.054721474181860685
+          },
+          "approved_revision__services": {
+            "calls": 1,
+            "seconds": 0.19277162989601493
+          },
+          "approved_revision__travel_areas": {
+            "calls": 1,
+            "seconds": 0.06077895779162645
+          },
+          "approved_revision__rates": {
+            "calls": 1,
+            "seconds": 0.05667510721832514
+          },
+          "approved_revision___pv_photos": {
+            "calls": 1,
+            "seconds": 0.0692517077550292
+          },
+          "municipalities": {
+            "calls": 1,
+            "seconds": 0.002534650731831789
+          }
+        },
+        "dominant_queries": [
+          {
+            "query_pattern": "SELECT DISTINCT \"listings_listing\".\"lifecycle_version\", \"listings_listing\".\"id\", \"listings_listing\".\"person_id\", \"listings_listing\".\"status\", \"listings_listing\".\"approved_revision_id\", \"listings_listing\".\"published_at\", \"listings_listing\".\"expires_at\", \"listings_listing\".\"available_until\", \"listings_listing\".\"created_at\", EXISTS(SELECT %s AS \"a\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE (EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?) AND V0.\"id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_history\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_photo\" U0 INNER JOIN \"safety_rightsrectificationphotoupload\" U1 ON (U0.\"id\" = U1.\"photo_id\") WHERE (U1.\"id\" IS NOT NULL AND U0.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_rectification_upload\", EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsphotoreintroduction\" U0 INNER JOIN \"mediafiles_photo\" U1 ON (U0.\"photo_id\" = U1.\"id\") WHERE U1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") LIMIT ?) AS \"_pv_reintroduction\", EXISTS(SELECT %s AS \"a\" FROM \"safety_privacypublicationhold\" U0 WHERE (U0.\"active\" AND U0.\"person_id\" = (\"listings_listing\".\"person_id\")) LIMIT ?) AS \"_pv_hold\", EXISTS(SELECT %s AS \"a\" FROM \"safety_restriction\" U0 WHERE (U0.\"active\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\")) LIMIT ?) AS \"_pv_restriction\", EXISTS(SELECT %s AS \"a\" FROM \"core_representationaction\" U0 INNER JOIN \"core_legaldocument\" U1 ON (U0.\"document_id\" = U1.\"id\") INNER JOIN \"core_person\" U2 ON (U0.\"person_id\" = U2.\"id\") WHERE (U0.\"action\" = %s AND U1.\"slug\" = %s AND U1.\"version\" = %s AND U0.\"manager_id\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN (\"core_person\".\"agency_id\")::varchar ELSE (\"core_person\".\"individual_id\")::varchar END) AND U0.\"manager_kind\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN %s ELSE %s END) AND U0.\"manager_version\" = (\"core_person\".\"manager_version\") AND U0.\"person_id\" = (\"listings_listing\".\"person_id\") AND U0.\"subject_id\" = (\"core_person\".\"subject_id\")) LIMIT ?) AS \"_pv_grant\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_match\" W0 INNER JOIN \"mediafiles_photo\" W1 ON (W0.\"photo_id\" = W1.\"id\") INNER JOIN \"listings_revision\" W2 ON (W1.\"revision_id\" = W2.\"id\") INNER JOIN \"mediafiles_photo\" W3 ON (W0.\"candidate_id\" = W3.\"id\") INNER JOIN \"listings_revision\" W4 ON (W3.\"revision_id\" = W4.\"id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W5 ON (W1.\"id\" = W5.\"photo_id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W6 ON (W3.\"id\" = W6.\"photo_id\") WHERE ((W1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") OR W3.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) AND (W0.\"resolved_at\" IS NULL OR W0.\"decision\" = %s) AND W3.\"removed_at\" IS NULL AND W0.\"decision\" = %s AND W1.\"removed_at\" IS NULL AND NOT (W1.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W3.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W2.\"status\" = %s) AND NOT (W4.\"status\" = %s) AND NOT (W5.\"id\" IS NOT NULL) AND NOT (W6.\"id\" IS NOT NULL)) LIMIT ?) AS \"_pv_conflict\", (SELECT U0.\"status\" AS \"status\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_status\", (SELECT U0.\"manager_version\" AS \"manager_version\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_manager\", (SELECT U0.\"subject_id\" AS \"subject_id\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_subject\", \"core_person\".\"publication_erased_at\", \"core_person\".\"rights_version\", \"core_person\".\"id\", \"core_person\".\"alias\", \"core_person\".\"individual_id\", \"core_person\".\"agency_id\", \"core_person\".\"assigned_editor_id\", \"core_person\".\"subject_id\", \"core_person\".\"manager_version\", \"core_person\".\"manager_review_status\", \"core_person\".\"age_status\", \"core_person\".\"consent_version\", \"core_person\".\"consent_revoked_at\", \"core_person\".\"phone_claim_id\", \"core_person\".\"created_at\", \"core_agency\".\"id\", \"core_agency\".\"name\", \"core_agency\".\"owner_id\", \"core_agency\".\"created_at\", \"core_agency\".\"verification_status\", \"core_agency\".\"verification_procedure\", \"core_agency\".\"review_version\", \"core_phoneclaim\".\"id\", \"core_phoneclaim\".\"verification_procedure\", \"core_phoneclaim\".\"phone\", \"core_phoneclaim\".\"individual_id\", \"core_phoneclaim\".\"agency_id\", \"core_phoneclaim\".\"verified_at\", \"listings_revision\".\"id\", \"listings_revision\".\"listing_id\", \"listings_revision\".\"source_revision_id\", \"listings_revision\".\"manager_version\", \"listings_revision\".\"status\", \"listings_revision\".\"step\", \"listings_revision\".\"edit_version\", \"listings_revision\".\"title\", \"listings_revision\".\"description\", \"listings_revision\".\"content_language\", \"listings_revision\".\"description_alternative\", \"listings_revision\".\"profile_type\", \"listings_revision\".\"municipality_id\", \"listings_revision\".\"postal_code_id\", \"listings_revision\".\"zone_id\", \"listings_revision\".\"spoken_languages\", \"listings_revision\".\"days\", \"listings_revision\".\"time_slot\", \"listings_revision\".\"reception\", \"listings_revision\".\"travel\", \"listings_revision\".\"phone\", \"listings_revision\".\"whatsapp\", \"listings_revision\".\"telegram\", \"listings_revision\".\"contact_exposure_accepted\", \"listings_revision\".\"publisher_acceptance_id\", \"listings_revision\".\"created_at\", \"listings_revision\".\"updated_at\", \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\", \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\", \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\", \"core_legalacceptance\".\"id\", \"core_legalacceptance\".\"agency_id\", \"core_legalacceptance\".\"user_id\", \"core_legalacceptance\".\"document_id\", \"core_legalacceptance\".\"action\", \"core_legalacceptance\".\"created_at\", \"core_legaldocument\".\"id\", \"core_legaldocument\".\"slug\", \"core_legaldocument\".\"version\", \"core_legaldocument\".\"language\", \"core_legaldocument\".\"title\", \"core_legaldocument\".\"body\", \"core_legaldocument\".\"published_at\", \"core_legaldocument\".\"active\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") INNER JOIN \"core_person\" ON (\"listings_listing\".\"person_id\" = \"core_person\".\"id\") LEFT OUTER JOIN \"core_agency\" ON (\"core_person\".\"agency_id\" = \"core_agency\".\"id\") LEFT OUTER JOIN \"core_phoneclaim\" ON (\"core_person\".\"phone_claim_id\" = \"core_phoneclaim\".\"id\") LEFT OUTER JOIN \"catalog_municipality\" ON (\"listings_revision\".\"municipality_id\" = \"catalog_municipality\".\"id\") LEFT OUTER JOIN \"catalog_province\" ON (\"catalog_municipality\".\"province_id\" = \"catalog_province\".\"id\") LEFT OUTER JOIN \"catalog_region\" ON (\"catalog_province\".\"region_id\" = \"catalog_region\".\"id\") LEFT OUTER JOIN \"core_legalacceptance\" ON (\"listings_revision\".\"publisher_acceptance_id\" = \"core_legalacceptance\".\"id\") LEFT OUTER JOIN \"core_legaldocument\" ON (\"core_legalacceptance\".\"document_id\" = \"core_legaldocument\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s) ORDER BY \"listings_listing\".\"published_at\" DESC, \"listings_listing\".\"id\" ASC",
+            "pattern_sha256": "5242ed9e10b72c91de22a0c8c867fae8d97dc5bd021d9e6f93fcb824bdd2dc3e",
+            "calls": 1,
+            "total_time": 0.22586475405842066,
+            "parameter_count_max": 22,
+            "mean_time": 0.22586475405842066,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"mediafiles_photo\".\"id\", \"mediafiles_photo\".\"revision_id\", \"mediafiles_photo\".\"blob_id\", \"mediafiles_photo\".\"position\", \"mediafiles_photo\".\"approved\", \"mediafiles_photo\".\"comparison_complete\", \"mediafiles_photo\".\"removed_at\", \"mediafiles_photo\".\"created_at\" FROM \"mediafiles_photo\" INNER JOIN \"mediafiles_blob\" ON (\"mediafiles_photo\".\"blob_id\" = \"mediafiles_blob\".\"id\") WHERE (\"mediafiles_photo\".\"revision_id\" = %s AND \"mediafiles_photo\".\"approved\" AND \"mediafiles_blob\".\"status\" = %s AND \"mediafiles_photo\".\"removed_at\" IS NULL) ORDER BY \"mediafiles_photo\".\"position\" ASC, \"mediafiles_photo\".\"created_at\" ASC LIMIT ?",
+            "pattern_sha256": "b94e98012f5b47436c4b07f51c8ac5872892b0bde5d465003a6bc8744e72c81e",
+            "calls": 24,
+            "total_time": 0.025832390878349543,
+            "parameter_count_max": 2,
+            "mean_time": 0.001076349619931231,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"core_verificationcheck\".\"id\", \"core_verificationcheck\".\"person_id\", \"core_verificationcheck\".\"subject_id\", \"core_verificationcheck\".\"manager_version\", \"core_verificationcheck\".\"provider\", \"core_verificationcheck\".\"procedure\", \"core_verificationcheck\".\"status\", \"core_verificationcheck\".\"completed_at\", \"core_verificationcheck\".\"created_at\" FROM \"core_verificationcheck\" WHERE \"core_verificationcheck\".\"person_id\" = %s ORDER BY \"core_verificationcheck\".\"created_at\" DESC LIMIT ?",
+            "pattern_sha256": "b336520c18162d7034e567ae4a91112c223b96a92e08a811f1e28f583b8f0d17",
+            "calls": 24,
+            "total_time": 0.022615670692175627,
+            "parameter_count_max": 1,
+            "mean_time": 0.0009423196121739844,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"mediafiles_photo\".\"id\", \"mediafiles_photo\".\"revision_id\", \"mediafiles_photo\".\"blob_id\", \"mediafiles_photo\".\"position\", \"mediafiles_photo\".\"approved\", \"mediafiles_photo\".\"comparison_complete\", \"mediafiles_photo\".\"removed_at\", \"mediafiles_photo\".\"created_at\", \"mediafiles_blob\".\"id\", \"mediafiles_blob\".\"sha256\", \"mediafiles_blob\".\"original\", \"mediafiles_blob\".\"derivative\", \"mediafiles_blob\".\"status\", \"mediafiles_blob\".\"phash\", \"mediafiles_blob\".\"width\", \"mediafiles_blob\".\"height\", \"mediafiles_blob\".\"attempts\", \"mediafiles_blob\".\"started_at\", \"mediafiles_blob\".\"error_code\", \"mediafiles_blob\".\"created_at\" FROM \"mediafiles_photo\" INNER JOIN \"mediafiles_blob\" ON (\"mediafiles_photo\".\"blob_id\" = \"mediafiles_blob\".\"id\") WHERE (\"mediafiles_photo\".\"removed_at\" IS NULL AND \"mediafiles_photo\".\"revision_id\" IN (%s[*])) ORDER BY \"mediafiles_photo\".\"position\" ASC, \"mediafiles_photo\".\"created_at\" ASC",
+            "pattern_sha256": "59b8f03bf8efd001c5f53bd06e0f70ce8d422949a119e2f6fb1b3730f2944345",
+            "calls": 1,
+            "total_time": 0.013625199906527996,
+            "parameter_count_max": 1000,
+            "mean_time": 0.013625199906527996,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"listings_revision_services\".\"revision_id\") AS \"_prefetch_related_val_revision_id\", \"catalog_service\".\"id\", \"catalog_service\".\"slug\", \"catalog_service\".\"category_id\", \"catalog_service\".\"name_es\", \"catalog_service\".\"name_en\", \"catalog_service\".\"active\" FROM \"catalog_service\" INNER JOIN \"listings_revision_services\" ON (\"catalog_service\".\"id\" = \"listings_revision_services\".\"service_id\") WHERE \"listings_revision_services\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "299c85b3c2175f9e2cd7069b4d98c02c30c97b46e797e4385154480e3bc3ad4f",
+            "calls": 1,
+            "total_time": 0.010120932012796402,
+            "parameter_count_max": 1000,
+            "mean_time": 0.010120932012796402,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"listings_revision_categories\".\"revision_id\") AS \"_prefetch_related_val_revision_id\", \"catalog_category\".\"id\", \"catalog_category\".\"slug\", \"catalog_category\".\"name_es\", \"catalog_category\".\"name_en\", \"catalog_category\".\"active\", \"catalog_category\".\"version\" FROM \"catalog_category\" INNER JOIN \"listings_revision_categories\" ON (\"catalog_category\".\"id\" = \"listings_revision_categories\".\"category_id\") WHERE \"listings_revision_categories\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "24495109fcb9c4867e866f5960260c00d85aff23847fbd8884f791375033de78",
+            "calls": 1,
+            "total_time": 0.00909865042194724,
+            "parameter_count_max": 1000,
+            "mean_time": 0.00909865042194724,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"listings_rate\".\"id\", \"listings_rate\".\"revision_id\", \"listings_rate\".\"concept\", \"listings_rate\".\"mode\", \"listings_rate\".\"amount\", \"listings_rate\".\"currency\", \"listings_rate\".\"duration_minutes\" FROM \"listings_rate\" WHERE \"listings_rate\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "6ec32502cbf5f7245946789556bbc84b9d1e406d9633b583c8556c1ba3a6825f",
+            "calls": 1,
+            "total_time": 0.008977900724858046,
+            "parameter_count_max": 1000,
+            "mean_time": 0.008977900724858046,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"listings_revision_travel_areas\".\"revision_id\") AS \"_prefetch_related_val_revision_id\", \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\" FROM \"catalog_municipality\" INNER JOIN \"listings_revision_travel_areas\" ON (\"catalog_municipality\".\"id\" = \"listings_revision_travel_areas\".\"municipality_id\") WHERE \"listings_revision_travel_areas\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "6230a84167399def158e2755d06ead7b36f463bcb8132dcbd6e0db4adcc8ae54",
+            "calls": 1,
+            "total_time": 0.008718595840036869,
+            "parameter_count_max": 1000,
+            "mean_time": 0.008718595840036869,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_service\".\"id\", \"catalog_service\".\"slug\", \"catalog_service\".\"category_id\", \"catalog_service\".\"name_es\", \"catalog_service\".\"name_en\", \"catalog_service\".\"active\" FROM \"catalog_service\" INNER JOIN \"catalog_category\" ON (\"catalog_service\".\"category_id\" = \"catalog_category\".\"id\") WHERE (\"catalog_service\".\"active\" AND \"catalog_category\".\"active\")",
+            "pattern_sha256": "18a704c3da01ed21fd104e00a9d1241968fe45deb67abada8d21b129f74f0ce9",
+            "calls": 1,
+            "total_time": 0.0037690456956624985,
+            "parameter_count_max": 0,
+            "mean_time": 0.0037690456956624985,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_category\".\"id\", \"catalog_category\".\"slug\", \"catalog_category\".\"name_es\", \"catalog_category\".\"name_en\", \"catalog_category\".\"active\", \"catalog_category\".\"version\" FROM \"catalog_category\" WHERE \"catalog_category\".\"active\"",
+            "pattern_sha256": "4c03ecaa7acf3c169b3cb32eb394f09cd810bd85885dc1b5497f2cad1717430a",
+            "calls": 1,
+            "total_time": 0.002693221904337406,
+            "parameter_count_max": 0,
+            "mean_time": 0.002693221904337406,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT %s AS \"_check\" WHERE COALESCE((%s = %s), %s)",
+            "pattern_sha256": "83cb3ef1459b9e0975afae64fe981cfe47bc40342fcc0a7ca1ecb3e396a8fffa",
+            "calls": 2,
+            "total_time": 0.0017371266148984432,
+            "parameter_count_max": 4,
+            "mean_time": 0.0008685633074492216,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"core_legaldocument\".\"id\", \"core_legaldocument\".\"slug\", \"core_legaldocument\".\"version\", \"core_legaldocument\".\"language\", \"core_legaldocument\".\"title\", \"core_legaldocument\".\"body\", \"core_legaldocument\".\"published_at\", \"core_legaldocument\".\"active\" FROM \"core_legaldocument\" WHERE (\"core_legaldocument\".\"active\" AND \"core_legaldocument\".\"slug\" = %s) ORDER BY \"core_legaldocument\".\"published_at\" DESC, \"core_legaldocument\".\"id\" DESC LIMIT ?",
+            "pattern_sha256": "fbd64f78eaf29c612bd7f8c5c01d43f6b81df5371ee272e5edaca0f9616aaf50",
+            "calls": 1,
+            "total_time": 0.0017111166380345821,
+            "parameter_count_max": 1,
+            "mean_time": 0.0017111166380345821,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_zone\".\"id\", \"catalog_zone\".\"code\", \"catalog_zone\".\"name\", \"catalog_zone\".\"municipality_id\", \"catalog_zone\".\"source_id\", \"catalog_zone\".\"active\" FROM \"catalog_zone\" INNER JOIN \"catalog_municipality\" ON (\"catalog_zone\".\"municipality_id\" = \"catalog_municipality\".\"id\") WHERE (\"catalog_zone\".\"active\" AND \"catalog_municipality\".\"active\")",
+            "pattern_sha256": "2aa36324743771b3aca3afa2e181bd918acac6daed22b5fb953fa6c4a9bfbfc5",
+            "calls": 1,
+            "total_time": 0.001609619241207838,
+            "parameter_count_max": 0,
+            "mean_time": 0.001609619241207838,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"catalog_postalcode_municipalities\".\"postalcode_id\") AS \"_prefetch_related_val_postalcode_id\", \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\" FROM \"catalog_municipality\" INNER JOIN \"catalog_postalcode_municipalities\" ON (\"catalog_municipality\".\"id\" = \"catalog_postalcode_municipalities\".\"municipality_id\") WHERE \"catalog_postalcode_municipalities\".\"postalcode_id\" IN (%s[*])",
+            "pattern_sha256": "d31ecf5d1f428bd645f4a04edab730feaed820e4f4c86e779f4f4a80b1f21911",
+            "calls": 1,
+            "total_time": 0.001310741063207388,
+            "parameter_count_max": 2,
+            "mean_time": 0.001310741063207388,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\", \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\", \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\" FROM \"catalog_municipality\" INNER JOIN \"catalog_province\" ON (\"catalog_municipality\".\"province_id\" = \"catalog_province\".\"id\") INNER JOIN \"catalog_region\" ON (\"catalog_province\".\"region_id\" = \"catalog_region\".\"id\") WHERE (\"catalog_municipality\".\"active\" AND \"catalog_municipality\".\"id\" IN (%s))",
+            "pattern_sha256": "19cd87cf4ea353b238ab056b4cd3b33d974d50e992a0bc922bc8c24a09d1730c",
+            "calls": 1,
+            "total_time": 0.0012251799926161766,
+            "parameter_count_max": 1,
+            "mean_time": 0.0012251799926161766,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\", \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\" FROM \"catalog_municipality\" INNER JOIN \"catalog_province\" ON (\"catalog_municipality\".\"province_id\" = \"catalog_province\".\"id\") WHERE \"catalog_municipality\".\"active\"",
+            "pattern_sha256": "2f3832333bc2849e4823e0435ce394eb9564a18b8f779c43b6e569fd0ebed36d",
+            "calls": 1,
+            "total_time": 0.0012237043119966984,
+            "parameter_count_max": 0,
+            "mean_time": 0.0012237043119966984,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_category\".\"id\", \"catalog_category\".\"slug\", \"catalog_category\".\"name_es\", \"catalog_category\".\"name_en\", \"catalog_category\".\"active\", \"catalog_category\".\"version\" FROM \"catalog_category\" WHERE (\"catalog_category\".\"active\" AND \"catalog_category\".\"id\" IN (%s))",
+            "pattern_sha256": "215d32f3ef64d84d3d5e8c8dd956431f969609b7ed86909da89e9df6e482e8b6",
+            "calls": 1,
+            "total_time": 0.0010309959761798382,
+            "parameter_count_max": 1,
+            "mean_time": 0.0010309959761798382,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_service\".\"id\", \"catalog_service\".\"slug\", \"catalog_service\".\"category_id\", \"catalog_service\".\"name_es\", \"catalog_service\".\"name_en\", \"catalog_service\".\"active\" FROM \"catalog_service\" WHERE (\"catalog_service\".\"active\" AND \"catalog_service\".\"id\" IN (%s))",
+            "pattern_sha256": "b3c729a26826dcf138bb7cdb4c7865d00135d53a337ff3da350057a52b981dd9",
+            "calls": 1,
+            "total_time": 0.0009719859808683395,
+            "parameter_count_max": 1,
+            "mean_time": 0.0009719859808683395,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\" FROM \"catalog_region\"",
+            "pattern_sha256": "60c5433597e88155b6d22d5812f75001eb3be2a2e801eced525afcc5005813c0",
+            "calls": 1,
+            "total_time": 0.0008945600129663944,
+            "parameter_count_max": 0,
+            "mean_time": 0.0008945600129663944,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\" FROM \"catalog_region\" WHERE \"catalog_region\".\"id\" IN (%s)",
+            "pattern_sha256": "ac5e7c7e3530ef3fe121964f3087e5761591be165bc8776be991ba419ce667cf",
+            "calls": 1,
+            "total_time": 0.000832835678011179,
+            "parameter_count_max": 1,
+            "mean_time": 0.000832835678011179,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\" FROM \"catalog_province\"",
+            "pattern_sha256": "ea29460d8705410d88d33b8a875e88ca690bef882167af627f94cb9595f10567",
+            "calls": 1,
+            "total_time": 0.0007294691167771816,
+            "parameter_count_max": 0,
+            "mean_time": 0.0007294691167771816,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_postalcode\".\"id\", \"catalog_postalcode\".\"code\", \"catalog_postalcode\".\"source_id\", \"catalog_postalcode\".\"public_safe\" FROM \"catalog_postalcode\" WHERE \"catalog_postalcode\".\"public_safe\"",
+            "pattern_sha256": "00e431945f34bbef19061d7843ab36c3201b1a185535e271de7e47e1e0a97018",
+            "calls": 1,
+            "total_time": 0.0005533159710466862,
+            "parameter_count_max": 0,
+            "mean_time": 0.0005533159710466862,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\" FROM \"catalog_province\" WHERE \"catalog_province\".\"id\" IN (%s)",
+            "pattern_sha256": "873ed195f9e302f02662324c0a5627a2316c6f67e8be7952b2c3ebd126867318",
+            "calls": 1,
+            "total_time": 0.0005033649504184723,
+            "parameter_count_max": 1,
+            "mean_time": 0.0005033649504184723,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          }
+        ],
+        "not_measured": [
+          "rows_returned",
+          "rows_affected",
+          "rows_examined/rows_scanned",
+          "DB CPU/waits/locks/IO",
+          "RSS",
+          "pure serialization separate from HTML render",
+          "pure materialization CPU independent of nested SQL/fetch/conversion"
+        ],
+        "normalization": "Strip comments; replace quoted/dollar SQL literals and numeric constants; collapse variable-length bind lists; collapse whitespace. Parameters never persisted. calls/total_time/mean_time all synchronous cursor.execute calls, seconds; patterns ordered by accumulated client execute time.",
+        "resources": {
+          "python": "3.12.13",
+          "cpu_count": 8,
+          "postgres_shared_service": true,
+          "request_topology": "Django Client single request/PG synthetic isolated",
+          "cache_state": "fresh per-case seeded data, same process and shared PG/OS caches not reset;100 then1000 then10000; DummyCache"
+        },
+        "limits": "End-to-end DjangoClient.get includes middleware/view/render; excludes fixtures/network/Gunicorn. cursor.execute includes driver/server IO/buffering and excludes later ORM iteration conversion/hydration. Model.from_db measures construction/state setup, includes post_init counter overhead; excludes SQL and earlier JSON conversion. ORM iteration intervals include lazy SQL/fetch/conversion/from_db; prefetch includes nested SQL/iteration and relation-cache mapping; context/validation/render include nested events. Timers overlap and cannot be summed as exclusive phases. Model instances/root objects/relation references are not SQL rows or distinct entities. Every dataset uses same instrumentation; no total-minus-SQL Python attribution. If SQL exceeds half of end-to-end in a dataset, run separate EXPLAIN ANALYZE BUFFERS on relevant isolated synthetic SELECTs; otherwise do not invent SQL dominance. No backend changes before reviewed checkpoint. Prior profiles lack these new metrics."
+      }
+    },
+    {
+      "test": "test_discovery_cost_checkpoint[10000]",
+      "metrics": {
+        "dataset_published": "10000",
+        "queries": "70",
+        "sql_execute_seconds": "1.7304704245179892",
+        "total_seconds_instrumented": "24.108752388041466",
+        "objects_instantiated_by_model": {
+          "core.LegalDocument": 10001,
+          "listings.Listing": 10000,
+          "core.Person": 10000,
+          "core.Agency": 9999,
+          "core.PhoneClaim": 10000,
+          "listings.Revision": 10000,
+          "catalog.Municipality": 10005,
+          "catalog.Province": 10006,
+          "catalog.Region": 10004,
+          "core.LegalAcceptance": 10000,
+          "catalog.Category": 10004,
+          "catalog.Service": 10008,
+          "listings.Rate": 10000,
+          "mediafiles.Photo": 10024,
+          "mediafiles.Blob": 10000,
+          "core.VerificationCheck": 24,
+          "catalog.Zone": 2,
+          "catalog.PostalCode": 2
+        },
+        "explicit_stages": {
+          "context_seconds": 9.685188885778189,
+          "validation_seconds": 13.949499767273664,
+          "render_seconds": 0.04667059192433953,
+          "validation_calls": 10000,
+          "candidate_listings": 10000,
+          "relation_memberships": {
+            "categories": 10000,
+            "services": 10000,
+            "travel_areas": 0,
+            "rates": 10000,
+            "photos": 10000
+          }
+        },
+        "form_events": {
+          "SnapshotDetails.__init__": {
+            "calls": 10000,
+            "seconds": 5.700631604064256
+          },
+          "SnapshotDetails.full_clean": {
+            "calls": 10000,
+            "seconds": 3.656715663149953
+          },
+          "SnapshotDetails._clean_fields": {
+            "calls": 10000,
+            "seconds": 1.714144570287317
+          },
+          "SnapshotDetails._clean_form": {
+            "calls": 10000,
+            "seconds": 0.3299020086415112
+          },
+          "SnapshotDetails._post_clean": {
+            "calls": 10000,
+            "seconds": 1.5360468216240406
+          },
+          "ContactsForm.__init__": {
+            "calls": 10000,
+            "seconds": 1.2607402703724802
+          },
+          "ContactsForm.full_clean": {
+            "calls": 10000,
+            "seconds": 2.4392493912018836
+          },
+          "ContactsForm._clean_fields": {
+            "calls": 10000,
+            "seconds": 1.2703040321357548
+          },
+          "ContactsForm._clean_form": {
+            "calls": 10000,
+            "seconds": 0.011579947080463171
+          },
+          "ContactsForm._post_clean": {
+            "calls": 10000,
+            "seconds": 1.0969697549007833
+          }
+        },
+        "objects_by_phase_model": {
+          "context:core.LegalDocument": 10001,
+          "context:listings.Listing": 10000,
+          "context:core.Person": 10000,
+          "context:core.Agency": 9999,
+          "context:core.PhoneClaim": 10000,
+          "context:listings.Revision": 10000,
+          "context:catalog.Municipality": 10001,
+          "context:catalog.Province": 10002,
+          "context:catalog.Region": 10002,
+          "context:core.LegalAcceptance": 10000,
+          "context:catalog.Category": 10001,
+          "context:catalog.Service": 10001,
+          "context:listings.Rate": 10000,
+          "context:mediafiles.Photo": 10000,
+          "context:mediafiles.Blob": 10000,
+          "request_other:core.VerificationCheck": 24,
+          "request_other:mediafiles.Photo": 24,
+          "render:catalog.Category": 3,
+          "render:catalog.Service": 7,
+          "render:catalog.Region": 2,
+          "render:catalog.Province": 4,
+          "render:catalog.Municipality": 4,
+          "render:catalog.Zone": 2,
+          "render:catalog.PostalCode": 2
+        },
+        "from_db_calls_by_model": {
+          "core.LegalDocument": 10001,
+          "listings.Listing": 10000,
+          "core.Person": 10000,
+          "core.Agency": 9999,
+          "core.PhoneClaim": 10000,
+          "listings.Revision": 10000,
+          "catalog.Municipality": 10005,
+          "catalog.Province": 10006,
+          "catalog.Region": 10004,
+          "core.LegalAcceptance": 10000,
+          "catalog.Category": 10004,
+          "catalog.Service": 10008,
+          "listings.Rate": 10000,
+          "mediafiles.Photo": 10024,
+          "mediafiles.Blob": 10000,
+          "core.VerificationCheck": 24,
+          "catalog.Zone": 2,
+          "catalog.PostalCode": 2
+        },
+        "from_db_seconds_by_model": {
+          "core.LegalDocument": 0.09776710253208876,
+          "listings.Listing": 0.12075954163447022,
+          "core.Person": 0.4338852991349995,
+          "core.Agency": 0.10557748656719923,
+          "core.PhoneClaim": 0.09012894332408905,
+          "listings.Revision": 0.16238370211794972,
+          "catalog.Municipality": 0.43241419922560453,
+          "catalog.Province": 0.3441369803622365,
+          "catalog.Region": 0.35341271851211786,
+          "core.LegalAcceptance": 0.11153910681605339,
+          "catalog.Category": 0.062313610687851906,
+          "catalog.Service": 0.11241017421707511,
+          "listings.Rate": 0.08162412326782942,
+          "mediafiles.Photo": 0.09018416097387671,
+          "mediafiles.Blob": 0.1296779504045844,
+          "core.VerificationCheck": 0.0008800346404314041,
+          "catalog.Zone": 6.325263530015945e-05,
+          "catalog.PostalCode": 4.868721589446068e-05
+        },
+        "orm_iteration_seconds_by_queryset_model": {
+          "catalog.Region": 0.0034225694835186005,
+          "catalog.Province": 0.0030809491872787476,
+          "catalog.Municipality": 0.12072553858160973,
+          "catalog.Zone": 0.003033091314136982,
+          "catalog.PostalCode": 0.0011286982335150242,
+          "catalog.Category": 0.21257291780784726,
+          "catalog.Service": 0.3081842972896993,
+          "core.LegalDocument": 0.003186215180903673,
+          "listings.Listing": 4.345568704884499,
+          "listings.Rate": 0.2006738493219018,
+          "mediafiles.Photo": 0.6741275698877871,
+          "core.VerificationCheck": 0.05011172266677022
+        },
+        "queryset_root_objects_yielded": {
+          "core.LegalDocument": 1,
+          "listings.Listing": 10000,
+          "catalog.Category": 10004,
+          "catalog.Service": 10008,
+          "listings.Rate": 10000,
+          "mediafiles.Photo": 10024,
+          "catalog.Municipality": 5,
+          "catalog.Province": 3,
+          "catalog.Region": 3,
+          "core.VerificationCheck": 24,
+          "catalog.Zone": 2,
+          "catalog.PostalCode": 2
+        },
+        "prefetch_events_by_relation": {
+          "approved_revision__categories": {
+            "calls": 1,
+            "seconds": 0.899682991206646
+          },
+          "approved_revision__services": {
+            "calls": 1,
+            "seconds": 0.9829748617485166
+          },
+          "approved_revision__travel_areas": {
+            "calls": 1,
+            "seconds": 0.9102417640388012
+          },
+          "approved_revision__rates": {
+            "calls": 1,
+            "seconds": 1.0930441389791667
+          },
+          "approved_revision___pv_photos": {
+            "calls": 1,
+            "seconds": 0.74979143217206
+          },
+          "municipalities": {
+            "calls": 1,
+            "seconds": 0.0018475069664418697
+          }
+        },
+        "dominant_queries": [
+          {
+            "query_pattern": "SELECT DISTINCT \"listings_listing\".\"lifecycle_version\", \"listings_listing\".\"id\", \"listings_listing\".\"person_id\", \"listings_listing\".\"status\", \"listings_listing\".\"approved_revision_id\", \"listings_listing\".\"published_at\", \"listings_listing\".\"expires_at\", \"listings_listing\".\"available_until\", \"listings_listing\".\"created_at\", EXISTS(SELECT %s AS \"a\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE (EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?) AND V0.\"id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_history\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_photo\" U0 INNER JOIN \"safety_rightsrectificationphotoupload\" U1 ON (U0.\"id\" = U1.\"photo_id\") WHERE (U1.\"id\" IS NOT NULL AND U0.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_rectification_upload\", EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsphotoreintroduction\" U0 INNER JOIN \"mediafiles_photo\" U1 ON (U0.\"photo_id\" = U1.\"id\") WHERE U1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") LIMIT ?) AS \"_pv_reintroduction\", EXISTS(SELECT %s AS \"a\" FROM \"safety_privacypublicationhold\" U0 WHERE (U0.\"active\" AND U0.\"person_id\" = (\"listings_listing\".\"person_id\")) LIMIT ?) AS \"_pv_hold\", EXISTS(SELECT %s AS \"a\" FROM \"safety_restriction\" U0 WHERE (U0.\"active\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\")) LIMIT ?) AS \"_pv_restriction\", EXISTS(SELECT %s AS \"a\" FROM \"core_representationaction\" U0 INNER JOIN \"core_legaldocument\" U1 ON (U0.\"document_id\" = U1.\"id\") INNER JOIN \"core_person\" U2 ON (U0.\"person_id\" = U2.\"id\") WHERE (U0.\"action\" = %s AND U1.\"slug\" = %s AND U1.\"version\" = %s AND U0.\"manager_id\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN (\"core_person\".\"agency_id\")::varchar ELSE (\"core_person\".\"individual_id\")::varchar END) AND U0.\"manager_kind\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN %s ELSE %s END) AND U0.\"manager_version\" = (\"core_person\".\"manager_version\") AND U0.\"person_id\" = (\"listings_listing\".\"person_id\") AND U0.\"subject_id\" = (\"core_person\".\"subject_id\")) LIMIT ?) AS \"_pv_grant\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_match\" W0 INNER JOIN \"mediafiles_photo\" W1 ON (W0.\"photo_id\" = W1.\"id\") INNER JOIN \"listings_revision\" W2 ON (W1.\"revision_id\" = W2.\"id\") INNER JOIN \"mediafiles_photo\" W3 ON (W0.\"candidate_id\" = W3.\"id\") INNER JOIN \"listings_revision\" W4 ON (W3.\"revision_id\" = W4.\"id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W5 ON (W1.\"id\" = W5.\"photo_id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W6 ON (W3.\"id\" = W6.\"photo_id\") WHERE ((W1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") OR W3.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) AND (W0.\"resolved_at\" IS NULL OR W0.\"decision\" = %s) AND W3.\"removed_at\" IS NULL AND W0.\"decision\" = %s AND W1.\"removed_at\" IS NULL AND NOT (W1.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W3.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W2.\"status\" = %s) AND NOT (W4.\"status\" = %s) AND NOT (W5.\"id\" IS NOT NULL) AND NOT (W6.\"id\" IS NOT NULL)) LIMIT ?) AS \"_pv_conflict\", (SELECT U0.\"status\" AS \"status\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_status\", (SELECT U0.\"manager_version\" AS \"manager_version\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_manager\", (SELECT U0.\"subject_id\" AS \"subject_id\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_subject\", \"core_person\".\"publication_erased_at\", \"core_person\".\"rights_version\", \"core_person\".\"id\", \"core_person\".\"alias\", \"core_person\".\"individual_id\", \"core_person\".\"agency_id\", \"core_person\".\"assigned_editor_id\", \"core_person\".\"subject_id\", \"core_person\".\"manager_version\", \"core_person\".\"manager_review_status\", \"core_person\".\"age_status\", \"core_person\".\"consent_version\", \"core_person\".\"consent_revoked_at\", \"core_person\".\"phone_claim_id\", \"core_person\".\"created_at\", \"core_agency\".\"id\", \"core_agency\".\"name\", \"core_agency\".\"owner_id\", \"core_agency\".\"created_at\", \"core_agency\".\"verification_status\", \"core_agency\".\"verification_procedure\", \"core_agency\".\"review_version\", \"core_phoneclaim\".\"id\", \"core_phoneclaim\".\"verification_procedure\", \"core_phoneclaim\".\"phone\", \"core_phoneclaim\".\"individual_id\", \"core_phoneclaim\".\"agency_id\", \"core_phoneclaim\".\"verified_at\", \"listings_revision\".\"id\", \"listings_revision\".\"listing_id\", \"listings_revision\".\"source_revision_id\", \"listings_revision\".\"manager_version\", \"listings_revision\".\"status\", \"listings_revision\".\"step\", \"listings_revision\".\"edit_version\", \"listings_revision\".\"title\", \"listings_revision\".\"description\", \"listings_revision\".\"content_language\", \"listings_revision\".\"description_alternative\", \"listings_revision\".\"profile_type\", \"listings_revision\".\"municipality_id\", \"listings_revision\".\"postal_code_id\", \"listings_revision\".\"zone_id\", \"listings_revision\".\"spoken_languages\", \"listings_revision\".\"days\", \"listings_revision\".\"time_slot\", \"listings_revision\".\"reception\", \"listings_revision\".\"travel\", \"listings_revision\".\"phone\", \"listings_revision\".\"whatsapp\", \"listings_revision\".\"telegram\", \"listings_revision\".\"contact_exposure_accepted\", \"listings_revision\".\"publisher_acceptance_id\", \"listings_revision\".\"created_at\", \"listings_revision\".\"updated_at\", \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\", \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\", \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\", \"core_legalacceptance\".\"id\", \"core_legalacceptance\".\"agency_id\", \"core_legalacceptance\".\"user_id\", \"core_legalacceptance\".\"document_id\", \"core_legalacceptance\".\"action\", \"core_legalacceptance\".\"created_at\", \"core_legaldocument\".\"id\", \"core_legaldocument\".\"slug\", \"core_legaldocument\".\"version\", \"core_legaldocument\".\"language\", \"core_legaldocument\".\"title\", \"core_legaldocument\".\"body\", \"core_legaldocument\".\"published_at\", \"core_legaldocument\".\"active\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") INNER JOIN \"core_person\" ON (\"listings_listing\".\"person_id\" = \"core_person\".\"id\") LEFT OUTER JOIN \"core_agency\" ON (\"core_person\".\"agency_id\" = \"core_agency\".\"id\") LEFT OUTER JOIN \"core_phoneclaim\" ON (\"core_person\".\"phone_claim_id\" = \"core_phoneclaim\".\"id\") LEFT OUTER JOIN \"catalog_municipality\" ON (\"listings_revision\".\"municipality_id\" = \"catalog_municipality\".\"id\") LEFT OUTER JOIN \"catalog_province\" ON (\"catalog_municipality\".\"province_id\" = \"catalog_province\".\"id\") LEFT OUTER JOIN \"catalog_region\" ON (\"catalog_province\".\"region_id\" = \"catalog_region\".\"id\") LEFT OUTER JOIN \"core_legalacceptance\" ON (\"listings_revision\".\"publisher_acceptance_id\" = \"core_legalacceptance\".\"id\") LEFT OUTER JOIN \"core_legaldocument\" ON (\"core_legalacceptance\".\"document_id\" = \"core_legaldocument\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s) ORDER BY \"listings_listing\".\"published_at\" DESC, \"listings_listing\".\"id\" ASC",
+            "pattern_sha256": "5242ed9e10b72c91de22a0c8c867fae8d97dc5bd021d9e6f93fcb824bdd2dc3e",
+            "calls": 1,
+            "total_time": 1.131298879161477,
+            "parameter_count_max": 22,
+            "mean_time": 1.131298879161477,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"mediafiles_photo\".\"id\", \"mediafiles_photo\".\"revision_id\", \"mediafiles_photo\".\"blob_id\", \"mediafiles_photo\".\"position\", \"mediafiles_photo\".\"approved\", \"mediafiles_photo\".\"comparison_complete\", \"mediafiles_photo\".\"removed_at\", \"mediafiles_photo\".\"created_at\", \"mediafiles_blob\".\"id\", \"mediafiles_blob\".\"sha256\", \"mediafiles_blob\".\"original\", \"mediafiles_blob\".\"derivative\", \"mediafiles_blob\".\"status\", \"mediafiles_blob\".\"phash\", \"mediafiles_blob\".\"width\", \"mediafiles_blob\".\"height\", \"mediafiles_blob\".\"attempts\", \"mediafiles_blob\".\"started_at\", \"mediafiles_blob\".\"error_code\", \"mediafiles_blob\".\"created_at\" FROM \"mediafiles_photo\" INNER JOIN \"mediafiles_blob\" ON (\"mediafiles_photo\".\"blob_id\" = \"mediafiles_blob\".\"id\") WHERE (\"mediafiles_photo\".\"removed_at\" IS NULL AND \"mediafiles_photo\".\"revision_id\" IN (%s[*])) ORDER BY \"mediafiles_photo\".\"position\" ASC, \"mediafiles_photo\".\"created_at\" ASC",
+            "pattern_sha256": "59b8f03bf8efd001c5f53bd06e0f70ce8d422949a119e2f6fb1b3730f2944345",
+            "calls": 1,
+            "total_time": 0.12784251105040312,
+            "parameter_count_max": 10000,
+            "mean_time": 0.12784251105040312,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"listings_revision_services\".\"revision_id\") AS \"_prefetch_related_val_revision_id\", \"catalog_service\".\"id\", \"catalog_service\".\"slug\", \"catalog_service\".\"category_id\", \"catalog_service\".\"name_es\", \"catalog_service\".\"name_en\", \"catalog_service\".\"active\" FROM \"catalog_service\" INNER JOIN \"listings_revision_services\" ON (\"catalog_service\".\"id\" = \"listings_revision_services\".\"service_id\") WHERE \"listings_revision_services\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "299c85b3c2175f9e2cd7069b4d98c02c30c97b46e797e4385154480e3bc3ad4f",
+            "calls": 1,
+            "total_time": 0.11950570624321699,
+            "parameter_count_max": 10000,
+            "mean_time": 0.11950570624321699,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"listings_revision_categories\".\"revision_id\") AS \"_prefetch_related_val_revision_id\", \"catalog_category\".\"id\", \"catalog_category\".\"slug\", \"catalog_category\".\"name_es\", \"catalog_category\".\"name_en\", \"catalog_category\".\"active\", \"catalog_category\".\"version\" FROM \"catalog_category\" INNER JOIN \"listings_revision_categories\" ON (\"catalog_category\".\"id\" = \"listings_revision_categories\".\"category_id\") WHERE \"listings_revision_categories\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "24495109fcb9c4867e866f5960260c00d85aff23847fbd8884f791375033de78",
+            "calls": 1,
+            "total_time": 0.09385727718472481,
+            "parameter_count_max": 10000,
+            "mean_time": 0.09385727718472481,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"listings_revision_travel_areas\".\"revision_id\") AS \"_prefetch_related_val_revision_id\", \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\" FROM \"catalog_municipality\" INNER JOIN \"listings_revision_travel_areas\" ON (\"catalog_municipality\".\"id\" = \"listings_revision_travel_areas\".\"municipality_id\") WHERE \"listings_revision_travel_areas\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "6230a84167399def158e2755d06ead7b36f463bcb8132dcbd6e0db4adcc8ae54",
+            "calls": 1,
+            "total_time": 0.08554142666980624,
+            "parameter_count_max": 10000,
+            "mean_time": 0.08554142666980624,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"listings_rate\".\"id\", \"listings_rate\".\"revision_id\", \"listings_rate\".\"concept\", \"listings_rate\".\"mode\", \"listings_rate\".\"amount\", \"listings_rate\".\"currency\", \"listings_rate\".\"duration_minutes\" FROM \"listings_rate\" WHERE \"listings_rate\".\"revision_id\" IN (%s[*])",
+            "pattern_sha256": "6ec32502cbf5f7245946789556bbc84b9d1e406d9633b583c8556c1ba3a6825f",
+            "calls": 1,
+            "total_time": 0.07285141991451383,
+            "parameter_count_max": 10000,
+            "mean_time": 0.07285141991451383,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"mediafiles_photo\".\"id\", \"mediafiles_photo\".\"revision_id\", \"mediafiles_photo\".\"blob_id\", \"mediafiles_photo\".\"position\", \"mediafiles_photo\".\"approved\", \"mediafiles_photo\".\"comparison_complete\", \"mediafiles_photo\".\"removed_at\", \"mediafiles_photo\".\"created_at\" FROM \"mediafiles_photo\" INNER JOIN \"mediafiles_blob\" ON (\"mediafiles_photo\".\"blob_id\" = \"mediafiles_blob\".\"id\") WHERE (\"mediafiles_photo\".\"revision_id\" = %s AND \"mediafiles_photo\".\"approved\" AND \"mediafiles_blob\".\"status\" = %s AND \"mediafiles_photo\".\"removed_at\" IS NULL) ORDER BY \"mediafiles_photo\".\"position\" ASC, \"mediafiles_photo\".\"created_at\" ASC LIMIT ?",
+            "pattern_sha256": "b94e98012f5b47436c4b07f51c8ac5872892b0bde5d465003a6bc8744e72c81e",
+            "calls": 24,
+            "total_time": 0.04438772751018405,
+            "parameter_count_max": 2,
+            "mean_time": 0.0018494886462576687,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"core_verificationcheck\".\"id\", \"core_verificationcheck\".\"person_id\", \"core_verificationcheck\".\"subject_id\", \"core_verificationcheck\".\"manager_version\", \"core_verificationcheck\".\"provider\", \"core_verificationcheck\".\"procedure\", \"core_verificationcheck\".\"status\", \"core_verificationcheck\".\"completed_at\", \"core_verificationcheck\".\"created_at\" FROM \"core_verificationcheck\" WHERE \"core_verificationcheck\".\"person_id\" = %s ORDER BY \"core_verificationcheck\".\"created_at\" DESC LIMIT ?",
+            "pattern_sha256": "b336520c18162d7034e567ae4a91112c223b96a92e08a811f1e28f583b8f0d17",
+            "calls": 24,
+            "total_time": 0.036038327030837536,
+            "parameter_count_max": 1,
+            "mean_time": 0.0015015969596182306,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_service\".\"id\", \"catalog_service\".\"slug\", \"catalog_service\".\"category_id\", \"catalog_service\".\"name_es\", \"catalog_service\".\"name_en\", \"catalog_service\".\"active\" FROM \"catalog_service\" WHERE (\"catalog_service\".\"active\" AND \"catalog_service\".\"id\" IN (%s))",
+            "pattern_sha256": "b3c729a26826dcf138bb7cdb4c7865d00135d53a337ff3da350057a52b981dd9",
+            "calls": 1,
+            "total_time": 0.0030006300657987595,
+            "parameter_count_max": 1,
+            "mean_time": 0.0030006300657987595,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"core_legaldocument\".\"id\", \"core_legaldocument\".\"slug\", \"core_legaldocument\".\"version\", \"core_legaldocument\".\"language\", \"core_legaldocument\".\"title\", \"core_legaldocument\".\"body\", \"core_legaldocument\".\"published_at\", \"core_legaldocument\".\"active\" FROM \"core_legaldocument\" WHERE (\"core_legaldocument\".\"active\" AND \"core_legaldocument\".\"slug\" = %s) ORDER BY \"core_legaldocument\".\"published_at\" DESC, \"core_legaldocument\".\"id\" DESC LIMIT ?",
+            "pattern_sha256": "fbd64f78eaf29c612bd7f8c5c01d43f6b81df5371ee272e5edaca0f9616aaf50",
+            "calls": 1,
+            "total_time": 0.002320727799087763,
+            "parameter_count_max": 1,
+            "mean_time": 0.002320727799087763,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\", \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\", \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\" FROM \"catalog_municipality\" INNER JOIN \"catalog_province\" ON (\"catalog_municipality\".\"province_id\" = \"catalog_province\".\"id\") INNER JOIN \"catalog_region\" ON (\"catalog_province\".\"region_id\" = \"catalog_region\".\"id\") WHERE (\"catalog_municipality\".\"active\" AND \"catalog_municipality\".\"id\" IN (%s))",
+            "pattern_sha256": "19cd87cf4ea353b238ab056b4cd3b33d974d50e992a0bc922bc8c24a09d1730c",
+            "calls": 1,
+            "total_time": 0.0022463221102952957,
+            "parameter_count_max": 1,
+            "mean_time": 0.0022463221102952957,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT %s AS \"_check\" WHERE COALESCE((%s = %s), %s)",
+            "pattern_sha256": "83cb3ef1459b9e0975afae64fe981cfe47bc40342fcc0a7ca1ecb3e396a8fffa",
+            "calls": 2,
+            "total_time": 0.0017295326106250286,
+            "parameter_count_max": 4,
+            "mean_time": 0.0008647663053125143,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_category\".\"id\", \"catalog_category\".\"slug\", \"catalog_category\".\"name_es\", \"catalog_category\".\"name_en\", \"catalog_category\".\"active\", \"catalog_category\".\"version\" FROM \"catalog_category\" WHERE (\"catalog_category\".\"active\" AND \"catalog_category\".\"id\" IN (%s))",
+            "pattern_sha256": "215d32f3ef64d84d3d5e8c8dd956431f969609b7ed86909da89e9df6e482e8b6",
+            "calls": 1,
+            "total_time": 0.0014875349588692188,
+            "parameter_count_max": 1,
+            "mean_time": 0.0014875349588692188,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_zone\".\"id\", \"catalog_zone\".\"code\", \"catalog_zone\".\"name\", \"catalog_zone\".\"municipality_id\", \"catalog_zone\".\"source_id\", \"catalog_zone\".\"active\" FROM \"catalog_zone\" INNER JOIN \"catalog_municipality\" ON (\"catalog_zone\".\"municipality_id\" = \"catalog_municipality\".\"id\") WHERE (\"catalog_zone\".\"active\" AND \"catalog_municipality\".\"active\")",
+            "pattern_sha256": "2aa36324743771b3aca3afa2e181bd918acac6daed22b5fb953fa6c4a9bfbfc5",
+            "calls": 1,
+            "total_time": 0.0011708037927746773,
+            "parameter_count_max": 0,
+            "mean_time": 0.0011708037927746773,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\" FROM \"catalog_province\" WHERE \"catalog_province\".\"id\" IN (%s)",
+            "pattern_sha256": "873ed195f9e302f02662324c0a5627a2316c6f67e8be7952b2c3ebd126867318",
+            "calls": 1,
+            "total_time": 0.0009171501733362675,
+            "parameter_count_max": 1,
+            "mean_time": 0.0009171501733362675,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\" FROM \"catalog_region\" WHERE \"catalog_region\".\"id\" IN (%s)",
+            "pattern_sha256": "ac5e7c7e3530ef3fe121964f3087e5761591be165bc8776be991ba419ce667cf",
+            "calls": 1,
+            "total_time": 0.0009169047698378563,
+            "parameter_count_max": 1,
+            "mean_time": 0.0009169047698378563,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_category\".\"id\", \"catalog_category\".\"slug\", \"catalog_category\".\"name_es\", \"catalog_category\".\"name_en\", \"catalog_category\".\"active\", \"catalog_category\".\"version\" FROM \"catalog_category\" WHERE \"catalog_category\".\"active\"",
+            "pattern_sha256": "4c03ecaa7acf3c169b3cb32eb394f09cd810bd85885dc1b5497f2cad1717430a",
+            "calls": 1,
+            "total_time": 0.0009118150919675827,
+            "parameter_count_max": 0,
+            "mean_time": 0.0009118150919675827,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_service\".\"id\", \"catalog_service\".\"slug\", \"catalog_service\".\"category_id\", \"catalog_service\".\"name_es\", \"catalog_service\".\"name_en\", \"catalog_service\".\"active\" FROM \"catalog_service\" INNER JOIN \"catalog_category\" ON (\"catalog_service\".\"category_id\" = \"catalog_category\".\"id\") WHERE (\"catalog_service\".\"active\" AND \"catalog_category\".\"active\")",
+            "pattern_sha256": "18a704c3da01ed21fd104e00a9d1241968fe45deb67abada8d21b129f74f0ce9",
+            "calls": 1,
+            "total_time": 0.0008891201578080654,
+            "parameter_count_max": 0,
+            "mean_time": 0.0008891201578080654,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\", \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\" FROM \"catalog_municipality\" INNER JOIN \"catalog_province\" ON (\"catalog_municipality\".\"province_id\" = \"catalog_province\".\"id\") WHERE \"catalog_municipality\".\"active\"",
+            "pattern_sha256": "2f3832333bc2849e4823e0435ce394eb9564a18b8f779c43b6e569fd0ebed36d",
+            "calls": 1,
+            "total_time": 0.0008720760233700275,
+            "parameter_count_max": 0,
+            "mean_time": 0.0008720760233700275,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT (\"catalog_postalcode_municipalities\".\"postalcode_id\") AS \"_prefetch_related_val_postalcode_id\", \"catalog_municipality\".\"id\", \"catalog_municipality\".\"code\", \"catalog_municipality\".\"name\", \"catalog_municipality\".\"province_id\", \"catalog_municipality\".\"source_id\", \"catalog_municipality\".\"active\" FROM \"catalog_municipality\" INNER JOIN \"catalog_postalcode_municipalities\" ON (\"catalog_municipality\".\"id\" = \"catalog_postalcode_municipalities\".\"municipality_id\") WHERE \"catalog_postalcode_municipalities\".\"postalcode_id\" IN (%s[*])",
+            "pattern_sha256": "d31ecf5d1f428bd645f4a04edab730feaed820e4f4c86e779f4f4a80b1f21911",
+            "calls": 1,
+            "total_time": 0.0008586188778281212,
+            "parameter_count_max": 2,
+            "mean_time": 0.0008586188778281212,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_region\".\"id\", \"catalog_region\".\"code\", \"catalog_region\".\"name\", \"catalog_region\".\"source_id\" FROM \"catalog_region\"",
+            "pattern_sha256": "60c5433597e88155b6d22d5812f75001eb3be2a2e801eced525afcc5005813c0",
+            "calls": 1,
+            "total_time": 0.0007751910015940666,
+            "parameter_count_max": 0,
+            "mean_time": 0.0007751910015940666,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_province\".\"id\", \"catalog_province\".\"code\", \"catalog_province\".\"name\", \"catalog_province\".\"region_id\", \"catalog_province\".\"source_id\" FROM \"catalog_province\"",
+            "pattern_sha256": "ea29460d8705410d88d33b8a875e88ca690bef882167af627f94cb9595f10567",
+            "calls": 1,
+            "total_time": 0.0006292909383773804,
+            "parameter_count_max": 0,
+            "mean_time": 0.0006292909383773804,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          },
+          {
+            "query_pattern": "SELECT \"catalog_postalcode\".\"id\", \"catalog_postalcode\".\"code\", \"catalog_postalcode\".\"source_id\", \"catalog_postalcode\".\"public_safe\" FROM \"catalog_postalcode\" WHERE \"catalog_postalcode\".\"public_safe\"",
+            "pattern_sha256": "00e431945f34bbef19061d7843ab36c3201b1a185535e271de7e47e1e0a97018",
+            "calls": 1,
+            "total_time": 0.00042143138125538826,
+            "parameter_count_max": 0,
+            "mean_time": 0.00042143138125538826,
+            "rows_returned": "not_measured",
+            "rows_affected": "not_measured",
+            "rows_scanned": "not_measured"
+          }
+        ],
+        "not_measured": [
+          "rows_returned",
+          "rows_affected",
+          "rows_examined/rows_scanned",
+          "DB CPU/waits/locks/IO",
+          "RSS",
+          "pure serialization separate from HTML render",
+          "pure materialization CPU independent of nested SQL/fetch/conversion"
+        ],
+        "normalization": "Strip comments; replace quoted/dollar SQL literals and numeric constants; collapse variable-length bind lists; collapse whitespace. Parameters never persisted. calls/total_time/mean_time all synchronous cursor.execute calls, seconds; patterns ordered by accumulated client execute time.",
+        "resources": {
+          "python": "3.12.13",
+          "cpu_count": 8,
+          "postgres_shared_service": true,
+          "request_topology": "Django Client single request/PG synthetic isolated",
+          "cache_state": "fresh per-case seeded data, same process and shared PG/OS caches not reset;100 then1000 then10000; DummyCache"
+        },
+        "limits": "End-to-end DjangoClient.get includes middleware/view/render; excludes fixtures/network/Gunicorn. cursor.execute includes driver/server IO/buffering and excludes later ORM iteration conversion/hydration. Model.from_db measures construction/state setup, includes post_init counter overhead; excludes SQL and earlier JSON conversion. ORM iteration intervals include lazy SQL/fetch/conversion/from_db; prefetch includes nested SQL/iteration and relation-cache mapping; context/validation/render include nested events. Timers overlap and cannot be summed as exclusive phases. Model instances/root objects/relation references are not SQL rows or distinct entities. Every dataset uses same instrumentation; no total-minus-SQL Python attribution. If SQL exceeds half of end-to-end in a dataset, run separate EXPLAIN ANALYZE BUFFERS on relevant isolated synthetic SELECTs; otherwise do not invent SQL dominance. No backend changes before reviewed checkpoint. Prior profiles lack these new metrics."
+      }
+    },
+    {
+      "test": "test_discovery_rule_profile_10000",
+      "metrics": {
+        "rules": [
+          {
+            "rule": "sql.cursor_execute",
+            "calls": 70,
+            "inclusive_time": 7.977022009901702,
+            "exclusive_time": 7.977022009901702,
+            "max_exclusive_time": 5.2694290592335165,
+            "instrumented_children": {},
+            "mean_exclusive_time": 0.11395745728431003
+          },
+          {
+            "rule": "BaseForm.__init__",
+            "calls": 20003,
+            "inclusive_time": 7.274415497202426,
+            "exclusive_time": 6.522872747387737,
+            "max_exclusive_time": 0.02134809037670493,
+            "instrumented_children": {
+              "SnapshotChoice.__deepcopy__": 0.7515427498146892
+            },
+            "mean_exclusive_time": 0.0003260947231609127
+          },
+          {
+            "rule": "PublicationContext.__init__",
+            "calls": 1,
+            "inclusive_time": 15.200095413718373,
+            "exclusive_time": 3.637886227108538,
+            "max_exclusive_time": 3.637886227108538,
+            "instrumented_children": {
+              "sql.cursor_execute": 5.2757100919261575,
+              "json.listings.Revision.spoken_languages": 0.04860516497865319,
+              "json.listings.Revision.days": 0.022860571276396513,
+              "django.db.models.query.prefetch_one_level": 6.215033358428627
+            },
+            "mean_exclusive_time": 3.637886227108538
+          },
+          {
+            "rule": "django.db.models.query.prefetch_one_level",
+            "calls": 6,
+            "inclusive_time": 6.216759318485856,
+            "exclusive_time": 3.5770932170562446,
+            "max_exclusive_time": 1.7021501595154405,
+            "instrumented_children": {
+              "sql.cursor_execute": 2.6396661014296114
+            },
+            "mean_exclusive_time": 0.5961822028427074
+          },
+          {
+            "rule": "SnapshotDetails._clean_fields",
+            "calls": 10000,
+            "inclusive_time": 1.8530893973074853,
+            "exclusive_time": 1.8530893973074853,
+            "max_exclusive_time": 0.002899507060647011,
+            "instrumented_children": {},
+            "mean_exclusive_time": 0.00018530893973074853
+          },
+          {
+            "rule": "SnapshotDetails._post_clean",
+            "calls": 10000,
+            "inclusive_time": 1.6400471809320152,
+            "exclusive_time": 1.6400471809320152,
+            "max_exclusive_time": 0.006951167248189449,
+            "instrumented_children": {},
+            "mean_exclusive_time": 0.00016400471809320153
+          },
+          {
+            "rule": "DetailsForm.__init__",
+            "calls": 10000,
+            "inclusive_time": 6.676492424216121,
+            "exclusive_time": 1.3774570534005761,
+            "max_exclusive_time": 0.0012672971934080124,
+            "instrumented_children": {
+              "BaseForm.__init__": 5.299035370815545
+            },
+            "mean_exclusive_time": 0.00013774570534005762
+          },
+          {
+            "rule": "apps.listings.moderation.validate_submission",
+            "calls": 10000,
+            "inclusive_time": 16.00155784096569,
+            "exclusive_time": 1.1010054675862193,
+            "max_exclusive_time": 0.004277248866856098,
+            "instrumented_children": {
+              "apps.listings.submissions.publication_ready": 0.09318289719522,
+              "PublicationContext.details": 6.8723996304906905,
+              "SnapshotDetails.full_clean": 4.128651647828519,
+              "ContactsForm.__init__": 2.2754718651995063,
+              "ContactsForm.full_clean": 1.455829775892198,
+              "PublicationContext.rate_valid": 0.07501655677333474
+            },
+            "mean_exclusive_time": 0.00011010054675862193
+          },
+          {
+            "rule": "ContactsForm._post_clean",
+            "calls": 10000,
+            "inclusive_time": 0.7669477062299848,
+            "exclusive_time": 0.7669477062299848,
+            "max_exclusive_time": 0.0011758790351450443,
+            "instrumented_children": {},
+            "mean_exclusive_time": 7.669477062299847e-05
+          },
+          {
+            "rule": "SnapshotChoice.__deepcopy__",
+            "calls": 50000,
+            "inclusive_time": 0.7515427498146892,
+            "exclusive_time": 0.7515427498146892,
+            "max_exclusive_time": 0.007226977963000536,
+            "instrumented_children": {},
+            "mean_exclusive_time": 1.5030854996293783e-05
+          },
+          {
+            "rule": "ContactsForm._clean_fields",
+            "calls": 10000,
+            "inclusive_time": 0.473965828306973,
+            "exclusive_time": 0.473965828306973,
+            "max_exclusive_time": 0.0033738408237695694,
+            "instrumented_children": {},
+            "mean_exclusive_time": 4.73965828306973e-05
+          },
+          {
+            "rule": "SnapshotDetails._clean_form",
+            "calls": 10000,
+            "inclusive_time": 0.35725292284041643,
+            "exclusive_time": 0.35725292284041643,
+            "max_exclusive_time": 0.0008962242864072323,
+            "instrumented_children": {},
+            "mean_exclusive_time": 3.572529228404164e-05
+          },
+          {
+            "rule": "ContactsForm.__init__",
+            "calls": 10000,
+            "inclusive_time": 2.2754718651995063,
+            "exclusive_time": 0.30108504509553313,
+            "max_exclusive_time": 0.001304463017731905,
+            "instrumented_children": {
+              "BaseForm.__init__": 1.9743868201039732
+            },
+            "mean_exclusive_time": 3.0108504509553312e-05
+          },
+          {
+            "rule": "SnapshotDetails.full_clean",
+            "calls": 10000,
+            "inclusive_time": 4.128651647828519,
+            "exclusive_time": 0.2782621467486024,
+            "max_exclusive_time": 0.0036827740259468555,
+            "instrumented_children": {
+              "SnapshotDetails._clean_fields": 1.8530893973074853,
+              "SnapshotDetails._clean_form": 0.35725292284041643,
+              "SnapshotDetails._post_clean": 1.6400471809320152
+            },
+            "mean_exclusive_time": 2.782621467486024e-05
+          },
+          {
+            "rule": "ContactsForm.full_clean",
+            "calls": 10000,
+            "inclusive_time": 1.455829775892198,
+            "exclusive_time": 0.20360758062452078,
+            "max_exclusive_time": 0.0005427603609859943,
+            "instrumented_children": {
+              "ContactsForm._clean_fields": 0.473965828306973,
+              "ContactsForm._clean_form": 0.011308660730719566,
+              "ContactsForm._post_clean": 0.7669477062299848
+            },
+            "mean_exclusive_time": 2.0360758062452076e-05
+          },
+          {
+            "rule": "PublicationContext.details",
+            "calls": 10000,
+            "inclusive_time": 6.8723996304906905,
+            "exclusive_time": 0.0995272807776928,
+            "max_exclusive_time": 0.00011425558477640152,
+            "instrumented_children": {
+              "SnapshotDetails.__init__": 6.772872349712998
+            },
+            "mean_exclusive_time": 9.95272807776928e-06
+          },
+          {
+            "rule": "SnapshotDetails.__init__",
+            "calls": 10000,
+            "inclusive_time": 6.772872349712998,
+            "exclusive_time": 0.09637992549687624,
+            "max_exclusive_time": 0.0010300418362021446,
+            "instrumented_children": {
+              "DetailsForm.__init__": 6.676492424216121
+            },
+            "mean_exclusive_time": 9.637992549687625e-06
+          },
+          {
+            "rule": "apps.listings.submissions.publication_ready",
+            "calls": 10000,
+            "inclusive_time": 0.09318289719522,
+            "exclusive_time": 0.09318289719522,
+            "max_exclusive_time": 5.635293200612068e-05,
+            "instrumented_children": {},
+            "mean_exclusive_time": 9.318289719522e-06
+          },
+          {
+            "rule": "PublicationContext.rate_valid",
+            "calls": 10000,
+            "inclusive_time": 0.07501655677333474,
+            "exclusive_time": 0.07360315648838878,
+            "max_exclusive_time": 0.002056560479104519,
+            "instrumented_children": {
+              "BaseForm.__init__": 0.00024281814694404602,
+              "sql.cursor_execute": 0.0011705821380019188
+            },
+            "mean_exclusive_time": 7.360315648838877e-06
+          },
+          {
+            "rule": "apps.listings.discovery.render",
+            "calls": 1,
+            "inclusive_time": 0.06056648911908269,
+            "exclusive_time": 0.0521070035174489,
+            "max_exclusive_time": 0.0521070035174489,
+            "instrumented_children": {
+              "sql.cursor_execute": 0.0067335255444049835,
+              "django.db.models.query.prefetch_one_level": 0.0017259600572288036
+            },
+            "mean_exclusive_time": 0.0521070035174489
+          },
+          {
+            "rule": "json.listings.Revision.spoken_languages",
+            "calls": 10000,
+            "inclusive_time": 0.04860516497865319,
+            "exclusive_time": 0.04860516497865319,
+            "max_exclusive_time": 0.0020796828903257847,
+            "instrumented_children": {},
+            "mean_exclusive_time": 4.860516497865319e-06
+          },
+          {
+            "rule": "json.listings.Revision.days",
+            "calls": 10000,
+            "inclusive_time": 0.022860571276396513,
+            "exclusive_time": 0.022860571276396513,
+            "max_exclusive_time": 4.2797066271305084e-05,
+            "instrumented_children": {},
+            "mean_exclusive_time": 2.2860571276396514e-06
+          },
+          {
+            "rule": "ContactsForm._clean_form",
+            "calls": 10000,
+            "inclusive_time": 0.011308660730719566,
+            "exclusive_time": 0.011308660730719566,
+            "max_exclusive_time": 3.504706546664238e-05,
+            "instrumented_children": {},
+            "mean_exclusive_time": 1.1308660730719566e-06
+          }
+        ],
+        "control_request_seconds": "27.713210333138704",
+        "profiled_request_seconds": "31.672055679373443",
+        "overhead_comparison_seconds": "3.958845346234739",
+        "overhead": "Paired route without/with selected wrappers, sequential control then profile, one sample each. Difference includes instrumentation and uncontrolled PG/OS cache effects: causal overhead not_measured; no correction applied.",
+        "scope": "Synchronous request only; ContextVar nested stack; subtract direct instrumented child inclusive intervals once, never grandchildren again. Added prefetch_one_level and JSONField.from_db_value by model/field; earlier profile did not have these children and exclusive times are not directly comparable. exclusive_time is relative to observed children, includes uninstrumented Python/ORM work. Inline authorization/document/revocation conditions are included in validate_submission, not separately attributed. No arguments/parameters persisted; seconds, optional p95 not_measured. SQL execute may be nested inside forms/render/context; no total-minus-SQL validation attribution.",
+        "not_measured": "rows_returned/affected/scanned; CPU/RSS/waits/locks/IO; independent inline predicate timings; causal profiler overhead; concurrent capacity; p95 exclusive"
+      }
+    }
+  ],
+  "limits": "Compare each case to its same instrumentation predecessor. Four cases in one runner, fresh fixture per case; PG/OS caches unreset, shared host, instrument overhead causal not_measured. SQL client cursor.execute includes transport; no database CPU claim. Not contractual capacity."
+}
