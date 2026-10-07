@@ -79,7 +79,7 @@ def definitions():
                forms.BooleanField, forms.ChoiceField, forms.MultipleChoiceField,
                forms.ModelChoiceField, forms.ModelMultipleChoiceField, forms.ModelForm,
                forms.TextInput, forms.Select, forms.CheckboxInput, forms.SelectMultiple]
-    functions = [listing_forms.validate_details_values, listing_forms.validate_listing_text, listing_forms.normalize_telegram,
+    functions = [freeze, listing_forms.validate_details_values, listing_forms.validate_listing_text, listing_forms.normalize_telegram,
                  submissions.validate_submission, moderation.validate_submission,
                  moderation.publicly_visible, verification_services.publication_ready,
                  submissions.publication_ready, submissions.current_publishing_document,
@@ -156,7 +156,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "12b018f3d2b8e764a91460637f1a010dea7688851e033b805bce74feeae5706b"
+EXPECTED_DEFINITIONS = "f94fb5c6471c2c69c2d23b5b2f684bc013063711b82287fa180cc1cb3941f3ae"
 
 
 def definitions_digest():
