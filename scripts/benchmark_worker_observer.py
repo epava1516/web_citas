@@ -140,8 +140,21 @@ def post_worker_init(worker):
         raise RuntimeError("Observer requires an owned synthetic PostgreSQL runner")
     observer = WorkerObserver(folder)
     worker._benchmark_observer = observer
-    PublicationContext.__init__ = observer.measured("context", PublicationContext.__init__)
-    moderation.validate_submission = observer.measured("validation", moderation.validate_submission, progress=True)
+    route_only = os.environ.get("WEB_MODELOS_BENCHMARK_ROUTE_ONLY") == "1"
+    if not route_only:
+        PublicationContext.__init__ = observer.measured("context", PublicationContext.__init__)
+        moderation.validate_submission = observer.measured("validation", moderation.validate_submission, progress=True)
+    else:
+        original_render = discovery.render
+
+        @wraps(original_render)
+        def route_render(request, *args, **kwargs):
+            state = _CURRENT.get()
+            if state is not None:
+                observer.write(state, "publication_route", **request._publication_route)
+            return original_render(request, *args, **kwargs)
+
+        discovery.render = route_render
     discovery.render = observer.measured("render", discovery.render)
     moderation_views.render = observer.measured("render", moderation_views.render)
     connection.execute_wrappers.append(observer.sql)

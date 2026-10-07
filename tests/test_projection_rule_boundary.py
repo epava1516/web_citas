@@ -32,3 +32,17 @@ def test_wraps_does_not_certify_transparency(monkeypatch):
     # must use non-wrapping events; wraps alone cannot authorize a skipped layer.
     monkeypatch.setattr(Revision, "clean", forwarding)
     assert projected_publication.definitions_digest() != before
+
+
+def test_fingerprint_stable_across_python_hash_seeds():
+    import os
+    import subprocess
+    import sys
+
+    command = [sys.executable, '-c',
+               'import django; django.setup(); '
+               'from apps.listings.projected_publication import definitions_digest; '
+               'print(definitions_digest())']
+    hashes = [subprocess.check_output(command, env={**os.environ, 'PYTHONHASHSEED': seed},
+                                      text=True).strip() for seed in ['11', '29']]
+    assert hashes[0] == hashes[1] == projected_publication.EXPECTED_DEFINITIONS

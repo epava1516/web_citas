@@ -236,3 +236,43 @@ def test_nonwrapping_profile_preserves_route_and_functional_response(request, mo
             native = client.get("/es/")
         assert native.content == ordinary.content
         assert native.wsgi_request._publication_route["route"] == "fallback"
+
+
+def test_route_only_worker_observation_preserves_projection(request, monkeypatch, tmp_path):
+    from types import SimpleNamespace
+
+    from django.core.wsgi import get_wsgi_application
+    from django.test import RequestFactory
+
+    from apps.listings import discovery, moderation, moderation_views
+    from scripts.benchmark_worker_observer import collect_events, post_worker_init
+
+    client = request.getfixturevalue('directory')
+    control = client.get('/es/')
+    before = projection_module.definitions_digest()
+    monkeypatch.setenv('WEB_MODELOS_BENCHMARK_OBSERVER_DIR', str(tmp_path))
+    monkeypatch.setenv('WEB_MODELOS_BENCHMARK_ROUTE_ONLY', '1')
+    for owner, name in [(discovery, 'render'), (moderation_views, 'render'),
+                        (PublicationContext, '__init__'), (moderation, 'validate_submission')]:
+        # Register restoration before the external hook installs its wrappers.
+        monkeypatch.setattr(owner, name, getattr(owner, name))
+    worker = SimpleNamespace(wsgi=get_wsgi_application())
+    wrappers = list(connection.execute_wrappers)
+    try:
+        post_worker_init(worker)
+        assert projection_module.definitions_digest() == before and supported()
+        environment = RequestFactory().get('/es/', HTTP_X_BENCHMARK_ID='d-0').environ
+        statuses = []
+        response = worker.wsgi(environment, lambda status, headers, exc_info=None: statuses.append(status))
+        try:
+            body = b''.join(response)
+        finally:
+            response.close()
+        assert statuses == ['200 OK'] and body == control.content
+    finally:
+        connection.execute_wrappers[:] = wrappers
+        worker._benchmark_observer.close()
+    events = collect_events(tmp_path)['events']
+    route = next(event for event in events if event['event'] == 'publication_route')
+    assert route['route'] == 'projection'
+    assert route['candidate_stats'] == control.wsgi_request._publication_route['candidate_stats']

@@ -54,6 +54,10 @@ def code_signature(code):
     def constant(value):
         if isinstance(value, CodeType):
             return code_signature(value)
+        if isinstance(value, frozenset):
+            return ("frozenset", sorted((constant(item) for item in value), key=repr))
+        if isinstance(value, tuple):
+            return ("tuple", [constant(item) for item in value])
         return (type(value).__name__, repr(value))
     return (code.co_code.hex(), [constant(value) for value in code.co_consts],
             code.co_names, code.co_varnames, code.co_freevars, code.co_cellvars,
@@ -144,7 +148,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "88d3073c761ed2fa236803131877dc9ed400e3136628b86adb939e96c1f436df"
+EXPECTED_DEFINITIONS = "c77c9c8597f0b429d2f1cf7f1ce0e4b4fd522737243d8dd4e7d744c8d9ea41bd"
 
 
 def definitions_digest():

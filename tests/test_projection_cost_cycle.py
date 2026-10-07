@@ -47,8 +47,8 @@ def alpha(index):
     return text
 
 
-@pytest.mark.parametrize('count,variant', [(100, 'contractual'), (1000, 'contractual'),
-                                         (10000, 'contractual'), (10000, 'diverse')])
+@pytest.mark.parametrize('count,variant', [(10000, 'contractual'), (100, 'contractual'),
+                                         (1000, 'contractual'), (10000, 'diverse')])
 def test_projection_comparable_cycle(request, monkeypatch, record_property, count, variant):
     client = request.getfixturevalue('directory')
     populate(count)
