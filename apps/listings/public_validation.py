@@ -166,6 +166,44 @@ def publication_query(query, document):
     )
 
 
+def validate_publication_binding(prototype, data, revision):
+    """Run the native form/model rules on an independent validation-only binding.
+
+    Only definition sharing is performed here. The caller owns audited form
+    definitions, a request-local current catalog/language and all eligibility
+    dependencies. Every call runs native full_clean; errors/results/BoundFields
+    remain on the new binding. Editing/rendered forms keep normal construction.
+    """
+    form = copy(prototype)
+    form.instance = revision
+    form.data = data
+    # These private, bound forms are validated, never rendered or used for
+    # changed_data. Native cleaning reads initial only for disabled fields
+    # or empty_permitted/has_changed; retain native initial for those cases.
+    needs_initial = form.empty_permitted or any(field.disabled for field in form.fields.values())
+    form.initial = (
+        model_to_dict(revision, form._meta.fields, form._meta.exclude)
+        if needs_initial else {}
+    )
+    if needs_initial and isinstance(form, SnapshotDetails) and revision.municipality_id:
+        city = revision.municipality
+        form.initial.setdefault("province", city.province_id)
+        form.initial.setdefault("region", city.province.region_id)
+    form.fields = dict(form.fields)
+    form._errors = None
+    form._bound_fields_cache = {}
+    form._validate_unique = False
+    form.__dict__.pop("changed_data", None)
+    form.__dict__.pop("cleaned_data", None)
+    try:
+        return form.is_valid()
+    finally:
+        # A BoundField points back to its form. These private bindings return
+        # only a boolean and are never rendered; release their reverse cache
+        # after native cleaning instead of leaving successful cycles for GC.
+        form._bound_fields_cache.clear()
+
+
 class PublicationContext:
     def __init__(self, query):
         self.document = current_publishing_document()
@@ -278,34 +316,7 @@ class PublicationContext:
                 if name != "title":
                     self._memoize_field_clean(form_class.__name__ + "." + name, field)
             self._validation_prototypes[key] = prototype
-        form = copy(self._validation_prototypes[key])
-        form.instance = revision
-        form.data = data
-        # These private, bound forms are validated, never rendered or used for
-        # changed_data. Native cleaning reads initial only for disabled fields
-        # or empty_permitted/has_changed; retain native initial for those cases.
-        needs_initial = form.empty_permitted or any(field.disabled for field in form.fields.values())
-        form.initial = (
-            model_to_dict(revision, form._meta.fields, form._meta.exclude)
-            if needs_initial else {}
-        )
-        if needs_initial and form_class is SnapshotDetails and revision.municipality_id:
-            city = revision.municipality
-            form.initial.setdefault("province", city.province_id)
-            form.initial.setdefault("region", city.province.region_id)
-        form.fields = dict(form.fields)
-        form._errors = None
-        form._bound_fields_cache = {}
-        form._validate_unique = False
-        form.__dict__.pop("changed_data", None)
-        form.__dict__.pop("cleaned_data", None)
-        try:
-            return form.is_valid()
-        finally:
-            # A BoundField points back to its form. These private bindings return
-            # only a boolean and are never rendered; release their reverse cache
-            # after native cleaning instead of leaving successful cycles for GC.
-            form._bound_fields_cache.clear()
+        return validate_publication_binding(self._validation_prototypes[key], data, revision)
 
     def _memoize_field_clean(self, name, field):
         # Field.clean receives only value; instance/cross-field/model/authority

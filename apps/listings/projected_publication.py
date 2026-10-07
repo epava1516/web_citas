@@ -23,6 +23,7 @@ from django.db.migrations.serializer import serializer_factory
 from django.db.models import prefetch_related_objects
 from django.forms import models as model_forms
 from django.utils import timezone
+from django.utils.functional import SimpleLazyObject
 from django.utils.translation import get_language
 
 from apps.catalog.promotion_exposure import enabled as promotions_enabled
@@ -84,7 +85,8 @@ def definitions():
                  submissions.publication_ready, submissions.current_publishing_document,
                  publication_query, public_validation.publication_query,
                  history.ordinary_matches, history.rectification_history_ids,
-                 model_forms.construct_instance, model_forms.model_to_dict]
+                 model_forms.construct_instance, model_forms.model_to_dict,
+                 public_validation.validate_publication_binding, SimpleLazyObject._setup]
     for cls in classes:
         names = {"__init__", "clean", "full_clean", "clean_fields", "validate_unique",
                  "validate_constraints", "_get_unique_checks", "_perform_unique_checks",
@@ -149,7 +151,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "c77c9c8597f0b429d2f1cf7f1ce0e4b4fd522737243d8dd4e7d744c8d9ea41bd"
+EXPECTED_DEFINITIONS = "9ad47250d29d615705d046a93212ecab051528545ef19751bd512bd4711c4c95"
 
 
 def definitions_digest():
@@ -177,6 +179,7 @@ def freeze(value):
 class ProjectedPublication:
     def __init__(self, query):
         self.document = submissions.current_publishing_document()
+        self.validation_prototypes = {}
         scalar_fields = [field for field in Revision._meta.concrete_fields]
         columns = ["pk", "status", "person_id", "expires_at", "approved_revision_id"]
         columns += ["approved_revision__" + field.attname for field in scalar_fields]
@@ -288,8 +291,14 @@ class ProjectedPublication:
         key = (get_language(), id(self.catalog), freeze(data))
         if key not in self.memo[kind]:
             self.stats[kind + "_native"] += 1
-            # A full native clean (including model checks) for this input class.
-            if not factory(data, instance).is_valid():
+            # Definitions depend on form kind, this request's catalog and locale;
+            # binding data/model/errors never belong to a shared prototype.
+            prototype_key = (kind, id(self.catalog), get_language())
+            if prototype_key not in self.validation_prototypes:
+                self.validation_prototypes[prototype_key] = factory(data, instance)
+            prototype = self.validation_prototypes[prototype_key]
+            inputs = dict(zip(RateForm.Meta.fields, data, strict=True)) if kind == "rates" else dict(data)
+            if not public_validation.validate_publication_binding(prototype, inputs, instance):
                 return False  # Errors are never reused; native fallback owns them.
             self.memo[kind][key] = True
         return True
@@ -306,8 +315,15 @@ class ProjectedPublication:
                   for field in Revision._meta.concrete_fields}
         # No database identity in the audited, instance-independent content rules.
         values["id"] = None
-        instance = Revision(**values)
-        instance.municipality = city
+        def build_revision():
+            revision = Revision(**values)
+            revision.municipality = city
+            return revision
+
+        # Native title Field.clean does not inspect the model under the audited
+        # definitions. Other rules force this proxy only on a real memo miss.
+        # Unknown instance-dependent rules still disable the proof domain.
+        instance = SimpleLazyObject(build_revision)
         data = {name: values[name] for name in DetailsForm.Meta.fields
                 if not Revision._meta.get_field(name).many_to_many
                 and name not in {"municipality", "postal_code", "zone"}}
@@ -337,8 +353,8 @@ class ProjectedPublication:
             if len(rates) > 10:
                 return False
             for rate in rates:
-                if not self.native_content("rates", rate, Rate(**dict(zip(RateForm.Meta.fields, rate,
-                                                                         strict=True))),
+                if not self.native_content("rates", rate, SimpleLazyObject(
+                        lambda rate=rate: Rate(**dict(zip(RateForm.Meta.fields, rate, strict=True)))),
                                            lambda inputs, obj: RateForm(
                                                dict(zip(RateForm.Meta.fields, inputs, strict=True)),
                                                instance=obj)):
