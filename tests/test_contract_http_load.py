@@ -26,6 +26,7 @@ from apps.core.models import Person, User
 from apps.listings.models import Revision
 from scripts.benchmark_async_transport import POLICY, fetch_http, run_async_open_loop
 from scripts.benchmark_gc_observer import GCObserver, generator_gc_overlap, prepare_generator_gc
+from scripts.benchmark_worker_observer import collect_events
 from scripts.synthetic_load_dataset import populate
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -42,6 +43,8 @@ def percentile(values, ratio):
 
 @pytest.mark.parametrize("scenario", ["functional", "short", "measured"])
 def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, record_property, scenario):
+    observe_workers = os.environ.get("WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS") == "1"
+    assert not (observe_workers and scenario == "measured"), "Worker observer is diagnostic only"
     large = scenario != "functional"
     upload_count = 15 if scenario == "measured" else 1
     request.getfixturevalue("directory")
@@ -144,6 +147,12 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         )
 
     artifact_folder = Path(request.config.getoption("--gate-timings-output")).parent
+    observer_folder = artifact_folder / "worker-events-raw"
+    observer_args = []
+    if observe_workers:
+        observer_folder.mkdir(mode=0o700)
+        environment["WEB_MODELOS_BENCHMARK_OBSERVER_DIR"] = str(observer_folder)
+        observer_args = ["--config", "python:scripts.benchmark_worker_observer"]
     manifest = {
         "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
         "dataset": dataset,
@@ -163,6 +172,14 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
         "client_fixture_preparation": "One gc.collect(2) after fixture/auth/upload construction, before arrival clock; enabled/thresholds unchanged, automatic GC remains active during load. Previous observed client GC321.913ms overlaps273.107ms of273.462ms maximum emission delay; no backend improvement attributed to this preparation",
     }
+    manifest["worker_observer"] = {
+        "enabled": observe_workers,
+        "scope": "Synthetic IDs already emitted by client; WSGI entry/end, inclusive context/validation/render and SQL execute wall/thread CPU; validation snapshots each1000calls, partial events retained; no real URI/SQL/parameters; not TCP accept or exact queue time; causal overhead not_measured",
+        "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
+        "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition",
+    }
+    if observe_workers:
+        manifest["instrumentation"] += "; opt-in isolated worker observer as described in worker_observer, thread CPU scoped to WSGI request; no DB CPU/RSS sampling"
     if scenario == "short":
         manifest["diagnostic_criteria"] = {
             "valid_generator_and_reconciled_accounting": True,
@@ -217,6 +234,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                     sys.executable,
                     "-m",
                     "gunicorn",
+                    *observer_args,
                     "config.wsgi:application",
                     "--bind",
                     f"127.0.0.1:{port}",
@@ -361,6 +379,17 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait(timeout=5)
         summary["gunicorn_stopped"] = process is None or process.poll() is not None
+        if observe_workers:
+            observed = collect_events(observer_folder)
+            observer_path = artifact_folder / "benchmark-worker-events.json"
+            observer_path.write_text(json.dumps(observed, indent=2))
+            summary["worker_observer_artifact"] = observer_path.name
+            summary["worker_observer_parse_errors"] = observed["parse_errors"]
+            summary["not_measured"] = [
+                item for item in summary["not_measured"] if item not in ["app/DB CPU", "CPU/request"]
+            ] + ["DB CPU; whole-app/other-thread CPU; unobserved request CPU",
+                 "causal worker observer overhead; exact TCP/socket queue time",
+                 "SQL rows_returned/affected/scanned; normalized dominant SQL patterns during load"]
         if logfile.exists():
             import re
 
