@@ -1,0 +1,29 @@
+{
+  "source_commit": "c56e1d80f2beb02226389adc4dd0fa8f0ab2b516",
+  "tests": [
+    "tests/test_public_validation_context.py",
+    "tests/test_discovery.py",
+    "tests/test_privacy_publication_holds.py"
+  ],
+  "sources_unchanged": true,
+  "migration_exit": 0,
+  "pytest_exit": 0,
+  "cleanup_verified": true,
+  "test_media_removed": true,
+  "artifact_sha256": {
+    "migration.log": "554c86191aa5458fa81d6926cc0060ee8b12abefbb10023fb049f7a28126fb79",
+    "pytest.log": "28651c2469c3896aa46e4198d12dc556675a9fe71aaecf3b582a966eb39a8805",
+    "pytest.xml": "f623194036023194a411702511aca665de880dc26faa92b9fb63d15384cee0da",
+    "test-timings.json": "c8f41a4374f4a34b073317b489cc363d8fefbb72d633b3843bed95b67238a804"
+  },
+  "timing_seconds": {
+    "configuration": 0.10463591711595654,
+    "database_preparation": 0.0915300752967596,
+    "migration": 34.71959792776033,
+    "pytest": 162.53585771471262,
+    "cleanup": 0.12384215230122209,
+    "total": 197.64722074801102
+  },
+  "case_count": 20,
+  "scope": "Request-local form definitions; fresh bindings/errors/cleaned_data/instance/initial/bound caches; native equivalence with invalid input, normalization; fresh catalog/consent/grant/check, photo guard/discovery/privacy holds. No phase/capacity acceptance."
+}
