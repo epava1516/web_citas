@@ -190,6 +190,9 @@ def test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes(
                 with translation.override(language):
                     browser_path = reverse("rights_access_scope", args=[case.pk])
                 browser_page.goto(live_server.url + browser_path)
+                expect(browser_page.locator('label[for="id_reason"]')).to_have_text(
+                    ("Motivo privado" if language == "es" else "Private purpose") + ":"
+                )
                 assert manifest["digest"] not in browser_page.locator("body").inner_text()
                 browser_page.locator("#id_reason").fill(reason)
                 browser_page.get_by_role("button", name=button, exact=True).click()
@@ -209,6 +212,13 @@ def test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes(
                 browser_page.locator("details").filter(has=email_button).locator("summary").click()
                 email_button.click()
                 expect(browser_page.locator("aside.rights-copy-page")).to_contain_text(owner.email)
+                expect(browser_page.locator('label[for="id_redacted"]')).to_have_text(
+                    ("Texto redactado con [redacted]" if language == "es" else "Redacted text")
+                    + ":"
+                )
+                expect(
+                    browser_page.locator('select[name="outcome"] option[value="included"]')
+                ).to_have_text("Incluir" if language == "es" else "Include")
                 assert browser_page.evaluate("document.documentElement.scrollWidth <= innerWidth")
                 browser_page.goto(browser_page.url)
                 assert manifest["digest"] not in browser_page.locator("body").inner_text()

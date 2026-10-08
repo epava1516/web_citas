@@ -13,7 +13,7 @@ from django.views.decorators.http import require_http_methods
 
 from .models import RightsRequest
 from .rights import allowed
-from .rights_access_field_decision_views import ProposalForm
+from .rights_access_field_decision_views import ProposalForm, localize_form
 from .rights_access_field_read import FIELDS, read
 from .rights_access_response_review import authorize_reviewer
 from .rights_access_response_views import ReviewForm
@@ -22,6 +22,10 @@ from .views import private
 
 
 class ScopeForm(ReviewForm):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        localize_form(self, language)
+
     response_version = forms.IntegerField(min_value=0, widget=forms.HiddenInput)
     page = forms.IntegerField(min_value=1, required=False, widget=forms.HiddenInput)
     field_target = forms.CharField(max_length=200, required=False)
@@ -34,7 +38,11 @@ class ScopeForm(ReviewForm):
 @require_http_methods(["GET", "POST"])
 def inventory(request, case_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if case is None:
         raise Http404
@@ -43,17 +51,33 @@ def inventory(request, case_id):
         if case.assigned_to_id != request.user.pk:
             raise PermissionDenied
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     if case.kind != "access" or case.status != "reviewing":
-        return private(HttpResponse("Current access request required", status=409))
+        return private(
+            HttpResponse(
+                "Current access request required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere una solicitud de acceso vigente",
+                status=409,
+            )
+        )
     form = ScopeForm(
-        initial={"key": uuid4(), "version": case.version, "response_version": case.response_version}
+        language=request.LANGUAGE_CODE,
+        initial={
+            "key": uuid4(),
+            "version": case.version,
+            "response_version": case.response_version,
+        },
     )
     row = manifest = page = field_body = None
     proposal_form = None
     status = 200
     if request.method == "POST":
-        form = ScopeForm(request.POST)
+        form = ScopeForm(request.POST, language=request.LANGUAGE_CODE)
         status = 400
         if form.is_valid():
             values = form.cleaned_data
@@ -82,6 +106,7 @@ def inventory(request, case_id):
                     )
                 if field_body:
                     proposal_form = ProposalForm(
+                        language=request.LANGUAGE_CODE,
                         initial={
                             "key": uuid4(),
                             "version": case.version,
@@ -90,7 +115,7 @@ def inventory(request, case_id):
                             "model": field_body["model"],
                             "reference": field_body["reference"],
                             "field": field_body["field"],
-                        }
+                        },
                     )
                 records = [
                     {
@@ -106,7 +131,12 @@ def inventory(request, case_id):
                 page = Paginator(records, 25).get_page(values["page"] or 1)
                 status = 200
             except PermissionDenied:
-                return private(HttpResponse("Forbidden", status=403))
+                return private(
+                    HttpResponse(
+                        "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado",
+                        status=403,
+                    )
+                )
             except ValidationError as error:
                 form.add_error(None, error)
                 status = 409

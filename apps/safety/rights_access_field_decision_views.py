@@ -11,6 +11,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_http_methods
 
 from .models import RightsAccessFieldDecision, RightsRequest
+from .rectification_presentation import caption
 from .rights import allowed
 from .rights_access_field_decision import inspect_decision, propose, review
 from .rights_access_response_review import authorize_reviewer
@@ -18,7 +19,29 @@ from .rights_access_response_views import DecisionForm, ReviewForm
 from .views import private
 
 
+def localize_form(form, language):
+    if language is None:
+        return form
+    for field in form.fields.values():
+        field.label = caption(field.label, language)
+        if hasattr(field, "choices") and not hasattr(field, "queryset"):
+            field.choices = [(value, caption(label, language)) for value, label in field.choices]
+    labels = {
+        "field_target": ("Campo exacto", "Exact field"),
+        "field_key": ("Clave de consulta de campo", "Field inspection key"),
+        "outcome": ("Decisión", "Decision"),
+    }
+    for name, pair in labels.items():
+        if name in form.fields:
+            form.fields[name].label = pair[language == "en"]
+    return form
+
+
 class ProposalForm(ReviewForm):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        localize_form(self, language)
+
     response_version = forms.IntegerField(min_value=0, widget=forms.HiddenInput)
     read_id = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     model = forms.CharField(max_length=80, widget=forms.HiddenInput)
@@ -58,8 +81,12 @@ def prepare(request, case_id, inventory_id):
         if case.assigned_to_id != request.user.pk:
             raise PermissionDenied
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
-    form = ProposalForm(request.POST)
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
+    form = ProposalForm(request.POST, language=request.LANGUAGE_CODE)
     row = body = None
     status = 400
     if form.is_valid():
@@ -82,10 +109,15 @@ def prepare(request, case_id, inventory_id):
             )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
+    localize_form(form, request.LANGUAGE_CODE)
     return private(
         render(
             request,
@@ -109,7 +141,11 @@ def independent(request, case_id, decision_id):
     try:
         case = current(request, case_id)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     row = (
         RightsAccessFieldDecision.objects.filter(pk=decision_id, inventory__request=case)
         .select_related("action")
@@ -118,9 +154,23 @@ def independent(request, case_id, decision_id):
     if row is None:
         raise Http404
     if row.action.actor_id == request.user.pk:
-        return private(HttpResponse("Independent reviewer required", status=403))
+        return private(
+            HttpResponse(
+                "Independent reviewer required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere revisión independiente",
+                status=403,
+            )
+        )
     if case.kind != "access" or case.status != "reviewing":
-        return private(HttpResponse("Current access request required", status=409))
+        return private(
+            HttpResponse(
+                "Current access request required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere una solicitud de acceso vigente",
+                status=409,
+            )
+        )
     form = ReviewForm(initial={"key": uuid4(), "version": case.version})
     decision_form = DecisionForm(initial={"key": uuid4(), "version": case.version})
     body = decision = None
@@ -161,10 +211,17 @@ def independent(request, case_id, decision_id):
                     )
                 status = 200
             except PermissionDenied:
-                return private(HttpResponse("Forbidden", status=403))
+                return private(
+                    HttpResponse(
+                        "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado",
+                        status=403,
+                    )
+                )
             except ValidationError as error:
                 active.add_error(None, error)
                 status = 409
+    localize_form(form, request.LANGUAGE_CODE)
+    localize_form(decision_form, request.LANGUAGE_CODE)
     return private(
         render(
             request,

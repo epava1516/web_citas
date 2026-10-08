@@ -162,6 +162,15 @@ def test_typed_field_decisions_and_independent_review(request, settings, monkeyp
                 with translation.override(language):
                     path = reverse("rights_access_field_review", args=[case.pk, rows[-1].pk])
                 page.goto(live_server.url + path)
+                expect(page.locator('label[for="id_reason"]')).to_have_text(
+                    ("Motivo privado" if language == "es" else "Private purpose") + ":"
+                )
+                expect(page.locator('label[for="decision_outcome"]')).to_have_text(
+                    ("Decisión" if language == "es" else "Decision") + ":"
+                )
+                expect(
+                    page.locator('select[id="decision_outcome"] option[value="approved"]')
+                ).to_have_text("Aprobar" if language == "es" else "Approve")
                 assert owner.email not in page.locator("body").inner_text()
                 page.locator("#id_reason").fill(reason)
                 page.get_by_role("button", name=inspect_button, exact=True).click()
