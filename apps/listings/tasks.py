@@ -45,3 +45,25 @@ def expire_listings():
         .values_list("pk", flat=True)[:1000]
     )
     return sum(expire_one(listing_id) for listing_id in ids)
+
+
+@shared_task
+def refresh_publication_state(seconds=50):
+    """Recompute pending stored publication state in bounded batches."""
+    import time
+
+    from .publication_state import refresh
+
+    deadline = time.monotonic() + seconds
+    total = 0
+    while time.monotonic() < deadline and (processed := refresh(200)):
+        total += processed
+    return total
+
+
+@shared_task
+def sweep_publication_state():
+    """Hourly native re-verification of stored publication state (MOD-05 invariant)."""
+    from .publication_state import sweep
+
+    return sweep()

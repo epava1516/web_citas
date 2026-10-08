@@ -22,6 +22,8 @@ docker compose run --rm app python manage.py seed_catalog
 docker compose run --rm app python manage.py collectstatic --noinput
 docker compose up -d app worker beat caddy
 ```
+Despliegue con cambios de código: tras `migrate` y antes de servir tráfico, ejecutar `python manage.py refresh_publication_state` con el código nuevo. Recalcula el estado de publicación almacenado (MOD-05) para la nueva versión de reglas; hasta entonces los anuncios se evalúan de forma nativa en cada petición, que es exacto pero lento. Tras una restauración, usar `--all` ([docs/85](docs/85-operacion-registro-recuperacion.md)). El worker y Beat mantienen el estado al día (`refresh_publication_state` cada 30 s y barrido nativo cada hora).
+
 Abrir http://localhost:18080/es/ (Caddy sirve CSS y Gunicorn HTML). El runserver sirve CSS en desarrollo usando DJANGO_DEBUG=1.
 
 ## Demostración sintética

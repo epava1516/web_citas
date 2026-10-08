@@ -1,17 +1,18 @@
 """Stored publication eligibility with trigger-maintained invalidation.
 
 Exactness never depends on the refresher. A stored result is trusted only when the
-listing is not dirty, the state was computed under the current rules version and for
-the current approved revision. Every other candidate is evaluated with the native rule
-inside the request. Database triggers on every table read by the native rule mark the
+listing is not dirty and the state was computed under the current rules version. Every
+other candidate is evaluated with the native rule inside the request. Database triggers on every table read by the native rule mark the
 affected listings dirty in the same transaction as the change (migration 0015).
 Expiry is time dependent and always evaluated in SQL by the caller's candidates().
 """
 
 import hashlib
+import logging
 import os
 from functools import lru_cache
 
+import django
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
@@ -27,20 +28,56 @@ from .moderation import publicly_visible
 from .public_validation import PublicationContext
 from .submissions import validate_submission
 
+logger = logging.getLogger(__name__)
 NATIVE_UNKNOWN_LIMIT = 48
-GUARD = os.environ.get("PUBLICATION_STATE_GUARD", "1") == "1"
+# Tables read by the native rule. Migration 0015 installs their invalidation triggers;
+# tests compare this set with the installed triggers and with the tables actually read.
+DEPENDENCY_TABLES = frozenset({
+    "listings_listing", "listings_revision", "listings_revision_categories",
+    "listings_revision_services", "listings_revision_travel_areas", "listings_rate",
+    "mediafiles_photo", "mediafiles_blob", "mediafiles_match", "core_person", "core_phoneclaim",
+    "core_agency", "core_legalacceptance", "core_legaldocument", "core_representationaction",
+    "core_verificationcheck", "safety_privacypublicationhold", "safety_restriction",
+    "safety_rightsphotoreintroduction", "safety_rightsrectificationproposal",
+    "safety_rightsrectificationreview", "safety_rightsrectificationnotification",
+    "safety_rightsrectificationexecution", "safety_rightsrectificationphotoupload",
+    "safety_rightsrectificationphotodisposition", "catalog_category", "catalog_service",
+    "catalog_region", "catalog_province", "catalog_municipality", "catalog_postalcode",
+    "catalog_postalcode_municipalities", "catalog_zone",
+})
 CHECKS = ("age", "contact", "agency")
+
+
+# Source files that define the native rule (and the model/form metadata it validates).
+# Any edit changes the version, so every stored result is recomputed with the new code.
+RULE_SOURCES = (
+    "apps/listings/moderation.py",
+    "apps/listings/submissions.py",
+    "apps/listings/forms.py",
+    "apps/listings/public_validation.py",
+    "apps/listings/history.py",
+    "apps/listings/models.py",
+    "apps/listings/publication_state.py",
+    "apps/catalog/models.py",
+    "apps/core/models.py",
+    "apps/core/verification_services.py",
+    "apps/safety/photo_dispositions.py",
+    "apps/safety/photo_reintroduction_review.py",
+)
 
 
 @lru_cache(maxsize=1)
 def rules_version():
-    """Code and configuration the stored result depends on; computed once per process."""
-    from .projected_publication import definitions_digest
+    """Source text, Django version and configuration of the rule; once per process.
 
-    material = "|".join(
-        [definitions_digest(), str(settings.PRODUCTION), settings.VERIFICATION_PROVIDER]
-    )
-    return hashlib.sha256(material.encode()).hexdigest()
+    Hashing source rather than bytecode keeps the version stable across Python builds.
+    """
+    digest = hashlib.sha256()
+    for name in RULE_SOURCES:
+        digest.update(name.encode() + b"\0" + (settings.BASE_DIR / name).read_bytes() + b"\0")
+    material = [django.get_version(), str(settings.PRODUCTION), settings.VERIFICATION_PROVIDER]
+    digest.update("|".join(material).encode())
+    return digest.hexdigest()
 
 
 def eligible_ignoring_expiry(listing, context):
@@ -61,6 +98,39 @@ def eligible_ignoring_expiry(listing, context):
     return not context.row(revision)._pv_conflict
 
 
+def expected_states(ids, version):
+    """Native results for the given listings (existing ones only), as unsaved states."""
+    listings = Listing.objects.filter(pk__in=ids, approved_revision__isnull=False)
+    context = PublicationContext(listings, page_read=True)
+    # Same latest-check selection real_checks performs, batched for these people.
+    latest = {
+        check.person_id: check
+        for check in VerificationCheck.objects.filter(
+            person_id__in=[row.person_id for row in context.rows]
+        ).order_by("person_id", "-created_at").distinct("person_id")
+    }
+    now = timezone.now()
+    states = {}
+    for listing in context.rows:
+        eligible = eligible_ignoring_expiry(listing, context)
+        checks = real_checks(listing.person, age=latest.get(listing.person_id)) if eligible else {}
+        states[listing.pk] = PublicationState(
+            listing_id=listing.pk,
+            eligible=eligible,
+            revision_id=listing.approved_revision_id,
+            rules_version=version,
+            computed_at=now,
+            **{"check_" + name: bool(checks.get(name)) for name in CHECKS},
+        )
+    existing = set(Listing.objects.filter(pk__in=ids).values_list("pk", flat=True))
+    for listing_id in existing - set(states):
+        states[listing_id] = PublicationState(
+            listing_id=listing_id, eligible=False, revision_id=None,
+            rules_version=version, computed_at=now,
+        )
+    return states
+
+
 def refresh(limit=100):
     """Recompute a bounded batch of dirty listings; returns how many were processed."""
     version = rules_version()
@@ -75,38 +145,8 @@ def refresh(limit=100):
         if not claimed:
             return 0
         ids = [row[0] for row in claimed]
-        listings = Listing.objects.filter(pk__in=ids, approved_revision__isnull=False)
-        context = PublicationContext(listings, page_read=True)
-        # Same latest-check selection real_checks performs, batched for the claimed people.
-        latest = {
-            check.person_id: check
-            for check in VerificationCheck.objects.filter(
-                person_id__in=[row.person_id for row in context.rows]
-            ).order_by("person_id", "-created_at").distinct("person_id")
-        }
-        now = timezone.now()
-        states = {}
-        for listing in context.rows:
-            eligible = eligible_ignoring_expiry(listing, context)
-            checks = (
-                real_checks(listing.person, age=latest.get(listing.person_id)) if eligible else {}
-            )
-            states[listing.pk] = PublicationState(
-                listing_id=listing.pk,
-                eligible=eligible,
-                revision_id=listing.approved_revision_id,
-                rules_version=version,
-                computed_at=now,
-                **{"check_" + name: bool(checks.get(name)) for name in CHECKS},
-            )
-        existing = set(Listing.objects.filter(pk__in=ids).values_list("pk", flat=True))
-        for listing_id in existing - set(states):
-            states[listing_id] = PublicationState(
-                listing_id=listing_id, eligible=False, revision_id=None,
-                rules_version=version, computed_at=now,
-            )
         PublicationState.objects.bulk_create(
-            states.values(),
+            expected_states(ids, version).values(),
             update_conflicts=True,
             unique_fields=["listing"],
             update_fields=["eligible", "revision", "rules_version", "computed_at",
@@ -121,6 +161,55 @@ def refresh(limit=100):
                 [ids, [row[1] for row in claimed]],
             )
         return len(claimed)
+
+
+def sweep(batch=500):
+    """Re-verify every trusted state against the native rule; mark any divergence.
+
+    Bounds a rule-behaviour change that no versioned source, setting or data write
+    captured (MOD-05 invariant). It never writes state itself: a marked listing goes
+    through the normal refresh, so a concurrent change cannot be overwritten.
+    """
+    version = rules_version()
+    fields = ("eligible", *("check_" + name for name in CHECKS))
+    divergent, last = [], None
+    while True:
+        page = Listing.objects.order_by("pk")
+        if last is not None:
+            page = page.filter(pk__gt=last)
+        ids = list(page.values_list("pk", flat=True)[:batch])
+        if not ids:
+            break
+        last = ids[-1]
+        dirty = set(PublicationDirty.objects.filter(listing_id__in=ids).values_list(
+            "listing_id", flat=True))
+        stored = {state.listing_id: state for state in PublicationState.objects.filter(
+            listing_id__in=ids, rules_version=version)}
+        with transaction.atomic():
+            expected = expected_states(ids, version)
+        for listing_id, state in stored.items():
+            if listing_id in dirty:
+                continue
+            fresh = expected.get(listing_id)
+            if fresh is None or any(getattr(fresh, f) != getattr(state, f) for f in fields):
+                divergent.append(listing_id)
+    if divergent:
+        mark(divergent)
+        logger.warning("publication_state_divergence", extra={"listings": len(divergent)})
+    return len(divergent)
+
+
+def refresh_all(batch=500):
+    """Recompute every pending listing; inside a caller's transaction it commits atomically."""
+    total = 0
+    while processed := refresh(batch):
+        total += processed
+    return total
+
+
+def mark_all():
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT listings_publication_mark(ARRAY(SELECT id FROM listings_listing))")
 
 
 def mark(listing_ids):
@@ -157,7 +246,7 @@ def repair():
         pass
 
 
-def state_page(query, number, *, checked=(), observation=None, guard=GUARD):
+def state_page(query, number, *, checked=(), observation=None):
     """Exact page of the native population; None asks the caller for the native path.
 
     All reads share one REPEATABLE READ snapshot, so the dirty set, the stored state,
@@ -171,13 +260,13 @@ def state_page(query, number, *, checked=(), observation=None, guard=GUARD):
         if outermost:  # Only the first statement of a new transaction may set its isolation.
             with connection.cursor() as cursor:
                 cursor.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
-        page = _state_page(query, number, checked, observation, guard, stale)
+        page = _state_page(query, number, checked, observation, stale)
     if stale:
         mark(stale)
     return page
 
 
-def _state_page(query, number, checked, observation, guard, stale):
+def _state_page(query, number, checked, observation, stale):
     # The dirty set is small; read it once instead of a correlated anti-join per candidate,
     # whose plan degrades with the dead tuples a high-churn table accumulates.
     dirty = list(PublicationDirty.objects.values_list("listing_id", flat=True)[: DIRTY_LIMIT + 1])
@@ -214,15 +303,11 @@ def _state_page(query, number, checked, observation, guard, stale):
         population.query.distinct = False
     page = Paginator(population.values_list("pk", flat=True), 24).page(number)
     selected = list(page.object_list)
-    if guard:
-        context = PublicationContext(query.filter(pk__in=selected), page_read=True)
-        rows = {row.pk: row for row in context.rows}
-    else:
-        rows = {row.pk: row for row in query.filter(pk__in=selected).order_by()}
+    # Hydration through the native context doubles as the page guard.
+    context = PublicationContext(query.filter(pk__in=selected), page_read=True)
+    rows = {row.pk: row for row in context.rows}
     stale.extend(
-        pk
-        for pk in selected
-        if pk not in rows or (guard and not publicly_visible(rows[pk], context=context))
+        pk for pk in selected if pk not in rows or not publicly_visible(rows[pk], context=context)
     )
     if stale:
         if observation is not None:

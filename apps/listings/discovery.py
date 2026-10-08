@@ -217,24 +217,27 @@ def results(request):
     number = int(raw_page) if valid else 1
     from apps.catalog.promotion_exposure import enabled as promotions_enabled
 
-    from .projected_publication import projected_page
     from .public_validation import PublicationContext
     from .publication_state import state_page
 
     request._publication_route = {"route": "fallback", "reason": "invalid_search"}
     try:
         page = None
-        if valid and not promotions_enabled():
+        if not valid:
+            pass
+        elif promotions_enabled():
+            request._publication_route.update(reason="synthetic_promotions")
+        else:
             page = state_page(candidates(form.cleaned_data), number,
                               checked=form.cleaned_data.get("checked") or (),
                               observation=request._publication_route)
-        if valid and page is None:
-            page = projected_page(candidates(form.cleaned_data), number,
-                                  checked=bool(form.cleaned_data.get("checked")),
-                                  observation=request._publication_route)
         sponsorship = {}
         if page is None:
-            context = PublicationContext(candidates(form.cleaned_data)) if valid else None
+            # The complete native population; its correlated read runs without JIT.
+            context = (
+                PublicationContext(candidates(form.cleaned_data), page_read=True)
+                if valid else None
+            )
             visible = (
                 [listing for listing in context.rows
                  if publicly_visible(listing, context=context)

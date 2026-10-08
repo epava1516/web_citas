@@ -6,6 +6,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from apps.catalog.models import GeographicSource, Municipality, PostalCode, Province, Region, Zone
+from apps.listings.publication_state import refresh_all
 
 
 class Command(BaseCommand):
@@ -87,6 +88,9 @@ class Command(BaseCommand):
                             "active": row.get("active", True),
                         },
                     )
+                # Catalog rows are rule dependencies: their triggers marked the listings;
+                # recompute before committing so readers switch atomically.
+                refresh_all()
         except (
             ValueError,
             KeyError,
