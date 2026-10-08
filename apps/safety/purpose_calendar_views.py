@@ -46,6 +46,21 @@ class FollowUpForm(forms.Form):
         required=False, min_value=1, max_value=9223372036854775807, widget=forms.HiddenInput
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        english = language == "en"
+        self.fields["operation"].label = "Operation" if english else "Operación"
+        self.fields["operation"].choices = [
+            ("inspect", "Inspect history" if english else "Consultar historial"),
+            ("follow_up", "Record follow-up" if english else "Registrar seguimiento"),
+        ]
+        self.fields["reason"].label = (
+            "Minimized internal reason" if english else "Motivo interno minimizado"
+        )
+        self.fields["next_review_on"].label = (
+            "Next operational review" if english else "Próxima revisión operativa"
+        )
+
 
 @login_required
 @sensitive_post_parameters("reason")
@@ -67,7 +82,7 @@ def detail(request, restriction_id):
     except PermissionDenied:
         return private(HttpResponse("Forbidden", status=403))
     initial = {"key": uuid.uuid4(), "version": restriction.version, "case_version": case.version}
-    form = FollowUpForm(request.POST or None, initial=initial)
+    form = FollowUpForm(request.POST or None, initial=initial, language=request.LANGUAGE_CODE)
     snapshot, recorded = None, False
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
@@ -76,11 +91,12 @@ def detail(request, restriction_id):
             recorded = form.cleaned_data["operation"] == "follow_up"
             restriction.refresh_from_db()
             form = FollowUpForm(
+                language=request.LANGUAGE_CODE,
                 initial={
                     "key": uuid.uuid4(),
                     "version": restriction.version,
                     "case_version": case.version,
-                }
+                },
             )
             status = 200
         except PermissionDenied:
