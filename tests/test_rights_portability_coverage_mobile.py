@@ -4,9 +4,12 @@ import shutil
 
 import pytest
 from django.conf import settings as django_settings
+from django.contrib.auth.models import Permission
 from django.test import Client
 from playwright.sync_api import expect, sync_playwright
+from test_coverage_declarations_localization import catalog_captions, declaration_captions
 from test_reports import directory, photo_environment  # noqa: F401
+from test_reset_localization import db_sync
 from test_rights_portability_export_races import prepared_selection
 
 from apps.safety.crypto import unseal
@@ -66,6 +69,17 @@ def test_mobile_guided_coverage_save_and_clean_get(
                 )
             ).to_be_visible()
             assert page.locator("fieldset").count() == 0
+            catalog_captions(page, language, images)
+            page.locator("[name=purpose]").fill("short")
+            page.locator("form").first.evaluate("form=>form.noValidate=true")
+            button = "Inspect omitted fields" if english else "Consultar campos omitidos"
+            with page.expect_response(lambda r: r.request.method == "POST") as invalid_catalog:
+                page.get_by_role("button", name=button, exact=True).click()
+            assert invalid_catalog.value.status == 400
+            catalog_captions(page, language, images)
+            assert (
+                db_sync(lambda: RightsPortabilityCoverage.objects.filter(request=case).count()) == 0
+            )
             page.locator("[name=review]").select_option(str(decision.pk))
             if not images:
                 page.locator("[name=dataset]").select_option(
@@ -80,6 +94,8 @@ def test_mobile_guided_coverage_save_and_clean_get(
                 exact=True,
             ).click()
             expect(page.locator("fieldset").first).to_be_visible()
+            catalog_captions(page, language, images)
+            declaration_captions(page, language)
             page.locator("[name=paths]").first.check()
             fields = page.locator("fieldset").first
             fields.locator("select[name$=-basis]").select_option("other")
@@ -90,6 +106,26 @@ def test_mobile_guided_coverage_save_and_clean_get(
                 "Synthetic omission exclusion without production factual claim"
             )
             fields.locator("textarea[name$=-evidence]").fill("PRIVATE_MOBILE_COVERAGE_EVIDENCE")
+            page.locator("#id_reason").fill("short")
+            page.locator("form").last.evaluate("form=>form.noValidate=true")
+            with page.expect_response(lambda r: r.request.method == "POST") as invalid_save:
+                page.get_by_role(
+                    "button",
+                    name="Save justified omissions on this page"
+                    if english
+                    else "Guardar omisiones justificadas de esta página",
+                    exact=True,
+                ).click()
+            assert invalid_save.value.status == 400
+            catalog_captions(page, language, images)
+            declaration_captions(page, language)
+            assert (
+                db_sync(lambda: RightsPortabilityCoverage.objects.filter(request=case).count()) == 0
+            )
+            assert (
+                page.locator("fieldset").first.locator("textarea[name$=-evidence]").input_value()
+                == "PRIVATE_MOBILE_COVERAGE_EVIDENCE"
+            )
             page.locator("#id_reason").fill("Save synthetic coverage for later independent review")
             page.get_by_role(
                 "button",
@@ -101,10 +137,37 @@ def test_mobile_guided_coverage_save_and_clean_get(
             expect(page.get_by_role("status")).to_contain_text(
                 "Coverage draft saved" if english else "Borrador de cobertura guardado"
             )
+            catalog_captions(page, language, images)
             page.goto(url)
+            page.reload()
+            catalog_captions(page, language, images)
             assert "PRIVATE_MOBILE_COVERAGE_EVIDENCE" not in page.content()
             assert page.locator("fieldset").count() == 0
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            csrf = page.locator("[name=csrfmiddlewaretoken]").input_value()
+            response = context.request.post(
+                url, form={"csrfmiddlewaretoken": csrf, "operation": "save", "token": "invalid"}
+            )
+            assert response.status == 409
+            assert (
+                "Expired or invalid page" if english else "Página caducada o inválida"
+            ) in response.text()
+            assert "Página caducada o inválida / Expired or invalid page" not in response.text()
+            assert "PRIVATE_MOBILE_COVERAGE_EVIDENCE" not in response.text()
+            db_sync(
+                lambda: author.user_permissions.remove(
+                    Permission.objects.get(codename="execute_rights_request")
+                )
+            )
+            response = page.goto(url)
+            assert response.status == 403 and page.locator("body").inner_text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
+            assert "no-store" in response.headers["cache-control"]
+            response = context.request.post(url, form={"csrfmiddlewaretoken": csrf})
+            assert response.status == 403 and response.text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
         finally:
             browser.close()
     row = RightsPortabilityCoverage.objects.get(request=case)
