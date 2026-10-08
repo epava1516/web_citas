@@ -13,12 +13,18 @@ from django.views.decorators.http import require_http_methods
 
 from .models import RightsCopyInformation, RightsRequest
 from .rights import allowed
-from .rights_copy_information_views import LABELS
+from .rights_copy_information_views import LABELS, FieldForm, LocalizedForm
 from .rights_information_review import authorize, record
 from .views import private
 
 
-class ReviewForm(forms.Form):
+class ReviewForm(LocalizedForm):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, language=language, **kwargs)
+        if language is not None:
+            self.fields["operation"].label = "Operation" if language == "en" else "Operación"
+            self.fields["outcome"].label = "Outcome" if language == "en" else "Resultado"
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     operation = forms.ChoiceField(
@@ -42,21 +48,37 @@ class ReviewForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def review(request, case_id, information_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case:
         raise Http404
     try:
         authorize(request.user, case)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     information = RightsCopyInformation.objects.filter(pk=information_id, request=case).first()
     if not information:
         raise Http404
     if information.actor_id == request.user.pk:
-        return private(HttpResponse("Independent reviewer required", status=403))
+        return private(
+            HttpResponse(
+                "Independent reviewer required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere revisión independiente",
+                status=403,
+            )
+        )
     form = ReviewForm(
         request.POST if request.method == "POST" else None,
+        language=request.LANGUAGE_CODE,
         initial={"key": uuid4(), "version": case.version},
     )
     body, decision = None, None
@@ -65,18 +87,32 @@ def review(request, case_id, information_id):
         try:
             result, body = record(request.user, case.pk, information.pk, **form.cleaned_data)
             decision = result if body is None else None
-            form = ReviewForm(initial={"key": uuid4(), "version": case.version})
+            form = ReviewForm(
+                language=request.LANGUAGE_CODE, initial={"key": uuid4(), "version": case.version}
+            )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
     reviewed_fields = []
     if body:
         english = (get_language() or "").startswith("en")
+        display_form = FieldForm(language=request.LANGUAGE_CODE)
+        statuses = dict(display_form.fields["status"].choices)
+        sources = dict(display_form.fields["source"].choices)
         reviewed_fields = [
-            {"label": LABELS[field][1 if english else 0], **item}
+            {
+                "label": LABELS[field][1 if english else 0],
+                **item,
+                "status_caption": statuses.get(item["status"], item["status"]),
+                "source_caption": sources.get(item["source"], item["source"]),
+            }
             for field, item in body["access"].items()
         ]
     return private(

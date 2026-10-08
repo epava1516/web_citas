@@ -16,6 +16,7 @@ from django.views.decorators.http import require_http_methods
 from apps.core.models import LegalDocument, User
 
 from .models import RightsCopyInformation, RightsRequest
+from .rectification_presentation import caption
 from .rights import allowed, fingerprint
 from .rights_copy_information import FIELDS, inspect, record
 from .rights_copy_page_review import fresh_authority
@@ -24,7 +25,20 @@ from .rights_information_policy import published_policy
 from .views import private
 
 
-class InformationForm(forms.Form):
+class LocalizedForm(forms.Form):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if language is None:
+            return
+        for field in self.fields.values():
+            field.label = caption(field.label, language)
+            if hasattr(field, "choices") and not hasattr(field, "queryset"):
+                field.choices = [
+                    (value, caption(label, language)) for value, label in field.choices
+                ]
+
+
+class InformationForm(LocalizedForm):
     bind_policy = forms.BooleanField(
         required=False, label="Vincular política mostrada / Bind displayed policy"
     )
@@ -61,7 +75,7 @@ LABELS = {
 }
 
 
-class FieldForm(forms.Form):
+class FieldForm(LocalizedForm):
     field = forms.ChoiceField(choices=[(name, name) for name in FIELDS], widget=forms.HiddenInput)
     status = forms.ChoiceField(
         choices=[("pending", "Pendiente / Pending"), ("reviewed", "Revisado / Reviewed")],
@@ -97,7 +111,7 @@ FieldSet = forms.formset_factory(
 )
 
 
-class ReadForm(forms.Form):
+class ReadForm(LocalizedForm):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     information_id = forms.IntegerField(
@@ -128,7 +142,11 @@ def initial_fields(information=None):
 @require_http_methods(["GET", "POST"])
 def prepare(request, case_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     if not RightsRequest.objects.filter(pk=case_id).exists():
         raise Http404
     try:
@@ -153,9 +171,20 @@ def prepare(request, case_id):
                 .first()
             )
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     except ValidationError:
-        return private(HttpResponse("Inspect assigned verified request first", status=409))
+        return private(
+            HttpResponse(
+                "Inspect assigned verified request first"
+                if request.LANGUAGE_CODE == "en"
+                else "Consulta primero la solicitud asignada y verificada",
+                status=409,
+            )
+        )
     initial = {
         "policy_document": policy.pk if policy else None,
         "policy_digest": policy_digest,
@@ -167,15 +196,20 @@ def prepare(request, case_id):
     }
     reading = request.method == "POST" and request.POST.get("operation") == "inspect"
     form = InformationForm(
-        request.POST if request.method == "POST" and not reading else None, initial=initial
+        request.POST if request.method == "POST" and not reading else None,
+        language=request.LANGUAGE_CODE,
+        initial=initial,
     )
     fields = FieldSet(
         request.POST if request.method == "POST" and not reading else None,
         initial=initial_fields(),
         prefix="information",
+        form_kwargs={"language": request.LANGUAGE_CODE},
     )
     read_form = ReadForm(
-        request.POST if reading else None, initial={"key": uuid4(), "version": case.version}
+        request.POST if reading else None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid4(), "version": case.version},
     )
     saved = None
     status = 400 if request.method == "POST" else 200
@@ -190,8 +224,15 @@ def prepare(request, case_id):
                 values["information_id"],
                 values["purpose"],
             )
-            fields = FieldSet(initial=initial_fields(information), prefix="information")
-            form = InformationForm(initial={**initial, "policy_version": row.policy_version})
+            fields = FieldSet(
+                initial=initial_fields(information),
+                prefix="information",
+                form_kwargs={"language": request.LANGUAGE_CODE},
+            )
+            form = InformationForm(
+                language=request.LANGUAGE_CODE,
+                initial={**initial, "policy_version": row.policy_version},
+            )
             status = 200
         elif request.method == "POST" and not reading and form.is_valid() and fields.is_valid():
             names = [item.cleaned_data["field"] for item in fields]
@@ -229,11 +270,22 @@ def prepare(request, case_id):
                 policy_document_id=values["policy_document"] if values["bind_policy"] else None,
                 expected_policy_digest=values["policy_digest"] if values["bind_policy"] else None,
             )
-            form = InformationForm(initial={**initial, "information_version": saved.version})
-            fields = FieldSet(initial=initial_fields(), prefix="information")
+            form = InformationForm(
+                language=request.LANGUAGE_CODE,
+                initial={**initial, "information_version": saved.version},
+            )
+            fields = FieldSet(
+                initial=initial_fields(),
+                prefix="information",
+                form_kwargs={"language": request.LANGUAGE_CODE},
+            )
             status = 200
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     except ValidationError as error:
         (read_form if reading else form).add_error(None, error)
         status = 409

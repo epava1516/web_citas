@@ -9,6 +9,7 @@ import pytest
 from django.contrib.auth.models import Permission
 from django.db import transaction
 from playwright.sync_api import expect, sync_playwright
+from test_copy_information_localization import review_captions
 from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_copy_information import draft
 from test_rights_exports import prepared
@@ -92,6 +93,7 @@ def test_mobile_independent_information_review(
                 f'a[href="/{language}/moderation/rights/{case.pk}/information/{plan.pk}/review/"]'
             ).click()
             assert REASON not in page.content()
+            review_captions(page, language)
             page.locator("[name=operation]").select_option("inspect")
             page.locator("[name=reason]").fill(
                 "Audit current plan before independent operational review"
@@ -99,6 +101,14 @@ def test_mobile_independent_information_review(
             button = "Record review action" if english else "Registrar acción de revisión"
             page.get_by_role("button", name=button, exact=True).click()
             expect(page.get_by_text(REASON, exact=True).first).to_be_visible()
+            review_captions(page, language)
+            assert page.locator("article").count() == 10
+            for article in page.locator("article").all():
+                expect(article.locator("p").first).to_have_text(
+                    "Reviewed · Reviewer"
+                    if english
+                    else "Revisado · Revisor"
+                )
             page.locator("[name=operation]").select_option("review")
             page.locator("[name=outcome]").select_option("approved")
             page.locator("[name=reason]").fill(
