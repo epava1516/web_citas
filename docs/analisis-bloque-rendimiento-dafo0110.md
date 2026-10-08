@@ -197,3 +197,6 @@ Observación posterior de reposo sin carga: [host15,372s](evidencias/mod05-vps-h
 ### Coste residual deunknown1 aislado concontroles
 
 [240HTTP/TCP emparejados](evidencias/mod05-dirty-contraste-analisis0110.json),2fixtures10000,contenidoidéntico yrouteunknown0/1: ocho pares cumplen criterio HTTP≥20ms/≥10%. Coste WSGI adicional porfamilia listado/búsqueda73/118ms repetido y143/186ms diverso. Es contraste decondición, no optimización, ahorro acumulado ni capacidad. Oportunidad concreta: perfilar preparación delcandidato desconocido frenteguard depágina para identificartrabajo evitablesinreutilizar decisiones antiguas. Mantenerinvalidación/refresco, noignorardirtyniadoptarcaché/readrepair porparche. DB/medios/workerPIDausentes,artefactosreviewados.
+
+
+Perfil posterior deunknown1: [8eventos Client](evidencias/mod05-dirty-perfil-resultados0110.json),39→63queries/24→25Listinginstances. SQL normalizado deunknown conserva ranking/DISTINCT; candidato mínimo a comprobar es quitar orden innecesario solo en ese subconjunto deIDs, con orden final/elegibilidad/guard frescos intactos. No ahorroimplementado,CPU ni causaúnica; SQLlazy/context/rules solapan y overhead no cuantificado. ControlesTCPprevios reutilizados.

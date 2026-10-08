@@ -1,0 +1,9 @@
+{
+  "selection": [
+    "tests/test_publication_state_matrix.py::test_current_stored_route_matrix[repeated-10000]",
+    "tests/test_publication_state_matrix.py::test_current_stored_route_matrix[diverse-10000]"
+  ],
+  "hypothesis": "Material dirty cost may arise from duplicated context preparation; identify exact constructors, dominant SQL and native rules before selecting intervention",
+  "design": "8 profiled Client requests, clean/dirty two routes \u00d7 twofixtures10000, context labels anchored to verified construction order; no new TCP controls, reuse paired240existing",
+  "exit": "Verified body/count/order and stateunknown0/1 with equivalent profiling; compare direct measured calls/SQL/object/rules/context times, report overlaps/overhead/not_measured; no inferred CPU or validation residual, no RPS load"
+}

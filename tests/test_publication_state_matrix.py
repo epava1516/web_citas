@@ -17,7 +17,8 @@ from test_photos import photo_environment  # noqa: F401
 
 from apps.listings import discovery, moderation, publication_state, submissions
 from apps.listings.forms import ContactsForm, DetailsForm
-from apps.listings.models import Revision
+from apps.listings.models import Listing, Revision
+from apps.listings.public_validation import PublicationContext
 from scripts.benchmark_rule_profile import RuleProfile
 from scripts.synthetic_load_dataset import populate
 
@@ -52,7 +53,17 @@ def test_current_stored_route_matrix(request, monkeypatch, record_property, coun
     prepare_population(count, fixture)
     paths = ["/es/", "/en/?q=photography"]
     reports = []
-    for path in paths:
+    dirty_profile = os.environ.get("PUBLICATION_DIRTY_PROFILE") == "1"
+    baselines = {}
+    phases = ["clean", "dirty"] if dirty_profile else ["clean"]
+    for phase, path in [(phase, path) for phase in phases for path in paths]:
+        if dirty_profile and phase == "dirty":
+            while publication_state.refresh(500):
+                pass
+            excluded = [row.pk for row in client.get(path).context["page"].object_list]
+            target = Listing.objects.filter(status="published", person__agency__isnull=False).exclude(pk__in=excluded).first()
+            Revision.objects.bulk_create([Revision(listing=target, manager_version=target.person.manager_version)])
+            assert set(publication_state.PublicationDirty.objects.values_list("listing_id", flat=True)) == {target.pk}
 
         def fingerprint(response):
             return {
@@ -68,8 +79,13 @@ def test_current_stored_route_matrix(request, monkeypatch, record_property, coun
         assert expected["status"] == 200 and expected["route"]["route"] == "state"
         if path == "/es/":
             assert expected["count"] == count
+        if phase == "clean":
+            baselines[path] = expected
+        else:
+            assert {k:v for k,v in expected.items() if k != "route"} == {k:v for k,v in baselines[path].items() if k != "route"}
+            assert expected["route"]["native_unknown"] == 1
         controls = []
-        for _ in range(5):
+        for _ in range(0 if dirty_profile else 5):
             start = time.perf_counter()
             response = client.get(path)
             controls.append(time.perf_counter() - start)
@@ -94,6 +110,14 @@ def test_current_stored_route_matrix(request, monkeypatch, record_property, coun
                 sql[normalized]["total_time"] += time.perf_counter() - start
 
         with monkeypatch.context() as patch:
+            if dirty_profile:
+                original_init = PublicationContext.__init__
+                context_calls = []
+                def profiled_init(instance, *args, **kwargs):
+                    label = "unknown_context" if phase == "dirty" and not context_calls else "selected_page_context"
+                    context_calls.append(label)
+                    return profile.wrap(label, original_init)(instance, *args, **kwargs)
+                patch.setattr(PublicationContext, "__init__", profiled_init)
             for owner, name in [
                 (publication_state, "validate_submission"),
                 (moderation, "validate_submission"),
@@ -115,6 +139,8 @@ def test_current_stored_route_matrix(request, monkeypatch, record_property, coun
             finally:
                 post_init.disconnect(instantiated)
         assert fingerprint(response) == expected
+        if dirty_profile:
+            assert context_calls == (["unknown_context", "selected_page_context"] if phase == "dirty" else ["selected_page_context"])
         dominant = [
             {"normalized": q, **v, "mean_time": v["total_time"] / v["calls"]}
             for q, v in sorted(sql.items(), key=lambda item: item[1]["total_time"], reverse=True)[
@@ -124,10 +150,11 @@ def test_current_stored_route_matrix(request, monkeypatch, record_property, coun
         reports.append(
             {
                 "path": path,
+                "phase": phase,
                 "count": expected["count"],
                 "route": expected["route"],
                 "controls_seconds": controls,
-                "control_mean_seconds": statistics.mean(controls),
+                "control_mean_seconds": statistics.mean(controls) if controls else "not_measured_reused_tcp_controls",
                 "instrumented_seconds": instrumented,
                 "queries": sum(v["calls"] for v in sql.values()),
                 "driver_execute_seconds": sum(v["total_time"] for v in sql.values()),
