@@ -25,6 +25,7 @@ from .models import (
     RightsResponseAcknowledgement,
     RightsWithdrawal,
 )
+from .rectification_presentation import caption
 from .rights import allowed, fingerprint
 from .rights_response_text import checked_response_text
 from .rights_scope import locked_case, permitted
@@ -106,7 +107,10 @@ def issue(
             and previous.payload_digest == signature
         ):
             current_response_actor(
-                user, case, session_version, mfa_version,
+                user,
+                case,
+                session_version,
+                mfa_version,
                 execution=kind == "representation_complete",
             )
             return previous
@@ -200,13 +204,23 @@ def issue(
         case.scope_status = "unverified"
     # An outgoing progress message changes neither input evidence nor authorization of an existing copy.
     case.save(update_fields=["response_version", "status", "version", "scope_status"])
-    current_response_actor(
-        user, case, session_version, mfa_version, execution=bool(withdrawal)
-    )
+    current_response_actor(user, case, session_version, mfa_version, execution=bool(withdrawal))
     return recorded
 
 
 class ResponseForm(forms.Form):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if language is None:
+            return
+        for field in self.fields.values():
+            field.label = caption(field.label, language)
+            if hasattr(field, "choices") and not hasattr(field, "queryset"):
+                field.choices = [
+                    (value, caption(label, language)) for value, label in field.choices
+                ]
+        self.fields["kind"].label = "Response type" if language == "en" else "Tipo de respuesta"
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     response_version = forms.IntegerField(min_value=0, widget=forms.HiddenInput)
@@ -242,14 +256,23 @@ class ResponseForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def respond(request, case_id):
     if not allowed(request) or not request.user.has_perm("safety.respond_rights_request"):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case:
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = ResponseForm(
         request.POST or None,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid.uuid4(),
             "version": case.version,
@@ -257,13 +280,22 @@ def respond(request, case_id):
         },
     )
     if case.kind != "representation" or case.status != "withdrawn":
-        form.fields["kind"].choices = [("progress", "Respuesta de progreso / Progress response")]
+        form.fields["kind"].choices = [
+            (
+                "progress",
+                "Progress response" if request.LANGUAGE_CODE == "en" else "Respuesta de progreso",
+            )
+        ]
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
         try:
             issue(request.user, case_id, **form.cleaned_data)
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
