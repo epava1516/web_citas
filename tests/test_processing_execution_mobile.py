@@ -7,6 +7,7 @@ import pyotp
 import pytest
 from playwright.sync_api import expect, sync_playwright
 from test_processing_execution import prepared
+from test_processing_localization import assert_execution
 from test_reports import directory, photo_environment  # noqa: F401
 
 from apps.listings.models import Favorite
@@ -53,6 +54,7 @@ def test_mobile_apply_and_subject_favorites_block(
                 + f"/{language}/moderation/rights/{case.pk}/processing/{plan.pk}/execute/"
             )
             page.goto(path)
+            assert_execution(page, language)
             page.locator("[name=purposes][value=account_preferences]").check()
             reason = "Apply selected independently reviewed synthetic preferences restriction"
             page.locator("[name=reason]").fill(reason)
@@ -69,7 +71,9 @@ def test_mobile_apply_and_subject_favorites_block(
                 if english
                 else "Restricción seleccionada aplicada; solicitud abierta"
             )
+            assert_execution(page, language)
             page.reload()
+            assert_execution(page, language)
             assert reason not in page.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
             own_context = browser.new_context(viewport={"width": 390, "height": 844})

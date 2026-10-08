@@ -6,6 +6,7 @@ import shutil
 import pyotp
 import pytest
 from playwright.sync_api import expect, sync_playwright
+from test_processing_localization import assert_review
 from test_processing_plans import REASON
 from test_processing_review import prepared
 from test_reports import directory, photo_environment  # noqa: F401
@@ -55,6 +56,7 @@ def test_mobile_independent_plan_review(
                 live_server.url + f"/{language}/moderation/rights/{case.pk}/processing/{plan.pk}/"
             )
             page.goto(path)
+            assert_review(page, language)
             assert REASON not in page.content()
             page.locator("[name=operation]").select_option("inspect")
             page.locator("[name=reason]").fill(
@@ -65,6 +67,7 @@ def test_mobile_independent_plan_review(
             )
             page.get_by_role("button", name=button, exact=True).click()
             expect(page.get_by_text(REASON, exact=True).first).to_be_visible()
+            assert_review(page, language)
             page.locator("[name=operation]").select_option("review")
             page.locator("[name=outcome]").select_option("approved")
             page.locator("[name=reason]").fill(
@@ -76,7 +79,9 @@ def test_mobile_independent_plan_review(
                 if english
                 else "Revisión registrada; tratamiento intacto"
             )
+            assert_review(page, language)
             page.reload()
+            assert_review(page, language)
             assert REASON not in page.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
         finally:

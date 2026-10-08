@@ -9,6 +9,7 @@ import pytest
 from django.utils import timezone
 from playwright.sync_api import expect, sync_playwright
 from test_account_copy_races import prepared_account
+from test_processing_localization import assert_preparation
 from test_reports import directory, photo_environment  # noqa: F401
 
 from apps.safety.crypto import unseal
@@ -50,6 +51,7 @@ def test_mobile_processing_preparation(
             page.locator("button[type=submit]").first.click()
             path = live_server.url + f"/{language}/moderation/rights/{case.pk}/processing/"
             page.goto(path)
+            assert_preparation(page, language)
             assert "core.User" not in page.content()
             reason = "Synthetic independent purpose preparation requires further review"
             page.locator("[name=reason]").fill(reason)
@@ -62,6 +64,7 @@ def test_mobile_processing_preparation(
                     exact=True,
                 )
             ).to_be_visible()
+            assert_preparation(page, language)
             values = json.loads(page.locator("[name=decisions]").input_value())
             for item in values:
                 item.update(
@@ -77,7 +80,9 @@ def test_mobile_processing_preparation(
                 if english
                 else "Preparación registrada; tratamiento intacto"
             )
+            assert_preparation(page, language)
             page.reload()
+            assert_preparation(page, language)
             assert reason not in page.content() and "core.User" not in page.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
         finally:

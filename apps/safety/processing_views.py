@@ -18,7 +18,30 @@ from .rights_scope import permitted
 from .views import private
 
 
-class PreparationForm(forms.Form):
+class LocalizedProcessingForm(forms.Form):
+    def __init__(self, *args, language="es", **kwargs):
+        self.language = language
+        super().__init__(*args, **kwargs)
+        labels = {
+            "operation": ("Operación", "Operation"),
+            "outcome": ("Decisión", "Outcome"),
+            "reason": ("Motivo minimizado", "Minimized reason"),
+            "decisions": ("Decisiones por finalidad", "Purpose decisions"),
+            "purposes": ("Finalidades", "Purposes"),
+            "confirmed": ("Confirmo esta ejecución parcial", "I confirm this partial execution"),
+        }
+        for name, field in self.fields.items():
+            if name in labels:
+                field.label = labels[name][language == "en"]
+            if hasattr(field, "choices"):
+                field.choices = [(value, self.caption(caption)) for value, caption in field.choices]
+
+    def caption(self, value):
+        spanish, separator, english = value.partition(" / ")
+        return english if separator and self.language == "en" else spanish
+
+
+class PreparationForm(LocalizedProcessingForm):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     operation = forms.ChoiceField(
@@ -64,7 +87,9 @@ def preparation(request, case_id):
     if case.kind not in {"restriction", "object"}:
         return private(HttpResponse("Unsupported request type", status=409))
     form = PreparationForm(
-        request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
     )
     manifest, plan, status = None, None, 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
@@ -86,6 +111,7 @@ def preparation(request, case_id):
                     for purpose in sorted({item["purpose"] for item in manifest["entries"]})
                 ]
                 form = PreparationForm(
+                    language=request.LANGUAGE_CODE,
                     initial={
                         "key": uuid.uuid4(),
                         "version": case.version,
@@ -93,7 +119,7 @@ def preparation(request, case_id):
                         "reason": values["reason"],
                         "source_digest": fingerprint(canonical(manifest)),
                         "decisions": draft,
-                    }
+                    },
                 )
             else:
                 plan = prepare(
@@ -105,7 +131,10 @@ def preparation(request, case_id):
                     values["decisions"],
                     values["source_digest"],
                 )
-                form = PreparationForm(initial={"key": uuid.uuid4(), "version": case.version})
+                form = PreparationForm(
+                    language=request.LANGUAGE_CODE,
+                    initial={"key": uuid.uuid4(), "version": case.version},
+                )
             status = 200
         except PermissionDenied:
             return private(HttpResponse("Forbidden", status=403))
@@ -122,7 +151,7 @@ def preparation(request, case_id):
     )
 
 
-class ReviewForm(forms.Form):
+class ReviewForm(LocalizedProcessingForm):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     operation = forms.ChoiceField(
@@ -169,12 +198,19 @@ def review(request, case_id, plan_id):
         raise Http404
     if not permitted(request.user, case):
         return private(HttpResponse("Forbidden", status=403))
-    form = ReviewForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
+    form = ReviewForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
+    )
     body, result, status = None, None, 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
         try:
             result, body = record(request.user, case.pk, plan_id, **form.cleaned_data)
-            form = ReviewForm(initial={"key": uuid.uuid4(), "version": case.version})
+            form = ReviewForm(
+                language=request.LANGUAGE_CODE,
+                initial={"key": uuid.uuid4(), "version": case.version},
+            )
             status = 200
         except PermissionDenied:
             return private(HttpResponse("Forbidden", status=403))
@@ -197,7 +233,7 @@ def review(request, case_id, plan_id):
     )
 
 
-class ExecutionForm(forms.Form):
+class ExecutionForm(LocalizedProcessingForm):
     def __init__(self, *args, case=None, **kwargs):
         super().__init__(*args, **kwargs)
         if case is not None:
@@ -208,7 +244,9 @@ class ExecutionForm(forms.Form):
                 )
             if case.person_id and not case.account_subject_id:
                 choices.append(("publication", "Publicación del perfil / Profile publication"))
-            self.fields["purposes"].choices = choices
+            self.fields["purposes"].choices = [
+                (value, self.caption(caption)) for value, caption in choices
+            ]
 
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
@@ -246,14 +284,21 @@ def execution(request, case_id, plan_id):
     if not permitted(request.user, case):
         return private(HttpResponse("Forbidden", status=403))
     form = ExecutionForm(
-        request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}, case=case
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
+        case=case,
     )
     result, status = None, 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
         try:
             result = execute(request.user, case.pk, plan_id, **form.cleaned_data)
             case.refresh_from_db()
-            form = ExecutionForm(initial={"key": uuid.uuid4(), "version": case.version}, case=case)
+            form = ExecutionForm(
+                language=request.LANGUAGE_CODE,
+                initial={"key": uuid.uuid4(), "version": case.version},
+                case=case,
+            )
             status = 200
         except PermissionDenied:
             return private(HttpResponse("Forbidden", status=403))
