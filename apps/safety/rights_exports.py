@@ -1017,14 +1017,25 @@ def image_content(person, photo_id):
 @sensitive_variables()
 def inspect_image(request, case_id, photo_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     try:
         with transaction.atomic():
             case, person, _ = reviewer_case(request.user, case_id)
             can_prepare(request.user, case, person)
             purpose = request.POST.get("purpose", "")
             if not 10 <= len(purpose.strip()) <= 200:
-                return private(HttpResponse("Purpose required", status=400))
+                return private(
+                    HttpResponse(
+                        "Purpose required"
+                        if request.LANGUAGE_CODE == "en"
+                        else "Motivo obligatorio",
+                        status=400,
+                    )
+                )
             photo, content = image_content(person, photo_id)
             RightsImageAccess.objects.create(
                 request=case,
@@ -1037,11 +1048,17 @@ def inspect_image(request, case_id, photo_id):
     except RightsRequest.DoesNotExist:
         raise Http404 from None
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     except ValidationError:
         return private(
             HttpResponse(
-                "Review current scope and image first / Revisa el ámbito y la imagen actual",
+                "Review current scope and image first"
+                if request.LANGUAGE_CODE == "en"
+                else "Revisa el ámbito y la imagen actual",
                 status=409,
             )
         )
