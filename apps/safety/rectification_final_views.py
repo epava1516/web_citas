@@ -102,16 +102,28 @@ class FinalForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def final(request, case_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id, kind="rectify").first()
     if case is None:
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     try:
         rectification_final.actor(request.user, case, assigned=False)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = FinalForm(
         request.POST or None,
         language=request.LANGUAGE_CODE,
@@ -164,7 +176,11 @@ def final(request, case_id):
             if values["operation"] != "inspect":
                 return private(redirect("rectification_final", case_id=case.pk))
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except (ValidationError, IntegrityError) as error:
             form.add_error(
                 None,
