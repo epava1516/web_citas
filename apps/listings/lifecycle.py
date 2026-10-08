@@ -36,6 +36,33 @@ class ActionForm(forms.Form):
         label="Confirmo que los datos aprobados siguen siendo correctos / I confirm approved information is still correct",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {
+            "operation": ("Operación", "Operation"),
+            "confirm": (
+                "Confirmo que los datos aprobados siguen siendo correctos",
+                "I confirm approved information is still correct",
+            ),
+        }
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        choices = {
+            "operation": [
+                ("pause", ("Pausar", "Pause")),
+                ("resume", ("Reanudar", "Resume")),
+                ("renew", ("Renovar", "Renew")),
+                ("withdraw", ("Retirar", "Withdraw")),
+                ("available", ("Disponible ahora", "Available now")),
+                ("unavailable", ("Cancelar disponibilidad", "Cancel availability")),
+            ]
+        }
+        for name, options in choices.items():
+            self.fields[name].choices = [
+                (value, translations[index]) for value, translations in options
+            ]
+
 
 @transaction.atomic
 def act(user, listing_id, key, version, operation, confirm=False):
@@ -134,7 +161,9 @@ def act(user, listing_id, key, version, operation, confirm=False):
 def panel(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id, person__in=person_queryset(request.user))
     form = ActionForm(
-        request.POST or None, initial={"key": uuid.uuid4(), "version": listing.lifecycle_version}
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": listing.lifecycle_version},
     )
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():

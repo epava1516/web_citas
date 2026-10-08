@@ -34,6 +34,24 @@ class DecisionForm(forms.Form):
     )
     reason = forms.CharField(max_length=1000, widget=forms.Textarea, label="Motivo / Reason")
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {"outcome": ("Resultado", "Outcome"), "reason": ("Motivo", "Reason")}
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        choices = {
+            "outcome": [
+                ("", ("Selecciona", "Choose")),
+                ("approved", ("Aprobar", "Approve")),
+                ("rejected", ("Rechazar", "Reject")),
+            ]
+        }
+        for name, options in choices.items():
+            self.fields[name].choices = [
+                (value, translations[index]) for value, translations in options
+            ]
+
 
 @login_required
 def queue(request):
@@ -64,7 +82,11 @@ def review(request, revision_id):
     )
     if conflict_of_interest(request.user, revision.listing.person):
         return HttpResponse("Conflict of interest", status=403)
-    form = DecisionForm(request.POST or None, initial={"edit_version": revision.edit_version})
+    form = DecisionForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"edit_version": revision.edit_version},
+    )
     if request.method == "POST" and form.is_valid():
         try:
             decide(
