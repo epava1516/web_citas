@@ -15,12 +15,27 @@ from . import rights_communications as service
 from .models import RightsAction, RightsRequest
 from .recipient_assessment_views import Decisions, target_title
 from .recipient_assessments import targets
+from .rectification_presentation import caption
 from .rights import allowed
 from .rights_scope import permitted
 from .views import private
 
 
 class CommunicationForm(forms.Form):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.language = language
+        if language is None:
+            return
+        for field in self.fields.values():
+            field.label = caption(field.label, language)
+            if hasattr(field, "choices"):
+                field.choices = [
+                    (value, caption(label, language)) for value, label in field.choices
+                ]
+        self.fields["operation"].label = "Operation" if language == "en" else "Operación"
+        self.fields["outcome"].label = "Outcome" if language == "en" else "Resultado"
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     responses = forms.IntegerField(min_value=0, widget=forms.HiddenInput)
@@ -66,7 +81,12 @@ class CommunicationForm(forms.Form):
         }
         for field in fields.get(values.get("operation"), []):
             if not values.get(field):
-                self.add_error(field, "Obligatorio / Required")
+                self.add_error(
+                    field,
+                    "Obligatorio / Required"
+                    if self.language is None
+                    else ("Required" if self.language == "en" else "Obligatorio"),
+                )
         return values
 
 
@@ -76,21 +96,34 @@ class CommunicationForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def communications(request, case_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(
         pk=case_id, kind__in=["erase", "restriction", "object"]
     ).first()
     if not case:
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     backend = service.backend(case.pk)
     try:
         backend._actor(request.user, case, assigned=False)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = CommunicationForm(
         request.POST or None,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid4(),
             "version": case.version,
@@ -110,6 +143,7 @@ def communications(request, case_id):
                 notice_preview = source["notice_payload"]
                 decisions = Decisions(
                     prefix="decisions",
+                    form_kwargs={"language": request.LANGUAGE_CODE},
                     initial=[{"target": token, "outcome": "pending"} for token in targets(source)],
                 )
                 for decision, (token, candidate) in zip(
@@ -118,10 +152,17 @@ def communications(request, case_id):
                     decision.target_title = target_title(
                         token, candidate, request.LANGUAGE_CODE == "en"
                     )
-                form = CommunicationForm(initial={**values, "key": uuid4(), "operation": "propose"})
+                form = CommunicationForm(
+                    language=request.LANGUAGE_CODE,
+                    initial={**values, "key": uuid4(), "operation": "propose"},
+                )
                 status = 200
             elif values["operation"] == "propose":
-                decisions = Decisions(request.POST, prefix="decisions")
+                decisions = Decisions(
+                    request.POST,
+                    prefix="decisions",
+                    form_kwargs={"language": request.LANGUAGE_CODE},
+                )
                 if decisions.is_valid():
                     rows = decisions.cleaned_data
                     mapped = {
@@ -137,7 +178,8 @@ def communications(request, case_id):
             elif values["operation"] == "inspect":
                 audited, inspected = service.inspect(*common, values["plan"], values["purpose"])
                 form = CommunicationForm(
-                    initial={**values, "key": uuid4(), "operation": "review", "read": audited.pk}
+                    language=request.LANGUAGE_CODE,
+                    initial={**values, "key": uuid4(), "operation": "review", "read": audited.pk},
                 )
                 status = 200
             elif values["operation"] == "review":
@@ -156,7 +198,11 @@ def communications(request, case_id):
                 deliver(*common, values["review"], values["key"])
                 return private(redirect("rights_communications", case_id=case.pk))
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except (ValidationError, IntegrityError, ValueError) as error:
             form.add_error(
                 None,

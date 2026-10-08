@@ -15,10 +15,24 @@ from apps.core.models import User
 
 from .communication_notices import acknowledge, inspect_notice
 from .models import RightsRecipientNotice
+from .rectification_presentation import caption
 from .views import private
 
 
 class NoticeForm(forms.Form):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.language = language
+        if language is None:
+            return
+        for field in self.fields.values():
+            field.label = caption(field.label, language)
+            if hasattr(field, "choices"):
+                field.choices = [
+                    (value, caption(label, language)) for value, label in field.choices
+                ]
+        self.fields["operation"].label = "Operation" if language == "en" else "Operación"
+
     operation = forms.ChoiceField(
         choices=[("inspect", "Consultar / Inspect"), ("ack", "Confirmar recepción / Acknowledge")]
     )
@@ -32,7 +46,12 @@ class NoticeForm(forms.Form):
         values = super().clean()
         field = "purpose" if values.get("operation") == "inspect" else "read"
         if not values.get(field):
-            self.add_error(field, "Obligatorio / Required")
+            self.add_error(
+                field,
+                "Obligatorio / Required"
+                if self.language is None
+                else ("Required" if self.language == "en" else "Obligatorio"),
+            )
         return values
 
 
@@ -76,8 +95,12 @@ def inbox(request):
         or request.session.get("mfa_version") != fresh.mfa_version
         or request.user.session_version != fresh.session_version
     ):
-        return private(HttpResponse("Forbidden", status=403))
-    form = NoticeForm(request.POST or None)
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
+    form = NoticeForm(request.POST or None, language=request.LANGUAGE_CODE)
     payload = None
     status = 200 if request.method == "GET" else 400
     if request.method == "POST" and form.is_valid():
@@ -86,14 +109,19 @@ def inbox(request):
             if values["operation"] == "inspect":
                 read, payload = inspect_notice(request.user, values["notice"], values["purpose"])
                 form = NoticeForm(
-                    initial={"operation": "ack", "notice": values["notice"], "read": read.pk}
+                    language=request.LANGUAGE_CODE,
+                    initial={"operation": "ack", "notice": values["notice"], "read": read.pk},
                 )
                 status = 200
             else:
                 acknowledge(request.user, values["notice"], values["read"])
                 return private(redirect("rights_recipient_notices"))
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409

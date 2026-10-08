@@ -523,15 +523,32 @@ def test_mobile_recipient_assessment_source_is_audited_in_both_languages(
                     if language == "es"
                     else "Recipient communications"
                 )
+                from test_rights_communications_localization import assert_screen
+
+                from apps.safety.communication_notice_views import NoticeForm
+                from apps.safety.rights_communication_views import CommunicationForm
+
+                assert_screen(page, language, CommunicationForm)
                 assert page.locator("fieldset").count() == 0
                 page.locator("[name=operation]").select_option("source")
                 page.locator("[name=execution]").fill(str(execution.pk))
+                with page.expect_response(
+                    lambda response: response.request.method == "POST"
+                ) as negative:
+                    page.locator("button[type=submit]").click()
+                assert negative.value.status == 400
+                expect(
+                    page.get_by_text("Obligatorio" if language == "es" else "Required", exact=True)
+                ).to_be_visible()
+                assert_screen(page, language, CommunicationForm)
+                assert page.locator("fieldset").count() == 0
                 page.locator("[name=purpose]").fill(
                     "Inspect recipients on mobile with audited access"
                 )
                 page.locator("button[type=submit]").click()
                 expect(page.locator("fieldset").first).to_be_visible()
                 assert page.locator("fieldset").count() >= 5
+                assert_screen(page, language, CommunicationForm)
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
                 page.goto(live_server.url + path)
                 assert page.locator("fieldset").count() == 0
@@ -542,6 +559,7 @@ def test_mobile_recipient_assessment_source_is_audited_in_both_languages(
                     else "Private rights notices"
                 )
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+                assert_screen(page, language, NoticeForm)
                 context.close()
         finally:
             browser.close()
