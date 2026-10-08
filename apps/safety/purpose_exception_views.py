@@ -75,12 +75,20 @@ def prepare(request, case_id, plan_id):
         request.user.has_perm("safety." + p)
         for p in ["execute_rights_request", "review_purpose_exception"]
     ):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case or not ErasurePlan.objects.filter(pk=plan_id, action__request=case).exists():
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = ProposalForm(
         request.POST or None,
         language=request.LANGUAGE_CODE,
@@ -98,7 +106,11 @@ def prepare(request, case_id, plan_id):
         try:
             proposal = propose(request.user, case_id, plan_id, **form.cleaned_data)
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
@@ -179,13 +191,21 @@ def review(request, case_id, proposal_id):
         request.user.has_perm("safety." + p)
         for p in ["execute_rights_request", "review_purpose_exception"]
     ):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     proposal = PurposeExceptionProposal.objects.filter(pk=proposal_id, action__request=case).first()
     if not case or not proposal:
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = ReviewForm(
         request.POST or None,
         language=request.LANGUAGE_CODE,
@@ -197,7 +217,11 @@ def review(request, case_id, proposal_id):
         try:
             result, body = record(request.user, case.pk, proposal.pk, **form.cleaned_data)
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409

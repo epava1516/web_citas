@@ -80,7 +80,11 @@ class PublicationReleaseForm(ReleaseForm):
 @require_http_methods(["GET", "POST"])
 def release(request, case_id, hold_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     hold = (
         PrivacyPublicationHold.objects.select_related("action")
@@ -96,7 +100,11 @@ def release(request, case_id, hold_id):
     try:
         fresh = authorize(request.user, case, review_permission=False)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     can_calendar = fresh.has_perm("safety.review_purpose_calendar")
     try:
         permission(request.user, case, hold)
@@ -104,12 +112,20 @@ def release(request, case_id, hold_id):
     except PermissionDenied:
         can_release = False
     if not can_calendar and not can_release:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     operation = request.POST.get("operation") if request.method == "POST" else None
     if (operation in {"follow_up", "history"} and not can_calendar) or (
         operation in {"inspect", "propose", "execute"} and not can_release
     ):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = PublicationReleaseForm(
         request.POST or None,
         language=request.LANGUAGE_CODE,
@@ -178,7 +194,11 @@ def release(request, case_id, hold_id):
                     v["reason"],
                 )
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409

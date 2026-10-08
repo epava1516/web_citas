@@ -107,7 +107,11 @@ def release(request, case_id, restriction_id):
         request.user.has_perm("safety." + p)
         for p in ["execute_rights_request", "release_purpose_restriction", "respond_rights_request"]
     ):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     restriction = PurposeRestriction.objects.filter(
         pk=restriction_id, execution__action__request=case
@@ -118,7 +122,11 @@ def release(request, case_id, restriction_id):
         not permitted(request.user, case)
         or request.user.pk == restriction.execution.action.actor_id
     ):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     proposal = restriction.release_proposals.order_by("-pk").first()
     form = ReleaseForm(
         request.POST or None,
@@ -166,7 +174,11 @@ def release(request, case_id, restriction_id):
             )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
@@ -243,12 +255,20 @@ def queue(request, case_id):
             "respond_rights_request",
         ]
     ):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case:
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = QueueForm(request.GET, language=request.LANGUAGE_CODE)
     measures = PurposeRestriction.objects.none()
     status = 200
