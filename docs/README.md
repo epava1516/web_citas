@@ -73,3 +73,5 @@ No considerar una propuesta aprobada por el mero hecho de estar documentada. Dif
 - [Auditoría de requisitos pendientes CR-09](actas/04-cr09-auditoria-pendiente.md).
 
 - [Comunicaciones de derechos ejecutados: evaluación y pendientes](90-comunicaciones-derechos-ejecutados.md).
+
+- [Análisis estático del repositorio — Claude Code, Claude Opus 5.5, 2026-10-08](92-analisis-claude-code-20261008.md): revisión de lectura, sin ejecución ni aceptación.
