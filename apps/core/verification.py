@@ -115,6 +115,16 @@ class SimulationForm(forms.Form):
         choices=[("pending", "Pending"), ("failed", "Failed"), ("passed", "Passed")],
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        english = language == "en"
+        self.fields["outcome"].label = "Simulated result" if english else "Resultado simulado"
+        self.fields["outcome"].choices = [
+            ("pending", "Pending" if english else "Pendiente"),
+            ("failed", "Failed" if english else "Fallido"),
+            ("passed", "Passed" if english else "Superado"),
+        ]
+
 
 class TransferForm(forms.Form):
     manager_version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
@@ -358,7 +368,7 @@ def self_consent(request, person_id):
 @require_http_methods(["GET", "POST"])
 def age(request, person_id):
     person = get_object_or_404(Person, pk=person_id, subject=request.user)
-    form = SimulationForm(request.POST or None)
+    form = SimulationForm(request.POST or None, language=request.LANGUAGE_CODE)
     if settings.PRODUCTION or settings.VERIFICATION_PROVIDER != "simulator":
         return HttpResponse("Provider not yet integrated", status=503)
     if request.method == "POST" and form.is_valid():
