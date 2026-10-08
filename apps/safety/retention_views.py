@@ -28,10 +28,19 @@ def permitted_request(request):
 @require_GET
 def queue(request):
     if not permitted_request(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     attention = request.GET.get("attention", "due")
     if attention not in {"due", "soon", "all"}:
-        return private(HttpResponse("Invalid attention", status=400))
+        return private(
+            HttpResponse(
+                "Invalid attention" if request.LANGUAGE_CODE == "en" else "Atención inválida",
+                status=400,
+            )
+        )
     rows = RetentionReview.objects.select_related(
         "responsible",
         "plan__action__request__person",
@@ -47,7 +56,14 @@ def queue(request):
     try:
         page = calendar_page(request, rows, attention)
     except ValueError:
-        return private(HttpResponse("Invalid calendar cursor", status=400))
+        return private(
+            HttpResponse(
+                "Invalid calendar cursor"
+                if request.LANGUAGE_CODE == "en"
+                else "Cursor de calendario inválido",
+                status=400,
+            )
+        )
     return private(
         render(request, "safety/retention_queue.html", {"page": page, "attention": attention})
     )
@@ -103,7 +119,11 @@ class ReviewForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def inspect(request, review_id):
     if not permitted_request(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     review = (
         RetentionReview.objects.select_related("plan__action__request").filter(pk=review_id).first()
     )
@@ -111,7 +131,11 @@ def inspect(request, review_id):
         raise Http404
     case = review.plan.action.request
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = ReviewForm(
         request.POST or None,
         language=request.LANGUAGE_CODE,
@@ -124,7 +148,11 @@ def inspect(request, review_id):
         try:
             _, decision = record(request.user, review.pk, **form.cleaned_data)
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409

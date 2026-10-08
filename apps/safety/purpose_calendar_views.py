@@ -68,7 +68,11 @@ class FollowUpForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def detail(request, restriction_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     restriction = (
         PurposeRestriction.objects.select_related("execution__action__request")
         .filter(pk=restriction_id)
@@ -80,7 +84,11 @@ def detail(request, restriction_id):
     try:
         permission(request.user, case, restriction)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     initial = {"key": uuid.uuid4(), "version": restriction.version, "case_version": case.version}
     form = FollowUpForm(request.POST or None, initial=initial, language=request.LANGUAGE_CODE)
     snapshot, recorded = None, False
@@ -100,7 +108,11 @@ def detail(request, restriction_id):
             )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
@@ -180,7 +192,11 @@ def queue(request):
         request.user.has_perm("safety." + name)
         for name in ["execute_rights_request", "review_purpose_calendar"]
     ):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     values = request.GET.copy()
     if "attention" not in values:
         values["attention"] = "due"
@@ -222,7 +238,12 @@ def queue(request):
             if not isinstance(pk, int) or not 1 <= pk <= 9223372036854775807:
                 raise ValueError
         except (InvalidToken, ValueError, KeyError, TypeError):
-            return private(HttpResponse("Invalid cursor / Cursor inválido", status=400))
+            return private(
+                HttpResponse(
+                    "Invalid cursor" if request.LANGUAGE_CODE == "en" else "Cursor inválido",
+                    status=400,
+                )
+            )
         rows = rows.filter(Q(review_on__gt=day) | Q(review_on=day, pk__gt=pk))
     candidates = list(rows.order_by("review_on", "pk")[:101])
     visible = []
