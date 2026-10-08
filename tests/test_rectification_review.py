@@ -293,6 +293,7 @@ def test_mobile_independent_source_and_proposal_review(
 
     import pyotp
     from playwright.sync_api import expect, sync_playwright
+    from test_rectification_review_localization import assert_form
 
     labels = {
         "Your account": "Tu cuenta",
@@ -398,6 +399,7 @@ def test_mobile_independent_source_and_proposal_review(
             )
             page.get_by_role("button", name=label("Record correction action"), exact=True).click()
             page.get_by_role("link", name=label("Review correction proposal"), exact=True).click()
+            assert_form(page, language)
             expect(page).to_have_url(live_server.url + path)
             expect(
                 page.get_by_role("heading", name=label("Independent correction review"), exact=True)
@@ -406,6 +408,7 @@ def test_mobile_independent_source_and_proposal_review(
                 "Read proposed changes before independent correction decision"
             )
             page.get_by_role("button", name=label("Record review action"), exact=True).click()
+            assert_form(page, language)
             expect(
                 page.get_by_text(
                     ("Nombre del perfil" if language == "es" else "Profile name")
@@ -419,8 +422,14 @@ def test_mobile_independent_source_and_proposal_review(
             expect(page.get_by_text("Synthetic corrected consult", exact=False)).to_be_visible()
             expect(page.get_by_text("90.00 EUR", exact=False)).to_be_visible()
             expect(page.get_by_text("synthetic_contact", exact=False)).to_be_visible()
-            expect(page.get_by_text("Tipo de perfil / Profile type", exact=False)).to_be_visible()
-            expect(page.get_by_text("Otro / Other", exact=False)).to_be_visible()
+            expect(
+                page.get_by_text(
+                    "Tipo de perfil" if language == "es" else "Profile type", exact=False
+                )
+            ).to_be_visible()
+            expect(
+                page.get_by_text("Otro" if language == "es" else "Other", exact=False)
+            ).to_be_visible()
             proposed_photo_label = (
                 "Fotografía propuesta 1" if language == "es" else "Proposed photo 1"
             )
@@ -487,6 +496,7 @@ def test_mobile_independent_source_and_proposal_review(
             )
             page.get_by_role("button", name=label("Record correction action"), exact=True).click()
             page.get_by_role("link", name=label("Review correction proposal"), exact=True).click()
+            assert_form(page, language)
             page.locator("[name=purpose]").fill("Read approved changes before prior communication")
             page.get_by_role("button", name=label("Record review action"), exact=True).click()
             page.locator("[name=operation]").select_option("confirm_email")
@@ -538,6 +548,7 @@ def test_mobile_independent_source_and_proposal_review(
             )
             page.get_by_role("button", name=label("Record correction action"), exact=True).click()
             page.get_by_role("link", name=label("Review correction proposal"), exact=True).click()
+            assert_form(page, language)
             page.locator("[name=purpose]").fill(
                 "Read approved changes after simulated destination confirmation"
             )
@@ -557,6 +568,7 @@ def test_mobile_independent_source_and_proposal_review(
             )
             page.get_by_role("button", name=label("Record correction action"), exact=True).click()
             page.get_by_role("link", name=label("Review correction proposal"), exact=True).click()
+            assert_form(page, language)
             page.locator("[name=purpose]").fill(
                 "Read approved received changes before correction execution"
             )

@@ -91,23 +91,30 @@ def source(revision):
 
 
 @sensitive_variables()
-def display(value):
+def display(value, language=None):
+    from .rectification_presentation import caption
+
+    def label(value):
+        return caption(value, language) if language in {"es", "en"} else value
+
     parts = []
     for field in SCALARS:
         form_field = Editor.base_fields[field]
         item = value[field]
         if hasattr(form_field, "choices"):
             choices = dict(form_field.choices)
-            item = (
-                ", ".join(str(choices[x]) for x in item)
-                if isinstance(item, list)
-                else str(choices.get(item, item))
-            )
+
+            def choice(value):
+                # Only schema-owned captions are translated; unknown/raw values are preserved.
+                return str(label(choices[value])) if value in choices else str(value)
+
+            item = ", ".join(choice(x) for x in item) if isinstance(item, list) else choice(item)
         elif isinstance(item, bool):
-            item = "Sí / Yes" if item else "No"
-        parts.append(str(form_field.label or field) + ": " + str(item))
+            item = label("Sí / Yes") if item else "No"
+        parts.append(str(label(form_field.label or field)) + ": " + str(item))
     parts.append(
-        "Ciudades / Cities: "
+        str(label("Ciudades / Cities"))
+        + ": "
         + ", ".join(
             str(row)
             for row in Municipality.objects.filter(pk__in=value["travel_areas"]).order_by("pk")

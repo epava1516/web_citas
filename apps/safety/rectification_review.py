@@ -191,6 +191,19 @@ def review(user, case_id, proposal_id, key, version, outcome, reason):
 
 
 class ReviewForm(forms.Form):
+    def __init__(self, *args, language="es", **kwargs):
+        from .rectification_presentation import caption
+
+        super().__init__(*args, **kwargs)
+        self.fields["operation"].label = "Operation" if language == "en" else "Operación"
+        self.fields["outcome"].label = "Outcome" if language == "en" else "Decisión"
+        for field in self.fields.values():
+            field.label = caption(field.label, language)
+            if hasattr(field, "choices"):
+                field.choices = [
+                    (value, caption(label, language)) for value, label in field.choices
+                ]
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     operation = forms.ChoiceField(
@@ -230,11 +243,19 @@ class ReviewForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def prepare(request, case_id, proposal_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     try:
         permission(request.user)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     proposal = RightsRectificationProposal.objects.filter(
         pk=proposal_id, action__request=case
@@ -242,8 +263,16 @@ def prepare(request, case_id, proposal_id):
     if not case or not proposal:
         raise Http404
     if not permitted(request.user, case) or proposal.action.actor_id == request.user.pk:
-        return private(HttpResponse("Forbidden", status=403))
-    form = ReviewForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
+    form = ReviewForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
+    )
     changes = None
     photo_selection = None
     status = 400 if request.method == "POST" else 200
@@ -259,9 +288,15 @@ def prepare(request, case_id, proposal_id):
                     changes = {
                         **changes,
                         "photos": (
-                            "Selection shown below / Selección mostrada abajo"
+                            (
+                                "Selection shown below"
+                                if request.LANGUAGE_CODE == "en"
+                                else "Selección mostrada abajo"
+                            )
                             if photo_selection
-                            else "No photos / Sin fotografías"
+                            else (
+                                "No photos" if request.LANGUAGE_CODE == "en" else "Sin fotografías"
+                            )
                         ),
                     }
                 if "location" in changes:
@@ -305,7 +340,10 @@ def prepare(request, case_id, proposal_id):
                 if "details" in changes:
                     from .rectification_details import display as display_details
 
-                    changes = {**changes, "details": display_details(changes["details"])}
+                    changes = {
+                        **changes,
+                        "details": display_details(changes["details"], request.LANGUAGE_CODE),
+                    }
                 status = 200
             elif data["operation"] == "confirm_email":
                 from .account_email_confirmation import start
@@ -340,7 +378,11 @@ def prepare(request, case_id, proposal_id):
                 )
                 return private(redirect("rights_inspect", case_id=case.pk))
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
