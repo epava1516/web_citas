@@ -1,0 +1,145 @@
+{
+  "cases": [
+    {
+      "fixture": "repeated",
+      "families": {
+        "listing": {
+          "population_per_phase": 20,
+          "clean_wsgi_mean_seconds": 0.2994830205105245,
+          "dirty_wsgi_mean_seconds": 0.37279438965488226,
+          "dirty_minus_clean_wsgi_seconds": 0.07331136914435776,
+          "dirty_minus_clean_http_seconds": 0.07378067052923143
+        },
+        "search": {
+          "population_per_phase": 20,
+          "clean_wsgi_mean_seconds": 0.30310937634203583,
+          "dirty_wsgi_mean_seconds": 0.42088523630518465,
+          "dirty_minus_clean_wsgi_seconds": 0.11777585996314882,
+          "dirty_minus_clean_http_seconds": 0.11760392615105958
+        },
+        "detail": {
+          "population_per_phase": 20,
+          "clean_wsgi_mean_seconds": 0.11387067711912095,
+          "dirty_wsgi_mean_seconds": 0.1151431618258357,
+          "dirty_minus_clean_wsgi_seconds": 0.0012724847067147466,
+          "dirty_minus_clean_http_seconds": 0.001448498619720337
+        }
+      },
+      "pair_comparisons": [
+        {
+          "clean_block": 0,
+          "dirty_block": 1,
+          "family": "listing",
+          "http_penalty_seconds": 0.10054421327076851,
+          "http_penalty_fraction": 0.3405649392174259,
+          "criterion_met": true
+        },
+        {
+          "clean_block": 0,
+          "dirty_block": 1,
+          "family": "search",
+          "http_penalty_seconds": 0.13335439208894972,
+          "http_penalty_fraction": 0.43997171563988374,
+          "criterion_met": true
+        },
+        {
+          "clean_block": 3,
+          "dirty_block": 2,
+          "family": "listing",
+          "http_penalty_seconds": 0.047017127787694346,
+          "http_penalty_fraction": 0.15381701157300154,
+          "criterion_met": true
+        },
+        {
+          "clean_block": 3,
+          "dirty_block": 2,
+          "family": "search",
+          "http_penalty_seconds": 0.10185346021316949,
+          "http_penalty_fraction": 0.3330106993324507,
+          "criterion_met": true
+        }
+      ],
+      "prefixed_material_criterion_met": true,
+      "observed_condition_delta_D_seconds": 0.06411990460474044,
+      "observed_condition_20delta_D_worker_seconds_per_second": 1.2823980920948088,
+      "observed_worker_pids": [
+        4384,
+        4404,
+        4406,
+        4407
+      ]
+    },
+    {
+      "fixture": "diverse",
+      "families": {
+        "listing": {
+          "population_per_phase": 20,
+          "clean_wsgi_mean_seconds": 0.27884109537117185,
+          "dirty_wsgi_mean_seconds": 0.42204528241418304,
+          "dirty_minus_clean_wsgi_seconds": 0.1432041870430112,
+          "dirty_minus_clean_http_seconds": 0.14322522552683947
+        },
+        "search": {
+          "population_per_phase": 20,
+          "clean_wsgi_mean_seconds": 0.32121668437030165,
+          "dirty_wsgi_mean_seconds": 0.5069516493938864,
+          "dirty_minus_clean_wsgi_seconds": 0.18573496502358472,
+          "dirty_minus_clean_http_seconds": 0.18602060880511995
+        },
+        "detail": {
+          "population_per_phase": 20,
+          "clean_wsgi_mean_seconds": 0.11243348908610643,
+          "dirty_wsgi_mean_seconds": 0.12367001406382769,
+          "dirty_minus_clean_wsgi_seconds": 0.011236524977721263,
+          "dirty_minus_clean_http_seconds": 0.012380668683908885
+        }
+      },
+      "pair_comparisons": [
+        {
+          "clean_block": 0,
+          "dirty_block": 1,
+          "family": "listing",
+          "http_penalty_seconds": 0.09056567470543087,
+          "http_penalty_fraction": 0.2981407535352348,
+          "criterion_met": true
+        },
+        {
+          "clean_block": 0,
+          "dirty_block": 1,
+          "family": "search",
+          "http_penalty_seconds": 0.1977264816407115,
+          "http_penalty_fraction": 0.5945907816362864,
+          "criterion_met": true
+        },
+        {
+          "clean_block": 3,
+          "dirty_block": 2,
+          "family": "listing",
+          "http_penalty_seconds": 0.19588477634824814,
+          "http_penalty_fraction": 0.7638953083188382,
+          "criterion_met": true
+        },
+        {
+          "clean_block": 3,
+          "dirty_block": 2,
+          "family": "search",
+          "http_penalty_seconds": 0.17431473596952857,
+          "http_penalty_fraction": 0.5589134918261979,
+          "criterion_met": true
+        }
+      ],
+      "prefixed_material_criterion_met": true,
+      "observed_condition_delta_D_seconds": 0.11339189234810572,
+      "observed_condition_20delta_D_worker_seconds_per_second": 2.2678378469621143,
+      "observed_worker_pids": [
+        13740,
+        13741,
+        13742,
+        13743
+      ]
+    }
+  ],
+  "diagnostic_hypothesis_accepted": true,
+  "scope": "Condition contrast, not backend before/after improvement; sequential TCP not capacity. Different authority/listing than unidentified upload candidate prevents exact causal savings extrapolation. Details fluctuation retained but not assigned to optimization. No uploads or concurrency in these controls.",
+  "decision": "One dirty candidate has material reproducible cost by prefixed HTTP criterion. Preserve native fallback/invalidation; next isolate duplicated work in unknown-candidate preparation versus selected-page guard with equivalent profile before selecting minimal change. Existing operational refresh evidence reusable; do not enable read-repair/cache or another load automatically."
+}

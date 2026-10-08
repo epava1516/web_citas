@@ -1,0 +1,10 @@
+{
+  "selection": [
+    "tests/test_publication_state_tcp.py::test_current_matrix_tcp[repeated-10000]",
+    "tests/test_publication_state_tcp.py::test_current_matrix_tcp[diverse-10000]"
+  ],
+  "hypothesis": "One dirty off-page candidate may materially add request service; isolate clean/dirty within same server and current fixtures",
+  "design": "Four blocks clean/dirty/dirty/clean, five sequential requests per six routes per block, both fixtures;240total, no RPS load. Real draft Revision bulk insertion invalidates owning listing; no approved-content change. Official deployed preparation; lightweight WSGI only, no profiler",
+  "exit": "Terminal equivalence body/count/order and actual unknown0/1 route verification, mean HTTP/WSGI by route/block, independent hashes/cleanup; report effect not backend improvement. No automated saturated trial",
+  "material_diagnostic_criterion": "Treat unknown cost as primary next optimization candidate only if mean list/search penalty >=20ms and >=10% of clean on both fixtures and both corresponding block comparisons; otherwise reject dominant-cost hypothesis, no intervention"
+}

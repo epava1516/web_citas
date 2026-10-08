@@ -192,3 +192,8 @@ Observación posterior de reposo sin carga: [host15,372s](evidencias/mod05-vps-h
 ### Diagnóstico MOD05 concurrente revisado
 
 [Observaciones](evidencias/mod05-recursos-informe0110.md): W4,878worker-s/s,4workers>99,48%ocupados,preWSGImean3,937s; CPUworkers1,966cores noequivale aocupación. Ruta state sirve400listado/búsqueda,346con1desconocido; coste específico noaislado. Amenaza: competencia real/sharedPG y overheadrecolector limitan causalidad; noadoptar6nioptimizar indefinidamente porprohibición derecursos. Oportunidad: evaluación controlada futura deconcurrencia operfilfocalizado residual conhipótesis medible, sinignorar guard. Fortalezas:600correlaciones/PID,ledgerconforme,logs/limpieza conservados. FAILmedido,900bloqueados yCR09abierto.
+
+
+### Coste residual deunknown1 aislado concontroles
+
+[240HTTP/TCP emparejados](evidencias/mod05-dirty-contraste-analisis0110.json),2fixtures10000,contenidoidéntico yrouteunknown0/1: ocho pares cumplen criterio HTTP≥20ms/≥10%. Coste WSGI adicional porfamilia listado/búsqueda73/118ms repetido y143/186ms diverso. Es contraste decondición, no optimización, ahorro acumulado ni capacidad. Oportunidad concreta: perfilar preparación delcandidato desconocido frenteguard depágina para identificartrabajo evitablesinreutilizar decisiones antiguas. Mantenerinvalidación/refresco, noignorardirtyniadoptarcaché/readrepair porparche. DB/medios/workerPIDausentes,artefactosreviewados.

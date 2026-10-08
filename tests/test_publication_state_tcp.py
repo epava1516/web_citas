@@ -21,7 +21,8 @@ from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 from test_publication_state_matrix import prepare_population
 
-from apps.listings.models import Listing
+from apps.listings import publication_state
+from apps.listings.models import Listing, PublicationDirty, Revision
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
@@ -123,19 +124,31 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                 assert warm.status == 200 and canonical_hash(warm.read(), path) == expected[path], (
                     path
                 )
-        for repeat in range(5):
-            for index, path in enumerate(paths):
-                rid = f"d-{repeat * 6 + index}"
-                emission = time.monotonic()
-                req = urllib.request.Request(origin + path, headers={"X-Benchmark-ID": rid})
-                with urllib.request.urlopen(req, timeout=65) as r:
-                    body = r.read()
-                    status = r.status
-                end = time.monotonic()
-                assert status == 200 and canonical_hash(body, path) == expected[path], path
-                samples.append(
-                    {"id": rid, "path": path, "emission": emission, "end": end, "status": status}
-                )
+        contrast = os.environ.get("PUBLICATION_TCP_DIRTY_CONTRAST") == "1"
+        page_ids = [row.pk for row in client.get("/es/", HTTP_HOST=f"127.0.0.1:{port}").context["page"].object_list]
+        target = Listing.objects.filter(status="published", person__agency__isnull=False).exclude(pk__in=page_ids).first() if contrast else None
+        phases = ["clean", "dirty", "dirty", "clean"] if contrast else ["clean"]
+        for block, phase in enumerate(phases):
+            if contrast:
+                if phase == "dirty":
+                    Revision.objects.bulk_create([Revision(listing=target, manager_version=target.person.manager_version)])
+                    assert set(PublicationDirty.objects.values_list("listing_id", flat=True)) == {target.pk}
+                else:
+                    while publication_state.refresh(500):
+                        pass
+                    assert not PublicationDirty.objects.exists()
+            for repeat in range(5):
+                for index, path in enumerate(paths):
+                    rid = f"d-{block * 30 + repeat * 6 + index}"
+                    emission = time.monotonic()
+                    req = urllib.request.Request(origin + path, headers={"X-Benchmark-ID": rid})
+                    with urllib.request.urlopen(req, timeout=65) as r:
+                        body = r.read()
+                        status = r.status
+                    end = time.monotonic()
+                    assert status == 200 and canonical_hash(body, path) == expected[path], path
+                    samples.append({"id": rid, "path": path, "emission": emission, "end": end,
+                                    "status": status, "phase": phase, "block": block})
         events = []
         deadline = time.monotonic() + 5
         while True:
@@ -154,13 +167,14 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
             event = byid[sample["id"]]
             assert sample["emission"] <= event["entry"] <= event["exit"]
             if "/listing/" not in sample["path"]:
-                assert event["route"]["route"] == "state" and event["route"]["native_unknown"] == 0
+                assert event["route"]["route"] == "state" and event["route"]["native_unknown"] == (1 if sample["phase"] == "dirty" else 0)
         report = []
-        for path in paths:
-            rows = [r for r in samples if r["path"] == path]
+        for phase, path in [(phase, path) for phase in sorted(set(phases)) for path in paths]:
+            rows = [r for r in samples if r["path"] == path and r["phase"] == phase]
             report.append(
                 {
                     "path": path,
+                    "phase": phase,
                     "population": len(rows),
                     "http_mean_seconds": statistics.mean(r["end"] - r["emission"] for r in rows),
                     "wsgi_mean_seconds": statistics.mean(
@@ -181,6 +195,8 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                     "samples": samples,
                     "wsgi_events": events,
                     "workers": 4,
+                    "dirty_contrast": contrast,
+                    "blocks": phases,
                 }
             ),
         )
