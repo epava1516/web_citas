@@ -80,6 +80,47 @@ _MESSAGES = {
         "Esta sección no admite modificaciones",
         "This section is immutable",
     ),
+    "Copy schema changed / Esquema de copia cambiado": (
+        "Esquema de copia cambiado",
+        "Copy schema changed",
+    ),
+    "Invalid reviewed copy / Copia revisada no válida": (
+        "Copia revisada no válida",
+        "Invalid reviewed copy",
+    ),
+    "Only text redaction allowed / Solo se permite revisar los textos": (
+        "Solo se permite revisar los textos",
+        "Only text redaction allowed",
+    ),
+    "Inspect assigned access request / Consulta la solicitud de acceso asignada": (
+        "Consulta la solicitud de acceso asignada",
+        "Inspect assigned access request",
+    ),
+    "Conflicting export key / Clave de exportación incompatible": (
+        "Clave de exportación incompatible",
+        "Conflicting export key",
+    ),
+    "Conflicting export key / Clave incompatible": ("Clave incompatible", "Conflicting export key"),
+    "Export information binding unavailable": (
+        "Vínculo de información de exportación no disponible",
+        "Export information binding unavailable",
+    ),
+    "Inspect each selected image first / Consulta cada imagen seleccionada": (
+        "Consulta cada imagen seleccionada",
+        "Inspect each selected image first",
+    ),
+    "Portability requires independently approved field selection / La portabilidad requiere una selección de campos aprobada independientemente": (
+        "La portabilidad requiere una selección de campos aprobada independientemente",
+        "Portability requires independently approved field selection",
+    ),
+    "Preview current source first / Consulta primero la copia actual": (
+        "Consulta primero la copia actual",
+        "Preview current source first",
+    ),
+    "Request changed or reason required / Solicitud cambiada o motivo obligatorio": (
+        "Solicitud cambiada o motivo obligatorio",
+        "Request changed or reason required",
+    ),
 }
 
 
