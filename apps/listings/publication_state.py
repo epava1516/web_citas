@@ -270,7 +270,9 @@ def trusted_state(**extra):
 
 
 DIRTY_LIMIT = 1000
-READ_REPAIR = os.environ.get("PUBLICATION_STATE_READ_REPAIR", "1") == "1"
+# Off by default (user decision): the refresh worker keeps marks clear. Opt in with
+# PUBLICATION_STATE_READ_REPAIR=1 as resilience if the worker may be unavailable.
+READ_REPAIR = os.environ.get("PUBLICATION_STATE_READ_REPAIR", "0") == "1"
 READ_REPAIR_LIMIT = 24
 READ_REPAIR_AFTER_SECONDS = 2
 
