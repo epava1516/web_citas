@@ -82,12 +82,31 @@ class CodeForm(forms.Form):
 class ConsentInviteForm(forms.Form):
     email = forms.EmailField(label="Correo privado de la persona / Person's private email")
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {"email": ("Correo privado de la persona", "Person's private email")}
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+
 
 class ConsentForm(forms.Form):
     authorize = forms.BooleanField(
         label="Autorizo a este gestor para este perfil / I authorize this manager for this profile"
     )
     version = forms.CharField(widget=forms.HiddenInput)
+
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {
+            "authorize": (
+                "Autorizo a este gestor para este perfil",
+                "I authorize this manager for this profile",
+            )
+        }
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
 
 
 class SimulationForm(forms.Form):
@@ -106,6 +125,22 @@ class TransferForm(forms.Form):
     confirm = forms.BooleanField(
         label="Confirmo el cambio y una nueva autorización / I confirm the change and new authorization"
     )
+
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {
+            "target_agency": (
+                "ID de nueva agencia; vacío para gestionar personalmente",
+                "New agency ID; empty for self-management",
+            ),
+            "confirm": (
+                "Confirmo el cambio y una nueva autorización",
+                "I confirm the change and new authorization",
+            ),
+        }
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
 
 
 @login_required
@@ -165,7 +200,7 @@ def invite_consent(request, person_id):
     person = get_object_or_404(person_queryset(request.user), pk=person_id)
     if not person.agency_id or person.agency.owner_id != request.user.pk:
         return HttpResponse("Forbidden", status=403)
-    form = ConsentInviteForm(request.POST or None)
+    form = ConsentInviteForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST" and form.is_valid():
         if limited(request, "representation-invite", 5):
             return HttpResponse("Too many attempts", status=429)
@@ -213,7 +248,9 @@ def accept_consent(request, invitation_id, raw):
     document = get_object_or_404(
         LegalDocument, slug="publishing", language=request.LANGUAGE_CODE, active=True
     )
-    form = ConsentForm(request.POST or None, initial={"version": document.version})
+    form = ConsentForm(
+        request.POST or None, language=request.LANGUAGE_CODE, initial={"version": document.version}
+    )
     if request.method == "POST" and form.is_valid():
         if form.cleaned_data["version"] != document.version:
             form.add_error(None, "Document updated / Documento actualizado")
@@ -269,7 +306,9 @@ def self_consent(request, person_id):
     document = get_object_or_404(
         LegalDocument, slug="publishing", language=request.LANGUAGE_CODE, active=True
     )
-    form = ConsentForm(request.POST or None, initial={"version": document.version})
+    form = ConsentForm(
+        request.POST or None, language=request.LANGUAGE_CODE, initial={"version": document.version}
+    )
     if (
         request.method == "POST"
         and form.is_valid()
@@ -467,7 +506,11 @@ def revoke(request, person_id):
 @require_http_methods(["GET", "POST"])
 def transfer(request, person_id):
     person = get_object_or_404(Person, pk=person_id, subject=request.user)
-    form = TransferForm(request.POST or None, initial={"manager_version": person.manager_version})
+    form = TransferForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"manager_version": person.manager_version},
+    )
     if request.method == "POST" and form.is_valid():
         agency = (
             get_object_or_404(Agency, pk=form.cleaned_data["target_agency"])
