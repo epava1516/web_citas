@@ -1,0 +1,11 @@
+{
+  "requirement": "Finish current matrix parity with documented deployment and laptop benchmark",
+  "selection": [
+    "tests/test_publication_state_matrix.py",
+    "tests/test_publication_state_tcp.py"
+  ],
+  "scenario": "Same six populations/fixtures and controls; only preparation uses actualrefresh_publication_state command including VACUUM ANALYZE before measurements; shared helper",
+  "condition": "12PASS; recorded populations/routes/count/order/body and WSGI accounting; controls/instrumented separate; same own4workers/reference; cleanup/frozen hashes",
+  "limits": "No backend change or capacity load; earlier functional evidence kept; source/preparation differences explicit; no causal savings from unmatched populations",
+  "precondition": "PUBLICATION_MATRIX_DEPLOY=1"
+}

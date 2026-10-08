@@ -1,7 +1,9 @@
 """Current MOD05 route matrix; diagnostic timings are separate from controls."""
 
 import hashlib
+import io
 import json
+import os
 import re
 import statistics
 import time
@@ -22,10 +24,7 @@ from scripts.synthetic_load_dataset import populate
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-@pytest.mark.parametrize("count", [100, 1000, 10000])
-@pytest.mark.parametrize("fixture", ["repeated", "diverse"])
-def test_current_stored_route_matrix(request, monkeypatch, record_property, count, fixture):
-    client = request.getfixturevalue("directory")
+def prepare_population(count, fixture):
     populate(count)
     if fixture == "diverse":
         rows = list(Revision.objects.filter(status="approved").order_by("pk"))
@@ -36,9 +35,21 @@ def test_current_stored_route_matrix(request, monkeypatch, record_property, coun
         Revision.objects.bulk_update(
             rows, ["description", "description_alternative", "telegram"], batch_size=250
         )
-    while publication_state.refresh(500):
-        pass
+    if os.environ.get("PUBLICATION_MATRIX_DEPLOY") == "1":
+        from django.core.management import call_command
+
+        call_command("refresh_publication_state", stdout=io.StringIO())
+    else:
+        while publication_state.refresh(500):
+            pass
     assert not publication_state.PublicationDirty.objects.exists()
+
+
+@pytest.mark.parametrize("count", [100, 1000, 10000])
+@pytest.mark.parametrize("fixture", ["repeated", "diverse"])
+def test_current_stored_route_matrix(request, monkeypatch, record_property, count, fixture):
+    client = request.getfixturevalue("directory")
+    prepare_population(count, fixture)
     paths = ["/es/", "/en/?q=photography"]
     reports = []
     for path in paths:

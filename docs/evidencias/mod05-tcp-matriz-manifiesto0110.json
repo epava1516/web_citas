@@ -1,0 +1,12 @@
+{
+  "requirement": "CurrentMOD05 comparable TCP controls100/1000/10000 repeated/diverse; route observed",
+  "selection": [
+    "tests/test_publication_state_tcp.py"
+  ],
+  "scenario": "Own4sync Gunicorn per cell, same prepare_population as Clientmatrix,6ESENroutes warm1 then5sequential controls each,30dynamic requests/cell; no profiler or capacity load",
+  "instrumentation": "Lightweight WSGI boundary wrapper plus route metadata middleware andoneappend per request; no productheaders/rulewrappers; overhead not_measured, same instrumentation each cell",
+  "condition": "6PASS, TCP HTML hashes match same-host DjangoClient, route state/unknown0 list/search, uniqueID monotonic WSGI correlation, ownserver/DB/media cleanup; no SLO verdict",
+  "reuse": "dataset method moved unchanged to shared prepare_population; previousClient matrix and37functional PASS reused",
+  "limits": "Sequential samples do not establish20RPS; no uploadCPU/resources; D from observed WSGI isolated is not saturated historical demand",
+  "equivalence_refinement": "Detail report_target is timestamp-signed; decode signature max_age7200 and exact listing/revision binding before canonicalization of that target only. All other HTML unchanged; raw tokens not collected. Baseline negative retained."
+}

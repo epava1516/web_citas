@@ -170,3 +170,7 @@ Reconciliación independiente2026-10-08: fortaleza encomponentes/evidencia reuti
 ## Actualización MOD05 y revisión local, 2026-10-08
 
 Hechos: R5/R6 del portátil corroborados desde originales; fallo de invalidación condicional reproducido y corregido con37PASS PG y upgrade real1PASS. Fortaleza: predicado nativo y fallback conservados. Debilidad: completitud inicial basada en fixture sin rama de reintroducción; cobertura condicional ahora añadida, no exhaustividad universal. Oportunidad: verificar mantenimiento operativo real y reutilizar evidencias vigentes. Amenaza: confundir PASS de otro host/fuente con aceptación funcional o capacidad VPS; faltan recursos/WSGI completos en esos ensayos. Próximo trabajo y aceptación solo en docs17; sin ahorro nuevo atribuido ni porcentaje.
+
+## Matriz actual con preparación de despliegue
+
+Hecho:12PASS Client/TCP,100/1000/10000 repetido/diverso, con comando oficial VACUUM/ANALYZE. Medias WSGI secuenciales10000 por familia (n10) dan D204,65/252,93ms;20D4,093/5,059worker-s/s, U ausente. No CPU, saturación ni DeltaD frente a históricos. Fortaleza: equivalencia y observación actual de ruta; debilidad: población secuencial pequeña/competencia y overhead no cuantificados. Oportunidad: un gate completo autorizado del entorno objetivo tras estos previos. Amenaza: extrapolar el PASS del portátil o medias secuenciales a capacidad VPS; cuatro workers carecen de margen demostrado según esta aritmética. No cambiar recursos ni escoger refactor sin coste/mecanismo causal demostrado. Cola/contrato/veredictos solo docs17.
