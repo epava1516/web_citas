@@ -1,6 +1,7 @@
 """Contractual arrival-rate HTTP load on isolated local Gunicorn/PostgreSQL."""
 
 import http.cookies
+import io
 import json
 import math
 import os
@@ -17,6 +18,7 @@ from uuid import uuid4
 
 import pytest
 from django.conf import settings as django_settings
+from django.core.management import call_command
 from django.db import connection
 from django.test import Client
 from test_discovery import directory  # noqa: F401
@@ -50,6 +52,11 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     request.getfixturevalue("directory")
     assert connection.vendor == "postgresql"
     dataset = populate(10000 if large else 10)
+    # MOD-05 deployment step (README/docs85): recompute stored publication state with the
+    # code under test before serving traffic; bulk fixtures leave every listing marked.
+    deploy_output = io.StringIO()
+    call_command("refresh_publication_state", stdout=deploy_output)
+    dataset["deployment_step"] = deploy_output.getvalue().strip()
     db = connection.settings_dict
     assert db["NAME"].startswith("test_promotion_gate_")
     environment = os.environ.copy()
