@@ -707,6 +707,59 @@ class ActionForm(forms.Form):
         label="Motivo comunicable de ampliación / Communicable extension grounds",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {
+            "operation": ("Operación", "Operation"),
+            "link_listing_id": ("ID del anuncio de referencia", "Referenced listing ID"),
+            "link_account_id": ("Cuenta propia: ID", "Own account: ID"),
+            "link_person_id": ("ID de perfil sin anuncio", "Profile ID without listing"),
+            "clarification_prompt": (
+                "Pregunta al solicitante (solo aclaración)",
+                "Requester question (clarification only)",
+            ),
+            "reason": ("Motivo privado", "Private reason"),
+            "additional_months": (
+                "Meses adicionales (solo ampliación)",
+                "Additional months (extension only)",
+            ),
+            "extension_reason": (
+                "Motivo comunicable de ampliación",
+                "Communicable extension grounds",
+            ),
+        }
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        choices = {
+            "operation": [
+                ("claim", ("Asignarme la solicitud", "Assign request to me")),
+                ("link", ("Vincular referencia al perfil", "Link reference to profile")),
+                ("clarify", ("Pedir aclaración", "Request clarification")),
+                (
+                    "withdraw",
+                    ("Retirar representación comprobada", "Withdraw checked representation"),
+                ),
+                ("extend", ("Ampliar objetivo de respuesta", "Extend response target")),
+                ("unassign", ("Devolver a cola (coordinación)", "Return to queue (coordination)")),
+            ],
+            "clarification_prompt": [
+                ("", ("---------", "---------")),
+                ("reference", ("Referencia", "Reference")),
+                ("scope", ("Alcance", "Scope")),
+                ("contact", ("Contacto propio opcional", "Optional own contact")),
+            ],
+            "extension_reason": [
+                ("", ("---------", "---------")),
+                ("complexity", ("Complejidad", "Complexity")),
+                ("volume", ("Número de solicitudes", "Number of requests")),
+            ],
+        }
+        for name, options in choices.items():
+            self.fields[name].choices = [
+                (value, translations[index]) for value, translations in options
+            ]
+
 
 @login_required
 @sensitive_post_parameters("reason")
@@ -722,7 +775,11 @@ def action(request, case_id):
         raise Http404
     if not permitted(request.user, case):
         return private(HttpResponse("Conflict of interest", status=403))
-    form = ActionForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
+    form = ActionForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
+    )
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
         try:

@@ -366,6 +366,48 @@ class ActionForm(forms.Form):
         label="Motivo privado / Private reason",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {
+            "operation": ("Operación", "Operation"),
+            "clarification_prompt": ("Pregunta pública minimizada", "Minimized public question"),
+            "decision_id": ("ID de decisión", "Decision ID"),
+            "decision_case_version": (
+                "Versión del expediente de decisión",
+                "Decision case version",
+            ),
+            "reason": ("Motivo privado", "Private reason"),
+        }
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        choices = {
+            "operation": [
+                ("claim", ("Asignarme la reclamación", "Assign request to me")),
+                ("unassign", ("Devolver a cola", "Return request to queue")),
+                ("link", ("Enlazar decisión", "Link decision")),
+                ("link_listing", ("Enlazar revisión de anuncio", "Link listing review")),
+                (
+                    "clarify",
+                    ("Solicitar aclaración de referencia", "Request reference clarification"),
+                ),
+                (
+                    "reassess",
+                    (
+                        "Reevaluar versión de la decisión enlazada",
+                        "Reassess linked decision version",
+                    ),
+                ),
+            ]
+        }
+        for name, options in choices.items():
+            self.fields[name].choices = [
+                (value, translations[index]) for value, translations in options
+            ]
+        self.fields["clarification_prompt"].choices = [("", "—")] + [
+            (key, translations[index]) for key, translations in self.PROMPTS.items()
+        ]
+
 
 @login_required
 @sensitive_post_parameters("reason")
@@ -382,7 +424,9 @@ def action(request, complaint_id):
     if not permitted(request.user, complaint):
         return private(HttpResponse("Conflict of interest", status=403))
     form = ActionForm(
-        request.POST or None, initial={"key": uuid.uuid4(), "version": complaint.version}
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": complaint.version},
     )
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():

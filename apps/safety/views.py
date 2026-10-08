@@ -445,6 +445,44 @@ class DecisionForm(forms.Form):
         label="Motivo privado fundamentado / Private reason with evidence",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {
+            "operation": ("Operación", "Operation"),
+            "link_listing_id": ("ID del anuncio referenciado", "Referenced listing ID"),
+            "reason": ("Motivo privado fundamentado", "Private reason with evidence"),
+        }
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        choices = {
+            "operation": [
+                ("claim", ("Asignarme el caso", "Assign case to me")),
+                ("unassign", ("Devolver caso a cola", "Return case to queue")),
+                (
+                    "uphold",
+                    (
+                        "Confirmar restricción (revisión independiente)",
+                        "Uphold restriction (independent review)",
+                    ),
+                ),
+                (
+                    "lift",
+                    (
+                        "Levantar restricción (revisión independiente)",
+                        "Lift restriction (independent review)",
+                    ),
+                ),
+                ("link", ("Enlazar referencia a anuncio", "Link reference to listing")),
+                ("restrict", ("Restringir publicación", "Restrict publication")),
+                ("dismiss", ("Desestimar denuncia", "Dismiss report")),
+            ]
+        }
+        for name, options in choices.items():
+            self.fields[name].choices = [
+                (value, translations[index]) for value, translations in options
+            ]
+
 
 @login_required
 @sensitive_post_parameters("reason")
@@ -470,6 +508,7 @@ def decision(request, report_id):
         return private(HttpResponse("Conflict of interest", status=403))
     form = DecisionForm(
         request.POST or None,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid.uuid4(),
             "version": report.version,
