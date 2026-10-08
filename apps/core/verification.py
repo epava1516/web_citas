@@ -63,12 +63,20 @@ def locked_manager_person(user, person_id):
 class PhoneForm(forms.Form):
     phone = forms.CharField(label="Teléfono / Phone", max_length=30)
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["phone"].label = "Phone" if language == "en" else "Teléfono"
+
     def clean_phone(self):
         return normalize_phone(self.cleaned_data["phone"])
 
 
 class CodeForm(forms.Form):
     code = forms.CharField(label="Código / Code", max_length=6, min_length=6)
+
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["code"].label = "Code" if language == "en" else "Código"
 
 
 class ConsentInviteForm(forms.Form):
@@ -329,7 +337,7 @@ def age(request, person_id):
 @require_http_methods(["GET", "POST"])
 def phone_start(request, person_id):
     person = get_object_or_404(person_queryset(request.user), pk=person_id)
-    form = PhoneForm(request.POST or None)
+    form = PhoneForm(request.POST or None, language=request.LANGUAGE_CODE)
     if settings.PRODUCTION:
         return HttpResponse("SMS provider not integrated", status=503)
     if request.method == "POST" and form.is_valid():
@@ -371,7 +379,7 @@ def phone_confirm(request, challenge_id):
     challenge = get_object_or_404(
         PhoneChallenge, pk=challenge_id, person__in=person_queryset(request.user)
     )
-    form = CodeForm(request.POST or None)
+    form = CodeForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST" and form.is_valid():
         try:
             with transaction.atomic():
