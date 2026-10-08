@@ -172,3 +172,29 @@ class LifecycleAction(models.Model):
     previous_status = models.CharField(max_length=12)
     resulting_status = models.CharField(max_length=12)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class PublicationState(models.Model):
+    """Stored result of the native eligibility rule, excluding expiry (checked in SQL).
+
+    Only trusted when not dirty, computed under the current rules version and for the
+    listing's current approved revision. Anything else is evaluated natively per request.
+    """
+
+    listing = models.OneToOneField(
+        Listing, primary_key=True, on_delete=models.CASCADE, related_name="publication_state"
+    )
+    eligible = models.BooleanField()
+    revision = models.ForeignKey(Revision, null=True, on_delete=models.SET_NULL, related_name="+")
+    rules_version = models.CharField(max_length=64)
+    check_age = models.BooleanField(default=False)
+    check_contact = models.BooleanField(default=False)
+    check_agency = models.BooleanField(default=False)
+    computed_at = models.DateTimeField()
+
+
+class PublicationDirty(models.Model):
+    """Listings whose stored state may be stale. Written by database triggers only."""
+
+    listing_id = models.UUIDField(primary_key=True)
+    generation = models.BigIntegerField()

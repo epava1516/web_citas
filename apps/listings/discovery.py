@@ -215,17 +215,23 @@ def results(request):
         form.add_error(None, "Página inválida / Invalid page")
         valid = False
     number = int(raw_page) if valid else 1
+    from apps.catalog.promotion_exposure import enabled as promotions_enabled
+
     from .projected_publication import projected_page
     from .public_validation import PublicationContext
+    from .publication_state import state_page
 
     request._publication_route = {"route": "fallback", "reason": "invalid_search"}
     try:
-        page = (
-            projected_page(candidates(form.cleaned_data), number,
-                           checked=bool(form.cleaned_data.get("checked")),
-                           observation=request._publication_route)
-            if valid else None
-        )
+        page = None
+        if valid and not promotions_enabled():
+            page = state_page(candidates(form.cleaned_data), number,
+                              checked=form.cleaned_data.get("checked") or (),
+                              observation=request._publication_route)
+        if valid and page is None:
+            page = projected_page(candidates(form.cleaned_data), number,
+                                  checked=bool(form.cleaned_data.get("checked")),
+                                  observation=request._publication_route)
         sponsorship = {}
         if page is None:
             context = PublicationContext(candidates(form.cleaned_data)) if valid else None
