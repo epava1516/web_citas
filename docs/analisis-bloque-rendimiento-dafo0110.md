@@ -200,3 +200,15 @@ Observación posterior de reposo sin carga: [host15,372s](evidencias/mod05-vps-h
 
 
 Perfil posterior deunknown1: [8eventos Client](evidencias/mod05-dirty-perfil-resultados0110.json),39→63queries/24→25Listinginstances. SQL normalizado deunknown conserva ranking/DISTINCT; candidato mínimo a comprobar es quitar orden innecesario solo en ese subconjunto deIDs, con orden final/elegibilidad/guard frescos intactos. No ahorroimplementado,CPU ni causaúnica; SQLlazy/context/rules solapan y overhead no cuantificado. ControlesTCPprevios reutilizados.
+
+
+## Actualización: orden intermediario retirado
+
+Hecho: equivalencia pertinente (31 PG) y 240 controles TCP completos; solo 4/8 comparaciones cumplen los criterios previos. Se retira el producto probado, conservando fuentes/muestras/planes y limpieza verificadas. [Informe](evidencias/mod05-orden-desconocidos-informe0110.md).
+
+- Fortaleza: comparación equilibrada, variante/ruta observada y decisión negativa respetada; no confundir planes favorables con mejora HTTP.
+- Debilidad: listado no reproduce efecto material; el coste HTTP residual no tiene atribución completa vigente. Los controles no miden CPU por operación ni upload.
+- Oportunidad: planes separados de búsqueda diversa mantienen coste en selección final; contrastar estructura y dependencias antes de otra hipótesis. No ahorro asignado.
+- Amenaza: aceptar medias agregadas que oculten pares adversos, imputar ficha a un cambio que no la toca o sumar mejoras de poblaciones distintas.
+
+No nueva carga ni aumento de recursos. Diagnóstico autorizado VALID/FAIL y gate VPS FAIL intactos; portátil PASS con su alcance, CR09 abierto y 900 bloqueados.

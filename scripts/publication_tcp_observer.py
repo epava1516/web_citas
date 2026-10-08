@@ -43,6 +43,7 @@ def post_worker_init(worker):
                     "entry": entry,
                     "exit": end,
                     "route": environ.get("_publication_route_observed"),
+                    "order_variant": environ.get("_publication_order_variant"),
                 }
                 os.write(fd, (json.dumps(record) + "\n").encode())
 

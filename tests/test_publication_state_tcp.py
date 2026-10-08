@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import signal
 import socket
 import statistics
@@ -11,12 +12,13 @@ import subprocess
 import sys
 import time
 import urllib.request
+from pathlib import Path
 from urllib.parse import quote, unquote
 
 import pytest
 from django.conf import settings
 from django.core import signing
-from django.db import connection
+from django.db import connection, transaction
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 from test_publication_state_matrix import prepare_population
@@ -30,6 +32,7 @@ pytestmark = pytest.mark.django_db(transaction=True)
 @pytest.mark.parametrize("count", [100, 1000, 10000])
 @pytest.mark.parametrize("fixture", ["repeated", "diverse"])
 def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
+    order_contrast = os.environ.get("PUBLICATION_TCP_ORDER_CONTRAST") == "1"
     client = request.getfixturevalue("directory")
     prepare_population(count, fixture)
     assert connection.settings_dict["NAME"].startswith("test_promotion_gate_")
@@ -52,6 +55,12 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
         "PUBLICATION_STATE_READ_REPAIR = False\n"
         'MIDDLEWARE = MIDDLEWARE + ["scripts.publication_tcp_observer.RouteMiddleware"]\n'
     )
+    if order_contrast:
+        reference = settings.BASE_DIR / "docs/evidencias/mod05-orden-reference0110.py"
+        with (tmp_path / "tcp_runtime_settings.py").open("a") as runtime:
+            runtime.write(f"PUBLICATION_ORDER_REFERENCE = {str(reference)!r}\n")
+            runtime.write(f"PUBLICATION_ORDER_REFERENCE_SHA256 = {hashlib.sha256(reference.read_bytes()).hexdigest()!r}\n")
+            runtime.write('MIDDLEWARE = MIDDLEWARE + ["scripts.publication_order_benchmark.OrderVariantMiddleware"]\n')
     env = os.environ.copy()
     env.update(
         POSTGRES_DB=connection.settings_dict["NAME"],
@@ -126,8 +135,64 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                 )
         contrast = os.environ.get("PUBLICATION_TCP_DIRTY_CONTRAST") == "1"
         page_ids = [row.pk for row in client.get("/es/", HTTP_HOST=f"127.0.0.1:{port}").context["page"].object_list]
-        target = Listing.objects.filter(status="published", person__agency__isnull=False).exclude(pk__in=page_ids).first() if contrast else None
-        phases = ["clean", "dirty", "dirty", "clean"] if contrast else ["clean"]
+        target = Listing.objects.filter(status="published", person__agency__isnull=False).exclude(pk__in=page_ids).first() if contrast or order_contrast else None
+        phases = ["before", "after", "after", "before"] if order_contrast else ["clean", "dirty", "dirty", "clean"] if contrast else ["clean"]
+        if order_contrast:
+            Revision.objects.bulk_create([Revision(listing=target, manager_version=target.person.manager_version)])
+            assert set(PublicationDirty.objects.values_list("listing_id", flat=True)) == {target.pk}
+            # Plans are collected separately; their timings are not HTTP controls.
+            reference_namespace = vars(publication_state).copy()
+            exec(compile(reference.read_bytes(), str(reference), "exec"), reference_namespace)
+            candidate_function = publication_state._state_page
+            plans = []
+            for variant, function in [("before", reference_namespace["_ordered_reference"]), ("after", candidate_function)]:
+                captured = []
+                def capture(execute, query, params, many, context):
+                    if not query.lstrip().upper().startswith("SELECT") or " FROM " not in query.upper():
+                        return execute(query, params, many, context)
+                    with connection.cursor() as cursor:
+                        cursor.execute("SHOW jit")
+                        jit = cursor.fetchone()[0]
+                    begin = time.perf_counter()
+                    try:
+                        return execute(query, params, many, context)
+                    finally:
+                        captured.append((time.perf_counter()-begin, query, params, jit))
+                publication_state._state_page = function
+                try:
+                    with connection.execute_wrapper(capture):
+                        response = client.get("/en/?q=synthetic", HTTP_HOST=f"127.0.0.1:{port}")
+                    assert response.status_code == 200
+                    assert canonical_hash(response.content, "/en/?q=synthetic") == expected["/en/?q=synthetic"]
+                    assert response.wsgi_request._publication_route["native_unknown"] == 1
+                finally:
+                    publication_state._state_page = candidate_function
+                for driver_time, query, params, jit in sorted(captured, reverse=True, key=lambda item:item[0])[:3]:
+                    with transaction.atomic():
+                        with connection.cursor() as cursor:
+                            cursor.execute("SET TRANSACTION READ ONLY")
+                            cursor.execute("SET LOCAL statement_timeout='65s'")
+                            cursor.execute("SET LOCAL jit=" + ("on" if jit == "on" else "off"))
+                            cursor.execute("EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) " + query, params)
+                            plan = cursor.fetchone()[0]
+                    def redact(value):
+                        if isinstance(value, dict):
+                            return {k:redact(v) for k,v in value.items()}
+                        if isinstance(value, list):
+                            return [redact(v) for v in value]
+                        if isinstance(value, str):
+                            return re.sub(r"'(?:''|[^'])*'", "'[redacted]'", value)
+                        return value
+                    normalized = re.sub(r"'(?:''|[^'])*'", "'[redacted]'", query)
+                    plans.append({"variant":variant,"normalized":normalized,"driver_execute_seconds":driver_time,"jit":jit,"plan":redact(plan)})
+            record_property("order_plans", json.dumps(plans))
+
+        if order_contrast:
+            for phase in ["before", "after"]:
+                for path in paths:
+                    req = urllib.request.Request(origin + path, headers={"X-Order-Variant":phase})
+                    with urllib.request.urlopen(req, timeout=65) as warm:
+                        assert warm.status == 200 and canonical_hash(warm.read(), path) == expected[path]
         for block, phase in enumerate(phases):
             if contrast:
                 if phase == "dirty":
@@ -141,7 +206,7 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                 for index, path in enumerate(paths):
                     rid = f"d-{block * 30 + repeat * 6 + index}"
                     emission = time.monotonic()
-                    req = urllib.request.Request(origin + path, headers={"X-Benchmark-ID": rid})
+                    req = urllib.request.Request(origin + path, headers={"X-Benchmark-ID": rid, "X-Order-Variant": phase if order_contrast else "after"})
                     with urllib.request.urlopen(req, timeout=65) as r:
                         body = r.read()
                         status = r.status
@@ -166,8 +231,10 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
         for sample in samples:
             event = byid[sample["id"]]
             assert sample["emission"] <= event["entry"] <= event["exit"]
+            if order_contrast:
+                assert event["order_variant"] == sample["phase"]
             if "/listing/" not in sample["path"]:
-                assert event["route"]["route"] == "state" and event["route"]["native_unknown"] == (1 if sample["phase"] == "dirty" else 0)
+                assert event["route"]["route"] == "state" and event["route"]["native_unknown"] == (1 if order_contrast or sample["phase"] == "dirty" else 0)
         report = []
         for phase, path in [(phase, path) for phase in sorted(set(phases)) for path in paths]:
             rows = [r for r in samples if r["path"] == path and r["phase"] == phase]
@@ -196,6 +263,7 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                     "wsgi_events": events,
                     "workers": 4,
                     "dirty_contrast": contrast,
+                    "order_contrast": order_contrast,
                     "blocks": phases,
                 }
             ),
@@ -212,3 +280,9 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
             except subprocess.TimeoutExpired:
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait(timeout=5)
+        if order_contrast:
+            artifact_folder = Path(request.config.getoption("--gate-timings-output")).parent / f"order-tcp-{fixture}-{count}"
+            artifact_folder.mkdir(exist_ok=True)
+            for log_file in [tmp_path / "gunicorn.log", *tmp_path.glob("worker-*.jsonl")]:
+                if log_file.exists():
+                    shutil.copy2(log_file, artifact_folder / log_file.name)

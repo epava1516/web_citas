@@ -1,0 +1,18 @@
+{
+  "hypothesis": "Ranked ordering in unknown-ID enumeration and unknown native-context hydration is unnecessary work; final population query retains ordering",
+  "change": "Only clear order_by in those two intermediate querysets; preserve where, distinct, limits, checks, native guard, final population count/page/order",
+  "selection": [
+    "tests/test_publication_state.py",
+    "tests/test_publication_state_conditional.py"
+  ],
+  "functional_exit": "PG native equivalence across filters/pages/checked/production, triggers/races/revocation and conditional dependencies; source/artifacts/cleanup independently reviewed",
+  "effect_prefixed": {
+    "scope": "Subsequent paired TCP A/B original ordered reference vs candidate, repeated/diverse10000, unknown1",
+    "http_mean_improvement_min_ms": 20,
+    "http_mean_improvement_min_fraction": 0.05,
+    "requirement": "Both listing/search families and both balanced pair comparisons in both fixtures; functional equality and route unchanged.20ms is material versus measured73-186ms extra cost,5percent guards proportional effect; not SLO",
+    "decision": "Keep only if all prefixed criteria met; otherwise withdraw; no repeated tiny variants"
+  },
+  "plans": "Separate EXPLAIN(ANALYZE,BUFFERS) on dominant own synthetic reads before HTTP acceptance, distinguish planning/execution vs cursor.execute",
+  "no_load": "No30/60/900 or worker/resource changes"
+}

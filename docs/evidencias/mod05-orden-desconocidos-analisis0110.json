@@ -1,0 +1,320 @@
+{
+  "cases": [
+    {
+      "fixture": "repeated",
+      "families": {
+        "listing": {
+          "population_per_variant": 20,
+          "before_http_mean_seconds": 0.35490292974282056,
+          "before_wsgi_mean_seconds": 0.3534285175148398,
+          "after_http_mean_seconds": 0.3525101169478148,
+          "after_wsgi_mean_seconds": 0.35145220251288267,
+          "observed_wsgi_delta_seconds": 0.0019763150019571074
+        },
+        "search": {
+          "population_per_variant": 20,
+          "before_http_mean_seconds": 0.39246614994481205,
+          "before_wsgi_mean_seconds": 0.39113543755374847,
+          "after_http_mean_seconds": 0.3773123239865527,
+          "after_wsgi_mean_seconds": 0.3762263462645933,
+          "observed_wsgi_delta_seconds": 0.014909091289155185
+        },
+        "detail": {
+          "population_per_variant": 20,
+          "before_http_mean_seconds": 0.10101118986494839,
+          "before_wsgi_mean_seconds": 0.09980028413701802,
+          "after_http_mean_seconds": 0.10925831869244576,
+          "after_wsgi_mean_seconds": 0.1073414346203208,
+          "observed_wsgi_delta_seconds": -0.007541150483302769
+        }
+      },
+      "pairs": [
+        {
+          "before_block": 0,
+          "after_block": 1,
+          "family": "listing",
+          "population_per_cell": 10,
+          "before_mean_seconds": 0.33539169379509987,
+          "after_mean_seconds": 0.3482938315719366,
+          "improvement_seconds": -0.012902137776836742,
+          "improvement_fraction": -0.03846886495859083,
+          "criterion_met": false
+        },
+        {
+          "before_block": 0,
+          "after_block": 1,
+          "family": "search",
+          "population_per_cell": 10,
+          "before_mean_seconds": 0.35958471782505513,
+          "after_mean_seconds": 0.3722711234353483,
+          "improvement_seconds": -0.012686405610293161,
+          "improvement_fraction": -0.03528071406100562,
+          "criterion_met": false
+        },
+        {
+          "before_block": 3,
+          "after_block": 2,
+          "family": "listing",
+          "population_per_cell": 10,
+          "before_mean_seconds": 0.37441416569054126,
+          "after_mean_seconds": 0.356726402323693,
+          "improvement_seconds": 0.01768776336684824,
+          "improvement_fraction": 0.047241170307288624,
+          "criterion_met": false
+        },
+        {
+          "before_block": 3,
+          "after_block": 2,
+          "family": "search",
+          "population_per_cell": 10,
+          "before_mean_seconds": 0.425347582064569,
+          "after_mean_seconds": 0.38235352453775706,
+          "improvement_seconds": 0.04299405752681196,
+          "improvement_fraction": 0.10107982116208511,
+          "criterion_met": true
+        }
+      ],
+      "criteria_met": false,
+      "observed_delta_D_seconds": 0.003114751935936508,
+      "observed_20delta_D_worker_seconds_per_second": 0.062295038718730156,
+      "plans": [
+        {
+          "variant": "before",
+          "normalized": "SELECT DISTINCT \"listings_listing\".\"id\" AS \"pk\", ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))), \"listings_listing\".\"published_at\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND (NOT EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 49",
+          "driver_execute_seconds": 0.03076482517644763,
+          "jit": "on",
+          "planning_ms": 0.637,
+          "execution_ms": 31.716,
+          "root_node": "Limit",
+          "root_actual_rows": 1,
+          "shared_hit_blocks": 1391,
+          "shared_read_blocks": 0
+        },
+        {
+          "variant": "before",
+          "normalized": "SELECT \"listings_listing\".\"id\" AS \"pk\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 24",
+          "driver_execute_seconds": 0.02997273113578558,
+          "jit": "on",
+          "planning_ms": 0.515,
+          "execution_ms": 36.29,
+          "root_node": "Limit",
+          "root_actual_rows": 24,
+          "shared_hit_blocks": 1391,
+          "shared_read_blocks": 0
+        },
+        {
+          "variant": "before",
+          "normalized": "SELECT COUNT(*) AS \"__count\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s)))",
+          "driver_execute_seconds": 0.021163931116461754,
+          "jit": "on",
+          "planning_ms": 0.577,
+          "execution_ms": 24.815,
+          "root_node": "Aggregate",
+          "root_actual_rows": 1,
+          "shared_hit_blocks": 1391,
+          "shared_read_blocks": 0
+        },
+        {
+          "variant": "after",
+          "normalized": "SELECT \"listings_listing\".\"id\" AS \"pk\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 24",
+          "driver_execute_seconds": 0.04200770705938339,
+          "jit": "on",
+          "planning_ms": 0.451,
+          "execution_ms": 29.185,
+          "root_node": "Limit",
+          "root_actual_rows": 24,
+          "shared_hit_blocks": 1391,
+          "shared_read_blocks": 0
+        },
+        {
+          "variant": "after",
+          "normalized": "SELECT COUNT(*) AS \"__count\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s)))",
+          "driver_execute_seconds": 0.024378225672990084,
+          "jit": "on",
+          "planning_ms": 0.449,
+          "execution_ms": 20.999,
+          "root_node": "Aggregate",
+          "root_actual_rows": 1,
+          "shared_hit_blocks": 1391,
+          "shared_read_blocks": 0
+        },
+        {
+          "variant": "after",
+          "normalized": "SELECT \"listings_listing\".\"lifecycle_version\", \"listings_listing\".\"id\", \"listings_listing\".\"person_id\", \"listings_listing\".\"status\", \"listings_listing\".\"approved_revision_id\", \"listings_listing\".\"published_at\", \"listings_listing\".\"expires_at\", \"listings_listing\".\"available_until\", \"listings_listing\".\"created_at\", EXISTS(SELECT %s AS \"a\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE (EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT 1) AND V0.\"id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT 1) AS \"_pv_history\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_photo\" U0 INNER JOIN \"safety_rightsrectificationphotoupload\" U1 ON (U0.\"id\" = U1.\"photo_id\") WHERE (U1.\"id\" IS NOT NULL AND U0.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT 1) AS \"_pv_rectification_upload\", EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsphotoreintroduction\" U0 INNER JOIN \"mediafiles_photo\" U1 ON (U0.\"photo_id\" = U1.\"id\") WHERE U1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") LIMIT 1) AS \"_pv_reintroduction\", EXISTS(SELECT %s AS \"a\" FROM \"safety_privacypublicationhold\" U0 WHERE (U0.\"active\" AND U0.\"person_id\" = (\"listings_listing\".\"person_id\")) LIMIT 1) AS \"_pv_hold\", EXISTS(SELECT %s AS \"a\" FROM \"safety_restriction\" U0 WHERE (U0.\"active\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\")) LIMIT 1) AS \"_pv_restriction\", EXISTS(SELECT %s AS \"a\" FROM \"core_representationaction\" U0 INNER JOIN \"core_legaldocument\" U1 ON (U0.\"document_id\" = U1.\"id\") INNER JOIN \"core_person\" U2 ON (U0.\"person_id\" = U2.\"id\") WHERE (U0.\"action\" = %s AND U1.\"slug\" = %s AND U1.\"version\" = %s AND U0.\"manager_id\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN (\"core_person\".\"agency_id\")::varchar ELSE (\"core_person\".\"individual_id\")::varchar END) AND U0.\"manager_kind\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN %s ELSE %s END) AND U0.\"manager_version\" = (\"core_person\".\"manager_version\") AND U0.\"person_id\" = (\"listings_listing\".\"person_id\") AND U0.\"subject_id\" = (\"core_person\".\"subject_id\")) LIMIT 1) AS \"_pv_grant\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_match\" W0 INNER JOIN \"mediafiles_photo\" W1 ON (W0.\"photo_id\" = W1.\"id\") INNER JOIN \"listings_revision\" W2 ON (W1.\"revision_id\" = W2.\"id\") INNER JOIN \"mediafiles_photo\" W3 ON (W0.\"candidate_id\" = W3.\"id\") INNER JOIN \"listings_revision\" W4 ON (W3.\"revision_id\" = W4.\"id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W5 ON (W1.\"id\" = W5.\"photo_id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W6 ON (W3.\"id\" = W6.\"photo_id\") WHERE ((W1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") OR W3.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) AND (W0.\"resolved_at\" IS NULL OR W0.\"decision\" = %s) AND W3.\"removed_at\" IS NULL AND W0.\"decision\" = %s AND W1.\"removed_at\" IS NULL AND NOT (W1.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT 1))) AND NOT (W3.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT 1))) AND NOT (W2.\"status\" = %s) AND NOT (W4.\"status\" = %s) AND NOT (W5.\"id\" IS NOT NULL) AND NOT (W6.\"id\" IS NOT NULL)) LIMIT 1) AS \"_pv_conflict\", (SELECT U0.\"status\" AS \"status\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT 1) AS \"_pv_check_status\", (SELECT U0.\"manager_version\" AS \"manager_version\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT 1) AS \"_pv_check_manager\", (SELECT U0.\"subject_id\" AS \"subject_id\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT 1) AS \"_pv_check_subject\", \"core_person\".\"publication_erased_at\", \"core_person\".\"rights_version\", \"core_person\".\"id\", \"core_person\".\"alias\", \"core_person\".\"individual_id\", \"core_person\".\"agency_id\", \"core_person\".\"assigned_editor_id\", \"core_person\".\"subject_id\", \"core_person\".\"manager_version\", \"core_person\".\"manager_review_status\", \"core_person\".\"age_status\", \"core_person\".\"consent_version\", \"core_person\".\"consent_revoked_at\", \"core_person\".\"phone_claim_id\", \"core_person\".\"created_at\", \"core_phoneclaim\".\"id\", \"core_phoneclaim\".\"verification_procedure\", \"core_phoneclaim\".\"phone\", \"core_phoneclaim\".\"individual_id\", \"core_phoneclaim\".\"agency_id\", \"core_phoneclaim\".\"verified_at\", \"listings_revision\".\"id\", \"listings_revision\".\"listing_id\", \"listings_revision\".\"source_revision_id\", \"listings_revision\".\"manager_version\", \"listings_revision\".\"status\", \"listings_revision\".\"step\", \"listings_revision\".\"edit_version\", \"listings_revision\".\"title\", \"listings_revision\".\"description\", \"listings_revision\".\"content_language\", \"listings_revision\".\"description_alternative\", \"listings_revision\".\"search_document\", \"listings_revision\".\"profile_type\", \"listings_revision\".\"municipality_id\", \"listings_revision\".\"postal_code_id\", \"listings_revision\".\"zone_id\", \"listings_revision\".\"spoken_languages\", \"listings_revision\".\"days\", \"listings_revision\".\"time_slot\", \"listings_revision\".\"reception\", \"listings_revision\".\"travel\", \"listings_revision\".\"phone\", \"listings_revision\".\"whatsapp\", \"listings_revision\".\"telegram\", \"listings_revision\".\"contact_exposure_accepted\", \"listings_revision\".\"publisher_acceptance_id\", \"listings_revision\".\"created_at\", \"listings_revision\".\"updated_at\" FROM \"listings_listing\" LEFT OUTER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") INNER JOIN \"core_person\" ON (\"listings_listing\".\"person_id\" = \"core_person\".\"id\") LEFT OUTER JOIN \"core_phoneclaim\" ON (\"core_person\".\"phone_claim_id\" = \"core_phoneclaim\".\"id\") WHERE \"listings_listing\".\"id\" IN (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+          "driver_execute_seconds": 0.01930283708497882,
+          "jit": "off",
+          "planning_ms": 6.32,
+          "execution_ms": 2.948,
+          "root_node": "Nested Loop",
+          "root_actual_rows": 24,
+          "shared_hit_blocks": 746,
+          "shared_read_blocks": 0
+        }
+      ],
+      "wsgi_exit_after_client_end": {
+        "count": 8,
+        "max_seconds": 0.0009078639559447765
+      }
+    },
+    {
+      "fixture": "diverse",
+      "families": {
+        "listing": {
+          "population_per_variant": 20,
+          "before_http_mean_seconds": 0.36787237545941026,
+          "before_wsgi_mean_seconds": 0.36651915409602226,
+          "after_http_mean_seconds": 0.36984507890883833,
+          "after_wsgi_mean_seconds": 0.3683997784741223,
+          "observed_wsgi_delta_seconds": -0.0018806243781000487
+        },
+        "search": {
+          "population_per_variant": 20,
+          "before_http_mean_seconds": 0.4733659041346982,
+          "before_wsgi_mean_seconds": 0.47200671266764405,
+          "after_http_mean_seconds": 0.42348470685537903,
+          "after_wsgi_mean_seconds": 0.42209776262752713,
+          "observed_wsgi_delta_seconds": 0.04990895004011692
+        },
+        "detail": {
+          "population_per_variant": 20,
+          "before_http_mean_seconds": 0.11538866595365108,
+          "before_wsgi_mean_seconds": 0.11403666590340436,
+          "after_http_mean_seconds": 0.10646833304781467,
+          "after_wsgi_mean_seconds": 0.10505119855515659,
+          "observed_wsgi_delta_seconds": 0.008985467348247775
+        }
+      },
+      "pairs": [
+        {
+          "before_block": 0,
+          "after_block": 1,
+          "family": "listing",
+          "population_per_cell": 10,
+          "before_mean_seconds": 0.3499116046354175,
+          "after_mean_seconds": 0.3907009341754019,
+          "improvement_seconds": -0.04078932953998443,
+          "improvement_fraction": -0.11657038234694718,
+          "criterion_met": false
+        },
+        {
+          "before_block": 0,
+          "after_block": 1,
+          "family": "search",
+          "population_per_cell": 10,
+          "before_mean_seconds": 0.4407798672560602,
+          "after_mean_seconds": 0.4181854675058275,
+          "improvement_seconds": 0.022594399750232697,
+          "improvement_fraction": 0.05126005389240484,
+          "criterion_met": true
+        },
+        {
+          "before_block": 3,
+          "after_block": 2,
+          "family": "listing",
+          "population_per_cell": 10,
+          "before_mean_seconds": 0.38583314628340304,
+          "after_mean_seconds": 0.34898922364227475,
+          "improvement_seconds": 0.03684392264112829,
+          "improvement_fraction": 0.09549185443509202,
+          "criterion_met": true
+        },
+        {
+          "before_block": 3,
+          "after_block": 2,
+          "family": "search",
+          "population_per_cell": 10,
+          "before_mean_seconds": 0.5059519410133362,
+          "after_mean_seconds": 0.42878394620493054,
+          "improvement_seconds": 0.07716799480840564,
+          "improvement_fraction": 0.1525204047124539,
+          "criterion_met": true
+        }
+      ],
+      "criteria_met": false,
+      "observed_delta_D_seconds": 0.019004597670088216,
+      "observed_20delta_D_worker_seconds_per_second": 0.3800919534017643,
+      "plans": [
+        {
+          "variant": "before",
+          "normalized": "SELECT DISTINCT \"listings_listing\".\"id\" AS \"pk\", ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))), \"listings_listing\".\"published_at\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND (NOT EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 49",
+          "driver_execute_seconds": 0.07662065187469125,
+          "jit": "on",
+          "planning_ms": 1.241,
+          "execution_ms": 96.673,
+          "root_node": "Limit",
+          "root_actual_rows": 1,
+          "shared_hit_blocks": 61785,
+          "shared_read_blocks": 0
+        },
+        {
+          "variant": "before",
+          "normalized": "SELECT \"listings_listing\".\"id\" AS \"pk\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 24",
+          "driver_execute_seconds": 0.06352704204618931,
+          "jit": "on",
+          "planning_ms": 0.888,
+          "execution_ms": 85.18,
+          "root_node": "Limit",
+          "root_actual_rows": 24,
+          "shared_hit_blocks": 61776,
+          "shared_read_blocks": 0
+        },
+        {
+          "variant": "before",
+          "normalized": "SELECT COUNT(*) AS \"__count\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s)))",
+          "driver_execute_seconds": 0.03708971384912729,
+          "jit": "on",
+          "planning_ms": 0.565,
+          "execution_ms": 22.863,
+          "root_node": "Aggregate",
+          "root_actual_rows": 1,
+          "shared_hit_blocks": 2224,
+          "shared_read_blocks": 0
+        },
+        {
+          "variant": "after",
+          "normalized": "SELECT \"listings_listing\".\"id\" AS \"pk\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 24",
+          "driver_execute_seconds": 0.09122597426176071,
+          "jit": "on",
+          "planning_ms": 1.346,
+          "execution_ms": 95.699,
+          "root_node": "Limit",
+          "root_actual_rows": 24,
+          "shared_hit_blocks": 61776,
+          "shared_read_blocks": 0
+        },
+        {
+          "variant": "after",
+          "normalized": "SELECT COUNT(*) AS \"__count\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s)))",
+          "driver_execute_seconds": 0.038976365234702826,
+          "jit": "on",
+          "planning_ms": 0.544,
+          "execution_ms": 20.325,
+          "root_node": "Aggregate",
+          "root_actual_rows": 1,
+          "shared_hit_blocks": 2224,
+          "shared_read_blocks": 0
+        },
+        {
+          "variant": "after",
+          "normalized": "SELECT DISTINCT \"listings_listing\".\"id\" AS \"pk\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND (NOT EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) OR \"listings_listing\".\"id\" IN (%s))) LIMIT 49",
+          "driver_execute_seconds": 0.031713043339550495,
+          "jit": "on",
+          "planning_ms": 0.552,
+          "execution_ms": 20.417,
+          "root_node": "Limit",
+          "root_actual_rows": 1,
+          "shared_hit_blocks": 14051,
+          "shared_read_blocks": 0
+        }
+      ],
+      "wsgi_exit_after_client_end": {
+        "count": 0,
+        "max_seconds": 0
+      }
+    }
+  ],
+  "effect_pass": false,
+  "decision": "withdraw",
+  "functional": "31 PG PASS; 2 TCP fixture cases PASS, equivalent response/route; not full N3",
+  "scope": "240 sequential TCP controls, 4 synchronous workers, repeated/diverse 10000. No saturation/load or capacity accreditation. Native unknown1 intentionally preserved. Means and explicit populations; balanced pairs prefixed20ms AND5percent in all8 cells. Controls have common route/WSGI adapter, no intrusive profiler; overhead not_measured. Separate Client SQL probes and EXPLAIN warm caches before TCP; current observed JIT reused. Driver execute includes server/wait/transfer and is not CPU/planning. Plans have genuine independent planning/execution. No params persisted. Details fluctuation included in descriptive DeltaD, not assigned causally to intervention; uploads and DeltaU not_measured."
+}
