@@ -1,0 +1,32 @@
+{
+  "selection": [
+    "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]"
+  ],
+  "authorization": "User explicitly authorizes only full 60-second VPS gate; no 900s",
+  "scenario": {
+    "workers": 4,
+    "listings": 10000,
+    "rps": 20,
+    "seconds": 60,
+    "dynamic": 1200,
+    "uploads": 1,
+    "mix": "ES/EN one third list, search, detail"
+  },
+  "policy": {
+    "timeout_seconds": 65,
+    "drain_max_seconds": 70,
+    "not_emitted": 0,
+    "generator_delay_ms": {
+      "p95": 10,
+      "p99": 25,
+      "max": 100
+    },
+    "pending_window_max": 20,
+    "pending_final": 0,
+    "p95_strict_below_seconds": 0.8,
+    "errors_strict_below_ratio": 0.01,
+    "upload_status": 302
+  },
+  "instrumentation": "Existing client ledger/access logs; intrusive worker profiler disabled, WSGI per-PID/CPU/resources not_measured",
+  "exit_condition": "One terminal gate; independent artifact/source/accounting/cleanup review; no automatic repeat or long load"
+}

@@ -1,0 +1,60 @@
+{
+  "validity": "VALID",
+  "gate": "FAIL",
+  "scheduled": 1200,
+  "emitted": 1200,
+  "not_emitted": 0,
+  "final_success": 1200,
+  "final_errors": 0,
+  "final_timeouts": 0,
+  "final_pending": 0,
+  "completed_during_emission": 948,
+  "pending_at_window": 252,
+  "throughput_completed_per_second": 15.8,
+  "family_populations": {
+    "listing": 400,
+    "search": 400,
+    "detail": 400
+  },
+  "completed_during_emission_by_family": {
+    "listing": 316,
+    "search": 316,
+    "detail": 316
+  },
+  "http_latency_seconds": {
+    "mean": 8.352232610738914,
+    "p95": 15.440636110957712,
+    "p99": 16.004712919238955,
+    "max": 16.20486640324816
+  },
+  "generator_delay_ms": {
+    "p95": 2.232800051572781,
+    "p99": 3.6790773272514787,
+    "max": 8.928341232241621
+  },
+  "drain_seconds": 16.08102280134335,
+  "upload": [
+    {
+      "id": "u-0",
+      "path": "/es/draft/ad15be4e-24dd-49fa-b634-3b19108fe724/photos/upload/",
+      "scheduled_at": 0,
+      "emitted_at": 0.0007560811936855316,
+      "ended_at": 5.7585801794193685,
+      "expected": 302,
+      "status": 302,
+      "bytes": 0,
+      "unexpected": false,
+      "timeout": false
+    }
+  ],
+  "not_measured": [
+    "current WSGI entry/exit per PID",
+    "pre-WSGI delay",
+    "D under this load",
+    "W under this load",
+    "application or PostgreSQL CPU",
+    "resource contention",
+    "independent access-log correlation: original log removed with owned pytest temporary files"
+  ],
+  "decision": "No automatic repeat, resource increase or 900s. Current VPS gate fails; laptop PASS preserved in its distinct environment. Resource contention and service-vs-pre-WSGI decomposition remain unresolved."
+}

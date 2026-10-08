@@ -179,3 +179,8 @@ Hecho:12PASS Client/TCP,100/1000/10000 repetido/diverso, con comando oficial VAC
 ### Cobertura de derechos de MOD05, comprobación posterior
 
 Hecho: el censo explícito omitía PublicationState ligado al sujeto; reproducción PostgreSQL negativa conservada. Corrección mínima incluye state y dirty con alcance por anuncios propios, heredada por el censo de acceso. Siete casos PostgreSQL/Chromium correctos y limpieza independiente revisada: [evidencia](evidencias/mod05-inventario-final-revisada0110.json). Refuerza la cobertura funcional, sin medir ahorro ni capacidad o acreditar conservación/borrado jurídico. El gate de capacidad y las dependencias externas siguen abiertos.
+
+
+### Gate VPS actual autorizado de 60 segundos
+
+Hecho: VALID/FAIL revisado desde 1200 muestras únicas, 400/familia. 948 completadas durante emisión, 252 pendientes; p95cliente15,441s, 1200éxitos finales sin errores. Generador conforme y upload302. Evidencia: [recálculo](evidencias/mod05-vps-gate60-analisis0110.json). Debilidad: cuatro workers no acreditan el gate en este entorno; los PASS originales del portátil permanecen válidos para su alcance. Incertidumbre: CPU, competencia, servicio medio WSGI y demora previa no medidos en este gate; no atribuir causalidad desde latencia ni p95Gunicorn. Decisión:900s bloqueados; siguiente diagnóstico debe discriminar recursos y servicio/espera antes de elegir cambio, sin repetir carga por rutina ni adoptar seis workers.

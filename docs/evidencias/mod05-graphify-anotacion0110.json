@@ -28,5 +28,20 @@
       "VPS capacity",
       "legal retention or erasure acceptance"
     ]
+  },
+  "current_vps_gate": {
+    "evidence": "docs/evidencias/mod05-vps-gate60-analisis0110.json",
+    "verdict": "VALID / FAIL",
+    "facts": [
+      "1200 final success, zero errors",
+      "948 completed during arrivals; 252 pending at close",
+      "client p95 15.440636 seconds"
+    ],
+    "unknown": [
+      "CPU/resource contention",
+      "WSGI mean and pre-WSGI delay"
+    ],
+    "decision": "No 900s; laptop PASS remains environment-specific",
+    "topology": "historical; original evidence authoritative"
   }
 }
