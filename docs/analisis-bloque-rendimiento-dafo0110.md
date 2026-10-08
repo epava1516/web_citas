@@ -187,3 +187,8 @@ Hecho: VALID/FAIL revisado desde 1200 muestras únicas, 400/familia. 948 complet
 
 
 Observación posterior de reposo sin carga: [host15,372s](evidencias/mod05-vps-host-reposo0110.json),2,397CPU host y1,034CPU dockerd,0swap-in/out adicional. Competencia actual observada, sin prueba de causalidad del gate anterior. PSI y cuotas relevantes ausentes; overhead0,710CPU-s del recolector incluido. No justifica retirar servicios ajenos, aumentar workers ni otro ensayo automático.
+
+
+### Diagnóstico MOD05 concurrente revisado
+
+[Observaciones](evidencias/mod05-recursos-informe0110.md): W4,878worker-s/s,4workers>99,48%ocupados,preWSGImean3,937s; CPUworkers1,966cores noequivale aocupación. Ruta state sirve400listado/búsqueda,346con1desconocido; coste específico noaislado. Amenaza: competencia real/sharedPG y overheadrecolector limitan causalidad; noadoptar6nioptimizar indefinidamente porprohibición derecursos. Oportunidad: evaluación controlada futura deconcurrencia operfilfocalizado residual conhipótesis medible, sinignorar guard. Fortalezas:600correlaciones/PID,ledgerconforme,logs/limpieza conservados. FAILmedido,900bloqueados yCR09abierto.

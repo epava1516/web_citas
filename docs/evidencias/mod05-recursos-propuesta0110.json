@@ -1,5 +1,5 @@
 {
-  "status": "prepared_not_executed_requires_explicit_load_scope",
+  "status": "authorized_single_execution",
   "uncertainty": "Current loaded WSGI/CPU/pre-WSGI decomposition and shared-resource contention; gate without observers cannot establish cause",
   "scenario": {
     "workers": 4,
@@ -33,5 +33,6 @@
   ],
   "selection": [
     "tests/test_resource_service_checkpoint.py::test_resource_checkpoint"
-  ]
+  ],
+  "authorization": "User explicitly authorized this single 30-second diagnosis, four workers, registered limits; no 900s or permanent resource changes"
 }

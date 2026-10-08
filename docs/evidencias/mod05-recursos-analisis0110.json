@@ -1,0 +1,206 @@
+{
+  "validity": "VALID",
+  "workload_filter": "FAIL",
+  "diagnostic_collection": "complete",
+  "families": {
+    "listing": {
+      "population": 200,
+      "wsgi_mean_seconds": 0.2912227777368389,
+      "thread_cpu_mean_seconds": 0.153394706235
+    },
+    "search": {
+      "population": 200,
+      "wsgi_mean_seconds": 0.3310801421478391,
+      "thread_cpu_mean_seconds": 0.1588491395799999
+    },
+    "detail": {
+      "population": 200,
+      "wsgi_mean_seconds": 0.0952537472685799,
+      "thread_cpu_mean_seconds": 0.051070979865
+    }
+  },
+  "D_seconds": 0.23918555571775266,
+  "20D_worker_seconds_per_second": 4.783711114355053,
+  "U_worker_seconds_per_second": 0.09455555546252678,
+  "W_worker_seconds_per_second": 4.878266669817579,
+  "pre_wsgi_seconds": {
+    "population": 600,
+    "mean": 3.9373821826224837,
+    "median": 4.0771716425661
+  },
+  "request_thread_cpu_total_seconds": 72.66296513599995,
+  "worker_occupancy_during_emission_including_upload": {
+    "4153484": 0.9981183552493652,
+    "4153481": 0.9964415953184168,
+    "4153480": 0.9948295067374905,
+    "4153483": 0.998701691798245
+  },
+  "requests_entering_wsgi_after_client_deadline": 0,
+  "route_counts": [
+    {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0,
+      "calls": 54
+    },
+    {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 1,
+      "calls": 346
+    },
+    {
+      "route": "native",
+      "reason": "handler_without_projection",
+      "native_unknown": null,
+      "calls": 200
+    }
+  ],
+  "resource_emission_interval": {
+    "seconds": 28.99996962863952,
+    "samples": 30,
+    "host_execution_cpu_cores": 5.68586802370853,
+    "four_workers_stable_process_cpu_cores": 1.966208955739344,
+    "postgres_shared_stable_process_cpu_cores": 1.3448289946305578,
+    "other_top_stable_processes": [
+      {
+        "pid": 1978268,
+        "comm": "dockerd",
+        "cpu_cores": 0.9768975748175309
+      },
+      {
+        "pid": 4145977,
+        "comm": "python",
+        "cpu_cores": 0.11724150209599736
+      },
+      {
+        "pid": 847051,
+        "comm": "docker-proxy",
+        "cpu_cores": 0.10379321214969177
+      },
+      {
+        "pid": 3890139,
+        "comm": "codex",
+        "cpu_cores": 0.05137936415383414
+      },
+      {
+        "pid": 2481704,
+        "comm": "crowdsec",
+        "cpu_cores": 0.026551751945269993
+      },
+      {
+        "pid": 2000121,
+        "comm": "python",
+        "cpu_cores": 0.024137956313881808
+      },
+      {
+        "pid": 1978215,
+        "comm": "containerd",
+        "cpu_cores": 0.016896569419717268
+      },
+      {
+        "pid": 2444954,
+        "comm": "codex",
+        "cpu_cores": 0.012758634051623242
+      }
+    ],
+    "pg_state_samples": {
+      "(False, 'idle', 'Client', 'ClientRead')": 90,
+      "(True, 'idle in transaction', 'Client', 'ClientRead')": 42,
+      "(True, 'active', None, None)": 44,
+      "(True, 'idle', 'Client', 'ClientRead')": 64,
+      "(None, None, 'Activity', 'AutovacuumMain')": 30,
+      "(None, None, 'Activity', 'LogicalLauncherMain')": 30,
+      "(None, None, 'Activity', 'CheckpointerMain')": 9,
+      "(None, None, 'Activity', 'BgwriterMain')": 1,
+      "(None, None, 'Activity', 'WalWriterMain')": 30,
+      "(None, None, 'Activity', 'BgwriterHibernate')": 29,
+      "(None, None, 'Timeout', 'CheckpointWriteDelay')": 21
+    }
+  },
+  "collector": {
+    "samples": 56,
+    "elapsed": 55.32572022918612,
+    "collector_thread_cpu": 5.892538951,
+    "sample_durations": [
+      0.14702297979965806,
+      0.13946479000151157,
+      0.09751937072724104,
+      0.14196871686726809,
+      0.09237523702904582,
+      0.14227674715220928,
+      0.12946713995188475,
+      0.12879810016602278,
+      0.25422916002571583,
+      0.08398678712546825,
+      0.12560966471210122,
+      0.11873610271140933,
+      0.09581937594339252,
+      0.1531626209616661,
+      0.1235826201736927,
+      0.11080477014183998,
+      0.10226724483072758,
+      0.10253673605620861,
+      0.11176839331164956,
+      0.1371801719069481,
+      0.09668786078691483,
+      0.13996183359995484,
+      0.1132378107868135,
+      0.12322919117286801,
+      0.09833337226882577,
+      0.0955822397954762,
+      0.08830021973699331,
+      0.09523420827463269,
+      0.1036110850982368,
+      0.1399420485831797,
+      0.10176025005057454,
+      0.08465186227113008,
+      0.11705777235329151,
+      0.09382582595571876,
+      0.09479792835190892,
+      0.08795229811221361,
+      0.14939229004085064,
+      0.09212077967822552,
+      0.0882002217695117,
+      0.08551788702607155,
+      0.08577423496171832,
+      0.11361752264201641,
+      0.11557205719873309,
+      0.0841488391160965,
+      0.10384805593639612,
+      0.09141842415556312,
+      0.08931684494018555,
+      0.09740530885756016,
+      0.11562147410586476,
+      0.09697184478864074,
+      0.10264820186421275,
+      0.1477564857341349,
+      0.12237195670604706,
+      0.1156182698905468,
+      0.14904914377257228,
+      0.10858639515936375
+    ],
+    "errors": [],
+    "fatal_error": null,
+    "trial_stop": null,
+    "clock_ticks_per_second": 100,
+    "app_master_pid": 4153467,
+    "postgres_container_host_pid": 846911,
+    "scope": "shared host/service;1Hz state samples not wait durations; procCPU ticks and cgroupCPUcumulative counters; processRSS includes sharedpages, not additive physical memory; missingPSI explicit"
+  },
+  "limits": {
+    "resource_stop_observed": false,
+    "memavailable_min_bytes": 10683277312
+  },
+  "limitations": [
+    "WSGI/threadCPU not SQL/validation breakdown; residual WSGI wall includes waits, scheduling and all other work",
+    "Request threadCPU excludes other threads; process CPU endpoints omit transient processes",
+    "Process resource scope sampled over interior emission interval, not exact full window",
+    "PostgreSQL counters shared; wait-state sample counts are not duration",
+    "Pre-WSGI does not identify socket/Gunicorn queue",
+    "Upload U N1 estimate at contractual one/minute",
+    "Observer overhead not causally quantified; collector CPU reported",
+    "No causal improvement versus separate 60s gate or laptop; no capacity acceptance"
+  ],
+  "decision": "Observed worker occupancy/service demand exceeds four workers at 20RPS; request threadCPU is lower than WSGI wall. Investigate measured waits/scheduling/shared resources before selecting further refactor or concurrency. No automatic new load or 900s."
+}
