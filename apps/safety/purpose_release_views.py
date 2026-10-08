@@ -204,6 +204,33 @@ class QueueForm(forms.Form):
         choices=[("", "Todas / All"), ("account_preferences", "Preferencias / Preferences")],
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        english = language == "en"
+        definitions = {
+            "state": (
+                ("Estado", "State"),
+                [
+                    ("", "Activas", "Active"),
+                    ("active", "Activas", "Active"),
+                    ("released", "Levantadas", "Released"),
+                ],
+            ),
+            "due": (
+                ("Revisión", "Review"),
+                [("", "Todas las fechas", "All dates"), ("due", "Revisión vencida", "Review due")],
+            ),
+            "purpose": (
+                ("Finalidad", "Purpose"),
+                [("", "Todas", "All"), ("account_preferences", "Preferencias", "Preferences")],
+            ),
+        }
+        for name, (labels, choices) in definitions.items():
+            self.fields[name].label = labels[english]
+            self.fields[name].choices = [
+                (value, en if english else es) for value, es, en in choices
+            ]
+
 
 @login_required
 @require_GET
@@ -222,7 +249,7 @@ def queue(request, case_id):
         raise Http404
     if not permitted(request.user, case):
         return private(HttpResponse("Forbidden", status=403))
-    form = QueueForm(request.GET)
+    form = QueueForm(request.GET, language=request.LANGUAGE_CODE)
     measures = PurposeRestriction.objects.none()
     status = 200
     if form.is_valid():
