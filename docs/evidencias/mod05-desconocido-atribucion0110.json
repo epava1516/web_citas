@@ -1,0 +1,31 @@
+{
+  "scope": "Read-only existing event correlation and current source path; no new test or load",
+  "source_commit": "1b3b817",
+  "serial_state_observations": 20,
+  "serial_native_unknown": [
+    0
+  ],
+  "loaded_unknown1_observations": 346,
+  "first_unknown1_route_event_seconds": 0.8021307275630534,
+  "last_unknown1_route_event_seconds": 37.599577232729644,
+  "upload_wsgi_wall_seconds": 5.673333327751607,
+  "facts": [
+    "Photo and revision writes map to owning listing dirty triggers",
+    "Resource harness refreshes before arrivals, with no ongoing Celery worker/Beat refresh",
+    "Observed native_unknown=1 does not mean full native fallback or10000 validations"
+  ],
+  "hypothesis": "Upload-related mutation may leave a candidate dirty throughout arrivals/drain without refresh worker",
+  "not_measured": [
+    "Identity of unknown candidate in observer logs",
+    "Exact dirty-mark timestamp",
+    "Causal HTTP/WSGI cost of one unknown",
+    "Benefit of ongoing refresh",
+    "Original laptop runtime read-repair/worker conditions beyond manifests"
+  ],
+  "decision": "Preserve invalidation/freshness. Isolate cost of a clean versus dirty candidate using finite matched functional/HTTP controls before choosing a backend optimization; do not infer savings or run another saturated gate.",
+  "sources_sha256": {
+    "apps/listings/migrations/0015_publication_state.py": "fa68e3045df2b6e84fd5adc90313245ee2281447a8abf4a18278ffa42c26223c",
+    "apps/listings/tasks.py": "bd5f71dfd4ac81e5c6a56216d3e1d1475b19821300381d845bf8460e5274f121",
+    "tests/test_resource_service_checkpoint.py": "c1457a6517bd73ba0d458f1b3acf16a9b7e781297e83f662fea738f87a40aba6"
+  }
+}
