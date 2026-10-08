@@ -1,0 +1,10 @@
+{
+  "requirement": "MOD05 cierre conjunto de invalidacion y huella condicional demostradas",
+  "selection": [
+    "tests/test_publication_state.py",
+    "tests/test_publication_state_conditional.py",
+    "tests/test_reading_common.py"
+  ],
+  "scope": "PG aislado; ambas dependencias independientes; fuente condicional versionada; rotacion clave fingerprint; equivalencia y carrera/refresh/trigger; sin nueva carga",
+  "condition": "todos PASS, huellas congeladas y limpieza propias verificadas; no cierre CR09 integral por este N2"
+}

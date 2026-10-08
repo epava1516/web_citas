@@ -1,0 +1,9 @@
+{
+  "requirement": "MOD05 invalidacion condicional decision/proof y exactitud fuera de pagina",
+  "selection": [
+    "tests/test_publication_state_conditional.py",
+    "tests/test_publication_state.py::test_every_table_read_by_the_native_rule_has_an_invalidation_trigger"
+  ],
+  "scope": "PG aislado; triggers reales; dos escrituras QuerySet; equivalencia HTML y paginacion ES/EN antes del refresco; cada dependencia en fixture limpio independiente, no dirty heredado",
+  "condition": "ambas dependencias marcadas y recuento24 igual nativo; controles 1/2 ESEN; limpieza y huellas; ninguna carga"
+}

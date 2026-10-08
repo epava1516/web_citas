@@ -1,0 +1,8 @@
+{
+  "requirement": "MOD05 instalar0017 en estados existentes, esquema restaurado antes teardown",
+  "selection": [
+    "tests/test_publication_state_upgrade.py"
+  ],
+  "scope": "PG propio; migrar0017\u21920016\u2192latest, triggers y dirty de todos existentes, estados intactos, refresh final",
+  "condition": "PASS, restauracion full leafs finally, fuentes congeladas y limpieza propias; no servicios ajenos"
+}

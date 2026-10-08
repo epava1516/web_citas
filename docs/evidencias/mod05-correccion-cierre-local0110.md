@@ -1,0 +1,9 @@
+# Corrección local de invalidación y huella MOD-05
+
+La revisión reprodujo state25/nativo24 fuera de primera página al modificar decisiones de reintroducción y pruebas de derechos. Migración0017 instala ocho triggers nuevos con asociaciones pertinentes y marca todos los anuncios existentes; no altera el predicado nativo. DEPENDENCY_TABLES incluye ambas tablas. El trazado condicional descubrió rights.py fuera de RULE_SOURCES: ahora se versiona y se incluye SECRET_KEY, usada por salted_hmac de la autorización, sin persistir su valor.
+
+37 pruebas conjuntas PostgreSQL correctas ([revisión](mod05-correccion-conjunta-revisada0110.json)): reglas, invalidación, refresh/carrera, fuentes, clave y lectura común. Upgrade real0017→0016→latest: [1PASS](mod05-upgrade-revisada0110.json), estados preservados/marcados y refresco final. Su baseline detectó un trigger TRUNCATE residual al revertir; corregido reverse explícito y conservado FAIL. Se reutiliza N2 porque esta última corrección solo afecta reverse, comprobado por upgrade. Ruff/diff-check correctos; fuentes y ausencia propia de DB/medios verificadas. Archivos de evidencia conservan fuentes exactas por tanda: no se suman versiones como un único ensayo.
+
+Defectos reproducidos corregidos y verificados localmente. No aceptación integral de CR09 ni runtime normal actualizado. R5/R6 anteriores siguen PASS corroborados en portátil; no se repiten ni se presentan como mediciones de la nueva fuente. No evidencia CPU/D o capacidad VPS nueva. No nuevo porcentaje.
+
+Siguiente requisito local pertinente: verificación de mantenimiento del estado con worker/Beat reales y cambio concurrente usando esta fuente y migración en entorno propio. Reutilizar la evidencia previa donde sea equivalente; no actualizar servicios normales ni repetir cargas de capacidad. La aceptación integral además conserva matriz83/88 y N3 comunes pendientes.

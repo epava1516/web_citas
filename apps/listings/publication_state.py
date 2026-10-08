@@ -39,7 +39,8 @@ DEPENDENCY_TABLES = frozenset({
     "mediafiles_photo", "mediafiles_blob", "mediafiles_match", "core_person", "core_phoneclaim",
     "core_agency", "core_legalacceptance", "core_legaldocument", "core_representationaction",
     "core_verificationcheck", "safety_privacypublicationhold", "safety_restriction",
-    "safety_rightsphotoreintroduction", "safety_rightsrectificationproposal",
+    "safety_rightsphotoreintroduction", "safety_rightsphotoreintroductiondecision",
+    "safety_rightsproof", "safety_rightsrectificationproposal",
     "safety_rightsrectificationreview", "safety_rightsrectificationnotification",
     "safety_rightsrectificationexecution", "safety_rightsrectificationphotoupload",
     "safety_rightsrectificationphotodisposition", "catalog_category", "catalog_service",
@@ -64,6 +65,7 @@ RULE_SOURCES = (
     "apps/core/verification_services.py",
     "apps/safety/photo_dispositions.py",
     "apps/safety/photo_reintroduction_review.py",
+    "apps/safety/rights.py",
 )
 
 
@@ -78,6 +80,9 @@ def rules_version():
         digest.update(name.encode() + b"\0" + (settings.BASE_DIR / name).read_bytes() + b"\0")
     material = [django.get_version(), str(settings.PRODUCTION), settings.VERIFICATION_PROVIDER]
     digest.update("|".join(material).encode())
+    # Conditional photo authorization fingerprints use salted_hmac with SECRET_KEY.
+    # A key rotation invalidates those decisions; never trust the previous result.
+    digest.update(b"\0rights-fingerprint-key\0" + settings.SECRET_KEY.encode())
     return digest.hexdigest()
 
 

@@ -1,0 +1,95 @@
+{
+  "source_received": "8342dbd",
+  "no_new_load": true,
+  "method": "Independent archive byte/hash, unique IDs, schedule/routes, access correlation and nearest-rank sample calculation",
+  "runs": {
+    "r5-mod05-intento2": {
+      "archive_sha256_verified": true,
+      "nine_member_hashes_verified": true,
+      "source_commit": "c69c98386c7f11bdf0bd408b24822691cfce4b49",
+      "dynamic": 1200,
+      "family_counts": {
+        "listing": 400,
+        "search": 400,
+        "detail": 400
+      },
+      "successful": 1200,
+      "errors": 0,
+      "timeouts": 0,
+      "not_emitted": 0,
+      "unique_and_correlated_ids": 1201,
+      "pending_at_close": 3,
+      "final_pending": 0,
+      "p95_seconds": 0.24883433300055913,
+      "p99_seconds": 0.2829710990008607,
+      "max_seconds": 0.4733645739979693,
+      "generator_p95_seconds": 0.0014720560000540672,
+      "generator_p99_seconds": 0.002029225999287121,
+      "generator_max_seconds": 0.00219158000109021,
+      "drain_all_requests_seconds": 0.07578742700206931,
+      "uploads": 1,
+      "junit_summary_matches": true,
+      "checks": {
+        "generator": true,
+        "pending_at_close": true,
+        "drain": true,
+        "p95": true,
+        "zero_errors": true,
+        "schedule_and_accounting": true,
+        "uploads": true
+      },
+      "recorded_load_filter": "PASS",
+      "limitations": [
+        "Original source hashes and clean worktree not recorded",
+        "WSGI entry/exit and PID not recorded: service decomposition and D not_measured",
+        "Host resource consumption not_measured",
+        "Contemporaneous cleanup record absent",
+        "This validates recorded load outcomes; functional equivalence remains FAIL in separate Codex reproduction"
+      ]
+    },
+    "r6-mod05-contractual": {
+      "archive_sha256_verified": true,
+      "nine_member_hashes_verified": true,
+      "source_commit": "5ce8c88ad35522c5858a79c5b1fa84b6a572636d",
+      "dynamic": 18000,
+      "family_counts": {
+        "listing": 6000,
+        "search": 6000,
+        "detail": 6000
+      },
+      "successful": 18000,
+      "errors": 0,
+      "timeouts": 0,
+      "not_emitted": 0,
+      "unique_and_correlated_ids": 18015,
+      "pending_at_close": 3,
+      "final_pending": 0,
+      "p95_seconds": 0.2654598269982671,
+      "p99_seconds": 1.4019944909996411,
+      "max_seconds": 2.0139291069972387,
+      "generator_p95_seconds": 0.0014963139998371844,
+      "generator_p99_seconds": 0.0020651389975228085,
+      "generator_max_seconds": 0.01768425299815135,
+      "drain_all_requests_seconds": 0.03771361999679357,
+      "uploads": 15,
+      "junit_summary_matches": true,
+      "checks": {
+        "generator": true,
+        "pending_at_close": true,
+        "drain": true,
+        "p95": true,
+        "zero_errors": true,
+        "schedule_and_accounting": true,
+        "uploads": true
+      },
+      "recorded_load_filter": "PASS",
+      "limitations": [
+        "Original source hashes and clean worktree not recorded",
+        "WSGI entry/exit and PID not recorded: service decomposition and D not_measured",
+        "Host resource consumption not_measured",
+        "Contemporaneous cleanup record absent",
+        "This validates recorded load outcomes; functional equivalence remains FAIL in separate Codex reproduction"
+      ]
+    }
+  }
+}
