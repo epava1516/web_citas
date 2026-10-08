@@ -12,7 +12,9 @@ from django.views.decorators.debug import sensitive_post_parameters, sensitive_v
 from django.views.decorators.http import require_http_methods
 
 from .models import RightsPortabilityCoverageReview, RightsPortabilitySelectionReview, RightsRequest
+from .rectification_presentation import caption
 from .rights import allowed
+from .rights_copy_information_views import LocalizedForm
 from .rights_copy_page_review import fresh_authority
 from .rights_portability_export import generate
 from .views import private
@@ -28,7 +30,7 @@ class ApprovedCoverage(forms.ModelChoiceField):
         return f"{obj.coverage_id} · {obj.coverage.version}"
 
 
-class ExportForm(forms.Form):
+class ExportForm(LocalizedForm):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     review = ApprovedSelection(
@@ -48,8 +50,11 @@ class ExportForm(forms.Form):
         label="Motivo privado de entrega / Private delivery reason",
     )
 
-    def __init__(self, *args, case, actor, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, *args, case, actor, language=None, **kwargs):
+        super().__init__(*args, language=language, **kwargs)
+        if language is not None:
+            field = self.fields["coverage_review"]
+            field.help_text = caption(field.help_text, language)
         self.fields["review"].queryset = (
             RightsPortabilitySelectionReview.objects.filter(
                 selection__request=case,
@@ -82,7 +87,11 @@ class ExportForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def prepare(request, case_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if case is None:
         raise Http404
@@ -91,13 +100,25 @@ def prepare(request, case_id):
         if case.assigned_to_id != request.user.pk:
             raise PermissionDenied
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     if case.kind != "portability" or case.status != "reviewing":
-        return private(HttpResponse("Current portability request required", status=409))
+        return private(
+            HttpResponse(
+                "Current portability request required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere una solicitud de portabilidad vigente",
+                status=409,
+            )
+        )
     form = ExportForm(
         request.POST if request.method == "POST" else None,
         case=case,
         actor=request.user,
+        language=request.LANGUAGE_CODE,
         initial={"key": uuid4(), "version": case.version},
     )
     export = None
@@ -119,11 +140,18 @@ def prepare(request, case_id):
             )
             case.refresh_from_db()
             form = ExportForm(
-                case=case, actor=request.user, initial={"key": uuid4(), "version": case.version}
+                case=case,
+                actor=request.user,
+                language=request.LANGUAGE_CODE,
+                initial={"key": uuid4(), "version": case.version},
             )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409

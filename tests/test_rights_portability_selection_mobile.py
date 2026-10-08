@@ -13,6 +13,7 @@ from playwright.sync_api import expect, sync_playwright
 from test_account_copy_races import prepared_account
 from test_copy_information_localization import review_captions
 from test_image_selection_form_localization import image_catalog_captions, image_save_captions
+from test_portability_export_localization import export_captions
 from test_reports import directory, photo_environment  # noqa: F401
 from test_reset_localization import db_sync
 from test_rights_portability import assessment
@@ -442,6 +443,23 @@ def test_mobile_independent_portability_selection_review(
             )
             assert selected_marker not in author_page.content()
             assert FIELD_EVIDENCE not in author_page.content()
+            export_captions(author_page, language)
+            assert author_page.locator("#id_coverage_review").input_value() == ""
+            author_page.locator("#id_reason").fill("short")
+            author_page.locator("form").evaluate("form=>form.noValidate=true")
+            with author_page.expect_response(
+                lambda r: r.request.method == "POST"
+            ) as invalid_export:
+                author_page.get_by_role(
+                    "button",
+                    name="Create approved private copy"
+                    if english
+                    else "Crear copia privada aprobada",
+                    exact=True,
+                ).click()
+            assert invalid_export.value.status == 400
+            export_captions(author_page, language)
+            assert db_sync(lambda: RightsExport.objects.filter(action__request=case).count()) == 0
             choice = author_page.locator("[name=review] option").last.get_attribute("value")
             author_page.locator("[name=review]").select_option(choice)
             author_page.locator("#id_reason").fill(
@@ -455,8 +473,13 @@ def test_mobile_independent_portability_selection_review(
             expect(author_page.get_by_role("status")).to_contain_text(
                 "Private copy created" if english else "Copia privada creada"
             )
+            export_captions(author_page, language)
             assert selected_marker not in author_page.content()
+            author_page.goto(
+                live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/export/"
+            )
             author_page.reload()
+            export_captions(author_page, language)
             assert selected_marker not in author_page.content()
             assert author_page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
             public_page = browser.new_page(viewport={"width": 390, "height": 844})
@@ -524,6 +547,20 @@ def test_mobile_independent_portability_selection_review(
             assert response.status == 403 and response.text() == (
                 "Forbidden" if english else "Acceso denegado"
             )
+            response = author_page.goto(
+                live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/export/"
+            )
+            assert response.status == 403 and author_page.locator("body").inner_text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
+            assert "no-store" in response.headers["cache-control"]
+            response = author_page.request.post(
+                live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/export/",
+                form={"csrfmiddlewaretoken": csrf},
+            )
+            assert response.status == 403 and response.text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
             if include_images:
                 response = author_page.goto(
                     live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/images/"
@@ -548,6 +585,7 @@ def test_mobile_independent_portability_selection_review(
     assert result.action.actor_id == reviewer.pk and result.outcome == "approved"
     export = RightsExport.objects.get(action__request=case)
     projected = unseal(export.encrypted_payload)
+    assert projected["partial"] is True and export.portability_binding.coverage_review_id is None
     assert projected["datasets"][dataset] == [{"fields": {selected_path: selected_marker}}]
     assert "field_evidence" not in projected and FIELD_EVIDENCE not in str(projected)
     case.refresh_from_db()
