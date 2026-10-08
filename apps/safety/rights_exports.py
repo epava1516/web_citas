@@ -21,6 +21,7 @@ from django.views.decorators.http import require_http_methods, require_POST
 from apps.core.accounts import limited
 from apps.core.models import User
 
+from .copy_error_presentation import operation_error
 from .crypto import cipher, seal, unseal
 from .models import (
     RightsAction,
@@ -786,7 +787,7 @@ def prepare(request, case_id):
                 )
             )
         except ValidationError as error:
-            form.add_error(None, error)
+            form.add_error(None, operation_error(error, request.LANGUAGE_CODE))
             status = 409
     return private(
         render(
