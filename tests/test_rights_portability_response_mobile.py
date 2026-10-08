@@ -7,7 +7,9 @@ import pytest
 from django.conf import settings as django_settings
 from django.contrib.auth.models import Permission
 from playwright.sync_api import expect, sync_playwright
+from test_portability_response_form_localization import draft_captions, review_captions
 from test_reports import directory, photo_environment  # noqa: F401
+from test_reset_localization import db_sync
 from test_rights_portability_covered_export_races import approved_coverage
 from test_rights_portability_response_draft import REASON, TEXT, operator
 from test_rights_verification import read
@@ -80,6 +82,24 @@ def test_mobile_final_response_preparation_and_independent_decision(
             page = contexts[0].new_page()
             page.goto(base + "portability/response/")
             page.locator("#id_export").select_option(str(export.pk))
+            draft_captions(page, language)
+            page.locator("#id_reason").fill("short")
+            page.locator("#id_response").fill(TEXT)
+            page.locator("#id_redaction_confirmed").check()
+            page.locator("form").evaluate("form=>form.noValidate=true")
+            with page.expect_response(lambda r: r.request.method == "POST") as invalid_draft:
+                page.get_by_role(
+                    "button",
+                    name="Save response draft" if english else "Guardar borrador de respuesta",
+                    exact=True,
+                ).click()
+            assert invalid_draft.value.status == 400
+            draft_captions(page, language)
+            assert (
+                db_sync(lambda: RightsPortabilityResponseDraft.objects.filter(request=case).count())
+                == 0
+            )
+            assert page.locator("#id_response").input_value() == TEXT
             page.locator("#id_reason").fill(REASON)
             page.locator("#id_response").fill(TEXT)
             page.locator("#id_redaction_confirmed").check()
@@ -93,13 +113,27 @@ def test_mobile_final_response_preparation_and_independent_decision(
                 if english
                 else "Borrador de respuesta final preparado"
             )
+            draft_captions(page, language)
             assert TEXT not in page.locator("body").inner_text()
+            author_csrf = page.locator("[name=csrfmiddlewaretoken]").input_value()
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
             page = contexts[1].new_page()
             page.goto(base)
             page.get_by_role(
                 "link", name="Review final response" if english else "Revisar respuesta final"
             ).click()
+            assert TEXT not in page.locator("body").inner_text()
+            review_captions(page, language)
+            page.locator("#id_reason").fill("short")
+            page.locator("form").first.evaluate("form=>form.noValidate=true")
+            with page.expect_response(lambda r: r.request.method == "POST") as invalid_read:
+                page.get_by_role(
+                    "button",
+                    name="Inspect response draft" if english else "Consultar borrador de respuesta",
+                    exact=True,
+                ).click()
+            assert invalid_read.value.status == 400
+            review_captions(page, language)
             assert TEXT not in page.locator("body").inner_text()
             page.locator("#id_reason").fill(REASON)
             page.get_by_role(
@@ -108,6 +142,28 @@ def test_mobile_final_response_preparation_and_independent_decision(
                 exact=True,
             ).click()
             expect(page.locator("body")).to_contain_text(TEXT)
+            review_captions(page, language)
+            page.locator("#decision_reason").fill("short")
+            page.locator("form").last.evaluate("form=>form.noValidate=true")
+            with page.expect_response(lambda r: r.request.method == "POST") as invalid_decision:
+                page.get_by_role(
+                    "button",
+                    name="Record independent decision"
+                    if english
+                    else "Registrar decisión independiente",
+                    exact=True,
+                ).click()
+            assert invalid_decision.value.status == 400
+            review_captions(page, language)
+            assert TEXT not in page.locator("body").inner_text()
+            assert (
+                db_sync(
+                    lambda: RightsPortabilityResponseReview.objects.filter(
+                        draft__request=case
+                    ).count()
+                )
+                == 0
+            )
             page.locator("#decision_reason").fill(REASON)
             page.locator("#decision_outcome").select_option("approved")
             page.get_by_role(
@@ -117,10 +173,17 @@ def test_mobile_final_response_preparation_and_independent_decision(
                 else "Registrar decisión independiente",
                 exact=True,
             ).click()
-            expect(page.get_by_role("status")).to_contain_text("approved")
+            expect(page.get_by_role("status")).to_contain_text(
+                "Approved" if english else "Aprobada"
+            )
+            review_captions(page, language)
             assert TEXT not in page.locator("body").inner_text()
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
-            page.goto(page.url)
+            review_url = page.url
+            page.goto(review_url)
+            page.reload()
+            review_captions(page, language)
+            reviewer_csrf = page.locator("[name=csrfmiddlewaretoken]").first.input_value()
             assert TEXT not in page.locator("body").inner_text()
             page = contexts[0].new_page()
             page.goto(base + "portability/response/")
@@ -163,6 +226,25 @@ def test_mobile_final_response_preparation_and_independent_decision(
                 and content["simulation"] is True
             )
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+            for actor, context, url, csrf in [
+                (author, contexts[0], base + "portability/response/", author_csrf),
+                (reviewer, contexts[1], review_url, reviewer_csrf),
+            ]:
+                db_sync(
+                    lambda actor=actor: actor.user_permissions.remove(
+                        Permission.objects.get(codename="respond_rights_request")
+                    )
+                )
+                denied = context.new_page()
+                response = denied.goto(url)
+                assert response.status == 403 and denied.locator("body").inner_text() == (
+                    "Forbidden" if english else "Acceso denegado"
+                )
+                assert "no-store" in response.headers["cache-control"]
+                response = context.request.post(url, form={"csrfmiddlewaretoken": csrf})
+                assert response.status == 403 and response.text() == (
+                    "Forbidden" if english else "Acceso denegado"
+                )
         finally:
             browser.close()
     draft = RightsPortabilityResponseDraft.objects.get(request=case)

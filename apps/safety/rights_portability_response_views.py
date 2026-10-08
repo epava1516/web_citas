@@ -19,6 +19,7 @@ from .models import (
     RightsRequest,
 )
 from .rights import allowed
+from .rights_copy_information_views import LocalizedForm
 from .rights_copy_page_review import fresh_authority
 from .rights_portability_close import close
 from .rights_portability_response_draft import prepare
@@ -32,8 +33,8 @@ class DraftForm(ResponseForm):
         queryset=RightsExport.objects.none(), label="Entrega cubierta / Covered delivery"
     )
 
-    def __init__(self, *args, case, actor, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, *args, case, actor, language=None, **kwargs):
+        super().__init__(*args, language=language, **kwargs)
         self.fields.pop("kind")
         self.fields["export"].queryset = (
             RightsExport.objects.filter(
@@ -54,7 +55,11 @@ class DraftForm(ResponseForm):
 @require_http_methods(["GET", "POST"])
 def prepare_response(request, case_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if case is None:
         raise Http404
@@ -65,13 +70,25 @@ def prepare_response(request, case_id):
         ):
             raise PermissionDenied
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     if case.kind != "portability" or case.status != "reviewing":
-        return private(HttpResponse("Current portability request required", status=409))
+        return private(
+            HttpResponse(
+                "Current portability request required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere una solicitud de portabilidad vigente",
+                status=409,
+            )
+        )
     form = DraftForm(
         request.POST if request.method == "POST" else None,
         case=case,
         actor=request.user,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid4(),
             "version": case.version,
@@ -97,6 +114,7 @@ def prepare_response(request, case_id):
             form = DraftForm(
                 case=case,
                 actor=request.user,
+                language=request.LANGUAGE_CODE,
                 initial={
                     "key": uuid4(),
                     "version": case.version,
@@ -105,7 +123,11 @@ def prepare_response(request, case_id):
             )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
@@ -135,7 +157,7 @@ def prepare_response(request, case_id):
     )
 
 
-class ReviewForm(forms.Form):
+class ReviewForm(LocalizedForm):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     reason = forms.CharField(
@@ -165,14 +187,22 @@ class DecisionForm(ReviewForm):
 @require_http_methods(["GET", "POST"])
 def review_response(request, case_id, draft_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if case is None:
         raise Http404
     try:
         authorize_reviewer(request.user, case)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     draft = (
         RightsPortabilityResponseDraft.objects.filter(pk=draft_id, request=case)
         .only("pk", "actor_id", "export_id", "expires_at")
@@ -181,15 +211,28 @@ def review_response(request, case_id, draft_id):
     if draft is None:
         raise Http404
     if draft.actor_id == request.user.pk:
-        return private(HttpResponse("Independent reviewer required", status=403))
+        return private(
+            HttpResponse(
+                "Independent reviewer required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere revisión independiente",
+                status=403,
+            )
+        )
     initial = {"key": uuid4(), "version": case.version}
-    form = ReviewForm(initial=initial)
-    decision_form = DecisionForm(initial={"key": uuid4(), "version": case.version})
+    form = ReviewForm(language=request.LANGUAGE_CODE, initial=initial)
+    decision_form = DecisionForm(
+        language=request.LANGUAGE_CODE, initial={"key": uuid4(), "version": case.version}
+    )
     public = decision = None
     status = 200
     if request.method == "POST":
         decision_mode = request.POST.get("operation") == "review"
-        active = DecisionForm(request.POST) if decision_mode else ReviewForm(request.POST)
+        active = (
+            DecisionForm(request.POST, language=request.LANGUAGE_CODE)
+            if decision_mode
+            else ReviewForm(request.POST, language=request.LANGUAGE_CODE)
+        )
         if decision_mode:
             decision_form = active
         else:
@@ -220,11 +263,17 @@ def review_response(request, case_id, draft_id):
                     )
                     read_id = RightsAction.objects.get(key=values["key"]).pk
                     decision_form = DecisionForm(
-                        initial={"key": uuid4(), "version": case.version, "read_id": read_id}
+                        language=request.LANGUAGE_CODE,
+                        initial={"key": uuid4(), "version": case.version, "read_id": read_id},
                     )
                 status = 200
             except PermissionDenied:
-                return private(HttpResponse("Forbidden", status=403))
+                return private(
+                    HttpResponse(
+                        "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado",
+                        status=403,
+                    )
+                )
             except ValidationError as error:
                 active.add_error(None, error)
                 status = 409
@@ -239,6 +288,14 @@ def review_response(request, case_id, draft_id):
                 "decision_form": decision_form,
                 "public": public,
                 "decision": decision,
+                "decision_caption": {
+                    "approved": ("Aprobada", "Approved"),
+                    "rejected": ("Rechazada", "Rejected"),
+                }.get(decision.outcome, (decision.outcome, decision.outcome))[
+                    request.LANGUAGE_CODE == "en"
+                ]
+                if decision
+                else None,
                 "english": request.LANGUAGE_CODE == "en",
             },
             status=status,
