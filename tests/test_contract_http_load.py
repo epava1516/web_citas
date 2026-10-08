@@ -312,6 +312,12 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 for _ in range(16 if large else 1)
             ]
         )
+        # The fixture's bulk_create bypasses model signals and this harness runs no refresh
+        # worker or Beat: repeat the MOD-05 deployment step so the arrivals meet the
+        # deployed configuration, where the worker keeps stored state current.
+        prepare_output = io.StringIO()
+        call_command("refresh_publication_state", stdout=prepare_output)
+        dataset["deployment_step_after_fixture"] = prepare_output.getvalue().strip()
         raw = raw_image(782134)
         boundary = "synthetic-" + uuid4().hex
         multipart = (

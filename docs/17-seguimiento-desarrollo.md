@@ -210,6 +210,18 @@ Porcentajes sin cambio hasta evidencia N2/R5 revisada (docs86).
 - **Entorno:** máquina local actual (12 CPU visibles, 15 GiB, PostgreSQL de compose compartido, procesos con nice 5). Sin otras cargas de pruebas, builds ni servidores propios durante la medición.
 - **Condición de salida:** se registra el veredicto terminal con su manifiesto y artefactos. Solo un PASS completo de `[short]` habilita R6 (`[measured]`, 900 s). Un FAIL o INVALID cierra la iteración sin repetir sin una causa nueva. Estas mediciones no se mezclan con las del generador propio del prototipo.
 
+**R5 MOD-05, intento 1 (`b9201f0`): FAIL válido.** 1 200/1 200 emitidas y correctas, 0 errores, upload 302, sin pendientes finales; p95 observable 5,95 s; servicio Gunicorn p95 0,401 s; 17,9 completadas/s frente a 20 de llegada. [Evidencia](evidencias/r5-mod05-intento1-fail.json). Causas nuevas con evidencia directa:
+1. Los 16 borradores del arnés se crean con `bulk_create` después del paso de despliegue. No emiten señales y el arnés no tiene worker ni Beat, así que el anuncio queda marcado toda la prueba y cada listado lo evalúa de forma nativa (+28–43 ms por petición en proceso).
+2. Las tablas cargadas en bloque no tienen estadísticas (listado 98 → 80 ms en proceso tras `ANALYZE`).
+
+Control diagnóstico con el generador propio, que no es R5: mismas rutas, base analizada, sin marcas ni upload, 20 RPS durante 30 s → p50 87 ms, p95 132 ms y sin cola.
+
+**Registro previo del intento 2:** fuentes en el commit que contiene este texto. Cambios respecto del intento 1:
+- `refresh_publication_state` ejecuta `ANALYZE` sobre las tablas de dependencia, como parte del paso de despliegue y restauración.
+- El arnés repite el paso de despliegue tras preparar sus datos, justo antes de las llegadas (`dataset.deployment_step_after_fixture`).
+
+Selección, requisito, entorno y condición de salida sin cambios. Un nuevo FAIL o INVALID cierra el bloque hasta un análisis nuevo.
+
 
 **CR09-REND-LECTURA sigue abierto. Goal automático pausado por petición del usuario; encargo manual de cierre autorizado.** La equivalencia pública, el perfil actual y el contraste TCP terminaron exit0; el prototipo SQL intermedio se abortó durante preflight y no se adopta. Fuentes congeladas intactas y recursos propios retirados. TCP, equivalencia común y matriz terminales revisados; corta posterior FAIL válido. Checkpoint A→B→C→D completado; comparación autorizada4/6/6/4 posterior terminada y revisada: causalidadINCONCLUSIVE porcompetenciahost, filtroobservadoD incumplido ycuatroFAIL30s. Sin ejecución propia activa ni nueva carga larga. Árbol de trabajo sobre `b285aba`, cambios de backend todavía sin integrar en runtime `73d28f6`. La pausa automática, la terminación de una prueba y el cierre del requisito son estados distintos.
 
