@@ -16,8 +16,11 @@ from .promotion_orders import actor, create_order, receive_event, synthetic_even
 
 
 class ProductChoice(forms.ModelChoiceField):
+    language = "es"
+
     def label_from_instance(self, item):
-        return f"{item.name_es} / {item.name_en} · {item.amount} {item.currency}"
+        name = item.name_en if self.language == "en" else item.name_es
+        return f"{name} · {item.amount} {item.currency}"
 
 
 class ListingChoice(forms.ModelChoiceField):
@@ -33,8 +36,17 @@ class OrderForm(forms.Form):
         label="Entiendo que es una simulación sin cobro / I understand this is a simulation with no charge"
     )
 
-    def __init__(self, *args, user, **kwargs):
+    def __init__(self, *args, user, language="es", **kwargs):
         super().__init__(*args, **kwargs)
+        english = language == "en"
+        self.fields["listing"].label = "Listing" if english else "Anuncio"
+        self.fields["product"].label = "Test product" if english else "Producto de prueba"
+        self.fields["confirm"].label = (
+            "I understand this is a simulation with no charge"
+            if english
+            else "Entiendo que es una simulación sin cobro"
+        )
+        self.fields["product"].language = language
         from apps.listings.models import Listing
 
         self.fields["listing"].queryset = Listing.objects.filter(
@@ -63,6 +75,19 @@ class SimulationForm(forms.Form):
         label="Solo simulación, sin pago real / Simulation only, no real payment"
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        english = language == "en"
+        self.fields["outcome"].label = "Outcome" if english else "Resultado"
+        self.fields["confirm"].label = (
+            "Simulation only, no real payment" if english else "Solo simulación, sin pago real"
+        )
+        self.fields["outcome"].choices = [
+            ("pending", "Pending" if english else "Pendiente"),
+            ("failed", "Failure" if english else "Fallo"),
+            ("succeeded", "Simulated success" if english else "Éxito simulado"),
+        ]
+
 
 def credentials(request):
     test_mode()
@@ -78,7 +103,12 @@ def credentials(request):
 @require_http_methods(["GET", "POST"])
 def orders(request):
     auth = credentials(request)
-    form = OrderForm(request.POST or None, user=request.user, initial={"key": uuid.uuid4()})
+    form = OrderForm(
+        request.POST or None,
+        user=request.user,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4()},
+    )
     status = 200
     if request.method == "POST":
         if form.is_valid():
@@ -124,7 +154,9 @@ def detail(request, order_id):
         pk=order_id,
         buyer=request.user,
     )
-    form = SimulationForm(request.POST or None, initial={"key": uuid.uuid4()})
+    form = SimulationForm(
+        request.POST or None, language=request.LANGUAGE_CODE, initial={"key": uuid.uuid4()}
+    )
     status = 200
     if request.method == "POST":
         if form.is_valid():
