@@ -69,6 +69,7 @@ class SignupForm(forms.Form):
 
     def __init__(self, *args, language="es", **kwargs):
         super().__init__(*args, **kwargs)
+        self.language = language
         self.documents = docs(language)
         for doc in self.documents:
             self.fields[f"version_{doc.slug}"] = forms.CharField(
@@ -92,11 +93,15 @@ class SignupForm(forms.Form):
     def clean(self):
         data = super().clean()
         if {doc.slug for doc in self.documents} != set(ACCOUNT_DOCUMENTS):
-            raise ValidationError("Documentación no disponible / Documents unavailable")
+            raise ValidationError(
+                "Documents unavailable" if self.language == "en" else "Documentación no disponible"
+            )
         for doc in self.documents:
             if data.get(f"version_{doc.slug}") != doc.version:
                 raise ValidationError(
-                    "Las condiciones han cambiado. Recarga el formulario / Terms changed. Reload the form"
+                    "Terms changed. Reload the form"
+                    if self.language == "en"
+                    else "Las condiciones han cambiado. Recarga el formulario"
                 )
         if data.get("password"):
             validate_password(data["password"], User(email=data.get("email", "")))
@@ -106,6 +111,12 @@ class SignupForm(forms.Form):
 class LoginForm(forms.Form):
     email = forms.EmailField(label="Email")
     password = forms.CharField(label="Contraseña / Password", widget=forms.PasswordInput)
+
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["password"].label = "Password" if language == "en" else "Contraseña"
+        self.fields["email"].widget.attrs["autocomplete"] = "username"
+        self.fields["password"].widget.attrs["autocomplete"] = "current-password"
 
 
 class EmailForm(forms.Form):
@@ -120,14 +131,25 @@ class ResetForm(forms.Form):
         label="Repetir contraseña / Repeat password", widget=forms.PasswordInput
     )
 
-    def __init__(self, *args, user=None, **kwargs):
+    def __init__(self, *args, user=None, language="es", **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
+        self.language = language
+        self.fields["password"].label = "New password" if language == "en" else "Nueva contraseña"
+        self.fields["confirm"].label = (
+            "Repeat password" if language == "en" else "Repetir contraseña"
+        )
+        for field in self.fields.values():
+            field.widget.attrs["autocomplete"] = "new-password"
 
     def clean(self):
         data = super().clean()
         if data.get("password") != data.get("confirm"):
-            raise ValidationError("Las contraseñas no coinciden / Passwords do not match")
+            raise ValidationError(
+                "Passwords do not match"
+                if self.language == "en"
+                else "Las contraseñas no coinciden"
+            )
         if data.get("password"):
             validate_password(data["password"], self.user)
         return data
@@ -161,8 +183,8 @@ def send_token(user, purpose, language):
     url = settings.PUBLIC_ORIGIN + f"/{language}/account/token/{token.pk}/{raw}/"
     try:
         send_mail(
-            "Confirmación de cuenta / Account confirmation",
-            "Enlace de un solo uso / Single-use link:\n" + url,
+            "Account confirmation" if language == "en" else "Confirmación de cuenta",
+            ("Single-use link:\n" if language == "en" else "Enlace de un solo uso:\n") + url,
             settings.DEFAULT_FROM_EMAIL,
             [user.email],
         )
@@ -175,7 +197,10 @@ def signup(request):
     form = SignupForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST":
         if limited(request, "signup", 5):
-            return HttpResponse("Demasiados intentos / Too many attempts", status=429)
+            return HttpResponse(
+                "Too many attempts" if request.LANGUAGE_CODE == "en" else "Demasiados intentos",
+                status=429,
+            )
         if form.is_valid():
             try:
                 with transaction.atomic():
@@ -186,7 +211,12 @@ def signup(request):
                         )
                     )
                     if len(current) != 2:
-                        form.add_error(None, "Condiciones actualizadas / Terms updated")
+                        form.add_error(
+                            None,
+                            "Terms updated"
+                            if request.LANGUAGE_CODE == "en"
+                            else "Condiciones actualizadas",
+                        )
                         return render(
                             request, "core/form.html", {"form": form, "kind": "signup"}, status=400
                         )
@@ -217,10 +247,13 @@ def signup(request):
 
 @require_http_methods(["GET", "POST"])
 def signin(request):
-    form = LoginForm(request.POST or None)
+    form = LoginForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST":
         if limited(request, "login"):
-            return HttpResponse("Demasiados intentos / Too many attempts", status=429)
+            return HttpResponse(
+                "Too many attempts" if request.LANGUAGE_CODE == "en" else "Demasiados intentos",
+                status=429,
+            )
         if form.is_valid():
             email = form.cleaned_data["email"].lower()
             candidate = User.objects.filter(email__iexact=email).first()
@@ -233,7 +266,12 @@ def signin(request):
                 login(request, user)
                 request.session["account_version"] = user.session_version
                 return redirect("dashboard")
-            form.add_error(None, "Credenciales no válidas / Invalid credentials")
+            form.add_error(
+                None,
+                "Invalid credentials"
+                if request.LANGUAGE_CODE == "en"
+                else "Credenciales no válidas",
+            )
     return render(
         request,
         "core/form.html",
@@ -253,7 +291,10 @@ def recover(request):
     form = EmailForm(request.POST or None)
     if request.method == "POST":
         if limited(request, "recover", 5):
-            return HttpResponse("Demasiados intentos / Too many attempts", status=429)
+            return HttpResponse(
+                "Too many attempts" if request.LANGUAGE_CODE == "en" else "Demasiados intentos",
+                status=429,
+            )
         if form.is_valid():
             user = User.objects.filter(
                 email__iexact=form.cleaned_data["email"],
@@ -282,10 +323,17 @@ def token_view(request, token_id, raw):
     )
     if not token or not constant_time_compare(token.user_state, token_user_state(token.user)):
         return render(request, "core/token_invalid.html", status=400)
-    form = ResetForm(request.POST or None, user=token.user) if token.purpose == "reset" else None
+    form = (
+        ResetForm(request.POST or None, user=token.user, language=request.LANGUAGE_CODE)
+        if token.purpose == "reset"
+        else None
+    )
     if request.method == "POST":
         if limited(request, "token", 15):
-            return HttpResponse("Demasiados intentos / Too many attempts", status=429)
+            return HttpResponse(
+                "Too many attempts" if request.LANGUAGE_CODE == "en" else "Demasiados intentos",
+                status=429,
+            )
         if form is None or form.is_valid():
             with transaction.atomic():
                 user = User.objects.select_for_update().get(pk=token.user_id)
@@ -325,7 +373,10 @@ def resend(request):
     form = EmailForm(request.POST or None)
     if request.method == "POST":
         if limited(request, "resend", 5):
-            return HttpResponse("Demasiados intentos / Too many attempts", status=429)
+            return HttpResponse(
+                "Too many attempts" if request.LANGUAGE_CODE == "en" else "Demasiados intentos",
+                status=429,
+            )
         if form.is_valid():
             user = User.objects.filter(
                 email__iexact=form.cleaned_data["email"],
@@ -346,6 +397,15 @@ class AcceptanceForm(forms.Form):
 
     def __init__(self, *args, language="es", **kwargs):
         super().__init__(*args, **kwargs)
+        self.language = language
+        self.fields["accept_terms"].label = (
+            "I accept the terms of use" if language == "en" else "Acepto las condiciones de uso"
+        )
+        self.fields["privacy_notice"].label = (
+            "I have read the privacy information"
+            if language == "en"
+            else "He leído la información de privacidad"
+        )
         self.documents = docs(language)
         for document in self.documents:
             self.fields[f"version_{document.slug}"] = forms.CharField(
@@ -355,9 +415,15 @@ class AcceptanceForm(forms.Form):
     def clean(self):
         data = super().clean()
         if {doc.slug for doc in self.documents} != set(ACCOUNT_DOCUMENTS):
-            raise ValidationError("Documentos no disponibles / Documents unavailable")
+            raise ValidationError(
+                "Documents unavailable" if self.language == "en" else "Documentos no disponibles"
+            )
         if any(data.get(f"version_{doc.slug}") != doc.version for doc in self.documents):
-            raise ValidationError("Documentos actualizados. Recarga / Documents updated. Reload")
+            raise ValidationError(
+                "Documents updated. Reload"
+                if self.language == "en"
+                else "Documentos actualizados. Recarga"
+            )
         return data
 
 
@@ -373,7 +439,12 @@ def accept_current(request):
                 )
             )
             if len(current) != 2:
-                return HttpResponse("Documentos actualizados / Documents updated", status=409)
+                return HttpResponse(
+                    "Documents updated"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Documentos actualizados",
+                    status=409,
+                )
             for document in current:
                 LegalAcceptance.objects.get_or_create(
                     user=request.user,

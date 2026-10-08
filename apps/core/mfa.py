@@ -82,6 +82,10 @@ class PasswordForm(forms.Form):
         widget=forms.PasswordInput(attrs={"autocomplete": "current-password"}),
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["password"].label = "Password" if language == "en" else "Contraseña"
+
 
 class CodeForm(forms.Form):
     code = forms.CharField(
@@ -89,6 +93,12 @@ class CodeForm(forms.Form):
         max_length=40,
         widget=forms.TextInput(attrs={"autocomplete": "one-time-code"}),
     )
+
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["code"].label = (
+            "TOTP or recovery code" if language == "en" else "Código TOTP o recuperación"
+        )
 
 
 @login_required
@@ -98,19 +108,25 @@ def enroll(request):
     if request.user.mfa_enabled:
         return redirect("mfa_challenge")
     form = (
-        CodeForm(request.POST or None)
+        CodeForm(request.POST or None, language=request.LANGUAGE_CODE)
         if request.POST.get("stage") == "confirm"
-        else PasswordForm(request.POST or None)
+        else PasswordForm(request.POST or None, language=request.LANGUAGE_CODE)
     )
     if request.method == "POST":
         if limited(request, "mfa-enroll", 10):
-            return HttpResponse("Too many attempts", status=429)
+            return HttpResponse(
+                "Too many attempts" if request.LANGUAGE_CODE == "en" else "Demasiados intentos",
+                status=429,
+            )
         if form.is_valid():
             with transaction.atomic():
                 user = User.objects.select_for_update().get(pk=request.user.pk)
                 if user.account_erased_at or not user.is_active:
                     return HttpResponse(
-                        "Account access revoked / Acceso a cuenta revocado", status=409
+                        "Account access revoked"
+                        if request.LANGUAGE_CODE == "en"
+                        else "Acceso a cuenta revocado",
+                        status=409,
                     )
                 if user.mfa_enabled:
                     return redirect("mfa_challenge")
@@ -129,16 +145,24 @@ def enroll(request):
                         )
                         request.session["mfa_version"] = user.mfa_version
                         return render(request, "core/mfa_recovery.html", {"codes": codes})
-                    form.add_error(None, "Código no válido / Invalid code")
+                    form.add_error(
+                        None,
+                        "Invalid code" if request.LANGUAGE_CODE == "en" else "Código no válido",
+                    )
                     if user.mfa_secret_encrypted:
                         secret = decrypt(user.mfa_secret_encrypted)
                 elif user.check_password(form.cleaned_data["password"]):
                     secret = pyotp.random_base32()
                     user.mfa_secret_encrypted = encrypt(secret)
                     user.save(update_fields=["mfa_secret_encrypted"])
-                    form = CodeForm()
+                    form = CodeForm(language=request.LANGUAGE_CODE)
                 else:
-                    form.add_error(None, "Credenciales no válidas / Invalid credentials")
+                    form.add_error(
+                        None,
+                        "Invalid credentials"
+                        if request.LANGUAGE_CODE == "en"
+                        else "Credenciales no válidas",
+                    )
     return render(request, "core/mfa.html", {"form": form, "secret": secret, "enroll": True})
 
 
@@ -147,16 +171,22 @@ def enroll(request):
 def challenge(request):
     if not request.user.mfa_enabled:
         return redirect("mfa_enroll")
-    form = CodeForm(request.POST or None)
+    form = CodeForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST":
         if limited(request, "mfa-challenge", 10):
-            return HttpResponse("Too many attempts", status=429)
+            return HttpResponse(
+                "Too many attempts" if request.LANGUAGE_CODE == "en" else "Demasiados intentos",
+                status=429,
+            )
         if form.is_valid():
             with transaction.atomic():
                 user = User.objects.select_for_update().get(pk=request.user.pk)
                 if user.account_erased_at or not user.is_active:
                     return HttpResponse(
-                        "Account access revoked / Acceso a cuenta revocado", status=409
+                        "Account access revoked"
+                        if request.LANGUAGE_CODE == "en"
+                        else "Acceso a cuenta revocado",
+                        status=409,
                     )
                 code = form.cleaned_data["code"]
                 valid = consume_totp(user, code)
@@ -174,5 +204,7 @@ def challenge(request):
                     request.session["mfa_version"] = user.mfa_version
                     request.session.cycle_key()
                     return redirect("dashboard")
-                form.add_error(None, "Código no válido / Invalid code")
+                form.add_error(
+                    None, "Invalid code" if request.LANGUAGE_CODE == "en" else "Código no válido"
+                )
     return render(request, "core/mfa.html", {"form": form, "enroll": False})

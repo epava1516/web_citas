@@ -76,14 +76,14 @@ def test_mfa_enrollment_replay_and_recovery(catalog):
     client.post("/es/account/login/", {"email": user.email, "password": PASSWORD})
     assert client.get("/es/account/").url == "/es/account/mfa/"
     used_totp = pyotp.TOTP(decrypt(user.mfa_secret_encrypted)).at(user.mfa_last_counter * 30)
-    assert b"Invalid code" in client.post("/es/account/mfa/", {"code": used_totp}).content
+    assert "Código no válido".encode() in client.post("/es/account/mfa/", {"code": used_totp}).content
     assert client.post("/es/account/mfa/", {"code": codes[0]}).status_code == 302
     assert client.get("/es/account/").status_code == 200
     assert RecoveryCode.objects.get(digest=recovery_digest(codes[0])).used_at
     client.post("/es/account/logout/")
     client.force_login(user)
     response = client.post("/es/account/mfa/", {"code": codes[0]})
-    assert response.status_code == 200 and b"Invalid code" in response.content
+    assert response.status_code == 200 and "Código no válido".encode() in response.content
 
 
 def test_two_models_editor_scope_and_revocation(catalog):
