@@ -12,9 +12,11 @@ from django.test import Client
 from playwright.sync_api import expect, sync_playwright
 from test_account_copy_races import prepared_account
 from test_reports import directory, photo_environment  # noqa: F401
+from test_reset_localization import db_sync
 from test_rights_portability import assessment
 from test_rights_responses import ready
 from test_rights_verification import read
+from test_scalar_selection_form_localization import catalog_captions
 
 from apps.core.mfa import encrypt
 from apps.core.models import User
@@ -167,6 +169,15 @@ def test_mobile_independent_portability_selection_review(
                 f'a[href="/{language}/moderation/rights/{case.pk}/portability/select/"]'
             ).click()
             assert selected_marker not in author_page.content()
+            catalog_captions(author_page, language)
+            inspect_button = "Inspect field page" if english else "Consultar página de campos"
+            author_page.locator("[name=purpose]").fill("short")
+            author_page.locator("form").first.evaluate("form=>form.noValidate=true")
+            with author_page.expect_response(lambda r: r.request.method == "POST") as invalid:
+                author_page.get_by_role("button", name=inspect_button, exact=True).click()
+            assert invalid.value.status == 400
+            catalog_captions(author_page, language)
+            assert selected_marker not in author_page.content()
             author_page.locator("[name=review]").select_option(str(assessment_decision.pk))
             author_page.locator("[name=dataset]").select_option(dataset)
             author_page.locator("[name=purpose]").fill(
@@ -178,6 +189,18 @@ def test_mobile_independent_portability_selection_review(
                 exact=True,
             ).click()
             expect(author_page.get_by_text(selected_marker, exact=True).first).to_be_visible()
+            catalog_captions(author_page, language)
+            expect(author_page.locator('label[for="id_reason"]')).to_have_text(
+                ("Private selection reason" if english else "Motivo privado de selección") + ":"
+            )
+            if granular:
+                for row in author_page.locator("fieldset").all():
+                    expect(row.locator('label[for$="-evidence"]')).to_have_text(
+                        ("Evidence" if english else "Evidencia") + ":"
+                    )
+                    expect(row.locator('option[value="unknown"]').first).to_have_text(
+                        "Unknown" if english else "Desconocido"
+                    )
             author_page.locator(f'[name=paths][value="{selected_path}"]').check()
             if granular:
                 fieldset = author_page.locator("fieldset").filter(
@@ -205,8 +228,33 @@ def test_mobile_independent_portability_selection_review(
                 "Selection draft saved" if english else "Borrador de selección guardado"
             )
             assert selected_marker not in author_page.content()
+            author_page.goto(
+                live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/select/"
+            )
             author_page.reload()
             assert selected_marker not in author_page.content()
+            catalog_captions(author_page, language)
+            expect(author_page.locator('label[for="reset_reason"]')).to_have_text(
+                ("Private reset reason" if english else "Motivo privado del reinicio") + ":"
+            )
+            author_page.locator("#reset_review").select_option(str(assessment_decision.pk))
+            author_page.locator("#reset_reason").fill(
+                "Unconfirmed synthetic reset must have no effect"
+            )
+            author_page.locator("section form").evaluate("form=>form.noValidate=true")
+            with author_page.expect_response(lambda r: r.request.method == "POST") as unconfirmed:
+                author_page.get_by_role(
+                    "button",
+                    name="Confirm selection restart"
+                    if english
+                    else "Confirmar reinicio de selección",
+                    exact=True,
+                ).click()
+            assert unconfirmed.value.status == 400
+            catalog_captions(author_page, language)
+            expect(author_page.locator('label[for="reset_reason"]')).to_have_text(
+                ("Private reset reason" if english else "Motivo privado del reinicio") + ":"
+            )
             assert author_page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
             if include_images:
                 author_page.goto(
@@ -344,6 +392,29 @@ def test_mobile_independent_portability_selection_review(
             delivered = json.loads((tmp_path / "portable-mobile.json").read_text())
             assert delivered["datasets"][dataset] == [{"fields": {selected_path: selected_marker}}]
             assert FIELD_EVIDENCE not in str(delivered)
+            author_page.goto(
+                live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/select/"
+            )
+            csrf = author_page.locator("[name=csrfmiddlewaretoken]").first.input_value()
+            db_sync(
+                lambda: author.user_permissions.remove(
+                    Permission.objects.get(codename="execute_rights_request")
+                )
+            )
+            response = author_page.goto(
+                live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/select/"
+            )
+            assert response.status == 403 and author_page.locator("body").inner_text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
+            assert "no-store" in response.headers["cache-control"]
+            response = author_page.request.post(
+                live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/select/",
+                form={"csrfmiddlewaretoken": csrf},
+            )
+            assert response.status == 403 and response.text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
             if include_images:
                 assert len(delivered["images"]) == 1 and len(delivered["parts"]) == 1
 

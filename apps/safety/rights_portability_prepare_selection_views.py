@@ -13,7 +13,9 @@ from django.views.decorators.debug import sensitive_post_parameters, sensitive_v
 from django.views.decorators.http import require_http_methods
 
 from .models import RightsPortabilityReview, RightsRequest
+from .rectification_presentation import caption
 from .rights import allowed
+from .rights_copy_information_views import LocalizedForm
 from .rights_copy_page_review import fresh_authority
 from .rights_portability import DATASETS, checked_assessment
 from .rights_portability_page_selection import MAX_AGE, SALT, latest_draft, prepare_page, save_page
@@ -30,11 +32,18 @@ def field_label(path):
 
 
 class ApprovedChoice(forms.ModelChoiceField):
+    presentation_language = None
+
     def label_from_instance(self, obj):
-        return f"Evaluación aprobada / Approved assessment {obj.pk} · {obj.assessment.version}"
+        label = (
+            caption("Evaluación aprobada / Approved assessment", self.presentation_language)
+            if self.presentation_language is not None
+            else "Evaluación aprobada / Approved assessment"
+        )
+        return f"{label} {obj.pk} · {obj.assessment.version}"
 
 
-class CatalogForm(forms.Form):
+class CatalogForm(LocalizedForm):
     operation = forms.CharField(initial="catalog", widget=forms.HiddenInput)
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
@@ -52,8 +61,9 @@ class CatalogForm(forms.Form):
         label="Motivo privado de consulta / Private inspection purpose",
     )
 
-    def __init__(self, *args, case, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, *args, case, language=None, **kwargs):
+        super().__init__(*args, language=language, **kwargs)
+        self.fields["review"].presentation_language = language
         self.fields["dataset"].choices = [(name, translated(name)) for name in DATASETS]
         self.fields["review"].queryset = (
             RightsPortabilityReview.objects.filter(
@@ -68,7 +78,7 @@ class CatalogForm(forms.Form):
         )
 
 
-class SaveForm(forms.Form):
+class SaveForm(LocalizedForm):
     operation = forms.CharField(initial="save", widget=forms.HiddenInput)
     key = forms.UUIDField(widget=forms.HiddenInput)
     token = forms.CharField(widget=forms.HiddenInput)
@@ -85,8 +95,8 @@ class SaveForm(forms.Form):
         label="Campos seleccionados / Selected fields",
     )
 
-    def __init__(self, *args, paths, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, *args, paths, language=None, **kwargs):
+        super().__init__(*args, language=language, **kwargs)
         self.fields["paths"].choices = [(path, field_label(path)) for path in paths]
 
 
@@ -140,7 +150,7 @@ FieldDecisions = forms.formset_factory(
 )
 
 
-class ResetForm(forms.Form):
+class ResetForm(LocalizedForm):
     operation = forms.CharField(initial="reset", widget=forms.HiddenInput)
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
@@ -162,8 +172,9 @@ class ResetForm(forms.Form):
         label="Confirmo descartar todas las elecciones del borrador actual / I confirm clearing all current draft choices",
     )
 
-    def __init__(self, *args, case, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, *args, case, language=None, **kwargs):
+        super().__init__(*args, language=language, **kwargs)
+        self.fields["review"].presentation_language = language
         self.fields["review"].queryset = CatalogForm(case=case).fields["review"].queryset
         for name, field in self.fields.items():
             field.widget.attrs["id"] = "reset_" + name
@@ -175,18 +186,40 @@ class ResetForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def prepare(request, case_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if case is None:
         raise Http404
     try:
         fresh_authority(request.user, case, request.user.session_version, request.user.mfa_version)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     if case.assigned_to_id != request.user.pk:
-        return private(HttpResponse("Assigned reviewer required", status=403))
+        return private(
+            HttpResponse(
+                "Assigned reviewer required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere el revisor asignado",
+                status=403,
+            )
+        )
     if case.kind != "portability" or case.status != "reviewing":
-        return private(HttpResponse("Current portability request required", status=409))
+        return private(
+            HttpResponse(
+                "Current portability request required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere una solicitud de portabilidad vigente",
+                status=409,
+            )
+        )
     catalog, saved, save_form = None, None, None
     page_errors = []
     field_forms = None
@@ -195,6 +228,7 @@ def prepare(request, case_id):
     if previous:
         reset_form = ResetForm(
             case=case,
+            language=request.LANGUAGE_CODE,
             initial={
                 "key": uuid4(),
                 "version": case.version,
@@ -206,6 +240,7 @@ def prepare(request, case_id):
     status = 200
     form = CatalogForm(
         case=case,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid4(),
             "version": case.version,
@@ -215,7 +250,7 @@ def prepare(request, case_id):
     if request.method == "POST":
         status = 400
         if request.POST.get("operation") == "catalog":
-            form = CatalogForm(request.POST, case=case)
+            form = CatalogForm(request.POST, case=case, language=request.LANGUAGE_CODE)
             if form.is_valid():
                 values = form.cleaned_data
                 try:
@@ -231,6 +266,7 @@ def prepare(request, case_id):
                         values["field_page"],
                     )
                     save_form = SaveForm(
+                        language=request.LANGUAGE_CODE,
                         paths=[item["path"] for item in catalog["fields"]],
                         initial={
                             "key": uuid4(),
@@ -261,21 +297,29 @@ def prepare(request, case_id):
                         field_forms = FieldDecisions(
                             initial=initial_facts,
                             prefix="fields",
+                            form_kwargs={"language": request.LANGUAGE_CODE},
                             allowed_paths=[item["path"] for item in catalog["fields"]],
                         )
                     for item in catalog["fields"]:
                         item["label"] = field_label(item["path"])
                     form = CatalogForm(
-                        case=case, initial={**values, "key": uuid4(), "review": values["review"].pk}
+                        case=case,
+                        language=request.LANGUAGE_CODE,
+                        initial={**values, "key": uuid4(), "review": values["review"].pk},
                     )
                     status = 200
                 except PermissionDenied:
-                    return private(HttpResponse("Forbidden", status=403))
+                    return private(
+                        HttpResponse(
+                            "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado",
+                            status=403,
+                        )
+                    )
                 except ValidationError as error:
                     form.add_error(None, error)
                     status = 409
         elif request.POST.get("operation") == "reset":
-            reset_form = ResetForm(request.POST, case=case)
+            reset_form = ResetForm(request.POST, case=case, language=request.LANGUAGE_CODE)
             if reset_form.is_valid():
                 values = reset_form.cleaned_data
                 try:
@@ -293,7 +337,12 @@ def prepare(request, case_id):
                     )
                     reset_done, reset_form, status = True, None, 200
                 except PermissionDenied:
-                    return private(HttpResponse("Forbidden", status=403))
+                    return private(
+                        HttpResponse(
+                            "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado",
+                            status=403,
+                        )
+                    )
                 except ValidationError as error:
                     reset_form.add_error(None, error)
                     status = 409
@@ -302,13 +351,18 @@ def prepare(request, case_id):
                 context = signing.loads(request.POST.get("token", ""), salt=SALT, max_age=MAX_AGE)
                 if not isinstance(context, dict) or not isinstance(context.get("paths"), list):
                     raise signing.BadSignature("Invalid page")
-                save_form = SaveForm(request.POST, paths=context["paths"])
+                save_form = SaveForm(
+                    request.POST, paths=context["paths"], language=request.LANGUAGE_CODE
+                )
                 if context.get("granular"):
                     field_forms = FieldDecisions(
                         request.POST,
                         prefix="fields",
                         allowed_paths=context["paths"],
-                        form_kwargs={"selected_paths": request.POST.getlist("paths")},
+                        form_kwargs={
+                            "selected_paths": request.POST.getlist("paths"),
+                            "language": request.LANGUAGE_CODE,
+                        },
                     )
                 if save_form.is_valid() and (field_forms is None or field_forms.is_valid()):
                     values = save_form.cleaned_data
@@ -334,9 +388,19 @@ def prepare(request, case_id):
                     save_form, field_forms = None, None
                     status = 200
             except PermissionDenied:
-                return private(HttpResponse("Forbidden", status=403))
+                return private(
+                    HttpResponse(
+                        "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado",
+                        status=403,
+                    )
+                )
             except (signing.BadSignature, ValueError, TypeError):
-                page_errors.append("Página caducada o inválida / Expired or invalid page")
+                page_errors.append(
+                    caption(
+                        "Página caducada o inválida / Expired or invalid page",
+                        request.LANGUAGE_CODE,
+                    )
+                )
                 status = 409
             except ValidationError as error:
                 (save_form or form).add_error(None, error)
