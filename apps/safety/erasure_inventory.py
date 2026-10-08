@@ -42,6 +42,13 @@ def source_manifest(person, case=None, *, capture=None):
     scopes = [
         ("core.Person", Q(pk=person.pk), "profile", None),
         ("listings.Listing", Q(person=person), "publication", None),
+        ("listings.PublicationState", Q(listing__person=person), "publication", None),
+        (
+            "listings.PublicationDirty",
+            Q(listing_id__in=apps.get_model("listings.Listing").objects.filter(person=person).values("pk")),
+            "publication",
+            None,
+        ),
         (
             "core.PhoneClaim",
             Q(pk=person.phone_claim_id),
