@@ -131,6 +131,7 @@ def test_mobile_source_review_and_field_proposal(
 
     import pyotp
     from playwright.sync_api import expect, sync_playwright
+    from test_rectification_proposal_localization import assert_if_present, check_missing_selection
 
     settings.DEBUG = True
     case, _, _, _, _, person = ready(request, settings, monkeypatch, "rectify")
@@ -189,11 +190,14 @@ def test_mobile_source_review_and_field_proposal(
             page.locator("button[type=submit]").click()
             page.goto(live_server.url + f"/en/moderation/rights/{case.pk}/")
             page.get_by_role("link", name="Propose data correction", exact=True).click()
+            assert_if_present(page, "en")
+            check_missing_selection(page, "en", case.pk)
             page.locator("[name=operation]").select_option("preview")
             page.locator("[name=purpose]").fill(
                 "Inspect current scoped source before proposing correction"
             )
             page.get_by_role("button", name="Record correction action", exact=True).click()
+            assert_if_present(page, "en")
             expect(
                 page.get_by_role("heading", name="Audited current fields", exact=True)
             ).to_be_visible()
@@ -219,6 +223,7 @@ def test_mobile_source_review_and_field_proposal(
                 "Inspect processed replacement and original source before selection"
             )
             page.get_by_role("button", name="Record correction action", exact=True).click()
+            assert_if_present(page, "en")
             page.get_by_role("link", name="Discard prepared image", exact=True).click()
             expect(
                 page.get_by_role("heading", name="Discard prepared image", exact=True)
@@ -235,6 +240,7 @@ def test_mobile_source_review_and_field_proposal(
                 "Inspect source after discarded preparation before new upload"
             )
             page.get_by_role("button", name="Record correction action", exact=True).click()
+            assert_if_present(page, "en")
             expect(page.locator('[name^="photos-"][name$="-photo_id"]')).to_have_count(2)
             page.get_by_role("link", name="Prepare replacement images", exact=True).click()
             page.locator("[name=image]").set_input_files(
@@ -256,6 +262,7 @@ def test_mobile_source_review_and_field_proposal(
                 "Inspect processed replacement and original source before selection"
             )
             page.get_by_role("button", name="Record correction action", exact=True).click()
+            assert_if_present(page, "en")
             staged_id = page.locator("[name=photos-2-photo_id]").input_value()
             expect(page.locator("[name=alias]")).to_have_value(alias_before)
             page.locator('[name=fields][value="alias"]').check()
@@ -315,10 +322,12 @@ def test_mobile_source_review_and_field_proposal(
             page.locator(f'[name=travel_areas][value="{new_city.pk}"]').check()
             page.locator("[name=reason]").fill(REASON)
             page.get_by_role("button", name="Record correction action", exact=True).click()
+            assert_if_present(page, "en")
             expect(
                 page.get_by_role("heading", name="Private rights inspection", exact=True)
             ).to_be_visible()
             page.goto(live_server.url + f"/en/moderation/rights/{case.pk}/rectification/")
+            assert_if_present(page, "en")
             expect(page.locator("[name=alias]")).to_have_value("")
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
         finally:

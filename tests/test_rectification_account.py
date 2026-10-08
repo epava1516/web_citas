@@ -183,6 +183,7 @@ def test_mobile_account_proposal_login_mfa_audited_source_and_reload(
 
     import pyotp
     from playwright.sync_api import expect, sync_playwright
+    from test_rectification_proposal_localization import assert_if_present, check_missing_selection
     from test_rights_responses import ready
 
     from apps.safety.crypto import unseal
@@ -218,12 +219,15 @@ def test_mobile_account_proposal_login_mfa_audited_source_and_reload(
             page.locator("button[type=submit]").click()
             expect(page.get_by_role("heading", name=labels["account"], exact=True)).to_be_visible()
             page.goto(live_server.url + path)
+            assert_if_present(page, language)
+            check_missing_selection(page, language, case.pk)
             expect(page.locator("[name=account_email]")).to_have_value("")
             page.locator("[name=operation]").select_option("preview")
             page.locator("[name=purpose]").fill(
                 "Inspect scoped subject account fields before mobile correction proposal"
             )
             page.get_by_role("button", name=labels["submit"], exact=True).click()
+            assert_if_present(page, language)
             expect(page.locator("[name=account_email]")).to_have_value(before[0])
             page.locator("[name=fields][value=account]").check()
             page.locator("[name=account_first_name]").fill("Mobile proposed account name")
@@ -234,10 +238,12 @@ def test_mobile_account_proposal_login_mfa_audited_source_and_reload(
                 "Independent scoped correction requested through mobile form"
             )
             page.get_by_role("button", name=labels["submit"], exact=True).click()
+            assert_if_present(page, language)
             expect(page.get_by_role("heading", name=labels["inspect"], exact=True)).to_be_visible()
             page.reload()
             expect(page.get_by_role("heading", name=labels["inspect"], exact=True)).to_be_visible()
             page.goto(live_server.url + path)
+            assert_if_present(page, language)
             expect(page.locator("[name=account_email]")).to_have_value("")
             assert "mobile-proposed@example.invalid" not in page.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")

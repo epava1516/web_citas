@@ -373,8 +373,12 @@ def preview(user, case_id, version, purpose):
 
 
 class ProposalForm(rectification_details.Editor):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, language="es", **kwargs):
+        from .rectification_presentation import proposal
+
+        self.language = language
         super().__init__(*args, **kwargs)
+        proposal(self, language)
         for field in rectification_details.FIELDS:
             self.fields[field].required = False
 
@@ -475,7 +479,9 @@ class ProposalForm(rectification_details.Editor):
             selected = data.get("fields", [])
             if not selected:
                 raise forms.ValidationError(
-                    "Selecciona los campos que se propone corregir / Select fields proposed for correction"
+                    "Select fields proposed for correction"
+                    if self.language == "en"
+                    else "Selecciona los campos que se propone corregir"
                 )
             data["changes"] = {
                 field: data.get(field, "")
@@ -534,7 +540,9 @@ def prepare(request, case_id):
     if case.kind != "rectify":
         return private(HttpResponse("Unsupported request type", status=409))
     form = ProposalForm(
-        request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
     )
     rate_editor = rectification_rates.Editor(
         request.POST if request.method == "POST" else None, prefix="rates"
@@ -589,6 +597,7 @@ def prepare(request, case_id):
                 prefix="photos",
             )
             form = ProposalForm(
+                language=request.LANGUAGE_CODE,
                 initial={
                     "key": uuid.uuid4(),
                     "version": case.version,
@@ -616,8 +625,11 @@ def prepare(request, case_id):
                     **source_fields.get("catalog", {}),
                     **source_fields.get("contacts", {}),
                     **source_fields.get("details", {}),
-                }
+                },
             )
+    from .rectification_presentation import editors
+
+    editors(rate_editor, photo_editor, request.LANGUAGE_CODE)
     return private(
         render(
             request,
