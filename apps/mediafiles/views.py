@@ -29,7 +29,10 @@ def upload(request, revision_id):
         Revision, pk=revision_id, listing__person__in=person_queryset(request.user)
     )
     if limited(request, "photo-upload", 30):
-        return HttpResponse("Too many uploads", status=429)
+        return HttpResponse(
+            "Too many uploads" if request.LANGUAGE_CODE == "en" else "Demasiadas subidas",
+            status=429,
+        )
     form = UploadForm(request.POST, request.FILES)
     if form.is_valid():
         try:
@@ -38,7 +41,9 @@ def upload(request, revision_id):
         except ValidationError as error:
             UploadAttempt.objects.create(user=request.user, revision=revision, result="invalid")
             return HttpResponse(" / ".join(error.messages), status=400)
-    return HttpResponse("Archivo requerido / File required", status=400)
+    return HttpResponse(
+        "File required" if request.LANGUAGE_CODE == "en" else "Archivo requerido", status=400
+    )
 
 
 @login_required
