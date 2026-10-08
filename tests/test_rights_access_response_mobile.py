@@ -77,25 +77,72 @@ def test_mobile_final_response_preparation_and_independent_decision(
         delivered = unseal(export.encrypted_payload)
         declarations = {
             "sections": {
-                section: [{"row": row_reference(section, index, row), "delivered_index": index, "decisions": {}}
-                          for index, row in enumerate(project(source_copy))]
+                section: [
+                    {
+                        "row": row_reference(section, index, row),
+                        "delivered_index": index,
+                        "decisions": {},
+                    }
+                    for index, row in enumerate(project(source_copy))
+                ]
                 for section, project in SECTIONS.items()
             },
-            "boundaries": {name: {"status": "excluded", "reason": REASON, "evidence": "Synthetic referenced information review; no real identity or legal approval"}
-                           for name in set(source_copy["pending_review"]) | set(delivered["pending_review"]) | UNPROJECTED},
+            "boundaries": {
+                name: {
+                    "status": "excluded",
+                    "reason": REASON,
+                    "evidence": "Synthetic referenced information review; no real identity or legal approval",
+                }
+                for name in set(source_copy["pending_review"])
+                | set(delivered["pending_review"])
+                | UNPROJECTED
+            },
         }
         action = decision.action
-        reference = {"action": action.pk, "request": str(action.request_id), "actor": action.actor_id,
-                     "version": action.expected_version, "operation": action.operation,
-                     "payload": action.payload_digest, "reason_ciphertext": fingerprint(action.encrypted_reason)}
-        refs = {label: {"action": action.pk, "digest": fingerprint(canonical(reference))}
-                for label in required_references(declarations)}
-        coverage = save(author, case.pk, case.version, case.response_version, export.pk, uuid4(), REASON,
-                        delivered, declarations, refs, fingerprint(canonical(source_copy)), fingerprint(canonical(delivered)))
-        _, _, coverage_read = inspect_coverage(reviewer, case.pk, case.version, coverage.pk, uuid4(), REASON)
-        coverage_review = record_coverage(reviewer, case.pk, case.version, coverage.pk, coverage_read.pk, uuid4(), REASON, "approved")
+        reference = {
+            "action": action.pk,
+            "request": str(action.request_id),
+            "actor": action.actor_id,
+            "version": action.expected_version,
+            "operation": action.operation,
+            "payload": action.payload_digest,
+            "reason_ciphertext": fingerprint(action.encrypted_reason),
+        }
+        refs = {
+            label: {"action": action.pk, "digest": fingerprint(canonical(reference))}
+            for label in required_references(declarations)
+        }
+        coverage = save(
+            author,
+            case.pk,
+            case.version,
+            case.response_version,
+            export.pk,
+            uuid4(),
+            REASON,
+            delivered,
+            declarations,
+            refs,
+            fingerprint(canonical(source_copy)),
+            fingerprint(canonical(delivered)),
+        )
+        _, _, coverage_read = inspect_coverage(
+            reviewer, case.pk, case.version, coverage.pk, uuid4(), REASON
+        )
+        coverage_review = record_coverage(
+            reviewer,
+            case.pk,
+            case.version,
+            coverage.pk,
+            coverage_read.pk,
+            uuid4(),
+            REASON,
+            "approved",
+        )
 
-        inventory, _ = inspect(author, case.pk, case.version, case.response_version, uuid4(), REASON)
+        inventory, _ = inspect(
+            author, case.pk, case.version, case.response_version, uuid4(), REASON
+        )
         if metadata == "logs":
             from datetime import timedelta
 
@@ -108,7 +155,9 @@ def test_mobile_final_response_preparation_and_independent_decision(
             event = signed_subject_log_event(
                 "account" if account_only else "person",
                 case.account_subject_id if account_only else case.person_id,
-                "profile_updated", "succeeded", event_time,
+                "profile_updated",
+                "succeeded",
+                event_time,
             )
             captured = inventory.created_at - timedelta(seconds=1)
             body = synthetic_log_bundle(captured, f"{event_time.isoformat()} {json.dumps(event)}\n")
@@ -137,7 +186,9 @@ def test_mobile_final_response_preparation_and_independent_decision(
             else:
                 aux, aux_hash = aux_decoder()
                 options = {"aux_decoder": aux, "aux_decoder_sha256": aux_hash}
-            prepare_origins([source], folder, inventory, decoder=decoder, decoder_sha256=digest, **options)
+            prepare_origins(
+                [source], folder, inventory, decoder=decoder, decoder_sha256=digest, **options
+            )
             settings.ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = str(folder)
             settings.CELERY_BROKER_TRANSPORT_OPTIONS = {"global_keyprefix": "fixture:"}
             settings.CELERY_TASK_DEFAULT_QUEUE = "q"
@@ -166,15 +217,43 @@ def test_mobile_final_response_preparation_and_independent_decision(
                 )
             page = contexts[0].new_page()
             page.goto(base + "access/response/")
+            from test_access_response_localization import assert_draft, assert_review
+
+            assert_draft(page, language)
             page.locator("#id_export").select_option(str(export.pk))
             page.locator("#id_reason").fill(REASON)
             page.locator("#id_response").fill(TEXT)
             page.locator("#id_redaction_confirmed").check()
+            if not metadata:
+                page.locator("#id_reason").fill("short")
+                page.locator("form").first.evaluate("form => form.noValidate = true")
+                with page.expect_response(lambda r: r.request.method == "POST") as invalid:
+                    page.get_by_role(
+                        "button",
+                        name="Save response draft" if english else "Guardar borrador de respuesta",
+                        exact=True,
+                    ).click()
+                assert invalid.value.status == 400
+                assert_draft(page, language)
+                assert page.locator("#id_response").input_value() == TEXT
+                from test_reset_localization import db_sync
+
+                assert (
+                    db_sync(lambda: RightsAccessResponseDraft.objects.filter(request=case).count())
+                    == 0
+                )
+                page.locator("#id_reason").fill(REASON)
             if metadata:
                 page.locator("#id_scope_inventory").select_option(str(inventory.pk))
                 page.locator("#id_coverage_review").select_option(str(coverage_review.pk))
-                page.get_by_role("button", name="Inspect access package" if english else "Consultar paquete de acceso", exact=True).click()
-                expect(page.locator(".rights-access-coverage")).to_contain_text("historical_log_capture_coverage" if metadata == "logs" else "metadata_review")
+                page.get_by_role(
+                    "button",
+                    name="Inspect access package" if english else "Consultar paquete de acceso",
+                    exact=True,
+                ).click()
+                expect(page.locator(".rights-access-coverage")).to_contain_text(
+                    "historical_log_capture_coverage" if metadata == "logs" else "metadata_review"
+                )
                 decisions = json.loads(page.locator("#id_delivery_decisions").input_value())
                 assert decisions["resources"]["status"] == "pending"
                 if metadata != "logs":
@@ -201,6 +280,21 @@ def test_mobile_final_response_preparation_and_independent_decision(
                 "link", name="Review response" if english else "Revisar respuesta"
             ).click()
             assert TEXT not in page.locator("body").inner_text()
+            assert_review(page, language)
+            if not metadata:
+                page.locator("#id_reason").fill("short")
+                page.locator("form").first.evaluate("form => form.noValidate = true")
+                with page.expect_response(lambda r: r.request.method == "POST") as invalid:
+                    page.get_by_role(
+                        "button",
+                        name="Inspect response draft"
+                        if english
+                        else "Consultar borrador de respuesta",
+                        exact=True,
+                    ).click()
+                assert invalid.value.status == 400
+                assert_review(page, language)
+                assert TEXT not in page.locator("body").inner_text()
             page.locator("#id_reason").fill(REASON)
             page.get_by_role(
                 "button",
@@ -209,8 +303,16 @@ def test_mobile_final_response_preparation_and_independent_decision(
             ).click()
             expect(page.locator("body")).to_contain_text(TEXT)
             if metadata:
-                expect(page.locator(".rights-access-coverage")).to_contain_text("infrastructure_content_accounting" if metadata == "logs" else "snapshot_metadata_scope_review")
-                expect(page.locator(".rights-access-coverage")).to_contain_text("historical_log_capture_coverage" if metadata == "logs" else "infrastructure_scope_unreviewed")
+                expect(page.locator(".rights-access-coverage")).to_contain_text(
+                    "infrastructure_content_accounting"
+                    if metadata == "logs"
+                    else "snapshot_metadata_scope_review"
+                )
+                expect(page.locator(".rights-access-coverage")).to_contain_text(
+                    "historical_log_capture_coverage"
+                    if metadata == "logs"
+                    else "infrastructure_scope_unreviewed"
+                )
             page.locator("#decision_reason").fill(REASON)
             page.locator("#decision_outcome").select_option("approved")
             page.get_by_role(
@@ -259,5 +361,12 @@ def test_mobile_historical_logs_use_existing_private_review_and_stay_partial(
     live_server, request, settings, monkeypatch, tmp_path, language, account_only
 ):
     test_mobile_final_response_preparation_and_independent_decision(
-        live_server, request, settings, monkeypatch, tmp_path, language, account_only, metadata="logs"
+        live_server,
+        request,
+        settings,
+        monkeypatch,
+        tmp_path,
+        language,
+        account_only,
+        metadata="logs",
     )
