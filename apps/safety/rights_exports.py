@@ -32,6 +32,7 @@ from .models import (
     RightsImageAccess,
     RightsRequest,
 )
+from .rectification_presentation import caption
 from .rights import allowed, fingerprint
 from .rights_copy_data import contact_data, image_inventory, subject_data
 from .rights_scope import locked_case, permitted
@@ -509,7 +510,47 @@ class ReviewedCopyField(forms.JSONField):
         return "" if value is None else super().prepare_value(value)
 
 
-class PageReviewForm(forms.Form):
+class CopyPresentationForm(forms.Form):
+    """Static captions only; legacy constructors and JSON contents remain unchanged."""
+
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if language is not None:
+            for field in self.fields.values():
+                field.label = caption(field.label, language)
+                if hasattr(field, "choices") and not hasattr(field, "queryset"):
+                    field.choices = [
+                        (value, caption(label, language)) for value, label in field.choices
+                    ]
+            for name, pair in {
+                "operation": ("Operación", "Operation"),
+                "section": ("Sección", "Section"),
+                "page": ("Página", "Page"),
+            }.items():
+                if name in self.fields:
+                    self.fields[name].label = pair[language == "en"]
+            if "section" in self.fields:
+                names = {
+                    "profile": ("Perfil", "Profile"),
+                    "subject_account": ("Cuenta del titular", "Subject account"),
+                    "revisions": ("Revisiones", "Revisions"),
+                    "legal_acceptances": ("Aceptaciones legales", "Legal acceptances"),
+                    "favorites": ("Favoritos", "Favorites"),
+                    "personal_contacts": ("Contactos personales", "Personal contacts"),
+                    "agency_relationships": ("Relaciones con agencias", "Agency relationships"),
+                    "verifications": ("Verificaciones", "Verifications"),
+                    "representation_history": (
+                        "Historial de representación",
+                        "Representation history",
+                    ),
+                }
+                self.fields["section"].choices = [
+                    (value, names[value][language == "en"])
+                    for value, _ in self.fields["section"].choices
+                ]
+
+
+class PageReviewForm(CopyPresentationForm):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     operation = forms.CharField(initial="save_page", widget=forms.HiddenInput)
@@ -526,7 +567,7 @@ class PageReviewForm(forms.Form):
     )
 
 
-class ExportForm(forms.Form):
+class ExportForm(CopyPresentationForm):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     operation = forms.ChoiceField(
@@ -593,18 +634,30 @@ class ExportForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def prepare(request, case_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case:
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
-    form = ExportForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
+    form = ExportForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
+    )
     page_review_form = None
     saved_page = None
     saved_page_data = None
     if request.method == "POST" and request.POST.get("operation") == "save_page":
-        form = PageReviewForm(request.POST)
+        form = PageReviewForm(request.POST, language=request.LANGUAGE_CODE)
     status = 400 if request.method == "POST" else 200
     source = None
     page_data = None
@@ -624,7 +677,10 @@ def prepare(request, case_id):
                     values["reason"],
                     values["entries"],
                 )
-                form = ExportForm(initial={"key": uuid.uuid4(), "version": case.version})
+                form = ExportForm(
+                    language=request.LANGUAGE_CODE,
+                    initial={"key": uuid.uuid4(), "version": case.version},
+                )
                 status = 200
             elif values["operation"] == "inspect_saved_page":
                 from .rights_copy_page_review import inspect_saved
@@ -652,6 +708,7 @@ def prepare(request, case_id):
                     values["cursor"],
                 )
                 page_review_form = PageReviewForm(
+                    language=request.LANGUAGE_CODE,
                     initial={
                         "key": uuid.uuid4(),
                         "version": case.version,
@@ -659,7 +716,7 @@ def prepare(request, case_id):
                         "read_id": page_data["read_id"],
                         "page_version": page_data["page_version"],
                         "entries": page_data["entries"],
-                    }
+                    },
                 )
                 status = 200
             elif values["operation"] in {"generate_pages", "generate_pages_with_information"}:
@@ -692,23 +749,25 @@ def prepare(request, case_id):
                 )
                 status = 200
                 form = ExportForm(
+                    language=request.LANGUAGE_CODE,
                     initial={
                         "key": uuid.uuid4(),
                         "version": case.version,
                         "operation": "generate",
                         "copy": source,
-                    }
+                    },
                 )
             elif values["operation"] == "preview":
                 source = preview(request.user, case_id, values["version"], values["purpose"])
                 status = 200
                 form = ExportForm(
+                    language=request.LANGUAGE_CODE,
                     initial={
                         "key": uuid.uuid4(),
                         "version": case.version,
                         "operation": "generate",
                         "copy": source,
-                    }
+                    },
                 )
             else:
                 generate(
@@ -721,7 +780,11 @@ def prepare(request, case_id):
                 )
                 return private(redirect("rights_inspect", case_id=case.pk))
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
