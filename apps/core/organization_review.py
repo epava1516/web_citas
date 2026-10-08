@@ -24,6 +24,28 @@ class ReviewForm(forms.Form):
         label="Referencia sintética de comprobación / Synthetic verification reference",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {
+            "outcome": ("Resultado", "Outcome"),
+            "reason": ("Motivo", "Reason"),
+            "evidence_reference": (
+                "Referencia sintética de comprobación",
+                "Synthetic verification reference",
+            ),
+        }
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        choices = [
+            ("", ("Selecciona", "Choose")),
+            ("passed", ("Aprobar", "Approve")),
+            ("failed", ("Rechazar", "Reject")),
+        ]
+        self.fields["outcome"].choices = [
+            (value, translations[index]) for value, translations in choices
+        ]
+
 
 def reviewer_allowed(request):
     return bool(
@@ -59,7 +81,11 @@ def review(request, agency_id):
         or AgencyMember.objects.filter(agency=agency, user=request.user, active=True).exists()
     ):
         return HttpResponse("Cannot review your own organization", status=403)
-    form = ReviewForm(request.POST or None, initial={"review_version": agency.review_version})
+    form = ReviewForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"review_version": agency.review_version},
+    )
     if request.method == "POST" and form.is_valid():
         # A local workflow is not evidence that a real organization was checked.
         if settings.PRODUCTION or settings.VERIFICATION_PROVIDER != "simulator":

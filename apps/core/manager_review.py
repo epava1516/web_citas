@@ -57,6 +57,21 @@ class ReviewForm(forms.Form):
     )
     reason = forms.CharField(max_length=1000, widget=forms.Textarea, label="Motivo / Reason")
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {"outcome": ("Resultado", "Outcome"), "reason": ("Motivo", "Reason")}
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        choices = [
+            ("", ("Selecciona", "Choose")),
+            ("approved", ("Aprobar", "Approve")),
+            ("failed", ("Rechazar", "Reject")),
+        ]
+        self.fields["outcome"].choices = [
+            (value, translations[index]) for value, translations in choices
+        ]
+
 
 @login_required
 def queue(request):
@@ -81,7 +96,11 @@ def review(request, person_id):
     person = get_object_or_404(Person, pk=person_id)
     if transfer_conflict(request.user, person):
         return HttpResponse("Conflict of interest", status=403)
-    form = ReviewForm(request.POST or None, initial={"manager_version": person.manager_version})
+    form = ReviewForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"manager_version": person.manager_version},
+    )
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             if person.agency_id:
