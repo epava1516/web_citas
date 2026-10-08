@@ -141,6 +141,37 @@ class CalendarFilterForm(forms.Form):
         ],
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        english = language == "en"
+        definitions = {
+            "attention": (
+                ("Atención", "Attention"),
+                [
+                    ("due", "Vencidas", "Due"),
+                    ("soon", "Próximos siete días", "Next seven days"),
+                    ("all", "Todas", "All"),
+                ],
+            ),
+            "purpose": (
+                ("Finalidad", "Purpose"),
+                [("", "Todas", "All"), ("account_preferences", "Preferencias", "Preferences")],
+            ),
+            "mode": (
+                ("Medida", "Measure"),
+                [
+                    ("", "Todos", "All"),
+                    ("restrict", "Limitación", "Restriction"),
+                    ("cease", "Cese", "Cessation"),
+                ],
+            ),
+        }
+        for name, (labels, choices) in definitions.items():
+            self.fields[name].label = labels[english]
+            self.fields[name].choices = [
+                (value, en if english else es) for value, es, en in choices
+            ]
+
 
 @login_required
 @require_GET
@@ -153,9 +184,14 @@ def queue(request):
     values = request.GET.copy()
     if "attention" not in values:
         values["attention"] = "due"
-    form = CalendarFilterForm(values)
+    form = CalendarFilterForm(values, language=request.LANGUAGE_CODE)
     if not form.is_valid():
-        return private(HttpResponse("Invalid filters / Filtros inválidos", status=400))
+        return private(
+            HttpResponse(
+                "Invalid filters" if request.LANGUAGE_CODE == "en" else "Filtros inválidos",
+                status=400,
+            )
+        )
     filters = form.cleaned_data
     rows = PurposeRestriction.objects.filter(active=True).select_related(
         "execution__action__request__person",
