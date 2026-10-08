@@ -12,12 +12,19 @@ from django.views.decorators.http import require_http_methods
 
 from .models import RightsPortabilityAssessment, RightsRequest
 from .rights import allowed
+from .rights_copy_information_views import LocalizedForm
 from .rights_portability_review import authorize, record
-from .rights_portability_views import translated
+from .rights_portability_views import DatasetForm, translated
 from .views import private
 
 
-class ReviewForm(forms.Form):
+class ReviewForm(LocalizedForm):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, language=language, **kwargs)
+        if language is not None:
+            self.fields["operation"].label = "Operation" if language == "en" else "Operación"
+            self.fields["outcome"].label = "Outcome" if language == "en" else "Resultado"
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     operation = forms.ChoiceField(
@@ -41,23 +48,46 @@ class ReviewForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def review(request, case_id, assessment_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case:
         raise Http404
     if case.kind != "portability":
-        return private(HttpResponse("Portability request required", status=409))
+        return private(
+            HttpResponse(
+                "Portability request required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere una solicitud de portabilidad",
+                status=409,
+            )
+        )
     try:
         authorize(request.user, case)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     information = RightsPortabilityAssessment.objects.filter(pk=assessment_id, request=case).first()
     if not information:
         raise Http404
     if information.actor_id == request.user.pk:
-        return private(HttpResponse("Independent reviewer required", status=403))
+        return private(
+            HttpResponse(
+                "Independent reviewer required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere revisión independiente",
+                status=403,
+            )
+        )
     form = ReviewForm(
         request.POST if request.method == "POST" else None,
+        language=request.LANGUAGE_CODE,
         initial={"key": uuid4(), "version": case.version},
     )
     body, decision = None, None
@@ -66,18 +96,26 @@ def review(request, case_id, assessment_id):
         try:
             result, body = record(request.user, case.pk, information.pk, **form.cleaned_data)
             decision = result if body is None else None
-            form = ReviewForm(initial={"key": uuid4(), "version": case.version})
+            form = ReviewForm(
+                language=request.LANGUAGE_CODE, initial={"key": uuid4(), "version": case.version}
+            )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
     reviewed_fields = []
     if body:
+        statuses = dict(DatasetForm(language=request.LANGUAGE_CODE).fields["status"].choices)
         reviewed_fields = [
             {
                 "label": translated(name),
+                "status_caption": statuses.get(item["status"], item["status"]),
                 "basis": translated(item["basis"]),
                 "origin": translated(item["origin"]),
                 **{key: value for key, value in item.items() if key not in {"basis", "origin"}},

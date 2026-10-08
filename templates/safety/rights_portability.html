@@ -7,5 +7,5 @@
 <button type="submit">{% if english %}Save assessment draft{% else %}Guardar borrador de evaluación{% endif %}</button></form>
 <h2>{% if english %}Inspect saved assessment{% else %}Consultar evaluación guardada{% endif %}</h2>
 <form method="post">{% csrf_token %}{{ read_form.as_p }}<button type="submit">{% if english %}Record access and inspect assessment{% else %}Registrar acceso y consultar evaluación{% endif %}</button></form>
-{% for item in loaded %}<article><h3>{{ item.label }}</h3><p>{{ item.decision }} · {{ item.basis }} · {{ item.origin }}</p><p>{{ item.reason|linebreaksbr }}</p><p>{{ item.evidence|linebreaksbr }}</p></article>{% endfor %}
+{% for item in loaded %}<article><h3>{{ item.label }}</h3><p>{{ item.decision_caption }} · {{ item.basis }} · {{ item.origin }}</p><p>{{ item.reason|linebreaksbr }}</p><p>{{ item.evidence|linebreaksbr }}</p></article>{% endfor %}
 {% endblock %}

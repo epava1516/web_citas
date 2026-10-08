@@ -16,13 +16,14 @@ from apps.core.models import User
 
 from .models import RightsPortabilityAssessment, RightsRequest
 from .rights import allowed, fingerprint
+from .rights_copy_information_views import LocalizedForm
 from .rights_copy_page_review import fresh_authority
 from .rights_exports import can_prepare, canonical, reviewer_case, source_copy
 from .rights_portability import BASES, DATASETS, ORIGINS, inspect_assessment, save_assessment
 from .views import private
 
 
-class DraftForm(forms.Form):
+class DraftForm(LocalizedForm):
     key = forms.UUIDField(widget=forms.HiddenInput)
     case_version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=0, widget=forms.HiddenInput)
@@ -35,7 +36,7 @@ class DraftForm(forms.Form):
     )
 
 
-class ReadForm(forms.Form):
+class ReadForm(LocalizedForm):
     operation = forms.ChoiceField(
         choices=[("inspect", "inspect")], widget=forms.HiddenInput, initial="inspect"
     )
@@ -89,9 +90,9 @@ def translated(name):
     return LABELS[name][1 if (get_language() or "").startswith("en") else 0]
 
 
-class DatasetForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+class DatasetForm(LocalizedForm):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, language=language, **kwargs)
         for field, values in [("basis", BASES), ("origin", ORIGINS)]:
             self.fields[field].choices = [(name, translated(name)) for name in sorted(values)]
 
@@ -139,7 +140,11 @@ Datasets = forms.formset_factory(
 @require_http_methods(["GET", "POST"])
 def prepare(request, case_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     if not RightsRequest.objects.filter(pk=case_id).exists():
         raise Http404
     try:
@@ -157,19 +162,31 @@ def prepare(request, case_id):
                 .first()
             )
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     except ValidationError:
         return private(
-            HttpResponse("Inspect assigned verified portability request first", status=409)
+            HttpResponse(
+                "Inspect assigned verified portability request first"
+                if request.LANGUAGE_CODE == "en"
+                else "Consulta primero la solicitud de portabilidad asignada y verificada",
+                status=409,
+            )
         )
     reading = request.method == "POST" and request.POST.get("operation") == "inspect"
     draft_data = request.POST if request.method == "POST" and not reading else None
     read_form = ReadForm(
-        request.POST if reading else None, initial={"key": uuid4(), "case_version": case.version}
+        request.POST if reading else None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid4(), "case_version": case.version},
     )
     loaded = []
     form = DraftForm(
         draft_data,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid4(),
             "case_version": case.version,
@@ -180,6 +197,7 @@ def prepare(request, case_id):
     rows = Datasets(
         draft_data,
         prefix="datasets",
+        form_kwargs={"language": request.LANGUAGE_CODE},
         initial=[
             {
                 "dataset": name,
@@ -202,10 +220,12 @@ def prepare(request, case_id):
                 case.pk,
                 **{k: v for k, v in read_form.cleaned_data.items() if k != "operation"},
             )
+            statuses = dict(DatasetForm(language=request.LANGUAGE_CODE).fields["status"].choices)
             loaded = [
                 {
                     "label": translated(name),
                     "decision": item["status"],
+                    "decision_caption": statuses.get(item["status"], item["status"]),
                     "basis": translated(item["basis"]),
                     "origin": translated(item["origin"]),
                     "reason": item["reason"],
@@ -214,7 +234,11 @@ def prepare(request, case_id):
                 for name, item in body.items()
             ]
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             read_form.add_error(None, error)
             status = 409
@@ -234,7 +258,11 @@ def prepare(request, case_id):
                 **{k: v for k, v in form.cleaned_data.items() if k != "source_digest"},
             )
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409

@@ -9,7 +9,9 @@ import pytest
 from django.contrib.auth.models import Permission
 from playwright.sync_api import expect, sync_playwright
 from test_account_copy_races import prepared_account
+from test_copy_information_localization import review_captions
 from test_reports import directory, photo_environment  # noqa: F401
+from test_reset_localization import db_sync
 from test_rights_portability import assessment
 
 from apps.core.mfa import encrypt
@@ -93,6 +95,16 @@ def test_mobile_independent_portability_review(
                 f'a[href="/{language}/moderation/rights/{case.pk}/portability/{plan.pk}/review/"]'
             ).click()
             assert REASON not in page.content()
+            review_captions(page, language)
+            button = "Record review action" if english else "Registrar acción de revisión"
+            page.locator("[name=reason]").fill("short")
+            page.locator("form").evaluate("form=>form.noValidate=true")
+            with page.expect_response(lambda r: r.request.method == "POST") as invalid:
+                page.get_by_role("button", name=button, exact=True).click()
+            assert invalid.value.status == 400
+            review_captions(page, language)
+            assert REASON not in page.content()
+            assert db_sync(lambda: RightsPortabilityReview.objects.count()) == 0
             page.locator("[name=operation]").select_option("inspect")
             page.locator("[name=reason]").fill(
                 "Audit current plan before independent operational review"
@@ -100,6 +112,14 @@ def test_mobile_independent_portability_review(
             button = "Record review action" if english else "Registrar acción de revisión"
             page.get_by_role("button", name=button, exact=True).click()
             expect(page.get_by_text(REASON, exact=True).first).to_be_visible()
+            review_captions(page, language)
+            assert page.locator("article").count() == 9
+            for article in page.locator("article").all():
+                expect(article.locator("p").first).to_have_text(
+                    "Eligible · Contract · Provided by the subject"
+                    if english
+                    else "Elegible · Contrato · Facilitados por el interesado"
+                )
             page.locator("[name=operation]").select_option("review")
             page.locator("[name=outcome]").select_option("approved")
             page.locator("[name=reason]").fill(
@@ -109,8 +129,35 @@ def test_mobile_independent_portability_review(
             expect(page.get_by_role("status")).to_have_text(
                 "Decision recorded: approved" if english else "Decisión registrada: approved"
             )
+            page.goto(
+                live_server.url
+                + f"/{language}/moderation/rights/{case.pk}/portability/{plan.pk}/review/"
+            )
             page.reload()
             assert REASON not in page.content()
+            review_captions(page, language)
+            csrf = page.locator("[name=csrfmiddlewaretoken]").input_value()
+            db_sync(
+                lambda: reviewer.user_permissions.remove(
+                    Permission.objects.get(codename="review_portability")
+                )
+            )
+            response = page.goto(
+                live_server.url
+                + f"/{language}/moderation/rights/{case.pk}/portability/{plan.pk}/review/"
+            )
+            assert response.status == 403 and page.locator("body").inner_text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
+            assert "no-store" in response.headers["cache-control"]
+            response = page.request.post(
+                live_server.url
+                + f"/{language}/moderation/rights/{case.pk}/portability/{plan.pk}/review/",
+                form={"csrfmiddlewaretoken": csrf},
+            )
+            assert response.status == 403 and response.text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
         finally:
             browser.close()
