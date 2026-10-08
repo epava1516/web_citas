@@ -12,13 +12,20 @@ from django.views.decorators.http import require_http_methods, require_POST
 
 from .models import RightsPortabilitySelection, RightsRequest
 from .rights import allowed
+from .rights_copy_information_views import LocalizedForm
 from .rights_portability_review import authorize
 from .rights_portability_selection_review import record
 from .rights_portability_views import translated
 from .views import private
 
 
-class ReviewForm(forms.Form):
+class ReviewForm(LocalizedForm):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, language=language, **kwargs)
+        if language is not None:
+            self.fields["operation"].label = "Operation" if language == "en" else "Operación"
+            self.fields["outcome"].label = "Outcome" if language == "en" else "Resultado"
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     operation = forms.ChoiceField(
@@ -36,7 +43,7 @@ class ReviewForm(forms.Form):
     )
 
 
-class ImageInspectionForm(forms.Form):
+class ImageInspectionForm(LocalizedForm):
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     reason = forms.CharField(
@@ -46,8 +53,8 @@ class ImageInspectionForm(forms.Form):
         label="Motivo privado de consulta / Private inspection purpose",
     )
 
-    def __init__(self, *args, photo_id=None, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, *args, photo_id=None, language=None, **kwargs):
+        super().__init__(*args, language=language, **kwargs)
         if photo_id:
             for name, field in self.fields.items():
                 field.widget.attrs["id"] = f"image-{photo_id}-{name}"
@@ -59,23 +66,46 @@ class ImageInspectionForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def review(request, case_id, selection_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case:
         raise Http404
     if case.kind != "portability":
-        return private(HttpResponse("Portability request required", status=409))
+        return private(
+            HttpResponse(
+                "Portability request required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere una solicitud de portabilidad",
+                status=409,
+            )
+        )
     try:
         authorize(request.user, case)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     information = RightsPortabilitySelection.objects.filter(pk=selection_id, request=case).first()
     if not information:
         raise Http404
     if information.actor_id == request.user.pk:
-        return private(HttpResponse("Independent reviewer required", status=403))
+        return private(
+            HttpResponse(
+                "Independent reviewer required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere revisión independiente",
+                status=403,
+            )
+        )
     form = ReviewForm(
         request.POST if request.method == "POST" else None,
+        language=request.LANGUAGE_CODE,
         initial={"key": uuid4(), "version": case.version},
     )
     body, decision = None, None
@@ -94,10 +124,16 @@ def review(request, case_id, selection_id):
                 values["outcome"],
             )
             decision = result if body is None else None
-            form = ReviewForm(initial={"key": uuid4(), "version": case.version})
+            form = ReviewForm(
+                language=request.LANGUAGE_CODE, initial={"key": uuid4(), "version": case.version}
+            )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
@@ -160,6 +196,7 @@ def review(request, case_id, selection_id):
                         "origin": translated(item["conditions"]["origin"]),
                         "form": ImageInspectionForm(
                             photo_id=item["photo"],
+                            language=request.LANGUAGE_CODE,
                             initial={"key": uuid4(), "version": case.version},
                         ),
                     }
@@ -177,10 +214,21 @@ def review(request, case_id, selection_id):
 @sensitive_variables()
 def inspect_image(request, case_id, selection_id, photo_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
-    form = ImageInspectionForm(request.POST)
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
+    form = ImageInspectionForm(request.POST, language=request.LANGUAGE_CODE)
     if not form.is_valid():
-        return private(HttpResponse("Invalid inspection form", status=400))
+        return private(
+            HttpResponse(
+                "Invalid inspection form"
+                if request.LANGUAGE_CODE == "en"
+                else "Formulario de consulta inválido",
+                status=400,
+            )
+        )
     from .rights_portability_image_read import inspect
 
     values = form.cleaned_data
@@ -197,9 +245,20 @@ def inspect_image(request, case_id, selection_id, photo_id):
     except RightsRequest.DoesNotExist:
         raise Http404 from None
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     except ValidationError:
-        return private(HttpResponse("Image or authorization changed", status=409))
+        return private(
+            HttpResponse(
+                "Image or authorization changed"
+                if request.LANGUAGE_CODE == "en"
+                else "La imagen o la autorización han cambiado",
+                status=409,
+            )
+        )
     response = HttpResponse(content, content_type="image/webp")
     response["Content-Disposition"] = 'inline; filename="portable-image-review.webp"'
     return private(response)

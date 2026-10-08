@@ -11,6 +11,7 @@ from django.db import transaction
 from django.test import Client
 from playwright.sync_api import expect, sync_playwright
 from test_account_copy_races import prepared_account
+from test_copy_information_localization import review_captions
 from test_reports import directory, photo_environment  # noqa: F401
 from test_reset_localization import db_sync
 from test_rights_portability import assessment
@@ -319,6 +320,24 @@ def test_mobile_independent_portability_selection_review(
                 f'a[href^="/{language}/moderation/rights/{case.pk}/portability/selection/"]'
             ).first.click()
             assert selected_marker not in page.content()
+            review_url = page.url
+            review_captions(page, language)
+            button = "Record review action" if english else "Registrar acción de revisión"
+            page.locator("#id_reason").fill("short")
+            page.locator("form").last.evaluate("form=>form.noValidate=true")
+            with page.expect_response(lambda r: r.request.method == "POST") as invalid:
+                page.get_by_role("button", name=button, exact=True).click()
+            assert invalid.value.status == 400
+            review_captions(page, language)
+            assert selected_marker not in page.content()
+            assert (
+                db_sync(
+                    lambda: RightsPortabilitySelectionReview.objects.filter(
+                        selection__request=case
+                    ).count()
+                )
+                == 0
+            )
             page.locator("[name=operation]").select_option("inspect")
             page.locator("#id_reason").fill(
                 "Audit current plan before independent operational review"
@@ -326,6 +345,7 @@ def test_mobile_independent_portability_selection_review(
             button = "Record review action" if english else "Registrar acción de revisión"
             page.get_by_role("button", name=button, exact=True).click()
             expect(page.get_by_text(selected_marker, exact=True).first).to_be_visible()
+            review_captions(page, language)
             if granular:
                 expect(page.get_by_text(FIELD_EVIDENCE, exact=True).first).to_be_visible()
             if include_images:
@@ -334,6 +354,23 @@ def test_mobile_independent_portability_selection_review(
                     name="Inspect selected image" if english else "Consultar imagen seleccionada",
                     exact=True,
                 )
+                image_form = image_button.locator("..")
+                reason_id = image_form.locator("textarea").get_attribute("id")
+                expect(image_form.locator(f'label[for="{reason_id}"]')).to_have_text(
+                    ("Private inspection purpose" if english else "Motivo privado de consulta")
+                    + ":"
+                )
+                image_endpoint = image_form.get_attribute("action")
+                image_form.locator("textarea").fill("short")
+                image_form.evaluate("form=>form.noValidate=true")
+                with page.expect_popup() as invalid_image:
+                    image_button.click()
+                popup = invalid_image.value
+                popup.wait_for_load_state()
+                expect(popup.locator("body")).to_have_text(
+                    "Invalid inspection form" if english else "Formulario de consulta inválido"
+                )
+                popup.close()
                 image_button.locator("..").locator("textarea").fill(
                     "Inspect exact synthetic bytes before independent approval"
                 )
@@ -354,7 +391,9 @@ def test_mobile_independent_portability_selection_review(
             expect(page.get_by_role("status")).to_have_text(
                 "Decision recorded: Approved" if english else "Decisión registrada: Aprobada"
             )
+            page.goto(review_url)
             page.reload()
+            review_captions(page, language)
             assert selected_marker not in page.content()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
             author_page.goto(
@@ -392,6 +431,35 @@ def test_mobile_independent_portability_selection_review(
             delivered = json.loads((tmp_path / "portable-mobile.json").read_text())
             assert delivered["datasets"][dataset] == [{"fields": {selected_path: selected_marker}}]
             assert FIELD_EVIDENCE not in str(delivered)
+            page.goto(review_url)
+            review_csrf = page.locator("[name=csrfmiddlewaretoken]").input_value()
+            db_sync(
+                lambda: reviewer.user_permissions.remove(
+                    Permission.objects.get(codename="review_portability")
+                )
+            )
+            response = page.goto(review_url)
+            assert response.status == 403 and page.locator("body").inner_text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
+            assert "no-store" in response.headers["cache-control"]
+            response = page.request.post(review_url, form={"csrfmiddlewaretoken": review_csrf})
+            assert response.status == 403 and response.text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
+            if include_images:
+                response = page.request.post(
+                    live_server.url + image_endpoint,
+                    form={
+                        "csrfmiddlewaretoken": review_csrf,
+                        "key": str(uuid4()),
+                        "version": case.version,
+                        "reason": "Inspect synthetic image after revoked permission",
+                    },
+                )
+                assert response.status == 403 and response.text() == (
+                    "Forbidden" if english else "Acceso denegado"
+                )
             author_page.goto(
                 live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/select/"
             )
