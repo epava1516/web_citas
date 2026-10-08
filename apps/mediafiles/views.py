@@ -102,7 +102,12 @@ def remove(request, photo_id):
             or revision.status != "draft"
             or revision.manager_version != person.manager_version
         ):
-            return HttpResponse("Revision not editable", status=409)
+            return HttpResponse(
+                "Revision not editable"
+                if request.LANGUAGE_CODE == "en"
+                else "Revisión no editable",
+                status=409,
+            )
         photo = Photo.objects.select_for_update().get(pk=initial.pk)
         photo.removed_at = timezone.now()
         photo.save(update_fields=["removed_at"])
@@ -129,7 +134,12 @@ def reorder(request, photo_id):
             or revision.status != "draft"
             or revision.manager_version != person.manager_version
         ):
-            return HttpResponse("Revision not editable", status=409)
+            return HttpResponse(
+                "Revision not editable"
+                if request.LANGUAGE_CODE == "en"
+                else "Revisión no editable",
+                status=409,
+            )
         photos = list(
             revision.photos.filter(removed_at__isnull=True).order_by("position", "created_at")
         )
@@ -142,7 +152,10 @@ def reorder(request, photo_id):
             else 0
         )
         if not delta:
-            return HttpResponse("Invalid direction", status=400)
+            return HttpResponse(
+                "Invalid direction" if request.LANGUAGE_CODE == "en" else "Dirección inválida",
+                status=400,
+            )
         other = index + delta
         if 0 <= other < len(photos):
             photos[index], photos[other] = photos[other], photos[index]
