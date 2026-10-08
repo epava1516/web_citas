@@ -14,12 +14,24 @@ from .models import RightsRectificationRecipientAssessment, RightsRequest
 from .recipient_assessment_views import target_title
 from .recipient_assessments import targets
 from .recipient_review import inspect, permission, review
+from .rectification_presentation import caption
 from .rights import allowed
 from .rights_scope import permitted
 from .views import private
 
 
 class ReviewForm(forms.Form):
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.label = caption(field.label, language)
+            if hasattr(field, "choices"):
+                field.choices = [
+                    (value, caption(label, language)) for value, label in field.choices
+                ]
+        self.fields["operation"].label = "Operation" if language == "en" else "Operación"
+        self.fields["outcome"].label = "Outcome" if language == "en" else "Resultado"
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(widget=forms.HiddenInput, min_value=1)
     operation = forms.ChoiceField(
@@ -53,11 +65,19 @@ class ReviewForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def prepare(request, case_id, assessment_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     try:
         permission(request.user)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     assessment = (
         RightsRectificationRecipientAssessment.objects.filter(
@@ -69,8 +89,16 @@ def prepare(request, case_id, assessment_id):
     if not case or not assessment:
         raise Http404
     if not permitted(request.user, case) or assessment.action.actor_id == request.user.pk:
-        return private(HttpResponse("Forbidden", status=403))
-    form = ReviewForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
+    form = ReviewForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
+    )
     rows = None
     status = 200 if request.method == "GET" else 400
     if request.method == "POST" and form.is_valid():
@@ -100,7 +128,11 @@ def prepare(request, case_id, assessment_id):
                 )
                 return private(redirect("rights_inspect", case_id=case.pk))
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409

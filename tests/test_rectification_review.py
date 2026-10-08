@@ -586,6 +586,9 @@ def test_mobile_independent_source_and_proposal_review(
             expect(
                 page.get_by_role("heading", name=label("Correction recipient history"), exact=True)
             ).to_be_visible()
+            from test_rectification_recipients_localization import assert_screen
+
+            assert_screen(page, language, "inventory")
             page.locator("[name=purpose]").fill(
                 "Assess historical recipients after applied correction"
             )
@@ -596,17 +599,20 @@ def test_mobile_independent_source_and_proposal_review(
                 page.get_by_role("heading", name=label("Audited historical summary"), exact=True)
             ).to_be_visible()
             assert ("Incompleto:" if language == "es" else "Incomplete:") in page.content()
+            assert_screen(page, language, "inventory")
             recipient_history_url = page.url
             page.get_by_role("link", name=label("Assess recipients and gaps"), exact=True).click()
             expect(
                 page.get_by_role("heading", name=label("Propose recipient assessment"), exact=True)
             ).to_be_visible()
+            assert_screen(page, language, "access")
             assessment_url = page.url
             page.locator("[name=purpose]").fill(
                 "Read recipient and gap fields before motivated decisions"
             )
             page.get_by_role("button", name=label("Record assessment action"), exact=True).click()
             assert page.locator("fieldset").count() > 0
+            assert_screen(page, language, "access")
             if final_flow:
                 for choice in page.locator("select[name$='-outcome']").all():
                     choice.select_option("disproportionate")
@@ -653,6 +659,7 @@ def test_mobile_independent_source_and_proposal_review(
                     "heading", name=label("Independent recipient assessment review"), exact=True
                 )
             ).to_be_visible()
+            assert_screen(review_page, language, "review")
             review_page.locator("[name=purpose]").fill(
                 "Read proposed recipient decisions and evidence independently"
             )
@@ -664,6 +671,7 @@ def test_mobile_independent_source_and_proposal_review(
                     "heading", name=label("Audited proposed decisions"), exact=True
                 )
             ).to_be_visible()
+            assert_screen(review_page, language, "review")
             assert "Synthetic source evidence awaiting independent review" in review_page.content()
             assert review_page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
             review_page.locator("[name=operation]").select_option("review")

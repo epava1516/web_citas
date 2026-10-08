@@ -15,6 +15,7 @@ from apps.core.models import Agency, User
 
 from .models import RightsRectificationRecipientInventory, RightsRequest
 from .recipient_assessments import inspect, propose, targets
+from .rectification_presentation import caption
 from .rectification_review import permission
 from .rights import allowed
 from .rights_scope import permitted
@@ -79,6 +80,16 @@ def target_title(token, candidate, english):
 
 
 class AccessForm(forms.Form):
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.label = caption(field.label, language)
+            if hasattr(field, "choices"):
+                field.choices = [
+                    (value, caption(label, language)) for value, label in field.choices
+                ]
+        self.fields["operation"].label = "Operation" if language == "en" else "Operación"
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(widget=forms.HiddenInput, min_value=1)
     operation = forms.ChoiceField(
@@ -93,6 +104,17 @@ class AccessForm(forms.Form):
 
 
 class DecisionForm(forms.Form):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if language is None:
+            return
+        for field in self.fields.values():
+            field.label = caption(field.label, language)
+            if hasattr(field, "choices"):
+                field.choices = [
+                    (value, caption(label, language)) for value, label in field.choices
+                ]
+
     target = forms.CharField(widget=forms.HiddenInput, max_length=200)
     outcome = forms.ChoiceField(
         label="Decisión propuesta / Proposed decision",
@@ -129,11 +151,19 @@ Decisions = formset_factory(
 @require_http_methods(["GET", "POST"])
 def prepare(request, case_id, inventory_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     try:
         permission(request.user)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     inventory = (
         RightsRectificationRecipientInventory.objects.filter(pk=inventory_id, action__request=case)
@@ -143,9 +173,15 @@ def prepare(request, case_id, inventory_id):
     if not case or not inventory:
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     access = AccessForm(
-        request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
     )
     decisions = None
     status = 200 if request.method == "GET" else 400
@@ -159,6 +195,7 @@ def prepare(request, case_id, inventory_id):
                 decisions = Decisions(
                     initial=[{"target": token, "outcome": "pending"} for token in targets(data)],
                     prefix="decisions",
+                    form_kwargs={"language": request.LANGUAGE_CODE},
                 )
                 for decision, (token, candidate) in zip(
                     decisions.forms, targets(data).items(), strict=True
@@ -167,11 +204,16 @@ def prepare(request, case_id, inventory_id):
                         token, candidate, request.LANGUAGE_CODE == "en"
                     )
                 access = AccessForm(
-                    initial={"key": uuid.uuid4(), "version": case.version, "operation": "propose"}
+                    language=request.LANGUAGE_CODE,
+                    initial={"key": uuid.uuid4(), "version": case.version, "operation": "propose"},
                 )
                 status = 200
             else:
-                decisions = Decisions(request.POST, prefix="decisions")
+                decisions = Decisions(
+                    request.POST,
+                    prefix="decisions",
+                    form_kwargs={"language": request.LANGUAGE_CODE},
+                )
                 if decisions.is_valid():
                     rows = {
                         row["target"]: {key: row[key] for key in ["outcome", "reason", "evidence"]}
@@ -186,7 +228,11 @@ def prepare(request, case_id, inventory_id):
                     )
                     return private(redirect("rights_inspect", case_id=case.pk))
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             access.add_error(None, error)
             status = 409

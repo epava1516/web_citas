@@ -24,6 +24,7 @@ from .models import (
     RightsRectificationSourceRead,
     RightsRequest,
 )
+from .rectification_presentation import caption
 from .rectification_review import permission
 from .rights import allowed, fingerprint
 from .rights_responses import complete_response_read
@@ -202,6 +203,15 @@ def prepare(user, case_id, execution_id, key, version, purpose):
 
 
 class InventoryForm(forms.Form):
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.label = caption(field.label, language)
+            if hasattr(field, "choices"):
+                field.choices = [
+                    (value, caption(label, language)) for value, label in field.choices
+                ]
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     purpose = forms.CharField(
@@ -215,11 +225,19 @@ class InventoryForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def prepare_view(request, case_id, execution_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     try:
         permission(request.user)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     execution = (
         RightsRectificationExecution.objects.filter(
@@ -231,9 +249,15 @@ def prepare_view(request, case_id, execution_id):
     if not case or not execution:
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = InventoryForm(
-        request.POST or None, initial={"key": uuid.uuid4(), "version": case.version}
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
     )
     data = None
     record = None
@@ -252,7 +276,11 @@ def prepare_view(request, case_id, execution_id):
             data = unseal(record.encrypted_inventory)
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
