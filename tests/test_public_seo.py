@@ -23,6 +23,7 @@ class Head(HTMLParser):
     def __init__(self, content):
         super().__init__()
         self.links = []
+        self.language = None
         self.meta = {}
         self.title = ""
         self.in_title = False
@@ -31,6 +32,8 @@ class Head(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         data = dict(attrs)
+        if tag == "html":
+            self.language = data.get("lang")
         if tag == "head":
             self.in_head = True
         if not self.in_head:
@@ -62,11 +65,15 @@ def test_public_metadata_localization_filters_privacy_and_origin(pub_client, set
     settings.PUBLIC_ORIGIN = "https://seo.example.invalid"
     clean = pub_client.get(f"/{language}/")
     head = Head(clean.content.decode())
+    assert head.language == language
     assert canonical(head) == [f"https://seo.example.invalid/{language}/"]
     assert {link["hreflang"] for link in head.links if link.get("rel") == "alternate"} == {
         "es",
         "en",
     }
+    assert {
+        link["hreflang"]: link["href"] for link in head.links if link.get("rel") == "alternate"
+    } == {lang: f"https://seo.example.invalid/{lang}/" for lang in ["es", "en"]}
     assert head.meta["robots"] == "noindex,nofollow"  # Development remains private.
     assert ("Find professionals" if language == "en" else "Encuentra profesionales") in head.title
     for query in [
@@ -79,6 +86,7 @@ def test_public_metadata_localization_filters_privacy_and_origin(pub_client, set
         assert not canonical(meta) and "noindex" in meta.meta["robots"]
         assert "private-contact@example.invalid" not in meta.title + meta.meta["description"]
     private = Head(pub_client.get(f"/{language}/account/login/").content.decode())
+    assert private.language == language
     assert not canonical(private) and private.meta["robots"] == "noindex,nofollow"
     # Explicit template branch verification; not production verification of fixtures.
     rendered = Head(
@@ -109,6 +117,7 @@ def test_only_available_listing_languages_are_indexable_and_pending_content_excl
     response = pub_client.get(f"/en/listing/{listing.pk}/")
     assert response.status_code == 200
     head = Head(response.content.decode())
+    assert head.language == "en"
     assert canonical(head) == [f"https://seo.example.invalid/es/listing/{listing.pk}/"]
     assert [x["hreflang"] for x in head.links if x.get("rel") == "alternate"] == ["es"]
     assert "PRIVATE PENDING" not in head.title + head.meta["description"]
@@ -147,12 +156,14 @@ def test_browser_metadata_navigation_and_retirement(live_server, pub_client, set
             page = browser.new_page(viewport={"width": 390, "height": 844})
             page.goto(live_server.url + "/en/")
             assert "Find professionals" in page.title()
+            assert page.locator("html").get_attribute("lang") == "en"
             assert (
                 page.locator("link[rel=canonical]").get_attribute("href")
                 == "https://seo.example.invalid/en/"
             )
             page.goto(live_server.url + f"/es/listing/{listing.pk}/")
             assert title in page.title()
+            assert page.locator("html").get_attribute("lang") == "es"
             assert page.locator("meta[name=robots]").get_attribute("content") == "noindex,nofollow"
             from concurrent.futures import ThreadPoolExecutor
 
