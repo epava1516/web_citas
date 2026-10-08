@@ -369,6 +369,7 @@ def test_mobile_processing_response_exact_review_issue_and_receipt(
     from django.db import close_old_connections
     from django.test import Client
     from playwright.sync_api import expect, sync_playwright
+    from test_partial_response_localization import assert_form, check_missing_preparation
     from test_rights_verification import read
 
     from apps.safety.models import RightsAction, RightsResponse, RightsResponseAcknowledgement
@@ -430,9 +431,11 @@ def test_mobile_processing_response_exact_review_issue_and_receipt(
                 )
                 page = context.new_page()
                 page.goto(live_server.url + path)
+                assert_form(page, language, "process")
                 return page
 
             author = page_for(actor_client)
+            check_missing_preparation(author, language, "process", database, case)
             author.locator("[name=operation]").select_option("prepare")
             author.locator("[name=execution]").fill(str(execution.pk))
             author.locator("[name=reason]").fill(REASON)
@@ -443,6 +446,7 @@ def test_mobile_processing_response_exact_review_issue_and_receipt(
                 lambda: RightsAction.objects.get(request=case, operation="process_final_draft")
             )
             expect(author.locator("body")).not_to_contain_text(text)
+            assert_form(author, language, "process")
             independent = page_for(reviewer_client)
             independent.locator("[name=operation]").select_option("inspect")
             independent.locator("[name=draft]").fill(str(draft.pk))
@@ -451,15 +455,19 @@ def test_mobile_processing_response_exact_review_issue_and_receipt(
             )
             independent.locator("button[type=submit]").click()
             expect(independent.locator("body")).to_contain_text(text)
+            assert_form(independent, language, "process")
             independent.locator("[name=reason]").fill(REASON)
             independent.locator("button[type=submit]").click()
             approval = database(
                 lambda: RightsAction.objects.get(request=case, operation="process_final_review")
             )
+            assert_form(independent, language, "process")
             author.goto(live_server.url + path)
+            assert_form(author, language, "process")
             author.locator("[name=operation]").select_option("issue")
             author.locator("[name=review]").fill(str(approval.pk))
             author.locator("button[type=submit]").click()
+            assert_form(author, language, "process")
             response = database(lambda: RightsResponse.objects.get(request=case))
             assert response.kind == kind + "_partial"
             receipt = browser.new_page(viewport={"width": 390, "height": 844})

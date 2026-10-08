@@ -432,6 +432,7 @@ def test_mobile_erasure_response_review_issue_and_acknowledgement(
     from django.contrib.auth.models import Permission
     from django.db import close_old_connections
     from playwright.sync_api import expect, sync_playwright
+    from test_partial_response_localization import assert_form, check_missing_preparation
 
     from apps.core.mfa import encrypt
     from apps.core.models import User
@@ -494,9 +495,11 @@ def test_mobile_erasure_response_review_issue_and_acknowledgement(
                 )
                 page.locator("button[type=submit]").first.click()
                 page.goto(live_server.url + path)
+                assert_form(page, language, "erase")
                 return page
 
             author_page = login("moderator")
+            check_missing_preparation(author_page, language, "erase", database, case)
             author_page.locator("[name=operation]").select_option("prepare")
             author_page.locator("[name=execution]").fill(str(execution.pk))
             author_page.locator("[name=reason]").fill(REASON)
@@ -507,6 +510,7 @@ def test_mobile_erasure_response_review_issue_and_acknowledgement(
                 lambda: RightsAction.objects.get(request=case, operation="erase_final_draft")
             )
             expect(author_page.locator("body")).not_to_contain_text(text)
+            assert_form(author_page, language, "erase")
             other = login("visitor")
             other.locator("[name=operation]").select_option("inspect")
             other.locator("[name=draft]").fill(str(draft.pk))
@@ -515,15 +519,19 @@ def test_mobile_erasure_response_review_issue_and_acknowledgement(
             )
             other.locator("button[type=submit]").click()
             expect(other.locator("body")).to_contain_text(text)
+            assert_form(other, language, "erase")
             other.locator("[name=reason]").fill(REASON)
             other.locator("button[type=submit]").click()
             approval = database(
                 lambda: RightsAction.objects.get(request=case, operation="erase_final_review")
             )
+            assert_form(other, language, "erase")
             author_page.goto(live_server.url + path)
+            assert_form(author_page, language, "erase")
             author_page.locator("[name=operation]").select_option("issue")
             author_page.locator("[name=review]").fill(str(approval.pk))
             author_page.locator("button[type=submit]").click()
+            assert_form(author_page, language, "erase")
             response = database(lambda: RightsResponse.objects.get(request=case))
             assert response.kind == "erase_partial"
             receipt_page = browser.new_page(viewport={"width": 390, "height": 844})

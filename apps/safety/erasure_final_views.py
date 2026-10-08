@@ -19,6 +19,21 @@ from .views import private
 
 
 class FinalForm(forms.Form):
+    def __init__(self, *args, language="es", **kwargs):
+        self.language = language
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            if field.label and " / " in field.label:
+                spanish, english = field.label.split(" / ", 1)
+                field.label = english if language == "en" else spanish
+        self.fields["operation"].label = "Operation" if language == "en" else "Operación"
+        self.fields["outcome"].label = "Outcome" if language == "en" else "Decisión"
+        for name in ("operation", "outcome"):
+            self.fields[name].choices = [
+                (value, caption.split(" / ", 1)[language == "en"])
+                for value, caption in self.fields[name].choices
+            ]
+
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
     responses = forms.IntegerField(min_value=0, widget=forms.HiddenInput)
@@ -70,7 +85,12 @@ class FinalForm(forms.Form):
         }
         for field in required.get(values.get("operation"), []):
             if not values.get(field):
-                self.add_error(field, "Obligatorio para esta acción / Required for this action")
+                self.add_error(
+                    field,
+                    "Required for this action"
+                    if self.language == "en"
+                    else "Obligatorio para esta acción",
+                )
         return values
 
 
@@ -102,6 +122,7 @@ def final(
         return private(HttpResponse("Forbidden", status=403))
     form = form_class(
         request.POST or None,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid.uuid4(),
             "version": case.version,
@@ -126,12 +147,13 @@ def final(
             elif values["operation"] == "inspect":
                 audited, material = backend.inspect(*common, values["draft"], values["purpose"])
                 form = form_class(
+                    language=request.LANGUAGE_CODE,
                     initial={
                         **values,
                         "key": uuid.uuid4(),
                         "operation": "review",
                         "read": audited.pk,
-                    }
+                    },
                 )
                 status = 200
             elif values["operation"] == "review":
