@@ -123,7 +123,9 @@ def orders(request):
             except ValidationError:
                 form.add_error(
                     None,
-                    "Configuración o publicación cambiada / Configuration or publication changed",
+                    "Configuration or publication changed"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Configuración o publicación cambiada",
                 )
                 status = 409
             else:
@@ -168,7 +170,9 @@ def detail(request, order_id):
             except (ValidationError, PermissionDenied):
                 form.add_error(
                     None,
-                    "Simulación rechazada: publicación, sesión o estado cambiados / Simulation rejected: publication, session or state changed",
+                    "Simulation rejected: publication, session or state changed"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Simulación rechazada: publicación, sesión o estado cambiados",
                 )
                 status = 409
             else:

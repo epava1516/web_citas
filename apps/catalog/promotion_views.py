@@ -40,7 +40,12 @@ def products(request):
             try:
                 row = create_product(*auth, form.cleaned_data)
             except (ValidationError, IntegrityError):
-                form.add_error(None, "Producto cambiado o inválido / Product changed or invalid")
+                form.add_error(
+                    None,
+                    "Product changed or invalid"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Producto cambiado o inválido",
+                )
                 status = 409
             else:
                 return private(
