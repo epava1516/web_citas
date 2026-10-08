@@ -658,7 +658,9 @@ def prepare(request, case_id):
     saved_page = None
     saved_page_data = None
     if request.method == "POST" and request.POST.get("operation") == "save_page":
-        form = PageReviewForm(request.POST, language=request.LANGUAGE_CODE)
+        form = PageReviewForm(
+            request.POST, language=request.LANGUAGE_CODE, auto_id="page_review_%s"
+        )
     status = 400 if request.method == "POST" else 200
     source = None
     page_data = None
@@ -710,6 +712,7 @@ def prepare(request, case_id):
                 )
                 page_review_form = PageReviewForm(
                     language=request.LANGUAGE_CODE,
+                    auto_id="page_review_%s",
                     initial={
                         "key": uuid.uuid4(),
                         "version": case.version,

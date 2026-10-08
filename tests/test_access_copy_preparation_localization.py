@@ -118,21 +118,21 @@ def test_audited_preparation_and_page_decisions(
                     exact=True,
                 )
             )
-            expect(review_form.locator('label[for="id_reason"]')).to_have_text(
+            expect(review_form.locator('label[for="page_review_reason"]')).to_have_text(
                 "Private review reason:" if language == "en" else "Motivo privado de revisión:"
             )
-            entries = json.loads(review_form.locator("#id_entries").input_value())
+            entries = json.loads(review_form.locator("#page_review_entries").input_value())
             assert entries[0]["email"] == subject.email
             review_form.evaluate("f=>f.noValidate=true")
-            review_form.locator("#id_reason").fill("short")
+            review_form.locator("#page_review_reason").fill("short")
             with page.expect_response(lambda r: r.request.method == "POST") as bad_review:
                 review_form.get_by_role("button").click()
             assert bad_review.value.status == 400
-            expect(page.locator('label[for="id_reason"]')).to_have_text(
+            expect(page.locator('label[for="page_review_reason"]')).to_have_text(
                 "Private review reason:" if language == "en" else "Motivo privado de revisión:"
             )
             assert db_sync(lambda: RightsCopyPageReview.objects.filter(request=case).count()) == 0
-            page.locator("#id_reason").fill(REASON)
+            page.locator("#page_review_reason").fill(REASON)
             with page.expect_response(lambda r: r.request.method == "POST") as saved:
                 page.get_by_role(
                     "button",
