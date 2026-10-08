@@ -11,6 +11,7 @@ from apps.catalog.models import (
     Service,
     Zone,
 )
+from apps.listings.publication_state import refresh_all
 
 
 class Command(BaseCommand):
@@ -88,4 +89,6 @@ class Command(BaseCommand):
                 code=code + "-center",
                 defaults={"name": "Zona Demo Centro", "municipality": city, "source": source},
             )
+        # Global rule dependencies changed: recompute stored publication state now.
+        refresh_all()
         self.stdout.write("Catalog seeded; geography is synthetic and limited")

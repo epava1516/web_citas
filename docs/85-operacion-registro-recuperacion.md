@@ -100,3 +100,13 @@ Elimina todas las filas django_session de esa base, sin descifrar ni devolver co
 La primera entrega de TASK_QUEUE_GENERATION cambia del namespace sin prefijo a clasificados:v1: y cola por defecto clasificados. Mantener las colas antiguas fuera del consumo; no migrar automáticamente sus mensajes ni usar FLUSHDB/FLUSHALL. Si hay mensajes pendientes, inventariar cantidades y reconstruir únicamente las operaciones todavía autorizadas desde DB reconciliada mediante sus reglas/idempotencia. Una generación nueva necesita ser diferente de la última utilizada antes de restaurar, y quedar retenida fuera del backup; v1 es solo el valor inicial, no el valor para todas las recuperaciones.
 
 Entrega recursos locales0100 verificada:86 pruebas conjuntas correctas313,03s, sin fallos/errores/omitidas;589 fuentes intactas. Docker actualizado;2 hashes afectados idénticos host/app/worker/Beat, UID10001, namespace clasificados:v1:/cola clasificados confirmado en tres servicios, Django check/migrate-check y salud200. [Evidencia](evidencias/recuperacion-recursos-integrada-runtime0100.json). Cola antigua por defecto observada0 antes de transición; ninguna purga/flush/migración automática. Destrucción de sesiones solo ejecutada en tests aislados, no runtime normal. Prevalece sobre estados de código sin entregar; CR09 abierto. Siguiente matriz de derechos/finalidades, no nueva ampliación de recuperación salvo requisito/fallo concreto.
+
+## Estado de publicación tras restaurar (MOD-05)
+
+El estado de publicación almacenado (`listings_publicationstate`) y sus marcas (`listings_publicationdirty`) se mantienen mediante triggers. Una restauración completa con `pg_dump`/`pg_restore` recupera datos, estado y marcas de la misma instantánea consistente, y los triggers se crean después de cargar los datos. Una restauración solo de datos, selectiva, con `--disable-triggers` o con `session_replication_role=replica` puede dejar estado incoherente. En todos los casos, antes de salir de `RECOVERY_MODE` y servir tráfico, ejecutar:
+
+```sh
+python manage.py refresh_publication_state --all
+```
+
+Marca toda la población y la recalcula con la regla nativa y el código desplegado, en una sola transacción. El barrido horario (`sweep_publication_state`) es solo una red de seguridad posterior, no sustituye este paso.

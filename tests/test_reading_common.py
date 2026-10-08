@@ -45,7 +45,8 @@ def test_actual_routes_keep_native_presentation_equivalence(
         assert candidate.content == original.content
         assert candidate.wsgi_request._publication_route == original.wsgi_request._publication_route
         route = candidate.wsgi_request._publication_route
-        assert route["route"] == ("projection" if mode == "normal" else "fallback")
+        # MOD-05: stored state serves production and checked too; synthetic promotions stay native.
+        assert route["route"] == ("fallback" if mode == "promotion" else "state")
         reports.append(
             {
                 "language": language,

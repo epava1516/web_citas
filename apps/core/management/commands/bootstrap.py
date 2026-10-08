@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
 from apps.core.models import LegalDocument
+from apps.listings.publication_state import refresh_all
 
 TEXTS = {
     "terms": (
@@ -64,6 +65,8 @@ class Command(BaseCommand):
                     language=language,
                     defaults={"title": title, "body": body, "published_at": timezone.now()},
                 )
+        # Global rule dependencies changed: recompute stored publication state now.
+        refresh_all()
         self.stdout.write(
             self.style.SUCCESS("Synthetic legal documents available; not legally approved")
         )

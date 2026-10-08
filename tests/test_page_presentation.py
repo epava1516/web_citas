@@ -10,8 +10,7 @@ from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
 from apps.core.models import VerificationCheck
-from apps.listings import discovery
-from apps.listings import projected_publication as projection
+from apps.listings import discovery, publication_state
 from apps.listings.presentation import describe
 from apps.listings.presentation_reads import PagePresentation
 from apps.mediafiles.models import Blob, Photo
@@ -89,7 +88,8 @@ def test_photo_and_check_selection_ties_absence_and_current_status(request, monk
 def test_grouped_public_bodies_order_count_and_pages_match_individual(request, monkeypatch, record_property):
     client = request.getfixturevalue('directory')
     populate(50)
-    assert projection.supported()
+    while publication_state.refresh(500):
+        pass
     observations = []
     for language in ['es', 'en']:
         for query in ['', 'q=photography&', 'checked=age&']:
@@ -142,7 +142,7 @@ def test_committed_changes_after_guard_precede_presentation_reads(request, monke
     monkeypatch.setattr(discovery, 'PagePresentation', after_guard)
     response = client.get('/en/')
     assert committed == [True] and response.status_code == 200
-    assert response.wsgi_request._publication_route['route'] == 'projection'
+    assert response.wsgi_request._publication_route['route'] == 'state'
     card = next(card for card in response.context['cards'] if card['listing'].pk == target.pk)
     assert card['photo'] is None
     assert 'Age: check not accredited' in card['public']['checks']

@@ -18,8 +18,8 @@ from apps.core.models import Person
 from apps.listings.discovery import candidates
 from apps.listings.models import Rate, Revision
 from apps.listings.moderation import publicly_visible
-from apps.listings.projected_publication import ProjectedPublication, supported
 from apps.listings.public_validation import PublicationContext
+from apps.listings.publication_state import refresh, state_page, sweep
 from apps.mediafiles.models import Blob, Photo
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -41,12 +41,24 @@ def fresh_visibility(listing_id):
     context = PublicationContext(candidates({}))
     batched = [row.pk for row in context.rows if publicly_visible(row, context=context)]
     assert batched == native  # Ordered population, not just count or set.
-    if supported():
-        projection = ProjectedPublication(candidates({}))
-        assert projection.visible_ids(candidates({})) == native
-        sql_projection = ProjectedPublication(candidates({}), sql=True)
-        assert sql_projection.visible_ids(candidates({})) == native
+    # Stored state: first with the trigger-marked rows evaluated natively, then refreshed.
+    # A rule changed at runtime (no data or source change) is only caught by the native
+    # page guard, which marks the rows and hands the request to the native path.
+    assert state_ids() in (native, None)
+    while refresh(500):
+        pass
+    assert state_ids() == native
     return listing_id in native
+
+
+def state_ids():
+    observation = {}
+    page = state_page(candidates({}), 1, observation=observation)
+    if page is None:
+        assert observation["reason"] == "state_page_guard_changed"
+        return None
+    assert page.paginator.num_pages == 1
+    return [row.pk for row in page.object_list]
 
 
 def test_revision_version_does_not_cover_related_content_dependencies(
@@ -200,6 +212,9 @@ def test_native_model_rule_change_is_not_covered_by_data_version(
         patched.setattr(Revision, "clean", new_rule)
         assert not fresh_visibility(revision.listing_id)
         assert revision_key(revision) == key
+    # Reverting the rule in place changes no data, source or setting: only the periodic
+    # native sweep (MOD-05 invariant) can notice that the stored exclusion is now stale.
+    assert sweep() == 1
     assert fresh_visibility(revision.listing_id)
     record_property("native_rule_change_observed", True)
     record_property("limits", "Synthetic runtime model rule; no deployment/performance claim.")

@@ -15,7 +15,7 @@ from django.db.models.signals import post_init
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
-from apps.listings import discovery, moderation
+from apps.listings import discovery, moderation, publication_state
 from apps.listings.forms import ContactsForm
 from apps.listings.public_validation import PublicationContext, SnapshotDetails
 from scripts.query_pattern_redaction import query_pattern
@@ -142,13 +142,13 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
     original_validation = moderation.validate_submission
     original_render = discovery.render
 
-    def context_init(self, query):
+    def context_init(self, query, **kwargs):
         nonlocal phase
         before = phase
         phase = "context"
         start = time.perf_counter()
         try:
-            original_init(self, query)
+            original_init(self, query, **kwargs)
             field_clean_stats.append(self.field_clean_cache_stats)
         finally:
             stages["context_seconds"] += time.perf_counter() - start
@@ -185,6 +185,8 @@ def test_discovery_cost_checkpoint(request, monkeypatch, record_property, count)
     monkeypatch.setattr(PublicationContext, "__init__", context_init)
     monkeypatch.setattr(moderation, "validate_submission", validate)
     monkeypatch.setattr(discovery, "render", render)
+    # MOD-05: the listing is served from stored state; this profiles the native path.
+    monkeypatch.setattr(publication_state, "state_page", lambda *args, **kwargs: None)
     post_init.connect(initialized, weak=False)
     start = time.perf_counter()
     try:

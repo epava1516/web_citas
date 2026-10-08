@@ -212,6 +212,14 @@ CELERY_BEAT_SCHEDULE = {
     },
     "recover-private-media": {"task": "apps.mediafiles.tasks.recover_media_jobs", "schedule": 60.0},
     "expire-public-listings": {"task": "apps.listings.tasks.expire_listings", "schedule": 60.0},
+    "refresh-publication-state": {
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "schedule": 30.0,
+    },
+    "sweep-publication-state": {
+        "task": "apps.listings.tasks.sweep_publication_state",
+        "schedule": 3600.0,
+    },
 }
 
 if RECOVERY_MODE:

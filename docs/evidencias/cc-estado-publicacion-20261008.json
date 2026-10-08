@@ -1,0 +1,200 @@
+{
+ "autor": "Claude Code (CLI de Anthropic), modelo Claude Opus 5.5 (claude-opus-5-5)",
+ "fecha": "2026-10-08",
+ "base": "8f461b9; prototipo en rama cc/publication-state (worktree ../web_citas-cc-proto), sin integrar",
+ "entorno": {
+  "python": "3.12.15",
+  "django": "5.2.17",
+  "postgres": "17-alpine (compose)",
+  "host": "12 CPU visibles, 15 GiB; procesos con nice 5 (entorno de la herramienta)",
+  "dataset": "seed_demo + scripts/synthetic_load_dataset.populate(10000), ANALYZE",
+  "base_datos": "test_promotion_gate_cc"
+ },
+ "generador": "cc_load.py: lazo abierto 20 RPS, mezcla 1/3 listado (paginas 1..300), 1/3 busqueda, 1/3 ficha, ES/EN alternos, HTTP/1.0 una conexion por peticion, timeout 65 s; NO es el arnes contractual, sin uploads",
+ "peticion_aislada_ms": {
+  "original_via_rapida": {
+   "listado": [
+    377,
+    418
+   ],
+   "busqueda": [
+    380,
+    405
+   ],
+   "ficha": 67
+  },
+  "original_via_nativa_produccion": {
+   "listado": [
+    12202,
+    12409
+   ],
+   "busqueda": [
+    12530,
+    12552
+   ],
+   "ficha": 80
+  },
+  "prototipo": {
+   "listado": [
+    157,
+    168
+   ],
+   "busqueda": [
+    172,
+    185
+   ],
+   "ficha": 75
+  }
+ },
+ "carga_20rps": {
+  "original_via_rapida_60s": {
+   "requests": 1200,
+   "errors": 0,
+   "p50": 16.33192681499986,
+   "p95": 31.717543948000184,
+   "p99": 33.323964224000065,
+   "max": 33.76237982099974,
+   "completed_within_window": 773,
+   "drain_seconds": 33.57238132200018,
+   "by_kind": {
+    "list": {
+     "p50": 16.424983157000042,
+     "p95": 31.887833772999784
+    },
+    "search": {
+     "p50": 16.41453654499992,
+     "p95": 31.85132796700009
+    },
+    "detail": {
+     "p50": 16.117985498500047,
+     "p95": 31.54671390300018
+    }
+   }
+  },
+  "prototipo_60s": {
+   "requests": 1200,
+   "errors": 0,
+   "p50": 0.22665504599990527,
+   "p95": 0.3433140170000115,
+   "p99": 0.3975285210003676,
+   "max": 0.4505621170001177,
+   "completed_within_window": 1196,
+   "drain_seconds": 0.23384456500025408,
+   "by_kind": {
+    "list": {
+     "p50": 0.2597064970000247,
+     "p95": 0.36389494599961836
+    },
+    "search": {
+     "p50": 0.25047464249996665,
+     "p95": 0.3611173240001335
+    },
+    "detail": {
+     "p50": 0.11154288499983522,
+     "p95": 0.1945301349996953
+    }
+   }
+  },
+  "prototipo_60s_tras_cambios": {
+   "requests": 1200,
+   "errors": 0,
+   "p50": 0.25812730100005865,
+   "p95": 0.5116274140000314,
+   "p99": 0.616420391000247,
+   "max": 0.6595303750000312,
+   "completed_within_window": 1195,
+   "drain_seconds": 0.20285949999924924,
+   "by_kind": {
+    "list": {
+     "p50": 0.28780913350055926,
+     "p95": 0.5549777090000134
+    },
+    "search": {
+     "p50": 0.273925513499762,
+     "p95": 0.535925925999436
+    },
+    "detail": {
+     "p50": 0.12944903849984257,
+     "p95": 0.38720049600033235
+    }
+   }
+  },
+  "prototipo_120s_escrituras_sin_reparacion": {
+   "requests": 2400,
+   "errors": 0,
+   "p50": 3.204532314000062,
+   "p95": 6.342138131999491,
+   "p99": 6.561200963000374,
+   "max": 6.740313379999861,
+   "completed_within_window": 2270,
+   "drain_seconds": 5.620415331000004,
+   "by_kind": {
+    "list": {
+     "p50": 3.319756292499733,
+     "p95": 6.411812238000493
+    },
+    "search": {
+     "p50": 3.2291505920002237,
+     "p95": 6.3709086409999145
+    },
+    "detail": {
+     "p50": 3.136390085500352,
+     "p95": 6.243917049000629
+    }
+   }
+  },
+  "prototipo_120s_escrituras_con_reparacion": {
+   "requests": 2400,
+   "errors": 0,
+   "p50": 0.2659675700006119,
+   "p95": 0.4866087280006468,
+   "p99": 0.6199839209994025,
+   "max": 0.7613779849998537,
+   "completed_within_window": 2393,
+   "drain_seconds": 0.35058583000045473,
+   "by_kind": {
+    "list": {
+     "p50": 0.30744645250024405,
+     "p95": 0.5416787530002694
+    },
+    "search": {
+     "p50": 0.29175684999972873,
+     "p95": 0.520892559999993
+    },
+    "detail": {
+     "p50": 0.1535060989995145,
+     "p95": 0.36379632399984985
+    }
+   }
+  },
+  "escrituras_concurrentes": {
+   "writes": 228,
+   "refreshed": 56,
+   "max_dirty": 1,
+   "dirty_end": 0
+  }
+ },
+ "otros": {
+  "definitions_digest_ms_por_calculo": 13.8,
+  "calculos_por_peticion_original": 2,
+  "jit_publicationcontext_200_filas_ms": {
+   "on": [
+    2720,
+    2585
+   ],
+   "off": [
+    134,
+    171
+   ]
+  },
+  "recalculo_completo_10002_s": {
+   "inicial": 154.2,
+   "jit_off": 30.9,
+   "checks_por_lotes": 14.9
+  },
+  "suelo_sql_estado_almacenado_ms": {
+   "recuento_mas_pagina": 3.32,
+   "busqueda_10000_coincidencias": 30.29
+  }
+ }
+}
