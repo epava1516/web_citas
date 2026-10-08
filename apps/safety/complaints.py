@@ -524,6 +524,32 @@ class ResolutionForm(forms.Form):
         label="He revisado la respuesta y eliminado datos de terceros y notas internas / I reviewed the response and removed third party information and internal notes"
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 1 if language == "en" else 0
+        labels = {
+            "outcome": ("Resultado", "Outcome"),
+            "reason": ("Motivo interno", "Internal reason"),
+            "response": (
+                "Respuesta motivada al solicitante, sin información de terceros",
+                "Motivated response to requester, without third party information",
+            ),
+            "redaction_confirmed": (
+                "He revisado la respuesta y eliminado datos de terceros y notas internas",
+                "I reviewed the response and removed third party information and internal notes",
+            ),
+        }
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        choices = [
+            ("upheld", ("Mantener decisión", "Uphold decision")),
+            ("reconsidered", ("Reconsiderar decisión", "Reconsider decision")),
+            ("unidentified", ("Referencia sin identificar", "Reference unidentified")),
+        ]
+        self.fields["outcome"].choices = [
+            (value, translations[index]) for value, translations in choices
+        ]
+
 
 @login_required
 @sensitive_post_parameters("reason", "response")
@@ -545,6 +571,7 @@ def resolve(request, complaint_id):
         return private(HttpResponse("Forbidden", status=403))
     form = ResolutionForm(
         request.POST or None,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid.uuid4(),
             "version": complaint.version,
