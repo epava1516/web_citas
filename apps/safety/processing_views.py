@@ -78,14 +78,29 @@ class PreparationForm(LocalizedProcessingForm):
 @require_http_methods(["GET", "POST"])
 def preparation(request, case_id):
     if not allowed(request) or not request.user.has_perm("safety.execute_rights_request"):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case:
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     if case.kind not in {"restriction", "object"}:
-        return private(HttpResponse("Unsupported request type", status=409))
+        return private(
+            HttpResponse(
+                "Unsupported request type"
+                if request.LANGUAGE_CODE == "en"
+                else "Tipo de solicitud no admitido",
+                status=409,
+            )
+        )
     form = PreparationForm(
         request.POST or None,
         language=request.LANGUAGE_CODE,
@@ -137,7 +152,11 @@ def preparation(request, case_id):
                 )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
@@ -189,7 +208,11 @@ def review(request, case_id, plan_id):
         or not request.user.has_perm("safety.execute_rights_request")
         or not request.user.has_perm("safety.review_processing_plan")
     ):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if (
         not case
@@ -197,7 +220,11 @@ def review(request, case_id, plan_id):
     ):
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = ReviewForm(
         request.POST or None,
         language=request.LANGUAGE_CODE,
@@ -213,7 +240,11 @@ def review(request, case_id, plan_id):
             )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
@@ -274,7 +305,11 @@ def execution(request, case_id, plan_id):
     from .processing_execution import execute
 
     if not allowed(request) or not request.user.has_perm("safety.execute_rights_request"):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if (
         not case
@@ -282,7 +317,11 @@ def execution(request, case_id, plan_id):
     ):
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     form = ExecutionForm(
         request.POST or None,
         language=request.LANGUAGE_CODE,
@@ -301,7 +340,11 @@ def execution(request, case_id, plan_id):
             )
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
