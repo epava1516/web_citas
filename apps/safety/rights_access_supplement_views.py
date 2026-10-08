@@ -15,6 +15,7 @@ from django.views.decorators.http import require_http_methods
 
 from .models import RightsAccessFieldDecision, RightsAccessScopeInventory, RightsRequest
 from .rights import allowed
+from .rights_access_field_decision_views import localize_form
 from .rights_access_response_review import authorize_reviewer
 from .rights_access_response_views import ReviewForm
 from .rights_access_supplement import prepare
@@ -22,6 +23,11 @@ from .views import private
 
 
 class SupplementForm(ReviewForm):
+    def __init__(self, *args, language=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.language = language
+        localize_form(self, language)
+
     response_version = forms.IntegerField(min_value=0, widget=forms.HiddenInput)
     decisions = forms.CharField(
         widget=forms.Textarea,
@@ -33,9 +39,17 @@ class SupplementForm(ReviewForm):
         try:
             values = [int(item.strip()) for item in self.cleaned_data["decisions"].split(",")]
         except ValueError:
-            raise forms.ValidationError("IDs separados por comas / Comma-separated IDs")
+            raise forms.ValidationError(
+                "IDs separados por comas / Comma-separated IDs"
+                if self.language is None
+                else ("Comma-separated IDs" if self.language == "en" else "IDs separados por comas")
+            )
         if any(item < 1 for item in values) or len(set(values)) != len(values):
-            raise forms.ValidationError("IDs únicos positivos / Unique positive IDs")
+            raise forms.ValidationError(
+                "IDs únicos positivos / Unique positive IDs"
+                if self.language is None
+                else ("Unique positive IDs" if self.language == "en" else "IDs únicos positivos")
+            )
         return values
 
 
@@ -45,7 +59,11 @@ class SupplementForm(ReviewForm):
 @require_http_methods(["GET", "POST"])
 def preview(request, case_id, inventory_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if case is None:
         raise Http404
@@ -54,7 +72,11 @@ def preview(request, case_id, inventory_id):
         if case.assigned_to_id != request.user.pk:
             raise PermissionDenied
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     inventory = (
         RightsAccessScopeInventory.objects.filter(pk=inventory_id, request=case, actor=request.user)
         .only("pk")
@@ -63,7 +85,14 @@ def preview(request, case_id, inventory_id):
     if inventory is None:
         raise Http404
     if case.kind != "access" or case.status != "reviewing":
-        return private(HttpResponse("Current access request required", status=409))
+        return private(
+            HttpResponse(
+                "Current access request required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere una solicitud de acceso vigente",
+                status=409,
+            )
+        )
     candidates = Paginator(
         RightsAccessFieldDecision.objects.filter(
             inventory=inventory,
@@ -76,12 +105,17 @@ def preview(request, case_id, inventory_id):
         50,
     ).get_page(request.GET.get("page"))
     form = SupplementForm(
-        initial={"key": uuid4(), "version": case.version, "response_version": case.response_version}
+        language=request.LANGUAGE_CODE,
+        initial={
+            "key": uuid4(),
+            "version": case.version,
+            "response_version": case.response_version,
+        },
     )
     body = None
     status = 200
     if request.method == "POST":
-        form = SupplementForm(request.POST)
+        form = SupplementForm(request.POST, language=request.LANGUAGE_CODE)
         status = 400
         if form.is_valid():
             value = form.cleaned_data
@@ -98,7 +132,12 @@ def preview(request, case_id, inventory_id):
                 )
                 status = 200
             except PermissionDenied:
-                return private(HttpResponse("Forbidden", status=403))
+                return private(
+                    HttpResponse(
+                        "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado",
+                        status=403,
+                    )
+                )
             except ValidationError as error:
                 form.add_error(None, error)
                 status = 409
