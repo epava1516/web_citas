@@ -78,6 +78,24 @@ class ReviewForm(forms.Form):
         label="Próxima revisión operativa, no ampliación de conservación / Next operational review, not retention extension",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        english = language == "en"
+        self.fields["operation"].label = "Operation" if english else "Operación"
+        self.fields["operation"].choices = [
+            ("inspect", "Inspect purpose" if english else "Consultar finalidad"),
+            (
+                "follow_up",
+                "Record review and follow-up" if english else "Registrar revisión y seguimiento",
+            ),
+        ]
+        self.fields["reason"].label = "Minimized reason" if english else "Motivo minimizado"
+        self.fields["next_review_on"].label = (
+            "Next operational review, not retention extension"
+            if english
+            else "Próxima revisión operativa, no ampliación de conservación"
+        )
+
 
 @login_required
 @sensitive_post_parameters()
@@ -96,6 +114,7 @@ def inspect(request, review_id):
         return private(HttpResponse("Forbidden", status=403))
     form = ReviewForm(
         request.POST or None,
+        language=request.LANGUAGE_CODE,
         initial={"key": uuid.uuid4(), "version": review.version, "case_version": case.version},
     )
     decision = None
@@ -115,12 +134,13 @@ def inspect(request, review_id):
             review.refresh_from_db()
             # Fresh key/version allow following inspection with an independent review.
             form = ReviewForm(
+                language=request.LANGUAGE_CODE,
                 initial={
                     "key": uuid.uuid4(),
                     "version": review.version,
                     "case_version": case.version,
                     "operation": "follow_up" if decision else "inspect",
-                }
+                },
             )
     return private(
         render(
