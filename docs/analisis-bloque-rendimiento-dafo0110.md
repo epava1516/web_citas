@@ -184,3 +184,6 @@ Hecho: el censo explícito omitía PublicationState ligado al sujeto; reproducci
 ### Gate VPS actual autorizado de 60 segundos
 
 Hecho: VALID/FAIL revisado desde 1200 muestras únicas, 400/familia. 948 completadas durante emisión, 252 pendientes; p95cliente15,441s, 1200éxitos finales sin errores. Generador conforme y upload302. Evidencia: [recálculo](evidencias/mod05-vps-gate60-analisis0110.json). Debilidad: cuatro workers no acreditan el gate en este entorno; los PASS originales del portátil permanecen válidos para su alcance. Incertidumbre: CPU, competencia, servicio medio WSGI y demora previa no medidos en este gate; no atribuir causalidad desde latencia ni p95Gunicorn. Decisión:900s bloqueados; siguiente diagnóstico debe discriminar recursos y servicio/espera antes de elegir cambio, sin repetir carga por rutina ni adoptar seis workers.
+
+
+Observación posterior de reposo sin carga: [host15,372s](evidencias/mod05-vps-host-reposo0110.json),2,397CPU host y1,034CPU dockerd,0swap-in/out adicional. Competencia actual observada, sin prueba de causalidad del gate anterior. PSI y cuotas relevantes ausentes; overhead0,710CPU-s del recolector incluido. No justifica retirar servicios ajenos, aumentar workers ni otro ensayo automático.
