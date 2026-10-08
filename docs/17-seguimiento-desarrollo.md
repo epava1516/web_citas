@@ -228,6 +228,38 @@ Selección, requisito, entorno y condición de salida sin cambios. Un nuevo FAIL
 
 Alcance: acredita solo su escenario, fuente y recursos locales (máquina actual, PostgreSQL de compose compartido, procesos con nice 5). No acredita capacidad de producción, proveedores, CDN ni la aceptación integral de CR09. Cierre local de CR09-REND-LECTURA pendiente de la revisión de Codex (equivalencia y cobertura de rutas, integración y runtime, evidencia). Porcentajes sin cambio: los decide Codex con docs86.
 
+**Auditoría de artefactos originales R5 intento 2 y R6 (2026-10-08, Claude Code, sin nuevas cargas):** se conservan los directorios originales de salida de cada invocación pytest, sin reconstruir nada:
+- [R5 intento 2](evidencias/r5-mod05-intento2-artefactos.tar.gz), SHA-256 `721d2d926c2b8e9353a6967015296d021bc8254f7e4bc5c6937a065af2ad03e8`, con su [índice](evidencias/r5-mod05-intento2-artefactos-indice.json).
+- [R6](evidencias/r6-mod05-contractual-artefactos.tar.gz), SHA-256 `b578ea8dc8f7e7a0807586866e9aa4b794808bfbc98ff0b8f3c613f7fe0df7f5`, con su [índice](evidencias/r6-mod05-contractual-artefactos-indice.json).
+- [Informe de auditoría](evidencias/auditoria-pass-mod05-r5-r6.json) y [script reproducible](evidencias/auditoria-pass-mod05-r5-r6-script.py).
+
+Cada archivo incluye manifiesto, muestras por petición, `load-summary`, JUnit, timings, log pytest, logs de accesos y privado de Gunicorn y ajustes de ejecución. Se excluyen, con su hash registrado en el índice, `credentials.json` (credenciales sintéticas), los medios `private/` y `__pycache__`. Nada se ha redactado.
+
+Recalculado desde las muestras con el percentil nearest-rank del arnés:
+
+| Medida | R5 intento 2 | R6 |
+| --- | --- | --- |
+| Programadas / emitidas / no emitidas | 1200 / 1200 / 0 | 18000 / 18000 / 0 |
+| Éxitos / errores / timeouts | 1200 / 0 / 0 | 18000 / 0 / 0 |
+| Pendientes al cierre de ventana / finales | 3 / 0 | 3 / 0 |
+| p95 / p99 / máximo observable (s) | 0.2488 / 0.2830 / 0.4734 | 0.2655 / 1.4020 / 2.0139 |
+| Demora del generador p95 / p99 / máximo (s) | 0.0015 / 0.0020 / 0.0022 | 0.0015 / 0.0021 / 0.0177 |
+| Drain observado tras la ventana (s) | 0.076 | 0.038 |
+| Uploads 302 | 1/1 | 15/15, programados uno por minuto |
+
+Los valores recalculados coinciden con los declarados en cada resumen. El `load-summary.json` coincide con la propiedad JUnit salvo `samples`: el JUnit guarda la versión compacta. Todas las muestras se correlacionan por id con el log de accesos (1 201 y 18 015), sin discrepancias de estado ni de ruta.
+
+No verificable con los artefactos:
+- Huellas de fuentes en el manifiesto original: solo registra el commit. Los ids de blob git en ese commit figuran como dato derivado, no original.
+- Eventos WSGI de entrada y salida con PID: el observador estaba desactivado y el log de accesos no tiene PID ni marcas de entrada (not_measured).
+- Limpieza en el momento de la ejecución: no se registró. Observación posterior: no existe base `r5mod05`.
+- Árbol de trabajo limpio al lanzar: no lo registra el arnés.
+- Muestreo de recursos del host: not_measured.
+
+Los veredictos históricos se conservan sin reclasificar.
+
+**Pendiente:** el fallo de invalidación identificado por Codex no se ha analizado ni resuelto en esta aportación. CR09 y CR09-REND-LECTURA siguen abiertos hasta su revisión. Contrato, umbrales, backend y porcentajes sin cambios.
+
 
 **CR09-REND-LECTURA sigue abierto. Goal automático pausado por petición del usuario; encargo manual de cierre autorizado.** La equivalencia pública, el perfil actual y el contraste TCP terminaron exit0; el prototipo SQL intermedio se abortó durante preflight y no se adopta. Fuentes congeladas intactas y recursos propios retirados. TCP, equivalencia común y matriz terminales revisados; corta posterior FAIL válido. Checkpoint A→B→C→D completado; comparación autorizada4/6/6/4 posterior terminada y revisada: causalidadINCONCLUSIVE porcompetenciahost, filtroobservadoD incumplido ycuatroFAIL30s. Sin ejecución propia activa ni nueva carga larga. Árbol de trabajo sobre `b285aba`, cambios de backend todavía sin integrar en runtime `73d28f6`. La pausa automática, la terminación de una prueba y el cierre del requisito son estados distintos.
 

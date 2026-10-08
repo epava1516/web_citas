@@ -1,0 +1,547 @@
+{
+ "author": "Claude Code (Claude Opus 5.5, claude-opus-5-5)",
+ "no_new_load_executed": true,
+ "percentile_method": "nearest-rank ceil(n*q)-1, as tests/test_contract_http_load.py percentile()",
+ "runs": {
+  "r5-mod05-intento2": {
+   "source_commit": "c69c98386c7f11bdf0bd408b24822691cfce4b49",
+   "selection": "test_contract_arrival_rate_http_with_limited_uploads[short]",
+   "runner_command": "POSTGRES_DB=promotion_gate_r5mod05 .venv/bin/python -m pytest \"tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]\" -q -p no:cacheprovider -p scripts.catalogue_gate_timings --gate-timings-output=<dir>/test-timings.json --junitxml=<dir>/pytest.xml --basetemp=<dir>/pytest-temp > <dir>/pytest.log; cwd /home/eduardo/web_citas",
+   "manifest_fields_present": [
+    "arrival_rps",
+    "client",
+    "client_fixture_preparation",
+    "dataset",
+    "diagnostic_criteria",
+    "duration_seconds",
+    "error_policy",
+    "fixture",
+    "instrumentation",
+    "mix",
+    "policy",
+    "resources",
+    "routes",
+    "scheduled_dynamic",
+    "scope",
+    "source_commit",
+    "state",
+    "uploads_separate",
+    "worker_observer"
+   ],
+   "manifest_summary": {
+    "routes": [
+     "/es/",
+     "/en/",
+     "/es/?q=photography",
+     "/en/?q=synthetic",
+     "/es/listing/4b49c548-0aa2-4b72-9e43-1d79ce5abd51/",
+     "/en/listing/0400fb34-1664-47b2-88dd-c68083d6cbc1/"
+    ],
+    "mix": {
+     "listing": "1/3",
+     "search": "1/3",
+     "detail": "1/3",
+     "languages": "ES/EN alternating",
+     "uploads": "separate1/minute,15 for contractual run"
+    },
+    "duration_seconds": 60,
+    "arrival_rps": 20,
+    "scheduled_dynamic": 1200,
+    "uploads_separate": 1,
+    "state": "Fresh Gunicorn/DB fixture; six cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
+    "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
+    "fixture": "seed_demo; deterministic photo seed1, upload seed782134; UUID identities/time-relative validity vary per isolated run",
+    "worker_observer": {
+     "enabled": false,
+     "mode": "legacy_wrapped_phases",
+     "scope": "Synthetic IDs already emitted by client; WSGI entry/end, inclusive context/validation/render and SQL execute wall/thread CPU; validation snapshots each1000calls, partial events retained; no real URI/SQL/parameters; not TCP accept or exact queue time; causal overhead not_measured",
+     "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
+     "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition"
+    }
+   },
+   "dataset": {
+    "published": 10000,
+    "synthetic": true,
+    "shared_synthetic_photo_fixture": true,
+    "limits": "State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.",
+    "deployment_step": "Publication state current for rules 03499040c863: 10002 recomputed"
+   },
+   "workers": "Gunicorn 4 sync (harness command); boot/exit of 4 worker PIDs in gunicorn-private.log",
+   "junit": {
+    "tests": "1",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "91.867",
+    "timestamp": "2026-10-08T17:46:23.361238+02:00",
+    "hostname": "kali"
+   },
+   "recomputed": {
+    "scheduled_expected": 1200,
+    "scheduled_samples": 1200,
+    "emitted": 1200,
+    "not_emitted": 0,
+    "emitted_after_window": 0,
+    "successful": 1200,
+    "errors_unexpected": 0,
+    "timeouts": 0,
+    "finished": 1200,
+    "final_pending": 0,
+    "pending_at_window_close": 3,
+    "status_counts": {
+     "200": 1200
+    },
+    "error_fraction_emitted": 0.0,
+    "observable_latency_seconds": {
+     "p50": 0.18245622299946263,
+     "p95": 0.24883433300055913,
+     "p99": 0.2829710990008607,
+     "max": 0.4733645739979693,
+     "population": 1200,
+     "failures_included": "all emitted dynamic requests that finished; failed/timeouts would be included with their end time (none observed)"
+    },
+    "generator_delay_seconds": {
+     "p95": 0.0014720560000540672,
+     "p99": 0.002029225999287121,
+     "max": 0.00219158000109021,
+     "population": 1200
+    },
+    "observed_drain_seconds_after_window": 0.07578742700206931,
+    "last_dynamic_end_seconds": 60.07578742700207,
+    "uploads": {
+     "expected_count": 1,
+     "samples": 1,
+     "conforming_302": 1,
+     "rows": [
+      {
+       "id": "u-0",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 0,
+       "emission_delay": 0.00024204700093832798,
+       "seconds": 3.5081838890000654
+      }
+     ]
+    }
+   },
+   "access_log_correlation": {
+    "log_lines": 1209,
+    "lines_with_benchmark_id": 1201,
+    "lines_without_id": 8,
+    "samples_matched": 1201,
+    "samples_missing_in_log": 0,
+    "missing_ids_first": [],
+    "status_mismatches": 0,
+    "path_mismatches": 0,
+    "gunicorn_dynamic_service_seconds": {
+     "p50": 0.179827,
+     "p95": 0.242417,
+     "max": 0.472618,
+     "population": 1200
+    },
+    "format": "%(s)s %(L)s %(U)s %({x-benchmark-id}i)s: status, request seconds, path, id. No PID, no entry/exit timestamps."
+   },
+   "claimed_by_summary": {
+    "verdict_claimed": "PASS",
+    "claimed_counts": {
+     "scheduled": 1200,
+     "emitted": 1200,
+     "not_emitted": 0,
+     "successful": 1200,
+     "failed": 0,
+     "pending": 0,
+     "timeouts": 0,
+     "other_errors": 0,
+     "reconciled": true
+    },
+    "claimed_observable_latency_seconds": {
+     "p50": 0.18245622299946263,
+     "p90": 0.23275020100118127,
+     "p95": 0.24883433300055913,
+     "p99": 0.2829710990008607,
+     "max": 0.4733645739979693,
+     "population": 1200
+    },
+    "claimed_generator_delay_seconds": {
+     "p50": 0.0007379370006646013,
+     "p90": 0.0011692070002027322,
+     "p95": 0.0014720560000540672,
+     "p99": 0.002029225999287121,
+     "max": 0.00219158000109021,
+     "population": 1200
+    },
+    "claimed_final_upload_counts": {
+     "scheduled": 1,
+     "emitted": 1,
+     "not_emitted": 0,
+     "successful": 1,
+     "failed": 0,
+     "pending": 0,
+     "timeouts": 0,
+     "other_errors": 0,
+     "reconciled": true
+    },
+    "claimed_gunicorn_dynamic_service_p95_seconds": 0.242417,
+    "load_summary_file_equals_junit_property_except_samples": true,
+    "load_summary_relation": "JUnit property is the harness 'compact' summary (record_property); load-summary.json is the full summary including per-request 'samples'"
+   },
+   "criteria_recomputed": {
+    "no_not_emitted": true,
+    "generator_p95_le_policy": true,
+    "generator_p99_le_policy": true,
+    "generator_max_le_policy": true,
+    "p95_strictly_below_policy": true,
+    "error_fraction_strictly_below_policy": true,
+    "final_pending_zero": true,
+    "drain_within_policy": true,
+    "uploads_all_302": true,
+    "uploads_scheduled_one_per_minute": true,
+    "access_log_correlates_all_samples": true,
+    "pending_at_window_close_le_20": true
+   },
+   "derived_git_blob_ids_at_commit": {
+    "tests/test_contract_http_load.py": "0188efe8d2b8018c10f6f44412d010ae444f2dc4",
+    "scripts/benchmark_async_transport.py": "67fb055b8cd94bcdef37cb3612e1124e20a39ac1",
+    "scripts/synthetic_load_dataset.py": "7ebfd3f23ed8550cd035d0a7e004f18fa9fa839c",
+    "apps/listings/publication_state.py": "20c414b90bb62d69dbbbed4b80815f3f6b314394",
+    "apps/listings/discovery.py": "d41baf360a2208860761393c03671bdd2ab66ef6",
+    "apps/listings/management/commands/refresh_publication_state.py": "ead254328eb4a6db938e1c1c73370de64cd49b2b",
+    "config/settings.py": "280e805fbc88dbe13d17823f4902502e30d35086"
+   },
+   "absences": {
+    "manifest_source_file_hashes": "not_found: original manifest records source_commit only; git blob ids at that commit listed separately as derived, not original",
+    "wsgi_entry_exit_events_with_pid": "not_measured: worker observer disabled (WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS unset); access log has status/seconds/path/id only",
+    "worker_pid_per_request": "not_measured",
+    "runner_script_file": "not_found: invoked directly as a pytest command from the Claude Code session (command recorded below); no wrapper script",
+    "cleanup_evidence_at_run_time": "not_found: pytest-django dropped its test database at session end; no cleanup record was written. Post-hoc observation (2026-10-08, this audit): no database matching r5mod05 exists",
+    "host_resource_sampling": "not_measured (manifest not_measured list)",
+    "working_tree_clean_at_launch": "not_recorded by the harness; launch followed a commit in the same session with no intervening edits (session transcript), not independently verifiable from artifacts"
+   }
+  },
+  "r6-mod05-contractual": {
+   "source_commit": "5ce8c88ad35522c5858a79c5b1fa84b6a572636d",
+   "selection": "test_contract_arrival_rate_http_with_limited_uploads[measured]",
+   "runner_command": "POSTGRES_DB=promotion_gate_r5mod05 .venv/bin/python -m pytest \"tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]\" -q -p no:cacheprovider -p scripts.catalogue_gate_timings --gate-timings-output=<dir>/test-timings.json --junitxml=<dir>/pytest.xml --basetemp=<dir>/pytest-temp > <dir>/pytest.log; cwd /home/eduardo/web_citas",
+   "manifest_fields_present": [
+    "arrival_rps",
+    "client",
+    "client_fixture_preparation",
+    "dataset",
+    "duration_seconds",
+    "error_policy",
+    "fixture",
+    "instrumentation",
+    "mix",
+    "policy",
+    "resources",
+    "routes",
+    "scheduled_dynamic",
+    "scope",
+    "source_commit",
+    "state",
+    "uploads_separate",
+    "worker_observer"
+   ],
+   "manifest_summary": {
+    "routes": [
+     "/es/",
+     "/en/",
+     "/es/?q=photography",
+     "/en/?q=synthetic",
+     "/es/listing/deb9d509-8da4-45c1-a15e-0b669eed11bf/",
+     "/en/listing/efffe3de-f397-4669-bbf2-74b23978cf57/"
+    ],
+    "mix": {
+     "listing": "1/3",
+     "search": "1/3",
+     "detail": "1/3",
+     "languages": "ES/EN alternating",
+     "uploads": "separate1/minute,15 for contractual run"
+    },
+    "duration_seconds": 900,
+    "arrival_rps": 20,
+    "scheduled_dynamic": 18000,
+    "uploads_separate": 15,
+    "state": "Fresh Gunicorn/DB fixture; six cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
+    "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
+    "fixture": "seed_demo; deterministic photo seed1, upload seed782134; UUID identities/time-relative validity vary per isolated run",
+    "worker_observer": {
+     "enabled": false,
+     "mode": "legacy_wrapped_phases",
+     "scope": "Synthetic IDs already emitted by client; WSGI entry/end, inclusive context/validation/render and SQL execute wall/thread CPU; validation snapshots each1000calls, partial events retained; no real URI/SQL/parameters; not TCP accept or exact queue time; causal overhead not_measured",
+     "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
+     "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition"
+    }
+   },
+   "dataset": {
+    "published": 10000,
+    "synthetic": true,
+    "shared_synthetic_photo_fixture": true,
+    "limits": "State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.",
+    "deployment_step": "Publication state current for rules 03499040c863: 10002 recomputed"
+   },
+   "workers": "Gunicorn 4 sync (harness command); boot/exit of 4 worker PIDs in gunicorn-private.log",
+   "junit": {
+    "tests": "1",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "935.156",
+    "timestamp": "2026-10-08T17:48:21.763344+02:00",
+    "hostname": "kali"
+   },
+   "recomputed": {
+    "scheduled_expected": 18000,
+    "scheduled_samples": 18000,
+    "emitted": 18000,
+    "not_emitted": 0,
+    "emitted_after_window": 0,
+    "successful": 18000,
+    "errors_unexpected": 0,
+    "timeouts": 0,
+    "finished": 18000,
+    "final_pending": 0,
+    "pending_at_window_close": 3,
+    "status_counts": {
+     "200": 18000
+    },
+    "error_fraction_emitted": 0.0,
+    "observable_latency_seconds": {
+     "p50": 0.1827103210016503,
+     "p95": 0.2654598269982671,
+     "p99": 1.4019944909996411,
+     "max": 2.0139291069972387,
+     "population": 18000,
+     "failures_included": "all emitted dynamic requests that finished; failed/timeouts would be included with their end time (none observed)"
+    },
+    "generator_delay_seconds": {
+     "p95": 0.0014963139998371844,
+     "p99": 0.0020651389975228085,
+     "max": 0.01768425299815135,
+     "population": 18000
+    },
+    "observed_drain_seconds_after_window": 0.03771361999679357,
+    "last_dynamic_end_seconds": 900.0377136199968,
+    "uploads": {
+     "expected_count": 15,
+     "samples": 15,
+     "conforming_302": 15,
+     "rows": [
+      {
+       "id": "u-0",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 0,
+       "emission_delay": 0.0002548439988458995,
+       "seconds": 3.757413273000566
+      },
+      {
+       "id": "u-1",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 60,
+       "emission_delay": 0.0009198699990520254,
+       "seconds": 4.677062563998334
+      },
+      {
+       "id": "u-2",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 120,
+       "emission_delay": 0.0006158589967526495,
+       "seconds": 3.3450473170014448
+      },
+      {
+       "id": "u-3",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 180,
+       "emission_delay": 0.0004495009998208843,
+       "seconds": 2.9765510739998717
+      },
+      {
+       "id": "u-4",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 240,
+       "emission_delay": 0.0016533029993297532,
+       "seconds": 2.95734701100082
+      },
+      {
+       "id": "u-5",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 300,
+       "emission_delay": 0.0008545739983674139,
+       "seconds": 3.9426999040006194
+      },
+      {
+       "id": "u-6",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 360,
+       "emission_delay": 0.001349340000160737,
+       "seconds": 2.981011136998859
+      },
+      {
+       "id": "u-7",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 420,
+       "emission_delay": 0.0011211539967916906,
+       "seconds": 3.2139136400001007
+      },
+      {
+       "id": "u-8",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 480,
+       "emission_delay": 0.0011729669968190137,
+       "seconds": 3.0802081120018556
+      },
+      {
+       "id": "u-9",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 540,
+       "emission_delay": 0.0005080579976493027,
+       "seconds": 3.0624475030017493
+      },
+      {
+       "id": "u-10",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 600,
+       "emission_delay": 0.0005877229996258393,
+       "seconds": 2.9182017399980396
+      },
+      {
+       "id": "u-11",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 660,
+       "emission_delay": 0.0021470689971465617,
+       "seconds": 2.9394326800029376
+      },
+      {
+       "id": "u-12",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 720,
+       "emission_delay": 0.0008031519973883405,
+       "seconds": 3.162492564002605
+      },
+      {
+       "id": "u-13",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 780,
+       "emission_delay": 0.0007029919979686383,
+       "seconds": 3.0474551770021208
+      },
+      {
+       "id": "u-14",
+       "status": 302,
+       "expected": 302,
+       "scheduled_at": 840,
+       "emission_delay": 0.0016625139978714287,
+       "seconds": 3.2381858760018076
+      }
+     ]
+    }
+   },
+   "access_log_correlation": {
+    "log_lines": 18023,
+    "lines_with_benchmark_id": 18015,
+    "lines_without_id": 8,
+    "samples_matched": 18015,
+    "samples_missing_in_log": 0,
+    "missing_ids_first": [],
+    "status_mismatches": 0,
+    "path_mismatches": 0,
+    "gunicorn_dynamic_service_seconds": {
+     "p50": 0.179935,
+     "p95": 0.245721,
+     "max": 0.417052,
+     "population": 18000
+    },
+    "format": "%(s)s %(L)s %(U)s %({x-benchmark-id}i)s: status, request seconds, path, id. No PID, no entry/exit timestamps."
+   },
+   "claimed_by_summary": {
+    "verdict_claimed": "PASS",
+    "claimed_counts": {
+     "scheduled": 18000,
+     "emitted": 18000,
+     "not_emitted": 0,
+     "successful": 18000,
+     "failed": 0,
+     "pending": 0,
+     "timeouts": 0,
+     "other_errors": 0,
+     "reconciled": true
+    },
+    "claimed_observable_latency_seconds": {
+     "p50": 0.1827103210016503,
+     "p90": 0.23622539599818992,
+     "p95": 0.2654598269982671,
+     "p99": 1.4019944909996411,
+     "max": 2.0139291069972387,
+     "population": 18000
+    },
+    "claimed_generator_delay_seconds": {
+     "p50": 0.0007365109981023465,
+     "p90": 0.0011697009983890894,
+     "p95": 0.0014963139998371844,
+     "p99": 0.0020651389975228085,
+     "max": 0.01768425299815135,
+     "population": 18000
+    },
+    "claimed_final_upload_counts": {
+     "scheduled": 15,
+     "emitted": 15,
+     "not_emitted": 0,
+     "successful": 15,
+     "failed": 0,
+     "pending": 0,
+     "timeouts": 0,
+     "other_errors": 0,
+     "reconciled": true
+    },
+    "claimed_gunicorn_dynamic_service_p95_seconds": 0.245721,
+    "load_summary_file_equals_junit_property_except_samples": true,
+    "load_summary_relation": "JUnit property is the harness 'compact' summary (record_property); load-summary.json is the full summary including per-request 'samples'"
+   },
+   "criteria_recomputed": {
+    "no_not_emitted": true,
+    "generator_p95_le_policy": true,
+    "generator_p99_le_policy": true,
+    "generator_max_le_policy": true,
+    "p95_strictly_below_policy": true,
+    "error_fraction_strictly_below_policy": true,
+    "final_pending_zero": true,
+    "drain_within_policy": true,
+    "uploads_all_302": true,
+    "uploads_scheduled_one_per_minute": true,
+    "access_log_correlates_all_samples": true
+   },
+   "derived_git_blob_ids_at_commit": {
+    "tests/test_contract_http_load.py": "0188efe8d2b8018c10f6f44412d010ae444f2dc4",
+    "scripts/benchmark_async_transport.py": "67fb055b8cd94bcdef37cb3612e1124e20a39ac1",
+    "scripts/synthetic_load_dataset.py": "7ebfd3f23ed8550cd035d0a7e004f18fa9fa839c",
+    "apps/listings/publication_state.py": "20c414b90bb62d69dbbbed4b80815f3f6b314394",
+    "apps/listings/discovery.py": "d41baf360a2208860761393c03671bdd2ab66ef6",
+    "apps/listings/management/commands/refresh_publication_state.py": "ead254328eb4a6db938e1c1c73370de64cd49b2b",
+    "config/settings.py": "280e805fbc88dbe13d17823f4902502e30d35086"
+   },
+   "absences": {
+    "manifest_source_file_hashes": "not_found: original manifest records source_commit only; git blob ids at that commit listed separately as derived, not original",
+    "wsgi_entry_exit_events_with_pid": "not_measured: worker observer disabled (WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS unset); access log has status/seconds/path/id only",
+    "worker_pid_per_request": "not_measured",
+    "runner_script_file": "not_found: invoked directly as a pytest command from the Claude Code session (command recorded below); no wrapper script",
+    "cleanup_evidence_at_run_time": "not_found: pytest-django dropped its test database at session end; no cleanup record was written. Post-hoc observation (2026-10-08, this audit): no database matching r5mod05 exists",
+    "host_resource_sampling": "not_measured (manifest not_measured list)",
+    "working_tree_clean_at_launch": "not_recorded by the harness; launch followed a commit in the same session with no intervening edits (session transcript), not independently verifiable from artifacts"
+   }
+  }
+ }
+}
