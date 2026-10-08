@@ -1,0 +1,525 @@
+{
+  "raw_worker_logs_match_junit": true,
+  "cases": [
+    {
+      "fixture": "repeated",
+      "families": {
+        "listing": {
+          "population_per_variant": 40,
+          "before_http_mean_seconds": 0.3380043971701525,
+          "before_wsgi_mean_seconds": 0.33675261938478795,
+          "after_http_mean_seconds": 0.3410309396451339,
+          "after_wsgi_mean_seconds": 0.3397098724730313,
+          "observed_wsgi_delta_seconds": -0.00295725308824335
+        },
+        "search": {
+          "population_per_variant": 40,
+          "before_http_mean_seconds": 0.39222427471540866,
+          "before_wsgi_mean_seconds": 0.39106598638463763,
+          "after_http_mean_seconds": 0.35994945652782917,
+          "after_wsgi_mean_seconds": 0.3587282714317553,
+          "observed_wsgi_delta_seconds": 0.032337714952882346
+        },
+        "detail": {
+          "population_per_variant": 40,
+          "before_http_mean_seconds": 0.10946981500601397,
+          "before_wsgi_mean_seconds": 0.10821721378015355,
+          "after_http_mean_seconds": 0.09526115510379896,
+          "after_wsgi_mean_seconds": 0.09395618943963199,
+          "observed_wsgi_delta_seconds": 0.014261024340521553
+        }
+      },
+      "pairs": [
+        {
+          "before_block": 0,
+          "after_block": 1,
+          "family": "listing",
+          "population_per_cell": 20,
+          "target": false,
+          "before_mean_seconds": 0.3302078468957916,
+          "after_mean_seconds": 0.3216011083452031,
+          "improvement_seconds": 0.008606738550588466,
+          "improvement_fraction": 0.026064609401316313,
+          "allowed_regression_seconds": 0.01651039234478958,
+          "criterion_met": true
+        },
+        {
+          "before_block": 0,
+          "after_block": 1,
+          "family": "search",
+          "population_per_cell": 20,
+          "target": false,
+          "before_mean_seconds": 0.3714968055021018,
+          "after_mean_seconds": 0.36509018181823194,
+          "improvement_seconds": 0.00640662368386985,
+          "improvement_fraction": 0.01724543411675071,
+          "allowed_regression_seconds": 0.01857484027510509,
+          "criterion_met": true
+        },
+        {
+          "before_block": 0,
+          "after_block": 1,
+          "family": "detail",
+          "population_per_cell": 20,
+          "target": false,
+          "before_mean_seconds": 0.09619869231246411,
+          "after_mean_seconds": 0.09445504832547158,
+          "improvement_seconds": 0.0017436439869925324,
+          "improvement_fraction": 0.018125443756854633,
+          "allowed_regression_seconds": 0.01,
+          "criterion_met": true
+        },
+        {
+          "before_block": 3,
+          "after_block": 2,
+          "family": "listing",
+          "population_per_cell": 20,
+          "target": false,
+          "before_mean_seconds": 0.34580094744451345,
+          "after_mean_seconds": 0.36046077094506473,
+          "improvement_seconds": -0.014659823500551283,
+          "improvement_fraction": -0.04239382109530967,
+          "allowed_regression_seconds": 0.017290047372225673,
+          "criterion_met": true
+        },
+        {
+          "before_block": 3,
+          "after_block": 2,
+          "family": "search",
+          "population_per_cell": 20,
+          "target": false,
+          "before_mean_seconds": 0.4129517439287156,
+          "after_mean_seconds": 0.3548087312374264,
+          "improvement_seconds": 0.058143012691289186,
+          "improvement_fraction": 0.1407985643507197,
+          "allowed_regression_seconds": 0.02064758719643578,
+          "criterion_met": true
+        },
+        {
+          "before_block": 3,
+          "after_block": 2,
+          "family": "detail",
+          "population_per_cell": 20,
+          "target": false,
+          "before_mean_seconds": 0.1227409376995638,
+          "after_mean_seconds": 0.09606726188212633,
+          "improvement_seconds": 0.026673675817437473,
+          "improvement_fraction": 0.2173168652395937,
+          "allowed_regression_seconds": 0.01,
+          "criterion_met": true
+        }
+      ],
+      "effect_criteria_met": true,
+      "diverse_before_state_loops": null,
+      "diverse_after_no_repeated_state_index_probe": null,
+      "observed_delta_D_seconds": 0.014547162068386849,
+      "observed_20delta_D_worker_seconds_per_second": 0.29094324136773697,
+      "plans": [
+        {
+          "variant": "before",
+          "operation": "unknown",
+          "normalized": "SELECT DISTINCT \"listings_listing\".\"id\" AS \"pk\", ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))), \"listings_listing\".\"published_at\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND (NOT EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 49",
+          "driver_execute_seconds": 0.044261530973017216,
+          "jit": "on",
+          "planning_ms": 0.953,
+          "execution_ms": 43.583,
+          "state_scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Actual Rows": 10002,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 173,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 2"
+            }
+          ],
+          "root_actual_rows": 1,
+          "root_shared_hits": 1391,
+          "root_shared_reads": 0
+        },
+        {
+          "variant": "before",
+          "operation": "count",
+          "normalized": "SELECT COUNT(*) AS \"__count\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s)))",
+          "driver_execute_seconds": 0.0409341468475759,
+          "jit": "on",
+          "planning_ms": 0.593,
+          "execution_ms": 35.867,
+          "state_scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Actual Rows": 10000,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 173,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 2"
+            }
+          ],
+          "root_actual_rows": 1,
+          "root_shared_hits": 1391,
+          "root_shared_reads": 0
+        },
+        {
+          "variant": "before",
+          "operation": "page",
+          "normalized": "SELECT \"listings_listing\".\"id\" AS \"pk\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 24",
+          "driver_execute_seconds": 0.03755289176478982,
+          "jit": "on",
+          "planning_ms": 0.649,
+          "execution_ms": 41.27,
+          "state_scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Actual Rows": 10000,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 173,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 2"
+            }
+          ],
+          "root_actual_rows": 24,
+          "root_shared_hits": 1391,
+          "root_shared_reads": 0
+        },
+        {
+          "variant": "after",
+          "operation": "unknown",
+          "normalized": "SELECT DISTINCT \"listings_listing\".\"id\" AS \"pk\", ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))), \"listings_listing\".\"published_at\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND (NOT EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 49",
+          "driver_execute_seconds": 0.02437984524294734,
+          "jit": "on",
+          "planning_ms": 0.739,
+          "execution_ms": 39.546,
+          "state_scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Actual Rows": 10002,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 173,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 2"
+            }
+          ],
+          "root_actual_rows": 1,
+          "root_shared_hits": 1391,
+          "root_shared_reads": 0
+        },
+        {
+          "variant": "after",
+          "operation": "count",
+          "normalized": "SELECT COUNT(*) AS \"__count\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((\"listings_listing\".\"id\" IN (SELECT U0.\"listing_id\" AS \"listing_id\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"rules_version\" = %s)) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s)))",
+          "driver_execute_seconds": 0.032828420866280794,
+          "jit": "on",
+          "planning_ms": 0.6,
+          "execution_ms": 35.395,
+          "state_scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Actual Rows": 10000,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 173,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 1"
+            }
+          ],
+          "root_actual_rows": 1,
+          "root_shared_hits": 1391,
+          "root_shared_reads": 0
+        },
+        {
+          "variant": "after",
+          "operation": "page",
+          "normalized": "SELECT \"listings_listing\".\"id\" AS \"pk\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((\"listings_listing\".\"id\" IN (SELECT U0.\"listing_id\" AS \"listing_id\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"rules_version\" = %s)) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 24",
+          "driver_execute_seconds": 0.03299499908462167,
+          "jit": "on",
+          "planning_ms": 0.526,
+          "execution_ms": 39.217,
+          "state_scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Actual Rows": 10000,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 173,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 1"
+            }
+          ],
+          "root_actual_rows": 24,
+          "root_shared_hits": 1391,
+          "root_shared_reads": 0
+        }
+      ],
+      "wsgi_exit_after_client_end": {
+        "count": 20,
+        "max_seconds": 0.001012544147670269
+      }
+    },
+    {
+      "fixture": "diverse",
+      "families": {
+        "listing": {
+          "population_per_variant": 40,
+          "before_http_mean_seconds": 0.3521513060200959,
+          "before_wsgi_mean_seconds": 0.35070287064881994,
+          "after_http_mean_seconds": 0.3463916002656333,
+          "after_wsgi_mean_seconds": 0.3453599209780805,
+          "observed_wsgi_delta_seconds": 0.00534294967073945
+        },
+        "search": {
+          "population_per_variant": 40,
+          "before_http_mean_seconds": 0.48585763506125657,
+          "before_wsgi_mean_seconds": 0.4845556143554859,
+          "after_http_mean_seconds": 0.43404609492281454,
+          "after_wsgi_mean_seconds": 0.43284539370797576,
+          "observed_wsgi_delta_seconds": 0.05171022064751013
+        },
+        "detail": {
+          "population_per_variant": 40,
+          "before_http_mean_seconds": 0.11021186065627261,
+          "before_wsgi_mean_seconds": 0.1088856058078818,
+          "after_http_mean_seconds": 0.11912026443751529,
+          "after_wsgi_mean_seconds": 0.11781770283123479,
+          "observed_wsgi_delta_seconds": -0.008932097023352986
+        }
+      },
+      "pairs": [
+        {
+          "before_block": 0,
+          "after_block": 1,
+          "family": "listing",
+          "population_per_cell": 20,
+          "target": false,
+          "before_mean_seconds": 0.3555158788803965,
+          "after_mean_seconds": 0.3379008693154901,
+          "improvement_seconds": 0.01761500956490636,
+          "improvement_fraction": 0.0495477434661433,
+          "allowed_regression_seconds": 0.017775793944019826,
+          "criterion_met": true
+        },
+        {
+          "before_block": 0,
+          "after_block": 1,
+          "family": "search",
+          "population_per_cell": 20,
+          "target": true,
+          "before_mean_seconds": 0.48426774062681943,
+          "after_mean_seconds": 0.42773762908764185,
+          "improvement_seconds": 0.056530111539177585,
+          "improvement_fraction": 0.11673317629212089,
+          "allowed_regression_seconds": null,
+          "criterion_met": true
+        },
+        {
+          "before_block": 0,
+          "after_block": 1,
+          "family": "detail",
+          "population_per_cell": 20,
+          "target": false,
+          "before_mean_seconds": 0.10768512557260693,
+          "after_mean_seconds": 0.11619700242299587,
+          "improvement_seconds": -0.008511876850388941,
+          "improvement_fraction": -0.07904412800865232,
+          "allowed_regression_seconds": 0.01,
+          "criterion_met": true
+        },
+        {
+          "before_block": 3,
+          "after_block": 2,
+          "family": "listing",
+          "population_per_cell": 20,
+          "target": false,
+          "before_mean_seconds": 0.3487867331597954,
+          "after_mean_seconds": 0.3548823312157765,
+          "improvement_seconds": -0.0060955980559810885,
+          "improvement_fraction": -0.017476576590969163,
+          "allowed_regression_seconds": 0.01743933665798977,
+          "criterion_met": true
+        },
+        {
+          "before_block": 3,
+          "after_block": 2,
+          "family": "search",
+          "population_per_cell": 20,
+          "target": true,
+          "before_mean_seconds": 0.48744752949569375,
+          "after_mean_seconds": 0.4403545607579872,
+          "improvement_seconds": 0.047092968737706575,
+          "improvement_fraction": 0.09661135996817603,
+          "allowed_regression_seconds": null,
+          "criterion_met": true
+        },
+        {
+          "before_block": 3,
+          "after_block": 2,
+          "family": "detail",
+          "population_per_cell": 20,
+          "target": false,
+          "before_mean_seconds": 0.11273859573993832,
+          "after_mean_seconds": 0.12204352645203471,
+          "improvement_seconds": -0.009304930712096399,
+          "improvement_fraction": -0.08253544982554782,
+          "allowed_regression_seconds": 0.01,
+          "criterion_met": true
+        }
+      ],
+      "effect_criteria_met": true,
+      "diverse_before_state_loops": 9999,
+      "diverse_after_no_repeated_state_index_probe": true,
+      "observed_delta_D_seconds": 0.01604035776496553,
+      "observed_20delta_D_worker_seconds_per_second": 0.3208071552993106,
+      "plans": [
+        {
+          "variant": "before",
+          "operation": "unknown",
+          "normalized": "SELECT DISTINCT \"listings_listing\".\"id\" AS \"pk\", ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))), \"listings_listing\".\"published_at\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND (NOT EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 49",
+          "driver_execute_seconds": 0.07614029664546251,
+          "jit": "on",
+          "planning_ms": 1.15,
+          "execution_ms": 89.354,
+          "state_scans": [
+            {
+              "Node Type": "Index Scan",
+              "Actual Rows": 1,
+              "Actual Loops": 10000,
+              "Shared Hit Blocks": 30000,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 1"
+            }
+          ],
+          "root_actual_rows": 1,
+          "root_shared_hits": 61785,
+          "root_shared_reads": 0
+        },
+        {
+          "variant": "before",
+          "operation": "count",
+          "normalized": "SELECT COUNT(*) AS \"__count\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s)))",
+          "driver_execute_seconds": 0.020651076920330524,
+          "jit": "on",
+          "planning_ms": 0.842,
+          "execution_ms": 21.254,
+          "state_scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Actual Rows": 10000,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 173,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 2"
+            }
+          ],
+          "root_actual_rows": 1,
+          "root_shared_hits": 2224,
+          "root_shared_reads": 0
+        },
+        {
+          "variant": "before",
+          "operation": "page",
+          "normalized": "SELECT \"listings_listing\".\"id\" AS \"pk\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 24",
+          "driver_execute_seconds": 0.06248804088681936,
+          "jit": "on",
+          "planning_ms": 0.746,
+          "execution_ms": 83.322,
+          "state_scans": [
+            {
+              "Node Type": "Index Scan",
+              "Actual Rows": 1,
+              "Actual Loops": 9999,
+              "Shared Hit Blocks": 29997,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 1"
+            }
+          ],
+          "root_actual_rows": 24,
+          "root_shared_hits": 61776,
+          "root_shared_reads": 0
+        },
+        {
+          "variant": "after",
+          "operation": "unknown",
+          "normalized": "SELECT DISTINCT \"listings_listing\".\"id\" AS \"pk\", ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))), \"listings_listing\".\"published_at\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND (NOT EXISTS(SELECT %s AS \"a\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"listing_id\" = (\"listings_listing\".\"id\") AND U0.\"rules_version\" = %s) LIMIT 1) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 49",
+          "driver_execute_seconds": 0.06442408403381705,
+          "jit": "on",
+          "planning_ms": 1.094,
+          "execution_ms": 105.094,
+          "state_scans": [
+            {
+              "Node Type": "Index Scan",
+              "Actual Rows": 1,
+              "Actual Loops": 10000,
+              "Shared Hit Blocks": 30000,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 1"
+            }
+          ],
+          "root_actual_rows": 1,
+          "root_shared_hits": 61785,
+          "root_shared_reads": 0
+        },
+        {
+          "variant": "after",
+          "operation": "count",
+          "normalized": "SELECT COUNT(*) AS \"__count\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((\"listings_listing\".\"id\" IN (SELECT U0.\"listing_id\" AS \"listing_id\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"rules_version\" = %s)) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s)))",
+          "driver_execute_seconds": 0.018330227583646774,
+          "jit": "on",
+          "planning_ms": 0.511,
+          "execution_ms": 20.565,
+          "state_scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Actual Rows": 10000,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 173,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 1"
+            }
+          ],
+          "root_actual_rows": 1,
+          "root_shared_hits": 2224,
+          "root_shared_reads": 0
+        },
+        {
+          "variant": "after",
+          "operation": "page",
+          "normalized": "SELECT \"listings_listing\".\"id\" AS \"pk\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s)) AND ((\"listings_listing\".\"id\" IN (SELECT U0.\"listing_id\" AS \"listing_id\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"rules_version\" = %s)) AND NOT (\"listings_listing\".\"id\" IN (%s))) OR \"listings_listing\".\"id\" IN (%s))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery(%s::regconfig, %s) || websearch_to_tsquery(%s::regconfig, %s))) DESC, \"listings_listing\".\"published_at\" DESC, 1 ASC LIMIT 24",
+          "driver_execute_seconds": 0.024331143125891685,
+          "jit": "on",
+          "planning_ms": 0.506,
+          "execution_ms": 28.59,
+          "state_scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Actual Rows": 10000,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 173,
+              "Shared Read Blocks": 0,
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 1"
+            }
+          ],
+          "root_actual_rows": 24,
+          "root_shared_hits": 2224,
+          "root_shared_reads": 0
+        }
+      ],
+      "wsgi_exit_after_client_end": {
+        "count": 15,
+        "max_seconds": 0.006411692127585411
+      }
+    }
+  ],
+  "sql_mechanism_demonstrated": true,
+  "effect_pass": true,
+  "decision": "retain",
+  "scope": "480 sequential TCP controls, 4 sync workers, repeated/diverse10000; no load/capacity. Mean per-family and balanced pairs. Common implementation/route/WSGI middleware no intrusive profiler; overhead not_measured. Separate matched SQL/EXPLAIN probes warm caches before controls; actual JIT observed. Driver execute is neither CPU nor planning, includes waits/receipt and not all lazy conversions. Actual Rows/Loops describe individual plan nodes, not global rows_scanned or ORM objects. DeltaD descriptive includes detail fluctuation not causally assigned to unchanged detail path. Upload/DeltaU not_measured. CPU/resource/competition causality not_measured; no savings extrapolated to loaded cohorts."
+}

@@ -1,0 +1,42 @@
+{
+  "operation": "Final population membership in current eligible PublicationState, not intermediate sorting",
+  "source": {
+    "commit": "26dcad6",
+    "plan_evidence": "docs/evidencias/mod05-orden-desconocidos-ab-revisada0110.json",
+    "profile_evidence": "docs/evidencias/mod05-dirty-perfil-resultados0110.json"
+  },
+  "observed": {
+    "diverse_search_final_page": {
+      "execution_ms": 85.18,
+      "state_index_scan_loops": 9999,
+      "state_shared_hits": 29997,
+      "all_node_shared_hits": 61776
+    },
+    "repeated_search_final_page": "already hashed state membership; no repeated-fixture savings assumed"
+  },
+  "hypothesis": "An uncorrelated IN subquery can eliminate repeated state-index probes on the final diverse-search plan while preserving exact membership. Planner remains free; no assumed savings or prepared plans. Different mechanism from withdrawn intermediate sorting.",
+  "minimal_change": "Replace correlated eligible EXISTS in final population with membership in current eligible state listing IDs. Keep unknown enumeration, all filters, checked OR, dirty exclusion, native IDs, RR snapshot, count/order/page and native guard unchanged. listing_id is non-null unique PK.",
+  "weights": {
+    "listing": 0.3333333333333333,
+    "search": 0.3333333333333333,
+    "detail": 0.3333333333333333
+  },
+  "equivalence": "Native normal/PRODUCTION; many-valued filters/duplicate removal; missing state/old version/dirty eligible/dirty revoked and offpage count/page/ties; conditional decision/proof regressions. Prior unchanged trigger/refresh/sweep/browser evidence reused with source scopes explicit.",
+  "effect_prefixed": {
+    "target": "Diverse fixture search family: both balanced pairs",
+    "http_mean_improvement_min_ms": 20,
+    "http_mean_improvement_min_fraction": 0.05,
+    "controls": "All other fixture/family pairs must not regress by more than max(10ms,5% baseline mean). These bounds guard noise relative to material threshold; not SLO. Target repeated search not required to improve because plan already hashes state.",
+    "sql_mechanism": "Separate matched count/final-page/unknown EXPLAIN; final diverse page state membership no per-candidate index scan. No HTTP acceptance from plan alone.",
+    "decision": "Keep only if equivalence + both target pairs + all regression bounds + mechanism observed; otherwise withdraw, no automatic minor variants"
+  },
+  "ab_design": "Repeated/diverse10000, before/after/after/before,10controls*6routes*4blocks*2fixtures=480 sequential TCP, four own sync workers, official fixture prep, same data/server/instruments, one dirty offpage candidate. Reuse opt-in implementation reference middleware, no profiler in controls. Separate Client/EXPLAIN probes warm caches beforehand. No30/60/900; uploads not_measured. Means explicit, DeltaD by1/3 and uploads separate.",
+  "dependencies": "PublicationState schema unique non-null listing_id, rules_version/eligible/check flags; all state writes/dirty invalidation remain same. No results or authority persisted by intervention; dynamic parameters current every call. Not prepared statements.",
+  "selection": [
+    "tests/test_publication_state_tcp.py::test_current_matrix_tcp[repeated-10000]",
+    "tests/test_publication_state_tcp.py::test_current_matrix_tcp[diverse-10000]"
+  ],
+  "no_resources": "No worker, PG, cache, generator, foreign service or production changes",
+  "reference": "docs/evidencias/mod05-orden-reference0110.py (original _state_page from531bd08; current product26dcad6 identical)",
+  "reference_sha256": "2388f5994f6c191b28e7dc426a7e9c2666b9561c2ad0ab77b5fe246cd7f1ae03"
+}

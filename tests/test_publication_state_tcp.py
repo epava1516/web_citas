@@ -32,7 +32,9 @@ pytestmark = pytest.mark.django_db(transaction=True)
 @pytest.mark.parametrize("count", [100, 1000, 10000])
 @pytest.mark.parametrize("fixture", ["repeated", "diverse"])
 def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
-    order_contrast = os.environ.get("PUBLICATION_TCP_ORDER_CONTRAST") == "1"
+    membership_contrast = os.environ.get("PUBLICATION_TCP_MEMBERSHIP_CONTRAST") == "1"
+    order_contrast = membership_contrast or os.environ.get("PUBLICATION_TCP_ORDER_CONTRAST") == "1"
+    repeats = 10 if membership_contrast else 5
     client = request.getfixturevalue("directory")
     prepare_population(count, fixture)
     assert connection.settings_dict["NAME"].startswith("test_promotion_gate_")
@@ -167,7 +169,22 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                     assert response.wsgi_request._publication_route["native_unknown"] == 1
                 finally:
                     publication_state._state_page = candidate_function
-                for driver_time, query, params, jit in sorted(captured, reverse=True, key=lambda item:item[0])[:3]:
+                if membership_contrast:
+                    # Match the affected operations, not whichever three reads
+                    # happen to become dominant after the intervention.
+                    selected_reads = [
+                        row for row in captured
+                        if '"listings_publicationstate"' in row[1]
+                        and row[1].startswith((
+                            'SELECT DISTINCT "listings_listing"."id" AS "pk"',
+                            'SELECT "listings_listing"."id" AS "pk"',
+                            'SELECT COUNT(*) AS "__count" FROM "listings_listing"',
+                        ))
+                    ]
+                    assert len(selected_reads) == 3, "Unknown/count/final-page reads required"
+                else:
+                    selected_reads = sorted(captured, reverse=True, key=lambda item:item[0])[:3]
+                for driver_time, query, params, jit in selected_reads:
                     with transaction.atomic():
                         with connection.cursor() as cursor:
                             cursor.execute("SET TRANSACTION READ ONLY")
@@ -202,9 +219,9 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                     while publication_state.refresh(500):
                         pass
                     assert not PublicationDirty.objects.exists()
-            for repeat in range(5):
+            for repeat in range(repeats):
                 for index, path in enumerate(paths):
-                    rid = f"d-{block * 30 + repeat * 6 + index}"
+                    rid = f"d-{block * repeats * 6 + repeat * 6 + index}"
                     emission = time.monotonic()
                     req = urllib.request.Request(origin + path, headers={"X-Benchmark-ID": rid, "X-Order-Variant": phase if order_contrast else "after"})
                     with urllib.request.urlopen(req, timeout=65) as r:
@@ -264,13 +281,15 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                     "workers": 4,
                     "dirty_contrast": contrast,
                     "order_contrast": order_contrast,
+                    "membership_contrast": membership_contrast,
+                    "controls_per_route_per_block": repeats,
                     "blocks": phases,
                 }
             ),
         )
         record_property(
             "limits",
-            "Sequential HTTP TCP controls, five per route after warmup; own four sync workers; lightweight one event write/transaction plus route metadata middleware, no SQL/rule profiler, overhead not causally quantified. Same-host monotonic clocks; HTTP receipt can precede final WSGI close, no end>=exit assumption. No upload/concurrency/SLO capacity. CPU/resources not_measured; matrix populations not saturated historical populations. No backend before/after improvement claim.",
+            f"Sequential HTTP TCP controls, {repeats} per route/block after warmup; own four sync workers; lightweight one event write/transaction plus route metadata middleware, no SQL/rule profiler, overhead not causally quantified. Same-host monotonic clocks; HTTP receipt can precede final WSGI close, no end>=exit assumption. No upload/concurrency/SLO capacity. CPU/resources not_measured; matrix populations not saturated historical populations. Effect acceptance requires independent prefixed review.",
         )
     finally:
         if process is not None and process.poll() is None:

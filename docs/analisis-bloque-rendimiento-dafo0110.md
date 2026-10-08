@@ -212,3 +212,15 @@ Hecho: equivalencia pertinente (31 PG) y 240 controles TCP completos; solo 4/8 c
 - Amenaza: aceptar medias agregadas que oculten pares adversos, imputar ficha a un cambio que no la toca o sumar mejoras de poblaciones distintas.
 
 No nueva carga ni aumento de recursos. Diagnóstico autorizado VALID/FAIL y gate VPS FAIL intactos; portátil PASS con su alcance, CR09 abierto y 900 bloqueados.
+
+
+## Actualización: pertenencia final conservada
+
+Hechos: 9 PG pertinentes y 480 controles TCP secuenciales, ambas fixtures; búsqueda diversa mejora HTTP 56,530/47,093 ms en dos pares y controles cumplen límites previos. Plan separado reduce 9.999 probes de estado a un scan; modificación IN conserva semántica. [Informe](evidencias/mod05-pertenencia-informe0110.md).
+
+- Fortaleza: mecanismo directamente observado, equivalencia nativa offpage y beneficio HTTP prefijado reproducido; sin recursos nuevos.
+- Debilidad: enumeración dirty aún correlacionada; coste y capacidad total no resueltos. Ficha fluctúa sin cambio de implementación.
+- Oportunidad: integrar y actualizar matriz comparable antes de otro gate; reutilizar pruebas de riesgos sin repetir baterías por rutina.
+- Amenaza: convertir EXPLAIN/controles secuenciales en ahorro cargado o en aceptación de capacidad; cambiar umbrales tras medir.
+
+ΔD descriptivo 14,547/16,040 ms incluye todas las familias observadas, no se resta de históricos. Upload/ΔU/CPU desglosada no medidos aquí. CR09 abierto y 900 bloqueados; FAIL/INVALID/PASS históricos con su ámbito intactos, goal activo, seis no adoptada.

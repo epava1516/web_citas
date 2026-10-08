@@ -348,7 +348,14 @@ def _state_page(query, number, checked, observation, stale):
     check_filter = Q()
     for name in checked:
         check_filter |= Q(**{"check_" + name: True})
-    trusted_visible = Exists(trusted_state(eligible=True).filter(check_filter)) & ~Q(pk__in=dirty)
+    # Independent membership lets PostgreSQL read the eligible state set once even
+    # when the native-ID OR prevents pulling a correlated EXISTS into a semi-join.
+    # listing_id is a non-null unique key; version/checks/dirty remain exact in the
+    # same snapshot. This changes neither the native set nor the final ordering.
+    eligible_ids = PublicationState.objects.filter(
+        eligible=True, rules_version=rules_version()
+    ).filter(check_filter).values_list("listing_id", flat=True)
+    trusted_visible = Q(pk__in=eligible_ids) & ~Q(pk__in=dirty)
     # Narrow rows: identifiers plus the ordering columns the DISTINCT requires; the page
     # rows are hydrated afterwards through the native context of these 24 listings only.
     population = query.select_related(None).filter(trusted_visible | Q(pk__in=native))
