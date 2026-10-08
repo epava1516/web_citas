@@ -1,0 +1,29 @@
+{
+  "requirement": "Update current accepted exact IN membership matrix100/1000/10000, equivalent instruments and no-profiler Client/TCP controls; no load acceptance",
+  "source_commit": "2dd4ca5",
+  "selection": [
+    "tests/test_publication_state_matrix.py",
+    "tests/test_publication_state_tcp.py"
+  ],
+  "scenario": {
+    "candidates": [
+      100,
+      1000,
+      10000
+    ],
+    "fixtures": [
+      "repeated",
+      "diverse"
+    ],
+    "workers": 4,
+    "preparation": "PUBLICATION_MATRIX_DEPLOY=1 actual refresh_publication_state with VACUUM ANALYZE before observations",
+    "unknown": 0,
+    "Client": "One warm, five controls, one profiled request per /es/ and /en/?q=photography; wrappers/post_init/rules identical prior deployment matrix",
+    "TCP": "One warm and five sequential controls per6ES/EN routes per population;180correlated HTTP/WSGI controls, own four sync workers, no SQL/rule profiler"
+  },
+  "invariants": "Counts, HTML/order fingerprints, current state/unknown0; observed routes unchanged under profiling; original own worker events/source/artifact hashes and cleanup reviewed",
+  "reuse": "9PG equivalence and480paired TCP controls of this intervention; previous trigger/refresh/sweep/presentation/privacy operational evidence reused with explicit sources; no routine rerun or N3 common claim",
+  "metrics": "Query counts/driver execute normalized dominants/models/rule calls inclusive/exclusive/render/request instrumented; TCP and WSGI means per family and explicitpopulations, D=sum(mean/3),20D; upload/totalW/CPU/resource overhead/rows_scanned not_measured. SQL observations overlap lazyvalidation/render; no total-minus-SQL validation",
+  "condition": "12casesPASS, six populations and actualprep/instruments valid, samples/event uniqueness/clock/PID correlations; describe effect/limitations, no fakecapacityPASS",
+  "limits": "No30/60/900load, no workers/PG/cache/generator/foreignservices changes. Freeze sources until terminal and independent review; only own PG/media/servercleanup."
+}

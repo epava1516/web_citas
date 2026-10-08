@@ -224,3 +224,15 @@ Hechos: 9 PG pertinentes y 480 controles TCP secuenciales, ambas fixtures; búsq
 - Amenaza: convertir EXPLAIN/controles secuenciales en ahorro cargado o en aceptación de capacidad; cambiar umbrales tras medir.
 
 ΔD descriptivo 14,547/16,040 ms incluye todas las familias observadas, no se resta de históricos. Upload/ΔU/CPU desglosada no medidos aquí. CR09 abierto y 900 bloqueados; FAIL/INVALID/PASS históricos con su ámbito intactos, goal activo, seis no adoptada.
+
+
+## Matriz actual revisada y pausa del usuario
+
+[12 PG/Client/TCP correctos](evidencias/mod05-pertenencia-matriz-informe0110.md),180controles TCP reconciliados, fuentes/recursos propios liberados.10000clean: D221,770ms repetido/206,677ms diverso;20D4,435395/4,133543 sinuploadmedido. No población cargada, CPU o capacidad inferida; no delta acumulativo entre rondas. Se conserva la intervención IN aceptada y sus límites.
+
+- Fortaleza: perfiles y controles separados, muestras originales/PID/source y limpieza verificadas; reglas actuales24calls/forma, no10kporrequest.
+- Debilidad: ocupación aritmética actual mayor que4 antes deupload, variación entrepoblaciones y perfilesnoexhaustivos; falta aceptación de capacidad.
+- Oportunidad: [propuesta4/6actual](evidencias/mod05-capacidad-4-vs-6-propuesta0110.json) preparada, sin ejecutarla ni adoptar6; considerar ocupación/contención junto a trabajo evitable.
+- Amenaza: elevar másabstracciones/variantes a roadmap sin mecanismo o extrapolar historiales/CPU/colas desde controles.
+
+Usuario solicita commit/push ypausa delgoal al cerrar ronda. No ensayos adicionales. Preparación de comparación noes autorización; retomar expresamente. CR09/GS01/900 y dependencias reales abiertos; porcentajes/veredictos históricos intactos.

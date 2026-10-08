@@ -299,9 +299,11 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
             except subprocess.TimeoutExpired:
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait(timeout=5)
-        if order_contrast:
-            artifact_folder = Path(request.config.getoption("--gate-timings-output")).parent / f"order-tcp-{fixture}-{count}"
-            artifact_folder.mkdir(exist_ok=True)
-            for log_file in [tmp_path / "gunicorn.log", *tmp_path.glob("worker-*.jsonl")]:
-                if log_file.exists():
-                    shutil.copy2(log_file, artifact_folder / log_file.name)
+        # Preserve the original records for matrix controls too, after the own
+        # server is stopped and before pytest removes its temporary directory.
+        artifact_prefix = "order-tcp" if order_contrast else "matrix-tcp"
+        artifact_folder = Path(request.config.getoption("--gate-timings-output")).parent / f"{artifact_prefix}-{fixture}-{count}"
+        artifact_folder.mkdir(exist_ok=True)
+        for log_file in [tmp_path / "gunicorn.log", *tmp_path.glob("worker-*.jsonl")]:
+            if log_file.exists():
+                shutil.copy2(log_file, artifact_folder / log_file.name)

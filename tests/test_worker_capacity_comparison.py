@@ -1,6 +1,7 @@
 """Explicitly authorized, sequential 4/6/6/4 experiment; never a load gate."""
 import hashlib
 import http.cookies
+import io
 import json
 import os
 import re
@@ -12,23 +13,23 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from urllib.parse import unquote, quote
 from pathlib import Path
+from urllib.parse import quote, unquote
 from uuid import uuid4
 
 import psycopg
 import pytest
-from psycopg import sql
 from django.conf import settings as django_settings
-from django.db import connection
 from django.core import signing
+from django.core.management import call_command
+from django.db import connection
 from django.test import Client
+from psycopg import sql
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment, raw_image  # noqa: F401
-from test_resource_service_checkpoint import NoRedirect
 
 from apps.core.models import Person, User
-from apps.listings.models import Listing, Revision
+from apps.listings.models import Listing, PublicationDirty, Revision
 from scripts.benchmark_async_transport import POLICY, fetch_http, run_async_open_loop
 from scripts.benchmark_gc_observer import GCObserver, generator_gc_overlap, prepare_generator_gc
 from scripts.benchmark_resource_probe import ResourceProbe
@@ -65,6 +66,12 @@ def test_worker_capacity_comparison(request, tmp_path, record_property):
     client = Client()
     client.force_login(manager)
     session_cookie = client.cookies[django_settings.SESSION_COOKIE_NAME].value
+    # MOD05: clone the same officially prepared state after creating the upload
+    # draft/session. The timed upload may mark it again; native fallback stays on.
+    deployment_output = io.StringIO()
+    call_command("refresh_publication_state", stdout=deployment_output)
+    assert not PublicationDirty.objects.exists()
+    dataset["deployment_step"] = deployment_output.getvalue().strip()
     raw = raw_image(782134)
     boundary = "synthetic-fixed-worker-comparison"
     multipart = (f'--{boundary}\r\nContent-Disposition: form-data; name="image"; filename="synthetic.jpg"\r\nContent-Type: image/jpeg\r\n\r\n'.encode()
@@ -129,7 +136,7 @@ def test_worker_capacity_comparison(request, tmp_path, record_property):
             try:
                 with (folder / "gunicorn-private.log").open("w") as log:
                     process = subprocess.Popen([sys.executable, "-m", "gunicorn", "--config", "python:scripts.benchmark_resource_observer",
-                        "config.wsgi:application", "--bind", f"127.0.0.1:{port}", "--workers", str(workers), "--timeout", "60",
+                        "config.wsgi:application", "--bind", f"127.0.0.1:{port}", "--workers", str(workers), "--timeout", "65",
                         "--access-logfile", str(folder / "gunicorn-access.log"), "--access-logformat", "%(s)s %(L)s %(U)s %({x-benchmark-id}i)s",
                         "--error-logfile", "-", "--graceful-timeout", "10"], env=env, stdout=log, stderr=log, start_new_session=True)
                 report["master_pid"] = process.pid
