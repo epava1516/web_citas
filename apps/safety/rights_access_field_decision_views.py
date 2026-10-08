@@ -178,6 +178,7 @@ def independent(request, case_id, decision_id):
     if request.method == "POST":
         deciding = request.POST.get("operation") == "review"
         active = DecisionForm(request.POST) if deciding else ReviewForm(request.POST)
+        localize_form(active, request.LANGUAGE_CODE)
         if deciding:
             decision_form = active
         else:
