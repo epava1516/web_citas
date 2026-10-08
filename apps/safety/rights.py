@@ -75,6 +75,31 @@ class RequestForm(forms.Form):
         required=False, label="Contacto privado opcional / Optional private contact"
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        index = 0 if language == "en" else 1
+        labels = {
+            "kind": ("Right requested", "Derecho solicitado"),
+            "reference": ("Profile or reference to your data", "Perfil o referencia de tus datos"),
+            "explanation": ("Request and scope", "Solicitud y alcance"),
+            "name": ("Name", "Nombre"),
+            "email": ("Optional private contact", "Contacto privado opcional"),
+        }
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        kinds = {
+            "access": ("Data access", "Acceso a datos"),
+            "rectify": ("Rectification", "Rectificación"),
+            "erase": ("Erasure", "Supresión"),
+            "portability": ("Portability", "Portabilidad"),
+            "restriction": ("Restriction", "Limitación"),
+            "object": ("Objection", "Oposición"),
+            "representation": ("Representation complaint", "Reclamación de representación"),
+        }
+        self.fields["kind"].choices = [
+            (value, kinds[value][index]) for value, _ in self.fields["kind"].choices
+        ]
+
 
 class RightsAccessForm(forms.Form):
     response_before = forms.IntegerField(
@@ -94,12 +119,20 @@ class RightsAccessForm(forms.Form):
 def submit(request):
     form = RequestForm(
         request.POST or None,
+        language=request.LANGUAGE_CODE,
         initial={"key": uuid.uuid4(), "receipt_secret": secrets.token_urlsafe(32)},
     )
     status = 400 if request.method == "POST" else 200
     if request.method == "POST":
         if limited(request, "rights-create", limit=20):
-            return private(HttpResponse("Too many requests / Demasiadas solicitudes", status=429))
+            return private(
+                HttpResponse(
+                    "Too many requests"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Demasiadas solicitudes",
+                    status=429,
+                )
+            )
         if form.is_valid():
             data = dict(form.cleaned_data)
             key, secret = data.pop("key"), data.pop("receipt_secret")
@@ -124,7 +157,12 @@ def submit(request):
                 not constant_time_compare(case.receipt_digest, fingerprint(secret))
                 or case.payload_digest != signature
             ):
-                form.add_error(None, "Reintento incompatible / Conflicting request replay")
+                form.add_error(
+                    None,
+                    "Conflicting request replay"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Reintento incompatible",
+                )
                 status = 409
             else:
                 return private(redirect("rights_receipt", case_id=case.pk, secret=secret))

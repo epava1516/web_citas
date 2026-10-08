@@ -63,13 +63,57 @@ class ReportForm(forms.Form):
         label="Declaro de buena fe que la información es precisa y completa / I declare in good faith that the information is accurate and complete"
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.language = language
+        index = 0 if language == "en" else 1
+        labels = {
+            "mode": ("Report type", "Tipo de denuncia"),
+            "reason": ("Reason", "Motivo"),
+            "reference": ("Exact URL or reference", "URL o referencia exacta"),
+            "explanation": ("Explanation", "Explicación"),
+            "name": ("Notifier name", "Nombre del notificante"),
+            "email": ("Private contact", "Contacto privado"),
+            "exception": (
+                "Notice concerning offences in Articles 3–7 of Directive 2011/93/EU",
+                "Notificación sobre delitos de los artículos 3–7 de la Directiva 2011/93/UE",
+            ),
+            "good_faith": (
+                "I declare in good faith that the information is accurate and complete",
+                "Declaro de buena fe que la información es precisa y completa",
+            ),
+        }
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        choices = {
+            "mode": {
+                "general": ("General report", "Denuncia general"),
+                "formal": ("Formal notice", "Notificación formal"),
+            },
+            "reason": {
+                "minor": ("Minors", "Menores"),
+                "exploitation": ("Exploitation", "Explotación"),
+                "nonconsent": ("Without consent", "Sin consentimiento"),
+                "illegal": ("Illegal content", "Contenido ilícito"),
+                "fraud": ("Fraud", "Fraude"),
+                "other": ("Other", "Otro"),
+            },
+        }
+        for name, translations in choices.items():
+            self.fields[name].choices = [
+                (value, translations[value][index]) for value, _ in self.fields[name].choices
+            ]
+
     def clean(self):
         data = super().clean()
         if data.get("mode") == "formal" and not data.get("exception"):
             for field in ["name", "email"]:
                 if not data.get(field):
                     self.add_error(
-                        field, "Obligatorio para notificación formal / Required for formal notice"
+                        field,
+                        "Required for formal notice"
+                        if self.language == "en"
+                        else "Obligatorio para notificación formal",
                     )
         return data
 
@@ -91,11 +135,18 @@ def submit(request):
         "target": request.GET.get("target", ""),
         "reference": request.GET.get("reference", ""),
     }
-    form = ReportForm(request.POST or None, initial=initial)
+    form = ReportForm(request.POST or None, initial=initial, language=request.LANGUAGE_CODE)
     status = 400 if request.method == "POST" else 200
     if request.method == "POST":
         if limited(request, "report-create", limit=20):
-            return private(HttpResponse("Too many requests / Demasiadas solicitudes", status=429))
+            return private(
+                HttpResponse(
+                    "Too many requests"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Demasiadas solicitudes",
+                    status=429,
+                )
+            )
         if form.is_valid():
             data = dict(form.cleaned_data)
             key, secret = data.pop("key"), data.pop("receipt_secret")
@@ -110,7 +161,10 @@ def submit(request):
                     )
             except (signing.BadSignature, KeyError, Revision.DoesNotExist, ValueError):
                 form.add_error(
-                    "target", "Referencia inválida o caducada / Invalid or expired reference"
+                    "target",
+                    "Invalid or expired reference"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Referencia inválida o caducada",
                 )
             if not form.errors:
                 fingerprint = digest(json.dumps(data, sort_keys=True, ensure_ascii=False))
@@ -156,7 +210,10 @@ def submit(request):
                     or report.payload_digest != fingerprint
                 ):
                     form.add_error(
-                        None, "Solicitud repetida incompatible / Conflicting request replay"
+                        None,
+                        "Conflicting request replay"
+                        if request.LANGUAGE_CODE == "en"
+                        else "Solicitud repetida incompatible",
                     )
                     status = 409
                 else:

@@ -49,6 +49,28 @@ class ComplaintForm(forms.Form):
     name = forms.CharField(required=False, max_length=120, label="Nombre / Name")
     email = forms.EmailField(required=False, label="Contacto privado propio / Your private contact")
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        labels = {
+            "relationship": ("Your stated relationship", "Relación que declaras"),
+            "reference": ("Decision or profile reference", "Decisión o perfil al que te refieres"),
+            "explanation": ("Why you request review", "Por qué solicitas revisión"),
+            "name": ("Name", "Nombre"),
+            "email": ("Your private contact", "Contacto privado propio"),
+        }
+        index = 0 if language == "en" else 1
+        for name, translations in labels.items():
+            self.fields[name].label = translations[index]
+        self.fields["relationship"].choices = [
+            (value, translations[index])
+            for value, translations in [
+                ("represented", ("Represented person", "Persona representada")),
+                ("advertiser", ("Advertiser", "Anunciante")),
+                ("notifier", ("Notifier", "Notificante")),
+                ("other", ("Other relationship", "Otra relación")),
+            ]
+        ]
+
 
 @sensitive_post_parameters("receipt_secret", "reference", "explanation", "name", "email")
 @sensitive_variables()
@@ -56,6 +78,7 @@ class ComplaintForm(forms.Form):
 def submit(request):
     form = ComplaintForm(
         request.POST or None,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid.uuid4(),
             "receipt_secret": secrets.token_urlsafe(32),
@@ -64,7 +87,14 @@ def submit(request):
     status = 400 if request.method == "POST" else 200
     if request.method == "POST":
         if limited(request, "complaint-create", limit=10):
-            return private(HttpResponse("Too many requests / Demasiadas solicitudes", status=429))
+            return private(
+                HttpResponse(
+                    "Too many requests"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Demasiadas solicitudes",
+                    status=429,
+                )
+            )
         if form.is_valid():
             data = dict(form.cleaned_data)
             key, secret = data.pop("key"), data.pop("receipt_secret")
@@ -91,7 +121,12 @@ def submit(request):
                 not constant_time_compare(complaint.receipt_digest, digest(secret))
                 or complaint.payload_digest != fingerprint
             ):
-                form.add_error(None, "Reintento incompatible / Conflicting replay")
+                form.add_error(
+                    None,
+                    "Conflicting replay"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Reintento incompatible",
+                )
                 status = 409
             else:
                 return private(
