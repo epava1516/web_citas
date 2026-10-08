@@ -5,10 +5,13 @@ from uuid import uuid4
 
 import pytest
 from django.conf import settings as django_settings
+from django.contrib.auth.models import Permission
 from django.db import transaction
 from django.test import Client
 from playwright.sync_api import expect, sync_playwright
+from test_coverage_review_localization import captions
 from test_reports import directory, photo_environment  # noqa: F401
+from test_reset_localization import db_sync
 from test_rights_portability_export_races import prepared_selection
 
 from apps.core.models import User
@@ -127,6 +130,38 @@ def test_mobile_independent_coverage_approval(
                 )
             ).to_be_visible()
             assert "PRIVATE_MOBILE_INDEPENDENT_COVERAGE_FACTS" not in page.content()
+            captions(page, language)
+            page.locator("#id_reason").fill("short")
+            page.locator("form").first.evaluate("form=>form.noValidate=true")
+            with page.expect_response(lambda r: r.request.method == "POST") as invalid_read:
+                page.get_by_role(
+                    "button",
+                    name="Inspect coverage page" if english else "Consultar página de cobertura",
+                    exact=True,
+                ).click()
+            assert invalid_read.value.status == 400
+            captions(page, language)
+            assert page.locator("article").count() == 0
+            page.locator("#decision_reason").fill("short")
+            page.locator("form").last.evaluate("form=>form.noValidate=true")
+            with page.expect_response(lambda r: r.request.method == "POST") as invalid_decision:
+                page.get_by_role(
+                    "button",
+                    name="Record coverage decision"
+                    if english
+                    else "Registrar decisión de cobertura",
+                    exact=True,
+                ).click()
+            assert invalid_decision.value.status == 400
+            captions(page, language)
+            assert (
+                db_sync(
+                    lambda: RightsPortabilityCoverageReview.objects.filter(
+                        coverage=coverage
+                    ).count()
+                )
+                == 0
+            )
             page.locator("#decision_reason").fill(
                 "Approve synthetic coverage only after all pages inspected"
             )
@@ -138,6 +173,15 @@ def test_mobile_independent_coverage_approval(
             expect(
                 page.get_by_text("Inspect every current coverage page before approval", exact=True)
             ).to_be_visible()
+            captions(page, language)
+            assert (
+                db_sync(
+                    lambda: RightsPortabilityCoverageReview.objects.filter(
+                        coverage=coverage
+                    ).count()
+                )
+                == 0
+            )
             for dataset, index, number, binary in pages:
                 page.locator("[name=dataset]").select_option("binary" if binary else dataset)
                 page.locator("[name=row_number]").fill(str(index + 1))
@@ -157,6 +201,14 @@ def test_mobile_independent_coverage_approval(
                         exact=True,
                     )
                 ).to_be_visible()
+                captions(page, language)
+                assert "Sí / Yes" not in page.content()
+                for article in page.locator("article").all():
+                    assert article.locator("p").nth(1).inner_text() in (
+                        ["Included", "Excluded", "Pending"]
+                        if english
+                        else ["Incluido", "Excluido", "Pendiente"]
+                    )
             page.locator("#decision_reason").fill(
                 "Approve synthetic coverage after all current page readings"
             )
@@ -170,6 +222,8 @@ def test_mobile_independent_coverage_approval(
                 "Coverage decision recorded" if english else "Decisión de cobertura registrada"
             )
             page.goto(review_url)
+            page.reload()
+            captions(page, language)
             assert "PRIVATE_MOBILE_INDEPENDENT_COVERAGE_FACTS" not in page.content()
             assert page.locator("article").count() == 0
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
@@ -214,6 +268,22 @@ def test_mobile_independent_coverage_approval(
             assert "PRIVATE_MOBILE_INDEPENDENT_COVERAGE_FACTS" not in delivery_page.content()
             assert delivery_page.evaluate(
                 "document.documentElement.scrollWidth <= window.innerWidth"
+            )
+            page.goto(review_url)
+            csrf = page.locator("[name=csrfmiddlewaretoken]").first.input_value()
+            db_sync(
+                lambda: reviewer.user_permissions.remove(
+                    Permission.objects.get(codename="review_portability")
+                )
+            )
+            response = page.goto(review_url)
+            assert response.status == 403 and page.locator("body").inner_text() == (
+                "Forbidden" if english else "Acceso denegado"
+            )
+            assert "no-store" in response.headers["cache-control"]
+            response = context.request.post(review_url, form={"csrfmiddlewaretoken": csrf})
+            assert response.status == 403 and response.text() == (
+                "Forbidden" if english else "Acceso denegado"
             )
         finally:
             browser.close()
