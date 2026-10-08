@@ -12,6 +12,7 @@ from django.test import Client
 from playwright.sync_api import expect, sync_playwright
 from test_account_copy_races import prepared_account
 from test_copy_information_localization import review_captions
+from test_image_selection_form_localization import image_catalog_captions, image_save_captions
 from test_reports import directory, photo_environment  # noqa: F401
 from test_reset_localization import db_sync
 from test_rights_portability import assessment
@@ -262,6 +263,19 @@ def test_mobile_independent_portability_selection_review(
                     live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/images/"
                 )
                 assert author_page.locator('img[src^="data:image/webp"]').count() == 0
+                image_catalog_captions(author_page, language)
+                image_button_name = (
+                    "Inspect image page" if english else "Consultar página de imagen"
+                )
+                author_page.locator("[name=purpose]").fill("short")
+                author_page.locator("form").first.evaluate("form=>form.noValidate=true")
+                with author_page.expect_response(
+                    lambda r: r.request.method == "POST"
+                ) as invalid_catalog:
+                    author_page.get_by_role("button", name=image_button_name, exact=True).click()
+                assert invalid_catalog.value.status == 400
+                image_catalog_captions(author_page, language)
+                assert author_page.locator('img[src^="data:image/webp"]').count() == 0
                 author_page.locator("[name=review]").select_option(str(assessment_decision.pk))
                 author_page.locator("[name=purpose]").fill(
                     "Inspect synthetic binary content before mobile selection"
@@ -272,6 +286,29 @@ def test_mobile_independent_portability_selection_review(
                     exact=True,
                 ).click()
                 expect(author_page.locator('img[src^="data:image/webp"]')).to_be_visible()
+                image_catalog_captions(author_page, language)
+                image_save_captions(author_page, language)
+                author_page.locator("#id_reason").fill("short")
+                author_page.locator("form").last.evaluate("form=>form.noValidate=true")
+                with author_page.expect_response(
+                    lambda r: r.request.method == "POST"
+                ) as invalid_save:
+                    author_page.get_by_role(
+                        "button",
+                        name="Save image selection" if english else "Guardar selección de imagen",
+                        exact=True,
+                    ).click()
+                assert invalid_save.value.status == 400
+                image_catalog_captions(author_page, language)
+                image_save_captions(author_page, language, facts=False)
+                assert author_page.locator('img[src^="data:image/webp"]').count() == 0
+                author_page.locator("[name=review]").select_option(str(assessment_decision.pk))
+                author_page.locator("[name=purpose]").fill(
+                    "Inspect synthetic image again after invalid unsaved form"
+                )
+                author_page.get_by_role("button", name=image_button_name, exact=True).click()
+                image_catalog_captions(author_page, language)
+                image_save_captions(author_page, language)
                 author_page.locator("[name=include]").check()
                 author_page.locator("[name=image-basis]").select_option("contract")
                 author_page.locator("[name=image-origin]").select_option("provided")
@@ -292,7 +329,11 @@ def test_mobile_independent_portability_selection_review(
                 expect(author_page.get_by_role("status")).to_contain_text(
                     "Image selection saved" if english else "Selección de imagen guardada"
                 )
+                author_page.goto(
+                    live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/images/"
+                )
                 author_page.reload()
+                image_catalog_captions(author_page, language)
                 assert FIELD_EVIDENCE not in author_page.content()
                 assert author_page.locator('img[src^="data:image/webp"]').count() == 0
                 assert author_page.evaluate(
@@ -484,6 +525,21 @@ def test_mobile_independent_portability_selection_review(
                 "Forbidden" if english else "Acceso denegado"
             )
             if include_images:
+                response = author_page.goto(
+                    live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/images/"
+                )
+                assert response.status == 403 and author_page.locator("body").inner_text() == (
+                    "Forbidden" if english else "Acceso denegado"
+                )
+                assert "no-store" in response.headers["cache-control"]
+                response = author_page.request.post(
+                    live_server.url
+                    + f"/{language}/moderation/rights/{case.pk}/portability/images/",
+                    form={"csrfmiddlewaretoken": csrf},
+                )
+                assert response.status == 403 and response.text() == (
+                    "Forbidden" if english else "Acceso denegado"
+                )
                 assert len(delivered["images"]) == 1 and len(delivered["parts"]) == 1
 
         finally:
