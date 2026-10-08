@@ -313,7 +313,11 @@ class CloseForm(ReviewForm):
 @require_http_methods(["GET", "POST"])
 def close_response(request, case_id, review_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if case is None:
         raise Http404
@@ -325,7 +329,11 @@ def close_response(request, case_id, review_id):
         ):
             raise PermissionDenied
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     decision = (
         RightsPortabilityResponseReview.objects.select_related("draft")
         .filter(
@@ -341,6 +349,7 @@ def close_response(request, case_id, review_id):
         raise Http404
     form = CloseForm(
         request.POST if request.method == "POST" else None,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid4(),
             "version": decision.draft.case_version,
@@ -364,7 +373,11 @@ def close_response(request, case_id, review_id):
             case.refresh_from_db()
             status = 200
         except PermissionDenied:
-            return private(HttpResponse("Forbidden", status=403))
+            return private(
+                HttpResponse(
+                    "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+                )
+            )
         except ValidationError as error:
             form.add_error(None, error)
             status = 409
