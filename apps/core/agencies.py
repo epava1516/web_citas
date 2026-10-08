@@ -55,9 +55,17 @@ class AgencyForm(forms.Form):
     def clean_name(self):
         return validate_listing_text(self.cleaned_data["name"])
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["name"].label = "Agency name" if language == "en" else "Nombre de agencia"
+
 
 class InvitationForm(forms.Form):
     email = forms.EmailField(label="Email del editor / Editor email")
+
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["email"].label = "Editor email" if language == "en" else "Email del editor"
 
 
 class PersonForm(forms.Form):
@@ -65,6 +73,10 @@ class PersonForm(forms.Form):
 
     def clean_alias(self):
         return validate_listing_text(self.cleaned_data["alias"])
+
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["alias"].label = "Public alias" if language == "en" else "Alias público"
 
 
 class AssignmentForm(forms.Form):
@@ -91,7 +103,7 @@ def create(request):
         return HttpResponse(
             "Transferencia de gestor requerida / Manager transfer required", status=409
         )
-    form = AgencyForm(request.POST or None)
+    form = AgencyForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             user = User.objects.select_for_update().get(pk=request.user.pk)
@@ -132,7 +144,7 @@ def panel(request, agency_id):
 @require_http_methods(["GET", "POST"])
 def invite(request, agency_id):
     agency = owned_agency(request.user, agency_id)
-    form = InvitationForm(request.POST or None)
+    form = InvitationForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST":
         if limited(request, "agency-invite", 10):
             return HttpResponse("Too many attempts", status=429)
@@ -227,7 +239,7 @@ def revoke_member(request, agency_id, member_id):
 @require_http_methods(["GET", "POST"])
 def add_person(request, agency_id):
     agency = owned_agency(request.user, agency_id)
-    form = PersonForm(request.POST or None)
+    form = PersonForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             Agency.objects.select_for_update().get(pk=agency.pk)

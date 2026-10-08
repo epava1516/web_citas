@@ -163,7 +163,7 @@ def individual(request):
         return redirect("person_verification", person_id=existing.pk)
     if Person.objects.filter(subject=request.user).exists():
         return HttpResponse("Use representation transfer", status=409)
-    form = PersonForm(request.POST or None)
+    form = PersonForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             user = User.objects.select_for_update().get(pk=request.user.pk)
