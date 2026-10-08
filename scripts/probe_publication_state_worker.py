@@ -170,40 +170,101 @@ def main():
         listing = next(
             r for r in Listing.objects.filter(status="published") if moderation.publicly_visible(r)
         )
-        Listing.objects.filter(pk=listing.pk).update(status="paused")
-        assert PublicationDirty.objects.filter(listing_id=listing.pk).exists()
-        start(
-            [
-                str(ROOT / ".venv/bin/celery"),
-                "-A",
-                "config.celery",
-                "beat",
-                "--loglevel=INFO",
-                "--schedule",
-                str(out / "beat-schedule"),
-            ],
-            "beat",
-        )
-        began = time.monotonic()
-        wait_clean()
-        assert not PublicationState.objects.get(listing=listing).eligible
-        Listing.objects.filter(pk=listing.pk).update(status="published")
-        wait_clean()
-        assert PublicationState.objects.get(listing=listing).eligible
-        from apps.core.models import Person
+        mode = os.environ.get("PUBLICATION_PROBE_MODE", "refresh")
+        if mode == "sweep":
+            from apps.listings.tasks import refresh_publication_state, sweep_publication_state
+            from config.settings import CELERY_BEAT_SCHEDULE
 
-        Person.objects.filter(pk=listing.person_id).update(consent_revoked_at=timezone.now())
-        assert PublicationDirty.objects.filter(listing_id=listing.pk).exists()
-        assert not moderation.publicly_visible(Listing.objects.get(pk=listing.pk))
-        wait_clean()
-        assert not PublicationState.objects.get(listing=listing).eligible
-        result.update(
-            success=True,
-            beat_interval_seconds=30,
-            beat_pause_resume_revoke=True,
-            wall_seconds=time.monotonic() - began,
-            scope="Synthetic authority only; no real identity or capacity acceptance",
-        )
+            schedule = CELERY_BEAT_SCHEDULE["sweep-publication-state"]
+            assert schedule == {
+                "task": "apps.listings.tasks.sweep_publication_state",
+                "schedule": 3600.0,
+            }
+            from config.celery import app
+
+            settle_deadline = time.monotonic() + 30
+            queue_key = f"clasificados:{env['TASK_QUEUE_GENERATION']}:{database}"
+            while True:
+                inspected = app.control.inspect(timeout=2)
+                active = inspected.active()
+                reserved = inspected.reserved()
+                if (
+                    active is not None
+                    and reserved is not None
+                    and not any(active.values())
+                    and not any(reserved.values())
+                    and conn.llen(queue_key) == 0
+                ):
+                    break
+                assert time.monotonic() < settle_deadline, "Own fixture jobs did not settle"
+                time.sleep(0.2)
+            preparation_job = refresh_publication_state.apply_async(queue=database)
+            wait_clean()
+            result["preparation_refresh_task_id"] = preparation_job.id
+            PublicationState.objects.filter(listing=listing).update(eligible=False)
+            assert not PublicationDirty.objects.filter(listing_id=listing.pk).exists()
+            job = sweep_publication_state.apply_async(queue=database)
+            deadline = time.monotonic() + 30
+            while not PublicationDirty.objects.filter(listing_id=listing.pk).exists():
+                assert time.monotonic() < deadline, "Real sweep did not mark divergence"
+                time.sleep(0.1)
+            assert not PublicationState.objects.get(listing=listing).eligible
+            assert moderation.publicly_visible(Listing.objects.get(pk=listing.pk))
+            # Wait for the same task's success log, not merely its intermediate write.
+            while (
+                f"sweep_publication_state[{job.id}] succeeded"
+                not in (out / "worker.log").read_text()
+            ):
+                assert time.monotonic() < deadline, "Sweep task completion not observed"
+                time.sleep(0.1)
+            refresh_job = refresh_publication_state.apply_async(queue=database)
+            wait_clean()
+            assert PublicationState.objects.get(listing=listing).eligible
+            result.update(
+                success=True,
+                mode="sweep",
+                sweep_task_id=job.id,
+                refresh_task_id=refresh_job.id,
+                divergence_marked_without_state_write=True,
+                hourly_schedule_configuration_verified=True,
+                hourly_beat_dispatch_observed=False,
+                scope="Real task execution; configured hourly interval, no accelerated timer or capacity claim",
+            )
+        else:
+            Listing.objects.filter(pk=listing.pk).update(status="paused")
+            assert PublicationDirty.objects.filter(listing_id=listing.pk).exists()
+            start(
+                [
+                    str(ROOT / ".venv/bin/celery"),
+                    "-A",
+                    "config.celery",
+                    "beat",
+                    "--loglevel=INFO",
+                    "--schedule",
+                    str(out / "beat-schedule"),
+                ],
+                "beat",
+            )
+            began = time.monotonic()
+            wait_clean()
+            assert not PublicationState.objects.get(listing=listing).eligible
+            Listing.objects.filter(pk=listing.pk).update(status="published")
+            wait_clean()
+            assert PublicationState.objects.get(listing=listing).eligible
+            from apps.core.models import Person
+
+            Person.objects.filter(pk=listing.person_id).update(consent_revoked_at=timezone.now())
+            assert PublicationDirty.objects.filter(listing_id=listing.pk).exists()
+            assert not moderation.publicly_visible(Listing.objects.get(pk=listing.pk))
+            wait_clean()
+            assert not PublicationState.objects.get(listing=listing).eligible
+            result.update(
+                success=True,
+                beat_interval_seconds=30,
+                beat_pause_resume_revoke=True,
+                wall_seconds=time.monotonic() - began,
+                scope="Synthetic authority only; no real identity or capacity acceptance",
+            )
         connection.close()
     finally:
         for p in reversed(processes):

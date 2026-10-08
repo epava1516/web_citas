@@ -1,0 +1,6 @@
+{
+  "requirement": "MOD05 native sweep task executed by real worker; hourly configuration separately verified",
+  "scenario": "Reuse isolated executor PG/Redis/worker, seed fixture; one trusted false negative deliberately injected; sweep must mark only; explicit real refresh restores; no Beat accelerated or hour-long wait",
+  "condition": "same task ID success log, dirty and state separate observations; config3600s; cleanup/hashes independently reviewed",
+  "limits": "actual hourly Beat dispatch not_measured; no refresh30s repeated/capacity test"
+}
