@@ -39,6 +39,32 @@ class ProposalForm(forms.Form):
         label="Motivo minimizado / Minimized reason",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        english = language == "en"
+        labels = {
+            "purposes": ("Ámbitos revisados de la operación", "Reviewed operation scopes"),
+            "basis": ("Fundamento concreto minimizado", "Minimized specific grounds"),
+            "reason": ("Motivo minimizado", "Minimized reason"),
+        }
+        captions = {
+            "account": ("Identidad y acceso de cuenta", "Account identity and access"),
+            "contact": ("Desafíos de teléfono", "Phone challenges"),
+            "representation": ("Autorización e invitaciones", "Authorization and invitations"),
+            "shared_contact_review": ("Asociación al teléfono", "Phone association"),
+            "media": ("Archivos y huellas propios", "Own files and fingerprints"),
+            "profile": ("Alias público", "Public alias"),
+            "publication": ("Contenido de anuncio", "Listing content"),
+            "authentication": ("Tokens, códigos y sesiones", "Tokens, codes and sessions"),
+            "account_preferences": ("Favoritos propios", "Own favorites"),
+            "transient_copy": ("Contenido de copias transitorias", "Transient copy contents"),
+        }
+        for name, pair in labels.items():
+            self.fields[name].label = pair[english]
+        self.fields["purposes"].choices = [
+            (value, captions[value][english]) for value, _ in self.fields["purposes"].choices
+        ]
+
 
 @login_required
 @sensitive_post_parameters()
@@ -55,11 +81,15 @@ def prepare(request, case_id, plan_id):
         raise Http404
     if not permitted(request.user, case):
         return private(HttpResponse("Forbidden", status=403))
-    form = ProposalForm(request.POST or None, initial={"key": uuid4(), "version": case.version})
+    form = ProposalForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid4(), "version": case.version},
+    )
     if case.account_subject_id:
         form.fields["purposes"].choices = [
             row
-            for row in SUPPORTED
+            for row in form.fields["purposes"].choices
             if row[0] in {"account", "authentication", "account_preferences", "transient_copy"}
         ]
     proposal = None
@@ -74,11 +104,13 @@ def prepare(request, case_id, plan_id):
             status = 409
         else:
             status = 200
-            form = ProposalForm(initial={"key": uuid4(), "version": case.version})
+            form = ProposalForm(
+                language=request.LANGUAGE_CODE, initial={"key": uuid4(), "version": case.version}
+            )
             if case.account_subject_id:
                 form.fields["purposes"].choices = [
                     row
-                    for row in SUPPORTED
+                    for row in form.fields["purposes"].choices
                     if row[0]
                     in {"account", "authentication", "account_preferences", "transient_copy"}
                 ]
@@ -118,6 +150,25 @@ class ReviewForm(forms.Form):
         label="Resultado / Outcome",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        english = language == "en"
+        for name, pair in {
+            "operation": ("Operación", "Operation"),
+            "reason": ("Motivo minimizado", "Minimized reason"),
+            "outcome": ("Resultado", "Outcome"),
+        }.items():
+            self.fields[name].label = pair[english]
+        self.fields["operation"].choices = [
+            ("inspect", "Audited inspection" if english else "Consulta auditada"),
+            ("review", "Independent review" if english else "Revisión independiente"),
+        ]
+        self.fields["outcome"].choices = [
+            ("", "Select only for review" if english else "Selecciona solo para revisión"),
+            ("approved", "Approve" if english else "Aprobar"),
+            ("rejected", "Reject" if english else "Rechazar"),
+        ]
+
 
 @login_required
 @sensitive_post_parameters()
@@ -135,7 +186,11 @@ def review(request, case_id, proposal_id):
         raise Http404
     if not permitted(request.user, case):
         return private(HttpResponse("Forbidden", status=403))
-    form = ReviewForm(request.POST or None, initial={"key": uuid4(), "version": case.version})
+    form = ReviewForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid4(), "version": case.version},
+    )
     body = decision = None
     status = 400 if request.method == "POST" else 200
     if request.method == "POST" and form.is_valid():
@@ -149,7 +204,9 @@ def review(request, case_id, proposal_id):
         else:
             status = 200
             decision = result.outcome if form.cleaned_data["operation"] == "review" else None
-            form = ReviewForm(initial={"key": uuid4(), "version": case.version})
+            form = ReviewForm(
+                language=request.LANGUAGE_CODE, initial={"key": uuid4(), "version": case.version}
+            )
     return private(
         render(
             request,
