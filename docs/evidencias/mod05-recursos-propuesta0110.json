@@ -1,0 +1,37 @@
+{
+  "status": "prepared_not_executed_requires_explicit_load_scope",
+  "uncertainty": "Current loaded WSGI/CPU/pre-WSGI decomposition and shared-resource contention; gate without observers cannot establish cause",
+  "scenario": {
+    "workers": 4,
+    "listings": 10000,
+    "rps": 20,
+    "seconds": 30,
+    "dynamic": 600,
+    "upload": 1,
+    "mix": "ES/EN one third each family",
+    "timeout": 65,
+    "drain_max": 70
+  },
+  "preparation": "Existing populate plus official MOD05 refresh/VACUUM/ANALYZE before server and again after upload fixture; serial reference 30 requests; same code/schema; no host changes",
+  "instrumentation": "Existing resource observer WSGI boundaries/thread CPU/route; 1Hz ResourceProbe host/app/PG processes+cgroups, I/O and pg_stat_activity; no SQL/render/native rule profiler. Preserve original Gunicorn/access logs and full client ledger",
+  "limits": {
+    "max_workers": 4,
+    "stop_owned_trial_if_host_execution_CPU_cores_at_least": 7.6,
+    "sustained_samples_for_CPU_stop": 5,
+    "stop_mem_available_below_bytes": 2147483648,
+    "stop_on_new_oom_events": true,
+    "unrelated_host_CPU_difference_between_blocks_above_cores_makes_causal_result_inconclusive": 0.5,
+    "generator_thresholds": "existing unchanged; INVALID whenviolated",
+    "stop_cleanup": "onlyownedserver/sampler/database, never normalhostservices; failed/inconclusive result doesnotqueueautomatic variants"
+  },
+  "analysis": "Separate arrivals/cohort; same monotonic clocks/IDs/PID; means per-family D=sum(mean/3), W=20D+upload_service/60. Upload N1 uncertainty. Thread CPU excludes other threads, PG/shared counters not individual cost; sampled waits not durations; overhead disclosed, no optimization acceptance from instrumented values",
+  "exit": "One diagnosis only; stop limits conserve partials and clean own resources; no automatic repeat, six workers or 60/900s; endpoint source/accounting/artifact/cleanup review",
+  "decision_branches": [
+    "If request thread CPU dominates WSGI, use current profile to identify removable work, no blind refactor",
+    "If WSGI waits dominate, investigate measured shared-resource waits with no CPU claim",
+    "If external contention prevents interpretation, report inconclusive; no foreign-service changes"
+  ],
+  "selection": [
+    "tests/test_resource_service_checkpoint.py::test_resource_checkpoint"
+  ]
+}

@@ -1,6 +1,8 @@
 """Single bounded resource diagnosis;30s is neither short gate nor contract."""
 
 import http.cookies
+import io
+import shutil
 import json
 import math
 import os
@@ -17,6 +19,7 @@ from uuid import uuid4
 
 import pytest
 from django.conf import settings as django_settings
+from django.core.management import call_command
 from django.db import connection
 from django.test import Client
 from test_discovery import directory  # noqa: F401
@@ -51,6 +54,9 @@ def test_resource_checkpoint(request, tmp_path, record_property):
     request.getfixturevalue("directory")
     assert connection.vendor == "postgresql"
     dataset = populate(10000 if large else 10)
+    deployment_output = io.StringIO()
+    call_command("refresh_publication_state", stdout=deployment_output)
+    dataset["deployment_step"] = deployment_output.getvalue().strip()
     db = connection.settings_dict
     assert db["NAME"].startswith("test_promotion_gate_")
     environment = os.environ.copy()
@@ -312,6 +318,9 @@ def test_resource_checkpoint(request, tmp_path, record_property):
                 for _ in range(16 if large else 1)
             ]
         )
+        deployment_output = io.StringIO()
+        call_command("refresh_publication_state", stdout=deployment_output)
+        dataset["deployment_step_after_fixture"] = deployment_output.getvalue().strip()
         raw = raw_image(782134)
         boundary = "synthetic-" + uuid4().hex
         multipart = (
@@ -339,13 +348,18 @@ def test_resource_checkpoint(request, tmp_path, record_property):
         pg_pid=int(subprocess.check_output(['docker','inspect','--format','{{.State.Pid}}','web-modelos-db-1'],text=True).strip())
         summary['resource_affinity']={'application':sorted(os.sched_getaffinity(process.pid)),
             'postgres':sorted(os.sched_getaffinity(pg_pid))}
-        probe=ResourceProbe(artifact_folder/'resource-samples.jsonl',db,process.pid,pg_pid)
+        limits = json.loads(os.environ['RESOURCE_CHECKPOINT_LIMITS']) if os.environ.get('RESOURCE_CHECKPOINT_LIMITS') else None
+        probe=ResourceProbe(artifact_folder/'resource-samples.jsonl',db,process.pid,pg_pid,trial_limits=limits)
         probe.start()
         time.sleep(5)
+        if probe.trial_limits:
+            assert not probe.trial_limits.requested.is_set(), 'Resource bound during idle; no load'
         probe.phase='serial_reference'
         serial=[]
         for cycle in range(5):
             for index,path in enumerate(routes):
+                if probe.trial_limits:
+                    assert not probe.trial_limits.requested.is_set(), "Resource bound during serial reference"
                 sample=fetch(path,benchmark_id='d-'+str(2000+cycle*6+index))
                 assert not sample['unexpected']
                 serial.append(sample)
@@ -361,6 +375,7 @@ def test_resource_checkpoint(request, tmp_path, record_property):
                 duration=summary["duration_seconds"],
                 rps=summary["arrival_rps"],
                 upload_specs=upload_specs,
+                stop_requested=probe.trial_limits.requested if probe.trial_limits else None,
             )
         summary["client_gc"] = client_gc.report()
         assert summary["client_gc_preparation"]["completed_at_monotonic"] <= outcome["monotonic_origin_seconds"]
@@ -428,6 +443,9 @@ def test_resource_checkpoint(request, tmp_path, record_property):
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait(timeout=5)
         summary["gunicorn_stopped"] = process is None or process.poll() is not None
+        for original_log in [logfile, accessfile]:
+            if original_log.exists():
+                shutil.copy2(original_log, artifact_folder / original_log.name)
         if observe_workers:
             observed = collect_events(observer_folder)
             observer_path = artifact_folder / "benchmark-worker-events.json"
