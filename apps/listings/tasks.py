@@ -52,8 +52,9 @@ def refresh_publication_state(seconds=50):
     """Recompute pending stored publication state in bounded batches."""
     import time
 
-    from .publication_state import refresh
+    from .publication_state import mark_stale, refresh
 
+    mark_stale()  # After a deploy, rows computed by the previous rules version.
     deadline = time.monotonic() + seconds
     total = 0
     while time.monotonic() < deadline and (processed := refresh(200)):

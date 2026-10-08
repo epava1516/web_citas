@@ -131,6 +131,30 @@ def expected_states(ids, version):
     return states
 
 
+STATE_COLUMNS = ("eligible", "revision_id", "rules_version", "check_age", "check_contact",
+                 "check_agency")
+
+
+def store(states):
+    """Upsert, rewriting only rows whose values changed (fewer dead tuples to vacuum)."""
+    states = list(states)
+    if not states:
+        return
+    columns = ("listing_id", *STATE_COLUMNS, "computed_at")
+    rows = ", ".join(["(" + ", ".join(["%s"] * len(columns)) + ")"] * len(states))
+    params = [getattr(state, column) for state in states for column in columns]
+    assignments = ", ".join(f"{column} = EXCLUDED.{column}" for column in (*STATE_COLUMNS, "computed_at"))
+    current = ", ".join(f"s.{column}" for column in STATE_COLUMNS)
+    incoming = ", ".join(f"EXCLUDED.{column}" for column in STATE_COLUMNS)
+    with connection.cursor() as cursor:
+        cursor.execute(
+            f"INSERT INTO listings_publicationstate AS s ({', '.join(columns)}) VALUES {rows} "
+            f"ON CONFLICT (listing_id) DO UPDATE SET {assignments} "
+            f"WHERE ({current}) IS DISTINCT FROM ({incoming})",
+            params,
+        )
+
+
 def refresh(limit=100):
     """Recompute a bounded batch of dirty listings; returns how many were processed."""
     version = rules_version()
@@ -145,13 +169,7 @@ def refresh(limit=100):
         if not claimed:
             return 0
         ids = [row[0] for row in claimed]
-        PublicationState.objects.bulk_create(
-            expected_states(ids, version).values(),
-            update_conflicts=True,
-            unique_fields=["listing"],
-            update_fields=["eligible", "revision", "rules_version", "computed_at",
-                           *("check_" + name for name in CHECKS)],
-        )
+        store(expected_states(ids, version).values())
         with connection.cursor() as cursor:
             # Only rows not re-marked since they were claimed; a concurrent change keeps it dirty.
             cursor.execute(
@@ -207,6 +225,17 @@ def refresh_all(batch=500):
     return total
 
 
+def mark_stale():
+    """Mark listings without state or computed under another rules version (deploys)."""
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT listings_publication_mark(ARRAY(SELECT l.id FROM listings_listing l "
+            "LEFT JOIN listings_publicationstate s ON s.listing_id = l.id "
+            "WHERE s.listing_id IS NULL OR s.rules_version <> %s))",
+            [rules_version()],
+        )
+
+
 def mark_all():
     with connection.cursor() as cursor:
         cursor.execute("SELECT listings_publication_mark(ARRAY(SELECT id FROM listings_listing))")
@@ -215,6 +244,18 @@ def mark_all():
 def mark(listing_ids):
     with connection.cursor() as cursor:
         cursor.execute("SELECT listings_publication_mark(%s::uuid[])", [list(listing_ids)])
+
+
+def all_state_current():
+    """Every listing has a state computed under the current rules version."""
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT NOT EXISTS (SELECT 1 FROM listings_listing l LEFT JOIN "
+            "listings_publicationstate s ON s.listing_id = l.id "
+            "WHERE s.listing_id IS NULL OR s.rules_version <> %s)",
+            [rules_version()],
+        )
+        return cursor.fetchone()[0]
 
 
 def trusted_state(**extra):
@@ -274,11 +315,13 @@ def _state_page(query, number, checked, observation, stale):
         if observation is not None:
             observation.update(route="fallback", reason="state_dirty_over_limit")
         return None
-    unknown = list(
-        query.filter(~Exists(trusted_state()) | Q(pk__in=dirty)).values_list("pk", flat=True)[
-            : NATIVE_UNKNOWN_LIMIT + 1
-        ]
-    )
+    unknown = []
+    if dirty or not all_state_current():
+        unknown = list(
+            query.filter(~Exists(trusted_state()) | Q(pk__in=dirty)).values_list("pk", flat=True)[
+                : NATIVE_UNKNOWN_LIMIT + 1
+            ]
+        )
     if len(unknown) > NATIVE_UNKNOWN_LIMIT:
         if observation is not None:
             observation.update(route="fallback", reason="state_unknown_over_limit")
@@ -303,8 +346,9 @@ def _state_page(query, number, checked, observation, stale):
         population.query.distinct = False
     page = Paginator(population.values_list("pk", flat=True), 24).page(number)
     selected = list(page.object_list)
-    # Hydration through the native context doubles as the page guard.
-    context = PublicationContext(query.filter(pk__in=selected), page_read=True)
+    # Hydration through the native context doubles as the page guard. The rows were
+    # already selected by the filters; the guard depends only on the listing itself.
+    context = PublicationContext(Listing.objects.filter(pk__in=selected), page_read=True)
     rows = {row.pk: row for row in context.rows}
     stale.extend(
         pk for pk in selected if pk not in rows or not publicly_visible(rows[pk], context=context)

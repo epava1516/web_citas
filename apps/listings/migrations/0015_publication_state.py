@@ -207,7 +207,9 @@ class Migration(migrations.Migration):
         migrations.RunSQL(
             "ALTER TABLE listings_publicationdirty SET (autovacuum_vacuum_scale_factor = 0, "
             "autovacuum_vacuum_threshold = 200, autovacuum_analyze_scale_factor = 0, "
-            "autovacuum_analyze_threshold = 200)",
+            "autovacuum_analyze_threshold = 200); "
+            "ALTER TABLE listings_publicationstate SET (autovacuum_vacuum_scale_factor = 0.02, "
+            "autovacuum_analyze_scale_factor = 0.02)",
             migrations.RunSQL.noop,
         ),
         # Existing listings start unknown: everything is evaluated natively until computed.

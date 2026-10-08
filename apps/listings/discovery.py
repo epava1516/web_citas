@@ -8,6 +8,8 @@ from django.db.models import F, Q
 from django.http import Http404
 from django.shortcuts import render
 from django.utils import timezone
+from django.utils.html import conditional_escape
+from django.utils.safestring import mark_safe
 
 from apps.catalog.models import Category, Municipality, PostalCode, Province, Region, Service, Zone
 from apps.core.verification_services import real_checks
@@ -18,6 +20,50 @@ from .moderation import publicly_visible
 from .presentation_reads import PagePresentation
 from .search import revision_search_vector
 from .seo import directory_metadata
+
+
+def _attrs(attrs):
+    """django/forms/widgets/attrs.html, rendered without the template engine."""
+    return "".join(
+        f" {conditional_escape(name)}"
+        + ("" if value is True else f'="{conditional_escape(str(value))}"')
+        for name, value in attrs.items()
+        if value is not False
+    )
+
+
+class FastSelectRender:
+    """Same markup as django/forms/widgets/select.html and select_option.html.
+
+    The widget context (choices, selection, attributes and option hooks such as
+    RelatedSelect.create_option) is Django's own; only the per-option template
+    rendering is replaced. tests/test_search_form_render.py compares both outputs.
+    """
+
+    def render(self, name, value, attrs=None, renderer=None):
+        widget = self.get_context(name, value, attrs)["widget"]
+        parts = [f'<select name="{conditional_escape(widget["name"])}"{_attrs(widget["attrs"])}>']
+        for group_name, group_choices, _ in widget["optgroups"]:
+            if group_name:
+                parts.append(f'\n  <optgroup label="{conditional_escape(group_name)}">')
+            for option in group_choices:
+                parts.append(
+                    f'\n  <option value="{conditional_escape(str(option["value"]))}"'
+                    f'{_attrs(option["attrs"])}>{conditional_escape(option["label"])}</option>\n'
+                )
+            if group_name:
+                parts.append("\n  </optgroup>")
+        parts.append("\n</select>")
+        return mark_safe("".join(parts))
+
+
+_FAST_WIDGETS = {}
+
+
+def fast_widget_class(cls):
+    if cls not in _FAST_WIDGETS:
+        _FAST_WIDGETS[cls] = type("Fast" + cls.__name__, (FastSelectRender, cls), {})
+    return _FAST_WIDGETS[cls]
 
 
 class CatalogChoices(forms.ModelMultipleChoiceField):
@@ -84,10 +130,14 @@ class SearchForm(forms.Form):
     travel = forms.BooleanField(required=False, label="Desplazamiento / Travel")
     available = forms.BooleanField(required=False, label="Disponible ahora / Available now")
 
-    def __init__(self, *args, english=False, **kwargs):
+    def __init__(self, *args, english=False, fast_render=True, **kwargs):
         super().__init__(*args, **kwargs)
         for name in ["category", "service"]:
             self.fields[name].english = english
+        if fast_render:
+            for field in self.fields.values():
+                if isinstance(field.widget, forms.Select):
+                    field.widget.__class__ = fast_widget_class(type(field.widget))
         labels = {
             "q": ("Texto", "Text"),
             "profile": ("Tipo de perfil", "Profile type"),
