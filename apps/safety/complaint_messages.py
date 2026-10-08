@@ -59,6 +59,12 @@ class MessageForm(forms.Form):
         label="Aclaración privada / Private clarification",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["text"].label = (
+            "Private clarification" if language == "en" else "Aclaración privada"
+        )
+
 
 @transaction.atomic
 @sensitive_variables()
@@ -128,10 +134,20 @@ def submit(request, complaint_id, secret):
     ):
         raise Http404
     if limited(request, "complaint-message:" + str(complaint_id), limit=10):
-        return private(HttpResponse("Too many requests / Demasiadas solicitudes", status=429))
-    form = MessageForm(request.POST)
+        return private(
+            HttpResponse(
+                "Too many requests" if request.LANGUAGE_CODE == "en" else "Demasiadas solicitudes",
+                status=429,
+            )
+        )
+    form = MessageForm(request.POST, language=request.LANGUAGE_CODE)
     if not form.is_valid():
-        return private(HttpResponse("Invalid clarification / Aclaración inválida", status=400))
+        return private(
+            HttpResponse(
+                "Invalid clarification" if request.LANGUAGE_CODE == "en" else "Aclaración inválida",
+                status=400,
+            )
+        )
     try:
         append(
             complaint_id,
@@ -141,6 +157,11 @@ def submit(request, complaint_id, secret):
         )
     except ValidationError:
         return private(
-            HttpResponse("Request changed; reload / Solicitud cambiada; recarga", status=409)
+            HttpResponse(
+                "Request changed; reload"
+                if request.LANGUAGE_CODE == "en"
+                else "Solicitud cambiada; recarga",
+                status=409,
+            )
         )
     return private(redirect("complaint_receipt", complaint_id=complaint_id, secret=secret))

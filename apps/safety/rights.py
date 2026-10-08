@@ -179,6 +179,14 @@ class MessageForm(forms.Form):
         label="Aclaración sobre tu solicitud / Clarification about your request",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["text"].label = (
+            "Clarification about your request"
+            if language == "en"
+            else "Aclaración sobre tu solicitud"
+        )
+
 
 @sensitive_post_parameters("text")
 @sensitive_variables()
@@ -198,13 +206,31 @@ def receipt(request, case_id, secret):
             required=False, min_value=1, max_value=9223372036854775807
         ).clean(request.GET.get("response_before"))
     except ValidationError:
-        return private(HttpResponse("Invalid response cursor", status=400))
+        return private(
+            HttpResponse(
+                "Invalid response cursor"
+                if request.LANGUAGE_CODE == "en"
+                else "Cursor de respuesta inválido",
+                status=400,
+            )
+        )
     responses, response_cursor = response_page(case, before)
-    form = MessageForm(request.POST or None, initial={"key": uuid.uuid4(), "version": case.version})
+    form = MessageForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"key": uuid.uuid4(), "version": case.version},
+    )
     status = 400 if request.method == "POST" else 200
     if request.method == "POST":
         if limited(request, "rights-message", limit=10):
-            return private(HttpResponse("Too many requests / Demasiadas solicitudes", status=429))
+            return private(
+                HttpResponse(
+                    "Too many requests"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Demasiadas solicitudes",
+                    status=429,
+                )
+            )
         if form.is_valid():
             signature = fingerprint(
                 json.dumps(
@@ -226,7 +252,12 @@ def receipt(request, case_id, secret):
                 previous = RightsMessage.objects.filter(key=form.cleaned_data["key"]).first()
                 if previous:
                     if previous.request_id != case.pk or previous.payload_digest != signature:
-                        form.add_error(None, "Reintento incompatible / Conflicting replay")
+                        form.add_error(
+                            None,
+                            "Conflicting replay"
+                            if request.LANGUAGE_CODE == "en"
+                            else "Reintento incompatible",
+                        )
                         status = 409
                     else:
                         return private(redirect("rights_receipt", case_id=case.pk, secret=secret))
@@ -234,7 +265,12 @@ def receipt(request, case_id, secret):
                     "received",
                     "reviewing",
                 }:
-                    form.add_error(None, "Solicitud cambiada; recarga / Request changed; reload")
+                    form.add_error(
+                        None,
+                        "Request changed; reload"
+                        if request.LANGUAGE_CODE == "en"
+                        else "Solicitud cambiada; recarga",
+                    )
                     status = 409
                 else:
                     try:
@@ -248,7 +284,12 @@ def receipt(request, case_id, secret):
                                 encrypted_payload=seal({"text": form.cleaned_data["text"]}),
                             )
                     except IntegrityError:
-                        form.add_error(None, "Clave incompatible / Conflicting request key")
+                        form.add_error(
+                            None,
+                            "Conflicting request key"
+                            if request.LANGUAGE_CODE == "en"
+                            else "Clave incompatible",
+                        )
                         status = 409
                     else:
                         case.version += 1

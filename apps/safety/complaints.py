@@ -162,7 +162,8 @@ def receipt(request, complaint_id, secret):
                 "complaint": complaint,
                 "secret": secret,
                 "message_form": MessageForm(
-                    initial={"key": uuid.uuid4(), "version": complaint.version}
+                    language=request.LANGUAGE_CODE,
+                    initial={"key": uuid.uuid4(), "version": complaint.version},
                 ),
                 "message_count": complaint.messages.count(),
                 "questions": Paginator(
