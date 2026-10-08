@@ -177,6 +177,8 @@ Prueba de carga inicial: diez mil anuncios sintéticos y veinte peticiones diná
 
 Aplicación vigente desde 2026-10-07: [MOD-04 del contrato de ejecución 1.4](16-contrato-ejecucion-desarrollo.md#16-consolidación-del-rendimiento-de-lectura--mod-04) adopta la consolidación de lectura mediante consulta controlada y reglas compartidas. El [marco de medición](criterios-revision-benchmark-carga.md) concreta población observable, generador, uploads, drain y gate corto completo previo a los 900 s. En este ciclo se mantienen los recursos: no aumentar workers, escalar PostgreSQL ni añadir caché como parche. Esta precisión de ejecución conserva los objetivos funcionales de esta versión; no acepta capacidad ni modifica resultados anteriores.
 
+Aplicación vigente desde 2026-10-08: [MOD-05 del contrato de ejecución 1.5](16-contrato-ejecucion-desarrollo.md#17-estado-de-publicación-almacenado--mod-05) sustituye la prohibición de proyección persistida de MOD-04 por un estado de publicación almacenado con invalidación por triggers y evaluación nativa de lo no fiable. Los objetivos de carga de este apartado no cambian.
+
 No contabilizar imágenes servidas por CDN como peticiones procesadas por Django. Medir frío/caliente y consultas difíciles. Objetivos frontend mediante pruebas móvil y Core Web Vitals cuando haya tráfico suficiente; no garantizar SEO por una puntuación de laboratorio.
 
 Copias, retención, incidentes, seguridad y gates conforme a documentos 03, 06, 10, 11 y 12. No poner datos reales en logs, repositorio, pruebas o artefactos de CI.

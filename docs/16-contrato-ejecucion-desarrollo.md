@@ -1,8 +1,10 @@
-# Contrato de ejecución del desarrollo — versión 1.4
+# Contrato de ejecución del desarrollo — versión 1.5
 
 Fecha: 2026-10-03. Estado: ejecución iniciada por autorización del usuario el 2026-10-03. Tipo: especificación de ejecución y aceptación, no contrato mercantil ni acreditación jurídica.
 
 Actualización: 2026-10-07, MOD-04 (§16), autorizada por el usuario para reajustar contrato y hoja de ruta conforme al análisis del bloqueo de rendimiento. En el momento de adoptar MOD-04 el goal estaba pausado; aquella revisión documental no lo reanudó. La indicación posterior del usuario de continuar sí lo reanudó. El estado vigente y la próxima acción se consultan exclusivamente en [seguimiento17](17-seguimiento-desarrollo.md), sin nuevas confirmaciones rutinarias para el alcance autorizado.
+
+Actualización: 2026-10-08, MOD-05 (§17), autorizada expresamente por el usuario: estado de publicación almacenado con invalidación por triggers como solución de CR09-REND-LECTURA.
 
 ## 1. Objeto y documentos vinculantes
 
@@ -319,3 +321,34 @@ Un PASS contractual acredita únicamente su escenario, fuente y recursos. El cie
 ### Impacto y estado de esta modificación
 
 Al adoptar esta adenda se acordaron la dirección técnica y su secuencia, con implementación y ganancias aún pendientes en ese momento. Los resultados posteriores y el trabajo restante se registran en seguimiento17; no convierten la propuesta inicial en aceptación de la entrega. Posibles cambios futuros de código/consultas se decidirán por evidencia; ninguna migración, ajuste de servidor o alteración de datos se ejecuta con esta adenda. Aumenta la claridad de los criterios de salida, sin promesas de plazo ni ahorro. Recursos/costes de ensayos se registran realmente; no autoriza gasto ni contratación. Porcentajes vigentes sin cambio: CR09 72,50 % y contrato 65,375 % (65,38 % mostrado). La pausa de la adopción y la posterior reanudación se conservan como hechos históricos; el estado actual se registra únicamente en seguimiento17.
+
+## 17. Estado de publicación almacenado — MOD-05
+
+Cambio autorizado expresamente por el usuario el 2026-10-08: «Apruebo el prototipo de estado de publicación almacenado como solución de CR09-REND-LECTURA. Regístralo como cambio de contrato MOD-05 y encárgate de integrarlo. El proyecto no está en producción: tienes libertad para simplificar y retirar lo que sobre.» Versión 1.5. Propuesta, diseño, mediciones y límites: [docs93](93-propuesta-estado-publicacion-claude-code.md) y [evidencia](evidencias/cc-estado-publicacion-20261008.json), elaborados por Claude Code (Claude Opus 5.5).
+
+### Motivo
+
+La lectura pública evaluaba en cada petición la regla de publicabilidad completa sobre toda la población candidata antes de contar y paginar. Con 10 000 anuncios sintéticos la vía nativa —la única permitida con `PRODUCTION`, `checked` o promociones— medía 12,2–12,6 s por listado o búsqueda, y la vía proyectada de desarrollo 0,38–0,42 s, con FAIL bajo 20 RPS. El coste es estructural: la regla solo cambia con escrituras, configuración, código o tiempo, pero se recalculaba en cada lectura.
+
+### Decisión
+
+Se sustituye la prohibición de MOD-04 §16 de «añadir caché persistente ni proyección persistida» por un estado de publicación almacenado con estas garantías, que cubren la condición de [criterios de revisión](criterios-revision-benchmark-carga.md) («dependencias completas e invalidación o actualización que evite exposición tras revocaciones, restricciones y expiraciones», con pruebas):
+
+1. **Fuente de verdad única:** `moderation.publicly_visible` / `submissions.validate_submission` y sus formularios. El estado guarda su resultado excluida la caducidad, que siempre se compara en SQL, junto con los flags de comprobaciones reales para `checked`.
+2. **Invalidación completa en base de datos:** triggers de sentencia (INSERT/UPDATE/DELETE con tablas de transición, y TRUNCATE) en cada tabla que lee la regla marcan los anuncios afectados en la misma transacción. Ninguna ruta de aplicación puede omitirlos. Una prueba de completitud compara las tablas leídas realmente por la regla con las que tienen trigger y falla ante una dependencia nueva sin cubrir.
+3. **Exactitud independiente del recálculo:** un resultado almacenado solo se usa si el anuncio no está sucio y fue calculado con la versión de reglas vigente. Cualquier otro candidato se evalúa con la regla nativa en la misma petición, en una instantánea `REPEATABLE READ` común a recuento y página. La página se revalida con la regla nativa antes de presentarse.
+4. **Recálculo concurrente seguro:** lotes `FOR UPDATE SKIP LOCKED`. La marca solo se retira si no cambió durante el cálculo.
+5. **Versión de reglas sin bytecode:** hash del código fuente de los módulos de la regla, versión de Django y configuración pertinente, calculado una vez por proceso.
+
+### Requisitos afectados
+
+Contrato funcional [docs14 §10](14-contrato-funcional-v1.md) (objetivo de carga, sin cambiar sus cifras); MOD-04 §16 (dirección técnica y prohibición de proyección persistida); CR09-REND-LECTURA y sus pasos R1–R6 en seguimiento17. No cambian producto, filtros, orden, recuento, paginación, privacidad, permisos, pesos, denominador, criterios de carga ni gates de producción.
+
+### Efecto
+
+- **Datos:** dos tablas derivadas sin datos personales nuevos (identificador de anuncio, booleanos, versión y fecha) y 33×4 triggers. Una escritura en las tablas de dependencia añade el marcado de los anuncios afectados. Los cambios globales (documento legal de publicación, catálogo) marcan toda la población y se recalculan dentro de la misma operación o con el comando dedicado.
+- **Seguridad y privacidad:** la exposición sigue decidida por la regla nativa vigente. Un estado obsoleto no puede publicar porque la marca se escribe en la transacción del cambio y la página se revalida. Las restauraciones con `--disable-triggers` o `session_replication_role=replica` deben marcar toda la población antes de servir tráfico; el procedimiento se documenta en operación.
+- **Coste:** sin recursos nuevos ni escalado. Recálculo completo medido en ~15 s por proceso para 10 000 anuncios, repartible entre workers.
+- **Pruebas:** equivalencia byte a byte con la regla nativa (modo normal y `PRODUCTION`), mutaciones por familia de dependencia, completitud de triggers, carreras de recálculo y regresión funcional. Se retiran la vía proyectada (`projected_publication`, `sql_publication`, `text_proof`, huella de definiciones) y sus pruebas experimentales. Su evidencia histórica se conserva en docs y evidencias.
+- **Aceptación:** sin cambio. N1/N2 según MOD-02, después R5 con el arnés vigente y, solo con PASS, R6. Las mediciones del generador propio del prototipo no se suman a las del arnés. Porcentajes sin cambio hasta evidencia revisada (docs86).
+

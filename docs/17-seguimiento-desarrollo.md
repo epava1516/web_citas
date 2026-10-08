@@ -4,6 +4,8 @@ Actualizado: 2026-10-08. Corte documental: código de purga `72ff79a`, código d
 
 ## Estado vigente para reanudar
 
+**MOD-05 adoptada, 2026-10-08 (autorización expresa del usuario).** CR09-REND-LECTURA se reanuda con el estado de publicación almacenado ([contrato16 §17](16-contrato-ejecucion-desarrollo.md#17-estado-de-publicación-almacenado--mod-05), [docs93](93-propuesta-estado-publicacion-claude-code.md)). Integración en curso por Claude Code (Claude Opus 5.5) en la rama local `cc/publication-state`; fusión en master solo con confirmación del usuario. Las entradas inferiores sobre aplazamiento del rendimiento y la vía proyectada se conservan como historia.
+
 **Cambio de prioridad del usuario,2026-10-08:** CR09-REND-LECTURA aplazado hasta reanudación expresa. El control del usuario activó después el goal para la continuación independiente; no reactiva rendimiento. Conservar código/evidencia/requisitos, sin cierre ni nuevas intervenciones o cargas30/60/900. Procesos experimentales propios terminales y limpieza revisada. Única cola pasa a pendientes independientes locales de contrato16§13/matrices83/88; no aceptar CR10/GS01/fases. **Entrega independiente cerrada localmente: navegación de teclado ES/EN del shell común.** Destino de salto enfocable y etiqueta principal localizada, sin cambiar el orden de contenido. Reproducción PG/Chromium fallida [baseline](evidencias/navegacion-teclado-baseline0110.json); primer contraste corrigió una expectativa equivocada de orden en la prueba, sin cambio adicional de interfaz. [Revisión terminal](evidencias/navegacion-teclado-revisada0110.json):2 casos correctos,8 recorridos ES/EN×móvil/escritorio×listado/login, CSS HTTP real, foco visible/salto/orden/recarga/sin desbordamiento. Dos DB y medios temporales retirados, fuentes intactas durante ejecución. Preparación BF§7 independiente permitida por§13, sin aceptación BF/GS01/CR10 ni porcentajes nuevos.
 
 **Segunda entrega independiente cerrada localmente: acceso localizado ES/EN.** `LoginForm` recibe idioma, etiqueta de contraseña localizada, autocomplete username/current-password y rechazo genérico localizado sin distinguir cuenta inexistente/no verificada. Autenticación, verificación, sesión, límites y CSRF conservan su lógica. [Revisión terminal](evidencias/acceso-localizacion-revisada0110.json):3 casos correctos en46,13s;2 recorridos Chromium/PG móvil ES/EN con rechazo uniforme, contraseña no reexpuesta, acceso verificado y sesión tras recarga; regresión CSRF/throttle/cabeceras de token correcta. [Preflight](evidencias/acceso-localizacion-preflight0110.json) falló por selector que omitía el signo final de la etiqueta Django, corregido solo en la prueba. Ruff de archivos afectados y diff-check correctos. Fuentes congeladas intactas y dos DB/medios retirados con comprobación independiente. Cambios integrados en workspace; runtime normal de contenedores no alterado ni declarado actualizado. No aceptación CR01/BF/GS01 nueva ni porcentajes.
@@ -185,6 +187,20 @@ Actualizado: 2026-10-08. Corte documental: código de purga `72ff79a`, código d
 | Fases posteriores | CR10, GS01, BF, BB y C pendientes como fases. Ya existe frontend/backend de los recorridos cruzados; esto no acepta sus fases separadas. |
 
 ## Próximo trabajo y criterio de salida
+
+**Cola vigente MOD-05 (sustituye la secuencia R1–R4 de la vía proyectada):**
+
+| Paso | Estado y condición de salida |
+| --- | --- |
+| M1 — Contrato | MOD-05 registrada en contrato16 §17, docs14 §10 y esta cola. |
+| M2 — Integración | Tarea Celery on_commit + Beat, comando `refresh_publication_state`, despliegue/restauración, cambios globales sin ventana lenta, decisión medida sobre la reparación en lectura. |
+| M3 — Simplificación | Retirar vía proyectada y pruebas experimentales; versión de reglas sin bytecode; adaptar pruebas de ruta. |
+| M4 — Margen | Objetivo ~100 ms por listado sin cambiar semántica de filtros, orden, recuento ni paginación. |
+| M5 — N2 | PostgreSQL real, Chromium ES/EN y móvil, permisos, revocaciones, carreras y todas las tablas de dependencia; suite completa contrastada con master. |
+| R5 / R6 | Arnés vigente: registrar requisito, fuentes, selección y condición de salida antes de lanzar R5; R6 solo con PASS completo de R5. No mezclar con el generador propio del prototipo. |
+
+Porcentajes sin cambio hasta evidencia N2/R5 revisada (docs86).
+
 
 **CR09-REND-LECTURA sigue abierto. Goal automático pausado por petición del usuario; encargo manual de cierre autorizado.** La equivalencia pública, el perfil actual y el contraste TCP terminaron exit0; el prototipo SQL intermedio se abortó durante preflight y no se adopta. Fuentes congeladas intactas y recursos propios retirados. TCP, equivalencia común y matriz terminales revisados; corta posterior FAIL válido. Checkpoint A→B→C→D completado; comparación autorizada4/6/6/4 posterior terminada y revisada: causalidadINCONCLUSIVE porcompetenciahost, filtroobservadoD incumplido ycuatroFAIL30s. Sin ejecución propia activa ni nueva carga larga. Árbol de trabajo sobre `b285aba`, cambios de backend todavía sin integrar en runtime `73d28f6`. La pausa automática, la terminación de una prueba y el cierre del requisito son estados distintos.
 
