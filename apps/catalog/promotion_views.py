@@ -33,7 +33,7 @@ def credentials(request):
 @require_http_methods(["GET", "POST"])
 def products(request):
     auth = credentials(request)
-    form = ProductForm(request.POST or None)
+    form = ProductForm(request.POST or None, language=request.LANGUAGE_CODE)
     status = 200
     if request.method == "POST":
         if form.is_valid():
@@ -83,7 +83,7 @@ def edit(request, product_id, number):
         product_id=product_id,
         version=number,
     )
-    form = VersionForm(request.POST or None, instance=row)
+    form = VersionForm(request.POST or None, instance=row, language=request.LANGUAGE_CODE)
     status = 200
     if request.method == "POST":
         if form.is_valid():
