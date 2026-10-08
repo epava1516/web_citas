@@ -15,6 +15,12 @@ from .views import private
 class ConfirmationForm(forms.Form):
     confirmed = forms.BooleanField(label="Confirmar este destino / Confirm this destination")
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["confirmed"].label = (
+            "Confirm this destination" if language == "en" else "Confirmar este destino"
+        )
+
 
 def cookie_name(confirmation_id):
     return "account_confirmation_" + confirmation_id.hex
@@ -53,9 +59,16 @@ def confirm(request, confirmation_id):
         cookie_name(confirmation_id), default=None, salt="account-email-confirm", max_age=86400
     )
     if request.method == "POST" and limited(request, "account-email-confirm", 15):
-        response = private(HttpResponse("Too many attempts / Demasiados intentos", status=429))
+        response = private(
+            HttpResponse(
+                "Too many attempts" if request.LANGUAGE_CODE == "en" else "Demasiados intentos",
+                status=429,
+            )
+        )
     else:
-        form = ConfirmationForm(request.POST if request.method == "POST" else None)
+        form = ConfirmationForm(
+            request.POST if request.method == "POST" else None, language=request.LANGUAGE_CODE
+        )
         try:
             token = inspect_token(confirmation_id, raw)
             if request.method == "POST" and form.is_valid():
