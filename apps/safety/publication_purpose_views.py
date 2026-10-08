@@ -48,15 +48,30 @@ class PublicationReleaseForm(ReleaseForm):
         label="Consulta auditada / Audited inspection",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, language=language, **kwargs)
+        labels = {
+            "history_before": ("Cursor de historial", "History cursor"),
+            "hold_version": ("Versión de medida", "Measure version"),
+            "next_review_on": ("Próxima revisión", "Next review"),
+            "read_id": ("Consulta auditada", "Audited inspection"),
+        }
+        for name, pair in labels.items():
+            self.fields[name].label = pair[language == "en"]
+
     def clean(self):
         values = super().clean()
         field = {"propose": "read_id", "execute": "proposal_id"}.get(values.get("operation"))
         if field and not values.get(field):
-            self.add_error(field, "Referencia obligatoria / Reference required")
+            self.add_error(
+                field, "Reference required" if self.language == "en" else "Referencia obligatoria"
+            )
         if values.get("operation") == "follow_up":
             for name in ["hold_version", "next_review_on"]:
                 if not values.get(name):
-                    self.add_error(name, "Campo obligatorio / Required field")
+                    self.add_error(
+                        name, "Required field" if self.language == "en" else "Campo obligatorio"
+                    )
         return values
 
 
@@ -97,6 +112,7 @@ def release(request, case_id, hold_id):
         return private(HttpResponse("Forbidden", status=403))
     form = PublicationReleaseForm(
         request.POST or None,
+        language=request.LANGUAGE_CODE,
         initial={"key": uuid4(), "version": case.version, "hold_version": hold.version},
     )
     available_choices = [
@@ -170,13 +186,14 @@ def release(request, case_id, hold_id):
             case.refresh_from_db()
             hold.refresh_from_db()
             form = PublicationReleaseForm(
+                language=request.LANGUAGE_CODE,
                 initial={
                     "key": uuid4(),
                     "version": case.version,
                     "hold_version": hold.version,
                     "read_id": reading.pk if reading else None,
                     "proposal_id": proposal.pk if proposal else None,
-                }
+                },
             )
             form.fields["operation"].choices = available_choices
             status = 200

@@ -59,6 +59,44 @@ class ReleaseForm(forms.Form):
         label="Motivo interno minimizado / Minimized internal reason",
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.language = language
+        english = language == "en"
+        labels = {
+            "operation": ("Operación", "Operation"),
+            "ground": ("Fundamento", "Ground"),
+            "resume_message_id": (
+                "Mensaje del sujeto para reanudar",
+                "Subject message requesting resumption",
+            ),
+            "proposal_id": ("Propuesta recibida", "Received proposal"),
+            "reason": ("Motivo interno minimizado", "Minimized internal reason"),
+        }
+        captions = {
+            "operation": {
+                "inspect": ("Consultar medida", "Inspect restriction"),
+                "propose": ("Proponer y comunicar", "Propose and notify"),
+                "execute": ("Ejecutar propuesta recibida", "Execute received proposal"),
+                "follow_up": ("Registrar seguimiento", "Record follow-up"),
+                "history": ("Consultar historial", "Inspect history"),
+            },
+            "ground": {
+                "": ("Selecciona", "Select"),
+                "restriction_resolved": (
+                    "Fundamento de limitación resuelto",
+                    "Restriction ground resolved",
+                ),
+                "resume_requested": ("Nueva solicitud revisada", "Reviewed new request"),
+            },
+        }
+        for name, pair in labels.items():
+            self.fields[name].label = pair[english]
+        for name, translated in captions.items():
+            self.fields[name].choices = [
+                (value, translated[value][english]) for value, _ in self.fields[name].choices
+            ]
+
 
 @login_required
 @sensitive_post_parameters("reason")
@@ -84,6 +122,7 @@ def release(request, case_id, restriction_id):
     proposal = restriction.release_proposals.order_by("-pk").first()
     form = ReleaseForm(
         request.POST or None,
+        language=request.LANGUAGE_CODE,
         initial={
             "key": uuid.uuid4(),
             "version": case.version,
@@ -118,11 +157,12 @@ def release(request, case_id, restriction_id):
                 )
             case.refresh_from_db()
             form = ReleaseForm(
+                language=request.LANGUAGE_CODE,
                 initial={
                     "key": uuid.uuid4(),
                     "version": case.version,
                     "proposal_id": proposal.pk if proposal else None,
-                }
+                },
             )
             status = 200
         except PermissionDenied:
