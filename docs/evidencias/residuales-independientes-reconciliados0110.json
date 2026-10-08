@@ -287,5 +287,37 @@
     "user_reactivation": "MOD05 and goal explicitly resumed",
     "verified": "local conditional correction; recorded laptop load PASS audited",
     "pending": "Operational equivalence/current version and CR09 matrix/N3; no new blanket acceptance"
+  },
+  "current_reconciliation": {
+    "observed_at": "2026-10-08T18:01:07.381698+00:00",
+    "source_commit": "0265088",
+    "previous_blocking_audits": "historical; not current goal status",
+    "facts": [
+      "MOD05 conditional invalidation fixed and verified",
+      "Laptop original R5/R6 load PASS corroborated; not VPS capacity",
+      "Current official-prepared matrix 12 PASS; sequential HTTP/WSGI does not prove 20 RPS capacity",
+      "Subject-linked MOD05 census gap fixed; 7 PG/Chromium PASS"
+    ],
+    "sources": [
+      "docs/evidencias/mod05-correccion-conjunta-revisada0110.json",
+      "docs/evidencias/revision-codex-mod05-auditoria-originales0110.json",
+      "docs/evidencias/mod05-matriz-despliegue-revisada0110.json",
+      "docs/evidencias/mod05-inventario-final-revisada0110.json"
+    ],
+    "capacity_dependency": "Explicit scope clarification for new VPS full 60-second gate pending; no automatic 900-second run",
+    "external_dependencies": "census, identity, retention, communications, urgent, infrastructure and security_ci inputs above remain applicable",
+    "not_accepted": [
+      "CR09",
+      "GS01",
+      "production readiness"
+    ],
+    "new_loads": 0,
+    "foreign_services_modified": false,
+    "sha256": {
+      "docs/evidencias/mod05-correccion-conjunta-revisada0110.json": "e218cb7fe7da5ed10a17ace6bfa7ed9dd53908cfe436b2b8a459236530d4505e",
+      "docs/evidencias/revision-codex-mod05-auditoria-originales0110.json": "eaa4975eab5cf5f5d419448303cfbb59e4be93ddc224819505e42f1d95e7d2fa",
+      "docs/evidencias/mod05-matriz-despliegue-revisada0110.json": "58eecca25bc5f4ea0e2cede8c01be3211922b042a836de05900c04bff3dc54cc",
+      "docs/evidencias/mod05-inventario-final-revisada0110.json": "4f2afe7e7868789edd2eeae954aea769aab1c02bc9c088ef3c00a77219852503"
+    }
   }
 }
