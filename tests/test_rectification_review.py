@@ -702,37 +702,49 @@ def test_mobile_independent_source_and_proposal_review(
 
                 with ThreadPoolExecutor(max_workers=1) as pool:
                     recipient_review_id = pool.submit(final_authority).result(timeout=30)
+                from test_rectification_final_localization import (
+                    assert_form,
+                    check_missing_preparation,
+                )
+
                 final_url = (
                     live_server.url
                     + f"/{language}/moderation/rights/{case.pk}/rectification/final/"
                 )
                 final_text = "Se han aplicado los cambios revisados. La publicación requiere revisión separada. / Reviewed changes have been applied. Publication requires separate review."
                 review_page.goto(final_url)
+                assert_form(review_page, language)
+                check_missing_preparation(review_page, language, case.pk)
                 review_page.locator("[name=recipient_review]").fill(str(recipient_review_id))
                 review_page.locator("[name=reason]").fill(REASON)
                 review_page.locator("[name=text]").fill(final_text)
                 review_page.locator("[name=confirmed]").check()
                 review_page.locator("button[type=submit]").click()
+                assert_form(review_page, language)
                 assert final_text not in review_page.content()
                 draft_id = review_page.locator("tbody tr").first.locator("td").first.inner_text()
                 page.goto(final_url)
+                assert_form(page, language)
                 page.locator("[name=operation]").select_option("inspect")
                 page.locator("[name=draft]").fill(draft_id)
                 page.locator("[name=purpose]").fill(
                     "Read the exact final correction and recipient exceptions"
                 )
                 page.locator("button[type=submit]").click()
+                assert_form(page, language)
                 expect(page.get_by_text(final_text, exact=True)).to_be_visible()
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
                 page.locator("[name=outcome]").select_option("approved")
                 page.locator("[name=reason]").fill(REASON)
                 page.locator("button[type=submit]").click()
+                assert_form(page, language)
                 assert final_text not in page.content()
                 final_review_id = page.locator("tbody tr").first.locator("td").first.inner_text()
                 review_page.goto(final_url)
                 review_page.locator("[name=operation]").select_option("close")
                 review_page.locator("[name=review]").fill(final_review_id)
                 review_page.locator("button[type=submit]").click()
+                assert_form(review_page, language)
                 expect(review_page.locator("tbody")).to_contain_text("rectify_final_close")
                 receipt_page = browser.new_page(viewport={"width": 390, "height": 844})
                 receipt_page.goto(live_server.url + receipt.replace("/en/", f"/{language}/"))
