@@ -1,0 +1,21 @@
+{
+  "selection": [
+    "tests/test_scalar_capture_tcp_cost.py"
+  ],
+  "output": "/tmp/sql-publication-scalar-capture-tcp-0110",
+  "prerequisite": "Scalar/index targeted equivalence15PG+6PG reviewed, native10k ordered oracle and A/B/C DjangoClient effects valid. Full request through DjangoClient excludes TCP/Gunicorn; old serial runtime source different. No backend change since scalar/index effect. Current2PG rule profile complete, cannot convert invasive exclusive timings into savings.",
+  "hypothesis": "Check whether demonstrated scalar/index material effect reproduces over actual loopback TCP with fresh real Gunicorn workers; eliminate fixture-process/transport scope ambiguity before further backend intervention.",
+  "scenario": "10000 original/diverse descriptions+Telegram separately. OwnPG/media and4syncworkers,65srequest/server timeout, at most1HTTP request outstanding. No RPS schedule,uploads or capacity verdict.8counterbalanced A/B/Ctriplets per listingES,listingEN,searchES,searchEN. Same pool/schema/data; A=typed capture/row text,B=scalar/row,C=scalar/index. Test-only synchronous constructor selector and actualroute headers identical instrumentation allmodes; no profiler/SQL/GC recording or extra fingerprint computation perrequest.",
+  "warmup": "Health readiness<=45s; warmup<=96requests until all4worker×3mode combinations observed. Record PIDs/modes. Unexpected worker during controls invalidates readiness comparison rather than extrapolating source equivalence. ANALYZE beforewarmup, same schema/stats endpoints compared.",
+  "criteria": "BOTH fixtures: A-B and B-C median paired mean-family saving>=max(.05s,5%baseline average median); A-C>=max(.10s,15%). Each>=6/8favorable; no family median regression>max(.05s,10%). Body/count/actualroute/flags all equivalent. Missing/incomplete controls have no effect verdict. Failure blocks consolidating an operational TCP improvement from this experiment, retaining DjangoClient evidence with its scope; no reinterpretation of old runs.",
+  "reuse": "Existing full native orderedpopulation/page/unknowns/wrapper/revocation/indexwrite proofs and top5SQLplans reused. No newEXPLAIN/profile during TCP controls.",
+  "finish": "Server stopped, terminalsource/artifactSHA and independentownDB/media removal reviewed. No normalruntime migration/deploy, no moreworkers/PGscale/cache. Shortloadstill blocked pending fullfunctional/routematrix;900onlyafterfull60sPASS.",
+  "not_measured": [
+    "SQL/per-rule/model/render events during TCPcontrols",
+    "causal selector/header overhead",
+    "workerqueue/concurrency",
+    "capacity",
+    "uploads",
+    "100/1000currentmatrix"
+  ]
+}

@@ -1,0 +1,2173 @@
+{
+  "schema": "performance-second-pause-derived-v1",
+  "source_commit": "b285abad6ca1ed29b3e04d0702a0dba32a11a8d9",
+  "goal_status_at_review": "paused",
+  "method": "Read reviewed JSON and check arithmetic. No requests, tests, SQL, load, or backend edits.",
+  "sources_sha256": {
+    "listado-proyeccion-uuid-array-matriz0110.json": "6ce2c25ffaf4e43631c915e26792d322a0fb03e7109fef6eefbfcc549dafde73",
+    "listado-proyeccion-bindings-coste0110.json": "f561f26ebe155e9a7aad72befcf89f0b401b9208efbcdba48a9173f7429cff4f",
+    "listado-proyeccion-jit-scope-controles0110.json": "d1d301bf4d84b004590ec01906b79d4baf16501aea42f2075b4b38e12b411da9",
+    "listado-proyeccion-valores-controles0110.json": "08aa0a2b4e6b2fbac3c1f19128976a8d33522a5fc81a82072319b4778d4d24a6",
+    "listado-proyeccion-valores-perfil0110.json": "9e3427bc0a84159e3c9db5c7841fc528efc56fa35974d5f8a6af24caf06c93c3",
+    "listado-proyeccion-kernel-valores-controles0110.json": "f60f12db2c1ce49fbea692d3303fe80d8ddfa3bdffcbba3264b76899a22953ba",
+    "listado-proyeccion-kernel-valores-perfil0110.json": "d0b9b8fbf08c298f181709cd6e8bd1a88272dd1c594084a01cf80ee8fbf370cf",
+    "listado-proyeccion-input-kernel-controles0110.json": "a6e366fe4f9cb17e00e0884456ed88f9bb2385dc0ca69baa8a3f6ea334f2dc4f",
+    "listado-proyeccion-input-kernel-perfil0110.json": "99f9fea3555d7271fb9c84f59b3a3f01cb93fe556bde5e7133c4d1d8f81a7401",
+    "listado-proyeccion-bindings-n1-0110.json": "db99979f29022bc8d54ac1ca6882453d21def8bed0509cabfa5bcadc7dae8321",
+    "listado-proyeccion-jit-scope-n1-0110.json": "313e70eee6d58a92bb8310dcd2747b933076fe0b33ebdb29db832e667fd280e5",
+    "listado-proyeccion-valores-n1-0110.json": "57afe87134ad088f03dbd18dd84510a427aebc53ccec18cf923d3e81da148893",
+    "listado-proyeccion-kernel-valores-n1-0110.json": "1d071b671b1ef990a12d5817465f7e02755d0bcb424bc8a3ae70b108a93d51c3",
+    "listado-proyeccion-input-kernel-n1-0110.json": "46ccf60c08f2cde3f23a9f7fdea682fda7b9c49021a6a13f5218b07c9d14c18a",
+    "listado-proyeccion-freeze-boundary0110.json": "ad4e5b089d7af58a1e9efe2d5ae70302fe52c567acf0c6a043b904e4d5c90c5c"
+  },
+  "historical_controls": [
+    {
+      "stage": "Antes de MOD-04",
+      "evidence": "listado-proyeccion-uuid-array-matriz0110.json",
+      "source_commit": "2f9f536590f4353b69a5d7fb623128e33ad4e023",
+      "samples": [
+        {
+          "variant": "contractual",
+          "native_control_seconds": 13.857615219894797,
+          "projected_control_seconds": 9.024714017752558,
+          "projected_observed_seconds": 28.078887821175158,
+          "observed_instruments": "source-specific rule profiler, SQL wrapper, model signals",
+          "queries": 88,
+          "sql_execute_seconds": 4.337266549002379,
+          "model_constructions": 20292,
+          "objects": {
+            "core.LegalDocument": 5,
+            "core.LegalAcceptance": 3,
+            "catalog.Category": 29,
+            "catalog.Service": 33,
+            "catalog.Municipality": 7,
+            "catalog.Province": 9,
+            "catalog.Region": 7,
+            "listings.Revision": 10025,
+            "listings.Rate": 10024,
+            "listings.Listing": 24,
+            "core.Person": 24,
+            "core.PhoneClaim": 24,
+            "core.Agency": 1,
+            "mediafiles.Photo": 48,
+            "mediafiles.Blob": 1,
+            "core.VerificationCheck": 24,
+            "catalog.Zone": 2,
+            "catalog.PostalCode": 2
+          },
+          "projection_stats": [
+            {
+              "candidates": 10000,
+              "positive": 10000,
+              "native_fallback": 0,
+              "details_native": 1,
+              "contacts_native": 1,
+              "rates_native": 2
+            }
+          ]
+        },
+        {
+          "variant": "diverse",
+          "native_control_seconds": 17.720915208104998,
+          "projected_control_seconds": 22.902557315770537,
+          "projected_observed_seconds": 135.25895549869165,
+          "observed_instruments": "source-specific rule profiler, SQL wrapper, model signals",
+          "queries": 88,
+          "sql_execute_seconds": 4.835488799028099,
+          "model_constructions": 20292,
+          "objects": {
+            "core.LegalDocument": 5,
+            "core.LegalAcceptance": 3,
+            "catalog.Category": 29,
+            "catalog.Service": 33,
+            "catalog.Municipality": 7,
+            "catalog.Province": 9,
+            "catalog.Region": 7,
+            "listings.Revision": 10025,
+            "listings.Rate": 10024,
+            "listings.Listing": 24,
+            "core.Person": 24,
+            "core.PhoneClaim": 24,
+            "core.Agency": 1,
+            "mediafiles.Photo": 48,
+            "mediafiles.Blob": 1,
+            "core.VerificationCheck": 24,
+            "catalog.Zone": 2,
+            "catalog.PostalCode": 2
+          },
+          "projection_stats": [
+            {
+              "candidates": 10000,
+              "positive": 10000,
+              "native_fallback": 0,
+              "details_native": 10000,
+              "contacts_native": 10000,
+              "rates_native": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "Bindings y construcción diferida",
+      "evidence": "listado-proyeccion-bindings-coste0110.json",
+      "source_commit": "4fff3027cb96a8f988547a216983c0948cd551b7",
+      "samples": [
+        {
+          "variant": "contractual",
+          "native_control_seconds": 13.906633459962904,
+          "projected_control_seconds": 9.084404348861426,
+          "projected_observed_seconds": 17.531982122920454,
+          "observed_instruments": "source-specific rule profiler, SQL wrapper, model signals",
+          "queries": 88,
+          "sql_execute_seconds": 4.574577081017196,
+          "model_constructions": 295,
+          "objects": {
+            "core.LegalDocument": 5,
+            "core.LegalAcceptance": 3,
+            "catalog.Category": 29,
+            "catalog.Service": 33,
+            "catalog.Municipality": 7,
+            "catalog.Province": 9,
+            "catalog.Region": 7,
+            "listings.Revision": 26,
+            "listings.Rate": 26,
+            "listings.Listing": 24,
+            "core.Person": 24,
+            "core.PhoneClaim": 24,
+            "core.Agency": 1,
+            "mediafiles.Photo": 48,
+            "mediafiles.Blob": 1,
+            "core.VerificationCheck": 24,
+            "catalog.Zone": 2,
+            "catalog.PostalCode": 2
+          },
+          "projection_stats": [
+            {
+              "candidates": 10000,
+              "positive": 10000,
+              "native_fallback": 0,
+              "details_native": 1,
+              "contacts_native": 1,
+              "rates_native": 2
+            }
+          ]
+        },
+        {
+          "variant": "diverse",
+          "native_control_seconds": 17.429159040097147,
+          "projected_control_seconds": 15.951735455077142,
+          "projected_observed_seconds": 71.81903832498938,
+          "observed_instruments": "source-specific rule profiler, SQL wrapper, model signals",
+          "queries": 88,
+          "sql_execute_seconds": 4.595633392687887,
+          "model_constructions": 10294,
+          "objects": {
+            "core.LegalDocument": 5,
+            "core.LegalAcceptance": 3,
+            "catalog.Category": 29,
+            "catalog.Service": 33,
+            "catalog.Municipality": 7,
+            "catalog.Province": 9,
+            "catalog.Region": 7,
+            "listings.Revision": 10025,
+            "listings.Rate": 26,
+            "listings.Listing": 24,
+            "core.Person": 24,
+            "core.PhoneClaim": 24,
+            "core.Agency": 1,
+            "mediafiles.Photo": 48,
+            "mediafiles.Blob": 1,
+            "core.VerificationCheck": 24,
+            "catalog.Zone": 2,
+            "catalog.PostalCode": 2
+          },
+          "projection_stats": [
+            {
+              "candidates": 10000,
+              "positive": 10000,
+              "native_fallback": 0,
+              "details_native": 10000,
+              "contacts_native": 10000,
+              "rates_native": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "JIT acotado, controles",
+      "evidence": "listado-proyeccion-jit-scope-controles0110.json",
+      "source_commit": "cb3ceab54b9581d338fcad650ce1201b58c53901",
+      "samples": [
+        {
+          "variant": "contractual",
+          "native_control_seconds": 14.04810935119167,
+          "projected_control_seconds": 4.05943491589278,
+          "projected_observed_seconds": 4.149684916250408,
+          "observed_instruments": "SQL execute wrapper only",
+          "queries": 91,
+          "sql_execute_seconds": 1.0600933716632426
+        },
+        {
+          "variant": "diverse",
+          "native_control_seconds": 13.869101732037961,
+          "projected_control_seconds": 13.392995368223637,
+          "projected_observed_seconds": 12.87497747829184,
+          "observed_instruments": "SQL execute wrapper only",
+          "queries": 91,
+          "sql_execute_seconds": 1.2477005068212748
+        }
+      ]
+    },
+    {
+      "stage": "Reglas compartidas, controles",
+      "evidence": "listado-proyeccion-valores-controles0110.json",
+      "source_commit": "6241f1e757fda7faf89dd210313b4af87756e39f",
+      "samples": [
+        {
+          "variant": "contractual",
+          "native_control_seconds": 14.055880318395793,
+          "projected_control_seconds": 4.273722472134978,
+          "projected_observed_seconds": 4.471621328033507,
+          "observed_instruments": "SQL execute wrapper only",
+          "queries": 91,
+          "sql_execute_seconds": 1.0768109825439751
+        },
+        {
+          "variant": "diverse",
+          "native_control_seconds": 13.860691031906754,
+          "projected_control_seconds": 13.120265987236053,
+          "projected_observed_seconds": 12.901652303058654,
+          "observed_instruments": "SQL execute wrapper only",
+          "queries": 91,
+          "sql_execute_seconds": 1.0819188472814858
+        }
+      ]
+    },
+    {
+      "stage": "Reglas compartidas, perfil",
+      "evidence": "listado-proyeccion-valores-perfil0110.json",
+      "source_commit": "c76afd2955be18bd24d399acddb546adfddea906",
+      "samples": [
+        {
+          "variant": "contractual",
+          "native_control_seconds": 13.559440343175083,
+          "projected_control_seconds": 4.38428955571726,
+          "projected_observed_seconds": 14.285729567985982,
+          "observed_instruments": "source-specific rule profiler, SQL wrapper, model signals",
+          "queries": 91,
+          "sql_execute_seconds": 0.7519151386804879,
+          "model_constructions": 295,
+          "objects": {
+            "core.LegalDocument": 5,
+            "core.LegalAcceptance": 3,
+            "catalog.Category": 29,
+            "catalog.Service": 33,
+            "catalog.Municipality": 7,
+            "catalog.Province": 9,
+            "catalog.Region": 7,
+            "listings.Revision": 26,
+            "listings.Rate": 26,
+            "listings.Listing": 24,
+            "core.Person": 24,
+            "core.PhoneClaim": 24,
+            "core.Agency": 1,
+            "mediafiles.Photo": 48,
+            "mediafiles.Blob": 1,
+            "core.VerificationCheck": 24,
+            "catalog.Zone": 2,
+            "catalog.PostalCode": 2
+          },
+          "projection_stats": [
+            {
+              "candidates": 10000,
+              "positive": 10000,
+              "native_fallback": 0,
+              "details_native": 1,
+              "contacts_native": 1,
+              "rates_native": 2
+            }
+          ]
+        },
+        {
+          "variant": "diverse",
+          "native_control_seconds": 18.611965315882117,
+          "projected_control_seconds": 12.041705967858434,
+          "projected_observed_seconds": 62.27191729424521,
+          "observed_instruments": "source-specific rule profiler, SQL wrapper, model signals",
+          "queries": 91,
+          "sql_execute_seconds": 0.7781798695214093,
+          "model_constructions": 10294,
+          "objects": {
+            "core.LegalDocument": 5,
+            "core.LegalAcceptance": 3,
+            "catalog.Category": 29,
+            "catalog.Service": 33,
+            "catalog.Municipality": 7,
+            "catalog.Province": 9,
+            "catalog.Region": 7,
+            "listings.Revision": 10025,
+            "listings.Rate": 26,
+            "listings.Listing": 24,
+            "core.Person": 24,
+            "core.PhoneClaim": 24,
+            "core.Agency": 1,
+            "mediafiles.Photo": 48,
+            "mediafiles.Blob": 1,
+            "core.VerificationCheck": 24,
+            "catalog.Zone": 2,
+            "catalog.PostalCode": 2
+          },
+          "projection_stats": [
+            {
+              "candidates": 10000,
+              "positive": 10000,
+              "native_fallback": 0,
+              "details_native": 10000,
+              "contacts_native": 10000,
+              "rates_native": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "Kernel de modelo, controles",
+      "evidence": "listado-proyeccion-kernel-valores-controles0110.json",
+      "source_commit": "cbd708c8cc4913fb50a05c14ba988b73f3be059e",
+      "samples": [
+        {
+          "variant": "contractual",
+          "native_control_seconds": 14.050675138365477,
+          "projected_control_seconds": 4.042215473949909,
+          "projected_observed_seconds": 3.339385266881436,
+          "observed_instruments": "SQL execute wrapper only",
+          "queries": 91,
+          "sql_execute_seconds": 1.1713234232738614
+        },
+        {
+          "variant": "diverse",
+          "native_control_seconds": 17.305950416252017,
+          "projected_control_seconds": 9.47778416890651,
+          "projected_observed_seconds": 9.458712877705693,
+          "observed_instruments": "SQL execute wrapper only",
+          "queries": 91,
+          "sql_execute_seconds": 0.7719294992275536
+        }
+      ]
+    },
+    {
+      "stage": "Kernel de modelo, perfil",
+      "evidence": "listado-proyeccion-kernel-valores-perfil0110.json",
+      "source_commit": "d74d70df461881b80407cda82f781f5f4dc35863",
+      "samples": [
+        {
+          "variant": "contractual",
+          "native_control_seconds": 13.648926630616188,
+          "projected_control_seconds": 2.912374678067863,
+          "projected_observed_seconds": 16.88092174800113,
+          "observed_instruments": "source-specific rule profiler, SQL wrapper, model signals",
+          "queries": 91,
+          "sql_execute_seconds": 0.8054834650829434,
+          "model_constructions": 295,
+          "objects": {
+            "core.LegalDocument": 5,
+            "core.LegalAcceptance": 3,
+            "catalog.Category": 29,
+            "catalog.Service": 33,
+            "catalog.Municipality": 7,
+            "catalog.Province": 9,
+            "catalog.Region": 7,
+            "listings.Revision": 26,
+            "listings.Rate": 26,
+            "listings.Listing": 24,
+            "core.Person": 24,
+            "core.PhoneClaim": 24,
+            "core.Agency": 1,
+            "mediafiles.Photo": 48,
+            "mediafiles.Blob": 1,
+            "core.VerificationCheck": 24,
+            "catalog.Zone": 2,
+            "catalog.PostalCode": 2
+          },
+          "projection_stats": [
+            {
+              "candidates": 10000,
+              "positive": 10000,
+              "native_fallback": 0,
+              "details_native": 1,
+              "contacts_native": 1,
+              "rates_native": 2
+            }
+          ]
+        },
+        {
+          "variant": "diverse",
+          "native_control_seconds": 18.17258903104812,
+          "projected_control_seconds": 9.36200609896332,
+          "projected_observed_seconds": 40.830743581056595,
+          "observed_instruments": "source-specific rule profiler, SQL wrapper, model signals",
+          "queries": 91,
+          "sql_execute_seconds": 0.8199796127155423,
+          "model_constructions": 295,
+          "objects": {
+            "core.LegalDocument": 5,
+            "core.LegalAcceptance": 3,
+            "catalog.Category": 29,
+            "catalog.Service": 33,
+            "catalog.Municipality": 7,
+            "catalog.Province": 9,
+            "catalog.Region": 7,
+            "listings.Revision": 26,
+            "listings.Rate": 26,
+            "listings.Listing": 24,
+            "core.Person": 24,
+            "core.PhoneClaim": 24,
+            "core.Agency": 1,
+            "mediafiles.Photo": 48,
+            "mediafiles.Blob": 1,
+            "core.VerificationCheck": 24,
+            "catalog.Zone": 2,
+            "catalog.PostalCode": 2
+          },
+          "projection_stats": [
+            {
+              "candidates": 10000,
+              "positive": 10000,
+              "native_fallback": 0,
+              "details_native": 10000,
+              "contacts_native": 10000,
+              "rates_native": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "Kernel de entrada, controles",
+      "evidence": "listado-proyeccion-input-kernel-controles0110.json",
+      "source_commit": "52775809d8309a8db6c5e1f29c8043ec41ca481f",
+      "samples": [
+        {
+          "variant": "contractual",
+          "native_control_seconds": 13.677919146139175,
+          "projected_control_seconds": 4.0677101872861385,
+          "projected_observed_seconds": 3.479173170402646,
+          "observed_instruments": "SQL execute wrapper only",
+          "queries": 91,
+          "sql_execute_seconds": 1.1027559521608055
+        },
+        {
+          "variant": "diverse",
+          "native_control_seconds": 17.68484644498676,
+          "projected_control_seconds": 8.663978960830718,
+          "projected_observed_seconds": 8.489284231793135,
+          "observed_instruments": "SQL execute wrapper only",
+          "queries": 91,
+          "sql_execute_seconds": 0.6356503376737237
+        }
+      ]
+    },
+    {
+      "stage": "Perfil final de entrada/lectura/claves",
+      "evidence": "listado-proyeccion-input-kernel-perfil0110.json",
+      "source_commit": "b285abad6ca1ed29b3e04d0702a0dba32a11a8d9",
+      "samples": [
+        {
+          "variant": "contractual",
+          "native_control_seconds": 13.975588731933385,
+          "projected_control_seconds": 4.732710929121822,
+          "projected_observed_seconds": 23.018307459075004,
+          "observed_instruments": "source-specific rule profiler, SQL wrapper, model signals",
+          "queries": 91,
+          "sql_execute_seconds": 0.7258438249118626,
+          "model_constructions": 295,
+          "objects": {
+            "core.LegalDocument": 5,
+            "core.LegalAcceptance": 3,
+            "catalog.Category": 29,
+            "catalog.Service": 33,
+            "catalog.Municipality": 7,
+            "catalog.Province": 9,
+            "catalog.Region": 7,
+            "listings.Revision": 26,
+            "listings.Rate": 26,
+            "listings.Listing": 24,
+            "core.Person": 24,
+            "core.PhoneClaim": 24,
+            "core.Agency": 1,
+            "mediafiles.Photo": 48,
+            "mediafiles.Blob": 1,
+            "core.VerificationCheck": 24,
+            "catalog.Zone": 2,
+            "catalog.PostalCode": 2
+          },
+          "projection_stats": [
+            {
+              "candidates": 10000,
+              "positive": 10000,
+              "native_fallback": 0,
+              "details_native": 1,
+              "contacts_native": 1,
+              "rates_native": 2
+            }
+          ]
+        },
+        {
+          "variant": "diverse",
+          "native_control_seconds": 17.160172405652702,
+          "projected_control_seconds": 8.354709759354591,
+          "projected_observed_seconds": 45.23067416623235,
+          "observed_instruments": "source-specific rule profiler, SQL wrapper, model signals",
+          "queries": 91,
+          "sql_execute_seconds": 0.6801478480920196,
+          "model_constructions": 295,
+          "objects": {
+            "core.LegalDocument": 5,
+            "core.LegalAcceptance": 3,
+            "catalog.Category": 29,
+            "catalog.Service": 33,
+            "catalog.Municipality": 7,
+            "catalog.Province": 9,
+            "catalog.Region": 7,
+            "listings.Revision": 26,
+            "listings.Rate": 26,
+            "listings.Listing": 24,
+            "core.Person": 24,
+            "core.PhoneClaim": 24,
+            "core.Agency": 1,
+            "mediafiles.Photo": 48,
+            "mediafiles.Blob": 1,
+            "core.VerificationCheck": 24,
+            "catalog.Zone": 2,
+            "catalog.PostalCode": 2
+          },
+          "projection_stats": [
+            {
+              "candidates": 10000,
+              "positive": 10000,
+              "native_fallback": 0,
+              "details_native": 10000,
+              "contacts_native": 10000,
+              "rates_native": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "functional_gates_separate_sources": [
+    {
+      "evidence": "listado-proyeccion-bindings-n1-0110.json",
+      "source_commit": "a65ee1e1f90a8a016abdd787adb5b1943daa338b",
+      "passed_cases": 27,
+      "scope": {
+        "all_artifact_source_hashes_verified": true,
+        "terminal_passes": 27,
+        "scope": "Functional N1 on one version. Native ordered population, count/pages ES/EN, normalization/unknown inputs, current authorities and concurrent committed revocation, semantic wrappers/helper/PK and private bindings independence/disabled fields. Demand model counts directly observed by post_init before hydration, not SQL rows or HTTP gain.",
+        "not_measured": [
+          "new_request_gain",
+          "new_matrix",
+          "production_checked_promotions_cost",
+          "concurrent_capacity",
+          "DB_CPU_RSS",
+          "new_runtime"
+        ],
+        "acceptance": "No block/CR09/capacity closure; prior load FAIL/INVALID and percentages unchanged.",
+        "owned_databases_absent_independently_verified": true
+      }
+    },
+    {
+      "evidence": "listado-proyeccion-jit-scope-n1-0110.json",
+      "source_commit": "1abc6e7b43ad067799f0b43bb8c0eae24b22cdc3",
+      "passed_cases": 22,
+      "scope": {
+        "all_artifact_source_hashes_verified": true,
+        "terminal_passes": 22,
+        "scope": "Affected N1 on one version: ordered native population/count/pages ESEN, normalization/unknown inputs, revocation during hydration, PK/helper/wrappers, JIT local scope and outer on/off/writes/error-savepoint recovery. Full native binding/disabled suite remains separately verified at a65ee1e, not added as common current-version battery. Demand model counts directly observed by post_init before hydration, not SQL rows or HTTP gain.",
+        "not_measured": [
+          "new_request_gain",
+          "new_matrix",
+          "production_checked_promotions_cost",
+          "concurrent_capacity",
+          "DB_CPU_RSS",
+          "new_runtime"
+        ],
+        "acceptance": "No block/CR09/capacity closure; prior load FAIL/INVALID and percentages unchanged.",
+        "owned_databases_absent_independently_verified": true
+      }
+    },
+    {
+      "evidence": "listado-proyeccion-valores-n1-0110.json",
+      "source_commit": "aa9f6bd004aa7a2576c3876ec69f314eba053a4a",
+      "passed_cases": 31,
+      "scope": {
+        "all_artifact_source_hashes_verified": true,
+        "terminal_passes": 31,
+        "scope": "Functional N1 on one version. Native ordered population, count/pages ES/EN, normalization/unknown inputs, current authorities and concurrent committed revocation, semantic wrappers/helper/PK and private bindings independence/disabled fields. Demand model counts directly observed by post_init before hydration, not SQL rows or HTTP gain.",
+        "explicit_new_tests": [
+          "pre_change_clean_ES_EN",
+          "shared_value_helper_footprint",
+          "shared_field_helper_footprint"
+        ],
+        "not_measured": [
+          "new_request_gain",
+          "new_matrix",
+          "production_checked_promotions_cost",
+          "concurrent_capacity",
+          "DB_CPU_RSS",
+          "new_runtime"
+        ],
+        "acceptance": "No block/CR09/capacity closure; prior load FAIL/INVALID and percentages unchanged.",
+        "independent_database_absence_verified": true,
+        "owned_database_names": [
+          "promotion_gate_bindings_bfac44f3dfb0468c",
+          "test_promotion_gate_bindings_bfac44f3dfb0468c"
+        ]
+      }
+    },
+    {
+      "evidence": "listado-proyeccion-kernel-valores-n1-0110.json",
+      "source_commit": "e0eea094a598381e4b0ea58e05ae99a5fb2b48e6",
+      "passed_cases": 35,
+      "scope": {
+        "all_artifact_source_hashes_verified": true,
+        "terminal_passes": 35,
+        "scope": "Functional N1 on one version. Native ordered population, count/pages ES/EN, normalization/unknown inputs, current authorities and concurrent committed revocation, semantic wrappers/helper/PK and private bindings independence/disabled fields. Demand model counts directly observed by post_init before hydration, not SQL rows or HTTP gain.",
+        "explicit_new_tests": [
+          "scalar_model_kernel_native_oracles_details_contacts",
+          "metadata_default_clean_no_constraints_PK_excluded",
+          "kernel_fingerprint",
+          "omitted_default_retains_native",
+          "unique_content_revision_construction_bound"
+        ],
+        "not_measured": [
+          "new_request_gain",
+          "new_matrix",
+          "production_checked_promotions_cost",
+          "concurrent_capacity",
+          "DB_CPU_RSS",
+          "new_runtime"
+        ],
+        "acceptance": "No block/CR09/capacity closure; prior load FAIL/INVALID and percentages unchanged.",
+        "independent_database_absence_verified": true,
+        "owned_database_names": [
+          "promotion_gate_bindings_61503bf7dfc64f6b",
+          "test_promotion_gate_bindings_61503bf7dfc64f6b"
+        ]
+      }
+    },
+    {
+      "evidence": "listado-proyeccion-input-kernel-n1-0110.json",
+      "source_commit": "71823ba72143117abe5ce8b300391f8ec14f805e",
+      "passed_cases": 37,
+      "scope": {
+        "all_artifact_source_hashes_verified": true,
+        "terminal_passes": 37,
+        "scope": "Functional N1 on one version. Native ordered population, count/pages ES/EN, normalization/unknown inputs, current authorities and concurrent committed revocation, semantic wrappers/helper/PK and private bindings independence/disabled fields. Demand model counts directly observed by post_init before hydration, not SQL rows or HTTP gain.",
+        "explicit_new_tests": [
+          "scalar_model_kernel_native_oracles_details_contacts",
+          "metadata_default_clean_no_constraints_PK_excluded",
+          "kernel_fingerprint",
+          "omitted_default_retains_native",
+          "unique_content_revision_construction_bound"
+        ],
+        "not_measured": [
+          "new_request_gain",
+          "new_matrix",
+          "production_checked_promotions_cost",
+          "concurrent_capacity",
+          "DB_CPU_RSS",
+          "new_runtime"
+        ],
+        "acceptance": "No block/CR09/capacity closure; prior load FAIL/INVALID and percentages unchanged.",
+        "independent_database_absence_verified": true,
+        "owned_database_names": [
+          "promotion_gate_bindings_a104f4085ee34006",
+          "test_promotion_gate_bindings_a104f4085ee34006"
+        ],
+        "input_kernel_scope": "37 PostgreSQL functional cases on source71823ba. Native field/model oracles include direct input cleaning; helper and native _clean_bound_field semantic wrapper disable proof. Six separate units verified prefix/checkbox/multiple values/errors and private callback release with cyclic GC disabled; not a common PostgreSQL suite."
+      }
+    },
+    {
+      "evidence": "listado-proyeccion-freeze-boundary0110.json",
+      "source_commit": "7b5fef6ee10e023f340c5e06b82d1f038d290096",
+      "passed_cases": 1,
+      "scope": {
+        "terminal_passes": 1,
+        "sources_artifacts_hashes_verified": true,
+        "independent_database_absence_verified": true,
+        "acceptance": "Functional proof boundary only. Prior controls unchanged on their source; no runtime/capacity/universal footprint security claim. Historical FAIL/INVALID/weights remain."
+      }
+    }
+  ],
+  "latest_profile": [
+    {
+      "variant": "contractual",
+      "route": {
+        "route": "projection",
+        "reason": "audited_current_values",
+        "candidate_stats": {
+          "candidates": 10000,
+          "positive": 10000,
+          "native_fallback": 0,
+          "details_native": 1,
+          "contacts_native": 1,
+          "rates_native": 2
+        },
+        "hydrated_count": 24
+      },
+      "rules": [
+        {
+          "rule": "apps.listings.projected_publication.freeze",
+          "calls": 820000,
+          "inclusive_time": 21.797117691021413,
+          "exclusive_time": 10.62549677118659,
+          "max_exclusive_time": 0.03696763515472412,
+          "inclusive_thread_cpu_time": 21.469251093002924,
+          "exclusive_thread_cpu_time": 10.440711026003498,
+          "instrumented_children": {
+            "apps.listings.projected_publication.freeze": 11.171620919834822
+          },
+          "mean_exclusive_time": 1.2957922891690964e-05
+        },
+        {
+          "rule": "django.db.models.query.ValuesIterable.__iter__",
+          "calls": 10001,
+          "inclusive_time": 2.9672422450967133,
+          "exclusive_time": 2.9672422450967133,
+          "max_exclusive_time": 2.3822503508999944,
+          "inclusive_thread_cpu_time": 2.6007731770030205,
+          "exclusive_thread_cpu_time": 2.6007731770030205,
+          "instrumented_children": {},
+          "mean_exclusive_time": 0.0002966945550541659
+        },
+        {
+          "rule": "apps.listings.projected_publication.ProjectedPublication.positive",
+          "calls": 10000,
+          "inclusive_time": 17.0975759960711,
+          "exclusive_time": 2.9485481502488256,
+          "max_exclusive_time": 0.015932106878608465,
+          "inclusive_thread_cpu_time": 16.810359254000502,
+          "exclusive_thread_cpu_time": 2.9106988019980804,
+          "instrumented_children": {
+            "apps.listings.projected_publication.ProjectedPublication.native_content": 12.46298176329583,
+            "apps.listings.projected_publication.ProjectedPublication.authority": 0.9094577403739095,
+            "django.forms.fields.Field.clean": 0.535338297020644,
+            "apps.listings.forms.validate_listing_text": 0.24125004513189197
+          },
+          "mean_exclusive_time": 0.00029485481502488254
+        },
+        {
+          "rule": "apps.listings.projected_publication.ProjectedPublication.native_content",
+          "calls": 30000,
+          "inclusive_time": 12.46298176329583,
+          "exclusive_time": 1.8057463197037578,
+          "max_exclusive_time": 0.005007248837500811,
+          "inclusive_thread_cpu_time": 12.242709430002606,
+          "exclusive_thread_cpu_time": 1.7722913949991437,
+          "instrumented_children": {
+            "apps.listings.projected_publication.freeze": 10.62549677118659,
+            "apps.listings.public_validation.validate_publication_binding": 0.022467953618615866,
+            "apps.listings.public_validation.SnapshotDetails.__init__": 0.006401777267456055,
+            "django.forms.models.BaseModelForm.__init__": 0.0025614630430936813,
+            "apps.listings.public_validation.memoize_publication_field_clean": 0.00030747847631573677
+          },
+          "mean_exclusive_time": 6.019154399012526e-05
+        },
+        {
+          "rule": "apps.listings.projected_publication.ProjectedPublication.__init__",
+          "calls": 1,
+          "inclusive_time": 4.181728909257799,
+          "exclusive_time": 1.068325750529766,
+          "max_exclusive_time": 1.068325750529766,
+          "inclusive_thread_cpu_time": 3.641599881000019,
+          "exclusive_thread_cpu_time": 0.9119675520000214,
+          "instrumented_children": {
+            "apps.listings.public_validation.read_publication_values": 3.0712917488999665,
+            "django.db.models.query.ModelIterable.__iter__": 0.034598699770867825,
+            "apps.listings.forms.DetailsForm.__init__": 0.00695981876924634,
+            "django.forms.fields.Field.__init__": 0.0005528912879526615
+          },
+          "mean_exclusive_time": 1.068325750529766
+        },
+        {
+          "rule": "apps.listings.projected_publication.ProjectedPublication.authority",
+          "calls": 10000,
+          "inclusive_time": 0.9094577403739095,
+          "exclusive_time": 0.9094577403739095,
+          "max_exclusive_time": 0.01101607596501708,
+          "inclusive_thread_cpu_time": 0.8976833699995552,
+          "exclusive_thread_cpu_time": 0.8976833699995552,
+          "instrumented_children": {},
+          "mean_exclusive_time": 9.094577403739095e-05
+        },
+        {
+          "rule": "django.db.models.query.ModelIterable.__iter__",
+          "calls": 300,
+          "inclusive_time": 0.5138308368623257,
+          "exclusive_time": 0.4600392859429121,
+          "max_exclusive_time": 0.08136014919728041,
+          "inclusive_thread_cpu_time": 0.4078443880001714,
+          "exclusive_thread_cpu_time": 0.3548403209998696,
+          "instrumented_children": {
+            "django.db.models.base.Model.from_db": 0.05379155091941357
+          },
+          "mean_exclusive_time": 0.0015334642864763737
+        },
+        {
+          "rule": "django.forms.fields.Field.clean",
+          "calls": 10086,
+          "inclusive_time": 0.5394593686796725,
+          "exclusive_time": 0.33659830829128623,
+          "max_exclusive_time": 0.0016045095399022102,
+          "inclusive_thread_cpu_time": 0.52558764700035,
+          "exclusive_thread_cpu_time": 0.32446628500207453,
+          "instrumented_children": {
+            "django.forms.fields.Field.run_validators": 0.1585282851010561,
+            "django.forms.fields.Field.validate": 0.04433277528733015
+          },
+          "mean_exclusive_time": 3.3372824538100955e-05
+        },
+        {
+          "rule": "apps.listings.projected_publication.definitions_digest",
+          "calls": 2,
+          "inclusive_time": 0.31609138287603855,
+          "exclusive_time": 0.31609138287603855,
+          "max_exclusive_time": 0.16697862185537815,
+          "inclusive_thread_cpu_time": 0.31432816700001354,
+          "exclusive_thread_cpu_time": 0.31432816700001354,
+          "instrumented_children": {},
+          "mean_exclusive_time": 0.15804569143801928
+        },
+        {
+          "rule": "apps.listings.projected_publication.ProjectedPublication.visible_ids",
+          "calls": 1,
+          "inclusive_time": 17.389597128611058,
+          "exclusive_time": 0.29202113253995776,
+          "max_exclusive_time": 0.29202113253995776,
+          "inclusive_thread_cpu_time": 17.098865923000005,
+          "exclusive_thread_cpu_time": 0.28850666899950284,
+          "instrumented_children": {
+            "apps.listings.projected_publication.ProjectedPublication.positive": 17.0975759960711
+          },
+          "mean_exclusive_time": 0.29202113253995776
+        },
+        {
+          "rule": "apps.listings.forms.validate_listing_text",
+          "calls": 10078,
+          "inclusive_time": 0.24312481237575412,
+          "exclusive_time": 0.24312481237575412,
+          "max_exclusive_time": 0.0015915390104055405,
+          "inclusive_thread_cpu_time": 0.23963772299990183,
+          "exclusive_thread_cpu_time": 0.23963772299990183,
+          "instrumented_children": {},
+          "mean_exclusive_time": 2.4124311607040496e-05
+        },
+        {
+          "rule": "django.shortcuts.render",
+          "calls": 1,
+          "inclusive_time": 0.27271336503326893,
+          "exclusive_time": 0.2316798917017877,
+          "max_exclusive_time": 0.2316798917017877,
+          "inclusive_thread_cpu_time": 0.25277773599998454,
+          "exclusive_thread_cpu_time": 0.224002339000009,
+          "instrumented_children": {
+            "django.db.models.query.ModelIterable.__iter__": 0.03521127486601472,
+            "django.db.models.query.prefetch_one_level": 0.005373416934162378,
+            "django.utils.functional.SimpleLazyObject._setup": 0.000448781531304121
+          },
+          "mean_exclusive_time": 0.2316798917017877
+        },
+        {
+          "rule": "django.forms.fields.Field.run_validators",
+          "calls": 10090,
+          "inclusive_time": 0.1585515788756311,
+          "exclusive_time": 0.1585515788756311,
+          "max_exclusive_time": 0.00012959865853190422,
+          "inclusive_thread_cpu_time": 0.15721007800013354,
+          "exclusive_thread_cpu_time": 0.15721007800013354,
+          "instrumented_children": {},
+          "mean_exclusive_time": 1.5713734279051645e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.PublicationContext.__init__",
+          "calls": 1,
+          "inclusive_time": 0.33065409772098064,
+          "exclusive_time": 0.10616483213379979,
+          "max_exclusive_time": 0.10616483213379979,
+          "inclusive_thread_cpu_time": 0.29745103600001244,
+          "exclusive_thread_cpu_time": 0.10484656400001313,
+          "instrumented_children": {
+            "django.db.models.query.ModelIterable.__iter__": 0.12710403744131327,
+            "django.db.models.query.prefetch_one_level": 0.09685237566009164,
+            "django.forms.fields.Field.__init__": 0.0005328524857759476
+          },
+          "mean_exclusive_time": 0.10616483213379979
+        },
+        {
+          "rule": "apps.listings.public_validation.read_publication_values",
+          "calls": 1,
+          "inclusive_time": 3.0712917488999665,
+          "exclusive_time": 0.10404950380325317,
+          "max_exclusive_time": 0.10404950380325317,
+          "inclusive_thread_cpu_time": 2.698173945999997,
+          "exclusive_thread_cpu_time": 0.0974007689969767,
+          "instrumented_children": {
+            "django.db.models.query.ValuesIterable.__iter__": 2.9672422450967133
+          },
+          "mean_exclusive_time": 0.10404950380325317
+        },
+        {
+          "rule": "django.db.models.base.Model.__init__",
+          "calls": 295,
+          "inclusive_time": 0.04607085743919015,
+          "exclusive_time": 0.04607085743919015,
+          "max_exclusive_time": 0.00149815296754241,
+          "inclusive_thread_cpu_time": 0.04566844900006117,
+          "exclusive_thread_cpu_time": 0.04566844900006117,
+          "instrumented_children": {},
+          "mean_exclusive_time": 0.00015617239809894966
+        },
+        {
+          "rule": "django.forms.fields.Field.validate",
+          "calls": 10063,
+          "inclusive_time": 0.04433277528733015,
+          "exclusive_time": 0.04433277528733015,
+          "max_exclusive_time": 5.067698657512665e-05,
+          "inclusive_thread_cpu_time": 0.043933495998174976,
+          "exclusive_thread_cpu_time": 0.043933495998174976,
+          "instrumented_children": {},
+          "mean_exclusive_time": 4.405522735499369e-06
+        },
+        {
+          "rule": "django.db.models.query.prefetch_one_level",
+          "calls": 10,
+          "inclusive_time": 0.11213943874463439,
+          "exclusive_time": 0.04043005174025893,
+          "max_exclusive_time": 0.007747068535536528,
+          "inclusive_thread_cpu_time": 0.10075652700004412,
+          "exclusive_thread_cpu_time": 0.040083713999962356,
+          "instrumented_children": {
+            "django.db.models.query.ModelIterable.__iter__": 0.061795740853995085,
+            "django.db.models.query.prefetch_one_level": 0.009913646150380373
+          },
+          "mean_exclusive_time": 0.004043005174025893
+        },
+        {
+          "rule": "django.forms.models.BaseModelForm._post_clean",
+          "calls": 51,
+          "inclusive_time": 0.06366991996765137,
+          "exclusive_time": 0.028227966278791428,
+          "max_exclusive_time": 0.0009286468848586082,
+          "inclusive_thread_cpu_time": 0.06056814599992322,
+          "exclusive_thread_cpu_time": 0.028028864000049225,
+          "instrumented_children": {
+            "django.db.models.base.Model.full_clean": 0.03512577340006828,
+            "django.utils.functional.SimpleLazyObject._setup": 0.0003161802887916565
+          },
+          "mean_exclusive_time": 0.0005534895348782633
+        },
+        {
+          "rule": "django.db.models.base.Model.full_clean",
+          "calls": 51,
+          "inclusive_time": 0.03512577340006828,
+          "exclusive_time": 0.027340714819729328,
+          "max_exclusive_time": 0.009432241320610046,
+          "inclusive_thread_cpu_time": 0.03222306299988986,
+          "exclusive_thread_cpu_time": 0.024697128999690676,
+          "instrumented_children": {
+            "django.db.models.base.Model.clean_fields": 0.007558853831142187,
+            "django.db.models.base.Model.clean": 0.0002262047491967678
+          },
+          "mean_exclusive_time": 0.0005360924474456731
+        },
+        {
+          "rule": "django.forms.forms.BaseForm._clean_fields",
+          "calls": 52,
+          "inclusive_time": 0.030543324071913958,
+          "exclusive_time": 0.026860494166612625,
+          "max_exclusive_time": 0.0019083255901932716,
+          "inclusive_thread_cpu_time": 0.030211582999953634,
+          "exclusive_thread_cpu_time": 0.026555917999900203,
+          "instrumented_children": {
+            "django.forms.fields.Field.clean": 0.003385365940630436,
+            "apps.listings.forms.normalize_telegram": 0.00021363375708460808,
+            "apps.listings.forms.validate_listing_text": 7.180729880928993e-05,
+            "django.forms.fields.Field.run_validators": 1.202290877699852e-05
+          },
+          "mean_exclusive_time": 0.0005165479647425505
+        },
+        {
+          "rule": "django.forms.models.BaseModelForm.__init__",
+          "calls": 7,
+          "inclusive_time": 0.023010543547570705,
+          "exclusive_time": 0.02136958297342062,
+          "max_exclusive_time": 0.0064277746714651585,
+          "inclusive_thread_cpu_time": 0.022349633999994012,
+          "exclusive_thread_cpu_time": 0.020708489999975654,
+          "instrumented_children": {
+            "django.utils.functional.SimpleLazyObject._setup": 0.0011561978608369827,
+            "django.db.models.base.Model.__init__": 0.0004847627133131027
+          },
+          "mean_exclusive_time": 0.003052797567631517
+        },
+        {
+          "rule": "apps.listings.submissions.validate_submission",
+          "calls": 24,
+          "inclusive_time": 0.11363619146868587,
+          "exclusive_time": 0.012521509546786547,
+          "max_exclusive_time": 0.0005974359810352325,
+          "inclusive_thread_cpu_time": 0.11168457999997372,
+          "exclusive_thread_cpu_time": 0.012460849999996526,
+          "instrumented_children": {
+            "apps.listings.public_validation.PublicationContext.details_valid": 0.06448698556050658,
+            "apps.listings.public_validation.PublicationContext.contacts_valid": 0.025958402547985315,
+            "apps.listings.public_validation.PublicationContext.rate_valid": 0.00998374167829752,
+            "apps.core.verification_services.publication_ready": 0.0006855521351099014
+          },
+          "mean_exclusive_time": 0.0005217295644494394
+        },
+        {
+          "rule": "django.db.models.base.Model.from_db",
+          "calls": 291,
+          "inclusive_time": 0.05379155091941357,
+          "exclusive_time": 0.009500094223767519,
+          "max_exclusive_time": 9.665777906775475e-05,
+          "inclusive_thread_cpu_time": 0.0530040670003018,
+          "exclusive_thread_cpu_time": 0.009117422000258557,
+          "instrumented_children": {
+            "django.db.models.base.Model.__init__": 0.04429145669564605
+          },
+          "mean_exclusive_time": 3.264637190298117e-05
+        },
+        {
+          "rule": "django.db.models.base.Model.clean_fields",
+          "calls": 51,
+          "inclusive_time": 0.007558853831142187,
+          "exclusive_time": 0.007558853831142187,
+          "max_exclusive_time": 0.00035224203020334244,
+          "inclusive_thread_cpu_time": 0.007309821000063721,
+          "exclusive_thread_cpu_time": 0.007309821000063721,
+          "instrumented_children": {},
+          "mean_exclusive_time": 0.00014821282021847425
+        },
+        {
+          "rule": "apps.listings.public_validation.validate_publication_binding",
+          "calls": 52,
+          "inclusive_time": 0.10161290224641562,
+          "exclusive_time": 0.006548950914293528,
+          "max_exclusive_time": 0.00019734911620616913,
+          "inclusive_thread_cpu_time": 0.0986315270000091,
+          "exclusive_thread_cpu_time": 0.006498110000052293,
+          "instrumented_children": {
+            "django.forms.forms.BaseForm.full_clean": 0.09506395133212209
+          },
+          "mean_exclusive_time": 0.000125941363736414
+        },
+        {
+          "rule": "apps.listings.projected_publication.projected_page",
+          "calls": 1,
+          "inclusive_time": 22.338058324996382,
+          "exclusive_time": 0.00451774662360549,
+          "max_exclusive_time": 0.00451774662360549,
+          "inclusive_thread_cpu_time": 21.469691885000003,
+          "exclusive_thread_cpu_time": 0.0039452230000733834,
+          "instrumented_children": {
+            "apps.listings.projected_publication.ProjectedPublication.visible_ids": 17.389597128611058,
+            "apps.listings.projected_publication.ProjectedPublication.__init__": 4.181728909257799,
+            "apps.listings.public_validation.PublicationContext.__init__": 0.33065409772098064,
+            "apps.listings.projected_publication.definitions_digest": 0.31609138287603855,
+            "apps.listings.moderation.publicly_visible": 0.11546905990689993
+          },
+          "mean_exclusive_time": 0.00451774662360549
+        },
+        {
+          "rule": "apps.listings.forms.validate_details_values",
+          "calls": 25,
+          "inclusive_time": 0.004917120561003685,
+          "exclusive_time": 0.003114160615950823,
+          "max_exclusive_time": 0.0004919632337987423,
+          "inclusive_thread_cpu_time": 0.004869045000077676,
+          "exclusive_thread_cpu_time": 0.0030770300000710904,
+          "instrumented_children": {
+            "apps.listings.forms.validate_listing_text": 0.0018029599450528622
+          },
+          "mean_exclusive_time": 0.0001245664246380329
+        },
+        {
+          "rule": "django.forms.forms.BaseForm.full_clean",
+          "calls": 54,
+          "inclusive_time": 0.11469558253884315,
+          "exclusive_time": 0.0030553853139281273,
+          "max_exclusive_time": 8.636759594082832e-05,
+          "inclusive_thread_cpu_time": 0.11102746099996352,
+          "exclusive_thread_cpu_time": 0.002948381000265954,
+          "instrumented_children": {
+            "django.forms.models.BaseModelForm._post_clean": 0.06366991996765137,
+            "django.forms.forms.BaseForm._clean_fields": 0.030543324071913958,
+            "django.forms.forms.BaseForm._clean_form": 0.015498113818466663,
+            "apps.listings.public_validation.validate_publication_input_fields": 0.001626363955438137,
+            "apps.listings.public_validation.validate_publication_value_fields": 0.0003024754114449024
+          },
+          "mean_exclusive_time": 5.658120951718754e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.PublicationContext.details_valid",
+          "calls": 24,
+          "inclusive_time": 0.06448698556050658,
+          "exclusive_time": 0.002665017731487751,
+          "max_exclusive_time": 0.0002973307855427265,
+          "inclusive_thread_cpu_time": 0.06350192400000765,
+          "exclusive_thread_cpu_time": 0.0025293610000289846,
+          "instrumented_children": {
+            "apps.listings.public_validation.validate_publication_binding": 0.05642406968399882,
+            "apps.listings.public_validation.PublicationContext.details": 0.005292264744639397,
+            "apps.listings.public_validation.memoize_publication_field_clean": 0.00010563340038061142
+          },
+          "mean_exclusive_time": 0.00011104240547865629
+        },
+        {
+          "rule": "apps.listings.public_validation.PublicationContext.contacts_valid",
+          "calls": 24,
+          "inclusive_time": 0.025958402547985315,
+          "exclusive_time": 0.0023276065476238728,
+          "max_exclusive_time": 0.00020531192421913147,
+          "inclusive_thread_cpu_time": 0.025716232999997146,
+          "exclusive_thread_cpu_time": 0.002293215999941367,
+          "instrumented_children": {
+            "apps.listings.public_validation.validate_publication_binding": 0.022720878943800926,
+            "django.forms.models.BaseModelForm.__init__": 0.0008783657103776932,
+            "apps.listings.public_validation.memoize_publication_field_clean": 3.155134618282318e-05
+          },
+          "mean_exclusive_time": 9.69836061509947e-05
+        },
+        {
+          "rule": "django.forms.forms.BaseForm._clean_form",
+          "calls": 54,
+          "inclusive_time": 0.015498113818466663,
+          "exclusive_time": 0.0018537994474172592,
+          "max_exclusive_time": 0.0010692882351577282,
+          "inclusive_thread_cpu_time": 0.015380299999833369,
+          "exclusive_thread_cpu_time": 0.0018347199997776897,
+          "instrumented_children": {
+            "django.db.models.query.ModelIterable.__iter__": 0.007747535593807697,
+            "apps.listings.forms.DetailsForm.clean": 0.005733544938266277,
+            "django.forms.models.BaseModelForm.clean": 0.00010050972923636436,
+            "apps.listings.forms.RateForm.clean": 6.272410973906517e-05
+          },
+          "mean_exclusive_time": 3.432961939661591e-05
+        },
+        {
+          "rule": "apps.listings.moderation.publicly_visible",
+          "calls": 24,
+          "inclusive_time": 0.11546905990689993,
+          "exclusive_time": 0.0018328684382140636,
+          "max_exclusive_time": 0.00011219503358006477,
+          "inclusive_thread_cpu_time": 0.11350165499987952,
+          "exclusive_thread_cpu_time": 0.001817074999905799,
+          "instrumented_children": {
+            "apps.listings.submissions.validate_submission": 0.11363619146868587
+          },
+          "mean_exclusive_time": 7.636951825891931e-05
+        },
+        {
+          "rule": "django.forms.fields.Field.__init__",
+          "calls": 16,
+          "inclusive_time": 0.001085743773728609,
+          "exclusive_time": 0.001085743773728609,
+          "max_exclusive_time": 0.00011625513434410095,
+          "inclusive_thread_cpu_time": 0.001077321999986225,
+          "exclusive_thread_cpu_time": 0.001077321999986225,
+          "instrumented_children": {},
+          "mean_exclusive_time": 6.785898585803807e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.validate_publication_input_fields",
+          "calls": 2,
+          "inclusive_time": 0.001626363955438137,
+          "exclusive_time": 0.0008723284117877483,
+          "max_exclusive_time": 0.0007156715728342533,
+          "inclusive_thread_cpu_time": 0.001615611999994826,
+          "exclusive_thread_cpu_time": 0.0008682819999989988,
+          "instrumented_children": {
+            "django.forms.fields.Field.clean": 0.0007357057183980942,
+            "django.forms.fields.Field.run_validators": 1.1270865797996521e-05,
+            "apps.listings.forms.normalize_telegram": 7.058959454298019e-06
+          },
+          "mean_exclusive_time": 0.00043616420589387417
+        },
+        {
+          "rule": "django.utils.functional.SimpleLazyObject._setup",
+          "calls": 28,
+          "inclusive_time": 0.002066362649202347,
+          "exclusive_time": 0.0007717246189713478,
+          "max_exclusive_time": 0.00014520296826958656,
+          "inclusive_thread_cpu_time": 0.0020204459999604296,
+          "exclusive_thread_cpu_time": 0.0007287999999618933,
+          "instrumented_children": {
+            "django.db.models.base.Model.__init__": 0.001294638030230999
+          },
+          "mean_exclusive_time": 2.7561593534690993e-05
+        },
+        {
+          "rule": "apps.listings.forms.DetailsForm.clean",
+          "calls": 25,
+          "inclusive_time": 0.005733544938266277,
+          "exclusive_time": 0.0006986996158957481,
+          "max_exclusive_time": 4.5713502913713455e-05,
+          "inclusive_thread_cpu_time": 0.0056898069999817835,
+          "exclusive_thread_cpu_time": 0.0007018169999071233,
+          "instrumented_children": {
+            "apps.listings.forms.validate_details_values": 0.004917120561003685,
+            "django.forms.models.BaseModelForm.clean": 0.00011772476136684418
+          },
+          "mean_exclusive_time": 2.7947984635829924e-05
+        },
+        {
+          "rule": "apps.core.verification_services.publication_ready",
+          "calls": 24,
+          "inclusive_time": 0.0006855521351099014,
+          "exclusive_time": 0.0006855521351099014,
+          "max_exclusive_time": 4.0763989090919495e-05,
+          "inclusive_thread_cpu_time": 0.0006859920000295006,
+          "exclusive_thread_cpu_time": 0.0006859920000295006,
+          "instrumented_children": {},
+          "mean_exclusive_time": 2.8564672296245892e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.PublicationContext.rate_valid",
+          "calls": 24,
+          "inclusive_time": 0.00998374167829752,
+          "exclusive_time": 0.0004950943402945995,
+          "max_exclusive_time": 6.879540160298347e-05,
+          "inclusive_thread_cpu_time": 0.0093195809999429,
+          "exclusive_thread_cpu_time": 0.0004895299999247982,
+          "instrumented_children": {
+            "django.forms.forms.BaseForm.full_clean": 0.008294356986880302,
+            "django.forms.models.BaseModelForm.__init__": 0.0011942903511226177
+          },
+          "mean_exclusive_time": 2.0628930845608313e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.memoize_publication_field_clean",
+          "calls": 44,
+          "inclusive_time": 0.00044466322287917137,
+          "exclusive_time": 0.00044466322287917137,
+          "max_exclusive_time": 0.00017882371321320534,
+          "inclusive_thread_cpu_time": 0.00044193300001893476,
+          "exclusive_thread_cpu_time": 0.00044193300001893476,
+          "instrumented_children": {},
+          "mean_exclusive_time": 1.0105982338162986e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.validate_publication_value_fields",
+          "calls": 2,
+          "inclusive_time": 0.0003024754114449024,
+          "exclusive_time": 0.0003024754114449024,
+          "max_exclusive_time": 0.0002515050582587719,
+          "inclusive_thread_cpu_time": 0.00030343899999252244,
+          "exclusive_thread_cpu_time": 0.00030343899999252244,
+          "instrumented_children": {},
+          "mean_exclusive_time": 0.0001512377057224512
+        },
+        {
+          "rule": "django.forms.models.BaseModelForm.clean",
+          "calls": 53,
+          "inclusive_time": 0.00022769905626773834,
+          "exclusive_time": 0.00022769905626773834,
+          "max_exclusive_time": 1.530628651380539e-05,
+          "inclusive_thread_cpu_time": 0.00022976300007826467,
+          "exclusive_thread_cpu_time": 0.00022976300007826467,
+          "instrumented_children": {},
+          "mean_exclusive_time": 4.296208608825252e-06
+        },
+        {
+          "rule": "django.db.models.base.Model.clean",
+          "calls": 51,
+          "inclusive_time": 0.0002262047491967678,
+          "exclusive_time": 0.0002262047491967678,
+          "max_exclusive_time": 8.938834071159363e-06,
+          "inclusive_thread_cpu_time": 0.00021611300013546497,
+          "exclusive_thread_cpu_time": 0.00021611300013546497,
+          "instrumented_children": {},
+          "mean_exclusive_time": 4.43538723915231e-06
+        },
+        {
+          "rule": "apps.listings.forms.normalize_telegram",
+          "calls": 25,
+          "inclusive_time": 0.0002206927165389061,
+          "exclusive_time": 0.0002206927165389061,
+          "max_exclusive_time": 1.4234799891710281e-05,
+          "inclusive_thread_cpu_time": 0.0002150800000322306,
+          "exclusive_thread_cpu_time": 0.0002150800000322306,
+          "instrumented_children": {},
+          "mean_exclusive_time": 8.827708661556244e-06
+        },
+        {
+          "rule": "apps.listings.forms.DetailsForm.__init__",
+          "calls": 3,
+          "inclusive_time": 0.018576341215521097,
+          "exclusive_time": 0.000199916772544384,
+          "max_exclusive_time": 9.070057421922684e-05,
+          "inclusive_thread_cpu_time": 0.017925910999991856,
+          "exclusive_thread_cpu_time": 0.00019699099999570535,
+          "instrumented_children": {
+            "django.forms.models.BaseModelForm.__init__": 0.018376424442976713
+          },
+          "mean_exclusive_time": 6.663892418146133e-05
+        },
+        {
+          "rule": "apps.listings.forms.RateForm.clean",
+          "calls": 3,
+          "inclusive_time": 6.272410973906517e-05,
+          "exclusive_time": 5.325954407453537e-05,
+          "max_exclusive_time": 1.8443912267684937e-05,
+          "inclusive_thread_cpu_time": 6.29869999784205e-05,
+          "exclusive_thread_cpu_time": 5.3486999973983984e-05,
+          "instrumented_children": {
+            "django.forms.models.BaseModelForm.clean": 9.4645656645298e-06
+          },
+          "mean_exclusive_time": 1.7753181358178455e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.SnapshotDetails.__init__",
+          "calls": 2,
+          "inclusive_time": 0.01166446227580309,
+          "exclusive_time": 4.7939829528331757e-05,
+          "max_exclusive_time": 2.4903565645217896e-05,
+          "inclusive_thread_cpu_time": 0.01156934200000137,
+          "exclusive_thread_cpu_time": 4.639300001940683e-05,
+          "instrumented_children": {
+            "apps.listings.forms.DetailsForm.__init__": 0.011616522446274757
+          },
+          "mean_exclusive_time": 2.3969914764165878e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.PublicationContext.details",
+          "calls": 1,
+          "inclusive_time": 0.005292264744639397,
+          "exclusive_time": 2.9579736292362213e-05,
+          "max_exclusive_time": 2.9579736292362213e-05,
+          "inclusive_thread_cpu_time": 0.005258069999996451,
+          "exclusive_thread_cpu_time": 2.9238999985636838e-05,
+          "instrumented_children": {
+            "apps.listings.public_validation.SnapshotDetails.__init__": 0.0052626850083470345
+          },
+          "mean_exclusive_time": 2.9579736292362213e-05
+        }
+      ],
+      "top5_SQL": [
+        {
+          "query_pattern": "SELECT DISTINCT \"listings_listing\".\"id\" AS \"pk\", \"listings_listing\".\"status\" AS \"status\", \"listings_listing\".\"person_id\" AS \"person_id\", \"listings_listing\".\"expires_at\" AS \"expires_at\", \"listings_listing\".\"approved_revision_id\" AS \"approved_revision_id\", \"listings_listing\".\"approved_revision_id\" AS \"approved_revision__id\", \"listings_revision\".\"listing_id\" AS \"approved_revision__listing_id\", \"listings_revision\".\"source_revision_id\" AS \"approved_revision__source_revision_id\", \"listings_revision\".\"manager_version\" AS \"approved_revision__manager_version\", \"listings_revision\".\"status\" AS \"approved_revision__status\", \"listings_revision\".\"step\" AS \"approved_revision__step\", \"listings_revision\".\"edit_version\" AS \"approved_revision__edit_version\", \"listings_revision\".\"title\" AS \"approved_revision__title\", \"listings_revision\".\"description\" AS \"approved_revision__description\", \"listings_revision\".\"content_language\" AS \"approved_revision__content_language\", \"listings_revision\".\"description_alternative\" AS \"approved_revision__description_alternative\", \"listings_revision\".\"profile_type\" AS \"approved_revision__profile_type\", \"listings_revision\".\"municipality_id\" AS \"approved_revision__municipality_id\", \"listings_revision\".\"postal_code_id\" AS \"approved_revision__postal_code_id\", \"listings_revision\".\"zone_id\" AS \"approved_revision__zone_id\", \"listings_revision\".\"spoken_languages\" AS \"approved_revision__spoken_languages\", \"listings_revision\".\"days\" AS \"approved_revision__days\", \"listings_revision\".\"time_slot\" AS \"approved_revision__time_slot\", \"listings_revision\".\"reception\" AS \"approved_revision__reception\", \"listings_revision\".\"travel\" AS \"approved_revision__travel\", \"listings_revision\".\"phone\" AS \"approved_revision__phone\", \"listings_revision\".\"whatsapp\" AS \"approved_revision__whatsapp\", \"listings_revision\".\"telegram\" AS \"approved_revision__telegram\", \"listings_revision\".\"contact_exposure_accepted\" AS \"approved_revision__contact_exposure_accepted\", \"listings_revision\".\"publisher_acceptance_id\" AS \"approved_revision__publisher_acceptance_id\", \"listings_revision\".\"created_at\" AS \"approved_revision__created_at\", \"listings_revision\".\"updated_at\" AS \"approved_revision__updated_at\", \"core_person\".\"publication_erased_at\" AS \"person__publication_erased_at\", \"core_person\".\"rights_version\" AS \"person__rights_version\", \"listings_listing\".\"person_id\" AS \"person__id\", \"core_person\".\"alias\" AS \"person__alias\", \"core_person\".\"individual_id\" AS \"person__individual_id\", \"core_person\".\"agency_id\" AS \"person__agency_id\", \"core_person\".\"assigned_editor_id\" AS \"person__assigned_editor_id\", \"core_person\".\"subject_id\" AS \"person__subject_id\", \"core_person\".\"manager_version\" AS \"person__manager_version\", \"core_person\".\"manager_review_status\" AS \"person__manager_review_status\", \"core_person\".\"age_status\" AS \"person__age_status\", \"core_person\".\"consent_version\" AS \"person__consent_version\", \"core_person\".\"consent_revoked_at\" AS \"person__consent_revoked_at\", \"core_person\".\"phone_claim_id\" AS \"person__phone_claim_id\", \"core_person\".\"created_at\" AS \"person__created_at\", \"core_phoneclaim\".\"phone\" AS \"person__phone_claim__phone\", \"core_phoneclaim\".\"verified_at\" AS \"person__phone_claim__verified_at\", \"core_phoneclaim\".\"individual_id\" AS \"person__phone_claim__individual_id\", \"core_phoneclaim\".\"agency_id\" AS \"person__phone_claim__agency_id\", \"core_agency\".\"verification_status\" AS \"person__agency__verification_status\", EXISTS(SELECT %s AS \"a\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE (EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?) AND V0.\"id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_history\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_photo\" U0 INNER JOIN \"safety_rightsrectificationphotoupload\" U1 ON (U0.\"id\" = U1.\"photo_id\") WHERE (U1.\"id\" IS NOT NULL AND U0.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_rectification_upload\", EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsphotoreintroduction\" U0 INNER JOIN \"mediafiles_photo\" U1 ON (U0.\"photo_id\" = U1.\"id\") WHERE U1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") LIMIT ?) AS \"_pv_reintroduction\", EXISTS(SELECT %s AS \"a\" FROM \"safety_privacypublicationhold\" U0 WHERE (U0.\"active\" AND U0.\"person_id\" = (\"listings_listing\".\"person_id\")) LIMIT ?) AS \"_pv_hold\", EXISTS(SELECT %s AS \"a\" FROM \"safety_restriction\" U0 WHERE (U0.\"active\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\")) LIMIT ?) AS \"_pv_restriction\", EXISTS(SELECT %s AS \"a\" FROM \"core_representationaction\" U0 INNER JOIN \"core_legaldocument\" U1 ON (U0.\"document_id\" = U1.\"id\") INNER JOIN \"core_person\" U2 ON (U0.\"person_id\" = U2.\"id\") WHERE (U0.\"action\" = %s AND U1.\"slug\" = %s AND U1.\"version\" = %s AND U0.\"manager_id\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN (\"core_person\".\"agency_id\")::varchar ELSE (\"core_person\".\"individual_id\")::varchar END) AND U0.\"manager_kind\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN %s ELSE %s END) AND U0.\"manager_version\" = (\"core_person\".\"manager_version\") AND U0.\"person_id\" = (\"listings_listing\".\"person_id\") AND U0.\"subject_id\" = (\"core_person\".\"subject_id\")) LIMIT ?) AS \"_pv_grant\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_match\" W0 INNER JOIN \"mediafiles_photo\" W1 ON (W0.\"photo_id\" = W1.\"id\") INNER JOIN \"listings_revision\" W2 ON (W1.\"revision_id\" = W2.\"id\") INNER JOIN \"mediafiles_photo\" W3 ON (W0.\"candidate_id\" = W3.\"id\") INNER JOIN \"listings_revision\" W4 ON (W3.\"revision_id\" = W4.\"id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W5 ON (W1.\"id\" = W5.\"photo_id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W6 ON (W3.\"id\" = W6.\"photo_id\") WHERE ((W1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") OR W3.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) AND (W0.\"resolved_at\" IS NULL OR W0.\"decision\" = %s) AND W3.\"removed_at\" IS NULL AND W0.\"decision\" = %s AND W1.\"removed_at\" IS NULL AND NOT (W1.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W3.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W2.\"status\" = %s) AND NOT (W4.\"status\" = %s) AND NOT (W5.\"id\" IS NOT NULL) AND NOT (W6.\"id\" IS NOT NULL)) LIMIT ?) AS \"_pv_conflict\", (SELECT U0.\"status\" AS \"status\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_status\", (SELECT U0.\"manager_version\" AS \"manager_version\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_manager\", (SELECT U0.\"subject_id\" AS \"subject_id\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_subject\", \"listings_listing\".\"published_at\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") INNER JOIN \"core_person\" ON (\"listings_listing\".\"person_id\" = \"core_person\".\"id\") LEFT OUTER JOIN \"core_agency\" ON (\"core_person\".\"agency_id\" = \"core_agency\".\"id\") LEFT OUTER JOIN \"core_phoneclaim\" ON (\"core_person\".\"phone_claim_id\" = \"core_phoneclaim\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s) ORDER BY \"listings_listing\".\"published_at\" DESC, ? ASC",
+          "calls": 1,
+          "total_time": 0.4289006250910461,
+          "mean_time": 0.4289006250910461,
+          "fraction_of_SQL_execute": 0.590899323477921
+        },
+        {
+          "query_pattern": "SELECT \"mediafiles_photo\".\"revision_id\" AS \"revision_id\", \"mediafiles_blob\".\"status\" AS \"blob__status\", \"mediafiles_photo\".\"comparison_complete\" AS \"comparison_complete\" FROM \"mediafiles_photo\" INNER JOIN \"mediafiles_blob\" ON (\"mediafiles_photo\".\"blob_id\" = \"mediafiles_blob\".\"id\") WHERE (\"mediafiles_photo\".\"removed_at\" IS NULL AND (\"mediafiles_photo\".\"revision_id\" = ANY(%s::uuid[]))) ORDER BY \"mediafiles_photo\".\"position\" ASC, \"mediafiles_photo\".\"created_at\" ASC",
+          "calls": 1,
+          "total_time": 0.05052024498581886,
+          "mean_time": 0.05052024498581886,
+          "fraction_of_SQL_execute": 0.06960208691167609
+        },
+        {
+          "query_pattern": "SELECT \"mediafiles_photo\".\"id\", \"mediafiles_photo\".\"revision_id\", \"mediafiles_photo\".\"blob_id\", \"mediafiles_photo\".\"position\", \"mediafiles_photo\".\"approved\", \"mediafiles_photo\".\"comparison_complete\", \"mediafiles_photo\".\"removed_at\", \"mediafiles_photo\".\"created_at\" FROM \"mediafiles_photo\" INNER JOIN \"mediafiles_blob\" ON (\"mediafiles_photo\".\"blob_id\" = \"mediafiles_blob\".\"id\") WHERE (\"mediafiles_photo\".\"revision_id\" = %s AND \"mediafiles_photo\".\"approved\" AND \"mediafiles_blob\".\"status\" = %s AND \"mediafiles_photo\".\"removed_at\" IS NULL) ORDER BY \"mediafiles_photo\".\"position\" ASC, \"mediafiles_photo\".\"created_at\" ASC LIMIT ?",
+          "calls": 24,
+          "total_time": 0.038800292648375034,
+          "mean_time": 0.0016166788603489597,
+          "fraction_of_SQL_execute": 0.05345542844989617
+        },
+        {
+          "query_pattern": "SELECT \"listings_revision_categories\".\"revision_id\" AS \"revision_id\", \"listings_revision_categories\".\"category_id\" AS \"category_id\" FROM \"listings_revision_categories\" WHERE (\"listings_revision_categories\".\"revision_id\" = ANY(%s::uuid[]))",
+          "calls": 1,
+          "total_time": 0.035501644015312195,
+          "mean_time": 0.035501644015312195,
+          "fraction_of_SQL_execute": 0.04891085767606147
+        },
+        {
+          "query_pattern": "SELECT \"core_verificationcheck\".\"id\", \"core_verificationcheck\".\"person_id\", \"core_verificationcheck\".\"subject_id\", \"core_verificationcheck\".\"manager_version\", \"core_verificationcheck\".\"provider\", \"core_verificationcheck\".\"procedure\", \"core_verificationcheck\".\"status\", \"core_verificationcheck\".\"completed_at\", \"core_verificationcheck\".\"created_at\" FROM \"core_verificationcheck\" WHERE \"core_verificationcheck\".\"person_id\" = %s ORDER BY \"core_verificationcheck\".\"created_at\" DESC LIMIT ?",
+          "calls": 24,
+          "total_time": 0.028982268180698156,
+          "mean_time": 0.00120759450752909,
+          "fraction_of_SQL_execute": 0.039929069017315674
+        }
+      ],
+      "top5_SQL_fraction": 0.8027967655328704,
+      "freeze_calls_per_candidate": 82.0,
+      "objects": {
+        "core.LegalDocument": 5,
+        "core.LegalAcceptance": 3,
+        "catalog.Category": 29,
+        "catalog.Service": 33,
+        "catalog.Municipality": 7,
+        "catalog.Province": 9,
+        "catalog.Region": 7,
+        "listings.Revision": 26,
+        "listings.Rate": 26,
+        "listings.Listing": 24,
+        "core.Person": 24,
+        "core.PhoneClaim": 24,
+        "core.Agency": 1,
+        "mediafiles.Photo": 48,
+        "mediafiles.Blob": 1,
+        "core.VerificationCheck": 24,
+        "catalog.Zone": 2,
+        "catalog.PostalCode": 2
+      },
+      "model_constructions": 295
+    },
+    {
+      "variant": "diverse",
+      "route": {
+        "route": "projection",
+        "reason": "audited_current_values",
+        "candidate_stats": {
+          "candidates": 10000,
+          "positive": 10000,
+          "native_fallback": 0,
+          "details_native": 10000,
+          "contacts_native": 10000,
+          "rates_native": 2
+        },
+        "hydrated_count": 24
+      },
+      "rules": [
+        {
+          "rule": "apps.listings.projected_publication.freeze",
+          "calls": 820000,
+          "inclusive_time": 22.073209525551647,
+          "exclusive_time": 10.813802307937294,
+          "max_exclusive_time": 0.02352027641609311,
+          "inclusive_thread_cpu_time": 21.705521473004126,
+          "exclusive_thread_cpu_time": 10.62147200899625,
+          "instrumented_children": {
+            "apps.listings.projected_publication.freeze": 11.259407217614353
+          },
+          "mean_exclusive_time": 1.3187563790167432e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.validate_publication_input_fields",
+          "calls": 20000,
+          "inclusive_time": 10.454442606307566,
+          "exclusive_time": 5.520565835293382,
+          "max_exclusive_time": 0.01719606202095747,
+          "inclusive_thread_cpu_time": 10.255371689995854,
+          "exclusive_thread_cpu_time": 5.441645762995506,
+          "instrumented_children": {
+            "django.forms.fields.Field.clean": 4.722806773148477,
+            "apps.listings.forms.normalize_telegram": 0.2110517593100667,
+            "django.forms.fields.Field.run_validators": 1.8238555639982224e-05
+          },
+          "mean_exclusive_time": 0.0002760282917646691
+        },
+        {
+          "rule": "apps.listings.public_validation.validate_publication_binding",
+          "calls": 20050,
+          "inclusive_time": 20.266800180543214,
+          "exclusive_time": 3.469119857996702,
+          "max_exclusive_time": 0.03228119993582368,
+          "inclusive_thread_cpu_time": 19.892865429999063,
+          "exclusive_thread_cpu_time": 3.4089743250008837,
+          "instrumented_children": {
+            "django.forms.forms.BaseForm.full_clean": 16.797680322546512
+          },
+          "mean_exclusive_time": 0.00017302343431405
+        },
+        {
+          "rule": "apps.listings.projected_publication.ProjectedPublication.native_content",
+          "calls": 30000,
+          "inclusive_time": 34.201814436819404,
+          "exclusive_time": 3.1844592676497996,
+          "max_exclusive_time": 0.007740668021142483,
+          "inclusive_thread_cpu_time": 33.587944346994846,
+          "exclusive_thread_cpu_time": 3.1352883019995943,
+          "instrumented_children": {
+            "apps.listings.public_validation.validate_publication_binding": 20.186870357953012,
+            "apps.listings.projected_publication.freeze": 10.813802307937294,
+            "apps.listings.public_validation.SnapshotDetails.__init__": 0.012153611052781343,
+            "django.forms.models.BaseModelForm.__init__": 0.003993673715740442,
+            "apps.listings.public_validation.memoize_publication_field_clean": 0.0005352185107767582
+          },
+          "mean_exclusive_time": 0.00010614864225499332
+        },
+        {
+          "rule": "apps.listings.projected_publication.ProjectedPublication.positive",
+          "calls": 10000,
+          "inclusive_time": 39.02078571682796,
+          "exclusive_time": 3.083200877532363,
+          "max_exclusive_time": 0.00884108617901802,
+          "inclusive_thread_cpu_time": 38.34095432500385,
+          "exclusive_thread_cpu_time": 3.0396762700062823,
+          "instrumented_children": {
+            "apps.listings.projected_publication.ProjectedPublication.native_content": 34.201814436819404,
+            "apps.listings.projected_publication.ProjectedPublication.authority": 0.9445676407776773,
+            "django.forms.fields.Field.clean": 0.5418010684661567,
+            "apps.listings.forms.validate_listing_text": 0.2494016932323575
+          },
+          "mean_exclusive_time": 0.0003083200877532363
+        },
+        {
+          "rule": "django.db.models.query.ValuesIterable.__iter__",
+          "calls": 10001,
+          "inclusive_time": 3.054523976985365,
+          "exclusive_time": 3.054523976985365,
+          "max_exclusive_time": 2.4027836369350553,
+          "inclusive_thread_cpu_time": 2.6795921189976752,
+          "exclusive_thread_cpu_time": 2.6795921189976752,
+          "instrumented_children": {},
+          "mean_exclusive_time": 0.0003054218555129852
+        },
+        {
+          "rule": "django.forms.fields.Field.validate",
+          "calls": 50128,
+          "inclusive_time": 2.980073186568916,
+          "exclusive_time": 2.980073186568916,
+          "max_exclusive_time": 2.6746993330307305,
+          "inclusive_thread_cpu_time": 2.894910180998977,
+          "exclusive_thread_cpu_time": 2.894910180998977,
+          "instrumented_children": {},
+          "mean_exclusive_time": 5.94492735909854e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.validate_publication_value_fields",
+          "calls": 20000,
+          "inclusive_time": 2.863464945461601,
+          "exclusive_time": 2.863464945461601,
+          "max_exclusive_time": 0.010393360164016485,
+          "inclusive_thread_cpu_time": 2.82910484799919,
+          "exclusive_thread_cpu_time": 2.82910484799919,
+          "instrumented_children": {},
+          "mean_exclusive_time": 0.00014317324727308004
+        },
+        {
+          "rule": "django.forms.fields.Field.clean",
+          "calls": 50151,
+          "inclusive_time": 5.270953653845936,
+          "exclusive_time": 1.5648990124464035,
+          "max_exclusive_time": 0.0014686016365885735,
+          "inclusive_thread_cpu_time": 5.139908573002458,
+          "exclusive_thread_cpu_time": 1.531919054011155,
+          "instrumented_children": {
+            "django.forms.fields.Field.validate": 2.980073186568916,
+            "django.forms.fields.Field.run_validators": 0.7259814548306167
+          },
+          "mean_exclusive_time": 3.120374493921165e-05
+        },
+        {
+          "rule": "apps.listings.projected_publication.ProjectedPublication.__init__",
+          "calls": 1,
+          "inclusive_time": 4.320522089954466,
+          "exclusive_time": 1.1025224984623492,
+          "max_exclusive_time": 1.1025224984623492,
+          "inclusive_thread_cpu_time": 3.7523151430000325,
+          "exclusive_thread_cpu_time": 0.9313000980000652,
+          "instrumented_children": {
+            "apps.listings.public_validation.read_publication_values": 3.1757649276405573,
+            "django.db.models.query.ModelIterable.__iter__": 0.03234897926449776,
+            "apps.listings.forms.DetailsForm.__init__": 0.009059147909283638,
+            "django.forms.fields.Field.__init__": 0.0008265366777777672
+          },
+          "mean_exclusive_time": 1.1025224984623492
+        },
+        {
+          "rule": "apps.listings.forms.validate_details_values",
+          "calls": 10024,
+          "inclusive_time": 1.7292215693742037,
+          "exclusive_time": 1.0623176032677293,
+          "max_exclusive_time": 0.0017110779881477356,
+          "inclusive_thread_cpu_time": 1.7028151819940263,
+          "exclusive_thread_cpu_time": 1.044778702986946,
+          "instrumented_children": {
+            "apps.listings.forms.validate_listing_text": 0.6669039661064744
+          },
+          "mean_exclusive_time": 0.00010597741453189638
+        },
+        {
+          "rule": "django.forms.forms.BaseForm.full_clean",
+          "calls": 20052,
+          "inclusive_time": 16.814071944449097,
+          "exclusive_time": 1.0538262659683824,
+          "max_exclusive_time": 0.0006874846294522285,
+          "inclusive_thread_cpu_time": 16.499623621998182,
+          "exclusive_thread_cpu_time": 1.0142584180011909,
+          "instrumented_children": {
+            "apps.listings.public_validation.validate_publication_input_fields": 10.454442606307566,
+            "apps.listings.public_validation.validate_publication_value_fields": 2.863464945461601,
+            "django.forms.forms.BaseForm._clean_form": 2.344613544177264,
+            "django.forms.models.BaseModelForm._post_clean": 0.06426953477784991,
+            "django.forms.forms.BaseForm._clean_fields": 0.03345504775643349
+          },
+          "mean_exclusive_time": 5.2554671153420226e-05
+        },
+        {
+          "rule": "apps.listings.projected_publication.ProjectedPublication.authority",
+          "calls": 10000,
+          "inclusive_time": 0.9445676407776773,
+          "exclusive_time": 0.9445676407776773,
+          "max_exclusive_time": 0.0003580828197300434,
+          "inclusive_thread_cpu_time": 0.9383711880016108,
+          "exclusive_thread_cpu_time": 0.9383711880016108,
+          "instrumented_children": {},
+          "mean_exclusive_time": 9.445676407776774e-05
+        },
+        {
+          "rule": "apps.listings.forms.validate_listing_text",
+          "calls": 40075,
+          "inclusive_time": 0.9163902550935745,
+          "exclusive_time": 0.9163902550935745,
+          "max_exclusive_time": 0.0005376562476158142,
+          "inclusive_thread_cpu_time": 0.9048188300068318,
+          "exclusive_thread_cpu_time": 0.9048188300068318,
+          "instrumented_children": {},
+          "mean_exclusive_time": 2.2866880975510283e-05
+        },
+        {
+          "rule": "django.forms.fields.Field.run_validators",
+          "calls": 50155,
+          "inclusive_time": 0.7260120967403054,
+          "exclusive_time": 0.7260120967403054,
+          "max_exclusive_time": 0.0032609272748231888,
+          "inclusive_thread_cpu_time": 0.7131089149923469,
+          "exclusive_thread_cpu_time": 0.7131089149923469,
+          "instrumented_children": {},
+          "mean_exclusive_time": 1.4475368293097506e-05
+        },
+        {
+          "rule": "django.db.models.query.ModelIterable.__iter__",
+          "calls": 300,
+          "inclusive_time": 0.5232361829839647,
+          "exclusive_time": 0.4722997988574207,
+          "max_exclusive_time": 0.09492187015712261,
+          "inclusive_thread_cpu_time": 0.3935587920004764,
+          "exclusive_thread_cpu_time": 0.3433490050003343,
+          "instrumented_children": {
+            "django.db.models.base.Model.from_db": 0.050936384126544
+          },
+          "mean_exclusive_time": 0.001574332662858069
+        },
+        {
+          "rule": "apps.listings.projected_publication.definitions_digest",
+          "calls": 2,
+          "inclusive_time": 0.34449413791298866,
+          "exclusive_time": 0.34449413791298866,
+          "max_exclusive_time": 0.18264894094318151,
+          "inclusive_thread_cpu_time": 0.3306156299999543,
+          "exclusive_thread_cpu_time": 0.3306156299999543,
+          "instrumented_children": {},
+          "mean_exclusive_time": 0.17224706895649433
+        },
+        {
+          "rule": "apps.listings.projected_publication.ProjectedPublication.visible_ids",
+          "calls": 1,
+          "inclusive_time": 39.357841761782765,
+          "exclusive_time": 0.33705604495480657,
+          "max_exclusive_time": 0.33705604495480657,
+          "inclusive_thread_cpu_time": 38.66818070900001,
+          "exclusive_thread_cpu_time": 0.32722638399616244,
+          "instrumented_children": {
+            "apps.listings.projected_publication.ProjectedPublication.positive": 39.02078571682796
+          },
+          "mean_exclusive_time": 0.33705604495480657
+        },
+        {
+          "rule": "apps.listings.forms.DetailsForm.clean",
+          "calls": 10024,
+          "inclusive_time": 2.038021089974791,
+          "exclusive_time": 0.2680696817114949,
+          "max_exclusive_time": 0.0003679003566503525,
+          "inclusive_thread_cpu_time": 2.0076417850022494,
+          "exclusive_thread_cpu_time": 0.2643891030041914,
+          "instrumented_children": {
+            "apps.listings.forms.validate_details_values": 1.7292215693742037,
+            "django.forms.models.BaseModelForm.clean": 0.04072983888909221
+          },
+          "mean_exclusive_time": 2.6742785485983134e-05
+        },
+        {
+          "rule": "django.forms.forms.BaseForm._clean_form",
+          "calls": 20052,
+          "inclusive_time": 2.344613544177264,
+          "exclusive_time": 0.26478498755022883,
+          "max_exclusive_time": 0.0007536746561527252,
+          "inclusive_thread_cpu_time": 2.307393800001705,
+          "exclusive_thread_cpu_time": 0.2585160239960942,
+          "instrumented_children": {
+            "apps.listings.forms.DetailsForm.clean": 2.038021089974791,
+            "django.forms.models.BaseModelForm.clean": 0.03624950908124447,
+            "django.db.models.query.ModelIterable.__iter__": 0.005466774106025696,
+            "apps.listings.forms.RateForm.clean": 9.118346497416496e-05
+          },
+          "mean_exclusive_time": 1.320491659436609e-05
+        },
+        {
+          "rule": "apps.listings.forms.normalize_telegram",
+          "calls": 10024,
+          "inclusive_time": 0.21155273541808128,
+          "exclusive_time": 0.21155273541808128,
+          "max_exclusive_time": 0.0002555549144744873,
+          "inclusive_thread_cpu_time": 0.20877799699945854,
+          "exclusive_thread_cpu_time": 0.20877799699945854,
+          "instrumented_children": {},
+          "mean_exclusive_time": 2.1104622447933087e-05
+        },
+        {
+          "rule": "django.shortcuts.render",
+          "calls": 1,
+          "inclusive_time": 0.25111262686550617,
+          "exclusive_time": 0.21015548007562757,
+          "max_exclusive_time": 0.21015548007562757,
+          "inclusive_thread_cpu_time": 0.2339835240000525,
+          "exclusive_thread_cpu_time": 0.2056450219999988,
+          "instrumented_children": {
+            "django.db.models.query.ModelIterable.__iter__": 0.0353431417606771,
+            "django.db.models.query.prefetch_one_level": 0.005197684280574322,
+            "django.utils.functional.SimpleLazyObject._setup": 0.0004163207486271858
+          },
+          "mean_exclusive_time": 0.21015548007562757
+        },
+        {
+          "rule": "apps.listings.public_validation.read_publication_values",
+          "calls": 1,
+          "inclusive_time": 3.1757649276405573,
+          "exclusive_time": 0.12124095065519214,
+          "max_exclusive_time": 0.12124095065519214,
+          "inclusive_thread_cpu_time": 2.7882479649999823,
+          "exclusive_thread_cpu_time": 0.10865584600230704,
+          "instrumented_children": {
+            "django.db.models.query.ValuesIterable.__iter__": 3.054523976985365
+          },
+          "mean_exclusive_time": 0.12124095065519214
+        },
+        {
+          "rule": "apps.listings.public_validation.PublicationContext.__init__",
+          "calls": 1,
+          "inclusive_time": 0.37818283028900623,
+          "exclusive_time": 0.11613312503322959,
+          "max_exclusive_time": 0.11613312503322959,
+          "inclusive_thread_cpu_time": 0.31748261100000263,
+          "exclusive_thread_cpu_time": 0.11303397800003268,
+          "instrumented_children": {
+            "django.db.models.query.ModelIterable.__iter__": 0.1416935119777918,
+            "django.db.models.query.prefetch_one_level": 0.11982759973034263,
+            "django.forms.fields.Field.__init__": 0.000528593547642231
+          },
+          "mean_exclusive_time": 0.11613312503322959
+        },
+        {
+          "rule": "django.forms.models.BaseModelForm.clean",
+          "calls": 20051,
+          "inclusive_time": 0.07699112826958299,
+          "exclusive_time": 0.07699112826958299,
+          "max_exclusive_time": 0.00029099080711603165,
+          "inclusive_thread_cpu_time": 0.07618432300739642,
+          "exclusive_thread_cpu_time": 0.07618432300739642,
+          "instrumented_children": {},
+          "mean_exclusive_time": 3.8397650126967725e-06
+        },
+        {
+          "rule": "django.db.models.query.prefetch_one_level",
+          "calls": 10,
+          "inclusive_time": 0.13540874375030398,
+          "exclusive_time": 0.050840385258197784,
+          "max_exclusive_time": 0.011969546787440777,
+          "inclusive_thread_cpu_time": 0.1144773280000777,
+          "exclusive_thread_cpu_time": 0.046018801999650805,
+          "instrumented_children": {
+            "django.db.models.query.ModelIterable.__iter__": 0.07418489875271916,
+            "django.db.models.query.prefetch_one_level": 0.010383459739387035
+          },
+          "mean_exclusive_time": 0.005084038525819778
+        },
+        {
+          "rule": "django.db.models.base.Model.__init__",
+          "calls": 295,
+          "inclusive_time": 0.04573762137442827,
+          "exclusive_time": 0.04573762137442827,
+          "max_exclusive_time": 0.0015520383603870869,
+          "inclusive_thread_cpu_time": 0.04444540099996175,
+          "exclusive_thread_cpu_time": 0.04444540099996175,
+          "instrumented_children": {},
+          "mean_exclusive_time": 0.00015504278432009583
+        },
+        {
+          "rule": "django.db.models.base.Model.full_clean",
+          "calls": 51,
+          "inclusive_time": 0.0367476106621325,
+          "exclusive_time": 0.02928858483210206,
+          "max_exclusive_time": 0.010560404974967241,
+          "inclusive_thread_cpu_time": 0.034094495000033476,
+          "exclusive_thread_cpu_time": 0.026751174999958494,
+          "instrumented_children": {
+            "django.db.models.base.Model.clean_fields": 0.0072642844170331955,
+            "django.db.models.base.Model.clean": 0.0001947414129972458
+          },
+          "mean_exclusive_time": 0.0005742859771000404
+        },
+        {
+          "rule": "django.forms.models.BaseModelForm.__init__",
+          "calls": 7,
+          "inclusive_time": 0.032522136811167,
+          "exclusive_time": 0.028703439980745316,
+          "max_exclusive_time": 0.010315132793039083,
+          "inclusive_thread_cpu_time": 0.030753894000042692,
+          "exclusive_thread_cpu_time": 0.02794244200003959,
+          "instrumented_children": {
+            "django.utils.functional.SimpleLazyObject._setup": 0.0022666584700345993,
+            "django.db.models.base.Model.__init__": 0.0015520383603870869
+          },
+          "mean_exclusive_time": 0.004100491425820759
+        },
+        {
+          "rule": "django.forms.models.BaseModelForm._post_clean",
+          "calls": 51,
+          "inclusive_time": 0.06426953477784991,
+          "exclusive_time": 0.027145730797201395,
+          "max_exclusive_time": 0.0008035018108785152,
+          "inclusive_thread_cpu_time": 0.06089609600030599,
+          "exclusive_thread_cpu_time": 0.026431526000294525,
+          "instrumented_children": {
+            "django.db.models.base.Model.full_clean": 0.0367476106621325,
+            "django.utils.functional.SimpleLazyObject._setup": 0.000376193318516016
+          },
+          "mean_exclusive_time": 0.0005322692313176744
+        },
+        {
+          "rule": "django.forms.forms.BaseForm._clean_fields",
+          "calls": 52,
+          "inclusive_time": 0.03345504775643349,
+          "exclusive_time": 0.02651126030832529,
+          "max_exclusive_time": 0.0026307660154998302,
+          "inclusive_thread_cpu_time": 0.03259876999993594,
+          "exclusive_thread_cpu_time": 0.02578871899970636,
+          "instrumented_children": {
+            "django.forms.fields.Field.clean": 0.006345812231302261,
+            "apps.listings.forms.normalize_telegram": 0.0005009761080145836,
+            "apps.listings.forms.validate_listing_text": 8.459575474262238e-05,
+            "django.forms.fields.Field.run_validators": 1.2403354048728943e-05
+          },
+          "mean_exclusive_time": 0.0005098319290062556
+        },
+        {
+          "rule": "apps.listings.submissions.validate_submission",
+          "calls": 24,
+          "inclusive_time": 0.11477753054350615,
+          "exclusive_time": 0.012738600373268127,
+          "max_exclusive_time": 0.0009422278963029385,
+          "inclusive_thread_cpu_time": 0.1114046540000686,
+          "exclusive_thread_cpu_time": 0.012357427999859283,
+          "instrumented_children": {
+            "apps.listings.public_validation.PublicationContext.details_valid": 0.06398998154327273,
+            "apps.listings.public_validation.PublicationContext.contacts_valid": 0.02730325562879443,
+            "apps.listings.public_validation.PublicationContext.rate_valid": 0.010016944725066423,
+            "apps.core.verification_services.publication_ready": 0.0007287482731044292
+          },
+          "mean_exclusive_time": 0.0005307750155528387
+        },
+        {
+          "rule": "django.db.models.base.Model.from_db",
+          "calls": 291,
+          "inclusive_time": 0.050936384126544,
+          "exclusive_time": 0.009041045792400837,
+          "max_exclusive_time": 0.00015012407675385475,
+          "inclusive_thread_cpu_time": 0.050209787000142114,
+          "exclusive_thread_cpu_time": 0.008644011000114915,
+          "instrumented_children": {
+            "django.db.models.base.Model.__init__": 0.04189533833414316
+          },
+          "mean_exclusive_time": 3.106888588453896e-05
+        },
+        {
+          "rule": "django.db.models.base.Model.clean_fields",
+          "calls": 51,
+          "inclusive_time": 0.0072642844170331955,
+          "exclusive_time": 0.0072642844170331955,
+          "max_exclusive_time": 0.0003429800271987915,
+          "inclusive_thread_cpu_time": 0.007154929000137145,
+          "exclusive_thread_cpu_time": 0.007154929000137145,
+          "instrumented_children": {},
+          "mean_exclusive_time": 0.00014243694935359207
+        },
+        {
+          "rule": "apps.listings.projected_publication.projected_page",
+          "calls": 1,
+          "inclusive_time": 44.522515365853906,
+          "exclusive_time": 0.004705913830548525,
+          "max_exclusive_time": 0.004705913830548525,
+          "inclusive_thread_cpu_time": 43.186505003000036,
+          "exclusive_thread_cpu_time": 0.004591470000150366,
+          "instrumented_children": {
+            "apps.listings.projected_publication.ProjectedPublication.visible_ids": 39.357841761782765,
+            "apps.listings.projected_publication.ProjectedPublication.__init__": 4.320522089954466,
+            "apps.listings.public_validation.PublicationContext.__init__": 0.37818283028900623,
+            "apps.listings.projected_publication.definitions_digest": 0.34449413791298866,
+            "apps.listings.moderation.publicly_visible": 0.11676863208413124
+          },
+          "mean_exclusive_time": 0.004705913830548525
+        },
+        {
+          "rule": "apps.listings.public_validation.PublicationContext.details_valid",
+          "calls": 24,
+          "inclusive_time": 0.06398998154327273,
+          "exclusive_time": 0.002514794934540987,
+          "max_exclusive_time": 0.00034305034205317497,
+          "inclusive_thread_cpu_time": 0.06240252800006374,
+          "exclusive_thread_cpu_time": 0.0024156550001066535,
+          "instrumented_children": {
+            "apps.listings.public_validation.validate_publication_binding": 0.05573061807081103,
+            "apps.listings.public_validation.PublicationContext.details": 0.005640183109790087,
+            "apps.listings.public_validation.memoize_publication_field_clean": 0.00010438542813062668
+          },
+          "mean_exclusive_time": 0.00010478312227254112
+        },
+        {
+          "rule": "apps.listings.public_validation.PublicationContext.contacts_valid",
+          "calls": 24,
+          "inclusive_time": 0.02730325562879443,
+          "exclusive_time": 0.002132466994225979,
+          "max_exclusive_time": 0.00019208574667572975,
+          "inclusive_thread_cpu_time": 0.026499507000039557,
+          "exclusive_thread_cpu_time": 0.0020838419999904545,
+          "instrumented_children": {
+            "apps.listings.public_validation.validate_publication_binding": 0.02419920451939106,
+            "django.forms.models.BaseModelForm.__init__": 0.0009402916766703129,
+            "apps.listings.public_validation.memoize_publication_field_clean": 3.129243850708008e-05
+          },
+          "mean_exclusive_time": 8.885279142608245e-05
+        },
+        {
+          "rule": "apps.listings.moderation.publicly_visible",
+          "calls": 24,
+          "inclusive_time": 0.11676863208413124,
+          "exclusive_time": 0.0019911015406250954,
+          "max_exclusive_time": 0.00020895665511488914,
+          "inclusive_thread_cpu_time": 0.11331943999988425,
+          "exclusive_thread_cpu_time": 0.0019147859998156491,
+          "instrumented_children": {
+            "apps.listings.submissions.validate_submission": 0.11477753054350615
+          },
+          "mean_exclusive_time": 8.296256419271231e-05
+        },
+        {
+          "rule": "django.forms.fields.Field.__init__",
+          "calls": 16,
+          "inclusive_time": 0.0013551302254199982,
+          "exclusive_time": 0.0013551302254199982,
+          "max_exclusive_time": 0.00021164491772651672,
+          "inclusive_thread_cpu_time": 0.0012836729999321506,
+          "exclusive_thread_cpu_time": 0.0012836729999321506,
+          "instrumented_children": {},
+          "mean_exclusive_time": 8.469563908874989e-05
+        },
+        {
+          "rule": "django.utils.functional.SimpleLazyObject._setup",
+          "calls": 28,
+          "inclusive_time": 0.0031647905707359314,
+          "exclusive_time": 0.0008745458908379078,
+          "max_exclusive_time": 0.00017036497592926025,
+          "inclusive_thread_cpu_time": 0.002956340000025648,
+          "exclusive_thread_cpu_time": 0.0007929450000574434,
+          "instrumented_children": {
+            "django.db.models.base.Model.__init__": 0.0022902446798980236
+          },
+          "mean_exclusive_time": 3.123378181563956e-05
+        },
+        {
+          "rule": "apps.core.verification_services.publication_ready",
+          "calls": 24,
+          "inclusive_time": 0.0007287482731044292,
+          "exclusive_time": 0.0007287482731044292,
+          "max_exclusive_time": 4.034116864204407e-05,
+          "inclusive_thread_cpu_time": 0.0007172190000801493,
+          "exclusive_thread_cpu_time": 0.0007172190000801493,
+          "instrumented_children": {},
+          "mean_exclusive_time": 3.0364511379351217e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.memoize_publication_field_clean",
+          "calls": 44,
+          "inclusive_time": 0.000670896377414465,
+          "exclusive_time": 0.000670896377414465,
+          "max_exclusive_time": 0.00029549887403845787,
+          "inclusive_thread_cpu_time": 0.0006569349999381302,
+          "exclusive_thread_cpu_time": 0.0006569349999381302,
+          "instrumented_children": {},
+          "mean_exclusive_time": 1.5247644941237839e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.PublicationContext.rate_valid",
+          "calls": 24,
+          "inclusive_time": 0.010016944725066423,
+          "exclusive_time": 0.0004976587370038033,
+          "max_exclusive_time": 6.973883137106895e-05,
+          "inclusive_thread_cpu_time": 0.009427972000025875,
+          "exclusive_thread_cpu_time": 0.0004943350000417013,
+          "instrumented_children": {
+            "django.forms.forms.BaseForm.full_clean": 0.008403231855481863,
+            "django.forms.models.BaseModelForm.__init__": 0.0011160541325807571
+          },
+          "mean_exclusive_time": 2.0735780708491802e-05
+        },
+        {
+          "rule": "apps.listings.forms.DetailsForm.__init__",
+          "calls": 3,
+          "inclusive_time": 0.026756941806524992,
+          "exclusive_time": 0.00028482452034950256,
+          "max_exclusive_time": 0.00014070793986320496,
+          "inclusive_thread_cpu_time": 0.025152949999949215,
+          "exclusive_thread_cpu_time": 0.0002780129998996017,
+          "instrumented_children": {
+            "django.forms.models.BaseModelForm.__init__": 0.02647211728617549
+          },
+          "mean_exclusive_time": 9.494150678316753e-05
+        },
+        {
+          "rule": "django.db.models.base.Model.clean",
+          "calls": 51,
+          "inclusive_time": 0.0001947414129972458,
+          "exclusive_time": 0.0001947414129972458,
+          "max_exclusive_time": 6.7390501499176025e-06,
+          "inclusive_thread_cpu_time": 0.00018839099993783748,
+          "exclusive_thread_cpu_time": 0.00018839099993783748,
+          "instrumented_children": {},
+          "mean_exclusive_time": 3.818459078377368e-06
+        },
+        {
+          "rule": "apps.listings.forms.RateForm.clean",
+          "calls": 3,
+          "inclusive_time": 9.118346497416496e-05,
+          "exclusive_time": 7.940316572785378e-05,
+          "max_exclusive_time": 3.559328615665436e-05,
+          "inclusive_thread_cpu_time": 9.170599997787576e-05,
+          "exclusive_thread_cpu_time": 7.987100002537773e-05,
+          "instrumented_children": {
+            "django.forms.models.BaseModelForm.clean": 1.1780299246311188e-05
+          },
+          "mean_exclusive_time": 2.646772190928459e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.SnapshotDetails.__init__",
+          "calls": 2,
+          "inclusive_time": 0.017761876340955496,
+          "exclusive_time": 6.408244371414185e-05,
+          "max_exclusive_time": 3.847712650895119e-05,
+          "inclusive_thread_cpu_time": 0.01726515599995082,
+          "exclusive_thread_cpu_time": 6.310699995992763e-05,
+          "instrumented_children": {
+            "apps.listings.forms.DetailsForm.__init__": 0.017697793897241354
+          },
+          "mean_exclusive_time": 3.204122185707092e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.PublicationContext.details",
+          "calls": 1,
+          "inclusive_time": 0.005640183109790087,
+          "exclusive_time": 3.191782161593437e-05,
+          "max_exclusive_time": 3.191782161593437e-05,
+          "inclusive_thread_cpu_time": 0.005467941000006249,
+          "exclusive_thread_cpu_time": 3.13660000301752e-05,
+          "instrumented_children": {
+            "apps.listings.public_validation.SnapshotDetails.__init__": 0.005608265288174152
+          },
+          "mean_exclusive_time": 3.191782161593437e-05
+        }
+      ],
+      "top5_SQL": [
+        {
+          "query_pattern": "SELECT DISTINCT \"listings_listing\".\"id\" AS \"pk\", \"listings_listing\".\"status\" AS \"status\", \"listings_listing\".\"person_id\" AS \"person_id\", \"listings_listing\".\"expires_at\" AS \"expires_at\", \"listings_listing\".\"approved_revision_id\" AS \"approved_revision_id\", \"listings_listing\".\"approved_revision_id\" AS \"approved_revision__id\", \"listings_revision\".\"listing_id\" AS \"approved_revision__listing_id\", \"listings_revision\".\"source_revision_id\" AS \"approved_revision__source_revision_id\", \"listings_revision\".\"manager_version\" AS \"approved_revision__manager_version\", \"listings_revision\".\"status\" AS \"approved_revision__status\", \"listings_revision\".\"step\" AS \"approved_revision__step\", \"listings_revision\".\"edit_version\" AS \"approved_revision__edit_version\", \"listings_revision\".\"title\" AS \"approved_revision__title\", \"listings_revision\".\"description\" AS \"approved_revision__description\", \"listings_revision\".\"content_language\" AS \"approved_revision__content_language\", \"listings_revision\".\"description_alternative\" AS \"approved_revision__description_alternative\", \"listings_revision\".\"profile_type\" AS \"approved_revision__profile_type\", \"listings_revision\".\"municipality_id\" AS \"approved_revision__municipality_id\", \"listings_revision\".\"postal_code_id\" AS \"approved_revision__postal_code_id\", \"listings_revision\".\"zone_id\" AS \"approved_revision__zone_id\", \"listings_revision\".\"spoken_languages\" AS \"approved_revision__spoken_languages\", \"listings_revision\".\"days\" AS \"approved_revision__days\", \"listings_revision\".\"time_slot\" AS \"approved_revision__time_slot\", \"listings_revision\".\"reception\" AS \"approved_revision__reception\", \"listings_revision\".\"travel\" AS \"approved_revision__travel\", \"listings_revision\".\"phone\" AS \"approved_revision__phone\", \"listings_revision\".\"whatsapp\" AS \"approved_revision__whatsapp\", \"listings_revision\".\"telegram\" AS \"approved_revision__telegram\", \"listings_revision\".\"contact_exposure_accepted\" AS \"approved_revision__contact_exposure_accepted\", \"listings_revision\".\"publisher_acceptance_id\" AS \"approved_revision__publisher_acceptance_id\", \"listings_revision\".\"created_at\" AS \"approved_revision__created_at\", \"listings_revision\".\"updated_at\" AS \"approved_revision__updated_at\", \"core_person\".\"publication_erased_at\" AS \"person__publication_erased_at\", \"core_person\".\"rights_version\" AS \"person__rights_version\", \"listings_listing\".\"person_id\" AS \"person__id\", \"core_person\".\"alias\" AS \"person__alias\", \"core_person\".\"individual_id\" AS \"person__individual_id\", \"core_person\".\"agency_id\" AS \"person__agency_id\", \"core_person\".\"assigned_editor_id\" AS \"person__assigned_editor_id\", \"core_person\".\"subject_id\" AS \"person__subject_id\", \"core_person\".\"manager_version\" AS \"person__manager_version\", \"core_person\".\"manager_review_status\" AS \"person__manager_review_status\", \"core_person\".\"age_status\" AS \"person__age_status\", \"core_person\".\"consent_version\" AS \"person__consent_version\", \"core_person\".\"consent_revoked_at\" AS \"person__consent_revoked_at\", \"core_person\".\"phone_claim_id\" AS \"person__phone_claim_id\", \"core_person\".\"created_at\" AS \"person__created_at\", \"core_phoneclaim\".\"phone\" AS \"person__phone_claim__phone\", \"core_phoneclaim\".\"verified_at\" AS \"person__phone_claim__verified_at\", \"core_phoneclaim\".\"individual_id\" AS \"person__phone_claim__individual_id\", \"core_phoneclaim\".\"agency_id\" AS \"person__phone_claim__agency_id\", \"core_agency\".\"verification_status\" AS \"person__agency__verification_status\", EXISTS(SELECT %s AS \"a\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE (EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?) AND V0.\"id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_history\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_photo\" U0 INNER JOIN \"safety_rightsrectificationphotoupload\" U1 ON (U0.\"id\" = U1.\"photo_id\") WHERE (U1.\"id\" IS NOT NULL AND U0.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_rectification_upload\", EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsphotoreintroduction\" U0 INNER JOIN \"mediafiles_photo\" U1 ON (U0.\"photo_id\" = U1.\"id\") WHERE U1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") LIMIT ?) AS \"_pv_reintroduction\", EXISTS(SELECT %s AS \"a\" FROM \"safety_privacypublicationhold\" U0 WHERE (U0.\"active\" AND U0.\"person_id\" = (\"listings_listing\".\"person_id\")) LIMIT ?) AS \"_pv_hold\", EXISTS(SELECT %s AS \"a\" FROM \"safety_restriction\" U0 WHERE (U0.\"active\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\")) LIMIT ?) AS \"_pv_restriction\", EXISTS(SELECT %s AS \"a\" FROM \"core_representationaction\" U0 INNER JOIN \"core_legaldocument\" U1 ON (U0.\"document_id\" = U1.\"id\") INNER JOIN \"core_person\" U2 ON (U0.\"person_id\" = U2.\"id\") WHERE (U0.\"action\" = %s AND U1.\"slug\" = %s AND U1.\"version\" = %s AND U0.\"manager_id\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN (\"core_person\".\"agency_id\")::varchar ELSE (\"core_person\".\"individual_id\")::varchar END) AND U0.\"manager_kind\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN %s ELSE %s END) AND U0.\"manager_version\" = (\"core_person\".\"manager_version\") AND U0.\"person_id\" = (\"listings_listing\".\"person_id\") AND U0.\"subject_id\" = (\"core_person\".\"subject_id\")) LIMIT ?) AS \"_pv_grant\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_match\" W0 INNER JOIN \"mediafiles_photo\" W1 ON (W0.\"photo_id\" = W1.\"id\") INNER JOIN \"listings_revision\" W2 ON (W1.\"revision_id\" = W2.\"id\") INNER JOIN \"mediafiles_photo\" W3 ON (W0.\"candidate_id\" = W3.\"id\") INNER JOIN \"listings_revision\" W4 ON (W3.\"revision_id\" = W4.\"id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W5 ON (W1.\"id\" = W5.\"photo_id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W6 ON (W3.\"id\" = W6.\"photo_id\") WHERE ((W1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") OR W3.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) AND (W0.\"resolved_at\" IS NULL OR W0.\"decision\" = %s) AND W3.\"removed_at\" IS NULL AND W0.\"decision\" = %s AND W1.\"removed_at\" IS NULL AND NOT (W1.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W3.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W2.\"status\" = %s) AND NOT (W4.\"status\" = %s) AND NOT (W5.\"id\" IS NOT NULL) AND NOT (W6.\"id\" IS NOT NULL)) LIMIT ?) AS \"_pv_conflict\", (SELECT U0.\"status\" AS \"status\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_status\", (SELECT U0.\"manager_version\" AS \"manager_version\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_manager\", (SELECT U0.\"subject_id\" AS \"subject_id\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_subject\", \"listings_listing\".\"published_at\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") INNER JOIN \"core_person\" ON (\"listings_listing\".\"person_id\" = \"core_person\".\"id\") LEFT OUTER JOIN \"core_agency\" ON (\"core_person\".\"agency_id\" = \"core_agency\".\"id\") LEFT OUTER JOIN \"core_phoneclaim\" ON (\"core_person\".\"phone_claim_id\" = \"core_phoneclaim\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s) ORDER BY \"listings_listing\".\"published_at\" DESC, ? ASC",
+          "calls": 1,
+          "total_time": 0.3696882058866322,
+          "mean_time": 0.3696882058866322,
+          "fraction_of_SQL_execute": 0.5435409476391019
+        },
+        {
+          "query_pattern": "SELECT \"listings_revision_services\".\"revision_id\" AS \"revision_id\", \"listings_revision_services\".\"service_id\" AS \"service_id\" FROM \"listings_revision_services\" WHERE (\"listings_revision_services\".\"revision_id\" = ANY(%s::uuid[]))",
+          "calls": 1,
+          "total_time": 0.042803599033504725,
+          "mean_time": 0.042803599033504725,
+          "fraction_of_SQL_execute": 0.06293278608993508
+        },
+        {
+          "query_pattern": "SELECT \"mediafiles_photo\".\"revision_id\" AS \"revision_id\", \"mediafiles_blob\".\"status\" AS \"blob__status\", \"mediafiles_photo\".\"comparison_complete\" AS \"comparison_complete\" FROM \"mediafiles_photo\" INNER JOIN \"mediafiles_blob\" ON (\"mediafiles_photo\".\"blob_id\" = \"mediafiles_blob\".\"id\") WHERE (\"mediafiles_photo\".\"removed_at\" IS NULL AND (\"mediafiles_photo\".\"revision_id\" = ANY(%s::uuid[]))) ORDER BY \"mediafiles_photo\".\"position\" ASC, \"mediafiles_photo\".\"created_at\" ASC",
+          "calls": 1,
+          "total_time": 0.041196638252586126,
+          "mean_time": 0.041196638252586126,
+          "fraction_of_SQL_execute": 0.06057012216998515
+        },
+        {
+          "query_pattern": "SELECT \"mediafiles_photo\".\"id\", \"mediafiles_photo\".\"revision_id\", \"mediafiles_photo\".\"blob_id\", \"mediafiles_photo\".\"position\", \"mediafiles_photo\".\"approved\", \"mediafiles_photo\".\"comparison_complete\", \"mediafiles_photo\".\"removed_at\", \"mediafiles_photo\".\"created_at\" FROM \"mediafiles_photo\" INNER JOIN \"mediafiles_blob\" ON (\"mediafiles_photo\".\"blob_id\" = \"mediafiles_blob\".\"id\") WHERE (\"mediafiles_photo\".\"revision_id\" = %s AND \"mediafiles_photo\".\"approved\" AND \"mediafiles_blob\".\"status\" = %s AND \"mediafiles_photo\".\"removed_at\" IS NULL) ORDER BY \"mediafiles_photo\".\"position\" ASC, \"mediafiles_photo\".\"created_at\" ASC LIMIT ?",
+          "calls": 24,
+          "total_time": 0.03639362007379532,
+          "mean_time": 0.0015164008364081383,
+          "fraction_of_SQL_execute": 0.05350839552883728
+        },
+        {
+          "query_pattern": "SELECT DISTINCT \"listings_listing\".\"lifecycle_version\", \"listings_listing\".\"id\", \"listings_listing\".\"person_id\", \"listings_listing\".\"status\", \"listings_listing\".\"approved_revision_id\", \"listings_listing\".\"published_at\", \"listings_listing\".\"expires_at\", \"listings_listing\".\"available_until\", \"listings_listing\".\"created_at\", EXISTS(SELECT %s AS \"a\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE (EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?) AND V0.\"id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_history\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_photo\" U0 INNER JOIN \"safety_rightsrectificationphotoupload\" U1 ON (U0.\"id\" = U1.\"photo_id\") WHERE (U1.\"id\" IS NOT NULL AND U0.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) LIMIT ?) AS \"_pv_rectification_upload\", EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsphotoreintroduction\" U0 INNER JOIN \"mediafiles_photo\" U1 ON (U0.\"photo_id\" = U1.\"id\") WHERE U1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") LIMIT ?) AS \"_pv_reintroduction\", EXISTS(SELECT %s AS \"a\" FROM \"safety_privacypublicationhold\" U0 WHERE (U0.\"active\" AND U0.\"person_id\" = (\"listings_listing\".\"person_id\")) LIMIT ?) AS \"_pv_hold\", EXISTS(SELECT %s AS \"a\" FROM \"safety_restriction\" U0 WHERE (U0.\"active\" AND U0.\"listing_id\" = (\"listings_listing\".\"id\")) LIMIT ?) AS \"_pv_restriction\", EXISTS(SELECT %s AS \"a\" FROM \"core_representationaction\" U0 INNER JOIN \"core_legaldocument\" U1 ON (U0.\"document_id\" = U1.\"id\") INNER JOIN \"core_person\" U2 ON (U0.\"person_id\" = U2.\"id\") WHERE (U0.\"action\" = %s AND U1.\"slug\" = %s AND U1.\"version\" = %s AND U0.\"manager_id\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN (\"core_person\".\"agency_id\")::varchar ELSE (\"core_person\".\"individual_id\")::varchar END) AND U0.\"manager_kind\" = (CASE WHEN (U2.\"agency_id\" IS NOT NULL) THEN %s ELSE %s END) AND U0.\"manager_version\" = (\"core_person\".\"manager_version\") AND U0.\"person_id\" = (\"listings_listing\".\"person_id\") AND U0.\"subject_id\" = (\"core_person\".\"subject_id\")) LIMIT ?) AS \"_pv_grant\", EXISTS(SELECT %s AS \"a\" FROM \"mediafiles_match\" W0 INNER JOIN \"mediafiles_photo\" W1 ON (W0.\"photo_id\" = W1.\"id\") INNER JOIN \"listings_revision\" W2 ON (W1.\"revision_id\" = W2.\"id\") INNER JOIN \"mediafiles_photo\" W3 ON (W0.\"candidate_id\" = W3.\"id\") INNER JOIN \"listings_revision\" W4 ON (W3.\"revision_id\" = W4.\"id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W5 ON (W1.\"id\" = W5.\"photo_id\") LEFT OUTER JOIN \"safety_rightsrectificationphotoupload\" W6 ON (W3.\"id\" = W6.\"photo_id\") WHERE ((W1.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\") OR W3.\"revision_id\" = (\"listings_listing\".\"approved_revision_id\")) AND (W0.\"resolved_at\" IS NULL OR W0.\"decision\" = %s) AND W3.\"removed_at\" IS NULL AND W0.\"decision\" = %s AND W1.\"removed_at\" IS NULL AND NOT (W1.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W3.\"revision_id\" IN (SELECT V0.\"id\" AS \"pk\" FROM \"listings_revision\" V0 INNER JOIN \"listings_listing\" V1 ON (V0.\"listing_id\" = V1.\"id\") WHERE EXISTS(SELECT %s AS \"a\" FROM \"safety_rightsrectificationexecution\" U0 INNER JOIN \"safety_rightsrectificationnotification\" U1 ON (U0.\"notification_id\" = U1.\"id\") INNER JOIN \"safety_rightsrectificationreview\" U2 ON (U1.\"review_id\" = U2.\"id\") INNER JOIN \"safety_rightsrectificationproposal\" U3 ON (U2.\"proposal_id\" = U3.\"id\") WHERE (U3.\"person_id\" = (V1.\"person_id\") AND NOT (U0.\"corrected_revision_id\" = (V0.\"id\") AND U0.\"corrected_revision_id\" IS NOT NULL) AND (U3.\"source_revision_id\" = (V0.\"id\") OR U0.\"created_at\" > (V0.\"created_at\"))) LIMIT ?))) AND NOT (W2.\"status\" = %s) AND NOT (W4.\"status\" = %s) AND NOT (W5.\"id\" IS NOT NULL) AND NOT (W6.\"id\" IS NOT NULL)) LIMIT ?) AS \"_pv_conflict\", (SELECT U0.\"status\" AS \"status\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_status\", (SELECT U0.\"manager_version\" AS \"manager_version\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_manager\", (SELECT U0.\"subject_id\" AS \"subject_id\" FROM \"core_verificationcheck\" U0 WHERE U0.\"person_id\" = (\"listings_listing\".\"person_id\") ORDER BY U0.\"created_at\" DESC LIMIT ?) AS \"_pv_check_subject\", \"core_person\".\"publication_erased_at\", \"core_person\".\"rights_version\", \"core_person\".\"id\", \"core_person\".\"alias\", \"core_person\".\"individual_id\", \"core_person\".\"agency_id\", \"core_person\".\"assigned_editor_id\", \"core_person\".\"subject_id\", \"core_person\".\"manager_version\", \"core_person\".\"manager_review_status\", \"core_person\".\"age_status\", \"core_person\".\"consent_version\", \"core_person\".\"consent_revoked_at\", \"core_person\".\"phone_claim_id\", \"core_person\".\"created_at\", \"core_phoneclaim\".\"id\", \"core_phoneclaim\".\"verification_procedure\", \"core_phoneclaim\".\"phone\", \"core_phoneclaim\".\"individual_id\", \"core_phoneclaim\".\"agency_id\", \"core_phoneclaim\".\"verified_at\", \"listings_revision\".\"id\", \"listings_revision\".\"listing_id\", \"listings_revision\".\"source_revision_id\", \"listings_revision\".\"manager_version\", \"listings_revision\".\"status\", \"listings_revision\".\"step\", \"listings_revision\".\"edit_version\", \"listings_revision\".\"title\", \"listings_revision\".\"description\", \"listings_revision\".\"content_language\", \"listings_revision\".\"description_alternative\", \"listings_revision\".\"profile_type\", \"listings_revision\".\"municipality_id\", \"listings_revision\".\"postal_code_id\", \"listings_revision\".\"zone_id\", \"listings_revision\".\"spoken_languages\", \"listings_revision\".\"days\", \"listings_revision\".\"time_slot\", \"listings_revision\".\"reception\", \"listings_revision\".\"travel\", \"listings_revision\".\"phone\", \"listings_revision\".\"whatsapp\", \"listings_revision\".\"telegram\", \"listings_revision\".\"contact_exposure_accepted\", \"listings_revision\".\"publisher_acceptance_id\", \"listings_revision\".\"created_at\", \"listings_revision\".\"updated_at\" FROM \"listings_listing\" INNER JOIN \"listings_revision\" ON (\"listings_listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") INNER JOIN \"core_person\" ON (\"listings_listing\".\"person_id\" = \"core_person\".\"id\") LEFT OUTER JOIN \"core_phoneclaim\" ON (\"core_person\".\"phone_claim_id\" = \"core_phoneclaim\".\"id\") WHERE (\"listings_revision\".\"status\" = %s AND \"listings_listing\".\"expires_at\" > %s AND \"listings_listing\".\"status\" = %s AND \"listings_listing\".\"id\" IN (%s[*])) ORDER BY \"listings_listing\".\"published_at\" DESC, \"listings_listing\".\"id\" ASC",
+          "calls": 1,
+          "total_time": 0.034745188895612955,
+          "mean_time": 0.034745188895612955,
+          "fraction_of_SQL_execute": 0.05108475898744909
+        }
+      ],
+      "top5_SQL_fraction": 0.7716370104153084,
+      "freeze_calls_per_candidate": 82.0,
+      "objects": {
+        "core.LegalDocument": 5,
+        "core.LegalAcceptance": 3,
+        "catalog.Category": 29,
+        "catalog.Service": 33,
+        "catalog.Municipality": 7,
+        "catalog.Province": 9,
+        "catalog.Region": 7,
+        "listings.Revision": 26,
+        "listings.Rate": 26,
+        "listings.Listing": 24,
+        "core.Person": 24,
+        "core.PhoneClaim": 24,
+        "core.Agency": 1,
+        "mediafiles.Photo": 48,
+        "mediafiles.Blob": 1,
+        "core.VerificationCheck": 24,
+        "catalog.Zone": 2,
+        "catalog.PostalCode": 2
+      },
+      "model_constructions": 295
+    }
+  ],
+  "unchanged_verdicts": {
+    "short_20RPS_60s": "FAIL",
+    "historical_contractual_900s": "INVALID",
+    "current_source_capacity": "not_measured",
+    "delivery_closed": false
+  },
+  "occupancy_reference": {
+    "workers": 4,
+    "dynamic_RPS": 20,
+    "necessary_mean_service_seconds_before_margin": 0.2,
+    "scope": "Theoretical mixed workload budget; not a new SLO or measured capacity."
+  },
+  "not_measured": [
+    "causal gain across code versions",
+    "causal profiler overhead",
+    "unprofiled per-rule time",
+    "driver decoding separately",
+    "SQL rows_returned",
+    "SQL rows_affected",
+    "SQL rows_scanned",
+    "DB CPU/RSS/waits/locks/IO",
+    "current 100/1000/10000 common matrix",
+    "current search/detail mixed mean service",
+    "current concurrent capacity",
+    "PRODUCTION/checked/promotions current cost and full acceptance"
+  ],
+  "limits": [
+    "One control per mode per run, fixed order, warmed shared caches. Historical rows are observations, not an A/B series.",
+    "Functional suites on different sources overlap; never sum them as a common N2 battery.",
+    "Rules have direct-child exclusive scope; recursion, lazy SQL and rendering overlap. SQL is execute, not PostgreSQL CPU.",
+    "820000 profiled freeze calls identify repeated work, not its unprofiled cost or achievable saving.",
+    "Latest DjangoClient request excludes network/Gunicorn; no extrapolated concurrent p95 or PASS.",
+    "Old 1000-native 350.422714s observation and ambiguous wrapper metrics retain their original evidence and limitations."
+  ]
+}

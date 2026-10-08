@@ -1,0 +1,15 @@
+{
+  "scope": "External GIL sampling of current backend with matched plainTCP controls after bounded SQL alternatives showed no sufficient benefit",
+  "selection": [
+    "tests/test_reading_sampling_tcp.py"
+  ],
+  "output": "/tmp/reading-sampling-tcp-0110",
+  "observed": "Current stages suggest Python CPU in SQL construction/read path and pagecontext beyond fingerprint35ms. Historical cProfile shows924code_signature and2846serializer_factory calls perrequest, instrumentedtimes notsavings. Avoid choosing fingerprint solely by callcount or newnativecode.",
+  "hypothesis": "External stack sampling without replacing nativecallables can locate remaining Python work below SQLpreparation/context/render. Does not infer Pythonvalidation fromtotal-SQL or CPU PG fromcursor.",
+  "scenario": "Samecurrentbackend/10000original-diverse/Gunicorn4sync/TCPmax1outstanding.12AB/BA blocks each4ESENlist/search; A nosampler B py-spy0.4.2 at100Hz GIL-only allownedworkers, max30scollector, controlledSIGINT afterblock. Bothmodes routeheaders andthreadCPUboundary. Exactbody/count/routing, statsstable,allworkerswarmed. No newSQL/runtimebackendchange orload.",
+  "numerical_compatibility_gate": "Bothfixtures abs(median pairedmeanfamily B-A)<=max(.025s,.05baseline); eachfamily absmedian difference<=max(.040s,.10baseline); >=300 request stacks perfixture. Prefixed compatibilityonly, no causaloverhead claim. If insufficient, report limit and do notconvert stackshares to operationaldurations.",
+  "semantics": "Stack samples exclude locals/params, targetonlyownsyntheticserver. Inclusive counts unique locations perstack, exclusive leaf; not rulecalls orCPUtimes. Existingrulemetrics/SQLplans reused ratherthanrerunmatrix now. Anybackend candidate still requires ownprefixed effect/nativeequivalence/fullTCP.",
+  "tool_reference": "https://github.com/benfred/py-spy",
+  "pyspy_bin_sha256": "9b4d1f39b2a47ae44f4c6a46f615dcc0287d7755beba5065f32391951e07d594",
+  "contract": "Manualsinglequeue/goalpaused, fullshortFAIL,historicalFAIL/INVALID preserved;900blocked;unchangedresources/thresholds."
+}

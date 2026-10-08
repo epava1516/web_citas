@@ -1,0 +1,2682 @@
+{
+  "status": "TERMINAL_REVIEWED",
+  "validity": "VALID",
+  "historical_comparability": "COMPARABLE",
+  "filter_compliance": "FAIL",
+  "interpretation": "Comparación descriptiva defendible; no acredita causalidad exclusiva de la limpieza. Un único bloque posterior.",
+  "idle": {
+    "scope": "HostwithoutownedHTTPload/fixtureprep; ownedemptyDBone metadata connection, normalservicesremain. CPU includes collector, not oldloadbaseline; rootcallerprocess labeledcollector notapplication.",
+    "interval_seconds": 29.957554831169546,
+    "host_execution_CPU_seconds": 80.51,
+    "host_mean_CPU_cores": 2.68746900251795,
+    "mem_available_min_bytes": 10211614720,
+    "swap_free_min_bytes": 867397632,
+    "vmstat_deltas": {
+      "pswpin": 3,
+      "pswpout": 0,
+      "allocstall_dma": 0,
+      "allocstall_dma32": 0,
+      "allocstall_normal": 0,
+      "allocstall_movable": 5,
+      "allocstall_device": 0,
+      "pgmajfault": 4,
+      "pgsteal_kswapd": 0,
+      "pgsteal_direct": 0,
+      "pgsteal_khugepaged": 320,
+      "pgscan_kswapd": 0,
+      "pgscan_direct": 0,
+      "pgscan_khugepaged": 320,
+      "pgscan_direct_throttle": 0,
+      "pgscan_anon": 0,
+      "pgscan_file": 320,
+      "pgsteal_anon": 0,
+      "pgsteal_file": 320
+    },
+    "host_iowait_seconds": 1.15,
+    "host_steal_seconds": 0.05,
+    "host_diskstats_first": "8      16 sdb 14578570 155633 2219529986 1113806269 23184650 655754 424035788 1292326904 0 309356304 3268234097 45022 0 292193864 324272 9673719 861776650\n   8      17 sdb1 14578355 155633 2219523117 1113804733 23184650 655754 424035788 1292326904 0 513393595 2406455910 45022 0 292193864 324272 0 0\n   8       0 sda 115112369 38142 1947634097 36161471 41678048 6011199 957450968 33626577 0 34295767 71253762 250868 0 617413752 175338 10711346 1290375\n   8       1 sda1 79 0 597 17 0 0 0 0 0 13 17 0 0 0 0 0 0\n   8       2 sda2 575 1194 18470 128 2 0 9 0 0 147 167 30 0 1967480 38 0 0\n   8       3 sda3 649 1 121063 175 279 5 174043 274 0 298 486 40 0 5989416 36 0 0\n   8       4 sda4 115110593 36947 1947477002 36161059 41677753 6011194 957276916 33626299 0 35909252 69962622 250798 0 609456856 175263 0 0\n 252       0 zram0 857346 0 6860696 14743 1901636 0 15785408 63866 0 663423 78609 0 0 0 0 0 0\n 253       0 dm-0 14578231 0 2219515608 1114768360 23815530 0 424035788 1333019026 0 514226034 2448125822 45022 0 292193864 338436 0 0",
+    "host_diskstats_last": "8      16 sdb 14578570 155633 2219529986 1113806269 23184724 655755 424036520 1292328830 0 309357263 3268237924 45022 0 292193864 324272 9673751 861778551\n   8      17 sdb1 14578355 155633 2219523117 1113804733 23184724 655755 424036520 1292328830 0 513395122 2406457836 45022 0 292193864 324272 0 0\n   8       0 sda 115112411 38142 1947635289 36161484 41678403 6011482 957470536 33627352 0 34295831 71254567 250868 0 617413752 175338 10711395 1290392\n   8       1 sda1 79 0 597 17 0 0 0 0 0 13 17 0 0 0 0 0 0\n   8       2 sda2 575 1194 18470 128 2 0 9 0 0 147 167 30 0 1967480 38 0 0\n   8       3 sda3 649 1 121063 175 279 5 174043 274 0 298 486 40 0 5989416 36 0 0\n   8       4 sda4 115110635 36947 1947478194 36161072 41678108 6011477 957296484 33627075 0 35909337 69963410 250798 0 609456856 175263 0 0\n 252       0 zram0 857348 0 6860712 14743 1901636 0 15785408 63866 0 663423 78609 0 0 0 0 0 0\n 253       0 dm-0 14578231 0 2219515608 1114768360 23815605 0 424036520 1333020959 0 514227561 2448127755 45022 0 292193864 338436 0 0",
+    "host_PSI": {
+      "cpu": "not_measured",
+      "memory": "not_measured",
+      "io": "not_measured"
+    },
+    "limits": {
+      "collector": {
+        "user.slice/user-1002.slice/session-22296.scope": {
+          "cpu.max": "not_measured",
+          "cpu.weight": "not_measured",
+          "cpuset.cpus.effective": "not_measured",
+          "memory.max": "max",
+          "memory.high": "max",
+          "cpu.pressure": "not_measured",
+          "memory.pressure": "not_measured",
+          "io.pressure": "not_measured",
+          "cpu.stat_delta": {
+            "usage_usec": 7170503,
+            "user_usec": 5446773,
+            "system_usec": 1723730,
+            "core_sched.force_idle_usec": 0
+          },
+          "memory.events_delta": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "io.stat_first": "not_measured",
+          "io.stat_last": "not_measured"
+        },
+        "user.slice/user-1002.slice": {
+          "cpu.max": "not_measured",
+          "cpu.weight": "not_measured",
+          "cpuset.cpus.effective": "not_measured",
+          "memory.max": "max",
+          "memory.high": "max",
+          "cpu.pressure": "not_measured",
+          "memory.pressure": "not_measured",
+          "io.pressure": "not_measured",
+          "cpu.stat_delta": {
+            "usage_usec": 11629279,
+            "user_usec": 7603418,
+            "system_usec": 4025860,
+            "core_sched.force_idle_usec": 0
+          },
+          "memory.events_delta": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "io.stat_first": "not_measured",
+          "io.stat_last": "not_measured"
+        },
+        "user.slice": {
+          "cpu.max": "max 100000",
+          "cpu.weight": "100",
+          "cpuset.cpus.effective": "0-7",
+          "memory.max": "max",
+          "memory.high": "max",
+          "cpu.pressure": "not_measured",
+          "memory.pressure": "not_measured",
+          "io.pressure": "not_measured",
+          "cpu.stat_delta": {
+            "usage_usec": 11635617,
+            "user_usec": 7606273,
+            "system_usec": 4029345,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 0,
+            "nr_throttled": 0,
+            "throttled_usec": 0,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "memory.events_delta": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "io.stat_first": "8:16 rbytes=805036544 wbytes=20480 rios=27941 wios=3 dbytes=0 dios=0\n253:0 rbytes=805036544 wbytes=138919936 rios=27941 wios=159 dbytes=0 dios=0\n252:0 rbytes=92852224 wbytes=371011584 rios=22669 wios=85469 dbytes=0 dios=0\n8:0 rbytes=409061181440 wbytes=59497742848 rios=81740338 wios=2056927 dbytes=0 dios=0",
+          "io.stat_last": "8:16 rbytes=805036544 wbytes=20480 rios=27941 wios=3 dbytes=0 dios=0\n253:0 rbytes=805036544 wbytes=138919936 rios=27941 wios=159 dbytes=0 dios=0\n252:0 rbytes=92856320 wbytes=371011584 rios=22670 wios=85469 dbytes=0 dios=0\n8:0 rbytes=409061779456 wbytes=59502727680 rios=81740377 wios=2056975 dbytes=0 dios=0"
+        },
+        ".": {
+          "cpu.max": "not_measured",
+          "cpu.weight": "not_measured",
+          "cpuset.cpus.effective": "0-7",
+          "memory.max": "not_measured",
+          "memory.high": "not_measured",
+          "cpu.pressure": "not_measured",
+          "memory.pressure": "not_measured",
+          "io.pressure": "not_measured",
+          "cpu.stat_delta": {
+            "usage_usec": 80512422,
+            "user_usec": 50204482,
+            "system_usec": 30307940,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 0,
+            "nr_throttled": 0,
+            "throttled_usec": 0,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "memory.events_delta": "not_measured",
+          "io.stat_first": "253:0 rbytes=1136391991296 wbytes=217106323456 rios=14578231 wios=23815530 dbytes=149603258368 dios=45022\n252:0 rbytes=3512676352 wbytes=8082128896 rios=857346 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399352832 wbytes=217106323456 rios=14578570 wios=23184650 dbytes=149603258368 dios=45022\n8:0 rbytes=997188657664 wbytes=490214895616 rios=115112369 wios=41678048 dbytes=316115841024 dios=250868",
+          "io.stat_last": "253:0 rbytes=1136391991296 wbytes=217106698240 rios=14578231 wios=23815605 dbytes=149603258368 dios=45022\n252:0 rbytes=3512684544 wbytes=8082128896 rios=857348 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399352832 wbytes=217106698240 rios=14578570 wios=23184724 dbytes=149603258368 dios=45022\n8:0 rbytes=997189267968 wbytes=490224914432 rios=115112411 wios=41678403 dbytes=316115841024 dios=250868"
+        }
+      },
+      "sharedPG": {
+        "system.slice/docker-865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f.scope": {
+          "cpu.max": "max 100000",
+          "cpu.weight": "100",
+          "cpuset.cpus.effective": "0-7",
+          "memory.max": "max",
+          "memory.high": "max",
+          "cpu.pressure": "not_measured",
+          "memory.pressure": "not_measured",
+          "io.pressure": "not_measured",
+          "cpu.stat_delta": {
+            "usage_usec": 1279178,
+            "user_usec": 738599,
+            "system_usec": 540579,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 0,
+            "nr_throttled": 0,
+            "throttled_usec": 0,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "memory.events_delta": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "io.stat_first": "252:0 rbytes=26013696 wbytes=39559168 rios=6351 wios=9658 dbytes=0 dios=0\n8:0 rbytes=1913653248 wbytes=103584408064 rios=80448 wios=13674745 dbytes=0 dios=0",
+          "io.stat_last": "252:0 rbytes=26013696 wbytes=39559168 rios=6351 wios=9658 dbytes=0 dios=0\n8:0 rbytes=1913653248 wbytes=103586628096 rios=80448 wios=13674996 dbytes=0 dios=0"
+        },
+        "system.slice": {
+          "cpu.max": "max 100000",
+          "cpu.weight": "100",
+          "cpuset.cpus.effective": "0-7",
+          "memory.max": "max",
+          "memory.high": "max",
+          "cpu.pressure": "not_measured",
+          "memory.pressure": "not_measured",
+          "io.pressure": "not_measured",
+          "cpu.stat_delta": {
+            "usage_usec": 66532468,
+            "user_usec": 43137657,
+            "system_usec": 23394811,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 0,
+            "nr_throttled": 0,
+            "throttled_usec": 0,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "memory.events_delta": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "io.stat_first": "253:0 rbytes=1135556264960 wbytes=185241464832 rios=14543969 wios=20408832 dbytes=149603258368 dios=45022\n252:0 rbytes=3385417728 wbytes=7696535552 rios=826277 wios=1812607 dbytes=2147479552 dios=1\n8:16 rbytes=1135562262528 wbytes=150261715456 rios=14699968 wios=18226089 dbytes=149603258368 dios=45022\n8:0 rbytes=587341705216 wbytes=273792673792 rios=33292679 wios=34609787 dbytes=316115841024 dios=250868",
+          "io.stat_last": "253:0 rbytes=1135556264960 wbytes=185241722880 rios=14543969 wios=20408893 dbytes=149603258368 dios=45022\n252:0 rbytes=3385421824 wbytes=7696535552 rios=826278 wios=1812607 dbytes=2147479552 dios=1\n8:16 rbytes=1135562262528 wbytes=150261961216 rios=14699968 wios=18226147 dbytes=149603258368 dios=45022\n8:0 rbytes=587341717504 wbytes=273795725312 rios=33292682 wios=34610175 dbytes=316115841024 dios=250868"
+        },
+        ".": {
+          "cpu.max": "not_measured",
+          "cpu.weight": "not_measured",
+          "cpuset.cpus.effective": "0-7",
+          "memory.max": "not_measured",
+          "memory.high": "not_measured",
+          "cpu.pressure": "not_measured",
+          "memory.pressure": "not_measured",
+          "io.pressure": "not_measured",
+          "cpu.stat_delta": {
+            "usage_usec": 80513461,
+            "user_usec": 50203492,
+            "system_usec": 30309969,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 0,
+            "nr_throttled": 0,
+            "throttled_usec": 0,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "memory.events_delta": "not_measured",
+          "io.stat_first": "253:0 rbytes=1136391991296 wbytes=217106323456 rios=14578231 wios=23815530 dbytes=149603258368 dios=45022\n252:0 rbytes=3512676352 wbytes=8082128896 rios=857346 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399352832 wbytes=217106323456 rios=14578570 wios=23184650 dbytes=149603258368 dios=45022\n8:0 rbytes=997188657664 wbytes=490214895616 rios=115112369 wios=41678048 dbytes=316115841024 dios=250868",
+          "io.stat_last": "253:0 rbytes=1136391991296 wbytes=217106698240 rios=14578231 wios=23815605 dbytes=149603258368 dios=45022\n252:0 rbytes=3512684544 wbytes=8082128896 rios=857348 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399352832 wbytes=217106698240 rios=14578570 wios=23184724 dbytes=149603258368 dios=45022\n8:0 rbytes=997189267968 wbytes=490224914432 rios=115112411 wios=41678403 dbytes=316115841024 dios=250868"
+        }
+      }
+    },
+    "top_persistent_process_CPU_lower_bounds": [
+      {
+        "comm": "dockerd",
+        "cgroup": "/system.slice/docker.service",
+        "CPU_seconds": 31.029999999999998
+      },
+      {
+        "comm": "python",
+        "cgroup": "/user.slice/user-1002.slice/session-22296.scope",
+        "CPU_seconds": 3.270000000000001
+      },
+      {
+        "comm": "htop",
+        "cgroup": "/user.slice/user-1002.slice/session-22299.scope",
+        "CPU_seconds": 3.1399999999999997
+      },
+      {
+        "comm": "codex",
+        "cgroup": "/user.slice/user-1002.slice/session-22296.scope",
+        "CPU_seconds": 3.059999999999999
+      },
+      {
+        "comm": "python",
+        "cgroup": "/system.slice/docker-770fcdd477bfafb42048c231ce1a5f605dbd05c237be147ab8c5e75b627f552e.scope",
+        "CPU_seconds": 1.2700000000000005
+      },
+      {
+        "comm": "containerd-shim",
+        "cgroup": "/system.slice/containerd.service",
+        "CPU_seconds": 1.1500000000000008
+      },
+      {
+        "comm": "2.1.292",
+        "cgroup": "/user.slice/user-1002.slice/session-21688.scope",
+        "CPU_seconds": 1.1000000000000003
+      },
+      {
+        "comm": "crowdsec",
+        "cgroup": "/system.slice/docker-aa7c0313f1d9e0173fb8c0fb790b23b1c990cba877fe522daa3130c8d93ebf34.scope",
+        "CPU_seconds": 1.0900000000000003
+      },
+      {
+        "comm": "containerd",
+        "cgroup": "/system.slice/containerd.service",
+        "CPU_seconds": 0.7900000000000003
+      },
+      {
+        "comm": "gunicorn: worke",
+        "cgroup": "/system.slice/docker-68e9ead1921b5deda2f14aa38019b01c69eb59ed7d012a9cab954526b97e3c3b.scope",
+        "CPU_seconds": 0.6200000000000001
+      },
+      {
+        "comm": "gitea",
+        "cgroup": "/system.slice/docker-df68a7cb9ad895237f2903079c7e6971c49c726af3ee77fd4b4ceda72b872ddd.scope",
+        "CPU_seconds": 0.51
+      },
+      {
+        "comm": "celery",
+        "cgroup": "/system.slice/docker-1fe87981b666f2a8be64c68fd715465dfcdf0594a6062d4ec04b71771dd0d975.scope",
+        "CPU_seconds": 0.43000000000000005
+      }
+    ],
+    "collector": {
+      "samples": 31,
+      "elapsed": 30.114841280970722,
+      "collector_thread_cpu": 3.365235615,
+      "sample_durations": [
+        0.10939792729914188,
+        0.160508724860847,
+        0.0845708935521543,
+        0.09023697813972831,
+        0.08936790795996785,
+        0.11914019379764795,
+        0.11381406662985682,
+        0.0887471972964704,
+        0.09919057367369533,
+        0.13047804264351726,
+        0.11510755401104689,
+        0.09397999290376902,
+        0.09864669619128108,
+        0.16100382013246417,
+        0.13121864572167397,
+        0.124727803748101,
+        0.08489496679976583,
+        0.11876692902296782,
+        0.10532334819436073,
+        0.1213367241434753,
+        0.09942343086004257,
+        0.13419990614056587,
+        0.10859429789707065,
+        0.1567605179734528,
+        0.08732005208730698,
+        0.12579214433208108,
+        0.08677165023982525,
+        0.09362310962751508,
+        0.12769838282838464,
+        0.10845563095062971,
+        0.11449246713891625
+      ],
+      "errors": [],
+      "fatal_error": null,
+      "trial_stop": null,
+      "clock_ticks_per_second": 100,
+      "app_master_pid": 2696556,
+      "postgres_container_host_pid": 846911,
+      "scope": "shared host/service;1Hz state samples not wait durations; procCPU ticks and cgroupCPUcumulative counters; processRSS includes sharedpages, not additive physical memory; missingPSI explicit"
+    },
+    "collector_CPU_per_elapsed_second": 0.11174674917268981,
+    "p95_full_poll_seconds": 0.160508724860847,
+    "limits_of_measurement": [
+      "1Hz sequentialsamples notatomic",
+      "CPUtiming collectionoverhead noted; normalservicesactive",
+      "IOcounters wholehost/devices/cgroups, sharedlayers notadditive; no individualI/O attribution",
+      "UnavailablePSI notzero",
+      "CPUidle priorcontextnewonly; never substitute historic6.44/5.95loadCPU"
+    ]
+  },
+  "current": {
+    "index": 1,
+    "workers": 4,
+    "source_hashes_verified": true,
+    "own_cleanup_independently_verified": true,
+    "scope": "30s diagnostic only; no60s gate or900s capacity acceptance",
+    "block_verdict": "FAIL",
+    "transport_verdict": "FAIL",
+    "checks": {
+      "scenario": true,
+      "generator": true,
+      "accounting": true,
+      "timeout65": true,
+      "drain70": true,
+      "pending_window_at_most20": false,
+      "final_pending_zero": true,
+      "latency": false,
+      "errors": true,
+      "upload": true
+    },
+    "window": {
+      "seconds": 30,
+      "counts": {
+        "scheduled": 600,
+        "emitted": 600,
+        "not_emitted": 0,
+        "successful": 276,
+        "failed": 0,
+        "pending": 324,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "successes_by_family": {
+        "listing": 92,
+        "search": 92,
+        "detail": 92
+      },
+      "throughput_client_successes_per_second": 9.2,
+      "pre_wsgi_entries_within_window": {
+        "p50": 8.909002907108516,
+        "p90": 14.684530263766646,
+        "p95": 15.258638562168926,
+        "p99": 15.886311408597976,
+        "max": 15.931927382014692,
+        "population": 280
+      },
+      "pre_wsgi_mean_entries_within_window": 8.791813199819131,
+      "occupancy_including_upload": {
+        "2704964": {
+          "N_complete": 149,
+          "worker_seconds_in_emission": 29.967003043740988
+        },
+        "2704965": {
+          "N_complete": 156,
+          "worker_seconds_in_emission": 29.91809295071289
+        },
+        "2704966": {
+          "N_complete": 166,
+          "worker_seconds_in_emission": 29.866077365819365
+        },
+        "2704967": {
+          "N_complete": 130,
+          "worker_seconds_in_emission": 29.97262858087197
+        }
+      },
+      "resources": {
+        "sample_start_offset": 0.5352978091686964,
+        "sample_end_offset": 29.535066462121904,
+        "interval_seconds": 28.999768652953207,
+        "samples": 30,
+        "app_CPU_seconds": 47.73,
+        "app_mean_CPU_cores": 1.6458751989091949,
+        "owned_client_collector_runner_CPU_seconds": 3.39,
+        "postgres_shared_CPU_seconds": 54.043228999995335,
+        "postgres_mean_CPU_cores": 1.8635744873258433,
+        "own_pg_backend_CPU_seconds_lower_bound": 53.14999999999998,
+        "host_execution_CPU_seconds": 169.92,
+        "host_mean_CPU_cores": 5.859357087757184,
+        "unrelated_host_residual_mean_CPU_cores": 2.2330099172501545,
+        "other_persistent_process_CPU_seconds_lower_bound": 43.49,
+        "other_top_commands": [
+          {
+            "cgroup": "/system.slice/docker.service",
+            "comm": "dockerd",
+            "CPU_seconds": 28.349999999999998
+          },
+          {
+            "cgroup": "/user.slice/user-1002.slice/session-22299.scope",
+            "comm": "htop",
+            "CPU_seconds": 2.6799999999999997
+          },
+          {
+            "cgroup": "/system.slice/docker.service",
+            "comm": "docker-proxy",
+            "CPU_seconds": 2.100000000000001
+          },
+          {
+            "cgroup": "/user.slice/user-1002.slice/session-22296.scope",
+            "comm": "codex",
+            "CPU_seconds": 1.9800000000000013
+          },
+          {
+            "cgroup": "/system.slice/docker-770fcdd477bfafb42048c231ce1a5f605dbd05c237be147ab8c5e75b627f552e.scope",
+            "comm": "python",
+            "CPU_seconds": 0.7400000000000003
+          },
+          {
+            "cgroup": "/system.slice/docker-aa7c0313f1d9e0173fb8c0fb790b23b1c990cba877fe522daa3130c8d93ebf34.scope",
+            "comm": "crowdsec",
+            "CPU_seconds": 0.7400000000000002
+          },
+          {
+            "cgroup": "/system.slice/containerd.service",
+            "comm": "containerd-shim",
+            "CPU_seconds": 0.6300000000000003
+          },
+          {
+            "cgroup": "/system.slice/containerd.service",
+            "comm": "containerd",
+            "CPU_seconds": 0.46000000000000013
+          }
+        ],
+        "CPU_slice_client_successes": 270,
+        "app_CPU_seconds_per_success_operational_slice": 0.17677777777777776,
+        "host_iowait_seconds": 0.98,
+        "host_steal_seconds": 0.03,
+        "process_churn_missing_CPU_intervals": 1,
+        "pg_active_own_wait_samples": [
+          {
+            "wait_event_type": "none",
+            "wait_event": "none",
+            "observations": 58
+          },
+          {
+            "wait_event_type": "Client",
+            "wait_event": "ClientRead",
+            "observations": 1
+          }
+        ],
+        "other_database_active_samples": 2,
+        "max_pg_own_connections_sampled": 4,
+        "max_pg_shared_connections_sampled": 9,
+        "mem_available_min": 9780961280,
+        "swap_free_min": 867688448,
+        "vmstat_deltas": {
+          "pswpin": 0,
+          "pswpout": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0,
+          "allocstall_device": 0,
+          "pgmajfault": 2,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_khugepaged": 0,
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_khugepaged": 0,
+          "pgscan_direct_throttle": 0,
+          "pgscan_anon": 0,
+          "pgscan_file": 0,
+          "pgsteal_anon": 0,
+          "pgsteal_file": 0
+        },
+        "host_PSI": {
+          "cpu": "not_measured",
+          "memory": "not_measured",
+          "io": "not_measured"
+        },
+        "cgroups": {
+          "app": {
+            "user.slice/user-1002.slice/session-22296.scope": {
+              "cpu.max": "not_measured",
+              "cpuset": "not_measured",
+              "memory.max": "max",
+              "memory.high": "max",
+              "cpu.weight": "not_measured",
+              "cpu_stat_delta": {
+                "usage_usec": 53326163,
+                "user_usec": 49514816,
+                "system_usec": 3811347,
+                "core_sched.force_idle_usec": 0
+              },
+              "memory_events_delta": {
+                "low": 0,
+                "high": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_kill": 0,
+                "oom_group_kill": 0
+              },
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "not_measured",
+              "io.stat_last": "not_measured"
+            },
+            "user.slice/user-1002.slice": {
+              "cpu.max": "not_measured",
+              "cpuset": "not_measured",
+              "memory.max": "max",
+              "memory.high": "max",
+              "cpu.weight": "not_measured",
+              "cpu_stat_delta": {
+                "usage_usec": 56547207,
+                "user_usec": 51202853,
+                "system_usec": 5344355,
+                "core_sched.force_idle_usec": 0
+              },
+              "memory_events_delta": {
+                "low": 0,
+                "high": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_kill": 0,
+                "oom_group_kill": 0
+              },
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "not_measured",
+              "io.stat_last": "not_measured"
+            },
+            "user.slice": {
+              "cpu.max": "max 100000",
+              "cpuset": "0-7",
+              "memory.max": "max",
+              "memory.high": "max",
+              "cpu.weight": "100",
+              "cpu_stat_delta": {
+                "usage_usec": 56547622,
+                "user_usec": 51209639,
+                "system_usec": 5337983,
+                "core_sched.force_idle_usec": 0,
+                "nr_periods": 0,
+                "nr_throttled": 0,
+                "throttled_usec": 0,
+                "nr_bursts": 0,
+                "burst_usec": 0
+              },
+              "memory_events_delta": {
+                "low": 0,
+                "high": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_kill": 0,
+                "oom_group_kill": 0
+              },
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "8:16 rbytes=805036544 wbytes=20480 rios=27941 wios=3 dbytes=0 dios=0\n253:0 rbytes=805036544 wbytes=138919936 rios=27941 wios=159 dbytes=0 dios=0\n252:0 rbytes=92856320 wbytes=371011584 rios=22670 wios=85469 dbytes=0 dios=0\n8:0 rbytes=409081026560 wbytes=59509916160 rios=81741840 wios=2057333 dbytes=0 dios=0",
+              "io.stat_last": "8:16 rbytes=805036544 wbytes=20480 rios=27941 wios=3 dbytes=0 dios=0\n253:0 rbytes=805036544 wbytes=138919936 rios=27941 wios=159 dbytes=0 dios=0\n252:0 rbytes=92856320 wbytes=371011584 rios=22670 wios=85469 dbytes=0 dios=0\n8:0 rbytes=409081038848 wbytes=59515482624 rios=81741841 wios=2057410 dbytes=0 dios=0"
+            },
+            ".": {
+              "cpu.max": "not_measured",
+              "cpuset": "0-7",
+              "memory.max": "not_measured",
+              "memory.high": "not_measured",
+              "cpu.weight": "not_measured",
+              "cpu_stat_delta": {
+                "usage_usec": 169898070,
+                "user_usec": 129577819,
+                "system_usec": 40320250,
+                "core_sched.force_idle_usec": 0,
+                "nr_periods": 0,
+                "nr_throttled": 0,
+                "throttled_usec": 0,
+                "nr_bursts": 0,
+                "burst_usec": 0
+              },
+              "memory_events_delta": {},
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "253:0 rbytes=1136391991296 wbytes=217109088768 rios=14578231 wios=23815903 dbytes=149603258368 dios=45022\n252:0 rbytes=3512815616 wbytes=8082128896 rios=857380 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399352832 wbytes=217109088768 rios=14578570 wios=23185020 dbytes=149603258368 dios=45022\n8:0 rbytes=997210157568 wbytes=490400925696 rios=115114025 wios=41681013 dbytes=316115841024 dios=250868",
+              "io.stat_last": "253:0 rbytes=1136391991296 wbytes=217109563392 rios=14578231 wios=23816004 dbytes=149603258368 dios=45022\n252:0 rbytes=3512815616 wbytes=8082128896 rios=857380 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399352832 wbytes=217109563392 rios=14578570 wios=23185120 dbytes=149603258368 dios=45022\n8:0 rbytes=997210309120 wbytes=490427720704 rios=115114041 wios=41681613 dbytes=316115841024 dios=250868"
+            }
+          },
+          "postgres": {
+            "system.slice/docker-865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f.scope": {
+              "cpu.max": "max 100000",
+              "cpuset": "0-7",
+              "memory.max": "max",
+              "memory.high": "max",
+              "cpu.weight": "100",
+              "cpu_stat_delta": {
+                "usage_usec": 54043229,
+                "user_usec": 45272185,
+                "system_usec": 8771044,
+                "core_sched.force_idle_usec": 0,
+                "nr_periods": 0,
+                "nr_throttled": 0,
+                "throttled_usec": 0,
+                "nr_bursts": 0,
+                "burst_usec": 0
+              },
+              "memory_events_delta": {
+                "low": 0,
+                "high": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_kill": 0,
+                "oom_group_kill": 0
+              },
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "252:0 rbytes=26132480 wbytes=39559168 rios=6380 wios=9658 dbytes=0 dios=0\n8:0 rbytes=1914566656 wbytes=103746071040 rios=80552 wios=13677609 dbytes=0 dios=0",
+              "io.stat_last": "252:0 rbytes=26132480 wbytes=39559168 rios=6380 wios=9658 dbytes=0 dios=0\n8:0 rbytes=1914566656 wbytes=103762258432 rios=80552 wios=13678900 dbytes=0 dios=0"
+            },
+            "system.slice": {
+              "cpu.max": "max 100000",
+              "cpuset": "0-7",
+              "memory.max": "max",
+              "memory.high": "max",
+              "cpu.weight": "100",
+              "cpu_stat_delta": {
+                "usage_usec": 108386425,
+                "user_usec": 79056497,
+                "system_usec": 29329927,
+                "core_sched.force_idle_usec": 0,
+                "nr_periods": 0,
+                "nr_throttled": 0,
+                "throttled_usec": 0,
+                "nr_bursts": 0,
+                "burst_usec": 0
+              },
+              "memory_events_delta": {
+                "low": 0,
+                "high": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_kill": 0,
+                "oom_group_kill": 0
+              },
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "253:0 rbytes=1135556264960 wbytes=185243905536 rios=14543969 wios=20409157 dbytes=149603258368 dios=45022\n252:0 rbytes=3385552896 wbytes=7696535552 rios=826310 wios=1812607 dbytes=2147479552 dios=1\n8:16 rbytes=1135562262528 wbytes=150264093696 rios=14699968 wios=18226401 dbytes=149603258368 dios=45022\n8:0 rbytes=587343360000 wbytes=273957137920 rios=33292833 wios=34613122 dbytes=316115841024 dios=250868",
+              "io.stat_last": "253:0 rbytes=1135556264960 wbytes=185244267520 rios=14543969 wios=20409241 dbytes=149603258368 dios=45022\n252:0 rbytes=3385552896 wbytes=7696535552 rios=826310 wios=1812607 dbytes=2147479552 dios=1\n8:16 rbytes=1135562262528 wbytes=150264436224 rios=14699968 wios=18226480 dbytes=149603258368 dios=45022\n8:0 rbytes=587343499264 wbytes=273974050816 rios=33292848 wios=34614539 dbytes=316115841024 dios=250868"
+            },
+            ".": {
+              "cpu.max": "not_measured",
+              "cpuset": "0-7",
+              "memory.max": "not_measured",
+              "memory.high": "not_measured",
+              "cpu.weight": "not_measured",
+              "cpu_stat_delta": {
+                "usage_usec": 169897756,
+                "user_usec": 129574539,
+                "system_usec": 40323216,
+                "core_sched.force_idle_usec": 0,
+                "nr_periods": 0,
+                "nr_throttled": 0,
+                "throttled_usec": 0,
+                "nr_bursts": 0,
+                "burst_usec": 0
+              },
+              "memory_events_delta": {},
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "253:0 rbytes=1136391991296 wbytes=217109088768 rios=14578231 wios=23815903 dbytes=149603258368 dios=45022\n252:0 rbytes=3512815616 wbytes=8082128896 rios=857380 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399352832 wbytes=217109088768 rios=14578570 wios=23185020 dbytes=149603258368 dios=45022\n8:0 rbytes=997210157568 wbytes=490400925696 rios=115114025 wios=41681013 dbytes=316115841024 dios=250868",
+              "io.stat_last": "253:0 rbytes=1136391991296 wbytes=217109563392 rios=14578231 wios=23816004 dbytes=149603258368 dios=45022\n252:0 rbytes=3512815616 wbytes=8082128896 rios=857380 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399352832 wbytes=217109563392 rios=14578570 wios=23185120 dbytes=149603258368 dios=45022\n8:0 rbytes=997210309120 wbytes=490427720704 rios=115114041 wios=41681613 dbytes=316115841024 dios=250868"
+            }
+          }
+        },
+        "io": {
+          "app_process_io": {
+            "status": "measured",
+            "readable_pids": 5,
+            "persistent_process_counter_deltas": {
+              "2704961": {
+                "rchar": 0,
+                "wchar": 0,
+                "syscr": 0,
+                "syscw": 0,
+                "read_bytes": 0,
+                "write_bytes": 0,
+                "cancelled_write_bytes": 0
+              },
+              "2704964": {
+                "rchar": 13560,
+                "wchar": 60254,
+                "syscr": 39,
+                "syscw": 245,
+                "read_bytes": 12288,
+                "write_bytes": 77824,
+                "cancelled_write_bytes": 0
+              },
+              "2704965": {
+                "rchar": 79529,
+                "wchar": 59169,
+                "syscr": 32,
+                "syscw": 292,
+                "read_bytes": 0,
+                "write_bytes": 77824,
+                "cancelled_write_bytes": 0
+              },
+              "2704966": {
+                "rchar": 0,
+                "wchar": 60793,
+                "syscr": 0,
+                "syscw": 304,
+                "read_bytes": 0,
+                "write_bytes": 81920,
+                "cancelled_write_bytes": 0
+              },
+              "2704967": {
+                "rchar": 0,
+                "wchar": 52113,
+                "syscr": 0,
+                "syscw": 240,
+                "read_bytes": 0,
+                "write_bytes": 61440,
+                "cancelled_write_bytes": 0
+              }
+            },
+            "scope": "Linux counters only, unavailable fields absent; sharedPG not individualSQL I/O"
+          },
+          "postgres_process_io": {
+            "status": "not_measured",
+            "readable_pids": 0,
+            "persistent_process_counter_deltas": {
+              "846911": {},
+              "848280": {},
+              "848282": {},
+              "848288": {},
+              "848289": {},
+              "848290": {},
+              "2696707": {},
+              "2704900": {},
+              "2705144": {},
+              "2705149": {},
+              "2705656": {},
+              "2705781": {},
+              "2706287": {},
+              "3877876": {},
+              "3878081": {}
+            },
+            "scope": "Linux counters only, unavailable fields absent; sharedPG not individualSQL I/O"
+          }
+        },
+        "app_RSS_first": 562577408,
+        "app_RSS_last": 573132800,
+        "app_RSS_sampled_max": 573632512,
+        "postgres_cgroup_memory_sampled_max": 508739584,
+        "host_diskstats_first": "8      16 sdb 14578570 155633 2219529986 1113806269 23185020 655757 424041189 1292331960 0 309359384 3268244109 45022 0 292193864 324272 9673905 861781606\n   8      17 sdb1 14578355 155633 2219523117 1113804733 23185020 655757 424041189 1292331960 0 513398071 2406460966 45022 0 292193864 324272 0 0\n   8       0 sda 115114025 38142 1947676089 36161893 41681013 6012703 957814308 33630095 0 34296583 71257823 250868 0 617413752 175338 10712139 1290496\n   8       1 sda1 79 0 597 17 0 0 0 0 0 13 17 0 0 0 0 0 0\n   8       2 sda2 575 1194 18470 128 2 0 9 0 0 147 167 30 0 1967480 38 0 0\n   8       3 sda3 649 1 121063 175 279 5 174043 274 0 298 486 40 0 5989416 36 0 0\n   8       4 sda4 115112249 36947 1947518994 36161481 41680718 6012698 957640256 33629817 0 35910143 69966562 250798 0 609456856 175263 0 0\n 252       0 zram0 857380 0 6860968 14745 1901636 0 15785408 63866 0 663425 78611 0 0 0 0 0 0\n 253       0 dm-0 14578231 0 2219515608 1114768360 23815903 0 424041189 1333024067 0 514230507 2448130863 45022 0 292193864 338436 0 0",
+        "host_diskstats_last": "8      16 sdb 14578570 155633 2219529986 1113806269 23185120 655758 424042116 1292342207 0 309361154 3268261853 45022 0 292193864 324272 9673958 861789103\n   8      17 sdb1 14578355 155633 2219523117 1113804733 23185120 655758 424042116 1292342207 0 513400830 2406471213 45022 0 292193864 324272 0 0\n   8       0 sda 115114041 38142 1947676385 36161899 41681613 6013944 957866642 33631226 0 34296630 71258968 250868 0 617413752 175338 10712203 1290504\n   8       1 sda1 79 0 597 17 0 0 0 0 0 13 17 0 0 0 0 0 0\n   8       2 sda2 575 1194 18470 128 2 0 9 0 0 147 167 30 0 1967480 38 0 0\n   8       3 sda3 649 1 121063 175 279 5 174043 274 0 298 486 40 0 5989416 36 0 0\n   8       4 sda4 115112265 36947 1947519290 36161488 41681318 6013939 957692590 33630948 0 35910216 69967699 250798 0 609456856 175263 0 0\n 252       0 zram0 857380 0 6860968 14745 1901636 0 15785408 63866 0 663425 78611 0 0 0 0 0 0\n 253       0 dm-0 14578231 0 2219515608 1114768360 23816004 0 424042116 1333034307 0 514233264 2448141103 45022 0 292193864 338436 0 0"
+      }
+    },
+    "cohort": {
+      "counts": {
+        "scheduled": 600,
+        "emitted": 600,
+        "not_emitted": 0,
+        "successful": 600,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 1,
+        "emitted": 1,
+        "not_emitted": 0,
+        "successful": 1,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "observable_latency_seconds": {
+        "p50": 17.34035851387307,
+        "p90": 29.46948586869985,
+        "p95": 31.047249379567802,
+        "p99": 32.25308220181614,
+        "max": 32.564681538846344,
+        "population": 600
+      },
+      "error_fraction": 0.0,
+      "drain_seconds": 32.38956151576713,
+      "observed_complete_wsgi": 600,
+      "missing_complete_wsgi": 0,
+      "means_by_family": {
+        "listing": {
+          "N": 200,
+          "mean_wsgi_seconds": 0.5495107273943722,
+          "mean_thread_cpu_seconds": 0.2328578011649999
+        },
+        "search": {
+          "N": 200,
+          "mean_wsgi_seconds": 0.5757500410219655,
+          "mean_thread_cpu_seconds": 0.23661828360000003
+        },
+        "detail": {
+          "N": 200,
+          "mean_wsgi_seconds": 0.09404392478056252,
+          "mean_thread_cpu_seconds": 0.04967192655999997
+        }
+      },
+      "D_worker_seconds_per_request": 0.40643489773230007,
+      "W20_without_upload": 8.128697954646002,
+      "upload_wsgi": 4.987205607816577,
+      "upload_thread_CPU": 0.5750827900000002,
+      "U_contractual_one_per_min": 0.08312009346360962,
+      "upload_frequency_inferred_from_diagnostic": "none; singleeventnot2perminute; contractual1/min used separately",
+      "W20_contractual_including_upload": 8.211818048109611,
+      "pre_wsgi_all_entered": {
+        "p50": 16.98938622092828,
+        "p90": 29.078860199078918,
+        "p95": 30.69745857315138,
+        "p99": 31.938369118142873,
+        "max": 32.31446471111849,
+        "population": 600
+      },
+      "pre_wsgi_all_entered_mean": 16.899879661213298,
+      "thread_CPU_observed_dynamic_seconds": 103.82960226499998,
+      "resources_enclosing_cohort": {
+        "sample_start_offset": -0.4648329862393439,
+        "sample_end_offset": 62.535149885807186,
+        "interval_seconds": 62.99998287204653,
+        "samples": 64,
+        "app_CPU_seconds": 105.08999999999999,
+        "app_mean_CPU_cores": 1.6680956916042124,
+        "owned_client_collector_runner_CPU_seconds": 7.209999999999997,
+        "postgres_shared_CPU_seconds": 114.67799699999887,
+        "postgres_mean_CPU_cores": 1.8202861615519927,
+        "own_pg_backend_CPU_seconds_lower_bound": 110.59999999999995,
+        "host_execution_CPU_seconds": 370.01,
+        "host_mean_CPU_cores": 5.873176199928391,
+        "unrelated_host_residual_mean_CPU_cores": 2.270349871213462,
+        "other_persistent_process_CPU_seconds_lower_bound": 95.2,
+        "other_top_commands": [
+          {
+            "cgroup": "/system.slice/docker.service",
+            "comm": "dockerd",
+            "CPU_seconds": 61.470000000000006
+          },
+          {
+            "cgroup": "/user.slice/user-1002.slice/session-22299.scope",
+            "comm": "htop",
+            "CPU_seconds": 5.759999999999999
+          },
+          {
+            "cgroup": "/system.slice/docker.service",
+            "comm": "docker-proxy",
+            "CPU_seconds": 4.5600000000000005
+          },
+          {
+            "cgroup": "/user.slice/user-1002.slice/session-22296.scope",
+            "comm": "codex",
+            "CPU_seconds": 4.149999999999998
+          },
+          {
+            "cgroup": "/system.slice/docker-68e9ead1921b5deda2f14aa38019b01c69eb59ed7d012a9cab954526b97e3c3b.scope",
+            "comm": "gunicorn: worke",
+            "CPU_seconds": 2.7699999999999965
+          },
+          {
+            "cgroup": "/system.slice/docker-770fcdd477bfafb42048c231ce1a5f605dbd05c237be147ab8c5e75b627f552e.scope",
+            "comm": "python",
+            "CPU_seconds": 1.590000000000001
+          },
+          {
+            "cgroup": "/system.slice/docker-aa7c0313f1d9e0173fb8c0fb790b23b1c990cba877fe522daa3130c8d93ebf34.scope",
+            "comm": "crowdsec",
+            "CPU_seconds": 1.5000000000000009
+          },
+          {
+            "cgroup": "/system.slice/containerd.service",
+            "comm": "containerd-shim",
+            "CPU_seconds": 1.430000000000001
+          }
+        ],
+        "CPU_slice_client_successes": 600,
+        "app_CPU_seconds_per_success_operational_slice": 0.17514999999999997,
+        "host_iowait_seconds": 4.28,
+        "host_steal_seconds": 0.05,
+        "process_churn_missing_CPU_intervals": 5,
+        "pg_active_own_wait_samples": [
+          {
+            "wait_event_type": "none",
+            "wait_event": "none",
+            "observations": 124
+          },
+          {
+            "wait_event_type": "Client",
+            "wait_event": "ClientRead",
+            "observations": 1
+          }
+        ],
+        "other_database_active_samples": 2,
+        "max_pg_own_connections_sampled": 4,
+        "max_pg_shared_connections_sampled": 9,
+        "mem_available_min": 9779294208,
+        "swap_free_min": 867688448,
+        "vmstat_deltas": {
+          "pswpin": 1,
+          "pswpout": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 2,
+          "allocstall_device": 0,
+          "pgmajfault": 6,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_khugepaged": 128,
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_khugepaged": 128,
+          "pgscan_direct_throttle": 0,
+          "pgscan_anon": 0,
+          "pgscan_file": 128,
+          "pgsteal_anon": 0,
+          "pgsteal_file": 128
+        },
+        "host_PSI": {
+          "cpu": "not_measured",
+          "memory": "not_measured",
+          "io": "not_measured"
+        },
+        "cgroups": {
+          "app": {
+            "user.slice/user-1002.slice/session-22296.scope": {
+              "cpu.max": "not_measured",
+              "cpuset": "not_measured",
+              "memory.max": "max",
+              "memory.high": "max",
+              "cpu.weight": "not_measured",
+              "cpu_stat_delta": {
+                "usage_usec": 117120947,
+                "user_usec": 108939589,
+                "system_usec": 8181358,
+                "core_sched.force_idle_usec": 0
+              },
+              "memory_events_delta": {
+                "low": 0,
+                "high": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_kill": 0,
+                "oom_group_kill": 0
+              },
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "not_measured",
+              "io.stat_last": "not_measured"
+            },
+            "user.slice/user-1002.slice": {
+              "cpu.max": "not_measured",
+              "cpuset": "not_measured",
+              "memory.max": "max",
+              "memory.high": "max",
+              "cpu.weight": "not_measured",
+              "cpu_stat_delta": {
+                "usage_usec": 124041652,
+                "user_usec": 112538838,
+                "system_usec": 11502815,
+                "core_sched.force_idle_usec": 0
+              },
+              "memory_events_delta": {
+                "low": 0,
+                "high": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_kill": 0,
+                "oom_group_kill": 0
+              },
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "not_measured",
+              "io.stat_last": "not_measured"
+            },
+            "user.slice": {
+              "cpu.max": "max 100000",
+              "cpuset": "0-7",
+              "memory.max": "max",
+              "memory.high": "max",
+              "cpu.weight": "100",
+              "cpu_stat_delta": {
+                "usage_usec": 124056551,
+                "user_usec": 112566578,
+                "system_usec": 11489973,
+                "core_sched.force_idle_usec": 0,
+                "nr_periods": 0,
+                "nr_throttled": 0,
+                "throttled_usec": 0,
+                "nr_bursts": 0,
+                "burst_usec": 0
+              },
+              "memory_events_delta": {
+                "low": 0,
+                "high": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_kill": 0,
+                "oom_group_kill": 0
+              },
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "8:16 rbytes=805036544 wbytes=20480 rios=27941 wios=3 dbytes=0 dios=0\n253:0 rbytes=805036544 wbytes=138919936 rios=27941 wios=159 dbytes=0 dios=0\n252:0 rbytes=92856320 wbytes=371011584 rios=22670 wios=85469 dbytes=0 dios=0\n8:0 rbytes=409081010176 wbytes=59509916160 rios=81741837 wios=2057333 dbytes=0 dios=0",
+              "io.stat_last": "8:16 rbytes=805036544 wbytes=20480 rios=27941 wios=3 dbytes=0 dios=0\n253:0 rbytes=805036544 wbytes=138919936 rios=27941 wios=159 dbytes=0 dios=0\n252:0 rbytes=92856320 wbytes=371011584 rios=22670 wios=85469 dbytes=0 dios=0\n8:0 rbytes=409081038848 wbytes=59522126336 rios=81741841 wios=2057475 dbytes=0 dios=0"
+            },
+            ".": {
+              "cpu.max": "not_measured",
+              "cpuset": "0-7",
+              "memory.max": "not_measured",
+              "memory.high": "not_measured",
+              "cpu.weight": "not_measured",
+              "cpu_stat_delta": {
+                "usage_usec": 370017613,
+                "user_usec": 283159244,
+                "system_usec": 86858369,
+                "core_sched.force_idle_usec": 0,
+                "nr_periods": 0,
+                "nr_throttled": 0,
+                "throttled_usec": 0,
+                "nr_bursts": 0,
+                "burst_usec": 0
+              },
+              "memory_events_delta": {},
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "253:0 rbytes=1136391991296 wbytes=217109084672 rios=14578231 wios=23815902 dbytes=149603258368 dios=45022\n252:0 rbytes=3512815616 wbytes=8082128896 rios=857380 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399352832 wbytes=217109084672 rios=14578570 wios=23185019 dbytes=149603258368 dios=45022\n8:0 rbytes=997210141184 wbytes=490400884736 rios=115114022 wios=41681005 dbytes=316115841024 dios=250868",
+              "io.stat_last": "253:0 rbytes=1136392015872 wbytes=217110788608 rios=14578234 wios=23816171 dbytes=149603258368 dios=45022\n252:0 rbytes=3512819712 wbytes=8082128896 rios=857381 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399377408 wbytes=217110788608 rios=14578573 wios=23185283 dbytes=149603258368 dios=45022\n8:0 rbytes=997210812928 wbytes=490449264128 rios=115114052 wios=41682281 dbytes=316115841024 dios=250868"
+            }
+          },
+          "postgres": {
+            "system.slice/docker-865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f.scope": {
+              "cpu.max": "max 100000",
+              "cpuset": "0-7",
+              "memory.max": "max",
+              "memory.high": "max",
+              "cpu.weight": "100",
+              "cpu_stat_delta": {
+                "usage_usec": 114677997,
+                "user_usec": 96540088,
+                "system_usec": 18137910,
+                "core_sched.force_idle_usec": 0,
+                "nr_periods": 0,
+                "nr_throttled": 0,
+                "throttled_usec": 0,
+                "nr_bursts": 0,
+                "burst_usec": 0
+              },
+              "memory_events_delta": {
+                "low": 0,
+                "high": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_kill": 0,
+                "oom_group_kill": 0
+              },
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "252:0 rbytes=26132480 wbytes=39559168 rios=6380 wios=9658 dbytes=0 dios=0\n8:0 rbytes=1914566656 wbytes=103746030080 rios=80552 wios=13677601 dbytes=0 dios=0",
+              "io.stat_last": "252:0 rbytes=26132480 wbytes=39559168 rios=6380 wios=9658 dbytes=0 dios=0\n8:0 rbytes=1914656768 wbytes=103773562880 rios=80557 wios=13679233 dbytes=0 dios=0"
+            },
+            "system.slice": {
+              "cpu.max": "max 100000",
+              "cpuset": "0-7",
+              "memory.max": "max",
+              "memory.high": "max",
+              "cpu.weight": "100",
+              "cpu_stat_delta": {
+                "usage_usec": 235273898,
+                "user_usec": 171989214,
+                "system_usec": 63284685,
+                "core_sched.force_idle_usec": 0,
+                "nr_periods": 0,
+                "nr_throttled": 0,
+                "throttled_usec": 0,
+                "nr_bursts": 0,
+                "burst_usec": 0
+              },
+              "memory_events_delta": {
+                "low": 0,
+                "high": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_kill": 0,
+                "oom_group_kill": 0
+              },
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "253:0 rbytes=1135556264960 wbytes=185243905536 rios=14543969 wios=20409157 dbytes=149603258368 dios=45022\n252:0 rbytes=3385552896 wbytes=7696535552 rios=826310 wios=1812607 dbytes=2147479552 dios=1\n8:16 rbytes=1135562262528 wbytes=150264093696 rios=14699968 wios=18226401 dbytes=149603258368 dios=45022\n8:0 rbytes=587343360000 wbytes=273957096960 rios=33292833 wios=34613114 dbytes=316115841024 dios=250868",
+              "io.stat_last": "253:0 rbytes=1135556289536 wbytes=185245307392 rios=14543972 wios=20409380 dbytes=149603258368 dios=45022\n252:0 rbytes=3385556992 wbytes=7696535552 rios=826311 wios=1812607 dbytes=2147479552 dios=1\n8:16 rbytes=1135562287104 wbytes=150265390592 rios=14699971 wios=18226606 dbytes=149603258368 dios=45022\n8:0 rbytes=587344003072 wbytes=273985907200 rios=33292859 wios=34614975 dbytes=316115841024 dios=250868"
+            },
+            ".": {
+              "cpu.max": "not_measured",
+              "cpuset": "0-7",
+              "memory.max": "not_measured",
+              "memory.high": "not_measured",
+              "cpu.weight": "not_measured",
+              "cpu_stat_delta": {
+                "usage_usec": 370017637,
+                "user_usec": 283159239,
+                "system_usec": 86858397,
+                "core_sched.force_idle_usec": 0,
+                "nr_periods": 0,
+                "nr_throttled": 0,
+                "throttled_usec": 0,
+                "nr_bursts": 0,
+                "burst_usec": 0
+              },
+              "memory_events_delta": {},
+              "PSI": {
+                "cpu.pressure": "not_measured",
+                "memory.pressure": "not_measured",
+                "io.pressure": "not_measured"
+              },
+              "io.stat_first": "253:0 rbytes=1136391991296 wbytes=217109084672 rios=14578231 wios=23815902 dbytes=149603258368 dios=45022\n252:0 rbytes=3512815616 wbytes=8082128896 rios=857380 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399352832 wbytes=217109084672 rios=14578570 wios=23185019 dbytes=149603258368 dios=45022\n8:0 rbytes=997210141184 wbytes=490400884736 rios=115114022 wios=41681005 dbytes=316115841024 dios=250868",
+              "io.stat_last": "253:0 rbytes=1136392015872 wbytes=217110788608 rios=14578234 wios=23816171 dbytes=149603258368 dios=45022\n252:0 rbytes=3512819712 wbytes=8082128896 rios=857381 wios=1901636 dbytes=0 dios=0\n8:16 rbytes=1136399377408 wbytes=217110788608 rios=14578573 wios=23185283 dbytes=149603258368 dios=45022\n8:0 rbytes=997210812928 wbytes=490449264128 rios=115114052 wios=41682281 dbytes=316115841024 dios=250868"
+            }
+          }
+        },
+        "io": {
+          "app_process_io": {
+            "status": "measured",
+            "readable_pids": 5,
+            "persistent_process_counter_deltas": {
+              "2704961": {
+                "rchar": 0,
+                "wchar": 0,
+                "syscr": 0,
+                "syscw": 0,
+                "read_bytes": 0,
+                "write_bytes": 0,
+                "cancelled_write_bytes": 0
+              },
+              "2704964": {
+                "rchar": 4851976,
+                "wchar": 165021,
+                "syscr": 617,
+                "syscw": 598,
+                "read_bytes": 20480,
+                "write_bytes": 208896,
+                "cancelled_write_bytes": 0
+              },
+              "2704965": {
+                "rchar": 223106,
+                "wchar": 128710,
+                "syscr": 72,
+                "syscw": 628,
+                "read_bytes": 0,
+                "write_bytes": 163840,
+                "cancelled_write_bytes": 0
+              },
+              "2704966": {
+                "rchar": 0,
+                "wchar": 133625,
+                "syscr": 0,
+                "syscw": 667,
+                "read_bytes": 0,
+                "write_bytes": 167936,
+                "cancelled_write_bytes": 0
+              },
+              "2704967": {
+                "rchar": 1743,
+                "wchar": 114044,
+                "syscr": 74,
+                "syscw": 521,
+                "read_bytes": 8192,
+                "write_bytes": 139264,
+                "cancelled_write_bytes": 0
+              }
+            },
+            "scope": "Linux counters only, unavailable fields absent; sharedPG not individualSQL I/O"
+          },
+          "postgres_process_io": {
+            "status": "not_measured",
+            "readable_pids": 0,
+            "persistent_process_counter_deltas": {
+              "846911": {},
+              "848280": {},
+              "848282": {},
+              "848288": {},
+              "848289": {},
+              "848290": {},
+              "2696707": {},
+              "2704900": {},
+              "2705149": {},
+              "3877876": {},
+              "3878081": {}
+            },
+            "scope": "Linux counters only, unavailable fields absent; sharedPG not individualSQL I/O"
+          }
+        },
+        "app_RSS_first": 526458880,
+        "app_RSS_last": 573030400,
+        "app_RSS_sampled_max": 573632512,
+        "postgres_cgroup_memory_sampled_max": 508739584,
+        "host_diskstats_first": "8      16 sdb 14578570 155633 2219529986 1113806269 23185019 655757 424041181 1292331960 0 309359384 3268244108 45022 0 292193864 324272 9673905 861781606\n   8      17 sdb1 14578355 155633 2219523117 1113804733 23185019 655757 424041181 1292331960 0 513398071 2406460966 45022 0 292193864 324272 0 0\n   8       0 sda 115114022 38142 1947676057 36161892 41681005 6012703 957814228 33630093 0 34296579 71257820 250868 0 617413752 175338 10712135 1290496\n   8       1 sda1 79 0 597 17 0 0 0 0 0 13 17 0 0 0 0 0 0\n   8       2 sda2 575 1194 18470 128 2 0 9 0 0 147 167 30 0 1967480 38 0 0\n   8       3 sda3 649 1 121063 175 279 5 174043 274 0 298 486 40 0 5989416 36 0 0\n   8       4 sda4 115112246 36947 1947518962 36161480 41680710 6012698 957640176 33629815 0 35910139 69966559 250798 0 609456856 175263 0 0\n 252       0 zram0 857380 0 6860968 14745 1901636 0 15785408 63866 0 663425 78611 0 0 0 0 0 0\n 253       0 dm-0 14578231 0 2219515608 1114768360 23815902 0 424041181 1333024067 0 514230507 2448130863 45022 0 292193864 338436 0 0",
+        "host_diskstats_last": "8      16 sdb 14578573 155633 2219530034 1113806273 23185283 655762 424044509 1292358931 0 309365640 3268294527 45022 0 292193864 324272 9674054 861805049\n   8      17 sdb1 14578358 155633 2219523165 1113804736 23185283 655762 424044509 1292358931 0 513407237 2406487940 45022 0 292193864 324272 0 0\n   8       0 sda 115114052 38142 1947677369 36161903 41682281 6014038 957908719 33631683 0 34296674 71259434 250868 0 617413752 175338 10712248 1290509\n   8       1 sda1 79 0 597 17 0 0 0 0 0 13 17 0 0 0 0 0 0\n   8       2 sda2 575 1194 18470 128 2 0 9 0 0 147 167 30 0 1967480 38 0 0\n   8       3 sda3 649 1 121063 175 279 5 174043 274 0 298 486 40 0 5989416 36 0 0\n   8       4 sda4 115112276 36947 1947520274 36161491 41681986 6014033 957734667 33631405 0 35910267 69968160 250798 0 609456856 175263 0 0\n 252       0 zram0 857381 0 6860976 14745 1901636 0 15785408 63866 0 663425 78611 0 0 0 0 0 0\n 253       0 dm-0 14578234 0 2219515656 1114768364 23816171 0 424044509 1333051024 0 514239671 2448157824 45022 0 292193864 338436 0 0"
+      },
+      "requests_entering_wsgi_after_client_deadline": 0,
+      "requests_entering_wsgi_after_client_timeout_observed": 0,
+      "worker_seconds_after_deadline_observed": 0,
+      "thread_CPU_after_deadline_wholly_late_only": 0
+    },
+    "generator_delay_seconds": {
+      "p50": 0.0008536641485985541,
+      "p90": 0.0015046270564198494,
+      "p95": 0.0022096057422444915,
+      "p99": 0.003930638171731005,
+      "max": 0.009421916864813085,
+      "population": 600
+    },
+    "warmup": {
+      "serial_N": 30,
+      "observed_worker_pids": [
+        2704964,
+        2704965,
+        2704966,
+        2704967
+      ],
+      "all_workers_observed": true,
+      "body_hashes": {
+        "/es/": "f99f5d376d464fe7cb2283e1450d581dca0649c8f3b9c7f2befdc1a3ed40f93c",
+        "/en/": "bf5b250d1b633acd17a743665d0c7d7f53f2915b375e9312cf63e31c4060f079",
+        "/es/?q=photography": "6b49e491acb7f129aba9f81a607650bc0f4fbde67c7833a3b2c8a30e4a03df78",
+        "/en/?q=synthetic": "ed74020bbbcfb5dfbd9cd551b5122f60ef2f7563ebfb331ad6e81e439acdc98b",
+        "/es/listing/73963ab7-36ff-4fbb-930e-73723f5156ac/": "e2e76ec53878489f13687f0b41ad4e6cead07da83ba4e7ed7c9989415ac97295",
+        "/en/listing/5c4cb9d8-60ce-40c4-b6a0-d26e03e2fd53/": "364be4f3b5bed741f606a4957be385df97cd6fdd5c8ffbfd6f06983ca7751824"
+      }
+    },
+    "upload_emission_monotonic": 3142908.291540556,
+    "actual_routes": {
+      "projection": 400,
+      "native": 200
+    },
+    "collector": {
+      "N": 90,
+      "elapsed_seconds": 89.89391277125105,
+      "coverage_per_expected_1Hz": 1.001180138070293,
+      "p95_full_poll_seconds": 0.1475480580702424,
+      "thread_CPU_seconds": 9.094711643,
+      "thread_CPU_per_elapsed_second": 0.10117160731609157,
+      "errors": [],
+      "fatal_error": null
+    },
+    "trial_stop": null,
+    "clock_marks_artifact": "reconstructed-times.json",
+    "not_measured": [
+      "causal WSGI/GC/PGmetadata overhead",
+      "exact socket/Gunicorn queue",
+      "CPU after deadline for straddling requests",
+      "individual PostgreSQL CPU/request",
+      "missing PSI interfaces",
+      "allocations/request",
+      "SQL rows and normalized query metrics during this concurrency experiment"
+    ],
+    "limits": [
+      "WSGI events share host monotonic clock; start>=emission checked, no socketdispatch timestamp",
+      "CPU sampled scoped counters, snapshots sequential not atomic; interval boundaries/margins explicit",
+      "PG CPU includes sharedservice/background; ownbackend counts partial/churn lowerbound",
+      "unrelated host residual subtracts app,sharedPG,ownedpytest/sampler/client andrunner; includes kernel/unobserved activity, not individual service attribution",
+      "procIO and diskstats scoped cumulative counters, not SQL rows, wait time or request IO",
+      "D/W use means of observed complete populations and equalcontractweights; missing WSGI is not zero and can bias selection",
+      "30s block fails capacity even when eventual client successes; no reclassification of late server successes",
+      "CPU/successwindow operationalratio not individualCPU/request; cohortCPU includes enclosing sample margins",
+      "RSS maxima sampled and includes sharedpages; not additive physical memory; absent PSI is not no pressure"
+    ]
+  },
+  "comparison_to_both_historical4W": [
+    {
+      "historical_block": 1,
+      "D_before": 0.42781436778760207,
+      "D_after": 0.40643489773230007,
+      "D_delta_seconds": -0.021379470055301997,
+      "D_delta_fraction": -0.04997370744200047,
+      "family_mean_delta_seconds": {
+        "listing": -0.028431469385977848,
+        "search": -0.023318542020861033,
+        "detail": -0.012388398759067054
+      },
+      "pre_wsgi_mean_delta": -1.6233228442445373,
+      "window_success_delta": 12,
+      "pending_window_delta": -12,
+      "p95_delta": -3.191083202138543,
+      "host_load_CPU_before": 6.438273353110742,
+      "host_load_CPU_after": 5.859357087757184,
+      "host_load_CPU_delta": -0.5789162653535582,
+      "external_load_CPU_before": 3.030227577758449,
+      "external_load_CPU_after": 2.2330099172501545,
+      "external_load_CPU_delta": -0.7972176605082946
+    },
+    {
+      "historical_block": 4,
+      "D_before": 0.41804635235030824,
+      "D_after": 0.40643489773230007,
+      "D_delta_seconds": -0.011611454618008166,
+      "D_delta_fraction": -0.027775519515305214,
+      "family_mean_delta_seconds": {
+        "listing": -0.021510957530699648,
+        "search": -0.009464977683965037,
+        "detail": -0.0038584286393597705
+      },
+      "pre_wsgi_mean_delta": -0.9119030350873558,
+      "window_success_delta": 12,
+      "pending_window_delta": -12,
+      "p95_delta": -1.6706412760540843,
+      "host_load_CPU_before": 5.947948345195272,
+      "host_load_CPU_after": 5.859357087757184,
+      "host_load_CPU_delta": -0.08859125743808782,
+      "external_load_CPU_before": 2.383817317093669,
+      "external_load_CPU_after": 2.2330099172501545,
+      "external_load_CPU_delta": -0.15080739984351466
+    }
+  ],
+  "opportunity_matrix": [
+    {
+      "family": "listing",
+      "N": 200,
+      "mean_wsgi_seconds": 0.5495107273943722,
+      "weight": 0.3333333333333333,
+      "D_contribution": 0.18317024246479074,
+      "D_fraction": 0.4506754796076506,
+      "W20_contribution_worker_seconds_per_second": 3.663404849295815,
+      "direct_mean_thread_CPU_seconds": 0.2328578011649999,
+      "current_SQL_rule_render_breakdown": "not_measured",
+      "hypothesis": "Review existingmainSQL/pageconstruction measuredseparately; needcurrentequivalent attribution beforeselectingcodechange"
+    },
+    {
+      "family": "search",
+      "N": 200,
+      "mean_wsgi_seconds": 0.5757500410219655,
+      "weight": 0.3333333333333333,
+      "D_contribution": 0.19191668034065515,
+      "D_fraction": 0.4721953784270312,
+      "W20_contribution_worker_seconds_per_second": 3.838333606813103,
+      "direct_mean_thread_CPU_seconds": 0.23661828360000003,
+      "current_SQL_rule_render_breakdown": "not_measured",
+      "hypothesis": "Review existingmainSQL/pageconstruction measuredseparately; needcurrentequivalent attribution beforeselectingcodechange"
+    },
+    {
+      "family": "detail",
+      "N": 200,
+      "mean_wsgi_seconds": 0.09404392478056252,
+      "weight": 0.3333333333333333,
+      "D_contribution": 0.03134797492685417,
+      "D_fraction": 0.07712914196531824,
+      "W20_contribution_worker_seconds_per_second": 0.6269594985370834,
+      "direct_mean_thread_CPU_seconds": 0.04967192655999997,
+      "current_SQL_rule_render_breakdown": "not_measured",
+      "hypothesis": "Lowerabsoluteweightedservice, noextrapolatinglisting/searchgainshere"
+    }
+  ],
+  "dependency_versions_current": {
+    "packages": {
+      "CacheControl": "0.14.4",
+      "Django": "5.2.17",
+      "ImageHash": "4.3.2",
+      "PyOTP": "2.10.0",
+      "PyWavelets": "1.10.0",
+      "Pygments": "2.21.0",
+      "amqp": "5.4.0",
+      "argon2-cffi": "25.1.0",
+      "argon2-cffi-bindings": "26.1.0",
+      "asgiref": "3.12.1",
+      "billiard": "4.3.0",
+      "boolean.py": "5.0",
+      "boto3": "1.43.108",
+      "botocore": "1.43.108",
+      "celery": "5.6.3",
+      "certifi": "2026.7.22",
+      "cffi": "2.1.1",
+      "charset-normalizer": "3.5.2",
+      "click": "8.5.0",
+      "click-didyoumean": "0.3.1",
+      "click-plugins": "1.1.1.2",
+      "click-repl": "0.4.0",
+      "cryptography": "50.0.2",
+      "cyclonedx-python-lib": "11.12.0",
+      "defusedxml": "0.7.1",
+      "django-storages": "1.14.6",
+      "filelock": "4.0.9",
+      "greenlet": "3.5.6",
+      "gunicorn": "23.0.0",
+      "idna": "3.20",
+      "iniconfig": "2.3.0",
+      "jmespath": "1.1.0",
+      "kombu": "5.6.2",
+      "license-expression": "30.4.4",
+      "markdown-it-py": "4.2.0",
+      "mdurl": "0.1.2",
+      "msgpack": "1.2.3",
+      "numpy": "2.5.3",
+      "opencv-python-headless": "4.14.0.94",
+      "packageurl-python": "0.17.6",
+      "packaging": "26.3",
+      "pillow": "12.3.0",
+      "pip": "26.2.1",
+      "pip-requirements-parser": "32.0.1",
+      "pip_api": "0.0.35",
+      "pip_audit": "2.10.1",
+      "platformdirs": "4.12.2",
+      "playwright": "1.63.0",
+      "pluggy": "1.6.0",
+      "prompt_toolkit": "3.0.53",
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "py-serializable": "2.1.0",
+      "pycparser": "3.0",
+      "pyee": "13.0.1",
+      "pyparsing": "3.3.3",
+      "pytest": "9.1.1",
+      "pytest-django": "4.14.0",
+      "python-dateutil": "2.9.0.post0",
+      "redis": "6.4.0",
+      "requests": "2.34.2",
+      "rich": "15.0.0",
+      "ruff": "0.16.10",
+      "s3transfer": "0.19.2",
+      "scipy": "1.18.1",
+      "six": "1.17.0",
+      "sortedcontainers": "2.4.0",
+      "sqlparse": "0.6.0",
+      "tomli": "2.4.1",
+      "tomli_w": "1.2.0",
+      "typing_extensions": "4.16.0",
+      "tzdata": "2026.5",
+      "tzlocal": "5.4.4",
+      "urllib3": "2.8.0",
+      "vine": "5.1.0",
+      "wcwidth": "0.9.1"
+    },
+    "python": "3.12.13"
+  },
+  "comparability_evidence": {
+    "app_config_matching_files": 424,
+    "app_config_byte_identical": true,
+    "HTTP_resource_instruments_identical": true,
+    "fixture": "Sameoriginal10000generator/seedmethods/photo1/upload782134; freshUUID/time-relativevalidity and DBsnapshot notidenticalhistoricremoveddata; noPKsemanticchanges",
+    "warmup": "same6cold+30serial and5sidles; PIDpartialcoverageexplicit",
+    "harness_changes": "Manifestorders[4]instead4/6/6/4; schemafingerprintcatalogreadbeforewarmup; runneridle30spre-fixture; no requestpath/instruments/backendchange",
+    "historical_full_installed_dependency_SHA": "not_measured",
+    "historical_direct_schema_fingerprint": "not_measured",
+    "current_schema_fingerprint": "b9663d0f648fdefc265974f5942d1fbda2eddc122eb32fd60ae98b8f213f0ddb",
+    "historical_source_dependency_declarations_identical": {
+      "pyproject.toml": true,
+      "uv.lock": true
+    }
+  },
+  "cleanup_context": {
+    "before": {
+      "observed_at_utc": "2026-10-08T01:14:56.119772+00:00",
+      "containers": [
+        {
+          "name": "crowdsec",
+          "status": "running",
+          "started_at": "2026-10-08T00:38:25.032490983Z",
+          "finished_at": "0001-01-01T00:00:00Z",
+          "restart_count": 0,
+          "host_pid": 2481704
+        },
+        {
+          "name": "web-modelos-app-1",
+          "status": "running",
+          "started_at": "2026-10-06T23:28:29.929622446Z",
+          "finished_at": "0001-01-01T00:00:00Z",
+          "restart_count": 0,
+          "host_pid": 3874912
+        },
+        {
+          "name": "web-modelos-worker-1",
+          "status": "running",
+          "started_at": "2026-10-06T23:28:30.446734036Z",
+          "finished_at": "0001-01-01T00:00:00Z",
+          "restart_count": 0,
+          "host_pid": 3875019
+        },
+        {
+          "name": "web-modelos-beat-1",
+          "status": "running",
+          "started_at": "2026-10-06T23:28:30.722127225Z",
+          "finished_at": "0001-01-01T00:00:00Z",
+          "restart_count": 0,
+          "host_pid": 3875081
+        },
+        {
+          "name": "web-modelos-caddy-1",
+          "status": "running",
+          "started_at": "2026-10-03T15:25:47.956193742Z",
+          "finished_at": "0001-01-01T00:00:00Z",
+          "restart_count": 0,
+          "host_pid": 1061854
+        },
+        {
+          "name": "web-modelos-db-1",
+          "status": "running",
+          "started_at": "2026-10-03T15:15:07.750991213Z",
+          "finished_at": "0001-01-01T00:00:00Z",
+          "restart_count": 0,
+          "host_pid": 846911
+        },
+        {
+          "name": "web-modelos-redis-1",
+          "status": "running",
+          "started_at": "2026-10-03T15:15:08.157766029Z",
+          "finished_at": "0001-01-01T00:00:00Z",
+          "restart_count": 0,
+          "host_pid": 847215
+        },
+        {
+          "name": "openclaw-openclaw-gateway-1",
+          "status": "running",
+          "started_at": "2026-10-01T14:45:09.347829668Z",
+          "finished_at": "0001-01-01T00:00:00Z",
+          "restart_count": 0,
+          "host_pid": 1994746
+        },
+        {
+          "name": "litellm",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.920250749Z",
+          "finished_at": "2026-10-01T14:44:41.229008068Z",
+          "restart_count": 0,
+          "host_pid": 1986131
+        },
+        {
+          "name": "charge-card-lab-admin",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.66424358Z",
+          "finished_at": "2026-10-01T14:44:34.596432558Z",
+          "restart_count": 0,
+          "host_pid": 1985093
+        },
+        {
+          "name": "charge-card-lab-server",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.783541582Z",
+          "finished_at": "2026-10-01T14:44:41.889877509Z",
+          "restart_count": 0,
+          "host_pid": 1985660
+        },
+        {
+          "name": "charge-card-lab-telegram-import-bot",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.714471509Z",
+          "finished_at": "2026-10-01T14:44:45.051916219Z",
+          "restart_count": 0,
+          "host_pid": 1985037
+        },
+        {
+          "name": "wg-easy",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.424636783Z",
+          "finished_at": "2026-10-01T14:44:35.546715707Z",
+          "restart_count": 0,
+          "host_pid": 1982484
+        },
+        {
+          "name": "charge-card-lab-vault-token-renewer",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.702747505Z",
+          "finished_at": "2026-10-01T14:44:45.093397497Z",
+          "restart_count": 0,
+          "host_pid": 1985075
+        },
+        {
+          "name": "charge-card-lab-client-download",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.628245601Z",
+          "finished_at": "2026-10-01T14:44:34.361884882Z",
+          "restart_count": 0,
+          "host_pid": 1983559
+        },
+        {
+          "name": "charge-card-lab-server-r6-b",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.662668083Z",
+          "finished_at": "2026-10-01T14:44:44.659045054Z",
+          "restart_count": 0,
+          "host_pid": 1985153
+        },
+        {
+          "name": "charge-card-lab-server-r6-a",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.78487935Z",
+          "finished_at": "2026-10-01T14:44:42.554273416Z",
+          "restart_count": 0,
+          "host_pid": 1986283
+        },
+        {
+          "name": "charge-card-lab-redis",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.714425585Z",
+          "finished_at": "2026-10-01T14:44:35.048358631Z",
+          "restart_count": 0,
+          "host_pid": 1986129
+        },
+        {
+          "name": "charge-card-lab-otel",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.565560657Z",
+          "finished_at": "2026-10-01T14:44:34.624566298Z",
+          "restart_count": 0,
+          "host_pid": 1982943
+        },
+        {
+          "name": "charge-card-lab-vault",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.703929983Z",
+          "finished_at": "2026-10-01T14:44:34.340121965Z",
+          "restart_count": 0,
+          "host_pid": 1985092
+        },
+        {
+          "name": "charge-card-lab-postgres",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.730966205Z",
+          "finished_at": "2026-10-01T14:44:34.736207888Z",
+          "restart_count": 0,
+          "host_pid": 1983889
+        },
+        {
+          "name": "openwebui",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.728958944Z",
+          "finished_at": "2026-10-01T14:44:41.612107363Z",
+          "restart_count": 0,
+          "host_pid": 1984416
+        },
+        {
+          "name": "n8n",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.713661243Z",
+          "finished_at": "2026-10-01T14:44:36.765029415Z",
+          "restart_count": 0,
+          "host_pid": 1985117
+        },
+        {
+          "name": "freshrss",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.644653124Z",
+          "finished_at": "2026-10-01T14:44:35.891228189Z",
+          "restart_count": 0,
+          "host_pid": 1983709
+        },
+        {
+          "name": "gitea",
+          "status": "running",
+          "started_at": "2026-10-01T14:45:53.696658181Z",
+          "finished_at": "2026-10-01T14:45:52.818614852Z",
+          "restart_count": 1,
+          "host_pid": 2017014
+        },
+        {
+          "name": "opencode",
+          "status": "exited",
+          "started_at": "2026-07-24T19:14:30.289468797Z",
+          "finished_at": "2026-07-24T19:36:00.1940031Z",
+          "restart_count": 0,
+          "host_pid": 0
+        },
+        {
+          "name": "karakeep",
+          "status": "exited",
+          "started_at": "2026-10-08T00:27:35.086543744Z",
+          "finished_at": "2026-10-08T01:10:17.033363405Z",
+          "restart_count": 0,
+          "host_pid": 0
+        },
+        {
+          "name": "gitea-act-runner",
+          "status": "running",
+          "started_at": "2026-10-01T14:47:01.919697939Z",
+          "finished_at": "2026-10-01T14:46:10.284762376Z",
+          "restart_count": 10,
+          "host_pid": 2042456
+        },
+        {
+          "name": "privatebin",
+          "status": "exited",
+          "started_at": "2026-10-08T00:43:47.254105973Z",
+          "finished_at": "2026-10-08T01:05:12.133361076Z",
+          "restart_count": 0,
+          "host_pid": 0
+        },
+        {
+          "name": "trilium",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.845861015Z",
+          "finished_at": "2026-10-01T14:44:37.272483611Z",
+          "restart_count": 0,
+          "host_pid": 1986068
+        },
+        {
+          "name": "paperless-ai",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.703434891Z",
+          "finished_at": "2026-10-01T14:44:37.42923362Z",
+          "restart_count": 0,
+          "host_pid": 1986354
+        },
+        {
+          "name": "paperless-tika",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.56326394Z",
+          "finished_at": "2026-10-01T14:44:35.09004032Z",
+          "restart_count": 0,
+          "host_pid": 1982784
+        },
+        {
+          "name": "paperless-db",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.646873293Z",
+          "finished_at": "2026-10-01T14:44:44.939432067Z",
+          "restart_count": 0,
+          "host_pid": 1983280
+        },
+        {
+          "name": "paperless-gotenberg",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.382869942Z",
+          "finished_at": "2026-10-01T14:44:34.690344576Z",
+          "restart_count": 0,
+          "host_pid": 1982654
+        },
+        {
+          "name": "paperless-redis",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.703251625Z",
+          "finished_at": "2026-10-01T14:44:36.725375065Z",
+          "restart_count": 0,
+          "host_pid": 1985209
+        },
+        {
+          "name": "opengist",
+          "status": "exited",
+          "started_at": "2026-10-08T00:25:47.241474323Z",
+          "finished_at": "2026-10-08T01:10:13.935709899Z",
+          "restart_count": 0,
+          "host_pid": 0
+        },
+        {
+          "name": "refactor-redis-1",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.247621127Z",
+          "finished_at": "2026-10-01T14:44:34.694781035Z",
+          "restart_count": 0,
+          "host_pid": 1982243
+        },
+        {
+          "name": "guacamole",
+          "status": "exited",
+          "started_at": "2026-10-07T22:45:03.751673531Z",
+          "finished_at": "2026-10-07T23:15:23.751943601Z",
+          "restart_count": 0,
+          "host_pid": 0
+        },
+        {
+          "name": "guacamole-postgres",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.903712429Z",
+          "finished_at": "2026-10-01T14:44:44.833271975Z",
+          "restart_count": 0,
+          "host_pid": 1986635
+        },
+        {
+          "name": "guacd",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.598058046Z",
+          "finished_at": "2026-10-01T14:44:34.787820658Z",
+          "restart_count": 0,
+          "host_pid": 1984411
+        },
+        {
+          "name": "paperless",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.922341585Z",
+          "finished_at": "2026-10-01T14:44:45.237020423Z",
+          "restart_count": 0,
+          "host_pid": 1985663
+        },
+        {
+          "name": "litellm-pg",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.840696694Z",
+          "finished_at": "2026-10-01T14:44:44.837979631Z",
+          "restart_count": 0,
+          "host_pid": 1986274
+        },
+        {
+          "name": "paperless-inbox-sync",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.7847607Z",
+          "finished_at": "2026-10-01T14:44:44.729407466Z",
+          "restart_count": 0,
+          "host_pid": 1985174
+        },
+        {
+          "name": "karakeep-meilisearch",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.597563809Z",
+          "finished_at": "2026-10-01T14:44:34.297000676Z",
+          "restart_count": 0,
+          "host_pid": 1983894
+        },
+        {
+          "name": "karakeep-chrome",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.667265453Z",
+          "finished_at": "2026-10-01T14:44:35.112015218Z",
+          "restart_count": 0,
+          "host_pid": 1985005
+        },
+        {
+          "name": "gitea-postgres",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.902540696Z",
+          "finished_at": "2026-10-01T14:44:44.840858245Z",
+          "restart_count": 0,
+          "host_pid": 1986126
+        },
+        {
+          "name": "onlyoffice-documentserver",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.731432611Z",
+          "finished_at": "2026-10-01T14:44:44.709554021Z",
+          "restart_count": 0,
+          "host_pid": 1986038
+        },
+        {
+          "name": "nextcloud-db",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.901040363Z",
+          "finished_at": "2026-10-01T14:44:45.825937191Z",
+          "restart_count": 0,
+          "host_pid": 1986327
+        },
+        {
+          "name": "nextcloud-redis",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.905549573Z",
+          "finished_at": "2026-10-01T14:44:36.725611673Z",
+          "restart_count": 0,
+          "host_pid": 1986079
+        },
+        {
+          "name": "n8n-pg",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.902847563Z",
+          "finished_at": "2026-10-01T14:44:44.705496871Z",
+          "restart_count": 0,
+          "host_pid": 1985327
+        },
+        {
+          "name": "nextcloud-cron",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.645374511Z",
+          "finished_at": "2026-10-01T14:44:44.672517804Z",
+          "restart_count": 0,
+          "host_pid": 1985074
+        },
+        {
+          "name": "nextcloud",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.87334218Z",
+          "finished_at": "2026-10-01T14:44:35.596744957Z",
+          "restart_count": 0,
+          "host_pid": 1986263
+        },
+        {
+          "name": "traefik",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.849229144Z",
+          "finished_at": "2026-10-01T14:44:35.99308314Z",
+          "restart_count": 0,
+          "host_pid": 1986281
+        },
+        {
+          "name": "sablier",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.78474377Z",
+          "finished_at": "2026-10-01T14:44:34.63983585Z",
+          "restart_count": 0,
+          "host_pid": 1986457
+        },
+        {
+          "name": "homepage",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.703671892Z",
+          "finished_at": "2026-10-01T14:44:34.861793992Z",
+          "restart_count": 0,
+          "host_pid": 1986072
+        },
+        {
+          "name": "adguardhome",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.285137162Z",
+          "finished_at": "2026-10-01T14:44:35.64508271Z",
+          "restart_count": 0,
+          "host_pid": 1982358
+        },
+        {
+          "name": "ths-authentik-server",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.210713574Z",
+          "finished_at": "2026-10-01T14:44:35.301049827Z",
+          "restart_count": 0,
+          "host_pid": 1982270
+        },
+        {
+          "name": "ths-authentik-worker",
+          "status": "running",
+          "started_at": "2026-10-01T14:45:49.608894974Z",
+          "finished_at": "2026-10-01T14:45:48.995060016Z",
+          "restart_count": 1,
+          "host_pid": 2015261
+        },
+        {
+          "name": "ths-authentik-postgres",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.784244275Z",
+          "finished_at": "2026-10-01T14:44:44.862456032Z",
+          "restart_count": 0,
+          "host_pid": 1986286
+        },
+        {
+          "name": "ths-authentik-redis",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.921595845Z",
+          "finished_at": "2026-10-01T14:44:37.156718499Z",
+          "restart_count": 0,
+          "host_pid": 1986503
+        },
+        {
+          "name": "mail-relay",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.842905777Z",
+          "finished_at": "2026-10-01T14:44:35.001878339Z",
+          "restart_count": 0,
+          "host_pid": 1986341
+        },
+        {
+          "name": "spintools-app",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.872371962Z",
+          "finished_at": "2026-10-01T14:44:35.498383347Z",
+          "restart_count": 0,
+          "host_pid": 1986478
+        },
+        {
+          "name": "spintools-backend",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.901872092Z",
+          "finished_at": "2026-10-01T14:44:36.360279078Z",
+          "restart_count": 0,
+          "host_pid": 1986340
+        },
+        {
+          "name": "spintools-static",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.223343765Z",
+          "finished_at": "2026-10-01T14:44:34.59937658Z",
+          "restart_count": 0,
+          "host_pid": 1982246
+        },
+        {
+          "name": "spintools-db",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.841469167Z",
+          "finished_at": "2026-10-01T14:44:34.891512088Z",
+          "restart_count": 0,
+          "host_pid": 1986144
+        },
+        {
+          "name": "spintools-authentik-server",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.701957434Z",
+          "finished_at": "2026-10-01T14:44:35.050067645Z",
+          "restart_count": 0,
+          "host_pid": 1985344
+        },
+        {
+          "name": "spintools-authentik-worker",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.906163653Z",
+          "finished_at": "2026-10-01T14:44:38.987473073Z",
+          "restart_count": 0,
+          "host_pid": 1986586
+        },
+        {
+          "name": "spintools-authentik-redis",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.847331335Z",
+          "finished_at": "2026-10-01T14:44:36.742139837Z",
+          "restart_count": 0,
+          "host_pid": 1986345
+        },
+        {
+          "name": "spintools-authentik-postgres",
+          "status": "running",
+          "started_at": "2026-10-01T14:44:55.573030143Z",
+          "finished_at": "2026-10-01T14:44:45.783614163Z",
+          "restart_count": 0,
+          "host_pid": 1982889
+        }
+      ],
+      "available_last_hour_lifecycle_events": [],
+      "event_retention": "Dockerdaemon retains bounded eventhistory; missingevents notproofabsence; noexec/healthcheck/labels/env/SQLcaptured",
+      "cleanup_completion_record": "not_measured",
+      "removed_container_inventory": "not_measured unless destroy event present",
+      "resource_freed_by_cleanup": "not_measured; never inferfromcontainercount",
+      "user_context": "Userstatespostcleanup; verify operationalnoactivecleanup/inventory stability andresidualresources without alteringservices"
+    },
+    "after_idle": {
+      "observed_at_utc": "2026-10-08T01:16:56.614677+00:00",
+      "containers": [
+        [
+          "/crowdsec",
+          "running",
+          "2026-10-08T00:38:25.032490983Z",
+          "0001-01-01T00:00:00Z",
+          "0",
+          "2481704"
+        ],
+        [
+          "/web-modelos-app-1",
+          "running",
+          "2026-10-06T23:28:29.929622446Z",
+          "0001-01-01T00:00:00Z",
+          "0",
+          "3874912"
+        ],
+        [
+          "/web-modelos-worker-1",
+          "running",
+          "2026-10-06T23:28:30.446734036Z",
+          "0001-01-01T00:00:00Z",
+          "0",
+          "3875019"
+        ],
+        [
+          "/web-modelos-beat-1",
+          "running",
+          "2026-10-06T23:28:30.722127225Z",
+          "0001-01-01T00:00:00Z",
+          "0",
+          "3875081"
+        ],
+        [
+          "/web-modelos-caddy-1",
+          "running",
+          "2026-10-03T15:25:47.956193742Z",
+          "0001-01-01T00:00:00Z",
+          "0",
+          "1061854"
+        ],
+        [
+          "/web-modelos-db-1",
+          "running",
+          "2026-10-03T15:15:07.750991213Z",
+          "0001-01-01T00:00:00Z",
+          "0",
+          "846911"
+        ],
+        [
+          "/web-modelos-redis-1",
+          "running",
+          "2026-10-03T15:15:08.157766029Z",
+          "0001-01-01T00:00:00Z",
+          "0",
+          "847215"
+        ],
+        [
+          "/openclaw-openclaw-gateway-1",
+          "running",
+          "2026-10-01T14:45:09.347829668Z",
+          "0001-01-01T00:00:00Z",
+          "0",
+          "1994746"
+        ],
+        [
+          "/litellm",
+          "running",
+          "2026-10-01T14:44:55.920250749Z",
+          "2026-10-01T14:44:41.229008068Z",
+          "0",
+          "1986131"
+        ],
+        [
+          "/charge-card-lab-admin",
+          "running",
+          "2026-10-01T14:44:55.66424358Z",
+          "2026-10-01T14:44:34.596432558Z",
+          "0",
+          "1985093"
+        ],
+        [
+          "/charge-card-lab-server",
+          "running",
+          "2026-10-01T14:44:55.783541582Z",
+          "2026-10-01T14:44:41.889877509Z",
+          "0",
+          "1985660"
+        ],
+        [
+          "/charge-card-lab-telegram-import-bot",
+          "running",
+          "2026-10-01T14:44:55.714471509Z",
+          "2026-10-01T14:44:45.051916219Z",
+          "0",
+          "1985037"
+        ],
+        [
+          "/wg-easy",
+          "running",
+          "2026-10-01T14:44:55.424636783Z",
+          "2026-10-01T14:44:35.546715707Z",
+          "0",
+          "1982484"
+        ],
+        [
+          "/charge-card-lab-vault-token-renewer",
+          "running",
+          "2026-10-01T14:44:55.702747505Z",
+          "2026-10-01T14:44:45.093397497Z",
+          "0",
+          "1985075"
+        ],
+        [
+          "/charge-card-lab-client-download",
+          "running",
+          "2026-10-01T14:44:55.628245601Z",
+          "2026-10-01T14:44:34.361884882Z",
+          "0",
+          "1983559"
+        ],
+        [
+          "/charge-card-lab-server-r6-b",
+          "running",
+          "2026-10-01T14:44:55.662668083Z",
+          "2026-10-01T14:44:44.659045054Z",
+          "0",
+          "1985153"
+        ],
+        [
+          "/charge-card-lab-server-r6-a",
+          "running",
+          "2026-10-01T14:44:55.78487935Z",
+          "2026-10-01T14:44:42.554273416Z",
+          "0",
+          "1986283"
+        ],
+        [
+          "/charge-card-lab-redis",
+          "running",
+          "2026-10-01T14:44:55.714425585Z",
+          "2026-10-01T14:44:35.048358631Z",
+          "0",
+          "1986129"
+        ],
+        [
+          "/charge-card-lab-otel",
+          "running",
+          "2026-10-01T14:44:55.565560657Z",
+          "2026-10-01T14:44:34.624566298Z",
+          "0",
+          "1982943"
+        ],
+        [
+          "/charge-card-lab-vault",
+          "running",
+          "2026-10-01T14:44:55.703929983Z",
+          "2026-10-01T14:44:34.340121965Z",
+          "0",
+          "1985092"
+        ],
+        [
+          "/charge-card-lab-postgres",
+          "running",
+          "2026-10-01T14:44:55.730966205Z",
+          "2026-10-01T14:44:34.736207888Z",
+          "0",
+          "1983889"
+        ],
+        [
+          "/openwebui",
+          "running",
+          "2026-10-01T14:44:55.728958944Z",
+          "2026-10-01T14:44:41.612107363Z",
+          "0",
+          "1984416"
+        ],
+        [
+          "/n8n",
+          "running",
+          "2026-10-01T14:44:55.713661243Z",
+          "2026-10-01T14:44:36.765029415Z",
+          "0",
+          "1985117"
+        ],
+        [
+          "/freshrss",
+          "running",
+          "2026-10-01T14:44:55.644653124Z",
+          "2026-10-01T14:44:35.891228189Z",
+          "0",
+          "1983709"
+        ],
+        [
+          "/gitea",
+          "running",
+          "2026-10-01T14:45:53.696658181Z",
+          "2026-10-01T14:45:52.818614852Z",
+          "1",
+          "2017014"
+        ],
+        [
+          "/opencode",
+          "exited",
+          "2026-07-24T19:14:30.289468797Z",
+          "2026-07-24T19:36:00.1940031Z",
+          "0",
+          "0"
+        ],
+        [
+          "/karakeep",
+          "exited",
+          "2026-10-08T00:27:35.086543744Z",
+          "2026-10-08T01:10:17.033363405Z",
+          "0",
+          "0"
+        ],
+        [
+          "/gitea-act-runner",
+          "running",
+          "2026-10-01T14:47:01.919697939Z",
+          "2026-10-01T14:46:10.284762376Z",
+          "10",
+          "2042456"
+        ],
+        [
+          "/privatebin",
+          "exited",
+          "2026-10-08T00:43:47.254105973Z",
+          "2026-10-08T01:05:12.133361076Z",
+          "0",
+          "0"
+        ],
+        [
+          "/trilium",
+          "running",
+          "2026-10-01T14:44:55.845861015Z",
+          "2026-10-01T14:44:37.272483611Z",
+          "0",
+          "1986068"
+        ],
+        [
+          "/paperless-ai",
+          "running",
+          "2026-10-01T14:44:55.703434891Z",
+          "2026-10-01T14:44:37.42923362Z",
+          "0",
+          "1986354"
+        ],
+        [
+          "/paperless-tika",
+          "running",
+          "2026-10-01T14:44:55.56326394Z",
+          "2026-10-01T14:44:35.09004032Z",
+          "0",
+          "1982784"
+        ],
+        [
+          "/paperless-db",
+          "running",
+          "2026-10-01T14:44:55.646873293Z",
+          "2026-10-01T14:44:44.939432067Z",
+          "0",
+          "1983280"
+        ],
+        [
+          "/paperless-gotenberg",
+          "running",
+          "2026-10-01T14:44:55.382869942Z",
+          "2026-10-01T14:44:34.690344576Z",
+          "0",
+          "1982654"
+        ],
+        [
+          "/paperless-redis",
+          "running",
+          "2026-10-01T14:44:55.703251625Z",
+          "2026-10-01T14:44:36.725375065Z",
+          "0",
+          "1985209"
+        ],
+        [
+          "/opengist",
+          "exited",
+          "2026-10-08T00:25:47.241474323Z",
+          "2026-10-08T01:10:13.935709899Z",
+          "0",
+          "0"
+        ],
+        [
+          "/refactor-redis-1",
+          "running",
+          "2026-10-01T14:44:55.247621127Z",
+          "2026-10-01T14:44:34.694781035Z",
+          "0",
+          "1982243"
+        ],
+        [
+          "/guacamole",
+          "exited",
+          "2026-10-07T22:45:03.751673531Z",
+          "2026-10-07T23:15:23.751943601Z",
+          "0",
+          "0"
+        ],
+        [
+          "/guacamole-postgres",
+          "running",
+          "2026-10-01T14:44:55.903712429Z",
+          "2026-10-01T14:44:44.833271975Z",
+          "0",
+          "1986635"
+        ],
+        [
+          "/guacd",
+          "running",
+          "2026-10-01T14:44:55.598058046Z",
+          "2026-10-01T14:44:34.787820658Z",
+          "0",
+          "1984411"
+        ],
+        [
+          "/paperless",
+          "running",
+          "2026-10-01T14:44:55.922341585Z",
+          "2026-10-01T14:44:45.237020423Z",
+          "0",
+          "1985663"
+        ],
+        [
+          "/litellm-pg",
+          "running",
+          "2026-10-01T14:44:55.840696694Z",
+          "2026-10-01T14:44:44.837979631Z",
+          "0",
+          "1986274"
+        ],
+        [
+          "/paperless-inbox-sync",
+          "running",
+          "2026-10-01T14:44:55.7847607Z",
+          "2026-10-01T14:44:44.729407466Z",
+          "0",
+          "1985174"
+        ],
+        [
+          "/karakeep-meilisearch",
+          "running",
+          "2026-10-01T14:44:55.597563809Z",
+          "2026-10-01T14:44:34.297000676Z",
+          "0",
+          "1983894"
+        ],
+        [
+          "/karakeep-chrome",
+          "running",
+          "2026-10-01T14:44:55.667265453Z",
+          "2026-10-01T14:44:35.112015218Z",
+          "0",
+          "1985005"
+        ],
+        [
+          "/gitea-postgres",
+          "running",
+          "2026-10-01T14:44:55.902540696Z",
+          "2026-10-01T14:44:44.840858245Z",
+          "0",
+          "1986126"
+        ],
+        [
+          "/onlyoffice-documentserver",
+          "running",
+          "2026-10-01T14:44:55.731432611Z",
+          "2026-10-01T14:44:44.709554021Z",
+          "0",
+          "1986038"
+        ],
+        [
+          "/nextcloud-db",
+          "running",
+          "2026-10-01T14:44:55.901040363Z",
+          "2026-10-01T14:44:45.825937191Z",
+          "0",
+          "1986327"
+        ],
+        [
+          "/nextcloud-redis",
+          "running",
+          "2026-10-01T14:44:55.905549573Z",
+          "2026-10-01T14:44:36.725611673Z",
+          "0",
+          "1986079"
+        ],
+        [
+          "/n8n-pg",
+          "running",
+          "2026-10-01T14:44:55.902847563Z",
+          "2026-10-01T14:44:44.705496871Z",
+          "0",
+          "1985327"
+        ],
+        [
+          "/nextcloud-cron",
+          "running",
+          "2026-10-01T14:44:55.645374511Z",
+          "2026-10-01T14:44:44.672517804Z",
+          "0",
+          "1985074"
+        ],
+        [
+          "/nextcloud",
+          "running",
+          "2026-10-01T14:44:55.87334218Z",
+          "2026-10-01T14:44:35.596744957Z",
+          "0",
+          "1986263"
+        ],
+        [
+          "/traefik",
+          "running",
+          "2026-10-01T14:44:55.849229144Z",
+          "2026-10-01T14:44:35.99308314Z",
+          "0",
+          "1986281"
+        ],
+        [
+          "/sablier",
+          "running",
+          "2026-10-01T14:44:55.78474377Z",
+          "2026-10-01T14:44:34.63983585Z",
+          "0",
+          "1986457"
+        ],
+        [
+          "/homepage",
+          "running",
+          "2026-10-01T14:44:55.703671892Z",
+          "2026-10-01T14:44:34.861793992Z",
+          "0",
+          "1986072"
+        ],
+        [
+          "/adguardhome",
+          "running",
+          "2026-10-01T14:44:55.285137162Z",
+          "2026-10-01T14:44:35.64508271Z",
+          "0",
+          "1982358"
+        ],
+        [
+          "/ths-authentik-server",
+          "running",
+          "2026-10-01T14:44:55.210713574Z",
+          "2026-10-01T14:44:35.301049827Z",
+          "0",
+          "1982270"
+        ],
+        [
+          "/ths-authentik-worker",
+          "running",
+          "2026-10-01T14:45:49.608894974Z",
+          "2026-10-01T14:45:48.995060016Z",
+          "1",
+          "2015261"
+        ],
+        [
+          "/ths-authentik-postgres",
+          "running",
+          "2026-10-01T14:44:55.784244275Z",
+          "2026-10-01T14:44:44.862456032Z",
+          "0",
+          "1986286"
+        ],
+        [
+          "/ths-authentik-redis",
+          "running",
+          "2026-10-01T14:44:55.921595845Z",
+          "2026-10-01T14:44:37.156718499Z",
+          "0",
+          "1986503"
+        ],
+        [
+          "/mail-relay",
+          "running",
+          "2026-10-01T14:44:55.842905777Z",
+          "2026-10-01T14:44:35.001878339Z",
+          "0",
+          "1986341"
+        ],
+        [
+          "/spintools-app",
+          "running",
+          "2026-10-01T14:44:55.872371962Z",
+          "2026-10-01T14:44:35.498383347Z",
+          "0",
+          "1986478"
+        ],
+        [
+          "/spintools-backend",
+          "running",
+          "2026-10-01T14:44:55.901872092Z",
+          "2026-10-01T14:44:36.360279078Z",
+          "0",
+          "1986340"
+        ],
+        [
+          "/spintools-static",
+          "running",
+          "2026-10-01T14:44:55.223343765Z",
+          "2026-10-01T14:44:34.59937658Z",
+          "0",
+          "1982246"
+        ],
+        [
+          "/spintools-db",
+          "running",
+          "2026-10-01T14:44:55.841469167Z",
+          "2026-10-01T14:44:34.891512088Z",
+          "0",
+          "1986144"
+        ],
+        [
+          "/spintools-authentik-server",
+          "running",
+          "2026-10-01T14:44:55.701957434Z",
+          "2026-10-01T14:44:35.050067645Z",
+          "0",
+          "1985344"
+        ],
+        [
+          "/spintools-authentik-worker",
+          "running",
+          "2026-10-01T14:44:55.906163653Z",
+          "2026-10-01T14:44:38.987473073Z",
+          "0",
+          "1986586"
+        ],
+        [
+          "/spintools-authentik-redis",
+          "running",
+          "2026-10-01T14:44:55.847331335Z",
+          "2026-10-01T14:44:36.742139837Z",
+          "0",
+          "1986345"
+        ],
+        [
+          "/spintools-authentik-postgres",
+          "running",
+          "2026-10-01T14:44:55.573030143Z",
+          "2026-10-01T14:44:45.783614163Z",
+          "0",
+          "1982889"
+        ]
+      ],
+      "scope": "Selected state metadata only; no container config/env, historical freed resources not_measured"
+    },
+    "inventory_stable_over_characterization": true,
+    "cleanup_exact_completion_time": "not_measured",
+    "removed_container_names_and_freed_CPU_memory_IO": "not_measured",
+    "observed_noactivecleanup_processes": true,
+    "completion_basis": "Userstatescompletedcleanup; currentnoactivecleanup/stableinventory verified, not an operator globalcompletionacta."
+  },
+  "upload_frequency": "Contractual1/min only; U=singleuploadWSGI/60 with N1uncertainty. No inferred2/minfrequency.",
+  "contract": "CR09open/goalpaused;4reference6candidateNotAdopted;historicFAIL/INVALIDpercentagesunchanged;20RPS900scontractblocked; noauto60/900",
+  "decision": {
+    "keep_reference_workers": 4,
+    "candidate_not_adopted": 6,
+    "automatic_60_or_900": false,
+    "backend_change": false,
+    "next_cost_priority": "Listado y búsqueda aportan 92,2871% de D. Reutilizar perfiles/planes existentes para investigar trabajo evitable de lectura y construcción de página, contrastando su vigencia antes de elegir un cambio. Desglose concurrente SQL/reglas/render actual not_measured; no elegir otro refactor por inferencia.",
+    "closure": "Checkpoint entregado; CR09 abierto, goal pausado, única cola docs/17; porcentajes y veredictos históricos intactos."
+  },
+  "final_review_source": "docs/evidencias/post-limpieza-recursos-ejecucion0110.json"
+}

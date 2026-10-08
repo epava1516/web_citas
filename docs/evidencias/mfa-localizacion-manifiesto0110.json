@@ -1,0 +1,10 @@
+{
+  "requirement": "BF\u00a77 ES/EN labels/errors for MFA; independent preparation allowed\u00a713, same TOTP/recovery/session/authority contract; defects in PasswordForm, CodeForm and view messages",
+  "selection": [
+    "tests/test_mfa_localization.py",
+    "tests/test_agencies_mfa.py::test_mfa_enrollment_replay_and_recovery"
+  ],
+  "acceptance": "PostgreSQL + real Chromium ES/EN mobile: wrong password, enrollment with invalid/valid TOTP, encrypted secret and ten recovery hashes, account reload, sign out/in challenge, TOTP replay rejected, recovery success and reuse rejected, fresh TOTP success/replay rejected; existing enrollment/replay/recovery regression. Explicit labels and unchanged autocomplete. No profiler/load/backend performance change.",
+  "resources": "Private DB/test DB, live_server, browser, isolated media; no external provider/normal runtime changes. Source/runner/artifact hashes frozen until terminal independent cleanup review.",
+  "scope": "Localize constructors with language default es and view-created forms; only labels/messages incl429/409, no authentication/consume_totp/locking/queries/limits/policies/schema changes."
+}

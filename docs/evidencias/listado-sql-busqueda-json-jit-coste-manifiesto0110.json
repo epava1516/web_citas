@@ -1,0 +1,35 @@
+{
+  "selection": [
+    "tests/test_search_json_cost.py"
+  ],
+  "output": "/tmp/sql-publication-search-json-page-cost-0110",
+  "prerequisite": "7PG page policy cases and prior19PG JSON/search cases reviewed; not a common N2",
+  "scenario": "10000 repeated/diverse; four counterbalanced triplets for listing and search: before=computed vector+elements+ordinary page; intermediate=generated vector+strict JSON+ordinary page; after=same intermediate with scoped page JIT. Same current schema/data/stats.",
+  "effect": "Median paired saving averaged across the two affected families >=0.15s AND >=20%average before medians AND >=3/4 favorable pairs, both variants. No family median regression >max(0.05s,10%before). Design filter, not load SLO or capacity. Storage/write/migration cost not compared",
+  "observation": "Existing six plain/coarse probes followed by separate top5 plans; now page SELECT plans also use jit=off matching implementation. SQL per-rule/objects absent; no substitution of profiled times for controls.",
+  "finish": "Persist controls before probes; terminal source checks and own cleanup. Decide from measured total and directly observed mechanisms; no workers/cache/server scaling; short/long load only after common equivalence and matrix.",
+  "orders": [
+    [
+      "before",
+      "intermediate",
+      "after"
+    ],
+    [
+      "after",
+      "intermediate",
+      "before"
+    ],
+    [
+      "intermediate",
+      "after",
+      "before"
+    ],
+    [
+      "before",
+      "after",
+      "intermediate"
+    ]
+  ],
+  "repetition_reason": "Previous candidate failed material effect in diverse; separate plans revealed page JIT and new scoped read is functionally verified. Previous insufficient result preserved.",
+  "page_policy_decision": "Report intermediate-after paired effects separately. Keep only with material saving in affected scenario (median >=0.10s and >=3/4 favorable pairs) and no family median regression >max(0.05s,10%) in either variant; otherwise inconclusive/reject. Whole before-after threshold remains unchanged."
+}

@@ -1,0 +1,16 @@
+{
+  "selection": [
+    "tests/test_sql_text_index.py",
+    "tests/test_sql_text_proof.py",
+    "tests/test_sql_publication.py::test_sql_proof_and_unknowns_match_complete_native_population",
+    "tests/test_sql_publication.py::test_sql_helper_semantic_wrapper_disables_public_projection",
+    "tests/test_projection_runtime_semantics.py",
+    "tests/test_projected_publication.py::test_revocation_committed_between_projection_and_hydration_recomputes_native_population",
+    "tests/test_projected_publication.py::test_nonwrapping_profile_preserves_route_and_functional_response",
+    "tests/test_certified_publication_page.py"
+  ],
+  "output": "/tmp/sql-publication-text-index-n1-0110",
+  "hypothesis": "Partial indexes on static sufficient-text unknowns and equivalent unknown-ID membership queries reduce already demonstrated SQL cost without storing authority or eligibility. Versioned expression shared by query/index; no removal of native unknowns.",
+  "scenario": "PostgreSQL owned migration0014. Existing out-of-page native population/pages and rule/authority races; added actual index existence, writes/rollback and old-row/new-membership vector identity; unchanged finite text corpus. Normal DB/runtime untouched.",
+  "finish": "All selected functional cases terminal with frozen sources/hashes and owned database/media cleanup reviewed before any timing comparison; failures corrected first. No load/capacity/percentage claim."
+}

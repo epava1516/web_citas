@@ -87,3 +87,135 @@ Preflight de sustitutos0100: reproducción2 fallos/2 correctas63,63s confirma qu
 
 
 Entrega de autoridad0100 verificada:80 pruebas conjuntas correctas320,56s, sin fallos/errores/omitidas;587 hashes congelados intactos. Docker actualizado app/worker/Beat;4 hashes afectados coinciden host/tres servicios, UID10001, Django check/migrate-check y salud200 correctos. [Evidencia](evidencias/recuperacion-autoridad-integrada-runtime0100.json). Prevalece sobre estado anterior de checkpoint esperado/preflight solo workspace. Referencia independiente obligatoria en CLI; procedencia/custodia externa pendiente. CR09 abierto; seguir recursos locales y matriz residual, CR10→GS01→BF/BB→C pendientes. Cifras82/56 retiradas como medición vigente; seguimiento por requisitos en docs83/86.
+
+## Cambio de prioridad y preparación independiente —2026-10-08
+
+CR09-REND-LECTURA aplazado hasta petición expresa, sin cierre ni cambios de requisitos/porcentajes/veredictos. Preparación independiente de shell/cuenta ESEN (teclado, acceso, reset, MFA, aceptación actualizada y registro/mensajes) integrada localmentef87951f con comprobaciones PG/Chromium por componente; [seguimiento y evidencia](17-seguimiento-desarrollo.md). No reabren derechos entregados ni aceptan BF/GS01/CR10. Las dependencias y la cola se mantienen exclusivamente en seguimiento17; esta referencia no crea otro roadmap.
+
+Preparación de entrada pública ES/EN integrada localmente4e4e081: reclamación, denuncia y solicitud de derechos, con4 casos PG/Chromium por componente; privacidad/replay/IDs/payload/cifrado/autoridad/plazos conservados. [Cola/evidencias](17-seguimiento-desarrollo.md). No cierre integral de derechos/BF/GS01 ni aumento de porcentajes.
+
+Aclaraciones de recibos privados ES/EN integradas8dddbb1,6 casos PG/Chromium; mínimos distintos, cifrado, versiones, replay, capacidad/caducidad y plazos preservados. [Cola/evidencia](17-seguimiento-desarrollo.md). Preparación de presentación, no aceptación de derechos/BF/GS01 ni nuevos porcentajes.
+
+Consulta auditada ES/EN integrada5a8cb5b con9 casos PG/Chromium y regresiones por cola: GET no descifra, POST motivado audita, recarga oculta datos y revocación bloquea. Sesión sintética real, no ensayo TOTP nuevo. [Seguimiento/evidencia](17-seguimiento-desarrollo.md). Preparación independiente; derechos/fases/porcentajes y rendimiento aplazado conservados.
+
+Preparación independiente adicional0110: acciones triage ES/EN `8b1604f`, [14 casos únicos PG/Chromium y regresiones](evidencias/triage-localizacion-consolidada0110.json); etiquetas/opciones localizadas, motor/autoridad/privacidad/fechas intactos. Casos repartidos entre dos ejecuciones, no N3 común. No aceptación integral, cambios de porcentaje ni cierre GS01/CR09; rendimiento aplazado. Cola única en17.
+
+Preparación independiente0110 de resolución de reclamación ES/EN `643a6b3`: [5PG correctos,2Chromium ES/EN](evidencias/resolucion-reclamacion-localizacion-revisada0110.json), redacción/respuesta mínima/fuente/replay y privacidad conservados. Solo presentación del motor existente, sin aceptación integral/GS01/CR09, runtime normal ni avance porcentual. Cola única17, rendimiento aplazado.
+
+Preparación independiente0110 publicación/moderación ES/EN `e007275`: [6PG correctos,4Chromium ES/EN](evidencias/acciones-anuncios-localizacion-revisada0110.json); etiquetas/opciones, motores y autoridad/lecturas/restricciones intactos. No aceptación integral/GS01/CR09 ni avance porcentual/runtime/performance. Cola única17.
+
+Preparación independiente0110 recursos/revisión ES/EN `c86171c`: [10 únicos correctos PG,2Chromium](evidencias/recursos-localizacion-consolidada0110.json); consumidores foto/agencia y etiqueta de privacidad específica conservados,3ejecuciones/noN3 común. No aceptación integral/GS01/CR09 ni porcentajes/runtime/performance nuevos. Cola única17.
+
+Preparación independiente0110 organización/gestor ES/EN `f4c2dc5`: [7PG correctos,4Chromium](evidencias/revision-organizacion-gestor-localizacion-revisada0110.json), simulación explícita/referencias sintéticas y bloqueos PRODUCTION/autoridad/readiness preservados. No verificación real ni aceptación integral/GS01/CR09, porcentajes/runtime/performance. Cola única17.
+
+Preparación independiente0110 revisión de coincidencias ES/EN `bdeda6e`: [4PG correctos,2Chromium](evidencias/coincidencias-localizacion-revisada0110.json); pares/fotos privadas/permisos/restricciones y motor preservados. No aceptación integral/GS01/CR09, porcentajes/runtime/performance nuevos. Cola única17.
+
+Preparación independiente0110 teléfono ES/EN `31e1fc8`: [4PG correctos,2Chromium](evidencias/telefono-localizacion-revisada0110.json); etiquetas solamente, digest/consumo/autoridad/guards intactos. SMS locmem simulado, no proveedor/entrega real ni aceptación integral/GS01/CR09, porcentajes/runtime/performance. Cola única17.
+
+Preparación independiente0110 autorización/cambio gestor ES/EN `90072c0`: [6PG correctos,4Chromium](evidencias/autorizacion-gestor-localizacion-revisada0110.json); labels solamente, documentos/versiones/autoridad/consumo/replay/retirada preservados. Locmem/sintético, no jurídico/entrega real ni aceptación integral/GS01/CR09, porcentajes/runtime/performance. Cola única17.
+
+Preparación independiente0110 simulador de edad ES/EN `8c9724e`: [3PG correctos,2Chromium](evidencias/simulador-edad-localizacion-revisada0110.json); etiquetas/opciones, simulación explícita y firmas/guards/autoridad/readiness preservados. No edad/identidad real ni aceptación integral/GS01/CR09, porcentajes/runtime/performance. Cola única17.
+
+Preparación independiente0110 alta agencia/editor/persona ES/EN `0bba6a7`: [6PG correctos,4Chromium](evidencias/alta-agencia-persona-localizacion-revisada0110.json); labels, consumidores y roles/MFA/quotas/invitación/revocación preservados. Aviso de sesión propia teardown/retirada independiente revisados. Locmem no proveedor real ni aceptación integral/GS01/CR09, porcentajes/runtime/performance. Cola única17.
+
+Nota local2026-10-08: promoción simulada ES/EN entregada `029ba44`,4PG incluidos2Chromium; [evidencia revisada](evidencias/promocion-simulada-localizacion-revisada0110.json). Preparación UI exclusivamente, sin aceptación CR10/GS01/fases/derechos ni modificación de pesos, dependencias o veredictos. Recursos propios retirados; siguiente requisito concreto y única cola en docs17.
+
+Nota local2026-10-08: administración de catálogo ES/EN `2bede85`,7PG incluidos2Chromium; [revisión](evidencias/catalogo-promocion-localizacion-revisada0110.json). Preparación UI sin aceptación CR10/GS01/fases/derechos, ventas reales ni modificación de pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: conflictos de promoción ES/EN `6937e46`,3PG incluidos2Chromium; [revisión](evidencias/conflictos-promocion-localizacion-revisada0110.json). Intercalado catálogo controlado no prueba de carrera real; preparación UI sin aceptación CR10/GS01/fases/derechos ni modificación de pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: confirmación destino cuenta ES/EN `8843a47`,3PG incluidos2Chromium; [revisión](evidencias/destino-cuenta-localizacion-revisada0110.json). Simulator cifrado no transporte real; preparación UI sin aceptación integral derechos/GS01/fases ni modificación de pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: rechazos upload ES/EN `0883927`,3PG incluidos2Chromium; [revisión](evidencias/upload-localizacion-revisada0110.json). Contador30→31 sin efectos, ingest privado conservado; eager de fixture no worker real. Preparación UI sin aceptación integral ni modificación de pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: edición fotografías rechazos ES/EN `84f662e`,2PG Chromium; [revisión](evidencias/edicion-foto-localizacion-revisada0110.json). Fixtures queued no ingest/worker;400/409/foreign404 sin efectos, operaciones válidas conservadas. Preparación UI sin aceptación integral ni modificación de pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: revisión conservación ES/EN `131d50b`,3PG incluidos2Chromium; [revisión](evidencias/revision-conservacion-localizacion-revisada0110.json). Fecha operativa no extensión/autoridad de borrado; plan/plazo/cuenta intactos. Preparación UI sin aceptación integral ni modificación de pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: seguimiento medidas por finalidad ES/EN `afae3a3`,4PG incluidos2Chromium/login/TOTP local; [revisión](evidencias/seguimiento-finalidad-localizacion-revisada0110.json). Seguimiento no levanta medida/plazo ni autoriza publicación. Preparación UI sin aceptación integral ni modificación de pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: filtros calendario finalidad ES/EN `f93141d`,3PG incluidos2Chromium; [revisión](evidencias/filtros-finalidad-localizacion-revisada0110.json). Sin cambio medidas/plazos/cursor; volumen previo reutilizado. Preparación UI sin aceptación integral ni modificación de pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: rechazos calendarios privados ES/EN `d17d867`,4PG Chromium; [revisión](evidencias/rechazos-calendario-localizacion-revisada0110.json). Sin efectos/privacidad/guards intactos, no repetición volumen/races. Preparación UI sin aceptación integral ni modificación pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: levantamiento comunicado presentación ES/EN `5a15375`,12casos10PGChrome2formsinDB; [revisión](evidencias/levantamiento-localizacion-revisada0110.json). Identidad scoped simulator/recibo local no proveedor/transportereal; wrapper rollback controlado no carrera real. Preparación UI sin aceptación integral ni modificación pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: filtros restricciones expediente ES/EN `509ada0`,3PG incluidos2Chromium; [revisión](evidencias/filtros-expediente-localizacion-revisada0110.json). Default activo/autoridad/COI/orden25/paginación intactos, sin levantar medidas. Preparación UI sin aceptación integral ni modificación pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: excepción finalidad presentación ES/EN `c81a1b2`,6PG incluidos4Chromium; [revisión](evidencias/excepcion-finalidad-localizacion-revisada0110.json). Ámbitos de cuenta/no consumo/medida activa; scopedproof simulator no identidad/decisión jurídica real. Preparación UI sin aceptación integral ni modificación pesos/dependencias/veredictos. Única cola docs17.
+
+Nota local2026-10-08: denegación privada de medidas ES/EN `2a22c8e`,6PG/Chromium únicos entre tres ejecuciones; [consolidación](evidencias/denegacion-medidas-localizacion-consolidada0110.json). Solo guard inicial publicación; cola POST405 preservada. Recursos propios retirados; preparación sin aceptación integral ni cambio pesos/dependencias/veredictos; única cola docs17.
+
+Nota local2026-10-08: presentación planes tratamiento ES/EN `bb6b8b8`,12casos6PGChrome/6forms; [revisión](evidencias/planes-tratamiento-localizacion-revisada0110.json). Finalidades/confirmación/independencia intactas; no nueva prueba carrera/publicación real ni aceptación integral; recursos propios retirados. Pesos/dependencias/veredictos intactos, única cola docs17.
+
+Nota local2026-10-08: mensajes privados planes ES/EN `3656ce2`,2PGChrome403/409 iniciales sin efectos, [revisión](evidencias/rechazos-planes-localizacion-revisada0110.json). Flujos completos válidos reutilizados. Recursos propios retirados; sin aceptación integral/cambio pesos/dependencias/veredictos; única cola docs17.
+
+Nota local2026-10-08: respuestas parciales presentación ES/EN `c2ce621`,8casos4PGChrome/4forms; [revisión](evidencias/respuesta-parcial-localizacion-revisada0110.json). Tipos de ejecución/required/lectura/revisión/emisión/acuse preservados; no aceptación integral de derechos/cambio pesos/dependencias/veredictos. Recursos propios retirados; única cola docs17.
+
+Nota local2026-10-08: denegación privada respuestas parciales ES/EN `8fb3b87`,4PGChrome inicial403 sin efectos; [revisión](evidencias/denegacion-respuesta-parcial-localizacion-revisada0110.json). Flujos completos válidos reutilizados; recursos propios retirados; sin aceptación integral/cambio pesos/dependencias/veredictos, única cola docs17.
+
+Nota local2026-10-08: respuesta/cierre rectificación presentación ES/EN `cabd785`,6casos4PG2Chrome/2forms; [revisión](evidencias/respuesta-rectificacion-localizacion-revisada0110.json). Cierre/perfil no publicado y cuenta sin Person propios preservados; simulador no identidad/transporte real. Recursos propios retirados; sin aceptación integral/cambio pesos/dependencias/veredictos, única cola docs17.
+
+Nota local2026-10-08: denegación respuesta final rectificación ES/EN `7f17802`,2PGChrome inicial403 sin efectos; [revisión](evidencias/denegacion-rectificacion-final-localizacion-revisada0110.json). Flujos completos válidos reutilizados; recursos propios retirados; sin aceptación integral/cambio pesos/dependencias/veredictos, única cola docs17.
+
+Nota local2026-10-08: consulta/propuesta rectificación presentación ES/EN `7fcb7f8`,5PG3Chrome; [revisión](evidencias/propuesta-rectificacion-localizacion-revisada0110.json). Payload/selección/orden/validadores propios intactos, ingest eager no worker real; recursos propios retirados; sin aceptación integral/cambio pesos/dependencias/veredictos, única cola docs17.
+
+Nota local2026-10-08: revisión/comunicación rectificación presentación ES/EN `0f79c10`,6PG únicos4Chrome entre tres versiones de prueba/app igual; [consolidación](evidencias/revision-rectificacion-localizacion-consolidada0110.json). GET vs POSTreload/sourceaudit propios conservados; simuladores no identidad/transportereal/worker. Recursos propios retirados; sin aceptación integral/cambio pesos/dependencias/veredictos, única cola docs17.
+
+Nota local2026-10-08: destinatarios rectificación presentación ESEN `3cb4e96`,4PG únicos2Chrome nativos; [consolidación](evidencias/destinatarios-rectificacion-localizacion-consolidada0110.json). Tokens/formset/raw/independencia/autoridad conservados y legacy compartido; erroresfixture302 preservados. No nueva aceptación BF/GS01/canales reales/porcentajes, recursos propios retirados; única cola docs17.
+
+Nota local2026-10-08: comunicaciones revisadas/inbox presentación ESEN `59be14b`,6PG1Chrome ambas lenguas; [revisión](evidencias/comunicaciones-destinatarios-localizacion-revisada0110.json). Operaciones/targets/raw/GETprivado/autoridad/acuse preservados; avisos internos no entrega externa real. Sin aceptación BF/GS01/cambio pesos/dependencias/veredictos, recursos propios retirados y única cola docs17.
+
+Nota local2026-10-08: inventario acceso/decisión por campo presentación ESEN `b51ed59`,6PG4Chrome ambas lenguas; [revisión](evidencias/inventario-acceso-localizacion-revisada0110.json). Targets/reference64/rawredacted/GETprivado/autoridad/auditoría preservados; sin nueva política jurídica. Sin aceptación BF/GS01/cambio pesos/dependencias/veredictos, recursos propios retirados y única cola docs17.
+
+Nota local2026-10-08: revisión contable acceso presentación ESEN `26f0040`,4PG4Chrome ambas lenguas; [revisión](evidencias/revision-contabilidad-acceso-localizacion-revisada0110.json). Independencia/read_id/cifrado/GETprivado/autoridad/auditoría preservados; aprobación contable no cierre. Sin aceptación BF/GS01/cambio pesos/dependencias/veredictos, recursos propios retirados y única cola docs17.
+
+Nota local2026-10-08: POST400 decisión por campo presentación ESEN `0eb2b19`:defecto BoundField reproducido y4PG4Chrome de regresión, [revisión](evidencias/decision-campo-post400-localizacion-revisada0110.json). Validadores/autoridad/cifrado/GETprivado intactos y no effects; evidencia46 válida reutilizada sin reinterpretar400. Sin aceptación BF/GS01/cambio pesos/veredictos; recursos propios retirados y única cola docs17.
+
+Nota local2026-10-08: copia suplementaria acceso presentación ESEN `e17df87`,6PG4Chrome con parseo/IDs/selecciónaprobada/autoridad/auditoría/GETprivado preservados; [revisión](evidencias/copia-suplementaria-localizacion-revisada0110.json). Preview parcial no emisión/cierre/cobertura completa; recursos propios retirados, sin aceptación BF/GS01/pesos/porcentajes/veredictos, única cola docs17.
+
+Nota local2026-10-08: respuesta final acceso preparación/revisión presentación ESEN `f2fbd2d`,6PG4Chrome; [revisión](evidencias/respuesta-final-acceso-localizacion-revisada0110.json). Modelqueries/IDs/defaults/autoridad/independencia/GETprivado preservados; no emisión/cierre/cobertura integral/aceptación BF/GS01/capacidad. Recursos propios retirados; sin cambio pesos/porcentajes/veredictos, única cola docs17.
+
+Nota local2026-10-08: pantalla cierre acceso ESEN `0089110`,6PG4Chrome:entrada corta400/parcial409/cobertura completa sigue requerida/autoridad403 sin efectos; [revisión](evidencias/cierre-acceso-localizacion-revisada0110.json). Cierre nativo completo histórico reutilizado, no nueva aceptación integral/BF/GS01/capacidad; recursos propios retirados, sin pesos/porcentajes/veredictos nuevos yúnica cola17.
+
+Nota local2026-10-08: respuesta genérica progreso/representación retirada presentación ESEN `45385ae`,6PG4Chrome; [revisión](evidencias/respuesta-derechos-localizacion-revisada0110.json). Kinds/withdrawal/proof/autoridad/cifrado/plazos/GETprivado preservados, issue/funciones ajenas AST idéntico. Autoridad/transporte sintéticos no reales, sin aceptación BF/GS01/porcentajes/veredictos nuevos; recursos propios retirados yúnica cola17.
+
+Nota local2026-10-08: información copia presentación ESEN `485fde9`,8PG6Chrome; [revisión](evidencias/informacion-copia-localizacion-revisada0110.json). Diezapartados/raw/parcialidad/binding/autoridad/privacidad intactos; política sintética no aceptación real, recursos propios retirados, sin BF/GS01/porcentajes nuevos; única cola17.
+
+Nota local2026-10-08: evaluación/revisión portabilidad presentación ESEN `c0939a4`,6PG4Chrome; [revisión](evidencias/evaluacion-portabilidad-localizacion-revisada0110.json). Nueve datasets/typedunknowns/raw/defaults/autoridad/privacidad intactos; bases jurídicas sintéticas no aceptación real, recursos propios retirados, sin BF/GS01/porcentajes nuevos; única cola17.
+
+Nota local2026-10-08: selección escalar portabilidad presentación ESEN `3680393`,6PG4Chrome; [revisión](evidencias/seleccion-escalar-portabilidad-localizacion-revisada0110.json). Lazy/defaults compartidos/path/token/typedfacts/autoridad/privacidad intactos; selección ydescarga parciales sintéticas no cobertura real, recursos propios retirados, sin BF/GS01/porcentajes nuevos; única cola17.
+
+Nota local2026-10-08: revisión selección eimagen auditada presentación ESEN `bf8251f`,6PG4Chrome; [revisión](evidencias/revision-seleccion-portabilidad-localizacion-revisada0110.json). Max200/IDs/defaults/raw/autoridad/privacidad intactos; imagen/selección/descarga sintéticas no transporte real, recursos propios retirados, sin BF/GS01/porcentajes nuevos; única cola17.
+
+Nota local2026-10-08: preparación selección imagen portabilidad presentación ESEN `327ebfb`,6PG4Chrome; [revisión](evidencias/preparacion-imagen-portabilidad-localizacion-revisada0110.json). Condiciones/token/bytes/defaults/selección previa/autoridad/privacidad intactos; imagen/selección/descarga sintéticas no transporte real, recursos propios retirados, sin BF/GS01/porcentajes nuevos; única cola17.
+
+Nota local2026-10-08: exportación aprobada portabilidad presentación ESEN `cd838c6`,6PG4Chrome; [revisión](evidencias/exportacion-portabilidad-localizacion-revisada0110.json). Partial/cobertura/bindings/lazy/defaults/raw/autoridad/privacidad intactos; cobertura sintética no censo operativo real, recursos propios retirados, sin BF/GS01/porcentajes nuevos; única cola17.
+
+Nota local2026-10-08: declaraciones cobertura portabilidad presentación ESEN `607d9c6`,8PG6Chrome; [revisión](evidencias/declaraciones-cobertura-portabilidad-localizacion-revisada0110.json). Exclusiones/allowpartial/path/token/defaults/raw/autoridad/privacidad intactos; declaración sintética parcial no censo operativo real, recursos propios retirados, sin BF/GS01/porcentajes nuevos; única cola17.
+
+Nota local2026-10-08: revisión cobertura portabilidad presentación ESEN `6d8162f`,6PG4Chrome; [revisión](evidencias/revision-cobertura-portabilidad-localizacion-revisada0110.json). Requiredpages/gate409/condicionesraw/IDs/defaults/autoridad/privacidad intactos; cobertura sintética no censo operativo real, recursos propios retirados, sin BF/GS01/porcentajes nuevos; única cola17.
+
+Nota local2026-10-08: respuesta final portabilidad preparación/revisión presentación ESEN `e635d8a`,6PG4Chrome; [revisión](evidencias/respuesta-final-portabilidad-localizacion-revisada0110.json). Raw/cobertura/IDs/defaultCloseNone/closeAST/autoridad/privacidad intactos; verificaciones ycanales sintéticos no reales, recursos propios retirados pese awarningpytestconservado, sin BF/GS01/porcentajes nuevos; única cola17.
+
+Nota local2026-10-08: cierre portabilidad presentación ESEN `a6ae7d4`,6PG4Chrome; [revisión](evidencias/cierre-portabilidad-localizacion-revisada0110.json). Cierre/replay/autoridad/cifrado/plazos conservados, recursos propios retirados; no aceptación jurídica/canal real/fase ni porcentajes nuevos. Única cola17, rendimiento aplazado.
+
+Nota local2026-10-08: preparación copia acceso auditada ESEN `286081b`,6PG4Chrome; [revisión](evidencias/preparacion-copia-acceso-localizacion-revisada0110.json). JSON/auditoría/revisión/permisos/privacidad/version/plazo conservados; recursos propios retirados. Sin motores/ensayos grandes nuevos ni aceptación jurídica/fase/porcentajes; única cola17.
+
+Nota local2026-10-08: consulta auditada imagen copia acceso ESEN `f26ca4a`,2PG2Chrome; [revisión](evidencias/imagen-copia-acceso-localizacion-revisada0110.json). BytesWebP/auditoría/privacidad/scope/autoridad conservados yrecursos propios retirados; no canal/identidad real/aceptaciónfase ni porcentajes. Única cola17, rendimiento aplazado.
+
+Nota local2026-10-08: errores versión/cobertura compilación copia auditada ESEN `4dbc827`,6PG4Chrome ybaseline reproducido; [revisión](evidencias/errores-operaciones-copia-acceso-localizacion-revisada0110.json). Guard409/cobertura/raw/params/desconocidos preservados, recursos propios retirados; no localización global/fase/porcentajes nuevos. Única cola17.
+
+Nota local2026-10-08: errores consulta paginada/decisiones guardadas copia auditada ESEN `f809e06`,6PG4Chrome/baseline; [revisión](evidencias/errores-paginas-copia-acceso-localizacion-revisada0110.json). Catálogo estático finito/motoresSHA/409/cursor/contabilidad/raw/params/unknown preservados; recursos propios retirados. Sin localización global/aceptaciónfase/porcentajes; única cola17.
+
+Nota local2026-10-08: errores copia revisada entrega ESEN `ece2433`,6PG4Chrome/baseline; [revisión](evidencias/errores-copia-revisada-localizacion-revisada0110.json). Redacción/esquema/identidad/partialidad/409/contabilidad/raw/params/unknown preservados; recursos propios retirados. Sin localización global/fase/porcentajes; única cola17.
+
+Nota local2026-10-08: recuperación foco rechazo ESEN `489d63b`,6PGChromium/12rechazos+8GET ybaseline; [revisión](evidencias/foco-errores-formulario-revisada0110.json). Foco/contorno/tab/ARIA/password/privacidad/version preservados, backend sin cambio yrecursos retirados. No lectorpantalla humano/WCAGlegal/fase/porcentajes; una cola17.
+
+Nota local2026-10-08: asociación etiquetas revisión página `b57d9bc`,6PG4Chrome ybaseline; [revisión](evidencias/etiquetas-revision-pagina-copia-revisada0110.json). Auto_id soloHTML/POSTnames/ARIA/tab/privacidad/cifrado/guardar-replay únicos conservados; recursos propios retirados. Sin fase/WCAGlegal/porcentajes; una cola17.
+
+Nota local2026-10-08: contraste computado shell/formularios `99ddfce`,5PG4Chrome/317pares conformes/39ausencias; [recálculo](evidencias/contraste-shell-formularios-analisis0110.json). Sin cambio producto yrecursos propios retirados; no WCAGglobal/legal/fase/porcentajes ni capacidad. Única cola17.
+
+Nota local2026-10-08: reflujo320/1280CSS y foco fragmento `4ea542b`,10PGChromium/20estados; [revisión](evidencias/reflujo-shell-formularios-revisada0110.json). Sin aceptación integral, porcentajes o capacidad; única cola17.
+
+Nota local2026-10-08: metadatos idioma plantillas `a63ba11`:4PG/1Chromium PASS, sin cambio producto; [revisión](evidencias/metadatos-idioma-plantillas-revisada0110.json). Dominio sintético, no aceptación fase/producción ni porcentajes nuevos; única cola17.

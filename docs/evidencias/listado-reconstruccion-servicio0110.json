@@ -1,0 +1,107 @@
+{
+  "source_artifact_sha256": {
+    "benchmark-samples.json": "7c2011b86aecd2f40a45519baf33932b4310e8a9936e10705e332e1f1f54d805",
+    "benchmark-worker-events.json": "97914ccf6268546810394245adaa0e25e598f83c113b47f631b34bd8e0aeeece"
+  },
+  "clock_origin": 3127759.960809474,
+  "timeout_seconds": 65.0,
+  "scheduled": 1200,
+  "observed_wsgi_dynamic": 1109,
+  "completed_success_within_exact_60s": 504,
+  "completed_failure_within_exact_60s": 0,
+  "pending_exact_60s": 696,
+  "observed_mean_service_seconds": 0.445664541367559,
+  "families": {
+    "listing": {
+      "observed_count": 370,
+      "mean_service_seconds": 0.6052575227250723,
+      "mean_thread_cpu_seconds": 0.2488632370675677
+    },
+    "search": {
+      "observed_count": 370,
+      "mean_service_seconds": 0.6202348363069767,
+      "mean_thread_cpu_seconds": 0.24280619251891908
+    },
+    "detail": {
+      "observed_count": 369,
+      "mean_service_seconds": 0.11059567353594796,
+      "mean_thread_cpu_seconds": 0.05271992241734423
+    }
+  },
+  "contract_weights": {
+    "listing": 0.3333333333333333,
+    "search": 0.3333333333333333,
+    "detail": 0.3333333333333333
+  },
+  "D_worker_seconds_per_request": 0.4453626775226657,
+  "W_worker_seconds_per_second_at20RPS": 8.907253550453314,
+  "pre_wsgi_mean_seconds": 36.92678387595863,
+  "pre_wsgi_median_seconds": 37.429051992017776,
+  "window_workers": {
+    "2438677": {
+      "window_worker_seconds": 59.94379290472716,
+      "utilization_including_upload": 0.999063215078786,
+      "upload_worker_seconds": 0,
+      "observed_intervals": 275
+    },
+    "2438694": {
+      "window_worker_seconds": 59.9398307967931,
+      "utilization_including_upload": 0.9989971799465517,
+      "upload_worker_seconds": 5.404446663800627,
+      "observed_intervals": 273
+    },
+    "2438715": {
+      "window_worker_seconds": 59.887682385277,
+      "utilization_including_upload": 0.9981280397546167,
+      "upload_worker_seconds": 0,
+      "observed_intervals": 270
+    },
+    "2438747": {
+      "window_worker_seconds": 59.83556781290099,
+      "utilization_including_upload": 0.9972594635483498,
+      "upload_worker_seconds": 0,
+      "observed_intervals": 292
+    }
+  },
+  "timeouts_final": 176,
+  "timeouts_without_wsgi_entry": 91,
+  "timeouts_with_wsgi_entry": 85,
+  "requests_entering_wsgi_after_client_deadline": 79,
+  "requests_entering_wsgi_after_observed_client_timeout": 79,
+  "upload_observed_service_seconds": 5.404446663800627,
+  "upload_observed_thread_cpu_seconds": 0.626403255,
+  "upload_worker_demand_per_second_at_one_per_minute": 0.09007411106334379,
+  "scope": "Means of1109 observed dynamicWSGI services through drain; missing91 notzero and selection/censoring bias possible. D uses equal contractual family weights, not median or completed family mix; W includes waiting occupancy not CPU. Throughput withinexact60s client terminal timestamps only. ObservedWSGIservice interval is [start.started,start.started+end.wall], end.monotonic checkedwithin10ms; intervals nonoverlapping perPID. Samehost monotonic origin from recorded runner; emission->WSGI spans client/transport/accept, not exact socket/Gunicornqueue. Upload included independently and inwindowoccupancy. No new load; late servercompletion never client success.",
+  "reconstructed_without_new_load": true,
+  "source_files_verified": {
+    "scripts/benchmark_async_transport.py": "138a0d95516306a7ff9a0130de58028fc1aa413193ae49874ec52a691243ba31",
+    "scripts/benchmark_worker_observer.py": "b810f24203881ce4119a83e8133353ad023aa8f9a14f9db21762093c1b94171a",
+    "tests/test_contract_http_load.py": "9cd918faff39f73da92447fca986333e16ead003df41acf91d20e32844491b1d"
+  },
+  "original_evidence": "docs/evidencias/listado-lectura-comun-corta0110.json",
+  "original_evidence_sha256": "9bc5807f59ab5af1a70e83f313179bc640e69ddf3e4b0ed3dad0566c09d63963",
+  "timestamp_artifact": "/tmp/service-checkpoint-timestamps0110.json",
+  "timestamp_artifact_sha256": "017b064cee12cc8aeaedfb7d619545b9782860a0c74e90f422d178dd528ffa52",
+  "D_observed_wsgi_thread_cpu_seconds": 0.18146311733461035,
+  "W_observed_wsgi_thread_cpu_at20": 3.629262346692207,
+  "W_worker_occupancy_including_one_upload_per_minute": 8.997327661516657,
+  "late_deadline_min_margin_seconds": 0.12160502001643181,
+  "formulas": {
+    "service": "end.wall, directly measured; intervals [start.started,start.started+wall]",
+    "pre_wsgi": "start.started-origin-emitted_at",
+    "deadline": "emitted_at+65, independently from ended_at timeout timestamp",
+    "D": "mean(listing)/3+mean(search)/3+mean(detail)/3",
+    "W": "20*D",
+    "occupancy": "sum length([entry,exit] intersect [origin,origin+60]) /60 perPID; include upload, verified disjoint",
+    "cpu": "mean per-route thread_cpu weighted1/3; excludes other threads, PG, background/accept and observerwrite after timer; never W=CPU"
+  },
+  "limitations": [
+    "91 dynamic requests with no recordedWSGIentry are unobserved, not zero;1109selectionthroughdrain may be biased",
+    "Samehost asyncio loop.time/time.monotonic source/origin and perPID ordering checked; clock distribution elsewhere not validated",
+    "preWSGI interval does not localize socket/Gunicornqueue",
+    "threadCPU does not measure PostgreSQL or wholeapp; no resource saturation inference",
+    "504client successes within60s/60=8.4RPS;1024finalclient successes preserved,1109serverexit records not reclassification",
+    "Observed estimates from this historical version/scenario, no new capacity acceptance or claim of stable linear scaling"
+  ],
+  "verdict_preserved": "FAIL short; contractual historical INVALID unchanged"
+}

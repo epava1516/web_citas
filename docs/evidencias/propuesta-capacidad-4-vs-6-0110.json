@@ -1,0 +1,48 @@
+{
+  "status": "AUTHORIZED_EXPERIMENT_EXECUTED_REVIEWED;4/6/6/4complete; causalINCONCLUSIVE,observedeffectfilterfailsD; no permanentadoption/gate60/900",
+  "decision": "Combine eliminating measured CPU/work with controlled concurrency evaluation; stop successive SQLtemplate variants. Current4worker occupancy exceeds capacity at20RPS, but sharedCPU makes workersalone no guarantee.",
+  "basis": {
+    "current_D_worker_seconds_per_request": 0.42236474484205244,
+    "current_W_at20": 8.447294896841049,
+    "upload_worker_demand_at_one_per_minute": 0.0867555976845324,
+    "host_CPU_cores_observed": 6.399997808296855,
+    "app_CPU_cores_observed": 1.5748270469014942,
+    "PG_CPU_cores_observed": 1.7775898050506063
+  },
+  "hypothesis": "6sync workers may overlap some nonCPU worker occupancy and reduce preWSGI backlog relativeto4; contention may increase meanservice/CPU, so no claim it reaches20RPS.",
+  "comparison": {
+    "A_workers": 4,
+    "B_workers": 6,
+    "sequential_orders": [
+      "A,B",
+      "B,A"
+    ],
+    "max_active_servers": 1,
+    "PG_configuration": "unchanged sharedservice/ownedsyntheticdatabase; no memoryCPUindexquerychanges",
+    "fixture": "10000originalcontractual; same frozen source/schema, exact route/count/body checks, equal warmup; fresh synthetic upload perblock; no added cache",
+    "per_block": "20RPS30s600dynamics same1/3familiesESEN+1upload,65stimeout/70smaxdrain; eachnextblock afterterminal/idle.30s notacceptancegate; at least60s betweenuploads",
+    "instrumentation": "identical lightWSGI+OS/proc/cgroup/pgstat; collectoroverheadreported; no Pythonprofiler",
+    "outcomes": "meansWSGI perroute/D/W, fullclientp95/errors/timeouts/pending, completedwithinwindow, CPUapp/PG/host,throttling/RSS/memory, otherhostcompetition, pendingdrain. SeparateIDs/clocks/intervals; lateclientfailuresnever successes"
+  },
+  "bounded_safety_and_comparability_limits_proposed": {
+    "max_workers": 6,
+    "stop_owned_trial_if_host_execution_CPU_cores_at_least": 7.6,
+    "sustained_samples_for_CPU_stop": 5,
+    "stop_mem_available_below_bytes": 2147483648,
+    "stop_on_new_oom_events": true,
+    "unrelated_host_CPU_difference_between_blocks_above_cores_makes_causal_result_inconclusive": 0.5,
+    "generator_thresholds": "existing unchanged; INVALID whenviolated",
+    "stop_cleanup": "onlyownedserver/sampler/database, never normalhostservices; failed/inconclusive result doesnotqueueautomatic variants"
+  },
+  "decision_rules": "Proceed to moreconcurrency onlyon renewedauthorization and measuredthroughput benefit with service/CPU/latency/errors declared; if6inflatesD or consumesheadroom, prioritize reducingactualSQL/applicationCPU. A6result cannot byitselfacceptcapacity. Currentfull60sPASS stillrequired before900s and allcontractthresholdsunchanged.",
+  "work_reduction_direction": "Review mainSQL CPU and pageconstruction usingexistingplans/equivalence; choose only a newly demonstrated removable operation. Both PG/app consume materialCPU; no evidence for a general nativecode rewrite, cache or authorityprecomputation.",
+  "limitations": "Observed4workerD would demand~8.53worker-seconds/s including oneupload/minute if invariant.6therefore is an information-gathering step, not an expectationof20RPSPASS. CPU/service neednot scale linearly; host8visibleCPUs are shared.",
+  "proposed_effect_filter_not_contractual": "Informational6vs4: at least10percentmore completionswithin30s inbothcounterbalancedpairs, lower fullclientp95 bothpairs, no highererrorfraction, and D no greaterthan1.10baseline. Allgenerator/ledgerrequirements unchanged. This filter doesnotacceptcapacity, changeSLO orauthorizeanyrun.",
+  "original_status": "PROPOSED_NOT_EXECUTED; requires subsequent explicit instruction because current user instruction forbids worker/PG scaling",
+  "authorization": {
+    "date": "2026-10-07",
+    "scope": "Onlyisolatedexperimentalworkers4vs6,proposalunchanged; substitutespriorworkerprohibitiononlyforthisexperiment",
+    "record": "docs/17-seguimiento-desarrollo.md"
+  },
+  "result": "docs/evidencias/comparacion-capacidad-4-vs-6-analisis0110.json"
+}

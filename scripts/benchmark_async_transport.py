@@ -86,7 +86,7 @@ async def fetch_http(
     return result
 
 
-async def _run(fetch, routes, *, duration, rps, upload_specs, policy):
+async def _run(fetch, routes, *, duration, rps, upload_specs, policy, stop_requested=None):
     loop = asyncio.get_running_loop()
     rows = [
         {
@@ -141,6 +141,8 @@ async def _run(fetch, routes, *, duration, rps, upload_specs, policy):
     upload_index = 0
     for row in rows:
         await asyncio.sleep(max(0, start + row["scheduled_at"] - loop.time()))
+        if stop_requested is not None and stop_requested.is_set():
+            break
         tasks.append(asyncio.create_task(worker(row, {})))
         while (
             upload_index < len(uploads)
@@ -156,29 +158,42 @@ async def _run(fetch, routes, *, duration, rps, upload_specs, policy):
                 )
             )
             upload_index += 1
-    await asyncio.sleep(max(0, end - loop.time()))
+    if stop_requested is None:
+        await asyncio.sleep(max(0, end - loop.time()))
+    else:
+        while loop.time() < end and not stop_requested.is_set():
+            await asyncio.sleep(min(0.05, end - loop.time()))
     window = {
         "dynamic": counts(rows),
         "uploads": counts(uploads),
         "observed_at_seconds": loop.time() - start,
     }
-    _, pending = await asyncio.wait(tasks, timeout=max(0, deadline - loop.time()))
+    if stop_requested is None:
+        _, pending = await asyncio.wait(tasks, timeout=max(0, deadline - loop.time()))
+    else:
+        pending = set(tasks)
+        while pending and loop.time() < deadline and not stop_requested.is_set():
+            _, pending = await asyncio.wait(pending, timeout=min(0.05, deadline - loop.time()))
+    resource_stopped = stop_requested is not None and stop_requested.is_set()
     sealed = True
     before = {"dynamic": counts(rows), "uploads": counts(uploads)}
     for row in rows + uploads:
         if row["emitted_at"] is not None and row["ended_at"] is None:
             row.update(
-                ended_at=duration + policy["drain_seconds"],
+                ended_at=loop.time() - start if resource_stopped else duration + policy["drain_seconds"],
                 unexpected=True,
-                timeout=True,
+                timeout=not resource_stopped,
                 status=0,
-                error="drain_deadline",
+                error="trial_resource_stop" if resource_stopped else "drain_deadline",
                 forced_terminal=True,
             )
     for task in pending:
         task.cancel()
     await asyncio.gather(*tasks, return_exceptions=True)
     report = review(rows, duration=duration, rps=rps, policy=policy)
+    if resource_stopped:
+        report["verdict"] = "INVALID"
+        report["invalid_reasons"].append("trial_resource_stop")
     report.update(
         window_close=window,
         final_before_deadline_classification=before,
@@ -191,6 +206,7 @@ async def _run(fetch, routes, *, duration, rps, upload_specs, policy):
         drain_deadline_seconds=duration + policy["drain_seconds"],
         clock="asyncio loop.time monotonic; all timestamps relative to same start",
         emitter="Async tasks, no pending-request cap; whole-request timeout bounds lifetime",
+        trial_resource_stopped=resource_stopped,
     )
     if report["final_upload_counts"]["not_emitted"]:
         report["verdict"] = "INVALID"
@@ -200,7 +216,8 @@ async def _run(fetch, routes, *, duration, rps, upload_specs, policy):
     return report
 
 
-def run_async_open_loop(fetch, routes, *, duration, rps, upload_specs, policy=POLICY):
+def run_async_open_loop(fetch, routes, *, duration, rps, upload_specs, policy=POLICY, stop_requested=None):
     return asyncio.run(
-        _run(fetch, routes, duration=duration, rps=rps, upload_specs=upload_specs, policy=policy)
+        _run(fetch, routes, duration=duration, rps=rps, upload_specs=upload_specs, policy=policy,
+             stop_requested=stop_requested)
     )

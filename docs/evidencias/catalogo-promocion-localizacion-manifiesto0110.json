@@ -1,0 +1,11 @@
+{
+  "requirement": "BF\u00a77/\u00a713 prepared CR10 product/version administration ESEN labels and autobump caption; concrete bilingual fields, preserve all semantic constraints.",
+  "acceptance": "2PG Chromium mobile ESEN create/save/release/reload, exact field labels and stable kind IDs; incomplete amount remains None/not sellable. Existing invalid/stale/published snapshot, invalid HTTP no mutation and cached authority revocation regressions. No real pricing/payments/phase acceptance.",
+  "resources": "Own2PG/media/browser frozen sources; no performance loads/runtime changes.",
+  "selection": [
+    "tests/test_promotion_catalog_localization.py",
+    "tests/test_promotion_catalog.py::test_invalid_values_stale_edit_and_released_payload_preserved",
+    "tests/test_promotion_catalog.py::test_invalid_http_form_returns_error_without_mutating_draft",
+    "tests/test_promotion_catalog.py::test_cached_actor_revocation_denies_without_catalogue_effects"
+  ]
+}

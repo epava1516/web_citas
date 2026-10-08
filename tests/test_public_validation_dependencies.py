@@ -44,6 +44,8 @@ def fresh_visibility(listing_id):
     if supported():
         projection = ProjectedPublication(candidates({}))
         assert projection.visible_ids(candidates({})) == native
+        sql_projection = ProjectedPublication(candidates({}), sql=True)
+        assert sql_projection.visible_ids(candidates({})) == native
     return listing_id in native
 
 

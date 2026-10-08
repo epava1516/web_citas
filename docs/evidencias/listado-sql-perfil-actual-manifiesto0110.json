@@ -1,0 +1,10 @@
+{
+  "selection": [
+    "tests/test_sql_publication_profile.py"
+  ],
+  "output": "/tmp/sql-publication-profile-0110",
+  "hypothesis": "Bulk reduces SQL but absolute request remains ~1s, searches ~1.4-2s. Directly observe remaining Python rule/preparation/hydration/render costs before another backend choice; reuse top5 plans and full native equivalence from completed bulk comparison.",
+  "scenario": "10000 repeated and diverse, same cardinalities, own PostgreSQL/media, ANALYZE all own tables before warmup; 3 controls/profile/3 controls, nonwrapping identical instruments in both variants",
+  "decision": "Identify directly observed contributors and scope/overhead; preserve absent SQL per-rule metrics. A measured substantial component can justify implementation only with equivalent controls. No load, no repeat EXPLAIN, no new queue.",
+  "criteria": "All bodies/count/routes equal; sources frozen; terminal result and own cleanup; metrics absent explicit, historical FAIL/INVALID and all load thresholds unchanged."
+}

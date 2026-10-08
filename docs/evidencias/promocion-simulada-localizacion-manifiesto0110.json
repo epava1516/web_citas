@@ -1,0 +1,10 @@
+{
+  "requirement": "BF\u00a77/\u00a713 prepared CR10 simulated promotion order presentation labels/options/product name ESEN; same IDs/amount/currency/tax/querysets/authority/test_mode/engine.",
+  "acceptance": "2PG Chromium ESEN existing full synthetic order->simulated success/reload, exact labels/product name/amount and IDs, no confirm400/no order, invalid simulation400/no entitlement, fixture snapshot/onepaid entitlement unchanged; existing invalid events/foreign actor/revoked session and disabled/production/incomplete/withdrawn guards. No adoption/realprice/payments/providers/rendimiento.",
+  "resources": "Own2PG/media/browser/server frozen SHA independent retirement; PROMOTION_TEST_MODE fixture only no runtime/global gates change.",
+  "selection": [
+    "tests/test_promotion_localization.py",
+    "tests/test_promotion_orders.py::test_invalid_events_foreign_actor_and_revoked_session_never_grant",
+    "tests/test_promotion_orders.py::test_disabled_production_incomplete_product_and_withdrawn_listing_reject"
+  ]
+}

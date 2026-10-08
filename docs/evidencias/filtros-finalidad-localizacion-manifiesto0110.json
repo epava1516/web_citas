@@ -1,0 +1,9 @@
+{
+  "requirement": "Purpose calendar filter labels/options and invalidfilters400 ESEN, preserve IDs/defaultdue/queries/authority/cursor BF\u00a77/\u00a713.",
+  "acceptance": "2PG Chromium ESEN labels/options exact; due empty vs soon/all fixture active+3days, purpose/mode filters select same measure, reload same; mutated invalid option GET400 localized/no effects; native existing globalqueue currentauthority/invalidcursor regression. Closed100batch pagination evidence reused, no new volume test.",
+  "resources": "Own2PG/media/browser frozenSHA; synthetic date seeded before baseline only, no runtime/performance/provider/data.",
+  "selection": [
+    "tests/test_purpose_filter_localization.py",
+    "tests/test_purpose_calendar.py::test_global_queue_filters_current_authority_and_invalid_cursor"
+  ]
+}

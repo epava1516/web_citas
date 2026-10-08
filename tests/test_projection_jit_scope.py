@@ -38,18 +38,20 @@ def test_projection_read_policy_restores_nested_state_and_preserves_writes(reque
     observed = []
 
     def observe(execute, sql, params, many, context):
-        if 'AS "_pv_check_status"' in sql and '"listings_listing"."id" AS "pk"' in sql:
+        kind = ("population" if 'AS "_sql_publication_positive"' in sql else
+                "page" if 'AS "_pv_check_status"' in sql and '"listings_listing"' in sql else None)
+        if kind:
             # Read the setting without replacing any native rule or recursing
             # through Django's execute_wrapper. Only this functional test observes.
             with connection.connection.cursor() as cursor:
                 cursor.execute('SHOW jit')
-                observed.append(cursor.fetchone()[0])
+                observed.append((kind, cursor.fetchone()[0]))
         return execute(sql, params, many, context)
 
     client = request.getfixturevalue('directory')
     with connection.execute_wrapper(observe):
         response = client.get('/es/')
-    assert response.status_code == 200 and observed == ['off']
+    assert response.status_code == 200 and observed == [('population', 'off'), ('page', 'off')]
     assert response.wsgi_request._publication_route['route'] == 'projection'
     assert jit() == original
 
@@ -75,3 +77,22 @@ def test_read_policy_helper_change_invalidates_the_rule_footprint(monkeypatch):
     monkeypatch.setattr(public_validation, 'read_publication_values', lambda query: [])
     assert projection.definitions_digest() != previous
     assert not projection.supported()
+
+
+def test_page_hydration_scoped_read_is_equivalent_and_restores_nested_state(request):
+    from apps.listings.discovery import candidates
+    from apps.listings.public_validation import PublicationContext
+
+    request.getfixturevalue("directory")
+    query = candidates({})
+    before = jit()
+    with transaction.atomic():
+        with connection.cursor() as cursor:
+            cursor.execute("SET LOCAL jit=on")
+        native = PublicationContext(query)
+        scoped = PublicationContext(query, page_read=True)
+        assert jit() == "on"
+        assert [row.pk for row in native.rows] == [row.pk for row in scoped.rows]
+        assert [(row._pv_check_status, row._pv_grant, row.approved_revision_id) for row in native.rows] == [
+            (row._pv_check_status, row._pv_grant, row.approved_revision_id) for row in scoped.rows]
+    assert jit() == before

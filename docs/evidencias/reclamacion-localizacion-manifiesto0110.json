@@ -1,0 +1,10 @@
+{
+  "requirement": "BF\u00a77/\u00a713 presentaci\u00f3n de reclamaci\u00f3n p\u00fablica: ComplaintForm labels/choice texts y submit replay/429 biling\u00fces. Misma l\u00f3gica de intake/cifrado/recibo/autoridad",
+  "selection": [
+    "tests/test_complaint_localization.py",
+    "tests/test_complaint_intake.py::test_anonymous_encrypted_intake_minimal_receipt_replay_and_no_automatic_change",
+    "tests/test_complaint_intake.py::test_invalid_secret_expiry_csrf_and_rate_limit"
+  ],
+  "acceptance": "PG+Chromium ESEN an\u00f3nimo m\u00f3vil, valoreschoices id\u00e9nticos, etiquetas locales; error/correcci\u00f3n, cifrado/payload exacto/ning\u00fan cambio publicaci\u00f3n/denuncias/restricciones; acuse m\u00ednimo private no-store/noindex y recarga; replay TCP compatible mismo recibo/una fila, incompatible409 localizado; secreto ajeno404 y rate429 contador real. Reutilizar regresiones CSRF/caducidad/replay existentes.",
+  "resources": "Own two DB/media/live_server/browser, sources frozen until independent review; no backend performance/load/normal services/SMTP/provider."
+}

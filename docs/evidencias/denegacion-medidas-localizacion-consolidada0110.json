@@ -1,0 +1,71 @@
+{
+  "source_commit": "2a22c8e5563a599bed026aaa17534971c3cb9e37",
+  "unique_passes": {
+    "test_private_measure_denials_localized_and_effect_free[exception-es]": {
+      "case": {
+        "name": "test_private_measure_denials_localized_and_effect_free[exception-es]",
+        "seconds": 46.49,
+        "status": "PASS",
+        "properties": {}
+      },
+      "source_review": "Preflight 2exceptionESEN PASS retained; accountqueue POST405 correct require_GET vs bad test403. Preserve failed evidence/no app change; own retirement/frozenSHA verified before corrected4case run."
+    },
+    "test_private_measure_denials_localized_and_effect_free[exception-en]": {
+      "case": {
+        "name": "test_private_measure_denials_localized_and_effect_free[exception-en]",
+        "seconds": 13.093,
+        "status": "PASS",
+        "properties": {}
+      },
+      "source_review": "Preflight 2exceptionESEN PASS retained; accountqueue POST405 correct require_GET vs bad test403. Preserve failed evidence/no app change; own retirement/frozenSHA verified before corrected4case run."
+    },
+    "test_private_measure_denials_localized_and_effect_free[account_release-es]": {
+      "case": {
+        "name": "test_private_measure_denials_localized_and_effect_free[account_release-es]",
+        "seconds": 43.427,
+        "status": "PASS",
+        "properties": {}
+      },
+      "source_review": "Dos casos cuenta PASS; revisar URL del test publicación."
+    },
+    "test_private_measure_denials_localized_and_effect_free[account_release-en]": {
+      "case": {
+        "name": "test_private_measure_denials_localized_and_effect_free[account_release-en]",
+        "seconds": 11.15,
+        "status": "PASS",
+        "properties": {}
+      },
+      "source_review": "Dos casos cuenta PASS; revisar URL del test publicación."
+    },
+    "test_private_measure_denials_localized_and_effect_free[publication_initial-es]": {
+      "case": {
+        "name": "test_private_measure_denials_localized_and_effect_free[publication_initial-es]",
+        "seconds": 45.798,
+        "status": "PASS",
+        "properties": {}
+      },
+      "source_review": "Dos publicaciones initial guard PASS integer hold; app unchanged; own resources absent."
+    },
+    "test_private_measure_denials_localized_and_effect_free[publication_initial-en]": {
+      "case": {
+        "name": "test_private_measure_denials_localized_and_effect_free[publication_initial-en]",
+        "seconds": 16.478,
+        "status": "PASS",
+        "properties": {}
+      },
+      "source_review": "Dos publicaciones initial guard PASS integer hold; app unchanged; own resources absent."
+    }
+  },
+  "scope": "6PG Chromium; exception2/account2/publication initial2; existing native sessions. Not full publication hold workflow. Test-only corrections POST queue405 and integer hold URL; app hashes identical across three runs.",
+  "reviews": [
+    "denegacion-medidas-localizacion-preflight0110.json",
+    "denegacion-medidas-localizacion-revisada0110.json",
+    "denegacion-medidas-localizacion-publicacion-revisada0110.json"
+  ],
+  "own_cleanup_all_verified": true,
+  "application_sha256": {
+    "apps/safety/purpose_exception_views.py": "b52ada460abe7835be4be4a379fb494cb9a43250094b8c08fefb182ef7e21358",
+    "apps/safety/purpose_release_views.py": "61fd71c1186c5feada4498518d60bc2f3f61fafa0f3c6d388bb0034e20d0acb4",
+    "apps/safety/publication_purpose_views.py": "eedd9267799eedd55c1b653c734aa00a103353498747549c584f7474ddad9a45"
+  }
+}

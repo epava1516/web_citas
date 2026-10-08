@@ -74,12 +74,29 @@ def definitions():
     validator, widget/configuration, constraint or instance rule is unsupported.
     The expected digest is reviewed source data, not learnt from a new request.
     """
+    from . import sql_publication, text_proof
+
     classes = [DetailsForm, ContactsForm, RateForm, PublicationContext, SnapshotDetails, SnapshotChoice,
                SnapshotMultipleChoice, Revision, Rate, forms.Field, forms.CharField,
                forms.BooleanField, forms.ChoiceField, forms.MultipleChoiceField,
                forms.ModelChoiceField, forms.ModelMultipleChoiceField, forms.ModelForm,
                forms.TextInput, forms.Select, forms.CheckboxInput, forms.SelectMultiple]
-    functions = [freeze, listing_forms.validate_details_values, listing_forms.validate_listing_text, listing_forms.normalize_telegram,
+    functions = [ProjectedPublication.page, ProjectedPublication.captured_revision,
+                 sql_publication.read_ordered_scalar_population,
+                 sql_publication.SQLPublication.visible_keys, sql_publication.SQLPublication.scalar_page,
+                 sql_publication.SQLPublication.captured_revision, sql_publication.authority_proof, sql_publication.content_proof,
+                 sql_publication.bulk_authority_membership, sql_publication.RowMembership.as_sql,
+                 sql_publication.ordinary_matches, sql_publication.rectification_history_ids,
+                 text_proof.IsNotTrueV1.as_sql, text_proof.PlainTextProofV1.__init__,
+                 text_proof.PlainTextProofV1.as_sql, sql_publication.revision_text_unknown,
+                 sql_publication.rate_text_unknown, sql_publication.PlainTextProof.__init__, sql_publication.PlainTextProof.as_sql,
+                 sql_publication.JSONChoicesProof.__init__, sql_publication.JSONChoicesProof.as_sql,
+                 sql_publication.SameNullable.as_sql, sql_publication.TelegramProof.as_sql,
+                 sql_publication.SQLPublication.__init__, sql_publication.SQLPublication.visible_ids,
+                 sql_publication.SQLPublication.certified_page, sql_publication.compact_order,
+                 sql_publication.read_certified_page, sql_publication.CapturedSQLRead.__init__,
+                 sql_publication.CapturedSQLRead.__iter__,
+                 freeze, listing_forms.validate_details_values, listing_forms.validate_listing_text, listing_forms.normalize_telegram,
                  submissions.validate_submission, moderation.validate_submission,
                  moderation.publicly_visible, verification_services.publication_ready,
                  submissions.publication_ready, submissions.current_publishing_document,
@@ -156,7 +173,7 @@ def definitions():
 
 
 # Updated only with a reviewed native rule/metadata change and equivalence gates.
-EXPECTED_DEFINITIONS = "f94fb5c6471c2c69c2d23b5b2f684bc013063711b82287fa180cc1cb3941f3ae"
+EXPECTED_DEFINITIONS = "685edfa21c72ccc9616c5901e5e83d28c23fd7266351226c57ffa62ae4cc5876"
 
 
 def definitions_digest():
@@ -182,7 +199,17 @@ def freeze(value):
 
 
 class ProjectedPublication:
-    def __init__(self, query):
+    def __init__(self, query, *, sql=False, sql_setwise=False, sql_bulk=True, sql_json=True, sql_page=True, page_number=None, sql_legacy_text=True, sql_text_membership=True, sql_scalar_capture=True):
+        self.page_read = sql_page
+        self.sql_projection = None
+        if sql:
+            from .sql_publication import SQLPublication
+
+            self.sql_projection = SQLPublication(query, setwise=sql_setwise, bulk=sql_bulk, json_path=sql_json, page_number=page_number, legacy_text=sql_legacy_text, text_membership=sql_text_membership, scalar_capture=sql_scalar_capture)
+            self.rows = self.sql_projection.rows
+            self.by_id = self.sql_projection.by_id
+            self.stats = self.sql_projection.stats
+            return
         self.document = submissions.current_publishing_document()
         self.validation_prototypes = {}
         self.field_clean_cache_stats = {}
@@ -381,7 +408,21 @@ class ProjectedPublication:
         except (ValidationError, TypeError):
             return False
 
+    def page(self, query, number):
+        if self.sql_projection is not None and self.sql_projection.compact:
+            return self.sql_projection.certified_page(query, number)
+        if self.sql_projection is not None and self.sql_projection.scalar_capture:
+            return self.sql_projection.scalar_page(query, number)
+        return Paginator(self.visible_ids(query), 24).page(number)
+
+    def captured_revision(self, listing_id):
+        if self.sql_projection is not None:
+            return self.sql_projection.captured_revision(listing_id)
+        return self.by_id[listing_id]["approved_revision_id"]
+
     def visible_ids(self, query):
+        if self.sql_projection is not None:
+            return self.sql_projection.visible_ids(query)
         if len({row["approved_revision_id"] for row in self.rows}) != len(self.rows):
             # A cross-listing approved pointer can collide in the native
             # context's by_revision map. Preserve native validation/errors for
@@ -404,27 +445,28 @@ class ProjectedPublication:
         return [row["pk"] for row in self.rows if row["pk"] in positive]
 
 
-def projected_page(query, number, *, checked=False, observation=None):
+def projected_page(query, number, *, checked=False, observation=None, compact=False):
     """None asks the caller for the complete native path, including ranking."""
     if observation is not None:
         observation.update(route="fallback", reason="unsupported_definitions_or_mode")
     if not supported(checked=checked):
         return None
-    projection = ProjectedPublication(query)
-    ids = projection.visible_ids(query)
+    # Reduced transfer remains an explicit experimental path: its isolated
+    # comparison did not meet the prefixed material-effect threshold.
+    projection = ProjectedPublication(query, sql=True, page_number=number if compact else None)
+    page = projection.page(query, number)
     if observation is not None:
         observation.update(candidate_stats=dict(projection.stats))
     if not supported(checked=checked):
         if observation is not None:
             observation["reason"] = "definitions_changed_during_request"
         return None  # A rule/configuration changed during this request.
-    page = Paginator(ids, 24).page(number)
     selected = list(page.object_list)
-    native = PublicationContext(query.filter(pk__in=selected))
+    native = PublicationContext(query.filter(pk__in=selected), page_read=projection.page_read)
     rows = {row.pk: row for row in native.rows}
     for listing_id in selected:
         row = rows.get(listing_id)
-        if (row is None or row.approved_revision_id != projection.by_id[listing_id]["approved_revision_id"]
+        if (row is None or row.approved_revision_id != projection.captured_revision(listing_id)
                 or not moderation.publicly_visible(row, context=native)):
             # Confirmed change between projection and hydration: recompute native
             # population/count/order, rather than expose a stale/substituted row.

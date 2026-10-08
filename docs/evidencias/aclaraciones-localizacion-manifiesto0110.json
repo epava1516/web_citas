@@ -1,0 +1,10 @@
+{
+  "requirement": "BF\u00a77/\u00a713 labels/immediate errors of Complaint/Rights clarification bilingual; only presentation, minimum20 vs1 and max4000 preserved",
+  "selection": [
+    "tests/test_clarification_localization.py",
+    "tests/test_complaint_messages.py::test_unknown_reference_question_and_private_reply_preserve_case_and_dates",
+    "tests/test_rights_messages.py::test_clarification_is_encrypted_replay_safe_and_does_not_reset_clock"
+  ],
+  "acceptance": "PG+Chromium mobile ESEN both receipt kinds: localized labels, short/empty invalid then valid, encrypted text/actor/version/exact digest, no disclosure on GET/reload; replay one row/no clock reset, incompatible/stale/closed409, foreignsecret/expired404, rate429; rights identity remains unverified. Existing privacy/audited/CSRF regressions.",
+  "resources": "Private2DB/media/live_server/browser; sources frozen; independent cleanup, no other services/providers/load/performance"
+}

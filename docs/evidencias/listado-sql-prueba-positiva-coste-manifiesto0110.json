@@ -1,0 +1,16 @@
+{
+  "schema": "sql-positive-proof-cost-prefixed-v1",
+  "application": "SQL sufficient positive proof candidate, base b285aba; working source SHA frozen by runner",
+  "prerequisite": "15 PostgreSQL N1 passed; source/artifact/cleanup review complete",
+  "selection": ["tests/test_sql_publication_cost.py"],
+  "scenario": "10000 candidates; original repeated fixture and separate unique descriptions/Telegram fixture; same other cardinalities; DjangoClient /es/",
+  "statistics": "ANALYZE every table only in own synthetic test database after population/mutation; native complete ordered oracle and one warmup per representation before paired samples; principal stats endpoints recorded",
+  "pairs": [["values", "sql"], ["sql", "values"], ["values", "sql"], ["sql", "values"]],
+  "comparison": "Same backend with explicit representation choice; outer wall clocks only, both modes must retain body/count/page/route and complete native ordered population outside timings",
+  "material_effect": "Median paired values-minus-SQL >=0.25s AND >=20% median values AND >=3/4 favorable pairs per fixture; supports design decision only, not capacity acceptance",
+  "confound": "A relevant stats change prevents fine causal attribution; shared host/warm caches and four pairs limit conclusions even with equal endpoints",
+  "separate_sql": "One execute-wrapper request after controls; normalized calls/total/mean; top5 recorded reads EXPLAIN ANALYZE BUFFERS FORMAT JSON separately, READ ONLY, main scalar SELECT LOCAL jit off matching request. No values/parameters exported",
+  "not_measured": ["Current concurrent capacity", "p95", "Per-rule times", "Model constructions", "SQL rows_returned/affected/scanned", "DB CPU/RSS/waits/IO", "100/1000 matrix", "Other mode costs"],
+  "output": "/tmp/sql-publication-cost-0110",
+  "unchanged": "Contract10000/20RPS/900s, mixture/uploads, all generator/drain/SLO thresholds; historical short FAIL and contractual INVALID"
+}

@@ -1,0 +1,42 @@
+{
+  "requirement": "CR09 postVPScleanup newenvironmentcharacterization authorized2026-10-08; one4sync30s trial only",
+  "selection": [
+    "tests/test_worker_capacity_comparison.py"
+  ],
+  "proposal": "Latestuserpostcleanupcheckpoint; previous4vs6resourceboundsretained",
+  "scenario": {
+    "A_workers": 4,
+    "sequential_orders": [
+      "single4"
+    ],
+    "max_active_servers": 1,
+    "PG_configuration": "unchanged sharedservice/ownedsyntheticdatabase; no memoryCPUindexquerychanges",
+    "fixture": "10000originalcontractual; same frozen source/schema, exact route/count/body checks, equal warmup; fresh synthetic upload perblock; no added cache",
+    "per_block": "20RPS30s600dynamics same1/3familiesESEN+1upload,65stimeout/70smaxdrain; eachnextblock afterterminal/idle.30s notacceptancegate; at least60s betweenuploads",
+    "instrumentation": "identical lightWSGI+OS/proc/cgroup/pgstat; collectoroverheadreported; no Pythonprofiler",
+    "outcomes": "meansWSGI perroute/D/W, fullclientp95/errors/timeouts/pending, completedwithinwindow, CPUapp/PG/host,throttling/RSS/memory, otherhostcompetition, pendingdrain. SeparateIDs/clocks/intervals; lateclientfailuresnever successes"
+  },
+  "limits": {
+    "max_workers": 4,
+    "stop_owned_trial_if_host_execution_CPU_cores_at_least": 7.6,
+    "sustained_samples_for_CPU_stop": 5,
+    "stop_mem_available_below_bytes": 2147483648,
+    "stop_on_new_oom_events": true,
+    "unrelated_host_CPU_difference_between_blocks_above_cores_makes_causal_result_inconclusive": 0.5,
+    "generator_thresholds": "existing unchanged; INVALID whenviolated",
+    "stop_cleanup": "onlyownedserver/sampler/database, never normalhostservices; failed/inconclusive result doesnotqueueautomatic variants"
+  },
+  "effect_filter": "Validgenerator/accounting;clientp95<.8,errors<.01,pendingwindow<=20,final0,timeout65,drain<=70,upload302; no60/900acceptance",
+  "orders": [
+    4
+  ],
+  "constant_state": "One prepared10000fixture/schema ANALYZE once, session and private draft created once; read-only template cloned into one owned trialDB perblock, media copy from sameimmutable baseline. Same upload bytes/IDs prevent duplicate-effects carrying acrossblocks. Same port/routing/source/policy/instrumentation. NoPGconfiguration/planning/prepared/cache changes. Fresh syncworkers; host/PGcaches not reset.",
+  "warmup": "Exactly6coldTCP plus30serialTCP (5each ESENlist/search/detail), sameallblocks; readiness ofallworker observer files required, warmup participantPIDcoverage checked. Exact public bodySHA/count acrossallblocks.5sidle before andafter, minimum60s betweenupload emissions. Detailbody includes time-signed reporttarget: validate signature/max_age7200 and exact listing/revision dependencies; compare all remaining bytes plus stable decoded payload. Raw/normalizedSHA recorded; do not modify server response or route. Listing/search body remains byteexact.",
+  "instrumentation": "Existing lightWSGI start/end threadCPU+actualroute without native/rule/SQL/render hooks;1Hzproc/cgroup/pgmetadata with availablediskstats/io.stat/procIO added. Asyncledger/unchangedGC observer. StopEvent polling opt-in50ms, equalforboth. CollectorCPU/polltiming, missingmetrics explicit; noPythonprofiler.",
+  "interpretation": "D=meanfamilies/3; W20=20D+singleuploadservice/60 contractfrequency1/min. SingleuploadN1uncertain; no2/minfrequencyinference. SeparateVALID/INVALID, descriptiveCOMPARABLE/INCONCLUSIVE vs bothhistoric4W, filterPASS/FAIL conditionalvalid. Noexclusivecleanupcausality.",
+  "per_block_review": "Terminalblock artifacts/sources/serverPIDs/DB/media independently checked before release fileallows nextplannedblock. Freezeentiresequence until finalreview. Anyresource stop preservespartials and endssequence; noautoretry.",
+  "no_capacity_acceptance": "Single30s characterizes changedenvironment; noauto60s/900s, six/notadopted,backendunchanged, goalpaused, historicverdictspercentagespreserved.",
+  "preflight": "Nootheractiveownedtest/workload, ownPGavailable,424app/configSHAsunchanged. Cleanupglobalacta/time/removedinventory/freedresources not_measured ifnotrecorded. Selectedcontainerstate andactiveprocess checks recorded; stableoperationalinventory verified beforefixture.",
+  "host_idle": "30s1Hz existingResourceProbe beforefixtureprep,ownedemptyDBmetadata,sharedhost/PGproc+cgroup/IO/VMstats,collectoroverhead. No cacheflush/externalservicechanges. Comparebefore/aftercontainerstate. LimitsunchangedCPU7.6for5samples,2GiB,newOOM.",
+  "historical_references": "blocks1and4 ofcomparacion-capacidad-4-vs-6-analisis0110.json; samebackend424SHA/fixturemethod/warmup/instruments. FreshUUID/time-relativefixtures declared; actualoriginalDB/media removed so exactdataimagehashnot_measured. Historicalinstalleddependencyfullhash absent; compareavailablepackageversions/requirementsSHA andrecordcurrentversions."
+}

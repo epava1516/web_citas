@@ -1,0 +1,12 @@
+{
+  "scope": "SQL-only CASE-expression code-template reformulation; no appdefault/cache changed",
+  "selection": [
+    "tests/test_sql_expression_template_probe.py"
+  ],
+  "output": "/tmp/sql-expression-template-probe-0110",
+  "observed": "Previous statement template saves44.696/51.831ms constructor+read but fails prefixed50ms/15%. It adds a separatecandidate subquery and extra Listing/Revision path, confirmed in source/plans; do not infer precise cost of extrajoins from these plans.",
+  "hypothesis": "Keep exactly public candidate Query/DISTINCT/rank/order and its joins; replace only rule CASE expression construction with generated constant SQL whose outer column references are resolved afresh via Django F paths and current doc/time bound. Avoid the extra candidate subquery/Listingjoin of priorprototype. All DB facts still read fresh in same statement. No rule/materializeddata cache or appchange; integration dependencyguard remains pending.",
+  "scenario": "Same10000original/diverse/listing-search/8AB/BA constructor+read controls/2sstatementtimeout. Completevectors,10offpagenegatives including nullableFK and5filters. Only CASEcode generation outsidecontrols; currentcolumn resolution/params/candidatecompiler eachcall. Newplans separated; oldprototype notrerun. Source/stats stable.",
+  "effect_screen": "Bothfixtures medianpairedmeanfamily constructor-read delta>=max(.050s,.15baseline),>=6/8positive, nofamilyregression>max(.025s,.10baseline). SQL/constructor screening only; noHTTPsaving/capacity claim. If sufficient: explicit dependencyguard/nativeequivalence then prefixed fullTCPbothfixtures beforeconserving.",
+  "contract": "Goalpaused/manualsinglequeue. Original/currentshortFAIL andhistoricalcontractINVALID maintained.900blocked, resources/thresholds unchanged."
+}

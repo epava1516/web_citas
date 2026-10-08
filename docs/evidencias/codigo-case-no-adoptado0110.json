@@ -1,0 +1,22 @@
+{
+  "reason": "Both prefixed TCP materialeffect criteria failed. Remove optional integration; retain code snapshot for reproducibility, not an active implementation/queue.",
+  "archive": "docs/evidencias/codigo-case-no-adoptado0110.tar.gz",
+  "sha256": "1cb1ffe29c2f8bfbe90cc12204cec9ebcb549a0b68386c8727514f9b73434fdb",
+  "source_sha256": {
+    "apps/listings/sql_case_code.py": "51782e093845489fc4ffe33b5144447798cd1048f7c96a9269f62e486a54a6f8",
+    "apps/listings/sql_case_template.py": "9cbf5b10a95c9b8b08475d763d09c79e6d8fd465cb1b5c8e59f4667fe0798b3e",
+    "apps/listings/sql_publication.py": "b97dea24874225f5f7d9b8db4f26b4a546d9b9b183136c372ae4ab75b42bb253",
+    "apps/listings/projected_publication.py": "2347d673f656f17f50f976058bd68c3da8aa0e0af72dfd6e3180ab1736839322",
+    "tests/test_sql_case_code.py": "5e16bbe913221da4b93b583c37b74113c07ec10d9e4cc36960df060b6ee36f34",
+    "tests/test_sql_case_code_tcp.py": "52f7732086a6b958c30b304e38cee293994853c9190866cbe39dd0da66ab2e47",
+    "scripts/case_code_gate.py": "4f8476f717f59cb2d71a5aaa8505498ac0d99949340d710c76df5fe30d00c772",
+    "scripts/generate_case_code.py": "abe32b7ac71f26ce6d3e0d8dc81afb83a32e6f9b40685bf7b076fba0e1008160"
+  },
+  "application_rollback_verification": {
+    "all_historical_apps_config_files_byte_identical": true,
+    "files": 424,
+    "reference": "/tmp/reading-common-short-0110/frozen-manifest.json",
+    "application_change_adopted_from_template": false,
+    "resource_run_projected_publication_difference": "two whitespace-only newline counts, restored afterreview; original audited bytecode digest unchanged throughoutC"
+  }
+}

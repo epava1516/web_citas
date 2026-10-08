@@ -1,0 +1,47 @@
+{
+  "source_commit": "3cb4e968abc4c784a8a9027f33053ae366e5a73d",
+  "unique_passes": {
+    "test_mobile_independent_source_and_proposal_review[es]": {
+      "case": {
+        "name": "test_mobile_independent_source_and_proposal_review[es]",
+        "seconds": 65.569,
+        "status": "PASS",
+        "properties": {}
+      },
+      "review": "destinatarios-rectificacion-localizacion-preflight0110.json"
+    },
+    "test_mobile_independent_source_and_proposal_review[en]": {
+      "case": {
+        "name": "test_mobile_independent_source_and_proposal_review[en]",
+        "seconds": 32.329,
+        "status": "PASS",
+        "properties": {}
+      },
+      "review": "destinatarios-rectificacion-localizacion-preflight0110.json"
+    },
+    "test_native_form_values_and_generic_denial[es]": {
+      "case": {
+        "name": "test_native_form_values_and_generic_denial[es]",
+        "seconds": 41.636,
+        "status": "PASS",
+        "properties": {}
+      },
+      "review": "destinatarios-rectificacion-localizacion-revisada0110.json"
+    },
+    "test_native_form_values_and_generic_denial[en]": {
+      "case": {
+        "name": "test_native_form_values_and_generic_denial[en]",
+        "seconds": 6.432,
+        "status": "PASS",
+        "properties": {}
+      },
+      "review": "destinatarios-rectificacion-localizacion-revisada0110.json"
+    }
+  },
+  "reviews": [
+    "destinatarios-rectificacion-localizacion-preflight0110.json",
+    "destinatarios-rectificacion-localizacion-focus-preflight0110.json",
+    "destinatarios-rectificacion-localizacion-revisada0110.json"
+  ],
+  "scope": "4uniquePG2Chrome full native ESEN +2form/denialcontrols. SharedDecisionForm no-language default restored after browser PASS; explicit ESEN branch unchanged, final controls cover both explicit and legacy presentation/data. Initial test used unverified account302; final fixture verified/legal, validMFA permission revoked yields403. No bypass/new nativeauthority/race/transport/production/capacity claim."
+}

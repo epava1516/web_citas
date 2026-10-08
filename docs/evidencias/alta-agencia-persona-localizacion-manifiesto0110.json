@@ -1,0 +1,10 @@
+{
+  "requirement": "BF\u00a77/\u00a713 AgencyForm/InvitationForm/PersonForm labels ESEN; four consumers including individual, same text validators/roles/mfa/quotas/authority/CSRF/rate/invitation.",
+  "acceptance": "4PG Chromium ESEN agency create/add-person/editor invite+accept+revoke and individual alias, localized exact labels, invalid no records, GET no membership, consumed invitation403, revoke inactive membership, anonymous data not exposed; existing MFA/scope/quota regressions. Sessions persisted synthetic MFA fixture, locmem only no provider/TOTP/phase/rendimiento claims.",
+  "resources": "Own2PG/media/browser/server source frozen SHA independent retirement; no normal runtime/performance/providers.",
+  "selection": [
+    "tests/test_agency_setup_localization.py",
+    "tests/test_agencies_mfa.py::test_agency_requires_mfa_and_cannot_assign_outside_member",
+    "tests/test_agencies_mfa.py::test_agency_quota_counts_unapproved_current_manager_and_owner_scope"
+  ]
+}

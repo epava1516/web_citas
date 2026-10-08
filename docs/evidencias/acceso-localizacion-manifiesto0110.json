@@ -1,0 +1,9 @@
+{
+  "requirement": "BF\u00a77 mensajes/etiquetas ESEN independiente \u00a713; defecto LoginForm biling\u00fce y error gen\u00e9rico biling\u00fce",
+  "selection": [
+    "tests/test_login_localization.py",
+    "tests/test_accounts.py::test_csrf_throttle_and_token_headers"
+  ],
+  "acceptance": "PG+Chromium ambas lenguas, accessible labels/current-password/username autocomplete, rechazo inexistente/no verificado id\u00e9ntico; credenciales verificadas sesi\u00f3n persiste recarga. No cambia autenticaci\u00f3n/limites/modelos/queries.",
+  "resources": "2DB privadas/live_server/media/browser; sources frozen; no runtime changes or loads"
+}

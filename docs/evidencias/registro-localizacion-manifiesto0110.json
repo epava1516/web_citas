@@ -1,0 +1,10 @@
+{
+  "requirement": "BF\u00a77/\u00a713 mensajes registro/429/correo prueba biling\u00fces; only localized presentation. No predicates/queries/schema/security/provider changes",
+  "selection": [
+    "tests/test_signup_localization.py",
+    "tests/test_accounts.py::test_signup_requires_legal_and_stale_version_rejected",
+    "tests/test_accounts.py::test_csrf_throttle_and_token_headers"
+  ],
+  "acceptance": "PG + Chromium ESEN stale signup no creation; valid disabled visitor no privileges/two current acceptances, localized locmem email unchanged token URL and consumption; missing documents no account; 429 localized all changed account endpoints via own real RateWindow counters; existing legal version/CSRF/throttle regression. Explicitly simulated email only.",
+  "resources": "Private 2DB/live_server/browser/media; freeze source hashes, independent cleanup; no real SMTP/normal runtime/backend performance load"
+}

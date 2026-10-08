@@ -1,0 +1,11 @@
+{
+  "selection": [
+    "tests/test_search_json_cost.py"
+  ],
+  "output": "/tmp/sql-publication-search-json-cost-0110",
+  "prerequisite": "19 PG affected cases passed with migration and complete native equivalence; source and owned cleanup reviewed",
+  "scenario": "10000 repeated/diverse, four AB/BA pairs each for listing and search, before computed vector+JSON elements vs after generated vector+strict membership. Same current schema/code/dataset, ANALYZE own fixture before warmups",
+  "effect": "Median paired saving averaged across the two affected families >=0.15s AND >=20%average before medians AND >=3/4 favorable pairs, both variants. No family median regression >max(0.05s,10%before). Design filter, not load SLO or capacity. Storage/write/migration cost not compared",
+  "observation": "Six separate plain/coarse SQL-route probes, clocks of preparation/ID collection/definition digest/render only outside audited callables. Route/fingerprint/body equality required; signed detail target verified. Then top5 read-only EXPLAIN with matching SELECT jit off. Current per-rule profile reused for prior version only, not copied into new samples.",
+  "finish": "Persist controls before probes; terminal source checks and own cleanup. Decide from measured total and directly observed mechanisms; no workers/cache/server scaling; short/long load only after common equivalence and matrix."
+}

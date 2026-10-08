@@ -1,0 +1,13 @@
+{
+  "scope": "SQL-only joint join-order and join-method experiment grounded in two distinct planned failures",
+  "selection": [
+    "tests/test_sql_join_order_hash.py"
+  ],
+  "output": "/tmp/sql-join-order-hash-0110",
+  "observed": "join_collapse_limit1 restores explicitFK binding but WHEREstill2stimeout bothfixtures; planned NestedLoopSemi joins complete latest-check windows (10002rows, estimated50) against outerestimated1. enable_nestloopoffalone earlier allowed wrong repeatedversion/phone hashjoinkeys. Actual loops of abortednode notmeasured; evidence is planned shape and boundedtimeout.",
+  "hypothesis": "Combine SETLOCALjoin_collapse_limit1 with enable_nestloopoff to preserve FK binding order and discourage repeated scanning of complete checkrelation. No semantics/authority/filters changes; no guarantee optimizer eliminatesallloops. Single freshsqlsnapshot/fullpopulation, ownreadonlytransaction/restoration.",
+  "primary_reference": "https://www.postgresql.org/docs/current/explicit-joins.html",
+  "scenario": "Only currentCASE vs WHEREorderedplusloopsdiscouraged; prior independenthint failures reused, not rerun. 10000original/diverse,list/search,preflight2s,completevector/offpagemutations,8pairsifviable, plansseparate,source/statsstable. No appchange.",
+  "effect_screen": "Bothfixtures SQLpairedmeanfamilymediandelta>=max(.050s,.20baseline),>=6/8positive,no familyregression>max(.025s,.10baseline). Nativeequivalence and prefixed fullTCPeffect requiredbeforeadoption.",
+  "contract": "Manualsinglequeue/goalpaused;newshortFAIL andhistoricalFAIL/INVALID kept;900blocked,resources/criteria unchanged."
+}

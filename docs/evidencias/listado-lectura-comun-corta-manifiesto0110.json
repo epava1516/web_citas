@@ -1,0 +1,50 @@
+{
+  "scope": "R5 diagnostic short only after reviewed R3 common+R4matrix; manual automaticgoalpaused",
+  "selection": [
+    "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]"
+  ],
+  "output": "/tmp/reading-common-short-0110",
+  "scenario": "10000seed original,1200dynamic20RPS60s,ESENlisting/search/detail1/3each,1upload302 separate. Gunicorn4sync, freshprocess sixcoldprobes, sharedPG/OS cache notreset; no extra workers/PGscale/cache. No new design150\u2013200ms acceptance criterion.",
+  "policy": {
+    "generator_p95_seconds_max": 0.01,
+    "generator_p99_seconds_max": 0.025,
+    "generator_max_seconds_max": 0.1,
+    "not_emitted_fraction_max": 0.0,
+    "request_timeout_seconds": 65.0,
+    "drain_seconds": 70.0,
+    "latency_p95_seconds_strict_max": 0.8,
+    "error_fraction_strict_max": 0.01,
+    "late_emission": "Never emit after the arrival window; count as not emitted",
+    "final_pending": "Classify as failed/timeout at fixed drain deadline",
+    "emission": "Async coroutine begins whole HTTP transaction, before connection/open/read; event-loop scheduling wait included in generator delay",
+    "justification": "20rps gives 50ms intervals: p95 jitter 1/5 interval, p99 1/2 interval, max two intervals; zero missing arrivals preserves full18000. Drain70s=timeout65s+5s margin.",
+    "request_timeout_scope": "65s total across connection, headers and body",
+    "client_concurrency": "No pending-request cap; per-request65s timeout bounds outstanding lifetime"
+  },
+  "diagnostic_criteria": {
+    "valid_generator_and_reconciled_accounting": true,
+    "p95_seconds_strict_below": 0.8,
+    "error_ratio_strict_below": 0.01,
+    "uploads_expected_status": 302,
+    "dynamic_pending_at_window_max": 20,
+    "final_pending": 0,
+    "request_timeout_seconds": 65,
+    "drain_seconds_max": 70,
+    "verdict_scope": "Complete diagnostic gate, transport verdict retained separately",
+    "reason": "Existing latency/error objectives plus at most one second of arrivals outstanding as accumulation filter; generator numeric policy unchanged. No capacity acceptance."
+  },
+  "worker_observer": {
+    "enabled": true,
+    "mode": "route_only",
+    "scope": "Route events after Django get_response; native handlers distinguished from discovery projection/fallback; WSGI start/end/render/SQL wall and threadCPU. No wrappers on native rules; context/validation not_measured. Requests without Django response/route event remain not_measured, never inferred from HTTP status. Partial work lower bounds; causal overhead not_measured.",
+    "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
+    "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition"
+  },
+  "thresholds_unchanged_from": "docs/evidencias/listado-proyeccion-uuid-array-corta0110.json",
+  "review": "Reconcileledger samples and summaries independently, all issuedterminal latencies incltimeout; generator validity separate from backendcompletegate, actualroutes whereobserved only. Missingevents not_measured, no exactqueue inference. FAIL/INVALIDblocks900; PASSallonly allows900. Preserve historicalFAIL/INVALID, no percentageclosure.",
+  "prior_gates": [
+    "listado-presentacion-agrupada-tcp0110.json",
+    "listado-lectura-comun-n2-0110.json",
+    "listado-lectura-comun-matriz0110.json"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "observed_at": "2026-10-08T11:14:55.175180+00:00",
+  "graph_archive": "docs/evidencias/traslado-maquina-graphify0110.tar.gz",
+  "sha256": "4d109dd547ca90e09ab81960ee7f2a4f9966bfafefc0182fa192a96929849959",
+  "scope": "Workspace checkpoint including pending performance sources and evidence; not functional acceptance or deployment",
+  "excluded": [
+    ".env/.env.* secrets",
+    ".venv",
+    "media",
+    "staticfiles",
+    "ignored private .ai/results and credentials",
+    "temporary databases and /tmp"
+  ],
+  "restore_graph": "Extract archive in repository root. Interpreter/root absolute paths are historical; replace with destination installation paths. Compare graph with original docs before using it.",
+  "performance": "deferred; historical FAIL/INVALID unchanged",
+  "goal": "blocked on recorded dependencies; no completion"
+}

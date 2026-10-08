@@ -1,0 +1,13 @@
+{
+  "scope": "SQL-only minimal semanticbarrier prototype after boundedplanner diagnosis; no applicationchange",
+  "selection": [
+    "tests/test_sql_membership_barrier.py"
+  ],
+  "output": "/tmp/sql-membership-barrier-0110",
+  "observed": "Freshstats WHERE times out2s evennestloop_off bothfixtures; CASE0.22\u20130.28s. Planner membership_nestloop_off innerHashJoin key(version,phone), PlanRows1, combines repeated values acrossrevision/person; join choice/estimates evidence, actualmultiplicity of timedoutnode notmeasured.",
+  "hypothesis": "Keep authority conjunction or its three cross-record equality checks inside CASE bool barrier while positivecandidate filter evaluatesother predicates inWHERE. This may prevent badjoinkey/transitiveequivalence selection without removinganyrule. Do not equate False/NULLoutside monotone context; transformonly3positiveANDcomparisons, assert domain exactly.",
+  "scenario": "10000original/diverse, samecompiledparameters listing/search, ANALYZEbeforeall; currentCASE vs membershipauthorityCASE vs membershipcrossfieldCASE. EXPLAINplanned first,2sstatementtimeout everyread, normaljoinsettings(nohint). Only completedpreflightmodes enter boundedoffpage mutations and8AB/BApairs againstcurrentCASE. Fullorderedcandidatevector includingproof flag; querysearchpopulation may legitimately change undertextmutations but eachmode compares tocurrentCASEsamewrittenstate. Rollbackbeforecontrols.",
+  "effect_screen": "BOTHfixtures pairedmeanfamilymedian>=max(.050s,.20*baseline meanfamilymedian),>=6/8favorable, nofamilyregression>max(.025s,.10*baseline). SQLscreenonly; functionalnativeequivalence+fullTCPeffectrequired beforeanyadoption. Timeoutmodes not retried in controls.",
+  "safety_semantics": "No persistenteligibledata/cache, no resources changes, no backend flagdefaultchange, no publicrequestswithomittedrules. NewreadplansANALYZEBUFFERS aftercontrols, baselineequivalentplanreused;redact SQL/params. Timerdriver/PG/waitsnotCPU; SQLrowsreturnedfetch only.",
+  "contract": "CurrentshortFAIL/historicalFAILandINVALIDlong preserved,900blocked,goalpaused,manualsinglequeue."
+}

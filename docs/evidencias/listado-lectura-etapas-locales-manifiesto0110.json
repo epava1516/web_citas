@@ -1,0 +1,14 @@
+{
+  "scope": "After valid shortFAIL: absolutecost attribution with code-local monitoring, automaticgoalpaused",
+  "selection": [
+    "tests/test_reading_stage_cost.py"
+  ],
+  "output": "/tmp/reading-local-stages-0110",
+  "observed_cost": "Current10000unprofiled controls0.592/0.659s; mainSQL0.244490/0.257716s in separatematrixevents; sys.setprofile request2.131/2.152s too muchoverhead to rank fineexclusive as operational costs. ShortcompleteWSGI listing/searchmedian0.588/0.608s and threadCPU0.231s; SQLexecute0.323/0.339s includes driver/PG/waits.",
+  "hypothesis": "Code-local9functionentry/return events avoid globalcallprofiling overhead while preserving actualcallables/footprint. Identify whether next materialcost is mainSQL, querypreparation/transfer, metadatafootprint, freshguard/nativevalidation, groupedpresentation or render; no implementation chosen from total-minusSQL.",
+  "scenario": "Same10000original/diverse, sameSQLite-free PostgreSQL schema/scalar/index/grouped backend; DjangoClient listingES/searchEN,1warmpermodefamily,8AB/BApairs with plainnoobserver then observedcode-local/SQLevents; normalizedpatterns redacted, samebody/count/route/digest.",
+  "instrumentation": "CPython3.12 sys.monitoring selected ordinaryfunctionlocalPY_START/PY_RETURN and globalPY_UNWIND filtered, ownunusedtoolID/cleanup; directrulescalls/inclusive/exclusive/mean/max/children/threadCPU. No callable replacement/cache, no profiler on plaincontrols; SQLtimer observesdriver/PG/waits not CPU.",
+  "numerical_compatibility_gate": "BOTHfixtures abs(median paired meanfamily observed-minusplain)<=max(.025s,.05*meanplainfamilymedian) AND eachfamily abs(observedmedian-plainmedian)<=max(.040s,.10*plainmedian), exactfunctionalroute/digest equality and stable statisticendpoints. This only bounds observednumericalperturbation, not causaloverhead. If fails, report overhead and do not rank times as operationalcost.",
+  "unchanged": "HistoricalshortFAIL/longINVALID +newshortFAIL preserved,900blocked. No repeatedmatrix/load as diagnosis, no extra resources or cache. Fine-rule/modelcounts/plansevidence reused with scope; absent metricsnot_measured.",
+  "reference": "https://docs.python.org/3.12/library/sys.monitoring.html"
+}

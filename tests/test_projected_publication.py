@@ -129,7 +129,6 @@ def test_revocation_committed_between_projection_and_hydration_recomputes_native
     assert supported()
     target_id = candidates({}).first().person_id
     listing_id = Person.objects.get(pk=target_id).listing.pk
-    original = ProjectedPublication.visible_ids
     committed = []
 
     def revoke_on_other_connection():
@@ -141,15 +140,18 @@ def test_revocation_committed_between_projection_and_hydration_recomputes_native
         finally:
             connection.close()
 
-    def after_projection(self, query):
-        result = original(self, query)
-        assert listing_id in result
-        with ThreadPoolExecutor(max_workers=1) as pool:
-            pool.submit(revoke_on_other_connection).result(timeout=30)
+    def after_population_execute(execute, sql, params, many, context):
+        result = execute(sql, params, many, context)
+        if 'AS "_sql_publication_positive"' in sql and not committed:
+            # PostgreSQL has executed the captured population statement. The
+            # other connection commits before page hydration, without replacing
+            # any audited rule/adapter method and thus changing its route.
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                pool.submit(revoke_on_other_connection).result(timeout=30)
         return result
 
-    monkeypatch.setattr(ProjectedPublication, "visible_ids", after_projection)
-    response = client.get("/es/")
+    with connection.execute_wrapper(after_population_execute):
+        response = client.get("/es/")
     assert committed == [True]
     assert response.context["page"].paginator.count == 49
     actual = [row.pk for row in response.context["page"].object_list]

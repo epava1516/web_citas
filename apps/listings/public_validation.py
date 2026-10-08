@@ -171,7 +171,7 @@ def publication_query(query, document):
 def read_publication_values(query):
     """Materialize the captured scalar SELECT with a request-scoped JIT policy.
 
-    Only this read uses jit=off. Its SQL/parameters and READ COMMITTED statement
+    Only the explicitly selected read uses jit=off. Its SQL/parameters and READ COMMITTED statement
     semantics stay native; no server/session policy is cached or changed.
     Restore explicitly on success for an enclosing transaction. Atomic rollback
     restores the local setting/savepoint on errors, without querying a broken
@@ -342,7 +342,7 @@ def validate_publication_binding(prototype, data, revision, *, value_model=False
 
 
 class PublicationContext:
-    def __init__(self, query):
+    def __init__(self, query, *, page_read=False):
         self.document = current_publishing_document()
         self.rate_checks = {}
         self._validation_prototypes = {}
@@ -372,7 +372,10 @@ class PublicationContext:
                 to_attr="_pv_photos",
             )
         )
-        self.rows = list(query)
+        # Page hydration can trigger JIT for its correlated annotations even
+        # with only 24 actual rows. Reuse the restoring local policy there;
+        # ordinary native population reads retain their existing configuration.
+        self.rows = read_publication_values(query) if page_read else list(query)
         self.by_revision = {row.approved_revision_id: row for row in self.rows}
         ids = {
             name: set()

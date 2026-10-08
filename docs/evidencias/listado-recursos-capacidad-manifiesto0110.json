@@ -1,0 +1,42 @@
+{
+  "requirement": "CR09-REND-LECTURA checkpointC after templateTCP nonadoption and reconstructionB",
+  "selection": [
+    "tests/test_resource_service_checkpoint.py"
+  ],
+  "uncertainty": "WSGI occupancy~4workers fully used while D/W estimates require~9; actual app/PG CPU and sharedhost constraints unknown. Determine whether CPU/memory/PGwaits/competition constrain capacity; no exactsocketqueue attribution.",
+  "scenario": {
+    "candidates": 10000,
+    "fixture": "originalcontractual",
+    "workers": 4,
+    "class": "sync",
+    "serial_reference": 30,
+    "routes": "5samples each ESEN listing/search/detail, sequential fullTCP; diagnostic IDs separate",
+    "duration_seconds": 30,
+    "rps": 20,
+    "scheduled_dynamic": 600,
+    "mix": "1/3listing,1/3search,1/3detail,ESEN",
+    "uploads": 1,
+    "idle_baselines_seconds_each": 5,
+    "request_timeout_seconds": 65,
+    "drain_seconds": 70,
+    "not_a_gate": "30s diagnostic, no60s or900s capacity acceptance"
+  },
+  "instrumentation": {
+    "application": "actual WSGI entry/end wall/threadCPU+route; no rule/render/SQLwrappers or profiler; /procCPUticks/RSS onownmaster/4workers",
+    "postgres": "1Hzpg_stat_activity own/otherdatabase boolean/backend_type/state/wait_event_type/event; metadata only, no SQLtext. SharedPGcontainer/proc CPUactualcounters; ownbackendsviaNSpid mapping whenavailable; partial/churn explicitlylimited",
+    "host": "1Hz/proc/stat,vmstat,meminfo,loadavg,perprocessCPUticks/cgroups (no argv/env); app/PGcgroupancestor cpu.max/stat/cpuset/memory.events/current/limits; PSI not_measured ifmissing",
+    "collector": "one readonlymetadata connection,1Hz,threadCPU and totalpollincludingserialization measured; no concurrent test/build, normalhostservicesuntouched"
+  },
+  "diagnostic_exit": {
+    "ledger": "600emitted,0omitted,allterminal; same generator thresholds p95delay<=10ms/p99<=25/max<=100ms. Retain actualtransport verdict, noPASSgate inferred",
+    "correlation": "unique IDs perstart/end,matchingPID/nonoverlap; missingeventsnotzero, coverage reported",
+    "resource": "atleast90percent expected1Hzsnapshots, no fatalcollectorerror, p95pollwall<=.25s and collectorCPU<=.15CPU-s/s; ifunmet limitation ratherthan automaticretry",
+    "stop": "terminate ownsampling/server after boundeddrain; one run, artifactsandcleanupindependentlyreviewed; no900"
+  },
+  "decision": "Use actual consumedCPU, quotas/throttling, memory and sharedcompetition with D/Wmeans and upload to choose furtherwork or concrete controlledconcurrencyproposal. Do not execute increasedworkers orPGscaling.",
+  "references": [
+    "https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html",
+    "https://www.postgresql.org/docs/current/monitoring-stats.html"
+  ],
+  "sources_freeze": "untilterminal and independentreview;goalpaused, singlequeuedocs17, thresholdscontracthistoricalFAIL/INVALID unchanged"
+}

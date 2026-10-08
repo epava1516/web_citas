@@ -1,0 +1,10 @@
+{
+  "requirement": "Purpose calendar FollowUpForm ESEN labels/options initial/post-action, same distinct measure/history semantics BF\u00a77/\u00a713.",
+  "acceptance": "2PG Chromium existing full login/TOTP/mobile calendar/history/followup/reload ESEN plus exact labels/options before/after each action and shortreason400/noevent. Existing invaliddate/version/executor and HTTP hiddenhistory/revokedpermission regressions. Followup only operationaldate keeps active restriction, favorite, scope/deadline/account and version semantics; no release/publication.",
+  "resources": "Own2PG/media/browser frozenSHA; synthetic fixture and real local TOTP no external provider/data/runtime/load.",
+  "selection": [
+    "tests/test_purpose_followup_localization.py",
+    "tests/test_purpose_calendar.py::test_invalid_date_version_and_original_executor_do_not_change_measure",
+    "tests/test_purpose_calendar.py::test_http_follow_up_history_is_hidden_on_get_and_audited_on_post"
+  ]
+}

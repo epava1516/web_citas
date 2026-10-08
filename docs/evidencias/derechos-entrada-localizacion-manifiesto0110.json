@@ -1,0 +1,10 @@
+{
+  "requirement": "BF\u00a77/\u00a713 RequestForm labels/kind choices plus immediate replay/429 bilingual; presentation only, preserve rights semantics and authority",
+  "selection": [
+    "tests/test_rights_intake_localization.py",
+    "tests/test_rights_intake.py::test_rights_receipt_is_private_replay_safe_and_does_not_grant_data",
+    "tests/test_rights_intake.py::test_brief_request_without_reference_or_contact_is_received_for_clarification"
+  ],
+  "acceptance": "Real PG+Chromium ESEN mobile: anonymous representation plus brief access no reference/contact, stable types/labels, required scope error/correction; exact encrypted payload/signature/priority/calendar deadline/unverified identity/noaccess; private minimal receipt/reload, replay does not reset deadline, conflicting409, foreignsecret404 and429 real counter. Existing private/replay/brief regressions.",
+  "resources": "Own2DB/media/live_server/browser, frozen source/artifact hashes, independent cleanup, no normalruntime/performance/provider changes"
+}

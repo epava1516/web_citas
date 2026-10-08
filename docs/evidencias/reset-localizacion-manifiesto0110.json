@@ -1,0 +1,9 @@
+{
+  "requirement": "BF\u00a77/\u00a713 ResetForm etiquetas y mismatch biling\u00fces; correcci\u00f3n independiente solo presentaci\u00f3n",
+  "selection": [
+    "tests/test_reset_localization.py",
+    "tests/test_accounts.py::test_reset_one_use_expiry_and_existing_sessions_invalidated"
+  ],
+  "acceptance": "PG real+Chromium ambos idiomas; campos accesibles/autocomplete; discrepancia no consume token ni reexpone passwords; \u00e9xito passwordchanged, oldsessioninvalidated, replay400; regresi\u00f3n expiraci\u00f3n/uso\u00fanico",
+  "resources": "Own2DB/browser/live_server/media, freeze sources, no other service/load"
+}

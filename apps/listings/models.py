@@ -1,6 +1,10 @@
 import uuid
 
+from django.contrib.postgres.search import SearchVectorField
 from django.db import models
+
+from .search import revision_search_vector
+from .text_proof import rate_text_unknown, revision_text_unknown
 
 
 class Listing(models.Model):
@@ -44,6 +48,9 @@ class Revision(models.Model):
     description = models.TextField(blank=True)
     content_language = models.CharField(max_length=2, default="es")
     description_alternative = models.TextField(blank=True)
+    search_document = models.GeneratedField(
+        expression=revision_search_vector(), output_field=SearchVectorField(), db_persist=True,
+    )
     profile_type = models.CharField(max_length=20, default="woman")
     categories = models.ManyToManyField("catalog.Category")
     services = models.ManyToManyField("catalog.Service")
@@ -73,6 +80,11 @@ class Revision(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
+    class Meta:
+        indexes = [models.Index(fields=["id"], name="revision_text_unknown_v1",
+                                condition=revision_text_unknown())]
+
+
 class Rate(models.Model):
     revision = models.ForeignKey(Revision, on_delete=models.CASCADE, related_name="rates")
     concept = models.CharField(max_length=80)
@@ -84,6 +96,7 @@ class Rate(models.Model):
     duration_minutes = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta:
+        indexes = [models.Index(fields=["id"], name="rate_text_unknown_v1", condition=rate_text_unknown())]
         constraints = [
             models.CheckConstraint(
                 condition=(

@@ -1,0 +1,73 @@
+{
+  "source_commit": "c86171c7bbd9ad9c3fb147a772f9f19e794cd757",
+  "successful_unique_cases": 10,
+  "cases": [
+    {
+      "name": "test_localized_appeal_and_independent_review_preserve_authority_and_state[es]",
+      "seconds": 40.462,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_localized_appeal_and_independent_review_preserve_authority_and_state[en]",
+      "seconds": 8.257,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_appeal_private_idempotent_and_independent_review",
+      "seconds": 3.382,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_invalid_appeal_and_obsolete_manager_cannot_reopen",
+      "seconds": 3.597,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_shared_appeal_consumers_receive_request_language[agency-es]",
+      "seconds": 35.695,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_shared_appeal_consumers_receive_request_language[agency-en]",
+      "seconds": 2.578,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_shared_appeal_consumers_receive_request_language[photo-es]",
+      "seconds": 37.454,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_shared_appeal_consumers_receive_request_language[photo-en]",
+      "seconds": 4.241,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_photo_appeal_reopens_pair_without_publication_or_counterpart_data",
+      "seconds": 4.791,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_agency_appeal_reopens_without_verification_and_preserves_original",
+      "seconds": 2.39,
+      "status": "PASS",
+      "properties": {}
+    }
+  ],
+  "reviewed_runs": [
+    "recurso-anuncio-localizacion-revisada0110.json",
+    "recurso-compartido-localizacion-preflight0110.json",
+    "recurso-compartido-localizacion-revisada0110.json"
+  ],
+  "shared_form_source_sha_identical": true,
+  "scope": "Announcement 2 Chromium ESEN +2 existing guards, agency2 locale PG HTTP reused, photo2 locale PG HTTP +2 shared engine regressions. Three scoped versions, not N3. Photo no-third-party reason preserved; no new TOTP/runtime/performance/phase acceptance."
+}

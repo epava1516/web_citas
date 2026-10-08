@@ -1,0 +1,16 @@
+{
+  "schema": "sql-set-proof-cost-prefixed-v1",
+  "application": "Same sufficient predicates; CASE per row versus membership in positive SQL set within same statement",
+  "prerequisite": "7 affected PostgreSQL tests pass; source/artifact/cleanup checked",
+  "selection": ["tests/test_sql_publication_set_cost.py"],
+  "scenario": "10000 original repeated and separate diverse descriptions/Telegram; same host/resources and actual complete input population",
+  "preparation": "Own tables ANALYZE then complete native ordered oracle and warmup each representation; principal relation stats endpoints recorded",
+  "pairs": [["row", "set"], ["set", "row"], ["row", "set"], ["set", "row"]],
+  "material_effect": "Median paired row-minus-set >=0.10s AND >=20%median row AND >=3/4 favorable pairs; necessary for retaining this rewrite as improvement, never contractual acceptance",
+  "timing": "Outer unprofiled DjangoClient clocks. Later separate execute-wrapper request and top5 read-only EXPLAIN ANALYZE BUFFERS. Main proof SELECT jit off matching normal request helper",
+  "confounds": "Statistics changes preclude fine causal attribution; same endpoints alone do not prove stationary host",
+  "not_measured": ["Concurrent capacity", "DB CPU/RSS/waits/IO", "SQL rows_returned/affected/scanned", "Per-rule times", "Model constructions", "Current size/mode matrix"],
+  "stop": "One reviewed experiment decides retain/discard/inconclusive; no load as substitute",
+  "output": "/tmp/sql-publication-set-cost-0110",
+  "contract": "All existing load/SLO/generator/drain/upload gates and historic FAIL/INVALID unchanged"
+}

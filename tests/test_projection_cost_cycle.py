@@ -19,11 +19,11 @@ from apps.listings.models import Revision
 from apps.listings.public_validation import (
     PublicationContext,
     SnapshotDetails,
-    validate_publication_binding,
     memoize_publication_field_clean,
-    validate_publication_value_fields,
-    validate_publication_input_fields,
     read_publication_values,
+    validate_publication_binding,
+    validate_publication_input_fields,
+    validate_publication_value_fields,
 )
 from scripts.benchmark_call_profile import CallProfile
 from scripts.query_pattern_redaction import query_pattern
@@ -48,7 +48,7 @@ def targets():
                 DetailsForm, ContactsForm, RateForm, Revision, forms.Field]:
         for name in ['__init__', 'full_clean', 'clean', '_clean_fields', '_clean_form',
                      '_post_clean', 'clean_fields', 'run_validators', 'validate',
-                     'positive', 'authority', 'native_content', 'visible_ids',
+                     'positive', 'authority', 'native_content', 'visible_ids', 'page',
                      'details', 'details_valid', 'contacts_valid', 'rate_valid']:
             function = getattr(cls, name, None)
             if callable(function) and hasattr(function, '__code__'):

@@ -1,0 +1,12 @@
+{
+  "selection": [
+    "tests/test_sql_text_index_cost.py"
+  ],
+  "output": "/tmp/sql-publication-text-index-cost-0110",
+  "prerequisite": "10PG N1 current indexed-text candidate terminal and independently reviewed, not common N2",
+  "scenario": "10000 contractual repeated and diverse description/Telegram fixtures; four AB/BA pairs per listing/search, same schema/stats/code and full captured population. Only row text vs unknown-ID membership differs; partial indexes present in BOTH variants. Physical index effect separately measured in SQL probe. Full ordered native oracle outside timers.",
+  "effect": "Median paired before-after mean of two affected families >=0.05s AND >=5%average before medians AND >=3/4 favorable pairs in BOTH fixtures; no family median regression >max(0.05s,10%before). This intervention targets a measured marginal SQL group of0.12\u20130.14s, not the broader old population representation. Prespecified limited effect threshold, no revision of previous criteria or acceptance/capacity gates.",
+  "observation": "Six plain/coarse routes and top5 read-only ANALYZE BUFFERS plans after controls. Same read JIT policy, generated search and strict JSON; timers unchanged. Counterfactual omit-text is NOT used.",
+  "finish": "Frozen sources, terminal effect/no effect plus own cleanup and actual controls reviewed before choosing next intervention. Functional pytest PASS separate from effect result; no short/long load from a successful microcomparison.",
+  "hypothesis": "Already demonstrated SQL physical effect must transfer to whole HTTP with equivalent complete population and route. Compare same version/schema row proof vs indexed unknown-ID membership, both legacy text and full capture, all other mechanisms identical."
+}

@@ -1,0 +1,11 @@
+{
+  "selection": [
+    "tests/test_publication_serial_runtime.py"
+  ],
+  "output": "/tmp/sql-publication-serial-runtime-0110",
+  "prerequisite": "Current candidate effect criterion passed both fixtures and page policy N1 terminal; no concurrent/load trial authorized by this diagnostic",
+  "question": "DjangoClient controls ~1s with sporadic coarse-stage spikes vs normal digest ~30ms. Measure real same-code serial Gunicorn service and GC intervals in separate worker/fixture processes; do not assume cause or next backend refactor.",
+  "scenario": "10000 repeated/diverse, identical remaining cardinalities, owned PostgreSQL/media, ANALYZE own tables. Four DjangoClient listing plain/GC pairs with policy unchanged. Gunicorn4 sync localTCP, six first-hit ESEN routes then four plain/observed pairs each; max one outstanding request, no RPS/arrival schedule/uploads.",
+  "criteria": "Complete terminal run, same status/body/count, observed routes projection/native appropriate, source fingerprint unchanged, GC policy unchanged, all owned processes/databases/media cleaned. Serial control medians and WSGI/SQL/render/GC report scope/absence; not PASS of load nor causal overhead.",
+  "decision": "Confront measured server service of actual mixture with unchanged theoretical occupancy reference; choose remaining mechanism from actual evidence. Never treat GC fixture/generator correction as backend improvement or subtract overlapping events. No matrix/common N2/capacity substitute."
+}

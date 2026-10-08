@@ -1,0 +1,69 @@
+{
+  "source_commit": "0f79c106a96c625a26333ff11be004d905b7cd65",
+  "unique_passes": {
+    "test_mobile_independent_source_and_proposal_review[es]": {
+      "case": {
+        "name": "test_mobile_independent_source_and_proposal_review[es]",
+        "seconds": 69.334,
+        "status": "PASS",
+        "properties": {}
+      },
+      "review": "revision-rectificacion-localizacion-preflight0110.json"
+    },
+    "test_mobile_independent_source_and_proposal_review[en]": {
+      "case": {
+        "name": "test_mobile_independent_source_and_proposal_review[en]",
+        "seconds": 34.097,
+        "status": "PASS",
+        "properties": {}
+      },
+      "review": "revision-rectificacion-localizacion-preflight0110.json"
+    },
+    "test_review_error_audit_raw_value_and_revoked_permission[es]": {
+      "case": {
+        "name": "test_review_error_audit_raw_value_and_revoked_permission[es]",
+        "seconds": 44.169,
+        "status": "PASS",
+        "properties": {}
+      },
+      "review": "revision-rectificacion-localizacion-revisada0110.json"
+    },
+    "test_review_error_audit_raw_value_and_revoked_permission[en]": {
+      "case": {
+        "name": "test_review_error_audit_raw_value_and_revoked_permission[en]",
+        "seconds": 10.193,
+        "status": "PASS",
+        "properties": {}
+      },
+      "review": "revision-rectificacion-localizacion-revisada0110.json"
+    },
+    "test_display_preserves_data_native_validation_and_unknown_raw_values[es]": {
+      "case": {
+        "name": "test_display_preserves_data_native_validation_and_unknown_raw_values[es]",
+        "seconds": 1.234,
+        "status": "PASS",
+        "properties": {}
+      },
+      "review": "revision-rectificacion-localizacion-revisada0110.json"
+    },
+    "test_display_preserves_data_native_validation_and_unknown_raw_values[en]": {
+      "case": {
+        "name": "test_display_preserves_data_native_validation_and_unknown_raw_values[en]",
+        "seconds": 2.067,
+        "status": "PASS",
+        "properties": {}
+      },
+      "review": "revision-rectificacion-localizacion-revisada0110.json"
+    }
+  },
+  "same_application_sha256": {
+    "apps/safety/rectification_review.py": "1239c961f56252c40b3286ac74f3c8b34a4d861f522b96c8d96bed6d2031d20f",
+    "apps/safety/rectification_details.py": "60f9ef1bc324b0beff694f4526299870b926b6a4c5bd5c095c636534ea97f6ca"
+  },
+  "reviews": [
+    "revision-rectificacion-localizacion-preflight0110.json",
+    "revision-rectificacion-localizacion-focus-preflight0110.json",
+    "revision-rectificacion-localizacion-revisada0110.json"
+  ],
+  "scope": "6uniquePG cases fourChromium; two complete nativeESEN reused plus four final focuscontrols. Test-only fixes sourceaudit afterhandoff and realGET vs POSTreload; app unchanged across3runs, all ownresources absent. Not commonN3/newrace/identity/provider/transport/worker/capacity."
+}

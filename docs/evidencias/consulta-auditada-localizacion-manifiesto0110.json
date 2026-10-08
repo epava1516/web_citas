@@ -1,0 +1,11 @@
+{
+  "requirement": "BF\u00a77/\u00a713 AccessForm/RightsAccessForm purpose label bilingual; inspection immediate Forbidden/COI/state errors untranslated. Presentation only; purpose min10/max200 and authorization/MFA/COI/locks/cursors/audit unchanged",
+  "selection": [
+    "tests/test_audited_access_localization.py",
+    "tests/test_report_inspection.py::test_sensitive_data_requires_explicit_audited_access_and_valid_purpose",
+    "tests/test_complaint_intake.py::test_audited_triage_separate_permission_mfa_and_own_case_exclusion",
+    "tests/test_rights_intake.py::test_rights_permission_is_separate_mfa_required_and_inspection_audited"
+  ],
+  "acceptance": "PG+realChromium ESEN each report/complaint/rights inspection with valid synthetic PostgreSQL session/MFA fixture (no TOTP acceptance claim); GET no plaintext, short invalidPOST no audit, validPOST one exact audit/read, reload hides data, permission revoked403 local/no audit; existing permission/MFA/COI regressions. No models/guards/query/policy/source changes.",
+  "resources": "Private2DB/media/live_server/browser; frozen source hashes; independent cleanup; no normal runtime/providers/performance loads"
+}

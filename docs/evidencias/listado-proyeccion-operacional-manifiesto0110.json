@@ -1,0 +1,60 @@
+{
+  "schema": "projection-operational-attribution-prefixed-v1",
+  "authorization": "2026-10-07 user requests direct, careful work on this block outside the automatic goal; goal remains paused",
+  "application_source": "b285aba; no backend edits, exact workspace source hashes frozen by runner including new diagnostic",
+  "hypothesis": "Global profiler magnifies recursive key building; measure coarse request stages and successful actual-input key replay to select or reject a key refactor.",
+  "scenario": {
+    "variants": [
+      "contractual repeated",
+      "diverse descriptions/Telegram"
+    ],
+    "candidates": 10000,
+    "route": "/es/ DjangoClient",
+    "native_oracle": "one untimed full-count/page/body request per variant",
+    "warmup": "one unprofiled projected request per variant",
+    "orders": [
+      [
+        "plain",
+        "coarse"
+      ],
+      [
+        "coarse",
+        "plain"
+      ],
+      [
+        "plain",
+        "coarse"
+      ],
+      [
+        "coarse",
+        "plain"
+      ]
+    ],
+    "capture": "one separate untimed request per variant; original native_content delegates, no rule wrapping",
+    "replay": "four batches of30000 actual complete key inputs with fresh successful memos; never export values"
+  },
+  "instruments": {
+    "plain": "outer wall timer only",
+    "coarse": "three top-level stage timers plus SQL execute normalized; fingerprint/body/count/page/route checked before/after",
+    "replay": "two wall clocks per entire batch; original freeze+key/get_language/dict lookup+counter; not actual full request contribution"
+  },
+  "criteria": {
+    "valid": "all equality/fingerprint/counters/source/terminal/cleanup checks pass; stage times not summed with nestedSQL",
+    "coarse_compatible": "abs median paired coarse-minus-plain <= max(0.05s,10%median plain); otherwise regard scopes as perturbed and do not interpret ranking as operational",
+    "key_candidate_warrants_pilot": "median replay >=0.25s AND >=10%median plain; supports only a candidate equivalent pilot, not sufficient saving or contractual PASS",
+    "stop": "one terminal reviewed experiment decides candidate/insufficient evidence/inconclusive. No repeating equivalent controls, full profiler or load in its place"
+  },
+  "not_measured": [
+    "causal overhead",
+    "per-rule unprofiled time",
+    "fetch/decoding separately",
+    "SQL rows",
+    "PG CPU/RSS/waits/IO",
+    "current search/detail mix",
+    "current capacity",
+    "current100/1000 matrix"
+  ],
+  "contract": "Original10000/20RPS/900s, SLO/generator/drain/uploads and historicFAIL/INVALID unchanged; no load authorized by this diagnostic",
+  "runner": "/tmp/run-projection-operational0110.py",
+  "output": "/tmp/projection-operational0110"
+}

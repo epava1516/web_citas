@@ -1,0 +1,96 @@
+{
+  "source_commit": "8b1604f1af996823cf92d730663de6756c8d473a",
+  "successful_unique_cases": 14,
+  "cases": [
+    {
+      "name": "test_triage_localization_preserves_assignment_replay_and_authority[report-es]",
+      "seconds": 41.204,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_triage_localization_preserves_assignment_replay_and_authority[report-en]",
+      "seconds": 9.047,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_triage_localization_preserves_assignment_replay_and_authority[complaint-es]",
+      "seconds": 8.531,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_triage_localization_preserves_assignment_replay_and_authority[complaint-en]",
+      "seconds": 8.454,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_triage_localization_preserves_assignment_replay_and_authority[rights-es]",
+      "seconds": 41.655,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_triage_localization_preserves_assignment_replay_and_authority[rights-en]",
+      "seconds": 8.311,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_unlinked_report_cannot_restrict_and_replay_cannot_change_outcome",
+      "seconds": 5.371,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_assignment_recovery_replay_and_private_receipt_without_clock_reset",
+      "seconds": 5.506,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_specific_rights_permission_is_revalidated_after_observed_wait[unassign-manage_rights_assignment-False]",
+      "seconds": 5.311,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_specific_rights_permission_is_revalidated_after_observed_wait[unassign-manage_rights_assignment-True]",
+      "seconds": 5.528,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_specific_rights_permission_is_revalidated_after_observed_wait[withdraw-execute_rights_request-False]",
+      "seconds": 5.154,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_specific_rights_permission_is_revalidated_after_observed_wait[withdraw-execute_rights_request-True]",
+      "seconds": 5.093,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_specific_rights_permission_is_revalidated_after_observed_wait[extend-extend_rights_deadline-False]",
+      "seconds": 5.23,
+      "status": "PASS",
+      "properties": {}
+    },
+    {
+      "name": "test_specific_rights_permission_is_revalidated_after_observed_wait[extend-extend_rights_deadline-True]",
+      "seconds": 5.744,
+      "status": "PASS",
+      "properties": {}
+    }
+  ],
+  "app_sha_identical_across_runs": true,
+  "reviewed_runs": [
+    "triage-localizacion-preflight0110.json",
+    "triage-localizacion-revisada0110.json"
+  ],
+  "scope": "6 real PG/Chromium ESEN triage paths + 8 regressions. First rights ES failed only lazy ORM observation, then corrected; four successful report/complaint paths reused. Not one common N3. Session fixture not TOTP claim. Comment-only Ruff noqa relocation after frozen review, no executable changes."
+}

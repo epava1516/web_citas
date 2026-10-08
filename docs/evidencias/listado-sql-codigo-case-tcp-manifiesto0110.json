@@ -1,0 +1,36 @@
+{
+  "requirement": "CR09-REND-LECTURA checkpointA optional CASE code TCP effect",
+  "selection": [
+    "tests/test_sql_case_code_tcp.py"
+  ],
+  "hypothesis": "Avoid repeated CASE expression construction/compilation while using identical current candidate Query/data and fresh bindings. Candidate pays extended dependency guard; A keeps original guard. No prepared statements/concurrency/planning change.",
+  "scenario": {
+    "candidates": 10000,
+    "fixtures": [
+      "contractual",
+      "diverse description and telegram"
+    ],
+    "families": [
+      "listingES",
+      "listingEN",
+      "searchES",
+      "searchEN"
+    ],
+    "pairs": 8,
+    "orders": "AB/BA alternated",
+    "workers": 4,
+    "worker_class": "sync",
+    "max_outstanding": 1,
+    "controls": "Full TCP request to all body bytes, no profiler/SQL/render observation; same selector/header hookboth, allworkers/modes warmed"
+  },
+  "effect_criteria": {
+    "both_fixtures": true,
+    "median_paired_mean_family_saving_seconds": "max(.050,.08*mean_A_family_medians)",
+    "favorable_pairs_min": 6,
+    "family_regression_max_seconds": "max(.025,.05*A_family_median)"
+  },
+  "functional_required": "All exact bodies/count10000/projection/index/scalar/grouped unchanged, actual CASEmode flag perrequest; N1 remaining8PG and previous5PGreused with unchanged rules, finalalias/usedlookupguard tested.",
+  "post_control_observation": "Separate DjangoClient plain/observed eachmode; synchronouscodeevents constructor, authority/content, compiler.as_sql, driver.fetchall, scalarread +execute_wrapper. No callable substitution; actualrouteasserted. Inclusive/lazyoverlap, directchildrenexclusive, explicitoverhead observations, no saving derived from instrumental events.",
+  "sources_freeze": "until terminal and independent review",
+  "contract": "unchanged. Goalpaused, no900, preserveFAIL/INVALID."
+}

@@ -1,0 +1,548 @@
+{
+  "source_artifact_sha256": {
+    "frozen-manifest.json": "0d0760a435bb6c515678bbaf10235573a362780305378ffb5ca6673583297f0f",
+    "resource-samples.jsonl": "d87f17f6d0b730791dd1d446e30900170611ccacedc9949bf3dfa3e92dd61842",
+    "serial-reference.json": "01f91ec203ccc18ff1257d0197b89a2e49458e1847c7f479fff5794a0dd86318",
+    "benchmark-samples.json": "5c0a36488abceb3ef5d2db4ad7cf8ebd90ef34fe88a1cc6cd9233799e719406e",
+    "resource-samples.jsonl.summary.json": "2e3de0f8061ab67f421d83bdb81586e757a80a484531754fd3b6077f7fa3d01b",
+    "benchmark-worker-events.json": "aa9f39faf33359cc8ac1deb1217c32e996ed481aa9f417578c5140cc5405b877"
+  },
+  "diagnostic_only": true,
+  "generator_valid_recomputed": true,
+  "delay_ms": {
+    "p95": 3.887728787958622,
+    "p99": 8.872207812963495,
+    "max": 22.89589475840259
+  },
+  "client_counts": {
+    "scheduled": 600,
+    "emitted": 600,
+    "not_emitted": 0,
+    "successful": 600,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "client_transport_verdict_only": "FAIL",
+  "observed_dynamic_wsgi": 600,
+  "missing_dynamic_wsgi": 0,
+  "observed_serial_wsgi": 30,
+  "mean_services_under_load": {
+    "listing": {
+      "N": 200,
+      "mean_wsgi_seconds": 0.5707771376892924,
+      "mean_thread_cpu_seconds": 0.23413530409000002
+    },
+    "search": {
+      "N": 200,
+      "mean_wsgi_seconds": 0.5877467211568728,
+      "mean_thread_cpu_seconds": 0.23032784667499998
+    },
+    "detail": {
+      "N": 200,
+      "mean_wsgi_seconds": 0.10857037567999214,
+      "mean_thread_cpu_seconds": 0.04968805280000013
+    }
+  },
+  "mean_services_serial_reference": {
+    "listing": {
+      "N": 10,
+      "mean_wsgi_seconds": 0.782168684573844,
+      "mean_thread_cpu_seconds": 0.26120050570000003
+    },
+    "search": {
+      "N": 10,
+      "mean_wsgi_seconds": 0.8492042016237974,
+      "mean_thread_cpu_seconds": 0.2585731663
+    },
+    "detail": {
+      "N": 10,
+      "mean_wsgi_seconds": 0.11024294570088386,
+      "mean_thread_cpu_seconds": 0.061812290899999914
+    }
+  },
+  "D_worker_seconds_per_request_load_observed": 0.42236474484205244,
+  "W_worker_seconds_per_second_at20_load_observed": 8.447294896841049,
+  "D_worker_seconds_per_request_serial_observed": 0.5805386106328418,
+  "W_worker_seconds_per_second_at20_serial_observed": 11.610772212656837,
+  "upload": {
+    "service": 5.205335861071944,
+    "thread_cpu": 0.600608415,
+    "client_success": true
+  },
+  "pre_wsgi_load_mean_seconds": 17.724066525411327,
+  "pre_wsgi_load_median_seconds": 17.751108351163566,
+  "pre_wsgi_serial_mean_seconds": 0.01725750487918655,
+  "occupation_first30s_including_upload": {
+    "945602": {
+      "worker_seconds": 29.919755761511624,
+      "N": 162
+    },
+    "945627": {
+      "worker_seconds": 29.968441426753998,
+      "N": 149
+    },
+    "945637": {
+      "worker_seconds": 29.870574624743313,
+      "N": 153
+    },
+    "945646": {
+      "worker_seconds": 29.960351343266666,
+      "N": 137
+    }
+  },
+  "client_successes_within30s": 271,
+  "entered_after_deadline": 0,
+  "actual_routes": {
+    "projection": 400,
+    "native": 200
+  },
+  "resources": {
+    "sample_interval_seconds": 29.000009931158274,
+    "sample_start_after_arrivals_seconds": 0.7972612949088216,
+    "sample_end_after_arrivals_seconds": 29.797271226067096,
+    "samples_in_arrivals": 30,
+    "app_process_CPU_seconds": 45.66999999999999,
+    "app_average_CPU_cores_consumed": 1.5748270469014942,
+    "observed_workers": 4,
+    "postgres_service_CPU_seconds": 51.55012199999328,
+    "postgres_service_average_CPU_cores_consumed": 1.7775898050506063,
+    "own_postgres_backend_CPU_seconds_lower_bound": 51.069999999999986,
+    "own_postgres_average_CPU_lower_bound": 1.761033879685993,
+    "own_pg_host_processes": 5,
+    "host_execution_CPU_seconds": 185.6,
+    "host_average_CPU_cores_consumed": 6.399997808296855,
+    "host_steal_seconds": 0.07,
+    "host_iowait_seconds": 0.38,
+    "other_process_CPU_seconds_lower_bound": 48.72,
+    "other_top_groups_and_commands_CPU_seconds": [
+      {
+        "cgroup": "/system.slice/docker.service",
+        "comm": "dockerd",
+        "cpu_seconds": 27.759999999999994
+      },
+      {
+        "cgroup": "/user.slice/user-1002.slice/session-22262.scope",
+        "comm": "sendmail",
+        "cpu_seconds": 4.5600000000000005
+      },
+      {
+        "cgroup": "/user.slice/user-1002.slice/session-22147.scope",
+        "comm": "python",
+        "cpu_seconds": 3.45
+      },
+      {
+        "cgroup": "/user.slice/user-1002.slice/session-22147.scope",
+        "comm": "codex",
+        "cpu_seconds": 2.7100000000000004
+      },
+      {
+        "cgroup": "/system.slice/docker.service",
+        "comm": "docker-proxy",
+        "cpu_seconds": 1.7500000000000009
+      },
+      {
+        "cgroup": "/system.slice/containerd.service",
+        "comm": "containerd-shim",
+        "cpu_seconds": 0.9800000000000006
+      },
+      {
+        "cgroup": "/system.slice/docker-d33b1589732d0d917fd4670863e76c9abe9efbd30f6575f8328d2a8c72b7d0ce.scope",
+        "comm": "crowdsec",
+        "cpu_seconds": 0.8900000000000002
+      },
+      {
+        "cgroup": "/system.slice/docker-770fcdd477bfafb42048c231ce1a5f605dbd05c237be147ab8c5e75b627f552e.scope",
+        "comm": "python",
+        "cpu_seconds": 0.7100000000000003
+      },
+      {
+        "cgroup": "/system.slice/containerd.service",
+        "comm": "containerd",
+        "cpu_seconds": 0.5300000000000002
+      },
+      {
+        "cgroup": "/system.slice/docker-11347801009ae34371276727574fce848c23fdb45aa289f5098b81cd6f8f8b7c.scope",
+        "comm": "gunicorn: worke",
+        "cpu_seconds": 0.4700000000000001
+      }
+    ],
+    "pg_active_own_backend_wait_samples": [
+      {
+        "wait_event_type": "none",
+        "wait_event": "none",
+        "observations": 54
+      }
+    ],
+    "other_database_active_samples": 0,
+    "limits": {
+      "app": {
+        "user.slice/user-1002.slice/session-22147.scope": {
+          "cpu.max": "not_measured",
+          "cpuset": "not_measured",
+          "cpu_weight": "not_measured",
+          "memory.max": "max",
+          "memory.high": "max",
+          "cpu_stat_delta": {
+            "usage_usec": 52140328,
+            "user_usec": 48297152,
+            "system_usec": 3843176,
+            "core_sched.force_idle_usec": 0
+          },
+          "memory_events_delta": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "PSI": {
+            "cpu.pressure": "not_measured",
+            "memory.pressure": "not_measured",
+            "io.pressure": "not_measured"
+          }
+        },
+        "user.slice/user-1002.slice": {
+          "cpu.max": "not_measured",
+          "cpuset": "not_measured",
+          "cpu_weight": "not_measured",
+          "memory.max": "max",
+          "memory.high": "max",
+          "cpu_stat_delta": {
+            "usage_usec": 75234136,
+            "user_usec": 55400221,
+            "system_usec": 19833914,
+            "core_sched.force_idle_usec": 0
+          },
+          "memory_events_delta": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "PSI": {
+            "cpu.pressure": "not_measured",
+            "memory.pressure": "not_measured",
+            "io.pressure": "not_measured"
+          }
+        },
+        "user.slice": {
+          "cpu.max": "max 100000",
+          "cpuset": "0-7",
+          "cpu_weight": "100",
+          "memory.max": "max",
+          "memory.high": "max",
+          "cpu_stat_delta": {
+            "usage_usec": 75242628,
+            "user_usec": 55414268,
+            "system_usec": 19828361,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 0,
+            "nr_throttled": 0,
+            "throttled_usec": 0,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "memory_events_delta": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "PSI": {
+            "cpu.pressure": "not_measured",
+            "memory.pressure": "not_measured",
+            "io.pressure": "not_measured"
+          }
+        },
+        ".": {
+          "cpu.max": "not_measured",
+          "cpuset": "0-7",
+          "cpu_weight": "not_measured",
+          "memory.max": "not_measured",
+          "memory.high": "not_measured",
+          "cpu_stat_delta": {
+            "usage_usec": 185626055,
+            "user_usec": 132208386,
+            "system_usec": 53417668,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 0,
+            "nr_throttled": 0,
+            "throttled_usec": 0,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "memory_events_delta": {},
+          "PSI": {
+            "cpu.pressure": "not_measured",
+            "memory.pressure": "not_measured",
+            "io.pressure": "not_measured"
+          }
+        }
+      },
+      "postgres": {
+        "system.slice/docker-865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f.scope": {
+          "cpu.max": "max 100000",
+          "cpuset": "0-7",
+          "cpu_weight": "100",
+          "memory.max": "max",
+          "memory.high": "max",
+          "cpu_stat_delta": {
+            "usage_usec": 51550122,
+            "user_usec": 43248419,
+            "system_usec": 8301702,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 0,
+            "nr_throttled": 0,
+            "throttled_usec": 0,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "memory_events_delta": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "PSI": {
+            "cpu.pressure": "not_measured",
+            "memory.pressure": "not_measured",
+            "io.pressure": "not_measured"
+          }
+        },
+        "system.slice": {
+          "cpu.max": "max 100000",
+          "cpuset": "0-7",
+          "cpu_weight": "100",
+          "memory.max": "max",
+          "memory.high": "max",
+          "cpu_stat_delta": {
+            "usage_usec": 106033063,
+            "user_usec": 77576097,
+            "system_usec": 28456965,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 0,
+            "nr_throttled": 0,
+            "throttled_usec": 0,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "memory_events_delta": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "PSI": {
+            "cpu.pressure": "not_measured",
+            "memory.pressure": "not_measured",
+            "io.pressure": "not_measured"
+          }
+        },
+        ".": {
+          "cpu.max": "not_measured",
+          "cpuset": "0-7",
+          "cpu_weight": "not_measured",
+          "memory.max": "not_measured",
+          "memory.high": "not_measured",
+          "cpu_stat_delta": {
+            "usage_usec": 185612028,
+            "user_usec": 132198591,
+            "system_usec": 53413438,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 0,
+            "nr_throttled": 0,
+            "throttled_usec": 0,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "memory_events_delta": {},
+          "PSI": {
+            "cpu.pressure": "not_measured",
+            "memory.pressure": "not_measured",
+            "io.pressure": "not_measured"
+          }
+        }
+      }
+    },
+    "host_mem_available_min_bytes": 8136589312,
+    "host_swap_free_min_bytes": 249856,
+    "vmstat_deltas": {
+      "pswpin": 0,
+      "pswpout": 0,
+      "allocstall_dma": 0,
+      "allocstall_dma32": 0,
+      "allocstall_normal": 0,
+      "allocstall_movable": 2,
+      "allocstall_device": 0,
+      "pgmajfault": 2,
+      "pgsteal_kswapd": 0,
+      "pgsteal_direct": 0,
+      "pgsteal_khugepaged": 2061,
+      "pgscan_kswapd": 0,
+      "pgscan_direct": 0,
+      "pgscan_khugepaged": 2112,
+      "pgscan_direct_throttle": 0,
+      "pgscan_anon": 0,
+      "pgscan_file": 2112,
+      "pgsteal_anon": 0,
+      "pgsteal_file": 2061
+    },
+    "host_PSI": {
+      "cpu": "not_measured",
+      "memory": "not_measured",
+      "io": "not_measured"
+    },
+    "app_sampled_RSS_max_bytes": 570851328,
+    "pg_sampled_cgroup_memory_max_bytes": 572002304
+  },
+  "collector": {
+    "samples": 94,
+    "elapsed": 93.16067090118304,
+    "collector_thread_cpu": 10.279605758999999,
+    "sample_durations": [
+      0.15604533767327666,
+      0.1251142411492765,
+      0.138883741106838,
+      0.16074450686573982,
+      0.13419414404779673,
+      0.12645448511466384,
+      0.134231838863343,
+      0.10511624626815319,
+      0.15371920866891742,
+      0.1478632353246212,
+      0.14363393699750304,
+      0.13025405909866095,
+      0.13761881086975336,
+      0.10715636285021901,
+      0.13087937142699957,
+      0.10436593135818839,
+      0.1301202648319304,
+      0.11568445805460215,
+      0.1254345108754933,
+      0.11400813981890678,
+      0.1115918718278408,
+      0.14284001011401415,
+      0.1301314658485353,
+      0.10895861824974418,
+      0.10862801782786846,
+      0.12514352798461914,
+      0.16348030185326934,
+      0.09870772808790207,
+      0.11460459232330322,
+      0.12827345170080662,
+      0.11573282536119223,
+      0.1015323861502111,
+      0.13089562021195889,
+      0.11736910417675972,
+      0.11440955381840467,
+      0.1358338650316,
+      0.09783079428598285,
+      0.12740743905305862,
+      0.10859057400375605,
+      0.13689765706658363,
+      0.1490109572187066,
+      0.10206215502694249,
+      0.09489368414506316,
+      0.1131147276610136,
+      0.22832664428278804,
+      0.09724566992372274,
+      0.12279555201530457,
+      0.14421669393777847,
+      0.1307923081330955,
+      0.1132830479182303,
+      0.1149210250005126,
+      0.10544803412631154,
+      0.11099081672728062,
+      0.1436907430179417,
+      0.10008566593751311,
+      0.11526766000315547,
+      0.09803451597690582,
+      0.10187263088300824,
+      0.11893680179491639,
+      0.17253233306109905,
+      0.10809051478281617,
+      0.1507079149596393,
+      0.1368363513611257,
+      0.1462639099918306,
+      0.10213840613141656,
+      0.12863042345270514,
+      0.13616219209507108,
+      0.09822137467563152,
+      0.15182518819347024,
+      0.10780420619994402,
+      0.15446676593273878,
+      0.10110135888680816,
+      0.10562937520444393,
+      0.13662003772333264,
+      0.10216182610020041,
+      0.1276391758583486,
+      0.10704791639000177,
+      0.0974788791500032,
+      0.16039540199562907,
+      0.12982784304767847,
+      0.11097275698557496,
+      0.1649590958841145,
+      0.11392563814297318,
+      0.12880633305758238,
+      0.11497705383226275,
+      0.1207916890271008,
+      0.14046205673366785,
+      0.16561905713751912,
+      0.14706880319863558,
+      0.12935711909085512,
+      0.16365124890580773,
+      0.11090568592771888,
+      0.1254624780267477,
+      0.16022665100172162
+    ],
+    "errors": [],
+    "fatal_error": null,
+    "clock_ticks_per_second": 100,
+    "app_master_pid": 945563,
+    "postgres_container_host_pid": 846911,
+    "scope": "shared host/service;1Hz state samples not wait durations; procCPU ticks and cgroupCPUcumulative counters; processRSS includes sharedpages, not additive physical memory; missingPSI explicit"
+  },
+  "collector_criteria": {
+    "sample_coverage": 1.0,
+    "p95_poll_seconds": 0.16365124890580773,
+    "CPU_seconds_per_second": 0.11034276223604847,
+    "expected_immediate_then_1Hz_samples": 94,
+    "all_prefixed_checks_pass": true
+  },
+  "limits": [
+    "Diagnostic30s not contractual60/900gate; originalhistoricalFAIL preserved",
+    "Process/cgroupCPU actualcounters over declared~29s samplinginterval, not cursor walltime; PGsharedservice includesbackground/otherdatabases",
+    "OwnPGCPU lowerbound due snapshot/processvisibility/churn; no uniform CPU allocation overWSGIwall",
+    "Waitobservations are sampled states, not durations; active with noevent may be runnable or executing",
+    "PSI absent not zero; RSSsamplemax not allocation or additive uniquephysicalmemory",
+    "D/W use means and equalcontractweights, completed populations declared; serial/load observationalcontrast sameversion but not controlledCPUscaling proof",
+    "CollectorCPU/poll duration measured; causalWSGI/PGquery observer overhead not_measured",
+    "No backendchange adopted inA; Ccannotbecreditedasbackendimprovement or fullcapacityPASS"
+  ],
+  "independent_owned_master_and_worker_absence_verified": true,
+  "client_p95_seconds": 33.16873420588672,
+  "window_pending": 329,
+  "actual_elapsed_seconds": 64.8063027788885,
+  "drain_seconds": 34.806302778888494,
+  "clock_and_sampling_limits": "Samehost monotonic entry/emission; resource interval begins0.797s ends29.797s, actual29.000s. OS counts bracket those snapshots; polls readfiles sequentially, not atomic/cpu-instantaneous. Collector1Hz itself consumes0.110CPU included inhost/otherprocess work. Root/leaf missing cpu.max wherecontrollerinterface absent, effective ancestors inspected; no guarantee of exclusive cores.",
+  "applied_backend_savings_D_W_from_template": "none: template notadopted and original fingerprint restored; causal D/W of earlier HTTPonlyoptimizations not_measured",
+  "application_rollback_verification": {
+    "all_historical_apps_config_files_byte_identical": true,
+    "files": 424,
+    "reference": "/tmp/reading-common-short-0110/frozen-manifest.json",
+    "application_change_adopted_from_template": false,
+    "resource_run_projected_publication_difference": "two whitespace-only newline counts, restored afterreview; original audited bytecode digest unchanged throughoutC"
+  }
+}

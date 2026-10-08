@@ -2,8 +2,10 @@ from django.utils import timezone
 
 from apps.core.verification_services import real_checks
 
+_UNSET = object()
 
-def describe(listing, language):
+
+def describe(listing, language, *, age=_UNSET):
     revision = listing.approved_revision
     english = language == "en"
     translated = revision.content_language != language and bool(revision.description_alternative)
@@ -41,7 +43,8 @@ def describe(listing, language):
         "afternoon": ("Tarde", "Afternoon"),
         "evening": ("Noche", "Evening"),
     }
-    age = listing.person.verificationcheck_set.order_by("-created_at").first()
+    if age is _UNSET:
+        age = listing.person.verificationcheck_set.order_by("-created_at").first()
     age_simulated = bool(age and (age.provider == "simulator" or age.procedure == "simulator-v1"))
     checked = real_checks(listing.person, age)
     phone_procedure = listing.person.phone_claim.verification_procedure

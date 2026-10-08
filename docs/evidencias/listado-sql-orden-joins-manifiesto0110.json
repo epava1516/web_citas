@@ -1,0 +1,13 @@
+{
+  "scope": "SQL-only bounded explicitjoinorder after staticindex effectinsufficient; no application change",
+  "selection": [
+    "tests/test_sql_join_order.py"
+  ],
+  "output": "/tmp/sql-join-order-0110",
+  "observed": "WholeWHERE planned innerjoin version/phone across repeatedkeys instead of early PK binding, PlanRows1; nestedloopoff did not control joinorder and hit2s. Contentrelation regressed. Current CASE SQL0.2\u20130.3s; staticindex savings38/45ms insufficient, notadopted.",
+  "hypothesis": "Constrain existing explicitFK join tree with transaction-local join_collapse_limit=1 so primarykey relationships combine before cross-record equality. Compare CASE default/CASEordered/WHEREordered, distinguishsettingeffect fromshape. This is boundedplanpolicyexperiment, notbackendchange or guarantee. No changefrom_collapse_limit ornestedloop.",
+  "primary_reference": "https://www.postgresql.org/docs/current/explicit-joins.html",
+  "scenario": "10000original/diverse, list/search, ANALYZEbefore, completevectors andoffpagenegatives,2s everyread,8AB/BApairs viablealternatives. Reuse prior defaultWHEREtimeout/plans, do notrepeat. Newestimatedplans before, ANALYZEBUFFERS aftercontrols. SETLOCAL restoration checked.",
+  "effect_screen": "Bothfixtures SQLpairedmeanfamilymediandelta>=max(.050s,.20baseline),>=6/8positive,no familyregression>max(.025s,.10baseline). Nativeequivalence and prefixed fullTCPeffect requiredbeforeadoption.",
+  "contract": "Manualsinglequeue/goalpaused;newshortFAIL andhistoricalFAIL/INVALID kept;900blocked,resources/criteria unchanged."
+}

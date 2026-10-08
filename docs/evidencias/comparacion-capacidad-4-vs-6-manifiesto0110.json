@@ -1,0 +1,45 @@
+{
+  "requirement": "CR09-REND-LECTURA; explicit user authorization2026-10-07 experimental4vs6 only",
+  "selection": [
+    "tests/test_worker_capacity_comparison.py"
+  ],
+  "proposal": "docs/evidencias/propuesta-capacidad-4-vs-6-0110.json",
+  "scenario": {
+    "A_workers": 4,
+    "B_workers": 6,
+    "sequential_orders": [
+      "A,B",
+      "B,A"
+    ],
+    "max_active_servers": 1,
+    "PG_configuration": "unchanged sharedservice/ownedsyntheticdatabase; no memoryCPUindexquerychanges",
+    "fixture": "10000originalcontractual; same frozen source/schema, exact route/count/body checks, equal warmup; fresh synthetic upload perblock; no added cache",
+    "per_block": "20RPS30s600dynamics same1/3familiesESEN+1upload,65stimeout/70smaxdrain; eachnextblock afterterminal/idle.30s notacceptancegate; at least60s betweenuploads",
+    "instrumentation": "identical lightWSGI+OS/proc/cgroup/pgstat; collectoroverheadreported; no Pythonprofiler",
+    "outcomes": "meansWSGI perroute/D/W, fullclientp95/errors/timeouts/pending, completedwithinwindow, CPUapp/PG/host,throttling/RSS/memory, otherhostcompetition, pendingdrain. SeparateIDs/clocks/intervals; lateclientfailuresnever successes"
+  },
+  "limits": {
+    "max_workers": 6,
+    "stop_owned_trial_if_host_execution_CPU_cores_at_least": 7.6,
+    "sustained_samples_for_CPU_stop": 5,
+    "stop_mem_available_below_bytes": 2147483648,
+    "stop_on_new_oom_events": true,
+    "unrelated_host_CPU_difference_between_blocks_above_cores_makes_causal_result_inconclusive": 0.5,
+    "generator_thresholds": "existing unchanged; INVALID whenviolated",
+    "stop_cleanup": "onlyownedserver/sampler/database, never normalhostservices; failed/inconclusive result doesnotqueueautomatic variants"
+  },
+  "effect_filter": "Informational6vs4: at least10percentmore completionswithin30s inbothcounterbalancedpairs, lower fullclientp95 bothpairs, no highererrorfraction, and D no greaterthan1.10baseline. Allgenerator/ledgerrequirements unchanged. This filter doesnotacceptcapacity, changeSLO orauthorizeanyrun.",
+  "orders": [
+    4,
+    6,
+    6,
+    4
+  ],
+  "constant_state": "One prepared10000fixture/schema ANALYZE once, session and private draft created once; read-only template cloned into one owned trialDB perblock, media copy from sameimmutable baseline. Same upload bytes/IDs prevent duplicate-effects carrying acrossblocks. Same port/routing/source/policy/instrumentation. NoPGconfiguration/planning/prepared/cache changes. Fresh syncworkers; host/PGcaches not reset.",
+  "warmup": "Exactly6coldTCP plus30serialTCP (5each ESENlist/search/detail), sameallblocks; readiness ofallworker observer files required, warmup participantPIDcoverage checked. Exact public bodySHA/count acrossallblocks.5sidle before andafter, minimum60s betweenupload emissions. Detailbody includes time-signed reporttarget: validate signature/max_age7200 and exact listing/revision dependencies; compare all remaining bytes plus stable decoded payload. Raw/normalizedSHA recorded; do not modify server response or route. Listing/search body remains byteexact.",
+  "instrumentation": "Existing lightWSGI start/end threadCPU+actualroute without native/rule/SQL/render hooks;1Hzproc/cgroup/pgmetadata with availablediskstats/io.stat/procIO added. Asyncledger/unchangedGC observer. StopEvent polling opt-in50ms, equalforboth. CollectorCPU/polltiming, missingmetrics explicit; noPythonprofiler.",
+  "interpretation": "Separate30s emission vscompletecohort/drain; means/p_i=1/3, D=sum means/3, W20=20D+uploadservice/60 forcontractualone/min; actualdiagnostic U=uploadservice/30 separately. CPUwindow/successwindow operationalratio only. PGsharedscope/hostresidual/samplewaitlimitations; no waitduration derivation.",
+  "per_block_review": "Terminalblock artifacts/sources/serverPIDs/DB/media independently checked before release fileallows nextplannedblock. Freezeentiresequence until finalreview. Anyresource stop preservespartials and endssequence; noautoretry.",
+  "no_capacity_acceptance": "30s blockverdict separatefromcomparisonvalidity/effect; pending<=20 included asdiagnosticaccumulation criterion. No60sPASS/900authorization/permanent6adoption. Goalpaused percentageshistoricverdictsunchanged.",
+  "preflight": "docs/evidencias/comparacion-capacidad-preflight0110.json: halted before20RPS issuance on naive fullbyte detailcheck; body TimestampSigner requires comparator validation/normalization. No completedtrial or capacityresult; cleanup/hash reviewed. Prepared harness corrected, no priorload repeated."
+}

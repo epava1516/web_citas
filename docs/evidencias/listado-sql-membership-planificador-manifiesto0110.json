@@ -1,0 +1,21 @@
+{
+  "scope": "R2 diagnosis after currentcommonN2/matrix and validshortFAIL; no backendchange",
+  "selection": [
+    "tests/test_sql_membership_planner.py"
+  ],
+  "output": "/tmp/sql-membership-planner-0110",
+  "observed_cost": "CurrentCASEscalar mainSQL0.244490/0.257716s in matrix. PriorbulkWHEREpreflight aborted at46.336s; original test ANALYZE happened only afterpreflight. Historicalabortnotreclassified; no measuredcausalstatsclaim. Coarselocalstageobserver compatibility failedjointly, do notrank asoperationalcost.",
+  "hypotheses": "Possible estimate/plan sensitivity: compare completeSQL planned-only before/afterexplicitANALYZE; then boundedreads of same bulkWHERE membership versus currentCASE. Factorial join-choice diagnostic SETLOCALenable_nestloop on/off in ownreadonlytransactions. Off discourages nestedloops, doesnotguaranteehash or removeunavoidableloops; inspect actualplans. No change server/workers/schema/cache.",
+  "scenario": "Synthetic10000original/diverse, current scalar/index/grouped backend. Listing/search SQLfullordered vectors includingunknownflag, samecompiledparams withinfixture. Planned-only beforeANALYZE, analyzealltables, planned-onlyfourmodes CASE/membership\u00d7nestloop_on/off. EverySQLstatement2stimeout. One boundedpreflight per family/mode; timeoutmodesexcluded fromtimedcontrols, no retry. Eligiblealternatives8AB/BApairs independently vsCASE,2families; statisticsfixed/endpointschecked. Newshapes ANALYZEBUFFERSSETTINGSplans onlyaftercontrols andeligible; baselineCASEactualplans reused.",
+  "numeric_sql_screen": "Bothfixtures median paired meanfamily saving>=max(.05s,.20*baseline meanfamilymedian),>=6/8favorable; nofamily regression>max(.025s,.10*baseline median). SQL-onlyscreen: not HTTPbenefit, functionalacceptanceorcapacity. Fullnativeequivalence+pairedHTTPrequired beforekeeping any eventualbackendchange.",
+  "frozen_sources": "Runners andalltracked/nonignored sourcesSHA; privateboundparamsneverexported; normalizedSQL andredactedplans only. OwnedPG/media retired andindependentlyverified.",
+  "not_measured": [
+    "beforeANALYZEexecutedlatency for failedhistoricalshape",
+    "PGCPU/RSS/waits/locks/IO",
+    "globalSQLrows_scanned/affected",
+    "HTTPeffect",
+    "validation/render",
+    "capacity"
+  ],
+  "contract": "Goalpaused,manualsinglequeue docs17; prior+newFAILshort/INVALIDlong preserved; no900withoutcompletePASSshort;150\u2013200ms noaddedgate."
+}

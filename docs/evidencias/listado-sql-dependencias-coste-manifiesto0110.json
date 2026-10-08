@@ -1,0 +1,43 @@
+{
+  "schema": "sql-grouped-dependency-cost-prefixed-v1",
+  "prerequisite": "8 affected PostgreSQL tests pass; SHA and own database/media cleanup reviewed",
+  "selection": [
+    "tests/test_sql_publication_bulk_cost.py"
+  ],
+  "scenario": "10000 candidates, original repeated and separate diverse descriptions/Telegram; same other cardinalities",
+  "pairs": [
+    [
+      "row",
+      "bulk"
+    ],
+    [
+      "bulk",
+      "row"
+    ],
+    [
+      "row",
+      "bulk"
+    ],
+    [
+      "bulk",
+      "row"
+    ]
+  ],
+  "preparation": "ANALYZE own fixture tables; native complete ordered oracle for both strategies; warmup each; principal stats before/after pairs",
+  "material_effect": "Median paired row-minus-bulk >=0.10s AND >=20%median row AND >=3/4 favorable pairs in each fixture. Design filter only; never capacity acceptance",
+  "route_probes": "After pairs: documented ES/EN listing/search/detail routes, each one unprofiled control and one normalized SQL observation; equal body/status required. IDs and content never exported Detail compares authenticated signed report binding and exact remaining bytes, signature timestamp itself may differ.",
+  "plans": "Top5 SELECT patterns by accumulated execute time across base listing plus six observed route probes; one representative parameter set per pattern; EXPLAIN ANALYZE BUFFERS READ ONLY only after all controls/probes; main proof SELECT jit off matching its helper",
+  "not_measured": [
+    "Current concurrent capacity",
+    "Route cost distributions",
+    "SQL rows_returned/affected/scanned",
+    "Per-rule times",
+    "Model constructions",
+    "DB CPU/RSS/waits/IO",
+    "Size/mode acceptance matrix"
+  ],
+  "stop": "One reviewed comparison selects or rejects grouped dependencies, with plan evidence and explicit confounds",
+  "output": "/tmp/sql-publication-bulk-cost-final-0110",
+  "contract": "Original load, mixture/uploads, SLO, generator/drain and historic short FAIL/contractual INVALID preserved",
+  "repetition_reason": "Previous run incomplete: late unlabeled byte comparison discarded timings. Signed target variation now reproduced and authenticated; checkpoint persists controls before probes. Preserve failed run."
+}

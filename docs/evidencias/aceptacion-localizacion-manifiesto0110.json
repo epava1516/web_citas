@@ -1,0 +1,9 @@
+{
+  "requirement": "BF\u00a77/\u00a713 AcceptanceForm ya language pero labels/ValidationErrors biling\u00fces; presentaci\u00f3n localizada, sin cambiar reglas/documentos/locks/estado/autoridad",
+  "selection": [
+    "tests/test_acceptance_localization.py",
+    "tests/test_accounts.py::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language"
+  ],
+  "acceptance": "PG+Chromium ES/EN m\u00f3vil, cuenta acept\u00f3 documentos anteriores, gate, texto/labels, nueva versi\u00f3n publicada entre GET/POST rechaza stale sin aceptar; recarga y aceptaci\u00f3n exacta actual, acceso/persistencia, viejo registro preservado; documento sint\u00e9tico ausente bloquea con mensaje localizado; existing version/other-language regression",
+  "resources": "Own two databases/media/live_server/browser, source hashes frozen, no normal runtime/resources/load/external decisions"
+}

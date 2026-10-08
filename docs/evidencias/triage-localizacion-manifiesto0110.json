@@ -1,0 +1,11 @@
+{
+  "requirement": "BF\u00a77/\u00a713 localized triage action presentation in three private queues. Labels/choices only; no action/permission/audit/identity/scope/encryption/model/query changes.",
+  "acceptance": "Six PG real Chromium ESEN flows: all visible labels and choice IDs/lang, invalid reason no action, claim encrypted audit, exact replay once, stale409, unassign current permission, revoke403; existing relevant assignment and authority regressions. Persisted synthetic MFA session fixture not new TOTP proof.",
+  "resources": "Own two databases/media/live server/browser, frozen sources, independent cleanup; no performance loads/normal runtime/providers.",
+  "selection": [
+    "tests/test_triage_localization.py",
+    "tests/test_report_decisions.py::test_unlinked_report_cannot_restrict_and_replay_cannot_change_outcome",
+    "tests/test_complaint_assignment.py::test_assignment_recovery_replay_and_private_receipt_without_clock_reset",
+    "tests/test_rights_actions_specific_revocation.py"
+  ]
+}

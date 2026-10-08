@@ -1,0 +1,17 @@
+{
+  "selection": [
+    "tests/test_sql_text_index_probe.py"
+  ],
+  "output": "/tmp/sql-publication-text-index-probe-0110",
+  "prerequisite": "Text conjunction 9PG equivalent, but whole-request effect fails contractual criterion; legacy text proof remains default. Measured marginal legacy text group0.136/0.119s supports only an equivalent access-strategy experiment.",
+  "hypothesis": "Unknown-text ID subqueries may use narrow partial indexes over the same current row predicates. PostgreSQL maintains ordinary index membership transactionally; no eligibility column/materialized view/app cache and no normal runtime schema change. Must distinguish grouping from physical index effect.",
+  "scenario": "Two10000 fixtures unchanged. A=current row proof; B=unknown-ID set without index; C=same set with partial index, actual SQL-only prototype. Four counterbalanced triplets per listing/search; index DDL toggled explicitly, outside timers, every sample preceded by warmup. Statistics prepared after off-page writes/rollback tests. Params/outputs/code identical within family.",
+  "criteria": "Combined row-indexed median paired saving averaged across listing/search >=max(0.05s,15%average row median) AND >=3/4 favorable. Separate index-only set-indexed saving median>=0.05s AND>=3/4 favorable. Both fixtures required. Verify actual index use in separate plans before crediting index mechanism. Prototype positive vectors must match complete original ordered vectors for all valid rows, off-page invalid/valid-unknown text and rate updates, and rollback. Not native ineligibility, HTTP improvement or capacity.",
+  "plans": "Four separate EXPLAIN(ANALYZE,BUFFERS) READ ONLY after paired controls: row/noindex listing; set/noindex listing; indexed listing/search. Report actual node rows/loops only, not inferred rows_scanned.",
+  "finish": "Terminal source/hash/own cleanup and expression/index-use/paired effects reviewed before any migration or application route is adopted. No load or concurrent build/test. Keep all prior insufficiencies and FAIL/INVALID untouched.",
+  "references": [
+    "https://www.postgresql.org/docs/16/indexes-partial.html",
+    "https://www.postgresql.org/docs/16/sql-createindex.html"
+  ],
+  "limitations": "DDL toggles schema and warms buffers; warmup standardizes warm reads but does not establish production cache behavior. Query shape/index effects both retained. Write overhead/capacity, full native integration, per-rule metrics and matrix absent. Django local PostgreSQL backend disables prepare_threshold by default and uses client binding; actual index plan must be inspected, not assumed from this setting."
+}

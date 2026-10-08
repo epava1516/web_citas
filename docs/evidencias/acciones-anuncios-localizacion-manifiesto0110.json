@@ -1,0 +1,10 @@
+{
+  "requirement": "BF\u00a77/\u00a713 lifecycle ActionForm and listing moderation DecisionForm localized presentation only.",
+  "acceptance": "4 PG Chromium ESEN manager/moderator paths: exact locale labels/IDs; lifecycle available/pause/resume/withdraw reload/public404; invalid operation no event; moderation empty outcome400 then approved exact current version/public title; existing authority/stale/replay/mfa/self-review regressions. No query/engine/eligibility changes.",
+  "resources": "Own two PG databases/media/server/browser; frozen SHA + independent cleanup. No normal runtime/performance/provider.",
+  "selection": [
+    "tests/test_listing_actions_localization.py",
+    "tests/test_lifecycle.py::test_stale_form_revocation_and_key_payload_conflict",
+    "tests/test_listing_moderation.py::test_permission_mfa_self_review_rejection_and_concurrency"
+  ]
+}

@@ -48,7 +48,9 @@ class CallProfile:
             if self.stack:
                 self.stack[-1]['children'][name] += wall
                 self.stack[-1]['cpu_children'][name] += cpu
-            if name.endswith('ProjectedPublication.visible_ids'):
+            if (name.endswith('ProjectedPublication.page') or
+                    (name.endswith('ProjectedPublication.visible_ids') and not any(
+                        parent['name'].endswith('ProjectedPublication.page') for parent in self.stack))):
                 self.projection_stats.append(dict(frame.f_locals['self'].stats))
 
     def objects(self, sender, **kwargs):

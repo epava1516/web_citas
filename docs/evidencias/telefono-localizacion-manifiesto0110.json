@@ -1,0 +1,10 @@
+{
+  "requirement": "BF\u00a77/\u00a713 PhoneForm/CodeForm labels ESEN, same normalization/challenge/authority/expiry/consumption/guards.",
+  "acceptance": "2 PG Chromium ESEN phone initiation-confirmation, invalid phone no challenge, localized phone/code labels and explicit simulator headings, locmem simulated code/digest, malformed and wrong code do not consume, correct binds current synthetic phone/simulator-v1 once, replay400; existing resend/authority/provider-switch regressions.",
+  "resources": "Own2PG/media/browser/server/frozen SHA independent retirement; locmem only no real SMS/provider/runtime/performance.",
+  "selection": [
+    "tests/test_phone_localization.py",
+    "tests/test_verification.py::test_phone_resend_invalidates_previous_and_unauthorized_actor",
+    "tests/test_verification.py::test_phone_challenge_created_in_dev_cannot_be_consumed_after_provider_switch"
+  ]
+}

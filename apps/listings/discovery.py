@@ -2,9 +2,9 @@ from functools import reduce
 from operator import or_
 
 from django import forms
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib.postgres.search import SearchQuery, SearchRank
 from django.core.paginator import EmptyPage, Paginator
-from django.db.models import Case, CharField, Q, Value, When
+from django.db.models import F, Q
 from django.http import Http404
 from django.shortcuts import render
 from django.utils import timezone
@@ -15,7 +15,8 @@ from apps.core.verification_services import real_checks
 from .forms import DetailsForm, RelatedSelect
 from .models import Listing
 from .moderation import publicly_visible
-from .presentation import describe
+from .presentation_reads import PagePresentation
+from .search import revision_search_vector
 from .seo import directory_metadata
 
 
@@ -137,7 +138,7 @@ class SearchForm(forms.Form):
         return data
 
 
-def candidates(data):
+def candidates(data, *, stored_search=True):
     query = Listing.objects.filter(
         status="published", approved_revision__status="approved", expires_at__gt=timezone.now()
     ).select_related("approved_revision__municipality", "person__agency", "person__phone_claim")
@@ -184,23 +185,8 @@ def candidates(data):
         }
         query = query.filter(reduce(or_, [conditions[value] for value in data["channel"]]))
     if data.get("q"):
-        primary = Case(
-            When(approved_revision__content_language="en", then=Value("english")),
-            default=Value("spanish"),
-            output_field=CharField(),
-        )
-        alternative = Case(
-            When(approved_revision__content_language="en", then=Value("spanish")),
-            default=Value("english"),
-            output_field=CharField(),
-        )
-        vector = (
-            SearchVector("approved_revision__title", weight="A", config=primary)
-            + SearchVector("approved_revision__description", weight="B", config=primary)
-            + SearchVector(
-                "approved_revision__description_alternative", weight="B", config=alternative
-            )
-        )
+        vector = (F("approved_revision__search_document") if stored_search
+                  else revision_search_vector("approved_revision__"))
         search = SearchQuery(data["q"], config="spanish", search_type="websearch") | SearchQuery(
             data["q"], config="english", search_type="websearch"
         )
@@ -255,6 +241,8 @@ def results(request):
             page = Paginator(visible, 24).page(number)
     except EmptyPage as error:
         raise Http404 from error
+    presentation = PagePresentation(page.object_list)
+    request._presentation_reads = presentation.stats
     cards = []
     for listing in page.object_list:
         revision = listing.approved_revision
@@ -264,7 +252,7 @@ def results(request):
             or not revision.description_alternative
             else revision.description_alternative
         )
-        public = describe(listing, request.LANGUAGE_CODE)
+        public = presentation.describe(listing, request.LANGUAGE_CODE)
         cards.append(
             {
                 "sponsorship": sponsorship.get(listing.pk),
@@ -272,9 +260,7 @@ def results(request):
                 "revision": revision,
                 "description": description,
                 "public": public,
-                "photo": revision.photos.filter(
-                    approved=True, removed_at__isnull=True, blob__status="ready"
-                ).first(),
+                "photo": presentation.photo(listing),
             }
         )
     params = request.GET.copy()
