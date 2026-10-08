@@ -21,6 +21,10 @@ class AppealForm(forms.Form):
         max_length=2000, label="Explicación / Explanation", widget=forms.Textarea
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["explanation"].label = "Explanation" if language == "en" else "Explicación"
+
 
 class ReviewForm(forms.Form):
     result = forms.ChoiceField(
@@ -31,6 +35,17 @@ class ReviewForm(forms.Form):
         ]
     )
     reason = forms.CharField(max_length=1000, label="Motivo / Reason", widget=forms.Textarea)
+
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        english = language == "en"
+        self.fields["result"].label = "Result" if english else "Resultado"
+        self.fields["reason"].label = "Reason" if english else "Motivo"
+        self.fields["result"].choices = [
+            ("", "Choose" if english else "Selecciona"),
+            ("upheld", "Uphold decision" if english else "Mantener decisión"),
+            ("reconsider", "Reopen review" if english else "Reabrir revisión"),
+        ]
 
 
 @login_required
@@ -43,7 +58,7 @@ def submit(request, decision_id):
         outcome="rejected",
         revision__manager_version=F("revision__listing__person__manager_version"),
     )
-    form = AppealForm(request.POST or None)
+    form = AppealForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             person = locked_manager_person(request.user, decision.revision.listing.person_id)
@@ -97,7 +112,7 @@ def review(request, appeal_id):
     person = appeal.decision.revision.listing.person
     if appeal.decision.reviewer_id == request.user.pk or conflict_of_interest(request.user, person):
         return HttpResponse("Independent reviewer required", status=403)
-    form = ReviewForm(request.POST or None)
+    form = ReviewForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             if person.agency_id:

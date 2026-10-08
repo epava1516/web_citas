@@ -49,11 +49,11 @@ def review(request, appeal_id):
         conflict_of_interest(request.user, p) for p in people
     ):
         return HttpResponse("Independent reviewer required", status=403)
-    form = ReviewForm(request.POST or None)
-    form.fields[
-        "reason"
-    ].label = (
-        "Motivo para la persona; sin datos ajenos / Reason for the person; no third-party data"
+    form = ReviewForm(request.POST or None, language=request.LANGUAGE_CODE)
+    form.fields["reason"].label = (
+        "Reason for the person; no third-party data"
+        if request.LANGUAGE_CODE == "en"
+        else "Motivo para la persona; sin datos ajenos"
     )
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():

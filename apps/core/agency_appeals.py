@@ -32,7 +32,7 @@ def submit(request, decision_id):
         and not AgencyAppeal.objects.filter(decision=decision).exists()
     ):
         return HttpResponse("Decision obsolete", status=404)
-    form = AppealForm(request.POST or None)
+    form = AppealForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             agency = Agency.objects.select_for_update().get(pk=decision.agency_id)
@@ -88,7 +88,7 @@ def review(request, appeal_id):
     agency = appeal.decision.agency
     if appeal.decision.reviewer_id == request.user.pk or conflict(request.user, agency):
         return HttpResponse("Independent reviewer required", status=403)
-    form = ReviewForm(request.POST or None)
+    form = ReviewForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             agency = Agency.objects.select_for_update().get(pk=agency.pk)

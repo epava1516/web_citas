@@ -32,7 +32,7 @@ def detail(request, restriction_id):
         and not current.photo.removed_at
         and not current.candidate.removed_at
     )
-    form = AppealForm(request.POST or None)
+    form = AppealForm(request.POST or None, language=request.LANGUAGE_CODE)
     if request.method == "POST" and form.is_valid():
         with transaction.atomic():
             try:
