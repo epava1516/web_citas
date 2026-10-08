@@ -222,6 +222,8 @@ Control diagnóstico con el generador propio, que no es R5: mismas rutas, base a
 
 Selección, requisito, entorno y condición de salida sin cambios. Un nuevo FAIL o INVALID cierra el bloque hasta un análisis nuevo.
 
+**R5 MOD-05, intento 2 (`c69c983`): PASS completo** del gate corto. Generador y contabilidad válidos: 1 200/1 200 emitidas y correctas, 0 errores, 0 timeouts, sin pendientes finales, pendientes en ventana dentro del límite y drain correcto. p95 observable 0,249 s (p50 0,182 s, p99 0,283 s, máximo 0,473 s), servicio Gunicorn p95 0,242 s, 19,95 completadas/s, upload 302 (3,5 s en petición, procesamiento en modo eager). Paso de despliegue: 10 002 anuncios recalculados tras `populate` y 1 tras preparar los datos. [Evidencia](evidencias/r5-mod05-intento2-pass.json). Habilita R6 según el registro previo. Es un resultado local de su escenario y entorno; no acredita capacidad de producción ni sustituye a R6.
+
 
 **CR09-REND-LECTURA sigue abierto. Goal automático pausado por petición del usuario; encargo manual de cierre autorizado.** La equivalencia pública, el perfil actual y el contraste TCP terminaron exit0; el prototipo SQL intermedio se abortó durante preflight y no se adopta. Fuentes congeladas intactas y recursos propios retirados. TCP, equivalencia común y matriz terminales revisados; corta posterior FAIL válido. Checkpoint A→B→C→D completado; comparación autorizada4/6/6/4 posterior terminada y revisada: causalidadINCONCLUSIVE porcompetenciahost, filtroobservadoD incumplido ycuatroFAIL30s. Sin ejecución propia activa ni nueva carga larga. Árbol de trabajo sobre `b285aba`, cambios de backend todavía sin integrar en runtime `73d28f6`. La pausa automática, la terminación de una prueba y el cierre del requisito son estados distintos.
 
