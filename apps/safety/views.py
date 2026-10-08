@@ -288,6 +288,12 @@ class AccessForm(forms.Form):
         min_length=10, max_length=200, label="Motivo de consulta / Purpose of access"
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["purpose"].label = (
+            "Purpose of access" if language == "en" else "Motivo de consulta"
+        )
+
 
 @login_required
 @sensitive_post_parameters("purpose")
@@ -299,7 +305,11 @@ def inspect(request, report_id):
         or not request.user.mfa_enabled
         or request.session.get("mfa_version") != request.user.mfa_version
     ):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                ("Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado"), status=403
+            )
+        )
     report = (
         Report.objects.select_related("listing__person__agency", "reported_agency")
         .filter(pk=report_id)
@@ -308,8 +318,17 @@ def inspect(request, report_id):
     if not report:
         raise Http404
     if not permitted(request.user, report):
-        return private(HttpResponse("Conflict of interest", status=403))
-    form = AccessForm(request.POST or None)
+        return private(
+            HttpResponse(
+                (
+                    "Conflict of interest"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Conflicto de interés"
+                ),
+                status=403,
+            )
+        )
+    form = AccessForm(request.POST or None, language=request.LANGUAGE_CODE)
     payload = None
     history = []
     next_action_cursor = None
@@ -326,7 +345,16 @@ def inspect(request, report_id):
                 previous_agency = person.agency_id
                 person = Person.objects.select_for_update().get(pk=person.pk)
                 if person.agency_id != previous_agency:
-                    return private(HttpResponse("Management changed; reload", status=409))
+                    return private(
+                        HttpResponse(
+                            (
+                                "Management changed; reload"
+                                if request.LANGUAGE_CODE == "en"
+                                else "La gestión ha cambiado; recarga"
+                            ),
+                            status=409,
+                        )
+                    )
             report = (
                 Report.objects.select_for_update(of=("self",))
                 .select_related("listing__person__agency", "reported_agency")
@@ -335,7 +363,16 @@ def inspect(request, report_id):
             if person:
                 report.listing.person = person
             if not permitted(request.user, report):
-                return private(HttpResponse("Conflict of interest", status=403))
+                return private(
+                    HttpResponse(
+                        (
+                            "Conflict of interest"
+                            if request.LANGUAGE_CODE == "en"
+                            else "Conflicto de interés"
+                        ),
+                        status=403,
+                    )
+                )
             payload = unseal(report.encrypted_payload)
             ReportAccess.objects.create(
                 report=report,

@@ -219,6 +219,12 @@ class AccessForm(forms.Form):
         min_length=10, max_length=200, label="Motivo de consulta / Purpose of access"
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["purpose"].label = (
+            "Purpose of access" if language == "en" else "Motivo de consulta"
+        )
+
 
 @login_required
 @sensitive_post_parameters("purpose")
@@ -226,13 +232,26 @@ class AccessForm(forms.Form):
 @require_http_methods(["GET", "POST"])
 def inspect(request, complaint_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                ("Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado"), status=403
+            )
+        )
     complaint = Complaint.objects.filter(pk=complaint_id).first()
     if not complaint:
         raise Http404
     if not permitted(request.user, complaint):
-        return private(HttpResponse("Conflict of interest", status=403))
-    form = AccessForm(request.POST or None)
+        return private(
+            HttpResponse(
+                (
+                    "Conflict of interest"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Conflicto de interés"
+                ),
+                status=403,
+            )
+        )
+    form = AccessForm(request.POST or None, language=request.LANGUAGE_CODE)
     payload = None
     source_evidence = None
     messages = []
@@ -242,9 +261,23 @@ def inspect(request, complaint_id):
             try:
                 complaint, _ = locked(complaint_id)
             except ValidationError:
-                return private(HttpResponse("Case changed; reload", status=409))
+                return private(
+                    HttpResponse(
+                        (
+                            "Case changed; reload"
+                            if request.LANGUAGE_CODE == "en"
+                            else "El expediente ha cambiado; recarga"
+                        ),
+                        status=409,
+                    )
+                )
             if not permitted(request.user, complaint) or not allowed(request):
-                return private(HttpResponse("Forbidden", status=403))
+                return private(
+                    HttpResponse(
+                        ("Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado"),
+                        status=403,
+                    )
+                )
             from .complaint_resolutions import source_permission, source_version
 
             source_allowed = source_permission(request.user, complaint)

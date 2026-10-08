@@ -112,6 +112,12 @@ class RightsAccessForm(forms.Form):
         min_length=10, max_length=200, label="Motivo de consulta / Purpose of access"
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["purpose"].label = (
+            "Purpose of access" if language == "en" else "Motivo de consulta"
+        )
+
 
 @sensitive_post_parameters("receipt_secret", "reference", "explanation", "name", "email")
 @sensitive_variables()
@@ -393,13 +399,26 @@ def queue(request):
 @require_http_methods(["GET", "POST"])
 def inspect(request, case_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                ("Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado"), status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if not case:
         raise Http404
     if not permitted(request.user, case):
-        return private(HttpResponse("Conflict of interest", status=403))
-    form = RightsAccessForm(request.POST or None)
+        return private(
+            HttpResponse(
+                (
+                    "Conflict of interest"
+                    if request.LANGUAGE_CODE == "en"
+                    else "Conflicto de interés"
+                ),
+                status=403,
+            )
+        )
+    form = RightsAccessForm(request.POST or None, language=request.LANGUAGE_CODE)
     payload = None
     messages = []
     next_message_cursor = None
@@ -410,9 +429,27 @@ def inspect(request, case_id):
             try:
                 case, _, _ = locked_case(case.pk, allow_erased_account=True)
             except ValidationError:
-                return private(HttpResponse("Management changed; reload", status=409))
+                return private(
+                    HttpResponse(
+                        (
+                            "Management changed; reload"
+                            if request.LANGUAGE_CODE == "en"
+                            else "La gestión ha cambiado; recarga"
+                        ),
+                        status=409,
+                    )
+                )
             if not permitted(request.user, case):
-                return private(HttpResponse("Conflict of interest", status=403))
+                return private(
+                    HttpResponse(
+                        (
+                            "Conflict of interest"
+                            if request.LANGUAGE_CODE == "en"
+                            else "Conflicto de interés"
+                        ),
+                        status=403,
+                    )
+                )
             payload = unseal(case.encrypted_payload)
             RightsAccess.objects.create(
                 request=case,
