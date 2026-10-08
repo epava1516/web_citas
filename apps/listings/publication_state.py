@@ -10,6 +10,7 @@ Expiry is time dependent and always evaluated in SQL by the caller's candidates(
 import hashlib
 import logging
 import os
+from datetime import timedelta
 from functools import lru_cache
 
 import django
@@ -271,16 +272,19 @@ def trusted_state(**extra):
 DIRTY_LIMIT = 1000
 READ_REPAIR = os.environ.get("PUBLICATION_STATE_READ_REPAIR", "1") == "1"
 READ_REPAIR_LIMIT = 24
+READ_REPAIR_AFTER_SECONDS = 2
 
 
 def repair():
-    """Recompute a few pending listings before reading, so one request pays per change.
+    """Resilience when the refresh worker lags: recompute a few old marks before reading.
 
-    Exactness does not depend on it: anything still dirty is evaluated natively below.
-    Concurrent readers skip rows another reader is already recomputing.
+    With the worker keeping up (measured), marks clear within milliseconds and reads never
+    write. If marks age (worker down or backlogged), one request pays per change instead
+    of every request evaluating it natively. Exactness does not depend on it.
     """
-    if not PublicationDirty.objects.exists():
-        return
+    lagging = timezone.now() - timedelta(seconds=READ_REPAIR_AFTER_SECONDS)
+    if not PublicationDirty.objects.filter(marked_at__lte=lagging).exists():
+        return  # Nothing pending, or the worker is keeping up: no writes in GET requests.
     try:
         refresh(READ_REPAIR_LIMIT)
     except DatabaseError:

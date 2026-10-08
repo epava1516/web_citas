@@ -191,3 +191,4 @@ class PublicationDirty(models.Model):
 
     listing_id = models.UUIDField(primary_key=True)
     generation = models.BigIntegerField()
+    marked_at = models.DateTimeField()  # First mark since the last refresh (worker lag).

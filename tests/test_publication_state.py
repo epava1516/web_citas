@@ -381,3 +381,17 @@ def test_sweep_marks_divergent_state_and_reads_stay_exact(request, monkeypatch):
     assert_equivalent(client, monkeypatch)
     drain()
     assert publication_state.sweep() == 0
+
+
+def test_read_repair_only_acts_when_marks_age(request):
+    request.getfixturevalue("directory")
+    drain()
+    listing = published()
+    publication_state.mark([listing.pk])
+    publication_state.repair()
+    assert listing.pk in dirty_ids()  # Fresh mark: left to the worker, no write in GET.
+    PublicationDirty.objects.filter(listing_id=listing.pk).update(
+        marked_at=timezone.now() - timedelta(seconds=publication_state.READ_REPAIR_AFTER_SECONDS + 1))
+    publication_state.repair()
+    assert listing.pk not in dirty_ids()
+    assert_state_current(listing.pk)

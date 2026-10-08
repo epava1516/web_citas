@@ -97,8 +97,8 @@ MARK = """
 CREATE SEQUENCE IF NOT EXISTS listings_publication_generation;
 CREATE OR REPLACE FUNCTION listings_publication_mark(ids uuid[]) RETURNS void AS $$
 BEGIN
-  INSERT INTO listings_publicationdirty (listing_id, generation)
-  SELECT id, nextval('listings_publication_generation')
+  INSERT INTO listings_publicationdirty (listing_id, generation, marked_at)
+  SELECT id, nextval('listings_publication_generation'), clock_timestamp()
   FROM (SELECT DISTINCT unnest(ids) AS id) AS changed WHERE id IS NOT NULL
   ON CONFLICT (listing_id) DO UPDATE SET generation = EXCLUDED.generation;
 END $$ LANGUAGE plpgsql;
@@ -170,6 +170,7 @@ class Migration(migrations.Migration):
             fields=[
                 ("listing_id", models.UUIDField(primary_key=True, serialize=False)),
                 ("generation", models.BigIntegerField()),
+                ("marked_at", models.DateTimeField()),
             ],
         ),
         migrations.CreateModel(
