@@ -29,6 +29,29 @@ class ResolutionForm(forms.Form):
         max_length=80, label="Referencia de revisión / Review reference"
     )
 
+    def __init__(self, *args, language="es", **kwargs):
+        super().__init__(*args, **kwargs)
+        english = language == "en"
+        self.fields["outcome"].label = "Outcome" if english else "Resultado"
+        self.fields["reason"].label = "Reason" if english else "Motivo"
+        self.fields["evidence_reference"].label = (
+            "Review reference" if english else "Referencia de revisión"
+        )
+        self.fields["outcome"].choices = [
+            ("", "Choose" if english else "Selecciona"),
+            ("false_positive", "Visual false positive" if english else "Falso positivo visual"),
+            (
+                "distinct_people",
+                "Distinct authorized people" if english else "Personas distintas autorizadas",
+            ),
+            (
+                "conflict",
+                "Conflict; restrict publication"
+                if english
+                else "Conflicto; restringir publicación",
+            ),
+        ]
+
 
 def allowed_match(request, match_id):
     match = get_object_or_404(
@@ -84,7 +107,11 @@ def review(request, match_id):
     match = allowed_match(request, match_id)
     if not match:
         return HttpResponse("Conflict of interest", status=403)
-    form = ResolutionForm(request.POST or None, initial={"review_version": match.review_version})
+    form = ResolutionForm(
+        request.POST or None,
+        language=request.LANGUAGE_CODE,
+        initial={"review_version": match.review_version},
+    )
     if request.method == "POST" and form.is_valid():
         try:
             resolve(
