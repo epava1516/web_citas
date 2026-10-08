@@ -10,7 +10,7 @@ from django.db.models import query as query_module
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
-from apps.listings import discovery, moderation, submissions
+from apps.listings import discovery, moderation, publication_state, submissions
 from apps.listings.forms import ContactsForm, DetailsForm
 from apps.listings.public_validation import PublicationContext, SnapshotChoice, SnapshotDetails
 from scripts.benchmark_rule_profile import RuleProfile
@@ -20,6 +20,8 @@ pytestmark = pytest.mark.django_db(transaction=True)
 
 
 def test_discovery_rule_profile_10000(request, monkeypatch, record_property):
+    # MOD-05: the listing is served from stored state; this profiles the native path.
+    monkeypatch.setattr(publication_state, "state_page", lambda *args, **kwargs: None)
     client = request.getfixturevalue("directory")
     populate(10000)
     assert connection.vendor == "postgresql"
