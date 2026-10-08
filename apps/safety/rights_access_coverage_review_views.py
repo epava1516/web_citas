@@ -13,6 +13,7 @@ from django.views.decorators.http import require_http_methods
 from .models import RightsAccessCoverage, RightsRequest
 from .rights import allowed
 from .rights_access_coverage_review import inspect, record
+from .rights_access_field_decision_views import localize_form
 from .rights_access_response_review import authorize_reviewer
 from .rights_access_response_views import DecisionForm, ReviewForm
 from .views import private
@@ -23,14 +24,22 @@ from .views import private
 @require_http_methods(["GET", "POST"])
 def review(request, case_id, coverage_id):
     if not allowed(request):
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     case = RightsRequest.objects.filter(pk=case_id).first()
     if case is None:
         raise Http404
     try:
         authorize_reviewer(request.user, case)
     except PermissionDenied:
-        return private(HttpResponse("Forbidden", status=403))
+        return private(
+            HttpResponse(
+                "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado", status=403
+            )
+        )
     row = (
         RightsAccessCoverage.objects.filter(pk=coverage_id, request=case)
         .only("pk", "actor_id", "expires_at")
@@ -39,9 +48,23 @@ def review(request, case_id, coverage_id):
     if row is None:
         raise Http404
     if row.actor_id == request.user.pk:
-        return private(HttpResponse("Independent reviewer required", status=403))
+        return private(
+            HttpResponse(
+                "Independent reviewer required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere revisión independiente",
+                status=403,
+            )
+        )
     if case.kind != "access" or case.status != "reviewing":
-        return private(HttpResponse("Current access request required", status=409))
+        return private(
+            HttpResponse(
+                "Current access request required"
+                if request.LANGUAGE_CODE == "en"
+                else "Se requiere una solicitud de acceso vigente",
+                status=409,
+            )
+        )
     form = ReviewForm(initial={"key": uuid4(), "version": case.version})
     decision_form = DecisionForm(initial={"key": uuid4(), "version": case.version})
     body = decision = None
@@ -49,6 +72,7 @@ def review(request, case_id, coverage_id):
     if request.method == "POST":
         deciding = request.POST.get("operation") == "review"
         active = DecisionForm(request.POST) if deciding else ReviewForm(request.POST)
+        localize_form(active, request.LANGUAGE_CODE)
         if deciding:
             decision_form = active
         else:
@@ -82,10 +106,17 @@ def review(request, case_id, coverage_id):
                     )
                 status = 200
             except PermissionDenied:
-                return private(HttpResponse("Forbidden", status=403))
+                return private(
+                    HttpResponse(
+                        "Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado",
+                        status=403,
+                    )
+                )
             except ValidationError as error:
                 active.add_error(None, error)
                 status = 409
+    localize_form(form, request.LANGUAGE_CODE)
+    localize_form(decision_form, request.LANGUAGE_CODE)
     return private(
         render(
             request,
