@@ -4,6 +4,12 @@ Actualizado: 2026-10-08. Corte documental: código de purga `72ff79a`, código d
 
 ## Estado vigente para reanudar
 
+**Worker/Beat MOD05 reales terminales y revisados:** [resultado](evidencias/mod05-worker-beat-revisada0110.json), [archivo](evidencias/mod05-worker-beat-artefactos0110.json). Redis/PG/cola/medios propios, eagerfalse, worker1solo; Beat30s envió3 refresh, worker recibió/completó; bulk pause/restauración/revocación con trigger inmediato y estados correctos,91,46s recorrido operacional (no latencia/capacidad). Fuentes intactas/ausencia independiente DB,3PID,medios y credenciales verificadas. Runtime normal intacto; barrido horario aún no observado en proceso real. Próximo requisito único del mismo bloque: verificar tarea sweep real y programación horaria sin esperar/cambiar intervalo ni repetir refresh/cargas; aceptación integral y matriz83/88 intactas.
+
+**Preflight operacional terminal:** [resultado](evidencias/mod05-worker-beat-preflight0110.json), fallo antes de Django setup porque sys.path del script omitía raíz; DB/Redis propios retirados y fuentes intactas. Corregido únicamente ejecutor; repetir diagnóstico pertinente en /tmp/mod05-worker-beat-fixed0110, mismo escenario/criterios, fuentes congeladas hasta terminal/revisión. Sin defecto de producto ni resultado operacional todavía.
+
+**Verificación operacional MOD05 prefijada:** [manifiesto](evidencias/mod05-worker-beat-manifiesto0110.json); PG/Redis/queue/medios y procesos propios, seed_demo sintético, worker real1/eagerfalse y Beat refresh30s original, bulk pause/resume/revoke. Salida /tmp/mod05-worker-beat0110; fuentes congeladas hasta terminal/revisión, sin carga de capacidad ni servicios normales.
+
 **Cola única vigente — MOD05, corrección local integrada en preparación.** [Cierre local](evidencias/mod05-correccion-cierre-local0110.md): fallos reproducidos de invalidación y huella corregidos,37PASS conjuntos PG + upgrade real1PASS; evidencias/limpieza revisadas, fuente lista para commit. R5/R6 portátil corroborados se conservan, sin nuevas cargas ni atribución a esta corrección. Próximo requisito único: contrastar evidencia de worker/Beat ya disponible con la fuente actual y completar únicamente la verificación operacional que falte en entorno propio. Runtime normal73d28f6 no actualizado; CR09/aceptación integral/N3 permanecen abiertos, porcentajes intactos. Las entradas inferiores son historia: no reactivan el aplazamiento ni crean colas alternativas.
 
 ## Historial reciente de decisiones y verificaciones
