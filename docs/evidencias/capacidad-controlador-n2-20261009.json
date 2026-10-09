@@ -1,0 +1,57 @@
+{
+  "schema": "capacity-controller-validation-v1",
+  "date": "2026-10-09",
+  "agent": "Claude principal (MOD-07)",
+  "base_head": "f6a8d2ebcdf928e315057f4b2006b65976f2346f",
+  "scope": "Owned capacity controller readiness and kernel resource controls only. No load, no capacity PASS, no p95, no N3.",
+  "external_review": "P1-P8 proposal reviewed critically; not applied verbatim. Mount parsing alone is not treated as proof: each container is probed for kernel EROFS/ENOSPC/EFBIG behaviour.",
+  "design_decisions": [
+    "Host xfs is mounted noquota, so no project/storage-opt quota exists. Durable controller output is a single launcher-created tar file bind-mounted alone; RLIMIT_FSIZE=256MiB caps it in the kernel (EFBIG). The previous writable artifact directory bind was removed.",
+    "controller.log written by the Docker CLI child is capped by RLIMIT_FSIZE=32MiB applied in preexec.",
+    "PostgreSQL/Redis run as their image users with cap-drop=ALL, read-only rootfs and log-driver none; their server logs go to their own kernel-sized tmpfs and are collected into the archive before removal.",
+    "Every writable tmpfs is read from each container's /proc/self/mountinfo, counted once per device; the 16MiB /dev/shm of each role is overfilled once to observe ENOSPC without inflating cgroup peaks.",
+    "Cleanup absence is proven by exact-name docker inspect returning not-found plus an empty run-label listing, never by an empty regex filter.",
+    "A global memory upper bound above 6GiB is NOT_PROVEN, not ERROR; swap peak or oom_kill makes the run INVALID.",
+    "Command timeouts keep partial output and are recorded per step; launcher timeout is recorded instead of escaping as a traceback."
+  ],
+  "runs": [
+    {"id": "20261009-223955-f2842e81", "result": "INVALID_CONTROLLER_NO_REPORT", "class": "negative",
+     "finding": "Prototype could never run: Docker tmpfs /tmp defaults to noexec, so the git/docker wrappers raised PermissionError. Fixed with exec on the controller tmpfs; early failures now still write report.json.",
+     "cleanup_verified": true, "docker_inventory_unchanged": true},
+    {"id": "20261009-224023-0f6cef2c", "result": "ERROR", "class": "negative",
+     "finding": "PostgreSQL probe returned tmpfs=other: the probe wrote its own stderr into the tmpfs it had just filled. Controller tmpfs count also double-counted /dev file binds and the host /run socket. Fixed: stderr captured in a variable; tmpfs deduplicated by device; docker.sock explicitly allowed.",
+     "cleanup_verified": true, "docker_inventory_unchanged": true},
+    {"id": "20261009-224151-e7d44c80", "result": "READY_NOT_CAPACITY", "class": "pass",
+     "controls": {"controller": ["5000 100000", "134217728", "0"], "pg": ["100000 100000", "1610612736", "0"],
+                  "redis": ["20000 100000", "402653184", "0"], "app": ["275000 100000", "6442450944", "0"]},
+     "kernel_probes": {"controller": {"rootfs": "readonly", "rlimit_fsize_child": "efbig", "unbounded_writable": []},
+                       "pg": ["rootfs=readonly", "hosts=protected", "tmpfs=enospc"],
+                       "redis": ["rootfs=readonly", "hosts=protected", "tmpfs=enospc"],
+                       "app": ["rootfs=readonly", "hosts=protected", "tmpfs=enospc"]},
+     "owned_storage_ceiling_bytes": 2936012800,
+     "memory": {"owned_upper_bound_bytes": 385781760, "verdict": "WITHIN_6GIB_UPPER_BOUND", "swap_peak_bytes": 0, "oom_kill": 0},
+     "postgres": "17.10", "redis": "7.4.11", "django_check": "no issues", "migrations_applied": true,
+     "archive_members": 39, "archive_bytes": 204800, "sources_unchanged": true, "cleanup_verified": true,
+     "docker_inventory_unchanged": true,
+     "limits": "READY mode PG data tmpfs 1GiB; delivery mode allocates 2GiB and PG 1.5CPU/3GiB, app 2.25CPU/4.5GiB, still 4CPU/8GiB with Redis 0.2/384MiB and controller 0.05/128MiB."},
+    {"id": "20261009-224400-0badc0de", "result": "ERROR", "class": "negative-control",
+     "finding": "check_capacity_environment.py --owned-controller run directly on the host fails before creating any resource (no cgroup cpu.max at host scope); labelled_remaining empty; sources unchanged."}
+  ],
+  "gc_observer_negative": {
+    "preserved": "docs/evidencias/relevo-limpieza-20261009-artefactos.tar.gz (13 PASS/1 FAIL, assert 2 == 3)",
+    "hypothesis": "The test fetch ran gc.collect(2) synchronously inside the open-loop emitter. A full collection longer than the 50ms arrival gap delays the third worker past the 0.15s window, which correctly marks it arrival_window_closed. Full-collection time grows with heap size and swapped pages (host swap 100% used).",
+    "evidence": "Neighbour full collections in the preserved JUnit took 0.085-0.105s; the failed case 0.175s. Clean re-run: full collection 0.035s, 14/14 PASS twice. Deterministic reproduction: 4M-object ballast, full collection 0.341s -> FAIL. After fix (gc.collect(0) in fetch, still observable events) the same ballast (0.357s full collection) -> PASS; selection 14/14 PASS.",
+    "classification": "Test-design defect; observer and generator unchanged."
+  },
+  "checks": {"ruff_tree": "PASS", "n1_capacity_artifacts": "13 PASS", "instrument_selection": "14 PASS"},
+  "source_sha256": {
+    "scripts/capacity_artifacts.py": "4f698f8288fcdc624869c59726ce0e7892484c93d4a07d95d9e5a4aaf57816a7",
+    "scripts/check_capacity_environment.py": "cc425471c492334a8df5a69686f18c135fe31c6baaa1b78be2118c8d3d539444",
+    "scripts/run_capacity_environment.py": "20aa2f571d582675bd25dc1944e81b8ab8c0cdaa0ad527cc388cd9b676273c8e",
+    "tests/test_capacity_artifacts.py": "fa35d2e0eca2a5d66169f14e5026b0bf7fa08cd44fd52a2db135fb3a9dd1913b",
+    "tests/test_benchmark_gc_observer.py": "9037047a1d94f154f9c7fde9ecac73c0289505a5f78636ce083ea83f09a171be"
+  },
+  "artifacts": {"archive": "docs/evidencias/capacidad-controlador-n2-20261009-artefactos.tar.gz",
+                "sha256": "1908dbc23e31c93825ec7a8edbf5711364d7ae3b1e5b0598ef94568b7c42dfff"},
+  "not_proven": ["capacity under load", "binary review p95", "later delivery stages", "global synchronous peak", "N3"]
+}

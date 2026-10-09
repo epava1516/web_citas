@@ -55,7 +55,10 @@ def test_gc_timestamps_share_standard_generator_monotonic_origin():
     from scripts.benchmark_async_transport import run_async_open_loop
 
     async def fetch(path, **kwargs):
-        gc.collect(2)  # Test deliberately generates observable events.
+        # Young-generation collection still produces observable events, but its cost does not grow
+        # with the whole heap: a blocking full collection longer than the 50ms arrival gap made the
+        # third arrival fall after the 0.15s window (arrival_window_closed), as reproduced with ballast.
+        gc.collect(0)
         return dict(status=200, unexpected=False, timeout=False, bytes=2)
 
     with GCObserver(monotonic_clock=time.monotonic) as observer:
