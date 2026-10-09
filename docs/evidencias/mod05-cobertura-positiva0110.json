@@ -1,0 +1,384 @@
+{
+ "description": "Cobertura funcional positiva PRODUCTION/checked: tests/test_publication_positive_coverage.py, PostgreSQL sintetico propio, proveedor de verificacion sintetico con nombre propio (no simulador, ningun servicio contactado), 10/25 anuncios con comprobacion de edad superada; telefono sms-v1 y agencia organization-v1 compartidos por el fixture. Cada respuesta comparada byte a byte con la ruta nativa forzada; ruta state en todas.",
+ "runner": {
+  "db": "promotion_gate_cr09diag_330ed51383a4",
+  "source": "933dc84de49dbc164d3d935ab29a7fa198f25215",
+  "dirty_tree": "?? tests/test_publication_positive_coverage.py\n",
+  "pytest_exit": 0,
+  "seconds": 94.96774841472507,
+  "databases_left": [],
+  "media_removed": true
+ },
+ "first_attempt": "pos1: 2 FAIL solo en la asercion final por una clave de filtros mal ordenada en la propia prueba (('contact','agency') frente a ('agency','contact')); las comparaciones de contenido habian pasado. Corregida la prueba, no el producto.",
+ "cases": [
+  {
+   "production": false,
+   "reports": [
+    {
+     "language": "es",
+     "page": "1",
+     "filters": [],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "2",
+     "filters": [],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "1",
+     "filters": [
+      "age"
+     ],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "1",
+     "filters": [
+      "contact"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "2",
+     "filters": [
+      "contact"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "1",
+     "filters": [
+      "agency"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "2",
+     "filters": [
+      "agency"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "1",
+     "filters": [
+      "agency",
+      "contact"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "2",
+     "filters": [
+      "agency",
+      "contact"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "1",
+     "filters": [],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "2",
+     "filters": [],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "1",
+     "filters": [
+      "age"
+     ],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "1",
+     "filters": [
+      "contact"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "2",
+     "filters": [
+      "contact"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "1",
+     "filters": [
+      "agency"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "2",
+     "filters": [
+      "agency"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "1",
+     "filters": [
+      "agency",
+      "contact"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "2",
+     "filters": [
+      "agency",
+      "contact"
+     ],
+     "count": 25,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    }
+   ]
+  },
+  {
+   "production": true,
+   "reports": [
+    {
+     "language": "es",
+     "page": "1",
+     "filters": [],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "1",
+     "filters": [
+      "age"
+     ],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "1",
+     "filters": [
+      "contact"
+     ],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "1",
+     "filters": [
+      "agency"
+     ],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "es",
+     "page": "1",
+     "filters": [
+      "agency",
+      "contact"
+     ],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "1",
+     "filters": [],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "1",
+     "filters": [
+      "age"
+     ],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "1",
+     "filters": [
+      "contact"
+     ],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "1",
+     "filters": [
+      "agency"
+     ],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    },
+    {
+     "language": "en",
+     "page": "1",
+     "filters": [
+      "agency",
+      "contact"
+     ],
+     "count": 10,
+     "route": {
+      "route": "state",
+      "reason": "trusted_state",
+      "native_unknown": 0
+     }
+    }
+   ]
+  }
+ ],
+ "limits": "Funcional, no carga ni capacidad. Datos y proveedor sinteticos: no acredita proveedores reales ni produccion."
+}

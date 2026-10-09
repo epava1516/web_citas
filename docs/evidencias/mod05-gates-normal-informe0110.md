@@ -94,3 +94,5 @@ Resultados locales y sintéticos en la topología desplegada, sobre un host comp
 ## Estado de aceptación (decisión del usuario, 2026-10-09)
 
 Entrega en la rama `cr09-rend-lectura-normal`, sin integrar en master; porcentajes sin cambio. El cierre local queda pendiente de que Codex revise los artefactos originales y de cubrir funcionalmente PRODUCTION y `checked` con resultados positivos, reutilizando evidencia válida. La revisión preliminar no encontró resultados positivos en esos modos: pertenencia funcional da 0 con `checked`, y PRODUCTION no publica con datos sintéticos. Los PASS y los veredictos históricos se conservan. No se atribuye por separado el efecto de la topología y el del arreglo. CR09 integral y producción siguen abiertos.
+
+**Actualización:** la cobertura positiva se obtuvo con una prueba funcional nueva, sin carga ([evidencia](mod05-cobertura-positiva0110.json)), con datos y proveedor de verificación sintéticos. Todo es idéntico al nativo y va por la ruta `state`. En PRODUCTION hay 10 anuncios en todos los filtros; en modo normal, 25, y 10 con `checked` age. Pendiente únicamente la revisión de Codex de los artefactos originales.
