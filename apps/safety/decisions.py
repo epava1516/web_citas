@@ -5,12 +5,28 @@ from django.db import IntegrityError, transaction
 from django.utils import timezone
 from django.views.decorators.debug import sensitive_variables
 
-from apps.core.models import Agency, Person
+from apps.core.models import Agency, Person, User
 from apps.listings.models import Listing
 
 from .crypto import digest, seal
 from .models import Report, ReportAccess, ReportAction, Restriction
 from .notices import enqueue_outcome
+
+
+def fresh_authority(user, session_version, mfa_version, operation):
+    """Reject revocation after lock waits and before committing a decision."""
+    actor = User.objects.get(pk=user.pk)
+    if (
+        not actor.is_active
+        or not actor.mfa_enabled
+        or actor.session_version != session_version
+        or actor.mfa_version != mfa_version
+        or not actor.has_perm("safety.review_report")
+        or (operation == "unassign" and not actor.has_perm("safety.manage_report_assignment"))
+        or (operation in {"uphold", "lift"} and not actor.has_perm("safety.review_restriction"))
+    ):
+        raise PermissionDenied("Current report authority and MFA required")
+    return actor
 
 
 @transaction.atomic
@@ -28,12 +44,8 @@ def act(
 ):
     from .views import permitted
 
-    if not user.has_perm("safety.review_report") or not user.mfa_enabled:
-        raise PermissionDenied("Report permission and MFA required")
-    if operation == "unassign" and not user.has_perm("safety.manage_report_assignment"):
-        raise PermissionDenied("Assignment management permission required")
-    if operation in {"uphold", "lift"} and not user.has_perm("safety.review_restriction"):
-        raise PermissionDenied("Independent restriction review permission required")
+    session_version, mfa_version = user.session_version, user.mfa_version
+    user = fresh_authority(user, session_version, mfa_version, operation)
     initial = Report.objects.select_related("listing__person").get(pk=report_id)
     candidate = None
     if operation == "link":
@@ -68,6 +80,7 @@ def act(
         report.listing = listing
     if not permitted(user, report):
         raise PermissionDenied("Conflict of interest")
+    user = fresh_authority(user, session_version, mfa_version, operation)
     action_payload = {
         "version": version,
         "operation": operation,
@@ -241,4 +254,7 @@ def act(
         ]
     )
     enqueue_outcome(report, action)
+    actor = fresh_authority(user, session_version, mfa_version, operation)
+    if not permitted(actor, report):
+        raise PermissionDenied("Conflict of interest")
     return report

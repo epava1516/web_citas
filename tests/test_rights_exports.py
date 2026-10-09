@@ -31,8 +31,9 @@ def prepared(request, settings, subject_username="fixture-v1-model-a"):
     request.getfixturevalue("directory")
     settings.RIGHTS_VERIFICATION_BACKEND = "simulator"
     client = Client()
-    receipt = client.post("/en/safety/rights/", data(client, kind="access")).url
-    case = RightsRequest.objects.get()
+    payload = data(client, kind="access")
+    receipt = client.post("/en/safety/rights/", payload).url
+    case = RightsRequest.objects.get(submission_key=payload["key"])
     user, staff = reviewer()
     user.user_permissions.add(
         *Permission.objects.filter(codename__in=["review_rights_request", "execute_rights_request"])

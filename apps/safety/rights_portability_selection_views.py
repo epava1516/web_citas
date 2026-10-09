@@ -25,6 +25,7 @@ class ReviewForm(LocalizedForm):
         if language is not None:
             self.fields["operation"].label = "Operation" if language == "en" else "Operación"
             self.fields["outcome"].label = "Outcome" if language == "en" else "Resultado"
+            self.fields["page"].label = "Page" if language == "en" else "Página"
 
     key = forms.UUIDField(widget=forms.HiddenInput)
     version = forms.IntegerField(min_value=1, widget=forms.HiddenInput)
@@ -37,6 +38,7 @@ class ReviewForm(LocalizedForm):
         widget=forms.Textarea,
         label="Motivo privado / Private reason",
     )
+    page = forms.IntegerField(min_value=1, required=False, label="Página / Page")
     outcome = forms.ChoiceField(
         required=False,
         choices=[("", "—"), ("approved", "Aprobar / Approve"), ("rejected", "Rechazar / Reject")],
@@ -106,7 +108,7 @@ def review(request, case_id, selection_id):
     form = ReviewForm(
         request.POST if request.method == "POST" else None,
         language=request.LANGUAGE_CODE,
-        initial={"key": uuid4(), "version": case.version},
+        initial={"key": uuid4(), "version": case.version, "page": 1},
     )
     body, decision = None, None
     status = 400 if request.method == "POST" else 200
@@ -122,10 +124,13 @@ def review(request, case_id, selection_id):
                 values["reason"],
                 values["operation"],
                 values["outcome"],
+                page=(values.get("page") or 1) if values["operation"] == "inspect" else None,
+                _require_pages=values["operation"] == "review",
             )
             decision = result if body is None else None
             form = ReviewForm(
-                language=request.LANGUAGE_CODE, initial={"key": uuid4(), "version": case.version}
+                language=request.LANGUAGE_CODE, initial={"key": uuid4(), "version": case.version,
+                    "page": min(body["pagination"]["page"] + 1, body["pagination"]["pages"]) if body else 1}
             )
             status = 200
         except PermissionDenied:
@@ -135,7 +140,14 @@ def review(request, case_id, selection_id):
                 )
             )
         except ValidationError as error:
-            form.add_error(None, error)
+            page_errors = {
+                "Inspect every current selection page before deciding": "Consulta todas las páginas actuales de selección antes de decidir",
+                "Selection page unavailable": "Página de selección no disponible",
+                "Portability assessment unavailable": "Evaluación de portabilidad no disponible",
+            }
+            messages = [page_errors.get(message, message) if request.LANGUAGE_CODE == "es" else message
+                        for message in error.messages]
+            form.add_error(None, ValidationError(messages))
             status = 409
     reviewed_fields = []
     field_reviews = []

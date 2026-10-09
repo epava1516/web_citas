@@ -12,13 +12,15 @@ from .models import RightsAction, RightsPortabilityAssessment, RightsPortability
 from .rights import fingerprint
 from .rights_copy_page_review import fresh_authority
 from .rights_exports import can_prepare, canonical, reviewer_case, source_copy
+from .rights_inspection_source import shared_source
 from .rights_portability_review import validate_approved_assessment
 
 
 @transaction.atomic
 @sensitive_variables()
 def consume_approved(
-    user, case_id, version, review_id, key, reason, *, selection_binding=None, audit_operation=None
+    user, case_id, version, review_id, key, reason, *, selection_binding=None, audit_operation=None,
+    _inspection_source=None,
 ):
     if not isinstance(reason, str) or not 20 <= len(reason.strip()) <= 2000:
         raise ValidationError("Portability use reason required")
@@ -57,7 +59,11 @@ def consume_approved(
         .select_related("action")
         .get(pk=review.assessment_id)
     )
-    source_digest = fingerprint(canonical(source_copy(person, listing, case)))
+    def current_source():
+        return (shared_source(_inspection_source, person, listing, case)
+                if _inspection_source is not None else source_copy(person, listing, case))
+
+    source_digest = fingerprint(canonical(current_source()))
     signature = fingerprint(
         canonical(
             {
@@ -102,7 +108,7 @@ def consume_approved(
             fresh_authority(actor, case, session_version, mfa_version)
             if (
                 can_prepare(User.objects.get(pk=actor.pk), case, person).pk != proof.pk
-                or fingerprint(canonical(source_copy(person, listing, case))) != source_digest
+                or fingerprint(canonical(current_source())) != source_digest
             ):
                 raise ValidationError("Portability source changed")
             return review, body

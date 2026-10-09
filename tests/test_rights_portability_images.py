@@ -88,3 +88,32 @@ def test_unreviewed_or_changed_binary_declarations_are_rejected(change):
         value["revisions"].update(status="excluded", origin="third_party")
     with pytest.raises(ValidationError):
         checked_images(source, value, selected, inspected)
+
+
+def test_sparse_binary_selection_hashes_only_candidate_rows_with_original_indices(monkeypatch):
+    from apps.safety import rights_portability_images as images
+
+    source, value, selected, inspected = inputs()
+    chosen = deepcopy(source["revisions"][0])
+    rows = [{"revision": f"synthetic-{index}", "description": "Synthetic narrative " * 500,
+             "images": []} for index in range(500)]
+    rows[317] = chosen
+    rows[499]["images"] = [{"photo": "unselected-photo", "processing_status": "ready"}]
+    source["revisions"] = rows
+    selected[0]["row"] = row_reference("revisions", 317, chosen)
+    before = deepcopy(source)
+    calls = []
+    native = images.row_reference
+
+    def counted(dataset, index, row):
+        calls.append(index)
+        return native(dataset, index, row)
+
+    monkeypatch.setattr(images, "row_reference", counted)
+    assert checked_images(source, value, selected, inspected) == selected
+    assert source == before
+    assert calls == [317]
+    # A valid foreign row hash cannot substitute for the row containing this photo.
+    selected[0]["row"] = native("revisions", 499, rows[499])
+    with pytest.raises(ValidationError):
+        checked_images(source, value, selected, inspected)

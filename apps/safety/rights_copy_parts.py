@@ -12,15 +12,17 @@ from django.core.exceptions import ValidationError
 
 PART_LIMIT = 64 * 1024 * 1024
 IMAGE_LIMIT = 10 * 1024 * 1024
+TARGET_PART_SIZE = 8 * 1024 * 1024
 
 
 def packages(snapshots, limit=PART_LIMIT):
-    """Yield bounded stored ZIPs with UUID-only filenames and deterministic metadata."""
+    """Group toward8MiB; isolate larger images within the caller's hard ZIP limit."""
     if not 22 < limit <= PART_LIMIT:
         raise ValidationError("Invalid package size")
     seen = set()
     pending = []
     size = 22  # End of central directory, no comment.
+    target = min(limit, TARGET_PART_SIZE)
     for attachment, content in snapshots:
         try:
             identifier = str(uuid.UUID(str(attachment)))
@@ -35,7 +37,7 @@ def packages(snapshots, limit=PART_LIMIT):
         contribution = len(content) + 76 + 2 * len(name.encode("ascii"))
         if contribution + 22 > limit:
             raise ValidationError("Attachment exceeds package limit")
-        if pending and size + contribution > limit:
+        if pending and size + contribution > target:
             package = archive(pending, limit)
             pending = []
             size = 22

@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import connection
+from django.db.models import Exists, OuterRef, Q
 
 from apps.core.manager_review import transfer_conflict
 from apps.core.models import Agency, AgencyMember, Person, RepresentationAction, User
@@ -9,13 +10,11 @@ from .models import RightsRequest
 
 
 def agency_conflict(user, agency_id):
-    return bool(
-        agency_id
-        and (
-            Agency.objects.filter(pk=agency_id, owner=user).exists()
-            or AgencyMember.objects.filter(agency_id=agency_id, user=user).exists()
-        )
-    )
+    if not agency_id:
+        return False
+    # One fresh DB statement; historical/inactive membership remains a conflict.
+    membership = AgencyMember.objects.filter(agency_id=OuterRef("pk"), user=user)
+    return Agency.objects.filter(pk=agency_id).filter(Q(owner=user) | Exists(membership)).exists()
 
 
 def permitted(user, case):

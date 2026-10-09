@@ -17,6 +17,7 @@ from .rights_exports import canonical, reviewer_case, source_copy
 from .rights_inspection_source import shared_source
 from .rights_portability_review import authorize, validate_approved_assessment
 from .rights_portability_selection import project_selected
+from .rights_portability_selection_pages import complete_pages, project_page, valid_metadata
 from .rights_portability_selection_store import validate_selection_evidence
 from .rights_responses import complete_response_read
 from .rights_verification import authorized_proof, complete_read
@@ -35,7 +36,13 @@ def record(
     outcome="",
     *,
     _inspection_source=None,
+    page=None,
+    _require_pages=False,
 ):
+    if type(_require_pages) is not bool or (_require_pages and operation != "review"):
+        raise ValidationError("Invalid selection review mode")
+    if page is not None and (operation != "inspect" or type(page) is not int or page < 1):
+        raise ValidationError("Invalid selection page")
     case, person, listing = reviewer_case(user, case_id)
     actor = authorize(user, case)
     if (
@@ -82,7 +89,22 @@ def record(
     )
     source_digest = fingerprint(canonical(source))
     review = row.assessment_review
+    page_metadata, page_body, prepared = {}, None, None
+    if page is not None:
+        try:
+            assessment_body = unseal(review.assessment.encrypted_assessment)
+        except (InvalidToken, ValueError, TypeError) as error:
+            raise ValidationError("Portability assessment unavailable") from error
+        assessment = validate_approved_assessment(
+            review, review.assessment, case, proof, source_digest, assessment_body,
+        )
+        binding = validate_selection_evidence(row, review, case)
+        projected = project_selected(source, assessment, binding["selection"],
+                                     field_evidence=binding.get("field_evidence"))
+        page_body, page_metadata = project_page(projected, binding, page)
+        prepared = assessment, binding, projected
     previous = RightsAction.objects.filter(key=key).first()
+    page_reads = []
     image_reads = []
     if operation == "review":
         from .models import RightsPortabilityImageRead
@@ -114,7 +136,11 @@ def record(
             proof=proof,
             source_digest=source_digest,
             selection_digest=row.selection_digest,
+            original_session_version=user.session_version,
+            original_mfa_version=user.mfa_version,
         )
+        if _require_pages:
+            reads = reads.exclude(page_metadata={})
         if previous:
             reads = reads.filter(
                 pk__in=RightsPortabilitySelectionReview.objects.filter(action=previous).values(
@@ -125,6 +151,10 @@ def record(
         if read is None:
             raise ValidationError("Inspect this selection before deciding")
         validate_evidence(read, row, case, proof)
+        if read.page_metadata:
+            original_review = RightsPortabilitySelectionReview.objects.filter(action=previous).first() if previous else None
+            page_reads = complete_pages(row, case, proof, actor.pk, user.session_version,
+                                        user.mfa_version, ids=original_review.page_reads if original_review else None)
     signature_input = {
         "selection": row.pk,
         "version": version,
@@ -140,6 +170,10 @@ def record(
     }
     if image_reads:
         signature_input["image_reads"] = image_reads
+    if page_metadata:
+        signature_input["selection_page"] = page_metadata
+    if page_reads:
+        signature_input["page_reads"] = page_reads
     signature = fingerprint(canonical(signature_input))
     if previous and (
         previous.request_id != case.pk
@@ -160,14 +194,17 @@ def record(
                 payload_digest=signature,
                 encrypted_reason=seal({"reason": purpose}),
             )
-            try:
-                assessment = unseal(review.assessment.encrypted_assessment)
-            except (InvalidToken, ValueError, TypeError) as error:
-                raise ValidationError("Portability assessment unavailable") from error
-            assessment = validate_approved_assessment(
-                review, review.assessment, case, proof, source_digest, assessment
-            )
-            binding = validate_selection_evidence(row, review, case)
+            if prepared is None:
+                try:
+                    assessment = unseal(review.assessment.encrypted_assessment)
+                except (InvalidToken, ValueError, TypeError) as error:
+                    raise ValidationError("Portability assessment unavailable") from error
+                assessment = validate_approved_assessment(
+                    review, review.assessment, case, proof, source_digest, assessment
+                )
+                binding = validate_selection_evidence(row, review, case)
+            else:
+                assessment, binding, projected = prepared
             if binding.get("images"):
                 from .rights_portability_images import audited_images
 
@@ -176,12 +213,11 @@ def record(
                     from .rights_portability_image_read import required_reads
 
                     required_reads(row, case, proof, binding["images"], actor.pk, ids=image_reads)
-            projected = project_selected(
-                source,
-                assessment,
-                binding["selection"],
-                field_evidence=binding.get("field_evidence"),
-            )
+            if prepared is None:
+                projected = project_selected(
+                    source, assessment, binding["selection"],
+                    field_evidence=binding.get("field_evidence"),
+                )
             model = (
                 RightsPortabilitySelectionRead
                 if operation == "inspect"
@@ -197,7 +233,9 @@ def record(
                 original_mfa_version=user.mfa_version,
             )
             if operation == "review":
-                fields.update(read=read, outcome=outcome, image_reads=image_reads)
+                fields.update(read=read, outcome=outcome, image_reads=image_reads, page_reads=page_reads)
+            else:
+                fields["page_metadata"] = page_metadata
             if previous:
                 result = model.objects.select_related("action").filter(**fields).first()
                 if result is None:
@@ -227,7 +265,7 @@ def record(
                 projected["field_evidence"] = binding["field_evidence"]
             if operation == "inspect" and "images" in binding:
                 projected["images"] = binding["images"]
-            return result, projected if operation == "inspect" else None
+            return result, (page_body if page is not None else projected) if operation == "inspect" else None
     except IntegrityError as error:
         raise ValidationError("Conflicting selection inspection key") from error
 
@@ -242,6 +280,11 @@ def validate_evidence(evidence, row, case, proof):
     if not transaction.get_connection().in_atomic_block:
         raise RuntimeError("Selection review evidence requires enclosing transaction")
     is_review = isinstance(evidence, RightsPortabilitySelectionReview)
+    if is_review:
+        if not isinstance(evidence.page_reads, list):
+            raise ValidationError("Invalid selection page references")
+    elif not isinstance(evidence.page_metadata, dict) or (evidence.page_metadata and not valid_metadata(evidence.page_metadata)):
+        raise ValidationError("Invalid selection page metadata")
     try:
         reason = unseal(evidence.action.encrypted_reason)["reason"]
     except (InvalidToken, ValueError, TypeError, KeyError) as error:
@@ -261,6 +304,10 @@ def validate_evidence(evidence, row, case, proof):
     }
     if is_review and evidence.image_reads:
         signature_input["image_reads"] = evidence.image_reads
+    if is_review and evidence.page_reads:
+        signature_input["page_reads"] = evidence.page_reads
+    elif not is_review and evidence.page_metadata:
+        signature_input["selection_page"] = evidence.page_metadata
     signature = fingerprint(canonical(signature_input))
     if (
         evidence.selection_id != row.pk
@@ -284,6 +331,14 @@ def validate_evidence(evidence, row, case, proof):
         if linked.action.actor_id != evidence.action.actor_id:
             raise ValidationError("Selection review reader changed")
         validate_evidence(linked, row, case, proof)
+        if linked.page_metadata:
+            if linked.pk not in evidence.page_reads:
+                raise ValidationError("Selection review pages incomplete")
+            complete_pages(row, case, proof, evidence.action.actor_id,
+                           evidence.original_session_version, evidence.original_mfa_version,
+                           ids=evidence.page_reads)
+        elif evidence.page_reads:
+            raise ValidationError("Selection review page mode changed")
 
 
 @sensitive_variables()

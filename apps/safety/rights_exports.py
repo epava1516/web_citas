@@ -10,7 +10,6 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import IntegrityError, transaction
-from django.db.models import Prefetch
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -41,7 +40,7 @@ from .rights_verification import PROCEDURE, authorized_proof, complete_read, ena
 from .views import private
 
 # Keep intermediate ORM objects bounded while amortizing five relation queries.
-COPY_REVISION_BATCH_SIZE = 250
+COPY_REVISION_BATCH_SIZE = 1000
 
 
 @sensitive_variables()
@@ -61,37 +60,16 @@ def source_copy(person, listing, case=None):
     revisions = []
     if listing:
         # Profile lock prevents a cooperating editor adding another revision mid-copy.
-        from apps.catalog.models import Category, Municipality, Service
-        from apps.listings.models import Rate
-        from apps.mediafiles.models import Photo
-
         records = (
             listing.revisions.select_for_update(of=("self",))
+            # Generated search vectors can exceed the source text; copies never use them.
+            .defer("search_document")
             .select_related("municipality", "postal_code", "zone")
             .order_by("created_at", "pk")
-            .prefetch_related(
-                Prefetch(
-                    "categories",
-                    queryset=Category.objects.order_by("slug"),
-                    to_attr="copy_categories",
-                ),
-                Prefetch(
-                    "services", queryset=Service.objects.order_by("slug"), to_attr="copy_services"
-                ),
-                Prefetch(
-                    "travel_areas",
-                    queryset=Municipality.objects.order_by("code"),
-                    to_attr="copy_travel_areas",
-                ),
-                Prefetch("rates", queryset=Rate.objects.order_by("pk"), to_attr="copy_rates"),
-                Prefetch(
-                    "photos",
-                    queryset=Photo.objects.select_related("blob").order_by("created_at", "pk"),
-                    to_attr="copy_photos",
-                ),
-            )
         )
-        for revision in records.iterator(chunk_size=COPY_REVISION_BATCH_SIZE):
+        from .rights_copy_revision_batches import batches
+
+        for revision in batches(records, COPY_REVISION_BATCH_SIZE):
             revisions.append(
                 {
                     "revision": str(revision.pk),

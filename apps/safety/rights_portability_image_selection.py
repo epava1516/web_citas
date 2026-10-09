@@ -10,11 +10,14 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import transaction
 from django.views.decorators.debug import sensitive_variables
 
+from apps.core.models import User
+
 from .crypto import unseal
 from .models import RightsAction, RightsImageAccess, RightsPortabilitySelection
 from .rights import fingerprint
 from .rights_copy_page_review import fresh_authority
-from .rights_exports import canonical, image_content, reviewer_case, source_copy
+from .rights_exports import can_prepare, canonical, image_content, reviewer_case, source_copy
+from .rights_inspection_source import inspection_source, shared_source
 from .rights_portability_page_selection import latest_draft
 from .rights_portability_selection import row_reference
 from .rights_portability_selection_store import save_selection, validate_selection_evidence
@@ -26,7 +29,8 @@ MAX_AGE = 1800
 
 @transaction.atomic
 @sensitive_variables()
-def catalog(user, case_id, version, review_id, key, purpose, revision_index, image_index):
+def catalog(user, case_id, version, review_id, key, purpose, revision_index, image_index, *,
+            _inspection_source=None):
     if (
         type(revision_index) is not int
         or revision_index < 0
@@ -49,10 +53,12 @@ def catalog(user, case_id, version, review_id, key, purpose, revision_index, ima
             canonical({"revision": revision_index, "image": image_index})
         ),
         audit_operation="image_catalog",
+        _inspection_source=_inspection_source,
     )
     if not person or assessment["revisions"]["status"] not in {"eligible", "granular"}:
         raise ValidationError("Eligible profile revision assessment required")
-    source = source_copy(person, listing, case)
+    source = (shared_source(_inspection_source, person, listing, case)
+              if _inspection_source is not None else source_copy(person, listing, case))
     revisions = source["revisions"]
     if revision_index >= len(revisions):
         raise ValidationError("Portable revision unavailable")
@@ -132,7 +138,7 @@ def save(user, key, token, reason, included, conditions, *, path=None):
         or context.get("mfa") != user.mfa_version
     ):
         raise PermissionDenied
-    case, _, _ = reviewer_case(user, context["case"])
+    case, person, listing = reviewer_case(user, context["case"])
     fresh_authority(user, case, user.session_version, user.mfa_version)
     original = RightsAction.objects.filter(
         key=context["catalog_key"],
@@ -147,59 +153,67 @@ def save(user, key, token, reason, included, conditions, *, path=None):
         purpose = unseal(original.encrypted_reason)["reason"]
     except (InvalidToken, ValueError, TypeError, KeyError) as error:
         raise ValidationError("Portable image page unavailable") from error
-    _, review, assessment, declaration, _ = catalog(
-        user,
-        case.pk,
-        context["version"],
-        context["review"],
-        UUID(context["catalog_key"]),
-        purpose,
-        context["revision"],
-        context["image"],
-    )
-    if declaration != context["declaration"]:
-        raise ValidationError("Portable image content or source changed")
-    if path is not None and path != declaration["path"]:
-        raise ValidationError("Portable image field path changed")
-    baseline = None
-    if context["baseline"]:
-        baseline = RightsPortabilitySelection.objects.filter(
-            pk=context["baseline"],
-            request=case,
-            actor=user,
-            version=context["baseline_version"],
-            selection_digest=context["baseline_digest"],
-        ).first()
-        if baseline is None:
+    with inspection_source(person, listing, case) as source_context:
+        _, review, assessment, declaration, _ = catalog(
+            user,
+            case.pk,
+            context["version"],
+            context["review"],
+            UUID(context["catalog_key"]),
+            purpose,
+            context["revision"],
+            context["image"],
+            _inspection_source=source_context,
+        )
+        if declaration != context["declaration"]:
+            raise ValidationError("Portable image content or source changed")
+        if path is not None and path != declaration["path"]:
+            raise ValidationError("Portable image field path changed")
+        baseline = None
+        if context["baseline"]:
+            baseline = RightsPortabilitySelection.objects.filter(
+                pk=context["baseline"],
+                request=case,
+                actor=user,
+                version=context["baseline_version"],
+                selection_digest=context["baseline_digest"],
+            ).first()
+            if baseline is None:
+                raise ValidationError("Portable image baseline changed")
+        previous = RightsAction.objects.filter(key=key).first()
+        latest = latest_draft(case, user)
+        if not previous and (latest.pk if latest else None) != context["baseline"]:
             raise ValidationError("Portable image baseline changed")
-    previous = RightsAction.objects.filter(key=key).first()
-    latest = latest_draft(case, user)
-    if not previous and (latest.pk if latest else None) != context["baseline"]:
-        raise ValidationError("Portable image baseline changed")
-    if baseline:
-        body = validate_selection_evidence(baseline, review, case)
-        selectors = deepcopy(body["selection"])
-        evidence = deepcopy(body.get("field_evidence"))
-        images = deepcopy(body.get("images", []))
-    else:
-        selectors = {
-            name: []
-            for name, facts in assessment.items()
-            if facts["status"] in {"eligible", "granular"}
-        }
-        evidence, images = None, []
-    images = [item for item in images if item["photo"] != declaration["photo"]]
-    if included:
-        images.append({**declaration, "conditions": conditions})
-    return save_selection(
-        user,
-        case.pk,
-        context["version"],
-        review.pk,
-        key,
-        context["baseline_version"],
-        reason,
-        selectors,
-        field_evidence=evidence,
-        images=images,
-    )
+        if baseline:
+            body = validate_selection_evidence(baseline, review, case)
+            selectors = deepcopy(body["selection"])
+            evidence = deepcopy(body.get("field_evidence"))
+            images = deepcopy(body.get("images", []))
+        else:
+            selectors = {
+                name: []
+                for name, facts in assessment.items()
+                if facts["status"] in {"eligible", "granular"}
+            }
+            evidence, images = None, []
+        images = [item for item in images if item["photo"] != declaration["photo"]]
+        if included:
+            images.append({**declaration, "conditions": conditions})
+        row = save_selection(
+            user,
+            case.pk,
+            context["version"],
+            review.pk,
+            key,
+            context["baseline_version"],
+            reason,
+            selectors,
+            field_evidence=evidence,
+            images=images,
+            _inspection_source=source_context,
+        )
+    # The final snapshot may wait on related rows: recheck authority/proof afterwards.
+    fresh_authority(user, case, context["session"], context["mfa"])
+    if can_prepare(User.objects.get(pk=user.pk), case, person).pk != review.proof_id:
+        raise ValidationError("Portable image authority changed before return")
+    return row

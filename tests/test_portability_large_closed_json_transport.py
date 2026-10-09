@@ -45,14 +45,17 @@ pytestmark = pytest.mark.django_db(transaction=True)
 
 @pytest.mark.parametrize("large", [False, True], ids=["functional", "measured"])
 def test_native_closed_selected_json_over_local_tcp(
-    request, settings, monkeypatch, live_server, tmp_path, record_property, large
+    request, settings, monkeypatch, live_server, tmp_path, record_property, large, control=False
 ):
     assert connection.vendor == "postgresql"
     original_ready = selection_fixture.ready
     original_selection = coverage_use_fixture.prepared_selection
-    history_count = 360 if large else 2
-    description = "🧪" * 6000
-    assert len(description) == 6000 and len(description.encode()) == 24000
+    history_count = 30 if control else (360 if large else 2)
+    enabled = large or control
+    description = ("Perfil sintético: atención con cita previa, consulta de disponibilidad y servicios "
+                   "según la revisión conservada; información de prueba sin personas reales.") if control else "🧪" * 6000
+    if not control:
+        assert len(description) == 6000 and len(description.encode()) == 24000
     expected = {}
     stages = {}
     state = {"active": None}
@@ -72,7 +75,7 @@ def test_native_closed_selected_json_over_local_tcp(
 
     def measured(name, function):
         def call(*args, **kwargs):
-            if not large:
+            if not enabled:
                 return function(*args, **kwargs)
             item = stages.setdefault(name, {"sql_queries": 0, "seconds": 0.0, "sampled_process_rss_peak_bytes": rss()})
             state["active"] = name
@@ -85,7 +88,7 @@ def test_native_closed_selected_json_over_local_tcp(
                 state["active"] = None
         return call
 
-    if large:
+    if enabled:
         for method in ("execute", "executemany"):
             original = getattr(CursorWrapper, method)
 
@@ -110,7 +113,7 @@ def test_native_closed_selected_json_over_local_tcp(
         photo = person.listing.revisions.first().photos.order_by("position", "pk").first()
         Revision.objects.bulk_create([
             Revision(listing=person.listing, manager_version=person.manager_version,
-                     title=f"Synthetic selected Unicode history {index}", description=description)
+                     title=f"Synthetic selected Unicode history {index}", description=(description + f" Revisión histórica {index}.") if control else description)
             for index in range(history_count)
         ], batch_size=100)
         width, height = (64, 64)
@@ -137,7 +140,12 @@ def test_native_closed_selected_json_over_local_tcp(
         chosen = [
             {"row": row_reference("revisions", index, revision), "fields": ["/description"]}
             for index, revision in enumerate(source["revisions"])
-            if revision["description"] == description
+            if (revision["description"].startswith(description) if control else revision["description"] == description)
+        ]
+        expected["revisions"] = [
+            {"fields": {"/description": revision["description"]}}
+            for revision in source["revisions"]
+            if (revision["description"].startswith(description) if control else revision["description"] == description)
         ]
         assert len(chosen) == history_count
         body["selection"]["revisions"] = chosen
@@ -148,16 +156,14 @@ def test_native_closed_selected_json_over_local_tcp(
         _, projection = selection_review(reviewer, case.pk, case.version, selected.pk, uuid4(), REASON)
         decision, _ = selection_review(reviewer, case.pk, case.version, selected.pk,
                                                 uuid4(), REASON, "review", "approved")
-        assert projection["datasets"]["revisions"] == [
-            {"fields": {"/description": description}} for _ in range(history_count)
-        ]
+        assert projection["datasets"]["revisions"] == expected["revisions"]
         return case, author, selected, decision, profile, subject, receipt
 
     monkeypatch.setattr(coverage_use_fixture, "prepared_selection", selection_with_history)
 
     monkeypatch.setattr(selection_fixture, "ready", ready_with_binary)
     sampler = threading.Thread(target=sample, daemon=True)
-    if large:
+    if enabled:
         sampler.start()
     success = False
     try:
@@ -222,9 +228,7 @@ def test_native_closed_selected_json_over_local_tcp(
         else:
             delivered = manifest
             assert len(manifest_bytes) < 8 * 1024 * 1024
-        assert delivered["datasets"]["revisions"] == [
-            {"fields": {"/description": description}} for _ in range(history_count)
-        ]
+        assert delivered["datasets"]["revisions"] == expected["revisions"]
         assert "field_evidence" not in delivered
         record_property("selected_revisions", history_count)
 
@@ -238,6 +242,25 @@ def test_native_closed_selected_json_over_local_tcp(
         with zipfile.ZipFile(io.BytesIO(package)) as archive:
             assert archive.namelist() == [str(image.pk) + ".webp"]
             assert archive.read(archive.namelist()[0]) == binary
+        if control:
+            assert len(manifest_bytes) <= 1024 * 1024
+            assert expected["bytes"] <= 8 * 1024 * 1024
+            samples = {}
+            for label, path, exact in [
+                ("package", endpoint + f"part/{part.pk}/", package),
+            ]:
+                values = []
+                for _ in range(20):
+                    started = time.perf_counter()
+                    code, response_headers, body = post(path)
+                    values.append(time.perf_counter() - started)
+                    assert code == 200 and body == exact
+                    assert "no-store" in response_headers["Cache-Control"]
+                samples[label] = {"seconds": values, "p95_seconds": sorted(values)[18],
+                                  "samples": len(values), "body_bytes": len(exact)}
+            record_property("control_tcp_samples", json.dumps(samples))
+            record_property("control_json_bytes", len(manifest_bytes))
+            record_property("control_only", True)
         assert post(endpoint)[2] == manifest_bytes
         original_epoch = author.session_version
         User.objects.filter(pk=author.pk).update(session_version=original_epoch + 1)
@@ -252,11 +275,11 @@ def test_native_closed_selected_json_over_local_tcp(
         success = True
     finally:
         stop.set()
-        if large:
+        if enabled:
             sampler.join(timeout=2)
         record_property("source_binary_bytes", expected.get("bytes", 0))
         record_property("source_binary_sha256", expected.get("sha256", ""))
-        record_property("measurement_enabled", large)
+        record_property("measurement_enabled", enabled)
         record_property("stages", json.dumps(stages))
         record_property("success", success)
         record_property("scope", "Real PostgreSQL/native approvals and local TCP HTTP. Synthetic eligibility/identity; Selected Unicode revision descriptions; large multipart JSON reconstructed exactly, small WebP/ZIP. RSS includes pytest fixture and local client/server in same process, sampled50ms; no Gunicorn/Caddy/p95/capacity claimed.")

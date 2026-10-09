@@ -24,7 +24,18 @@ def checked_images(source, assessment, decisions, inspected_digests):
     rows = source.get("revisions", [])
     if not isinstance(rows, list):
         raise ValidationError("Portable revision source unavailable")
-    references = {row_reference("revisions", index, row): row for index, row in enumerate(rows)}
+    photos = {item.get("photo") for item in decisions
+              if isinstance(item, dict) and isinstance(item.get("photo"), str)}
+    # Keep source indices and whole-row hashes, but skip rows that cannot contain a
+    # declared binary. Scalar projection and the caller's full fresh-source checks
+    # still validate the rest of the source independently.
+    references = {
+        row_reference("revisions", index, row): row
+        for index, row in enumerate(rows)
+        if isinstance(row, dict) and isinstance(row.get("images"), list)
+        and any(isinstance(image, dict) and isinstance(image.get("photo"), str)
+                and image["photo"] in photos for image in row["images"])
+    }
     seen, checked = set(), []
     for decision in decisions:
         if not isinstance(decision, dict) or set(decision) != {
@@ -96,18 +107,20 @@ def audited_images(actor, case, person, source, assessment, decisions):
             raise ValidationError("Invalid portable image declarations")
         declared[decision["photo"]] = decision.get("content_digest")
     cleaned = checked_images(source, assessment, decisions, declared)
+    verified = []
     for decision in cleaned:
         photo, content = image_content(person, decision["photo"])
         digest = hashlib.sha256(content).hexdigest()
-        if (
-            digest != decision["content_digest"]
-            or not RightsImageAccess.objects.filter(
-                request=case,
-                actor=actor,
-                photo=photo,
-                case_version=case.version,
-                content_digest=digest,
-            ).exists()
-        ):
+        if digest != decision["content_digest"]:
             raise ValidationError("Inspect exact portable image content first")
+        verified.append((photo.pk, digest))
+        del content
+    # Reads can wait on photo/blob locks. Check all current audit evidence after
+    # those waits, retaining only identifiers/digests rather than binary bodies.
+    accesses = set(RightsImageAccess.objects.filter(
+        request=case, actor=actor, case_version=case.version,
+        photo_id__in=[photo_id for photo_id, _ in verified],
+    ).values_list("photo_id", "content_digest"))
+    if any(item not in accesses for item in verified):
+        raise ValidationError("Inspect exact portable image content first")
     return cleaned

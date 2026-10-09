@@ -351,7 +351,7 @@ def test_listing_state_copy_rejects_stale_lifecycle_and_foreign_injection(reques
     assert delivered["partial"]
 
 
-@pytest.mark.parametrize("history_count", [30, 280])
+@pytest.mark.parametrize("history_count", [30, 1280])
 def test_profile_copy_queries_are_batched_without_losing_historical_revisions(
     request, settings, history_count, record_property, monkeypatch
 ):
@@ -397,7 +397,35 @@ def test_profile_copy_queries_are_batched_without_losing_historical_revisions(
     from apps.safety import rights_exports
 
     batch_size = rights_exports.COPY_REVISION_BATCH_SIZE
+    assert all(
+        '"listings_revision"."search_document"' not in query["sql"]
+        for query in large_queries
+    )
+    from django.db.models.query import QuerySet
+
+    original_defer = QuerySet.defer
+
+    def load_search_vector(queryset, *fields):
+        return original_defer(queryset, *(field for field in fields if field != "search_document"))
+
+    from django.db.models import Prefetch
+
+    from apps.catalog.models import Category, Municipality, Service
+    from apps.mediafiles.models import Photo
+    from apps.safety import rights_copy_revision_batches
+
+    def legacy_batches(records, size):
+        return records.prefetch_related(
+            Prefetch("categories", queryset=Category.objects.order_by("slug"), to_attr="copy_categories"),
+            Prefetch("services", queryset=Service.objects.order_by("slug"), to_attr="copy_services"),
+            Prefetch("travel_areas", queryset=Municipality.objects.order_by("code"), to_attr="copy_travel_areas"),
+            Prefetch("rates", queryset=Rate.objects.order_by("pk"), to_attr="copy_rates"),
+            Prefetch("photos", queryset=Photo.objects.select_related("blob").order_by("created_at", "pk"), to_attr="copy_photos"),
+        ).iterator(chunk_size=size)
+
     with monkeypatch.context() as legacy:
+        legacy.setattr(rights_copy_revision_batches, "batches", legacy_batches)
+        legacy.setattr(QuerySet, "defer", load_search_vector)
         legacy.setattr(rights_exports, "COPY_REVISION_BATCH_SIZE", 50)
         with transaction.atomic():
             reference = source_copy(person, listing, case)

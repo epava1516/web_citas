@@ -51,3 +51,26 @@ def test_archive_consumes_single_pass_images_without_changing_zip_bytes():
     assert observed["attachments"] == [identifier for identifier, _ in rows]
     with zipfile.ZipFile(io.BytesIO(observed["content"])) as package:
         assert {name[:-5]: package.read(name) for name in package.namelist()} == dict(rows)
+
+
+@pytest.mark.parametrize("sizes", [(4, 4), (4, 9, 4)])
+def test_default_grouping_targets_eight_mib_and_preserves_larger_individual_images(sizes):
+    target = 8 * 1024 * 1024
+    rows = [(uuid.uuid4(), bytes([index]) * (size * 1024 * 1024))
+            for index, size in enumerate(sizes)]
+    parts = list(packages(iter(rows)))
+    recovered = {}
+    for part in parts:
+        with zipfile.ZipFile(io.BytesIO(part["content"])) as package:
+            assert package.testzip() is None
+            names = package.namelist()
+            assert names == [identifier + ".webp" for identifier in part["attachments"]]
+            if len(part["content"]) > target:
+                assert len(names) == 1
+                assert package.getinfo(names[0]).file_size > target
+            for name in names:
+                assert name[:-5] not in recovered
+                recovered[name[:-5]] = package.read(name)
+    assert recovered == {str(identifier): content for identifier, content in rows}
+    # ZIP headers make two exact4MiB images exceed8MiB; a9MiB image stays intact.
+    assert len(parts) == len(rows)

@@ -149,10 +149,15 @@ def account_mail_projection(message, *, owner, email):
     """Release the known account template only after checking its token ownership."""
     from apps.core.models import AccountToken
 
-    prefix = "Enlace de un solo uso / Single-use link:\n"
+    templates = {
+        "Confirmación de cuenta / Account confirmation": "Enlace de un solo uso / Single-use link:\n",
+        "Confirmación de cuenta": "Enlace de un solo uso:\n",
+        "Account confirmation": "Single-use link:\n",
+    }
+    prefix = templates.get(message.subject) if isinstance(message.subject, str) else None
     if (
-        owner is None
-        or message.subject != "Confirmación de cuenta / Account confirmation"
+        prefix is None
+        or owner is None
         or message.from_email != settings.DEFAULT_FROM_EMAIL
         or message.to != [email]
         or message.cc

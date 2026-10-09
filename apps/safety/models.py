@@ -1431,6 +1431,7 @@ class RightsPortabilitySelectionRead(models.Model):
     selection_digest = models.CharField(max_length=64)
     original_session_version = models.PositiveIntegerField()
     original_mfa_version = models.PositiveIntegerField()
+    page_metadata = models.JSONField(default=dict)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -1438,6 +1439,7 @@ class RightsPortabilitySelectionReview(models.Model):
     action = models.OneToOneField(RightsAction, on_delete=models.PROTECT)
     selection = models.OneToOneField(RightsPortabilitySelection, on_delete=models.PROTECT)
     image_reads = models.JSONField(default=list)
+    page_reads = models.JSONField(default=list)
     read = models.ForeignKey(RightsPortabilitySelectionRead, on_delete=models.PROTECT)
     proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
     source_digest = models.CharField(max_length=64)
