@@ -210,6 +210,8 @@ def project_message(raw, blob_ids, state, periodic, *, queue=None):
 def periodic_tasks():
     periodic = {
         "apps.listings.tasks.expire_listings",
+        "apps.listings.tasks.refresh_publication_state",
+        "apps.listings.tasks.sweep_publication_state",
         "apps.mediafiles.tasks.recover_media_jobs",
         "apps.mediafiles.tasks.erase_media_files",
         "apps.mediafiles.tasks.cleanup_prepared_media",

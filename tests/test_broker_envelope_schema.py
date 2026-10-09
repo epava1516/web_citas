@@ -3,9 +3,32 @@ import json
 
 import pytest
 
-from apps.safety.broker_message_projection import project_message
+from apps.safety.broker_message_projection import periodic_tasks, project_message
 
 TASK = "apps.safety.tasks.purge_expired_access_response_drafts"
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
+        "apps.listings.tasks.refresh_publication_state",
+        "apps.listings.tasks.sweep_publication_state",
+    ],
+)
+@pytest.mark.parametrize("state", ["queued", "reserved"])
+@pytest.mark.parametrize(
+    "args,kwargs", [([], {}), (["private-subject"], {}), ([], {"subject": "private"})]
+)
+def test_publication_maintenance_requires_an_argument_free_envelope(task, state, args, kwargs):
+    raw = message()
+    raw["headers"]["task"] = task
+    raw["body"] = base64.b64encode(json.dumps([args, kwargs, {}]).encode()).decode()
+    encoded = json.dumps([raw, "", "q"] if state == "reserved" else raw).encode()
+    if args or kwargs:
+        with pytest.raises(ValueError):
+            project_message(encoded, set(), state, periodic_tasks(), queue="q")
+    else:
+        assert project_message(encoded, set(), state, periodic_tasks(), queue="q") is None
 
 
 def message():

@@ -1,0 +1,452 @@
+{
+  "date": "2026-10-09",
+  "authorization": "Usuario: no hay presupuesto; CI gestionado por nosotros",
+  "environment": "Own disposable PostgreSQL17/Redis7.4; local offline dependencies; native pinned source copied before build",
+  "runs": [
+    {
+      "id": "20261009-115745-af4337a3",
+      "profile": "smoke",
+      "result": "PASS",
+      "steps": [
+        {
+          "name": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-pg-20261009-115745-af4337a3",
+            "-p",
+            "127.0.0.1::5432",
+            "--tmpfs",
+            "/var/lib/postgresql/data",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=promotion_gate_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.41812958009541035
+        },
+        {
+          "name": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-redis-20261009-115745-af4337a3",
+            "-p",
+            "127.0.0.1::6379",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.4162582508288324
+        },
+        {
+          "name": "dependencies",
+          "command": [
+            "uv",
+            "sync",
+            "--locked",
+            "--offline"
+          ],
+          "exit": 0,
+          "seconds": 0.032850136049091816
+        },
+        {
+          "name": "ruff",
+          "command": [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.11477460293099284
+        },
+        {
+          "name": "documentation",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/check_docs.py"
+          ],
+          "exit": 0,
+          "seconds": 0.7190643157809973
+        },
+        {
+          "name": "django",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "check"
+          ],
+          "exit": 0,
+          "seconds": 1.3192576738074422
+        },
+        {
+          "name": "migrations",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "makemigrations",
+            "--check",
+            "--dry-run"
+          ],
+          "exit": 0,
+          "seconds": 1.823522121179849
+        },
+        {
+          "name": "native-build",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/prepare_native_test_tools.py",
+            "--source",
+            "/tmp/web-modelos-local-ci-3716zu47/native-source",
+            "--output",
+            "/tmp/web-modelos-local-ci-3716zu47/native-tools",
+            "--env-file",
+            "/tmp/web-modelos-local-ci-3716zu47/native.env"
+          ],
+          "exit": 0,
+          "seconds": 9.707575184758753
+        },
+        {
+          "name": "pytest",
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "--tb=short",
+            "--basetemp=/tmp/web-modelos-local-ci-3716zu47/pytest",
+            "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-115745-af4337a3/pytest.xml",
+            "-o",
+            "junit_family=xunit1",
+            "tests/test_broker_envelope_schema.py",
+            "tests/test_publication_state.py",
+            "tests/test_retained_rdb_physical_metadata.py"
+          ],
+          "exit": 0,
+          "seconds": 359.0262311110273
+        }
+      ],
+      "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+      "excluded": [],
+      "selection": [
+        "tests/test_broker_envelope_schema.py",
+        "tests/test_publication_state.py",
+        "tests/test_retained_rdb_physical_metadata.py"
+      ],
+      "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+      "cleanup": {
+        "web-modelos-ci-pg-20261009-115745-af4337a3": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-ci-redis-20261009-115745-af4337a3": {
+          "absent": true,
+          "removal_exit": 0
+        }
+      },
+      "sources_unchanged": true,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "70",
+          "time": "356.927",
+          "timestamp": "2026-10-09T13:58:03.583713+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "id": "20261009-120437-424a4b9e",
+      "profile": "checks",
+      "result": "PASS",
+      "steps": [
+        {
+          "name": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-pg-20261009-120437-424a4b9e",
+            "-p",
+            "127.0.0.1::5432",
+            "--tmpfs",
+            "/var/lib/postgresql/data",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=promotion_gate_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.5175223615951836
+        },
+        {
+          "name": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-redis-20261009-120437-424a4b9e",
+            "-p",
+            "127.0.0.1::6379",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.5674849799834192
+        },
+        {
+          "name": "dependencies",
+          "command": [
+            "uv",
+            "sync",
+            "--locked",
+            "--offline"
+          ],
+          "exit": 0,
+          "seconds": 0.03247209498658776
+        },
+        {
+          "name": "ruff",
+          "command": [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.06475638458505273
+        },
+        {
+          "name": "documentation",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/check_docs.py"
+          ],
+          "exit": 0,
+          "seconds": 0.818732796702534
+        },
+        {
+          "name": "django",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "check"
+          ],
+          "exit": 0,
+          "seconds": 1.3835516488179564
+        },
+        {
+          "name": "migrations",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "makemigrations",
+            "--check",
+            "--dry-run"
+          ],
+          "exit": 0,
+          "seconds": 1.7728693927638233
+        }
+      ],
+      "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+      "excluded": [],
+      "selection": [],
+      "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+      "cleanup": {
+        "web-modelos-ci-pg-20261009-120437-424a4b9e": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 0
+        },
+        "web-modelos-ci-redis-20261009-120437-424a4b9e": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 0
+        }
+      },
+      "sources_unchanged": true
+    },
+    {
+      "id": "20261009-120500-b78e7766",
+      "profile": "smoke",
+      "result": "ERROR",
+      "steps": [
+        {
+          "name": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-pg-20261009-120500-b78e7766",
+            "-p",
+            "127.0.0.1::5432",
+            "--tmpfs",
+            "/var/lib/postgresql/data",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=promotion_gate_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.5753432791680098
+        },
+        {
+          "name": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-redis-20261009-120500-b78e7766",
+            "-p",
+            "127.0.0.1::6379",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.42660353193059564
+        },
+        {
+          "name": "dependencies",
+          "command": [
+            "uv",
+            "sync",
+            "--locked",
+            "--offline"
+          ],
+          "exit": 0,
+          "seconds": 0.06456865184009075
+        },
+        {
+          "name": "ruff",
+          "command": [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.11553814867511392
+        },
+        {
+          "name": "documentation",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/check_docs.py"
+          ],
+          "exit": 0,
+          "seconds": 0.8166471025906503
+        },
+        {
+          "name": "django",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "check"
+          ],
+          "exit": 0,
+          "seconds": 1.2673631636425853
+        },
+        {
+          "name": "migrations",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "makemigrations",
+            "--check",
+            "--dry-run"
+          ],
+          "exit": 0,
+          "seconds": 1.7204781440086663
+        }
+      ],
+      "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+      "excluded": [],
+      "selection": [
+        "tests/test_broker_envelope_schema.py",
+        "tests/test_publication_state.py",
+        "tests/test_retained_rdb_physical_metadata.py"
+      ],
+      "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+      "error": "[Errno 2] No such file or directory: '/tmp/web-modelos-ci-deliberately-missing-source-20261009'",
+      "cleanup": {
+        "web-modelos-ci-pg-20261009-120500-b78e7766": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 0
+        },
+        "web-modelos-ci-redis-20261009-120500-b78e7766": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 0
+        }
+      },
+      "sources_unchanged": true
+    }
+  ],
+  "negative_guard": "Missing native source produces exit1 and durable ERROR, cleans both owned containers; no pytest executed in this run",
+  "runner_changed_after_smoke": "Postprocessing strengthened: require successful Docker inventory for absence, preserve result on malformed JUnit. Final checks and negative cleanup run verify the final runner; application and test sources unchanged. No combined N3 claim.",
+  "archive": "docs/evidencias/ci-local-20261009-artefactos.tar.gz",
+  "archive_sha256": "1ec23892905923eea01dd9700c7a4e15e30001b7a2f0465baf1bff3694deef6a",
+  "final_runner_sha256": "48c979ef609dc585dd53f218c9ba12555cceb49d463f30a20b9f964c27bcbe26",
+  "limits": [
+    "No full regression or capacity workload executed",
+    "No hosted CI execution, publication or spending",
+    "Optional skipped experiments remain pending when required",
+    "No phase acceptance or weighted progress change"
+  ],
+  "graphify": {
+    "new_runner_not_in_existing_graph": true,
+    "rebuild": false,
+    "claude_invocations": 0,
+    "host_token_consumption": "not_measured"
+  }
+}

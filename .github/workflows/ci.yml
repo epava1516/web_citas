@@ -1,22 +1,38 @@
 name: quality
-on: [push, pull_request]
+# Automatic verification runs locally; hosted Actions requires explicit dispatch.
+on: [workflow_dispatch]
 jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: python3 scripts/check_docs.py
   integration:
     runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_DB: clasificados
+          POSTGRES_DB: promotion_gate_ci
           POSTGRES_USER: clasificados
           POSTGRES_PASSWORD: ci-only
         ports: ["5432:5432"]
         options: >-
-          --health-cmd "pg_isready -U clasificados"
+          --health-cmd "pg_isready -U clasificados -d promotion_gate_ci"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+      redis:
+        image: redis:7.4-alpine
+        ports: ["56379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
           --health-interval 5s --health-timeout 5s --health-retries 20
     env:
+      POSTGRES_DB: promotion_gate_ci
       DB_PORT: 5432
       POSTGRES_PASSWORD: ci-only
+      REDIS_URL: redis://127.0.0.1:56379/0
       DJANGO_DEBUG: 1
     steps:
       - uses: actions/checkout@v4
@@ -28,4 +44,30 @@ jobs:
       - run: uv run python manage.py check
       - run: uv run python manage.py makemigrations --check --dry-run
       - run: uv run playwright install --with-deps chromium
-      - run: uv run pytest
+      - uses: actions/checkout@v4
+        with:
+          repository: redis/librdb
+          ref: bc5f295c98b40c2c33099d9d72ab30ce9e595dc7
+          submodules: recursive
+          path: artifacts/native-source
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential redis-server
+      - run: >-
+          uv run python scripts/prepare_native_test_tools.py
+          --source artifacts/native-source
+          --output "$RUNNER_TEMP/native-tools"
+          --env-file "$GITHUB_ENV"
+      - run: >-
+          uv run pytest
+          --junitxml=artifacts/pytest.xml
+          -o junit_family=xunit1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-evidence-${{ github.sha }}
+          path: |
+            artifacts/pytest.xml
+            ${{ runner.temp }}/native-tools/manifest.json
+          if-no-files-found: warn
+          retention-days: 14

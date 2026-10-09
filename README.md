@@ -50,6 +50,15 @@ unset DEMO_PASSWORD
 El archivo privado contiene accesos y claves TOTP sintéticos; no se imprime ni se versiona. Repetir conserva cambios existentes. [Contenido y límites de la muestra](docs/contratos/07-datos-sinteticos.md).
 
 ## Verificación
+
+Gate propio reproducible, con PostgreSQL/Redis desechables y evidencia local, sin CI de pago:
+
+```bash
+uv run python scripts/run_local_ci.py --profile checks
+```
+
+[Perfiles de pruebas, preparación nativa, regresión y resultados](docs/ci-local.md).
+
 ```sh
 uv run python manage.py check
 uv run python manage.py makemigrations --check --dry-run
