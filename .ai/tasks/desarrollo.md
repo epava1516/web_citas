@@ -709,3 +709,6 @@ Invocación14 (2026-10-09): cobertura funcional positiva PRODUCTION/checked con 
 
 
 Pausa/relevo2026-10-09 por instrucción expresa: no nuevos bloques ni invocaciones Claude. Consumo histórico8 preservado, nuevas0. N2 terminal63PASS confirmado en XML/archivo; capacidad/N3/fases abiertas. Árbol clasificado, incompletos y propuesta GraphQL preservados sin commit, servicios normales intactos. Registro vigente: docs/relevo-claude-20261009.md y docs/evidencias/relevo-local-20261009.json. Claude V1 propone sin herramientas; Codex aplica/verifica, sin cambio de autoridad adoptado.
+
+
+MOD-07: aclaración posterior del usuario autoriza continuidad principal directa de Claude para la entrega técnica local restante: lectura/escritura/herramientas/pruebas/commits/integración/aceptación, sin esperas a Codex ni aprobación por hito. Goal Codex paused. Ocho invocaciones históricas conservadas sin reiniciar contador. Usuario aporta una revisión externa Claude de solo lectura, fuera del adaptador; sesión declarada10turnos/43,3k tokens/1h, sin metadatos auditables aquí: no sumar como invocación oficial verificada ni inventar consumo. Propuesta P1–P8 no aplicada por Codex ni aceptada como V1/PASS. Priorizar verificación real de la propuesta antes de aplicar y continuar toda la secuencia contractual. Contrato externo/adaptador intactos.

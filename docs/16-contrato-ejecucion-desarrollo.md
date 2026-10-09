@@ -1,4 +1,6 @@
-# Contrato de ejecución del desarrollo — versión 1.6
+# Contrato de ejecución del desarrollo — versión 1.7
+
+Versión vigente1.7/MOD-07: relevo principal directo a Claude autorizado por aclaración posterior del usuario; criterios técnicos anteriores se conservan.
 
 Origen: 2026-10-03. Formulación consolidada: 2026-10-09, **MOD-06**, autorizada por el usuario al solicitar consolidar el contrato y adoptar CI propio sin presupuesto para alojamiento. Tipo: especificación de ejecución y aceptación. El proyecto es nuevo y no tiene producción real.
 
@@ -155,7 +157,7 @@ Reglas:
 
 ## 10. Ejecución continua, dependencias y cambios
 
-La orden expresa de pausa del usuario de 2026-10-09 prevalece sobre la continuación autónoma: no avanzar a nuevos bloques mientras siga vigente. El cierre seguro, los commits locales y el relevo autorizados se registran en [seguimiento17](17-seguimiento-desarrollo.md) y [relevo](relevo-claude-20261009.md); no cambian requisitos, objetivos, aceptación ni dirección del proyecto.
+La orden de pausa mantiene detenido el goal de Codex. La aclaración posterior MOD-07 autoriza continuidad autónoma de Claude principal hasta cerrar la entrega local; no implica reanudar Codex. El cierre seguro, los commits locales y el relevo autorizados se registran en [seguimiento17](17-seguimiento-desarrollo.md) y [relevo](relevo-claude-20261009.md); no cambian requisitos, objetivos, aceptación ni dirección del proyecto.
 
 Tras inicio de implementación seguir backlog en orden, corregir fallos y actualizar documentación sin cerrar cada fase preguntando «¿continuamos?». Preparar la siguiente entrega con los acuerdos actuales y resolver elecciones reversibles rutinarias.
 
@@ -217,11 +219,23 @@ Las reglas MOD-02 siguientes están incorporadas a la versión vigente; los ante
 
 Antes de cada batería registrar en seguimiento17 requisito, fuentes/commit y huellas de cambios locales, casos, entorno/handles, evidencia esperada y condición de salida. Congelar las fuentes probadas mientras el proceso esté vivo. Un fallo obliga a esperar terminal, diagnosticar, corregir y repetir lo afectado; ampliar solo por riesgo compartido o incertidumbre concreta. Un cambio exclusivo de documentación no exige repetir pruebas funcionales.
 
+Las atribuciones Codex de este contrato se transfieren al agente principal Claude únicamente para la entrega técnica local restante conforme a MOD-07 (§15); se conservan las exigencias de verificación y aceptación.
+
 El gate propio guarda logs, selección, versiones/huellas, JUnit, exclusiones/skips, duraciones y limpieza. `checks`, `smoke` o `regression` con exclusiones no sustituyen N3 ni capacidad omitida. Codex revisa evidencia antes de aceptar, distingue preparación/fixtures, ejecución, diagnóstico/corrección e integración/runtime, y conserva el consumo realmente observado sin inventar tiempos/costes pasados.
 
 Funcionalidad pequeña cubre todos los escenarios críticos antes del volumen. Volumen, memoria, latencia/consultas y transporte se aceptan en su escenario real documentado. Una optimización necesita hipótesis finita, comparación de la etapa con datos/instrumentación equivalentes y verificación del recorrido afectado. No repetir por rutina un ensayo de 89 minutos para cambios ajenos; tampoco omitirlo cuando una aceptación o riesgo pertinente lo exija. Una iteración sin evidencia nueva termina como negativa/no concluyente; no cierra el requisito ni justifica repetirla idéntica.
 
 ## 15. Delegación sin máximo numérico — MOD-03
+
+## MOD-07 — relevo directo a Claude, autorización vigente
+
+La aclaración posterior del usuario («Mis indicaciones han sido para que continúe Claude») cambia expresamente el relevo de propuesta acotada a ejecución principal directa. Claude puede leer/editar el proyecto, usar herramientas nativas/shell/Docker propio, ejecutar verificaciones, corregir, crear commits e integrar localmente y emitir aceptación técnica sustentada en evidencia hasta completar la entrega local. No necesita esperar aplicación/aceptación de Codex ni autorización rutinaria por hito. El goal de Codex permanece pausado; el nuevo goal de Claude tiene la entrega completa como condición de cierre, no la revisión de un prototipo.
+
+Es una excepción local explícita a las atribuciones exclusivas Codex y al modelo delegado V1 de AI_ENGINEERING1.0.1; el contrato reconoce primacía de instrucciones del usuario y cambio del agente principal. Claude principal usa su ejecutor nativo con herramientas; no el adaptador tool-free. El adaptador oficial V1 y contrato externo permanecen intactos y rigen las delegaciones que realmente se invoquen por esa vía. Este relevo no cambia objetivos, pesos, aceptación de fases, datos, privacidad, costes o permisos externos. Registrar base/propiedad de archivos y pruebas; serializar ediciones y preservar trabajo ajeno/dudoso, evidencias negativas y las seis fuentes experimentales hasta revisión. Sin push/publicación/proveedores/gasto/datos reales ni intervención en servicios normales.
+
+La revisión externa aportada por el usuario se conserva como propuesta no ejecutada, no como PASS ni informe V1 aceptado. No se aplica P1–P8 automáticamente: revisar fuentes/documentos y garantías reales, especialmente quota de storage, logs, limpieza exacta y timeouts; la suma de picos es cota superior, no pico síncrono, y un incumplimiento válido sigue FAIL. No dar por verificados controles kernel por leer flags. Un parseo de mounts y límites de conteo/tamaño no prueban por sí solos un techo kernel del almacenamiento ni de logs. Resultado JSON aportado usa STATUS/formatos distintos de V1; útil como contexto externo, no aceptación del adaptador. La lectura de archivos y los tiempos/tokens son declarados por el usuario/Claude, no auditados aquí.
+
+### Antecedente previo al relevo directo
 
 Revisión para el relevo 2026-10-09: AI_ENGINEERING1.0.1 V1 prohíbe herramientas, ediciones directas y operaciones Git del delegado; solo Codex acepta e integra. No autoriza que un goal de Claude ejecute toda la entrega directamente. La [modificación propuesta](relevo-claude-20261009.md#autorización-necesaria-para-un-relevo-directo) requiere instrucción expresa del usuario y procedimiento de escritor compatible; no está adoptada.
 
@@ -286,3 +300,6 @@ La vía proyectada anterior y sus pruebas experimentales se retiraron; no se req
 MOD-06 afecta §§1–17, interpretación de cierre en matriz83 y formulación relacionada en contratos14/15. No amplía el MVP, introduce cobros, rebaja permisos/privacidad/pruebas, cambia pesos/SLO o acepta una fase. No cambia código, esquema o datos ni autoriza publicación, proveedores o cargas nuevas. Los parámetros sintéticos prueban mecanismos; no aprueban políticas reales. El presupuesto futuro de planificación no es presupuesto disponible ni autorización de gasto.
 
 [Copia íntegra anterior a esta consolidación](17-historial/2026-10-09-16-contrato-ejecucion-desarrollo-antes-consolidacion-contrato.md): contiene texto 1.5 y adendas originales, incluyendo pausas, diagnósticos, cifras y decisiones sustituidas. [Manifest de copias y SHA-256](historial-documentacion.json), [registro de consolidación](evidencias/consolidacion-contrato-20261009.json). El historial sirve de evidencia, no de segunda cola o instrucción actual.
+
+
+MOD-07 / v1.7: aclaración del usuario para continuidad principal directa de Claude. Excepción local de atribuciones/ejecutor/aceptación; objetivos y garantías preservados, adaptador/contrato externo intactos. No ejecución, nuevo PASS ni aceptación de fase por esta modificación documental.

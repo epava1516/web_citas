@@ -1,5 +1,7 @@
 # Relevo técnico local — 2026-10-09
 
+**Actualización MOD-07 vigente:** por aclaración posterior del usuario, Claude continúa directamente como agente principal con lectura/escritura/herramientas/pruebas/commits e integración/aceptación local. No limitar su goal a propuestas. Codex sigue pausado; reglas vigentes en AGENTS y docs16§15. Las secciones de incompatibilidad/autorización no adoptada inferiores describen el corte previo. No se modifica el adaptador V1 ni el contrato externo; se registra excepción local de autoridad para el agente principal. [Prompt actualizado](prompt-relevo-claude-20261009.md).
+
 Goal **pausado** por orden del usuario. No se avanzó a otro bloque ni se invocó a Claude. El inventario de Docker/redes/systemd y procesos confirma ausencia de verificaciones propias vivas y de recursos de sus runs; servicios normales intactos. No se ha publicado, hecho push, contratado, usado datos reales ni reescrito historia.
 
 ## Git y conservación

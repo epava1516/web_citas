@@ -4,6 +4,12 @@ Actualizado: 2026-10-09. Fuente contractual: [contrato16](16-contrato-ejecucion-
 
 ## Estado vigente para reanudar
 
+**Contrato v1.7, relevo directo MOD-07 vigente por aclaración posterior del usuario.** Claude es agente principal de la entrega local restante, autorizado a leer/editar, ejecutar/verificar, corregir e integrar con commits locales y aceptación técnica documentada hasta CR09→CR10→GS01→BF/BB→C. No detenerse al entregar una propuesta ni esperar aplicación de Codex. Goal Codex sigue pausado. [Reglas MOD-07](16-contrato-ejecucion-desarrollo.md#mod-07--relevo-directo-a-claude-autorización-vigente), [nuevo prompt](prompt-relevo-claude-20261009.md). Las prohibiciones tool-free y condición de parada del prompt anterior quedan como historia, no instrucciones para Claude principal.
+
+Primera acción: leer documentos y revisar propuesta externa P1–P8 antes de decidir cambios; no asumir verificación kernel, storage o PASS desde inspección. Aplicar únicamente correcciones justificadas, N1/N2 propio real, y continuar con p95/etapas pendientes/censo y N3 según contrato, sin aprobación por hito. El JSON externo y revisión manual no añaden PASS ni aceptación de fase. Consumo: ocho invocaciones históricas conservadas; revisión externa con lectura reportada, fuera de scripts/claude-task, registrada separadamente en el plan.
+
+### Corte anterior de pausa y propuesta acotada
+
 **Pausa y relevo solicitados el 2026-10-09.** El goal está **pausado** tras recoger los terminales y comprobar ausencia de contenedores/redes/temporales propios; no se inicia otro bloque del contrato ni se invoca a Claude. Este corte sustituye las instrucciones de ejecución inmediata que aparecen en los antecedentes inferiores. [Informe y continuación exacta](relevo-claude-20261009.md), [inventario completo y evidencia](evidencias/relevo-local-20261009.json), [prompt conforme al modelo vigente](prompt-relevo-claude-20261009.md).
 
 Último N2 confirmado: `20261009-201631-db21c6aa`, **63 PASS/0 FAIL/0 ERROR/0 SKIP, 467,214s JUnit**; fuentes iguales, PostgreSQL/Redis/nativos reales propios, retirada contrastada y archivo de 1.020 fuentes verificado. No acredita p95, presupuesto global, N3 ni CR09 integral. El último p95 válido de revisión binaria sigue **2,372175/2,395124s > 2s**; no se repitió después de la correctiva funcional. Generación/cobertura/cierre/descargas del flujo grande y controlador/almacenamiento global siguen pendientes.

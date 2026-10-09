@@ -212,3 +212,6 @@ El comprobador valida enlaces/anclas locales y huellas de copias registradas. Re
 ## Relevo detenido2026-10-09
 
 Goal pausado: [informe y continuación](relevo-claude-20261009.md), [prompt con gobernanza vigente](prompt-relevo-claude-20261009.md), [inventario y evidencia](evidencias/relevo-local-20261009.json). No se autoriza ejecución directa de Claude ni reanudar bloques por leer estos documentos.
+
+
+Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con herramientas, cambios/verificaciones e integración local hasta la entrega técnica completa; Codex sigue pausado. La propuesta acotada/tool-free anterior es historial. [Instrucciones vigentes](16-contrato-ejecucion-desarrollo.md#mod-07--relevo-directo-a-claude-autorización-vigente).
