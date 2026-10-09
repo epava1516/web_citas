@@ -1,9 +1,18 @@
 # Seguimiento de ejecución del contrato
 
 
-Actualizado: 2026-10-08. Corte documental: código de purga `72ff79a`, código desplegado `73d28f6`, migración Docker `0110`. [Contrato completo](16-contrato-ejecucion-desarrollo.md).
+Actualizado: 2026-10-09. Corte documental: código de purga `72ff79a`, código desplegado `73d28f6`, migración Docker `0110`. [Contrato completo](16-contrato-ejecucion-desarrollo.md).
 
 ## Estado vigente para reanudar
+
+**Aceptación expresa del usuario, 2026-10-09: cierre local de CR09-REND-LECTURA aceptado en `1a10ecf86a808daf9ae4dd2f72fbe414d5fc3c91`, limitado al alcance sintético revisado por Codex.** La rama `cr09-rend-lectura-normal` se integra en `master` mediante fast-forward, conservando sus commits y todos los artefactos originales. No se despliega en los servicios normales ni se ejecutan nuevas cargas. El goal permanece pausado y esta sigue siendo la única cola.
+
+- **Revisión reutilizada, sin cargas:** originales del [gate normal de 60 s](evidencias/mod05-gate-normal-short-artefactos0110.tar.gz), del [contractual normal intento 2](evidencias/mod05-contractual-normal-intento2-artefactos0110.tar.gz) y de la [comparación 4/6](evidencias/mod05-capacidad-4-vs-6-refresco-artefactos0110.tar.gz). Huellas archivadas verificadas; recálculo de muestras y resúmenes confirma 1.200/18.000 éxitos, cero errores, p95 621,608/392,360 ms, pendientes de ventana 5/7 y finales cero, uploads 1/15 conformes. Drain registrado 0,133/5,087 s. El recálculo 4/6 confirma el FAIL del beneficio de seis en ambos pares; la única diferencia respecto al análisis guardado es redondeo de CPU acumulada de aproximadamente 6×10⁻¹⁷ s.
+- **Cobertura positiva aceptada:** [evidencia de `1a10ecf`](evidencias/mod05-cobertura-positiva0110.json) y [prueba funcional](../tests/test_publication_positive_coverage.py), con resultados positivos normales/PRODUCTION y `checked`, ES/EN, equivalencia byte a byte al nativo y ruta `state`. Datos y proveedor sintéticos; no acredita verificaciones de un proveedor real.
+- **Límites conservados:** los gates no archivan los logs originales de Gunicorn ni eventos WSGI individuales; la prueba positiva conserva código y resumen, sin JUnit original, y no fue repetida por Codex. No se acredita capacidad con grandes poblaciones positivas PRODUCTION/`checked`; página 3 y promociones sintéticas conservan las mediciones y limitaciones del [informe](evidencias/mod05-gates-normal-informe0110.md). Host compartido, fixture y topología `normal_worker_beat` delimitan el PASS. El efecto de la topología y de la corrección de la marca sin señal no se separa causalmente; la corrección de GC del generador no se atribuye al backend.
+- **Veredictos y alcance:** se mantienen los PASS revisados, el INVALID del contractual normal intento 1 y todos los FAIL/INVALID/PASS históricos en sus escenarios. Cuatro workers siguen como referencia; seis no adoptados. CR09 integral, GS01 y producción permanecen abiertos. Contrato y umbrales sin cambios; porcentajes intactos: CR09 **72,50 %**, contrato **65,375 %**. La integración no equivale a aceptación de fase ni a preparación de producción.
+
+### Antecedentes de la aceptación local (condiciones resueltas; registro histórico)
 
 **Decisión del usuario, 2026-10-09:** entrega confirmada en la rama `cr09-rend-lectura-normal`, sin integrar en master. Porcentajes actuales sin cambio: CR09 72,50 % y contrato 65,375 %.
 
