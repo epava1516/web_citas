@@ -363,6 +363,18 @@ def main():
                               for suite in suites for item in suite.iter("property")}
                 if not json.loads(properties.get("preparation_sql_attribution", "{}")):
                     raise RuntimeError("Requested SQL diagnosis missing: INVALID instrument")
+            if args.delivery_complete:
+                properties = {item.attrib["name"]: item.attrib["value"]
+                              for suite in suites for item in suite.iter("property")}
+                measurements = json.loads(properties.get("delivery_measurements", "{}"))
+                cases = measurements.get("cases", [])
+                report["stage_violations"] = [row.get("violations", []) for row in cases]
+                if (len(cases) == 2 and not measurements.get("errors")
+                        and all("binary_download_p95" in row for row in cases)
+                        and any(report["stage_violations"])):
+                    # Every stage measured to the end and a limit was breached: valid FAIL, not ERROR.
+                    report["result"] = "FAIL_DELIVERY_STAGE_LIMITS"
+                    raise RuntimeError("Valid delivery stage limit breach; see stage_violations")
             if result.returncode or not suites or any(
                 int(suite.attrib.get(key, 0)) for suite in suites
                 for key in ("failures", "errors", "skipped")
