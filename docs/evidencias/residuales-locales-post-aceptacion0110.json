@@ -1,0 +1,212 @@
+{
+  "observed_at": "2026-10-09T02:22:48.652322+00:00",
+  "source_commit": "7691642266b19dd4d8f268f23c426b46daf71134",
+  "goal": "Pendientes locales independientes; no reapertura de componentes aceptados ni cargas nuevas",
+  "scope": "Reconciliación finita de docs16/17 y matrices83/88; no auditoría global ni nueva batería funcional",
+  "sources_before_documentary_update_sha256": {
+    "docs/16-contrato-ejecucion-desarrollo.md": "30a6347425c90687fbf65d5cdd95521333d30a3fa6386171be7f4e4cc0ed381f",
+    "docs/17-seguimiento-desarrollo.md": "7160dfb83fe0a98c329e648bc7f3e3e34ece4f1004dee19fc21bd5c1949dfe83",
+    "docs/83-auditoria-pendientes-cr09.md": "e6ad9bc7eaaead258fea35b1e811f636845b041857e914b91944e32aba24a4f0",
+    "docs/88-matriz-cierre-derechos.md": "1001d7e906de3f74a0ecbbfdb65a72f35c6eeb734b4983fb8548986e183c9804",
+    "docs/12-operacion-seguridad.md": "00397cb473806cf7732eb234fa9b831d05612a683ed73650bdd9872d8b932e4f",
+    "docs/37-alertas-denuncias-urgentes.md": "e50cb9819f3f04ab831ab532248a161e597c8d36a46a47019e19fd15e60a52d9",
+    "docs/evidencias/residuales-independientes-reconciliados0110.json": "cea94c796caa5d6ccf46a38b915b7aeaf3bb5af79de34017aabd194a291e3c30",
+    "apps/safety/rights_access_close.py": "fe97ee944f7ed470529868b9837b6a6fefd303557c06594a5d603e29bbb2e7a2",
+    "apps/safety/rights_portability_close.py": "12763d19136d042525954ee567e92cd6ba913e4b6546c7b8fa56e5ad1b2072a7",
+    "apps/safety/rights_communications.py": "e66ad8c7b4b879c8b0de56a27c364698016eeb7a6da48baf4aa919c1c34f6cd8",
+    "apps/safety/urgent_alerts.py": "ccac06980b06b9eed8091058de291c4f542f81e0c72649401491ba87911e2703"
+  },
+  "changed_condition": {
+    "requirement": "CR09-REND-LECTURA",
+    "accepted_source": "1a10ecf86a808daf9ae4dd2f72fbe414d5fc3c91",
+    "acceptance": "Expresa del usuario, 2026-10-09; local y sintética",
+    "integrated_master": "7691642266b19dd4d8f268f23c426b46daf71134",
+    "previous_performance_unblocking_input": "Resuelto para el alcance local aceptado; no requiere reanudación, autorización ni nuevas cargas",
+    "limits": "Sin aceptación CR09 integral/GS01/producción, sin porcentajes nuevos; históricos conservados"
+  },
+  "local_delivery_audit": [
+    {
+      "requirement": "Portabilidad/acceso y cobertura de recursos",
+      "evidence": "Matrices83/88 y acta previa; derechos completos requieren cobertura aprobada. rights_access_close.require_complete_delivery rechaza package.pending y valida la copia suplementaria, tanto al cerrar como al validar el cierre.",
+      "residual": "Censo y asociación/autorización por fuente, no otra implementación del cierre ya entregado",
+      "input_ids": [
+        "census",
+        "identity"
+      ]
+    },
+    {
+      "requirement": "Rectificación/supresión/limitación/oposición y conservación",
+      "evidence": "Matrices83/88: recorridos locales y respuestas parciales cerrados en sus alcances; purga/planes/calendario existentes",
+      "residual": "Decisiones por finalidad, política/plazos/excepciones y cobertura operativa; no sustituirlos por decisión inventada o retirar pending",
+      "input_ids": [
+        "retention",
+        "census",
+        "identity"
+      ]
+    },
+    {
+      "requirement": "Comunicaciones",
+      "evidence": "rights_communications.snapshot identifica pendientes sobre destinatarios históricos, registro de destinos externos y autorización/entrega; avisos internos y acuse ya entregados",
+      "residual": "Matriz autorizada derecho/destinatario/canal y evidencia externa de entrega/fallos",
+      "input_ids": [
+        "communications"
+      ]
+    },
+    {
+      "requirement": "Urgencias/escalado",
+      "evidence": "docs37 y urgent_alerts: reconocimiento no resuelve, follow_up conserva estados no terminales y muestra asignación; recorridos locales y worker/Beat existentes",
+      "residual": "Responsable/suplente, cobertura, niveles/canales y criterios de escalado/resolución; acta operativa",
+      "input_ids": [
+        "urgent"
+      ]
+    },
+    {
+      "requirement": "Restauración/operación",
+      "evidence": "docs83 y acta previa: checkpoint/pg_dump/pg_restore propios ya verificados; docs12 exige comparación contra RPO/RTO",
+      "residual": "Inventario/custodia/entorno objetivo y RPO/RTO numéricos aprobados; sin repetir ensayo ni cambiar recursos por rutina",
+      "input_ids": [
+        "infrastructure"
+      ]
+    },
+    {
+      "requirement": "Rendimiento de expedientes grandes",
+      "evidence": "docs83: memoria/binarios/JSON/transportes y optimizaciones existentes, sin criterio integral de capacidad objetivo",
+      "residual": "Dataset/poblaciones/variantes, recursos y umbrales numéricos de tiempo/memoria/latencia/concurrencia por preparación/revisión/cierre/descarga, antes de escoger intervención; cargas requerirían autorización independiente",
+      "input_ids": [
+        "infrastructure"
+      ]
+    },
+    {
+      "requirement": "Aceptación integral CR09",
+      "evidence": "docs16 MOD02/04, docs83: no N3 común ni alcance integral satisfecho",
+      "residual": "Trazabilidad sobre versión común y requisitos anteriores; Codex ejecutará N3 cuando proceda, no se traslada al usuario. CI/revisión externa conservan sus gates. No ensamblar resultados de fuentes distintas como una única batería.",
+      "input_ids": [
+        "census",
+        "identity",
+        "retention",
+        "communications",
+        "urgent",
+        "infrastructure",
+        "security_ci"
+      ]
+    },
+    {
+      "requirement": "Preparaciones independientes CR10/UI/accesibilidad/ESEN/SEO",
+      "evidence": "Acta previa y docs17: preparaciones y 72 entregas locales cerradas; no omisión residual concreta nueva demostrada",
+      "residual": "No desarrollo adicional por ausencia de tarifas ni nuevas pruebas por rutina; decisiones operativas/productivas separadas",
+      "input_ids": [
+        "commercial"
+      ]
+    }
+  ],
+  "unblocking_inputs": [
+    {
+      "id": "census",
+      "blocks": [
+        "Acceso/cobertura",
+        "Portabilidad",
+        "Recursos/historial"
+      ],
+      "decision_or_evidence": "Inventario autorizado por recurso: sistema responsable, origen y corte, ubicación/referencia y huella, formato, período retenido, criterio fiable de asociación al titular, decisión de inclusión/redacción/exclusión motivada y revisor. Para las23fuentes conocidas falta asociación/contenido/diferencias yrevisión de divulgación; indicar otras fuentes correo/host/backups existentes o acreditar su ausencia.",
+      "who": "Operador/custodio yrevisor dederechos",
+      "next_local_work": "Consumir el inventario y asociaciones enpaquete/revisión existentes; corregir únicamente recurso necesario no soportado demostrado.",
+      "limit": "No inferir asociación por UUID/substrings/conteos ni excluir desconocidos. Aportar referencias/procedimientos y casos sintéticos, sin datos personales reales enrepo."
+    },
+    {
+      "id": "identity",
+      "blocks": [
+        "Identidad/representación/edad",
+        "Aceptación externa dederechos"
+      ],
+      "decision_or_evidence": "Designar responsable yprocedimiento aprobado deverificación: evidencias aceptadas, alcance, vigencia/revocación, estados ytratamiento defallo. Si seelige proveedor ya autorizado: contrato deinterfaz/documentación técnica yentorno depruebas; aceptación real necesita informe verificable delprocedimiento externo.",
+      "who": "Operador/responsable jurídico yproveedor autorizado",
+      "next_local_work": "Adaptación/comprobación local sobre contrato concreto si difiere deladaptador existente.",
+      "limit": "Simuladores actuales no acreditan identidad real; esta instrucción no autoriza contratar proveedor."
+    },
+    {
+      "id": "retention",
+      "blocks": [
+        "Conservación/destrucción",
+        "Decisiones por finalidad"
+      ],
+      "decision_or_evidence": "Política revisada por finalidad ytipo deartefacto: fundamento aprobado, evento deinicio delplazo, duración, excepciones/reserva, tratamiento dehistorial/backups, autoridad queaprueba/ejecuta yrespuesta cuando cobertura esparcial. Para derecho/finalidad pendiente: decisión motivada yalcance exigible.",
+      "who": "Operador yrevisor jurídico",
+      "next_local_work": "Contrastar política conplanes/disparadores existentes eimplementar solo diferencia concreta autorizada; comprobar escenarios sintéticos.",
+      "limit": "No inventar plazos, fundamentos, autorizar destrucción oconvertir respuesta parcial enintegral."
+    },
+    {
+      "id": "communications",
+      "blocks": [
+        "Comunicaciones/destinatarios"
+      ],
+      "decision_or_evidence": "Matriz por derecho: destinatario/rol ycriterio deautorización vigente, canal aprobado, contenido mínimo, acuse exigido, fallo/reintento/revocación yefecto sobre cierre. Referencia deinforme deentrega/fallo real paraaceptación externa.",
+      "who": "Operador yresponsable delcanal/proveedor ya autorizado",
+      "next_local_work": "Integrar únicamente canal/contrato concreto pendiente yverificar fallos sintéticos; reutilizar buzón yacuse existentes.",
+      "limit": "Aviso interno no demuestra recepción externa; no enviar mensajes nipublicar sin autorización específica."
+    },
+    {
+      "id": "urgent",
+      "blocks": [
+        "Urgencias/moderación/incidentes"
+      ],
+      "decision_or_evidence": "Responsable ysuplente, cobertura horaria, niveles/criterios deescalado, canal por nivel, plazo operativo decidido, autoridad paraintervenir ycriterio deresolución. Paraaceptación: acta desimulacro conresponsables, marcas detiempo, actuaciones yresultado.",
+      "who": "Responsable operativo",
+      "next_local_work": "Contrastar procedimiento concola/asignación/decisión existentes; implementar solo transición omecanismo faltante demostrado.",
+      "limit": "Reconocer alerta no resuelve incidencia; no inventar SLA ni responsables."
+    },
+    {
+      "id": "infrastructure",
+      "blocks": [
+        "Restauración/operación",
+        "Producción/dominio/geografía"
+      ],
+      "decision_or_evidence": "Definir entorno objetivo yresponsable, dominio/origen autorizado, inventario derecursos/backups ycustodio, RPO máximo yRTO máximo numéricos, alcance ycriterios delensayo. Dataset geográfico nacional: fuente, licencia, versión ypolítica deactualización autorizadas si sedesea avanzar importación completa. Paraaceptación externa: acta derestauración/custodia verificable.",
+      "who": "Titular/operador técnico/custodio",
+      "next_local_work": "Adaptar runbook/configuración/importador existentes solo adiferencias justificadas yensayar localmente condatos sintéticos si seautoriza alcance.",
+      "limit": "Restauración local no acredita RPO/RTO real; no publicación, contratación, servicios ajenos ni datos reales."
+    },
+    {
+      "id": "security_ci",
+      "blocks": [
+        "Seguridad/CI",
+        "Aceptación integral"
+      ],
+      "decision_or_evidence": "Designar revisor independiente, alcance ycriterios, yaportar informe/remediaciones. ParaCI: habilitar elrunner existente odecidir entorno autorizado quepermita ejecutar gates; aportar resultado verificable porcommit.",
+      "who": "Titular delservicio yrevisor independiente",
+      "next_local_work": "Resolver hallazgo concreto yverificarlo localmente; gates comunes solo cuando se cumplan susprerrequisitos.",
+      "limit": "No declarar CIexterno correcto desde pruebas locales ni aceptar GS01/fases antes deCR09."
+    },
+    {
+      "id": "commercial",
+      "blocks": [
+        "Condiciones comerciales reales"
+      ],
+      "decision_or_evidence": "Mantener ventas deshabilitadas (estado vigente), oaportar catálogo definitivo detarifas, moneda/fiscalidad, condiciones yresponsable desuaprobación para futuraactivación autorizada.",
+      "who": "Titular/revisor jurídico",
+      "next_local_work": "Preparación sintética yaentregada; no trabajo adicional porausencia detarifas.",
+      "limit": "Tarifas reales no bloquean preparación técnica ni autorizan cobros reales v1."
+    }
+  ],
+  "additional_exact_input": {
+    "requirement": "Rendimiento de expedientes grandes",
+    "who": "Operador/titular para el objetivo y recursos; Codex para diseño y verificación",
+    "required": "Definir población sintética y variantes de expedientes, entorno/recursos objetivo y límites numéricos por etapa; no son los umbrales del listado público. No hay autorización de cargas nuevas."
+  },
+  "decision": "No requisito local concreto ejecutable demostrado en las fuentes prescritas. Conservar entregas y avanzar tras recibir un insumo autorizado o un defecto/requisito nuevo demostrado. La aceptación de lectura no acepta las otras filas.",
+  "actions": {
+    "new_tests": 0,
+    "new_loads": 0,
+    "new_resources": 0,
+    "product_changes": 0,
+    "foreign_services_modified": false,
+    "percentages_changed": false,
+    "components_reopened": false
+  },
+  "blocking_audit": {
+    "fresh_goal_turn": 1,
+    "status": "active",
+    "classification": "progress: authoritative residual reconciliation after accepted local delivery",
+    "previous_audits": "Históricos; no se hereda el contador del goal anterior"
+  },
+  "graphify": "Consulta de solo lectura usada para localizar acta/servicios. No se reconstruye ni se presupone que el grafo refleja la aceptación reciente; fuentes originales prevalecen."
+}
