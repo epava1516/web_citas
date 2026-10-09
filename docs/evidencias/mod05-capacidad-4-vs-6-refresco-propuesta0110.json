@@ -1,0 +1,97 @@
+{
+  "status": "EXECUTED_REVIEWED",
+  "supersedes": "docs/evidencias/mod05-capacidad-4-vs-6-propuesta0110.json (conservada; su runner sigue rechazando la ejecucion)",
+  "product_source": "c82a746 (producto 2dd4ca5) + correccion local de la marca sin senal del procesado de imagen (docs/evidencias/mod05-marca-sin-senal-correccion0110.diff); el runner congela las huellas exactas al ejecutar",
+  "refresh_mode": "normal_worker_beat",
+  "scenarios": {
+    "normal_worker_beat": {
+      "definition": "Topologia MOD05 desplegada: web Gunicorn sync, worker Celery y Beat reales. Las tareas no son eager; las senales on_commit encolan el refresco y process_blob en el worker; Beat ejecuta el calendario desplegado completo (refresh-publication-state cada 30 s, sweep cada 3600 s y tareas de 60 s). Reparacion en lectura desactivada (defecto).",
+      "status": "Escenario de esta propuesta. Nunca ejecutado con carga."
+    },
+    "without_worker_beat_eager_signal": {
+      "definition": "Configuracion de todos los arneses de carga anteriores (test_contract_http_load.py, test_resource_service_checkpoint.py, test_worker_capacity_comparison.py sin refresh_mode): CELERY_TASK_ALWAYS_EAGER, Beat vacio, sin worker. Las tareas disparadas por senal (refresco, process_blob) se ejecutan dentro del proceso web que atiende la escritura; las escrituras sin senal (p. ej. el update final de Photo.comparison_complete) dejan marcas que nada refresca.",
+      "evidence": "docs/evidencias/mod05-refresco-escenarios-funcional0110.json: un upload sintetico ejecuta 3 refrescos eager en el web y termina con 1 sucio residual.",
+      "status": "Escenario de los resultados de carga obtenidos con MOD05: R5 intento 2 PASS y R6 contractual PASS en portatil (registran upload eager en peticion), gate VPS 60 s VALID/FAIL, diagnostico de recursos 30 s VALID/FAIL y controles secuenciales de matriz/contrastes (sin upload). Se conservan con sus veredictos, cifras y ambitos; solo se etiqueta su escenario, sin reinterpretarlos ni restar el coste del camino sucio. Los resultados anteriores a MOD05 (comparacion 4/6/6/4 historica INCONCLUSIVE, contractual INVALID, FAIL cortos, checkpoint post-limpieza VALID/COMPARABLE/FAIL) no tenian estado almacenado y no reciben esta etiqueta. No se repite en esta propuesta."
+    }
+  },
+  "basis": {
+    "current_matrix": "docs/evidencias/mod05-pertenencia-matriz-informe0110.md: D 206,677/221,770 ms -> 20D 4,133543/4,435395 worker-s/s, controles secuenciales limpios (unknown=0), upload not_measured.",
+    "residual_review": "docs/evidencias/mod05-sucios-acotados-informe0110.md: trabajo exacto eliminable restante DeltaD <= ~13-22 ms; servicio dominado por espera bloqueante; intervencion de desconocidos acotados retirada.",
+    "loaded_route_population_eager": "docs/evidencias/mod05-recursos-informe0110.md: 346/400 listado/busqueda con native_unknown=1 tras el upload en el escenario without_worker_beat_eager_signal; no se traslada al escenario normal.",
+    "wiring": "docs/evidencias/mod05-refresco-escenarios-funcional0110.json: worker/Beat propios verificados sin carga.",
+    "signal_less_mark_fix": "docs/evidencias/mod05-refresco-escenarios-funcional0110.json signal_less_mark_fix: el upload ya no deja sucio residual; en normal_worker_beat el refresco tras el procesado se encola al worker en vez de esperar al tick de Beat (hasta 30 s)."
+  },
+  "hypothesis": "En la topologia normal, con el refresco presente, seis workers sync pueden cubrir la ocupacion de worker que no es CPU (espera bloqueante) manteniendo las medias de servicio y los limites de recursos compartidos. No se presupone ni la fraccion de lecturas sucias ni la holgura de CPU.",
+  "orders": [
+    4,
+    6,
+    6,
+    4
+  ],
+  "selection": [
+    "tests/test_worker_capacity_comparison.py::test_worker_capacity_comparison"
+  ],
+  "scenario": {
+    "per_block_duration_seconds": 30,
+    "rps": 20,
+    "dynamic_per_block": 600,
+    "listings": 10000,
+    "fixture": "original contractual repeated",
+    "mix": "1/3 listado, 1/3 busqueda, 1/3 ficha; seis rutas ES/EN iguales dentro de cada familia",
+    "upload": 1,
+    "upload_spacing_min_seconds": 60,
+    "client_timeout_seconds": 65,
+    "server_timeout_seconds": 65,
+    "drain_max_seconds": 70,
+    "max_active_servers": 1,
+    "max_active_loads": 1
+  },
+  "refresh_topology": {
+    "identical_in_both_arms": "Mismos comandos, configuracion, calendario Beat, concurrencia del worker y fase de Beat en los cuatro bloques. Solo varia --workers de Gunicorn (4 o 6).",
+    "worker_command": "python -m celery -A config worker --loglevel=INFO --concurrency=2 (compose.yaml)",
+    "beat_command": "python -m celery -A config beat --loglevel=INFO --schedule <runtime propio> (compose.yaml)",
+    "settings": "config.settings sin cambios salvo MEDIA_ROOT propio; sin CELERY_TASK_ALWAYS_EAGER; observador de tareas importado por los settings propios solo con WEB_MODELOS_CELERY_OBSERVER_DIR.",
+    "isolation": "Por bloque: clon PostgreSQL propio, broker Redis db 15 del contenedor del proyecto verificado vacio antes y vaciado/verificado despues (el runtime normal usa db 0 y no se toca), prefijo TASK_QUEUE_GENERATION unico, procesos propios en su grupo de sesion, PIDs registrados y verificados ausentes, fichero de calendario Beat en el runtime propio retirado.",
+    "start_order": "worker y Beat listos (logs ' ready.' y 'beat: Starting') antes de Gunicorn; readiness 60 s maximo.",
+    "beat_phase": "El arranque de la carga (upload en t=0) se fija 5 s despues de un publish observado de Beat del refresco de 30 s; registrado en beat_alignment.",
+    "initial_state": "Clon preparado con refresh_publication_state oficial; dirty_before_load registrado."
+  },
+  "refresh_instrumentation": {
+    "executions": "scripts/benchmark_celery_observer.py: una linea por publish (rol web/beat, id) y por ejecucion (rol, eager, wall, CPU de hilo, resultado). Origen por correlacion de id; demora cola->inicio = inicio - publish.",
+    "cost": "Suma por bloque de wall y CPU de hilo de las ejecuciones de refresh_publication_state y process_blob en el worker; CPU de procesos worker/Beat desde ResourceProbe (todos los procesos del host).",
+    "delay": "Por refresco: marcas limpiadas y cota superior marca->limpieza (reloj de la base desde la primera marca hasta el fin de la tarea).",
+    "invalidations": "scripts/benchmark_publication_sampler.py a 1 Hz: sucios pendientes, antiguedad de la marca mas antigua, last_value de listings_publication_generation (una unidad por marca o remarca). Delta por fase.",
+    "read_routes": "Fraccion de listado/busqueda con native_unknown 0/1/>1 y ruta state/fallback desde los eventos WSGI existentes.",
+    "overhead": "Observador: dos lecturas de listings_publicationdirty por refresco y escritura JSONL por tarea; muestreador: una conexion a 1 Hz. Overhead causal not_measured; mismo instrumento en todos los bloques."
+  },
+  "instrumentation": "WSGI wall/CPU de hilo/ruta/PID existentes; ResourceProbe 1 Hz de procesos/host/PG compartido/cgroups/IO/estados; ledger, access, servidor, logs de worker/Beat y eventos originales archivados. Sin profiler SQL/reglas en controles.",
+  "limits": {
+    "max_workers": 6,
+    "celery_worker_concurrency": 2,
+    "stop_owned_trial_if_host_execution_CPU_cores_at_least": 7.6,
+    "sustained_samples_for_CPU_stop": 5,
+    "stop_mem_available_below_bytes": 2147483648,
+    "stop_on_new_oom_events": true,
+    "unrelated_host_CPU_difference_between_blocks_above_cores_makes_causal_result_inconclusive": 0.5,
+    "generator_thresholds": "existentes sin cambio; INVALID si se violan",
+    "refresh_validity": "Bloque INVALID para la comparacion si worker o Beat no estan listos, si no se observa un tick de Beat antes de la carga, si el broker propio no esta vacio al inicio o si un proceso propio termina durante el bloque.",
+    "stop_cleanup": "solo servidor, worker, Beat, muestreadores, base y claves Redis db 15 propios; nunca servicios normales del host. Un resultado fallido o no concluyente no encola variantes."
+  },
+  "accounting": "D = suma(media WSGI por familia)/3 con pesos 1/3; W = 20D + U con U del upload a 1/minuto (N1 por bloque). En este escenario process_blob se ejecuta en el worker: U no es comparable con el U del escenario eager. El trabajo del worker Celery no se suma a D ni W de Gunicorn; se informa aparte como coste de refresco y como CPU del host.",
+  "effect_filter": "Informativo 6 frente a 4 dentro de normal_worker_beat: al menos 10 % mas completaciones en 30 s en ambos pares contrabalanceados, p95 cliente completo menor en ambos pares, fraccion de errores no mayor y D no mayor que 1,10 veces la referencia. Generador y ledger sin cambios. No acepta capacidad, no cambia el SLO ni autoriza otra ejecucion.",
+  "analysis": "Dos contrastes emparejados 4 vs 6 y 6 vs 4 dentro del mismo escenario. Comparar completaciones por familia durante la emision, throughput, pendientes, pre-WSGI y recursos; medias de cohorte completas, resultados finales del cliente, CPU de hilo, tardias tras 65 s y timeouts por separado. Refresco: ejecuciones por origen, coste, demora, invalidaciones y fraccion de lecturas sucias por bloque; diferencias entre brazos se informan, no se corrigen. Ninguna comparacion causal con resultados del escenario without_worker_beat_eager_signal; las diferencias entre escenarios son descriptivas. Metricas ausentes: not_measured.",
+  "verdicts": "Separar validez de escenario/generador/contabilidad/topologia de refresco (VALID/INVALID), efecto/comparabilidad y filtro completo de 30 s (PASS/FAIL condicionado a validez). 30 s no sustituye el gate de 60 s ni el contractual de 900 s; exitos tardios del servidor nunca son exitos del cliente. Ninguna adopcion desde este experimento.",
+  "release": "Cada bloque terminal requiere revision independiente de huellas, PIDs propios (web, worker, Beat), base, medios, claves Redis, ledger, fuentes y recursos antes del siguiente bloque ya planificado; sin cambios de fuente entre bloques.",
+  "preparation_verified": "Sin carga: ruff y py_compile de arnes, runner, observador y muestreador; comprobacion funcional de worker/Beat propios y del observador eager (mod05-refresco-escenarios-funcional0110.json). El experimento completo no se ha ejecutado.",
+  "permission_scope": "Autorizacion no heredada de la propuesta anterior, del diagnostico unico ni de la comparacion historica. Requiere autorizacion expresa para estos 4 bloques de 30 s en normal_worker_beat, incluido arrancar worker/Beat propios y usar Redis db 15 del contenedor del proyecto; sin adoptar seis workers, recursos permanentes, cambios de PostgreSQL, cache, produccion, 60 s ni 900 s.",
+  "runner": "docs/evidencias/mod05-capacidad-4-vs-6-refresco-runner0110.py: rechaza la ejecucion salvo status AUTHORIZED, refresh_mode normal_worker_beat y Redis db 15 vacio, antes de crear recursos.",
+  "open_decision_for_user": "El gate de 60 s y el contractual de 900 s usan hoy el escenario without_worker_beat_eager_signal. Si deben evaluar la topologia normal es una decision de definicion del escenario contractual; esta propuesta no la cambia.",
+  "decision": "Proponer comparacion de concurrencia medida en la topologia normal; conservar la pertenencia SQL aceptada. Tras resultados, decidir trabajo/concurrencia/combinacion con nueva autorizacion de adopcion o gate si procede.",
+  "contract": "10.000 anuncios, 20 RPS durante 900 s, mezcla y uploads vigentes, p95<800 ms, errores<1 %, generador/contabilidad/timeout/drain sin cambios. CR09 abierto; porcentajes sin cambio.",
+  "authorization": {
+    "date": "2026-10-08",
+    "text": "Autorizo la propuesta 4/6 de refresco",
+    "scope": "Solo los cuatro bloques de 30 s 4/6/6/4 en normal_worker_beat de esta propuesta; sin 60/900 s, adopcion de seis workers, recursos permanentes, PostgreSQL, cache ni produccion."
+  },
+  "result": "docs/evidencias/mod05-capacidad-4-vs-6-refresco-informe0110.md: 4 bloques VALID, filtro 30 s PASS en los cuatro; efecto 6 frente a 4 FAIL en ambos pares; seis no adoptado."
+}

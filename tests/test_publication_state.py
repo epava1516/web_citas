@@ -76,7 +76,10 @@ def test_state_route_matches_native_before_and_after_refresh(request, settings, 
     if mode == "production":
         settings.PRODUCTION = True
         publication_state.rules_version.cache_clear()
-    assert dirty_ids()  # Fresh listings are unknown and evaluated natively.
+    # Fixture image processing already queued refreshes; mark everything so the first
+    # comparison still exercises unknown listings evaluated natively.
+    publication_state.mark_all()
+    assert dirty_ids()  # Unknown listings are evaluated natively.
     assert_equivalent(client, monkeypatch)
     drain()
     assert_equivalent(client, monkeypatch)

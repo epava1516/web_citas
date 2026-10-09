@@ -1,6 +1,7 @@
 """Observe process GC intervals without changing collector policy or forcing it."""
 
 import gc
+import os
 import threading
 import time
 from collections import Counter
@@ -15,8 +16,16 @@ def prepare_generator_gc():
     policy_before = {"enabled": gc.isenabled(), "thresholds": gc.get_threshold()}
     start_wall, start_cpu = time.perf_counter(), time.thread_time()
     collected = gc.collect(2)
+    # Opt-in: move the surviving fixture heap to the permanent generation so in-window
+    # collections of this client process do not traverse it. Thresholds and enabled state
+    # stay unchanged; the backend is unaffected.
+    frozen = os.environ.get("WEB_MODELOS_GENERATOR_GC_FREEZE") == "1"
+    if frozen:
+        gc.freeze()
     return {
         "collected_gc_objects": collected,
+        "frozen_after_collect": frozen,
+        "frozen_objects": gc.get_freeze_count(),
         "wall_seconds": time.perf_counter() - start_wall,
         "collector_thread_cpu_seconds": time.thread_time() - start_cpu,
         "completed_at_monotonic": time.monotonic(),

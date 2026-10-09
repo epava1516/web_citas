@@ -2,7 +2,44 @@
 
 Corte2026-10-08. Goal activo para continuación independiente por cambio posterior del usuario; rendimiento aplazado. Única cola en [seguimiento17](17-seguimiento-desarrollo.md), contrato16 MOD04 y criterios vigentes. Fuentes sobreb285aba; runtime normal73d28f6 intacto. La [versión previa del DAFO](17-historial/2026-10-07-dafo-antes-captura-escalar.md) conserva el razonamiento anterior; los contrastes de fuentes distintas no son ganancias acumulables.
 
-## Estado vigente — rendimiento aplazado por prioridad expresa
+## Estado vigente — gates PASS en topología normal, 2026-10-09
+
+[Informe](evidencias/mod05-gates-normal-informe0110.md). Con worker y Beat reales y 4 workers sync, el gate de 60 s da PASS completo (p95 0,622 s) y el contractual de 900 s da PASS en el intento 2 (p95 0,392 s, 0 errores, 15/15 uploads). El intento 1 fue INVALID por el GC del cliente.
+
+| DAFO | Evidencia / implicación |
+| --- | --- |
+| Fortalezas | Contractual completo en la topología desplegada, refresco instrumentado (máximo 0,42 s marca→limpieza), revisión independiente y limpieza verificada. |
+| Debilidades | Host compartido y local; la topología normal y la corrección de la marca sin señal se miden juntas; el instrumento cliente se corrigió entre intentos. |
+| Oportunidades | Aceptación por el usuario y cobertura de las rutas PRODUCTION, `checked` y promociones. |
+| Amenazas | Extrapolar a producción, proveedores o CDN; comparar causalmente con el escenario eager. |
+
+## Corte anterior — 4/6 en topología normal, 2026-10-08
+
+[Informe](evidencias/mod05-capacidad-4-vs-6-refresco-informe0110.md). Con worker y Beat reales y la corrección de la marca sin señal, 4 workers superan el filtro de 30 s en ambos bloques (p95 ≈0,50 s, D ≈195 ms, 20D+U ≈3,9, ≈10/400 lecturas sucias). Seis workers no mejoran: el efecto falla y no se adoptan.
+
+| DAFO | Evidencia / implicación |
+| --- | --- |
+| Fortalezas | Comparación emparejada válida, competencia ajena dentro del límite, refresco instrumentado, revisión y limpieza bloque a bloque. |
+| Debilidades | Bloques de 30 s, host compartido, margen W ≈3,9/4; la topología normal y la corrección se miden juntas. |
+| Oportunidades | Ejecutar el gate de 60 s y después el de 900 s en la topología desplegada. |
+| Amenazas | Comparar causalmente con el escenario eager; dar por acreditados el gate o la capacidad de producción desde 30 s. |
+
+Siguiente paso dependiente del usuario: definir el escenario de los gates y autorizar el de 60 s.
+
+## Corte anterior — residual manual y dependencia de concurrencia, 2026-10-08
+
+Trabajo manual reanudado por instrucción directa del usuario. [Informe](evidencias/mod05-sucios-acotados-informe0110.md). Diagnóstico cProfile finito, una intervención prefijada (enumerar solo desconocidos sucios cuando el invariante global lo permite) con equivalencia y mecanismo PASS. El efecto HTTP solo se cumple en búsqueda diversa (≈48 ms) y no en listado ni búsqueda repetida, así que el cambio se **retira**. Producto restaurado a `c82a746`.
+
+| DAFO | Evidencia / implicación |
+| --- | --- |
+| Fortalezas | El oráculo nativo, el arnés TCP emparejado y los planes separados permiten aceptar o rechazar intervenciones de forma reproducible. La exactitud de MOD05 se conserva. |
+| Debilidades | Con la matriz limpia, D = 206,7–221,8 ms → 20D = 4,13–4,44 > 4 workers. El trabajo exacto eliminable que queda es ΔD ≲ 13–22 ms. El servicio está dominado por la espera bloqueante en `Connection.wait` (128–246 ms por request perfilado), no por un tramo Python concentrado. |
+| Oportunidades | Concurrencia: con la CPU del thread ≈52 % del WSGI bajo carga, los workers sync esperan al servidor. La propuesta 4/6/6/4 ya preparada aísla esa variable sobre el código actual. Además, decidir si el escenario contractual debe incluir el refresco MOD05 desplegado. |
+| Amenazas | Encadenar microintervenciones de <20 ms; host compartido y ruidoso; extrapolar controles secuenciales a capacidad; adoptar seis workers sin la comparación autorizada. |
+
+**Reconciliación con MOD05 ([informe](evidencias/mod05-refresco-escenarios-informe0110.md)):** las cargas previas con MOD05 son del escenario `without_worker_beat_eager_signal`: refresco eager en el web y sucio residual tras el upload. La propuesta 4/6 se rehace en `normal_worker_beat`, con worker y Beat propios, aislados e idénticos en ambos brazos, e instrumentados (ejecuciones, coste, demora, invalidaciones). Debilidad añadida: los gates vigentes no miden la topología desplegada. Amenaza añadida: comparar causalmente escenarios distintos. Siguiente paso dependiente del usuario: autorización expresa de la [propuesta ajustada](evidencias/mod05-capacidad-4-vs-6-refresco-propuesta0110.json), no ejecutada, y decisión sobre el escenario de los gates. Sin 30/60/900 s; CR09 abierto, porcentajes, contrato y veredictos históricos intactos.
+
+## Corte anterior — rendimiento aplazado por prioridad expresa
 
 CR09-REND-LECTURA aplazado hasta reanudación expresa; código/evidencias y requisitos conservados, sin cierre ni nuevas cargas/intervenciones. [Intervención residual terminal](evidencias/residual-prepared-informe0110.md):preparación real delSELECT noadoptada por efectoHTTP−82,704/−20,553ms,1/8y4/8paresfavorables. Equivalencia focal/PG/TCP correcta; aportes de mediasWSGI aΔDlecturas−59,550/−28,601ms, no mezcla total/capacidad. Planes padres custom/generic separados precedenANALYZE; noexplican causalmente planesworkers decontrol. Fuente/backendigual, retirada propia/SHA revisados.
 

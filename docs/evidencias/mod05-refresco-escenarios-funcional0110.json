@@ -1,0 +1,461 @@
+{
+ "description": "Comprobaciones funcionales sin carga de la reconciliacion de escenarios de refresco MOD05 (2026-10-08). PostgreSQL sintetico propio por ejecucion; ninguna carga ni generador.",
+ "source_commit": "c82a746 con fuentes del arnes en preparacion (ver huellas)",
+ "eager_upload_without_worker_beat": {
+  "test": "docs/evidencias/mod05-refresco-escenarios-eager-test0110.py.txt",
+  "runner": {
+   "db": "promotion_gate_cr09diag_d6dcd816050d",
+   "source": "c82a7468b83b83a1d2161a728a28f8c509cfb804",
+   "dirty_tree": " M .ai/tasks/desarrollo.md\n M docs/17-seguimiento-desarrollo.md\n M docs/analisis-bloque-rendimiento-dafo0110.md\n?? docs/evidencias/mod05-perfil-python-diagnostico0110.json\n?? docs/evidencias/mod05-perfil-python-runner0110.py.txt\n?? docs/evidencias/mod05-perfil-python-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-analisis-script0110.py\n?? docs/evidencias/mod05-sucios-acotados-analisis0110.json\n?? docs/evidencias/mod05-sucios-acotados-arnes0110.diff\n?? docs/evidencias/mod05-sucios-acotados-artefactos0110.tar.gz\n?? docs/evidencias/mod05-sucios-acotados-candidato0110.diff\n?? docs/evidencias/mod05-sucios-acotados-equivalencia-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-huellas0110.json\n?? docs/evidencias/mod05-sucios-acotados-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-manifiesto0110.json\n?? docs/evidencias/mod05-sucios-reference0110.py\n",
+   "pytest_exit": 0,
+   "seconds": 43.081888620741665,
+   "databases_left": [],
+   "media_removed": true
+  },
+  "result": {
+   "events": [
+    {
+     "event": "refresh",
+     "limit": 200,
+     "processed": 1,
+     "generation_before": 108,
+     "dirty_after": []
+    },
+    {
+     "event": "refresh",
+     "limit": 200,
+     "processed": 0,
+     "generation_before": 108,
+     "dirty_after": []
+    },
+    {
+     "event": "refresh",
+     "limit": 200,
+     "processed": 1,
+     "generation_before": 110,
+     "dirty_after": []
+    },
+    {
+     "event": "refresh",
+     "limit": 200,
+     "processed": 0,
+     "generation_before": 110,
+     "dirty_after": []
+    },
+    {
+     "event": "refresh",
+     "limit": 200,
+     "processed": 1,
+     "generation_before": 112,
+     "dirty_after": []
+    },
+    {
+     "event": "refresh",
+     "limit": 200,
+     "processed": 0,
+     "generation_before": 112,
+     "dirty_after": []
+    },
+    {
+     "event": "photo_queryset_update",
+     "fields": [
+      "comparison_complete"
+     ],
+     "rows": 1
+    }
+   ],
+   "final_generation": 114,
+   "dirty_after_response": [
+    "ca298739-363a-4dd8-91e8-d890a55971b7"
+   ],
+   "draft_listing": "ca298739-363a-4dd8-91e8-d890a55971b7"
+  },
+  "observer_run": {
+   "runner": {
+    "db": "promotion_gate_cr09diag_9b90edd6d4e3",
+    "source": "c82a7468b83b83a1d2161a728a28f8c509cfb804",
+    "dirty_tree": " M .ai/tasks/desarrollo.md\n M docs/17-seguimiento-desarrollo.md\n M docs/analisis-bloque-rendimiento-dafo0110.md\n M tests/test_worker_capacity_comparison.py\n?? docs/evidencias/mod05-perfil-python-diagnostico0110.json\n?? docs/evidencias/mod05-perfil-python-runner0110.py.txt\n?? docs/evidencias/mod05-perfil-python-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-analisis-script0110.py\n?? docs/evidencias/mod05-sucios-acotados-analisis0110.json\n?? docs/evidencias/mod05-sucios-acotados-arnes0110.diff\n?? docs/evidencias/mod05-sucios-acotados-artefactos0110.tar.gz\n?? docs/evidencias/mod05-sucios-acotados-candidato0110.diff\n?? docs/evidencias/mod05-sucios-acotados-equivalencia-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-huellas0110.json\n?? docs/evidencias/mod05-sucios-acotados-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-manifiesto0110.json\n?? docs/evidencias/mod05-sucios-reference0110.py\n?? scripts/benchmark_celery_observer.py\n?? scripts/benchmark_publication_sampler.py\n?? tests/test_owned_refresh_topology.py\n",
+    "pytest_exit": 0,
+    "seconds": 43.822010352276266,
+    "databases_left": [],
+    "media_removed": true
+   },
+   "events": [
+    {
+     "event": "execution",
+     "task": "apps.listings.tasks.refresh_publication_state",
+     "id": "1d544047-7785-4e00-b3b7-78234354649a",
+     "role": "web",
+     "pid": 1036946,
+     "eager": true,
+     "state": "SUCCESS",
+     "start_monotonic": 3215338.812822951,
+     "end_monotonic": 3215338.923778215,
+     "wall": 0.11095526395365596,
+     "thread_cpu": 0.057624609000001215,
+     "result": 4,
+     "dirty_before": 4,
+     "dirty_after": 0,
+     "cleared": 4,
+     "db_wall": 0.11033082008361816,
+     "mark_to_clear_seconds": [
+      0.852834939956665,
+      1.3104138374328613,
+      1.9168908596038818,
+      2.9910988807678223
+     ]
+    },
+    {
+     "event": "execution",
+     "task": "apps.mediafiles.tasks.process_blob",
+     "id": "4dddbbf8-ef79-42a4-b601-7d260a5418c9",
+     "role": "web",
+     "pid": 1036946,
+     "eager": true,
+     "state": "SUCCESS",
+     "start_monotonic": 3215338.926048237,
+     "end_monotonic": 3215338.995638431,
+     "wall": 0.06959019415080547,
+     "thread_cpu": 0.03423663600000282,
+     "result": null
+    },
+    {
+     "event": "execution",
+     "task": "apps.mediafiles.tasks.process_blob",
+     "id": "8ec43539-11d6-44f5-adc3-6d251f666d5f",
+     "role": "web",
+     "pid": 1036946,
+     "eager": true,
+     "state": "SUCCESS",
+     "start_monotonic": 3215338.996473431,
+     "end_monotonic": 3215339.088937,
+     "wall": 0.09246356878429651,
+     "thread_cpu": 0.04926635600000395,
+     "result": null
+    },
+    {
+     "event": "execution",
+     "task": "apps.mediafiles.tasks.process_blob",
+     "id": "0ba75a49-d061-45fb-a776-d06f45b09a42",
+     "role": "web",
+     "pid": 1036946,
+     "eager": true,
+     "state": "SUCCESS",
+     "start_monotonic": 3215339.089706994,
+     "end_monotonic": 3215339.177685468,
+     "wall": 0.08797847386449575,
+     "thread_cpu": 0.042620421999998825,
+     "result": null
+    },
+    {
+     "event": "execution",
+     "task": "apps.mediafiles.tasks.process_blob",
+     "id": "f0441e4a-5e66-4d81-aa9f-acd25ecbaa3a",
+     "role": "web",
+     "pid": 1036946,
+     "eager": true,
+     "state": "SUCCESS",
+     "start_monotonic": 3215339.178724024,
+     "end_monotonic": 3215339.276082449,
+     "wall": 0.09735842514783144,
+     "thread_cpu": 0.04625004900000107,
+     "result": null
+    },
+    {
+     "event": "execution",
+     "task": "apps.listings.tasks.refresh_publication_state",
+     "id": "b77cd4b9-c51c-41ee-a309-1319597d75d1",
+     "role": "web",
+     "pid": 1036946,
+     "eager": true,
+     "state": "SUCCESS",
+     "start_monotonic": 3215339.285029164,
+     "end_monotonic": 3215339.38731918,
+     "wall": 0.10229001613333821,
+     "thread_cpu": 0.06950133999999508,
+     "result": 4,
+     "dirty_before": 4,
+     "dirty_after": 0,
+     "cleared": 4,
+     "db_wall": 0.10199308395385742,
+     "mark_to_clear_seconds": [
+      0.11330795288085938,
+      0.2117140293121338,
+      0.3005189895629883,
+      0.3936269283294678
+     ]
+    },
+    {
+     "event": "execution",
+     "task": "apps.listings.tasks.refresh_publication_state",
+     "id": "2dcedd23-c42f-4c57-b1f7-2da1a288f817",
+     "role": "web",
+     "pid": 1036946,
+     "eager": true,
+     "state": "SUCCESS",
+     "start_monotonic": 3215339.639611977,
+     "end_monotonic": 3215339.740358104,
+     "wall": 0.10074612684547901,
+     "thread_cpu": 0.06908294300000506,
+     "result": 1,
+     "dirty_before": 1,
+     "dirty_after": 0,
+     "cleared": 1,
+     "db_wall": 0.10063481330871582,
+     "mark_to_clear_seconds": [
+      0.1152029037475586
+     ]
+    },
+    {
+     "event": "execution",
+     "task": "apps.listings.tasks.refresh_publication_state",
+     "id": "228e0045-e62d-42e2-af99-5c2c90b28eb6",
+     "role": "web",
+     "pid": 1036946,
+     "eager": true,
+     "state": "SUCCESS",
+     "start_monotonic": 3215339.74733742,
+     "end_monotonic": 3215339.815352441,
+     "wall": 0.06801502080634236,
+     "thread_cpu": 0.03992497599999467,
+     "result": 1,
+     "dirty_before": 1,
+     "dirty_after": 0,
+     "cleared": 1,
+     "db_wall": 0.06779909133911133,
+     "mark_to_clear_seconds": [
+      0.0707240104675293
+     ]
+    },
+    {
+     "event": "execution",
+     "task": "apps.listings.tasks.refresh_publication_state",
+     "id": "a029bf22-bd8c-4b01-9e72-b53df9d0a2e9",
+     "role": "web",
+     "pid": 1036946,
+     "eager": true,
+     "state": "SUCCESS",
+     "start_monotonic": 3215340.035662838,
+     "end_monotonic": 3215340.097964862,
+     "wall": 0.062302024103701115,
+     "thread_cpu": 0.03792678199999955,
+     "result": 1,
+     "dirty_before": 1,
+     "dirty_after": 0,
+     "cleared": 1,
+     "db_wall": 0.06225180625915527,
+     "mark_to_clear_seconds": [
+      0.06498980522155762
+     ]
+    },
+    {
+     "event": "execution",
+     "task": "apps.mediafiles.tasks.process_blob",
+     "id": "b5920c60-8dc3-4a30-b888-12447045ec7f",
+     "role": "web",
+     "pid": 1036946,
+     "eager": true,
+     "state": "SUCCESS",
+     "start_monotonic": 3215339.741823466,
+     "end_monotonic": 3215340.172554768,
+     "wall": 0.4307313021272421,
+     "thread_cpu": 0.3415946909999974,
+     "result": null
+    }
+   ]
+  },
+  "reading": "Un upload sintetico con la configuracion Celery de los arneses de carga anteriores (eager, Beat vacio, sin worker): tres pasadas de refresh dentro del proceso web disparadas por senales; la ultima escritura del procesamiento de imagen (Photo queryset update comparison_complete, sin senal) vuelve a marcar el anuncio y la respuesta termina con 1 sucio que nada refresca. Las ejecuciones observadas incluyen tareas de preparacion del fixture en el mismo proceso de test."
+ },
+ "owned_worker_beat_wiring": {
+  "test": "tests/test_owned_refresh_topology.py",
+  "runner": {
+   "db": "promotion_gate_cr09diag_c2a950070157",
+   "source": "c82a7468b83b83a1d2161a728a28f8c509cfb804",
+   "dirty_tree": " M .ai/tasks/desarrollo.md\n M docs/17-seguimiento-desarrollo.md\n M docs/analisis-bloque-rendimiento-dafo0110.md\n M tests/test_worker_capacity_comparison.py\n?? docs/evidencias/mod05-perfil-python-diagnostico0110.json\n?? docs/evidencias/mod05-perfil-python-runner0110.py.txt\n?? docs/evidencias/mod05-perfil-python-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-analisis-script0110.py\n?? docs/evidencias/mod05-sucios-acotados-analisis0110.json\n?? docs/evidencias/mod05-sucios-acotados-arnes0110.diff\n?? docs/evidencias/mod05-sucios-acotados-artefactos0110.tar.gz\n?? docs/evidencias/mod05-sucios-acotados-candidato0110.diff\n?? docs/evidencias/mod05-sucios-acotados-equivalencia-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-huellas0110.json\n?? docs/evidencias/mod05-sucios-acotados-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-manifiesto0110.json\n?? docs/evidencias/mod05-sucios-reference0110.py\n?? scripts/benchmark_celery_observer.py\n?? scripts/benchmark_publication_sampler.py\n?? tests/test_owned_refresh_topology.py\n",
+   "pytest_exit": 0,
+   "seconds": 74.82501812232658,
+   "databases_left": [],
+   "media_removed": true
+  },
+  "result": {
+   "generation": "te001aafe323e4b84a65cfb070bc546e",
+   "pids": {
+    "worker": [
+     1033811,
+     1033878,
+     1033925
+    ],
+    "beat": [
+     1033812
+    ]
+   },
+   "cleared_after_ready_seconds": 29.140974058769643,
+   "pid_absence": {
+    "1033811": true,
+    "1033878": true,
+    "1033925": true,
+    "1033812": true
+   },
+   "owned_redis_keys_removed": 1,
+   "owned_redis_empty": true,
+   "observer": [
+    {
+     "event": "publish",
+     "task": "apps.listings.tasks.refresh_publication_state",
+     "id": "56e1abe6-d677-4296-b008-6b703e569a36",
+     "role": "beat",
+     "pid": 1033812,
+     "monotonic": 3215293.211881189
+    },
+    {
+     "event": "execution",
+     "task": "apps.listings.tasks.refresh_publication_state",
+     "id": "56e1abe6-d677-4296-b008-6b703e569a36",
+     "role": "worker",
+     "pid": 1033878,
+     "eager": false,
+     "state": "SUCCESS",
+     "start_monotonic": 3215293.226613387,
+     "end_monotonic": 3215293.551817769,
+     "wall": 0.3252043821848929,
+     "thread_cpu": 0.12902087499999998,
+     "result": 1,
+     "dirty_before": 1,
+     "dirty_after": 0,
+     "cleared": 1,
+     "db_wall": 0.24601101875305176,
+     "mark_to_clear_seconds": [
+      31.724744081497192
+     ]
+    }
+   ]
+  },
+  "reading": "Worker y Beat propios con los comandos de compose.yaml, broker Redis db15 vacio con prefijo propio: Beat publica el refresco ~30 s despues de arrancar, el worker limpia 1 marca (cleared=1, demora marca-limpieza 31,7 s, 325 ms pared, 129 ms CPU de hilo), origen beat/worker correlacionado por id; PIDs ausentes, Redis propio vacio, base retirada."
+ },
+ "limits": "Funcional, no temporizacion de servicio ni capacidad. Delay marca-limpieza es cota superior en reloj de base de datos desde la primera marca. Overhead del observador (2 lecturas por refresco y escritura JSONL) no cuantificado causalmente.",
+ "signal_less_mark_fix": {
+  "change": "apps/mediafiles/services.py: tras Photo...update(comparison_complete=True) con filas actualizadas, schedule_refresh(Photo) (mismo encolado on_commit de latencia que las senales). Diff: docs/evidencias/mod05-marca-sin-senal-correccion0110.diff",
+  "before": "eager1: 3 refrescos en el web y 1 sucio residual tras la respuesta",
+  "after": {
+   "runner": {
+    "db": "promotion_gate_cr09diag_d396b22e1730",
+    "source": "c82a7468b83b83a1d2161a728a28f8c509cfb804",
+    "dirty_tree": " M .ai/tasks/desarrollo.md\n M apps/mediafiles/services.py\n M docs/17-seguimiento-desarrollo.md\n M docs/analisis-bloque-rendimiento-dafo0110.md\n M docs/criterios-revision-benchmark-carga.md\n M docs/evidencias/mod05-capacidad-4-vs-6-propuesta0110.json\n M tests/test_publication_state.py\n M tests/test_worker_capacity_comparison.py\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-propuesta0110.json\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-runner0110.py\n?? docs/evidencias/mod05-perfil-python-diagnostico0110.json\n?? docs/evidencias/mod05-perfil-python-runner0110.py.txt\n?? docs/evidencias/mod05-perfil-python-test0110.py.txt\n?? docs/evidencias/mod05-refresco-escenarios-eager-test0110.py.txt\n?? docs/evidencias/mod05-refresco-escenarios-funcional0110.json\n?? docs/evidencias/mod05-refresco-escenarios-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-analisis-script0110.py\n?? docs/evidencias/mod05-sucios-acotados-analisis0110.json\n?? docs/evidencias/mod05-sucios-acotados-arnes0110.diff\n?? docs/evidencias/mod05-sucios-acotados-artefactos0110.tar.gz\n?? docs/evidencias/mod05-sucios-acotados-candidato0110.diff\n?? docs/evidencias/mod05-sucios-acotados-equivalencia-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-huellas0110.json\n?? docs/evidencias/mod05-sucios-acotados-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-manifiesto0110.json\n?? docs/evidencias/mod05-sucios-reference0110.py\n?? scripts/benchmark_celery_observer.py\n?? scripts/benchmark_publication_sampler.py\n?? tests/test_owned_refresh_topology.py\n?? tests/test_publication_state_upload.py\n",
+    "pytest_exit": 0,
+    "seconds": 43.11463039787486,
+    "databases_left": [],
+    "media_removed": true
+   },
+   "result": {
+    "events": [
+     {
+      "event": "refresh",
+      "limit": 200,
+      "processed": 1,
+      "generation_before": 108,
+      "dirty_after": []
+     },
+     {
+      "event": "refresh",
+      "limit": 200,
+      "processed": 0,
+      "generation_before": 108,
+      "dirty_after": []
+     },
+     {
+      "event": "refresh",
+      "limit": 200,
+      "processed": 1,
+      "generation_before": 110,
+      "dirty_after": []
+     },
+     {
+      "event": "refresh",
+      "limit": 200,
+      "processed": 0,
+      "generation_before": 110,
+      "dirty_after": []
+     },
+     {
+      "event": "refresh",
+      "limit": 200,
+      "processed": 1,
+      "generation_before": 112,
+      "dirty_after": []
+     },
+     {
+      "event": "refresh",
+      "limit": 200,
+      "processed": 0,
+      "generation_before": 112,
+      "dirty_after": []
+     },
+     {
+      "event": "photo_queryset_update",
+      "fields": [
+       "comparison_complete"
+      ],
+      "rows": 1
+     },
+     {
+      "event": "refresh",
+      "limit": 200,
+      "processed": 1,
+      "generation_before": 114,
+      "dirty_after": []
+     },
+     {
+      "event": "refresh",
+      "limit": 200,
+      "processed": 0,
+      "generation_before": 114,
+      "dirty_after": []
+     }
+    ],
+    "final_generation": 114,
+    "dirty_after_response": [],
+    "draft_listing": "fbc0b161-3e85-4d8b-91ab-8abb24f58112"
+   }
+  },
+  "reading": "Tras el update final se ejecuta un refresco mas (eager en el web; en topologia normal se encola al worker) y la respuesta termina sin sucios. La exactitud no dependia del refresco; cambia solo la duracion de la marca.",
+  "regression": {
+   "fix1": {
+    "runner": {
+     "db": "promotion_gate_cr09diag_d75a7640778a",
+     "source": "c82a7468b83b83a1d2161a728a28f8c509cfb804",
+     "dirty_tree": " M .ai/tasks/desarrollo.md\n M apps/mediafiles/services.py\n M docs/17-seguimiento-desarrollo.md\n M docs/analisis-bloque-rendimiento-dafo0110.md\n M docs/criterios-revision-benchmark-carga.md\n M docs/evidencias/mod05-capacidad-4-vs-6-propuesta0110.json\n M tests/test_worker_capacity_comparison.py\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-propuesta0110.json\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-runner0110.py\n?? docs/evidencias/mod05-perfil-python-diagnostico0110.json\n?? docs/evidencias/mod05-perfil-python-runner0110.py.txt\n?? docs/evidencias/mod05-perfil-python-test0110.py.txt\n?? docs/evidencias/mod05-refresco-escenarios-eager-test0110.py.txt\n?? docs/evidencias/mod05-refresco-escenarios-funcional0110.json\n?? docs/evidencias/mod05-refresco-escenarios-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-analisis-script0110.py\n?? docs/evidencias/mod05-sucios-acotados-analisis0110.json\n?? docs/evidencias/mod05-sucios-acotados-arnes0110.diff\n?? docs/evidencias/mod05-sucios-acotados-artefactos0110.tar.gz\n?? docs/evidencias/mod05-sucios-acotados-candidato0110.diff\n?? docs/evidencias/mod05-sucios-acotados-equivalencia-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-huellas0110.json\n?? docs/evidencias/mod05-sucios-acotados-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-manifiesto0110.json\n?? docs/evidencias/mod05-sucios-reference0110.py\n?? scripts/benchmark_celery_observer.py\n?? scripts/benchmark_publication_sampler.py\n?? tests/test_owned_refresh_topology.py\n?? tests/test_publication_state_upload.py\n",
+     "pytest_exit": 1,
+     "seconds": 416.7820696872659,
+     "databases_left": [],
+     "media_removed": true
+    },
+    "summary": "54 PASS; 2 FAIL esperados en test_state_route_matches_native_before_and_after_refresh por precondicion de sucios tras el fixture"
+   },
+   "fix2": {
+    "runner": {
+     "db": "promotion_gate_cr09diag_8895bef83676",
+     "source": "c82a7468b83b83a1d2161a728a28f8c509cfb804",
+     "dirty_tree": " M .ai/tasks/desarrollo.md\n M apps/mediafiles/services.py\n M docs/17-seguimiento-desarrollo.md\n M docs/analisis-bloque-rendimiento-dafo0110.md\n M docs/criterios-revision-benchmark-carga.md\n M docs/evidencias/mod05-capacidad-4-vs-6-propuesta0110.json\n M tests/test_publication_state.py\n M tests/test_worker_capacity_comparison.py\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-propuesta0110.json\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-runner0110.py\n?? docs/evidencias/mod05-perfil-python-diagnostico0110.json\n?? docs/evidencias/mod05-perfil-python-runner0110.py.txt\n?? docs/evidencias/mod05-perfil-python-test0110.py.txt\n?? docs/evidencias/mod05-refresco-escenarios-eager-test0110.py.txt\n?? docs/evidencias/mod05-refresco-escenarios-funcional0110.json\n?? docs/evidencias/mod05-refresco-escenarios-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-analisis-script0110.py\n?? docs/evidencias/mod05-sucios-acotados-analisis0110.json\n?? docs/evidencias/mod05-sucios-acotados-arnes0110.diff\n?? docs/evidencias/mod05-sucios-acotados-artefactos0110.tar.gz\n?? docs/evidencias/mod05-sucios-acotados-candidato0110.diff\n?? docs/evidencias/mod05-sucios-acotados-equivalencia-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-huellas0110.json\n?? docs/evidencias/mod05-sucios-acotados-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-manifiesto0110.json\n?? docs/evidencias/mod05-sucios-reference0110.py\n?? scripts/benchmark_celery_observer.py\n?? scripts/benchmark_publication_sampler.py\n?? tests/test_owned_refresh_topology.py\n?? tests/test_publication_state_upload.py\n",
+     "pytest_exit": 0,
+     "seconds": 258.264475136064,
+     "databases_left": [],
+     "media_removed": true
+    },
+    "summary": "12 PASS tras mark_all() explicito en esa prueba + pertenencia, condicional, inventario, upgrade y matriz repeated-100"
+   },
+   "fix3": {
+    "runner": {
+     "db": "promotion_gate_cr09diag_a7e0403a0b18",
+     "source": "c82a7468b83b83a1d2161a728a28f8c509cfb804",
+     "dirty_tree": " M .ai/tasks/desarrollo.md\n M apps/mediafiles/services.py\n M docs/17-seguimiento-desarrollo.md\n M docs/analisis-bloque-rendimiento-dafo0110.md\n M docs/criterios-revision-benchmark-carga.md\n M docs/evidencias/mod05-capacidad-4-vs-6-propuesta0110.json\n M tests/test_publication_state.py\n M tests/test_worker_capacity_comparison.py\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-propuesta0110.json\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-runner0110.py\n?? docs/evidencias/mod05-perfil-python-diagnostico0110.json\n?? docs/evidencias/mod05-perfil-python-runner0110.py.txt\n?? docs/evidencias/mod05-perfil-python-test0110.py.txt\n?? docs/evidencias/mod05-refresco-escenarios-eager-test0110.py.txt\n?? docs/evidencias/mod05-refresco-escenarios-funcional0110.json\n?? docs/evidencias/mod05-refresco-escenarios-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-analisis-script0110.py\n?? docs/evidencias/mod05-sucios-acotados-analisis0110.json\n?? docs/evidencias/mod05-sucios-acotados-arnes0110.diff\n?? docs/evidencias/mod05-sucios-acotados-artefactos0110.tar.gz\n?? docs/evidencias/mod05-sucios-acotados-candidato0110.diff\n?? docs/evidencias/mod05-sucios-acotados-equivalencia-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-huellas0110.json\n?? docs/evidencias/mod05-sucios-acotados-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-manifiesto0110.json\n?? docs/evidencias/mod05-sucios-reference0110.py\n?? scripts/benchmark_celery_observer.py\n?? scripts/benchmark_publication_sampler.py\n?? tests/test_owned_refresh_topology.py\n?? tests/test_publication_state_upload.py\n",
+     "pytest_exit": 0,
+     "seconds": 231.43635941669345,
+     "databases_left": [],
+     "media_removed": true
+    },
+    "summary": "27 PASS discovery, presentacion, dependencias de validacion publica, prueba SQL de busqueda y borradores"
+   }
+  },
+  "limits": "Funcional sin carga. El escenario without_worker_beat_eager_signal de resultados anteriores se ejecuto con la fuente previa: conserva su comportamiento y etiqueta; ejecuciones futuras de los arneses usaran la fuente corregida."
+ }
+}

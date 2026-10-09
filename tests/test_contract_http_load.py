@@ -6,6 +6,7 @@ import json
 import math
 import os
 import platform
+import signal as signal_module
 import socket
 import subprocess
 import sys
@@ -25,13 +26,30 @@ from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment, raw_image  # noqa: F401
 
 from apps.core.models import Person, User
-from apps.listings.models import Revision
+from apps.listings.models import PublicationDirty, Revision
 from scripts.benchmark_async_transport import POLICY, fetch_http, run_async_open_loop
 from scripts.benchmark_gc_observer import GCObserver, generator_gc_overlap, prepare_generator_gc
+from scripts.benchmark_publication_sampler import PublicationSampler
 from scripts.benchmark_worker_observer import collect_events
 from scripts.synthetic_load_dataset import populate
 
 pytestmark = pytest.mark.django_db(transaction=True)
+
+# Refresh scenarios (docs/criterios-revision-benchmark-carga.md): default keeps the eager
+# configuration of every previous run; normal_worker_beat runs owned worker/Beat as deployed.
+EAGER = "without_worker_beat_eager_signal"
+NORMAL = "normal_worker_beat"
+
+
+def cpu_ticks(pids):
+    total = {}
+    for pid in pids:
+        try:
+            fields = Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()
+            total[pid] = int(fields[11]) + int(fields[12])
+        except OSError:
+            total[pid] = None
+    return total
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -46,6 +64,8 @@ def percentile(values, ratio):
 @pytest.mark.parametrize("scenario", ["functional", "short", "measured"])
 def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, record_property, scenario):
     observe_workers = os.environ.get("WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS") == "1"
+    refresh_mode = os.environ.get("WEB_MODELOS_REFRESH_MODE", EAGER)
+    assert refresh_mode in (EAGER, NORMAL)
     assert not (observe_workers and scenario == "measured"), "Worker observer is diagnostic only"
     large = scenario != "functional"
     upload_count = 15 if scenario == "measured" else 1
@@ -73,14 +93,24 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         REDIS_URL="memory://",
         TASK_QUEUE_GENERATION="l" + uuid4().hex[:31],
     )
-    (tmp_path / "load_runtime_settings.py").write_text(
+    runtime_settings = (
         "from config.settings import *\n"
         + "MEDIA_ROOT = "
         + repr(str(django_settings.MEDIA_ROOT))
         + "\n"
-        + "CELERY_TASK_ALWAYS_EAGER = True\nCELERY_TASK_EAGER_PROPAGATES = True\n"
-        + 'CELERY_BEAT_SCHEDULE = {}\nCELERY_RESULT_BACKEND = "cache+memory://"\n'
     )
+    if refresh_mode == EAGER:
+        runtime_settings += (
+            "CELERY_TASK_ALWAYS_EAGER = True\nCELERY_TASK_EAGER_PROPAGATES = True\n"
+            + 'CELERY_BEAT_SCHEDULE = {}\nCELERY_RESULT_BACKEND = "cache+memory://"\n'
+        )
+    else:
+        from test_worker_capacity_comparison import OBSERVER_SETTINGS, OWNED_REDIS
+
+        # Deployed Celery configuration and Beat schedule; owned empty broker database.
+        runtime_settings += OBSERVER_SETTINGS
+        environment["REDIS_URL"] = OWNED_REDIS
+    (tmp_path / "load_runtime_settings.py").write_text(runtime_settings)
     with socket.socket() as port_socket:
         port_socket.bind(("127.0.0.1", 0))
         port = port_socket.getsockname()[1]
@@ -111,14 +141,18 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             value = Path(file).read_text()
             resources[name] = value.splitlines()[0] if name == "memory_total" else value.strip()
     process = None
+    celery_processes, sampler = {}, None
     summary = {
+        "refresh_mode": refresh_mode,
         "dataset": dataset,
         "resources": resources,
         "success": False,
         "duration_seconds": {"functional": 3, "short": 60, "measured": 900}[scenario],
         "arrival_rps": 20,
         "server": "Gunicorn4 sync workers local TCP",
-        "scope": "Synthetic local server capacity; external production/identity/CDN excluded. Upload processing eager in request, no real worker throughput claim.",
+        "scope": "Synthetic local server capacity; external production/identity/CDN excluded. "
+        + ("Upload processing eager in request, no real worker throughput claim." if refresh_mode == EAGER
+           else "Owned Celery worker (concurrency 2) and Beat as deployed; upload processing and MOD05 refresh in the worker."),
         "verdict": "INVALID",
         "invalid_reasons": ["workload_not_executed"],
         "policy": dict(POLICY),
@@ -161,6 +195,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         environment["WEB_MODELOS_BENCHMARK_OBSERVER_DIR"] = str(observer_folder)
         observer_args = ["--config", "python:scripts.benchmark_worker_observer"]
     manifest = {
+        "refresh_mode": refresh_mode,
         "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
         "dataset": dataset,
         "fixture": "seed_demo; deterministic photo seed1, upload seed782134; UUID identities/time-relative validity vary per isolated run",
@@ -245,6 +280,31 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         return result
 
     try:
+        if refresh_mode == NORMAL:
+            from test_worker_capacity_comparison import owned_redis, process_tree, wait_for_log
+
+            assert owned_redis().dbsize() == 0, "Owned Redis database must be empty"
+            celery_events = artifact_folder / "celery-events-raw"
+            celery_events.mkdir(mode=0o700)
+            environment["WEB_MODELOS_CELERY_OBSERVER_DIR"] = str(celery_events)
+            environment["WEB_MODELOS_PROCESS_ROLE"] = "web"
+            commands = {
+                "worker": [sys.executable, "-m", "celery", "-A", "config", "worker", "--loglevel=INFO",
+                           "--concurrency=2"],
+                "beat": [sys.executable, "-m", "celery", "-A", "config", "beat", "--loglevel=INFO",
+                         "--schedule", str(tmp_path / "celerybeat-schedule")],
+            }
+            for role, command in commands.items():
+                with (artifact_folder / f"celery-{role}.log").open("w") as log:
+                    celery_processes[role] = subprocess.Popen(
+                        command, env={**environment, "WEB_MODELOS_PROCESS_ROLE": role},
+                        stdout=log, stderr=log, start_new_session=True)
+            ready = time.monotonic() + 60
+            wait_for_log(artifact_folder / "celery-worker.log", " ready.", celery_processes["worker"], ready)
+            wait_for_log(artifact_folder / "celery-beat.log", "beat: Starting", celery_processes["beat"], ready)
+            summary["celery_pids"] = {role: process_tree(p.pid) for role, p in celery_processes.items()}
+            sampler = PublicationSampler(artifact_folder / "publication-samples.jsonl", db)
+            sampler.start()
         with logfile.open("w") as output:
             process = subprocess.Popen(
                 [
@@ -341,6 +401,24 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             }
             for minute, draft in enumerate(draft_rows[:upload_count])
         ]
+        if refresh_mode == NORMAL:
+            from test_worker_capacity_comparison import BEAT_PHASE_SECONDS, beat_refresh_publishes
+
+            # Same rule as the 4/6 comparison: arrivals start 5 s after an observed Beat tick.
+            beat_deadline = time.monotonic() + 45
+            while not (ticks := beat_refresh_publishes(celery_events)):
+                assert time.monotonic() < beat_deadline, "No Beat refresh observed before load"
+                time.sleep(0.2)
+            target = ticks[-1] + BEAT_PHASE_SECONDS
+            while target < time.monotonic() + 1:
+                target += 30
+            time.sleep(target - time.monotonic())
+            summary["beat_alignment"] = {"observed_tick_monotonic": ticks[-1], "load_start_target": target,
+                                         "phase_seconds": BEAT_PHASE_SECONDS}
+            summary["dirty_before_load"] = PublicationDirty.objects.count()
+            summary["celery_cpu_ticks_before"] = cpu_ticks(
+                [pid for pids in summary["celery_pids"].values() for pid in pids])
+            sampler.phase = "arrivals_and_drain"
         summary["client_gc_preparation"] = prepare_generator_gc()
         assert summary["client_gc_preparation"]["policy_before"] == summary["client_gc_preparation"]["policy_after"]
         with GCObserver(monotonic_clock=time.monotonic) as client_gc:
@@ -352,6 +430,11 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 upload_specs=upload_specs,
             )
         summary["client_gc"] = client_gc.report()
+        if refresh_mode == NORMAL:
+            summary["celery_cpu_ticks_after"] = cpu_ticks(
+                [pid for pids in summary["celery_pids"].values() for pid in pids])
+            summary["clock_ticks_per_second"] = os.sysconf("SC_CLK_TCK")
+            sampler.phase = "idle_after"
         assert summary["client_gc_preparation"]["completed_at_monotonic"] <= outcome["monotonic_origin_seconds"]
         assert summary["client_gc"]["policy_before"] == summary["client_gc"]["policy_after"]
         assert summary["client_gc"]["unfinished_events"] == 0
@@ -411,6 +494,29 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait(timeout=5)
         summary["gunicorn_stopped"] = process is None or process.poll() is not None
+        if sampler:
+            sampler.close()
+        for role, owned in celery_processes.items():
+            if owned.poll() is None:
+                os.killpg(owned.pid, signal_module.SIGTERM)
+            try:
+                owned.wait(timeout=15)
+            except subprocess.TimeoutExpired:
+                os.killpg(owned.pid, signal_module.SIGKILL)
+                owned.wait(timeout=5)
+            summary[f"celery_{role}_stopped"] = owned.poll() is not None
+        if refresh_mode == NORMAL:
+            from test_worker_capacity_comparison import owned_redis
+
+            summary["celery_pid_absence"] = {
+                str(pid): not Path(f"/proc/{pid}").exists()
+                for pids in summary.get("celery_pids", {}).values() for pid in pids}
+            broker = owned_redis()
+            keys = list(broker.scan_iter(count=1000))
+            if keys:
+                broker.delete(*keys)
+            summary["owned_redis_keys_removed"] = len(keys)
+            summary["owned_redis_empty"] = broker.dbsize() == 0
         if observe_workers:
             observed = collect_events(observer_folder)
             observer_path = artifact_folder / "benchmark-worker-events.json"

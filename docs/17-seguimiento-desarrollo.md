@@ -5,7 +5,68 @@ Actualizado: 2026-10-08. Corte documental: código de purga `72ff79a`, código d
 
 ## Estado vigente para reanudar
 
-**Pausa solicitada por el usuario al cerrar esta ronda:** matriz terminal y revisión completa; no ejecuciones propias activas. Commit/push de esta entrega antes de dejar el goal pausado; sin iniciar otra prueba, comparación o gate. Conservar solución de pertenencia final2dd4ca5 y todas las evidencias; CR09 abierto, históricos/contrato/umbrales/porcentajes intactos. Retomar expresamente desde esta única cola. La propuesta4/6 siguiente está preparada pero NO autorizada ni ejecutada; seis no adoptada,900bloqueados.
+**Decisión del usuario, 2026-10-09:** entrega confirmada en la rama `cr09-rend-lectura-normal`, sin integrar en master. Porcentajes actuales sin cambio: CR09 72,50 % y contrato 65,375 %.
+
+- **Cierre local de CR09-REND-LECTURA pendiente de dos condiciones:**
+  1. Revisión por Codex de los artefactos originales de los gates y de la comparación 4/6 normal.
+  2. Cobertura funcional con resultados positivos en PRODUCTION y `checked`, reutilizando evidencia válida existente.
+- **Revisión preliminar de esa evidencia (solo lectura):** [pertenencia funcional](evidencias/mod05-pertenencia-funcional-revisada0110.json) registra 25 resultados sin filtro y con servicios, pero **0 con `checked`**. Las pruebas en modo PRODUCTION no registran conteo y su fixture sintético no publica (el verificador simulado se rechaza). La [matriz de rutas](evidencias/mod05-cobertura-rutas0110.json) también da 0 en ambos. Con la evidencia actual no hay resultados positivos en esos modos; la condición sigue abierta.
+- **Se conservan** los PASS comunicados (gate de 60 s, contractual de 900 s intento 2, comparación 4/6 normal) y todos los veredictos históricos con sus escenarios. El beneficio de la topología y el del arreglo de la marca sin señal no se atribuyen por separado.
+- Sin cargas nuevas por esta decisión. CR09 integral y producción siguen abiertos.
+
+**Gates en `normal_worker_beat`, 2026-10-08/09 (autorizaciones del usuario: gate de 60 s y «cualquier prueba»):** [informe](evidencias/mod05-gates-normal-informe0110.md).
+
+- **Gate de 60 s: PASS completo.** 1.200/1.200 correctas, p95 0,622 s, 0 errores, 5/0 pendientes, upload 302.
+- **Contractual de 900 s, intento 2: PASS.** 18.000/18.000 correctas, 0 errores, p95 0,392 s, p99 0,476 s, 7 pendientes en el cierre de la ventana y 0 finales, 15/15 uploads 302. Generador válido (p99 3,23 ms, máx 27,17 ms).
+- **Intento 1: INVALID conservado.** Retardo máximo del generador de 121 ms por la pausa GC gen-2 del proceso cliente. Se corrigió el instrumento cliente (`WEB_MODELOS_GENERATOR_GC_FREEZE=1`), con enmienda registrada antes del reintento.
+- **Refresco en 900 s:** 63 ejecuciones con 2,65 s de CPU; marcas limpiadas en un máximo de 0,42 s; sucios en 8/905 muestras.
+- **Fuente:** `c82a746` más la corrección de la marca sin señal y las fuentes del arnés, sin commit; huellas verificadas.
+- **Configuración:** 4 workers sync. Seis no adoptados.
+- **Resultados eager anteriores:** conservan su escenario y veredicto.
+- **Cobertura de rutas (MOD-04 §16):** [matriz](evidencias/mod05-cobertura-rutas0110.json) a 10.000 anuncios. Normal y PRODUCTION, con y sin `checked`, usan la ruta `state`, equivalente al nativo, en 0,11–0,81 s. Las promociones sintéticas, solo de prueba, usan el fallback nativo a 14,3 s por petición, no viable para carga. Con `checked` y PRODUCTION la población sintética da recuento 0.
+- **Pendiente de aceptación del usuario:**
+  - revisión de esta evidencia;
+  - cobertura de rutas no incluidas en la mezcla contractual (PRODUCTION, `checked`, promociones; MOD-04 §16);
+  - commit de los cambios;
+  - si procede, porcentajes según docs86.
+- CR09-REND-LECTURA no se declara cerrado sin esa aceptación; CR09/GS01 abiertos.
+
+**Comparación 4/6/6/4 en `normal_worker_beat` ejecutada y revisada, 2026-10-08 (autorización expresa del usuario solo para estos 4 bloques de 30 s):** [informe](evidencias/mod05-capacidad-4-vs-6-refresco-informe0110.md).
+
+- **Validez:** 4 bloques VALID, revisados y liberados uno a uno.
+- **Filtro de 30 s:** PASS en los cuatro, también con 4 workers. Con 4 workers: 595/600 terminadas en ventana, p95 0,500–0,507 s, 0 errores, D 195,0–195,7 ms, 20D+U ≈3,9.
+- **6 frente a 4:** efecto FAIL en ambos pares (sin más completaciones, p95 mayor, D +15 %); **seis no se adoptan**.
+- **Competencia ajena:** rango 0,38 cores, dentro del límite.
+- **Refresco medido:** 6 ejecuciones por bloque con ≈0,27 s de CPU; marcas limpiadas en 0,19–0,60 s; 9–12/400 lecturas sucias. Upload de 0,24–0,30 s con `process_blob` en el worker.
+- **Alcance:** el resultado es de topología normal más la corrección de la marca sin señal, juntas, sin separarlas. Los resultados eager conservan su escenario y veredicto.
+- **No acredita** el gate de 60 s, el contractual de 900 s ni producción.
+- **Siguiente paso, pendiente del usuario:** decidir que el gate de 60 s y el contractual de 900 s usen `normal_worker_beat` y autorizar expresamente el gate de 60 s. CR09/GS01 abiertos; porcentajes sin cambio.
+
+**Reconciliación del escenario 4/6 con MOD05, 2026-10-08 (instrucción directa del usuario; sin cargas nuevas):** [informe](evidencias/mod05-refresco-escenarios-informe0110.md).
+
+- **Escenario anterior identificado:** todos los arneses de carga con MOD05 usan Celery eager, Beat vacío y ningún worker. El refresco y `process_blob` se ejecutan dentro del web por señal, y el `update` sin señal de `Photo.comparison_complete` deja un sucio residual ([comprobación funcional](evidencias/mod05-refresco-escenarios-funcional0110.json) de un upload).
+- **Etiquetado:** R5/R6 PASS de portátil, gate VPS 60 s, diagnóstico 30 s y controles de matriz quedan como `without_worker_beat_eager_signal`, sin reinterpretarlos. Los resultados anteriores a MOD05 no reciben etiqueta.
+- **[Propuesta nueva](evidencias/mod05-capacidad-4-vs-6-refresco-propuesta0110.json)** en `normal_worker_beat`:
+  - worker y Beat propios con los comandos de compose, Redis db 15 aislada, la misma fase de Beat y la misma topología de refresco en los cuatro bloques;
+  - registro de ejecuciones, coste, demora, invalidaciones y fracción de lecturas sucias.
+  - La propuesta anterior queda conservada como sustituida.
+- **Preparación:** ruff/py_compile y comprobación de cableado worker/Beat sin carga, PASS; limpieza verificada. El experimento no se ha ejecutado.
+- **Corrección local de la marca sin señal:** el procesado de imagen termina con un `update` sin señal. Ahora programa el refresco, y el upload ya no deja un sucio residual (antes 1, después 0); regresión PASS ([detalle](evidencias/mod05-refresco-escenarios-informe0110.md#corrección-de-la-marca-sin-señal)). Sin commit; los resultados previos conservan su fuente y etiqueta.
+- **Pendiente del usuario:** autorizar los 4 bloques de 30 s, y decidir si los gates de 60/900 s deben usar la topología normal. Seis workers no se adoptan; CR09 abierto.
+
+**Trabajo manual CR09-REND-LECTURA, 2026-10-08 (Claude Code, instrucción directa del usuario; goal automático del proyecto pausado):** [informe](evidencias/mod05-sucios-acotados-informe0110.md).
+
+- **Diagnóstico finito:** [cProfile](evidencias/mod05-perfil-python-diagnostico0110.json) con PostgreSQL sintético propio, 10.000 repetido/diverso, 6 rutas. Listado y búsqueda pasan 128–246 ms por request perfilado bloqueados en `psycopg` `Connection.wait`. No hay un tramo Python concreto ≥20 ms.
+- **Intervención única prefijada:** [manifiesto](evidencias/mod05-sucios-acotados-manifiesto0110.json). Con sucios y `all_state_current()` verdadero en la misma instantánea, enumerar solo candidatos ∩ sucios.
+- **Equivalencia y mecanismo:** 5 límites nuevos y 39 de regresión MOD05 PASS. En EXPLAIN la enumeración pasa de 60–78 ms a 0,13–0,16 ms, más 8,6–17,4 ms de la comprobación global.
+- **Efecto:** 480 controles TCP. Cumple solo búsqueda diversa (48,1 y 47,8 ms; 10,6 y 10,1 %). Listado (4,8–11,8 ms) y búsqueda repetida (7,9–18,9 ms) no alcanzan 20 ms / 5 %. ΔD descriptivo 9,0 / 20,0 ms.
+- **Decisión:** **retirado**. Producto y arnés restaurados con huella idéntica a `c82a746`; candidato, arnés y artefactos archivados. Bases, PIDs y medios propios verificados ausentes.
+- **Conclusión:** el trabajo exacto eliminable que queda (COUNT separado + comprobación global en el camino limpio, ΔD ≲ 13–22 ms) no lleva 20D por debajo de ≈3,7–4,2 con D = 206,7–221,8 ms. El servicio está dominado por espera bloqueante: la evidencia favorece evaluar concurrencia frente a seguir optimizando.
+- **Dependencia concreta:** autorización expresa renovada para la [propuesta 4/6/6/4](evidencias/mod05-capacidad-4-vs-6-propuesta0110.json), preparada y **no ejecutada**. Seis workers no se adopta.
+- **Observación para decisión del usuario, no aplicada:** el arnés contractual no ejecuta el refresco MOD05 (worker/Beat) desplegado, así que tras el upload el listado y la búsqueda siguen el camino sucio.
+- Sin 30/60/900 s ni cambios de recursos. CR09/GS01 abiertos; porcentajes, contrato y veredictos históricos intactos.
+
+**Pausa solicitada por el usuario al cerrar esta ronda (anterior):** matriz terminal y revisión completa; no ejecuciones propias activas. Commit/push de esta entrega antes de dejar el goal pausado; sin iniciar otra prueba, comparación o gate. Conservar solución de pertenencia final2dd4ca5 y todas las evidencias; CR09 abierto, históricos/contrato/umbrales/porcentajes intactos. Retomar expresamente desde esta única cola. La propuesta4/6 siguiente está preparada pero NO autorizada ni ejecutada; seis no adoptada,900bloqueados.
 
 **Matriz de pertenencia final cerrada localmente:** [12PASS revisados](evidencias/mod05-pertenencia-matriz-revisada0110.json),454,70s pytest/456,72s runner; [informe](evidencias/mod05-pertenencia-matriz-informe0110.md), [recálculo/script](evidencias/mod05-pertenencia-matriz-analisis0110.json), [originales](evidencias/mod05-pertenencia-matriz-artefactos0110.json).100/1000/10000×repeated/diverse,180TCP correlacionados conregistros originales,4sync propios,preparación oficial,perfilesClient separados, ruta state/unknown0 bajoambosinstrumentos.10000:n10/familia,WSGIrepeated274,924/285,065/105,319ms,D221,770ms/20D4,435395;diverse237,579/280,303/102,150ms,D206,677ms/20D4,133543. U/Wtotalnot_measured; controles secuenciales no capacidad ni ahorro causal frente aotrasrondas.39queries típico y24Listing/24Revision/24Details/24Contacts, no10kvalidacionesnativas porrequest. Primerlistado100perfilado42queries enambosfixtures sincausa individualatribuida; perfilesnoexhaustivos ysolapamientosdocumentados. Fuentes/artefactos/DB-medios/PIDs comprobados,logsconservados; fuentes liberadas. Gate60/diagnóstico30FAIL e históricos intactos.
 

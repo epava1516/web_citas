@@ -32,11 +32,70 @@ from apps.core.models import Person, User
 from apps.listings.models import Listing, PublicationDirty, Revision
 from scripts.benchmark_async_transport import POLICY, fetch_http, run_async_open_loop
 from scripts.benchmark_gc_observer import GCObserver, generator_gc_overlap, prepare_generator_gc
+from scripts.benchmark_publication_sampler import PublicationSampler
 from scripts.benchmark_resource_probe import ResourceProbe
 from scripts.benchmark_worker_observer import collect_events
 from scripts.synthetic_load_dataset import populate
 
 pytestmark = pytest.mark.django_db(transaction=True)
+
+# Refresh scenarios. The first is the configuration of every previous load harness: no
+# Celery worker or Beat; tasks run eagerly inside the web process when a model signal
+# schedules them, and signal-less writes (e.g. the final Photo update of image processing)
+# leave marks that nothing refreshes. The second is the deployed MOD05 topology.
+EAGER = "without_worker_beat_eager_signal"
+NORMAL = "normal_worker_beat"
+OWNED_REDIS = "redis://127.0.0.1:56379/15"
+# Owned runtime settings load the task observer only when its output is set; process
+# commands stay identical to compose.yaml.
+OBSERVER_SETTINGS = ('import os as _os\nif _os.environ.get("WEB_MODELOS_CELERY_OBSERVER_DIR"):\n'
+                     '    import scripts.benchmark_celery_observer  # noqa: F401,E402\n')
+
+
+def owned_redis():
+    import redis
+
+    return redis.Redis.from_url(OWNED_REDIS)
+
+
+def process_tree(root):
+    """PIDs of root and its live descendants, from /proc."""
+    parents = {}
+    for item in Path("/proc").iterdir():
+        if item.name.isdigit():
+            try:
+                stat = (item / "stat").read_text()
+            except OSError:
+                continue
+            parents[int(item.name)] = int(stat.rsplit(")", 1)[1].split()[1])
+    tree, frontier = {root}, [root]
+    while frontier:
+        current = frontier.pop()
+        for pid, ppid in parents.items():
+            if ppid == current and pid not in tree:
+                tree.add(pid)
+                frontier.append(pid)
+    return sorted(tree)
+
+
+BEAT_PHASE_SECONDS = 5
+
+
+def beat_refresh_publishes(folder):
+    ticks = []
+    for path in folder.glob("celery-beat-*.jsonl"):
+        for line in path.read_text().splitlines():
+            event = json.loads(line)
+            if event["event"] == "publish" and event["task"].endswith("refresh_publication_state"):
+                ticks.append(event["monotonic"])
+    return sorted(ticks)
+
+
+def wait_for_log(path, marker, process, deadline):
+    while marker not in (path.read_text() if path.exists() else ""):
+        assert process.poll() is None, f"Owned process exited before {marker!r}"
+        assert time.monotonic() < deadline, f"Owned process readiness timeout: {marker!r}"
+        time.sleep(.1)
 
 
 def terminate_owned(process):
@@ -107,6 +166,8 @@ def test_worker_capacity_comparison(request, tmp_path, record_property):
     with psycopg.connect(**admin_args) as admin:
         orders = manifest.get("orders", [4, 6, 6, 4])
         assert orders in ([4], [4, 6, 6, 4]), "Only explicitly recorded closed scenarios"
+        refresh_mode = manifest.get("refresh_mode", EAGER)
+        assert refresh_mode in (EAGER, NORMAL), "Only recorded refresh scenarios"
         for index, workers in enumerate(orders):
             folder = out / f"block-{index+1}-{workers}w"
             folder.mkdir(mode=0o700)
@@ -118,22 +179,50 @@ def test_worker_capacity_comparison(request, tmp_path, record_property):
             runtime.mkdir()
             media = runtime / "private"
             shutil.copytree(django_settings.MEDIA_ROOT, media)
-            (runtime / "load_runtime_settings.py").write_text(
-                "from config.settings import *\nMEDIA_ROOT = " + repr(str(media)) + "\n"
-                'CELERY_TASK_ALWAYS_EAGER = True\nCELERY_TASK_EAGER_PROPAGATES = True\nCELERY_BEAT_SCHEDULE = {}\nCELERY_RESULT_BACKEND = "cache+memory://"\n')
+            runtime_settings = "from config.settings import *\nMEDIA_ROOT = " + repr(str(media)) + "\n"
+            if refresh_mode == EAGER:
+                runtime_settings += ('CELERY_TASK_ALWAYS_EAGER = True\nCELERY_TASK_EAGER_PROPAGATES = True\n'
+                                     'CELERY_BEAT_SCHEDULE = {}\nCELERY_RESULT_BACKEND = "cache+memory://"\n')
+            # NORMAL keeps the deployed Celery configuration and Beat schedule unchanged;
+            # only the broker is an owned, empty Redis database with an owned key prefix.
+            (runtime / "load_runtime_settings.py").write_text(runtime_settings + OBSERVER_SETTINGS)
+            celery_events = folder / "celery-events-raw"
+            celery_events.mkdir(mode=0o700)
             observer = folder / "worker-events-raw"
             observer.mkdir(mode=0o700)
             env = os.environ.copy()
+            generation = "w" + uuid4().hex[:31]
             env.update(POSTGRES_DB=name, POSTGRES_USER=db["USER"], POSTGRES_PASSWORD=db["PASSWORD"],
                        DB_HOST=db["HOST"], DB_PORT=str(db["PORT"]), APP_ENV="development", DJANGO_DEBUG="0",
                        DJANGO_SETTINGS_MODULE="load_runtime_settings", PYTHONPATH=str(runtime)+os.pathsep+str(Path.cwd()),
-                       REDIS_URL="memory://", TASK_QUEUE_GENERATION="w" + uuid4().hex[:31],
-                       WEB_MODELOS_BENCHMARK_OBSERVER_DIR=str(observer))
-            process, probe = None, None
-            report = {"index": index+1, "workers": workers, "routes": routes, "dataset": dataset,
+                       REDIS_URL="memory://" if refresh_mode == EAGER else OWNED_REDIS,
+                       TASK_QUEUE_GENERATION=generation,
+                       WEB_MODELOS_BENCHMARK_OBSERVER_DIR=str(observer),
+                       WEB_MODELOS_CELERY_OBSERVER_DIR=str(celery_events), WEB_MODELOS_PROCESS_ROLE="web")
+            process, probe, sampler, celery_processes = None, None, None, {}
+            report = {"index": index+1, "workers": workers, "refresh_mode": refresh_mode,
+                      "task_queue_generation": generation, "routes": routes, "dataset": dataset,
                       "postgres_version": pg_version, "verdict": "INVALID", "completed": False,
                       "upload_body_sha256": hashlib.sha256(multipart).hexdigest(), "policy": dict(POLICY)}
             try:
+                if refresh_mode == NORMAL:
+                    broker = owned_redis()
+                    assert broker.dbsize() == 0, "Owned Redis database must be empty before a block"
+                    # Same deployed commands (compose.yaml) in every block; owned and isolated.
+                    commands = {
+                        "worker": [sys.executable, "-m", "celery", "-A", "config", "worker", "--loglevel=INFO",
+                                   "--concurrency=2"],
+                        "beat": [sys.executable, "-m", "celery", "-A", "config", "beat", "--loglevel=INFO",
+                                 "--schedule", str(runtime / "celerybeat-schedule")],
+                    }
+                    for role, command in commands.items():
+                        with (folder / f"celery-{role}.log").open("w") as log:
+                            celery_processes[role] = subprocess.Popen(command, env={**env, "WEB_MODELOS_PROCESS_ROLE": role}, stdout=log,
+                                                                      stderr=log, start_new_session=True)
+                    ready_deadline = time.monotonic() + 60
+                    wait_for_log(folder / "celery-worker.log", " ready.", celery_processes["worker"], ready_deadline)
+                    wait_for_log(folder / "celery-beat.log", "beat: Starting", celery_processes["beat"], ready_deadline)
+                    report["celery_pids"] = {role: process_tree(p.pid) for role, p in celery_processes.items()}
                 with (folder / "gunicorn-private.log").open("w") as log:
                     process = subprocess.Popen([sys.executable, "-m", "gunicorn", "--config", "python:scripts.benchmark_resource_observer",
                         "config.wsgi:application", "--bind", f"127.0.0.1:{port}", "--workers", str(workers), "--timeout", "65",
@@ -155,10 +244,12 @@ def test_worker_capacity_comparison(request, tmp_path, record_property):
                 clone_db = {**db, "NAME": name}
                 probe = ResourceProbe(folder/"resource-samples.jsonl", clone_db, process.pid, pg_pid, trial_limits=limits)
                 probe.start()
+                sampler = PublicationSampler(folder/"publication-samples.jsonl", clone_db)
+                sampler.start()
                 report["resource_affinity"] = {"application": sorted(os.sched_getaffinity(process.pid)), "postgres": sorted(os.sched_getaffinity(pg_pid))}
                 time.sleep(5)
                 assert not probe.trial_limits.requested.is_set(), "Resource bound during idle"
-                probe.phase = "warmup"
+                probe.phase = sampler.phase = "warmup"
                 cold, serial = [], []
                 for cycle in range(6):
                     for route_index, path in enumerate(routes):
@@ -198,12 +289,30 @@ def test_worker_capacity_comparison(request, tmp_path, record_property):
                 upload = {"at": 0, "path": f"/es/draft/{draft.pk}/photos/upload/", "data": multipart,
                     "headers": {"Cookie": f"{django_settings.SESSION_COOKIE_NAME}={session_cookie}; {django_settings.CSRF_COOKIE_NAME}={csrf}",
                                 "X-CSRFToken": csrf, "Referer": origin+"/es/", "Content-Type": "multipart/form-data; boundary="+boundary}, "expected": 302}
-                probe.phase = "upload_spacing"
+                with psycopg.connect(dbname=name, user=db["USER"], password=db["PASSWORD"], host=db["HOST"],
+                                     port=db["PORT"], autocommit=True) as check:
+                    report["dirty_before_load"] = check.execute(
+                        "SELECT count(*) FROM listings_publicationdirty").fetchone()[0]
+                probe.phase = sampler.phase = "upload_spacing"
                 if last_upload is not None:
                     time.sleep(max(0, last_upload+60-time.monotonic()))
+                if refresh_mode == NORMAL:
+                    # Same Beat phase in every block: the load (and its upload at t=0) starts
+                    # BEAT_PHASE_SECONDS after an observed Beat publish of the 30 s refresh.
+                    beat_deadline = time.monotonic() + 45
+                    while not (ticks := beat_refresh_publishes(celery_events)):
+                        assert time.monotonic() < beat_deadline, "No Beat refresh observed before load"
+                        time.sleep(.2)
+                    tick = ticks[-1]
+                    target = tick + BEAT_PHASE_SECONDS
+                    while target < time.monotonic() + .5:
+                        target += 30
+                    time.sleep(target - time.monotonic())
+                    report["beat_alignment"] = {"observed_tick_monotonic": tick, "load_start_target": target,
+                                                "phase_seconds": BEAT_PHASE_SECONDS}
                 assert not probe.trial_limits.requested.is_set(), "Resource bound before load"
                 report["client_gc_preparation"] = prepare_generator_gc()
-                probe.phase = "arrivals_and_drain"
+                probe.phase = sampler.phase = "arrivals_and_drain"
                 async def fetch(path, **kwargs):
                     return await fetch_http(origin, path, timeout_seconds=65, **kwargs)
                 with GCObserver(monotonic_clock=time.monotonic) as gc:
@@ -228,18 +337,34 @@ def test_worker_capacity_comparison(request, tmp_path, record_property):
                         break
                     time.sleep(.1)
                 report["server_cohort_end_monotonic"] = time.monotonic()
-                probe.phase = "idle_after"
+                probe.phase = sampler.phase = "idle_after"
                 if not probe.trial_limits.requested.is_set():
                     time.sleep(5)
             except Exception as exc:
                 report["execution_error_type"] = type(exc).__name__
                 raise
             finally:
+                if sampler:
+                    sampler.close()
                 if probe:
                     probe.close()
                     report["trial_stop"] = probe.trial_limits.reason
                 terminate_owned(process)
                 report["gunicorn_stopped"] = process is None or process.poll() is not None
+                for role, owned in celery_processes.items():
+                    terminate_owned(owned)
+                    report[f"celery_{role}_stopped"] = owned.poll() is not None
+                if celery_processes:
+                    report["celery_pid_absence"] = {
+                        str(pid): not Path(f"/proc/{pid}").exists()
+                        for pids in report.get("celery_pids", {}).values() for pid in pids}
+                if refresh_mode == NORMAL:
+                    broker = owned_redis()
+                    owned_keys = list(broker.scan_iter(count=1000))
+                    report["owned_redis_keys_removed"] = len(owned_keys)
+                    if owned_keys:
+                        broker.delete(*owned_keys)
+                    report["owned_redis_empty"] = broker.dbsize() == 0
                 report["worker_pid_absence"] = {p.stem: not Path("/proc/"+p.stem.split("-")[1]).exists() for p in observer.glob("worker-*.jsonl")}
                 (folder/"benchmark-worker-events.json").write_text(json.dumps(collect_events(observer), indent=2))
                 admin.execute(sql.SQL("DROP DATABASE {} WITH (FORCE)").format(sql.Identifier(name)))

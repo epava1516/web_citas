@@ -1,0 +1,29 @@
+{
+  "status": "PREFIXED_BEFORE_IMPLEMENTATION",
+  "date": "2026-10-08",
+  "author": "Claude Code (Claude Opus 5.5), trabajo manual autorizado por el usuario en CR09-REND-LECTURA",
+  "product_source": "c82a746 (producto 2dd4ca5)",
+  "observed_cost": {
+    "diagnostic": "docs/evidencias/mod05-perfil-python-diagnostico0110.json: cProfile finito Client in-process, 10.000 repetido/diverso, 6 rutas contractuales. psycopg Connection.wait 128-245 ms/request perfilado en listado/busqueda (~60 esperas); ningun tramo Python concreto >=20 ms salvo pausas aisladas atribuidas a funciones arbitrarias (GC del proceso de test, no atribuidas).",
+    "loaded_route_population": "docs/evidencias/mod05-recursos-informe0110.md: 346/400 listado/busqueda bajo carga con native_unknown=1 tras el upload; 54 con 0.",
+    "dirty_vs_clean_reference_only": "Contraste de pertenencia (dirty=1) WSGI listado 339-345 / busqueda 359-433 ms; matriz limpia (unknown=0) 238-275 / 280-285 ms. Poblaciones distintas: solo motivan, no son ahorro esperado.",
+    "mechanism": "docs/evidencias/mod05-pertenencia-ab-revisada0110.json order_plans: enumeracion de desconocidos con dirty=1. Diverso: Nested Loop ordenado, Index Scan listings_listing 10.001 loops y SubPlan correlacionado Index Scan listings_publicationstate 10.000 loops, 61.785 shared hits, 89,354/105,094 ms ejecucion. Repetido: SubPlan hash, 38,156/42,263 ms. Una sola fila desconocida real.",
+    "not_measured": "CPU PostgreSQL por operacion, overhead causal de observadores, filas escaneadas globales."
+  },
+  "hypothesis": "Con sucios presentes la enumeracion evalua 'sin estado fiable' sobre toda la poblacion candidata aunque un invariante global demuestre que no existe ningun anuncio sin estado de la version vigente. Acotarla al conjunto sucio cuando all_state_current() es verdadero en la misma instantanea elimina ese recorrido.",
+  "minimal_change": "apps/listings/publication_state.py::_state_page: si hay sucios, comprobar all_state_current(); si es verdadero, desconocidos = query.filter(pk__in=dirty) con el mismo orden y limite NATIVE_UNKNOWN_LIMIT+1; si es falso, conservar la enumeracion completa actual. Sin sucios: camino actual sin cambios. Nada mas cambia: poblacion final, pertenencia, filtros, ranking, recuento, paginacion, guard nativo, limites y fallbacks.",
+  "equivalence_argument": "Desconocidos = candidatos sucios U candidatos sin estado fiable (PublicationState con rules_version vigente). PublicationState.listing_id es PK/FK a Listing con CASCADE; all_state_current() es NOT EXISTS de anuncio sin estado vigente sobre toda la tabla. Si es verdadero en la instantanea REPEATABLE READ comun, el segundo termino es vacio para cualquier subconjunto de anuncios y desconocidos = candidatos sucios. Mismo filtro de candidatos, orden y limite: mismo conjunto, misma decision de fallback (>48) y misma evaluacion nativa. Si es falso, se ejecuta la enumeracion original.",
+  "functional_exit": "PostgreSQL sintetico propio: equivalencia byte a byte frente a la ruta nativa en los limites missing/old_version/dirty_eligible/dirty_revoked existentes y en combinaciones dirty+missing, dirty+old_version (invariante falso con sucios), normal y PRODUCTION, checked, filtro de servicios, paginas 1/2, ES/EN; mecanismo: con dirty y estado vigente completo la enumeracion no referencia listings_publicationstate. Regresion de pruebas MOD-05 de estado (test_publication_state*.py). Ruff de los ficheros tocados.",
+  "effect_prefixed": {
+    "harness": "tests/test_publication_state_tcp.py contraste opt-in con referencia congelada (_state_page de 2dd4ca5) frente al candidato; antes->despues->despues->antes, 10 controles secuenciales por ruta y bloque, 6 rutas ES/EN, fixtures repetido y diverso de 10.000, cuatro workers sync propios, un candidato dirty fuera de la primera pagina (native_unknown=1). Sin profiler SQL/reglas en controles.",
+    "target": "Familias listado y busqueda, ambos fixtures, ambos pares equilibrados (bloque0 frente a 1 y bloque3 frente a 2).",
+    "http_mean_improvement_min_ms": 20,
+    "http_mean_improvement_min_fraction": 0.05,
+    "controls": "Ficha no empeora mas de max(10 ms, 5 % de su media antes) en ningun par/fixture.",
+    "D": "Medias WSGI por familia (rutas ES/EN peso 1/2), D con pesos 1/3; uploads not_measured y fuera de D.",
+    "sql_mechanism": "EXPLAIN (ANALYZE, BUFFERS) separado de las lecturas unknown/all_state_current/count/page por variante: el candidato no ejecuta SubPlan sobre listings_publicationstate en la enumeracion. Plan solo como mecanismo, nunca como aceptacion HTTP.",
+    "decision": "Conservar solo con equivalencia + las 8 celdas objetivo cumpliendo ambos umbrales + controles de ficha + mecanismo. En otro caso retirar y documentar; sin variantes menores automaticas."
+  },
+  "limits": "Sin cargas 30/60/900 s, sin cambio de workers, PostgreSQL, cache, produccion ni servicios ajenos. Controles secuenciales no son capacidad. No se resta de D historicos ni se extrapola a la mezcla contractual. Host compartido con servicios ajenos: ruido documentado, no corregido.",
+  "contract": "10.000 anuncios, 20 RPS durante 900 s, mezcla y uploads vigentes, p95<800 ms, errores<1 %, generador/contabilidad/timeout/drain sin cambios. CR09 abierto; porcentajes sin cambio."
+}

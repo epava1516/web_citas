@@ -261,6 +261,12 @@ def detect_matches(blob_id):
             ):
                 record_match(photo, candidate, {"method": method, "score": score})
 
-    blob.photos.filter(
+    completed = blob.photos.filter(
         pk__in=[photo.pk for photo in photos_to_compare], removed_at__isnull=True
     ).update(comparison_complete=True)
+    if completed:
+        # A queryset update sends no model signal; its trigger already marked the listings.
+        # Queue the same latency-only refresh the signals queue for ordinary writes.
+        from apps.listings.publication_signals import schedule_refresh
+
+        schedule_refresh(Photo)

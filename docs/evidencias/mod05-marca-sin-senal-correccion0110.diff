@@ -1,0 +1,34 @@
+diff --git a/apps/mediafiles/services.py b/apps/mediafiles/services.py
+index 22362fa..ada067f 100644
+--- a/apps/mediafiles/services.py
++++ b/apps/mediafiles/services.py
+@@ -261,6 +261,12 @@ def detect_matches(blob_id):
+             ):
+                 record_match(photo, candidate, {"method": method, "score": score})
+ 
+-    blob.photos.filter(
++    completed = blob.photos.filter(
+         pk__in=[photo.pk for photo in photos_to_compare], removed_at__isnull=True
+     ).update(comparison_complete=True)
++    if completed:
++        # A queryset update sends no model signal; its trigger already marked the listings.
++        # Queue the same latency-only refresh the signals queue for ordinary writes.
++        from apps.listings.publication_signals import schedule_refresh
++
++        schedule_refresh(Photo)
+diff --git a/tests/test_publication_state.py b/tests/test_publication_state.py
+index 734a56b..4500111 100644
+--- a/tests/test_publication_state.py
++++ b/tests/test_publication_state.py
+@@ -76,7 +76,10 @@ def test_state_route_matches_native_before_and_after_refresh(request, settings,
+     if mode == "production":
+         settings.PRODUCTION = True
+         publication_state.rules_version.cache_clear()
+-    assert dirty_ids()  # Fresh listings are unknown and evaluated natively.
++    # Fixture image processing already queued refreshes; mark everything so the first
++    # comparison still exercises unknown listings evaluated natively.
++    publication_state.mark_all()
++    assert dirty_ids()  # Unknown listings are evaluated natively.
+     assert_equivalent(client, monkeypatch)
+     drain()
+     assert_equivalent(client, monkeypatch)

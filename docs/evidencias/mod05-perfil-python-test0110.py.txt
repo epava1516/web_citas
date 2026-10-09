@@ -1,0 +1,98 @@
+"""Finite CR09-REND-LECTURA diagnostic: where the Python time of current routes goes.
+
+Client in-process, isolated synthetic PostgreSQL. Not TCP/WSGI, not capacity.
+cProfile inflates Python-heavy code; only relative ranking is used.
+"""
+
+import cProfile
+import io
+import json
+import os
+import pstats
+import statistics
+import time
+from collections import defaultdict
+
+import pytest
+from django.db import connection
+from test_discovery import directory  # noqa: F401
+from test_photos import photo_environment  # noqa: F401
+from test_publication_state_matrix import prepare_population
+
+from apps.listings.models import Listing
+
+pytestmark = pytest.mark.django_db(transaction=True)
+
+OUT = os.environ["CR09_DIAG_OUT"]
+
+
+def bucket(filename, func):
+    f = filename.replace("\\", "/")
+    if "/apps/" in f:
+        return "apps/" + f.split("/apps/")[1]
+    for key in ("django/db/models/sql", "django/db/models/query", "django/db/models/base",
+                "django/db/models/fields", "django/db/backends", "psycopg", "django/template",
+                "django/forms", "django/utils", "django/core", "django/http", "django/middleware",
+                "django/contrib", "django/urls", "django/db/models", "django/dispatch"):
+        if key in f:
+            return key
+    if f.startswith("~") or f == "~":
+        return "builtin:" + func
+    return "other:" + f.rsplit("/", 1)[-1]
+
+
+@pytest.mark.parametrize("fixture", ["repeated", "diverse"])
+def test_python_profile(request, fixture):
+    client = request.getfixturevalue("directory")
+    prepare_population(10000, fixture)
+    assert connection.settings_dict["NAME"].startswith("test_promotion_gate_")
+    ids = list(Listing.objects.filter(status="published").order_by("pk").values_list("pk", flat=True))
+    paths = ["/es/", "/en/", "/es/?q=photography", "/en/?q=synthetic",
+             f"/es/listing/{ids[0]}/", f"/en/listing/{ids[-1]}/"]
+    report = {"fixture": fixture, "count": len(ids), "routes": []}
+    for path in paths:
+        for _ in range(2):
+            assert client.get(path).status_code == 200
+        controls = []
+        for _ in range(5):
+            start = time.perf_counter()
+            response = client.get(path)
+            controls.append(time.perf_counter() - start)
+            assert response.status_code == 200
+        route = getattr(response.wsgi_request, "_publication_route", None)
+        profiler = cProfile.Profile()
+        start = time.perf_counter()
+        for _ in range(3):
+            profiler.enable()
+            response = client.get(path)
+            profiler.disable()
+            assert response.status_code == 200
+        profiled = (time.perf_counter() - start) / 3
+        stats = pstats.Stats(profiler)
+        total = sum(v[2] for v in stats.stats.values()) / 3
+        buckets = defaultdict(float)
+        rows = []
+        for (filename, line, func), (cc, nc, tt, ct, callers) in stats.stats.items():
+            buckets[bucket(filename, func)] += tt / 3
+            rows.append({"func": f"{filename.rsplit('/', 2)[-2:] if '/' in filename else filename}:{line}:{func}",
+                         "ncalls_per_req": nc / 3, "tottime_ms": tt / 3 * 1000, "cumtime_ms": ct / 3 * 1000})
+        top_tot = sorted(rows, key=lambda r: -r["tottime_ms"])[:40]
+        top_cum = sorted(rows, key=lambda r: -r["cumtime_ms"])[:60]
+        report["routes"].append({
+            "path": path.replace(str(ids[0]), "<first>").replace(str(ids[-1]), "<last>"),
+            "route": route,
+            "control_mean_ms": statistics.mean(controls) * 1000,
+            "control_ms": [c * 1000 for c in controls],
+            "profiled_mean_ms": profiled * 1000,
+            "profile_tottime_sum_ms": total * 1000,
+            "buckets_ms": dict(sorted(((k, v * 1000) for k, v in buckets.items()), key=lambda x: -x[1])[:30]),
+            "top_tottime": top_tot,
+            "top_cumtime": top_cum,
+        })
+        s = io.StringIO()
+        pstats.Stats(profiler, stream=s).sort_stats("cumulative").print_stats(80)
+        safe = path.strip("/").replace("/", "_").replace("?", "_").replace("=", "_") or "root"
+        with open(os.path.join(OUT, f"{fixture}-{safe[:20]}.txt"), "w") as fh:
+            fh.write(s.getvalue())
+    with open(os.path.join(OUT, f"profile-{fixture}.json"), "w") as fh:
+        json.dump(report, fh, indent=1, default=str)

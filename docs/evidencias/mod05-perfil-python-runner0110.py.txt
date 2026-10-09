@@ -1,0 +1,53 @@
+"""Runner: one isolated synthetic DB, finite cProfile diagnostic, verified cleanup."""
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+import uuid
+from pathlib import Path
+
+import psycopg
+from cryptography.fernet import Fernet
+from psycopg import sql
+
+root = Path('/home/felidae/proyectos/web_modelos')
+here = Path(__file__).resolve().parent
+test_file = Path(sys.argv[1]).resolve()
+out = Path(sys.argv[2])
+selection = sys.argv[3:] or [str(test_file)]
+out.mkdir(parents=True, exist_ok=False)
+env = os.environ.copy()
+for line in (root / '.env').read_text().splitlines():
+    key, sep, value = line.partition('=')
+    if sep and key in {'POSTGRES_DB', 'POSTGRES_USER', 'POSTGRES_PASSWORD', 'MFA_ENCRYPTION_KEY'}:
+        env[key] = value.strip().strip('"\'')
+env.update(APP_ENV='development', DB_HOST='127.0.0.1', DB_PORT='55432',
+           SAFETY_ENCRYPTION_KEY=Fernet.generate_key().decode(),
+           PYTHONPATH=f"{root}:{root / 'tests'}", CR09_DIAG_OUT=str(out))
+name = 'promotion_gate_cr09diag_' + uuid.uuid4().hex[:12]
+admin = psycopg.connect(dbname=env.get('POSTGRES_DB', 'clasificados'), user=env['POSTGRES_USER'],
+                        password=env['POSTGRES_PASSWORD'], host='127.0.0.1', port=55432, autocommit=True)
+result = {'db': name, 'source': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip(),
+          'dirty_tree': subprocess.check_output(['git', 'status', '--porcelain'], cwd=root, text=True)}
+start = time.perf_counter()
+try:
+    admin.execute(sql.SQL('CREATE DATABASE {}').format(sql.Identifier(name)))
+    env['POSTGRES_DB'] = name
+    with (out / 'pytest.log').open('w') as log:
+        result['pytest_exit'] = subprocess.run(
+            [str(root / '.venv/bin/python'), '-m', 'pytest', '-p', 'no:cacheprovider', '-q',
+             '--rootdir', str(root), '-c', str(root / 'pyproject.toml'), *selection,
+             '--basetemp=' + str(out / 'pytest-temp')],
+            cwd=root, env=env, stdout=log, stderr=subprocess.STDOUT).returncode
+finally:
+    result['seconds'] = time.perf_counter() - start
+    for db in (name, 'test_' + name):
+        admin.execute(sql.SQL('DROP DATABASE IF EXISTS {} WITH (FORCE)').format(sql.Identifier(db)))
+    left = admin.execute("SELECT datname FROM pg_database WHERE datname LIKE %s", ['%' + name + '%']).fetchall()
+    result['databases_left'] = [r[0] for r in left]
+    shutil.rmtree(out / 'pytest-temp', ignore_errors=True)
+    result['media_removed'] = not (out / 'pytest-temp').exists()
+    (out / 'runner.json').write_text(json.dumps(result, indent=2))
+    print(json.dumps(result))

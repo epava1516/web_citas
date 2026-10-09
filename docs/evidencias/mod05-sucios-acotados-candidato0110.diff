@@ -1,0 +1,21 @@
+diff --git a/apps/listings/publication_state.py b/apps/listings/publication_state.py
+index 904f4c0..292bc09 100644
+--- a/apps/listings/publication_state.py
++++ b/apps/listings/publication_state.py
+@@ -327,7 +327,15 @@ def _state_page(query, number, checked, observation, stale):
+             observation.update(route="fallback", reason="state_dirty_over_limit")
+         return None
+     unknown = []
+-    if dirty or not all_state_current():
++    # Unknown = dirty candidates plus candidates without a current-version state. When no
++    # listing at all lacks one (same snapshot), the second set is empty for any candidate
++    # subset: read only the dirty candidates instead of testing every candidate's state.
++    current = all_state_current()
++    if dirty and current:
++        unknown = list(
++            query.filter(pk__in=dirty).values_list("pk", flat=True)[: NATIVE_UNKNOWN_LIMIT + 1]
++        )
++    elif not current:
+         unknown = list(
+             query.filter(~Exists(trusted_state()) | Q(pk__in=dirty)).values_list("pk", flat=True)[
+                 : NATIVE_UNKNOWN_LIMIT + 1

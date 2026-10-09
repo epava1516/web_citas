@@ -1,0 +1,103 @@
+"""Unknown enumeration scoped to dirty candidates only when no listing lacks current state."""
+
+import re
+
+import pytest
+from django.db import connection
+from django.utils import timezone
+from test_discovery import directory, multipage_directory  # noqa: F401
+from test_photos import photo_environment  # noqa: F401
+
+from apps.core.models import Person
+from apps.listings import publication_state
+from apps.listings.models import Listing, PublicationDirty, PublicationState, Revision
+
+pytestmark = pytest.mark.django_db(transaction=True)
+
+# trusted_state(): EXISTS over listings_publicationstate correlated with each candidate.
+CORRELATED_STATE = re.compile(
+    r'FROM "listings_publicationstate" (U\d+) WHERE \(\1\."listing_id" = \("listings_listing"\."id"\)'
+)
+
+
+@pytest.mark.parametrize("boundary", [
+    "dirty_eligible", "dirty_revoked", "dirty_and_missing", "dirty_and_old_version",
+    "dirty_not_candidate",
+])
+def test_dirty_scope_preserves_native_population(request, monkeypatch, record_property, boundary):
+    client = request.getfixturevalue("multipage_directory")
+    # PRODUCTION equivalence with dirty and missing states: test_publication_state.py.
+    while publication_state.refresh(500):
+        pass
+    second = client.get("/en/", {"q": "pagination", "page": "2"})
+    target = second.context["page"].object_list[0]
+    first_page = client.get("/en/", {"q": "pagination", "page": "1"}).context["page"].object_list
+    other = first_page[3]
+    assert second.context["page"].paginator.count == 25
+    assert not PublicationDirty.objects.exists()
+    if boundary == "dirty_revoked":
+        Person.objects.filter(pk=target.person_id).update(consent_revoked_at=timezone.now())
+        dirty = {target.pk}
+    elif boundary == "dirty_not_candidate":
+        # A dirty listing excluded by the search text: never part of the candidates.
+        candidates = {row.pk for row in first_page} | {
+            row.pk for row in second.context["page"].object_list}
+        outsider = Listing.objects.filter(status="published").exclude(pk__in=candidates).first()
+        assert outsider is not None
+        Revision.objects.bulk_create([
+            Revision(listing=outsider, manager_version=outsider.person.manager_version)
+        ])
+        dirty = {outsider.pk}
+    else:
+        Revision.objects.bulk_create([
+            Revision(listing=target, manager_version=target.person.manager_version)
+        ])
+        dirty = {target.pk}
+    if boundary == "dirty_and_missing":
+        PublicationState.objects.filter(listing_id=other.pk).delete()
+    elif boundary == "dirty_and_old_version":
+        PublicationState.objects.filter(listing_id=other.pk).update(rules_version="0" * 64)
+    assert set(PublicationDirty.objects.values_list("listing_id", flat=True)) == dirty
+    invariant = boundary not in {"dirty_and_missing", "dirty_and_old_version"}
+    assert publication_state.all_state_current() is invariant
+    expected_count = 24 if boundary == "dirty_revoked" else 25
+    reports = []
+    statements = []
+
+    def capture(execute, sql, params, many, context):
+        statements.append(sql)
+        return execute(sql, params, many, context)
+
+    service_ids = list(target.approved_revision.services.values_list("pk", flat=True))
+    filters = [{}, {"checked": ["age"]}, {"checked": ["contact", "agency"]},
+               {"service": service_ids, "services_mode": "any"}]
+    for language in ["es", "en"]:
+        for extra in filters:
+            for page in ["1", "2"]:
+                params = {"q": "pagination", "page": page, **extra}
+                statements.clear()
+                with connection.execute_wrapper(capture):
+                    actual = client.get(f"/{language}/", params)
+                with monkeypatch.context() as patch:
+                    patch.setattr(publication_state, "state_page", lambda *args, **kwargs: None)
+                    native = client.get(f"/{language}/", params)
+                assert actual.status_code == native.status_code
+                assert actual.content == native.content
+                if actual.status_code != 200:
+                    continue
+                route = actual.wsgi_request._publication_route
+                assert route["route"] == "state"
+                assert actual.context["page"].paginator.count == native.context["page"].paginator.count
+                if not extra:
+                    assert actual.context["page"].paginator.count == expected_count
+                correlated = [sql for sql in statements if CORRELATED_STATE.search(sql)]
+                # Mechanism: the per-candidate state test runs only when some listing lacks
+                # a current-version state; otherwise only dirty candidates are read.
+                assert bool(correlated) is (not invariant)
+                reports.append({"language": language, "page": page, "filters": sorted(extra),
+                                "count": actual.context["page"].paginator.count,
+                                "native_unknown": route["native_unknown"],
+                                "correlated_enumeration": bool(correlated)})
+    assert reports
+    record_property("dirty_scope_equivalence", {"boundary": boundary,
+                                                "invariant": invariant, "reports": reports})

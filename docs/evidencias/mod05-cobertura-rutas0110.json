@@ -1,0 +1,187 @@
+{
+ "rows": [
+  {
+   "mode": "normal",
+   "path": "/es/",
+   "params": {},
+   "status": 200,
+   "route": {
+    "route": "state",
+    "reason": "trusted_state",
+    "native_unknown": 0
+   },
+   "count": 10000,
+   "equivalent_to_native": true,
+   "controls_seconds": [
+    0.32802482414990664,
+    0.36972160590812564
+   ],
+   "control_mean_seconds": 0.34887321502901614,
+   "native_seconds": 13.582079581916332
+  },
+  {
+   "mode": "normal",
+   "path": "/en/",
+   "params": {
+    "q": "photography"
+   },
+   "status": 200,
+   "route": {
+    "route": "state",
+    "reason": "trusted_state",
+    "native_unknown": 0
+   },
+   "count": 10000,
+   "equivalent_to_native": true,
+   "controls_seconds": [
+    0.2171481866389513,
+    0.2965854573994875
+   ],
+   "control_mean_seconds": 0.2568668220192194,
+   "native_seconds": 14.14024047832936
+  },
+  {
+   "mode": "normal",
+   "path": "/es/",
+   "params": {
+    "checked": [
+     "age"
+    ]
+   },
+   "status": 200,
+   "route": {
+    "route": "state",
+    "reason": "trusted_state",
+    "native_unknown": 0
+   },
+   "count": 0,
+   "equivalent_to_native": true,
+   "controls_seconds": [
+    0.11642323480919003,
+    0.10416167508810759
+   ],
+   "control_mean_seconds": 0.11029245494864881,
+   "native_seconds": 35.28932135179639,
+   "count_note": "pagina vacia (Page con len 0 registrada como None por el test; recuento 0)"
+  },
+  {
+   "mode": "normal",
+   "path": "/es/",
+   "params": {
+    "checked": [
+     "contact",
+     "agency"
+    ]
+   },
+   "status": 200,
+   "route": {
+    "route": "state",
+    "reason": "trusted_state",
+    "native_unknown": 0
+   },
+   "count": 0,
+   "equivalent_to_native": true,
+   "controls_seconds": [
+    0.14614435471594334,
+    0.13727082731202245
+   ],
+   "control_mean_seconds": 0.1417075910139829,
+   "native_seconds": 35.16719225188717,
+   "count_note": "pagina vacia (Page con len 0 registrada como None por el test; recuento 0)"
+  },
+  {
+   "mode": "normal",
+   "path": "/es/",
+   "params": {
+    "page": "3"
+   },
+   "status": 200,
+   "route": {
+    "route": "state",
+    "reason": "trusted_state",
+    "native_unknown": 0
+   },
+   "count": 10000,
+   "equivalent_to_native": true,
+   "controls_seconds": [
+    1.2962364638224244,
+    0.3320773639716208
+   ],
+   "control_mean_seconds": 0.8141569138970226,
+   "native_seconds": 12.914971631020308
+  },
+  {
+   "mode": "production",
+   "path": "/es/",
+   "params": {},
+   "status": 200,
+   "route": {
+    "route": "state",
+    "reason": "trusted_state",
+    "native_unknown": 0
+   },
+   "count": 0,
+   "equivalent_to_native": true,
+   "controls_seconds": [
+    0.11922087287530303,
+    0.11243654508143663
+   ],
+   "control_mean_seconds": 0.11582870897836983,
+   "native_seconds": 28.48450291203335,
+   "count_note": "pagina vacia (Page con len 0 registrada como None por el test; recuento 0)"
+  },
+  {
+   "mode": "production",
+   "path": "/en/",
+   "params": {
+    "q": "photography",
+    "checked": [
+     "age"
+    ]
+   },
+   "status": 200,
+   "route": {
+    "route": "state",
+    "reason": "trusted_state",
+    "native_unknown": 0
+   },
+   "count": 0,
+   "equivalent_to_native": true,
+   "controls_seconds": [
+    0.12290962832048535,
+    0.10565618984401226
+   ],
+   "control_mean_seconds": 0.11428290908224881,
+   "native_seconds": 28.14284025412053,
+   "count_note": "pagina vacia (Page con len 0 registrada como None por el test; recuento 0)"
+  },
+  {
+   "mode": "promotions",
+   "path": "/es/",
+   "params": {},
+   "status": 200,
+   "route": {
+    "route": "fallback",
+    "reason": "synthetic_promotions"
+   },
+   "count": 10000,
+   "equivalent_to_native": true,
+   "controls_seconds": [
+    14.29463169304654
+   ],
+   "control_mean_seconds": 14.29463169304654,
+   "native_seconds": 14.95233710668981
+  }
+ ],
+ "scope": "Client in-process, PostgreSQL synthetic 10.000 repeated; 2 controls (1 for promotions) after warmup; not TCP/WSGI/capacity; native comparison forces the native path in the same process. PRODUCTION rejects the synthetic simulator verification, so its population is not publishable.",
+ "runner": {
+  "db": "promotion_gate_cr09diag_43a1cd27fd4a",
+  "source": "c82a7468b83b83a1d2161a728a28f8c509cfb804",
+  "dirty_tree": " M .ai/tasks/desarrollo.md\n M apps/mediafiles/services.py\n M docs/17-seguimiento-desarrollo.md\n M docs/analisis-bloque-rendimiento-dafo0110.md\n M docs/criterios-revision-benchmark-carga.md\n M docs/evidencias/mod05-capacidad-4-vs-6-propuesta0110.json\n M scripts/benchmark_gc_observer.py\n M tests/test_contract_http_load.py\n M tests/test_publication_state.py\n M tests/test_worker_capacity_comparison.py\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-analisis-script0110.py\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-analisis0110.json\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-artefactos0110.tar.gz\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-informe0110.md\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-propuesta0110.json\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-revisor0110.log\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-revisor0110.py\n?? docs/evidencias/mod05-capacidad-4-vs-6-refresco-runner0110.py\n?? docs/evidencias/mod05-contractual-normal-intento1-artefactos0110.tar.gz\n?? docs/evidencias/mod05-contractual-normal-intento2-artefactos0110.tar.gz\n?? docs/evidencias/mod05-gate-normal-functional-intento1-artefactos0110.tar.gz\n?? docs/evidencias/mod05-gate-normal-functional-intento2-artefactos0110.tar.gz\n?? docs/evidencias/mod05-gate-normal-manifiesto0110.json\n?? docs/evidencias/mod05-gate-normal-runner0110.py\n?? docs/evidencias/mod05-gate-normal-short-artefactos0110.tar.gz\n?? docs/evidencias/mod05-gates-normal-informe0110.md\n?? docs/evidencias/mod05-marca-sin-senal-correccion0110.diff\n?? docs/evidencias/mod05-perfil-python-diagnostico0110.json\n?? docs/evidencias/mod05-perfil-python-runner0110.py.txt\n?? docs/evidencias/mod05-perfil-python-test0110.py.txt\n?? docs/evidencias/mod05-refresco-escenarios-eager-test0110.py.txt\n?? docs/evidencias/mod05-refresco-escenarios-funcional0110.json\n?? docs/evidencias/mod05-refresco-escenarios-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-analisis-script0110.py\n?? docs/evidencias/mod05-sucios-acotados-analisis0110.json\n?? docs/evidencias/mod05-sucios-acotados-arnes0110.diff\n?? docs/evidencias/mod05-sucios-acotados-artefactos0110.tar.gz\n?? docs/evidencias/mod05-sucios-acotados-candidato0110.diff\n?? docs/evidencias/mod05-sucios-acotados-equivalencia-test0110.py.txt\n?? docs/evidencias/mod05-sucios-acotados-huellas0110.json\n?? docs/evidencias/mod05-sucios-acotados-informe0110.md\n?? docs/evidencias/mod05-sucios-acotados-manifiesto0110.json\n?? docs/evidencias/mod05-sucios-reference0110.py\n?? scripts/benchmark_celery_observer.py\n?? scripts/benchmark_publication_sampler.py\n?? tests/test_owned_refresh_topology.py\n?? tests/test_publication_route_coverage.py\n?? tests/test_publication_state_upload.py\n",
+  "pytest_exit": 0,
+  "seconds": 352.0297602782957,
+  "databases_left": [],
+  "media_removed": true
+ },
+ "test": "tests/test_publication_route_coverage.py"
+}

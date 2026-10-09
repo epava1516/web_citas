@@ -1,0 +1,49 @@
+{
+  "status": "EXECUTED_REVIEWED",
+  "authorization": [
+    {
+      "date": "2026-10-08",
+      "text": "Autorizo el gate de 60 s en normal_worker_beat"
+    },
+    {
+      "date": "2026-10-08",
+      "text": "Autorizo cualquier prueba de aqui en adelante"
+    }
+  ],
+  "refresh_mode": "normal_worker_beat",
+  "scenario_definition": "Decision del usuario: el gate de 60 s se ejecuta en la topologia desplegada (worker y Beat reales). Mismos comandos, calendario, broker propio Redis db 15, observador, muestreador y fase de Beat que la comparacion 4/6 normal. 4 workers sync (referencia; seis no adoptados).",
+  "sequence": [
+    {
+      "step": "functional",
+      "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[functional]",
+      "purpose": "Calibracion del arnes modificado; no es gate"
+    },
+    {
+      "step": "short",
+      "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+      "purpose": "Gate de 60 s; solo un PASS completo habilita el contractual"
+    },
+    {
+      "step": "measured",
+      "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+      "purpose": "Contractual 900 s; solo tras PASS completo del gate de 60 s en el mismo escenario"
+    }
+  ],
+  "criteria": "Sin cambios respecto al contrato y al gate vigente: 10.000 anuncios, 20 RPS; corto 60 s/1.200 dinamicas/1 upload, drain<=70 s, pendientes en ventana<=20 y finales 0, p95 observable<800 ms, errores<1 %, upload 302, generador p95/p99/max <=10/25/100 ms, timeout 65 s; contractual 900 s/18.000 dinamicas/15 uploads uno por minuto, mismos objetivos.",
+  "refresh_records": "Ejecuciones por origen, wall/CPU de tareas, marcas limpiadas y demora, sucios a 1 Hz, secuencia de marcas, CPU de procesos worker/Beat en la ventana de llegadas.",
+  "exit": "Un intento por paso; INVALID/FAIL se documenta y detiene la secuencia sin repeticion automatica. Revision independiente de artefactos, fuentes y limpieza tras cada paso.",
+  "limits": "Sin produccion, datos reales, servicios ajenos, cambios de PostgreSQL, cache ni seis workers. Host compartido documentado. Resultados eager anteriores conservan su escenario y veredicto.",
+  "amendments": [
+    {
+      "date": "2026-10-08",
+      "before_retry": true,
+      "text": "Calibracion functional intento 1 INVALID solo por generator_delay_p99: una emision (t=1,75 s) con 28,6 ms de retardo; resto <=3 ms; sin solape con GC del cliente ni con el muestreador (t=0,45/1,45/2,45 s); con 60 muestras p99=max. 60/60 correctas, upload 302, cadena de refresco y limpieza correctas. Artefactos: docs/evidencias/mod05-gate-normal-functional-intento1-artefactos0110.tar.gz. Se permite una unica repeticion de la calibracion; el gate de 60 s y el contractual mantienen un solo intento cada uno."
+    },
+    {
+      "date": "2026-10-08",
+      "before_retry": true,
+      "text": "Contractual 900 s intento 1 INVALID solo por generator_delay_max 121,27 ms (>100 ms): una coleccion gen-2 de 169 ms del GC del proceso cliente en t~801,6 s solapa 120,3 ms del retardo de d-16032 (y d-16033/d-16034); 2/18.000 emisiones >25 ms. Resto: 18.000/18.000 correctas, 0 errores, p95 0,486 s, 15/15 uploads 302, 0 pendientes finales; veredicto INVALID conservado, no FAIL ni PASS. Cambio del instrumento cliente prefijado antes del intento 2: WEB_MODELOS_GENERATOR_GC_FREEZE=1 (gc.freeze tras el gc.collect(2) previo existente); GC habilitado y umbrales sin cambio; servidor, escenario, criterios y umbrales del generador sin cambio. Un unico intento 2 del contractual; el gate de 60 s PASS se obtuvo con el instrumento previo (mas estricto para el cliente) y no se repite."
+    }
+  ],
+  "result": "docs/evidencias/mod05-gates-normal-informe0110.md: functional PASS (intento 2), gate 60 s PASS, contractual 900 s INVALID (intento 1, GC cliente) y PASS (intento 2)."
+}

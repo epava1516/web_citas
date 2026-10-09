@@ -1,0 +1,69 @@
+"""One synthetic upload under the existing load-harness Celery settings (eager, no Beat).
+
+Functional observation only: no load, no timing claims. Records refresh executions inside
+the request process and whether a dirty mark remains when the response returns.
+"""
+
+import json
+import os
+
+import pytest
+from django.db import connection
+from test_discovery import directory  # noqa: F401
+from test_photos import photo_environment, raw_image, upload  # noqa: F401
+
+from apps.core.models import Person, User
+from apps.listings import publication_state
+from apps.listings.models import PublicationDirty, Revision
+from apps.mediafiles.models import Photo
+
+pytestmark = pytest.mark.django_db(transaction=True)
+
+
+def test_eager_upload_leaves_mark(request, monkeypatch, settings):
+    if os.environ.get("WEB_MODELOS_CELERY_OBSERVER_DIR"):
+        import scripts.benchmark_celery_observer  # noqa: F401
+    request.getfixturevalue("directory")
+    request.getfixturevalue("photo_environment")
+    settings.CELERY_BEAT_SCHEDULE = {}
+    manager = User.objects.get(username="fixture-v1-individual")
+    person = Person.objects.get(individual=manager)
+    draft = Revision.objects.create(listing=person.listing, manager_version=person.manager_version)
+    publication_state.refresh_all()
+    assert not PublicationDirty.objects.exists()
+    events = []
+    original_refresh = publication_state.refresh
+
+    def counted(limit=100):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT last_value FROM listings_publication_generation")
+            before = cursor.fetchone()[0]
+        processed = original_refresh(limit)
+        events.append({"event": "refresh", "limit": limit, "processed": processed,
+                       "generation_before": before,
+                       "dirty_after": sorted(map(str, PublicationDirty.objects.values_list("listing_id", flat=True)))})
+        return processed
+
+    monkeypatch.setattr(publication_state, "refresh", counted)
+    original_update = Photo.objects.none().__class__.update
+
+    def traced_update(queryset, **kwargs):
+        result = original_update(queryset, **kwargs)
+        if queryset.model is Photo:
+            events.append({"event": "photo_queryset_update", "fields": sorted(kwargs), "rows": result})
+        return result
+
+    monkeypatch.setattr(Photo.objects.none().__class__, "update", traced_update)
+    client = request.getfixturevalue("client")
+    client.force_login(manager)
+    response = upload(client, draft, raw_image(782134))
+    assert response.status_code == 302
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT last_value FROM listings_publication_generation")
+        final_generation = cursor.fetchone()[0]
+    remaining = sorted(map(str, PublicationDirty.objects.values_list("listing_id", flat=True)))
+    report = {"events": events, "final_generation": final_generation, "dirty_after_response": remaining,
+              "draft_listing": str(person.listing.pk)}
+    with open(os.path.join(os.environ["CR09_DIAG_OUT"], "eager-upload.json"), "w") as fh:
+        json.dump(report, fh, indent=1)
+    assert any(e["event"] == "refresh" for e in events)

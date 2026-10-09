@@ -1,0 +1,307 @@
+{
+  "blocks": [
+    {
+      "index": 1,
+      "workers": 4,
+      "harness_verdict": "PASS",
+      "invalid_reasons": [],
+      "generator_valid": true,
+      "success_window": 595,
+      "pending_window": 5,
+      "p95_observable_seconds": 0.5068255639635026,
+      "error_fraction": 0.0,
+      "wsgi_mean_seconds": {
+        "listing": 0.23055147981038318,
+        "search": 0.2598603927716613,
+        "detail": 0.0945340570411645
+      },
+      "thread_cpu_mean_seconds": {
+        "listing": 0.11776260659499999,
+        "search": 0.12324729368500001,
+        "detail": 0.050129826324999995
+      },
+      "D": 0.19498197654106963,
+      "upload_wall_seconds": 0.29277539206668735,
+      "W20_plus_upload_per_minute": 3.9045191206891707,
+      "read_routes": {
+        "state/unknown0": 391,
+        "state/unknown1": 9
+      },
+      "cpu_cores_window": {
+        "app": 1.9562318895185609,
+        "shared_pg": 1.3945951622810289,
+        "owned_celery": 0.02275891145923233,
+        "own_client_runner": 0.11827737318964678,
+        "unrelated_host_residual": 2.1778642728348325
+      },
+      "refresh": {
+        "executions_total": 6,
+        "executions_by_origin": {
+          "beat": 2,
+          "web": 1,
+          "worker": 3
+        },
+        "executions_load_and_drain": 5,
+        "wall_seconds_sum": 0.8344028471037745,
+        "thread_cpu_seconds_sum": 0.258214193,
+        "processed_sum": 3,
+        "cleared_sum": 3,
+        "mark_to_clear_seconds_upper_bound": [
+          0.18822002410888672,
+          0.21536016464233398,
+          0.45763397216796875
+        ],
+        "dirty_samples_load_nonzero": 0,
+        "dirty_samples_load_total": 31,
+        "max_oldest_mark_age_load_seconds": 0,
+        "generation_delta_block": 9,
+        "process_blob": [
+          {
+            "wall": 4.910888005979359,
+            "thread_cpu": 0.585826094,
+            "origin": "web"
+          }
+        ],
+        "other_tasks_wall_seconds_sum": 0.7086978647857904
+      },
+      "beat_alignment": {
+        "observed_tick_monotonic": 3219110.554963282,
+        "load_start_target": 3219115.554963282,
+        "phase_seconds": 5
+      }
+    },
+    {
+      "index": 2,
+      "workers": 6,
+      "harness_verdict": "PASS",
+      "invalid_reasons": [],
+      "generator_valid": true,
+      "success_window": 595,
+      "pending_window": 5,
+      "p95_observable_seconds": 0.5669372794218361,
+      "error_fraction": 0.0,
+      "wsgi_mean_seconds": {
+        "listing": 0.26414222876075655,
+        "search": 0.2904223239957355,
+        "detail": 0.12229003821266815
+      },
+      "thread_cpu_mean_seconds": {
+        "listing": 0.118852605565,
+        "search": 0.12090071091,
+        "detail": 0.053127129020000025
+      },
+      "D": 0.22561819698972005,
+      "upload_wall_seconds": 0.27007780270650983,
+      "W20_plus_upload_per_minute": 4.5168652365061766,
+      "read_routes": {
+        "state/unknown1": 12,
+        "state/unknown0": 388
+      },
+      "cpu_cores_window": {
+        "app": 1.9593092287733966,
+        "shared_pg": 1.3299952768958643,
+        "owned_celery": 0.049655144129420827,
+        "own_client_runner": 0.1175861399175868,
+        "unrelated_host_residual": 2.5548300964517385
+      },
+      "refresh": {
+        "executions_total": 6,
+        "executions_by_origin": {
+          "beat": 2,
+          "web": 1,
+          "worker": 3
+        },
+        "executions_load_and_drain": 5,
+        "wall_seconds_sum": 1.1084826183505356,
+        "thread_cpu_seconds_sum": 0.26817913399999993,
+        "processed_sum": 3,
+        "cleared_sum": 3,
+        "mark_to_clear_seconds_upper_bound": [
+          0.22219300270080566,
+          0.3288750648498535,
+          0.6001420021057129
+        ],
+        "dirty_samples_load_nonzero": 2,
+        "dirty_samples_load_total": 31,
+        "max_oldest_mark_age_load_seconds": 0.098904,
+        "generation_delta_block": 9,
+        "process_blob": [
+          {
+            "wall": 4.674474612809718,
+            "thread_cpu": 0.551399952,
+            "origin": "web"
+          }
+        ],
+        "other_tasks_wall_seconds_sum": 0.7019158960320055
+      },
+      "beat_alignment": {
+        "observed_tick_monotonic": 3219188.293155444,
+        "load_start_target": 3219193.293155444,
+        "phase_seconds": 5
+      }
+    },
+    {
+      "index": 3,
+      "workers": 6,
+      "harness_verdict": "PASS",
+      "invalid_reasons": [],
+      "generator_valid": true,
+      "success_window": 594,
+      "pending_window": 6,
+      "p95_observable_seconds": 0.547100568190217,
+      "error_fraction": 0.0,
+      "wsgi_mean_seconds": {
+        "listing": 0.264958150673192,
+        "search": 0.2870615476742387,
+        "detail": 0.12391199604608119
+      },
+      "thread_cpu_mean_seconds": {
+        "listing": 0.12116913197999996,
+        "search": 0.12112133618000001,
+        "detail": 0.05539966811000001
+      },
+      "D": 0.2253105647978373,
+      "upload_wall_seconds": 0.3008151580579579,
+      "W20_plus_upload_per_minute": 4.511224881924378,
+      "read_routes": {
+        "state/unknown0": 390,
+        "state/unknown1": 10
+      },
+      "cpu_cores_window": {
+        "app": 1.9931037198284112,
+        "shared_pg": 1.3804394294588158,
+        "owned_celery": 0.055172421310129026,
+        "own_client_runner": 0.11655174001764755,
+        "unrelated_host_residual": 2.2264576136908683
+      },
+      "refresh": {
+        "executions_total": 6,
+        "executions_by_origin": {
+          "beat": 2,
+          "web": 1,
+          "worker": 3
+        },
+        "executions_load_and_drain": 5,
+        "wall_seconds_sum": 1.111738903913647,
+        "thread_cpu_seconds_sum": 0.293549458,
+        "processed_sum": 3,
+        "cleared_sum": 3,
+        "mark_to_clear_seconds_upper_bound": [
+          0.23239994049072266,
+          0.28782105445861816,
+          0.4944021701812744
+        ],
+        "dirty_samples_load_nonzero": 0,
+        "dirty_samples_load_total": 31,
+        "max_oldest_mark_age_load_seconds": 0,
+        "generation_delta_block": 9,
+        "process_blob": [
+          {
+            "wall": 5.823059012182057,
+            "thread_cpu": 0.6580724469999999,
+            "origin": "web"
+          }
+        ],
+        "other_tasks_wall_seconds_sum": 0.6533782305195928
+      },
+      "beat_alignment": {
+        "observed_tick_monotonic": 3219266.165614328,
+        "load_start_target": 3219271.165614328,
+        "phase_seconds": 5
+      }
+    },
+    {
+      "index": 4,
+      "workers": 4,
+      "harness_verdict": "PASS",
+      "invalid_reasons": [],
+      "generator_valid": true,
+      "success_window": 595,
+      "pending_window": 5,
+      "p95_observable_seconds": 0.5002959580160677,
+      "error_fraction": 0.0,
+      "wsgi_mean_seconds": {
+        "listing": 0.23275324374902995,
+        "search": 0.2604809198202565,
+        "detail": 0.0938662151643075
+      },
+      "thread_cpu_mean_seconds": {
+        "listing": 0.11804425032999989,
+        "search": 0.12314062380000004,
+        "detail": 0.04939929057
+      },
+      "D": 0.19570012624453134,
+      "upload_wall_seconds": 0.24269851995632052,
+      "W20_plus_upload_per_minute": 3.9180475002232322,
+      "read_routes": {
+        "state/unknown0": 389,
+        "state/unknown1": 11
+      },
+      "cpu_cores_window": {
+        "app": 1.9555168632255804,
+        "shared_pg": 1.3767885613456579,
+        "owned_celery": 0.022068961249592164,
+        "own_client_runner": 0.11827583919703298,
+        "unrelated_host_residual": 2.1801073025534543
+      },
+      "refresh": {
+        "executions_total": 6,
+        "executions_by_origin": {
+          "beat": 2,
+          "web": 1,
+          "worker": 3
+        },
+        "executions_load_and_drain": 5,
+        "wall_seconds_sum": 1.1213457491248846,
+        "thread_cpu_seconds_sum": 0.28789555099999997,
+        "processed_sum": 3,
+        "cleared_sum": 3,
+        "mark_to_clear_seconds_upper_bound": [
+          0.22347283363342285,
+          0.30022501945495605,
+          0.5133788585662842
+        ],
+        "dirty_samples_load_nonzero": 0,
+        "dirty_samples_load_total": 30,
+        "max_oldest_mark_age_load_seconds": 0,
+        "generation_delta_block": 9,
+        "process_blob": [
+          {
+            "wall": 4.75631729606539,
+            "thread_cpu": 0.5852880229999999,
+            "origin": "web"
+          }
+        ],
+        "other_tasks_wall_seconds_sum": 0.5559433992020786
+      },
+      "beat_alignment": {
+        "observed_tick_monotonic": 3219344.134942743,
+        "load_start_target": 3219349.134942743,
+        "phase_seconds": 5
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "four_block": 1,
+      "six_block": 2,
+      "completion_improvement": 0.0,
+      "p95_lower": false,
+      "errors_not_higher": true,
+      "D_ratio": 1.1571233454092995,
+      "prefixed_effect_pass": false
+    },
+    {
+      "four_block": 4,
+      "six_block": 3,
+      "completion_improvement": -0.001680672268907557,
+      "p95_lower": false,
+      "errors_not_higher": true,
+      "D_ratio": 1.1513051581597198,
+      "prefixed_effect_pass": false
+    }
+  ],
+  "unrelated_host_residual_range_cores": 0.376965823616906,
+  "causal": "WITHIN_HOST_BOUND",
+  "scope": "normal_worker_beat, four 30 s blocks, 20 RPS, 10.000 listings, 1 upload per block. Not a 60 s gate nor the 900 s contract. Sequential blocks on a shared host; resource windows are interior emission windows; sampled PG states are not durations. Refresh delay is an upper bound on the database clock. No causal comparison with without_worker_beat_eager_signal results."
+}

@@ -1,0 +1,84 @@
+diff --git a/scripts/publication_order_benchmark.py b/scripts/publication_order_benchmark.py
+index 71ffb28..730ca86 100644
+--- a/scripts/publication_order_benchmark.py
++++ b/scripts/publication_order_benchmark.py
+@@ -17,7 +17,8 @@ class OrderVariantMiddleware:
+             raise RuntimeError('Frozen reference digest mismatch')
+         namespace = vars(publication_state).copy()
+         exec(compile(source, settings.PUBLICATION_ORDER_REFERENCE, 'exec'), namespace)
+-        self.variants = {'before':namespace['_ordered_reference'], 'after':publication_state._state_page}
++        reference = getattr(settings, 'PUBLICATION_ORDER_REFERENCE_FUNCTION', '_ordered_reference')
++        self.variants = {'before':namespace[reference], 'after':publication_state._state_page}
+         self.get_response = get_response
+ 
+     def __call__(self, request):
+diff --git a/tests/test_publication_state_tcp.py b/tests/test_publication_state_tcp.py
+index c8a4594..7b2514b 100644
+--- a/tests/test_publication_state_tcp.py
++++ b/tests/test_publication_state_tcp.py
+@@ -32,9 +32,13 @@ pytestmark = pytest.mark.django_db(transaction=True)
+ @pytest.mark.parametrize("count", [100, 1000, 10000])
+ @pytest.mark.parametrize("fixture", ["repeated", "diverse"])
+ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
+-    membership_contrast = os.environ.get("PUBLICATION_TCP_MEMBERSHIP_CONTRAST") == "1"
++    dirty_scope_contrast = os.environ.get("PUBLICATION_TCP_DIRTY_SCOPE_CONTRAST") == "1"
++    membership_contrast = (dirty_scope_contrast
++                           or os.environ.get("PUBLICATION_TCP_MEMBERSHIP_CONTRAST") == "1")
+     order_contrast = membership_contrast or os.environ.get("PUBLICATION_TCP_ORDER_CONTRAST") == "1"
+     repeats = 10 if membership_contrast else 5
++    reference_name = "mod05-sucios-reference0110.py" if dirty_scope_contrast else "mod05-orden-reference0110.py"
++    reference_function = "_dirty_scope_reference" if dirty_scope_contrast else "_ordered_reference"
+     client = request.getfixturevalue("directory")
+     prepare_population(count, fixture)
+     assert connection.settings_dict["NAME"].startswith("test_promotion_gate_")
+@@ -58,9 +62,10 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
+         'MIDDLEWARE = MIDDLEWARE + ["scripts.publication_tcp_observer.RouteMiddleware"]\n'
+     )
+     if order_contrast:
+-        reference = settings.BASE_DIR / "docs/evidencias/mod05-orden-reference0110.py"
++        reference = settings.BASE_DIR / "docs/evidencias" / reference_name
+         with (tmp_path / "tcp_runtime_settings.py").open("a") as runtime:
+             runtime.write(f"PUBLICATION_ORDER_REFERENCE = {str(reference)!r}\n")
++            runtime.write(f"PUBLICATION_ORDER_REFERENCE_FUNCTION = {reference_function!r}\n")
+             runtime.write(f"PUBLICATION_ORDER_REFERENCE_SHA256 = {hashlib.sha256(reference.read_bytes()).hexdigest()!r}\n")
+             runtime.write('MIDDLEWARE = MIDDLEWARE + ["scripts.publication_order_benchmark.OrderVariantMiddleware"]\n')
+     env = os.environ.copy()
+@@ -147,7 +152,7 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
+             exec(compile(reference.read_bytes(), str(reference), "exec"), reference_namespace)
+             candidate_function = publication_state._state_page
+             plans = []
+-            for variant, function in [("before", reference_namespace["_ordered_reference"]), ("after", candidate_function)]:
++            for variant, function in [("before", reference_namespace[reference_function]), ("after", candidate_function)]:
+                 captured = []
+                 def capture(execute, query, params, many, context):
+                     if not query.lstrip().upper().startswith("SELECT") or " FROM " not in query.upper():
+@@ -169,7 +174,20 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
+                     assert response.wsgi_request._publication_route["native_unknown"] == 1
+                 finally:
+                     publication_state._state_page = candidate_function
+-                if membership_contrast:
++                if dirty_scope_contrast:
++                    # Unknown enumeration, global state check, count and final page of
++                    # each variant; the candidate adds the check and drops the state join.
++                    selected_reads = [
++                        row for row in captured
++                        if row[1].startswith((
++                            'SELECT DISTINCT "listings_listing"."id" AS "pk"',
++                            'SELECT "listings_listing"."id" AS "pk"',
++                            'SELECT COUNT(*) AS "__count" FROM "listings_listing"',
++                            "SELECT NOT EXISTS (SELECT 1 FROM listings_listing",
++                        ))
++                    ]
++                    assert len(selected_reads) == (3 if variant == "before" else 4), variant
++                elif membership_contrast:
+                     # Match the affected operations, not whichever three reads
+                     # happen to become dominant after the intervention.
+                     selected_reads = [
+@@ -282,6 +300,7 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
+                     "dirty_contrast": contrast,
+                     "order_contrast": order_contrast,
+                     "membership_contrast": membership_contrast,
++                    "dirty_scope_contrast": dirty_scope_contrast,
+                     "controls_per_route_per_block": repeats,
+                     "blocks": phases,
+                 }
