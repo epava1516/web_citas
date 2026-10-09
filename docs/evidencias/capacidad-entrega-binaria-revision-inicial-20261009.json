@@ -1,0 +1,1776 @@
+{
+  "classification": "VALID_PERFORMANCE_FAIL_SELECTION_PAGES_WITH_SIXTEEN_INCLUDED_BINARIES",
+  "report": {
+    "id": "20261009-194511-abc85ce0",
+    "result": "ERROR",
+    "scope": "Owned topology readiness only; not capacity, browser, N3 or storage budget proof.",
+    "allocations": {
+      "pg": [
+        150000,
+        3072
+      ],
+      "redis": [
+        25000,
+        512
+      ],
+      "app": [
+        225000,
+        4608
+      ]
+    },
+    "steps": [
+      {
+        "label": "image-postgres",
+        "command": [
+          "docker",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.05800555506721139
+      },
+      {
+        "label": "image-redis",
+        "command": [
+          "docker",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.036419890355318785
+      },
+      {
+        "label": "image-web-modelos-app",
+        "command": [
+          "docker",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "web-modelos-app:latest"
+        ],
+        "exit": 0,
+        "seconds": 0.04512898623943329
+      },
+      {
+        "label": "network",
+        "command": [
+          "docker",
+          "network",
+          "create",
+          "--internal",
+          "web-modelos-capacity-20261009-194511-abc85ce0-net"
+        ],
+        "exit": 0,
+        "seconds": 0.6151154460385442
+      },
+      {
+        "label": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-capacity-20261009-194511-abc85ce0-pg",
+          "--network",
+          "web-modelos-capacity-20261009-194511-abc85ce0-net",
+          "--network-alias",
+          "pg",
+          "--cpus",
+          "1.5",
+          "--memory",
+          "3221225472",
+          "--memory-swap",
+          "3221225472",
+          "--pids-limit",
+          "256",
+          "--log-driver",
+          "local",
+          "--log-opt",
+          "max-size=4m",
+          "--log-opt",
+          "max-file=1",
+          "--log-opt",
+          "compress=false",
+          "--tmpfs",
+          "/var/lib/postgresql/data:size=2147483648",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=capacity_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.36253120098263025
+      },
+      {
+        "label": "controls-pg",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-pg",
+          "cat",
+          "/sys/fs/cgroup/cpu.max",
+          "/sys/fs/cgroup/memory.max",
+          "/sys/fs/cgroup/memory.swap.max"
+        ],
+        "exit": 0,
+        "seconds": 0.21129211969673634
+      },
+      {
+        "label": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-capacity-20261009-194511-abc85ce0-redis",
+          "--network",
+          "web-modelos-capacity-20261009-194511-abc85ce0-net",
+          "--network-alias",
+          "redis",
+          "--cpus",
+          "0.25",
+          "--memory",
+          "536870912",
+          "--memory-swap",
+          "536870912",
+          "--pids-limit",
+          "256",
+          "--log-driver",
+          "local",
+          "--log-opt",
+          "max-size=4m",
+          "--log-opt",
+          "max-file=1",
+          "--log-opt",
+          "compress=false",
+          "redis:7.4-alpine",
+          "redis-server",
+          "--save",
+          "",
+          "--appendonly",
+          "no",
+          "--maxmemory",
+          "268435456"
+        ],
+        "exit": 0,
+        "seconds": 0.2503455625846982
+      },
+      {
+        "label": "controls-redis",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-redis",
+          "cat",
+          "/sys/fs/cgroup/cpu.max",
+          "/sys/fs/cgroup/memory.max",
+          "/sys/fs/cgroup/memory.swap.max"
+        ],
+        "exit": 0,
+        "seconds": 0.23578404868021607
+      },
+      {
+        "label": "start-app",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-capacity-20261009-194511-abc85ce0-app",
+          "--network",
+          "web-modelos-capacity-20261009-194511-abc85ce0-net",
+          "--network-alias",
+          "app",
+          "--cpus",
+          "2.25",
+          "--memory",
+          "4831838208",
+          "--memory-swap",
+          "4831838208",
+          "--pids-limit",
+          "256",
+          "--log-driver",
+          "local",
+          "--log-opt",
+          "max-size=4m",
+          "--log-opt",
+          "max-file=1",
+          "--log-opt",
+          "compress=false",
+          "--read-only",
+          "--cap-drop=ALL",
+          "--security-opt=no-new-privileges",
+          "--user",
+          "1002:1004",
+          "--workdir",
+          "/home/felidae/proyectos/web_modelos",
+          "--mount",
+          "type=bind,src=/home/felidae/proyectos/web_modelos,dst=/home/felidae/proyectos/web_modelos,readonly",
+          "--mount",
+          "type=bind,src=/home/felidae/.local/share/uv/python,dst=/home/felidae/.local/share/uv/python,readonly",
+          "--tmpfs",
+          "/tmp:size=1073741824,uid=1002,gid=1004",
+          "-e",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "-e",
+          "DJANGO_SETTINGS_MODULE=config.settings",
+          "-e",
+          "DB_HOST=pg",
+          "-e",
+          "DB_PORT=5432",
+          "-e",
+          "POSTGRES_DB=capacity_ci",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "REDIS_URL=redis://redis:6379/0",
+          "--entrypoint",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "web-modelos-app:latest",
+          "-c",
+          "import time; time.sleep(10000)"
+        ],
+        "exit": 0,
+        "seconds": 0.30523710371926427
+      },
+      {
+        "label": "controls-app",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-app",
+          "cat",
+          "/sys/fs/cgroup/cpu.max",
+          "/sys/fs/cgroup/memory.max",
+          "/sys/fs/cgroup/memory.swap.max"
+        ],
+        "exit": 0,
+        "seconds": 0.22056302474811673
+      },
+      {
+        "label": "pg-ready-0",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-pg",
+          "pg_isready",
+          "-U",
+          "ci",
+          "-d",
+          "capacity_ci"
+        ],
+        "exit": 2,
+        "seconds": 0.09026805078610778
+      },
+      {
+        "label": "pg-ready-1",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-pg",
+          "pg_isready",
+          "-U",
+          "ci",
+          "-d",
+          "capacity_ci"
+        ],
+        "exit": 0,
+        "seconds": 0.13060707785189152
+      },
+      {
+        "label": "django-probe",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-app",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "-c",
+          "import django,json,tempfile; django.setup(); from django.core.management import call_command; from django.db import connection; import redis; call_command('migrate',interactive=False,verbosity=0); call_command('check'); cursor=connection.cursor(); cursor.execute('select version(),current_database()'); row=cursor.fetchone(); assert row[1]=='capacity_ci'; assert redis.Redis(host='redis').ping(); f=tempfile.TemporaryFile(dir='/tmp'); f.write(b'synthetic-media'); f.seek(0); assert f.read()==b'synthetic-media'; f.close(); print(json.dumps({'postgres':row[0],'database':row[1],'redis_ping':True,'migrations_applied':True,'temporary_media_io':True,'django':django.get_version()}))"
+        ],
+        "exit": 0,
+        "seconds": 34.805781313218176
+      },
+      {
+        "label": "control-settings",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-app",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "-c",
+          "from pathlib import Path; Path('/tmp/capacity_settings.py').write_text(\"from config.settings import *\\nCAPACITY_ENVIRONMENT_VERIFIED = True\\nMEDIA_ROOT = '/tmp/capacity-media'\\nCAPACITY_SQL_DIAGNOSE = False\\nCAPACITY_SELECTION_GUNICORN = True\\nCAPACITY_SELECTION_PROFILE = False\\nCAPACITY_SELECTION_COMPLETE = False\\nCAPACITY_DELIVERY_COMPLETE = True\\nDATABASES['default']['TEST'] = {'NAME': 'test_capacity_ci'}\\n\")"
+        ],
+        "exit": 0,
+        "seconds": 0.1451901630498469
+      },
+      {
+        "label": "control-pytest",
+        "command": [
+          "docker",
+          "exec",
+          "-e",
+          "PYTHONPATH=/tmp:/home/felidae/proyectos/web_modelos",
+          "-e",
+          "DJANGO_SETTINGS_MODULE=capacity_settings",
+          "web-modelos-capacity-20261009-194511-abc85ce0-app",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "-m",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "-o",
+          "DJANGO_SETTINGS_MODULE=capacity_settings",
+          "-o",
+          "junit_family=xunit1",
+          "-p",
+          "no:cacheprovider",
+          "--basetemp=/tmp/capacity-pytest",
+          "--junitxml=/tmp/capacity-control.xml",
+          "tests/test_capacity_delivery_complete.py"
+        ],
+        "exit": 1,
+        "seconds": 481.39002310018986
+      },
+      {
+        "label": "control-junit",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-app",
+          "cat",
+          "/tmp/capacity-control.xml"
+        ],
+        "exit": 0,
+        "seconds": 0.1722167800180614
+      },
+      {
+        "label": "memory-terminal-pg",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-pg",
+          "cat",
+          "/sys/fs/cgroup/memory.current",
+          "/sys/fs/cgroup/memory.peak"
+        ],
+        "exit": 0,
+        "seconds": 0.08551055239513516
+      },
+      {
+        "label": "memory-terminal-redis",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-redis",
+          "cat",
+          "/sys/fs/cgroup/memory.current",
+          "/sys/fs/cgroup/memory.peak"
+        ],
+        "exit": 0,
+        "seconds": 0.1432609399780631
+      },
+      {
+        "label": "memory-terminal-app",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-194511-abc85ce0-app",
+          "cat",
+          "/sys/fs/cgroup/memory.current",
+          "/sys/fs/cgroup/memory.peak"
+        ],
+        "exit": 0,
+        "seconds": 0.14903977699577808
+      },
+      {
+        "label": "remove-web-modelos-capacity-20261009-194511-abc85ce0-app",
+        "command": [
+          "docker",
+          "rm",
+          "-fv",
+          "web-modelos-capacity-20261009-194511-abc85ce0-app"
+        ],
+        "exit": 0,
+        "seconds": 0.47845253301784396
+      },
+      {
+        "label": "inventory-web-modelos-capacity-20261009-194511-abc85ce0-app",
+        "command": [
+          "docker",
+          "ps",
+          "-a",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-194511-abc85ce0-app$",
+          "--format",
+          "{{.Names}}"
+        ],
+        "exit": 0,
+        "seconds": 0.04101334698498249
+      },
+      {
+        "label": "remove-web-modelos-capacity-20261009-194511-abc85ce0-redis",
+        "command": [
+          "docker",
+          "rm",
+          "-fv",
+          "web-modelos-capacity-20261009-194511-abc85ce0-redis"
+        ],
+        "exit": 0,
+        "seconds": 0.16691668797284365
+      },
+      {
+        "label": "inventory-web-modelos-capacity-20261009-194511-abc85ce0-redis",
+        "command": [
+          "docker",
+          "ps",
+          "-a",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-194511-abc85ce0-redis$",
+          "--format",
+          "{{.Names}}"
+        ],
+        "exit": 0,
+        "seconds": 0.09871677542105317
+      },
+      {
+        "label": "remove-web-modelos-capacity-20261009-194511-abc85ce0-pg",
+        "command": [
+          "docker",
+          "rm",
+          "-fv",
+          "web-modelos-capacity-20261009-194511-abc85ce0-pg"
+        ],
+        "exit": 0,
+        "seconds": 0.3404046562500298
+      },
+      {
+        "label": "inventory-web-modelos-capacity-20261009-194511-abc85ce0-pg",
+        "command": [
+          "docker",
+          "ps",
+          "-a",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-194511-abc85ce0-pg$",
+          "--format",
+          "{{.Names}}"
+        ],
+        "exit": 0,
+        "seconds": 0.07460439438000321
+      },
+      {
+        "label": "remove-network",
+        "command": [
+          "docker",
+          "network",
+          "rm",
+          "web-modelos-capacity-20261009-194511-abc85ce0-net"
+        ],
+        "exit": 0,
+        "seconds": 0.4332166397944093
+      },
+      {
+        "label": "network-inventory",
+        "command": [
+          "docker",
+          "network",
+          "ls",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-194511-abc85ce0-net$",
+          "--format",
+          "{{.Name}}"
+        ],
+        "exit": 0,
+        "seconds": 0.061439032666385174
+      }
+    ],
+    "controls": {
+      "pg": [
+        "150000 100000",
+        "3221225472",
+        "0"
+      ],
+      "redis": [
+        "25000 100000",
+        "536870912",
+        "0"
+      ],
+      "app": [
+        "225000 100000",
+        "4831838208",
+        "0"
+      ]
+    },
+    "cleanup": {
+      "web-modelos-capacity-20261009-194511-abc85ce0-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261009-194511-abc85ce0-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261009-194511-abc85ce0-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261009-194511-abc85ce0-net": {
+        "absent": true
+      }
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "1",
+        "time": "479.042",
+        "timestamp": "2026-10-09T21:45:51.803128+02:00",
+        "hostname": "32d91876d262"
+      }
+    ],
+    "error": "RuntimeError: Small control did not pass exactly one required test",
+    "cgroup_memory": {
+      "pg": {
+        "current_bytes": 281628672,
+        "peak_bytes": 404844544
+      },
+      "redis": {
+        "current_bytes": 3883008,
+        "peak_bytes": 9211904
+      },
+      "app": {
+        "current_bytes": 274243584,
+        "peak_bytes": 1054064640
+      }
+    },
+    "controller_peak_rss_bytes": 744222720,
+    "host_cli_child_peak_rss_bytes": 33452032,
+    "memory_scope": "Disjoint container cgroup peaks including cache, plus host controller/maximum CLI child RSS. CLI commands sequential; sum is conservative upper bound, not synchronous peak. Controller CPU/memory has no kernel quota; no global enforced capacity claim.",
+    "sources_unchanged": true
+  },
+  "measurements": {
+    "cases": [
+      {
+        "fixture": {
+          "candidate_bytes": 16777041,
+          "topic_counts": [
+            19,
+            20
+          ],
+          "longer_revisions": 1028,
+          "originals_bytes": 67095050,
+          "originals": [
+            {
+              "sha256": "49f8be28d64f3af717cd588617e98c7c1bab8f8d0f88b9d9f46ddd774149ee72",
+              "bytes": 4193442,
+              "blob": "bafb5e1b-a84c-4d37-9ded-e0270e22a5ce"
+            },
+            {
+              "sha256": "731a1c627253086c796470abbdc996a3c8b078fe8cefcd8133fcc72b5ba37c63",
+              "bytes": 4193442,
+              "blob": "fa7895e4-2033-4ff0-9a71-233ae4a6da60"
+            },
+            {
+              "sha256": "e26664f45dd9530e31587628cf29dd7a30e41bb710092d617b2ac4f5d4c7a99a",
+              "bytes": 4193442,
+              "blob": "b32f2446-8eef-40cd-aaf7-b00293d540dd"
+            },
+            {
+              "sha256": "5d6156c907f8a047ef39593f08d68680baa5e670052a11a24db83a5e423aecfa",
+              "bytes": 4193442,
+              "blob": "a764e82a-b96c-4260-a928-6ec7a392fd0b"
+            },
+            {
+              "sha256": "13fd2dacfb818647f85ab4d179f073f5a6042ac6a7701c7460f0ffde566c730e",
+              "bytes": 4193442,
+              "blob": "20987307-cf49-4a9a-a00b-d3b65ab28736"
+            },
+            {
+              "sha256": "a9c8457e99122c572087eda0e44aa5c8a9bf0dd05bfe91b8e1b25a5a4182c0e6",
+              "bytes": 4193440,
+              "blob": "01b0023c-f07b-46e4-8b84-77cd27983cfb"
+            },
+            {
+              "sha256": "f5aa6d9fff833dc746718f075240c349736bef0be4e24c05174e20ae2798d975",
+              "bytes": 4193440,
+              "blob": "43c74d90-003b-4c57-8203-5a7d16e0ff29"
+            },
+            {
+              "sha256": "bfb20061d8d2abe69a364a0ea527e7265e831c699b9d1177698ad73900284368",
+              "bytes": 4193440,
+              "blob": "c82bfda6-7b4a-4190-8e50-49520dc0a806"
+            },
+            {
+              "sha256": "4d41e362b08296e9fbcf0618b66199728bb33a13803f92c934da654b62f34c52",
+              "bytes": 4193440,
+              "blob": "c4d87d79-83ba-4834-b901-0ccbd7c1b9af"
+            },
+            {
+              "sha256": "5b230b268d210c72943874d21df4981936b7642e3ef7ddf52ccae680b519f1f2",
+              "bytes": 4193442,
+              "blob": "78fea012-adb7-46b1-94ee-35e1bd2f3fe6"
+            },
+            {
+              "sha256": "e34b36c0449761d649ed4110038ff4be1a4b052b25f0cb9052d959fa7dbeb42a",
+              "bytes": 4193440,
+              "blob": "ca06d460-7a58-4093-b2de-d804970abb41"
+            },
+            {
+              "sha256": "55a33f53ceaf3f0986e79d4f65372ce343b5aa1ff3b031d8a2a4237b06438fa7",
+              "bytes": 4193440,
+              "blob": "3c0de634-916b-41de-aeb2-d1efc4caaf21"
+            },
+            {
+              "sha256": "43b9c91fab2f690cd9ff3897e026fd555917ab3760d1b5cf169ccc3d133b2b0d",
+              "bytes": 4193440,
+              "blob": "b7173dc5-2443-460f-a8f0-50b2d3ee54dd"
+            },
+            {
+              "sha256": "322c11ea66c5d7665850801f75aad6518893384974dd520b4797169ed9079b2e",
+              "bytes": 4193440,
+              "blob": "66b08a30-8b41-457a-8c0b-1cefd195887f"
+            },
+            {
+              "sha256": "ff48ed0aa3806c4ada18592ddd3d391a426b1fba04d4609c0bc0ee9276facd69",
+              "bytes": 4193438,
+              "blob": "61350ea2-b2dd-4000-bfa4-660da923dbde"
+            },
+            {
+              "sha256": "5d8a92c3c344db28bf9e60c0bec4d41ea21cd59f73f62fa12b9a54aea040e399",
+              "bytes": 4193440,
+              "blob": "4941d022-60e3-4215-80ea-5ca42039cb60"
+            }
+          ]
+        },
+        "build_seconds": 14.537567172199488,
+        "scalar_preparation_seconds": 13.944940053857863,
+        "success": false,
+        "binary_preparation": [
+          {
+            "photo": "dce5b5c0-5667-43bf-b650-09357fa5f572",
+            "revision_index": 0,
+            "image_index": 0,
+            "content_digest": "49f8be28d64f3af717cd588617e98c7c1bab8f8d0f88b9d9f46ddd774149ee72",
+            "prepare_seconds": 1.6391121610067785,
+            "save_seconds": 2.9357278211973608
+          },
+          {
+            "photo": "08704083-0260-4c73-95dc-f9c85b3e487d",
+            "revision_index": 1,
+            "image_index": 0,
+            "content_digest": "731a1c627253086c796470abbdc996a3c8b078fe8cefcd8133fcc72b5ba37c63",
+            "prepare_seconds": 1.8389529450796545,
+            "save_seconds": 3.066334460861981
+          },
+          {
+            "photo": "a3717a6f-3b23-4fb0-84f6-ef97de160467",
+            "revision_index": 2,
+            "image_index": 0,
+            "content_digest": "e26664f45dd9530e31587628cf29dd7a30e41bb710092d617b2ac4f5d4c7a99a",
+            "prepare_seconds": 1.7748628430999815,
+            "save_seconds": 3.0950434301048517
+          },
+          {
+            "photo": "0b97d8a2-911a-49a0-bee6-afa18fbd2f24",
+            "revision_index": 3,
+            "image_index": 0,
+            "content_digest": "5d6156c907f8a047ef39593f08d68680baa5e670052a11a24db83a5e423aecfa",
+            "prepare_seconds": 1.9232154358178377,
+            "save_seconds": 3.563392097596079
+          },
+          {
+            "photo": "e5f2107c-7f23-4565-8031-73e76eb15879",
+            "revision_index": 4,
+            "image_index": 0,
+            "content_digest": "13fd2dacfb818647f85ab4d179f073f5a6042ac6a7701c7460f0ffde566c730e",
+            "prepare_seconds": 2.0993122407235205,
+            "save_seconds": 3.433886614628136
+          },
+          {
+            "photo": "9a275707-a888-4642-b1f8-f8f4154d43e0",
+            "revision_index": 5,
+            "image_index": 0,
+            "content_digest": "a9c8457e99122c572087eda0e44aa5c8a9bf0dd05bfe91b8e1b25a5a4182c0e6",
+            "prepare_seconds": 1.898461685050279,
+            "save_seconds": 3.0602315571159124
+          },
+          {
+            "photo": "a2e8ad25-7e48-4107-bc11-2993c4963e17",
+            "revision_index": 6,
+            "image_index": 0,
+            "content_digest": "f5aa6d9fff833dc746718f075240c349736bef0be4e24c05174e20ae2798d975",
+            "prepare_seconds": 1.9891353040002286,
+            "save_seconds": 3.5842855647206306
+          },
+          {
+            "photo": "dd574c71-1aee-4627-b897-ff7d51c0ef47",
+            "revision_index": 7,
+            "image_index": 0,
+            "content_digest": "bfb20061d8d2abe69a364a0ea527e7265e831c699b9d1177698ad73900284368",
+            "prepare_seconds": 2.0998975709080696,
+            "save_seconds": 3.350536022335291
+          },
+          {
+            "photo": "a4b78714-35ad-4d2f-bd21-627742332715",
+            "revision_index": 8,
+            "image_index": 0,
+            "content_digest": "4d41e362b08296e9fbcf0618b66199728bb33a13803f92c934da654b62f34c52",
+            "prepare_seconds": 1.8822918622754514,
+            "save_seconds": 3.48058426566422
+          },
+          {
+            "photo": "64d72752-2d38-4d17-9394-53a3641ecd15",
+            "revision_index": 9,
+            "image_index": 0,
+            "content_digest": "5b230b268d210c72943874d21df4981936b7642e3ef7ddf52ccae680b519f1f2",
+            "prepare_seconds": 1.9303356069140136,
+            "save_seconds": 3.260798934381455
+          },
+          {
+            "photo": "47f25f06-f9b5-451d-a1a8-d0b1b839791b",
+            "revision_index": 10,
+            "image_index": 0,
+            "content_digest": "e34b36c0449761d649ed4110038ff4be1a4b052b25f0cb9052d959fa7dbeb42a",
+            "prepare_seconds": 2.1206525289453566,
+            "save_seconds": 3.5991846811957657
+          },
+          {
+            "photo": "9e2f1e7c-8511-4347-a92e-2fc466869a1d",
+            "revision_index": 11,
+            "image_index": 0,
+            "content_digest": "55a33f53ceaf3f0986e79d4f65372ce343b5aa1ff3b031d8a2a4237b06438fa7",
+            "prepare_seconds": 2.135116044897586,
+            "save_seconds": 3.6460363999940455
+          },
+          {
+            "photo": "ad8402ca-9c7d-4fcd-9cc1-6018ee0a0e99",
+            "revision_index": 12,
+            "image_index": 0,
+            "content_digest": "43b9c91fab2f690cd9ff3897e026fd555917ab3760d1b5cf169ccc3d133b2b0d",
+            "prepare_seconds": 2.127960691228509,
+            "save_seconds": 3.528239863924682
+          },
+          {
+            "photo": "57c739aa-eaa5-475d-bf90-d4c5f6567b32",
+            "revision_index": 13,
+            "image_index": 0,
+            "content_digest": "322c11ea66c5d7665850801f75aad6518893384974dd520b4797169ed9079b2e",
+            "prepare_seconds": 2.0099542839452624,
+            "save_seconds": 3.7520233308896422
+          },
+          {
+            "photo": "267bf963-e695-4fd3-8a8c-72b87cd262d9",
+            "revision_index": 14,
+            "image_index": 0,
+            "content_digest": "ff48ed0aa3806c4ada18592ddd3d391a426b1fba04d4609c0bc0ee9276facd69",
+            "prepare_seconds": 2.1403293111361563,
+            "save_seconds": 3.541359967086464
+          },
+          {
+            "photo": "cea39805-4056-4787-afbe-ffb8e2e10f1e",
+            "revision_index": 15,
+            "image_index": 0,
+            "content_digest": "5d8a92c3c344db28bf9e60c0bec4d41ea21cd59f73f62fa12b9a54aea040e399",
+            "prepare_seconds": 2.026127706281841,
+            "save_seconds": 3.4712649122811854
+          }
+        ],
+        "case": "dd5ded44-a5f6-43b8-9c7e-30b6fffa9f17",
+        "selection_versions": [
+          37,
+          40,
+          42,
+          43,
+          46,
+          48,
+          49,
+          51,
+          54,
+          56,
+          58,
+          60,
+          62,
+          64,
+          66,
+          67,
+          70,
+          71,
+          74,
+          76
+        ],
+        "image_catalog_preparation": [
+          3.0643518581055105,
+          2.9701732392422855,
+          2.791563834063709,
+          2.9262463520281017,
+          2.9186274358071387,
+          2.9140954366885126,
+          3.0393832200206816,
+          2.8876755563542247,
+          2.8630569451488554,
+          3.1623290199786425,
+          3.1669347006827593,
+          2.86296924110502,
+          2.849746918771416,
+          2.690083217807114,
+          2.8974150880239904,
+          3.215022023767233,
+          2.958753686863929,
+          3.20191014604643,
+          3.0401440137065947,
+          2.5226125810295343
+        ],
+        "binary_page_save": [
+          3.8945570420473814,
+          3.8249503849074244,
+          3.515091639943421,
+          3.5477465949952602,
+          3.541762134991586,
+          3.698653338942677,
+          3.4450696539133787,
+          3.6452706553973258,
+          3.6402978328987956,
+          3.767130898311734,
+          4.064945997670293,
+          3.9060817430727184,
+          3.7597768418490887,
+          3.819417637307197,
+          3.513987661805004,
+          3.6716254530474544,
+          3.5068313092924654,
+          3.7244967999868095,
+          3.7507133847102523,
+          4.175706919748336
+        ],
+        "binary_page_save_intervals": [
+          [
+            3296037.602489876,
+            3296041.497046918
+          ],
+          [
+            3296044.47609249,
+            3296048.301042875
+          ],
+          [
+            3296051.10839455,
+            3296054.62348619
+          ],
+          [
+            3296057.559123142,
+            3296061.106869737
+          ],
+          [
+            3296064.034593362,
+            3296067.576355497
+          ],
+          [
+            3296070.511595035,
+            3296074.210248374
+          ],
+          [
+            3296077.267486655,
+            3296080.712556309
+          ],
+          [
+            3296083.760932435,
+            3296087.40620309
+          ],
+          [
+            3296090.284419843,
+            3296093.924717676
+          ],
+          [
+            3296097.195096289,
+            3296100.962227187
+          ],
+          [
+            3296104.14225149,
+            3296108.207197488
+          ],
+          [
+            3296111.088123398,
+            3296114.994205141
+          ],
+          [
+            3296117.858443331,
+            3296121.618220173
+          ],
+          [
+            3296124.479270078,
+            3296128.298687715
+          ],
+          [
+            3296131.209789602,
+            3296134.723777264
+          ],
+          [
+            3296137.952545578,
+            3296141.624171031
+          ],
+          [
+            3296144.623669623,
+            3296148.130500932
+          ],
+          [
+            3296151.417713143,
+            3296155.142209943
+          ],
+          [
+            3296158.235828299,
+            3296161.986541684
+          ],
+          [
+            3296164.52533145,
+            3296168.70103837
+          ]
+        ],
+        "binary_page_save_bytes": [
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588
+        ],
+        "binary_page_save_p95": 4.064945997670293,
+        "selection_page_read": [
+          2.128449433017522,
+          2.12765810219571,
+          2.2473329920321703,
+          2.2008418599143624,
+          1.9871559808962047,
+          2.195907515939325,
+          2.1645220988430083,
+          2.304604876320809,
+          2.2673273282125592,
+          2.0753637989982963,
+          2.1042472450062633,
+          2.299509277101606,
+          2.087196697946638,
+          2.254518056754023,
+          2.3168977578170598,
+          2.08345641521737,
+          2.370406813919544,
+          2.211217168252915,
+          2.234157752711326,
+          2.3721751999109983,
+          2.0540153649635613,
+          2.1691999188624322,
+          2.457429138943553,
+          2.136528457980603,
+          2.1750434269197285,
+          2.280931086279452,
+          2.1152335358783603,
+          2.0573052000254393,
+          2.301305445842445,
+          2.0206411611288786,
+          2.2390345968306065
+        ],
+        "selection_page_read_intervals": [
+          [
+            3296168.711912645,
+            3296170.840362078
+          ],
+          [
+            3296171.8331385,
+            3296173.960796602
+          ],
+          [
+            3296173.961704884,
+            3296176.209037876
+          ],
+          [
+            3296176.217673149,
+            3296178.418515009
+          ],
+          [
+            3296178.418898387,
+            3296180.406054368
+          ],
+          [
+            3296180.647673111,
+            3296182.843580627
+          ],
+          [
+            3296182.981070618,
+            3296185.145592717
+          ],
+          [
+            3296185.146560236,
+            3296187.451165112
+          ],
+          [
+            3296187.797669159,
+            3296190.064996487
+          ],
+          [
+            3296190.065417664,
+            3296192.140781463
+          ],
+          [
+            3296192.141635904,
+            3296194.245883149
+          ],
+          [
+            3296194.399869079,
+            3296196.699378356
+          ],
+          [
+            3296196.700240274,
+            3296198.787436972
+          ],
+          [
+            3296198.908543534,
+            3296201.163061591
+          ],
+          [
+            3296201.163857696,
+            3296203.480755454
+          ],
+          [
+            3296203.561266157,
+            3296205.644722572
+          ],
+          [
+            3296205.709325508,
+            3296208.079732322
+          ],
+          [
+            3296208.08061424,
+            3296210.291831408
+          ],
+          [
+            3296210.35536153,
+            3296212.589519283
+          ],
+          [
+            3296212.590364145,
+            3296214.962539345
+          ],
+          [
+            3296214.962897873,
+            3296217.016913238
+          ],
+          [
+            3296217.169602606,
+            3296219.338802525
+          ],
+          [
+            3296219.33945044,
+            3296221.796879579
+          ],
+          [
+            3296221.797278314,
+            3296223.933806772
+          ],
+          [
+            3296223.934188424,
+            3296226.109231851
+          ],
+          [
+            3296226.109845244,
+            3296228.39077633
+          ],
+          [
+            3296228.406659658,
+            3296230.521893194
+          ],
+          [
+            3296230.60434315,
+            3296232.66164835
+          ],
+          [
+            3296232.778156828,
+            3296235.079462274
+          ],
+          [
+            3296235.079833616,
+            3296237.100474777
+          ],
+          [
+            3296237.100829121,
+            3296239.339863718
+          ]
+        ],
+        "selection_page_read_bytes": [
+          568454,
+          579640,
+          579640,
+          579880,
+          579760,
+          579640,
+          579640,
+          579720,
+          579881,
+          579682,
+          579642,
+          579642,
+          579802,
+          579842,
+          579642,
+          579642,
+          579642,
+          579882,
+          579762,
+          579642,
+          568240,
+          552564,
+          552716,
+          552526,
+          552488,
+          552488,
+          552640,
+          552678,
+          552488,
+          552488,
+          33853
+        ],
+        "selection_page_read_p95": 2.3721751999109983
+      },
+      {
+        "fixture": {
+          "candidate_bytes": 16777041,
+          "topic_counts": [
+            19,
+            20
+          ],
+          "longer_revisions": 1028,
+          "originals_bytes": 67095042,
+          "originals": [
+            {
+              "sha256": "ef109068f8f1cb2f2586bb4cf02e2eed6fbf97a0e864352fbde667530c1dcfb8",
+              "bytes": 4193442,
+              "blob": "59579498-f321-4ab1-a41a-d41012c226a2"
+            },
+            {
+              "sha256": "aa50e1450ea09414fac27e0084e37d670c4e00f4825ee4578166a8d9373874d1",
+              "bytes": 4193442,
+              "blob": "7dce4fa7-7c32-4bc8-a851-524b9967bc8f"
+            },
+            {
+              "sha256": "89eb8ffa4d776e2eebc1afcfebae20aec32bb833d6be86370684abac05ae5d33",
+              "bytes": 4193442,
+              "blob": "a0fa97d5-a842-4115-b79b-f45f5a9f8075"
+            },
+            {
+              "sha256": "0807695bbd6a53e7664ef073fde19e467bad63a5dbb946b7d85fba3e53104780",
+              "bytes": 4193442,
+              "blob": "8cfde35b-7e13-48d2-adec-cd0952042d58"
+            },
+            {
+              "sha256": "f36010869120de00795dec72e5d4dccb428343150451ffe7bfd9f1c7289b9cfb",
+              "bytes": 4193438,
+              "blob": "5e7c5101-ee0b-497f-8740-cfafd5c6f9e8"
+            },
+            {
+              "sha256": "c99003cd94f5cd58913c6310484ea7d3c4354945fc046f6b85718781000adc99",
+              "bytes": 4193440,
+              "blob": "775adf4e-d1af-4b1d-acec-5f4b92b3538e"
+            },
+            {
+              "sha256": "11ff4a0c8b3c98440756c4e5e8f731f4dbfde93056d0778ac226c788f056fafd",
+              "bytes": 4193440,
+              "blob": "1fd671bb-d796-4719-b925-56af42181383"
+            },
+            {
+              "sha256": "abd7c72f4274016ded95b6a56a314a3fd3d9e6423a768f59a049ded8895c0daf",
+              "bytes": 4193442,
+              "blob": "20197284-8ce7-4cb1-ad96-47a1ab3fc8ce"
+            },
+            {
+              "sha256": "7565cb2b9fd4c75e3d16fd0b165ba9303b5416313738e9939e081b6f0bd5b89b",
+              "bytes": 4193440,
+              "blob": "9834fd4e-26f0-46a3-a930-9f93d55bfd0c"
+            },
+            {
+              "sha256": "90d190b44a0e2ba93359cc58eab9abc7bf7107c606d4cdf42e4e02b066621310",
+              "bytes": 4193438,
+              "blob": "533e9920-ae22-4fbc-adec-532fc2bba719"
+            },
+            {
+              "sha256": "6e184d0f0055134c2c034100f66756e604d23db3efc4f53c25d492710b7976d2",
+              "bytes": 4193440,
+              "blob": "0f653abd-c63b-407f-b932-18b8f85d2bc0"
+            },
+            {
+              "sha256": "1e6c746023b3d60509e820e74497bc6c0058f6a285d0b2ff4ba25c6706e8291d",
+              "bytes": 4193440,
+              "blob": "ac04f1b6-657c-401e-954a-a38d41bf7451"
+            },
+            {
+              "sha256": "e553b1c208946c7cd201d5c731a0122b09949579ed6da394e28445521cd830f0",
+              "bytes": 4193438,
+              "blob": "efda9b20-92cf-4b8a-8881-c158973d8f0d"
+            },
+            {
+              "sha256": "f7fe675bd2b08a80ddb73829f669b5498263ca953bdcf5925d32a35131b48ecb",
+              "bytes": 4193440,
+              "blob": "225db58b-41fe-4ded-b63d-c58db99c7167"
+            },
+            {
+              "sha256": "c51ca869c2c9b18ee70def5ac2ac2b18c90799ee7b554d8e339c029b082e3589",
+              "bytes": 4193440,
+              "blob": "17fd7a50-3db2-48c8-9494-ce002bf10311"
+            },
+            {
+              "sha256": "50a28c5c8a154059f81db3f7719224276e2125044693b590cacfe779b667be4d",
+              "bytes": 4193438,
+              "blob": "0bf4f501-afd6-467b-ba99-89f6f7b5bcb1"
+            }
+          ]
+        },
+        "build_seconds": 14.277337149251252,
+        "scalar_preparation_seconds": 15.011361330747604,
+        "success": false,
+        "binary_preparation": [
+          {
+            "photo": "666deab1-e1aa-43de-868e-74fb31416ab4",
+            "revision_index": 0,
+            "image_index": 0,
+            "content_digest": "ef109068f8f1cb2f2586bb4cf02e2eed6fbf97a0e864352fbde667530c1dcfb8",
+            "prepare_seconds": 1.8303187927231193,
+            "save_seconds": 3.150548643898219
+          },
+          {
+            "photo": "50b4da67-e991-494e-bae2-7d28e6b18ee4",
+            "revision_index": 1,
+            "image_index": 0,
+            "content_digest": "aa50e1450ea09414fac27e0084e37d670c4e00f4825ee4578166a8d9373874d1",
+            "prepare_seconds": 1.991452557966113,
+            "save_seconds": 2.895676590036601
+          },
+          {
+            "photo": "591ea678-a24e-4d90-8118-bc54a0644499",
+            "revision_index": 2,
+            "image_index": 0,
+            "content_digest": "89eb8ffa4d776e2eebc1afcfebae20aec32bb833d6be86370684abac05ae5d33",
+            "prepare_seconds": 2.1078981468454003,
+            "save_seconds": 3.1985407806932926
+          },
+          {
+            "photo": "63ccd64c-efdd-43da-bfe4-fc7aaa084c13",
+            "revision_index": 3,
+            "image_index": 0,
+            "content_digest": "0807695bbd6a53e7664ef073fde19e467bad63a5dbb946b7d85fba3e53104780",
+            "prepare_seconds": 2.0135956699959934,
+            "save_seconds": 3.6980524570681155
+          },
+          {
+            "photo": "76cf9ca6-960d-4cd9-8afb-91e35c85cf91",
+            "revision_index": 4,
+            "image_index": 0,
+            "content_digest": "f36010869120de00795dec72e5d4dccb428343150451ffe7bfd9f1c7289b9cfb",
+            "prepare_seconds": 1.9382709129713476,
+            "save_seconds": 3.6044332128949463
+          },
+          {
+            "photo": "4485cb54-eea4-4e01-9578-efb82aec9824",
+            "revision_index": 5,
+            "image_index": 0,
+            "content_digest": "c99003cd94f5cd58913c6310484ea7d3c4354945fc046f6b85718781000adc99",
+            "prepare_seconds": 1.9033951391465962,
+            "save_seconds": 3.4521034308709204
+          },
+          {
+            "photo": "2cb1182e-1e0d-471d-a6fc-38e204b1c135",
+            "revision_index": 6,
+            "image_index": 0,
+            "content_digest": "11ff4a0c8b3c98440756c4e5e8f731f4dbfde93056d0778ac226c788f056fafd",
+            "prepare_seconds": 2.170920103788376,
+            "save_seconds": 3.488552331458777
+          },
+          {
+            "photo": "c2ee8939-10b2-49cc-a940-ec89f9c96e6f",
+            "revision_index": 7,
+            "image_index": 0,
+            "content_digest": "abd7c72f4274016ded95b6a56a314a3fd3d9e6423a768f59a049ded8895c0daf",
+            "prepare_seconds": 1.790737880859524,
+            "save_seconds": 3.4390015387907624
+          },
+          {
+            "photo": "3bcc1a02-9f18-4bb4-83eb-f13339db510c",
+            "revision_index": 8,
+            "image_index": 0,
+            "content_digest": "7565cb2b9fd4c75e3d16fd0b165ba9303b5416313738e9939e081b6f0bd5b89b",
+            "prepare_seconds": 1.779469852335751,
+            "save_seconds": 3.592110321857035
+          },
+          {
+            "photo": "5ac5a472-ad80-4aa3-b3db-d451b044c378",
+            "revision_index": 9,
+            "image_index": 0,
+            "content_digest": "90d190b44a0e2ba93359cc58eab9abc7bf7107c606d4cdf42e4e02b066621310",
+            "prepare_seconds": 1.7973234122619033,
+            "save_seconds": 3.159278309904039
+          },
+          {
+            "photo": "90ea9a85-31c9-4dd0-aeb1-5839f629de26",
+            "revision_index": 10,
+            "image_index": 0,
+            "content_digest": "6e184d0f0055134c2c034100f66756e604d23db3efc4f53c25d492710b7976d2",
+            "prepare_seconds": 1.7555134082213044,
+            "save_seconds": 3.6965368068777025
+          },
+          {
+            "photo": "8f6382dd-c9cf-42b7-a730-e734a4a8dd2c",
+            "revision_index": 11,
+            "image_index": 0,
+            "content_digest": "1e6c746023b3d60509e820e74497bc6c0058f6a285d0b2ff4ba25c6706e8291d",
+            "prepare_seconds": 1.912230599205941,
+            "save_seconds": 3.7459996780380607
+          },
+          {
+            "photo": "3914a210-fdea-46ef-bdcb-5549e67e5e69",
+            "revision_index": 12,
+            "image_index": 0,
+            "content_digest": "e553b1c208946c7cd201d5c731a0122b09949579ed6da394e28445521cd830f0",
+            "prepare_seconds": 1.7947181155905128,
+            "save_seconds": 3.475026330910623
+          },
+          {
+            "photo": "6bc95cab-377b-4497-ab54-35725408a177",
+            "revision_index": 13,
+            "image_index": 0,
+            "content_digest": "f7fe675bd2b08a80ddb73829f669b5498263ca953bdcf5925d32a35131b48ecb",
+            "prepare_seconds": 2.036052682902664,
+            "save_seconds": 3.940333821810782
+          },
+          {
+            "photo": "2eb4a1ed-e59e-4f6d-9ff9-cad10993dfb2",
+            "revision_index": 14,
+            "image_index": 0,
+            "content_digest": "c51ca869c2c9b18ee70def5ac2ac2b18c90799ee7b554d8e339c029b082e3589",
+            "prepare_seconds": 1.897997196763754,
+            "save_seconds": 3.9719528928399086
+          },
+          {
+            "photo": "252d7d86-3fa8-416f-88f9-9ab88c605a35",
+            "revision_index": 15,
+            "image_index": 0,
+            "content_digest": "50a28c5c8a154059f81db3f7719224276e2125044693b590cacfe779b667be4d",
+            "prepare_seconds": 1.946665070950985,
+            "save_seconds": 3.7790589979849756
+          }
+        ],
+        "case": "4858b3d3-bbdd-4040-9ccb-0552a481ec9f",
+        "selection_versions": [
+          38,
+          39,
+          41,
+          44,
+          45,
+          47,
+          50,
+          52,
+          53,
+          55,
+          57,
+          59,
+          61,
+          63,
+          65,
+          68,
+          69,
+          72,
+          73,
+          75
+        ],
+        "image_catalog_preparation": [
+          3.094210364855826,
+          3.016580486204475,
+          2.768434858880937,
+          2.8735635429620743,
+          2.8152721002697945,
+          3.02937820693478,
+          3.1290960791520774,
+          2.656718564219773,
+          2.6368308756500483,
+          3.2077461699955165,
+          3.139604165684432,
+          2.792984474916011,
+          2.9508160003460944,
+          2.939282169099897,
+          2.6937725418247283,
+          3.1111933742649853,
+          2.8512243730947375,
+          3.247432249598205,
+          3.051548409741372,
+          2.48493812372908
+        ],
+        "binary_page_save": [
+          3.824338134843856,
+          3.62720845406875,
+          3.5654097297228873,
+          3.607795645017177,
+          3.4230349892750382,
+          3.5863181790336967,
+          3.7994829430244863,
+          3.7924446198157966,
+          3.688373849261552,
+          3.681975259911269,
+          3.709340167697519,
+          3.801835476886481,
+          3.6641700761392713,
+          3.6269056131131947,
+          3.583898809272796,
+          3.7962679462507367,
+          3.5232376609928906,
+          3.746666423045099,
+          3.6529525201767683,
+          3.7512412779033184
+        ],
+        "binary_page_save_intervals": [
+          [
+            3296037.60330266,
+            3296041.427640795
+          ],
+          [
+            3296044.476585091,
+            3296048.103793545
+          ],
+          [
+            3296051.108889962,
+            3296054.674299692
+          ],
+          [
+            3296057.559565681,
+            3296061.167361326
+          ],
+          [
+            3296064.035287047,
+            3296067.458322036
+          ],
+          [
+            3296070.511163399,
+            3296074.097481578
+          ],
+          [
+            3296077.267855288,
+            3296081.067338231
+          ],
+          [
+            3296083.760028872,
+            3296087.552473492
+          ],
+          [
+            3296090.284882303,
+            3296093.973256152
+          ],
+          [
+            3296097.194547226,
+            3296100.876522486
+          ],
+          [
+            3296104.14271723,
+            3296107.852057398
+          ],
+          [
+            3296111.088544122,
+            3296114.890379599
+          ],
+          [
+            3296117.857726145,
+            3296121.521896221
+          ],
+          [
+            3296124.478574962,
+            3296128.105480575
+          ],
+          [
+            3296131.21030228,
+            3296134.794201089
+          ],
+          [
+            3296137.953428602,
+            3296141.749696548
+          ],
+          [
+            3296144.622845774,
+            3296148.146083435
+          ],
+          [
+            3296151.417039931,
+            3296155.163706354
+          ],
+          [
+            3296158.23527453,
+            3296161.88822705
+          ],
+          [
+            3296164.525892952,
+            3296168.27713423
+          ]
+        ],
+        "binary_page_save_bytes": [
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588,
+          2588
+        ],
+        "binary_page_save_p95": 3.801835476886481,
+        "selection_page_read": [
+          2.212290109600872,
+          2.1235630898736417,
+          2.2536842627450824,
+          2.0587195865809917,
+          2.227060452103615,
+          2.332422195933759,
+          2.0876581938937306,
+          2.648164628073573,
+          2.0825057458132505,
+          1.95698088593781,
+          2.2555561158806086,
+          2.125919104088098,
+          2.2055496969260275,
+          2.198489499744028,
+          2.395123666152358,
+          2.146770752966404,
+          2.0519806342199445,
+          2.2729394203051925,
+          2.2259919508360326,
+          2.152961037121713,
+          2.205464974977076,
+          2.091313051059842,
+          2.2398490384221077,
+          2.117223951034248,
+          2.000792980659753,
+          2.2947336127981544,
+          2.1969389813020825,
+          2.1734110158868134,
+          2.1314914650283754,
+          1.989926200825721,
+          2.160924225114286
+        ],
+        "selection_page_read_intervals": [
+          [
+            3296168.71234688,
+            3296170.92463699
+          ],
+          [
+            3296171.831972624,
+            3296173.955535714
+          ],
+          [
+            3296173.962640811,
+            3296176.216325074
+          ],
+          [
+            3296176.216982289,
+            3296178.275701876
+          ],
+          [
+            3296178.419648367,
+            3296180.646708819
+          ],
+          [
+            3296180.647143542,
+            3296182.979565738
+          ],
+          [
+            3296182.980265994,
+            3296185.067924188
+          ],
+          [
+            3296185.147589595,
+            3296187.795754223
+          ],
+          [
+            3296187.796650965,
+            3296189.879156711
+          ],
+          [
+            3296190.06591693,
+            3296192.022897816
+          ],
+          [
+            3296192.142502864,
+            3296194.39805898
+          ],
+          [
+            3296194.398907798,
+            3296196.524826902
+          ],
+          [
+            3296196.701204318,
+            3296198.906754015
+          ],
+          [
+            3296198.907652452,
+            3296201.106141952
+          ],
+          [
+            3296201.164953523,
+            3296203.560077189
+          ],
+          [
+            3296203.560770917,
+            3296205.70754167
+          ],
+          [
+            3296205.708409709,
+            3296207.760390343
+          ],
+          [
+            3296208.08148991,
+            3296210.35442933
+          ],
+          [
+            3296210.354839311,
+            3296212.580831262
+          ],
+          [
+            3296212.591240629,
+            3296214.744201666
+          ],
+          [
+            3296214.963363394,
+            3296217.168828369
+          ],
+          [
+            3296217.169249329,
+            3296219.26056238
+          ],
+          [
+            3296219.33992901,
+            3296221.579778048
+          ],
+          [
+            3296221.797665659,
+            3296223.91488961
+          ],
+          [
+            3296223.934524068,
+            3296225.935317049
+          ],
+          [
+            3296226.110547062,
+            3296228.405280675
+          ],
+          [
+            3296228.406165533,
+            3296230.603104514
+          ],
+          [
+            3296230.603868854,
+            3296232.77727987
+          ],
+          [
+            3296232.77767163,
+            3296234.909163095
+          ],
+          [
+            3296235.080233213,
+            3296237.070159414
+          ],
+          [
+            3296237.10132926,
+            3296239.262253485
+          ]
+        ],
+        "selection_page_read_bytes": [
+          568454,
+          579640,
+          579640,
+          579880,
+          579760,
+          579640,
+          579640,
+          579720,
+          579881,
+          579682,
+          579642,
+          579642,
+          579802,
+          579842,
+          579642,
+          579642,
+          579642,
+          579882,
+          579762,
+          579642,
+          568240,
+          552564,
+          552716,
+          552526,
+          552488,
+          552488,
+          552640,
+          552678,
+          552488,
+          552488,
+          33853
+        ],
+        "selection_page_read_p95": 2.395123666152358
+      }
+    ],
+    "errors": [
+      "AssertionError: ('selection_page_read', 2.3721751999109983, 2)",
+      "AssertionError: ('selection_page_read', 2.395123666152358, 2)"
+    ],
+    "phase": "application_stages",
+    "process_peak_rss_bytes": 517992448,
+    "scope": "Native synthetic1500/16MiB/64MiB cases; simulator identity/media fixture. Actual TCP/CSRF/page saves/reads/final decisions/downloads, whole bodies and hashes. Page-save p95 uses20fresh writes, final decisions timed individually; no replay substitution. Kernel runtime limits separately verified; no complete environment/production/N3 claim."
+  },
+  "other_properties": {
+    "gunicorn_server": "{\"command\": [\"/home/felidae/proyectos/web_modelos/.venv/bin/python3\", \"-m\", \"gunicorn\", \"config.wsgi:application\", \"--workers\", \"2\", \"--worker-class\", \"sync\", \"--bind\", \"127.0.0.1:40685\", \"--timeout\", \"90\", \"--access-logfile\", \"-\", \"--error-logfile\", \"-\", \"--logger-class\", \"config.gunicorn_logging.SafeAccessLogger\"], \"exit\": 0, \"rss_peaks_bytes\": {\"59\": 34803712, \"61\": 231161856, \"62\": 217387008}, \"log\": \"[2026-10-09 21:46:26 +0200] [59] [INFO] Starting gunicorn 23.0.0\\n[2026-10-09 21:46:26 +0200] [59] [INFO] Listening at: http://127.0.0.1:40685 (59)\\n[2026-10-09 21:46:26 +0200] [59] [INFO] Using worker: sync\\n[2026-10-09 21:46:26 +0200] [61] [INFO] Booting worker with pid: 61\\n[2026-10-09 21:46:26 +0200] [62] [INFO] Booting worker with pid: 62\\nGET /health/ 200 0.217s\\nGET /health/ 200 0.197s\\nGET /private-operation/ 200 0.318s\\nGET /private-operation/ 200 0.272s\\nGET /private-operation/ 200 0.056s\\nGET /private-operation/ 200 0.131s\\nPOST /private-operation/ 200 3.822s\\nPOST /private-operation/ 200 3.892s\\nPOST /private-operation/ 200 3.626s\\nPOST /private-operation/ 200 3.823s\\nPOST /private-operation/ 200 3.513s\\nPOST /private-operation/ 200 3.559s\\nPOST /private-operation/ 200 3.546s\\nPOST /private-operation/ 200 3.606s\\nPOST /private-operation/ 200 3.420s\\nPOST /private-operation/ 200 3.539s\\nPOST /private-operation/ 200 3.584s\\nPOST /private-operation/ 200 3.697s\\nPOST /private-operation/ 200 3.441s\\nPOST /private-operation/ 200 3.787s\\nPOST /private-operation/ 200 3.638s\\nPOST /private-operation/ 200 3.790s\\nPOST /private-operation/ 200 3.638s\\nPOST /private-operation/ 200 3.683s\\nPOST /private-operation/ 200 3.682s\\nPOST /private-operation/ 200 3.764s\\nPOST /private-operation/ 200 3.708s\\nPOST /private-operation/ 200 4.063s\\nPOST /private-operation/ 200 3.800s\\nPOST /private-operation/ 200 3.899s\\nPOST /private-operation/ 200 3.662s\\nPOST /private-operation/ 200 3.755s\\nPOST /private-operation/ 200 3.625s\\nPOST /private-operation/ 200 3.818s\\nPOST /private-operation/ 200 3.514s\\nPOST /private-operation/ 200 3.581s\\nPOST /private-operation/ 200 3.668s\\nPOST /private-operation/ 200 3.792s\\nPOST /private-operation/ 200 3.505s\\nPOST /private-operation/ 200 3.520s\\nPOST /private-operation/ 200 3.723s\\nPOST /private-operation/ 200 3.736s\\nPOST /private-operation/ 200 3.651s\\nPOST /private-operation/ 200 3.751s\\nPOST /private-operation/ 200 3.750s\\nPOST /private-operation/ 200 4.173s\\nPOST /private-operation/ 200 2.123s\\nPOST /private-operation/ 200 2.211s\\nPOST /private-operation/ 409 0.798s\\nPOST /private-operation/ 409 0.897s\\nPOST /private-operation/ 200 2.121s\\nPOST /private-operation/ 200 2.124s\\nPOST /private-operation/ 200 2.246s\\nPOST /private-operation/ 200 2.252s\\nPOST /private-operation/ 200 2.058s\\nPOST /private-operation/ 200 2.200s\\nPOST /private-operation/ 200 1.985s\\nPOST /private-operation/ 200 2.226s\\nPOST /private-operation/ 200 2.193s\\nPOST /private-operation/ 200 2.330s\\nPOST /private-operation/ 200 2.086s\\nPOST /private-operation/ 200 2.163s\\nPOST /private-operation/ 200 2.303s\\nPOST /private-operation/ 200 2.646s\\nPOST /private-operation/ 200 2.081s\\nPOST /private-operation/ 200 2.266s\\nPOST /private-operation/ 200 1.956s\\nPOST /private-operation/ 200 2.073s\\nPOST /private-operation/ 200 2.104s\\nPOST /private-operation/ 200 2.252s\\nPOST /private-operation/ 200 2.124s\\nPOST /private-operation/ 200 2.297s\\nPOST /private-operation/ 200 2.085s\\nPOST /private-operation/ 200 2.204s\\nPOST /private-operation/ 200 2.197s\\nPOST /private-operation/ 200 2.252s\\nPOST /private-operation/ 200 2.315s\\nPOST /private-operation/ 200 2.393s\\nPOST /private-operation/ 200 2.078s\\nPOST /private-operation/ 200 2.140s\\nPOST /private-operation/ 200 2.050s\\nPOST /private-operation/ 200 2.368s\\nPOST /private-operation/ 200 2.211s\\nPOST /private-operation/ 200 2.271s\\nPOST /private-operation/ 200 2.224s\\nPOST /private-operation/ 200 2.233s\\nPOST /private-operation/ 200 2.152s\\nPOST /private-operation/ 200 2.371s\\nPOST /private-operation/ 200 2.052s\\nPOST /private-operation/ 200 2.204s\\nPOST /private-operation/ 200 2.090s\\nPOST /private-operation/ 200 2.167s\\nPOST /private-operation/ 200 2.240s\\nPOST /private-operation/ 200 2.449s\\nPOST /private-operation/ 200 2.116s\\nPOST /private-operation/ 200 2.135s\\nPOST /private-operation/ 200 2.000s\\nPOST /private-operation/ 200 2.173s\\nPOST /private-operation/ 200 2.279s\\nPOST /private-operation/ 200 2.292s\\nPOST /private-operation/ 200 2.113s\\nPOST /private-operation/ 200 2.195s\\nPOST /private-operation/ 200 2.056s\\nPOST /private-operation/ 200 2.174s\\nPOST /private-operation/ 200 2.129s\\nPOST /private-operation/ 200 2.300s\\nPOST /private-operation/ 200 1.988s\\nPOST /private-operation/ 200 2.020s\\nPOST /private-operation/ 200 2.159s\\nPOST /private-operation/ 200 2.236s\\n[2026-10-09 21:53:49 +0200] [62] [INFO] Worker exiting (pid: 62)\\n[2026-10-09 21:53:49 +0200] [61] [INFO] Worker exiting (pid: 61)\\n[2026-10-09 21:53:49 +0200] [59] [INFO] Handling signal: term\\n[2026-10-09 21:53:49 +0200] [59] [ERROR] Worker (pid:61) was sent SIGTERM!\\n[2026-10-09 21:53:49 +0200] [59] [ERROR] Worker (pid:62) was sent SIGTERM!\\n[2026-10-09 21:53:50 +0200] [59] [INFO] Shutting down: Master\\n\", \"extra_profiles\": {}, \"scope\": \"Master and workers kernel VmHWM sampled100ms; process-group teardown. Same owned app cgroup; no Caddy or deployment.\"}"
+  },
+  "audit": {
+    "new_binary_versions_per_case": 20,
+    "selection_pages_per_case": 31,
+    "all_paired_intervals_overlap": true,
+    "later_stages": "NOT_PROVEN: binary inspection, coverage, generation, final review, closure and downloads",
+    "no_direct_causal_latency_claim": "Different full-size samples before/after; functional counter improvement independently verified. Shared host not isolated causal experiment."
+  },
+  "archive": {
+    "file": "capacidad-entrega-binaria-revision-inicial-20261009-artefactos.tar.gz",
+    "sha256": "637b9e99a250fa25f5ddbc5bf2a76d94517f66550c96a2dd18a470918e7b8084",
+    "exact_verified_sources": 1019
+  },
+  "limits": "Stage-specific valid FAIL; controller kernel quota/storage/global capacity and N3 unproven."
+}

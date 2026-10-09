@@ -1,0 +1,34 @@
+{
+  "result": "N1_SPARSE_REFERENCES_PASS_NOT_DB_OR_CAPACITY",
+  "before": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "1",
+      "time": "0.399",
+      "timestamp": "2026-10-09T22:01:37.097626+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "after": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "13",
+      "time": "0.224",
+      "timestamp": "2026-10-09T22:02:07.930296+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "finding": "Native row-reference function observed500calls for500rows before, one original-index candidate after; exact content/output unchanged, valid foreign-row hash rejected. Complete13unit cases pass.",
+  "baseline_source_sha256": "62342b4cc27beb5a8a653e50daae9cf4c05fba93c92e75e0589afab1f9e2e20c",
+  "archive": {
+    "file": "revision-binaria-candidatos-n1-20261009-artefactos.tar.gz",
+    "sha256": "c1cec98f10cee664e0c43443592b62e2085f573f03d8b8ec7dfb3e8ff49d62b5"
+  },
+  "scope": "Pure logic, no PostgreSQL/image bytes/performance claim. Grouped evidence query requires following native integration tests."
+}

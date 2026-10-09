@@ -1,10 +1,8 @@
-# Contrato de ejecución del desarrollo — versión 1.5
+# Contrato de ejecución del desarrollo — versión 1.6
 
-Fecha: 2026-10-03. Estado: ejecución iniciada por autorización del usuario el 2026-10-03. Tipo: especificación de ejecución y aceptación, no contrato mercantil ni acreditación jurídica.
+Origen: 2026-10-03. Formulación consolidada: 2026-10-09, **MOD-06**, autorizada por el usuario al solicitar consolidar el contrato y adoptar CI propio sin presupuesto para alojamiento. Tipo: especificación de ejecución y aceptación. El proyecto es nuevo y no tiene producción real.
 
-Actualización: 2026-10-07, MOD-04 (§16), autorizada por el usuario para reajustar contrato y hoja de ruta conforme al análisis del bloqueo de rendimiento. En el momento de adoptar MOD-04 el goal estaba pausado; aquella revisión documental no lo reanudó. La indicación posterior del usuario de continuar sí lo reanudó. El estado vigente y la próxima acción se consultan exclusivamente en [seguimiento17](17-seguimiento-desarrollo.md), sin nuevas confirmaciones rutinarias para el alcance autorizado.
-
-Actualización: 2026-10-08, MOD-05 (§17), autorizada expresamente por el usuario: estado de publicación almacenado con invalidación por triggers como solución de CR09-REND-LECTURA.
+Este texto contiene las reglas vigentes; integra MOD-01–05 y la decisión de CI propio. El [registro de cambios](#18-registro-de-cambios-y-trazabilidad) identifica lo sustituido y el historial íntegro. La formulación anterior deja de ser una segunda fuente de obligaciones. Estado, versiones aceptadas, runtime y única próxima acción: [seguimiento17](17-seguimiento-desarrollo.md).
 
 ## 1. Objeto y documentos vinculantes
 
@@ -14,7 +12,7 @@ Se incorporan [seguridad](11-plan-seguridad-validacion.md), [operación](12-oper
 
 El usuario delegó decisiones ordinarias. Elegir implementación dentro del alcance, registrar motivos y continuar sin solicitar aprobación al terminar cada hito. Un fallo de prueba obliga a corregir y repetir las pruebas afectadas; no detenerse para preguntar si se corrige.
 
-La petición actual autoriza crear este contrato; no inicia programación, compra, publicación o despliegue externo. Una vez indicado el inicio, la ejecución seguirá la secuencia completa sin una nueva autorización por fase. «Sin parar» significa no introducir pausas de aprobación rutinarias, no omitir pruebas, requisitos o dependencias reales.
+La creación original de este contrato no inició programación, compra, publicación ni despliegue externo. El inicio de desarrollo fue autorizado el 2026-10-03, como registra el encabezado; desde esa autorización la ejecución sigue la secuencia completa sin una nueva autorización por fase. El estado de reanudación y los bloqueos se consultan en seguimiento17. La autorización de desarrollo no incluye compra, publicación ni despliegue externo. «Sin parar» significa no introducir pausas de aprobación rutinarias, no omitir pruebas, requisitos o dependencias reales.
 
 ## 2. Estrategia: flujos completos primero
 
@@ -42,14 +40,14 @@ Las fuentes geográficas de pruebas se identifican como muestra sintética/limit
 
 ## 4. Fase A — Desarrollo cruzado y pruebas tempranas
 
-Cada entrega depende de las anteriores. Un flujo funciona en navegador con frontend real y backend real antes de pasar al siguiente; los servicios externos pendientes quedan simulados por adaptador y registrados.
+Las entregas siguen CR01–CR10 según sus dependencias funcionales reales. Cada flujo debe funcionar en navegador con frontend, backend y persistencia reales antes de aceptar su alcance. Se permite preparar CR10, UI, accesibilidad, ES/EN, SEO u operación mientras otro bloque esté pendiente si no requiere cambiar su contrato compartido; esa preparación no acepta fases ni evita GS-01. Los proveedores pendientes se prueban mediante adaptadores simulados identificados.
 
 | ID | Entrega de extremo a extremo | Frontend y backend incluidos | Aceptación temprana |
 | --- | --- | --- | --- |
 | CR-01 | Registro, acceso y aceptación legal | Formulario ES/EN, documentos versionados, cuenta, sesión, correo de prueba y recuperación básica | Cuenta se crea solo con aceptación válida; recuperar/acceder funciona; no se enumeran cuentas ni reutilizan códigos |
 | CR-02 | Roles, agencias y MFA | Panel de agencia, invitación/editor, perfiles asignados, TOTP/recuperación y permisos | Dos modelos bajo una agencia, acceso aislado; miembro revocado pierde acceso; particulares sin privilegios de agencia |
 | CR-03 | Verificación y representación | Pantalla de estado, adaptador de edad/contacto, autorización directa, revocación/transferencia | Una casilla no reemplaza verificación; resultado fallido/pending bloquea publicación; eventos repetidos no duplican estado |
-| CR-04 | Borrador de anuncio | Formulario por pasos, categorías/servicios, ES/EN opcional, ciudad/CP, tarifas y contactos | Guarda/retoma datos reales, muestra errores, valida geografía y tarifa «consultar»; impide otra publicación activa por persona |
+| CR-04 | Borrador de anuncio | Formulario por pasos, categorías/servicios, ES/EN opcional, ciudad/CP, tarifas y contactos | Guarda/retoma datos sintéticos con persistencia real, muestra errores, valida geografía y tarifa «consultar»; impide otra publicación activa por persona |
 | CR-05 | Fotografías y coincidencias | Carga, orden/eliminación, límites, worker, SHA-256 y huellas visuales/regionales | Archivo válido produce derivados; fallos quedan visibles y seguros; coincidencia entre agencias/números distintos no publica ni suspende cuenta automáticamente |
 | CR-06 | Revisión y publicación | Cola/moderador, motivos, reclamación, revisión aprobada y ficha pública | Aprobar versión válida publica exactamente esa versión; cambios sensibles siguen pendientes y recursos privados permanecen inaccesibles |
 | CR-07 | Descubrimiento nacional | Portada/listado/ficha, filtros combinados, búsqueda, CP, paginación y ES/EN | Solo aparecen anuncios públicos/vigentes compatibles; filtros y URL coinciden; privacidad no se filtra en respuestas o caché |
@@ -121,8 +119,8 @@ Orden de trabajo:
 1. Optimización medida de consultas/índices, búsqueda y paginación; no cambiar semántica de filtros.
 2. Reintentos, tareas pendientes/fallidas, idempotencia, caducidad, invalidación y retirada; calibración de duplicados con evidencia.
 3. Seguridad y privacidad IMP-001 a IMP-011 pendientes, auditoría, derechos, retención configurada y permisos de almacenamiento.
-4. Importación geográfica completa con licencia cuando disponible, validación y actualización; no romper IDs públicos por renombrar.
-5. Integración externa real cuando contratada, manteniendo adaptadores; registrar pruebas reales por separado de simuladores.
+4. Importador geográfico con origen/licencia/versionado, validación y actualización; no romper IDs públicos por renombrar. Verificar técnicamente con muestra sintética o fuente autorizada; reservar la cobertura nacional real para su dataset verificado antes de producción.
+5. Contratos de adaptadores y fallos verificables localmente. Integración externa real cuando se autorice y exista proveedor, conservando evidencia separada; su contratación no bloquea la aceptación técnica de los adaptadores probados.
 6. Configuración Docker/producción, redes, backups, alertas, migraciones y recuperación.
 7. Sitemap, respuestas/códigos de retirados y reglas de indexación según contrato.
 
@@ -133,20 +131,21 @@ Criterio: conserva contratos GS-01, pasa pruebas de integridad/permisos/tareas, 
 1. Ejecutar conjunto completo de pruebas unitarias necesarias, integración PostgreSQL, navegador, permisos y seguridad sobre un mismo commit.
 2. Probar ES/EN, móvil/escritorio y roles; recorrer particular y agencia hasta publicación, búsqueda, denuncia y retirada.
 3. Prueba de carga y objetivos del contrato funcional con recursos y dataset documentados; medir imágenes/CDN por separado.
-4. Ensayo de despliegue, migración y rollback compatible; restauración completa y simulacros OP requeridos.
-5. Revisión independiente de seguridad cuando exista responsable externo; corregir hallazgos y repetir pruebas afectadas.
-6. Revisar apartado legal/textos y aceptación contra flujos implementados. No publicar placeholders de operador o políticas que describan funciones inexistentes.
-7. Emitir entrega técnica y, por separado, acta de preparación de producción con G-01 a G-08.
+4. Ensayo local de despliegue, migración, recuperación/rollback y restauración completa con recursos propios y datos sintéticos; simulacros OP técnicos. Los objetivos de restauración de docs14 §10 siguen vigentes en el alcance ensayado.
+5. Revisión técnica de seguridad, permisos y privacidad por Codex, corrección de hallazgos y pruebas afectadas. La revisión independiente externa previa a producción se registra por separado y no se declara realizada desde esta revisión.
+6. Revisar versiones ES/EN y mecanismos de aceptación contra flujos implementados, con textos/datos de prueba explícitos. Textos definitivos, identidad real del operador y revisión jurídica son requisitos de producción.
+7. Emitir acta de entrega técnica local con evidencias comunes y, por separado, estado de preparación de producción G-01 a G-08; la segunda acta puede permanecer pendiente.
 
 No hacer un último merge sin pruebas después de terminar áreas. Si falla algo, corregirlo y revisar impacto; no declarar terminado solo por acabar el backlog de ambas áreas.
 
 ## 9. Pruebas y condiciones de trabajo
 
-Herramientas candidatas: runner Django/pytest con PostgreSQL, Playwright para navegador y herramienta de carga seleccionada en ADR. Elegir según soporte/versiones, no añadir herramientas duplicadas por principio.
+Herramientas: Django/pytest sobre PostgreSQL, Playwright para navegador y arnés de carga documentado en ADR/criterios. El [gate propio local](ci-local.md) automatiza checks y perfiles de prueba, se invoca por Codex/operador y conserva evidencia; no hay un servicio de ejecución continua alojado obligatorio.
 
 Reglas:
 
 - CI obligatorio para cambios funcionales: migraciones, pruebas relevantes y calidad estática. No exigir cobertura porcentual arbitraria como sustituto de escenarios críticos.
+- Entorno CI propio, por decisión expresa del usuario 2026-10-09 sin presupuesto para alojamiento: [ejecutor local y evidencia](ci-local.md). La obligación anterior se cumple ejecutando y conservando el gate pertinente sobre la versión de entrega; no exige GitHub Actions alojado ni gasto. No sustituye N3, carga requerida o revisión independiente por un perfil reducido.
 - Para cada bug funcional, reproducción y regresión significativa cuando proceda; casos de permisos/concurrencia son obligatorios por riesgo.
 - Datos y fotos sintéticos/autorizados; no importar anuncios de competidoras como fixtures.
 - Entorno reproducible, tiempos/semillas controlados para caducidad/rotación y fallos externos deterministas.
@@ -155,6 +154,8 @@ Reglas:
 - Ningún test local acredita comportamiento de proveedor no contratado o revisión jurídica.
 
 ## 10. Ejecución continua, dependencias y cambios
+
+La orden expresa de pausa del usuario de 2026-10-09 prevalece sobre la continuación autónoma: no avanzar a nuevos bloques mientras siga vigente. El cierre seguro, los commits locales y el relevo autorizados se registran en [seguimiento17](17-seguimiento-desarrollo.md) y [relevo](relevo-claude-20261009.md); no cambian requisitos, objetivos, aceptación ni dirección del proyecto.
 
 Tras inicio de implementación seguir backlog en orden, corregir fallos y actualizar documentación sin cerrar cada fase preguntando «¿continuamos?». Preparar la siguiente entrega con los acuerdos actuales y resolver elecciones reversibles rutinarias.
 
@@ -168,19 +169,19 @@ Cambios de contrato: ID, motivo, requisitos afectados, efecto en datos/seguridad
 
 ### Entrega técnica local
 
-- Repositorio completo y aplicación funcional conforme al MVP.
-- Docker/Compose, configuración de ejemplo, migraciones y bootstrap; inicio documentado sin secretos reales.
-- Datos sintéticos y simuladores identificados; no verificación de edad/pago falsamente acreditados.
-- Contratos internos, acta GS-01, decisiones técnicas y matriz requisito → implementación → prueba → evidencia.
-- Frontend terminado y backend terminado sobre el mismo commit con regresión común.
-- Resultados de pruebas/carga/recuperación y lista de pendientes externos explícita.
-- Documentación para ejecutar, mantener, desplegar y recuperar; rutas legales y aceptación implementadas, textos incompletos solo en entornos privados.
+Aceptar la aplicación conforme al MVP con infraestructura local real, datos sintéticos y adaptadores externos de prueba identificados. Requiere repositorio, Docker/Compose, configuración de ejemplo, migraciones/bootstrap, contratos internos, acta GS-01, frontend/backend terminados y batería N3 sobre la versión integrada, además de carga/recuperación exigidas y documentación operativa.
+
+La aceptación de un flujo local exige cubrir sus decisiones, permisos, privacidad, revocación, concurrencia e idempotencia aplicables. Los datos de prueba deben incluir origen, asociación fiable al sujeto, tratamiento de terceros, identidad/representación simulada, políticas de ensayo explícitas y responsabilidades de revisión separadas dentro de la aplicación. Codex puede definir fixtures y parámetros sintéticos ordinarios y verificar sus mecanismos; no puede convertirlos en identidad, política jurídica o recepción externa reales. Una fuente necesaria sin examinar o un defecto que afecte la cobertura local impide cerrar ese alcance.
+
+La [matriz83](83-auditoria-pendientes-cr09.md) distingue requisito técnico local, evidencia faltante y requisito de producción para cada bloque. Censo de servicios ajenos, responsables humanos reales, proveedor contratado, revisión jurídica y custodia externa no son prerrequisitos de aceptar el correspondiente mecanismo local probado. Se registran como pendientes de producción. Los objetivos numéricos técnicos vigentes y las decisiones de alcance que falten sí pueden bloquear la aceptación técnica afectada.
+
+La entrega incluye una matriz requisito → implementación → versión → prueba → evidencia → límite y un inventario separado de pendientes de producción. Las páginas legales y los mecanismos de aceptación deben funcionar localmente; sus textos sintéticos no se publican. Componentes entregados y preparaciones independientes no equivalen a aceptación de fase.
 
 ### Preparación real de producción
 
-Además: operador y dominio reales, contratos/proveedores/datasets, verificación válida, revisión jurídica, personal de moderación/incidentes, retención definitiva, revisión independiente y gates G-01 a G-08 verificados. Si no se cumplen, el estado es «entrega técnica local completa; producción pendiente», no «listo para producción».
+Antes de operar con personas/datos reales se requieren operador/dominio, catálogo y tratamientos revisados, identidad/edad/autorización válidas, políticas definitivas por finalidad, contratos/proveedores cuando necesarios, dataset geográfico autorizado/verificado, moderación e incidentes con responsables, custodia/backups, revisión jurídica y seguridad independiente, además de G-01 a G-08. Se validan contra el entorno real autorizado; la prueba local no los acredita.
 
-Los cobros reales siguen fuera de v1 aunque el módulo comercial esté preparado. Tarifas no definidas no bloquean entrega técnica y no se activan con importes ficticios.
+Si se ha aceptado toda la entrega técnica y faltan esas entradas, el estado es «entrega técnica local completa; producción pendiente». Si falta aceptación técnica, conservar su estado abierto. Cobros reales siguen fuera de v1; tarifas no definidas no bloquean preparación técnica y no se activan importes ficticios como ventas.
 
 ## 12. Seguimiento y punto de reanudación
 
@@ -190,149 +191,72 @@ Al retomar leer contrato vigente y registro; continuar próximo paso sin reinici
 
 ## 13. Modalidad de ejecución por bloques y dependencias
 
-Cambio MOD-01, autorizado por el usuario el 2026-10-06. Versión1.1. Motivo: reducir fragmentación, verificaciones redundantes y esperas, conservando alcance, seguridad, privacidad y aceptación. Afecta al orden de ejecución de las secciones4,6,9,10 y12; no modifica requisitos funcionales, datos, proveedores ni gates de producción. MOD-01 no autoriza gasto ni publicación. Su límite histórico de Claude3/3 queda sustituido por la política vigente de §15; se conserva el consumo registrado.
+<a id="entregas-completas-y-criterio-de-parada"></a>
 
-### Una cola y un cierre verificable por bloque
+Una unidad de entrega es una funcionalidad completa con resultado observable y criterio de aceptación prefijado; no se divide por cantidad de archivos, commits o duración. Dividir solo cuando cada parte tenga utilidad y aceptación propias. Registrar requisito, dependencia real, evidencia exigida y condición de salida en seguimiento17 antes de trabajar.
 
-El seguimiento17 contiene la única cola operativa. Antes de desarrollar un bloque, registrar requisito, resultado observable, dependencias reales, evidencia exigida y criterio de cierre. Al entregarlo, registrar commit, pruebas y pendientes. Distinguir componente entregado, aceptación integral de fase y preparación de producción. Reabrir solo por defecto reproducible, regresión o requisito concreto incumplido, registrando motivo y alcance.
+Mantener como máximo un bloque de integración activo y otro independiente preparado. Avanzar por dependencia funcional; una tarea que cambia modelos, permisos, estados, rutas o presentación compartidos vuelve a un flujo cruzado con integración/navegador. Durante una espera solo editar fuentes que no use la prueba viva. Medir rendimiento sin otra carga propia competidora; bases distintas en el mismo host no acreditan aislamiento de recursos.
 
-Para el censo histórico Redis/AOF de CR09, cerrar primero un inventario de fuentes conocidas: snapshot/base, prefijo y sufijo AOF, colas/reservados, copias y backups pertinentes. Por fuente registrar origen y corte temporal, lectura acotada reproducible, asociación autorizada al titular y tratamiento de formatos desconocidos, diferencias de contenido y cobertura pendiente. Igualdad de cantidades, inspección parcial o captura cifrada no acreditan cobertura completa. Una fuente necesaria no examinada mantiene el censo abierto; no convertirla arbitrariamente en exclusión ni permitir un acceso completo con cobertura parcial. Nuevas fuentes relevantes se añaden con el requisito que justifica incluirlas, sin rehacer componentes correctos.
+<a id="medidas-adicionales-de-eficiencia-autorizadas"></a>
 
-### Avance independiente sin saltar puertas
+Reutilizar imágenes, dependencias y constructores de fixtures válidos, conservando datos mutables, colas, medios y limpieza propios de cada ejecución. Al completar una entrega registrar versión integrada, resultado terminal y límites; pasos y commits intermedios no son aceptación ni avance. Reabrir componentes aceptados solo por defecto, regresión o requisito concreto demostrado.
 
-La dependencia entre CR se exige cuando exista dependencia funcional real. Se pueden ejecutar tareas preparatorias de CR10 y de acabado visual, accesibilidad, ES/EN, SEO y operación antes del cierre de CR09 si se identifica por escrito que no necesitan modificar sus modelos, permisos, estados, rutas o contratos pendientes. Esto permite preparación anticipada, no acepta CR10 ni inicia formalmente BF/BB: GS01 conserva todas sus condiciones. Una tarea que requiera cambios compartidos sigue siendo un flujo cruzado con integración y prueba navegador.
-
-Mantener como máximo un bloque de integración activo y un bloque independiente preparado para avanzar ante un bloqueo real. Paralelizar trabajo solo cuando responsabilidades, interfaces y archivos afectados permitan integración segura; no implica lanzar agentes ni procesos concurrentes sobre los mismos recursos. Ante una dependencia externa, registrar responsable requerido, evidencia faltante e impacto en aceptación, y continuar trabajo independiente. No sustituirla por un simulador declarado real.
-
-### Verificación proporcionada y progreso
-
-Después de cada cambio ejecutar las pruebas afectadas y las de riesgos compartidos identificados; permisos, privacidad, concurrencia y migraciones se incluyen cuando corresponda. Registrar versión, alcance y resultado para reutilizar evidencia aún válida. Repetir por cambio relevante, fallo o incertidumbre documentada, no por rutina. En el cierre integral de CR09 ejecutar su batería conjunta sobre una misma versión; conservar regresión completa y gates exigidos en GS01/faseC, sin sumar resultados de versiones diferentes como una verificación común. PostgreSQL sigue siendo obligatorio.
-
-Actualizar la estimación ponderada al aceptar alcance nuevo usando los mismos pesos y justificando el cambio por bloque. El número de pruebas y el tiempo invertido no son avance aceptado. El contrato continúa hasta completar todas sus fases; esta modalidad no reduce comprobaciones ni permite declarar preparación de producción con revisión jurídica, seguridad o proveedores pendientes.
-
+Para censo local Redis/AOF/RDB y otras fuentes, inventariar origen/corte/huella/formato/período, lectura reproducible, asociación autorizada del fixture, diferencias de contenido y divulgación revisada. No inferir asociación por UUID, substring, cantidades o inspección parcial; no excluir arbitrariamente una fuente necesaria desconocida. El censo de fuentes reales ajenas a este entorno pertenece a preparación de producción.
 
 ## 14. Ejecución eficiente — MOD-02
 
-Adenda autorizada por el usuario en conversación lateral: implementar las propuestas de aceleración y avisar al hilo principal. Versión1.2. Complementa MOD01 y concreta secciones9/10/12/13; conserva alcance, pesos, seguridad, PostgreSQL obligatorio, aceptación de fases y gates externos. Se aplica al siguiente paso sin detener ni alterar procesos ya lanzados. No autoriza agentes adicionales, proveedores, publicación ni datos reales.
+Las reglas MOD-02 siguientes están incorporadas a la versión vigente; los antecedentes están en el historial.
 
 ### Tres niveles de verificación
 
 | Nivel | Cuándo | Evidencia exigida |
 | --- | --- | --- |
-| N1, feedback durante edición | Cambio reversible o reproducción de defecto | Ruff/diff/check y prueba significativa mínima afectada. Si necesita persistencia/locks, PostgreSQL real con dataset pequeño; unitarios/simuladores no sustituyen esa evidencia. |
-| N2, cierre del bloque | Implementación completa con interfaz/contrato conocido | Migraciones, HTTP y navegador/idiomas/roles afectados; autorización, privacidad, revocación, concurrencia e idempotencia según riesgo. Recursos desechables y limpieza; resultado completo, no marcadores parciales. |
-| N3, aceptación de fase | CR09 conjunto, GS01 y entrega final según contrato | Batería conjunta sobre una misma versión y carga/recuperación exigidas. Mantener todos los escenarios críticos; evidencia de bloques separada no equivale a batería conjunta. |
+| N1 | Edición/reproducción de defecto | Ruff/diff/check y prueba significativa afectada; PostgreSQL real si hay persistencia/locks. |
+| N2 | Cierre de bloque | Migraciones, HTTP y navegador/ESEN/roles afectados; permisos, privacidad, revocación, concurrencia e idempotencia aplicables; recursos propios y limpieza. |
+| N3 | CR09 conjunto, GS01 y entrega final | Batería conjunta sobre la misma versión integrada y carga/recuperación exigidas. No sumar ejecuciones de versiones distintas como batería común. |
 
-Antes de lanzar cada batería, registrar requisito, fuentes/commit, selección de casos, recurso/handle y condición de salida en seguimiento17. No ejecutar N3 ni ensayos largos tras cada edición. Repetir solo por cambio relevante, fallo o incertidumbre explícita; un cambio exclusivo de documentación no invalida pruebas funcionales. Ante un fallo, esperar terminal, identificar su causa, corregir y repetir casos afectados; ampliar solo por riesgo compartido. No retocar fuentes que usa un proceso vivo.
+Antes de cada batería registrar en seguimiento17 requisito, fuentes/commit y huellas de cambios locales, casos, entorno/handles, evidencia esperada y condición de salida. Congelar las fuentes probadas mientras el proceso esté vivo. Un fallo obliga a esperar terminal, diagnosticar, corregir y repetir lo afectado; ampliar solo por riesgo compartido o incertidumbre concreta. Un cambio exclusivo de documentación no exige repetir pruebas funcionales.
 
-### Funcionalidad y rendimiento separados
+El gate propio guarda logs, selección, versiones/huellas, JUnit, exclusiones/skips, duraciones y limpieza. `checks`, `smoke` o `regression` con exclusiones no sustituyen N3 ni capacidad omitida. Codex revisa evidencia antes de aceptar, distingue preparación/fixtures, ejecución, diagnóstico/corrección e integración/runtime, y conserva el consumo realmente observado sin inventar tiempos/costes pasados.
 
-Los casos funcionales pequeños cubren decisiones, permisos, errores, replays y carreras reales antes del volumen; reducir el dataset no reduce esos escenarios. Los ensayos grandes acreditan volumen, memoria, latencia/consultas y transporte en su alcance real. Primero probar funcionalidad; después medir cuando el cambio afecte al camino costoso o sea requisito de aceptación. Eliminar la obligación rutinaria de repetir un recorrido de89 minutos para cambios ajenos a ese recorrido; no eliminar el ensayo requerido al aceptar la fase ni la regresión grande afectada por una optimización.
-
-Para una optimización: comparar la etapa afectada con evidencia anterior válida, mismo dataset/instrumentación y contexto de recursos documentado. Después ejecutar recorrido amplio si el cambio/riesgo lo requiere. Un resultado más rápido no acredita equivalencia, seguridad ni capacidad total. Las condiciones externas y pruebas de identidad/entrega no se acreditan con simuladores.
-
-### Trabajo útil durante esperas
-
-Mantener un bloque de integración activo y un independiente preparado, como MOD01. Durante N2/N3 se puede completar interfaz, accesibilidad, traducciones, contratos o trabajo independiente en archivos/worktree que no usa la prueba. No introducir dependencias personales fuera del censo ni aceptar fases anticipadamente. Una medición de rendimiento exige recursos estables: evitar otra carga PG/browser/build competidora mientras se mide; esa restricción temporal no congela todo el desarrollo. Las pruebas funcionales pueden coexistir únicamente con aislamiento real documentado y sin cambiar las fuentes probadas; no inferir aislamiento porque las bases tengan nombres distintos si comparten recursos relevantes.
-
-### Entregas completas y criterio de parada
-
-Precisión autorizada por el usuario en conversación lateral: la unidad de entrega es una funcionalidad completa y verificable, con resultado observable y criterio de aceptación definido antes de implementarla. No limitar ni dividir entregas por número de archivos, commits o duración. Los pasos internos preservan trabajo y permiten feedback, pero no son entregas independientes, cierres ni avance aceptado por sí mismos.
-
-Dividir un bloque únicamente cuando cada parte tenga utilidad y aceptación propias, con integración y pruebas pertinentes completas. Si para verificar una parte es necesario terminar la siguiente, mantenerlas en la misma entrega. Priorizar cerrar los bloques actuales antes de abrir nuevas subdivisiones; conservar los pendientes reales de fase y producción sin convertirlos en cierres ficticios. Esta precisión complementa MOD-02 sin cambiar alcance, pesos ni gates.
-
-Agrupar implementación, pruebas relevantes, contrato, integración/runtime y evidencia en una entrega por bloque. Los commits intermedios sirven para preservar trabajo; no son cierres ni obligan a una batería completa por commit. Una vez cumplido el criterio del bloque, registrar cerrado localmente, pendientes de fase/producción por separado y pasar al siguiente bloque preparado. No seguir puliendo/reabriendo el mismo componente sin defecto, requisito o riesgo concreto. La revisión inicial y el despliegue siguen sujetos a las reglas existentes.
-
-Seguimiento17 contiene la próxima acción única y el próximo independiente. La cronología va al historial. Registrar avance al entregar o descubrir un fallo/dependencia material; durante esperas, verificar el handle y comunicar estado sin crear otra cola o volver a listar una preparación como nueva entrega.
-
-### Dependencias externas desde ahora
-
-Mantener en la cola un registro de requisito externo, responsable requerido (pendiente de designación si no existe), evidencia faltante, impacto local/producción y trabajo que puede continuar. Referenciar operación12/marco legal06 y gates existentes; no inventar responsables, plazos o aceptación. Proveedores/revisión jurídica/identidad real no paralizan trabajo local independiente. Las tarifas aún no decididas y los cobros reales fuera de v1 no bloquean la preparación técnica comercial ni autorizan activar ventas.
-
-### Medidas adicionales de eficiencia autorizadas
-
-Ampliación de MOD-02 solicitada por el usuario en conversación lateral el2026-10-06. Mantiene la entrega por funcionalidad completa definida arriba y todos los controles del contrato. Incorporar estas medidas al siguiente trabajo pertinente; no reiniciar procesos activos ni introducir una fase de optimización que impida cerrar los bloques actuales.
-
-- **Entornos reutilizables y aislados:** reutilizar imágenes Docker, dependencias instaladas y constructores de fixtures sintéticos pequeños cuando sus versiones sigan siendo válidas. Cada ejecución conserva bases, medios, colas y limpieza propios según sus riesgos; no reutilizar datos mutables o evidencia antigua como un resultado nuevo. PostgreSQL real sigue siendo obligatorio en integración. Reconstruir los componentes afectados cuando cambien sus fuentes/configuración.
-- **Diagnóstico con condición de salida:** antes de investigar registrar defecto o incertidumbre, hipótesis, evidencia nueva esperada y condición de salida. Si una iteración no aporta evidencia nueva, resumir lo descartado y cambiar de estrategia o registrar la dependencia real para avanzar trabajo independiente. No repetir pruebas o búsquedas idénticas sin cambio, hipótesis o fuente nueva; no declarar resuelto un requisito por agotar la investigación.
-- **Informe de cierre automatizado:** aprovechar y completar los ejecutores existentes para reunir versión/huellas probadas, comando y selección de casos, resultado terminal, recursos y limpieza, enlaces de evidencia y pendientes. Generar un resumen por entrega completa; revisión de Codex antes de actualizar el seguimiento. No inferir aprobación desde marcadores parciales, mezclar versiones ni acreditar producción automáticamente. Implementar la automatización incrementalmente cuando sirva al bloque actual, sin crear otro bloque preparatorio innecesario.
-- **Prioridad por dependencias reales:** resolver primero contratos de datos, permisos e interfaces compartidas que desbloqueen el siguiente resultado verificable. Documentar la dependencia concreta; no reabrir contratos ya correctos por prioridad abstracta. Reservar ajustes visuales y otros trabajos independientes para esperas compatibles con las restricciones de recursos de MOD-02.
-- **Medición del tiempo perdido:** en los próximos ejecutores pertinentes registrar por separado preparación del entorno/fixtures, ejecución de pruebas, diagnóstico y corrección, e integración/verificación runtime. Distinguir duración observada y estimaciones; no reconstruir tiempos pasados sin evidencia ni convertirlos en avance porcentual. Usar los resultados para elegir la siguiente mejora del cuello de botella real, sin añadir instrumentación costosa a todas las operaciones ni confundir tiempos de test con latencia/capacidad del producto.
-
+Funcionalidad pequeña cubre todos los escenarios críticos antes del volumen. Volumen, memoria, latencia/consultas y transporte se aceptan en su escenario real documentado. Una optimización necesita hipótesis finita, comparación de la etapa con datos/instrumentación equivalentes y verificación del recorrido afectado. No repetir por rutina un ensayo de 89 minutos para cambios ajenos; tampoco omitirlo cuando una aceptación o riesgo pertinente lo exija. Una iteración sin evidencia nueva termina como negativa/no concluyente; no cierra el requisito ni justifica repetirla idéntica.
 
 ## 15. Delegación sin máximo numérico — MOD-03
 
-Cambio autorizado expresamente por el usuario el2026-10-06: «Elimina el limite y actualizalo». Versión1.3. Se elimina el máximo de tres invocaciones Claude para el objetivo completo de desarrollo. No se establece un nuevo máximo numérico ni se reinicia el consumo: tres invocaciones anteriores siguen registradas en .ai/tasks/desarrollo.md y cada nueva llamada se registra allí. Referencias3/3 o «sin nuevas invocaciones» en cronologías y adendas anteriores reflejan la política histórica; esta sección prevalece para la delegación vigente.
+Revisión para el relevo 2026-10-09: AI_ENGINEERING1.0.1 V1 prohíbe herramientas, ediciones directas y operaciones Git del delegado; solo Codex acepta e integra. No autoriza que un goal de Claude ejecute toda la entrega directamente. La [modificación propuesta](relevo-claude-20261009.md#autorización-necesaria-para-un-relevo-directo) requiere instrucción expresa del usuario y procedimiento de escritor compatible; no está adoptada.
 
-Codex conserva arquitectura, integración y aceptación; Claude propone y Codex aplica y verifica. Antes de delegar leer completo /home/felidae/proyectos/arquitectura_codex/docs/AI_ENGINEERING.md (1.0.1) y usar su scripts/claude-task sin copiar ni alterar el adaptador. Elegir tareas acotadas útiles para el objetivo; continuar localmente si una llamada falla. La eliminación del máximo no exige delegar ni relaja aislamiento, fuentes congeladas o controles MOD-02.
+Codex dirige arquitectura, integración y aceptación. Claude propone; Codex aplica y verifica. No hay máximo numérico de invocaciones desde la autorización del usuario del 2026-10-06. Conservar el consumo anterior y registrar todas las invocaciones y consumo real en `.ai/tasks/desarrollo.md`; no convertir ausencia de máximo en obligación de delegar o gastar.
 
-Impacto: habilita nuevas invocaciones mediante el adaptador bajo el mismo alcance; consumo y costes reales se registran sin inventar importes. No cambia modelos, datos, alcance funcional, gates, pruebas, pesos o porcentajes; no autoriza publicación, contratación de proveedores ni datos reales. Este cambio documental no invalida evidencia funcional ni requiere reiniciar pruebas activas.
+Antes de delegar leer completo `/home/felidae/proyectos/arquitectura_codex/docs/AI_ENGINEERING.md`1.0.1 y usar su `scripts/claude-task`, sin copiar ni alterar el adaptador. Elegir tarea acotada dentro del alcance; continuar localmente si falla. No se autorizan compras, nuevas suscripciones o proveedores. Referencias históricas3/3 no son un límite vigente.
 
 ## 16. Consolidación del rendimiento de lectura — MOD-04
 
-Cambio autorizado por el usuario el 2026-10-07: reajustar roadmap y contrato para seguir la solución del [análisis y DAFO](analisis-bloque-rendimiento-dafo0110.md). Versión 1.4. Motivo: el FAIL de carga persiste tras correcciones locales; la evidencia identifica coste de consulta principal y trabajo de validación/materialización por candidato. Afecta a la estrategia y aceptación del trabajo de rendimiento de §7–12 y MOD-02, al objetivo de docs14 §10 y a su trazabilidad en docs83. Conserva producto, fases, pesos, denominador, criterios de carga y gates de producción. El análisis fundamenta la dirección, pero no constituye mejora medida ni aceptación funcional de una implementación futura.
+Estas son las condiciones vigentes de CR09-REND-LECTURA. Los diagnósticos JIT, prohibiciones sustituidas, pilotos y pausas anteriores se consultan como historial; no ordenan reabrir la lectura aceptada ni repetir sus experimentos.
 
-### Una entrega y una cola
+Preservar elegibilidad, autoridad actual, privacidad, normalización, filtros, ranking, orden, recuento exacto y paginación. Cubrir rutas normales, `PRODUCTION`, `checked` y promociones con matriz modo/filtro/promoción → ruta → equivalencia → coste → límite. La arquitectura vigente es §17; los fallbacks nativos mantienen sus guards. No atribuir pruebas de proveedor sintético a verificación externa real.
 
-Se adopta **CR09-REND-LECTURA: listado y búsqueda con reglas compartidas y coste de lectura controlado**, dentro del bloque de rendimiento vigente. Sus pasos internos no son nuevas fases, unidades ponderadas ni cierres independientes. La hoja de ruta, el estado y la próxima acción se mantienen únicamente en [seguimiento17](17-seguimiento-desarrollo.md); el resto de documentos especifican criterios y evidencias.
+Toda intervención posterior necesita coste observado → hipótesis → cambio mínimo → equivalencia → comparación HTTP completa → decisión. SQL especializado, raw SQL, conjuntos/EXISTS/joins/índices y eliminación de conversiones/objetos innecesarios son opciones permitidas; no es obligatorio permanecer en ORM. Código nativo solo ante CPU Python dominante demostrada tras eliminar trabajo innecesario. No estimar validación como total−SQL, CPU PostgreSQL desde cursor.execute o filas SQL desde objetos ORM; registrar materialización lazy, overhead y lo no medido.
 
-El objetivo es reducir el coste absoluto por petición preservando publicación, privacidad, autoridad, normalización, filtros, ranking, orden, recuento y paginación. Se reutilizan las equivalencias y diagnósticos válidos, con sus fuentes y límites. Esta entrega no sustituye los pendientes de rendimiento de expedientes grandes, aceptación integral CR09 ni las fases posteriores.
-
-### Dirección técnica adoptada
-
-1. **Consulta principal:** aislar primero el efecto de JIT mediante lecturas equivalentes en PostgreSQL sintético propio. Comparar configuración vigente con `SET LOCAL jit=off` en transacciones propias, sin modificar la configuración del servidor compartido. Prefijar fuente, consulta, parámetros, cardinalidades, número y orden de parejas, cachés/recursos observados y condición de salida. Separar SELECT cronometrado y EXPLAIN; contrastar resultados. Confirmar o descartar el mecanismo antes de aplicar una política JIT o reformular consultas. No convertir tiempo JIT de un plan en ahorro previsto de un request.
-2. **Reglas compartidas:** extraer gradualmente validaciones explícitas sobre valores para que escritura y lectura usen la misma definición. Conservar conversión, normalización, reglas de campos/modelos, dependencias y errores del contrato. La autoridad y vigencia se comprueban con datos actuales. Las traducciones de reglas a SQL necesitan equivalencia específica; no se presume igualdad de regex, NULL, listas ni desempates.
-3. **Construcción bajo demanda:** evitar objetos y formularios antes de saber que son necesarios para una evaluación. Compartir definiciones verificadas dentro del request, conservando bindings independientes y claves completas de dependencia; no compartir estado mutable ni autoridad entre peticiones. La eliminación de una instancia exige demostrar qué reglas dependen de ella, incluido el PK. No añadir caché persistente ni proyección persistida como parche.
-4. **Conjunto elegible y página:** preservar el conjunto completo y su recuento exacto antes de paginar. Resolver count/orden/página en SQL solo cuando las condiciones correspondientes sean equivalentes; mientras existan reglas residuales, evaluarlas sobre toda la población necesaria. Hidratar la página y conservar el guard de vigencia y la recomputación nativa ante cambios confirmados. No paginación anticipada ni cambio silencioso a cursor.
-5. **Alcance operativo:** cubrir explícitamente las rutas normales, `PRODUCTION`, filtros `checked` y promociones, con sus verificaciones y ranking. Mantener sus guards/fallbacks hasta demostrar equivalencia; no quitar la huella para conseguir una ruta rápida. Un modo puede conservar implementación nativa si se demuestra su comportamiento y coste; consolidar no exige que todos usen la clase de proyección actual. Fixtures de integración siguen siendo sintéticos y no acreditan proveedores reales ni aceptación de producción.
-
-Se conservan los controles de wrappers semánticos, helpers, cambios de reglas, catálogo, documentos, vigencia y revocación. La cobertura de la huella y la medición de ruta son garantías diferentes. No aumentar workers, escalar PostgreSQL ni añadir caché para compensar el coste pendiente en este ciclo. Excepción autorizada por el usuario2026-10-07: comparación aislada y temporal4/6/6/4 de [propuesta cerrada](evidencias/propuesta-capacidad-4-vs-6-0110.json), registrada en docs17. Solo permite variar workers en ese experimento; no cambia SLO, gates, producción, PG, caché ni autoriza900s/adopción permanente.
-
-### Precisión técnica de MOD-04,2026-10-07
-
-Por instrucción expresa del usuario, el coste medido puede resolverse por debajo de las abstracciones habituales: SQL especializado, conjuntos/EXISTS/joins/índices, columnas y transferencia mínimas, menos conversiones/objetos y cursores/raw SQL. No es obligatorio permanecer en ORM ni agotar previamente soluciones convencionales. Primero eliminar trabajo innecesario; mantener abstracciones de coste no material. Código nativo (Rust/C/Cython u otro) solo ante CPU Python dominante demostrada después de esa eliminación. No reescritura general ni complejidad sin mejora material/reproducible del HTTP completo.
-
-Aplicar el registro coste→hipótesis→cambio mínimo→equivalencia→comparación HTTP→decisión de la [directriz de revisión](criterios-revision-benchmark-carga.md#directriz-técnica--trabajo-innecesario-y-coste-de-abstracciones). Arquitectura final abierta, autoridad/revocación actuales y todas las condiciones MOD04 intactas. La ampliación de opciones no acepta una implementación ni altera contrato, recursos, gates o porcentajes. La cola y estado de ejecuciones permanecen en seguimiento17; goal automático pausado y trabajo manual autorizado.
-
-### Decisión por evidencia y salida del diagnóstico
-
-Cada intervención registra una hipótesis, evidencia nueva esperada, alcance de equivalencia y condición de salida antes de ejecutarse. Un resultado negativo o no concluyente cierra esa iteración como tal; no implica cierre del requisito ni permite repetirla sin un cambio o una incertidumbre concreta que la siguiente medición resuelva. No acumular microoptimizaciones cuyo efecto en la petición no se haya contrastado.
-
-El contraste JIT decide la intervención SQL; el perfil y la diversidad ya obtenidos orientan construcción y validación. La mejora se informa en tiempo absoluto del request sin profiler y en el mecanismo directamente observado, además de consultas/materialización/reglas con instrumentos equivalentes. Usar controles repetidos/únicos para evitar que el fixture repetido oculte el coste. No estimar validación como total−SQL, CPU PostgreSQL desde cursor.execute ni filas SQL desde objetos ORM. Documentar solapamientos lazy, overhead, población observada y `not_measured`.
-
-Con cuatro workers sync y 20 RPS, 200 ms de servicio medio es un límite teórico de ocupación antes de margen y uploads. Se usa como comprobación de viabilidad de la mezcla, no como nuevo SLO ni como prueba suficiente de capacidad. La estabilidad y el p95 deben medirse. Si los controles siguen claramente lejos del presupuesto, revisar el mecanismo o el diseño dentro de la misma entrega antes de repetir carga; no ejecutar 900 s para volver a demostrar ese desfase.
+Conservar recursos y criterios del ciclo de lectura: no aumentar workers, escalar PostgreSQL o añadir caché como compensación sin cambio autorizado. La comparación histórica 4/6/6/4 fue acotada y no autoriza adopción permanente de seis. El estado derivado expresamente aprobado en §17 está permitido; la antigua prohibición general de persistencia queda sustituida.
 
 ### Verificación y aceptación
 
-Secuencia de aceptación: equivalencia pertinente de cada cambio → integración funcional de la solución → matriz comparable 100/1.000/10.000 con controles sin profiler y diversidad → prueba corta vigente de 20 RPS durante 60 s → ensayo contractual solo tras PASS completo. N1/N2/N3 y PostgreSQL siguen según MOD-02; reutilizar evidencia válida sin sumar versiones diferentes como una batería común. No ejecutar matrices completas por cada edición interna.
+Para un cambio que reabra esta entrega: equivalencia pertinente → integración → matriz comparable de 100/1.000/10.000 con diversidad y controles sin profiler → corto completo → contractual solo tras PASS. Reutilizar evidencia válida y ejecutar solo controles que el cambio o la incertidumbre justifiquen.
 
 | Comprobación | Condición exigida |
 | --- | --- |
-| Equivalencia | Elegibilidad, IDs ordenados, recuento, páginas inicial/intermedias/última, errores/normalización y ranking conservados; negativas fuera de la primera página, helpers/wrappers y carreras de revocación/catálogo/documentos según dependencia afectada. |
-| Alcance de rutas | Matriz explícita de modo/filtro/promoción → ruta real → equivalencia → coste observado → limitación. No extrapolar PASS del fixture a modos excluidos. Los escenarios adicionales se prefijan aparte y no alteran la mezcla contractual. |
-| Generador y contabilidad | Escenario y contabilidad reconciliados; 0 no emitidas; demora p95≤10 ms, p99≤25 ms, máximo≤100 ms; timeout por petición 65 s. |
-| Corta | 10.000 anuncios, 20 RPS durante 60 s, 1.200 dinámicas y 1 upload separado; drain≤70 s, pendientes al cierre≤20 y finales0; p95 observable de todas las dinámicas emitidas terminadas, incluidos errores/timeouts, <800 ms; errores<1 %; upload302 conforme. |
-| Contractual | 10.000 anuncios, 20 RPS durante 900 s, 18.000 dinámicas; mezcla 1/3 listado, 1/3 búsqueda y 1/3 ficha, ES/EN; 15 uploads programados separados, uno/minuto. p95 observable<800 ms y errores<1 %, generador/drain y política contable vigentes, uploads conformes. No trasladar silenciosamente criterios diagnósticos a resultados históricos. |
+| Equivalencia | IDs elegibles ordenados, recuento y páginas inicial/intermedia/última; errores/normalización/ranking; negativas fuera de primera página, wrappers/helpers y carreras de revocación/catálogo/documentos pertinentes. |
+| Generador/contabilidad | 0 no emitidas; demora p95 ≤10 ms, p99 ≤25 ms, máximo ≤100 ms; timeout por petición 65 s; contabilidad reconciliada. |
+| Corto | 10.000 anuncios, 20 RPS durante 60 s, 1.200 dinámicas y 1 upload separado; drain ≤70 s, pendientes al cierre ≤20 y finales 0; p95 observable de todas las dinámicas emitidas terminadas, incluidos errores/timeouts, <800 ms; errores <1%; upload 302 conforme. |
+| Contractual | 10.000 anuncios, 20 RPS durante 900 s, 18.000 dinámicas; mezcla 1/3 listado, 1/3 búsqueda, 1/3 ficha ES/EN; 15 uploads separados, uno/minuto; p95 observable <800 ms, errores <1%, generador/drain/política contable vigentes y uploads conformes. |
 
-Validez separada de rendimiento: **INVALID** por escenario, generador o contabilidad inválidos; **FAIL** por objetivos incumplidos en un experimento válido, incluidos pendientes/drain del gate corto; **PASS** solo si cumple todos los criterios prefijados de su escenario. Mantener veredicto de transporte y gate corto completo separados. FAIL/INVALID corto bloquean el contractual. El FAIL corto anterior y el INVALID contractual anterior conservan su clasificación.
+Marco completo: [criterios de carga](criterios-revision-benchmark-carga.md). Conservar veredicto de transporte y gate completo separados. INVALID por escenario/generador/contabilidad inválidos; FAIL por criterio incumplido en ensayo válido; PASS solo al cumplir todos. FAIL/INVALID corto bloquean contractual. No cambiar clasificaciones históricas ni trasladar retroactivamente criterios.
 
-Un PASS contractual acredita únicamente su escenario, fuente y recursos. El cierre local de CR09-REND-LECTURA exige además equivalencia y cobertura de las rutas declaradas, integración/runtime pertinente y evidencia revisada. Si falta una ruta o su medición, registrar únicamente el alcance verificado y mantener la entrega abierta; no declarar consolidado el bloque. Producción, proveedores, aceptación integral CR09 y fases posteriores conservan sus gates propios.
-
-### Impacto y estado de esta modificación
-
-Al adoptar esta adenda se acordaron la dirección técnica y su secuencia, con implementación y ganancias aún pendientes en ese momento. Los resultados posteriores y el trabajo restante se registran en seguimiento17; no convierten la propuesta inicial en aceptación de la entrega. Posibles cambios futuros de código/consultas se decidirán por evidencia; ninguna migración, ajuste de servidor o alteración de datos se ejecuta con esta adenda. Aumenta la claridad de los criterios de salida, sin promesas de plazo ni ahorro. Recursos/costes de ensayos se registran realmente; no autoriza gasto ni contratación. Porcentajes vigentes sin cambio: CR09 72,50 % y contrato 65,375 % (65,38 % mostrado). La pausa de la adopción y la posterior reanudación se conservan como hechos históricos; el estado actual se registra únicamente en seguimiento17.
+El PASS acredita únicamente fuente, fixture, recursos y rutas declaradas. El cierre local requiere además integración/runtime pertinente y evidencia revisada. No prueba capacidad grande PRODUCTION/`checked`, expedientes grandes, proveedor, CR09 integral o producción por extrapolación. Las imágenes/CDN se miden aparte de peticiones Django. Los objetivos de expedientes grandes tienen criterios propios fijados por delegación posterior y registrados en seguimiento17; su definición no acredita capacidad y no modifica los umbrales de lectura.
 
 ## 17. Estado de publicación almacenado — MOD-05
 
-Cambio autorizado expresamente por el usuario el 2026-10-08: «Apruebo el prototipo de estado de publicación almacenado como solución de CR09-REND-LECTURA. Regístralo como cambio de contrato MOD-05 y encárgate de integrarlo. El proyecto no está en producción: tienes libertad para simplificar y retirar lo que sobre.» Versión 1.5. Propuesta, diseño, mediciones y límites: [docs93](93-propuesta-estado-publicacion-claude-code.md) y [evidencia](evidencias/cc-estado-publicacion-20261008.json), elaborados por Claude Code (Claude Opus 5.5).
-
-### Motivo
-
-La lectura pública evaluaba en cada petición la regla de publicabilidad completa sobre toda la población candidata antes de contar y paginar. Con 10 000 anuncios sintéticos la vía nativa —la única permitida con `PRODUCTION`, `checked` o promociones— medía 12,2–12,6 s por listado o búsqueda, y la vía proyectada de desarrollo 0,38–0,42 s, con FAIL bajo 20 RPS. El coste es estructural: la regla solo cambia con escrituras, configuración, código o tiempo, pero se recalculaba en cada lectura.
-
-### Decisión
-
-Se sustituye la prohibición de MOD-04 §16 de «añadir caché persistente ni proyección persistida» por un estado de publicación almacenado con estas garantías, que cubren la condición de [criterios de revisión](criterios-revision-benchmark-carga.md) («dependencias completas e invalidación o actualización que evite exposición tras revocaciones, restricciones y expiraciones», con pruebas):
+Arquitectura vigente autorizada el 2026-10-08. Garantías obligatorias:
 
 1. **Fuente de verdad única:** `moderation.publicly_visible` / `submissions.validate_submission` y sus formularios. El estado guarda su resultado excluida la caducidad, que siempre se compara en SQL, junto con los flags de comprobaciones reales para `checked`.
 2. **Invalidación completa en base de datos:** triggers de sentencia (INSERT/UPDATE/DELETE con tablas de transición, y TRUNCATE) en cada tabla que lee la regla marcan los anuncios afectados en la misma transacción. Ninguna ruta de aplicación puede omitirlos. Una prueba de completitud compara las tablas leídas realmente por la regla con las que tienen trigger y falla ante una dependencia nueva sin cubrir.
@@ -341,15 +265,24 @@ Se sustituye la prohibición de MOD-04 §16 de «añadir caché persistente ni p
 5. **Versión de reglas sin bytecode:** hash del código fuente de los módulos de la regla, versión de Django y configuración pertinente, calculado una vez por proceso.
 6. **Invariante y barrido (decisión del usuario, 2026-10-08):** todo cambio de comportamiento de la regla debe producirse mediante una fuente versionada (`RULE_SOURCES`), la versión de Django, la configuración versionada o una escritura en una tabla de dependencia. Una prueba traza qué ficheros del proyecto ejecuta la regla y exige que estén versionados; otra compara las tablas leídas con las que tienen trigger. Para acotar cualquier divergencia no capturada, un barrido periódico (Beat, cada hora) recalcula con la regla nativa todo estado fiable y **marca** los anuncios divergentes, sin escribir estado directamente, y registra un aviso sin datos personales. Entre barridos, una divergencia no capturada solo puede ocultar un anuncio publicable (falso negativo): la exposición indebida la impide la revalidación nativa de la página.
 
-### Requisitos afectados
+El esquema actual define dos tablas derivadas, 35 tablas de dependencia × 4 triggers y migraciones 0015/0017. El recuento del código no prueba que el esquema esté aplicado en servicios normales; esa evidencia corresponde a seguimiento17. Cambios globales de documento/catálogo marcan toda la población y se recalculan dentro de la misma operación o mediante el comando dedicado.
 
-Contrato funcional [docs14 §10](14-contrato-funcional-v1.md) (objetivo de carga, sin cambiar sus cifras); MOD-04 §16 (dirección técnica y prohibición de proyección persistida); CR09-REND-LECTURA y sus pasos R1–R6 en seguimiento17. No cambian producto, filtros, orden, recuento, paginación, privacidad, permisos, pesos, denominador, criterios de carga ni gates de producción.
+Restauraciones con `--disable-triggers` o `session_replication_role=replica` deben marcar toda la población antes de servir tráfico, conforme al [procedimiento de restauración](85-operacion-registro-recuperacion.md#estado-de-publicación-tras-restaurar-mod-05). Probar completitud de dependencias, mutaciones por familia, carreras y equivalencia byte a byte con regla nativa normal/PRODUCTION. La página mantiene revalidación nativa actual.
 
-### Efecto
+La vía proyectada anterior y sus pruebas experimentales se retiraron; no se requieren como compatibilidad de producción inexistente. La evidencia histórica se conserva. Simplificar componentes abandonados y conservar migraciones/evidencia que aún tengan una función comprobable; cualquier reconstrucción de esquema necesita procedimiento y verificación, no se ejecuta por esta consolidación.
 
-- **Datos:** dos tablas derivadas sin datos personales nuevos (identificador de anuncio, booleanos, versión y fecha) y 33×4 triggers. Una escritura en las tablas de dependencia añade el marcado de los anuncios afectados. Los cambios globales (documento legal de publicación, catálogo) marcan toda la población y se recalculan dentro de la misma operación o con el comando dedicado.
-- **Seguridad y privacidad:** la exposición sigue decidida por la regla nativa vigente. Un estado obsoleto no puede publicar porque la marca se escribe en la transacción del cambio y la página se revalida. Las restauraciones con `--disable-triggers` o `session_replication_role=replica` deben marcar toda la población antes de servir tráfico; el procedimiento se documenta en operación.
-- **Coste:** sin recursos nuevos ni escalado. Recálculo completo medido en ~15 s por proceso para 10 000 anuncios, repartible entre workers.
-- **Pruebas:** equivalencia byte a byte con la regla nativa (modo normal y `PRODUCTION`), mutaciones por familia de dependencia, completitud de triggers, carreras de recálculo y regresión funcional. Se retiran la vía proyectada (`projected_publication`, `sql_publication`, `text_proof`, huella de definiciones) y sus pruebas experimentales. Su evidencia histórica se conserva en docs y evidencias.
-- **Aceptación:** sin cambio. N1/N2 según MOD-02, después R5 con el arnés vigente y, solo con PASS, R6. Las mediciones del generador propio del prototipo no se suman a las del arnés. Porcentajes sin cambio hasta evidencia revisada (docs86).
+## 18. Registro de cambios y trazabilidad
 
+| Cambio | Fecha / versión | Decisión incorporada |
+| --- | --- | --- |
+| Inicio | 2026-10-03  / 1.0 | Desarrollo cruzado, PostgreSQL y aceptación separada local/producción. |
+| MOD-01 | 2026-10-06  / 1.1 | Bloques completos, dependencias funcionales y preparación independiente; su antiguo límite Claude fue sustituido. |
+| MOD-02 | 2026-10-06  / 1.2 | N1/N2/N3, proporcionalidad, fuentes congeladas y reutilización de evidencia válida. |
+| MOD-03 | 2026-10-06  / 1.3 | Delegación sin máximo numérico; adaptador oficial y consumo acumulado. |
+| MOD-04 | 2026-10-07  / 1.4 | Rendimiento de lectura y criterios de medición; diagnóstico secuencial/prohibición de persistencia sustituidos por arquitectura MOD-05. |
+| MOD-05 | 2026-10-08  / 1.5 | Estado de publicación con garantías, autorización para simplificar lo abandonado en proyecto nuevo. |
+| MOD-06 | 2026-10-09  / 1.6 | Formulación operativa consolidada, aceptación local/producción explícita y CI propio sin dependencia de pago. |
+
+MOD-06 afecta §§1–17, interpretación de cierre en matriz83 y formulación relacionada en contratos14/15. No amplía el MVP, introduce cobros, rebaja permisos/privacidad/pruebas, cambia pesos/SLO o acepta una fase. No cambia código, esquema o datos ni autoriza publicación, proveedores o cargas nuevas. Los parámetros sintéticos prueban mecanismos; no aprueban políticas reales. El presupuesto futuro de planificación no es presupuesto disponible ni autorización de gasto.
+
+[Copia íntegra anterior a esta consolidación](17-historial/2026-10-09-16-contrato-ejecucion-desarrollo-antes-consolidacion-contrato.md): contiene texto 1.5 y adendas originales, incluyendo pausas, diagnósticos, cifras y decisiones sustituidas. [Manifest de copias y SHA-256](historial-documentacion.json), [registro de consolidación](evidencias/consolidacion-contrato-20261009.json). El historial sirve de evidencia, no de segunda cola o instrucción actual.

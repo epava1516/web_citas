@@ -4,7 +4,9 @@ Actualizado: 2026-10-03.
 
 Estado vigente: el usuario delega cerrar las decisiones. [Contrato funcional v1](14-contrato-funcional-v1.md) consolida la especificación y sustituye estados históricos pendientes sobre los puntos resueltos. Pendientes externos en su sección 12.
 
-## Registro de decisiones
+La tabla conserva los estados iniciales de cada decisión. Las decisiones funcionales posteriores DEC-028–034 y el contrato14 resuelven propuestas previas; las versiones y herramientas adoptadas figuran en [ADR-001](adr/001-base-tecnica.md). Para pendientes ejecutables consultar [seguimiento17](17-seguimiento-desarrollo.md), que incorpora la reconciliación residual del 2026-10-09; no reutilizar preguntas históricas como decisiones abiertas.
+
+## Registro de decisiones y evolución histórica
 
 | ID | Estado | Decisión | Motivo |
 | --- | --- | --- | --- |

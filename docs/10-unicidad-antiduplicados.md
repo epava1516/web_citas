@@ -2,6 +2,8 @@
 
 Actualizado: 2026-10-03. Estado: controles por imágenes y teléfonos confirmados; política y diseño detallado propuestos.
 
+Nota de lectura, 2026-10-09: evaluación de diseño inicial conservada. Las menciones inferiores a controles sin implementar, algoritmos sin aprobar y políticas propuestas describen ese corte. La implementación y los límites locales se documentan en [fotografías/coincidencias](contratos/05-fotografias-coincidencias.md), [verificación/representación](contratos/03-verificacion-representacion.md) y [moderación/publicación](contratos/06-moderacion-publicacion.md). Alcance funcional en [contrato14](14-contrato-funcional-v1.md); aceptación y pendientes vigentes en [seguimiento17](17-seguimiento-desarrollo.md). La coincidencia visual no acredita identidad ni autoriza suspensión automática.
+
 Acuerdo posterior: una publicación por persona/modelo. Las agencias pueden gestionar varias personas con una publicación por cada una, sin excepción de duplicidad por persona. Las coincidencias visuales son señales de apoyo, no garantía de unicidad de personas. Pendientes: verificar representación y resolver transferencias o reclamaciones sin duplicación.
 
 ## Requisito confirmado

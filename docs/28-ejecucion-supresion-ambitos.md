@@ -1,6 +1,6 @@
 # Ejecución parcial de supresión por ámbitos
 
-Fecha: 2026-10-04. Requisito: REQ-CR09-ERASURE-EXECUTE-01. CR-09 sigue en curso. Complementa [inventario](26-inventario-supresion-retencion.md) y [decisiones](27-decisiones-supresion-retencion.md); no sustituye los requisitos del derecho completo ni acredita cumplimiento jurídico.
+Fecha: 2026-10-04. Requisito: REQ-CR09-ERASURE-EXECUTE-01. CR-09 sigue en curso. Complementa [inventario](26-inventario-supresion-retencion.md) y [decisiones](27-planes-supresion-conservacion.md); no sustituye los requisitos del derecho completo ni acredita cumplimiento jurídico.
 
 ## Operaciones de la primera entrega 9acfc48
 

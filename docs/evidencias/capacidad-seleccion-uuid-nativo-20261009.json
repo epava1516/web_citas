@@ -1,0 +1,1178 @@
+{
+  "result": "FAIL",
+  "functional": {
+    "id": "20261009-173403-5830708d",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-173403-5830708d",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5176424258388579
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-173403-5830708d",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5181246045976877
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06426176428794861
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11485373880714178
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.8676548567600548
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.4243675670586526
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.9252011198550463
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-5_usclqg/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-5_usclqg/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-5_usclqg/native.env"
+        ],
+        "exit": 0,
+        "seconds": 10.172036428935826
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-5_usclqg/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-173403-5830708d/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_rights_copy_scope.py::test_profile_copy_queries_are_batched_without_losing_historical_revisions[30]",
+          "tests/test_rights_copy_scope.py::test_subject_account_and_image_inventory_drift_requires_new_preview",
+          "tests/test_portability_inspection_shared_source.py::test_native_shared_read_and_unshared_replay_are_equivalent_with_two_source_reads[False]",
+          "tests/test_portability_inspection_shared_source.py::test_change_after_page_compilation_rolls_back_both_audited_reads[source]"
+        ],
+        "exit": 0,
+        "seconds": 77.24240635987371
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_rights_copy_scope.py::test_profile_copy_queries_are_batched_without_losing_historical_revisions[30]",
+      "tests/test_rights_copy_scope.py::test_subject_account_and_image_inventory_drift_requires_new_preview",
+      "tests/test_portability_inspection_shared_source.py::test_native_shared_read_and_unshared_replay_are_equivalent_with_two_source_reads[False]",
+      "tests/test_portability_inspection_shared_source.py::test_change_after_page_compilation_rolls_back_both_audited_reads[source]"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-173403-5830708d": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-173403-5830708d": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "4",
+        "time": "75.119",
+        "timestamp": "2026-10-09T19:34:23.340420+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "controller": {
+    "id": "20261009-173627-2aa5699c",
+    "result": "ERROR",
+    "scope": "Owned topology readiness only; not capacity, browser, N3 or storage budget proof.",
+    "allocations": {
+      "pg": [
+        100000,
+        1536
+      ],
+      "redis": [
+        25000,
+        512
+      ],
+      "app": [
+        275000,
+        6144
+      ]
+    },
+    "steps": [
+      {
+        "label": "image-postgres",
+        "command": [
+          "docker",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.06568977097049356
+      },
+      {
+        "label": "image-redis",
+        "command": [
+          "docker",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.03794457484036684
+      },
+      {
+        "label": "image-web-modelos-app",
+        "command": [
+          "docker",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "web-modelos-app:latest"
+        ],
+        "exit": 0,
+        "seconds": 0.04464686196297407
+      },
+      {
+        "label": "network",
+        "command": [
+          "docker",
+          "network",
+          "create",
+          "--internal",
+          "web-modelos-capacity-20261009-173627-2aa5699c-net"
+        ],
+        "exit": 0,
+        "seconds": 0.645645122975111
+      },
+      {
+        "label": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-capacity-20261009-173627-2aa5699c-pg",
+          "--network",
+          "web-modelos-capacity-20261009-173627-2aa5699c-net",
+          "--network-alias",
+          "pg",
+          "--cpus",
+          "1.0",
+          "--memory",
+          "1610612736",
+          "--memory-swap",
+          "1610612736",
+          "--pids-limit",
+          "256",
+          "--log-driver",
+          "local",
+          "--log-opt",
+          "max-size=4m",
+          "--log-opt",
+          "max-file=1",
+          "--log-opt",
+          "compress=false",
+          "--tmpfs",
+          "/var/lib/postgresql/data:size=1073741824",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=capacity_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.2924897987395525
+      },
+      {
+        "label": "controls-pg",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-173627-2aa5699c-pg",
+          "cat",
+          "/sys/fs/cgroup/cpu.max",
+          "/sys/fs/cgroup/memory.max",
+          "/sys/fs/cgroup/memory.swap.max"
+        ],
+        "exit": 0,
+        "seconds": 0.18497973401099443
+      },
+      {
+        "label": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-capacity-20261009-173627-2aa5699c-redis",
+          "--network",
+          "web-modelos-capacity-20261009-173627-2aa5699c-net",
+          "--network-alias",
+          "redis",
+          "--cpus",
+          "0.25",
+          "--memory",
+          "536870912",
+          "--memory-swap",
+          "536870912",
+          "--pids-limit",
+          "256",
+          "--log-driver",
+          "local",
+          "--log-opt",
+          "max-size=4m",
+          "--log-opt",
+          "max-file=1",
+          "--log-opt",
+          "compress=false",
+          "redis:7.4-alpine",
+          "redis-server",
+          "--save",
+          "",
+          "--appendonly",
+          "no",
+          "--maxmemory",
+          "268435456"
+        ],
+        "exit": 0,
+        "seconds": 0.38494446920230985
+      },
+      {
+        "label": "controls-redis",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-173627-2aa5699c-redis",
+          "cat",
+          "/sys/fs/cgroup/cpu.max",
+          "/sys/fs/cgroup/memory.max",
+          "/sys/fs/cgroup/memory.swap.max"
+        ],
+        "exit": 0,
+        "seconds": 0.19308864371851087
+      },
+      {
+        "label": "start-app",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-capacity-20261009-173627-2aa5699c-app",
+          "--network",
+          "web-modelos-capacity-20261009-173627-2aa5699c-net",
+          "--network-alias",
+          "app",
+          "--cpus",
+          "2.75",
+          "--memory",
+          "6442450944",
+          "--memory-swap",
+          "6442450944",
+          "--pids-limit",
+          "256",
+          "--log-driver",
+          "local",
+          "--log-opt",
+          "max-size=4m",
+          "--log-opt",
+          "max-file=1",
+          "--log-opt",
+          "compress=false",
+          "--read-only",
+          "--cap-drop=ALL",
+          "--security-opt=no-new-privileges",
+          "--user",
+          "1002:1004",
+          "--workdir",
+          "/home/felidae/proyectos/web_modelos",
+          "--mount",
+          "type=bind,src=/home/felidae/proyectos/web_modelos,dst=/home/felidae/proyectos/web_modelos,readonly",
+          "--mount",
+          "type=bind,src=/home/felidae/.local/share/uv/python,dst=/home/felidae/.local/share/uv/python,readonly",
+          "--tmpfs",
+          "/tmp:size=1073741824,uid=1002,gid=1004",
+          "-e",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "-e",
+          "DJANGO_SETTINGS_MODULE=config.settings",
+          "-e",
+          "DB_HOST=pg",
+          "-e",
+          "DB_PORT=5432",
+          "-e",
+          "POSTGRES_DB=capacity_ci",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "REDIS_URL=redis://redis:6379/0",
+          "--entrypoint",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "web-modelos-app:latest",
+          "-c",
+          "import time; time.sleep(1800)"
+        ],
+        "exit": 0,
+        "seconds": 0.28908028826117516
+      },
+      {
+        "label": "controls-app",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-173627-2aa5699c-app",
+          "cat",
+          "/sys/fs/cgroup/cpu.max",
+          "/sys/fs/cgroup/memory.max",
+          "/sys/fs/cgroup/memory.swap.max"
+        ],
+        "exit": 0,
+        "seconds": 0.15277098817750812
+      },
+      {
+        "label": "pg-ready-0",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-173627-2aa5699c-pg",
+          "pg_isready",
+          "-U",
+          "ci",
+          "-d",
+          "capacity_ci"
+        ],
+        "exit": 2,
+        "seconds": 0.08099417388439178
+      },
+      {
+        "label": "pg-ready-1",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-173627-2aa5699c-pg",
+          "pg_isready",
+          "-U",
+          "ci",
+          "-d",
+          "capacity_ci"
+        ],
+        "exit": 0,
+        "seconds": 0.20383017789572477
+      },
+      {
+        "label": "django-probe",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-173627-2aa5699c-app",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "-c",
+          "import django,json,tempfile; django.setup(); from django.core.management import call_command; from django.db import connection; import redis; call_command('migrate',interactive=False,verbosity=0); call_command('check'); cursor=connection.cursor(); cursor.execute('select version(),current_database()'); row=cursor.fetchone(); assert row[1]=='capacity_ci'; assert redis.Redis(host='redis').ping(); f=tempfile.TemporaryFile(dir='/tmp'); f.write(b'synthetic-media'); f.seek(0); assert f.read()==b'synthetic-media'; f.close(); print(json.dumps({'postgres':row[0],'database':row[1],'redis_ping':True,'migrations_applied':True,'temporary_media_io':True,'django':django.get_version()}))"
+        ],
+        "exit": 0,
+        "seconds": 35.37336798384786
+      },
+      {
+        "label": "control-settings",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-173627-2aa5699c-app",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "-c",
+          "from pathlib import Path; Path('/tmp/capacity_settings.py').write_text(\"from config.settings import *\\nMEDIA_ROOT = '/tmp/capacity-media'\\nCAPACITY_SQL_DIAGNOSE = False\\nCAPACITY_SELECTION_GUNICORN = True\\nDATABASES['default']['TEST'] = {'NAME': 'test_capacity_ci'}\\n\")"
+        ],
+        "exit": 0,
+        "seconds": 0.1805737200193107
+      },
+      {
+        "label": "control-pytest",
+        "command": [
+          "docker",
+          "exec",
+          "-e",
+          "PYTHONPATH=/tmp:/home/felidae/proyectos/web_modelos",
+          "-e",
+          "DJANGO_SETTINGS_MODULE=capacity_settings",
+          "web-modelos-capacity-20261009-173627-2aa5699c-app",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "-m",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "-o",
+          "DJANGO_SETTINGS_MODULE=capacity_settings",
+          "-o",
+          "junit_family=xunit1",
+          "-p",
+          "no:cacheprovider",
+          "--basetemp=/tmp/capacity-pytest",
+          "--junitxml=/tmp/capacity-control.xml",
+          "tests/test_capacity_selection_concurrent_tcp.py"
+        ],
+        "exit": 1,
+        "seconds": 142.13572796341032
+      },
+      {
+        "label": "control-junit",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-173627-2aa5699c-app",
+          "cat",
+          "/tmp/capacity-control.xml"
+        ],
+        "exit": 0,
+        "seconds": 0.15052692079916596
+      },
+      {
+        "label": "remove-web-modelos-capacity-20261009-173627-2aa5699c-app",
+        "command": [
+          "docker",
+          "rm",
+          "-fv",
+          "web-modelos-capacity-20261009-173627-2aa5699c-app"
+        ],
+        "exit": 0,
+        "seconds": 0.2907467959448695
+      },
+      {
+        "label": "inventory-web-modelos-capacity-20261009-173627-2aa5699c-app",
+        "command": [
+          "docker",
+          "ps",
+          "-a",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-173627-2aa5699c-app$",
+          "--format",
+          "{{.Names}}"
+        ],
+        "exit": 0,
+        "seconds": 0.08652345091104507
+      },
+      {
+        "label": "remove-web-modelos-capacity-20261009-173627-2aa5699c-redis",
+        "command": [
+          "docker",
+          "rm",
+          "-fv",
+          "web-modelos-capacity-20261009-173627-2aa5699c-redis"
+        ],
+        "exit": 0,
+        "seconds": 0.2930786828510463
+      },
+      {
+        "label": "inventory-web-modelos-capacity-20261009-173627-2aa5699c-redis",
+        "command": [
+          "docker",
+          "ps",
+          "-a",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-173627-2aa5699c-redis$",
+          "--format",
+          "{{.Names}}"
+        ],
+        "exit": 0,
+        "seconds": 0.05090176407247782
+      },
+      {
+        "label": "remove-web-modelos-capacity-20261009-173627-2aa5699c-pg",
+        "command": [
+          "docker",
+          "rm",
+          "-fv",
+          "web-modelos-capacity-20261009-173627-2aa5699c-pg"
+        ],
+        "exit": 0,
+        "seconds": 0.23307449417188764
+      },
+      {
+        "label": "inventory-web-modelos-capacity-20261009-173627-2aa5699c-pg",
+        "command": [
+          "docker",
+          "ps",
+          "-a",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-173627-2aa5699c-pg$",
+          "--format",
+          "{{.Names}}"
+        ],
+        "exit": 0,
+        "seconds": 0.11618969915434718
+      },
+      {
+        "label": "remove-network",
+        "command": [
+          "docker",
+          "network",
+          "rm",
+          "web-modelos-capacity-20261009-173627-2aa5699c-net"
+        ],
+        "exit": 0,
+        "seconds": 0.38981602108106017
+      },
+      {
+        "label": "network-inventory",
+        "command": [
+          "docker",
+          "network",
+          "ls",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-173627-2aa5699c-net$",
+          "--format",
+          "{{.Name}}"
+        ],
+        "exit": 0,
+        "seconds": 0.03922790801152587
+      }
+    ],
+    "controls": {
+      "pg": [
+        "100000 100000",
+        "1610612736",
+        "0"
+      ],
+      "redis": [
+        "25000 100000",
+        "536870912",
+        "0"
+      ],
+      "app": [
+        "275000 100000",
+        "6442450944",
+        "0"
+      ]
+    },
+    "cleanup": {
+      "web-modelos-capacity-20261009-173627-2aa5699c-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261009-173627-2aa5699c-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261009-173627-2aa5699c-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261009-173627-2aa5699c-net": {
+        "absent": true
+      }
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "1",
+        "time": "140.024",
+        "timestamp": "2026-10-09T19:37:08.126097+02:00",
+        "hostname": "404d9ee47d3f"
+      }
+    ],
+    "error": "RuntimeError: Small control did not pass exactly one required test",
+    "sources_unchanged": true
+  },
+  "measurements": {
+    "cases": [
+      {
+        "case": "7f50d1ce-7980-4994-9a67-5da83384427c",
+        "samples": [
+          2.320884920656681,
+          1.77808108786121,
+          1.7904004519805312,
+          1.8649474470876157,
+          1.9338680738583207,
+          1.7617126847617328,
+          1.789074839092791,
+          1.6295306999236345,
+          1.600180583074689,
+          2.022424093913287,
+          1.7172381752170622,
+          1.8224354209378362,
+          1.7972495909780264,
+          1.6523051327094436,
+          1.8449761192314327,
+          1.8081473940983415,
+          1.4943347121588886,
+          1.8810832970775664,
+          1.954548180103302,
+          1.6501065092161298
+        ],
+        "intervals": [
+          [
+            3288138.889026055,
+            3288141.209910976
+          ],
+          [
+            3288141.235262374,
+            3288143.013343462
+          ],
+          [
+            3288143.016957424,
+            3288144.807357876
+          ],
+          [
+            3288144.979494618,
+            3288146.844442065
+          ],
+          [
+            3288146.896823003,
+            3288148.830691077
+          ],
+          [
+            3288148.834830888,
+            3288150.596543573
+          ],
+          [
+            3288150.729616048,
+            3288152.518690887
+          ],
+          [
+            3288152.557644892,
+            3288154.187175592
+          ],
+          [
+            3288154.191327945,
+            3288155.791508528
+          ],
+          [
+            3288156.003380833,
+            3288158.025804927
+          ],
+          [
+            3288158.03068758,
+            3288159.747925755
+          ],
+          [
+            3288159.752200861,
+            3288161.574636282
+          ],
+          [
+            3288161.577336727,
+            3288163.374586318
+          ],
+          [
+            3288163.37649095,
+            3288165.028796083
+          ],
+          [
+            3288165.08891247,
+            3288166.933888589
+          ],
+          [
+            3288166.936426682,
+            3288168.744574076
+          ],
+          [
+            3288168.816382858,
+            3288170.31071757
+          ],
+          [
+            3288170.632457912,
+            3288172.513541209
+          ],
+          [
+            3288172.515970626,
+            3288174.470518806
+          ],
+          [
+            3288174.473487891,
+            3288176.1235944
+          ]
+        ],
+        "response_bytes": [
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454
+        ],
+        "fixture": {
+          "candidate_bytes": 16777041,
+          "topic_counts": [
+            19,
+            20
+          ],
+          "longer_revisions": 1028,
+          "originals_bytes": 67095050,
+          "originals": [
+            {
+              "sha256": "49f8be28d64f3af717cd588617e98c7c1bab8f8d0f88b9d9f46ddd774149ee72",
+              "bytes": 4193442,
+              "blob": "eb95169b-b217-477e-ad1e-90fd8526f5dc"
+            },
+            {
+              "sha256": "731a1c627253086c796470abbdc996a3c8b078fe8cefcd8133fcc72b5ba37c63",
+              "bytes": 4193442,
+              "blob": "1ab963ef-58fc-4cd9-87c5-ab7b2e9b814f"
+            },
+            {
+              "sha256": "e26664f45dd9530e31587628cf29dd7a30e41bb710092d617b2ac4f5d4c7a99a",
+              "bytes": 4193442,
+              "blob": "09697a8e-ca1f-4ba8-8b37-fbaab2439fe6"
+            },
+            {
+              "sha256": "5d6156c907f8a047ef39593f08d68680baa5e670052a11a24db83a5e423aecfa",
+              "bytes": 4193442,
+              "blob": "28462a86-7856-4ac3-a49d-41aed397653d"
+            },
+            {
+              "sha256": "13fd2dacfb818647f85ab4d179f073f5a6042ac6a7701c7460f0ffde566c730e",
+              "bytes": 4193442,
+              "blob": "f1660d93-80d9-477b-9c45-de98f932c4e0"
+            },
+            {
+              "sha256": "a9c8457e99122c572087eda0e44aa5c8a9bf0dd05bfe91b8e1b25a5a4182c0e6",
+              "bytes": 4193440,
+              "blob": "daaa4383-5766-4c74-9435-fb2ca36b5ae6"
+            },
+            {
+              "sha256": "f5aa6d9fff833dc746718f075240c349736bef0be4e24c05174e20ae2798d975",
+              "bytes": 4193440,
+              "blob": "bc99c311-4529-48e4-8d06-dec90cd64d49"
+            },
+            {
+              "sha256": "bfb20061d8d2abe69a364a0ea527e7265e831c699b9d1177698ad73900284368",
+              "bytes": 4193440,
+              "blob": "bfc56c51-ecf7-462b-b579-e00888bf47df"
+            },
+            {
+              "sha256": "4d41e362b08296e9fbcf0618b66199728bb33a13803f92c934da654b62f34c52",
+              "bytes": 4193440,
+              "blob": "b21aa304-689f-4072-b8b9-fa83eabb7904"
+            },
+            {
+              "sha256": "5b230b268d210c72943874d21df4981936b7642e3ef7ddf52ccae680b519f1f2",
+              "bytes": 4193442,
+              "blob": "38aa610d-3e6d-4a01-a2d0-ed717c729ba1"
+            },
+            {
+              "sha256": "e34b36c0449761d649ed4110038ff4be1a4b052b25f0cb9052d959fa7dbeb42a",
+              "bytes": 4193440,
+              "blob": "655f9006-6b94-4e0d-897c-ef7ce47caddf"
+            },
+            {
+              "sha256": "55a33f53ceaf3f0986e79d4f65372ce343b5aa1ff3b031d8a2a4237b06438fa7",
+              "bytes": 4193440,
+              "blob": "63138222-a585-48f4-aaab-3eeeb232e5fd"
+            },
+            {
+              "sha256": "43b9c91fab2f690cd9ff3897e026fd555917ab3760d1b5cf169ccc3d133b2b0d",
+              "bytes": 4193440,
+              "blob": "afb0142d-240d-4e1a-a87d-766e43d030f0"
+            },
+            {
+              "sha256": "322c11ea66c5d7665850801f75aad6518893384974dd520b4797169ed9079b2e",
+              "bytes": 4193440,
+              "blob": "59b08d4d-ac75-488d-a6a8-c0bc7ef40a96"
+            },
+            {
+              "sha256": "ff48ed0aa3806c4ada18592ddd3d391a426b1fba04d4609c0bc0ee9276facd69",
+              "bytes": 4193438,
+              "blob": "eeb841f4-78ce-48dc-a23f-7f3a3edb587c"
+            },
+            {
+              "sha256": "5d8a92c3c344db28bf9e60c0bec4d41ea21cd59f73f62fa12b9a54aea040e399",
+              "bytes": 4193440,
+              "blob": "bf36e2ac-349a-4d51-95a1-aea6496641a2"
+            }
+          ]
+        },
+        "build_seconds": 14.821524968836457,
+        "preparation_seconds": 14.312657792586833,
+        "first_open_seconds": 0.23632851894944906,
+        "p95_seconds": 2.022424093913287
+      },
+      {
+        "case": "1a37802b-670e-45a6-bf70-809d12d64bde",
+        "samples": [
+          1.7331604692153633,
+          1.648263464216143,
+          1.9585741246119142,
+          1.9118650611490011,
+          1.4731199289672077,
+          1.8893131092190742,
+          1.8258637259714305,
+          1.6225656550377607,
+          1.8084927601739764,
+          1.9097709637135267,
+          1.6691074380651116,
+          1.548450404778123,
+          1.7870345609262586,
+          1.7079726522788405,
+          1.8201712206937373,
+          1.8752901032567024,
+          1.8112101280130446,
+          1.8324259109795094,
+          1.6249184999614954,
+          1.7626750781200826
+        ],
+        "intervals": [
+          [
+            3288138.889502987,
+            3288140.622663456
+          ],
+          [
+            3288141.234774186,
+            3288142.88303765
+          ],
+          [
+            3288143.017465961,
+            3288144.976040086
+          ],
+          [
+            3288144.978967067,
+            3288146.890832128
+          ],
+          [
+            3288146.896207337,
+            3288148.369327266
+          ],
+          [
+            3288148.835560801,
+            3288150.72487391
+          ],
+          [
+            3288150.72918229,
+            3288152.555046016
+          ],
+          [
+            3288152.557195479,
+            3288154.179761134
+          ],
+          [
+            3288154.190819236,
+            3288155.999311996
+          ],
+          [
+            3288156.003761655,
+            3288157.913532619
+          ],
+          [
+            3288158.030085112,
+            3288159.69919255
+          ],
+          [
+            3288159.752995537,
+            3288161.301445942
+          ],
+          [
+            3288161.578109288,
+            3288163.365143849
+          ],
+          [
+            3288163.376959691,
+            3288165.084932343
+          ],
+          [
+            3288165.08930872,
+            3288166.909479941
+          ],
+          [
+            3288166.936906959,
+            3288168.812197062
+          ],
+          [
+            3288168.814929287,
+            3288170.626139415
+          ],
+          [
+            3288170.633558531,
+            3288172.465984442
+          ],
+          [
+            3288172.51636163,
+            3288174.14128013
+          ],
+          [
+            3288174.474055527,
+            3288176.236730605
+          ]
+        ],
+        "response_bytes": [
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454,
+          568454
+        ],
+        "fixture": {
+          "candidate_bytes": 16777041,
+          "topic_counts": [
+            19,
+            20
+          ],
+          "longer_revisions": 1028,
+          "originals_bytes": 67095042,
+          "originals": [
+            {
+              "sha256": "ef109068f8f1cb2f2586bb4cf02e2eed6fbf97a0e864352fbde667530c1dcfb8",
+              "bytes": 4193442,
+              "blob": "dbe0a697-fc8c-4902-a662-eee8185669eb"
+            },
+            {
+              "sha256": "aa50e1450ea09414fac27e0084e37d670c4e00f4825ee4578166a8d9373874d1",
+              "bytes": 4193442,
+              "blob": "b04ff3c7-5cdd-4312-91ea-6ce3aeb5ffe9"
+            },
+            {
+              "sha256": "89eb8ffa4d776e2eebc1afcfebae20aec32bb833d6be86370684abac05ae5d33",
+              "bytes": 4193442,
+              "blob": "877ac213-d80f-44ea-aa27-618213be4a94"
+            },
+            {
+              "sha256": "0807695bbd6a53e7664ef073fde19e467bad63a5dbb946b7d85fba3e53104780",
+              "bytes": 4193442,
+              "blob": "ccc81681-e657-45f8-926b-950c8efc52d0"
+            },
+            {
+              "sha256": "f36010869120de00795dec72e5d4dccb428343150451ffe7bfd9f1c7289b9cfb",
+              "bytes": 4193438,
+              "blob": "79a17963-a9a1-4b0b-9807-ed71c52ca9af"
+            },
+            {
+              "sha256": "c99003cd94f5cd58913c6310484ea7d3c4354945fc046f6b85718781000adc99",
+              "bytes": 4193440,
+              "blob": "d74f4f2e-840a-4e36-8dfe-971d766b0ee7"
+            },
+            {
+              "sha256": "11ff4a0c8b3c98440756c4e5e8f731f4dbfde93056d0778ac226c788f056fafd",
+              "bytes": 4193440,
+              "blob": "d41439ab-b8c1-431b-a458-07e77fc57494"
+            },
+            {
+              "sha256": "abd7c72f4274016ded95b6a56a314a3fd3d9e6423a768f59a049ded8895c0daf",
+              "bytes": 4193442,
+              "blob": "046fe20c-3bae-496c-a03d-7360ca298996"
+            },
+            {
+              "sha256": "7565cb2b9fd4c75e3d16fd0b165ba9303b5416313738e9939e081b6f0bd5b89b",
+              "bytes": 4193440,
+              "blob": "99764208-ada1-4ae7-b45a-277a12045555"
+            },
+            {
+              "sha256": "90d190b44a0e2ba93359cc58eab9abc7bf7107c606d4cdf42e4e02b066621310",
+              "bytes": 4193438,
+              "blob": "2d8c8621-11b8-42e9-be29-83b71807ab34"
+            },
+            {
+              "sha256": "6e184d0f0055134c2c034100f66756e604d23db3efc4f53c25d492710b7976d2",
+              "bytes": 4193440,
+              "blob": "2806a956-cecd-4944-bb1e-c47e5875ff48"
+            },
+            {
+              "sha256": "1e6c746023b3d60509e820e74497bc6c0058f6a285d0b2ff4ba25c6706e8291d",
+              "bytes": 4193440,
+              "blob": "93c8b9a9-bced-42bf-896f-4d2773543b47"
+            },
+            {
+              "sha256": "e553b1c208946c7cd201d5c731a0122b09949579ed6da394e28445521cd830f0",
+              "bytes": 4193438,
+              "blob": "05749b56-2c1e-4e2b-bbd3-0f20aee8595c"
+            },
+            {
+              "sha256": "f7fe675bd2b08a80ddb73829f669b5498263ca953bdcf5925d32a35131b48ecb",
+              "bytes": 4193440,
+              "blob": "0c5d5d2a-14b0-434e-97f6-a6528eb95e5a"
+            },
+            {
+              "sha256": "c51ca869c2c9b18ee70def5ac2ac2b18c90799ee7b554d8e339c029b082e3589",
+              "bytes": 4193440,
+              "blob": "250d7ac6-9204-409a-8d1b-07e1f529b981"
+            },
+            {
+              "sha256": "50a28c5c8a154059f81db3f7719224276e2125044693b590cacfe779b667be4d",
+              "bytes": 4193438,
+              "blob": "7514f2a9-7108-4fac-ab73-1d868844b39d"
+            }
+          ]
+        },
+        "build_seconds": 14.304473071359098,
+        "preparation_seconds": 14.63621738506481,
+        "first_open_seconds": 0.15857893787324429,
+        "p95_seconds": 1.9118650611490011
+      }
+    ],
+    "errors": [],
+    "process_peak_rss_bytes": 343019520,
+    "scope": "Two independent real cases, reviewers and TCP clients; paired first-page requests only. Real PG/Redis/WSGI server; topology separately recorded; no completion/approval, binary delivery or full capacity. RSS belongs to shared pytest/application process, not aggregate cgroup memory."
+  },
+  "gunicorn": {
+    "command": [
+      "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+      "-m",
+      "gunicorn",
+      "config.wsgi:application",
+      "--workers",
+      "2",
+      "--worker-class",
+      "sync",
+      "--bind",
+      "127.0.0.1:53791",
+      "--timeout",
+      "90",
+      "--access-logfile",
+      "-",
+      "--error-logfile",
+      "-",
+      "--logger-class",
+      "config.gunicorn_logging.SafeAccessLogger"
+    ],
+    "exit": 0,
+    "rss_peaks_bytes": {
+      "58": 34996224,
+      "60": 207679488,
+      "61": 207839232
+    },
+    "log": "[2026-10-09 19:37:44 +0200] [58] [INFO] Starting gunicorn 23.0.0\n[2026-10-09 19:37:44 +0200] [58] [INFO] Listening at: http://127.0.0.1:53791 (58)\n[2026-10-09 19:37:44 +0200] [58] [INFO] Using worker: sync\n[2026-10-09 19:37:44 +0200] [60] [INFO] Booting worker with pid: 60\n[2026-10-09 19:37:44 +0200] [61] [INFO] Booting worker with pid: 61\nGET /health/ 200 0.354s\nGET /private-operation/ 200 0.234s\nGET /private-operation/ 200 0.157s\nPOST /private-operation/ 200 1.730s\nPOST /private-operation/ 200 2.318s\nPOST /private-operation/ 200 1.648s\nPOST /private-operation/ 200 1.775s\nPOST /private-operation/ 200 1.788s\nPOST /private-operation/ 200 1.957s\nPOST /private-operation/ 200 1.863s\nPOST /private-operation/ 200 1.908s\nPOST /private-operation/ 200 1.471s\nPOST /private-operation/ 200 1.932s\nPOST /private-operation/ 200 1.757s\nPOST /private-operation/ 200 1.887s\nPOST /private-operation/ 200 1.788s\nPOST /private-operation/ 200 1.824s\nPOST /private-operation/ 200 1.621s\nPOST /private-operation/ 200 1.628s\nPOST /private-operation/ 200 1.599s\nPOST /private-operation/ 200 1.806s\nPOST /private-operation/ 200 1.908s\nPOST /private-operation/ 200 2.020s\nPOST /private-operation/ 200 1.666s\nPOST /private-operation/ 200 1.715s\nPOST /private-operation/ 200 1.545s\nPOST /private-operation/ 200 1.813s\nPOST /private-operation/ 200 1.785s\nPOST /private-operation/ 200 1.798s\nPOST /private-operation/ 200 1.650s\nPOST /private-operation/ 200 1.706s\nPOST /private-operation/ 200 1.818s\nPOST /private-operation/ 200 1.843s\nPOST /private-operation/ 200 1.806s\nPOST /private-operation/ 200 1.871s\nPOST /private-operation/ 200 1.496s\nPOST /private-operation/ 200 1.809s\nPOST /private-operation/ 200 1.825s\nPOST /private-operation/ 200 1.878s\nPOST /private-operation/ 200 1.623s\nPOST /private-operation/ 200 1.953s\nPOST /private-operation/ 200 1.648s\nPOST /private-operation/ 200 1.757s\n[2026-10-09 19:39:26 +0200] [61] [INFO] Worker exiting (pid: 61)\n[2026-10-09 19:39:26 +0200] [60] [INFO] Worker exiting (pid: 60)\n[2026-10-09 19:39:26 +0200] [58] [INFO] Handling signal: term\n[2026-10-09 19:39:26 +0200] [58] [ERROR] Worker (pid:61) was sent SIGTERM!\n[2026-10-09 19:39:27 +0200] [58] [INFO] Shutting down: Master\n",
+    "scope": "Master and workers kernel VmHWM sampled100ms; process-group teardown. Same owned app cgroup; no Caddy or deployment."
+  },
+  "scope": "Native UUID binding N2 four targeted cases PASS; concurrent Gunicorn caseA p95 above2s, caseB below. No causal improvement, no full capacity/N3. Both resources cleaned/source unchanged.",
+  "archive": "capacidad-seleccion-uuid-nativo-20261009-artefactos.tar.gz",
+  "archive_sha256": "a6c01348cf1de5bdbd97ff61635461a78d5eb1c87729bd40115169d5b96cd5d3"
+}

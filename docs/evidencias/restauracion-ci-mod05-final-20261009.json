@@ -1,0 +1,808 @@
+{
+  "schema": "restore-owned-pg-media-mod05-v1",
+  "classification": "Final selected N2 PASS; not N3 or production acceptance.",
+  "final_run": {
+    "id": "20261009-141811-b62d6f5c",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-141811-b62d6f5c",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.4662154973484576
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-141811-b62d6f5c",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5671851760707796
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.0323210540227592
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.06450368883088231
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.8669700012542307
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.268722944892943
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.7718709069304168
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-yakcbfkp/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-yakcbfkp/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-yakcbfkp/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.615666062105447
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-yakcbfkp/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-141811-b62d6f5c/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_recovery_pg_restore.py",
+          "tests/test_promotion_recovery.py"
+        ],
+        "exit": 0,
+        "seconds": 62.3616737248376
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_recovery_pg_restore.py",
+      "tests/test_promotion_recovery.py"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-141811-b62d6f5c": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-141811-b62d6f5c": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "2",
+        "time": "60.505",
+        "timestamp": "2026-10-09T16:18:29.972797+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "prior_runs": [
+    {
+      "id": "20261009-140846-f191a200",
+      "profile": "focused",
+      "result": "ERROR",
+      "steps": [
+        {
+          "name": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-pg-20261009-140846-f191a200",
+            "-p",
+            "127.0.0.1::5432",
+            "--tmpfs",
+            "/var/lib/postgresql/data",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=promotion_gate_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.5228590397164226
+        },
+        {
+          "name": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-redis-20261009-140846-f191a200",
+            "-p",
+            "127.0.0.1::6379",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.46675681695342064
+        },
+        {
+          "name": "dependencies",
+          "command": [
+            "uv",
+            "sync",
+            "--locked",
+            "--offline"
+          ],
+          "exit": 0,
+          "seconds": 0.033026822842657566
+        },
+        {
+          "name": "ruff",
+          "command": [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.11496110307052732
+        },
+        {
+          "name": "documentation",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/check_docs.py"
+          ],
+          "exit": 0,
+          "seconds": 0.9171079061925411
+        },
+        {
+          "name": "django",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "check"
+          ],
+          "exit": 0,
+          "seconds": 1.4189330502413213
+        },
+        {
+          "name": "migrations",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "makemigrations",
+            "--check",
+            "--dry-run"
+          ],
+          "exit": 0,
+          "seconds": 1.673531583044678
+        },
+        {
+          "name": "native-build",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/prepare_native_test_tools.py",
+            "--source",
+            "/tmp/web-modelos-local-ci-itix5a8c/native-source",
+            "--output",
+            "/tmp/web-modelos-local-ci-itix5a8c/native-tools",
+            "--env-file",
+            "/tmp/web-modelos-local-ci-itix5a8c/native.env"
+          ],
+          "exit": 0,
+          "seconds": 9.71733949193731
+        },
+        {
+          "name": "pytest",
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "--tb=short",
+            "--basetemp=/tmp/web-modelos-local-ci-itix5a8c/pytest",
+            "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-140846-f191a200/pytest.xml",
+            "-o",
+            "junit_family=xunit1",
+            "tests/test_recovery_pg_restore.py",
+            "tests/test_promotion_recovery.py"
+          ],
+          "exit": 1,
+          "seconds": 58.488852525129914
+        }
+      ],
+      "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+      "excluded": [],
+      "selection": [
+        "tests/test_recovery_pg_restore.py",
+        "tests/test_promotion_recovery.py"
+      ],
+      "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+      "error": "pytest failed; inspect its log",
+      "cleanup": {
+        "web-modelos-ci-pg-20261009-140846-f191a200": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 0
+        },
+        "web-modelos-ci-redis-20261009-140846-f191a200": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 0
+        }
+      },
+      "sources_unchanged": true,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "tests": "2",
+          "time": "56.474",
+          "timestamp": "2026-10-09T16:09:04.259081+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "id": "20261009-141144-ddad4cb3",
+      "profile": "focused",
+      "result": "PASS",
+      "steps": [
+        {
+          "name": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-pg-20261009-141144-ddad4cb3",
+            "-p",
+            "127.0.0.1::5432",
+            "--tmpfs",
+            "/var/lib/postgresql/data",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=promotion_gate_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.4671408669091761
+        },
+        {
+          "name": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-redis-20261009-141144-ddad4cb3",
+            "-p",
+            "127.0.0.1::6379",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.46610509417951107
+        },
+        {
+          "name": "dependencies",
+          "command": [
+            "uv",
+            "sync",
+            "--locked",
+            "--offline"
+          ],
+          "exit": 0,
+          "seconds": 0.03243663627654314
+        },
+        {
+          "name": "ruff",
+          "command": [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.11526016192510724
+        },
+        {
+          "name": "documentation",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/check_docs.py"
+          ],
+          "exit": 0,
+          "seconds": 0.8729785587638617
+        },
+        {
+          "name": "django",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "check"
+          ],
+          "exit": 0,
+          "seconds": 1.529197547584772
+        },
+        {
+          "name": "migrations",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "makemigrations",
+            "--check",
+            "--dry-run"
+          ],
+          "exit": 0,
+          "seconds": 1.5226562255993485
+        },
+        {
+          "name": "native-build",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/prepare_native_test_tools.py",
+            "--source",
+            "/tmp/web-modelos-local-ci-clicqxpr/native-source",
+            "--output",
+            "/tmp/web-modelos-local-ci-clicqxpr/native-tools",
+            "--env-file",
+            "/tmp/web-modelos-local-ci-clicqxpr/native.env"
+          ],
+          "exit": 0,
+          "seconds": 10.021873041056097
+        },
+        {
+          "name": "pytest",
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "--tb=short",
+            "--basetemp=/tmp/web-modelos-local-ci-clicqxpr/pytest",
+            "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-141144-ddad4cb3/pytest.xml",
+            "-o",
+            "junit_family=xunit1",
+            "tests/test_recovery_pg_restore.py",
+            "tests/test_promotion_recovery.py"
+          ],
+          "exit": 0,
+          "seconds": 64.49236269900575
+        }
+      ],
+      "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+      "excluded": [],
+      "selection": [
+        "tests/test_recovery_pg_restore.py",
+        "tests/test_promotion_recovery.py"
+      ],
+      "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+      "cleanup": {
+        "web-modelos-ci-pg-20261009-141144-ddad4cb3": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 0
+        },
+        "web-modelos-ci-redis-20261009-141144-ddad4cb3": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 0
+        }
+      },
+      "sources_unchanged": true,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "62.313",
+          "timestamp": "2026-10-09T16:12:02.522320+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "id": "20261009-141623-601014ec",
+      "profile": "focused",
+      "result": "PASS",
+      "steps": [
+        {
+          "name": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-pg-20261009-141623-601014ec",
+            "-p",
+            "127.0.0.1::5432",
+            "--tmpfs",
+            "/var/lib/postgresql/data",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=promotion_gate_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.46800065599381924
+        },
+        {
+          "name": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-redis-20261009-141623-601014ec",
+            "-p",
+            "127.0.0.1::6379",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.42031886894255877
+        },
+        {
+          "name": "dependencies",
+          "command": [
+            "uv",
+            "sync",
+            "--locked",
+            "--offline"
+          ],
+          "exit": 0,
+          "seconds": 0.06433224817737937
+        },
+        {
+          "name": "ruff",
+          "command": [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.11488988203927875
+        },
+        {
+          "name": "documentation",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/check_docs.py"
+          ],
+          "exit": 0,
+          "seconds": 0.7677773162722588
+        },
+        {
+          "name": "django",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "check"
+          ],
+          "exit": 0,
+          "seconds": 1.3680553720332682
+        },
+        {
+          "name": "migrations",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "makemigrations",
+            "--check",
+            "--dry-run"
+          ],
+          "exit": 0,
+          "seconds": 1.727912857197225
+        },
+        {
+          "name": "native-build",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/prepare_native_test_tools.py",
+            "--source",
+            "/tmp/web-modelos-local-ci-84xghnqk/native-source",
+            "--output",
+            "/tmp/web-modelos-local-ci-84xghnqk/native-tools",
+            "--env-file",
+            "/tmp/web-modelos-local-ci-84xghnqk/native.env"
+          ],
+          "exit": 0,
+          "seconds": 9.618780193850398
+        },
+        {
+          "name": "pytest",
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "--tb=short",
+            "--basetemp=/tmp/web-modelos-local-ci-84xghnqk/pytest",
+            "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-141623-601014ec/pytest.xml",
+            "-o",
+            "junit_family=xunit1",
+            "tests/test_recovery_pg_restore.py",
+            "tests/test_promotion_recovery.py"
+          ],
+          "exit": 0,
+          "seconds": 63.40893136104569
+        }
+      ],
+      "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+      "excluded": [],
+      "selection": [
+        "tests/test_recovery_pg_restore.py",
+        "tests/test_promotion_recovery.py"
+      ],
+      "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+      "cleanup": {
+        "web-modelos-ci-pg-20261009-141623-601014ec": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 0
+        },
+        "web-modelos-ci-redis-20261009-141623-601014ec": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 0
+        }
+      },
+      "sources_unchanged": true,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "61.403",
+          "timestamp": "2026-10-09T16:16:42.397007+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "skipped": []
+    }
+  ],
+  "verified_cases": [
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data",
+      "test_seconds": 46.921,
+      "properties": {
+        "independent_authority_verified": "True",
+        "wrong_authority_rejected_without_effects": "True",
+        "real_restore": "True",
+        "effects_applied": "True",
+        "media_deleted": "True",
+        "peer_preserved": "True",
+        "old_session_rejected": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "backup_bytes": "997650",
+        "backup_sha256": "2d346138fd74efa2a3c076ec32b6a6d586c0e6bf2fe3c874ebdf7750681a3955",
+        "backup_cutoff_unix": "1791555549.9994245",
+        "backup_media_manifest": "{\"derivatives/485133a9-a0af-4752-ac2f-7ca0b461c503.webp\": \"744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378\", \"derivatives/77d3751a-a7e3-4379-9bdb-670a03b350b7.webp\": \"a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96\", \"derivatives/98ab4f8f-2706-418c-97c6-9f47ce125f8a.webp\": \"a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d\", \"derivatives/c7260fb6-cada-4a1d-91f8-f0e4acef5eac.webp\": \"31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05\", \"originals/484cb703-c53c-4e27-a523-a917e73b026a\": \"99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f\", \"originals/59cec126-10fd-4bf2-b846-7d454c71b13a\": \"b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643\", \"originals/a85b4a3a-d223-4ccf-a5fe-0640fd0da600\": \"1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee\", \"originals/e74e2aca-b79a-4f3b-9bb9-e851a4e3eb70\": \"17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31\"}",
+        "media_manifest_sha256": "b4d18d3c55067adbaae6570b84d2a835b21a8038e517853474e65ecf59771171",
+        "restored_media_integrity_verified": "True",
+        "backup_seconds": "0.9297844073735178",
+        "restore_and_reconcile_seconds": "4.9732449050061405",
+        "backup_age_upper_bound_seconds": "6.519225597381592",
+        "mod05_stale_state_invalidated": "True",
+        "mod05_restored_triggers_active": "True",
+        "mod05_required_refresh_command_verified": "True",
+        "restored_database_name": "recovery_restore_bf0c97fd9e11",
+        "restored_database_removed": "True"
+      },
+      "media_inventory": {
+        "derivatives/485133a9-a0af-4752-ac2f-7ca0b461c503.webp": "744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378",
+        "derivatives/77d3751a-a7e3-4379-9bdb-670a03b350b7.webp": "a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96",
+        "derivatives/98ab4f8f-2706-418c-97c6-9f47ce125f8a.webp": "a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d",
+        "derivatives/c7260fb6-cada-4a1d-91f8-f0e4acef5eac.webp": "31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05",
+        "originals/484cb703-c53c-4e27-a523-a917e73b026a": "99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f",
+        "originals/59cec126-10fd-4bf2-b846-7d454c71b13a": "b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643",
+        "originals/a85b4a3a-d223-4ccf-a5fe-0640fd0da600": "1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee",
+        "originals/e74e2aca-b79a-4f3b-9bb9-e851a4e3eb70": "17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31"
+      }
+    },
+    {
+      "name": "test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+      "test_seconds": 13.277,
+      "properties": {
+        "independent_authority_verified": "True",
+        "wrong_authority_rejected_without_effects": "True",
+        "real_restore": "True",
+        "effects_applied": "True",
+        "media_deleted": "True",
+        "peer_preserved": "True",
+        "old_session_rejected": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "backup_bytes": "998534",
+        "backup_sha256": "3ce82372ba80eb1c308f6d9b9459ef5777088ab9098b78356c1ca7e7a3e0080f",
+        "backup_cutoff_unix": "1791555563.68954",
+        "backup_media_manifest": "{\"derivatives/00d6f340-9d26-4b07-b2ba-becb883f56b1.webp\": \"a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d\", \"derivatives/50124676-7e33-484c-91fa-168bd21b300b.webp\": \"31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05\", \"derivatives/c87fbd33-b84d-4b2e-b7dd-7a968db22190.webp\": \"744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378\", \"derivatives/dd77863a-a9d5-4f79-89e8-af46a466b05d.webp\": \"a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96\", \"originals/642c6b9a-5d61-4a2a-b3eb-95d697991024\": \"99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f\", \"originals/c5b50db6-a645-4519-89a3-e44977260a15\": \"b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643\", \"originals/d23c7d52-591e-4f85-99f2-5f3216f1d061\": \"1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee\", \"originals/f7f92cdc-65be-4dff-9c2c-e778dd7cfdd2\": \"17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31\"}",
+        "media_manifest_sha256": "ef547ea9e8685fe52c8f941acc2a1e81c7832e1003d119997f7b6977d5f72620",
+        "restored_media_integrity_verified": "True",
+        "backup_seconds": "0.7758818143047392",
+        "restore_and_reconcile_seconds": "4.81505722226575",
+        "backup_age_upper_bound_seconds": "6.1455748081207275",
+        "mod05_stale_state_invalidated": "True",
+        "mod05_restored_triggers_active": "True",
+        "mod05_required_refresh_command_verified": "True",
+        "restored_database_name": "recovery_restore_36036e72c195",
+        "restored_database_removed": "True"
+      },
+      "media_inventory": {
+        "derivatives/00d6f340-9d26-4b07-b2ba-becb883f56b1.webp": "a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d",
+        "derivatives/50124676-7e33-484c-91fa-168bd21b300b.webp": "31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05",
+        "derivatives/c87fbd33-b84d-4b2e-b7dd-7a968db22190.webp": "744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378",
+        "derivatives/dd77863a-a9d5-4f79-89e8-af46a466b05d.webp": "a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96",
+        "originals/642c6b9a-5d61-4a2a-b3eb-95d697991024": "99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f",
+        "originals/c5b50db6-a645-4519-89a3-e44977260a15": "b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643",
+        "originals/d23c7d52-591e-4f85-99f2-5f3216f1d061": "1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee",
+        "originals/f7f92cdc-65be-4dff-9c2c-e778dd7cfdd2": "17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31"
+      }
+    }
+  ],
+  "targets": {
+    "rpo_backup_age_upper_bound_seconds": 3600,
+    "rto_complete_restore_reconcile_seconds": 28800
+  },
+  "archive": "docs/evidencias/restauracion-ci-mod05-final-20261009-artefactos.tar.gz",
+  "archive_sha256": "54843911478538c537780839025a808dbe0198533f9ff822f42dc2a11622404c",
+  "verified": [
+    "Real PostgreSQL17 custom-format dump and restore on owned CI server; private synthetic media copies and SHA256 inventory.",
+    "Independent checkpoint retained outside restored data; wrong authority rejected without effects.",
+    "Erasure replay, token/session revocation, media destruction and exact remaining-media inventory; peer/commercial evidence preserved without reactivation.",
+    "Simulated stale derived state under session_replication_role=replica on restored database; mark all; restored dependency triggers increase generation during erasure.",
+    "Actual refresh_publication_state --all before leaving RECOVERY_MODE: no dirty rows, current rules, erased listing ineligible/404.",
+    "Named restored databases dropped and absence verified; owned containers/temporaries removed, tested sources unchanged."
+  ],
+  "limits": [
+    "Small synthetic fixtures and shared host; recorded backup age is an upper bound in these scenarios, not production backup cadence or lost-data guarantee.",
+    "Recovery keys/checkpoint are local synthetic fixtures, not independent external custody.",
+    "Initial new test failed by reverse-relation mistake; intermediate PASS runs had incomplete durable inventory/required-command coverage and are not substituted for final run.",
+    "Only final 2 cases form this acceptance; no adding versions/runs as N3.",
+    "No normal Compose service used, no deployment, real data, external communication, provider or spending."
+  ]
+}

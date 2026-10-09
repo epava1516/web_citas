@@ -1,5 +1,41 @@
 # Evidencias de desarrollo
 
+## Corte de pausa y relevo, 2026-10-09
+
+La [correctiva N2 terminal](evidencias/revision-binaria-candidatos-n2-correctiva-20261009.json) confirma63PASS/0FAIL/0ERROR/0SKIP,467,214s JUnit, incluidas lecturas reales de fotos, auditoría vigente al final y rollback ante eliminación tardía, paginación/ESEN y esperas PostgreSQL observadas. Se verificaron las1.020 fuentes del archivo y su SHA-256; la aplicación sigue igual. No es capacidad ni N3.
+
+El [inventario del relevo](evidencias/relevo-local-20261009.json) conserva todos los cambios/ramas/worktrees, terminales, fallos y límites. El [archivo del prototipo](evidencias/relevo-prototipo-capacidad-20261009-artefactos.tar.gz) conserva seis archivos incompletos y el XML de8PASS N1 puro (0,147s); controlador no ejecutado. La [verificación de limpieza](evidencias/relevo-limpieza-20261009-artefactos.tar.gz) terminó13PASS/1FAIL (11,09s CLI), prueba GC temporal emitió2/3 peticiones; sus fuentes coinciden con el HEAD original y no se atribuye causalidad sin diagnóstico. Cuatro retiradas sin consumidores vigentes confirmadas; no se declara batería de limpieza íntegramente verde. Goal pausado, cero nuevas invocaciones Claude, servicios normales preservados y porcentajes sin recalcular.
+
+## Diagnóstico y correctiva acotada de revisión binaria, 2026-10-09
+
+El [perfil nativo](evidencias/revision-binaria-perfil-nativo-20261009.json) ejecutó una página real de50filas sobre expediente1500/16MiB/64MiB con16imágenes:1PASS154,945s JUnit, fuente igual y retirada. Observó dos lecturas de fuente,3002referencias de fila,16lecturas de bytes y131SELECT; los tiempos instrumentados/acumulados no son p95 ni una comparación causal.
+
+La [correctiva lógica N1](evidencias/revision-binaria-candidatos-n1-20261009.json) conserva baseline1FAIL por500referencias y después13PASS: referencias de filas candidatas con índices/hashes originales, fuente/output preservados y referencia ajena rechazada. La consulta de auditorías se agrupa, pero cada imagen conserva lectura bloqueada y hash real. Integración/guards en PG propia registrada en seguimiento17; no aceptar rendimiento desde unitarios.
+
+## Capacidad de entrega: revisión con binarios incluidos, 2026-10-09
+
+El [flujo después de la correctiva](evidencias/capacidad-entrega-binaria-revision-inicial-20261009.json) conserva un FAIL válido en479,042s JUnit. Guardados nuevos20/caso con p954,064946/3,801835s cumplen cinco; páginas31/caso con16imágenes incluidas dan2,372175/2,395124s frente a dos. Todos los pares observados se solapan. Fuente igual y recursos retirados. Etapas posteriores NOT_PROVEN; capacidad integral, presupuesto global y N3 abiertos. El PASS escalar anterior y estos resultados tienen variantes distintas; no se sustituyen ni se combinan. Diagnóstico siguiente registrado antes de instrumentar en seguimiento17.
+
+## Capacidad de entrega: guardado binario inicial, 2026-10-09
+
+La [correctiva N2](evidencias/guardado-binario-fuentes-correctiva-n2-20261009.json) terminó35PASS/0FAIL/0SKIP en319,320s JUnit. Dos snapshots reales por guardado/replay, equivalencia con fallback nativo, cambios tardíos rechazados con rollback y contexto falso/caducado rechazado; regresiones binarias/cobertura/esperas PostgreSQL incluidas. Fuente igual y recursos propios retirados. Este resultado funcional permite repetir el flujo objetivo cambiado; no acredita latencia, capacidad integral ni N3.
+
+El [ensayo completo inicial](evidencias/capacidad-entrega-binaria-guardado-inicial-20261009.json) terminó con un FAIL válido: dos expedientes objetivo con 1.500 revisiones, 16MiB de JSON y 64MiB de originales; veinte guardados HTTP nuevos por expediente, p95 de 5,811144 y 5,669920 segundos frente al límite de cinco. Contenido conservado, peticiones exitosas y pares concurrentes; las etapas posteriores quedaron NOT_PROVEN. Fuentes iguales y recursos propios retirados; cuotas del controlador y almacenamiento global todavía no acreditados. No cambia la aceptación de CR09 ni N3.
+
+La [reproducción nativa en PostgreSQL](evidencias/guardado-binario-fuentes-reproduccion-20261009.json) confirmó siete reconstrucciones completas de fuente por guardado. Su FAIL esperado corresponde al contador de dos lecturas exigido por la optimización propuesta, sin atribuirle una mejora de latencia. La correctiva transaccional y sus controles se siguen en [seguimiento17](17-seguimiento-desarrollo.md).
+
+## Organización documental, 2026-10-09
+
+[Registro de organización](evidencias/organizacion-documental-20261009.json): índice por tareas y autoridad, seguimiento breve, pendientes consolidados en matriz83, componentes reutilizables en matriz88 y arquitectura/operación/avance separados de sus cronologías. Se conservaron seis copias exactas nuevas, junto con las diez anteriores, en el [inventario de huellas](historial-documentacion.json). El checker local `scripts/check_docs.py` valida enlaces/anclas y copias, con referencias históricas resueltas desde su base original y excepciones concretas de código retirado comprobadas en Git. Once escenarios sintéticos del checker verifican aceptación y rechazos esperados; no pruebas de la aplicación. El job de documentación queda configurado en CI, sin acreditar ejecución del servicio externo.
+
+Requisitos, aceptación, runtime, porcentajes y estado del goal intactos. Los informes anteriores conservan su corte y sus cifras; esta organización no los actualiza retrospectivamente ni reconstruye el grafo global.
+
+## Revisión documental, 2026-10-09
+
+[Examen graphify](evidencias/examen-graphify-20261009.json) y [revisión documental](evidencias/revision-documentacion-20261009.json): contraste de especificaciones, contrato, seguimiento, arquitectura y matrices con sus fuentes; comprobación de enlaces locales y distinción de estados vigentes/históricos. Correcciones de documentación, sin pruebas funcionales, cargas, despliegues, nuevas llamadas Claude ni cambios de aplicación. Se conservan copias históricas y artefactos originales con sus huellas. CR09-REND-LECTURA mantiene su aceptación local; CR09 integral/GS01/producción y porcentajes no cambian. La reanudación sigue únicamente en [seguimiento17](17-seguimiento-desarrollo.md).
+
+## Evidencias anteriores — historial de sus versiones
+
 ## Inicio y BASE, 2026-10-03
 
 Usuario autorizó ejecutar contrato completo. Baseline: 18 documentos de planificación, ningún código ni Git. Se inicializa Git local sin commits; documentación preservada. AGENTS.md referencia contrato de delegación externo para próximas sesiones.
@@ -446,3 +482,72 @@ Supresión explícita de partes: batería terminal15 passed117.71s, exit0 sin fa
 
 
 REQ-CR09-RECTIFICATION-PROPOSAL-01: batería conjunta14 passed102.54s, exit0 sin fallos/errores/skips PostgreSQL/Chromium. Evidencia normalizada/XML/hash docs/evidencias/rectificacion-propuesta-integracion.json. Cubre fuente auditada/HMAC contra cambio de texto, propuesta cifrada campos seleccionados, replay/conflicto/CSRF/GET privado/publicación y plazos intactos, móvilMFA, cautelas/inventario existentes. Ruff/check/makemigrations/diff limpios. Docker0044–45 en sincronización; no ejecución de corrección, respuesta final ni aceptación integral CR09. Resto contrato preservado; Claude3/3.
+
+
+## Limpieza de instrumental descartado — 2026-10-09
+
+Proyecto nuevo sin producción real: retirados CallProfile, LocalCallMonitor y sus pruebas exclusivas, sin consumidores de aplicación/diagnóstico actuales. Cuatro archivos, 337 líneas. [Decisión, huellas y comprobaciones](evidencias/limpieza-instrumental-descartado-20261009.json): 14 pruebas del instrumental conservado correctas; colección de 2.073 casos sin errores. Ruff global: 280 incidencias anteriores idénticas a HEAD en18 archivos; no se presenta como PASS. No se alteran esquema, runtime, garantías MOD05, aceptaciones ni porcentajes. Los nodos históricos del grafo y la auditoría anterior describen el corte previo a esta retirada.
+
+
+## Saneamiento de salud técnica — 2026-10-09
+
+[Registro verificable](evidencias/saneamiento-tecnico-20261009.json) y [artefactos de los runs separados](evidencias/saneamiento-tecnico-20261009-artefactos.tar.gz). Ruff global PASS;233 incidencias corregidas,47 diagnósticos de fragmentos inyectados justificados y sus bytes intactos. [Originales de15 scripts antes del formato](evidencias/fuentes-antes-saneamiento-20261009.tar.gz). Dos guards de fuentes nativas rechazan versión incorrecta/fuentes modificadas sin exportar binarios. Rutas156 equivalentes,89 separadas por dominio; modelos/reglas conservados por su función actual.
+
+Batería inicial120:112 PASS/8 FAIL. Los cuatro fallos por herramientas ausentes se corrigen con preparación fijada y verificada; los otros cuatro revelaron falta de reconocimiento de tareas MOD05 en el adaptador de colas, corregida sin aceptar args/kwargs o envelopes desconocidos. Correctiva97 PASS incluye todas las variantes fallidas, móvil ES/EN, colecciones Redis reales y12 casos nuevos queued/reserved. Unitarios26 del envelope PASS y16 del arnés en runs propios, sin suma como aceptación N3. Batería inicial incluye worker/Beat reales. Colección2085; no suite completa ejecutada ni CI externo PASS. Primera pasada interrumpida por error de variable Redis del arnés, descartada como evidencia de aislamiento. Contenedores/bases/medios/compilaciones propios limpiados; proveedores/identidad/datos sintéticos y límites contractuales de matriz83 intactos.
+
+## Consolidación de formulación contractual — 2026-10-09
+
+[Contrato16 v1.6/MOD-06](16-contrato-ejecucion-desarrollo.md) y [registro verificable](evidencias/consolidacion-contrato-20261009.json). Reglas vigentes consolidadas, dependencia funcional única y CI propio; aceptación técnica local separada de entradas productivas en matriz83 y contratos14/15. Siete copias anteriores exactas registradas con SHA-256, manteniendo las16previas. Las seis garantías MOD05 se preservan literalmente; umbrales de carga, RPO1h/RTO8h existentes y objetivos de capacidad aún propuestos mantienen sus estados. Comparación de1.015archivos fuera de documentación contra la última huella CI propia: sin cambios. Comprobados enlaces/anclas/copias y diff; no se repite batería funcional por edición documental ni se acepta N3/CR09/fases/producción o se alteran porcentajes.
+
+2026-10-09, censo/correo/autoridad y urgencias: batería inicial196 casos,194 PASS/2 FAIL; reproducción focalizada16 FAIL; corrección terminal73 PASS/0 skips,437,14s, fuentes iguales y recursos propios retirados. Se corrigieron formatos actuales de correo ES/EN y revocación de autoridad de decisiones de denuncias tras locks/antes de retorno. Simulacro local de suplencia ES/EN resuelto, cronología y plazo sintético explícitos. [Inicial](evidencias/cr09-censo-bateria-inicial-20261009.json), [reproducción](evidencias/cr09-correo-autoridad-reproduccion-20261009.json), [correctiva y límites](evidencias/cr09-correo-autoridad-urgencias-correctiva-20261009.json). N2 seleccionado; sin suma como N3, aceptación de fase, capacidad, despliegue normal o entrega externa.
+
+2026-10-09, recuperación en CI propio y MOD05:2 casos finales PASS/0 skips en60,57s; PG17 real dump/restore, medios inventariados/huellas, checkpoint independiente sintético, supresión/replay/otro sujeto/comercial y comando real `refresh_publication_state --all` antes de exposición. Fuentes iguales, bases restauradas y contenedores propios retirados. Inicial2 FAIL por referencia inversa mal escrita y dos intermedios PASS de alcance incompleto conservados; no sumarlos como N3. [Resultado, métricas y límites](evidencias/restauracion-ci-mod05-final-20261009.json), [originales](evidencias/restauracion-ci-mod05-final-20261009-artefactos.tar.gz). No cadencia/capacidad/custodia productiva ni aceptación de fase.
+
+2026-10-09, conservación por finalidad en CI propio:43 PASS/0 skips en357,78s sobre fuentes iguales; PG17/Redis7.4 propios retirados. Plan/autoridad independiente, revocación durante espera observada, calendario/seguimiento/ESEN, purga vencida, excepciones de evidencia emitida y reintentos/bounds. [Resultado y parámetros sintéticos](evidencias/conservacion-finalidad-ci-propio-20261009.json), [artefactos](evidencias/conservacion-finalidad-ci-propio-20261009-artefactos.tar.gz). Tareas reales invocadas en tests, sin atribuir ejecución a worker/Beat ni política jurídica productiva; no N3 o fase. Sondas de control/portabilidad preparan ensayo de capacidad, todavía no ejecutado.
+
+Preparación de capacidad2026-10-09: [entorno propio limitado y corrección](evidencias/capacidad-entorno-propio-20261009.json), [logs/huellas/controlador](evidencias/capacidad-entorno-propio-20261009-artefactos.tar.gz). READY_NOT_CAPACITY, migraciones y conexiones reales; no carga ni N3.
+
+Capacidad, control pequeño2026-10-09: [30 revisiones/20 muestras TCP, resultado y límites](evidencias/capacidad-control-expediente-20261009.json), [dos intentos y fuentes congeladas](evidencias/capacidad-control-expediente-20261009-artefactos.tar.gz).1PASS actual en88,608s; objetivo grande pendiente.
+
+Capacidad y conflicto de agencias2026-10-09: [diagnóstico válido/corrección/comparación SQL](evidencias/capacidad-sql-conflicto-agencias-20261009.json), [cinco intentos/fuentes originales y actuales](evidencias/capacidad-sql-conflicto-agencias-20261009-artefactos.tar.gz).9716→8952SQL, sin mejora de latencia demostrada ni capacidad grande/N3.
+
+Fixture grande2026-10-09: [dos sujetos×1500 revisiones,16MiB candidato/64MiB originales](evidencias/capacidad-fixture-objetivo-20261009.json), [fuentes exactas/dos ejecuciones](evidencias/capacidad-fixture-objetivo-20261009-artefactos.tar.gz). Fixture válido, sin aceptación de capacidad/flujo/N3.
+
+Paginación de selección2026-10-09: [reproducción real de52filas/aprobación incompleta](evidencias/seleccion-paginacion-reproduccion-20261009.json), [XML/logs/fuentes originales](evidencias/seleccion-paginacion-reproduccion-20261009-artefactos.tar.gz).2FAIL; corrección en verificación independiente, no aceptación.
+
+Revisión paginada2026-10-09: [corrección local N2/guardas/ciphertext/navegador ESEN](evidencias/seleccion-paginacion-correctiva-20261009.json), [cuatro intentos/XML/fuentes/migración0111](evidencias/seleccion-paginacion-correctiva-20261009-artefactos.tar.gz). Componentes compatibles, sin N3/capacidad/aceptación de fase.
+
+
+## Consulta TCP de expediente objetivo — 2026-10-09
+
+Primera medida terminal FAIL:20respuestas completas, p952,895688s frente a2s; un caso de1.500 revisiones con16MiB JSON candidato y64MiB originales residentes. [Registro inicial](evidencias/capacidad-seleccion-tcp-inicial-20261009.json). Diagnóstico independiente mantiene FAIL p952,926983s y separa una consulta adicional perfilada, mostrando coste acumulado de dos snapshots frescos. [Diagnóstico y límites](evidencias/capacidad-seleccion-tcp-diagnostico-20261009.json). Ambos entornos propios retirados, fuentes congeladas durante ejecución; sin aceptación de concurrencia, selección de imágenes, cierre, capacidad completa ni N3.
+
+
+## Materialización del snapshot — 2026-10-09
+
+Vector generado diferido,48PASS en PG real incluyendo equivalencia y carreras; TCP p952,250879s permanece FAIL. [Corte vector](evidencias/capacidad-snapshot-vector-20261009.json). Lote1000 acotado: equivalencia30/1280PASS; TCP p952,142210s permanece FAIL, RSS486.993.920B para proceso medido. [Corte batch](evidencias/capacidad-snapshot-batch-20261009.json). Mantiene dos snapshots frescos, orden y locks; no N3/concurrencia/capacidad íntegra. Ambas versiones y resultados anteriores archivados; fuentes iguales durante runs y recursos propios retirados.
+
+
+## Relaciones de snapshot por lote exacto — 2026-10-09
+
+Lectura por UUID[] parametrizado conserva lote1000, bloqueo de revisión, relaciones ordenadas y frescura. N2 completo seleccionado17PASS, comparación con Prefetch anterior y cambios tardíos. TCP objetivo un caso:20muestras, p951,950027s y RSS408.125.440B; muestra2,073637s conservada. [Evidencia y límites](evidencias/capacidad-snapshot-relaciones-20261009.json). No concurrencia, aprobación, cierre/copia binaria, N3 ni capacidad integral; todas fuentes iguales durante runs y recursos propios retirados.
+
+
+## Selección concurrente objetivo — 2026-10-09
+
+Dos expedientes y revisores independientes,20rondas TCP solapadas,40respuestas200 completas, p953,254659/3,302852s: FAIL. RSS489.103.360B para proceso pytest/servidor de hilos. [Muestras/intervalos/límites](evidencias/capacidad-seleccion-concurrente-inicial-20261009.json). Intentos anteriores de fixture sin colección/cuenta válida conservados como INVALID, no capacidad. Fuentes iguales y recursos propios retirados; no aprobación/binarios/cierre/N3 ni capacidad íntegra.
+
+
+## Reparto propio para consulta concurrente — 2026-10-09
+
+Mismo presupuesto4CPU/8GiB, kernel PG1,5/app2,25/redis0,25, Gunicorn2sync, dos expedientes independientes de1500revisiones y tamaños objetivo. Consulta página1:20muestras TCP completas por caso, p951,840419/1,726815s PASS; máximo2,124082s conservado. [Evidencia](evidencias/capacidad-seleccion-reparto-pg-20261009.json). Cuotas, proceso/grupo y retirada verificados; picos disjuntos individuales y RSS no acreditan presupuesto global/almacenamiento. No aprobación, binarios, generación, cierre, entrega ni N3/capacidad íntegra. Antecedentes FAIL/INVALID preservados; sin causalidad inferida desde host compartido.
+
+
+## Selección completa y decisiones nuevas concurrentes — 2026-10-09
+
+Dos expedientes independientes,20versiones de selección por caso con31páginas nuevas y una aprobación por versión:620lecturas y20decisiones distintas/caso. p95HTTP completo de páginas1,800605/1,801080s≤2 y aprobación1,869632/1,885314s≤5,620pares de lectura y20pares de aprobación solapados. Tamaños originales1500/16MiB/64MiB; preparaciones/RSS dentro de límites medidos. [Resultado y límites](evidencias/capacidad-seleccion-completa-versiones-20261009.json), [XML/logs/fuentes exactas](evidencias/capacidad-seleccion-completa-versiones-20261009-artefactos.tar.gz).1PASS1284,576s; negativa incompleta409 por cada versión, sin decisión. Fuente igual, Gunicorn terminado y recursos propios retirados. Picos individuales disjuntos, sin controlador; no presupuesto global/almacenamiento, binarios, cobertura original, generación/cierre/descarga, N3 ni capacidad integral. El intento inicial de20decisiones por misma selección permanece INVALID; no fue fallo de aplicación.
+
+
+## Agrupación ZIP hacia8MiB conservando imágenes mayores — 2026-10-09
+
+[N1 ZIP puro](evidencias/capacidad-paquetes-objetivo-n1-20261009.json): reproducción2FAIL, correctiva8PASS; cabeceras reales, dos4MiB se separan, imagen9MiB aislada e íntegra, nombres/contenido/CRC y límite duro existente. [N2 integración](evidencias/capacidad-paquetes-objetivo-n2-20261009.json):18PASS266,886s PG/Redis/nativos/ChromiumESEN propios, generación>64MiB, esperas/revocaciones, CSRF/replay/purga/cierre y TCP nativo con WebP9.437.486B intacto. [XML/fuentes/logs](evidencias/capacidad-paquetes-objetivo-n2-20261009-artefactos.tar.gz). Fuente igual y recursos propios retirados. Ningún paquete>8MiB satisface el gate de capacidad; esta integración conserva la capacidad previa de imágenes individuales mayores y no acredita expedientes objetivo/p95/memoria/almacenamiento/N3.

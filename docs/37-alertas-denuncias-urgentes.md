@@ -1,6 +1,6 @@
 # Alertas internas persistentes de denuncias urgentes
 
-REQ-CR09-URGENT-ALERT-01. Implementación en curso, 2026-10-04. No aceptación de CR-09 ni acreditación de entrega externa.
+REQ-CR09-URGENT-ALERT-01. Implementación inicial2026-10-04; actualización2026-10-09: mecanismos internos y simulacro sintético verificados localmente. CR09/N3 y operación productiva pendientes; ninguna entrega externa acreditada.
 
 Una denuncia con prioridad0 crea UrgentReportAlert en la misma transacción que Report y su acuse, incluso sin contacto. OneToOne/PROTECT evita duplicados por reintento y conserva el vínculo. La alerta guarda solo referencia, fecha y reconocimiento atribuido; nunca texto, email, identidad, fotos ni motivo descifrado. No significa que la denuncia sea cierta ni activa restricciones automáticamente.
 
@@ -25,3 +25,11 @@ Corrección2026-10-06: reconocimiento inicial y replay reconsultan usuario activ
 
 
 Seguimiento interno2026-10-06: GET attention=unacknowledged conserva cola original; attention=follow_up muestra alertas reconocidas excluyendo únicamente expedientes dismissed/lifted. received/reviewing/restricted/upheld y estados desconocidos siguen visibles, con COI actual/histórico aplicado antes de contar/paginar. Fecha de reconocimiento y responsable asignado se muestran como metadatos; sin asignación se indica consultar expediente para atenderla. GET no modifica auditorías, versión, asignación ni resolución. La asignación/lectura/decisión usa el recorrido existente. Filtro se conserva al paginar; selector ES/EN reinicia página.16 pruebas de módulo correctas124,10s; móvil ampliado reconoce→filtra→recarga→consulta privada correcto tras ajustar selector de texto. [Evidencia](evidencias/alertas-seguimiento0110.json). No sustituye escalado humano, responsable/sustituto ni canal externo, todavía pendientes. Paginación urgente sigue materializando visibles: rendimiento pendiente. Sin migración/tarea nueva; Docker124df1a verificado con58 hashes iguales host/app/worker/Beat, PG0110, UID10001, checks/salud/CSS correctos. [Runtime](evidencias/alertas-seguimiento-runtime0110.json).
+
+## Simulacro técnico local de suplencia —2026-10-09
+
+REQ-CR09-URGENT-DRILL-01: canal de ensayo es la cola interna real, prioridad0 y plazo sintético300s desde recepción a decisión. Responsable primario `fixture-v1-moderator`; suplente `fixture-v1-visitor`, ambos de prueba y con MFA. El suplente necesita `review_report` para consulta/decisión y `manage_report_assignment` para retirar la asignación anterior. Estos permisos son autoridad técnica del fixture, no designación de personas reales.
+
+Recorrido HTTP ES/EN: reconocer conserva el caso recibido sin asignación ni lectura; reclamar lo asigna; retirar el permiso al primario le impide consultar; reasignar sin permiso devuelve403; el suplente autorizado libera la asignación y reclama. Decidir antes de consultar evidencia devuelve409. Después de consulta auditada, la decisión motivada `dismiss` termina el caso, replay conserva una sola resolución y el expediente sale del seguimiento. El reconocimiento original mantiene actor/fecha; los avisos mínimos cifrados siguen `queued`, sin atribuir recepción externa. Se ensaya una alegación sintética descartable, no una valoración jurídica real.
+
+[Correctiva N2](evidencias/cr09-correo-autoridad-urgencias-correctiva-20261009.json):73 PASS/0 skips sobre fuentes comunes, incluidos el simulacro y12 variantes de revocación de actividad/permiso/sesión/MFA tras controles de locks, en replay y antes del retorno. Reproducción previa16 FAIL conservada, incluida la omisión de formatos de correo. Cronología real de los dos simulacros:0,910029s ES y0,902186s EN de recepción a decisión; excluye preparar usuarios y no acredita tiempos de actuación humana. Fuente: [prueba del simulacro](../tests/test_urgent_report_drill.py). Sin migración, despliegue normal ni gasto. N3 común, atención y escalado de producción siguen pendientes.

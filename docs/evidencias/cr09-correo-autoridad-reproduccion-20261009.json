@@ -1,0 +1,213 @@
+{
+  "schema": "cr09-mail-report-authority-reproduction-v1",
+  "run": {
+    "id": "20261009-134750-95b74428",
+    "profile": "focused",
+    "result": "ERROR",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-134750-95b74428",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.6188955809921026
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-134750-95b74428",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.46694643096998334
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03246073704212904
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11511119408532977
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.9198207692243159
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.4197282148525119
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.772931604180485
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-ycgoxnw8/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-ycgoxnw8/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-ycgoxnw8/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.422532118856907
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-ycgoxnw8/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-134750-95b74428/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_account_mail_projection_templates.py",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks"
+        ],
+        "exit": 1,
+        "seconds": 101.69257011590526
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_account_mail_projection_templates.py",
+      "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "error": "pytest failed; inspect its log",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-134750-95b74428": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-134750-95b74428": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "16",
+        "skipped": "0",
+        "tests": "16",
+        "time": "99.567",
+        "timestamp": "2026-10-09T15:48:08.768447+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "classification": "N1 reproduction with real PostgreSQL; 16 FAIL; no phase acceptance.",
+  "archive": "docs/evidencias/cr09-correo-autoridad-reproduccion-20261009-artefactos.tar.gz",
+  "archive_sha256": "0982d77a0871e20262626e909f872de7e0892c6ae012ea9bda4b32b87e83db42",
+  "observed": {
+    "mail_current_producer": {
+      "variants": 4,
+      "result": "FAIL",
+      "languages": [
+        "es",
+        "en"
+      ],
+      "purposes": [
+        "verify",
+        "reset"
+      ]
+    },
+    "report_authority_revocation": {
+      "variants": 12,
+      "result": "FAIL",
+      "revocation": [
+        "permission",
+        "session",
+        "mfa",
+        "active"
+      ],
+      "windows": [
+        "after_scoped_lock_checks",
+        "exact_replay",
+        "after_outbox_before_return"
+      ],
+      "instrument": "Deterministic interleaving; not an observed separate lock-wait race."
+    }
+  },
+  "next": "Strict known-mail-template projection and fresh report authority after locks/before return, followed by affected regression with owned resources."
+}

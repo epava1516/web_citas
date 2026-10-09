@@ -1,0 +1,235 @@
+{
+  "result": "N2_BINARY_SAVE_SOURCE_SHARING_PASS_NOT_CAPACITY_OR_N3",
+  "report": {
+    "id": "20261009-193834-4d083022",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-193834-4d083022",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.41611027903854847
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-193834-4d083022",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.46836672769859433
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06465426599606872
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.06517407530918717
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.8683995907194912
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.4232484614476562
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.8246927908621728
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-aypycz26/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-aypycz26/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-aypycz26/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.925460772123188
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-aypycz26/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-193834-4d083022/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_portability_binary_save_shared_source.py",
+          "tests/test_rights_portability_image_selection.py",
+          "tests/test_rights_portability_image_storage.py",
+          "tests/test_rights_portability_coverage_images.py",
+          "tests/test_rights_portability_binary_races.py",
+          "tests/test_portability_inspection_shared_source.py",
+          "tests/test_rights_inspection_source_unit.py"
+        ],
+        "exit": 0,
+        "seconds": 321.38580764317885
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_portability_binary_save_shared_source.py",
+      "tests/test_rights_portability_image_selection.py",
+      "tests/test_rights_portability_image_storage.py",
+      "tests/test_rights_portability_coverage_images.py",
+      "tests/test_rights_portability_binary_races.py",
+      "tests/test_portability_inspection_shared_source.py",
+      "tests/test_rights_inspection_source_unit.py"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-193834-4d083022": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-193834-4d083022": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "35",
+        "time": "319.320",
+        "timestamp": "2026-10-09T21:38:52.610805+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "new_cases": [
+    {
+      "name": "test_binary_page_save_keeps_two_fresh_sources_and_preserves_native_choices",
+      "seconds": 43.059,
+      "properties": {
+        "full_source_reads_per_save": "2"
+      }
+    },
+    {
+      "name": "test_binary_save_rechecks_late_changes_after_final_snapshot_and_rolls_back[source]",
+      "seconds": 8.336,
+      "properties": {}
+    },
+    {
+      "name": "test_binary_save_rechecks_late_changes_after_final_snapshot_and_rolls_back[permission]",
+      "seconds": 8.864,
+      "properties": {}
+    },
+    {
+      "name": "test_binary_save_rechecks_late_changes_after_final_snapshot_and_rolls_back[session]",
+      "seconds": 8.272,
+      "properties": {}
+    },
+    {
+      "name": "test_binary_save_rechecks_late_changes_after_final_snapshot_and_rolls_back[mfa]",
+      "seconds": 8.262,
+      "properties": {}
+    },
+    {
+      "name": "test_binary_save_rechecks_late_changes_after_final_snapshot_and_rolls_back[proof]",
+      "seconds": 8.66,
+      "properties": {}
+    },
+    {
+      "name": "test_private_source_context_cannot_be_forged_or_reused_after_exit",
+      "seconds": 7.444,
+      "properties": {}
+    }
+  ],
+  "source_archive": {
+    "file": "guardado-binario-fuentes-correctiva-n2-20261009-artefactos.tar.gz",
+    "sha256": "ef12d37eaff80b9da8d823fee8569e13492f7653955d7f45f34142d88948c664",
+    "source_files": 973,
+    "each_file_verified_against_run_manifest": true
+  },
+  "scope": "Native PostgreSQL functional equivalence, actual full source count, idempotence, late changes and rollback; existing image/storage/coverage/binary observed waits/scoped contexts. No full-sized performance or global resource acceptance.",
+  "graphify": "Existing save-node relationships consulted without rebuilding; current sources authoritative."
+}

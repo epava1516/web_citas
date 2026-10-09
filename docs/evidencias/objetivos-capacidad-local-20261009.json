@@ -1,0 +1,81 @@
+{
+  "schema": "local-case-capacity-targets-v1",
+  "decided_at": "2026-10-09",
+  "authority": "User explicitly delegated technical target choice; Codex chose resource-adjusted local criteria before measurement.",
+  "source": "docs/propuesta-cierre-pendientes-locales.md",
+  "source_sha256": "6481be282b12d5980c8336cfe0457b1cc95b1f74a07c041950ff289e5b7178f4",
+  "status": "CRITERIA_DEFINED_NOT_MEASURED",
+  "scope": "Synthetic local technical delivery; no production capacity or external-provider accreditation.",
+  "host_inventory": {
+    "shared": true,
+    "cpu_count": 8,
+    "ram_total_mib": 23204,
+    "ram_available_mib": 11075,
+    "swap_total_mib": 4095,
+    "swap_used_mib": 4072,
+    "free_disk_gb": 98,
+    "limitation": "Recheck before reservation; shared host and distinct databases do not prove performance isolation."
+  },
+  "environment_budget": {
+    "aggregate_cpu_max": 4,
+    "aggregate_ram_limit_bytes": 8589934592,
+    "storage_budget_bytes": 21474836480,
+    "postgresql": "17",
+    "redis": "7.4",
+    "enforcement_required": true
+  },
+  "target": {
+    "concurrent_independent_cases": 2,
+    "revisions_per_case": 1500,
+    "required_json_utf8_bytes_per_case": 16777216,
+    "retained_original_image_bytes_per_case": 67108864,
+    "size_relative_tolerance": 0.01,
+    "truncate_to_pass": false,
+    "artificial_duplicate_or_out_of_domain_padding": false
+  },
+  "stage_limits": {
+    "prepare_selection_and_coverage": {
+      "seconds_per_operation_max": 60
+    },
+    "review_page": {
+      "rows_max": 50,
+      "http_seconds_p95_max": 2,
+      "samples_per_case_min": 20,
+      "first_open_measured_separately": true
+    },
+    "save_or_approve_review_page": {
+      "http_seconds_p95_max": 5,
+      "samples_per_case_min": 20
+    },
+    "generate_reviewed_delivery": {
+      "seconds_max": 120
+    },
+    "final_response_and_close": {
+      "seconds_per_operation_max": 30
+    },
+    "download_package": {
+      "package_bytes_max": 8388608,
+      "tcp_seconds_p95_max": 5,
+      "samples_per_case_min": 20,
+      "entire_body_consumed": true
+    },
+    "application_process_rss": {
+      "peak_bytes_max": 1073741824
+    },
+    "owned_environment_memory": {
+      "peak_bytes_max": 6442450944,
+      "disjoint_cgroup_accounting_including_cache": true,
+      "double_count_processes_in_containers": false
+    }
+  },
+  "evaluation": {
+    "percentile": "nearest-rank",
+    "each_variant_and_each_case_must_pass": true,
+    "combine_small_and_large_samples": false,
+    "missing_measurement": "NOT_PROVEN",
+    "invalid_fixture_or_instrument": "INVALID",
+    "valid_limit_violation": "FAIL",
+    "pass_requires": "Every required stage, completeness/privacy/authority guard, source integrity, and owned-resource cleanup."
+  },
+  "next": "Validate realistic fixtures and measured instrumentation, record commands/source hashes/timeouts and reserve enforced owned resources before starting capacity load."
+}

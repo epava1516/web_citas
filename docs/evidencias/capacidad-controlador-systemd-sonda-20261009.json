@@ -1,0 +1,35 @@
+{
+  "result": "MEMORY_AND_SWAP_ENFORCED_CPU_NOT_DELEGATED_NOT_FULL_BUDGET",
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=web-modelos-capacity-controller-probe-20261009-504da3d5",
+    "-p",
+    "CPUQuota=5%",
+    "-p",
+    "MemoryMax=134217728",
+    "-p",
+    "MemorySwapMax=0",
+    "/home/felidae/proyectos/web_modelos/.venv/bin/python",
+    "-c",
+    "import json,os; from pathlib import Path; cg=Path(\"/proc/self/cgroup\").read_text().strip().split(\"::\",1)[1]; base=Path(\"/sys/fs/cgroup\")/cg.lstrip(\"/\"); print(json.dumps({\"pid\":os.getpid(),\"cgroup\":cg,\"controls\":{name:(base/name).read_text().strip() if (base/name).exists() else \"MISSING\" for name in [\"cpu.max\",\"memory.max\",\"memory.swap.max\",\"cgroup.controllers\"]},\"parent_cgroup\":Path(f\"/proc/{os.getppid()}/cgroup\").read_text().strip()}))"
+  ],
+  "exit": 0,
+  "stdout": "{\"pid\": 356795, \"cgroup\": \"/user.slice/user-1002.slice/user@1002.service/app.slice/web-modelos-capacity-controller-probe-20261009-504da3d5.scope\", \"controls\": {\"cpu.max\": \"MISSING\", \"memory.max\": \"134217728\", \"memory.swap.max\": \"0\", \"cgroup.controllers\": \"memory pids\"}, \"parent_cgroup\": \"0::/user.slice/user-1002.slice/session-22147.scope\"}\n",
+  "stderr": "",
+  "observed": {
+    "pid": 356795,
+    "cgroup": "/user.slice/user-1002.slice/user@1002.service/app.slice/web-modelos-capacity-controller-probe-20261009-504da3d5.scope",
+    "controls": {
+      "cpu.max": "MISSING",
+      "memory.max": "134217728",
+      "memory.swap.max": "0",
+      "cgroup.controllers": "memory pids"
+    },
+    "parent_cgroup": "0::/user.slice/user-1002.slice/session-22147.scope"
+  },
+  "terminal_scope": "ControlGroup=\nActiveState=inactive\n",
+  "scope": "Owned transient probe only, no application load. CPU requested property does not create kernel quota because user slice delegates memory/pids only. Consider owned Docker controller after functional run terminal."
+}

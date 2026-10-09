@@ -1,8 +1,12 @@
 # Análisis del bloqueo y DAFO — coste y capacidad de servicio
 
-Corte2026-10-08. Goal activo para continuación independiente por cambio posterior del usuario; rendimiento aplazado. Única cola en [seguimiento17](17-seguimiento-desarrollo.md), contrato16 MOD04 y criterios vigentes. Fuentes sobreb285aba; runtime normal73d28f6 intacto. La [versión previa del DAFO](17-historial/2026-10-07-dafo-antes-captura-escalar.md) conserva el razonamiento anterior; los contrastes de fuentes distintas no son ganancias acumulables.
+Revisión documental: 2026-10-09. CR09-REND-LECTURA aceptado localmente en `1a10ecf` e integrado en master; runtime normal `73d28f6` conservado sin desplegar esa integración. El goal posterior de pendientes independientes quedó bloqueado por los insumos concretos del [acta residual](evidencias/residuales-locales-post-aceptacion0110.json). Única cola en [seguimiento17](17-seguimiento-desarrollo.md), contrato16 MOD-04/MOD-05 y criterios vigentes. Los cortes inferiores conservan sus fuentes y veredictos originales; los contrastes de fuentes distintas no son ganancias acumulables.
 
-## Estado vigente — gates PASS en topología normal, 2026-10-09
+## Aceptación local y límites vigentes — 2026-10-09
+
+La aceptación expresa del usuario incorpora la revisión por Codex de los artefactos originales de los gates y la comparación 4/6, y la cobertura positiva normal/PRODUCTION/`checked` de `1a10ecf`. [Alcance positivo](evidencias/mod05-cobertura-positiva0110.json): equivalencia byte a byte con la vía nativa y ruta `state`, con datos y proveedor sintéticos; no verificación real externa. La prueba positiva conserva código/resumen y no fue repetida por Codex; los gates no archivan logs originales de Gunicorn ni eventos WSGI individuales. Los límites de promociones, población positiva grande y host compartido permanecen. Cuatro workers siguen como referencia, seis no adoptados. CR09 integral, GS01 y producción siguen abiertos; CR09 72,50 % y contrato 65,375 %, sin cambio por esta revisión.
+
+## Evidencia aceptada — gates PASS en topología normal, 2026-10-09
 
 [Informe](evidencias/mod05-gates-normal-informe0110.md). Con worker y Beat reales y 4 workers sync, el gate de 60 s da PASS completo (p95 0,622 s) y el contractual de 900 s da PASS en el intento 2 (p95 0,392 s, 0 errores, 15/15 uploads). El intento 1 fue INVALID por el GC del cliente.
 
@@ -10,7 +14,7 @@ Corte2026-10-08. Goal activo para continuación independiente por cambio posteri
 | --- | --- |
 | Fortalezas | Contractual completo en la topología desplegada, refresco instrumentado (máximo 0,42 s marca→limpieza), revisión independiente y limpieza verificada. |
 | Debilidades | Host compartido y local; la topología normal y la corrección de la marca sin señal se miden juntas; el instrumento cliente se corrigió entre intentos. |
-| Oportunidades | Aceptación por el usuario y cobertura de las rutas PRODUCTION, `checked` y promociones. |
+| Oportunidades | Reutilizar la aceptación local y la cobertura positiva PRODUCTION/`checked`; definir insumos y escenarios concretos para pendientes de expedientes y operación. Promociones conservan el límite del fallback nativo medido. |
 | Amenazas | Extrapolar a producción, proveedores o CDN; comparar causalmente con el escenario eager. |
 
 ## Corte anterior — 4/6 en topología normal, 2026-10-08

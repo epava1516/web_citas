@@ -1,0 +1,181 @@
+{
+  "date": "2026-10-09",
+  "change": "MOD-06",
+  "version": "1.6",
+  "authorization": "User: Hazlo, in response to proposed consolidated operative contract and split acceptance",
+  "snapshots": {
+    "docs/14-contrato-funcional-v1.md": {
+      "snapshot": "docs/17-historial/2026-10-09-14-contrato-funcional-v1-antes-consolidacion-contrato.md",
+      "sha256": "e8a1f6355f902c47b67db932c6977ffb2c3ff04414e688e4628460abd232b1ba",
+      "base_enlaces": "docs",
+      "origen": "docs/14-contrato-funcional-v1.md antes de consolidación autorizada del contrato"
+    },
+    "docs/15-apartado-legal-publico.md": {
+      "snapshot": "docs/17-historial/2026-10-09-15-apartado-legal-publico-antes-consolidacion-contrato.md",
+      "sha256": "5c3bb638b635c77dbea936fa2f6b4f6d2848b9841445c6b4297a0c18b00002a6",
+      "base_enlaces": "docs",
+      "origen": "docs/15-apartado-legal-publico.md antes de consolidación autorizada del contrato"
+    },
+    "docs/16-contrato-ejecucion-desarrollo.md": {
+      "snapshot": "docs/17-historial/2026-10-09-16-contrato-ejecucion-desarrollo-antes-consolidacion-contrato.md",
+      "sha256": "276ca8d3f44ba6b233d483f7deff129cb1f984330a8bc5489c506b46a108dea0",
+      "base_enlaces": "docs",
+      "origen": "docs/16-contrato-ejecucion-desarrollo.md antes de consolidación autorizada del contrato"
+    },
+    "docs/17-seguimiento-desarrollo.md": {
+      "snapshot": "docs/17-historial/2026-10-09-17-seguimiento-desarrollo-antes-consolidacion-contrato.md",
+      "sha256": "288523881ccea4a75304619dd523aed5d9d4566b660b879fcd335ee34b61a922",
+      "base_enlaces": "docs",
+      "origen": "docs/17-seguimiento-desarrollo.md antes de consolidación autorizada del contrato"
+    },
+    "docs/83-auditoria-pendientes-cr09.md": {
+      "snapshot": "docs/17-historial/2026-10-09-83-auditoria-pendientes-cr09-antes-consolidacion-contrato.md",
+      "sha256": "43b536c6668128dbb9596c3a9b1e77ae4d37b3459674bd678b5ffad8afb82a29",
+      "base_enlaces": "docs",
+      "origen": "docs/83-auditoria-pendientes-cr09.md antes de consolidación autorizada del contrato"
+    },
+    "docs/propuesta-cierre-pendientes-locales.md": {
+      "snapshot": "docs/17-historial/2026-10-09-propuesta-cierre-pendientes-locales-antes-consolidacion-contrato.md",
+      "sha256": "8b7f8628891b5e18f1caaab6376c87148f88a29255ad2e7a05dd4f850ecdb5cb",
+      "base_enlaces": "docs",
+      "origen": "docs/propuesta-cierre-pendientes-locales.md antes de consolidación autorizada del contrato"
+    },
+    "docs/criterios-revision-benchmark-carga.md": {
+      "snapshot": "docs/17-historial/2026-10-09-criterios-revision-benchmark-carga-antes-consolidacion-contrato.md",
+      "sha256": "10ac672a7915c8c0d73d08fe5eb1696a667e8f9a291b6226769b4fb9bcb283af",
+      "base_enlaces": "docs",
+      "origen": "docs/criterios-revision-benchmark-carga.md antes de consolidación autorizada del contrato"
+    }
+  },
+  "traceability": [
+    {
+      "id": "local_vs_production",
+      "source": "docs16 §§8/11, matriz83",
+      "result": "Explicit synthetic local acceptance, real production gates retained; no new PASS"
+    },
+    {
+      "id": "functional_dependencies",
+      "source": "docs16 §§4/6/13",
+      "result": "One dependency rule and GS01 preserved"
+    },
+    {
+      "id": "historical_diagnostics",
+      "source": "docs16 §§16/18, criterios de carga",
+      "result": "Prior JIT/pause/prohibition no longer present imperatives; thresholds unchanged"
+    },
+    {
+      "id": "native_guarantees",
+      "source": "docs16 §17",
+      "result": "All six numbered guarantees copied byte for byte"
+    },
+    {
+      "id": "local_ci",
+      "source": "docs16 §§9/14, ci-local",
+      "result": "Local gate accepted, hosted billing not prerequisite; reduced profiles not N3"
+    },
+    {
+      "id": "linked_contracts",
+      "source": "docs14/15/17/propuesta",
+      "result": "Stale no-development/no-implementation language removed; real final policies reserved for production"
+    },
+    {
+      "id": "restoration_objectives",
+      "source": "docs14 §10, matriz83",
+      "result": "Existing RPO1h/RTO8h retained; no new numbers approved"
+    },
+    {
+      "id": "capacity_proposal",
+      "source": "docs16 §16, propuesta",
+      "result": "Proposed targets remain pending approval; no load authorized"
+    }
+  ],
+  "invariants": {
+    "six_MOD05_guarantees_preserved_verbatim": true,
+    "native_publication_semantics": [
+      "REPEATABLE READ",
+      "FOR UPDATE SKIP LOCKED",
+      "RULE_SOURCES",
+      "session_replication_role=replica",
+      "revalidación nativa"
+    ],
+    "public_load_criteria": [
+      "10.000 anuncios",
+      "20RPS",
+      "900s",
+      "18.000 dinámicas",
+      "1.200 dinámicas",
+      "drain≤70s",
+      "pendientes al cierre≤20",
+      "finales0",
+      "p95≤10ms",
+      "p99≤25ms",
+      "máximo≤100ms",
+      "65s",
+      "<800ms",
+      "<1%",
+      "15uploads"
+    ],
+    "technical_acceptance": [
+      "N1",
+      "N2",
+      "N3",
+      "GS-01",
+      "PostgreSQL",
+      "ES/EN",
+      "concurrencia",
+      "idempotencia",
+      "permisos",
+      "revocación",
+      "privacidad"
+    ],
+    "ten_CR_rows_preserved_except_synthetic_persistence_clarification": true,
+    "weighted_values_recomputed_unchanged": {
+      "CR09": "72.50",
+      "contract": "65.375",
+      "weights_total_each": "100"
+    }
+  },
+  "code_preservation": {
+    "reference": "artifacts/local-ci/20261009-120500-b78e7766/source-hashes.json",
+    "files_compared": 1015,
+    "changed": [],
+    "limits": "Comparison to final local CI source snapshot; documents excluded, no runtime test claim"
+  },
+  "documentation_checks": {
+    "markdown_files": 159,
+    "local_links": 2629,
+    "protected_copies": 23,
+    "historical_links_resolved": 1533,
+    "historical_anchors_resolved": 1,
+    "retired_source_references": 5,
+    "errors": [],
+    "limits": "Local Markdown links/ATX anchors and registered copies; no HTTP or app checks."
+  },
+  "phase_acceptance_changed": false,
+  "progress_weights_or_values_changed": false,
+  "production_authorized": false,
+  "tests_or_loads_executed": false,
+  "graphify": {
+    "existing_graph_used_as_historical_map": true,
+    "rebuild": false,
+    "claude_invocations": 0,
+    "host_tokens": "not_measured"
+  },
+  "final_document_hashes": {
+    "docs/14-contrato-funcional-v1.md": "c0e83f7f4912bcf3aa41a49388e0fd5bb53aecffa11df1dbb36aa520036c56f0",
+    "docs/15-apartado-legal-publico.md": "bc291de2d46b65d0c398113f3e1d99fe95f0f685363ae3ad743a6c3f210b759b",
+    "docs/16-contrato-ejecucion-desarrollo.md": "252a7f7655cc2747361ae2d25b866d07fa76c50e5f014583f01ec19157582afb",
+    "docs/17-seguimiento-desarrollo.md": "22c6bb77655e679806e0e67d16c9e7c7bc653cf71ee1213aae4d6ef7969c9182",
+    "docs/83-auditoria-pendientes-cr09.md": "27ce831ab24df66ea52c620a58c48cd80b6c1140a6bea47d72458ebfd1e47c0c",
+    "docs/86-medicion-avance-contrato.md": "a3b411b769486a94d9b53bea3fcb9202dd66060dc6b04ea0f10abb6091191483",
+    "docs/18-evidencias-desarrollo.md": "9de46be40b655b82f7263dec577e20f5ba071f4877fb8704310586ef487ecc7c",
+    "docs/propuesta-cierre-pendientes-locales.md": "6677dc750aee57ba33531e1c7916683b8509da36dc952c5e46b2702017e46a30",
+    "docs/criterios-revision-benchmark-carga.md": "10dd0f3f7e5569d719d518e505a2c47b85f660a212d46e494b44c05365cdba96",
+    "docs/README.md": "aa6d09a425ddba9855a992a3a24e82fda49164959742118dc4599a2a1a5250ee"
+  },
+  "static_checks": {
+    "ruff": "PASS",
+    "diff": "PASS",
+    "new_runtime_tests": "not executed: documentation-only"
+  }
+}

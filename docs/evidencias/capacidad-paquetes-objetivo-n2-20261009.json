@@ -1,0 +1,205 @@
+{
+  "result": "N2_BINARY_PACKAGE_INTEGRATION_PASS_NOT_FULL_CAPACITY",
+  "run_id": "20261009-184147-7ce88b8c",
+  "closed_handle": 62711,
+  "report": {
+    "id": "20261009-184147-7ce88b8c",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-184147-7ce88b8c",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5675397790037096
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-184147-7ce88b8c",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.4159884722903371
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06522806128486991
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.06446153903380036
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.8164758151397109
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.3261972651816905
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.7771865441463888
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-5977lolf/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-5977lolf/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-5977lolf/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.720861823763698
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-5977lolf/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-184147-7ce88b8c/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_rights_part_delivery.py",
+          "tests/test_rights_portability_binary_races.py",
+          "tests/test_portability_large_closed_transport.py"
+        ],
+        "exit": 0,
+        "seconds": 269.23646191181615
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_rights_part_delivery.py",
+      "tests/test_rights_portability_binary_races.py",
+      "tests/test_portability_large_closed_transport.py"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-184147-7ce88b8c": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-184147-7ce88b8c": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "18",
+        "time": "266.886",
+        "timestamp": "2026-10-09T20:42:05.963546+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "measurements": [
+    {
+      "source_binary_bytes": "12418",
+      "source_binary_sha256": "cf987487fd5cd76eeba097c705d906d17ba441c44956891d4b247d23f56e4cfa",
+      "measurement_enabled": "False",
+      "stages": "{}",
+      "success": "True",
+      "scope": "Real PostgreSQL/native approvals and local TCP HTTP. Synthetic eligibility/identity; small JSON manifest, one WebP/ZIP. RSS includes pytest fixture and local client/server in same process, sampled50ms; no Gunicorn/Caddy/p95/capacity or large selected JSON claimed."
+    },
+    {
+      "source_binary_bytes": "9437486",
+      "source_binary_sha256": "56a1ef20bb523149c43b22051a21ca2ca06526e533da5f00f02667d6acf86c68",
+      "measurement_enabled": "True",
+      "stages": "{\"selection_coverage_native_intake_and_approval\": {\"sql_queries\": 4536, \"seconds\": 13.518699368927628, \"sampled_process_rss_peak_bytes\": 323100672}, \"generation\": {\"sql_queries\": 678, \"seconds\": 4.384380225092173, \"sampled_process_rss_peak_bytes\": 350052352}, \"final_draft_preparation\": {\"sql_queries\": 255, \"seconds\": 1.990839894860983, \"sampled_process_rss_peak_bytes\": 337469440}, \"final_draft_inspection\": {\"sql_queries\": 298, \"seconds\": 2.2776202857494354, \"sampled_process_rss_peak_bytes\": 340795392}, \"final_approval\": {\"sql_queries\": 472, \"seconds\": 3.2630428140982985, \"sampled_process_rss_peak_bytes\": 340860928}, \"closure\": {\"sql_queries\": 326, \"seconds\": 1.885179702192545, \"sampled_process_rss_peak_bytes\": 337739776}, \"closure_replay\": {\"sql_queries\": 174, \"seconds\": 1.0002779141068459, \"sampled_process_rss_peak_bytes\": 340885504}, \"manifest_tcp_download\": {\"sql_queries\": 255, \"seconds\": 2.0078464220277965, \"sampled_process_rss_peak_bytes\": 400912384}, \"webp_tcp_download\": {\"sql_queries\": 253, \"seconds\": 2.0795311643742025, \"sampled_process_rss_peak_bytes\": 422866944}, \"zip_tcp_download\": {\"sql_queries\": 253, \"seconds\": 2.2378746466711164, \"sampled_process_rss_peak_bytes\": 432480256}}",
+      "success": "True",
+      "scope": "Real PostgreSQL/native approvals and local TCP HTTP. Synthetic eligibility/identity; small JSON manifest, one WebP/ZIP. RSS includes pytest fixture and local client/server in same process, sampled50ms; no Gunicorn/Caddy/p95/capacity or large selected JSON claimed."
+    }
+  ],
+  "source_manifest_sha256": "a24ad8e4a819dc7e500aa6d78d8a2addfb1c987ad1dacb06938c98f1feb6539c",
+  "scope": "18cases on real owned PostgreSQL17/Redis7.4/native build and ChromiumESEN; >64MiB real retained WebP sanitized snapshot bytes across8images, each >8MiB intact in isolated ZIP under64MiB hard limit. Observed PG waits/revocations for binary generation/image/package; closed final delivery including9437486-byte WebP over actual local TCP, replay/CSRF/purge. Synthetic ingestion/identity/eligibility; no external provider.",
+  "capacity_limit": "Pure builder8MiB grouping N1 passed separately. Current N2 confirms compatibility of larger individual images and authorization; those >8MiB packages do not satisfy the target capacity gate. No1500-revision dual-case/p95/enforced resource budget/global memory/storage/common-sourceN3 claim.",
+  "archive": "capacidad-paquetes-objetivo-n2-20261009-artefactos.tar.gz",
+  "archive_sha256": "6a2c90d1bc6868e5d71bfb6bdc501f36847694d9e9196869fd7fc6f26e0b1dd1"
+}

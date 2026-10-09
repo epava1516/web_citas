@@ -1,6 +1,6 @@
 # Plan de seguridad, implementación y validación
 
-Actualizado: 2026-10-03. Estado: planificación; ningún control implementado o verificado.
+Plan de requisitos del 2026-10-03. Revisión documental: 2026-10-09. El plan conserva sus controles, gates y criterios; la implementación y verificación local de cada alcance se consultan en [seguimiento17](17-seguimiento-desarrollo.md), [auditoría83](83-auditoria-pendientes-cr09.md) y [matriz88](88-matriz-cierre-derechos.md). No implica que todos los controles estén pendientes de código ni que estén aceptados integralmente. La revisión externa y producción siguen sujetas a sus gates.
 
 ## Propósito y alcance
 

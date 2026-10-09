@@ -1,6 +1,8 @@
 # Selección granular aprobada de portabilidad
 
-Estado: diseño de integración; implementación y aceptación pendientes. Complementa docs76 y mantiene abiertos CR09 y el contrato completo.
+Estado vigente: selección/revisión/generación locales implementadas en los alcances recogidos por [matriz88](88-matriz-cierre-derechos.md); CR09 integral y contrato completo siguen abiertos. Las notas de avance posteriores conservan la evolución y sus pendientes en cada corte, no sustituyen la [cola actual](17-seguimiento-desarrollo.md). Complementa docs76.
+
+Actualización2026-10-09 verificada en alcance N2 seleccionado ([evidencia y límites](evidencias/seleccion-paginacion-correctiva-20261009.json)): la revisión HTML se limita a50 filas por página y requiere consultas auditadas completas antes de decidir. `RightsPortabilitySelectionRead.page_metadata` liga página/total/límite/huella; `RightsPortabilitySelectionReview.page_reads` liga IDs exactos a la decisión. Cambiar página, sesión, MFA, selección, fuente o metadatos invalida las referencias; una lectura de imagen no satisface las páginas omitidas. La interfaz nativa completa sigue diferenciada. [Campos HTTP y códigos](contratos/10-denuncias-derechos.md). Migración0111 se verifica en el entorno PG propio; no se afirma aplicada en servicios normales ni aceptada desde este texto.
 
 ## Persistencia y vínculos
 

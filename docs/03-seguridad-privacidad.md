@@ -1,6 +1,6 @@
 # Seguridad, privacidad y moderación
 
-Actualizado: 2026-10-03. Estado: requisitos y controles propuestos; no implementados.
+Documento de requisitos y evaluación inicial del 2026-10-03. Revisión documental: 2026-10-09. Las propuestas siguientes conservan su contexto de diseño; existen controles y recorridos implementados localmente con evidencias en [seguimiento17](17-seguimiento-desarrollo.md) y [matriz88](88-matriz-cierre-derechos.md). Este documento no acredita por sí mismo implementación, seguridad global ni producción.
 
 El inventario normativo, entregables y análisis de aplicabilidad se desarrollan en [Marco legal](06-marco-legal.md).
 

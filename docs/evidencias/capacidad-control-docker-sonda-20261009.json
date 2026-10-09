@@ -1,0 +1,28 @@
+{
+  "schema": "owned-docker-resource-control-capability-v1",
+  "container": "web-modelos-capability-8d556fa54966",
+  "command": [
+    "docker",
+    "run",
+    "--pull=never",
+    "--rm",
+    "--name",
+    "web-modelos-capability-8d556fa54966",
+    "--network=none",
+    "--cpus=0.25",
+    "--memory=64m",
+    "--cap-drop=ALL",
+    "--security-opt=no-new-privileges",
+    "--entrypoint",
+    "cat",
+    "redis:7.4-alpine",
+    "/sys/fs/cgroup/cpu.max",
+    "/sys/fs/cgroup/memory.max"
+  ],
+  "exit": 0,
+  "stdout": "25000 100000\n67108864\n",
+  "stderr": "",
+  "absent": true,
+  "scope": "Tiny kernel-control read; no application capacity load/reservation.",
+  "limits_verified": true
+}

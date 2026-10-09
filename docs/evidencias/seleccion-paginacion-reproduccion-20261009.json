@@ -1,0 +1,187 @@
+{
+  "schema": "selection-pagination-reproduction-v1",
+  "run": {
+    "id": "20261009-153846-7ad60bd6",
+    "profile": "focused",
+    "result": "ERROR",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-153846-7ad60bd6",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5182936093769968
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-153846-7ad60bd6",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5222932179458439
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06463638506829739
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11512980330735445
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.8672318030148745
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.3175893761217594
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.6694146399386227
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-5s6tes7w/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-5s6tes7w/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-5s6tes7w/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.458202180918306
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-5s6tes7w/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-153846-7ad60bd6/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_portability_selection_pagination.py"
+        ],
+        "exit": 1,
+        "seconds": 52.92880627885461
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_portability_selection_pagination.py"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "error": "pytest failed; inspect its log",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-153846-7ad60bd6": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-153846-7ad60bd6": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "tests": "2",
+        "time": "50.818",
+        "timestamp": "2026-10-09T17:39:04.835320+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "observed": [
+    "52rows rendered for nominal page1, expected max50.",
+    "Independent selection decision approved with HTTP200 after nominal first page alone, expected409."
+  ],
+  "archive": "docs/evidencias/seleccion-paginacion-reproduccion-20261009-artefactos.tar.gz",
+  "archive_sha256": "a4e3d029c0c765674fbf3ece4be253942d7b73156a52ea409cf55f34d16d3d3e",
+  "limits": [
+    "Two synthetic in-process Django HTTP cases with own PostgreSQL; not TCP capacity or large population.",
+    "Correction currently under separate live N2 run; no acceptance from reproduction."
+  ]
+}

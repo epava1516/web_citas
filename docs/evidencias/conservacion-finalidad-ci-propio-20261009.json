@@ -1,0 +1,219 @@
+{
+  "schema": "retention-by-purpose-owned-ci-v1",
+  "classification": "Selected N2 PASS; not N3/phase or production retention policy.",
+  "run": {
+    "id": "20261009-142404-35ed23b7",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-142404-35ed23b7",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5263988240621984
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-142404-35ed23b7",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.41764921601861715
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03238776093348861
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.06460998998954892
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.967036962043494
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.4191431193612516
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.6700836108066142
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-j7zfi3ns/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-j7zfi3ns/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-j7zfi3ns/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.861921614967287
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-j7zfi3ns/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-142404-35ed23b7/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_erasure_plans.py",
+          "tests/test_erasure_plan_authority.py",
+          "tests/test_retention_reviews.py",
+          "tests/test_retention_review_races.py",
+          "tests/test_retention_calendar.py",
+          "tests/test_retention_mobile.py",
+          "tests/test_retention_localization.py",
+          "tests/test_rights_final_draft_retention.py",
+          "tests/test_rights_export_retention.py",
+          "tests/test_erasure_execution_revocation_races.py"
+        ],
+        "exit": 0,
+        "seconds": 359.96855301363394
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_erasure_plans.py",
+      "tests/test_erasure_plan_authority.py",
+      "tests/test_retention_reviews.py",
+      "tests/test_retention_review_races.py",
+      "tests/test_retention_calendar.py",
+      "tests/test_retention_mobile.py",
+      "tests/test_retention_localization.py",
+      "tests/test_rights_final_draft_retention.py",
+      "tests/test_rights_export_retention.py",
+      "tests/test_erasure_execution_revocation_races.py"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-142404-35ed23b7": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-142404-35ed23b7": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "43",
+        "time": "357.689",
+        "timestamp": "2026-10-09T16:24:23.772352+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "archive": "docs/evidencias/conservacion-finalidad-ci-propio-20261009-artefactos.tar.gz",
+  "archive_sha256": "a446a05c66618b1719e2b0bbd4ba30033aeada9789b1e7cfc99c3a1be3949cc4",
+  "verified": [
+    "Synthetic retain/review/erase/redact plans with exact purposes, bounded review dates, independent authority and opaque audit.",
+    "Calendar and follow-up preserve original basis/scope/deadlines and never authorize retention extension or erasure alone.",
+    "Observed PostgreSQL waits and permission revocation; concurrent same-key follow-up updates once.",
+    "Expired exports and unused final drafts cleaned by actual task functions; issued/legacy-issued evidence, source data and audit preserved.",
+    "Skip-locked cleanup retry and bounded scans; purged content cannot be revived by moving expiry.",
+    "Scoped HTTP/browser/mobile ES/EN and sensitive-data access controls."
+  ],
+  "fixture_policy": {
+    "initial_review_offset_days": 30,
+    "followup_offset_days": 7,
+    "issued_response_evidence": "Protected exception, not automatically purged merely due to draft expiry.",
+    "expired_artifact": "Only synthetic artifact expiry is shifted to past; no actual legal deadline inferred.",
+    "calendar_metadata_rows": 1100,
+    "calendar_is_case_capacity_proof": false
+  },
+  "limits": [
+    "Real PostgreSQL and task functions; this run does not claim real worker/Beat scheduling.",
+    "Parameters/bases are synthetic and independent fixture accounts are not independent legal review of production.",
+    "No new functional application change; consolidation of this remaining local scope in current owned CI.",
+    "No capacity load or common full N3; old accepted worker/Beat/restore scopes remain separate."
+  ]
+}

@@ -1,0 +1,2039 @@
+{
+  "timestamp_utc": "2026-10-09T20:49:31.680682+00:00",
+  "head_before_handoff": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+  "goal": "paused",
+  "new_contract_blocks": false,
+  "claude_invocations_this_handoff": 0,
+  "historical_claude_count_preserved": 8,
+  "governance": "AI_ENGINEERING1.0.1 read in full; V1 tool-free. Claude proposes; Codex applies, verifies, integrates and accepts. No direct handoff amendment adopted.",
+  "inventory_before": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "315f906760d70dd662abc88794e18e49f8be14149d180a03d56dbf0501080cc5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "README.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "2a0a4938a6d2ec8b9e2978ed127ed6e8fc60520f453255a558600311ce433214",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/core/urls.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "d82fdf7d5b6c2674bce6e92d986c510e29f91b80590abe9b721e9be4300dcb26",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/broker_message_projection.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "2df935f9130d7f76ada2010aa25476278d712a0a4ad2393db9f88449c4dab49f",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/decisions.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "c97fc7b90a729adbb5eadc81718e10783464f7074c9e63afc2acc0f11084c293",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/models.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "4a64e812124caabf9de9ffd6506d0c6f6acea01efd80db7cf2b200b8151eb16a",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_access_delivery.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "6dc3983154b23474343bd7a3dfdb80c1a3c7261eed27652757100427f072d45f",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_copy_parts.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "1abf86e7a0acaae3fa2d6f79ff7e59e4a84d15a9a07b78237598d82b0efcfd7b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_exports.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "63449d50ff6c4ac27403ba9fedc24be8dd2b62a184182a6764e53ce445f2ae24",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_portability_image_selection.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "8cd98c7bdfa634366a7bd22a38a2dfdf5fb954918bc86fa425243eb80de2ce82",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_portability_images.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "45f7420809efb75d4a77fd7f920cede31e1637e345ada2bf4b1a41f22cfe4629",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_portability_selection_review.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "622f59ccf7be74c3e482741c0dd38207c18edc972c927d022722cb7d6ef02d48",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_portability_selection_store.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "572c678b5eb27a8e3fb0425d6331c83a4685de6041930d9f743e9063e4650dcc",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_portability_selection_views.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "9d75cd688c12bbc13784afd1b1ce0d26b2f7932bfe840d8da84fb2d9e061f3a9",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_portability_use.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "146a5b82e7c5fbb349fc320cef1333f387821ebfb1c5ae26dc5979ca4eb2e03d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_scope.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "739fd9e4236709de19177d417bc74ce5d867b6db0e608f3a2702cb74fbc0942a",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/01-producto.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "7cb147b6285d6358debf11f7ba3029e5004b444bc49f1ec4fe7b88d13331ae93",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/02-arquitectura.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "b1c9cc32ad099238587160573748f8152e4724a99829199915c5ba7f2eafe8bc",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/03-seguridad-privacidad.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "48964f0242257979ceab0a1a432833e0faaf12ab2966d1162b171d4834e75c19",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/05-decisiones.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ba5657654497fd815956349c2c6417db9e8d2ed2b489903f06c48e5f1825a185",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/09-taxonomia-ubicacion-busqueda.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ea5d7b28204ad2c74036d35ca5ae7cbfcb15b078e167d50ff7a5a922a2915716",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/10-unicidad-antiduplicados.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ef11a15a37749dcb8eeaa55a4f459f80d9f4ad1479201236582ceaaa8fea9798",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/11-plan-seguridad-validacion.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "d566c4810f3b3b7ef1dfd2664b5ee6bb0edd9b97c25755ee44b167ff358d8122",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/14-contrato-funcional-v1.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "c0e83f7f4912bcf3aa41a49388e0fd5bb53aecffa11df1dbb36aa520036c56f0",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/15-apartado-legal-publico.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "bc291de2d46b65d0c398113f3e1d99fe95f0f685363ae3ad743a6c3f210b759b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/16-contrato-ejecucion-desarrollo.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "252a7f7655cc2747361ae2d25b866d07fa76c50e5f014583f01ec19157582afb",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-seguimiento-desarrollo.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ffca21a9c5c8ef72b1bcf4136504ff6fd99fb5cdf55ad854c4282d72c2dd4407",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/18-evidencias-desarrollo.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ac10e620042a70d6d5f692ebad3237d3cbdbd6c9c39b50bc605b4213a6b0b98c",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/19-graphify-analisis-local.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ff8b6b8f19bfca97008fac4f8cfe127318e164580469ceb2ae2a3f59ac790fe3",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/28-ejecucion-supresion-ambitos.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "d64035af7f0440d3004e9f149cdede059c02a6eb38e9242c2cc6f8622b5aea59",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/37-alertas-denuncias-urgentes.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ec7415c38e7896b745599e6264cca89685d93657fb477c6da7ccb1c595fa05cf",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/42-copias-por-partes.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "9ed8df51b51073d8f85b617b719963ce40a139f454678659ba7e695041763501",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/77-portabilidad-seleccion-aprobada.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "648d092b382d4e5afaf41f167bbc2fb18686e24cb9383ba5c979b9189f7c1382",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/83-auditoria-pendientes-cr09.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "fac02e304581494c656abc58fe238101c968e687329333e055683a349fb0225f",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/84-restauracion-sin-reintroduccion.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "e8cbc2138a849a492f0dfc679c13c5f1cad8d67511186eb32f09c190c955a204",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/85-operacion-registro-recuperacion.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "deb079839764df4bcf09b34de9629e4f1f321efb429a5c1057bc74576f962143",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/86-medicion-avance-contrato.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a3b411b769486a94d9b53bea3fcb9202dd66060dc6b04ea0f10abb6091191483",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/87-recursos-locales-recuperacion.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "2b486c7a124489455d5816d5f85e986eeec8eb856c351a952846b5737d436800",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/88-matriz-cierre-derechos.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "95afa7c94ff9da4836d5d8bb2fa777ca239c1840bac42918ab40a1fa6727cb05",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/90-comunicaciones-derechos-ejecutados.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a90ac797dff555cbb13a62feb0424548b20dfe0f94f9522e49848e580a27a67c",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/91-origenes-redis-rdb-aof.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "af769e4c4ea6a2243257296ccfa717c5e650cc390d99928cd84cec0bc8d3afac",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/93-propuesta-estado-publicacion-claude-code.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "62bbc9df6fe5c07a25bd8042a236a23cf660d6bcc8470306f18c7c3260387151",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/README.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "4a7e0e7552ca0cb8dded502ad080ffc9e7a48b1baa7ef5df51264436772f5dcb",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/analisis-bloque-rendimiento-dafo0110.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "d67109d2b6b2f1cfaa140e4f8ccc824b5f1e721a535ea8615119af735b092997",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/contratos/08-descubrimiento.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "430bda84d099f8fc3fad5bfd1311f8ef3f36ce82adb4f4712e05f62ff6cc91df",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/contratos/10-denuncias-derechos.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "db0d403c2c8d80fa03156dedd67749d5214c007c00df70122ae711c35d7ca821",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/criterios-revision-benchmark-carga.md",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "10dd0f3f7e5569d719d518e505a2c47b85f660a212d46e494b44c05365cdba96",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/auditoria-pass-mod05-r5-r6-script.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "79a0fa6252562e6a7dce70762a13880da4997332853f242cf7fb1b55603f0627",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/mod05-dirty-contraste-analisis-script0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "dc11826d30feca6a4fff5805584473417cb4aad5e49cac72b64763c7a724094f",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/mod05-orden-desconocidos-analisis-script0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "acde5d1e3c89c4b5bc9847682bc0fb0087518202681dfb887dc8d37614d23746",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/mod05-pertenencia-analisis-script0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "6e6a8da2e5cec7287e34d8b3b44f274c475313482d6ac9930196f60dce54ec89",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/mod05-pertenencia-matriz-analisis-script0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "2b70221f659c2e13ba8767befb024b2e16617e767534291a06163bf3db9822a8",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/mod05-recursos-analisis-script0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "e36f6f2d73077cb3a7f4b090a43ee59f9627c634724d3b8e78f85c0e937b825e",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/mod05-vps-host-reposo-script0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "f5d9c4eab2949677c4c7380cc0ae76c6483448d5b7b7083e3e8efb0f1623baf8",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/recalcular-post-limpieza0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "e8b42b42cb10e00468e45cf1190b146e3d796f49dcf20dfa07277a99b72342d7",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/recalcular-residual-prepared0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "38574765a899e7a98c3dcd3218b06bf236979bb6ca2abed302e6c8ed9ecf3bcf",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/reconstruir-correlacion-rendimiento0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "76286e004c9701e75f4608b189c4c8d4089608d1090104b27890265e7b2aac2c",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/reconstruir-servicio0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ee6c4435d0d69d1d13fe35782aa4422922e2e67c4a811da19e601c612224ee1b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revisar-recursos-servicio0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a637cea02e60114dd909f06e2ef9cc201ce49f7e278e0014e0b432cda68e797b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-codex-mod05-auditoria-originales-script0110.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "45bb7d05ea26b9d717e41d56665810a4bfdb4f5c8e511263193f50b6078511c7",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "pyproject.toml",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "47e23318730cc78c660c2c9d4c78d17c806abaaacc948eaa90db6104e063bfb3",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "scripts/benchmark_call_profile.py",
+      "status_before": " D",
+      "classification": "descartado_sin_consumidores",
+      "sha256": null,
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "scripts/benchmark_local_monitor.py",
+      "status_before": " D",
+      "classification": "descartado_sin_consumidores",
+      "sha256": null,
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "scripts/run_post_cleanup_resource_checkpoint.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "c0be898b36098b8759b19c1a894e70c0a957879e7153f0ebe965895dc6e8b84d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "templates/safety/rights_portability_selection_review.html",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ae94885c139f7f3fca11bc3afd8253747b99afc6e11324d704f92b19bf77a895",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_benchmark_profile_aliases.py",
+      "status_before": " D",
+      "classification": "descartado_sin_consumidores",
+      "sha256": null,
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_broker_envelope_schema.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "4b6678330bba10f755c8178ebc53e3d5703b1bd56c3a0401445497b0809ba42f",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_capacity_trial_stops.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "6f232419d9e7997566a45588e79fafa6daad01296761d1ba515b1e9331cdba00",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_local_call_monitor.py",
+      "status_before": " D",
+      "classification": "descartado_sin_consumidores",
+      "sha256": null,
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_portability_large_closed_json_transport.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ffc5f14b05ab4602f5e63a301e82c9ea7f374a3f24c78426bd3c3e46bd1e631d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_recovery_pg_restore.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "eb9f641b1e215b7578e958519d9b96be0bebabc68ec9afacf6e2d368f7cb0e73",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_resource_service_checkpoint.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "e244ba1c62aae6811a043f5290bc90e265a6d44227e7a780f154540128d0b307",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_rights_copy_parts.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "c89f8b32dcbae08676b50d57b2252ef3070475a9bda1d8ac1a6d9210dd63e8aa",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_rights_copy_scope.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a6957249b9af3621d500c664311a9aecb6a9bbf710ca9cf4f9f2f89de3608a78",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_rights_exports.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "9d6c876ab0f638623af36e623bc6be89fc2c0925a8aef1aa68deb714ccd92ae4",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_rights_portability_images.py",
+      "status_before": " M",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ef8dd81e04cf273e06b8ded32cbb8cf328bf941d000142bc069c05419b412306",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/migrations/0111_selection_review_pages.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "09fe07eda2b26d5f218226d73a0f1bb627574e1ac3a087cdb8d3fed6813c6112",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_copy_revision_batches.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "9d80c9278488fa7b62226f7571821297e43639268543a1ccd0af41704dc5301a",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/rights_portability_selection_pages.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "4f1fc62b8ad53f85b1681a5e0ee12003f0dcf998c1f133cd7377eb75c18b23cb",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "apps/safety/urls.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "2370c90e43d3532e5ca21db6d9c887b2e0c3fbc39a424cd2b6d3f4d971c04a6e",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-02-arquitectura-antes-organizacion.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "60d6dcfda59a2985dfb14f02db175f124cb4d7cc7f9216db4c5cc76973ab02d5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-14-contrato-funcional-v1-antes-consolidacion-contrato.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "e8a1f6355f902c47b67db932c6977ffb2c3ff04414e688e4628460abd232b1ba",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-15-apartado-legal-publico-antes-consolidacion-contrato.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "5c3bb638b635c77dbea936fa2f6b4f6d2848b9841445c6b4297a0c18b00002a6",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-16-contrato-ejecucion-desarrollo-antes-consolidacion-contrato.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "276ca8d3f44ba6b233d483f7deff129cb1f984330a8bc5489c506b46a108dea0",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-17-seguimiento-desarrollo-antes-consolidacion-contrato.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "288523881ccea4a75304619dd523aed5d9d4566b660b879fcd335ee34b61a922",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-17-seguimiento-desarrollo-antes-organizacion.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "8e81e047a39a5ecc8e3236be21faaa7049e510afcddfb302e9b15d8ebc39585d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-83-auditoria-pendientes-cr09-antes-consolidacion-contrato.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "43b536c6668128dbb9596c3a9b1e77ae4d37b3459674bd678b5ffad8afb82a29",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-83-auditoria-pendientes-cr09-antes-organizacion.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "de5d4243ebde16aa9647a5d20a9bf63e33ddff58b8778b10db34b8a66555b6ef",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-85-operacion-registro-recuperacion-antes-organizacion.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "fc767b4ee060d76de8d19b10a9239376dc38ac94fc5bf48a6dcf2c72d343cd20",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-86-medicion-avance-contrato-antes-organizacion.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "6ce111d51963aeafd3f7d4e9df5f98415d2875b0c31fb97edec7f727fec8ba68",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-88-matriz-cierre-derechos-antes-organizacion.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "d3c6f2664a89d64ef02e7b8bd53ef35704e9cac3e2767a5918b7899d1e85ee44",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-criterios-revision-benchmark-carga-antes-consolidacion-contrato.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "10ac672a7915c8c0d73d08fe5eb1696a667e8f9a291b6226769b4fb9bcb283af",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/17-historial/2026-10-09-propuesta-cierre-pendientes-locales-antes-consolidacion-contrato.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "8b7f8628891b5e18f1caaab6376c87148f88a29255ad2e7a05dd4f850ecdb5cb",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/ci-local.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "db1737651901554e86199572cea49f926ba4b6f12fb7767a95844c073bf612d3",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/auditoria-limpieza-local-graphify-20261009.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "727f23a715ef2742407ce1ec301ac5ac4a309bfe660be5995a01c212a64240d5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-concurrente-fixture-cuenta-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "47b5cc6e46442398348eac6e039451fc6c1026f540634ac0b132a0f98b8439d0",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-concurrente-fixture-cuenta-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "be300d4aebe82ddcf13a245aca9bc75552a7de43413c1707c1e929199d5416dc",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-concurrente-fixture-sesion-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "2a2030441262964393b0703bff905439ddd13e29a2bb432a147a099dff4fffb8",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-concurrente-fixture-sesion-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "640ca94ee667e86d110dc0b5f088f58b0e5ff9c5b879b5ced3caff84542c3f50",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-concurrente-fixture-sintaxis-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "87f10839cfb49bdef2f09cdc1ddf8e21fa3ee534eceb8148c771eb269b829907",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-concurrente-fixture-sintaxis-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a214b52fdf0fb63a2779edcbbaa7cb73c68383bd904c479229eb00a65c750080",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-control-docker-sonda-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "063407984e0909b35477aba638677509d8251fba3db89fc07575e4e6155013fc",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-control-expediente-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "1e77a0ba55b9bfdc8f10c96a25c32ac033f9a9e3be102d593246d247d0ae0737",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-control-expediente-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "53fe8ddeee4de85d30ee29b2d00153ce73eefef3bfd23ef0ef1201739eea6d69",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-control-recursos-sonda-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "1204efce354dd7e918499b7d29e51609f9dd7a2bca98566e81bfc27e8279a0f0",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-controlador-systemd-sonda-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "8a9c4d1b7f40cdc1dfa52536154c3f3c7854eab530a7a5c4733c6e6d022197a0",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-entorno-propio-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "7d639db31c353cc131d5adee1572980d9a1b9bc79f1384410f08d4f2c1cb9d67",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-entorno-propio-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "411e15586b820bb9117392b53b7fc44273ae39a575270f18ed44421d9e3716df",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-entrega-binaria-guardado-inicial-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "10826f3adc34d2d9afded26a86cfda814001b458b510f45ff4b87953eca55773",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-entrega-binaria-guardado-inicial-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "b8ff0579650a6f3ee2d961cc8363c8236919bda0a5fa14be5c7c43cbeccea7f6",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-entrega-binaria-revision-inicial-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "637b9e99a250fa25f5ddbc5bf2a76d94517f66550c96a2dd18a470918e7b8084",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-entrega-binaria-revision-inicial-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "e2c73c8c83d0ec7c560ca63541e906f14ebafc63bb484f8912b21e9598776e5d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-fixture-objetivo-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "0fd413e9c356431bfe9ec85b668bbdef0f4cdb5e63b333895432d3813fb54ede",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-fixture-objetivo-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "2c0eced33a2b6bdb9aedcc9d6665fd15e8b4dec95a3046700bb610c66a2360ee",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-paquetes-objetivo-n1-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "7d8b1b61fe7bd434e0532a404e2085772de4b8d871e40cbe7f1e0187d07cedd7",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-paquetes-objetivo-n1-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "1b7e0e2a5e9d5841ffc7d5fe815a2502663b86bc6bfde9b07425cbc5a95fa009",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-paquetes-objetivo-n2-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "6a2c90d1bc6868e5d71bfb6bdc501f36847694d9e9196869fd7fc6f26e0b1dd1",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-paquetes-objetivo-n2-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "5b82eb7f8cebb13b9e18cd87fef003d450bad61bb6a5e7eb1713e331a5da642d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-python-contenedor-sonda-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "afe0a992c495a431895277806a35d6867396d7255cc7151059ff50eebe5d7d54",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-python-contenedor-sonda-v2-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "2ffc01eb5a3c7cdfef1c37bf2a4cee9e0e879c1b9695598dcb93e459c1bd63dd",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-reserva-benchmarks-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "86bb221dabcc577b151148999dddc21e699b46b507ac162ee1be3c8a64be8ce9",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-completa-inicial-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "e248844d3615037b02fc3e8543c2d17b22757ce4d05779e2f2241677d01d53e5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-completa-inicial-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "1abc6659829ddacf9cd035cff5a8bd98bfbb77773ba34d00b2b135392f2ac004",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-completa-versiones-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "1385f89e941f16eebf05c28454c924d68be4c69842834379506eea64e6b2a641",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-completa-versiones-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "51f1ee8b458e9aae322c3a3f0ad5b4b192bff513a92d11b47acb7d03b0764531",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-concurrente-inicial-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "5095fd927c17e1ec160679e1c2edf18e49edb3a604fff63b4d645eaa3fdf8637",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-concurrente-inicial-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "6cd455ab6ce09d7840f29f23c8a1e47edc2634a30adb2be52fd5c27085d7683f",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-gunicorn-inicial-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "92948f2e503b1e94a0cb8aa97d3696ed6af32d7eb4980b91dee58ec014c9d18b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-gunicorn-inicial-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "47dbf206aa98011aad131b69aa68f7a5b92dc41b1945c68e4d971b44cca929ac",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-perfil-wsgi-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ed9b89cf2b2ee769c5b1f9f698b68a3678971a22a22bf73cc258d46678271a4d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-perfil-wsgi-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "4af5ba5c6a39b7a3706f4089a152271c81a482b487eb85b504d18fd9b772ae23",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-reparto-pg-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "292ccede0a488c9f464688b969e6e48e7f04788df4a52f18b658d6423757420d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-reparto-pg-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ad1caf78295a5d398d6c3c73fdddb7703b9bc9e6fbd2ea4de8bea8db26d33912",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-tcp-diagnostico-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "f83fba141c679b71b23cafa2c3dd93378b02c61c12d118a7be8b4f1cb58e440b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-tcp-diagnostico-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "5e0429d219694b5c36caf1797555beafc0bf8615b0ab014ce4100ac4d451a34d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-tcp-inicial-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "29a07246a2b99fde401c7e72fe25ffdcf5b677885b37717360c05dd363023830",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-tcp-inicial-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "c0372284d737938eb13e10f0d1466bd2d64277018856a7f9ae7ea020fb716fb5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-uuid-nativo-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a6c01348cf1de5bdbd97ff61635461a78d5eb1c87729bd40115169d5b96cd5d3",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-seleccion-uuid-nativo-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "1e688fdd3bb6447ae234d33b9f60cad31afe796981cbcc958a7db8488e67ead6",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-snapshot-batch-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "1569f6018552fe70c94762a87fe093409ff169b38bdd8a33dcb106a4a7a0f6f4",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-snapshot-batch-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "7c65b30cf9a49e9c42110914362302129c7ae416e16eef9a203925b5e49174c9",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-snapshot-relaciones-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "57f61ce8e66dd2706c6d51b8b74d29c145281ca4a4bd2f25e94571984b0aa8f5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-snapshot-relaciones-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a833b8fa96c56cea33cd1ebe8a5246ed75b03ab7cddb4ab891c634a005f77d16",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-snapshot-vector-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a02fcf65d16105a4ec9b3dc078887baa1ff1668f0f5d9e51f0fd0729256e2235",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-snapshot-vector-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "23d0140d03079d50cab69edaf1bd622204ddeac8342071c29c63757ea0d9cf98",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-sql-conflicto-agencias-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "73f7b130a36c339e061e60e8a0e089f213e7a805a162688d0a218a49fab04249",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-sql-conflicto-agencias-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "85773a243679f82fd54b76a97998bbd16b2c2e132b9d5eac186b86ab9db2d42f",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-transporte-ip-real-n1-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "69a6ab3e16b090a015418e5441abf47f6bd5ed5d7279ca6bd1be0e1bc03b9b7c",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/capacidad-transporte-ip-real-n1-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "4670d26d106eabd2570e8f3aae50a689284e23dbad0d3f53d0fddf66da31bf49",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/ci-bloqueo-cuenta-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "d60308f1e3bc586b54779d637b83140ae45515ae74d99573e91ea4925e7d3651",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/ci-local-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "1ec23892905923eea01dd9700c7a4e15e30001b7a2f0465baf1bff3694deef6a",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/ci-local-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "de6b179cb83447dbedd8264df07993a2621cb488911725cda0e3c2c3a81e67b5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/conservacion-finalidad-ci-propio-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a446a05c66618b1719e2b0bbd4ba30033aeada9789b1e7cfc99c3a1be3949cc4",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/conservacion-finalidad-ci-propio-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "86ed5ffd0351f6fff058e97a02a1e3f62fc8cda50466bb94d0aad9d11c230472",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/consolidacion-contrato-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "b8930ef9861c07467de18fe69d6aaf09fc065be54678aa953f9cab69e5db9028",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/cr09-censo-bateria-inicial-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "28020d1c992123b5d0599397172b99ec253535d519b9a94e557ecdaa6fe373d3",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/cr09-censo-bateria-inicial-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a34f825edb59df602bf5131868552fb12e9998d4eb1001911593d5f3fc43c7b4",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/cr09-correo-autoridad-reproduccion-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "0982d77a0871e20262626e909f872de7e0892c6ae012ea9bda4b32b87e83db42",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/cr09-correo-autoridad-reproduccion-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "54fe12437e6c603fd391a589c825e8fbb89382fe82f36c0f3ade9fce2b158d6b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/cr09-correo-autoridad-urgencias-correctiva-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "8809027f02818aef352b1594c6a39bd740bfac8078fdf1c5573a236795525d89",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/cr09-correo-autoridad-urgencias-correctiva-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "4bdaa59ebbd92d5a725132fef6dce075f2a70424117555f3a8ed2ff60be4f4f5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/examen-graphify-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a0ccf2a727ee5045967c7e6c04b235f24623ac4e7bd94c42d2de8be7ccf5bac2",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/fuentes-antes-saneamiento-20261009.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "6d03ccf3bd929b0b4e1d005fa7a251a8759dc55d920d5b480569c0f5353ce6e8",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/guardado-binario-fuentes-correctiva-n2-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ef12d37eaff80b9da8d823fee8569e13492f7653955d7f45f34142d88948c664",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/guardado-binario-fuentes-correctiva-n2-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "3bec76d0bea821e6f55a34ca64b8c1cb0863f0ecedeb14dae9e0b7315ba76b32",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/guardado-binario-fuentes-reproduccion-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "00a23dbdffa89a9ad2413054a47802bd1c730fb162ff6a0d8c0be1a0d589f8d5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/guardado-binario-fuentes-reproduccion-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "9524c202c7e38a692700063af744e8ff5ee7fbc8fc66c3966203ee72d7efcfde",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/limpieza-instrumental-descartado-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "717cf0ff4a8fabee6f00b986cb89a3fa7e9c10482f48e556279ff8cf5e8c5fdb",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/objetivos-capacidad-local-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "654fad31a94311f872a8520651ec1c9b4ee6c81a92a46ff11a9468ca906a0d88",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/organizacion-documental-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "2d47e7e99f4da9c59b99a7071daede503ff62b48428f0087b1dbd44802988859",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/restauracion-ci-mod05-final-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "54843911478538c537780839025a808dbe0198533f9ff822f42dc2a11622404c",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/restauracion-ci-mod05-final-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "720c1683795d79a9a1431c63bc2f2864534ff82ac3ab5e1d3a3bf7434ce61fe8",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/restauracion-ci-mod05-inicial-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "3a0b90421e00112c25465c4aacdefebe13e8e31e61aa52994f958730d0bad9e8",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/restauracion-ci-mod05-inicial-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "b7be4565c14b944d69acda60c1eb3ee27079302488062665feee6af0e5de7314",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-auditoria-frescura-reproduccion-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "42927262476b6426276dd7affa221dbba53a6edc40c52cded57ae43448ee80f5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-auditoria-frescura-reproduccion-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "6b78fc1918909595df448a03a5ac9dcec4f47764e954a8a8342d47c1bddedb06",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-auditoria-reproduccion-interrumpida-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "75ec9941639a55ef378147624086653f8b736250cd8a79f02b188dd652807fa6",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-auditoria-reproduccion-interrumpida-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "16ca75bbc363dcd9cebe240d2365d2f8ea2a10cbbd5dbc6eb8dfb803ecd68b6c",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-candidatos-n1-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "c1cec98f10cee664e0c43443592b62e2085f573f03d8b8ec7dfb3e8ff49d62b5",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-candidatos-n1-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "31b9ee1ced034b98096f672133cc9fb5944fdb47a92ff5fae8a4f0274f01b001",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-candidatos-n2-correctiva-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "4ea02d33620e48e7cdd2bf2d5eb196805406b86ff04d6e0eb6e54a8c31d1f03f",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-candidatos-n2-correctiva-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "033214fa452ea3224d52fff838db8f660b5485219add567bac659f3cb1d09d6f",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-candidatos-n2-inicial-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "242ad6ad18b31b29ad7e663e24f6562476edf77ccbc833ca84da6145f8f91e05",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-candidatos-n2-inicial-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "26fff70c8cc8411fa643f658cb8eacd8f3aa67839f8e81566d28b634b19f4134",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-perfil-nativo-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "d946e6bf32dc4200455a2c84f10c564175d5268fcd5861533d0257291fd19f4a",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-binaria-perfil-nativo-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "fdd1e2beac87fa9a4ee449a023e41815afc59c9c0c667c1bf7d9ecd166c341f0",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/revision-documentacion-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "d8b081c7204828009c8e46e57def686712fa771aead5982f0e64f9ab7f6ff954",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/saneamiento-tecnico-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "4e084462306c9af1b751f9e23a3caa551adb33f56655aed587017dc75996d0ec",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/saneamiento-tecnico-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "0b30109b6c678b34a93d6fe0d6bd413972b39179d8094ce8ba8976716ab0b58b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/seleccion-paginacion-correctiva-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "bcd475573cd4db0b96c492be9443e749ac9cc2eedb799e48992ccfea5341b61e",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/seleccion-paginacion-correctiva-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "f9fc3712bd240f5b00db1d9c6750abd7c0cd7e382ecf12385aa3f291487f7120",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/seleccion-paginacion-reproduccion-20261009-artefactos.tar.gz",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a4e3d029c0c765674fbf3ece4be253942d7b73156a52ea409cf55f34d16d3d3e",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/evidencias/seleccion-paginacion-reproduccion-20261009.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "dd0ca0de79250eb4d4ffd75cb89163443c0dc840b2fa059ed17bd1737e68e23a",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/historial-documentacion.json",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "caff291674d76ba18866b634ba11006850bb7f8f98e053190caf324621bd4f85",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/propuesta-cierre-pendientes-locales.md",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "6481be282b12d5980c8336cfe0457b1cc95b1f74a07c041950ff289e5b7178f4",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "docs/propuesta-graphql-manual.md",
+      "status_before": "??",
+      "classification": "procedencia_no_confirmada_fuera_contrato",
+      "sha256": "b1d3cddb1263b6c0f07430198dce9a66c51c14fc872b475ac71de8a646f6173a",
+      "commit_policy": "preservar_sin_commit"
+    },
+    {
+      "path": "scripts/capacity_artifacts.py",
+      "status_before": "??",
+      "classification": "propio_incompleto",
+      "sha256": "64333ff3f0f5ba39a599dbc5f1dd8bb929d520dcfb0f0a450b40eef0aa87a8f9",
+      "commit_policy": "preservar_sin_commit"
+    },
+    {
+      "path": "scripts/check_capacity_environment.py",
+      "status_before": "??",
+      "classification": "propio_incompleto",
+      "sha256": "78bc40eee5333b2a553fdb8acfbad0b7c2129964e7f0c1bf72d2d6cec9def57c",
+      "commit_policy": "preservar_sin_commit"
+    },
+    {
+      "path": "scripts/check_docs.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "fcbd61986fe8acb1c7d744c18e383b20e744ebba7e0d0e764c630bea44c5e27b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "scripts/prepare_native_test_tools.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "5786db271d7ff6f686aec9e68fd89b2ac3967094776d320b55b50e29553bcc7a",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "scripts/run_capacity_environment.py",
+      "status_before": "??",
+      "classification": "propio_incompleto",
+      "sha256": "647c63bcf6b60170bc555f69c9dfaf343bb7fd46d852de4ca66c5e47f3cdcabd",
+      "commit_policy": "preservar_sin_commit"
+    },
+    {
+      "path": "scripts/run_local_ci.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "e585fb6e535b2d8baf70a02d50ab05ad13898de030cd4375afd5912f7bae8382",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/capacity_delivery_flow.py",
+      "status_before": "??",
+      "classification": "propio_incompleto",
+      "sha256": "06c96bbbb48c8aa798c7b9cafefbcc31ddfe1c4ac436f47535ae8c2b39696236",
+      "commit_policy": "preservar_sin_commit"
+    },
+    {
+      "path": "tests/capacity_delivery_http.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "e067ac24d926e0adf4270b42c15b97a1a23107cb8588f11bb266b2e72f35e158",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/capacity_gunicorn.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "0e8f5d4ece608dd41e2050be65b03c916939e274f882ffbfb85bdcd0a0da5d73",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/capacity_profile_wsgi.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "aa0eec112aa792281fbf0bd4261d4e282874ae6e12541224c43eee6426dd66eb",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/capacity_target_fixture.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "a6672ad10fb2e047907ec6bf0e80ca1f7ace7a02534f06c1e4e92dbb6bc8461e",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_account_mail_projection_templates.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "abf19866cabd8da35366c8784bb88de2f087ad6646a0ed13fe6e138955ae4e1a",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_capacity_artifacts.py",
+      "status_before": "??",
+      "classification": "propio_incompleto",
+      "sha256": "16cd0a4baae0e2d8802fd1ae0fd0d56541dc0e7381a9881a0640d227a458cb83",
+      "commit_policy": "preservar_sin_commit"
+    },
+    {
+      "path": "tests/test_capacity_case_control.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "b6c32de27066fb6c1dc45edc5e68b27e5fed463f52423dc9c5f86966f97a1204",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_capacity_delivery_complete.py",
+      "status_before": "??",
+      "classification": "propio_incompleto",
+      "sha256": "6e879ef301b2d5cbfd1ba8530d4ea7c36e7639ff1a9d1b33da1dca1367f80dc3",
+      "commit_policy": "preservar_sin_commit"
+    },
+    {
+      "path": "tests/test_capacity_delivery_http.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ef693d0f6575f25d231c385e7933a387afd83f9ee7e2086e961762c351aa859d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_capacity_selection_concurrent_tcp.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "c1b682465ecba551907071737550ff75f3635ee143c684ce38717c7150e83126",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_capacity_selection_tcp.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "65120f1103bbc1d4f1ff7a05f7162dcfee32c745dd79ffa854d6a01d372e5f8b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_capacity_target_fixture.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "e773e0f6d3d455d6a811905f1ab783060bc8f019fdd03054222314db23c96eaa",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_portability_binary_page_profile.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "0f9d21b35f9a2da0a5bfe40bbbfb0d31b1870b1a0290cd0dd9a013cd1b4e794d",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_portability_binary_save_shared_source.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "d78e2cb950cdc833c9ce219093e5798971a8de1d6550c9d0cd3b6094dc1b7dd4",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_portability_selection_pagination.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "cf55dbd77899f2cce4271f758a7f8b75912a5c9c4ea9507e510c80375a9ded16",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_rights_agency_conflict.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "ce7175102ee96e5a08627cefa6f91d4572fdf9a8d4e32f770cc7d2218b89d22b",
+      "commit_policy": "commit_local"
+    },
+    {
+      "path": "tests/test_urgent_report_drill.py",
+      "status_before": "??",
+      "classification": "propio_terminado_verificado_en_alcance",
+      "sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69",
+      "commit_policy": "commit_local"
+    }
+  ],
+  "local_branches": [
+    {
+      "branch": "codex/cr09-binary-memory",
+      "head": "86739b8d247a77849f9aee586714335bf97aff29",
+      "non_ancestor_commits": [],
+      "patch_equivalence": [],
+      "preserved": true
+    },
+    {
+      "branch": "codex/cr09-inspection-hotfix",
+      "head": "1a4847f3a2d12a208de87800412f5ab14c099eae",
+      "non_ancestor_commits": [
+        "1a4847f3a2d12a208de87800412f5ab14c099eae",
+        "b98d4efbdbe6cb46c383e852b9400a05b1c79da1",
+        "85a5c7a14152fc9fed0bd9e7709dd2b5f50b9e46"
+      ],
+      "patch_equivalence": [
+        "- 85a5c7a14152fc9fed0bd9e7709dd2b5f50b9e46",
+        "- b98d4efbdbe6cb46c383e852b9400a05b1c79da1",
+        "- 1a4847f3a2d12a208de87800412f5ab14c099eae"
+      ],
+      "preserved": true
+    },
+    {
+      "branch": "codex/cr09-rdb-metadata",
+      "head": "467974f9684323456f97d5c5f69b3d596adf10c8",
+      "non_ancestor_commits": [],
+      "patch_equivalence": [],
+      "preserved": true
+    },
+    {
+      "branch": "codex/cr09-rdb-origins",
+      "head": "9c5e37af927698a72509c166a050e6b516c4ead1",
+      "non_ancestor_commits": [],
+      "patch_equivalence": [],
+      "preserved": true
+    },
+    {
+      "branch": "codex/cr09-rdb-physicalmeta",
+      "head": "bedc016be87da8136407502c2112c5c834d1fac3",
+      "non_ancestor_commits": [],
+      "patch_equivalence": [],
+      "preserved": true
+    },
+    {
+      "branch": "codex/cr09-scoped-redis-history",
+      "head": "9aff6b0e3d8fb7f32727bf57b84c4b09c0e675da",
+      "non_ancestor_commits": [],
+      "patch_equivalence": [],
+      "preserved": true
+    },
+    {
+      "branch": "codex/cr10-catalog-prep",
+      "head": "b6cbbe84047d8d74d10d689b1a252e79554d9dc0",
+      "non_ancestor_commits": [
+        "b6cbbe84047d8d74d10d689b1a252e79554d9dc0",
+        "cd0da56e7bf42db175b93db3f477f9c981f9fde7",
+        "ce4729e51186ec002b6a8d9f7f9b11b26ba9e2f7",
+        "1657f1f094a2434be6be5f8f546c5d47d4683089",
+        "7dbd73eb6fc217ec0392dcdca2652faebfbe7af8",
+        "d772ea029af95065a6f2c68d596051d9505292fb",
+        "92972f3e4eade14ae67d85ef9caaa772057e9736",
+        "db0f03f42550d7a0dcfbad2764bad9d6e957f9ec"
+      ],
+      "patch_equivalence": [
+        "- db0f03f42550d7a0dcfbad2764bad9d6e957f9ec",
+        "- 92972f3e4eade14ae67d85ef9caaa772057e9736",
+        "- d772ea029af95065a6f2c68d596051d9505292fb",
+        "- 7dbd73eb6fc217ec0392dcdca2652faebfbe7af8",
+        "- 1657f1f094a2434be6be5f8f546c5d47d4683089",
+        "- ce4729e51186ec002b6a8d9f7f9b11b26ba9e2f7",
+        "- cd0da56e7bf42db175b93db3f477f9c981f9fde7",
+        "- b6cbbe84047d8d74d10d689b1a252e79554d9dc0"
+      ],
+      "preserved": true
+    },
+    {
+      "branch": "codex/cr10-commercial",
+      "head": "a2abc712314796b19b1a156f9b4be76c4a503b9a",
+      "non_ancestor_commits": [],
+      "patch_equivalence": [],
+      "preserved": true
+    },
+    {
+      "branch": "codex/seo-structured-public",
+      "head": "36f4d57c3a6a0850dfe06853b66e51ed7a3696e9",
+      "non_ancestor_commits": [],
+      "patch_equivalence": [],
+      "preserved": true
+    },
+    {
+      "branch": "cr09-rend-lectura-normal",
+      "head": "1a10ecf86a808daf9ae4dd2f72fbe414d5fc3c91",
+      "non_ancestor_commits": [],
+      "patch_equivalence": [],
+      "preserved": true
+    }
+  ],
+  "worktrees": [
+    {
+      "path": "/home/felidae/proyectos/web_modelos",
+      "changes": 220,
+      "preserved": true
+    },
+    {
+      "path": "/home/felidae/proyectos/web_modelos_cr09binary",
+      "changes": 0,
+      "preserved": true
+    },
+    {
+      "path": "/home/felidae/proyectos/web_modelos_cr09binary_baseline",
+      "changes": 0,
+      "preserved": true
+    },
+    {
+      "path": "/home/felidae/proyectos/web_modelos_cr09hotfix",
+      "changes": 0,
+      "preserved": true
+    },
+    {
+      "path": "/home/felidae/proyectos/web_modelos_cr09metadata",
+      "changes": 0,
+      "preserved": true
+    },
+    {
+      "path": "/home/felidae/proyectos/web_modelos_cr09physicalmeta",
+      "changes": 0,
+      "preserved": true
+    },
+    {
+      "path": "/home/felidae/proyectos/web_modelos_cr09rdb",
+      "changes": 0,
+      "preserved": true
+    },
+    {
+      "path": "/home/felidae/proyectos/web_modelos_cr09redisscope",
+      "changes": 0,
+      "preserved": true
+    },
+    {
+      "path": "/home/felidae/proyectos/web_modelos_cr10commercial",
+      "changes": 0,
+      "preserved": true
+    },
+    {
+      "path": "/home/felidae/proyectos/web_modelos_cr10prep",
+      "changes": 0,
+      "preserved": true
+    },
+    {
+      "path": "/home/felidae/proyectos/web_modelos_seostructured",
+      "changes": 0,
+      "preserved": true
+    }
+  ],
+  "upstream_before": "0\t0",
+  "verification_63": {
+    "report_id": "20261009-201631-db21c6aa",
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "63",
+        "time": "467.214",
+        "timestamp": "2026-10-09T22:16:49.920620+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-201631-db21c6aa": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-201631-db21c6aa": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "archive_sha256": "4ea02d33620e48e7cdd2bf2d5eb196805406b86ff04d6e0eb6e54a8c31d1f03f",
+    "exact_archived_sources_verified": 1020,
+    "current_manifest_delta": [
+      "scripts/check_capacity_environment.py"
+    ],
+    "limits": "N2 selected scope only, not capacity p95/global budget, N3 or CR09 acceptance."
+  },
+  "prototype": {
+    "archive": "relevo-prototipo-capacidad-20261009-artefactos.tar.gz",
+    "sha256": "6e564d9af6f675cdf820e1ece8189dcf250d616810437dfc4af7cd874e584f6c",
+    "pure_n1_junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "8",
+        "time": "0.147",
+        "timestamp": "2026-10-09T22:36:30.801905+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "limits": "8 pure filesystem tests only; controller never executed. Whole storage/controller enforcement incomplete; not readiness or end-to-end acceptance."
+  },
+  "resources": {
+    "owned_ci_capacity_containers_remaining": [],
+    "owned_networks_remaining": [],
+    "owned_systemd_units_remaining": [],
+    "owned_local_ci_temporaries_remaining": [],
+    "new_resources_removed_this_handoff": [],
+    "already_retired": "Original reports prove CI PG/Redis/temps, capacity PG/Redis/app/network and Gunicorn groups retired. Inventory confirms absence.",
+    "preserved": "Normal Compose and all unrelated services/worktrees; original reusable /tmp/web-modelos-librdb-v2.4.0; evidence/artifacts/Graphify caches."
+  },
+  "cleanup": {
+    "retired_files": [
+      "scripts/benchmark_call_profile.py",
+      "scripts/benchmark_local_monitor.py",
+      "tests/test_benchmark_profile_aliases.py",
+      "tests/test_local_call_monitor.py"
+    ],
+    "active_consumers_rg": 0,
+    "graph": "Existing graph queried; contains historical nodes, no rebuild or absence proof from stale graph. Current rg confirms absence.",
+    "handoff_junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "14",
+        "time": "10.988",
+        "timestamp": "2026-10-09T22:48:39.779987+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "handoff_failures": [
+      {
+        "test": {
+          "classname": "tests.test_benchmark_gc_observer",
+          "name": "test_gc_timestamps_share_standard_generator_monotonic_origin",
+          "file": "tests/test_benchmark_gc_observer.py",
+          "line": "53",
+          "time": "0.175"
+        },
+        "failure": {
+          "message": "assert 2 == 3"
+        },
+        "detail": "def test_gc_timestamps_share_standard_generator_monotonic_origin():\n        from scripts.benchmark_async_transport import run_async_open_loop\n    \n        async def fetch(path, **kwargs):\n            gc.collect(2)  # Test deliberately generates observable events.\n            return dict(status=200, unexpected=False, timeout=False, bytes=2)\n    \n        with GCObserver(monotonic_clock=time.monotonic) as observer:\n            outcome = run_async_open_loop(fetch, [\"/synthetic\"], duration=0.15, rps=20,\n                                          upload_specs=[])\n>       assert outcome[\"counts\"][\"emitted\"] == outcome[\"counts\"][\"successful\"] == 3\nE       assert 2 == 3\n\ntests/test_benchmark_gc_observer.py:64: AssertionError"
+      }
+    ],
+    "archive": {
+      "file": "relevo-limpieza-20261009-artefactos.tar.gz",
+      "sha256": "dabc316a9e2ac01354a00aa7a6d2c91c95dad193fd05ee75bf2dafa62929acd5"
+    },
+    "failure_sources_equal_original_HEAD": true,
+    "verdict": "No active consumers of4discarded files; recheck13PASS/1FAIL in untouched GC timing observer. No all-green claim, no diagnosis or correction outside safe-stop scope."
+  },
+  "open_failures": [
+    "Binary selection page p95 2.372175/2.395124s >2s, not remeasured after63PASS",
+    "Global controller CPU/RAM and20GiB storage enforcement/6GiB peak not established",
+    "Full binary downstream inspection/coverage/generation/final close/TCP downloads NOT_PROVEN",
+    "Prototype Ruff F401 MAX_FILES unused in scripts/check_capacity_environment.py",
+    "CR09 integrated N3 and remaining matrix83 scenarios; CR10/GS01/BF/BB/C not accepted",
+    "Handoff cleanup recheck: GC timing observer expected3emitted requests, observed2; untouched sources, cause unproven.13PASS/1FAIL11.09s CLI."
+  ],
+  "provenance_policy": "Finished own changes from authorized9Oct documentation/saneamiento/CI/CR09 work; source equality plus individual evidence scopes. Unrelated GraphQL document retained byte-for-byte outside commits. All unknown external worktrees preserved. No reset/stash/history rewrite.",
+  "commits_before_documentation": [
+    {
+      "head": "d8cad7367a4eb930ec44d7a901b4d4979029601c",
+      "title": "Retire unused benchmark observers and preserve cleanup evidence",
+      "files": [
+        "apps/core/urls.py",
+        "apps/safety/urls.py",
+        "pyproject.toml",
+        "scripts/benchmark_call_profile.py",
+        "scripts/benchmark_local_monitor.py",
+        "tests/test_benchmark_profile_aliases.py",
+        "tests/test_local_call_monitor.py",
+        "scripts/run_post_cleanup_resource_checkpoint.py",
+        "tests/test_capacity_trial_stops.py",
+        "tests/test_resource_service_checkpoint.py",
+        "docs/evidencias/auditoria-pass-mod05-r5-r6-script.py",
+        "docs/evidencias/mod05-dirty-contraste-analisis-script0110.py",
+        "docs/evidencias/mod05-orden-desconocidos-analisis-script0110.py",
+        "docs/evidencias/mod05-pertenencia-analisis-script0110.py",
+        "docs/evidencias/mod05-pertenencia-matriz-analisis-script0110.py",
+        "docs/evidencias/mod05-recursos-analisis-script0110.py",
+        "docs/evidencias/mod05-vps-host-reposo-script0110.py",
+        "docs/evidencias/recalcular-post-limpieza0110.py",
+        "docs/evidencias/recalcular-residual-prepared0110.py",
+        "docs/evidencias/reconstruir-correlacion-rendimiento0110.py",
+        "docs/evidencias/reconstruir-servicio0110.py",
+        "docs/evidencias/revisar-recursos-servicio0110.py",
+        "docs/evidencias/revision-codex-mod05-auditoria-originales-script0110.py",
+        "docs/evidencias/fuentes-antes-saneamiento-20261009.tar.gz",
+        "docs/evidencias/limpieza-instrumental-descartado-20261009.json",
+        "docs/evidencias/saneamiento-tecnico-20261009.json",
+        "docs/evidencias/saneamiento-tecnico-20261009-artefactos.tar.gz",
+        "docs/evidencias/relevo-limpieza-20261009-artefactos.tar.gz"
+      ]
+    },
+    {
+      "head": "32d54e7ea649edd58e9ce0229a303031f62b784a",
+      "title": "Provide native local CI without automatic hosted runs",
+      "files": [
+        ".github/workflows/ci.yml",
+        "README.md",
+        "scripts/check_docs.py",
+        "scripts/prepare_native_test_tools.py",
+        "scripts/run_local_ci.py",
+        "apps/safety/broker_message_projection.py",
+        "tests/test_broker_envelope_schema.py",
+        "docs/ci-local.md",
+        "docs/evidencias/ci-local-20261009.json",
+        "docs/evidencias/ci-local-20261009-artefactos.tar.gz",
+        "docs/evidencias/ci-bloqueo-cuenta-20261009.json"
+      ]
+    },
+    {
+      "head": "53a1c677ae449cd35da78cc1a8243d89a4102828",
+      "title": "Verify scoped rights pagination, fresh authority and binary audit rollback",
+      "files": [
+        "apps/safety/decisions.py",
+        "apps/safety/migrations/0111_selection_review_pages.py",
+        "apps/safety/models.py",
+        "apps/safety/rights_access_delivery.py",
+        "apps/safety/rights_copy_parts.py",
+        "apps/safety/rights_copy_revision_batches.py",
+        "apps/safety/rights_exports.py",
+        "apps/safety/rights_portability_image_selection.py",
+        "apps/safety/rights_portability_images.py",
+        "apps/safety/rights_portability_selection_pages.py",
+        "apps/safety/rights_portability_selection_review.py",
+        "apps/safety/rights_portability_selection_store.py",
+        "apps/safety/rights_portability_selection_views.py",
+        "apps/safety/rights_portability_use.py",
+        "apps/safety/rights_scope.py",
+        "templates/safety/rights_portability_selection_review.html",
+        "tests/test_account_mail_projection_templates.py",
+        "tests/test_portability_binary_page_profile.py",
+        "tests/test_portability_binary_save_shared_source.py",
+        "tests/test_portability_large_closed_json_transport.py",
+        "tests/test_portability_selection_pagination.py",
+        "tests/test_recovery_pg_restore.py",
+        "tests/test_rights_agency_conflict.py",
+        "tests/test_rights_copy_parts.py",
+        "tests/test_rights_copy_scope.py",
+        "tests/test_rights_exports.py",
+        "tests/test_rights_portability_images.py",
+        "tests/test_urgent_report_drill.py"
+      ]
+    },
+    {
+      "head": "49a771c3405a05ad28c7a1ec23e1e28442c8bb88",
+      "title": "Preserve validated capacity fixtures and scalar HTTP instrumentation",
+      "files": [
+        "tests/capacity_delivery_http.py",
+        "tests/capacity_gunicorn.py",
+        "tests/capacity_profile_wsgi.py",
+        "tests/capacity_target_fixture.py",
+        "tests/test_capacity_case_control.py",
+        "tests/test_capacity_delivery_http.py",
+        "tests/test_capacity_selection_concurrent_tcp.py",
+        "tests/test_capacity_selection_tcp.py",
+        "tests/test_capacity_target_fixture.py"
+      ]
+    }
+  ],
+  "handoff_checks": {
+    "documentation": {
+      "command": [
+        "uv",
+        "run",
+        "--offline",
+        "python",
+        "scripts/check_docs.py"
+      ],
+      "exit": 0,
+      "output": "PASS: 162 Markdown, 2790 enlaces, 23 copias registradas; 1533 enlaces históricos resueltos y 5 referencias retiradas verificadas en Git (1 anclas en su copia original).\n"
+    },
+    "diff": {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    "ruff_worktree": {
+      "command": [
+        "uv",
+        "run",
+        "--offline",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit": 1,
+      "output": "F401 [*] `capacity_artifacts.MAX_FILES` imported but unused\n  --> scripts/check_capacity_environment.py:15:48\n   |\n13 | from pathlib import Path\n14 |\n15 | from capacity_artifacts import MAX_FILE_BYTES, MAX_FILES, write_artifact\n   |                                                ^^^^^^^^^\n16 | from run_local_ci import hashes\n   |\nhelp: Remove unused import: `capacity_artifacts.MAX_FILES`\n   |\n14 |\n   - from capacity_artifacts import MAX_FILE_BYTES, MAX_FILES, write_artifact\n15 + from capacity_artifacts import MAX_FILE_BYTES, write_artifact\n16 | from run_local_ci import hashes\n   |\n\nFound 1 error.\n[*] 1 fixable with the `--fix` option.\n"
+    },
+    "collection": {
+      "exit": 0,
+      "tests": 2145,
+      "seconds": 2.05,
+      "executed_tests": 0,
+      "scope": "Current worktree imports/collection only, includes uncommitted prototypes. No PostgreSQL or app acceptance."
+    },
+    "ruff_committable_index": {
+      "exit": 0,
+      "output": "All checks passed!\n",
+      "scope": "All files in the complete staged snapshot, no excludes; uncommitted prototypes intentionally absent."
+    },
+    "private_index_snapshot_removed": true,
+    "diff_index_full": {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit": 2,
+      "output": "docs/17-historial/2026-10-09-16-contrato-ejecucion-desarrollo-antes-consolidacion-contrato.md:356: new blank line at EOF.\n"
+    },
+    "diff_index_excluding_exact_historical_copy": {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check",
+        "--",
+        ".",
+        ":(exclude)docs/17-historial/2026-10-09-16-contrato-ejecucion-desarrollo-antes-consolidacion-contrato.md"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    "historical_whitespace_exception": {
+      "file": "docs/17-historial/2026-10-09-16-contrato-ejecucion-desarrollo-antes-consolidacion-contrato.md",
+      "reason": "Exact SHA-protected original copy has an existing blank line at EOF; preserve byte-for-byte. Full index diff-check exit2, other staged files PASS. No functional/style source exception introduced."
+    }
+  },
+  "declared_archive_hashes_verified": 54,
+  "expected_uncommitted": [
+    {
+      "path": "docs/propuesta-graphql-manual.md",
+      "sha256": "b1d3cddb1263b6c0f07430198dce9a66c51c14fc872b475ac71de8a646f6173a",
+      "reason": "procedencia_no_confirmada_fuera_contrato"
+    },
+    {
+      "path": "scripts/capacity_artifacts.py",
+      "sha256": "64333ff3f0f5ba39a599dbc5f1dd8bb929d520dcfb0f0a450b40eef0aa87a8f9",
+      "reason": "propio_incompleto"
+    },
+    {
+      "path": "scripts/check_capacity_environment.py",
+      "sha256": "78bc40eee5333b2a553fdb8acfbad0b7c2129964e7f0c1bf72d2d6cec9def57c",
+      "reason": "propio_incompleto"
+    },
+    {
+      "path": "scripts/run_capacity_environment.py",
+      "sha256": "647c63bcf6b60170bc555f69c9dfaf343bb7fd46d852de4ca66c5e47f3cdcabd",
+      "reason": "propio_incompleto"
+    },
+    {
+      "path": "tests/capacity_delivery_flow.py",
+      "sha256": "06c96bbbb48c8aa798c7b9cafefbcc31ddfe1c4ac436f47535ae8c2b39696236",
+      "reason": "propio_incompleto"
+    },
+    {
+      "path": "tests/test_capacity_artifacts.py",
+      "sha256": "16cd0a4baae0e2d8802fd1ae0fd0d56541dc0e7381a9881a0640d227a458cb83",
+      "reason": "propio_incompleto"
+    },
+    {
+      "path": "tests/test_capacity_delivery_complete.py",
+      "sha256": "6e879ef301b2d5cbfd1ba8530d4ea7c36e7639ff1a9d1b33da1dca1367f80dc3",
+      "reason": "propio_incompleto"
+    }
+  ],
+  "handoff_checks_archive": {
+    "file": "relevo-comprobaciones-20261009-artefactos.tar.gz",
+    "sha256": "b7f0c35dd5393125a8eb1b0e45be472ca48bba427aee65b70af7ff8e744ab1a1"
+  },
+  "head_before_documentation_commit": "49a771c3405a05ad28c7a1ec23e1e28442c8bb88",
+  "final_head_reference": "Commit containing this report; resolve git rev-parse HEAD after final handoff commit. Exact final hash returned in handoff response."
+}

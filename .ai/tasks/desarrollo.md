@@ -3,7 +3,7 @@ Objetivo: BASE → CR-01…CR-10 → GS-01 → B-F/B-B → C, sin reducir alcanc
 Baseline: carpeta con 18 documentos; sin código ni repositorio Git antes del inicio. Documentos preservados.
 Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
-Estado: running. Inicio autorizado 2026-10-03.
+Estado del plan: pending (continuación suspendida por orden del usuario2026-10-09). Goal automático: paused. Inicio autorizado2026-10-03.
 Invocaciones Claude consumidas: 8 acumuladas, sin máximo numérico vigente. La tercera fue automática fuera del adaptador (incidencia Graphify), cuyo registro se conserva. Política modificada por autorización explícita del usuario el2026-10-06: límite de3 eliminado, contador no reiniciado. Nuevas invocaciones mediante scripts/claude-task del contrato adoptado; Claude propone, Codex aplica y verifica. Las referencias3/3 o restricciones de nuevas llamadas en la cronología inferior describen la política histórica, no la vigente.
 Próximo paso: CR-09. BASE y CR-01…CR-08 verificados localmente;166 comunes passed450.45s y dos límites finales14.47s; Docker privado/worker/Beat verificados.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
@@ -706,3 +706,6 @@ Invocación14 (continuación, 2026-10-09): autorizaciones del usuario «Autorizo
 Invocación14 (continuación): matriz de cobertura de rutas MOD-04 §16 a 10.000 (tests/test_publication_route_coverage.py), equivalencia nativa en los 8 casos. Evidencia: docs/evidencias/mod05-cobertura-rutas0110.json.
 Invocación14 (cierre de sesión, 2026-10-09): por decisión del usuario, entrega en la rama cr09-rend-lectura-normal sin integrar en master; porcentajes sin cambio; cierre local pendiente de revisión de Codex y de cobertura positiva PRODUCTION/checked (la evidencia existente no tiene resultados positivos). Sin cargas nuevas.
 Invocación14 (2026-10-09): cobertura funcional positiva PRODUCTION/checked con proveedor sintético (tests/test_publication_positive_coverage.py), 2 PASS equivalentes al nativo; cierre local pendiente solo de revisión de Codex.
+
+
+Pausa/relevo2026-10-09 por instrucción expresa: no nuevos bloques ni invocaciones Claude. Consumo histórico8 preservado, nuevas0. N2 terminal63PASS confirmado en XML/archivo; capacidad/N3/fases abiertas. Árbol clasificado, incompletos y propuesta GraphQL preservados sin commit, servicios normales intactos. Registro vigente: docs/relevo-claude-20261009.md y docs/evidencias/relevo-local-20261009.json. Claude V1 propone sin herramientas; Codex aplica/verifica, sin cambio de autoridad adoptado.

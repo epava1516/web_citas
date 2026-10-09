@@ -2,6 +2,14 @@
 
 Fecha: 2026-10-04. Código analizado: `35b1f534`. Herramienta de desarrollo; no dependencia de la aplicación ni servicio de producción.
 
+## Uso y límites vigentes — revisión documental 2026-10-09
+
+Las secciones inferiores conservan la instalación, incidencia y análisis iniciales; sus cifras de corpus/grafo y límite Claude3/3 son históricos. [Contrato16 §15](16-contrato-ejecucion-desarrollo.md#15-delegación-sin-máximo-numérico--mod-03) elimina el máximo numérico desde el 2026-10-06, conservando todo el consumo previo y la obligación de usar el adaptador oficial. La incidencia original permanece registrada; esta revisión no añade llamadas Claude.
+
+El [examen del 2026-10-09](evidencias/examen-graphify-20261009.json) consultó el grafo existente: 6.787 nodos, 32.151 relaciones y 200 comunidades; cero extremos ausentes y 88 autorrelaciones en el exportado. No fue una reconstrucción ni una auditoría funcional. Las referencias históricas a `ProjectedPublication` no describen el código vigente; se retiró con MOD-05. `ESTADO_ACTUAL.md` conserva un corte anterior a la aceptación local de lectura. Para estado actual prevalece [seguimiento17](17-seguimiento-desarrollo.md); para arquitectura, [docs02](02-arquitectura.md). Los datos globales del grafo no acreditan integridad de la extracción ni ausencia de pérdidas de relaciones.
+
+La [revisión documental](evidencias/revision-documentacion-20261009.json) inventaría los enlaces de `17-historial/` que conservan la base original `docs/`, y su destino local resoluble. Esas copias tienen huellas registradas y se mantienen intactas; los enlaces a código retirado se identifican como referencias históricas sin destino vigente. El grafo completo no se ha actualizado por estas correcciones. Consumo de tokens de las consultas nuevas: no medido; se conserva el coste histórico, sin reemplazarlo por cero.
+
 ## Instalación y carga en la sesión
 
 Fuente oficial: [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify), fuente inspeccionada `0b60d47e6cd9338c51143f39f35b6c45c8453385`. Paquete oficial PyPI **graphifyy**, comando `graphify`. Había una instalación CLI 0.8.32; se actualizó en un entorno uv aislado a **0.9.74**, sin alterar pyproject.toml/uv.lock de la aplicación.

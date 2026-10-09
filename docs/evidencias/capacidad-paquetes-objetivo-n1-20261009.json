@@ -1,0 +1,38 @@
+{
+  "result": "N1_GROUPING_PASS_NOT_CAPACITY_OR_N2",
+  "source_before_sha256": "be5d6ace838291043d1a2e699a66c575bfb1b6e281a1127c217bb9a4ccaa2955",
+  "source_after_sha256": "1abf86e7a0acaae3fa2d6f79ff7e59e4a84d15a9a07b78237598d82b0efcfd7b",
+  "tests_sha256": "c89f8b32dcbae08676b50d57b2252ef3070475a9bda1d8ac1a6d9210dd63e8aa",
+  "junit": {
+    "reproduction": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "tests": "2",
+        "time": "0.379",
+        "timestamp": "2026-10-09T20:40:03.575671+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "corrective": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "8",
+        "time": "0.622",
+        "timestamp": "2026-10-09T20:40:17.626209+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ]
+  },
+  "change": "Group ZIPs toward8MiB including actual headers; single larger image stays isolated under unchanged64MiB hard ZIP/10MiB snapshot limits. No byte changes, loss, recompression or authorization changes.",
+  "scope": "Pure builder unit tests, synthetic arbitrary snapshot bytes, complete recovered hashes/content and ZIP CRC; no PostgreSQL needed for pure byte function. Not image ingestion, identity, HTTP, concurrency, privacy or full target capacity verification.",
+  "capacity_rule": "All packages in the declared16-image/~4MiB-per-image target must <=8MiB; a larger single image package outside that scenario does not satisfy this capacity gate.",
+  "next": "Owned real PostgreSQL/Redis N2 generation, final closure, HTTP/CSRF/replay/revocation/purge, browserESEN and actual large single-image delivery.",
+  "archive": "capacidad-paquetes-objetivo-n1-20261009-artefactos.tar.gz",
+  "archive_sha256": "7d8b1b61fe7bd434e0532a404e2085772de4b8d871e40cbe7f1e0187d07cedd7"
+}

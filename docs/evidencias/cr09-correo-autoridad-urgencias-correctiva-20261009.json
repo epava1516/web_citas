@@ -1,0 +1,329 @@
+{
+  "schema": "cr09-mail-authority-urgent-drill-corrective-v1",
+  "classification": "N2 PASS in selected local scope; CR09 and N3 not accepted.",
+  "run": {
+    "id": "20261009-135130-83dd9d2e",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-135130-83dd9d2e",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.46655323170125484
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-135130-83dd9d2e",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.41669318405911326
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.032178055960685015
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11521243723109365
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.867104739882052
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.3694404112175107
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.6705670137889683
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-kamngsak/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-kamngsak/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-kamngsak/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.350647618062794
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-kamngsak/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-135130-83dd9d2e/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_account_mail_projection_templates.py",
+          "tests/test_urgent_report_drill.py",
+          "tests/test_rights_access_recipient_payload.py",
+          "tests/test_report_decisions.py",
+          "tests/test_report_inspection.py",
+          "tests/test_report_notices.py",
+          "tests/test_urgent_report_alerts.py",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link"
+        ],
+        "exit": 0,
+        "seconds": 439.4630983322859
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_account_mail_projection_templates.py",
+      "tests/test_urgent_report_drill.py",
+      "tests/test_rights_access_recipient_payload.py",
+      "tests/test_report_decisions.py",
+      "tests/test_report_inspection.py",
+      "tests/test_report_notices.py",
+      "tests/test_urgent_report_alerts.py",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-135130-83dd9d2e": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-135130-83dd9d2e": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "73",
+        "time": "437.044",
+        "timestamp": "2026-10-09T15:51:47.929568+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "archive": "docs/evidencias/cr09-correo-autoridad-urgencias-correctiva-20261009-artefactos.tar.gz",
+  "archive_sha256": "8809027f02818aef352b1594c6a39bd740bfac8078fdf1c5573a236795525d89",
+  "changed_sources": {
+    "apps/safety/decisions.py": "c97fc7b90a729adbb5eadc81718e10783464f7074c9e63afc2acc0f11084c293",
+    "apps/safety/rights_access_delivery.py": "6dc3983154b23474343bd7a3dfdb80c1a3c7261eed27652757100427f072d45f",
+    "scripts/run_local_ci.py": "3527b7ac81ddd40607eedaa9f2236944e6d00f27f7b50a82289bd5e4451928b5",
+    "tests/test_urgent_report_drill.py": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69",
+    "tests/test_account_mail_projection_templates.py": "abf19866cabd8da35366c8784bb88de2f087ad6646a0ed13fe6e138955ae4e1a"
+  },
+  "baseline_census": "docs/evidencias/cr09-censo-bateria-inicial-20261009.json",
+  "reproduction": "docs/evidencias/cr09-correo-autoridad-reproduccion-20261009.json",
+  "verified": {
+    "current_account_mail_templates": "ES/EN verify/reset generated by actual Django console backend; actual database token ownership; credential redaction and wrong-owner rejection; both originally failed integrated account/profile close/download paths now PASS.",
+    "report_revocation": "12 deterministic variants reject permission/session/MFA/active revocation after scoped checks, on exact replay, and after outbox before return; action/state rollback preserved.",
+    "urgent_drill": [
+      {
+        "name": "test_urgent_owner_revocation_escalates_to_authorized_substitute[es]",
+        "test_seconds": 7.105,
+        "observed_resolution_seconds": 0.910029,
+        "synthetic_deadline_seconds": 300,
+        "chronology": [
+          {
+            "stage": "received",
+            "at": "2026-10-09T13:52:27.035519+00:00"
+          },
+          {
+            "stage": "acknowledged",
+            "at": "2026-10-09T13:52:27.182058+00:00"
+          },
+          {
+            "stage": "primary_assigned",
+            "at": "2026-10-09T13:52:27.339818+00:00"
+          },
+          {
+            "stage": "primary_revoked",
+            "at": "2026-10-09T13:52:27.343894+00:00"
+          },
+          {
+            "stage": "escalated_unassigned",
+            "at": "2026-10-09T13:52:27.516662+00:00"
+          },
+          {
+            "stage": "substitute_assigned",
+            "at": "2026-10-09T13:52:27.629015+00:00"
+          },
+          {
+            "stage": "evidence_read",
+            "at": "2026-10-09T13:52:27.749762+00:00"
+          },
+          {
+            "stage": "resolved",
+            "at": "2026-10-09T13:52:27.839037+00:00"
+          }
+        ]
+      },
+      {
+        "name": "test_urgent_owner_revocation_escalates_to_authorized_substitute[en]",
+        "test_seconds": 6.494,
+        "observed_resolution_seconds": 0.902186,
+        "synthetic_deadline_seconds": 300,
+        "chronology": [
+          {
+            "stage": "received",
+            "at": "2026-10-09T13:52:33.138200+00:00"
+          },
+          {
+            "stage": "acknowledged",
+            "at": "2026-10-09T13:52:33.245436+00:00"
+          },
+          {
+            "stage": "primary_assigned",
+            "at": "2026-10-09T13:52:33.356234+00:00"
+          },
+          {
+            "stage": "primary_revoked",
+            "at": "2026-10-09T13:52:33.360942+00:00"
+          },
+          {
+            "stage": "escalated_unassigned",
+            "at": "2026-10-09T13:52:33.587023+00:00"
+          },
+          {
+            "stage": "substitute_assigned",
+            "at": "2026-10-09T13:52:33.746611+00:00"
+          },
+          {
+            "stage": "evidence_read",
+            "at": "2026-10-09T13:52:33.863525+00:00"
+          },
+          {
+            "stage": "resolved",
+            "at": "2026-10-09T13:52:33.951236+00:00"
+          }
+        ]
+      }
+    ],
+    "report_regression": "Existing report decisions, inspection, notices, urgent acknowledgement, HTTP/browser and role guards included; 73 total cases on common frozen sources.",
+    "focused_selector_guards": {
+      "guards": [
+        {
+          "arguments": [
+            "--profile",
+            "focused"
+          ],
+          "exit": 2,
+          "stderr": "usage: run_local_ci.py [-h]\n                       [--profile {checks,smoke,rights,focused,regression,full}]\n                       [--native-source NATIVE_SOURCE] [--test TEST]\n                       [--timeout TIMEOUT]\nrun_local_ci.py: error: --test is required for focused and forbidden for other profiles"
+        },
+        {
+          "arguments": [
+            "--profile",
+            "focused",
+            "--test",
+            "apps/safety/decisions.py"
+          ],
+          "exit": 2,
+          "stderr": "usage: run_local_ci.py [-h]\n                       [--profile {checks,smoke,rights,focused,regression,full}]\n                       [--native-source NATIVE_SOURCE] [--test TEST]\n                       [--timeout TIMEOUT]\nrun_local_ci.py: error: Focused selections must name existing Python tests under tests/"
+        },
+        {
+          "arguments": [
+            "--profile",
+            "checks",
+            "--test",
+            "tests/test_report_decisions.py"
+          ],
+          "exit": 2,
+          "stderr": "usage: run_local_ci.py [-h]\n                       [--profile {checks,smoke,rights,focused,regression,full}]\n                       [--native-source NATIVE_SOURCE] [--test TEST]\n                       [--timeout TIMEOUT]\nrun_local_ci.py: error: --test is required for focused and forbidden for other profiles"
+        }
+      ],
+      "no_run_artifacts_created": true
+    }
+  },
+  "limits": [
+    "Synthetic users, alleged facts, roles, and deadline; no human SLA or production coverage.",
+    "Real internal queue/DB/console backend, simulated origin metadata where fixtures say so; no external delivery credited.",
+    "Deterministic revocation interleaving; no separate observed lock-wait race or guarantee for revocation after last authority check/commit.",
+    "Sources are current HEAD plus recorded working changes; normal services not deployed.",
+    "No capacity load, restoration, full regression/N3, or phase acceptance; do not sum baseline and corrective versions."
+  ]
+}

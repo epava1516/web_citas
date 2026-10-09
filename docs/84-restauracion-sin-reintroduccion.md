@@ -1,6 +1,6 @@
 # Restauración sin reintroducir datos retirados o suprimidos
 
-Estado: implementación parcial local; reaplicación de efectos y ensayo de restauración completa pendientes. Fecha:2026-10-06. Requisitos: OP-007/OP-008, seguridad11 y contrato16. No sustituye políticas de conservación definitivas ni acredita backups reales.
+Diseño y evolución de recuperación, 2026-10-06. Revisión documental: 2026-10-09. Reaplicación, destrucción física y ensayos locales reales PostgreSQL/medios sintéticos ya tienen evidencia en [operación85](85-operacion-registro-recuperacion.md), [recursos87](87-recursos-locales-recuperacion.md) y [matriz83](83-auditoria-pendientes-cr09.md). Los estados parciales de las secciones inferiores conservan su corte de desarrollo. Custodia externa, entorno/RPO-RTO y aceptación integral siguen pendientes según [seguimiento17](17-seguimiento-desarrollo.md). Requisitos: OP-007/OP-008, seguridad11 y contrato16. No sustituye políticas de conservación definitivas ni acredita backups de producción.
 
 ## Problema y fuentes existentes
 

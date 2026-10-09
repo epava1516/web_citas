@@ -1,0 +1,16 @@
+{
+  "result": "N1_PASS_NOT_CAPACITY",
+  "changes": "Selection single/concurrent latency tests require CAPACITY_ENVIRONMENT_VERIFIED set by owned capacity runner only after actual cgroup verification; generic pytest skips benchmark loads",
+  "verification": {
+    "ruff_global": "PASS",
+    "collection": "2 tests collected, no collection errors",
+    "default_execution": "2 skipped; not a test PASS or capacity evidence",
+    "documentation": "160markdown/2728links/23protected copies/0errors",
+    "diff_check": "PASS"
+  },
+  "limits": [
+    "Application code unchanged",
+    "Dedicated required workload remains mandatory on integrated version; N3 generic run cannot credit skipped gates",
+    "No capacity load repeated for test mark-only change"
+  ]
+}

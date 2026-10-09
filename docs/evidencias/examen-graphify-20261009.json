@@ -1,0 +1,69 @@
+{
+  "fecha": "2026-10-09",
+  "tipo": "examen_graphify_sin_reconstruccion",
+  "commit": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+  "grafo": {
+    "nodos": 6787,
+    "relaciones": 32151,
+    "comunidades": 200,
+    "extremos_ausentes_exportado": 0,
+    "autorrelaciones_exportado": 88,
+    "fecha_informe_existente": "2026-10-08",
+    "actualizacion_global_verificada": false
+  },
+  "consulta_vocabulario": [
+    "arquitectura",
+    "publication",
+    "state",
+    "rights",
+    "verification",
+    "agency",
+    "moderation",
+    "discovery",
+    "contrato",
+    "bloqueado"
+  ],
+  "hallazgos": [
+    {
+      "tema": "arquitectura",
+      "resultado": "Monolito modular Django con core, catalog, listings, mediafiles y safety; plantillas/HTMX, PostgreSQL, Celery/Redis, Gunicorn/Caddy y Compose.",
+      "fuentes": [
+        "pyproject.toml",
+        "compose.yaml",
+        "docs/16-contrato-ejecucion-desarrollo.md"
+      ]
+    },
+    {
+      "tema": "conexion_publicacion",
+      "resultado": "PublicationContext conecta descubrimiento y estado de publicacion con validacion de datos. MOD05 usa estado almacenado, invalidacion transaccional, version de reglas, fallback nativo y revalidacion de pagina.",
+      "fuentes": [
+        "apps/listings/public_validation.py:344",
+        "apps/listings/publication_state.py:301",
+        "docs/16-contrato-ejecucion-desarrollo.md:325"
+      ]
+    },
+    {
+      "tema": "estado_vigente",
+      "resultado": "Aceptacion local CR09-REND-LECTURA en 1a10ecf, integrada; goal posterior bloqueado por insumos concretos pendientes. CR09 integral, GS01 y produccion abiertos. Porcentajes registrados CR09 72,50%, contrato 65,375%.",
+      "fuentes": [
+        "docs/17-seguimiento-desarrollo.md:6"
+      ]
+    },
+    {
+      "tema": "deriva_documental",
+      "resultado": "ESTADO_ACTUAL.md conserva estado anterior; nodos ProjectedPublication son historicos y el modulo fue retirado. docs02 contiene afirmaciones de planificacion previas a la implementacion.",
+      "fuentes": [
+        "graphify-out/ESTADO_ACTUAL.md",
+        "docs/02-arquitectura.md",
+        "docs/16-contrato-ejecucion-desarrollo.md:348"
+      ]
+    }
+  ],
+  "limites": [
+    "Consultas amplias truncadas; explicacion focal PublicationContext contrastada con codigo.",
+    "No auditoria global ni verificacion funcional nueva.",
+    "Sin pruebas, cargas, proveedores, publicacion o delegacion.",
+    "Autorrelaciones y relaciones inferidas limitan interpretacion; centralidad no prueba defecto.",
+    "Consumo de tokens de esta consulta no medido; coste historico del informe no representa esta ejecucion."
+  ]
+}

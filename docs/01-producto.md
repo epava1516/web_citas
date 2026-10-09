@@ -2,7 +2,9 @@
 
 Actualizado: 2026-10-03.
 
-Especificación vigente: [Contrato funcional v1](14-contrato-funcional-v1.md), definida por delegación expresa del usuario. Sustituye las propuestas posteriores en puntos resueltos: MVP, catálogo, publicación, cuentas, contactos y monetización preparada.
+Especificación vigente: [Contrato funcional v1](14-contrato-funcional-v1.md), definida por delegación expresa del usuario. Sustituye las propuestas anteriores en puntos resueltos: MVP, catálogo, publicación, cuentas, contactos y monetización preparada.
+
+Nota de lectura, 2026-10-09: las tablas y propuestas siguientes conservan la captura inicial de requisitos del 2026-10-03. Sus pendientes funcionales ya resueltos no constituyen una nueva cola. Implementación, aceptación local y dependencias aún abiertas en [seguimiento17](17-seguimiento-desarrollo.md); orden y gates en [contrato16](16-contrato-ejecucion-desarrollo.md).
 
 ## Requisitos confirmados
 
@@ -31,7 +33,7 @@ Especificación vigente: [Contrato funcional v1](14-contrato-funcional-v1.md), d
 | REQ-021 | Preparar el sistema para monetización comparable a las referencias, sin fijar aún tarifas, planes, pagos o reglas de activación. |
 | REQ-022 | Apartado legal público ES/EN con postura de la plataforma, normas y canales de denuncia/derechos, y condiciones de publicación aceptadas expresamente por anunciantes con registro de versión. |
 
-## MVP propuesto
+## MVP propuesto inicialmente — histórico
 
 - Registro, verificación del correo, acceso, recuperación y cierre de cuenta.
 - Gestión de anuncios propios: borrador, envío a revisión, publicación, pausa y retirada.

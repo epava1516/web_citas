@@ -1,0 +1,1080 @@
+{
+  "schema": "small-case-capacity-instrument-control-v1",
+  "runs": [
+    {
+      "id": "20261009-145429-558facbb",
+      "result": "ERROR",
+      "scope": "Owned topology readiness only; not capacity, browser, N3 or storage budget proof.",
+      "allocations": {
+        "pg": [
+          100000,
+          1536
+        ],
+        "redis": [
+          25000,
+          512
+        ],
+        "app": [
+          275000,
+          6144
+        ]
+      },
+      "steps": [
+        {
+          "label": "image-postgres",
+          "command": [
+            "docker",
+            "image",
+            "inspect",
+            "--format",
+            "{{.Id}}",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.04957742476835847
+        },
+        {
+          "label": "image-redis",
+          "command": [
+            "docker",
+            "image",
+            "inspect",
+            "--format",
+            "{{.Id}}",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.05141456611454487
+        },
+        {
+          "label": "image-web-modelos-app",
+          "command": [
+            "docker",
+            "image",
+            "inspect",
+            "--format",
+            "{{.Id}}",
+            "web-modelos-app:latest"
+          ],
+          "exit": 0,
+          "seconds": 0.04724693112075329
+        },
+        {
+          "label": "network",
+          "command": [
+            "docker",
+            "network",
+            "create",
+            "--internal",
+            "web-modelos-capacity-20261009-145429-558facbb-net"
+          ],
+          "exit": 0,
+          "seconds": 0.5835787891410291
+        },
+        {
+          "label": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-capacity-20261009-145429-558facbb-pg",
+            "--network",
+            "web-modelos-capacity-20261009-145429-558facbb-net",
+            "--network-alias",
+            "pg",
+            "--cpus",
+            "1.0",
+            "--memory",
+            "1610612736",
+            "--memory-swap",
+            "1610612736",
+            "--pids-limit",
+            "256",
+            "--log-driver",
+            "local",
+            "--log-opt",
+            "max-size=4m",
+            "--log-opt",
+            "max-file=1",
+            "--log-opt",
+            "compress=false",
+            "--tmpfs",
+            "/var/lib/postgresql/data:size=1073741824",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=capacity_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.3264308162033558
+        },
+        {
+          "label": "controls-pg",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145429-558facbb-pg",
+            "cat",
+            "/sys/fs/cgroup/cpu.max",
+            "/sys/fs/cgroup/memory.max",
+            "/sys/fs/cgroup/memory.swap.max"
+          ],
+          "exit": 0,
+          "seconds": 0.15847744001075625
+        },
+        {
+          "label": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-capacity-20261009-145429-558facbb-redis",
+            "--network",
+            "web-modelos-capacity-20261009-145429-558facbb-net",
+            "--network-alias",
+            "redis",
+            "--cpus",
+            "0.25",
+            "--memory",
+            "536870912",
+            "--memory-swap",
+            "536870912",
+            "--pids-limit",
+            "256",
+            "--log-driver",
+            "local",
+            "--log-opt",
+            "max-size=4m",
+            "--log-opt",
+            "max-file=1",
+            "--log-opt",
+            "compress=false",
+            "redis:7.4-alpine",
+            "redis-server",
+            "--save",
+            "",
+            "--appendonly",
+            "no",
+            "--maxmemory",
+            "268435456"
+          ],
+          "exit": 0,
+          "seconds": 0.41766524873673916
+        },
+        {
+          "label": "controls-redis",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145429-558facbb-redis",
+            "cat",
+            "/sys/fs/cgroup/cpu.max",
+            "/sys/fs/cgroup/memory.max",
+            "/sys/fs/cgroup/memory.swap.max"
+          ],
+          "exit": 0,
+          "seconds": 0.2056929962709546
+        },
+        {
+          "label": "start-app",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-capacity-20261009-145429-558facbb-app",
+            "--network",
+            "web-modelos-capacity-20261009-145429-558facbb-net",
+            "--network-alias",
+            "app",
+            "--cpus",
+            "2.75",
+            "--memory",
+            "6442450944",
+            "--memory-swap",
+            "6442450944",
+            "--pids-limit",
+            "256",
+            "--log-driver",
+            "local",
+            "--log-opt",
+            "max-size=4m",
+            "--log-opt",
+            "max-file=1",
+            "--log-opt",
+            "compress=false",
+            "--read-only",
+            "--cap-drop=ALL",
+            "--security-opt=no-new-privileges",
+            "--user",
+            "1002:1004",
+            "--workdir",
+            "/home/felidae/proyectos/web_modelos",
+            "--mount",
+            "type=bind,src=/home/felidae/proyectos/web_modelos,dst=/home/felidae/proyectos/web_modelos,readonly",
+            "--mount",
+            "type=bind,src=/home/felidae/.local/share/uv/python,dst=/home/felidae/.local/share/uv/python,readonly",
+            "--tmpfs",
+            "/tmp:size=1073741824,uid=1002,gid=1004",
+            "-e",
+            "PYTHONDONTWRITEBYTECODE=1",
+            "-e",
+            "DJANGO_SETTINGS_MODULE=config.settings",
+            "-e",
+            "DB_HOST=pg",
+            "-e",
+            "DB_PORT=5432",
+            "-e",
+            "POSTGRES_DB=capacity_ci",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "REDIS_URL=redis://redis:6379/0",
+            "--entrypoint",
+            "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+            "web-modelos-app:latest",
+            "-c",
+            "import time; time.sleep(1800)"
+          ],
+          "exit": 0,
+          "seconds": 0.3043509782291949
+        },
+        {
+          "label": "controls-app",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145429-558facbb-app",
+            "cat",
+            "/sys/fs/cgroup/cpu.max",
+            "/sys/fs/cgroup/memory.max",
+            "/sys/fs/cgroup/memory.swap.max"
+          ],
+          "exit": 0,
+          "seconds": 0.24271512776613235
+        },
+        {
+          "label": "pg-ready-0",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145429-558facbb-pg",
+            "pg_isready",
+            "-U",
+            "ci",
+            "-d",
+            "capacity_ci"
+          ],
+          "exit": 2,
+          "seconds": 0.11967039806768298
+        },
+        {
+          "label": "pg-ready-1",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145429-558facbb-pg",
+            "pg_isready",
+            "-U",
+            "ci",
+            "-d",
+            "capacity_ci"
+          ],
+          "exit": 0,
+          "seconds": 0.20419764425605536
+        },
+        {
+          "label": "django-probe",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145429-558facbb-app",
+            "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+            "-c",
+            "import django,json,tempfile; django.setup(); from django.core.management import call_command; from django.db import connection; import redis; call_command('migrate',interactive=False,verbosity=0); call_command('check'); cursor=connection.cursor(); cursor.execute('select version(),current_database()'); row=cursor.fetchone(); assert row[1]=='capacity_ci'; assert redis.Redis(host='redis').ping(); f=tempfile.TemporaryFile(dir='/tmp'); f.write(b'synthetic-media'); f.seek(0); assert f.read()==b'synthetic-media'; f.close(); print(json.dumps({'postgres':row[0],'database':row[1],'redis_ping':True,'migrations_applied':True,'temporary_media_io':True,'django':django.get_version()}))"
+          ],
+          "exit": 0,
+          "seconds": 34.64303945098072
+        },
+        {
+          "label": "control-settings",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145429-558facbb-app",
+            "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+            "-c",
+            "from pathlib import Path; Path('/tmp/capacity_settings.py').write_text(\"from config.settings import *\\nMEDIA_ROOT = '/tmp/capacity-media'\\nDATABASES['default']['TEST'] = {'NAME': 'test_capacity_ci'}\\n\")"
+          ],
+          "exit": 0,
+          "seconds": 0.1826595077291131
+        },
+        {
+          "label": "control-pytest",
+          "command": [
+            "docker",
+            "exec",
+            "-e",
+            "PYTHONPATH=/tmp:/home/felidae/proyectos/web_modelos",
+            "web-modelos-capacity-20261009-145429-558facbb-app",
+            "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+            "-m",
+            "pytest",
+            "-q",
+            "--tb=short",
+            "-o",
+            "DJANGO_SETTINGS_MODULE=capacity_settings",
+            "-o",
+            "junit_family=xunit1",
+            "-p",
+            "no:cacheprovider",
+            "--basetemp=/tmp/capacity-pytest",
+            "--junitxml=/tmp/capacity-control.xml",
+            "tests/test_capacity_case_control.py"
+          ],
+          "exit": 1,
+          "seconds": 94.37927882326767
+        },
+        {
+          "label": "control-junit",
+          "command": [
+            "docker",
+            "cp",
+            "web-modelos-capacity-20261009-145429-558facbb-app:/tmp/capacity-control.xml",
+            "/home/felidae/proyectos/web_modelos/artifacts/capacity-environment/20261009-145429-558facbb/pytest.xml"
+          ],
+          "exit": 1,
+          "seconds": 0.0379222328774631
+        },
+        {
+          "label": "remove-web-modelos-capacity-20261009-145429-558facbb-app",
+          "command": [
+            "docker",
+            "rm",
+            "-fv",
+            "web-modelos-capacity-20261009-145429-558facbb-app"
+          ],
+          "exit": 0,
+          "seconds": 0.23969428474083543
+        },
+        {
+          "label": "inventory-web-modelos-capacity-20261009-145429-558facbb-app",
+          "command": [
+            "docker",
+            "ps",
+            "-a",
+            "--filter",
+            "name=^web-modelos-capacity-20261009-145429-558facbb-app$",
+            "--format",
+            "{{.Names}}"
+          ],
+          "exit": 0,
+          "seconds": 0.07930904114618897
+        },
+        {
+          "label": "remove-web-modelos-capacity-20261009-145429-558facbb-redis",
+          "command": [
+            "docker",
+            "rm",
+            "-fv",
+            "web-modelos-capacity-20261009-145429-558facbb-redis"
+          ],
+          "exit": 0,
+          "seconds": 0.2096927878446877
+        },
+        {
+          "label": "inventory-web-modelos-capacity-20261009-145429-558facbb-redis",
+          "command": [
+            "docker",
+            "ps",
+            "-a",
+            "--filter",
+            "name=^web-modelos-capacity-20261009-145429-558facbb-redis$",
+            "--format",
+            "{{.Names}}"
+          ],
+          "exit": 0,
+          "seconds": 0.10140866413712502
+        },
+        {
+          "label": "remove-web-modelos-capacity-20261009-145429-558facbb-pg",
+          "command": [
+            "docker",
+            "rm",
+            "-fv",
+            "web-modelos-capacity-20261009-145429-558facbb-pg"
+          ],
+          "exit": 0,
+          "seconds": 0.3185815247707069
+        },
+        {
+          "label": "inventory-web-modelos-capacity-20261009-145429-558facbb-pg",
+          "command": [
+            "docker",
+            "ps",
+            "-a",
+            "--filter",
+            "name=^web-modelos-capacity-20261009-145429-558facbb-pg$",
+            "--format",
+            "{{.Names}}"
+          ],
+          "exit": 0,
+          "seconds": 0.033634689170867205
+        },
+        {
+          "label": "remove-network",
+          "command": [
+            "docker",
+            "network",
+            "rm",
+            "web-modelos-capacity-20261009-145429-558facbb-net"
+          ],
+          "exit": 0,
+          "seconds": 0.398276437073946
+        },
+        {
+          "label": "network-inventory",
+          "command": [
+            "docker",
+            "network",
+            "ls",
+            "--filter",
+            "name=^web-modelos-capacity-20261009-145429-558facbb-net$",
+            "--format",
+            "{{.Name}}"
+          ],
+          "exit": 0,
+          "seconds": 0.06276500131934881
+        }
+      ],
+      "controls": {
+        "pg": [
+          "100000 100000",
+          "1610612736",
+          "0"
+        ],
+        "redis": [
+          "25000 100000",
+          "536870912",
+          "0"
+        ],
+        "app": [
+          "275000 100000",
+          "6442450944",
+          "0"
+        ]
+      },
+      "cleanup": {
+        "web-modelos-capacity-20261009-145429-558facbb-app": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261009-145429-558facbb-redis": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261009-145429-558facbb-pg": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261009-145429-558facbb-net": {
+          "absent": true
+        }
+      },
+      "error": "RuntimeError: control-junit failed; see durable log",
+      "sources_unchanged": true
+    },
+    {
+      "id": "20261009-145738-cd1b2e8e",
+      "result": "CONTROL_PASS_NOT_TARGET_CAPACITY",
+      "scope": "Owned topology readiness only; not capacity, browser, N3 or storage budget proof.",
+      "allocations": {
+        "pg": [
+          100000,
+          1536
+        ],
+        "redis": [
+          25000,
+          512
+        ],
+        "app": [
+          275000,
+          6144
+        ]
+      },
+      "steps": [
+        {
+          "label": "image-postgres",
+          "command": [
+            "docker",
+            "image",
+            "inspect",
+            "--format",
+            "{{.Id}}",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.06141055002808571
+        },
+        {
+          "label": "image-redis",
+          "command": [
+            "docker",
+            "image",
+            "inspect",
+            "--format",
+            "{{.Id}}",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.05538110388442874
+        },
+        {
+          "label": "image-web-modelos-app",
+          "command": [
+            "docker",
+            "image",
+            "inspect",
+            "--format",
+            "{{.Id}}",
+            "web-modelos-app:latest"
+          ],
+          "exit": 0,
+          "seconds": 0.06368302227929235
+        },
+        {
+          "label": "network",
+          "command": [
+            "docker",
+            "network",
+            "create",
+            "--internal",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-net"
+          ],
+          "exit": 0,
+          "seconds": 0.575991528108716
+        },
+        {
+          "label": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-pg",
+            "--network",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-net",
+            "--network-alias",
+            "pg",
+            "--cpus",
+            "1.0",
+            "--memory",
+            "1610612736",
+            "--memory-swap",
+            "1610612736",
+            "--pids-limit",
+            "256",
+            "--log-driver",
+            "local",
+            "--log-opt",
+            "max-size=4m",
+            "--log-opt",
+            "max-file=1",
+            "--log-opt",
+            "compress=false",
+            "--tmpfs",
+            "/var/lib/postgresql/data:size=1073741824",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=capacity_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.43826055666431785
+        },
+        {
+          "label": "controls-pg",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-pg",
+            "cat",
+            "/sys/fs/cgroup/cpu.max",
+            "/sys/fs/cgroup/memory.max",
+            "/sys/fs/cgroup/memory.swap.max"
+          ],
+          "exit": 0,
+          "seconds": 0.20528705697506666
+        },
+        {
+          "label": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-redis",
+            "--network",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-net",
+            "--network-alias",
+            "redis",
+            "--cpus",
+            "0.25",
+            "--memory",
+            "536870912",
+            "--memory-swap",
+            "536870912",
+            "--pids-limit",
+            "256",
+            "--log-driver",
+            "local",
+            "--log-opt",
+            "max-size=4m",
+            "--log-opt",
+            "max-file=1",
+            "--log-opt",
+            "compress=false",
+            "redis:7.4-alpine",
+            "redis-server",
+            "--save",
+            "",
+            "--appendonly",
+            "no",
+            "--maxmemory",
+            "268435456"
+          ],
+          "exit": 0,
+          "seconds": 0.4179864441975951
+        },
+        {
+          "label": "controls-redis",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-redis",
+            "cat",
+            "/sys/fs/cgroup/cpu.max",
+            "/sys/fs/cgroup/memory.max",
+            "/sys/fs/cgroup/memory.swap.max"
+          ],
+          "exit": 0,
+          "seconds": 0.2651860569603741
+        },
+        {
+          "label": "start-app",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-app",
+            "--network",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-net",
+            "--network-alias",
+            "app",
+            "--cpus",
+            "2.75",
+            "--memory",
+            "6442450944",
+            "--memory-swap",
+            "6442450944",
+            "--pids-limit",
+            "256",
+            "--log-driver",
+            "local",
+            "--log-opt",
+            "max-size=4m",
+            "--log-opt",
+            "max-file=1",
+            "--log-opt",
+            "compress=false",
+            "--read-only",
+            "--cap-drop=ALL",
+            "--security-opt=no-new-privileges",
+            "--user",
+            "1002:1004",
+            "--workdir",
+            "/home/felidae/proyectos/web_modelos",
+            "--mount",
+            "type=bind,src=/home/felidae/proyectos/web_modelos,dst=/home/felidae/proyectos/web_modelos,readonly",
+            "--mount",
+            "type=bind,src=/home/felidae/.local/share/uv/python,dst=/home/felidae/.local/share/uv/python,readonly",
+            "--tmpfs",
+            "/tmp:size=1073741824,uid=1002,gid=1004",
+            "-e",
+            "PYTHONDONTWRITEBYTECODE=1",
+            "-e",
+            "DJANGO_SETTINGS_MODULE=config.settings",
+            "-e",
+            "DB_HOST=pg",
+            "-e",
+            "DB_PORT=5432",
+            "-e",
+            "POSTGRES_DB=capacity_ci",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "REDIS_URL=redis://redis:6379/0",
+            "--entrypoint",
+            "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+            "web-modelos-app:latest",
+            "-c",
+            "import time; time.sleep(1800)"
+          ],
+          "exit": 0,
+          "seconds": 0.2925973320379853
+        },
+        {
+          "label": "controls-app",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-app",
+            "cat",
+            "/sys/fs/cgroup/cpu.max",
+            "/sys/fs/cgroup/memory.max",
+            "/sys/fs/cgroup/memory.swap.max"
+          ],
+          "exit": 0,
+          "seconds": 0.18264600913971663
+        },
+        {
+          "label": "pg-ready-0",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-pg",
+            "pg_isready",
+            "-U",
+            "ci",
+            "-d",
+            "capacity_ci"
+          ],
+          "exit": 2,
+          "seconds": 0.08614849206060171
+        },
+        {
+          "label": "pg-ready-1",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-pg",
+            "pg_isready",
+            "-U",
+            "ci",
+            "-d",
+            "capacity_ci"
+          ],
+          "exit": 0,
+          "seconds": 0.20306488499045372
+        },
+        {
+          "label": "django-probe",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-app",
+            "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+            "-c",
+            "import django,json,tempfile; django.setup(); from django.core.management import call_command; from django.db import connection; import redis; call_command('migrate',interactive=False,verbosity=0); call_command('check'); cursor=connection.cursor(); cursor.execute('select version(),current_database()'); row=cursor.fetchone(); assert row[1]=='capacity_ci'; assert redis.Redis(host='redis').ping(); f=tempfile.TemporaryFile(dir='/tmp'); f.write(b'synthetic-media'); f.seek(0); assert f.read()==b'synthetic-media'; f.close(); print(json.dumps({'postgres':row[0],'database':row[1],'redis_ping':True,'migrations_applied':True,'temporary_media_io':True,'django':django.get_version()}))"
+          ],
+          "exit": 0,
+          "seconds": 33.6288678329438
+        },
+        {
+          "label": "control-settings",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-app",
+            "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+            "-c",
+            "from pathlib import Path; Path('/tmp/capacity_settings.py').write_text(\"from config.settings import *\\nMEDIA_ROOT = '/tmp/capacity-media'\\nDATABASES['default']['TEST'] = {'NAME': 'test_capacity_ci'}\\n\")"
+          ],
+          "exit": 0,
+          "seconds": 0.1885022888891399
+        },
+        {
+          "label": "control-pytest",
+          "command": [
+            "docker",
+            "exec",
+            "-e",
+            "PYTHONPATH=/tmp:/home/felidae/proyectos/web_modelos",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-app",
+            "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+            "-m",
+            "pytest",
+            "-q",
+            "--tb=short",
+            "-o",
+            "DJANGO_SETTINGS_MODULE=capacity_settings",
+            "-o",
+            "junit_family=xunit1",
+            "-p",
+            "no:cacheprovider",
+            "--basetemp=/tmp/capacity-pytest",
+            "--junitxml=/tmp/capacity-control.xml",
+            "tests/test_capacity_case_control.py"
+          ],
+          "exit": 0,
+          "seconds": 90.76369520509616
+        },
+        {
+          "label": "control-junit",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-app",
+            "cat",
+            "/tmp/capacity-control.xml"
+          ],
+          "exit": 0,
+          "seconds": 0.13781148195266724
+        },
+        {
+          "label": "memory-pg",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-pg",
+            "cat",
+            "/sys/fs/cgroup/memory.current",
+            "/sys/fs/cgroup/memory.peak"
+          ],
+          "exit": 0,
+          "seconds": 0.08765162015333772
+        },
+        {
+          "label": "memory-redis",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-redis",
+            "cat",
+            "/sys/fs/cgroup/memory.current",
+            "/sys/fs/cgroup/memory.peak"
+          ],
+          "exit": 0,
+          "seconds": 0.13391555799171329
+        },
+        {
+          "label": "memory-app",
+          "command": [
+            "docker",
+            "exec",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-app",
+            "cat",
+            "/sys/fs/cgroup/memory.current",
+            "/sys/fs/cgroup/memory.peak"
+          ],
+          "exit": 0,
+          "seconds": 0.11749628186225891
+        },
+        {
+          "label": "remove-web-modelos-capacity-20261009-145738-cd1b2e8e-app",
+          "command": [
+            "docker",
+            "rm",
+            "-fv",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-app"
+          ],
+          "exit": 0,
+          "seconds": 0.31445555202662945
+        },
+        {
+          "label": "inventory-web-modelos-capacity-20261009-145738-cd1b2e8e-app",
+          "command": [
+            "docker",
+            "ps",
+            "-a",
+            "--filter",
+            "name=^web-modelos-capacity-20261009-145738-cd1b2e8e-app$",
+            "--format",
+            "{{.Names}}"
+          ],
+          "exit": 0,
+          "seconds": 0.04813245823606849
+        },
+        {
+          "label": "remove-web-modelos-capacity-20261009-145738-cd1b2e8e-redis",
+          "command": [
+            "docker",
+            "rm",
+            "-fv",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-redis"
+          ],
+          "exit": 0,
+          "seconds": 0.2458930229768157
+        },
+        {
+          "label": "inventory-web-modelos-capacity-20261009-145738-cd1b2e8e-redis",
+          "command": [
+            "docker",
+            "ps",
+            "-a",
+            "--filter",
+            "name=^web-modelos-capacity-20261009-145738-cd1b2e8e-redis$",
+            "--format",
+            "{{.Names}}"
+          ],
+          "exit": 0,
+          "seconds": 0.06558876344934106
+        },
+        {
+          "label": "remove-web-modelos-capacity-20261009-145738-cd1b2e8e-pg",
+          "command": [
+            "docker",
+            "rm",
+            "-fv",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-pg"
+          ],
+          "exit": 0,
+          "seconds": 0.2767077926546335
+        },
+        {
+          "label": "inventory-web-modelos-capacity-20261009-145738-cd1b2e8e-pg",
+          "command": [
+            "docker",
+            "ps",
+            "-a",
+            "--filter",
+            "name=^web-modelos-capacity-20261009-145738-cd1b2e8e-pg$",
+            "--format",
+            "{{.Names}}"
+          ],
+          "exit": 0,
+          "seconds": 0.06359525537118316
+        },
+        {
+          "label": "remove-network",
+          "command": [
+            "docker",
+            "network",
+            "rm",
+            "web-modelos-capacity-20261009-145738-cd1b2e8e-net"
+          ],
+          "exit": 0,
+          "seconds": 0.3758292798884213
+        },
+        {
+          "label": "network-inventory",
+          "command": [
+            "docker",
+            "network",
+            "ls",
+            "--filter",
+            "name=^web-modelos-capacity-20261009-145738-cd1b2e8e-net$",
+            "--format",
+            "{{.Name}}"
+          ],
+          "exit": 0,
+          "seconds": 0.03893835796043277
+        }
+      ],
+      "controls": {
+        "pg": [
+          "100000 100000",
+          "1610612736",
+          "0"
+        ],
+        "redis": [
+          "25000 100000",
+          "536870912",
+          "0"
+        ],
+        "app": [
+          "275000 100000",
+          "6442450944",
+          "0"
+        ]
+      },
+      "cleanup": {
+        "web-modelos-capacity-20261009-145738-cd1b2e8e-app": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261009-145738-cd1b2e8e-redis": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261009-145738-cd1b2e8e-pg": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261009-145738-cd1b2e8e-net": {
+          "absent": true
+        }
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "88.608",
+          "timestamp": "2026-10-09T16:58:17.269936+02:00",
+          "hostname": "5560126d56e7"
+        }
+      ],
+      "cgroup_memory": {
+        "pg": {
+          "current_bytes": 143204352,
+          "peak_bytes": 194355200
+        },
+        "redis": {
+          "current_bytes": 8843264,
+          "peak_bytes": 16617472
+        },
+        "app": {
+          "current_bytes": 4689920,
+          "peak_bytes": 244662272
+        }
+      },
+      "memory_scope": "Disjoint container peaks; sum is upper bound, not synchronous whole-environment peak. Host controller excluded.",
+      "sources_unchanged": true
+    }
+  ],
+  "properties": {
+    "selected_revisions": "30",
+    "control_tcp_samples": "{\"package\": {\"seconds\": [0.9838140467181802, 0.6706990459933877, 0.8806510348804295, 1.024430165067315, 0.894478308968246, 0.9543345351703465, 0.7443500310182571, 0.9610523260198534, 0.788391831330955, 1.0547084850259125, 0.9862708877772093, 0.9170716726221144, 1.0550165409222245, 0.7975799110718071, 0.8783866968005896, 0.9451126880012453, 1.0339671107940376, 1.0790063003078103, 0.9589457055553794, 0.964903776999563], \"p95_seconds\": 1.0550165409222245, \"samples\": 20, \"body_bytes\": 12598}}",
+    "control_json_bytes": "10159",
+    "control_only": "True",
+    "source_binary_bytes": "12418",
+    "source_binary_sha256": "cf987487fd5cd76eeba097c705d906d17ba441c44956891d4b247d23f56e4cfa",
+    "measurement_enabled": "True",
+    "stages": "{\"selection_coverage_native_intake_and_approval\": {\"sql_queries\": 9716, \"seconds\": 23.280185078736395, \"sampled_process_rss_peak_bytes\": 284626944}, \"generation\": {\"sql_queries\": 734, \"seconds\": 1.9182757218368351, \"sampled_process_rss_peak_bytes\": 215146496}, \"final_draft_preparation\": {\"sql_queries\": 281, \"seconds\": 0.8226775340735912, \"sampled_process_rss_peak_bytes\": 215408640}, \"final_draft_inspection\": {\"sql_queries\": 330, \"seconds\": 0.7724627950228751, \"sampled_process_rss_peak_bytes\": 215539712}, \"final_approval\": {\"sql_queries\": 526, \"seconds\": 1.0523466686718166, \"sampled_process_rss_peak_bytes\": 215539712}, \"closure\": {\"sql_queries\": 364, \"seconds\": 0.7889826665632427, \"sampled_process_rss_peak_bytes\": 215539712}, \"closure_replay\": {\"sql_queries\": 194, \"seconds\": 0.4899516087025404, \"sampled_process_rss_peak_bytes\": 215670784}, \"manifest_tcp_download\": {\"sql_queries\": 279, \"seconds\": 0.948971145786345, \"sampled_process_rss_peak_bytes\": 217985024}, \"webp_tcp_download\": {\"sql_queries\": 277, \"seconds\": 0.946715768892318, \"sampled_process_rss_peak_bytes\": 218091520}, \"zip_tcp_download\": {\"sql_queries\": 277, \"seconds\": 0.7504173731431365, \"sampled_process_rss_peak_bytes\": 218353664}}",
+    "success": "True",
+    "scope": "Real PostgreSQL/native approvals and local TCP HTTP. Synthetic eligibility/identity; Selected Unicode revision descriptions; large multipart JSON reconstructed exactly, small WebP/ZIP. RSS includes pytest fixture and local client/server in same process, sampled50ms; no Gunicorn/Caddy/p95/capacity claimed."
+  },
+  "archive": "docs/evidencias/capacidad-control-expediente-20261009-artefactos.tar.gz",
+  "archive_sha256": "1e77a0ba55b9bfdc8f10c96a25c32ac033f9a9e3be102d593246d247d0ae0737",
+  "scope": "Small control only; not target capacity, common N3 or phase acceptance.",
+  "limits": [
+    "30 historical revisions, 10159-byte delivered JSON, 12418-byte WebP, one 12598-byte ZIP. No claim of 1500 revisions/16MiB/64MiB/two concurrent cases.",
+    "Twenty full TCP package samples; nearest-rank p95. Manifest and image have single stage observations, no p95.",
+    "Stages timed as native Python functions; no HTTP page review or save percentile yet.",
+    "Disjoint container memory peaks; sum upper bound only, host controller excluded; sampled app RSS includes pytest/client/server.",
+    "Legitimate rate limit30/IP/15min retained; failed60-download scenario preserved without JUnit because initial Docker-copy collection failed.",
+    "No browser, native Redis parser build or retained-origin census claimed from these control fixtures."
+  ]
+}

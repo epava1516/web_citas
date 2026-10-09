@@ -59,6 +59,19 @@ cc -std=c99 -Wall -Wextra -Werror -fstack-protector-all \
 Estado durante el diagnóstico: extractor de operador en desarrollo, fuera de HTTP/servicios normales. Su integración posterior queda acreditada abajo. Diagnóstico ejecutado con cwd privado, límites/no-new-privileges/timeout del wrapper existente. Dos capturas conservadas del entorno sintético y fixture oficial con corrupción CRC comprobadas; no N2 ni entrega nueva aceptada. En ese corte estaban pendientes funciones/módulos/metadatos adicionales y revisión por inventario; esta última se entregó posteriormente. El resultado funcional de integración posterior está entregado abajo; no repetir este diagnóstico ni tratarlo como cola vigente. Metadatos no AUX/desconocidos y cobertura integral pendientes.
 
 
+## Preparación reproducible del entorno de pruebas
+
+[prepare_native_test_tools.py](../scripts/prepare_native_test_tools.py) comprueba los commits fijados de librdb e hiredis, reconstruye el parser y los dos collectors, aplica0755 y registra sus huellas en `manifest.json`. Requiere un checkout desechable: ejecuta `make clean`; no usar una carpeta con trabajo propio. El archivo de variables usa formato GitHub Actions, no se interpreta como código shell.
+
+```bash
+uv run python scripts/prepare_native_test_tools.py \
+  --source /ruta/desechable/librdb \
+  --output /ruta/desechable/binarios \
+  --env-file /ruta/desechable/native.env
+```
+
+Las seis variables `RETAINED_RDB_*_BIN`/`RETAINED_RDB_*_SHA256` del manifest deben estar en el entorno de pytest. El workflow prepara estos requisitos, PostgreSQL con nombre `promotion_gate_ci`, Redis y Chromium antes de pytest. Esa configuración no acredita una ejecución externa de CI. La omisión de las tareas MOD05 sin argumentos en el adaptador de colas se corrigió durante el saneamiento2026-10-09; los mensajes con argumentos o envelopes desconocidos mantienen el rechazo.
+
 ## Preparación integrada AUX — entrega local
 
 Una vez contrastados código/bibliotecas, hash del binario y propietario, instalar el collector con0755 (umask de este host puede producir0776; ese permiso se rechaza). Usar las opciones `--aux-decoder /ruta/privada/retained-rdb-aux --aux-decoder-sha256 HUELLA_VERIFICADA` junto al comando por inventario. Cifrado de AUX dentro del nuevo origen RDBv2; no usar el archivo de diagnóstico como origen completo ni copiar datos a medios públicos. El proceso web solo lee/valida el archivo preparado.

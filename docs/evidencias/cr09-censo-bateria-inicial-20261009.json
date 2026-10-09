@@ -1,0 +1,219 @@
+{
+  "schema": "cr09-local-census-baseline-v1",
+  "run": {
+    "id": "20261009-131556-43982c5a",
+    "profile": "rights",
+    "result": "ERROR",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-131556-43982c5a",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.6286966912448406
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-131556-43982c5a",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.41641111904755235
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03332262393087149
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11471337312832475
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.9173147343099117
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.3214048123918474
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.6694076908752322
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-43d1xy3t/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-43d1xy3t/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-43d1xy3t/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.821610177867115
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-43d1xy3t/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-131556-43982c5a/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_rights_verification.py",
+          "tests/test_rights_access_scope_inventory.py",
+          "tests/test_rights_access_coverage.py",
+          "tests/test_rights_access_evidence_refs.py",
+          "tests/test_rights_access_coverage_store.py",
+          "tests/test_rights_access_field_decision.py",
+          "tests/test_rights_access_recipient_payload.py",
+          "tests/test_rights_access_response_draft.py",
+          "tests/test_rights_access_response_mobile.py",
+          "tests/test_access_close_localization.py",
+          "tests/test_scoped_log_history_origins.py",
+          "tests/test_scoped_redis_history_origins.py",
+          "tests/test_retained_origin_inventory.py",
+          "tests/test_retained_redis_origins.py",
+          "tests/test_retained_rdb_physical_metadata.py",
+          "tests/test_redis_history_scope.py",
+          "tests/test_redis_retained_history.py",
+          "tests/test_broker_envelope_schema.py"
+        ],
+        "exit": 1,
+        "seconds": 1716.5245737261139
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_rights_verification.py",
+      "tests/test_rights_access_scope_inventory.py",
+      "tests/test_rights_access_coverage.py",
+      "tests/test_rights_access_evidence_refs.py",
+      "tests/test_rights_access_coverage_store.py",
+      "tests/test_rights_access_field_decision.py",
+      "tests/test_rights_access_recipient_payload.py",
+      "tests/test_rights_access_response_draft.py",
+      "tests/test_rights_access_response_mobile.py",
+      "tests/test_access_close_localization.py",
+      "tests/test_scoped_log_history_origins.py",
+      "tests/test_scoped_redis_history_origins.py",
+      "tests/test_retained_origin_inventory.py",
+      "tests/test_retained_redis_origins.py",
+      "tests/test_retained_rdb_physical_metadata.py",
+      "tests/test_redis_history_scope.py",
+      "tests/test_redis_retained_history.py",
+      "tests/test_broker_envelope_schema.py"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "error": "pytest failed; inspect its log",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-131556-43982c5a": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-131556-43982c5a": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "tests": "196",
+        "time": "1712.383",
+        "timestamp": "2026-10-09T15:16:15.359337+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "classification": "N2 functional baseline; FAIL; not N3 or phase acceptance.",
+  "archive": "docs/evidencias/cr09-censo-bateria-inicial-20261009-artefactos.tar.gz",
+  "archive_sha256": "28020d1c992123b5d0599397172b99ec253535d519b9a94e557ecdaa6fe373d3",
+  "failed_nodes": [
+    "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[False]",
+    "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[True]"
+  ],
+  "diagnosis": "Actual account mail producer emits separate ES/EN subject/body pairs; projector accepts only the previous bilingual pair. Unprojected candidate is retained, not silently discarded. Confirm focused producer-based reproduction before correction."
+}

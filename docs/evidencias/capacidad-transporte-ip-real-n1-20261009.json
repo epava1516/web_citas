@@ -1,0 +1,24 @@
+{
+  "result": "N1_INSTRUMENT_PASS_NOT_APPLICATION_CAPACITY",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "2",
+      "time": "1.295",
+      "timestamp": "2026-10-09T20:53:31.102938+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "verified": "Two real TCP loopback peers127.0.0.2/.3, complete >1MiB response bodies, no XForwardedFor, measured whole response; local server closed/thread joined.",
+  "scope": "Transport instrument only; no Django rights/CSRF authority/target capacity verification. These require owned full delivery driver.",
+  "source_hashes": {
+    "tests/capacity_delivery_http.py": "e067ac24d926e0adf4270b42c15b97a1a23107cb8588f11bb266b2e72f35e158",
+    "tests/test_capacity_delivery_http.py": "ef693d0f6575f25d231c385e7933a387afd83f9ee7e2086e961762c351aa859d",
+    "artifacts/capacity-delivery-http.xml": "bb61a7c56221eb22855361fecc4811b2bdb4a2b0ef0a05163e3b7af46c789edd"
+  },
+  "archive": "capacidad-transporte-ip-real-n1-20261009-artefactos.tar.gz",
+  "archive_sha256": "69a6ab3e16b090a015418e5441abf47f6bd5ed5d7279ca6bd1be0e1bc03b9b7c"
+}

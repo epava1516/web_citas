@@ -1,0 +1,231 @@
+{
+  "result": "N2_SELECTED_GUARDS_PASS_WITH_LATE_AUDIT_FRESHNESS_STILL_PENDING",
+  "report": {
+    "id": "20261009-200400-7081b9a0",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-200400-7081b9a0",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.4715274218469858
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-200400-7081b9a0",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.41607077419757843
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06445826590061188
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.06537909712642431
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.8172370833344758
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.3805837607942522
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.7777082677930593
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-vceowkdh/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-vceowkdh/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-vceowkdh/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.509614618029445
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-vceowkdh/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-200400-7081b9a0/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_portability_binary_save_shared_source.py",
+          "tests/test_rights_portability_images.py",
+          "tests/test_rights_portability_image_selection.py",
+          "tests/test_rights_portability_image_storage.py",
+          "tests/test_rights_portability_coverage_images.py",
+          "tests/test_rights_portability_binary_races.py",
+          "tests/test_portability_selection_pagination.py",
+          "tests/test_portability_inspection_shared_source.py",
+          "tests/test_rights_inspection_source_unit.py"
+        ],
+        "exit": 0,
+        "seconds": 463.49118038406596
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_portability_binary_save_shared_source.py",
+      "tests/test_rights_portability_images.py",
+      "tests/test_rights_portability_image_selection.py",
+      "tests/test_rights_portability_image_storage.py",
+      "tests/test_rights_portability_coverage_images.py",
+      "tests/test_rights_portability_binary_races.py",
+      "tests/test_portability_selection_pagination.py",
+      "tests/test_portability_inspection_shared_source.py",
+      "tests/test_rights_inspection_source_unit.py"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-200400-7081b9a0": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-200400-7081b9a0": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "62",
+        "time": "461.323",
+        "timestamp": "2026-10-09T22:04:18.089715+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "grouped_audit_cases": [
+    {
+      "name": "test_grouped_binary_audit_preserves_two_real_reads_and_exact_scope[valid]",
+      "properties": {
+        "binary_audit_select_count": "1"
+      }
+    },
+    {
+      "name": "test_grouped_binary_audit_preserves_two_real_reads_and_exact_scope[missing]",
+      "properties": {
+        "binary_audit_select_count": "1"
+      }
+    },
+    {
+      "name": "test_grouped_binary_audit_preserves_two_real_reads_and_exact_scope[actor]",
+      "properties": {
+        "binary_audit_select_count": "1"
+      }
+    },
+    {
+      "name": "test_grouped_binary_audit_preserves_two_real_reads_and_exact_scope[version]",
+      "properties": {
+        "binary_audit_select_count": "1"
+      }
+    },
+    {
+      "name": "test_grouped_binary_audit_preserves_two_real_reads_and_exact_scope[digest]",
+      "properties": {
+        "binary_audit_select_count": "1"
+      }
+    }
+  ],
+  "archive": {
+    "file": "revision-binaria-candidatos-n2-inicial-20261009-artefactos.tar.gz",
+    "sha256": "242ad6ad18b31b29ad7e663e24f6562476edf77ccbc833ca84da6145f8f91e05",
+    "exact_verified_sources": 1020
+  },
+  "scope": "62functional cases, PG observed waits/ESEN/pagination included; source preservation and own cleanup. Not HTTP capacity or N3.",
+  "new_review_requirement": "Batch evidence fetched before byte reads; reproduce removal during real read and require evidence freshness after bytes before accepting optimization."
+}

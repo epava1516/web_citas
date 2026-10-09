@@ -1,0 +1,184 @@
+{
+  "classification": "REPRODUCED_BATCH_AUDIT_STALE_AFTER_REAL_BYTE_READ",
+  "report": {
+    "id": "20261009-201431-21848dc2",
+    "profile": "focused",
+    "result": "ERROR",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-201431-21848dc2",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5166827538050711
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-201431-21848dc2",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5208658231422305
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06611595582216978
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.1201423448510468
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.8171787159517407
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.3213018509559333
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.7694745352491736
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-f2ncw14v/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-f2ncw14v/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-f2ncw14v/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.291604876052588
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-f2ncw14v/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-201431-21848dc2/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_portability_binary_save_shared_source.py::test_binary_save_rejects_audit_removed_during_real_byte_read_and_rolls_back"
+        ],
+        "exit": 1,
+        "seconds": 44.42068471200764
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_portability_binary_save_shared_source.py::test_binary_save_rejects_audit_removed_during_real_byte_read_and_rolls_back"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "error": "pytest failed; inspect its log",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-201431-21848dc2": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-201431-21848dc2": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "1",
+        "time": "42.380",
+        "timestamp": "2026-10-09T22:14:49.340110+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "finding": "Real native save failed to reject when RightsImageAccess removed during actual image_content read. Expected ValidationError not raised. Current batch snapshot precedes actual bytes; correcting order required before capacity acceptance.",
+  "archive": {
+    "file": "revision-binaria-auditoria-frescura-reproduccion-20261009-artefactos.tar.gz",
+    "sha256": "42927262476b6426276dd7affa221dbba53a6edc40c52cded57ae43448ee80f5",
+    "exact_verified_sources": 1020
+  },
+  "limits": "Functional synthetic PostgreSQL reproduction only; no HTTP latency or capacity proof."
+}

@@ -1,0 +1,426 @@
+{
+  "result": "NATIVE_FULL_SIZED_PAGE_ATTRIBUTION_NOT_HTTP_CAPACITY",
+  "report": {
+    "id": "20261009-195633-990d7a16",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-195633-990d7a16",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5181096051819623
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-195633-990d7a16",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.6186212501488626
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.0644956142641604
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11683202208951116
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.8171490980312228
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.468641763087362
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.7756886067800224
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-td9ogmbr/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-td9ogmbr/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-td9ogmbr/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.818440047558397
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-td9ogmbr/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-195633-990d7a16/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_portability_binary_page_profile.py"
+        ],
+        "exit": 0,
+        "seconds": 157.09779151715338
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_portability_binary_page_profile.py"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-195633-990d7a16": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-195633-990d7a16": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "154.945",
+        "timestamp": "2026-10-09T21:56:52.303834+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "measurements": {
+    "seconds_with_instrumentation": 2.9088585101999342,
+    "queries": {
+      "SELECT": {
+        "count": 131,
+        "seconds": 0.34673025039955974
+      },
+      "SAVEPOINT": {
+        "count": 1,
+        "seconds": 0.0003807581961154938
+      },
+      "INSERT": {
+        "count": 2,
+        "seconds": 0.002707697916775942
+      },
+      "RELEASE": {
+        "count": 1,
+        "seconds": 0.0009736991487443447
+      }
+    },
+    "profile": "         1214557 function calls (1202186 primitive calls) in 2.914 seconds\n\n   Ordered by: cumulative time\n   List reduced from 895 to 70 due to restriction <70>\n\n   ncalls  tottime  percall  cumtime  percall filename:lineno(function)\n      2/1    0.000    0.000    2.893    2.893 /home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/contextlib.py:78(inner)\n   3051/1    0.011    0.000    2.890    2.890 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/views/decorators/debug.py:69(sensitive_variables_wrapper)\n        1    0.003    0.003    2.751    2.751 /home/felidae/proyectos/web_modelos/apps/safety/rights_portability_selection_review.py:26(record)\n     3202    0.021    0.000    1.434    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:87(__iter__)\n        2    0.032    0.016    1.404    0.702 /home/felidae/proyectos/web_modelos/apps/safety/rights_exports.py:51(source_copy)\n     3002    0.032    0.000    1.289    0.000 /home/felidae/proyectos/web_modelos/apps/safety/rights_copy_revision_batches.py:13(batches)\n     3002    0.002    0.000    0.991    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:497(_iterator)\n      146    0.580    0.004    0.868    0.006 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/connection.py:479(wait)\n     3072    0.007    0.000    0.777    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:1534(apply_converters)\n      190    0.002    0.000    0.738    0.004 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:2165(cursor_iter)\n      190    0.001    0.000    0.733    0.004 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:2171(<lambda>)\n      208    0.210    0.001    0.732    0.004 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/utils.py:96(inner)\n        1    0.001    0.001    0.670    0.670 /home/felidae/proyectos/web_modelos/apps/safety/rights_portability_images.py:79(audited_images)\n        6    0.000    0.000    0.515    0.086 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/_server_cursor.py:117(fetchmany)\n      132    0.002    0.000    0.501    0.004 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:1593(execute_sql)\n      117    0.002    0.000    0.485    0.004 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:1952(_fetch_all)\n     3002    0.006    0.000    0.476    0.000 /home/felidae/proyectos/web_modelos/apps/safety/rights_portability_selection.py:14(row_reference)\n     3015    0.004    0.000    0.438    0.000 /home/felidae/proyectos/web_modelos/apps/safety/rights_exports.py:46(canonical)\n     3017    0.009    0.000    0.435    0.000 /home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py:183(dumps)\n     3017    0.008    0.000    0.425    0.000 /home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/encoder.py:183(encode)\n     3017    0.414    0.000    0.414    0.000 /home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/encoder.py:205(iterencode)\n     3018    0.006    0.000    0.396    0.000 /home/felidae/proyectos/web_modelos/apps/safety/rights.py:30(fingerprint)\n       74    0.000    0.000    0.395    0.005 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:371(__iter__)\n     3018    0.017    0.000    0.378    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/utils/crypto.py:19(salted_hmac)\n      135    0.000    0.000    0.353    0.003 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/backends/utils.py:78(execute)\n      135    0.001    0.000    0.353    0.003 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/backends/utils.py:88(_execute_with_wrappers)\n      135    0.002    0.000    0.352    0.003 /home/felidae/proyectos/web_modelos/tests/test_portability_binary_page_profile.py:31(observe)\n      135    0.001    0.000    0.350    0.003 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/backends/utils.py:94(_execute)\n      133    0.001    0.000    0.342    0.003 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/cursor.py:100(execute)\n        1    0.003    0.003    0.287    0.287 /home/felidae/proyectos/web_modelos/apps/safety/rights_portability_images.py:16(checked_images)\n     3018    0.003    0.000    0.254    0.000 /home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/hmac.py:167(new)\n        1    0.012    0.012    0.254    0.254 /home/felidae/proyectos/web_modelos/apps/safety/rights_portability_selection.py:45(project_selected)\n     3018    0.004    0.000    0.251    0.000 /home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/hmac.py:38(__init__)\n     3018    0.003    0.000    0.204    0.000 /home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/hmac.py:66(_init_hmac)\n     3018    0.201    0.000    0.201    0.000 {built-in method _hashlib.hmac_new}\n     3042    0.187    0.000    0.187    0.000 {built-in method _hashlib.openssl_sha256}\n     3012    0.038    0.000    0.185    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/_server_cursor_base.py:165(_fetch_gen)\n     3137    0.046    0.000    0.153    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/base.py:576(from_db)\n       16    0.001    0.000    0.149    0.009 /home/felidae/proyectos/web_modelos/apps/safety/rights_exports.py:969(image_content)\n       29    0.000    0.000    0.133    0.005 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:1099(first)\n  135/132    0.004    0.000    0.130    0.001 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:755(as_sql)\n      271    0.001    0.000    0.123    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/_cursor_base.py:195(_execute_gen)\n       40    0.001    0.000    0.102    0.003 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:611(get)\n37580/36753    0.007    0.000    0.097    0.000 {built-in method builtins.len}\n      135    0.000    0.000    0.095    0.001 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/_cursor_base.py:461(_convert_query)\n      135    0.001    0.000    0.095    0.001 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/_queries.py:263(convert)\n     3139    0.040    0.000    0.094    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/base.py:462(__init__)\n      135    0.001    0.000    0.093    0.001 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:79(pre_sql_setup)\n      135    0.001    0.000    0.092    0.001 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/_queries.py:291(dump)\n     9054    0.010    0.000    0.091    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/utils/encoding.py:87(force_bytes)\n       43    0.000    0.000    0.090    0.002 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:367(__len__)\n      399    0.004    0.000    0.090    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/_queries.py:299(<genexpr>)\n103653/100646    0.036    0.000    0.080    0.000 {built-in method builtins.setattr}\n     9268    0.077    0.000    0.077    0.000 {method 'encode' of 'str' objects}\n     3020    0.074    0.000    0.077    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/_connection_base.py:443(_exec_command)\n     6154    0.014    0.000    0.074    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/backends/postgresql/psycopg_any.py:33(load)\n      143    0.001    0.000    0.064    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/adapt.py:52(quote)\n        1    0.000    0.000    0.063    0.063 /home/felidae/proyectos/web_modelos/apps/safety/rights_exports.py:223(reviewer_case)\n       20    0.000    0.000    0.062    0.003 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/types/array.py:157(dump)\n      136    0.000    0.000    0.061    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:1489(filter)\n       20    0.017    0.001    0.061    0.003 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/types/array.py:161(dump_list)\n      136    0.000    0.000    0.061    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:1505(_filter_or_exclude)\n  136/133    0.001    0.000    0.059    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:1516(_filter_or_exclude_inplace)\n  132/130    0.001    0.000    0.057    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/manager.py:85(manager_method)\n  136/133    0.001    0.000    0.056    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py:1630(add_q)\n  137/133    0.002    0.000    0.055    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py:1659(_add_q)\n     6154    0.004    0.000    0.053    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/types/datetime.py:493(load)\n2642/1868    0.005    0.000    0.050    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:572(compile)\n     6154    0.032    0.000    0.049    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/types/datetime.py:496(_load_iso)\n  237/233    0.005    0.000    0.047    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py:1465(build_filter)\n\n\n",
+    "fixture": {
+      "candidate_bytes": 16777069,
+      "topic_counts": [
+        19,
+        20
+      ],
+      "longer_revisions": 364,
+      "originals_bytes": 67095052,
+      "originals": [
+        {
+          "sha256": "236c55219d894136a607d532971c637a6bd3231bede4d6b8e2f1f3a644cea3f4",
+          "bytes": 4193442,
+          "blob": "87483f00-8249-480e-990c-dd033aa83a7d"
+        },
+        {
+          "sha256": "1a9fd8ecc6e87071740f002e0ab795d7a5bfb85e9322e313df225d312b99e9cc",
+          "bytes": 4193442,
+          "blob": "abb91893-083f-4ce1-a51b-9268af883b9b"
+        },
+        {
+          "sha256": "373d04e1534510c69596848bae31209d28d3472a925dad31546fb766357548d0",
+          "bytes": 4193442,
+          "blob": "30fdd785-f8e1-4988-81f4-b97a373409d6"
+        },
+        {
+          "sha256": "7a3db671bda03dda6fe68d60d55719474889eb422ac119362e398553be7b6fd2",
+          "bytes": 4193440,
+          "blob": "268c190d-7154-4b73-9da4-34bcd3578047"
+        },
+        {
+          "sha256": "92b4879eab461264dd10e3ce105ba9eec95e7544c2dd3328a1e7582ca1bfea98",
+          "bytes": 4193442,
+          "blob": "125eb9cb-7bcd-4bc5-af2f-269a91504600"
+        },
+        {
+          "sha256": "1668f382e22954593dc88a1bbc1fd533bdcfaa9cfa6f07fd2fcaf2938955d327",
+          "bytes": 4193440,
+          "blob": "9f5b5fdc-f93f-42a4-8205-ef2600d70dd8"
+        },
+        {
+          "sha256": "096813f89f16f86ec1cb01fdfa76b257a488db3c42b478358c68a546034a55f5",
+          "bytes": 4193442,
+          "blob": "e0b35533-b439-4f5c-9e33-88b94b4fdd39"
+        },
+        {
+          "sha256": "ffb3d331cb682f7a1046ed0679c442b58ffc5fdf4e09eed7ee673004a9fdc6d3",
+          "bytes": 4193438,
+          "blob": "a6d4a87a-5a78-41b7-a252-c39fff8a90a1"
+        },
+        {
+          "sha256": "6616c0798bd8479bfce8373a05937ed4981180bbab5fc39fc2e58bd03e3c96c1",
+          "bytes": 4193442,
+          "blob": "331b6178-45e2-49bc-9a0d-11d1eb2df844"
+        },
+        {
+          "sha256": "b39dea2963f8ad8506e9d15f6c39d881ed3ce636f75eeaea26bc4faa0d493924",
+          "bytes": 4193442,
+          "blob": "e970745b-c7f8-4d33-91a7-b14cba2fd9b1"
+        },
+        {
+          "sha256": "c605fbb7ba27e5b9d39951de196c2d73b4f3fa6cec045e17ab91da2d3cc62e01",
+          "bytes": 4193440,
+          "blob": "f7f663ff-cdd6-494b-8225-ac86988fac7e"
+        },
+        {
+          "sha256": "0c66633e012599c6a53f723dee876de687f50c9025376f41a2576f840c64d716",
+          "bytes": 4193442,
+          "blob": "9444b133-cd39-4942-ad20-65e7fa18b467"
+        },
+        {
+          "sha256": "71254ad00ee64b66d0fde88b6210c711a88c9fe34916fc427bf13e081d7b4950",
+          "bytes": 4193438,
+          "blob": "4310e95e-6d4d-494d-a37a-ae7c48f55f6a"
+        },
+        {
+          "sha256": "cfc2c225883aba7dc33fe755e0b9c46d613592c56892c7a05fc9962bc64ec54d",
+          "bytes": 4193442,
+          "blob": "3ca3f57f-ec0d-401c-85e2-317b9fe9f812"
+        },
+        {
+          "sha256": "cd48172069fa6c7e9086f2a06d32f90e65a621f7151ebd539fb948c5a397a3a4",
+          "bytes": 4193440,
+          "blob": "1b8426c2-133c-46ce-97c4-fca47184e7e8"
+        },
+        {
+          "sha256": "f7db9105ac17e2a8797e0c630acb0594ad7b69f390b986ee3e3c9db1d8c3fbd3",
+          "bytes": 4193438,
+          "blob": "11855c7d-2bf2-44b4-85b5-cd1233c58378"
+        }
+      ]
+    },
+    "binary_preparation": [
+      {
+        "photo": "46724a31-5b93-4ccf-9f2d-8ec6fcc43750",
+        "revision_index": 0,
+        "image_index": 0,
+        "content_digest": "236c55219d894136a607d532971c637a6bd3231bede4d6b8e2f1f3a644cea3f4",
+        "prepare_seconds": 1.8007701016031206,
+        "save_seconds": 2.997127829119563
+      },
+      {
+        "photo": "7e41e577-7a76-4018-a54b-f173b94895fd",
+        "revision_index": 1,
+        "image_index": 0,
+        "content_digest": "1a9fd8ecc6e87071740f002e0ab795d7a5bfb85e9322e313df225d312b99e9cc",
+        "prepare_seconds": 1.952397317159921,
+        "save_seconds": 2.794505142606795
+      },
+      {
+        "photo": "f01bfb28-9c07-4b2c-9269-4a935c559d6b",
+        "revision_index": 2,
+        "image_index": 0,
+        "content_digest": "373d04e1534510c69596848bae31209d28d3472a925dad31546fb766357548d0",
+        "prepare_seconds": 1.6745977830141783,
+        "save_seconds": 3.046733347699046
+      },
+      {
+        "photo": "b92905c0-b6e2-49cd-80b0-71b4c6a67095",
+        "revision_index": 3,
+        "image_index": 0,
+        "content_digest": "7a3db671bda03dda6fe68d60d55719474889eb422ac119362e398553be7b6fd2",
+        "prepare_seconds": 1.9490387649275362,
+        "save_seconds": 3.1599803590215743
+      },
+      {
+        "photo": "8a68e5de-0f27-4afa-a0f8-aaeb1bc30c34",
+        "revision_index": 4,
+        "image_index": 0,
+        "content_digest": "92b4879eab461264dd10e3ce105ba9eec95e7544c2dd3328a1e7582ca1bfea98",
+        "prepare_seconds": 1.821266759186983,
+        "save_seconds": 2.9566156226210296
+      },
+      {
+        "photo": "5e5a29b8-4c8e-4ee0-b442-3dcfd9dac12a",
+        "revision_index": 5,
+        "image_index": 0,
+        "content_digest": "1668f382e22954593dc88a1bbc1fd533bdcfaa9cfa6f07fd2fcaf2938955d327",
+        "prepare_seconds": 1.6454660687595606,
+        "save_seconds": 3.223496212158352
+      },
+      {
+        "photo": "b57f2376-03c4-48a7-ab11-71fef782fd5c",
+        "revision_index": 6,
+        "image_index": 0,
+        "content_digest": "096813f89f16f86ec1cb01fdfa76b257a488db3c42b478358c68a546034a55f5",
+        "prepare_seconds": 1.6377238440327346,
+        "save_seconds": 3.2666956298053265
+      },
+      {
+        "photo": "fe940c79-139f-4e6f-b8d3-82ddc43501b4",
+        "revision_index": 7,
+        "image_index": 0,
+        "content_digest": "ffb3d331cb682f7a1046ed0679c442b58ffc5fdf4e09eed7ee673004a9fdc6d3",
+        "prepare_seconds": 1.7099640187807381,
+        "save_seconds": 3.07368818577379
+      },
+      {
+        "photo": "e69670f6-18c8-40b4-8ba5-1976e46a7081",
+        "revision_index": 8,
+        "image_index": 0,
+        "content_digest": "6616c0798bd8479bfce8373a05937ed4981180bbab5fc39fc2e58bd03e3c96c1",
+        "prepare_seconds": 2.148869269993156,
+        "save_seconds": 3.514542626682669
+      },
+      {
+        "photo": "21757dd4-66ca-4660-aa6f-8dba97794c13",
+        "revision_index": 9,
+        "image_index": 0,
+        "content_digest": "b39dea2963f8ad8506e9d15f6c39d881ed3ce636f75eeaea26bc4faa0d493924",
+        "prepare_seconds": 2.120761343277991,
+        "save_seconds": 3.4235152760520577
+      },
+      {
+        "photo": "461dd7de-c132-4794-aff8-7b95c2845697",
+        "revision_index": 10,
+        "image_index": 0,
+        "content_digest": "c605fbb7ba27e5b9d39951de196c2d73b4f3fa6cec045e17ab91da2d3cc62e01",
+        "prepare_seconds": 2.0432003349997103,
+        "save_seconds": 3.47585953399539
+      },
+      {
+        "photo": "5c73ed7e-516d-492b-a6aa-422ce84d02c5",
+        "revision_index": 11,
+        "image_index": 0,
+        "content_digest": "0c66633e012599c6a53f723dee876de687f50c9025376f41a2576f840c64d716",
+        "prepare_seconds": 2.1500165471807122,
+        "save_seconds": 3.849667191039771
+      },
+      {
+        "photo": "6a02f04b-98b0-423b-a3ba-684dc7e70721",
+        "revision_index": 12,
+        "image_index": 0,
+        "content_digest": "71254ad00ee64b66d0fde88b6210c711a88c9fe34916fc427bf13e081d7b4950",
+        "prepare_seconds": 2.1125675588846207,
+        "save_seconds": 3.542239286005497
+      },
+      {
+        "photo": "7a8b6f49-8efa-445d-a4bc-b9d452d50afe",
+        "revision_index": 13,
+        "image_index": 0,
+        "content_digest": "cfc2c225883aba7dc33fe755e0b9c46d613592c56892c7a05fc9962bc64ec54d",
+        "prepare_seconds": 2.1401756228879094,
+        "save_seconds": 3.573874839115888
+      },
+      {
+        "photo": "6841c03c-ea32-4881-912a-7164d66912b5",
+        "revision_index": 14,
+        "image_index": 0,
+        "content_digest": "cd48172069fa6c7e9086f2a06d32f90e65a621f7151ebd539fb948c5a397a3a4",
+        "prepare_seconds": 2.1211511408910155,
+        "save_seconds": 3.8300318839028478
+      },
+      {
+        "photo": "299dbb0e-89ab-444a-8fd9-44e9f28c38e6",
+        "revision_index": 15,
+        "image_index": 0,
+        "content_digest": "f7db9105ac17e2a8797e0c630acb0594ad7b69f390b986ee3e3c9db1d8c3fbd3",
+        "prepare_seconds": 2.0540413917042315,
+        "save_seconds": 3.8103689709678292
+      }
+    ],
+    "scope": "One native page in real PostgreSQL, full-size synthetic source and16images. Observer delegates all actual SQL. Instrumented attribution; no HTTP p95, CPU causal experiment, enforced global budget or N3 acceptance."
+  },
+  "archive": {
+    "file": "revision-binaria-perfil-nativo-20261009-artefactos.tar.gz",
+    "sha256": "d946e6bf32dc4200455a2c84f10c564175d5268fcd5861533d0257291fd19f4a",
+    "exact_source_files": 1020
+  },
+  "finding": "Two actual source reads;3002 row_reference calls across projection and binary validation;16 image_content calls and131 SELECTs. Instrumented cumulative times overlap; do not sum them or treat as uninstrumented latency/causal benchmark."
+}

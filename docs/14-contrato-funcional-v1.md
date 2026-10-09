@@ -1,6 +1,6 @@
 # Contrato funcional de desarrollo — versión 1
 
-Fecha: 2026-10-03. Estado: especificación base definida por delegación expresa del usuario; no aplicación implementada ni autorización de contratación/despliegue.
+Fecha: 2026-10-03. Estado: especificación base definida por delegación expresa del usuario. Este contrato define comportamiento requerido; la implementación y aceptación se registran en [seguimiento17](17-seguimiento-desarrollo.md), bajo el [contrato de ejecución](16-contrato-ejecucion-desarrollo.md). No autoriza contratación ni despliegue externo.
 
 ## Autoridad y precedencia
 
@@ -9,6 +9,8 @@ El usuario autoriza decidir los pendientes buscando equilibrio y una experiencia
 Se mantienen los acuerdos explícitos del usuario: toda España, inglés, una publicación por persona también bajo agencia, CP recomendado, control global de imágenes/teléfonos, observación de duplicados sin suspensión inmediata y preparación para monetizar con tarifas posteriores.
 
 La delegación no permite inventar identidad del operador, comprar servicios, dar por cumplida la normativa ni declarar verificadas integraciones. Los pendientes externos se enumeran al final.
+
+Formulación aclarada2026-10-09: desarrollo local autorizado desde 2026-10-03; [ejecución v1.6](16-contrato-ejecucion-desarrollo.md) consolida aceptación técnica con datos sintéticos y preparación de producción separada. Proveedores, políticas e identidades reales condicionan producción; los mecanismos locales deben funcionar y probarse con fixtures explícitos. [Copia anterior](17-historial/2026-10-09-14-contrato-funcional-v1-antes-consolidacion-contrato.md). El comportamiento MVP y sus objetivos se conservan.
 
 ## 1. Producto, territorio y lenguaje
 
@@ -152,7 +154,7 @@ Wireframes antes de implementar cada flujo, sin pedir al usuario decidir cada co
 
 ## 9. Arquitectura y selección de servicios
 
-Base aceptada: Django, PostgreSQL, plantillas/HTMX, Celery/Redis, Pillow, Caddy, almacenamiento compatible con S3, Docker Compose, CI/CD y observabilidad. SHA-256 y huellas visuales/regionales con evaluación; sin MongoDB o reconocimiento facial propio.
+Base aceptada: Django, PostgreSQL, plantillas/HTMX, Celery/Redis, Pillow, Caddy, almacenamiento compatible con S3, Docker Compose, verificación automatizada local y observabilidad. [CI propio](ci-local.md), sin dependencia de pago ni despliegue automático. SHA-256 y huellas visuales/regionales con evaluación; sin MongoDB o reconocimiento facial propio.
 
 Seleccionar versiones soportadas compatibles al preparar proyecto y registrarlas en ADR; no usar números de versión tomados de páginas históricas como decisión. Servidor WSGI inicial, candidato Gunicorn; ASGI solo si funciones lo requieren.
 
@@ -169,15 +171,13 @@ Estas preferencias no bloquean scaffolding local con adaptadores y simuladores. 
 
 ## 10. Operación y objetivos iniciales
 
-Presupuesto de planificación: techo objetivo inicial de 250 EUR/mes de infraestructura recurrente, sin IVA, personal, asesoría, verificaciones por uso o cobros de pasarela. Es objetivo de diseño, no precio cotizado ni autorización de gasto. Obtener estimación real antes de seleccionar servicios; si no encaja, revisar recursos, no eliminar controles silenciosamente.
+Referencia de planificación para una posible producción futura: techo objetivo inicial de250EUR/mes de infraestructura recurrente, sin IVA, personal, asesoría, verificaciones por uso o pasarela. No es presupuesto disponible, precio cotizado ni autorización de gasto. El usuario indicó2026-10-09 que no dispone de dinero para CI: se usa infraestructura propia local. Una contratación futura requiere autorización y estimación real; no eliminar controles por coste silenciosamente.
 
 Objetivos internos: RPO de una hora para datos de negocio, RTO de ocho horas ante incidente recuperable y vigilancia automatizada continua con responsables humanos definidos. No prometer SLA 24/7. Capacidad de alcanzar objetivos se comprueba con configuración y restauración; contratación debe encajar con presupuesto. Backups separados y cifrados, capacidad de recuperación de PostgreSQL al punto temporal y respaldo/versionado de medios con retención definida.
 
 Prueba de carga inicial: diez mil anuncios sintéticos y veinte peticiones dinámicas por segundo durante quince minutos con mezcla de listados/fichas/búsquedas, además de cargas limitadas simultáneas. Objetivo servidor p95 inferior a 800 ms y errores inesperados inferiores al 1 % en entorno documentado. Son criterios de prueba propuestos por diseño, no previsión de visitas ni capacidad garantizada. Ajustar hardware/consultas hasta verificar o documentar cambio del objetivo.
 
-Aplicación vigente desde 2026-10-07: [MOD-04 del contrato de ejecución 1.4](16-contrato-ejecucion-desarrollo.md#16-consolidación-del-rendimiento-de-lectura--mod-04) adopta la consolidación de lectura mediante consulta controlada y reglas compartidas. El [marco de medición](criterios-revision-benchmark-carga.md) concreta población observable, generador, uploads, drain y gate corto completo previo a los 900 s. En este ciclo se mantienen los recursos: no aumentar workers, escalar PostgreSQL ni añadir caché como parche. Esta precisión de ejecución conserva los objetivos funcionales de esta versión; no acepta capacidad ni modifica resultados anteriores.
-
-Aplicación vigente desde 2026-10-08: [MOD-05 del contrato de ejecución 1.5](16-contrato-ejecucion-desarrollo.md#17-estado-de-publicación-almacenado--mod-05) sustituye la prohibición de proyección persistida de MOD-04 por un estado de publicación almacenado con invalidación por triggers y evaluación nativa de lo no fiable. Los objetivos de carga de este apartado no cambian.
+Ejecución vigente: [criterios de lectura](16-contrato-ejecucion-desarrollo.md#16-consolidación-del-rendimiento-de-lectura--mod-04) y [arquitectura de estado almacenado](16-contrato-ejecucion-desarrollo.md#17-estado-de-publicación-almacenado--mod-05), consolidados en v1.6. El [marco de medición](criterios-revision-benchmark-carga.md) concreta población observable, generador, uploads, drain y gate corto completo previo a900s. Conservar recursos del ciclo; estado derivado aprobado, invalidación y evaluación nativa de lo no fiable son obligatorios. La prohibición anterior general de persistencia está sustituida. Los objetivos de carga siguen intactos; aceptación y límites se consultan en seguimiento17.
 
 No contabilizar imágenes servidas por CDN como peticiones procesadas por Django. Medir frío/caliente y consultas difíciles. Objetivos frontend mediante pruebas móvil y Core Web Vitals cuando haya tráfico suficiente; no garantizar SEO por una puntuación de laboratorio.
 
@@ -211,4 +211,4 @@ Ampliación confirmada: apartado legal público y aceptación específica de obl
 - Moderador, sustituto y responsables de incidentes, revisión de seguridad y disponibilidad del equipo para fecha de entrega.
 - Tarifas, proveedor y condiciones comerciales para activar ventas; lanzamiento base sin cobros.
 
-Son tareas de preparación/producción, no un cuestionario de preferencias de producto. Puede comenzar desarrollo local con datos sintéticos una vez el usuario indique iniciar implementación; la delegación actual pide decidir, no empezar a programar.
+Son requisitos de preparación/producción. El desarrollo local está autorizado desde 2026-10-03 y se acepta con los mecanismos y pruebas técnicas del contrato 16; faltas de proveedor, identidad real o revisión jurídica no exigen reiniciar esa autorización ni impiden verificar localmente sus mecanismos. No permiten declarar listo para producción ni omitir controles técnicos pendientes.

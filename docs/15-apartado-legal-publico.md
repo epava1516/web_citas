@@ -4,7 +4,7 @@ Fecha: 2026-10-03. Estado: alcance confirmado; especificación y borradores suje
 
 ## Objetivo confirmado
 
-El usuario confirma que la plataforma debe publicar un apartado legal accesible que explique su postura y reglas frente a contenidos/servicios prohibidos. Los anunciantes aceptarán condiciones de publicación con responsabilidades por el contenido que aportan. No se implementa todavía la web.
+El usuario confirma que la plataforma debe publicar un apartado legal accesible que explique su postura y reglas frente a contenidos/servicios prohibidos. Los anunciantes aceptarán condiciones de publicación con responsabilidades por el contenido que aportan. La implementación y aceptación local se consultan en [seguimiento17](17-seguimiento-desarrollo.md) y [contrato de cuentas/legal](contratos/01-cuentas-legal.md); la existencia de pantallas y textos sintéticos no sustituye los datos del operador ni la revisión jurídica pendiente.
 
 Este documento amplía el contrato funcional v1. La responsabilidad del anunciante no sustituye las obligaciones propias del operador, ni la aceptación convierte un contenido ilícito en lícito. No llamar consumidor automáticamente a cualquier profesional/agencia.
 
@@ -110,11 +110,13 @@ Acuse y seguimiento cuando hay canal de respuesta; prioridad a menores, explotac
 
 ## Entregables finales y fuentes
 
-Textos definitivos con datos reales y revisión jurídica, traducciones, mecanismos de aceptación, registro de evidencias, formularios de denuncia/derechos y procedimiento operativo coherente con lo publicado. Publicar políticas sin mecanismos no satisface este alcance.
+Entrega técnica local: páginas ES/EN, versiones y mecanismos de aceptación, registro de evidencias, formularios/colas de denuncia y derechos, decisiones y procedimiento de ensayo coherentes con textos/datos sintéticos identificados. Aplicar los criterios técnicos anteriores sobre la versión común, sin exigir datos reales del operador o dictamen jurídico para probar el mecanismo.
+
+Preparación de producción: textos definitivos con datos reales y revisión jurídica, traducciones revisadas y procedimiento operativo real coherente con lo publicado. Mantener los controles de aceptación y evidencias ya verificados. Publicar políticas sin mecanismos no satisface este alcance; fixture no acredita aprobación jurídica. Separación conforme a [contrato16 v1.6](16-contrato-ejecucion-desarrollo.md#11-entregables-y-definición-de-terminado).
 
 - [LSSI: identificación e información contractual](https://www.boe.es/buscar/act.php?id=BOE-A-2002-13758).
 - [DSA: condiciones y notificación de contenido](https://eur-lex.europa.eu/legal-content/ES/ALL/?uri=CELEX%3A32022R2065).
 - [AEPD: deber de informar y separación del consentimiento](https://www.aepd.es/preguntas-frecuentes/2-tus-obligaciones-como-responsable-del-tratamiento/6-el-deber-de-informacion).
 - [Ley General de Publicidad](https://www.boe.es/buscar/act.php?id=BOE-A-1988-26156).
 
-No se ha implementado ninguna página o aceptación. Borradores no listos para publicar sin completar y revisar.
+Implementación y aceptación local actuales: [seguimiento17](17-seguimiento-desarrollo.md) y [contrato de cuentas/legal](contratos/01-cuentas-legal.md). Textos productivos siguen pendientes de completar y revisar. [Copia anterior a consolidación](17-historial/2026-10-09-15-apartado-legal-publico-antes-consolidacion-contrato.md) conserva la redacción y estado originales; no es una declaración vigente de ausencia de implementación.

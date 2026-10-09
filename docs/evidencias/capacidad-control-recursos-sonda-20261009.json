@@ -1,0 +1,10 @@
+{
+  "schema": "owned-resource-control-capability-v1",
+  "unit": "web-modelos-capability-acd764537440",
+  "exit": 1,
+  "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 6, in <module>\n  File \"/home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/web-modelos-capability-acd764537440.scope/cpu.max'\n",
+  "scope": "Tiny synthetic process; not a capacity load or resource reservation.",
+  "limits_verified": false,
+  "cleanup_stop_exit": 5,
+  "cleanup_stderr": "Failed to stop web-modelos-capability-acd764537440.scope: Unit web-modelos-capability-acd764537440.scope not loaded.\n"
+}

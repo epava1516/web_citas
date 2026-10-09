@@ -1,0 +1,833 @@
+{
+  "application_change": "Bounded 1000 revision batch, generated vector deferred; preserve locks, complete source and two fresh snapshots",
+  "functional": {
+    "id": "20261009-163919-c0a3c575",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261009-163919-c0a3c575",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.46705335192382336
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261009-163919-c0a3c575",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.4662065440788865
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06488777417689562
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11538063501939178
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.9192131478339434
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.3700839229859412
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.6204484961926937
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-ucr0ck69/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-ucr0ck69/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-ucr0ck69/native.env"
+        ],
+        "exit": 0,
+        "seconds": 10.015728772617877
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-ucr0ck69/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos/artifacts/local-ci/20261009-163919-c0a3c575/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_rights_copy_scope.py::test_profile_copy_queries_are_batched_without_losing_historical_revisions"
+        ],
+        "exit": 0,
+        "seconds": 455.1013592071831
+      }
+    ],
+    "head": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+    "excluded": [],
+    "selection": [
+      "tests/test_rights_copy_scope.py::test_profile_copy_queries_are_batched_without_losing_historical_revisions"
+    ],
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261009-163919-c0a3c575": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      },
+      "web-modelos-ci-redis-20261009-163919-c0a3c575": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 0
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "2",
+        "time": "452.787",
+        "timestamp": "2026-10-09T18:39:37.876884+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "tcp_controller": {
+    "id": "20261009-164733-32f5fec9",
+    "result": "ERROR",
+    "scope": "Owned topology readiness only; not capacity, browser, N3 or storage budget proof.",
+    "allocations": {
+      "pg": [
+        100000,
+        1536
+      ],
+      "redis": [
+        25000,
+        512
+      ],
+      "app": [
+        275000,
+        6144
+      ]
+    },
+    "steps": [
+      {
+        "label": "image-postgres",
+        "command": [
+          "docker",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.0506600053049624
+      },
+      {
+        "label": "image-redis",
+        "command": [
+          "docker",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.05438642390072346
+      },
+      {
+        "label": "image-web-modelos-app",
+        "command": [
+          "docker",
+          "image",
+          "inspect",
+          "--format",
+          "{{.Id}}",
+          "web-modelos-app:latest"
+        ],
+        "exit": 0,
+        "seconds": 0.050463130697607994
+      },
+      {
+        "label": "network",
+        "command": [
+          "docker",
+          "network",
+          "create",
+          "--internal",
+          "web-modelos-capacity-20261009-164733-32f5fec9-net"
+        ],
+        "exit": 0,
+        "seconds": 0.6529659260995686
+      },
+      {
+        "label": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-capacity-20261009-164733-32f5fec9-pg",
+          "--network",
+          "web-modelos-capacity-20261009-164733-32f5fec9-net",
+          "--network-alias",
+          "pg",
+          "--cpus",
+          "1.0",
+          "--memory",
+          "1610612736",
+          "--memory-swap",
+          "1610612736",
+          "--pids-limit",
+          "256",
+          "--log-driver",
+          "local",
+          "--log-opt",
+          "max-size=4m",
+          "--log-opt",
+          "max-file=1",
+          "--log-opt",
+          "compress=false",
+          "--tmpfs",
+          "/var/lib/postgresql/data:size=1073741824",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=capacity_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.3604687638580799
+      },
+      {
+        "label": "controls-pg",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-164733-32f5fec9-pg",
+          "cat",
+          "/sys/fs/cgroup/cpu.max",
+          "/sys/fs/cgroup/memory.max",
+          "/sys/fs/cgroup/memory.swap.max"
+        ],
+        "exit": 0,
+        "seconds": 0.25919007882475853
+      },
+      {
+        "label": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-capacity-20261009-164733-32f5fec9-redis",
+          "--network",
+          "web-modelos-capacity-20261009-164733-32f5fec9-net",
+          "--network-alias",
+          "redis",
+          "--cpus",
+          "0.25",
+          "--memory",
+          "536870912",
+          "--memory-swap",
+          "536870912",
+          "--pids-limit",
+          "256",
+          "--log-driver",
+          "local",
+          "--log-opt",
+          "max-size=4m",
+          "--log-opt",
+          "max-file=1",
+          "--log-opt",
+          "compress=false",
+          "redis:7.4-alpine",
+          "redis-server",
+          "--save",
+          "",
+          "--appendonly",
+          "no",
+          "--maxmemory",
+          "268435456"
+        ],
+        "exit": 0,
+        "seconds": 0.29434387339279056
+      },
+      {
+        "label": "controls-redis",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-164733-32f5fec9-redis",
+          "cat",
+          "/sys/fs/cgroup/cpu.max",
+          "/sys/fs/cgroup/memory.max",
+          "/sys/fs/cgroup/memory.swap.max"
+        ],
+        "exit": 0,
+        "seconds": 0.2642793362028897
+      },
+      {
+        "label": "start-app",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-capacity-20261009-164733-32f5fec9-app",
+          "--network",
+          "web-modelos-capacity-20261009-164733-32f5fec9-net",
+          "--network-alias",
+          "app",
+          "--cpus",
+          "2.75",
+          "--memory",
+          "6442450944",
+          "--memory-swap",
+          "6442450944",
+          "--pids-limit",
+          "256",
+          "--log-driver",
+          "local",
+          "--log-opt",
+          "max-size=4m",
+          "--log-opt",
+          "max-file=1",
+          "--log-opt",
+          "compress=false",
+          "--read-only",
+          "--cap-drop=ALL",
+          "--security-opt=no-new-privileges",
+          "--user",
+          "1002:1004",
+          "--workdir",
+          "/home/felidae/proyectos/web_modelos",
+          "--mount",
+          "type=bind,src=/home/felidae/proyectos/web_modelos,dst=/home/felidae/proyectos/web_modelos,readonly",
+          "--mount",
+          "type=bind,src=/home/felidae/.local/share/uv/python,dst=/home/felidae/.local/share/uv/python,readonly",
+          "--tmpfs",
+          "/tmp:size=1073741824,uid=1002,gid=1004",
+          "-e",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "-e",
+          "DJANGO_SETTINGS_MODULE=config.settings",
+          "-e",
+          "DB_HOST=pg",
+          "-e",
+          "DB_PORT=5432",
+          "-e",
+          "POSTGRES_DB=capacity_ci",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "REDIS_URL=redis://redis:6379/0",
+          "--entrypoint",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "web-modelos-app:latest",
+          "-c",
+          "import time; time.sleep(1800)"
+        ],
+        "exit": 0,
+        "seconds": 0.33637867821380496
+      },
+      {
+        "label": "controls-app",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-164733-32f5fec9-app",
+          "cat",
+          "/sys/fs/cgroup/cpu.max",
+          "/sys/fs/cgroup/memory.max",
+          "/sys/fs/cgroup/memory.swap.max"
+        ],
+        "exit": 0,
+        "seconds": 0.23967799404636025
+      },
+      {
+        "label": "pg-ready-0",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-164733-32f5fec9-pg",
+          "pg_isready",
+          "-U",
+          "ci",
+          "-d",
+          "capacity_ci"
+        ],
+        "exit": 2,
+        "seconds": 0.12553747929632664
+      },
+      {
+        "label": "pg-ready-1",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-164733-32f5fec9-pg",
+          "pg_isready",
+          "-U",
+          "ci",
+          "-d",
+          "capacity_ci"
+        ],
+        "exit": 0,
+        "seconds": 0.1501832320354879
+      },
+      {
+        "label": "django-probe",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-164733-32f5fec9-app",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "-c",
+          "import django,json,tempfile; django.setup(); from django.core.management import call_command; from django.db import connection; import redis; call_command('migrate',interactive=False,verbosity=0); call_command('check'); cursor=connection.cursor(); cursor.execute('select version(),current_database()'); row=cursor.fetchone(); assert row[1]=='capacity_ci'; assert redis.Redis(host='redis').ping(); f=tempfile.TemporaryFile(dir='/tmp'); f.write(b'synthetic-media'); f.seek(0); assert f.read()==b'synthetic-media'; f.close(); print(json.dumps({'postgres':row[0],'database':row[1],'redis_ping':True,'migrations_applied':True,'temporary_media_io':True,'django':django.get_version()}))"
+        ],
+        "exit": 0,
+        "seconds": 35.55881531722844
+      },
+      {
+        "label": "control-settings",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-164733-32f5fec9-app",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "-c",
+          "from pathlib import Path; Path('/tmp/capacity_settings.py').write_text(\"from config.settings import *\\nMEDIA_ROOT = '/tmp/capacity-media'\\nCAPACITY_SQL_DIAGNOSE = False\\nDATABASES['default']['TEST'] = {'NAME': 'test_capacity_ci'}\\n\")"
+        ],
+        "exit": 0,
+        "seconds": 0.1858203811571002
+      },
+      {
+        "label": "control-pytest",
+        "command": [
+          "docker",
+          "exec",
+          "-e",
+          "PYTHONPATH=/tmp:/home/felidae/proyectos/web_modelos",
+          "-e",
+          "DJANGO_SETTINGS_MODULE=capacity_settings",
+          "web-modelos-capacity-20261009-164733-32f5fec9-app",
+          "/home/felidae/proyectos/web_modelos/.venv/bin/python3",
+          "-m",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "-o",
+          "DJANGO_SETTINGS_MODULE=capacity_settings",
+          "-o",
+          "junit_family=xunit1",
+          "-p",
+          "no:cacheprovider",
+          "--basetemp=/tmp/capacity-pytest",
+          "--junitxml=/tmp/capacity-control.xml",
+          "tests/test_capacity_selection_tcp.py"
+        ],
+        "exit": 1,
+        "seconds": 113.46912487922236
+      },
+      {
+        "label": "control-junit",
+        "command": [
+          "docker",
+          "exec",
+          "web-modelos-capacity-20261009-164733-32f5fec9-app",
+          "cat",
+          "/tmp/capacity-control.xml"
+        ],
+        "exit": 0,
+        "seconds": 0.12530298018828034
+      },
+      {
+        "label": "remove-web-modelos-capacity-20261009-164733-32f5fec9-app",
+        "command": [
+          "docker",
+          "rm",
+          "-fv",
+          "web-modelos-capacity-20261009-164733-32f5fec9-app"
+        ],
+        "exit": 0,
+        "seconds": 0.31410983204841614
+      },
+      {
+        "label": "inventory-web-modelos-capacity-20261009-164733-32f5fec9-app",
+        "command": [
+          "docker",
+          "ps",
+          "-a",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-164733-32f5fec9-app$",
+          "--format",
+          "{{.Names}}"
+        ],
+        "exit": 0,
+        "seconds": 0.08415046520531178
+      },
+      {
+        "label": "remove-web-modelos-capacity-20261009-164733-32f5fec9-redis",
+        "command": [
+          "docker",
+          "rm",
+          "-fv",
+          "web-modelos-capacity-20261009-164733-32f5fec9-redis"
+        ],
+        "exit": 0,
+        "seconds": 0.259716990403831
+      },
+      {
+        "label": "inventory-web-modelos-capacity-20261009-164733-32f5fec9-redis",
+        "command": [
+          "docker",
+          "ps",
+          "-a",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-164733-32f5fec9-redis$",
+          "--format",
+          "{{.Names}}"
+        ],
+        "exit": 0,
+        "seconds": 0.08987398911267519
+      },
+      {
+        "label": "remove-web-modelos-capacity-20261009-164733-32f5fec9-pg",
+        "command": [
+          "docker",
+          "rm",
+          "-fv",
+          "web-modelos-capacity-20261009-164733-32f5fec9-pg"
+        ],
+        "exit": 0,
+        "seconds": 0.26247197994962335
+      },
+      {
+        "label": "inventory-web-modelos-capacity-20261009-164733-32f5fec9-pg",
+        "command": [
+          "docker",
+          "ps",
+          "-a",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-164733-32f5fec9-pg$",
+          "--format",
+          "{{.Names}}"
+        ],
+        "exit": 0,
+        "seconds": 0.06288097891956568
+      },
+      {
+        "label": "remove-network",
+        "command": [
+          "docker",
+          "network",
+          "rm",
+          "web-modelos-capacity-20261009-164733-32f5fec9-net"
+        ],
+        "exit": 0,
+        "seconds": 0.42767861019819975
+      },
+      {
+        "label": "network-inventory",
+        "command": [
+          "docker",
+          "network",
+          "ls",
+          "--filter",
+          "name=^web-modelos-capacity-20261009-164733-32f5fec9-net$",
+          "--format",
+          "{{.Name}}"
+        ],
+        "exit": 0,
+        "seconds": 0.05644369823858142
+      }
+    ],
+    "controls": {
+      "pg": [
+        "100000 100000",
+        "1610612736",
+        "0"
+      ],
+      "redis": [
+        "25000 100000",
+        "536870912",
+        "0"
+      ],
+      "app": [
+        "275000 100000",
+        "6442450944",
+        "0"
+      ]
+    },
+    "cleanup": {
+      "web-modelos-capacity-20261009-164733-32f5fec9-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261009-164733-32f5fec9-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261009-164733-32f5fec9-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261009-164733-32f5fec9-net": {
+        "absent": true
+      }
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "1",
+        "time": "111.353",
+        "timestamp": "2026-10-09T18:48:14.420380+02:00",
+        "hostname": "ebe53ec0ce39"
+      }
+    ],
+    "error": "RuntimeError: Small control did not pass exactly one required test",
+    "sources_unchanged": true
+  },
+  "tcp_result": "FAIL",
+  "tcp_measurements": {
+    "samples": [
+      1.853832466993481,
+      2.1453371341340244,
+      1.972857135348022,
+      2.0182713279500604,
+      1.9013396422378719,
+      2.062036387156695,
+      1.8238666583783925,
+      2.0687143323011696,
+      1.970196671783924,
+      2.0952993272803724,
+      1.8876011837273836,
+      1.9032823559828103,
+      1.8011303581297398,
+      2.141374875791371,
+      2.0403800969943404,
+      1.9710816568695009,
+      2.0664790319278836,
+      1.8073755446821451,
+      1.8756423559971154,
+      2.1422103326767683
+    ],
+    "response_bytes": [
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454,
+      568454
+    ],
+    "p95_seconds": 2.1422103326767683,
+    "process_peak_rss_bytes": 486993920,
+    "rss_scope": "Linux VmHWM of pytest/application process through 20th complete TCP response; not cgroup memory or total environment",
+    "first_open_seconds": 0.15994353871792555,
+    "build_seconds": 13.406156681943685,
+    "preparation_seconds": 15.262986497953534,
+    "fixture": {
+      "candidate_bytes": 16777041,
+      "topic_counts": [
+        19,
+        20
+      ],
+      "longer_revisions": 1028,
+      "originals_bytes": 67095050,
+      "originals": [
+        {
+          "sha256": "49f8be28d64f3af717cd588617e98c7c1bab8f8d0f88b9d9f46ddd774149ee72",
+          "bytes": 4193442,
+          "blob": "e36ce964-ecad-44b7-a745-b91f82fc42f0"
+        },
+        {
+          "sha256": "731a1c627253086c796470abbdc996a3c8b078fe8cefcd8133fcc72b5ba37c63",
+          "bytes": 4193442,
+          "blob": "cef35a60-a156-4692-b03e-35d3f73ad9f9"
+        },
+        {
+          "sha256": "e26664f45dd9530e31587628cf29dd7a30e41bb710092d617b2ac4f5d4c7a99a",
+          "bytes": 4193442,
+          "blob": "3d7d177c-d42d-40a9-9b3e-ae42f5d28bdd"
+        },
+        {
+          "sha256": "5d6156c907f8a047ef39593f08d68680baa5e670052a11a24db83a5e423aecfa",
+          "bytes": 4193442,
+          "blob": "4f92024c-bf1a-4a95-be0f-2bec3dc865e8"
+        },
+        {
+          "sha256": "13fd2dacfb818647f85ab4d179f073f5a6042ac6a7701c7460f0ffde566c730e",
+          "bytes": 4193442,
+          "blob": "51c30e78-dd77-485d-af45-eee79d0fd882"
+        },
+        {
+          "sha256": "a9c8457e99122c572087eda0e44aa5c8a9bf0dd05bfe91b8e1b25a5a4182c0e6",
+          "bytes": 4193440,
+          "blob": "77d920b9-7254-4677-9948-31b365eec8f3"
+        },
+        {
+          "sha256": "f5aa6d9fff833dc746718f075240c349736bef0be4e24c05174e20ae2798d975",
+          "bytes": 4193440,
+          "blob": "0d9481b4-b97b-4856-99a9-f9d1740251ae"
+        },
+        {
+          "sha256": "bfb20061d8d2abe69a364a0ea527e7265e831c699b9d1177698ad73900284368",
+          "bytes": 4193440,
+          "blob": "52c70bbd-28d3-41b9-902f-bd90e6d3427c"
+        },
+        {
+          "sha256": "4d41e362b08296e9fbcf0618b66199728bb33a13803f92c934da654b62f34c52",
+          "bytes": 4193440,
+          "blob": "a44ec6cf-4b13-40c0-8770-cc10fdf41de0"
+        },
+        {
+          "sha256": "5b230b268d210c72943874d21df4981936b7642e3ef7ddf52ccae680b519f1f2",
+          "bytes": 4193442,
+          "blob": "c0c79654-0ab0-43f7-bec2-ebc6a9afe122"
+        },
+        {
+          "sha256": "e34b36c0449761d649ed4110038ff4be1a4b052b25f0cb9052d959fa7dbeb42a",
+          "bytes": 4193440,
+          "blob": "e3fc604e-f34a-43d9-9656-02732f8fc427"
+        },
+        {
+          "sha256": "55a33f53ceaf3f0986e79d4f65372ce343b5aa1ff3b031d8a2a4237b06438fa7",
+          "bytes": 4193440,
+          "blob": "db4d35fc-5a48-4848-881c-69ba0f4a0b70"
+        },
+        {
+          "sha256": "43b9c91fab2f690cd9ff3897e026fd555917ab3760d1b5cf169ccc3d133b2b0d",
+          "bytes": 4193440,
+          "blob": "86df6b76-40cb-419a-8de0-ed713998a56b"
+        },
+        {
+          "sha256": "322c11ea66c5d7665850801f75aad6518893384974dd520b4797169ed9079b2e",
+          "bytes": 4193440,
+          "blob": "530d4a1f-ab2f-40a1-a39b-64037365a239"
+        },
+        {
+          "sha256": "ff48ed0aa3806c4ada18592ddd3d391a426b1fba04d4609c0bc0ee9276facd69",
+          "bytes": 4193438,
+          "blob": "940b192c-b94e-4e34-828b-9c43f2de02ba"
+        },
+        {
+          "sha256": "5d8a92c3c344db28bf9e60c0bec4d41ea21cd59f73f62fa12b9a54aea040e399",
+          "bytes": 4193440,
+          "blob": "36388e7e-1adc-4cc0-ad87-5c74fe66120e"
+        }
+      ]
+    },
+    "scope": "One case, repeated page 1, real Django live_server TCP; no concurrency, page completion, approval, image selection or full capacity"
+  },
+  "additional_profile": "         1950035 function calls (1928018 primitive calls) in 2.663 seconds\n\n   Ordered by: cumulative time\n   List reduced from 841 to 35 due to restriction <35>\n\n   ncalls  tottime  percall  cumtime  percall filename:lineno(function)\n      2/1    0.000    0.000    2.669    2.669 /home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/contextlib.py:78(inner)\n   1533/1    0.005    0.000    2.666    2.666 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/views/decorators/debug.py:69(sensitive_variables_wrapper)\n        1    0.003    0.003    2.589    2.589 /home/felidae/proyectos/web_modelos/apps/safety/rights_portability_selection_review.py:26(record)\n        2    0.024    0.012    1.859    0.930 /home/felidae/proyectos/web_modelos/apps/safety/rights_exports.py:52(source_copy)\n     3002    0.010    0.000    1.502    0.001 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:497(_iterator)\n     3104    0.020    0.000    1.279    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:87(__iter__)\n       20    0.017    0.001    0.947    0.047 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:2541(prefetch_one_level)\n       79    0.529    0.007    0.893    0.011 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/connection.py:479(wait)\n        4    0.011    0.003    0.877    0.219 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:2307(prefetch_related_objects)\n     3040    0.006    0.000    0.565    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:1534(apply_converters)\n       94    0.001    0.000    0.524    0.006 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:1952(_fetch_all)\n       89    0.002    0.000    0.524    0.006 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:2165(cursor_iter)\n       65    0.001    0.000    0.523    0.008 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:1593(execute_sql)\n       89    0.000    0.000    0.520    0.006 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py:2171(<lambda>)\n       91    0.000    0.000    0.519    0.006 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/utils.py:96(inner)\n        6    0.000    0.000    0.516    0.086 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/_server_cursor.py:117(fetchmany)\n       64    0.000    0.000    0.507    0.008 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/query.py:371(__iter__)\n    68/66    0.000    0.000    0.444    0.007 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py:1630(add_q)\n    68/66    0.001    0.000    0.444    0.007 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py:1659(_add_q)\n    88/86    0.002    0.000    0.435    0.005 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py:1465(build_filter)\n       20    0.000    0.000    0.431    0.022 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py:99(_filter_prefetch_queryset)\n       68    0.000    0.000    0.373    0.005 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/backends/utils.py:78(execute)\n       68    0.000    0.000    0.373    0.005 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/backends/utils.py:88(_execute_with_wrappers)\n       68    0.000    0.000    0.373    0.005 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/backends/utils.py:94(_execute)\n       66    0.000    0.000    0.364    0.006 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/psycopg/cursor.py:100(execute)\n     1515    0.002    0.000    0.359    0.000 /home/felidae/proyectos/web_modelos/apps/safety/rights_exports.py:47(canonical)\n     1517    0.006    0.000    0.357    0.000 /home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/json/__init__.py:183(dumps)\n       12    0.000    0.000    0.331    0.028 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py:1163(get_prefetch_querysets)\n        1    0.012    0.012    0.289    0.289 /home/felidae/proyectos/web_modelos/apps/safety/rights_portability_selection.py:45(project_selected)\n        8    0.005    0.001    0.266    0.033 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py:783(get_prefetch_querysets)\n     1518    0.003    0.000    0.264    0.000 /home/felidae/proyectos/web_modelos/apps/safety/rights.py:30(fingerprint)\n        4    0.000    0.000    0.259    0.065 /home/felidae/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/selectors.py:402(select)\n        4    0.233    0.058    0.259    0.065 {method 'poll' of 'select.poll' objects}\n     1518    0.009    0.000    0.256    0.000 /home/felidae/proyectos/web_modelos/.venv/lib/python3.12/site-packages/django/utils/crypto.py:19(salted_hmac)\n     1502    0.002    0.000    0.229    0.000 /home/felidae/proyectos/web_modelos/apps/safety/rights_portability_selection.py:14(row_reference)\n\n\n",
+  "scope": "Component N2 equivalence 30/1280 histories; 1500 target one case repeated page1 TCP still above 2s. Peak RSS below1GiB for measured process only. Not combined memory, concurrency, N3/full capacity. Separate runs on shared host do not prove causal speedup.",
+  "archive": "capacidad-snapshot-batch-20261009-artefactos.tar.gz",
+  "archive_sha256": "1569f6018552fe70c94762a87fe093409ff169b38bdd8a33dcb106a4a7a0f6f4"
+}

@@ -2,6 +2,8 @@
 
 Actualizado: 2026-10-03. Estado: alcance general confirmado; modelo detallado propuesto.
 
+Nota de lectura, 2026-10-09: diseño inicial conservado. El catálogo, ES/EN, cardinalidades y semántica de filtros se concretaron en [contrato14](14-contrato-funcional-v1.md), [contrato de borradores](contratos/04-borradores-catalogo-geografia.md) y [contrato de descubrimiento](contratos/08-descubrimiento.md), con aceptación local [CR-07](actas/02-cr07-local.md). La cobertura nacional real y su dataset/licencia siguen pendientes; próximos pasos únicamente en [seguimiento17](17-seguimiento-desarrollo.md).
+
 Acuerdo posterior: toda España, ciudad/localidad obligatoria y CP opcional recomendado encarecidamente. Interfaz accesible en inglés; traducción de anuncios y lenguas de búsqueda pendientes. Una publicación por persona, también bajo agencia; desplazamientos y cambios de ubicación no justifican duplicarla.
 
 ## Alcance confirmado
