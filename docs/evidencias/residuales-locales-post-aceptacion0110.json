@@ -206,7 +206,17 @@
     "fresh_goal_turn": 1,
     "status": "active",
     "classification": "progress: authoritative residual reconciliation after accepted local delivery",
-    "previous_audits": "Históricos; no se hereda el contador del goal anterior"
+    "previous_audits": "Históricos; no se hereda el contador del goal anterior",
+    "terminal_revalidation": {
+      "observed_at": "2026-10-09T02:24:06.815555+00:00",
+      "consecutive_goal_turns": 3,
+      "residual_sources_changed": [],
+      "new_evidence": [],
+      "reference_commit": "88fdbb0",
+      "status": "blocked",
+      "reason": "Ningún requisito local independiente ejecutable demostrado; faltan los insumos externos/decisiones exactos registrados. No autoriza reabrir componentes ni generar pruebas/cargas.",
+      "goal_completed": false
+    }
   },
   "graphify": "Consulta de solo lectura usada para localizar acta/servicios. No se reconstruye ni se presupone que el grafo refleja la aceptación reciente; fuentes originales prevalecen."
 }
