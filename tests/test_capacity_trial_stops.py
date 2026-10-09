@@ -1,5 +1,6 @@
 import threading
-from scripts.benchmark_async_transport import run_async_open_loop, POLICY
+
+from scripts.benchmark_async_transport import run_async_open_loop
 from scripts.benchmark_resource_probe import TrialLimits
 
 

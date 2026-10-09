@@ -1,0 +1,303 @@
+{
+  "fecha": "2026-10-09",
+  "requisito": "Resolver deuda de lint, concentración de rutas e integración demostrada durante revisión de salud",
+  "estado": "Corrección local verificada; sin aceptación integral de fases/capacidad/CI externo",
+  "head_base": "2e4f6b64e15b68f70a5298ec401fb9b94a658642",
+  "lint": {
+    "initial_errors": 280,
+    "fixed_real_style_or_import_issues": 233,
+    "injected_fragment_diagnostics": 47,
+    "final_exit": 0,
+    "exception_scope": [
+      "docs/evidencias/mod05-orden-reference0110.py",
+      "docs/evidencias/mod05-sucios-reference0110.py"
+    ],
+    "injected_names_check": {
+      "supplied_names": [
+        "DIRTY_LIMIT",
+        "Exists",
+        "Listing",
+        "NATIVE_UNKNOWN_LIMIT",
+        "Paginator",
+        "PublicationContext",
+        "PublicationDirty",
+        "PublicationState",
+        "Q",
+        "all_state_current",
+        "matches",
+        "multiplies_rows",
+        "publicly_visible",
+        "rules_version",
+        "trusted_state"
+      ],
+      "missing": []
+    },
+    "fragments_original_bytes_unchanged": true
+  },
+  "routes": {
+    "before_core_lines": 591,
+    "after_core_lines": 165,
+    "moved": 89,
+    "total": 156,
+    "order_arguments_and_callbacks_identical": true,
+    "new_module": "apps/safety/urls.py"
+  },
+  "complexity_review": [
+    {
+      "file": "apps/safety/models.py",
+      "lines": 1840,
+      "model_classes": 99,
+      "functions_including_methods": 3,
+      "max_function_lines": 7
+    },
+    {
+      "file": "apps/safety/views.py",
+      "lines": 532,
+      "model_classes": 0,
+      "functions_including_methods": 11,
+      "max_function_lines": 112
+    },
+    {
+      "file": "apps/core/urls.py",
+      "lines": 165,
+      "model_classes": 0,
+      "functions_including_methods": 0,
+      "max_function_lines": 0
+    },
+    {
+      "file": "apps/safety/urls.py",
+      "lines": 435,
+      "model_classes": 0,
+      "functions_including_methods": 0,
+      "max_function_lines": 0
+    },
+    {
+      "file": "apps/listings/publication_state.py",
+      "lines": 396,
+      "model_classes": 0,
+      "functions_including_methods": 17,
+      "max_function_lines": 61
+    }
+  ],
+  "complexity_decision": "Safety models contiene99 modelos, solo3 métodos de hasta7 líneas. Los modelos/reglas se conservan por su utilidad actual; no se reescriben por tamaño. La concentración de rutas se reduce por dominio. No certificación exhaustiva de complejidad.",
+  "integration_bug": {
+    "symptom": "Preparación de respuestas privadas con logs devolvía409 ante mensajes de refresco MOD05 legítimos",
+    "cause": "periodic_tasks no reconocía refresh_publication_state ni sweep_publication_state",
+    "fix": "Dos tareas reconocidas exclusivamente sin args/kwargs; validación de envelope anterior y rechazo de mensajes desconocidos intactos",
+    "regression": "12 casos nuevos queued/reserved con variantes sin args y args/kwargs inesperados; interfaz completa y lecturas reales contra cola original conservada",
+    "queue_before": "298 mensajes refresh; blocked unsupported_message",
+    "queue_after": "blocked_count0 sin vaciar cola"
+  },
+  "native_preparation": {
+    "script": "scripts/prepare_native_test_tools.py",
+    "sha256": "5786db271d7ff6f686aec9e68fd89b2ac3967094776d320b55b50e29553bcc7a",
+    "manifest": {
+      "parser_commit": "bc5f295c98b40c2c33099d9d72ab30ce9e595dc7",
+      "hiredis_commit": "869f3d0ef1513dd0258ad7190c9914df16dcc4a4",
+      "environment": {
+        "RETAINED_RDB_DECODER_BIN": "/tmp/web-modelos-health-native-tools-20261009/rdb-cli",
+        "RETAINED_RDB_DECODER_SHA256": "bdf37c2019d0e29c568fafe9e05054aa5e825fe4289a231ca0e96ca26fae9e7c",
+        "RETAINED_RDB_AUX_BIN": "/tmp/web-modelos-health-native-tools-20261009/retained-rdb-aux",
+        "RETAINED_RDB_AUX_SHA256": "b13422fb7ad692450d4cf683acd27886e8a7be3e69c4986310fd3dc33f0efeb8",
+        "RETAINED_RDB_METADATA_BIN": "/tmp/web-modelos-health-native-tools-20261009/retained-rdb-metadata",
+        "RETAINED_RDB_METADATA_SHA256": "7a9b66a84e0a25124193f970047b193a8415444dd2186b1545f1afd816309519"
+      }
+    },
+    "negative_source_guards": [
+      {
+        "case": "wrong_revision",
+        "exit": 1,
+        "outputs_absent": true
+      },
+      {
+        "case": "dirty_source",
+        "exit": 1,
+        "outputs_absent": true
+      }
+    ],
+    "source_copy_disposable": true,
+    "original_librdb_cache_modified": false
+  },
+  "runs": {
+    "initial": {
+      "exit": 2,
+      "seconds": 370.7892909049988,
+      "tests": 42,
+      "failed": 0,
+      "skipped": 0,
+      "failed_cases": [],
+      "status": "interrupted_invalid_isolation",
+      "reported_passed": 41,
+      "testcase_records": 42,
+      "credited_passed": 0
+    },
+    "integration": {
+      "exit": 1,
+      "seconds": 1303.1032750606537,
+      "tests": 120,
+      "failed": 8,
+      "skipped": 0,
+      "failed_cases": [
+        "tests.test_rights_access_response_mobile::test_mobile_aux_inspection_requires_exact_metadata_review_and_stays_partial[es]",
+        "tests.test_rights_access_response_mobile::test_mobile_aux_inspection_requires_exact_metadata_review_and_stays_partial[en]",
+        "tests.test_rights_access_response_mobile::test_mobile_physical_census_uses_existing_review_and_independent_decision[es]",
+        "tests.test_rights_access_response_mobile::test_mobile_physical_census_uses_existing_review_and_independent_decision[en]",
+        "tests.test_rights_access_response_mobile::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[False-es]",
+        "tests.test_rights_access_response_mobile::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[False-en]",
+        "tests.test_rights_access_response_mobile::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[True-es]",
+        "tests.test_rights_access_response_mobile::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[True-en]"
+      ]
+    },
+    "correction": {
+      "exit": 0,
+      "seconds": 315.5010151863098,
+      "tests": 97,
+      "failed": 0,
+      "skipped": 0,
+      "failed_cases": []
+    }
+  },
+  "corrected_failed_cases_verified": true,
+  "earlier_unit_tests": {
+    "passed": 16,
+    "seconds": 1.42
+  },
+  "broker_unit_tests": {
+    "passed": 26,
+    "seconds": 0.27
+  },
+  "collection": {
+    "tests": 2085,
+    "execution": "collect-only; no suite completa2085 ejecutada"
+  },
+  "artifacts": {
+    "path": "docs/evidencias/saneamiento-tecnico-20261009-artefactos.tar.gz",
+    "sha256": "4e084462306c9af1b751f9e23a3caa551adb33f56655aed587017dc75996d0ec",
+    "original_evidence_sources_archive": "docs/evidencias/fuentes-antes-saneamiento-20261009.tar.gz",
+    "originals": [
+      {
+        "path": "docs/evidencias/auditoria-pass-mod05-r5-r6-script.py",
+        "sha256": "736ed7f7270be7df69f23bffb4e7474ad742f434e92721208a147fca85b66b9a"
+      },
+      {
+        "path": "docs/evidencias/mod05-dirty-contraste-analisis-script0110.py",
+        "sha256": "4d18b18651d59e4709750b8156b5eb4fa40876b091cfe2482b5e6ed8c5c43a44"
+      },
+      {
+        "path": "docs/evidencias/mod05-orden-desconocidos-analisis-script0110.py",
+        "sha256": "3fb980bf873759838114bd7c3880a0f5ba8db7e53942548b8f8d1ddf29934c6d"
+      },
+      {
+        "path": "docs/evidencias/mod05-orden-reference0110.py",
+        "sha256": "2388f5994f6c191b28e7dc426a7e9c2666b9561c2ad0ab77b5fe246cd7f1ae03"
+      },
+      {
+        "path": "docs/evidencias/mod05-pertenencia-analisis-script0110.py",
+        "sha256": "7568dc452e215e53e603503868134b9776921b6ef8bbc70c415bb486129c6377"
+      },
+      {
+        "path": "docs/evidencias/mod05-pertenencia-matriz-analisis-script0110.py",
+        "sha256": "364d4dc9ed4bafa8d3ea5cee30be3c33e241fa97e3053b3c9b085d9d5f0d8d58"
+      },
+      {
+        "path": "docs/evidencias/mod05-recursos-analisis-script0110.py",
+        "sha256": "da19daf23c1f2dff31cec3c8f111e3caaed3c3f2dc8fa7dd49d890e89f0f8949"
+      },
+      {
+        "path": "docs/evidencias/mod05-sucios-reference0110.py",
+        "sha256": "77d8fb582cac2c9aeca9cb9b03836b57234d37af02324bbc435a25755fcc4540"
+      },
+      {
+        "path": "docs/evidencias/mod05-vps-host-reposo-script0110.py",
+        "sha256": "6b95125fda7d717cbeb4a8536fff9c87c2593e8c5856aedc955c685cdd29b1c4"
+      },
+      {
+        "path": "docs/evidencias/recalcular-post-limpieza0110.py",
+        "sha256": "ad394dab0fcebf5cd4fef5f9ae11da9d91bfab0cc8e73e90039b273ab6f909f4"
+      },
+      {
+        "path": "docs/evidencias/recalcular-residual-prepared0110.py",
+        "sha256": "7aa950a2a1349d0c14550a923c67e62378e0f859a2d8d16a9ca2f075bea65f09"
+      },
+      {
+        "path": "docs/evidencias/reconstruir-correlacion-rendimiento0110.py",
+        "sha256": "fa0a5a0050a4495afd4e3e1a5cdb37eede1d983f556f88c0817046fb47e54ebe"
+      },
+      {
+        "path": "docs/evidencias/reconstruir-servicio0110.py",
+        "sha256": "7c076979fd4e337c46311b428b81215ad85a7fa762e5d819a4f72c43c9bb380f"
+      },
+      {
+        "path": "docs/evidencias/revisar-recursos-servicio0110.py",
+        "sha256": "6d1c18ad92333975f99180f77b68dc62284f4d3174cb8dc3b15cdbf5fe67767c"
+      },
+      {
+        "path": "docs/evidencias/revision-codex-mod05-auditoria-originales-script0110.py",
+        "sha256": "fd354f96f850d0529cf623419069021b1d7ae9ede2383170aa04f3722e1875df"
+      }
+    ],
+    "original_archive_sha256": "6d03ccf3bd929b0b4e1d005fa7a251a8759dc55d920d5b480569c0f5353ce6e8"
+  },
+  "checks": {
+    "manage_py_check": "PASS",
+    "makemigrations_check_dry_run": "sin diferencias",
+    "compileall": "PASS",
+    "diff_check": "PASS",
+    "documentation": {
+      "markdown_files": 150,
+      "local_links": 2504,
+      "protected_copies": 16,
+      "historical_links_resolved": 1440,
+      "historical_anchors_resolved": 1,
+      "retired_source_references": 5,
+      "errors": [],
+      "limits": "Local Markdown links/ATX anchors and registered copies; no HTTP or app checks."
+    },
+    "original_evidence_bytes_verified": true,
+    "corrective_sources_unchanged_at_terminal": true,
+    "native_tools_sha_permissions_verified_before_cleanup": true
+  },
+  "ci": {
+    "configured": true,
+    "executed_external": false,
+    "changes": [
+      "PostgreSQL promotion_gate_ci",
+      "Redis propio",
+      "librdb/hiredis commits fijados",
+      "compilación nativa y exportación de6 variables verificadas",
+      "redis-server para fixtures Unix"
+    ]
+  },
+  "limits": [
+    "Primera pasada interrumpida por variable Redis incorrecta; aislamiento no establecido y no se contabiliza",
+    "Batería120 conserva FAIL112PASS/8FAIL:4 preparación nativa ausente y4 omisión del adaptador",
+    "Correctiva97 sobre fuentes posteriores; no sumar runs distintos como N3 común",
+    "No carga ni acreditación de capacidad con grandes poblaciones positivas o expedientes",
+    "Datos/procedimientos de identidad sintéticos; DB, broker, Chromium y worker/Beat usados son reales",
+    "CI externo, insumos de matriz83 y aceptación integral siguen pendientes",
+    "No publicación ni contratación; sin migración/despliegue deliberado en servicios normales"
+  ],
+  "cleanup": {
+    "pending": false,
+    "containers_absent": [
+      "web-modelos-health-pg-20261009",
+      "web-modelos-health-redis-20261009"
+    ],
+    "temporary_roots_absent": [
+      "/tmp/pytest-of-felidae/pytest-1033",
+      "/tmp/pytest-of-felidae/pytest-1031",
+      "/tmp/web-modelos-health-correction-20261009/tmp",
+      "/tmp/web-modelos-health-native-source-20261009",
+      "/tmp/web-modelos-health-native-tools-20261009",
+      "/tmp/pytest-of-felidae/pytest-1032"
+    ],
+    "databases": "Eliminadas con PostgreSQL propio en tmpfs y volumen propio, no con DROP sobre servicios normales",
+    "artifacts_preserved": true
+  },
+  "graphify": {
+    "method": "Existing core/urls.py graph node inspected (degree76), then current code verified",
+    "rebuilt": false,
+    "host_tokens": "no medidos",
+    "claude_invocations": 0
+  }
+}

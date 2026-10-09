@@ -5,13 +5,14 @@ import shutil
 import subprocess
 import time
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 import psycopg
 from cryptography.fernet import Fernet
 from psycopg import sql
+
 from scripts.benchmark_resource_probe import ResourceProbe
-from datetime import datetime, timezone
 
 root = Path('/home/felidae/proyectos/web_modelos')
 out = Path('/tmp/post-cleanup-resource-checkpoint0110')

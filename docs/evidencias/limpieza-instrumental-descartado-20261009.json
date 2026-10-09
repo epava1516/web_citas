@@ -1,0 +1,181 @@
+{
+  "fecha": "2026-10-09",
+  "requisito": "Limpieza autorizada de intentos descartados en proyecto nuevo sin producción real",
+  "decision": "Retirar dos observadores autónomos sin consumidores actuales fuera de sus pruebas exclusivas; no mantenerlos por una hipotética compatibilidad productiva.",
+  "retirados": [
+    {
+      "path": "scripts/benchmark_call_profile.py",
+      "sha256_HEAD": "16353d0da077d2f10b36e657a5bc9c8a572d3d5744962b6bb25bd7e2ecc8777c",
+      "lineas": 74,
+      "presente": false
+    },
+    {
+      "path": "scripts/benchmark_local_monitor.py",
+      "sha256_HEAD": "b63ced7265df16c1ab1c6bd4826b2897c48342c8e23e770af9da75ba0a0a5609",
+      "lineas": 128,
+      "presente": false
+    },
+    {
+      "path": "tests/test_benchmark_profile_aliases.py",
+      "sha256_HEAD": "f0721261bfaf725bf6287845e76942505fe1961950522edfc85b78271cdeb8c9",
+      "lineas": 70,
+      "presente": false
+    },
+    {
+      "path": "tests/test_local_call_monitor.py",
+      "sha256_HEAD": "40b5a51e4f063fd818f2cb0572b5e90c995a09c8775dd326a148e6de9c8090f8",
+      "lineas": 65,
+      "presente": false
+    }
+  ],
+  "verificacion": {
+    "pytest_instrumental_conservado": {
+      "passed": 14,
+      "seconds": 10.76,
+      "exit": 0,
+      "files": [
+        "tests/test_benchmark_rule_profile.py",
+        "tests/test_benchmark_worker_observer.py",
+        "tests/test_benchmark_gc_observer.py",
+        "tests/test_benchmark_async_transport.py"
+      ]
+    },
+    "pytest_collect_only": {
+      "collected": 2073,
+      "seconds": 2.16,
+      "exit": 0
+    },
+    "referencias_en_apps_config_scripts_tests": 0,
+    "ruff_global": {
+      "exit": 1,
+      "incidencias": 280,
+      "comparacion_con_HEAD": "Coinciden código, fila, columna y mensaje en los18 archivos afectados; ninguna incidencia nueva",
+      "detalle": [
+        {
+          "path": "docs/evidencias/auditoria-pass-mod05-r5-r6-script.py",
+          "current": 1,
+          "head": 1,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/mod05-dirty-contraste-analisis-script0110.py",
+          "current": 7,
+          "head": 7,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/mod05-orden-desconocidos-analisis-script0110.py",
+          "current": 17,
+          "head": 17,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/mod05-orden-reference0110.py",
+          "current": 23,
+          "head": 23,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/mod05-pertenencia-analisis-script0110.py",
+          "current": 21,
+          "head": 21,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/mod05-pertenencia-matriz-analisis-script0110.py",
+          "current": 17,
+          "head": 17,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/mod05-recursos-analisis-script0110.py",
+          "current": 44,
+          "head": 44,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/mod05-sucios-reference0110.py",
+          "current": 24,
+          "head": 24,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/mod05-vps-host-reposo-script0110.py",
+          "current": 11,
+          "head": 11,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/recalcular-post-limpieza0110.py",
+          "current": 19,
+          "head": 19,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/recalcular-residual-prepared0110.py",
+          "current": 8,
+          "head": 8,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/reconstruir-correlacion-rendimiento0110.py",
+          "current": 9,
+          "head": 9,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/reconstruir-servicio0110.py",
+          "current": 14,
+          "head": 14,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/revisar-recursos-servicio0110.py",
+          "current": 44,
+          "head": 44,
+          "same": true
+        },
+        {
+          "path": "docs/evidencias/revision-codex-mod05-auditoria-originales-script0110.py",
+          "current": 17,
+          "head": 17,
+          "same": true
+        },
+        {
+          "path": "scripts/run_post_cleanup_resource_checkpoint.py",
+          "current": 1,
+          "head": 1,
+          "same": true
+        },
+        {
+          "path": "tests/test_capacity_trial_stops.py",
+          "current": 2,
+          "head": 2,
+          "same": true
+        },
+        {
+          "path": "tests/test_resource_service_checkpoint.py",
+          "current": 1,
+          "head": 1,
+          "same": true
+        }
+      ]
+    }
+  },
+  "criterios_conservacion": {
+    "RuleProfile": "Usado por diagnósticos de reglas y matriz MOD05; no es un observador sin consumidor.",
+    "publication_order_benchmark": "Usado por el contraste TCP de orden de publicación.",
+    "probes_worker_beat": "Comprueban comportamiento operativo real en entornos sintéticos aislados; ausencia de imports no hace inservible una entrada CLI.",
+    "fallback_nativo": "Garantía activa de exactitud MOD05.",
+    "migraciones": "Esta limpieza elimina herramientas sin modificar esquema. No se consolida una cadena cuya reconstrucción completa no se ha verificado; no se invoca compatibilidad con producción inexistente.",
+    "evidencias_historicas": "Registro de decisiones y mediciones previas; no pertenecen a la arquitectura actual ni demuestran un consumidor actual."
+  },
+  "limites": [
+    "No auditoría exhaustiva de funciones muertas",
+    "No pruebas PostgreSQL de integración: sin cambios de persistencia o código de aplicación",
+    "No cargas, proveedores, despliegue, modificación de bases ni servicios",
+    "No reconstrucción del grafo: contiene nodos históricos retirados",
+    "Ruff global sigue fallando por280 incidencias anteriores; CI externo no ejecutado"
+  ],
+  "estado": "Limpieza acotada completada; fases/porcentajes y garantías intactos; no se declara proyecto globalmente limpio"
+}
