@@ -1,0 +1,185 @@
+{
+  "schema": 1,
+  "state": "LOCAL_FUNCTIONAL_INTEGRATION_ACCEPTED_PERFORMANCE_UNMEASURED",
+  "joint_head": "ea72a522fcb619352a4028cf1306f3b32152e738",
+  "integrated_commits": [
+    "a55ce87",
+    "034aa1e"
+  ],
+  "run_id": "20261010-230920-aa4007af",
+  "testfiles": 48,
+  "selection": [
+    "tests/test_rights_selection_local_computation.py",
+    "tests/test_rights_coverage_audit_projection.py",
+    "tests/test_rights_portability_exclusion_validation.py",
+    "tests/test_rights_operation_fingerprints.py",
+    "tests/test_rights_portability.py",
+    "tests/test_rights_portability_races.py",
+    "tests/test_rights_portability_review.py",
+    "tests/test_rights_portability_review_races.py",
+    "tests/test_rights_portability_selection.py",
+    "tests/test_rights_portability_selection_races.py",
+    "tests/test_rights_portability_page_selection.py",
+    "tests/test_rights_portability_batch_projection.py",
+    "tests/test_rights_portability_coverage_batch.py",
+    "tests/test_rights_portability_coverage.py",
+    "tests/test_rights_portability_coverage_store.py",
+    "tests/test_rights_portability_coverage_inspection.py",
+    "tests/test_rights_portability_coverage_review.py",
+    "tests/test_rights_portability_coverage_races.py",
+    "tests/test_rights_portability_coverage_pages.py",
+    "tests/test_rights_portability_coverage_images.py",
+    "tests/test_rights_portability_coverage_use.py",
+    "tests/test_rights_portability_coverage_http.py",
+    "tests/test_rights_portability_coverage_review_http.py",
+    "tests/test_rights_portability_images.py",
+    "tests/test_rights_portability_image_read_bulk.py",
+    "tests/test_rights_portability_binary_races.py",
+    "tests/test_rights_portability_mixed_fields.py",
+    "tests/test_rights_canonical.py",
+    "tests/test_rights_source_fingerprint.py",
+    "tests/test_rights_validation_seal.py",
+    "tests/test_rights_enforced_validation_seal.py",
+    "tests/test_rights_evidence_chain.py",
+    "tests/test_rights_object_read_clients.py",
+    "tests/test_rights_object_codec.py",
+    "tests/test_rights_object_store.py",
+    "tests/test_rights_object_delivery.py",
+    "tests/test_rights_proxy_validation_scope.py",
+    "tests/test_rights_object_verification_parallel.py",
+    "tests/test_rights_validation_seal_pipeline.py",
+    "tests/test_rights_operation_content_digests.py",
+    "tests/test_rights_image_contents_bulk.py",
+    "tests/test_portability_binary_save_shared_source.py",
+    "tests/test_canonical_kernel_loader.py",
+    "tests/test_rights_native_canonical_equivalence.py",
+    "tests/test_diagnostic_baseline_contract.py",
+    "tests/test_diagnostic_baseline_pg.py",
+    "tests/test_capacity_delivery_proxy_profile.py",
+    "tests/test_rights_object_verify_only.py"
+  ],
+  "workers": 3,
+  "junit": [
+    {
+      "tests": "666",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "737.418"
+    }
+  ],
+  "gates": [
+    {
+      "name": "start-pg",
+      "exit": 0,
+      "seconds": 0.4693720228970051
+    },
+    {
+      "name": "start-redis",
+      "exit": 0,
+      "seconds": 0.36890422413125634
+    },
+    {
+      "name": "dependencies",
+      "exit": 0,
+      "seconds": 0.0661175032146275
+    },
+    {
+      "name": "ruff",
+      "exit": 0,
+      "seconds": 0.11873825918883085
+    },
+    {
+      "name": "documentation",
+      "exit": 0,
+      "seconds": 0.9686041688546538
+    },
+    {
+      "name": "django",
+      "exit": 0,
+      "seconds": 1.5250475741922855
+    },
+    {
+      "name": "migrations",
+      "exit": 0,
+      "seconds": 1.7742495369166136
+    },
+    {
+      "name": "native-build",
+      "exit": 0,
+      "seconds": 9.762604041025043
+    },
+    {
+      "name": "pytest",
+      "exit": 0,
+      "seconds": 739.0631762901321
+    }
+  ],
+  "sources_unchanged": true,
+  "reviewed_sha256": {
+    ".gitignore": "b900fda5a193251ce0fa428ce43ef7d09b2ceb321674d28805d784c70f22eeb3",
+    "apps/safety/_canonical_kernel.pyx": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9",
+    "apps/safety/canonical_kernel_loader.py": "6fc5593f9b7248a31c69c08be892bc8d49a26fe91851296410f50d546786860c",
+    "apps/safety/fast_canonical.py": "800113aa755af72ca7855a188403ec44b2c6e3fb21b516b14bef69f320de2cd3",
+    "apps/safety/object_storage/codec.py": "36ee8008a778169d97a9e282fb4ae04e62700e650a080e5db380c25ed32f8587",
+    "apps/safety/object_storage/repository.py": "7cca4ca2c3b610cce08fb3f95da3fe307bb8b049a4565484a7bdd8afe9776815",
+    "apps/safety/rights_object_content.py": "39ae841d803d67c306977a658040cba743e9f5bbf182931e70a2ebb08edd5fca",
+    "apps/safety/rights_validation_seal.py": "636c435d4532bdfa7809a47ae36929ae3aa67c13d997039f90b81e1af251a2b0",
+    "scripts/build_canonical_kernel.py": "98ffd5f72b610e0cbfe8b57956bd27481ea8d2ccf6d329eccd3c2da3704bfa11",
+    "scripts/canonical_artifacts.py": "7d767fbcc708557fc25c13b514e0a743b7864c3af41d54de69b7d1e209be84d0",
+    "scripts/diagnostic_baseline_dependencies.py": "765e8668ccb14c3e1f0f119a414b94a5eca8dc21563e3dc05337824e47ce6748",
+    "scripts/run_local_ci.py": "29a370982ef802994016ee9363b8af681260423a326c6f187a537bb3ed18e9f0",
+    "tests/test_canonical_kernel_loader.py": "4ed2fa8549c2bb4397e3cb89976922363cd1c5be6aed1d8324aaf7e86af559be",
+    "tests/test_rights_native_canonical_equivalence.py": "d5ce395777520ad703b7f3006354b2168ea44b35c40a868d1bb8ab4e1c6480dc",
+    "tests/test_rights_object_verification_parallel.py": "4dbb8439171bcfe5e77e934895bec43e6bb02b636ce8b9f82ce216663544160c",
+    "tests/test_rights_object_verify_only.py": "10cafdfd80119657b7ab75c934857f656df680665c2847ad4975772622d84fbf",
+    "apps/safety/_canonical_native/_canonical_kernel.c": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "apps/safety/_canonical_native/_canonical_kernel.cpython-312-x86_64-linux-gnu.so": "b1fc70995e9a2526e13b99e38a2c5f6aa5331ce4852945b312dcb899ac058cd1",
+    "apps/safety/_canonical_native/manifest.json": "7c74576ae9ae3e50c70df6dba8920d05ea7c73e01543cc63abeaa3690dcff23f"
+  },
+  "independent_cleanup_verified": true,
+  "native_manifest": {
+    "binary_sha256": "b1fc70995e9a2526e13b99e38a2c5f6aa5331ce4852945b312dcb899ac058cd1",
+    "build_script_sha256": "98ffd5f72b610e0cbfe8b57956bd27481ea8d2ccf6d329eccd3c2da3704bfa11",
+    "cache_tag": "cpython-312",
+    "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.13",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  },
+  "negative_and_corrections": [
+    "CPython standalone lacks os.memfd_create: libc Linux memfd verified; no runtime build",
+    "Native recursion budget differed: conservative CPython budget check and reference fallback preserve errors",
+    "Post-exec load failure could retain old dlopen mapping across fd pathname reuse: sticky failure and one retained sealed fd;127 corrected host tests; corrected full joint666PASS"
+  ],
+  "verify_directed": {
+    "run_id": "20261010-230150-28dd5d65",
+    "tests": 127,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_seconds": 376.927
+  },
+  "invariants": [
+    "Fresh ciphertext GET/SHA/tombstones/AEAD/plaintext SHA/context/full EOF preserved",
+    "Only unused plaintext staging/readback removed from verify; read behavior unchanged",
+    "Canonical exact bytes/types/finite/depth/error semantics preserved; unsupported paths reference fallback",
+    "Native binary loaded from immutable sealed memfd; actual source/build/binary/ABI identity in rule and diagnostic baseline; three artifacts included source freeze"
+  ],
+  "limitations": [
+    "verify eliminates possible ENOSPC of unused plaintext tempfile",
+    "Finite real PostgreSQL Redis RustFS; not N3 or original two-case capacity acceptance",
+    "No new request latency or native/verify gain measured",
+    "Compiled artifacts ignored; optional explicit offline build with isolated pinned Cython3.0.12; runtime never compiles"
+  ]
+}

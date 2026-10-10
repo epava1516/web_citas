@@ -496,3 +496,12 @@ Preparada captura nueva tras SHA, conservando1509páginas/383lotes/123comparable
 ### MOD-08: medición SHA y forwardauth real (2026-10-10)
 
 Listado p95:383lotes4,375794→3,880241s (11,32%);123lotes completos comparables3,862194→3,264592s (15,47%). Objetivo2s, pendientes48,46%/38,74%. Descargas completas JSON6,735796→6,749283s y binaria6,428605→6,545222s: no mejoran, objetivo5s pendiente25,92%/23,61%. Un caso sintético, no aceptación de dos casos/N3. Capture215201/use222157 terminales sin errores, fuentes/inputs estables y retirada propia comprobada. Propagación real del marcador de perfil por Caddy verificada; dos autorizaciones frescas conservadas. Cuadros completos y muestras en [coordinación](../.ai/tasks/mod08-coordinacion.md); [evidencia saneada](evidencias/mod08-medicion-sha-forwardauth-20261010.json).
+
+
+### MOD-08: canónica nativa y verify-only integrados localmente
+
+Commits `a55ce87` y `034aa1e`; conjunta corregida `20261010-230920-aa4007af`:666PASS/0FAIL/0ERROR/0skips737,418s JUnit,48archivos/3workers, PostgreSQL17/Redis/RustFS reales. Todos los gates pasan, fuentes/artefactos intactos y retirada propia verificada independientemente. Integra validación canónica Cython con fallback exacto y loader memfd sellado; ABI/fuente/build/binario real forman identidad de reglas/baseline y congelación. Builder aislado Cython3.0.12, runtime sin compilación ni Cython. Pruebas conservan recursión/errores y rechazan reintento tras inicialización fallida para impedir reutilizar un mapping anterior por pathname FD.
+
+Verify-only mantiene ciphertext staging, GET/SHA/tombstones/AEAD/contexto/SHA plaintext/EOF/autorización frescos; elimina solo tempfile/readback del plaintext que se descartaba. Read y legacy permanecen. También desaparece el ENOSPC de ese tempfile innecesario; no se presenta como equivalencia de fallos de recursos eliminados. N2 dirigida127PASS antes de conjunta; la conjunta previa637PASS precede corrección y no acredita la fuente final.
+
+Aceptación funcional local, sin nueva ganancia de requests medida. Se prepara captura/use nueva con todas poblaciones/cuotas/objetivos originales; no reutilizar baseline previo tras fuente/binario cambiados. N3, dos casos simultáneos, memoria y todos los objetivos de latencia siguen pendientes; porcentajes contractuales sin incremento. [Evidencia saneada](evidencias/mod08-native-verify-integrado-20261010.json).
