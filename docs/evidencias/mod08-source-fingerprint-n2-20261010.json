@@ -1,0 +1,34 @@
+{
+  "run_id": "20261010-144427-945382a1",
+  "result": "PASS",
+  "head": "d5356abb20db75808ea436221bc92758d7d03810",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "21",
+      "time": "106.882",
+      "timestamp": "2026-10-10T16:44:50.373454+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261010-144427-945382a1": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261010-144427-945382a1": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "scope": "N2 focused real owned PostgreSQL/Redis/native;21 cases. Exact legacy/new municipal row/version set and full source digest/count equality; duplicates/direct/travel/null/foreign/shared/no-listing/account; all source-family mutation and late source/permission/session/MFA rollback guards. Not a throughput, p95, generation or N3 verdict.",
+  "change": "Municipality selector: IDs UNION then catalog semijoin, retaining tag/id/xmin:ctid/hash/count and scope",
+  "next": "Restricted runtime same-snapshot old/new SQL timing + full EXPLAIN in diagnostic complete1500/16MiB/64MiB case, then capacity only when justified",
+  "pre_resource_invocation": "First focused invocation missing --native-source was rejected by argparse before any resource launch; corrected invocation supplied /tmp/web-modelos-librdb-v2.4.0. Original host launch logs preserved."
+}
