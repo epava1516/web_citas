@@ -317,3 +317,34 @@ def finish(index, case, author, reviewer, selection, selected, coverage_review,
     assert projected["datasets"] == expected["datasets"]
     assert recovered == expected_images
     metrics["success"] = not metrics.get("violations")
+    # Diagnostic only, after every sample: attribute the download validation chain in-process
+    # inside a rolled-back transaction; never a measured stage.
+    metrics["post_validation_profile"] = validation_profile(case, export)
+
+
+def validation_profile(case, export):
+    from copy import copy
+
+    from apps.safety.rights_exports import locked_case
+    from apps.safety.rights_information_export import validate_export_binding as information
+    from apps.safety.rights_portability_close import closure_for_export, validate_closure
+    from apps.safety.rights_portability_export import validate_export_binding as portability
+
+    profile = cProfile.Profile()
+    with transaction.atomic():
+        locked, person, _ = locked_case(case.pk)
+        closure = closure_for_export(locked, export)
+        profile.enable()
+        begin = time.perf_counter()
+        validate_closure(closure, locked, person)
+        delivery = copy(locked)
+        delivery.version, delivery.status = export.case_version, "reviewing"
+        information(delivery, person, export)
+        portability(delivery, person, export)
+        elapsed = time.perf_counter() - begin
+        profile.disable()
+        transaction.set_rollback(True)
+    output = io.StringIO()
+    pstats.Stats(profile, stream=output).sort_stats("cumulative").print_stats(60)
+    pstats.Stats(profile, stream=output).sort_stats("tottime").print_stats(30)
+    return {"seconds_with_profiler": elapsed, "profile": output.getvalue()}
