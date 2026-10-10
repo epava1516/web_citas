@@ -3,7 +3,7 @@
 {% if listing.person.agency_id %}<p>{% if english %}Managed by{% else %}Gestionado por{% endif %} {{ listing.person.agency.name }}</p>{% endif %}
 <p class="description" lang="{{ public.description_language }}">{{ public.description|linebreaksbr }}</p>
 <p>{{ revision.municipality.province.region }} · {{ revision.municipality.province }} · {{ revision.municipality }}{% if revision.zone %} · {{ revision.zone }}{% endif %}{% if public.postal_code %} · {{ public.postal_code }}{% endif %}</p>
-{% if photos %}<div class="gallery">{% endif %}{% for photo in photos %}<img src="{% url 'public_photo' listing.pk photo.pk %}" alt="{{ revision.title }}" width="500" loading="lazy">{% endfor %}{% if photos %}</div>{% endif %}
+{% if photos %}<div class="gallery">{% endif %}{% for photo in photos %}<img src="{% url 'public_photo' listing.pk photo.pk %}" alt="{{ revision.title }}" width="500">{% endfor %}{% if photos %}</div>{% endif %}
 <h2>{% if english %}Categories and services{% else %}Categorías y servicios{% endif %}</h2><p>{{ public.categories|join:', ' }}</p><p>{{ public.services|join:', ' }}</p>
 <h2>{% if english %}Availability and options{% else %}Disponibilidad y opciones{% endif %}</h2>
 {% if public.languages %}<p>{% if english %}Languages{% else %}Idiomas{% endif %}: {{ public.languages|join:', ' }}</p>{% endif %}
