@@ -18,7 +18,7 @@ from apps.core.models import Agency, LegalAcceptance, LegalDocument, Person
 from apps.listings.models import Favorite, Listing
 from apps.mediafiles.models import Photo
 from apps.safety.crypto import unseal
-from apps.safety.models import RightsImageAccess
+from apps.safety.models import RightsExport, RightsImageAccess
 from apps.safety.rights_exports import generate
 from apps.safety.tasks import purge_expired_exports
 
@@ -105,6 +105,20 @@ def test_own_account_copy_review_download_and_changed_authority(
             "Release own account reviewed partial copy",
             injected,
         )
+    if kind == "portability":
+        # The generic reviewed-copy path never releases portability; it requires an
+        # independently approved field selection (account-only portability flows cover it).
+        with pytest.raises(ValidationError, match="independently approved field selection"):
+            generate(
+                actor,
+                case.pk,
+                uuid4(),
+                case.version,
+                "Release own account reviewed partial copy",
+                source,
+            )
+        assert not RightsExport.objects.filter(action__request=case).exists()
+        return
     extra_favorite = Favorite.objects.create(
         user=subject, listing=Listing.objects.exclude(pk=listing.pk).first()
     )
