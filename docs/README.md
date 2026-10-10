@@ -62,7 +62,7 @@ Las instrucciones expresas del usuario prevalecen. Conservar la distinción entr
 
 Las referencias de detalle se agrupan por su función. Un diseño inicial conserva su fecha y las decisiones que lo sustituyen; para reanudar se utiliza siempre seguimiento17.
 
-Propuesta independiente pendiente de lanzamiento manual: evaluación acotada de GraphQL en `docs/propuesta-graphql-manual.md`, archivo local sin versionar de procedencia no confirmada que se conserva intacto. No forma parte de la cola del goal ni modifica la aceptación contractual; se nombra sin enlace para que un checkout limpio de la versión integrada pase la comprobación documental.
+Propuesta de evaluación de GraphQL: **descartada y eliminada** por decisión del usuario (2026-10-10): la aplicación se usa solo desde navegador web con plantillas/HTMX; no hay ni habrá API GraphQL en v1.
 
 <details>
 <summary>Producto, diseño inicial, seguridad y legal</summary>
@@ -182,6 +182,7 @@ Propuesta independiente pendiente de lanzamiento manual: evaluación acotada de 
 - [Análisis estático del repositorio — Claude Code](92-analisis-claude-code-20261008.md).
 - [Propuesta técnica: estado de publicación almacenado con invalidación por triggers](93-propuesta-estado-publicacion-claude-code.md).
 - [Diseño no adoptado: sello de entrega de portabilidad](94-sello-entrega-portabilidad.md).
+- [Plan de modernización técnica MOD-08](95-plan-modernizacion-mod08.md).
 - [Análisis del bloqueo y DAFO — coste y capacidad de servicio](analisis-bloque-rendimiento-dafo0110.md).
 - [Criterios de revisión del benchmark de carga](criterios-revision-benchmark-carga.md).
 - [Propuesta para cerrar pendientes locales: capacidad, insumos operativos y CI](propuesta-cierre-pendientes-locales.md).
