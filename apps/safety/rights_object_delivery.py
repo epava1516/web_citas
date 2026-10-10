@@ -21,6 +21,7 @@ from django.utils import timezone
 
 from .models import RightsExport, RightsExportDownload, RightsRequest
 from .rights_object_models import RightsObjectDelivery
+from .rights_portability_export import one_export_validation
 from .rights_scope import locked_case
 from .rights_verification import PROCEDURE, enabled
 
@@ -238,7 +239,10 @@ def proxy_or_direct(export, recorded_download, response):
     return private(HttpResponse(status=303, headers={"Location": location}))
 
 
+@one_export_validation
 def authorize_token(token):
+    # Closure and delivery share one locked export validation in this operation;
+    # the decorator resets on every return/error, never retaining request state.
     if not settings.RIGHTS_PROXY_DELIVERY_ENABLED or settings.RECOVERY_MODE:
         raise Http404
     try:
