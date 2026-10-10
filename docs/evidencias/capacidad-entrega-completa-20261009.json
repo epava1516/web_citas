@@ -1,0 +1,42 @@
+{
+  "schema": "capacity-target-delivery-result-v1",
+  "run_id": "20261009-224749-d7b20ad4",
+  "result": "FAIL_DELIVERY_STAGE_LIMITS",
+  "classification": "VALID_FAIL: complete instrument, every stage measured to the end for both cases; limits unchanged.",
+  "head": "81b48e4bb1ecf8d3ac2ea7e9f6bad51b0ec5e9d7",
+  "sources_unchanged": true,
+  "started_utc": "2026-10-09T22:47:49Z",
+  "terminal_utc": "2026-10-10T01:02:44Z",
+  "junit": {"tests": 1, "failures": 1, "errors": 0, "skipped": 0, "time_seconds": 7971.957},
+  "launcher": "Host launcher ended with the previous Claude session; the controller container ran to terminal and self-cleaned. launcher.json reconstructed with the launcher's own extract(): 43 members, no archive problems, controller.log empty because the launcher's Docker CLI client died.",
+  "resources": {
+    "allocations": {"pg": "1.5CPU/3GiB", "app": "2.25CPU/4.5GiB", "redis": "0.2CPU/384MiB", "controller": "0.05CPU/128MiB"},
+    "swap": 0,
+    "cgroup_peak_bytes": {"pg": 1303977984, "app": 1674260480, "redis": 22102016},
+    "owned_memory_upper_bound_bytes": 3134558208,
+    "global_memory_verdict": "WITHIN_6GIB_UPPER_BOUND",
+    "oom_kill": 0,
+    "owned_storage_ceiling_bytes": 4009754624,
+    "process_rss_bytes": {"pytest_driver": 823750656, "gunicorn_master": 35315712, "gunicorn_workers": [436834304, 428421120]}
+  },
+  "fixture": {"cases": 2, "revisions": 1500, "delivered_json_bytes": 16782538, "json_relative_error": 0.000318, "required_coverage_pages_per_case": 1509},
+  "stages": {
+    "image_catalog_preparation_max_s": [3.129, 3.192], "limit_s": 60, "verdict": "PASS",
+    "binary_page_save_p95_s": [3.594, 3.694], "binary_page_save_limit_s": 5, "binary_page_save": "PASS",
+    "selection_page_read_p95_s": [2.091, 2.047], "selection_page_read_limit_s": 2, "selection_page_read": "FAIL",
+    "binary_inspection_p95_s": [2.763, 2.792], "binary_inspection_limit_s": 2, "binary_inspection": "FAIL",
+    "selection_final_decision_s": [1.952, 2.192], "selection_final_decision": "PASS",
+    "coverage_preparation_max_s": [8.509, 8.408], "coverage_preparation": "PASS",
+    "coverage_page_save_p95_s": [10.885, 10.758], "coverage_page_save_limit_s": 5, "coverage_page_save": "FAIL",
+    "coverage_page_read_p95_s": [3.872, 3.871], "coverage_page_read_limit_s": 2, "coverage_page_read": "FAIL",
+    "coverage_final_decision_s": [10.606, 10.342], "coverage_final_decision": "PASS under per-operation approval limit 30s; single decision, not a p95 population",
+    "generation_s": [66.297, 64.731], "generation_limit_s": 120, "generation": "PASS",
+    "final_preparation_s": [40.399, 40.402], "final_inspection_s": [39.441, 39.903], "final_approval_s": [58.516, 59.166], "closure_s": [37.752, 38.375], "final_limit_s": 30, "final_stages": "FAIL",
+    "json_download_p95_s": [30.911, 30.312], "binary_download_p95_s": [31.116, 30.503], "download_limit_s": 5, "downloads": "FAIL"
+  },
+  "first_open_seconds": {"images": [0.171, 0.055], "coverage": [0.179, 0.167]},
+  "provisional_hypothesis": "Uniform per-operation cost suggests every audited request re-reads and re-serialises the whole 16MiB source several times and re-hashes all 64MiB originals (audited_images via inspect_selection), regardless of the bytes returned. To be confirmed by stage profiles before any change.",
+  "artifacts": {"archive": "docs/evidencias/capacidad-entrega-completa-20261009-artefactos.tar.gz", "sha256": "f74cdf2cf3a47d89bcb2a1b91c7d76e26584b47726fbf75d33081dfff6508c60"},
+  "not_proven": ["capacity PASS", "N3"],
+  "limits": "Shared host; owned kernel quotas verified; stage FAIL is valid against unchanged JSON targets."
+}
