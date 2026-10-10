@@ -1,0 +1,874 @@
+{
+  "scope": "Intentionally interrupted single-case real target diagnostic; not capacity, N3, accepted baseline or complete generation profile",
+  "id": "20261010-170451-74183205",
+  "head": "30b69cf99e8aa1f6ca9f48bea9d115b10effb154",
+  "errors": [
+    "DiagnosticInterrupted: operator stopped this diagnostic; no capacity verdict"
+  ],
+  "source_unchanged": true,
+  "cleanup": {
+    "web-modelos-capacity-20261010-170451-74183205-controller": true,
+    "web-modelos-capacity-20261010-170451-74183205-app": true,
+    "web-modelos-capacity-20261010-170451-74183205-redis": true,
+    "web-modelos-capacity-20261010-170451-74183205-pg": true,
+    "web-modelos-capacity-20261010-170451-74183205-caddy": true,
+    "web-modelos-capacity-20261010-170451-74183205-objects": true,
+    "web-modelos-capacity-20261010-170451-74183205-delivery": true,
+    "web-modelos-capacity-20261010-170451-74183205-net": true,
+    "no_labelled_resources": true
+  },
+  "required_coverage_pages": 1509,
+  "coverage_batch_samples": 125,
+  "coverage_batch_p95_partial_seconds": 5.086517954710871,
+  "threshold_seconds_unchanged": 2,
+  "reason": "Fresh SQL N+1 profiled. Strict baseline source identity would invalidate capture after correcting code; stop own diagnostic, retain negative/raw and optimize before new capture.",
+  "files": [
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/absent-web-modelos-capacity-20261010-170451-74183205-app.log",
+      "bytes": 98,
+      "sha256": "6dab30d8fa3d542778669e6e288bf0f93fa17aef275df1151ea94b0d96f1a2c8"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/absent-web-modelos-capacity-20261010-170451-74183205-caddy.log",
+      "bytes": 100,
+      "sha256": "6d28fda23efcb60441f0e304b989a1dd36ad72352649ec5d4f0da1e3cd95b614"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/absent-web-modelos-capacity-20261010-170451-74183205-delivery.log",
+      "bytes": 104,
+      "sha256": "5c1147e4faeb2f61d85908388d7ac01405681ab544cc918980fb6c6ab44381fc"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/absent-web-modelos-capacity-20261010-170451-74183205-net.log",
+      "bytes": 97,
+      "sha256": "4c75d9f5cf6e4e68c926f2ffc29e7fde9a486667156191b4a5d7f2a92f13bb16"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/absent-web-modelos-capacity-20261010-170451-74183205-objects.log",
+      "bytes": 102,
+      "sha256": "318e7c0e7a754a08cc78cd9987d4cb581627a48949f4e1d0329a70e24b7d6afc"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/absent-web-modelos-capacity-20261010-170451-74183205-pg.log",
+      "bytes": 97,
+      "sha256": "8a67a27a16808a35f68064fd5ce840fa2b62691a24682234c44fdeb90c048f61"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/absent-web-modelos-capacity-20261010-170451-74183205-redis.log",
+      "bytes": 100,
+      "sha256": "3f0cbf17d12a213a06253825b5a5cf9ac7a80a4b8cf00dcf5afae6b021d41790"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/artifacts.tar",
+      "bytes": 1280000,
+      "sha256": "038a355f42921132e0437f1259cabfc60bc4c098b4c442c5b1146ba18bffa8d6"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/control-junit.log",
+      "bytes": 496253,
+      "sha256": "619b3164a0b32b6ac34e5b0f6fcf4ede1baefa67b959018308ed9a0cb4fc32e5"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/control-pytest.log",
+      "bytes": 996,
+      "sha256": "5f590ed195e3bcce4cd1c94d363cb4fd0e29cb4668bb30c3bb2c328498814f78"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/control-settings.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/controller.log",
+      "bytes": 144,
+      "sha256": "f04a764a6f9d4cdfaadfdb5ccbb8a2800f4ee3d81a634b99aa5bf1d7679f4c9a"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/controls-app.log",
+      "bytes": 27,
+      "sha256": "969d1b6ec5b44ee1403e577401ee4e70e18bfe22d6582c3439f9cbf4f98b2fe3"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/controls-caddy.log",
+      "bytes": 25,
+      "sha256": "df738f4bed60dcc742d6a01a1c616e9936d78c16fb56a7418dafdc1e61d371df"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/controls-objects.log",
+      "bytes": 25,
+      "sha256": "67152303b04a5d349ff19254ff24afe9f10391909d74a37d2df4060a846d1617"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/controls-pg.log",
+      "bytes": 27,
+      "sha256": "420954c9ba44958239a709f577b0bc199b7efbc66514e1854c24120f67ad8e93"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/controls-redis.log",
+      "bytes": 25,
+      "sha256": "4c2fc2a0774d0203437bd153269ed81efe2e148ef56d40b67c9b7fa1f1877c48"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/delivery-mount-app.log",
+      "bytes": 850,
+      "sha256": "8494fcf8d1d8c13f73e7f916341592a5e0416a62f607ff020882180100bc2d2c"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/delivery-mount-caddy.log",
+      "bytes": 266,
+      "sha256": "21359732b1fad1553e5d3fa89a4b5827398789e1ed46fb70186b08c98933dba6"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/delivery-volume-count.log",
+      "bytes": 55,
+      "sha256": "1ead32e900e09d6869211583adc44ad23e9ffa2a09366aa672726b86dc2246da"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/delivery-volume-inspect.log",
+      "bytes": 549,
+      "sha256": "a8c55507350c31bf399ff65127935b7d9711ee7f24c5a9950cd9de726c496748"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/delivery-volume.log",
+      "bytes": 55,
+      "sha256": "1ead32e900e09d6869211583adc44ad23e9ffa2a09366aa672726b86dc2246da"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/delivery-write-app.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/delivery-write-caddy.log",
+      "bytes": 70,
+      "sha256": "f54f25ddcc4b2136c60e1922d4b9a2031197cde0f0dacf8fa2aa04fa6ebf09d0"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/delivery-write-clean.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/django-probe.log",
+      "bytes": 276,
+      "sha256": "8896330b72de20e606f026f2b75dd8d6d1a2a056cf0c5be98029a84218c2d238"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/git-head.log",
+      "bytes": 41,
+      "sha256": "c93a43b4e7e5f32add9776368869fcb89a8959a83485d1ebd8128ab1ed431f6f"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/image-caddy_sha256.log",
+      "bytes": 72,
+      "sha256": "2b530268ae507b6e521b877fd7cc2202aecd6e9ca6b4457715ef5fcfc948b616"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/image-of-app.log",
+      "bytes": 72,
+      "sha256": "fa652c5c557a648b00202c57c2b8189ffe89682bb7792b4e2736b9affa4f8c0e"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/image-of-caddy.log",
+      "bytes": 72,
+      "sha256": "2b530268ae507b6e521b877fd7cc2202aecd6e9ca6b4457715ef5fcfc948b616"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/image-of-objects.log",
+      "bytes": 72,
+      "sha256": "d53d4744663834deaba6baa1ee84a638f7cabd41ae0121bf4d5171a485f8f9bd"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/image-of-pg.log",
+      "bytes": 72,
+      "sha256": "52af8cd845c1532763c91e0f0aed3356fc5056b0cc8b466da0269abb85948dd1"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/image-of-redis.log",
+      "bytes": 72,
+      "sha256": "e05dc87041524321bad945bd7355295c328fadf3ffbca6fe98f74517f3917ed4"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/image-postgres.log",
+      "bytes": 72,
+      "sha256": "52af8cd845c1532763c91e0f0aed3356fc5056b0cc8b466da0269abb85948dd1"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/image-redis.log",
+      "bytes": 72,
+      "sha256": "e05dc87041524321bad945bd7355295c328fadf3ffbca6fe98f74517f3917ed4"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/image-rustfs_rustfs_sha256.log",
+      "bytes": 72,
+      "sha256": "d53d4744663834deaba6baa1ee84a638f7cabd41ae0121bf4d5171a485f8f9bd"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/image-web-modelos-app.log",
+      "bytes": 72,
+      "sha256": "fa652c5c557a648b00202c57c2b8189ffe89682bb7792b4e2736b9affa4f8c0e"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/kernel-probe-app.log",
+      "bytes": 45,
+      "sha256": "76decd5fd0e5aa60030568b522b8efe08b89fcae7eb0c509a017ed4782cda03c"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/kernel-probe-caddy.log",
+      "bytes": 45,
+      "sha256": "76decd5fd0e5aa60030568b522b8efe08b89fcae7eb0c509a017ed4782cda03c"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/kernel-probe-objects.log",
+      "bytes": 45,
+      "sha256": "76decd5fd0e5aa60030568b522b8efe08b89fcae7eb0c509a017ed4782cda03c"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/kernel-probe-pg.log",
+      "bytes": 45,
+      "sha256": "76decd5fd0e5aa60030568b522b8efe08b89fcae7eb0c509a017ed4782cda03c"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/kernel-probe-redis.log",
+      "bytes": 45,
+      "sha256": "76decd5fd0e5aa60030568b522b8efe08b89fcae7eb0c509a017ed4782cda03c"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/labelled-containers.log",
+      "bytes": 57,
+      "sha256": "8021460daba068ac92943d510706b263ad71554b3e994cd9b7a5988b669bb4b9"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/labelled-networks.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/labelled-volumes.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/launcher-started.json",
+      "bytes": 1126,
+      "sha256": "6bb90a137be19173bac9056e8059559382aebea0cdf671b031bdfbba4dd95cf9"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/launcher.json",
+      "bytes": 18075,
+      "sha256": "84dd22994034d87fef87c490b040cc5ec415dd73985052dac6f643ccc8f26e38"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/memory-app.log",
+      "bytes": 76,
+      "sha256": "97efe0ae15ff49547b7f6b54e52b58c6fbb52198c37ce55e10a03146f339c21b"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/memory-caddy.log",
+      "bytes": 74,
+      "sha256": "7454047dc8445c938261fac0ec8e437e72eb8415e0adcf0e597e8a3627446126"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/memory-objects.log",
+      "bytes": 73,
+      "sha256": "4a233a93f97d7ee13f24c2c0ddaf79e873bbcd71e51365b54570162321d625b6"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/memory-pg.log",
+      "bytes": 75,
+      "sha256": "82732522ded243380017a3f62e541272a44cf4833d7cde79692d940a83847717"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/memory-redis.log",
+      "bytes": 72,
+      "sha256": "cb3b50c84faa8c6f63bcb9d5771da33016bb1215575e59b5856750ff1d0b45cb"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/mounts-app.log",
+      "bytes": 4141,
+      "sha256": "9a8417621fd517ef35a9bf57570237e20a1a08a1a66f02b741be913a59f3dc24"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/mounts-caddy.log",
+      "bytes": 3509,
+      "sha256": "80025534dd9eac94329ec93d177231cc7e9cf810616ede442d9fe362204bfd3a"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/mounts-objects.log",
+      "bytes": 3380,
+      "sha256": "be2a79c50658489c4845292618fb2f33428ab61c137d88a9b21ef60c43ed8506"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/mounts-pg.log",
+      "bytes": 3675,
+      "sha256": "43596a23cd9c23ece0b2a8ded11b797841d686bdccc0afd617f82384e6b975b6"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/mounts-redis.log",
+      "bytes": 3349,
+      "sha256": "e3f10caf1f2b597bef1a8de6a85dc9e81f409ba4c5deee240db3603c4d1000a2"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/network.log",
+      "bytes": 65,
+      "sha256": "9c238db39847c6d95e48889c1e445b2c3f1c8ece4b61d320cc74caffb538cdc8"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/object-bootstrap.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/pg-ready-0.log",
+      "bytes": 49,
+      "sha256": "6e168fc3b5a0662104b5e5da92e87b870e8b7c65fec827d267115b5123d18614"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/pytest.xml",
+      "bytes": 496253,
+      "sha256": "619b3164a0b32b6ac34e5b0f6fcf4ede1baefa67b959018308ed9a0cb4fc32e5"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/remove-delivery-volume.log",
+      "bytes": 55,
+      "sha256": "1ead32e900e09d6869211583adc44ad23e9ffa2a09366aa672726b86dc2246da"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/remove-network.log",
+      "bytes": 50,
+      "sha256": "2493730bb82f7280ea3a79a42bae5ff0bb732d4a052f5f329859e34a8aa783f7"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/remove-web-modelos-capacity-20261010-170451-74183205-app.log",
+      "bytes": 50,
+      "sha256": "0ef14fe50039852e2db4451190ae329f710b7ac54b958ad20143312f0d75d170"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/remove-web-modelos-capacity-20261010-170451-74183205-caddy.log",
+      "bytes": 52,
+      "sha256": "0aecb3f9e506b623b4f768fda3d998eefff87a241deb764874a653e57b9fcff5"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/remove-web-modelos-capacity-20261010-170451-74183205-objects.log",
+      "bytes": 54,
+      "sha256": "d266244e358bb3ad7118257a34e349db76f91da1d452c88ddf02455e1e95428e"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/remove-web-modelos-capacity-20261010-170451-74183205-pg.log",
+      "bytes": 49,
+      "sha256": "97697d082892ae802dc134be9c99e8f07a322510ad0e480139a2d6aac11731e2"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/remove-web-modelos-capacity-20261010-170451-74183205-redis.log",
+      "bytes": 52,
+      "sha256": "32ceab473703868019402f8f47800d671852383879d653314900999b46adca7d"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/report.json",
+      "bytes": 57053,
+      "sha256": "da6b2b490a6777037d4b38142ac8cbfb7e19d60a7f81c16189c54129216c1e4b"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/server-log-caddy.log",
+      "bytes": 1821,
+      "sha256": "afdebedce8775c3f001e7540ca7492a8a38e6bd096917a0a7a0c176a6065c425"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/server-log-pg.log",
+      "bytes": 5176,
+      "sha256": "f867c8b04773a67eab268d06833ec4fa2cbd1067e5c951b4b6ea6e6d628a78e4"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/server-log-redis.log",
+      "bytes": 1044,
+      "sha256": "d21cacdcf7f2e0c8ed92431649a7af37e13b2b3cb367981be3f3d1d33d4384ed"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/source-hashes.json",
+      "bytes": 127268,
+      "sha256": "f64c6aea8e4341aa65e86fd4b8933d91219f30ac51434e03f5988295c0bb3311"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/start-app.log",
+      "bytes": 65,
+      "sha256": "4647cfbc64c7b697455eff0697236f9b48be598bf7419ce153d2126b7b0bdf4d"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/start-caddy.log",
+      "bytes": 65,
+      "sha256": "c4080b81118ad156a2109aa5b7f137ac97fffdc29b7e5370c229aeb2d0fa0062"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/start-objects.log",
+      "bytes": 65,
+      "sha256": "699961c4ea27b62c8ef32351e7fadc313a274b50e7874f3c94617d8d953fb622"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/start-pg.log",
+      "bytes": 65,
+      "sha256": "cf21a81ddac493e7ea3eb8a04445d7d54159035f06ad2ae3abdcc21ebfc073e5"
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-170451-74183205/start-redis.log",
+      "bytes": 65,
+      "sha256": "50cc9a3108619436239dee5a7d3b44c53e3a47e0ed644b1df184ab68790486ca"
+    }
+  ],
+  "n2": [
+    {
+      "id": "20261010-172310-cde1de4e",
+      "profile": "focused",
+      "result": "PASS",
+      "steps": [
+        {
+          "name": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-pg-20261010-172310-cde1de4e",
+            "--label",
+            "web-modelos-local-ci-run=20261010-172310-cde1de4e",
+            "-p",
+            "127.0.0.1::5432",
+            "--tmpfs",
+            "/var/lib/postgresql/data",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=promotion_gate_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.5202668379060924
+        },
+        {
+          "name": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-redis-20261010-172310-cde1de4e",
+            "--label",
+            "web-modelos-local-ci-run=20261010-172310-cde1de4e",
+            "-p",
+            "127.0.0.1::6379",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.42593258572742343
+        },
+        {
+          "name": "dependencies",
+          "command": [
+            "uv",
+            "sync",
+            "--locked",
+            "--offline"
+          ],
+          "exit": 0,
+          "seconds": 0.06833697715774179
+        },
+        {
+          "name": "ruff",
+          "command": [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.07159149134531617
+        },
+        {
+          "name": "documentation",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/check_docs.py"
+          ],
+          "exit": 0,
+          "seconds": 0.9249323369003832
+        },
+        {
+          "name": "django",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "check"
+          ],
+          "exit": 0,
+          "seconds": 1.6808413271792233
+        },
+        {
+          "name": "migrations",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "makemigrations",
+            "--check",
+            "--dry-run"
+          ],
+          "exit": 0,
+          "seconds": 1.8250123341567814
+        },
+        {
+          "name": "native-build",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/prepare_native_test_tools.py",
+            "--source",
+            "/tmp/web-modelos-local-ci-0xtlg80i/native-source",
+            "--output",
+            "/tmp/web-modelos-local-ci-0xtlg80i/native-tools",
+            "--env-file",
+            "/tmp/web-modelos-local-ci-0xtlg80i/native.env"
+          ],
+          "exit": 0,
+          "seconds": 9.5813106931746
+        },
+        {
+          "name": "pytest",
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "--tb=short",
+            "--basetemp=/tmp/web-modelos-local-ci-0xtlg80i/pytest",
+            "--junitxml=/home/felidae/proyectos/web_modelos_mod08_integrated/artifacts/local-ci/20261010-172310-cde1de4e/pytest.xml",
+            "-o",
+            "junit_family=xunit1",
+            "-n",
+            "3",
+            "--dist",
+            "loadfile",
+            "tests/test_rights_portability_image_read_bulk.py",
+            "tests/test_rights_portability_coverage_batch.py",
+            "tests/test_rights_portability_batch_projection.py",
+            "tests/test_rights_portability_coverage_inspection.py",
+            "tests/test_portability_coverage_batch_validation.py",
+            "tests/test_portability_binary_save_shared_source.py",
+            "tests/test_rights_portability_binary_races.py",
+            "tests/test_rights_portability_image_selection.py",
+            "tests/test_rights_portability_image_storage.py"
+          ],
+          "exit": 0,
+          "seconds": 193.44018559576944
+        }
+      ],
+      "head": "9d8b8b387c28a28876b52409b2b8b5884dd15dc9",
+      "excluded": [],
+      "selection": [
+        "tests/test_rights_portability_image_read_bulk.py",
+        "tests/test_rights_portability_coverage_batch.py",
+        "tests/test_rights_portability_batch_projection.py",
+        "tests/test_rights_portability_coverage_inspection.py",
+        "tests/test_portability_coverage_batch_validation.py",
+        "tests/test_portability_binary_save_shared_source.py",
+        "tests/test_rights_portability_binary_races.py",
+        "tests/test_rights_portability_image_selection.py",
+        "tests/test_rights_portability_image_storage.py"
+      ],
+      "workers": 3,
+      "fixture_snapshots": true,
+      "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-172310-cde1de4e": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-172310-cde1de4e": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "sources_unchanged": true,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "72",
+          "time": "191.833",
+          "timestamp": "2026-10-10T19:23:29.015306+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "id": "20261010-172753-cbc12c0f",
+      "profile": "focused",
+      "result": "ERROR",
+      "steps": [
+        {
+          "name": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-pg-20261010-172753-cbc12c0f",
+            "--label",
+            "web-modelos-local-ci-run=20261010-172753-cbc12c0f",
+            "-p",
+            "127.0.0.1::5432",
+            "--tmpfs",
+            "/var/lib/postgresql/data",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=promotion_gate_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.47098683984950185
+        },
+        {
+          "name": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-redis-20261010-172753-cbc12c0f",
+            "--label",
+            "web-modelos-local-ci-run=20261010-172753-cbc12c0f",
+            "-p",
+            "127.0.0.1::6379",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.4242741842754185
+        },
+        {
+          "name": "dependencies",
+          "command": [
+            "uv",
+            "sync",
+            "--locked",
+            "--offline"
+          ],
+          "exit": 0,
+          "seconds": 0.036954755894839764
+        },
+        {
+          "name": "ruff",
+          "command": [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.0666556810028851
+        },
+        {
+          "name": "documentation",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/check_docs.py"
+          ],
+          "exit": 0,
+          "seconds": 0.9235539962537587
+        },
+        {
+          "name": "django",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "check"
+          ],
+          "exit": 0,
+          "seconds": 1.5404494917020202
+        },
+        {
+          "name": "migrations",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "makemigrations",
+            "--check",
+            "--dry-run"
+          ],
+          "exit": 0,
+          "seconds": 1.9298395994119346
+        },
+        {
+          "name": "native-build",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/prepare_native_test_tools.py",
+            "--source",
+            "/tmp/web-modelos-local-ci-3shugb2l/native-source",
+            "--output",
+            "/tmp/web-modelos-local-ci-3shugb2l/native-tools",
+            "--env-file",
+            "/tmp/web-modelos-local-ci-3shugb2l/native.env"
+          ],
+          "exit": 0,
+          "seconds": 9.564122033771127
+        },
+        {
+          "name": "pytest",
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "--tb=short",
+            "--basetemp=/tmp/web-modelos-local-ci-3shugb2l/pytest",
+            "--junitxml=/home/felidae/proyectos/web_modelos_mod08_integrated/artifacts/local-ci/20261010-172753-cbc12c0f/pytest.xml",
+            "-o",
+            "junit_family=xunit1",
+            "-n",
+            "3",
+            "--dist",
+            "loadfile",
+            "tests/test_rights_portability_image_read_bulk.py",
+            "tests/test_rights_portability_coverage_batch.py",
+            "tests/test_rights_portability_batch_projection.py",
+            "tests/test_rights_portability_coverage_inspection.py",
+            "tests/test_portability_coverage_batch_validation.py",
+            "tests/test_portability_binary_save_shared_source.py",
+            "tests/test_rights_portability_binary_races.py",
+            "tests/test_rights_portability_image_selection.py",
+            "tests/test_rights_portability_image_storage.py",
+            "tests/test_rights_image_contents_bulk.py"
+          ],
+          "exit": 1,
+          "seconds": 209.87861852301285
+        }
+      ],
+      "head": "20d0ebad893e48d85b3b8b97ab2098c28d9c3c1c",
+      "excluded": [],
+      "selection": [
+        "tests/test_rights_portability_image_read_bulk.py",
+        "tests/test_rights_portability_coverage_batch.py",
+        "tests/test_rights_portability_batch_projection.py",
+        "tests/test_rights_portability_coverage_inspection.py",
+        "tests/test_portability_coverage_batch_validation.py",
+        "tests/test_portability_binary_save_shared_source.py",
+        "tests/test_rights_portability_binary_races.py",
+        "tests/test_rights_portability_image_selection.py",
+        "tests/test_rights_portability_image_storage.py",
+        "tests/test_rights_image_contents_bulk.py"
+      ],
+      "workers": 3,
+      "fixture_snapshots": true,
+      "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+      "error": "pytest failed; inspect its log",
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-172753-cbc12c0f": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-172753-cbc12c0f": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "sources_unchanged": true,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "77",
+          "time": "208.119",
+          "timestamp": "2026-10-10T19:28:12.414158+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "skipped": []
+    }
+  ],
+  "archive": {
+    "path": "docs/evidencias/mod08-sql-bulk-y-perfil-20261010.tar.gz",
+    "bytes": 585835,
+    "sha256": "f03e77e11817d39645b815dbe6cad096a2c247489fba67a0a1a1e9027b306c65"
+  },
+  "final_common_n2": {
+    "result": "PASS",
+    "head": "2bd47fa4f69793e62f5caa1934d6f33b9cc903ad",
+    "selection": [
+      "tests/test_rights_portability_image_read_bulk.py",
+      "tests/test_rights_portability_coverage_batch.py",
+      "tests/test_rights_portability_batch_projection.py",
+      "tests/test_rights_portability_coverage_inspection.py",
+      "tests/test_portability_coverage_batch_validation.py",
+      "tests/test_portability_binary_save_shared_source.py",
+      "tests/test_rights_portability_binary_races.py",
+      "tests/test_rights_portability_image_selection.py",
+      "tests/test_rights_portability_image_storage.py",
+      "tests/test_rights_image_contents_bulk.py",
+      "tests/test_rights_portability_jobs.py",
+      "tests/test_rights_portability_jobs_mobile.py",
+      "tests/test_rights_validation_seal.py",
+      "tests/test_rights_source_fingerprint.py",
+      "tests/test_capacity_coverage_batches.py",
+      "tests/test_route_inventory.py"
+    ],
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "140",
+        "time": "303.744",
+        "timestamp": "2026-10-10T19:33:42.056584+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-ci-pg-20261010-173322-af68c7fc": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261010-173322-af68c7fc": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    }
+  },
+  "limits": "No capacity acceptance or final performance gain. Partial clean pre-change profile and SQL optimizations with PostgreSQL regressions; final runtime comparison pending.",
+  "hook_correction": "Old image_content alias in image-selection token validation was outside old audit hook; shared physical helper counted that extra preparatory read. Corrected generator hook retains same audited physical boundary, one-read assertion and rollback requirements; production unchanged."
+}

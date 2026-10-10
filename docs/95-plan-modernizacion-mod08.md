@@ -45,3 +45,7 @@ Perfiles a escala objetivo ([caso completo](evidencias/capacidad-perfil-caso-com
 - Ejecuciones largas siempre con `scripts/run_detached.py`; si un run quedó sin terminal, `scripts/run_local_ci.py --recover` o `scripts/run_capacity_environment.py --recover RUN_ID` (escriben artefactos de recuperación separados, nunca PASS).
 - No ejecutar pruebas ni compilaciones mientras mida un ensayo de capacidad.
 - La propuesta GraphQL fue descartada y eliminada por decisión del usuario (2026-10-10); no se reintroduce.
+
+## Continuación SQL — 2026-10-10 17:39UTC
+
+Dos optimizaciones dirigidas por perfil limpio: evidencias una consulta fresca por página y metadatos scoped3consultas por llamada, con physicalSHA/firmas/guards/locks/evidencias individuales intactos. N2 conjunta140PASS/0skips303,75s, fuentes y limpieza verificadas; [registro](evidencias/mod08-sql-bulk-y-perfil-20261010.json). Reducción estructural en el lote16imágenes×4páginas:64→4 consultas de evidencias y192→12 metadatos; no porcentaje de mejora temporal acreditado. El perfil anterior interrumpido queda negativo/incompleto. Próximo medir con misma población y límites. [Propuesta CC-05](97-propuesta-indice-similitud-fotos-cc05.md) documentada por solicitud posterior del usuario para ponderación futura, fuera de estas optimizaciones y sin dependencia adoptada.

@@ -218,3 +218,7 @@ Goal pausado: [informe y continuación](relevo-claude-20261009.md), [prompt con 
 
 
 Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con herramientas, cambios/verificaciones e integración local hasta la entrega técnica completa; Codex sigue pausado. La propuesta acotada/tool-free anterior es historial. [Instrucciones vigentes](16-contrato-ejecucion-desarrollo.md#mod-07--relevo-directo-a-claude-autorización-vigente).
+
+## Propuestas técnicas pendientes
+
+- [CC-05: índice de similitud de fotos](97-propuesta-indice-similitud-fotos-cc05.md): evaluación futura solicitada el2026-10-10; alternativas, medición y preservación de detecciones/guards. No elección tecnológica ni implementación.
