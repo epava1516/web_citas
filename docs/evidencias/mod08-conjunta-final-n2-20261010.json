@@ -1,0 +1,125 @@
+{
+  "scope": "Common finite15file N2 on single integrated source; no capacity or N3/phase acceptance",
+  "result": {
+    "result": "PASS",
+    "head": "b55c1144c98fcd0e253db888ce55e5a5957ca7f2",
+    "selection": [
+      "tests/test_rights_portability_jobs.py",
+      "tests/test_rights_portability_jobs_mobile.py",
+      "tests/test_rights_validation_seal.py",
+      "tests/test_rights_source_fingerprint.py",
+      "tests/test_rights_portability_coverage_batch.py",
+      "tests/test_rights_portability_batch_projection.py",
+      "tests/test_rights_portability_coverage_inspection.py",
+      "tests/test_portability_coverage_batch_validation.py",
+      "tests/test_redis_history_scope.py",
+      "tests/test_scoped_redis_history_origins.py",
+      "tests/test_capacity_coverage_batches.py",
+      "tests/test_route_inventory.py",
+      "tests/test_diagnostic_baseline_pg.py",
+      "tests/test_diagnostic_baseline_contract.py",
+      "tests/test_capacity_preflight_contract.py"
+    ],
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "162",
+        "time": "286.842",
+        "timestamp": "2026-10-10T18:57:30.132315+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-ci-pg-20261010-165711-aa25419f": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261010-165711-aa25419f": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "workers": 3,
+    "fixture_snapshots": true
+  },
+  "warning": "pytest DB teardown saw1session using own test_promotion_gate_ci_gw0. Owned PostgreSQL and Redis container absence independently verified by final runner; no normal service modified",
+  "files": [
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/01-start-pg.log",
+      "bytes": 65,
+      "sha256": "be0e94dcf63280bf26c356b0cded4b95584d74848b394e7ff3ce3857edc2d24c"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/02-start-redis.log",
+      "bytes": 65,
+      "sha256": "52538f32e8ad6267888420016588f18da227ccd26d388f8486b953ebb6bc93df"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/03-dependencies.log",
+      "bytes": 55,
+      "sha256": "1d69d6662b28662e2e649df2c00b7e055fa5d658ca2567dff76c0be6a2f96cf9"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/04-ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/05-documentation.log",
+      "bytes": 170,
+      "sha256": "c9cd897dd3c90d4529bf6a20207cd2c9ecdc9bd68b0afe63239f6f4474a3f9d3"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/06-django.log",
+      "bytes": 48,
+      "sha256": "1e3e63f221bde88816c4a4ef7367691607b20cc1d194028a02ec9ae0586cf9b1"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/07-migrations.log",
+      "bytes": 20,
+      "sha256": "a2bfa7b376c38062f77ce2b1e703876aaa04662f96355cdf5dc9d0d075302b05"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/08-native-build.log",
+      "bytes": 16648,
+      "sha256": "035916aafce93241782418e1a1da531c47dd0cd242328c09506774db26eb0485"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/09-pytest.log",
+      "bytes": 853,
+      "sha256": "dcff26f6f51af6325d22bf863bd59cfea86ae5500b5bcd46551746ddc62cfb44"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/native-manifest.json",
+      "bytes": 751,
+      "sha256": "bbd0d8d6072a90978df1cbae7016b04ec8a1e1078c70ea8d56a6b7376b0669bc"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/pytest.xml",
+      "bytes": 34206,
+      "sha256": "2374ad5bda8761cda081cadaf2d2fa8c6d90107ab63f40558ce23eb7d07e585d"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/result.json",
+      "bytes": 5506,
+      "sha256": "6d66ff24f7383625d10bf934d116a6ba42788915c4424046dab5fc58a43e801c"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/runner.json",
+      "bytes": 1640,
+      "sha256": "a2b46f1f70b0145f21c14699010dc83d6633c0ca2352a40145a48000d93cd659"
+    },
+    {
+      "path": "artifacts/local-ci/20261010-165711-aa25419f/source-hashes.json",
+      "bytes": 127268,
+      "sha256": "62b2585c60cc21255f0e6229501c3fac3ed2d6304344895551b37101a70c617f"
+    }
+  ],
+  "next": "Preserve untracked Claude draft; integrate locally; clean target diagnostic capture/profile under original limits"
+}

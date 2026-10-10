@@ -1,5 +1,9 @@
 # MOD-08 — coordinación de frentes en paralelo
 
+## N2 conjunta final162PASS — integración local
+
+Run165711 sobreb55c114:15archivos/162PASS/0skips286,84s, fuenteigual y retiro PG/Redis probado porinspect. Aviso de teardown de una base de test con1sesión; contenedor completo propio ausente al finalizar. Incorporado e871f89 documental sin cambio apps/config/scripts/tests. Conservar borrador originalClaude async-generation con nombrepreserved antes de fast-forward master. Próxima carga: captura diagnóstica real1500/16MiB/64MiB; recursos/objetivos íntegros, sinmediciones/testscompetidores. Noaceptación capacidad/N3/CR09.
+
 ## Estado vigente16:56UTC — bloqueos correctivos resueltos
 
 Probe real163801 READY_NOT_CAPACITY: generación1intento4,009s,4.3MB realesS3/AEAD/SHA, binding/Caddy/Beat PASS, fuentes iguales/retirada. Baseline16534522PASS91,79s:1PGpositivo/adversariales+21guards. Negativos y correctivas preservados en docs/evidencias/mod08-generacion-real-y-baseline-n2-20261010.json/tar.gz. Propiedad writers terminada; raíz prepara N2 conjunta finita antes de master y perfil grande, sin cargas simultáneas. Aún no aceptación capacidad/N3/CR09.
