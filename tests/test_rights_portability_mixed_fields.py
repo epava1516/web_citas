@@ -300,17 +300,20 @@ def test_mixed_field_evidence_persists_is_reviewed_and_is_not_delivered(
     assert projected["field_evidence"] == evidence
     path = reverse("rights_portability_selection_review", args=[case.pk, selected.pk])
     assert b"PRIVATE_MIXED_FIELD_EVIDENCE" not in client.get(path).content
-    response = client.post(
-        path,
-        {
-            "key": read_key,
-            "version": case.version,
-            "operation": "inspect",
-            "reason": purpose,
-            "outcome": "",
-        },
-    )
+    # The HTTP inspection is paginated and uses its own key; the service read key stays bound
+    # to the unpaginated inspection recorded above.
+    page_inspection = {
+        "key": uuid4(),
+        "version": case.version,
+        "operation": "inspect",
+        "reason": purpose,
+        "outcome": "",
+    }
+    response = client.post(path, page_inspection)
     assert response.status_code == 200 and b"PRIVATE_MIXED_FIELD_EVIDENCE" in response.content
+    replay = client.post(path, page_inspection)
+    assert replay.status_code == 200 and b"PRIVATE_MIXED_FIELD_EVIDENCE" in replay.content
+    assert client.post(path, {**page_inspection, "key": read_key}).status_code == 409
     decision, _ = selection_record(
         reviewer, case.pk, case.version, selected.pk, uuid4(), purpose, "review", "approved"
     )

@@ -267,32 +267,17 @@ def test_portability_independent_review_requires_read_and_resolved_datasets(
         response = client.get(selection_path)
         assert response.status_code == 200 and selected_marker not in response.content
         assert b"no-store" in response["Cache-Control"].encode()
-        assert (
-            client.post(
-                selection_path,
-                {
-                    "key": independent_key,
-                    "version": case.version,
-                    "operation": "inspect",
-                    "reason": purpose,
-                    "outcome": "",
-                },
-            ).status_code
-            == 200
-        )
-        assert (
-            selected_marker
-            in client.post(
-                selection_path,
-                {
-                    "key": independent_key,
-                    "version": case.version,
-                    "operation": "inspect",
-                    "reason": purpose,
-                    "outcome": "",
-                },
-            ).content
-        )
+        # The HTTP inspection is the paginated operation: it needs its own key. Reusing the
+        # service key for a different operation is an idempotency conflict, not a replay.
+        page_inspection = {
+            "key": uuid4(),
+            "version": case.version,
+            "operation": "inspect",
+            "reason": purpose,
+            "outcome": "",
+        }
+        assert client.post(selection_path, page_inspection).status_code == 200
+        assert selected_marker in client.post(selection_path, page_inspection).content
         assert selected_marker not in client.get(selection_path).content
         assert (
             selection_path.encode() in client.get(reverse("rights_inspect", args=[case.pk])).content
