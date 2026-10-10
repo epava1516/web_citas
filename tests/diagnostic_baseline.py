@@ -68,6 +68,8 @@ def policy():
         schema_data.extend(cursor.fetchall())
         cursor.execute("SELECT c.relname,k.conname,pg_get_constraintdef(k.oid) FROM pg_constraint k JOIN pg_class c ON c.oid=k.conrelid WHERE c.relnamespace='public'::regnamespace ORDER BY c.relname,k.conname")
         schema_data.extend(cursor.fetchall())
+        cursor.execute("SELECT c.relname,i.relname,pg_get_indexdef(k.indexrelid),k.indisvalid,k.indisready,k.indislive FROM pg_index k JOIN pg_class c ON c.oid=k.indrelid JOIN pg_class i ON i.oid=k.indexrelid WHERE c.relnamespace='public'::regnamespace ORDER BY c.relname,i.relname")
+        schema_data.extend(cursor.fetchall())
         schema = hashlib.sha256(repr(schema_data).encode()).hexdigest()
         cursor.execute('SHOW server_version')
         version = cursor.fetchone()[0]
@@ -254,6 +256,9 @@ def _restore(source_file, key_file):
                                     cursor.execute('SELECT setval(%s,%s,true)', ['public.' + name, value])
                             for table in TABLES:
                                 cursor.execute(sql.SQL('ALTER TABLE public.{} ENABLE TRIGGER rights_evidence_record').format(sql.Identifier(table)))
+                            # COPY does not restore PostgreSQL planner statistics.
+                            for table in tables:
+                                cursor.execute(sql.SQL('ANALYZE public.{}').format(sql.Identifier(table)))
                     with _fresh_login(config, scratch), override_settings(MEDIA_ROOT=str(staged_media)), transaction.atomic():
                         descriptor = manifest['descriptor']
                         user = User.objects.get(pk=descriptor['author'])
