@@ -1174,6 +1174,9 @@ def source(case, *, capture=None):
     specs.append(
         ("safety.RightsPortabilityExportJob", job_scope(user=user), "dependent_evidence", FIELDS)
     )
+    from .rights_evidence_inventory import specs as evidence_specs
+
+    specs.extend(evidence_specs(user=user, case=case))
     entries = []
     for label, scope, purpose, fields in specs:
         queryset = apps.get_model(label).objects.filter(scope)

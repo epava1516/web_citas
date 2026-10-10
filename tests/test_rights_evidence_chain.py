@@ -414,3 +414,22 @@ def test_runtime_cannot_move_parent_action_scope_but_payload_remains_mutable(bas
     action.refresh_from_db()
     assert action.payload_digest == "0" * 64
     assert action.request_id == case.pk
+
+
+def test_chain_inventory_scopes_metadata_and_excludes_current_procedure(base):
+    from apps.safety.rights_evidence_inventory import specs
+
+    case, *_ = base
+    user = case.account_subject
+    for model_name, scope, purpose, fields in specs(user=user):
+        from django.apps import apps
+
+        rows = list(apps.get_model(model_name).objects.filter(scope).values(*fields))
+        assert rows and all(row["request_id"] == case.pk for row in rows)
+        assert purpose == "dependent_evidence"
+        assert "encrypted_payload" not in fields
+    foreign = User.objects.create(username="synthetic-chain-foreign", email="foreign@example.test")
+    for model_name, scope, _, _ in specs(user=foreign):
+        assert not apps.get_model(model_name).objects.filter(scope).exists()
+    for model_name, scope, _, _ in specs(user=user, case=case):
+        assert not apps.get_model(model_name).objects.filter(scope).exists()

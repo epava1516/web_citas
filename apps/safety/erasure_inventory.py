@@ -1132,6 +1132,9 @@ def source_manifest(person, case=None, *, capture=None):
             FIELDS,
         )
     )
+    from .rights_evidence_inventory import specs as evidence_specs
+
+    scopes.extend(evidence_specs(person=person, case=case))
     entries = []
     for label, scope, purpose, fields in scopes:
         model = apps.get_model(label)
