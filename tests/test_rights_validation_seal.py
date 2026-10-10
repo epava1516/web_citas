@@ -2,6 +2,7 @@
 
 from copy import copy
 from datetime import timedelta
+from types import SimpleNamespace
 from uuid import uuid4
 
 import pytest
@@ -9,6 +10,7 @@ from django.contrib.auth.models import Permission
 from django.core.exceptions import ValidationError
 from django.db import connection, transaction
 from django.utils import timezone
+from psycopg import sql
 from test_portability_source_reads import WATCHED, counted
 from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_object_store import object_store  # noqa: F401
@@ -243,8 +245,6 @@ def test_configuration_change_invalidates_rule_version(settings):
 
 
 def test_unsupported_parameters_decline_seal_without_rejecting_valid_export():
-    from types import SimpleNamespace
-
     export = SimpleNamespace(expires_at=timezone.now() + timedelta(days=1))
     state = {
         "supported": True,
@@ -280,6 +280,54 @@ def test_recording_named_cursor_preserves_chunks_and_replays_consumed_rows():
                 assert cursor.fetchall() == [(4,), (5,), (6,), (7,), (8,)]
         assert state["supported"]
         assert rights_validation_seal._replay(state["statements"]) == state["digests"]
+
+
+@pytest.mark.parametrize("composed", [False, True], ids=["SQL", "Composed"])
+def test_recording_composable_sql_declines_seal_and_preserves_executor_inputs(composed, monkeypatch):
+    query = sql.SQL("SELECT %s::integer AS n")
+    if composed:
+        # The trusted evidence-chain validator uses this Identifier composition.
+        query = sql.SQL("SELECT %s::integer AS {}").format(sql.Identifier("n"))
+    def reject_stringification(self):
+        raise AssertionError("The seal must not stringify driver SQL")
+
+    monkeypatch.setattr(type(query), "__str__", reject_stringification)
+    params = [43]
+    observed = []
+
+    def observe(execute, statement, bindings, many, context):
+        observed.append((statement, bindings))
+        return execute(statement, bindings, many, context)
+
+    with transaction.atomic(), rights_validation_seal.recording() as state:
+        with connection.execute_wrapper(observe), connection.cursor() as cursor:
+            cursor.execute("SELECT 42 AS n")
+            assert cursor.fetchall() == [(42,)]
+            # Reusing this cursor also exercises unwrapping the earlier sealed result.
+            cursor.execute(query, params)
+            assert len(cursor.description) == 1
+            assert cursor.fetchall() == [(43,)]
+    assert observed[-1][0] is query
+    assert observed[-1][1] is params
+    assert state["supported"] is False
+    assert len(state["statements"]) == 1
+    export = SimpleNamespace(expires_at=timezone.now() + timedelta(days=1))
+    assert rights_validation_seal.create(export, state, {}) is None
+
+
+def test_recording_queryset_iterator_preserves_server_side_rows(monkeypatch):
+    monkeypatch.setitem(connection.settings_dict, "DISABLE_SERVER_SIDE_CURSORS", False)
+    User.objects.create_user(username=f"seal-iterator-{uuid4()}")
+    expected = list(User.objects.order_by("pk").values_list("pk", flat=True))
+    assert expected
+    with transaction.atomic(), rights_validation_seal.recording() as state:
+        actual = list(User.objects.order_by("pk").values_list("pk", flat=True).iterator(
+            chunk_size=1
+        ))
+    assert actual == expected
+    # ORM SQL is a string on this backend; named cursors alone need not decline.
+    assert state["supported"] is True
+    assert rights_validation_seal._replay(state["statements"]) == state["digests"]
 
 
 def test_access_downloads_do_not_reuse_a_portability_image_seal(request, settings):

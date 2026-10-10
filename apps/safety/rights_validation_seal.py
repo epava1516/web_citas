@@ -172,6 +172,11 @@ def recording():
         cursor = context["cursor"]
         if isinstance(cursor.cursor, _ResultCursor):
             cursor.cursor = cursor.cursor.raw
+        if not isinstance(sql, str):
+            # Driver composables must reach the executor unchanged. They cannot be
+            # safely inspected or annotated here; decline the whole seal instead.
+            state["supported"] = False
+            return execute(sql, params, many, context)
         if many or not sql.lstrip().upper().startswith("SELECT") or _VOLATILE.search(sql):
             # A write or unsupported SQL must not become an accidentally partial seal.
             if not sql.lstrip().upper().startswith(("SAVEPOINT", "RELEASE", "ROLLBACK")):
