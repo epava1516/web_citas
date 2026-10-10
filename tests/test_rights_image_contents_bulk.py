@@ -159,7 +159,11 @@ def test_physical_bytes_changed_between_children_roll_back_all_batch_audits(
 
     from apps.safety import rights_portability_coverage_batch as batch
     from apps.safety.crypto import unseal
-    from apps.safety.models import RightsAction, RightsPortabilityCoverageRead, RightsPortabilitySelectionRead
+    from apps.safety.models import (
+        RightsAction,
+        RightsPortabilityCoverageRead,
+        RightsPortabilitySelectionRead,
+    )
 
     case, _, coverage, reviewer = prepared(request, settings, monkeypatch, binary=True)
     declaration = unseal(coverage.selection_review.selection.encrypted_selection)["images"][0]
