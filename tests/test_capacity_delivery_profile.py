@@ -39,6 +39,9 @@ def test_owned_target_stage_profiles(request, settings, monkeypatch, record_prop
         except Exception as error:
             errors.append(f"{type(error).__name__}: {error}")
             metrics["failure_traceback"] = traceback.format_exc(limit=12)[-6000:]
+        except KeyboardInterrupt:
+            errors.append("DiagnosticInterrupted: operator stopped this diagnostic; no capacity verdict")
+            metrics["operator_interrupted"] = True
         finally:
             connections.close_all()
             # The WSGI wrapper writes after the response body is closed: wait for every stage file.

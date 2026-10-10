@@ -1,0 +1,84 @@
+{
+  "run_id": "20261010-142951-d78cecdf",
+  "head": "55a3da9b29b8a5d5f27af32e966e5003bf62e0ca",
+  "result": "OPERATOR_INTERRUPTED_DIAGNOSTIC_NOT_CAPACITY",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "0",
+      "time": "492.448",
+      "timestamp": "2026-10-10T16:31:33.506494+02:00",
+      "hostname": "cec320b0881a"
+    }
+  ],
+  "interruption": {
+    "run_id": "20261010-142951-d78cecdf",
+    "action": "SIGINT exact owned diagnostic pytest; leave runner to collect and cleanup",
+    "pid": 3395995,
+    "reason": "Two completed WSGI profiles show ~8s spent in two source_fingerprint calls per request; equivalent municipality SQL optimization identified statically. Diagnostic deliberately partial, no capacity verdict.",
+    "utc": "2026-10-10T14:39:37.861567+00:00"
+  },
+  "observations": {
+    "provenance": "Root read first48lines of two completed WSGI cProfile files through read-only docker exec before interrupt. Values transcribed from tool output; full files were not persisted before ephemeral cleanup. Not a retained full profile or p95.",
+    "binary_page_save_total_profiled_seconds": 10.386,
+    "binary_page_save_two_source_fingerprints_seconds": 7.87,
+    "selection_page_read_view_profiled_seconds": 10.022,
+    "selection_page_read_two_source_fingerprints_seconds": 8.281,
+    "source_copy_seconds_each": {
+      "binary_page_save": 0.757,
+      "selection_page_read": 0.665
+    }
+  },
+  "cleanup_verified": true,
+  "cleanup": {
+    "web-modelos-capacity-20261010-142951-d78cecdf-controller": true,
+    "web-modelos-capacity-20261010-142951-d78cecdf-app": true,
+    "web-modelos-capacity-20261010-142951-d78cecdf-redis": true,
+    "web-modelos-capacity-20261010-142951-d78cecdf-pg": true,
+    "web-modelos-capacity-20261010-142951-d78cecdf-caddy": true,
+    "web-modelos-capacity-20261010-142951-d78cecdf-objects": true,
+    "web-modelos-capacity-20261010-142951-d78cecdf-delivery": true,
+    "web-modelos-capacity-20261010-142951-d78cecdf-net": true,
+    "no_labelled_resources": true
+  },
+  "sources_unchanged": true,
+  "memory_upper_bytes": 1810370560,
+  "cgroups": {
+    "pg": {
+      "current_bytes": 202153984,
+      "peak_bytes": 412319744,
+      "swap_peak_bytes": 0,
+      "oom_kill": 0
+    },
+    "redis": {
+      "current_bytes": 4427776,
+      "peak_bytes": 21692416,
+      "swap_peak_bytes": 0,
+      "oom_kill": 0
+    },
+    "app": {
+      "current_bytes": 143314944,
+      "peak_bytes": 1072144384,
+      "swap_peak_bytes": 0,
+      "oom_kill": 0
+    },
+    "objects": {
+      "current_bytes": 29650944,
+      "peak_bytes": 43491328,
+      "swap_peak_bytes": 0,
+      "oom_kill": 0
+    },
+    "caddy": {
+      "current_bytes": 103731200,
+      "peak_bytes": 126504960,
+      "swap_peak_bytes": 0,
+      "oom_kill": 0
+    }
+  },
+  "limits": "No generation, durable job, download or capacity acceptance from this deliberately interrupted partial run. JUnit reports0tests; not PASS. Future diagnostic catches KeyboardInterrupt as explicit failed test to retain final metrics.",
+  "next": "PG source-fingerprint municipality query equivalence/regression and EXPLAIN, then fresh complete diagnostic",
+  "raw_archive": "mod08-perfil-parcial-20261010.tar.gz"
+}
