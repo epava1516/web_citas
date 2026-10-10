@@ -11,6 +11,7 @@ from django.db import connection, transaction
 from django.utils import timezone
 from test_portability_source_reads import WATCHED, counted
 from test_reports import directory, photo_environment  # noqa: F401
+from test_rights_object_store import object_store  # noqa: F401
 from test_rights_portability_covered_export_races import approved_coverage
 from test_rights_portability_response_draft import REASON
 
@@ -274,3 +275,32 @@ def test_access_downloads_do_not_reuse_a_portability_image_seal(request, setting
         response = client.post(url(receipt, export), {"key": uuid4()})
         assert response.status_code == 200
     assert not RightsExportValidationSeal.objects.filter(export=export).exists()
+
+
+def test_held_seal_rechecks_external_object_bytes(request, settings, monkeypatch, object_store):
+    from apps.safety import rights_object_content
+
+    case, author, export, _ = generated(request, settings, monkeypatch)
+    settings.RIGHTS_OBJECT_STORAGE_ENABLED = True
+    monkeypatch.setattr(rights_object_content, "repository", lambda: object_store)
+    for row in export.images.all():
+        content = rights_object_content.image_bytes(row)
+        row.encrypted_content = rights_object_content.seal_binary(
+            content, export.pk, "image", row.photo_id
+        )
+        row.save(update_fields=["encrypted_content"])
+    for row in export.parts.all():
+        content = rights_object_content.part_bytes(row)
+        row.encrypted_content = rights_object_content.seal_binary(
+            content, export.pk, "part", row.position
+        )
+        row.save(update_fields=["encrypted_content"])
+    check(case, author, export)
+    assert check(case, author, export) is True
+    row = export.images.first()
+    assert row is not None
+    key = object_store.descriptor(row.encrypted_content)["key"]
+    # The referenced SQL bytes stay identical: only the physical S3 object changes.
+    object_store.client.put_object(Bucket=object_store.bucket, Key=key, Body=b"corrupt ciphertext")
+    with pytest.raises(ValidationError, match="External export object"):
+        check(case, author, export)
