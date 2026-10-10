@@ -56,6 +56,7 @@ Las instrucciones expresas del usuario prevalecen. Conservar la distinción entr
 - [Publicación por finalidad: calendario y levantamiento](contratos/09-publicacion-finalidad.md).
 - [CR-09 — Denuncias, derechos y reclamación sin cuenta](contratos/10-denuncias-derechos.md).
 - [CR-10 — Contrato de preparación comercial](contratos/11-promociones-preparacion.md).
+- [Contrato complementario de rutas para GS01](contratos/12-rutas-complementarias.md).
 
 ## Índice
 
