@@ -121,6 +121,13 @@ def main():
         or k.startswith("XDG_")
     }
 
+    def interrupted(signum, frame):
+        # Termination must take the same cleanup path as an interactive interrupt.
+        raise KeyboardInterrupt(f"signal {signum}")
+
+    for signum in (signal.SIGTERM, signal.SIGHUP):
+        signal.signal(signum, interrupted)
+
     def run(command, label):
         started = time.monotonic()
         print(f"{label} — {output}", flush=True)
@@ -285,12 +292,15 @@ def main():
             removal = subprocess.run(
                 ["docker", "rm", "-f", "-v", name], capture_output=True, text=True
             )
+            # Exact-name inspect must report not-found; an empty regex filter is not proof.
             inventory = subprocess.run(
-                ["docker", "ps", "-a", "--filter", f"name=^/{name}$", "--format", "{{.Names}}"],
+                ["docker", "container", "inspect", "--format", "{{.Id}}", name],
                 capture_output=True,
                 text=True,
             )
-            absent = inventory.returncode == 0 and not inventory.stdout.strip()
+            absent = inventory.returncode != 0 and "no such" in (
+                inventory.stdout + inventory.stderr
+            ).lower()
             report["cleanup"][name] = {
                 "absent": absent,
                 "removal_exit": removal.returncode,
