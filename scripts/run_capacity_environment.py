@@ -13,7 +13,7 @@ import uuid
 from pathlib import Path
 
 from capacity_artifacts import ARCHIVE_MAX_BYTES, MAX_FILE_BYTES
-from check_capacity_environment import COMPOSE_NEUTRAL
+from check_capacity_environment import COMPOSE_NEUTRAL, parse_options
 from run_local_ci import hashes
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -103,11 +103,17 @@ def recover(run_id):
     for owned in started["owned"]:
         subprocess.run([docker, "rm", "-fv", owned], capture_output=True)
         cleanup[owned] = absent(docker, "container", owned)
+    for volume in started.get("volumes", []):
+        subprocess.run([docker, "volume", "rm", volume], capture_output=True)
+        cleanup[volume] = absent(docker, "volume", volume)
     subprocess.run([docker, "network", "rm", started["network"]], capture_output=True)
     cleanup[started["network"]] = absent(docker, "network", started["network"])
     labelled = subprocess.run([docker, "ps", "-a", "-q", "--filter", f"label={LABEL}={run_id}"],
                               capture_output=True, text=True)
-    cleanup["no_labelled_resources"] = labelled.returncode == 0 and not labelled.stdout.strip()
+    networks = subprocess.run([docker, "network", "ls", "-q", "--filter", f"label={LABEL}={run_id}"], capture_output=True, text=True)
+    volumes = subprocess.run([docker, "volume", "ls", "-q", "--filter", f"label={LABEL}={run_id}"], capture_output=True, text=True)
+    cleanup["no_labelled_resources"] = (labelled.returncode == networks.returncode == volumes.returncode == 0
+                                          and not labelled.stdout.strip() and not networks.stdout.strip() and not volumes.stdout.strip())
     receipts, problems = extract(output / "artifacts.tar", output)
     report = json.loads((output / "report.json").read_text()) if (output / "report.json").exists() else {}
     durable(output / "launcher-recovered.json", {
@@ -125,11 +131,22 @@ def recover(run_id):
     return 0 if all(cleanup.values()) and not problems else 1
 
 
+def owned_resources(run_id, objects=False):
+    prefix = "web-modelos-capacity-" + run_id
+    roles = ["controller", "app", "redis", "pg"]
+    if objects:
+        roles += ["caddy", "objects"]
+    return {"containers": [prefix + "-" + role for role in roles],
+            "volumes": [prefix + "-delivery"] if objects else [], "network": prefix + "-net"}
+
+
 def main():
     if sys.argv[1:2] == ["--recover"]:
         return recover(sys.argv[2])
+    options, _, _ = parse_options(["--owned-controller", *sys.argv[1:]])
     run_id = time.strftime("%Y%m%d-%H%M%S", time.gmtime()) + "-" + uuid.uuid4().hex[:8]
-    name = "web-modelos-capacity-" + run_id + "-controller"
+    resources = owned_resources(run_id, options.object_delivery)
+    name = resources["containers"][0]
     output = ROOT / "artifacts/capacity-environment" / run_id
     output.mkdir(parents=True)
     archive = output / "artifacts.tar"
@@ -198,8 +215,8 @@ runpy.run_path(sys.argv[0], run_name='__main__')
     durable(output / "launcher-started.json", {
         "id": run_id, "pid": os.getpid(), "start_ticks": process_start_ticks(os.getpid()),
         "argv": sys.argv, "controller": name, "head": head,
-        "owned": [name, *("web-modelos-capacity-" + run_id + "-" + suffix for suffix in ("app", "redis", "pg"))],
-        "network": "web-modelos-capacity-" + run_id + "-net",
+        "owned": resources["containers"], "volumes": resources["volumes"],
+        "network": resources["network"],
     })
     print(f"owned-controller — {output}", flush=True)
     try:
@@ -213,20 +230,24 @@ runpy.run_path(sys.argv[0], run_name='__main__')
             report["timed_out"] = True
     finally:
         report["cleanup"] = {}
-        for suffix in ["controller", "app", "redis", "pg"]:
-            owned = "web-modelos-capacity-" + run_id + "-" + suffix
+        for owned in resources["containers"]:
             subprocess.run([docker, "rm", "-fv", owned], capture_output=True)
             report["cleanup"][owned] = absent(docker, "container", owned)
-        network = "web-modelos-capacity-" + run_id + "-net"
+        for volume in resources["volumes"]:
+            subprocess.run([docker, "volume", "rm", volume], capture_output=True)
+            report["cleanup"][volume] = absent(docker, "volume", volume)
+        network = resources["network"]
         subprocess.run([docker, "network", "rm", network], capture_output=True)
         report["cleanup"][network] = absent(docker, "network", network)
         labelled = subprocess.run([docker, "ps", "-a", "-q", "--filter", f"label={LABEL}={run_id}"],
                                   capture_output=True, text=True)
         networks = subprocess.run([docker, "network", "ls", "-q", "--filter", f"label={LABEL}={run_id}"],
                                   capture_output=True, text=True)
+        volumes = subprocess.run([docker, "volume", "ls", "-q", "--filter", f"label={LABEL}={run_id}"],
+                                 capture_output=True, text=True)
         report["cleanup"]["no_labelled_resources"] = (
-            labelled.returncode == 0 and networks.returncode == 0
-            and not labelled.stdout.strip() and not networks.stdout.strip())
+            labelled.returncode == 0 and networks.returncode == 0 and volumes.returncode == 0
+            and not labelled.stdout.strip() and not networks.stdout.strip() and not volumes.stdout.strip())
         report["artifacts"], report["archive_problems"] = extract(archive, output)
         report["archive_bytes"] = archive.stat().st_size
         report["archive_within_ceiling"] = report["archive_bytes"] <= ARCHIVE_MAX_BYTES

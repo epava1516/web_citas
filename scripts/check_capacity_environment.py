@@ -77,7 +77,7 @@ def controller_self_probe(archive):
             "writable_tmpfs_bytes": bounded, "unbounded_writable": unbounded}
 
 
-def main():
+def parse_options(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--control", action="store_true", help="Execute small case instrumentation only")
     parser.add_argument("--diagnose", action="store_true", help="SQL attribution during small-case preparation")
@@ -94,9 +94,17 @@ def main():
     parser.add_argument("--source-profile", action="store_true", help="Diagnostic whole-source cost attribution; same allocation as --delivery-profile, which it requires")
     parser.add_argument("--owned-controller", action="store_true", help="Require launcher-enforced controller and whole owned budget")
     parser.add_argument("--object-delivery", action="store_true", help="Real private RustFS and Caddy proxy in the same owned budget; requires owned complete delivery")
-    args = parser.parse_args()
-    if args.object_delivery and not (args.owned_controller and (args.delivery_complete or args.delivery_profile_full)):
-        parser.error("--object-delivery requires --owned-controller and --delivery-complete or --delivery-profile-full")
+    parser.add_argument("--preflight-only", action="store_true", help="Verify owned object/proxy/worker topology only; never run capacity fixtures")
+    args = parser.parse_args(argv)
+    if args.preflight_only and not (args.object_delivery and args.owned_controller):
+        parser.error("--preflight-only requires --object-delivery and --owned-controller")
+    workload = (args.control, args.diagnose, args.fixture_target, args.selection_tcp, args.selection_concurrent,
+                args.selection_gunicorn, args.selection_profile, args.database_heavy, args.selection_complete,
+                args.delivery_complete, args.delivery_profile, args.delivery_profile_full, args.source_profile)
+    if args.preflight_only and any(workload):
+        parser.error("--preflight-only is exclusive with every workload/profile flag")
+    if args.object_delivery and not (args.owned_controller and (args.delivery_complete or args.delivery_profile_full or args.preflight_only)):
+        parser.error("--object-delivery requires --owned-controller and --delivery-complete, --delivery-profile-full or --preflight-only")
     if args.delivery_profile_full and (not args.delivery_profile or args.source_profile):
         parser.error("--delivery-profile-full requires --delivery-profile without --source-profile")
     if args.source_profile and not args.delivery_profile:
@@ -134,6 +142,11 @@ def main():
         parser.error("--fixture-target is exclusive with --control/--diagnose")
     if args.diagnose and not args.control:
         parser.error("--diagnose requires --control")
+    return args, allocations, parser
+
+
+def main():
+    args, allocations, parser = parse_options()
     run_id = os.environ.get("CAPACITY_RUN_ID") if args.owned_controller else None
     if run_id is not None and not re.fullmatch(r"\d{8}-\d{6}-[a-f0-9]{8}", run_id):
         parser.error("Invalid owned run identifier")
@@ -395,10 +408,39 @@ def main():
             "'migrations_applied':True,'temporary_media_io':True,'django':django.get_version()}))"
         )
         run(["docker", "exec", app, str(ROOT / ".venv/bin/python3"), "-c", probe], "django-probe")
-        if args.control or args.fixture_target or args.selection_tcp:
+        if args.object_delivery:
+            mounts = {}
+            for role in ("app", "caddy"):
+                rows = json.loads(run(["docker", "inspect", "--format", "{{json .Mounts}}", prefix + "-" + role],
+                                      "delivery-mount-" + role).stdout)
+                match = [row for row in rows if row.get("Destination") == "/srv/delivery"]
+                if len(match) != 1 or match[0].get("Type") != "volume" or match[0].get("Name") != delivery_volume:
+                    raise RuntimeError("Delivery mount differs from own shared volume")
+                if match[0].get("RW") != (role == "app"):
+                    raise RuntimeError("Delivery mount permissions differ from appRW/CaddyRO")
+                mounts[role] = match[0]
+            run(["docker", "exec", app, str(ROOT / ".venv/bin/python3"), "-c",
+                 "from pathlib import Path; Path('/srv/delivery/preflight-write').write_bytes(b'own')"], "delivery-write-app")
+            write = run(["docker", "exec", prefix + "-caddy", "sh", "-c",
+                         "printf denied > /srv/delivery/preflight-write"], "delivery-write-caddy", check=False)
+            if write.returncode == 0 or "Read-only file system" not in write.stderr:
+                raise RuntimeError("Caddy readonly mount not enforced by kernel")
+            run(["docker", "exec", app, str(ROOT / ".venv/bin/python3"), "-c",
+                 "from pathlib import Path; p=Path('/srv/delivery/preflight-write'); assert p.read_bytes()==b'own'; p.unlink()"], "delivery-write-clean")
+            report["object_delivery"]["mounts"] = mounts
+            volume = json.loads(run(["docker", "volume", "inspect", delivery_volume], "delivery-volume-inspect").stdout)[0]
+            if volume.get("Options", {}).get("type") != "tmpfs" or "size=536870912" not in volume.get("Options", {}).get("o", ""):
+                raise RuntimeError("Delivery own volume lacks bounded tmpfs")
+            owned_volumes = run(["docker", "volume", "ls", "--format", "{{.Name}}", "--filter", f"label={LABEL}={run_id}"], "delivery-volume-count").stdout.split()
+            if owned_volumes != [delivery_volume]:
+                raise RuntimeError("Unexpected own volume census")
+            report["object_delivery"]["owned_volume_count"] = len(owned_volumes)
+            report["object_delivery"]["volume"] = volume
+        if args.control or args.fixture_target or args.selection_tcp or args.preflight_only:
             settings_source = (
                 "from config.settings import *\n"
                 "CAPACITY_ENVIRONMENT_VERIFIED = True\n"
+                f"CAPACITY_PREFLIGHT_ONLY = {args.preflight_only!r}\n"
                 f"CAPACITY_OBJECT_DELIVERY = {args.object_delivery!r}\n"
                 "MEDIA_ROOT = '/tmp/capacity-media'\n"
                 f"CAPACITY_SQL_DIAGNOSE = {args.diagnose!r}\n"
@@ -420,6 +462,7 @@ def main():
                  "-o", "DJANGO_SETTINGS_MODULE=capacity_settings", "-o", "junit_family=xunit1",
                  "-p", "no:cacheprovider", "--basetemp=/tmp/capacity-pytest",
                  "--junitxml=/tmp/capacity-control.xml",
+                 "tests/test_capacity_object_preflight.py" if args.preflight_only else
                  "tests/test_capacity_delivery_complete.py" if args.delivery_complete else
                  "tests/test_capacity_source_profile.py" if args.source_profile else
                  "tests/test_capacity_delivery_profile.py" if args.delivery_profile else
@@ -433,6 +476,12 @@ def main():
             report["artifacts"]["pytest.xml"] = emit("pytest.xml", junit.stdout)
             suites = list(ET.fromstring(junit.stdout).iter("testsuite"))
             report["junit"] = [suite.attrib for suite in suites]
+            if args.preflight_only:
+                properties = {item.attrib["name"]: item.attrib["value"] for suite in suites for item in suite.iter("property")}
+                proof = json.loads(properties.get("object_delivery_preflight", "{}"))
+                if not all(proof.get(name) is True for name in ("s3_aead", "s3_purge", "caddy_bytes", "caddy_replay_denied", "worker_purge", "beat_purge")):
+                    raise RuntimeError("Requested object/proxy/worker preflight proof missing")
+                report["object_delivery"]["preflight"] = proof
             if args.diagnose:
                 properties = {item.attrib["name"]: item.attrib["value"]
                               for suite in suites for item in suite.iter("property")}
@@ -455,7 +504,9 @@ def main():
                 for key in ("failures", "errors", "skipped")
             ) or sum(int(suite.attrib.get("tests", 0)) for suite in suites) != 1:
                 raise RuntimeError("Small control did not pass exactly one required test")
-            if args.delivery_profile:
+            if args.preflight_only:
+                report["result"] = "READY_NOT_CAPACITY"
+            elif args.delivery_profile:
                 properties = {item.attrib["name"]: item.attrib["value"]
                               for suite in suites for item in suite.iter("property")}
                 if args.source_profile:
@@ -539,6 +590,8 @@ def main():
             killed = any(item["oom_kill"] for item in report["cgroup_memory"].values())
             if not complete:
                 report["global_memory_verdict"] = "NOT_PROVEN"
+                if args.preflight_only:
+                    report["result"] = "INVALID"
             elif swapped or killed:
                 report["global_memory_verdict"] = "INVALID_SWAP_OR_OOM"
                 report["result"] = "INVALID"
@@ -588,13 +641,15 @@ def main():
         try:
             labelled = run(["docker", "ps", "-a", "--format", "{{.Names}}", "--filter", f"label={LABEL}={run_id}"],
                            "labelled-containers", check=False)
+            labelled_volumes = run(["docker", "volume", "ls", "--format", "{{.Name}}", "--filter", f"label={LABEL}={run_id}"],
+                                   "labelled-volumes", check=False)
             labelled_networks = run(["docker", "network", "ls", "--format", "{{.Name}}",
                                      "--filter", f"label={LABEL}={run_id}"], "labelled-networks", check=False)
             # The owned controller itself carries the label until the launcher removes it.
-            remaining = [item for item in labelled.stdout.split() + labelled_networks.stdout.split()
+            remaining = [item for item in labelled.stdout.split() + labelled_networks.stdout.split() + labelled_volumes.stdout.split()
                          if item != report.get("controller_name")]
             report["cleanup"]["labelled_remaining"] = remaining
-            if labelled.returncode or labelled_networks.returncode or remaining:
+            if labelled.returncode or labelled_networks.returncode or labelled_volumes.returncode or remaining:
                 report["result"] = "ERROR"
         except Exception as exc:
             report["cleanup"]["labelled_remaining"] = {"error": str(exc)}

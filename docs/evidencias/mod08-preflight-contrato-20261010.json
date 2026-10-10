@@ -1,0 +1,34 @@
+{
+  "date_utc": "2026-10-10",
+  "scope": "Preflight parser/lifecycle unit contract only, not real infrastructure or capacity proof",
+  "unit_command": ".venv/bin/python -m pytest -q tests/test_capacity_preflight_contract.py -p no:cacheprovider --tb=short",
+  "unit_result": {
+    "passed": 22,
+    "failed": 0,
+    "seconds": 0.21
+  },
+  "collection_command": ".venv/bin/python -m pytest --collect-only -q tests/test_capacity_object_preflight.py -p no:cacheprovider",
+  "collected": 1,
+  "runtime_preflight_executed": false,
+  "capacity_executed": false,
+  "static_checks": [
+    "Ruff PASS",
+    "py_compile PASS",
+    "help PASS",
+    "diff whitespace PASS"
+  ],
+  "source_sha256": {
+    "scripts/check_capacity_environment.py": "2fca7c4c54865e5531481e7ebe3a982def00f49dbaac55d199d26c36eeab9133",
+    "scripts/run_capacity_environment.py": "f34a82013e280d966ea77954765f8c8b00c4209955c441106f388ed9417305da",
+    "tests/test_capacity_object_preflight.py": "ff132e3d06f302936c87e32170591ee36677b335603f12e566589935f375f4c6",
+    "tests/test_capacity_preflight_contract.py": "d7686184873ae7b0f528fb76afbc0c311e0cb368c15dc652ff6cbec48d0b5cc2"
+  },
+  "required_real_gates": [
+    "Kernel quotas4CPU8GiB/controller; all roles swap0 and no OOM",
+    "Own bounded tmpfs volume census1/appRW/CaddyRO enforced; no leftovers on launcher/controller/recovery",
+    "Real S3 AEAD/write/read/purge guard",
+    "Real Gunicorn POST303 then Caddy GETEOF bytes/hash and replay denial",
+    "Actual periodic Beat-to-broker-to-worker purge in shared app cgroup"
+  ],
+  "authorization": "Root will authorize and run finite preflight after jointN2 terminal stable; no load/profile-full launched by this patch"
+}
