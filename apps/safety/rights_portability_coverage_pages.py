@@ -19,7 +19,7 @@ from .rights import fingerprint
 from .rights_copy_inspection import SECTIONS
 from .rights_copy_page_review import fresh_authority
 from .rights_exports import can_prepare, canonical, reviewer_case
-from .rights_inspection_source import inspection_source, shared_source
+from .rights_inspection_source import inspection_source, shared_source, source_digest
 from .rights_portability_catalog import FIELD_PAGE_SIZE, scalar_fields
 from .rights_portability_coverage import compile_coverage
 from .rights_portability_coverage_store import save_coverage
@@ -173,7 +173,7 @@ def _prepare_page(
     facts = unseal(selection.encrypted_selection)
     assessment = unseal(selection.assessment_review.assessment.encrypted_assessment)
     source = current_source()
-    if fingerprint(canonical(source)) != selection.source_digest:
+    if source_digest(_inspection_source, person, listing, case) != selection.source_digest:
         raise ValidationError("Coverage source changed")
     if assessment[dataset]["status"] == "excluded":
         raise ValidationError("Excluded dataset needs no scalar omission page")
@@ -308,7 +308,7 @@ def _prepare_page(
     fresh_authority(user, case, user.session_version, user.mfa_version)
     if (
         can_prepare(User.objects.get(pk=user.pk), case, person).pk != selection.proof_id
-        or fingerprint(canonical(current_source())) != selection.source_digest
+        or source_digest(_inspection_source, person, listing, case) != selection.source_digest
     ):
         raise ValidationError("Coverage page authority or source changed")
     return {

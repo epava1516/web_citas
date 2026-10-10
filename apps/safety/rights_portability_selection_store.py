@@ -16,6 +16,7 @@ from .rights import fingerprint
 from .rights_copy_page_review import fresh_authority
 from .rights_exports import can_prepare, canonical, reviewer_case, source_copy
 from .rights_inspection_source import shared_source
+from .rights_inspection_source import source_digest as shared_or_computed
 from .rights_portability_selection import project_selected
 from .rights_portability_use import consume_approved
 
@@ -69,7 +70,7 @@ def save_selection(
                 if _inspection_source is not None else source_copy(person, listing, case))
 
     source = current_source()
-    source_digest = fingerprint(canonical(source))
+    source_digest = shared_or_computed(_inspection_source, person, listing, case, source)
     project_selected(source, assessment, selection, field_evidence=field_evidence)
     if images is not None:
         from .rights_portability_images import audited_images
@@ -152,7 +153,7 @@ def save_selection(
     fresh_authority(actor, case, session_version, mfa_version)
     if (
         can_prepare(User.objects.get(pk=actor.pk), case, person).pk != review.proof_id
-        or fingerprint(canonical(current_source())) != source_digest
+        or shared_or_computed(_inspection_source, person, listing, case) != source_digest
     ):
         raise ValidationError("Portability selection authority or source changed")
     return row
@@ -238,7 +239,7 @@ def inspect_selection(
     fresh_authority(actor, case, session_version, mfa_version)
     if (
         can_prepare(User.objects.get(pk=actor.pk), case, person).pk != row.proof_id
-        or fingerprint(canonical(current_source())) != row.source_digest
+        or shared_or_computed(_inspection_source, person, listing, case) != row.source_digest
     ):
         raise ValidationError("Portability selection source changed")
     return row, projected

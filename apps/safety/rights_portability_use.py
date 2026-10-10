@@ -12,7 +12,7 @@ from .models import RightsAction, RightsPortabilityAssessment, RightsPortability
 from .rights import fingerprint
 from .rights_copy_page_review import fresh_authority
 from .rights_exports import can_prepare, canonical, reviewer_case, source_copy
-from .rights_inspection_source import shared_source
+from .rights_inspection_source import shared_source, source_digest
 from .rights_portability_review import validate_approved_assessment
 
 
@@ -63,7 +63,7 @@ def consume_approved(
         return (shared_source(_inspection_source, person, listing, case)
                 if _inspection_source is not None else source_copy(person, listing, case))
 
-    source_digest = fingerprint(canonical(current_source()))
+    digest = source_digest(_inspection_source, person, listing, case, current_source())
     signature = fingerprint(
         canonical(
             {
@@ -71,7 +71,7 @@ def consume_approved(
                 "selection": selection_binding,
                 "version": version,
                 "reason": reason,
-                "source": source_digest,
+                "source": digest,
                 "proof": str(proof.pk),
                 "assessment": fingerprint(row.encrypted_assessment),
                 "inspection": review.read.action.payload_digest,
@@ -104,11 +104,11 @@ def consume_approved(
                 body = unseal(row.encrypted_assessment)
             except (InvalidToken, ValueError, TypeError) as error:
                 raise ValidationError("Approved portability assessment unavailable") from error
-            body = validate_approved_assessment(review, row, case, proof, source_digest, body)
+            body = validate_approved_assessment(review, row, case, proof, digest, body)
             fresh_authority(actor, case, session_version, mfa_version)
             if (
                 can_prepare(User.objects.get(pk=actor.pk), case, person).pk != proof.pk
-                or fingerprint(canonical(current_source())) != source_digest
+                or source_digest(_inspection_source, person, listing, case) != digest
             ):
                 raise ValidationError("Portability source changed")
             return review, body

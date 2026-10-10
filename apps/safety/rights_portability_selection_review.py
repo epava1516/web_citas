@@ -14,7 +14,8 @@ from .models import (
 )
 from .rights import fingerprint
 from .rights_exports import canonical, reviewer_case, source_copy
-from .rights_inspection_source import shared_source
+from .rights_inspection_source import inspection_source, shared_source
+from .rights_inspection_source import source_digest as shared_or_computed
 from .rights_portability_review import authorize, validate_approved_assessment
 from .rights_portability_selection import project_selected
 from .rights_portability_selection_pages import complete_pages, project_page, valid_metadata
@@ -45,6 +46,16 @@ def record(
         raise ValidationError("Invalid selection page")
     case, person, listing = reviewer_case(user, case_id)
     actor = authorize(user, case)
+    if operation == "inspect" and _inspection_source is None:
+        # One audited source per inspection; its exit compares fresh DB rows inside this
+        # transaction, then reviewer/proof are rechecked after that potentially long read.
+        with inspection_source(person, listing, case) as context:
+            result = record(user, case_id, version, selection_id, key, purpose, operation, outcome,
+                            _inspection_source=context, page=page)
+        authorize(user, case)
+        if authorized_proof(case, person, case.kind).pk != result[0].proof_id:
+            raise ValidationError("Selection inspection authority changed before return")
+        return result
     if (
         case.kind != "portability"
         or case.status != "reviewing"
@@ -87,7 +98,7 @@ def record(
         if _inspection_source is not None
         else source_copy(person, listing, case)
     )
-    source_digest = fingerprint(canonical(source))
+    source_digest = shared_or_computed(_inspection_source, person, listing, case, source)
     review = row.assessment_review
     page_metadata, page_body, prepared = {}, None, None
     if page is not None:
@@ -251,14 +262,7 @@ def record(
             authorize(user, case)
             if (
                 authorized_proof(case, person, case.kind).pk != proof.pk
-                or fingerprint(
-                    canonical(
-                        shared_source(_inspection_source, person, listing, case)
-                        if _inspection_source is not None
-                        else source_copy(person, listing, case)
-                    )
-                )
-                != source_digest
+                or shared_or_computed(_inspection_source, person, listing, case) != source_digest
             ):
                 raise ValidationError("Selection inspection source changed")
             if operation == "inspect" and "field_evidence" in binding:

@@ -1,6 +1,7 @@
 """Diagnostic profile of one target-sized case; never a capacity sample or limit verdict."""
 
 import json
+import time
 from pathlib import Path
 from threading import Barrier
 
@@ -34,6 +35,13 @@ def test_owned_target_stage_profiles(request, settings, monkeypatch, record_prop
             errors.append(f"{type(error).__name__}: {error}")
         finally:
             connections.close_all()
+            # The WSGI wrapper writes after the response body is closed: wait for every stage file.
+            stages = [name[:-len("_profiled_seconds")] for name in metrics if name.endswith("_profiled_seconds")]
+            deadline = time.monotonic() + 15
+            while time.monotonic() < deadline and not all(
+                any(Path("/tmp").glob(f"capacity-profile-{stage}-*.txt")) for stage in stages
+            ):
+                time.sleep(0.2)
             served = {path.name: path.read_text() for path in Path("/tmp").glob("capacity-profile-*.txt")}
             record_property("delivery_profile", json.dumps({
                 "metrics": metrics, "errors": errors, "server_profiles": served,

@@ -11,7 +11,8 @@ from django.views.decorators.debug import sensitive_variables
 from .crypto import seal, unseal
 from .models import RightsAction, RightsPortabilityImageRead
 from .rights import fingerprint
-from .rights_exports import canonical, image_content, reviewer_case, source_copy
+from .rights_exports import canonical, image_content, reviewer_case
+from .rights_inspection_source import inspection_source, source_digest
 from .rights_portability_review import authorize
 from .rights_portability_selection_review import record, validate_evidence
 from .rights_verification import authorized_proof
@@ -114,9 +115,24 @@ def inspect(user, case_id, version, selection_id, photo_id, key, purpose):
         raise ValidationError("Binary image inspection purpose required")
     case, person, listing = reviewer_case(user, case_id)
     actor = authorize(user, case)
+    # One audited source for the draft read and the final comparison; the context exit
+    # compares fresh DB rows inside this transaction, before authority is rechecked.
+    with inspection_source(person, listing, case) as context:
+        row, content, selection = _inspect(user, case_id, version, selection_id, photo_id, key,
+                                           purpose, case, person, listing, actor, context)
+    authorize(user, case)
+    if authorized_proof(case, person, case.kind).pk != selection.proof_id:
+        raise ValidationError("Binary image authority changed before return")
+    return row, content
+
+
+@sensitive_variables()
+def _inspect(user, case_id, version, selection_id, photo_id, key, purpose, case, person, listing,
+             actor, context):
     # An independently audited draft read precedes decrypting its binary declarations.
     read, projected = record(
-        user, case_id, version, selection_id, uuid5(key, "binary-selection-inspection"), purpose
+        user, case_id, version, selection_id, uuid5(key, "binary-selection-inspection"), purpose,
+        _inspection_source=context,
     )
     selection = read.selection
     decisions = projected.get("images", [])
@@ -171,7 +187,7 @@ def inspect(user, case_id, version, selection_id, photo_id, key, purpose):
     authorize(user, case)
     if (
         authorized_proof(case, person, case.kind).pk != selection.proof_id
-        or fingerprint(canonical(source_copy(person, listing, case))) != selection.source_digest
+        or source_digest(context, person, listing, case) != selection.source_digest
     ):
         raise ValidationError("Binary image authority or source changed")
-    return row, content
+    return row, content, selection

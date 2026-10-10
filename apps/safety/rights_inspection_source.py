@@ -56,6 +56,17 @@ def shared_source(context, person, listing, case):
     return context.get(person, listing, case)
 
 
+@sensitive_variables()
+def source_digest(context, person, listing, case, source=None):
+    """Digest of the active shared source, computed once at its fresh read; without a
+    context, of ``source`` or of a fresh copy. Mutation or DB drift of the shared source is
+    still rejected by the context exit inside the caller's transaction."""
+    if context is not None:
+        shared_source(context, person, listing, case)
+        return context.digest
+    return fingerprint(canonical(source if source is not None else source_copy(person, listing, case)))
+
+
 @contextmanager
 @sensitive_variables()
 def inspection_source(person, listing, case):

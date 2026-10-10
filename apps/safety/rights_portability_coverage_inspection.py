@@ -14,7 +14,7 @@ from .models import RightsAction, RightsPortabilityCoverage, RightsPortabilityCo
 from .rights import fingerprint
 from .rights_copy_inspection import SECTIONS
 from .rights_exports import canonical, reviewer_case
-from .rights_inspection_source import inspection_source
+from .rights_inspection_source import inspection_source, source_digest
 from .rights_portability_coverage import compile_coverage
 from .rights_portability_coverage_page import coverage_page
 from .rights_portability_coverage_pages import baseline_body
@@ -82,7 +82,7 @@ def inspect_page(
         selection = decision.selection
         validate_approved_selection(decision, selection, case, proof)
         source = current_source.get(person, listing, case)
-        if fingerprint(canonical(source)) != coverage.source_digest:
+        if source_digest(current_source, person, listing, case) != coverage.source_digest:
             raise ValidationError("Coverage inspection source changed")
         signature = fingerprint(
             canonical(
@@ -151,8 +151,7 @@ def inspect_page(
         authorize(user, case)
         if (
             authorized_proof(case, person, case.kind).pk != proof.pk
-            or fingerprint(canonical(current_source.get(person, listing, case)))
-            != coverage.source_digest
+            or source_digest(current_source, person, listing, case) != coverage.source_digest
         ):
             raise ValidationError("Coverage inspection authority or source changed")
         result = coverage_page(
