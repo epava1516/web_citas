@@ -169,6 +169,10 @@ def main():
         help="Parallel pytest workers (xdist, whole files per worker; 1 = serial); never for capacity runs",
     )
     parser.add_argument(
+        "--fixture-snapshots", action="store_true",
+        help="Cache directory bootstrap in own PostgreSQL/media per worker",
+    )
+    parser.add_argument(
         "--recover",
         action="store_true",
         help="Mark dead runs without a terminal result as INTERRUPTED and remove their declared resources",
@@ -208,6 +212,7 @@ def main():
         "excluded": LONG_CASES if args.profile == "regression" else [],
         "selection": {"smoke": SMOKE, "rights": RIGHTS, "focused": args.test}.get(args.profile, []),
         "workers": args.workers,
+        "fixture_snapshots": args.fixture_snapshots,
         "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
     }
     before = hashes()
@@ -339,6 +344,12 @@ def main():
                     if time.monotonic() >= deadline:
                         raise RuntimeError(f"{service} readiness timeout")
                     time.sleep(0.25)
+            if args.fixture_snapshots:
+                env.update(
+                    LOCAL_CI_FIXTURE_SNAPSHOTS="1", LOCAL_CI_SNAPSHOT_RUN=run_id,
+                    LOCAL_CI_SNAPSHOT_ROOT=str(work / "fixture-snapshots"),
+                    LOCAL_CI_TEMPORARY=str(work),
+                )
             env.update(
                 POSTGRES_DB="promotion_gate_ci",
                 POSTGRES_USER="ci",

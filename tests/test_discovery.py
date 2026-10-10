@@ -1,6 +1,7 @@
 import io
 
 import pytest
+from directory_snapshot import seed_or_restore
 from django.core.management import call_command
 from django.test import Client
 from django.utils import timezone
@@ -15,8 +16,10 @@ from apps.listings.models import Rate, Revision
 def directory(request, tmp_path, monkeypatch):
     request.getfixturevalue("photo_environment")
     monkeypatch.setenv("DEMO_PASSWORD", "Long-directory-fixture-password!873")
-    call_command(
-        "seed_demo", credentials_file=str(tmp_path / "credentials.json"), stdout=io.StringIO()
+    seed_or_restore(
+        lambda: call_command(
+            "seed_demo", credentials_file=str(tmp_path / "credentials.json"), stdout=io.StringIO()
+        )
     )
     return Client()
 

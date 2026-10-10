@@ -1,0 +1,46 @@
+{
+  "id": "20261010-122727-3d9c84f3",
+  "result": "PASS",
+  "head": "9cb82145e616d8b2d43ffead20d515f0f0485375",
+  "selection": [
+    "tests/test_directory_snapshot.py",
+    "tests/test_discovery.py"
+  ],
+  "workers": 2,
+  "fixture_snapshots": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261010-122727-3d9c84f3": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261010-122727-3d9c84f3": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "15",
+      "time": "78.881",
+      "timestamp": "2026-10-10T14:27:49.697567+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [],
+  "tested_local_files": {
+    "scripts/run_local_ci.py": "f9b0334344532cf99f062ddb49e693034d2bb859432ea6ee1ee87e6b6d34e9e0",
+    "tests/test_discovery.py": "e90a1bdad0d933423ae65d3afe0ecf0da23f990053081b600cfe68f35bfbdedc",
+    "tests/directory_snapshot.py": "79a189ddd959e68a6135038e62d8331588e6f5992424dec724485ae562552041",
+    "tests/test_directory_snapshot.py": "5183f3ad47193fe8054c45470686dd59c2f20f7eba041cab493943b79dc97925"
+  },
+  "junit_sha256": "461e5243be42853191943e19e51db7f2718bc34c2b150c9c82fd7422504794d9",
+  "artifact_directory": "artifacts/local-ci/20261010-122727-3d9c84f3",
+  "limits": "N2 directory bootstrap snapshot equivalence only; no request SLO, capacity, N3 or rights approval snapshots. PostgreSQL17 and Redis7.4 own containers removed."
+}
