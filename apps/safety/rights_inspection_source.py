@@ -12,8 +12,9 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.views.decorators.debug import sensitive_variables
 
+from .fast_canonical import canonical_bytes
 from .rights import fingerprint
-from .rights_exports import canonical, source_copy
+from .rights_exports import source_copy
 from .rights_source_fingerprint import source_fingerprint
 
 _current = ContextVar("rights_inspection_source", default=None)
@@ -39,7 +40,7 @@ class _InspectionSource:
         # Taken before the read: a change committed in between makes the exit comparison differ.
         self.rows_fingerprint = source_fingerprint(person, listing, case)
         self.source = source_copy(person, listing, case)
-        self.digest = fingerprint(canonical(self.source))
+        self.digest = fingerprint(canonical_bytes(self.source))
         self.row_references = {}
 
     @sensitive_variables()
@@ -90,7 +91,7 @@ def source_digest(context, person, listing, case, source=None):
         shared_source(context, person, listing, case)
         return context.digest
     return fingerprint(
-        canonical(source if source is not None else source_copy(person, listing, case))
+        canonical_bytes(source if source is not None else source_copy(person, listing, case))
     )
 
 
@@ -105,11 +106,11 @@ def inspection_source(person, listing, case):
         yield context
         context.get(person, listing, case)
         # Detect accidental mutation of the shared projection as well as DB drift.
-        if fingerprint(canonical(context.source)) != context.digest:
+        if fingerprint(canonical_bytes(context.source)) != context.digest:
             raise ValidationError("Inspection source changed before return")
         # Unchanged row versions prove the source rows are those read; otherwise compare in full.
         if source_fingerprint(person, listing, case) != context.rows_fingerprint and (
-            fingerprint(canonical(_fresh_source(person, listing, case))) != context.digest
+            fingerprint(canonical_bytes(_fresh_source(person, listing, case))) != context.digest
         ):
             raise ValidationError("Inspection source changed before return")
     finally:

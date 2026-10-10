@@ -66,3 +66,10 @@ def test_action_fingerprint_still_keyed_and_distinct_from_content(settings):
     settings.SECRET_KEY = "different-synthetic-test-key"
     assert fingerprint(payload) != first
     assert len(first) == 64 and not first.startswith("b3v2:")
+
+
+def test_canonical_utf8_bytes_keep_the_keyed_fingerprint():
+    from apps.safety.rights import fingerprint
+
+    value = {"source": ["á漢字\u2028", {"é": "verified synthetic Unicode"}]}
+    assert fingerprint(canonical_bytes(value)) == fingerprint(canonical(value))
