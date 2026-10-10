@@ -36,6 +36,8 @@ def test_snapshot_restores_mutated_database_and_media(request, settings, tmp_pat
     first = seed_or_restore(seed)
     assert first in {"seed_snapshot", "restore_snapshot"}
     media = Path(settings.MEDIA_ROOT)
+    credentials = tmp_path / "credentials.json"
+    original_credentials = credentials.read_bytes()
     original = {
         str(path.relative_to(media)): path.read_bytes()
         for path in media.rglob("*")
@@ -48,10 +50,13 @@ def test_snapshot_restores_mutated_database_and_media(request, settings, tmp_pat
     selected = media / next(iter(original))
     selected.write_bytes(b"mutated test media")
     (media / "extra-mutated-file").write_bytes(b"new file")
+    credentials.unlink()
     # Reproduce transaction=True teardown, then the next test's fixture request.
     call_command("flush", interactive=False, stdout=io.StringIO())
     assert seed_or_restore(seed) == "restore_snapshot"
     assert User.objects.get(pk=user.pk).email == old_email
+    assert credentials.read_bytes() == original_credentials
+    assert credentials.stat().st_mode & 0o777 == 0o600
     assert {
         str(path.relative_to(media)): path.read_bytes()
         for path in media.rglob("*")
@@ -156,3 +161,62 @@ def test_snapshot_container_identity_is_cached_only_for_same_worker_and_port(mon
     assert len(calls) == 1
     _verify_container(run, "gw1", database)
     assert len(calls) == 2
+
+
+@pytest.mark.skipif(
+    os.environ.get("LOCAL_CI_FIXTURE_SNAPSHOTS") != "1",
+    reason="Requires explicit disposable local CI fixture-snapshot environment",
+)
+@pytest.mark.django_db(transaction=True)
+def test_occupied_database_falls_back_to_real_seed_without_terminating(
+    request, settings, tmp_path, monkeypatch
+):
+    import psycopg
+    from directory_snapshot import _admin
+
+    request.getfixturevalue("photo_environment")
+    monkeypatch.setenv("DEMO_PASSWORD", "Long-directory-fixture-password!873")
+    mode = context()
+    assert mode is not None
+    database = mode[3]
+    calls = []
+
+    def seed():
+        calls.append(True)
+        call_command(
+            "seed_demo", credentials_file=str(tmp_path / "credentials.json"), stdout=io.StringIO()
+        )
+
+    # A separate real connection models live_server starting before directory.
+    with psycopg.connect(
+        dbname=database["NAME"],
+        user=database["USER"],
+        password=database["PASSWORD"],
+        host=database["HOST"],
+        port=database["PORT"],
+        autocommit=True,
+    ) as live:
+        assert seed_or_restore(seed) == "seed_busy_database"
+        assert calls == [True]
+        with live.cursor() as cursor:
+            cursor.execute("SELECT count(*) FROM core_user")
+            assert cursor.fetchone()[0] > 0
+        assert (tmp_path / "credentials.json").is_file()
+        assert User.objects.filter(username="fixture-v1-individual").exists()
+        # Occupancy remains genuine and no caller silently terminated it.
+        with _admin(database) as admin, admin.cursor() as cursor:
+            cursor.execute(
+                "SELECT count(*) FROM pg_stat_activity WHERE datname=%s", [database["NAME"]]
+            )
+            assert cursor.fetchone()[0] >= 2
+
+
+def test_seed_password_changes_cache_identity_without_exposing_password(settings, monkeypatch):
+    first_password = "Synthetic-only-first-fixture-password!483"
+    second_password = "Synthetic-only-second-fixture-password!926"
+    monkeypatch.setenv("DEMO_PASSWORD", first_password)
+    first = cache_key("20261010-120000-12345678", "gw0")
+    monkeypatch.setenv("DEMO_PASSWORD", second_password)
+    second = cache_key("20261010-120000-12345678", "gw0")
+    assert first != second
+    assert first_password not in repr(first) and second_password not in repr(second)

@@ -25,6 +25,7 @@ class Snapshot:
     template: str
     media: Path
     database: str
+    credentials: bytes
 
 
 def _verify_container(run, worker, database):
@@ -106,6 +107,7 @@ def cache_key(run, worker):
                 settings.VERIFICATION_PROVIDER,
                 settings.STORAGES,
                 settings.PASSWORD_HASHERS,
+                os.environ.get("DEMO_PASSWORD"),
             )
         ).encode()
     )
@@ -127,10 +129,14 @@ def _admin(database):
     )
 
 
+class SnapshotBusy(RuntimeError):
+    """An active connection forbids cloning; bootstrap must use ordinary seed."""
+
+
 def _quiescent(cursor, names):
     cursor.execute("SELECT datname FROM pg_stat_activity WHERE datname = ANY(%s)", [names])
     if cursor.fetchall():
-        raise RuntimeError("Fixture snapshot database has live connections; none were terminated")
+        raise SnapshotBusy("Fixture snapshot database has live connections; none were terminated")
 
 
 def _empty_fixture_database():
@@ -167,36 +173,69 @@ def seed_or_restore(seed):
         media = root / template
         if media.exists():
             raise RuntimeError("Fixture snapshot directory already exists")
+        # directory's seed_demo also writes a synthetic credential manifest next
+        # to private media. Its consumers require a current per-test copy.
+        credentials = (Path(settings.MEDIA_ROOT).parent / "credentials.json").read_bytes()
         shutil.copytree(settings.MEDIA_ROOT, media)
         connections.close_all()
-        with _admin(database) as admin, admin.cursor() as cursor:
-            _quiescent(cursor, [target, template])
-            cursor.execute(
-                sql.SQL("CREATE DATABASE {} TEMPLATE {}").format(
-                    sql.Identifier(template), sql.Identifier(target)
+        try:
+            with _admin(database) as admin, admin.cursor() as cursor:
+                _quiescent(cursor, [target, template])
+                try:
+                    cursor.execute(
+                        sql.SQL("CREATE DATABASE {} TEMPLATE {}").format(
+                            sql.Identifier(template), sql.Identifier(target)
+                        )
+                    )
+                except psycopg.errors.ObjectInUse as error:
+                    # A server may connect after the zero-connection check.
+                    # Failed CREATE has not changed the original baseline DB.
+                    raise SnapshotBusy(
+                        "Fixture source became occupied; no connection was terminated"
+                    ) from error
+                cursor.execute(
+                    sql.SQL("ALTER DATABASE {} ALLOW_CONNECTIONS false").format(
+                        sql.Identifier(template)
+                    )
                 )
-            )
-            cursor.execute(
-                sql.SQL("ALTER DATABASE {} ALLOW_CONNECTIONS false").format(
-                    sql.Identifier(template)
-                )
-            )
-        _CACHE[key] = Snapshot(template, media, target)
+        except SnapshotBusy:
+            # seed already produced the real baseline. Preserve occupied test
+            # services and their connections; do not attempt DROP or clone.
+            shutil.rmtree(media)
+            return "seed_busy_database"
+        _CACHE[key] = Snapshot(template, media, target, credentials)
         return "seed_snapshot"
     if snapshot.database != target:
         raise RuntimeError("Fixture snapshot belongs to another worker database")
     connections.close_all()
-    with _admin(database) as admin, admin.cursor() as cursor:
-        _quiescent(cursor, [target, snapshot.template])
-        cursor.execute(sql.SQL("DROP DATABASE {}").format(sql.Identifier(target)))
-        cursor.execute(
-            sql.SQL("CREATE DATABASE {} TEMPLATE {}").format(
-                sql.Identifier(target), sql.Identifier(snapshot.template)
+    try:
+        with _admin(database) as admin, admin.cursor() as cursor:
+            _quiescent(cursor, [target, snapshot.template])
+            try:
+                cursor.execute(sql.SQL("DROP DATABASE {}").format(sql.Identifier(target)))
+            except psycopg.errors.ObjectInUse as error:
+                # Catch only failed DROP. CREATE errors after a successful DROP
+                # remain errors; seeding cannot disguise a missing worker DB.
+                raise SnapshotBusy(
+                    "Fixture target became occupied; no connection was terminated"
+                ) from error
+            cursor.execute(
+                sql.SQL("CREATE DATABASE {} TEMPLATE {}").format(
+                    sql.Identifier(target), sql.Identifier(snapshot.template)
+                )
             )
-        )
+    except SnapshotBusy:
+        # A live_server can already have a legitimate connection to this test
+        # database. Run the original bootstrap instead of destroying its DB.
+        seed()
+        return "seed_busy_database"
     destination = Path(settings.MEDIA_ROOT)
     # photo_environment supplies a new test-owned tmp_path; remove only its media.
     if destination.exists():
         shutil.rmtree(destination)
     shutil.copytree(snapshot.media, destination)
+    credentials = destination.parent / "credentials.json"
+    with credentials.open("wb") as manifest:
+        os.chmod(credentials, 0o600)
+        manifest.write(snapshot.credentials)
     return "restore_snapshot"

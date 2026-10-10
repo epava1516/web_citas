@@ -81,7 +81,7 @@ def test_two_runtime_transactions_validate_then_append_without_case_lock(base, r
 
 
 def test_real_runtime_consumes_approved_domain_and_keeps_authority_guard(
-    request, settings, monkeypatch, runtime
+    request, settings, monkeypatch
 ):
     from django.core.exceptions import PermissionDenied
 
@@ -91,6 +91,9 @@ def test_real_runtime_consumes_approved_domain_and_keeps_authority_guard(
 
     case, author, selection, _, _, _, _ = prepared_selection(request, settings, monkeypatch, False)
     review = RightsPortabilityReview.objects.get(pk=selection.assessment_review_id)
+    # Directory snapshot may recreate the worker DB: grant the runtime role
+    # afterwards, rather than losing its ACLs by restoring an older template.
+    runtime = request.getfixturevalue("runtime")
     settings.RIGHTS_EVIDENCE_ENFORCED = True
     set_role(runtime)
     result, body = consume_approved(
