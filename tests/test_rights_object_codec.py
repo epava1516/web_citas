@@ -18,7 +18,11 @@ def encoded(ring, content=b"secret" * 100):
     return target.getvalue()
 
 
-@pytest.mark.parametrize("content", [b"", b"a", b"abc" * 1000, os.urandom(1048577)])
+@pytest.mark.parametrize(
+    "content",
+    [b"", b"a", b"abc" * 1000, os.urandom(1048577)],
+    ids=["empty", "one-byte", "repeated", "random-over-one-mib"],
+)
 def test_roundtrip(ring, content):
     target = io.BytesIO()
     assert decrypt(io.BytesIO(encoded(ring, content)), target, ring, b"export:1:subject:2") == len(
