@@ -1,11 +1,13 @@
 """Validate an owned, resource-limited capacity topology; never a capacity PASS."""
 
 import argparse
+import base64
 import hashlib
 import json
 import os
 import re
 import resource
+import shlex
 import subprocess
 import sys
 import time
@@ -34,7 +36,7 @@ LABEL = "web-modelos-capacity-run"
 COMPOSE_NEUTRAL = [item for key in ["project", "service", "version"]
                    for item in ("--label", f"com.docker.compose.{key}=")]
 # Owned runtime users: no root, no capabilities, so Docker-managed /etc files stay unwritable.
-OWNED_USERS = {"pg": "70:70", "redis": "999:1000"}
+OWNED_USERS = {"pg": "70:70", "redis": "999:1000", "objects": "10001:10001", "caddy": f"{os.getuid()}:{os.getgid()}"}
 # The 16MiB shared-memory tmpfs is overfilled once per role to observe the kernel ENOSPC ceiling
 # without inflating the measured cgroup peaks by the larger data tmpfs sizes.
 FILL_PROBE = ("/dev/shm", 16)
@@ -91,7 +93,10 @@ def main():
     parser.add_argument("--delivery-profile-full", action="store_true", help="Diagnostic single-case flow to downloads with stage profiles; requires --delivery-profile")
     parser.add_argument("--source-profile", action="store_true", help="Diagnostic whole-source cost attribution; same allocation as --delivery-profile, which it requires")
     parser.add_argument("--owned-controller", action="store_true", help="Require launcher-enforced controller and whole owned budget")
+    parser.add_argument("--object-delivery", action="store_true", help="Real private RustFS and Caddy proxy in the same owned budget; requires owned complete delivery")
     args = parser.parse_args()
+    if args.object_delivery and not (args.owned_controller and (args.delivery_complete or args.delivery_profile_full)):
+        parser.error("--object-delivery requires --owned-controller and --delivery-complete or --delivery-profile-full")
     if args.delivery_profile_full and (not args.delivery_profile or args.source_profile):
         parser.error("--delivery-profile-full requires --delivery-profile without --source-profile")
     if args.source_profile and not args.delivery_profile:
@@ -114,6 +119,9 @@ def main():
         allocations.update(pg=(150000, 3072), app=(225000, 4608))
     if args.owned_controller:
         allocations.update(redis=(20000, 384))
+    if args.object_delivery:
+        allocations = {"pg": (150000, 3072), "redis": (10000, 384), "app": (175000, 3968),
+                       "objects": (50000, 512), "caddy": (10000, 128)}
     if args.selection_profile and not args.selection_gunicorn:
         parser.error("--selection-profile requires --selection-gunicorn")
     if args.selection_gunicorn and not args.selection_concurrent:
@@ -267,9 +275,13 @@ def main():
         interpreter = (ROOT / ".venv/bin/python3").resolve()
         report["interpreter"] = {"path": str(interpreter),
                                  "sha256": hashlib.sha256(interpreter.read_bytes()).hexdigest()}
-        for image in ["postgres:17-alpine", "redis:7.4-alpine", "web-modelos-app:latest"]:
+        object_image = "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c"
+        images = ["postgres:17-alpine", "redis:7.4-alpine", "web-modelos-app:latest"]
+        if args.object_delivery:
+            images += [object_image, "caddy:2"]
+        for image in images:
             report["images"][image] = run(["docker", "image", "inspect", "--format", "{{.Id}}", image],
-                                          "image-" + image.split(":")[0]).stdout.strip()
+                                          "image-" + re.sub(r"[^a-zA-Z0-9_-]", "_", image.split(":")[0])).stdout.strip()
         network_attempted = True
         run(["docker", "network", "create", "--internal", "--label", f"{LABEL}={run_id}", network], "network")
         owned_pg = ["--tmpfs", "/var/run/postgresql:size=16777216,uid=70,gid=70",
@@ -292,6 +304,38 @@ def main():
         python_root = Path.home() / ".local/share/uv/python"
         if not python_root.is_dir():
             raise RuntimeError("Current uv interpreter root missing")
+        object_env, delivery_mount = [], []
+        if args.object_delivery:
+            delivery_volume = prefix + "-delivery"
+            run(["docker", "volume", "create", "--label", f"{LABEL}={run_id}", "--driver", "local",
+                 "--opt", "type=tmpfs", "--opt", "device=tmpfs", "--opt",
+                 f"o=size=536870912,uid={os.getuid()},gid={os.getgid()},mode=0750", delivery_volume], "delivery-volume")
+            delivery_mount = ["--mount", f"type=volume,src={delivery_volume},dst=/srv/delivery"]
+            object_env = ["-e", "RIGHTS_OBJECT_STORAGE_ENABLED=1", "-e", "RIGHTS_PROXY_DELIVERY_ENABLED=1",
+                          "-e", "RIGHTS_OBJECT_ENDPOINT=http://objects:9000", "-e", "RIGHTS_OBJECT_REGION=us-east-1",
+                          "-e", "RIGHTS_OBJECT_BUCKET=capacity-private", "-e", "RIGHTS_OBJECT_ACCESS_KEY=capacity-synthetic",
+                          "-e", "RIGHTS_OBJECT_SECRET_KEY=capacity-synthetic-private-secret",
+                          "-e", "RIGHTS_OBJECT_ACTIVE_KEY=capacity-v1", "-e",
+                          "RIGHTS_OBJECT_KEYS=" + json.dumps({"capacity-v1": base64.b64encode(os.urandom(32)).decode()}),
+                          "-e", "RIGHTS_DELIVERY_ROOT=/srv/delivery", "-e", "RIGHTS_DELIVERY_GENERATION=" + run_id,
+                          "-e", "RIGHTS_DELIVERY_PROXY_SECRET=capacity-synthetic-proxy-secret-32-bytes"]
+            container("objects", object_image,
+                      ["--tmpfs", "/data:size=1073741824,uid=10001,gid=10001",
+                       "--tmpfs", "/logs:size=16777216,uid=10001,gid=10001",
+                       "-e", "RUSTFS_ACCESS_KEY=capacity-synthetic",
+                       "-e", "RUSTFS_SECRET_KEY=capacity-synthetic-private-secret",
+                       "-e", "RUSTFS_CONSOLE_ENABLE=false"], [])
+            # Reuse the verified production route, with an HTTP-only isolated listener.
+            route = (ROOT / "Caddyfile").read_text().split("    @delivery path", 1)[1].split("    @static path", 1)[0]
+            caddy_config = "{\n admin off\n auto_https off\n}\n:8080 {\n    @delivery path" + route + "    respond 404\n}\n"
+            container("caddy", "caddy:2",
+                      ["--tmpfs", f"/tmp:size=16777216,uid={os.getuid()},gid={os.getgid()}",
+                       "--tmpfs", f"/data:size=16777216,uid={os.getuid()},gid={os.getgid()}",
+                       "--tmpfs", f"/config:size=16777216,uid={os.getuid()},gid={os.getgid()}",
+                       "--mount", f"type=volume,src={delivery_volume},dst=/srv/delivery,readonly",
+                       "-e", "RIGHTS_DELIVERY_PROXY_SECRET=capacity-synthetic-proxy-secret-32-bytes",
+                       "--entrypoint", "sh"],
+                      ["-c", "printf %s " + shlex.quote(caddy_config) + " > /tmp/Caddyfile && exec caddy run --config /tmp/Caddyfile --adapter caddyfile"])
         app = container(
             "app", "web-modelos-app:latest",
             ["--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges",
@@ -299,12 +343,23 @@ def main():
              "--mount", f"type=bind,src={ROOT},dst={ROOT},readonly",
              "--mount", f"type=bind,src={python_root},dst={python_root},readonly",
              "--tmpfs", f"/tmp:size=1073741824,uid={os.getuid()},gid={os.getgid()}",
+             *delivery_mount, *object_env,
              "-e", "PYTHONDONTWRITEBYTECODE=1", "-e", "DJANGO_SETTINGS_MODULE=config.settings",
              "-e", "DB_HOST=pg", "-e", "DB_PORT=5432", "-e", "POSTGRES_DB=capacity_ci",
              "-e", "POSTGRES_USER=ci", "-e", "POSTGRES_PASSWORD=ci-synthetic",
              "-e", "REDIS_URL=redis://redis:6379/0", "--entrypoint", str(ROOT / ".venv/bin/python3")],
             ["-c", "import time; time.sleep(" + str(10000 if args.delivery_complete or args.delivery_profile_full else 6000 if args.selection_complete or args.delivery_profile else 1800) + ")"],
         )
+        if args.object_delivery:
+            bootstrap = ("import time; from apps.safety.object_storage.factory import repository; "
+                         "repo=repository()\n"
+                         "for attempt in range(120):\n"
+                         " try:\n  repo.client.create_bucket(Bucket=repo.bucket); repo.validate_bucket(); break\n"
+                         " except Exception:\n  if attempt ==119: raise\n  time.sleep(.5)\n")
+            run(["docker", "exec", app, str(ROOT / ".venv/bin/python3"), "-c", bootstrap], "object-bootstrap")
+            report["object_delivery"] = {"enabled": True, "generation": run_id,
+                "readiness": "Actual S3 create_bucket and fresh validate; Caddy readiness checked by server client",
+                "scope": "Synthetic own objects/proxy; no assumption512MiB sufficient; OOM invalidates run"}
         if args.owned_controller:
             report["owned_storage_ceiling_bytes"] = (
                 sum(sum(points.values()) for points in report["writable_tmpfs_bytes"].values())
@@ -344,6 +399,7 @@ def main():
             settings_source = (
                 "from config.settings import *\n"
                 "CAPACITY_ENVIRONMENT_VERIFIED = True\n"
+                f"CAPACITY_OBJECT_DELIVERY = {args.object_delivery!r}\n"
                 "MEDIA_ROOT = '/tmp/capacity-media'\n"
                 f"CAPACITY_SQL_DIAGNOSE = {args.diagnose!r}\n"
                 f"CAPACITY_SELECTION_GUNICORN = {args.selection_gunicorn!r}\n"
@@ -473,7 +529,7 @@ def main():
             report["owned_memory_upper_bound_bytes"] = (
                 sum(item["peak_bytes"] for item in report["cgroup_memory"].values()) + 128 * MIB)
             report["memory_scope"] = (
-                "Three disjoint application/PG/Redis cgroup peaks including cache and tmpfs, plus full128MiB "
+                "Disjoint application/PG/Redis/optional objects+proxy cgroup peaks including cache and tmpfs, plus full128MiB "
                 "controller kernel ceiling including all CLI children/final collection; conservative "
                 "whole-owned-runtime upper bound, not synchronous peak. Host bootstrap/terminal collector and "
                 "shared OS/daemon are infrastructure, outside timed workload.")
@@ -508,6 +564,16 @@ def main():
                     report["result"] = "ERROR"
             except Exception as exc:
                 report["cleanup"][name] = {"error": str(exc)}
+                report["result"] = "ERROR"
+        if args.object_delivery and "delivery_volume" in locals():
+            try:
+                removal = run(["docker", "volume", "rm", delivery_volume], "remove-delivery-volume", check=False)
+                gone = absent("volume", delivery_volume)
+                report["cleanup"][delivery_volume] = {"absent": gone, "removal_exit": removal.returncode}
+                if not gone:
+                    report["result"] = "ERROR"
+            except Exception as exc:
+                report["cleanup"][delivery_volume] = {"error": str(exc)}
                 report["result"] = "ERROR"
         if network_attempted:
             try:

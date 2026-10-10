@@ -27,6 +27,10 @@ def server(settings, record_property):
     with socket.socket() as reservation:
         reservation.bind(('127.0.0.1', 0))
         port = reservation.getsockname()[1]
+    objects = getattr(settings, "CAPACITY_OBJECT_DELIVERY", False)
+    if objects:
+        port = 8000
+    bind = "0.0.0.0" if objects else "127.0.0.1"
     env = os.environ.copy()
     env['DJANGO_SETTINGS_MODULE'] = 'capacity_gunicorn_settings'
     application = 'config.wsgi:application'
@@ -34,7 +38,7 @@ def server(settings, record_property):
         Path('/tmp/capacity_profile_wsgi.py').write_text(Path(__file__).with_name('capacity_profile_wsgi.py').read_text())
         application = 'capacity_profile_wsgi:application'
     command = [sys.executable, '-m', 'gunicorn', application, '--workers', '2',
-               '--worker-class', 'sync', '--bind', f'127.0.0.1:{port}', '--timeout', '90',
+               '--worker-class', 'sync', '--bind', f'{bind}:{port}', '--timeout', '90',
                '--access-logfile', '-', '--error-logfile', '-',
                '--logger-class', 'config.gunicorn_logging.SafeAccessLogger']
     log_path = Path('/tmp/capacity-gunicorn.log')
@@ -72,7 +76,13 @@ def server(settings, record_property):
                     time.sleep(.1)
             else:
                 raise RuntimeError('Own Gunicorn readiness failed')
-            yield SimpleNamespace(url=url)
+            if objects:
+                # Same own network; no host ports. File route health is an expected404.
+                try:
+                    urllib.request.urlopen("http://caddy:8080/", timeout=3)
+                except urllib.error.HTTPError as error:
+                    assert error.code == 404
+            yield SimpleNamespace(url=url, object_delivery=objects)
         finally:
             stop.set()
             sampler.join(timeout=2)
@@ -87,7 +97,7 @@ def server(settings, record_property):
                 'command': command, 'exit': process.returncode, 'rss_peaks_bytes': peaks,
                 'log': log_path.read_text()[-20000:],
                 'extra_profiles': {path.name: path.read_text() for path in Path('/tmp').glob('capacity-profile-*.txt')},
-                'scope': 'Master and workers kernel VmHWM sampled100ms; process-group teardown. Same owned app cgroup; no Caddy or deployment.',
+                'scope': 'Master and workers kernel VmHWM sampled100ms; process-group teardown. Same owned app cgroup; optional Caddy and RustFS separate owned cgroups, never deployment.',
             }))
             assert len(peaks) >= 3, 'Missing actual Gunicorn master/two-worker RSS observations'
             assert all(value <= 1024 ** 3 for value in peaks.values()), 'Gunicorn process RSS exceeds1GiB'

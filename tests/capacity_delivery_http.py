@@ -1,5 +1,6 @@
 """Actual TCP/CSRF clients for the owned capacity flow; no forwarded-IP override."""
 
+import hashlib
 import http.client
 import http.cookiejar
 import time
@@ -33,6 +34,22 @@ class SourceHTTPHandler(urllib.request.HTTPHandler):
         )
 
 
+
+class PrivateDeliveryRedirect(urllib.request.HTTPRedirectHandler):
+    """Return303 to the measurement, preserving ordinary workflow302 behavior."""
+    def redirect_request(self, request, response, code, message, headers, newurl):
+        if code == 303 and urllib.parse.urlsplit(newurl).path.startswith("/private-deliveries/"):
+            return None
+        return super().redirect_request(request, response, code, message, headers, newurl)
+
+
+class PrivateProxyTransport(urllib.request.HTTPHandler):
+    """Cookie URL retains the original host; only private GET uses own Caddy TCP."""
+    def http_open(self, request):
+        assert request.get_method() == "GET"
+        assert urllib.parse.urlsplit(request.full_url).path.startswith("/private-deliveries/")
+        return self.do_open(lambda host, **kwargs: http.client.HTTPConnection("caddy:8080", **kwargs), request)
+
 def operator(actor):
     browser = Client()
     browser.force_login(actor)
@@ -55,10 +72,15 @@ def open_client(settings, server, path, *, actor=None, source_address=None):
             0, settings.SESSION_COOKIE_NAME, browser.cookies[settings.SESSION_COOKIE_NAME].value,
             None, False, cookie_host, False, False, "/", True, False, None, True, None, None, {},
         ))
-    handlers = [urllib.request.HTTPCookieProcessor(cookies)]
+    objects = getattr(settings, "CAPACITY_OBJECT_DELIVERY", False)
+    handlers = [urllib.request.ProxyHandler({}), urllib.request.HTTPCookieProcessor(cookies)]
+    if objects:
+        handlers.append(PrivateDeliveryRedirect())
     if handler:
         handlers.append(handler)
     client = urllib.request.build_opener(*handlers)
+    if objects:
+        client.private_delivery = urllib.request.build_opener(urllib.request.ProxyHandler({}), urllib.request.HTTPCookieProcessor(cookies), PrivateProxyTransport())
     begin = time.perf_counter()
     with client.open(server.url + path, timeout=120) as response:
         body = response.read()
@@ -78,8 +100,27 @@ def post(client, endpoint, csrf, values, *, timeout=120, headers=None):
         response = client.open(query, timeout=timeout)
     except urllib.error.HTTPError as error:
         response = error
+    stages = []
     with response:
         body = response.read()
         end = time.perf_counter()
-        return SimpleNamespace(status=response.code, headers=dict(response.headers), body=body,
-                               seconds=end - begin, interval=[begin, end])
+        status, result_headers = response.code, dict(response.headers)
+        stages.append({"method": "POST", "status": status, "interval": [begin, end],
+                       "seconds": end-begin, "bytes": len(body), "sha256": hashlib.sha256(body).hexdigest()})
+    if status == 303:
+        location = urllib.parse.urljoin(endpoint, result_headers["Location"])
+        parsed, original = urllib.parse.urlsplit(location), urllib.parse.urlsplit(endpoint)
+        assert (parsed.scheme, parsed.netloc) == (original.scheme, original.netloc)
+        assert parsed.path.startswith("/private-deliveries/") and not parsed.query
+        assert hasattr(client, "private_delivery"), "Proxy feature not active in actual client"
+        delivered_begin = time.perf_counter()
+        with client.private_delivery.open(location, timeout=timeout) as delivered:
+            body = delivered.read()  # EOF included, never header timing substituted.
+            end = time.perf_counter()
+            status, result_headers = delivered.status, dict(delivered.headers)
+        stages.append({"method": "GET", "transport": "own-caddy:8080", "status": status,
+                       "interval": [delivered_begin, end], "seconds": end-delivered_begin,
+                       "bytes": len(body), "sha256": hashlib.sha256(body).hexdigest()})
+        assert status == 200 and "no-store" in result_headers.get("Cache-Control", "")
+    return SimpleNamespace(status=status, headers=result_headers, body=body,
+                           seconds=end-begin, interval=[begin, end], stages=stages)

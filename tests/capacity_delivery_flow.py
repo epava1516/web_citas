@@ -86,6 +86,10 @@ def sampled(metrics, name, barrier, client, endpoint, csrf, values, profile=Fals
     metrics.setdefault(name, []).append(result.seconds)
     metrics.setdefault(name + "_intervals", []).append(result.interval)
     metrics.setdefault(name + "_bytes", []).append(len(result.body))
+    metrics.setdefault(name + "_http_stages", []).append(result.stages)
+    if hasattr(client, "private_delivery"):
+        assert [stage["status"] for stage in result.stages] == [303, 200]
+        assert [stage["method"] for stage in result.stages] == ["POST", "GET"]
     assert result.status == 200, (name, result.status)
     assert "no-store" in result.headers.get("Cache-Control", "")
     return result.body
@@ -281,6 +285,11 @@ def finish(index, case, author, reviewer, selection, selected, coverage_review,
     endpoint = server.url + url(receipt, export)
     response = post(manifest_client.client, endpoint, manifest_client.csrf, {"key": str(uuid4())})
     assert response.status == 200
+    metrics["manifest_http_stages"] = response.stages
+    if getattr(settings, "CAPACITY_OBJECT_DELIVERY", False):
+        assert [stage["status"] for stage in response.stages] == [303, 200]
+        assert export.images.filter(encrypted_content__startswith="wmblob1:").count() == 16
+        assert not export.parts.exclude(encrypted_content__startswith="wmblob1:").exists()
     manifest = json.loads(response.body)
     assert manifest["schema"] == "rights-data-manifest-v1"
     assert abs(manifest["size"] / (16 * 1024 ** 2) - 1) <= .01
