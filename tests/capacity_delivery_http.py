@@ -69,10 +69,10 @@ def open_client(settings, server, path, *, actor=None, source_address=None):
                            first_open_seconds=elapsed, first_open_bytes=len(body))
 
 
-def post(client, endpoint, csrf, values, *, timeout=120):
+def post(client, endpoint, csrf, values, *, timeout=120, headers=None):
     query = urllib.request.Request(endpoint, data=urllib.parse.urlencode(values, doseq=True).encode(),
         headers={"Content-Type": "application/x-www-form-urlencoded",
-                 "Referer": endpoint, "X-CSRFToken": csrf})
+                 "Referer": endpoint, "X-CSRFToken": csrf, **(headers or {})})
     begin = time.perf_counter()
     try:
         response = client.open(query, timeout=timeout)

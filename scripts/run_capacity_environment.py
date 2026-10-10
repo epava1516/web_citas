@@ -13,6 +13,7 @@ import uuid
 from pathlib import Path
 
 from capacity_artifacts import ARCHIVE_MAX_BYTES, MAX_FILE_BYTES
+from check_capacity_environment import COMPOSE_NEUTRAL
 from run_local_ci import hashes
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -103,7 +104,8 @@ runpy.run_path(sys.argv[0], run_name='__main__')
 """
     command = [
         docker, "--host", "unix:///var/run/docker.sock", "run", "--pull=never",
-        "--rm", "--sig-proxy=false", "--name", name, "--label", f"{LABEL}={run_id}", "--network", "none",
+        "--rm", "--sig-proxy=false", "--name", name, "--label", f"{LABEL}={run_id}", *COMPOSE_NEUTRAL,
+        "--network", "none",
         "--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges",
         "--user", f"{os.getuid()}:{os.getgid()}", "--group-add", str(socket.stat().st_gid),
         "--cpus", "0.05", "--memory", str(128 * MIB), "--memory-swap", str(128 * MIB),

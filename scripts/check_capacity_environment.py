@@ -30,6 +30,9 @@ ALLOCATIONS = {"pg": (100000, 1536), "redis": (25000, 512), "app": (275000, 6144
 STORAGE_BUDGET_BYTES = 20 * GIB
 MEMORY_PEAK_BUDGET_BYTES = 6 * GIB
 LABEL = "web-modelos-capacity-run"
+# The app image carries Compose labels of the normal project; owned containers must not match them.
+COMPOSE_NEUTRAL = [item for key in ["project", "service", "version"]
+                   for item in ("--label", f"com.docker.compose.{key}=")]
 # Owned runtime users: no root, no capabilities, so Docker-managed /etc files stay unwritable.
 OWNED_USERS = {"pg": "70:70", "redis": "999:1000"}
 # The 16MiB shared-memory tmpfs is overfilled once per role to observe the kernel ENOSPC ceiling
@@ -84,8 +87,12 @@ def main():
     parser.add_argument("--database-heavy", action="store_true", help="Rebalance same4CPU budget to PG1.5/app2.25; requires Gunicorn")
     parser.add_argument("--selection-complete", action="store_true", help="All31pages and20fresh approvals; requires balanced Gunicorn")
     parser.add_argument("--delivery-complete", action="store_true", help="Complete native target delivery; requires balanced Gunicorn")
+    parser.add_argument("--delivery-profile", action="store_true", help="Diagnostic stage profiles of one target case; requires balanced Gunicorn")
     parser.add_argument("--owned-controller", action="store_true", help="Require launcher-enforced controller and whole owned budget")
     args = parser.parse_args()
+    if args.delivery_profile and (args.delivery_complete or args.selection_complete or args.selection_profile
+                                  or not (args.selection_gunicorn and args.database_heavy)):
+        parser.error("--delivery-profile requires --selection-gunicorn --database-heavy and no other completion mode")
     if args.delivery_complete and (args.selection_complete or args.selection_profile):
         parser.error("--delivery-complete is exclusive with selection completion/profiling")
     if args.delivery_complete and not (args.selection_gunicorn and args.database_heavy):
@@ -97,7 +104,7 @@ def main():
     allocations = dict(ALLOCATIONS)
     if args.database_heavy:
         allocations.update(pg=(150000, 1536), app=(225000, 6144))
-    if args.delivery_complete:
+    if args.delivery_complete or args.delivery_profile:
         allocations.update(pg=(150000, 3072), app=(225000, 4608))
     if args.owned_controller:
         allocations.update(redis=(20000, 384))
@@ -156,7 +163,7 @@ def main():
 
     def run(command, label, check=True):
         start = time.monotonic()
-        timeout = ((9000 if args.delivery_complete else 5400 if args.selection_complete else 600)
+        timeout = ((9000 if args.delivery_complete else 5400 if args.selection_complete or args.delivery_profile else 600)
                    if args.selection_tcp and label == "control-pytest" else 180)
         step = {"label": label, "command": command, "timeout_seconds": timeout}
         report["steps"].append(step)
@@ -195,6 +202,7 @@ def main():
                      "--log-opt", "compress=false"]
         run(
             ["docker", "run", "--pull=never", "-d", "--name", name, "--label", f"{LABEL}={run_id}",
+             *COMPOSE_NEUTRAL,
              "--network", network, "--network-alias", role,
              "--cpus", str(quota / 100000), "--memory", str(memory * MIB),
              "--memory-swap", str(memory * MIB), "--pids-limit", "256",
@@ -261,7 +269,7 @@ def main():
                     "--tmpfs", "/tmp:size=16777216,uid=70,gid=70"] if args.owned_controller else []
         pg = container(
             "pg", "postgres:17-alpine",
-            ["--tmpfs", "/var/lib/postgresql/data:size=" + str(2 ** 31 if args.delivery_complete else 2 ** 30)
+            ["--tmpfs", "/var/lib/postgresql/data:size=" + str(2 ** 31 if args.delivery_complete or args.delivery_profile else 2 ** 30)
              + (",uid=70,gid=70,mode=0700" if args.owned_controller else ""),
              *owned_pg,
              "-e", "POSTGRES_USER=ci", "-e", "POSTGRES_PASSWORD=ci-synthetic",
@@ -288,7 +296,7 @@ def main():
              "-e", "DB_HOST=pg", "-e", "DB_PORT=5432", "-e", "POSTGRES_DB=capacity_ci",
              "-e", "POSTGRES_USER=ci", "-e", "POSTGRES_PASSWORD=ci-synthetic",
              "-e", "REDIS_URL=redis://redis:6379/0", "--entrypoint", str(ROOT / ".venv/bin/python3")],
-            ["-c", "import time; time.sleep(" + str(10000 if args.delivery_complete else 6000 if args.selection_complete else 1800) + ")"],
+            ["-c", "import time; time.sleep(" + str(10000 if args.delivery_complete else 6000 if args.selection_complete or args.delivery_profile else 1800) + ")"],
         )
         if args.owned_controller:
             report["owned_storage_ceiling_bytes"] = (
@@ -332,7 +340,8 @@ def main():
                 "MEDIA_ROOT = '/tmp/capacity-media'\n"
                 f"CAPACITY_SQL_DIAGNOSE = {args.diagnose!r}\n"
                 f"CAPACITY_SELECTION_GUNICORN = {args.selection_gunicorn!r}\n"
-                f"CAPACITY_SELECTION_PROFILE = {args.selection_profile!r}\n"
+                f"CAPACITY_SELECTION_PROFILE = {args.selection_profile or args.delivery_profile!r}\n"
+                f"CAPACITY_DELIVERY_PROFILE = {args.delivery_profile!r}\n"
                 f"CAPACITY_SELECTION_COMPLETE = {args.selection_complete!r}\n"
                 f"CAPACITY_DELIVERY_COMPLETE = {args.delivery_complete!r}\n"
                 "DATABASES['default']['TEST'] = {'NAME': 'test_capacity_ci'}\n"
@@ -348,6 +357,7 @@ def main():
                  "-p", "no:cacheprovider", "--basetemp=/tmp/capacity-pytest",
                  "--junitxml=/tmp/capacity-control.xml",
                  "tests/test_capacity_delivery_complete.py" if args.delivery_complete else
+                 "tests/test_capacity_delivery_profile.py" if args.delivery_profile else
                  "tests/test_capacity_selection_concurrent_tcp.py" if args.selection_concurrent else
                  "tests/test_capacity_selection_tcp.py" if args.selection_tcp else
                  "tests/test_capacity_target_fixture.py" if args.fixture_target else "tests/test_capacity_case_control.py"],
@@ -380,7 +390,13 @@ def main():
                 for key in ("failures", "errors", "skipped")
             ) or sum(int(suite.attrib.get("tests", 0)) for suite in suites) != 1:
                 raise RuntimeError("Small control did not pass exactly one required test")
-            if args.delivery_complete:
+            if args.delivery_profile:
+                properties = {item.attrib["name"]: item.attrib["value"]
+                              for suite in suites for item in suite.iter("property")}
+                if not json.loads(properties.get("delivery_profile", "{}")).get("server_profiles"):
+                    raise RuntimeError("Requested stage profiles missing: INVALID instrument")
+                report["result"] = "PROFILE_DIAGNOSTIC_NOT_CAPACITY"
+            elif args.delivery_complete:
                 properties = {item.attrib["name"]: item.attrib["value"]
                               for suite in suites for item in suite.iter("property")}
                 measurements = json.loads(properties.get("delivery_measurements", "{}"))
@@ -516,7 +532,8 @@ def main():
         if sink is not None:
             sink.close()
     print(json.dumps({"result": report["result"], "evidence": str(output)}))
-    return 0 if report["result"] in {"READY_NOT_CAPACITY", "CONTROL_PASS_NOT_TARGET_CAPACITY", "FIXTURE_VALID_NOT_CAPACITY", "SELECTION_TCP_PASS_NOT_FULL_CAPACITY", "DELIVERY_STAGES_PASS_NOT_GLOBAL_CAPACITY_OR_N3"} else 1
+    return 0 if report["result"] in {"READY_NOT_CAPACITY", "CONTROL_PASS_NOT_TARGET_CAPACITY", "FIXTURE_VALID_NOT_CAPACITY", "SELECTION_TCP_PASS_NOT_FULL_CAPACITY", "DELIVERY_STAGES_PASS_NOT_GLOBAL_CAPACITY_OR_N3",
+                                               "PROFILE_DIAGNOSTIC_NOT_CAPACITY"} else 1
 
 
 if __name__ == "__main__":

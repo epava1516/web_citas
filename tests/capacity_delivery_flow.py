@@ -1,9 +1,11 @@
 """Full native target flow with real HTTP samples; fixtures never invent read IDs."""
 
+import cProfile
 import hashlib
 import io
 import json
 import math
+import pstats
 import time
 import zipfile
 from uuid import uuid4
@@ -52,18 +54,34 @@ def violation(metrics, name, value, maximum):
 
 
 def measured(metrics, name, operation, *args, maximum=60, **kwargs):
+    profile = None
+    if metrics.get("diagnostic") and name not in metrics.setdefault("profiles", {}):
+        profile = cProfile.Profile()
+        profile.enable()
     begin = time.perf_counter()
     try:
         return operation(*args, **kwargs)
     finally:
+        if profile is not None:
+            profile.disable()
+            output = io.StringIO()
+            pstats.Stats(profile, stream=output).sort_stats("cumulative").print_stats(45)
+            pstats.Stats(profile, stream=output).sort_stats("tottime").print_stats(30)
+            metrics["profiles"][name] = output.getvalue()
         elapsed = time.perf_counter() - begin
         metrics.setdefault(name, []).append(elapsed)
         if elapsed > maximum:
             violation(metrics, name, elapsed, maximum)
 
 
-def sampled(metrics, name, barrier, client, endpoint, csrf, values):
+def sampled(metrics, name, barrier, client, endpoint, csrf, values, profile=False):
     barrier.wait(timeout=120)
+    if profile:
+        # Diagnostic only: one extra server-profiled request, never part of the sample population.
+        result = post(client, endpoint, csrf, values, headers={"X-Capacity-Profile": name})
+        metrics.setdefault(name + "_profiled_seconds", []).append(result.seconds)
+        assert result.status == 200, (name, result.status)
+        return result.body
     result = post(client, endpoint, csrf, values)
     metrics.setdefault(name, []).append(result.seconds)
     metrics.setdefault(name + "_intervals", []).append(result.interval)
@@ -74,6 +92,8 @@ def sampled(metrics, name, barrier, client, endpoint, csrf, values):
 
 
 def gate(metrics, name, maximum, minimum=20):
+    if metrics.get("diagnostic"):
+        return  # Reduced diagnostic populations are never compared against limits.
     samples = metrics[name]
     assert len(samples) >= minimum, (name, len(samples), minimum)
     value = sorted(samples)[math.ceil(len(samples) * .95) - 1]
@@ -87,8 +107,10 @@ def field_values(prefix, facts):
             for key, value in facts.items() if key != "status"}
 
 
-def run_case(index, target, context, server, settings, barrier, metrics):
+def run_case(index, target, context, server, settings, barrier, metrics, diagnostic=False):
     case, selection, reviewer_client, _, csrf, *_ = target
+    metrics["diagnostic"] = diagnostic
+    writes = 4 if diagnostic else 20  # Diagnostic: three plain requests plus one profiled.
     author, reviewer = context["author"], context["reviewer"]
     metrics.update(binary_preparation=context["binary_preparation_operations"], case=str(case.pk))
     author_http = open_client(settings, server,
@@ -97,7 +119,7 @@ def run_case(index, target, context, server, settings, barrier, metrics):
     # Twenty actual writes of an included image preserve the other15images/all scalar fields.
     metrics["selection_versions"] = []
     first_image = context["binary_preparation_operations"][0]
-    for _ in range(20):
+    for attempt in range(writes):
         page = measured(metrics, "image_catalog_preparation", prepare, author, case.pk,
                         case.version, selection.assessment_review_id, uuid4(), REASON,
                         first_image["revision_index"], first_image["image_index"])
@@ -106,18 +128,18 @@ def run_case(index, target, context, server, settings, barrier, metrics):
                   **field_values("image-", {**page["conditions"], "path": page["declaration"]["path"]})}
         sampled(metrics, "binary_page_save", barrier, author_http.client,
                 server.url + f"/en/moderation/rights/{case.pk}/portability/images/",
-                author_http.csrf, values)
+                author_http.csrf, values, profile=diagnostic and attempt == writes - 1)
         selection = RightsPortabilitySelection.objects.filter(request=case, actor=author).latest("version")
         metrics["selection_versions"].append(selection.pk)
         binding = unseal(selection.encrypted_selection)
         assert len(binding["images"]) == 16 and len(binding["selection"]["revisions"]) == 1500
-    assert len(set(metrics["selection_versions"])) == 20
+    assert len(set(metrics["selection_versions"])) == writes
     gate(metrics, "binary_page_save", 5)
     endpoint = server.url + f"/en/moderation/rights/{case.pk}/portability/selection/{selection.pk}/review/"
     for page in range(1, 32):
         body = sampled(metrics, "selection_page_read", barrier, reviewer_client, endpoint, csrf,
             {"operation": "inspect", "key": str(uuid4()), "version": case.version,
-             "reason": REASON, "page": page})
+             "reason": REASON, "page": page}, profile=diagnostic and page == 2)
         assert ("capacity-subject-b" if index == 0 else "capacity-subject-a").encode() not in body
         if page == 1:
             rejected = post(reviewer_client, endpoint, csrf,
@@ -127,11 +149,12 @@ def run_case(index, target, context, server, settings, barrier, metrics):
             assert not RightsPortabilitySelectionReview.objects.filter(selection=selection).exists()
     gate(metrics, "selection_page_read", 2)
     binding = unseal(selection.encrypted_selection)
-    for position in range(20):
+    for position in range(17 if diagnostic else 20):
         image = binding["images"][position % 16]
         body = sampled(metrics, "binary_inspection", barrier, reviewer_client,
             server.url + f"/en/moderation/rights/{case.pk}/portability/selection/{selection.pk}/image/{image['photo']}/",
-            csrf, {"key": str(uuid4()), "version": case.version, "reason": REASON})
+            csrf, {"key": str(uuid4()), "version": case.version, "reason": REASON},
+            profile=diagnostic and position == 16)
         assert hashlib.sha256(body).hexdigest() == image["content_digest"]
     gate(metrics, "binary_inspection", 2)
     decision_key = uuid4()
@@ -159,7 +182,7 @@ def run_case(index, target, context, server, settings, barrier, metrics):
     editor = open_client(settings, server, coverage_path, actor=author)
     metrics.setdefault("first_open_seconds", {})["coverage"] = editor.first_open_seconds
     metrics["coverage_versions"] = []
-    for number in range(20):
+    for number in range(writes):
         page = measured(metrics, "coverage_page_preparation", prepare_page, author, case.pk,
                         case.version, selected.pk, uuid4(), REASON, "revisions", number, 1)
         fields = page["fields"]
@@ -172,10 +195,11 @@ def run_case(index, target, context, server, settings, barrier, metrics):
             values.update(field_values(f"fields-{field_index}-",
                 {**page["decisions"][field["path"]], "path": field["path"]}))
         sampled(metrics, "coverage_page_save", barrier, editor.client,
-                server.url + coverage_path, editor.csrf, values)
+                server.url + coverage_path, editor.csrf, values,
+                profile=diagnostic and number == writes - 1)
         coverage = RightsPortabilityCoverage.objects.filter(request=case, actor=author).latest("version")
         metrics["coverage_versions"].append(coverage.pk)
-    assert len(set(metrics["coverage_versions"])) == 20
+    assert len(set(metrics["coverage_versions"])) == writes
     gate(metrics, "coverage_page_save", 5)
     endpoint = server.url + f"/en/moderation/rights/{case.pk}/portability/coverage/{coverage.pk}/review/"
     required = required_pages(source)
@@ -184,7 +208,8 @@ def run_case(index, target, context, server, settings, barrier, metrics):
         key = uuid4()
         body = sampled(metrics, "coverage_page_read", barrier, reviewer_client, endpoint, csrf,
             {"operation": "inspect", "key": str(key), "version": case.version, "reason": REASON,
-             "dataset": "binary" if binary else dataset, "row_number": row + 1, "field_page": page})
+             "dataset": "binary" if binary else dataset, "row_number": row + 1, "field_page": page},
+            profile=diagnostic and number == 3)
         evidence = RightsPortabilityCoverageRead.objects.get(action__key=key)
         assert (evidence.dataset, evidence.row_index, evidence.field_page, evidence.binary) == (dataset, row, page, binary)
         assert ("capacity-subject-b" if index == 0 else "capacity-subject-a").encode() not in body
@@ -194,6 +219,9 @@ def run_case(index, target, context, server, settings, barrier, metrics):
                  "reason": REASON, "outcome": "approved"})
             assert rejected.status == 409
             assert not RightsPortabilityCoverageReview.objects.filter(coverage=coverage).exists()
+        if diagnostic and number == 3:
+            metrics["diagnostic_stopped_after"] = "coverage_page_read"
+            return
     gate(metrics, "coverage_page_read", 2)
     decision_key = uuid4()
     sampled(metrics, "coverage_final_decision", barrier, reviewer_client, endpoint, csrf,
