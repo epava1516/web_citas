@@ -193,6 +193,12 @@ th { font-weight: 700; background: var(--surface-muted); }
 .pagination { display: flex; justify-content: center; align-items: center; gap: var(--space-4); }
 .pagination a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 var(--space-4); border: 1px solid var(--border-strong); border-radius: var(--radius); text-decoration: none; }
 
+/* Account dashboard */
+.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: var(--space-5); margin: var(--space-5) 0; }
+.dashboard-grid .card { margin: 0; }
+.dashboard-grid .card h2 { font-size: var(--step-1); }
+.dashboard-grid .card p { margin: 0 0 var(--space-3); }
+
 /* Form pages (account access) */
 .form-page { max-width: 480px; margin: 0 auto; }
 .form-page h1 { font-size: var(--step-3); letter-spacing: -0.5px; }
