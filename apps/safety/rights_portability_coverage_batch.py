@@ -12,6 +12,7 @@ from .models import RightsAction
 from .rights import fingerprint
 from .rights_exports import canonical, reviewer_case
 from .rights_inspection_source import inspection_source
+from .rights_portability_batch_projection import batch_projection
 from .rights_portability_coverage_inspection import inspect_page
 from .rights_portability_review import authorize
 from .rights_verification import authorized_proof
@@ -89,7 +90,7 @@ def inspect_batch(
         raise ValidationError("Coverage batch reason unavailable") from error
     pages = []
     summary_cache = {}
-    with inspection_source(person, listing, case) as source:
+    with inspection_source(person, listing, case) as source, batch_projection(source, user, case, proof):
         for index in range(page_count):
             read, page = inspect_page(
                 user,

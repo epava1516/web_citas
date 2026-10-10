@@ -16,6 +16,7 @@ from .rights import fingerprint
 from .rights_exports import canonical, reviewer_case, source_copy
 from .rights_inspection_source import inspection_source, shared_source
 from .rights_inspection_source import source_digest as shared_or_computed
+from .rights_portability_batch_projection import project as project_in_batch
 from .rights_portability_review import authorize, validate_approved_assessment
 from .rights_portability_selection import project_selected
 from .rights_portability_selection_pages import complete_pages, project_page, valid_metadata
@@ -225,9 +226,9 @@ def record(
 
                     required_reads(row, case, proof, binding["images"], actor.pk, ids=image_reads)
             if prepared is None:
-                projected = project_selected(
-                    source, assessment, binding["selection"],
-                    field_evidence=binding.get("field_evidence"),
+                projected = project_in_batch(
+                    _inspection_source, user, case, proof, row, review,
+                    source, assessment, binding, project_selected,
                 )
             model = (
                 RightsPortabilitySelectionRead

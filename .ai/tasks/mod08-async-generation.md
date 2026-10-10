@@ -98,3 +98,22 @@ Tras terminal N2 sourceSQL d5356ab21PASS/0FAIL/0skip106.88s, principal autorizó
 verificación offline: Ruff/py_compile PASS;6guards puros PASS0.14s (modo/size/topology/
 symlink/validconfig/flags/scrubbing). No conexión ni ejecución SQL real; no afirmar
 planes/digest/runtime perfil PASS hasta ensayo del principal. Tests sin PG personal.
+
+## P12 proyección pura dentro del batch (offline)
+
+Base702914e; worktree codex/mod08-batch-projection. Diseño antes de editar comunicado
+al principal: memoizar exclusivamente project_selected después de validar/decrypt frescos
+por child. Ninguna decisión aprobada, firma, metadata imagen, lock, lectura física/SHA o
+expiry/autoridad/proof se omite. ContextVar privado sólo vive dentro del batch atomic y
+inspection_source, misma conexión; scope case/actor epochs/proof/expiry/source y exactos
+ciphertexts/metadata/config/código. Resultados deepcopy, máximo4entradas, limpieza finally.
+Sin toggle público, caché persistido o valores cliente como prueba. Cuatro record/audits
+siguen generando UUID5 individuales y el rollback/final source/actor/proof se conserva.
+No se cachea decrypt ni hashes de firmas ni _audited_images; reducción medida pendiente.
+
+Implementación offline y N2 preparada: equivalencia batch→bypass puro con mismos IDs y
+resultados, 4audited_images físicos reales y4SelectionRead+CoverageRead, 1project_selected;
+negativas tardías epochs/proof/source/expiry/cipher/signature deben revertir todas las
+lecturas/acciones. Selección N2 prevista módulo nuevo más coverage_batch/inspection/use,
+selection_review, shared inspection source y guards binarios. Runner PG real del principal;
+no tests/imports/compilación/carga ejecutados mientras perfil fuentes congeladas.
