@@ -46,3 +46,11 @@ Incluye todos los casos del directorio y la reconstrucción DB/media, fallback
 preexistente y guards. [Evidencia saneada](evidencias/mod08-fixture-snapshots-n2-20261010.json).
 No se declara reducción medida de tiempo ni capacidad/SLO/N3; el ahorro estructural
 verificado es que la segunda restauración no vuelve a ejecutar `seed_demo`.
+
+Refuerzo de propiedad del recurso: antes de clonar, `docker container inspect`
+comprueba nombre exacto `web-modelos-ci-pg-<run>`, etiqueta de run, estado Running
+y publicación 5432 en el host/puerto de la conexión Django. La verificación se
+cachea por run/worker/container/puerto. N1 puro del refuerzo: seis casos PASS,
+0,16s, incluye etiquetas/puertos ajenos rechazados y caché aislada por worker.
+No se repite la N2 de quince casos: algoritmo de clonación/restauración intacto;
+este refuerzo añade una precondición de identidad comprobada mediante dobles en N1.

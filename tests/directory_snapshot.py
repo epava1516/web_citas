@@ -1,9 +1,11 @@
 """Opt-in PostgreSQL/media bootstrap snapshots, confined to disposable local CI."""
 
 import hashlib
+import json
 import os
 import re
 import shutil
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -14,6 +16,7 @@ from django.db import connections
 from psycopg import sql
 
 _CACHE = {}
+_VERIFIED_CONTAINERS = set()
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -22,6 +25,33 @@ class Snapshot:
     template: str
     media: Path
     database: str
+
+
+def _verify_container(run, worker, database):
+    name = os.environ.get("LOCAL_CI_POSTGRES_CONTAINER", "")
+    key = (run, worker, name, database["HOST"], str(database["PORT"]))
+    if key in _VERIFIED_CONTAINERS:
+        return
+    if name != "web-modelos-ci-pg-" + run:
+        raise RuntimeError("Fixture snapshots require the run's own PostgreSQL container")
+    result = json.loads(
+        subprocess.check_output(
+            ["docker", "container", "inspect", name],
+            text=True,
+        )
+    )
+    if len(result) != 1:
+        raise RuntimeError("Fixture PostgreSQL container identity is ambiguous")
+    container = result[0]
+    ports = container.get("NetworkSettings", {}).get("Ports", {}).get("5432/tcp", [])
+    if (
+        container.get("Name") != "/" + name
+        or container.get("Config", {}).get("Labels", {}).get("web-modelos-local-ci-run") != run
+        or not container.get("State", {}).get("Running")
+        or ports != [{"HostIp": database["HOST"], "HostPort": str(database["PORT"])}]
+    ):
+        raise RuntimeError("Fixture PostgreSQL container label or port does not match this run")
+    _VERIFIED_CONTAINERS.add(key)
 
 
 def context():
@@ -54,6 +84,7 @@ def context():
         .is_relative_to(Path(os.environ["LOCAL_CI_TEMPORARY"]).resolve())
     ):
         raise RuntimeError("Fixture test media must remain inside this CI run")
+    _verify_container(run, worker, database)
     return run, worker, snapshot_root, database
 
 

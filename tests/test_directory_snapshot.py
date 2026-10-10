@@ -1,6 +1,7 @@
 """Real PostgreSQL/media equivalence; run via CI --fixture-snapshots."""
 
 import io
+import json
 import os
 from pathlib import Path
 
@@ -103,3 +104,55 @@ def test_snapshot_rejects_normal_database_alias(monkeypatch, settings):
     monkeypatch.setitem(connections["default"].settings_dict, "NAME", "promotion_gate_ci")
     with pytest.raises(RuntimeError, match="exact disposable"):
         context()
+
+
+@pytest.mark.parametrize("mismatch", ["label", "port"])
+def test_snapshot_refuses_container_label_or_port_mismatch(monkeypatch, mismatch):
+    from directory_snapshot import _verify_container
+
+    run = "20261010-120001-12345678"
+    name = "web-modelos-ci-pg-" + run
+    monkeypatch.setenv("LOCAL_CI_POSTGRES_CONTAINER", name)
+    container = {
+        "Name": "/" + name,
+        "State": {"Running": True},
+        "Config": {"Labels": {"web-modelos-local-ci-run": run}},
+        "NetworkSettings": {"Ports": {"5432/tcp": [{"HostIp": "127.0.0.1", "HostPort": "54321"}]}},
+    }
+    if mismatch == "label":
+        container["Config"]["Labels"]["web-modelos-local-ci-run"] = "another-run"
+    else:
+        container["NetworkSettings"]["Ports"]["5432/tcp"][0]["HostPort"] = "54322"
+    monkeypatch.setattr(
+        "directory_snapshot.subprocess.check_output",
+        lambda *args, **kwargs: json.dumps([container]),
+    )
+    with pytest.raises(RuntimeError, match="label or port"):
+        _verify_container(run, "gw0", {"HOST": "127.0.0.1", "PORT": "54321"})
+
+
+def test_snapshot_container_identity_is_cached_only_for_same_worker_and_port(monkeypatch):
+    from directory_snapshot import _verify_container
+
+    run = "20261010-120002-12345678"
+    name = "web-modelos-ci-pg-" + run
+    monkeypatch.setenv("LOCAL_CI_POSTGRES_CONTAINER", name)
+    container = {
+        "Name": "/" + name,
+        "State": {"Running": True},
+        "Config": {"Labels": {"web-modelos-local-ci-run": run}},
+        "NetworkSettings": {"Ports": {"5432/tcp": [{"HostIp": "127.0.0.1", "HostPort": "54323"}]}},
+    }
+    calls = []
+
+    def inspect(*args, **kwargs):
+        calls.append(args)
+        return json.dumps([container])
+
+    monkeypatch.setattr("directory_snapshot.subprocess.check_output", inspect)
+    database = {"HOST": "127.0.0.1", "PORT": "54323"}
+    _verify_container(run, "gw0", database)
+    _verify_container(run, "gw0", database)
+    assert len(calls) == 1
+    _verify_container(run, "gw1", database)
+    assert len(calls) == 2
