@@ -31,7 +31,7 @@ FACTS = {"status": "eligible", "basis": "contract", "origin": "provided",
          "reason": REASON, "evidence": "Synthetic reviewed image; no production legal claim"}
 
 
-def test_binary_page_save_keeps_two_fresh_sources_and_preserves_native_choices(
+def test_binary_page_save_keeps_one_copy_and_fresh_versions_preserving_native_choices(
     request, settings, monkeypatch, record_property
 ):
     case, author, baseline, _, _, _, _ = prepared_selection(request, settings, monkeypatch, False)
@@ -54,10 +54,10 @@ def test_binary_page_save_keeps_two_fresh_sources_and_preserves_native_choices(
     assert body["field_evidence"] == original["field_evidence"]
     assert body["images"] == [{**page["declaration"], "conditions": FACTS}]
     record_property("full_source_reads_per_save", len(calls))
-    assert len(calls) == 2
+    assert len(calls) == 1
     calls.clear()
     assert image_selection.save(author, key, page["token"], REASON, True, FACTS).pk == row.pk
-    assert len(calls) == 2
+    assert len(calls) == 1
     # Drop only private source-sharing arguments to exercise the native fallback.
     for name in ["catalog", "save_selection"]:
         native = getattr(image_selection, name)
@@ -70,7 +70,7 @@ def test_binary_page_save_keeps_two_fresh_sources_and_preserves_native_choices(
     calls.clear()
     replay = image_selection.save(author, key, page["token"], REASON, True, FACTS)
     assert replay.pk == row.pk and unseal(replay.encrypted_selection) == body
-    assert len(calls) == 9  # Existing seven native reads + enclosing two-check context.
+    assert len(calls) == 8  # Seven native reads plus the enclosing initial copy.
 
 
 @pytest.mark.parametrize("change", ["source", "permission", "session", "mfa", "proof"])
@@ -82,7 +82,7 @@ def test_binary_save_rechecks_late_changes_after_final_snapshot_and_rolls_back(
                                    uuid4(), REASON, 0, 0)
     key = uuid4()
     before = RightsPortabilitySelection.objects.filter(request=case).count()
-    native = shared.source_copy
+    native = shared.source_fingerprint
     calls = []
 
     def changed(*args, **kwargs):
@@ -100,7 +100,7 @@ def test_binary_save_rechecks_late_changes_after_final_snapshot_and_rolls_back(
                 RightsProof.objects.filter(pk=baseline.proof_id).update(status="failed")
         return native(*args, **kwargs)
 
-    monkeypatch.setattr(shared, "source_copy", changed)
+    monkeypatch.setattr(shared, "source_fingerprint", changed)
     with pytest.raises((PermissionDenied, ValidationError)):
         image_selection.save(author, key, page["token"], REASON, True, FACTS)
     assert len(calls) == 2

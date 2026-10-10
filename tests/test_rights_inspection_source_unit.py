@@ -13,8 +13,8 @@ from apps.safety import rights_inspection_source as module
 def state(monkeypatch):
     connection = SimpleNamespace(in_atomic_block=True)
     case = SimpleNamespace(pk=1, version=2, person_id=3, account_subject_id=None, manager_version=4)
-    person = SimpleNamespace(pk=3)
-    listing = SimpleNamespace(pk=5)
+    person = SimpleNamespace(pk=3, refresh_from_db=lambda: None)
+    listing = SimpleNamespace(pk=5, refresh_from_db=lambda: None)
     rows = {"source": {"synthetic": ["original"]}, "calls": 0}
 
     def copy(*args):

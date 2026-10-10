@@ -40,7 +40,7 @@ def ready(request, settings, monkeypatch, account_only=False):
 
 
 @pytest.mark.parametrize("account_only", [False, True])
-def test_native_shared_read_and_unshared_replay_are_equivalent_with_two_source_reads(
+def test_native_shared_read_and_unshared_replay_are_equivalent_with_fresh_versions(
     request, settings, monkeypatch, account_only
 ):
     case, coverage, reviewer, _ = ready(request, settings, monkeypatch, account_only)
@@ -64,7 +64,7 @@ def test_native_shared_read_and_unshared_replay_are_equivalent_with_two_source_r
         "subject_account" if account_only else "profile",
     )
     action, page = inspection.inspect_page(*args)
-    assert len(calls) == 2
+    assert len(calls) == 1
     original_record = inspection.record
 
     def unshared(*args, **kwargs):
@@ -74,7 +74,7 @@ def test_native_shared_read_and_unshared_replay_are_equivalent_with_two_source_r
     monkeypatch.setattr(inspection, "record", unshared)
     calls.clear()
     replay, legacy_page = inspection.inspect_page(*args)
-    assert len(calls) == 4
+    assert len(calls) == 3
     assert replay.pk == action.pk and legacy_page == page
     assert RightsPortabilityCoverageRead.objects.filter(coverage=coverage).count() == 1
 
