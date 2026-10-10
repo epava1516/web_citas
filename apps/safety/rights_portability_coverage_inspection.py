@@ -1,5 +1,6 @@
 """Independent audited coverage pages, including omitted values; no approval."""
 
+from contextlib import nullcontext
 from uuid import uuid5
 
 from cryptography.fernet import InvalidToken
@@ -14,7 +15,7 @@ from .models import RightsAction, RightsPortabilityCoverage, RightsPortabilityCo
 from .rights import fingerprint
 from .rights_copy_inspection import SECTIONS
 from .rights_exports import canonical, reviewer_case
-from .rights_inspection_source import inspection_source, source_digest
+from .rights_inspection_source import inspection_source, shared_source, source_digest
 from .rights_portability_coverage import compile_coverage
 from .rights_portability_coverage_page import coverage_page
 from .rights_portability_coverage_pages import baseline_body
@@ -37,6 +38,8 @@ def inspect_page(
     field_page=1,
     *,
     binary=False,
+    _inspection_source=None,
+    _summary_cache=None,
 ):
     if (
         type(binary) is not bool
@@ -66,7 +69,13 @@ def inspect_page(
     )
     if coverage is None or coverage.actor_id == actor.pk:
         raise PermissionDenied("Independent coverage reviewer required")
-    with inspection_source(person, listing, case) as current_source:
+    context = (
+        inspection_source(person, listing, case)
+        if _inspection_source is None
+        else nullcontext(_inspection_source)
+    )
+    with context as current_source:
+        shared_source(current_source, person, listing, case)
         # Audited independent selection inspection enforces current read, scope, authority and versions.
         record(
             user,
@@ -138,16 +147,28 @@ def inspect_page(
         body = baseline_body(coverage, case, author, selection, decision)
         facts = unseal(selection.encrypted_selection)
         assessment = unseal(selection.assessment_review.assessment.encrypted_assessment)
-        summary = compile_coverage(
-            source,
-            assessment,
-            facts["selection"],
-            body["omissions"],
-            facts.get("images", []),
-            body["image_omissions"],
-            field_evidence=facts.get("field_evidence"),
-            allow_partial=True,
+        summary_key = (
+            coverage.pk,
+            coverage.coverage_digest,
+            fingerprint(coverage.encrypted_coverage),
+            current_source.digest,
+            selection.pk,
+            selection.selection_digest,
         )
+        summary = _summary_cache.get(summary_key) if _summary_cache is not None else None
+        if summary is None:
+            summary = compile_coverage(
+                source,
+                assessment,
+                facts["selection"],
+                body["omissions"],
+                facts.get("images", []),
+                body["image_omissions"],
+                field_evidence=facts.get("field_evidence"),
+                allow_partial=True,
+            )
+            if _summary_cache is not None:
+                _summary_cache[summary_key] = summary
         authorize(user, case)
         if (
             authorized_proof(case, person, case.kind).pk != proof.pk

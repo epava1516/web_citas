@@ -1,0 +1,46 @@
+{
+  "id": "20261010-124631-32e33970",
+  "profile": "focused",
+  "result": "PASS",
+  "head": "8f2d34e02a41318d016282149fdd1774faf8e351",
+  "selection": [
+    "tests/test_rights_portability_coverage_batch.py",
+    "tests/test_rights_portability_coverage_review.py",
+    "tests/test_rights_portability_coverage_review_http.py",
+    "tests/test_rights_portability_coverage_review_mobile.py"
+  ],
+  "workers": 2,
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "20",
+      "time": "157.926",
+      "timestamp": "2026-10-10T14:46:50.631065+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [],
+  "cleanup": {
+    "web-modelos-ci-pg-20261010-124631-32e33970": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261010-124631-32e33970": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "raw_sha256": {
+    "result.json": "71f31708ea0e09f25a93ef3214b0034d66b1ef9491862ec3a692f9fa53d8e735",
+    "pytest.xml": "7d9230fd5351eee89547450b0937063a8ebe756a76c3cb0bd6d28e6de5697e9c",
+    "source-hashes.json": "aa20982210f8459feef4ff2c7c24af841342b9235e7fe94152e57ea746a6bcad"
+  },
+  "negative_run": "20261010-124237-88087a1c:14PASS6FAIL; multi-page fixture/DOM selector corrected, raw evidence preserved",
+  "scope": "Functional batch N2 only, no capacity or global phase acceptance."
+}

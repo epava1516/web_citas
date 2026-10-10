@@ -15,6 +15,7 @@ from .rectification_presentation import caption
 from .rights import allowed
 from .rights_copy_information_views import LocalizedForm
 from .rights_portability import DATASETS
+from .rights_portability_coverage_batch import inspect_batch
 from .rights_portability_coverage_inspection import inspect_page
 from .rights_portability_coverage_review import record
 from .rights_portability_prepare_selection_views import field_label
@@ -30,6 +31,13 @@ class PageForm(LocalizedForm):
     dataset = forms.ChoiceField(choices=[], label="Conjunto / Dataset")
     row_number = forms.IntegerField(min_value=1, initial=1, label="Registro / Record")
     field_page = forms.IntegerField(min_value=1, initial=1, label="Página / Page")
+    page_count = forms.IntegerField(
+        required=False,
+        min_value=1,
+        max_value=4,
+        initial=1,
+        label="Páginas por consulta / Pages per inspection",
+    )
     reason = forms.CharField(
         min_length=20,
         max_length=200,
@@ -134,6 +142,7 @@ def review(request, case_id, coverage_id):
         language=request.LANGUAGE_CODE, initial={"key": uuid4(), "version": case.version}
     )
     page = decision = None
+    inspected_pages = []
     status = 200
     if request.method == "POST":
         status = 400
@@ -143,7 +152,8 @@ def review(request, case_id, coverage_id):
                 if form.is_valid():
                     values = form.cleaned_data
                     binary = values["dataset"] == "binary"
-                    _, page = inspect_page(
+                    count = values.get("page_count") or 1
+                    arguments = (
                         request.user,
                         case.pk,
                         values["version"],
@@ -153,28 +163,39 @@ def review(request, case_id, coverage_id):
                         "revisions" if binary else values["dataset"],
                         values["row_number"] - 1,
                         values["field_page"],
-                        binary=binary,
                     )
-                    for field in page["fields"]:
-                        statuses = {
-                            "included": ("Incluido", "Included"),
-                            "excluded": ("Excluido", "Excluded"),
-                            "pending": ("Pendiente", "Pending"),
-                        }
-                        value = field["status"]
-                        field["status_caption"] = statuses.get(value, (value, value))[
-                            request.LANGUAGE_CODE == "en"
-                        ]
-                        if field.get("conditions"):
-                            field["condition_captions"] = condition_captions(
-                                field["conditions"], request.LANGUAGE_CODE
+                    if count == 1:
+                        _, page = inspect_page(*arguments, binary=binary)
+                        inspected_pages = [page]
+                    else:
+                        inspected_pages = [
+                            item
+                            for _, item in inspect_batch(
+                                *arguments, binary=binary, page_count=count
                             )
-                        field["label"] = (
-                            field.get("photo") if binary else field_label(field["path"])
-                        )
-                        field["display_value"] = (
-                            field.get("processing_status") if binary else field["value"]
-                        )
+                        ]
+                        page = inspected_pages[0]
+                    for inspected in inspected_pages:
+                        for field in inspected["fields"]:
+                            statuses = {
+                                "included": ("Incluido", "Included"),
+                                "excluded": ("Excluido", "Excluded"),
+                                "pending": ("Pendiente", "Pending"),
+                            }
+                            value = field["status"]
+                            field["status_caption"] = statuses.get(value, (value, value))[
+                                request.LANGUAGE_CODE == "en"
+                            ]
+                            if field.get("conditions"):
+                                field["condition_captions"] = condition_captions(
+                                    field["conditions"], request.LANGUAGE_CODE
+                                )
+                            field["label"] = (
+                                field.get("photo") if binary else field_label(field["path"])
+                            )
+                            field["display_value"] = (
+                                field.get("processing_status") if binary else field["value"]
+                            )
                     form = PageForm(
                         language=request.LANGUAGE_CODE, initial={**values, "key": uuid4()}
                     )
@@ -218,6 +239,7 @@ def review(request, case_id, coverage_id):
                 "form": form,
                 "decision_form": decision_form,
                 "page": page,
+                "inspected_pages": inspected_pages,
                 "decision": decision,
                 "decision_caption": dict(decision_form.fields["outcome"].choices).get(
                     decision.outcome, decision.outcome

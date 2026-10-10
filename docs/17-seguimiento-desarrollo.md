@@ -1,5 +1,9 @@
 # Seguimiento de ejecución del contrato
 
+**MOD-08 pieza12 N2 PASS:** run `20261010-124631-32e33970`,20PASS0skips157,921s, PostgreSQL17/Redis7.4 y Chromium ES/EN reales; fuentes intactas/retirada verificadas. [Evidencia](evidencias/mod08-coverage-batch-n2-20261010.json). Primer negativo14PASS6FAIL conservado: fixture sólo tenía una revisión y selector contaba campos en vez de páginas; correctiva usa3revisiones y secciones de página. Límite1–4/idempotencia/conflicto/revisor independiente/rollback posterior y privacidad GET/CSRF/móvil verificados. Pendiente integración conjunta y capacidad.
+
+**MOD-08 pieza12 — reserva N2:** lote de cobertura1–4 páginas con lecturas independientes, acción raíz idempotente, rollback atómico y presentación ES/EN móvil. Se ejecutan nuevo archivo batch y regresiones domain/HTTP/mobile actuales, PostgreSQL17/Redis7.4 propios,2workers y snapshots sólo baseline; fuentes congeladas hasta terminal. No acredita capacidad ni aprobación de revisión.
+
 Actualizado: 2026-10-09. Fuente contractual: [contrato16](16-contrato-ejecucion-desarrollo.md). Este documento mantiene el estado y la única cola de ejecución; evidencias y condiciones de cierre se enlazan desde él.
 
 ## Estado vigente para reanudar
