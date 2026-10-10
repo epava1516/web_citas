@@ -222,6 +222,7 @@ def test_controller_error_scrubs_timeout_command_secrets(baseline_modules):
 
 def test_dependency_identity_binds_lock_versions_and_python(baseline_modules, tmp_path):
     from types import SimpleNamespace
+
     from diagnostic_baseline_dependencies import fingerprint
     (tmp_path / 'uv.lock').write_bytes(b'original-lock')
     (tmp_path / 'pyproject.toml').write_bytes(b'original-project')
