@@ -218,3 +218,31 @@ def test_controller_error_scrubs_timeout_command_secrets(baseline_modules):
     assert sentinel not in error
     assert 'private-sentinel-key' not in error
     assert 'TimeoutExpired' in error
+
+
+def test_dependency_identity_binds_lock_versions_and_python(baseline_modules, tmp_path):
+    from types import SimpleNamespace
+    from diagnostic_baseline_dependencies import fingerprint
+    (tmp_path / 'uv.lock').write_bytes(b'original-lock')
+    (tmp_path / 'pyproject.toml').write_bytes(b'original-project')
+    def dist(name, version):
+        return SimpleNamespace(metadata={'Name': name}, version=version)
+    packages = [dist('orjson', '3.10.0'), dist('Django', '5.2.0')]
+    runtime = ('CPython', '3.12.0', 'cpython-312')
+    original = fingerprint(tmp_path, distributions=packages, runtime=runtime)
+    assert fingerprint(tmp_path, distributions=list(reversed(packages)), runtime=runtime) == original
+    assert fingerprint(tmp_path, distributions=[dist('ORJSON', '3.10.0'), dist('django', '5.2.0')], runtime=runtime) == original
+    assert fingerprint(tmp_path, distributions=[dist('orjson', '3.11.0'), packages[1]], runtime=runtime) != original
+    assert fingerprint(tmp_path, distributions=packages, runtime=('CPython', '3.12.1', 'cpython-312')) != original
+    (tmp_path / 'uv.lock').write_bytes(b'changed-lock')
+    assert fingerprint(tmp_path, distributions=packages, runtime=runtime) != original
+    (tmp_path / 'uv.lock').write_bytes(b'original-lock')
+    (tmp_path / 'pyproject.toml').write_bytes(b'changed-project')
+    assert fingerprint(tmp_path, distributions=packages, runtime=runtime) != original
+    with pytest.raises(ValueError, match='metadata missing'):
+        fingerprint(tmp_path, distributions=[], runtime=runtime)
+    with pytest.raises(ValueError, match='name metadata'):
+        fingerprint(tmp_path, distributions=[dist('', '1')], runtime=runtime)
+    (tmp_path / 'uv.lock').unlink()
+    with pytest.raises(ValueError, match='manifest missing'):
+        fingerprint(tmp_path, distributions=packages, runtime=runtime)

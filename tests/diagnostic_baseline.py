@@ -44,6 +44,7 @@ def codec():
 
 
 def policy():
+    from diagnostic_baseline_dependencies import fingerprint
     source = hashlib.sha256()
     for folder in ('apps', 'config', 'scripts', 'tests'):
         for path in sorted((ROOT / folder).rglob('*.py')):
@@ -74,6 +75,7 @@ def policy():
         cursor.execute('SHOW server_version')
         version = cursor.fetchone()[0]
     return {'code': source.hexdigest(), 'config': config, 'schema': schema, 'postgres': version,
+            'dependencies': fingerprint(ROOT),
             'config_fields': {name: hashlib.sha256(value.encode()).hexdigest() for name, value in values}}
 
 
