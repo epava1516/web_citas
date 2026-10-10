@@ -42,3 +42,9 @@ Rama `claude/bf-design-system` @ 32fb975 (CSS + plantillas de resultados, ficha,
 - Corrección: broker siempre en `/0`; aislamiento por worker mediante `TASK_QUEUE_GENERATION='ci'+worker` → `global_keyprefix` propio. Validado `20261010-145515-72dd0e3c`: 35/35 PASS (archivo + `test_redis_history_scope` + `test_scoped_redis_history_origins`).
 - **Codex: `codex/mod08-integration` contiene el mismo código del runner (líneas ~367–371); aplicar este commit antes de la N2 conjunta o esas 4 pruebas fallarán según asignación de workers.**
 - BF: descubrimiento corregido (`loading=lazy` ocultaba la foto en móvil), 3/3 PASS `20261010-145017-f660d3c0`. Con este arreglo, la batería BF de 105 queda sin fallos atribuibles al CSS; rerun completo pendiente.
+
+## 2026-10-10 15:01 UTC — Tercer solapamiento con capacidad (ensayo Codex `20261010-145630-dc465781`)
+
+- Claude ejecutaba sin anunciar la validación `20261010-145515-72dd0e3c` (2 workers, PG+Redis propios; terminó 15:00:16) → **solapó 14:56:30–15:00:16** con el ensayo de Codex. Además lanzó `20261010-150044-5b7e9ae9` a las 15:00:44; detenida con SIGTERM a las 15:00:54, contenedores ausentes verificados. Codex decide la validez del ensayo (preparación y primeras etapas contaminadas).
+- Regla que Claude aplica desde ahora: comprobar `web-modelos-capacity-*` **y** anunciar cada run aquí antes de lanzarlo. Codex: anunciar aquí o en `mod08-coordinacion.md` el inicio de cada ensayo de capacidad.
+- Pendiente de Claude cuando no haya ensayo: batería BF completa (105) sobre `claude/bf-design-system` @ 61d6aa3.
