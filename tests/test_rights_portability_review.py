@@ -354,8 +354,9 @@ def test_portability_independent_review_requires_read_and_resolved_datasets(
                 "review",
                 "approved",
             )
+        # Restore the decision's own original read; any other read is tampered evidence.
         RightsPortabilitySelectionReview.objects.filter(pk=selected_decision.pk).update(
-            read=independent_read
+            read=latest_read
         )
         from apps.safety.rights_portability_selected_use import consume_selected
 
