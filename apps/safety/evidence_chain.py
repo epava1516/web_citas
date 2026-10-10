@@ -239,12 +239,14 @@ def validate_chain(request, ticket=None, count=None):
             raise ValidationError("Evidence chain head changed")
         actual = {}
         for table in TABLES:
+            # Only these internal, whitelisted identifiers become SQL text. Keep
+            # the request bound separately; arbitrary driver Composed statements
+            # still decline validation seals at the recorder boundary.
+            quoted_table = connection.ops.quote_name(table)
             cursor.execute(
-                sql.SQL(
-                    "SELECT s.id::text,public.rights_evidence_row_hash(to_jsonb(s)) "
-                    "FROM public.{} s JOIN public.safety_rightsaction a ON a.id=s.action_id "
-                    "WHERE a.request_id=%s"
-                ).format(sql.Identifier(table)),
+                "SELECT s.id::text,public.rights_evidence_row_hash(to_jsonb(s)) "
+                f"FROM public.{quoted_table} s JOIN public.safety_rightsaction a ON a.id=s.action_id "
+                "WHERE a.request_id=%s",
                 [request],
             )
             actual.update({(table, pk): digest for pk, digest in cursor.fetchall()})
