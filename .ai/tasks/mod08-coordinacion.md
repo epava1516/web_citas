@@ -93,3 +93,25 @@ Preferencia del usuario, 2026-10-10: cada nueva métrica de rendimiento debe pre
 Commit `d5c1db7`, integrado localmente en rama de integración y master: evitar canonización/digests repetidos por validación, firmas puras acotadas por operación atómica con SECRET_KEY fresco, validación única de decisión excluida equivalente, retorno audit-only sin copias descartadas, consultas latest id-only, transporte S3 acotado por operación con crypto/config frescos. N2 conjunta `20261010-195055-30642e82`: **432PASS/0FAIL/0skips/599,336s**, 37archivos, fuentes sin cambios, hash exacto de20archivos revisados y retirada independiente verificada de PostgreSQL/Redis/RustFS propios. [Evidencia y JUnit saneado](../../docs/evidencias/mod08-calculos-puros-transporte-20261010.json). Negativa previa preservada; correctiva posterior solo tres pruebas, no producción.
 
 La validación pasa de428PASS/4FAIL a432PASS/0FAIL; no es una mejora de latencia del request. Rendimiento de este commit todavía no medido y baseline antiguo inválido para estas fuentes. Se revisan aparte pipeline SQL acotado y verificación S3 de dos objetos paralelos antes de una nueva medición. Cada nueva métrica temporal incluirá cuadro comparativo, número de muestras, población y alcance. Criterios originales y porcentajes contractuales intactos; N3 y capacidad completa2casos pendientes.
+
+
+Prototipo aislado SQL pipeline8/S3 dos objetos: N2 `20261010-200324-ff7a5086` terminó457PASS/3FAIL/0skips626,052s en39archivos, fuentes estables y PG/Redis propios retirados. [Evidencia negativa](../../docs/evidencias/mod08-protocolo-paralelo-negativa-20261010.json). No integrado. Dos nuevos casos exigían rechazo ante mutaciones que deben contrastarse con validación completa; un caso previo LOGIN enforced declinó sello válido y requiere diagnóstico sin rebajar su assert. Próxima dirigida instrumentará diferencias/expiry/errores sin exponer SQL/params/credenciales. Rendimiento todavía sin nueva medición, objetivos originales intactos.
+
+Diagnóstico dirigido `20261010-201850-4cea6891`:21PASS/1FAIL,22casos,222,296s,fuentes estables y retirada PG/Redis. Los21casos de producción pasan; falla exclusivamente wrapper temporal por falta de marca django_db antes de fixture, sin eventos. Corregida marca/import del diagnóstico, producción intacta. Repetición `20261010-202327-4947025d` PID1581029/startticks338441669 activa; fuentes congeladas. [Evidencia dirigida](../../docs/evidencias/mod08-protocolo-dirigida-diagnostico-20261010.json). No sustituye conjunta460 ni nueva medida de request.
+
+Dirigida correctiva `20261010-202327-4947025d`:22PASS/0FAIL/0skips243,559s,fuentes sin cambios,retirada PG/Redis. Instrumentación:124resultados pipeline==serial==grabados;caller/config coinciden,TTL>86387s. Diagnóstico no equivalente a rendimiento/aceptación. [Evidencia saneada](../../docs/evidencias/mod08-protocolo-dirigida-correctiva-20261010.json). Test temporal preservado en artifacts ignored y retirado de tests. Ruff4archivos/diffcheckPASS. Relanzada conjunta39archivos/460casos3workers PID1612282/startticks338472196;fuentes congeladas. Hipótesis estática ante fallo anterior:orden SQL sinORDER/planes,callergraph/config/TTL;ninguna probada,ningún guard rebajado.
+
+
+## Pipeline SQL y verificación física paralela — integración local
+
+Commit `e19c3fc`, integrado localmente en rama de integración y master. SQL fresco en pipeline de8 statements independientes, misma conexión/snapshot por statement, drenaje antes de rollback y fallback serial compatible. Verificación física completa de dos objetos simultáneos como máximo, transporte privado por worker dentro de una invocación, crypto/config frescos, errores observados en orden y cierre obligatorio; no se omiten tombstones/SHA/AEAD/EOF/contexto.
+
+N2 conjunta `20261010-202832-ee994233`: **460PASS/0FAIL/0skips/632,491s**,39archivos,3workers,hashes exactos revisados,fuentes sin cambios y retirada PG/Redis/RustFS verificada. [Evidencia y JUnit saneado](../../docs/evidencias/mod08-protocolo-paralelo-integrado-20261010.json). Negativa previa preservada:dos nuevas mutaciones corregidas tras comprobar rechazo completo; warm fallback previo no reproducido y causa todavía no probada,assert original intacto. Dirigida instrumentada22PASS:124resultados pipeline==serial==grabados,caller/config coincidentes,TTL suficiente; instrumentación temporal retirada antes de conjunta.
+
+| Regresión conjunta (misma población460) | Anterior | Actual | Objetivo |
+| --- | ---: | ---: | ---: |
+| Pruebas aprobadas | 457 | 460 | 460 |
+| Fallos | 3 | 0 | 0 |
+| Casos omitidos | 0 | 0 | 0 |
+
+Es una correctiva/verificación funcional, no mejora medida del request. Próxima captura nueva1509páginas y reutilización diagnóstica con comparativa383/123batches y JSON3/binario8; baseline antiguo inválido para estas fuentes. Objetivos originales2casos y límites intactos; N3/capacidad completa/CR09 pendientes, porcentajes contractuales sin avance.

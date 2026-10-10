@@ -1,0 +1,32 @@
+{
+  "run_id": "20261010-201850-4cea6891",
+  "scope": "Directed diagnostic: three files, one worker; not capacity or joint integration acceptance",
+  "result": "ERROR",
+  "junit": [
+    {
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "22",
+      "time": "222.296"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261010-201850-4cea6891": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261010-201850-4cea6891": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "production_tests": "21 passed including all pipeline and existing enforced LOGIN tests",
+  "temporary_diagnostic_failure": "Missing django_db transaction mark before fixture initialization; empty diagnostic events. Fixed only temporary diagnostic mark/import; no production change.",
+  "next_run_id": "20261010-202327-4947025d",
+  "next_pid": 1581029,
+  "performance_measured": false
+}

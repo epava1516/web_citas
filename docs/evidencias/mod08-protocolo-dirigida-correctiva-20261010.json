@@ -1,0 +1,83 @@
+{
+  "run_id": "20261010-202327-4947025d",
+  "scope": "Directed diagnostic 3 files 1 worker; observer adds SQL; not capacity, timing or joint integration acceptance",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261010-202327-4947025d": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261010-202327-4947025d": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "junit": [
+    {
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "22",
+      "time": "243.559"
+    }
+  ],
+  "events_summary": [
+    {
+      "any_seal": false,
+      "caller_matches": null,
+      "phase": "candidate",
+      "present": false,
+      "remaining_seconds": null,
+      "rule_matches": null
+    },
+    {
+      "accepted": false,
+      "candidate_present": false,
+      "phase": "holds"
+    },
+    {
+      "any_seal": false,
+      "caller_matches": null,
+      "phase": "candidate",
+      "present": false,
+      "remaining_seconds": null,
+      "rule_matches": null
+    },
+    {
+      "accepted": false,
+      "candidate_present": false,
+      "phase": "holds"
+    },
+    {
+      "any_seal": true,
+      "caller_matches": true,
+      "phase": "candidate",
+      "present": true,
+      "remaining_seconds": 86387.959577,
+      "rule_matches": true
+    },
+    {
+      "expected_count": 124,
+      "expiry_after_seconds": 86387.573992,
+      "expiry_before_seconds": 86387.944834,
+      "phase": "replay",
+      "pipeline_count": 124,
+      "pipeline_expected_mismatch_indices": [],
+      "pipeline_serial_mismatch_indices": [],
+      "serial_count": 124,
+      "serial_expected_mismatch_indices": []
+    },
+    {
+      "accepted": true,
+      "candidate_present": true,
+      "phase": "holds"
+    }
+  ],
+  "temporary_diagnostic_removed": true,
+  "next_joint_pid": 1612282,
+  "next_joint_startticks": "338472196",
+  "production_changed_for_directed_fix": false
+}
