@@ -333,7 +333,9 @@ def test_broker_outage_preserves_durable_job_and_reconciles(request, settings, m
     assert job.state == "succeeded"
 
 
-def test_technical_retries_are_bounded_and_clear_private_reason(request, settings, monkeypatch):
+def test_technical_retries_are_bounded_and_clear_private_reason(
+    request, settings, monkeypatch, caplog
+):
     case, author, row, decision, *_ = prepared(request, settings, monkeypatch)
     job = enqueue(case, author, row, decision)
 
@@ -348,8 +350,20 @@ def test_technical_retries_are_bounded_and_clear_private_reason(request, setting
         assert job.attempts == attempt
         assert job.state == ("failed" if attempt == jobs.MAX_ATTEMPTS else "queued")
     assert job.encrypted_reason == "" and job.finished_at is not None
+    # Each failed attempt names its exception class, never its private message.
+    failures = [r.getMessage() for r in caplog.records if r.name == jobs.__name__]
+    assert len(failures) == jobs.MAX_ATTEMPTS
+    assert all(m.endswith("attempt failed: RuntimeError") for m in failures)
+    assert not any("Synthetic transient" in m for m in failures)
     jobs.run(job.pk)
     assert RightsExport.objects.count() == 0
+
+
+def test_worker_limits_allow_the_generation_objective_within_the_lease():
+    from apps.safety.tasks import generate_portability_export as task
+
+    assert (task.soft_time_limit, task.time_limit) == (jobs.SOFT_TIME_LIMIT, jobs.TIME_LIMIT)
+    assert 120 < jobs.SOFT_TIME_LIMIT < jobs.TIME_LIMIT < jobs.LEASE.total_seconds()
 
 
 @pytest.mark.parametrize("change", ["permission", "proof"])

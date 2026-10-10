@@ -1,5 +1,6 @@
 """Durable private generation jobs. Domain generation remains the single authority."""
 
+import logging
 from datetime import timedelta
 from uuid import uuid4
 
@@ -20,7 +21,12 @@ from .rights_portability_export import generate
 
 MAX_ATTEMPTS = 3
 LEASE = timedelta(minutes=10)
+# Worker limits sit above the 120 s generation objective; the objective is measured by
+# acceptance, not enforced by killing valid generations. Both stay below the lease.
+SOFT_TIME_LIMIT = 240
+TIME_LIMIT = 300
 DISPATCH_INTERVAL = timedelta(minutes=1)
+logger = logging.getLogger(__name__)
 
 
 def original_actor(job):
@@ -229,10 +235,13 @@ def run(job_id):
             job.save(
                 update_fields=["export", "state", "finished_at", "encrypted_reason", "lease_until"]
             )
-    except (PermissionDenied, ValidationError, InvalidToken, KeyError, User.DoesNotExist):
+    except (PermissionDenied, ValidationError, InvalidToken, KeyError, User.DoesNotExist) as error:
+        # Class name only: messages may carry private case data.
+        logger.warning("Portability export job %s rejected: %s", job_id, type(error).__name__)
         finish_attempt(job_id, token, rejected=True)
-    except Exception:
+    except Exception as error:
         # Rollback includes the export and all its domain actions; replay is safe.
+        logger.warning("Portability export job %s attempt failed: %s", job_id, type(error).__name__)
         finish_attempt(job_id, token, rejected=False)
 
 

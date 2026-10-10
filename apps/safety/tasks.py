@@ -244,7 +244,13 @@ def purge_expired_access_field_decision():
         )
 
 
-@shared_task(ignore_result=True, acks_late=True, reject_on_worker_lost=True)
+@shared_task(
+    ignore_result=True,
+    acks_late=True,
+    reject_on_worker_lost=True,
+    soft_time_limit=240,
+    time_limit=300,
+)
 def generate_portability_export(job_id):
     from .rights_portability_jobs import run
 
