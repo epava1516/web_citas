@@ -1,6 +1,6 @@
-# Contrato de ejecución del desarrollo — versión 1.7
+# Contrato de ejecución del desarrollo — versión 1.8
 
-Versión vigente1.7/MOD-07: relevo principal directo a Claude autorizado por aclaración posterior del usuario; criterios técnicos anteriores se conservan.
+Versión vigente1.8/MOD-08: modernización técnica autorizada (§MOD-08) sobre el relevo directo MOD-07; criterios técnicos anteriores se conservan.
 
 Origen: 2026-10-03. Formulación consolidada: 2026-10-09, **MOD-06**, autorizada por el usuario al solicitar consolidar el contrato y adoptar CI propio sin presupuesto para alojamiento. Tipo: especificación de ejecución y aceptación. El proyecto es nuevo y no tiene producción real.
 
@@ -235,6 +235,12 @@ Es una excepción local explícita a las atribuciones exclusivas Codex y al mode
 
 La revisión externa aportada por el usuario se conserva como propuesta no ejecutada, no como PASS ni informe V1 aceptado. No se aplica P1–P8 automáticamente: revisar fuentes/documentos y garantías reales, especialmente quota de storage, logs, limpieza exacta y timeouts; la suma de picos es cota superior, no pico síncrono, y un incumplimiento válido sigue FAIL. No dar por verificados controles kernel por leer flags. Un parseo de mounts y límites de conteo/tamaño no prueban por sí solos un techo kernel del almacenamiento ni de logs. Resultado JSON aportado usa STATUS/formatos distintos de V1; útil como contexto externo, no aceptación del adaptador. La lectura de archivos y los tiempos/tokens son declarados por el usuario/Claude, no auditados aquí.
 
+## MOD-08 — modernización técnica del núcleo, autorizada 2026-10-10
+
+Decisión expresa del usuario: «Acepto todo lo que modernice en post de mejorar nuestro proyecto … aprovechar que el desarrollo es nuevo». Se autoriza sustituir piezas técnicas por alternativas más eficientes mientras no exista producción ni datos reales: evidencia inmutable por construcción (append-only impuesto por PostgreSQL y cadena de hashes por expediente) con validación incremental; huellas de versión de fila y sellos de validación por reproducción de consultas; generación de exportaciones en tareas Celery; cifrado AEAD en flujo y binarios en almacenamiento de objetos S3 compatible propio; serialización canónica y hashing más rápidos; descargas servidas por el proxy tras verificación; paralelización de pruebas con bases por worker, plantillas de base de datos y selección por impacto; revisión independiente por lotes auditados.
+
+Límites: no cambia objetivos numéricos ni criterios (página ≤50 filas, p95, revisión independiente auditada, autoridad fresca, privacidad, idempotencia), no rebaja garantías y no autoriza proveedores externos, compras, publicación ni datos reales. Cada sustitución necesita diseño breve, pruebas de equivalencia/completitud por fuente y mutación, N2 propia y registro; los artefactos y digests sintéticos existentes pueden regenerarse cuando una forma canónica cambie, conservando la evidencia histórica como tal. Prioridad: mejoras 3 y 4 en curso, después tareas asíncronas, AEAD/objetos, canónica/hashing y pruebas paralelas, y por último inmutabilidad con cadena de hashes y revisión por lotes, que tocan el contrato funcional y actualizarán contratos internos antes de GS01.
+
 ### Antecedente previo al relevo directo
 
 Revisión para el relevo 2026-10-09: AI_ENGINEERING1.0.1 V1 prohíbe herramientas, ediciones directas y operaciones Git del delegado; solo Codex acepta e integra. No autoriza que un goal de Claude ejecute toda la entrega directamente. La [modificación propuesta](relevo-claude-20261009.md#autorización-necesaria-para-un-relevo-directo) requiere instrucción expresa del usuario y procedimiento de escritor compatible; no está adoptada.
@@ -295,6 +301,7 @@ La vía proyectada anterior y sus pruebas experimentales se retiraron; no se req
 | MOD-03 | 2026-10-06  / 1.3 | Delegación sin máximo numérico; adaptador oficial y consumo acumulado. |
 | MOD-04 | 2026-10-07  / 1.4 | Rendimiento de lectura y criterios de medición; diagnóstico secuencial/prohibición de persistencia sustituidos por arquitectura MOD-05. |
 | MOD-05 | 2026-10-08  / 1.5 | Estado de publicación con garantías, autorización para simplificar lo abandonado en proyecto nuevo. |
+| MOD-08 | 2026-10-10  / 1.8 | Modernización técnica autorizada sin cambiar objetivos ni garantías; sustituciones con equivalencia y N2 propias. |
 | MOD-06 | 2026-10-09  / 1.6 | Formulación operativa consolidada, aceptación local/producción explícita y CI propio sin dependencia de pago. |
 
 MOD-06 afecta §§1–17, interpretación de cierre en matriz83 y formulación relacionada en contratos14/15. No amplía el MVP, introduce cobros, rebaja permisos/privacidad/pruebas, cambia pesos/SLO o acepta una fase. No cambia código, esquema o datos ni autoriza publicación, proveedores o cargas nuevas. Los parámetros sintéticos prueban mecanismos; no aprueban políticas reales. El presupuesto futuro de planificación no es presupuesto disponible ni autorización de gasto.

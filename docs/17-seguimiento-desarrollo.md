@@ -34,6 +34,8 @@ Revisión crítica de P1–P8 y del prototipo: el lanzador no podía ejecutarse 
 
 **N2 de equivalencias exactas PASS e integrada.** `20261010-091912-0d3425cf`:414PASS/0FAIL/0skips (4.913,6s), fuentes iguales, retirada verificada; integrada en master (`4d5ef38`). [Evidencia](evidencias/n2-equivalencias-validacion-20261010.json). Siguiente: diagnóstico completo de un caso desacoplado para medir el efecto antes de decidir el sello de entrega.
 
+**MOD-08 adoptado (2026-10-10).** Modernización técnica autorizada por el usuario: [contrato16 §MOD-08](16-contrato-ejecucion-desarrollo.md#mod-08--modernización-técnica-del-núcleo-autorizada-2026-10-10). Cola: (1) mejora 3 huella de versión de fila — implementada en `claude/source-version` (`4ea995e`), 12 PASS de completitud; (2) mejora 4 sello por reproducción de consultas — escrito, pruebas pendientes; (3) generación en Celery; (4) AEAD en flujo y objetos S3 propios; (5) orjson/BLAKE3; (6) pytest-xdist y plantillas de base; (7) evidencia inmutable con cadena de hashes y revisión por lotes, con actualización de contratos. Los objetivos de capacidad no cambian.
+
 ### Corte anterior de pausa y propuesta acotada
 
 **Pausa y relevo solicitados el 2026-10-09.** El goal está **pausado** tras recoger los terminales y comprobar ausencia de contenedores/redes/temporales propios; no se inicia otro bloque del contrato ni se invoca a Claude. Este corte sustituye las instrucciones de ejecución inmediata que aparecen en los antecedentes inferiores. [Informe y continuación exacta](relevo-claude-20261009.md), [inventario completo y evidencia](evidencias/relevo-local-20261009.json), [prompt conforme al modelo vigente](prompt-relevo-claude-20261009.md).
