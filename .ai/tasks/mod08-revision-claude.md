@@ -25,3 +25,9 @@ Claude lanzó una batería funcional BF (`run_local_ci` 6 workers, Chromium móv
 ## Guarda del hallazgo 1 preparada (sin ejecutar)
 
 Rama `claude/seal-time-guard` (`fe76650`, sobre `codex/mod08-integration@5820942`, worktree `../web_modelos_claude_sealguard`): `recording()` marca `supported=False` si una sentencia tiene parámetro `datetime` y su resultado no expone columnas de caducidad; prueba PostgreSQL `test_time_filtered_answer_without_expiry_column_declines_the_seal`. Pendiente de ejecutar en una ventana sin capacidad viva junto a `tests/test_rights_validation_seal.py` completo, para confirmar que los sellos reales se siguen creando (si alguna consulta legítima de la cadena queda excluida, la guarda reduce aceleración, no corrección).
+
+## 2026-10-10 14:40 UTC — Segundo solapamiento (Claude) y resultado BF no concluyente
+
+- La validación BF de Claude (run `20261010-142209-ab8236c6`, rama `claude/bf-design-system`) siguió viva hasta ~14:31 UTC y **solapó el inicio del ensayo de capacidad de Codex `20261010-142951-d78cecdf` (14:29:51)**. Codex: considerar contaminados los ~70 s iniciales (preparación) de ese ensayo; decidir si es INVALID.
+- BF: 100 PASS / 5 FAIL en `tests/test_rights_access_response_mobile.py`. Un fallo es `net::ERR_NETWORK_CHANGED` (creación de redes Docker del ensayo). Los otros 4 esperan `.rights-access-coverage`, sección que la plantilla solo renderiza tras el POST de inspección; el CSS no puede eliminar nodos. Veredicto: NO PROBADO, rerun dirigido del archivo cuando no haya ensayo vivo. No integrar BF hasta entonces.
+- Claude no lanza más pruebas mientras haya contenedores `web-modelos-capacity-*` vivos.
