@@ -45,3 +45,18 @@ Worker añade preflightno consumidor latestproof/status/expiry antescanonicalwai
 proofscope aún can_prepare bajo locks. TerceraN2 jobs dirigida pendiente, sin capacidad.
 
 N2 correctiva final `20261010-130443-c476a607`: 3 PASS, 0 FAIL, 0 skips, 57.21 s. PostgreSQL/Redis reales, publicación UUID y proyección privada positivas persona/cuenta; transporte/eager y shards comprobados. Fuentes congeladas; limpieza real confirmada. Causa del harness: eager heredado; fijado False explícitamente en prueba broker. Evidencia complementaria: tercera N2 23 PASS (worker real, revocación tras espera PG, retries, lease, HTTP ES/EN); segunda N2 109 PASS (orígenes históricos, HTTP previo, Chromium ES/EN/sin JS, binarios); primera N2 export races/inventarios originales PASS. Terminales negativos anteriores se preservan. Integración conjunta y N3 capacidad siguen pendientes; no aceptación integral.
+
+## Diseño capacidad separado (antes de editar)
+
+Sustituir únicamente finish generation síncrono por POST TCP autenticado a export, UUID
+durable y GET privado de estado hasta succeeded/export commit. Tiempo incluye encolado,
+cola y sondeo; límite original120s, nunca un302. Espera de recovery finita1800s permite
+registrar una infracción sin dar PASS. Worker Celery prefork2 y Beat comparten cgroup app
+existente de Gunicorn; ninguna reserva extra. Readiness ping real, cgroup leído del kernel,
+VmHWM por proceso100ms, teardown verificado de grupos. Flags full delivery/profile full y
+preflight finito únicamente; sin carga aquí. Rol runtime PostgreSQL aislado del helper de
+canonical_tests aplica sólo a hijos y se limpia después de parar todos. Purga deliveries10s,
+reconcile60s/orphans1h. Storage conserva ownership bind/proxy/303/GETEOF.
+
+Patch de capacidad preparado: Ruff/compilación/documentación solamente. Helper runtime,
+S3/proxy y launcher presupuesto requieren integración principal; no N3 ni PASS de capacidad.

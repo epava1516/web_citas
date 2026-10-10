@@ -26,6 +26,7 @@ from apps.safety.models import (
     RightsPortabilityCoverage,
     RightsPortabilityCoverageRead,
     RightsPortabilityCoverageReview,
+    RightsPortabilityExportJob,
     RightsPortabilitySelection,
     RightsPortabilitySelectionReview,
 )
@@ -36,7 +37,6 @@ from apps.safety.rights_portability_close import close
 from apps.safety.rights_portability_coverage_pages import prepare_page
 from apps.safety.rights_portability_coverage_read_gate import required_pages
 from apps.safety.rights_portability_coverage_store import save_coverage
-from apps.safety.rights_portability_export import generate
 from apps.safety.rights_portability_image_selection import prepare
 from apps.safety.rights_portability_response_draft import prepare as prepare_response
 from apps.safety.rights_portability_response_review import inspect, record
@@ -244,6 +244,45 @@ def run_case(index, target, context, server, settings, barrier, metrics, diagnos
            context["receipt"], server, settings, barrier, metrics, expected)
 
 
+def queued_generation(case, author, selected, coverage_review, server, settings, metrics):
+    """Actual enqueue request through Gunicorn; completion is the committed job/export."""
+    path = f"/en/moderation/rights/{case.pk}/portability/export/"
+    browser = open_client(settings, server, path, actor=author)
+    key = uuid4()
+    begin = time.perf_counter()
+    response = post(browser.client, server.url + path, browser.csrf,
+        {"key": str(key), "version": case.version, "review": selected.pk,
+         "coverage_review": coverage_review.pk, "reason": REASON}, timeout=120)
+    # urllib follows the canonical 302. Neither redirect nor status 200 proves generation.
+    assert response.status == 200 and "no-store" in response.headers.get("Cache-Control", "")
+    job = RightsPortabilityExportJob.objects.get(key=key, request=case, actor=author)
+    endpoint = server.url + path + f"jobs/{job.pk}/"
+    polls = 0
+    deadline = begin + 1800  # finite recovery observation; limit remains 120, recorded by measured()
+    while True:
+        with browser.client.open(endpoint, timeout=120) as status:
+            body = status.read()
+            assert status.status == 200 and "no-store" in status.headers["Cache-Control"]
+        polls += 1
+        job.refresh_from_db()
+        if job.state == "succeeded":
+            # A fresh canonical HTTP response must also observe the durable terminal state.
+            if str(job.export_id).encode() in body and b"Private copy created" in body:
+                break
+        assert job.state not in {"failed", "rejected"}, (job.state, job.attempts)
+        assert time.perf_counter() < deadline, "Async generation never completed"
+        time.sleep(.25)
+    assert job.export_id is not None and job.finished_at is not None
+    assert job.encrypted_reason == "" and job.attempts >= 1
+    elapsed = time.perf_counter() - begin
+    metrics["generation_job"] = {"id": str(job.pk), "state": job.state,
+        "export": str(job.export_id), "attempts": job.attempts, "polls": polls,
+        "enqueue_http_seconds": response.seconds, "queue_to_ready_seconds": elapsed,
+        "worker_scope": "Real Celery worker in the same constrained app cgroup",
+        "profile_scope": "Parent HTTP/polling only; worker generation is not parent cProfile"}
+    return job.export
+
+
 def finish(index, case, author, reviewer, selection, selected, coverage_review,
            receipt, server, settings, barrier, metrics, expected):
     permissions = Permission.objects.filter(codename__in=["respond_rights_request", "verify_rights_scope"])
@@ -251,8 +290,8 @@ def finish(index, case, author, reviewer, selection, selected, coverage_review,
     reviewer.user_permissions.add(*permissions)
     author, reviewer = User.objects.get(pk=author.pk), User.objects.get(pk=reviewer.pk)
     barrier.wait(timeout=120)
-    export = measured(metrics, "generation", generate, author, case.pk, case.version,
-        selection.pk, selected.pk, uuid4(), REASON, coverage_review_id=coverage_review.pk, maximum=120)
+    export = measured(metrics, "generation", queued_generation, case, author, selected,
+        coverage_review, server, settings, metrics, maximum=120)
     case.refresh_from_db()
     staff, other = operator(author), operator(reviewer)
     read(staff, case)
