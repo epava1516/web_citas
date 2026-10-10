@@ -28,6 +28,8 @@ Revisión crítica de P1–P8 y del prototipo: el lanzador no podía ejecutarse 
 
 **N2 correctiva cerrada e integrada (master `57af4ff`).** Unificada `20261010-051659-670b042f`:413PASS/1FAIL/0skips (5.014s); el fallo era una aserción previa a la inspección paginada. Tras dos correcciones solo de prueba (decisión ligada a la última lectura, restauración de la lectura original, recuento de tres lecturas), repetición del único archivo afectado `20261010-064630-4b450291` 2PASS. Fallos preexistentes reproducidos en `16a41f7`. [Evidencia](evidencias/n2-origen-compartido-validacion-unica-20261010.json). Siguiente: diagnóstico del coste por validación de exportación (imágenes/transporte/cobertura) con perfil acotado antes de otro ensayo completo.
 
+**Corrección de registro.** El commit `3a08e7c` incluyó por error (`git add docs`) la propuesta GraphQL sin versionar y de procedencia no confirmada. Retirada del índice en el commit siguiente con `git rm --cached`; el archivo local se conserva byte a byte y sigue fuera del contrato. Historia no reescrita.
+
 ### Corte anterior de pausa y propuesta acotada
 
 **Pausa y relevo solicitados el 2026-10-09.** El goal está **pausado** tras recoger los terminales y comprobar ausencia de contenedores/redes/temporales propios; no se inicia otro bloque del contrato ni se invoca a Claude. Este corte sustituye las instrucciones de ejecución inmediata que aparecen en los antecedentes inferiores. [Informe y continuación exacta](relevo-claude-20261009.md), [inventario completo y evidencia](evidencias/relevo-local-20261009.json), [prompt conforme al modelo vigente](prompt-relevo-claude-20261009.md).
