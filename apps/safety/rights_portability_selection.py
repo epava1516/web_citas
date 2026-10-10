@@ -5,9 +5,8 @@ from copy import deepcopy
 from django.core.exceptions import ValidationError
 from django.views.decorators.debug import sensitive_variables
 
-from .rights import fingerprint
+from .fast_canonical import content_reference
 from .rights_copy_inspection import SECTIONS
-from .rights_exports import canonical
 from .rights_portability import DATASETS, checked_assessment
 
 
@@ -16,7 +15,7 @@ def row_reference(dataset, index, row):
 
     return shared_row_reference(
         dataset, index, row,
-        lambda: fingerprint(canonical({"dataset": dataset, "index": index, "row": row})),
+        lambda: content_reference({"dataset": dataset, "index": index, "row": row}),
     )
 
 

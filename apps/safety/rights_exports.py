@@ -23,6 +23,7 @@ from apps.core.models import User
 
 from .copy_error_presentation import operation_error
 from .crypto import cipher, seal, unseal
+from .fast_canonical import canonical as fast_canonical
 from .models import (
     RightsAction,
     RightsExport,
@@ -46,7 +47,7 @@ COPY_REVISION_BATCH_SIZE = 1000
 
 @sensitive_variables()
 def canonical(value):
-    return json.dumps(value, sort_keys=True, ensure_ascii=False)
+    return fast_canonical(value)
 
 
 def _one_export_validation(function):
