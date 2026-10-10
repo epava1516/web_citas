@@ -63,7 +63,8 @@ def scrub(value, forbidden):
 
 @sensitive_variables()
 def fingerprint_profile(settings, endpoint, person, case):
-    if not (settings.CAPACITY_ENVIRONMENT_VERIFIED and settings.CAPACITY_DELIVERY_PROFILE
+    if getattr(settings, "CAPACITY_DELIVERY_COMPLETE", False) or not (
+            settings.CAPACITY_ENVIRONMENT_VERIFIED and settings.CAPACITY_DELIVERY_PROFILE
             and settings.CAPACITY_DELIVERY_PROFILE_FULL):
         raise RuntimeError("Fingerprint SQL profiling requires verified full diagnostic mode")
     credentials = private_credentials(endpoint.runtime_config)

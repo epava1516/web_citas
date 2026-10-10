@@ -40,3 +40,24 @@ def test_fingerprint_diagnostic_flags_and_secret_scrubbing():
     assert scrub({'Plan': [{'text': 'synthetic-private-secret role/path', 'loops': 2}]},
                  ['synthetic-private-secret', 'role/path']) == {
                      'Plan': [{'text': '[private] [private]', 'loops': 2}]}
+
+
+@pytest.mark.parametrize("flags", [
+    {"CAPACITY_ENVIRONMENT_VERIFIED": False},
+    {"CAPACITY_DELIVERY_PROFILE": False},
+    {"CAPACITY_DELIVERY_PROFILE_FULL": False},
+    {"CAPACITY_DELIVERY_COMPLETE": True},
+])
+def test_normal_or_acceptance_mode_is_rejected_before_credentials_or_connect(monkeypatch, flags):
+    settings = SimpleNamespace(CAPACITY_ENVIRONMENT_VERIFIED=True, CAPACITY_DELIVERY_PROFILE=True,
+                               CAPACITY_DELIVERY_PROFILE_FULL=True, CAPACITY_DELIVERY_COMPLETE=False)
+    for flag, value in flags.items():
+        setattr(settings, flag, value)
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("Rejected mode must never read runtime credentials or open a connection")
+
+    monkeypatch.setattr("capacity_fingerprint_profile.private_credentials", forbidden)
+    monkeypatch.setattr("capacity_fingerprint_profile.psycopg.connect", forbidden)
+    with pytest.raises(RuntimeError, match="verified full diagnostic"):
+        fingerprint_profile(settings, None, None, None)
