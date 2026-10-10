@@ -306,3 +306,41 @@ Claude propone; Codex aplica y verifica. No hay máximo numérico desde MOD-03. 
 ## Historial y organización documental
 
 [Copia íntegra anterior](17-historial/2026-10-09-17-seguimiento-desarrollo-antes-organizacion.md): conserva exactamente las 751 líneas previas, incluidas decisiones, verificaciones, fallos y antiguos próximos pasos. [Historial anterior](17-historial-desarrollo.md), [inventario de copias y huellas](historial-documentacion.json) y [registro de esta organización](evidencias/organizacion-documental-20261009.json). Las copias son consulta de evidencia, no una segunda cola; sus enlaces relativos conservan la base registrada en el inventario. [Comprobación de documentación](README.md#mantener-la-documentación).
+
+## MOD-08 pieza 5 — ventana N2 aislada Codex, 2026-10-10
+
+Usuario autoriza continuidad de los frentes paralelos tras agotarse tokens de Claude.
+Escritor aislado `worktree-agent-ab23eda63576809b3`, base e8edcb1. Diseño y propiedad
+registrados en `.ai/tasks/mod08-async-generation.md`. Generación Celery usa job durable,
+misma función de dominio, motivo cifrado, UUID solamente en broker, autoridad original
+fresca, locks e idempotencia; estado ES/EN con HTMX local y GET canónico. Familia nueva
+incluida en inventario derechos por persona/cuenta y proyección broker/AOF tipada.
+
+Principal autoriza ventana N2 PostgreSQL/Redis reales aislados, sin ensayo de capacidad;
+reserva máxima dos workers (runner base sólo permite serie, usa uno). Runner detached,
+fuentes congeladas, selección jobs + Chromium ES/EN + export races + broker schema +
+inventarios y orígenes Redis. Estado **en curso**, sin PASS ni aceptación. Se preservan
+consumidores síncronos internos y consumidores HTTP se actualizan al contrato de job.
+
+Pieza5 primera N2 terminal negativo `20261010-122659-14afabde`:121PASS/19FAIL/0skip,
+140 casos723.789s; fuentes sin cambios y retirada realPG/Redis/tmp. Los19 fallos comparten
+inferencia de ámbito de jobs desde metadata pura de orígenes. Corregido paso explícito de
+job_ids desde consumidor autorizado; añadidos casos positivos censo/brokerhistórico,
+brokeroutage,3retry y esperaPG observable. Contrato HTTP y pruebas antiguas actualizados
+sin quitar guards/sync/replay/descargas. Segunda N2 serie autorizada, fuentes congeladas
+al arrancar, sin capacidad; [contrato pieza5](mod08-generacion-asincrona.md).
+
+Pieza5 segunda N2 `20261010-124254-0b093368`:109PASS/3FAIL/0skip112casos605.679s;
+fuentes sin cambios y retirada comprobada. Orígenes puros corregidos, HTTPprevios,
+ChromiumESEN/sinJS, brokerworkerreal, revocación trasesperaPG y retries PASS. Tres fallos
+en tests positivos nuevos: idioma activoEN frente expectativaES, censo cuenta sinatomic,
+y publicación broker sin mensaje en cola leída. Se fijan idioma/locksdelharness y se
+verifica cola/config/publicaciónreal antes de proyección. Preflight no consumidor de
+prueba vigente añadido antes de esperar locks; autorización completa sigue bajo locks.
+Tercera N2 dirigida módulojobs; no repetir las109sin cambio funcional que las afecte.
+
+Pieza5 tercera N2 `20261010-125708-9a5d3971`:23PASS/2FAIL/0skip25casos224.186s; fuentes congeladas y limpieza PG/Redis confirmadas. Lease/atomic/preflight y worker real pasan. Positivos broker carecen de mensaje observable; se comprueban transporte/eager/cuatro shards y se corrige monkeypatch sobre objeto Task concreto, evitando restauración ambigua del proxy Celery. Cuarta N2 dirigida sólo outage y dos positivos, serial autorizada, sin capacidad.
+
+Cuarta N2 `20261010-130258-e01b9a03`:1PASS/2FAIL/0skip59.05s. Transporte coincide; fallo diagnóstico confirma task_always_eager=True heredado del harness, sin publicación Redis. Positivos fijan CELERY_TASK_ALWAYS_EAGER=False igual que prueba worker real. Quinta N2 dirigida mismos tres casos; no cambio de dominio ni debilitamiento de proyección.
+
+N2 correctiva final `20261010-130443-c476a607`: 3 PASS, 0 FAIL, 0 skips, 57.21 s. PostgreSQL/Redis reales, publicación UUID y proyección privada positivas persona/cuenta; transporte/eager y shards comprobados. Fuentes congeladas; limpieza real confirmada. Causa del harness: eager heredado; fijado False explícitamente en prueba broker. Evidencia complementaria: tercera N2 23 PASS (worker real, revocación tras espera PG, retries, lease, HTTP ES/EN); segunda N2 109 PASS (orígenes históricos, HTTP previo, Chromium ES/EN/sin JS, binarios); primera N2 export races/inventarios originales PASS. Terminales negativos anteriores se preservan. Integración conjunta y N3 capacidad siguen pendientes; no aceptación integral.

@@ -343,10 +343,19 @@ def test_mixed_field_evidence_persists_is_reviewed_and_is_not_delivered(
     assert protected.get(export_url).status_code == 200
     assert protected.post(export_url, export_form).status_code == 403
     assert RightsExport.objects.count() == before_exports
+    from apps.safety import rights_portability_jobs as jobs
+    from apps.safety.models import RightsPortabilityExportJob
+
+    monkeypatch.setattr(jobs, "dispatch", lambda job_id: True)
     response = author_client.post(export_url, export_form)
-    assert response.status_code == 200 and b"PRIVATE_MIXED_FIELD_EVIDENCE" not in response.content
+    assert response.status_code == 302 and b"PRIVATE_MIXED_FIELD_EVIDENCE" not in response.content
+    assert RightsExport.objects.count() == before_exports
+    job = RightsPortabilityExportJob.objects.get(key=key)
+    jobs.run(job.pk)
+    job.refresh_from_db()
+    assert job.state == "succeeded"
     exported = RightsExport.objects.get(action__key=key)
-    assert author_client.post(export_url, export_form).status_code == 200
+    assert author_client.post(export_url, export_form).status_code == 302
     if packaged:
         assert exported.parts.exists()
         assert unseal(exported.encrypted_payload)["schema"] == "rights-data-manifest-v1"

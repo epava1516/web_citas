@@ -1856,8 +1856,54 @@ class RightsRecipientNotice(models.Model):
             ),
         ]
 
-# Kept separate to make the immutable metadata's scope explicit.
-from .evidence_chain_models import RightsEvidenceEvent, RightsEvidenceHead  # noqa: E402,F401
 
-# Explicit import registers transient object deliveries with Django's model registry.
+
+class RightsPortabilityExportJob(models.Model):
+    """Durable private outbox; broker messages contain only this row's UUID."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    key = models.UUIDField(unique=True)
+    request = models.ForeignKey(RightsRequest, on_delete=models.PROTECT)
+    actor = models.ForeignKey("core.User", on_delete=models.PROTECT)
+    proof = models.ForeignKey(RightsProof, on_delete=models.PROTECT)
+    review = models.ForeignKey(RightsPortabilitySelectionReview, on_delete=models.PROTECT)
+    coverage_review = models.ForeignKey(
+        RightsPortabilityCoverageReview, on_delete=models.PROTECT, null=True
+    )
+    expected_version = models.PositiveIntegerField()
+    session_version = models.PositiveIntegerField()
+    mfa_version = models.PositiveIntegerField()
+    input_digest = models.CharField(max_length=64)
+    encrypted_reason = models.TextField()
+    expires_at = models.DateTimeField()
+    state = models.CharField(max_length=12, default="queued", db_index=True)
+    attempts = models.PositiveSmallIntegerField(default=0)
+    attempt_token = models.UUIDField(null=True)
+    available_at = models.DateTimeField(default=timezone.now)
+    lease_until = models.DateTimeField(null=True)
+    dispatched_at = models.DateTimeField(null=True)
+    export = models.OneToOneField(RightsExport, on_delete=models.PROTECT, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    finished_at = models.DateTimeField(null=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(
+                    state__in=["queued", "running", "succeeded", "rejected", "failed"]
+                ),
+                name="portability_job_state_valid",
+            ),
+            models.CheckConstraint(
+                condition=(
+                    models.Q(state="succeeded", export__isnull=False)
+                    | (~models.Q(state="succeeded") & models.Q(export__isnull=True))
+                ),
+                name="portability_job_export_consistent",
+            ),
+        ]
+
+
+# Auxiliary model modules register bounded metadata and private transport grants.
+from .evidence_chain_models import RightsEvidenceEvent, RightsEvidenceHead  # noqa: E402,F401
 from .rights_object_models import RightsObjectDelivery  # noqa: E402,F401

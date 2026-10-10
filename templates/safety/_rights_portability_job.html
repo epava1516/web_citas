@@ -1,0 +1,9 @@
+<section id="portability-job" aria-live="polite"{% if pending %} hx-get="{% url 'rights_portability_export_job' case.pk job.pk %}" hx-trigger="every 3s" hx-swap="outerHTML"{% endif %}>
+{% if job.state == 'queued' %}<p role="status">{% if english %}Waiting to generate the private copy.{% else %}Esperando para generar la copia privada.{% endif %}</p>
+{% elif job.state == 'running' %}<p role="status">{% if english %}Validating and generating the private copy.{% else %}Validando y generando la copia privada.{% endif %}</p>
+{% elif job.state == 'succeeded' %}<p role="status">{% if english %}Private copy created{% else %}Copia privada creada{% endif %}: {{ job.export_id }}</p>
+{% if perms.safety.respond_rights_request %}<p><a href="{% url 'rights_portability_response_prepare' case.pk %}">{% if english %}Prepare final response{% else %}Preparar respuesta final{% endif %}</a></p>{% endif %}
+{% elif job.state == 'rejected' %}<p role="alert">{% if english %}The request or authorization changed. Inspect the current request before trying again.{% else %}La solicitud o la autorización cambió. Consulta el expediente vigente antes de intentarlo de nuevo.{% endif %}</p>
+{% else %}<p role="alert">{% if english %}The private copy could not be generated. Return to generation to try again.{% else %}No se pudo generar la copia privada. Vuelve a generación para intentarlo de nuevo.{% endif %}</p>{% endif %}
+{% if pending %}<p><a href="{% url 'rights_portability_export_job' case.pk job.pk %}">{% if english %}Refresh status{% else %}Actualizar estado{% endif %}</a></p>{% endif %}
+</section>

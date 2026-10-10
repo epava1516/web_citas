@@ -135,7 +135,7 @@ def snapshot_expirations(raw, result, digest):
     return blocked
 
 
-def read_bundle(body, blob_ids, cutoff, *, case, inventory):
+def read_bundle(body, blob_ids, cutoff, *, case, inventory, job_ids=frozenset()):
     if (
         set(body) != {"schema", "project", "request", "inventory", "source_digest", "cutoff", "origins", "partial"}
         or body["schema"] != "local-redis-retained-origins-scoped-v1"
@@ -164,7 +164,9 @@ def read_bundle(body, blob_ids, cutoff, *, case, inventory):
         if total > MAX_BYTES:
             raise ValueError("Retained origin aggregate byte limit")
         digest = fingerprint(canonical(origin))
-        result = scoped_history(raw, blob_ids, prefix=prefix, queue=queue, origin_digest=digest)
+        result = scoped_history(
+            raw, blob_ids, prefix=prefix, queue=queue, origin_digest=digest, job_ids=job_ids
+        )
         if kind == "rdb_snapshot_state":
             if "physical_metadata" in origin:
                 from .retained_rdb_physical_metadata import physical_review

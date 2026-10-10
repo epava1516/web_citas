@@ -151,7 +151,7 @@ def validate_envelope(message, args, kwargs, links, *, queue=None):
 
 
 @sensitive_variables()
-def project_message(raw, blob_ids, state, periodic, *, queue=None):
+def project_message(raw, blob_ids, state, periodic, *, queue=None, job_ids=frozenset()):
     from .rights import fingerprint
 
     if len(raw) > 256 * 1024:
@@ -187,19 +187,22 @@ def project_message(raw, blob_ids, state, periodic, *, queue=None):
     task = headers["task"]
     if task in periodic and not args and not kwargs:
         return None
-    if task != "apps.mediafiles.tasks.process_blob" or len(args) != 1 or kwargs:
+    job_task = task == "apps.safety.tasks.generate_portability_export"
+    if (task != "apps.mediafiles.tasks.process_blob" and not job_task) or len(args) != 1 or kwargs:
         raise ValueError("Task")
     if not isinstance(args[0], str):
         raise ValueError("Blob argument type")
     blob_id = str(UUID(args[0]))
-    if blob_id not in blob_ids:
+    if blob_id not in (job_ids if job_task else blob_ids):
         return None
     retries = headers.get("retries", 0)
     if not isinstance(retries, int) or isinstance(retries, bool) or retries < 0:
         raise ValueError("Retries")
     return (
         {
-            "photo_reference": fingerprint(canonical({"blob": blob_id})),
+            "generation_reference" if job_task else "photo_reference": fingerprint(
+                canonical({"job" if job_task else "blob": blob_id})
+            ),
             "state": state,
             "retries": retries,
         },
@@ -215,12 +218,16 @@ def periodic_tasks():
         "apps.mediafiles.tasks.recover_media_jobs",
         "apps.mediafiles.tasks.erase_media_files",
         "apps.mediafiles.tasks.cleanup_prepared_media",
+        "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "apps.safety.rights_object_content.purge_orphan_export_objects",
     }
     from . import tasks
 
     periodic.update(
         "apps.safety.tasks." + name
         for name in dir(tasks)
-        if callable(getattr(tasks, name)) and hasattr(getattr(tasks, name), "delay")
+        if name != "generate_portability_export"
+        and callable(getattr(tasks, name))
+        and hasattr(getattr(tasks, name), "delay")
     )
     return periodic

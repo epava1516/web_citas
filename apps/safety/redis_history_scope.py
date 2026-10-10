@@ -12,7 +12,7 @@ from .rights_exports import canonical
 
 
 @sensitive_variables()
-def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
+def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest, job_ids=frozenset()):
     queues = {
         (prefix + queue + suffix).encode() for suffix in ["", "\x06\x163", "\x06\x166", "\x06\x169"]
     }
@@ -56,7 +56,9 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
             try:
                 if message is None:
                     raise ValueError("Unmaterialized message")
-                projected = project_message(message, blob_ids, state, periodic, queue=queue)
+                projected = project_message(
+                    message, blob_ids, state, periodic, queue=queue, job_ids=job_ids
+                )
                 envelope = json.loads(message)
                 if state == "reserved":
                     envelope = envelope[0]
@@ -183,7 +185,7 @@ def scoped_history(raw, blob_ids, *, prefix, queue, origin_digest):
 
 
 @sensitive_variables()
-def history_records(blob_ids, cutoff, *, case=None, inventory=None):
+def history_records(blob_ids, cutoff, *, case=None, inventory=None, job_ids=frozenset()):
     import base64
     import hashlib
     import os
@@ -223,13 +225,18 @@ def history_records(blob_ids, cutoff, *, case=None, inventory=None):
         if body.get("schema") == "local-redis-retained-origins-scoped-v1":
             from .retained_redis_origins import read_bundle
 
-            return read_bundle(body, blob_ids, cutoff, case=case, inventory=inventory)
+            return read_bundle(
+                body, blob_ids, cutoff, case=case, inventory=inventory, job_ids=job_ids
+            )
         common = {"schema", "project", "captured_at", "sha256", "content_base64", "partial"}
         scoped = body.get("schema") == "local-redis-aof-scoped-origin-v1"
-        expected = common | {"request", "inventory", "source_digest", "cutoff"} if scoped else common
+        expected = (
+            common | {"request", "inventory", "source_digest", "cutoff"} if scoped else common
+        )
         if (
             set(body) != expected
-            or body["schema"] not in {"local-redis-aof-origin-v1", "local-redis-aof-scoped-origin-v1"}
+            or body["schema"]
+            not in {"local-redis-aof-origin-v1", "local-redis-aof-scoped-origin-v1"}
             or body["project"] != "web-modelos"
             or body["partial"] is not True
             or (directory and not scoped)
@@ -271,6 +278,7 @@ def history_records(blob_ids, cutoff, *, case=None, inventory=None):
             prefix=options["global_keyprefix"],
             queue=settings.CELERY_TASK_DEFAULT_QUEUE,
             origin_digest=fingerprint(canonical(body)),
+            job_ids=job_ids,
         )
         return result | {
             "configured": True,

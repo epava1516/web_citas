@@ -15,8 +15,14 @@ from test_rights_portability_covered_export_races import approved_coverage
 from test_rights_portability_response_draft import operator
 
 from apps.core.models import User
+from apps.safety import rights_portability_jobs as jobs
 from apps.safety.crypto import unseal
-from apps.safety.models import RightsExport, RightsExportPortabilityBinding, RightsRequest
+from apps.safety.models import (
+    RightsExport,
+    RightsExportPortabilityBinding,
+    RightsPortabilityExportJob,
+    RightsRequest,
+)
 from apps.safety.rights_portability_export_views import ExportForm
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -82,6 +88,7 @@ def test_native_covered_export_captions_privacy_and_permission(
     case, author, selection, selected, coverage, decision, _, _, _, _ = approved_coverage(
         request, settings, monkeypatch, False
     )
+    monkeypatch.setattr(jobs, "dispatch", lambda job_id: True)
     staff = operator(author)
     original = (case.version, case.status, case.initial_due_at)
     path = f"/{language}/moderation/rights/{case.pk}/portability/export/"
@@ -120,8 +127,12 @@ def test_native_covered_export_captions_privacy_and_permission(
             page.locator("#id_reason").fill(REASON)
             with page.expect_response(lambda r: r.request.method == "POST") as saved:
                 page.get_by_role("button", name=button, exact=True).click()
-            assert saved.value.status == 200
-            export_captions(page, language)
+            assert saved.value.status == 302
+            expect(page.get_by_role("status")).to_contain_text(
+                "Waiting to generate" if language == "en" else "Esperando para generar"
+            )
+            job_id = db_sync(lambda: RightsPortabilityExportJob.objects.get(request=case).pk)
+            db_sync(lambda: jobs.run(job_id))
             expect(page.get_by_role("status")).to_contain_text(
                 "Private copy created" if language == "en" else "Copia privada creada"
             )

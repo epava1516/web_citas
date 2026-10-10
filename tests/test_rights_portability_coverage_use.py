@@ -253,10 +253,19 @@ def test_use_approved_coverage_revalidates_original_records_and_authority(
             "coverage_review": review.pk,
             "reason": reason,
         }
+        from apps.safety import rights_portability_jobs as jobs
+        from apps.safety.models import RightsPortabilityExportJob
+
+        monkeypatch.setattr(jobs, "dispatch", lambda job_id: True)
         response = operator.post(path, data)
-        assert response.status_code == 200
+        assert response.status_code == 302
+        assert not RightsExport.objects.filter(action__key=export_key).exists()
+        job = RightsPortabilityExportJob.objects.get(key=export_key)
+        jobs.run(job.pk)
+        job.refresh_from_db()
+        assert job.state == "succeeded"
         export = RightsExport.objects.get(action__key=export_key)
-        assert operator.post(path, data).status_code == 200
+        assert operator.post(path, data).status_code == 302
         csrf = Client(enforce_csrf_checks=True)
         csrf.force_login(author)
         assert csrf.post(path, data).status_code == 403

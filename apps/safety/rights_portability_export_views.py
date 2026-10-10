@@ -6,7 +6,7 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import Http404, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
@@ -16,7 +16,7 @@ from .rectification_presentation import caption
 from .rights import allowed
 from .rights_copy_information_views import LocalizedForm
 from .rights_copy_page_review import fresh_authority
-from .rights_portability_export import generate
+from .rights_portability_jobs import enqueue
 from .views import private
 
 
@@ -126,7 +126,7 @@ def prepare(request, case_id):
     if request.method == "POST" and form.is_valid():
         values = form.cleaned_data
         try:
-            export = generate(
+            job = enqueue(
                 request.user,
                 case.pk,
                 values["version"],
@@ -138,14 +138,7 @@ def prepare(request, case_id):
                 if values["coverage_review"]
                 else None,
             )
-            case.refresh_from_db()
-            form = ExportForm(
-                case=case,
-                actor=request.user,
-                language=request.LANGUAGE_CODE,
-                initial={"key": uuid4(), "version": case.version},
-            )
-            status = 200
+            return private(redirect("rights_portability_export_job", case.pk, job.pk))
         except PermissionDenied:
             return private(
                 HttpResponse(
@@ -168,3 +161,51 @@ def prepare(request, case_id):
             status=status,
         )
     )
+
+
+@login_required
+@require_http_methods(["GET"])
+def job_status(request, case_id, job_id):
+    from .models import RightsPortabilityExportJob
+
+    if not allowed(request):
+        return private(HttpResponse(status=403))
+    case = RightsRequest.objects.filter(pk=case_id).first()
+    if case is None:
+        raise Http404
+    try:
+        fresh_authority(request.user, case, request.user.session_version, request.user.mfa_version)
+        if case.assigned_to_id != request.user.pk:
+            raise PermissionDenied
+    except PermissionDenied:
+        return private(HttpResponse(status=403))
+    job = (
+        RightsPortabilityExportJob.objects.filter(
+            pk=job_id,
+            request=case,
+            actor=request.user,
+            session_version=request.user.session_version,
+            mfa_version=request.user.mfa_version,
+        )
+        .only("pk", "state", "export_id", "expires_at", "request_id")
+        .first()
+    )
+    if job is None:
+        raise Http404
+    template = (
+        "safety/_rights_portability_job.html"
+        if request.headers.get("HX-Request") == "true"
+        else "safety/rights_portability_job.html"
+    )
+    response = render(
+        request,
+        template,
+        {
+            "case": case,
+            "job": job,
+            "english": request.LANGUAGE_CODE == "en",
+            "pending": job.state in {"queued", "running"},
+        },
+    )
+    response.headers["Vary"] = "HX-Request, Cookie, Accept-Language"
+    return private(response)

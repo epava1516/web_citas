@@ -242,3 +242,17 @@ def purge_expired_access_field_decision():
         return RightsAccessFieldDecision.objects.filter(pk__in=ids).update(
             encrypted_body="", purged_at=now
         )
+
+
+@shared_task(ignore_result=True, acks_late=True, reject_on_worker_lost=True)
+def generate_portability_export(job_id):
+    from .rights_portability_jobs import run
+
+    run(job_id)
+
+
+@shared_task(ignore_result=True)
+def reconcile_portability_export_jobs():
+    from .rights_portability_jobs import reconcile
+
+    reconcile()

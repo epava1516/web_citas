@@ -1121,6 +1121,17 @@ def source_manifest(person, case=None, *, capture=None):
     from .promotion_order_inventory import specs as promotion_specs
 
     scopes.extend(promotion_specs(person=person))
+    from .rights_portability_job_inventory import FIELDS
+    from .rights_portability_job_inventory import scope as job_scope
+
+    scopes.append(
+        (
+            "safety.RightsPortabilityExportJob",
+            job_scope(person=person),
+            "dependent_evidence",
+            FIELDS,
+        )
+    )
     entries = []
     for label, scope, purpose, fields in scopes:
         model = apps.get_model(label)

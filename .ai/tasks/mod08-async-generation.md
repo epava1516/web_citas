@@ -1,0 +1,47 @@
+# MOD-08 pieza 5 — generación asíncrona
+
+Base e8edcb1; escritor Codex aislado, rama worktree-agent-ab23eda63576809b3.
+
+## Diseño antes de editar
+
+Job durable PostgreSQL con clave UUID única, referencia a actor/caso/proof/selección,
+versiones originales de sesión/MFA y inputs privados cifrados. HMAC de inputs para
+conflictos de replay; broker sólo recibe PK del job. Encolado breve con locks
+canónicos y autoridad/proof fresca antes/después de espera, sin producir export.
+Worker reclama lease durable y ejecuta generate existente dentro de transacción
+con lock del job; generate conserva todos sus guards/locks y consumidores sync.
+Errores de autoridad/dominio terminan sin export; técnicos dejan reintento acotado.
+Beat recupera queued y leases vencidos: caída worker revierte generación y no duplica.
+Estados/progreso por fase (sin porcentaje estimado), ES/EN, HTMX local y GET canónico.
+Nunca se confía en estado Celery ni se muestra motivo privado/error técnico en UI.
+
+## Propiedad
+
+Modelo nuevo en safety/models, migración 0113; rights_portability_jobs.py;
+tasks.py append; rights_portability_export_views.py, urls y template export/job;
+tests async y static/vendor/htmx. Settings beat coordinado con principal.
+
+## Evidencia
+
+Pendiente. No PASS ni aceptación.
+
+## N2 primera — terminal negativo preservado
+
+20261010-122659-14afabde:140 tests,121PASS/19FAIL/0skip,723.789s; source hashes
+unchanged true, PG/Redis/tmp retirados. Worker/broker real y Chromium ESEN dentro
+PASS; 19 fallos comparten inferencia job scope desde metadata de parsers puros.
+Corrección: consumidores autorizados suministran job_ids explícitos, no DB lookup
+implícito en parsers de origen. Se añaden pruebas de broker outage, límite retry,
+espera PostgreSQL observable revocación y censo positivo; se adapta contrato HTTP
+previo en coverage_use/mixed_fields/localization sin quitar pruebas sync dominio.
+Segunda N2 pendiente; no aceptación ni capacidad por 302. Beat requiere entrada
+reconcile-portability-export-jobs60s que principal integra en settings propiedad storage.
+
+SegundaN2 terminalnegativo 20261010-124254-0b093368:109PASS/3FAIL/0skip112tests605.679s;
+hashesunchanged/cleanupreal. Las19 anteriores corregidas y HTTPold/binary/browserPASS.
+Tres nuevos harness F: idiomaEN noES; accountscope necesitaatomic; brokercopy0sinmessage.
+Corrijo idioma y locks; asserts queue/appbroker/Redisraw para diagnosticar publicación.
+Worker añade preflightno consumidor latestproof/status/expiry antescanonicalwait; full
+proofscope aún can_prepare bajo locks. TerceraN2 jobs dirigida pendiente, sin capacidad.
+
+N2 correctiva final `20261010-130443-c476a607`: 3 PASS, 0 FAIL, 0 skips, 57.21 s. PostgreSQL/Redis reales, publicación UUID y proyección privada positivas persona/cuenta; transporte/eager y shards comprobados. Fuentes congeladas; limpieza real confirmada. Causa del harness: eager heredado; fijado False explícitamente en prueba broker. Evidencia complementaria: tercera N2 23 PASS (worker real, revocación tras espera PG, retries, lease, HTTP ES/EN); segunda N2 109 PASS (orígenes históricos, HTTP previo, Chromium ES/EN/sin JS, binarios); primera N2 export races/inventarios originales PASS. Terminales negativos anteriores se preservan. Integración conjunta y N3 capacidad siguen pendientes; no aceptación integral.

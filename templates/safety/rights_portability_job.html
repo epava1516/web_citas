@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<script src="{% static 'vendor/htmx.min.js' %}" defer></script>
+<h1>{% if english %}Private copy generation{% else %}Generación de copia privada{% endif %}</h1>
+{% include 'safety/_rights_portability_job.html' %}
+<p><a href="{% url 'rights_portability_export' case.pk %}">{% if english %}Return to generation{% else %}Volver a generación{% endif %}</a></p>
+<p><a href="{% url 'rights_inspect' case.pk %}">{% if english %}Return to request{% else %}Volver al expediente{% endif %}</a></p>
+{% endblock %}

@@ -1168,6 +1168,12 @@ def source(case, *, capture=None):
     from .promotion_order_inventory import specs as promotion_specs
 
     specs.extend(promotion_specs(user=user))
+    from .rights_portability_job_inventory import FIELDS
+    from .rights_portability_job_inventory import scope as job_scope
+
+    specs.append(
+        ("safety.RightsPortabilityExportJob", job_scope(user=user), "dependent_evidence", FIELDS)
+    )
     entries = []
     for label, scope, purpose, fields in specs:
         queryset = apps.get_model(label).objects.filter(scope)

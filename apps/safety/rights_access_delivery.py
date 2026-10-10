@@ -259,7 +259,7 @@ def mail_records(email, *, owner=None):
 
 
 @sensitive_variables()
-def broker_records(blob_ids):
+def broker_records(blob_ids, *, case=None):
     """Read queued/reserved Redis messages atomically; never acknowledge or consume."""
     result = {"copy": [], "evidence": [], "blocked": []}
     options = settings.CELERY_BROKER_TRANSPORT_OPTIONS
@@ -323,11 +323,16 @@ def broker_records(blob_ids):
     from .broker_message_projection import periodic_tasks
 
     periodic = periodic_tasks()
+    from .rights_portability_job_inventory import ids
+
+    job_ids = ids(case)
     for raw, state in wire:
         try:
             from .broker_message_projection import project_message
 
-            projected_message = project_message(raw, blob_ids, state, periodic, queue=queue)
+            projected_message = project_message(
+                raw, blob_ids, state, periodic, queue=queue, job_ids=job_ids
+            )
             if projected_message is not None:
                 data, content = projected_message
                 result["copy"].append(data)
@@ -829,12 +834,17 @@ def snapshot(case, person, inventory, *, cutoff, projected):
         groups["operations.Mail"] = mail_scope["projected"]
     sessions = session_records(owner, cutoff)
     blocked.extend(sessions["blocked"])
-    queued = broker_records({row["blob"] for row in manifest["media"]})
+    queued = broker_records({row["blob"] for row in manifest["media"]}, case=case)
     blocked.extend(queued["blocked"])
     from .redis_history_scope import history_records
+    from .rights_portability_job_inventory import ids
 
     redis_history = history_records(
-        {row["blob"] for row in manifest["media"]}, cutoff, case=case, inventory=inventory
+        {row["blob"] for row in manifest["media"]},
+        cutoff,
+        case=case,
+        inventory=inventory,
+        job_ids=ids(case),
     )
     blocked.extend(
         {"resource": "redis_history", "reason": reason} for reason in redis_history["blocked"]

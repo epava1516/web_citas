@@ -135,3 +135,11 @@ Regresión393 original74215 aún activa. Se confirmaron por reproducciones indep
 ## Diagnóstico de primera página con1500 revisiones — 2026-10-06
 
 Ensayo5bc4f8f sobre aplicaciónc0f58fc: source_copy real de PostgreSQL9893757bytes, primera inspect_page nativa con764 consultas/11,529s/pico Python41651227bytes instrumentados;1 prueba correcta74,44s. [Evidencia](evidencias/portabilidad-cobertura-primera-pagina-grande0110.json). Preparación conserva hechos/identidad sintéticos explícitos y la lectura auditada; no hay simulación de DB ni equivalencia a proveedor/revisión jurídica. No contiene aprobación completa, cierre o descarga de ese expediente. El coste observado dirige la optimización de preparación del origen; no usar el tiempo bajo tracemalloc como p95 HTTP ni el pico Python como RSS. Revisión/entrega/cierre/binarios grandes y capacidad siguen pendientes; siguiente paso vigente en17.
+
+## MOD-08 — contrato HTTP de generación asíncrona
+
+La preparación HTTP de la copia aprobada responde ahora 302 al trabajo privado durable;
+la exportación se genera fuera de la petición. Los consumidores internos conservan
+`generate` síncrono y todos sus guards. Estado, idempotencia, recuperación, privacidad,
+pruebas y límite generar≤120s se fijan en [contrato de generación asíncrona](mod08-generacion-asincrona.md).
+La evidencia anterior conserva su valor histórico; el 302 no acredita capacidad ni cierre.

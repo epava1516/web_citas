@@ -342,6 +342,11 @@ urlpatterns = [
         name="rights_portability_export",
     ),
     path(
+        "moderation/rights/<uuid:case_id>/portability/export/jobs/<uuid:job_id>/",
+        rights_portability_export_views.job_status,
+        name="rights_portability_export_job",
+    ),
+    path(
         "moderation/rights/<uuid:case_id>/access/response/",
         rights_access_response_views.prepare_response,
         name="rights_access_response_prepare",
