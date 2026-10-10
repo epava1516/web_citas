@@ -88,9 +88,12 @@ def main():
     parser.add_argument("--selection-complete", action="store_true", help="All31pages and20fresh approvals; requires balanced Gunicorn")
     parser.add_argument("--delivery-complete", action="store_true", help="Complete native target delivery; requires balanced Gunicorn")
     parser.add_argument("--delivery-profile", action="store_true", help="Diagnostic stage profiles of one target case; requires balanced Gunicorn")
+    parser.add_argument("--delivery-profile-full", action="store_true", help="Diagnostic single-case flow to downloads with stage profiles; requires --delivery-profile")
     parser.add_argument("--source-profile", action="store_true", help="Diagnostic whole-source cost attribution; same allocation as --delivery-profile, which it requires")
     parser.add_argument("--owned-controller", action="store_true", help="Require launcher-enforced controller and whole owned budget")
     args = parser.parse_args()
+    if args.delivery_profile_full and (not args.delivery_profile or args.source_profile):
+        parser.error("--delivery-profile-full requires --delivery-profile without --source-profile")
     if args.source_profile and not args.delivery_profile:
         parser.error("--source-profile requires --delivery-profile")
     if args.delivery_profile and (args.delivery_complete or args.selection_complete or args.selection_profile
@@ -166,7 +169,8 @@ def main():
 
     def run(command, label, check=True):
         start = time.monotonic()
-        timeout = ((9000 if args.delivery_complete else 5400 if args.selection_complete or args.delivery_profile else 600)
+        timeout = ((9000 if args.delivery_complete or args.delivery_profile_full else
+                    5400 if args.selection_complete or args.delivery_profile else 600)
                    if args.selection_tcp and label == "control-pytest" else 180)
         step = {"label": label, "command": command, "timeout_seconds": timeout}
         report["steps"].append(step)
@@ -299,7 +303,7 @@ def main():
              "-e", "DB_HOST=pg", "-e", "DB_PORT=5432", "-e", "POSTGRES_DB=capacity_ci",
              "-e", "POSTGRES_USER=ci", "-e", "POSTGRES_PASSWORD=ci-synthetic",
              "-e", "REDIS_URL=redis://redis:6379/0", "--entrypoint", str(ROOT / ".venv/bin/python3")],
-            ["-c", "import time; time.sleep(" + str(10000 if args.delivery_complete else 6000 if args.selection_complete or args.delivery_profile else 1800) + ")"],
+            ["-c", "import time; time.sleep(" + str(10000 if args.delivery_complete or args.delivery_profile_full else 6000 if args.selection_complete or args.delivery_profile else 1800) + ")"],
         )
         if args.owned_controller:
             report["owned_storage_ceiling_bytes"] = (
@@ -345,6 +349,7 @@ def main():
                 f"CAPACITY_SELECTION_GUNICORN = {args.selection_gunicorn!r}\n"
                 f"CAPACITY_SELECTION_PROFILE = {args.selection_profile or args.delivery_profile!r}\n"
                 f"CAPACITY_DELIVERY_PROFILE = {args.delivery_profile!r}\n"
+                f"CAPACITY_DELIVERY_PROFILE_FULL = {args.delivery_profile_full!r}\n"
                 f"CAPACITY_SELECTION_COMPLETE = {args.selection_complete!r}\n"
                 f"CAPACITY_DELIVERY_COMPLETE = {args.delivery_complete!r}\n"
                 "DATABASES['default']['TEST'] = {'NAME': 'test_capacity_ci'}\n"

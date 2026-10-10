@@ -29,8 +29,12 @@ def test_owned_target_stage_profiles(request, settings, monkeypatch, record_prop
             target = prepare_target(request, settings, monkeypatch, endpoint, "capacity-subject-a",
                                     independent_reviewer=True, include_binary=True, details=context)
             metrics.update(fixture=target[5], build_seconds=target[6], scalar_preparation_seconds=target[7])
-            run_case(0, target, context, endpoint, settings, Barrier(1), metrics, diagnostic=True)
-            metrics["success"] = metrics.get("diagnostic_stopped_after") == "coverage_page_read"
+            full = getattr(settings, "CAPACITY_DELIVERY_PROFILE_FULL", False)
+            run_case(0, target, context, endpoint, settings, Barrier(1), metrics, diagnostic=True,
+                     full=full)
+            metrics["success"] = (metrics.get("success") is not False and "post_validation_profile" in metrics
+                                  if full else
+                                  metrics.get("diagnostic_stopped_after") == "coverage_page_read")
         except Exception as error:
             errors.append(f"{type(error).__name__}: {error}")
         finally:

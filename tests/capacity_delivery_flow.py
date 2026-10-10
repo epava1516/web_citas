@@ -107,7 +107,8 @@ def field_values(prefix, facts):
             for key, value in facts.items() if key != "status"}
 
 
-def run_case(index, target, context, server, settings, barrier, metrics, diagnostic=False):
+def run_case(index, target, context, server, settings, barrier, metrics, diagnostic=False,
+             full=False):
     case, selection, reviewer_client, _, csrf, *_ = target
     metrics["diagnostic"] = diagnostic
     writes = 4 if diagnostic else 20  # Diagnostic: three plain requests plus one profiled.
@@ -219,7 +220,7 @@ def run_case(index, target, context, server, settings, barrier, metrics, diagnos
                  "reason": REASON, "outcome": "approved"})
             assert rejected.status == 409
             assert not RightsPortabilityCoverageReview.objects.filter(coverage=coverage).exists()
-        if diagnostic and number == 3:
+        if diagnostic and not full and number == 3:
             metrics["diagnostic_stopped_after"] = "coverage_page_read"
             return
     gate(metrics, "coverage_page_read", 2)
@@ -285,10 +286,13 @@ def finish(index, case, author, reviewer, selection, selected, coverage_review,
         address = "127.0.0." + str(2 + 2 * index + (variant == "binary"))
         client = open_client(settings, server, receipt, source_address=address)
         metrics[variant + "_source_address"] = address
-        for number in range(20):
+        # Diagnostic: every part once plus one profiled repeat; never compared to limits.
+        downloads = len(parts) + 1 if metrics.get("diagnostic") else 20
+        for number in range(downloads):
             part = parts[number % len(parts)]
             body = sampled(metrics, variant + "_download", barrier, client.client,
-                endpoint + f"part/{part['id']}/", client.csrf, {"key": str(uuid4())})
+                endpoint + f"part/{part['id']}/", client.csrf, {"key": str(uuid4())},
+                profile=bool(metrics.get("diagnostic")) and number == downloads - 1)
             assert len(body) <= 8 * 1024 ** 2
             with zipfile.ZipFile(io.BytesIO(body)) as package:
                 assert package.testzip() is None
@@ -303,11 +307,11 @@ def finish(index, case, author, reviewer, selection, selected, coverage_review,
                         identifier = name[:-5]
                         assert hashlib.sha256(package.read(name)).hexdigest() == expected_images[identifier][1]
                         recovered[identifier] = expected_images[identifier]
-        assert client.handler.observed_addresses == [address] * 21  # ReceiptGET +20POST.
+        assert client.handler.observed_addresses == [address] * (downloads + 1)  # Receipt GET+POSTs.
         rate_key = salted_hmac("rate-window", "rights-export-download:" + address,
                                algorithm="sha256").hexdigest()
         attempts = RateWindow.objects.get(key=rate_key).attempts
-        assert attempts == 20
+        assert attempts == downloads
         metrics[variant + "_rate_attempts"] = attempts
         gate(metrics, variant + "_download", 5)
     data = b"".join(fragments[number] for number in range(1, len(fragments) + 1))
