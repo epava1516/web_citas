@@ -144,10 +144,16 @@ def _runtime_is_trusted(cursor):
     )
     if any(table not in TABLES or column != "id" for table, column in cursor.fetchall()):
         return False
-    for _, owner, *_ in tables:
-        cursor.execute("SELECT pg_has_role(current_user,%s,'MEMBER')", [owner])
-        if cursor.fetchone()[0]:
-            return False
+    # Observe memberships freshly after the column-grant phase, as before.
+    owners = [owner for _, owner, *_ in tables]
+    cursor.execute(
+        "SELECT pg_has_role(current_user,owner::name,'MEMBER') "
+        "FROM unnest(%s::text[]) AS owners(owner)",
+        [owners],
+    )
+    memberships = cursor.fetchall()
+    if len(memberships) != len(owners) or any(member for (member,) in memberships):
+        return False
     cursor.execute(
         "SELECT pg_has_role(current_user,pg_get_userbyid(relowner),'MEMBER') "
         "FROM pg_class WHERE oid='public.safety_rightsaction'::regclass"
@@ -162,18 +168,21 @@ def _runtime_is_trusted(cursor):
     if cursor.fetchone() != ("rights_evidence_action_scope_guard", "O", False, True):
         return False
     # Check actual functions/trigger attachment, not merely a table/trigger name.
+    cursor.execute(
+        "SELECT c.relname,t.tgname,p.proname,t.tgenabled,p.prosecdef,"
+        "p.pronamespace='public'::regnamespace "
+        "FROM pg_trigger t JOIN pg_proc p ON p.oid=t.tgfoid "
+        "JOIN pg_class c ON c.oid=t.tgrelid "
+        "WHERE c.relnamespace='public'::regnamespace AND c.relname=ANY(%s) "
+        "AND NOT t.tgisinternal",
+        [names],
+    )
+    by_table = {table: {} for table in names}
+    for table, name, function, enabled, definer, public in cursor.fetchall():
+        if public:
+            by_table[table][name] = (function, enabled, definer)
     for table in names:
-        cursor.execute(
-            "SELECT t.tgname, p.proname,t.tgenabled,p.prosecdef,p.pronamespace='public'::regnamespace "
-            "FROM pg_trigger t JOIN pg_proc p ON p.oid=t.tgfoid "
-            "WHERE t.tgrelid=%s::regclass AND NOT t.tgisinternal",
-            ["public." + table],
-        )
-        triggers = {
-            name: (function, enabled, definer)
-            for name, function, enabled, definer, public in cursor.fetchall()
-            if public
-        }
+        triggers = by_table[table]
         for name in ("rights_evidence_no_modify", "rights_evidence_no_truncate"):
             if triggers.get(name) != ("rights_evidence_guard", "O", False):
                 return False
@@ -184,10 +193,13 @@ def _runtime_is_trusted(cursor):
         )
         if triggers.get(expected[0]) != (expected[1], "O", expected[2]):
             return False
-    for table in (HEAD, EVENT):
-        cursor.execute("SELECT has_table_privilege(current_user,%s,'INSERT')", ["public." + table])
-        if cursor.fetchone()[0]:
-            return False
+    cursor.execute(
+        "SELECT has_table_privilege(current_user,%s,'INSERT'), "
+        "has_table_privilege(current_user,%s,'INSERT')",
+        ["public." + HEAD, "public." + EVENT],
+    )
+    if any(cursor.fetchone()):
+        return False
     return True
 
 
