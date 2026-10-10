@@ -71,7 +71,63 @@ def absent(docker, kind, name):
     return probe.returncode != 0 and ("no such" in text or "not found" in text)
 
 
+def durable(path, value):
+    temporary = path.with_name(path.name + ".tmp")
+    with temporary.open("w") as stream:
+        stream.write(json.dumps(value, indent=2) + "\n")
+        stream.flush()
+        os.fsync(stream.fileno())
+    os.replace(temporary, path)
+
+
+def process_start_ticks(pid):
+    fields = Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()
+    return int(fields[19])
+
+
+def recover(run_id):
+    """Post-process a run whose launcher died; originals untouched, result marked recovered."""
+    output = ROOT / "artifacts/capacity-environment" / run_id
+    started = json.loads((output / "launcher-started.json").read_text())
+    if (output / "launcher.json").exists() or (output / "launcher-recovered.json").exists():
+        raise SystemExit("Run already has a launcher terminal; nothing to recover")
+    try:
+        if process_start_ticks(started["pid"]) == started["start_ticks"]:
+            raise SystemExit("Launcher still alive; supervise it instead")
+    except (FileNotFoundError, ProcessLookupError, IndexError, ValueError):
+        pass
+    docker = shutil.which("docker")
+    if not absent(docker, "container", started["controller"]):
+        raise SystemExit("Controller still running; recovery waits for its own terminal")
+    cleanup = {}
+    for owned in started["owned"]:
+        subprocess.run([docker, "rm", "-fv", owned], capture_output=True)
+        cleanup[owned] = absent(docker, "container", owned)
+    subprocess.run([docker, "network", "rm", started["network"]], capture_output=True)
+    cleanup[started["network"]] = absent(docker, "network", started["network"])
+    labelled = subprocess.run([docker, "ps", "-a", "-q", "--filter", f"label={LABEL}={run_id}"],
+                              capture_output=True, text=True)
+    cleanup["no_labelled_resources"] = labelled.returncode == 0 and not labelled.stdout.strip()
+    receipts, problems = extract(output / "artifacts.tar", output)
+    report = json.loads((output / "report.json").read_text()) if (output / "report.json").exists() else {}
+    durable(output / "launcher-recovered.json", {
+        "id": run_id,
+        "written_by": "run_capacity_environment.py --recover after the launcher process ended; "
+                      "not the original launcher terminal",
+        "recovered_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "controller_result": report.get("result", "INVALID_CONTROLLER_NO_REPORT"),
+        "controller_sources_unchanged": report.get("sources_unchanged"),
+        "artifacts": receipts, "archive_problems": problems, "cleanup": cleanup,
+        "controller_log_bytes": (output / "controller.log").stat().st_size,
+        "launcher_exit": None,
+    })
+    print(json.dumps({"recovered": run_id, "controller_result": report.get("result")}))
+    return 0 if all(cleanup.values()) and not problems else 1
+
+
 def main():
+    if sys.argv[1:2] == ["--recover"]:
+        return recover(sys.argv[2])
     run_id = time.strftime("%Y%m%d-%H%M%S", time.gmtime()) + "-" + uuid.uuid4().hex[:8]
     name = "web-modelos-capacity-" + run_id + "-controller"
     output = ROOT / "artifacts/capacity-environment" / run_id
@@ -133,6 +189,12 @@ runpy.run_path(sys.argv[0], run_name='__main__')
                        "named and labelled with this run identifier and removed by exact name.",
               "tools": {target: {"path": str(source), "sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
                                   "bytes": source.stat().st_size} for target, source in mounts.items()}}
+    durable(output / "launcher-started.json", {
+        "id": run_id, "pid": os.getpid(), "start_ticks": process_start_ticks(os.getpid()),
+        "argv": sys.argv, "controller": name, "head": head,
+        "owned": [name, *("web-modelos-capacity-" + run_id + "-" + suffix for suffix in ("app", "redis", "pg"))],
+        "network": "web-modelos-capacity-" + run_id + "-net",
+    })
     print(f"owned-controller — {output}", flush=True)
     try:
         try:

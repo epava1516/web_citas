@@ -7,6 +7,7 @@ import os
 import shutil
 import signal
 import subprocess
+import sys
 import tempfile
 import time
 import uuid
@@ -62,6 +63,91 @@ def hashes():
     }
 
 
+LABEL = "web-modelos-local-ci-run"
+
+
+def durable(path, value):
+    temporary = path.with_name(path.name + ".tmp")
+    with temporary.open("w") as stream:
+        stream.write(json.dumps(value, indent=2) + "\n")
+        stream.flush()
+        os.fsync(stream.fileno())
+    os.replace(temporary, path)
+
+
+def process_start_ticks(pid):
+    fields = Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()
+    return int(fields[19])
+
+
+def recover():
+    """Close dead runs honestly: originals untouched, recovery written separately."""
+    recovered = []
+    for record in sorted((ROOT / "artifacts/local-ci").glob("*/runner.json")):
+        output = record.parent
+        if (output / "result.json").exists() or (output / "interruption.json").exists():
+            continue
+        runner = json.loads(record.read_text())
+        try:
+            running = process_start_ticks(runner["pid"]) == runner["start_ticks"]
+        except (FileNotFoundError, ProcessLookupError, IndexError, ValueError):
+            running = False
+        if running:
+            continue
+        cleanup = {}
+        child = runner.get("child")
+        if child:
+            try:
+                orphan = process_start_ticks(child["pid"]) == child["start_ticks"]
+            except (FileNotFoundError, ProcessLookupError, IndexError, ValueError):
+                orphan = False
+            if orphan:
+                # The step child runs in its own session; end exactly that group.
+                os.killpg(child["pid"], signal.SIGTERM)
+                time.sleep(5)
+                try:
+                    if process_start_ticks(child["pid"]) == child["start_ticks"]:
+                        os.killpg(child["pid"], signal.SIGKILL)
+                except (FileNotFoundError, ProcessLookupError, IndexError, ValueError):
+                    pass
+            cleanup["child"] = {**child, "was_running": orphan}
+        for name in runner["containers"]:
+            inspected = subprocess.run(
+                ["docker", "container", "inspect", "--format",
+                 '{{index .Config.Labels "' + LABEL + '"}}', name],
+                capture_output=True, text=True,
+            )
+            if inspected.returncode == 0 and inspected.stdout.strip() != runner["id"]:
+                cleanup[name] = {"skipped": "label does not prove ownership"}
+                continue
+            if inspected.returncode == 0:
+                subprocess.run(["docker", "rm", "-f", "-v", name], capture_output=True)
+            probe = subprocess.run(["docker", "container", "inspect", name],
+                                   capture_output=True, text=True)
+            cleanup[name] = {"absent": probe.returncode != 0
+                             and "no such" in (probe.stdout + probe.stderr).lower(),
+                             "was_present": inspected.returncode == 0}
+        temporary = runner.get("temporary")
+        if temporary and Path(temporary).is_dir() and (Path(temporary) / "local_ci_settings.py").exists():
+            shutil.rmtree(temporary)
+        cleanup["temporary"] = {"path": temporary, "absent": not temporary or not Path(temporary).exists()}
+        logs = {item.name: item.stat().st_size for item in sorted(output.glob("*.log"))}
+        durable(output / "interruption.json", {
+            "id": runner["id"],
+            "result": "INTERRUPTED",
+            "written_by": "run_local_ci.py --recover, not by the interrupted run",
+            "recovered_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "runner_alive": False,
+            "original_artifacts": logs,
+            "junit_present": (output / "pytest.xml").exists(),
+            "cleanup": cleanup,
+            "verdict": "Incomplete evidence: never PASS; rerun the selection with frozen sources.",
+        })
+        recovered.append(runner["id"])
+    print(json.dumps({"recovered": recovered}))
+    return 0
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -76,7 +162,14 @@ def main():
         "--test", action="append", help="Explicit test file/node for focused profile"
     )
     parser.add_argument("--timeout", type=int, default=7200, help="Seconds per command")
+    parser.add_argument(
+        "--recover",
+        action="store_true",
+        help="Mark dead runs without a terminal result as INTERRUPTED and remove their declared resources",
+    )
     args = parser.parse_args()
+    if args.recover:
+        return recover()
     if (args.profile == "focused") != bool(args.test):
         parser.error("--test is required for focused and forbidden for other profiles")
     for selected in args.test or []:
@@ -110,6 +203,18 @@ def main():
     }
     before = hashes()
     (output / "source-hashes.json").write_text(json.dumps(before, indent=2))
+    # Declared before creating anything, so a killed run can be recovered by exact identity.
+    runner = {
+        "id": run_id,
+        "pid": os.getpid(),
+        "start_ticks": process_start_ticks(os.getpid()),
+        "command": sys.argv,
+        "head": report["head"],
+        "containers": [f"web-modelos-ci-{service}-{run_id}" for service in ("pg", "redis")],
+        "label": f"{LABEL}={run_id}",
+        "temporary": None,
+    }
+    durable(output / "runner.json", runner)
     containers = []
     exit_code = 1
     # Do not inherit benchmark switches, production credentials or normal broker URLs.
@@ -142,6 +247,9 @@ def main():
                 stderr=subprocess.STDOUT,
                 start_new_session=True,
             )
+            runner["child"] = {"pid": process.pid, "start_ticks": process_start_ticks(process.pid),
+                               "step": label}
+            durable(output / "runner.json", runner)
             try:
                 step["exit"] = process.wait(timeout=args.timeout)
             except BaseException:
@@ -160,6 +268,8 @@ def main():
     try:
         with tempfile.TemporaryDirectory(prefix="web-modelos-local-ci-") as temporary:
             work = Path(temporary)
+            runner["temporary"] = str(work)
+            durable(output / "runner.json", runner)
             for service, image, inside, extra in [
                 (
                     "pg",
@@ -189,6 +299,8 @@ def main():
                         "-d",
                         "--name",
                         name,
+                        "--label",
+                        runner["label"],
                         "-p",
                         f"127.0.0.1::{inside}",
                         *extra,

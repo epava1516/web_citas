@@ -88,6 +88,9 @@ def anchors(text):
     return result
 
 
+LOCAL_GENERATED = {"graphify-out"}  # Git-ignored outputs referenced only as local context.
+
+
 def check(root):
     root = root.resolve()
     manifest_path = root / "docs/historial-documentacion.json"
@@ -126,7 +129,7 @@ def check(root):
 
     files = [root / "README.md", *sorted((root / "docs").rglob("*.md"))]
     anchor_cache = {}
-    count = historical = exceptions = historical_anchors = 0
+    count = historical = exceptions = historical_anchors = generated = 0
     for path in files:
         relative = path.relative_to(root).as_posix()
         meta = copies.get(relative)
@@ -145,6 +148,9 @@ def check(root):
                 key = endpoint.relative_to(root).as_posix() if endpoint.is_relative_to(root) else ""
                 if meta and key in retired and retired_source(key):
                     exceptions += 1
+                elif key.split("/", 1)[0] in LOCAL_GENERATED:
+                    # Ignored, regenerable local analysis: absent in a clean checkout by design.
+                    generated += 1
                 else:
                     errors.append(f"{relative}:{line}: destino local ausente: {target}")
                 continue
@@ -167,7 +173,7 @@ def check(root):
                 if fragment not in anchor_cache[endpoint]:
                     errors.append(f"{relative}:{line}: ancla local ausente: {target}")
     return {
-        "markdown_files": len(files), "local_links": count,
+        "markdown_files": len(files), "local_links": count, "ignored_generated_links": generated,
         "protected_copies": len(copies), "historical_links_resolved": historical,
         "historical_anchors_resolved": historical_anchors,
         "retired_source_references": exceptions, "errors": errors,

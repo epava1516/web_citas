@@ -1,0 +1,28 @@
+{
+  "schema": "runner-continuity-controls-v1",
+  "date": "2026-10-10",
+  "problem": "Two verification runs ended with the agent session: N2 20261010-013007-b2f3d6c5 (also INVALID by an edit) and N2 20261010-023038-aade9d13 (2c3305e, ~108 of 389 cases, no result.json/XML, containers and temporary left). The capacity launcher of 20261009-224749-d7b20ad4 also died with its session.",
+  "interrupted_run": {
+    "id": "20261010-023038-aade9d13",
+    "status": "INCOMPLETE: no terminal, never PASS",
+    "partial_log": "two F at collection positions 8 and 10 (test_account_only_exports [False-portability], [True-portability]); identified by identical collection order, then reproduced",
+    "archive": "docs/evidencias/n2-exportacion-unica-interrumpida-20261010-artefactos.tar.gz",
+    "archive_sha256": "6c9e27fd8f6e0551cdc9fde3ae703bd24906f13be3b343d41e2593a6cf0b4132",
+    "owned_cleanup": "containers web-modelos-ci-{pg,redis}-20261010-023038-aade9d13 and /tmp/web-modelos-local-ci-bo8tvrpg removed after archiving; absence verified by inspect"
+  },
+  "failure_classification": "Pre-existing: both nodes fail identically on 16a41f7 (base), 4c31c7d and 2c3305e: generic generate refuses portability by design since 1b03ddb; test still expected it. Test aligned (3b708e9), 4 PASS.",
+  "changes": [
+    "scripts/run_detached.py: own session (setsid), stdin closed, exclusive new log, atomic launch record with pid and kernel start ticks.",
+    "scripts/run_local_ci.py: durable runner.json before creating resources (pid/start ticks, declared containers, temporary, active step child); run label on containers; --recover writes interruption.json (never result.json), ends a still-running orphan step group, removes only declared and label-proven resources.",
+    "scripts/run_capacity_environment.py: launcher-started.json; --recover RUN_ID waits for the controller's own terminal, extracts with the launcher's extract(), writes launcher-recovered.json distinct from an original launcher.json.",
+    "scripts/check_docs.py and docs/README.md: a clean checkout passes without the untracked GraphQL proposal (named, unlinked, preserved) and without ignored graphify-out."
+  ],
+  "controls": [
+    {"id": "A", "run": "20261010-051149-d7ad3ee7", "action": "SIGKILL to the launching shell process group while the detached runner ran", "result": "runner continued to terminal PASS, cleanup verified, no leftovers"},
+    {"id": "B", "run": "20261010-051208-458a2a1b", "action": "SIGKILL to the runner itself", "result": "--recover wrote INTERRUPTED interruption.json, no result.json, both containers and temporary removed"},
+    {"id": "C", "run": "20261010-051238-a0c77e74", "action": "SIGKILL to the runner during native-build", "result": "orphan step child alive before recovery, ended by --recover; containers and temporary removed"},
+    {"id": "D", "run": "20261010-051326-101d6c2d", "action": "SIGKILL to the capacity launcher during the controller run", "result": "controller ran to READY_NOT_CAPACITY on its own; --recover produced launcher-recovered.json with 39 hashed members, every owned resource absent"},
+    {"id": "SIGTERM", "run": "20261010-013316-0635f024", "result": "ERROR signal 15 with cleanup (previous commit 7e6e332)"}
+  ],
+  "limits": "Detaching protects against caller-session teardown, not host reboot; recovery never converts incomplete evidence into a verdict."
+}

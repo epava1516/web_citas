@@ -61,7 +61,7 @@ Las instrucciones expresas del usuario prevalecen. Conservar la distinción entr
 
 Las referencias de detalle se agrupan por su función. Un diseño inicial conserva su fecha y las decisiones que lo sustituyen; para reanudar se utiliza siempre seguimiento17.
 
-Propuesta independiente pendiente de lanzamiento manual: [evaluación acotada de GraphQL](propuesta-graphql-manual.md). No forma parte de la cola del goal ni modifica la aceptación contractual.
+Propuesta independiente pendiente de lanzamiento manual: evaluación acotada de GraphQL en `docs/propuesta-graphql-manual.md`, archivo local sin versionar de procedencia no confirmada que se conserva intacto. No forma parte de la cola del goal ni modifica la aceptación contractual; se nombra sin enlace para que un checkout limpio de la versión integrada pase la comprobación documental.
 
 <details>
 <summary>Producto, diseño inicial, seguridad y legal</summary>
