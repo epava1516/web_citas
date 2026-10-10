@@ -54,10 +54,17 @@ def caller_digest(*instances):
         if instance is None:
             values.append(None)
             continue
-        fields = {field.attname: repr(getattr(instance, field.attname, None))
-                  for field in instance._meta.concrete_fields}
-        values.append({"model": instance._meta.label, "pk": str(instance.pk),
-                       "fields": dict(sorted(fields.items()))})
+        fields = {
+            field.attname: repr(getattr(instance, field.attname, None))
+            for field in instance._meta.concrete_fields
+        }
+        values.append(
+            {
+                "model": instance._meta.label,
+                "pk": str(instance.pk),
+                "fields": dict(sorted(fields.items())),
+            }
+        )
     return fingerprint(repr(values))
 
 
@@ -115,10 +122,14 @@ def encode(value):
 def decode(value):
     if not isinstance(value, dict):
         return value
-    (kind, item), = value.items()
+    ((kind, item),) = value.items()
     return {
-        "float": float, "uuid": UUID, "datetime": datetime.fromisoformat, "date": date.fromisoformat,
-        "decimal": Decimal, "bytes": bytes.fromhex,
+        "float": float,
+        "uuid": UUID,
+        "datetime": datetime.fromisoformat,
+        "date": date.fromisoformat,
+        "decimal": Decimal,
+        "bytes": bytes.fromhex,
         "list": lambda items: [decode(entry) for entry in items],
     }[kind](item)
 
@@ -142,17 +153,22 @@ def create(export, state, caller):
 
     statements = state["statements"]
     expiries = state["expiries"] + [
-        value for value in (getattr(item, "expires_at", None) for item in caller.values())
+        value
+        for value in (getattr(item, "expires_at", None) for item in caller.values())
         if isinstance(value, datetime)
     ]
     return RightsExportValidationSeal.objects.create(
         export=export,
         rule_version=rule_version(),
         caller_digest=caller_digest(*caller.values()),
-        encrypted_statements=seal({"statements": [
-            [sql, None if params is None else [encode(item) for item in params]]
-            for sql, params in statements
-        ]}),
+        encrypted_statements=seal(
+            {
+                "statements": [
+                    [sql, None if params is None else [encode(item) for item in params]]
+                    for sql, params in statements
+                ]
+            }
+        ),
         result_digests=_replay(statements),
         valid_until=min(expiries) if expiries else timezone.now(),
     )

@@ -45,17 +45,27 @@ def complete_subject():
     owned = Agency.objects.create(name="Fingerprint agency", owner=user)
     AgencyMember.objects.create(agency=owned, user=user)
     Favorite.objects.create(user=user, listing=Listing.objects.exclude(pk=listing.pk).first())
-    VerificationCheck.objects.create(person=person, subject=user, manager_version=person.manager_version,
-                                     provider="simulator")
-    RepresentationAction.objects.create(person=person, subject=user, manager_version=person.manager_version,
-                                        action="fixture", document=document)
+    VerificationCheck.objects.create(
+        person=person, subject=user, manager_version=person.manager_version, provider="simulator"
+    )
+    RepresentationAction.objects.create(
+        person=person,
+        subject=user,
+        manager_version=person.manager_version,
+        action="fixture",
+        document=document,
+    )
     municipality = Municipality.objects.order_by("pk").first()
     revision.travel_areas.add(municipality)
     postal_code = PostalCode.objects.order_by("pk").first() or PostalCode.objects.create(
-        code="99999", source="synthetic-fingerprint")
+        code="99999", source="synthetic-fingerprint"
+    )
     zone = Zone.objects.order_by("pk").first() or Zone.objects.create(
-        code="fingerprint-zone", name="Fingerprint zone", municipality=municipality,
-        source="synthetic-fingerprint")
+        code="fingerprint-zone",
+        name="Fingerprint zone",
+        municipality=municipality,
+        source="synthetic-fingerprint",
+    )
     Revision.objects.filter(pk=revision.pk).update(postal_code=postal_code, zone=zone)
     if not revision.rates.exists():
         Rate.objects.create(revision=revision, concept="Session", mode="consult")
@@ -132,8 +142,13 @@ def test_equal_fingerprint_implies_equal_source_and_account_branch_is_covered():
 
 def test_change_committed_during_the_shared_source_rejects_the_operation():
     person, listing = complete_subject()
-    case = SimpleNamespace(pk=1, version=1, person_id=person.pk, account_subject_id=None,
-                           manager_version=person.manager_version)
+    case = SimpleNamespace(
+        pk=1,
+        version=1,
+        person_id=person.pk,
+        account_subject_id=None,
+        manager_version=person.manager_version,
+    )
     other = Listing.objects.exclude(pk=listing.pk).last()
     from concurrent.futures import ThreadPoolExecutor
 
@@ -151,3 +166,14 @@ def test_change_committed_during_the_shared_source_rejects_the_operation():
             with rights_inspection_source.inspection_source(person, listing, case):
                 with ThreadPoolExecutor(max_workers=1) as pool:
                     pool.submit(concurrent_change).result(timeout=30)
+
+
+def test_two_updates_in_one_transaction_change_tuple_identity():
+    person, listing = complete_subject()
+    with transaction.atomic():
+        with connection.cursor() as cursor:
+            cursor.execute("UPDATE core_person SET alias = %s WHERE id = %s", ["first", person.pk])
+        before = source_fingerprint(person, listing)
+        with connection.cursor() as cursor:
+            cursor.execute("UPDATE core_person SET alias = %s WHERE id = %s", ["second", person.pk])
+        assert source_fingerprint(person, listing) != before
