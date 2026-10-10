@@ -73,7 +73,8 @@ def policy():
         schema = hashlib.sha256(repr(schema_data).encode()).hexdigest()
         cursor.execute('SHOW server_version')
         version = cursor.fetchone()[0]
-    return {'code': source.hexdigest(), 'config': config, 'schema': schema, 'postgres': version}
+    return {'code': source.hexdigest(), 'config': config, 'schema': schema, 'postgres': version,
+            'config_fields': {name: hashlib.sha256(value.encode()).hexdigest() for name, value in values}}
 
 
 def _guard():
@@ -190,8 +191,17 @@ def _restore(source_file, key_file):
         from diagnostic_baseline_archive import Reader
         with Reader(source_file) as source, payload.open('wb') as target:
             manifest = codec().decode(source, target, codec().key(key_file))
-        if manifest['format'] != FORMAT or manifest['policy'] != policy():
-            raise ValueError('Baseline code/config/schema/keyversion changed')
+        current_policy = policy()
+        if manifest['format'] != FORMAT or manifest['policy'] != current_policy:
+            changed = sorted(name for name in set(manifest['policy']) | set(current_policy)
+                             if manifest['policy'].get(name) != current_policy.get(name))
+            previous_fields = manifest['policy'].get('config_fields', {})
+            current_fields = current_policy['config_fields']
+            names = sorted(name for name in set(previous_fields) | set(current_fields)
+                           if previous_fields.get(name) != current_fields.get(name))
+            # Diagnostic contains only policy keys/settings names, never values,
+            # credentials, source rows, hashes or SQL error messages.
+            raise ValueError('Baseline policy changed keys=' + ','.join(changed) + '; settings=' + ','.join(names))
         cutoff = datetime.fromisoformat(manifest['valid_until'])
         if cutoff.tzinfo is None or timezone.now() >= cutoff:
             raise ValueError('Baseline original evidence expired')

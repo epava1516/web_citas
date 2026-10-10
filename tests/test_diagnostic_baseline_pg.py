@@ -135,8 +135,11 @@ def test_actual_original_approval_roundtrip_and_config_rejection(request, settin
         return actual_native(config, name, autocommit)
     stage_before = set(baseline.Path(settings.MEDIA_ROOT).parent.glob('baseline-media-*'))
     monkeypatch.setattr(baseline, '_native', fail_copy)
-    with pytest.raises(ValueError, match='CACHE_REJECTED: OperationalError'):
+    with pytest.raises(ValueError) as copy_failure:
         baseline.restore(archive, key)
+    cause = copy_failure.value.__cause__
+    safe_cause = str(cause) if isinstance(cause, ValueError) else type(cause).__name__
+    assert str(copy_failure.value) == 'CACHE_REJECTED: OperationalError', safe_cause
     assert bool(connection.settings_dict == original_config)
     with connection.cursor() as cursor:
         cursor.execute("SELECT datname FROM pg_database WHERE datname LIKE %s", [original_config['NAME'] + '_baseline_%'])
