@@ -84,7 +84,7 @@ def test_native_shared_read_and_unshared_replay_are_equivalent_with_fresh_versio
     version_checks.clear()
     replay, legacy_page = inspection.inspect_page(*args)
     assert len(calls) == 2  # Initial copy plus native unshared validation.
-    assert len(version_checks) == 2
+    assert len(version_checks) == 4  # Two independent contexts, each checked before/after.
     assert replay.pk == action.pk and legacy_page == page
     assert RightsPortabilityCoverageRead.objects.filter(coverage=coverage).count() == 1
 
