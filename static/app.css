@@ -193,6 +193,14 @@ th { font-weight: 700; background: var(--surface-muted); }
 .pagination { display: flex; justify-content: center; align-items: center; gap: var(--space-4); }
 .pagination a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 var(--space-4); border: 1px solid var(--border-strong); border-radius: var(--radius); text-decoration: none; }
 
+/* Form pages (account access) */
+.form-page { max-width: 480px; margin: 0 auto; }
+.form-page h1 { font-size: var(--step-3); letter-spacing: -0.5px; }
+.form-page form { max-width: none; }
+.form-page button[type="submit"] { width: 100%; }
+form p { margin: 0 0 var(--space-4); }
+label:has(+ input[type="checkbox"]), label:has(+ input[type="radio"]) { display: inline; margin-right: var(--space-2); }
+
 /* Public profile */
 .profile { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: var(--space-6); align-items: start; }
 .profile-main { min-width: 0; }
