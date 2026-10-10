@@ -28,7 +28,11 @@ from .views import private
 
 
 def fingerprint(value):
-    return salted_hmac("rights-request-v1", value, algorithm="sha256").hexdigest()
+    from .rights_operation_fingerprints import fingerprint as operation_fingerprint
+
+    return operation_fingerprint(
+        value, lambda item: salted_hmac("rights-request-v1", item, algorithm="sha256").hexdigest()
+    )
 
 
 def calendar_months(value, months):

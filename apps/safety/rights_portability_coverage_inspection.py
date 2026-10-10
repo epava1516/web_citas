@@ -85,6 +85,7 @@ def inspect_page(
             uuid5(key, f"coverage-inspection:{dataset}:{row_index}:{field_page}:{binary}"),
             purpose,
             _inspection_source=current_source,
+            _audit_only=True,
         )
         proof = authorized_proof(case, person, case.kind)
         decision = coverage.selection_review

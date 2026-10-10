@@ -13,6 +13,7 @@ from django.db import transaction
 from django.views.decorators.debug import sensitive_variables
 
 _current = ContextVar('coverage_batch_pure_projection', default=None)
+_VALIDATED_ONLY = object()
 
 
 @contextmanager
@@ -33,8 +34,10 @@ def batch_projection(source, user, case, proof):
 
 
 @sensitive_variables()
-def project(source_context, user, case, proof, row, review, source, assessment, binding, operation):
+def project(source_context, user, case, proof, row, review, source, assessment, binding, operation, *, _audit_only=False):
     """Reuse computation after fresh validation; return an independent mutable projection."""
+    if type(_audit_only) is not bool:
+        raise ValueError('Invalid audit projection mode')
     state = _current.get()
     if (state is None or source_context is not state['source']
             or transaction.get_connection() is not state['connection']
@@ -42,8 +45,9 @@ def project(source_context, user, case, proof, row, review, source, assessment, 
             or source is not source_context.source
             or (user.pk, user.session_version, user.mfa_version, case.pk, proof.pk) != (
                 state['actor'], state['session'], state['mfa'], state['case'], state['proof'])):
-        return operation(source, assessment, binding['selection'],
-                         field_evidence=binding.get('field_evidence'))
+        value = operation(source, assessment, binding['selection'],
+                          field_evidence=binding.get('field_evidence'))
+        return None if _audit_only else value
     # Ciphertext equality binds the freshly validated/decrypted declarations. Guards,
     # expiry, original signatures, latest approval and audited images still run per child.
     key = (case.version, case.kind, case.status, case.person_id, case.account_subject_id,
@@ -56,12 +60,14 @@ def project(source_context, user, case, proof, row, review, source, assessment, 
            review.read.action.payload_digest, settings.SECRET_KEY, settings.SAFETY_ENCRYPTION_KEY,
            settings.PRODUCTION, operation)
     entries = state['entries']
-    if key not in entries:
+    if key in entries and _audit_only:
+        return None
+    if key not in entries or entries[key] is _VALIDATED_ONLY:
         value = operation(source, assessment, binding['selection'],
                           field_evidence=binding.get('field_evidence'))
         # At most one entry per individually audited child; never grows across a request.
         if len(entries) >= 4:
-            return value
-        entries[key] = deepcopy(value)
-        return value
+            return None if _audit_only else value
+        entries[key] = _VALIDATED_ONLY if _audit_only else deepcopy(value)
+        return None if _audit_only else value
     return deepcopy(entries[key])

@@ -67,16 +67,18 @@ def verify_export_objects(export):
     from django.core.exceptions import ValidationError
 
     from .models import RightsExportImage, RightsExportPart
+    from .object_storage.read_clients import read_clients
 
     try:
-        for row in RightsExportImage.objects.filter(
-            export=export, encrypted_content__startswith=PREFIX
-        ).iterator(chunk_size=1):
-            image_bytes(row)
-        for row in RightsExportPart.objects.filter(
-            export=export, encrypted_content__startswith=PREFIX
-        ).iterator(chunk_size=1):
-            part_bytes(row)
+        with read_clients():
+            for row in RightsExportImage.objects.filter(
+                export=export, encrypted_content__startswith=PREFIX
+            ).iterator(chunk_size=1):
+                image_bytes(row)
+            for row in RightsExportPart.objects.filter(
+                export=export, encrypted_content__startswith=PREFIX
+            ).iterator(chunk_size=1):
+                part_bytes(row)
     except (InvalidToken, OSError) as error:
         raise ValidationError("External export object unavailable or changed") from error
 

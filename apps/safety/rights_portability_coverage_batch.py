@@ -90,7 +90,13 @@ def inspect_batch(
         raise ValidationError("Coverage batch reason unavailable") from error
     pages = []
     summary_cache = {}
-    with inspection_source(person, listing, case) as source, batch_projection(source, user, case, proof):
+    from .rights_operation_fingerprints import operation_fingerprints
+
+    with (
+        operation_fingerprints(),
+        inspection_source(person, listing, case) as source,
+        batch_projection(source, user, case, proof),
+    ):
         for index in range(page_count):
             read, page = inspect_page(
                 user,

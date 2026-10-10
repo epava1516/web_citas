@@ -241,6 +241,7 @@ def validate_approved_assessment(review, row, case, proof, source_digest, body):
     latest = (
         RightsPortabilityAssessment.objects.filter(request=case)
         .order_by("-created_at", "-pk")
+        .only("pk")
         .first()
     )
     if (

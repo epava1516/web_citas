@@ -301,9 +301,11 @@ def validate_selection_evidence(row, review, case):
             }
         )
     )
+    canonical_body = canonical(body)
+    canonical_expected = canonical(expected)
     if (
-        canonical(body) != canonical(expected)
-        or row.selection_digest != fingerprint(canonical(expected))
+        canonical_body != canonical_expected
+        or row.selection_digest != fingerprint(canonical_expected)
         or row.action.request_id != case.pk
         or row.action.actor_id != row.actor_id
         or row.action.operation != "selection_save"

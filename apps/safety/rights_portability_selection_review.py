@@ -40,7 +40,10 @@ def record(
     _inspection_source=None,
     page=None,
     _require_pages=False,
+    _audit_only=False,
 ):
+    if type(_audit_only) is not bool or (_audit_only and (operation != 'inspect' or page is not None)):
+        raise ValidationError('Invalid audit-only inspection mode')
     if type(_require_pages) is not bool or (_require_pages and operation != "review"):
         raise ValidationError("Invalid selection review mode")
     if page is not None and (operation != "inspect" or type(page) is not int or page < 1):
@@ -52,7 +55,7 @@ def record(
         # transaction, then reviewer/proof are rechecked after that potentially long read.
         with inspection_source(person, listing, case) as context:
             result = record(user, case_id, version, selection_id, key, purpose, operation, outcome,
-                            _inspection_source=context, page=page)
+                            _inspection_source=context, page=page, _audit_only=_audit_only)
         authorize(user, case)
         if authorized_proof(case, person, case.kind).pk != result[0].proof_id:
             raise ValidationError("Selection inspection authority changed before return")
@@ -229,6 +232,7 @@ def record(
                 projected = project_in_batch(
                     _inspection_source, user, case, proof, row, review,
                     source, assessment, binding, project_selected,
+                    **({'_audit_only': True} if _audit_only else {}),
                 )
             model = (
                 RightsPortabilitySelectionRead
@@ -266,9 +270,9 @@ def record(
                 or shared_or_computed(_inspection_source, person, listing, case) != source_digest
             ):
                 raise ValidationError("Selection inspection source changed")
-            if operation == "inspect" and "field_evidence" in binding:
+            if operation == "inspect" and not _audit_only and "field_evidence" in binding:
                 projected["field_evidence"] = binding["field_evidence"]
-            if operation == "inspect" and "images" in binding:
+            if operation == "inspect" and not _audit_only and "images" in binding:
                 projected["images"] = binding["images"]
             return result, (page_body if page is not None else projected) if operation == "inspect" else None
     except IntegrityError as error:
@@ -356,6 +360,7 @@ def validate_approved_selection(decision, row, case, proof):
     latest = (
         RightsPortabilitySelection.objects.filter(request=case)
         .order_by("-created_at", "-pk")
+        .only("pk")
         .first()
     )
     if latest is None or latest.pk != row.pk:

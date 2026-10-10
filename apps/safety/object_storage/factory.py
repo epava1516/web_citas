@@ -10,6 +10,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 from ..crypto import cipher
 from .codec import Keyring
+from .read_clients import client as read_client
 from .repository import ObjectRepository
 
 
@@ -25,7 +26,7 @@ def repository():
             raise ValueError("Missing object credentials")
     except (ValueError, AttributeError, TypeError) as error:
         raise ImproperlyConfigured("Independent private object keys required") from error
-    client = boto3.client(
+    client = read_client(lambda: boto3.client(
         "s3",
         endpoint_url=settings.RIGHTS_OBJECT_ENDPOINT,
         region_name=settings.RIGHTS_OBJECT_REGION,
@@ -40,5 +41,5 @@ def repository():
             request_checksum_calculation="when_required",
             response_checksum_validation="when_required",
         ),
-    )
+    ))
     return ObjectRepository(client, settings.RIGHTS_OBJECT_BUCKET, ring, cipher())

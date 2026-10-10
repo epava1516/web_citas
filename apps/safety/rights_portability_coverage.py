@@ -1,9 +1,11 @@
 """Explicit coverage declarations for portable fields and binaries; grants no authority."""
 
+from copy import deepcopy
+
 from django.core.exceptions import ValidationError
 
 from apps.safety.rights_copy_inspection import SECTIONS
-from apps.safety.rights_portability import DATASETS, checked_assessment
+from apps.safety.rights_portability import DATASETS, _validate_decision, checked_assessment
 from apps.safety.rights_portability_catalog import scalar_fields
 from apps.safety.rights_portability_images import checked_images
 from apps.safety.rights_portability_selection import project_selected, row_reference
@@ -12,7 +14,8 @@ from apps.safety.rights_portability_selection import project_selected, row_refer
 def exclusion(value):
     if not isinstance(value, dict) or value.get("status") != "excluded":
         raise ValidationError("Document a definite exclusion, not an unknown omission")
-    return checked_assessment({name: value for name in DATASETS})[DATASETS[0]]
+    _validate_decision(value)
+    return deepcopy(value)
 
 
 def compile_coverage(

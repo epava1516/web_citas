@@ -79,8 +79,10 @@ def test_projection_reuse_keeps_four_real_audits_and_equivalent_outputs(request,
                               f"coverage-inspection:revisions:{page['row_index']}:{page['field_page']}:False")
         assert RightsPortabilitySelectionRead.objects.filter(action__key=selection_key).exists()
     # Same audited UUIDs and page digests when pure reuse is bypassed internally for equivalence.
-    def uncached(context, user, case, proof, row, review, source, assessment, binding, operation):
-        return operation(source, assessment, binding['selection'], field_evidence=binding.get('field_evidence'))
+    def uncached(context, user, case, proof, row, review, source, assessment, binding, operation,
+                 *, _audit_only=False):
+        value = operation(source, assessment, binding['selection'], field_evidence=binding.get('field_evidence'))
+        return None if _audit_only else value
 
     monkeypatch.setattr(selection_review, 'project_in_batch', uncached)
     direct = batch.inspect_batch(*args)
@@ -207,6 +209,9 @@ def test_projection_results_are_independent_and_context_does_not_survive_request
     expected = []
 
     def collect(*args, **kwargs):
+        # Exercise the public return contract even though this caller normally
+        # discards it. Audit-only elision is covered by its own real-batch tests.
+        kwargs["_audit_only"] = False
         value = original(*args, **kwargs)
         observed.append(value)
         if not expected:

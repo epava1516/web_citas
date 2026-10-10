@@ -4,6 +4,7 @@ import hashlib
 from uuid import uuid5
 
 from cryptography.fernet import InvalidToken
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Q
@@ -40,9 +41,19 @@ def signature(row, case, purpose):
 
 
 @sensitive_variables()
-def validate_read(evidence, selection, case, proof, decision, actor_id):
+def validate_read(evidence, selection, case, proof, decision, actor_id, *, _body_digest=None,
+                  _body_snapshot=None):
     if not transaction.get_connection().in_atomic_block:
         raise RuntimeError("Binary image evidence requires enclosing transaction")
+
+    def check_body_snapshot():
+        if _body_digest is not None and (
+            _body_snapshot is None
+            or (selection.encrypted_selection, settings.SECRET_KEY) != _body_snapshot
+        ):
+            raise ValidationError("Binary selection ciphertext or signing key changed")
+
+    check_body_snapshot()
     try:
         purpose = unseal(evidence.action.encrypted_reason)["reason"]
     except (InvalidToken, ValueError, TypeError, KeyError) as error:
@@ -65,7 +76,9 @@ def validate_read(evidence, selection, case, proof, decision, actor_id):
         or evidence.selection_read.action.actor_id != actor_id
     ):
         raise ValidationError("Binary image evidence changed")
-    validate_evidence(evidence.selection_read, selection, case, proof)
+    check_body_snapshot()
+    validate_evidence(evidence.selection_read, selection, case, proof, _body_digest=_body_digest)
+    check_body_snapshot()
 
 
 @sensitive_variables()
@@ -103,12 +116,16 @@ def required_reads(selection, case, proof, decisions, actor_id, *, ids=None):
         "photo_id", "content_digest"
     )
     by_image = {(str(row.photo_id), row.content_digest): row for row in latest}
+    original_ciphertext = selection.encrypted_selection
+    original_secret = settings.SECRET_KEY
+    body_digest = fingerprint(original_ciphertext)
     chosen = []
     for decision in decisions:
         row = by_image.get((str(decision["photo"]), decision["content_digest"]))
         if row is None:
             raise ValidationError("Independent binary image inspection required")
-        validate_read(row, selection, case, proof, decision, actor_id)
+        validate_read(row, selection, case, proof, decision, actor_id, _body_digest=body_digest,
+                      _body_snapshot=(original_ciphertext, original_secret))
         chosen.append(row.pk)
     if ids is not None and (len(set(ids)) != len(ids) or set(chosen) != set(ids)):
         raise ValidationError("Binary image approval reads changed")

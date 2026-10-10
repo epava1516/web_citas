@@ -20,10 +20,8 @@ BASES = {"unknown", "consent", "contract", "legal_obligation", "legitimate_inter
 ORIGINS = {"unknown", "provided", "observed", "inferred", "third_party", "mixed"}
 
 
-def checked_assessment(value):
-    """Require an explicit decision for every dataset; unknown facts stay pending."""
-    if not isinstance(value, dict) or set(value) != set(DATASETS):
-        raise ValidationError("Assess every portability dataset")
+def _validate_decision(item):
+    """Validate one decision without copying or granting any authority."""
     fields = {
         "status",
         "basis",
@@ -34,50 +32,57 @@ def checked_assessment(value):
         "reason",
         "evidence",
     }
+    if not isinstance(item, dict) or set(item) != fields:
+        raise ValidationError("Invalid portability decision schema")
+    if any(not isinstance(item[field], str) for field in ("status", "basis", "origin")):
+        raise ValidationError("Invalid portability labels")
+    if item["status"] not in {"pending", "eligible", "excluded", "granular"}:
+        raise ValidationError("Invalid portability status")
+    if item["basis"] not in BASES or item["origin"] not in ORIGINS:
+        raise ValidationError("Invalid portability provenance")
+    if any(
+        type(item[field]) is not bool and item[field] is not None
+        for field in ("automated", "subject_related", "third_party_reviewed")
+    ):
+        raise ValidationError("Portability facts require boolean or unknown")
+    if any(
+        not isinstance(item[field], str) or len(item[field]) > 2000
+        for field in ("reason", "evidence")
+    ):
+        raise ValidationError("Invalid portability evidence text")
+    if item["status"] == "pending":
+        return
+    if not 20 <= len(item["reason"].strip()) or not 20 <= len(item["evidence"].strip()):
+        raise ValidationError("Decided portability requires evidence and reason")
+    if item["status"] == "granular" and not (
+        item["origin"] == "mixed" and item["automated"] is True
+    ):
+        raise ValidationError(
+            "Granular assessment requires documented mixed automated processing"
+        )
+    if item["status"] == "excluded" and not (
+        item["basis"] in {"legal_obligation", "legitimate_interest", "other"}
+        or item["origin"] in {"inferred", "third_party"}
+        or item["automated"] is False
+        or item["subject_related"] is False
+    ):
+        raise ValidationError("Unknown or mixed provenance requires further assessment")
+    if item["status"] == "eligible" and not (
+        item["basis"] in {"consent", "contract"}
+        and item["origin"] in {"provided", "observed"}
+        and item["automated"] is True
+        and item["subject_related"] is True
+        and item["third_party_reviewed"] is True
+    ):
+        raise ValidationError("Dataset does not meet portability delivery conditions")
+
+
+def checked_assessment(value):
+    """Require an explicit decision for every dataset; unknown facts stay pending."""
+    if not isinstance(value, dict) or set(value) != set(DATASETS):
+        raise ValidationError("Assess every portability dataset")
     for item in value.values():
-        if not isinstance(item, dict) or set(item) != fields:
-            raise ValidationError("Invalid portability decision schema")
-        if any(not isinstance(item[field], str) for field in ("status", "basis", "origin")):
-            raise ValidationError("Invalid portability labels")
-        if item["status"] not in {"pending", "eligible", "excluded", "granular"}:
-            raise ValidationError("Invalid portability status")
-        if item["basis"] not in BASES or item["origin"] not in ORIGINS:
-            raise ValidationError("Invalid portability provenance")
-        if any(
-            type(item[field]) is not bool and item[field] is not None
-            for field in ("automated", "subject_related", "third_party_reviewed")
-        ):
-            raise ValidationError("Portability facts require boolean or unknown")
-        if any(
-            not isinstance(item[field], str) or len(item[field]) > 2000
-            for field in ("reason", "evidence")
-        ):
-            raise ValidationError("Invalid portability evidence text")
-        if item["status"] == "pending":
-            continue
-        if not 20 <= len(item["reason"].strip()) or not 20 <= len(item["evidence"].strip()):
-            raise ValidationError("Decided portability requires evidence and reason")
-        if item["status"] == "granular" and not (
-            item["origin"] == "mixed" and item["automated"] is True
-        ):
-            raise ValidationError(
-                "Granular assessment requires documented mixed automated processing"
-            )
-        if item["status"] == "excluded" and not (
-            item["basis"] in {"legal_obligation", "legitimate_interest", "other"}
-            or item["origin"] in {"inferred", "third_party"}
-            or item["automated"] is False
-            or item["subject_related"] is False
-        ):
-            raise ValidationError("Unknown or mixed provenance requires further assessment")
-        if item["status"] == "eligible" and not (
-            item["basis"] in {"consent", "contract"}
-            and item["origin"] in {"provided", "observed"}
-            and item["automated"] is True
-            and item["subject_related"] is True
-            and item["third_party_reviewed"] is True
-        ):
-            raise ValidationError("Dataset does not meet portability delivery conditions")
+        _validate_decision(item)
     return deepcopy(value)
 
 
