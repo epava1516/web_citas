@@ -308,3 +308,13 @@ de CREATE real de DB/ROLE, expiración original y de proof en scratch, catálogo
 real ocupado, cambio de DB OPTIONS, ENOSPC tras copy y cleanup SQL fallido que
 prohíbe fallback. Todo ello sigue **pendiente de ejecución PG coordinada**; no
 se declara aceptación, utilidad o ahorro medidos.
+
+Refuerzo final: captura usa USTAR y máximo explícito 256 miembros, manteniendo
+100 por defecto y 256 MiB agregados. Header autenticado valida keyring antes de
+bootstrap S3; errores del controller ocultan credenciales incluso TimeoutExpired.
+Diecinueve guards puros PASS (0,70 s), Ruff/compile PASS antes de este último
+guard de redacción; verificación final registrada en el commit. PG sigue pendiente.
+Verificación final: 20 guards puros PASS en 0,61 s con .venv Python3.12;
+Ruff, compileall y diff --check PASS. Una invocación previa accidental del pytest
+host Python3.11 carecía de cryptography: 7 PASS/13 errores de importación; no fue
+una ejecución válida del entorno y se repitió con dependencias del proyecto.

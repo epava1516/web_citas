@@ -57,7 +57,10 @@ class Reader:
             if length > 65536:
                 raise ValueError('Baseline index invalid')
             self.stream.seek(offset)
-            parts = json.loads(self.stream.read(length))['parts']
+            try:
+                parts = json.loads(self.stream.read(length))['parts']
+            except RecursionError as error:
+                raise ValueError('Baseline index nesting invalid') from error
             if (not isinstance(parts, list) or not parts or len(parts) > 32
                 or any(not isinstance(name, str) for name in parts)
                 or len(set(parts)) != len(parts)):
@@ -74,7 +77,7 @@ class Reader:
             if total > LIMIT:
                 raise ValueError('Baseline exceeds aggregate bound')
             self.index, self.remaining = 0, 0
-        except Exception:
+        except BaseException:
             self.stream.close()
             raise
 

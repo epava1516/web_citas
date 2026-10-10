@@ -172,6 +172,15 @@ def parse_options(argv=None):
     return args, allocations, parser
 
 
+def scrub_private(text, values):
+    for value in sorted(values, key=len, reverse=True):
+        if value:
+            text = text.replace(value, "<private>")
+            text = text.replace(json.dumps(value)[1:-1], "<private>")
+            text = text.replace(repr(value)[1:-1], "<private>")
+    return text
+
+
 def main():
     args, allocations, parser = parse_options()
     run_id = os.environ.get("CAPACITY_RUN_ID") if args.owned_controller else None
@@ -185,7 +194,8 @@ def main():
         archive = output / "artifacts.tar"
         if os.environ.get("CAPACITY_ARCHIVE") != str(archive):
             parser.error("Owned archive path differs from run identifier")
-        sink = ArchiveSink(archive)
+        sink = ArchiveSink(archive, max_files=256 if args.diagnostic_baseline_capture else 100,
+                           format=tarfile.USTAR_FORMAT if args.diagnostic_baseline_capture else tarfile.PAX_FORMAT)
         emit = sink.write
     else:
         output.mkdir(parents=True)
@@ -216,14 +226,10 @@ def main():
         try:
             from cryptography.exceptions import InvalidTag
             from diagnostic_baseline_archive import Reader
-            from diagnostic_baseline_codec import key, metadata
+            from diagnostic_baseline_codec import importable_header, key, metadata
             with Reader(args.diagnostic_baseline_use) as source:
                 baseline_header = metadata(source, key(args.diagnostic_baseline_key))
-                if (not isinstance(baseline_header, dict)
-                    or not isinstance(baseline_header.get("objects"), dict)
-                    or not isinstance(baseline_header["objects"].get("keyring"), str)
-                    or not isinstance(baseline_header["objects"].get("active_key"), str)):
-                    raise ValueError("Baseline authenticated header shape invalid")
+                importable_header(baseline_header)
         except (ValueError, OSError, KeyError, TypeError, tarfile.TarError, InvalidTag):
             baseline_header = None
             report["baseline"] = "CACHE_REJECTED"
@@ -236,10 +242,7 @@ def main():
     private_names = ("RIGHTS_OBJECT_KEYS", "RIGHTS_OBJECT_SECRET_KEY", "POSTGRES_PASSWORD", "RIGHTS_DELIVERY_PROXY_SECRET", "RUSTFS_SECRET_KEY")
 
     def scrub(text):
-        for value in private_values:
-            text = text.replace(value, "<private>")
-            text = text.replace(json.dumps(value)[1:-1], "<private>")
-        return text
+        return scrub_private(text, private_values)
 
     def run(command, label, check=True):
         for item in command:
@@ -659,7 +662,7 @@ def main():
             report["result"] = "READY_NOT_CAPACITY"
 
     except Exception as exc:
-        report["error"] = f"{type(exc).__name__}: {exc}"
+        report["error"] = scrub(f"{type(exc).__name__}: {exc}")
     finally:
         report["cgroup_memory"] = {}
         for role in allocations:
@@ -678,7 +681,7 @@ def main():
                     "current_bytes": int(lines[0]), "peak_bytes": int(lines[1]),
                     "swap_peak_bytes": int(lines[2]), "oom_kill": int(events.get("oom_kill", -1))}
             except Exception as exc:
-                report.setdefault("memory_collection_errors", {})[role] = str(exc)
+                report.setdefault("memory_collection_errors", {})[role] = scrub(str(exc))
         report["controller_peak_rss_bytes"] = next(int(line.split()[1]) * 1024
             for line in Path("/proc/self/status").read_text().splitlines() if line.startswith("VmHWM:"))
         report["host_cli_child_peak_rss_bytes"] = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss * 1024
@@ -691,7 +694,7 @@ def main():
             try:
                 report["controller_cgroup_peak_bytes"] = int(Path("/sys/fs/cgroup/memory.peak").read_text())
             except (OSError, ValueError) as exc:
-                report.setdefault("memory_collection_errors", {})["controller"] = str(exc)
+                report.setdefault("memory_collection_errors", {})["controller"] = scrub(str(exc))
             report["owned_memory_upper_bound_bytes"] = (
                 sum(item["peak_bytes"] for item in report["cgroup_memory"].values()) + 128 * MIB
                 + args.baseline_reserved_memory_mib * MIB)
@@ -722,7 +725,7 @@ def main():
                 try:
                     run(["docker", "exec", name, "cat", path], "server-log-" + role, check=False)
                 except Exception as exc:
-                    report.setdefault("log_collection_errors", {})[role] = str(exc)
+                    report.setdefault("log_collection_errors", {})[role] = scrub(str(exc))
         for name in reversed(containers):
             try:
                 if not args.owned_controller:
@@ -775,7 +778,7 @@ def main():
             report["sources_unchanged"] = before is not None and hashes() == before
         except Exception as exc:
             report["sources_unchanged"] = False
-            report["source_hash_error"] = str(exc)
+            report["source_hash_error"] = scrub(str(exc))
         if not report["sources_unchanged"]:
             report["result"] = "INVALID"
         emit("report.json", json.dumps(report, indent=2))

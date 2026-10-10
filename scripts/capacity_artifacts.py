@@ -14,12 +14,14 @@ VIRTUAL_FILESYSTEMS = {"proc", "sysfs", "cgroup2", "devpts", "mqueue"}
 DOCKER_RUNTIME_FILES = {"/etc/hosts", "/etc/hostname", "/etc/resolv.conf"}
 
 
-def _check(name, data, existing):
+def _check(name, data, existing, *, max_files=MAX_FILES):
+    if type(max_files) is not int or not 1 <= max_files <= 256:
+        raise ValueError('Artifact count ceiling must be within1..256')
     if not name or Path(name).name != name or name in {".", ".."}:
         raise ValueError("Artifact must have a single local filename")
     if len(data) > MAX_FILE_BYTES:
         raise ValueError("Artifact exceeds the declared file ceiling")
-    limit = MAX_FILES if name in RESERVED else MAX_FILES - len(RESERVED)
+    limit = max_files if name in RESERVED else max_files - len(RESERVED)
     if existing >= limit:
         raise ValueError("Artifact count exceeds the declared ceiling")
 
@@ -42,15 +44,18 @@ def write_artifact(directory, name, text):
 class ArchiveSink:
     """Append members to one pre-existing bound tar file; RLIMIT_FSIZE caps it in the kernel."""
 
-    def __init__(self, path):
+    def __init__(self, path, *, max_files=MAX_FILES, format=tarfile.PAX_FORMAT):
+        if type(max_files) is not int or not 1 <= max_files <= 256:
+            raise ValueError("Artifact count ceiling must be within1..256")
+        self.max_files = max_files
         descriptor = os.open(path, os.O_WRONLY | os.O_TRUNC | os.O_NOFOLLOW)  # Never creates.
         self.stream = os.fdopen(descriptor, "wb")
-        self.archive = tarfile.open(fileobj=self.stream, mode="w", format=tarfile.PAX_FORMAT)
+        self.archive = tarfile.open(fileobj=self.stream, mode="w", format=format)
         self.receipts = {}
 
     def write(self, name, text):
         data = text.encode("utf-8")
-        _check(name, data, len(self.receipts) - (name in self.receipts))
+        _check(name, data, len(self.receipts) - (name in self.receipts), max_files=self.max_files)
         member = tarfile.TarInfo(name)
         member.size, member.mode = len(data), 0o600
         self.archive.addfile(member, io.BytesIO(data))
@@ -61,7 +66,7 @@ class ArchiveSink:
 
     def write_binary(self, name, data):
         """At most one bounded8MiB encrypted fragment in controller memory."""
-        _check(name, data, len(self.receipts) - (name in self.receipts))
+        _check(name, data, len(self.receipts) - (name in self.receipts), max_files=self.max_files)
         member = tarfile.TarInfo(name)
         member.size, member.mode = len(data), 0o600
         self.archive.addfile(member, io.BytesIO(data))

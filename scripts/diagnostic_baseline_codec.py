@@ -1,4 +1,5 @@
 """Bounded AEAD framing for private diagnostic snapshots; no Django imports."""
+import base64
 import hashlib
 import json
 import os
@@ -79,14 +80,14 @@ def metadata(source, secret):
     kind, value = next(records(source, secret))
     if kind != b'M':
         raise ValueError('Baseline metadata missing')
-    return json.loads(value)
+    return _json(value)
 
 
 def decode(source, target, secret):
     digest, header = hashlib.sha256(), None
     for kind, value in records(source, secret):
         if kind == b'M' and header is None:
-            header = json.loads(value)
+            header = _json(value)
         elif kind == b'D' and header is not None:
             digest.update(value)
             target.write(value)
@@ -95,3 +96,28 @@ def decode(source, target, secret):
         else:
             raise ValueError('Baseline frame order/integrity invalid')
     raise ValueError('Baseline incomplete')
+
+
+def _json(value):
+    try:
+        return json.loads(value)
+    except RecursionError as error:
+        raise ValueError('Baseline metadata nesting invalid') from error
+
+
+def importable_header(header):
+    if not isinstance(header, dict) or header.get('format') != 'mod08-approved-diagnostic-v1':
+        raise ValueError('Baseline authenticated format invalid')
+    objects = header.get('objects')
+    if (not isinstance(objects, dict) or not isinstance(objects.get('keyring'), str)
+        or len(objects['keyring']) > 65536 or not isinstance(objects.get('active_key'), str)):
+        raise ValueError('Baseline authenticated keyring shape invalid')
+    keys = _json(objects['keyring'])
+    if (not isinstance(keys, dict) or not 1 <= len(keys) <= 128
+        or objects['active_key'] not in keys):
+        raise ValueError('Baseline active envelope key unavailable')
+    for name, value in keys.items():
+        if (not isinstance(name, str) or not 1 <= len(name) <= 128 or not isinstance(value, str)
+            or len(base64.b64decode(value, validate=True)) != 32):
+            raise ValueError('Baseline envelope key must be AES256')
+    return header

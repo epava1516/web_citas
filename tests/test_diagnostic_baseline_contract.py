@@ -134,6 +134,7 @@ def test_private_input_ram_reserves_full_rounded_bytes_without_changing_cpu(base
 @pytest.mark.parametrize('flag', ['CAPACITY_DELIVERY_COMPLETE', 'CAPACITY_SELECTION_COMPLETE', 'CAPACITY_PREFLIGHT_ONLY'])
 def test_helper_acceptance_guard_precedes_owned_database(flag):
     from types import SimpleNamespace
+
     from diagnostic_baseline_guards import require_diagnostic
     called = []
     def database_spy():
@@ -147,6 +148,7 @@ def test_helper_acceptance_guard_precedes_owned_database(flag):
 @pytest.mark.parametrize(('full', 'profile'), [(False, False), (True, False), (False, True)])
 def test_verified_helper_requires_both_diagnostic_flags_before_database(full, profile):
     from types import SimpleNamespace
+
     from diagnostic_baseline_guards import require_diagnostic
     called = []
     with pytest.raises(ValueError, match='full diagnostic'):
@@ -158,6 +160,7 @@ def test_verified_helper_requires_both_diagnostic_flags_before_database(full, pr
 
 def test_local_owned_n2_and_full_diagnostic_reach_ownership_guard():
     from types import SimpleNamespace
+
     from diagnostic_baseline_guards import require_diagnostic
     calls = []
     def owned():
@@ -167,3 +170,51 @@ def test_local_owned_n2_and_full_diagnostic_reach_ownership_guard():
     assert require_diagnostic(SimpleNamespace(CAPACITY_ENVIRONMENT_VERIFIED=True,
                               CAPACITY_DELIVERY_PROFILE_FULL=True, CAPACITY_DELIVERY_PROFILE=True), owned) == 'verified-own-context'
     assert calls == [True, True]
+
+
+
+def test_capture_archive_expanded_count_remains_finite_and_normal_default(baseline_modules, tmp_path):
+    from capacity_artifacts import ArchiveSink
+    path = tmp_path / 'capture.tar'
+    path.touch(mode=0o600)
+    sink = ArchiveSink(path, max_files=256, format=tarfile.USTAR_FORMAT)
+    try:
+        for number in range(255):
+            sink.write(f'log-{number}.txt', 'tiny')
+        sink.write('report.json', '{}')
+        with pytest.raises(ValueError, match='count exceeds'):
+            sink.write('overflow.txt', 'tiny')
+    finally:
+        sink.close()
+    with tarfile.open(path, 'r:') as archive:
+        assert len(archive.getmembers()) == 256
+    normal = tmp_path / 'normal.tar'
+    normal.touch(mode=0o600)
+    sink = ArchiveSink(normal)
+    try:
+        assert sink.max_files == 100
+    finally:
+        sink.close()
+    with pytest.raises(ValueError, match='within1..256'):
+        ArchiveSink(normal, max_files=257)
+
+
+@pytest.mark.parametrize('active,value', [('missing', 'invalid'), ('v1', 'invalid'), ('v1', 'AAAA')])
+def test_header_bad_keyring_rejected_before_object_bootstrap(baseline_modules, active, value):
+    codec, _ = baseline_modules
+    with pytest.raises(ValueError):
+        codec.importable_header({'format': 'mod08-approved-diagnostic-v1',
+                                 'objects': {'active_key': active, 'keyring': json.dumps({'v1': value})}})
+
+
+def test_controller_error_scrubs_timeout_command_secrets(baseline_modules):
+    import subprocess
+    _, controller = baseline_modules
+    sentinel = 'private-sentinel-password'
+    keyring = '{"original": "private-sentinel-key"}'
+    exc = subprocess.TimeoutExpired(['docker', '-e', 'POSTGRES_PASSWORD=' + sentinel,
+                                     '-e', 'RIGHTS_OBJECT_KEYS=' + keyring], 180)
+    error = controller.scrub_private(f'{type(exc).__name__}: {exc}', {sentinel, keyring})
+    assert sentinel not in error
+    assert 'private-sentinel-key' not in error
+    assert 'TimeoutExpired' in error
