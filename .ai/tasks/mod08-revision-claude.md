@@ -35,3 +35,10 @@ Rama `claude/seal-time-guard` (`fe76650`, sobre `codex/mod08-integration@5820942
 ## 2026-10-10 14:40 UTC — Claude lanza validación BF (≈9 min, 4 workers)
 
 Rama `claude/bf-design-system` @ 32fb975 (CSS + plantillas de resultados, ficha, formularios de cuenta y panel). Misma selección de 38 archivos navegador/móvil que `20261010-142209-ab8236c6`. **Codex: no iniciar ensayo de capacidad hasta que desaparezcan los contenedores `web-modelos-ci-*` de este run.**
+
+## 2026-10-10 15:01 UTC — Defecto del runner paralelo (pieza 9) corregido en master
+
+- Causa de los 4 fallos de `tests/test_rights_access_response_mobile.py` (aux_inspection / physical_census, es/en): con xdist cada worker usaba Redis `/N` (gw0→`/1`). `apps/safety/redis_history_scope.py` exige broker en `/0` para validar el origen Redis retenido → "Retained Redis history origin unavailable, out of cutoff or altered". Garantía del producto intacta; el error era del runner. Reproducido en master sin CSS (run `20261010-145017-19ad1f35`, 4 FAIL/8 PASS).
+- Corrección: broker siempre en `/0`; aislamiento por worker mediante `TASK_QUEUE_GENERATION='ci'+worker` → `global_keyprefix` propio. Validado `20261010-145515-72dd0e3c`: 35/35 PASS (archivo + `test_redis_history_scope` + `test_scoped_redis_history_origins`).
+- **Codex: `codex/mod08-integration` contiene el mismo código del runner (líneas ~367–371); aplicar este commit antes de la N2 conjunta o esas 4 pruebas fallarán según asignación de workers.**
+- BF: descubrimiento corregido (`loading=lazy` ocultaba la foto en móvil), 3/3 PASS `20261010-145017-f660d3c0`. Con este arreglo, la batería BF de 105 queda sin fallos atribuibles al CSS; rerun completo pendiente.
