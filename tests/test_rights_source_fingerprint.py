@@ -2,6 +2,7 @@
 
 import re
 from types import SimpleNamespace
+from uuid import uuid4
 
 import pytest
 from django.db import connection, transaction
@@ -22,6 +23,14 @@ from apps.listings.models import Favorite, Listing, Rate, Revision
 from apps.safety import rights_inspection_source
 from apps.safety.rights_exports import canonical, source_copy
 from apps.safety.rights_source_fingerprint import part_tables, source_fingerprint, source_rows
+
+# Exact previous municipality selector, retained only as an equivalence oracle.
+LEGACY_MUNICIPALITY = (
+    "SELECT DISTINCT m.id::text, m.xmin::text || ':' || m.ctid::text FROM catalog_municipality m "
+    "JOIN listings_revision r ON r.listing_id = %(listing)s AND (r.municipality_id = m.id "
+    "OR EXISTS (SELECT 1 FROM listings_revision_travel_areas rt "
+    "WHERE rt.revision_id = r.id AND rt.municipality_id = m.id))"
+)
 
 pytestmark = [pytest.mark.django_db(transaction=True), pytest.mark.usefixtures("directory")]
 
@@ -196,3 +205,82 @@ def test_same_transaction_caller_field_drift_rejects_shared_source():
             person.refresh_from_db()
             with rights_inspection_source.inspection_source(person, listing, case):
                 Person.objects.filter(pk=person.pk).update(alias="second update")
+
+
+def test_municipality_id_union_matches_exact_legacy_rows_and_full_digest():
+    from apps.safety.rights_source_fingerprint import PROFILE_PARTS, _parts, _union
+
+    person, listing = complete_subject()
+    peer = Listing.objects.exclude(pk=listing.pk).first()
+    base = Municipality.objects.first()
+    municipalities = {
+        name: Municipality.objects.create(
+            code="fp-" + uuid4().hex[:12],
+            name="Synthetic " + name,
+            province=base.province,
+            source=base.source,
+        )
+        for name in ("direct", "shared", "travel", "foreign", "foreign_travel", "unused")
+    }
+    # Preserve unrelated listings; isolate exactly this listing's municipal references.
+    Revision.objects.filter(listing=listing).update(municipality=None)
+    Revision.travel_areas.through.objects.filter(revision__listing=listing).delete()
+    revisions = [
+        Revision.objects.create(
+            listing=listing, manager_version=person.manager_version, municipality=municipality
+        )
+        for municipality in (municipalities["direct"], municipalities["direct"], None, None)
+    ]
+    revisions[0].travel_areas.add(municipalities["direct"], municipalities["shared"])
+    revisions[1].travel_areas.add(municipalities["shared"], municipalities["travel"])
+    revisions[2].travel_areas.add(municipalities["travel"])
+    other = Revision.objects.create(
+        listing=peer,
+        manager_version=peer.person.manager_version,
+        municipality=municipalities["foreign"],
+    )
+    other.travel_areas.add(municipalities["foreign_travel"], municipalities["shared"])
+    selector = dict(PROFILE_PARTS)["municipality"]
+    expected = {str(municipalities[name].pk) for name in ("direct", "shared", "travel")}
+    # Compare identical tuple versions in one transaction, including NULL and missing listing.
+    with transaction.atomic(), connection.cursor() as cursor:
+        for selected_listing in (listing, None):
+            values = {"listing": selected_listing.pk if selected_listing else None}
+            cursor.execute(LEGACY_MUNICIPALITY, values)
+            old = set(cursor.fetchall())
+            cursor.execute(selector, values)
+            new = cursor.fetchall()
+            assert set(new) == old and len(new) == len(old)
+            assert {identifier for identifier, _ in new} == (
+                expected if selected_listing else set()
+            )
+            parts, bindings = _parts(person, selected_listing, None)
+            old_parts = [
+                (tag, LEGACY_MUNICIPALITY if tag == "municipality" else sql) for tag, sql in parts
+            ]
+            cursor.execute(f"SELECT tag, id, version FROM ({_union(old_parts)}) AS rows", bindings)
+            old_rows = set(cursor.fetchall())
+            assert set(source_rows(person, selected_listing)) == old_rows
+            cursor.execute(
+                "SELECT encode(sha256(convert_to(coalesce(string_agg(tag || ':' || id || ':' || version, ',' "
+                f"ORDER BY tag, id), ''), 'UTF8')), 'hex'), count(*) FROM ({_union(old_parts)}) AS rows",
+                bindings,
+            )
+            digest, count = cursor.fetchone()
+            assert source_fingerprint(person, selected_listing) == f"{digest}:{count}"
+        account = SimpleNamespace(account_subject_id=person.subject_id)
+        parts, bindings = _parts(None, None, account)
+        assert "municipality" not in dict(parts)
+        cursor.execute(f"SELECT tag, id, version FROM ({_union(parts)}) AS rows", bindings)
+        assert set(source_rows(None, None, account)) == set(cursor.fetchall())
+    before = source_fingerprint(person, listing)
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "UPDATE catalog_municipality SET id=id WHERE id=%s", [municipalities["foreign"].pk]
+        )
+    assert source_fingerprint(person, listing) == before
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "UPDATE catalog_municipality SET id=id WHERE id=%s", [municipalities["travel"].pk]
+        )
+    assert source_fingerprint(person, listing) != before

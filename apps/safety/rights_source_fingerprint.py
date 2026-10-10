@@ -67,10 +67,11 @@ PROFILE_PARTS = [
     ),
     (
         "municipality",
-        "SELECT DISTINCT m.id::text, m.xmin::text || ':' || m.ctid::text FROM catalog_municipality m "
-        "JOIN listings_revision r ON r.listing_id = %(listing)s AND (r.municipality_id = m.id "
-        "OR EXISTS (SELECT 1 FROM listings_revision_travel_areas rt "
-        "WHERE rt.revision_id = r.id AND rt.municipality_id = m.id))",
+        "SELECT m.id::text, m.xmin::text || ':' || m.ctid::text FROM catalog_municipality m "
+        "WHERE m.id IN (SELECT r.municipality_id FROM listings_revision r "
+        "WHERE r.listing_id = %(listing)s UNION "
+        "SELECT rt.municipality_id FROM listings_revision_travel_areas rt "
+        "JOIN listings_revision r ON r.id = rt.revision_id WHERE r.listing_id = %(listing)s)",
     ),
     (
         "postal_code",
