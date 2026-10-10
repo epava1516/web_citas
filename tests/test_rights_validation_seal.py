@@ -251,3 +251,14 @@ def test_unsupported_parameters_decline_seal_without_rejecting_valid_export():
         "expiries": [export.expires_at],
     }
     assert rights_validation_seal.create(export, state, {}) is None
+
+
+def test_recording_named_cursor_preserves_chunks_and_replays_consumed_rows():
+    with transaction.atomic():
+        with rights_validation_seal.recording() as state:
+            with connection.chunked_cursor() as cursor:
+                cursor.execute('SELECT n FROM generate_series(1, 8) AS n ORDER BY n')
+                assert cursor.fetchmany(3) == [(1,), (2,), (3,)]
+                assert cursor.fetchall() == [(4,), (5,), (6,), (7,), (8,)]
+        assert state['supported']
+        assert rights_validation_seal._replay(state['statements']) == state['digests']

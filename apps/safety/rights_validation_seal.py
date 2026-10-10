@@ -167,9 +167,6 @@ def recording():
             if not sql.lstrip().upper().startswith(("SAVEPOINT", "RELEASE", "ROLLBACK")):
                 state["supported"] = False
             return execute(sql, params, many, context)
-        if getattr(cursor.cursor, "name", None):
-            state["supported"] = False
-            return execute(sql, params, many, context)
         execute(_annotated(sql), params, many, context)
         raw = cursor.cursor
         rows = raw.fetchall()
