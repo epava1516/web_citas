@@ -68,3 +68,6 @@ Writers nativos aislados: async_generation owns rights_portability_image_read.py
 b23cde3 trustedSQL y4354109 proxy scope: N2 conjunta184050100PASS0skips248,122s, fuentesiguales/PGRedisausentes verificados. N2 aislada18351651PASS223,290s. Root conserva evidencia diagnóstica174156/182155 y N2 en docs/evidencias/mod08-perfil-entrega-y-sellos-20261010 (baseline privado excluido). Perfil nuevo pending; master58c67b8 hasta cierre de registro.
 
 Writer storage_crypto posee únicamente _runtime_is_trusted en apps/safety/evidence_chain.py y nuevo tests/test_rights_runtime_catalog_bulk.py en /home/felidae/proyectos/web_modelos_mod08_runtime_catalog base4354109. Agrupación26→9 fresca por llamada; N2 propia lanzada18:46PID978323 ticks337857281, sin otras cargas pesadas. Root integra/acepta tras equivalencia, fuentes y retirada reales; consumoClaudeintacto.
+
+
+Catálogo eef4368 aceptado técnicamente tras18460370PASS0skips219,061s, fuentesiguales/PGRedisausentes verificados. Writerpropiedad concluida, consumos/historiaClaude intactos. Próxima carga única: captura diagnóstico original1500/16MiB/64MiB desde integración final, same4CPU8GiB20GiBswap0; no builds/tests/cambios durante perfil. Meta final permanece2casossimultáneos/objetivos completos, no baselinecomoaceptación.

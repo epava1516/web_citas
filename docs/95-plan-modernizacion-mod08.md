@@ -54,3 +54,6 @@ Dos optimizaciones dirigidas por perfil limpio: evidencias una consulta fresca p
 ## Perfil posterior a integración SQL y correctivas de entrega
 
 Lecturas diagnósticas en123lotes equivalentes: p95 5,087→4,251s; SQL755→515. Restauración entre controladores reales HIT, generación33,160s/1intento y cierre11,525s. Descargas diagnósticas23,539–24,374s exceden5s; las muestras reducidas no son aceptación. Correctivas SQL de cadena enforced y scope por autorización: N2 conjunta100PASS0skips248,122s; no mejora temporal nueva demostrada todavía. [Registro y límites](evidencias/mod08-perfil-entrega-y-sellos-20261010.json). Continúa la optimización hasta cumplir objetivos originales y ejecutar capacidad completa de2casos; sin relajación de fuentes, autoridad, físicos, población ni límites.
+
+
+Catálogo runtime eef4368:26→9consultas frescas, N2 70PASS0skips219,061s; [registro](evidencias/mod08-catalogo-runtime-20261010.json). Nueva medición pendiente antes de cualquier afirmación de mejora temporal.
