@@ -44,4 +44,4 @@ Perfiles a escala objetivo ([caso completo](evidencias/capacidad-perfil-caso-com
 - Leer AGENTS.md, contrato16 (MOD-07/MOD-08) y seguimiento17; reconciliar Git, worktrees (`web_modelos_claude_*`) y procesos antes de actuar.
 - Ejecuciones largas siempre con `scripts/run_detached.py`; si un run quedó sin terminal, `scripts/run_local_ci.py --recover` o `scripts/run_capacity_environment.py --recover RUN_ID` (escriben artefactos de recuperación separados, nunca PASS).
 - No ejecutar pruebas ni compilaciones mientras mida un ensayo de capacidad.
-- La propuesta GraphQL (`docs/propuesta-graphql-manual.md`) es local, sin versionar y fuera del contrato: no añadirla al índice (`.git/info/exclude`).
+- La propuesta GraphQL fue descartada y eliminada por decisión del usuario (2026-10-10); no se reintroduce.

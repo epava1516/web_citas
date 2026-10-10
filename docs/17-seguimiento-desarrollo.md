@@ -36,6 +36,8 @@ Revisión crítica de P1–P8 y del prototipo: el lanzador no podía ejecutarse 
 
 **MOD-08 adoptado (2026-10-10).** Modernización técnica autorizada por el usuario: [contrato16 §MOD-08](16-contrato-ejecucion-desarrollo.md#mod-08--modernización-técnica-del-núcleo-autorizada-2026-10-10). Cola: (1) mejora 3 huella de versión de fila — implementada en `claude/source-version` (`4ea995e`), 12 PASS de completitud; (2) mejora 4 sello por reproducción de consultas — escrito, pruebas pendientes; (3) generación en Celery; (4) AEAD en flujo y objetos S3 propios; (5) orjson/BLAKE3; (6) pytest-xdist y plantillas de base; (7) evidencia inmutable con cadena de hashes y revisión por lotes, con actualización de contratos. Los objetivos de capacidad no cambian.
 
+**GraphQL descartado (2026-10-10).** Por decisión del usuario («nunca saldremos de navegador web») se elimina la propuesta local sin versionar `docs/propuesta-graphql-manual.md` (SHA-256 previo `b1d3cddb1263b6c0f07430198dce9a66c51c14fc872b475ac71de8a646f6173a`); nunca hubo código GraphQL. Las menciones históricas del relevo quedan como antecedente.
+
 ### Corte anterior de pausa y propuesta acotada
 
 **Pausa y relevo solicitados el 2026-10-09.** El goal está **pausado** tras recoger los terminales y comprobar ausencia de contenedores/redes/temporales propios; no se inicia otro bloque del contrato ni se invoca a Claude. Este corte sustituye las instrucciones de ejecución inmediata que aparecen en los antecedentes inferiores. [Informe y continuación exacta](relevo-claude-20261009.md), [inventario completo y evidencia](evidencias/relevo-local-20261009.json), [prompt conforme al modelo vigente](prompt-relevo-claude-20261009.md).
