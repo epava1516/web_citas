@@ -1,0 +1,140 @@
+{
+  "scope": "MOD08 piece11 seven portability metadata families runtime adoption; no global acceptance",
+  "runs": [
+    {
+      "id": "20261010-130017-8ddba2e0",
+      "result": "ERROR",
+      "selection": [
+        "tests/test_rights_evidence_runtime.py",
+        "tests/test_rights_evidence_chain.py"
+      ],
+      "workers": 2,
+      "sources_unchanged": true,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "4",
+          "failures": "15",
+          "skipped": "0",
+          "tests": "20",
+          "time": "62.732",
+          "timestamp": "2026-10-10T15:00:40.787643+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-130017-8ddba2e0": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-130017-8ddba2e0": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "artifacts": "/home/felidae/proyectos/web_modelos/.claude/worktrees/mod08-p11-runtime/artifacts/local-ci/20261010-130017-8ddba2e0",
+      "result_sha256": "44a9ee7c85e32dcb90d5e5fc6759317b6776963cfada90033edf639234b83af3"
+    },
+    {
+      "id": "20261010-130213-054de7ff",
+      "result": "ERROR",
+      "selection": [
+        "tests/test_rights_evidence_runtime.py",
+        "tests/test_rights_evidence_chain.py"
+      ],
+      "workers": 2,
+      "sources_unchanged": true,
+      "junit": [],
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-130213-054de7ff": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-130213-054de7ff": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "artifacts": "/home/felidae/proyectos/web_modelos/.claude/worktrees/mod08-p11-runtime/artifacts/local-ci/20261010-130213-054de7ff",
+      "result_sha256": "abaf905d4c2c741d90902b85c22fbcc53c566a21e32005fe0edc9d55cec8555e"
+    },
+    {
+      "id": "20261010-130229-6528d26c",
+      "result": "PASS",
+      "selection": [
+        "tests/test_rights_evidence_runtime.py",
+        "tests/test_rights_evidence_chain.py"
+      ],
+      "workers": 2,
+      "sources_unchanged": true,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "20",
+          "time": "61.402",
+          "timestamp": "2026-10-10T15:02:47.949718+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-130229-6528d26c": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-130229-6528d26c": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "artifacts": "/home/felidae/proyectos/web_modelos/.claude/worktrees/mod08-p11-runtime/artifacts/local-ci/20261010-130229-6528d26c",
+      "result_sha256": "64a25c82fe8f4583e9d2fe213d635b1ba229d807cb5f21423b577ee862d807d7"
+    },
+    {
+      "id": "20261010-130419-39ea401b",
+      "result": "PASS",
+      "selection": [
+        "tests/test_rights_evidence_runtime.py"
+      ],
+      "workers": 2,
+      "sources_unchanged": true,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "6",
+          "time": "54.391",
+          "timestamp": "2026-10-10T15:04:38.246438+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-130419-39ea401b": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-130419-39ea401b": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "artifacts": "/home/felidae/proyectos/web_modelos/.claude/worktrees/mod08-p11-runtime/artifacts/local-ci/20261010-130419-39ea401b",
+      "result_sha256": "2e3c4c126188695a16a8cc9092d06f5487a66874e5562bdaaf9aa522d46612f3"
+    }
+  ],
+  "failures_preserved": "first PLpgSQL varchar64/text return mismatch plus imported fixture pruning; second ruff fixture F811; fixed without omitting tests",
+  "configuration_check": "docker compose config --no-env-resolution --quiet only, no services started",
+  "normal_services_modified": false
+}

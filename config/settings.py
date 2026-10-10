@@ -309,3 +309,6 @@ CELERY_BEAT_SCHEDULE["purge-orphan-export-objects"] = {
     "schedule": 3600.0,
 }
 CELERY_IMPORTS += ("apps.safety.rights_object_content",)
+
+# Requires the separate runtime role; all domain guards still run.
+RIGHTS_EVIDENCE_ENFORCED = os.getenv("RIGHTS_EVIDENCE_ENFORCED", "0") == "1"

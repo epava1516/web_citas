@@ -1,0 +1,33 @@
+# Explicit opt-in: docker compose -f compose.yaml -f compose.runtime-role.yaml up
+# The migrator owns schema; app, worker and beat use a separate runtime login.
+services:
+  migrate-runtime:
+    build: .
+    env_file: .env
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      POSTGRES_RUNTIME_USER: ${POSTGRES_RUNTIME_USER:-web_modelos_runtime}
+      POSTGRES_RUNTIME_PASSWORD: ${POSTGRES_RUNTIME_PASSWORD:?Set separate runtime password}
+    command: python manage.py initialize_rights_runtime
+    depends_on:
+      db:
+        condition: service_healthy
+  app:
+    environment: &runtime
+      POSTGRES_USER: ${POSTGRES_RUNTIME_USER:-web_modelos_runtime}
+      POSTGRES_PASSWORD: ${POSTGRES_RUNTIME_PASSWORD:?Set separate runtime password}
+      RIGHTS_EVIDENCE_ENFORCED: '1'
+    depends_on:
+      migrate-runtime:
+        condition: service_completed_successfully
+  worker:
+    environment: *runtime
+    depends_on:
+      migrate-runtime:
+        condition: service_completed_successfully
+  beat:
+    environment: *runtime
+    depends_on:
+      migrate-runtime:
+        condition: service_completed_successfully

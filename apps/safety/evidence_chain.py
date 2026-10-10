@@ -57,6 +57,24 @@ def configure_role(role):
                     sql.Identifier(table), identifier
                 )
             )
+            cursor.execute(
+                "SELECT attname FROM pg_attribute WHERE attrelid=%s::regclass "
+                "AND attnum>0 AND NOT attisdropped",
+                ["public." + table],
+            )
+            columns = sql.SQL(",").join(sql.Identifier(name) for (name,) in cursor.fetchall())
+            cursor.execute(
+                sql.SQL("REVOKE UPDATE ({}) ON public.{} FROM {}").format(
+                    columns, sql.Identifier(table), identifier
+                )
+            )
+            # PostgreSQL row locks require UPDATE on at least one column.
+            # The immutable trigger rejects DML even on this lock-only grant.
+            cursor.execute(
+                sql.SQL("GRANT UPDATE(id) ON public.{} TO {}").format(
+                    sql.Identifier(table), identifier
+                )
+            )
             cursor.execute("SELECT pg_get_serial_sequence(%s,'id')", [table])
             sequence = cursor.fetchone()[0]
             if sequence:
@@ -116,6 +134,15 @@ def _runtime_is_trusted(cursor):
     )
     tables = cursor.fetchall()
     if len(tables) != len(names) or any(any(row[2:]) for row in tables):
+        return False
+    cursor.execute(
+        "SELECT c.relname,a.attname FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid "
+        "WHERE c.relnamespace='public'::regnamespace AND c.relname=ANY(%s) "
+        "AND a.attnum>0 AND NOT a.attisdropped "
+        "AND has_column_privilege(current_user,c.oid,a.attnum,'UPDATE')",
+        [names],
+    )
+    if any(table not in TABLES or column != "id" for table, column in cursor.fetchall()):
         return False
     for _, owner, *_ in tables:
         cursor.execute("SELECT pg_has_role(current_user,%s,'MEMBER')", [owner])
@@ -248,3 +275,15 @@ def backfill_missing():
         if not cursor.fetchone()[0]:
             raise ValidationError("Evidence backfill requires the table owner")
         backfill(cursor)
+
+
+def require_runtime_chain(request):
+    """Opt-in enforcement; keeps every existing domain guard in its caller."""
+    from django.conf import settings
+
+    if not getattr(settings, "RIGHTS_EVIDENCE_ENFORCED", False):
+        return None
+    with connection.cursor() as cursor:
+        if not _runtime_is_trusted(cursor):
+            raise ValidationError("Evidence enforcement requires a separate trusted runtime role")
+    return validate_chain(request)

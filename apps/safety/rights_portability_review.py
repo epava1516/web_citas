@@ -235,6 +235,9 @@ def validate_approved_assessment(review, row, case, proof, source_digest, body):
     """Validate approved draft evidence; caller must separately authorize and audit use."""
     if not transaction.get_connection().in_atomic_block:
         raise RuntimeError("Approval validation requires atomic transaction")
+    from .evidence_chain import require_runtime_chain
+
+    require_runtime_chain(case)
     latest = (
         RightsPortabilityAssessment.objects.filter(request=case)
         .order_by("-created_at", "-pk")
