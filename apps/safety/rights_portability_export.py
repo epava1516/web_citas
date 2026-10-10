@@ -283,14 +283,16 @@ def validate_export_binding(case, person, export):
 @sensitive_variables()
 def _sealed_or_full(case, person, export):
     """A held seal proves identical database inputs; image bytes are still re-read and hashed."""
-    from .rights_validation_seal import create, holds, recording
+    from .rights_validation_seal import caller_digest, create, holds, recording
 
     caller = {"case": case, "person": person, "export": export}
     if holds(export, caller):
         _verify_current_images(export, person)
         return
+    initial_digest = caller_digest(*caller.values())
     with recording() as state:
         _validate_export_binding(case, person, export)
+    state["caller_digest"] = initial_digest
     create(export, state, caller)
 
 

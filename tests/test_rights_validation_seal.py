@@ -179,6 +179,7 @@ def test_seal_expires_at_the_earliest_loaded_expiry_and_on_code_change(
     request, settings, monkeypatch
 ):
     case, author, export, _ = generated(request, settings, monkeypatch)
+    check(case, author, export)  # Seal the fresh delivery caller before testing its expiry.
     seal = RightsExportValidationSeal.objects.filter(export=export).latest("pk")
     just_before = seal.valid_until - timedelta(seconds=1)
     monkeypatch.setattr(timezone, "now", lambda: just_before)

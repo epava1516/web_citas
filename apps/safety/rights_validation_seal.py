@@ -262,7 +262,7 @@ def create(export, state, caller):
     return RightsExportValidationSeal.objects.create(
         export=export,
         rule_version=rule_version(),
-        caller_digest=caller_digest(*caller.values()),
+        caller_digest=state.get("caller_digest") or caller_digest(*caller.values()),
         encrypted_statements=seal({"schema": SCHEMA, "statements": encoded}),
         result_digests=state["digests"],
         valid_until=min(expiries),

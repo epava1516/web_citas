@@ -1,8 +1,12 @@
 # Seguimiento de ejecución del contrato
 
+**MOD-08 piezas3/4 N2 dirigida PASS:** run `20261010-124250-bb8366fc`,24PASS/0FAIL/0ERROR/0SKIP241,787s; fuentes congeladas y PG/Redis retirados. [Evidencia](evidencias/mod08-source-seal-n2-20261010.json). Captura resultados SHA256 realmente consumidos, orden preservado, xmin+ctid cubre cambios misma transacción; digest del caller tomado antes de cargar relaciones internas. Generación/fresh delivery pueden sellarse por vistas distintas; valid_until y regla/config siguen invalidando. Pendiente N2 conjunta y objetos externos S3 en guard heldseal; no medición de capacidad.
+
 Actualizado: 2026-10-09. Fuente contractual: [contrato16](16-contrato-ejecucion-desarrollo.md). Este documento mantiene el estado y la única cola de ejecución; evidencias y condiciones de cierre se enlazan desde él.
 
 ## Estado vigente para reanudar
+
+**N1 correctiva3/4 reservada:** `claude/source-version` `5131d03`; archivos completos `test_rights_source_fingerprint.py` y `test_rights_validation_seal.py` (completitud/mutaciones25familias, misma transacción, fresh caller, orden, captura real, parámetros, expiración/configuración y resultado equivalente a validación completa). PG17/Redis7.4/nativos propios,2workers,timeout1800s,detached/fuentes congeladas. Reproducciones anteriores: dos defectos confirmados y un error JSONB incidental; repetición de snapshot tras soporteJSONB confirmó aceptación incorrecta. Corrección usa xmin+ctid, recarga caller ante drift y SHA256 de filas anotadas en el SELECT realmente consumido, con orden preservado/cursor equivalente; expiry y configuración viva, fallback ante inputs no soportados. Salida: todosPASS,0skips,huellas/cleanup; luego N2 conjunta sin afirmar capacidad.
 
 **N1 reproducción3/4 reservada por Codex:** rama `claude/source-version`, `dcfd0c7`, tres nodos nuevos: dos UPDATE dentro de una transacción (identidad de fila), orden consumido por SELECT y cambio entre lectura validada/reproducción posterior. PG17/Redis7.4 propios, runner detached focused/1worker/nativos, timeout1800s. Fuentes congeladas hasta terminal, mantener fallos como reproducción; no aceptación. Salida: confirmar o refutar hipótesis, JUnit/huellas/limpieza; después corregir únicamente garantías demostradas y ejecutar los archivos afectados.
 
