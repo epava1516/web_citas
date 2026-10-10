@@ -11,6 +11,8 @@ from uuid import uuid4
 
 import pytest
 from botocore.exceptions import ClientError
+from capacity_async_preflight import prepare as prepare_async_probe
+from capacity_async_preflight import run as run_async_probe
 from capacity_delivery_http import open_client, post
 from capacity_gunicorn import server
 from django.utils import timezone
@@ -25,7 +27,7 @@ from apps.safety.rights_object_models import RightsObjectDelivery
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def test_owned_object_proxy_and_purge_worker_gate(request, settings, record_property):
+def test_owned_object_proxy_and_purge_worker_gate(request, settings, monkeypatch, record_property):
     assert settings.CAPACITY_PREFLIGHT_ONLY and settings.CAPACITY_OBJECT_DELIVERY
     assert settings.RIGHTS_OBJECT_STORAGE_ENABLED and settings.RIGHTS_PROXY_DELIVERY_ENABLED
     assert settings.RIGHTS_DELIVERY_ROOT == Path("/srv/delivery")
@@ -54,7 +56,10 @@ def test_owned_object_proxy_and_purge_worker_gate(request, settings, record_prop
         assert expected.status_code == 200
         settings.RIGHTS_PROXY_DELIVERY_ENABLED = True
         download = RightsExportDownload.objects.get(export=export)
+        async_probe = prepare_async_probe(request, settings, monkeypatch)
+        proof["async_generation"] = {}
         with server(settings, record_property) as endpoint:
+            run_async_probe(async_probe, endpoint, settings, proof["async_generation"])
             client = open_client(settings, endpoint, receipt)
             delivered = post(
                 client.client,

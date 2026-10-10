@@ -282,15 +282,25 @@ def run_case(index, target, context, server, settings, barrier, metrics, diagnos
            context["receipt"], server, settings, barrier, metrics, expected)
 
 
-def queued_generation(case, author, selected, coverage_review, server, settings, metrics):
+def queued_generation(case, author, selected, coverage_review, server, settings, metrics,
+                      *, observation_timeout=1800):
     """Actual enqueue request through Gunicorn; completion is the committed job/export."""
+    if type(observation_timeout) not in (int, float) or not 0 < observation_timeout <= 1800:
+        raise ValueError("Finite generation observation must be within1800seconds")
     path = f"/en/moderation/rights/{case.pk}/portability/export/"
     browser = open_client(settings, server, path, actor=author)
     key = uuid4()
     begin = time.perf_counter()
+    deadline = begin + observation_timeout
+
+    def remaining_timeout():
+        remaining = deadline - time.perf_counter()
+        assert remaining > 0, "Async generation observation expired"
+        return min(120, remaining)
+
     response = post(browser.client, server.url + path, browser.csrf,
         {"key": str(key), "version": case.version, "review": selected.pk,
-         "coverage_review": coverage_review.pk, "reason": REASON}, timeout=120)
+         "coverage_review": coverage_review.pk, "reason": REASON}, timeout=remaining_timeout())
     # urllib follows the canonical 302. Neither redirect nor status 200 proves generation.
     assert response.status == 200 and "no-store" in response.headers.get("Cache-Control", "")
     job = RightsPortabilityExportJob.objects.get(key=key, request=case, actor=author)
@@ -302,9 +312,9 @@ def queued_generation(case, author, selected, coverage_review, server, settings,
         "worker_scope": "Real Celery worker in the same constrained app cgroup",
         "profile_scope": "Parent HTTP/polling only; worker generation is not parent cProfile",
     }
-    deadline = begin + 1800  # finite recovery observation; limit remains 120, recorded by measured()
+    # Finite recovery observation; the normal objective remains120, recorded by measured().
     while True:
-        with browser.client.open(endpoint, timeout=120) as status:
+        with browser.client.open(endpoint, timeout=remaining_timeout()) as status:
             body = status.read()
             assert status.status == 200 and "no-store" in status.headers["Cache-Control"]
         polls += 1
