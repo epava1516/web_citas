@@ -454,6 +454,9 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, e
                     .exclude(encrypted_content="")
                     .count()
                 )
+                from .rights_object_content import purge_export_objects
+
+                purge_export_objects(RightsExport.objects.filter(pk__in=ids))
                 RightsExportImage.objects.filter(export_id__in=ids).update(encrypted_content="")
                 result["parts_cleared"] = (
                     RightsExportPart.objects.filter(export_id__in=ids)
@@ -529,15 +532,17 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, e
             current_erasure_actor(user, case, session_version, mfa_version)
             RecoveryOutbox.objects.create(
                 execution=record,
-                encrypted_event=seal({
-                    "schema": "recovery-execution-receipt-v1",
-                    "execution": str(record.pk),
-                    "scope": "account" if account_scope else "person",
-                    "subject": str(case.account_subject_id if account_scope else person.pk),
-                    "purposes": sorted(purposes),
-                    "pending_purposes": sorted(result.get("pending_purposes", [])),
-                    "references": finalized(recovery_refs, person, subject, purposes, record),
-                }),
+                encrypted_event=seal(
+                    {
+                        "schema": "recovery-execution-receipt-v1",
+                        "execution": str(record.pk),
+                        "scope": "account" if account_scope else "person",
+                        "subject": str(case.account_subject_id if account_scope else person.pk),
+                        "purposes": sorted(purposes),
+                        "pending_purposes": sorted(result.get("pending_purposes", [])),
+                        "references": finalized(recovery_refs, person, subject, purposes, record),
+                    }
+                ),
             )
             return record
     except IntegrityError as error:

@@ -19,3 +19,5 @@ urlpatterns += i18n_patterns(
     path("operations/promotion-products/", include("apps.catalog.promotion_urls")),
     path("", include("apps.core.urls")),
 )
+
+urlpatterns += [path("", include("apps.safety.rights_object_urls"))]

@@ -23,6 +23,15 @@ services:
       interval: 3s
       timeout: 3s
       retries: 20
+  objects:
+    image: rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c
+    profiles: ["rights-objects"]
+    environment:
+      RUSTFS_ACCESS_KEY: ${RIGHTS_OBJECT_ACCESS_KEY:-}
+      RUSTFS_SECRET_KEY: ${RIGHTS_OBJECT_SECRET_KEY:-}
+      RUSTFS_CONSOLE_ENABLE: "false"
+    ports: ["127.0.0.1:${RIGHTS_OBJECT_PORT:-53900}:9000"]
+    volumes: ["rights_object_data:/data"]
   app:
     build: .
     env_file: .env
@@ -35,7 +44,7 @@ services:
     depends_on:
       db: {condition: service_healthy}
       redis: {condition: service_healthy}
-    volumes: ["private_media:/app/media/private", "static_data:/app/staticfiles"]
+    volumes: ["private_media:/app/media/private", "static_data:/app/staticfiles", "rights_delivery:/app/media/delivery"]
   worker:
     build: .
     command: ["celery", "-A", "config", "worker", "--loglevel=INFO", "--concurrency=2"]
@@ -48,7 +57,7 @@ services:
     depends_on:
       db: {condition: service_healthy}
       redis: {condition: service_healthy}
-    volumes: ["private_media:/app/media/private"]
+    volumes: ["private_media:/app/media/private", "rights_delivery:/app/media/delivery"]
   beat:
     build: .
     command: ["celery", "-A", "config", "beat", "--loglevel=INFO", "--schedule", "/tmp/celerybeat-schedule"]
@@ -62,13 +71,18 @@ services:
       redis: {condition: service_healthy}
   caddy:
     image: caddy:2-alpine
+    environment:
+      RIGHTS_DELIVERY_PROXY_SECRET: ${RIGHTS_DELIVERY_PROXY_SECRET:-}
     ports: ["127.0.0.1:${HTTP_PORT:-18080}:80"]
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - static_data:/srv/static:ro
+      - rights_delivery:/srv/delivery:ro
     depends_on: [app]
 volumes:
   postgres_data:
   redis_data:
   private_media:
   static_data:
+  rights_object_data:
+  rights_delivery:

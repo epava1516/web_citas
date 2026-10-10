@@ -38,6 +38,9 @@ def purge_expired_exports():
             .order_by("pk")
             .values_list("pk", flat=True)[:1000]
         )
+        from .rights_object_content import purge_export_objects
+
+        purge_export_objects(RightsExport.objects.filter(pk__in=ids))
         RightsExportImage.objects.filter(export_id__in=ids).update(encrypted_content="")
         RightsExportPart.objects.filter(export_id__in=ids).update(encrypted_content="")
         return RightsExport.objects.filter(pk__in=ids).update(encrypted_payload="", purged_at=now)

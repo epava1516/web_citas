@@ -1,0 +1,176 @@
+{
+  "scope": "MOD08 pieces6/8 functional N1/N2 only; synthetic owned PG Redis RustFS Caddy Celery; no capacity or N3",
+  "runs": [
+    {
+      "run": "20261010-123046-a746451a",
+      "result": "ERROR",
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-123046-a746451a": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-123046-a746451a": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "3",
+          "skipped": "0",
+          "tests": "41",
+          "time": "173.346",
+          "timestamp": "2026-10-10T14:31:10.468888+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "run": "20261010-123744-54c64f0a",
+      "result": "PASS",
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-123744-54c64f0a": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-123744-54c64f0a": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "42",
+          "time": "177.957",
+          "timestamp": "2026-10-10T14:38:03.194501+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "run": "20261010-124459-dace0b6c",
+      "result": "ERROR",
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-124459-dace0b6c": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-124459-dace0b6c": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "4",
+          "skipped": "0",
+          "tests": "51",
+          "time": "256.591",
+          "timestamp": "2026-10-10T14:45:20.082064+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "run": "20261010-125033-6711851a",
+      "result": "ERROR",
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-125033-6711851a": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-125033-6711851a": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "junit": []
+    },
+    {
+      "run": "20261010-125149-7ddc9903",
+      "result": "PASS",
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-125149-7ddc9903": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-125149-7ddc9903": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "23",
+          "time": "199.114",
+          "timestamp": "2026-10-10T14:52:08.693188+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    },
+    {
+      "run": "20261010-125656-f400e9bc",
+      "result": "PASS",
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-125656-f400e9bc": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-125656-f400e9bc": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "9",
+          "time": "46.881",
+          "timestamp": "2026-10-10T14:57:16.308778+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ]
+    }
+  ],
+  "archive": "mod08-objetos-proxy-n2-20261010.tar.gz",
+  "archive_sha256": "53287fa5d7201a9f71cf3b6d9a33feec7eab960799639feb2d113e120bd19e81",
+  "limitations": [
+    "Per-request authority; no byte retraction after proxy authorizes",
+    "HEAD404 proves API absence in freshly checked unversioned unlocked bucket, not forensic disk/backups destruction",
+    "Bucket administrator must not concurrently mutate versioning/lock; S3 has no configuration-and-delete transaction",
+    "Recovery requires separate retained authenticated tombstones and fresh delivery generation, not merely DB restore"
+  ]
+}

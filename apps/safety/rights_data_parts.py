@@ -83,8 +83,9 @@ def json_chunks(value):
 @sensitive_variables()
 def stored_payload(export, reviewed):
     """Called inside export generation's transaction; all fragments share its authority."""
-    from .crypto import cipher, seal
+    from .crypto import seal
     from .models import RightsExportPart
+    from .rights_object_content import seal_binary
 
     encoded = iter(json_chunks(reviewed))
     prefix = bytearray()
@@ -111,7 +112,9 @@ def stored_payload(export, reviewed):
             export=export,
             position=len(image_parts) + package["position"],
             attachments=[],
-            encrypted_content=cipher().encrypt(package["content"]).decode(),
+            encrypted_content=seal_binary(
+                package["content"], export.pk, "part", len(image_parts) + package["position"]
+            ),
         )
         manifest["data_parts"].append(
             {

@@ -1,4 +1,33 @@
 :80 {
+    @delivery path /private-deliveries/*
+    handle @delivery {
+        route {
+            # Bearer URLs never enter access logs. No public raw file path.
+            log_skip
+            request_header -X-Delivery-Object
+            request_header -X-Delivery-Type
+            request_header -X-Delivery-Disposition
+            forward_auth app:8000 {
+                uri /internal/rights-objects/authorize/
+                header_up X-Rights-Proxy {$RIGHTS_DELIVERY_PROXY_SECRET}
+                header_up X-Forwarded-Range {http.request.header.Range}
+                copy_headers X-Delivery-Object X-Delivery-Type X-Delivery-Disposition
+            }
+            header {
+                Cache-Control "no-store, private"
+                Pragma "no-cache"
+                X-Content-Type-Options "nosniff"
+                Content-Type {http.request.header.X-Delivery-Type}
+                Content-Disposition {http.request.header.X-Delivery-Disposition}
+                -ETag
+                -Last-Modified
+                -Accept-Ranges
+            }
+            rewrite * /{http.request.header.X-Delivery-Object}
+            root * /srv/delivery
+            file_server
+        }
+    }
     @static path /static/*
     handle @static {
         root * /srv

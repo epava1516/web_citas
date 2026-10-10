@@ -238,6 +238,22 @@ def source(case, *, capture=None):
                 ["pk", "export_id", "actor_id", "part_id", "created_at"],
             ),
             (
+                "safety.RightsObjectDelivery",
+                Q(download__export__account_subject=user) | Q(download__actor=user),
+                "dependent_evidence",
+                [
+                    "pk",
+                    "download_id",
+                    "generation",
+                    "content_sha256",
+                    "content_bytes",
+                    "created_at",
+                    "expires_at",
+                    "consumed_at",
+                    "purged_at",
+                ],
+            ),
+            (
                 "safety.Complaint",
                 Q(actor=user),
                 "third_party_evidence",

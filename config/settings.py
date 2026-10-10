@@ -269,4 +269,43 @@ LOGGING = {
 PROMOTION_TEST_MODE = os.getenv("PROMOTION_TEST_MODE", "0") == "1" and not PRODUCTION
 
 if PROMOTION_TEST_MODE and not RECOVERY_MODE:
-    CELERY_BEAT_SCHEDULE["synthetic-promotion-bumps"] = {"task": "apps.catalog.tasks.bump_promotions", "schedule": 60.0}
+    CELERY_BEAT_SCHEDULE["synthetic-promotion-bumps"] = {
+        "task": "apps.catalog.tasks.bump_promotions",
+        "schedule": 60.0,
+    }
+
+# MOD08: opt-in private objects and short proxy grants, separate recovery epoch.
+RIGHTS_PROXY_DELIVERY_ENABLED = os.getenv("RIGHTS_PROXY_DELIVERY_ENABLED", "0") == "1"
+RIGHTS_DELIVERY_ROOT = Path(os.getenv("RIGHTS_DELIVERY_ROOT", str(BASE_DIR / "media/delivery")))
+RIGHTS_DELIVERY_GENERATION = os.getenv("RIGHTS_DELIVERY_GENERATION", "development-v1")
+RIGHTS_DELIVERY_PROXY_SECRET = os.getenv("RIGHTS_DELIVERY_PROXY_SECRET", "")
+if not re.fullmatch(r"[a-zA-Z0-9_-]{1,64}", RIGHTS_DELIVERY_GENERATION):
+    raise ImproperlyConfigured("Invalid rights delivery generation")
+if RIGHTS_PROXY_DELIVERY_ENABLED and len(RIGHTS_DELIVERY_PROXY_SECRET) < 32:
+    raise ImproperlyConfigured("Proxy delivery requires independent32-byte secret")
+RIGHTS_OBJECT_ENDPOINT = os.getenv("RIGHTS_OBJECT_ENDPOINT", "http://objects:9000")
+RIGHTS_OBJECT_REGION = os.getenv("RIGHTS_OBJECT_REGION", "us-east-1")
+RIGHTS_OBJECT_BUCKET = os.getenv("RIGHTS_OBJECT_BUCKET", "rights-private")
+RIGHTS_OBJECT_ACCESS_KEY = os.getenv("RIGHTS_OBJECT_ACCESS_KEY", "")
+RIGHTS_OBJECT_SECRET_KEY = os.getenv("RIGHTS_OBJECT_SECRET_KEY", "")
+RIGHTS_OBJECT_KEYS = os.getenv("RIGHTS_OBJECT_KEYS", "{}")  # JSON key ID -> base64 AES256 key
+RIGHTS_OBJECT_ACTIVE_KEY = os.getenv("RIGHTS_OBJECT_ACTIVE_KEY", "")
+CELERY_BEAT_SCHEDULE["purge-rights-object-deliveries"] = {
+    "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+    "schedule": 10.0,
+}
+CELERY_IMPORTS = tuple(globals().get("CELERY_IMPORTS", ())) + (
+    "apps.safety.rights_object_delivery",
+)
+
+RIGHTS_OBJECT_STORAGE_ENABLED = os.getenv("RIGHTS_OBJECT_STORAGE_ENABLED", "0") == "1"
+
+CELERY_BEAT_SCHEDULE["reconcile-portability-export-jobs"] = {
+    "task": "apps.safety.tasks.reconcile_portability_export_jobs",
+    "schedule": 60.0,
+}
+CELERY_BEAT_SCHEDULE["purge-orphan-export-objects"] = {
+    "task": "apps.safety.rights_object_content.purge_orphan_export_objects",
+    "schedule": 3600.0,
+}
+CELERY_IMPORTS += ("apps.safety.rights_object_content",)

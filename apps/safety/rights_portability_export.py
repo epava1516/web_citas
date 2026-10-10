@@ -16,11 +16,12 @@ from django.views.decorators.debug import sensitive_variables
 
 from apps.core.models import User
 
-from .crypto import cipher, seal, unseal
+from .crypto import seal, unseal
 from .models import RightsAction, RightsExport, RightsExportPortabilityBinding
 from .rights import fingerprint
 from .rights_copy_page_review import fresh_authority, validate_generated_scope
 from .rights_exports import canonical, reviewer_case, source_copy
+from .rights_object_content import image_bytes, part_bytes, seal_binary
 from .rights_portability_review import validate_approved_assessment
 from .rights_portability_selected_use import consume_selected
 from .rights_portability_selection import project_selected
@@ -128,7 +129,7 @@ def image_payload(export, declarations, person):
         snapshot, declaration = by_identifier[identifier], declared[identifier]
         _, current = image_content(person, declaration["photo"])
         try:
-            content = cipher().decrypt(snapshot.encrypted_content.encode())
+            content = image_bytes(snapshot)
         except (InvalidToken, ValueError, TypeError) as error:
             raise ValidationError("Portable image snapshot unavailable") from error
         del snapshot.encrypted_content
@@ -157,13 +158,17 @@ def image_payload(export, declarations, person):
                 package_size += len(content) + 76 + 2 * len(name.encode("ascii"))
                 if package_size > PART_LIMIT:
                     raise ValidationError("Portable image package exceeds size limit")
-                metadata[identifier] = {"attachment": identifier, "content_type": "image/webp",
-                                        "sha256": digest, "size": len(content)}
+                metadata[identifier] = {
+                    "attachment": identifier,
+                    "content_type": "image/webp",
+                    "sha256": digest,
+                    "size": len(content),
+                }
                 yield identifier, name, content
 
         expected = archive(items(), PART_LIMIT)["content"]
         try:
-            content = cipher().decrypt(part.encrypted_content.encode())
+            content = part_bytes(part)
         except (InvalidToken, ValueError, TypeError) as error:
             raise ValidationError("Portable image package unavailable") from error
         if content != expected:
@@ -217,9 +222,7 @@ def validate_transport(export, payload):
                 or metadata.get("fragment_position") != position
             ):
                 raise ValidationError("Portability fragment binding changed")
-            with zipfile.ZipFile(
-                io.BytesIO(cipher().decrypt(part.encrypted_content.encode()))
-            ) as archive:
+            with zipfile.ZipFile(io.BytesIO(part_bytes(part))) as archive:
                 entries = archive.infolist()
                 if (
                     len(entries) != 1
@@ -268,9 +271,17 @@ def validate_export_binding(case, person, export):
     scope = _operation.get()
     connection = transaction.get_connection()
     # The outermost atomic block identifies this transaction: a result never crosses commits.
-    identity = (id(connection.atomic_blocks[0]), case.pk, case.version, case.kind, case.status,
-                person.pk if person else None, export.pk, export.case_version,
-                fingerprint(export.encrypted_payload))
+    identity = (
+        id(connection.atomic_blocks[0]),
+        case.pk,
+        case.version,
+        case.kind,
+        case.status,
+        person.pk if person else None,
+        export.pk,
+        export.case_version,
+        fingerprint(export.encrypted_payload),
+    )
     if scope is not None and scope["connection"] is transaction.get_connection():
         if identity in scope["validated"]:
             return
@@ -491,7 +502,9 @@ def generate(
                 if hashlib.sha256(content).hexdigest() != declaration["content_digest"]:
                     raise ValidationError("Portable image content changed")
                 snapshot = RightsExportImage.objects.create(
-                    export=export, photo=photo, encrypted_content=cipher().encrypt(content).decode()
+                    export=export,
+                    photo=photo,
+                    encrypted_content=seal_binary(content, export.pk, "image", photo.pk),
                 )
                 yield snapshot.pk, content
 
@@ -500,7 +513,7 @@ def generate(
                 export=export,
                 position=position,
                 attachments=package["attachments"],
-                encrypted_content=cipher().encrypt(package["content"]).decode(),
+                encrypted_content=seal_binary(package["content"], export.pk, "part", position),
             )
         payload.update(image_payload(export, image_decisions, person))
     export.encrypted_payload = stored_payload(export, payload)

@@ -45,7 +45,11 @@ def source_manifest(person, case=None, *, capture=None):
         ("listings.PublicationState", Q(listing__person=person), "publication", None),
         (
             "listings.PublicationDirty",
-            Q(listing_id__in=apps.get_model("listings.Listing").objects.filter(person=person).values("pk")),
+            Q(
+                listing_id__in=apps.get_model("listings.Listing")
+                .objects.filter(person=person)
+                .values("pk")
+            ),
             "publication",
             None,
         ),
@@ -1036,6 +1040,21 @@ def source_manifest(person, case=None, *, capture=None):
             ["pk", "case_version", "created_at"],
         ),
         ("safety.RightsExportDownload", Q(export__person=person), ["pk", "created_at"]),
+        (
+            "safety.RightsObjectDelivery",
+            Q(download__export__person=person),
+            [
+                "pk",
+                "download_id",
+                "generation",
+                "content_sha256",
+                "content_bytes",
+                "created_at",
+                "expires_at",
+                "consumed_at",
+                "purged_at",
+            ],
+        ),
     ]:
         scopes.append((label, scope, "dependent_evidence", fields))
     notice_scope = Q(request__person=person)

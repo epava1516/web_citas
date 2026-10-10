@@ -22,7 +22,7 @@ from apps.core.accounts import limited
 from apps.core.models import User
 
 from .copy_error_presentation import operation_error
-from .crypto import cipher, seal, unseal
+from .crypto import seal, unseal
 from .fast_canonical import canonical as fast_canonical
 from .models import (
     RightsAction,
@@ -37,6 +37,7 @@ from .models import (
 from .rectification_presentation import caption
 from .rights import allowed, fingerprint
 from .rights_copy_data import contact_data, image_inventory, subject_data
+from .rights_object_content import image_bytes, part_bytes, seal_binary
 from .rights_scope import locked_case, permitted
 from .rights_verification import PROCEDURE, authorized_proof, complete_read, enabled
 from .views import private
@@ -448,7 +449,9 @@ def generate(user, case_id, key, version, reason, copy, *, information_review_id
                 )
             for image, photo, content in audited_snapshots():
                 attachment = RightsExportImage.objects.create(
-                    export=export, photo=photo, encrypted_content=cipher().encrypt(content).decode()
+                    export=export,
+                    photo=photo,
+                    encrypted_content=seal_binary(content, export.pk, "image", photo.pk),
                 )
                 image["attachment"] = str(attachment.pk)
             if all(
@@ -462,7 +465,7 @@ def generate(user, case_id, key, version, reason, copy, *, information_review_id
 
             cleaned["parts"] = []
             snapshots = (
-                (attachment.pk, cipher().decrypt(attachment.encrypted_content.encode()))
+                (attachment.pk, image_bytes(attachment))
                 for attachment in export.images.order_by("created_at", "pk").iterator(chunk_size=1)
             )
             for position, package in enumerate(packages(snapshots), start=1):
@@ -470,7 +473,7 @@ def generate(user, case_id, key, version, reason, copy, *, information_review_id
                     export=export,
                     position=position,
                     attachments=package["attachments"],
-                    encrypted_content=cipher().encrypt(package["content"]).decode(),
+                    encrypted_content=seal_binary(package["content"], export.pk, "part", position),
                 )
                 cleaned["parts"].append(
                     {
@@ -935,9 +938,11 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
             from .rights_portability_export import validate_export_binding as validate_portability
 
             validate_portability(delivery_case, person, export)
+            from .rights_object_delivery import proxy_or_direct
+
             if part:
                 response = HttpResponse(
-                    cipher().decrypt(part.encrypted_content.encode()),
+                    part_bytes(part),
                     content_type="application/zip",
                 )
                 response["Content-Disposition"] = (
@@ -945,13 +950,11 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
                     if not part.attachments
                     else 'attachment; filename="rights-part.zip"'
                 )
-                return private(response)
+                return proxy_or_direct(export, recorded, response)
             if image:
-                response = HttpResponse(
-                    cipher().decrypt(image.encrypted_content.encode()), content_type="image/webp"
-                )
+                response = HttpResponse(image_bytes(image), content_type="image/webp")
                 response["Content-Disposition"] = 'attachment; filename="rights-image.webp"'
-                return private(response)
+                return proxy_or_direct(export, recorded, response)
             if case.kind == "access" and final_body is not None:
                 from .rights_access_delivery import recipient_payload
 
@@ -969,7 +972,7 @@ def download(request, case_id, secret, export_id, image_id=None, part_id=None):
                 if case.account_subject_id
                 else 'attachment; filename="rights-profile.json"'
             )
-            return private(response)
+            return proxy_or_direct(export, recorded, response)
         except (
             InvalidToken,
             UnicodeDecodeError,

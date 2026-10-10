@@ -230,6 +230,9 @@ def apply_database(receipt):
             if receipt["scope"] == "account"
             else RightsExport.objects.none()
         )
+        from .rights_object_content import purge_export_objects
+
+        purge_export_objects(exports)
         RightsExportImage.objects.filter(export__in=exports).update(encrypted_content="")
         RightsExportPart.objects.filter(export__in=exports).update(encrypted_content="")
         exports.update(encrypted_payload="", purged_at=now)

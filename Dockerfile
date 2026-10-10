@@ -9,7 +9,7 @@ RUN groupadd --gid 10001 app && useradd --uid 10001 --gid app --no-create-home a
 WORKDIR /app
 COPY --from=build /app/.venv /app/.venv
 COPY --chown=app:app . /app
-RUN mkdir -p /app/media/private /app/staticfiles && chown -R app:app /app/media /app/staticfiles
+RUN mkdir -p /app/media/private /app/media/delivery /app/staticfiles && chown -R app:app /app/media /app/staticfiles
 USER app
 RUN python manage.py collectstatic --noinput
 EXPOSE 8000
