@@ -1,0 +1,36 @@
+{
+  "scope": "Preflight real finito; nunca capacidad/p95/N3",
+  "result": "READY_NOT_CAPACITY",
+  "run": "20261010-140801-58565769",
+  "negative_runs": [
+    "20261010-140100-670cdbe2",
+    "20261010-140248-d0f227e6"
+  ],
+  "head": "c50b76a",
+  "proof": {
+    "s3_aead": true,
+    "s3_purge": true,
+    "caddy_bytes": true,
+    "caddy_replay_denied": true,
+    "worker_purge": true,
+    "beat_purge": true,
+    "scope": "Finite synthetic PG/S3/Caddy/worker topology only; no target1500 fixture or capacity"
+  },
+  "budgets": {
+    "cpu": 4,
+    "memory_mib": 8192,
+    "storage_gib": 20,
+    "swap": 0
+  },
+  "owned_memory_upper_bound_bytes": 1169072128,
+  "owned_storage_ceiling_bytes": 4865392640,
+  "global_memory_verdict": "WITHIN_6GIB_UPPER_BOUND",
+  "sources_unchanged": true,
+  "cleanup_verified": true,
+  "limits": [
+    "Un caso pequeño sintético, sin1500revisiones ni población p95",
+    "Sin proveedores externos, ni datos reales, ni servicios normales tocados",
+    "Caddy binario idéntico en tmpfs96MiB cuenta en RAM/almacenamiento; privilegios retirados",
+    "Primeros intentos INVALID por imagen inexistente y capability del binario; evidencia preservada"
+  ]
+}
