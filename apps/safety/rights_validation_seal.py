@@ -251,18 +251,67 @@ def decode(value):
     }[kind](item)
 
 
-def _replay(statements):
+_REPLAY_PIPELINE_LIMIT = 8
+
+
+def _replay_query(sql):
+    return (
+        "SELECT encode(sha256(convert_to(coalesce(string_agg(_seal_hash, ''), ''), "
+        f"'UTF8')), 'hex') FROM ({_annotated(sql)}) AS sealed_rows"
+    )
+
+
+def _replay_serial(statements):
     digests = []
     with connection.cursor() as cursor:
         for sql, params in statements:
-            # No sorting: full validation consumes the original result order.
-            cursor.execute(
-                "SELECT encode(sha256(convert_to(coalesce(string_agg(_seal_hash, ''), ''), "
-                f"'UTF8')), 'hex') FROM ({_annotated(sql)}) AS sealed_rows",
-                params,
-            )
+            cursor.execute(_replay_query(sql), params)
             digests.append(cursor.fetchone()[0])
     return digests
+
+
+def _pipeline_connection():
+    import psycopg
+
+    # Only the actual PostgreSQL driver/connection supports this protocol. A
+    # nested pipeline or recording context keeps the established serial path.
+    raw = connection.connection
+    supported = getattr(getattr(psycopg, 'Pipeline', None), 'is_supported', None)
+    if (connection.vendor != "postgresql" or not isinstance(raw, psycopg.Connection)
+            or not callable(getattr(raw, "pipeline", None))
+            or getattr(raw, "_pipeline", None) is not None
+            or _recording.get() is not None
+            or not callable(supported) or not supported()):
+        return None
+    return raw
+
+
+def _replay_pipeline(statements, raw):
+    from contextlib import ExitStack
+
+    digests = []
+    for start in range(0, len(statements), _REPLAY_PIPELINE_LIMIT):
+        # Cursor closure follows pipeline exit/drain, which itself precedes the
+        # caller's savepoint rollback on errors. Sync/exit errors also need
+        # Django translation: they occur outside cursor.execute().
+        with connection.wrap_database_errors, ExitStack() as cursors:
+            with raw.pipeline() as pipeline:
+                pending = []
+                for sql, params in statements[start:start + _REPLAY_PIPELINE_LIMIT]:
+                    cursor = cursors.enter_context(connection.cursor())
+                    cursor.execute(_replay_query(sql), params)
+                    pending.append(cursor)
+                pipeline.sync()
+                for cursor in pending:
+                    digests.append(cursor.fetchone()[0])
+    return digests
+
+
+def _replay(statements):
+    # Individual statements and their server execution order are unchanged;
+    # grouping only amortizes transport waits, never combines SQL snapshots.
+    raw = _pipeline_connection()
+    return _replay_serial(statements) if raw is None else _replay_pipeline(statements, raw)
 
 
 @sensitive_variables()
