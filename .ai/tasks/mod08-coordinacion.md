@@ -71,3 +71,25 @@ Writer storage_crypto posee únicamente _runtime_is_trusted en apps/safety/evide
 
 
 Catálogo eef4368 aceptado técnicamente tras18460370PASS0skips219,061s, fuentesiguales/PGRedisausentes verificados. Writerpropiedad concluida, consumos/historiaClaude intactos. Próxima carga única: captura diagnóstico original1500/16MiB/64MiB desde integración final, same4CPU8GiB20GiBswap0; no builds/tests/cambios durante perfil. Meta final permanece2casossimultáneos/objetivos completos, no baselinecomoaceptación.
+
+
+## Medición real posterior al catálogo y sellos — 2026-10-10
+
+HEAD medido `228c540`: captura `20261010-185127-467de09c`, 1PASS/0skips/1917,386s; resultado tipado BASELINE_CAPTURED_DIAGNOSTIC_ONLY, salida1 intencionada tras aprobación real, no aceptación. Reutilización `20261010-192733-599e5146`, 1PASS/0skips/280,152s, PROFILE_DIAGNOSTIC_NOT_CAPACITY y HIT entre controladores reales. Fuentes e inputs sin cambios y retirada verificada en ambos. [Métricas y perfiles saneados](../../docs/evidencias/mod08-medicion-catalogo-entrega-20261010.json); clave y estado cifrado privado excluidos.
+
+Cobertura: 1.509 páginas reales, 383 lotes sin perfil, p95 **4,889s**. Comparación de los primeros123 lotes de4: 5,087→4,278s (**15,90%** frente al diagnóstico previo parcial), sin mejora adicional demostrada frente a 4,251s posterior a SQL. Perfil SQL447 frente a515; reducir consultas no acredita por sí solo reducir latencia. Descargas TCP JSON3 muestras p95 **9,107s**, binarias8 p95 **9,541s**, aproximadamente61% menos que el diagnóstico anterior de23,539/24,374s, todavía fuera de5s. Son cambios integrados más correctivas posteriores, sin atribución causal aislada a Claude.
+
+Generación34,303s/1intento; preparación final11,536s, inspección4,431s, aprobación4,728s y cierre11,632s. Mediciones de un caso y muestras reducidas no sustituyen capacidad completa de2casos. Restan aproximadamente59% en lotes para2s,45% JSON y48% binario para5s. No se modifica aceptación ni avance contractual. Continúa candidato aislado de cálculos puros y transporte S3 por operación; no aceptado ni medido todavía.
+
+
+Candidato aislado de cálculos puros/transporte: N2 `20261010-193904-c6edaa51` terminó **428PASS/4FAIL/0skips**, 607,294s, fuentes sin cambios y PostgreSQL/Redis propios retirados. [Evidencia negativa conservada](../../docs/evidencias/mod08-regresion-puros-negativa-20261010.json). Corregidos solo wrappers/expectativas de tres archivos de pruebas; no cambia producción ni el rechazo de mutaciones/rollback. Repetición conjunta `20261010-195055-30642e82` en ejecución con fuentes congeladas, sin aceptación ni commit del candidato. Se prepara aparte borrador de verificación física S3 de máximo2objetos paralelos; no integrado, probado ni medido todavía.
+
+
+Preferencia del usuario, 2026-10-10: cada nueva métrica de rendimiento debe presentarse con cuadro comparativo (anterior/nuevo/mejora porcentual/objetivo/reducción pendiente), población y número de muestras, identificador de ejecución y alcance diagnóstico o aceptación completa de2casos. No atribuir causalidad aislada a Claude sin comparación que lo pruebe ni comparar poblaciones distintas como mejora equivalente.
+
+
+## Cálculos puros y transporte por operación — integración local
+
+Commit `d5c1db7`, integrado localmente en rama de integración y master: evitar canonización/digests repetidos por validación, firmas puras acotadas por operación atómica con SECRET_KEY fresco, validación única de decisión excluida equivalente, retorno audit-only sin copias descartadas, consultas latest id-only, transporte S3 acotado por operación con crypto/config frescos. N2 conjunta `20261010-195055-30642e82`: **432PASS/0FAIL/0skips/599,336s**, 37archivos, fuentes sin cambios, hash exacto de20archivos revisados y retirada independiente verificada de PostgreSQL/Redis/RustFS propios. [Evidencia y JUnit saneado](../../docs/evidencias/mod08-calculos-puros-transporte-20261010.json). Negativa previa preservada; correctiva posterior solo tres pruebas, no producción.
+
+La validación pasa de428PASS/4FAIL a432PASS/0FAIL; no es una mejora de latencia del request. Rendimiento de este commit todavía no medido y baseline antiguo inválido para estas fuentes. Se revisan aparte pipeline SQL acotado y verificación S3 de dos objetos paralelos antes de una nueva medición. Cada nueva métrica temporal incluirá cuadro comparativo, número de muestras, población y alcance. Criterios originales y porcentajes contractuales intactos; N3 y capacidad completa2casos pendientes.

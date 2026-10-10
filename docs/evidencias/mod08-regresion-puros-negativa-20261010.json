@@ -1,0 +1,57 @@
+{
+  "scope": "Negative finite regression of isolated unaccepted candidate, not two-case capacity acceptance",
+  "run": "20261010-193904-c6edaa51",
+  "head": "228c540de231655db5fea507e681ec60da07ab91",
+  "result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "4",
+      "skipped": "0",
+      "tests": "432",
+      "time": "607.294",
+      "timestamp": "2026-10-10T21:39:24.467531+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "owned_cleanup": {
+    "web-modelos-ci-pg-20261010-193904-c6edaa51": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261010-193904-c6edaa51": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "failures": [
+    {
+      "class": "tests.test_rights_object_read_clients",
+      "name": "test_real_rustfs_damage_between_scoped_reads_rejected[during]",
+      "failure_type": null
+    },
+    {
+      "class": "tests.test_rights_portability_batch_projection",
+      "name": "test_projection_results_are_independent_and_context_does_not_survive_request",
+      "failure_type": null
+    },
+    {
+      "class": "tests.test_rights_coverage_audit_projection",
+      "name": "test_fresh_child_two_drift_rolls_back_all_audits_and_clears_context[source]",
+      "failure_type": null
+    },
+    {
+      "class": "tests.test_rights_coverage_audit_projection",
+      "name": "test_each_child_latest_approval_queries_fetch_only_primary_keys",
+      "failure_type": null
+    }
+  ],
+  "result_sha256": "a749953d4debdaa44676aca3e3bbd0413e33f9cd3930f778eeea83c3ef35f50f",
+  "pytest_log_sha256": "b4e7c79da4d26ac06be11bb3b2b3265528867dd29446e5266f03f311e7d4bbd4",
+  "fix_scope": "Three test files only: eliminate mutable-closure recursion; exercise public projection return explicitly; preserve end-of-operation source-drift rollback; count relevant fresh id-only queries without constraining unrelated full-row guards. No production code changed after this result.",
+  "rerun": "20261010-195055-30642e82 RUNNING"
+}

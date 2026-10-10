@@ -1,0 +1,171 @@
+{
+  "scope": "Diagnostic one-case real PostgreSQL/RustFS/Caddy, not original two-case acceptance; original criteria unchanged.",
+  "runs": [
+    {
+      "id": "20261010-185127-467de09c",
+      "result": "BASELINE_CAPTURED_DIAGNOSTIC_ONLY",
+      "head": "228c540de231655db5fea507e681ec60da07ab91",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "1917.386",
+          "timestamp": "2026-10-10T20:53:43.533369+02:00",
+          "hostname": "06befcab298a"
+        }
+      ],
+      "sources_unchanged": true,
+      "owned_memory_upper_bound_bytes": 1798811648,
+      "owned_storage_ceiling_bytes": 5939134496,
+      "launcher_success": false,
+      "cleanup_verified": true,
+      "baseline_inputs_unchanged": true,
+      "archive_problems": [],
+      "source_report_sha256": "5e7f16e6902cef5497df09c8e09c8f632c1c3e1deed38c885e1bfa40e408cb98",
+      "launcher_exit": 1
+    },
+    {
+      "id": "20261010-192733-599e5146",
+      "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+      "head": "228c540de231655db5fea507e681ec60da07ab91",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "280.152",
+          "timestamp": "2026-10-10T21:29:49.947705+02:00",
+          "hostname": "cd4fb66ce0f5"
+        }
+      ],
+      "sources_unchanged": true,
+      "owned_memory_upper_bound_bytes": 2473574400,
+      "owned_storage_ceiling_bytes": 6084337696,
+      "launcher_success": true,
+      "cleanup_verified": true,
+      "baseline_inputs_unchanged": true,
+      "archive_problems": [],
+      "source_report_sha256": "bfc5abdbfe0225353d6c7bd8159245aaed82c626558f5f0bf694a516dff734c4",
+      "launcher_exit": 0
+    }
+  ],
+  "coverage": {
+    "new": {
+      "unprofiled_complete_or_partial": {
+        "samples": 383,
+        "p95_seconds": 4.889199102763087,
+        "median_seconds": 4.276116010732949,
+        "min_seconds": 1.5753527428023517,
+        "max_seconds": 5.165941291954368
+      },
+      "matched_first_123_four_page_batches": {
+        "samples": 123,
+        "p95_seconds": 4.277687267400324,
+        "median_seconds": 3.9570246660150588,
+        "min_seconds": 3.330942581873387,
+        "max_seconds": 4.589641993865371
+      },
+      "required_pages": 1509,
+      "errors": []
+    },
+    "post_sql": {
+      "unprofiled_complete_or_partial": {
+        "samples": 383,
+        "p95_seconds": 4.823546599596739,
+        "median_seconds": 4.248527149669826,
+        "min_seconds": 1.7471863008104265,
+        "max_seconds": 5.300284405238926
+      },
+      "matched_first_123_four_page_batches": {
+        "samples": 123,
+        "p95_seconds": 4.251433644909412,
+        "median_seconds": 3.9297764347866178,
+        "min_seconds": 3.3526002462022007,
+        "max_seconds": 4.519810107070953
+      },
+      "required_pages": 1509,
+      "errors": []
+    },
+    "pre_sql": {
+      "unprofiled_complete_or_partial": {
+        "samples": 125,
+        "p95_seconds": 5.086517954710871,
+        "median_seconds": 4.658652320038527,
+        "min_seconds": 1.9410136956721544,
+        "max_seconds": 5.354314501862973
+      },
+      "matched_first_123_four_page_batches": {
+        "samples": 123,
+        "p95_seconds": 5.086517954710871,
+        "median_seconds": 4.661261367145926,
+        "min_seconds": 4.020595301408321,
+        "max_seconds": 5.354314501862973
+      },
+      "required_pages": 1509,
+      "errors": [
+        "DiagnosticInterrupted: operator stopped this diagnostic; no capacity verdict"
+      ]
+    },
+    "new_matched_reduction_from_pre_sql_percent": 15.901461363395942,
+    "new_matched_reduction_from_post_sql_percent": -0.6175239856406621,
+    "scope": "Matched first123 UNPROFILED four-page diagnostic batches, onecase, not full two-case acceptance. Whole samplep95 separately labelled; preSQL partial. Batch must meet2s as whole."
+  },
+  "delivery": {
+    "generation": [
+      34.303442588075995
+    ],
+    "final_preparation": [
+      11.53602264309302
+    ],
+    "final_inspection": [
+      4.430837305262685
+    ],
+    "final_approval": [
+      4.728369029704481
+    ],
+    "closure": [
+      11.631583682261407
+    ],
+    "json_download": [
+      9.106713749002665,
+      8.309262880124152,
+      8.537625116761774
+    ],
+    "json_download_bytes": [
+      8388608,
+      8388608,
+      16476
+    ],
+    "binary_download": [
+      8.864006557036191,
+      8.78047591028735,
+      8.824076930992305,
+      9.196491695940495,
+      9.541088507976383,
+      8.702109037898481,
+      8.846616288181394,
+      8.703552237246186
+    ],
+    "binary_download_bytes": [
+      8387222,
+      8387222,
+      8387218,
+      8387218,
+      8387220,
+      8387218,
+      8387216,
+      8387220
+    ]
+  },
+  "remaining_reduction_percent": {
+    "coverage": 59.09350472412305,
+    "json": 45.0954522365541,
+    "binary": 47.595077901147164
+  },
+  "attribution": "Combined integrated changes and later corrections; no isolated causal attribution to Claude. Matched coverage samples 123; downloads JSON3/binary8, not full capacity acceptance."
+}
