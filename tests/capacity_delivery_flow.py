@@ -8,7 +8,7 @@ import math
 import pstats
 import time
 import zipfile
-from uuid import uuid4
+from uuid import uuid4, uuid5
 
 from capacity_delivery_http import open_client, operator, post
 from django.contrib.auth.models import Permission
@@ -205,14 +205,20 @@ def run_case(index, target, context, server, settings, barrier, metrics, diagnos
     endpoint = server.url + f"/en/moderation/rights/{case.pk}/portability/coverage/{coverage.pk}/review/"
     required = required_pages(source)
     metrics["required_coverage_pages"] = len(required)
-    for number, (dataset, row, page, binary) in enumerate(required):
+    metrics["coverage_batch_pages"] = []
+    for number, group in enumerate(coverage_batches(required)):
+        dataset, row, page, binary = group[0]
         key = uuid4()
         body = sampled(metrics, "coverage_page_read", barrier, reviewer_client, endpoint, csrf,
             {"operation": "inspect", "key": str(key), "version": case.version, "reason": REASON,
-             "dataset": "binary" if binary else dataset, "row_number": row + 1, "field_page": page},
+             "dataset": "binary" if binary else dataset, "row_number": row + 1,
+             "field_page": page, "page_count": len(group)},
             profile=diagnostic and number == 3)
-        evidence = RightsPortabilityCoverageRead.objects.get(action__key=key)
-        assert (evidence.dataset, evidence.row_index, evidence.field_page, evidence.binary) == (dataset, row, page, binary)
+        for position, coordinates in enumerate(group):
+            page_key = key if len(group) == 1 else uuid5(key, f"coverage-batch-page:{position}")
+            evidence = RightsPortabilityCoverageRead.objects.get(action__key=page_key)
+            assert (evidence.dataset, evidence.row_index, evidence.field_page, evidence.binary) == coordinates
+        metrics["coverage_batch_pages"].append(len(group))
         assert ("capacity-subject-b" if index == 0 else "capacity-subject-a").encode() not in body
         if number == 0:
             rejected = post(reviewer_client, endpoint, csrf,
@@ -352,3 +358,22 @@ def validation_profile(case, export):
     pstats.Stats(profile, stream=output).sort_stats("cumulative").print_stats(60)
     pstats.Stats(profile, stream=output).sort_stats("tottime").print_stats(30)
     return {"seconds_with_profiler": elapsed, "profile": output.getvalue()}
+
+
+def coverage_batches(required, maximum=4):
+    """Consecutive required coordinates, bounded and confined to one dataset/type.
+
+    Every page still gets its own real audited POST evidence; the measured interval
+    is the entire batch HTTP response and keeps the original two-second threshold.
+    """
+    if type(maximum) is not int or not 1 <= maximum <= 4:
+        raise ValueError("Invalid diagnostic batch size")
+    group = []
+    for coordinate in required:
+        if group and (len(group) == maximum or
+                      (coordinate[0], coordinate[3]) != (group[0][0], group[0][3])):
+            yield group
+            group = []
+        group.append(coordinate)
+    if group:
+        yield group
