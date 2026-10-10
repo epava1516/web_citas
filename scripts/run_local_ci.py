@@ -362,13 +362,17 @@ def main():
             (work / "local_ci_settings.py").write_text(
                 "import os\n"
                 "from config.settings import *\n"
-                "# Parallel workers: own test database (pytest-django), media and Redis database.\n"
+                "# Parallel workers: own test database (pytest-django), media and broker key\n"
+                "# prefix. The broker stays on Redis database 0, which retained-origin\n"
+                "# validation requires; isolation comes from the per-worker generation prefix.\n"
                 "_WORKER = os.environ.get('PYTEST_XDIST_WORKER', '')\n"
-                "_INDEX = int(_WORKER[2:]) + 1 if _WORKER.startswith('gw') else 0\n"
                 f"MEDIA_ROOT = Path({str(work / 'media')!r}) / (_WORKER or 'main')\n"
                 "if _WORKER:\n"
-                "    os.environ['REDIS_URL'] = os.environ['REDIS_URL'].rsplit('/', 1)[0] + f'/{_INDEX}'\n"
-                "    CELERY_BROKER_URL = os.environ['REDIS_URL']\n"
+                "    TASK_QUEUE_GENERATION = 'ci' + _WORKER\n"
+                "    os.environ['TASK_QUEUE_GENERATION'] = TASK_QUEUE_GENERATION\n"
+                "    CELERY_BROKER_TRANSPORT_OPTIONS = {\n"
+                "        'global_keyprefix': f'clasificados:{TASK_QUEUE_GENERATION}:'\n"
+                "    }\n"
             )
             run(["uv", "sync", "--locked", "--offline"], "dependencies")
             run(["uv", "run", "ruff", "check", "."], "ruff")
