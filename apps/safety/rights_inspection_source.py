@@ -13,6 +13,7 @@ from django.views.decorators.debug import sensitive_variables
 
 from .rights import fingerprint
 from .rights_exports import canonical, source_copy
+from .rights_source_fingerprint import source_fingerprint
 
 _current = ContextVar("rights_inspection_source", default=None)
 
@@ -34,6 +35,8 @@ class _InspectionSource:
     def __init__(self, person, listing, case):
         self.scope = scope(person, listing, case)
         self.connection = transaction.get_connection()
+        # Taken before the read: a change committed in between makes the exit comparison differ.
+        self.rows_fingerprint = source_fingerprint(person, listing, case)
         self.source = source_copy(person, listing, case)
         self.digest = fingerprint(canonical(self.source))
         self.row_references = {}
@@ -99,9 +102,11 @@ def inspection_source(person, listing, case):
         yield context
         context.get(person, listing, case)
         # Detect accidental mutation of the shared projection as well as DB drift.
-        if (
-            fingerprint(canonical(context.source)) != context.digest
-            or fingerprint(canonical(source_copy(person, listing, case))) != context.digest
+        if fingerprint(canonical(context.source)) != context.digest:
+            raise ValidationError("Inspection source changed before return")
+        # Unchanged row versions prove the source rows are those read; otherwise compare in full.
+        if source_fingerprint(person, listing, case) != context.rows_fingerprint and (
+            fingerprint(canonical(source_copy(person, listing, case))) != context.digest
         ):
             raise ValidationError("Inspection source changed before return")
     finally:
