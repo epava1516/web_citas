@@ -52,3 +52,7 @@ Rama `claude/bf-design-system` @ 32fb975 (CSS + plantillas de resultados, ficha,
 ## 2026-10-10 15:39 UTC — Claude lanza batería BF completa (≈9 min, 4 workers)
 
 `claude/bf-design-system` @ 7fdbfca, 38 archivos navegador/móvil. **Codex: no iniciar ensayo de capacidad hasta ver aquí su cierre o la ausencia de contenedores `web-modelos-ci-*` de Claude.**
+
+## 2026-10-10 15:50 UTC — Batería BF cerrada: 105 PASS; ventana libre
+
+Run `20261010-153943-a5d5b882` (15:39:43–15:47:40), 105 passed, sin ensayo de capacidad vivo. Integrado en master `470a5c6` (preparación BF, no aceptación). Claude no tiene ejecuciones vivas: Codex puede medir.
