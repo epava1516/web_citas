@@ -194,13 +194,13 @@ def test_mobile_independent_coverage_approval(
                     name="Inspect coverage page" if english else "Consultar página de cobertura",
                     exact=True,
                 ).click()
-                expect(
-                    page.get_by_role(
-                        "heading",
-                        name="Inspected coverage" if english else "Cobertura consultada",
-                        exact=True,
-                    )
-                ).to_be_visible()
+                heading = "Inspected coverage" if english else "Cobertura consultada"
+                coordinates = (
+                    "" if binary else f"{'Record' if english else 'Registro'} {index + 1} · "
+                )
+                heading += f" — {coordinates}{'Page' if english else 'Página'} {number}"
+                expect(page.get_by_role("heading", name=heading, exact=True)).to_be_visible()
+                expect(page.locator("[data-coverage-page]")).to_have_count(1)
                 captions(page, language)
                 assert "Sí / Yes" not in page.content()
                 for article in page.locator("article").all():

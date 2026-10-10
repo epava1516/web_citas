@@ -32,9 +32,9 @@ def server(settings, record_property):
             generated.write("CELERY_TASK_ALWAYS_EAGER = False\n")
             generated.write("CELERY_BEAT_SCHEDULE = dict(CELERY_BEAT_SCHEDULE)\n")
             generated.write("CELERY_BEAT_SCHEDULE.update({"
-                "'capacity-generation-reconcile': {'task': 'apps.safety.tasks.reconcile_portability_export_jobs', 'schedule': 60.0},"
-                "'capacity-delivery-purge': {'task': 'apps.safety.rights_object_delivery.purge_object_deliveries', 'schedule': 10.0},"
-                "'capacity-object-orphans': {'task': 'apps.safety.rights_object_content.purge_orphan_export_objects', 'schedule': 3600.0}})\n")
+                "'reconcile-portability-export-jobs': {'task': 'apps.safety.tasks.reconcile_portability_export_jobs', 'schedule': 60.0},"
+                "'purge-rights-object-deliveries': {'task': 'apps.safety.rights_object_delivery.purge_object_deliveries', 'schedule': 10.0},"
+                "'purge-orphan-export-objects': {'task': 'apps.safety.rights_object_content.purge_orphan_export_objects', 'schedule': 3600.0}})\n")
     with socket.socket() as reservation:
         reservation.bind(('127.0.0.1', 0))
         port = reservation.getsockname()[1]

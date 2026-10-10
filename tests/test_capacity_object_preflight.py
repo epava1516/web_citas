@@ -44,7 +44,9 @@ def test_owned_object_proxy_and_purge_worker_gate(request, settings, record_prop
             repo.client.head_object(Bucket=repo.bucket, Key=key)
         assert gone.value.response["ResponseMetadata"]["HTTPStatusCode"] == 404
         proof["s3_purge"] = True
+        # directory/photo_environment uses eager tasks for fixture construction.
         case, author, _, browser, receipt, _ = prepared(request, settings)
+        settings.CELERY_TASK_ALWAYS_EAGER = False
         export = make_copy(case, author)
         # Existing direct contract supplies the expected whole-body bytes once.
         settings.RIGHTS_PROXY_DELIVERY_ENABLED = False
