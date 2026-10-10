@@ -1,0 +1,20 @@
+{
+  "schema": "capacity-diagnostic-v1",
+  "run_id": "20261010-064907-320e9495",
+  "head": "05b230e",
+  "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+  "scope": "One target case (1500 revisions/16MiB/64MiB), reduced samples, cProfile on one extra request per HTTP stage and on first in-process final stages; never compared to limits. Launched with run_detached.py: it survived the agent session closing and wrote its original launcher.json.",
+  "single_case_seconds": {
+    "binary_page_save": [2.38, 2.62], "selection_page_read_max": 2.71, "binary_inspection_max": 2.41,
+    "coverage_page_save": [4.43, 4.86], "coverage_page_read": {"n": 1508, "min": 2.44, "max": 3.51},
+    "coverage_final_decision": 5.21, "generation": 50.06,
+    "final_preparation": 12.46, "final_inspection": 12.66, "final_approval": 12.90, "closure": 12.62,
+    "json_download_max": 9.94, "binary_download_max": 10.23
+  },
+  "attribution": {
+    "download_profiled_12.6s": "one full export validation after deduplication: coverage pages 5.0s (4732 Fernet decrypts, ~13.7k canonical calls, compile_coverage twice), image_payload 4.5s (double decrypt, archive rebuild), PostgreSQL waits 2.9s",
+    "coverage_read_profiled_4.0s": "two source_copy 1.28s, compile_coverage 0.90s, project_selected twice 0.51s, row_reference 4539 calls 0.63s"
+  },
+  "conclusion": "Exact-equivalence batch next (row_reference memo within the shared source context, single decrypt per action, summary derivation, single image decrypt). Downloads likely still above 5s: a delivery seal design with completeness tests would be required and accepted separately before use.",
+  "artifacts": {"archive": "docs/evidencias/capacidad-perfil-caso-completo-20261010-artefactos.tar.gz", "sha256": "8f35ca74274e751231a6e026b35bb6c48ac0fbac0e394d6c7a8dd8526ec25a6c"}
+}
