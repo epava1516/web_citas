@@ -41,7 +41,7 @@ OWNED_USERS = {"pg": "70:70", "redis": "999:1000", "objects": "10001:10001", "ca
 # The 16MiB shared-memory tmpfs is overfilled once per role to observe the kernel ENOSPC ceiling
 # without inflating the measured cgroup peaks by the larger data tmpfs sizes.
 FILL_PROBE = ("/dev/shm", 16)
-OWNED_LOGS = {"pg": "/tmp/postgresql.log", "redis": "/tmp/redis.log"}
+OWNED_LOGS = {"pg": "/tmp/postgresql.log", "redis": "/tmp/redis.log", "caddy": "/tmp/caddy.log"}
 PROBE = (
     'if touch /capacity-rootfs-probe 2>/dev/null; then echo rootfs=writable; else echo rootfs=readonly; fi; '
     'if (echo probe >> /etc/hosts) 2>/dev/null; then echo hosts=writable; else echo hosts=protected; fi; '
@@ -343,13 +343,17 @@ def main():
             route = (ROOT / "Caddyfile").read_text().split("    @delivery path", 1)[1].split("    @static path", 1)[0]
             caddy_config = "{\n admin off\n auto_https off\n}\n:8080 {\n    @delivery path" + route + "    respond 404\n}\n"
             container("caddy", CADDY_IMAGE,
-                      ["--tmpfs", f"/tmp:size=16777216,uid={os.getuid()},gid={os.getgid()}",
+                      ["--tmpfs", f"/tmp:size=100663296,exec,uid={os.getuid()},gid={os.getgid()}",
                        "--tmpfs", f"/data:size=16777216,uid={os.getuid()},gid={os.getgid()}",
                        "--tmpfs", f"/config:size=16777216,uid={os.getuid()},gid={os.getgid()}",
                        "--mount", f"type=volume,src={delivery_volume},dst=/srv/delivery,readonly",
                        "-e", "RIGHTS_DELIVERY_PROXY_SECRET=capacity-synthetic-proxy-secret-32-bytes",
                        "--entrypoint", "sh"],
-                      ["-c", "printf %s " + shlex.quote(caddy_config) + " > /tmp/Caddyfile && exec caddy run --config /tmp/Caddyfile --adapter caddyfile"])
+                      ["-c", "cp /usr/bin/caddy /tmp/caddy-runtime && "
+                       "cmp -s /usr/bin/caddy /tmp/caddy-runtime && printf %s "
+                       + shlex.quote(caddy_config) + " > /tmp/Caddyfile && "
+                       "exec /tmp/caddy-runtime run --config /tmp/Caddyfile --adapter caddyfile "
+                       "> /tmp/caddy.log 2>&1"])
         app = container(
             "app", "web-modelos-app:latest",
             ["--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges",

@@ -67,3 +67,13 @@ Sólo Ruff, compilación y ayudaCLI verificados sobre este patch, sin lanzar car
 Mounts se cotejan con inspect: un volumen propio tmpfs512MiB, mismo nombre appRW/CaddyRO. Escritura real app y rechazo EROFS en Caddy acreditan permisos kernel; counters/probes existentes verifican cuotas, swap0, ausenciaOOM y límites de almacenamiento. Faltan counters o cualquier proof/JUnit falla: INVALID/ERROR; sólo todos completos pueden producir READY_NOT_CAPACITY. El launcher y su recuperación tras interrupción inventarían y eliminan controller/app/PG/Redis/objects/Caddy/red/volumen; censos de labels incluyen volúmenes, evitando declarar limpieza si queda una copia temporal.
 
 Contrato unitario de separación/lifecycle22PASS0.21s y colección de un testgate comprobados; [registro](evidencias/mod08-preflight-contrato-20261010.json) distingue expresamente mocks de lifecycle y verificación real pendiente. No se ha ejecutado este preflight Docker ni carga. Raíz autorizará su ejecución finita tras N2 conjunta terminal estable; su resultado no acredita velocidad/capacidad/N3. Se conserva la instrumentación sourceprofile y el montaje Git común del worktree del launcher integrado por raíz.
+
+Preflight integrado: imagen Caddy fijada al digest local probado
+`sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028`.
+Con usuario sin privilegios y `cap-drop=ALL`, el binario original con capability
+de puerto devuelve EPERM incluso para8080. La copia ordinaria en tmpfs96MiB
+ejecutable elimina el atributo, `cmp` exige igualdad byte a byte y se conservan
+cap-drop/no-new-privileges/RO/128MiB/swap0. Este tmpfs y sus páginas cuentan en
+el almacenamiento y pico RAM, no se añaden CPUs ni memoria al presupuesto.
+Log interno en `/tmp/caddy.log`, Docker logs desactivados. Diagnóstico de arranque
+real finito confirma servidor activo; pendiente preflight completo, no capacidad.
