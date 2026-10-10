@@ -1331,6 +1331,21 @@ class RightsExportPortabilityBinding(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+class RightsExportValidationSeal(models.Model):
+    """Replay-provable equality of a full export validation's database inputs; no authority."""
+
+    export = models.ForeignKey(RightsExport, on_delete=models.CASCADE, related_name="validation_seals")
+    rule_version = models.CharField(max_length=64)
+    caller_digest = models.CharField(max_length=64)
+    encrypted_statements = models.TextField()
+    result_digests = models.JSONField()
+    valid_until = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [models.Index(fields=["export", "rule_version", "caller_digest"])]
+
+
 class RightsPortabilityAssessment(models.Model):
     request = models.ForeignKey(
         RightsRequest, on_delete=models.PROTECT, related_name="portability_assessments"

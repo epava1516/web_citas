@@ -274,10 +274,37 @@ def validate_export_binding(case, person, export):
     if scope is not None and scope["connection"] is transaction.get_connection():
         if identity in scope["validated"]:
             return
-        _validate_export_binding(case, person, export)
+        _sealed_or_full(case, person, export)
         scope["validated"].add(identity)
         return
-    _validate_export_binding(case, person, export)
+    _sealed_or_full(case, person, export)
+
+
+@sensitive_variables()
+def _sealed_or_full(case, person, export):
+    """A held seal proves identical database inputs; image bytes are still re-read and hashed."""
+    from .rights_validation_seal import create, holds, recording
+
+    caller = {"case": case, "person": person, "export": export}
+    if holds(export, caller):
+        _verify_current_images(export, person)
+        return
+    with recording() as state:
+        _validate_export_binding(case, person, export)
+    create(export, state, caller)
+
+
+@sensitive_variables()
+def _verify_current_images(export, person):
+    from .rights_exports import image_content
+
+    binding = RightsExportPortabilityBinding.objects.select_related("review__selection").get(export=export)
+    declarations = unseal(binding.review.selection.encrypted_selection).get("images", [])
+    for declaration in declarations:
+        _, current = image_content(person, declaration["photo"])
+        if hashlib.sha256(current).hexdigest() != declaration["content_digest"]:
+            raise ValidationError("Portable image content changed")
+        del current
 
 
 @sensitive_variables()
