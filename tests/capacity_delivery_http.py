@@ -3,6 +3,7 @@
 import hashlib
 import http.client
 import http.cookiejar
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -113,8 +114,17 @@ def post(client, endpoint, csrf, values, *, timeout=120, headers=None):
         assert (parsed.scheme, parsed.netloc) == (original.scheme, original.netloc)
         assert parsed.path.startswith("/private-deliveries/") and not parsed.query
         assert hasattr(client, "private_delivery"), "Proxy feature not active in actual client"
+        delivered_query = location
+        markers = [value for name, value in (headers or {}).items()
+                   if isinstance(name, str) and name.lower() == 'x-capacity-profile']
+        if (len(markers) == 1 and isinstance(markers[0], str)
+                and re.fullmatch(r'[a-z_]{1,34}', markers[0])):
+            # Only an explicitly profiled extra request marks its private GET.
+            # No POST authorization/CSRF/Referer headers cross this boundary.
+            delivered_query = urllib.request.Request(
+                location, headers={'X-Capacity-Profile': markers[0] + '_proxy'}, method='GET')
         delivered_begin = time.perf_counter()
-        with client.private_delivery.open(location, timeout=timeout) as delivered:
+        with client.private_delivery.open(delivered_query, timeout=timeout) as delivered:
             body = delivered.read()  # EOF included, never header timing substituted.
             end = time.perf_counter()
             status, result_headers = delivered.status, dict(delivered.headers)
