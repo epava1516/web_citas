@@ -1,0 +1,34 @@
+{
+  "run_id": "20261010-214551-ea378e04",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "41",
+      "time": "269.731",
+      "timestamp": "2026-10-10T23:46:11.371558+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261010-214551-ea378e04": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261010-214551-ea378e04": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "reviewed_sha256": {
+    "tests/capacity_delivery_http.py": "f6cd4d4b6d605a1ac414eae959f5640f7994c18a508117031391a28aef491632",
+    "tests/test_capacity_delivery_proxy_profile.py": "33544b4eb570a432863bf2e793ceb5ec46911c9fe4836c3d067ba054742f89e3"
+  },
+  "scope": "Finite real PG legacy guards and fake opener marker tests; marker propagation by Caddy pending capacity capture/use",
+  "integration_commit": "1e6aae3"
+}

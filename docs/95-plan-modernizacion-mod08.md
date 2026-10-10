@@ -154,3 +154,12 @@ N2 dirigida `20261010-212613-ac0fdf4d`:51PASS/0FAIL/0skips318,443s; conjunta42ar
 La prueba real PG con16WebPde4MiB acredita aritmética de retención64MiB, overflow nativo y limpieza; no appRSS<=1GiB ni peakglobal<=6GiB. Negativas de corrupción tardía, auditoría eliminada y sesión/MFA/permisos/prueba/fuente/expiry conservan rollback. No hay nueva latencia medida ni avance de aceptación/porcentajes contractuales. Baseline anterior inválido para estas fuentes; requieren captura nueva y medición con todas poblaciones y cuotas originales. N3 y dos casos simultáneos siguen pendientes.
 
 [Evidencia y JUnit saneado](evidencias/mod08-sha-contenido-integrado-20261010.json).
+
+
+### Instrumentación de GET diagnóstico, integrada localmente
+
+Commit `1e6aae3`: transmite exclusivamente un marcador de perfil validado al GET privado de la petición extra perfilada, sin reenviar headers del POST. Las muestras ordinarias, dos validaciones, EOF, cookies, ámbito y no-store conservan el flujo original. N2 `20261010-214551-ea378e04`:41PASS/0FAIL/0ERROR/0skips269,731s, tres archivos, PostgreSQL/Redis reales y guardas legacy Caddy/worker; fuentes sin cambios y retirada propia verificada. Los14casos del marcador usan opener local: todavía no prueban propagación real del marcador por Caddy. El próximo capture/use debe producir fichero de perfil proxy real; no se declara ganancia de latencia.
+
+Preparada captura nueva tras SHA, conservando1509páginas/383lotes/123comparables, JSON16MiB/originales64MiB, 4CPU/8GiB/20GiB/swap0 y todos los límites originales. Fuentes congeladas desde lanzamiento hasta terminal de captura y posterior reutilización; sin cargas competidoras. Doscasos/N3/CR09 íntegros siguen pendientes.
+
+[Evidencia de instrumentación](evidencias/mod08-perfil-forwardauth-integrado-20261010.json).
