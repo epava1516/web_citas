@@ -76,3 +76,42 @@ contenedores PostgreSQL/Redis. Los JUnit, logs y resultados íntegros permanecen
 artifacts/local-ci del worktree indicado en la
 [evidencia resumida](evidencias/mod08-evidence-runtime-n2-20261010.json).
 La comprobación quiet de Compose verifica sólo estructura, no un despliegue.
+
+## Procesos de capacidad: helper de rol independiente
+
+`tests/capacity_runtime_role.py` ofrece
+`runtime_role_environment(base_settings_module='capacity_gunicorn_settings')`.
+El proceso pytest conserva el migrador; el helper ejecuta el provisionador real
+sobre su base desechable, verifica un LOGIN TCP independiente sin atributos
+administrativos ni membresía propietaria y entrega un diccionario de entorno
+para aplicar **después** de establecer el módulo de settings base del servidor.
+El mismo diccionario sirve para Gunicorn, Celery y Beat. Su contexto debe envolver
+sus readiness, uso y teardown: todos los hijos deben cerrarse antes de salir.
+
+El password se guarda exclusivamente en JSON privado 0600 dentro de directorio
+0700. Un módulo privado 0600 importa los settings base y cambia sólo la conexión
+por la del runtime; activa `RIGHTS_EVIDENCE_ENFORCED` y desactiva DEBUG. Los
+argumentos y el diccionario de entorno no contienen ese password; tampoco
+heredan los passwords migrador/runtime originales. El output del provisionador
+se captura y se comprueba antes de entregar el entorno. Al salir se exige que
+no queden conexiones del runtime, se elimina el rol sin terminar backends y se
+retiran ambos archivos. No hay fallback silencioso a propietario.
+
+En capacidad se exige el contexto del controlador previamente verificado:
+capacity_settings, CAPACITY_ENVIRONMENT_VERIFIED, test_capacity_ci, host pg,
+puerto5432 y migrador ci. La comprobación del label/red y de la topología ocurre
+en el controlador antes de instalar esos settings dentro de su contenedor app.
+En N2 externo el helper comprueba adicionalmente el contenedor PostgreSQL real,
+su label y el puerto publicado del runner local, y la base exacta por worker.
+Un nombre de alias normal o un rol/contexto inesperado se rechaza antes de
+provisionar. No autoriza acceso a servicios normales ni ejecuta carga.
+
+`20261010-130920-a3189ffb`: **2 PASS, 0 skips, 39.84 s** con PostgreSQL real y
+dos workers. El hijo Python/Django conecta mediante el LOGIN independiente,
+acredita confianza por ACL/triggers y enforcement activo; el migrador del proceso
+padre permanece intacto. Se comprueban modos privados, ausencia del secreto en
+entorno/stdout/stderr y desaparición de archivos y rol, además del rechazo del
+alias no propio. Sources_unchanged y cleanup PostgreSQL/Redis son positivos.
+[Evidencia del helper](evidencias/mod08-capacity-runtime-helper-n2-20261010.json).
+La integración del consumidor Gunicorn/worker corresponde a su frente de entrega;
+esta N2 finita no ejecuta ni acredita una muestra de capacidad.

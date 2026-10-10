@@ -1,0 +1,36 @@
+{
+  "scope": "finite runtime helper PostgreSQL integration, no capacity load/acceptance",
+  "id": "20261010-130920-a3189ffb",
+  "result": "PASS",
+  "selection": [
+    "tests/test_capacity_runtime_role.py"
+  ],
+  "workers": 2,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "2",
+      "time": "39.843",
+      "timestamp": "2026-10-10T15:09:38.980967+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261010-130920-a3189ffb": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261010-130920-a3189ffb": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "artifacts": "/home/felidae/proyectos/web_modelos/.claude/worktrees/mod08-p11-runtime/artifacts/local-ci/20261010-130920-a3189ffb",
+  "result_sha256": "5c4efccaea2cfad46fe773c3ac4daa69291311a0144255e37699e5979a92e5e4"
+}
