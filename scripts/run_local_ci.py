@@ -165,8 +165,8 @@ def main():
     parser.add_argument(
         "--workers",
         type=int,
-        default=1,
-        help="Parallel pytest workers (xdist, whole files per worker); never for capacity runs",
+        default=6,
+        help="Parallel pytest workers (xdist, whole files per worker; 1 = serial); never for capacity runs",
     )
     parser.add_argument(
         "--recover",

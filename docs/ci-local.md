@@ -28,6 +28,10 @@ El checkout librdb debe estar en el commit `bc5f295c98b40c2c33099d9d72ab30ce9e59
 
 Prerrequisitos instalados: Docker accesible, Git, uv, compilador C/make, redis-server local para fixtures de socket Unix, dependencias uv en caché y Chromium de Playwright para perfiles que usan navegador. Imágenes locales `postgres:17-alpine` y `redis:7.4-alpine`. El runner usa `--pull=never` y sincronización offline: falta de caché/imágenes es ERROR explícito, no descarga o instalación silenciosa. Preparar las dependencias necesarias con los comandos del [README](../README.md); no exige comprar servicios.
 
+## Ejecución paralela (MOD-08)
+
+Por defecto el runner usa 6 workers de pytest-xdist (`--workers 1` para serie): archivos completos por worker, base de pruebas propia por worker (pytest-django), índice Redis y directorio de medios propios. Validación 2026-10-10: la selección de 414 casos pasó igual que en serie (414 PASS/0 skips) en 1.109,9s frente a 4.913,6s, [evidencia](evidencias/ci-paralelo-20261010.json). Nunca se usa para mediciones de capacidad.
+
 ## Aislamiento, evidencia y resultado
 
 Cada ejecución crea nombres Docker únicos, puertos dinámicos ligados a127.0.0.1, PostgreSQL en tmpfs, Redis propio y un directorio temporal para medios, fixtures y compilación. Utiliza únicamente credenciales sintéticas; no hereda configuración de producción, broker normal o switches de benchmarks. No detiene, vacía ni migra servicios normales. Al terminar o interrumpirse, elimina sus contenedores/volúmenes y temporales. Una terminación forzada del propio runner o caída del host puede impedir su limpieza: consultar los nombres exactos en los logs antes de retirar recursos propios.
