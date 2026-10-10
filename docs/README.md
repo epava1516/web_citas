@@ -182,6 +182,7 @@ Propuesta independiente pendiente de lanzamiento manual: evaluación acotada de 
 - [Análisis estático del repositorio — Claude Code](92-analisis-claude-code-20261008.md).
 - [Propuesta técnica: estado de publicación almacenado con invalidación por triggers](93-propuesta-estado-publicacion-claude-code.md).
 - [Diseño no adoptado: sello de entrega de portabilidad](94-sello-entrega-portabilidad.md).
+- [Plan de modernización técnica MOD-08](95-plan-modernizacion-mod08.md).
 - [Análisis del bloqueo y DAFO — coste y capacidad de servicio](analisis-bloque-rendimiento-dafo0110.md).
 - [Criterios de revisión del benchmark de carga](criterios-revision-benchmark-carga.md).
 - [Propuesta para cerrar pendientes locales: capacidad, insumos operativos y CI](propuesta-cierre-pendientes-locales.md).

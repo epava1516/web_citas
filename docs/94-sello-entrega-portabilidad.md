@@ -1,6 +1,6 @@
 # Sello de entrega de portabilidad — diseño, no adoptado
 
-Estado: **diseño propuesto, sin implementar ni aceptar** (2026-10-10, Claude principal MOD-07). Origen: [perfil completo a escala](evidencias/capacidad-perfil-caso-completo-20261010.json). Se aplicará solo si, tras las equivalencias exactas, una descarga válida sigue por encima de 5s p95 en el escenario objetivo, y solo con las pruebas de completitud y la aceptación propias descritas aquí. Seguimiento: [seguimiento17](17-seguimiento-desarrollo.md).
+Estado: **sustituido por el sello por reproducción de consultas del [plan MOD-08](95-plan-modernizacion-mod08.md) (pieza 4)**; este diseño enumerativo se conserva como antecedente (2026-10-10, Claude principal MOD-07). Origen: [perfil completo a escala](evidencias/capacidad-perfil-caso-completo-20261010.json). Se aplicará solo si, tras las equivalencias exactas, una descarga válida sigue por encima de 5s p95 en el escenario objetivo, y solo con las pruebas de completitud y la aceptación propias descritas aquí. Seguimiento: [seguimiento17](17-seguimiento-desarrollo.md).
 
 ## Problema medido
 
