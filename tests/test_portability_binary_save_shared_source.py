@@ -212,16 +212,18 @@ def test_binary_save_rejects_audit_removed_during_real_byte_read_and_rolls_back(
     previous_rows = RightsPortabilitySelection.objects.filter(request=case).count()
     previous_accesses = RightsImageAccess.objects.filter(request=case).count()
     assert previous_accesses > 0
-    native = rights_exports._read_image_blob
+    native = rights_exports.image_contents
     reads = []
 
     def removed_during_read(*args, **kwargs):
-        result = native(*args, **kwargs)
-        reads.append(True)
-        RightsImageAccess.objects.filter(request=case).delete()
-        return result
+        for item in native(*args, **kwargs):
+            # The token's independent single-image read is outside this audit
+            # boundary. Alter evidence only after the real audited physical read.
+            reads.append(True)
+            RightsImageAccess.objects.filter(request=case).delete()
+            yield item
 
-    monkeypatch.setattr(rights_exports, "_read_image_blob", removed_during_read)
+    monkeypatch.setattr(rights_exports, "image_contents", removed_during_read)
     with pytest.raises(ValidationError, match="Inspect exact portable image content first"):
         image_selection.save(author, key, page["token"], REASON, True, FACTS)
     assert len(reads) == 1
