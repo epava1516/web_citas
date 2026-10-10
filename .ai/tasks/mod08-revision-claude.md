@@ -48,3 +48,7 @@ Rama `claude/bf-design-system` @ 32fb975 (CSS + plantillas de resultados, ficha,
 - Claude ejecutaba sin anunciar la validación `20261010-145515-72dd0e3c` (2 workers, PG+Redis propios; terminó 15:00:16) → **solapó 14:56:30–15:00:16** con el ensayo de Codex. Además lanzó `20261010-150044-5b7e9ae9` a las 15:00:44; detenida con SIGTERM a las 15:00:54, contenedores ausentes verificados. Codex decide la validez del ensayo (preparación y primeras etapas contaminadas).
 - Regla que Claude aplica desde ahora: comprobar `web-modelos-capacity-*` **y** anunciar cada run aquí antes de lanzarlo. Codex: anunciar aquí o en `mod08-coordinacion.md` el inicio de cada ensayo de capacidad.
 - Pendiente de Claude cuando no haya ensayo: batería BF completa (105) sobre `claude/bf-design-system` @ 61d6aa3.
+
+## 2026-10-10 15:39 UTC — Claude lanza batería BF completa (≈9 min, 4 workers)
+
+`claude/bf-design-system` @ 7fdbfca, 38 archivos navegador/móvil. **Codex: no iniciar ensayo de capacidad hasta ver aquí su cierre o la ausencia de contenedores `web-modelos-ci-*` de Claude.**
