@@ -255,6 +255,22 @@ def test_unsupported_parameters_decline_seal_without_rejecting_valid_export():
     assert rights_validation_seal.create(export, state, {}) is None
 
 
+def test_time_filtered_answer_without_expiry_column_declines_the_seal():
+    now = timezone.now()
+    with transaction.atomic(), rights_validation_seal.recording() as state:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT %s::timestamptz + interval '1 day' AS expires_at", [now])
+            cursor.fetchall()
+    assert state["supported"] is True  # The bound is visible: valid_until can absorb it.
+    with transaction.atomic(), rights_validation_seal.recording() as state:
+        with connection.cursor() as cursor:
+            # An existence answer hides which rows (and expiries) made it true.
+            cursor.execute("SELECT EXISTS (SELECT 1 WHERE %s::timestamptz < %s::timestamptz)",
+                           [now, now + timedelta(days=1)])
+            cursor.fetchall()
+    assert state["supported"] is False
+
+
 def test_recording_named_cursor_preserves_chunks_and_replays_consumed_rows():
     with transaction.atomic():
         with rights_validation_seal.recording() as state:

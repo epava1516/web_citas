@@ -146,6 +146,16 @@ class _ResultCursor:
         return value
 
 
+def _has_datetime(params):
+    if params is None:
+        return False
+    values = params.values() if isinstance(params, dict) else params
+    return any(
+        isinstance(value, datetime) or (isinstance(value, (list, tuple)) and _has_datetime(value))
+        for value in values
+    )
+
+
 _ROW_HASH = "encode(sha256(convert_to(row_to_json(q)::text, 'UTF8')), 'hex')"
 
 
@@ -173,11 +183,17 @@ def recording():
         description = raw.description[:-1]
         digest = hashlib.sha256("".join(row[-1] for row in rows).encode()).hexdigest()
         plain = [row[:-1] for row in rows]
-        for index, column in enumerate(description):
-            if column.name in EXPIRY_FIELDS:
-                state["expiries"].extend(
-                    row[index] for row in plain if isinstance(row[index], datetime)
-                )
+        expiry_columns = [index for index, column in enumerate(description)
+                          if column.name in EXPIRY_FIELDS]
+        for index in expiry_columns:
+            state["expiries"].extend(
+                row[index] for row in plain if isinstance(row[index], datetime)
+            )
+        if not expiry_columns and _has_datetime(params):
+            # A time-parameterized filter whose result exposes no expiry column (exists,
+            # count, aggregates) cannot bound valid_until: replaying it with the recorded
+            # instant could keep a stale answer. Decline the seal; full validation stays.
+            state["supported"] = False
         state["statements"].append((sql, list(params) if params is not None else None))
         state["digests"].append(digest)
         cursor.cursor = _ResultCursor(raw, plain, description)
