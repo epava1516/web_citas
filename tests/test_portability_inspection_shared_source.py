@@ -44,7 +44,14 @@ def test_native_shared_read_and_unshared_replay_are_equivalent_with_fresh_versio
     request, settings, monkeypatch, account_only
 ):
     case, coverage, reviewer, _ = ready(request, settings, monkeypatch, account_only)
-    calls = []
+    calls, version_checks = [], []
+    native_versions = shared.source_fingerprint
+
+    def checked_versions(*args, **kwargs):
+        version_checks.append(True)
+        return native_versions(*args, **kwargs)
+
+    monkeypatch.setattr(shared, "source_fingerprint", checked_versions)
     for module in [shared, selected]:
         original = module.source_copy
 
@@ -65,6 +72,7 @@ def test_native_shared_read_and_unshared_replay_are_equivalent_with_fresh_versio
     )
     action, page = inspection.inspect_page(*args)
     assert len(calls) == 1
+    assert len(version_checks) == 2
     original_record = inspection.record
 
     def unshared(*args, **kwargs):
@@ -73,6 +81,7 @@ def test_native_shared_read_and_unshared_replay_are_equivalent_with_fresh_versio
 
     monkeypatch.setattr(inspection, "record", unshared)
     calls.clear()
+    version_checks.clear()
     replay, legacy_page = inspection.inspect_page(*args)
     assert len(calls) == 3
     assert replay.pk == action.pk and legacy_page == page

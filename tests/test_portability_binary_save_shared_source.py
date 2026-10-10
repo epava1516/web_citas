@@ -38,7 +38,14 @@ def test_binary_page_save_keeps_one_copy_and_fresh_versions_preserving_native_ch
     original = unseal(baseline.encrypted_selection)
     page = image_selection.prepare(author, case.pk, case.version, baseline.assessment_review_id,
                                    uuid4(), REASON, 0, 0)
-    calls = []
+    calls, version_checks = [], []
+    native_versions = shared.source_fingerprint
+
+    def checked_versions(*args, **kwargs):
+        version_checks.append(True)
+        return native_versions(*args, **kwargs)
+
+    monkeypatch.setattr(shared, "source_fingerprint", checked_versions)
     for module in [shared, image_selection, store, use]:
         native = module.source_copy
 
@@ -55,7 +62,9 @@ def test_binary_page_save_keeps_one_copy_and_fresh_versions_preserving_native_ch
     assert body["images"] == [{**page["declaration"], "conditions": FACTS}]
     record_property("full_source_reads_per_save", len(calls))
     assert len(calls) == 1
+    assert len(version_checks) == 2
     calls.clear()
+    version_checks.clear()
     assert image_selection.save(author, key, page["token"], REASON, True, FACTS).pk == row.pk
     assert len(calls) == 1
     # Drop only private source-sharing arguments to exercise the native fallback.
@@ -68,6 +77,7 @@ def test_binary_page_save_keeps_one_copy_and_fresh_versions_preserving_native_ch
 
         monkeypatch.setattr(image_selection, name, unshared)
     calls.clear()
+    version_checks.clear()
     replay = image_selection.save(author, key, page["token"], REASON, True, FACTS)
     assert replay.pk == row.pk and unseal(replay.encrypted_selection) == body
     assert len(calls) == 8  # Seven native reads plus the enclosing initial copy.
