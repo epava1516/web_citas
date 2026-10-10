@@ -1,0 +1,23 @@
+{
+  "schema": "corrective-n2-v1",
+  "date": "2026-10-10",
+  "changes": {
+    "shared_source": "One inspection_source per coverage page prepare/save, selection inspection and binary image read; nested checks reuse its digest; its exit compares fresh DB rows inside the transaction; authority rechecked afterwards. Loop-invariant ciphertext HMACs hoisted out of the 1509-page coverage validation.",
+    "one_export_validation": "Identical consecutive validate_export_binding calls in one audited operation and transaction run once (generation, final preparation/inspection/approval, closure, downloads).",
+    "tests": "Paginated HTTP inspections use their own key; decision binds the reviewer's latest inspection; tamper check restores the decision's own read; inventory counts three reads; account-only generic copy refuses portability."
+  },
+  "runs": [
+    {"id": "20261010-051659-670b042f", "head": "40a30a8", "selection": "49 files / 414 cases", "result": "413 PASS / 1 FAIL / 0 skips, 5014.112s JUnit", "sources_unchanged": true, "cleanup": "verified",
+     "failure": "test_rights_portability_review[True]: assertion predating paginated inspection (decision binds latest read)"},
+    {"id": "20261010-064152-273f2ce2", "head": "1ea234d", "result": "1 FAIL (test restored a non-original read after tamper check)"},
+    {"id": "20261010-064501-c75d4751", "head": "1f50ce1", "result": "1 FAIL (inventory expected two selection reads; three by design)"},
+    {"id": "20261010-064630-4b450291", "head": "56d2947", "selection": "tests/test_rights_portability_review.py", "result": "2 PASS / 0 FAIL / 0 skips", "sources_unchanged": true, "cleanup": "verified"}
+  ],
+  "baseline_reproductions": {
+    "test_account_only_exports portability x2": "fail identically on 16a41f7, 4c31c7d and 2c3305e (pre-existing since 1b03ddb)",
+    "test_rights_portability_review[True] consume after paginated decision": "fails identically on 16a41f7 with the corrected key test: test restored the wrong read"
+  },
+  "acceptance": "Corrective N2 for the batch: unified run plus rerun of the only affected file after test-only changes. Not capacity, not N3.",
+  "integrated": "master fast-forward to 57af4ff",
+  "artifacts": {"archive": "docs/evidencias/n2-origen-compartido-validacion-unica-20261010-artefactos.tar.gz", "sha256": "ada8fb48b1633a454df4e0a57e4cb5aa7adea9630b130de6bc9f55620647b2c4"}
+}
