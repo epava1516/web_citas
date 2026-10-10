@@ -296,6 +296,12 @@ def queued_generation(case, author, selected, coverage_review, server, settings,
     job = RightsPortabilityExportJob.objects.get(key=key, request=case, actor=author)
     endpoint = server.url + path + f"jobs/{job.pk}/"
     polls = 0
+    metrics["generation_job"] = {
+        "id": str(job.pk), "state": job.state, "attempts": job.attempts,
+        "enqueue_http_seconds": response.seconds,
+        "worker_scope": "Real Celery worker in the same constrained app cgroup",
+        "profile_scope": "Parent HTTP/polling only; worker generation is not parent cProfile",
+    }
     deadline = begin + 1800  # finite recovery observation; limit remains 120, recorded by measured()
     while True:
         with browser.client.open(endpoint, timeout=120) as status:
@@ -303,6 +309,14 @@ def queued_generation(case, author, selected, coverage_review, server, settings,
             assert status.status == 200 and "no-store" in status.headers["Cache-Control"]
         polls += 1
         job.refresh_from_db()
+        # Keep durable observations even when the next assertion rejects a terminal job.
+        # No reason, exception message, credentials or response body enters this record.
+        metrics["generation_job"].update(
+            state=job.state, attempts=job.attempts, polls=polls,
+            export=str(job.export_id) if job.export_id is not None else None,
+            finished=job.finished_at is not None,
+            queue_observed_seconds=time.perf_counter() - begin,
+        )
         if job.state == "succeeded":
             # A fresh canonical HTTP response must also observe the durable terminal state.
             if str(job.export_id).encode() in body and b"Private copy created" in body:
