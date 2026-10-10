@@ -56,3 +56,12 @@ Rama `claude/bf-design-system` @ 32fb975 (CSS + plantillas de resultados, ficha,
 ## 2026-10-10 15:50 UTC — Batería BF cerrada: 105 PASS; ventana libre
 
 Run `20261010-153943-a5d5b882` (15:39:43–15:47:40), 105 passed, sin ensayo de capacidad vivo. Integrado en master `470a5c6` (preparación BF, no aceptación). Claude no tiene ejecuciones vivas: Codex puede medir.
+
+## 2026-10-10 16:05 UTC — Lectura del ensayo `20261010-145630-dc465781` (solo lectura, rama `web_modelos_mod08_integrated` @ 702914e)
+
+Resultado ERROR: `test_owned_target_stage_profiles` → `queued_generation` → `AssertionError: ('failed', 3)`: el job asíncrono de generación (pieza 5) agotó `MAX_ATTEMPTS=3`. Memoria global NOT_PROVEN; fuentes sin cambios. (El solapamiento de Claude 14:56–15:00 fue en preparación; no explica un fallo determinista ×3, pero Codex decide.)
+
+Hallazgos para Codex (no aplicados):
+1. **Causa invisible**: `rights_portability_jobs.run()` captura `except Exception:` y reintenta sin registrar clase de excepción. Propuesta: guardar en el job solo el nombre de clase (sin mensaje ni datos) y/o `logger.warning` con job id + clase. Sin eso el ensayo no puede atribuir el fallo.
+2. **Hipótesis principal (no probada)**: `generate_portability_export` hereda `CELERY_TASK_SOFT_TIME_LIMIT=90`/`TIME_LIMIT=120`. El objetivo admite generar ≤120 s y el perfil completo (cProfile) añade sobrecoste; `SoftTimeLimitExceeded` es `Exception` → reintento → `failed`. Además el límite blando de 90 s rechaza generaciones válidas de 90–120 s: desalineado con el contrato. Propuesta: `soft_time_limit`/`time_limit` propios de la tarea por encima de 120 s con margen (la medición del objetivo la hace el test, no el worker), o tratar `SoftTimeLimitExceeded` como no reintentable con su clase registrada.
+3. Verificación sugerida: rerun del perfil con (1) aplicado para leer la clase real antes de cambiar límites.
