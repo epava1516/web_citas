@@ -1,0 +1,16 @@
+{
+  "schema": "capacity-diagnostic-v1",
+  "run_id": "20261010-104223-fc63594c",
+  "head": "4d5ef38 (after exact-equivalence batch)",
+  "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+  "contamination": "Between 11:33 and 11:39 UTC five short PostgreSQL test runs executed concurrently in another worktree; coverage-page read samples in that window are contaminated. Final stages and downloads ran afterwards without competition. A pyproject/uv.lock edit was reverted to exact bytes before the run's final source check (sources_unchanged true).",
+  "single_case_seconds": {
+    "binary_page_save_median": 2.82, "selection_page_read_median": 2.16, "binary_inspection_median": 2.17,
+    "coverage_page_save_median": 3.89, "coverage_page_read_median": 2.58, "coverage_final_decision": 4.26,
+    "generation": 43.97, "final_preparation": 10.30, "final_inspection": 10.67, "final_approval": 10.99, "closure": 10.84,
+    "json_download_median": 7.67, "binary_download_median": 8.17
+  },
+  "comparison_to_20261010-064907-320e9495": "downloads ~-20%, final stages ~-15%, generation -12%, coverage save ~-15%, coverage read ~unchanged",
+  "conclusion": "Equivalences help but cannot reach the targets; MOD-08 pieces 3 and 4 required.",
+  "artifacts": {"archive": "docs/evidencias/capacidad-perfil-caso-completo-2-20261010-artefactos.tar.gz", "sha256": "091da77fc19c0f3a1e73e5171911a988aabafaa6edcf613e24fedbae073d0654"}
+}
