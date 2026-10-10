@@ -30,6 +30,7 @@ from cryptography.fernet import InvalidToken
 from django.db import connection
 from django.db.models.signals import post_init
 from django.utils import timezone
+from psycopg.types.json import Jsonb
 
 from .crypto import seal, unseal
 from .rights import fingerprint
@@ -100,6 +101,8 @@ def recording():
 
 def encode(value):
     """Typed JSON form of a SQL parameter, decoded back to an equal Python value."""
+    if isinstance(value, Jsonb):
+        return {"jsonb": value.obj}
     if value is None or isinstance(value, (bool, int, str)):
         return value
     if isinstance(value, float):
@@ -124,6 +127,7 @@ def decode(value):
         return value
     ((kind, item),) = value.items()
     return {
+        "jsonb": Jsonb,
         "float": float,
         "uuid": UUID,
         "datetime": datetime.fromisoformat,
