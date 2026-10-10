@@ -44,6 +44,8 @@ def codec():
 
 
 def policy():
+    # Policy is also called directly before capture initializes script imports.
+    codec()
     from diagnostic_baseline_dependencies import fingerprint
     source = hashlib.sha256()
     for folder in ('apps', 'config', 'scripts', 'tests'):
