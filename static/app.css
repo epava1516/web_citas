@@ -170,6 +170,29 @@ th { font-weight: 700; background: var(--surface-muted); }
 .rectification-final table { width: 100%; table-layout: fixed; border-collapse: collapse; }
 .rectification-final th, .rectification-final td { text-align: left; vertical-align: top; padding: 6px; overflow-wrap: anywhere; }
 
+/* Discovery (results/home) */
+.results-intro h1 { margin-bottom: var(--space-2); }
+.lead { font-size: var(--step-1); color: var(--text-muted); }
+.search-panel { max-width: none; padding: var(--space-4) var(--space-5); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.search-panel > p { margin: 0 0 var(--space-3); }
+.results-count { font-weight: 700; margin: var(--space-5) 0 var(--space-2); }
+.results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: var(--space-5); }
+.listing-card { margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.listing-card h2 { font-size: var(--step-1); margin: 0; }
+.listing-card h2 a { color: var(--text); text-decoration: none; }
+.listing-card h2 a:hover { color: var(--link); text-decoration: underline; }
+.listing-card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; order: -1; }
+.listing-card p { margin: 0; }
+.listing-card .meta { color: var(--text-muted); font-size: var(--step--1); }
+.listing-card .rate { font-weight: 700; }
+.sponsored { font-size: var(--step--1); color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.badge { display: inline-block; padding: 2px var(--space-2); border-radius: 999px; background: var(--surface-muted); border: 1px solid var(--border); font-size: var(--step--1); font-weight: 600; }
+.badge-available { color: var(--accent); border-color: var(--accent); background: transparent; align-self: flex-start; }
+.empty-state { grid-column: 1 / -1; padding: var(--space-6); text-align: center; border: 1px dashed var(--border-strong); border-radius: var(--radius-lg); color: var(--text-muted); max-width: none; }
+.pagination { display: flex; justify-content: center; align-items: center; gap: var(--space-4); }
+.pagination a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 var(--space-4); border: 1px solid var(--border-strong); border-radius: var(--radius); text-decoration: none; }
+
 /* Responsive */
 @media (max-width: 600px) {
   header, main, footer { padding: 18px; }
