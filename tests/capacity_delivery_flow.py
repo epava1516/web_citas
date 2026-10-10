@@ -148,7 +148,7 @@ def field_values(prefix, facts):
 
 
 def run_case(index, target, context, server, settings, barrier, metrics, diagnostic=False,
-             full=False):
+             full=False, approved_boundary=None):
     case, selection, reviewer_client, _, csrf, *_ = target
     metrics["diagnostic"] = diagnostic
     writes = 4 if diagnostic else 20  # Diagnostic: three plain requests plus one profiled.
@@ -278,6 +278,15 @@ def run_case(index, target, context, server, settings, barrier, metrics, diagnos
          "reason": REASON, "outcome": "approved"})
     coverage_review = RightsPortabilityCoverageReview.objects.get(coverage=coverage, action__key=decision_key)
     assert len(coverage_review.read_ids) == len(required)
+    if approved_boundary is not None:
+        if not diagnostic or not full:
+            raise ValueError("Approved baseline requires complete diagnostic readings")
+        approved_boundary({"case": str(case.pk), "author": author.pk,
+                           "reviewer": reviewer.pk, "selection_review": selected.pk,
+                           "coverage_review": coverage_review.pk,
+                           "receipt": context["receipt"]})
+        metrics["diagnostic_stopped_after"] = "real_coverage_approval_before_generation"
+        return
     finish(index, case, author, reviewer, selection, selected, coverage_review,
            context["receipt"], server, settings, barrier, metrics, expected)
 

@@ -59,6 +59,17 @@ class ArchiveSink:
         self.receipts[name] = {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()}
         return self.receipts[name]
 
+    def write_binary(self, name, data):
+        """At most one bounded8MiB encrypted fragment in controller memory."""
+        _check(name, data, len(self.receipts) - (name in self.receipts))
+        member = tarfile.TarInfo(name)
+        member.size, member.mode = len(data), 0o600
+        self.archive.addfile(member, io.BytesIO(data))
+        self.stream.flush()
+        os.fsync(self.stream.fileno())
+        self.receipts[name] = {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()}
+        return self.receipts[name]
+
     def close(self):
         self.archive.close()
         self.stream.flush()

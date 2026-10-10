@@ -48,6 +48,14 @@ def limit_client_log():
     resource.setrlimit(resource.RLIMIT_FSIZE, (MAX_FILE_BYTES, MAX_FILE_BYTES))
 
 
+def file_digest(path):
+    value = hashlib.sha256()
+    with open(path, 'rb') as stream:
+        while block := stream.read(1024 * 1024):
+            value.update(block)
+    return value.digest()
+
+
 def extract(archive, output):
     """Copy simple regular members of the owned archive; tolerate a truncated tail."""
     receipts, problems = {}, []
@@ -58,7 +66,8 @@ def extract(archive, output):
                     problems.append(f"rejected member: {member.name!r}")
                     continue
                 data = source.extractfile(member).read()
-                (output / member.name).write_bytes(data)
+                if not (member.name.startswith('baseline.') and member.name.endswith('.bin')):
+                    (output / member.name).write_bytes(data)
                 receipts[member.name] = {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()}
     except (tarfile.TarError, OSError) as error:
         problems.append(f"{type(error).__name__}: {error}")
@@ -144,6 +153,17 @@ def main():
     if sys.argv[1:2] == ["--recover"]:
         return recover(sys.argv[2])
     options, _, _ = parse_options(["--owned-controller", *sys.argv[1:]])
+    baseline_mounts = []
+    if options.diagnostic_baseline_key:
+        from diagnostic_baseline_codec import key
+        key(options.diagnostic_baseline_key)
+        baseline_mounts.append(options.diagnostic_baseline_key.resolve())
+    if options.diagnostic_baseline_use:
+        source = options.diagnostic_baseline_use
+        if source.is_symlink() or not source.is_file() or source.stat().st_size > ARCHIVE_MAX_BYTES or source.stat().st_mode & 0o077:
+            raise SystemExit("Baseline input must be a regular bounded owned archive")
+        baseline_mounts.append(source.resolve())
+    baseline_before = {path: file_digest(path) for path in baseline_mounts}
     run_id = time.strftime("%Y%m%d-%H%M%S", time.gmtime()) + "-" + uuid.uuid4().hex[:8]
     resources = owned_resources(run_id, options.object_delivery)
     name = resources["containers"][0]
@@ -192,6 +212,8 @@ runpy.run_path(sys.argv[0], run_name='__main__')
         "-e", f"CAPACITY_RUN_ID={run_id}", "-e", f"CAPACITY_CONTROLLER_NAME={name}",
         "-e", f"CAPACITY_ARCHIVE={archive}",
     ]
+    for source in baseline_mounts:
+        command += ["--mount", f"type=bind,src={source},dst={source},readonly"]
     if (ROOT / ".git").is_file():
         # A worktree's .git points into the main repository; git inside the controller needs it.
         common = Path(subprocess.check_output([str(programs["git"]), "rev-parse", "--git-common-dir"],
@@ -255,10 +277,14 @@ runpy.run_path(sys.argv[0], run_name='__main__')
         report["controller_log"] = {"bytes": log_bytes, "within_ceiling": log_bytes <= MAX_FILE_BYTES,
                                     "sha256": hashlib.sha256((output / "controller.log").read_bytes()).hexdigest()}
         report["sources_unchanged"] = hashes() == before
+        try:
+            report["baseline_inputs_unchanged"] = all(file_digest(path) == value for path, value in baseline_before.items())
+        except OSError:
+            report["baseline_inputs_unchanged"] = False
         (output / "launcher.json").write_text(json.dumps(report, indent=2) + "\n")
     result = json.loads((output / "report.json").read_text()) if (output / "report.json").exists() else {}
     cleanup = all(report["cleanup"].values())
-    success = (report.get("exit") == 0 and report["sources_unchanged"] and cleanup
+    success = (report.get("exit") == 0 and report["sources_unchanged"] and report["baseline_inputs_unchanged"] and cleanup
                and not report["archive_problems"] and report["archive_within_ceiling"]
                and report["controller_log"]["within_ceiling"] and result.get("head") == head)
     print(json.dumps({"result": result.get("result", "INVALID_CONTROLLER_NO_REPORT"),

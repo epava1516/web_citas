@@ -10,6 +10,7 @@ import resource
 import shlex
 import subprocess
 import sys
+import tarfile
 import time
 import uuid
 import xml.etree.ElementTree as ET
@@ -96,7 +97,20 @@ def parse_options(argv=None):
     parser.add_argument("--owned-controller", action="store_true", help="Require launcher-enforced controller and whole owned budget")
     parser.add_argument("--object-delivery", action="store_true", help="Real private RustFS and Caddy proxy in the same owned budget; requires owned complete delivery")
     parser.add_argument("--preflight-only", action="store_true", help="Verify owned object/proxy/worker topology only; never run capacity fixtures")
+    parser.add_argument("--diagnostic-baseline-capture", action="store_true")
+    parser.add_argument("--diagnostic-baseline-use", type=Path)
+    parser.add_argument("--diagnostic-baseline-key", type=Path)
     args = parser.parse_args(argv)
+    baseline = args.diagnostic_baseline_capture or args.diagnostic_baseline_use
+    if baseline:
+        if (args.diagnostic_baseline_capture and args.diagnostic_baseline_use
+            or not args.diagnostic_baseline_key or not args.owned_controller
+            or not args.object_delivery or not args.delivery_profile_full
+            or not args.delivery_profile or args.delivery_complete or args.preflight_only
+            or args.selection_complete or args.source_profile):
+            parser.error("Baseline requires exclusive complete diagnostic mode and private key; never acceptance")
+    elif args.diagnostic_baseline_key:
+        parser.error("Baseline key requires diagnostic baseline mode")
     if args.preflight_only and not (args.object_delivery and args.owned_controller):
         parser.error("--preflight-only requires --object-delivery and --owned-controller")
     workload = (args.control, args.diagnose, args.fixture_target, args.selection_tcp, args.selection_concurrent,
@@ -143,6 +157,10 @@ def parse_options(argv=None):
         parser.error("--fixture-target is exclusive with --control/--diagnose")
     if args.diagnose and not args.control:
         parser.error("--diagnose requires --control")
+    if args.diagnostic_baseline_key:
+        args.diagnostic_baseline_key = args.diagnostic_baseline_key.absolute()
+    if args.diagnostic_baseline_use:
+        args.diagnostic_baseline_use = args.diagnostic_baseline_use.absolute()
     return args, allocations, parser
 
 
@@ -184,12 +202,40 @@ def main():
     }
     if args.owned_controller:
         report["controller_name"] = os.environ["CAPACITY_CONTROLLER_NAME"]
+    baseline_header = None
+    if args.diagnostic_baseline_use:
+        try:
+            from cryptography.exceptions import InvalidTag
+            from diagnostic_baseline_archive import Reader
+            from diagnostic_baseline_codec import key, metadata
+            with Reader(args.diagnostic_baseline_use) as source:
+                baseline_header = metadata(source, key(args.diagnostic_baseline_key))
+                if (not isinstance(baseline_header, dict)
+                    or not isinstance(baseline_header.get("objects"), dict)
+                    or not isinstance(baseline_header["objects"].get("keyring"), str)
+                    or not isinstance(baseline_header["objects"].get("active_key"), str)):
+                    raise ValueError("Baseline authenticated header shape invalid")
+        except (ValueError, OSError, KeyError, TypeError, tarfile.TarError, InvalidTag):
+            baseline_header = None
+            report["baseline"] = "CACHE_REJECTED"
     containers = []
     network = prefix + "-net"
     network_attempted = False
     env = {k: v for k, v in os.environ.items() if k in {"PATH", "HOME", "LANG"}}
 
+    private_values = set()
+    private_names = ("RIGHTS_OBJECT_KEYS", "RIGHTS_OBJECT_SECRET_KEY", "POSTGRES_PASSWORD", "RIGHTS_DELIVERY_PROXY_SECRET", "RUSTFS_SECRET_KEY")
+
+    def scrub(text):
+        for value in private_values:
+            text = text.replace(value, "<private>")
+            text = text.replace(json.dumps(value)[1:-1], "<private>")
+        return text
+
     def run(command, label, check=True):
+        for item in command:
+            if isinstance(item, str) and "=" in item and item.split("=", 1)[0] in private_names:
+                private_values.add(item.split("=", 1)[1])
         start = time.monotonic()
         timeout = ((9000 if args.delivery_complete or args.delivery_profile_full else
                     5400 if args.selection_complete or args.delivery_profile else 600)
@@ -198,7 +244,10 @@ def main():
             # Small generation observes up to180s in addition to real fixture setup,
             # worker startup and teardown. This is a finite diagnostic, never a new SLA.
             timeout = 360
-        step = {"label": label, "command": command, "timeout_seconds": timeout}
+        safe_command = ["<private>" if isinstance(value, str) and any(token in value for token in
+                        tuple(name + "=" for name in private_names)) else value
+                        for value in command]
+        step = {"label": label, "command": safe_command, "timeout_seconds": timeout}
         report["steps"].append(step)
         try:
             result = subprocess.run(command, capture_output=True, text=True, timeout=timeout, env=env)
@@ -206,10 +255,10 @@ def main():
             partial = "".join(part.decode(errors="replace") if isinstance(part, bytes) else part or ""
                               for part in (error.stdout, error.stderr))
             step.update(exit=None, timed_out=True, seconds=time.monotonic() - start)
-            report["artifacts"][label + ".log"] = emit(label + ".log", partial[-MAX_FILE_BYTES // 2:])
+            report["artifacts"][label + ".log"] = emit(label + ".log", scrub(partial[-MAX_FILE_BYTES // 2:]))
             raise
         step.update(exit=result.returncode, seconds=time.monotonic() - start)
-        report["artifacts"][label + ".log"] = emit(label + ".log", result.stdout + result.stderr)
+        report["artifacts"][label + ".log"] = emit(label + ".log", scrub(result.stdout + result.stderr))
         if check and result.returncode:
             raise RuntimeError(f"{label} failed; see durable log")
         return result
@@ -333,8 +382,8 @@ def main():
                           "-e", "RIGHTS_OBJECT_ENDPOINT=http://objects:9000", "-e", "RIGHTS_OBJECT_REGION=us-east-1",
                           "-e", "RIGHTS_OBJECT_BUCKET=capacity-private", "-e", "RIGHTS_OBJECT_ACCESS_KEY=capacity-synthetic",
                           "-e", "RIGHTS_OBJECT_SECRET_KEY=capacity-synthetic-private-secret",
-                          "-e", "RIGHTS_OBJECT_ACTIVE_KEY=capacity-v1", "-e",
-                          "RIGHTS_OBJECT_KEYS=" + json.dumps({"capacity-v1": base64.b64encode(os.urandom(32)).decode()}),
+                          "-e", "RIGHTS_OBJECT_ACTIVE_KEY=" + (baseline_header["objects"]["active_key"] if baseline_header else "capacity-v1"), "-e",
+                          "RIGHTS_OBJECT_KEYS=" + (baseline_header["objects"]["keyring"] if baseline_header else json.dumps({"capacity-v1": base64.b64encode(os.urandom(32)).decode()})),
                           "-e", "RIGHTS_DELIVERY_ROOT=/srv/delivery", "-e", "RIGHTS_DELIVERY_GENERATION=" + run_id,
                           "-e", "RIGHTS_DELIVERY_PROXY_SECRET=capacity-synthetic-proxy-secret-32-bytes"]
             container("objects", object_image,
@@ -358,6 +407,11 @@ def main():
                        + shlex.quote(caddy_config) + " > /tmp/Caddyfile && "
                        "exec /tmp/caddy-runtime run --config /tmp/Caddyfile --adapter caddyfile "
                        "> /tmp/caddy.log 2>&1"])
+        baseline_mounts = []
+        if args.diagnostic_baseline_key:
+            baseline_mounts += ["--mount", f"type=bind,src={args.diagnostic_baseline_key},dst={args.diagnostic_baseline_key},readonly"]
+        if args.diagnostic_baseline_use:
+            baseline_mounts += ["--mount", f"type=bind,src={args.diagnostic_baseline_use},dst={args.diagnostic_baseline_use},readonly"]
         app = container(
             "app", "web-modelos-app:latest",
             ["--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges",
@@ -365,7 +419,7 @@ def main():
              "--mount", f"type=bind,src={ROOT},dst={ROOT},readonly",
              "--mount", f"type=bind,src={python_root},dst={python_root},readonly",
              "--tmpfs", f"/tmp:size=1073741824,uid={os.getuid()},gid={os.getgid()}",
-             *delivery_mount, *object_env,
+             *delivery_mount, *object_env, *baseline_mounts,
              "-e", "PYTHONDONTWRITEBYTECODE=1", "-e", "DJANGO_SETTINGS_MODULE=config.settings",
              "-e", "DB_HOST=pg", "-e", "DB_PORT=5432", "-e", "POSTGRES_DB=capacity_ci",
              "-e", "POSTGRES_USER=ci", "-e", "POSTGRES_PASSWORD=ci-synthetic",
@@ -385,7 +439,9 @@ def main():
         if args.owned_controller:
             report["owned_storage_ceiling_bytes"] = (
                 sum(sum(points.values()) for points in report["writable_tmpfs_bytes"].values())
-                + ARCHIVE_MAX_BYTES)
+                + ARCHIVE_MAX_BYTES
+                + (args.diagnostic_baseline_use.stat().st_size if args.diagnostic_baseline_use else 0)
+                + (args.diagnostic_baseline_key.stat().st_size if args.diagnostic_baseline_key else 0))
             report["storage_scope"] = (
                 "Kernel-enforced writable ceiling: every writable tmpfs reported by each container's mountinfo "
                 "(RAM-backed, also inside memory peaks) plus the single RLIMIT_FSIZE-capped artifact archive. "
@@ -449,6 +505,9 @@ def main():
             settings_source = (
                 "from config.settings import *\n"
                 "CAPACITY_ENVIRONMENT_VERIFIED = True\n"
+                f"CAPACITY_BASELINE_CAPTURE = {args.diagnostic_baseline_capture!r}\n"
+                f"CAPACITY_BASELINE_INPUT = {str(args.diagnostic_baseline_use or '')!r}\n"
+                f"CAPACITY_BASELINE_KEY = {str(args.diagnostic_baseline_key or '')!r}\n"
                 f"CAPACITY_PREFLIGHT_ONLY = {args.preflight_only!r}\n"
                 f"CAPACITY_OBJECT_DELIVERY = {args.object_delivery!r}\n"
                 "MEDIA_ROOT = '/tmp/capacity-media'\n"
@@ -480,6 +539,36 @@ def main():
                  "tests/test_capacity_target_fixture.py" if args.fixture_target else "tests/test_capacity_case_control.py"],
                 "control-pytest", check=False,
             )
+            if args.diagnostic_baseline_capture and result.returncode == 0:
+                # Ciphertext only; never use run(capture_output=True) for the
+                # complete binary snapshot in the128MiB controller.
+                transfer = subprocess.Popen(["docker", "exec", app, "cat", "/tmp/diagnostic-baseline.bin"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, env=env)
+                parts = []
+                try:
+                    number = 0
+                    while True:
+                        block = bytearray()
+                        while len(block) < 8 * MIB:
+                            value = transfer.stdout.read(8 * MIB - len(block))
+                            if not value:
+                                break
+                            block.extend(value)
+                        if not block:
+                            break
+                        name = f"baseline.{number:04}.bin"
+                        report["artifacts"][name] = sink.write_binary(name, bytes(block))
+                        parts.append(name)
+                        number += 1
+                        if number > 32:
+                            raise RuntimeError("Baseline fragment quota exceeded")
+                    if transfer.wait(timeout=30) != 0 or not parts:
+                        raise RuntimeError("Baseline ciphertext transfer failed")
+                finally:
+                    transfer.stdout.close()
+                    if transfer.poll() is None:
+                        transfer.terminate()
+                        transfer.wait(timeout=5)
+                report["artifacts"]["baseline.index.json"] = emit("baseline.index.json", json.dumps({"parts": parts}))
             junit = run(["docker", "exec", app, "cat", "/tmp/capacity-control.xml"],
                         "control-junit")
             report["artifacts"]["pytest.xml"] = emit("pytest.xml", junit.stdout)
@@ -524,6 +613,8 @@ def main():
                 elif not json.loads(properties.get("delivery_profile", "{}")).get("server_profiles"):
                     raise RuntimeError("Requested stage profiles missing: INVALID instrument")
                 report["result"] = "PROFILE_DIAGNOSTIC_NOT_CAPACITY"
+                if args.diagnostic_baseline_capture or args.diagnostic_baseline_use:
+                    report["diagnostic_baseline"] = {"mode": "capture" if args.diagnostic_baseline_capture else "reuse-or-full-real-fallback", "acceptance_eligible": False}
             elif args.delivery_complete:
                 properties = {item.attrib["name"]: item.attrib["value"]
                               for suite in suites for item in suite.iter("property")}

@@ -1,6 +1,7 @@
 """Diagnostic profile of one target-sized case; never a capacity sample or limit verdict."""
 
 import json
+import tarfile
 import time
 import traceback
 from pathlib import Path
@@ -25,9 +26,34 @@ pytestmark = [
 @pytest.mark.usefixtures("photo_environment")
 def test_owned_target_stage_profiles(request, settings, monkeypatch, record_property):
     metrics, errors = {"success": False}, []
+    settings.RIGHTS_VERIFICATION_BACKEND = "simulator"
+    baseline_capture = getattr(settings, "CAPACITY_BASELINE_CAPTURE", False)
+    baseline_source = getattr(settings, "CAPACITY_BASELINE_INPUT", "")
+    baseline_key = getattr(settings, "CAPACITY_BASELINE_KEY", "")
+    descriptor = None
+    if baseline_source:
+        from cryptography.exceptions import InvalidTag
+        from diagnostic_baseline import restore
+        from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, ValidationError
+        try:
+            descriptor = restore(baseline_source, baseline_key)
+            metrics["baseline"] = "HIT_DIAGNOSTIC_REUSED_PREPARATION"
+        except (ValueError, OSError, KeyError, TypeError, tarfile.TarError, InvalidTag,
+                ObjectDoesNotExist, PermissionDenied, ValidationError) as rejected:
+            # Scratch cleanup must finish before fallback; no approval fixture.
+            metrics["baseline"] = "CACHE_REJECTED"
+            metrics["baseline_rejection"] = type(rejected).__name__
+    captured = []
     with server(settings, record_property) as endpoint:
         try:
             context = {}
+            if descriptor is not None:
+                from diagnostic_baseline import resume
+                resume(descriptor, endpoint, settings, metrics)
+                metrics["success"] = "post_validation_profile" in metrics
+                assert metrics["success"]
+                record_property("diagnostic_baseline", json.dumps({"event": metrics["baseline"]}))
+                return
             target = prepare_target(request, settings, monkeypatch, endpoint, "capacity-subject-a",
                                     independent_reviewer=True, include_binary=True, details=context)
             metrics.update(fixture=target[5], build_seconds=target[6], scalar_preparation_seconds=target[7])
@@ -36,7 +62,7 @@ def test_owned_target_stage_profiles(request, settings, monkeypatch, record_prop
                 metrics["fingerprint_sql"] = fingerprint_profile(
                     settings, endpoint, context["profile"], target[0])
             run_case(0, target, context, endpoint, settings, Barrier(1), metrics, diagnostic=True,
-                     full=full)
+                     full=full, approved_boundary=captured.append if baseline_capture else None)
             metrics["success"] = (metrics.get("success") is not False and "post_validation_profile" in metrics
                                   if full else
                                   metrics.get("diagnostic_stopped_after") == "coverage_page_read")
@@ -61,5 +87,11 @@ def test_owned_target_stage_profiles(request, settings, monkeypatch, record_prop
                 "scope": "One synthetic1500/16MiB/64MiB case; reduced populations; cProfile overhead "
                          "included; diagnostic of cost attribution only, never compared to limits.",
             }))
+    if baseline_capture and not errors:
+        from diagnostic_baseline import capture
+        assert len(captured) == 1
+        metrics["baseline_capture"] = capture(captured[0], "/tmp/diagnostic-baseline.bin", baseline_key)
+        metrics["success"] = True
+        record_property("diagnostic_baseline", json.dumps(metrics["baseline_capture"]))
     assert not errors, errors
     assert metrics["success"]
