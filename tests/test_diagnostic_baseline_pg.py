@@ -217,9 +217,19 @@ def test_actual_original_approval_roundtrip_and_config_rejection(request, settin
         cursor.execute("SELECT datname FROM pg_database WHERE datname LIKE %s", [original_config['NAME'] + '_baseline_%'])
         assert not cursor.fetchall()
     original_copy = baseline.shutil.copytree
+    copy_depth = 0
     def disk_full(*args, **kwargs):
-        original_copy(*args, **kwargs)
-        raise OSError(errno.ENOSPC, 'Synthetic staging fault after copy')
+        nonlocal copy_depth
+        copy_depth += 1
+        try:
+            result = original_copy(*args, **kwargs)
+            # shutil recursively resolves its module-level copytree. Inject
+            # only after the complete top-level real media copy succeeds.
+            if copy_depth == 1:
+                raise OSError(errno.ENOSPC, 'Synthetic staging fault after copy')
+            return result
+        finally:
+            copy_depth -= 1
     monkeypatch.setattr(baseline.shutil, 'copytree', disk_full)
     with pytest.raises(ValueError, match='CACHE_REJECTED: OSError'):
         baseline.restore(archive, key)
