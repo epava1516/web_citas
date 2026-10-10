@@ -36,6 +36,7 @@ class _InspectionSource:
         self.connection = transaction.get_connection()
         self.source = source_copy(person, listing, case)
         self.digest = fingerprint(canonical(self.source))
+        self.row_references = {}
 
     @sensitive_variables()
     def get(self, person, listing, case):
@@ -54,6 +55,26 @@ def shared_source(context, person, listing, case):
     if not isinstance(context, _InspectionSource):
         raise ValidationError("Invalid inspection source context")
     return context.get(person, listing, case)
+
+
+def shared_row_reference(dataset, index, row, compute):
+    """Reuse a row reference only for a row object of the active shared source.
+
+    The reference is a pure digest of the row; the shared source cannot change without the
+    context exit rejecting the transaction, so one computation per row and request suffices.
+    """
+    from .rights_copy_inspection import SECTIONS
+
+    context = _current.get()
+    if context is None or dataset not in SECTIONS:
+        return compute()
+    rows = SECTIONS[dataset](context.source)
+    if not isinstance(index, int) or not 0 <= index < len(rows) or rows[index] is not row:
+        return compute()
+    key = (dataset, index)
+    if key not in context.row_references:
+        context.row_references[key] = compute()
+    return context.row_references[key]
 
 
 @sensitive_variables()

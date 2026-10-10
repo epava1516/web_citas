@@ -102,7 +102,11 @@ def signature(binding, version, reason, payload):
 
 @sensitive_variables()
 def image_payload(export, declarations, person):
-    """Rebuild attachment metadata only after checking approved source and snapshots."""
+    """Rebuild attachment metadata only after checking approved source and snapshots.
+
+    Each snapshot is decrypted once: the same bytes are compared with the current image and
+    its declared digest and then used to rebuild its package byte for byte.
+    """
     from .rights_copy_parts import PART_LIMIT, archive
     from .rights_exports import image_content
 
@@ -112,12 +116,16 @@ def image_payload(export, declarations, person):
     by_photo = {str(item.photo_id): item for item in snapshots}
     if len(by_photo) != len(snapshots):
         raise ValidationError("Duplicate portable image snapshots")
-    images, sizes = [], {}
     by_identifier = {str(item.pk): item for item in snapshots}
+    declared = {}
     for declaration in declarations:
         snapshot = by_photo.get(declaration["photo"])
         if snapshot is None:
             raise ValidationError("Portable image snapshot unavailable")
+        declared[str(snapshot.pk)] = declaration
+
+    def verified(identifier):
+        snapshot, declaration = by_identifier[identifier], declared[identifier]
         _, current = image_content(person, declaration["photo"])
         try:
             content = cipher().decrypt(snapshot.encrypted_content.encode())
@@ -127,41 +135,31 @@ def image_payload(export, declarations, person):
         digest = hashlib.sha256(content).hexdigest()
         if content != current or digest != declaration["content_digest"]:
             raise ValidationError("Portable image content changed")
-        identifier = str(snapshot.pk)
-        sizes[identifier] = len(content)
-        images.append(
-            {
-                "attachment": identifier,
-                "content_type": "image/webp",
-                "sha256": digest,
-                "size": len(content),
-            }
-        )
-        del content, current
-    parts, seen = [], []
+        return content, digest
+
+    metadata, parts, seen = {}, [], []
     for position, part in enumerate(
         export.parts.exclude(attachments=[]).order_by("position").iterator(chunk_size=1), 1
     ):
         if part.position != position or not isinstance(part.attachments, list):
             raise ValidationError("Portable image package changed")
-        package_size = 22
         for identifier in part.attachments:
-            if not isinstance(identifier, str) or identifier not in sizes or identifier in seen:
+            if not isinstance(identifier, str) or identifier not in declared or identifier in seen:
                 raise ValidationError("Portable image package scope changed")
             seen.append(identifier)
-            name = identifier + ".webp"
-            package_size += sizes[identifier] + 76 + 2 * len(name.encode("ascii"))
-            if package_size > PART_LIMIT:
-                raise ValidationError("Portable image package exceeds size limit")
+
         def items():
             # Rebuild in the same order without retaining all decrypted images.
+            package_size = 22
             for identifier in part.attachments:
-                try:
-                    image = cipher().decrypt(by_identifier[identifier].encrypted_content.encode())
-                except (InvalidToken, ValueError, TypeError) as error:
-                    raise ValidationError("Portable image snapshot unavailable") from error
-                del by_identifier[identifier].encrypted_content
-                yield identifier, identifier + ".webp", image
+                content, digest = verified(identifier)
+                name = identifier + ".webp"
+                package_size += len(content) + 76 + 2 * len(name.encode("ascii"))
+                if package_size > PART_LIMIT:
+                    raise ValidationError("Portable image package exceeds size limit")
+                metadata[identifier] = {"attachment": identifier, "content_type": "image/webp",
+                                        "sha256": digest, "size": len(content)}
+                yield identifier, name, content
 
         expected = archive(items(), PART_LIMIT)["content"]
         try:
@@ -172,8 +170,9 @@ def image_payload(export, declarations, person):
             raise ValidationError("Portable image package content changed")
         parts.append({"id": str(part.pk), "position": position, "attachments": part.attachments})
         del expected, content, part.encrypted_content
-    if set(seen) != set(sizes):
+    if set(seen) != set(declared):
         raise ValidationError("Portable image packages incomplete")
+    images = [metadata[str(by_photo[item["photo"]].pk)] for item in declarations]
     return {"images": images, "parts": parts} if declarations else {}
 
 
