@@ -12,17 +12,17 @@ No hay pytest/capacidad propio vivo al reconciliar. Ramas sin commits nuevos sal
 
 Hipótesis finitas de revisión3/4: `xmin` aislado no distingue dos UPDATE dentro de una misma transacción; reproducir y añadir identidad de tupla si se confirma. El sello inicial calcula resultados al reproducir SELECT después de la validación y pierde orden al ordenar texto: debe probar que exactamente los resultados realmente consumidos y sus dependencias temporales/externas se conservan, antes de omitir la validación completa. Criterio N1: reproducciones significativas PG17, corrección y tests afectados PASS; N2 posterior: selección de49 archivos exportación/cierre/descargas/autoridad más pruebas3/4, cero skips, fuentes congeladas y retirada real. No se acredita p95 ni N3 por este registro.
 
-| Frente | Piezas | Responsable | Rama / worktree | Estado |
-| --- | --- | --- | --- | --- |
-| Huella de fila + sello de validación | 3, 4 | coordinador | `claude/source-version` / `../web_modelos_claude_srcver` | 3: `4ea995e`, 12 PASS completitud; 4: código y pruebas escritos sin ejecutar |
-| Pruebas paralelas (xdist) | 9 (base) | coordinador | `claude/parallel-tests` / `../web_modelos_claude_xdist` | `9cb8214`; validación 414 casos con 6 workers en curso (run `20261010-115833-c37b6bfa`) |
-| Generación asíncrona Celery | 5 | agente async-generation | worktree propio | en curso |
-| AEAD + objetos MinIO + descargas Caddy | 6, 8 | agente storage-crypto | worktree propio | en curso |
-| orjson + BLAKE3 | 7 | agente fast-canonical | worktree propio | en curso |
-| Instantáneas de fixtures + auditoría de duplicados | 9, 10 | agente test-speed | worktree propio (sobre `claude/parallel-tests`) | en curso |
-| Evidencia inmutable + cadena de hashes | 11 | agente immutable-evidence | worktree propio | en curso |
-| Revisión por lotes auditados | 12 | pendiente | — | lanzamiento de agente denegado por el clasificador de modo automático; lo hará el coordinador tras 3/4 o con permiso del usuario |
-| mypyc/Cython | 13 | — | — | condicional a perfiles |
+| Frente | Piezas | Responsable | Estado vigente12:45UTC |
+| --- | --- | --- | --- |
+| Huella y sello | 3,4 | Codex raíz/source-version | Reproducciones PG confirmaron2defectos; corregidos xmin+ctid y captura SHA256 ordenada real. Reutilización del sello PASS dirigida; N2 fuente/sello/source_reads en curso |
+| Runner paralelo + baseline snapshots | 9 | Codex canonical_tests | xdist integrado414PASS; snapshots15PASS78,881s +6guardsPASS; commits3c732bd/bf91bc2/8f2d34e en rama integrada |
+| Generación Celery | 5 | async_generation | Primer N2 121PASS/19FAIL; parsers puros corregidos; segundo N2 en curso |
+| AEAD/S3 propio y Caddy | 6,8 | storage_crypto | Garage falló escritura condicional; RustFS pin digest real42PASS0skips. Hooks de descarga y censo se completan antes de integrar |
+| orjson/BLAKE3 | 7 | canonical_tests | 21pruebas puras PASS; commit3fe49c7 integrado en rama de preparación; N2 conjunta pendiente |
+| Fixture diagnóstica aprobada | 10 | canonical_tests tras11 | Diseño pendiente; no reutilizar autoridad/revisión como aceptación |
+| Evidencia inmutable | 11 | canonical_tests | Cadena7familias PG8PASS; hardening de padre RightsAction y nuevos adversariales antes de aceptación |
+| Lotes auditados | 12 | Codex raíz/rama integrada | Código/contrato interno escritos; N2 domain/HTTP/Chromium ESEN en curso, fuentes congeladas |
+| Compilación rutas calientes | 13 | Codex raíz | Condicional al perfil integrado posterior |
 
 Reglas: sin mediciones de capacidad mientras haya pruebas; garantías y objetivos intactos; integración solo tras N2 conjunta PASS.
-Siguiente paso del coordinador: leer terminal de la validación paralela; si 414 PASS, integrar `claude/parallel-tests` en master; ejecutar pruebas del sello y micro-medición de la huella.
+Siguiente paso: cerrar N2 individuales y corregir fallos; reconciliar modelos/migraciones/config/censos, N2 conjunta y luego perfil/capacidad sin otras cargas. No sumar baterías individuales como una N3.
