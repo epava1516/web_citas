@@ -52,7 +52,7 @@ def policy():
     # Transport varies across owned runs; these exact exclusions never cover
     # domain policies, cryptographic material or authority/session settings.
     excluded = {'DATABASES', 'MEDIA_ROOT', 'SETTINGS_MODULE', 'BASE_DIR', 'RIGHTS_DELIVERY_GENERATION'}
-    values = [(name, repr(getattr(settings, name))) for name in dir(settings)
+    values = [(name, repr(getattr(settings, name))) for name in sorted(set(dir(settings)))
               if name.isupper() and name not in excluded and not name.startswith('CAPACITY_')]
     transport = {'NAME', 'HOST', 'PORT', 'USER', 'PASSWORD'}
     databases = {alias: {name: value for name, value in options.items() if name not in transport}

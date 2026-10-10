@@ -71,6 +71,16 @@ def test_actual_original_approval_roundtrip_and_config_rejection(request, settin
     review = record(reviewer, case.pk, case.version, row.pk, uuid4(), reason, 'approved')
     descriptor = {name: str(value) for name, value in dict(case=case.pk, author=author.pk, reviewer=reviewer.pk,
                   selection_review=selected.pk, coverage_review=review.pk, receipt=receipt).items()}
+    # UserSettingsHolder.__dir__ repeats overridden names; policy depends on
+    # effective values once per name rather than override-stack multiplicity.
+    original_policy = baseline.policy()
+    enforced = settings.RIGHTS_EVIDENCE_ENFORCED
+    settings.RIGHTS_EVIDENCE_ENFORCED = enforced
+    assert baseline.policy() == original_policy
+    settings.RIGHTS_EVIDENCE_ENFORCED = not enforced
+    assert baseline.policy()['config'] != original_policy['config']
+    settings.RIGHTS_EVIDENCE_ENFORCED = enforced
+    assert baseline.policy() == original_policy
     original_expiry = row.expires_at
     key = tmp_path / 'key'
     key.write_bytes(os.urandom(32))
