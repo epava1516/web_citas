@@ -138,3 +138,19 @@ No hay objetivo contractual independiente por fase ni porcentaje pendiente por f
 Candidato de metadata current-images declinado antes de implementación: image_contents valida toda la lista y espera todos los locks antes de primer read; adelanta errores de foto posterior y cambia ventana física del original. Borrador de contraste en worktree aislado sin integrar ni probar. SHA acotado por operación sigue N2 dirigida real, integración pendiente.
 
 [Desglose saneado](evidencias/mod08-desglose-http-puros-protocolo-20261010.json).
+
+
+## SHA de contenido idéntico por operación — integración local
+
+Commit `ad1189b`: retiene como máximo16entradas/64MiB durante un batch atómico, asociado a conexión, bloque atomic, hilo y PID actuales. IDs sólo localizan bytes anteriores: reutiliza SHA exclusivamente tras igualdad completa de los bytes frescos exactos; cambios incluso del mismo tamaño se hashean de nuevo y nunca reemplazan el original. Tipos no soportados/límites/atomic terminado/contexto diferente usan SHA nativo. Limpieza finally obligatoria. SQL, locks, lectura física, autorización y auditoría de cada hijo permanecen frescos.
+
+N2 dirigida `20261010-212613-ac0fdf4d`:51PASS/0FAIL/0skips318,443s; conjunta42archivos `20261010-213243-3a0e6675`:496PASS/0FAIL/0skips696,096s. Fuentes sin cambios, cuatro SHA exactos revisados y PostgreSQL/Redis/RustFS propios ausentes verificados. Lanzamiento inicial ARGPARSE conservado: omitía native-source por instrucción de root, sin servicios/pruebas; no negativo funcional.
+
+| Prueba finita16fotos x4 hijos | Antes | Actual | Reducción | Objetivo de equivalencia |
+| --- | ---: | ---: | ---: | --- |
+| Lecturas físicas completas | 64 | 64 | 0% | Mantener64 |
+| Cálculos SHA nativos | 64 | 16 | 75% | Misma salida exacta |
+
+La prueba real PG con16WebPde4MiB acredita aritmética de retención64MiB, overflow nativo y limpieza; no appRSS<=1GiB ni peakglobal<=6GiB. Negativas de corrupción tardía, auditoría eliminada y sesión/MFA/permisos/prueba/fuente/expiry conservan rollback. No hay nueva latencia medida ni avance de aceptación/porcentajes contractuales. Baseline anterior inválido para estas fuentes; requieren captura nueva y medición con todas poblaciones y cuotas originales. N3 y dos casos simultáneos siguen pendientes.
+
+[Evidencia y JUnit saneado](evidencias/mod08-sha-contenido-integrado-20261010.json).

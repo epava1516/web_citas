@@ -1,0 +1,83 @@
+{
+  "run_id": "20261010-213243-3a0e6675",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "496",
+      "time": "696.096",
+      "timestamp": "2026-10-10T23:33:02.245470+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261010-213243-3a0e6675": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261010-213243-3a0e6675": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "reviewed_sha256": {
+    "apps/safety/rights_operation_content_digests.py": "3a6bb808b2e1f3374dcd0cd5129fd19020031a736f7b1cf7f4d50d8be09cfced",
+    "apps/safety/rights_portability_images.py": "e34e31e465eb5ae5a0dfe3c329a0656e55ba53bd712532a21f25a82453bff336",
+    "apps/safety/rights_portability_coverage_batch.py": "c643273fa1ff2dbc57dc85095fb778dddde244cc23440ca5c584b59155c4a0bd",
+    "tests/test_rights_operation_content_digests.py": "32270a666bb108b395c08a50193eb86523cae56f2eaf2bb892ee4f8679be72af"
+  },
+  "scope": "Finite real PG/RustFS regression; original two-case capacity and app RSS not proven",
+  "integration_commit": "ad1189b",
+  "directed": {
+    "run_id": "20261010-212613-ac0fdf4d",
+    "result": "PASS",
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "51",
+        "time": "318.443",
+        "timestamp": "2026-10-10T23:26:33.466429+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-ci-pg-20261010-212613-ac0fdf4d": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261010-212613-ac0fdf4d": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "reviewed_sha256": {
+      "apps/safety/rights_operation_content_digests.py": "3a6bb808b2e1f3374dcd0cd5129fd19020031a736f7b1cf7f4d50d8be09cfced",
+      "apps/safety/rights_portability_images.py": "e34e31e465eb5ae5a0dfe3c329a0656e55ba53bd712532a21f25a82453bff336",
+      "apps/safety/rights_portability_coverage_batch.py": "c643273fa1ff2dbc57dc85095fb778dddde244cc23440ca5c584b59155c4a0bd",
+      "tests/test_rights_operation_content_digests.py": "32270a666bb108b395c08a50193eb86523cae56f2eaf2bb892ee4f8679be72af"
+    },
+    "scope": "Directed finite real PG, no aggregate RSS/capacity evidence"
+  },
+  "pure_work_proof": {
+    "finite_photos": 16,
+    "child_repetitions": 4,
+    "physical_reads": 64,
+    "native_sha_calls_before": 64,
+    "native_sha_calls_after": 16,
+    "retention_cap_bytes": 67108864,
+    "entries": 16,
+    "claim": "Equivalence/work count only; no request gain or aggregate RSS claim"
+  }
+}
