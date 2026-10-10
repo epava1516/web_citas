@@ -13,3 +13,7 @@ Fecha: 2026-10-10 14:20 UTC. Objeto: rama `codex/mod08-integration` (`c50b76a`, 
 ## Recomendación de orden
 
 Terminar el preflight vivo → guarda del hallazgo 1 con su prueba → N2 única paralela de la cabeza final → integrar en master → pieza 10 → diagnóstico y ensayo de capacidad sin otras cargas → N3.
+
+## Trabajo independiente en curso (no solapa con frentes de Codex)
+
+- BF preparación: rama `claude/bf-design-system` (worktree `../web_modelos_claude_bf`), commit del sistema visual común solo CSS (tokens, modo oscuro, foco/contraste AA, objetivos táctiles 44px, formularios/tablas/dl/detalles/avisos). Sin ejecutar pruebas mientras Codex mide; validar después con las baterías de navegador ES/EN/móvil (sin desbordamiento horizontal) antes de proponer integración tras GS01.
