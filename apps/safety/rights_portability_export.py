@@ -3,7 +3,9 @@
 import hashlib
 import io
 import zipfile
+from contextvars import ContextVar
 from copy import copy
+from functools import wraps
 from uuid import uuid5
 
 from cryptography.fernet import InvalidToken
@@ -238,11 +240,49 @@ def validate_transport(export, payload):
         raise ValidationError("Portability document changed")
 
 
+_operation = ContextVar("portability_export_operation", default=None)
+
+
+def one_export_validation(function):
+    """Within one audited operation and its transaction, an identical export validation runs
+    once: a second consecutive full check of the same export, case version and subject adds no
+    guarantee beyond "validated in this transaction before use". Never spans transactions."""
+
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        if _operation.get() is not None:
+            return function(*args, **kwargs)
+        token = _operation.set({"connection": transaction.get_connection(), "validated": set()})
+        try:
+            return function(*args, **kwargs)
+        finally:
+            _operation.reset(token)
+
+    return wrapper
+
+
 @sensitive_variables()
 def validate_export_binding(case, person, export):
     """Historical evidence only; caller must authorize and audit delivery first."""
     if not transaction.get_connection().in_atomic_block:
         raise RuntimeError("Portability export requires enclosing transaction")
+    scope = _operation.get()
+    connection = transaction.get_connection()
+    # The outermost atomic block identifies this transaction: a result never crosses commits.
+    identity = (id(connection.atomic_blocks[0]), case.pk, case.version, case.kind, case.status,
+                person.pk if person else None, export.pk, export.case_version,
+                fingerprint(export.encrypted_payload))
+    if scope is not None and scope["connection"] is transaction.get_connection():
+        if identity in scope["validated"]:
+            return
+        _validate_export_binding(case, person, export)
+        scope["validated"].add(identity)
+        return
+    _validate_export_binding(case, person, export)
+
+
+@sensitive_variables()
+def _validate_export_binding(case, person, export):
     binding = (
         RightsExportPortabilityBinding.objects.select_for_update(of=("self",))
         .select_related(
@@ -320,6 +360,7 @@ def validate_export_binding(case, person, export):
 
 
 @transaction.atomic
+@one_export_validation
 @sensitive_variables()
 def generate(
     user, case_id, version, selection_id, review_id, key, reason, *, coverage_review_id=None

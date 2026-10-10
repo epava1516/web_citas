@@ -11,6 +11,7 @@ from .crypto import seal
 from .models import RightsAction, RightsPortabilityResponseDraft, RightsPortabilityResponseReview
 from .rights import fingerprint
 from .rights_exports import canonical, reviewer_case
+from .rights_portability_export import one_export_validation
 from .rights_portability_response_draft import checked_body, prepare
 from .rights_portability_review import authorize
 from .rights_responses import complete_response_read
@@ -25,6 +26,7 @@ def authorize_reviewer(user, case):
 
 
 @transaction.atomic
+@one_export_validation
 @sensitive_variables()
 def inspect(user, case_id, version, draft_id, key, reason):
     if not isinstance(reason, str) or not 20 <= len(reason.strip()) <= 200:
@@ -138,6 +140,7 @@ def inspect(user, case_id, version, draft_id, key, reason):
 
 
 @transaction.atomic
+@one_export_validation
 @sensitive_variables()
 def record(user, case_id, version, draft_id, read_id, key, reason, outcome):
     if (

@@ -19,6 +19,7 @@ from .models import (
 from .rights import fingerprint
 from .rights_copy_page_review import fresh_authority
 from .rights_exports import can_prepare, canonical, reviewer_case
+from .rights_portability_export import one_export_validation
 from .rights_portability_response_draft import checked_body
 from .rights_portability_response_evidence import validate_review
 from .rights_responses import complete_response_read
@@ -132,6 +133,7 @@ def validate_closure(row, case, person):
 
 
 @transaction.atomic
+@one_export_validation
 @sensitive_variables()
 def close(user, case_id, version, response_version, review_id, key, reason):
     if not isinstance(reason, str) or not 20 <= len(reason.strip()) <= 200:

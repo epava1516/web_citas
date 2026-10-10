@@ -15,7 +15,7 @@ from .models import RightsAction, RightsExport, RightsPortabilityResponseDraft
 from .rights import fingerprint
 from .rights_copy_page_review import fresh_authority
 from .rights_exports import can_prepare, canonical, reviewer_case
-from .rights_portability_export import validate_export_binding
+from .rights_portability_export import one_export_validation, validate_export_binding
 from .rights_response_text import checked_response_text
 from .rights_responses import complete_response_read
 
@@ -29,6 +29,7 @@ def checked_body(ciphertext):
 
 
 @transaction.atomic
+@one_export_validation
 @sensitive_variables()
 def prepare(user, case_id, version, response_version, export_id, key, reason, text, confirmed):
     checked_response_text(reason, text, confirmed)

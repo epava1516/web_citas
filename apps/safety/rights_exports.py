@@ -4,6 +4,7 @@ import hashlib
 import json
 import uuid
 from datetime import timedelta
+from functools import wraps
 
 from cryptography.fernet import InvalidToken
 from django import forms
@@ -46,6 +47,17 @@ COPY_REVISION_BATCH_SIZE = 1000
 @sensitive_variables()
 def canonical(value):
     return json.dumps(value, sort_keys=True, ensure_ascii=False)
+
+
+def _one_export_validation(function):
+    # Imported at call time: rights_portability_export depends on this module.
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        from .rights_portability_export import one_export_validation
+
+        return one_export_validation(function)(*args, **kwargs)
+
+    return wrapper
 
 
 @sensitive_variables()
@@ -795,6 +807,7 @@ def prepare(request, case_id):
 
 @require_POST
 @sensitive_variables()
+@_one_export_validation
 def download(request, case_id, secret, export_id, image_id=None, part_id=None):
     if not enabled():
         raise Http404

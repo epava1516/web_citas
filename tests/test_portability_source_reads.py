@@ -49,7 +49,7 @@ WATCHED = {
     "source_copy": code(rights_exports.source_copy),
     "image_content": code(rights_exports.image_content),
     "audited_images": code(rights_portability_images.audited_images),
-    "portability_export_binding": code(rights_portability_export.validate_export_binding),
+    "portability_export_binding": code(rights_portability_export._validate_export_binding),
     "information_export_binding": code(rights_information_export.validate_export_binding),
     "coverage_pages": code(rights_portability_coverage_evidence.validate_coverage_pages),
     "compile_coverage": code(rights_portability_coverage.compile_coverage),
@@ -120,3 +120,6 @@ def test_whole_source_reads_per_final_operation(request, settings, monkeypatch, 
     with counted(counts, "binary_part_download"):
         assert client.post(url(receipt, export) + f"part/{part.pk}/", {"key": uuid4()}).status_code == 200
     record_property("source_reads", repr(counts))
+    # One full chain validation per audited operation; a repeat inside it adds no guarantee.
+    for operation, observed in counts.items():
+        assert observed.get("portability_export_binding", 0) <= 1, (operation, observed)
