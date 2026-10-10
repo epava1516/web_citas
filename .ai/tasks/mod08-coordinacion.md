@@ -1,5 +1,9 @@
 # MOD-08 — coordinación de frentes en paralelo
 
+## Estado vigente16:37 UTC — Codex
+
+Worker real localizado: AttributeError en recording.wrapper175 por SQL compuesto de cadena de evidencia. Correctiva4e7fc34 con fallback completo y regresiones SQL/Composed/iterator; N2 conjunta48PASS/1FAIL, único fallo baseline ObjectInUse. Agente canonical_tests corrige exclusivamente restore en worktree aislado; raíz repite probe real sin baseline, fuente congelada/sin cargas competidoras. N2 jobs/preflight anterior48PASS. Negativos/fuentes/retirada archivados en docs/evidencias/mod08-sql-composable-diagnostico-20261010.json y tar.gz. No rendimiento/N3/CR09 aceptado ni integración master todavía.
+
 Actualizado: 2026-10-10 12:16 UTC. Coordinador: Claude principal (MOD-07). Plan: docs/95-plan-modernizacion-mod08.md. Cada frente mantiene su estado en `.ai/tasks/mod08-<frente>.md` y hace commits frecuentes en su rama; el coordinador integra en master tras N2 conjunta con el runner paralelo.
 
 ## Relevo vigente a Codex — 2026-10-10

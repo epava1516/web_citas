@@ -1,0 +1,647 @@
+{
+  "scope": "Local diagnostic only; no capacity/N3/phase acceptance",
+  "jobs_preflight_n2": "48 PASS/0 skips 155.845s",
+  "real_probe": "ERROR: TimeoutError after180s; two AttributeError worker records rights_validation_seal.wrapper:175; last observed running attempt3, no export",
+  "cause": "Wrapper assumes str SQL; full chain uses psycopg SQL(...).format(Identifier(...)) composed SQL. Corrective4e7fc34 declines seal for non-str SQL, executes unchanged; full validation remains",
+  "joint_corrective_n2": "48 PASS/1 FAIL/0 skips349.199s; only diagnostic baseline restore fails ObjectInUse pending trigger events; SQL regressions/jobs pass",
+  "source_freeze_cleanup": "All three runs sources unchanged and owned cleanup verified",
+  "next": "Repeat real small worker probe; fix baseline pending FK checks separately; no full performance claim",
+  "files": [
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/01-start-pg.log",
+      "bytes": 65,
+      "sha256": "94f0b587d07addd439c68b4a01fca728b8c14eb6c4a4bc206307e1e3472fb4d0",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/02-start-redis.log",
+      "bytes": 65,
+      "sha256": "a6ac8543eca1b90fc42d2ebd9fda30d696d9c725d4fc44cc78e87e40334ba713",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/03-dependencies.log",
+      "bytes": 55,
+      "sha256": "81e2433dbdd590632e0570e45399b1481e86bcdffea803111aa031213a00dee8",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/04-ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/05-documentation.log",
+      "bytes": 170,
+      "sha256": "8438afef62fd9db734cf0506baba98e0fc599e0e61647b0a46eba6859b88d9ee",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/06-django.log",
+      "bytes": 48,
+      "sha256": "1e3e63f221bde88816c4a4ef7367691607b20cc1d194028a02ec9ae0586cf9b1",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/07-migrations.log",
+      "bytes": 20,
+      "sha256": "a2bfa7b376c38062f77ce2b1e703876aaa04662f96355cdf5dc9d0d075302b05",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/08-native-build.log",
+      "bytes": 16648,
+      "sha256": "edaef9560e8415b289e1d42173b213b2dfdd07b3ea3a51d11c2932f90ed85416",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/09-pytest.log",
+      "bytes": 111,
+      "sha256": "700e1e3972e17ea2dd8ab43c03d9c02d2399da6377ad5ff684b87788d0378afd",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/native-manifest.json",
+      "bytes": 751,
+      "sha256": "ff0c9446af5689744b881fc7de2afc4a2dedc04d95dcb5c65d938ee22c5c6513",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/pytest.xml",
+      "bytes": 9910,
+      "sha256": "0304f0e0f395e610e3bc1459903c857431a3b13f98358eec55f845b990a2678e",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/result.json",
+      "bytes": 4103,
+      "sha256": "2d0ebd4eba2349b9441b5b0ee4ec9962fa0a98045a54041261ab85e5692f7dd2",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/runner.json",
+      "bytes": 813,
+      "sha256": "69ab76648eeaf2cc32ed66520f03e54f213327a6375d77c9a1bd31c3a8eaeaa3",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-161913-b617822e/source-hashes.json",
+      "bytes": 126381,
+      "sha256": "30b477b2339fa8f574317c35d90a725f8c46f4cfdaa33c19adfaa6958ae60f89",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/absent-web-modelos-capacity-20261010-162302-b2816afa-app.log",
+      "bytes": 98,
+      "sha256": "6a6ac44ff63922e0ebd7c02cda414efa68f163ecc711f4f82942e2a32d7e313f",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/absent-web-modelos-capacity-20261010-162302-b2816afa-caddy.log",
+      "bytes": 100,
+      "sha256": "0dbf26a1f8030ac64467e40f9d9db6c68e830c841cc0ed8201de05925253121d",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/absent-web-modelos-capacity-20261010-162302-b2816afa-delivery.log",
+      "bytes": 104,
+      "sha256": "d824f35d36b450c93034f038a79bf71836fb28b841078bfbc13765eba0442612",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/absent-web-modelos-capacity-20261010-162302-b2816afa-net.log",
+      "bytes": 97,
+      "sha256": "f191a31d966907857f6529b29139412481b6658ef1a091555f3c31d73663c907",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/absent-web-modelos-capacity-20261010-162302-b2816afa-objects.log",
+      "bytes": 102,
+      "sha256": "3aa787f2102bb9d005f3aaee99f79bafa216d1379191848eefc18d0832e9ff7f",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/absent-web-modelos-capacity-20261010-162302-b2816afa-pg.log",
+      "bytes": 97,
+      "sha256": "d0d98ea315171014a050e45d176e133be03835e954e68077ed0be29327b8ed4f",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/absent-web-modelos-capacity-20261010-162302-b2816afa-redis.log",
+      "bytes": 100,
+      "sha256": "e5b816f7a1eb10c47735fd69f1cb9e42cc585d581644f51cc16af30b5b249f96",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/artifacts.tar",
+      "bytes": 419840,
+      "sha256": "0442f6d7ec98aa97de90d6778ac49230cfb0af9306c008a26ed70a47fe75e2f7",
+      "included": false
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/control-junit.log",
+      "bytes": 64820,
+      "sha256": "1023e1205d96e2ab0536e09439b6b37507bb8e25287610dad5d9e267a2aa0d7d",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/control-pytest.log",
+      "bytes": 2886,
+      "sha256": "be78cab247e4a107366652e29494234ecae5abe5caccf43c5238f39f62b60c5c",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/control-settings.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/controller.log",
+      "bytes": 144,
+      "sha256": "85a5fbe3648a28679b29fe74db37b39c86c48dd77f38946ca4ccd94aea326dee",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/controls-app.log",
+      "bytes": 27,
+      "sha256": "05bf4acd1ec279d687ad14875a259a4601db01c13efb45301c24b62d15780c9e",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/controls-caddy.log",
+      "bytes": 25,
+      "sha256": "df738f4bed60dcc742d6a01a1c616e9936d78c16fb56a7418dafdc1e61d371df",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/controls-objects.log",
+      "bytes": 25,
+      "sha256": "67152303b04a5d349ff19254ff24afe9f10391909d74a37d2df4060a846d1617",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/controls-pg.log",
+      "bytes": 27,
+      "sha256": "420954c9ba44958239a709f577b0bc199b7efbc66514e1854c24120f67ad8e93",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/controls-redis.log",
+      "bytes": 25,
+      "sha256": "4c2fc2a0774d0203437bd153269ed81efe2e148ef56d40b67c9b7fa1f1877c48",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/delivery-mount-app.log",
+      "bytes": 623,
+      "sha256": "f522297a008ca65df75f51b348e1db21c5f053e08571ba3314afef5d045569ea",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/delivery-mount-caddy.log",
+      "bytes": 266,
+      "sha256": "b99d655d705b81d1c53289f98f03b25126c2abc8f8f83badf4c81231eabc8d2d",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/delivery-volume-count.log",
+      "bytes": 55,
+      "sha256": "14ab0cbae74638ff23a00d69556223fcbe686fd131ad622bcce0357d8f4b16bd",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/delivery-volume-inspect.log",
+      "bytes": 549,
+      "sha256": "e468b61722b1df68043cb42f56c562db30f687316756fc7bec0628cb106a4fcc",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/delivery-volume.log",
+      "bytes": 55,
+      "sha256": "14ab0cbae74638ff23a00d69556223fcbe686fd131ad622bcce0357d8f4b16bd",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/delivery-write-app.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/delivery-write-caddy.log",
+      "bytes": 70,
+      "sha256": "f54f25ddcc4b2136c60e1922d4b9a2031197cde0f0dacf8fa2aa04fa6ebf09d0",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/delivery-write-clean.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/django-probe.log",
+      "bytes": 276,
+      "sha256": "8896330b72de20e606f026f2b75dd8d6d1a2a056cf0c5be98029a84218c2d238",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/git-head.log",
+      "bytes": 41,
+      "sha256": "76c009e4c618aaeeac11bdf10d2167360da67c3c3411e020c292199c9411fd72",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/image-caddy_sha256.log",
+      "bytes": 72,
+      "sha256": "2b530268ae507b6e521b877fd7cc2202aecd6e9ca6b4457715ef5fcfc948b616",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/image-of-app.log",
+      "bytes": 72,
+      "sha256": "fa652c5c557a648b00202c57c2b8189ffe89682bb7792b4e2736b9affa4f8c0e",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/image-of-caddy.log",
+      "bytes": 72,
+      "sha256": "2b530268ae507b6e521b877fd7cc2202aecd6e9ca6b4457715ef5fcfc948b616",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/image-of-objects.log",
+      "bytes": 72,
+      "sha256": "d53d4744663834deaba6baa1ee84a638f7cabd41ae0121bf4d5171a485f8f9bd",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/image-of-pg.log",
+      "bytes": 72,
+      "sha256": "52af8cd845c1532763c91e0f0aed3356fc5056b0cc8b466da0269abb85948dd1",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/image-of-redis.log",
+      "bytes": 72,
+      "sha256": "e05dc87041524321bad945bd7355295c328fadf3ffbca6fe98f74517f3917ed4",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/image-postgres.log",
+      "bytes": 72,
+      "sha256": "52af8cd845c1532763c91e0f0aed3356fc5056b0cc8b466da0269abb85948dd1",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/image-redis.log",
+      "bytes": 72,
+      "sha256": "e05dc87041524321bad945bd7355295c328fadf3ffbca6fe98f74517f3917ed4",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/image-rustfs_rustfs_sha256.log",
+      "bytes": 72,
+      "sha256": "d53d4744663834deaba6baa1ee84a638f7cabd41ae0121bf4d5171a485f8f9bd",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/image-web-modelos-app.log",
+      "bytes": 72,
+      "sha256": "fa652c5c557a648b00202c57c2b8189ffe89682bb7792b4e2736b9affa4f8c0e",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/kernel-probe-app.log",
+      "bytes": 45,
+      "sha256": "76decd5fd0e5aa60030568b522b8efe08b89fcae7eb0c509a017ed4782cda03c",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/kernel-probe-caddy.log",
+      "bytes": 45,
+      "sha256": "76decd5fd0e5aa60030568b522b8efe08b89fcae7eb0c509a017ed4782cda03c",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/kernel-probe-objects.log",
+      "bytes": 45,
+      "sha256": "76decd5fd0e5aa60030568b522b8efe08b89fcae7eb0c509a017ed4782cda03c",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/kernel-probe-pg.log",
+      "bytes": 45,
+      "sha256": "76decd5fd0e5aa60030568b522b8efe08b89fcae7eb0c509a017ed4782cda03c",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/kernel-probe-redis.log",
+      "bytes": 45,
+      "sha256": "76decd5fd0e5aa60030568b522b8efe08b89fcae7eb0c509a017ed4782cda03c",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/labelled-containers.log",
+      "bytes": 57,
+      "sha256": "26abab9dffb5290998087c56f9a16cf751b5c18357aab0281a7eaf02f7e07bc8",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/labelled-networks.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/labelled-volumes.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/launcher-started.json",
+      "bytes": 841,
+      "sha256": "9fc856e8ba3e954ded45f86744527e1a1526740ef259a2fd657bb6021538bdcb",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/launcher.json",
+      "bytes": 17634,
+      "sha256": "37e340acea2ceb152faea79bff8ec230ca02311a014ee2274773336209cee67a",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/memory-app.log",
+      "bytes": 74,
+      "sha256": "a330eb8e84ac9a5eb5fc3b697bb12afc471787c4ba5a6d15812c830618a697cd",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/memory-caddy.log",
+      "bytes": 75,
+      "sha256": "071e3cad83b346d1e1c3697357bba1c14a7eea21aa911b51dbdad40a39a61701",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/memory-objects.log",
+      "bytes": 73,
+      "sha256": "115a2ce48194360f3b2f61c2f000679da34f45c33a25d6f91c8b16d14c0841d1",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/memory-pg.log",
+      "bytes": 75,
+      "sha256": "bd131056368c6cb0bee47868d0ae4cd9a09a2f9126c2b2446ac3a1123f25680e",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/memory-redis.log",
+      "bytes": 72,
+      "sha256": "54d04d047e3eebcb0fb3a410ec552829a16430e3eabd23a08ce68009203705b9",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/mounts-app.log",
+      "bytes": 3906,
+      "sha256": "33a68de45f246b18c64aaa081fb8e4b435c879c68dc3a686505a6348344b2344",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/mounts-caddy.log",
+      "bytes": 3511,
+      "sha256": "6a74f1ea7ca92d6347a59f18f5f81f5fea9e16e8ef9c97eae93dfc572ddede37",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/mounts-objects.log",
+      "bytes": 3380,
+      "sha256": "de1ba97f33930d523dedc0a10b7a485a571a1321042c9b096c97a007afa76994",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/mounts-pg.log",
+      "bytes": 3675,
+      "sha256": "40d2e1e9554600e581d3ec44195ca376081781787a335a724a66abe26c808796",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/mounts-redis.log",
+      "bytes": 3362,
+      "sha256": "eb73a3de53f45f6d8e3da4b128031037d42d145612f74c8b27239b7b1540255a",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/network.log",
+      "bytes": 65,
+      "sha256": "0665ce00160a77013683152fcf187c2bddfb59c26177314126fac00386fd9aaa",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/object-bootstrap.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/pg-ready-0.log",
+      "bytes": 49,
+      "sha256": "6e168fc3b5a0662104b5e5da92e87b870e8b7c65fec827d267115b5123d18614",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/pytest.xml",
+      "bytes": 64820,
+      "sha256": "1023e1205d96e2ab0536e09439b6b37507bb8e25287610dad5d9e267a2aa0d7d",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/remove-delivery-volume.log",
+      "bytes": 55,
+      "sha256": "14ab0cbae74638ff23a00d69556223fcbe686fd131ad622bcce0357d8f4b16bd",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/remove-network.log",
+      "bytes": 50,
+      "sha256": "168b9043042aefdfd8d175e59fe0498d73e504b99f1fc957258f39e126712451",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/remove-web-modelos-capacity-20261010-162302-b2816afa-app.log",
+      "bytes": 50,
+      "sha256": "d8a4cd1b67809d43666a782ccf8d1a60e3858e7356afc98bb21ffb116daeab2b",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/remove-web-modelos-capacity-20261010-162302-b2816afa-caddy.log",
+      "bytes": 52,
+      "sha256": "7aead2e0c96f54488e065373269c55c964e87053ce858e31303d7f3a99c9e833",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/remove-web-modelos-capacity-20261010-162302-b2816afa-objects.log",
+      "bytes": 54,
+      "sha256": "36ac69e521623e8efe7718b83b3b50a0d89ff025500e712be3f340284015dbfd",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/remove-web-modelos-capacity-20261010-162302-b2816afa-pg.log",
+      "bytes": 49,
+      "sha256": "b71eb103c9e04db3a9c35a521c68c2679b45ee5afc39d747ab4b1c2a1eee03ae",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/remove-web-modelos-capacity-20261010-162302-b2816afa-redis.log",
+      "bytes": 52,
+      "sha256": "ecc214869274245daf9cb2234e8a2c28b6307b984a6d201f6e18267f97f3d2dd",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/report.json",
+      "bytes": 56782,
+      "sha256": "8cb46a12d3c4a14bef1aacca23cda6a86ef76fd32c1acd49b4bab56ac711b564",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/server-log-caddy.log",
+      "bytes": 1828,
+      "sha256": "496e2ed3e1add44da9c5a78eb1161985f8e6b77a7101c083806d7efb551e8411",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/server-log-pg.log",
+      "bytes": 2494,
+      "sha256": "a567031e9173db2cc3c93ad41b2300814db2779b0175a19b316249462822ea08",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/server-log-redis.log",
+      "bytes": 1044,
+      "sha256": "846fc0a46579e1bb8c8c3173529dd96eba609be434db16b422944c99393573c8",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/source-hashes.json",
+      "bytes": 127151,
+      "sha256": "faec891d7a37c3adff221668cc4fd8ae0a0f8060dbd68f52cd8cff8b0319b4ef",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/start-app.log",
+      "bytes": 65,
+      "sha256": "2848ad7c3022d5ccfabcabde4cac2a1901075042f8d8a14a2963a4ace53cb20f",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/start-caddy.log",
+      "bytes": 65,
+      "sha256": "bcf26a94d8bc7bef346bfbcd10b105848ee74b75b1643176be0d890e1033d0e0",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/start-objects.log",
+      "bytes": 65,
+      "sha256": "97614d75339abef4177b869fdfdc271ac6baa52f47fbd65c0ebbf732335677ee",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/start-pg.log",
+      "bytes": 65,
+      "sha256": "366d268351726aa4303a5e88166a611076bed474202738ac0a89a7e4e8c56068",
+      "included": true
+    },
+    {
+      "path": "artifacts/capacity-environment/20261010-162302-b2816afa/start-redis.log",
+      "bytes": 65,
+      "sha256": "d0af4caed8dbd75461a43fed3f258dc7da4006471264326243fccf789044a37a",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/01-start-pg.log",
+      "bytes": 65,
+      "sha256": "85f11195d6503f3f626a33eb91b82ec1e49d5262bd01b5553a26738ff3937add",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/02-start-redis.log",
+      "bytes": 65,
+      "sha256": "56911af563ff3b47a6846b7591c54e04ea9cf350224fdd252d06f3b784b8a1ed",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/03-dependencies.log",
+      "bytes": 55,
+      "sha256": "81e2433dbdd590632e0570e45399b1481e86bcdffea803111aa031213a00dee8",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/04-ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/05-documentation.log",
+      "bytes": 170,
+      "sha256": "e36c6ed969a0c286ebca68c773f09a312fbbfeaf5a8fb123965bcd134b4fda4a",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/06-django.log",
+      "bytes": 48,
+      "sha256": "1e3e63f221bde88816c4a4ef7367691607b20cc1d194028a02ec9ae0586cf9b1",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/07-migrations.log",
+      "bytes": 20,
+      "sha256": "a2bfa7b376c38062f77ce2b1e703876aaa04662f96355cdf5dc9d0d075302b05",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/08-native-build.log",
+      "bytes": 16648,
+      "sha256": "63782fd5f90d6c9178a055a36edcaccc68d711f88c2329549f9633327dd4efcc",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/09-pytest.log",
+      "bytes": 1429,
+      "sha256": "40685b72b3e86812ed73f1ad8496a0b3a2aee0b19679c4dcac56997524630d06",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/native-manifest.json",
+      "bytes": 751,
+      "sha256": "c7543d8cfcd65c145a8281c86176ff1cd97bec5f02da72102a86dc38153dd210",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/pytest.xml",
+      "bytes": 10914,
+      "sha256": "c6d277feee60b53f4f69781e58554500a07c0935f89e7e6f96045d2dbcebdcc6",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/result.json",
+      "bytes": 4231,
+      "sha256": "430c15d29e67da01376577aa117e78168dc10e13da6875087fa5a6ddfbe2fa0e",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/runner.json",
+      "bytes": 868,
+      "sha256": "2f0f6025c5f05b4cb62885197c67eae1e4e7b45662f2423542158147219de8eb",
+      "included": true
+    },
+    {
+      "path": "artifacts/local-ci/20261010-163034-04eb5bca/source-hashes.json",
+      "bytes": 127151,
+      "sha256": "a90d6c4c0cbd7e1e99b7acd49371f5fba839b0e10eacd919a0369af29a660136",
+      "included": true
+    }
+  ]
+}
