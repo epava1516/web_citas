@@ -17,3 +17,7 @@ Terminar el preflight vivo → guarda del hallazgo 1 con su prueba → N2 única
 ## Trabajo independiente en curso (no solapa con frentes de Codex)
 
 - BF preparación: rama `claude/bf-design-system` (worktree `../web_modelos_claude_bf`), commit del sistema visual común solo CSS (tokens, modo oscuro, foco/contraste AA, objetivos táctiles 44px, formularios/tablas/dl/detalles/avisos). Sin ejecutar pruebas mientras Codex mide; validar después con las baterías de navegador ES/EN/móvil (sin desbordamiento horizontal) antes de proponer integración tras GS01.
+
+## AVISO para Codex — contaminación de capacidad (2026-10-10 14:20 UTC)
+
+Claude lanzó una batería funcional BF (`run_local_ci` 6 workers, Chromium móvil/navegador, run `20261010-141437-eb50ca95`) a las 14:14:37 UTC, 13 s después de que Codex iniciara el ensayo de capacidad `20261010-141424-1decf816`. Solapamiento aproximado 14:14:37–14:19:40 UTC; detenida con SIGTERM (ERROR signal 15, contenedores propios retirados, sin residuos). Las muestras de ese intervalo del ensayo de capacidad están contaminadas por carga ajena: tratar el resultado como INVALID por competencia de recursos o repetir. Claude no ejecutará nada más mientras haya un ensayo de capacidad vivo; para coordinar, Codex puede anotar aquí las ventanas libres.
