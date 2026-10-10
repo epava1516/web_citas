@@ -258,8 +258,19 @@ def test_recording_named_cursor_preserves_chunks_and_replays_consumed_rows():
     with transaction.atomic():
         with rights_validation_seal.recording() as state:
             with connection.chunked_cursor() as cursor:
-                cursor.execute('SELECT n FROM generate_series(1, 8) AS n ORDER BY n')
+                cursor.execute("SELECT n FROM generate_series(1, 8) AS n ORDER BY n")
                 assert cursor.fetchmany(3) == [(1,), (2,), (3,)]
                 assert cursor.fetchall() == [(4,), (5,), (6,), (7,), (8,)]
-        assert state['supported']
-        assert rights_validation_seal._replay(state['statements']) == state['digests']
+        assert state["supported"]
+        assert rights_validation_seal._replay(state["statements"]) == state["digests"]
+
+
+def test_access_downloads_do_not_reuse_a_portability_image_seal(request, settings):
+    from test_rights_exports import make_copy, prepared, url
+
+    case, author, _, client, receipt, _ = prepared(request, settings)
+    export = make_copy(case, author)
+    for _ in range(2):
+        response = client.post(url(receipt, export), {"key": uuid4()})
+        assert response.status_code == 200
+    assert not RightsExportValidationSeal.objects.filter(export=export).exists()

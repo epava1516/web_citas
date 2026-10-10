@@ -296,8 +296,14 @@ def _sealed_or_full(case, person, export):
     """A held seal proves identical database inputs; image bytes are still re-read and hashed."""
     from .rights_validation_seal import caller_digest, create, holds, recording
 
+    if case.kind != "portability":
+        # This guard is one query; a portability seal cannot validate another procedure.
+        return _validate_export_binding(case, person, export)
     caller = {"case": case, "person": person, "export": export}
     if holds(export, caller):
+        from .rights_object_content import verify_export_objects
+
+        verify_export_objects(export)
         _verify_current_images(export, person)
         return
     initial_digest = caller_digest(*caller.values())
@@ -311,7 +317,9 @@ def _sealed_or_full(case, person, export):
 def _verify_current_images(export, person):
     from .rights_exports import image_content
 
-    binding = RightsExportPortabilityBinding.objects.select_related("review__selection").get(export=export)
+    binding = RightsExportPortabilityBinding.objects.select_related("review__selection").get(
+        export=export
+    )
     declarations = unseal(binding.review.selection.encrypted_selection).get("images", [])
     for declaration in declarations:
         _, current = image_content(person, declaration["photo"])

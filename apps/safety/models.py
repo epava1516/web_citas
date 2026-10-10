@@ -1858,5 +1858,6 @@ class RightsRecipientNotice(models.Model):
 
 # Kept separate to make the immutable metadata's scope explicit.
 from .evidence_chain_models import RightsEvidenceEvent, RightsEvidenceHead  # noqa: E402,F401
+
 # Explicit import registers transient object deliveries with Django's model registry.
 from .rights_object_models import RightsObjectDelivery  # noqa: E402,F401
