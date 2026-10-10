@@ -161,6 +161,14 @@ def parse_options(argv=None):
         args.diagnostic_baseline_key = args.diagnostic_baseline_key.absolute()
     if args.diagnostic_baseline_use:
         args.diagnostic_baseline_use = args.diagnostic_baseline_use.absolute()
+    args.baseline_reserved_memory_mib = 0
+    if baseline:
+        from diagnostic_baseline_budget import reserve_private_inputs
+        try:
+            allocations, args.baseline_reserved_memory_mib = reserve_private_inputs(
+                allocations, args.diagnostic_baseline_use, args.diagnostic_baseline_key)
+        except (OSError, ValueError) as error:
+            parser.error(str(error))
     return args, allocations, parser
 
 
@@ -191,6 +199,7 @@ def main():
         "result": "ERROR",
         "scope": "Owned topology readiness only; not capacity, browser, N3 or storage budget proof.",
         "allocations": allocations,
+        "private_baseline_input_memory_reservation_bytes": args.baseline_reserved_memory_mib * MIB,
         "steps": [],
         "controls": {},
         "cleanup": {},
@@ -336,7 +345,7 @@ def main():
             report["writable_tmpfs_bytes"]["controller"] = probe["writable_tmpfs_bytes"]
             if sum(quota for quota, _ in allocations.values()) + 5000 != 400000:
                 raise RuntimeError("Aggregate CPU reservation differs from4CPU")
-            if sum(memory for _, memory in allocations.values()) + 128 != 8192:
+            if sum(memory for _, memory in allocations.values()) + 128 + args.baseline_reserved_memory_mib != 8192:
                 raise RuntimeError("Aggregate RAM reservation differs from8GiB")
         report["head"] = run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], "git-head").stdout.strip()
         interpreter = (ROOT / ".venv/bin/python3").resolve()
@@ -613,6 +622,12 @@ def main():
                 elif not json.loads(properties.get("delivery_profile", "{}")).get("server_profiles"):
                     raise RuntimeError("Requested stage profiles missing: INVALID instrument")
                 report["result"] = "PROFILE_DIAGNOSTIC_NOT_CAPACITY"
+                if args.diagnostic_baseline_capture:
+                    captured = json.loads(properties.get("diagnostic_baseline", "{}"))
+                    if captured.get("event") != "BASELINE_CAPTURED_DIAGNOSTIC_ONLY":
+                        raise RuntimeError("Approved diagnostic capture missing")
+                    report["result"] = "BASELINE_CAPTURED_DIAGNOSTIC_ONLY"
+                    report["scope"] = "Actual original complete reads/reviews captured before generation; no completed delivery, p95, capacity or N3 verdict."
                 if args.diagnostic_baseline_capture or args.diagnostic_baseline_use:
                     report["diagnostic_baseline"] = {"mode": "capture" if args.diagnostic_baseline_capture else "reuse-or-full-real-fallback", "acceptance_eligible": False}
             elif args.delivery_complete:
@@ -678,11 +693,13 @@ def main():
             except (OSError, ValueError) as exc:
                 report.setdefault("memory_collection_errors", {})["controller"] = str(exc)
             report["owned_memory_upper_bound_bytes"] = (
-                sum(item["peak_bytes"] for item in report["cgroup_memory"].values()) + 128 * MIB)
+                sum(item["peak_bytes"] for item in report["cgroup_memory"].values()) + 128 * MIB
+                + args.baseline_reserved_memory_mib * MIB)
             report["memory_scope"] = (
                 "Disjoint application/PG/Redis/optional objects+proxy cgroup peaks including cache and tmpfs, plus full128MiB "
                 "controller kernel ceiling including all CLI children/final collection; conservative "
-                "whole-owned-runtime upper bound, not synchronous peak. Host bootstrap/terminal collector and "
+                "whole-owned-runtime upper bound, not synchronous peak. Full private input file RAM is additionally reserved "
+                "for possibly host-prefaulted cache, deducted from app ceiling within8GiB; it has no infrastructure exemption. Host bootstrap/terminal collector and "
                 "shared OS/daemon are infrastructure, outside timed workload.")
             complete = (set(report["cgroup_memory"]) == set(allocations)
                         and "controller_cgroup_peak_bytes" in report)

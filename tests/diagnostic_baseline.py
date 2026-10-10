@@ -7,14 +7,17 @@ import os
 import shutil
 import tarfile
 import tempfile
+from contextlib import contextmanager
+from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
+from secrets import token_urlsafe
 from uuid import uuid4
 
 import psycopg
 from capacity_runtime_role import _owned_database
 from django.conf import settings
-from django.db import connection, connections, transaction
+from django.db import DatabaseError, connection, connections, transaction
 from django.test import override_settings
 from django.utils import timezone
 from psycopg import sql
@@ -51,6 +54,10 @@ def policy():
     excluded = {'DATABASES', 'MEDIA_ROOT', 'SETTINGS_MODULE', 'BASE_DIR', 'RIGHTS_DELIVERY_GENERATION'}
     values = [(name, repr(getattr(settings, name))) for name in dir(settings)
               if name.isupper() and name not in excluded and not name.startswith('CAPACITY_')]
+    transport = {'NAME', 'HOST', 'PORT', 'USER', 'PASSWORD'}
+    databases = {alias: {name: value for name, value in options.items() if name not in transport}
+                 for alias, options in settings.DATABASES.items()}
+    values.append(('DATABASES_NONTRANSPORT', repr(databases)))
     config = hashlib.sha256(repr(sorted(values)).encode()).hexdigest()
     with connection.cursor() as cursor:
         cursor.execute("SELECT table_name,column_name,data_type,is_nullable,column_default FROM information_schema.columns WHERE table_schema='public' ORDER BY table_name,ordinal_position")
@@ -169,13 +176,12 @@ def _hash(path):
     return value.hexdigest()
 
 
-def restore(source_file, key_file):
+def _restore(source_file, key_file):
     config = _guard()
     from directory_snapshot import _empty_fixture_database
     if not _empty_fixture_database():
         raise ValueError('Baseline restore would overwrite existing current test authority/setup')
-    with tempfile.TemporaryDirectory(prefix='baseline-restore-', dir='/tmp') as temporary:
-        root = Path(temporary)
+    with _private_stage('/tmp', 'baseline-restore-') as root:
         payload = root / 'payload.tar.gz'
         codec()
         from diagnostic_baseline_archive import Reader
@@ -211,111 +217,259 @@ def restore(source_file, key_file):
             cursor.execute("SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename")
             if manifest['tables'] != [item[0] for item in cursor.fetchall()]:
                 raise ValueError('Baseline table set changed')
-        # Scratch DB is a clone of the empty/current worker schema, never a normal DB.
         media = Path(settings.MEDIA_ROOT)
         media.parent.mkdir(parents=True, exist_ok=True)
-        staged_media = Path(tempfile.mkdtemp(prefix='baseline-media-', dir=media.parent))
-        shutil.rmtree(staged_media)
-        shutil.copytree(root / 'media', staged_media)
-        media_backup = staged_media.with_name(staged_media.name + '-previous')
         scratch = config['NAME'] + '_baseline_' + uuid4().hex[:8]
-        database_backup = config['NAME'] + '_previous_' + uuid4().hex[:8]
-        original_database = config['NAME']
-        connections.close_all()
-        with psycopg.connect(dbname='postgres', user=config['USER'], password=config['PASSWORD'],
-                             host=config['HOST'], port=config['PORT'], autocommit=True) as admin:
-            with admin.cursor() as cursor:
-                cursor.execute(sql.SQL('CREATE DATABASE {} TEMPLATE {}').format(sql.Identifier(scratch), sql.Identifier(config['NAME'])))
-            try:
-                with psycopg.connect(dbname=scratch, user=config['USER'], password=config['PASSWORD'], host=config['HOST'], port=config['PORT']) as copied:
-                    with copied.cursor() as cursor:
-                        tables = manifest['tables']
-                        cursor.execute(sql.SQL('TRUNCATE {} RESTART IDENTITY CASCADE').format(sql.SQL(',').join(sql.Identifier('public', table) for table in tables)))
-                        cursor.execute('SET CONSTRAINTS ALL DEFERRED')
-                        for table in TABLES:
-                            cursor.execute(sql.SQL('ALTER TABLE public.{} DISABLE TRIGGER rights_evidence_record').format(sql.Identifier(table)))
-                        for table in tables:
-                            with cursor.copy(sql.SQL('COPY public.{} FROM STDIN').format(sql.Identifier(table))) as copy, (root / (table + '.copy')).open('rb') as file:
-                                while block := file.read(1024 * 1024):
-                                    copy.write(block)
-                        for name, value in manifest['sequences']:
-                            if value is not None:
-                                cursor.execute('SELECT setval(%s,%s,true)', ['public.' + name, value])
-                        for table in TABLES:
-                            cursor.execute(sql.SQL('ALTER TABLE public.{} ENABLE TRIGGER rights_evidence_record').format(sql.Identifier(table)))
-                # Full validation in scratch under a real restricted role; rollback
-                # audit intents so validation does not fabricate approved evidence.
-                config['NAME'] = scratch
-                role = 'baseline_check_' + uuid4().hex[:16]
+        backup = config['NAME'] + '_previous_' + uuid4().hex[:8]
+        # Register filesystem cleanup before copy or CREATE can fail.
+        with _private_stage(media.parent, 'baseline-media-') as stage:
+            staged_media, previous_media = stage / 'media', stage / 'previous'
+            if (root / 'media').exists():
+                shutil.copytree(root / 'media', staged_media)
+            else:
+                staged_media.mkdir()
+            connections.close_all()
+            with _admin(config) as admin:
+                create_attempted = False
                 try:
-                    with connection.cursor() as cursor:
-                        cursor.execute(sql.SQL('CREATE ROLE {} NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT').format(sql.Identifier(role)))
-                        cursor.execute(sql.SQL('GRANT USAGE ON SCHEMA public TO {}').format(sql.Identifier(role)))
-                        cursor.execute(sql.SQL('GRANT ALL ON ALL TABLES IN SCHEMA public TO {}').format(sql.Identifier(role)))
-                        cursor.execute(sql.SQL('GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO {}').format(sql.Identifier(role)))
-                    configure_role(role)
-                    with override_settings(MEDIA_ROOT=str(staged_media)), transaction.atomic(), connection.cursor() as cursor:
-                        cursor.execute(sql.SQL('SET LOCAL ROLE {}').format(sql.Identifier(role)))
-                        if not _runtime_is_trusted(cursor):
-                            raise ValueError('Fresh diagnostic runtime ACL/trigger trust rejected')
+                    with admin.cursor() as cursor:
+                        cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [scratch])
+                        if cursor.fetchone():
+                            raise ValueError('Diagnostic scratch name already exists')
+                        create_attempted = True
+                        _create_database(cursor, scratch, config['NAME'])
+                    with _native(config, scratch) as copied:
+                        with copied.cursor() as cursor:
+                            tables = manifest['tables']
+                            cursor.execute(sql.SQL('TRUNCATE {} RESTART IDENTITY CASCADE').format(sql.SQL(',').join(sql.Identifier('public', table) for table in tables)))
+                            cursor.execute('SET CONSTRAINTS ALL DEFERRED')
+                            for table in TABLES:
+                                cursor.execute(sql.SQL('ALTER TABLE public.{} DISABLE TRIGGER rights_evidence_record').format(sql.Identifier(table)))
+                            for table in tables:
+                                with cursor.copy(sql.SQL('COPY public.{} FROM STDIN').format(sql.Identifier(table))) as copy, (root / (table + '.copy')).open('rb') as file:
+                                    while block := file.read(1024 * 1024):
+                                        copy.write(block)
+                            for name, value in manifest['sequences']:
+                                if value is not None:
+                                    cursor.execute('SELECT setval(%s,%s,true)', ['public.' + name, value])
+                            for table in TABLES:
+                                cursor.execute(sql.SQL('ALTER TABLE public.{} ENABLE TRIGGER rights_evidence_record').format(sql.Identifier(table)))
+                    with _fresh_login(config, scratch), override_settings(MEDIA_ROOT=str(staged_media)), transaction.atomic():
                         descriptor = manifest['descriptor']
                         user = User.objects.get(pk=descriptor['author'])
                         case = RightsRequest.objects.get(pk=descriptor['case'])
-                        restored_review = RightsPortabilityCoverageReview.objects.select_related('coverage__proof', 'coverage__selection_review__selection__assessment_review__assessment').get(pk=descriptor['coverage_review'])
-                        restored_selection = restored_review.coverage.selection_review.selection
-                        original_limit = min(case.receipt_expires_at, restored_review.coverage.expires_at,
-                                             restored_selection.expires_at,
-                                             restored_selection.assessment_review.assessment.expires_at,
-                                             restored_review.coverage.proof.expires_at)
-                        if original_limit != cutoff or original_limit <= timezone.now():
+                        review = RightsPortabilityCoverageReview.objects.select_related('coverage__proof', 'coverage__selection_review__selection__assessment_review__assessment').get(pk=descriptor['coverage_review'])
+                        selected = review.coverage.selection_review.selection
+                        expiry = min(case.receipt_expires_at, review.coverage.expires_at, selected.expires_at,
+                                     selected.assessment_review.assessment.expires_at, review.coverage.proof.expires_at)
+                        if expiry != cutoff or expiry <= timezone.now():
                             raise ValueError('Baseline original expirations changed')
                         validate_chain(case)
                         consume_approved_coverage(user, case.pk, case.version, descriptor['coverage_review'], uuid4(), 'Revalidate original diagnostic baseline authority and evidence')
                         transaction.set_rollback(True)
+                    _guard()
+                    _adopt(admin, config['NAME'], scratch, backup, media, staged_media, previous_media)
+                    return manifest['descriptor']
                 finally:
-                    with connection.cursor() as cursor:
-                        cursor.execute(sql.SQL('DROP OWNED BY {}').format(sql.Identifier(role)))
-                        cursor.execute(sql.SQL('DROP ROLE {}').format(sql.Identifier(role)))
                     connections.close_all()
-                    config['NAME'] = original_database
-                # Adopt only after every check. Zero external connections checked
-                # again, and scratch is renamed to the exact owned worker name.
-                _guard()
-                adopted_database = False
-                previous_media = False
-                try:
-                    with admin.cursor() as cursor:
-                        cursor.execute(sql.SQL('ALTER DATABASE {} RENAME TO {}').format(sql.Identifier(config['NAME']), sql.Identifier(database_backup)))
-                        try:
-                            cursor.execute(sql.SQL('ALTER DATABASE {} RENAME TO {}').format(sql.Identifier(scratch), sql.Identifier(config['NAME'])))
-                        except Exception:
-                            cursor.execute(sql.SQL('ALTER DATABASE {} RENAME TO {}').format(sql.Identifier(database_backup), sql.Identifier(config['NAME'])))
-                            raise
-                    adopted_database = True
-                    if media.exists():
-                        os.replace(media, media_backup)
-                        previous_media = True
-                    os.replace(staged_media, media)
-                except Exception as error:
-                    if previous_media:
-                        os.replace(media_backup, media)
-                    if adopted_database:
-                        with admin.cursor() as cursor:
-                            cursor.execute(sql.SQL('ALTER DATABASE {} RENAME TO {}').format(sql.Identifier(config['NAME']), sql.Identifier(scratch)))
-                            cursor.execute(sql.SQL('ALTER DATABASE {} RENAME TO {}').format(sql.Identifier(database_backup), sql.Identifier(config['NAME'])))
-                    raise ValueError('Baseline adoption rejected; original empty database/media restored') from error
-                with admin.cursor() as cursor:
-                    cursor.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(database_backup)))
-                if previous_media:
-                    shutil.rmtree(media_backup)
-                return manifest['descriptor']
+                    if create_attempted:
+                        _drop_scratch(admin, scratch)
+
+
+class BaselineCleanupError(RuntimeError):
+    """Cleanup/adoption not proved; must fail, never silently run fallback."""
+
+
+def _native(config, name, autocommit=False):
+    return psycopg.connect(dbname=name, user=config['USER'], password=config['PASSWORD'],
+                           host=config['HOST'], port=config['PORT'], autocommit=autocommit)
+
+
+def _admin(config):
+    return _native(config, 'postgres', autocommit=True)
+
+
+def _create_database(cursor, scratch, original):
+    cursor.execute(sql.SQL('CREATE DATABASE {} TEMPLATE {}').format(sql.Identifier(scratch), sql.Identifier(original)))
+
+
+def _create_login(cursor, role, secret):
+    cursor.execute(sql.SQL('CREATE ROLE {} LOGIN PASSWORD {} NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT').format(sql.Identifier(role), sql.Literal(secret)))
+
+
+@contextmanager
+def _fresh_login(config, scratch):
+    original = deepcopy(config)
+    role, secret, create_attempted = 'baseline_check_' + uuid4().hex[:16], token_urlsafe(32), False
+    try:
+        # Password only travels through this private native connection, never
+        # Django debug SQL, argv, environment, manifest or evidence output.
+        with _native(original, scratch, autocommit=True) as owner:
+            with owner.cursor() as cursor:
+                # Suppress only this private migrator session's statement logs:
+                # even an administrative DDL error must not emit its password.
+                cursor.execute("SET log_statement='none'")
+                cursor.execute('SET log_min_duration_statement=-1')
+                cursor.execute("SET log_min_error_statement='panic'")
+                cursor.execute('SET log_duration=off')
+                cursor.execute('SELECT 1 FROM pg_roles WHERE rolname=%s', [role])
+                if cursor.fetchone():
+                    raise ValueError('Diagnostic LOGIN name already exists')
+                create_attempted = True
+                _create_login(cursor, role, secret)
+                cursor.execute(sql.SQL('GRANT USAGE ON SCHEMA public TO {}').format(sql.Identifier(role)))
+                cursor.execute(sql.SQL('GRANT ALL ON ALL TABLES IN SCHEMA public TO {}').format(sql.Identifier(role)))
+                cursor.execute(sql.SQL('GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO {}').format(sql.Identifier(role)))
+        connections.close_all()
+        config['NAME'] = scratch
+        configure_role(role)
+        connections.close_all()
+        config.update(USER=role, PASSWORD=secret)
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT current_user,session_user,current_database(),rolcanlogin,rolsuper,rolcreatedb,rolcreaterole,rolbypassrls FROM pg_roles WHERE rolname=current_user')
+            if cursor.fetchone() != (role, role, scratch, True, False, False, False, False) or not _runtime_is_trusted(cursor):
+                raise ValueError('Fresh actual diagnostic LOGIN trust rejected')
+        yield
+    finally:
+        try:
+            _restore_config(config, original)
+        finally:
+            try:
+                if create_attempted:
+                    try:
+                        _drop_login(original, scratch, role)
+                    except (psycopg.Error, OSError) as error:
+                        raise BaselineCleanupError('Diagnostic LOGIN cleanup failed; fallback forbidden') from error
             finally:
-                if staged_media.exists():
-                    shutil.rmtree(staged_media)
-                with admin.cursor() as cursor:
-                    cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [scratch])
-                    if cursor.fetchone():
-                        cursor.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(scratch)))
+                _restore_config(config, original)
+
+
+def _drop_login(original, scratch, role):
+    with _native(original, scratch, autocommit=True) as owner:
+        with owner.cursor() as cursor:
+            cursor.execute('SELECT 1 FROM pg_roles WHERE rolname=%s', [role])
+            if cursor.fetchone():
+                cursor.execute(sql.SQL('DROP OWNED BY {}').format(sql.Identifier(role)))
+                cursor.execute(sql.SQL('DROP ROLE {}').format(sql.Identifier(role)))
+            cursor.execute('SELECT 1 FROM pg_roles WHERE rolname=%s', [role])
+            if cursor.fetchone():
+                raise BaselineCleanupError('Diagnostic LOGIN cleanup not verified')
+
+
+def _restore_config(config, original):
+    try:
+        connections.close_all()
+    finally:
+        config.clear()
+        config.update(original)
+
+
+@contextmanager
+def _private_stage(directory, prefix):
+    temporary = tempfile.TemporaryDirectory(prefix=prefix, dir=directory)
+    root = Path(temporary.name)
+    try:
+        yield root
+    finally:
+        try:
+            temporary.cleanup()
+            if root.exists() or root.is_symlink():
+                raise BaselineCleanupError('Diagnostic staging removal not verified')
+        except OSError as error:
+            raise BaselineCleanupError('Diagnostic staging cleanup failed; fallback forbidden') from error
+
+
+def _drop_scratch(admin, scratch):
+    try:
+        with admin.cursor() as cursor:
+            cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [scratch])
+            if cursor.fetchone():
+                cursor.execute('SELECT count(*) FROM pg_stat_activity WHERE datname=%s', [scratch])
+                if cursor.fetchone()[0]:
+                    raise BaselineCleanupError('Diagnostic scratch occupied; no backends terminated')
+                cursor.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(scratch)))
+                cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [scratch])
+                if cursor.fetchone():
+                    raise BaselineCleanupError('Diagnostic scratch deletion not verified')
+    except psycopg.Error as error:
+        raise BaselineCleanupError('Diagnostic scratch cleanup failed; fallback forbidden') from error
+
+
+def _adopt(admin, original, scratch, backup, media, staged, previous):
+    old_db, new_db, old_media, new_media = False, False, False, False
+    try:
+        with admin.cursor() as cursor:
+            cursor.execute(sql.SQL('ALTER DATABASE {} RENAME TO {}').format(sql.Identifier(original), sql.Identifier(backup)))
+            old_db = True
+            cursor.execute(sql.SQL('ALTER DATABASE {} RENAME TO {}').format(sql.Identifier(scratch), sql.Identifier(original)))
+            new_db = True
+        if media.exists():
+            os.replace(media, previous)
+            old_media = True
+        os.replace(staged, media)
+        new_media = True
+    except Exception:
+        try:
+            if new_media:
+                os.replace(media, staged)
+            if old_media:
+                os.replace(previous, media)
+            with admin.cursor() as cursor:
+                if new_db:
+                    cursor.execute(sql.SQL('ALTER DATABASE {} RENAME TO {}').format(sql.Identifier(original), sql.Identifier(scratch)))
+                if old_db:
+                    cursor.execute(sql.SQL('ALTER DATABASE {} RENAME TO {}').format(sql.Identifier(backup), sql.Identifier(original)))
+        except Exception as error:
+            raise BaselineCleanupError('Diagnostic adoption rollback failed; fallback forbidden') from error
+        raise
+    try:
+        with admin.cursor() as cursor:
+            cursor.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(backup)))
+    except psycopg.Error as error:
+        raise BaselineCleanupError('Diagnostic adoption backup cleanup failed; fallback forbidden') from error
+
+
+def _media_state():
+    media = Path(settings.MEDIA_ROOT)
+    return media.exists(), {str(path.relative_to(media)): _hash(path) for path in sorted(media.rglob('*')) if path.is_file()}
+
+
+def restore(source_file, key_file):
+    from cryptography.exceptions import InvalidTag
+    from directory_snapshot import _empty_fixture_database
+    from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, ValidationError
+
+    config = _guard()
+    original = deepcopy(config)
+    if not _empty_fixture_database():
+        raise ValueError('Baseline restore would overwrite existing current test authority/setup')
+    media = _media_state()
+    try:
+        return _restore(source_file, key_file)
+    except BaselineCleanupError:
+        raise
+    except (psycopg.Error, DatabaseError, ValueError, OSError, KeyError, TypeError, tarfile.TarError,
+            InvalidTag, ObjectDoesNotExist, PermissionDenied, ValidationError) as rejected:
+        # SQL failures become CACHE_REJECTED only after all cleanup callbacks
+        # completed and the exact original empty DB/media are independently proved.
+        try:
+            connections.close_all()
+            config.clear()
+            config.update(original)
+            _guard()
+            if not _empty_fixture_database() or _media_state() != media:
+                raise BaselineCleanupError('Original diagnostic DB/media not preserved; fallback forbidden')
+        except BaselineCleanupError:
+            raise
+        except Exception as error:
+            raise BaselineCleanupError('Original diagnostic cleanup not verified; fallback forbidden') from error
+        raise ValueError('CACHE_REJECTED: ' + type(rejected).__name__) from rejected
+    finally:
+        try:
+            connections.close_all()
+        finally:
+            config.clear()
+            config.update(original)
 
 
 def resume(descriptor, endpoint, configuration, metrics):

@@ -267,3 +267,44 @@ pero **no ejecutada**: requiere ventana coordinada por Codex raíz. Tampoco se h
 probado ni afirmado ahorro en el dataset objetivo. La primera captura útil sólo
 puede realizarse después de integrar las correcciones de origen/fingerprint y
 cerrar los gates PG; un cambio de código invalida la captura anterior.
+
+
+### Refuerzo posterior a revisión, pendiente de PG real
+
+El reader exterior ya no invoca el parser tar para entradas arbitrarias. Lee
+headers USTAR de 512 bytes, valida checksum y rechaza PAX/GNU, enlaces, prefijos,
+números base256, duplicados y tamaños antes de procesar payload. Acepta hasta
+256 miembros acotados (32 MiB por log, 8 MiB por fragmento, 64 KiB por índice,
+256 MiB agregado), y cierra el descriptor ante cualquier excepción de constructor.
+
+Los directorios privados de payload y media registran eliminación comprobada
+antes de copy/CREATE. Cada CREATE de base y LOGIN se marca como intentado antes
+DDL, tras verificar que el nombre UUID propio no existe; cleanup consulta
+existencia real y comprueba ausencia incluso si se perdió la respuesta del
+servidor. Una excepción en cleanup falla cerrado: jamás autoriza fallback. Las
+excepciones PostgreSQL/Django sólo pasan a CACHE_REJECTED después de comprobar
+la base original vacía, su configuración recuperada, scratch eliminado y media
+original intacta. El LOGIN es una conexión nueva con current_user=session_user,
+no SET ROLE; se verifica rolcanlogin, ausencia de flags administrativos y ACL/
+funciones trusted antes de fullchain y guards originales. Sus credenciales se
+mantienen en memoria privada; la sesión migradora nativa desactiva sus propios
+logs de statements/error SQL antes de enviar el DDL que incluye contraseña.
+No se cambian logs ni ajustes globales de servicios.
+
+DATABASES conserva sellados todos sus campos salvo NAME/HOST/PORT/USER/PASSWORD:
+OPTIONS, ATOMIC_REQUESTS, conexiones, TEST y demás política quedan incluidos.
+El launcher puede prefaultar archivos privados fuera del cgroup, por lo que se
+reserva toda su longitud, redondeada a MiB, y se deduce exactamente de app. Los
+techos cgroup + controller128MiB + reserva privada totalizan 8 GiB, CPU4 y swap0
+persisten. El upper bound agrega la reserva también al contraste de 6 GiB, sin
+exención de infraestructura ni asumir que cgroup.memory.peak cubra esas páginas.
+La salida de captura declara BASELINE_CAPTURED_DIAGNOSTIC_ONLY y nunca entrega
+un perfil de generación completo ni p95.
+
+Ocho guards puros ejecutados: PASS en 0,45 s; Ruff/compile anteriores al último
+refuerzo de logging: PASS. La prueba PG/media/RustFS está ampliada con LOGIN real
+positivo, transporte inyectado postCREATE/postCOPY, respuestas ambiguas después
+de CREATE real de DB/ROLE, expiración original y de proof en scratch, catálogo S3
+real ocupado, cambio de DB OPTIONS, ENOSPC tras copy y cleanup SQL fallido que
+prohíbe fallback. Todo ello sigue **pendiente de ejecución PG coordinada**; no
+se declara aceptación, utilidad o ahorro medidos.
