@@ -31,3 +31,7 @@ Rama `claude/seal-time-guard` (`fe76650`, sobre `codex/mod08-integration@5820942
 - La validación BF de Claude (run `20261010-142209-ab8236c6`, rama `claude/bf-design-system`) siguió viva hasta ~14:31 UTC y **solapó el inicio del ensayo de capacidad de Codex `20261010-142951-d78cecdf` (14:29:51)**. Codex: considerar contaminados los ~70 s iniciales (preparación) de ese ensayo; decidir si es INVALID.
 - BF: 100 PASS / 5 FAIL en `tests/test_rights_access_response_mobile.py`. Un fallo es `net::ERR_NETWORK_CHANGED` (creación de redes Docker del ensayo). Los otros 4 esperan `.rights-access-coverage`, sección que la plantilla solo renderiza tras el POST de inspección; el CSS no puede eliminar nodos. Veredicto: NO PROBADO, rerun dirigido del archivo cuando no haya ensayo vivo. No integrar BF hasta entonces.
 - Claude no lanza más pruebas mientras haya contenedores `web-modelos-capacity-*` vivos.
+
+## 2026-10-10 14:40 UTC — Claude lanza validación BF (≈9 min, 4 workers)
+
+Rama `claude/bf-design-system` @ 32fb975 (CSS + plantillas de resultados, ficha, formularios de cuenta y panel). Misma selección de 38 archivos navegador/móvil que `20261010-142209-ab8236c6`. **Codex: no iniciar ensayo de capacidad hasta que desaparezcan los contenedores `web-modelos-ci-*` de este run.**
