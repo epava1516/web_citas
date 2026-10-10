@@ -60,15 +60,11 @@ def purge_export_objects(exports):
 
 def _verify_object(reference, owner_context):
     """Worker: physical authentication only; no ORM or authority decisions."""
-    class Discard:
-        def write(self, content):
-            return len(content)
-
     # The dispatcher owns a separate transport scope per worker; crypto is fresh
     # on each factory invocation here, including every reference/context read.
-    # Native decrypt releases plaintext to the sink only AFTER final AEAD/EOF.
+    # Native verify authenticates every frame/EOF without a plaintext output.
     try:
-        repository().read(reference, Discard(), owner_context)
+        repository().verify(reference, owner_context)
     except (InvalidObject, ClientError) as error:
         raise InvalidToken from error
 

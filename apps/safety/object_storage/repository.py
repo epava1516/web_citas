@@ -9,7 +9,7 @@ from uuid import uuid4
 
 from botocore.exceptions import ClientError
 
-from .codec import MAX_CHUNK, InvalidObject, decrypt, encrypt, rewrap
+from .codec import MAX_CHUNK, InvalidObject, decrypt, encrypt, rewrap, verify
 
 PREFIX = "wmblob1:"
 KEY = re.compile(r"^encrypted/v1/[0-9a-f]{32}$")
@@ -114,6 +114,11 @@ class ObjectRepository:
     def read(self, reference, target, context):
         with self._verified_ciphertext(reference) as stored:
             return decrypt(stored, target, self.ring, context)
+
+    def verify(self, reference, context):
+        """Same physical guards as read, without materializing unused plaintext."""
+        with self._verified_ciphertext(reference) as stored:
+            return verify(stored, self.ring, context)
 
     def rotate(self, reference, context, new_ring):
         """Create a new immutable object; caller commits new ref before purging old."""

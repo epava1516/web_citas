@@ -158,39 +158,58 @@ def encrypt(source, target, ring, context, *, chunk_size=MAX_CHUNK, max_bytes=MA
     return total
 
 
+def _authenticate_frames(source, aes, digest, meta, prefix, max_bytes, verified):
+    """One authentication machine; optional private plaintext staging only.
+
+    ``verified`` is either the read API's own tempfile or explicit None for
+    verification without output. No external sink or consumer callback is used.
+    """
+    total, index = 0, 0
+    while True:
+        kind, size = struct.unpack(">BI", _read(source, 5))
+        if kind not in {0, 1} or (kind == 0 and size != 56):
+            raise InvalidObject("Invalid frame")
+        if kind == 1 and not 17 <= size <= meta["chunk"] + 16:
+            raise InvalidObject("Invalid block size")
+        try:
+            block = aes.decrypt(
+                prefix + struct.pack(">Q", index),
+                _read(source, size),
+                _aad(meta, index, kind, size - 16),
+            )
+        except InvalidTag as error:
+            raise InvalidObject("Block authentication failed") from error
+        if kind == 0:
+            if block != struct.pack(">Q", total) + digest.digest() or source.read(1):
+                raise InvalidObject("Invalid object commitment or trailing bytes")
+            break
+        total += len(block)
+        if total > max_bytes:
+            raise InvalidObject("Object exceeds size limit")
+        digest.update(block)
+        if verified is not None:
+            verified.write(block)
+        index += 1
+    return total
+
+
 def decrypt(source, target, ring, context, *, max_bytes=MAX_BYTES):
     meta, dek, prefix = _header(source, ring, context)
-    aes, digest, total, index = AESGCM(dek), hashlib.sha256(), 0, 0
+    aes, digest = AESGCM(dek), hashlib.sha256()
     # Disk tempfile, no unbounded memory and no authenticated-prefix exposure.
     with tempfile.TemporaryFile() as verified:
-        while True:
-            kind, size = struct.unpack(">BI", _read(source, 5))
-            if kind not in {0, 1} or (kind == 0 and size != 56):
-                raise InvalidObject("Invalid frame")
-            if kind == 1 and not 17 <= size <= meta["chunk"] + 16:
-                raise InvalidObject("Invalid block size")
-            try:
-                block = aes.decrypt(
-                    prefix + struct.pack(">Q", index),
-                    _read(source, size),
-                    _aad(meta, index, kind, size - 16),
-                )
-            except InvalidTag as error:
-                raise InvalidObject("Block authentication failed") from error
-            if kind == 0:
-                if block != struct.pack(">Q", total) + digest.digest() or source.read(1):
-                    raise InvalidObject("Invalid object commitment or trailing bytes")
-                break
-            total += len(block)
-            if total > max_bytes:
-                raise InvalidObject("Object exceeds size limit")
-            digest.update(block)
-            verified.write(block)
-            index += 1
+        total = _authenticate_frames(source, aes, digest, meta, prefix, max_bytes, verified)
         verified.seek(0)
         while block := verified.read(MAX_CHUNK):
             target.write(block)
     return total
+
+
+def verify(source, ring, context, *, max_bytes=MAX_BYTES):
+    """Authenticate every byte/frame/EOF without plaintext staging or output."""
+    meta, dek, prefix = _header(source, ring, context)
+    aes, digest = AESGCM(dek), hashlib.sha256()
+    return _authenticate_frames(source, aes, digest, meta, prefix, max_bytes, None)
 
 
 def rewrap(source, target, old_ring, new_ring, context, *, max_bytes=MAX_BYTES):

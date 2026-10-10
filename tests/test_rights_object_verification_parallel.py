@@ -77,7 +77,7 @@ def test_mock_worker_scope_closes_and_resets_even_when_object_and_close_fail(mon
             raise RuntimeError("mock close failure")
 
     class Repo:
-        def read(self, *args):
+        def verify(self, *args):
             raise InvalidToken
 
     def repository():
@@ -139,7 +139,7 @@ def test_real_rustfs_28_objects_84_gets_two_jobs_closed_bodies_clients(
     references = [
         writer.write(io.BytesIO(b"synthetic" * 1000), f"own/{i}".encode()) for i in range(28)
     ]
-    native_client, native_read = factory.boto3.client, ObjectRepository.read
+    native_client, native_verify = factory.boto3.client, ObjectRepository.verify
     lock, barrier = Lock(), Barrier(2, timeout=10)
     gets, clients, bodies, rings, active = [], [], [], [], [0, 0]
 
@@ -165,20 +165,20 @@ def test_real_rustfs_28_objects_84_gets_two_jobs_closed_bodies_clients(
         client.get_object, client.close = observed, closed
         return client
 
-    def read(self, *args):
+    def verify(self, reference, context):
         with lock:
             rings.append(self.ring)
             active[0] += 1
             active[1] = max(active)
         try:
             barrier.wait()
-            return native_read(self, *args)
+            return native_verify(self, reference, context)
         finally:
             with lock:
                 active[0] -= 1
 
     monkeypatch.setattr(factory.boto3, "client", create)
-    monkeypatch.setattr(ObjectRepository, "read", read)
+    monkeypatch.setattr(ObjectRepository, "verify", verify)
     try:
         content._verify_objects_in_order(
             (ref, f"own/{i}".encode()) for i, ref in enumerate(references)
