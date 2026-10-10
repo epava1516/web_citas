@@ -1,0 +1,15 @@
+{
+  "schema": "corrective-n2-v1",
+  "date": "2026-10-10",
+  "run": "20261010-091912-0d3425cf",
+  "head": "3234359 (code 3c1ef66)",
+  "change": "Exact-equivalence removal of repeated validation work: row references once per row of the active shared source; one decrypt per coverage-read child action keeping the original check order; reuse of an identical partial compile; one decrypt per image snapshot reused for comparison and package rebuild.",
+  "selection": "49 files / 414 cases (same unified selection as the previous corrective N2)",
+  "result": "PASS: 414 PASS / 0 FAIL / 0 ERROR / 0 SKIP, 4913.559s JUnit",
+  "sources_unchanged": true,
+  "cleanup": "both containers absent by exact inspect; no leftovers",
+  "launcher": "run_detached.py; survived a deliberate client reconnection into tmux",
+  "integrated": "master merge 4d5ef38",
+  "limits": "Functional equivalence only; capacity measured separately.",
+  "artifacts": {"archive": "docs/evidencias/n2-equivalencias-validacion-20261010-artefactos.tar.gz", "sha256": "aebedfc0f01fb30e4fa17dca79bf612fbeedc3ad5e12b9c57bc7184315d87d58"}
+}

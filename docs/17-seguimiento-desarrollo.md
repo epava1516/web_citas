@@ -32,7 +32,7 @@ Revisión crítica de P1–P8 y del prototipo: el lanzador no podía ejecutarse 
 
 **N2 reservada — equivalencias exactas en validación (`3c1ef66`).** Por el perfil completo de un caso (`20261010-064907-320e9495`): memo de `row_reference` por fila del origen compartido activo, un descifrado por acción en el bucle de páginas (orden de comprobaciones original), reutilización de compilación con argumentos idénticos y un descifrado por instantánea de imagen. Misma selección unificada de49archivos/414casos, PG17/Redis7.4/nativos, timeout7200s, `run_detached.py`, fuentes congeladas. Salida: todos PASS, cero skips, fuentes iguales y retirada.
 
-**Run vivo para reanudar (2026-10-10 09:35 UTC).** N2 de equivalencias exactas `20261010-091912-0d3425cf` en `web_modelos_claude_perf` (`3234359`), desacoplada con `run_detached.py` (PID 812879, registro de lanzamiento junto a su log en el scratchpad y `runner.json` en el directorio del run). Al retomar: si el PID ya no existe y hay `result.json`, leer el terminal; si no hay `result.json`, ejecutar `run_local_ci.py --recover` en ese worktree y repetir. Si PASS: integrar en master y lanzar `--delivery-profile --delivery-profile-full` desacoplado para medir.
+**N2 de equivalencias exactas PASS e integrada.** `20261010-091912-0d3425cf`:414PASS/0FAIL/0skips (4.913,6s), fuentes iguales, retirada verificada; integrada en master (`4d5ef38`). [Evidencia](evidencias/n2-equivalencias-validacion-20261010.json). Siguiente: diagnóstico completo de un caso desacoplado para medir el efecto antes de decidir el sello de entrega.
 
 ### Corte anterior de pausa y propuesta acotada
 
