@@ -88,8 +88,11 @@ def main():
     parser.add_argument("--selection-complete", action="store_true", help="All31pages and20fresh approvals; requires balanced Gunicorn")
     parser.add_argument("--delivery-complete", action="store_true", help="Complete native target delivery; requires balanced Gunicorn")
     parser.add_argument("--delivery-profile", action="store_true", help="Diagnostic stage profiles of one target case; requires balanced Gunicorn")
+    parser.add_argument("--source-profile", action="store_true", help="Diagnostic whole-source cost attribution; same allocation as --delivery-profile, which it requires")
     parser.add_argument("--owned-controller", action="store_true", help="Require launcher-enforced controller and whole owned budget")
     args = parser.parse_args()
+    if args.source_profile and not args.delivery_profile:
+        parser.error("--source-profile requires --delivery-profile")
     if args.delivery_profile and (args.delivery_complete or args.selection_complete or args.selection_profile
                                   or not (args.selection_gunicorn and args.database_heavy)):
         parser.error("--delivery-profile requires --selection-gunicorn --database-heavy and no other completion mode")
@@ -357,6 +360,7 @@ def main():
                  "-p", "no:cacheprovider", "--basetemp=/tmp/capacity-pytest",
                  "--junitxml=/tmp/capacity-control.xml",
                  "tests/test_capacity_delivery_complete.py" if args.delivery_complete else
+                 "tests/test_capacity_source_profile.py" if args.source_profile else
                  "tests/test_capacity_delivery_profile.py" if args.delivery_profile else
                  "tests/test_capacity_selection_concurrent_tcp.py" if args.selection_concurrent else
                  "tests/test_capacity_selection_tcp.py" if args.selection_tcp else
@@ -393,7 +397,10 @@ def main():
             if args.delivery_profile:
                 properties = {item.attrib["name"]: item.attrib["value"]
                               for suite in suites for item in suite.iter("property")}
-                if not json.loads(properties.get("delivery_profile", "{}")).get("server_profiles"):
+                if args.source_profile:
+                    if not json.loads(properties.get("source_profile", "{}")).get("source_copy"):
+                        raise RuntimeError("Requested source profile missing: INVALID instrument")
+                elif not json.loads(properties.get("delivery_profile", "{}")).get("server_profiles"):
                     raise RuntimeError("Requested stage profiles missing: INVALID instrument")
                 report["result"] = "PROFILE_DIAGNOSTIC_NOT_CAPACITY"
             elif args.delivery_complete:
