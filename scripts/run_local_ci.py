@@ -163,6 +163,12 @@ def main():
     )
     parser.add_argument("--timeout", type=int, default=7200, help="Seconds per command")
     parser.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        help="Parallel pytest workers (xdist, whole files per worker); never for capacity runs",
+    )
+    parser.add_argument(
         "--recover",
         action="store_true",
         help="Mark dead runs without a terminal result as INTERRUPTED and remove their declared resources",
@@ -185,6 +191,8 @@ def main():
         parser.error("Test profiles require --native-source")
     if args.timeout < 1:
         parser.error("--timeout must be positive")
+    if not 1 <= args.workers <= 15:
+        parser.error("--workers must be between 1 and 15 (one Redis database each)")
     for program in ["docker", "uv", "git"]:
         if not shutil.which(program):
             parser.error(f"Missing prerequisite: {program}")
@@ -199,6 +207,7 @@ def main():
         "head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         "excluded": LONG_CASES if args.profile == "regression" else [],
         "selection": {"smoke": SMOKE, "rights": RIGHTS, "focused": args.test}.get(args.profile, []),
+        "workers": args.workers,
         "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
     }
     before = hashes()
@@ -340,7 +349,15 @@ def main():
                 PYTHONPATH=f"{work}:{ROOT}",
             )
             (work / "local_ci_settings.py").write_text(
-                "from config.settings import *\n" + f"MEDIA_ROOT = Path({str(work / 'media')!r})\n"
+                "import os\n"
+                "from config.settings import *\n"
+                "# Parallel workers: own test database (pytest-django), media and Redis database.\n"
+                "_WORKER = os.environ.get('PYTEST_XDIST_WORKER', '')\n"
+                "_INDEX = int(_WORKER[2:]) + 1 if _WORKER.startswith('gw') else 0\n"
+                f"MEDIA_ROOT = Path({str(work / 'media')!r}) / (_WORKER or 'main')\n"
+                "if _WORKER:\n"
+                "    os.environ['REDIS_URL'] = os.environ['REDIS_URL'].rsplit('/', 1)[0] + f'/{_INDEX}'\n"
+                "    CELERY_BROKER_URL = os.environ['REDIS_URL']\n"
             )
             run(["uv", "sync", "--locked", "--offline"], "dependencies")
             run(["uv", "run", "ruff", "check", "."], "ruff")
@@ -381,6 +398,7 @@ def main():
                     f"--junitxml={output / 'pytest.xml'}",
                     "-o",
                     "junit_family=xunit1",
+                    *(["-n", str(args.workers), "--dist", "loadfile"] if args.workers > 1 else []),
                 ]
                 if args.profile == "smoke":
                     command.extend(SMOKE)
