@@ -277,7 +277,7 @@ def test_access_downloads_do_not_reuse_a_portability_image_seal(request, setting
     assert not RightsExportValidationSeal.objects.filter(export=export).exists()
 
 
-def test_held_seal_rechecks_external_object_bytes(request, settings, monkeypatch, object_store):
+def test_held_seal_rechecks_external_object_bytes(request, settings, monkeypatch, object_store):  # noqa: F811
     from apps.safety import rights_object_content
 
     case, author, export, _ = generated(request, settings, monkeypatch)
