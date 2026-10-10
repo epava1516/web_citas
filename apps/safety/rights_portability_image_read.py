@@ -6,6 +6,7 @@ from uuid import uuid5
 from cryptography.fernet import InvalidToken
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.db.models import Q
 from django.views.decorators.debug import sensitive_variables
 
 from .crypto import seal, unseal
@@ -95,10 +96,12 @@ def required_reads(selection, case, proof, decisions, actor_id, *, ids=None):
     # Fetch fresh evidence once per call, retaining the same newest-row choice for
     # each exact photo/digest pair. A corrupt newest row must never fall back to
     # an older valid read. Nothing is retained across inspection children.
-    latest = reads.filter(
-        photo_id__in=[decision["photo"] for decision in decisions],
-        content_digest__in=[decision["content_digest"] for decision in decisions],
-    ).order_by("photo_id", "content_digest", "-pk").distinct("photo_id", "content_digest")
+    pairs = Q()
+    for decision in decisions:
+        pairs |= Q(photo_id=decision["photo"], content_digest=decision["content_digest"])
+    latest = reads.filter(pairs).order_by("photo_id", "content_digest", "-pk").distinct(
+        "photo_id", "content_digest"
+    )
     by_image = {(str(row.photo_id), row.content_digest): row for row in latest}
     chosen = []
     for decision in decisions:
