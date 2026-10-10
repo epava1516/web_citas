@@ -2,6 +2,7 @@
 
 import json
 import time
+import traceback
 from pathlib import Path
 from threading import Barrier
 
@@ -37,6 +38,7 @@ def test_owned_target_stage_profiles(request, settings, monkeypatch, record_prop
                                   metrics.get("diagnostic_stopped_after") == "coverage_page_read")
         except Exception as error:
             errors.append(f"{type(error).__name__}: {error}")
+            metrics["failure_traceback"] = traceback.format_exc(limit=12)[-6000:]
         finally:
             connections.close_all()
             # The WSGI wrapper writes after the response body is closed: wait for every stage file.

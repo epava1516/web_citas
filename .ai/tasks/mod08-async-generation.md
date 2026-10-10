@@ -60,3 +60,19 @@ reconcile60s/orphans1h. Storage conserva ownership bind/proxy/303/GETEOF.
 
 Patch de capacidad preparado: Ruff/compilación/documentación solamente. Helper runtime,
 S3/proxy y launcher presupuesto requieren integración principal; no N3 ni PASS de capacidad.
+
+## Correctiva perfil real 2026-10-10
+
+Base5820942, worktree codex/mod08-async-diagnostic. Perfil real
+20261010-141424-1decf816 terminal ERROR, cleanup=true; no se repite carga aquí.
+Causa confirmada: sampled exigía303→GET a todos los POST cuyo opener disponía del
+transporte private_delivery, incluido binary_page_save normal200. Fallaba antes de
+append selection_versions, no acreditaba pérdida de imágenes/revisiones.
+Corrección: require_private_delivery explícito sólo en descargas; profile y normal
+comparten guards303→GET/status/no-store, sin ampliar límites ni negativas. Diagnóstico
+incluye stage/status/bytes/cache/stages, conteos binding y traceback acotado6KiB;
+error HTML sólo texto errorlist/alert1KiB, sin documentos completos ni inputs privados.
+Verificación pequeña autorizada:8guards puros PASS0.54s con entorno integrado; Ruff PASS.
+Son pruebas de orquestación con mocks declarados, no broker/HTTP/PG real ni capacidad.
+Primer intento colección con venv root falló por dependencia orjson ausente; ejecutado
+con venv integrado completo. Principal debe integrar y repetir perfil real solo.

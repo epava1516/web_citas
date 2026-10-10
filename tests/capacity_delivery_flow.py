@@ -8,6 +8,7 @@ import math
 import pstats
 import time
 import zipfile
+from html.parser import HTMLParser
 from uuid import uuid4, uuid5
 
 from capacity_delivery_http import open_client, operator, post
@@ -74,24 +75,59 @@ def measured(metrics, name, operation, *args, maximum=60, **kwargs):
             violation(metrics, name, elapsed, maximum)
 
 
-def sampled(metrics, name, barrier, client, endpoint, csrf, values, profile=False):
+def error_html(body):
+    """Only bounded error-node text; never whole HTML, CSRF/session inputs or binary bytes."""
+    class Errors(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.depth, self.parts = 0, []
+
+        def handle_starttag(self, tag, attrs):
+            values = dict(attrs)
+            if self.depth or values.get("role") == "alert" or "errorlist" in values.get("class", "").split():
+                self.depth += 1
+
+        def handle_endtag(self, tag):
+            if self.depth:
+                self.depth -= 1
+
+        def handle_data(self, data):
+            if self.depth and sum(map(len, self.parts)) < 1024:
+                self.parts.append(data.strip())
+
+    parser = Errors()
+    parser.feed(body[:65536].decode("utf-8", errors="replace"))
+    return " ".join(parser.parts)[:1024]
+
+
+def sampled(metrics, name, barrier, client, endpoint, csrf, values, profile=False,
+            require_private_delivery=False):
     barrier.wait(timeout=120)
+    result = post(client, endpoint, csrf, values,
+                  headers={"X-Capacity-Profile": name} if profile else None)
     if profile:
-        # Diagnostic only: one extra server-profiled request, never part of the sample population.
-        result = post(client, endpoint, csrf, values, headers={"X-Capacity-Profile": name})
+        # Diagnostic only: extra profiled request remains subject to delivery/privacy guards.
         metrics.setdefault(name + "_profiled_seconds", []).append(result.seconds)
-        assert result.status == 200, (name, result.status)
-        return result.body
-    result = post(client, endpoint, csrf, values)
-    metrics.setdefault(name, []).append(result.seconds)
-    metrics.setdefault(name + "_intervals", []).append(result.interval)
-    metrics.setdefault(name + "_bytes", []).append(len(result.body))
-    metrics.setdefault(name + "_http_stages", []).append(result.stages)
-    if hasattr(client, "private_delivery"):
-        assert [stage["status"] for stage in result.stages] == [303, 200]
-        assert [stage["method"] for stage in result.stages] == ["POST", "GET"]
-    assert result.status == 200, (name, result.status)
-    assert "no-store" in result.headers.get("Cache-Control", "")
+    else:
+        metrics.setdefault(name, []).append(result.seconds)
+        metrics.setdefault(name + "_intervals", []).append(result.interval)
+        metrics.setdefault(name + "_bytes", []).append(len(result.body))
+        metrics.setdefault(name + "_http_stages", []).append(result.stages)
+    diagnostic = {"stage": name, "status": result.status, "bytes": len(result.body),
+                  "http_stages": result.stages, "requires_proxy": require_private_delivery,
+                  "cache_control": result.headers.get("Cache-Control", "")}
+    invalid_proxy = require_private_delivery and (
+        not hasattr(client, "private_delivery")
+        or [stage["status"] for stage in result.stages] != [303, 200]
+        or [stage["method"] for stage in result.stages] != ["POST", "GET"])
+    if invalid_proxy or result.status != 200 or "no-store" not in diagnostic["cache_control"]:
+        diagnostic["error_html"] = error_html(result.body)
+    if require_private_delivery:
+        assert hasattr(client, "private_delivery"), diagnostic
+        assert [stage["status"] for stage in result.stages] == [303, 200], diagnostic
+        assert [stage["method"] for stage in result.stages] == ["POST", "GET"], diagnostic
+    assert result.status == 200, diagnostic
+    assert "no-store" in result.headers.get("Cache-Control", ""), diagnostic
     return result.body
 
 
@@ -137,7 +173,9 @@ def run_case(index, target, context, server, settings, barrier, metrics, diagnos
         selection = RightsPortabilitySelection.objects.filter(request=case, actor=author).latest("version")
         metrics["selection_versions"].append(selection.pk)
         binding = unseal(selection.encrypted_selection)
-        assert len(binding["images"]) == 16 and len(binding["selection"]["revisions"]) == 1500
+        assert len(binding["images"]) == 16 and len(binding["selection"]["revisions"]) == 1500, {
+            "stage": "binary_page_save", "attempt": attempt, "selection": selection.pk,
+            "images": len(binding["images"]), "revisions": len(binding["selection"]["revisions"])}
     assert len(set(metrics["selection_versions"])) == writes
     gate(metrics, "binary_page_save", 5)
     endpoint = server.url + f"/en/moderation/rights/{case.pk}/portability/selection/{selection.pk}/review/"
@@ -346,7 +384,8 @@ def finish(index, case, author, reviewer, selection, selected, coverage_review,
             part = parts[number % len(parts)]
             body = sampled(metrics, variant + "_download", barrier, client.client,
                 endpoint + f"part/{part['id']}/", client.csrf, {"key": str(uuid4())},
-                profile=bool(metrics.get("diagnostic")) and number == downloads - 1)
+                profile=bool(metrics.get("diagnostic")) and number == downloads - 1,
+                require_private_delivery=bool(getattr(settings, "CAPACITY_OBJECT_DELIVERY", False)))
             assert len(body) <= 8 * 1024 ** 2
             with zipfile.ZipFile(io.BytesIO(body)) as package:
                 assert package.testzip() is None
