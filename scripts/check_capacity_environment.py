@@ -36,6 +36,7 @@ LABEL = "web-modelos-capacity-run"
 COMPOSE_NEUTRAL = [item for key in ["project", "service", "version"]
                    for item in ("--label", f"com.docker.compose.{key}=")]
 # Owned runtime users: no root, no capabilities, so Docker-managed /etc files stay unwritable.
+CADDY_IMAGE = "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028"
 OWNED_USERS = {"pg": "70:70", "redis": "999:1000", "objects": "10001:10001", "caddy": f"{os.getuid()}:{os.getgid()}"}
 # The 16MiB shared-memory tmpfs is overfilled once per role to observe the kernel ENOSPC ceiling
 # without inflating the measured cgroup peaks by the larger data tmpfs sizes.
@@ -291,7 +292,7 @@ def main():
         object_image = "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c"
         images = ["postgres:17-alpine", "redis:7.4-alpine", "web-modelos-app:latest"]
         if args.object_delivery:
-            images += [object_image, "caddy:2"]
+            images += [object_image, CADDY_IMAGE]
         for image in images:
             report["images"][image] = run(["docker", "image", "inspect", "--format", "{{.Id}}", image],
                                           "image-" + re.sub(r"[^a-zA-Z0-9_-]", "_", image.split(":")[0])).stdout.strip()
@@ -341,7 +342,7 @@ def main():
             # Reuse the verified production route, with an HTTP-only isolated listener.
             route = (ROOT / "Caddyfile").read_text().split("    @delivery path", 1)[1].split("    @static path", 1)[0]
             caddy_config = "{\n admin off\n auto_https off\n}\n:8080 {\n    @delivery path" + route + "    respond 404\n}\n"
-            container("caddy", "caddy:2",
+            container("caddy", CADDY_IMAGE,
                       ["--tmpfs", f"/tmp:size=16777216,uid={os.getuid()},gid={os.getgid()}",
                        "--tmpfs", f"/data:size=16777216,uid={os.getuid()},gid={os.getgid()}",
                        "--tmpfs", f"/config:size=16777216,uid={os.getuid()},gid={os.getgid()}",
