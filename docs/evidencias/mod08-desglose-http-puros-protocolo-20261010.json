@@ -1,0 +1,147 @@
+{
+  "runs": [
+    "20261010-192733-599e5146",
+    "20261010-211629-2481e9a8"
+  ],
+  "stages_seconds": {
+    "20261010-192733-599e5146": {
+      "json": [
+        {
+          "POST": 4.275120032019913,
+          "GET": 4.831444109790027
+        },
+        {
+          "POST": 3.98252768907696,
+          "GET": 4.326642362866551
+        },
+        {
+          "POST": 4.365753372665495,
+          "GET": 4.171710604801774
+        }
+      ],
+      "binary": [
+        {
+          "POST": 4.48526686290279,
+          "GET": 4.378459181170911
+        },
+        {
+          "POST": 4.564339614007622,
+          "GET": 4.216042747255415
+        },
+        {
+          "POST": 4.192270902916789,
+          "GET": 4.631736192852259
+        },
+        {
+          "POST": 4.3497605551965535,
+          "GET": 4.84659757791087
+        },
+        {
+          "POST": 4.8402775609865785,
+          "GET": 4.700652190018445
+        },
+        {
+          "POST": 4.713650417979807,
+          "GET": 3.9883730318397284
+        },
+        {
+          "POST": 4.1490497859194875,
+          "GET": 4.6974966851994395
+        },
+        {
+          "POST": 4.234458860009909,
+          "GET": 4.468970884103328
+        }
+      ]
+    },
+    "20261010-211629-2481e9a8": {
+      "json": [
+        {
+          "POST": 2.790882496163249,
+          "GET": 3.314954189117998
+        },
+        {
+          "POST": 3.246551243122667,
+          "GET": 2.96310777310282
+        },
+        {
+          "POST": 3.0264245797879994,
+          "GET": 3.7092349003069103
+        }
+      ],
+      "binary": [
+        {
+          "POST": 3.3160020573996007,
+          "GET": 2.83377237431705
+        },
+        {
+          "POST": 3.227446631062776,
+          "GET": 2.916467033792287
+        },
+        {
+          "POST": 2.5979210431687534,
+          "GET": 2.916661601047963
+        },
+        {
+          "POST": 3.2850399860180914,
+          "GET": 2.919021734967828
+        },
+        {
+          "POST": 3.3440028000622988,
+          "GET": 3.0845048311166465
+        },
+        {
+          "POST": 2.748138395603746,
+          "GET": 3.163433052133769
+        },
+        {
+          "POST": 3.0053765610791743,
+          "GET": 2.8602750566788018
+        },
+        {
+          "POST": 2.9799305452033877,
+          "GET": 3.0445862263441086
+        }
+      ]
+    }
+  },
+  "comparison": [
+    {
+      "metric": "json_POST",
+      "previous_seconds": 4.365753372665495,
+      "new_seconds": 3.246551243122667,
+      "improvement_percent": 25.635944910454324,
+      "samples": 3,
+      "target": "No independent phase target; whole two-HTTP target <=5s",
+      "remaining_reduction_percent": null
+    },
+    {
+      "metric": "json_GET",
+      "previous_seconds": 4.831444109790027,
+      "new_seconds": 3.7092349003069103,
+      "improvement_percent": 23.227200480476796,
+      "samples": 3,
+      "target": "No independent phase target; whole two-HTTP target <=5s",
+      "remaining_reduction_percent": null
+    },
+    {
+      "metric": "binary_POST",
+      "previous_seconds": 4.8402775609865785,
+      "new_seconds": 3.3440028000622988,
+      "improvement_percent": 30.912995010544364,
+      "samples": 8,
+      "target": "No independent phase target; whole two-HTTP target <=5s",
+      "remaining_reduction_percent": null
+    },
+    {
+      "metric": "binary_GET",
+      "previous_seconds": 4.84659757791087,
+      "new_seconds": 3.163433052133769,
+      "improvement_percent": 34.728786508877654,
+      "samples": 8,
+      "target": "No independent phase target; whole two-HTTP target <=5s",
+      "remaining_reduction_percent": null
+    }
+  ],
+  "scope": "Same existing unprofiled diagnostic samples. Marginal phase p95 must NOT be summed or substituted for whole two-HTTP p95. GET includes fresh forwardauth and EOF; excludes secret locations/body hashes."
+}

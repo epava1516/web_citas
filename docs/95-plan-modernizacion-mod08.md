@@ -120,3 +120,21 @@ Recorrido de1509páginas; los383lotes incluyen grupos parciales, mientras123comp
 Una muestra por operación no acredita p95 ni dos casos simultáneos. Los límites globales y poblaciones originales siguen intactos; no acepta N3/capacidad completa/CR09 ni incrementa porcentajes contractuales. Próxima candidata aislada: memo SHA de contenido idéntico por operación tras lectura física fresca, acotado16entradas/64MiB, todavía no probado ni integrado; su impacto y RSS deben medirse.
 
 [Evidencia saneada de ambas mediciones](evidencias/mod08-medicion-puros-protocolo-20261010.json).
+
+
+### Desglose de las mismas muestras TCP, sin una nueva ejecución
+
+Runs anterior192733-599e5146 y actual211629-2481e9a8. Extracción de los campos originales download_http_stages; sin payloads, rutas privadas ni hashes de cuerpos.
+
+| p95 por fase | Antes (s) | Actual (s) | Mejora | Muestras |
+| --- | ---: | ---: | ---: | ---: |
+| JSON POST autorización | 4,365753 | 3,246551 | 25,64% | 3 |
+| JSON GET con forwardauth hasta EOF | 4,831444 | 3,709235 | 23,23% | 3 |
+| Binario POST autorización | 4,840278 | 3,344003 | 30,91% | 8 |
+| Binario GET con forwardauth hasta EOF | 4,846598 | 3,163433 | 34,73% | 8 |
+
+No hay objetivo contractual independiente por fase ni porcentaje pendiente por fase. Los p95 marginales NO se suman: objetivo de la descarga completa dosHTTP<=5s, pendientes JSON25,77% y binario22,22%. Ambas fases conservan trabajo obligatorio; no aceptar una sustitución por HEAD, headers o cache entre requests. Captura de un caso sigue diagnóstica.
+
+Candidato de metadata current-images declinado antes de implementación: image_contents valida toda la lista y espera todos los locks antes de primer read; adelanta errores de foto posterior y cambia ventana física del original. Borrador de contraste en worktree aislado sin integrar ni probar. SHA acotado por operación sigue N2 dirigida real, integración pendiente.
+
+[Desglose saneado](evidencias/mod08-desglose-http-puros-protocolo-20261010.json).
