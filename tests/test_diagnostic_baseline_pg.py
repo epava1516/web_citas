@@ -103,6 +103,12 @@ def test_actual_original_approval_roundtrip_and_config_rejection(request, settin
     with connection.cursor() as cursor:
         cursor.execute('SELECT current_user,session_user')
         assert cursor.fetchone() == ('ci', 'ci')
+        # Restored evidence inserts are enforced and native FK triggers were
+        # never disabled to evade deferred-event checks during COPY.
+        cursor.execute("SELECT count(*) FROM pg_trigger t JOIN pg_class c ON c.oid=t.tgrelid WHERE c.relname=ANY(%s) AND t.tgname='rights_evidence_record' AND t.tgenabled='O'", [list(baseline.TABLES)])
+        assert cursor.fetchone()[0] == len(baseline.TABLES)
+        cursor.execute("SELECT count(*) FROM pg_trigger t JOIN pg_class c ON c.oid=t.tgrelid WHERE c.relname=ANY(%s) AND t.tgisinternal AND t.tgenabled NOT IN ('O','A')", [list(baseline.TABLES)])
+        assert cursor.fetchone()[0] == 0
     assert bool(restored == descriptor)
     row.refresh_from_db()
     assert row.expires_at == original_expiry

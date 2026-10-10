@@ -255,6 +255,11 @@ def _restore(source_file, key_file):
                             for name, value in manifest['sequences']:
                                 if value is not None:
                                     cursor.execute('SELECT setval(%s,%s,true)', ['public.' + name, value])
+                            # Execute deferred FK checks against the complete restored
+                            # dataset before ALTER TABLE: pending constraint events
+                            # otherwise prohibit re-enabling the evidence triggers.
+                            # Constraint triggers remain enabled throughout COPY.
+                            cursor.execute('SET CONSTRAINTS ALL IMMEDIATE')
                             for table in TABLES:
                                 cursor.execute(sql.SQL('ALTER TABLE public.{} ENABLE TRIGGER rights_evidence_record').format(sql.Identifier(table)))
                             # COPY does not restore PostgreSQL planner statistics.
