@@ -473,7 +473,18 @@ def test_mobile_independent_portability_selection_review(
             expect(author_page.get_by_role("status")).to_contain_text(
                 "Private copy created" if english else "Copia privada creada"
             )
-            export_captions(author_page, language)
+            expect(author_page.get_by_role(
+                "heading", name="Private copy generation" if english else "Generación de copia privada",
+                exact=True,
+            )).to_be_visible()
+            expect(author_page.get_by_role(
+                "link", name="Prepare final response" if english else "Preparar respuesta final",
+                exact=True,
+            )).to_have_attribute("href", f"/{language}/moderation/rights/{case.pk}/portability/response/")
+            expect(author_page.get_by_role(
+                "link", name="Return to generation" if english else "Volver a generación", exact=True,
+            )).to_have_attribute("href", f"/{language}/moderation/rights/{case.pk}/portability/export/")
+            assert db_sync(lambda: RightsExport.objects.filter(action__request=case).count()) == 1
             assert selected_marker not in author_page.content()
             author_page.goto(
                 live_server.url + f"/{language}/moderation/rights/{case.pk}/portability/export/"
