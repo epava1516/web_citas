@@ -1,12 +1,15 @@
 """Atomic individually audited batches against real PostgreSQL and Chromium."""
 
 import shutil
+from concurrent.futures import ThreadPoolExecutor
+from copy import copy
 from uuid import uuid4
 
 import pytest
 import test_rights_portability_export_races as fixtures
 from django.conf import settings as django_settings
 from django.core.exceptions import PermissionDenied, ValidationError
+from django.db import connections
 from playwright.sync_api import sync_playwright
 from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_portability_coverage_review_http import login
@@ -14,6 +17,7 @@ from test_rights_portability_export_races import prepared_selection
 
 from apps.core.models import User
 from apps.listings.models import Revision
+from apps.mediafiles.models import Photo
 from apps.safety import rights_portability_coverage_batch as batch
 from apps.safety import rights_portability_coverage_inspection as inspection
 from apps.safety.models import (
@@ -35,10 +39,17 @@ def prepared(request, settings, monkeypatch):
         result = original(*args, **kwargs)
         person = result[-1]
         original_revision = Revision.objects.filter(listing__person=person).first()
+        photos = list(Photo.objects.filter(revision=original_revision))
         for _ in range(2):
             original_revision.pk = uuid4()
             original_revision._state.adding = True
             original_revision.save(force_insert=True)
+            for original_photo in photos:
+                photo = copy(original_photo)
+                photo.pk = uuid4()
+                photo.revision = original_revision
+                photo._state.adding = True
+                photo.save(force_insert=True)
         return result
 
     monkeypatch.setattr(fixtures, "ready", multi_revision)
@@ -180,3 +191,41 @@ def test_mobile_batch_displays_multiple_individual_pages(
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
         finally:
             browser.close()
+
+
+def test_revocation_before_batch_return_rolls_back_every_read(request, settings, monkeypatch):
+    case, _, coverage, reviewer = prepared(request, settings, monkeypatch)
+    original = batch.inspect_page
+
+    def revoke():
+        try:
+            User.objects.filter(pk=reviewer.pk).update(is_active=False)
+        finally:
+            connections.close_all()
+
+    def inspected_then_revoked(*args, **kwargs):
+        result = original(*args, **kwargs)
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            pool.submit(revoke).result(timeout=10)
+        return result
+
+    monkeypatch.setattr(batch, "inspect_page", inspected_then_revoked)
+    key = uuid4()
+    with pytest.raises(PermissionDenied):
+        batch.inspect_batch(
+            reviewer, case.pk, case.version, coverage.pk, key, REASON, "revisions", page_count=1
+        )
+    assert not User.objects.get(pk=reviewer.pk).is_active
+    assert not RightsAction.objects.filter(key=key).exists()
+    assert not RightsPortabilityCoverageRead.objects.filter(coverage=coverage).exists()
+
+
+def test_binary_batch_stops_after_last_image_page(request, settings, monkeypatch):
+    case, _, coverage, reviewer = prepared(request, settings, monkeypatch)
+    pages = batch.inspect_batch(
+        reviewer, case.pk, case.version, coverage.pk, uuid4(), REASON, "revisions", binary=True
+    )
+    assert len(pages) == 1
+    assert pages[0][1]["binary"]
+    assert 1 < len(pages[0][1]["fields"]) <= 20
+    assert RightsPortabilityCoverageRead.objects.filter(coverage=coverage, binary=True).count() == 1

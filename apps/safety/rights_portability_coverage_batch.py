@@ -108,7 +108,7 @@ def inspect_batch(
             pages.append((read, page))
             if page["has_next_fields"]:
                 field_page += 1
-            elif page["has_next_row"]:
+            elif not binary and page["has_next_row"]:
                 row_index += 1
                 field_page = 1
             else:
