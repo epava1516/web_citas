@@ -92,13 +92,17 @@ def required_reads(selection, case, proof, decisions, actor_id, *, ids=None):
         ):
             raise ValidationError("Exact binary image reads required")
         reads = reads.filter(pk__in=ids)
+    # Fetch fresh evidence once per call, retaining the same newest-row choice for
+    # each exact photo/digest pair. A corrupt newest row must never fall back to
+    # an older valid read. Nothing is retained across inspection children.
+    latest = reads.filter(
+        photo_id__in=[decision["photo"] for decision in decisions],
+        content_digest__in=[decision["content_digest"] for decision in decisions],
+    ).order_by("photo_id", "content_digest", "-pk").distinct("photo_id", "content_digest")
+    by_image = {(str(row.photo_id), row.content_digest): row for row in latest}
     chosen = []
     for decision in decisions:
-        row = (
-            reads.filter(photo_id=decision["photo"], content_digest=decision["content_digest"])
-            .order_by("-pk")
-            .first()
-        )
+        row = by_image.get((str(decision["photo"]), decision["content_digest"]))
         if row is None:
             raise ValidationError("Independent binary image inspection required")
         validate_read(row, selection, case, proof, decision, actor_id)
