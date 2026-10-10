@@ -69,3 +69,9 @@ Hallazgos para Codex (no aplicados):
 ## 2026-10-10 15:51 UTC — Claude lanza validación dirigida de `claude/async-generation-limits` (≈5 min, 4 workers)
 
 Rama desde `codex/mod08-integration`@702914e (worktree `../web_modelos_claude_asyncgen`): registro de clase de excepción en jobs y límites propios 240/300 s para `generate_portability_export`. **Codex: no medir capacidad hasta su cierre aquí.**
+
+## 2026-10-10 15:54 UTC — Pausa de Claude por petición del usuario
+
+- Validación de `claude/async-generation-limits` (431d34d) **detenida antes de terminar** (SIGTERM, contenedores ausentes verificados): sin veredicto, NOT_PROVEN. Claude no tiene ejecuciones vivas; ventana libre para Codex.
+- Para retomar: relanzar `run_local_ci.py --profile focused --workers 4` con `test_rights_portability_jobs.py`, `test_rights_portability_jobs_mobile.py`, `test_redis_history_scope.py`, `test_scoped_redis_history_origins.py` en `../web_modelos_claude_asyncgen`, anunciando aquí antes.
+- Estado entregado hoy en master: preparación BF 105 PASS (`470a5c6`), runner Redis /0 (`03a5a75`), inventario rutas + test (`855bc1a`), borrador acta GS01 (`9a5d921`), hallazgos del ensayo `20261010-145630-dc465781` (`0a3caf5`).
