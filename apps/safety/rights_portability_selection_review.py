@@ -276,7 +276,9 @@ def inspect(user, case_id, version, selection_id, key, purpose):
 
 
 @sensitive_variables()
-def validate_evidence(evidence, row, case, proof):
+def validate_evidence(evidence, row, case, proof, *, _body_digest=None):
+    """``_body_digest`` lets a caller validating many reads of one locked row pass
+    ``fingerprint(row.encrypted_selection)`` computed once; it must come from this same row."""
     if not transaction.get_connection().in_atomic_block:
         raise RuntimeError("Selection review evidence requires enclosing transaction")
     is_review = isinstance(evidence, RightsPortabilitySelectionReview)
@@ -296,7 +298,7 @@ def validate_evidence(evidence, row, case, proof):
         "source": row.source_digest,
         "proof": str(proof.pk),
         "digest": row.selection_digest,
-        "body": fingerprint(row.encrypted_selection),
+        "body": _body_digest if _body_digest is not None else fingerprint(row.encrypted_selection),
         "session": evidence.original_session_version,
         "mfa": evidence.original_mfa_version,
         "read": evidence.read_id if is_review else None,

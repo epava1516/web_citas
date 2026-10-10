@@ -18,7 +18,8 @@ from .models import RightsAction, RightsPortabilityCoverage
 from .rights import fingerprint
 from .rights_copy_inspection import SECTIONS
 from .rights_copy_page_review import fresh_authority
-from .rights_exports import can_prepare, canonical, reviewer_case, source_copy
+from .rights_exports import can_prepare, canonical, reviewer_case
+from .rights_inspection_source import inspection_source, shared_source
 from .rights_portability_catalog import FIELD_PAGE_SIZE, scalar_fields
 from .rights_portability_coverage import compile_coverage
 from .rights_portability_coverage_store import save_coverage
@@ -27,6 +28,12 @@ from .rights_portability_selection import row_reference
 
 SALT = "portability-coverage-page-v1"
 MAX_AGE = 1800
+
+
+def recheck_authority(user, case, person, proof_id):
+    fresh_authority(user, case, user.session_version, user.mfa_version)
+    if can_prepare(User.objects.get(pk=user.pk), case, person).pk != proof_id:
+        raise ValidationError("Coverage page authority changed before return")
 
 
 def latest(case, actor):
@@ -108,6 +115,20 @@ def prepare_page(
     baseline_id=None,
     use_latest=True,
 ):
+    check_page_arguments(dataset, row_index, field_page)
+    case, person, listing = reviewer_case(user, case_id)
+    # One audited source for every nested check; its exit compares against fresh DB rows
+    # inside this transaction, then authority is rechecked after that potentially long read.
+    with inspection_source(person, listing, case) as context:
+        result, proof_id = _prepare_page(
+            user, case_id, version, review_id, key, purpose, dataset, row_index, field_page,
+            baseline_id=baseline_id, use_latest=use_latest, _inspection_source=context,
+        )
+    recheck_authority(user, case, person, proof_id)
+    return result
+
+
+def check_page_arguments(dataset, row_index, field_page):
     if (
         not isinstance(dataset, str)
         or dataset not in SECTIONS
@@ -116,7 +137,20 @@ def prepare_page(
         or (type(field_page) is not int or field_page < 1)
     ):
         raise ValidationError("Invalid coverage page")
+
+
+@sensitive_variables()
+def _prepare_page(
+    user, case_id, version, review_id, key, purpose, dataset, row_index, field_page, *,
+    baseline_id, use_latest, _inspection_source,
+):
+    """Caller owns the enclosing transaction and the active inspection source context."""
+    check_page_arguments(dataset, row_index, field_page)
     case, person, listing = reviewer_case(user, case_id)
+
+    def current_source():
+        return shared_source(_inspection_source, person, listing, case)
+
     from .models import RightsPortabilitySelectionReview
 
     decision = (
@@ -134,10 +168,11 @@ def prepare_page(
         decision.pk,
         uuid5(key, f"coverage-page:{dataset}:{row_index}:{field_page}"),
         purpose,
+        _inspection_source=_inspection_source,
     )
     facts = unseal(selection.encrypted_selection)
     assessment = unseal(selection.assessment_review.assessment.encrypted_assessment)
-    source = source_copy(person, listing, case)
+    source = current_source()
     if fingerprint(canonical(source)) != selection.source_digest:
         raise ValidationError("Coverage source changed")
     if assessment[dataset]["status"] == "excluded":
@@ -273,7 +308,7 @@ def prepare_page(
     fresh_authority(user, case, user.session_version, user.mfa_version)
     if (
         can_prepare(User.objects.get(pk=user.pk), case, person).pk != selection.proof_id
-        or fingerprint(canonical(source_copy(person, listing, case))) != selection.source_digest
+        or fingerprint(canonical(current_source())) != selection.source_digest
     ):
         raise ValidationError("Coverage page authority or source changed")
     return {
@@ -290,14 +325,12 @@ def prepare_page(
         "decisions": {
             item["path"]: decisions[item["path"]] for item in fields if item["path"] in decisions
         },
-    }
+    }, selection.proof_id
 
 
 @transaction.atomic
 @sensitive_variables()
 def save_page(user, case_id, token, key, reason, decisions):
-    from uuid import UUID
-
     try:
         context = signing.loads(token, salt=SALT, max_age=MAX_AGE)
     except (signing.BadSignature, TypeError, ValueError) as error:
@@ -311,15 +344,25 @@ def save_page(user, case_id, token, key, reason, decisions):
         raise PermissionDenied
     if not isinstance(decisions, dict) or not set(decisions) <= set(context["paths"]):
         raise ValidationError("Decide only omitted fields from inspected page")
-    case, _, _ = reviewer_case(user, case_id)
+    case, person, listing = reviewer_case(user, case_id)
     current = latest(case, user)
     retry = RightsPortabilityCoverage.objects.filter(
         action__key=key, request=case, actor=user
     ).first()
     if retry is None and (current.pk if current else None) != context["base_id"]:
         raise ValidationError("Coverage version changed")
+    with inspection_source(person, listing, case) as source_context:
+        saved = _save_page(user, case_id, key, reason, decisions, context, source_context)
+    recheck_authority(user, case, person, saved.proof_id)
+    return saved
+
+
+@sensitive_variables()
+def _save_page(user, case_id, key, reason, decisions, context, _inspection_source):
+    from uuid import UUID
+
     # Reproduce the original audited page; its source, authority and baseline must still be valid.
-    page = prepare_page(
+    page, _ = _prepare_page(
         user,
         case_id,
         context["version"],
@@ -331,6 +374,7 @@ def save_page(user, case_id, token, key, reason, decisions):
         context["field_page"],
         baseline_id=context["base_id"],
         use_latest=False,
+        _inspection_source=_inspection_source,
     )
     # With no original baseline, replay reconstructs an empty draft, not the newly saved latest row.
     base = RightsPortabilityCoverage.objects.filter(pk=context["base_id"]).first()
@@ -369,4 +413,5 @@ def save_page(user, case_id, token, key, reason, decisions):
         omissions,
         deepcopy(body["image_omissions"]),
         allow_partial=True,
+        _inspection_source=_inspection_source,
     )

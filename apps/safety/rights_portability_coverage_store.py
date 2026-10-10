@@ -17,6 +17,7 @@ from .models import RightsAction, RightsPortabilityCoverage, RightsPortabilitySe
 from .rights import fingerprint
 from .rights_copy_page_review import fresh_authority
 from .rights_exports import can_prepare, canonical, reviewer_case, source_copy
+from .rights_inspection_source import shared_source
 from .rights_portability_coverage import compile_coverage
 from .rights_portability_selected_use import consume_selected
 
@@ -35,6 +36,7 @@ def save_coverage(
     image_omissions,
     *,
     allow_partial=False,
+    _inspection_source=None,
 ):
     if (
         type(allow_partial) is not bool
@@ -65,10 +67,17 @@ def save_coverage(
         decision.pk,
         uuid5(key, "coverage-selection-use"),
         "Validate approved selection before recording coverage",
+        _inspection_source=_inspection_source,
     )
     facts = unseal(row.encrypted_selection)
     assessment = unseal(row.assessment_review.assessment.encrypted_assessment)
-    source = source_copy(person, listing, case)
+
+    def current_source():
+        # Only the caller's active context may defer the fresh DB comparison to its exit.
+        return (shared_source(_inspection_source, person, listing, case)
+                if _inspection_source is not None else source_copy(person, listing, case))
+
+    source = current_source()
     source_digest = fingerprint(canonical(source))
     if source_digest != row.source_digest:
         raise ValidationError("Coverage source changed")
@@ -196,7 +205,7 @@ def save_coverage(
     fresh_authority(actor, case, session_version, mfa_version)
     if (
         can_prepare(User.objects.get(pk=actor.pk), case, person).pk != row.proof_id
-        or fingerprint(canonical(source_copy(person, listing, case))) != source_digest
+        or fingerprint(canonical(current_source())) != source_digest
     ):
         raise ValidationError("Coverage authority or source changed")
     return result

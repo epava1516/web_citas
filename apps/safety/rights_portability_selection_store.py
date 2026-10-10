@@ -161,7 +161,8 @@ def save_selection(
 @transaction.atomic
 @sensitive_variables()
 def inspect_selection(
-    user, case_id, case_version, selection_id, key, purpose, *, approved_review_id=None
+    user, case_id, case_version, selection_id, key, purpose, *, approved_review_id=None,
+    _inspection_source=None,
 ):
     if not isinstance(purpose, str) or not 20 <= len(purpose.strip()) <= 200:
         raise ValidationError("Portability selection inspection purpose required")
@@ -213,13 +214,20 @@ def inspect_selection(
             )
         ),
         audit_operation="selection_use" if selection_decision else "selection_read",
+        _inspection_source=_inspection_source,
     )
     if selection_decision is not None:
         from .rights_portability_selection_review import validate_approved_selection
 
         validate_approved_selection(selection_decision, row, case, row.proof)
     expected = validate_selection_evidence(row, review, case)
-    source = source_copy(person, listing, case)
+
+    def current_source():
+        # Only the caller's active context may defer the fresh DB comparison to its exit.
+        return (shared_source(_inspection_source, person, listing, case)
+                if _inspection_source is not None else source_copy(person, listing, case))
+
+    source = current_source()
     if expected.get("images"):
         from .rights_portability_images import audited_images
 
@@ -230,7 +238,7 @@ def inspect_selection(
     fresh_authority(actor, case, session_version, mfa_version)
     if (
         can_prepare(User.objects.get(pk=actor.pk), case, person).pk != row.proof_id
-        or fingerprint(canonical(source_copy(person, listing, case))) != row.source_digest
+        or fingerprint(canonical(current_source())) != row.source_digest
     ):
         raise ValidationError("Portability selection source changed")
     return row, projected

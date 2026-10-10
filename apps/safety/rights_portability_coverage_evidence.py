@@ -127,6 +127,9 @@ def validate_coverage_pages(row, case, proof, source, user, ids, *, allow_partia
             action__key__in=child_keys
         )
     }
+    # Loop invariants over one locked row each: computed once, not once per page.
+    coverage_ciphertext = fingerprint(row.encrypted_coverage)
+    selection_body = fingerprint(selection.encrypted_selection)
     for read_id, page in zip(ids, required, strict=True):
         read = reads[read_id]
         dataset, row_index, field_page, binary = page
@@ -151,7 +154,7 @@ def validate_coverage_pages(row, case, proof, source, user, ids, *, allow_partia
                     "mfa": actor.mfa_version,
                     "coverage": row.pk,
                     "coverage_digest": row.coverage_digest,
-                    "ciphertext": fingerprint(row.encrypted_coverage),
+                    "ciphertext": coverage_ciphertext,
                     "proof": str(proof.pk),
                     "selection": selection.pk,
                     "source": row.source_digest,
@@ -175,7 +178,7 @@ def validate_coverage_pages(row, case, proof, source, user, ids, *, allow_partia
             or child.original_mfa_version != actor.mfa_version
         ):
             raise ValidationError("Original selection reader epochs changed")
-        validate_evidence(child, selection, case, proof)
+        validate_evidence(child, selection, case, proof, _body_digest=selection_body)
         if checked_reason(child.action) != purpose:
             raise ValidationError("Original selection inspection purpose changed")
         result = coverage_page(
