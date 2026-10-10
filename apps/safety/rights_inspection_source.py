@@ -6,6 +6,7 @@ source reads. The caller must enclose this context in its atomic transaction.
 
 from contextlib import contextmanager
 from contextvars import ContextVar
+from copy import copy
 
 from django.core.exceptions import ValidationError
 from django.db import transaction
@@ -88,7 +89,9 @@ def source_digest(context, person, listing, case, source=None):
     if context is not None:
         shared_source(context, person, listing, case)
         return context.digest
-    return fingerprint(canonical(source if source is not None else source_copy(person, listing, case)))
+    return fingerprint(
+        canonical(source if source is not None else source_copy(person, listing, case))
+    )
 
 
 @contextmanager
@@ -106,8 +109,19 @@ def inspection_source(person, listing, case):
             raise ValidationError("Inspection source changed before return")
         # Unchanged row versions prove the source rows are those read; otherwise compare in full.
         if source_fingerprint(person, listing, case) != context.rows_fingerprint and (
-            fingerprint(canonical(source_copy(person, listing, case))) != context.digest
+            fingerprint(canonical(_fresh_source(person, listing, case))) != context.digest
         ):
             raise ValidationError("Inspection source changed before return")
     finally:
         _current.reset(token)
+
+
+def _fresh_source(person, listing, case):
+    """Reload caller projections after detected drift; cached fields are not fresh evidence."""
+    if person is not None:
+        person = copy(person)
+        person.refresh_from_db()
+    if listing is not None:
+        listing = copy(listing)
+        listing.refresh_from_db()
+    return source_copy(person, listing, case)

@@ -216,3 +216,38 @@ def test_recording_seals_actual_results_not_a_later_database_state(request, sett
         User.objects.filter(pk=author.pk).update(username="changed-after-validation")
         rights_validation_seal.create(export, state, caller)
         assert rights_validation_seal.holds(export, caller) is False
+
+
+def test_recording_preserves_dbapi_fetches_and_matches_ordered_replay():
+    with transaction.atomic():
+        with rights_validation_seal.recording() as state:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT n, n * 2 FROM generate_series(1, 5) AS n ORDER BY n")
+                assert len(cursor.description) == 2
+                assert cursor.fetchone() == (1, 2)
+                assert cursor.fetchmany(2) == [(2, 4), (3, 6)]
+                assert list(cursor) == [(4, 8), (5, 10)]
+                assert cursor.fetchone() is None
+                cursor.execute("SELECT 42 AS second_result")
+                assert cursor.fetchall() == [(42,)]
+        assert state["supported"]
+        assert rights_validation_seal._replay(state["statements"]) == state["digests"]
+
+
+def test_configuration_change_invalidates_rule_version(settings):
+    original = rights_validation_seal.rule_version()
+    settings.RIGHTS_ENABLED = "changed-after-validation"
+    assert rights_validation_seal.rule_version() != original
+
+
+def test_unsupported_parameters_decline_seal_without_rejecting_valid_export():
+    from types import SimpleNamespace
+
+    export = SimpleNamespace(expires_at=timezone.now() + timedelta(days=1))
+    state = {
+        "supported": True,
+        "statements": [("SELECT %s", [object()])],
+        "digests": ["a"],
+        "expiries": [export.expires_at],
+    }
+    assert rights_validation_seal.create(export, state, {}) is None

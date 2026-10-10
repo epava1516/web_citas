@@ -1,23 +1,16 @@
-"""Validation seals: replay-proven equality of every database input of a full validation.
+"""Replay seals of the ordered results actually consumed by full validation.
 
-A full ``validate_export_binding`` is a deterministic function of the rows its queries return,
-the objects its caller passes, the current time (only through ``expires_at`` comparisons), the
-code, and the image files it reads. A seal records, after a full validation succeeds:
-
-- every SELECT it executed with its parameters (encrypted) and the PostgreSQL md5 of the
-  ordered result of each, computed by replaying the statement inside the same transaction;
-- a digest of every concrete field of the caller's case, subject and export objects;
-- a rule version (hash of the application code);
-- ``valid_until``: the earliest ``expires_at`` of any row the validation loaded.
-
-A later validation of the same inputs replays the statements and asks PostgreSQL only for the
-md5 of each result. Equal digests, equal caller digest, equal rule version and a current time
-before ``valid_until`` mean the full validation would read identical database inputs and reach
-the same result; image bytes are still re-read and hashed by the caller. Any difference runs the
-full validation, exactly as before. Nothing here grants authority or replaces caller checks.
+Recording annotates each result row with a PostgreSQL SHA-256 before it reaches
+Python. The buffered cursor strips that annotation and preserves the original
+columns/order/DBAPI fetch semantics. Replaying later returns only the combined
+hash: a different row, insertion, deletion or ordering always invalidates it.
+Caller objects (including cached relations), code/configuration, expiries and
+external image bytes remain independent inputs. Seals never grant authority.
 """
 
 import hashlib
+import re
+from collections import deque
 from contextlib import contextmanager
 from contextvars import ContextVar
 from datetime import date, datetime
@@ -27,69 +20,171 @@ from pathlib import Path
 from uuid import UUID
 
 from cryptography.fernet import InvalidToken
-from django.db import connection
+from django.conf import settings
+from django.db import DatabaseError, connection, transaction
 from django.db.models.signals import post_init
 from django.utils import timezone
+from django.views.decorators.debug import sensitive_variables
 from psycopg.types.json import Jsonb
 
 from .crypto import seal, unseal
 from .rights import fingerprint
 
 _recording = ContextVar("rights_validation_recording", default=None)
+SCHEMA = "ordered-consumed-select-sha256-v2"
+EXPIRY_FIELDS = {"expires_at", "receipt_expires_at", "valid_until"}
+_VOLATILE = re.compile(
+    r"\b(now|current_timestamp|current_date|clock_timestamp|random|nextval|set_config)\b", re.I
+)
 
 
 @cache
-def rule_version():
-    """Hash of every application module: any code change invalidates every seal."""
-    root = Path(__file__).resolve().parents[1]
+def _code_version():
+    root = Path(__file__).resolve().parents[2]
     digest = hashlib.sha256()
-    for path in sorted(root.rglob("*.py")):
-        digest.update(str(path.relative_to(root)).encode())
-        digest.update(path.read_bytes())
+    for directory in (root / "apps", root / "config"):
+        for path in sorted(directory.rglob("*.py")):
+            digest.update(str(path.relative_to(root)).encode())
+            digest.update(path.read_bytes())
     return digest.hexdigest()
 
 
-def caller_digest(*instances):
-    values = []
-    for instance in instances:
+@sensitive_variables()
+def rule_version():
+    # Configuration remains live: changing a policy/key in a running process
+    # invalidates seals even when the code hash is unchanged. Never store values.
+    values = sorted(
+        (name, repr(getattr(settings, name))) for name in dir(settings) if name.isupper()
+    )
+    return fingerprint(repr((_code_version(), values)))
+
+
+@sensitive_variables()
+def _caller_values(instances):
+    seen = set()
+
+    def value(instance):
         if instance is None:
-            values.append(None)
-            continue
+            return None
+        if id(instance) in seen:
+            return (instance._meta.label, str(instance.pk))
+        seen.add(id(instance))
         fields = {
             field.attname: repr(getattr(instance, field.attname, None))
             for field in instance._meta.concrete_fields
         }
-        values.append(
-            {
-                "model": instance._meta.label,
-                "pk": str(instance.pk),
-                "fields": dict(sorted(fields.items())),
-            }
-        )
-    return fingerprint(repr(values))
+        relations = {
+            name: value(related)
+            for name, related in sorted(instance._state.fields_cache.items())
+            if related is None or hasattr(related, "_meta")
+        }
+        return {"model": instance._meta.label, "fields": fields, "relations": relations}
+
+    return [value(instance) for instance in instances]
+
+
+@sensitive_variables()
+def caller_digest(*instances):
+    return fingerprint(repr(_caller_values(instances)))
+
+
+def _expiries(instance, seen=None):
+    if instance is None:
+        return []
+    seen = seen if seen is not None else set()
+    if id(instance) in seen:
+        return []
+    seen.add(id(instance))
+    values = [
+        item
+        for name, item in instance.__dict__.items()
+        if name in EXPIRY_FIELDS and isinstance(item, datetime)
+    ]
+    for related in instance._state.fields_cache.values():
+        if related is not None and hasattr(related, "_meta"):
+            values.extend(_expiries(related, seen))
+    return values
 
 
 def _loaded(sender, instance, **kwargs):
     state = _recording.get()
-    if state is None:
-        return
-    value = getattr(instance, "__dict__", {}).get("expires_at")
-    if isinstance(value, datetime):
-        state["expiries"].append(value)
+    if state is not None:
+        state["expiries"].extend(_expiries(instance))
 
 
 post_init.connect(_loaded, dispatch_uid="rights_validation_seal_expiries")
 
 
+class _ResultCursor:
+    """An ordinary result cursor; no result annotation is visible to its caller."""
+
+    def __init__(self, raw, rows, description):
+        self.raw, self.rows, self.description = raw, deque(rows), description
+
+    def __getattr__(self, name):
+        return getattr(self.raw, name)
+
+    def fetchone(self):
+        return self.rows.popleft() if self.rows else None
+
+    def fetchmany(self, size=None):
+        size = self.raw.arraysize if size is None else size
+        return [self.rows.popleft() for _ in range(min(size, len(self.rows)))]
+
+    def fetchall(self):
+        rows = list(self.rows)
+        self.rows.clear()
+        return rows
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        value = self.fetchone()
+        if value is None:
+            raise StopIteration
+        return value
+
+
+_ROW_HASH = "encode(sha256(convert_to(row_to_json(q)::text, 'UTF8')), 'hex')"
+
+
+def _annotated(sql):
+    return f"SELECT q.*, {_ROW_HASH} AS _seal_hash FROM ({sql}) AS q"
+
+
 @contextmanager
+@sensitive_variables()
 def recording():
-    """Capture SELECT statements and loaded expiries of the enclosed full validation."""
-    state = {"statements": [], "expiries": []}
+    state = {"statements": [], "digests": [], "expiries": [], "supported": True}
 
     def wrapper(execute, sql, params, many, context):
-        if not many and sql.lstrip().upper().startswith("SELECT"):
-            state["statements"].append((sql, list(params) if params is not None else None))
-        return execute(sql, params, many, context)
+        cursor = context["cursor"]
+        if isinstance(cursor.cursor, _ResultCursor):
+            cursor.cursor = cursor.cursor.raw
+        if many or not sql.lstrip().upper().startswith("SELECT") or _VOLATILE.search(sql):
+            # A write or unsupported SQL must not become an accidentally partial seal.
+            if not sql.lstrip().upper().startswith(("SAVEPOINT", "RELEASE", "ROLLBACK")):
+                state["supported"] = False
+            return execute(sql, params, many, context)
+        if getattr(cursor.cursor, "name", None):
+            state["supported"] = False
+            return execute(sql, params, many, context)
+        execute(_annotated(sql), params, many, context)
+        raw = cursor.cursor
+        rows = raw.fetchall()
+        description = raw.description[:-1]
+        digest = hashlib.sha256("".join(row[-1] for row in rows).encode()).hexdigest()
+        plain = [row[:-1] for row in rows]
+        for index, column in enumerate(description):
+            if column.name in EXPIRY_FIELDS:
+                state["expiries"].extend(
+                    row[index] for row in plain if isinstance(row[index], datetime)
+                )
+        state["statements"].append((sql, list(params) if params is not None else None))
+        state["digests"].append(digest)
+        cursor.cursor = _ResultCursor(raw, plain, description)
+        return cursor
 
     token = _recording.set(state)
     try:
@@ -142,53 +237,53 @@ def _replay(statements):
     digests = []
     with connection.cursor() as cursor:
         for sql, params in statements:
-            # Ordering by the row text makes the digest independent of result order.
+            # No sorting: full validation consumes the original result order.
             cursor.execute(
-                f"SELECT md5(coalesce(string_agg(q::text, '|' ORDER BY q::text), '')) "
-                f"FROM ({sql}) AS q",
+                "SELECT encode(sha256(convert_to(coalesce(string_agg(_seal_hash, ''), ''), "
+                f"'UTF8')), 'hex') FROM ({_annotated(sql)}) AS sealed_rows",
                 params,
             )
             digests.append(cursor.fetchone()[0])
     return digests
 
 
+@sensitive_variables()
 def create(export, state, caller):
     from .models import RightsExportValidationSeal
 
-    statements = state["statements"]
-    expiries = state["expiries"] + [
-        value
-        for value in (getattr(item, "expires_at", None) for item in caller.values())
-        if isinstance(value, datetime)
-    ]
+    expiries = state["expiries"] + [value for item in caller.values() for value in _expiries(item)]
+    if not state["supported"] or not state["statements"] or not expiries:
+        return None
+    try:
+        encoded = [
+            [sql, None if params is None else [encode(item) for item in params]]
+            for sql, params in state["statements"]
+        ]
+    except (ValueError, TypeError):
+        # An optional accelerator must never break an otherwise valid operation.
+        return None
     return RightsExportValidationSeal.objects.create(
         export=export,
         rule_version=rule_version(),
         caller_digest=caller_digest(*caller.values()),
-        encrypted_statements=seal(
-            {
-                "statements": [
-                    [sql, None if params is None else [encode(item) for item in params]]
-                    for sql, params in statements
-                ]
-            }
-        ),
-        result_digests=_replay(statements),
-        valid_until=min(expiries) if expiries else timezone.now(),
+        encrypted_statements=seal({"schema": SCHEMA, "statements": encoded}),
+        result_digests=state["digests"],
+        valid_until=min(expiries),
     )
 
 
+@sensitive_variables()
 def holds(export, caller):
-    """True only when replaying every recorded statement returns identical results."""
     from .models import RightsExportValidationSeal
 
-    now = timezone.now()
+    if not connection.in_atomic_block:
+        return False
     candidate = (
         RightsExportValidationSeal.objects.filter(
             export=export,
             rule_version=rule_version(),
             caller_digest=caller_digest(*caller.values()),
-            valid_until__gt=now,
+            valid_until__gt=timezone.now(),
         )
         .order_by("-pk")
         .first()
@@ -196,10 +291,18 @@ def holds(export, caller):
     if candidate is None:
         return False
     try:
+        value = unseal(candidate.encrypted_statements)
+        if value.get("schema") != SCHEMA:
+            return False
         statements = [
             (sql, None if params is None else [decode(item) for item in params])
-            for sql, params in unseal(candidate.encrypted_statements)["statements"]
+            for sql, params in value["statements"]
         ]
-    except (InvalidToken, ValueError, TypeError, KeyError):
+        # SQL invalidated by a schema change rolls back only this savepoint.
+        with transaction.atomic():
+            return (
+                _replay(statements) == candidate.result_digests
+                and timezone.now() < candidate.valid_until
+            )
+    except (InvalidToken, ValueError, TypeError, KeyError, DatabaseError):
         return False
-    return _replay(statements) == candidate.result_digests

@@ -177,3 +177,22 @@ def test_two_updates_in_one_transaction_change_tuple_identity():
         with connection.cursor() as cursor:
             cursor.execute("UPDATE core_person SET alias = %s WHERE id = %s", ["second", person.pk])
         assert source_fingerprint(person, listing) != before
+
+
+def test_same_transaction_caller_field_drift_rejects_shared_source():
+    from django.core.exceptions import ValidationError
+
+    person, listing = complete_subject()
+    case = SimpleNamespace(
+        pk=1,
+        version=1,
+        person_id=person.pk,
+        account_subject_id=None,
+        manager_version=person.manager_version,
+    )
+    with pytest.raises(ValidationError, match="changed before return"):
+        with transaction.atomic():
+            Person.objects.filter(pk=person.pk).update(alias="first update")
+            person.refresh_from_db()
+            with rights_inspection_source.inspection_source(person, listing, case):
+                Person.objects.filter(pk=person.pk).update(alias="second update")
