@@ -49,3 +49,8 @@ Perfiles a escala objetivo ([caso completo](evidencias/capacidad-perfil-caso-com
 ## Continuación SQL — 2026-10-10 17:39UTC
 
 Dos optimizaciones dirigidas por perfil limpio: evidencias una consulta fresca por página y metadatos scoped3consultas por llamada, con physicalSHA/firmas/guards/locks/evidencias individuales intactos. N2 conjunta140PASS/0skips303,75s, fuentes y limpieza verificadas; [registro](evidencias/mod08-sql-bulk-y-perfil-20261010.json). Reducción estructural en el lote16imágenes×4páginas:64→4 consultas de evidencias y192→12 metadatos; no porcentaje de mejora temporal acreditado. El perfil anterior interrumpido queda negativo/incompleto. Próximo medir con misma población y límites. [Propuesta CC-05](97-propuesta-indice-similitud-fotos-cc05.md) documentada por solicitud posterior del usuario para ponderación futura, fuera de estas optimizaciones y sin dependencia adoptada.
+
+
+## Perfil posterior a integración SQL y correctivas de entrega
+
+Lecturas diagnósticas en123lotes equivalentes: p95 5,087→4,251s; SQL755→515. Restauración entre controladores reales HIT, generación33,160s/1intento y cierre11,525s. Descargas diagnósticas23,539–24,374s exceden5s; las muestras reducidas no son aceptación. Correctivas SQL de cadena enforced y scope por autorización: N2 conjunta100PASS0skips248,122s; no mejora temporal nueva demostrada todavía. [Registro y límites](evidencias/mod08-perfil-entrega-y-sellos-20261010.json). Continúa la optimización hasta cumplir objetivos originales y ejecutar capacidad completa de2casos; sin relajación de fuentes, autoridad, físicos, población ni límites.

@@ -1,5 +1,14 @@
 # MOD-08 — coordinación de frentes en paralelo
 
+## Estado vigente — perfil real posterior a integración SQL
+
+Integración master58c67b8. N2 conjunta16archivos140PASS0skips303,744s. Captura174156 BASELINE_CAPTURED_DIAGNOSTIC_ONLY:1509páginas completas, fuenteigual, retirada verificada. Reuso182155 PROFILE_DIAGNOSTIC_NOT_CAPACITY: HIT_DIAGNOSTIC_REUSED_PREPARATION en controlador nuevo,1PASS0skips483,866s, fuentesiguales/retirada verificada y ausencia independiente de contenedores propios. Generación real1intento33,160s; cierre11,525s. Descargas diagnósticas JSON3muestras p95 23,539s y binario8muestras p95 24,374s: no cumplen5s y no constituyen poblaciones de aceptación. Memoria superior conservadora2.465.251.328bytes, sin aceptación N3/capacidad/CR09.
+
+Comparación parcial equivalente primeros123lotes de4páginas no perfilados: p95 5,087→4,251s (16,418%); SQL755→515 (31,788%). No se cumple2s para lote completo. Evidencia temporal preservada en artifacts/mod08-sql-bulk-live-profile-20261010; archivo de baseline cifrado privado no se publica.
+
+Siguiente correctiva aislada: storage_crypto posee exclusivamente apps/safety/evidence_chain.py y nuevo tests/test_rights_enforced_validation_seal.py en /home/felidae/proyectos/web_modelos_mod08_enforced_seal, base58c67b8. Objetivo: productor SQL textual seguro de7familias para permitir sello enforced; conservar rechazo Composed arbitrario, política/caller/expiración y lectura física fresca. Root verifica/integra; no tests pesados paralelos. async_generation realiza revisión de sololectura del coste S3; no propiedad escritora nueva. Consumo e historial Claude conservados.
+
+
 ## N2 conjunta final162PASS — integración local
 
 Run165711 sobreb55c114:15archivos/162PASS/0skips286,84s, fuenteigual y retiro PG/Redis probado porinspect. Aviso de teardown de una base de test con1sesión; contenedor completo propio ausente al finalizar. Incorporado e871f89 documental sin cambio apps/config/scripts/tests. Conservar borrador originalClaude async-generation con nombrepreserved antes de fast-forward master. Próxima carga: captura diagnóstica real1500/16MiB/64MiB; recursos/objetivos íntegros, sinmediciones/testscompetidores. Noaceptación capacidad/N3/CR09.
@@ -52,3 +61,10 @@ N2c1b5973terminal114PASS/1FAIL documental,248,25s,0skips/cleanup/fuenteiguales; 
 ## Estado vigente17:39UTC — SQL fresco y N2 conjunta
 
 Writers nativos aislados: async_generation owns rights_portability_image_read.py/test_bulk, commits4099887/bd9409c→6614983/9d8b8b3; storage_crypto owns rights_exports.py/rights_portability_images.py/test_contents_bulk y2hooks autorizados,63e3a43/80de2fe→7e7f251/2bd47fa; root20d0eba importa Ruff. canonical_tests ejecuta72PASS y76PASS1FAIL yfinal140PASS303,75s fuente2bd47fa igual/retirada real. Root conserva negativos/5perfiles y fuente30b69cf: SQL755/lote4,p95 parcial5,0865s125muestras; SIGINT únicamente pytestpropio, no baseline válido ni capacidad. Historia/consumo Claude intactos; sin invocaciones V1. PróximoFFmaster y diagnóstico requests con código congelado, sin cargas competidoras. CC-05 documentación solicitada futura en docs/97, sinselección tecnológica.
+
+
+## Correctivas de entrega verificadas y siguiente catálogo
+
+b23cde3 trustedSQL y4354109 proxy scope: N2 conjunta184050100PASS0skips248,122s, fuentesiguales/PGRedisausentes verificados. N2 aislada18351651PASS223,290s. Root conserva evidencia diagnóstica174156/182155 y N2 en docs/evidencias/mod08-perfil-entrega-y-sellos-20261010 (baseline privado excluido). Perfil nuevo pending; master58c67b8 hasta cierre de registro.
+
+Writer storage_crypto posee únicamente _runtime_is_trusted en apps/safety/evidence_chain.py y nuevo tests/test_rights_runtime_catalog_bulk.py en /home/felidae/proyectos/web_modelos_mod08_runtime_catalog base4354109. Agrupación26→9 fresca por llamada; N2 propia lanzada18:46PID978323 ticks337857281, sin otras cargas pesadas. Root integra/acepta tras equivalencia, fuentes y retirada reales; consumoClaudeintacto.

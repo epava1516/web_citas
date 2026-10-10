@@ -1,0 +1,206 @@
+{
+  "scope": "Local diagnostics and finite PostgreSQL/S3 regressions only. Capacity/N3/CR09 not accepted. Encrypted baseline input/key/fragments excluded from versioned evidence.",
+  "runs": [
+    {
+      "id": "20261010-174156-0dd85d23",
+      "head": "58c67b8c7671dbc73ca81a468455ce38c0e558f7",
+      "result": "BASELINE_CAPTURED_DIAGNOSTIC_ONLY",
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-capacity-20261010-174156-0dd85d23-app": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-174156-0dd85d23-caddy": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-174156-0dd85d23-objects": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-174156-0dd85d23-redis": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-174156-0dd85d23-pg": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-174156-0dd85d23-delivery": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-174156-0dd85d23-net": {
+          "absent": true
+        },
+        "labelled_remaining": []
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "1898.005",
+          "timestamp": "2026-10-10T19:44:11.130978+02:00",
+          "hostname": "4950297b4385"
+        }
+      ],
+      "owned_memory_upper_bound_bytes": 1806667776
+    },
+    {
+      "id": "20261010-182155-e86c17f1",
+      "head": "58c67b8c7671dbc73ca81a468455ce38c0e558f7",
+      "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-capacity-20261010-182155-e86c17f1-app": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-182155-e86c17f1-caddy": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-182155-e86c17f1-objects": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-182155-e86c17f1-redis": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-182155-e86c17f1-pg": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-182155-e86c17f1-delivery": {
+          "absent": true,
+          "removal_exit": 0
+        },
+        "web-modelos-capacity-20261010-182155-e86c17f1-net": {
+          "absent": true
+        },
+        "labelled_remaining": []
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "483.866",
+          "timestamp": "2026-10-10T20:24:10.040162+02:00",
+          "hostname": "3d77953b412c"
+        }
+      ],
+      "owned_memory_upper_bound_bytes": 2465251328
+    },
+    {
+      "id": "20261010-183516-3761aabd",
+      "head": "58c67b8c7671dbc73ca81a468455ce38c0e558f7",
+      "result": "PASS",
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-183516-3761aabd": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-183516-3761aabd": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "51",
+          "time": "223.290",
+          "timestamp": "2026-10-10T20:35:40.177970+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "owned_memory_upper_bound_bytes": null
+    },
+    {
+      "id": "20261010-184050-afce5de3",
+      "head": "4354109af32c3e9eca3a7037c035a754d53e2881",
+      "result": "PASS",
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261010-184050-afce5de3": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261010-184050-afce5de3": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "100",
+          "time": "248.122",
+          "timestamp": "2026-10-10T20:41:09.288793+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "owned_memory_upper_bound_bytes": null
+    }
+  ],
+  "comparison": {
+    "scope": "Diagnostic only; first123 unprofiled four-page batches after the first two singleton reads, identical batch counts; old run intentionally interrupted. Not full capacity or delivery acceptance.",
+    "before_head": "30b69cf",
+    "after_head": "58c67b8",
+    "sql_before": 755,
+    "sql_after": 515,
+    "sql_reduction_percent": 31.788079470198674,
+    "before": {
+      "samples": 123,
+      "median_seconds": 4.661261367145926,
+      "p95_seconds": 5.086517954710871
+    },
+    "after": {
+      "samples": 123,
+      "median_seconds": 3.9297764347866178,
+      "p95_seconds": 4.251433644909412
+    },
+    "p95_reduction_percent": 16.41760271440794
+  },
+  "delivery_diagnostic": {
+    "baseline": "HIT_DIAGNOSTIC_REUSED_PREPARATION",
+    "generation_seconds": 33.16046826308593,
+    "generation_attempts": 1,
+    "closure_seconds": 11.525119021069258,
+    "json_download_samples": 3,
+    "json_download_p95_seconds": 23.538984804879874,
+    "binary_download_samples": 8,
+    "binary_download_p95_seconds": 24.37382403202355,
+    "delivery_target_seconds": 5,
+    "verdict": "Functional flow passed; delivery timing unsatisfactory. Reduced sample counts are not acceptance."
+  },
+  "corrections": {
+    "trusted_internal_sql": "b23cde3",
+    "proxy_operation_scope": "4354109",
+    "joint_n2": "100PASS0skips248.122s; sources unchanged, owned cleanup independently verified"
+  },
+  "archive": {
+    "file": "mod08-perfil-entrega-y-sellos-20261010.tar.gz",
+    "sha256": "15af129c826722b1ea5c52c6f38ec7598840fc8a0aa101729f2d80ffb5a6d502",
+    "bytes": 209951
+  }
+}
