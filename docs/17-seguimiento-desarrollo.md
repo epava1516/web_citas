@@ -30,6 +30,8 @@ Revisión crítica de P1–P8 y del prototipo: el lanzador no podía ejecutarse 
 
 **Corrección de registro.** El commit `3a08e7c` incluyó por error (`git add docs`) la propuesta GraphQL sin versionar y de procedencia no confirmada. Retirada del índice en el commit siguiente con `git rm --cached`; el archivo local se conserva byte a byte y sigue fuera del contrato. Historia no reescrita.
 
+**N2 reservada — equivalencias exactas en validación (`3c1ef66`).** Por el perfil completo de un caso (`20261010-064907-320e9495`): memo de `row_reference` por fila del origen compartido activo, un descifrado por acción en el bucle de páginas (orden de comprobaciones original), reutilización de compilación con argumentos idénticos y un descifrado por instantánea de imagen. Misma selección unificada de49archivos/414casos, PG17/Redis7.4/nativos, timeout7200s, `run_detached.py`, fuentes congeladas. Salida: todos PASS, cero skips, fuentes iguales y retirada.
+
 ### Corte anterior de pausa y propuesta acotada
 
 **Pausa y relevo solicitados el 2026-10-09.** El goal está **pausado** tras recoger los terminales y comprobar ausencia de contenedores/redes/temporales propios; no se inicia otro bloque del contrato ni se invoca a Claude. Este corte sustituye las instrucciones de ejecución inmediata que aparecen en los antecedentes inferiores. [Informe y continuación exacta](relevo-claude-20261009.md), [inventario completo y evidencia](evidencias/relevo-local-20261009.json), [prompt conforme al modelo vigente](prompt-relevo-claude-20261009.md).
