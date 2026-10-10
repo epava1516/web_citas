@@ -8,6 +8,7 @@ from threading import Barrier
 
 import pytest
 from capacity_delivery_flow import run_case
+from capacity_fingerprint_profile import fingerprint_profile
 from capacity_gunicorn import server
 from django.conf import settings as runtime_settings
 from django.db import connections
@@ -31,6 +32,9 @@ def test_owned_target_stage_profiles(request, settings, monkeypatch, record_prop
                                     independent_reviewer=True, include_binary=True, details=context)
             metrics.update(fixture=target[5], build_seconds=target[6], scalar_preparation_seconds=target[7])
             full = getattr(settings, "CAPACITY_DELIVERY_PROFILE_FULL", False)
+            if full:
+                metrics["fingerprint_sql"] = fingerprint_profile(
+                    settings, endpoint, context["profile"], target[0])
             run_case(0, target, context, endpoint, settings, Barrier(1), metrics, diagnostic=True,
                      full=full)
             metrics["success"] = (metrics.get("success") is not False and "post_validation_profile" in metrics

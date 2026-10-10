@@ -129,7 +129,8 @@ def server(settings, record_property):
                     urllib.request.urlopen("http://caddy:8080/", timeout=3)
                 except urllib.error.HTTPError as error:
                     assert error.code == 404
-            yield SimpleNamespace(url=url, object_delivery=objects)
+            yield SimpleNamespace(url=url, object_delivery=objects,
+                                  runtime_config=env.get("RIGHTS_EVIDENCE_RUNTIME_CONFIG"))
         finally:
             stop.set()
             sampler.join(timeout=2)

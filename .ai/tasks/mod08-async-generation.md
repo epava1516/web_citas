@@ -76,3 +76,20 @@ Verificación pequeña autorizada:8guards puros PASS0.54s con entorno integrado;
 Son pruebas de orquestación con mocks declarados, no broker/HTTP/PG real ni capacidad.
 Primer intento colección con venv root falló por dependencia orjson ausente; ejecutado
 con venv integrado completo. Principal debe integrar y repetir perfil real solo.
+
+## Diagnóstico SQL offline solicitado 2026-10-10
+
+Base d5356ab, worktree codex/mod08-fingerprint-diagnostic. Diseño antes de editar:
+perfil full después del target y antes del flujo; misma credencial runtime privada del
+server, conexión independiente real, identidad LOGIN sin privilegios ni ownership,
+snapshot REPEATABLE READ READ ONLY. Comparar aggregate fullsource antigua/new usando
+mismas bindings y _parts/_union vigentes; cambiar sólo constante municipality antigua.
+Dos rondas alternadas old/new y new/old, igualdad digest/count. Cuatro EXPLAIN ANALYZE
+BUFFERS SETTINGS JSON completos (full old/new y municipality old/new), sin recortar
+JIT/planning/execution/loops ni conteos municipality/revisions/through. Se conservan
+negativas y límites; no acceptance/p95 ni compilación nativa. Endpoint sólo expone path
+privado al consumidor; no se registra path, rol, contraseña ni credenciales. Fichero
+0600/directorio0700 <=4KiB; secretos en memoria, planes saneados antes de evidencia.
+Canonical P10 toca consumer y debe conservar llamada sólo en fallback tras preparación;
+cache hit nunca repite diagnóstico previo. Edición offline solamente mientras N2 fuente
+congelada; no imports/procesos/tests/build ejecutados. Verificación e integración pendientes.
