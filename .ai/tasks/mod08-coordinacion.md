@@ -115,3 +115,29 @@ N2 conjunta `20261010-202832-ee994233`: **460PASS/0FAIL/0skips/632,491s**,39arch
 | Casos omitidos | 0 | 0 | 0 |
 
 Es una correctiva/verificación funcional, no mejora medida del request. Próxima captura nueva1509páginas y reutilización diagnóstica con comparativa383/123batches y JSON3/binario8; baseline antiguo inválido para estas fuentes. Objetivos originales2casos y límites intactos; N3/capacidad completa/CR09 pendientes, porcentajes contractuales sin avance.
+
+
+## Medición posterior a cálculos puros y protocolo — 2026-10-10
+
+HEAD medido `b978377`: captura `20261010-204101-c0279589`, 1PASS/0FAIL/0skips, 1749,892s y resultado BASELINE_CAPTURED_DIAGNOSTIC_ONLY; reutilización `20261010-211629-2481e9a8`, 1PASS/0FAIL/0skips, 240,652s y PROFILE_DIAGNOSTIC_NOT_CAPACITY. HIT entre controladores reales, fuentes e inputs sin cambios, retirada completa verificada. PostgreSQL, Redis, RustFS Docker y Caddy reales; identidad simulada, datos sintéticos. Clave y captura cifrada privadas excluidas.
+
+| TCP p95, misma población | Antes (s) | Actual (s) | Mejora | Objetivo (s) | Reducción adicional pendiente |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Recorrido, 383 lotes sin perfil | 4,889199 | 4,375794 | 10,50% | 2 | 54,29% |
+| Primeros123 lotes completos de4 páginas | 4,277687 | 3,862194 | 9,71% | 2 | 48,22% |
+| Descarga JSON, 3 muestras | 9,106714 | 6,735796 | 26,03% | 5 | 25,77% |
+| Descarga binaria, 8 muestras | 9,541089 | 6,428605 | 32,62% | 5 | 22,22% |
+
+Recorrido de1509páginas; los383lotes incluyen grupos parciales, mientras123compara exclusivamente lotes de4 y excluye el único perfilado. Descargas incluyen respuesta303 y segundo GET con autorización fresca; JSON máximo8MiB y binarios inferiores8MiB. Comparación con capturas185127/192733 sobre HEAD228c540: mejora conjunta de los cambios posteriores, sin atribución causal aislada a Claude ni a una pieza.
+
+| Operación, una muestra | Antes (s) | Actual (s) | Mejora | Objetivo (s) |
+| --- | ---: | ---: | ---: | ---: |
+| Generación encolada hasta durable | 34,303443 | 32,589223 | 5,00% | 120 |
+| Preparación final | 11,536023 | 11,465790 | 0,61% | 30 |
+| Inspección final | 4,430837 | 2,815197 | 36,46% | 30 |
+| Aprobación final | 4,728369 | 3,090912 | 34,63% | 5 |
+| Cierre | 11,631584 | 11,075993 | 4,78% | 30 |
+
+Una muestra por operación no acredita p95 ni dos casos simultáneos. Los límites globales y poblaciones originales siguen intactos; no acepta N3/capacidad completa/CR09 ni incrementa porcentajes contractuales. Próxima candidata aislada: memo SHA de contenido idéntico por operación tras lectura física fresca, acotado16entradas/64MiB, todavía no probado ni integrado; su impacto y RSS deben medirse.
+
+[Evidencia saneada de ambas mediciones](../../docs/evidencias/mod08-medicion-puros-protocolo-20261010.json).
