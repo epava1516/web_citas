@@ -1,6 +1,7 @@
 """Durable private generation jobs. Domain generation remains the single authority."""
 
 import logging
+import re
 from datetime import timedelta
 from uuid import uuid4
 
@@ -27,6 +28,22 @@ SOFT_TIME_LIMIT = 240
 TIME_LIMIT = 300
 DISPATCH_INTERVAL = timedelta(minutes=1)
 logger = logging.getLogger(__name__)
+
+
+def failure_location(error):
+    """Last code location only; never an exception message, source line or locals."""
+    trace = error.__traceback__
+    if trace is None:
+        return "unknown"
+    while trace.tb_next is not None:
+        trace = trace.tb_next
+    module = trace.tb_frame.f_globals.get("__name__", "unknown")
+    name = trace.tb_frame.f_code.co_name
+    if not isinstance(module, str) or not re.fullmatch(r"[A-Za-z0-9_.]{1,120}", module):
+        module = "external"
+    if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]{0,79}", name):
+        name = "operation"
+    return f"{module}.{name}:{trace.tb_lineno}"
 
 
 def original_actor(job):
@@ -237,11 +254,13 @@ def run(job_id):
             )
     except (PermissionDenied, ValidationError, InvalidToken, KeyError, User.DoesNotExist) as error:
         # Class name only: messages may carry private case data.
-        logger.warning("Portability export job %s rejected: %s", job_id, type(error).__name__)
+        logger.warning("Portability export job %s [%s] rejected: %s",
+                       job_id, failure_location(error), type(error).__name__)
         finish_attempt(job_id, token, rejected=True)
     except Exception as error:
         # Rollback includes the export and all its domain actions; replay is safe.
-        logger.warning("Portability export job %s attempt failed: %s", job_id, type(error).__name__)
+        logger.warning("Portability export job %s [%s] attempt failed: %s",
+                       job_id, failure_location(error), type(error).__name__)
         finish_attempt(job_id, token, rejected=False)
 
 

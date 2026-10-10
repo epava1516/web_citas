@@ -194,6 +194,10 @@ def main():
         timeout = ((9000 if args.delivery_complete or args.delivery_profile_full else
                     5400 if args.selection_complete or args.delivery_profile else 600)
                    if args.selection_tcp and label == "control-pytest" else 180)
+        if args.preflight_only and label == "control-pytest":
+            # Small generation observes up to180s in addition to real fixture setup,
+            # worker startup and teardown. This is a finite diagnostic, never a new SLA.
+            timeout = 360
         step = {"label": label, "command": command, "timeout_seconds": timeout}
         report["steps"].append(step)
         try:

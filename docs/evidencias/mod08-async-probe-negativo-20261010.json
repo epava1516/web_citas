@@ -1,0 +1,49 @@
+{
+  "run_id": "20261010-160608-d368dcc8",
+  "head": "02a611740648713051179e69ba0eac08e46dfc5a",
+  "result": "ERROR_CONTROLLER_TIMEOUT_NO_JUNIT",
+  "error": "TimeoutExpired: Command '['docker', 'exec', '-e', 'PYTHONPATH=/tmp:/home/felidae/proyectos/web_modelos_mod08_integrated', '-e', 'DJANGO_SETTINGS_MODULE=capacity_settings', 'web-modelos-capacity-20261010-160608-d368dcc8-app', '/home/felidae/proyectos/web_modelos_mod08_integrated/.venv/bin/python3', '-m', 'pytest', '-q', '--tb=short', '-o', 'DJANGO_SETTINGS_MODULE=capacity_settings', '-o', 'junit_family=xunit1', '-p', 'no:cacheprovider', '--basetemp=/tmp/capacity-pytest', '--junitxml=/tmp/capacity-control.xml', 'tests/test_capacity_object_preflight.py']' timed out after 180 seconds",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-capacity-20261010-160608-d368dcc8-app": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-160608-d368dcc8-caddy": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-160608-d368dcc8-objects": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-160608-d368dcc8-redis": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-160608-d368dcc8-pg": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-160608-d368dcc8-delivery": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-160608-d368dcc8-net": {
+      "absent": true
+    },
+    "labelled_remaining": []
+  },
+  "observed_worker_class": {
+    "class": "AttributeError",
+    "attempts_observed": 2,
+    "observation_source": "Read-only docker exec of own worker log while live:16:09:23.882 and16:10:21.923UTC; tool output transcribed, complete worker file not retained before teardown.",
+    "job": "9a9f2643-08ed-454e-9edb-690123b0814f",
+    "limit": "Partial observation supports investigation, never complete gate PASS or an attributed instruction; original full profile class unknown."
+  },
+  "instrument_fault": "Outer preflight watchdog180s did not include180s generation observation plus real fixture/server startup/teardown. Corrective watchdog360s is diagnostic only; acceptance generation120s remains unchanged.",
+  "memory_upper_bytes": 1226104832,
+  "memory_verdict": "WITHIN_6GIB_UPPER_BOUND",
+  "raw_archive": "mod08-async-probe-negativo-20261010.tar.gz",
+  "acceptance": "No JUnit, no generation completion, no readiness/capacity/N3 acceptance."
+}
