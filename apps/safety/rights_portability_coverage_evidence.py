@@ -29,8 +29,15 @@ from .rights_portability_selection_store import validate_selection_evidence
 def checked_reason(action):
     try:
         body = unseal(action.encrypted_reason)
+    except (InvalidToken, ValueError, TypeError) as error:
+        raise ValidationError("Coverage evidence reason unavailable") from error
+    return checked_reason_body(body)
+
+
+def checked_reason_body(body):
+    try:
         reason = body["reason"]
-    except (InvalidToken, ValueError, TypeError, KeyError) as error:
+    except (KeyError, TypeError) as error:
         raise ValidationError("Coverage evidence reason unavailable") from error
     if (
         not isinstance(reason, str)
@@ -89,7 +96,8 @@ def validate_coverage_pages(row, case, proof, source, user, ids, *, allow_partia
         field_evidence=facts.get("field_evidence"),
         allow_partial=allow_partial,
     )
-    summary = compile_coverage(
+    # Identical arguments when partial coverage is already allowed: same deterministic result.
+    summary = compiled if allow_partial else compile_coverage(
         source,
         assessment,
         facts["selection"],
@@ -178,8 +186,15 @@ def validate_coverage_pages(row, case, proof, source, user, ids, *, allow_partia
             or child.original_mfa_version != actor.mfa_version
         ):
             raise ValidationError("Original selection reader epochs changed")
-        validate_evidence(child, selection, case, proof, _body_digest=selection_body)
-        if checked_reason(child.action) != purpose:
+        # Decrypt once; keep the original order: evidence validation, then the strict reason check.
+        try:
+            child_body = unseal(child.action.encrypted_reason)
+            child_reason = child_body["reason"]
+        except (InvalidToken, ValueError, TypeError, KeyError) as error:
+            raise ValidationError("Selection review evidence unavailable") from error
+        validate_evidence(child, selection, case, proof, _body_digest=selection_body,
+                          _reason=child_reason)
+        if checked_reason_body(child_body) != purpose:
             raise ValidationError("Original selection inspection purpose changed")
         result = coverage_page(
             source, assessment, facts, body, summary, dataset, row_index, field_page, binary=binary

@@ -280,7 +280,7 @@ def inspect(user, case_id, version, selection_id, key, purpose):
 
 
 @sensitive_variables()
-def validate_evidence(evidence, row, case, proof, *, _body_digest=None):
+def validate_evidence(evidence, row, case, proof, *, _body_digest=None, _reason=None):
     """``_body_digest`` lets a caller validating many reads of one locked row pass
     ``fingerprint(row.encrypted_selection)`` computed once; it must come from this same row."""
     if not transaction.get_connection().in_atomic_block:
@@ -291,8 +291,9 @@ def validate_evidence(evidence, row, case, proof, *, _body_digest=None):
             raise ValidationError("Invalid selection page references")
     elif not isinstance(evidence.page_metadata, dict) or (evidence.page_metadata and not valid_metadata(evidence.page_metadata)):
         raise ValidationError("Invalid selection page metadata")
+    # ``_reason`` lets a caller that already decrypted and validated this same action pass it.
     try:
-        reason = unseal(evidence.action.encrypted_reason)["reason"]
+        reason = _reason if _reason is not None else unseal(evidence.action.encrypted_reason)["reason"]
     except (InvalidToken, ValueError, TypeError, KeyError) as error:
         raise ValidationError("Selection review evidence unavailable") from error
     signature_input = {

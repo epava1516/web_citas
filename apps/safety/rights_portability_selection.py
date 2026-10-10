@@ -12,7 +12,12 @@ from .rights_portability import DATASETS, checked_assessment
 
 
 def row_reference(dataset, index, row):
-    return fingerprint(canonical({"dataset": dataset, "index": index, "row": row}))
+    from .rights_inspection_source import shared_row_reference
+
+    return shared_row_reference(
+        dataset, index, row,
+        lambda: fingerprint(canonical({"dataset": dataset, "index": index, "row": row})),
+    )
 
 
 def pointer_value(row, path):
