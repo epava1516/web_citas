@@ -67,11 +67,12 @@ def records(source, secret):
         value = aes.decrypt(prefix + number.to_bytes(4, 'big'), encrypted,
                             MAGIC + number.to_bytes(4, 'big'))
         number += 1
-        yield value[:1], value[1:]
         if value[:1] == b'F':
             if source.read(1):
                 raise ValueError('Baseline trailing data')
+            yield value[:1], value[1:]
             return
+        yield value[:1], value[1:]
 
 
 def metadata(source, secret):

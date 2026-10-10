@@ -26,6 +26,8 @@ def test_aead_roundtrip_preserves_original_expiry_and_authenticated_end(baseline
     assert output.getvalue() == payload
     with pytest.raises(ValueError):
         codec.decode(io.BytesIO(stored.getvalue()[:-1]), io.BytesIO(), secret)
+    with pytest.raises(ValueError, match='trailing data'):
+        codec.decode(io.BytesIO(stored.getvalue() + b'trailing'), io.BytesIO(), secret)
     from cryptography.exceptions import InvalidTag
     corrupt = bytearray(stored.getvalue())
     corrupt[-20] ^= 1
