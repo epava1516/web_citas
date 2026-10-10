@@ -184,3 +184,29 @@ Commit `1e6aae3`: transmite exclusivamente un marcador de perfil validado al GET
 Preparada captura nueva tras SHA, conservando1509páginas/383lotes/123comparables, JSON16MiB/originales64MiB, 4CPU/8GiB/20GiB/swap0 y todos los límites originales. Fuentes congeladas desde lanzamiento hasta terminal de captura y posterior reutilización; sin cargas competidoras. Doscasos/N3/CR09 íntegros siguen pendientes.
 
 [Evidencia de instrumentación](../../docs/evidencias/mod08-perfil-forwardauth-integrado-20261010.json).
+
+
+## Medición posterior a SHA y perfil real de forwardauth — 2026-10-10
+
+HEAD medido `cfb0df3`: captura `20261010-215201-1472feb2`, BASELINE_CAPTURED_DIAGNOSTIC_ONLY, 1PASS/0FAIL/0ERROR/0skips1552,171s; reutilización `20261010-222157-124a7967`, PROFILE_DIAGNOSTIC_NOT_CAPACITY, 1PASS/0FAIL/0ERROR/0skips245,752s. HIT_DIAGNOSTIC_REUSED_PREPARATION, fuentes e inputs privados sin cambios, archivos dentro del techo y retirada propia verificada independientemente. PostgreSQL/Redis/RustFS/Caddy reales; datos sintéticos e identidad simulada. Ambos procesos terminales; termina la congelación.
+
+| TCP p95, misma población | Anterior (s) | Nuevo (s) | Mejora | Objetivo (s) | Reducción pendiente | n |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Recorrido, lotes sin perfil | 4.375794 | 3.880241 | 11.32% | 2 | 48.46% | 383 |
+| Lotes completos comparables de cuatro páginas | 3.862194 | 3.264592 | 15.47% | 2 | 38.74% | 123 |
+| Descarga JSON, dos HTTP hasta EOF | 6.735796 | 6.749283 | -0.20% | 5 | 25.92% | 3 |
+| Descarga binaria, dos HTTP hasta EOF | 6.428605 | 6.545222 | -1.81% | 5 | 23.61% | 8 |
+
+Comparación con captura204101/use211629. Recorrido1509páginas,383lotes sin perfil (incluye parciales);123sólo lotes de cuatro páginas, excluyendo el perfilado. Nueva reducción del listado; las descargas empeoran ligeramente y siguen fuera de5s. Sin atribución causal aislada ni aceptación de dos casos. JSON tres paquetes<=8MiB y ocho binarios<8MiB, dos autorizaciones frescas y EOF.
+
+| Operación, una muestra (no p95) | Anterior (s) | Nuevo (s) | Mejora | Objetivo (s) | Reducción pendiente | n |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| generation | 32.589223 | 32.913815 | -1.00% | 120 | 0.00% | 1 |
+| final_preparation | 11.465790 | 10.709931 | 6.59% | 30 | 0.00% | 1 |
+| final_inspection | 2.815197 | 3.105194 | -10.30% | 30 | 0.00% | 1 |
+| final_approval | 3.090912 | 3.760574 | -21.67% | 5 | 0.00% | 1 |
+| closure | 11.075993 | 11.678849 | -5.44% | 30 | 0.00% | 1 |
+
+Marcador comprobado ahora en Caddy real: archivos `capacity-profile-json_download_proxy-101.txt` y `capacity-profile-binary_download_proxy-100.txt`, además de sus POST. Son muestras adicionales perfiladas, excluidas de p95. El GET mantiene cierre/revisión/binding/sello SQL y verificación física frescos; los tiempos acumulados de hilos y funciones se solapan y no se suman. Ninguna autorización cacheada entre requests. N3, dos casos y criterios originales de memoria/latencia siguen pendientes; porcentajes contractuales sin incremento. Candidato nativo canónico permanece borrador no construido/no probado/no integrado.
+
+[Evidencia saneada de captura y descargas](../../docs/evidencias/mod08-medicion-sha-forwardauth-20261010.json).

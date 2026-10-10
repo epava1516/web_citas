@@ -163,3 +163,8 @@ Commit `1e6aae3`: transmite exclusivamente un marcador de perfil validado al GET
 Preparada captura nueva tras SHA, conservando1509páginas/383lotes/123comparables, JSON16MiB/originales64MiB, 4CPU/8GiB/20GiB/swap0 y todos los límites originales. Fuentes congeladas desde lanzamiento hasta terminal de captura y posterior reutilización; sin cargas competidoras. Doscasos/N3/CR09 íntegros siguen pendientes.
 
 [Evidencia de instrumentación](evidencias/mod08-perfil-forwardauth-integrado-20261010.json).
+
+
+### MOD-08: medición SHA y forwardauth real (2026-10-10)
+
+Listado p95:383lotes4,375794→3,880241s (11,32%);123lotes completos comparables3,862194→3,264592s (15,47%). Objetivo2s, pendientes48,46%/38,74%. Descargas completas JSON6,735796→6,749283s y binaria6,428605→6,545222s: no mejoran, objetivo5s pendiente25,92%/23,61%. Un caso sintético, no aceptación de dos casos/N3. Capture215201/use222157 terminales sin errores, fuentes/inputs estables y retirada propia comprobada. Propagación real del marcador de perfil por Caddy verificada; dos autorizaciones frescas conservadas. Cuadros completos y muestras en [coordinación](../.ai/tasks/mod08-coordinacion.md); [evidencia saneada](evidencias/mod08-medicion-sha-forwardauth-20261010.json).

@@ -1,0 +1,269 @@
+{
+  "schema": 1,
+  "date": "2026-10-10",
+  "capture": {
+    "run_id": "20261010-215201-1472feb2",
+    "head": "cfb0df3a2d704e7cb0f67409cd97802450bc0208",
+    "result": "BASELINE_CAPTURED_DIAGNOSTIC_ONLY",
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-capacity-20261010-215201-1472feb2-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-215201-1472feb2-caddy": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-215201-1472feb2-objects": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-215201-1472feb2-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-215201-1472feb2-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-215201-1472feb2-delivery": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-215201-1472feb2-net": {
+        "absent": true
+      },
+      "labelled_remaining": []
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "1552.171",
+        "timestamp": "2026-10-10T23:54:19.021220+02:00",
+        "hostname": "87beab38bbe1"
+      }
+    ],
+    "owned_memory_upper_bound_bytes": 1900572672,
+    "owned_storage_ceiling_bytes": 5939134496,
+    "required_coverage_pages": 1509,
+    "measured_batch_count": 384,
+    "whole": {
+      "samples": 383,
+      "p95_seconds": 3.880240549799055,
+      "median_seconds": 3.326401984784752,
+      "min_seconds": 1.5370617187581956,
+      "max_seconds": 4.204385494813323
+    },
+    "matched123": {
+      "samples": 123,
+      "p95_seconds": 3.2645923728123307,
+      "median_seconds": 2.9040194610133767,
+      "min_seconds": 2.432046958245337,
+      "max_seconds": 3.473392935935408
+    },
+    "comparison": [
+      {
+        "metric": "whole",
+        "previous_seconds": 4.375794369261712,
+        "new_seconds": 3.880240549799055,
+        "previous_samples": 383,
+        "new_samples": 383,
+        "target_seconds": 2,
+        "improvement_percent": 11.324888183588644,
+        "remaining_reduction_percent": 48.456803790074986
+      },
+      {
+        "metric": "matched123",
+        "previous_seconds": 3.8621944156475365,
+        "new_seconds": 3.2645923728123307,
+        "previous_samples": 123,
+        "new_samples": 123,
+        "target_seconds": 2,
+        "improvement_percent": 15.473121715831894,
+        "remaining_reduction_percent": 38.73660869099346
+      }
+    ],
+    "error_count": 0,
+    "scope": "One full-sized synthetic case; whole unprofiled TCP batch population includes final partial batches, matched123 uses only four-page batches; diagnostic only, not two-case acceptance",
+    "previous_run_id": "20261010-204101-c0279589"
+  },
+  "use": {
+    "run_id": "20261010-222157-124a7967",
+    "head": "cfb0df3a2d704e7cb0f67409cd97802450bc0208",
+    "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+    "metrics": {
+      "generation": [
+        32.91381451673806
+      ],
+      "final_preparation": [
+        10.709931404795498
+      ],
+      "final_inspection": [
+        3.1051938850432634
+      ],
+      "final_approval": [
+        3.760573711246252
+      ],
+      "closure": [
+        11.678849426098168
+      ],
+      "json_download": [
+        6.444831354077905,
+        6.749282954726368,
+        6.087056329008192
+      ],
+      "json_download_bytes": [
+        8388608,
+        8388608,
+        16476
+      ],
+      "binary_download": [
+        5.980233639944345,
+        6.013907651882619,
+        6.215708545874804,
+        6.545222457032651,
+        6.267880868166685,
+        6.042328357696533,
+        6.013687959406525,
+        6.4063306101597846
+      ],
+      "binary_download_bytes": [
+        8387222,
+        8387222,
+        8387218,
+        8387218,
+        8387220,
+        8387218,
+        8387216,
+        8387220
+      ]
+    },
+    "comparison": [
+      {
+        "metric": "generation",
+        "previous_seconds": 32.589223199058324,
+        "new_seconds": 32.91381451673806,
+        "improvement_percent": -0.9960081456900527,
+        "samples": 1,
+        "target_seconds": 120,
+        "remaining_reduction_percent": 0
+      },
+      {
+        "metric": "final_preparation",
+        "previous_seconds": 11.465790174901485,
+        "new_seconds": 10.709931404795498,
+        "improvement_percent": 6.592295503196599,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0
+      },
+      {
+        "metric": "final_inspection",
+        "previous_seconds": 2.815197256859392,
+        "new_seconds": 3.1051938850432634,
+        "improvement_percent": -10.301112203675178,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0
+      },
+      {
+        "metric": "final_approval",
+        "previous_seconds": 3.0909123281016946,
+        "new_seconds": 3.760573711246252,
+        "improvement_percent": -21.665492646173966,
+        "samples": 1,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 0
+      },
+      {
+        "metric": "closure",
+        "previous_seconds": 11.075992852915078,
+        "new_seconds": 11.678849426098168,
+        "improvement_percent": -5.4429122624833015,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0
+      },
+      {
+        "metric": "json_download",
+        "previous_seconds": 6.735795977991074,
+        "new_seconds": 6.749282954726368,
+        "improvement_percent": -0.20022840328539626,
+        "samples": 3,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 25.91805628035472
+      },
+      {
+        "metric": "binary_download",
+        "previous_seconds": 6.428605187218636,
+        "new_seconds": 6.545222457032651,
+        "improvement_percent": -1.8140368931953255,
+        "samples": 8,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 23.608402421408215
+      }
+    ],
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-capacity-20261010-222157-124a7967-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-222157-124a7967-caddy": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-222157-124a7967-objects": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-222157-124a7967-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-222157-124a7967-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-222157-124a7967-delivery": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261010-222157-124a7967-net": {
+        "absent": true
+      },
+      "labelled_remaining": []
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "245.752",
+        "timestamp": "2026-10-11T00:24:11.537874+02:00",
+        "hostname": "22eaeedc8d90"
+      }
+    ],
+    "scope": "One synthetic full-size case; diagnostic only; full TCP delivery includes two fresh authorization validations; no two-case capacity acceptance",
+    "error_count": 0,
+    "baseline_hit": "HIT_DIAGNOSTIC_REUSED_PREPARATION",
+    "baseline_inputs_unchanged": true,
+    "server_profile_names": [
+      "capacity-profile-binary_download-101.txt",
+      "capacity-profile-binary_download_proxy-100.txt",
+      "capacity-profile-json_download-100.txt",
+      "capacity-profile-json_download_proxy-101.txt"
+    ]
+  },
+  "acceptance_eligible": false,
+  "scope": "Un caso sintético completo; no N3 ni dos casos simultáneos. PostgreSQL/Redis/RustFS/Caddy reales; identidad simulada. Sin claves, capturas privadas, rutas privadas ni payloads.",
+  "forwardauth_profile_propagation_verified": true,
+  "original_limits_unchanged": true
+}
