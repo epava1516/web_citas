@@ -289,7 +289,17 @@ def test_portability_independent_review_requires_read_and_resolved_datasets(
         selected_decision, decision_body = selection_record(
             reviewer, case.pk, case.version, saved.pk, decision_key, purpose, "review", "approved"
         )
-        assert decision_body is None and selected_decision.read_id == independent_read.pk
+        # A decision binds the reviewer's latest current inspection (here the paginated HTTP one
+        # whenever the selection has rows), never an arbitrary earlier read.
+        from apps.safety.models import RightsPortabilitySelectionRead
+
+        latest_read = (
+            RightsPortabilitySelectionRead.objects.filter(selection=saved, action__actor=reviewer)
+            .order_by("-pk")
+            .first()
+        )
+        assert decision_body is None and selected_decision.read_id == latest_read.pk
+        assert latest_read.pk >= independent_read.pk
         response = client.post(
             selection_path,
             {
