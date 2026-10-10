@@ -1,5 +1,7 @@
 # MOD-08 pieza 10 — baseline de diagnóstico, diseño y restricción
 
+Actualización16:56UTC: implementación privada AEAD/captura/restauración en rama integrada, con22PASS N2 (1caso real PG/media/RustFS positivo/adversariales y21guards); captura a escala1500 y ganancia temporal todavía pendientes. Las decisiones siguientes describen el diseño original y sus restricciones vigentes; no son aceptación de capacidad.
+
 Inspección: `test_capacity_delivery_profile` construye un expediente mediante
 `prepare_target` y ejecuta `run_case(diagnostic=True, full=...)`. El recorrido hace
 31 lecturas de selección, 16 lecturas binarias y todas las páginas de cobertura
@@ -10,8 +12,9 @@ de entrega completa; el perfil declara overhead y no emite aceptación de SLO.
 Decisión en este corte: **no cachear autoridad ni insertar estados aprobados**.
 La reutilización de una aprobación previa puede servir para perfilar etapas
 posteriores de la misma versión, pero no equivale a probar el recorrido completo.
-No se implementa un atajo en `run_case` ni se marca terminada la pieza10. El diseño
-siguiente fija cuándo una futura caché propietaria sería legítima y cómo verificarla.
+El límite implementado en `run_case` captura después de todas las lecturas y
+aprobaciones reales y antes de generación. La pieza10 sigue pendiente de captura
+y reutilización a escala; las restricciones siguientes permanecen obligatorias.
 
 ## Snapshot aprobado, únicamente diagnóstico
 

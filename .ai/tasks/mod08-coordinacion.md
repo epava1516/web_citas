@@ -1,5 +1,9 @@
 # MOD-08 — coordinación de frentes en paralelo
 
+## Estado vigente16:56UTC — bloqueos correctivos resueltos
+
+Probe real163801 READY_NOT_CAPACITY: generación1intento4,009s,4.3MB realesS3/AEAD/SHA, binding/Caddy/Beat PASS, fuentes iguales/retirada. Baseline16534522PASS91,79s:1PGpositivo/adversariales+21guards. Negativos y correctivas preservados en docs/evidencias/mod08-generacion-real-y-baseline-n2-20261010.json/tar.gz. Propiedad writers terminada; raíz prepara N2 conjunta finita antes de master y perfil grande, sin cargas simultáneas. Aún no aceptación capacidad/N3/CR09.
+
 ## Estado vigente16:37 UTC — Codex
 
 Worker real localizado: AttributeError en recording.wrapper175 por SQL compuesto de cadena de evidencia. Correctiva4e7fc34 con fallback completo y regresiones SQL/Composed/iterator; N2 conjunta48PASS/1FAIL, único fallo baseline ObjectInUse. Agente canonical_tests corrige exclusivamente restore en worktree aislado; raíz repite probe real sin baseline, fuente congelada/sin cargas competidoras. N2 jobs/preflight anterior48PASS. Negativos/fuentes/retirada archivados en docs/evidencias/mod08-sql-composable-diagnostico-20261010.json y tar.gz. No rendimiento/N3/CR09 aceptado ni integración master todavía.
