@@ -65,3 +65,7 @@ Hallazgos para Codex (no aplicados):
 1. **Causa invisible**: `rights_portability_jobs.run()` captura `except Exception:` y reintenta sin registrar clase de excepción. Propuesta: guardar en el job solo el nombre de clase (sin mensaje ni datos) y/o `logger.warning` con job id + clase. Sin eso el ensayo no puede atribuir el fallo.
 2. **Hipótesis principal (no probada)**: `generate_portability_export` hereda `CELERY_TASK_SOFT_TIME_LIMIT=90`/`TIME_LIMIT=120`. El objetivo admite generar ≤120 s y el perfil completo (cProfile) añade sobrecoste; `SoftTimeLimitExceeded` es `Exception` → reintento → `failed`. Además el límite blando de 90 s rechaza generaciones válidas de 90–120 s: desalineado con el contrato. Propuesta: `soft_time_limit`/`time_limit` propios de la tarea por encima de 120 s con margen (la medición del objetivo la hace el test, no el worker), o tratar `SoftTimeLimitExceeded` como no reintentable con su clase registrada.
 3. Verificación sugerida: rerun del perfil con (1) aplicado para leer la clase real antes de cambiar límites.
+
+## 2026-10-10 15:51 UTC — Claude lanza validación dirigida de `claude/async-generation-limits` (≈5 min, 4 workers)
+
+Rama desde `codex/mod08-integration`@702914e (worktree `../web_modelos_claude_asyncgen`): registro de clase de excepción en jobs y límites propios 240/300 s para `generate_portability_export`. **Codex: no medir capacidad hasta su cierre aquí.**
