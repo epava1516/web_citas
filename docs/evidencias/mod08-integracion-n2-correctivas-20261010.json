@@ -1,0 +1,38 @@
+{
+  "scope": "MOD-08 integración funcional con correctivas dirigidas, no N3 ni capacidad",
+  "runs": [
+    {
+      "id": "20261010-133425-2d10e5dc",
+      "pass": 590,
+      "fail": 14,
+      "skip": 0,
+      "seconds": 1025.82
+    },
+    {
+      "id": "20261010-135235-80c463e7",
+      "pass": 35,
+      "fail": 2,
+      "skip": 0,
+      "seconds": 273.38
+    },
+    {
+      "id": "20261010-135818-213b34e3",
+      "pass": 6,
+      "fail": 0,
+      "skip": 0,
+      "seconds": 71.64
+    }
+  ],
+  "head_corrective": "8a2a541",
+  "application_and_schema_hashes_equal": true,
+  "application_files_verified": 462,
+  "remaining_failed_cases": 0,
+  "limitations": [
+    "No se suman versiones como una batería604PASS ni N3",
+    "Dos correctivas posteriores cambian exclusivamente expectativas de prueba; código y esquema iguales",
+    "Segunda ejecución dirigida conservó warning de teardown PostgreSQL por sesiones; PG/Redis propios retirados por runner, ninguno normal tocado",
+    "Capacidad pendiente, cache diagnóstico aprobado pieza10 no implementado, pieza13 condicional"
+  ],
+  "sources_unchanged": true,
+  "owned_pg_redis_absent": true
+}
