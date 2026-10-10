@@ -1,0 +1,135 @@
+{
+  "run_id": "20261010-145630-dc465781",
+  "head": "702914e80c63619d9d4c0b65e6b3384b7fe79c7a",
+  "result": "ERROR_DIAGNOSTIC_PERFORMANCE_INVALID_BY_CONCURRENT_LOAD",
+  "tests": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "1",
+      "time": "2414.213",
+      "timestamp": "2026-10-10T16:58:24.361447+02:00",
+      "hostname": "13fe61bc2d1d"
+    }
+  ],
+  "failure": [
+    "AssertionError: ('failed', 3)"
+  ],
+  "generation_seconds": [
+    253.6056078937836
+  ],
+  "generation_violation": [
+    {
+      "stage": "generation",
+      "value": 253.6056078937836,
+      "maximum": 120
+    }
+  ],
+  "cause": "Unclassified technical exception: 3 attempts exhausted. Original worker suppresses exception class; task time limit 90s is a hypothesis, not demonstrated cause.",
+  "concurrent_load": [
+    {
+      "source": ".ai/tasks/mod08-revision-claude.md",
+      "interval_utc": "2026-10-10 14:56:30\u201315:00:16",
+      "run": "20261010-145515-72dd0e3c"
+    },
+    {
+      "source": ".ai/tasks/mod08-revision-claude.md",
+      "interval_utc": "2026-10-10 15:00:44\u201315:00:54",
+      "run": "20261010-150044-5b7e9ae9"
+    }
+  ],
+  "scope": "One synthetic1500/16MiB/64MiB case; reduced populations; cProfile overhead included; diagnostic of cost attribution only, never compared to limits.",
+  "fingerprint_equivalence": {
+    "samples": [
+      {
+        "round": 0,
+        "variant": "old",
+        "seconds": 3.9053775151260197,
+        "digest": "131b26c133c427486e22f86ceb55036ffb809394fc8aef39f48e2ac40f8c5cef",
+        "count": 1535
+      },
+      {
+        "round": 0,
+        "variant": "new",
+        "seconds": 0.09628609800711274,
+        "digest": "131b26c133c427486e22f86ceb55036ffb809394fc8aef39f48e2ac40f8c5cef",
+        "count": 1535
+      },
+      {
+        "round": 1,
+        "variant": "new",
+        "seconds": 0.08742120489478111,
+        "digest": "131b26c133c427486e22f86ceb55036ffb809394fc8aef39f48e2ac40f8c5cef",
+        "count": 1535
+      },
+      {
+        "round": 1,
+        "variant": "old",
+        "seconds": 3.9110119161196053,
+        "digest": "131b26c133c427486e22f86ceb55036ffb809394fc8aef39f48e2ac40f8c5cef",
+        "count": 1535
+      }
+    ],
+    "counts": {
+      "municipalities_total": 2,
+      "municipalities_scoped": 0,
+      "revisions_scoped": 1500,
+      "travel_through_scoped": 0
+    },
+    "limit": "Equality observed on one real PG snapshot, timing contaminated; no clean speedup or p95 claim."
+  },
+  "profile_files_retained": [
+    "capacity-profile-coverage_page_read-102.txt",
+    "capacity-profile-coverage_page_save-102.txt",
+    "capacity-profile-binary_inspection-102.txt",
+    "capacity-profile-selection_page_read-102.txt",
+    "capacity-profile-binary_page_save-103.txt"
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-capacity-20261010-145630-dc465781-app": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-145630-dc465781-caddy": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-145630-dc465781-objects": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-145630-dc465781-redis": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-145630-dc465781-pg": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-145630-dc465781-delivery": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261010-145630-dc465781-net": {
+      "absent": true
+    },
+    "labelled_remaining": []
+  },
+  "memory_upper_bytes": 2077110272,
+  "memory_verdict": "NOT_PROVEN",
+  "storage_ceiling_bytes": 5939134464,
+  "application_rss_peaks": {
+    "98": 36388864,
+    "100": 139137024,
+    "101": 138117120,
+    "102": 258600960,
+    "103": 227954688,
+    "161": 329760768,
+    "162": 316448768
+  },
+  "raw_archive": "mod08-perfil-generacion-negativo-20261010.tar.gz",
+  "acceptance": "No throughput/capacity/N3/global phase acceptance. Prior two overlapping diagnostics also ineligible for performance acceptance; preserve failures for functional debugging."
+}

@@ -26,3 +26,9 @@ Hipótesis finitas de revisión3/4: `xmin` aislado no distingue dos UPDATE dentr
 
 Reglas: sin mediciones de capacidad mientras haya pruebas; garantías y objetivos intactos; integración solo tras N2 conjunta PASS.
 Siguiente paso: cerrar N2 individuales y corregir fallos; reconciliar modelos/migraciones/config/censos, N2 conjunta y luego perfil/capacidad sin otras cargas. No sumar baterías individuales como una N3.
+
+## Continuación efectiva 2026-10-10 tras diagnóstico terminal
+
+Codex sigue dirección y ejecución por instrucción posterior del usuario. Master6437a74 se incorporó a la rama integrada preservando preparación BF/GS01 y correctiva de aislamiento Redis; no acepta fases. Perfil702914e falló en generación3intentos y recibió cargas Claude solapadas: performance INVALID; originales conservados. Se mantiene una sola ventana de cargas, incluidas externas al equipo nativo.
+
+Propiedad vigente: raíz integración/evidencias/sello; async_generation p12proyección pura y pruebas en web_modelos_mod08_batch_projection; canonical_tests pieza10 en .claude/worktrees/mod08-p10-diagnostic-baseline; storage_crypto revisión independiente sólo lectura. Correctiva Claude431d34d preparada fuera de integración, N2 Claude vivo20261010-155106-950fc30a antes de nueva carga. Codex comprueba terminal/cleanup y revisa cada diff antes de adoptar. No cargas de capacidad hasta N2 correctivas y coordinación confirmada. Pieza13 condicionada al perfil, sin implementación nativa todavía.
