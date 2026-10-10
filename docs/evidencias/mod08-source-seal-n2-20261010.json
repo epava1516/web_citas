@@ -1,0 +1,44 @@
+{
+  "id": "20261010-124250-bb8366fc",
+  "profile": "focused",
+  "result": "PASS",
+  "head": "b8b32a7d26d6edafa3df5f443ddf47089c554726",
+  "selection": [
+    "tests/test_rights_source_fingerprint.py",
+    "tests/test_rights_validation_seal.py",
+    "tests/test_portability_source_reads.py"
+  ],
+  "workers": 2,
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "24",
+      "time": "241.787",
+      "timestamp": "2026-10-10T14:43:10.385101+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [],
+  "cleanup": {
+    "web-modelos-ci-pg-20261010-124250-bb8366fc": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261010-124250-bb8366fc": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "raw_sha256": {
+    "result.json": "00e7340781da8b8747f2a44e788b0c21f2c0d454b6bfb918ee3ec8193ddee6e5",
+    "pytest.xml": "a19db25000b0b3dd640af420b0dd7a49dfd53be16452fbcd373858aad459c887",
+    "source-hashes.json": "5735cef15b09f30a7a5bfccb1833164913593da7686db52af3a11352baa1817b"
+  },
+  "scope": "PG17/Redis7.4 own, source/seal/source_reads N2 only; no capacity or joint integration acceptance."
+}

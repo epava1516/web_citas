@@ -21,8 +21,14 @@ def state(monkeypatch):
         rows["calls"] += 1
         return deepcopy(rows["source"])
 
+    def rows_fingerprint(*args):
+        # Fake row versions: any change to the fake database rows changes the fingerprint.
+        rows["fingerprints"] = rows.get("fingerprints", 0) + 1
+        return repr(rows["source"])
+
     monkeypatch.setattr(module.transaction, "get_connection", lambda: connection)
     monkeypatch.setattr(module, "source_copy", copy)
+    monkeypatch.setattr(module, "source_fingerprint", rows_fingerprint)
     return case, person, listing, rows, connection
 
 
@@ -32,9 +38,19 @@ def test_reuse_fresh_exit_and_expired_context(state):
         for _ in range(8):
             assert module.shared_source(context, person, listing, case) == rows["source"]
         assert rows["calls"] == 1
-    assert rows["calls"] == 2
+    # Unchanged row versions: the exit needs no second full copy, only a second fingerprint.
+    assert rows["calls"] == 1 and rows["fingerprints"] == 2
     with pytest.raises(ValidationError):
         module.shared_source(context, person, listing, case)
+
+
+def test_changed_versions_with_identical_content_fall_back_to_full_comparison(state, monkeypatch):
+    case, person, listing, rows, _ = state
+    versions = iter(["before", "after"])
+    monkeypatch.setattr(module, "source_fingerprint", lambda *args: next(versions))
+    with module.inspection_source(person, listing, case):
+        pass
+    assert rows["calls"] == 2  # Fingerprint differed; the full copy proved equal content.
 
 
 @pytest.mark.parametrize("change", ["database", "projection"])

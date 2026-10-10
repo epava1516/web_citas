@@ -175,6 +175,12 @@ runpy.run_path(sys.argv[0], run_name='__main__')
         "-e", f"CAPACITY_RUN_ID={run_id}", "-e", f"CAPACITY_CONTROLLER_NAME={name}",
         "-e", f"CAPACITY_ARCHIVE={archive}",
     ]
+    if (ROOT / ".git").is_file():
+        # A worktree's .git points into the main repository; git inside the controller needs it.
+        common = Path(subprocess.check_output([str(programs["git"]), "rev-parse", "--git-common-dir"],
+                                              cwd=ROOT, text=True).strip())
+        common = common if common.is_absolute() else (ROOT / common).resolve()
+        command += ["--mount", f"type=bind,src={common},dst={common},readonly"]
     mounts = {f"native/{key}": path for key, path in programs.items()}
     mounts.update({f"lib/{key}": path for key, path in libraries.items()})
     for target, source in mounts.items():

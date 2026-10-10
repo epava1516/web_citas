@@ -68,6 +68,10 @@ def test_target_source_cost_attribution(record_property):
                 "count": len(log), "db_seconds": sum(item[0] for item in log),
                 "slowest": sorted(log, reverse=True)[:8],
             })
+        from apps.safety.rights_source_fingerprint import source_fingerprint
+
+        for _ in range(5):
+            timed(results, "source_fingerprint", source_fingerprint, person, listing)
         profile = cProfile.Profile()
         profile.enable()
         source_copy(person, listing)
