@@ -27,6 +27,7 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_variables
 from psycopg.types.json import Jsonb
 
+from .canonical_kernel_loader import kernel_identity
 from .crypto import seal, unseal
 from .rights import fingerprint
 
@@ -56,7 +57,7 @@ def rule_version():
     values = sorted(
         (name, repr(getattr(settings, name))) for name in dir(settings) if name.isupper()
     )
-    return fingerprint(repr((_code_version(), values)))
+    return fingerprint(repr((_code_version(), kernel_identity(), values)))
 
 
 @sensitive_variables()

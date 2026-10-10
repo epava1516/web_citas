@@ -49,6 +49,8 @@ RIGHTS = [
 
 
 def hashes():
+    from canonical_artifacts import artifact_fingerprints
+
     files = (
         subprocess.check_output(
             ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"], cwd=ROOT
@@ -56,11 +58,13 @@ def hashes():
         .decode()
         .split("\0")
     )
-    return {
+    result = {
         name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
         for name in sorted(set(files))
         if name and (ROOT / name).is_file() and not name.startswith("docs/")
     }
+    result.update(artifact_fingerprints(ROOT))
+    return result
 
 
 LABEL = "web-modelos-local-ci-run"

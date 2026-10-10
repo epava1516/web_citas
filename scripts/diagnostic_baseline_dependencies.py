@@ -6,6 +6,8 @@ import platform
 import re
 import sys
 
+from apps.safety.canonical_kernel_loader import artifact_fingerprints, kernel_identity
+
 
 def fingerprint(root, *, distributions=None, runtime=None):
     files = {}
@@ -32,5 +34,7 @@ def fingerprint(root, *, distributions=None, runtime=None):
         runtime = (platform.python_implementation(), platform.python_version(), sys.implementation.cache_tag)
     if len(runtime) != 3 or any(not isinstance(value, str) or not value for value in runtime):
         raise ValueError('Diagnostic Python runtime metadata missing')
-    identity = {'files': files, 'installed': sorted(installed.items()), 'python': list(runtime)}
+    identity = {'files': files, 'installed': sorted(installed.items()), 'python': list(runtime),
+                'canonical_artifacts': artifact_fingerprints(root),
+                'canonical_runtime': kernel_identity()}
     return hashlib.sha256(json.dumps(identity, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
