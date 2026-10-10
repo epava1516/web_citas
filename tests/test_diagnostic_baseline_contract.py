@@ -129,3 +129,41 @@ def test_private_input_ram_reserves_full_rounded_bytes_without_changing_cpu(base
     with pytest.raises(ValueError):
         reserve_private_inputs(allocations, source, key)
     assert reserve_private_inputs(allocations, None, key)[1] == 1
+
+
+@pytest.mark.parametrize('flag', ['CAPACITY_DELIVERY_COMPLETE', 'CAPACITY_SELECTION_COMPLETE', 'CAPACITY_PREFLIGHT_ONLY'])
+def test_helper_acceptance_guard_precedes_owned_database(flag):
+    from types import SimpleNamespace
+    from diagnostic_baseline_guards import require_diagnostic
+    called = []
+    def database_spy():
+        called.append(True)
+        pytest.fail('Acceptance reached the database ownership guard')
+    with pytest.raises(ValueError, match='acceptance or preflight'):
+        require_diagnostic(SimpleNamespace(**{flag: True}), database_spy)
+    assert not called
+
+
+@pytest.mark.parametrize(('full', 'profile'), [(False, False), (True, False), (False, True)])
+def test_verified_helper_requires_both_diagnostic_flags_before_database(full, profile):
+    from types import SimpleNamespace
+    from diagnostic_baseline_guards import require_diagnostic
+    called = []
+    with pytest.raises(ValueError, match='full diagnostic'):
+        require_diagnostic(SimpleNamespace(CAPACITY_ENVIRONMENT_VERIFIED=True,
+                           CAPACITY_DELIVERY_PROFILE_FULL=full, CAPACITY_DELIVERY_PROFILE=profile),
+                           lambda: called.append(True))
+    assert not called
+
+
+def test_local_owned_n2_and_full_diagnostic_reach_ownership_guard():
+    from types import SimpleNamespace
+    from diagnostic_baseline_guards import require_diagnostic
+    calls = []
+    def owned():
+        calls.append(True)
+        return 'verified-own-context'
+    assert require_diagnostic(SimpleNamespace(), owned) == 'verified-own-context'
+    assert require_diagnostic(SimpleNamespace(CAPACITY_ENVIRONMENT_VERIFIED=True,
+                              CAPACITY_DELIVERY_PROFILE_FULL=True, CAPACITY_DELIVERY_PROFILE=True), owned) == 'verified-own-context'
+    assert calls == [True, True]

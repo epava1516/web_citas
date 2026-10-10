@@ -77,7 +77,8 @@ def policy():
 
 
 def _guard():
-    _owned_database()
+    from diagnostic_baseline_guards import require_diagnostic
+    require_diagnostic(settings, _owned_database)
     connections.close_all()
     config = connection.settings_dict
     with psycopg.connect(dbname='postgres', user=config['USER'], password=config['PASSWORD'],
