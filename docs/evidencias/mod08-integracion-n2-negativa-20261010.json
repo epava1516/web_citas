@@ -1,0 +1,23 @@
+{
+  "scope": "MOD-08 integración funcional, PostgreSQL/Redis reales; no capacidad ni N3",
+  "head": "5ca954b",
+  "collection_negative": "20261010-131228-d24a1b28",
+  "functional_negative": "20261010-131345-824b6f67",
+  "functional": {
+    "passed": 563,
+    "failed": 39,
+    "skipped": 1,
+    "seconds": 1011.76
+  },
+  "diagnoses": [
+    "IDs aleatorios del cifrado incompatibles con xdist, corregidos con IDs explícitos",
+    "snapshot no conserva credentials.json sintético; conexiones vivas requieren fallback seed sin terminarlas",
+    "snapshot DROP/CREATE elimina permisos del rol fixture provisionado antes",
+    "pruebas deben inyectar revocación en la huella final y exigir una copia más dos huellas reales",
+    "heading de cobertura ahora incluye coordenadas; selectores exactos deben reflejarlas",
+    "diagnóstico de capacidad seleccionado por error, debe excluirse explícitamente"
+  ],
+  "sources_unchanged": true,
+  "owned_pg_redis_absent": true,
+  "acceptance": "NO: correctiva conjunta pendiente"
+}
