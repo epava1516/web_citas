@@ -90,12 +90,11 @@ def checked_images(source, assessment, decisions, inspected_digests):
 @sensitive_variables()
 def audited_images(actor, case, person, source, assessment, decisions):
     """Recheck current binary bytes against the preparer's existing private inspection."""
-    import hashlib
-
     from django.db import transaction
 
     from .models import RightsImageAccess
     from .rights_exports import image_contents
+    from .rights_operation_content_digests import content_digest
 
     if not transaction.get_connection().in_atomic_block:
         raise RuntimeError("Portable image evidence requires enclosing transaction")
@@ -111,7 +110,7 @@ def audited_images(actor, case, person, source, assessment, decisions):
     contents = image_contents(person, [decision["photo"] for decision in cleaned])
     for decision in cleaned:
         photo, content = next(contents)
-        digest = hashlib.sha256(content).hexdigest()
+        digest = content_digest((person.pk, photo.pk, photo.blob_id), content)
         if digest != decision["content_digest"]:
             raise ValidationError("Inspect exact portable image content first")
         verified.append((photo.pk, digest))
