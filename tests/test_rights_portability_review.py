@@ -494,7 +494,8 @@ def test_portability_independent_review_requires_read_and_resolved_datasets(
         assert current_rows["safety.RightsPortabilitySelectionRead"]["count"] == 0
         assert current_rows["safety.RightsPortabilitySelectionReview"]["count"] == 0
         assert projected_rows["safety.RightsPortabilitySelectionReview"]["count"] == int(complete)
-        assert projected_rows["safety.RightsPortabilitySelectionRead"]["count"] == 2 * int(complete)
+        # Service read, paginated HTTP read with its own key and the later second inspection.
+        assert projected_rows["safety.RightsPortabilitySelectionRead"]["count"] == 3 * int(complete)
         if complete:
             selection_digest = projected_rows["safety.RightsPortabilitySelection"]["state_digest"]
             assert saved.encrypted_selection not in str(projected)
