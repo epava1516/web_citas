@@ -8,6 +8,7 @@ import time
 from contextlib import contextmanager
 
 import pytest
+from capacity_delivery_flow import FACTS
 from capacity_target_fixture import PATHS, populate
 from django.conf import settings as runtime_settings
 from django.db import connection, transaction
@@ -84,7 +85,7 @@ def test_target_source_cost_attribution(record_property):
         timed(results, "project_selected", project_selected, source, facts, selection)
         for name in facts:
             if facts[name]["status"] == "pending":
-                facts[name] = facts["revisions"] | {"status": "excluded"}
+                facts[name] = dict(FACTS)
         omissions = {name: {} for name in facts}
         timed(results, "compile_coverage", compile_coverage, source, facts, selection, omissions,
               [], {}, allow_partial=True)
