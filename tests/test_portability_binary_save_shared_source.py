@@ -171,7 +171,7 @@ def test_grouped_binary_audit_preserves_two_real_reads_and_exact_scope(
     queries, reads = [], []
     from apps.safety import rights_exports
 
-    original_content = rights_exports.image_content
+    original_content = rights_exports._read_image_blob
 
     def counted_content(*args, **kwargs):
         reads.append(True)
@@ -182,7 +182,7 @@ def test_grouped_binary_audit_preserves_two_real_reads_and_exact_scope(
             queries.append(True)
         return execute(sql, params, many, execution_context)
 
-    monkeypatch.setattr(rights_exports, "image_content", counted_content)
+    monkeypatch.setattr(rights_exports, "_read_image_blob", counted_content)
     with transaction.atomic():
         locked, person, listing = reviewer_case(author, case.pk)
         source = rights_exports.source_copy(person, listing, locked)
@@ -212,7 +212,7 @@ def test_binary_save_rejects_audit_removed_during_real_byte_read_and_rolls_back(
     previous_rows = RightsPortabilitySelection.objects.filter(request=case).count()
     previous_accesses = RightsImageAccess.objects.filter(request=case).count()
     assert previous_accesses > 0
-    native = rights_exports.image_content
+    native = rights_exports._read_image_blob
     reads = []
 
     def removed_during_read(*args, **kwargs):
@@ -221,7 +221,7 @@ def test_binary_save_rejects_audit_removed_during_real_byte_read_and_rolls_back(
         RightsImageAccess.objects.filter(request=case).delete()
         return result
 
-    monkeypatch.setattr(rights_exports, "image_content", removed_during_read)
+    monkeypatch.setattr(rights_exports, "_read_image_blob", removed_during_read)
     with pytest.raises(ValidationError, match="Inspect exact portable image content first"):
         image_selection.save(author, key, page["token"], REASON, True, FACTS)
     assert len(reads) == 1

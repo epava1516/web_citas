@@ -95,7 +95,7 @@ def audited_images(actor, case, person, source, assessment, decisions):
     from django.db import transaction
 
     from .models import RightsImageAccess
-    from .rights_exports import image_content
+    from .rights_exports import image_contents
 
     if not transaction.get_connection().in_atomic_block:
         raise RuntimeError("Portable image evidence requires enclosing transaction")
@@ -108,8 +108,9 @@ def audited_images(actor, case, person, source, assessment, decisions):
         declared[decision["photo"]] = decision.get("content_digest")
     cleaned = checked_images(source, assessment, decisions, declared)
     verified = []
+    contents = image_contents(person, [decision["photo"] for decision in cleaned])
     for decision in cleaned:
-        photo, content = image_content(person, decision["photo"])
+        photo, content = next(contents)
         digest = hashlib.sha256(content).hexdigest()
         if digest != decision["content_digest"]:
             raise ValidationError("Inspect exact portable image content first")

@@ -994,6 +994,50 @@ def image_content(person, photo_id):
     photo = Photo.objects.select_for_update().get(pk=photo.pk)
     if photo.blob_id != blob.pk or blob.status != "ready" or not blob.derivative:
         raise ValidationError("Image unavailable for review / Imagen no disponible para revisión")
+    return photo, _read_image_blob(blob)
+
+
+@sensitive_variables()
+def image_contents(person, photo_ids):
+    """Fresh scoped metadata for one call; Blob locks precede Photo locks.
+
+    No bytes or metadata survive this iterator. Caller keeps the encompassing
+    transaction open and validates its current authority/source before returning.
+    The scoped mapping is checked again after all possible lock waits.
+    """
+    from apps.mediafiles.models import Blob, Photo
+
+    if not transaction.get_connection().in_atomic_block:
+        raise RuntimeError("Bulk image inspection requires enclosing transaction")
+    try:
+        identifiers = [uuid.UUID(str(value)) for value in photo_ids]
+    except (ValueError, TypeError, AttributeError) as error:
+        raise ValidationError("Invalid image identifiers") from error
+    if len(set(identifiers)) != len(identifiers):
+        raise ValidationError("Duplicate image identifiers")
+    if not identifiers:
+        return
+    scoped = Photo.objects.filter(pk__in=identifiers, revision__listing__person=person)
+    initial = dict(scoped.values_list("pk", "blob_id"))
+    if set(initial) != set(identifiers):
+        raise Http404
+    blobs = {blob.pk: blob for blob in Blob.objects.select_for_update()
+             .filter(pk__in=set(initial.values())).order_by("pk")}
+    photos = {photo.pk: photo for photo in scoped.select_for_update(of=("self",)).order_by("pk")}
+    if (set(photos) != set(initial) or set(blobs) != set(initial.values())
+            or any(photos[identifier].blob_id != blob_id for identifier, blob_id in initial.items())):
+        raise ValidationError("Image scope or blob changed while waiting for inspection")
+    for identifier in identifiers:
+        photo = photos[identifier]
+        blob = blobs[photo.blob_id]
+        if blob.status != "ready" or not blob.derivative:
+            raise ValidationError("Image unavailable for review / Imagen no disponible para revisión")
+        yield photo, _read_image_blob(blob)
+
+
+@sensitive_variables()
+def _read_image_blob(blob):
+    """Read physical bytes anew, with the established bounded WebP checks."""
     try:
         with blob.derivative.open("rb") as stream:
             content = stream.read(10 * 1024 * 1024 + 1)
@@ -1007,7 +1051,7 @@ def image_content(person, photo_id):
         or content[8:12] != b"WEBP"
     ):
         raise ValidationError("Image unavailable for review / Imagen no disponible para revisión")
-    return photo, content
+    return content
 
 
 @login_required
