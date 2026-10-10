@@ -117,3 +117,12 @@ negativas tardías epochs/proof/source/expiry/cipher/signature deben revertir to
 lecturas/acciones. Selección N2 prevista módulo nuevo más coverage_batch/inspection/use,
 selection_review, shared inspection source y guards binarios. Runner PG real del principal;
 no tests/imports/compilación/carga ejecutados mientras perfil fuentes congeladas.
+
+P12 ampliación offline: bytes derivados WebP realmente cambiados tras segundo child
+(encabezado válido, SHA distinto, restore finally), revocación permisos/scope/is_active,
+proof/status y proof expiry tras cuarto/último child, limpieza ContextVar en error/éxito,
+mutación de copia retornada y aislamiento entre solicitudes. Sólo afirma protección física
+antes del siguiente child, nunca un guard de bytes después del último child inexistente.
+Ruff importmodels corregido;15casos nuevos totales previstos en módulo, sin suite pesada
+ni ejecución PostgreSQL hasta coordinación principal. Fallo worker3 original sigue
+indeterminado: logging clase/runtime tareas propiedad principal/Claude, no cambiado aquí.
