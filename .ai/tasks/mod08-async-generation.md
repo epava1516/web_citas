@@ -93,3 +93,8 @@ privado al consumidor; no se registra path, rol, contraseña ni credenciales. Fi
 Canonical P10 toca consumer y debe conservar llamada sólo en fallback tras preparación;
 cache hit nunca repite diagnóstico previo. Edición offline solamente mientras N2 fuente
 congelada; no imports/procesos/tests/build ejecutados. Verificación e integración pendientes.
+
+Tras terminal N2 sourceSQL d5356ab21PASS/0FAIL/0skip106.88s, principal autorizó
+verificación offline: Ruff/py_compile PASS;6guards puros PASS0.14s (modo/size/topology/
+symlink/validconfig/flags/scrubbing). No conexión ni ejecución SQL real; no afirmar
+planes/digest/runtime perfil PASS hasta ensayo del principal. Tests sin PG personal.
