@@ -70,7 +70,7 @@ def _verify_object(reference, owner_context):
 
 
 def _verify_objects_in_order(objects):
-    """At most two physical jobs; expose failures in original iteration order.
+    """At most four physical jobs; expose failures in original iteration order.
 
     A later object's read may start speculatively, but cannot mask the earlier
     failure. Executor shutdown waits for every started job before returning.
@@ -101,15 +101,15 @@ def _verify_objects_in_order(objects):
     pending = deque()
     exhausted = False
     iterator = iter(objects)
-    queues = [Queue(maxsize=1), Queue(maxsize=1)]
+    queues = [Queue(maxsize=1) for _ in range(4)]
     dispatched = 0
-    with ThreadPoolExecutor(max_workers=2, thread_name_prefix="rights-object-verify") as executor:
+    with ThreadPoolExecutor(max_workers=4, thread_name_prefix="rights-object-verify") as executor:
         workers = []
         try:
             for queue in queues:
                 workers.append(executor.submit(worker, queue))
             while pending or not exhausted:
-                while len(pending) < 2 and not exhausted:
+                while len(pending) < 4 and not exhausted:
                     try:
                         reference, owner_context = next(iterator)
                     except StopIteration:
@@ -122,7 +122,7 @@ def _verify_objects_in_order(objects):
                         exhausted = True
                     else:
                         result = Future()
-                        queues[dispatched % 2].put((reference, owner_context, result))
+                        queues[dispatched % 4].put((reference, owner_context, result))
                         dispatched += 1
                         pending.append(result)
                 if pending:

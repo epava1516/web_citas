@@ -221,11 +221,11 @@ def test_real_rustfs_read_verify_same_negative_and_closed_body(object_store, mon
         repo.purge(ref)
 
 
-def test_real_rustfs_two_workers_use_verify_and_keep_84_gets_28_objects(object_store, monkeypatch):
+def test_real_rustfs_four_workers_use_verify_and_keep_84_gets_28_objects(object_store, monkeypatch):
     repo = object_store
     references = [repo.write(io.BytesIO(b"synthetic"), b"owned") for _ in range(28)]
     get, native = repo.client.get_object, repo.verify
-    lock, barrier = Lock(), Barrier(2, timeout=10)
+    lock, barrier = Lock(), Barrier(4, timeout=10)
     gets, active = [], [0, 0]
 
     def observed(**values):
@@ -251,7 +251,7 @@ def test_real_rustfs_two_workers_use_verify_and_keep_84_gets_28_objects(object_s
     monkeypatch.setattr(content, "repository", lambda: repo)
     try:
         content._verify_objects_in_order((ref, b"owned") for ref in references)
-        assert len(gets) == 84 and active == [0, 2]
+        assert len(gets) == 84 and active == [0, 4]
     finally:
         for ref in references:
             repo.purge(ref)
@@ -276,4 +276,4 @@ def test_mock_verify_worker_first_failure_order_and_drain(monkeypatch):
         content._verify_objects_in_order(iter([("first", b"owned"), ("second", b"owned"), ("third", b"owned")]))
     assert isinstance(rejected.value.__cause__, codec.InvalidObject)
     assert str(rejected.value.__cause__) == "first"
-    assert finished.is_set() and set(calls) == {"first", "second"}
+    assert finished.is_set() and set(calls) == {"first", "second", "third"}
