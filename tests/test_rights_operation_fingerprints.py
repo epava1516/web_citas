@@ -9,6 +9,7 @@ import pytest
 from django.db import transaction
 from django.utils.crypto import salted_hmac
 from test_reports import directory, photo_environment  # noqa: F401
+from test_rights_evidence_chain import runtime, set_role  # noqa: F401
 
 from apps.safety import rights_operation_fingerprints as memo
 from apps.safety.rights import fingerprint
@@ -170,8 +171,9 @@ def test_outside_context_uses_native_and_nonatomic_context_rejected():
 
 
 @pytest.mark.parametrize("corrupt", [False, True])
+@pytest.mark.parametrize("enforced", [False, True])
 def test_real_four_child_audits_physical_bytes_and_late_rollback(
-    request, settings, monkeypatch, corrupt
+    request, settings, monkeypatch, corrupt, enforced
 ):
     from test_rights_portability_batch_projection import REASON, prepared
 
@@ -184,6 +186,11 @@ def test_real_four_child_audits_physical_bytes_and_late_rollback(
     )
 
     case, _, coverage, reviewer = prepared(request, settings, monkeypatch, binary=True)
+    if enforced:
+        # Provision after fixture snapshots, which may replace the worker DB.
+        role = request.getfixturevalue("runtime")
+        settings.RIGHTS_EVIDENCE_ENFORCED = True
+        set_role(role)
     native_read = rights_exports._read_image_blob
     reads = []
     changed = []
