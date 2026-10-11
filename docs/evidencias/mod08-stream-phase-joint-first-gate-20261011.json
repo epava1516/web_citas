@@ -1,0 +1,37 @@
+{
+  "run_id": "20261011-024759-73a25061",
+  "head": "d4899de6b657ac2f413c2c8c27ca5d24f71a3643",
+  "result": "ERROR",
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "364",
+      "time": "418.759",
+      "timestamp": "2026-10-11T04:48:19.782121+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "cleanup": {
+    "web-modelos-ci-pg-20261011-024759-73a25061": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261011-024759-73a25061": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "skipped": [],
+  "cleanup_independently_verified": true,
+  "failure": "test_real_workers_authenticate_all_objects_with_fresh_phase_counts: missing old ciphertext_segments after streaming",
+  "fix_commit": "16fcc9a5887b31c09ab0e0b05f490039b9c3f777",
+  "production_changes_in_fix": false,
+  "retry_status": "RUNNING_NOT_ACCEPTED",
+  "scope": "Real focused functional gate; not performance acceptance"
+}
