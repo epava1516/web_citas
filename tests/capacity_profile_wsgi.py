@@ -19,7 +19,10 @@ from config.wsgi import application as original
 def application(environ, start_response):
     identifier = sample_id(environ.get(ENV_HEADER))
     if identifier is not None and not environ.get('HTTP_X_CAPACITY_PROFILE'):
-        yield from observe(original, environ, start_response, identifier)
+        def observation():
+            from django.db import connection
+            return phase_scope(sql_context=connection.execute_wrapper)
+        yield from observe(original, environ, start_response, identifier, observation=observation)
         return
     stage = environ.get('HTTP_X_CAPACITY_PROFILE', '')
     stage = stage if re.fullmatch(r'[a-z_]{1,40}', stage) else ('selection' if stage == '1' else '')

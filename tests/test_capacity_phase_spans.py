@@ -288,7 +288,7 @@ RECORD_DETAIL_TARGETS = {
 def test_record_detail_default_mapping_aliases_and_restore(modules, phase):
     owner_name, attribute = RECORD_DETAIL_TARGETS[phase]
     assert spans.PHASE_TARGETS[phase] == (owner_name, attribute)
-    assert len(spans.PHASE_TARGETS) == 17
+    assert len(spans.PHASE_TARGETS) == 19
     assert len(spans.MODULES) == len(set(spans.MODULES))
     owner = sys.modules[owner_name]
     consumer = sys.modules['apps.safety.rights_portability_selection_review']
@@ -374,3 +374,108 @@ def test_detail_generator_is_omitted_without_wrapping_image_contents(modules):
         assert images.audited_images is image_contents
     assert collector.snapshot()['omitted_phases'] == ['audited_images']
     assert collector.snapshot()['phases']['audited_images']['calls'] == 0
+
+
+def test_exclusive_parent_minus_direct_children_no_double_count(modules, monkeypatch):
+    wall = iter([0, 10, 20, 50, 60, 100])
+    cpu = iter([0, 5, 10, 25, 30, 50])
+    monkeypatch.setattr(spans, 'perf_counter_ns', lambda: next(wall))
+    monkeypatch.setattr(spans, 'thread_time_ns', lambda: next(cpu))
+    module = modules[0]
+
+    def leaf():
+        return 42
+
+    module.leaf = leaf
+
+    def record():
+        return module.leaf()
+
+    module.record = record
+
+    def batch():
+        return module.record()
+
+    module.batch = batch
+    with spans.scope(targets={'batch': batch, 'record': record, 'canonical_bytes': leaf}) as collector:
+        assert module.batch() == 42
+    phases = collector.snapshot()['phases']
+    assert phases['batch']['wall_ns'] == 100
+    assert phases['record']['wall_ns'] == 50
+    assert phases['canonical_bytes']['wall_ns'] == 30
+    assert [phases[name]['exclusive_wall_ns'] for name in ('batch', 'record', 'canonical_bytes')] == [50, 20, 30]
+    assert sum(phases[name]['exclusive_thread_cpu_ns'] for name in ('batch', 'record', 'canonical_bytes')) == 50
+
+
+def test_native_caller_wrappers_preserve_real_fallback_and_errors():
+    import subprocess
+    import textwrap
+
+    script = textwrap.dedent('''
+        import sys
+        from apps.safety import fast_canonical
+        from apps.safety.canonical_kernel_loader import validated_kernel
+        from tests.capacity_phase_spans import scope
+        assert validated_kernel() is not None
+        original = fast_canonical.canonical_bytes
+        nested = 0
+        for _ in range(120):
+            nested = [nested]
+        def outcome(function, value):
+            try:
+                return ('ok', function(value))
+            except Exception as error:
+                return (type(error).__name__, str(error))
+        for limit in (1000, 80):
+            expected = []
+            sys.setrecursionlimit(limit)
+            for value in (None, {'a': (1, True)}, float('nan'), {1: 2}, nested):
+                expected.append(outcome(original, value))
+            sys.setrecursionlimit(1000)
+            with scope(targets={'canonical_bytes': original}):
+                sys.setrecursionlimit(limit)
+                actual = [outcome(fast_canonical.canonical_bytes, value) for value in
+                          (None, {'a': (1, True)}, float('nan'), {1: 2}, nested)]
+                sys.setrecursionlimit(1000)
+            assert expected == actual, (limit, expected, actual)
+            assert fast_canonical.canonical_bytes is original
+    ''')
+    completed = subprocess.run([sys.executable, '-c', script], capture_output=True,
+                               text=True, timeout=30)
+    assert completed.returncode == 0, completed.stderr
+
+
+def test_negative_exclusive_marks_invalid_clock_not_silent_success(modules, monkeypatch):
+    wall = iter([10, 0])
+    monkeypatch.setattr(spans, 'perf_counter_ns', lambda: next(wall))
+    def operation():
+        return 42
+    modules[0].record = operation
+    with spans.scope(targets={'record': operation}) as collector:
+        assert modules[0].record() == 42
+    result = collector.snapshot()
+    assert result['incomplete'] and result['reason'] == 'negative_duration'
+    assert result['phases']['record']['exclusive_wall_ns'] == 0
+
+
+def test_native_boundary_surveys_relevant_aliases_without_touching_kernel_identity(modules):
+    native_module = sys.modules['apps.safety.fast_canonical']
+    consumer = sys.modules['apps.safety.rights_inspection_source']
+    rights = sys.modules['apps.safety.rights']
+    copy_consumer = sys.modules['apps.safety.rights_copy_inspection']
+    def canonical_bytes():
+        return b'unchanged'
+    def fingerprint():
+        return 'unchanged'
+    native_module.canonical_bytes = consumer.canonical_bytes = canonical_bytes
+    rights.fingerprint = copy_consumer.fingerprint = fingerprint
+    identity = object()
+    native_module.kernel_identity = identity
+    with spans.scope(targets={'canonical_bytes': canonical_bytes, 'fingerprint': fingerprint}) as collector:
+        assert consumer.canonical_bytes() == b'unchanged'
+        assert copy_consumer.fingerprint() == 'unchanged'
+        assert native_module.kernel_identity is identity
+    assert native_module.canonical_bytes is consumer.canonical_bytes is canonical_bytes
+    assert rights.fingerprint is copy_consumer.fingerprint is fingerprint
+    assert collector.snapshot()['phases']['canonical_bytes']['calls'] == 1
+    assert collector.snapshot()['phases']['fingerprint']['calls'] == 1

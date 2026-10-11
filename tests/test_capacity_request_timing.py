@@ -166,11 +166,19 @@ def test_wsgi_marked_no_phase_or_worker_profile(monkeypatch):
     response = Response()
     monkeypatch.setattr(deployed_timing, 'write_record', lambda record: records.append(record))
     monkeypatch.setattr(wrapper, 'original', lambda env, start: response)
-    monkeypatch.setattr(wrapper, 'phase_scope', lambda **kwargs: pytest.fail('phase observer invoked'))
+    from contextlib import contextmanager
+    from types import SimpleNamespace
+    entered = []
+    @contextmanager
+    def phase_scope(**kwargs):
+        entered.append(1)
+        yield SimpleNamespace(snapshot=phase_snapshot)
+    monkeypatch.setattr(wrapper, 'phase_scope', phase_scope)
     monkeypatch.setattr(wrapper, 'scope', lambda: pytest.fail('worker profile invoked'))
     assert list(wrapper.application({timing.ENV_HEADER: '2048'}, None)) == [b'first', b'last']
     assert response.closed == 1 and records[0]['id'] == 2048
     assert records[0]['complete'] == 1
+    assert entered == [1] and records[0]['phase_complete'] == 1
 
 
 def test_client_pair_ids_align_with_tcp_samples_and_exclude_profiled():
@@ -210,3 +218,165 @@ def test_reader_incomplete_response_marked_incomplete(tmp_path):
     record = {'id': 1, 'wall_ns': 1, 'thread_cpu_ns': 1, 'complete': 0}
     (tmp_path / 'capacity-request-timing-1.jsonl').write_text(json.dumps(record) + '\n')
     assert timing.collect(tmp_path)['incomplete']
+
+
+def phase_snapshot():
+    from tests.capacity_phase_spans import Collector
+    collector = Collector()
+    collector.status = 'complete'
+    return collector.snapshot()
+
+
+def test_versioned_compact_schema_worst_case_size_and_bounds(tmp_path, monkeypatch):
+    snapshot = phase_snapshot()
+    assert tuple(snapshot['phases']) == timing.PHASE_NAMES
+    snapshot['pages'] = [{name: dict(row) for name, row in snapshot['phases'].items()} for _ in range(4)]
+    for phases in [snapshot['phases'], *snapshot['pages']]:
+        for row in phases.values():
+            for name in row:
+                row[name] = 100_000 if name in ('calls', 'sql_count') else timing.MAX_NS
+    record = {'id': 1, 'wall_ns': timing.MAX_NS, 'thread_cpu_ns': timing.MAX_NS, 'complete': 1,
+              **timing.compact(snapshot)}
+    assert timing._valid(record)
+    payload = json.dumps(record, separators=(',', ':')).encode()
+    assert len(payload) < timing.MAX_LINE
+    assert len(payload) * 383 < timing.MAX_BYTES
+    monkeypatch.setattr(timing, 'DIRECTORY', tmp_path)
+    assert timing.write_record(record)
+    assert timing.collect(tmp_path)['records'] == [record]
+
+
+@pytest.mark.parametrize('corruption', ['too_many_pages', 'unknown_version', 'negative',
+                                      'exclusive_gt_inclusive', 'missing_row', 'status_conflict'])
+def test_versioned_reader_rejects_corrupted_numeric_schema(tmp_path, corruption):
+    record = {'id': 1, 'wall_ns': 1, 'thread_cpu_ns': 1, 'complete': 1,
+              **timing.compact(phase_snapshot())}
+    if corruption == 'too_many_pages':
+        record['pages'] = [record['phases']] * 5
+    elif corruption == 'unknown_version':
+        record['v'] = 100
+    elif corruption == 'negative':
+        record['phases'][0][1] = -1
+    elif corruption == 'exclusive_gt_inclusive':
+        record['phases'][0][3] = 1
+    elif corruption == 'missing_row':
+        record['phases'].pop()
+    elif corruption == 'status_conflict':
+        record['phase_status'] = 3
+    (tmp_path / 'capacity-request-timing-1.jsonl').write_text(json.dumps(record) + '\n')
+    result = timing.collect(tmp_path)
+    assert result['incomplete'] and not result['records']
+
+
+def test_outer_timing_includes_observer_setup_response_close_and_restoration(monkeypatch):
+    from contextlib import contextmanager
+    events = []
+    records = []
+    now = {'wall': 0, 'cpu': 0}
+    monkeypatch.setattr(timing, 'perf_counter_ns', lambda: now['wall'])
+    monkeypatch.setattr(timing, 'thread_time_ns', lambda: now['cpu'])
+    monkeypatch.setattr(timing, 'write_record', lambda record: records.append(record))
+    snapshot = phase_snapshot()
+    from types import SimpleNamespace
+    @contextmanager
+    def observation():
+        events.append('install')
+        now['wall'] += 10
+        now['cpu'] += 5
+        try:
+            yield SimpleNamespace(snapshot=lambda: snapshot)
+        finally:
+            events.append('restore')
+            now['wall'] += 30
+            now['cpu'] += 15
+    response = Response()
+    def close():
+        events.append('close')
+        now['wall'] += 20
+        now['cpu'] += 10
+    response.close = close
+    assert list(timing.observe(lambda env, start: response, {}, None, 1,
+                              observation=observation)) == [b'first', b'last']
+    assert events == ['install', 'close', 'restore']
+    assert records[0]['wall_ns'] == 60 and records[0]['thread_cpu_ns'] == 30
+    assert records[0]['phase_status'] == 2 and records[0]['phase_complete'] == 1
+
+
+def test_observer_restore_failure_preserves_domain_exception_and_marks_missing(monkeypatch):
+    from contextlib import contextmanager
+    from types import SimpleNamespace
+    error = ValueError('exact domain')
+    records = []
+    monkeypatch.setattr(timing, 'write_record', lambda record: records.append(record))
+    @contextmanager
+    def observation():
+        try:
+            yield SimpleNamespace(snapshot=phase_snapshot)
+        finally:
+            raise RuntimeError('diagnostic teardown')
+    with pytest.raises(ValueError) as captured:
+        list(timing.observe(lambda env, start: Response(error=error), {}, None, 1,
+                            observation=observation))
+    assert captured.value is error
+    assert records[0]['complete'] == 0 and records[0]['phase_complete'] == 0
+    assert records[0]['phase_status'] == 3
+    assert 'diagnostic teardown' not in str(records)
+
+
+def test_partial_observer_entry_restores_context_and_never_suppresses_domain(monkeypatch):
+    from contextvars import ContextVar
+    state = ContextVar('synthetic_partial_phase', default=None)
+    error = ValueError('exact domain')
+    records, exits = [], []
+    monkeypatch.setattr(timing, 'write_record', lambda record: records.append(record))
+    class Partial:
+        def __enter__(self):
+            self.token = state.set('active')
+            raise RuntimeError('partial observer entry')
+        def __exit__(self, kind, value, traceback):
+            state.reset(self.token)
+            exits.append(value)
+            return True
+    with pytest.raises(ValueError) as captured:
+        list(timing.observe(lambda env, start: Response(error=error), {}, None, 1,
+                            observation=Partial))
+    assert captured.value is error
+    assert state.get() is None
+    assert exits == [error]
+    assert records[0]['phase_status'] == 3
+
+
+def test_phase_missing_first_request_reported_incomplete_without_population_change(tmp_path):
+    snapshot = phase_snapshot()
+    snapshot['missing_phases'] = ['canonical_bytes']
+    record = {'id': 1, 'wall_ns': 1, 'thread_cpu_ns': 1, 'complete': 1,
+              **timing.compact(snapshot)}
+    (tmp_path / 'capacity-request-timing-1.jsonl').write_text(json.dumps(record) + '\n')
+    result = timing.collect(tmp_path)
+    assert result['records'][0]['id'] == 1  # TCP sample retained, diagnostic incomplete.
+    assert result['incomplete']
+    assert record['phase_missing'] == 1 << timing.PHASE_NAMES.index('canonical_bytes')
+
+
+def test_phase_partial_distinguished_from_corrupt_extra_record(tmp_path):
+    snapshot = phase_snapshot()
+    snapshot['missing_phases'] = ['fingerprint']
+    record = {'id': 1, 'wall_ns': 1, 'thread_cpu_ns': 1, 'complete': 1,
+              **timing.compact(snapshot)}
+    file = tmp_path / 'capacity-request-timing-1.jsonl'
+    file.write_text(json.dumps(record) + '\n')
+    result = timing.collect(tmp_path)
+    assert result['incomplete'] and result['phase_incomplete']
+    assert not result['record_incomplete']
+    with file.open('a') as stream:
+        stream.write('malformed extra\n')
+    result = timing.collect(tmp_path)
+    assert len(result['records']) == 1
+    assert result['record_incomplete'] and result['phase_incomplete']
+
+
+def test_deep_malformed_json_diagnostic_is_structurally_incomplete(tmp_path):
+    (tmp_path / 'capacity-request-timing-1.jsonl').write_bytes(b'[' * 2000 + b'0' + b']' * 2000 + b'\n')
+    result = timing.collect(tmp_path)
+    assert not result['records']
+    assert result['record_incomplete'] and not result['phase_incomplete']

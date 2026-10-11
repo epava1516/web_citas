@@ -31,11 +31,22 @@ PHASE_TARGETS = {
     'read_image_blob': ('apps.safety.rights_exports', '_read_image_blob'),
     'content_digest': ('apps.safety.rights_operation_content_digests', 'content_digest'),
     'batch_projection': ('apps.safety.rights_portability_batch_projection', 'project'),
+    'canonical_bytes': ('apps.safety.fast_canonical', 'canonical_bytes'),
+    'fingerprint': ('apps.safety.rights', 'fingerprint'),
 }
 MODULES = tuple(dict.fromkeys(tuple(module for module, _ in PHASE_TARGETS.values()) + (
     'apps.safety.rights_inspection_source',
     'apps.safety.rights_portability_coverage_review_views',
     'apps.safety.rights_portability_batch_projection',
+    'apps.safety.rights_copy_inspection',
+    'apps.safety.rights_copy_information',
+    'apps.safety.rights_portability_response_evidence',
+    'apps.safety.rights_portability_selection_pages',
+    'apps.safety.rights_portability_image_selection',
+    'apps.safety.rights_portability_image_read',
+    'apps.safety.rights_portability_coverage_evidence',
+    'apps.safety.rights_portability_coverage_store',
+    'apps.safety.rights_portability_coverage_images',
 )))
 MAX_ALIASES = 128
 MAX_CALLS = 100_000
@@ -48,6 +59,7 @@ _install_lock = threading.Lock()
 
 def _counter():
     return {'calls': 0, 'wall_ns': 0, 'thread_cpu_ns': 0,
+            'exclusive_wall_ns': 0, 'exclusive_thread_cpu_ns': 0,
             'sql_count': 0, 'sql_wall_ns': 0, 'sql_thread_cpu_ns': 0}
 
 
@@ -72,6 +84,8 @@ class Collector:
         self.reason = self.reason or reason
 
     def _add(self, counter, name, amount):
+        if amount < 0:
+            self.fail('negative_duration')
         value = counter[name] + max(0, amount)
         if value > MAX_NS:
             self.fail('time_bound')
@@ -90,7 +104,7 @@ class Collector:
                 return None
             self._page = self._page_count
             self._page_count += 1
-        started = (phase, self._page, perf_counter_ns(), thread_time_ns(), previous_page)
+        started = [phase, self._page, perf_counter_ns(), thread_time_ns(), previous_page, 0, 0]
         self._stack.append(started)
         self._phases[phase]['calls'] += 1
         if self._page is not None:
@@ -101,13 +115,20 @@ class Collector:
         if started is None:
             return
         try:
-            phase, page, wall, cpu, previous_page = started
+            phase, page, wall, cpu, previous_page, child_wall, child_cpu = started
             elapsed, cpu_elapsed = perf_counter_ns() - wall, thread_time_ns() - cpu
             self._add(self._phases[phase], 'wall_ns', elapsed)
             self._add(self._phases[phase], 'thread_cpu_ns', cpu_elapsed)
+            self._add(self._phases[phase], 'exclusive_wall_ns', elapsed - child_wall)
+            self._add(self._phases[phase], 'exclusive_thread_cpu_ns', cpu_elapsed - child_cpu)
             if page is not None:
                 self._add(self._pages[page][phase], 'wall_ns', elapsed)
                 self._add(self._pages[page][phase], 'thread_cpu_ns', cpu_elapsed)
+                self._add(self._pages[page][phase], 'exclusive_wall_ns', elapsed - child_wall)
+                self._add(self._pages[page][phase], 'exclusive_thread_cpu_ns', cpu_elapsed - child_cpu)
+            if len(self._stack) > 1 and self._stack[-1] is started:
+                self._stack[-2][5] += max(0, elapsed)
+                self._stack[-2][6] += max(0, cpu_elapsed)
         finally:
             if self._stack and self._stack[-1] is started:
                 self._stack.pop()
@@ -155,7 +176,8 @@ class Collector:
                 'sql_count': self._sql_count, 'sql_totals': dict(self._sql_totals), 'omitted_phases': list(self._omitted),
                 'missing_phases': list(self._missing),
                 'timing_semantics': 'inclusive_overlapping_not_summed_request_wall',
-                'sql_attribution': 'innermost_span_only'}
+                'sql_attribution': 'innermost_span_only',
+                'exclusive_semantics': 'parent_minus_direct_observed_children_includes_SQL_not_native_only'}
 
 
 def _active():
