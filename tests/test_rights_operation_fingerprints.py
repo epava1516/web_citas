@@ -252,6 +252,9 @@ def test_large_index_collision_requires_full_input_and_secret_equality(settings,
         state = memo._current.get()
         assert len(state["entries"]) == 3
         assert len(state["buckets"]) == 1
+        bucket = next(iter(state["buckets"].values()))
+        assert type(bucket) is dict and len(bucket) == 3
+        assert bucket[(first, settings.SECRET_KEY)] in state["entries"]
     assert not state["entries"] and not state["buckets"]
 
 
@@ -306,3 +309,56 @@ def test_index_exact_threshold_uses_original_small_key_then_bucket(kind):
         assert fingerprint(small) == native(small)
         assert fingerprint(large) == native(large)
         assert len(state["entries"]) == 2
+
+
+@pytest.mark.parametrize("kind", [str, bytes])
+def test_late_collision_promotes_only_retained_entry_and_keeps_exact_hits(settings, kind, monkeypatch):
+    def convert(value):
+        return value if kind is str else value.encode()
+
+    first = convert("a" * (memo.LARGE_INPUT + 1) + "0" + "z" * 32)
+    second = convert("a" * (memo.LARGE_INPUT + 1) + "1" + "z" * 32)
+    calls = []
+
+    def counted(value):
+        calls.append(True)
+        return native(value)
+
+    with transaction.atomic(), memo.operation_fingerprints():
+        assert memo.fingerprint(first, counted) == native(first)
+        state = memo._current.get()
+        index = next(iter(state["buckets"]))
+        assert type(state["buckets"][index]) is list
+        monkeypatch.setattr(memo, "MAX_ENTRIES", 1)
+        assert memo.fingerprint(second, counted) == native(second)
+        assert type(state["buckets"][index]) is list
+        assert len(state["entries"]) == 1
+        monkeypatch.setattr(memo, "MAX_ENTRIES", 128)
+        assert memo.fingerprint(second, counted) == native(second)
+        bucket = state["buckets"][index]
+        assert type(bucket) is dict and len(bucket) == 2
+        assert set(bucket) == {(first, settings.SECRET_KEY), (second, settings.SECRET_KEY)}
+        assert memo.fingerprint(first, counted) == native(first)
+        assert memo.fingerprint(second, counted) == native(second)
+        assert len(calls) == 3
+
+
+def test_native_secret_drift_does_not_promote_existing_bucket(settings):
+    first = "a" * (memo.LARGE_INPUT + 1) + "0" + "z" * 32
+    second = "a" * (memo.LARGE_INPUT + 1) + "1" + "z" * 32
+    settings.SECRET_KEY = "before"
+
+    def changing(value):
+        settings.SECRET_KEY = "after"
+        return native(value)
+
+    with transaction.atomic(), memo.operation_fingerprints():
+        assert fingerprint(first) == native(first)
+        state = memo._current.get()
+        index = next(iter(state["buckets"]))
+        assert memo.fingerprint(second, changing) == native(second)
+        assert len(state["entries"]) == 1
+        assert type(state["buckets"][index]) is list
+        settings.SECRET_KEY = "before"
+        assert fingerprint(first) == native(first)
+        assert type(state["buckets"][index]) is list

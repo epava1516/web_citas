@@ -71,8 +71,15 @@ def fingerprint(value, native):
         # No full input hash here; collisions only locate candidates, never hits.
         index = (type(value), len(value), value[:INDEX_EDGE], value[-INDEX_EDGE:],
                  type(secret), len(secret), secret[:INDEX_EDGE], secret[-INDEX_EDGE:])
-        for candidate in state["buckets"].get(index, ()):
-            original, original_secret, digest = entries[candidate]
+        bucket = state["buckets"].get(index)
+        if type(bucket) is dict:
+            # Promoted collision buckets use full exact hash/equality, just as
+            # the original memo. Index types already distinguish str/bytes.
+            candidate = bucket.get((value, secret))
+            if candidate is not None:
+                return entries[candidate][2]
+        elif bucket:
+            original, original_secret, digest = entries[bucket[0]]
             if value == original and secret == original_secret:
                 return digest
     else:
@@ -92,7 +99,16 @@ def fingerprint(value, native):
         if large:
             key = (_LARGE, len(entries))
             entries[key] = (value, secret, result)
-            state["buckets"].setdefault(index, []).append(key)
+            bucket = state["buckets"].get(index)
+            if bucket is None:
+                state["buckets"][index] = [key]
+            elif type(bucket) is dict:
+                bucket[(value, secret)] = key
+            else:
+                previous = bucket[0]
+                original, original_secret, _ = entries[previous]
+                state["buckets"][index] = {(original, original_secret): previous,
+                                          (value, secret): key}
         else:
             entries[key] = result
         state["bytes"] += size
