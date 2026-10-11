@@ -1,0 +1,35 @@
+{
+  "status": "completed",
+  "completed_at": "2026-10-11T02:04:15.168Z",
+  "task_id": "rayg2okuq",
+  "reviewed_head": "f3da868",
+  "free_review_used": 1,
+  "remaining_reserved": 2,
+  "findings": [
+    {
+      "file_path": "apps/safety/fast_canonical.py",
+      "severity": "nit",
+      "pr_comment": "reference_check and _check in fast_canonical.py duplicate the same canonical-JSON type-walk logic almost verbatim (sweep: both bodies walk str/bool/int/float/dict/list/tuple with identical error messages).",
+      "reasoning": "The two validators (one used as the native kernel's pure-Python fallback via `_canonical_kernel.pyx: check()`, the other used directly by `canonical_bytes()`) must be kept manually in sync; any future edit to one without the other silently makes canonicalization accept/reject different payloads depending on whether the native kernel is loaded, which is exactly the kind of drift this module's own docstring warns against. Fix: have `_check` call `reference_check` for the shared leaf-type logic (or vice versa) instead of maintaining two copies, at apps/safety/fast_canonical.py:14-33 and apps/safety/fast_canonical.py:56-74.\n\n**Verification:** nit. The duplication claim is factually true. `reference_check` (fast_canonical.py:13-35) and the lower half of `_check` (lines 57-78) are verbatim identical: same `depth > 200` guard, same `None/str/bool/int` early return, same `math.isfinite` float check raising \"Canonical JSON requires finite numbers\", same dict string-key check raising \"Canonical JSON requires string keys\", same list/tuple walk, and the same closing `raise TypeError(\"Canonical JSON requires explicit JSON values\")`.",
+      "start_line": 14,
+      "end_line": 74
+    },
+    {
+      "file_path": "apps/safety/canonical_kernel_loader.py",
+      "severity": "nit",
+      "pr_comment": "Native-kernel build identity constants (CYTHON_VERSION, build flags, manifest key set) are hand-duplicated between apps/safety/canonical_kernel_loader.py and scripts/build_canonical_kernel.py instead of sharing one source of truth.",
+      "reasoning": "canonical_kernel_loader.py defines BUILD_FLAGS=[\"-O3\",\"-fPIC\",\"-shared\"] and CYTHON_VERSION=\"3.0.12\" (lines 24-25), and independently scripts/build_canonical_kernel.py defines FLAGS=[\"-O3\",\"-fPIC\",\"-shared\"] and CYTHON_VERSION=\"3.0.12\" (lines 14-15), with the loader's `expected` manifest dict (lines 107-113) and the builder's `manifest` dict (lines 42-51) independently listing the same key set. If either file's constants are edited without updating the other (e.g. bumping the pinned Cython version or build flags during a routine dependency update), the manifest comparison in `_load()` (canonical_kernel_loader.py:118-122) will reject every subsequently built artifact as an 'ABI/build mismatch', which per the already-reported KernelIntegrityError-propagation issue turns into either a universal silent fallback to the pure-Python path (perf regression) or an uncaught crash in rights_validation_seal.rule_version(), depending on environment.\n\n**Verification:** nit — quality finding, does not block merge. The duplication is real. canonical_kernel_loader.py lines 24-25 define `BUILD_FLAGS = [\"-O3\", \"-fPIC\", \"-shared\"]` and `CYTHON_VERSION = \"3.0.12\"`, and scripts/build_canonical_kernel.py lines 14-15 independently define `FLAGS = [\"-O3\", \"-fPIC\", \"-shared\"]` and `CYTHON_VERSION = \"3.0.12\"`.",
+      "start_line": 24,
+      "end_line": 25
+    },
+    {
+      "file_path": "apps/safety/fast_canonical.py",
+      "severity": "nit",
+      "pr_comment": "_check()'s new native-kernel gate walks the ENTIRE Python call stack via sys._getframe()/.f_back on every top-level canonical_bytes()/canonical()/fingerprint() call, even though only a cheap remaining-recursion-headroom number is needed.",
+      "reasoning": "canonical()/canonical_bytes() is the hot-path primitive reused across this PR's whole optimization effort (rights.fingerprint, rights_validation_seal.rule_version/caller_digest, every portability selection/coverage signature in rights_portability_selection_review.py and rights_portability_coverage_inspection.py), so it is invoked many times per request (e.g. several times per page in a 4-page coverage batch). Each invocation that reaches depth==0 pays an O(call-stack-depth) frame-chain walk (sys._getframe() then repeatedly .f_back) purely to decide whether there is more than 512 frames of headroom before sys.getrecursionlimit(), even when the value being validated is a tiny scalar that never gets near that depth. This is wasted, repeated work on a path this PR is explicitly trying to speed up.\n\n**Verification:** nit — The claim is factually true. In apps/safety/fast_canonical.py:38-47, every top-level call to _check (depth==0) executes the frame-chain walk `frame = sys._getframe(); while frame is not None: frame_count += 1; frame = frame.f_back`, an O(current-stack-depth) traversal of the entire live Python call stack, solely to feed the `sys.getrecursionlimit() - frame_count > 512` headroom test on line…",
+      "start_line": 41,
+      "end_line": 56
+    }
+  ],
+  "acceptance": "Review input only; no performance measurement or capacity acceptance."
+}
