@@ -1,0 +1,44 @@
+{
+  "scope": "Finite diagnostic instrumentation equivalence; no performance gain or N3 acceptance",
+  "run_id": "20261011-000945-13945388",
+  "tested_head": "efef41d32e0e3406d0df1041da7657e047bc1eff",
+  "candidate_commit": "029cec4",
+  "junit": {
+    "tests": 133,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 406.598
+  },
+  "gates": "All local CI steps exit zero",
+  "sources_unchanged": true,
+  "reviewed_sources_sha256": {
+    "tests/capacity_worker_profile.py": "45fb2a8505874d520523cb31897bc77c81d5462bb478b812048213b02250e382",
+    "tests/test_capacity_worker_profile.py": "5a22cc6071c40e0842729e2f3f55755a113609c49ba668c439cf1f7406cea617",
+    "tests/capacity_profile_wsgi.py": "e1a695e131a5885e24cc9089aef823d90eac9313f652a00e8590ae0daa2bc75c",
+    "tests/test_capacity_worker_wsgi.py": "11985a2f7ec4e71ef174b9bc13c88a795747b18e45927323557863378a7fbada",
+    "tests/test_capacity_worker_real_objects.py": "c0c718147d6aed8f4bfc6015b1ed3507e0c1a53786f3ddd0054ba600a5c4bab8"
+  },
+  "independent_cleanup_verified": true,
+  "real_services": [
+    "PostgreSQL17",
+    "Redis7.4",
+    "RustFS"
+  ],
+  "observed_objects": 28,
+  "phase_segments": {
+    "object_verify": 28,
+    "repository_verify": 28,
+    "descriptor": 28,
+    "codec_verify": 28,
+    "header": 28,
+    "authenticate_frames": 28,
+    "tombstone": 56,
+    "ciphertext_segments": 56
+  },
+  "limits": [
+    "One finite diagnostic corpus; not original two-case capacity",
+    "Inclusive worker timings must not be summed as request wall time",
+    "New test source requires fresh private baseline capture"
+  ]
+}
