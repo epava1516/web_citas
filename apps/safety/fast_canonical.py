@@ -39,12 +39,21 @@ def _check(value, depth=0):
     # Keep the original Python body in this frame at recursion-budget edges.
     # Do not call the Python loader where its own frames could change acceptance.
     if type(depth) is int and depth == 0:
-        frame = sys._getframe()
+        threshold = sys.getrecursionlimit() - 512
         frame_count = 0
-        while frame is not None:
-            frame_count += 1
-            frame = frame.f_back
-        if sys.getrecursionlimit() - frame_count > 512:
+        frame = None
+        if threshold > 0:
+            frame = sys._getframe()
+            try:
+                while frame is not None and frame_count < threshold:
+                    frame_count += 1
+                    if frame_count >= threshold:
+                        break
+                    frame = frame.f_back
+            finally:
+                # Never retain the caller chain in fallback/error tracebacks.
+                frame = None
+        if frame_count < threshold:
             try:
                 from .canonical_kernel_loader import validated_kernel
             except ModuleNotFoundError as error:
