@@ -37,6 +37,10 @@ def test_real_workers_authenticate_all_objects_with_fresh_phase_counts(
         for name, counters in worker['phases'].items():
             phases[name] = phases.get(name, 0) + counters['segments']
     assert phases['object_verify'] == phases['repository_verify'] == 28
+    # Crypto/repository creation remains fresh per object; transport is borrowed
+    # only within each of the two worker-owned operation scopes.
+    assert phases['factory_repository'] == phases['read_client'] == 28
+    assert phases['factory_new_s3_client'] == 2
     assert phases['descriptor'] == phases['codec_verify'] == 28
     assert phases['authenticate_frames'] == phases['header'] == 28
     assert phases['tombstone'] == 56
