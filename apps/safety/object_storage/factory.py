@@ -14,6 +14,12 @@ from .read_clients import client as read_client
 from .repository import ObjectRepository
 
 
+def _new_s3_client(*args, **kwargs):
+    # Evaluate caller settings/config first, then construct an isolated session.
+    # boto3.client aliases a shared default session unsafe for concurrent creation.
+    return boto3.session.Session().client(*args, **kwargs)
+
+
 def repository():
     try:
         keys = {
@@ -26,7 +32,7 @@ def repository():
             raise ValueError("Missing object credentials")
     except (ValueError, AttributeError, TypeError) as error:
         raise ImproperlyConfigured("Independent private object keys required") from error
-    client = read_client(lambda: boto3.client(
+    client = read_client(lambda: _new_s3_client(
         "s3",
         endpoint_url=settings.RIGHTS_OBJECT_ENDPOINT,
         region_name=settings.RIGHTS_OBJECT_REGION,

@@ -139,7 +139,7 @@ def test_real_rustfs_28_objects_84_gets_two_jobs_closed_bodies_clients(
     references = [
         writer.write(io.BytesIO(b"synthetic" * 1000), f"own/{i}".encode()) for i in range(28)
     ]
-    native_client, native_verify = factory.boto3.client, ObjectRepository.verify
+    native_client, native_verify = factory._new_s3_client, ObjectRepository.verify
     lock, barrier = Lock(), Barrier(2, timeout=10)
     gets, clients, bodies, rings, active = [], [], [], [], [0, 0]
 
@@ -177,7 +177,7 @@ def test_real_rustfs_28_objects_84_gets_two_jobs_closed_bodies_clients(
             with lock:
                 active[0] -= 1
 
-    monkeypatch.setattr(factory.boto3, "client", create)
+    monkeypatch.setattr(factory, "_new_s3_client", create)
     monkeypatch.setattr(ObjectRepository, "verify", verify)
     try:
         content._verify_objects_in_order(
@@ -244,7 +244,7 @@ def test_real_rustfs_parallel_rejects_physical_damage(settings, monkeypatch, obj
         original = body.read()
     finally:
         body.close()
-    native_client = factory.boto3.client
+    native_client = factory._new_s3_client
     bodies, clients = [], []
 
     def create(*args, **kwargs):
@@ -267,7 +267,7 @@ def test_real_rustfs_parallel_rejects_physical_damage(settings, monkeypatch, obj
         client.get_object, client.close = observed, closed
         return client
 
-    monkeypatch.setattr(factory.boto3, "client", create)
+    monkeypatch.setattr(factory, "_new_s3_client", create)
     try:
         if damage in {"corrupt", "truncated", "oversized"}:
             changed = {

@@ -141,7 +141,7 @@ def test_real_rustfs_repeated_reads_three_gets_each_one_scoped_client(
     settings, monkeypatch, object_store
 ):
     real_settings(settings, object_store)
-    original = factory.boto3.client
+    original = factory._new_s3_client
     created, gets, bodies = [], [], []
 
     def create(*args, **kwargs):
@@ -158,7 +158,7 @@ def test_real_rustfs_repeated_reads_three_gets_each_one_scoped_client(
         client.get_object = observed
         return client
 
-    monkeypatch.setattr(factory.boto3, "client", create)
+    monkeypatch.setattr(factory, "_new_s3_client", create)
     writer = factory.repository()
     ref = writer.write(io.BytesIO(b"synthetic private content" * 100), b"owned/context")
     writer.client.close()
