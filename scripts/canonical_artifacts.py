@@ -6,6 +6,9 @@ import stat
 from pathlib import Path
 
 MAX_ARTIFACT_BYTES = 16 * 1024 * 1024
+CYTHON_VERSION = "3.0.12"
+BUILD_FLAGS = ["-O3", "-fPIC", "-shared"]
+MODULE = "apps.safety._canonical_kernel"
 
 
 def artifact_fingerprints(root):

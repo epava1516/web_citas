@@ -11,9 +11,12 @@ import sysconfig
 import tempfile
 from pathlib import Path
 
-CYTHON_VERSION = "3.0.12"
-FLAGS = ["-O3", "-fPIC", "-shared"]
-MODULE = "apps.safety._canonical_kernel"
+if __package__:
+    from .canonical_artifacts import BUILD_FLAGS, CYTHON_VERSION, MODULE
+else:
+    from canonical_artifacts import BUILD_FLAGS, CYTHON_VERSION, MODULE
+
+FLAGS = BUILD_FLAGS
 
 
 def build():

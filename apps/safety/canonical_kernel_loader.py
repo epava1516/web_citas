@@ -17,12 +17,14 @@ import sysconfig
 import threading
 from pathlib import Path
 
-from scripts.canonical_artifacts import artifact_fingerprints  # noqa: F401
+from scripts.canonical_artifacts import (
+    BUILD_FLAGS,
+    CYTHON_VERSION,
+    MODULE,
+    artifact_fingerprints,  # noqa: F401
+)
 
-MODULE = "apps.safety._canonical_kernel"
 MAX_ARTIFACT_BYTES = 16 * 1024 * 1024
-BUILD_FLAGS = ["-O3", "-fPIC", "-shared"]
-CYTHON_VERSION = "3.0.12"
 # Linux UAPI values. Some standalone CPython builds omit these names despite
 # running on Linux; libc exposes memfd_create on the same deployed platform.
 ADD_SEALS = getattr(fcntl, "F_ADD_SEALS", 1033)
