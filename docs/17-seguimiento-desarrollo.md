@@ -565,3 +565,5 @@ MOD08 HMACadaptativo gate20261011-063047-4f8475cd:31PASS106,207s/0fallos/errores
 MOD08 pipeline/HMAC integrados e5e531c: gate conjunto PG real 20261011-063647-2425f04d 38PASS0fallos/errores/skips; 1156 hashes y retirada propios independientes. Evidencia docs/evidencias/mod08-index-pipeline-combined-gate-20261011.md/.json. Sin mejora request atribuida; nueva captura/use pendiente y aceptación completa intacta.
 
 MOD08 pipeline/HMAC medición terminal captura20261011-064425-ed839a88/use20261011-071449-f8adec38:1PASS cadauno/0fallos/errores/skips;1156hashes cadauno ycleanupindependientes. TCP383p95 3,934962→3,753392s(-4,61%);JSONn3 7,812455→6,930455s(-11,29%);binario n8 7,710310→7,317947s(-5,09%). Cuadro completo docs/evidencias/mod08-medicion-index-pipeline-20261011.md/.json. Objetivos2s/5s/doscasos/N3 pendientes; SQLwrapperexcluye pipeline.sync.
+
+MOD08 four-readers candidato21424e1:gatePG/RustFS20261011-072544-e4d007eb 99PASS0errores/fallos/skips,1156hashes ycleanupindependientes. Candidata integrada localmente para medición, rendimiento pendiente. Evidencia docs/evidencias/mod08-four-readers-gate-20261011.md/.json. Objetivos2s/5s/doscasos/N3 intactos.
