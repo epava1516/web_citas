@@ -1,0 +1,116 @@
+{
+  "id": "20261011-025620-6fa04899",
+  "head": "16fcc9a5887b31c09ab0e0b05f490039b9c3f777",
+  "result": "PASS",
+  "selection": [
+    "tests/test_capacity_phase_spans.py",
+    "tests/test_capacity_phase_real_listing.py",
+    "tests/test_object_client_session.py",
+    "tests/test_rights_object_read_clients.py",
+    "tests/test_capacity_worker_profile.py",
+    "tests/test_capacity_worker_wsgi.py",
+    "tests/test_capacity_worker_real_objects.py",
+    "tests/test_capacity_delivery_proxy_profile.py",
+    "tests/test_rights_object_verification_parallel.py",
+    "tests/test_rights_object_verify_only.py",
+    "tests/test_rights_object_store.py",
+    "tests/test_rights_object_delivery.py",
+    "tests/test_rights_proxy_validation_scope.py",
+    "tests/test_rights_validation_seal_pipeline.py",
+    "tests/test_object_repository_stream_verify.py",
+    "tests/test_canonical_review_consistency.py",
+    "tests/test_canonical_stack_gate.py",
+    "tests/test_canonical_kernel_loader.py",
+    "tests/test_rights_native_canonical_equivalence.py",
+    "tests/test_rights_canonical.py"
+  ],
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "365",
+      "time": "405.490",
+      "timestamp": "2026-10-11T04:56:40.497471+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261011-025620-6fa04899": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261011-025620-6fa04899": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "skipped": [],
+  "root_verified_source_count": 1151,
+  "reviewed_sha256": {
+    "apps/safety/object_storage/repository.py": "ebfafedf78cf515da110ece11445170890f5c10318649c7805a3e2d6b2d7de1d",
+    "tests/test_object_repository_stream_verify.py": "50fedacd3cfee6d79fca01bb973b51c4b1dbec1a3ecca68dbc83ca8627e36ae7",
+    "tests/test_rights_object_verify_only.py": "cf0d92d675271957de4866f772909a15ec1a73f51e017cda505e6cadeb1ba1c8",
+    "tests/capacity_phase_spans.py": "3831d2a9989cab469c5569594e6e35ad5f10dc6aa81f8770a034971ede7cd64d",
+    "tests/test_capacity_phase_spans.py": "75e9c99233c0cecf0df80f4060e7bd137fcf4436f7015cf30e23833243b66006",
+    "scripts/canonical_artifacts.py": "819c7641c9465dc6a672bff161280d55aa72af2e58c22b628cef8cbe818bc0cf",
+    "scripts/build_canonical_kernel.py": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "apps/safety/canonical_kernel_loader.py": "3b341c9b0410d849a2d2c8c0c8b8650e7da7ae10c264d5be3e50c709bc2327b6",
+    "apps/safety/fast_canonical.py": "77d627daf429db0e3394cc1ce5c309a44b0f497fca5d5cb5e491ec9ea0ac7989",
+    "tests/test_canonical_review_consistency.py": "780c079ca1b2a2b6f6d9486b7224be3d6b7a3329872cce9c977600870087a074",
+    "tests/test_canonical_stack_gate.py": "20fe558ee583613faf456860bef298e27d525e1a499aad52eee80dfb83d80847",
+    "tests/capacity_worker_profile.py": "080846714c8b8d7b1134a798426665d8bad8ffb0444949acb5f408f8ee776b95",
+    "tests/test_capacity_worker_real_objects.py": "eea1df5fc792dde0f6b83a8e0d5a065422da56c5562700ad7c54816269eead7a",
+    "tests/test_capacity_worker_profile.py": "1aedf7a8e5d5fcf3631f4af14dcac9b475e5d494f216e162425139fc54fe57d3"
+  },
+  "native_identity": {
+    "binary_sha256": "996bc13d6f93773610470fa444beaabaaf15be80de777ede5a9fa5a307636d3c",
+    "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "cache_tag": "cpython-312",
+    "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "manifest_sha256": "fa78f5b040339a5873e92097de205e1826b840cf0b3f6f49c3523ef3b871f709",
+    "mode": "native-sealed",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.13",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  },
+  "cleanup_independently_verified": true,
+  "scope": "20-file real focused functional gate; not capacity acceptance",
+  "integrated_head_before_docs": "ef94e50baeb6cd6474d37aeff388b614c7c8a764",
+  "integration_runtime_sources_match_tested_candidate": true,
+  "integrated_native_identity": {
+    "binary_sha256": "996bc13d6f93773610470fa444beaabaaf15be80de777ede5a9fa5a307636d3c",
+    "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "cache_tag": "cpython-312",
+    "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "manifest_sha256": "fa78f5b040339a5873e92097de205e1826b840cf0b3f6f49c3523ef3b871f709",
+    "mode": "native-sealed",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.13",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  }
+}
