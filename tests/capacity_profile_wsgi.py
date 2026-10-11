@@ -2,10 +2,14 @@
 
 import cProfile
 import io
+import json
 import os
 import pstats
 import re
+from contextlib import nullcontext
 from pathlib import Path
+
+from capacity_worker_profile import scope
 
 from config.wsgi import application as original
 
@@ -17,12 +21,16 @@ def application(environ, start_response):
     response = None
     if profile:
         profile.enable()
+    collector = None
     try:
-        response = original(environ, start_response)
-        yield from response
+        with scope() if profile else nullcontext() as collector:
+            try:
+                response = original(environ, start_response)
+                yield from response
+            finally:
+                if response is not None:
+                    response.close()
     finally:
-        if response is not None:
-            response.close()
         if profile:
             profile.disable()
             output = io.StringIO()
@@ -30,4 +38,7 @@ def application(environ, start_response):
             pstats.Stats(profile, stream=output).sort_stats('tottime').print_stats(30)
             name = f'/tmp/capacity-profile-{os.getpid()}.txt' if stage == 'selection' else \
                 f'/tmp/capacity-profile-{stage}-{os.getpid()}.txt'
+            if collector is not None:
+                output.write('\nCapacity worker diagnostic JSON:\n')
+                output.write(json.dumps(collector.snapshot(), sort_keys=True) + '\n')
             Path(name).write_text(output.getvalue())
