@@ -1,0 +1,80 @@
+{
+  "run_id": "20261011-015504-8ec5be01",
+  "head": "4f0806941e90411aacaedccb9dd498d4177f18f3",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "all_source_hashes_verified": 1148,
+  "reviewed_sha256": {
+    "tests/test_capacity_phase_spans.py": "2c03a2a1d7b36ddcf0d2a22955a9da646c5e761d1d4f2954f09bcd9ec2b979cd",
+    "tests/test_capacity_phase_real_listing.py": "35bfef6b3883caf00096c6aa0e63efdf831fe1ac9aba4f29a5d928f18a14d37b",
+    "tests/test_object_client_session.py": "6eb221c652aa425e60c4bede7aea1f9b20171a8091cf19cd5127e515a8101df6",
+    "tests/test_rights_object_read_clients.py": "4a1252ff9c23bef03a0a73c5a470f10ba12ffa023cff37b22fbf6f5f317fe4fb",
+    "tests/test_capacity_worker_profile.py": "5a22cc6071c40e0842729e2f3f55755a113609c49ba668c439cf1f7406cea617",
+    "tests/test_capacity_worker_wsgi.py": "40b90666b690aad9ffea2aa3a33075c29b039247f4c07347ac6649118e3d27a9",
+    "tests/test_capacity_worker_real_objects.py": "c0c718147d6aed8f4bfc6015b1ed3507e0c1a53786f3ddd0054ba600a5c4bab8",
+    "tests/test_capacity_delivery_proxy_profile.py": "33544b4eb570a432863bf2e793ceb5ec46911c9fe4836c3d067ba054742f89e3",
+    "tests/test_rights_object_verification_parallel.py": "a79874d5d57052304099e43bea13e182eb88bab3cd689c0cdde2a9817f4acdcd",
+    "tests/test_rights_object_verify_only.py": "10cafdfd80119657b7ab75c934857f656df680665c2847ad4975772622d84fbf",
+    "tests/test_rights_object_store.py": "81fcbc9c7d213a8656b89a4f4cf793938f1a6926424456175a27cb62fc0bd17c",
+    "tests/test_rights_object_delivery.py": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+    "tests/test_rights_proxy_validation_scope.py": "e374b31a74cfd9c452f6239792fc42de4618ac3813ac8bb1ede076997e52288b",
+    "tests/test_rights_validation_seal_pipeline.py": "9d1b2a679d43234bd9b3e71e65394c830b606cde108b3677e642b96f29e7f09f",
+    "tests/capacity_phase_spans.py": "cb808d5ba2061ca4257b07bf7e5dd7524c3ce214e33400807f9a3aafb466e409",
+    "tests/capacity_profile_wsgi.py": "82ff639f16ad1c93ad662616e78989ab6d46f5e5446fdba200501c9742dd95e8",
+    "tests/capacity_gunicorn.py": "dcadef34b00124080bf6eb20523b8839b6e8faa6f5983da5ed9f30cde7645cb5",
+    "apps/safety/object_storage/factory.py": "e16953d93ab2c966f0ac3eb3b8a8c860cb88fd3bdea40bba9eeedddf133b1385"
+  },
+  "tests": 184,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_seconds": 409.427,
+  "steps": [
+    {
+      "name": "start-pg",
+      "exit_code": null
+    },
+    {
+      "name": "start-redis",
+      "exit_code": null
+    },
+    {
+      "name": "dependencies",
+      "exit_code": null
+    },
+    {
+      "name": "ruff",
+      "exit_code": null
+    },
+    {
+      "name": "documentation",
+      "exit_code": null
+    },
+    {
+      "name": "django",
+      "exit_code": null
+    },
+    {
+      "name": "migrations",
+      "exit_code": null
+    },
+    {
+      "name": "native-build",
+      "exit_code": null
+    },
+    {
+      "name": "pytest",
+      "exit_code": null
+    }
+  ],
+  "independent_cleanup": {
+    "postgres_absent": true,
+    "redis_absent": true,
+    "object_test_label_inventory_empty": true
+  },
+  "scope": "Finite real PostgreSQL/Redis/RustFS functional equivalence of explicit listing spans and per-client boto3 sessions; no new speedup or N3/two-case acceptance",
+  "listing_equivalence_tests": [
+    "test_real_listing_phases_preserve_pages_audits_and_idempotent_results",
+    "test_real_listing_observation_retains_exact_failure_and_atomic_rollback"
+  ]
+}

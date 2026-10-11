@@ -325,3 +325,11 @@ HEADf3da868; fuente/baseline intactos;1PASS0FAIL0ERROR0skip,245,461sJUnit. Limpi
 | binary_download | 8 | 6.529290 | 6.915486 | -5.915% | 5 |
 
 n1 no p95; n3/n8 p95 nearest-rank es máximo muestral, inferencia limitada. JSON/binario requieren reducir1,467847/1,915486s respectivamente. Cuatro perfiles extra completos con540eventos,27objetos/2hilos, sin404. Observación inclusiva solapada, excluida p95; aún no calibrada para atribuir coste productivo. No sumar fases ni extrapolar dos casos. Evidencia docs/evidencias/mod08-medicion-worker-corrected-20261011.json.
+
+## Observador de fases listado asignado 2026-10-11
+
+Root crea worktree /home/felidae/proyectos/web_modelos_mod08_phase_spans branchcodex/mod08-phase-spans BASE854bc8f. Native canonical_tests propiedad exclusiva nuevos tests/capacity_phase_spans.py y tests/test_capacity_phase_spans.py; sin modificar producción/WSGI ni contenedores. Wrappers de límites fijos y contadores SQL, sin hooks por evento ni valores privados; root revisa equivalencia/restauración/overhead antes de aplicar. Host tests no aceptación real. No nueva invocación Claude; ultrareview1of3 única sigue activa, estado5found1verified4refuted observado, informe final pendiente.
+
+Root revisa/commit candidatos03530e3 sessions y5a1ebbf listing-spans, cherry-picks48c8983/4f08069 sólo integración, pendientes aceptación. HOSTsessions7PASS0.28s; observer+WSGI25PASS0.33s/RuffPASS. Root añade2pruebas PostgreSQL equivalencia/auditoría/rollback exacto. Joint14files1worker fixture-snapshots/librdb pinned,PID3587657/startticks340431386; fuente integración congelada hasta terminal. No nueva medición capacidad todavía. Propiedad storage_crypto4files aislados; observer canonical_tests2newfiles/rootWsgi+gunicorn+realtests. Ultrareview única activa sin relanzamientos.
+
+N2 conjunto terminal20261011-015504-8ec5be01:184PASS0FAIL0ERROR0skip409,427sJUnit,9steps0,1148sourcehashes/rootHEAD4f08069 verificados. PGRedis propios y labelobjecttests ausentes. Session/observer aceptados funcionalmente, sin resultado rendimiento ni aceptación final. Evidencia docs/evidencias/mod08-phase-session-functional-20261011.json. Ultrareview1of3 sigue en deduping,5verified; no relanzar. Preparar captura nueva sólo tras informe/correcciones que puedan invalidar fuente; evitar carrera de congelación.
