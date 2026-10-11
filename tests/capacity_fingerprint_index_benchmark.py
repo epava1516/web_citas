@@ -65,9 +65,14 @@ def measure(function, kind, size, scenario):
     calls = []
     for index in range(8):
         value = base
-        if scenario in {"miss", "collision"}:
+        if scenario in {"miss", "collision", "late-collision"}:
             marker = str(index) if kind is str else str(index).encode()
-            value = base[:32] + marker + base[33:] if scenario == "collision" else marker + base[1:]
+            if scenario == "collision":
+                value = base[:32] + marker + base[33:]
+            elif scenario == "late-collision":
+                value = base[:-33] + marker + base[-32:]
+            else:
+                value = marker + base[1:]
         calls.append(value if scenario == "same-object" else _fresh(value))
     native_calls = 0
 
@@ -77,22 +82,42 @@ def measure(function, kind, size, scenario):
         return salted_hmac("rights-request-v1", value, algorithm="sha256").hexdigest()
 
     with transaction.atomic(), memo.operation_fingerprints():
+        effective = None
+        if scenario == "saturated-bucket":
+            charge = len(base) * (4 if kind is str else 1)
+            secret = settings.SECRET_KEY
+            charge += len(secret) * (4 if type(secret) is str else 1)
+            if function is memo.fingerprint:
+                charge += memo.INDEX_OVERHEAD
+            effective = min(memo.MAX_ENTRIES, memo.MAX_INPUT_BYTES // charge)
+            for index in range(effective):
+                marker = f"{index:04d}"
+                if kind is bytes:
+                    marker = marker.encode()
+                function(base[:-36] + marker + base[-32:], native)
+            marker = "9999" if kind is str else b"9999"
+            overflow = base[:-36] + marker + base[-32:]
+            calls = [_fresh(overflow) for _ in range(8)]
+            native_calls = 0
         begin_wall, begin_cpu = time.perf_counter(), time.process_time()
         results = [function(value, native) for value in calls]
         cpu, wall = time.process_time() - begin_cpu, time.perf_counter() - begin_wall
         state = memo._current.get()
         entries, retained = len(state["entries"]), state["bytes"]
+        candidates = max((len(bucket) for bucket in state["buckets"].values()), default=0)
     assert all(result == salted_hmac("rights-request-v1", value, algorithm="sha256").hexdigest()
                for result, value in zip(results, calls, strict=True))
     return {"wall": wall, "cpu": cpu, "native_calls": native_calls,
-            "entries": entries, "retained_bytes": retained}
+            "entries": entries, "retained_bytes": retained,
+            "bucket_candidates": candidates, "effective_saturation": effective}
 
 
 def benchmark():
     rows = []
     for kind in (str, bytes):
-        for size in (128, 4097, 1024 * 1024):
-            for scenario in ("same-object", "fresh-hit", "miss", "collision"):
+        for size in (128, 4097, 65537, 1024 * 1024):
+            for scenario in ("same-object", "fresh-hit", "miss", "collision", "late-collision",
+                             *(("saturated-bucket",) if size > memo.LARGE_INPUT else ())):
                 measure(reference_fingerprint, kind, size, scenario)
                 measure(memo.fingerprint, kind, size, scenario)
                 pairs = []

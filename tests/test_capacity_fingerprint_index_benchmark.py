@@ -13,7 +13,7 @@ def test_fingerprint_index_alternated_diagnostic(settings, record_property):
     settings.SECRET_KEY = "synthetic-fingerprint-benchmark"
     report = experiment.benchmark()
     assert report["status"] == "DIAGNOSTIC_NOT_REQUEST_GAIN"
-    assert len(report["rows"]) == 24
+    assert len(report["rows"]) == 44
     for row in report["rows"]:
         assert len(row["pairs"]) == 9
         for pair in row["pairs"]:
@@ -22,4 +22,9 @@ def test_fingerprint_index_alternated_diagnostic(settings, record_property):
                 assert measured["retained_bytes"] <= experiment.memo.MAX_INPUT_BYTES
                 expected_calls = 1 if row["scenario"] in {"same-object", "fresh-hit"} else 8
                 assert measured["native_calls"] == expected_calls
+            if row["scenario"] == "saturated-bucket":
+                candidate = pair["candidate"]
+                assert candidate["bucket_candidates"] == candidate["effective_saturation"]
+                assert candidate["entries"] == candidate["effective_saturation"]
+                assert candidate["bucket_candidates"] <= experiment.memo.MAX_ENTRIES
     record_property("fingerprint_index_diagnostic", json.dumps(report, separators=(",", ":")))
