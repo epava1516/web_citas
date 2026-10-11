@@ -10,12 +10,17 @@ from contextlib import nullcontext
 from pathlib import Path
 
 from capacity_phase_spans import scope as phase_scope
+from capacity_request_timing import ENV_HEADER, observe, sample_id
 from capacity_worker_profile import scope
 
 from config.wsgi import application as original
 
 
 def application(environ, start_response):
+    identifier = sample_id(environ.get(ENV_HEADER))
+    if identifier is not None and not environ.get('HTTP_X_CAPACITY_PROFILE'):
+        yield from observe(original, environ, start_response, identifier)
+        return
     stage = environ.get('HTTP_X_CAPACITY_PROFILE', '')
     stage = stage if re.fullmatch(r'[a-z_]{1,40}', stage) else ('selection' if stage == '1' else '')
     listing_phases = stage == 'coverage_page_read'

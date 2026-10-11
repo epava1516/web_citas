@@ -13,6 +13,7 @@ from threading import Event, Thread
 from types import SimpleNamespace
 from uuid import uuid4
 
+from capacity_request_timing import collect as collect_request_timings
 from django.db import connection
 
 
@@ -45,7 +46,9 @@ def server(settings, record_property):
     env = os.environ.copy()
     env['DJANGO_SETTINGS_MODULE'] = 'capacity_gunicorn_settings'
     application = 'config.wsgi:application'
-    if getattr(settings, 'CAPACITY_SELECTION_PROFILE', False):
+    if (getattr(settings, 'CAPACITY_SELECTION_PROFILE', False)
+            or getattr(settings, 'CAPACITY_REQUEST_TIMING', False)):
+        Path('/tmp/capacity_request_timing.py').write_text(Path(__file__).with_name('capacity_request_timing.py').read_text())
         Path('/tmp/capacity_profile_wsgi.py').write_text(Path(__file__).with_name('capacity_profile_wsgi.py').read_text())
         Path('/tmp/capacity_worker_profile.py').write_text(Path(__file__).with_name('capacity_worker_profile.py').read_text())
         Path('/tmp/capacity_phase_spans.py').write_text(Path(__file__).with_name('capacity_phase_spans.py').read_text())
@@ -155,6 +158,7 @@ def server(settings, record_property):
             record_property('gunicorn_server', json.dumps({
                 'command': command, 'exit': process.returncode, 'rss_peaks_bytes': peaks,
                 'log': log_path.read_text()[-20000:],
+                'request_timings': collect_request_timings(),
                 'extra_profiles': {path.name: path.read_text() for path in Path('/tmp').glob('capacity-profile-*.txt')},
                 'scope': 'Master and workers kernel VmHWM sampled100ms; process-group teardown. Same owned app cgroup; optional Caddy and RustFS separate owned cgroups, never deployment.',
             }))

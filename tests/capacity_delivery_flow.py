@@ -12,6 +12,7 @@ from html.parser import HTMLParser
 from uuid import uuid4, uuid5
 
 from capacity_delivery_http import open_client, operator, post
+from capacity_request_timing import HEADER
 from django.contrib.auth.models import Permission
 from django.db import transaction
 from django.utils.crypto import salted_hmac
@@ -101,16 +102,20 @@ def error_html(body):
 
 
 def sampled(metrics, name, barrier, client, endpoint, csrf, values, profile=False,
-            require_private_delivery=False):
+            require_private_delivery=False, request_id=None):
     barrier.wait(timeout=120)
-    result = post(client, endpoint, csrf, values,
-                  headers={"X-Capacity-Profile": name} if profile else None)
+    headers = {"X-Capacity-Profile": name} if profile else None
+    if not profile and name == 'coverage_page_read' and request_id is not None:
+        headers = {HEADER: str(request_id)}
+    result = post(client, endpoint, csrf, values, headers=headers)
     if profile:
         # Diagnostic only: extra profiled request remains subject to delivery/privacy guards.
         metrics.setdefault(name + "_profiled_seconds", []).append(result.seconds)
     else:
         metrics.setdefault(name, []).append(result.seconds)
         metrics.setdefault(name + "_intervals", []).append(result.interval)
+        if name == 'coverage_page_read':
+            metrics.setdefault(name + '_request_ids', []).append(request_id)
         metrics.setdefault(name + "_bytes", []).append(len(result.body))
         metrics.setdefault(name + "_http_stages", []).append(result.stages)
     diagnostic = {"stage": name, "status": result.status, "bytes": len(result.body),
@@ -255,7 +260,8 @@ def run_case(index, target, context, server, settings, barrier, metrics, diagnos
             {"operation": "inspect", "key": str(key), "version": case.version, "reason": REASON,
              "dataset": "binary" if binary else dataset, "row_number": row + 1,
              "field_page": page, "page_count": len(group)},
-            profile=diagnostic and number == 3)
+            profile=diagnostic and number == 3,
+            request_id=index * 1024 + number + 1)
         for position, coordinates in enumerate(group):
             page_key = key if len(group) == 1 else uuid5(key, f"coverage-batch-page:{position}")
             evidence = RightsPortabilityCoverageRead.objects.get(action__key=page_key)
