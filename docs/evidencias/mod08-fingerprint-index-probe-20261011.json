@@ -1,0 +1,3918 @@
+{
+  "run_id": "20261011-061409-419d935d",
+  "head": "14da7009041ce6930f7f449779c95fd37afdde82",
+  "result": "FUNCTIONAL_PASS_CANDIDATE_REQUIRES_REFINEMENT",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "26",
+      "time": "91.589",
+      "timestamp": "2026-10-11T08:14:28.981486+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_hash_count": 1155,
+  "cleanup_independently_verified": true,
+  "diagnostic": {
+    "status": "DIAGNOSTIC_NOT_REQUEST_GAIN",
+    "warmup_per_mode": 1,
+    "pairs_per_scenario": 9,
+    "rows": [
+      {
+        "type": "str",
+        "size": 128,
+        "scenario": "same-object",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 7.34478235244751e-05,
+              "cpu": 6.132800000102634e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "candidate": {
+              "wall": 5.363486707210541e-05,
+              "cpu": 5.070400000306563e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "candidate": {
+              "wall": 5.2226707339286804e-05,
+              "cpu": 4.9359000001913955e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "reference": {
+              "wall": 5.275523290038109e-05,
+              "cpu": 4.986999999800901e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "reference": {
+              "wall": 5.254289135336876e-05,
+              "cpu": 4.976900000031037e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "candidate": {
+              "wall": 5.266629159450531e-05,
+              "cpu": 4.987399999833997e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "candidate": {
+              "wall": 7.06501305103302e-05,
+              "cpu": 6.73819999974512e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "reference": {
+              "wall": 5.191238597035408e-05,
+              "cpu": 4.900999999790656e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "reference": {
+              "wall": 5.027558654546738e-05,
+              "cpu": 4.742700000548439e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "candidate": {
+              "wall": 5.287397652864456e-05,
+              "cpu": 5.009300000580197e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "candidate": {
+              "wall": 5.222298204898834e-05,
+              "cpu": 4.951200000391509e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "reference": {
+              "wall": 4.957616329193115e-05,
+              "cpu": 4.672400000060861e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "reference": {
+              "wall": 5.045812577009201e-05,
+              "cpu": 4.769200000254159e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "candidate": {
+              "wall": 6.211083382368088e-05,
+              "cpu": 5.3993999998169784e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "candidate": {
+              "wall": 5.1960814744234085e-05,
+              "cpu": 4.909600000502223e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "reference": {
+              "wall": 6.311619654297829e-05,
+              "cpu": 6.0023999999714306e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "reference": {
+              "wall": 5.081109702587128e-05,
+              "cpu": 4.790100000207076e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "candidate": {
+              "wall": 5.23650087416172e-05,
+              "cpu": 4.9626999995666665e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          }
+        ],
+        "median_cpu_delta": 1.7259999935959058e-06
+      },
+      {
+        "type": "str",
+        "size": 128,
+        "scenario": "fresh-hit",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 5.327770486474037e-05,
+              "cpu": 5.0377000000878525e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "candidate": {
+              "wall": 5.2663031965494156e-05,
+              "cpu": 5.000200000182531e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "candidate": {
+              "wall": 5.2391085773706436e-05,
+              "cpu": 4.95600000007812e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "reference": {
+              "wall": 5.180900916457176e-05,
+              "cpu": 4.8937000002524655e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "reference": {
+              "wall": 5.0866976380348206e-05,
+              "cpu": 4.8169999999458923e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "candidate": {
+              "wall": 5.1859766244888306e-05,
+              "cpu": 4.91559999957758e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "candidate": {
+              "wall": 7.054116576910019e-05,
+              "cpu": 5.694700000447028e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "reference": {
+              "wall": 5.135871469974518e-05,
+              "cpu": 4.842999999965514e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "reference": {
+              "wall": 5.1165930926799774e-05,
+              "cpu": 4.844900000477992e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "candidate": {
+              "wall": 5.173776298761368e-05,
+              "cpu": 4.888699999838764e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "candidate": {
+              "wall": 5.2031129598617554e-05,
+              "cpu": 4.9220000001071185e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "reference": {
+              "wall": 5.094893276691437e-05,
+              "cpu": 4.811400000193089e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "reference": {
+              "wall": 6.089778617024422e-05,
+              "cpu": 5.773499999861542e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "candidate": {
+              "wall": 5.395803600549698e-05,
+              "cpu": 5.111699999815755e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "candidate": {
+              "wall": 5.189003422856331e-05,
+              "cpu": 4.898000000252978e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "reference": {
+              "wall": 5.1217153668403625e-05,
+              "cpu": 4.843899999684709e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          },
+          {
+            "reference": {
+              "wall": 5.015917122364044e-05,
+              "cpu": 4.736200000365898e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            },
+            "candidate": {
+              "wall": 5.1551032811403275e-05,
+              "cpu": 4.882999999722415e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 636
+            }
+          }
+        ],
+        "median_cpu_delta": 6.22999998256546e-07
+      },
+      {
+        "type": "str",
+        "size": 128,
+        "scenario": "miss",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.00010110577568411827,
+              "cpu": 9.836199999568862e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "candidate": {
+              "wall": 0.00010258099064230919,
+              "cpu": 9.988800000115816e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00010160962119698524,
+              "cpu": 9.896599999592581e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "reference": {
+              "wall": 0.00010141776874661446,
+              "cpu": 9.864900000167154e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0001015043817460537,
+              "cpu": 9.892199999939066e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "candidate": {
+              "wall": 0.00010307924821972847,
+              "cpu": 0.00010036099999410908,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00010213721543550491,
+              "cpu": 9.942199999812829e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "reference": {
+              "wall": 0.00010261824354529381,
+              "cpu": 9.995199999934812e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00010073091834783554,
+              "cpu": 9.808800000143947e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "candidate": {
+              "wall": 0.00010586390271782875,
+              "cpu": 0.00010311199999790688,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00011196499690413475,
+              "cpu": 0.00010918600000309198,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "reference": {
+              "wall": 0.00010220613330602646,
+              "cpu": 9.949599999714565e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00010198727250099182,
+              "cpu": 9.926300000273613e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "candidate": {
+              "wall": 0.00013977102935314178,
+              "cpu": 0.00013105499999710446,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00010392069816589355,
+              "cpu": 0.00010088100000160694,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "reference": {
+              "wall": 0.00010341592133045197,
+              "cpu": 0.00010047099999610509,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00010376842692494392,
+              "cpu": 0.00010073600000026772,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "candidate": {
+              "wall": 0.00019398890435695648,
+              "cpu": 0.00017063499999636633,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          }
+        ],
+        "median_cpu_delta": 1.526000005469541e-06
+      },
+      {
+        "type": "str",
+        "size": 128,
+        "scenario": "collision",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.00010553793981671333,
+              "cpu": 0.00010259900000164635,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "candidate": {
+              "wall": 0.0001049521379172802,
+              "cpu": 0.00010223499999995056,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00010500894859433174,
+              "cpu": 0.00010213999999564294,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "reference": {
+              "wall": 0.00010381313040852547,
+              "cpu": 0.00010107500000344771,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00010126689448952675,
+              "cpu": 9.861300000579831e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "candidate": {
+              "wall": 0.00012611504644155502,
+              "cpu": 0.00012280900000405381,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00010459823533892632,
+              "cpu": 0.00010173100000088198,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "reference": {
+              "wall": 0.0001032860018312931,
+              "cpu": 0.00010019799999838597,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00010023172944784164,
+              "cpu": 9.749099999822874e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "candidate": {
+              "wall": 0.00010406831279397011,
+              "cpu": 0.00010131100000165816,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00010278495028614998,
+              "cpu": 0.00010010400000481923,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "reference": {
+              "wall": 0.00015201792120933533,
+              "cpu": 0.0001279620000005366,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0001153191551566124,
+              "cpu": 0.00011225200000097857,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "candidate": {
+              "wall": 0.00010442780330777168,
+              "cpu": 0.00010152000000118733,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00010448833927512169,
+              "cpu": 0.00010149700000283701,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "reference": {
+              "wall": 0.00010341499000787735,
+              "cpu": 0.00010051200000305016,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00010426901280879974,
+              "cpu": 0.00010144600000216997,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            },
+            "candidate": {
+              "wall": 0.00010425504297018051,
+              "cpu": 0.00010150600000002896,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 5088
+            }
+          }
+        ],
+        "median_cpu_delta": 9.849999997868508e-07
+      },
+      {
+        "type": "str",
+        "size": 4097,
+        "scenario": "same-object",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 6.749993190169334e-05,
+              "cpu": 6.459200000108467e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            },
+            "candidate": {
+              "wall": 7.131695747375488e-05,
+              "cpu": 6.832899999409392e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00011794501915574074,
+              "cpu": 0.0001143279999951119,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            },
+            "reference": {
+              "wall": 6.431294605135918e-05,
+              "cpu": 6.138899999541536e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            }
+          },
+          {
+            "reference": {
+              "wall": 6.890203803777695e-05,
+              "cpu": 6.59809999987715e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            },
+            "candidate": {
+              "wall": 7.226411253213882e-05,
+              "cpu": 6.927599999784206e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            }
+          },
+          {
+            "candidate": {
+              "wall": 7.082894444465637e-05,
+              "cpu": 6.795599999520618e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            },
+            "reference": {
+              "wall": 7.45188444852829e-05,
+              "cpu": 7.149900000058551e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            }
+          },
+          {
+            "reference": {
+              "wall": 6.476324051618576e-05,
+              "cpu": 6.165700000337893e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            },
+            "candidate": {
+              "wall": 7.191486656665802e-05,
+              "cpu": 6.90520000006245e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            }
+          },
+          {
+            "candidate": {
+              "wall": 7.526017725467682e-05,
+              "cpu": 7.20330000021363e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            },
+            "reference": {
+              "wall": 7.508788257837296e-05,
+              "cpu": 6.647200000031717e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            }
+          },
+          {
+            "reference": {
+              "wall": 6.360374391078949e-05,
+              "cpu": 6.0561000005066035e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            },
+            "candidate": {
+              "wall": 7.167086005210876e-05,
+              "cpu": 6.868100000190225e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            }
+          },
+          {
+            "candidate": {
+              "wall": 7.10589811205864e-05,
+              "cpu": 6.827600000036682e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            },
+            "reference": {
+              "wall": 7.511908188462257e-05,
+              "cpu": 6.773999999865055e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            }
+          },
+          {
+            "reference": {
+              "wall": 6.408803164958954e-05,
+              "cpu": 6.098499999751539e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            },
+            "candidate": {
+              "wall": 7.149996235966682e-05,
+              "cpu": 6.851899999560374e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            }
+          }
+        ],
+        "median_cpu_delta": 5.5610000018191386e-06
+      },
+      {
+        "type": "str",
+        "size": 4097,
+        "scenario": "fresh-hit",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 7.461011409759521e-05,
+              "cpu": 7.144500000322296e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            },
+            "candidate": {
+              "wall": 7.497193291783333e-05,
+              "cpu": 7.208899999966434e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            }
+          },
+          {
+            "candidate": {
+              "wall": 8.640391752123833e-05,
+              "cpu": 8.289400000194291e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            },
+            "reference": {
+              "wall": 7.56620429456234e-05,
+              "cpu": 7.271199999792088e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            }
+          },
+          {
+            "reference": {
+              "wall": 7.359031587839127e-05,
+              "cpu": 7.055800000443924e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            },
+            "candidate": {
+              "wall": 7.419101893901825e-05,
+              "cpu": 7.123200000336283e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            }
+          },
+          {
+            "candidate": {
+              "wall": 8.664000779390335e-05,
+              "cpu": 7.796899999590323e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            },
+            "reference": {
+              "wall": 7.655983790755272e-05,
+              "cpu": 7.355900000050042e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            }
+          },
+          {
+            "reference": {
+              "wall": 7.37491063773632e-05,
+              "cpu": 7.07399999981817e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            },
+            "candidate": {
+              "wall": 7.273396477103233e-05,
+              "cpu": 6.986000000352988e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            }
+          },
+          {
+            "candidate": {
+              "wall": 7.370300590991974e-05,
+              "cpu": 7.061699999866278e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            },
+            "reference": {
+              "wall": 7.419008761644363e-05,
+              "cpu": 7.125400000518312e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            }
+          },
+          {
+            "reference": {
+              "wall": 7.416820153594017e-05,
+              "cpu": 7.123800000385927e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            },
+            "candidate": {
+              "wall": 8.24308954179287e-05,
+              "cpu": 7.957700000105206e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            }
+          },
+          {
+            "candidate": {
+              "wall": 7.468508556485176e-05,
+              "cpu": 7.164200000175924e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            },
+            "reference": {
+              "wall": 8.359737694263458e-05,
+              "cpu": 8.073800000119036e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            }
+          },
+          {
+            "reference": {
+              "wall": 7.34836794435978e-05,
+              "cpu": 7.05349999989835e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 16512
+            },
+            "candidate": {
+              "wall": 9.281514212489128e-05,
+              "cpu": 7.949999999823376e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 18560
+            }
+          }
+        ],
+        "median_cpu_delta": 6.739999989235912e-07
+      },
+      {
+        "type": "str",
+        "size": 4097,
+        "scenario": "miss",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.00021065492182970047,
+              "cpu": 0.00020715400000170803,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            },
+            "candidate": {
+              "wall": 0.00024684518575668335,
+              "cpu": 0.00024248100000079376,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00020924396812915802,
+              "cpu": 0.00020622799999614472,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            },
+            "reference": {
+              "wall": 0.00020611006766557693,
+              "cpu": 0.0002031410000000733,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00021884730085730553,
+              "cpu": 0.00020975400000367017,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            },
+            "candidate": {
+              "wall": 0.00021031685173511505,
+              "cpu": 0.00020731100000404012,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00023964466527104378,
+              "cpu": 0.00023027799999653098,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            },
+            "reference": {
+              "wall": 0.00021394481882452965,
+              "cpu": 0.0002110359999960565,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00020472891628742218,
+              "cpu": 0.0002017730000005713,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            },
+            "candidate": {
+              "wall": 0.00021291477605700493,
+              "cpu": 0.00020994499999460459,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0002098148688673973,
+              "cpu": 0.00020690200000217374,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            },
+            "reference": {
+              "wall": 0.00021869037300348282,
+              "cpu": 0.00021119899999888503,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0002042842097580433,
+              "cpu": 0.00020143999999788775,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            },
+            "candidate": {
+              "wall": 0.0002101389691233635,
+              "cpu": 0.00020718199999691933,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0002108309417963028,
+              "cpu": 0.00020771600000557555,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            },
+            "reference": {
+              "wall": 0.00020449701696634293,
+              "cpu": 0.00020148299999789288,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00021076761186122894,
+              "cpu": 0.00020745100000141292,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            },
+            "candidate": {
+              "wall": 0.00021437602117657661,
+              "cpu": 0.0002114629999994122,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            }
+          }
+        ],
+        "median_cpu_delta": 5.741999999031577e-06
+      },
+      {
+        "type": "str",
+        "size": 4097,
+        "scenario": "collision",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.00020542973652482033,
+              "cpu": 0.00020251599999454584,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            },
+            "candidate": {
+              "wall": 0.00021848920732736588,
+              "cpu": 0.00021556600000138815,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00023750914260745049,
+              "cpu": 0.00023323399999952699,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            },
+            "reference": {
+              "wall": 0.00020786700770258904,
+              "cpu": 0.00020465299999727904,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0002032620832324028,
+              "cpu": 0.00020049000000454953,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            },
+            "candidate": {
+              "wall": 0.0002512829378247261,
+              "cpu": 0.0002284629999991239,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00022839708253741264,
+              "cpu": 0.00022530799999742612,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            },
+            "reference": {
+              "wall": 0.00036797020584344864,
+              "cpu": 0.0002939099999963446,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00021495111286640167,
+              "cpu": 0.0002117499999982897,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            },
+            "candidate": {
+              "wall": 0.00023860204964876175,
+              "cpu": 0.00022945300000287716,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0002620220184326172,
+              "cpu": 0.0002576599999954965,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            },
+            "reference": {
+              "wall": 0.00023068906739354134,
+              "cpu": 0.00022173100000344448,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00021203793585300446,
+              "cpu": 0.0002089389999966329,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            },
+            "candidate": {
+              "wall": 0.00021785590797662735,
+              "cpu": 0.00021478000000030306,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0002207048237323761,
+              "cpu": 0.00021730800000341333,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            },
+            "reference": {
+              "wall": 0.00020844396203756332,
+              "cpu": 0.00020538500000100157,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00020678294822573662,
+              "cpu": 0.0002039929999995138,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 132096
+            },
+            "candidate": {
+              "wall": 0.00021712295711040497,
+              "cpu": 0.000214104000001214,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 148480
+            }
+          }
+        ],
+        "median_cpu_delta": 1.305000000684231e-05
+      },
+      {
+        "type": "str",
+        "size": 1048576,
+        "scenario": "same-object",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.003465997986495495,
+              "cpu": 0.003434493999996846,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            },
+            "candidate": {
+              "wall": 0.003723049070686102,
+              "cpu": 0.0036850659999956292,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.003005032893270254,
+              "cpu": 0.002980014000002029,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            },
+            "reference": {
+              "wall": 0.0052835410460829735,
+              "cpu": 0.005196957999999086,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.005543562117964029,
+              "cpu": 0.005342034000001661,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            },
+            "candidate": {
+              "wall": 0.005045766942203045,
+              "cpu": 0.004875849000001153,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0029459148645401,
+              "cpu": 0.002920721999998932,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            },
+            "reference": {
+              "wall": 0.003503751941025257,
+              "cpu": 0.0034648829999994746,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.003219400066882372,
+              "cpu": 0.0031995950000052176,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            },
+            "candidate": {
+              "wall": 0.002958382945507765,
+              "cpu": 0.0029385579999967604,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0029401229694485664,
+              "cpu": 0.0029227299999945444,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            },
+            "reference": {
+              "wall": 0.0032860892824828625,
+              "cpu": 0.003263490999998453,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.003198321908712387,
+              "cpu": 0.003182184000003474,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            },
+            "candidate": {
+              "wall": 0.0029834299348294735,
+              "cpu": 0.002964095999999472,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0029937918297946453,
+              "cpu": 0.002970306999998229,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            },
+            "reference": {
+              "wall": 0.003200033213943243,
+              "cpu": 0.003183339999999646,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.003191246185451746,
+              "cpu": 0.0031728969999988976,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            },
+            "candidate": {
+              "wall": 0.0029901480302214622,
+              "cpu": 0.002969215000000247,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            }
+          }
+        ],
+        "median_cpu_delta": -0.0002610370000084572
+      },
+      {
+        "type": "str",
+        "size": 1048576,
+        "scenario": "fresh-hit",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.006141103338450193,
+              "cpu": 0.006103494000001319,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            },
+            "candidate": {
+              "wall": 0.005404068157076836,
+              "cpu": 0.005362580999999977,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0035231891088187695,
+              "cpu": 0.003495198999999616,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            },
+            "reference": {
+              "wall": 0.0086887301877141,
+              "cpu": 0.008623063000001707,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.005812690127640963,
+              "cpu": 0.005702540000001477,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            },
+            "candidate": {
+              "wall": 0.0033487938344478607,
+              "cpu": 0.0033278319999965333,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0037002861499786377,
+              "cpu": 0.003671277999998779,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            },
+            "reference": {
+              "wall": 0.0057734339497983456,
+              "cpu": 0.005729881999997133,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.005862309131771326,
+              "cpu": 0.005783469000000707,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            },
+            "candidate": {
+              "wall": 0.0033081318251788616,
+              "cpu": 0.0032835010000056286,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.003200578037649393,
+              "cpu": 0.003184138999998254,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            },
+            "reference": {
+              "wall": 0.005762877874076366,
+              "cpu": 0.00573220700000121,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.005804693792015314,
+              "cpu": 0.005769393000001344,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            },
+            "candidate": {
+              "wall": 0.003406789153814316,
+              "cpu": 0.0033776080000009756,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0032460191287100315,
+              "cpu": 0.003224191000001042,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            },
+            "reference": {
+              "wall": 0.005762562155723572,
+              "cpu": 0.005724276999998779,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.005755505058914423,
+              "cpu": 0.0057234940000014944,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4194428
+            },
+            "candidate": {
+              "wall": 0.0031865080818533897,
+              "cpu": 0.003167565000005368,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4196476
+            }
+          }
+        ],
+        "median_cpu_delta": -0.0024999679999950786
+      },
+      {
+        "type": "str",
+        "size": 1048576,
+        "scenario": "miss",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.024677305947989225,
+              "cpu": 0.024541323000001114,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            },
+            "candidate": {
+              "wall": 0.024400928057730198,
+              "cpu": 0.024256924000006563,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.026368012186139822,
+              "cpu": 0.026193380999998794,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            },
+            "reference": {
+              "wall": 0.02692643878981471,
+              "cpu": 0.02676402799999522,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.026307667139917612,
+              "cpu": 0.02603342099999395,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            },
+            "candidate": {
+              "wall": 0.023358298931270838,
+              "cpu": 0.02325599899999986,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.02685877215117216,
+              "cpu": 0.026530743999998663,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            },
+            "reference": {
+              "wall": 0.02642985712736845,
+              "cpu": 0.026234028000004628,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.026961421128362417,
+              "cpu": 0.02665233899999464,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            },
+            "candidate": {
+              "wall": 0.02457168372347951,
+              "cpu": 0.02441464300000007,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.022853274829685688,
+              "cpu": 0.022716234000000668,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            },
+            "reference": {
+              "wall": 0.02393834199756384,
+              "cpu": 0.023826663999997777,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.024516571313142776,
+              "cpu": 0.02424586800000128,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            },
+            "candidate": {
+              "wall": 0.023938655853271484,
+              "cpu": 0.023781894999999054,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.02283500786870718,
+              "cpu": 0.022482940999999812,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            },
+            "reference": {
+              "wall": 0.024397216271609068,
+              "cpu": 0.024185137999999995,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.024239820893853903,
+              "cpu": 0.024125845000000368,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            },
+            "candidate": {
+              "wall": 0.02632696321234107,
+              "cpu": 0.026128577999998015,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            }
+          }
+        ],
+        "median_cpu_delta": -0.000570646999996427
+      },
+      {
+        "type": "str",
+        "size": 1048576,
+        "scenario": "collision",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.02921933401376009,
+              "cpu": 0.029042125000003693,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            },
+            "candidate": {
+              "wall": 0.02838113298639655,
+              "cpu": 0.028042969000004803,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.023695471230894327,
+              "cpu": 0.023504404999997064,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            },
+            "reference": {
+              "wall": 0.02648397907614708,
+              "cpu": 0.02632698299999703,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.027332643046975136,
+              "cpu": 0.026988406000000964,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            },
+            "candidate": {
+              "wall": 0.032596600241959095,
+              "cpu": 0.0321517089999972,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.024622971657663584,
+              "cpu": 0.02409859600000175,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            },
+            "reference": {
+              "wall": 0.02585093816742301,
+              "cpu": 0.025712627000004318,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0400389451533556,
+              "cpu": 0.03917192699999816,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            },
+            "candidate": {
+              "wall": 0.02410777797922492,
+              "cpu": 0.023825709000000472,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.023898218292742968,
+              "cpu": 0.023669228000002818,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            },
+            "reference": {
+              "wall": 0.02554817497730255,
+              "cpu": 0.025382492999995065,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.023876572027802467,
+              "cpu": 0.023695672999998862,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            },
+            "candidate": {
+              "wall": 0.022701934911310673,
+              "cpu": 0.022574448000000302,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.022158874198794365,
+              "cpu": 0.022032097999996836,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            },
+            "reference": {
+              "wall": 0.023930291179567575,
+              "cpu": 0.023778876000001503,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0253941067494452,
+              "cpu": 0.025229463000002283,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29360996
+            },
+            "candidate": {
+              "wall": 0.02224183827638626,
+              "cpu": 0.022093662999999708,
+              "native_calls": 8,
+              "entries": 7,
+              "retained_bytes": 29375332
+            }
+          }
+        ],
+        "median_cpu_delta": -0.0017132649999922478
+      },
+      {
+        "type": "bytes",
+        "size": 128,
+        "scenario": "same-object",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 5.032075569033623e-05,
+              "cpu": 4.7854000001734676e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "candidate": {
+              "wall": 4.953518509864807e-05,
+              "cpu": 4.6967000002950954e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "candidate": {
+              "wall": 4.820292815566063e-05,
+              "cpu": 4.56829999961883e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "reference": {
+              "wall": 4.865601658821106e-05,
+              "cpu": 4.6201000003520676e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "reference": {
+              "wall": 4.782341420650482e-05,
+              "cpu": 4.535699999763665e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "candidate": {
+              "wall": 4.934798926115036e-05,
+              "cpu": 4.6755999996150877e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "candidate": {
+              "wall": 4.7647859901189804e-05,
+              "cpu": 4.5049000000574324e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "reference": {
+              "wall": 6.238697096705437e-05,
+              "cpu": 4.9898999996855764e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "reference": {
+              "wall": 4.714261740446091e-05,
+              "cpu": 4.452599999638096e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "candidate": {
+              "wall": 4.837196320295334e-05,
+              "cpu": 4.569200000048568e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "candidate": {
+              "wall": 4.7347042709589005e-05,
+              "cpu": 4.476299999822686e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "reference": {
+              "wall": 4.619872197508812e-05,
+              "cpu": 4.364699999825916e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "reference": {
+              "wall": 4.643388092517853e-05,
+              "cpu": 4.3646000001729135e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "candidate": {
+              "wall": 4.7783832997083664e-05,
+              "cpu": 4.5137999997280076e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "candidate": {
+              "wall": 4.7312118113040924e-05,
+              "cpu": 4.4774999999219744e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "reference": {
+              "wall": 4.840828478336334e-05,
+              "cpu": 4.5777000003965895e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "reference": {
+              "wall": 4.675285890698433e-05,
+              "cpu": 4.396300000308884e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "candidate": {
+              "wall": 4.868488758802414e-05,
+              "cpu": 4.620899999707717e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          }
+        ],
+        "median_cpu_delta": 1.1159999999676984e-06
+      },
+      {
+        "type": "bytes",
+        "size": 128,
+        "scenario": "fresh-hit",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 4.8312824219465256e-05,
+              "cpu": 4.5792999998184314e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "candidate": {
+              "wall": 6.05839304625988e-05,
+              "cpu": 5.764200000157871e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "candidate": {
+              "wall": 5.023833364248276e-05,
+              "cpu": 4.7819000002391476e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "reference": {
+              "wall": 4.939781501889229e-05,
+              "cpu": 4.6879999999305255e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "reference": {
+              "wall": 4.835380241274834e-05,
+              "cpu": 4.585199999951328e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "candidate": {
+              "wall": 4.90373931825161e-05,
+              "cpu": 4.642700000090372e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "candidate": {
+              "wall": 4.826392978429794e-05,
+              "cpu": 4.5592999995847094e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "reference": {
+              "wall": 4.816940054297447e-05,
+              "cpu": 4.563599999585222e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "reference": {
+              "wall": 4.75030392408371e-05,
+              "cpu": 4.49539999962667e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "candidate": {
+              "wall": 5.1381997764110565e-05,
+              "cpu": 4.8907000000042444e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "candidate": {
+              "wall": 4.8833899199962616e-05,
+              "cpu": 4.62719999987371e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "reference": {
+              "wall": 4.780106246471405e-05,
+              "cpu": 4.523400000522315e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "reference": {
+              "wall": 4.608882591128349e-05,
+              "cpu": 4.3554999997752475e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "candidate": {
+              "wall": 4.803808405995369e-05,
+              "cpu": 4.5536000001789034e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "candidate": {
+              "wall": 9.619025513529778e-05,
+              "cpu": 8.198199999753797e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "reference": {
+              "wall": 5.5666081607341766e-05,
+              "cpu": 5.273099999669739e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          },
+          {
+            "reference": {
+              "wall": 5.861883983016014e-05,
+              "cpu": 5.1120999998488514e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            },
+            "candidate": {
+              "wall": 5.052192136645317e-05,
+              "cpu": 4.7748000000069624e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 252
+            }
+          }
+        ],
+        "median_cpu_delta": 1.0379999935139494e-06
+      },
+      {
+        "type": "bytes",
+        "size": 128,
+        "scenario": "miss",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.00012529687955975533,
+              "cpu": 0.00010260300000197731,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "candidate": {
+              "wall": 9.591318666934967e-05,
+              "cpu": 9.33179999975664e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00010826205834746361,
+              "cpu": 0.00010556399999472887,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "reference": {
+              "wall": 9.461073204874992e-05,
+              "cpu": 9.189100000384087e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "reference": {
+              "wall": 9.335903450846672e-05,
+              "cpu": 9.079499999842255e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "candidate": {
+              "wall": 0.0001232977956533432,
+              "cpu": 0.00011300899999611147,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "candidate": {
+              "wall": 9.635090827941895e-05,
+              "cpu": 9.355899999974326e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "reference": {
+              "wall": 9.423261508345604e-05,
+              "cpu": 9.15600000013228e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "reference": {
+              "wall": 9.322306141257286e-05,
+              "cpu": 9.070499999808135e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "candidate": {
+              "wall": 0.00013511581346392632,
+              "cpu": 0.00013126900000060004,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00010960688814520836,
+              "cpu": 0.00010053999999826146,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "reference": {
+              "wall": 9.437091648578644e-05,
+              "cpu": 9.18570000010277e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "reference": {
+              "wall": 9.27802175283432e-05,
+              "cpu": 9.01869999978544e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "candidate": {
+              "wall": 9.520864114165306e-05,
+              "cpu": 9.268600000211791e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "candidate": {
+              "wall": 9.387778118252754e-05,
+              "cpu": 9.131699999898046e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "reference": {
+              "wall": 0.00018358277156949043,
+              "cpu": 0.0001677779999980089,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "reference": {
+              "wall": 9.572086855769157e-05,
+              "cpu": 9.30009999962067e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "candidate": {
+              "wall": 9.623309597373009e-05,
+              "cpu": 9.370100000438697e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          }
+        ],
+        "median_cpu_delta": 2.4990000042635074e-06
+      },
+      {
+        "type": "bytes",
+        "size": 128,
+        "scenario": "collision",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.00010872725397348404,
+              "cpu": 9.998000000166485e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "candidate": {
+              "wall": 0.00012650201097130775,
+              "cpu": 0.0001224920000026941,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "candidate": {
+              "wall": 9.73828136920929e-05,
+              "cpu": 9.456400000118492e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "reference": {
+              "wall": 9.500887244939804e-05,
+              "cpu": 9.233600000158049e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "reference": {
+              "wall": 9.457627311348915e-05,
+              "cpu": 9.193399999674057e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "candidate": {
+              "wall": 0.00019412394613027573,
+              "cpu": 0.0001227090000028852,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00010112905874848366,
+              "cpu": 9.793999999629932e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "reference": {
+              "wall": 9.777210652828217e-05,
+              "cpu": 9.508000000124639e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "reference": {
+              "wall": 9.39476303756237e-05,
+              "cpu": 9.154199999983348e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "candidate": {
+              "wall": 9.610503911972046e-05,
+              "cpu": 9.349900000188427e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "candidate": {
+              "wall": 9.880866855382919e-05,
+              "cpu": 9.616300000203637e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "reference": {
+              "wall": 9.522773325443268e-05,
+              "cpu": 9.26310000011199e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "reference": {
+              "wall": 9.443797171115875e-05,
+              "cpu": 9.194799999789893e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "candidate": {
+              "wall": 9.594904258847237e-05,
+              "cpu": 9.340000000435111e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "candidate": {
+              "wall": 9.518209844827652e-05,
+              "cpu": 9.262599999715349e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "reference": {
+              "wall": 9.589595720171928e-05,
+              "cpu": 9.311800000233461e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          },
+          {
+            "reference": {
+              "wall": 9.497301653027534e-05,
+              "cpu": 9.237799999795016e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            },
+            "candidate": {
+              "wall": 9.596720337867737e-05,
+              "cpu": 9.353699999792298e-05,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 2016
+            }
+          }
+        ],
+        "median_cpu_delta": 2.2279999996044353e-06
+      },
+      {
+        "type": "bytes",
+        "size": 4097,
+        "scenario": "same-object",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 6.059370934963226e-05,
+              "cpu": 5.792200000342973e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            },
+            "candidate": {
+              "wall": 6.746407598257065e-05,
+              "cpu": 6.482900000293057e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            }
+          },
+          {
+            "candidate": {
+              "wall": 6.723497062921524e-05,
+              "cpu": 6.456600000603885e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            },
+            "reference": {
+              "wall": 0.00010253489017486572,
+              "cpu": 9.951899999549596e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            }
+          },
+          {
+            "reference": {
+              "wall": 6.06258399784565e-05,
+              "cpu": 5.787099999565726e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            },
+            "candidate": {
+              "wall": 6.897002458572388e-05,
+              "cpu": 6.623400000194124e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            }
+          },
+          {
+            "candidate": {
+              "wall": 8.060876280069351e-05,
+              "cpu": 7.782400000166945e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            },
+            "reference": {
+              "wall": 5.923677235841751e-05,
+              "cpu": 5.67780000011453e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            }
+          },
+          {
+            "reference": {
+              "wall": 5.885399878025055e-05,
+              "cpu": 5.62239999979397e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            },
+            "candidate": {
+              "wall": 6.682286038994789e-05,
+              "cpu": 6.410799999656547e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            }
+          },
+          {
+            "candidate": {
+              "wall": 6.610201671719551e-05,
+              "cpu": 6.33990000054041e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            },
+            "reference": {
+              "wall": 5.8197882026433945e-05,
+              "cpu": 5.557199999373097e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            }
+          },
+          {
+            "reference": {
+              "wall": 5.7891011238098145e-05,
+              "cpu": 5.5215999999802534e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            },
+            "candidate": {
+              "wall": 9.616697207093239e-05,
+              "cpu": 9.353100000453196e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            }
+          },
+          {
+            "candidate": {
+              "wall": 6.984639912843704e-05,
+              "cpu": 6.416900000516534e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            },
+            "reference": {
+              "wall": 5.879811942577362e-05,
+              "cpu": 5.611099999924818e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            }
+          },
+          {
+            "reference": {
+              "wall": 6.148684769868851e-05,
+              "cpu": 5.874400000038804e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            },
+            "candidate": {
+              "wall": 8.11438076198101e-05,
+              "cpu": 7.842000000124472e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            }
+          }
+        ],
+        "median_cpu_delta": 8.058000005917165e-06
+      },
+      {
+        "type": "bytes",
+        "size": 4097,
+        "scenario": "fresh-hit",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 7.184594869613647e-05,
+              "cpu": 6.910700000162251e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            },
+            "candidate": {
+              "wall": 7.026875391602516e-05,
+              "cpu": 6.7461999996965e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            }
+          },
+          {
+            "candidate": {
+              "wall": 8.582510054111481e-05,
+              "cpu": 8.179400000329906e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            },
+            "reference": {
+              "wall": 8.326815441250801e-05,
+              "cpu": 7.410299999577319e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            }
+          },
+          {
+            "reference": {
+              "wall": 7.312698289752007e-05,
+              "cpu": 6.991000000056147e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            },
+            "candidate": {
+              "wall": 7.028691470623016e-05,
+              "cpu": 6.758600000011938e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            }
+          },
+          {
+            "candidate": {
+              "wall": 6.836559623479843e-05,
+              "cpu": 6.564400000286241e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            },
+            "reference": {
+              "wall": 7.150508463382721e-05,
+              "cpu": 6.86200000004078e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            }
+          },
+          {
+            "reference": {
+              "wall": 6.883172318339348e-05,
+              "cpu": 6.618700000160516e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            },
+            "candidate": {
+              "wall": 6.957026198506355e-05,
+              "cpu": 6.715800000023364e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            }
+          },
+          {
+            "candidate": {
+              "wall": 6.779329851269722e-05,
+              "cpu": 6.516799999900513e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            },
+            "reference": {
+              "wall": 6.970902904868126e-05,
+              "cpu": 6.7002000001537e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            }
+          },
+          {
+            "reference": {
+              "wall": 8.11312347650528e-05,
+              "cpu": 7.847999999910371e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            },
+            "candidate": {
+              "wall": 6.892485544085503e-05,
+              "cpu": 6.62480000030996e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            }
+          },
+          {
+            "candidate": {
+              "wall": 9.315228089690208e-05,
+              "cpu": 9.017700000413242e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            },
+            "reference": {
+              "wall": 6.990320980548859e-05,
+              "cpu": 6.712300000089044e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            }
+          },
+          {
+            "reference": {
+              "wall": 6.840378046035767e-05,
+              "cpu": 6.570800000105237e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 4221
+            },
+            "candidate": {
+              "wall": 8.193310350179672e-05,
+              "cpu": 7.923400000464653e-05,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 6269
+            }
+          }
+        ],
+        "median_cpu_delta": -1.6450000046575042e-06
+      },
+      {
+        "type": "bytes",
+        "size": 4097,
+        "scenario": "miss",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.00019895890727639198,
+              "cpu": 0.00019635099999959493,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            },
+            "candidate": {
+              "wall": 0.0001927027478814125,
+              "cpu": 0.0001900230000018155,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00022831466048955917,
+              "cpu": 0.00022384300000055646,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            },
+            "reference": {
+              "wall": 0.00020296918228268623,
+              "cpu": 0.00019300199999605638,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00018767081201076508,
+              "cpu": 0.0001847800000049915,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            },
+            "candidate": {
+              "wall": 0.00020803185179829597,
+              "cpu": 0.00020464300000355706,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00019404198974370956,
+              "cpu": 0.00019080900000290058,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            },
+            "reference": {
+              "wall": 0.00018736720085144043,
+              "cpu": 0.00018434999999783486,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00019920803606510162,
+              "cpu": 0.00019172700000069653,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            },
+            "candidate": {
+              "wall": 0.00019293371587991714,
+              "cpu": 0.00019021499999638536,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0002910830080509186,
+              "cpu": 0.00028540200000293225,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            },
+            "reference": {
+              "wall": 0.0005934643559157848,
+              "cpu": 0.0005883969999942451,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00019082892686128616,
+              "cpu": 0.0001876990000013734,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            },
+            "candidate": {
+              "wall": 0.00019577192142605782,
+              "cpu": 0.00019262600000047314,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00023141177371144295,
+              "cpu": 0.0002220110000052955,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            },
+            "reference": {
+              "wall": 0.0001882747747004032,
+              "cpu": 0.0001855449999936809,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0001848679967224598,
+              "cpu": 0.00018211199999740302,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            },
+            "candidate": {
+              "wall": 0.00019394094124436378,
+              "cpu": 0.0001912640000014676,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            }
+          }
+        ],
+        "median_cpu_delta": 6.459000005065718e-06
+      },
+      {
+        "type": "bytes",
+        "size": 4097,
+        "scenario": "collision",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.00018823379650712013,
+              "cpu": 0.00018558100000376498,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            },
+            "candidate": {
+              "wall": 0.00019677774980664253,
+              "cpu": 0.00019405999999833057,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00019868509843945503,
+              "cpu": 0.00019609699999989516,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            },
+            "reference": {
+              "wall": 0.00025247596204280853,
+              "cpu": 0.00024736200000319286,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00021275226026773453,
+              "cpu": 0.00020096599999419595,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            },
+            "candidate": {
+              "wall": 0.00020251376554369926,
+              "cpu": 0.0001996909999988361,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00025382358580827713,
+              "cpu": 0.00023952000000093676,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            },
+            "reference": {
+              "wall": 0.00021820934489369392,
+              "cpu": 0.0002153929999977322,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00019005686044692993,
+              "cpu": 0.0001874270000001843,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            },
+            "candidate": {
+              "wall": 0.00026852870360016823,
+              "cpu": 0.00025601600000157987,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00019697519019246101,
+              "cpu": 0.00019402399999535191,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            },
+            "reference": {
+              "wall": 0.00020471913740038872,
+              "cpu": 0.00019560699999487952,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0002013607881963253,
+              "cpu": 0.0001985370000028297,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            },
+            "candidate": {
+              "wall": 0.000197557732462883,
+              "cpu": 0.0001947770000043647,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00019676098600029945,
+              "cpu": 0.0001939000000064084,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            },
+            "reference": {
+              "wall": 0.00018671108409762383,
+              "cpu": 0.0001840589999986264,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.00023389095440506935,
+              "cpu": 0.0002255149999967898,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 33768
+            },
+            "candidate": {
+              "wall": 0.00020822091028094292,
+              "cpu": 0.0002043949999972483,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 50152
+            }
+          }
+        ],
+        "median_cpu_delta": -1.274999995359849e-06
+      },
+      {
+        "type": "bytes",
+        "size": 1048576,
+        "scenario": "same-object",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.0029387320391833782,
+              "cpu": 0.0029212419999993244,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            },
+            "candidate": {
+              "wall": 0.0026814499869942665,
+              "cpu": 0.0026646339999985003,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0026825289241969585,
+              "cpu": 0.0026558830000027456,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            },
+            "reference": {
+              "wall": 0.0029405150562524796,
+              "cpu": 0.002913925999997957,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0030963150784373283,
+              "cpu": 0.0029823300000018094,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            },
+            "candidate": {
+              "wall": 0.002778763882815838,
+              "cpu": 0.0027130120000009583,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0026945387944579124,
+              "cpu": 0.002673960999999281,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            },
+            "reference": {
+              "wall": 0.0034413067623972893,
+              "cpu": 0.003272870000003536,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0030081490986049175,
+              "cpu": 0.0029803410000042163,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            },
+            "candidate": {
+              "wall": 0.002808419056236744,
+              "cpu": 0.00278653599999501,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.002869207877665758,
+              "cpu": 0.002852984999996977,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            },
+            "reference": {
+              "wall": 0.003039897885173559,
+              "cpu": 0.0029786999999998898,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0029912078753113747,
+              "cpu": 0.002968997000003526,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            },
+            "candidate": {
+              "wall": 0.0027645141817629337,
+              "cpu": 0.0027260429999955704,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.00411441083997488,
+              "cpu": 0.004059644999998113,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            },
+            "reference": {
+              "wall": 0.0029937000945210457,
+              "cpu": 0.0029696360000031063,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.002965766005218029,
+              "cpu": 0.0029465650000020105,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            },
+            "candidate": {
+              "wall": 0.002737315371632576,
+              "cpu": 0.0027201939999983438,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            }
+          }
+        ],
+        "median_cpu_delta": -0.00024295400000795553
+      },
+      {
+        "type": "bytes",
+        "size": 1048576,
+        "scenario": "fresh-hit",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.005671584978699684,
+              "cpu": 0.005636137999999846,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            },
+            "candidate": {
+              "wall": 0.0032541537657380104,
+              "cpu": 0.003231629000005398,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0033246572129428387,
+              "cpu": 0.0032953289999966273,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            },
+            "reference": {
+              "wall": 0.007302372250705957,
+              "cpu": 0.005679445000005501,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.005658657755702734,
+              "cpu": 0.005619878000004519,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            },
+            "candidate": {
+              "wall": 0.004397367127239704,
+              "cpu": 0.004357292999998208,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.0033426228910684586,
+              "cpu": 0.0033152510000036273,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            },
+            "reference": {
+              "wall": 0.006012721918523312,
+              "cpu": 0.00596991300000127,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.006579661276191473,
+              "cpu": 0.006522725000003504,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            },
+            "candidate": {
+              "wall": 0.0033380864188075066,
+              "cpu": 0.0033118360000017333,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.003787890076637268,
+              "cpu": 0.0037533850000031066,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            },
+            "reference": {
+              "wall": 0.006381941959261894,
+              "cpu": 0.006323704000003261,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.005699456203728914,
+              "cpu": 0.005656289999997455,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            },
+            "candidate": {
+              "wall": 0.003601284231990576,
+              "cpu": 0.0034649199999989833,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.004214210901409388,
+              "cpu": 0.004165194999998789,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            },
+            "reference": {
+              "wall": 0.006160123273730278,
+              "cpu": 0.006108900999997502,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.005792543292045593,
+              "cpu": 0.005760674999997661,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1048700
+            },
+            "candidate": {
+              "wall": 0.0032300748862326145,
+              "cpu": 0.0032051949999996054,
+              "native_calls": 1,
+              "entries": 1,
+              "retained_bytes": 1050748
+            }
+          }
+        ],
+        "median_cpu_delta": -0.002404508999994448
+      },
+      {
+        "type": "bytes",
+        "size": 1048576,
+        "scenario": "miss",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.024013542104512453,
+              "cpu": 0.023816701000001217,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            },
+            "candidate": {
+              "wall": 0.021172285079956055,
+              "cpu": 0.02095929700000454,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.020980574190616608,
+              "cpu": 0.020865104000002077,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            },
+            "reference": {
+              "wall": 0.026322264689952135,
+              "cpu": 0.025746249999997417,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.0329473833553493,
+              "cpu": 0.03254848899999985,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            },
+            "candidate": {
+              "wall": 0.0236645620316267,
+              "cpu": 0.02348253799999611,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.023446456994861364,
+              "cpu": 0.0231496660000019,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            },
+            "reference": {
+              "wall": 0.026623014826327562,
+              "cpu": 0.026456943999995985,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.025496881920844316,
+              "cpu": 0.025356318999996574,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            },
+            "candidate": {
+              "wall": 0.0224830349907279,
+              "cpu": 0.02237043600000277,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.022742164321243763,
+              "cpu": 0.022501527999999382,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            },
+            "reference": {
+              "wall": 0.025616268627345562,
+              "cpu": 0.02539135499999645,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.02568981098011136,
+              "cpu": 0.02552237999999818,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            },
+            "candidate": {
+              "wall": 0.02742307400330901,
+              "cpu": 0.027210769999996387,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.02357355412095785,
+              "cpu": 0.02344296599999751,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            },
+            "reference": {
+              "wall": 0.02689872495830059,
+              "cpu": 0.026540273999998476,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.030023821629583836,
+              "cpu": 0.02980351099999723,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            },
+            "candidate": {
+              "wall": 0.022957121953368187,
+              "cpu": 0.022835729000000526,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            }
+          }
+        ],
+        "median_cpu_delta": -0.0030973080000009645
+      },
+      {
+        "type": "bytes",
+        "size": 1048576,
+        "scenario": "collision",
+        "pairs": [
+          {
+            "reference": {
+              "wall": 0.023635224904865026,
+              "cpu": 0.023502869999994402,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            },
+            "candidate": {
+              "wall": 0.021386692766100168,
+              "cpu": 0.021126809000001856,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.02157426718622446,
+              "cpu": 0.021383301000000188,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            },
+            "reference": {
+              "wall": 0.02510749502107501,
+              "cpu": 0.024768187999995916,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.02351966081187129,
+              "cpu": 0.02337619600000096,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            },
+            "candidate": {
+              "wall": 0.021571282763034105,
+              "cpu": 0.021369346000000178,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.02756433468312025,
+              "cpu": 0.02729809600000266,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            },
+            "reference": {
+              "wall": 0.02357587404549122,
+              "cpu": 0.02328882899999485,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.023316653911024332,
+              "cpu": 0.023221364999997718,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            },
+            "candidate": {
+              "wall": 0.024911130778491497,
+              "cpu": 0.024758679000001393,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.021287669893354177,
+              "cpu": 0.021192514000006213,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            },
+            "reference": {
+              "wall": 0.0236018649302423,
+              "cpu": 0.023496620999999607,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.024079130962491035,
+              "cpu": 0.02388850100000184,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            },
+            "candidate": {
+              "wall": 0.021465191151946783,
+              "cpu": 0.021360347999994644,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            }
+          },
+          {
+            "candidate": {
+              "wall": 0.021348031237721443,
+              "cpu": 0.02125543599999702,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            },
+            "reference": {
+              "wall": 0.02338491380214691,
+              "cpu": 0.023284930999999176,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            }
+          },
+          {
+            "reference": {
+              "wall": 0.023213147185742855,
+              "cpu": 0.023112554000000785,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8389600
+            },
+            "candidate": {
+              "wall": 0.02135445410385728,
+              "cpu": 0.0211424849999986,
+              "native_calls": 8,
+              "entries": 8,
+              "retained_bytes": 8405984
+            }
+          }
+        ],
+        "median_cpu_delta": -0.002029495000002157
+      }
+    ]
+  },
+  "comparison": [
+    {
+      "type": "str",
+      "size": 128,
+      "scenario": "same-object",
+      "reference_cpu_us": 49.00999999790656,
+      "candidate_cpu_us": 49.87399999833997,
+      "time_change_percent": 1.7629055304434038,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 128,
+      "scenario": "fresh-hit",
+      "reference_cpu_us": 48.43899999684709,
+      "candidate_cpu_us": 49.220000001071185,
+      "time_change_percent": 1.6123371751583182,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 128,
+      "scenario": "miss",
+      "reference_cpu_us": 99.26300000273613,
+      "candidate_cpu_us": 100.88100000160694,
+      "time_change_percent": 1.6300131960813147,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 128,
+      "scenario": "collision",
+      "reference_cpu_us": 101.07500000344771,
+      "candidate_cpu_us": 101.52000000118733,
+      "time_change_percent": 0.44026712611866525,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 4097,
+      "scenario": "same-object",
+      "reference_cpu_us": 64.59200000108467,
+      "candidate_cpu_us": 68.68100000190225,
+      "time_change_percent": 6.330505326896385,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 4097,
+      "scenario": "fresh-hit",
+      "reference_cpu_us": 71.25400000518312,
+      "candidate_cpu_us": 72.08899999966434,
+      "time_change_percent": 1.1718640278727932,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 4097,
+      "scenario": "miss",
+      "reference_cpu_us": 207.15400000170803,
+      "candidate_cpu_us": 207.71600000557555,
+      "time_change_percent": 0.2712957528519411,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 4097,
+      "scenario": "collision",
+      "reference_cpu_us": 205.38500000100157,
+      "candidate_cpu_us": 225.30799999742612,
+      "time_change_percent": 9.700318911472316,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 1048576,
+      "scenario": "same-object",
+      "reference_cpu_us": 3263.490999998453,
+      "candidate_cpu_us": 2969.215000000247,
+      "time_change_percent": -9.017215000695433,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 1048576,
+      "scenario": "fresh-hit",
+      "reference_cpu_us": 5732.20700000121,
+      "candidate_cpu_us": 3327.8319999965333,
+      "time_change_percent": -41.94501350010859,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 1048576,
+      "scenario": "miss",
+      "reference_cpu_us": 24541.323000001114,
+      "candidate_cpu_us": 24256.924000006562,
+      "time_change_percent": -1.1588576540659146,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "str",
+      "size": 1048576,
+      "scenario": "collision",
+      "reference_cpu_us": 25712.62700000432,
+      "candidate_cpu_us": 23669.22800000282,
+      "time_change_percent": -7.947064296468643,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 128,
+      "scenario": "same-object",
+      "reference_cpu_us": 45.35699999763665,
+      "candidate_cpu_us": 45.6829999961883,
+      "time_change_percent": 0.7187424180802093,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 128,
+      "scenario": "fresh-hit",
+      "reference_cpu_us": 45.792999998184314,
+      "candidate_cpu_us": 47.748000000069624,
+      "time_change_percent": 4.2692114558182,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 128,
+      "scenario": "miss",
+      "reference_cpu_us": 91.8570000010277,
+      "candidate_cpu_us": 93.70100000438697,
+      "time_change_percent": 2.0074681334450784,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 128,
+      "scenario": "collision",
+      "reference_cpu_us": 92.37799999795016,
+      "candidate_cpu_us": 94.56400000118492,
+      "time_change_percent": 2.366364289423095,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 4097,
+      "scenario": "same-object",
+      "reference_cpu_us": 56.7780000011453,
+      "candidate_cpu_us": 64.82900000293057,
+      "time_change_percent": 14.179787948893697,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 4097,
+      "scenario": "fresh-hit",
+      "reference_cpu_us": 68.6200000004078,
+      "candidate_cpu_us": 67.461999996965,
+      "time_change_percent": -1.687554653797596,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 4097,
+      "scenario": "miss",
+      "reference_cpu_us": 187.6990000013734,
+      "candidate_cpu_us": 192.62600000047314,
+      "time_change_percent": 2.6249473886721164,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 4097,
+      "scenario": "collision",
+      "reference_cpu_us": 198.5370000028297,
+      "candidate_cpu_us": 196.09699999989516,
+      "time_change_percent": -1.2289900637663331,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 1048576,
+      "scenario": "same-object",
+      "reference_cpu_us": 2969.6360000031063,
+      "candidate_cpu_us": 2720.1939999983438,
+      "time_change_percent": -8.39975000318226,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 1048576,
+      "scenario": "fresh-hit",
+      "reference_cpu_us": 5760.674999997662,
+      "candidate_cpu_us": 3315.2510000036273,
+      "time_change_percent": -42.45030313279307,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 1048576,
+      "scenario": "miss",
+      "reference_cpu_us": 25746.249999997417,
+      "candidate_cpu_us": 22835.729000000527,
+      "time_change_percent": -11.304640481612594,
+      "pairs": 9,
+      "calls_per_sample": 8
+    },
+    {
+      "type": "bytes",
+      "size": 1048576,
+      "scenario": "collision",
+      "reference_cpu_us": 23376.19600000096,
+      "candidate_cpu_us": 21360.347999994643,
+      "time_change_percent": -8.623507434683697,
+      "pairs": 9,
+      "calls_per_sample": 8
+    }
+  ],
+  "scope": "Synthetic microbenchmark eight calls/sample, not whole request, original two-case/N3 pending",
+  "decision": "Raise bucket threshold after 4097-byte regressions; add late collision benchmark before production integration"
+}
