@@ -171,7 +171,7 @@ def test_real_rustfs_same_three_gets_and_body_close_without_plaintext_tempfile(
         gets.clear()
         temps.clear()
         assert repo.verify(ref, b"owned") == 9000
-        assert gets == old_gets and len(temps) == 1
+        assert gets == old_gets and len(temps) == 0
         assert all(body._raw_stream.closed for body in bodies)
     finally:
         repo.purge(ref)

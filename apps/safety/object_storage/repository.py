@@ -15,6 +15,59 @@ PREFIX = "wmblob1:"
 KEY = re.compile(r"^encrypted/v1/[0-9a-f]{32}$")
 
 
+class _HashedBodyReader:
+    """Bounded codec adapter; physical fetches retain the native MAX_CHUNK size.
+
+    Every fetched byte is counted/hashed once, including bytes the codec rejects
+    before consuming. A physical failure is sticky: draining never retries IO.
+    """
+
+    def __init__(self, body, expected):
+        self.body, self.expected = body, expected
+        self.size, self.digest = 0, hashlib.sha256()
+        self.buffer, self.offset = b"", 0
+        self.eof, self.failure = False, None
+
+    def _fetch(self):
+        if self.failure is not None:
+            raise self.failure
+        if self.eof:
+            return False
+        try:
+            block = self.body.read(MAX_CHUNK)
+            if not block:
+                self.eof = True
+                self.buffer, self.offset = b"", 0
+                return False
+            self.size += len(block)
+            if self.size > self.expected["bytes"]:
+                raise InvalidObject("Object grew")
+            self.digest.update(block)
+            self.buffer, self.offset = block, 0
+            return True
+        except Exception as error:
+            self.failure = error
+            raise
+
+    def read(self, size):
+        if size == 0:
+            return b""
+        if self.offset == len(self.buffer) and not self._fetch():
+            return b""
+        end = min(self.offset + size, len(self.buffer))
+        value = self.buffer[self.offset:end]
+        self.offset = end
+        return value
+
+    def finish(self):
+        # The unread buffer is already physically counted and hashed.
+        self.buffer, self.offset = b"", 0
+        while self._fetch():
+            self.buffer, self.offset = b"", 0
+        if self.size != self.expected["bytes"] or self.digest.hexdigest() != self.expected["sha256"]:
+            raise InvalidObject("Object digest mismatch")
+
+
 class ObjectRepository:
     def __init__(self, client, bucket, ring, reference_cipher):
         self.client, self.bucket, self.ring = client, bucket, ring
@@ -116,9 +169,32 @@ class ObjectRepository:
             return decrypt(stored, target, self.ring, context)
 
     def verify(self, reference, context):
-        """Same physical guards as read, without materializing unused plaintext."""
-        with self._verified_ciphertext(reference) as stored:
-            return verify(stored, self.ring, context)
+        """Authenticate streaming, with physical failures preceding codec failures.
+
+        No ciphertext/plaintext tempfile or output. Even an early codec failure
+        drains the body first, preserving the read API's size/digest/purge/IO
+        priority. KeyboardInterrupt/SystemExit are not intercepted or drained.
+        """
+        value = self.descriptor(reference)
+        if self._tombstone(value["key"]):
+            raise InvalidObject("Object irreversibly purged")
+        response = self.client.get_object(Bucket=self.bucket, Key=value["key"])
+        body = response["Body"]
+        try:
+            source = _HashedBodyReader(body, value)
+            codec_error = None
+            try:
+                total = verify(source, self.ring, context)
+            except Exception as error:
+                codec_error = error
+            source.finish()
+            if self._tombstone(value["key"]):
+                raise InvalidObject("Object purged during read")
+            if codec_error is not None:
+                raise codec_error
+            return total
+        finally:
+            body.close()
 
     def rotate(self, reference, context, new_ring):
         """Create a new immutable object; caller commits new ref before purging old."""
