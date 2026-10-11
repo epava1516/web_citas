@@ -23,6 +23,9 @@ PHASES = {
     ('apps/safety/object_storage/codec.py', '_header'): 'header',
     ('apps/safety/object_storage/codec.py', '_authenticate_frames'): 'authenticate_frames',
 }
+_PHASE_FUNCTIONS = frozenset(function for _, function in PHASES)
+_PHASE_SUFFIXES = tuple((PurePath(filename).parts, function, phase)
+                        for (filename, function), phase in PHASES.items())
 MAX_WORKERS = 2
 MAX_EVENTS = 100_000
 MAX_SEGMENTS = 10_000
@@ -33,9 +36,10 @@ _scope_lock = threading.Lock()
 
 def _phase(code):
     # Anchored component suffix, not arbitrary substring or frame globals/locals.
+    if code.co_name not in _PHASE_FUNCTIONS:
+        return None
     parts = PurePath(code.co_filename).parts
-    for (filename, function), phase in PHASES.items():
-        suffix = PurePath(filename).parts
+    for suffix, function, phase in _PHASE_SUFFIXES:
         if code.co_name == function and parts[-len(suffix):] == suffix:
             return phase
     return None
