@@ -1,0 +1,148 @@
+{
+  "run_id": "20261011-061145-885358c3",
+  "head": "14da7009041ce6930f7f449779c95fd37afdde82",
+  "result": "EXPERIMENT_PASSED_PRODUCTION_DESIGN_REJECTED",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "8",
+      "time": "50.183",
+      "timestamp": "2026-10-11T08:12:09.586212+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_hash_count": 1155,
+  "cleanup_independently_verified": true,
+  "scope": "PG17 microbenchmark; no enforced capacity quotas, no whole TCP request gain; nonproduction isolated helper",
+  "properties": {
+    "runtime_sql_probe_security": {
+      "reason": "attestation_execution_toctou",
+      "replacement_observed": true,
+      "status": "REJECTED_FOR_PRODUCTION"
+    },
+    "runtime_sql_probe_diagnostic": {
+      "includes_attestation": true,
+      "metrics": {
+        "plain": {
+          "helper_attested": {
+            "count": 20,
+            "median_ns": 8173335.5,
+            "samples_ns": [
+              10800576,
+              13711460,
+              14563018,
+              10796905,
+              8640565,
+              7215027,
+              5258947,
+              5285521,
+              4055067,
+              4216824,
+              4210295,
+              8349456,
+              8507699,
+              7892300,
+              8399622,
+              7997215,
+              10388645,
+              9100441,
+              6586997,
+              5580010
+            ]
+          },
+          "reference": {
+            "count": 20,
+            "median_ns": 13482495.0,
+            "samples_ns": [
+              14315376,
+              15323265,
+              18265308,
+              13729900,
+              14800881,
+              9472070,
+              8478141,
+              7913259,
+              6692480,
+              5974576,
+              7428663,
+              13115951,
+              13104016,
+              11262558,
+              31418797,
+              17395438,
+              14950599,
+              15737913,
+              13235090,
+              14939084
+            ]
+          }
+        },
+        "recorded": {
+          "helper_attested": {
+            "count": 20,
+            "median_ns": 10206524.5,
+            "samples_ns": [
+              9570137,
+              10595640,
+              10276898,
+              10914329,
+              10932407,
+              10651777,
+              14246312,
+              10919893,
+              12402125,
+              11650751,
+              9930243,
+              7873065,
+              9694769,
+              10742323,
+              9836707,
+              10136151,
+              10090006,
+              9902527,
+              9634805,
+              8760775
+            ]
+          },
+          "reference": {
+            "count": 20,
+            "median_ns": 17066960.0,
+            "samples_ns": [
+              20320278,
+              16965335,
+              17168585,
+              18733462,
+              19170555,
+              19402414,
+              19448861,
+              24259169,
+              22440661,
+              21629293,
+              17769130,
+              13167114,
+              14454473,
+              15723108,
+              14506736,
+              15977141,
+              14341398,
+              11870256,
+              16184463,
+              11866412
+            ]
+          }
+        }
+      },
+      "postgres_major": 17,
+      "status": "DIAGNOSTIC_NOT_ACCEPTANCE"
+    }
+  },
+  "limitations": [
+    "No production integration",
+    "TOCTOU substitution confirmed",
+    "Full concurrent memberships/triggers and NULL/absence equivalence unverified"
+  ],
+  "isolated_experiment_commit": "4284d9a"
+}
