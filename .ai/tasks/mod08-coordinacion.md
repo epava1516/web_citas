@@ -298,3 +298,30 @@ Uso `20261011-005219-bb4a38b6` terminal ERROR:1FAIL/0ERROR/0skips231,176s JUnit,
 
 
 Perfilador corregido: N2 `20261011-010036-8118d391`133PASS/0FAIL/0ERROR/0skips372,141s JUnit, todos gates0, HEAD/hash revisados intactos y retirada independiente PG/Redis/RustFS confirmada. Candidatof39f8ad filtra funciones antes de PurePath y precomputa suffix fijos, sin cambiar whitelist/timings/guards/TTL. Integración local por root; sin ganancia de requests demostrada. Próxima captura privada nueva por cambio de fuente; no reutilizar baseline anterior ni ampliar TTL30.
+
+## Captura corregida 2026-10-11, run20261011-010742-bffcf011
+
+HEADf3da868; fuente intacta,1PASS0FAIL0ERROR0skip,JUnit1535,829s. Ausencia de contenedores/red/volumen propios verificada independientemente. Un caso sintético completo, diagnóstico; no N3/dos casos.
+
+| Métrica TCP p95 | n | Anterior(s) | Nueva(s) | Mejora | Objetivo(s) | Reducción pendiente |
+|---|---:|---:|---:|---:|---:|---:|
+| whole | 383 | 3.830352 | 3.855044 | -0.645% | 2 | 48.120% |
+| matched123 | 123 | 3.269685 | 3.353515 | -2.564% | 2 | 40.361% |
+
+Sin mejora demostrada; cambios de observación, sin optimización productiva nueva. Descargas iniciadas misma fuente/baseline,PID3486601/startticks340333422. Memoria upper bound propia1944403968B y almacenamiento ceiling5939134496B; no extrapolar a dos casos. Evidencia sanitizada ignorada conservada para versionar al terminar congelación. Ultrareview gratuita1of3 realmente lanzada en clon independiente; restantes2 reservadas.
+
+## Descargas corregidas, run20261011-013845-8f422a1a
+
+HEADf3da868; fuente/baseline intactos;1PASS0FAIL0ERROR0skip,245,461sJUnit. Limpieza propia verificada independientemente. Un caso completo diagnóstico, no aceptación dos casos/N3.
+
+| Fase | n | Anterior(s) | Actual(s) | Mejora | Objetivo(s) |
+|---|---:|---:|---:|---:|---:|
+| generation | 1 | 32.078407 | 33.482033 | -4.376% | 120 |
+| final_preparation | 1 | 10.446689 | 10.957687 | -4.891% | 30 |
+| final_inspection | 1 | 3.369607 | 3.042530 | 9.707% | 30 |
+| final_approval | 1 | 3.268270 | 3.316173 | -1.466% | 5 |
+| closure | 1 | 11.279068 | 10.733944 | 4.833% | 30 |
+| json_download | 3 | 6.048998 | 6.467847 | -6.924% | 5 |
+| binary_download | 8 | 6.529290 | 6.915486 | -5.915% | 5 |
+
+n1 no p95; n3/n8 p95 nearest-rank es máximo muestral, inferencia limitada. JSON/binario requieren reducir1,467847/1,915486s respectivamente. Cuatro perfiles extra completos con540eventos,27objetos/2hilos, sin404. Observación inclusiva solapada, excluida p95; aún no calibrada para atribuir coste productivo. No sumar fases ni extrapolar dos casos. Evidencia docs/evidencias/mod08-medicion-worker-corrected-20261011.json.

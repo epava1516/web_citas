@@ -1,0 +1,692 @@
+{
+  "capture": {
+    "run_id": "20261011-010742-bffcf011",
+    "head": "f3da868cb200d8d0c8eb0970718c77da7446deb9",
+    "result": "BASELINE_CAPTURED_DIAGNOSTIC_ONLY",
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-capacity-20261011-010742-bffcf011-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-010742-bffcf011-caddy": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-010742-bffcf011-objects": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-010742-bffcf011-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-010742-bffcf011-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-010742-bffcf011-delivery": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-010742-bffcf011-net": {
+        "absent": true
+      },
+      "labelled_remaining": []
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "1535.829",
+        "timestamp": "2026-10-11T03:09:55.846942+02:00",
+        "hostname": "e43a1534d58b"
+      }
+    ],
+    "owned_memory_upper_bound_bytes": 1944403968,
+    "owned_storage_ceiling_bytes": 5939134496,
+    "required_coverage_pages": 1509,
+    "measured_batch_count": 384,
+    "whole": {
+      "samples": 383,
+      "p95_seconds": 3.855044048745185,
+      "median_seconds": 3.2693476248532534,
+      "min_seconds": 1.3316988861188293,
+      "max_seconds": 4.0975623480044305
+    },
+    "matched123": {
+      "samples": 123,
+      "p95_seconds": 3.353515150025487,
+      "median_seconds": 2.9364602705463767,
+      "min_seconds": 2.558164383750409,
+      "max_seconds": 3.9641861799173057
+    },
+    "comparison": [
+      {
+        "metric": "whole",
+        "previous_seconds": 3.8303516688756645,
+        "new_seconds": 3.855044048745185,
+        "previous_samples": 383,
+        "new_samples": 383,
+        "target_seconds": 2,
+        "improvement_percent": -0.644650465652119,
+        "remaining_reduction_percent": 48.11991835343622
+      },
+      {
+        "metric": "matched123",
+        "previous_seconds": 3.269685485865921,
+        "new_seconds": 3.353515150025487,
+        "previous_samples": 123,
+        "new_samples": 123,
+        "target_seconds": 2,
+        "improvement_percent": -2.5638448872817188,
+        "remaining_reduction_percent": 40.361086486077156
+      }
+    ],
+    "error_count": 0,
+    "scope": "One full-sized synthetic case; whole unprofiled TCP batch population includes final partial batches, matched123 uses only four-page batches; diagnostic only, not two-case acceptance",
+    "previous_run_id": "20261011-002254-0eb08988"
+  },
+  "delivery": {
+    "run_id": "20261011-013845-8f422a1a",
+    "head": "f3da868cb200d8d0c8eb0970718c77da7446deb9",
+    "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+    "metrics": {
+      "generation": [
+        33.48203326109797
+      ],
+      "final_preparation": [
+        10.957687462680042
+      ],
+      "final_inspection": [
+        3.0425302609801292
+      ],
+      "final_approval": [
+        3.3161727557890117
+      ],
+      "closure": [
+        10.733944232109934
+      ],
+      "json_download": [
+        6.467847383115441,
+        5.927932594437152,
+        5.807360501028597
+      ],
+      "json_download_bytes": [
+        8388608,
+        8388608,
+        16476
+      ],
+      "binary_download": [
+        6.646383794955909,
+        6.196407709736377,
+        6.116352644748986,
+        6.612106021959335,
+        6.9154860489070415,
+        6.531156136188656,
+        6.772032057866454,
+        6.351384858135134
+      ],
+      "binary_download_bytes": [
+        8387222,
+        8387222,
+        8387218,
+        8387218,
+        8387220,
+        8387218,
+        8387216,
+        8387220
+      ]
+    },
+    "comparison": [
+      {
+        "metric": "generation",
+        "previous_seconds": 32.07840709388256,
+        "new_seconds": 33.48203326109797,
+        "improvement_percent": -4.3756105566821635,
+        "samples": 1,
+        "target_seconds": 120,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_preparation",
+        "previous_seconds": 10.446688799187541,
+        "new_seconds": 10.957687462680042,
+        "improvement_percent": -4.89148928732559,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_inspection",
+        "previous_seconds": 3.369606716092676,
+        "new_seconds": 3.0425302609801292,
+        "improvement_percent": 9.706665574664374,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_approval",
+        "previous_seconds": 3.2682702210731804,
+        "new_seconds": 3.3161727557890117,
+        "improvement_percent": -1.4656846428108938,
+        "samples": 1,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "closure",
+        "previous_seconds": 11.279067769180983,
+        "new_seconds": 10.733944232109934,
+        "improvement_percent": 4.833054896261457,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "json_download",
+        "previous_seconds": 6.048997847363353,
+        "new_seconds": 6.467847383115441,
+        "improvement_percent": -6.924279795117738,
+        "samples": 3,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 22.694527192266644,
+        "statistic": "nearest_rank_p95"
+      },
+      {
+        "metric": "binary_download",
+        "previous_seconds": 6.529289836063981,
+        "new_seconds": 6.9154860489070415,
+        "improvement_percent": -5.914827225312291,
+        "samples": 8,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 27.698502106150226,
+        "statistic": "nearest_rank_p95"
+      }
+    ],
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-capacity-20261011-013845-8f422a1a-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-013845-8f422a1a-caddy": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-013845-8f422a1a-objects": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-013845-8f422a1a-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-013845-8f422a1a-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-013845-8f422a1a-delivery": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-013845-8f422a1a-net": {
+        "absent": true
+      },
+      "labelled_remaining": []
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "245.461",
+        "timestamp": "2026-10-11T03:41:04.155624+02:00",
+        "hostname": "5ee3e7ef1dc2"
+      }
+    ],
+    "scope": "One full-sized synthetic case; two fresh HTTP authorizations and EOF; not two-case/N3 acceptance",
+    "error_count": 0,
+    "baseline_hit": "HIT_DIAGNOSTIC_REUSED_PREPARATION",
+    "baseline_inputs_unchanged": true,
+    "server_profile_names": [
+      "capacity-profile-binary_download-99.txt",
+      "capacity-profile-binary_download_proxy-100.txt",
+      "capacity-profile-json_download-99.txt",
+      "capacity-profile-json_download_proxy-100.txt"
+    ],
+    "previous_run_id": "20261010-235349-4508b0cf"
+  },
+  "worker_diagnostic": {
+    "run_id": "20261011-013845-8f422a1a",
+    "head": "f3da868cb200d8d0c8eb0970718c77da7446deb9",
+    "worker_profiles": {
+      "capacity-profile-binary_download_proxy-100.txt": {
+        "events": 540,
+        "incomplete": false,
+        "reason": null,
+        "status": "complete",
+        "timing_semantics": "inclusive_execution_segments_overlap_not_request_wall",
+        "workers": [
+          {
+            "observed_thread_cpu_seconds": 1.267779939,
+            "observed_wall_seconds": 2.013586920220405,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.35861994699999994,
+                "wall_seconds": 0.4725744565948844
+              },
+              "ciphertext_segments": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.865121348,
+                "wall_seconds": 1.4537756815552711
+              },
+              "codec_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.3661568390000003,
+                "wall_seconds": 0.4804601613432169
+              },
+              "descriptor": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.005167893999999819,
+                "wall_seconds": 0.010396520141512156
+              },
+              "header": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.006041985000000305,
+                "wall_seconds": 0.0063307820819318295
+              },
+              "object_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.2648668820000002,
+                "wall_seconds": 1.9742905986495316
+              },
+              "repository_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.2340254990000001,
+                "wall_seconds": 1.9371623676270247
+              },
+              "tombstone": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.32355275899999936,
+                "wall_seconds": 0.459404309745878
+              }
+            },
+            "worker": 1
+          },
+          {
+            "observed_thread_cpu_seconds": 1.2802122759999999,
+            "observed_wall_seconds": 1.9761201632209122,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.34341809599999973,
+                "wall_seconds": 0.5663620322011411
+              },
+              "ciphertext_segments": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.8500533190000001,
+                "wall_seconds": 1.197568267583847
+              },
+              "codec_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.3496130030000005,
+                "wall_seconds": 0.5728431073948741
+              },
+              "descriptor": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.005632234999999916,
+                "wall_seconds": 0.005820172838866711
+              },
+              "header": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.004895526999999927,
+                "wall_seconds": 0.005137647967785597
+              },
+              "object_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.277000226,
+                "wall_seconds": 1.8935472327284515
+              },
+              "repository_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.202297083,
+                "wall_seconds": 1.7731140227988362
+              },
+              "tombstone": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.31456316599999984,
+                "wall_seconds": 0.4182985448278487
+              }
+            },
+            "worker": 2
+          }
+        ]
+      },
+      "capacity-profile-binary_download-99.txt": {
+        "events": 540,
+        "incomplete": false,
+        "reason": null,
+        "status": "complete",
+        "timing_semantics": "inclusive_execution_segments_overlap_not_request_wall",
+        "workers": [
+          {
+            "observed_thread_cpu_seconds": 1.2178370299999999,
+            "observed_wall_seconds": 1.9429017580114305,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.3125029300000003,
+                "wall_seconds": 0.40252001443877816
+              },
+              "ciphertext_segments": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.8135034620000003,
+                "wall_seconds": 1.3398236613720655
+              },
+              "codec_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.31939249700000016,
+                "wall_seconds": 0.4105275929905474
+              },
+              "descriptor": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.004988345000000047,
+                "wall_seconds": 0.005064141470938921
+              },
+              "header": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.005551329000000105,
+                "wall_seconds": 0.00657810689881444
+              },
+              "object_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.2147539859999998,
+                "wall_seconds": 1.899602341465652
+              },
+              "repository_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.1354235109999995,
+                "wall_seconds": 1.7529667974449694
+              },
+              "tombstone": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.2894912880000001,
+                "wall_seconds": 0.43832311453297734
+              }
+            },
+            "worker": 1
+          },
+          {
+            "observed_thread_cpu_seconds": 1.23912647,
+            "observed_wall_seconds": 1.9869161187671125,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.32338617899999983,
+                "wall_seconds": 0.42268781270831823
+              },
+              "ciphertext_segments": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.8579764919999997,
+                "wall_seconds": 1.3428754494525492
+              },
+              "codec_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.3296286380000001,
+                "wall_seconds": 0.4322285754606128
+              },
+              "descriptor": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.004645373000000043,
+                "wall_seconds": 0.008996700402349234
+              },
+              "header": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.004964559000000174,
+                "wall_seconds": 0.008203931152820587
+              },
+              "object_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.2364194760000002,
+                "wall_seconds": 1.8539339960552752
+              },
+              "repository_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.189921093,
+                "wall_seconds": 1.7774907439015806
+              },
+              "tombstone": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.29312474600000016,
+                "wall_seconds": 0.49787015048787
+              }
+            },
+            "worker": 2
+          }
+        ]
+      },
+      "capacity-profile-json_download_proxy-100.txt": {
+        "events": 540,
+        "incomplete": false,
+        "reason": null,
+        "status": "complete",
+        "timing_semantics": "inclusive_execution_segments_overlap_not_request_wall",
+        "workers": [
+          {
+            "observed_thread_cpu_seconds": 1.326667731,
+            "observed_wall_seconds": 2.110073622316122,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.37895719399999994,
+                "wall_seconds": 0.4974483815021813
+              },
+              "ciphertext_segments": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.8917471969999999,
+                "wall_seconds": 1.3783386019058526
+              },
+              "codec_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.385176278,
+                "wall_seconds": 0.5039899670518935
+              },
+              "descriptor": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.005354839999999979,
+                "wall_seconds": 0.005417517386376858
+              },
+              "header": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.004911905999999924,
+                "wall_seconds": 0.005172031931579113
+              },
+              "object_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.323785116,
+                "wall_seconds": 1.9712624084204435
+              },
+              "repository_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.2795969160000003,
+                "wall_seconds": 1.8852442079223692
+              },
+              "tombstone": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.32123325199999986,
+                "wall_seconds": 0.5231529301963747
+              }
+            },
+            "worker": 1
+          },
+          {
+            "observed_thread_cpu_seconds": 1.2558091880000002,
+            "observed_wall_seconds": 2.041574516799301,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.35227622600000014,
+                "wall_seconds": 0.437463965266943
+              },
+              "ciphertext_segments": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.8493379499999998,
+                "wall_seconds": 1.4728612946346402
+              },
+              "codec_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.35952747800000007,
+                "wall_seconds": 0.4466077764518559
+              },
+              "descriptor": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.005317712999999932,
+                "wall_seconds": 0.005968877580016851
+              },
+              "header": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.005866565000000087,
+                "wall_seconds": 0.007689989637583494
+              },
+              "object_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.2529013990000002,
+                "wall_seconds": 2.00537678739056
+              },
+              "repository_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.2114030089999996,
+                "wall_seconds": 1.9220856837928295
+              },
+              "tombstone": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.3207262230000001,
+                "wall_seconds": 0.5078546050935984
+              }
+            },
+            "worker": 2
+          }
+        ]
+      },
+      "capacity-profile-json_download-99.txt": {
+        "events": 540,
+        "incomplete": false,
+        "reason": null,
+        "status": "complete",
+        "timing_semantics": "inclusive_execution_segments_overlap_not_request_wall",
+        "workers": [
+          {
+            "observed_thread_cpu_seconds": 1.3984113669999998,
+            "observed_wall_seconds": 2.2351418151520193,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.37440050899999977,
+                "wall_seconds": 0.46397546073421836
+              },
+              "ciphertext_segments": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.9381588850000001,
+                "wall_seconds": 1.587645088788122
+              },
+              "codec_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.38196716700000066,
+                "wall_seconds": 0.4773736512288451
+              },
+              "descriptor": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.00619560999999999,
+                "wall_seconds": 0.006758121773600578
+              },
+              "header": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.006072693999999601,
+                "wall_seconds": 0.01179200317710638
+              },
+              "object_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.395129761,
+                "wall_seconds": 2.2048292998224497
+              },
+              "repository_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.323342036,
+                "wall_seconds": 2.0683138482272625
+              },
+              "tombstone": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.35606437299999993,
+                "wall_seconds": 0.5791678568348289
+              }
+            },
+            "worker": 1
+          },
+          {
+            "observed_thread_cpu_seconds": 1.3358291740000001,
+            "observed_wall_seconds": 2.2358501739799976,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.383267063,
+                "wall_seconds": 0.578610653989017
+              },
+              "ciphertext_segments": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.8739305519999999,
+                "wall_seconds": 1.4298365353606641
+              },
+              "codec_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.3908828429999999,
+                "wall_seconds": 0.5873923520557582
+              },
+              "descriptor": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.005497786999999761,
+                "wall_seconds": 0.0056127565912902355
+              },
+              "header": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.005989623999999805,
+                "wall_seconds": 0.007073366083204746
+              },
+              "object_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.3319513410000001,
+                "wall_seconds": 2.148638724349439
+              },
+              "repository_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.2678979659999996,
+                "wall_seconds": 2.020421280991286
+              },
+              "tombstone": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.3226442389999997,
+                "wall_seconds": 0.5713209556415677
+              }
+            },
+            "worker": 2
+          }
+        ]
+      }
+    },
+    "scope": "Additional profiled requests excluded from latency p95; inclusive phases overlap"
+  },
+  "acceptance": "incomplete: unmet 2s listing and 5s delivery, N3/two simultaneous cases pending",
+  "independent_cleanup": "owned container/network/volume inventories empty for both runs"
+}
