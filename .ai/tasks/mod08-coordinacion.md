@@ -281,3 +281,17 @@ Investigación estática literal SQL de async_generation recibida con las10 clav
 
 
 Captura worker `20261011-001802-335fb1b9` falló antes de medir requests: Gunicorn no encontraba capacity_worker_profile porque root omitió copiar el helper junto al WSGI a /tmp. N2 anterior no cubría ese despliegue temporal;133PASS acredita su corpus, no el arranque de este launcher. Fuente intacta, ensayo terminal, retirada independiente de contenedores/red/volumen confirmada. Root corrige copia en tests/capacity_gunicorn.py; Ruff pasa. Se conserva evidencia negativa y se repite captura nueva sin reutilizar archivo fallido. Sin métricas nuevas ni cambio de objetivos.
+
+
+### Captura worker y descarga negativa — 2026-10-11
+
+Captura corregida `20261011-002254-0eb08988`, HEAD75c0eb7:1PASS/0FAIL/0ERROR/0skips1529,957s JUnit. Fuentes intactas y retirada independiente confirmada. Comparación con captura20261010-232333-7e99d547, misma población1509páginas/384grupos, uno perfilado excluido.
+
+| TCP p95 | Anterior s | Actual s | Mejora | Objetivo s | Reducción pendiente | n |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Recorrido completo | 3.778927 | 3.830352 | -1.36% | 2 | 47.79% | 383 |
+| Lotes completos de cuatro páginas | 3.303774 | 3.269685 | 1.03% | 2 | 38.83% | 123 |
+
+Sin nueva optimización de producción ni mejora consistente; diagnóstico de un caso, no N3/doscasos. [Evidencia saneada](../../docs/evidencias/mod08-worker-capture-20261011.json).
+
+Uso `20261011-005219-bb4a38b6` terminal ERROR:1FAIL/0ERROR/0skips231,176s JUnit, HTTP404 en descarga JSON extra perfilada. No acepta sus latencias como medición completa. Fuentes intactas, recursos propios retirados independientemente. Perfil instrumentado33,527s y workers observados~31,63s; exceso de instrumentación como posible causa de superar TTL30, causalidad todavía no probada. Root encontró PurePath y ocho reconstrucciones de suffix en cada llamada del worker, también fuera de whitelist. Candidato aislado filtra nombre primero y precomputa suffix;24hostPASS0,37s y RuffPASS. N2 real10archivos activa `20261011-010036-8118d391`, PID3260838/startticks340104580, fuente congelada. No aumentar TTL ni relajar guards/cuotas/baseline. Porcentajes contractuales y objetivos originales permanecen pendientes.
