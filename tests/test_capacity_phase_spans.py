@@ -270,3 +270,107 @@ def test_partial_sql_provider_entry_cleans_up_without_masking_domain(modules):
     assert exits == [domain]
     assert collector.snapshot()['reason'] == 'installation_failure'
     assert spans._current.get() is None
+
+
+RECORD_DETAIL_TARGETS = {
+    'validate_assessment': ('apps.safety.rights_portability_review', 'validate_approved_assessment'),
+    'assessment_evidence': ('apps.safety.rights_portability', 'validate_assessment_evidence'),
+    'selection_evidence': ('apps.safety.rights_portability_selection_store', 'validate_selection_evidence'),
+    'audited_images': ('apps.safety.rights_portability_images', 'audited_images'),
+    'checked_images': ('apps.safety.rights_portability_images', 'checked_images'),
+    'read_image_blob': ('apps.safety.rights_exports', '_read_image_blob'),
+    'content_digest': ('apps.safety.rights_operation_content_digests', 'content_digest'),
+    'batch_projection': ('apps.safety.rights_portability_batch_projection', 'project'),
+}
+
+
+@pytest.mark.parametrize('phase', RECORD_DETAIL_TARGETS)
+def test_record_detail_default_mapping_aliases_and_restore(modules, phase):
+    owner_name, attribute = RECORD_DETAIL_TARGETS[phase]
+    assert spans.PHASE_TARGETS[phase] == (owner_name, attribute)
+    assert len(spans.PHASE_TARGETS) == 17
+    assert len(spans.MODULES) == len(set(spans.MODULES))
+    owner = sys.modules[owner_name]
+    consumer = sys.modules['apps.safety.rights_portability_selection_review']
+    result = object()
+
+    def operation():
+        return result
+
+    setattr(owner, attribute, operation)
+    consumer.detail_alias = operation
+    with spans.scope(targets={phase: operation}) as collector:
+        assert getattr(owner, attribute)() is result
+        assert consumer.detail_alias() is result
+    assert collector.snapshot()['phases'][phase]['calls'] == 2
+    assert collector.snapshot()['status'] == 'complete'
+    assert getattr(owner, attribute) is consumer.detail_alias is operation
+
+
+def test_record_detail_missing_module_not_imported(modules, monkeypatch):
+    missing = 'apps.safety.rights_portability_images'
+    monkeypatch.delitem(sys.modules, missing)
+    with spans.scope() as collector:
+        assert missing not in sys.modules
+    snapshot = collector.snapshot()
+    assert {'audited_images', 'checked_images'} <= set(snapshot['missing_phases'])
+    assert snapshot['incomplete']  # Required batch/page also absent in this fixture.
+    assert missing not in sys.modules
+
+
+def test_record_detail_nested_sql_innermost_exact_error_and_restore(modules):
+    hooks = []
+    error = ValueError('private physical-domain error')
+
+    @contextmanager
+    def provider(hook):
+        hooks.append(hook)
+        try:
+            yield
+        finally:
+            hooks.pop()
+
+    exports = sys.modules['apps.safety.rights_exports']
+    reviewer = sys.modules['apps.safety.rights_portability_selection_review']
+
+    def execute(sql, params, many, context):
+        raise error
+
+    def read_image():
+        return hooks[-1](execute, 'private SQL', ['private parameter'], False, {})
+
+    exports._read_image_blob = read_image
+
+    def record():
+        return exports._read_image_blob()
+
+    reviewer.record = record
+    with pytest.raises(ValueError) as captured:
+        with spans.scope(targets={'record': record, 'read_image_blob': read_image},
+                         sql_context=provider) as collector:
+            reviewer.record()
+    assert captured.value is error
+    snapshot = collector.snapshot()
+    assert snapshot['phases']['record']['calls'] == 1
+    assert snapshot['phases']['read_image_blob']['calls'] == 1
+    assert snapshot['phases']['record']['sql_count'] == 0
+    assert snapshot['phases']['read_image_blob']['sql_count'] == 1
+    assert 'private' not in str(snapshot)
+    assert exports._read_image_blob is read_image
+    assert reviewer.record is record
+    assert not hooks
+
+
+def test_detail_generator_is_omitted_without_wrapping_image_contents(modules):
+    images = sys.modules['apps.safety.rights_portability_images']
+
+    def image_contents():
+        yield object()
+
+    images.image_contents = image_contents
+    images.audited_images = image_contents
+    with spans.scope(targets={'audited_images': image_contents}) as collector:
+        assert images.image_contents is image_contents
+        assert images.audited_images is image_contents
+    assert collector.snapshot()['omitted_phases'] == ['audited_images']
+    assert collector.snapshot()['phases']['audited_images']['calls'] == 0

@@ -23,12 +23,20 @@ PHASE_TARGETS = {
     'compile': ('apps.safety.rights_portability_coverage', 'compile_coverage'),
     'authorize': ('apps.safety.rights_portability_review', 'authorize'),
     'validate_selection': ('apps.safety.rights_portability_selection_review', 'validate_approved_selection'),
+    'validate_assessment': ('apps.safety.rights_portability_review', 'validate_approved_assessment'),
+    'assessment_evidence': ('apps.safety.rights_portability', 'validate_assessment_evidence'),
+    'selection_evidence': ('apps.safety.rights_portability_selection_store', 'validate_selection_evidence'),
+    'audited_images': ('apps.safety.rights_portability_images', 'audited_images'),
+    'checked_images': ('apps.safety.rights_portability_images', 'checked_images'),
+    'read_image_blob': ('apps.safety.rights_exports', '_read_image_blob'),
+    'content_digest': ('apps.safety.rights_operation_content_digests', 'content_digest'),
+    'batch_projection': ('apps.safety.rights_portability_batch_projection', 'project'),
 }
-MODULES = tuple(dict.fromkeys(module for module, _ in PHASE_TARGETS.values())) + (
+MODULES = tuple(dict.fromkeys(tuple(module for module, _ in PHASE_TARGETS.values()) + (
     'apps.safety.rights_inspection_source',
     'apps.safety.rights_portability_coverage_review_views',
     'apps.safety.rights_portability_batch_projection',
-)
+)))
 MAX_ALIASES = 128
 MAX_CALLS = 100_000
 MAX_DEPTH = 32
