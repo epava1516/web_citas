@@ -10,7 +10,7 @@ from django.views.decorators.debug import sensitive_variables
 
 MAX_ENTRIES = 128
 MAX_INPUT_BYTES = 32 * 1024 * 1024
-LARGE_INPUT = 4096
+LARGE_INPUT = 64 * 1024
 INDEX_EDGE = 32
 # Conservative extra charge for edge slices, index/entry tuples, bucket/list and
 # digest per large entry. Small entries retain the existing exact-key layout.

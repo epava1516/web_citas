@@ -232,9 +232,9 @@ def test_large_index_collision_requires_full_input_and_secret_equality(settings,
     def convert(value):
         return value if kind is str else value.encode()
 
-    first = convert("a" * 32 + "x" * 5000 + "z" * 32)
-    second = convert("a" * 32 + "y" * 5000 + "z" * 32)
-    settings.SECRET_KEY = convert("p" * 32 + "k" * 5000 + "s" * 32)
+    first = convert("a" * 32 + "x" * (memo.LARGE_INPUT + 1) + "z" * 32)
+    second = convert("a" * 32 + "y" * (memo.LARGE_INPUT + 1) + "z" * 32)
+    settings.SECRET_KEY = convert("p" * 32 + "k" * (memo.LARGE_INPUT + 1) + "s" * 32)
     calls = []
 
     def counted(value):
@@ -246,7 +246,7 @@ def test_large_index_collision_requires_full_input_and_secret_equality(settings,
         assert memo.fingerprint(second, counted) == native(second)
         assert memo.fingerprint(first, counted) == native(first)
         assert len(calls) == 2
-        settings.SECRET_KEY = convert("p" * 32 + "l" * 5000 + "s" * 32)
+        settings.SECRET_KEY = convert("p" * 32 + "l" * (memo.LARGE_INPUT + 1) + "s" * 32)
         assert memo.fingerprint(first, counted) == native(first)
         assert len(calls) == 3
         state = memo._current.get()
@@ -287,3 +287,22 @@ def test_large_index_secret_drift_during_native_keeps_no_bucket(settings):
         assert memo.fingerprint(value, changing) == native(value)
         assert not memo._current.get()["entries"]
         assert not memo._current.get()["buckets"]
+
+
+@pytest.mark.parametrize("kind", [str, bytes])
+def test_index_exact_threshold_uses_original_small_key_then_bucket(kind):
+    def value(size):
+        result = "x" * size
+        return result if kind is str else result.encode()
+
+    with transaction.atomic(), memo.operation_fingerprints():
+        small, large = value(memo.LARGE_INPUT), value(memo.LARGE_INPUT + 1)
+        assert fingerprint(small) == native(small)
+        state = memo._current.get()
+        assert not state["buckets"]
+        assert any(key[1] == small for key in state["entries"])
+        assert fingerprint(large) == native(large)
+        assert len(state["buckets"]) == 1
+        assert fingerprint(small) == native(small)
+        assert fingerprint(large) == native(large)
+        assert len(state["entries"]) == 2
