@@ -337,3 +337,44 @@ N2 conjunto terminal20261011-015504-8ec5be01:184PASS0FAIL0ERROR0skip409,427sJUni
 ## Ultrareview terminal 2026-10-11 02:04 UTC
 
 Informe original recuperado del evento terminal rayg2okuq: tres hallazgos, todos nit (duplicación de validadores, constantes de compilación duplicadas y recorrido repetido de pila). Ningún hallazgo final bloqueante ni reducción de latencia demostrada. La referencia a KernelIntegrityError en el segundo comentario no constituye un hallazgo final independiente; comprobar localmente antes de inferir un fallo. Mantener el cuerpo Python en su frame para conservar semántica en límites de recursión; no aplicar unificación sugerida sin pruebas diferenciales. Las pruebas diferenciales nativas existentes deben revisarse antes de añadir duplicados. Observador de fases y Session tienen aceptación funcional real184PASS; siguiente paso medir con nueva captura privada y fuente congelada, conservando objetivos completos2s/5s y dos casos/N3. Una revisión gratuita consumida; otras dos reservadas. Remote Control activado por petición expresa del usuario en la misma sesión. Informe original: docs/evidencias/mod08-ultrareview-20261011.json.
+
+## Medición terminal Session/observador y candidatos ultrareview — 2026-10-11
+
+# Captura diagnóstica terminal: 20261011-020846-91bc994a
+
+Un caso sintético completo; no constituye aceptación de dos casos/N3. Código anterior a los candidatos streaming/ultrareview. Fuentes sin cambios y limpieza comprobada independientemente.
+
+| Métrica | Anterior (s) | Actual (s) | Reducción | Objetivo (s) |
+| --- | ---: | ---: | ---: | ---: |
+| whole p95 | 3.855044 | 3.806976 | 1.247% | 2 |
+| matched123 p95 | 3.353515 | 3.204901 | 4.432% | 2 |
+
+Fases del request diagnóstico adicional: inclusivas y solapadas; no se suman ni se incluyen en el p95. Sin medición anterior comparable.
+
+| Fase | Anterior | Actual wall (s) | CPU del hilo (s) | Llamadas |
+| --- | --- | ---: | ---: | ---: |
+| authorize | No disponible | 0.275080 | 0.130508 | 23 |
+| baseline | No disponible | 0.063026 | 0.057634 | 4 |
+| batch | No disponible | 2.893509 | 1.812021 | 1 |
+| compile | No disponible | 0.072345 | 0.071675 | 1 |
+| page | No disponible | 1.903644 | 1.311720 | 4 |
+| record | No disponible | 1.122174 | 0.789875 | 4 |
+| source | No disponible | 0.640023 | 0.317613 | 1 |
+| unseal | No disponible | 0.085661 | 0.079463 | 237 |
+| validate_selection | No disponible | 0.274770 | 0.213382 | 4 |
+
+| Etapa | Muestras | Anterior (s) | Actual (s) | Variación | Objetivo (s) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| generation | 1 | 33.482033 | 45.715597 | +36.538% | 120 |
+| final_preparation | 1 | 10.957687 | 15.013529 | +37.014% | 30 |
+| final_inspection | 1 | 3.042530 | 3.540519 | +16.368% | 30 |
+| final_approval | 1 | 3.316173 | 4.193057 | +26.443% | 5 |
+| closure | 1 | 10.733944 | 15.265296 | +42.215% | 30 |
+| json_download | 3 | 6.467847 | 7.040080 | +8.847% | 5 |
+| binary_download | 8 | 6.915486 | 8.191270 | +18.448% | 5 |
+
+Captura 20261011-020846-91bc994a y use 20261011-023840-83be1976: 1 PASS cada uno, cero fallos/errores/skips; fuente 1e53347 e inputs use sin cambios. Limpieza propia comprobada independientemente mediante docker ps -a. No aceptación dos casos/N3. Las descargas empeoran y no se atribuye causa sin evidencia. n1 no p95; n3/n8 nearest-rank inferencia limitada. Evidencia docs/evidencias/mod08-medicion-listing-phases-20261011.json.
+
+Usuario autoriza implementar hallazgos sensatos de ultrareview. Root revisa tres respuestas: constantes compartidas, pruebas diferenciales conservando frames Python y recorrido de pila acotado con criterio original. Borradores 43a5b76/3301779; joint d4899de suma streaming 3cae1a2 y fases detalladas e867064. Propiedad nativa explicitada en planes ignorados. Sin integración aún. Build inicial con .venv falla por Cython ausente; compilación aislada uv --with Cython==3.0.12 termina0, loader native-sealed, Ruff11archivos0. Real20files 20261011-024759-73a25061, PID3911469, todavía activo. No mejora atribuible a estos candidatos antes de nuevas mediciones.
+
+Aclaración solicitada en sesión Claude existente sin nueva ultrareview ni edición/pruebas: referencia KernelIntegrityError no tiene evidencia independiente. Root comprueba propagación fail-closed y callers; docs/evidencias/mod08-ultrareview-aclaracion-20261011.md. Una ultrareview utilizada y dos reservadas. Usuario pregunta por mypyc/Cython: kernel Cython ya existente; evaluar ampliación sobre costes CPU concretos tras fases detalladas, no sustituir esperas I/O ni prometer ganancia.

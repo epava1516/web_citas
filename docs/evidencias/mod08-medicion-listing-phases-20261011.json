@@ -1,0 +1,662 @@
+{
+  "capture": {
+    "run_id": "20261011-020846-91bc994a",
+    "head": "1e53347746089e82d8ffcaf13c1a4891c7d21842",
+    "result": "BASELINE_CAPTURED_DIAGNOSTIC_ONLY",
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-capacity-20261011-020846-91bc994a-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-020846-91bc994a-caddy": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-020846-91bc994a-objects": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-020846-91bc994a-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-020846-91bc994a-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-020846-91bc994a-delivery": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-020846-91bc994a-net": {
+        "absent": true
+      },
+      "labelled_remaining": []
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "1526.741",
+        "timestamp": "2026-10-11T04:11:05.328406+02:00",
+        "hostname": "a994f78c4f87"
+      }
+    ],
+    "owned_memory_upper_bound_bytes": 1893228544,
+    "owned_storage_ceiling_bytes": 5939134496,
+    "required_coverage_pages": 1509,
+    "measured_batch_count": 384,
+    "whole": {
+      "samples": 383,
+      "p95_seconds": 3.8069763462990522,
+      "median_seconds": 3.250877032056451,
+      "min_seconds": 1.4895098209381104,
+      "max_seconds": 4.114170415792614
+    },
+    "matched123": {
+      "samples": 123,
+      "p95_seconds": 3.20490146195516,
+      "median_seconds": 2.8877781499177217,
+      "min_seconds": 2.304804051294923,
+      "max_seconds": 3.4795659012161195
+    },
+    "comparison": [
+      {
+        "metric": "whole",
+        "previous_seconds": 3.855044048745185,
+        "new_seconds": 3.8069763462990522,
+        "previous_samples": 383,
+        "new_samples": 383,
+        "target_seconds": 2,
+        "improvement_percent": 1.2468781637340554,
+        "remaining_reduction_percent": 47.46486928020192
+      },
+      {
+        "metric": "matched123",
+        "previous_seconds": 3.353515150025487,
+        "new_seconds": 3.20490146195516,
+        "previous_samples": 123,
+        "new_samples": 123,
+        "target_seconds": 2,
+        "improvement_percent": 4.431579444905676,
+        "remaining_reduction_percent": 37.59558527019755
+      }
+    ],
+    "error_count": 0,
+    "scope": "One full-sized synthetic case; whole unprofiled TCP batch population includes final partial batches, matched123 uses only four-page batches; diagnostic only, not two-case acceptance",
+    "previous_run_id": "20261011-010742-bffcf011"
+  },
+  "use": {
+    "run_id": "20261011-023840-83be1976",
+    "head": "1e53347746089e82d8ffcaf13c1a4891c7d21842",
+    "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+    "metrics": {
+      "generation": [
+        45.71559732267633
+      ],
+      "final_preparation": [
+        15.013528832234442
+      ],
+      "final_inspection": [
+        3.540518586989492
+      ],
+      "final_approval": [
+        4.193057124968618
+      ],
+      "closure": [
+        15.265295549761504
+      ],
+      "json_download": [
+        6.4121098308824,
+        7.040080265142024,
+        6.25582819012925
+      ],
+      "json_download_bytes": [
+        8388608,
+        8388608,
+        16476
+      ],
+      "binary_download": [
+        7.411414959933609,
+        7.468103876337409,
+        7.826242323033512,
+        8.19127044500783,
+        7.300495351199061,
+        7.424354034010321,
+        6.846978452056646,
+        7.815643716137856
+      ],
+      "binary_download_bytes": [
+        8387222,
+        8387222,
+        8387218,
+        8387218,
+        8387220,
+        8387218,
+        8387216,
+        8387220
+      ]
+    },
+    "comparison": [
+      {
+        "metric": "generation",
+        "previous_seconds": 33.48203326109797,
+        "new_seconds": 45.71559732267633,
+        "improvement_percent": -36.537697594943474,
+        "samples": 1,
+        "target_seconds": 120,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_preparation",
+        "previous_seconds": 10.957687462680042,
+        "new_seconds": 15.013528832234442,
+        "improvement_percent": -37.0136617180211,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_inspection",
+        "previous_seconds": 3.0425302609801292,
+        "new_seconds": 3.540518586989492,
+        "improvement_percent": -16.367571833088014,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_approval",
+        "previous_seconds": 3.3161727557890117,
+        "new_seconds": 4.193057124968618,
+        "improvement_percent": -26.442662483395573,
+        "samples": 1,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "closure",
+        "previous_seconds": 10.733944232109934,
+        "new_seconds": 15.265295549761504,
+        "improvement_percent": -42.21515614079967,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "json_download",
+        "previous_seconds": 6.467847383115441,
+        "new_seconds": 7.040080265142024,
+        "improvement_percent": -8.847346700239388,
+        "samples": 3,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 28.978082469360423,
+        "statistic": "nearest_rank_p95"
+      },
+      {
+        "metric": "binary_download",
+        "previous_seconds": 6.9154860489070415,
+        "new_seconds": 8.19127044500783,
+        "improvement_percent": -18.44822456553752,
+        "samples": 8,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 38.95940765760885,
+        "statistic": "nearest_rank_p95"
+      }
+    ],
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-capacity-20261011-023840-83be1976-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-023840-83be1976-caddy": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-023840-83be1976-objects": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-023840-83be1976-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-023840-83be1976-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-023840-83be1976-delivery": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-023840-83be1976-net": {
+        "absent": true
+      },
+      "labelled_remaining": []
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "289.631",
+        "timestamp": "2026-10-11T04:40:58.449469+02:00",
+        "hostname": "b3e28b915912"
+      }
+    ],
+    "scope": "One full-sized synthetic case; two fresh HTTP authorizations and EOF; not two-case/N3 acceptance",
+    "error_count": 0,
+    "baseline_hit": "HIT_DIAGNOSTIC_REUSED_PREPARATION",
+    "baseline_inputs_unchanged": true,
+    "server_profile_names": [
+      "capacity-profile-binary_download-101.txt",
+      "capacity-profile-binary_download_proxy-100.txt",
+      "capacity-profile-json_download-100.txt",
+      "capacity-profile-json_download_proxy-101.txt"
+    ],
+    "previous_run_id": "20261011-013845-8f422a1a"
+  },
+  "phase_diagnostic": {
+    "run_id": "20261011-020846-91bc994a",
+    "head": "1e53347746089e82d8ffcaf13c1a4891c7d21842",
+    "listing_phase_diagnostic": {
+      "incomplete": false,
+      "missing_phases": [],
+      "omitted_phases": [],
+      "pages": [
+        {
+          "authorize": {
+            "calls": 5,
+            "sql_count": 20,
+            "sql_thread_cpu_ns": 3813775,
+            "sql_wall_ns": 36390915,
+            "thread_cpu_ns": 27368693,
+            "wall_ns": 60520445
+          },
+          "baseline": {
+            "calls": 1,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 14987153,
+            "wall_ns": 15061685
+          },
+          "batch": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "compile": {
+            "calls": 1,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 71674800,
+            "wall_ns": 72345365
+          },
+          "page": {
+            "calls": 1,
+            "sql_count": 21,
+            "sql_thread_cpu_ns": 4362573,
+            "sql_wall_ns": 38266923,
+            "thread_cpu_ns": 623733823,
+            "wall_ns": 797052454
+          },
+          "record": {
+            "calls": 1,
+            "sql_count": 47,
+            "sql_thread_cpu_ns": 10776377,
+            "sql_wall_ns": 89779987,
+            "thread_cpu_ns": 442731245,
+            "wall_ns": 544571779
+          },
+          "source": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "unseal": {
+            "calls": 59,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 18894437,
+            "wall_ns": 19014933
+          },
+          "validate_selection": {
+            "calls": 1,
+            "sql_count": 10,
+            "sql_thread_cpu_ns": 2775525,
+            "sql_wall_ns": 20076987,
+            "thread_cpu_ns": 47191363,
+            "wall_ns": 65125803
+          }
+        },
+        {
+          "authorize": {
+            "calls": 5,
+            "sql_count": 20,
+            "sql_thread_cpu_ns": 4207236,
+            "sql_wall_ns": 41856967,
+            "thread_cpu_ns": 30606123,
+            "wall_ns": 68711853
+          },
+          "baseline": {
+            "calls": 1,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 13512463,
+            "wall_ns": 13661139
+          },
+          "batch": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "compile": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "page": {
+            "calls": 1,
+            "sql_count": 21,
+            "sql_thread_cpu_ns": 4568798,
+            "sql_wall_ns": 45040634,
+            "thread_cpu_ns": 245334580,
+            "wall_ns": 403473382
+          },
+          "record": {
+            "calls": 1,
+            "sql_count": 47,
+            "sql_thread_cpu_ns": 12741159,
+            "sql_wall_ns": 77344745,
+            "thread_cpu_ns": 131879225,
+            "wall_ns": 217768681
+          },
+          "source": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "unseal": {
+            "calls": 59,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 20201335,
+            "wall_ns": 20468344
+          },
+          "validate_selection": {
+            "calls": 1,
+            "sql_count": 10,
+            "sql_thread_cpu_ns": 3092633,
+            "sql_wall_ns": 14588867,
+            "thread_cpu_ns": 56070021,
+            "wall_ns": 68408040
+          }
+        },
+        {
+          "authorize": {
+            "calls": 5,
+            "sql_count": 20,
+            "sql_thread_cpu_ns": 4009038,
+            "sql_wall_ns": 34352785,
+            "thread_cpu_ns": 26404955,
+            "wall_ns": 57012421
+          },
+          "baseline": {
+            "calls": 1,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 16689621,
+            "wall_ns": 20459038
+          },
+          "batch": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "compile": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "page": {
+            "calls": 1,
+            "sql_count": 21,
+            "sql_thread_cpu_ns": 4740985,
+            "sql_wall_ns": 28171900,
+            "thread_cpu_ns": 251312820,
+            "wall_ns": 400281697
+          },
+          "record": {
+            "calls": 1,
+            "sql_count": 47,
+            "sql_thread_cpu_ns": 11942592,
+            "sql_wall_ns": 79721077,
+            "thread_cpu_ns": 121614468,
+            "wall_ns": 203222986
+          },
+          "source": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "unseal": {
+            "calls": 59,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 22173492,
+            "wall_ns": 25488051
+          },
+          "validate_selection": {
+            "calls": 1,
+            "sql_count": 10,
+            "sql_thread_cpu_ns": 5121222,
+            "sql_wall_ns": 21568232,
+            "thread_cpu_ns": 66443125,
+            "wall_ns": 87139336
+          }
+        },
+        {
+          "authorize": {
+            "calls": 5,
+            "sql_count": 20,
+            "sql_thread_cpu_ns": 3637203,
+            "sql_wall_ns": 26483021,
+            "thread_cpu_ns": 23542384,
+            "wall_ns": 46623640
+          },
+          "baseline": {
+            "calls": 1,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 12444765,
+            "wall_ns": 13843793
+          },
+          "batch": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "compile": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "page": {
+            "calls": 1,
+            "sql_count": 21,
+            "sql_thread_cpu_ns": 4144899,
+            "sql_wall_ns": 29102255,
+            "thread_cpu_ns": 191338284,
+            "wall_ns": 302835988
+          },
+          "record": {
+            "calls": 1,
+            "sql_count": 47,
+            "sql_thread_cpu_ns": 9161834,
+            "sql_wall_ns": 58162807,
+            "thread_cpu_ns": 93650078,
+            "wall_ns": 156610529
+          },
+          "source": {
+            "calls": 0,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 0,
+            "wall_ns": 0
+          },
+          "unseal": {
+            "calls": 59,
+            "sql_count": 0,
+            "sql_thread_cpu_ns": 0,
+            "sql_wall_ns": 0,
+            "thread_cpu_ns": 18041537,
+            "wall_ns": 20539214
+          },
+          "validate_selection": {
+            "calls": 1,
+            "sql_count": 10,
+            "sql_thread_cpu_ns": 2285266,
+            "sql_wall_ns": 10995426,
+            "thread_cpu_ns": 43677923,
+            "wall_ns": 54096585
+          }
+        }
+      ],
+      "phases": {
+        "authorize": {
+          "calls": 23,
+          "sql_count": 93,
+          "sql_thread_cpu_ns": 19067627,
+          "sql_wall_ns": 161512822,
+          "thread_cpu_ns": 130507529,
+          "wall_ns": 275080094
+        },
+        "baseline": {
+          "calls": 4,
+          "sql_count": 0,
+          "sql_thread_cpu_ns": 0,
+          "sql_wall_ns": 0,
+          "thread_cpu_ns": 57634002,
+          "wall_ns": 63025655
+        },
+        "batch": {
+          "calls": 1,
+          "sql_count": 14,
+          "sql_thread_cpu_ns": 3934519,
+          "sql_wall_ns": 146028682,
+          "thread_cpu_ns": 1812021284,
+          "wall_ns": 2893509451
+        },
+        "compile": {
+          "calls": 1,
+          "sql_count": 0,
+          "sql_thread_cpu_ns": 0,
+          "sql_wall_ns": 0,
+          "thread_cpu_ns": 71674800,
+          "wall_ns": 72345365
+        },
+        "page": {
+          "calls": 4,
+          "sql_count": 84,
+          "sql_thread_cpu_ns": 17817255,
+          "sql_wall_ns": 140581712,
+          "thread_cpu_ns": 1311719507,
+          "wall_ns": 1903643521
+        },
+        "record": {
+          "calls": 4,
+          "sql_count": 188,
+          "sql_thread_cpu_ns": 44621962,
+          "sql_wall_ns": 305008616,
+          "thread_cpu_ns": 789875016,
+          "wall_ns": 1122173975
+        },
+        "source": {
+          "calls": 1,
+          "sql_count": 20,
+          "sql_thread_cpu_ns": 35634419,
+          "sql_wall_ns": 89079118,
+          "thread_cpu_ns": 317613259,
+          "wall_ns": 640023401
+        },
+        "unseal": {
+          "calls": 237,
+          "sql_count": 0,
+          "sql_thread_cpu_ns": 0,
+          "sql_wall_ns": 0,
+          "thread_cpu_ns": 79462501,
+          "wall_ns": 85661294
+        },
+        "validate_selection": {
+          "calls": 4,
+          "sql_count": 40,
+          "sql_thread_cpu_ns": 13274646,
+          "sql_wall_ns": 67229512,
+          "thread_cpu_ns": 213382432,
+          "wall_ns": 274769764
+        }
+      },
+      "reason": null,
+      "sql_attribution": "innermost_span_only",
+      "sql_count": 447,
+      "sql_totals": {
+        "thread_cpu_ns": 137284707,
+        "wall_ns": 928444455
+      },
+      "status": "complete",
+      "timing_semantics": "inclusive_overlapping_not_summed_request_wall"
+    },
+    "scope": "One extra instrumented request, excluded from p95; inclusive phases overlap; SQL execute excludes fetch/adaptation"
+  }
+}
