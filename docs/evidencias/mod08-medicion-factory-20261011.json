@@ -1,0 +1,856 @@
+{
+  "scope": "Single full-size synthetic case diagnostic; not two-case/N3 acceptance",
+  "capture": {
+    "run_id": "20261011-034833-051ebabc",
+    "head": "608dfd0abd1fbd720652f644016e7a7949b0ac5b",
+    "result": "BASELINE_CAPTURED_DIAGNOSTIC_ONLY",
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-capacity-20261011-034833-051ebabc-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-034833-051ebabc-caddy": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-034833-051ebabc-objects": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-034833-051ebabc-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-034833-051ebabc-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-034833-051ebabc-delivery": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-034833-051ebabc-net": {
+        "absent": true
+      },
+      "labelled_remaining": []
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "1534.398",
+        "timestamp": "2026-10-11T05:50:48.629868+02:00",
+        "hostname": "43d55a730e24"
+      }
+    ],
+    "owned_memory_upper_bound_bytes": 1952432128,
+    "owned_storage_ceiling_bytes": 5939134496,
+    "required_coverage_pages": 1509,
+    "measured_batch_count": 384,
+    "whole": {
+      "samples": 383,
+      "p95_seconds": 3.8659759177826345,
+      "median_seconds": 3.2580940928310156,
+      "min_seconds": 1.4587801611050963,
+      "max_seconds": 4.250619519967586
+    },
+    "matched123": {
+      "samples": 123,
+      "p95_seconds": 3.2039784071967006,
+      "median_seconds": 2.904880986083299,
+      "min_seconds": 2.4245520448312163,
+      "max_seconds": 3.325809875037521
+    },
+    "comparison": [
+      {
+        "metric": "whole",
+        "previous_seconds": 3.88548034010455,
+        "new_seconds": 3.8659759177826345,
+        "previous_samples": 383,
+        "new_samples": 383,
+        "target_seconds": 2,
+        "improvement_percent": 0.5019822676902486,
+        "remaining_reduction_percent": 48.26662031699571
+      },
+      {
+        "metric": "matched123",
+        "previous_seconds": 3.3762739216908813,
+        "new_seconds": 3.2039784071967006,
+        "previous_samples": 123,
+        "new_samples": 123,
+        "target_seconds": 2,
+        "improvement_percent": 5.103126064128494,
+        "remaining_reduction_percent": 37.57760678075584
+      }
+    ],
+    "error_count": 0,
+    "scope": "One full-sized synthetic case; whole unprofiled TCP batch population includes final partial batches, matched123 uses only four-page batches; diagnostic only, not two-case acceptance",
+    "previous_run_id": "20261011-030418-57a8298d"
+  },
+  "use": {
+    "run_id": "20261011-041853-bfd4c4a8",
+    "head": "608dfd0abd1fbd720652f644016e7a7949b0ac5b",
+    "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+    "metrics": {
+      "generation": [
+        44.09072964033112
+      ],
+      "final_preparation": [
+        15.20038582617417
+      ],
+      "final_inspection": [
+        3.6641381909139454
+      ],
+      "final_approval": [
+        4.2251749648712575
+      ],
+      "closure": [
+        16.213333151768893
+      ],
+      "json_download": [
+        6.035464766435325,
+        7.313809871207923,
+        6.89422862092033
+      ],
+      "json_download_bytes": [
+        8388608,
+        8388608,
+        16476
+      ],
+      "binary_download": [
+        6.970425229053944,
+        7.219581822864711,
+        6.7800838449038565,
+        6.8102321908809245,
+        7.004412015900016,
+        6.694622570648789,
+        7.418959028087556,
+        7.412525728344917
+      ],
+      "binary_download_bytes": [
+        8387222,
+        8387222,
+        8387218,
+        8387218,
+        8387220,
+        8387218,
+        8387216,
+        8387220
+      ]
+    },
+    "comparison": [
+      {
+        "metric": "generation",
+        "previous_seconds": 45.953214245382696,
+        "new_seconds": 44.09072964033112,
+        "improvement_percent": 4.053001809854284,
+        "samples": 1,
+        "target_seconds": 120,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_preparation",
+        "previous_seconds": 14.613017957657576,
+        "new_seconds": 15.20038582617417,
+        "improvement_percent": -4.019483656411982,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_inspection",
+        "previous_seconds": 4.183466217014939,
+        "new_seconds": 3.6641381909139454,
+        "improvement_percent": 12.413821438040761,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_approval",
+        "previous_seconds": 4.024229605682194,
+        "new_seconds": 4.2251749648712575,
+        "improvement_percent": -4.993387030037488,
+        "samples": 1,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "closure",
+        "previous_seconds": 15.602487768046558,
+        "new_seconds": 16.213333151768893,
+        "improvement_percent": -3.9150511944212374,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "json_download",
+        "previous_seconds": 6.908404561225325,
+        "new_seconds": 7.313809871207923,
+        "improvement_percent": -5.868291388984503,
+        "samples": 3,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 31.636177477304074,
+        "statistic": "nearest_rank_p95"
+      },
+      {
+        "metric": "binary_download",
+        "previous_seconds": 7.705974456854165,
+        "new_seconds": 7.418959028087556,
+        "improvement_percent": 3.724583183783059,
+        "samples": 8,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 32.60510024289904,
+        "statistic": "nearest_rank_p95"
+      }
+    ],
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-capacity-20261011-041853-bfd4c4a8-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-041853-bfd4c4a8-caddy": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-041853-bfd4c4a8-objects": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-041853-bfd4c4a8-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-041853-bfd4c4a8-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-041853-bfd4c4a8-delivery": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-041853-bfd4c4a8-net": {
+        "absent": true
+      },
+      "labelled_remaining": []
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "284.164",
+        "timestamp": "2026-10-11T06:21:08.127785+02:00",
+        "hostname": "9761f9da21a9"
+      }
+    ],
+    "scope": "One full-sized synthetic case; two fresh HTTP authorizations and EOF; not two-case/N3 acceptance",
+    "error_count": 0,
+    "baseline_hit": "HIT_DIAGNOSTIC_REUSED_PREPARATION",
+    "baseline_inputs_unchanged": true,
+    "server_profile_names": [
+      "capacity-profile-binary_download-100.txt",
+      "capacity-profile-binary_download_proxy-99.txt",
+      "capacity-profile-json_download-99.txt",
+      "capacity-profile-json_download_proxy-100.txt"
+    ],
+    "previous_run_id": "20261011-033358-7f0a2acc"
+  },
+  "worker_diagnostics": {
+    "run_id": "20261011-041853-bfd4c4a8",
+    "head": "608dfd0abd1fbd720652f644016e7a7949b0ac5b",
+    "worker_profiles": {
+      "capacity-profile-binary_download_proxy-99.txt": {
+        "events": 1000,
+        "incomplete": false,
+        "reason": null,
+        "status": "complete",
+        "timing_semantics": "inclusive_execution_segments_overlap_not_request_wall",
+        "workers": [
+          {
+            "observed_thread_cpu_seconds": 1.444745674,
+            "observed_wall_seconds": 2.3278122362680733,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.5727062040000002,
+                "wall_seconds": 0.6716256500221789
+              },
+              "ciphertext_fetch": {
+                "segments": 102,
+                "thread_cpu_seconds": 0.2933021429999989,
+                "wall_seconds": 0.4222991834394634
+              },
+              "ciphertext_finish": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.0008453350000001136,
+                "wall_seconds": 0.0008548898622393608
+              },
+              "codec_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.6344574290000002,
+                "wall_seconds": 0.797018866520375
+              },
+              "descriptor": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.004694508000000097,
+                "wall_seconds": 0.004688426852226257
+              },
+              "factory_new_s3_client": {
+                "segments": 1,
+                "thread_cpu_seconds": 0.35123021000000004,
+                "wall_seconds": 0.6558341118507087
+              },
+              "factory_repository": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.35866023199999997,
+                "wall_seconds": 0.663358015473932
+              },
+              "header": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.060244710000000035,
+                "wall_seconds": 0.12381580285727978
+              },
+              "object_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.441795658,
+                "wall_seconds": 2.2643019668757915
+              },
+              "read_client": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.35482148499999977,
+                "wall_seconds": 0.6594918081536889
+              },
+              "repository_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.081631981,
+                "wall_seconds": 1.598103305324912
+              },
+              "tombstone": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.2743799969999999,
+                "wall_seconds": 0.45257506566122174
+              }
+            },
+            "worker": 1
+          },
+          {
+            "observed_thread_cpu_seconds": 1.2811044520000001,
+            "observed_wall_seconds": 2.290021183900535,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.540072746,
+                "wall_seconds": 0.7380453632213175
+              },
+              "ciphertext_fetch": {
+                "segments": 99,
+                "thread_cpu_seconds": 0.26744916800000035,
+                "wall_seconds": 0.34590856777504086
+              },
+              "ciphertext_finish": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.0007045800000000102,
+                "wall_seconds": 0.0007220110855996609
+              },
+              "codec_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.5983322959999999,
+                "wall_seconds": 0.8176772790029645
+              },
+              "descriptor": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.004148397000000081,
+                "wall_seconds": 0.00453535420820117
+              },
+              "factory_new_s3_client": {
+                "segments": 1,
+                "thread_cpu_seconds": 0.26967033300000004,
+                "wall_seconds": 0.4976661382243037
+              },
+              "factory_repository": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.2766668459999998,
+                "wall_seconds": 0.5047771017998457
+              },
+              "header": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.05696442000000007,
+                "wall_seconds": 0.07825229642912745
+              },
+              "object_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.277886921,
+                "wall_seconds": 2.026891574729234
+              },
+              "read_client": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.2730297269999998,
+                "wall_seconds": 0.5011326549574733
+              },
+              "repository_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.9995377180000002,
+                "wall_seconds": 1.5198381142690778
+              },
+              "tombstone": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.25141248499999996,
+                "wall_seconds": 0.437812315300107
+              }
+            },
+            "worker": 2
+          }
+        ]
+      },
+      "capacity-profile-binary_download-100.txt": {
+        "events": 1000,
+        "incomplete": false,
+        "reason": null,
+        "status": "complete",
+        "timing_semantics": "inclusive_execution_segments_overlap_not_request_wall",
+        "workers": [
+          {
+            "observed_thread_cpu_seconds": 1.64180522,
+            "observed_wall_seconds": 2.6353634698316455,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.6846138660000001,
+                "wall_seconds": 0.8885958273895085
+              },
+              "ciphertext_fetch": {
+                "segments": 102,
+                "thread_cpu_seconds": 0.35179388000000056,
+                "wall_seconds": 0.5497614843770862
+              },
+              "ciphertext_finish": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.001078297999999922,
+                "wall_seconds": 0.0010819947347044945
+              },
+              "codec_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.7751286750000002,
+                "wall_seconds": 1.088336599059403
+              },
+              "descriptor": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.006141090999999765,
+                "wall_seconds": 0.006176876835525036
+              },
+              "factory_new_s3_client": {
+                "segments": 1,
+                "thread_cpu_seconds": 0.258077049,
+                "wall_seconds": 0.5040333517827094
+              },
+              "factory_repository": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.26720348199999994,
+                "wall_seconds": 0.5132570588029921
+              },
+              "header": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.08846583399999997,
+                "wall_seconds": 0.19753952231258154
+              },
+              "object_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.637780226,
+                "wall_seconds": 2.5766717470251024
+              },
+              "read_client": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.26211137400000023,
+                "wall_seconds": 0.508139650337398
+              },
+              "repository_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.3685614759999996,
+                "wall_seconds": 2.061367148067802
+              },
+              "tombstone": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.37824639700000057,
+                "wall_seconds": 0.55847127456218
+              }
+            },
+            "worker": 1
+          },
+          {
+            "observed_thread_cpu_seconds": 1.531074664,
+            "observed_wall_seconds": 2.5614765668287873,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.6235998229999997,
+                "wall_seconds": 0.8864635261707008
+              },
+              "ciphertext_fetch": {
+                "segments": 99,
+                "thread_cpu_seconds": 0.330842805,
+                "wall_seconds": 0.44937716145068407
+              },
+              "ciphertext_finish": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.0008083099999996457,
+                "wall_seconds": 0.0008242214098572731
+              },
+              "codec_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.70293486,
+                "wall_seconds": 0.9958080123178661
+              },
+              "descriptor": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.004858245999999844,
+                "wall_seconds": 0.004887180402874947
+              },
+              "factory_new_s3_client": {
+                "segments": 1,
+                "thread_cpu_seconds": 0.330977428,
+                "wall_seconds": 0.5749234310351312
+              },
+              "factory_repository": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.3382400439999999,
+                "wall_seconds": 0.5823328564874828
+              },
+              "header": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.07746604999999968,
+                "wall_seconds": 0.10737758409231901
+              },
+              "object_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.52803372,
+                "wall_seconds": 2.412780333776027
+              },
+              "read_client": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.3343350190000002,
+                "wall_seconds": 0.5783532005734742
+              },
+              "repository_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.1881773260000001,
+                "wall_seconds": 1.828793445136398
+              },
+              "tombstone": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.2962169720000002,
+                "wall_seconds": 0.4683383028022945
+              }
+            },
+            "worker": 2
+          }
+        ]
+      },
+      "capacity-profile-json_download_proxy-100.txt": {
+        "events": 1000,
+        "incomplete": false,
+        "reason": null,
+        "status": "complete",
+        "timing_semantics": "inclusive_execution_segments_overlap_not_request_wall",
+        "workers": [
+          {
+            "observed_thread_cpu_seconds": 1.554652032,
+            "observed_wall_seconds": 2.513720369897783,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.6332772119999996,
+                "wall_seconds": 0.8369865925051272
+              },
+              "ciphertext_fetch": {
+                "segments": 102,
+                "thread_cpu_seconds": 0.33043959300000003,
+                "wall_seconds": 0.53541887877509
+              },
+              "ciphertext_finish": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.0009243580000000695,
+                "wall_seconds": 0.0009297514334321022
+              },
+              "codec_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.717247227,
+                "wall_seconds": 1.016218998003751
+              },
+              "descriptor": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.005676139999999885,
+                "wall_seconds": 0.005738184787333012
+              },
+              "factory_new_s3_client": {
+                "segments": 1,
+                "thread_cpu_seconds": 0.262827416,
+                "wall_seconds": 0.5217096339911222
+              },
+              "factory_repository": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.2709888220000001,
+                "wall_seconds": 0.529968747869134
+              },
+              "header": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.08215226000000014,
+                "wall_seconds": 0.17732039326801896
+              },
+              "object_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.5511888409999999,
+                "wall_seconds": 2.4272648566402495
+              },
+              "read_client": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.26652714799999994,
+                "wall_seconds": 0.5254745413549244
+              },
+              "repository_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.278392856,
+                "wall_seconds": 1.8954500863328576
+              },
+              "tombstone": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.33509007900000015,
+                "wall_seconds": 0.4831708027049899
+              }
+            },
+            "worker": 1
+          },
+          {
+            "observed_thread_cpu_seconds": 1.5663712490000001,
+            "observed_wall_seconds": 2.617410408332944,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.7094588289999999,
+                "wall_seconds": 0.9696262250654399
+              },
+              "ciphertext_fetch": {
+                "segments": 99,
+                "thread_cpu_seconds": 0.353569371,
+                "wall_seconds": 0.5112591311335564
+              },
+              "ciphertext_finish": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.001097738999999931,
+                "wall_seconds": 0.0016426164656877518
+              },
+              "codec_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.7777333890000004,
+                "wall_seconds": 1.0690305172465742
+              },
+              "descriptor": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.0055607020000000285,
+                "wall_seconds": 0.005718843080103397
+              },
+              "factory_new_s3_client": {
+                "segments": 1,
+                "thread_cpu_seconds": 0.241322948,
+                "wall_seconds": 0.36910876585170627
+              },
+              "factory_repository": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.24907494399999985,
+                "wall_seconds": 0.3769433218985796
+              },
+              "header": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.06670604899999971,
+                "wall_seconds": 0.09776008874177933
+              },
+              "object_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.5631011249999998,
+                "wall_seconds": 2.271183259319514
+              },
+              "read_client": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.24476310500000012,
+                "wall_seconds": 0.3725775294005871
+              },
+              "repository_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.3123222089999997,
+                "wall_seconds": 1.8924693679437041
+              },
+              "tombstone": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.34179203299999983,
+                "wall_seconds": 0.5028902236372232
+              }
+            },
+            "worker": 2
+          }
+        ]
+      },
+      "capacity-profile-json_download-99.txt": {
+        "events": 1000,
+        "incomplete": false,
+        "reason": null,
+        "status": "complete",
+        "timing_semantics": "inclusive_execution_segments_overlap_not_request_wall",
+        "workers": [
+          {
+            "observed_thread_cpu_seconds": 1.5489113589999999,
+            "observed_wall_seconds": 2.551991308107972,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.6304365879999997,
+                "wall_seconds": 0.9036432453431189
+              },
+              "ciphertext_fetch": {
+                "segments": 102,
+                "thread_cpu_seconds": 0.3200525760000001,
+                "wall_seconds": 0.5857276287861168
+              },
+              "ciphertext_finish": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.0009338429999997677,
+                "wall_seconds": 0.0009344564750790596
+              },
+              "codec_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.6981720530000005,
+                "wall_seconds": 1.0504610580392182
+              },
+              "descriptor": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.005447718000000323,
+                "wall_seconds": 0.005518861580640078
+              },
+              "factory_new_s3_client": {
+                "segments": 1,
+                "thread_cpu_seconds": 0.349131045,
+                "wall_seconds": 0.7079360010102391
+              },
+              "factory_repository": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.35744606599999995,
+                "wall_seconds": 0.7163866315968335
+              },
+              "header": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.06623764999999981,
+                "wall_seconds": 0.14523527771234512
+              },
+              "object_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.5459389879999996,
+                "wall_seconds": 2.521447918843478
+              },
+              "read_client": {
+                "segments": 14,
+                "thread_cpu_seconds": 0.3531414700000001,
+                "wall_seconds": 0.7120538540184498
+              },
+              "repository_verify": {
+                "segments": 14,
+                "thread_cpu_seconds": 1.1868529160000003,
+                "wall_seconds": 1.8033703910186887
+              },
+              "tombstone": {
+                "segments": 28,
+                "thread_cpu_seconds": 0.3154478040000005,
+                "wall_seconds": 0.43421385576948524
+              }
+            },
+            "worker": 1
+          },
+          {
+            "observed_thread_cpu_seconds": 1.4623450370000002,
+            "observed_wall_seconds": 2.482367482036352,
+            "phases": {
+              "authenticate_frames": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.601599447,
+                "wall_seconds": 0.8155853664502501
+              },
+              "ciphertext_fetch": {
+                "segments": 99,
+                "thread_cpu_seconds": 0.3061372290000001,
+                "wall_seconds": 0.4531458644196391
+              },
+              "ciphertext_finish": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.0007500770000002377,
+                "wall_seconds": 0.000750009436160326
+              },
+              "codec_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.669020189,
+                "wall_seconds": 0.9265619437210262
+              },
+              "descriptor": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.005463547999999874,
+                "wall_seconds": 0.005524801090359688
+              },
+              "factory_new_s3_client": {
+                "segments": 1,
+                "thread_cpu_seconds": 0.30119724800000003,
+                "wall_seconds": 0.5130261648446321
+              },
+              "factory_repository": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.30990425600000043,
+                "wall_seconds": 0.5218981057405472
+              },
+              "header": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.06596743999999966,
+                "wall_seconds": 0.10945016471669078
+              },
+              "object_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.459083875,
+                "wall_seconds": 2.1431104838848114
+              },
+              "read_client": {
+                "segments": 13,
+                "thread_cpu_seconds": 0.3051952639999999,
+                "wall_seconds": 0.5171145363710821
+              },
+              "repository_verify": {
+                "segments": 13,
+                "thread_cpu_seconds": 1.1474314149999998,
+                "wall_seconds": 1.6194172399118543
+              },
+              "tombstone": {
+                "segments": 26,
+                "thread_cpu_seconds": 0.3042359840000002,
+                "wall_seconds": 0.41350633278489113
+              }
+            },
+            "worker": 2
+          }
+        ]
+      }
+    },
+    "scope": "Additional profiled requests excluded from latency p95; inclusive phases overlap"
+  },
+  "root_verified": {
+    "source_hashes_each_run": 1151,
+    "own_services_absent": true
+  },
+  "interpretation": "Factory first-client construction dominates profiled setup; phases inclusive and profiled, no causal latency reduction from instrumentation."
+}
