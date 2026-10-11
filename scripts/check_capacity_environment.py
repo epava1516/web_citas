@@ -665,6 +665,11 @@ def main():
         report["error"] = scrub(f"{type(exc).__name__}: {exc}")
     finally:
         report["cgroup_memory"] = {}
+        report["cgroup_cpu"] = {}
+        report["cpu_counter_scope"] = (
+            "Cumulative kernel cgroup counters from service startup through workload completion; "
+            "collected after timed requests in the existing memory-counter exec. Not per-request "
+            "CPU, synchronous throttling, or proof that throttling caused latency.")
         for role in allocations:
             name = prefix + "-" + role
             if name not in containers:
@@ -672,7 +677,8 @@ def main():
             try:
                 observed = run(["docker", "exec", name, "cat", "/sys/fs/cgroup/memory.current",
                                 "/sys/fs/cgroup/memory.peak", "/sys/fs/cgroup/memory.swap.peak",
-                                "/sys/fs/cgroup/memory.events"], "memory-" + role, check=False)
+                                "/sys/fs/cgroup/memory.events", "/sys/fs/cgroup/cpu.stat"],
+                               "memory-" + role, check=False)
                 lines = observed.stdout.splitlines()
                 events = dict(line.split() for line in lines[3:])
                 if observed.returncode or len(lines) < 4:
@@ -680,6 +686,15 @@ def main():
                 report["cgroup_memory"][role] = {
                     "current_bytes": int(lines[0]), "peak_bytes": int(lines[1]),
                     "swap_peak_bytes": int(lines[2]), "oom_kill": int(events.get("oom_kill", -1))}
+                try:
+                    cpu_keys = ("usage_usec", "user_usec", "system_usec", "nr_periods",
+                                "nr_throttled", "throttled_usec")
+                    cpu = {key: int(events[key]) for key in cpu_keys}
+                    if any(value < 0 for value in cpu.values()):
+                        raise ValueError("Negative CPU counter")
+                    report["cgroup_cpu"][role] = cpu
+                except (KeyError, ValueError) as exc:
+                    report.setdefault("cpu_collection_errors", {})[role] = scrub(str(exc))
             except Exception as exc:
                 report.setdefault("memory_collection_errors", {})[role] = scrub(str(exc))
         report["controller_peak_rss_bytes"] = next(int(line.split()[1]) * 1024
