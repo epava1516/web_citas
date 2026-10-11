@@ -14,6 +14,9 @@ from pathlib import PurePath
 
 # Fixed source/function identities; no arbitrary labels or frame data exported.
 PHASES = {
+    ('apps/safety/object_storage/factory.py', 'repository'): 'factory_repository',
+    ('apps/safety/object_storage/factory.py', '_new_s3_client'): 'factory_new_s3_client',
+    ('apps/safety/object_storage/read_clients.py', 'client'): 'read_client',
     ('apps/safety/rights_object_content.py', '_verify_object'): 'object_verify',
     ('apps/safety/object_storage/repository.py', 'verify'): 'repository_verify',
     ('apps/safety/object_storage/repository.py', 'descriptor'): 'descriptor',
@@ -43,6 +46,10 @@ def _phase(code):
     parts = PurePath(code.co_filename).parts
     for suffix, function, phase in _PHASE_SUFFIXES:
         if function in (code.co_name, code.co_qualname) and parts[-len(suffix):] == suffix:
+            # New setup phases identify module functions, never same-name methods.
+            if phase in {'factory_repository', 'factory_new_s3_client', 'read_client'}:
+                if code.co_qualname != function:
+                    continue
             return phase
     return None
 

@@ -304,3 +304,41 @@ def test_scope_closed_before_workers_drain_reports_incomplete():
     finally:
         release.set()
         executor.shutdown(wait=True)
+
+
+@pytest.mark.parametrize('filename,name,phase', [
+    ('factory.py', 'repository', 'factory_repository'),
+    ('factory.py', '_new_s3_client', 'factory_new_s3_client'),
+    ('read_clients.py', 'client', 'read_client'),
+])
+def test_factory_phases_identify_module_functions_and_exclude_homonyms(filename, name, phase):
+    namespace = {}
+    source = f"def {name}():\n    return 42\nclass Other:\n    def {name}(self):\n        return 42\n"
+    path = '/fixture/apps/safety/object_storage/' + filename
+    exec(compile(source, path, 'exec'), namespace)
+    wrong_file = {}
+    exec(compile(source, '/fixture/unrelated/' + filename, 'exec'), wrong_file)
+    wrong_suffix = {}
+    exec(compile(source, '/fixture/apps/safety/other_object_storage/' + filename, 'exec'), wrong_suffix)
+
+    assert diagnostic._phase(namespace[name].__code__) == phase
+    assert diagnostic._phase(getattr(namespace['Other'], name).__code__) is None
+    assert diagnostic._phase(wrong_file[name].__code__) is None
+    assert diagnostic._phase(wrong_suffix[name].__code__) is None
+
+    def work():
+        assert namespace[name]() == 42
+        assert getattr(namespace['Other'](), name)() == 42
+        assert wrong_file[name]() == 42
+        assert wrong_suffix[name]() == 42
+
+    previous = threading.getprofile()
+    with diagnostic.scope() as collector:
+        run(work)
+    assert threading.getprofile() is previous
+    snapshot = collector.snapshot()
+    assert snapshot['status'] == 'complete' and not snapshot['incomplete']
+    phases = snapshot['workers'][0]['phases']
+    assert set(phases) == {phase}
+    assert phases[phase]['segments'] == 1
+    assert snapshot['events'] == 2
