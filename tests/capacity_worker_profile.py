@@ -31,7 +31,7 @@ PHASES = {
 _PHASE_FUNCTIONS = frozenset(function.rsplit('.', 1)[-1] for _, function in PHASES)
 _PHASE_SUFFIXES = tuple((PurePath(filename).parts, function, phase)
                         for (filename, function), phase in PHASES.items())
-MAX_WORKERS = 4
+MAX_WORKERS = 2
 MAX_EVENTS = 100_000
 MAX_SEGMENTS = 10_000
 MAX_OPEN_FRAMES = 32

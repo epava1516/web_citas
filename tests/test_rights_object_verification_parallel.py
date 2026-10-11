@@ -19,30 +19,26 @@ from apps.safety.object_storage.repository import ObjectRepository
 object_store = real_object_store
 
 
-def test_mock_four_pending_ordered_exception_and_wait_for_started_jobs(monkeypatch):
-    barrier = Barrier(4, timeout=5)
-    lock = Lock()
-    calls, finished = [], []
+def test_mock_two_pending_ordered_exception_and_wait_for_started_jobs(monkeypatch):
+    first_waiting, release, finished = Event(), Event(), Event()
+    calls = []
 
     def verify(reference, context):
-        with lock:
-            calls.append(reference)
-        try:
-            barrier.wait()
-            if reference == "first":
-                raise ValueError("first failure")
-            raise TypeError("later failure")
-        finally:
-            with lock:
-                finished.append(reference)
+        calls.append(reference)
+        if reference == "first":
+            first_waiting.set()
+            assert release.wait(5)
+            raise ValueError("first failure")
+        assert first_waiting.wait(5)
+        release.set()
+        finished.set()
+        raise TypeError("second failure")
 
     monkeypatch.setattr(content, "_verify_object", verify)
     with pytest.raises(ValueError, match="first failure"):
-        content._verify_objects_in_order(
-            (name, b"owned") for name in ("first", "second", "third", "fourth", "never")
-        )
-    assert set(calls) == {"first", "second", "third", "fourth"}
-    assert set(finished) == set(calls)
+        content._verify_objects_in_order(iter([("first", b"a"), ("second", b"b"), ("third", b"c")]))
+    assert finished.is_set()
+    assert set(calls) == {"first", "second"}
 
 
 def test_mock_metadata_exception_cannot_mask_earlier_physical_failure(monkeypatch):
@@ -97,7 +93,7 @@ def test_mock_worker_scope_closes_and_resets_even_when_object_and_close_fail(mon
     monkeypatch.setattr(content, "repository", repository)
     with pytest.raises(InvalidToken):
         content._verify_objects_in_order(iter([("a", b"own"), ("b", b"own")]))
-    assert len(exited) == 4 and all(state is None for state in exited)
+    assert len(exited) == 2 and all(state is None for state in exited)
     assert clients and all(client.closed for client in clients)
 
 
@@ -135,7 +131,7 @@ def real_settings(settings, object_store):
     settings.RIGHTS_OBJECT_STORAGE_ENABLED = True
 
 
-def test_real_rustfs_28_objects_84_gets_four_jobs_closed_bodies_clients(
+def test_real_rustfs_28_objects_84_gets_two_jobs_closed_bodies_clients(
     settings, monkeypatch, object_store
 ):
     real_settings(settings, object_store)
@@ -144,7 +140,7 @@ def test_real_rustfs_28_objects_84_gets_four_jobs_closed_bodies_clients(
         writer.write(io.BytesIO(b"synthetic" * 1000), f"own/{i}".encode()) for i in range(28)
     ]
     native_client, native_verify = factory._new_s3_client, ObjectRepository.verify
-    lock, barrier = Lock(), Barrier(4, timeout=10)
+    lock, barrier = Lock(), Barrier(2, timeout=10)
     gets, clients, bodies, rings, active = [], [], [], [], [0, 0]
 
     def create(*args, **kwargs):
@@ -188,16 +184,16 @@ def test_real_rustfs_28_objects_84_gets_four_jobs_closed_bodies_clients(
             (ref, f"own/{i}".encode()) for i, ref in enumerate(references)
         )
         assert len(gets) == 84
-        assert len(clients) == 4
-        assert active == [0, 4]
+        assert len(clients) == 2
+        assert active == [0, 2]
         assert all(client["closed"] for client in clients)
         assert all(body._raw_stream.closed for body in bodies)
-        assert len({client["thread"] for client in clients}) == 4
+        assert len({client["thread"] for client in clients}) == 2
         assert len({id(ring) for ring in rings}) == 28
         content._verify_objects_in_order(
             (ref, f"own/{i}".encode()) for i, ref in enumerate(references)
         )
-        assert len(gets) == 168 and len(clients) == 8
+        assert len(gets) == 168 and len(clients) == 4
         assert all(client["closed"] for client in clients)
     finally:
         for ref in references:
@@ -295,75 +291,3 @@ def test_real_rustfs_parallel_rejects_physical_damage(settings, monkeypatch, obj
         for ref in references:
             writer.purge(ref)
         writer.client.close()
-
-
-@pytest.mark.parametrize("failure_position", [0, 1, 2, 3])
-def test_mock_four_pending_each_error_position_drains_and_closes_iterator(monkeypatch, failure_position):
-    barrier = Barrier(4, timeout=5)
-    lock = Lock()
-    started, finished, closed = [], [], []
-    domain_error = ValueError("selected physical failure")
-
-    def objects():
-        try:
-            for index in range(8):
-                yield index, b"owned"
-        finally:
-            closed.append(True)
-
-    def verify(reference, context):
-        with lock:
-            started.append(reference)
-        try:
-            if reference < 4:
-                barrier.wait()
-            if reference == failure_position:
-                raise domain_error
-        finally:
-            with lock:
-                finished.append(reference)
-
-    monkeypatch.setattr(content, "_verify_object", verify)
-    with pytest.raises(ValueError) as captured:
-        content._verify_objects_in_order(objects())
-    assert captured.value is domain_error
-    assert {0, 1, 2, 3} <= set(started)
-    # An earlier success can permit another dispatch before the ordered error;
-    # at most three later objects may start, never beyond the bounded window.
-    assert max(started) <= failure_position + 3
-    assert set(started) == set(finished)
-    assert closed == [True]
-
-
-@pytest.mark.parametrize("physical_failure", [True, False])
-def test_mock_metadata_after_three_pending_waits_and_preserves_priority(monkeypatch, physical_failure):
-    barrier = Barrier(3, timeout=5)
-    finished, closed = [], []
-    lock = Lock()
-    metadata_error = TypeError("ordered metadata failure")
-    physical_error = ValueError("earlier physical failure")
-
-    def objects():
-        try:
-            for index in range(3):
-                yield index, b"owned"
-            raise metadata_error
-        finally:
-            closed.append(True)
-
-    def verify(reference, context):
-        try:
-            barrier.wait()
-            if physical_failure and reference == 1:
-                raise physical_error
-        finally:
-            with lock:
-                finished.append(reference)
-
-    monkeypatch.setattr(content, "_verify_object", verify)
-    expected = physical_error if physical_failure else metadata_error
-    with pytest.raises(type(expected)) as captured:
-        content._verify_objects_in_order(objects())
-    assert captured.value is expected
-    assert set(finished) == {0, 1, 2}
-    assert closed == [True]

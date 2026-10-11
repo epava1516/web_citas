@@ -30,9 +30,8 @@ def run(function, count=1, prefix='rights-object-verify'):
         return list(executor.map(lambda _: function(), range(count)))
 
 
-@pytest.mark.parametrize("count", [2, 4])
-def test_workers_bounded_phases_cpu_and_independent_snapshot(count):
-    barrier = threading.Barrier(count)
+def test_two_workers_bounded_phases_cpu_and_independent_snapshot():
+    barrier = threading.Barrier(2)
     verify = functions()['verify']
 
     def work():
@@ -41,12 +40,12 @@ def test_workers_bounded_phases_cpu_and_independent_snapshot(count):
 
     previous = threading.getprofile()
     with diagnostic.scope() as collector:
-        values = run(work, count)
-    assert values == [sum(range(20000))] * count
+        values = run(work, 2)
+    assert values[0] == values[1] == sum(range(20000))
     assert threading.getprofile() is previous
     result = collector.snapshot()
     assert result['status'] == 'complete'
-    assert len(result['workers']) == count
+    assert len(result['workers']) == 2
     for worker in result['workers']:
         phase = worker['phases']['repository_verify']
         assert phase['segments'] == 1
@@ -173,8 +172,8 @@ def test_event_bound_does_not_change_results(monkeypatch, limit, reason):
     assert collector.snapshot()['events'] <= limit
 
 
-def test_fifth_worker_is_bounded_without_affecting_work():
-    barrier = threading.Barrier(5)
+def test_third_worker_is_bounded_without_affecting_work():
+    barrier = threading.Barrier(3)
     verify = functions()['verify']
 
     def work():
@@ -182,10 +181,10 @@ def test_fifth_worker_is_bounded_without_affecting_work():
         return verify()
 
     with diagnostic.scope() as collector:
-        assert len(run(work, 5)) == 5
+        assert len(run(work, 3)) == 3
     snapshot = collector.snapshot()
     assert snapshot['reason'] == 'worker_bound'
-    assert len(snapshot['workers']) == 4
+    assert len(snapshot['workers']) == 2
 
 
 def test_segment_and_frame_bounds(monkeypatch):
