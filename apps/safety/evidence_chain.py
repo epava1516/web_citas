@@ -203,6 +203,54 @@ def _runtime_is_trusted(cursor):
     return True
 
 
+def _source_statements(request):
+    return [(
+        "SELECT s.id::text,public.rights_evidence_row_hash(to_jsonb(s)) "
+        f"FROM public.{connection.ops.quote_name(table)} s "
+        "JOIN public.safety_rightsaction a ON a.id=s.action_id WHERE a.request_id=%s",
+        [request],
+    ) for table in TABLES]
+
+
+def _source_rows_serial(statements):
+    actual = {}
+    with connection.cursor() as cursor:
+        for table, (statement, params) in zip(TABLES, statements):
+            cursor.execute(statement, params)
+            actual.update({(table, pk): digest for pk, digest in cursor.fetchall()})
+    return actual
+
+
+def _source_rows_pipeline(statements, raw):
+    from contextlib import ExitStack
+
+    actual = {}
+    # Same drain/translation ordering as the validation-seal replay pipeline.
+    # Results are fully consumed in table order; no domain checks are advanced.
+    with connection.wrap_database_errors, ExitStack() as cursors:
+        with raw.pipeline() as pipeline:
+            pending = []
+            for statement, params in statements:
+                cursor = cursors.enter_context(connection.cursor())
+                cursor.execute(statement, params)
+                pending.append(cursor)
+            pipeline.sync()
+            for table, cursor in zip(TABLES, pending):
+                actual.update({(table, pk): digest for pk, digest in cursor.fetchall()})
+    return actual
+
+
+def _source_rows(request):
+    # Local import avoids a module-initialization cycle. Recorder, nested pipeline,
+    # unsupported driver/server all retain their original serial query path.
+    from .rights_validation_seal import _pipeline_connection
+
+    statements = _source_statements(request)
+    raw = _pipeline_connection()
+    return (_source_rows_serial(statements) if raw is None
+            else _source_rows_pipeline(statements, raw))
+
+
 @transaction.atomic
 def validate_chain(request, ticket=None, count=None):
     """Return a head ticket only after complete validation or matching trusted ticket.
@@ -249,19 +297,7 @@ def validate_chain(request, ticket=None, count=None):
             previous = digest
         if len(events) != current.count or previous != current.digest:
             raise ValidationError("Evidence chain head changed")
-        actual = {}
-        for table in TABLES:
-            # Only these internal, whitelisted identifiers become SQL text. Keep
-            # the request bound separately; arbitrary driver Composed statements
-            # still decline validation seals at the recorder boundary.
-            quoted_table = connection.ops.quote_name(table)
-            cursor.execute(
-                "SELECT s.id::text,public.rights_evidence_row_hash(to_jsonb(s)) "
-                f"FROM public.{quoted_table} s JOIN public.safety_rightsaction a ON a.id=s.action_id "
-                "WHERE a.request_id=%s",
-                [request],
-            )
-            actual.update({(table, pk): digest for pk, digest in cursor.fetchall()})
+        actual = _source_rows(request)
         if actual != rows:
             raise ValidationError("Evidence chain source rows changed")
         return current
