@@ -104,5 +104,8 @@
     "Seven buffered results memory not measured on full-size case",
     "Python traced peak excludes libpq; process maxrss cumulative"
   ],
-  "production_change": "Only seven independent source-row SELECTs pipelined; head/trust/events/domain checks unchanged; recorder/nested/unsupported serial fallback"
+  "production_change": "Only seven independent source-row SELECTs pipelined; head/trust/events/domain checks unchanged; recorder/nested/unsupported serial fallback",
+  "candidate_commit": "ea5eed6",
+  "local_integration_commit": "8d2aa7b",
+  "integration": "LOCAL_SCOPED_GATE_PASS_FULL_ACCEPTANCE_PENDING"
 }
