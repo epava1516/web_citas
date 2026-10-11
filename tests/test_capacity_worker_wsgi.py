@@ -3,6 +3,7 @@
 import json
 import threading
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import contextmanager
 
 import capacity_profile_wsgi as wrapper
 import pytest
@@ -93,3 +94,41 @@ def test_domain_failure_remains_identical_and_hook_is_restored(monkeypatch, fail
     assert captured.value is error and threading.getprofile() is previous
     if failure_at == 'close':
         assert response.closed
+
+
+@pytest.mark.parametrize('close_failure', [False, True])
+def test_listing_phase_marker_bypasses_both_profilers_and_drains(monkeypatch, close_failure):
+    error = ValueError('domain close failure')
+    response = Response(close_error=error if close_failure else None)
+    order = []
+
+    class Collector:
+        def snapshot(self):
+            assert response.closed and order == ['enter', 'exit']
+            return {'status': 'complete', 'pages': [1, 2, 3, 4]}
+
+    @contextmanager
+    def phase_scope(*, sql_context):
+        assert callable(sql_context)
+        order.append('enter')
+        try:
+            yield Collector()
+        finally:
+            order.append('exit')
+
+    monkeypatch.setattr(wrapper, 'phase_scope', phase_scope)
+    monkeypatch.setattr(wrapper, 'scope', lambda: pytest.fail('worker hook installed'))
+    monkeypatch.setattr(wrapper.cProfile, 'Profile', lambda: pytest.fail('cProfile installed'))
+    monkeypatch.setattr(wrapper, 'original', lambda environ, start: response)
+    saved = outputs(monkeypatch)
+    request = wrapper.application({'HTTP_X_CAPACITY_PROFILE': 'coverage_page_read'},
+                                  lambda *args: None)
+    if close_failure:
+        with pytest.raises(ValueError) as captured:
+            list(request)
+        assert captured.value is error
+    else:
+        assert list(request) == [b'original body']
+    text = next(iter(saved.values()))
+    result = json.loads(text.split('Capacity listing phase diagnostic JSON:\n', 1)[1])
+    assert result == {'status': 'complete', 'pages': [1, 2, 3, 4]}

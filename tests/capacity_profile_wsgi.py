@@ -9,6 +9,7 @@ import re
 from contextlib import nullcontext
 from pathlib import Path
 
+from capacity_phase_spans import scope as phase_scope
 from capacity_worker_profile import scope
 
 from config.wsgi import application as original
@@ -17,13 +18,24 @@ from config.wsgi import application as original
 def application(environ, start_response):
     stage = environ.get('HTTP_X_CAPACITY_PROFILE', '')
     stage = stage if re.fullmatch(r'[a-z_]{1,40}', stage) else ('selection' if stage == '1' else '')
-    profile = cProfile.Profile() if stage else None
+    listing_phases = stage == 'coverage_page_read'
+    profile = cProfile.Profile() if stage and not listing_phases else None
     response = None
     if profile:
         profile.enable()
     collector = None
+    phase_collector = None
+    if listing_phases:
+        from django.db import connection
+        observation = phase_scope(sql_context=connection.execute_wrapper)
+    else:
+        observation = scope() if profile else nullcontext()
     try:
-        with scope() if profile else nullcontext() as collector:
+        with observation as observed:
+            if listing_phases:
+                phase_collector = observed
+            else:
+                collector = observed
             try:
                 response = original(environ, start_response)
                 yield from response
@@ -31,6 +43,10 @@ def application(environ, start_response):
                 if response is not None:
                     response.close()
     finally:
+        if listing_phases:
+            output = '\nCapacity listing phase diagnostic JSON:\n'
+            output += json.dumps(phase_collector.snapshot(), sort_keys=True) + '\n'
+            Path(f'/tmp/capacity-profile-{stage}-{os.getpid()}.txt').write_text(output)
         if profile:
             profile.disable()
             output = io.StringIO()

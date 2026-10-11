@@ -48,6 +48,7 @@ def server(settings, record_property):
     if getattr(settings, 'CAPACITY_SELECTION_PROFILE', False):
         Path('/tmp/capacity_profile_wsgi.py').write_text(Path(__file__).with_name('capacity_profile_wsgi.py').read_text())
         Path('/tmp/capacity_worker_profile.py').write_text(Path(__file__).with_name('capacity_worker_profile.py').read_text())
+        Path('/tmp/capacity_phase_spans.py').write_text(Path(__file__).with_name('capacity_phase_spans.py').read_text())
         application = 'capacity_profile_wsgi:application'
     command = [sys.executable, '-m', 'gunicorn', application, '--workers', '2',
                '--worker-class', 'sync', '--bind', f'{bind}:{port}', '--timeout', '90',
