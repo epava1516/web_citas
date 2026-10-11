@@ -39,7 +39,13 @@ def test_real_workers_authenticate_all_objects_with_fresh_phase_counts(
     assert phases['object_verify'] == phases['repository_verify'] == 28
     assert phases['descriptor'] == phases['codec_verify'] == 28
     assert phases['authenticate_frames'] == phases['header'] == 28
-    assert phases['tombstone'] == phases['ciphertext_segments'] == 56
+    assert phases['tombstone'] == 56
+    assert phases['ciphertext_finish'] == 28
+    # Every object fetches ciphertext and reaches EOF. Adapter calls can also
+    # observe an EOF already reached by the codec; these are execution segments,
+    # not counts of physical S3 reads or the former generator's resumes.
+    assert phases['ciphertext_fetch'] >= 56
+    assert 'ciphertext_segments' not in phases
     # Counts prove observation, not production latency; no object data recorded.
     record_property('worker_observation_object_count', 28)
     record_property('worker_observation_phase_counts', str(phases))

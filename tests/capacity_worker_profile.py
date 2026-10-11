@@ -19,11 +19,13 @@ PHASES = {
     ('apps/safety/object_storage/repository.py', 'descriptor'): 'descriptor',
     ('apps/safety/object_storage/repository.py', '_tombstone'): 'tombstone',
     ('apps/safety/object_storage/repository.py', '_verified_ciphertext'): 'ciphertext_segments',
+    ('apps/safety/object_storage/repository.py', '_HashedBodyReader._fetch'): 'ciphertext_fetch',
+    ('apps/safety/object_storage/repository.py', '_HashedBodyReader.finish'): 'ciphertext_finish',
     ('apps/safety/object_storage/codec.py', 'verify'): 'codec_verify',
     ('apps/safety/object_storage/codec.py', '_header'): 'header',
     ('apps/safety/object_storage/codec.py', '_authenticate_frames'): 'authenticate_frames',
 }
-_PHASE_FUNCTIONS = frozenset(function for _, function in PHASES)
+_PHASE_FUNCTIONS = frozenset(function.rsplit('.', 1)[-1] for _, function in PHASES)
 _PHASE_SUFFIXES = tuple((PurePath(filename).parts, function, phase)
                         for (filename, function), phase in PHASES.items())
 MAX_WORKERS = 2
@@ -40,7 +42,7 @@ def _phase(code):
         return None
     parts = PurePath(code.co_filename).parts
     for suffix, function, phase in _PHASE_SUFFIXES:
-        if code.co_name == function and parts[-len(suffix):] == suffix:
+        if function in (code.co_name, code.co_qualname) and parts[-len(suffix):] == suffix:
             return phase
     return None
 

@@ -78,6 +78,35 @@ def test_unmatched_thread_names_and_nonwhitelisted_code_ignored():
     assert collector.snapshot()['events'] == 0
 
 
+def test_streaming_phases_match_qualified_adapter_only():
+    namespace = {}
+    exec(compile('''
+class _HashedBodyReader:
+    def _fetch(self):
+        return True
+    def finish(self):
+        self._fetch()
+class OtherReader:
+    def _fetch(self):
+        return True
+    def finish(self):
+        self._fetch()
+''', '/fixture/apps/safety/object_storage/repository.py', 'exec'), namespace)
+
+    def work():
+        namespace['_HashedBodyReader']().finish()
+        namespace['OtherReader']().finish()
+
+    with diagnostic.scope() as collector:
+        run(work)
+    result = collector.snapshot()
+    assert result['status'] == 'complete' and not result['incomplete']
+    phases = result['workers'][0]['phases']
+    assert set(phases) == {'ciphertext_fetch', 'ciphertext_finish'}
+    assert phases['ciphertext_fetch']['segments'] == 1
+    assert phases['ciphertext_finish']['segments'] == 1
+
+
 def test_disabled_scope_never_installs_hook(monkeypatch):
     monkeypatch.setattr(threading, 'setprofile', lambda hook: pytest.fail('hook installed'))
     with diagnostic.scope(enabled=False) as collector:
