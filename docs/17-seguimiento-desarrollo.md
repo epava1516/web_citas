@@ -505,3 +505,27 @@ Commits `a55ce87` y `034aa1e`; conjunta corregida `20261010-230920-aa4007af`:666
 Verify-only mantiene ciphertext staging, GET/SHA/tombstones/AEAD/contexto/SHA plaintext/EOF/autorización frescos; elimina solo tempfile/readback del plaintext que se descartaba. Read y legacy permanecen. También desaparece el ENOSPC de ese tempfile innecesario; no se presenta como equivalencia de fallos de recursos eliminados. N2 dirigida127PASS antes de conjunta; la conjunta previa637PASS precede corrección y no acredita la fuente final.
 
 Aceptación funcional local, sin nueva ganancia de requests medida. Se prepara captura/use nueva con todas poblaciones/cuotas/objetivos originales; no reutilizar baseline previo tras fuente/binario cambiados. N3, dos casos simultáneos, memoria y todos los objetivos de latencia siguen pendientes; porcentajes contractuales sin incremento. [Evidencia saneada](evidencias/mod08-native-verify-integrado-20261010.json).
+
+
+### Medición canónica nativa + verify-only — 2026-10-11
+
+HEAD medido `b74274e`; captura `20261010-232333-7e99d547`1PASS/0FAIL/0ERROR/0skips1527,206s JUnit y uso `20261010-235349-4508b0cf`1PASS/0FAIL/0ERROR/0skips236,062s. HIT_DIAGNOSTIC_REUSED_PREPARATION, inputs/fuentes sin cambios y retirada propia comprobada independientemente. Termina congelación tras ambos terminales. PostgreSQL/Redis/RustFS/Caddy reales, identidad simulada; no proveedor verificado.
+
+| TCP p95, misma población | Anterior (s) | Actual (s) | Mejora | Objetivo (s) | Reducción pendiente | n |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Recorrido,383lotes sin perfil | 3.880241 | 3.778927 | 2.61% | 2 | 47.07% | 383 |
+| 123lotes completos de cuatro páginas | 3.264592 | 3.303774 | -1.20% | 2 | 39.46% | 123 |
+| JSON dos HTTP hasta EOF | 6.749283 | 6.048998 | 10.38% | 5 | 17.34% | 3 |
+| Binarios dos HTTP hasta EOF | 6.545222 | 6.529290 | 0.24% | 5 | 23.42% | 8 |
+
+Comparación con capture215201/use222157;1509páginas y384grupos, uno perfilado excluido. Efecto pequeño/desigual del listado, JSON mejora, binario prácticamente sin cambio. Todos siguen fuera de objetivos2s/5s. No atribuir causalidad a un candidato aislado ni declarar aceptación original de dos casos por un diagnóstico de un caso. Tres JSON<=8MiB y ocho binarios<8MiB, dos autorizaciones frescas y EOF.
+
+| Operación, una muestra (no p95) | Anterior (s) | Actual (s) | Mejora | Objetivo (s) | Reducción pendiente | n |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| generation | 32.913815 | 32.078407 | 2.54% | 120 | 0.00% | 1 |
+| final_preparation | 10.709931 | 10.446689 | 2.46% | 30 | 0.00% | 1 |
+| final_inspection | 3.105194 | 3.369607 | -8.52% | 30 | 0.00% | 1 |
+| final_approval | 3.760574 | 3.268270 | 13.09% | 5 | 0.00% | 1 |
+| closure | 11.678849 | 11.279068 | 3.42% | 30 | 0.00% | 1 |
+
+Perfiles GET reales propagados por Caddy: json_download_proxy-97 y binary_download_proxy-98. Muestras perfiladas adicionales excluidas de p95. Esperas de workers, joins y validación SQL se solapan: no sumar ni atribuir coste del join como trabajo propio. La próxima hipótesis requiere desglose finito de verificación física por worker y reproducción SQL para distinguir lectura/AEAD/planificación/materialización antes de cambiar garantías. Sin cachear autoridad ni omitir verificaciones frescas. N3, dos casos, memoria y objetivos completos siguen pendientes; porcentajes contractuales sin aumento. [Evidencia saneada](evidencias/mod08-medicion-native-verify-20261011.json).
