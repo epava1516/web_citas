@@ -1,0 +1,108 @@
+{
+  "run_id": "20261011-062201-7a9f150d",
+  "source_head": "bf38c3e02a824b6a49015933d0e8e60765906aed",
+  "result": "REAL_SCOPED_GATE_PASS_FULL_CAPACITY_PENDING",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "79",
+      "time": "473.610",
+      "timestamp": "2026-10-11T08:22:25.377022+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_hash_count": 1154,
+  "cleanup_independently_verified": true,
+  "selected_file_hashes": {
+    "apps/safety/evidence_chain.py": "bae55c62ed8120ed0a4879abb0fbadb7663635c5e7fcf5fc195752def198b721",
+    "tests/test_rights_evidence_chain_pipeline.py": "9c8a1b52ab74488f313fb35d44abbca5f386a7a901bfe0511d255d19ff23d911"
+  },
+  "diagnostic": {
+    "memory": {
+      "pipeline": {
+        "process_lifetime_maxrss_kib": 179128,
+        "python_traced_peak_bytes": 23877
+      },
+      "serial": {
+        "process_lifetime_maxrss_kib": 179128,
+        "python_traced_peak_bytes": 5294
+      }
+    },
+    "memory_caveat": "traced peak excludes libpq; maxrss is process lifetime, not per-operation",
+    "memory_limit_verified": false,
+    "metrics": {
+      "pipeline": {
+        "count": 20,
+        "median_ns": 5977017.5,
+        "samples_ns": [
+          5985156,
+          5681012,
+          5984537,
+          6137780,
+          5974310,
+          6083541,
+          6824155,
+          5948456,
+          5623846,
+          5778021,
+          5979725,
+          5755443,
+          5784285,
+          6395829,
+          5826712,
+          5817476,
+          5910577,
+          8455573,
+          7144402,
+          14552941
+        ]
+      },
+      "serial": {
+        "count": 20,
+        "median_ns": 7204861.0,
+        "samples_ns": [
+          7257007,
+          6967408,
+          7389438,
+          7312647,
+          7197717,
+          6968916,
+          7283381,
+          6595496,
+          7199532,
+          6906904,
+          7004027,
+          6762385,
+          7254720,
+          7714308,
+          7253367,
+          6853328,
+          7234681,
+          6311878,
+          7210190,
+          13895197
+        ]
+      }
+    },
+    "result_payload_utf8_bytes": 703,
+    "rows": 7,
+    "status": "DIAGNOSTIC_NOT_ACCEPTANCE"
+  },
+  "comparison": {
+    "serial_median_ms": 7.204861,
+    "pipeline_median_ms": 5.9770175,
+    "reduction_percent": 17.041876311007254,
+    "samples_per_variant": 20,
+    "warmup_pairs": 2
+  },
+  "scope": "Six relevant files, PG17 actual; tiny seven-row microbench, not TCP p95 or resource-quota acceptance",
+  "limitations": [
+    "Full two-case/N3/lifecycle acceptance pending",
+    "Seven buffered results memory not measured on full-size case",
+    "Python traced peak excludes libpq; process maxrss cumulative"
+  ],
+  "production_change": "Only seven independent source-row SELECTs pipelined; head/trust/events/domain checks unchanged; recorder/nested/unsupported serial fallback"
+}
