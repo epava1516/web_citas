@@ -10,6 +10,12 @@ from django.views.decorators.debug import sensitive_variables
 
 MAX_ENTRIES = 128
 MAX_INPUT_BYTES = 32 * 1024 * 1024
+LARGE_INPUT = 4096
+INDEX_EDGE = 32
+# Conservative extra charge for edge slices, index/entry tuples, bucket/list and
+# digest per large entry. Small entries retain the existing exact-key layout.
+INDEX_OVERHEAD = 2048
+_LARGE = object()
 _current = ContextVar("rights_operation_fingerprints", default=None)
 
 
@@ -24,6 +30,7 @@ def operation_fingerprints():
         "atomic": connection.atomic_blocks[-1],
         "thread": get_ident(),
         "entries": {},
+        "buckets": {},
         "bytes": 0,
     }
     token = _current.set(state)
@@ -31,6 +38,7 @@ def operation_fingerprints():
         yield
     finally:
         state["entries"].clear()
+        state["buckets"].clear()
         _current.reset(token)
 
 
@@ -57,10 +65,20 @@ def fingerprint(value, native):
     secret = settings.SECRET_KEY
     if type(secret) not in (str, bytes):
         return native(value)
-    key = (type(value), value, type(secret), secret)
+    large = len(value) > LARGE_INPUT or len(secret) > LARGE_INPUT
     entries = state["entries"]
-    if key in entries:
-        return entries[key]
+    if large:
+        # No full input hash here; collisions only locate candidates, never hits.
+        index = (type(value), len(value), value[:INDEX_EDGE], value[-INDEX_EDGE:],
+                 type(secret), len(secret), secret[:INDEX_EDGE], secret[-INDEX_EDGE:])
+        for candidate in state["buckets"].get(index, ()):
+            original, original_secret, digest = entries[candidate]
+            if value == original and secret == original_secret:
+                return digest
+    else:
+        key = (type(value), value, type(secret), secret)
+        if key in entries:
+            return entries[key]
     result = native(value)
     # Native reads its own settings: do not retain a result if those changed
     # during computation. Unicode upper bounds avoid allocating encoded inputs.
@@ -68,7 +86,14 @@ def fingerprint(value, native):
         return result
     size = len(value) * (4 if type(value) is str else 1)
     size += len(secret) * (4 if type(secret) is str else 1)
+    if large:
+        size += INDEX_OVERHEAD
     if len(entries) < MAX_ENTRIES and size <= MAX_INPUT_BYTES - state["bytes"]:
-        entries[key] = result
+        if large:
+            key = (_LARGE, len(entries))
+            entries[key] = (value, secret, result)
+            state["buckets"].setdefault(index, []).append(key)
+        else:
+            entries[key] = result
         state["bytes"] += size
     return result

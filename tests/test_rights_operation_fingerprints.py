@@ -225,3 +225,65 @@ def test_real_four_child_audits_physical_bytes_and_late_rollback(
         for path, content in changed:
             path.write_bytes(content)
     assert memo._current.get() is None
+
+
+@pytest.mark.parametrize("kind", [str, bytes])
+def test_large_index_collision_requires_full_input_and_secret_equality(settings, kind):
+    def convert(value):
+        return value if kind is str else value.encode()
+
+    first = convert("a" * 32 + "x" * 5000 + "z" * 32)
+    second = convert("a" * 32 + "y" * 5000 + "z" * 32)
+    settings.SECRET_KEY = convert("p" * 32 + "k" * 5000 + "s" * 32)
+    calls = []
+
+    def counted(value):
+        calls.append(True)
+        return native(value)
+
+    with transaction.atomic(), memo.operation_fingerprints():
+        assert memo.fingerprint(first, counted) == native(first)
+        assert memo.fingerprint(second, counted) == native(second)
+        assert memo.fingerprint(first, counted) == native(first)
+        assert len(calls) == 2
+        settings.SECRET_KEY = convert("p" * 32 + "l" * 5000 + "s" * 32)
+        assert memo.fingerprint(first, counted) == native(first)
+        assert len(calls) == 3
+        state = memo._current.get()
+        assert len(state["entries"]) == 3
+        assert len(state["buckets"]) == 1
+    assert not state["entries"] and not state["buckets"]
+
+
+def test_large_index_overhead_counts_against_same_budget(settings, monkeypatch):
+    value = "x" * (memo.LARGE_INPUT + 1)
+    settings.SECRET_KEY = "small"
+    payload_charge = 4 * (len(value) + len(settings.SECRET_KEY))
+    monkeypatch.setattr(memo, "MAX_INPUT_BYTES", payload_charge + memo.INDEX_OVERHEAD - 1)
+    calls = []
+
+    def counted(value):
+        calls.append(True)
+        return native(value)
+
+    with transaction.atomic(), memo.operation_fingerprints():
+        assert memo.fingerprint(value, counted) == native(value)
+        assert memo.fingerprint(value, counted) == native(value)
+        assert len(calls) == 2
+        assert not memo._current.get()["entries"]
+        assert not memo._current.get()["buckets"]
+        assert memo._current.get()["bytes"] == 0
+
+
+def test_large_index_secret_drift_during_native_keeps_no_bucket(settings):
+    settings.SECRET_KEY = "before"
+    value = "x" * (memo.LARGE_INPUT + 1)
+
+    def changing(value):
+        settings.SECRET_KEY = "after"
+        return native(value)
+
+    with transaction.atomic(), memo.operation_fingerprints():
+        assert memo.fingerprint(value, changing) == native(value)
+        assert not memo._current.get()["entries"]
+        assert not memo._current.get()["buckets"]
