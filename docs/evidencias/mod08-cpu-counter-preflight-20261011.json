@@ -1,0 +1,63 @@
+{
+  "result": "REAL_CPU_COUNTER_COLLECTION_VERIFIED_NOT_CAPACITY",
+  "run_id": "20261011-080958-6460fb0b",
+  "head": "af25346709e585c1ec2a49e31a6f850137f0ab8f",
+  "sources_verified": 1156,
+  "cleanup_independently_verified": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "69.843",
+      "timestamp": "2026-10-11T10:12:02.363487+02:00",
+      "hostname": "897409f3f542"
+    }
+  ],
+  "cgroup_cpu": {
+    "pg": {
+      "usage_usec": 15071938,
+      "user_usec": 8911186,
+      "system_usec": 6160751,
+      "nr_periods": 960,
+      "nr_throttled": 1,
+      "throttled_usec": 14122
+    },
+    "redis": {
+      "usage_usec": 1756194,
+      "user_usec": 1373851,
+      "system_usec": 382343,
+      "nr_periods": 1571,
+      "nr_throttled": 49,
+      "throttled_usec": 5394257
+    },
+    "app": {
+      "usage_usec": 94905478,
+      "user_usec": 89742883,
+      "system_usec": 5162594,
+      "nr_periods": 1127,
+      "nr_throttled": 63,
+      "throttled_usec": 13921197
+    },
+    "objects": {
+      "usage_usec": 1076348,
+      "user_usec": 677381,
+      "system_usec": 398966,
+      "nr_periods": 208,
+      "nr_throttled": 6,
+      "throttled_usec": 220836
+    },
+    "caddy": {
+      "usage_usec": 1233556,
+      "user_usec": 766786,
+      "system_usec": 466770,
+      "nr_periods": 134,
+      "nr_throttled": 117,
+      "throttled_usec": 15376316
+    }
+  },
+  "scope": "Cumulative kernel cgroup counters from service startup through workload completion; collected after timed requests in the existing memory-counter exec. Not per-request CPU, synchronous throttling, or proof that throttling caused latency.",
+  "limits": "Preflight topology/setup only, no target workload. Throttled durations/period counts are cumulative and not request latency or causality. Quotas unchanged. No previous equivalent counters exist."
+}
