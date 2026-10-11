@@ -1,0 +1,94 @@
+{
+  "scope": "Synthetic client construction only, explicit dummy credentials, no HTTP calls; not equivalence or request proof",
+  "trials": 9,
+  "alternating_order": true,
+  "samples": {
+    "boto3": [
+      {
+        "wall_seconds": 0.101382645,
+        "thread_cpu_seconds": 0.099833038
+      },
+      {
+        "wall_seconds": 0.128183101,
+        "thread_cpu_seconds": 0.126565029
+      },
+      {
+        "wall_seconds": 0.097017247,
+        "thread_cpu_seconds": 0.095524717
+      },
+      {
+        "wall_seconds": 0.084065469,
+        "thread_cpu_seconds": 0.082850287
+      },
+      {
+        "wall_seconds": 0.099856129,
+        "thread_cpu_seconds": 0.09872143
+      },
+      {
+        "wall_seconds": 0.095703947,
+        "thread_cpu_seconds": 0.094845461
+      },
+      {
+        "wall_seconds": 0.122588381,
+        "thread_cpu_seconds": 0.121333534
+      },
+      {
+        "wall_seconds": 0.111857442,
+        "thread_cpu_seconds": 0.109365999
+      },
+      {
+        "wall_seconds": 0.104851845,
+        "thread_cpu_seconds": 0.103736348
+      }
+    ],
+    "botocore": [
+      {
+        "wall_seconds": 0.0976323,
+        "thread_cpu_seconds": 0.095274436
+      },
+      {
+        "wall_seconds": 0.087747166,
+        "thread_cpu_seconds": 0.086249169
+      },
+      {
+        "wall_seconds": 0.090220829,
+        "thread_cpu_seconds": 0.088682336
+      },
+      {
+        "wall_seconds": 0.36085939,
+        "thread_cpu_seconds": 0.355854451
+      },
+      {
+        "wall_seconds": 0.113320891,
+        "thread_cpu_seconds": 0.11171998
+      },
+      {
+        "wall_seconds": 0.084997753,
+        "thread_cpu_seconds": 0.082962031
+      },
+      {
+        "wall_seconds": 0.087468892,
+        "thread_cpu_seconds": 0.086692643
+      },
+      {
+        "wall_seconds": 0.094788487,
+        "thread_cpu_seconds": 0.094089059
+      },
+      {
+        "wall_seconds": 0.099585321,
+        "thread_cpu_seconds": 0.098858226
+      }
+    ]
+  },
+  "median": {
+    "boto3": {
+      "wall_seconds": 0.101382645,
+      "thread_cpu_seconds": 0.099833038
+    },
+    "botocore": {
+      "wall_seconds": 0.094788487,
+      "thread_cpu_seconds": 0.094089059
+    }
+  },
+  "decision": "Do not replace boto3: median savings ~6.6ms/client, four constructions across two authorizations small vs >2s deficit; differing hooks/user-agent/methods not generally equivalent."
+}
