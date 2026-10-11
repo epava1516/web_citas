@@ -1,0 +1,613 @@
+{
+  "scope": "Diagnóstico de un caso sintético completo; aceptación de dos casos/N3 pendiente",
+  "capture": {
+    "run_id": "20261011-030418-57a8298d",
+    "head": "c893d2085af16bd78e4a46f4331456ba1b747ce5",
+    "result": "BASELINE_CAPTURED_DIAGNOSTIC_ONLY",
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-capacity-20261011-030418-57a8298d-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-030418-57a8298d-caddy": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-030418-57a8298d-objects": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-030418-57a8298d-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-030418-57a8298d-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-030418-57a8298d-delivery": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-030418-57a8298d-net": {
+        "absent": true
+      },
+      "labelled_remaining": []
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "1528.510",
+        "timestamp": "2026-10-11T05:06:35.018823+02:00",
+        "hostname": "ea22e93e01c9"
+      }
+    ],
+    "owned_memory_upper_bound_bytes": 2053664768,
+    "owned_storage_ceiling_bytes": 5939134496,
+    "required_coverage_pages": 1509,
+    "measured_batch_count": 384,
+    "whole": {
+      "samples": 383,
+      "p95_seconds": 3.88548034010455,
+      "median_seconds": 3.3167265839874744,
+      "min_seconds": 1.430981753859669,
+      "max_seconds": 4.170646011829376
+    },
+    "matched123": {
+      "samples": 123,
+      "p95_seconds": 3.3762739216908813,
+      "median_seconds": 2.949841185938567,
+      "min_seconds": 2.343017882667482,
+      "max_seconds": 3.7310163928195834
+    },
+    "comparison": [
+      {
+        "metric": "whole",
+        "previous_seconds": 3.8069763462990522,
+        "new_seconds": 3.88548034010455,
+        "previous_samples": 383,
+        "new_samples": 383,
+        "target_seconds": 2,
+        "improvement_percent": -2.062108788299022,
+        "remaining_reduction_percent": 48.52631270948127
+      },
+      {
+        "metric": "matched123",
+        "previous_seconds": 3.20490146195516,
+        "new_seconds": 3.3762739216908813,
+        "previous_samples": 123,
+        "new_samples": 123,
+        "target_seconds": 2,
+        "improvement_percent": -5.347199025307159,
+        "remaining_reduction_percent": 40.76310019897987
+      }
+    ],
+    "error_count": 0,
+    "scope": "One full-sized synthetic case; whole unprofiled TCP batch population includes final partial batches, matched123 uses only four-page batches; diagnostic only, not two-case acceptance",
+    "previous_run_id": "20261011-020846-91bc994a"
+  },
+  "use": {
+    "run_id": "20261011-033358-7f0a2acc",
+    "head": "c893d2085af16bd78e4a46f4331456ba1b747ce5",
+    "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+    "metrics": {
+      "generation": [
+        45.953214245382696
+      ],
+      "final_preparation": [
+        14.613017957657576
+      ],
+      "final_inspection": [
+        4.183466217014939
+      ],
+      "final_approval": [
+        4.024229605682194
+      ],
+      "closure": [
+        15.602487768046558
+      ],
+      "json_download": [
+        6.883974758908153,
+        6.908404561225325,
+        6.119185601361096
+      ],
+      "json_download_bytes": [
+        8388608,
+        8388608,
+        16476
+      ],
+      "binary_download": [
+        6.9932432901114225,
+        7.200371860060841,
+        6.894545791205019,
+        7.705974456854165,
+        6.919504163321108,
+        7.110136986710131,
+        7.6560659180395305,
+        7.0024238638579845
+      ],
+      "binary_download_bytes": [
+        8387222,
+        8387222,
+        8387218,
+        8387218,
+        8387220,
+        8387218,
+        8387216,
+        8387220
+      ]
+    },
+    "comparison": [
+      {
+        "metric": "generation",
+        "previous_seconds": 45.71559732267633,
+        "new_seconds": 45.953214245382696,
+        "improvement_percent": -0.519772105413363,
+        "samples": 1,
+        "target_seconds": 120,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_preparation",
+        "previous_seconds": 15.013528832234442,
+        "new_seconds": 14.613017957657576,
+        "improvement_percent": 2.667666469704044,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_inspection",
+        "previous_seconds": 3.540518586989492,
+        "new_seconds": 4.183466217014939,
+        "improvement_percent": -18.159702151772784,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "final_approval",
+        "previous_seconds": 4.193057124968618,
+        "new_seconds": 4.024229605682194,
+        "improvement_percent": 4.026358674702946,
+        "samples": 1,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "closure",
+        "previous_seconds": 15.265295549761504,
+        "new_seconds": 15.602487768046558,
+        "improvement_percent": -2.208881034670318,
+        "samples": 1,
+        "target_seconds": 30,
+        "remaining_reduction_percent": 0,
+        "statistic": "single_sample_not_p95"
+      },
+      {
+        "metric": "json_download",
+        "previous_seconds": 7.040080265142024,
+        "new_seconds": 6.908404561225325,
+        "improvement_percent": 1.8703721968721387,
+        "samples": 3,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 27.624389167024066,
+        "statistic": "nearest_rank_p95"
+      },
+      {
+        "metric": "binary_download",
+        "previous_seconds": 8.19127044500783,
+        "new_seconds": 7.705974456854165,
+        "improvement_percent": 5.924550915657168,
+        "samples": 8,
+        "target_seconds": 5,
+        "remaining_reduction_percent": 35.11527934597948,
+        "statistic": "nearest_rank_p95"
+      }
+    ],
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-capacity-20261011-033358-7f0a2acc-app": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-033358-7f0a2acc-caddy": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-033358-7f0a2acc-objects": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-033358-7f0a2acc-redis": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-033358-7f0a2acc-pg": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-033358-7f0a2acc-delivery": {
+        "absent": true,
+        "removal_exit": 0
+      },
+      "web-modelos-capacity-20261011-033358-7f0a2acc-net": {
+        "absent": true
+      },
+      "labelled_remaining": []
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "286.280",
+        "timestamp": "2026-10-11T05:36:14.328966+02:00",
+        "hostname": "d9f0481f8159"
+      }
+    ],
+    "scope": "One full-sized synthetic case; two fresh HTTP authorizations and EOF; not two-case/N3 acceptance",
+    "error_count": 0,
+    "baseline_hit": "HIT_DIAGNOSTIC_REUSED_PREPARATION",
+    "baseline_inputs_unchanged": true,
+    "server_profile_names": [
+      "capacity-profile-binary_download-101.txt",
+      "capacity-profile-binary_download_proxy-100.txt",
+      "capacity-profile-json_download-101.txt",
+      "capacity-profile-json_download_proxy-100.txt"
+    ],
+    "previous_run_id": "20261011-023840-83be1976"
+  },
+  "sha_backend_experiment": {
+    "scope": "Synthetic SHA256 backend costs only; not fixture, request or capacity acceptance",
+    "same_sha256_hex": true,
+    "hashlib_module": "_hashlib",
+    "trials": 9,
+    "alternating_order": true,
+    "construction_and_hex_included": true,
+    "rows": [
+      {
+        "case": "empty",
+        "bytes_per_object": 0,
+        "objects": 1,
+        "samples": {
+          "hashlib": {
+            "wall_seconds": [
+              1.929e-05,
+              5.629e-06,
+              2.621e-06,
+              3.076e-06,
+              2.441e-06,
+              4.032e-06,
+              1.702e-06,
+              2.858e-06,
+              1.863e-06
+            ],
+            "thread_cpu_seconds": [
+              2.9737e-05,
+              7.309e-06,
+              4.354e-06,
+              4.553e-06,
+              3.988e-06,
+              5.516e-06,
+              3.182e-06,
+              4.394e-06,
+              3.539e-06
+            ]
+          },
+          "cryptography": {
+            "wall_seconds": [
+              2.2719e-05,
+              1.2359e-05,
+              9.825e-06,
+              6.203e-06,
+              8.495e-06,
+              7.043e-06,
+              7.383e-06,
+              5.455e-06,
+              7.335e-06
+            ],
+            "thread_cpu_seconds": [
+              2.5644e-05,
+              1.5079e-05,
+              1.1793e-05,
+              8.148e-06,
+              1.0601e-05,
+              8.92e-06,
+              9.43e-06,
+              7.226e-06,
+              9.17e-06
+            ]
+          }
+        },
+        "median": {
+          "hashlib": {
+            "wall_seconds": 2.858e-06,
+            "thread_cpu_seconds": 4.394e-06
+          },
+          "cryptography": {
+            "wall_seconds": 7.383e-06,
+            "thread_cpu_seconds": 9.43e-06
+          }
+        }
+      },
+      {
+        "case": "small",
+        "bytes_per_object": 64,
+        "objects": 1,
+        "samples": {
+          "hashlib": {
+            "wall_seconds": [
+              3.732e-06,
+              2.784e-06,
+              1.907e-06,
+              2.569e-06,
+              2.069e-06,
+              2.555e-06,
+              2.423e-06,
+              3.316e-06,
+              2.412e-06
+            ],
+            "thread_cpu_seconds": [
+              6.675e-06,
+              4.357e-06,
+              3.326e-06,
+              4.413e-06,
+              3.747e-06,
+              3.991e-06,
+              3.946e-06,
+              4.718e-06,
+              4.008e-06
+            ]
+          },
+          "cryptography": {
+            "wall_seconds": [
+              7.523e-06,
+              5.315e-06,
+              5.342e-06,
+              5.113e-06,
+              5.841e-06,
+              4.82e-06,
+              6.697e-06,
+              5.493e-06,
+              7.322e-06
+            ],
+            "thread_cpu_seconds": [
+              9.577e-06,
+              6.988e-06,
+              6.965e-06,
+              6.762e-06,
+              7.547e-06,
+              6.45e-06,
+              8.749e-06,
+              7.164e-06,
+              9.302e-06
+            ]
+          }
+        },
+        "median": {
+          "hashlib": {
+            "wall_seconds": 2.555e-06,
+            "thread_cpu_seconds": 4.008e-06
+          },
+          "cryptography": {
+            "wall_seconds": 5.493e-06,
+            "thread_cpu_seconds": 7.164e-06
+          }
+        }
+      },
+      {
+        "case": "1KiB",
+        "bytes_per_object": 1024,
+        "objects": 1,
+        "samples": {
+          "hashlib": {
+            "wall_seconds": [
+              5.044e-06,
+              4.215e-06,
+              3.854e-06,
+              4.07e-06,
+              3.85e-06,
+              4.685e-06,
+              3.865e-06,
+              4e-06,
+              3.815e-06
+            ],
+            "thread_cpu_seconds": [
+              7.197e-06,
+              5.224e-06,
+              4.887e-06,
+              5.07e-06,
+              4.884e-06,
+              5.691e-06,
+              4.952e-06,
+              4.983e-06,
+              4.856e-06
+            ]
+          },
+          "cryptography": {
+            "wall_seconds": [
+              6.841e-06,
+              5.72e-06,
+              5.782e-06,
+              5.363e-06,
+              5.995e-06,
+              6.965e-06,
+              5.835e-06,
+              5.511e-06,
+              6.684e-06
+            ],
+            "thread_cpu_seconds": [
+              8.023e-06,
+              6.87e-06,
+              6.908e-06,
+              6.487e-06,
+              7.138e-06,
+              8.307e-06,
+              6.932e-06,
+              6.606e-06,
+              7.87e-06
+            ]
+          }
+        },
+        "median": {
+          "hashlib": {
+            "wall_seconds": 4e-06,
+            "thread_cpu_seconds": 4.983e-06
+          },
+          "cryptography": {
+            "wall_seconds": 5.835e-06,
+            "thread_cpu_seconds": 6.932e-06
+          }
+        }
+      },
+      {
+        "case": "4MiB",
+        "bytes_per_object": 4194304,
+        "objects": 1,
+        "samples": {
+          "hashlib": {
+            "wall_seconds": [
+              0.011309795,
+              0.012013557,
+              0.015501355,
+              0.011302452,
+              0.011225592,
+              0.011246421,
+              0.011028921,
+              0.010887082,
+              0.011214928
+            ],
+            "thread_cpu_seconds": [
+              0.011258115,
+              0.011929551,
+              0.015422244,
+              0.011241607,
+              0.011174961,
+              0.011162744,
+              0.010959603,
+              0.010792685,
+              0.011144364
+            ]
+          },
+          "cryptography": {
+            "wall_seconds": [
+              0.012327251,
+              0.012961064,
+              0.011253402,
+              0.011092408,
+              0.011601608,
+              0.011590756,
+              0.011081502,
+              0.010721366,
+              0.010665404
+            ],
+            "thread_cpu_seconds": [
+              0.011414501,
+              0.011586159,
+              0.01116021,
+              0.01102701,
+              0.011513321,
+              0.011509979,
+              0.011004107,
+              0.010656129,
+              0.010628941
+            ]
+          }
+        },
+        "median": {
+          "hashlib": {
+            "wall_seconds": 0.011246421,
+            "thread_cpu_seconds": 0.011174961
+          },
+          "cryptography": {
+            "wall_seconds": 0.011253402,
+            "thread_cpu_seconds": 0.01116021
+          }
+        }
+      },
+      {
+        "case": "16x4MiB",
+        "bytes_per_object": 4194304,
+        "objects": 16,
+        "samples": {
+          "hashlib": {
+            "wall_seconds": [
+              0.169027372,
+              0.207355562,
+              0.179268814,
+              0.184515872,
+              0.191230534,
+              0.172859758,
+              0.171268162,
+              0.180066524,
+              0.177867173
+            ],
+            "thread_cpu_seconds": [
+              0.168209506,
+              0.204844402,
+              0.177774498,
+              0.183394848,
+              0.189939191,
+              0.17182687,
+              0.170136883,
+              0.178980467,
+              0.177234625
+            ]
+          },
+          "cryptography": {
+            "wall_seconds": [
+              0.16857356,
+              0.175160229,
+              0.179849418,
+              0.183389158,
+              0.188095577,
+              0.183266148,
+              0.17232631,
+              0.175683962,
+              0.179676504
+            ],
+            "thread_cpu_seconds": [
+              0.167749253,
+              0.1739878,
+              0.17914256,
+              0.182608098,
+              0.186560857,
+              0.182310195,
+              0.171431379,
+              0.174422405,
+              0.178047754
+            ]
+          }
+        },
+        "median": {
+          "hashlib": {
+            "wall_seconds": 0.179268814,
+            "thread_cpu_seconds": 0.177774498
+          },
+          "cryptography": {
+            "wall_seconds": 0.179676504,
+            "thread_cpu_seconds": 0.178047754
+          }
+        }
+      }
+    ]
+  },
+  "root_audit": {
+    "tracked_hashes_verified_each_run": 1151,
+    "owned_containers_independently_absent": true,
+    "source_head": "c893d2085af16bd78e4a46f4331456ba1b747ce5"
+  },
+  "decision": "Conservar hashlib: cryptography no ofrece ventaja en la prueba aislada; no acredita mejora del request."
+}
