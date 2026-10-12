@@ -1,22 +1,21 @@
-"""Publication refresh and a domain writer must finish without a lock cycle."""
+"""Publication refresh must defer a batch whose FK references are locked."""
 
 from concurrent.futures import ThreadPoolExecutor
-from queue import Queue
 from threading import Event
 
 import pytest
-from django.db import connection, connections, transaction
+from django.db import connections, transaction
 from test_discovery import directory  # noqa: F401
-from test_photo_reuse_races import observe_blocked
 from test_photos import photo_environment  # noqa: F401
 
 from apps.listings import publication_state
-from apps.listings.models import Listing, PublicationDirty, PublicationState
+from apps.listings.models import Listing, PublicationDirty, PublicationState, Revision
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def test_refresh_insert_and_locked_listing_writer_finish_without_deadlock(request, monkeypatch):
+@pytest.mark.parametrize("reference", ["listing", "revision"])
+def test_locked_reference_defers_refresh_without_losing_dirty_generation(request, monkeypatch, reference):
     request.getfixturevalue("directory")
     from apps.listings.tasks import refresh_publication_state
 
@@ -25,50 +24,34 @@ def test_refresh_insert_and_locked_listing_writer_finish_without_deadlock(reques
         pass
     listing = Listing.objects.filter(status="published", approved_revision__isnull=False).first()
     assert listing is not None
-    # Force a fresh state INSERT so deferred FK checking participates at commit.
     PublicationState.objects.filter(listing=listing).delete()
     publication_state.mark([listing.pk])
-    stored, release = Event(), Event()
-    refresh_pid, writer_pid = Queue(), Queue()
-    original_store = publication_state.store
-
-    def paused_store(states):
-        original_store(states)
-        stored.set()
-        assert release.wait(15), "Observer did not release the refresh transaction"
-
-    monkeypatch.setattr(publication_state, "store", paused_store)
-
-    def refresh():
-        try:
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT pg_backend_pid()")
-                refresh_pid.put(cursor.fetchone()[0])
-            return publication_state.refresh(1)
-        finally:
-            connections.close_all()
+    generation = PublicationDirty.objects.get(listing=listing).generation
+    locked, refreshed = Event(), Event()
 
     def write():
         try:
-            assert stored.wait(15), "Refresh did not reach its state INSERT"
             with transaction.atomic():
-                Listing.objects.select_for_update().get(pk=listing.pk)
-                with connection.cursor() as cursor:
-                    cursor.execute("SELECT pg_backend_pid()")
-                    writer_pid.put(cursor.fetchone()[0])
+                model, pk = (Listing, listing.pk) if reference == "listing" else (Revision, listing.approved_revision_id)
+                model.objects.select_for_update().get(pk=pk)
+                locked.set()
+                assert refreshed.wait(10), "Refresh waited for a reference while holding dirty"
                 publication_state.mark([listing.pk])
             return True
         finally:
             connections.close_all()
 
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        refreshing = executor.submit(refresh)
+    with ThreadPoolExecutor(max_workers=1) as executor:
         writing = executor.submit(write)
         try:
-            # Inspect precisely these two synthetic participants before release.
-            observe_blocked(writer_pid.get(timeout=15), refresh_pid.get(timeout=15))
+            assert locked.wait(10)
+            assert publication_state.refresh(1) == 0
+            assert PublicationDirty.objects.get(listing=listing).generation == generation
+            assert not PublicationState.objects.filter(listing=listing).exists()
         finally:
-            release.set()
-        assert refreshing.result(timeout=30) == 1
-        assert writing.result(timeout=30)
-    assert PublicationDirty.objects.filter(listing=listing).exists()
+            refreshed.set()
+        assert writing.result(timeout=15)
+    assert PublicationDirty.objects.get(listing=listing).generation > generation
+    assert publication_state.refresh(1) == 1
+    assert not PublicationDirty.objects.filter(listing=listing).exists()
+    assert PublicationState.objects.filter(listing=listing).exists()

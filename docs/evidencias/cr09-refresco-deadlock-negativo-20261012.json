@@ -1,0 +1,198 @@
+{
+  "result": {
+    "id": "20261012-235050-1dcb0e6f",
+    "profile": "focused",
+    "result": "ERROR",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261012-235050-1dcb0e6f",
+          "--label",
+          "web-modelos-local-ci-run=20261012-235050-1dcb0e6f",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.4197602439671755
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261012-235050-1dcb0e6f",
+          "--label",
+          "web-modelos-local-ci-run=20261012-235050-1dcb0e6f",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5696113388985395
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03646003780886531
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.06618588604032993
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.0187472472898662
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.5226992582902312
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.8722864841111004
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-01asvpy2/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-01asvpy2/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-01asvpy2/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.506541886832565
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261012-235050-1dcb0e6f/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261012-235050-1dcb0e6f/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-01asvpy2/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261012-235050-1dcb0e6f/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_publication_refresh_lock_order.py"
+        ],
+        "exit": 1,
+        "seconds": 46.70677297003567
+      }
+    ],
+    "head": "6944a4e6ce5851bf711f4d12673268602aba7461",
+    "excluded": [],
+    "selection": [
+      "tests/test_publication_refresh_lock_order.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "error": "pytest failed; inspect its log",
+    "cleanup": {
+      "web-modelos-ci-pg-20261012-235050-1dcb0e6f": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261012-235050-1dcb0e6f": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "1",
+        "time": "44.776",
+        "timestamp": "2026-10-13T01:51:08.966745+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "failed_reports": [
+    {
+      "nodeid": "tests/test_publication_refresh_lock_order.py::test_refresh_insert_and_locked_listing_writer_finish_without_deadlock",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 7.33602078165859,
+      "longrepr": ".venv/lib/python3.12/site-packages/django/db/backends/utils.py:105: in _execute\n    return self.cursor.execute(sql, params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/psycopg/cursor.py:117: in execute\n    raise ex.with_traceback(None)\nE   psycopg.errors.DeadlockDetected: deadlock detected\nE   DETAIL:  Process 98 waits for ShareLock on transaction 1168; blocked by process 97.\nE   Process 97 waits for ShareLock on transaction 1169; blocked by process 98.\nE   HINT:  See server log for query details.\nE   CONTEXT:  while locking tuple (0,105) in relation \"listings_publicationdirty\"\nE   SQL statement \"INSERT INTO listings_publicationdirty (listing_id, generation, marked_at)\nE     SELECT id, nextval('listings_publication_generation'), clock_timestamp()\nE     FROM (SELECT DISTINCT unnest(ids) AS id) AS changed WHERE id IS NOT NULL\nE     ON CONFLICT (listing_id) DO UPDATE SET generation = EXCLUDED.generation\"\nE   PL/pgSQL function listings_publication_mark(uuid[]) line 3 at SQL statement\n\nThe above exception was the direct cause of the following exception:\ntests/test_publication_refresh_lock_order.py:73: in test_refresh_insert_and_locked_listing_writer_finish_without_deadlock\n    assert writing.result(timeout=30)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n../../.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py:456: in result\n    return self.__get_result()\n           ^^^^^^^^^^^^^^^^^^^\n../../.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py:401: in __get_result\n    raise self._exception\n../../.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py:59: in run\n    result = self.fn(*self.args, **self.kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntests/test_publication_refresh_lock_order.py:59: in write\n    publication_state.mark([listing.pk])\napps/listings/publication_state.py:252: in mark\n    cursor.execute(\"SELECT listings_publication_mark(%s::uuid[])\", [list(listing_ids)])\n.venv/lib/python3.12/site-packages/django/db/backends/utils.py:79: in execute\n    return self._execute_with_wrappers(\n.venv/lib/python3.12/site-packages/django/db/backends/utils.py:92: in _execute_with_wrappers\n    return executor(sql, params, many, context)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/django/db/backends/utils.py:100: in _execute\n    with self.db.wrap_database_errors:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/django/db/utils.py:91: in __exit__\n    raise dj_exc_value.with_traceback(traceback) from exc_value\n.venv/lib/python3.12/site-packages/django/db/backends/utils.py:105: in _execute\n    return self.cursor.execute(sql, params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/psycopg/cursor.py:117: in execute\n    raise ex.with_traceback(None)\nE   django.db.utils.OperationalError: deadlock detected\nE   DETAIL:  Process 98 waits for ShareLock on transaction 1168; blocked by process 97.\nE   Process 97 waits for ShareLock on transaction 1169; blocked by process 98.\nE   HINT:  See server log for query details.\nE   CONTEXT:  while locking tuple (0,105) in relation \"listings_publicationdirty\"\nE   SQL statement \"INSERT INTO listings_publicationdirty (listing_id, generation, marked_at)\nE     SELECT id, nextval('listings_publication_generation'), clock_timestamp()\nE     FROM (SELECT DISTINCT unnest(ids) AS id) AS changed WHERE id IS NOT NULL\nE     ON CONFLICT (listing_id) DO UPDATE SET generation = EXCLUDED.generation\"\nE   PL/pgSQL function listings_publication_mark(uuid[]) line 3 at SQL statement"
+    }
+  ],
+  "scope": "Controlled structural deadlock reproduction. Historical privacy failure consistent, exact original interleaving not independently observed."
+}

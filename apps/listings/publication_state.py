@@ -175,6 +175,25 @@ def refresh(limit=100):
         if not claimed:
             return 0
         ids = [row[0] for row in claimed]
+        # State INSERTs check their foreign keys at commit. Never wait for those
+        # references while holding dirty rows: a domain writer may hold Listing
+        # and be waiting for its dirty marker. Keep the batch dirty for Beat.
+        try:
+            with transaction.atomic(), connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT id FROM listings_listing WHERE id=ANY(%s::uuid[]) "
+                    "ORDER BY id FOR KEY SHARE NOWAIT", [ids],
+                )
+                cursor.execute(
+                    "SELECT v.id FROM listings_revision v WHERE v.id IN "
+                    "(SELECT approved_revision_id FROM listings_listing "
+                    "WHERE id=ANY(%s::uuid[])) ORDER BY v.id FOR KEY SHARE NOWAIT",
+                    [ids],
+                )
+        except DatabaseError as error:
+            if getattr(error.__cause__, "sqlstate", None) != "55P03":
+                raise
+            return 0
         store(expected_states(ids, version).values())
         with connection.cursor() as cursor:
             # Only rows not re-marked since they were claimed; a concurrent change keeps it dirty.
