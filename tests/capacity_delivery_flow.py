@@ -59,6 +59,7 @@ def violation(metrics, name, value, maximum):
 def measured(metrics, name, operation, *args, maximum=60, **kwargs):
     profile = None
     if (metrics.get("diagnostic") and not getattr(runtime_settings, 'CAPACITY_NATIVE_PROFILE', False)
+            and not getattr(runtime_settings, 'CAPACITY_PROFESSIONAL_PROFILE', None)
             and name not in metrics.setdefault("profiles", {})):
         profile = cProfile.Profile()
         profile.enable()
@@ -263,7 +264,8 @@ def run_case(index, target, context, server, settings, barrier, metrics, diagnos
              "dataset": "binary" if binary else dataset, "row_number": row + 1,
              "field_page": page, "page_count": len(group)},
             profile=diagnostic and (number == 3 or
-                (getattr(settings, 'CAPACITY_NATIVE_PROFILE', False) and number == 300)),
+                ((getattr(settings, 'CAPACITY_NATIVE_PROFILE', False) or
+                  getattr(settings, 'CAPACITY_PROFESSIONAL_PROFILE', None)) and number == 300)),
             request_id=index * 1024 + number + 1)
         for position, coordinates in enumerate(group):
             page_key = key if len(group) == 1 else uuid5(key, f"coverage-batch-page:{position}")
@@ -463,7 +465,8 @@ def finish(index, case, author, reviewer, selection, selected, coverage_review,
 
 
 def post_validation_profile(case, export, *, diagnostic):
-    if not diagnostic or getattr(runtime_settings, 'CAPACITY_NATIVE_PROFILE', False):
+    if (not diagnostic or getattr(runtime_settings, 'CAPACITY_NATIVE_PROFILE', False)
+            or getattr(runtime_settings, 'CAPACITY_PROFESSIONAL_PROFILE', None)):
         return {"status": "disabled", "reason": "Only legacy diagnostic mode permits cProfile"}
     return validation_profile(case, export)
 

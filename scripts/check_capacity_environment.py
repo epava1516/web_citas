@@ -106,7 +106,23 @@ def parse_options(argv=None):
                         help="Test-only py-spy binary; native sampling plus owned PG statistics")
     parser.add_argument("--native-probe-only", action="store_true",
                         help="Only verify native instrumentation and reconnects; never capacity")
+    parser.add_argument("--professional-profile", choices=("memray",))
+    parser.add_argument("--diagnostic-tools-venv", type=Path)
+    parser.add_argument("--professional-probe-only", action="store_true")
     args = parser.parse_args(argv)
+    if args.professional_probe_only and not args.professional_profile:
+        parser.error("Professional probe requires explicit professional profiling")
+    if args.professional_profile:
+        if (not args.owned_controller or not args.delivery_profile_full or not args.diagnostic_tools_venv
+                or args.native_profile or args.native_probe_only or args.source_profile
+                or args.selection_profile or args.delivery_complete or args.preflight_only
+                or args.diagnose or args.diagnostic_baseline_capture or args.diagnostic_baseline_use):
+            parser.error("Professional profiling requires exclusive owned full diagnostic mode")
+        args.diagnostic_tools_venv = args.diagnostic_tools_venv.resolve()
+        if not (args.diagnostic_tools_venv / 'lib/python3.12/site-packages/memray').is_dir():
+            parser.error("Frozen isolated Memray installation missing")
+    elif args.diagnostic_tools_venv:
+        parser.error("Diagnostic tools mount requires explicit professional mode")
     if args.cpu_budget == 8 and not (args.owned_controller and args.object_delivery):
         parser.error("8CPU comparison requires owned object-delivery topology")
     if args.native_probe_only and not args.native_profile:
@@ -449,6 +465,8 @@ def main():
                        "exec /tmp/caddy-runtime run --config /tmp/Caddyfile --adapter caddyfile "
                        "> /tmp/caddy.log 2>&1"])
         baseline_mounts = []
+        if args.professional_profile:
+            baseline_mounts += ["--mount", f"type=bind,src={args.diagnostic_tools_venv},dst={args.diagnostic_tools_venv},readonly"]
         if args.native_profile:
             baseline_mounts += ["--mount", f"type=bind,src={args.native_profile},dst=/opt/diagnostic-py-spy,readonly"]
         if args.diagnostic_baseline_key:
@@ -552,6 +570,8 @@ def main():
                 f"CAPACITY_BASELINE_INPUT = {str(args.diagnostic_baseline_use or '')!r}\n"
                 f"CAPACITY_BASELINE_KEY = {str(args.diagnostic_baseline_key or '')!r}\n"
                 f"CAPACITY_NATIVE_PROFILE = {bool(args.native_profile)!r}\n"
+                f"CAPACITY_PROFESSIONAL_PROFILE = {args.professional_profile!r}\n"
+                f"CAPACITY_DIAGNOSTIC_TOOLS_VENV = {str(args.diagnostic_tools_venv or '')!r}\n"
                 f"CAPACITY_PREFLIGHT_ONLY = {args.preflight_only!r}\n"
                 f"CAPACITY_OBJECT_DELIVERY = {args.object_delivery!r}\n"
                 "MEDIA_ROOT = '/tmp/capacity-media'\n"
@@ -574,6 +594,7 @@ def main():
                  "-o", "DJANGO_SETTINGS_MODULE=capacity_settings", "-o", "junit_family=xunit1",
                  "-p", "no:cacheprovider", "--basetemp=/tmp/capacity-pytest",
                  "--junitxml=/tmp/capacity-control.xml",
+                 "tests/test_capacity_professional_profile.py::test_owned_professional_probe" if args.professional_probe_only else
                  "tests/test_capacity_native_probe.py" if args.native_probe_only else
                  "tests/test_capacity_object_preflight.py" if args.preflight_only else
                  "tests/test_capacity_delivery_complete.py" if args.delivery_complete else
@@ -655,12 +676,27 @@ def main():
                 if args.source_profile:
                     if not json.loads(properties.get("source_profile", "{}")).get("source_copy"):
                         raise RuntimeError("Requested source profile missing: INVALID instrument")
+                elif args.professional_probe_only:
+                    if not json.loads(properties.get("professional_probe", "{}")).get("instrument_verified"):
+                        raise RuntimeError("Professional instrument probe evidence missing")
+                elif args.professional_profile:
+                    professional = json.loads(properties.get("gunicorn_server", "{}")).get("professional_profiles", {})
+                    captures = [json.loads(value) for key, value in professional.items()
+                                if 'coverage_page_read' in key]
+                    if len(captures) != 2 or any(
+                        item.get('status') != 'COMPLETE' or item.get('errors') or not item.get('native_traces')
+                        or item.get('instrument', {}).get('memray') != '1.20.0'
+                        or item.get('capture_process_cpu_including_tracker_ns', 0) <= 0
+                        or 'total_positive_allocation_bytes' not in item for item in captures):
+                        raise RuntimeError("Two complete isolated coverage allocation profiles required")
                 elif args.native_probe_only:
                     if not json.loads(properties.get("native_probe", "{}")).get("reconnect_verified"):
                         raise RuntimeError("Native reconnect probe evidence missing")
                 elif not json.loads(properties.get("delivery_profile", "{}")).get("server_profiles"):
                     raise RuntimeError("Requested stage profiles missing: INVALID instrument")
                 report["result"] = "PROFILE_DIAGNOSTIC_NOT_CAPACITY"
+                if args.professional_probe_only:
+                    report["result"] = "PROFESSIONAL_INSTRUMENT_PROBE_NOT_CAPACITY"
                 if args.native_probe_only:
                     report["result"] = "NATIVE_INSTRUMENT_PROBE_NOT_CAPACITY"
                     report["scope"] = "Own restricted-role PG reconnects and native sampling only; no target workload or capacity acceptance."

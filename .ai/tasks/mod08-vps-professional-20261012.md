@@ -18,3 +18,9 @@ Próximo: contrastescrypto/lectores, revisaradaptadorMemray real y probe, invest
 coberturaearly/late, corregir sólo hallazgo comprobado, freeze+measurelimpio,
 repetirúnicamente siPASS. Restaurar latestimage1a32 cuandoacaben ejecuciones.
 No nuevosperfiladoresmezclados/noproducción/nopublish/norebajarSLO.
+
+Instrumentos aislados reportados e integrados por Codex tras revisión de9archivos;
+32tests PASS, RuffPASS, contraste directo API resumen==memraystats PASS.
+Agente finalreportpreservado en conversación; worktreeaislado se conserva sincommit
+y sindesplegar. Codex mantiene propiedad de integración/aceptación.
+Siguiente probe real profesional, fuentes congeladas trascommit.

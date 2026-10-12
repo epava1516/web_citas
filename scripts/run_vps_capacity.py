@@ -18,7 +18,9 @@ BASE = ['--selection-tcp', '--selection-concurrent', '--selection-gunicorn',
         '--database-heavy', '--object-delivery']
 
 
-def command(mode, profiler, cpu_budget=4):
+def command(mode, profiler, cpu_budget=4, professional_profile=None, tools_venv=None):
+    if professional_profile and (professional_profile != "memray" or mode not in ("probe", "diagnose")):
+        raise ValueError("Professional profiling requires separate probe or diagnose")
     if cpu_budget not in (4, 8):
         raise ValueError('Unsupported CPU budget')
     budget = ['--cpu-budget', str(cpu_budget)] if cpu_budget != 4 else []
@@ -28,6 +30,10 @@ def command(mode, profiler, cpu_budget=4):
     args = [sys.executable, str(ROOT / 'scripts/run_capacity_environment.py'), *BASE, *budget]
     if mode == 'measure':
         return args + ['--delivery-complete']
+    if professional_profile:
+        args += ['--delivery-profile', '--delivery-profile-full', '--professional-profile',
+                 professional_profile, '--diagnostic-tools-venv', str(tools_venv)]
+        return args + (['--professional-probe-only'] if mode == 'probe' else [])
     args += ['--delivery-profile', '--delivery-profile-full', '--native-profile', str(profiler)]
     return args + (['--native-probe-only'] if mode == 'probe' else [])
 
@@ -63,10 +69,14 @@ def main():
     parser.add_argument('--tools-venv', type=Path, default=default)
     parser.add_argument('--cpu-budget', type=int, choices=(4, 8), default=4,
                         help='Aggregate CPU ceiling; 8 is an explicit VPS comparison')
+    parser.add_argument('--professional-profile', choices=('memray',))
     parser.add_argument('--dry-run', action='store_true', help='Print argv; create no resources')
     args = parser.parse_args()
     profiler = args.tools_venv.resolve() / 'bin/py-spy'
-    argv = command(args.mode, profiler, args.cpu_budget)
+    try:
+        argv = command(args.mode, profiler, args.cpu_budget, args.professional_profile, args.tools_venv.resolve())
+    except ValueError as error:
+        parser.error(str(error))
     if args.dry_run:
         print(json.dumps(argv))
         return 0
@@ -74,7 +84,7 @@ def main():
         parser.error('Requiere Linux y Python 3.12 del proyecto')
     if len(os.sched_getaffinity(0)) < args.cpu_budget:
         parser.error('El host no expone suficientes CPU para el perfil solicitado')
-    if args.mode in ('probe', 'diagnose') and not profiler.is_file():
+    if args.mode in ('probe', 'diagnose') and not args.professional_profile and not profiler.is_file():
         parser.error('Instala los instrumentos antes del diagnóstico')
     if not Path('/var/run/docker.sock').exists():
         parser.error('Requiere el Docker local del ejecutor existente')
@@ -100,7 +110,7 @@ def main():
         receipt = {'mode': args.mode, 'argv': argv, 'start': snapshot(),
                    'cpu_budget_cores': args.cpu_budget,
                    'original_four_cpu_profile': args.cpu_budget == 4,
-                   'canonical_kernel': identity,
+                   'canonical_kernel': identity, 'professional_profile': args.professional_profile,
                    'acceptance_measurement': args.mode == 'measure'}
         if profiler.is_file():
             receipt['profiler_sha256'] = hashlib.sha256(profiler.read_bytes()).hexdigest()

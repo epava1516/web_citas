@@ -71,6 +71,9 @@ def server(settings, record_property):
         Path('/tmp/capacity_worker_profile.py').write_text(Path(__file__).with_name('capacity_worker_profile.py').read_text())
         Path('/tmp/capacity_phase_spans.py').write_text(Path(__file__).with_name('capacity_phase_spans.py').read_text())
         application = 'capacity_profile_wsgi:application'
+        if getattr(settings, 'CAPACITY_PROFESSIONAL_PROFILE', None):
+            Path('/tmp/capacity_professional_profile.py').write_text(
+                Path(__file__).with_name('capacity_professional_profile.py').read_text())
         if getattr(settings, 'CAPACITY_NATIVE_PROFILE', False):
             Path('/tmp/capacity_native_profile.py').write_text(
                 Path(__file__).with_name('capacity_native_profile.py').read_text())
@@ -183,6 +186,7 @@ def server(settings, record_property):
                 'log': log_path.read_text()[-20000:],
                 'request_timings': collect_request_timings(),
                 'extra_profiles': {path.name: path.read_text() for path in Path('/tmp').glob('capacity-profile-*.txt')},
+                'professional_profiles': {path.name: path.read_text() for path in Path('/tmp').glob('capacity-professional-*.json')},
                 'native_profiles': {path.name: path.read_text() for path in Path('/tmp').glob('capacity-native-*.json')},
                 'scope': 'Master and workers kernel VmHWM sampled100ms; process-group teardown. Same owned app cgroup; optional Caddy and RustFS separate owned cgroups, never deployment.',
             }))

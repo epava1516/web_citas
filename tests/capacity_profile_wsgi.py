@@ -18,6 +18,20 @@ from config.wsgi import application as original
 
 
 def application(environ, start_response):
+    professional = getattr(settings, 'CAPACITY_PROFESSIONAL_PROFILE', None)
+    if professional:
+        stage = environ.get('HTTP_X_CAPACITY_PROFILE', '')
+        if not re.fullmatch(r'[a-z_]{1,40}', stage):
+            yield from original(environ, start_response)
+            return
+        from capacity_professional_profile import capture
+        with capture(stage):
+            response = original(environ, start_response)
+            try:
+                yield from response
+            finally:
+                response.close()
+        return
     native_mode = getattr(settings, 'CAPACITY_NATIVE_PROFILE', False)
     identifier = sample_id(environ.get(ENV_HEADER))
     if identifier is not None and not environ.get('HTTP_X_CAPACITY_PROFILE') and not native_mode:

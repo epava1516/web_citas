@@ -175,3 +175,24 @@ uv run python scripts/run_vps_capacity.py measure --cpu-budget 8
 
 Secuencia/limpieza/datos/perfiladores y criterio de repetición siguen vigentes.
 Un resultado8CPU no acredita4CPU ni N3. [Plan y verificación](evidencias/mod08-vps-perfil-8cpu-20261012.md).
+
+## Diagnóstico profesional adicional autorizado
+
+El usuario pide usar instrumentos gratuitos para investigar costes restantes.
+`probe --cpu-budget 8 --professional-profile memray` verifica importación aislada,
+rol/reconexión PostgreSQL propios y una petición marcada sobre Gunicorn real.
+Después, `diagnose --cpu-budget 8 --professional-profile memray` captura sólo
+cobertura temprana/tardía; no py-spy, observadorPG, spans ni cProfile simultáneos.
+Measure/preflight rechazan esa bandera. Mismos datos, límites y validaciones.
+
+Memray1.20.0 en venv readonly separado, paquetes app prioritarios y procedencia
+comprobada; aplicación Python3.12.15. Traza256MiB máximo, resumen2M registros
+máximo; si excede, conservar fallo. Tras resumen válido retira binarios para
+evitar acumulación. Registra pico y volumen positivo de asignaciones/reasignaciones
+por separado; contadores CPU/pared incluyen inicio/vaciado de Tracker.
+No p95 ni atribución CPU por línea. Scalene aún sin adaptador Gunicorn comprobado.
+
+Revisión independiente:32pruebas rápidas de separación/parser/WSGI PASS0.82s,
+RuffPASS. Resumen sobre traza previa coincide exactamente con `memray stats`
+4940078860bytes,202736registros; no sustituye sonda de contenedor. Evidencia real
+de probe/diagnose pendientes al introducir el adaptador.

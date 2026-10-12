@@ -215,6 +215,8 @@ runpy.run_path(sys.argv[0], run_name='__main__')
         "-e", f"CAPACITY_RUN_ID={run_id}", "-e", f"CAPACITY_CONTROLLER_NAME={name}",
         "-e", f"CAPACITY_ARCHIVE={archive}",
     ]
+    if options.professional_profile:
+        command += ["--mount", f"type=bind,src={options.diagnostic_tools_venv},dst={options.diagnostic_tools_venv},readonly"]
     for source in baseline_mounts:
         command += ["--mount", f"type=bind,src={source},dst={source},readonly"]
     if (ROOT / ".git").is_file():
