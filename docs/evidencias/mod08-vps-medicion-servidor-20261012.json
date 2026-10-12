@@ -1,0 +1,2736 @@
+{
+  "state": "VPS_HANDOFF_EXECUTED_PERFORMANCE_FAIL",
+  "measured_sha": "2a6b81c27068af28f09a85f3522b1cd9e0ead552",
+  "required_commit": "c46d0e101e8f260493a53bd4617b54dd4f0171f5",
+  "hardware": {
+    "cpu_model": "Intel Core Processor (Haswell, no TSX)",
+    "virtualization": "OpenStack Nova",
+    "glibc": "ldd (GNU libc) 2.34",
+    "docker": "29.8.1",
+    "psi_cpu_available": false,
+    "psi_memory_available": false,
+    "guest_cpu_features": {
+      "sha_ni": false,
+      "aes": true,
+      "avx2": true,
+      "avx512f": false
+    }
+  },
+  "uv": "uv 0.13.0 (x86_64-unknown-linux-gnu)",
+  "python": "3.12.15",
+  "canonical_kernel": {
+    "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+    "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "cache_tag": "cpython-312",
+    "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+    "mode": "native-sealed",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.15",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  },
+  "diagnostic_tools": {
+    "py-spy": "0.4.2",
+    "memray": "1.20.0",
+    "scalene": "2.3.0",
+    "pyperf": "2.10.0"
+  },
+  "diagnostics_python": "3.12.13",
+  "locks": {
+    "uv.lock": "563cc6a2d4de19be8155999ad3da7990c6f152eaf2fafffa2411df1435a7dce5",
+    "scripts/diagnostics/requirements.lock": "4bb48416ca9a36f47346720cc1712f6ad0b10f274ac0f513cb218cecad2d4f18"
+  },
+  "runs": [
+    {
+      "id": "20261012-004721-70fdb78c",
+      "head": "2a6b81c27068af28f09a85f3522b1cd9e0ead552",
+      "result": "READY_NOT_CAPACITY",
+      "launcher_exit": 0,
+      "source_count": 1411,
+      "source_manifest_sha256": "7babb6560eaf0161632f20e7b7e9ad92360ff8f40aca17b5b190366a1fb74cfc",
+      "sources_match": true,
+      "sources_unchanged": true,
+      "independent_cleanup": {
+        "web-modelos-capacity-20261012-004721-70fdb78c-controller": true,
+        "web-modelos-capacity-20261012-004721-70fdb78c-app": true,
+        "web-modelos-capacity-20261012-004721-70fdb78c-redis": true,
+        "web-modelos-capacity-20261012-004721-70fdb78c-pg": true,
+        "web-modelos-capacity-20261012-004721-70fdb78c-caddy": true,
+        "web-modelos-capacity-20261012-004721-70fdb78c-objects": true,
+        "web-modelos-capacity-20261012-004721-70fdb78c-delivery": true,
+        "web-modelos-capacity-20261012-004721-70fdb78c-net": true
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "77.460",
+          "timestamp": "2026-10-12T02:49:35.055687+02:00",
+          "hostname": "abfc912fed03"
+        }
+      ],
+      "archive_problems": [],
+      "memory_verdict": "WITHIN_6GIB_UPPER_BOUND",
+      "owned_memory_upper_bound_bytes": 1464389632,
+      "cgroup_memory": {
+        "pg": {
+          "current_bytes": 145543168,
+          "peak_bytes": 200552448,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "redis": {
+          "current_bytes": 10846208,
+          "peak_bytes": 28336128,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "app": {
+          "current_bytes": 55926784,
+          "peak_bytes": 859623424,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "objects": {
+          "current_bytes": 111276032,
+          "peak_bytes": 114921472,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "caddy": {
+          "current_bytes": 96239616,
+          "peak_bytes": 126738432,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        }
+      },
+      "cgroup_cpu": {
+        "pg": {
+          "usage_usec": 15314560,
+          "user_usec": 9094895,
+          "system_usec": 6219664,
+          "nr_periods": 1026,
+          "nr_throttled": 1,
+          "throttled_usec": 7019
+        },
+        "redis": {
+          "usage_usec": 1750773,
+          "user_usec": 1422704,
+          "system_usec": 328069,
+          "nr_periods": 1713,
+          "nr_throttled": 35,
+          "throttled_usec": 3627313
+        },
+        "app": {
+          "usage_usec": 106410234,
+          "user_usec": 100551511,
+          "system_usec": 5858723,
+          "nr_periods": 1235,
+          "nr_throttled": 78,
+          "throttled_usec": 13461803
+        },
+        "objects": {
+          "usage_usec": 1334978,
+          "user_usec": 751764,
+          "system_usec": 583214,
+          "nr_periods": 230,
+          "nr_throttled": 10,
+          "throttled_usec": 267831
+        },
+        "caddy": {
+          "usage_usec": 1273791,
+          "user_usec": 823219,
+          "system_usec": 450571,
+          "nr_periods": 138,
+          "nr_throttled": 121,
+          "throttled_usec": 14861779
+        }
+      },
+      "images": {
+        "postgres:17-alpine": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+        "redis:7.4-alpine": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+        "web-modelos-app:latest": "sha256:fb009e0c5acd99dc012058bbe25db9e0df114960830710eaea8bb40b7c34f382",
+        "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+        "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526"
+      },
+      "stage_violations": null,
+      "error": null,
+      "mode": "preflight",
+      "environment_receipt": "20261012-004721-2c207fd2",
+      "allocations": {
+        "pg": [
+          150000,
+          3072
+        ],
+        "redis": [
+          10000,
+          384
+        ],
+        "app": [
+          175000,
+          3968
+        ],
+        "objects": [
+          50000,
+          512
+        ],
+        "caddy": [
+          10000,
+          128
+        ]
+      },
+      "storage_ceiling_bytes": 4865392640,
+      "artifacts": {
+        "launcher.json": "641d0692963ca2290f47f9ad216454bbc1ac0a45912f6f2c57307d7301c2339d",
+        "report.json": "065c95098e584113483463d063b3fe0d67e808429e70e7b88ee30fd1a5a2cd86",
+        "pytest.xml": "45e3c2feffa06d5a86ff5183f5c19d2bf1cbb7f90b9edf4a86a7515d17ba8e16",
+        "independent-audit.json": "c96edbbd39eb916dc7627303e1c1da9bc4c6bf144a9fb54796f90141cd41edd4"
+      }
+    },
+    {
+      "id": "20261012-005205-34d7626e",
+      "head": "2a6b81c27068af28f09a85f3522b1cd9e0ead552",
+      "result": "NATIVE_INSTRUMENT_PROBE_NOT_CAPACITY",
+      "launcher_exit": 0,
+      "source_count": 1411,
+      "source_manifest_sha256": "7babb6560eaf0161632f20e7b7e9ad92360ff8f40aca17b5b190366a1fb74cfc",
+      "sources_match": true,
+      "sources_unchanged": true,
+      "independent_cleanup": {
+        "web-modelos-capacity-20261012-005205-34d7626e-controller": true,
+        "web-modelos-capacity-20261012-005205-34d7626e-app": true,
+        "web-modelos-capacity-20261012-005205-34d7626e-redis": true,
+        "web-modelos-capacity-20261012-005205-34d7626e-pg": true,
+        "web-modelos-capacity-20261012-005205-34d7626e-caddy": true,
+        "web-modelos-capacity-20261012-005205-34d7626e-objects": true,
+        "web-modelos-capacity-20261012-005205-34d7626e-delivery": true,
+        "web-modelos-capacity-20261012-005205-34d7626e-net": true
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "42.375",
+          "timestamp": "2026-10-12T02:54:19.083599+02:00",
+          "hostname": "17feb10e1815"
+        }
+      ],
+      "archive_problems": [],
+      "memory_verdict": "WITHIN_6GIB_UPPER_BOUND",
+      "owned_memory_upper_bound_bytes": 719204352,
+      "cgroup_memory": {
+        "pg": {
+          "current_bytes": 144805888,
+          "peak_bytes": 190013440,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "redis": {
+          "current_bytes": 3825664,
+          "peak_bytes": 21962752,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "app": {
+          "current_bytes": 13398016,
+          "peak_bytes": 203239424,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "objects": {
+          "current_bytes": 28278784,
+          "peak_bytes": 44720128,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "caddy": {
+          "current_bytes": 105566208,
+          "peak_bytes": 125050880,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        }
+      },
+      "cgroup_cpu": {
+        "pg": {
+          "usage_usec": 11002491,
+          "user_usec": 5910055,
+          "system_usec": 5092435,
+          "nr_periods": 810,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        },
+        "redis": {
+          "usage_usec": 1530996,
+          "user_usec": 1232842,
+          "system_usec": 298154,
+          "nr_periods": 1373,
+          "nr_throttled": 39,
+          "throttled_usec": 3941305
+        },
+        "app": {
+          "usage_usec": 75524253,
+          "user_usec": 73281345,
+          "system_usec": 2242907,
+          "nr_periods": 892,
+          "nr_throttled": 12,
+          "throttled_usec": 2844735
+        },
+        "objects": {
+          "usage_usec": 959017,
+          "user_usec": 467558,
+          "system_usec": 491459,
+          "nr_periods": 163,
+          "nr_throttled": 10,
+          "throttled_usec": 312110
+        },
+        "caddy": {
+          "usage_usec": 1279354,
+          "user_usec": 806998,
+          "system_usec": 472356,
+          "nr_periods": 140,
+          "nr_throttled": 125,
+          "throttled_usec": 15473606
+        }
+      },
+      "images": {
+        "postgres:17-alpine": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+        "redis:7.4-alpine": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+        "web-modelos-app:latest": "sha256:fb009e0c5acd99dc012058bbe25db9e0df114960830710eaea8bb40b7c34f382",
+        "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+        "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526"
+      },
+      "stage_violations": null,
+      "error": null,
+      "mode": "probe",
+      "environment_receipt": "20261012-005205-a2f0b76d",
+      "allocations": {
+        "pg": [
+          150000,
+          3072
+        ],
+        "redis": [
+          10000,
+          384
+        ],
+        "app": [
+          175000,
+          3968
+        ],
+        "objects": [
+          50000,
+          512
+        ],
+        "caddy": [
+          10000,
+          128
+        ]
+      },
+      "storage_ceiling_bytes": 5939134464,
+      "artifacts": {
+        "launcher.json": "4dbcea4f7f0165a78c3e5b38329e88f2b2c94b589089c034d869eea2150baa4d",
+        "report.json": "75dcf33842b330b638f4ef430cc92bee9c445b80d3aa9e439673a02c334abcb2",
+        "pytest.xml": "53e557d880c1e3bfe180cb5bba58a8d1c0615661fbbe9c118b159a97b257ac63",
+        "independent-audit.json": "4a9e2abb9fcbbfa001d2ba9128e5b164c65106fc81408806bcefeb8e87b8a30f"
+      }
+    },
+    {
+      "id": "20261012-005632-9fb82130",
+      "head": "2a6b81c27068af28f09a85f3522b1cd9e0ead552",
+      "result": "FAIL_DELIVERY_STAGE_LIMITS",
+      "launcher_exit": 1,
+      "source_count": 1411,
+      "source_manifest_sha256": "7babb6560eaf0161632f20e7b7e9ad92360ff8f40aca17b5b190366a1fb74cfc",
+      "sources_match": true,
+      "sources_unchanged": true,
+      "independent_cleanup": {
+        "web-modelos-capacity-20261012-005632-9fb82130-controller": true,
+        "web-modelos-capacity-20261012-005632-9fb82130-app": true,
+        "web-modelos-capacity-20261012-005632-9fb82130-redis": true,
+        "web-modelos-capacity-20261012-005632-9fb82130-pg": true,
+        "web-modelos-capacity-20261012-005632-9fb82130-caddy": true,
+        "web-modelos-capacity-20261012-005632-9fb82130-objects": true,
+        "web-modelos-capacity-20261012-005632-9fb82130-delivery": true,
+        "web-modelos-capacity-20261012-005632-9fb82130-net": true
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "2317.495",
+          "timestamp": "2026-10-12T02:58:45.315464+02:00",
+          "hostname": "4663a414703f"
+        }
+      ],
+      "archive_problems": [],
+      "memory_verdict": "WITHIN_6GIB_UPPER_BOUND",
+      "owned_memory_upper_bound_bytes": 4137734144,
+      "cgroup_memory": {
+        "pg": {
+          "current_bytes": 338825216,
+          "peak_bytes": 558276608,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "redis": {
+          "current_bytes": 4988928,
+          "peak_bytes": 21590016,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "app": {
+          "current_bytes": 357265408,
+          "peak_bytes": 2855174144,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "objects": {
+          "current_bytes": 369737728,
+          "peak_bytes": 443166720,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "caddy": {
+          "current_bytes": 69054464,
+          "peak_bytes": 125308928,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        }
+      },
+      "cgroup_cpu": {
+        "pg": {
+          "usage_usec": 1442452659,
+          "user_usec": 972265666,
+          "system_usec": 470186993,
+          "nr_periods": 21884,
+          "nr_throttled": 3103,
+          "throttled_usec": 200628295
+        },
+        "redis": {
+          "usage_usec": 17181810,
+          "user_usec": 14696715,
+          "system_usec": 2485095,
+          "nr_periods": 22030,
+          "nr_throttled": 46,
+          "throttled_usec": 4520378
+        },
+        "app": {
+          "usage_usec": 2691117207,
+          "user_usec": 2424121419,
+          "system_usec": 266995788,
+          "nr_periods": 23636,
+          "nr_throttled": 5006,
+          "throttled_usec": 304807470
+        },
+        "objects": {
+          "usage_usec": 75778587,
+          "user_usec": 47287966,
+          "system_usec": 28490620,
+          "nr_periods": 5154,
+          "nr_throttled": 264,
+          "throttled_usec": 9579650
+        },
+        "caddy": {
+          "usage_usec": 2840175,
+          "user_usec": 1686388,
+          "system_usec": 1153786,
+          "nr_periods": 542,
+          "nr_throttled": 218,
+          "throttled_usec": 25124404
+        }
+      },
+      "images": {
+        "postgres:17-alpine": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+        "redis:7.4-alpine": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+        "web-modelos-app:latest": "sha256:fb009e0c5acd99dc012058bbe25db9e0df114960830710eaea8bb40b7c34f382",
+        "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+        "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526"
+      },
+      "stage_violations": [
+        [
+          {
+            "stage": "coverage_page_read_p95",
+            "value": 3.8297963701188564,
+            "maximum": 2
+          },
+          {
+            "stage": "json_download_p95",
+            "value": 10.732149510178715,
+            "maximum": 5
+          },
+          {
+            "stage": "binary_download_p95",
+            "value": 10.33494387101382,
+            "maximum": 5
+          }
+        ],
+        [
+          {
+            "stage": "coverage_page_read_p95",
+            "value": 3.835591983050108,
+            "maximum": 2
+          },
+          {
+            "stage": "json_download_p95",
+            "value": 10.565686432179064,
+            "maximum": 5
+          },
+          {
+            "stage": "binary_download_p95",
+            "value": 10.442426247987896,
+            "maximum": 5
+          }
+        ]
+      ],
+      "error": "RuntimeError: Valid delivery stage limit breach; see stage_violations",
+      "mode": "measure",
+      "environment_receipt": "20261012-005632-fad120db",
+      "allocations": {
+        "pg": [
+          150000,
+          3072
+        ],
+        "redis": [
+          10000,
+          384
+        ],
+        "app": [
+          175000,
+          3968
+        ],
+        "objects": [
+          50000,
+          512
+        ],
+        "caddy": [
+          10000,
+          128
+        ]
+      },
+      "storage_ceiling_bytes": 5939134464,
+      "artifacts": {
+        "launcher.json": "af4a6533fa7e6fbb4601261fb63d61aedc83660dc72856496d557ccedc7fbf28",
+        "report.json": "fa4d215b714775fa0fb78bb635edbd8bfc59b0eca8aa3383d1b7e5e885c6ca35",
+        "pytest.xml": "3da1283897cb6e994cab3ffb5366537f19822f51c7fb4411d86f917601b865c6",
+        "independent-audit.json": "3d7ede96a0f0db005217ad2c562cbcb7490df0237a298ec8fa105e76c34faa07"
+      },
+      "cases": [
+        {
+          "case": "A",
+          "fixture_json_bytes": 16777236,
+          "fixture_originals_bytes": 67095050,
+          "success": false,
+          "p95_seconds": {
+            "binary_page_save_p95": 1.9976281677372754,
+            "selection_page_read_p95": 1.6561399456113577,
+            "binary_inspection_p95": 1.6384728290140629,
+            "coverage_page_save_p95": 3.0105492579750717,
+            "coverage_page_read_p95": 3.8297963701188564,
+            "json_download_p95": 10.732149510178715,
+            "binary_download_p95": 10.33494387101382
+          },
+          "numeric_measurements": {
+            "build_seconds": 13.733301165048033,
+            "scalar_preparation_seconds": 13.45059390924871,
+            "binary_page_save_p95": 1.9976281677372754,
+            "selection_page_read_p95": 1.6561399456113577,
+            "binary_inspection_p95": 1.6384728290140629,
+            "coverage_page_save_p95": 3.0105492579750717,
+            "required_coverage_pages": 1509,
+            "coverage_page_read_p95": 3.8297963701188564,
+            "delivered_json_bytes": 16793236,
+            "json_rate_attempts": 20,
+            "json_download_p95": 10.732149510178715,
+            "binary_rate_attempts": 20,
+            "binary_download_p95": 10.33494387101382
+          },
+          "samples": {
+            "binary_page_save": 20,
+            "selection_page_read": 31,
+            "binary_inspection": 20,
+            "coverage_page_save": 20,
+            "coverage_page_read": 384,
+            "json_download": 20,
+            "binary_download": 20
+          },
+          "post_validation_profile": {
+            "status": "disabled",
+            "reason": "Only legacy diagnostic mode permits cProfile"
+          },
+          "single_observation_seconds": {
+            "generation": [
+              49.993493584915996
+            ],
+            "final_preparation": [
+              22.601405205205083
+            ],
+            "final_inspection": [
+              3.698638459201902
+            ],
+            "final_approval": [
+              4.088135939091444
+            ],
+            "closure": [
+              21.66719722468406
+            ]
+          }
+        },
+        {
+          "case": "B",
+          "fixture_json_bytes": 16777236,
+          "fixture_originals_bytes": 67095042,
+          "success": false,
+          "p95_seconds": {
+            "binary_page_save_p95": 1.9456900339573622,
+            "selection_page_read_p95": 1.653232003096491,
+            "binary_inspection_p95": 1.6441796589642763,
+            "coverage_page_save_p95": 2.970578563399613,
+            "coverage_page_read_p95": 3.835591983050108,
+            "json_download_p95": 10.565686432179064,
+            "binary_download_p95": 10.442426247987896
+          },
+          "numeric_measurements": {
+            "build_seconds": 13.830772968009114,
+            "scalar_preparation_seconds": 13.36249919468537,
+            "binary_page_save_p95": 1.9456900339573622,
+            "selection_page_read_p95": 1.653232003096491,
+            "binary_inspection_p95": 1.6441796589642763,
+            "coverage_page_save_p95": 2.970578563399613,
+            "required_coverage_pages": 1509,
+            "coverage_page_read_p95": 3.835591983050108,
+            "delivered_json_bytes": 16793236,
+            "json_rate_attempts": 20,
+            "json_download_p95": 10.565686432179064,
+            "binary_rate_attempts": 20,
+            "binary_download_p95": 10.442426247987896
+          },
+          "samples": {
+            "binary_page_save": 20,
+            "selection_page_read": 31,
+            "binary_inspection": 20,
+            "coverage_page_save": 20,
+            "coverage_page_read": 384,
+            "json_download": 20,
+            "binary_download": 20
+          },
+          "post_validation_profile": {
+            "status": "disabled",
+            "reason": "Only legacy diagnostic mode permits cProfile"
+          },
+          "single_observation_seconds": {
+            "generation": [
+              50.553587762173265
+            ],
+            "final_preparation": [
+              21.278060561046004
+            ],
+            "final_inspection": [
+              4.200815849937499
+            ],
+            "final_approval": [
+              4.607070303987712
+            ],
+            "closure": [
+              21.956478126812726
+            ]
+          }
+        }
+      ],
+      "scope_audit": {
+        "counts_and_p95": [
+          {
+            "binary_page_save": {
+              "count": 20,
+              "p95": 1.9976281677372754
+            },
+            "selection_page_read": {
+              "count": 31,
+              "p95": 1.6561399456113577
+            },
+            "binary_inspection": {
+              "count": 20,
+              "p95": 1.6384728290140629
+            },
+            "coverage_page_save": {
+              "count": 20,
+              "p95": 3.0105492579750717
+            },
+            "coverage_page_read": {
+              "count": 384,
+              "p95": 3.8297963701188564
+            },
+            "json_download": {
+              "count": 20,
+              "p95": 10.732149510178715
+            },
+            "binary_download": {
+              "count": 20,
+              "p95": 10.33494387101382
+            }
+          },
+          {
+            "binary_page_save": {
+              "count": 20,
+              "p95": 1.9456900339573622
+            },
+            "selection_page_read": {
+              "count": 31,
+              "p95": 1.653232003096491
+            },
+            "binary_inspection": {
+              "count": 20,
+              "p95": 1.6441796589642763
+            },
+            "coverage_page_save": {
+              "count": 20,
+              "p95": 2.970578563399613
+            },
+            "coverage_page_read": {
+              "count": 384,
+              "p95": 3.835591983050108
+            },
+            "json_download": {
+              "count": 20,
+              "p95": 10.565686432179064
+            },
+            "binary_download": {
+              "count": 20,
+              "p95": 10.442426247987896
+            }
+          }
+        ],
+        "percentiles_recalculated": true,
+        "paired_intervals_overlap": true,
+        "payload_sizes_within_one_percent": true,
+        "two_fresh_http_stages_per_download": true,
+        "download_bodies_within_8mib": true,
+        "no_workload_errors": true,
+        "server_exit_zero": true,
+        "profilers_and_request_spans_absent": true,
+        "test_peak_rss_within_1gib": true,
+        "note": "Independent checks required because limit-failure assertion precedes outer concurrency/RSS assertions; body ZIP/digest/dataset equality executed inside workers, evidenced by completed output and zero worker errors."
+      },
+      "process_peak_rss_bytes": 926208000,
+      "workload_errors": [],
+      "host_steal_interval_percent": 0.03383130194713469
+    },
+    {
+      "id": "20261012-013900-179969c8",
+      "head": "2a6b81c27068af28f09a85f3522b1cd9e0ead552",
+      "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+      "launcher_exit": 0,
+      "source_count": 1411,
+      "source_manifest_sha256": "7babb6560eaf0161632f20e7b7e9ad92360ff8f40aca17b5b190366a1fb74cfc",
+      "sources_match": true,
+      "sources_unchanged": true,
+      "independent_cleanup": {
+        "web-modelos-capacity-20261012-013900-179969c8-controller": true,
+        "web-modelos-capacity-20261012-013900-179969c8-app": true,
+        "web-modelos-capacity-20261012-013900-179969c8-redis": true,
+        "web-modelos-capacity-20261012-013900-179969c8-pg": true,
+        "web-modelos-capacity-20261012-013900-179969c8-caddy": true,
+        "web-modelos-capacity-20261012-013900-179969c8-objects": true,
+        "web-modelos-capacity-20261012-013900-179969c8-delivery": true,
+        "web-modelos-capacity-20261012-013900-179969c8-net": true
+      },
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "1658.382",
+          "timestamp": "2026-10-12T03:41:10.659597+02:00",
+          "hostname": "8dc37bdadf1f"
+        }
+      ],
+      "archive_problems": [],
+      "memory_verdict": "WITHIN_6GIB_UPPER_BOUND",
+      "owned_memory_upper_bound_bytes": 2949722112,
+      "cgroup_memory": {
+        "pg": {
+          "current_bytes": 249856000,
+          "peak_bytes": 358514688,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "redis": {
+          "current_bytes": 9691136,
+          "peak_bytes": 27299840,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "app": {
+          "current_bytes": 208384000,
+          "peak_bytes": 2021875712,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "objects": {
+          "current_bytes": 248721408,
+          "peak_bytes": 280612864,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        },
+        "caddy": {
+          "current_bytes": 79388672,
+          "peak_bytes": 127201280,
+          "swap_peak_bytes": 0,
+          "oom_kill": 0
+        }
+      },
+      "cgroup_cpu": {
+        "pg": {
+          "usage_usec": 635377063,
+          "user_usec": 424630044,
+          "system_usec": 210747018,
+          "nr_periods": 16029,
+          "nr_throttled": 139,
+          "throttled_usec": 4817690
+        },
+        "redis": {
+          "usage_usec": 13436978,
+          "user_usec": 11502807,
+          "system_usec": 1934171,
+          "nr_periods": 16325,
+          "nr_throttled": 45,
+          "throttled_usec": 4401375
+        },
+        "app": {
+          "usage_usec": 1156316998,
+          "user_usec": 1029189324,
+          "system_usec": 127127673,
+          "nr_periods": 17047,
+          "nr_throttled": 134,
+          "throttled_usec": 16672309
+        },
+        "objects": {
+          "usage_usec": 18135153,
+          "user_usec": 11403246,
+          "system_usec": 6731906,
+          "nr_periods": 2473,
+          "nr_throttled": 50,
+          "throttled_usec": 1836693
+        },
+        "caddy": {
+          "usage_usec": 1502460,
+          "user_usec": 959148,
+          "system_usec": 543311,
+          "nr_periods": 245,
+          "nr_throttled": 122,
+          "throttled_usec": 14691660
+        }
+      },
+      "images": {
+        "postgres:17-alpine": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+        "redis:7.4-alpine": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+        "web-modelos-app:latest": "sha256:fb009e0c5acd99dc012058bbe25db9e0df114960830710eaea8bb40b7c34f382",
+        "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+        "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526"
+      },
+      "stage_violations": null,
+      "error": null,
+      "mode": "diagnose",
+      "environment_receipt": "20261012-013900-cc63f174",
+      "allocations": {
+        "pg": [
+          150000,
+          3072
+        ],
+        "redis": [
+          10000,
+          384
+        ],
+        "app": [
+          175000,
+          3968
+        ],
+        "objects": [
+          50000,
+          512
+        ],
+        "caddy": [
+          10000,
+          128
+        ]
+      },
+      "storage_ceiling_bytes": 5939134464,
+      "artifacts": {
+        "launcher.json": "7722f2f42345369c55cca2193b6e84ee4dea84f0c24814cb64045d0e7df81c2f",
+        "report.json": "bf7e9e1b01b5693c12ed4caaa514b9200b5b19e62c36d71c3e65496cc91858b1",
+        "pytest.xml": "7effba53c741a501d1118ddb697871e6f3fa3730da6e0c3c7a8a72e2db8238c8",
+        "independent-audit.json": "bc0104ad1bd69db11f31843a2e83ef6d6a54720486a7eccb49bb8fcbad3ad431",
+        "diagnostic-analysis.json": "056f856dc57ac0f9ef2d3eb60d87281c8c7d4c167209df8210a7b3beaa3af5f8",
+        "offline-symbol-analysis.json": "a610a7e5cf5f08e79d38f823b93fca0b2c5a6a342f2cef12cc37ce8de1d03ff1"
+      }
+    }
+  ],
+  "diagnosis": {
+    "captures": [
+      {
+        "file": "capacity-native-binary_page_save-102-3490025174789606.stacks.json",
+        "stage": "binary_page_save",
+        "begin_ns": 3490025229696958,
+        "instrumented_interval_seconds": 4.279680239,
+        "sampling_status": "complete",
+        "sampling_errors": 0,
+        "errors": [],
+        "profiler_exit": 0,
+        "threads": [
+          {
+            "thread": "main",
+            "samples": 372,
+            "sample_weight_seconds": 3.72,
+            "unresolved_leaf_percent": 94.08602150537551,
+            "pg_wait_inclusive_percent": 26.881720430107542,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 0.0,
+            "source_copy_inclusive_percent": 0.0
+          }
+        ],
+        "pg_states": [
+          {
+            "state": null,
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "idle",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 2
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 79
+          },
+          {
+            "state": "active",
+            "wait_type": null,
+            "wait": null,
+            "samples": 24
+          },
+          {
+            "state": "active",
+            "wait_type": "Client",
+            "wait": "ClientWrite",
+            "samples": 1
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "active",
+            "wait_type": "IPC",
+            "wait": "BgworkerShutdown",
+            "samples": 1
+          },
+          {
+            "state": "idle",
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          }
+        ],
+        "top_level_statement_deltas": [
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 89.203866,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 3,
+            "exec_ms_delta": 12.519321000000001,
+            "returned_rows_delta": 1500
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 8.650679999999994,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 19,
+            "exec_ms_delta": 4.644247999999996,
+            "returned_rows_delta": 114
+          },
+          {
+            "labels": [],
+            "calls_delta": 2,
+            "exec_ms_delta": 2.6137299999999986,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 19,
+            "exec_ms_delta": 2.373768000000001,
+            "returned_rows_delta": 0
+          },
+          {
+            "labels": [],
+            "calls_delta": 2,
+            "exec_ms_delta": 2.297024,
+            "returned_rows_delta": 0
+          },
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 2.108931,
+            "returned_rows_delta": 0
+          }
+        ],
+        "scope": "Intrusive diagnostic only. 25ms sampled waits may miss short events; ClientRead means server waiting for client. Statement differences include other restricted-role workers in the same database interval; nested times overlap. Python observer thread is identified by name. No SQL text, parameters, frame locals or payloads captured."
+      },
+      {
+        "file": "capacity-native-selection_page_read-101-3490031700581660.stacks.json",
+        "stage": "selection_page_read",
+        "begin_ns": 3490031778797947,
+        "instrumented_interval_seconds": 2.731197909,
+        "sampling_status": "complete",
+        "sampling_errors": 0,
+        "errors": [],
+        "profiler_exit": 0,
+        "threads": [
+          {
+            "thread": "main",
+            "samples": 271,
+            "sample_weight_seconds": 2.71,
+            "unresolved_leaf_percent": 95.57195571955678,
+            "pg_wait_inclusive_percent": 25.461254612546142,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 0.0,
+            "source_copy_inclusive_percent": 0.0
+          }
+        ],
+        "pg_states": [
+          {
+            "state": null,
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "idle",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 2
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 54
+          },
+          {
+            "state": "active",
+            "wait_type": null,
+            "wait": null,
+            "samples": 15
+          },
+          {
+            "state": "active",
+            "wait_type": "IPC",
+            "wait": "MessageQueueReceive",
+            "samples": 1
+          },
+          {
+            "state": "active",
+            "wait_type": "IPC",
+            "wait": "BgworkerShutdown",
+            "samples": 1
+          }
+        ],
+        "top_level_statement_deltas": [
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 79.70788800000003,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 3,
+            "exec_ms_delta": 22.646472,
+            "returned_rows_delta": 1500
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 2.9268930000000006,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 1.868232,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 1,
+            "exec_ms_delta": 1.74275,
+            "returned_rows_delta": 0
+          },
+          {
+            "labels": [],
+            "calls_delta": 2,
+            "exec_ms_delta": 1.6040729999999996,
+            "returned_rows_delta": 16
+          },
+          {
+            "labels": [],
+            "calls_delta": 6,
+            "exec_ms_delta": 1.4510450000000041,
+            "returned_rows_delta": 24
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 1.3846550000000004,
+            "returned_rows_delta": 1
+          }
+        ],
+        "scope": "Intrusive diagnostic only. 25ms sampled waits may miss short events; ClientRead means server waiting for client. Statement differences include other restricted-role workers in the same database interval; nested times overlap. Python observer thread is identified by name. No SQL text, parameters, frame locals or payloads captured."
+      },
+      {
+        "file": "capacity-native-binary_inspection-101-3490095386719576.stacks.json",
+        "stage": "binary_inspection",
+        "begin_ns": 3490095466926093,
+        "instrumented_interval_seconds": 2.856959795,
+        "sampling_status": "complete",
+        "sampling_errors": 0,
+        "errors": [],
+        "profiler_exit": 0,
+        "threads": [
+          {
+            "thread": "main",
+            "samples": 271,
+            "sample_weight_seconds": 2.71,
+            "unresolved_leaf_percent": 96.67896678966747,
+            "pg_wait_inclusive_percent": 31.73431734317345,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 0.0,
+            "source_copy_inclusive_percent": 0.0
+          }
+        ],
+        "pg_states": [
+          {
+            "state": null,
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "active",
+            "wait_type": null,
+            "wait": null,
+            "samples": 23
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 57
+          },
+          {
+            "state": "active",
+            "wait_type": "IPC",
+            "wait": "MessageQueueReceive",
+            "samples": 1
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": null,
+            "wait": null,
+            "samples": 3
+          }
+        ],
+        "top_level_statement_deltas": [
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 101.6475560000008,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 3,
+            "exec_ms_delta": 15.963388,
+            "returned_rows_delta": 1500
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 1,
+            "exec_ms_delta": 4.0698620000000005,
+            "returned_rows_delta": 48
+          },
+          {
+            "labels": [
+              "rights_evidence_link"
+            ],
+            "calls_delta": 1,
+            "exec_ms_delta": 3.5911940000000016,
+            "returned_rows_delta": 67
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 2.7013450000000034,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 2,
+            "exec_ms_delta": 2.467983000000004,
+            "returned_rows_delta": 16
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 2.333368,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 2.257257999999993,
+            "returned_rows_delta": 1
+          }
+        ],
+        "scope": "Intrusive diagnostic only. 25ms sampled waits may miss short events; ClientRead means server waiting for client. Statement differences include other restricted-role workers in the same database interval; nested times overlap. Python observer thread is identified by name. No SQL text, parameters, frame locals or payloads captured."
+      },
+      {
+        "file": "capacity-native-coverage_page_save-102-3490119056091682.stacks.json",
+        "stage": "coverage_page_save",
+        "begin_ns": 3490119130615375,
+        "instrumented_interval_seconds": 6.015481091,
+        "sampling_status": "partial",
+        "sampling_errors": 2,
+        "errors": [],
+        "profiler_exit": 0,
+        "threads": [
+          {
+            "thread": "main",
+            "samples": 570,
+            "sample_weight_seconds": 5.7,
+            "unresolved_leaf_percent": 96.31578947368294,
+            "pg_wait_inclusive_percent": 27.368421052631597,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 0.0,
+            "source_copy_inclusive_percent": 0.0
+          }
+        ],
+        "pg_states": [
+          {
+            "state": null,
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "active",
+            "wait_type": null,
+            "wait": null,
+            "samples": 38
+          },
+          {
+            "state": "idle",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 2
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 121
+          },
+          {
+            "state": "active",
+            "wait_type": "IPC",
+            "wait": "BgworkerShutdown",
+            "samples": 2
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": null,
+            "wait": null,
+            "samples": 3
+          }
+        ],
+        "top_level_statement_deltas": [
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 90.73192500000005,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 37.308198000000004,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 9,
+            "exec_ms_delta": 16.864979999998468,
+            "returned_rows_delta": 9
+          },
+          {
+            "labels": [],
+            "calls_delta": 3,
+            "exec_ms_delta": 13.590254000000002,
+            "returned_rows_delta": 1500
+          },
+          {
+            "labels": [],
+            "calls_delta": 2,
+            "exec_ms_delta": 7.061052,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [
+              "rights_evidence_link"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 5.779091000000008,
+            "returned_rows_delta": 140
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 5.5128019999999935,
+            "returned_rows_delta": 98
+          },
+          {
+            "labels": [],
+            "calls_delta": 26,
+            "exec_ms_delta": 5.107858000000007,
+            "returned_rows_delta": 156
+          }
+        ],
+        "scope": "Intrusive diagnostic only. 25ms sampled waits may miss short events; ClientRead means server waiting for client. Statement differences include other restricted-role workers in the same database interval; nested times overlap. Python observer thread is identified by name. No SQL text, parameters, frame locals or payloads captured."
+      },
+      {
+        "file": "capacity-native-coverage_page_read-101-3490131545900042.stacks.json",
+        "stage": "coverage_page_read",
+        "begin_ns": 3490131608240911,
+        "instrumented_interval_seconds": 6.99231649,
+        "sampling_status": "partial",
+        "sampling_errors": 3,
+        "errors": [],
+        "profiler_exit": 0,
+        "threads": [
+          {
+            "thread": "main",
+            "samples": 720,
+            "sample_weight_seconds": 7.2,
+            "unresolved_leaf_percent": 95.41666666666525,
+            "pg_wait_inclusive_percent": 23.750000000000018,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 0.0,
+            "source_copy_inclusive_percent": 0.0
+          }
+        ],
+        "pg_states": [
+          {
+            "state": null,
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "idle",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 3
+          },
+          {
+            "state": "active",
+            "wait_type": null,
+            "wait": null,
+            "samples": 42
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 128
+          },
+          {
+            "state": "active",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 1
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": null,
+            "wait": null,
+            "samples": 2
+          }
+        ],
+        "top_level_statement_deltas": [
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 75.4490310000001,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 4,
+            "exec_ms_delta": 22.474368,
+            "returned_rows_delta": 4
+          },
+          {
+            "labels": [],
+            "calls_delta": 3,
+            "exec_ms_delta": 16.104921,
+            "returned_rows_delta": 1500
+          },
+          {
+            "labels": [
+              "rights_evidence_link"
+            ],
+            "calls_delta": 4,
+            "exec_ms_delta": 14.559519000000009,
+            "returned_rows_delta": 340
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 4,
+            "exec_ms_delta": 11.643519999999995,
+            "returned_rows_delta": 226
+          },
+          {
+            "labels": [],
+            "calls_delta": 4,
+            "exec_ms_delta": 8.48401299999999,
+            "returned_rows_delta": 4
+          },
+          {
+            "labels": [],
+            "calls_delta": 4,
+            "exec_ms_delta": 8.045511999999999,
+            "returned_rows_delta": 4
+          },
+          {
+            "labels": [],
+            "calls_delta": 24,
+            "exec_ms_delta": 6.930497999999972,
+            "returned_rows_delta": 96
+          }
+        ],
+        "scope": "Intrusive diagnostic only. 25ms sampled waits may miss short events; ClientRead means server waiting for client. Statement differences include other restricted-role workers in the same database interval; nested times overlap. Python observer thread is identified by name. No SQL text, parameters, frame locals or payloads captured."
+      },
+      {
+        "file": "capacity-native-coverage_page_read-101-3491048447066307.stacks.json",
+        "stage": "coverage_page_read",
+        "begin_ns": 3491048534502796,
+        "instrumented_interval_seconds": 6.485928466,
+        "sampling_status": "partial",
+        "sampling_errors": 4,
+        "errors": [],
+        "profiler_exit": 0,
+        "threads": [
+          {
+            "thread": "main",
+            "samples": 629,
+            "sample_weight_seconds": 6.29,
+            "unresolved_leaf_percent": 95.3895071542117,
+            "pg_wait_inclusive_percent": 36.406995230524565,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 0.0,
+            "source_copy_inclusive_percent": 0.0
+          }
+        ],
+        "pg_states": [
+          {
+            "state": null,
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "idle",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 2
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 120
+          },
+          {
+            "state": "active",
+            "wait_type": null,
+            "wait": null,
+            "samples": 64
+          },
+          {
+            "state": "active",
+            "wait_type": "IPC",
+            "wait": "MessageQueueReceive",
+            "samples": 2
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          }
+        ],
+        "top_level_statement_deltas": [
+          {
+            "labels": [
+              "rights_evidence_link"
+            ],
+            "calls_delta": 4,
+            "exec_ms_delta": 284.45062500000495,
+            "returned_rows_delta": 9844
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 4,
+            "exec_ms_delta": 209.50353599999653,
+            "returned_rows_delta": 4782
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 4,
+            "exec_ms_delta": 195.20584699999745,
+            "returned_rows_delta": 4978
+          },
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 74.00991399999839,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 4,
+            "exec_ms_delta": 20.63837699999931,
+            "returned_rows_delta": 4
+          },
+          {
+            "labels": [],
+            "calls_delta": 3,
+            "exec_ms_delta": 16.686618,
+            "returned_rows_delta": 1500
+          },
+          {
+            "labels": [],
+            "calls_delta": 4,
+            "exec_ms_delta": 7.61925199999996,
+            "returned_rows_delta": 4
+          },
+          {
+            "labels": [],
+            "calls_delta": 4,
+            "exec_ms_delta": 6.867580999999973,
+            "returned_rows_delta": 4
+          }
+        ],
+        "scope": "Intrusive diagnostic only. 25ms sampled waits may miss short events; ClientRead means server waiting for client. Statement differences include other restricted-role workers in the same database interval; nested times overlap. Python observer thread is identified by name. No SQL text, parameters, frame locals or payloads captured."
+      },
+      {
+        "file": "capacity-native-json_download-102-3491449525165779.stacks.json",
+        "stage": "json_download",
+        "begin_ns": 3491449651248220,
+        "instrumented_interval_seconds": 7.783281792,
+        "sampling_status": "complete",
+        "sampling_errors": 0,
+        "errors": [],
+        "profiler_exit": 0,
+        "threads": [
+          {
+            "thread": "main",
+            "samples": 760,
+            "sample_weight_seconds": 7.6000000000000005,
+            "unresolved_leaf_percent": 97.63157894736692,
+            "pg_wait_inclusive_percent": 19.210526315789487,
+            "future_wait_inclusive_percent": 49.60526315789425,
+            "object_verification_inclusive_percent": 0.0,
+            "source_copy_inclusive_percent": 0.0
+          },
+          {
+            "thread": "rights-object-verify_0",
+            "samples": 390,
+            "sample_weight_seconds": 3.9,
+            "unresolved_leaf_percent": 94.10256410256322,
+            "pg_wait_inclusive_percent": 0.0,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 96.15384615384524,
+            "source_copy_inclusive_percent": 0.0
+          },
+          {
+            "thread": "rights-object-verify_1",
+            "samples": 390,
+            "sample_weight_seconds": 3.9,
+            "unresolved_leaf_percent": 94.10256410256322,
+            "pg_wait_inclusive_percent": 0.0,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 93.84615384615299,
+            "source_copy_inclusive_percent": 0.0
+          }
+        ],
+        "pg_states": [
+          {
+            "state": null,
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 143
+          },
+          {
+            "state": "active",
+            "wait_type": null,
+            "wait": null,
+            "samples": 48
+          },
+          {
+            "state": "active",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 2
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          }
+        ],
+        "top_level_statement_deltas": [
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 1,
+            "exec_ms_delta": 308.547998,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [
+              "rights_evidence_link"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 148.34758499999998,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 144.13148,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 100.84148099999993,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 49.319541999999984,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 34.16925600000002,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 13.741754999999998,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 10.954047000000003,
+            "returned_rows_delta": 1
+          }
+        ],
+        "scope": "Intrusive diagnostic only. 25ms sampled waits may miss short events; ClientRead means server waiting for client. Statement differences include other restricted-role workers in the same database interval; nested times overlap. Python observer thread is identified by name. No SQL text, parameters, frame locals or payloads captured."
+      },
+      {
+        "file": "capacity-native-json_download_proxy-101-3491457445729916.stacks.json",
+        "stage": "json_download_proxy",
+        "begin_ns": 3491457545821646,
+        "instrumented_interval_seconds": 6.286704786,
+        "sampling_status": "complete",
+        "sampling_errors": 0,
+        "errors": [],
+        "profiler_exit": 0,
+        "threads": [
+          {
+            "thread": "main",
+            "samples": 640,
+            "sample_weight_seconds": 6.4,
+            "unresolved_leaf_percent": 99.37499999999856,
+            "pg_wait_inclusive_percent": 25.781250000000018,
+            "future_wait_inclusive_percent": 57.34374999999946,
+            "object_verification_inclusive_percent": 0.0,
+            "source_copy_inclusive_percent": 0.0
+          },
+          {
+            "thread": "rights-object-verify_0",
+            "samples": 402,
+            "sample_weight_seconds": 4.0200000000000005,
+            "unresolved_leaf_percent": 94.52736318407867,
+            "pg_wait_inclusive_percent": 0.0,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 96.76616915422788,
+            "source_copy_inclusive_percent": 0.0
+          },
+          {
+            "thread": "rights-object-verify_1",
+            "samples": 402,
+            "sample_weight_seconds": 4.0200000000000005,
+            "unresolved_leaf_percent": 94.02985074626774,
+            "pg_wait_inclusive_percent": 0.0,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 86.56716417910371,
+            "source_copy_inclusive_percent": 0.0
+          }
+        ],
+        "pg_states": [
+          {
+            "state": null,
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 136
+          },
+          {
+            "state": "active",
+            "wait_type": null,
+            "wait": null,
+            "samples": 44
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "active",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 1
+          }
+        ],
+        "top_level_statement_deltas": [
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 1,
+            "exec_ms_delta": 292.43639299999995,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [
+              "rights_evidence_link"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 189.76861000000008,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 120.09854300000006,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 107.71021000000007,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 34.13127100000003,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 23.381466999999986,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 10.205318000000005,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 9.553195000000002,
+            "returned_rows_delta": 1
+          }
+        ],
+        "scope": "Intrusive diagnostic only. 25ms sampled waits may miss short events; ClientRead means server waiting for client. Statement differences include other restricted-role workers in the same database interval; nested times overlap. Python observer thread is identified by name. No SQL text, parameters, frame locals or payloads captured."
+      },
+      {
+        "file": "capacity-native-binary_download-101-3491519175724444.stacks.json",
+        "stage": "binary_download",
+        "begin_ns": 3491519254493324,
+        "instrumented_interval_seconds": 6.812349284,
+        "sampling_status": "complete",
+        "sampling_errors": 0,
+        "errors": [],
+        "profiler_exit": 0,
+        "threads": [
+          {
+            "thread": "main",
+            "samples": 662,
+            "sample_weight_seconds": 6.62,
+            "unresolved_leaf_percent": 97.12990936555751,
+            "pg_wait_inclusive_percent": 30.36253776435047,
+            "future_wait_inclusive_percent": 52.41691842900257,
+            "object_verification_inclusive_percent": 0.0,
+            "source_copy_inclusive_percent": 0.0
+          },
+          {
+            "thread": "rights-object-verify_0",
+            "samples": 356,
+            "sample_weight_seconds": 3.56,
+            "unresolved_leaf_percent": 93.25842696629138,
+            "pg_wait_inclusive_percent": 0.0,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 97.4719101123587,
+            "source_copy_inclusive_percent": 0.0
+          },
+          {
+            "thread": "rights-object-verify_1",
+            "samples": 356,
+            "sample_weight_seconds": 3.56,
+            "unresolved_leaf_percent": 94.38202247190934,
+            "pg_wait_inclusive_percent": 0.0,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 95.2247191011228,
+            "source_copy_inclusive_percent": 0.0
+          }
+        ],
+        "pg_states": [
+          {
+            "state": null,
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "active",
+            "wait_type": null,
+            "wait": null,
+            "samples": 43
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 139
+          },
+          {
+            "state": "active",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 1
+          }
+        ],
+        "top_level_statement_deltas": [
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 1,
+            "exec_ms_delta": 305.26715199999944,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [
+              "rights_evidence_link"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 157.0338670000001,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 98.94263899999987,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 92.32490499999994,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 37.20251099999996,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 23.102874999999983,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 21.846385000000055,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 16.96828499999998,
+            "returned_rows_delta": 1
+          }
+        ],
+        "scope": "Intrusive diagnostic only. 25ms sampled waits may miss short events; ClientRead means server waiting for client. Statement differences include other restricted-role workers in the same database interval; nested times overlap. Python observer thread is identified by name. No SQL text, parameters, frame locals or payloads captured."
+      },
+      {
+        "file": "capacity-native-binary_download_proxy-102-3491526066139482.stacks.json",
+        "stage": "binary_download_proxy",
+        "begin_ns": 3491526170743280,
+        "instrumented_interval_seconds": 6.461529006,
+        "sampling_status": "complete",
+        "sampling_errors": 0,
+        "errors": [],
+        "profiler_exit": 0,
+        "threads": [
+          {
+            "thread": "main",
+            "samples": 585,
+            "sample_weight_seconds": 5.8500000000000005,
+            "unresolved_leaf_percent": 99.31623931623795,
+            "pg_wait_inclusive_percent": 26.15384615384617,
+            "future_wait_inclusive_percent": 61.19658119658064,
+            "object_verification_inclusive_percent": 0.0,
+            "source_copy_inclusive_percent": 0.0
+          },
+          {
+            "thread": "rights-object-verify_0",
+            "samples": 365,
+            "sample_weight_seconds": 3.65,
+            "unresolved_leaf_percent": 92.87671232876636,
+            "pg_wait_inclusive_percent": 0.0,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 95.61643835616354,
+            "source_copy_inclusive_percent": 0.0
+          },
+          {
+            "thread": "rights-object-verify_1",
+            "samples": 365,
+            "sample_weight_seconds": 3.65,
+            "unresolved_leaf_percent": 93.4246575342458,
+            "pg_wait_inclusive_percent": 0.0,
+            "future_wait_inclusive_percent": 0.0,
+            "object_verification_inclusive_percent": 96.98630136986215,
+            "source_copy_inclusive_percent": 0.0
+          }
+        ],
+        "pg_states": [
+          {
+            "state": null,
+            "wait_type": null,
+            "wait": null,
+            "samples": 1
+          },
+          {
+            "state": "idle in transaction",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 133
+          },
+          {
+            "state": "active",
+            "wait_type": null,
+            "wait": null,
+            "samples": 50
+          },
+          {
+            "state": "active",
+            "wait_type": "Client",
+            "wait": "ClientRead",
+            "samples": 2
+          }
+        ],
+        "top_level_statement_deltas": [
+          {
+            "labels": [
+              "listings_revision"
+            ],
+            "calls_delta": 1,
+            "exec_ms_delta": 309.25004699999954,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [
+              "rights_evidence_link"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 187.32864299999983,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 136.4599619999999,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [
+              "rights_evidence_row_hash"
+            ],
+            "calls_delta": 2,
+            "exec_ms_delta": 120.14403799999991,
+            "returned_rows_delta": 2
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 51.812566999999945,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 31.398019999999974,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 23.255945999999994,
+            "returned_rows_delta": 1
+          },
+          {
+            "labels": [],
+            "calls_delta": 1,
+            "exec_ms_delta": 21.813275999999973,
+            "returned_rows_delta": 1
+          }
+        ],
+        "scope": "Intrusive diagnostic only. 25ms sampled waits may miss short events; ClientRead means server waiting for client. Statement differences include other restricted-role workers in the same database interval; nested times overlap. Python observer thread is identified by name. No SQL text, parameters, frame locals or payloads captured."
+      }
+    ],
+    "partial_count": 3,
+    "sampling_errors": 9,
+    "semantics": "Inclusive sampled wall stacks with --idle, observer thread excluded; not CPU percentages. Native addresses frequently unresolved. PG statement deltas include other runtime-role workers and elapsed execution is not CPU; nested times excluded here. Single-case intrusive run cannot explain two-case unprofiled p95 quantitatively. No proved correction; no further experiment or repeat executed. Clean retest requires a verified correction under the prescribed procedure.",
+    "offline_symbols": {
+      "method": "Offline addr2line on the installed exact Python3.12.15 executable, using file-relative Python frame offsets; libc/shared-library addresses deliberately unresolved. Symbol table names only, no source line debug info. No new runtime/profiling measurement. Sampled wall distribution is not CPU time.",
+      "python_binary_sha256": "708fefcd7df61b1327cb7b9740fafd42cb2f6cd1d387378892d4a28b7479fb78",
+      "python": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/bin/python3.12",
+      "results": [
+        {
+          "file": "capacity-native-binary_download_proxy-102-3491526066139482.stacks.json",
+          "threads": [
+            {
+              "thread": "MainThread",
+              "leaf_sha256_percent": 6.4957264957264975,
+              "leaf_top": [
+                [
+                  "0x7f86b0a7a72e",
+                  81.8803418803409
+                ],
+                [
+                  "SHA256_Update.warm",
+                  6.4957264957264975
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  4.273504273504274
+                ],
+                [
+                  "sre_ucs1_match",
+                  1.3675213675213673
+                ],
+                [
+                  "_PyObject_Malloc",
+                  0.34188034188034183
+                ],
+                [
+                  "0x7f86b0a81968",
+                  0.34188034188034183
+                ]
+              ]
+            },
+            {
+              "thread": "rights-object-verify_0",
+              "leaf_sha256_percent": 33.15068493150687,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  33.15068493150687
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  30.68493150684934
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  8.767123287671236
+                ],
+                [
+                  "0x7f86b0b42b87",
+                  2.4657534246575343
+                ],
+                [
+                  "_aesni_ctr32_ghash_6x",
+                  2.191780821917808
+                ],
+                [
+                  "_PyObject_Malloc",
+                  1.3698630136986303
+                ]
+              ]
+            },
+            {
+              "thread": "rights-object-verify_1",
+              "leaf_sha256_percent": 41.36986301369866,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  41.36986301369866
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  26.30136986301372
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  6.575342465753427
+                ],
+                [
+                  "__xstat64",
+                  3.287671232876712
+                ],
+                [
+                  "0x7f86b0b42b87",
+                  2.4657534246575343
+                ],
+                [
+                  "deduce_unreachable.warm",
+                  1.6438356164383563
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "file": "capacity-native-binary_download-101-3491519175724444.stacks.json",
+          "threads": [
+            {
+              "thread": "MainThread",
+              "leaf_sha256_percent": 4.380664652567977,
+              "leaf_top": [
+                [
+                  "0x7f86b0a7a72e",
+                  70.9969788519629
+                ],
+                [
+                  "gc_collect_main",
+                  4.682779456193355
+                ],
+                [
+                  "SHA256_Update.warm",
+                  4.380664652567977
+                ],
+                [
+                  "deduce_unreachable.warm",
+                  3.474320241691844
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  3.323262839879155
+                ],
+                [
+                  "_PyObject_Free",
+                  1.0574018126888218
+                ]
+              ]
+            },
+            {
+              "thread": "rights-object-verify_0",
+              "leaf_sha256_percent": 44.66292134831464,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  44.66292134831464
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  25.000000000000018
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  6.460674157303373
+                ],
+                [
+                  "0x7f86b0b42b87",
+                  3.6516853932584263
+                ],
+                [
+                  "_aesni_ctr32_ghash_6x",
+                  3.089887640449438
+                ],
+                [
+                  "_PyObject_Malloc",
+                  1.404494382022472
+                ]
+              ]
+            },
+            {
+              "thread": "rights-object-verify_1",
+              "leaf_sha256_percent": 37.92134831460677,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  37.640449438202275
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  29.213483146067436
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  9.269662921348317
+                ],
+                [
+                  "0x7f86b0b42b24",
+                  2.528089887640449
+                ],
+                [
+                  "_aesni_ctr32_ghash_6x",
+                  2.247191011235955
+                ],
+                [
+                  "_PyObject_Malloc",
+                  1.6853932584269662
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "file": "capacity-native-json_download_proxy-101-3491457445729916.stacks.json",
+          "threads": [
+            {
+              "thread": "MainThread",
+              "leaf_sha256_percent": 8.437500000000004,
+              "leaf_top": [
+                [
+                  "0x7f86b0a7a72e",
+                  81.09374999999896
+                ],
+                [
+                  "SHA256_Update.warm",
+                  8.437500000000004
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  3.125000000000001
+                ],
+                [
+                  "_PyObject_Malloc",
+                  0.46875
+                ],
+                [
+                  "PyObject_GenericGetAttr",
+                  0.46875
+                ],
+                [
+                  "PyObject_GenericGetAttr.warm",
+                  0.46875
+                ]
+              ]
+            },
+            {
+              "thread": "rights-object-verify_0",
+              "leaf_sha256_percent": 44.278606965174156,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  44.278606965174156
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  25.87064676616917
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  4.72636815920398
+                ],
+                [
+                  "_aesni_ctr32_ghash_6x",
+                  1.9900497512437811
+                ],
+                [
+                  "0x7f86b0b42b24",
+                  1.4925373134328357
+                ],
+                [
+                  "__xstat64",
+                  1.243781094527363
+                ]
+              ]
+            },
+            {
+              "thread": "rights-object-verify_1",
+              "leaf_sha256_percent": 40.547263681592064,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  40.547263681592064
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  27.363184079602004
+                ],
+                [
+                  "0x7f86b0b42b87",
+                  4.975124378109453
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  4.477611940298507
+                ],
+                [
+                  "PyUnicode_DecodeUTF8Stateful",
+                  2.238805970149253
+                ],
+                [
+                  "_aesni_ctr32_ghash_6x",
+                  2.238805970149253
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "file": "capacity-native-json_download-102-3491449525165779.stacks.json",
+          "threads": [
+            {
+              "thread": "MainThread",
+              "leaf_sha256_percent": 5.92105263157895,
+              "leaf_top": [
+                [
+                  "0x7f86b0a7a72e",
+                  67.10526315789389
+                ],
+                [
+                  "SHA256_Update.warm",
+                  5.92105263157895
+                ],
+                [
+                  "deduce_unreachable.warm",
+                  4.210526315789475
+                ],
+                [
+                  "gc_collect_main",
+                  3.4210526315789482
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  2.7631578947368425
+                ],
+                [
+                  "dict_dealloc",
+                  1.3157894736842102
+                ]
+              ]
+            },
+            {
+              "thread": "rights-object-verify_0",
+              "leaf_sha256_percent": 41.79487179487183,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  41.79487179487183
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  26.666666666666682
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  5.8974358974359
+                ],
+                [
+                  "0x7f86b0b42b87",
+                  3.5897435897435894
+                ],
+                [
+                  "_aesni_ctr32_ghash_6x",
+                  2.051282051282051
+                ],
+                [
+                  "0x7f86b0b42b24",
+                  1.5384615384615385
+                ]
+              ]
+            },
+            {
+              "thread": "rights-object-verify_1",
+              "leaf_sha256_percent": 40.7692307692308,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  40.7692307692308
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  27.1794871794872
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  5.1282051282051295
+                ],
+                [
+                  "0x7f86b0b42b87",
+                  3.5897435897435894
+                ],
+                [
+                  "0x7f86b0b42b24",
+                  2.564102564102564
+                ],
+                [
+                  "_aesni_ctr32_ghash_6x",
+                  2.051282051282051
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "file": "capacity-native-coverage_page_read-101-3491048447066307.stacks.json",
+          "threads": [
+            {
+              "thread": "MainThread",
+              "leaf_sha256_percent": 13.990461049284587,
+              "leaf_top": [
+                [
+                  "0x7f86b0a7a72e",
+                  30.524642289348197
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  14.308426073131963
+                ],
+                [
+                  "SHA256_Update.warm",
+                  12.082670906200326
+                ],
+                [
+                  "PyObject_GenericGetAttr",
+                  2.3847376788553256
+                ],
+                [
+                  "sha256_block_data_order_avx2",
+                  1.9077901430842605
+                ],
+                [
+                  "gc_collect_main",
+                  1.7488076311605723
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "file": "capacity-native-coverage_page_read-101-3490131545900042.stacks.json",
+          "threads": [
+            {
+              "thread": "MainThread",
+              "leaf_sha256_percent": 9.30555555555556,
+              "leaf_top": [
+                [
+                  "_PyEval_EvalFrameDefault",
+                  22.08333333333335
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  20.41666666666668
+                ],
+                [
+                  "SHA256_Update.warm",
+                  8.750000000000005
+                ],
+                [
+                  "_PyObject_Malloc",
+                  2.9166666666666674
+                ],
+                [
+                  "PyObject_GenericGetAttr",
+                  2.777777777777778
+                ],
+                [
+                  "_PyFrame_ClearExceptCode",
+                  2.2222222222222223
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "file": "capacity-native-coverage_page_save-102-3490119056091682.stacks.json",
+          "threads": [
+            {
+              "thread": "MainThread",
+              "leaf_sha256_percent": 22.982456140350894,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  22.807017543859665
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  19.47368421052633
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  17.368421052631593
+                ],
+                [
+                  "_PyObject_Malloc",
+                  2.631578947368421
+                ],
+                [
+                  "PyObject_GenericGetAttr",
+                  2.2807017543859645
+                ],
+                [
+                  "_PyObject_Free",
+                  1.5789473684210527
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "file": "capacity-native-binary_inspection-101-3490095386719576.stacks.json",
+          "threads": [
+            {
+              "thread": "MainThread",
+              "leaf_sha256_percent": 30.25830258302585,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  30.25830258302585
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  26.568265682656843
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  13.65313653136532
+                ],
+                [
+                  "PyObject_GenericGetAttr",
+                  3.3210332103321036
+                ],
+                [
+                  "_PyObject_Free",
+                  1.4760147601476017
+                ],
+                [
+                  "_PyFrame_ClearExceptCode",
+                  1.107011070110701
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "file": "capacity-native-selection_page_read-101-3490031700581660.stacks.json",
+          "threads": [
+            {
+              "thread": "MainThread",
+              "leaf_sha256_percent": 24.354243542435437,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  23.616236162361638
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  17.712177121771226
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  13.65313653136532
+                ],
+                [
+                  "PyObject_GenericGetAttr",
+                  4.059040590405904
+                ],
+                [
+                  "sre_ucs1_match",
+                  3.3210332103321036
+                ],
+                [
+                  "_PyObject_Malloc",
+                  2.2140221402214024
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "file": "capacity-native-binary_page_save-102-3490025174789606.stacks.json",
+          "threads": [
+            {
+              "thread": "MainThread",
+              "leaf_sha256_percent": 27.41935483870969,
+              "leaf_top": [
+                [
+                  "SHA256_Update.warm",
+                  26.612903225806466
+                ],
+                [
+                  "0x7f86b0a7a72e",
+                  19.623655913978507
+                ],
+                [
+                  "_PyEval_EvalFrameDefault",
+                  13.978494623655921
+                ],
+                [
+                  "0x7f86af500a78",
+                  2.9569892473118276
+                ],
+                [
+                  "sre_ucs1_match",
+                  2.150537634408602
+                ],
+                [
+                  "deduce_unreachable.warm",
+                  1.6129032258064515
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reproducibility_repeat": {
+    "executed": false,
+    "reason": "First measure failed stage limits; one successful-run repeat condition not satisfied. No verified correction available, so no unprofiled retest."
+  },
+  "limitations": [
+    "No global capacity/MOD-08/N3 acceptance",
+    "No code-causal comparison with laptop: externally varying power profiles and different hardware",
+    "PSI absent on this host; interval average steal does not exclude short contention",
+    "Native wall sampling with partial captures/unresolved frames does not prove a precise CPU bottleneck or saving",
+    "Only owned synthetic services and data; normal services never restarted or deployed"
+  ],
+  "image_tag_finalization": {
+    "tested_image": "sha256:fb009e0c5acd99dc012058bbe25db9e0df114960830710eaea8bb40b7c34f382",
+    "previous_image": "sha256:1a32be784e7b61cbf698059499167d6563cd0dfe53f20b06cc1693372fbf94bf",
+    "current_before": "sha256:fb009e0c5acd99dc012058bbe25db9e0df114960830710eaea8bb40b7c34f382",
+    "tested_image_retained_as": "web-modelos-mod08-vps:c46d0e1-20261012",
+    "original_tag_restored": true,
+    "current_after": "sha256:1a32be784e7b61cbf698059499167d6563cd0dfe53f20b06cc1693372fbf94bf"
+  }
+}

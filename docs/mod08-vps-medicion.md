@@ -151,3 +151,12 @@ estándar de Docker al contenedor propio y espera acotada de reaping, sin omitir
 supervivientes. Preflight correctivo y probe nativo final pasan; 109 pruebas
 locales pasan. Energía alternó externamente; no prueba constante ni mejora causal.
 [Evidencia completa y fallo conservado](evidencias/mod08-vps-preparacion-verificada-20261012.md).
+
+## Primera ejecución real en el servidor, 2026-10-12
+
+La preparación local anterior precede al relevo remoto. Ya ejecutado en servidor
+OpenStack:preflight/probe PASS, measure FAIL válido2casos/4CPU/8GiB, diagnose
+separado PASS. Aplicación sin cambios; energía variable del portátil y CPUvirtual
+diferente impiden comparación causal de código. [Resultados completos, por caso y
+recibos](evidencias/mod08-vps-medicion-servidor-20261012.md). Usuario autoriza después
+comparar8CPU, manteniendo el resto; implementación y medición de ese perfil pendientes.

@@ -1033,3 +1033,20 @@ artifacts/capacity-environment; exigir huellas, cero fallos/errores/skips, cuerp
 completos, concurrencia y limpieza independiente. Límites 4CPU/8GiB/storage20GiB,
 p95 por caso navegación2s/JSON5s/binario5s. Entrega no acredita global/N3; energía
 variable del portátil impide atribuir diferencias al código. Resultados pendientes.
+
+### MOD-08 — relevo real VPS4CPU cerrado y ampliación autorizada8CPU
+
+SHA2a6b81c incluye c46d0e1; sin cambio de aplicación respecto del relevo. Python3.12.15
+/uv0.13.0/frozen/kernel native-sealed reales,109 rápidos PASS. Preflight77.460s y
+probe42.375s PASS, limpieza/1411huellas independientes. Measure20261012-005632-9fb82130:
+FAIL válido por límites,1fallo/0errores/skips/2317.495s; dos casos,384coberturas y20
+descargas/tipo/caso. p95A/B cobertura3.829796/3.835592,JSON10.732150/10.565686,
+binario10.334944/10.442426s. Integridad/concurrencia/huellas/retiro independientes;
+cota memoria3.853565GiB,sin swap/OOM. Diagnose separado20261012-013900-179969c8:
+1PASS1658.382s,10capturas(3parciales),SHA nativo en workers/esperas futures y PG; no
+CPU causal exacto ni corrección probada. Sin reensayo especulativo. PSIausente,
+stealmedio0.0338313%; portátil energético variable impide atribuir diferencias a
+código. No global/N3. Evidencia [servidor4CPU](evidencias/mod08-vps-medicion-servidor-20261012.md).
+Usuario autoriza posteriormente8CPU máximas; próxima acción perfil explícito de8CPU
+con RAM/dataset/workers/garantías/SLO conservados,preflight antes de medir y una
+repetición sólo si PASS. Conservar FAIL4CPU;8CPU no acredita contrato4CPU.
