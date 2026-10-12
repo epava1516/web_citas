@@ -1,0 +1,217 @@
+{
+  "result": {
+    "id": "20261012-231539-40d367fb",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261012-231539-40d367fb",
+          "--label",
+          "web-modelos-local-ci-run=20261012-231539-40d367fb",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.46733697736635804
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261012-231539-40d367fb",
+          "--label",
+          "web-modelos-local-ci-run=20261012-231539-40d367fb",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5196336209774017
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03572848392650485
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.06560245109722018
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.9704752126708627
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.5252001550979912
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 2.0706744180060923
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-wywneh4n/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-wywneh4n/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-wywneh4n/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.563535256776959
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_cr09_correctives/artifacts/local-ci/20261012-231539-40d367fb/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_cr09_correctives/artifacts/local-ci/20261012-231539-40d367fb/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-wywneh4n/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_cr09_correctives/artifacts/local-ci/20261012-231539-40d367fb/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_public_structured_data.py",
+          "tests/test_promotion_order_mobile_agency.py",
+          "tests/test_privacy_publication_holds.py::test_approval_race_cannot_republish_held_profile"
+        ],
+        "exit": 0,
+        "seconds": 135.3531840061769
+      }
+    ],
+    "head": "8ae5580626719bd34d7baddaf0e86a91469a7ffe",
+    "excluded": [],
+    "selection": [
+      "tests/test_public_structured_data.py",
+      "tests/test_promotion_order_mobile_agency.py",
+      "tests/test_privacy_publication_holds.py::test_approval_race_cannot_republish_held_profile"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261012-231539-40d367fb": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261012-231539-40d367fb": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "13",
+        "time": "133.251",
+        "timestamp": "2026-10-13T01:15:58.501574+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "13",
+    "time": "133.251",
+    "timestamp": "2026-10-13T01:15:58.501574+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "host_limits": {
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/web-modelos-cr09-browser-privacy-20261012.service",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory.max": "3758096384",
+    "memory.swap.max": "0",
+    "pids.max": "512",
+    "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "terminal_memory_peak": "618086400"
+  },
+  "temporary_absent": true,
+  "scope": "JSON-LD and mobile promotion corrections verified. Privacy race PASS once on unchanged app; historical deadlock unresolved, deterministic reproduction pending. No CR09/N3 acceptance."
+}

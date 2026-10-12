@@ -5,6 +5,7 @@ import shutil
 from html.parser import HTMLParser
 
 import pytest
+from django.templatetags.static import static
 from django.utils import timezone
 from playwright.sync_api import sync_playwright
 from test_discovery import directory, photo_environment  # noqa: F401
@@ -123,6 +124,12 @@ def test_browser_jsonld_remains_inert_and_readable_under_csp(live_server, pub_cl
             assert data["about"]["name"] == alias and data["inLanguage"] == language
             assert page.evaluate("window.SEO_PWNED === undefined")
             assert page.evaluate("window.cspViolations") == []
-            assert page.locator('script:not([type="application/ld+json"])').count() == 0
+            executable = page.locator('script:not([type="application/ld+json"])')
+            # The base template includes the local form error accessibility helper.
+            # Permit precisely that asset; injected inline or extra scripts fail.
+            assert executable.count() == 1
+            assert executable.get_attribute("src") == static("form-errors.js")
+            assert executable.get_attribute("defer") is not None
+            assert executable.text_content().strip() == ""
         finally:
             browser.close()

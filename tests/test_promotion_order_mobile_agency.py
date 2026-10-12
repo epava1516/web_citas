@@ -66,13 +66,15 @@ def test_mobile_dashboard_order_simulation_reload_and_layout(
             page.get_by_role(
                 "button", name="Simulate outcome" if english else "Simular resultado", exact=True
             ).click()
+            confirmed = page.get_by_text(
+                "Confirmed simulated payment" if english else "Pago simulado confirmado",
+                exact=True,
+            )
+            # The POST redirects to the detail page. Wait for its resulting state
+            # before reloading, then verify that the same state survives reload.
+            expect(confirmed).to_be_visible()
             page.reload()
-            expect(
-                page.get_by_text(
-                    "Confirmed simulated payment" if english else "Pago simulado confirmado",
-                    exact=True,
-                )
-            ).to_be_visible()
+            expect(confirmed).to_be_visible()
             assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
         finally:
             browser.close()

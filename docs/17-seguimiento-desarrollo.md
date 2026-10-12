@@ -1,5 +1,15 @@
 # Seguimiento de ejecución del contrato
 
+**CR09 correctiva de calendario verificada e integrada:** selección propia
+`20261012-230717-78086016`, fuente `8ae5580`, 29 PASS/0 FAIL/0 SKIP,
+439,898 s. Recuperación del calendario seguida de toda la selección de estado
+publicado, incluida carrera de invalidación; fuentes iguales y limpieza confirmada.
+[Recibo](evidencias/cr09-calendario-correctiva-20261012.json).
+Integración local `771f741`: únicamente restaurar todos los leaf_nodes tras el
+rollback de migraciones del test. No cambia aplicación ni acepta CR09/N3.
+Continúa selección dirigida de JSON-LD, promociones móviles y reproducción de
+la carrera aprobación/restricción en la rama correctiva aislada.
+
 **CR09 regresión secuencial, negativo terminal por esquema contaminado:**
 `20261012-200723-11216b4a`, SHA `5f64990`, interrumpida mediante SIGTERM al
 confirmar cascada UndefinedTable después de una prueba de rollback/restauración
