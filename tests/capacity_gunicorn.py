@@ -88,7 +88,16 @@ def server(settings, record_property):
         tools_site = str(Path(settings.CAPACITY_DIAGNOSTIC_TOOLS_VENV) / 'lib/python3.12/site-packages')
         app_site = str(Path(sys.prefix) / 'lib/python3.12/site-packages')
         Path('/tmp/capacity_scalene_launcher.py').write_text(
-            "import runpy\nrunpy.run_module('gunicorn', run_name='__main__')\n")
+            "import runpy\n"
+            "try:\n"
+            "    runpy.run_module('gunicorn', run_name='__main__')\n"
+            "finally:\n"
+            "    # Scalene imports surveyed modules while rendering its final JSON.\n"
+            "    # Initialize only after Gunicorn exits, preserving worker startup.\n"
+            "    import django\n"
+            "    django.setup()\n"
+            "    from django.db import connections\n"
+            "    connections.close_all()\n")
         command = [sys.executable, '-m', 'scalene', 'run', '--cpu-only', '--off', '--profile-all',
                    '--profile-only', 'apps/safety,capacity_professional_profile',
                    '-o', '/tmp/capacity-professional-scalene-all.json',

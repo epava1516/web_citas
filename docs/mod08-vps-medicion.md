@@ -224,3 +224,17 @@ ese burn no ocurre en coberturareal y no es prueba de coste de aplicación.
 falló por depender de runtime_settings reciénintroducido; namespace aislado
 actualizado y nuevos contrastes COMPLETE/FAIL verifican detener flujo inválido.
 Sonda app/PG real pendiente; no inferir aceptación de la prueba WSGIsintética.
+
+
+Scalene 568ff53: probe real 20261012-085809-69e4aa37 PASS (51.545s),
+pero diagnose 20261012-090224-1fc377fd ERROR: el flujo JUnit pasó
+(1583.477s), ambas ventanas COMPLETE, y faltó el JSON combinado.
+ScaleneAnalysis.is_native importa apps.core.models al renderizar en el maestro,
+cuya registry Django no estaba inicializada. AppRegistryNotReady conservado.
+Fuente 1414 archivos inalterada y limpieza independiente verificadas.
+Estos tiempos son duración diagnóstica, no p95 ni aceptación.
+Corrección instrumental: django.setup y close_all sólo tras salir Gunicorn,
+sin preload ni cambio de arranque de workers; sonda sintética marcada incluye
+rights_exports.canonical para ejercitar imports de dominio durante el merge.
+54 tests rápidos PASS (0.73s), Ruff PASS. Sonda PG real pendiente antes de
+repetir diagnose. No nueva optimización de aplicación ni medición HTTP limpia.
