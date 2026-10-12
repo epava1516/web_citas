@@ -1,0 +1,82 @@
+Sala técnica local. Opina sólo sobre el contexto suministrado. Sin herramientas, ediciones ni ejecución. Distingue hechos medidos, hipótesis y evidencia faltante. Las intervenciones son opiniones, nunca PASS ni autorización. No cachear autoridad, omitir comprobaciones frescas ni extrapolar microbenchmarks a p95 contractual. Propón una decisión finita y señala contraejemplos. Máximo 900 palabras.
+
+Primera deliberación conjunta MOD08. Codex modera; tu función es revisión independiente sin herramientas.
+HEAD 7e04016d8ece6cf52388e283eb06cf0a6040fd2b. Sólo datos sintéticos. No modificar producto ni iniciar capacidad completa.
+Último diagnóstico: runner20261011-130102-8286f2c3,5PASS98.47s,1176huellas y limpieza comprobadas. PG17/TCP reales,2workers sync calientes; clones idénticos548eventos/256reads tras64POST;3muestras control/perfilada/control con4CoverageRead+8EVENT por commit.
+TCP812.239/1882.635/796.736ms;WSGI811.169/1950.134/795.745;CPU428.554/1563.754/425.883. Gran intrusión cProfile(timer=thread_time), NO p95 ni ahorro; WSGI incluye reporte posterior al yield, TCP puede acabar antes.
+Fixture1500revisiones,selección16777172bytes,originales64MiB no seleccionados,cobertura parcial escalar; sinCaddy/RustFS/cuotas/concurrencia de carga. NO comparable al p95 contractual383lotes~3.75s y objetivo2s. Descargas5s siguen pendientes, no medir aquí.
+Category/Service/Municipality residualCPU trasSQL observado1.765/1.751/1.889ms(~5.4ms); NO coste exacto ni ahorro, candidata valoresprimitivos cerrada porahora. Model.__init__2010calls21.842ownCPU/72.552incl;from_db1993calls18.858/100.158.
+scalar_fields101755entradas/reanudaciones(incl72978recursivas),101.493own/147.259inclmsperfilados NO101755recorridos completos. pointer_value9002calls33.366own78.634incl; project_selected2calls14.623own184.502incl; compile_coverage1call13.334own240.489incl.
+CandidataSQLinline anterior rechazada tras20muestras/variante clonesABBA:originalmed797.984/p95819.964ms vsinline789.795/829.377ms. Producto restauradoHEAD. MemoJSON no justificó margen; cachechain/autoridad prohibido por frescura/mutaciónpropia/DDL.
+Opinión Codex: medir primero sincProfile los recorridos puros, con conteo estructural independiente y mismo fixture, antesde elegir cambio; no inferir147msahorrables. Posible alternativa menos amplia: compile_coverage sólo consume item['path'], explorar generador especializado de rutas sin construir diccionario de cada hoja, manteniendo orden/validación/error y scalar_fields público. No asumir beneficio ni equivalencia. Otra vía pointer_value separada. Traversaliterativo requiere preservar profundidad/RecursionError/mutación duranteyield/close/throw ademásdeRFC6901; códigoiterativoanteriorNotebook con marco3elementos ytop[3]/top[4] es inválido.
+Debatid: (1) ¿qué vía medir primero y por qué? (2) diseño mínimo finito limpio separando preparación,cronometraje y validación; corpus ancho/profundo/representativo; no tiempos mínimos inventados. (3) contraejemplos de rutas especializadas vsiterativo vsdecoderpunteros; qué fuente adicional falta. (4) decisión y criterio de abandono sin porcentajes asumidos. No entregar parche sin evidencia. Identifica límites del contexto y corrige conjeturas de Codex. Devuelve hechos/objeciones/plan/decisión, máx900palabras.
+
+Intervención Codex de revisión crítica, ronda2:
+- Se suministra abajo respuesta íntegra deNotebookLM de esta sala; segundaopinión, nohechos adicionales. El perfilguardado no incluye callergraph, sólo100mayores getstats; no fingir print_callers recuperable.
+- Notebook vuelve a convertir101755reanudaciones en101755diccionarios: falso; sólocada yieldhoja produce dict. Hojasreales requierenconteoindependiente fuera cronometraje.
+- Wrapper alrededor scalar_fields(row) cronometraCREACIÓN delgenerador, NOejecución. Wrapper de cada next aumentaeventos ydistorsión; timerexterno a yieldfrom coninicio/final incluyeprocesamiento delconsumidor entreyield. No proporciona distribución exacta. Preferencia Codex: medir consumidorescompletos compile_coverage/coverage_page/required_pages conpocos timerswall+CPU; atribución ampliaexplícita inclproyección/refs, no aislarpurotraversal porresta. Complementar luego corpus materializado ymicrobenchpuro, sinpresentar coste realrequest inferido. Si quieres otro diseño explicaperímetro yoverhead.
+- Umbral70% y10instrumentadas inventados, noseadoptan porpredicciónmodel. Sondecisiones de diseño no datoscientíficos. Control/instrumentada/control puedeacotar intrusión, no distribuciónexacta.
+- Parsear segmentosmemoSólo delstring puroNO queda invalidado por mutación de fila; cachear valorresuelto sí. Esta vía diferida, no está prohibida por falsa razón. Conservarexcepciones en puntoactual yrevalidación/traversalfrescos.
+- LIFO puede preservarDFS siiteradores/ordenhijos correctos; FIFO daríaBFS. Notebook confunde criterioestructura conordenreal. No elegiriterativo ahora.
+- rg muestra6archivos consumidores y8sitios externos:catalog1,coverage1,read_gate1,coverage_pages2,access_coverage2,coverage_page1; además2llamadas recursivas internas. No todos están activos en inspect_batch. No tocar módulosque noejecuta elescenario sólo porqueaparecen enrg.
+- fast_canonical.reference_check depth>200=>ValueError, exacttypesJSON(null,str,bool,int,floatfinito,dictstr,list,tuple). source_copy convierteids/fechas/importesstr yconserva algunosJSONField days/languages. canonicalguard no prueba dominio universal de scalar_fields/decoder. Público seguiría sin cambios.
+- Varianteprivada sólo paths en compile_coverage: podría evitar diccionario, pero duplicar recursión altera presupuestoRecursionError porframes. Prueba equivalenciatipos/mensajes/ordenprimererror ycallstackboundary; no afirmar ansioso elimina semántica deerror/sideeffects de subclases. Candidato NOimplementado ni medido.
+- Rechazo alternativa globalcache/pointerresult/authoritychain/nativecode ahora. Mantener comparativasA/A/ABBA, mismoGCpreparaciónfuera, erroresantesydespués. Si aparececandidataconseñal, HTTPclones20/variante equivalentes antesadopción; noaceptacióncontractual ni umbralmsarbitrario.
+Solicitud Claude: revisa estas objeciones, identifica cualquiererror nuestro y entrega la versión mínima verificable delplan siguiente con condición de salida ycriterioabandono. ¿Merece diagnóstico de consumidores+corpus antescandidato? No entreguescódigo,noejecutesnada,máx700palabras. No afirmes queelcontexto suple medición faltante.
+
+Respuesta NotebookLM completa:
+### 1. Distinción de estado: Hechos, Hipótesis y Evidencia Faltante
+
+* **Hechos medidos:** 
+  1. El perfil actual con `cProfile(timer=thread_time)` registra 101.755 invocaciones/reanudaciones en `scalar_fields` (101,5 ms own / 147,3 ms incl. CPU), pero con alta intrusión del profiler.
+  2. `scalar_fields` no es exclusivo de `compile_coverage`: el rastreo con `rg` confirma uso en `coverage_read_gate`, `coverage_pages`, `coverage_page`, `catalog` y `accesscoverage`.
+  3. La variante anterior de SQL inline fue rechazada tras control A/B/B/A de 20 muestras por degradar el p95 (829,37 ms vs. 819,96 ms) y el producto se encuentra restaurado en HEAD (`7e04016d8e`).
+  4. La función `pointer_value` ejecuta `deepcopy` en cada extracción válida y aplica validación estricta RFC6901 (`~1`, `~0`).
+
+* **Hipótesis no demostradas:**
+  1. Que los 147 ms atribuibles a `scalar_fields` procedan predominantemente de `compile_coverage`.
+  2. Que eliminar la construcción del diccionario `{"path": ..., "value": ...}` impacte de forma medible en el p95 contractual del request (2 s objetivo / 3,75 s actual).
+
+* **Evidencia faltante:**
+  1. Desglose real de tiempo por llamador (*call site attribution*) sin la sobrecarga de `cProfile`.
+  2. Mediciones A/A y A/B en la pila completa (WSGI/TCP) comparando el impacto global.
+
+---
+
+### 2. ¿Qué medir primero y por qué?
+
+**Acepto medir primero las llamadas completas por call site en un request instrumentado con bajo overhead, rechazando empezar por un microbenchmark aislado.**
+
+Un microbenchmark sobre corpus sintético puede mostrar una reducción relativa de microsegundos al omitir asignaciones de diccionarios, pero es incapaz de revelar si dicho tiempo representa el 5% o el 90% del costo real en la petición WSGI/TCP. Medir en la petición real con temporizadores de baja sobrecarga (`time.perf_counter_ns()` envolviendo las llamadas de cada sitio identificado) proporciona la distribución exacta del costo entre `compile_coverage`, `coverage_read_gate` y el resto de los consumidores.
+
+---
+
+### 3. Evaluación de Claude/Codex, candidato de alcance y contraejemplos
+
+#### Aceptaciones y correcciones a los planteamientos previos:
+* **De Claude:** Acepto exigir atribución por *call site* previa a cualquier refactorización y conservar intactos el contrato público y las excepciones `ValidationError`. Rechazo priorizar el microbenchmark de corpus antes de la instrumentación e2e.
+* **De Codex:** Confirmo su hallazgo con `rg` que invalida la hipótesis de un único llamador. Aclaro que no debe interpretarse incoherencia entre los 240 ms de `compile_coverage` y los 147 ms de `scalar_fields`, dado que la agregación plana de `cProfile` no preserva la jerarquía de invocaciones.
+
+#### Ámbito de candidato más seguro (sin alterar la API pública):
+Si la instrumentación demuestra que el consumidor principal de `scalar_fields` solo necesita el conjunto de rutas y no los valores, el candidato más seguro es un generador privado especializado interno (ej. `_iter_scalar_paths(value, prefix="")`) que retorne directamente las cadenas de texto con la ruta escapada RFC6901. Esto evita instanciar y desechar 101.755 diccionarios intermedios, manteniendo `scalar_fields` y `pointer_value` sin modificaciones.
+
+#### Contraejemplos técnicos a considerar:
+1. **Rutas especializadas vs. Re-evaluación con `pointer_value`:** Si un consumidor obtiene únicamente las rutas mediante un generador de cadenas y posteriormente invoca `pointer_value` para cada ruta sobre la estructura original, se pasa de un recorrido único \\(O(N)\\) a un costo \\(O(N \cdot D)\\) por el re-parseo iterativo de segmentos y el `deepcopy` final en cada hoja.
+2. **Recorrido iterativo manual vs. Generador recursivo:** Sustituir la recursión por un bucle con pila explícita en Python puede alterar el orden de evaluación si se usa LIFO en lugar de FIFO, o fallar al gestionar la propagación de excepciones (`ValidationError` ante claves no-string) y métodos del generador (`throw`, `close`).
+3. **Caché o memorización en el decodificador de punteros:** Memorizar el parseo de rutas en `pointer_value` falla si las estructuras o los valores de la fila se mutan entre invocaciones dentro de la misma sesión o request.
+
+---
+
+### 4. Decisión finita y criterio de abandono
+
+#### Decisión finita (Plan de acción):
+1. **Fase 1 (Instrumentación):** Insertar un wrapper de cronometraje de bajo overhead (`time.perf_counter_ns()`) únicamente en los 5 sitios de llamada identificados por `rg` para `scalar_fields`, registrando tiempo acumulado y conteo en 10 ejecuciones del fixture de 1500 revisiones.
+2. **Fase 2 (Evaluación de candidato):** Si y solo si uno de los consumidores concentra >70% del tiempo gastado en recorridos y únicamente requiere las rutas, implementar la función privada `_iter_scalar_paths`.
+3. **Fase 3 (Verificación A/B):** Ejecutar comparación A/A y A/B en el runner real midiendo el tiempo de respuesta WSGI/TCP.
+
+#### Criterio de abandono inmediato:
+* Abandono automático si la diferencia de p95 en la petición completa entre la variante A y B se encuentra dentro del margen de ruido de las pruebas A/A, o si existe cualquier discrepancia en la validación de tipos, errores `ValidationError` u orden de las rutas RFC6901.
+
+---
+
+¿Avanzamos con la toma de tiempos instrumentada por call site en la suite de pruebas?

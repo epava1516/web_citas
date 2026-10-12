@@ -1,0 +1,287 @@
+{
+  "answer": "Confirmadas y validadas punto por punto las 6 correcciones del arnés y modelo conceptual, así como el alcance de tu propuesta revisada:\n\n### Confirmación de las 6 correcciones técnicas\n\n1. **`source_copy` y `canonical_bytes`**: Queda confirmado que `_InspectionSource.__init__` invoca secuencialmente primero `source_copy` y posteriormente `canonical_bytes(self.source)` fuera del cuerpo de la copia [1]. La verificación de mutación opera tras el `yield` antes del bloque `finally` (el cual únicamente restablece la `ContextVar`) [2]. El tiempo de `canonical_bytes` no debe computarse dentro de la fase de generación de la copia.\n2. **Atribución de `gap wall/CPU` y modelo de workers**: El delta entre tiempo wall y CPU no responde únicamente a I/O, sino a planificación del sistema operativo, contención y sobrecoste entre hilos [3, 4]. Las mediciones de perfilado no deslindan de forma explícita el tiempo de PostgreSQL de la red [5, 6]. Asimismo, los dos workers ejecutan como **procesos independientes de Gunicorn**, de modo que no comparten una misma instancia de GIL [7-9].\n3. **Invarianza de `canonical_bytes`**: `canonical_bytes` ejecuta la verificación de tipos/estructura `_check` y serializa mediante `orjson.dumps` fijando `OPT_SORT_KEYS` [10, 11]. Prescindir de la ordenación altera la firma determinista y la validación HMAC del contrato [11]. No se contemplan atajos sobre este orden.\n4. **Acceso por atributos y contratos de datos**: Se confirma que los consumidores actuales acceden directamente a atributos [12-16]. Cualquier migración hacia diccionarios o `values()` requiere adaptación explícita y el mantenimiento riguroso de políticas de tipos (Decimales, timestamps UTC, nulos, locks y ordenación) [12, 15-17].\n5. **Rechazo de umbrales no respaldados**: Se descartan los porcentajes y duraciones arbitrarias (35%, 30%, 40ms, etc.) [18-20]. Un componente de \\\\(X\\text{ ms}\\\\) puede ahorrar como máximo \\\\(X\\text{ ms}\\\\); no cabe proyectar convergencias hacia referencias históricas de \\\\(1.753\\text{ s}\\\\) obtenidas en configuraciones distintas [7, 19, 20].\n6. **Aislamiento térmico y métricas p95**: Tres pasadas secuenciales resultan insuficientes para aislar el calentamiento del entorno o el ruido del planificador, sirviendo como orientación primaria y no como p95 [7, 21, 22].\n\n---\n\n### Confirmación del alcance de la propuesta revisada\n\nEl arnés propuesto queda validado:\n* **Un único bloque de control / perfilado / control** con 64 lotes auditados, secuencias idénticas y verificación de warm POST en ambos workers registrando el `PID` por muestra [9, 23].\n* **Aislamiento estricto de spans parentales** (`source_copy` + `batches next()`), excluyendo deliberadamente el tiempo en que el generador permanece suspendido entre instrucciones `yield`.\n* **Deslinde limpio entre consultas/materialización en base de datos y la construcción de objetos en Python** [6, 14, 24, 25].\n* **Uso de `cProfile` con `thread_time` como métrica auxiliar sin acceso a `locals`**, evitando sumar árboles de tiempo exclusivo diferentes o descontar dos veces el sobrecoste de instrumentación [20, 26, 27].\n\n---\n\n### Conclusión\n\n* **Fase a priorizar**: Diagnóstico observacional de bloque único en entorno controlado (aislando el coste de instanciación de objetos Python frente al tiempo de materialización de consultas) [19, 25, 28].\n* **Candidata CONDICIONAL**: Conversión a proyección de valores en **categorías, servicios y zonas de desplazamiento** (datos accesorios), *únicamente si* la construcción de modelos Python representa un peso dominante del tiempo CPU [14, 25, 29]. Se pospone cualquier intervención sobre locks de `revision` o `Photo+Blob` [12, 13].\n* **Coste que NO podemos atribuir**:\n  1. No se puede atribuir la brecha wall/CPU a tiempo exclusivo de motor en PostgreSQL ni I/O [3, 5, 6].\n  2. No se puede atribuir el tiempo de `canonical_bytes` dentro de la función `source_copy` [1].\n  3. No se pueden atribuir ahorros hipotéticos derivados de omitir la ordenación en JSON o alterar el orden/tipos de validación [10, 11].\n* **Salida**: Si la medición no demuestra un ahorro material en la construcción de objetos respecto al tiempo real medido, **se cierra definitivamente esa rama sin declarar límites intrínsecos de la arquitectura** y se pasa a la siguiente fase observada [19, 20, 30]. Si se confirma ahorro material, se aplicará la optimización condicionada de datos accesorios y posteriormente se procederá con las pruebas de equivalencia, carreras N+2 y balanceo HTTP [31-33].\n\n🔍 ¿Quieres que dejemos definida la plantilla exacta de métricas del informe de diagnóstico de bloque único para registrar los spans antes de iniciar las lecturas observacionales?",
+  "question": "Tu revisión ayuda a priorizar source/materialización, pero antes de cerrar corrige estas afirmaciones:1)253ms CPU source_copy NOincluye canonical_bytes de _InspectionSource.__init__: este llama primero source_copy y luego canonical, fuera de su cuerpo. La comprobación de mutación se hace tras yield antes de finally; finally sóloreset ContextVar.2)gapwallCPU NOseatribuye sóloI/O, también CPUdeotrothread/GIL/planificador/contención, y perfspans no separanPG/red automáticamente. Los2workerssonPROCESOS: no compartenun mismoGIL (otros hilos del propio proceso sí).3)canonical_bytes ejecuta _check conkernelCythonvalidado o fallback y orjson.dumps SORT_KEYS. Quitarordenacióncambiaalgoritmo/bytes/HMAC salvopruebafuerte yrechazostipos; no proponereseatajo.4)consumidores actuales SÍusanatributos:item.slug,item.code,rate.concept,photo.blob.status/width/height ycontact_data revision.phone/whatsapp: cambiarvalues exige adaptaciónexplícita ypreservarpolicy/orden/UTC/Decimal/nulos/rowsets/locks/momentolecturas.5)35%/30%/40ms/50ms/25ms sonumbralesinventados,noevidencianicriteriospactados. UncomponenteXms puedeahorrarCOMOmáximoXms,nosepredecirendondealcanzar1.753s histórica diferente. No declarar límite arquitectónico por1perfil o20muestrasnoequivalentes.6)3pasadasnoaislantemporalmentecalentamiento/ruido,ysóloorientan no p95.\nPROPUESTA REVISADA PROPIA: diagnóstico unúnicobloquecontrol/perfilado/control,clonesidénticos64lotes auditados,secuencias ywarmPOST ambosworkers verificadas, reportarpid por muestra. Spans parentwallCPU source_copy+batches next() (no contar tiempoquegeneradorestsuspendidoentreyield), queriesrelaciones/materialización agrupación distinta dePython construcciónsource;source_fingerprint entrada/salida;init/teardowncanonical/HMAC enperímetrospropios; render/servicio/backend. cProfilethread_timeauxiliar sinlocals no sumardos árbolesexclusivos diferentes ni descuentooverhead. Unpartida dominante sinmicrosegundosinventados →como máximo1candidata,priorizar valorespara categorías/servicios/travelareasANTESdecambiarrevisionlocks/Photo+Blob, sólo si CPUmodel construcción significativo. Si noahorroposiblematerialfrente tiempoactualmedido,se cierraesa rama yselecciona siguientefaseobservada; nuncaafirmar límiteintrínsecoarquitectura. Validaciónequivalencia+N2races+HTTPcontrabalanceado sólo posterior.\nConfirma o critica concretamente ese alcance y escribe conclusiónbreve(cuálfasepriorizar/candidataCONDICIONAL/costequenopodemosatribuir/salida). Esto es deliberación,sinimplementaciónejecuciónnueva. No pedirpermiso ni repetirumbrales arbitrarios.",
+  "conversation_id": "99c86acd-9184-4561-8d47-e5c44f4636ab",
+  "sources_used": [
+    "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "6ae02617-af23-430d-8f53-16dca72896db",
+    "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+    "d5a14ea9-eb2d-4be2-ad02-988cf334e304",
+    "f68f240e-a335-4cd5-a326-7423a1d15a55",
+    "5125c534-a7f6-4ef5-a8ab-5b93244ef8ea",
+    "467a0cf6-6d05-4b27-bec2-f069ea1e708a",
+    "dea83309-abaa-41fd-8f11-8f8da6d65256",
+    "a4056f0f-d644-4156-a953-83c0a4dbf9d0",
+    "5473bde7-d761-44a0-806c-c1e17c32afef",
+    "3aa332ed-0fdc-4073-bddc-442b45ee04af",
+    "edab2164-44aa-46aa-8f4e-8913168fb338"
+  ],
+  "citations": {
+    "1": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "2": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "3": "6ae02617-af23-430d-8f53-16dca72896db",
+    "4": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "5": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "6": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "7": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+    "8": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+    "9": "d5a14ea9-eb2d-4be2-ad02-988cf334e304",
+    "10": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+    "11": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+    "12": "5125c534-a7f6-4ef5-a8ab-5b93244ef8ea",
+    "13": "467a0cf6-6d05-4b27-bec2-f069ea1e708a",
+    "14": "dea83309-abaa-41fd-8f11-8f8da6d65256",
+    "15": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "16": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "17": "a4056f0f-d644-4156-a953-83c0a4dbf9d0",
+    "18": "6ae02617-af23-430d-8f53-16dca72896db",
+    "19": "6ae02617-af23-430d-8f53-16dca72896db",
+    "20": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "21": "6ae02617-af23-430d-8f53-16dca72896db",
+    "22": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "23": "5473bde7-d761-44a0-806c-c1e17c32afef",
+    "24": "dea83309-abaa-41fd-8f11-8f8da6d65256",
+    "25": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "26": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "27": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "28": "3aa332ed-0fdc-4073-bddc-442b45ee04af",
+    "29": "edab2164-44aa-46aa-8f4e-8913168fb338",
+    "30": "6ae02617-af23-430d-8f53-16dca72896db",
+    "31": "5473bde7-d761-44a0-806c-c1e17c32afef",
+    "32": "5473bde7-d761-44a0-806c-c1e17c32afef",
+    "33": "5473bde7-d761-44a0-806c-c1e17c32afef"
+  },
+  "references": [
+    {
+      "source_id": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+      "citation_number": 1,
+      "cited_text": "from .fast_canonical import canonical_bytes from .rights import fingerprint from .rights_exports import source_copy from .rights_source_fingerprint import source_fingerprint _current = ContextVar(\"rights_inspection_source\", default=None) def scope(person, listing, case): return ( case.pk, case.version, case.person_id, case.account_subject_id, case.manager_version, person.pk if person else None, listing.pk if listing else None, ) class _InspectionSource: @sensitive_variables() def init (self, person, listing, case): self.scope = scope(person, listing, case) self.connection = transaction.get_connection() # Taken before the read: a change committed in between makes the exit comparison differ. self.rows_fingerprint = source_fingerprint(person, listing, case) self.source = source_copy(person, listing, case) self.digest = fingerprint(canonical_bytes(self.source)) self.row_references = {}"
+    },
+    {
+      "source_id": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+      "citation_number": 2,
+      "cited_text": "@contextmanager @sensitive_variables() def inspection_source(person, listing, case): if not transaction.get_connection().in_atomic_block: raise RuntimeError(\"Inspection source requires an enclosing atomic transaction\") context = _InspectionSource(person, listing, case) token = _current.set(context) try: yield context context.get(person, listing, case) # Detect accidental mutation of the shared projection as well as DB drift. if fingerprint(canonical_bytes(context.source)) != context.digest: raise ValidationError(\"Inspection source changed before return\") # Unchanged row versions prove the source rows are those read; otherwise compare in full. if source_fingerprint(person, listing, case) != context.rows_fingerprint and ( fingerprint(canonical_bytes(_fresh_source(person, listing, case))) != context.digest ): raise ValidationError(\"Inspection source changed before return\") finally: _current.reset(token)"
+    },
+    {
+      "source_id": "6ae02617-af23-430d-8f53-16dca72896db",
+      "citation_number": 3,
+      "cited_text": "En29,000s de contadores reales: app1,575CPU medias, PG1,778 y host6,400 de8visibles. Así se distingue ocupación≈100% de workers de CPU consumida. El margen compartido observado es limitado y variable; afinidad0–7/cuotas sin límite finito y ausencia de throttling observado no reservan ocho cores. PostgreSQL activo sin espera en54muestras no equivale a tiempo acumulado de CPU; la CPU procede de contadoresOS. PSI ausente, CPU PG por request y overhead causal de WSGI: not_measured. Colector0,110CPU medias, límites prefijados cumplidos. Sin evidencia de OOM o swap IO en esa ventana, con swap casi ocupado y presión no descartable globalmente."
+    },
+    {
+      "source_id": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+      "citation_number": 4,
+      "cited_text": "Evidencia de requests dentro de workers Diagnóstico concurrente ,6915c19,FAIL/generador válido:1200emitidas/18éxitos/1182timeouts/0omisiones/0pendientesfinales;1182pendientesventana/1upload302. Demora p952,830691ms/p993,876802/max24,034535; p95cliente65,002418s/errores98,5%/elapsed124,979977s. Ledger y eventos comprimidos conservan bytes/huellas originales; source/artifactSHA/manifiesto/clock/IDs/rutas/status/retirada independientes verificados. No900s, contractual original INVALID intacto. 557eventos de4workers:46dinámicas conentradaWSGI,42cierres200y4parciales,1154emitidas sininicio capturado. No inferir ubicación/causa/tiempo exacto de cola para no capturados. Emisión→entrada p5067,542597s/p95118,237672/máximo119,510345,46entradas; incluye conexión/transporte/scheduling/esperas.42cierres:p95wallWSGI18,512758s/CPUhilo13,941992s,SQLexecute p955,259747s/2618calls; todas son poblaciones capturadas, no latencia completa cliente.28listado/búsqueda:p95contexto12,054009wall/7,697391CPU;42validaciones agregadas280014calls,p95wall6,312166/CPU6,234950 (28×10000+14×1). Render28rutaslistado/búsqueda p950,079704s, ficha ausente not_measured. Solo18cierres cliente exitosos pese42cierres servidor; no equiparar ambas poblaciones. Cuatro parciales conservan contexto y4000/4000/5000/8000validaciones; snapshots son trabajo observado hasta captura, no total posterior. SQL/fases/GC lazy solapan: no sumar, descontar otra vez, deducir Python ni llamarSQLwallDBCPU. CPUhilo incluyesobserver, excluyeDB/otros hilos. Normalización SQL y ORMcounts/RSS/DBCPU/waits/locks/IO/causaloverhead concurrentes not_measured."
+    },
+    {
+      "source_id": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+      "citation_number": 5,
+      "cited_text": "La observación de referencia es: 51,5 % del tiempo WSGI acumulado observado en requests proyectados completados transcurrió dentro de cursor.execute . Su alcance incluye driver, espera/ejecución del servidor y transferencia/buffering correspondientes al método; no equivale a CPU PostgreSQL ni describe requests sin observación completa. La saturación/cola de cuatro workers es una hipótesis compatible, no una causa medida. Para atribuir espera antes de WSGI hacen falta observaciones de aceptación/dispatch, ocupación de workers y conexiones, con sus límites; las ausentes quedan not_measured ."
+    },
+    {
+      "source_id": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+      "citation_number": 6,
+      "cited_text": "Datos completos por modelo, procedencia, prefetch y patrones SQL redactados . Cada patrón conserva calls, total_time y mean_time en segundos; se verificó que calls y tiempos reconciliaran con los totales SQL. Parámetros y literales sensibles no se conservan. Relaciones materializadas se registran por modelo; memberships por relación son referencias, no filas SQL ni entidades distintas. SQL execute observa el intervalo del cursor, con comunicación/driver/buffering; no separa CPU PostgreSQL ni fetch/conversión posteriores. Supone 33,04%, 14,06% y 9,70% del request respectivamente. No alcanza la heurística prefijada de predominio del 50%; no se ejecutó EXPLAIN ni se instaló pg_stat_statements. No se concluye ausencia de coste SQL o contención bajo concurrencia."
+    },
+    {
+      "source_id": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+      "citation_number": 7,
+      "cited_text": "Reparto PG1,5/app2,25/Redis0,25 de los mismos4CPU/8GiB verificado kernel: 20261009-175045-cbd4e105 PASS consulta concurrente página1,20respuestas completas/caso, p951,840419/1,726815s≤2s, sin contaminación ni errores y rondas solapadas. Máximo2,124082s del primer caso conservado; es p95, no techo por solicitud. Gunicorn2sync reales/master-grupoexit0; RSS driver342.401.024/master34.848.768/workers207.601.664/207.499.264B. Picos cgroup individuales PG296.701.952/Redis8.790.016/app847.745.024B, no total sincrónico ni almacenamiento global. Preparación14,041/14,660s y construcción15,227/14,750s separadas. Fuentes iguales/recursos retirados. Datos/controles/límites , Artefactos . Adoptar reparto para siguientes ensayos propios de expedientes; no modifica servicios normales ni demuestra causalidad contra runs separados. Próximo: completar31páginas por caso y decisiones HTTP con muestreo de aprobaciones; después selección/cobertura binaria completa, generación/cierre/descarga≤8MiB y medición de presupuesto global. CR09 integral/N3/fases abiertos."
+    },
+    {
+      "source_id": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+      "citation_number": 8,
+      "cited_text": "Diagnóstico WSGI terminal 20261009-174257-a068d6f8 : FAIL p95 ordinario1,882800/2,119387s, veinte rondas por caso sin perfil; dos solicitudes adicionales perfiladas en dos workers con snapshots frescos 1,49s acumulados y seis fetchmany 0,675/0,757s. No atribución causal a CPU de PostgreSQL desde cProfile. Perfiles/medidas , Artefactos . Fuente igual/recursos retirados/grupoexit0; handle72441 cerrado. No N3/capacidad integral. UUID nativo N2 20261009-173403-5830708d 4PASS75,19s. Gunicorn concurrente 20261009-173627-2aa5699c FAIL: p952,022424/1,911865s,20respuestas completas/caso, sin errores/contaminación, solapadas. DriverRSS343.019.520/master34.996.224/workers207.679.488/207.839.232B, todos<1GiB; no presupuesto global probado. Fuentes iguales/grupoexit0/conts-red retirados. Datos y límites , Artefactos . No beneficio causal de latencia demostrado; no repetir igual para buscar PASS. Próxima selección finita: mismo ensayo Gunicorn600s,20rondas sin instrumentar por caso más una consulta adicional perfilada por worker con wrapper WSGI propio, sin cambiar código de aplicación/criterios; conservar perfil separado/muestras/fallos/RSS y retirada. Objetivo diagnóstico de coste por función en procesos reales; no atribuir tiempos instrumentados a p95 ni CPU causal."
+    },
+    {
+      "source_id": "d5a14ea9-eb2d-4be2-ad02-988cf334e304",
+      "citation_number": 9,
+      "cited_text": "def percentile(values, ratio): return sorted(values)[max(0, math.ceil(len(values) * ratio) - 1)] if values else None @pytest.mark.skipif(not os.getenv(\"RESOURCE_CHECKPOINT_OUTPUT\"), reason=\"Explicit owned resource diagnosis only\") def test_resource_checkpoint(request, tmp_path, record_property): scenario = \"resources\" observe_workers = True assert not (observe_workers and scenario == \"measured\"), \"Worker observer is diagnostic only\" large = scenario != \"functional\" upload_count = 15 if scenario == \"measured\" else 1 request.getfixturevalue(\"directory\") assert connection.vendor == \"postgresql\" dataset = populate(10000 if large else 10) deployment_output = io.StringIO() call_command(\"refresh_publication_state\", stdout=deployment_output) dataset[\"deployment_step\"] = deployment_output.getvalue().strip() db = connection.settings_dict assert db[\"NAME\"].startswith(\"test_promotion_gate_\") environment = os.environ.copy() environment.update( POSTGRES_DB=db[\"NAME\"], POSTGRES_USER=db[\"USER\"], POSTGRES_PASSWORD=db[\"PASSWORD\"], DB_HOST=db[\"HOST\"], DB_PORT=str(db[\"PORT\"]), APP_ENV=\"development\", DJANGO_DEBUG=\"0\", DJANGO_SETTINGS_MODULE=\"load_runtime_settings\", PYTHONPATH=str(tmp_path) + os.pathsep + str(Path.cwd()), REDIS_URL=\"memory://\", TASK_QUEUE_GENERATION=\"l\" + uuid4().hex[:31], ) (tmp_path / \"load_runtime_settings.py\").write_text( \"from config.settings import *\\n\" + \"MEDIA_ROOT = \" + repr(str(django_settings.MEDIA_ROOT)) + \"\\n\" + \"CELERY_TASK_ALWAYS_EAGER = True\\nCELERY_TASK_EAGER_PROPAGATES = True\\n\" + 'CELERY_BEAT_SCHEDULE = {}\\nCELERY_RESULT_BACKEND = \"cache+memory://\"\\n' ) with socket.socket() as port_socket: port_socket.bind((\"127.0.0.1\", 0)) port = port_socket.getsockname()[1] origin = f\"http://127.0.0.1:{port}\" logfile = tmp_path / \"gunicorn-private.log\" accessfile = tmp_path / \"gunicorn-access.log\" rows, cold, uploads = [], [], [] with connection.cursor() as cursor: cursor.execute(\"SHOW server_version\") postgres_version = cursor.fetchone()[0] resources = { \"os\": platform.platform(), \"cpu_count\": os.cpu_count(), \"cpu_affinity_count\": len(os.sched_getaffinity(0)), \"postgres_version\": postgres_version, \"gunicorn_version\": version(\"gunicorn\"), \"django_version\": version(\"Django\"), \"python_version\": platform.python_version(), \"pg_server_shared\": True, \"limits\": \"Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.\", } for name, file in [ (\"memory_total\", \"/proc/meminfo\"), (\"cgroup_memory_max\", \"/sys/fs/cgroup/memory.max\"), (\"cgroup_cpu_max\", \"/sys/fs/cgroup/cpu.max\"), ]: if Path(file).is_file(): value = Path(file).read_text() resources[name] = value.splitlines()[0] if name == \"memory_total\" else value.strip() process = None probe = None summary = { \"dataset\": dataset, \"resources\": resources, \"success\": False, \"duration_seconds\": {\"resources\":30}[scenario], \"arrival_rps\": 20, \"server\": \"Gunicorn4 sync workers local TCP\", \"scope\": \"Synthetic local server capacity; external production/identity/CDN excluded. Upload processing eager in request, no real worker throughput claim.\", \"verdict\": \"INVALID\", \"invalid_reasons\": [\"workload_not_executed\"], \"policy\": dict(POLICY), \"mix\": { \"listing\": \"1/3\", \"search\": \"1/3\", \"detail\": \"1/3\", \"languages\": \"ES/EN alternating\", \"uploads\": \"separate1/minute,15 for contractual run\", }, \"not_measured\": [ \"app/DB CPU\", \"DB connections/waits/locks/IO\", \"worker/PostgreSQL RSS baseline/peak/final\", \"CPU/request\", \"allocations/request\", \"generator process CPU/RSS/scheduling outside observed GC intervals\", \"causal client GC callback overhead\", ], } routes = [ \"/es/\", \"/en/\", \"/es/?q=photography\", \"/en/?q=synthetic\", \"/es/listing/\" + dataset[\"sample_ids\"][0] + \"/\", \"/en/listing/\" + dataset[\"sample_ids\"][-1] + \"/\", ]"
+    },
+    {
+      "source_id": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+      "citation_number": 10,
+      "cited_text": "===== ARCHIVO: apps/safety/fast_canonical.py ===== \"\"\"Versioned canonical JSON for rights; content hashes never authorize an action.\"\"\" import math import sys import orjson from blake3 import blake3 CANONICAL_SCHEMA = \"rights-canonical-json-v2\" CONTENT_REFERENCE_SCHEMA = \"b3v2\" def reference_check(value, depth=0): # orjson otherwise silently converts nonfinite floats to null and accepts UUID, # dataclass and datetime values that the former JSON encoder rejected. if depth > 200: raise ValueError(\"Canonical JSON exceeds maximum nesting\") kind = type(value) if value is None or kind in (str, bool, int): return if kind is float: if not math.isfinite(value): raise ValueError(\"Canonical JSON requires finite numbers\") return if kind is dict: for key, item in value.items(): if type(key) is not str: raise TypeError(\"Canonical JSON requires string keys\") reference_check(item, depth + 1) return if kind in (list, tuple): for item in value: reference_check(item, depth + 1) return raise TypeError(\"Canonical JSON requires explicit JSON values\")"
+    },
+    {
+      "source_id": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+      "citation_number": 11,
+      "cited_text": "def canonical_bytes(value): \"\"\"Sorted UTF-8, compact JSON; no implicit conversion or Unicode normalization.\"\"\" _check(value) return orjson.dumps(value, option=orjson.OPT_SORT_KEYS) def canonical(value): return canonical_bytes(value).decode(\"utf-8\") def content_reference(value): \"\"\"Unkeyed, domain/version-separated content identity; NOT a secret signature.\"\"\" payload = CANONICAL_SCHEMA.encode() + b\"\\0\" + canonical_bytes(value) return CONTENT_REFERENCE_SCHEMA + \":\" + blake3(payload).hexdigest() ===== ARCHIVO: apps/safety/management/ init .py ====="
+    },
+    {
+      "source_id": "5125c534-a7f6-4ef5-a8ab-5b93244ef8ea",
+      "citation_number": 12,
+      "cited_text": "from django.core.exceptions import ValidationError from django.db import transaction from apps.mediafiles.models import Photo from apps.mediafiles.tasks import process_blob from .forms import DetailsForm from .history import is_rectification_history from .models import Rate, Revision def create_draft(listing, person): \"\"\"Called under manager/person/listing locks; approved content is never edited.\"\"\" if person.publication_erased_at: raise ValidationError(\"Publication erased / Publicación suprimida\") source = listing.approved_revision if source and source.manager_version != person.manager_version: source = None correction = ( listing.revisions.filter( manager_version=person.manager_version, status__in=[\"rejected\", \"pending\"] ) .order_by(\"-created_at\") .first() ) if correction and (not source or correction.created_at > source.created_at): source = correction if source and is_rectification_history(source): source = None revision = Revision.objects.create( listing=listing, manager_version=person.manager_version, source_revision=source ) if not source: return revision for name in DetailsForm.Meta.fields: field = Revision._meta.get_field(name) if field.many_to_many: getattr(revision, name).set(getattr(source, name).all()) else: setattr(revision, field.attname, deepcopy(getattr(source, field.attname))) revision.whatsapp, revision.telegram = source.whatsapp, source.telegram # Every new version requires current contact exposure and a fresh declaration. revision.save() for rate in source.rates.all(): Rate.objects.create( revision=revision, concept=rate.concept, mode=rate.mode, amount=rate.amount, currency=rate.currency, duration_minutes=rate.duration_minutes, ) blob_ids = set() for photo in source.photos.filter(removed_at__isnull=True): Photo.objects.create(revision=revision, blob_id=photo.blob_id, position=photo.position) blob_ids.add(str(photo.blob_id)) for blob_id in blob_ids: transaction.on_commit(lambda blob_id=blob_id: process_blob.delay(blob_id), robust=True) return revision"
+    },
+    {
+      "source_id": "467a0cf6-6d05-4b27-bec2-f069ea1e708a",
+      "citation_number": 13,
+      "cited_text": "class Photo(models.Model): id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) revision = models.ForeignKey( \"listings.Revision\", on_delete=models.CASCADE, related_name=\"photos\" ) blob = models.ForeignKey(Blob, on_delete=models.PROTECT, related_name=\"photos\") position = models.PositiveSmallIntegerField(default=0) approved = models.BooleanField(default=False) comparison_complete = models.BooleanField(default=False) removed_at = models.DateTimeField(null=True) created_at = models.DateTimeField(auto_now_add=True)"
+    },
+    {
+      "source_id": "dea83309-abaa-41fd-8f11-8f8da6d65256",
+      "citation_number": 14,
+      "cited_text": "def source(candidate): photo = Photo.objects.select_related(\"revision__listing__person\").get(pk=candidate.photo_id) disposition = candidate.disposition person = photo.revision.listing.person blobs = Blob.objects.filter(pk__in=[candidate.uploaded_blob_id, disposition.blob_id]) execution = disposition.execution resources = list( blobs.order_by(\"pk\").values( \"pk\", \"sha256\", \"status\", \"original\", \"derivative\", \"signature\", \"width\", \"height\" ) ) return fingerprint( json.dumps( { \"candidate\": candidate.pk, \"method\": candidate.method, \"score\": candidate.score, \"photo\": photo.pk, \"blob\": photo.blob_id, \"removed\": photo.removed_at, \"revision\": photo.revision_id, \"manager\": person.manager_version, \"rights\": person.rights_version, \"execution\": execution.pk, \"proof\": execution.proof_id, \"proof_status\": execution.proof.status, \"review_outcome\": execution.notification.review.outcome, \"disposition\": disposition.pk, \"outcome\": disposition.outcome, \"active\": active_withdrawals(person.pk).filter(pk=disposition.pk).exists(), \"resources\": resources, }, sort_keys=True, default=str, ) )"
+    },
+    {
+      "source_id": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+      "citation_number": 15,
+      "cited_text": "def contact_data(person, revision): claim = person.phone_claim owned = bool( claim and person.subject_id and claim.individual_id == person.subject_id and not claim.agency_id and claim.verified_at and revision.phone == claim.phone ) # A publication contact is not automatically the subject's own telephone. return { \"scope\": \"subject_personal_verified\" if owned else \"shared_or_unestablished\", \"phone\": revision.phone if owned else \"\", \"whatsapp\": revision.whatsapp if owned else False, \"telegram\": \"\",  # Username ownership has no independent scoped proof yet. }"
+    },
+    {
+      "source_id": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+      "citation_number": 16,
+      "cited_text": "def image_inventory(revision): photos = getattr(revision, \"copy_photos\", None) if photos is None: photos = revision.photos.select_related(\"blob\").order_by(\"created_at\", \"pk\") return [ { \"photo\": str(photo.pk), \"position\": photo.position, \"created_at\": date(photo.created_at), \"removed_at\": date(photo.removed_at), \"processing_status\": photo.blob.status, \"width\": photo.blob.width, \"height\": photo.blob.height, \"content_included\": False, \"exclusion_code\": \"awaiting_review\", } for photo in photos ] ===== ARCHIVO: apps/safety/rights_copy_information.py ===== \"\"\"Scoped information drafts; saving never resolves an access or portability request.\"\"\""
+    },
+    {
+      "source_id": "a4056f0f-d644-4156-a953-83c0a4dbf9d0",
+      "citation_number": 17,
+      "cited_text": "Remember that you may be optimizing for speed or memory or both, depending on your requirements. Sometimes optimizing for one will be detrimental to the other, but sometimes they will help each other. Also, work that is done by the database process might not have the same cost (to you) as the same amount of work done in your Python process. It is up to you to decide what your priorities are, where the balance must lie, and profile all of these as required since this will depend on your application and server."
+    },
+    {
+      "source_id": "6ae02617-af23-430d-8f53-16dca72896db",
+      "citation_number": 18,
+      "cited_text": "<cited_table>",
+      "cited_table": {
+        "num_columns": 2,
+        "rows": [
+          [
+            "DAFO actualizado",
+            "Evidencia / implicación"
+          ],
+          [
+            "Fortalezas",
+            "600paresWSGI/200familia, contabilidad y generador válidos; código424apps/configidéntico, comparación descriptiva defendible; PostgreSQL real y retirada revisada."
+          ],
+          [
+            "Debilidades",
+            "324pendientes y p9531,047s; demanda8,211818sworker/s bajo condiciones observadas supera cuatroworkers; desglose concurrenteSQL/reglas/render y PSI not_measured."
+          ],
+          [
+            "Oportunidades",
+            "Listado45,068% y búsqueda47,220% deD: investigar trabajo absoluto vigente reutilizando perfiles/planes, preservando equivalencia y HTTP; no extrapolar a ficha7,713%."
+          ],
+          [
+            "Amenazas",
+            "Un solo bloque, cachés/host compartidos, acta de limpieza ausente; CPU visible no garantizada, residual no atribuye servicio; sobreatribuir diferencias a contenedores o a backend sin cambio."
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "6ae02617-af23-430d-8f53-16dca72896db",
+      "citation_number": 19,
+      "cited_text": "Fortaleza: los cambios locales conservados tienen efecto TCP y cobertura común verificables. Debilidad: aun≈0,59–0,61s WSGI para listados/búsqueda, falla el gate con infraestructura vigente. Oportunidad: SQL principal0,244490/0,257716s en matriz y threadCPU≈0,231s en completados concurrentes justifican separar preparación/huella/guard/render con observación local contrastada, antes de elegir mecanismo. Amenaza: repetir carga, sumar mejoras históricas o escoger una optimización desde un perfil que multiplica latencia. No subir workers/PG ni añadir caché; tampoco convertir150–200ms en condición nueva. La atribución siguiente está prefijada solo en docs17; goal automático pausado, trabajo manual continúa."
+    },
+    {
+      "source_id": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+      "citation_number": 20,
+      "cited_text": "Matriz/perfil d054292 :4 casos PG correctos y fuentes/artefactos/limpieza comprobados, misma instrumentación de tiempos con nuevo contador hits/misses (antes not_measured).100/1000/10000 total0,854359/1,900190/15,765501s,74queries, SQL0,301978/0,282475/1,856407s.10000contexto7,601364s/validación7,696159s/render0,064075s,10000validaciones;219978hits/22misses. Títulos únicos permanecen; otros campos clonados comparten entradas, no extrapolar tasa de hits al tráfico real. Perfil Details._clean_fields10000calls:wallinclusive/exclusive1,832492s,mean0,000183249s/max0,001843893s; CPUexclusive1,822286s frente2,08976s anterior. Sin hijos instrumentados dentro de esta regla; no implica ausencia de trabajo interno. Reporte conserva hijos directos descontados una vez para todas las reglas, no resta descendientes otra vez. Control18,203370s wall/14,024448s CPU vs anterior18,577181/13,934498s; profiler23,405015/19,271369s. Matriz total10000 empeora respecto15,584915s anterior, validación7,696159 vs7,410128; ahorro focalizado no mejora global acreditada. Una muestra por caso, cachés/host y coste del contador/profiler; control response retenido, overhead causal not_measured, sin corrección aritmética. No total−SQL como validación. SQL no domina≥50%: EXPLAIN no activado; filasSQL/DBCPU/waits/locks/IO/GC/p95porregla siguen not_measured."
+    },
+    {
+      "source_id": "6ae02617-af23-430d-8f53-16dca72896db",
+      "citation_number": 21,
+      "cited_text": "<cited_table> **Hechos:**2400/2400emitidas/éxitos finales,0errores/omitidas/pendientes finales,4uploads302 y generadores válidos;200paresWSGI porfamilia/bloque. Los cuatro bloques sonFAILporlatencia/pendientesventana, sin gate60s ni900s. W20=20D+upload/60 produce8,641950/9,842898/10,106363/8,446934sworker/s, ocupación calculada ycondicionada aestasmedias, noCPU/capacidad. PreWSGImedia18,523/10,503/11,228/17,812s, noidentifica cola exacta. CPUdirecta de aplicación/servicioPG observada, no desdeexecute niéxitos individuales.",
+      "cited_table": {
+        "num_columns": 5,
+        "rows": [
+          [
+            "Bloque / workers",
+            "Éxitos durante30s / pendientes",
+            "p95cliente,s",
+            "Dmedio,s",
+            "CPUapp / PG / host medias≈29s"
+          ],
+          [
+            "1 /4",
+            "264 /336",
+            "34,238",
+            "0,427814",
+            "1,561 /1,719 /6,438"
+          ],
+          [
+            "2 /6",
+            "349 /251",
+            "19,465",
+            "0,487275",
+            "2,091 /2,206 /7,183"
+          ],
+          [
+            "3 /6",
+            "334 /266",
+            "20,523",
+            "0,500156",
+            "2,045 /2,167 /7,175"
+          ],
+          [
+            "4 /4",
+            "264 /336",
+            "32,718",
+            "0,418046",
+            "1,638 /1,798 /5,948"
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+      "citation_number": 22,
+      "cited_text": "Generador: pausa observada y preparación independiente Filtro1dee656 ,fuentes/huellas/ledger/limpieza verificados:INVALID porgenmax273,462348ms>100ms (p953,149220/p996,763354ms),1200emitidas/18éxitos/1182timeouts/0omitidas/pendientesfinales,1upload302,ventana1182pendientes. p95observable65,002734s/errores98,5%,elapsed124,975884s. No900s,INVALID anteriores intactos. Cliente:75gen0/7gen1/1gen2;GC343,919558mswall/283,685501msCPU hilo colector. Evento gen2 t25,451193–25,773107:321,913008mswall/262,404332msCPU,140072objetosGCcollected (noORM/filasSQL ni procedenciaindividual medida). Máximo d-510 demora273,462348ms ysolapamientoGC273,107127ms; seisemisiones conintersección. Unión/contadores/solapamiento recalculados independientemente delhelper. No atribuir causasGC a filtros antiguos sin estos datos ni afirmar exclusividad: scheduling/CPUglobalcliente/otrasprocesos/not_measured."
+    },
+    {
+      "source_id": "5473bde7-d761-44a0-806c-c1e17c32afef",
+      "citation_number": 23,
+      "cited_text": "37284 terminal0:2 PostgreSQL correctas45,58s,0fallos/errores/skips. Perfil/cuenta: lectorindependiente, coverage_inspect observada antesdescifradocobertura, incluidos y omitidospendientes visibles/replay/mismaclaveotrapágina rechazada/autorrechazado/resumensinproyeccióncompleta. Evidencia portabilidad-cobertura-lectura-independiente.json. Lectura binaria, constancia completa de páginas/aprobación, UI y runtime0091 pendientes; CR09/contrato abiertos. Lecturaindependiente amplía modo binary explícito en firma/página y childaudit, páginas20metadata/status/condiciones de imágenes incluidas/excluidas/pendientes. Noautorizabytes.68402 activo /tmp/portability-coverage-independent-binary.xml,3PostgreSQL(camposperfil/cuenta+binariosperfil), fuenteestable hasta terminal. UI/lecturacompletatodaspáginas/aprobación/runtime0091/contrato siguenpendientes."
+    },
+    {
+      "source_id": "dea83309-abaa-41fd-8f11-8f8da6d65256",
+      "citation_number": 24,
+      "cited_text": "from .crypto import unseal def ids(query): return [str(pk) for pk in query.order_by(\"pk\").values_list(\"pk\", flat=True)] @sensitive_variables() def capture(person, subject, purposes, exports, shared_ids, media_redaction): refs = {} if \"authentication\" in purposes: refs[\"tokens\"] = ids(AccountToken.objects.filter(user=subject)) refs[\"recovery_codes\"] = ids(RecoveryCode.objects.filter(user=subject)) if \"account_preferences\" in purposes: refs[\"favorites\"] = ids(Favorite.objects.filter(user=subject)) if \"contact\" in purposes: refs[\"phone_challenges\"] = ids(PhoneChallenge.objects.filter(person=person)) if \"representation\" in purposes: refs[\"representation_invitations\"] = ids( RepresentationInvitation.objects.filter(person=person) ) if set(purposes) & {\"publication\", \"representation\", \"shared_contact_review\"}: refs[\"listings\"] = ids(Listing.objects.filter(person=person)) if set(purposes) & {\"publication\", \"shared_contact_review\"}: refs[\"revisions\"] = ids(Revision.objects.filter(listing__person=person)) if \"transient_copy\" in purposes: refs[\"exports\"] = [str(export.pk) for export in exports if not export.purged_at] if \"media\" in purposes: photos = list( Photo.objects.filter(revision__listing__person=person) .order_by(\"pk\") .values_list(\"pk\", \"blob_id\") ) refs[\"photos\"] = [ {\"photo\": str(pk), \"blob\": str(blob), \"shared\": blob in shared_ids} for pk, blob in photos ] refs[\"media_operation\"] = ( \"detach_shared_and_review_exclusive\" if media_redaction else \"erase_exclusive\" ) return refs"
+    },
+    {
+      "source_id": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+      "citation_number": 25,
+      "cited_text": "N1 actual21 casos PG verifica100candidatos, identidad compartida por PK, revocación individual aislada y agencia fallida en contexto nuevo. Matriz y perfil0f96c87 :4 casos correctos y limpieza.100/1000/10000total0,891744/2,007792/15,584915s;74queries/SQL0,279214/0,308064/1,297713s. Cuatro lotes FK adicionales evitan objetos repetidos, noN+1. Agency1/Acceptance2/Document3/Municipality6/Province7/Region5/Blob2 por caso frente miles anteriores; son objetos, no filas SQL.10000validaciones/contexto7,752570s/validación7,410128s/render0,064007s. Control18,577181s wall/13,934498s CPU frente17,491878/15,835110s antes: CPU baja, wall sube, no mejora uniforme. Overhead causal/DBCPU/GC not_measured. Repetir filtro60s prefijado antes de900s; capacidad aún no acreditada."
+    },
+    {
+      "source_id": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+      "citation_number": 26,
+      "cited_text": "Perfil por regla previo al siguiente cambio Fuente be3753f, perfil completo : PostgreSQL correcto, fuentes/artefactos/limpieza verificados. Una petición control30,371242s, después instrumentada35,367333s; diferencia4,996091s incluye efectos de caché/host, overhead causal not_measured, sin ajuste. Cada regla registra calls, inclusive_time, exclusive_time, mean_exclusive_time, max_exclusive_time e identidad/tiempo de hijos descontados. Solo hijos directos: descendientes no se descuentan dos veces; pruebas deterministas2 correctas. Tiempo exclusivo incluye trabajo interno no instrumentado."
+    },
+    {
+      "source_id": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+      "citation_number": 27,
+      "cited_text": "Perfil10000: control14,471418s wall/13,233025s CPU hilo; instrumentado19,960189/18,797222s. Control anterior de liberación16,372251/12,251821: wall menor y CPU mayor, no mejora uniforme ni causal. validate_submission10000calls, exclusivo2,941006s wall/2,925464CPU,mean0,000294101s/max0,009051347s; SnapshotDetails._clean_fields exclusivo1,621730s/1,617482CPU; _post_clean1,589224/1,583715. Hijos directos completos por regla en informe; no restar nietos ni sumar estas cifras al total. El chequeo de la clave permanece dentro del exclusivo de validate_submission: su coste separado es not_measured, no deducirlo por resta. SQL13,693% del total instrumental, no domina con la heurística previa50%; no ejecutar EXPLAIN por suposición. Pausas observadas dentro de from_db/manager pueden incluir GC, pero GC de este ciclo no se instrumenta: not_measured, no reatribuirlas. Overhead causal not_measured, control/perfil secuenciales y respuesta control retenida."
+    },
+    {
+      "source_id": "3aa332ed-0fdc-4073-bddc-442b45ee04af",
+      "citation_number": 28,
+      "cited_text": "===== ARCHIVO: scripts/benchmark_resource_observer.py ===== \"\"\"Owned resource checkpoint: WSGI wall/threadCPU and actual route only. No SQL/render/rule wrappers or Python profiler. SQL CPU comes from OS counters of the PostgreSQL cgroup/processes, not from cursor wall time. \"\"\" import os from pathlib import Path from scripts.benchmark_worker_observer import _CURRENT, WorkerObserver, worker_exit  # noqa: F401 def post_worker_init(worker): from django.db import connection"
+    },
+    {
+      "source_id": "edab2164-44aa-46aa-8f4e-8913168fb338",
+      "citation_number": 29,
+      "cited_text": "PROFILE_PARTS = [ ( \"user\", \"SELECT id::text, xmin::text || ':' || ctid::text FROM core_user WHERE id = %(subject)s\", ), ( \"person\", \"SELECT id::text, xmin::text || ':' || ctid::text FROM core_person WHERE id = %(person)s\", ), ( \"person_phone\", \"SELECT c.id::text, c.xmin::text || ':' || c.ctid::text FROM core_phoneclaim c \" \"JOIN core_person p ON p.phone_claim_id = c.id WHERE p.id = %(person)s\", ), ( \"listing\", \"SELECT id::text, xmin::text || ':' || ctid::text FROM listings_listing WHERE id = %(listing)s\", ), ( \"revision\", \"SELECT id::text, xmin::text || ':' || ctid::text FROM listings_revision WHERE listing_id = %(listing)s\", ), ( \"revision_category\", \"SELECT rc.id::text, rc.xmin::text || ':' || rc.ctid::text FROM listings_revision_categories rc \" \"JOIN listings_revision r ON r.id = rc.revision_id WHERE r.listing_id = %(listing)s\", ), ( \"category\", \"SELECT DISTINCT c.id::text, c.xmin::text || ':' || c.ctid::text FROM catalog_category c \" \"JOIN listings_revision_categories rc ON rc.category_id = c.id \" \"JOIN listings_revision r ON r.id = rc.revision_id WHERE r.listing_id = %(listing)s\", ), ( \"revision_service\", \"SELECT rs.id::text, rs.xmin::text || ':' || rs.ctid::text FROM listings_revision_services rs \" \"JOIN listings_revision r ON r.id = rs.revision_id WHERE r.listing_id = %(listing)s\", ), ( \"service\", \"SELECT DISTINCT s.id::text, s.xmin::text || ':' || s.ctid::text FROM catalog_service s \" \"JOIN listings_revision_services rs ON rs.service_id = s.id \" \"JOIN listings_revision r ON r.id = rs.revision_id WHERE r.listing_id = %(listing)s\", ), ( \"revision_travel\", \"SELECT rt.id::text, rt.xmin::text || ':' || rt.ctid::text FROM listings_revision_travel_areas rt \" \"JOIN listings_revision r ON r.id = rt.revision_id WHERE r.listing_id = %(listing)s\", ), ( \"municipality\", \"SELECT m.id::text, m.xmin::text || ':' || m.ctid::text FROM catalog_municipality m \" \"WHERE m.id IN (SELECT r.municipality_id FROM listings_revision r \" \"WHERE r.listing_id = %(listing)s UNION \" \"SELECT rt.municipality_id FROM listings_revision_travel_areas rt \" \"JOIN listings_revision r ON r.id = rt.revision_id WHERE r.listing_id = %(listing)s)\", ), ( \"postal_code\", \"SELECT DISTINCT pc.id::text, pc.xmin::text || ':' || pc.ctid::text FROM catalog_postalcode pc \" \"JOIN listings_revision r ON r.postal_code_id = pc.id WHERE r.listing_id = %(listing)s\", ), ( \"zone\", \"SELECT DISTINCT z.id::text, z.xmin::text || ':' || z.ctid::text FROM catalog_zone z \" \"JOIN listings_revision r ON r.zone_id = z.id WHERE r.listing_id = %(listing)s\", ), ( \"rate\", \"SELECT t.id::text, t.xmin::text || ':' || t.ctid::text FROM listings_rate t \" \"JOIN listings_revision r ON r.id = t.revision_id WHERE r.listing_id = %(listing)s\", ), ( \"photo\", \"SELECT ph.id::text, ph.xmin::text || ':' || ph.ctid::text FROM mediafiles_photo ph \" \"JOIN listings_revision r ON r.id = ph.revision_id WHERE r.listing_id = %(listing)s\", ), ( \"blob\", \"SELECT DISTINCT b.id::text, b.xmin::text || ':' || b.ctid::text FROM mediafiles_blob b \" \"JOIN mediafiles_photo ph ON ph.blob_id = b.id \" \"JOIN listings_revision r ON r.id = ph.revision_id WHERE r.listing_id = %(listing)s\", ), ( \"verification\", \"SELECT id::text, xmin::text || ':' || ctid::text FROM core_verificationcheck \" \"WHERE person_id = %(person)s AND subject_id = %(subject)s\", ), ( \"representation\", \"SELECT id::text, xmin::text || ':' || ctid::text FROM core_representationaction \" \"WHERE person_id = %(person)s AND subject_id = %(subject)s\", ), ( \"representation_document\", \"SELECT DISTINCT d.id::text, d.xmin::text || ':' || d.ctid::text FROM core_legaldocument d \" \"JOIN core_representationaction a ON a.document_id = d.id \" \"WHERE a.person_id = %(person)s AND a.subject_id = %(subject)s\", ), ] ACCOUNT_PARTS = [ ( \"user\", \"SELECT id::text, xmin::text || ':' || ctid::text FROM core_user WHERE id = %(subject)s\", ), ( \"acceptance\", \"SELECT id::text, xmin::text || ':' || ctid::text FROM core_legalacceptance WHERE user_id = %(subject)s\", ), ( \"acceptance_document\","
+    },
+    {
+      "source_id": "6ae02617-af23-430d-8f53-16dca72896db",
+      "citation_number": 30,
+      "cited_text": "Esto justifica estudiar la forma/acceso de la lectura dominante y sus conjuntos con los planes existentes, con el gate focalizado ya superado, antes de otra corrección. El prototipo posterior CASE/WHERE bulk se abortó en preflight ante lecturas activas durante decenas de segundos; comparación/efecto y plan nuevos no medidos, sin adopción ni cambio backend. El ensayo WHERE correlacionado anterior conserva su resultado negativo independiente. El perfil actual2PG conserva rutas,81consultas y24validaciones nativas; controles0,684/0,730s frente a observado2,295/2,611s. Compilación/huella/render aparecen con coste pero overhead fuerte.48lecturas de presentación son trabajo concreto; no atribuir ahorro desde el perfil. El A/B/C por TCP real con Gunicorn4 posterior confirma efecto material reproducible en ese alcance. Se reutilizaron equivalencias y planes, sin carga. El siguiente mecanismo seleccionado para investigar es el acceso fresco agrupado a fotos/checks de la página:24+24lecturas y compilación repetida. Preservar filtros de foto, orden y último check, consultar después del guard, resolver empates ambiguos por vía nativa y verificar cambios concurrentes. No reusar autoridad obsoleta ni asumir un ahorro; todavía sin implementar. Las consultas de presentación son otro coste observado, no permiso para cambiar a la vez varias etapas. La cola exacta de workers, causalidad del GC, CPU PG y ahorro de una consulta futura siguen sin medir. Evitar otra carga larga mientras los controles estén claramente lejos de viabilidad."
+    },
+    {
+      "source_id": "5473bde7-d761-44a0-806c-c1e17c32afef",
+      "citation_number": 31,
+      "cited_text": "Carreras17254 terminal0:2 correctas35,61s, PostgreSQL. Dos conexiones aplican misma clave/versión con resultado único y rights_version +1; reserva de destino por otra cuenta no confirmada mientras execute espera índice case-insensitive produce conflicto y rollback de cuenta/acción/ejecución/consumo/respuesta. Bloqueo realmente observado por pg_blocking_pids. Identidad y entrega siguen simuladas; no aceptación CR09. Batería74037 activa4 carreras/mixto/limpieza, XML /tmp/account-execution-races-mixed-cleanup.xml. Añade correo confirmado+título atómicos y limpieza que espera User y revalida nueva caducidad antes de vaciar. Fuente congelada. Auditoría identifica necesidad de revalidar authorized_proof tras source_snapshot potencialmente bloqueante en rectification_review.current; reproducir revocación/caducidad durante espera antes de modificar código. No aceptación final."
+    },
+    {
+      "source_id": "5473bde7-d761-44a0-806c-c1e17c32afef",
+      "citation_number": 32,
+      "cited_text": "84452 terminal0:13 conjuntas correctas89,47s PostgreSQL, /tmp/copy-information-source-corrected.xml.6 servicio/HTTP/cuenta y7 carreras con tres PIDs/espera observada: replay una fila, claves distintas un ganador, permiso/prueba/sesión/MFA/fuente cambiados deniegan ambas. Incluye nueva huella del formulario. Fuente descongelada, sin proceso activo. Móvil/lectura concurrente/política aprobada/elegibilidad integral/Docker0078/regresión conjunta/generación/cierre pendientes. 5245 terminal0:2 móviles ES/EN correctas47,20s PostgreSQL/Chromium, /tmp/copy-information-mobile.xml. Guardado sin cuerpo, recuperación auditada por formulario, recarga POST idempotente, GET posterior limpio y sin desbordamiento horizontal. Contrato actualizado con source_digest obligatorio del formulario.66327 carreras de guardado/lectura activas14 casos, /tmp/copy-information-read-save-races.xml/log: lectura tras espera observada comprueba replay y revocación de permiso/prueba/sesión/MFA/fuente/purga. Fuente congelada hasta terminal; recuperar mismo handle. Runtime0078/regresión/política aprobada/elegibilidad/generación/cierre e integridad global del contrato pendientes."
+    },
+    {
+      "source_id": "5473bde7-d761-44a0-806c-c1e17c32afef",
+      "citation_number": 33,
+      "cited_text": "Carreras lecturacobertura:5103 activo /tmp/portability-coverage-observed-read-races.xml,8PGcuenta replay/permisos/prueba/sesión/MFA/fuente/ciphertext/caducidad;2workers+holder IDsdistintos/pg_blocking_pids observados antesmutación, rechazos sinlecturas/accionespersistidas yreplayúnico. Resultado pendiente/fuenteestable, no declarar concurrencia aprobación ni perfil/binarios por esta batería. 5103 terminal0:8 PostgreSQL correctas88,30s,0fallos/errores/skips, carreras lectura cuenta con esperaobservada2workers/holder distintos. Replay1registro; revocaciónpermisos/prueba/sesión/MFA/fuente/ciphertext/caducidad deniegadoslectores sincambioslecturas/auditorías/caso. Evidencia portabilidad-cobertura-carreras-lectura.json. No carrerasaprobación/perfil/modobinario acreditadas; próximo ampliar aprobación y runtime0091–93/regresióncomún/consumofinal, contratoenteroabierto."
+    }
+  ]
+}

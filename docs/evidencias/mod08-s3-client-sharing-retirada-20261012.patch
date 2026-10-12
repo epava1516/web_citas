@@ -1,0 +1,318 @@
+diff --git a/apps/safety/object_storage/read_clients.py b/apps/safety/object_storage/read_clients.py
+index 821daeb..68fccf5 100644
+--- a/apps/safety/object_storage/read_clients.py
++++ b/apps/safety/object_storage/read_clients.py
+@@ -3,7 +3,7 @@
+ import os
+ from contextlib import contextmanager
+ from contextvars import ContextVar
+-from threading import get_ident
++from threading import Lock, get_ident
+ 
+ from django.conf import settings
+ from django.views.decorators.debug import sensitive_variables
+@@ -27,20 +27,35 @@ SETTINGS = (
+ 
+ @contextmanager
+ @sensitive_variables()
+-def read_clients():
++def read_clients(*, shareable=False, shared=None):
+     """Own at most four clients; close best-effort without masking domain errors.
+ 
+     Unsupported settings and overflow use the existing native factory lifecycle.
+     Close failures are suppressed even on success: transport teardown cannot
+     invalidate bytes already independently authenticated by the repository.
++    A shareable owner must join all explicit borrowers before exiting. Borrowers
++    never close the shared SDK client; sessions are not shared across threads.
+     """
+-    state = {"pid": os.getpid(), "thread": get_ident(), "clients": {}}
++    if shared is not None:
++        if not (type(shared) is dict and shared.get("shareable") and shared.get("active")
++                and shared["pid"] == os.getpid()):
++            raise RuntimeError("Transport scope is unavailable in this process")
++        token = _current.set(shared)
++        try:
++            yield shared
++        finally:
++            _current.reset(token)
++        return
++    state = {"pid": os.getpid(), "thread": get_ident(), "clients": {},
++             "shareable": shareable, "active": True, "lock": Lock()}
+     token = _current.set(state)
+     try:
+-        yield
++        yield state
+     finally:
+-        clients = list(state["clients"].values())
+-        state["clients"].clear()
++        with state["lock"]:
++            state["active"] = False
++            clients = list(state["clients"].values())
++            state["clients"].clear()
+         _current.reset(token)
+         for client in clients:
+             try:
+@@ -53,8 +68,21 @@ def read_clients():
+ def client(create):
+     """Borrow transport only; factory must still recreate crypto on every call."""
+     state = _current.get()
+-    if state is None or state["pid"] != os.getpid() or state["thread"] != get_ident():
++    if (state is None or not state["active"] or state["pid"] != os.getpid()
++            or (state["thread"] != get_ident() and not state["shareable"])):
+         return create()
++    if state["shareable"]:
++        # SDK client creation (including Session construction) is serialized.
++        # Only the completed low-level client is borrowed by concurrent readers.
++        with state["lock"]:
++            if not state["active"]:
++                return create()
++            return _client(state, create)
++    return _client(state, create)
++
++
++@sensitive_variables()
++def _client(state, create):
+     values = tuple(getattr(settings, name) for name in SETTINGS)
+     if any(type(value) not in (str, bytes, bool, int, type(None)) for value in values):
+         return create()
+@@ -68,7 +96,8 @@ def client(create):
+         or tuple((type(value), value) for value in current) != key
+         or _current.get() is not state
+         or state["pid"] != os.getpid()
+-        or state["thread"] != get_ident()
++        or (state["thread"] != get_ident() and not state["shareable"])
++        or not state["active"]
+     ):
+         # The native constructor can observe newer settings than our initial
+         # snapshot. Never attach that transport to the previous configuration.
+diff --git a/apps/safety/rights_object_content.py b/apps/safety/rights_object_content.py
+index 18cf728..444a6c9 100644
+--- a/apps/safety/rights_object_content.py
++++ b/apps/safety/rights_object_content.py
+@@ -5,6 +5,7 @@ import io
+ from botocore.exceptions import ClientError
+ from cryptography.fernet import InvalidToken
+ from django.conf import settings
++from django.views.decorators.debug import sensitive_variables
+ 
+ from .crypto import cipher
+ from .object_storage.codec import InvalidObject
+@@ -60,7 +61,7 @@ def purge_export_objects(exports):
+ 
+ def _verify_object(reference, owner_context):
+     """Worker: physical authentication only; no ORM or authority decisions."""
+-    # The dispatcher owns a separate transport scope per worker; crypto is fresh
++    # The dispatcher owns the shared transport scope; crypto is fresh
+     # on each factory invocation here, including every reference/context read.
+     # Native verify authenticates every frame/EOF without a plaintext output.
+     try:
+@@ -69,6 +70,7 @@ def _verify_object(reference, owner_context):
+         raise InvalidToken from error
+ 
+ 
++@sensitive_variables()
+ def _verify_objects_in_order(objects):
+     """At most two physical jobs; expose failures in original iteration order.
+ 
+@@ -82,10 +84,11 @@ def _verify_objects_in_order(objects):
+ 
+     from .object_storage.read_clients import read_clients
+ 
++    @sensitive_variables()
+     def worker(queue):
+-        # Scope belongs to this worker and this invocation, with a real finally
+-        # on thread exit. No initializer-only state or cross-thread borrowing.
+-        with read_clients():
++        # Explicit borrowing ends on worker exit. The owner closes the SDK client
++        # only after executor shutdown has joined every started physical job.
++        with read_clients(shared=transport):
+             while True:
+                 item = queue.get()
+                 if item is None:
+@@ -103,7 +106,9 @@ def _verify_objects_in_order(objects):
+     iterator = iter(objects)
+     queues = [Queue(maxsize=1), Queue(maxsize=1)]
+     dispatched = 0
+-    with ThreadPoolExecutor(max_workers=2, thread_name_prefix="rights-object-verify") as executor:
++    with read_clients(shareable=True) as transport, ThreadPoolExecutor(
++        max_workers=2, thread_name_prefix="rights-object-verify"
++    ) as executor:
+         workers = []
+         try:
+             for queue in queues:
+diff --git a/tests/test_rights_object_read_clients.py b/tests/test_rights_object_read_clients.py
+index 8d70f06..94520e1 100644
+--- a/tests/test_rights_object_read_clients.py
++++ b/tests/test_rights_object_read_clients.py
+@@ -6,6 +6,7 @@ import json
+ import os
+ from concurrent.futures import ThreadPoolExecutor
+ from contextvars import copy_context
++from threading import Barrier, Event
+ 
+ import pytest
+ from cryptography.fernet import Fernet
+@@ -29,6 +30,52 @@ class Client:
+             raise RuntimeError("synthetic transport teardown")
+ 
+ 
++def test_shared_transport_serializes_construction_and_closes_after_join(settings):
++    configured(settings)
++    barrier, finished = Barrier(2), Event()
++    created = []
++
++    def create():
++        result = Client()
++        created.append(result)
++        return result
++
++    with scope.read_clients(shareable=True) as state:
++        def worker():
++            with scope.read_clients(shared=state):
++                barrier.wait(timeout=5)
++                result = scope.client(create)
++                assert result.closed == 0
++                return result
++
++        with ThreadPoolExecutor(max_workers=2) as pool:
++            results = list(pool.map(lambda _: worker(), range(2)))
++        finished.set()
++        assert len(created) == 1 and results[0] is results[1]
++        assert scope._current.get() is state and created[0].closed == 0
++    assert finished.is_set() and created[0].closed == 1
++    assert not state['active'] and scope._current.get() is None
++    with pytest.raises(RuntimeError, match='unavailable'):
++        with scope.read_clients(shared=state):
++            pytest.fail('Expired scope accepted')
++
++
++def test_shared_transport_declines_cross_process_and_rechecks_keys(settings, monkeypatch):
++    configured(settings)
++    with scope.read_clients(shareable=True) as state:
++        first = scope.client(Client)
++        settings.RIGHTS_OBJECT_SECRET_KEY = 'new-synthetic-secret'
++        second = scope.client(Client)
++        assert first is not second
++        with monkeypatch.context() as patch:
++            patch.setattr(scope.os, 'getpid', lambda: -1)
++            assert scope.client(Client) is not second
++            with pytest.raises(RuntimeError, match='unavailable'):
++                with scope.read_clients(shared=state):
++                    pytest.fail('Foreign PID accepted')
++    assert first.closed == second.closed == 1
++
++
+ def configured(settings):
+     settings.RIGHTS_OBJECT_ENDPOINT = "http://127.0.0.1:1"
+     settings.RIGHTS_OBJECT_REGION = "us-east-1"
+diff --git a/tests/test_rights_object_verification_parallel.py b/tests/test_rights_object_verification_parallel.py
+index 2acbd33..17455cf 100644
+--- a/tests/test_rights_object_verification_parallel.py
++++ b/tests/test_rights_object_verification_parallel.py
+@@ -4,8 +4,10 @@ import base64
+ import io
+ import json
+ import os
++import statistics
+ from contextlib import contextmanager
+ from threading import Barrier, Event, Lock, get_ident
++from time import perf_counter_ns, process_time_ns
+ 
+ import pytest
+ from cryptography.fernet import Fernet, InvalidToken
+@@ -62,10 +64,10 @@ def test_mock_worker_scope_closes_and_resets_even_when_object_and_close_fail(mon
+     exited, clients = [], []
+ 
+     @contextmanager
+-    def observed_scope():
++    def observed_scope(**kwargs):
+         try:
+-            with original_scope():
+-                yield
++            with original_scope(**kwargs) as state:
++                yield state
+         finally:
+             exited.append(transport._current.get())
+ 
+@@ -93,7 +95,7 @@ def test_mock_worker_scope_closes_and_resets_even_when_object_and_close_fail(mon
+     monkeypatch.setattr(content, "repository", repository)
+     with pytest.raises(InvalidToken):
+         content._verify_objects_in_order(iter([("a", b"own"), ("b", b"own")]))
+-    assert len(exited) == 2 and all(state is None for state in exited)
++    assert len(exited) == 3 and all(state is None for state in exited)
+     assert clients and all(client.closed for client in clients)
+ 
+ 
+@@ -184,16 +186,16 @@ def test_real_rustfs_28_objects_84_gets_two_jobs_closed_bodies_clients(
+             (ref, f"own/{i}".encode()) for i, ref in enumerate(references)
+         )
+         assert len(gets) == 84
+-        assert len(clients) == 2
++        assert len(clients) == 1
+         assert active == [0, 2]
+         assert all(client["closed"] for client in clients)
+         assert all(body._raw_stream.closed for body in bodies)
+-        assert len({client["thread"] for client in clients}) == 2
++        assert len({client["thread"] for client in clients}) == 1
+         assert len({id(ring) for ring in rings}) == 28
+         content._verify_objects_in_order(
+             (ref, f"own/{i}".encode()) for i, ref in enumerate(references)
+         )
+-        assert len(gets) == 168 and len(clients) == 4
++        assert len(gets) == 168 and len(clients) == 2
+         assert all(client["closed"] for client in clients)
+     finally:
+         for ref in references:
+@@ -201,6 +203,52 @@ def test_real_rustfs_28_objects_84_gets_two_jobs_closed_bodies_clients(
+         writer.client.close()
+ 
+ 
++def test_real_rustfs_shared_transport_paired(settings, monkeypatch, object_store, record_property):
++    """AB/BA twenty pairs, no profiler; transport-only, never HTTP acceptance."""
++    real_settings(settings, object_store)
++    writer = factory.repository()
++    refs = [writer.write(io.BytesIO(os.urandom(4 * 1024 * 1024)), b'paired') for _ in range(2)]
++    native_scope = transport.read_clients
++
++    @contextmanager
++    def independent_scope(**kwargs):
++        # Same outer/worker lifecycle, but each worker owns its native SDK client.
++        with native_scope() as state:
++            yield state
++
++    samples = []
++
++    def run(arm):
++        monkeypatch.setattr(transport, 'read_clients',
++                            independent_scope if arm == 'independent' else native_scope)
++        begin, cpu = perf_counter_ns(), process_time_ns()
++        content._verify_objects_in_order((ref, b'paired') for ref in refs)
++        return {'arm': arm, 'wall_ns': perf_counter_ns() - begin,
++                'process_cpu_ns': process_time_ns() - cpu}
++
++    try:
++        for arm in ['independent', 'shared', 'shared', 'independent']:
++            run(arm)
++        for pair in range(20):
++            order = ['independent', 'shared'] if pair % 2 == 0 else ['shared', 'independent']
++            row = {arm: run(arm) for arm in order}
++            samples.append({'pair': pair, 'order': order, **row})
++        gains = [s['independent']['wall_ns'] - s['shared']['wall_ns'] for s in samples]
++        blocks = [statistics.median(gains[i:i + 5]) for i in range(0, 20, 5)]
++        record_property('s3_transport_paired', json.dumps({
++            'scope': 'Two real 4MiB RustFS objects; SDK client sharing per verification only; not HTTP or capacity',
++            'samples': samples, 'block_median_gain_ns': blocks,
++            'median_gain_ns': statistics.median(gains),
++            'positive_pairs': sum(g > 0 for g in gains),
++            'candidate_consistent': all(g > 0 for g in blocks) and statistics.median(gains) > 0,
++        }))
++    finally:
++        monkeypatch.setattr(transport, 'read_clients', native_scope)
++        for ref in refs:
++            writer.purge(ref)
++        writer.client.close()
++
++
+ def test_real_rustfs_key_change_after_one_object_uses_fresh_ring(
+     settings, monkeypatch, object_store
+ ):

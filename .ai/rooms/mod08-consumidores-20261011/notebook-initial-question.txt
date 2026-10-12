@@ -1,0 +1,102 @@
+Revisión MOD08/web_citas español, propuestas no son evidencia ni autorización de editar/ejecutar. Notebook tiene arquitectura histórica pero este código/resultados son estado nuevo. No omitir comprobaciones frescas ni prometer SLO por etapas.
+
+MEDIDAS: Prototipo DATOS 1500Revision16MiB, chunkscifrados<=50filas, originalfull199ms→página21ms/prep1.753s. No autoridad/fuente completa. Variante conservadora hash FÍSICO fresco contenido todasfamilias inputs antes/después: full404.347→página352.524ms(51.824ms/12.82%),19/20wall20/20CPU/cuatro bloques favorables; prep1.785s. NO prueba que doblehash sea requisito universal; es estrategiafuerte escogida para cacheentre requests, falta catálogo/permisos/restore/locks. Segunda prueba recuperó30chunks en UNA consulta, descifrómanifiesto1vez/headercifrado separado, reconstruyó dictcompleto y conservó inspection_source HMAC/mutación/bracketderiva original: full411.695→649.771ms(+57.83%),0/20wall, CPU235.511→238.620ms9/20wins/prep1.760s. Lowerbound porque faltan locks/catálogos/callbacksexpiry. GateREJECT integraciónDIRECTA que mantiene dictcompleto; no rechazar universalmente API nueva. 2pytestPASS acreditanexperimentos, no beneficio/N2/endpoint.
+
+CONTEXTO: históriconavegaciónp953.753s383lotes,target2s; JSON6.930/bin7.318target5s peroN3/8 insuficientes. Clones nuevos548EVENT/1500Revision*sin*binariosentregados; no mezclar p95/CPU/etapas ni sumarahorros. Source_copy completo ya1vezporbatch, referencias puras memo intrarequest+summarycache+batch_projection existentes. Canonical Cython nativo. AES/Fernet actual. Todas23authorize/reviewer_case/proof/latest/catalog/fullchain frescas y cadaauditoría cambiacadena. No cacheauthority/triggers, head/counter/Merkle sólono prueba fuente física; cambiosDDL/owner puedenrestaurarhelper y dejardigestGENERATEDantiguo. assessment/selection/coverage susceptiblespurga/expiry. Imagebytesfrescas en S3 y guards despuésesperas.
+
+CODEX HIPÓTESIS NUEVA: separar validación de selección/coverage de emitir valores. record(_audit_only=True) hoy aún construyeproyección enprimermiss aunque devuelveNone; compile_coverage llama project_selected y devuelve projection pero coverage_page final filtra summary sin projection. Primero validate_only sobre FUENTE FRESCA ACTUAL, sin cachepersistente ni nuevostorage: ahorro sólo valores/alloc, no evita source_copy16MiB. Es paso previo explícito y falsable, no promesa177msni2s. Después APIinventario autenticado(dataset,index,row_reference,scalar_paths,metadatafotos)+lectura campospágina podríaevitarmaterialización, pero HMACsource_digest NOsecompone de rowrefs, frescura+origen+caller/permisos/DDL/expiry/restore por demostrar. No contenedores lazydisfrazados ni confiar firmas como reloj; nunca autoridad/revisión almacenada.
+
+CÓDIGO selección COMPLETO actual:
+"""Explicit scalar field selection; caller must bind selectors to approved evidence."""
+from copy import deepcopy
+from django.core.exceptions import ValidationError
+from django.views.decorators.debug import sensitive_variables
+from .fast_canonical import content_reference
+from .rights_copy_inspection import SECTIONS
+from .rights_portability import DATASETS, checked_assessment
+
+def row_reference(dataset, index, row):
+    from .rights_inspection_source import shared_row_reference
+    return shared_row_reference(dataset, index, row, lambda: content_reference({'dataset': dataset, 'index': index, 'row': row}))
+
+def pointer_value(row, path):
+    if not isinstance(path, str) or not path.startswith('/') or len(path) > 500:
+        raise ValidationError('Invalid portability field path')
+    value = row
+    for segment in path[1:].split('/'):
+        escaped = segment.replace('~1', '').replace('~0', '')
+        if '~' in escaped:
+            raise ValidationError('Invalid portability field escape')
+        key = segment.replace('~1', '/').replace('~0', '~')
+        if isinstance(value, dict) and key in value:
+            value = value[key]
+        elif isinstance(value, list) and key.isascii() and key.isdecimal() and (str(int(key)) == key) and (int(key) < len(value)):
+            value = value[int(key)]
+        else:
+            raise ValidationError('Portability field unavailable')
+    if isinstance(value, (dict, list)):
+        raise ValidationError('Select individual portability fields')
+    return deepcopy(value)
+
+@sensitive_variables()
+def project_selected(source, assessment, selection, *, field_evidence=None):
+    """Project declared eligible fields; not a standalone authorization or delivery API."""
+    checked = checked_assessment(assessment)
+    eligible = {name for name, item in checked.items() if item['status'] in {'eligible', 'granular'}}
+    if not isinstance(selection, dict) or set(selection) != eligible:
+        raise ValidationError('Select each eligible dataset explicitly')
+    granular = {name for name in eligible if checked[name]['status'] == 'granular' and selection[name]}
+    if field_evidence is None:
+        field_evidence = {}
+    if not isinstance(field_evidence, dict) or set(field_evidence) != granular:
+        raise ValidationError('Provide exact field evidence for mixed dataset selections')
+    output = {}
+    for dataset in sorted(eligible):
+        rows = SECTIONS[dataset](source)
+        references = {row_reference(dataset, index, row): row for index, row in enumerate(rows)}
+        selectors = selection[dataset]
+        if not isinstance(selectors, list):
+            raise ValidationError('Invalid portability row selection')
+        evidence_rows = field_evidence.get(dataset, {})
+        if not isinstance(evidence_rows, dict):
+            raise ValidationError('Invalid mixed row evidence')
+        seen = set()
+        projected = []
+        for selector in selectors:
+            if not isinstance(selector, dict) or set(selector) != {'row', 'fields'}:
+                raise ValidationError('Invalid portability row selector')
+            reference, paths = (selector['row'], selector['fields'])
+            if not isinstance(reference, str) or reference not in references or reference in seen:
+                raise ValidationError('Portability row unavailable or duplicated')
+            if not isinstance(paths, list) or not paths or any((not isinstance(path, str) for path in paths)) or (len(set(paths)) != len(paths)):
+                raise ValidationError('Select unique portability fields')
+            if dataset in granular:
+                evidence = evidence_rows.get(reference)
+                if not isinstance(evidence, dict) or set(evidence) != set(paths):
+                    raise ValidationError('Provide exact evidence for each selected mixed field')
+                for decision in evidence.values():
+                    if not isinstance(decision, dict) or decision.get('status') != 'eligible':
+                        raise ValidationError('Selected mixed fields require eligible conditions')
+                    checked_assessment({name: decision for name in DATASETS})
+            seen.add(reference)
+            projected.append({'fields': {path: pointer_value(references[reference], path) for path in paths}})
+        if dataset in granular and set(evidence_rows) != seen:
+            raise ValidationError('Mixed evidence contains unselected rows')
+        output[dataset] = projected
+    return {'schema': 'portability-selected-fields-v1', 'datasets': output}
+
+compile_coverage ACTUAL (resumen fiel): checked_assessment; rechaza pending; siempre projection=project_selected(source,assessment,selection,field_evidence). checked_images contra source/digestsdeclarados. Porcada DATASET SECTIONS[name](source), lenrows; excluded exigeomisionesvacías. Resto recorre todosindex,row: reference=row_reference, paths=_scalar_paths; missing=paths-selected; omisiones{"all":excluded} o {"fields":decisionesexcluded}; subset/exact segúnallow_partial; contabiliza included/excluded/pending. Rechazaomisionesextra/noexistentes. Fotos=[image["photo"] for row in source["revisions"] for image in row["images"]], rechaza duplicados; cobertura binaria. Resultado schema/datasets/included_images/excluded_images/projection +pending/complete si parcial.
+
+inspection_source ACTUAL: __init__ source_fingerprint antes→source_copycompleto→HMACcanonical_bytes(source). get sólo ContextVaridentidad/connection/atomic/scopecasepersonlistingversion. shared_row_reference memo(dataset,index) sólo si rowidentity pertenecefuentecontextual. ExitHMACsource intacto y fingerprinttotal fresco, si diferencia releefullfuente y comparaHMAC; resetfinally. No cacheentre requests. Callerperson/listing puedecontenerrelacionescached; cachépersistentedebe demostrarvínculoexacto. source_digest(context) sóloHMACcontext, sincontextfreshfull. No suprimir exit mutación/deriva.
+
+inspect_page: reviewer_case/authorize; coverage SELECTFORUPDATE(of=self)+relaciones. inspection_sourcenuevo/reusado. record(_audit_only=True) conauditoría/validate_approved_assessment/selection_evidence frescos. authorized_proof/validate_approved_selection/latest; comparaHMACsource. RightsActioncrea/valida; author=User.objects.getFRESCO; baseline_body, unseal factsselection y assessmentcurrent. summarykey coverage/source/selectiondigests; misscompile_coverage(...allow_partial=True). authorize/proof/digest; coverage_page devuelve fieldsactualespaginados y summary={k:v for k,v in summary.items() if k!='projection'}. RightsPortabilityCoverageRead +guards al salir.
+
+batch_projection ACTUAL: ContextVar/mismaconnection/sourceidentity/actor/session/mfa/case/proof. Key case/versión/proof/expiry/row/ciphertextassessmentselection/payloads/settings/operation, entradasmax4 limpiadasfinally. Keymiss project_selected producevalorescompletos, _audit_only guarda sentinelVALIDATED_ONLY/devuelveNone. Hit audit evitaoperación. Otrosretornos deepcopy. Cadaentrada trasvalidaciónfresh; ahorro nuevo no4x primeraoperaciónporque memo yaexiste. No tocarautoridad.
+
+SOLICITUD (máximo~1200palabras):
+1 UNA candidata mínima distinta para primer experimento (o ninguna justificable), archivos/API/pseudocódigo y rutaordinaryintacta. No asumir APIinventarioyaexiste.
+2 ¿validate_only evita construirvalores conservando errores/orden de pointer_value RFC6901malformed/listindexnocanónico/containerleaf, granular/duplicados etc? Qué se demuestraN1 yquéposiblecambioobservable se descarta.
+3 FuturoinventarioDATOS: binding alHMACoriginal+freshness+permisos/callbacks/DDL/expiry, contraejemploquedescartaría. No vendersignature comoautorizaciónactualni TTLcomopruebavigencia. Enumera qué sigue leyendo cuerpos completos. Ahorro sólohipótesisnoobjetivo2s.
+4 Experimento finito N1+benchmarkABBA sobre fuenteactualsinpersistencia, wall/CPU/alloc/bytesproyección, gate ydescarte; N2/HTTP sólo si gana. Alternativaautorizacionesuna vez estáprohibida.
+
+OBSERVACIÓN CODEX: pointer_value sólo admite hojas escalares. deepcopy de strings no duplica sus bytes. project_selected construye contenedores con referencias, no copia física adicional16MiB. record(_audit_only=True) descarta projection sin canonicalizarla/serializarla. compile_coverage incluye projection pero coverage_page la excluye antes de page_digest. validate_only ahorraría recorrido/resolución/deepcopy escalar/allocs de contenedores, NO16MiBdeRAM/string/SQL. TamañoJSONprojected no equivale a bytesduplicados. No sobreestimar ahorro frente1.753s; ¿merece experimento corto como refactor o priorizarcostefullchain?

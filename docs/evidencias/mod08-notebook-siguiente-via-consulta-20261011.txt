@@ -1,0 +1,400 @@
+SIGUIENTE VÍA: usuario pide seguir deliberando, no iniciar otra carga. Quiero tu revisión adversarial de una sola línea nueva usando evidencia y código fresco que copio abajo. La candidata inline fue retirada exactamenteHEAD:78PASS pero HTTP N20/control797.984ms/inline789.795,p95819.964/829.377,dispersión17.778/33.032ms. No gananciaHTTP fiable, tampoco prueba ausencia absoluta. Fuentes1171exactas/cleanup;helper test-only28PASS posterior. Última respuesta tuya debe corregirse: CPUhiloWSGI y wallTCP no son perímetros idénticos;16.7MiBproyectados no son tráficoPG medido. execute/fetchall no separan servidor/transporte automáticamente.
+DIAGNÓSTICOSYAHECHOS: lote4páginas1500revs/16MiBoriginal64MiB,193unseal perodescriptorselección223141bytes,parseo repetido31.466msCPU frente copia195.651ms(sonda deepcopy intrusiva NOcosteproductivodemostrado): no memoJSON. Fuente exclusiva426mswall/253msCPU en requestINSTRUMENTADOdistinto con31lecturas selección/historialbajo. validatechain132ms allí; crecimiento realchain4calls39→70→179ms para44–58/204–218/620–634eventos, controlesTCP1.337/1.490/1.809 n2/nivel NOcausalidadHTTPexclusiva. SQLplanes8queries(sumamedianas)~28.8→18.817ms, sinspills,calientes,noíndicefaltantedemostrado. Benchmarkclones0.8s NOcomparaciónhistórico3.753s383lotes contopologíacuotas. MOD08generalpausado.
+MI HIPÓTESIS Y PRIORIDAD: dejar ajustes pequeñoschainSQL y localizar coste real dentro source_copy/inspection_source (generadores de batches no aparecen en PHASE_TARGETS), materializaciónORM vsconstrucciónproyeccióncanónica vsrenderHTTP. Yaexisten inspection_source (fuentecompartida+fingerprintfrescoentrada/salida+validaciónmutación), batch_projection (purecomputereuseafterfreshcrypto+deepcopy), operation_fingerprints/content_digests, Cythoncanonicalkernelvalidado. No volver a proponerlos como inéditos; no precargarcamposmutables ni cacheautoridad. No asumir que253msfuenteCPUtodoseaORM, nigapwallseaI/O.
+PROPUESTA DIAGNÓSTICO,NO EJECUTADO: mismahistoriaigualycalentamiento2worker, una muestra limpia anterior/una perfilada/una limpia posterior en clones propios concommit real(+4reads/+8events). CProfile(timer=thread_time) sólo en muestra perfilada parafuncionesCPU/llamadas; spanswall/CPU específicos para generadorbatches en iteración efectiva (no sólo creación), source_fingerprint, _InspectionSource.init y cierrecontexto, canonical yrender. Guardar sólo nombres/cuentas/tiempos sinlocals/SQLargumentos/datos. Fuentes/rules congeladas ycleanup. Reportar overhead observado sinrestarlo ni comparar p95. Ejecutar después únicamente si queda definido un cuello y candidata conganancia posible importante. Cuestiones:1¿puedes priorizar esa vía u otra con evidencia ya disponible?2¿qué barreras ytrabajoNOCPUquedaránsinatribución yqué no puede inferirse de cProfiletimerCPU?3siORMmaterializaciónsalealto, candidata específica segura(minimizarcolumnas/values/pipeline) concondición exacta;siJSON/construcción/render salealto, quéoperación concreta atacarías SINreutilizar autoridad?4¿cuál es el criterio de descarte finito para no encadenar experimentos que nuncaatacanelbloqueo? Distingue hechos/hipótesis, no inventar ahorros ni funciones.
+CÓDIGOREALACTUAL:
+
+ARCHIVO apps/safety/rights_copy_revision_batches.py
+"""Exact PostgreSQL UUID batches for locked copy rows and their relations."""
+
+from itertools import islice
+
+from django.db.models import F
+from django.db.models.expressions import RawSQL
+
+from apps.catalog.models import Category, Municipality, Service
+from apps.listings.models import Rate
+from apps.mediafiles.models import Photo
+
+
+def batches(records, size):
+    rows = records.iterator(chunk_size=size)
+    while batch := list(islice(rows, size)):
+        # IDs originate in the locked revision cursor; no SQL text interpolation.
+        ids = RawSQL("SELECT unnest(%s::uuid[])", [[row.pk for row in batch]])
+        specs = [
+            ("copy_categories", Category.objects.order_by("slug"), "revision__pk"),
+            ("copy_services", Service.objects.order_by("slug"), "revision__pk"),
+            ("copy_travel_areas", Municipality.objects.order_by("code"), "travel_revisions__pk"),
+            ("copy_rates", Rate.objects.order_by("pk"), "revision_id"),
+            ("copy_photos", Photo.objects.select_related("blob").order_by("created_at", "pk"), "revision_id"),
+        ]
+        for attribute, queryset, relation in specs:
+            grouped = {row.pk: [] for row in batch}
+            for item in queryset.filter(**{relation + "__in": ids}).annotate(copy_parent=F(relation)):
+                grouped[item.copy_parent].append(item)
+            for row in batch:
+                setattr(row, attribute, grouped[row.pk])
+        yield from batch
+
+ARCHIVO apps/safety/rights_inspection_source.py
+"""One source per enclosing audited inspection; mandatory fresh check before return.
+
+No cache survives the context. Only the matching active context may defer nested
+source reads. The caller must enclose this context in its atomic transaction.
+"""
+
+from contextlib import contextmanager
+from contextvars import ContextVar
+from copy import copy
+
+from django.core.exceptions import ValidationError
+from django.db import transaction
+from django.views.decorators.debug import sensitive_variables
+
+from .fast_canonical import canonical_bytes
+from .rights import fingerprint
+from .rights_exports import source_copy
+from .rights_source_fingerprint import source_fingerprint
+
+_current = ContextVar("rights_inspection_source", default=None)
+
+
+def scope(person, listing, case):
+    return (
+        case.pk,
+        case.version,
+        case.person_id,
+        case.account_subject_id,
+        case.manager_version,
+        person.pk if person else None,
+        listing.pk if listing else None,
+    )
+
+
+class _InspectionSource:
+    @sensitive_variables()
+    def __init__(self, person, listing, case):
+        self.scope = scope(person, listing, case)
+        self.connection = transaction.get_connection()
+        # Taken before the read: a change committed in between makes the exit comparison differ.
+        self.rows_fingerprint = source_fingerprint(person, listing, case)
+        self.source = source_copy(person, listing, case)
+        self.digest = fingerprint(canonical_bytes(self.source))
+        self.row_references = {}
+
+    @sensitive_variables()
+    def get(self, person, listing, case):
+        if (
+            _current.get() is not self
+            or transaction.get_connection() is not self.connection
+            or not self.connection.in_atomic_block
+            or scope(person, listing, case) != self.scope
+        ):
+            raise ValidationError("Inspection source context is unavailable or outside its scope")
+        return self.source
+
+
+@sensitive_variables()
+def shared_source(context, person, listing, case):
+    if not isinstance(context, _InspectionSource):
+        raise ValidationError("Invalid inspection source context")
+    return context.get(person, listing, case)
+
+
+def shared_row_reference(dataset, index, row, compute):
+    """Reuse a row reference only for a row object of the active shared source.
+
+    The reference is a pure digest of the row; the shared source cannot change without the
+    context exit rejecting the transaction, so one computation per row and request suffices.
+    """
+    from .rights_copy_inspection import SECTIONS
+
+    context = _current.get()
+    if context is None or dataset not in SECTIONS:
+        return compute()
+    rows = SECTIONS[dataset](context.source)
+    if not isinstance(index, int) or not 0 <= index < len(rows) or rows[index] is not row:
+        return compute()
+    key = (dataset, index)
+    if key not in context.row_references:
+        context.row_references[key] = compute()
+    return context.row_references[key]
+
+
+@sensitive_variables()
+def source_digest(context, person, listing, case, source=None):
+    """Digest of the active shared source, computed once at its fresh read; without a
+    context, of ``source`` or of a fresh copy. Mutation or DB drift of the shared source is
+    still rejected by the context exit inside the caller's transaction."""
+    if context is not None:
+        shared_source(context, person, listing, case)
+        return context.digest
+    return fingerprint(
+        canonical_bytes(source if source is not None else source_copy(person, listing, case))
+    )
+
+
+@contextmanager
+@sensitive_variables()
+def inspection_source(person, listing, case):
+    if not transaction.get_connection().in_atomic_block:
+        raise RuntimeError("Inspection source requires an enclosing atomic transaction")
+    context = _InspectionSource(person, listing, case)
+    token = _current.set(context)
+    try:
+        yield context
+        context.get(person, listing, case)
+        # Detect accidental mutation of the shared projection as well as DB drift.
+        if fingerprint(canonical_bytes(context.source)) != context.digest:
+            raise ValidationError("Inspection source changed before return")
+        # Unchanged row versions prove the source rows are those read; otherwise compare in full.
+        if source_fingerprint(person, listing, case) != context.rows_fingerprint and (
+            fingerprint(canonical_bytes(_fresh_source(person, listing, case))) != context.digest
+        ):
+            raise ValidationError("Inspection source changed before return")
+    finally:
+        _current.reset(token)
+
+
+def _fresh_source(person, listing, case):
+    """Reload caller projections after detected drift; cached fields are not fresh evidence."""
+    if person is not None:
+        person = copy(person)
+        person.refresh_from_db()
+    if listing is not None:
+        listing = copy(listing)
+        listing.refresh_from_db()
+    return source_copy(person, listing, case)
+
+ARCHIVO apps/safety/rights_portability_batch_projection.py
+"""Pure projections reused only inside one atomic coverage batch's source context.
+
+No authority, signature, approved decision, image metadata or physical image read is cached.
+The caller has freshly decrypted and validated every input before calling project().
+"""
+
+from contextlib import contextmanager
+from contextvars import ContextVar
+from copy import deepcopy
+
+from django.conf import settings
+from django.db import transaction
+from django.views.decorators.debug import sensitive_variables
+
+_current = ContextVar('coverage_batch_pure_projection', default=None)
+_VALIDATED_ONLY = object()
+
+
+@contextmanager
+@sensitive_variables()
+def batch_projection(source, user, case, proof):
+    connection = transaction.get_connection()
+    if not connection.in_atomic_block or source.connection is not connection:
+        raise RuntimeError('Batch projection requires the active atomic inspection source')
+    state = {'source': source, 'connection': connection, 'actor': user.pk,
+             'session': user.session_version, 'mfa': user.mfa_version,
+             'case': case.pk, 'proof': proof.pk, 'entries': {}}
+    token = _current.set(state)
+    try:
+        yield
+    finally:
+        state['entries'].clear()
+        _current.reset(token)
+
+
+@sensitive_variables()
+def project(source_context, user, case, proof, row, review, source, assessment, binding, operation, *, _audit_only=False):
+    """Reuse computation after fresh validation; return an independent mutable projection."""
+    if type(_audit_only) is not bool:
+        raise ValueError('Invalid audit projection mode')
+    state = _current.get()
+    if (state is None or source_context is not state['source']
+            or transaction.get_connection() is not state['connection']
+            or not state['connection'].in_atomic_block
+            or source is not source_context.source
+            or (user.pk, user.session_version, user.mfa_version, case.pk, proof.pk) != (
+                state['actor'], state['session'], state['mfa'], state['case'], state['proof'])):
+        value = operation(source, assessment, binding['selection'],
+                          field_evidence=binding.get('field_evidence'))
+        return None if _audit_only else value
+    # Ciphertext equality binds the freshly validated/decrypted declarations. Guards,
+    # expiry, original signatures, latest approval and audited images still run per child.
+    key = (case.version, case.kind, case.status, case.person_id, case.account_subject_id,
+           case.manager_version, source_context.digest, proof.status, proof.expires_at,
+           row.pk, row.version, row.actor_id, row.proof_id, row.assessment_review_id,
+           row.source_digest, row.selection_digest, row.assessment_digest, row.inspection_digest,
+           row.decision_digest, row.original_session_version, row.original_mfa_version,
+           row.expires_at, row.purged_at, row.encrypted_selection, review.pk,
+           review.assessment.encrypted_assessment, review.action.payload_digest,
+           review.read.action.payload_digest, settings.SECRET_KEY, settings.SAFETY_ENCRYPTION_KEY,
+           settings.PRODUCTION, operation)
+    entries = state['entries']
+    if key in entries and _audit_only:
+        return None
+    if key not in entries or entries[key] is _VALIDATED_ONLY:
+        value = operation(source, assessment, binding['selection'],
+                          field_evidence=binding.get('field_evidence'))
+        # At most one entry per individually audited child; never grows across a request.
+        if len(entries) >= 4:
+            return None if _audit_only else value
+        entries[key] = _VALIDATED_ONLY if _audit_only else deepcopy(value)
+        return None if _audit_only else value
+    return deepcopy(entries[key])
+
+source_copy ycanonical:
+def canonical(value):
+    return fast_canonical(value)
+
+
+def _one_export_validation(function):
+    # Imported at call time: rights_portability_export depends on this module.
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        from .rights_portability_export import one_export_validation
+
+        return one_export_validation(function)(*args, **kwargs)
+
+    return wrapper
+
+
+@sensitive_variables()
+def source_copy(person, listing, case=None):
+    if case and case.account_subject_id:
+        from .rights_account_copy import source
+
+        return source(case)
+    # Same account lock as preference writers; held through snapshot generation.
+    if person.subject_id:
+        User.objects.select_for_update(no_key=True).get(pk=person.subject_id)
+    revisions = []
+    if listing:
+        # Profile lock prevents a cooperating editor adding another revision mid-copy.
+        records = (
+            listing.revisions.select_for_update(of=("self",))
+            # Generated search vectors can exceed the source text; copies never use them.
+            .defer("search_document")
+            .select_related("municipality", "postal_code", "zone")
+            .order_by("created_at", "pk")
+        )
+        from .rights_copy_revision_batches import batches
+
+        for revision in batches(records, COPY_REVISION_BATCH_SIZE):
+            revisions.append(
+                {
+                    "revision": str(revision.pk),
+                    "status": revision.status,
+                    "created_at": revision.created_at.isoformat(),
+                    "title": revision.title,
+                    "description": revision.description,
+                    "description_alternative": revision.description_alternative,
+                    "profile_type": revision.profile_type,
+                    "content_language": revision.content_language,
+                    "categories": [item.slug for item in revision.copy_categories],
+                    "services": [item.slug for item in revision.copy_services],
+                    "municipality": revision.municipality.code
+                    if revision.municipality_id
+                    else None,
+                    "postal_code": revision.postal_code.code if revision.postal_code_id else None,
+                    "zone": revision.zone.code if revision.zone_id else None,
+                    "travel_areas": [item.code for item in revision.copy_travel_areas],
+                    "spoken_languages": revision.spoken_languages,
+                    "days": revision.days,
+                    "time_slot": revision.time_slot,
+                    "reception": revision.reception,
+                    "travel": revision.travel,
+                    "contacts": contact_data(person, revision),
+                    "images": image_inventory(revision),
+                    "rates": [
+                        {
+                            "concept": rate.concept,
+                            "mode": rate.mode,
+                            "amount": str(rate.amount) if rate.amount is not None else None,
+                            "currency": rate.currency,
+                            "duration_minutes": rate.duration_minutes,
+                        }
+                        for rate in revision.copy_rates
+                    ],
+                }
+            )
+    subject = subject_data(person)
+    return {
+        "schema": "subject-profile-copy-v2",
+        "partial": True,
+        "simulation": True,
+        "pending_review": [
+            "image_content",
+            "shared_contacts",
+            "additional_rights_information",
+            *([] if subject["subject_account"] else ["unlinked_subject_account"]),
+        ],
+        **subject,
+        "profile": {
+            "alias": person.alias,
+            "created_at": person.created_at.isoformat(),
+            "listing": {
+                "reference": str(listing.pk),
+                "status": listing.status,
+                "created_at": listing.created_at.isoformat(),
+                "published_at": listing.published_at.isoformat() if listing.published_at else None,
+                "expires_at": listing.expires_at.isoformat() if listing.expires_at else None,
+                "available_until": listing.available_until.isoformat()
+                if listing.available_until
+                else None,
+                "approved_revision": str(listing.approved_revision_id)
+                if listing.approved_revision_id
+                else None,
+            }
+            if listing
+            else None,
+        },
+        "revisions": revisions,
+    }
+
+
+@sensitive_variables()
+def reviewed_copy(source, value):
+    # JSONField accepts objects directly and rejects invalid JSON before this service.
+    if not isinstance(value, dict) or set(value) != set(source):
+        raise ValidationError("Copy schema changed / Esquema de copia cambiado")
+    expected = json.loads(canonical(source))
+    try:
+        if expected["profile"] is not None:
+            alias = value["profile"]["alias"]
+            if not isinstance(alias, str) or len(alias) > 80:
+                raise ValueError
+            expected["profile"]["alias"] = alias
+        if expected["subject_account"] is not None:
+            for field, maximum in [
+                ("username", 150),
+                ("email", 254),
+                ("first_name", 150),
+                ("last_name", 150),
+            ]:
+                text = value["subject_account"][field]
+                if not isinstance(text, str) or len(text) > maximum:
+                    raise ValueError
+                # Redaction may remove material, but cannot add a different account identity.
+                if text not in [expected["subject_account"][field], ""]:
+                    raise ValueError
+                expected["subject_account"][field] = text
+        if "personal_contacts" in expected.get("account_activity", {}):
+            original_contacts = expected["account_activity"]["personal_contacts"]
+            changed_contacts = value["account_activity"]["personal_contacts"]
+            if not isinstance(changed_contacts, list) or len(changed_contacts) != len(
+                original_contacts
+            ):
+                raise ValueError
+            for original_contact, changed_contact in zip(
+                original_contacts, changed_contacts, strict=True
+            ):
+                phone = changed_contact["phone"]
+                if phone not in [original_contact["phone"], ""]:
+                    raise ValueError
+                original_contact["phone"] = phone
+        if len(value["revisions"]) != len(expected["revisions"]):
+            raise ValueError
+        for original, edited in zip(expected["revisions"], value["revisions"], strict=True):
+            for field in ["title", "description", "description_alternative"]:
+                text = edited[field]
+                if not isi

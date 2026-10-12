@@ -6,8 +6,11 @@ from django.core.exceptions import ValidationError
 
 from apps.safety.rights_copy_inspection import SECTIONS
 from apps.safety.rights_portability import DATASETS, _validate_decision, checked_assessment
-from apps.safety.rights_portability_catalog import scalar_fields
+from apps.safety.rights_portability_catalog import (
+    scalar_fields,  # noqa: F401 — retained diagnostic alias
+)
 from apps.safety.rights_portability_images import checked_images
+from apps.safety.rights_portability_paths import _scalar_paths
 from apps.safety.rights_portability_selection import project_selected, row_reference
 
 
@@ -63,7 +66,7 @@ def compile_coverage(
         included_count = excluded_count = pending_count = 0
         for index, row in enumerate(rows):
             reference = row_reference(name, index, row)
-            paths = {item["path"] for item in scalar_fields(row)}
+            paths = {path for path in _scalar_paths(row)}
             selected = selectors.get(reference, set())
             missing = paths - selected
             included_count += len(selected)

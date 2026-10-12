@@ -1,0 +1,29 @@
+Sala técnica local. Opina sólo sobre el contexto suministrado. Sin herramientas, ediciones ni ejecución. Distingue hechos medidos, hipótesis y evidencia faltante. Las intervenciones son opiniones, nunca PASS ni autorización. No cachear autoridad, omitir comprobaciones frescas ni extrapolar microbenchmarks a p95 contractual. Propón una decisión finita y señala contraejemplos. Máximo 900 palabras.
+
+Nuevo goal usuario «continua con estas nuevas indicaciones»: bajarbeneficiomínimoparaencontrarsolución. Codexinterpreta aceptar mejoras pequeñas/milisegundos, no rebajar2s/5sni seguridad,frescura,auditoría,completitud ni evidencia. Primergoal cerrado sólodictamen; nueva autorizaciónjustificareabrirramacostemodesto. Máximo3ciclosfinito,4turnosexternosciclo; cambiar1variable.
+Hechos: originalA/A corpus1502rows/27163hojas,23msconjuntosrutas;4501punteros6ms/noahorro. Fixture1500revision/16MiBseleccionado,548eventos/256reads enclonescommits4reads8events. Compuerta20originalcontrols1workerTCPmed1556CPU877ms spreadTCP8.064%CPU11.824%,umbral10%:FAIL,no reinterpretar. GCgen2correlación77ms,no duraciónni causafactor2históricoprevio~800ms. Noencontradocandidatosgrandes. Ahora priorizar mejoraetapapurosin depender de compuertarequest;TCPbeneficiono demostrarpor microbenchmark.
+Código EXACTO ORIGINAL:
+def scalar_fields(value, prefix=''):
+ if isinstance(value,dict):
+  for key,child in value.items():
+   if not isinstance(key,str): raise ValidationError('Invalid portability object key')
+   escaped=key.replace('~','~0').replace('/','~1')
+   yield from scalar_fields(child,prefix+'/'+escaped)
+ elif isinstance(value,list):
+  for index,child in enumerate(value):
+   yield from scalar_fields(child,prefix+'/'+str(index))
+ elif prefix: yield {'path':prefix,'value':value}
+ else: raise ValidationError('Portability row requires an object or list')
+
+Únicoconsumidorproductivoquecambia apps/safety/rights_portability_coverage.py compile_coverage:
+for index,row in enumerate(SECTIONS[name](source)):
+ reference=row_reference(name,index,row)
+ paths={item['path'] for item in scalar_fields(row)}
+ selected=selectors.get(reference,set());missing=paths-selected
+ # restoautoridad/decisiones intactas
+Candidata mínima: nuevomóduloprivado rights_portability_paths.py `_scalar_paths` copiaalgoritmorecursivoexacto,únicocambio `elif prefix: yield prefix` envezdict;compile usa set(_scalar_paths(row)). Publicscalar_fields permanece intacta,no cambiar otrosconsumidores ni pointer_value ni límitesrecursiónni freezeGC.
+Justificación: compile sólolee leaf['path'], no valores. Eliminarasignacionesdictporhoja podría mejora parcial. Noasimila27163hojas=101755dicts ni garantiza ahorro.
+Planprevio Codex: pruebasdiferencialescontraoriginalorden/conjuntos/cantidadexcepcionesymomento, badkeys,dict/list/strsubclasses,tuplas/nonfinitefloat/root/prefix/escapes, objetoscustomitems, empty/deep/cyclic, mutacióndict/listmientrasconsume,send/close/throw yRecursionError. Nobenchmarkdeepcopy/punterosporqueintactos.
+Comparaciónpura en corpusREALmaterializado del fixture, fueraDB/servidor:20original20candidata intercaladoABBAx10,2warmups/variante,wall/threadCPU,GCno tocar,resultadosigualantes/después,GCstatsfuera,memoriacallocationsseparado/tracemallocNOtimed. Corpusancho256/profundo64/escapeadicional. No mínimoabsolutomsenaceptación;beneficiomicroreproducible yperfilordenno engaño, reportar4bloquescronológicos.
+N2 afectado conPGreal(familiascoverage/sourcechanges/revocations/idempotencia/purgaraces),másHTTP20porvarianteclonesidénticos usandoaliasconsumeroriginalfallbackenmodooriginalymodoactualcandidata,noautoridadomitida. MismaAPI/digests/freshchecks/commit.20x2=40HTTP+2warmupsmodounworker;prefijartimeout,no repetirporquererwin. Comparaciónmediana/colas/recurso:siCPUstagegana peroTCPno distinguibleruido sólo declarar mejoraETAPA, nodeclarargananciarequest;siempeorarequestconsistenterechazar. Noraise10%puerta históricos.
+Criticaplan: ¿algúncambio desemánticalatente,pruebasfaltantes o razón NOprobar con nuevo umbral? Máximo400palabras. Noeditar/herramientas, opinionesnoevidencia.

@@ -1,0 +1,307 @@
+{
+  "answer": "### 1. Corrección y Rectificación de la Postura Anterior\n\nSe rectifica la postura previa: **ninguna consolidación de guardas es admisible si adelanta snapshots o sustituye momentos de verificación de autoridad fresca** [1-3]. Reducir la validación a un chequeo único (`checkUser`) es inaceptable porque omitiría las 23 comprobaciones de autoridad/proof/catálogo requeridas por página [1, 2]. Asimismo, queda descartada la extrapolación de microbenchmarks a p95 contractual; el kernel canónico en Cython se ejecuta nativamente en cada petición HTTP [4, 5]. Se retienen de forma íntegra las 100 fuentes del proyecto sin mezclar versiones obsoletas [6].\n\n---\n\n### 2. Clasificación de Evidencia\n\n* **Hechos medidos**:\n  1. En PostgreSQL 17 `routine-vacuuming` (desde 9.4), la congelación (*freeze*) conserva el `xmin` original marcando el bit correspondiente [7]. `REINDEX` reescribe únicamente el índice sin alterar filas ni `ctid`, mientras que `VACUUM FULL` / `CLUSTER` reescriben el *heap* forzando invalidación y fallback seguro [7].\n  2. `source_fingerprint` es SQL inline en Python que calcula `(tabla, pk, xmin, ctid)` sobre la totalidad de las filas fuente, incluyendo a `subjectUser` [4, 7].\n  3. La traza histórica de 383 lotes acumulativos / 3.000 EVENTs con fotos difiere del fixture sintético de 548 EVENTs [8, 9].\n\n* **Hipótesis**:\n  1. Una consulta CTE única en SQL (Ruta B) reduce la transferencia de datos, pero al fijar un único snapshot de sentencia para las 7 familias, adelanta snapshots y oculta cambios de propietario (*ownerchanges*) entre barreras [3, 4].\n  2. La función `VOLATILE` preserva la evaluación de frescura por llamada dentro de SQL, pero requiere atestación estricta del cuerpo de la función contra suplantaciones [4].\n\n* **Evidencia faltante**:\n  1. Medición de la tasa real de *hit/drift* para cuantificar el impacto del fallback completo sobre el SLO [10, 11].\n  2. Evaluación de coste DDL, purga y consumo de épocas XID para el manifiesto firmado de la Ruta A [4, 7].\n\n---\n\n### 3. Diseños Concretos Priorizados\n\n1. **Ruta A (Manifiesto de DATOS/chunks ≤ 50 firmado)**:\n   * Firma un manifiesto con `scope`, `schema`, `keyversion`, `fullsourcecanonicaldigest` y `fullfreshrowstamp`, comprobando el `rowversion` físico total antes y después de la lectura [1, 4, 7].\n   * Retiene las 23 guardas de autoridad actuales sin usar TTL como indicador de frescura [1, 2].\n\n2. **Ruta B (Validación compacta en SQL servidor vía `pg_catalog`)**:\n   * Ejecuta evaluaciones en el servidor PostgreSQL devolviendo un resultado compacto a Python, manteniendo la firma y criptografía de negocio en la capa de aplicación [4].\n   * **Preservación de barreras sin CTE única**: Se descarta el CTE masivo. Se implementa mediante consultas SQL inline sobre `pg_catalog` o funciones `VOLATILE` con atestación de cuerpo [4].\n   * Uso de TOAST LZ4/JIT condicionado estrictamente a demostración de coste en `EXPLAIN (ANALYZE, BUFFERS)` [12, 13].\n\n---\n\n### 4. Experimento para Descartar Riesgos (Filtro Finito Codex)\n\n**Procedimiento de prueba de seguridad**:\n1. En un entorno PostgreSQL temporal con datos reales, reemplazar el helper de digest por una función maliciosa que genere un hash antiguo/obsoleto.\n2. Actualizar el cuerpo para simular coincidencia de digest almacenado y *head*.\n3. Restaurar el helper y verificar que el cálculo físico *fresh* rechace la operación [4, 7].\n4. Ejecutar `VACUUM FREEZE` y `REINDEX` intermedios, incorporando la prueba de `existing runtimeownerdrift`.\n*Objetivo*: Confirmar que el filtro de seguridad descarte accesos obsoletos y permita cerrar R4/estructuras ingenuas [4, 7].\n\n---\n\n### 5. Decisión Finita, Contraejemplos y Obligación Faltante\n\n* **Decisión Finita**: Adopción prioritaria de la **Ruta A** por preservar de forma explícita las barreras de aislamiento transaccional y el orden de lecturas en Python [1, 7]. La **Ruta B** queda supeditada a demostrar equivalencia exacta frente a *ownerchanges* mediante evaluaciones `VOLATILE` independientes [4].\n* **Contraejemplos a evitar**:\n  * Unificar las 7 familias en un único CTE: adelanta snapshots y oculta modificaciones concurrentes entre barreras [3, 4].\n  * Presentar el *fallback full* como solución de SLO sin medir la tasa de *drift*: puede provocar degradación latente sistemática [10, 11].\n* **Obligación Faltante antes de la implementación**: Medir formalmente la tasa de *hit/drift* y certificar la inmutabilidad del cuerpo de las funciones SQL antes de autorizar cambios en producción [4, 7].\n\n¿Quieres que elaboremos la especificación técnica detallada de la Ruta A o prefieres revisar las métricas del experimento de seguridad?",
+  "question": "Sala técnica local. Opina sólo sobre el contexto suministrado. Sin herramientas, ediciones ni ejecución. Distingue hechos medidos, hipótesis y evidencia faltante. Las intervenciones son opiniones, nunca PASS ni autorización. No cachear autoridad, omitir comprobaciones frescas ni extrapolar microbenchmarks a p95 contractual. Propón una decisión finita y señala contraejemplos. Máximo 900 palabras.\n\nCorrige la respuesta anterior antes de decidir. Prioriza dos diseños concretos y un experimento que descarte un riesgo; máximo700palabras.\n1) PG17 docs routine-vacuuming: desde9.4 freeze conserva xmin original y marca bit. REINDEX reescribe índice, no heap/ctid; VACUUM FULL/CLUSTER sí pueden rewrite, pero invalidación es fallo seguro. xmin32wrap es riesgo real; no fingir pruebas de 4mil millones XID.\n2) source_fingerprint es SQL inline en Python que cubre TODAS las filas fuente, incluido subjectUser, no sólo chunk ni función externa. DiseñoCodex RETIENE23autorizaciones frescas/proof/latest/catalog porpágina. Descartar tu ruta1 que consolida23guardasen1: adelanta snapshots y sustituye momentos frescos. No es riesgo bajo. Tu ruta final checkUser únicamente omite otras guardas: inaceptable. No elegir<30ms sin medir. Kernel canonical YA Cython nativo validado en cada HTTP; no son46msCPU Python.\n3) Tu research pipeline usaba mismo cursor varias veces y cerrado antesfetch: rechazado. Noimportamos51fuentes porque mezcla SEO/versiones incorrectas; conservamos100 fuentes. Investigación guardada, noPASS.\n4) Rutas propias: A) manifiesto de DATOS/chunks<=50 firmado(scope/schema/keyversion/fullsourcecanonicaldigest/fullfreshrowstamp), rowversion física TOTAL antes/después y TODAS las guardas actuales. Falta medir coste/DDL/XIDepoch/purga/fallback. No TTL como frescura. B) Validación completa de cadena computada en SQL servidor devolviendo resultados compactos, evitando transferir EVENT y siete mapas completos aPython. NO head-only/counter/fastticket, NO omitir hash físico de ninguna fila. Conservar orden actual de lecturas/snapshots/concurrencia o probar equivalencia frente ownerchanges entre barreras. Firmas y crypto de negocio siguen Python. SQLinlinepg_catalog para evitar función suplantable. ConsultaCTEúnica adelanta snapshots de siete familias (posiblecontraejemplo); funciónVOLATILE preserva snapshot por SQL pero requiere atestación de cuerpo robusta. ¿Cómo diseñar B sin cambiar barreras? Tercera lateral TOAST LZ4/JIT sólo siEXPLAIN demuestra coste, sin más recursos.\n5) Histórico383lotes acumulativos/3000EVENT y fotos seleccionadas difiere de fixture548EVENT/fotos no entregadas. No explicar3.75s por0.8s sin reproducir historia. recordTOTAL265ms,50msSQL noequivalente.\nFiltro finito Codex: en PG real temporal reproducir digest GENERATED stale mediante reemplazar helper por funciónmaliciosa, actualizarbody para generar hashviejo, restaurarhelper. Digest almacenado/head parecen iguales, cálculo físico fresh rechaza. Ejecutar VACUUMFREEZE/REINDEX para contrastar tus hechos. Añadir existing runtimeownerdrift test. Pruebasdefiltroseguridad, no capacidad ni producto. ¿Esto permite cerrarR4/rowstored ingenuos y priorizarA/B? Identifica obligación faltante antes de implementación. Cita docs correctos. No presentar fallbackfull como solución SLO hasta medir tasa hit/drift.\n",
+  "conversation_id": "7bc32f65-3cd0-4331-bcb9-9c16185a4708",
+  "sources_used": [
+    "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+    "6ae02617-af23-430d-8f53-16dca72896db",
+    "0ccc7a99-a93d-4cd5-bc25-a1736b48679c",
+    "edab2164-44aa-46aa-8f4e-8913168fb338",
+    "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "a7d633ca-c0ab-4118-9ce6-c44910aa4f59"
+  ],
+  "citations": {
+    "1": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "2": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "3": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+    "4": "6ae02617-af23-430d-8f53-16dca72896db",
+    "5": "0ccc7a99-a93d-4cd5-bc25-a1736b48679c",
+    "6": "6ae02617-af23-430d-8f53-16dca72896db",
+    "7": "edab2164-44aa-46aa-8f4e-8913168fb338",
+    "8": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+    "9": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+    "10": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+    "11": "6ae02617-af23-430d-8f53-16dca72896db",
+    "12": "a7d633ca-c0ab-4118-9ce6-c44910aa4f59",
+    "13": "f6c2fcf2-1cd0-4777-b182-91ebb308a340"
+  },
+  "references": [
+    {
+      "source_id": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+      "citation_number": 1,
+      "cited_text": "def source_read(user, case, source, responses): read = ( RightsAction.objects.filter( request=case, actor=user, expected_version=case.version, operation=\"rights_comms_source\", ) .order_by(\"-pk\") .first() ) if not read: raise ValidationError(\"Read the current recipient source before assessment\") body = checked_body(read.encrypted_reason) if ( _digest(body) != read.payload_digest or body.get(\"digest\") != _digest(source) or body.get(\"execution\") != source[\"execution\"] or body.get(\"responses\") != responses or body.get(\"channel\") != case.receipt_digest ): raise ValidationError(\"Read the current recipient source before assessment\") fresh_authority(user, case, body[\"session\"], body[\"mfa\"]) return read"
+    },
+    {
+      "source_id": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+      "citation_number": 2,
+      "cited_text": "def authorize(user, case): fresh = User.objects.get(pk=user.pk) if ( not fresh.is_active or not fresh.mfa_enabled or fresh.session_version != user.session_version or fresh.mfa_version != user.mfa_version or not all( fresh.has_perm(\"safety.\" + name) for name in [ \"review_rights_request\", \"execute_rights_request\", \"review_copy_information\", ] ) or not permitted(fresh, case) ): raise PermissionDenied return fresh"
+    },
+    {
+      "source_id": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+      "citation_number": 3,
+      "cited_text": "Correctivas locales b23cde3/4354109: SQL textual seguro exclusivamente para las7familias de evidencia permite crear/reproducir un sello enforced; Composed arbitrario sigue declinándolo. La autorización del proxy usa el scope existente para validar una vez por operación, nunca entre peticiones; conserva autoridad/grants/expiración/lecturas físicas. N2 aislada51PASS223,290s y conjunta100PASS248,122s, cero skips, PG/Redis/S3 reales, fuentes iguales y retirada verificada independientemente. Evidencia , originales sin baseline privado . Pendiente N2 de agrupación de catálogo runtime26→9 y nueva medición con código final congelado; mejora temporal de estas correctivas todavía no acreditada."
+    },
+    {
+      "source_id": "6ae02617-af23-430d-8f53-16dca72896db",
+      "citation_number": 4,
+      "cited_text": "<cited_table>",
+      "cited_table": {
+        "num_columns": 6,
+        "rows": [
+          [
+            "#",
+            "Pieza actual",
+            "Sustitución",
+            "Garantía y cómo se demuestra",
+            "Ganancia estimada",
+            "Estado"
+          ],
+          [
+            "1",
+            "Repetición de trabajo en validaciones",
+            "Equivalencias exactas: memo de",
+            "Igual; N2 414 PASS",
+            "moderada",
+            "Integrado"
+          ],
+          [
+            "2",
+            "Validación completa repetida 2–3 veces por operación",
+            "Una validación por operación y transacción",
+            "Igual; cota de regresión en",
+            "÷2–3 en finales/descargas",
+            "Integrado"
+          ],
+          [
+            "3",
+            "Segunda lectura completa del origen al salir",
+            "Huella",
+            "Identidad de versión y tupla detecta incluso varios UPDATE dentro de la misma transacción;",
+            "lecturas ~2,7s → ~0,3–0,5s",
+            "Integrado; N2 dirigida y casos pertinentes conjuntos PASS; perfil/capacidad pendientes"
+          ],
+          [
+            "4",
+            "Re-derivación de la exportación en finales/descargas",
+            "Sello por",
+            "Determinismo de la validación respecto a sus entradas;",
+            "finales/descargas ~10s → <1–2s",
+            "Integrado; N2 dirigida y conjunta pertinente PASS, incluida corrupción S3 sin cambio SQL y acceso; perfil pendiente"
+          ],
+          [
+            "5",
+            "Generación síncrona 50–65s en la petición",
+            "Tarea Celery con estado/progreso y misma validación; la petición devuelve inmediatamente",
+            "Mismas funciones de dominio; pruebas de estado, reintento, idempotencia y concurrencia",
+            "libera workers; UX",
+            "Integrado; N2 jobs/HTTP/móvil pertinente PASS; correctiva móvil conjunta en ejecución, capacidad pendiente"
+          ],
+          [
+            "6",
+            "Fernet (AES-CBC+HMAC+base64) para blobs grandes en columnas de texto",
+            "AEAD en flujo (AES-GCM o ChaCha20-Poly1305 de",
+            "Mismo secreto/autenticación; pruebas de integridad, rotación de claves, purga y restauración",
+            "-33% tamaño, 2–4× cifrado, PostgreSQL más ligero",
+            "Integrado opt-in; AEAD/S3/purga reales PASS, integración capacidad pendiente"
+          ],
+          [
+            "7",
+            "json.dumps(sort_keys=True)",
+            "orjson",
+            "Forma canónica nueva y estable; regenerar digests sintéticos",
+            "5–10× serialización, 3–5× hashing",
+            "Integrado; forma canónica v2, equivalencia bytes/HMAC y casos N2 PASS; ganancia depende del tipo de datos"
+          ],
+          [
+            "8",
+            "Descargas servidas por Django",
+            "Revalidación de autorización y bytes; grant efímero de un uso, URL firmada y forward_auth Caddy",
+            "Autorización y conteo de descargas en Django; bytes por el proxy",
+            "descarga sin CPU Python",
+            "Integrado opt-in; S3/Caddy y revocación/purga dirigidas PASS; preflight conjunto pendiente"
+          ],
+          [
+            "9",
+            "N2 en serie (~80 min)",
+            "pytest-xdist",
+            "Misma selección y cero skips; runner conserva evidencia por worker",
+            "3–6×",
+            "xdist integrado: 414 PASS/0 skips; snapshots con credenciales/fallback ocupado verificados en conjunta, sin plantilla de derechos aprobados"
+          ],
+          [
+            "10",
+            "Diagnósticos que releen 1.509 páginas",
+            "Plantilla privada AEAD de estado aprobado original; fresh LOGIN y validación completa antes de adoptar; aceptación sigue con lecturas reales",
+            "Solo diagnóstico, nunca aceptación",
+            "85 → ~10 min",
+            "Diseño y restricciones"
+          ],
+          [
+            "11",
+            "Evidencias mutables revalidadas por relectura",
+            "Evidencia inmutable por construcción",
+            "Más fuerte que hoy; pruebas de rechazo de mutación, restauración y purga legal (que pasa a ser tombstone auditado)",
+            "Sin reducción global O(1) acreditada",
+            "Integrado opt-in con rol runtime separado y 7 familias; N2 cadena/ACL/domain PASS; capacidad con rol real pendiente"
+          ],
+          [
+            "12",
+            "Revisión independiente página a página por HTTP",
+            "Revisión por lotes auditados: varias páginas ≤50 filas por petición, cada una registrada como lectura",
+            "Mismo contrato de lectura auditada; actualizar contratos internos antes de GS01",
+            "÷N peticiones",
+            "Integrado; N2 dirigida20PASS y conjunta pertinente PASS, incluidos rollback final y fin de imágenes; contrato actualizado; capacidad pendiente"
+          ],
+          [
+            "13",
+            "Rutas calientes Python",
+            "mypyc",
+            "Igual",
+            "variable",
+            "Condicional"
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "0ccc7a99-a93d-4cd5-bc25-a1736b48679c",
+      "citation_number": 5,
+      "cited_text": "\"target\": \"apps_safety_rights_validation_seal_resultcursor_fetchone\", \"relation\": \"calls\", \"_origin\": \"ast\", \"confidence\": \"EXTRACTED\", \"confidence_score\": 1.0, \"context\": \"call\", \"source_file\": \"apps/safety/rights_validation_seal.py\", \"source_location\": \"L144\", \"weight\": 1.0 }, { \"source\": \"apps_safety_rights_validation_seal_rule_version\", \"target\": \"apps_safety_canonical_kernel_loader_kernel_identity\", \"relation\": \"calls\", \"_origin\": \"ast\", \"confidence\": \"EXTRACTED\", \"confidence_score\": 1.0, \"context\": \"call\","
+    },
+    {
+      "source_id": "6ae02617-af23-430d-8f53-16dca72896db",
+      "citation_number": 6,
+      "cited_text": "Alcances cerrados que se reutilizan <cited_table>",
+      "cited_table": {
+        "num_columns": 2,
+        "rows": [
+          [
+            "Entrega cerrada localmente",
+            "Evidencia y límites"
+          ],
+          [
+            "Redis RDB/AOF por inventario",
+            "Fuente9c5e37a integrada c263dc6;58 N2 PG/nativas correctas,113,282 s JUnit,843 hashes/limpieza."
+          ],
+          [
+            "RDB AUX por inventario",
+            "467974f integrada8fdab09;27 casos finales125,986 s,846 hashes/limpieza. Bytes completos solo cifrados y referencias opacas;"
+          ],
+          [
+            "RDB metadatos físicos no AUX",
+            "bedc016;16 N1/7 N2 en runs separados,850 hashes/limpieza. Cabecera/base/tamaños/atributos/consumo exacto;"
+          ],
+          [
+            "Orígenes Redis conservados por expediente",
+            "9aff6b0 integrada55de411;43 casos86,027 s,839 hashes/limpieza."
+          ],
+          [
+            "Selección histórica de logs",
+            "73d28f6;17 PG/CLI/Chromium ES/EN213,913 s,853 hashes/limpieza."
+          ],
+          [
+            "Diagnósticos finitos de logs",
+            "Inventario"
+          ],
+          [
+            "Optimización binaria",
+            "ffd6f4d;20 funcionales y dos mediciones separadas de8WebP/75499866bytes. Pico Python601488628→528763019 bytes, no mejora temporal significativa;"
+          ],
+          [
+            "Inspección/batches y recorrido de origen grande",
+            "Lotes250/validación compartida y hotfix4735707: primera página1500 revisiones284→203SQL/9,940→6,591 s instrumentados."
+          ],
+          [
+            "Transporte binario cerrado TCP",
+            "Informe"
+          ],
+          [
+            "Comercial completo preparado",
+            "Catálogo/órdenes/eventos sintéticos/derechos/UI ES/EN/patrocinio/autosubida/cupos/autoridad/censo/restauración integrados25423c1/8388bef, catalog0005."
+          ],
+          [
+            "Preparación independiente SEO/paginación",
+            "Metadatos1745dc2, sitemapd0aeba3, JSON-LD36f4d57/96b57cf y alertas SQL86ffe85 cerrados localmente PG/Chromium/Docker."
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "edab2164-44aa-46aa-8f4e-8913168fb338",
+      "citation_number": 7,
+      "cited_text": "def locked_profile_case(*args, **kwargs): \"\"\"Profile-only consumers cannot acquire account-only authority.\"\"\" case, person, listing = locked_case(*args, **kwargs) if not person or case.account_subject_id: raise ValidationError(\"Profile scope required / Ámbito de perfil obligatorio\") return case, person, listing ===== ARCHIVO: apps/safety/rights_source_fingerprint.py ===== \"\"\"Row-version fingerprint of exactly the rows a rights source copy reads. PostgreSQL gives every committed INSERT/UPDATE a new tuple version with its xmin and ctid , and a DELETE removes the row from the filtered set; locking with FOR UPDATE changes only xmax . Comparing a fingerprint of (table, primary key, xmin, ctid) taken before a source read with one taken at the end of the same operation therefore detects any committed change to those rows without transferring their contents. It is used only to decide whether the full fresh source re-read can be skipped; any difference keeps the original full comparison."
+    },
+    {
+      "source_id": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+      "citation_number": 8,
+      "cited_text": "Cobertura: 1.509 páginas reales, 383 lotes sin perfil, p95 4,889s . Comparación de los primeros123 lotes de4: 5,087→4,278s ( 15,90% frente al diagnóstico previo parcial), sin mejora adicional demostrada frente a 4,251s posterior a SQL. Perfil SQL447 frente a515; reducir consultas no acredita por sí solo reducir latencia. Descargas TCP JSON3 muestras p95 9,107s , binarias8 p95 9,541s , aproximadamente61% menos que el diagnóstico anterior de23,539/24,374s, todavía fuera de5s. Son cambios integrados más correctivas posteriores, sin atribución causal aislada a Claude."
+    },
+    {
+      "source_id": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+      "citation_number": 9,
+      "cited_text": "===== ARCHIVO: docs/diagnostico-coste-listado0110.md ===== Checkpoint de atribución del listado Fuente aedfa2db1d7b5e130e21da3cdda2315ba95fd79a . Tres pruebas PostgreSQL correctas; fuentes, huellas de artefactos y limpieza verificadas. Ruta /es/ , mismo seed y nivel de instrumentación. Una petición por tamaño mediante DjangoClient; no es carga TCP concurrente. <cited_table>",
+      "cited_table": {
+        "num_columns": 7,
+        "rows": [
+          [
+            "Candidatos",
+            "Queries",
+            "SQL execute (s)",
+            "Listings creados",
+            "Validaciones (calls / s)",
+            "Render HTML (s)",
+            "Request (s)"
+          ],
+          [
+            "100",
+            "70",
+            "0.370903",
+            "100",
+            "100 / 0.197959",
+            "0.101740",
+            "1.122757"
+          ],
+          [
+            "1000",
+            "70",
+            "0.538131",
+            "1000",
+            "1000 / 1.669809",
+            "0.069146",
+            "3.826421"
+          ],
+          [
+            "10000",
+            "70",
+            "3.359683",
+            "10000",
+            "10000 / 18.604750",
+            "0.078160",
+            "34.650646"
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+      "citation_number": 10,
+      "cited_text": "MOD-08 perfil real posterior a SQL y correctivas de entrega (18:46 UTC): master58c67b8 integra las optimizaciones SQL. Captura174156 completa las1509páginas; reuso182155 devuelve HIT_DIAGNOSTIC_REUSED_PREPARATION en controlador nuevo y PROFILE_DIAGNOSTIC_NOT_CAPACITY/1PASS. Generación real1intento33,160s, cierre11,525s; descargas JSON3muestras p95 23,539s y binarias8muestras p95 24,374s, superiores al objetivo5s. Comparación parcial de123lotes equivalentes sin perfilador: p95 5,087→4,251s (16,418%); SQL755→515 (31,788%). Ambas ejecuciones conservan fuentes y retiran recursos propios; no aceptación capacidad/N3/CR09 ni p95 de población completa."
+    },
+    {
+      "source_id": "6ae02617-af23-430d-8f53-16dca72896db",
+      "citation_number": 11,
+      "cited_text": "Perfil posterior a integración SQL y correctivas de entrega Lecturas diagnósticas en123lotes equivalentes: p95 5,087→4,251s; SQL755→515. Restauración entre controladores reales HIT, generación33,160s/1intento y cierre11,525s. Descargas diagnósticas23,539–24,374s exceden5s; las muestras reducidas no son aceptación. Correctivas SQL de cadena enforced y scope por autorización: N2 conjunta100PASS0skips248,122s; no mejora temporal nueva demostrada todavía. Registro y límites . Continúa la optimización hasta cumplir objetivos originales y ejecutar capacidad completa de2casos; sin relajación de fuentes, autoridad, físicos, población ni límites."
+    },
+    {
+      "source_id": "a7d633ca-c0ab-4118-9ce6-c44910aa4f59",
+      "citation_number": 12,
+      "cited_text": "14.1.3. Caveats PostgreSQL devises a query plan for each query it receives. Choosing the right plan to match the query structure and the properties of the data is absolutely critical for good performance, so the system includes a complex planner that tries to choose good plans. You can use the EXPLAIN command to see what query plan the planner creates for any query. Plan-reading is an art that requires some experience to master, but this section attempts to cover the basics. Examples in this section are drawn from the regression test database after doing a VACUUM ANALYZE , using v17 development sources. You should be able to get similar results if you try the examples yourself, but your estimated costs and row counts might vary slightly because ANALYZE 's statistics are random samples rather than exact, and because costs are inherently somewhat platform-dependent."
+    },
+    {
+      "source_id": "f6c2fcf2-1cd0-4777-b182-91ebb308a340",
+      "citation_number": 13,
+      "cited_text": "Lecturas SQL y siguiente piloto EXPLAIN separado , fuenteab6ab1c,1PGcorrecta61,14s; nueva base sintética10000/SQLwrapperligero/sinprofiler/post_init.88queries/SQLexecute1,523743s/Clienttotal5,242400s; ruta projection10000positivas/0fallback/24hidratadas. No es equivalente al perfil anterior o a los workers concurrentes; diferencia de total no se atribuye a backend nuevo, no hubo cambio de aplicación. Después del request se ejecutaron3lecturas readonly conEXPLAINANALYZEBUFFERS. La consulta values principal observó0,671255s cursor.execute; planplanning12,200ms/execution736,073ms, rootUnique10000rows/1loop y sortexternalmerge6520kB, tempread815/write816blocks, sharedhits503062/read0. TresLimit latestcheck tienen10000loops cadauno; son loops internos, no queries/red o rows_scanned. Travelthrough vacío:cursor0,244743s versusplanplanning6,535ms/execution0,038ms; Services:cursor0,237745s versusplanplanning4,981ms/execution3,080ms. Son ejecuciones distintas sobre cachés calientes: no restar para atribuir CPUcliente/driver puro. Planrows son streams por nodo/loop en ese EXPLAIN, no filas medibles del request normal; buffers del plan no acreditan IOglobal o memoria/request. No aumentar work_mem, cambiar índices o eliminarDISTINCT sin equivalencia y evidencia de ahorro."
+    }
+  ]
+}

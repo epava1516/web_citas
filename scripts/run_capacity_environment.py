@@ -154,6 +154,8 @@ def main():
         return recover(sys.argv[2])
     options, _, _ = parse_options(["--owned-controller", *sys.argv[1:]])
     baseline_mounts = []
+    if options.native_profile:
+        baseline_mounts.append(options.native_profile)
     if options.diagnostic_baseline_key:
         from diagnostic_baseline_codec import key
         key(options.diagnostic_baseline_key)

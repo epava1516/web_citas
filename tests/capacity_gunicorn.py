@@ -17,6 +17,24 @@ from capacity_request_timing import collect as collect_request_timings
 from django.db import connection
 
 
+def wait_observed_exit(pids, *, proc=Path('/proc'), timeout=5):
+    """Require disappearance, including zombies; allow init's asynchronous reaping."""
+    deadline = time.monotonic() + timeout
+    while True:
+        remaining = [pid for pid in pids if (proc / str(pid)).exists()]
+        if not remaining:
+            return
+        if time.monotonic() >= deadline:
+            states = {}
+            for pid in remaining:
+                try:
+                    states[pid] = (proc / str(pid) / 'stat').read_text()[:512]
+                except OSError:
+                    states[pid] = 'disappeared during final inspection'
+            raise AssertionError('Observed app process survived teardown: ' + str(states))
+        time.sleep(.05)
+
+
 @contextmanager
 def server(settings, record_property):
     import json
@@ -53,6 +71,11 @@ def server(settings, record_property):
         Path('/tmp/capacity_worker_profile.py').write_text(Path(__file__).with_name('capacity_worker_profile.py').read_text())
         Path('/tmp/capacity_phase_spans.py').write_text(Path(__file__).with_name('capacity_phase_spans.py').read_text())
         application = 'capacity_profile_wsgi:application'
+        if getattr(settings, 'CAPACITY_NATIVE_PROFILE', False):
+            Path('/tmp/capacity_native_profile.py').write_text(
+                Path(__file__).with_name('capacity_native_profile.py').read_text())
+            with connection.cursor() as cursor:
+                cursor.execute('CREATE EXTENSION IF NOT EXISTS pg_stat_statements')
     command = [sys.executable, '-m', 'gunicorn', application, '--workers', '2',
                '--worker-class', 'sync', '--bind', f'{bind}:{port}', '--timeout', '90',
                '--access-logfile', '-', '--error-logfile', '-',
@@ -150,7 +173,7 @@ def server(settings, record_property):
                 assert not Path(f'/proc/{child.pid}').exists(), role + ' process survived teardown'
                 async_logs[role] = {'pid': child.pid, 'exit': child.returncode,
                     'log': task_log.read_text()[-20000:]}
-            assert not any(Path('/proc/' + pid).exists() for pid in peaks), 'Observed app process survived teardown'
+            wait_observed_exit(peaks)
             record_property('async_generation_server', json.dumps({
                 'enabled': async_enabled, 'processes': async_logs,
                 'rss_peaks_bytes': peaks,
@@ -160,6 +183,7 @@ def server(settings, record_property):
                 'log': log_path.read_text()[-20000:],
                 'request_timings': collect_request_timings(),
                 'extra_profiles': {path.name: path.read_text() for path in Path('/tmp').glob('capacity-profile-*.txt')},
+                'native_profiles': {path.name: path.read_text() for path in Path('/tmp').glob('capacity-native-*.json')},
                 'scope': 'Master and workers kernel VmHWM sampled100ms; process-group teardown. Same owned app cgroup; optional Caddy and RustFS separate owned cgroups, never deployment.',
             }))
             assert len(peaks) >= 3, 'Missing actual Gunicorn master/two-worker RSS observations'

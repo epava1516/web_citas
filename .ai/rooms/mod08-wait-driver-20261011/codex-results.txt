@@ -1,0 +1,56 @@
+Decisión Codex comprobada localmente, no opinión externa ni aceptación MOD08.
+# MOD-08 — Diagnóstico de esperas y proyección de revisiones — 2026-10-11
+
+## Decisión local
+
+Conservar la ampliación de `defer()` en `apps/safety/rights_exports.py::source_copy` como beneficio parcial de construcción de modelos. No declarar resuelto el presupuesto HTTP ni sumar este ahorro a mediciones históricas de otro alcance. Mantener la optimización previa de rutas. No cachear autoridad, cadena, catálogos o permisos; no adelantar lecturas mutables ni modificar bloqueos, aislamiento o criptografía.
+
+## Diagnóstico y deliberación
+
+Sala `.ai/rooms/mod08-wait-driver-20261011`: dos revisiones Claude exclusivamente sin herramientas/edición; Notebook recibió el enfoque y los datos de la primera medición. Una consulta extensa falló al validar argumentos; la reformulación breve recibió respuesta. Cuatro turnos externos agotados; opiniones no equivalen a evidencia. El contexto inicial truncaba una función; la revisión final recibió el candidato completo. Se rechazaron la supuesta cuota de memoria de 16 MiB y la inferencia de límite inevitable de plataforma.
+
+La primera captura omitía ServerCursor y quedó como diagnóstico incompleto. La corrección y una segunda descomposición distinguen Cursor, ServerCursor y Revision.from_db. En cuatro observaciones intrusivas del mismo fixture, el fetch principal de revisiones realiza tres llamadas con 1000, 500 y 0 filas: 138,927–148,729 ms wall, 54,867–58,953 ms CPU de hilo. Las otras 22 llamadas fetchmany suman 0,466–0,650 ms. La hidratación de 1500 revisiones ocupa 25,129–29,210 ms wall bajo hooks. La barrera pipeline de la cadena ocupa aproximadamente 63,557–72,747 ms. Estas medidas inclusivas/exclusivas no son ahorros multiplicables ni separan transporte, ejecución de PostgreSQL, adaptación, locks o desplanificación. No se midieron syscalls ni bytes TCP; el residual no es exclusivamente ORM. El exceso wall frente a CPU no demuestra E/S de red.
+
+Fuentes numéricas: [captura corregida](mod08-wait-driver-20261011.json), [descomposición](mod08-wait-split-20261011.json). Ambas verificaciones reales PostgreSQL terminaron con cuatro pruebas PASS, runners `20261011-153333-078ab072` y `20261011-154421-99415089`.
+
+## Cambio y conservación de garantías
+
+Se difieren siete columnas no consumidas por la copia: source_revision, step, edit_version, telegram, contact_exposure_accepted, publisher_acceptance y updated_at, además del search_document ya diferido. Se conservan listing_id, manager_version, claves geográficas y todas las columnas utilizadas. No se modifican el cursor de servidor, su chunk de 1000, el orden, FOR UPDATE OF self, el punto de lectura o los controles de frescura. Las instancias internas no se guardan, clonan ni se entregan al llamador; sale el mismo documento.
+
+Existe un receptor post_init global en rights_validation_seal; se preserva su ejecución. Sus expiraciones expires_at/receipt_expires_at/valid_until no son campos diferidos por este cambio. La equivalencia verifica el documento canónico completo, ausencia de consultas diferidas adicionales, mismos parámetros y número de consultas y el mismo tramo SQL FROM/bloqueo. Sólo cambia la proyección SELECT de revisiones; no se modifica ningún updated_at.
+
+## Medición aislada
+
+Filas reales decodificadas desde PostgreSQL, 1500 revisiones y contenido sintético calibrado de 16 MiB. Se mide exclusivamente construcción mediante Revision.from_db, sin SQL, validación o preparación dentro de los relojes. Veinte pares A/A y veinte A/B alternados ABBA, con calentamiento simétrico y sin cambiar GC.
+
+| Alcance y mediana | Antes | Después | Diferencia | Porcentaje |
+| --- | ---: | ---: | ---: | ---: |
+| Construcción 1500 revisiones, wall | 19,537191 ms (0,019537 s) | 17,470186 ms (0,017470 s) | 2,067006 ms | 10,58 % |
+| Construcción 1500 revisiones, CPU hilo | 19,536036 ms | 17,460796 ms | 2,075240 ms | 10,62 % |
+
+A/B gana 17/20 pares wall y CPU y los cuatro bloques cronológicos; A/A gana 12/20 en ambas métricas y supera el control neutral preregistrado. Esto justifica retener el beneficio de etapa. No se extrapola al servicio, no mide memoria ni adaptación del driver. [Datos](mod08-revision-defer-20261011.json), runner `20261011-155320-446ba755`: 1 PASS.
+
+## HTTP: resultado inconcluso
+
+Veinte pares reales TCP de clones independientes, una instancia Gunicorn sync, kernel nativo sellado verificado por muestra, 1500 revisiones/16 MiB. Cada petición registra cuatro lecturas reales y commits; cabeza/eventos 548→556 y lecturas 256→260. La mejora previa de rutas está presente en ambos brazos. No es la topología completa contractual ni la población histórica de 383 lotes.
+
+| Medida TCP | Antes | Después | Diferencia observada |
+| --- | ---: | ---: | ---: |
+| Mediana | 1691,390432 ms (1,691390 s) | 1678,775960 ms (1,678776 s) | 12,614472 ms (0,75 %) |
+| p95 interpolado, n=20 por brazo | 2079,933066 ms (2,079933 s) | 1815,410986 ms (1,815411 s) | 264,522080 ms (12,72 %) |
+
+Sólo 11/20 pares TCP y CPU favorecen el cambio; hay bloques negativos. No cumple evidencia de beneficio HTTP consistente. Tampoco activa el descarte preregistrado por regresión (15/20 pérdidas y todos los bloques negativos, o mediana y p95 ambos >5 % peores). Ausencia de ese descarte no demuestra no inferioridad. No afirmar mejora causal del p95 ni cumplimiento del objetivo de 2 s. [Datos](mod08-revision-http-20261011.json).
+
+## Verificación y fallos preservados
+
+Equivalencia inicial: runner `20261011-155855-a0872543`, 3 PASS. El primer combinado `20261011-160045-77fc3354` agotó 900 s; no se contabiliza como PASS. El seguimiento `20261011-161740-abbc2d44` confirmó HTTP PASS y dos ERROR de preparación de almacenamiento: faltaba la imagen RustFS fijada por digest. El conjunto de ese runner es ERROR, aunque su caso HTTP tiene JUnit terminal sin error/fallo.
+
+Se descargó únicamente la dependencia RustFS ya fijada en el proyecto, sin modificar fixtures, límites, controles o datos. Se repitieron los 123 casos de corrección del combinado, incluyendo los dos errores, con tres workers pytest y aislamiento por worker. No se cambió el worker Gunicorn de rendimiento ni se ejecutó otro benchmark/modelo a la vez. Runner `20261011-162456-8718be57`: **123 PASS, 0 errores, 0 fallos, 0 skips**, 544,757 s de pytest, además de Ruff, documentación, Django, migraciones y preparación del kernel. Esto verifica seguridad/carreras/sellos/almacenamiento real de la selección; no significa aceptación completa de MOD-08.
+
+Auditoría independiente posterior: los 1316 archivos del manifiesto coinciden, producto rights_exports.py SHA256 `942f355f701ec6c0c88571abaa02f6e9c2e0aa7b7c7df9eebdf7866fc8d7e985`. Resultado y JUnit: `artifacts/local-ci/20261011-162456-8718be57/`. Contenedores propios PostgreSQL/Redis eliminados y sin contenedores de almacenamiento de estas pruebas. Sin commit, push, publicación o contratación.
+
+## Distancia al objetivo y parada de este ciclo
+
+Las últimas mediciones históricas completas siguen siendo navegación p95 3,753392 s frente a 2 s (faltan 1,753392 s), JSON 6,930455 s frente a 5 s (faltan 1,930455 s) y binario 7,317947 s frente a 5 s (faltan 2,317947 s). Descargas n=3/n=8: población insuficiente. Ninguna cifra de esta etapa se resta de esos valores.
+
+Se cierra la sala con el beneficio pequeño verificado y HTTP inconcluso. No repetir el mismo experimento ni iniciar otra candidata sin una hipótesis nueva contrastable: la transferencia/adaptación de las 1500 revisiones merece la siguiente investigación, pero todavía no hay una sustitución de semántica segura y medible. La reducción de consultas secundarias no aborda el coste principal observado.

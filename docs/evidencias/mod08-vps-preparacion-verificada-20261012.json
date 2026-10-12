@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-12",
+  "remote_executed": false,
+  "tools": [
+    "py-spy==0.4.2",
+    "memray==1.20.0",
+    "scalene==2.3.0",
+    "pyperf==2.10.0"
+  ],
+  "runs": [
+    {
+      "id": "20261011-235113-86a278c8",
+      "result": "READY_NOT_CAPACITY",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "34.875",
+          "timestamp": "2026-10-12T01:52:00.415801+02:00",
+          "hostname": "d8ddcbc73d5a"
+        }
+      ],
+      "sources_unchanged": true,
+      "artifact_sha256": {
+        "report.json": "ca763eac52b86af943e56e017eb015bc2e27970fbc613df22029e7ff4acf4fbc",
+        "launcher.json": "52671d935e0ac0a9ab7b1151daa01575472c9bcb0df95e922bef579c003d74a6",
+        "source-hashes.json": "47f77d0e9bbe1152f5bbab2ab26bf76e3dcfc5f1eb42a8102d215bde48c04a86",
+        "pytest.xml": "0030ff87c8ad24e97d0ccb7c506d9042f6afcc7ca0b4ce8f1a0664835c80d827"
+      }
+    },
+    {
+      "id": "20261011-235314-306d68b9",
+      "result": "ERROR",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "931.109",
+          "timestamp": "2026-10-12T01:53:56.694741+02:00",
+          "hostname": "64015d3c42d7"
+        }
+      ],
+      "sources_unchanged": true,
+      "artifact_sha256": {
+        "report.json": "9157198fe8a4a77525920340ddf3b5c68e7e80e4ebe0d4922b5c464b10a4fa2c",
+        "launcher.json": "3edb8dfbffcd496e82e6295cc2ededde33793df47082efa81f525fb7c4607d98",
+        "source-hashes.json": "47f77d0e9bbe1152f5bbab2ab26bf76e3dcfc5f1eb42a8102d215bde48c04a86",
+        "pytest.xml": "a0752e1fe9d0eb22b73456713c1280706c4b97289d6d1f527dc79af51de969fe"
+      },
+      "cases": [
+        {
+          "success": true,
+          "coverage_page_read_p95": 1.739146512998559,
+          "json_download_p95": 3.8798251660045935,
+          "binary_download_p95": 4.571357165004883
+        },
+        {
+          "success": true,
+          "coverage_page_read_p95": 1.7160600519928266,
+          "json_download_p95": 3.859223472994927,
+          "binary_download_p95": 4.475086277001537
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "20261012-001127-82f49a58",
+      "result": "READY_NOT_CAPACITY",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "34.837",
+          "timestamp": "2026-10-12T02:12:51.936697+02:00",
+          "hostname": "06ad77ffc85c"
+        }
+      ],
+      "sources_unchanged": true,
+      "artifact_sha256": {
+        "report.json": "0d067bd9e56098f51f6ab2cb15cc500657fb4da8e0e7c3310d688f8e1eda750a",
+        "launcher.json": "61b3d52d5fba938897f1110d4cecbd2b193103fe08fa84892c7bf074b97fe436",
+        "source-hashes.json": "d13e2969cc47d109b21f5c8120c0512d0881e7a7320d39b25db2789746f6c044",
+        "pytest.xml": "9acf04bd276cdd1e36c84afad148b910ef4603089bcd103e350360aab40fbaeb"
+      }
+    },
+    {
+      "id": "20261012-001431-53a220c0",
+      "result": "DELIVERY_STAGES_PASS_NOT_GLOBAL_CAPACITY_OR_N3",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "909.989",
+          "timestamp": "2026-10-12T02:15:11.874242+02:00",
+          "hostname": "585a9a4318c5"
+        }
+      ],
+      "sources_unchanged": true,
+      "artifact_sha256": {
+        "report.json": "dc2df9c9b1c26a64b5126ad62ae11b356c67cf69e1716377c800e3103918718e",
+        "launcher.json": "7a98ab767a626875f790d7811ea50c360bba04f8d2f32ac4768ca43a2bb28874",
+        "source-hashes.json": "d13e2969cc47d109b21f5c8120c0512d0881e7a7320d39b25db2789746f6c044",
+        "pytest.xml": "51aa61499e96ec9ad1c408f4f4f045e0e75b6719a146ec5606c34f9b268ce356"
+      },
+      "cases": [
+        {
+          "success": true,
+          "coverage_page_read_p95": 1.6024780910011032,
+          "json_download_p95": 4.181215054995846,
+          "binary_download_p95": 4.090974639002525
+        },
+        {
+          "success": true,
+          "coverage_page_read_p95": 1.6115577740056324,
+          "json_download_p95": 4.150943318003556,
+          "binary_download_p95": 4.166492522999761
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "20261012-003153-2f383fa9",
+      "result": "NATIVE_INSTRUMENT_PROBE_NOT_CAPACITY",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "18.653",
+          "timestamp": "2026-10-12T02:33:03.329717+02:00",
+          "hostname": "5a85220d6b11"
+        }
+      ],
+      "sources_unchanged": true,
+      "artifact_sha256": {
+        "report.json": "14061f4e5ce7da562f6e7db52f166fd612e071ff81af15ffd59dc4f7d7cdf7a8",
+        "launcher.json": "a330837ccf8abfcedc7c7b918c480750c09214b2749677c581b4bc26c2bd85ee",
+        "source-hashes.json": "d13e2969cc47d109b21f5c8120c0512d0881e7a7320d39b25db2789746f6c044",
+        "pytest.xml": "1cb929b32b61aa7debf3f654de39d52ccf2d3e342480699f946b2967d3a49765"
+      }
+    }
+  ],
+  "energy_constant": false,
+  "user_confirmation": "Sólo alterna el cable; no cambios manuales",
+  "product_changed_this_verification": false
+}

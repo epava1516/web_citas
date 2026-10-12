@@ -1,0 +1,84 @@
+# MOD-08 — Cambio de enfoque, investigación web y prototipo paginado — 2026-10-11
+
+## Resultado y decisión
+
+El usuario pidió investigar si hacía falta cambiar el enfoque y que cada participante buscara soluciones en internet. Se investigó, se discutieron contraejemplos, se ejecutó un filtro de riesgos en PostgreSQL real y se construyó un prototipo de DATOS separado del producto.
+
+**La vía de proyección paginada supera el cribado de coste de etapa:** obtener la misma página de 50 revisiones pasa de **199.011898 a 21.376303 ms** de mediana; delta **177.635595 ms (89.26 %)**. Gana 20/20 pares wall y CPU y los cuatro bloques cronológicos. Se conserva exclusivamente como prototipo: **no está conectado al endpoint, no es una API de autorización ni demuestra mejora HTTP/SLO**. La preparación cuesta 1,752980 s wall/0,625873 s CPU en esta tanda, antes de las lecturas. Su coste, persistencia y retención tienen que amortizarse y medirse.
+
+El producto mantiene exactamente rights_exports.py SHA256 `942f355f701ec6c0c88571abaa02f6e9c2e0aa7b7c7df9eebdf7866fc8d7e985` y la mejora de rutas anterior. No nueva optimización productiva, commits, push, proveedores, compras, publicación o datos reales en esta campaña. El requisito global de navegación/descargas permanece pendiente.
+
+## Investigación independiente y revisión crítica
+
+Sala [.ai/rooms/mod08-brainstorm-web-20261011](../../.ai/rooms/mod08-brainstorm-web-20261011/transcript.md), cuatro turnos externos acotados (dos Claude y dos Notebook), sin retry automático. La instrucción posterior «que cada uno busque en internet» autorizó WebSearch/WebFetch públicos de Claude dentro de la deliberación; no herramientas locales, shell o edición. Modo explícito `--web-research`, MCP vacío, safe-mode, tools/allowedTools exclusivamente web, dontAsk. Predeterminado continúa sin herramientas. Once controles unitarios de la sala PASS; no confundir dobles con conexión a modelos.
+
+Claude produjo revisiones por su CLI (modelUsage incluye claude-opus-5-5/claude-haiku-5-5, consumo real preservado en .ai/tasks/desarrollo.md). Reporta fallo de certificado al intentar documentación psycopg; la documentación se contrastó por Codex. El JSON final registra 7/3 turnos y cero denegaciones, pero no contiene transcripción de cada herramienta; server_tool_use no se interpreta como inventario completo de herramientas locales CLI. Las fuentes y opiniones están conservadas sin declarar sus afirmaciones verificadas.
+
+NotebookLM hizo investigación web deep, tarea iniciada `ChA3YzI0ZGNkMGFiYjI5NzMyEAgaATAqA3VzZQ`, resultado `0ef1585d-3cfe-4bc1-af1e-1a126629f505`, 51 fuentes encontradas. Informe íntegro en la sala. Mezcla documentación primaria, artículos y SEO/versiones no pertinentes: **no se importaron las 51 fuentes**. Inventarios antes/después: **100 fuentes, mismos IDs**. En las consultas se aportaron resultados actuales, objeciones y hallazgos contrastados; la investigación no aporta automáticamente pruebas del código local. El modelo Notebook no es identificable por el CLI.
+
+Codex contrastó documentación primaria por separado y rechazó errores concretos de las propuestas: acumular varias veces el mismo cursor cerrado en pipeline; asumir ServerCursor compatible con pipeline; confundir 50 ms de SQL con 265 ms de record completo; atribuir 46 ms a Python cuando canonical ya usa Cython; consolidar 23 autorizaciones en una y adelantar snapshots; exigir sólo checkUser en entrega; afirmar que FREEZE cambia siempre xmin o que REINDEX reordena heap. La respuesta correctiva del notebook rectifica varios de ellos, pero sus propuestas siguen sin ser evidencia de aceptación. Claude no recibió automáticamente sus intervenciones anteriores en la segunda llamada: contexto seleccionado y limitación preservados.
+
+## Rutas discutidas
+
+| Ruta | Coste al que apunta | Decisión y condición |
+| --- | --- | --- |
+| Proyección cifrada por páginas, manifiesto de datos ligado a huella física fresca TOTAL | Construir/transferir/serializar toda la fuente cuando se consume sólo una página | Prioridad de diseño; prototipo muestra margen, falta integración y prueba de garantías completas |
+| Verificación completa de cadena en servidor con resultados compactos | Transferir EVENT y mapas completos y comparar en Python | Segunda vía; conservar todas las filas/hashes y barreras; no CTE único ni función suplantable sin equivalencia |
+| Head/counter/Merkle usados como sustituto de fuente física | Escaneo histórico completo | Rechazar variante ingenua: head igual no prueba que owner no mutó fuente |
+| Hash generado almacenado aceptado sin prueba de su producción | Rehashing de evidencia | Rechazar variante ingenua: función restaurada puede dejar hash almacenado obsoleto |
+| Validar actor una vez y retener locks/SSI | Consultas de autoridad repetidas | No aplicar: altera momentos de verificación, revocación y/o visibilidad; tampoco congela expiraciones |
+| Consolidar proyección con SQL json_agg | Construcción/recodificación ORM | Hipótesis secundaria: fuente tiene unas 20 consultas, no las 80 de record; exige canon exacto, post_init/expiraciones y snapshot equivalentes |
+| TOAST LZ4/JIT | Descompresión/compilación del servidor | Sólo si EXPLAIN demuestra coste; no configuración aplicada ni ahorro prometido |
+
+Un árbol de Merkle puede probar inclusión/completitud respecto a una raíz, pero no que la raíz sea actual. Un manifiesto autentica DATOS; no sustituye actor, prueba, última revisión, catálogo, cadena o reloj fresco. Funciones VOLATILE obtienen snapshots por consulta interna; esto no demuestra por sí solo equivalencia temporal ni integridad de la función.
+
+## Filtro de riesgos en PostgreSQL real
+
+[Datos](mod08-brainstorm-risk-filter-20261011.json), runner `20261011-170322-92aed466`: **4 PASS**, 15,050 s JUnit, 1348 huellas independientes exactas. Dos tests temporales y dos pruebas de evidencia/runtime existentes:
+
+- Cambiar helper IMMUTABLE para producir digest antiguo, actualizar payload y restaurar exactamente definición de función: digest generado y head siguen iguales, pero hash físico fresco difiere. Refuta confianza ingenua en columna derivada/counter; no simula aceptación de filas de negocio.
+- Mil tuplas conservan id/xmin/ctid observados tras VACUUM FREEZE y REINDEX. ADD COLUMN fast-default conserva esa metadata, pero cambia JSONB de fila genérica. **No afirma que source_copy estática consuma columnas nuevas**: requiere vincular esquema/código de la representación que se materialice.
+- Verificación de cadena actual detecta owner drift aun con head/ticket iguales, y el runtime real restringido rechaza fuentes físicas alteradas.
+
+Primer intento `20261011-170211-4c4e4320`: 3 PASS/1 FAIL por tratar JSON textual del cursor Django como dict. Corrección json.loads tras terminal; no convertir aquel runner en PASS ni sumar versiones. No prueba de wraparound de 4.000 millones de transacciones; la amenaza permanece documentada.
+
+## Prototipo y comparación de etapa
+
+Archivos sólo tests: capacity_page_manifest_prototype.py / test_capacity_page_manifest_prototype.py. Fuente escalar sintética calibrada, 1500 revisiones/16 MiB, sin los originales de 64 MiB ni corpus completo de geografía/relaciones. PostgreSQL real, misma conexión caliente y kernel nativo sellado. Se crean chunks de hasta50 filas cifrados con Fernet y manifiesto autenticado en tabla temporal propia. La preparación usa bracket de huella física antes/después y transacción. Manifiesto: scope, versión de representación, SHA de metadata de atributos, **source_digest HMAC productivo**, huella física total, XID64 de anclaje, DB OID y expiración. Uso: lectura fresca de huella completa/metadata/XID, fetch de token físico, descifrado independiente, comprobación de bindings y huella completa al salir. TTL es sólo límite de vida, no prueba de frescura.
+
+Baseline: inspection_source completo existente, incluida fuente completa y sus comprobaciones de digest/huellas, retornando las mismas50 filas. Prototipo: página ya preparada con verificaciones de datos actuales. Dos warmups por brazo; 20 pares contrabalanceados ABBA. SQL, descifrado y brackets de datos dentro de los relojes. Preparación y comprobaciones numéricas/equivalencia fuera. GC sin cambios. No hooks SQL/profiler. Gate preregistrado >=15/20 pares favorables wall y CPU; no prueba formal de p95 ni A/A de reproducibilidad del endpoint.
+
+| Mediana | Fuente completa | Página cifrada | Delta | Porcentaje |
+| --- | ---: | ---: | ---: | ---: |
+| Wall de datos | 199,011898 ms (0,199012 s) | 21,376303 ms (0,021376 s) | 177,635595 ms (0,177636 s) | 89,26 % |
+| CPU de hilo | 118,703060 ms | 4,711684 ms | 113,991376 ms | 96,03 % |
+
+[Datos finales](mod08-page-manifest-20261011.json), runner `20261011-171059-35a451e6`: **1 PASS**, 34,77 s, 1350 huellas exactas. Este caso contiene equivalencia primera/intermedia/última página, resultados mutables independientes y nueve filtros adversariales: update fuente, root esperado falso, chunk intercambiado/ausente, ciphertext inválido, expiración, anchor XID demasiado antiguo, contador falso y cambio de atributos de esquema. XID antiguo es un valor inyectado autenticado de prueba: no wrap real.
+
+Inicial `20261011-170851-d0a9ec69`: 1 PASS, 28,78 s, preservado [por separado](mod08-page-manifest-initial-20261011.json). Se cambió SHA de root por HMAC source_digest existente y se completaron filtros antes de la tanda final. No comparar sus tiempos como mejora de producto ni sumar versiones como gate.
+
+**Límites decisivos:** no actor/proof/latest/chain ni callbacks de expiraciones post_init en este prototipo de datos; no completa atestación RLS/enums/funciones/grants/restore; no retención ni purga durables; no imágenes físicas, RustFS/Caddy, cuotas contractuales, HTTP o load. No fallback implementado. No read-only snapshots firmados presentados como autorización. No restar177ms del p95 histórico ni sumar a ganancias anteriores. Cifras obtenidas después de la deliberación se registran como resultados Codex, no nueva opinión de los revisores.
+
+## Plan concreto y condiciones de continuación/parada
+
+1. Especificar un contrato interno de fuente paginada con manifiesto de DATOS y conservar la vía completa. Mantener exactamente cada authorize/reviewer_case/proof/latest/catalog/chain y auditoría actuales. No introducir un endpoint parcialmente autorizado ni URL de objeto pública.
+2. Completar prueba de vínculo: código/canon/keyversion, relación física/schema/tipos/enums/RLS/grants/funciones e identidad de servidor/restore; persistencia/XID64 y límites sin depender de TTL. Conservar captura de expiraciones y comprobación de reloj que hoy aportan consultas/modelos. Definir purga conjunta de datos derivados y privacidad. Abandonar si una firma/huella equivalente acepta una representación distinta o una retención invalidada.
+3. Adaptar consumidores explícitamente: compile_coverage/project_selected actualmente necesitan la fuente/proyección completa. No pasar un contenedor lazy que canonical no admite ni ocultar materialización completa. Inventario de rutas/referencias de datos puede prepararse, pero decisiones/revisiones actuales se descifran y validan frescas. Si los consumidores vuelven a necesitar16MiB por petición, se abandona el ahorro pretendido.
+4. N1 de equivalencia y completitud: perfil/cuenta, todas las familias no vacías, Unicode/JSON/canon, primera/intermedia/última, omisión/duplicado/orden, adulteración de manifiesto/chunk, mutación en cada barrera, expiry/purga/revocación. N2 propia PostgreSQL/runtime/RustFS real, rollback/idempotencia/sellos y guardas temporales. Cualquier fallo corregir y repetir afectados; no conectar al flujo por el PASS de este prototipo.
+5. Comparación HTTP paired con preparación amortizada, medición de hits/drift/fallback, pico de memoria y almacenamiento. Reproducir historial acumulativo y binarios revisados del escenario de383lotes antes de reclamar2s/5s. Si el fallback domina, hay regresión o no existe beneficio consistente, retirar la candidata. Un cambio de autoridad/retención incompatible no se presenta como optimización compatible.
+6. Sólo tras superar esas puertas considerar la vía B compacta para el coste creciente de cadena. Mantener cada hash físico, lectura/snapshot y comportamiento de errores; si consolidar adelanta alguna barrera con un contraejemplo observable, descartar esa forma. No usar head/counter como atajo.
+
+La sala acotada termina con una señal de viabilidad nueva y las obligaciones pendientes concretas, sin una cadena infinita de consultas. El prototipo se conserva para desarrollo posterior; el producto queda en la versión ya verificada. Todos los procesos/contendores propios de estas tandas están retirados y comprobados; fuentes de app sin diferencias después. Documentación/control de sala comprobados al cerrar.
+
+## Fuentes primarias contrastadas
+
+- [PostgreSQL17: aislamiento](https://www.postgresql.org/docs/17/transaction-iso.html): snapshots y reintentos, no sustituto de reloj/autoridad fresca.
+- [PostgreSQL17: bloqueos](https://www.postgresql.org/docs/17/explicit-locking.html): compatibilidad de locks y límites de fila.
+- [PostgreSQL17: volatilidad](https://www.postgresql.org/docs/17/xfunc-volatility.html): VOLATILE/STABLE y snapshots internos.
+- [PostgreSQL17: columnas generadas](https://www.postgresql.org/docs/17/ddl-generated-columns.html): almacenamiento, recomputación y restricciones.
+- [PostgreSQL17: columnas de sistema](https://www.postgresql.org/docs/17/ddl-system-columns.html) y [mantenimiento](https://www.postgresql.org/docs/17/routine-vacuuming.html): xmin/ctid y freezing.
+- [Django5.2: optimización DB](https://docs.djangoproject.com/en/5.2/topics/db/optimization/): medir y controlar qué se materializa.
+- [Psycopg: pipeline](https://www.psycopg.org/psycopg3/docs/advanced/pipeline.html): documentación actual es dev3.3.7; contraste con fuente instalada3.3.6, no upgrade aplicado.
+- [Celery5.6: tareas](https://docs.celeryq.dev/en/v5.6.0/userguide/tasks.html): ejecución idempotente y frontera de commit; fuente fijada a rama5.6, no cambio de dependencia.
+- [Li et al., SIGMOD2006: authenticated data structures](https://www.cs.bu.edu/~reyzin/papers/auth-db.pdf): autenticación de resultados con completitud; integridad no acredita una raíz actual.
+- [PostgreSQL17: JIT](https://www.postgresql.org/docs/17/jit-reason.html) y [planner](https://www.postgresql.org/docs/17/runtime-config-query.html): optimización condicionada por costes, no tuning ensayado.

@@ -1,0 +1,195 @@
+{
+  "answer": "### Descarte Autoritativo y Errores en Informes Externos\n\n**1. Contadores (R4) y Árboles de Merkle (R6) no prueban frescura**:\nUn contador acumulativo o una raíz de Merkle valida la integridad estructural o de cadena inmutable *append-only* [1, 2], pero **no garantiza la frescura en tiempo real** de entidades mutables (`User`, `assessment`, permisos) [3, 4]. Un propietario de la relación o proceso interno puede mutar filas sin avanzar el contador `head`, o deshabilitar/rehabilitar *triggers* entre comprobaciones. Por tanto, no proporcionan la garantía de frescura requerida por el contrato.\n\n**2. Rechazo del error de código en el informe sobre `psycopg.Pipeline`**:\nSe rechaza categóricamente el fragmento del informe web donde `cur.execute()` añade repetidamente la misma instancia de cursor a una lista y la cierra antes del `fetchall()`. Esta implementación es errónea. Además, la ejecución en *pipeline* (`psycopg.Pipeline`) ya está integrada localmente en el pipeline de consultas SQL del proyecto (commit `e19c3fc`) [5-7]; el *pipeline* optimiza únicamente el tiempo de ida y vuelta de la red (RTT), pero **no sustituye la revalidación síncrona de autoridad y versión**.\n\n---\n\n### Contraejemplos Físicos al Manifiesto Persistente de Datos (Codex)\n\nLa propuesta lateral de Codex sugiere persistir un manifiesto firmado de datos (\\\\(\\le 50\\\\) filas) fuera del flujo HTTP acotado por `(tabla, pk, xmin, ctid)`. Los siguientes contraejemplos impiden su uso persistente sin *fallback* total:\n\n1. **Inestabilidad física de `ctid` ante mantenimiento**: `ctid` representa la ubicación física de la tupla. Un `VACUUM FULL`, `REINDEX` o `CLUSTER` reorganiza las páginas de PostgreSQL, alterando todos los `ctid` sin que haya ocurrido un cambio lógico en los datos [4], provocando invalidaciones masivas infundadas.\n2. **Desbordamiento de 32 bits y congelación de `xmin`**: El identificador de transacción `xmin` utiliza un contador circular de 32 bits [4]. Cuando la base de datos ejecuta `autovacuum` para congelar tuplas (`FREEZE`), `xmin` se reescribe al valor especial `FrozenTransactionId` (2). El cambio de `xmin` destruye la firma del manifiesto aunque los datos no hayan cambiado.\n3. **Reutilización de estado transaccional o rollbacks parciales**: Cambios no confirmados dentro de subtransacciones o mutaciones concurrentes en un snapshot `READ COMMITTED` pueden modificar la tupla y revertirla, dejando huellas de `xmin`/`ctid` desincronizadas respecto a la vista transaccional activa.\n4. **Mutación de dependencias de dominio no capturadas en las filas exportadas**: Modificaciones en permisos del usuario (`User.session_version`, `mfa_version`) o reglas de negocio cambian la validez de la respuesta sin alterar las tuplas físicas exportadas, entregando datos no autorizados si solo se verifica la huella de las filas del *chunk* [3, 8].\n\n---\n\n### Clasificación del Estado Actual\n\n*Las siguientes declaraciones distinguen estrictamente hechos medidos de hipótesis y vacíos de evidencia:*\n\n* **Hechos Medidos**:\n  * Stack: Django 5.2.17 / Python 3.12.15 / PG 17.11 / psycopg 3.3.6.\n  * Datos históricos: 383 lotes acumulativos; p95 navegación 3,753392s (vs SLA 2s); JSON 6,930455s / binario 7,317947s (vs SLA 5s; \\\\(n=3/8\\\\), muestreo estadísticamente insuficiente).\n  * Fixture clon actual (548 `EVENT`, 256 lecturas, 1500 revisiones, 16 MiB data, 64 MiB fotos no entregadas): latencia de registro total en 265–282ms (Source 151–195ms, fetch 75–91ms, adaptación 10–15ms; `authorize` 23 llamadas en 100–107ms con 93 ejecuciones SQL; `chain` 4 pipeline en 33–44ms; `canonical` en 46–48ms) [4, 5]. Controles en 791–869ms vs 1600–1800ms anteriores sin cambio de producto (sin ahorro causal demostrable).\n* **Hipótesis (no constituyen PASS ni autorización)**:\n  * Que la fragmentación Celery fuera de HTTP reduzca la latencia percibida sin violar la caducidad síncrona del token/proof.\n  * Que consolidar las 23 llamadas de `authorize` en una sola consulta por lote reduzca la latencia de autorización a \\\\(<30\\text{ms}\\\\).\n* **Evidencia Faltante**:\n  * Faltan mediciones con muestra suficiente (\\\\(n \\ge 30\\\\)) bajo carga real con Caddy y cuotas activas para validar el p95 contractual.\n  * Falta prueba de estrés del comportamiento de `(xmin, ctid)` ante ejecuciones intensivas de `VACUUM` concurrente.\n\n---\n\n### 4 Rutas Priorizadas y Experimento Mínimo Finito\n\n1. **Ruta 1 (Prioridad Alta) — Agrupación de Guardas de Autoridad en Pipeline Transaccional Único**:\n   * *Mecanismo*: Consolidar las 23 llamadas de autorización (`100–107ms`) en una única consulta pipelined por petición, revalidando `fresh_authority(User)` y `assessment.latest` en un solo snapshot [3, 5].\n   * *Coste*: Bajo (reestructuración de decoradores sin alterar modelos).\n   * *Riesgo*: Bajo.\n2. **Ruta 2 (Prioridad Media) — Fragmentación Asíncrona fuera de HTTP con Fallback Transaccional Completo**:\n   * *Mecanismo*: Delegar la preparación de *chunks* a Celery [9]; verificar la firma de frescura total (`version_fingerprint`) y, si hay cualquier discrepancia o expiración, realizar un *fallback* síncrono a la lectura completa `source_copy` [8, 10].\n   * *Coste*: Medio.\n   * *Riesgo*: Medio (requiere purga estricta de objetos temporales).\n3. **Ruta 3 (Prioridad Media-Baja) — Optimización Nativa C/Cython para la Canonicación**:\n   * *Mecanismo*: Extender `_canonical_kernel.pyx` para ejecutar la serialización y hashing canónico en código C nativo [1, 9], reduciendo el overhead de \\\\(46–48\\text{ms}\\\\) en Python.\n   * *Coste*: Medio.\n   * *Riesgo*: Bajo.\n4. **Ruta 4 (Prioridad Arquitectónica) — Proyección Firmada Inmutable con Invalidación por Eventos de Dominio**:\n   * *Mecanismo*: Proyectar vistas pre-calculadas firmadas con `BLAKE3`/`HMAC`. La petición HTTP revalida únicamente las versiones de sesión/MFA del `User` [3].\n   * *Coste*: Alto.\n   * *Riesgo*: Medio-Alto.\n\n**Experimento Mínimo Finito**:\nEn un entorno de prueba aislado con PG17: generar 1.000 tuplas con su firma basada en `(xmin, ctid)`. Ejecutar `VACUUM FULL` y medir el porcentaje de invalidaciones falsas frente a un control basado en `version_fingerprint` sobre `source_copy` [4, 10].\n\n---\n\n### Mayor Cambio de Enfoque Viable sin Rebajar Contrato\n\nDesplazar la generación de contenido pesado fuera de la petición HTTP mediante procesamiento asíncrono con Celery y entrega mediante URLs firmadas de un solo uso servidas por el proxy (Caddy/S3), mientras que la petición HTTP síncrona en Django realiza exclusivamente la revalidación de autoridad y estado fresco del `User` (\\\\(<30\\text{ms}\\\\)) [3, 9]. Se mantiene el contrato estricto sin cachear autoridad en memoria de Python.\n\n*Nota técnica: Las intervenciones en esta sala son opiniones y análisis de diseño; no representan un PASS de pruebas ni una autorización de despliegue.*\n\n💡 ¿Quieres que diseñemos la batería de pruebas sintética para ejecutar el experimento finito sobre `VACUUM` e inestabilidad de `ctid` en PG17?",
+  "question": "Sala técnica local. Opina sólo sobre el contexto suministrado. Sin herramientas, ediciones ni ejecución. Distingue hechos medidos, hipótesis y evidencia faltante. Las intervenciones son opiniones, nunca PASS ni autorización. No cachear autoridad, omitir comprobaciones frescas ni extrapolar microbenchmarks a p95 contractual. Propón una decisión finita y señala contraejemplos. Máximo 900 palabras.\n\nCambio de enfoque solicitado por usuario: brainstorming arquitectónico con investigación web independiente, no repetir microoptimización. Tu tarea deep research web completó 51 fuentes (ID0ef1585d-3cfe-4bc1-af1e-1a126629f505); guardamos informe, no importamos51URLs para evitar ruido. Analiza críticamente hallazgos junto al notebook del proyecto; no afirmes haberleído archivos noaportados. Máximo900palabras, hipótesis noPASS.\nEstado: Django5.2.17/Python3.12.15/PG17.11/psycopg3.3.6. Histórico383lotes acumulativos p95navegación3.753392s vs2s;JSON6.930455/binario7.317947 vs5s(n3/8insuficiente). Actualfixtureclon548EVENT/256reads,1500revisiones/16MiB,64MiBfotosnoentregadas,1GunicornsinCaddy/cuotas/carga: controles791–869ms vsanteriores1600–1800ms SIN cambio deproducto; noahorrocausal. Source151–195ms,fetch75–91ms/adaptación10–15ms. Recordtotal265–282ms(80exec50–54ms sóloesSQL);authorize23calls100–107ms(93exec);chain4pipeline33–44ms;canonical46–48ms. Código sigueguardasfrescasporpágina,assessment.latest,proof/actor/catalog ychainfull7fuentes físicas másEVENT. Cada lecturaavanzaheadenmismaTX. Fuentecompleta1vezporbatch,versionfingerprintantes/después ycanonical antes/después. No cachéautoridad ni desplazarlecturasmutableUser/assessment porJOINtemprano. Bloqueosnobloqueanrelojes/DDL/phantom. Merkle integridad nofrescura. Mantenerauditorías,failclosed,retención/privacidad.\nClaude investigówebpropusoR1esperas,R2lockauthority+validaruna,R3SSI,R4counterDB7fuentes,R5proyecciónsellada,R6Merkle. ObjecionesCodex:R2retrasa revocaciones,cambiasemántica;R3snapshotnuevonocapturafrescuratiempo;R4headyaexiste yownerpuedealterarfuente sinavanzarlo,triggerdisabled/re-enabledentrechecks;contadorno prueba integridad física. R1concurrenciaarbitrariaantesreproducirhistorialgrande es prematuro.\nPropuesta lateralCodex: manifiestoautenticado de DATOS (no decisiones),chunks<=50filas fueraHTTP,bound a source_digest y huellafrescaTOTALdelconjuntofilas(tabla,pk,xmin,ctid). Enusosiempreauthority/proof/latest/catalogfrescos yreadchunks+verificarfirma físicamente,versionfingerprintantes/después;invalidarsi cambio,códigoschema,keyepoch,wrapxmin32/VACUUM/restore oexpiry. Actualsource_fingerprint yaexisteparaunrequest;usopersistente noestáprobado. ¿Qué contraejemplos impidenlo? No afirmar TTLda frescura. Puede reutilizarexportpart/Celeryexistentes pero purgaobjeto yfallbackcompleto deberáncubrirse.\nDocumentaciónprimaria contrastada: postgresql.org/docs/17/transaction-iso.html ;xfunc-volatility.html (VOLATILEsnapshotsfreshporSQL);ddl-generated-columns.html (sóloSTORED,exprimmutable);ddl-system-columns.html (xmin32wrap yctidnoIDdurable); ps yc opg.org/psycopg3/docs/advanced/pipeline.html (ServerCursornopipeline), docs.djangoproject.com/en/5.2/topics/db/optimization/. Tureportdeepcontieneerrorcódigo cur.execute devuelveMISMOcursor,loañadevariassvecesyloCIERRAantesfetch. Recházalo;pipelineyaexiste enchain, no garantiza por sísolo frescura.\nDanos 4rutaspriorizadas con mecanismo/coste/riesgo y un experimento mínimo finito, incluso propuestas tuyas noincluidas. Descartaautoritativamentecontador/Merklesinpruebafrescura; noimplementar código inventado. ¿Mayor cambio deenfoque viable sinrebajarcontrato?",
+  "conversation_id": "7bc32f65-3cd0-4331-bcb9-9c16185a4708",
+  "sources_used": [
+    "f68f240e-a335-4cd5-a326-7423a1d15a55",
+    "dea83309-abaa-41fd-8f11-8f8da6d65256",
+    "edab2164-44aa-46aa-8f4e-8913168fb338",
+    "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+    "5652fcab-0bc3-4c39-95b0-fc0c4c338678",
+    "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "6ae02617-af23-430d-8f53-16dca72896db"
+  ],
+  "citations": {
+    "1": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+    "2": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+    "3": "dea83309-abaa-41fd-8f11-8f8da6d65256",
+    "4": "edab2164-44aa-46aa-8f4e-8913168fb338",
+    "5": "edab2164-44aa-46aa-8f4e-8913168fb338",
+    "6": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+    "7": "5652fcab-0bc3-4c39-95b0-fc0c4c338678",
+    "8": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "9": "6ae02617-af23-430d-8f53-16dca72896db",
+    "10": "9bbc2d90-4ac7-4575-bbff-b820d315a60c"
+  },
+  "references": [
+    {
+      "source_id": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+      "citation_number": 1,
+      "cited_text": "PROYECTO web_citas. Snapshot 2026-10-11. HEAD 7e04016. Las propuestas no acreditan implementacion; contrastar seguimiento17 y codigo. ===== ARCHIVO: apps/safety/ init .py ===== ===== ARCHIVO: apps/safety/_canonical_kernel.pyx ===== cython: language_level=3 \"\"\"Strict canonical validator only; caller loads through verified native manifest. All Python objects stay boxed. GIL stays held; depth bounds precede leaf checks. Explicit iterators preserve Python mutation/error ordering instead of PyDict_Next. \"\"\" import math from types import BuiltinFunctionType"
+    },
+    {
+      "source_id": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+      "citation_number": 2,
+      "cited_text": "===== ARCHIVO: apps/safety/evidence_chain.py ===== \"\"\"Scoped immutable evidence chain. Existing domain/authority guards remain required.\"\"\" from dataclasses import dataclass from uuid import uuid4 from django.core.exceptions import ValidationError from django.db import connection, transaction from psycopg import sql from .evidence_chain_sql_v1 import EVENT, HEAD, TABLES, ZERO, backfill @dataclass(frozen=True) class ChainTicket: request: str count: int digest: str schema: str = \"rights-evidence-chain-v1\""
+    },
+    {
+      "source_id": "dea83309-abaa-41fd-8f11-8f8da6d65256",
+      "citation_number": 3,
+      "cited_text": "def digest(value): return fingerprint(canonical(value)) def actor(user, case, *, assigned): fresh_authority(user, case, user.session_version, user.mfa_version) fresh = User.objects.get(pk=user.pk) if not fresh.has_perm(\"safety.respond_rights_request\") or not fresh.has_perm( \"safety.review_rectification\" ): raise PermissionDenied if assigned: current_response_actor(user, case, user.session_version, user.mfa_version, execution=True) def context(user, case_id, version, responses, *, assigned=True): case, person, listing = locked_case(case_id, lock_listing=True) actor(user, case, assigned=assigned) if ( case.kind != \"rectify\" or case.status != \"reviewing\" or case.version != version or case.response_version != responses or not complete_read(user, case) or not complete_response_read(user, case) ): raise ValidationError(\"Inspect current correction and responses before final response\") proof = authorized_proof(case, person, \"rectify\") return case, person, listing, proof"
+    },
+    {
+      "source_id": "edab2164-44aa-46aa-8f4e-8913168fb338",
+      "citation_number": 4,
+      "cited_text": "def locked_profile_case(*args, **kwargs): \"\"\"Profile-only consumers cannot acquire account-only authority.\"\"\" case, person, listing = locked_case(*args, **kwargs) if not person or case.account_subject_id: raise ValidationError(\"Profile scope required / Ámbito de perfil obligatorio\") return case, person, listing ===== ARCHIVO: apps/safety/rights_source_fingerprint.py ===== \"\"\"Row-version fingerprint of exactly the rows a rights source copy reads. PostgreSQL gives every committed INSERT/UPDATE a new tuple version with its xmin and ctid , and a DELETE removes the row from the filtered set; locking with FOR UPDATE changes only xmax . Comparing a fingerprint of (table, primary key, xmin, ctid) taken before a source read with one taken at the end of the same operation therefore detects any committed change to those rows without transferring their contents. It is used only to decide whether the full fresh source re-read can be skipped; any difference keeps the original full comparison."
+    },
+    {
+      "source_id": "edab2164-44aa-46aa-8f4e-8913168fb338",
+      "citation_number": 5,
+      "cited_text": "def _replay_serial(statements): digests = [] with connection.cursor() as cursor: for sql, params in statements: cursor.execute(_replay_query(sql), params) digests.append(cursor.fetchone()[0]) return digests def _pipeline_connection(): import psycopg"
+    },
+    {
+      "source_id": "bd914bc8-38fd-4108-ad5e-3aa72592f620",
+      "citation_number": 6,
+      "cited_text": "Pipeline SQL y verificación física paralela — integración local Commit e19c3fc , integrado localmente en rama de integración y master. SQL fresco en pipeline de8 statements independientes, misma conexión/snapshot por statement, drenaje antes de rollback y fallback serial compatible. Verificación física completa de dos objetos simultáneos como máximo, transporte privado por worker dentro de una invocación, crypto/config frescos, errores observados en orden y cierre obligatorio; no se omiten tombstones/SHA/AEAD/EOF/contexto."
+    },
+    {
+      "source_id": "5652fcab-0bc3-4c39-95b0-fc0c4c338678",
+      "citation_number": 7,
+      "cited_text": "from apps.core.models import User from apps.safety import rights_validation_seal as seals from apps.safety.crypto import seal, unseal from apps.safety.models import RightsExportValidationSeal pytestmark = pytest.mark.django_db(transaction=True) def native_pipeline(): connection.ensure_connection() raw = seals._pipeline_connection() assert raw is not None, \"This PostgreSQL gate requires actual supported psycopg pipeline\" return raw def test_native_pipeline_matches_ordered_typed_and_empty_hashes(): values = [ ( \"SELECT %s::uuid AS id, %s::numeric AS amount, %s::jsonb AS facts\", [uuid4(), Decimal(\"1.2300\"), Jsonb({\"unicode\": \"á\", \"rows\": [1, None]})], ), ( \"SELECT %s::timestamptz AS expires_at\", [datetime(2030, 1, 2, tzinfo=datetime_timezone.utc)], ), (\"SELECT value FROM unnest(%s::integer[]) AS value ORDER BY value DESC\", [[1, 3, 2]]), (\"SELECT 1 AS empty WHERE FALSE\", None), ] * 5 with transaction.atomic(): raw = native_pipeline() expected = seals._replay_serial(values) assert seals._replay_pipeline(values, raw) == expected assert seals._replay(values) == expected assert raw._pipeline is None"
+    },
+    {
+      "source_id": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+      "citation_number": 8,
+      "cited_text": "@transaction.atomic @sensitive_variables() def inspect_catalog( user, case_id, version, review_id, key, purpose, dataset, row_index=0, field_page=1 ): if ( not isinstance(dataset, str) or dataset not in SECTIONS or type(row_index) is not int or row_index < 0 or type(field_page) is not int or field_page < 1 or not isinstance(purpose, str) or not 20 <= len(purpose.strip()) <= 200 ): raise ValidationError(\"Invalid portability catalog page\") session_version, mfa_version = user.session_version, user.mfa_version case, person, listing = reviewer_case(user, case_id) actor = User.objects.get(pk=user.pk) fresh_authority(actor, case, session_version, mfa_version) review, assessment = consume_approved( actor, case_id, version, review_id, key, purpose, selection_binding=fingerprint( canonical( { \"dataset\": dataset, \"row\": row_index, \"field_page\": field_page, } ) ), audit_operation=\"selection_catalog\", ) if assessment[dataset][\"status\"] not in {\"eligible\", \"granular\"}: raise ValidationError(\"Dataset requires eligible reviewed conditions\") source = source_copy(person, listing, case) if fingerprint(canonical(source)) != review.source_digest: raise ValidationError(\"Portability catalog source changed\") rows = SECTIONS dataset if not rows: if row_index or field_page != 1: raise ValidationError(\"Portability catalog page unavailable\") reference, fields, more = None, [], False else: if row_index >= len(rows): raise ValidationError(\"Portability catalog row unavailable\") row = rows[row_index] reference = row_reference(dataset, row_index, row) start = (field_page - 1) * FIELD_PAGE_SIZE fields = list(islice(scalar_fields(row), start, start + FIELD_PAGE_SIZE + 1)) if field_page > 1 and not fields: raise ValidationError(\"Portability catalog page unavailable\") more = len(fields) > FIELD_PAGE_SIZE fields = fields[:FIELD_PAGE_SIZE] fresh_authority(actor, case, session_version, mfa_version) if ( can_prepare(User.objects.get(pk=actor.pk), case, person).pk != review.proof_id or fingerprint(canonical(source_copy(person, listing, case))) != review.source_digest ): raise ValidationError(\"Portability catalog authority or source changed\") return { \"dataset\": dataset, \"row\": reference, \"row_index\": row_index, \"row_count\": len(rows), \"field_page\": field_page, \"fields\": fields, \"has_next_fields\": more, \"has_next_row\": row_index + 1 < len(rows), }"
+    },
+    {
+      "source_id": "6ae02617-af23-430d-8f53-16dca72896db",
+      "citation_number": 9,
+      "cited_text": "<cited_table>",
+      "cited_table": {
+        "num_columns": 6,
+        "rows": [
+          [
+            "#",
+            "Pieza actual",
+            "Sustitución",
+            "Garantía y cómo se demuestra",
+            "Ganancia estimada",
+            "Estado"
+          ],
+          [
+            "1",
+            "Repetición de trabajo en validaciones",
+            "Equivalencias exactas: memo de",
+            "Igual; N2 414 PASS",
+            "moderada",
+            "Integrado"
+          ],
+          [
+            "2",
+            "Validación completa repetida 2–3 veces por operación",
+            "Una validación por operación y transacción",
+            "Igual; cota de regresión en",
+            "÷2–3 en finales/descargas",
+            "Integrado"
+          ],
+          [
+            "3",
+            "Segunda lectura completa del origen al salir",
+            "Huella",
+            "Identidad de versión y tupla detecta incluso varios UPDATE dentro de la misma transacción;",
+            "lecturas ~2,7s → ~0,3–0,5s",
+            "Integrado; N2 dirigida y casos pertinentes conjuntos PASS; perfil/capacidad pendientes"
+          ],
+          [
+            "4",
+            "Re-derivación de la exportación en finales/descargas",
+            "Sello por",
+            "Determinismo de la validación respecto a sus entradas;",
+            "finales/descargas ~10s → <1–2s",
+            "Integrado; N2 dirigida y conjunta pertinente PASS, incluida corrupción S3 sin cambio SQL y acceso; perfil pendiente"
+          ],
+          [
+            "5",
+            "Generación síncrona 50–65s en la petición",
+            "Tarea Celery con estado/progreso y misma validación; la petición devuelve inmediatamente",
+            "Mismas funciones de dominio; pruebas de estado, reintento, idempotencia y concurrencia",
+            "libera workers; UX",
+            "Integrado; N2 jobs/HTTP/móvil pertinente PASS; correctiva móvil conjunta en ejecución, capacidad pendiente"
+          ],
+          [
+            "6",
+            "Fernet (AES-CBC+HMAC+base64) para blobs grandes en columnas de texto",
+            "AEAD en flujo (AES-GCM o ChaCha20-Poly1305 de",
+            "Mismo secreto/autenticación; pruebas de integridad, rotación de claves, purga y restauración",
+            "-33% tamaño, 2–4× cifrado, PostgreSQL más ligero",
+            "Integrado opt-in; AEAD/S3/purga reales PASS, integración capacidad pendiente"
+          ],
+          [
+            "7",
+            "json.dumps(sort_keys=True)",
+            "orjson",
+            "Forma canónica nueva y estable; regenerar digests sintéticos",
+            "5–10× serialización, 3–5× hashing",
+            "Integrado; forma canónica v2, equivalencia bytes/HMAC y casos N2 PASS; ganancia depende del tipo de datos"
+          ],
+          [
+            "8",
+            "Descargas servidas por Django",
+            "Revalidación de autorización y bytes; grant efímero de un uso, URL firmada y forward_auth Caddy",
+            "Autorización y conteo de descargas en Django; bytes por el proxy",
+            "descarga sin CPU Python",
+            "Integrado opt-in; S3/Caddy y revocación/purga dirigidas PASS; preflight conjunto pendiente"
+          ],
+          [
+            "9",
+            "N2 en serie (~80 min)",
+            "pytest-xdist",
+            "Misma selección y cero skips; runner conserva evidencia por worker",
+            "3–6×",
+            "xdist integrado: 414 PASS/0 skips; snapshots con credenciales/fallback ocupado verificados en conjunta, sin plantilla de derechos aprobados"
+          ],
+          [
+            "10",
+            "Diagnósticos que releen 1.509 páginas",
+            "Plantilla privada AEAD de estado aprobado original; fresh LOGIN y validación completa antes de adoptar; aceptación sigue con lecturas reales",
+            "Solo diagnóstico, nunca aceptación",
+            "85 → ~10 min",
+            "Diseño y restricciones"
+          ],
+          [
+            "11",
+            "Evidencias mutables revalidadas por relectura",
+            "Evidencia inmutable por construcción",
+            "Más fuerte que hoy; pruebas de rechazo de mutación, restauración y purga legal (que pasa a ser tombstone auditado)",
+            "Sin reducción global O(1) acreditada",
+            "Integrado opt-in con rol runtime separado y 7 familias; N2 cadena/ACL/domain PASS; capacidad con rol real pendiente"
+          ],
+          [
+            "12",
+            "Revisión independiente página a página por HTTP",
+            "Revisión por lotes auditados: varias páginas ≤50 filas por petición, cada una registrada como lectura",
+            "Mismo contrato de lectura auditada; actualizar contratos internos antes de GS01",
+            "÷N peticiones",
+            "Integrado; N2 dirigida20PASS y conjunta pertinente PASS, incluidos rollback final y fin de imágenes; contrato actualizado; capacidad pendiente"
+          ],
+          [
+            "13",
+            "Rutas calientes Python",
+            "mypyc",
+            "Igual",
+            "variable",
+            "Condicional"
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+      "citation_number": 10,
+      "cited_text": "def _fresh_source(person, listing, case): \"\"\"Reload caller projections after detected drift; cached fields are not fresh evidence.\"\"\" if person is not None: person = copy(person) person.refresh_from_db() if listing is not None: listing = copy(listing) listing.refresh_from_db() return source_copy(person, listing, case) ===== ARCHIVO: apps/safety/rights_notice_inventory.py ===== \"\"\"Notice evidence fields: census fingerprints ciphertext, never decrypts it.\"\"\" NOTICE_FIELDS = [ \"pk\", \"request_id\", \"action_id\", \"execution_key\", \"recipient_id\", \"authorization_version\", \"payload_digest\", \"encrypted_payload\", \"acknowledged_at\", \"acknowledged_read_id\", \"acknowledged_action_id\", \"created_at\", ]"
+    }
+  ]
+}

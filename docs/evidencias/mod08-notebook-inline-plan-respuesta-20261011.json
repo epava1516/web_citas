@@ -1,0 +1,240 @@
+{
+  "answer": "Revisión crítica del plan y del diagnóstico antes de proceder con la ejecución. El diagnóstico confirmación de que la consulta inline idéntica reduce la mediana acumulada de queries de **28.8 ms a 18.817 ms** en PG 17.11 demuestra un ahorro claro a nivel de motor SQL [1, 2], al eliminar el contexto de llamada y el parsing de timestamps de funciones PL/pgSQL [2]. Sin embargo, como el propio diagnóstico indica, al estar vacías las colecciones de `ImageRead` y `CoverageReview` [2], la equivalencia semántica general aún no está completamente demostrada.\n\nA continuación, respondo punto por punto a las dudas específicas planteadas y presento un **Plan de Acción Refinado** con criterios de adopción estrictos.\n\n---\n\n### 1. Resolución Crítica de tus Dudas\n\n#### A. WSGI Rollback vs. Restauración de Snapshot DB\n* **El problema del Rollback WSGI con `SAVEPOINT`**: Utilizar un bloque de transacción/savepoint externo en el runner WSGI para hacer `ROLLBACK` al final de cada petición introduce **subtransacciones en PostgreSQL**. Esto altera el comportamiento real del motor (gestión de locks advisory `pg_advisory_xact_lock`, overhead de WAL/savepoints) y desvirtúa la medición fina de latencia. Además, las secuencias de PostgreSQL (`sequence`) **no retroceden en un rollback**, por lo que los identificadores de secuencia crecerán de forma asimétrica entre variantes.\n* **La alternativa limpia y correcta**: Usar el mecanismo nativo de snapshots del proyecto (`directory_snapshot.py` / `seed_or_restore` vía `CREATE DATABASE ... TEMPLATE`) [3]. Restaurar la base de datos desde el snapshot desechable antes de cada ronda/variante garantiza exactamente la misma densidad, contadores, secuenciadores y páginas de memoria compartida en PostgreSQL sin distorsión por subtransacciones [3].\n\n#### B. Control de Sustitución SQL (Monkeypatch vs. Regex Rewrite)\n* Interceptar y reescribir consultas mediante expresiones regulares a nivel de driver SQL es frágil y puede introducir fallos de coincidencia o latencia de formateo.\n* La vía más directa y segura es parchear explícitamente la función helper `_source_statements` en `apps/safety/evidence_chain.py` mediante un envoltorio de test [1]. Dado que `_source_statements` es el punto único de construcción de las 7 sentencias SELECT de la cadena [1], redefinir temporalmente esa función en la prueba sustituye las expresiones de forma limpia, determinista y aislada sin modificar el driver PostgreSQL ni meter banderas de código en producción [1].\n\n#### C. Topología de Workers (1 vs. 2 Workers Gunicorn)\n* El contrato de rendimiento e infraestructura del proyecto especifica **2 workers Gunicorn síncronos** (`--workers 2`) [4]. Reducir a 1 worker alteraría la topología real bajo la que operan las pruebas de capacidad [4, 5].\n* Para eliminar la varianza inter-process sin alterar el contrato:\n  1. Mantener la configuración de **2 workers Gunicorn sync** [4].\n  2. Ejecutar una fase de **warm-up explícita** enviando peticiones de preparación a ambos PIDs (verificando vía observer o logs que ambos workers han atendido al menos 1 solicitud) antes de iniciar las mediciones con tiempo [4, 5].\n\n#### D. Atribución del Delta de Tiempo\n* Es correcto no atribuir los ~10 ms de ganancia SQL directamente a ahorro en transporte o CPU pura, ni prometer reducciones globales en tiempo de respuesta HTTP [6, 7]. La ganancia de la expresión SQL inline beneficia la etapa de consulta en base de datos; la latencia final HTTP incluye la serialización en Python y el renderizado/WSGI [5-7].\n\n---\n\n### 2. Plan de Acción Refinado (Pasos Finitos)\n\n```\n[Paso 1: Delimitación de Alcance] \n  └── Sustitución exclusiva de SELECTs en `_source_statements` (evidence_chain)\n[Paso 2: Verificación de Equivalencia Estricta en PG] \n  └── 7 familias + tombstones + timezones/DST + tipos JSONB complejos\n[Paso 3: Ejecución de Gates de Regresión Local] \n  └── Test suite completa de evidence_chain, runtime y coverage\n[Paso 4: Benchmark HTTP Alternado con DB Snapshot] \n  └── 2 workers Gunicorn sync + warm-up + reset por TEMPLATE\n[Paso 5: Dictamen y Registro de Evidencia] \n  └── Adopción o Reversión según criterios estrictos\n```\n\n#### Paso 1: Registro de Alcance Aislado\n* Configurar la variante candidata reescribiendo únicamente los SELECTs de origen en `_source_statements` (`apps/safety/evidence_chain.py`) con funciones built-in cualificadas (`pg_catalog.sha256`, `pg_catalog.encode`, `pg_catalog.jsonb_set`, etc.) y parámetros parametrizados [1, 2].\n* Conservar intactos DDL, migraciones, disparadores de inserción (`rights_evidence_insert`), bloqueos `FOR UPDATE` / `pg_advisory_xact_lock`, y la lógica de verificación de runtime [2, 8].\n\n#### Paso 2: Validación de Equivalencia Semántica y Bounding (PG Real)\n* Ejecutar prueba comparativa en PostgreSQL real comparando fila a fila el hash resultante de la función PL/pgSQL original `public.rights_evidence_row_hash(to_jsonb(s))` contra la expresión inline candidatos sobre:\n  1. Todas las 7 familias de datos no vacías y registros de tombstone [2].\n  2. Variaciones de zona horaria (`UTC`, `Europe/Madrid`, `America/New_York`, `Asia_Kathmandu`, saltos DST) y `DateStyle` (`ISO`, `SQL`, `German`).\n  3. Casos límite de JSONB: cadenas Unicode con escapes, arrays anidados, valores `null`, flotantes, `bigint`, timestamps con microsegundos, fechas ISO límite (`BC`, `Infinity` si el esquema lo permite).\n  4. Verificación de aislamiento de `search_path` (shadowing de funciones).\n\n#### Paso 3: Gates de Regresión Locales\n* Correr la batería de pruebas existente sobre PostgreSQL desechable:\n  * `pytest tests/test_rights_evidence_chain.py`\n  * `pytest tests/test_rights_evidence_runtime.py`\n  * `pytest tests/test_rights_evidence_chain_pipeline.py`\n  * Pruebas de detección de alteración de datos (*owner drift*, *tamper*, filas faltantes, nulos y rollback idempotente) [9-11].\n* Si surge cualquier discrepancia de digest o error de validación, **revertir inmediatamente a la versión nativa** y registrar la evidencia como resultado negativo [6].\n\n#### Paso 4: Benchmark HTTP Comparativo (Topología Real)\n* Levantar el entorno de prueba con **2 workers Gunicorn síncronos** sobre la base de datos con fixture de historial de 1.500 revisiones [4, 5, 12].\n* Calentar ambos workers enviando peticiones de salud hasta confirmar atención en ambos PIDs [5].\n* Para la comparación HTTP de 4 páginas de batch:\n  * Ejecutar el escenario con la versión **nativa/vieja** sobre la DB en estado inicial.\n  * Restaurar el estado de la base de datos mediante el snapshot nativo `CREATE DATABASE ... TEMPLATE` [3].\n  * Ejecutar el escenario con la versión **candidata/nueva** sobre la DB recién restaurada.\n  * Alternar las rondas (A-B-A-B) hasta completar N=20 por variante dentro del tiempo límite.\n  * Registrar P95, mediana, consumo de memoria y conteo de consultas SQL.\n\n#### Paso 5: Dictamen y Documentación\n* Evaluar los resultados frente a los criterios de adopción.\n* Documentar en informe local de evidencia el resumen de mediciones, estado de gates y decisión final [6].\n* Sin realizar `git push` ni publicar artefactos externos [6].\n\n---\n\n### 3. Criterios de Adopción Comprobables\n\nPara **aprobar** e integrar la candidata SQL inline en el código de lectura de `evidence_chain`:\n\n1. **Equivalencia de Hash 100% Exacta**: Cero diferencias en los 584+ enlaces y digest de fuentes across las 7 familias de datos, tombstones, zonas horarias y estructuras JSONB evaluadas [1, 2].\n2. **Paso Limpio de Gates**: 100% de éxito en las suites de pruebas de `evidence_chain`, `runtime` y `pipeline` sin skips ni excepciones silenciadas [13-16].\n3. **Mejora Racional en HTTP**: La mediana y el P95 de la latencia HTTP de la variante candidata deben mostrar una reducción superior al margen de dispersión/ruido del benchmark frente a la variante nativa. Si la variación HTTP queda enmascarada por el ruido del marco WSGI/Python, se debe reportar la ganancia estricta a nivel SQL sin inventar o extrapolar ahorros no observados en la capa web [6, 7].\n4. **Cero Regresiones de Seguridad**: Ninguna alteración en los permisos del rol `runtime`, bloqueos `FOR UPDATE` o triggers de inmutabilidad de la cadena de evidencia [2, 8, 17].\n\nSi estás de acuerdo con los ajustes del plan (en especial el uso de snapshot restore en lugar de rollback WSGI), da la confirmación para iniciar la ejecución del **Paso 1 y Paso 2**.\n\n¿Procedemos a ejecutar la verificación de equivalencia en PostgreSQL sobre la base de datos desechable?",
+  "question": "Usuario autoriza ahora PLAN DE ACCIÓN +APLICACIÓN de candidataSQL tras diagnóstico. Necesito tu revisión crítica del plan concreto antes de ejecutar; no autoridad para cachear ni quitar checks.\nNUEVOdiagnóstico20261011-121055-8cc59a3c:1PASS PG17.11/TCP real,1168fuentesintactas,limpieza verificada. Cabeza36→548 por64lotes reales (no baseline);fixture1500revs/16777325bytesproyectados/67095050bytesWebP originales,cobertura parcialescalares;31lecturas selección.8queries: EVENTcondigest+7sources.4rondasrotadas EXPLAIN TIMINGOFF porvariante, warm1,timednative+SERIALIZETEXT. PGLOGINruntimefreshtrust yvalidación íntegra/headlocked antesplanes. Native/inline resultados exactamenteiguales584enlaces+584fuentes entre2niveles. ImageRead/CoverageReviewvacías ynotombstones; NOequivalenciageneral.\nAlto: EVENTnative8.242ms,whole_row0.469,jsonbpayload3.8545,inline_hash4.9535;SelectionRead288filas7.4935/0.543/3.4445/5.232;CoverageRead256filas11.215/0.8455/5.347/7.2615. Todoscontroles mantienen estructuraejecutable/filas por nivel, anchos/proyeccionesdistintos. Warmsharedreads0,plannerautoanalyze2: niveles cambianIndexScan/NestedLoop→Sort/HashJoin/SeqScan; no índicefaltante probado. NativeQuery medianssum28.8 vsinline18.817ms NO ejecuciónconjunta ni request. Noatribuir delta aCPUpura SHA ni prometer2s. Interpretación: candidata limitada deexpresiones mereceverificaciónequivalencia+HTTP;beneficioen consulta,no producto aún.\nCÓDIGO: fuentesSELECT s.id::text,public.rights_evidence_row_hash(to_jsonb(s)) FROM public.<TABLE> s JOINpublic.safety_rightsaction aONa.id=s.action_id WHEREa.request_id=%s. funciónrowhash JSONBnormalizacreated_atUTC,::text,UTF8,SHA256hexconSETsearch_path/Timezone; eventlink JSONBarray('rights-evidence-chain-v1',caseUUID::text,seq,kind,table,pk,payload,prev,UTCformattedcreated_at),UTF8SHA256. Inlineprueba:\nsourcehash pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to(pg_catalog.jsonb_set(pg_catalog.to_jsonb(s),'{created_at}',pg_catalog.to_jsonb(pg_catalog.to_char(s.created_at AT TIME ZONE 'UTC','YYYY-MM-DD\"T\"HH24:MI:SS.US\"Z\"')))::text,'UTF8')),'hex').\neventhash igualexpresióndejsonb_build_array conUTCto_char tipado. Elimina llamadaSQLfunc/contexto yparse detimestampJSON en sources; amboscambios agrupados,noproporción aislada. Inserttrigger sigue usandofunciones originales; candidatoSOLOLECTURAcomo oráculo contra eventos de productororiginal.\nPLANPROPIO:\n1. Registrar alcance/autorización: cambiar únicamenteexpresiones de SELECT en evidence_chain, helpers SQL internos con builtinsPGcalificados, parámetroscase siemprebound,TABLESwhitelist. Mantener públicoDDL/migraciones/grants/triggers/locks/7statements/pipeline+fallback/SELECTfields/sequence/digest/comparaciones/excepciones/ticket/trust intactos. SinUNIONALL/EXCEPT/caché/flags deprod deexperimento.\n2. EquivalenciaPGreal en7familiasNOVACÍAS+tombstones, zonaUTC/Madrid/NY/DST,Kathmandu yDateStyleISO/SQL/German: comparartodosdigestsactual contra funciones originales;JSONBmetadataUnicode/escapes/arrays/null/float/bigint, createdAtmicrosegundos/fechasedgebc/Infinity si el esquemaadmite sin cambiarsemánticaerror. Probarfunctionshadowingsearchpath builtins calificados. No confiar en muestrasfelices.\n3. Gateexistente evidence_chain/runtime/source_pipeline +safetycoveragebatch/selecciónreview/export/concurrenciaypurga pertinentessobre mismaversiónPG/Redis/RustFSsiarchivosloexigen. Ownertamper/enlaces/head/rowmissing/metadatachange/NULL/countboolean, rollback/idempotencia/SQLerror/pipelineserial/catálogo fresh y propias escrituras. Si haydiferencias revertircandidata/preservarnegativo antesañadirotra.\n4. ComparaciónHTTPsinprofiler,batch4páginas, fixturehistorialalto REAL. Para controlmatching exactamentehistorial, ejecutar cada POSTdentrotransacciónouterdelWSGItest-only quehagaROLLBACKalEOF trasverificar4nuevasCoverageRead; sesióncache/MFA/CSRF yrespuestaigual para ambas. Childruntime dosGunicornsync propios, mismo fixture/estado/rowcounts/tamaño; alternarnativo-viejo vsnuevoen test-onlyexecute_wrapper que sustituya SOLO las SELECT conocidas, no producer/checks/locks. No baselineexterno ni comandosfinish. Controles debenreportar rollbackcomo diferencia frente requestcommitnormal; medir también pareja de requestscommitnormales con conteos previosdespués para detectar efecto. Warmupporvariante, n20porvariante si coste≤presupuesto600s, TCP/EOF/P95soloescenarioacotado no aceptacióncontractual; nada de89min automático.\n5. Decisión: noadoptar si seguridad/equivalencia fallan; siHTTPno muestra mejora útil respecto dispersión nofabricar ahorro yconservar/revertir conforme evidencia. Documentarcódigo/test/gates/medidas/retirada y resultado; planaplicar completosinpush/publicar ni datosreales. MOD08completofueraestealcance.\nMis dudas: rollbackWSGI añadeSAVEPOINT yreabrehead pero evita sesgomuestrasenhistorialincreasing; puede producirrespuestas tokensbasadasIDs cuya secuenciaNOrollback crece,aunqueproyecciónrespuesta igualtamaño, hayqueverificar. Alternativa máslimpia restaurar solo snapshotown DB antescadaPOST (sinpermisofreshheadcache) pero muycostosa. Test-onlyregexrewrite SQL controldebeclasificar exactamenteyafallarambigüedad; nointroducirflagproductivo. Comparación puedeusar worker1parreducirvarianza? contrato2workers histórico,yactual2;mantener2 o fijar afinidad calentandoambos. Revisa ymodifica plan, en especial comparaciónequivalente. Pide código concreto sicareces, no inventesmecanismos. Dame pasosfinito+criteriodeadopción comprobable,sinpromesas niumbralesarbitrarios.",
+  "conversation_id": "99c86acd-9184-4561-8d47-e5c44f4636ab",
+  "sources_used": [
+    "f68f240e-a335-4cd5-a326-7423a1d15a55",
+    "5e25fb28-68db-4620-9a7d-e1ca771d3bab",
+    "5652fcab-0bc3-4c39-95b0-fc0c4c338678",
+    "3aa332ed-0fdc-4073-bddc-442b45ee04af",
+    "15be6f9c-1de7-4870-bd58-e30316a906d2",
+    "6ae02617-af23-430d-8f53-16dca72896db",
+    "f9fc99c0-aa65-46a2-9219-bf7ca789ce42",
+    "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+    "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "0b1b8207-15e5-439c-bfd4-20c4496de84e"
+  ],
+  "citations": {
+    "1": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+    "2": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+    "3": "5e25fb28-68db-4620-9a7d-e1ca771d3bab",
+    "4": "5652fcab-0bc3-4c39-95b0-fc0c4c338678",
+    "5": "3aa332ed-0fdc-4073-bddc-442b45ee04af",
+    "6": "15be6f9c-1de7-4870-bd58-e30316a906d2",
+    "7": "6ae02617-af23-430d-8f53-16dca72896db",
+    "8": "f9fc99c0-aa65-46a2-9219-bf7ca789ce42",
+    "9": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+    "10": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+    "11": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+    "12": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+    "13": "0b1b8207-15e5-439c-bfd4-20c4496de84e",
+    "14": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+    "15": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+    "16": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+    "17": "20cc1e02-682d-4d4b-8a6b-2d09017e176b"
+  },
+  "references": [
+    {
+      "source_id": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+      "citation_number": 1,
+      "cited_text": "def _source_statements(request): return [( \"SELECT s.id::text,public.rights_evidence_row_hash(to_jsonb(s)) \" f\"FROM public.{connection.ops.quote_name(table)} s \" \"JOIN public.safety_rightsaction a ON a.id=s.action_id WHERE a.request_id=%s\", [request], ) for table in TABLES] def _source_rows_serial(statements): actual = {} with connection.cursor() as cursor: for table, (statement, params) in zip(TABLES, statements): cursor.execute(statement, params) actual.update({(table, pk): digest for pk, digest in cursor.fetchall()}) return actual"
+    },
+    {
+      "source_id": "f68f240e-a335-4cd5-a326-7423a1d15a55",
+      "citation_number": 2,
+      "cited_text": "FUNCTIONS = r\"\"\" CREATE FUNCTION public.rights_evidence_row_hash(body jsonb) RETURNS text LANGUAGE sql IMMUTABLE SET search_path = pg_catalog, public SET timezone = 'UTC' AS SELECT encode(sha256(convert_to( jsonb_set(body, '{created_at}', to_jsonb(to_char( (body->>'created_at')::timestamptz AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS.US\"Z\"')))::text, 'UTF8')), 'hex') ; CREATE FUNCTION public.rights_evidence_link( case_id uuid, seq bigint, kind text, source_table text, source_pk text, payload text, previous text, occurred timestamptz) RETURNS text LANGUAGE sql IMMUTABLE SET search_path = pg_catalog, public SET timezone = 'UTC' AS SELECT encode(sha256(convert_to(jsonb_build_array( 'rights-evidence-chain-v1', case_id::text, seq, kind, source_table, source_pk, payload, previous, to_char(occurred AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS.US\"Z\"'))::text, 'UTF8')), 'hex') ; CREATE FUNCTION public.rights_evidence_locked_head(case_id uuid) RETURNS TABLE(sequence bigint, digest text) LANGUAGE sql SECURITY DEFINER SET search_path = pg_catalog, public AS SELECT h.sequence,h.digest FROM public.safety_rightsevidencehead h WHERE h.request_id=case_id FOR SHARE ; REVOKE ALL ON FUNCTION public.rights_evidence_locked_head(uuid) FROM PUBLIC; CREATE FUNCTION public.rights_evidence_guard() RETURNS trigger LANGUAGE plpgsql SET search_path = pg_catalog, public AS DECLARE owner_name text; BEGIN SELECT pg_get_userbyid(relowner) INTO owner_name FROM pg_class WHERE oid = TG_RELID; IF current_user <> owner_name THEN RAISE EXCEPTION 'Immutable rights evidence cannot be modified' USING ERRCODE = '42501'; END IF; IF TG_OP = 'DELETE' THEN RETURN OLD; END IF; IF TG_OP = 'TRUNCATE' THEN RETURN NULL; END IF; RETURN NEW; END ; CREATE FUNCTION public.rights_evidence_action_scope_guard() RETURNS trigger LANGUAGE plpgsql SET search_path = pg_catalog, public AS DECLARE owner_name text; source_name text; linked boolean; BEGIN IF ROW(NEW.request_id,NEW.actor_id,NEW.operation,NEW.expected_version,NEW.key) IS NOT DISTINCT FROM ROW(OLD.request_id,OLD.actor_id,OLD.operation,OLD.expected_version,OLD.key) THEN RETURN NEW; END IF; SELECT pg_get_userbyid(relowner) INTO owner_name FROM pg_class WHERE oid=TG_RELID; IF current_user=owner_name THEN RETURN NEW; END IF; FOREACH source_name IN ARRAY ARRAY[ 'safety_rightsportabilityread','safety_rightsportabilityreview', 'safety_rightsportabilityselectionread','safety_rightsportabilityselectionreview', 'safety_rightsportabilityimageread','safety_rightsportabilitycoverageread', 'safety_rightsportabilitycoveragereview'] LOOP EXECUTE format('SELECT EXISTS(SELECT 1 FROM public.%I WHERE action_id=$1)',source_name) INTO linked USING OLD.id; IF linked THEN RAISE EXCEPTION 'Immutable rights evidence action scope cannot change' USING ERRCODE='42501'; END IF; END LOOP; RETURN NEW; END ; CREATE FUNCTION public.rights_evidence_append( case_id uuid, event_kind text, source_name text, row_id text, row_hash text, occurred timestamptz) RETURNS void LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, public SET timezone = 'UTC' AS DECLARE seq bigint; previous text; next_digest text; BEGIN INSERT INTO public.safety_rightsevidencehead(request_id, sequence, digest) VALUES(case_id, 0, repeat('0',64)) ON CONFLICT(request_id) DO NOTHING; SELECT sequence, digest INTO seq, previous FROM public.safety_rightsevidencehead WHERE request_id = case_id FOR UPDATE; seq := seq + 1; next_digest := public.rights_evidence_link(case_id, seq, event_kind, source_name, row_id, row_hash, previous, occurred); INSERT INTO public.safety_rightsevidenceevent( request_id,sequence,kind,source_table,source_pk,payload_digest,previous_digest,digest,created_at) VALUES(case_id,seq,event_kind,source_name,row_id,row_hash,previous,next_digest,occurred); UPDATE public.safety_rightsevidencehead SET sequence=seq,digest=next_digest WHERE request_id=case_id; END ; REVOKE ALL ON FUNCTION public.rights_evidence_append(uuid,text,text,text,text,timestamptz) FROM PUBLIC;"
+    },
+    {
+      "source_id": "5e25fb28-68db-4620-9a7d-e1ca771d3bab",
+      "citation_number": 3,
+      "cited_text": "def _empty_fixture_database(): tables = {model._meta.db_table for model in apps.get_models(include_auto_created=True)} tables -= {\"django_content_type\", \"auth_permission\"} query = sql.SQL(\" UNION ALL \").join( sql.SQL(\"SELECT EXISTS(SELECT 1 FROM {})\").format(sql.Identifier(table)) for table in sorted(tables) ) with connections[\"default\"].cursor() as cursor: cursor.execute(query) return not any(row[0] for row in cursor.fetchall()) def seed_or_restore(seed): \"\"\"Restore only directory bootstrap; rights reads/decisions are never cached.\"\"\" current = context() if current is None: seed() return \"seed\" run, worker, root, database = current if connections[\"default\"].in_atomic_block: raise RuntimeError(\"Fixture snapshots require transactional-test autocommit\") if not _empty_fixture_database(): # Preserve any setup performed before requesting directory, as before. seed() return \"seed_existing_setup\" key = cache_key(run, worker) snapshot = _CACHE.get(key) target = database[\"NAME\"] if snapshot is None: seed() template = template_name(key) media = root / template if media.exists(): raise RuntimeError(\"Fixture snapshot directory already exists\") # directory's seed_demo also writes a synthetic credential manifest next # to private media. Its consumers require a current per-test copy. credentials = (Path(settings.MEDIA_ROOT).parent / \"credentials.json\").read_bytes() shutil.copytree(settings.MEDIA_ROOT, media) connections.close_all() try: with _admin(database) as admin, admin.cursor() as cursor: _quiescent(cursor, [target, template]) try: cursor.execute( sql.SQL(\"CREATE DATABASE {} TEMPLATE {}\").format( sql.Identifier(template), sql.Identifier(target) ) ) except psycopg.errors.ObjectInUse as error: # A server may connect after the zero-connection check. # Failed CREATE has not changed the original baseline DB. raise SnapshotBusy( \"Fixture source became occupied; no connection was terminated\" ) from error cursor.execute( sql.SQL(\"ALTER DATABASE {} ALLOW_CONNECTIONS false\").format( sql.Identifier(template) ) ) except SnapshotBusy: # seed already produced the real baseline. Preserve occupied test # services and their connections; do not attempt DROP or clone. shutil.rmtree(media) return \"seed_busy_database\" _CACHE[key] = Snapshot(template, media, target, credentials) return \"seed_snapshot\" if snapshot.database != target: raise RuntimeError(\"Fixture snapshot belongs to another worker database\") connections.close_all() try: with _admin(database) as admin, admin.cursor() as cursor: _quiescent(cursor, [target, snapshot.template]) try: cursor.execute(sql.SQL(\"DROP DATABASE {}\").format(sql.Identifier(target))) except psycopg.errors.ObjectInUse as error: # Catch only failed DROP. CREATE errors after a successful DROP # remain errors; seeding cannot disguise a missing worker DB. raise SnapshotBusy( \"Fixture target became occupied; no connection was terminated\" ) from error cursor.execute( sql.SQL(\"CREATE DATABASE {} TEMPLATE {}\").format( sql.Identifier(target), sql.Identifier(snapshot.template) ) ) except SnapshotBusy: # A live_server can already have a legitimate connection to this test # database. Run the original bootstrap instead of destroying its DB. seed() return \"seed_busy_database\" destination = Path(settings.MEDIA_ROOT) # photo_environment supplies a new test-owned tmp_path; remove only its media. if destination.exists(): shutil.rmtree(destination) shutil.copytree(snapshot.media, destination) credentials = destination.parent / \"credentials.json\" with credentials.open(\"wb\") as manifest: os.chmod(credentials, 0o600) manifest.write(snapshot.credentials) return \"restore_snapshot\""
+    },
+    {
+      "source_id": "5652fcab-0bc3-4c39-95b0-fc0c4c338678",
+      "citation_number": 4,
+      "cited_text": "runtime.mkdir() media = runtime / \"private\" shutil.copytree(django_settings.MEDIA_ROOT, media) runtime_settings = \"from config.settings import \\nMEDIA_ROOT = \" + repr(str(media)) + \"\\n\" if refresh_mode == EAGER: runtime_settings += ('CELERY_TASK_ALWAYS_EAGER = True\\nCELERY_TASK_EAGER_PROPAGATES = True\\n' 'CELERY_BEAT_SCHEDULE = {}\\nCELERY_RESULT_BACKEND = \"cache+memory://\"\\n') # NORMAL keeps the deployed Celery configuration and Beat schedule unchanged; # only the broker is an owned, empty Redis database with an owned key prefix. (runtime / \"load_runtime_settings.py\").write_text(runtime_settings + OBSERVER_SETTINGS) celery_events = folder / \"celery-events-raw\" celery_events.mkdir(mode=0o700) observer = folder / \"worker-events-raw\" observer.mkdir(mode=0o700) env = os.environ.copy() generation = \"w\" + uuid4().hex[:31] env.update(POSTGRES_DB=name, POSTGRES_USER=db[\"USER\"], POSTGRES_PASSWORD=db[\"PASSWORD\"], DB_HOST=db[\"HOST\"], DB_PORT=str(db[\"PORT\"]), APP_ENV=\"development\", DJANGO_DEBUG=\"0\", DJANGO_SETTINGS_MODULE=\"load_runtime_settings\", PYTHONPATH=str(runtime)+os.pathsep+str(Path.cwd()), REDIS_URL=\"memory://\" if refresh_mode == EAGER else OWNED_REDIS, TASK_QUEUE_GENERATION=generation, WEB_MODELOS_BENCHMARK_OBSERVER_DIR=str(observer), WEB_MODELOS_CELERY_OBSERVER_DIR=str(celery_events), WEB_MODELOS_PROCESS_ROLE=\"web\") process, probe, sampler, celery_processes = None, None, None, {} report = {\"index\": index+1, \"workers\": workers, \"refresh_mode\": refresh_mode, \"task_queue_generation\": generation, \"routes\": routes, \"dataset\": dataset, \"postgres_version\": pg_version, \"verdict\": \"INVALID\", \"completed\": False, \"upload_body_sha256\": hashlib.sha256(multipart).hexdigest(), \"policy\": dict(POLICY)} try: if refresh_mode == NORMAL: broker = owned_redis() assert broker.dbsize() == 0, \"Owned Redis database must be empty before a block\" # Same deployed commands (compose.yaml) in every block; owned and isolated. commands = { \"worker\": [sys.executable, \"-m\", \"celery\", \"-A\", \"config\", \"worker\", \"--loglevel=INFO\", \"--concurrency=2\"], \"beat\": [sys.executable, \"-m\", \"celery\", \"-A\", \"config\", \"beat\", \"--loglevel=INFO\", \"--schedule\", str(runtime / \"celerybeat-schedule\")], } for role, command in commands.items(): with (folder / f\"celery-{role}.log\").open(\"w\") as log: celery_processes[role] = subprocess.Popen(command, env={**env, \"WEB_MODELOS_PROCESS_ROLE\": role}, stdout=log, stderr=log, start_new_session=True) ready_deadline = time.monotonic() + 60 wait_for_log(folder / \"celery-worker.log\", \" ready.\", celery_processes[\"worker\"], ready_deadline) wait_for_log(folder / \"celery-beat.log\", \"beat: Starting\", celery_processes[\"beat\"], ready_deadline) report[\"celery_pids\"] = {role: process_tree(p.pid) for role, p in celery_processes.items()} with (folder / \"gunicorn-private.log\").open(\"w\") as log: process = subprocess.Popen([sys.executable, \"-m\", \"gunicorn\", \"--config\", \"python:scripts.benchmark_resource_observer\", \"config.wsgi:application\", \"--bind\", f\"127.0.0.1:{port}\", \"--workers\", str(workers), \"--timeout\", \"65\", \"--access-logfile\", str(folder / \"gunicorn-access.log\"), \"--access-logformat\", \"%(s)s %(L)s %(U)s %({x-benchmark-id}i)s\", \"--error-logfile\", \"-\", \"--graceful-timeout\", \"10\"], env=env, stdout=log, stderr=log, start_new_session=True) report[\"master_pid\"] = process.pid deadline = time.monotonic()+30 while True: assert process.poll() is None, \"Owned Gunicorn exited during startup\" if len(list(observer.glob(\"worker- .jsonl\"))) == workers: try: with urllib.request.urlopen(origin+\"/health/\", timeout=1) as response: if response.status == 200: break except OSError: pass assert time.monotonic() < deadline, \"Owned server failed readiness\" time.sleep(.1) clone_db = {**db, \"NAME\": name} probe = ResourceProbe(folder/\"resource-samples.jsonl\", clone_db, process.pid, pg_pid, trial_limits=limits) probe.start() sampler = PublicationSampler(folder/\"publication-samples.jsonl\", clone_db) sampler.start()"
+    },
+    {
+      "source_id": "3aa332ed-0fdc-4073-bddc-442b45ee04af",
+      "citation_number": 5,
+      "cited_text": "===== ARCHIVO: scripts/benchmark_worker_observer.py ===== \"\"\"Opt-in Gunicorn diagnostics, restricted to disposable synthetic test databases.\"\"\" import json import os import re import time from contextvars import ContextVar from functools import wraps from pathlib import Path _CURRENT = ContextVar(\"benchmark_worker_request\", default=None) _ID = re.compile(r\"[du]-[0-9]+\\Z\") class WorkerObserver: def init (self, folder): self.pid = os.getpid() self.fd = os.open(Path(folder) / f\"worker-{self.pid}.jsonl\", os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_APPEND, 0o600)"
+    },
+    {
+      "source_id": "15be6f9c-1de7-4870-bd58-e30316a906d2",
+      "citation_number": 6,
+      "cited_text": "El gate propio guarda logs, selección, versiones/huellas, JUnit, exclusiones/skips, duraciones y limpieza. checks , smoke o regression con exclusiones no sustituyen N3 ni capacidad omitida. Codex revisa evidencia antes de aceptar, distingue preparación/fixtures, ejecución, diagnóstico/corrección e integración/runtime, y conserva el consumo realmente observado sin inventar tiempos/costes pasados. Funcionalidad pequeña cubre todos los escenarios críticos antes del volumen. Volumen, memoria, latencia/consultas y transporte se aceptan en su escenario real documentado. Una optimización necesita hipótesis finita, comparación de la etapa con datos/instrumentación equivalentes y verificación del recorrido afectado. No repetir por rutina un ensayo de 89 minutos para cambios ajenos; tampoco omitirlo cuando una aceptación o riesgo pertinente lo exija. Una iteración sin evidencia nueva termina como negativa/no concluyente; no cierra el requisito ni justifica repetirla idéntica."
+    },
+    {
+      "source_id": "6ae02617-af23-430d-8f53-16dca72896db",
+      "citation_number": 7,
+      "cited_text": "<cited_table>",
+      "cited_table": {
+        "num_columns": 6,
+        "rows": [
+          [
+            "#",
+            "Pieza actual",
+            "Sustitución",
+            "Garantía y cómo se demuestra",
+            "Ganancia estimada",
+            "Estado"
+          ],
+          [
+            "1",
+            "Repetición de trabajo en validaciones",
+            "Equivalencias exactas: memo de",
+            "Igual; N2 414 PASS",
+            "moderada",
+            "Integrado"
+          ],
+          [
+            "2",
+            "Validación completa repetida 2–3 veces por operación",
+            "Una validación por operación y transacción",
+            "Igual; cota de regresión en",
+            "÷2–3 en finales/descargas",
+            "Integrado"
+          ],
+          [
+            "3",
+            "Segunda lectura completa del origen al salir",
+            "Huella",
+            "Identidad de versión y tupla detecta incluso varios UPDATE dentro de la misma transacción;",
+            "lecturas ~2,7s → ~0,3–0,5s",
+            "Integrado; N2 dirigida y casos pertinentes conjuntos PASS; perfil/capacidad pendientes"
+          ],
+          [
+            "4",
+            "Re-derivación de la exportación en finales/descargas",
+            "Sello por",
+            "Determinismo de la validación respecto a sus entradas;",
+            "finales/descargas ~10s → <1–2s",
+            "Integrado; N2 dirigida y conjunta pertinente PASS, incluida corrupción S3 sin cambio SQL y acceso; perfil pendiente"
+          ],
+          [
+            "5",
+            "Generación síncrona 50–65s en la petición",
+            "Tarea Celery con estado/progreso y misma validación; la petición devuelve inmediatamente",
+            "Mismas funciones de dominio; pruebas de estado, reintento, idempotencia y concurrencia",
+            "libera workers; UX",
+            "Integrado; N2 jobs/HTTP/móvil pertinente PASS; correctiva móvil conjunta en ejecución, capacidad pendiente"
+          ],
+          [
+            "6",
+            "Fernet (AES-CBC+HMAC+base64) para blobs grandes en columnas de texto",
+            "AEAD en flujo (AES-GCM o ChaCha20-Poly1305 de",
+            "Mismo secreto/autenticación; pruebas de integridad, rotación de claves, purga y restauración",
+            "-33% tamaño, 2–4× cifrado, PostgreSQL más ligero",
+            "Integrado opt-in; AEAD/S3/purga reales PASS, integración capacidad pendiente"
+          ],
+          [
+            "7",
+            "json.dumps(sort_keys=True)",
+            "orjson",
+            "Forma canónica nueva y estable; regenerar digests sintéticos",
+            "5–10× serialización, 3–5× hashing",
+            "Integrado; forma canónica v2, equivalencia bytes/HMAC y casos N2 PASS; ganancia depende del tipo de datos"
+          ],
+          [
+            "8",
+            "Descargas servidas por Django",
+            "Revalidación de autorización y bytes; grant efímero de un uso, URL firmada y forward_auth Caddy",
+            "Autorización y conteo de descargas en Django; bytes por el proxy",
+            "descarga sin CPU Python",
+            "Integrado opt-in; S3/Caddy y revocación/purga dirigidas PASS; preflight conjunto pendiente"
+          ],
+          [
+            "9",
+            "N2 en serie (~80 min)",
+            "pytest-xdist",
+            "Misma selección y cero skips; runner conserva evidencia por worker",
+            "3–6×",
+            "xdist integrado: 414 PASS/0 skips; snapshots con credenciales/fallback ocupado verificados en conjunta, sin plantilla de derechos aprobados"
+          ],
+          [
+            "10",
+            "Diagnósticos que releen 1.509 páginas",
+            "Plantilla privada AEAD de estado aprobado original; fresh LOGIN y validación completa antes de adoptar; aceptación sigue con lecturas reales",
+            "Solo diagnóstico, nunca aceptación",
+            "85 → ~10 min",
+            "Diseño y restricciones"
+          ],
+          [
+            "11",
+            "Evidencias mutables revalidadas por relectura",
+            "Evidencia inmutable por construcción",
+            "Más fuerte que hoy; pruebas de rechazo de mutación, restauración y purga legal (que pasa a ser tombstone auditado)",
+            "Sin reducción global O(1) acreditada",
+            "Integrado opt-in con rol runtime separado y 7 familias; N2 cadena/ACL/domain PASS; capacidad con rol real pendiente"
+          ],
+          [
+            "12",
+            "Revisión independiente página a página por HTTP",
+            "Revisión por lotes auditados: varias páginas ≤50 filas por petición, cada una registrada como lectura",
+            "Mismo contrato de lectura auditada; actualizar contratos internos antes de GS01",
+            "÷N peticiones",
+            "Integrado; N2 dirigida20PASS y conjunta pertinente PASS, incluidos rollback final y fin de imágenes; contrato actualizado; capacidad pendiente"
+          ],
+          [
+            "13",
+            "Rutas calientes Python",
+            "mypyc",
+            "Igual",
+            "variable",
+            "Condicional"
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "f9fc99c0-aa65-46a2-9219-bf7ca789ce42",
+      "citation_number": 8,
+      "cited_text": "===== ARCHIVO: apps/safety/migrations/0116_rights_evidence_runtime.py ===== \"\"\"Serialize validation and append before taking action/head row locks.\"\"\" from django.db import migrations from apps.safety.evidence_chain_sql_v1 import FUNCTIONS def runtime_functions(apps, schema_editor): sql = FUNCTIONS[FUNCTIONS.index(\"CREATE FUNCTION public.rights_evidence_locked_head\") :] # Only replace these three functions; all other version-one DDL stays untouched. for name in (\"locked_head\", \"insert\", \"tombstone\"): marker = \"CREATE FUNCTION public.rights_evidence_\" + name start = sql.index(marker) end = ( sql.index(\"END ;\", start) + len(\"END ;\") if name != \"locked_head\" else sql.index(\" ;\", start) + 3 ) definition = sql[start:end].replace(\"CREATE FUNCTION\", \"CREATE OR REPLACE FUNCTION\", 1) if name == \"locked_head\": definition = \"\"\"CREATE OR REPLACE FUNCTION public.rights_evidence_locked_head(case_id uuid) RETURNS TABLE(sequence bigint,digest text) LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,public AS BEGIN PERFORM pg_advisory_xact_lock(hashtextextended(case_id::text, 817115)); RETURN QUERY SELECT h.sequence,h.digest::text FROM public.safety_rightsevidencehead h WHERE h.request_id=case_id FOR UPDATE; END ;\"\"\" elif name == \"insert\": definition = definition.replace( \" SELECT request_id INTO STRICT case_id\", \"\"\" SELECT request_id INTO STRICT case_id FROM public.safety_rightsaction WHERE id=NEW.action_id; PERFORM pg_advisory_xact_lock(hashtextextended(case_id::text,817115)); SELECT request_id INTO STRICT case_id\"\"\", 1, ) else: definition = definition.replace( \"BEGIN\\n\", \"BEGIN\\n PERFORM pg_advisory_xact_lock(hashtextextended(case_id::text,817115));\\n\", 1, ) schema_editor.execute(definition)"
+    },
+    {
+      "source_id": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+      "citation_number": 9,
+      "cited_text": "def test_owner_drift_detected_even_when_ticket_and_head_unchanged(base): case, _, _, _, rows = base ticket = validate_chain(case) RightsPortabilityRead.objects.filter(pk=rows[0].pk).update(source_digest=\"0\" * 64) assert RightsEvidenceHead.objects.get(request=case).digest == ticket.digest with pytest.raises(ValidationError, match=\"source rows\"): validate_chain(case, ticket=ticket) def test_concurrent_runtime_inserts_and_rollback_share_head(base, runtime): case, assessment, common, action, _ = base actions = [action(), action()] gate = Barrier(2)"
+    },
+    {
+      "source_id": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+      "citation_number": 10,
+      "cited_text": "def test_backfill_restored_rows_preserves_existing_links_and_detects_drift(base): case, assessment, common, action, _ = base original = validate_chain(case) with connection.cursor() as cursor: cursor.execute( sql.SQL(\"ALTER TABLE public.{} DISABLE TRIGGER rights_evidence_record\").format( sql.Identifier(TABLES[0]) ) ) try: RightsPortabilityRead.objects.create( action=action(), assessment=assessment, assessment_digest=\"e\" * 64, **common ) finally: with connection.cursor() as cursor: cursor.execute( sql.SQL(\"ALTER TABLE public.{} ENABLE TRIGGER rights_evidence_record\").format( sql.Identifier(TABLES[0]) ) ) with pytest.raises(ValidationError, match=\"source rows\"): validate_chain(case) backfill_missing() assert validate_chain(case).count == original.count + 1 first = list( RightsEvidenceEvent.objects.filter(request=case) .order_by(\"sequence\") .values_list(\"digest\", flat=True) ) backfill_missing() assert first == list( RightsEvidenceEvent.objects.filter(request=case) .order_by(\"sequence\") .values_list(\"digest\", flat=True) )"
+    },
+    {
+      "source_id": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+      "citation_number": 11,
+      "cited_text": "def test_enforcement_rejects_owner_accepts_runtime_and_detects_owner_drift(base, runtime, settings): case, _, _, _, rows = base settings.RIGHTS_EVIDENCE_ENFORCED = True with pytest.raises(ValidationError, match=\"separate trusted runtime\"): require_runtime_chain(case) set_role(runtime) assert require_runtime_chain(case).count == 7 with connection.cursor() as cursor: cursor.execute(\"RESET ROLE\") type(rows[0]).objects.filter(pk=rows[0].pk).update(source_digest=\"0\" * 64) set_role(runtime) with pytest.raises(ValidationError, match=\"source rows\"): require_runtime_chain(case)"
+    },
+    {
+      "source_id": "9bbc2d90-4ac7-4575-bbff-b820d315a60c",
+      "citation_number": 12,
+      "cited_text": "def _fresh_source(person, listing, case): \"\"\"Reload caller projections after detected drift; cached fields are not fresh evidence.\"\"\" if person is not None: person = copy(person) person.refresh_from_db() if listing is not None: listing = copy(listing) listing.refresh_from_db() return source_copy(person, listing, case) ===== ARCHIVO: apps/safety/rights_notice_inventory.py ===== \"\"\"Notice evidence fields: census fingerprints ciphertext, never decrypts it.\"\"\" NOTICE_FIELDS = [ \"pk\", \"request_id\", \"action_id\", \"execution_key\", \"recipient_id\", \"authorization_version\", \"payload_digest\", \"encrypted_payload\", \"acknowledged_at\", \"acknowledged_read_id\", \"acknowledged_action_id\", \"created_at\", ]"
+    },
+    {
+      "source_id": "0b1b8207-15e5-439c-bfd4-20c4496de84e",
+      "citation_number": 13,
+      "cited_text": "validate_chain verifica filas y enlaces completos; tickets conservan head/count y sólo permiten comprobación rápida si el rol es runtime separado y las garantías de catálogo/privilegios/triggers están comprobadas. Con owner/superuser siempre relee filas: modificar evidencia aunque head no cambie debe detectarse. Ningún ticket reemplaza fuentes, pruebas, autoridad, tiempo, imágenes ni RightsAction mutable. Los validadores de dominio actuales permanecen íntegros en esta primera entrega. Selección PostgreSQL prevista: archivo test_rights_evidence_chain completo, dos workers con roles runtime reales NOOWNER/NOSUPERUSER, fuentes congeladas, PG17/Redis7.4 propios, timeout7200 y JUnit/limpieza. Controles: siete triggers completos, UPDATE/DELETE/TRUNCATE runtime denegados, eventos/cabeza protegidos, inserciones concurrentes serializadas, rollback, backfill/restauración y tombstone minimizado; owner drift detectado por validación completa. No PASS ni aceptación antes de terminal. Capacidad/N3 y optimización de validadores posteriores siguen pendientes."
+    },
+    {
+      "source_id": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+      "citation_number": 14,
+      "cited_text": "===== ARCHIVO: tests/test_rights_evidence_chain.py ===== \"\"\"PostgreSQL runtime-role enforcement, not synthetic guards or head-only acceptance.\"\"\" from concurrent.futures import ThreadPoolExecutor from threading import Barrier from uuid import uuid4 import pytest from django.core.exceptions import ValidationError from django.db import DatabaseError, close_old_connections, connection, connections, transaction from django.utils import timezone from psycopg import sql from apps.core.models import Person, User from apps.listings.models import Listing, Revision from apps.mediafiles.models import Blob, Photo from apps.safety.evidence_chain import ( backfill_missing, configure_role, record_tombstone, validate_chain, ) from apps.safety.evidence_chain_sql_v1 import EVENT, HEAD, TABLES from apps.safety.models import ( RightsAction, RightsEvidenceEvent, RightsEvidenceHead, RightsPortabilityAssessment, RightsPortabilityCoverage, RightsPortabilityCoverageRead, RightsPortabilityCoverageReview, RightsPortabilityImageRead, RightsPortabilityRead, RightsPortabilityReview, RightsPortabilitySelection, RightsPortabilitySelectionRead, RightsPortabilitySelectionReview, RightsProof, RightsRequest, )"
+    },
+    {
+      "source_id": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+      "citation_number": 15,
+      "cited_text": "===== ARCHIVO: tests/test_rights_evidence_chain_pipeline.py ===== ruff: noqa: F811 -- imported fixtures are requested by parameter name \"\"\"Real PostgreSQL transport equivalence; timing is diagnostic, not acceptance.\"\"\" import json import resource import tracemalloc from concurrent.futures import ThreadPoolExecutor from statistics import median from threading import Event from time import monotonic, perf_counter_ns from uuid import uuid4 import psycopg import pytest from django.core.exceptions import ValidationError from django.db import DatabaseError, close_old_connections, connection, transaction from psycopg import sql from test_rights_evidence_chain import base, runtime, set_role  # noqa: F401"
+    },
+    {
+      "source_id": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+      "citation_number": 16,
+      "cited_text": "===== ARCHIVO: tests/test_rights_evidence_runtime.py ===== ruff: noqa: F811 -- imported pytest fixtures are requested by parameter name \"\"\"Real PostgreSQL nonowner locks, enforcement and validate-to-append concurrency.\"\"\" from concurrent.futures import ThreadPoolExecutor from threading import Barrier from uuid import uuid4 import pytest from django.core.exceptions import ValidationError from django.db import DatabaseError, close_old_connections, connection, connections, transaction from psycopg import sql from test_reports import directory, photo_environment  # noqa: F401 from test_rights_evidence_chain import base, runtime, set_role  # noqa: F401 from test_rights_portability_export_races import prepared_selection"
+    },
+    {
+      "source_id": "20cc1e02-682d-4d4b-8a6b-2d09017e176b",
+      "citation_number": 17,
+      "cited_text": "from apps.safety.evidence_chain import record_tombstone, require_runtime_chain, validate_chain from apps.safety.evidence_chain_sql_v1 import TABLES pytestmark = pytest.mark.django_db(transaction=True) def test_real_runtime_can_lock_every_metadata_family_but_cannot_update_id(base, runtime): case, _, _, _, rows = base set_role(runtime) with transaction.atomic(), connection.cursor() as cursor: for table, row in zip(TABLES, rows): cursor.execute( sql.SQL(\"SELECT id FROM public.{} WHERE id=%s FOR UPDATE\").format( sql.Identifier(table) ), [row.pk], ) assert cursor.fetchone() == (row.pk,) with pytest.raises(DatabaseError), transaction.atomic(), connection.cursor() as cursor: cursor.execute( sql.SQL(\"UPDATE public.{} SET id=id WHERE id=%s\").format(sql.Identifier(TABLES[0])), [rows[0].pk], ) ticket = validate_chain(case) assert validate_chain(case, ticket=ticket) == ticket"
+    }
+  ]
+}

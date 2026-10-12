@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-12",
+  "runs": [
+    {
+      "id": "20261011-212056-311e7b34",
+      "variant": "original anterior",
+      "status": "FAIL_DELIVERY_STAGE_LIMITS",
+      "worst_p95_seconds": {
+        "navigation": 3.389664611997432,
+        "json": 8.961067005999212,
+        "binary": 9.03301708700019
+      }
+    },
+    {
+      "id": "20261011-223037-dceb3990",
+      "variant": "cliente compartido candidato retirado",
+      "status": "DELIVERY_STAGES_PASS_NOT_GLOBAL_CAPACITY_OR_N3",
+      "worst_p95_seconds": {
+        "navigation": 1.7302121800021268,
+        "json": 4.37937402100215,
+        "binary": 4.65765525700408
+      }
+    },
+    {
+      "id": "20261011-225032-2c80329e",
+      "variant": "control transporte original",
+      "status": "DELIVERY_STAGES_PASS_NOT_GLOBAL_CAPACITY_OR_N3",
+      "worst_p95_seconds": {
+        "navigation": 1.6267056209981092,
+        "json": 3.8648459579999326,
+        "binary": 3.8405786840012297
+      }
+    }
+  ],
+  "limits_seconds": {
+    "navigation": 2,
+    "json": 5,
+    "binary": 5
+  },
+  "user_energy_report": [
+    "Sí, cambió",
+    "Alterní"
+  ],
+  "energy_direction": "no determinada; alternancia comunicada sin correspondencia por ejecución",
+  "causal_http_gain_proven": false,
+  "candidate_integrated": false,
+  "prototype_n2_passes": [
+    139,
+    139
+  ],
+  "paired_microbenchmark_median_gain_ms": [
+    60.474573,
+    55.1575
+  ],
+  "limitations": [
+    "Ejecuciones HTTP no emparejadas y energía no controlada",
+    "pyperf constructor inestable; sesión calentada fuera de Memray",
+    "PASS sólo etapas locales, no capacidad global ni N3"
+  ],
+  "room": ".ai/rooms/mod08-profesional-20261012"
+}

@@ -1,0 +1,2996 @@
+{
+  "recorded_utc": "2026-10-11T13:51:16.759338+00:00",
+  "head": "7e04016d8ece6cf52388e283eb06cf0a6040fd2b",
+  "result": {
+    "id": "20261011-134116-08cc3941",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261011-134116-08cc3941",
+          "--label",
+          "web-modelos-local-ci-run=20261011-134116-08cc3941",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.21684900199761614
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261011-134116-08cc3941",
+          "--label",
+          "web-modelos-local-ci-run=20261011-134116-08cc3941",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.17077829800109612
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.017935784999281168
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.03401164599927142
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.3673550940002315
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 0.677541963999829
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 0.7764008369995281
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-dfbe39gy/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-dfbe39gy/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-dfbe39gy/native.env"
+        ],
+        "exit": 0,
+        "seconds": 5.03750055600176
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-dfbe39gy/pytest",
+          "--junitxml=/home/eduardo/web_citas/artifacts/local-ci/20261011-134116-08cc3941/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_capacity_scalar_diagnostic.py",
+          "tests/test_capacity_scalar_consumers_http.py"
+        ],
+        "exit": 0,
+        "seconds": 113.42608947600093
+      }
+    ],
+    "head": "7e04016d8ece6cf52388e283eb06cf0a6040fd2b",
+    "excluded": [],
+    "selection": [
+      "tests/test_capacity_scalar_diagnostic.py",
+      "tests/test_capacity_scalar_consumers_http.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261011-134116-08cc3941": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261011-134116-08cc3941": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "10",
+        "time": "112.021",
+        "timestamp": "2026-10-11T15:41:25.557399+02:00",
+        "hostname": "kali"
+      }
+    ],
+    "skipped": []
+  },
+  "original_AA_summary": {
+    "representative": {
+      "leaf_count": {
+        "count": 27163,
+        "samples": 20,
+        "label_A_samples": 10,
+        "label_B_samples": 10,
+        "median_wall_ms": 21.0005485,
+        "min_wall_ms": 20.289144,
+        "max_wall_ms": 31.570778,
+        "stdev_wall_ms": 2.646661134295258,
+        "median_cpu_ms": 20.9565105,
+        "A_median_wall_ms": 20.829142,
+        "B_median_wall_ms": 21.246420999999998,
+        "gc_collections": 0
+      },
+      "path_sets": {
+        "count": 27163,
+        "samples": 20,
+        "label_A_samples": 10,
+        "label_B_samples": 10,
+        "median_wall_ms": 23.059257000000002,
+        "min_wall_ms": 21.59912,
+        "max_wall_ms": 27.745016,
+        "stdev_wall_ms": 1.4334565945772295,
+        "median_cpu_ms": 23.055926,
+        "A_median_wall_ms": 23.013451,
+        "B_median_wall_ms": 23.059257000000002,
+        "gc_collections": 0
+      },
+      "selected_pointers": {
+        "count": 4501,
+        "samples": 20,
+        "label_A_samples": 10,
+        "label_B_samples": 10,
+        "median_wall_ms": 6.3050255,
+        "min_wall_ms": 5.610165,
+        "max_wall_ms": 7.947649,
+        "stdev_wall_ms": 0.557599397430225,
+        "median_cpu_ms": 6.280179,
+        "A_median_wall_ms": 6.342811,
+        "B_median_wall_ms": 6.237491,
+        "gc_collections": 0
+      }
+    },
+    "wide_deep_escape": {
+      "leaf_count": {
+        "count": 259,
+        "samples": 20,
+        "label_A_samples": 10,
+        "label_B_samples": 10,
+        "median_wall_ms": 0.167234,
+        "min_wall_ms": 0.154743,
+        "max_wall_ms": 0.212716,
+        "stdev_wall_ms": 0.015065834564586855,
+        "median_cpu_ms": 0.166709,
+        "A_median_wall_ms": 0.1681465,
+        "B_median_wall_ms": 0.16670249999999998,
+        "gc_collections": 0
+      },
+      "path_sets": {
+        "count": 259,
+        "samples": 20,
+        "label_A_samples": 10,
+        "label_B_samples": 10,
+        "median_wall_ms": 0.1835425,
+        "min_wall_ms": 0.177144,
+        "max_wall_ms": 0.261806,
+        "stdev_wall_ms": 0.023959637228628896,
+        "median_cpu_ms": 0.182971,
+        "A_median_wall_ms": 0.1835425,
+        "B_median_wall_ms": 0.182763,
+        "gc_collections": 0
+      },
+      "selected_pointers": {
+        "count": 3,
+        "samples": 20,
+        "label_A_samples": 10,
+        "label_B_samples": 10,
+        "median_wall_ms": 0.0231335,
+        "min_wall_ms": 0.022504,
+        "max_wall_ms": 0.024111,
+        "stdev_wall_ms": 0.0004292332116693674,
+        "median_cpu_ms": 0.022643499999999997,
+        "A_median_wall_ms": 0.0231475,
+        "B_median_wall_ms": 0.0231335,
+        "gc_collections": 0
+      }
+    }
+  },
+  "data": {
+    "scalar_consumer_report": {
+      "samples": [
+        {
+          "mode": "control",
+          "pid": 200149,
+          "wsgi_wall_ns": 1643470469,
+          "wsgi_thread_cpu_ns": 911186143,
+          "gc_enabled": true,
+          "gc_thresholds": [
+            700,
+            10,
+            10
+          ],
+          "gc_collections": [
+            68,
+            6,
+            1
+          ],
+          "tcp_ns": 1645055372,
+          "response_bytes": 64125,
+          "events_before": 548,
+          "events_after": 556
+        },
+        {
+          "mode": "spans",
+          "pid": 200148,
+          "wsgi_wall_ns": 1672298136,
+          "wsgi_thread_cpu_ns": 938915484,
+          "gc_enabled": true,
+          "gc_thresholds": [
+            700,
+            10,
+            10
+          ],
+          "gc_collections": [
+            71,
+            6,
+            1
+          ],
+          "diagnostic": {
+            "spans": {
+              "source_copy": {
+                "calls": 1,
+                "wall_ns": 405580459,
+                "thread_cpu_ns": 251396505,
+                "exclusive_wall_ns": 405580459,
+                "exclusive_thread_cpu_ns": 251396505
+              },
+              "compile_coverage": {
+                "calls": 1,
+                "wall_ns": 42850854,
+                "thread_cpu_ns": 42837428,
+                "exclusive_wall_ns": 31289076,
+                "exclusive_thread_cpu_ns": 31274580
+              },
+              "project_selected": {
+                "calls": 2,
+                "wall_ns": 64788657,
+                "thread_cpu_ns": 64789160,
+                "exclusive_wall_ns": 64788657,
+                "exclusive_thread_cpu_ns": 64789160
+              },
+              "coverage_page": {
+                "calls": 4,
+                "wall_ns": 413819,
+                "thread_cpu_ns": 407193,
+                "exclusive_wall_ns": 413819,
+                "exclusive_thread_cpu_ns": 407193
+              },
+              "required_pages": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "inspect_catalog": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "prepare_page": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "access_compile_coverage": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              }
+            },
+            "calls": {
+              "source_copy": 0,
+              "compile_coverage": 0,
+              "project_selected": 0,
+              "coverage_page": 0,
+              "required_pages": 0,
+              "inspect_catalog": 0,
+              "prepare_page": 0,
+              "access_compile_coverage": 0
+            },
+            "sites": {},
+            "source": null,
+            "compile_rows": null
+          },
+          "tcp_ns": 1664316138,
+          "response_bytes": 64125,
+          "events_before": 548,
+          "events_after": 556
+        },
+        {
+          "mode": "control",
+          "pid": 200148,
+          "wsgi_wall_ns": 1619003853,
+          "wsgi_thread_cpu_ns": 882591007,
+          "gc_enabled": true,
+          "gc_thresholds": [
+            700,
+            10,
+            10
+          ],
+          "gc_collections": [
+            67,
+            6,
+            0
+          ],
+          "tcp_ns": 1620489877,
+          "response_bytes": 64125,
+          "events_before": 548,
+          "events_after": 556
+        }
+      ],
+      "initial_events": 548,
+      "initial_reads": 256,
+      "warmed_workers": 2,
+      "selected_bytes": 16777214,
+      "samples_per_variant": null,
+      "census": {
+        "mode": "count",
+        "pid": 200148,
+        "wsgi_wall_ns": 1796979336,
+        "wsgi_thread_cpu_ns": 1098121452,
+        "gc_enabled": true,
+        "gc_thresholds": [
+          700,
+          10,
+          10
+        ],
+        "gc_collections": [
+          68,
+          7,
+          1
+        ],
+        "diagnostic": {
+          "spans": {
+            "source_copy": {
+              "calls": 0,
+              "wall_ns": 0,
+              "thread_cpu_ns": 0,
+              "exclusive_wall_ns": 0,
+              "exclusive_thread_cpu_ns": 0
+            },
+            "compile_coverage": {
+              "calls": 0,
+              "wall_ns": 0,
+              "thread_cpu_ns": 0,
+              "exclusive_wall_ns": 0,
+              "exclusive_thread_cpu_ns": 0
+            },
+            "project_selected": {
+              "calls": 0,
+              "wall_ns": 0,
+              "thread_cpu_ns": 0,
+              "exclusive_wall_ns": 0,
+              "exclusive_thread_cpu_ns": 0
+            },
+            "coverage_page": {
+              "calls": 0,
+              "wall_ns": 0,
+              "thread_cpu_ns": 0,
+              "exclusive_wall_ns": 0,
+              "exclusive_thread_cpu_ns": 0
+            },
+            "required_pages": {
+              "calls": 0,
+              "wall_ns": 0,
+              "thread_cpu_ns": 0,
+              "exclusive_wall_ns": 0,
+              "exclusive_thread_cpu_ns": 0
+            },
+            "inspect_catalog": {
+              "calls": 0,
+              "wall_ns": 0,
+              "thread_cpu_ns": 0,
+              "exclusive_wall_ns": 0,
+              "exclusive_thread_cpu_ns": 0
+            },
+            "prepare_page": {
+              "calls": 0,
+              "wall_ns": 0,
+              "thread_cpu_ns": 0,
+              "exclusive_wall_ns": 0,
+              "exclusive_thread_cpu_ns": 0
+            },
+            "access_compile_coverage": {
+              "calls": 0,
+              "wall_ns": 0,
+              "thread_cpu_ns": 0,
+              "exclusive_wall_ns": 0,
+              "exclusive_thread_cpu_ns": 0
+            }
+          },
+          "calls": {
+            "source_copy": 1,
+            "compile_coverage": 1,
+            "project_selected": 2,
+            "coverage_page": 4,
+            "required_pages": 0,
+            "inspect_catalog": 0,
+            "prepare_page": 0,
+            "access_compile_coverage": 0
+          },
+          "sites": {
+            "apps.safety.rights_portability_coverage:compile_coverage:66": {
+              "calls": 1502,
+              "leaves_yielded": 27163
+            },
+            "apps.safety.rights_portability_coverage_page:coverage_page:43": {
+              "calls": 4,
+              "leaves_yielded": 108
+            }
+          },
+          "source": {
+            "sha256": "c1311f5624eff4b3d2eeff5d844a84fc08293b5569e599cc51cfeb9e3610f51c",
+            "datasets": {
+              "profile": {
+                "rows": 1,
+                "nodes": 11,
+                "leaves": 9,
+                "containers": 2,
+                "empty_containers": 0,
+                "max_depth": 2,
+                "sum_leaf_depth": 16,
+                "escaped_keys": 0,
+                "sum_path_chars": 159,
+                "max_path_chars": 26,
+                "leaf_types": {
+                  "str": 5,
+                  "NoneType": 4
+                }
+              },
+              "subject_account": {
+                "rows": 1,
+                "nodes": 11,
+                "leaves": 10,
+                "containers": 1,
+                "empty_containers": 0,
+                "max_depth": 1,
+                "sum_leaf_depth": 10,
+                "escaped_keys": 0,
+                "sum_path_chars": 101,
+                "max_path_chars": 18,
+                "leaf_types": {
+                  "str": 6,
+                  "NoneType": 2,
+                  "bool": 2
+                }
+              },
+              "revisions": {
+                "rows": 1500,
+                "nodes": 40660,
+                "leaves": 27144,
+                "containers": 13516,
+                "empty_containers": 10484,
+                "max_depth": 3,
+                "sum_leaf_depth": 33432,
+                "escaped_keys": 0,
+                "sum_path_chars": 335896,
+                "max_path_chars": 27,
+                "leaf_types": {
+                  "str": 18064,
+                  "NoneType": 4516,
+                  "bool": 4516,
+                  "int": 48
+                }
+              },
+              "legal_acceptances": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              },
+              "agency_relationships": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              },
+              "personal_contacts": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              },
+              "favorites": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              },
+              "verifications": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              },
+              "representation_history": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              }
+            }
+          },
+          "compile_rows": {
+            "profile": {
+              "rows": 1,
+              "nodes": 11,
+              "leaves": 9,
+              "containers": 2,
+              "empty_containers": 0,
+              "max_depth": 2,
+              "sum_leaf_depth": 16,
+              "escaped_keys": 0,
+              "sum_path_chars": 159,
+              "max_path_chars": 26,
+              "leaf_types": {
+                "str": 5,
+                "NoneType": 4
+              }
+            },
+            "subject_account": {
+              "rows": 1,
+              "nodes": 11,
+              "leaves": 10,
+              "containers": 1,
+              "empty_containers": 0,
+              "max_depth": 1,
+              "sum_leaf_depth": 10,
+              "escaped_keys": 0,
+              "sum_path_chars": 101,
+              "max_path_chars": 18,
+              "leaf_types": {
+                "str": 6,
+                "NoneType": 2,
+                "bool": 2
+              }
+            },
+            "revisions": {
+              "rows": 1500,
+              "nodes": 40660,
+              "leaves": 27144,
+              "containers": 13516,
+              "empty_containers": 10484,
+              "max_depth": 3,
+              "sum_leaf_depth": 33432,
+              "escaped_keys": 0,
+              "sum_path_chars": 335896,
+              "max_path_chars": 27,
+              "leaf_types": {
+                "str": 18064,
+                "NoneType": 4516,
+                "bool": 4516,
+                "int": 48
+              }
+            },
+            "legal_acceptances": {
+              "rows": 0,
+              "nodes": 0,
+              "leaves": 0,
+              "containers": 0,
+              "empty_containers": 0,
+              "max_depth": 0,
+              "sum_leaf_depth": 0,
+              "escaped_keys": 0,
+              "sum_path_chars": 0,
+              "max_path_chars": 0,
+              "leaf_types": {}
+            },
+            "agency_relationships": {
+              "rows": 0,
+              "nodes": 0,
+              "leaves": 0,
+              "containers": 0,
+              "empty_containers": 0,
+              "max_depth": 0,
+              "sum_leaf_depth": 0,
+              "escaped_keys": 0,
+              "sum_path_chars": 0,
+              "max_path_chars": 0,
+              "leaf_types": {}
+            },
+            "personal_contacts": {
+              "rows": 0,
+              "nodes": 0,
+              "leaves": 0,
+              "containers": 0,
+              "empty_containers": 0,
+              "max_depth": 0,
+              "sum_leaf_depth": 0,
+              "escaped_keys": 0,
+              "sum_path_chars": 0,
+              "max_path_chars": 0,
+              "leaf_types": {}
+            },
+            "favorites": {
+              "rows": 0,
+              "nodes": 0,
+              "leaves": 0,
+              "containers": 0,
+              "empty_containers": 0,
+              "max_depth": 0,
+              "sum_leaf_depth": 0,
+              "escaped_keys": 0,
+              "sum_path_chars": 0,
+              "max_path_chars": 0,
+              "leaf_types": {}
+            },
+            "verifications": {
+              "rows": 0,
+              "nodes": 0,
+              "leaves": 0,
+              "containers": 0,
+              "empty_containers": 0,
+              "max_depth": 0,
+              "sum_leaf_depth": 0,
+              "escaped_keys": 0,
+              "sum_path_chars": 0,
+              "max_path_chars": 0,
+              "leaf_types": {}
+            },
+            "representation_history": {
+              "rows": 0,
+              "nodes": 0,
+              "leaves": 0,
+              "containers": 0,
+              "empty_containers": 0,
+              "max_depth": 0,
+              "sum_leaf_depth": 0,
+              "escaped_keys": 0,
+              "sum_path_chars": 0,
+              "max_path_chars": 0,
+              "leaf_types": {}
+            }
+          }
+        },
+        "tcp_ns": 1796859252,
+        "response_bytes": 64125
+      },
+      "pure_original_AA": {
+        "samples": [
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 24829740,
+            "thread_cpu_ns": 24818034,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 23944931,
+            "thread_cpu_ns": 23943456,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 22035828,
+            "thread_cpu_ns": 22034732,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 22790062,
+            "thread_cpu_ns": 22759609,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 24235519,
+            "thread_cpu_ns": 24234263,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 27745016,
+            "thread_cpu_ns": 27722382,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 23109288,
+            "thread_cpu_ns": 23103430,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 22686400,
+            "thread_cpu_ns": 22685590,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 25824266,
+            "thread_cpu_ns": 25822927,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 24687652,
+            "thread_cpu_ns": 24686824,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 23317966,
+            "thread_cpu_ns": 23317019,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 22780804,
+            "thread_cpu_ns": 22780033,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 23236840,
+            "thread_cpu_ns": 23133273,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 22669376,
+            "thread_cpu_ns": 22668662,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 22996248,
+            "thread_cpu_ns": 22970935,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 21599120,
+            "thread_cpu_ns": 21598461,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 23966949,
+            "thread_cpu_ns": 23951184,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 23009226,
+            "thread_cpu_ns": 23008422,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 21975135,
+            "thread_cpu_ns": 21965820,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 21966943,
+            "thread_cpu_ns": 21966295,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 25339607,
+            "thread_cpu_ns": 25241618,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 22430692,
+            "thread_cpu_ns": 22384537,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 21587588,
+            "thread_cpu_ns": 21543513,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 21948922,
+            "thread_cpu_ns": 21899674,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 21678923,
+            "thread_cpu_ns": 21635350,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 21488176,
+            "thread_cpu_ns": 21430203,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 20873358,
+            "thread_cpu_ns": 20831958,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 20289144,
+            "thread_cpu_ns": 20128387,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 20570992,
+            "thread_cpu_ns": 20526386,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 20493913,
+            "thread_cpu_ns": 20451222,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 20570014,
+            "thread_cpu_ns": 20528367,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 20661853,
+            "thread_cpu_ns": 20615707,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 20996431,
+            "thread_cpu_ns": 20952705,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 21517702,
+            "thread_cpu_ns": 21423823,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 21004666,
+            "thread_cpu_ns": 20960316,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 20483587,
+            "thread_cpu_ns": 20440542,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 20591406,
+            "thread_cpu_ns": 20548702,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 20816050,
+            "thread_cpu_ns": 20768594,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 26050774,
+            "thread_cpu_ns": 25952522,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 31570778,
+            "thread_cpu_ns": 31452528,
+            "result_count": 27163,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 6430341,
+            "thread_cpu_ns": 6404442,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 6069523,
+            "thread_cpu_ns": 6046568,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 6269145,
+            "thread_cpu_ns": 6244623,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 6340906,
+            "thread_cpu_ns": 6315735,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 6007760,
+            "thread_cpu_ns": 5985423,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 6424963,
+            "thread_cpu_ns": 6400504,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 6205837,
+            "thread_cpu_ns": 6178391,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 6178521,
+            "thread_cpu_ns": 6148276,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 6695092,
+            "thread_cpu_ns": 6665865,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 6437500,
+            "thread_cpu_ns": 6436647,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 6144742,
+            "thread_cpu_ns": 6115623,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 7219679,
+            "thread_cpu_ns": 7180668,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 7947649,
+            "thread_cpu_ns": 7879275,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 7443288,
+            "thread_cpu_ns": 7411541,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 6662534,
+            "thread_cpu_ns": 6639433,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 6344716,
+            "thread_cpu_ns": 6319574,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 6213421,
+            "thread_cpu_ns": 6212518,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 5760435,
+            "thread_cpu_ns": 5737013,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 5768313,
+            "thread_cpu_ns": 5745624,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 5610165,
+            "thread_cpu_ns": 5591291,
+            "result_count": 4501,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "gc_enabled": true,
+        "gc_thresholds": [
+          700,
+          10,
+          10
+        ],
+        "semantics": "Original A/A, includes consuming sets/counts or pointer-value discard; no profiler, no database reads, no candidate or request-saving estimate"
+      },
+      "same_measured_pid": false,
+      "scope": "finite_scalar_consumers_control_spans_control_count_and_original_AA_not_capacity",
+      "limits": [
+        "New connection per sample; database clones share schema/statistics/history, not buffer identity",
+        "Partial scalar coverage; no Caddy/RustFS/quotas/concurrent load",
+        "Fresh clone connection cost included; only eight consumer timers, no SQL observer or CPU profiler; no outer transaction",
+        "Real warm POSTs on both workers, SQL caches per database/connection may differ"
+      ]
+    },
+    "scalar_edge_original_AA": {
+      "census": {
+        "rows": 4,
+        "nodes": 329,
+        "leaves": 259,
+        "containers": 70,
+        "empty_containers": 1,
+        "max_depth": 65,
+        "sum_leaf_depth": 325,
+        "escaped_keys": 1,
+        "sum_path_chars": 2857,
+        "max_path_chars": 389,
+        "leaf_types": {
+          "str": 257,
+          "bool": 1,
+          "NoneType": 1
+        }
+      },
+      "benchmark": {
+        "samples": [
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 197421,
+            "thread_cpu_ns": 194888,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 228500,
+            "thread_cpu_ns": 227736,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 252304,
+            "thread_cpu_ns": 251605,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 261806,
+            "thread_cpu_ns": 227493,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 189853,
+            "thread_cpu_ns": 189176,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 190762,
+            "thread_cpu_ns": 190209,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 190076,
+            "thread_cpu_ns": 189482,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 189982,
+            "thread_cpu_ns": 189439,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 183706,
+            "thread_cpu_ns": 183114,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 184613,
+            "thread_cpu_ns": 184087,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 180913,
+            "thread_cpu_ns": 180381,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 180346,
+            "thread_cpu_ns": 179782,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 183379,
+            "thread_cpu_ns": 182828,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 180013,
+            "thread_cpu_ns": 179441,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 180227,
+            "thread_cpu_ns": 179648,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 179453,
+            "thread_cpu_ns": 178888,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 177144,
+            "thread_cpu_ns": 176593,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 178000,
+            "thread_cpu_ns": 177448,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "B",
+            "wall_ns": 177604,
+            "thread_cpu_ns": 177047,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "path_sets",
+            "label": "A",
+            "wall_ns": 181331,
+            "thread_cpu_ns": 180795,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 171973,
+            "thread_cpu_ns": 171342,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 179764,
+            "thread_cpu_ns": 179184,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 168158,
+            "thread_cpu_ns": 167610,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 170593,
+            "thread_cpu_ns": 170025,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 169192,
+            "thread_cpu_ns": 168630,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 166038,
+            "thread_cpu_ns": 165447,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 167367,
+            "thread_cpu_ns": 166854,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 166476,
+            "thread_cpu_ns": 165917,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 158153,
+            "thread_cpu_ns": 157669,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 156043,
+            "thread_cpu_ns": 155538,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 154743,
+            "thread_cpu_ns": 154229,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 159781,
+            "thread_cpu_ns": 159274,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 155342,
+            "thread_cpu_ns": 154823,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 161907,
+            "thread_cpu_ns": 161362,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 165681,
+            "thread_cpu_ns": 165123,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 167101,
+            "thread_cpu_ns": 166564,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 190148,
+            "thread_cpu_ns": 189594,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 201781,
+            "thread_cpu_ns": 201251,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "B",
+            "wall_ns": 212716,
+            "thread_cpu_ns": 212184,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "leaf_count",
+            "label": "A",
+            "wall_ns": 184800,
+            "thread_cpu_ns": 184226,
+            "result_count": 259,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 24033,
+            "thread_cpu_ns": 23453,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 24111,
+            "thread_cpu_ns": 23580,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 23410,
+            "thread_cpu_ns": 22918,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 23299,
+            "thread_cpu_ns": 22807,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 23061,
+            "thread_cpu_ns": 22571,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 23644,
+            "thread_cpu_ns": 23106,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 22937,
+            "thread_cpu_ns": 22393,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 22875,
+            "thread_cpu_ns": 22406,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 23089,
+            "thread_cpu_ns": 22594,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 22969,
+            "thread_cpu_ns": 22459,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 23089,
+            "thread_cpu_ns": 22600,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 23206,
+            "thread_cpu_ns": 22728,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 23454,
+            "thread_cpu_ns": 22931,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 23178,
+            "thread_cpu_ns": 22687,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 23819,
+            "thread_cpu_ns": 23305,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 23452,
+            "thread_cpu_ns": 22931,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 22624,
+            "thread_cpu_ns": 22116,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 23007,
+            "thread_cpu_ns": 22519,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "B",
+            "wall_ns": 22669,
+            "thread_cpu_ns": 22183,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "operation": "selected_pointers",
+            "label": "A",
+            "wall_ns": 22504,
+            "thread_cpu_ns": 22026,
+            "result_count": 3,
+            "gc_collections": [
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "gc_enabled": true,
+        "gc_thresholds": [
+          700,
+          10,
+          10
+        ],
+        "semantics": "Original A/A, includes consuming sets/counts or pointer-value discard; no profiler, no database reads, no candidate or request-saving estimate"
+      }
+    }
+  },
+  "source_map_verified_exact_entries": 1208,
+  "independent_cleanup": {
+    "final_label_inventory": [],
+    "initial_label_inventory": [],
+    "own_runner_and_gunicorn_processes": []
+  },
+  "negative_run": {
+    "result": {
+      "id": "20261011-133814-09f90cce",
+      "profile": "focused",
+      "result": "ERROR",
+      "steps": [
+        {
+          "name": "start-pg",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-pg-20261011-133814-09f90cce",
+            "--label",
+            "web-modelos-local-ci-run=20261011-133814-09f90cce",
+            "-p",
+            "127.0.0.1::5432",
+            "--tmpfs",
+            "/var/lib/postgresql/data",
+            "-e",
+            "POSTGRES_USER=ci",
+            "-e",
+            "POSTGRES_PASSWORD=ci-synthetic",
+            "-e",
+            "POSTGRES_DB=promotion_gate_ci",
+            "postgres:17-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.2162988240015693
+        },
+        {
+          "name": "start-redis",
+          "command": [
+            "docker",
+            "run",
+            "--pull=never",
+            "-d",
+            "--name",
+            "web-modelos-ci-redis-20261011-133814-09f90cce",
+            "--label",
+            "web-modelos-local-ci-run=20261011-133814-09f90cce",
+            "-p",
+            "127.0.0.1::6379",
+            "redis:7.4-alpine"
+          ],
+          "exit": 0,
+          "seconds": 0.21561184899837826
+        },
+        {
+          "name": "dependencies",
+          "command": [
+            "uv",
+            "sync",
+            "--locked",
+            "--offline"
+          ],
+          "exit": 0,
+          "seconds": 0.017014316999848234
+        },
+        {
+          "name": "ruff",
+          "command": [
+            "uv",
+            "run",
+            "ruff",
+            "check",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.0661867090020678
+        },
+        {
+          "name": "documentation",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/check_docs.py"
+          ],
+          "exit": 0,
+          "seconds": 0.3710039189973031
+        },
+        {
+          "name": "django",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "check"
+          ],
+          "exit": 0,
+          "seconds": 0.6766701099986676
+        },
+        {
+          "name": "migrations",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "manage.py",
+            "makemigrations",
+            "--check",
+            "--dry-run"
+          ],
+          "exit": 0,
+          "seconds": 0.7743615079998563
+        },
+        {
+          "name": "native-build",
+          "command": [
+            "uv",
+            "run",
+            "python",
+            "scripts/prepare_native_test_tools.py",
+            "--source",
+            "/tmp/web-modelos-local-ci-as_davql/native-source",
+            "--output",
+            "/tmp/web-modelos-local-ci-as_davql/native-tools",
+            "--env-file",
+            "/tmp/web-modelos-local-ci-as_davql/native.env"
+          ],
+          "exit": 0,
+          "seconds": 5.038329558999976
+        },
+        {
+          "name": "pytest",
+          "command": [
+            "uv",
+            "run",
+            "pytest",
+            "-q",
+            "--tb=short",
+            "--basetemp=/tmp/web-modelos-local-ci-as_davql/pytest",
+            "--junitxml=/home/eduardo/web_citas/artifacts/local-ci/20261011-133814-09f90cce/pytest.xml",
+            "-o",
+            "junit_family=xunit1",
+            "tests/test_capacity_scalar_diagnostic.py",
+            "tests/test_capacity_scalar_consumers_http.py"
+          ],
+          "exit": 1,
+          "seconds": 95.69313986500129
+        }
+      ],
+      "head": "7e04016d8ece6cf52388e283eb06cf0a6040fd2b",
+      "excluded": [],
+      "selection": [
+        "tests/test_capacity_scalar_diagnostic.py",
+        "tests/test_capacity_scalar_consumers_http.py"
+      ],
+      "workers": 1,
+      "fixture_snapshots": false,
+      "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+      "error": "pytest failed; inspect its log",
+      "cleanup": {
+        "web-modelos-ci-pg-20261011-133814-09f90cce": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261011-133814-09f90cce": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "sources_unchanged": true,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "9",
+          "time": "94.805",
+          "timestamp": "2026-10-11T15:38:23.702028+02:00",
+          "hostname": "kali"
+        }
+      ],
+      "skipped": []
+    },
+    "partial_results": [
+      {
+        "property": "scalar_consumer_sample",
+        "value": {
+          "mode": "control",
+          "pid": 196508,
+          "wsgi_wall_ns": 800456655,
+          "wsgi_thread_cpu_ns": 427889982,
+          "gc_enabled": true,
+          "gc_thresholds": [
+            700,
+            10,
+            10
+          ],
+          "gc_collections": [
+            70,
+            6,
+            0
+          ],
+          "tcp_ns": 801419778,
+          "response_bytes": 64125,
+          "events_before": 548,
+          "events_after": 556
+        }
+      },
+      {
+        "property": "scalar_consumer_sample",
+        "value": {
+          "mode": "spans",
+          "pid": 196508,
+          "wsgi_wall_ns": 809798766,
+          "wsgi_thread_cpu_ns": 440920821,
+          "gc_enabled": true,
+          "gc_thresholds": [
+            700,
+            10,
+            10
+          ],
+          "gc_collections": [
+            71,
+            6,
+            1
+          ],
+          "diagnostic": {
+            "spans": {
+              "source_copy": {
+                "calls": 1,
+                "wall_ns": 182298188,
+                "thread_cpu_ns": 109674019,
+                "exclusive_wall_ns": 182298188,
+                "exclusive_thread_cpu_ns": 109674019
+              },
+              "compile_coverage": {
+                "calls": 1,
+                "wall_ns": 21755693,
+                "thread_cpu_ns": 21698483,
+                "exclusive_wall_ns": 15639260,
+                "exclusive_thread_cpu_ns": 15581528
+              },
+              "project_selected": {
+                "calls": 2,
+                "wall_ns": 32787470,
+                "thread_cpu_ns": 32725927,
+                "exclusive_wall_ns": 32787470,
+                "exclusive_thread_cpu_ns": 32725927
+              },
+              "coverage_page": {
+                "calls": 4,
+                "wall_ns": 205126,
+                "thread_cpu_ns": 201177,
+                "exclusive_wall_ns": 205126,
+                "exclusive_thread_cpu_ns": 201177
+              },
+              "required_pages": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "inspect_catalog": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "prepare_page": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "access_compile_coverage": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              }
+            },
+            "calls": {
+              "source_copy": 0,
+              "compile_coverage": 0,
+              "project_selected": 0,
+              "coverage_page": 0,
+              "required_pages": 0,
+              "inspect_catalog": 0,
+              "prepare_page": 0,
+              "access_compile_coverage": 0
+            },
+            "sites": {},
+            "source": null,
+            "compile_rows": null
+          },
+          "tcp_ns": 805736032,
+          "response_bytes": 64125,
+          "events_before": 548,
+          "events_after": 556
+        }
+      },
+      {
+        "property": "scalar_consumer_sample",
+        "value": {
+          "mode": "control",
+          "pid": 196509,
+          "wsgi_wall_ns": 768084859,
+          "wsgi_thread_cpu_ns": 420182500,
+          "gc_enabled": true,
+          "gc_thresholds": [
+            700,
+            10,
+            10
+          ],
+          "gc_collections": [
+            67,
+            6,
+            0
+          ],
+          "tcp_ns": 769020158,
+          "response_bytes": 64125,
+          "events_before": 548,
+          "events_after": 556
+        }
+      },
+      {
+        "property": "scalar_consumer_count",
+        "value": {
+          "mode": "count",
+          "pid": 196509,
+          "wsgi_wall_ns": 932943330,
+          "wsgi_thread_cpu_ns": 551907821,
+          "gc_enabled": true,
+          "gc_thresholds": [
+            700,
+            10,
+            10
+          ],
+          "gc_collections": [
+            70,
+            6,
+            1
+          ],
+          "diagnostic": {
+            "spans": {
+              "source_copy": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "compile_coverage": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "project_selected": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "coverage_page": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "required_pages": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "inspect_catalog": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "prepare_page": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              },
+              "access_compile_coverage": {
+                "calls": 0,
+                "wall_ns": 0,
+                "thread_cpu_ns": 0,
+                "exclusive_wall_ns": 0,
+                "exclusive_thread_cpu_ns": 0
+              }
+            },
+            "calls": {
+              "source_copy": 1,
+              "compile_coverage": 1,
+              "project_selected": 2,
+              "coverage_page": 4,
+              "required_pages": 0,
+              "inspect_catalog": 0,
+              "prepare_page": 0,
+              "access_compile_coverage": 0
+            },
+            "sites": {
+              "apps.safety.rights_portability_coverage:compile_coverage:66": {
+                "calls": 1502,
+                "leaves_yielded": 27163
+              },
+              "apps.safety.rights_portability_coverage_page:coverage_page:43": {
+                "calls": 4,
+                "leaves_yielded": 108
+              }
+            },
+            "source": {
+              "sha256": "c5be54872637972507d19a21c0103e0335f113efb32dab6c6aa033cb3103b4a1",
+              "datasets": {
+                "profile": {
+                  "rows": 1,
+                  "nodes": 11,
+                  "leaves": 9,
+                  "containers": 2,
+                  "empty_containers": 0,
+                  "max_depth": 2,
+                  "sum_leaf_depth": 16,
+                  "escaped_keys": 0,
+                  "sum_path_chars": 159,
+                  "max_path_chars": 26,
+                  "leaf_types": {
+                    "str": 5,
+                    "NoneType": 4
+                  }
+                },
+                "subject_account": {
+                  "rows": 1,
+                  "nodes": 11,
+                  "leaves": 10,
+                  "containers": 1,
+                  "empty_containers": 0,
+                  "max_depth": 1,
+                  "sum_leaf_depth": 10,
+                  "escaped_keys": 0,
+                  "sum_path_chars": 101,
+                  "max_path_chars": 18,
+                  "leaf_types": {
+                    "str": 6,
+                    "NoneType": 2,
+                    "bool": 2
+                  }
+                },
+                "revisions": {
+                  "rows": 1500,
+                  "nodes": 40660,
+                  "leaves": 27144,
+                  "containers": 13516,
+                  "empty_containers": 10484,
+                  "max_depth": 3,
+                  "sum_leaf_depth": 33432,
+                  "escaped_keys": 0,
+                  "sum_path_chars": 335896,
+                  "max_path_chars": 27,
+                  "leaf_types": {
+                    "str": 18064,
+                    "NoneType": 4516,
+                    "bool": 4516,
+                    "int": 48
+                  }
+                },
+                "legal_acceptances": {
+                  "rows": 0,
+                  "nodes": 0,
+                  "leaves": 0,
+                  "containers": 0,
+                  "empty_containers": 0,
+                  "max_depth": 0,
+                  "sum_leaf_depth": 0,
+                  "escaped_keys": 0,
+                  "sum_path_chars": 0,
+                  "max_path_chars": 0,
+                  "leaf_types": {}
+                },
+                "agency_relationships": {
+                  "rows": 0,
+                  "nodes": 0,
+                  "leaves": 0,
+                  "containers": 0,
+                  "empty_containers": 0,
+                  "max_depth": 0,
+                  "sum_leaf_depth": 0,
+                  "escaped_keys": 0,
+                  "sum_path_chars": 0,
+                  "max_path_chars": 0,
+                  "leaf_types": {}
+                },
+                "personal_contacts": {
+                  "rows": 0,
+                  "nodes": 0,
+                  "leaves": 0,
+                  "containers": 0,
+                  "empty_containers": 0,
+                  "max_depth": 0,
+                  "sum_leaf_depth": 0,
+                  "escaped_keys": 0,
+                  "sum_path_chars": 0,
+                  "max_path_chars": 0,
+                  "leaf_types": {}
+                },
+                "favorites": {
+                  "rows": 0,
+                  "nodes": 0,
+                  "leaves": 0,
+                  "containers": 0,
+                  "empty_containers": 0,
+                  "max_depth": 0,
+                  "sum_leaf_depth": 0,
+                  "escaped_keys": 0,
+                  "sum_path_chars": 0,
+                  "max_path_chars": 0,
+                  "leaf_types": {}
+                },
+                "verifications": {
+                  "rows": 0,
+                  "nodes": 0,
+                  "leaves": 0,
+                  "containers": 0,
+                  "empty_containers": 0,
+                  "max_depth": 0,
+                  "sum_leaf_depth": 0,
+                  "escaped_keys": 0,
+                  "sum_path_chars": 0,
+                  "max_path_chars": 0,
+                  "leaf_types": {}
+                },
+                "representation_history": {
+                  "rows": 0,
+                  "nodes": 0,
+                  "leaves": 0,
+                  "containers": 0,
+                  "empty_containers": 0,
+                  "max_depth": 0,
+                  "sum_leaf_depth": 0,
+                  "escaped_keys": 0,
+                  "sum_path_chars": 0,
+                  "max_path_chars": 0,
+                  "leaf_types": {}
+                }
+              }
+            },
+            "compile_rows": {
+              "profile": {
+                "rows": 1,
+                "nodes": 11,
+                "leaves": 9,
+                "containers": 2,
+                "empty_containers": 0,
+                "max_depth": 2,
+                "sum_leaf_depth": 16,
+                "escaped_keys": 0,
+                "sum_path_chars": 159,
+                "max_path_chars": 26,
+                "leaf_types": {
+                  "str": 5,
+                  "NoneType": 4
+                }
+              },
+              "subject_account": {
+                "rows": 1,
+                "nodes": 11,
+                "leaves": 10,
+                "containers": 1,
+                "empty_containers": 0,
+                "max_depth": 1,
+                "sum_leaf_depth": 10,
+                "escaped_keys": 0,
+                "sum_path_chars": 101,
+                "max_path_chars": 18,
+                "leaf_types": {
+                  "str": 6,
+                  "NoneType": 2,
+                  "bool": 2
+                }
+              },
+              "revisions": {
+                "rows": 1500,
+                "nodes": 40660,
+                "leaves": 27144,
+                "containers": 13516,
+                "empty_containers": 10484,
+                "max_depth": 3,
+                "sum_leaf_depth": 33432,
+                "escaped_keys": 0,
+                "sum_path_chars": 335896,
+                "max_path_chars": 27,
+                "leaf_types": {
+                  "str": 18064,
+                  "NoneType": 4516,
+                  "bool": 4516,
+                  "int": 48
+                }
+              },
+              "legal_acceptances": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              },
+              "agency_relationships": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              },
+              "personal_contacts": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              },
+              "favorites": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              },
+              "verifications": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              },
+              "representation_history": {
+                "rows": 0,
+                "nodes": 0,
+                "leaves": 0,
+                "containers": 0,
+                "empty_containers": 0,
+                "max_depth": 0,
+                "sum_leaf_depth": 0,
+                "escaped_keys": 0,
+                "sum_path_chars": 0,
+                "max_path_chars": 0,
+                "leaf_types": {}
+              }
+            }
+          },
+          "tcp_ns": 928811278,
+          "response_bytes": 64125
+        }
+      }
+    ],
+    "issue": "Selection body hidden by function body() for POST, failure only after HTTP/count and before representative microbench; renamed request_body after terminal",
+    "correction_scope": [
+      "tests/test_capacity_scalar_consumers_http.py",
+      "tests/test_capacity_scalar_diagnostic.py"
+    ],
+    "corpus_added": "wide256/deep64/escapes, original A/A and before/after equality outside timers"
+  },
+  "decision": "No productive candidate in this campaign. Original paths/count/pointer baseline is modest here; no variant or measured saving. Consumer timings include other work and request controls vary across workers/runs. Keep public API and fresh checks unchanged; close this diagnosis, no contractual acceptance.",
+  "limitations": [
+    "One fixture, partial scalar coverage; 1500 revisions and ~16MiB selected, retained originals64MiB not selected",
+    "No Caddy/RustFS/contractual quotas/concurrent load; not comparable to full 383-batch p95",
+    "Three timing requests only; both workers warm, different measured PIDs, GC collections differ",
+    "Eight observed function targets, no cProfile/SQL/fetch/next timers; exclusive subtracts only observed children, not pure algorithm cost",
+    "Separate fourth count request entirely excluded from timing comparisons",
+    "Pure original A/A includes consuming sets/counts or discarding returned pointer values, preparation/validation and GC stats outside clocks",
+    "Microbench runs in parent after Gunicorn stopped; not a measured breakdown of worker request",
+    "No subtraction of overhead, no saving predicted, no model opinion treated as evidence"
+  ]
+}

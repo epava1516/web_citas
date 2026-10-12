@@ -573,3 +573,444 @@ MOD08 cuatrolectores RECHAZADOS rendimiento:captura20261011-073025-e9a3cb1c/use2
 MOD08 diagnósticoCPU af25346 preflightreal20261011-080958-6460fb0b READY_NOT_CAPACITY/1PASS/1156hashes ycleanupindependientes, cinco servicios con contadores válidos/0errores.43testscontractPASS. Cuotasintactas, CPUstatrecogidodespuésrequestsenexecmemoriaexistente. No pruebasaturaciónrequests: arranque/preflightsolo. Evidencia docs/evidencias/mod08-cpu-counter-preflight-20261011.md/.json; carga siguiente y aceptación completa pendientes.
 
 MOD08 PAUSADO por petición explícita2026-10-11: documentar/commit/push/parar para otro enfoque. CapturaCPU20261011-081514-6f6a29ab interrumpida, launcher ausente y seiscontenedores/red/volumen propios ausentes verificados; sin resultado válido/no use. Relevo consolidado docs/evidencias/mod08-relevo-pausa-20261011.md. Doslectores restaurados; pipeline/HMAC/Cython conservados; objetivos originales2s/5s/doscasos/N3 pendientes. No agentes ni mediciones nuevos hasta reanudación expresa.
+
+
+MOD08 2026-10-11: usuario autoriza exclusivamente diagnóstico local de descifrado/decode/parse JSON repetido en inspect_batch («Hazlo pues»). No reanudación automática de capacidad completa. Bloque activo: instrumentación temporal solo en tests/capacity_unseal_diagnostic.py y tests/test_capacity_unseal_diagnostic.py; objetivo contadores/bytes/CPU/wall sin saltar lecturas, crypto, autoridad ni auditoría. Dirigida PostgreSQL17/Redis7.4 propios, rol runtime separado, fixture sintético pequeño y sondas aisladas 4KiB/1MiB/16MiB; equivalencia/idempotencia, rollback y token inválido. Primera invocación20261011-110823-104b3a1e detenida antes de pytest por enlace absoluto histórico; corregido a relativo en acta04. Segunda20261011-110845-ba7c22e0 activa, un worker, selección nueva + test_capacity_phase_real_listing; fuentes congeladas y huellas en artifacts/local-ci/.../source-hashes.json. Condición de salida: terminal, resultados numéricos saneados y limpieza independiente; ninguna aceptación p95/capacidad. Artefacto Cython histórico ausente: límites de comparación explícitos.
+
+Diagnóstico unseal primera dirigida20261011-110845-ba7c22e0 terminal8PASS/0fallos/errores/skips95,621s; fixture3páginas49unseal, repeat_parseCPU1,030501ms/copy_probe1,543643ms. No extrapolación a1500revisiones ni mejoraHTTP. Se amplía solo por riesgo concreto del instrumento: restauración de aliases importados durante scope y prueba de límites/reentrancia; dirigida20261011-111132-92674fec activa sobre test_capacity_unseal_diagnostic, un worker, fuentes congeladas. Evidencia esperada: métricas/7tests y limpieza. No cambios productivos.
+
+Diagnóstico unseal autorizado TERMINADO20261011-111132-92674fec:7PASS/0fallos/errores/skips73,365s;1155huellas verificadas y doscontenedores propios ausentes comprobados independientemente. Lote runtime enforced3páginas49unseal: parseo repetidoCPU1,091ms, copia1,686ms, igualdad/búsqueda0,456ms; no margen demostrado para memoJSON en fixture pequeño. Sondas4KiB/1MiB/16MiB no son request/capacidad;16MiBcadena plana y sinCythonhistórico. No mejoras productivas ni p95nuevo ni aceptación2s. Evidencia [diagnóstico](evidencias/mod08-unseal-diagnostico-20261011.md)/[JSON](evidencias/mod08-unseal-diagnostico-20261011.json). Instrumento conserva crypto/lecturas/auditoría, limpieza/rollback probados. Finaliza este diagnóstico acotado; restoMOD08 permanece pausado y objetivos originales pendientes.
+
+MOD082026-10-11: usuario autoriza adaptar/ejecutar diagnóstico grande si procede. No baseline/clave encontrados en búsqueda acotada artifacts/tmp/cache; no fallback a preparación contractual. Bloque activo: tests/capacity_unseal_wsgi.py y tests/test_capacity_unseal_large_batch.py, loteTCPúnico4páginas con Gunicorn2/LOGINruntime, fixturecalibrado1500revisiones/selección16MiB/originales64MiB, aprobación por servicios y31lecturaspaginadas reales. Diferencias: cobertura parcial, binarios retenidos no seleccionados, sinCaddy/RustFS/cuotascontractuales; nunca comparaciónp95 histórica. Cython recompilado explícitamente con3.0.12, binario4a178c247bccc9eae6883d298bd1546d613d0608538c48b959d84cc51bd94c8e validado antes de medir; no equivalente alSHAhistórico. Runnerdirigido20261011-112800-6d076bff/timeout900s/unworker, fuentes congeladas yhuellas durables. Condiciónsalida: terminal, reporte saneado de mismoHTTP conunseal+fases,4auditorías, limpiezaverificada; no exports/generación/capacidad completa.
+
+Diagnóstico grande primera dirigida20261011-112800-6d076bff terminal1PASS/0errores/fallos/skips118,513s. LoteTCPúnico4páginas193unseal, selecciónproyectada16777586bytes pero descriptorscifrados223141bytes: parseoCPU42,211ms/repetido40,105ms, deepcopyprobe220,666ms, lookup2,577ms. TCPinstrumentado2,584294s no p95 ni comparaciónhistórica. No margen para memoJSON en este lote. Sourceexclusive451,524mswall/268,277msCPU; validate_assessment175,597/64,663ms. Diferencia relevante: loteinicial sin cientos de auditorías previas, no reproducir fasep95histórica. Se corrigió cierreGETdelwrapper;4testsEOF/errorHOSTPASS0,20s, no integración simulada. Gate final20261011-113250-ddd24db2 activo sobre lotegrande+4testsdelwrapper; fuentes congeladas. Evidencia prevista5tests, hashesyretiradaindependiente.
+
+Gategrande20261011-113250-ddd24db2 terminal4PASS/1FAIL117,378s: POST/auditoríascorrectos, colector batchcalls0 por coldworker distinto delGET previo. Negativo de instrumentación conservado, no resultadofásico válido. Corregido inventarioURLnormal de Django antes de planificar aliases en worker marcado (sin lecturas/validaciones de dominio; import incluido enWSGI/TCP). Métricas se registran antes de assertfases para conservar futuros negativos. Dirigidafinal20261011-113602-59a09648 activa5tests, mismas fuentescongeladas/cuotas no aceptación.
+
+Diagnósticolotegrande adaptado TERMINADO20261011-113602-59a09648:5PASS/0fallos/errores/skips116,956s,1161huellas exactas yPG/Redis/Gunicorn propios ausentes comprobados independientemente. TCPúnico4páginas2,241219s instrumentado, NO p95/cuotasni comparaciónhistórica.193unseal: parseorepetido31,466msCPU vs copia195,651ms; descriptorselección223141bytes frente aproyección16MiB, no unseal16MiB repetido. No implementar memoJSON. Validaciónchain132mswall aquí tiene31reads previos, nohistorialcentenariodelp95original; fuente426mswall/253msCPU. [Evidencia](evidencias/mod08-unseal-lote-grande-20261011.md)/[JSON](evidencias/mod08-unseal-lote-grande-20261011.json). Negativo4PASS/1FAILcoldworker conservado ycorregido. Diagnósticos autorizados terminados, sin modificaciónproductiva ni aceptación2s; MOD08 general siguepausado.
+
+MOD08 2026-10-11: usuario autoriza diagnóstico finito de crecimiento de cadena («Hazlo pues»), sin reanudar capacidad completa. Bloque activo solo tests/capacity_chain_diagnostic.py, capacity_chain_wsgi.py y test_capacity_chain_{diagnostic,wsgi,growth}.py. Fuente base7e04016 con cambios locales preservados y huellas del runner; producto intacto. Hipótesis: el historial puede aumentar coste de validate_chain dentro de inspect_batch→record→validate_approved_assessment→require_runtime_chain, no causalidad/superlinealidad demostradas. Fixture nuevo1500revisiones/16MiB/64MiB,31lecturas reales y cobertura parcial como diagnóstico anterior; historial por POST real Gunicorn2/runtimeLOGIN, niveles0/16/64lotes sembrados y4muestras alternadas control/instrumentada por nivel, conteos reales antes/después porque cada muestra escribe auditorías. Presupuesto420s desde fixture preparado; no historial inventado/baselinefallback/descargas/proxy/cuotascontractuales. Desglose test-only chain/head/events execute+fetch/source_rows/pipeline.sync/runtime_trust; residual incluye verificación Python/transacción/overhead, no atribución kernel ni CPUservidor. Dirigida PG17/Redis7.4 propios/unworker, tests de restauración y EOF/error más integraciónTCP. Condición de salida: terminal, resultados y límites documentados, huellas y retirada independiente; no cambio productivo ni aceptación2s/5s. Fuentes congeladas mientras viva.
+
+Diagnóstico crecimientochain TERMINADO20261011-114954-9aaaaa72:8PASS/0fallos/errores/skips207,724sJUnit,1166huellas exactas antes de actualizar docs yPG/Redis/Gunicorn propios ausentes comprobados independientemente.64lotes sembrados+12medidos porTCP crean608eventos reales, cabeza36→644. En niveles44–58/204–218/620–634eventos, cadena4calls porHTTP mediana38,640/69,692/178,845ms; events_execute6,671/16,812/48,309ms ypipeline.sync17,021/34,623/91,105ms crecen; cabezaSQL2,393/1,778/2,167ms yruntime_trust30,388/29,105/31,822ms estables aproximadamente. ControlesTCP n2por nivel medianas1,337/1,490/1,809s: no p95 ni comparaciónhistórica. Hipótesis crecimiento respaldada enescenario, no superlinealidad/causa completa/transformaciónproductiva demostradas. [Evidencia](evidencias/mod08-chain-growth-20261011.md)/[JSON](evidencias/mod08-chain-growth-20261011.json). Fuenteproductiva intacta; no memoautoridad, descargas ni aceptación2s/5s. Diagnóstico acotado autorizado completo; MOD08 general siguepausado.
+
+MOD08 2026-10-11: usuario autoriza diagnóstico finito de planes («Procede pues») tras segunda opinión crítica de NotebookLM. No reanudación completa ni adopción UNIONALL/EXCEPT/sellos. Bloque activo exclusivamente tests/capacity_chain_explain.py y tests/test_capacity_chain_explain.py; fuente7e04016 con cambios locales previos preservados y huellas del runner. Fixture nuevo aprobado por servicios1500revisiones/16MiB/64MiB,31lecturas selección y cobertura parcial; niveles0/64lotes reales sembrados porTCPGunicorn2, no baseline disponible. Niño diagnóstico con LOGIN restringido independiente, fresh trust y validación íntegra/cabeza bloqueada antes de sondas. Ocho SELECT actuales (evento con digest +7sources), controles whole_row/jsonb_payload/inline_hash sin modificar producción. Huellas inline comparadas exactamente con originales sobre todas filas presentes; no prueba de equivalencia general de nuevo algoritmo. Por consulta: warmup1por variante,4rondas rotadas TIMINGOFF, nativo TIMINGON y nativo SERIALIZETEXT; planes/filas/buffers/estadísticas/índices registrados, sin ANALYZEmanual/índices/forzarplanner. Proyección/ancho pueden cambiar plan: informar shape, no atribuir delta puro aSHA. Presupuesto420s desde preparación/90schild/15sstatement;PG17/Redis7.4 propios, unworker. Condición salida: terminal, planes/interpretación/evidencia saneada, huellas y limpieza independiente; producto intacto, no p95/aceptación2s/5s. Fuentes congeladas durante prueba.
+
+Diagnóstico planesSQL TERMINADO20261011-121055-8cc59a3c:1PASS/0fallos/errores/skips233,992sJUnit (integraciónPG/TCP real),1168huellas exactas antes de docs yPG/Redis/Gunicorn/hijoEXPLAIN propios ausentes comprobados independientemente. Fixtureactual16777325bytesproyectados/67095050bytesoriginales;64lotes reales cabeza36→548, variantes exactas/directas coinciden en584enlaces+584filas físicas observadas. Planes/control porfamilia mismaestructura en cada nivel; alto autoanalyze2 cambia planes respecto bajo. Eventos original8,242ms→directo4,954ms;SelectionRead7,494→5,232ms;CoverageRead11,215→7,262ms (medianas4SQL EXPLAIN TIMINGOFF, noHTTP). Controles sinhash0,469/0,543/0,846ms respectivamente; sugiere coste de expresión/normalización/wrapper, no atribución CPU pura ni índicefaltante. Dosfamiliasvacías/tombstones/concurrencia fuera corpus; candidataexpresiones SQL requiereequivalenciaymediciónHTTP antesadopción. [Evidencia](evidencias/mod08-chain-explain-20261011.md)/[JSON](evidencias/mod08-chain-explain-20261011.json). No UNIONALL/caché/omisiónchecks/cambio productivo ni aceptación2s/5s; diagnósticoacotado concluido yMOD08general siguepausado.
+
+MOD08 experimento inline autorizado y TERMINADO2026-10-11: plan discutido críticamente con NotebookLM y aplicado sólo a hashes lectores EVENT+7sources; productores/DDL/bloqueos/frescura/pipeline íntegros. Runner20261011-123640-097bae75:78PASS0fallos/errores/skips248,26s,1171huellas exactas y recursos propios retirados comprobados independientemente. Equivalencia siete familias+tombstone/zonas/JSON/DST/search_path y regresiones PG reales; HTTP2syncworkers/runtimeLOGIN,20muestrasporvariante/ABBA-BAAB/cadauna clon idéntico548eventos,commit normal4lecturas+8eventos. Original mediana797,984ms/p95819,964ms;inline789,795ms/829,377ms: beneficio pequeño/ruidoso y cola peor. RECHAZADA productivamente, evidence_chain.py restaurado exactamenteHEAD; patch/test-only/evidencia negativa conservados. Gate posterior del helper tras retiro20261011-124558-a4d43659:28PASS0fallos/errores/skips20,36s/1172huellas exactas/PGRedis ausentes; no nuevo benchmarkHTTP ni aceptación conjunta por sumar tandas. Notebook coincide tras recibir método/resultados/opinión propia. [Plan, incidentes y dictamen](evidencias/mod08-inline-http-20261011.md)/[JSON](evidencias/mod08-inline-http-20261011.json). Objetivos2s/5s/topología completa siguen pendientes;MOD08general pausado.
+
+MOD08 deliberación siguientevía2026-10-11 autorizada, sin carga/producto: dos intercambios con NotebookLM tras negativo inline, con resultados previos/código/opinión propia y correcciones de perímetros, GIL, formatos canónicos y umbrales inventados. Priorizar diagnóstico de construcciónfuente: source_copy/iteración efectiva batches/materializaciónORM/construccióndicts/fingerprints/canonicalentrada-salida/render. Propuesta unbloquecontrol-perfilado-control conhistoriaidéntica/PGpropio/2workers/warmPOST y CPUprofiler auxiliar sinlocals; NOejecutado ni p95. CandidataCONDICIONAL sólo valores primitivos categorías/servicios/travelareas si coste instanciación significativo; consumidoresadaptados,filas/orden/momentoslecturas/frescura intactos, sin tocarRevisionlocks/PhotoBlob/autoridad. Sin porcentajes/ahorros asumidos ni límitearquitectónico declarado. [Deliberación, fuentes y condiciones](evidencias/mod08-notebook-siguiente-via-20261011.md). MOD08generalpausado,objetivos2s/5spendientes.
+
+MOD08 diagnóstico construcciónfuente autorizado «Procede» y TERMINADO20261011-130102-8286f2c3:5PASS0fallos/errores/skips98,47sJUnit/1176huellas exactas/retiradaPGRedisGunicorn propia independiente. TresPOSTcontrol-perfilado-control,clonesidénticos548eventos/256reads tras64lotes reales,2workerswarm/mismoPIDmedido,4auditorías+8eventosporcommit. TCP812,239/1882,635/796,736ms;perfilCPU1563,754 vscontroles428,554/425,883ms:gran intrusión,no descuentooverhead nip95. Fuente1call425,327wall/362,969CPU ybatches_next1501calls378,769/319,893msperfilados;residualnoORMpuro. RelacionesCategory/Service/Municipality pequeñas,residualCPU~5,4ms conjunto trasSQLobservado: candidata valoresprimitivosNOjustificadaenfixture,cerrarporahora,sinproducto. Pista scalar_fields101755entradas/reanudaciones(inclrecursión) ypointer_value9002: NOrecorridoscompletos ni147msahorrables;medición sinprofiler/equivalencia requerida antescandidataiterativa. Incidencia primerRunner125955-bb11e9ddinterrumpido0tests47,93s porcolisiónnombretest;existente restauradoexactoHEAD,nuevo test_capacity_source_construction_profile.py. [Evidencia/limitaciones](evidencias/mod08-source-construction-profile-20261011.md)/[JSON](evidencias/mod08-source-construction-profile-20261011.json). Resultados/opinión remitidosnotebook;sin nuevaoptimizaciónniaceptación2s/5s;MOD08generalpausado.
+
+
+MOD08 2026-10-11: usuario autoriza montar sala local de deliberación y debatir desde diagnóstico construcción fuente. Excepción expresa «Sí, excepción solo para deliberar» al adaptador/contrato externo ausentes: Claude CLI revisor sin herramientas ni edición, consumo registrado en .ai/tasks/desarrollo.md. Sala .ai/rooms/mod08-20261011, script scripts/deliberation_room.py, cuatro solicitudes externas máximo y cierre por Codex. No modificación productiva ni reanudación capacidad general. Bloque activo: contraste Claude/NotebookLM con código y resultados previos, controles unitarios del orquestador, decisión finita documentada; propuestas no son PASS.
+
+Sala MOD08 TERMINADA: dos opiniones Claude y una NotebookLM recibidas; cuarto turnoNotebook rechazadoqueryinvalid, preservado sinretry. Cierre porCodex trascontraste crítico, sinconsenso final supuesto. Nueve controles unitariosPASS, Ruff correcto y fuentesmanifest11intactas; no producto/benchmarks nuevos. Decisióncondicional: consumidorescompletos+conteoestructural+costebasepuro antescandidatarutasprivadas; cortes70%/101755dicts/overheadrestado rechazados. Campaña posteriorNOejecutada. [Sala y uso](salon-deliberacion-local.md), [acta y límites](evidencias/mod08-salon-deliberacion-20261011.md). MOD08generalpausado/objetivos2s5spendientes.
+
+
+MOD08 2026-10-11 usuario «Procede pues con lo que se propone»: autoriza campaña diagnóstica de consumidores y baseline puro acordada en sala. Fuentes HEAD7e04016 más cuatro archivos nuevos test-only capacity_scalar_diagnostic.py/capacity_scalar_wsgi.py/test_capacity_scalar_diagnostic.py/test_capacity_scalar_consumers_http.py. Fixture1500revisiones/selección16MiB/originales64MiB/cobertura parcial;31lecturas aprobadas reales+64POSThistoria548eventos. PG17/Redispropios/runtimeLOGIN/Gunicorn2sync/clonesidénticos,warmambosworkers. TresPOSTcontrol-spans-control;cuartoPOSTcount separado sin usar sustiempos. Ocho targets de consumidor, sincProfile/SQLhook/per-next;conteos de aliasroot sin parchar definiciónrecursiva pública. Baselineoriginal A/A ABBAx5=20muestras/operación,tresoperaciones,2warmups descartados,GCfuera timer;corpus materializado originalsinJSONnormalización. Nuevecasosunitarios de instrumentación/errores/gen/profundidad másHTTPreal;historiay4reads+8eventos verificadas porcommit. Cierre: terminal,huellas/retirada propia,tabla/costos/perímetros ydecisióncondicional;sin candidata/producto/p95contractual/89min. Fuentes congeladas durante runner, timeout900s/unworker.
+
+Primera campaña consumidores20261011-133814-09f90cce TERMINAL ERROR:8PASS1FAIL0errores/skips94,805sJUnit,fuentes congeladas/retirada PGRedisGunicorn propia comprobada. Fallo test-only al prepararpunteros despuésHTTP porvariablebodyocultadaporfunciónPOST; no resultadofinaldebaseline puro. Renombrada request_body trasterminal; tambiénsecompleta corpus ancho256/profundo64/escapes conA/Aoriginal,fuera integraciónHTTP. Selección corregida9unitarios+1HTTP=10casos (pre-registro9unitarios erainexacto,eran8). Nuevo runner mismoslímites/fixtures/controles, condiciónsalidaigual, timeout900/unworker. Negativa previa conservada,sin cambiosproductivos.
+
+Consumidores/scalar campaña TERMINADA20261011-134116-08cc3941:10PASS0fallos/errores/skips112,021sJUnit,1208entradasfuentes exactas antesdocumentar,retiradaPGRedisGunicorn propia independiente. TresTCPcontrol/spans/control1645,055/1664,316/1620,490ms,dosPIDsmedidos/GCdiferente;sinprofiler/SQL/per-nexthooks,no restaroverhead nip95. ConteoHTTPseparado:compile1502raíces27163hojas,page4raíces108hojas;sourcecopy1,project2,compile1,pages4,otrosconsumidoresnoobservados. SpansCPU:source251,397ms/compileexcl31,275ms/projectsum64,789ms/page0,407ms;no asignaciónCPUORM/recorridopuro. BaselineoriginalA/A20muestrasporoperación:conjuntosrutas23,059ms/conteo21,001ms/4501punteros6,305ms,preparaciónfuera;corpusancho256/profundo64/escapesynegativas/gen/RecursionError cubiertos. No ahorro ni comparaciónvariante ni extrapolacióncontractual. Decisión:costeobservadomodesto,no candidataproductivaenestacampaña,cerrar diagnóstico,fuenteconstrucciónmayor sinatribuircausa. Negativa8PASS1FAILbodyfunciónpreservada;corregidotrasterminal,ambosrecursospropiosausentes. [Informe y límites](evidencias/mod08-scalar-consumers-20261011.md)/[muestras](evidencias/mod08-scalar-consumers-20261011.json). ResultadosañadidoscomoCodexalregistrocomún,sin llamadas externas nuevas. MOD08generalpausado/2s5sdoscasosN3pendientes.
+
+
+MOD08 2026-10-11: nueva deliberación solicitada, sala mod08-siguiente-20261011 cerrada con opiniónClaude yNotebook válidas y negativaNotebook extensa conservada. DecisiónCodex: sólo siguiente bloque20controlesA/A, unworkersync, hashes/fixture/clones/commit/frescura preservados; compuertaheurística10% dispersión/derivaTCPyCPU predeclarada. No nueva campaña ni producto ejecutados, no causa del factor2 demostrada; fases futuras condicionadas y sin cacheautoridad. [Plan y objeciones](evidencias/mod08-siguiente-plan-20261011.md). MOD08general continúa pausado y aceptación pendiente.
+
+
+## Contrato del próximo goal de investigación de rendimiento — 2026-10-11
+
+El usuario solicita condiciones de continuación y salida para evitar un callejón sin salida.
+Este contrato define el próximo goal; no activa todavía el runner ni reanuda MOD08 completo.
+Objetivo propuesto: determinar y verificar una vía viable de optimización del request,
+conservar sólo mejoras demostradas y entregar un dictamen final con evidencia. Puede
+concluir con una mejora validada o con un diagnóstico justificado de las vías agotadas;
+ese segundo resultado no significa cumplir los objetivos de rendimiento ni aceptar MOD08.
+
+### Entrada y primer bloque
+
+Aplicar el [plan de estabilidad acordado](evidencias/mod08-siguiente-plan-20261011.md):
+20 controles A/A y dos warmups descartados, un worker sync, clones equivalentes,
+PostgreSQL real, código y fixture congelados, autoridad fresca y auditorías comprobadas.
+Los umbrales de dispersión y deriva del 10% son compuertas diagnósticas predeclaradas,
+no aceptación contractual. El escenario de un worker no sustituye el escenario completo.
+
+### Decisión al terminar cada ciclo
+
+| Resultado | Acción |
+| --- | --- |
+| Medición inválida, fixture desigual o instrumento defectuoso | Conservar negativa, corregir únicamente el defecto identificado y permitir una repetición correctiva. Un segundo fallo del mismo bloque cierra esa vía como inconcluyente. No repetir buscando una cifra favorable. |
+| Controles válidos pero inestables | No comparar candidatas pequeñas. Sólo abrir un bloque correctivo si se identifica una hipótesis comprobable con acción concreta y reversible; si falta o la corrección no estabiliza, cerrar esa vía. Correlación no es causalidad. |
+| Hipótesis refutada o candidata sin beneficio distinguible del ruido | Revertir sólo los cambios propios de la candidata, conservar resultados y volver a deliberar únicamente si surge una hipótesis distinta y comprobable. |
+| Beneficio reproducible, pero seguridad, frescura o integridad fallan | Rechazar y retirar la candidata. Deliberar sobre una solución diferente que conserve las garantías; nunca rebajar el contrato para conservar la mejora. |
+| Mejora reproducible y verificaciones pertinentes correctas, objetivo aún pendiente | Conservar como mejora parcial con su alcance, actualizar el presupuesto de latencia observado y deliberar sobre el cuello restante. No declarar aceptación total. |
+| Objetivos contractuales y verificaciones completas satisfechos | Cerrar con éxito técnico y evidencia revisada, dentro de la topología y criterios vigentes. |
+
+Cada deliberación recibirá código exacto, resultados positivos y negativos, conjeturas,
+objeciones de Codex y vías ya descartadas. Claude y NotebookLM son revisores: su acuerdo
+no constituye evidencia. Si un revisor falla, no se relanza automáticamente ni se bloquea
+una decisión sustentada por pruebas; se explicita la ausencia de esa opinión.
+
+### Presupuesto y condición de no progreso
+
+Primera ventana: hasta tres ciclos de investigación después del bloque de estabilidad.
+Un ciclo exige una hipótesis, un experimento acotado y una decisión; no se cuentan respuestas
+de modelos como ciclos. Máximo cuatro solicitudes externas por ciclo. Antes de ejecutar,
+registrar muestras, timeout, recursos propios y criterio de descarte; no expandirlos a
+posteriori para obtener un resultado favorable. Una corrección del arnés consume el
+presupuesto de repetición del bloque y no permite reiniciar la ventana.
+
+Progreso significa beneficio reproducible o evidencia nueva que elimina una incertidumbre
+nombrada y cambia la siguiente decisión. Reformular la misma propuesta o repetir perfiles
+sin una pregunta nueva no es progreso. Dos ciclos consecutivos sin progreso, tres ciclos
+agotados sin una vía viable, o ausencia de una nueva hipótesis falsable cierran la ventana
+con un informe de hallazgos y pendientes; no se abre otra automáticamente. Una continuación
+requiere un cambio concreto de alcance, entorno, mecanismo o información, decidido por el
+usuario, no simplemente más deliberación.
+
+### Interrupción y cierre seguro
+
+Una pérdida de aislamiento, uso accidental de datos reales, deriva de fuentes durante
+una medición o riesgo de dañar trabajo ajeno obliga a detener la campaña afectada,
+conservar evidencia y retirar únicamente recursos propios. Nunca publicar, contratar,
+modificar infraestructura compartida ni ampliar permisos para desbloquear este goal.
+Si la única vía requiere cambiar garantías, proveedores o criterios contractuales,
+terminar la investigación con ese requisito explícito y dejar la decisión al usuario.
+
+Un impedimento externo sin acción local útil se documenta sin relanzamientos. El estado
+`blocked` del goal sólo se establece después de la misma condición en tres turnos
+consecutivos, conforme al control de goals; no equivale a aceptar el trabajo. `paused`
+requiere petición explícita del usuario. `complete` sólo corresponde al objetivo realmente
+alcanzado: un dictamen de investigación acotada puede estar completo con rendimiento aún
+pendiente, pero un goal de aceptación de rendimiento no puede marcarse completo por agotar
+la ventana. El contrato del goal activo deberá distinguir esos dos objetivos.
+
+Al terminar: no runners ni procesos propios abandonados, candidata fallida retirada,
+cambios del usuario preservados, evidencias y consumo conservados, estado de cada prueba
+y limitaciones claros. No prometer que una mejora de un microbenchmark resolverá el p95.
+
+
+Goal investigación MOD08 ACTIVADO por adjunto del usuario 2026-10-11: ejecutar contrato acotado anterior, preservando límites y sin reanudar aceptación general. Primer bloque estabilidad original20POST+2warmups, unGunicornsync, PG17/Redisprivados/runtimeLOGIN/fixture1500revisiones16MiBhistoria548EVENT256reads, clonidénticopormuestra,4reads8eventscommitverificadoantes/después. Nuevos tests capacity_stability.py/capacity_stability_wsgi.py/test_capacity_stability.py/test_capacity_stability_http.py; helperclone_server sólo añade workersopcionaldefault2preservado. Kernelcanónico native-sealed comprobadoenworkerfuera reloj; crypto.unseal sigueFernet+json,noinventarbackendnativounseal. No cProfile/SQL/per-nexthooks ni spansinternos/GCforzado. RSS/loadavg/PGstatslectura fuera reloj; TCPincluye telemetríapreviaworker, WSGIexcluye esa lectura y reporte posterior, límites publicados. Compuerta10%spreadP90-P10y10%derivaprimeras5/últimas5paraTCPyCPUthreadconcuantileslineales,reportarnoassertpassdelacompuerta. Timeoutrunner900s, unpytestworker, fuentescongeladas, sinotra carga propia. Evidenciaesperada3unitarios+1PGHTTPreal, samples/gatebackend/GC/PID,huellas/retiradaindependiente y deliberaciónposterior. Una repeticióncorrectiva permitida si defecto específico; no repetirporinestabilidad.
+
+
+Estabilidad goal TERMINAL20261011-141107-bc244cec:4PASS (3unitarios+1PGTCP real),1231fuentesexactas,retirada propia PGRedisGunicorn verificada.20controlmedidos+2warmups unworker/kernelcanóniconative-sealed/historia548eventos256reads idéntica ycommit4reads8eventsverificados. MedianaTCP1556.081msCPU877.342ms;spreadTCP8.064%CPU11.824%,deriva1.381%/1.684%. CompuertaNOsuperadaCPU; no cambiar10%ni repetirbuscandoPASS. GCgen2variable,costeno medido/correlaciónnocaudal. Deliberaciónsiguiente sólo decidir nueva hipótesiscomprobable o cierrejustificado;producto intacto. [Datos](evidencias/mod08-stability-20261011.json).
+
+
+Goal investigación acotada MOD08 — DICTAMEN FINAL2026-10-11: bloque20controles válido4PASS pero compuertaCPUFAIL11.824%>10%. DeliberaciónrealClaude/Notebook, negativaqueryextensaconservada yreducciónmanual válida; Claude rectifica tras código sincopiasintermediasdemostradas. Salida porausenciade nueva hipótesisoptimizaciónaccionable; no consumir3ciclosporobligación, ningúncicloproductivoposterior. GCgen2correlaciona77mspero duración/causahistórica desconocidas; nofreeze/desactivarGC/cambiarumbralesni perfilesporcuriosidad. Producto intacto,1231huellas verificadaspre-documentación,recursos propiosausentes. [Dictamen y auditoría](evidencias/mod08-goal-investigacion-20261011.md). Resultadoinvestigacióncompleta,no aceptaciónMOD08ni rendimiento2s5s. Reapertura requiere evidencia/mecanismonuevo, no automática.
+
+
+## Reapertura por beneficio parcial — instrucción posterior 2026-10-11
+
+El usuario indica: «Pues si no encontrais ninguna suficiente rebajais el requisito para
+intentar encontrar una solucion». Se rebaja el beneficio mínimo esperado para seleccionar
+una candidata: no necesita resolver por sí sola la brecha de segundos. Son admisibles
+mejoras pequeñas, incluso de milisegundos, y mejoras parciales acumulables verificadas.
+Esta interpretación se refiere al tamaño del beneficio, no modifica los objetivos
+contractuales 2s/5s ni seguridad, frescura, integridad, privacidad, auditoría o completitud.
+El goal anterior permanece cerrado con su evidencia; esta autorización justifica una
+nueva vía parcial y no reclasifica la compuerta histórica negativa.
+
+Reglas de selección y aceptación posteriores:
+
+1. Una candidata requiere mecanismo concreto, código localizado y comparación acotada;
+   ya no se descarta sólo porque su coste sea modesto frente a la brecha total.
+2. Si el efecto pequeño no se distingue del ruido del request, medir primero la etapa
+   pura con corpus representativo, equivalencia y muestras originales/variante
+   intercaladas. Registrar también comportamiento adversarial y coste de memoria.
+   Un beneficio en esa etapa no acredita una mejora de TCP ni del p95 contractual.
+3. La compuerta histórica CPU 11.824% sigue siendo negativa. No elevar el 10%, eliminar
+   muestras, restar GC ni hacer pasar una comparación inconcluyente. Su fallo no prueba
+   que cualquier comparación de una etapa independiente sea imposible.
+4. Adoptar una mejora de etapa sólo si es reproducible, conserva semántica y garantías,
+   y supera las verificaciones del recorrido afectado. Declarar por separado beneficio
+   de etapa, resultado HTTP y alcance pendiente; no sumar microbenchmarks como ahorro
+   total garantizado. Si empeora el request o recursos relevantes, rechazarla.
+5. Conservar presupuestos finitos, evidencia negativa y retirada de recursos propios.
+   Si no hay beneficio medible, cambiar de mecanismo o cerrar esa vía. No reducir
+   exigencias de evidencia para convertir un resultado dudoso en mejora.
+
+Primera candidata que vuelve a ser elegible: recorrido privado que produce sólo rutas
+para compile_coverage, que actualmente consume diccionarios scalar_fields sólo para
+extraer leaf['path']. El coste original de conjuntos de rutas (~23ms en el corpus previo)
+no es ahorro esperado; hace falta medir original/variante. La API pública scalar_fields,
+los valores/punteros, la autoridad y las lecturas frescas deben conservarse. Elegibilidad
+no equivale a implementación, equivalencia ni aceptación. La lectura concreta del
+consumidor y el diseño se harán antes del experimento; no ampliar la API por conveniencia.
+
+
+Mejora parcial goal ciclo1PRE-REGISTRO2026-10-11: Claude yNotebook opinionesválidas recibidas con código/metodología/nuevoumbrealmodesto. Candidatarecursivaprivada_scalar_paths módulo rights_portability_paths.py y única comprehensióncompilecoverage (no set(gen), conservarframe/RecursionError);scalar_fields público/pointervalues/freshautoridad/auditoría intactos. Nuevas12pruebasdiferencialespermanentesincluyen250árbolesrandomdeterministas,customitems/claves/vacíos/subclasses/erroresparciales/generator/mutaciones/ciclos y barridoprofundidad90nivelesenbordeCPython3.12.15. ASTbaselinecompletoigualHEAD ycachefncompiladaantesclocks(warmupdescartado) noautoridadmemo;aliasesoriginal/actualsimétricosyrestauraciónlateenerror comprobadas. Instrumentoconteoprevioreconocenuevoconsumidor,aliaspúblicoconservado.24controleslocalesPASSantesgate (noPGclaim).
+BateríaN2afectadaPGreal/Redispropios/unpytestworker,runner900s/native-sourcepropio. Fixture1500revision16MiB/historia548eventos256reads,1Gunicornsync,2warmups(1porvariante)+40HTTPABBAx10(20porvariante),clonidéntico/normalcommit4reads8events/ownerbeforeafter/GCsin tocar/kernelcanóniconative-sealed. HTTPsinprofiler/SQL/spansinternos,setupscopesfueraWSGIperoTCPloincluye;scan/restauraciónigualambosmodos. Despuésservidorterminado comparaciónpureoriginal20/candidata20ABBAx10+2warmupsporvariantefueraDB,corpusmaterializadoreal+edgeancho256/deep64/escapes;ordenresultadosidénticos comprobadosfuerareloj. Memoria5porvariante tracemallocSEPARADA:picovivonoallocstotalesni dictstemporalesacumulados.
+Aceptaciónetapapredeclara:almenos15/20parejaspositivasenwallYCPUy4bloquescronológicosmedianaspositivasenambos;picomedianavariant<=original*1.05+1024bytesheurísticarecursos,no significaciónformalnip95. No beneficioabsoluto mínimo. Request40muestras no prueba noninferiority ni mejora de pocosms:reportar mediana/p95muestral/parejas/bloques/GC, rechazar si>=15/20parejaspierdeTCPy4bloquesmedianospeores,o degradaciónmedianaYp95>5%(señaltriagepredeclarada,noumbrealcontractual). SiHTTPinconcluyentesóloaceptacióndeetapa, límitesexplícitos/objetivos2s5spendientes. Ningunafirma/autoridadomitida ni invocaciónClaudeeditora. RamaspreviousFAILsconservadas. Fuentescongeladas mientrasrunner, no cargaspropiasparalelas. Condiciónsalida:terminal/huellasyretiradaindependiente,resultadosy2opinionesfinalescierre;rechazoretirarsólopatchpropio,no repetirporbuscarPASS.
+
+
+Mejora parcial ciclo1 TERMINADO20261011-145141-3ea7872c:126PASS0fallos/errores/skips885.979sJUnit<900s,1275fuentesexactasantesdocs/retiradaPGRedisGunicornindependiente. Pure1502rows27163hojasoriginalmed20.391ms→paths17.589ms;20/20parejaswallCPUy4bloquespositivos;medianapareada2.943/2.938ms;edge259hojas tambiénPASS. Pico5706vs5698Bsin beneficio memoria significativo;tracemallocseparadonoallocsacumuladas. HTTP20pormodo med1626.673→1621.596/p95muestral1693.458→1687.279mspero12/20winsúltimobloquenegativo:beneficioHTTPINCONCLUYENTE,noequivalencianoninferiorityformal/2s5s. Precriteriosregressiontriagenoactivados, compuertaCPUanteriorFAILpreservada. DosopinionesClaude/dosNotebookvalidas(consumoregistrado) noPASS. CodexADOPTAmejoraETAPA~3msbajoinstrucciónposteriormejora pequeña;APIpública/digests/autoridad/frescura/auditoríaintactos,oraclepermanenteCPython3.12.15yN2afectado. [Evidencia/alcance](evidencias/mod08-small-paths-20261011.md). Goalcontinuaciónentregaparcialverificada,noMOD08completo;no nuevas pruebas por rutina ni fuentesNotebookañadidas.
+
+### Continuación autorizada: diagnóstico de esperas — 2026-10-11
+
+Usuario: «Procede con lo que hay que hacer en orden y adaptate a las necesidades».
+Prerregistro: aislar llamadas psycopg execute/fetchone/fetchmany/fetchall, apertura real
+de conexión y Pipeline.sync/__exit__ por fase source/validate_assessment y cadena.
+Sin profiler, SQL nuevo, cache de autoridad ni cambios productivos. Un worker propio,
+mismo fixture sintético 1500 revisiones/16MiB y 548 eventos, clones equivalentes,
+dos warmups y cuatro controles alternados con cuatro observaciones. Timeout runner420s,
+petición120s; una corrección de arnés como máximo, sin repetir para perseguir mejora.
+Pruebas: tres controles de forwarding/restauración y una integración PostgreSQL/TCP
+con commit verificado independientemente (ocho eventos/cuatro lecturas por petición).
+Fuentes congeladas por runner; kernel native-sealed y PostgreSQL/Redis propios.
+Decisión: localizar un coste repetido observado en las cuatro muestras antes de proponer
+una candidata. Execute/fetch/sync son tiempos cliente inclusivos; no equivalen a red
+o CPU del servidor. No sumar spans solapados. Si ninguna incertidumbre se resuelve,
+registrar resultado negativo y detener esta vía; revisión Claude/Notebook posterior
+sin ejecución competidora durante la medición. Objetivos y garantías intactos.
+
+Diagnóstico inicial terminal runner20261011-152912-82f64983: 4PASS193.74s.
+La inspección del MRO real detectó ServerSideCursor/ServerCursor con overrides execute
+y fetch no cubiertos; source incompleto y no usado para concluir. Captura preservada
+en evidencias/mod08-wait-initial-20261011.json. Única corrección autorizada del arnés:
+incluir implementaciones propias ServerCursor sin duplicar métodos heredados, prueba
+de restauración y aserción de al menos1500 filas observadas en source.fetchmany.
+Mismas ocho muestras/timeout420s; sin modificaciones productivas ni ampliar presupuesto.
+
+Diagnóstico corregido runner20261011-153333-078ab072:4PASS196.69s,1290hashes
+independientes exactos antes de escribir documentos, limpieza verificada. Fuente
+wall286–325ms/fetch155–185ms; cuatro validate_assessment193–206ms/pipeline69–74ms.
+Claude recibido; Notebook largo inválido preservado, reformulación manual breve
+recibida. No candidata productiva sustentada. Defer geográfico propuesto no aborda
+1500revisiones conFKgeográficasNULL; sin cambiar fixture para favorecerlo.
+
+Segundo ciclo prerregistrado: separar métodos ServerCursor de Cursor y medir
+Revision.from_db (constructor/hidratación) para decidir si proyección de filas
+eliminaría CPU observada o si hay que investigar espera de fetch. Misma4+4/doswarmups,
+timeout420s/POST120s/recursospropios. Sin nuevo SQL ni cambios productivos ni profiler.
+Criterios instrumentales:server_fetchmany3llamadas con[1000,500,0],Revision.from_db1500
+por request; identidad kernel worker native-sealed/manifest igual en8muestras.
+No usar70%/125ms ni supuesto techo16MiB del notebook como contrato o regla de descarte;
+no declarar plataforma agotada por predominio de fetch. Beneficio sólo tras candidata
+y comparación propia; dos ciclos sin nueva incertidumbre resuelta cerrarían esta vía.
+
+Segundo ciclo terminal runner20261011-154421-99415089:4PASS193.91s,1307hashes
+exactos. Serverfetch revisiones139–149ms;22fetch cliente relaciones/resto<1ms;
+1500Revision.from_db25–29ms. Kernel native-sealed/manifest igual8requests real.
+No optimizar fetch relaciones como cuello; hidración ahora es coste observado pequeño.
+Claude revisión final recibida: ensayo defer7camposunusedRevision razonable condicionado
+a no save/clone/clean/serializarinstancias. Inventario:source_copy sólo construye dicts,
+batches asigna copy_* y usa pk;contact_data phone/whatsapp;image_inventorycopy_photos;
+Revision no overrides y no init receivers. Instancias no salen delsource.
+
+Tercer ciclo prerregistrado (último de esta ventana):sin modificarproducto, comparar
+constructorDjango real original/defer7 sobre1500filas sintéticas predecodificadasPG.
+Obtener init_list/values delquerysetreal original y delquerysetdefer candidato fuera
+reloj;verificarattrsconsumidos/camposdiferidos. Columnas omitidas:source_revision,step,
+edit_version,telegram,contact_exposure_accepted,publisher_acceptance,updated_at.
+Conservarlisting_id,manager_version y todasgeoFK. A/A20paresABBAx10 yA/B20paresABBAx10,
+2warmups por etiqueta, sin spans/profiler/SQL/GCforzado dentro reloj. GateA/B>=15/20
+wallCPU y4bloquespositivos; A/A debe5<wins<15 ambos relojes, regla triage no pvalue.
+Timeout120s,1pytestworker,PGRedisprivados,nativa propia. Si falla gateconstructor,
+rechazar esta candidata sin runHTTP y cerrarventana; no afirmar que fetch no mejoraría
+ni descartar otrasrutas globalmente. SiPASS, exigir equivalenciaSource/N2/HTTPpropio
+antes integrar. Mediciónconstructor consume1objeto a la vez, no memoria batchservicio.
+
+Microconstructor terminal20261011-155320-446ba755:1PASS39.964s,1312hashes exactos.
+GatebeneficioPASS17/20wallCPU,4bloquespositivos;A/A12/20ambos neutrosegún triage.
+Medianas original19.537ms/candidata17.470ms:2.067ms(~10.58%) etapa sólo.
+Corrección inventario: síexiste receiverglobal post_init rights_validation_seal._loaded;
+lee __dict__/fields_cache para EXPIRY_FIELDS(expires_at,receipt_expires_at,valid_until),
+ninguno omitido enRevision. No negar existencia delreceiver; ambosmodos lo conservan.
+
+Aplicación provisional fuente rights_exports.py única expansión defer7campos;
+no retener hasta equivalencia/N2/HTTP. PrerregistroN1:ASTbaseline==HEAD función completa,
+restauraciónaliasesfallo,Sourcecopyfixturecompleto original/candidata canonicaligual,
+mismanconsultas/params,SQLsólocambian columnasSELECTprincipal/OFself igual,updated_at
+de todasrevisiones intacto. Timeout120s,PGRedisprivados,nativo,selec3tests equivalencia.
+PrerregistroHTTP/N2 trasN1:40POST ABBAx10(20variante) +1warmup cada,1Gunicornsync/
+clones548eventos/256reads/commit+8/+4;kernelmanifestigual;sinprofiler/spans/SQLwrapper
+dentroHTTP. Mismo triageregresión que mejora rutas:rechazar>=15/20parejasTCPpeores
+y4bloquesnegativos, o mediana y p95 ambos>5%peores. No prueba noinferioridad formal.
+Criterio conservarbeneficioparcial:microPASS/equivalencia/N2PASS,sin triageHTTPregresión;
+HTTPbeneficio sólo si>=15/20parejasfavorablesTCPyCPU+4bloquespositivos. No sumar
+2ms a p95histórico ni cumplir2s5s por topología reducida. N2timeout900s,1pytestworker.
+
+N1equivalencia terminal20261011-155855-a0872543:3PASS35.21s,fuentes exactas
+independientemente comprobadas antes registro, recursos retirados. Fuente canonical
+idéntica/SQLnparamsiguales/único cambio columnasSELECTprincipal, OFself igual, no
+updated_at modificado. ASTbaselinecompleto==HEAD/restauraciónaliasfalloPASS.
+N2 selecciónconcreta anteslanzar:equivalencia3;exports(HTTP/móvil/descarga/concurrencia),
+source_fingerprint(completitud/mutación/carreras),inspection_source_unit,validation_seal,
+validation_seal_pipeline,enforced_validation_seal(loginPGreal/S3propio),coverage_batch,
+coverage_races,coverage_review_http/mobile yrevisionHTTP20pares. Timeout900s fijado,
+fuentes congeladas,noprocesos de modelosniotrobench competidor. Sinrunconstructor
+repetido ni aceptación global/p95contractual por esta batería.
+
+N2terminal20261011-160045-77fc3354:ERROR por timeout900s, noJUnit terminal,
+no aceptar puntosdeprogreso comoPASS. DosE visibles; colección readonly124nodes
+identifica candidates test_held_seal_rechecks_external_object_bytes y
+test_enforced_held_seal_still_rejects_real_external_object_corruption, ambosfixture
+S3real. RecursosPGRedis ausentesverificados, inventarioobjecttests vacío. No
+aumentartimeout retrospectivo ni reabrirmuestrasHTTP incompletas como válidas.
+Diagnóstico afectado separado:dosnodesS3 yHTTPcompleto20pares enPGpropio,timeout420s;
+recuperar detalle errores y decidircorrección antesretenercandidato. Otraspruebas
+terminadasdentrotimeout sinJUnit no se cuentanformalmente.
+
+Diagnóstico afectado terminal20261011-161740-abbc2d44:1PASS(HTTP40muestras),
+2ERROR(S3fixtureDocker--pullnever exit125),258.61sJUnit,1316hashes exactos antes
+documentar. Imagenrustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c
+ausenteenDocker confirmada coninventario. No modificar guardas/fixture para
+evitar S3real;preparar imagen fijada y repetir2nodes. HTTPterminado baseline
+1691.390→1678.776msmediana,p952079.933→1815.411ms;11/20parejasTCPyCPU, bloques
+TCP58.706/109.234/14.039/-6.876ms; beneficioHTTPinconcluyente, no triageregresión.
+JSONcompleto revision-http preservado. No usar p95 aislado favorable para aceptación.
+Elintentoglobal900s sinJUnit sigueERROR, no reconvertido enPASS.
+Para completarN2sobre mismaversión se dividirá selección por recursos: fuente/HTTP
+yhuellas, sellos/pipeline+enforcedS3, cobertura/batch/carreras/móvil. Mismos tests
+requeridos sin descartarnodes fallidos;splitporcostefixture evita quecasoHTTP
+compitalímite900 con124tests. No repetirbenchmark ya terminal; sólo suites sinJUnit
+yS3tras preparar dependencia. No subirtiempo/recursos delensayoHTTP ni nuevasmuestras.
+
+DependenciaRustFS preparada correctamente mediantepull deldigestexacto ya fijado;
+sin cambiarfixture/guardas ni comprarproveedor. HTTPya terminal1PASS no se repite.
+Adaptación operacional de repeticiónN2:usar pytest-xdist3workers/loadfile soportados
+por runner/MOD08 para suitesdecorrectitud restantes, PGdb/media/Redisnamespacepropios
+porworker. No sonworkersGunicorn ni aceptación decapacidad;HTTPanterior mantiene1.
+Se conserva timeout900s y todos los123nodes deN2sinHTTP(incluye2S3fallidos),
+misma fuenteproductiva congelada. No excluir ni reconvertir intento900s previo.
+Memoriahostavailable7.7GiB antes arranque, sin benchmark/modelCLI concurrentes.
+Seleccionar12filesanteriores salvobenchmarkHTTP ya completado. Cierre sólo tras
+JUnit terminalsinfallos/errores/skips y revisión de mismo códigoactual/limpieza.
+
+
+### Cierre del ciclo de esperas/proyección — 2026-10-11
+
+Runner `20261011-162456-8718be57`: 123 PASS, cero fallos/errores/skips (PostgreSQL y RustFS reales; tres workers de corrección aislados). Auditoría independiente de 1316 huellas sin diferencias antes de documentar. Se conserva la proyección diferida de siete campos no consumidos de Revision: construcción 19,537191→17,470186 ms (2,067006 ms; 10,58 %), A/A neutral y 17/20 victorias A/B. HTTP de veinte pares: mediana 1691,390432→1678,775960 ms pero sólo 11/20 victorias; resultado inconcluso, sin activar descarte por regresión. El intento serial agotado y los dos errores previos por imagen RustFS ausente se preservan como ERROR, no PASS; dependencia fijada preparada y ambos casos repetidos satisfactoriamente. No se modifica el objetivo ni se declara aceptación MOD-08. Sala acotada cerrada; siguiente investigación necesita una nueva hipótesis sobre fetch/adaptación principal, sin caché de autoridad. Evidencia: [diagnóstico y decisión](evidencias/mod08-wait-revision-20261011.md).
+
+
+### Nuevo diagnóstico autorizado: fases completas y adaptación del fetch — 2026-10-11
+
+Usuario: «Procede con todo lo que haya que hacer». Hipótesis pendiente: separar adaptación de filas del fetch principal y localizar el mayor coste del recorrido actual antes de otra candidata. Instrumento sólo tests: inventario fijo de 19 fases, driver previo y proxy reversible de Transformer en ServerCursor._fetch_gen (mismos argumentos, retorno y generator throw/close); captura sólo contadores. No altera fuente productiva, llamadas frescas, bloqueos, GC, cifrado o protocolo. Dos tests de forwarding/restauración y una integración TCP PostgreSQL: 1500 revisiones/16 MiB, historial real 548 eventos/256 lecturas, cuatro controles alternados con cuatro instrumentadas, dos calentamientos, 1 Gunicorn sync, clones privados y commits +8/+4 comprobados independientemente. Sin profiler ni aceptación contractual. Timeout420s, fuentes congeladas. Éxito exige instrumentar 3 adaptaciones, 1500 hidrataciones y 4 páginas y limpiar recursos; fallo permite corregir el instrumento tras terminal, no aceptar medidas incompletas. Después deliberación acotada sobre datos reales; no aplicar una candidata sin equivalencia y beneficio demostrado.
+
+Primer intento 20261011-164311-29fd15f5 terminó ERROR en Ruff por orden de imports del instrumento, antes de pytest; no pruebas acreditadas. Imports corregidos tras terminal. Repetición con idéntico prerregistro, fixture y timeout.
+
+Diagnóstico completo terminal 20261011-164325-0f8daba0: 3 PASS en 103,65s; 1323 huellas independientes exactas. Nueva adaptación directa del fetch: 9,874–14,753ms wall; fetch completo 74,660–91,396ms. Controles TCP 791–869ms, sustancialmente distintos de tandas previas sin cambio productivo: no atribuir esa bajada a optimización. Usuario dirige siguiente trabajo a cambio de enfoque y brainstorming con investigación web de cada participante. Se habilita modo explícito web-only de Claude en sala nueva por su instrucción posterior, sin herramientas locales, escritura ni delegación V1; pruebas de controles pertinentes antes de invocar. Notebook investigación web sin autoimportar. No benchmark compitiendo con investigación; prueba anterior ya terminal.
+
+
+Prerregistro del filtro arquitectónico posterior al brainstorming: dos pruebas nuevas de PostgreSQL real, sólo tablas/funciones temporales propias, sin producto. (1) función IMMUTABLE suplantada al escribir columna GENERATED, restaurada después: mismo prosrc/head/digest almacenado pero hash físico fresco distinto. Refuta confianza ingenua en digest derivado/counter; no modifica tablas reales de evidencia. (2) mil tuplas observadas antes/después de VACUUM FREEZE/REINDEX; ALTER ADD COLUMN fast-default conserva metadata pero cambia JSON de fila genérica (no afirmar source_copy estática consume columna añadida). No prueba wraparound de 32 bits ni seguridad del manifiesto. Añadir dos pruebas existentes de runtime: owner drift y alteración permitida de fuentes detectados por verificación física, PostgreSQL/Redis propios, timeout180s, 1 worker, código congelado; ejecutar tras última llamada externa terminal para evitar diferencias en artefactos de fuentes. Gate es filtro de riesgos, no rendimiento/aceptación MOD08.
+
+Filtro inicial 20261011-170211-4c4e4320: 3 PASS/1 FAIL en14,99s, no PASS global. Fallo del arnés al tratar to_jsonb como dict: backend Django entrega JSON textual al cursor crudo y la conversión JSONField ocurre más tarde. No fallo productivo. Parseo explícito json.loads corregido tras terminal; repetir misma selección4/timeout180s. Contraprueba generated_digest y ownerdrift ya ejercidas pero no sumar versiones como gate.
+
+
+Ensayo de viabilidad de datos posterior al filtro4PASS: prototipo sólo tests, NO candidato productivo ni API de autoridad. 1500 revisiones escalares/16MiB calibrados sin fotos/relaciones; chunks cifrados<=50 en tabla temporal PG y manifiesto firmado(scope/schema/shape/source_digest/fullphysicalstamp/xid64/db/expiry). Antes/después de uso, huella física de TODO el conjunto; descifrado nuevo cada llamada. Comparación de veinte pares ABBA entre inspection_source completo y lectura del chunk (SQL/crypto/guardas de datos dentro del tiempo), dos warmups por variante. Preparación fuera, coste registrado; equivalencia primera/intermedia/última, objetos independientes y rechazo updatefuente/root equivocado/chunk intercambiado/ausente. Gate sólo cribado >=15/20 deltas favorables wall/CPU; no HTTP/SLO. Limitaciones declaradas: no autoridad/proof/latest/chain, catálogoRLS/funciones/enums/restore incompleto, no wrapreal, no purga/fallback durable; no adoptarlo por PASS. Timeout180s/PGRedisprivados/1worker, fuentes congeladas. Si complica semántica o no gana, cerrar esta ruta como negativa; si gana sólo habilita diseño completo y N2 antes de conectar un endpoint.
+
+Prototipo inicial terminal20261011-170851-d0a9ec69: 1 PASS28,78s, mapa independiente exacto; datos preservados como iniciales. Ajuste tras revisión: ligar manifiesto al fingerprint HMAC productivo existente, no SHA256 alternativo de la fuente; así futura integración no exige cambiar source_digest. Ampliar filtro de riesgos con ciphertext inválido, expiración, anchorXID demasiado antiguo(simulado aritméticamente, no wrapreal), contador falso y ALTER fast-default de schema; todo rollback privado. Repetir mismo ensayo20pares180s para versión corregida, sin agregar versiones como gate. Sigue prototipo de datos sin autoridad/endpoints/purga durable y sin aceptación.
+
+
+### Cierre de investigación web y cribado arquitectónico — 2026-10-11
+
+Claude investigó vía pública únicamente y Notebook deepresearch encontró51fuentes, no importadas; notebook conserva100IDs. Sala cuatro turnos cerrada con errores/correcciones preservados. Filtro de riesgos final4PASS (170322-92aed466) refuta hashes GENERATED/head ingenuos y contrasta FREEZE/REINDEX/fast-default; no rendimiento. Prototipo paginado de DATOS final1PASS34,77s (171059-35a451e6), 1350huellasexactas: misma página50/1500/16MiB, wall199,011898→21,376303ms (177,635595ms;89,26%), CPU118,703060→4,711684ms;20/20pares favorables. Preparación1,752980swall; nueve ataques rechazados en alcance definido. NO APIautoridad, endpoint, fotos/RustFS/Caddy, persistencia/purga/funcionesRLSgrantscompletas o SLO. Fuenteproductiva sin cambios desde mejora previa; no conectar por estos PASS. Se concreta camino de implementación con gatesN1/N2/HTTP y abandonos antes de adopción: [decisión](evidencias/mod08-brainstorm-web-20261011.md). Todos recursos propios retirados/auditados, errores iniciales preservados. No goal nuevo ni aceptación de MOD08.
+
+
+### Integración paginada autorizada: puerta de contenido físico — 2026-10-11
+
+Usuario: «procede con lo que haga falta para implementarlo probarlo y aceptarlo si realmente funciona». Antes de migración/endpoint: gate de coste del manifiesto con hash físico fresco de todas las filas de las familias de source_copy, además de las comprobaciones del prototipo. Es una condición necesaria de igualdad de contenidos, no catálogo/permisos/bloqueos/retención completos. Hash de Revision excluye sólo los ocho campos ya diferidos; demás familias incluyen todas las columnas. Hashes se calculan en PostgreSQL sin transferir cuerpos. Se conserva baseline inspection_source real, preparación separada, misma página50/1500revisiones16MiB, dos calentamientos,20paresABBA, sin profiler/GC ni servicios ajenos. Lectura de páginas incorpora contenido físico antes y después; equivale a una estrategia fuerte distinta del atajo xmin/ctid. Gate descriptivo >=15/20 victorias wall y CPU y cuatro bloques positivos, mediana mejor; de fallar, descartar esta forma antes de crear persistencia. De pasar, continuar API paginada explícita y garantías pendientes: no aceptación automática. Un test PostgreSQL nativo, timeout180s/1worker, fuentes congeladas. Reportar cualquier ERROR separadamente y preservar intentos.
+
+Puerta física terminal20261011-185510-406302c8:1PASS66.361s, fuentes sin cambios según runner, recursos propios retirados. Medianas fuente404.3473115ms/página352.5235205ms; delta51.823791ms12.82%,19/20wall20/20CPU, cuatro bloqueswall51.918/61.198/35.698/39.812ms positivos. Preparación1785.431438ms. Entorno tiene tiempos distintos de la tanda previa: comparación sólo paired actual, no suma/resta a p95histórico. Test detecta update físico. No endpoint ni aceptación.
+
+Segunda puerta antes de integrar: consumidor ordinario actual requiere fuente completa. Implementar carga masiva cifrada de los30chunks en una consulta, descifrar manifiesto una sola vez y header cifrado separado, verificar contenido físico fresco antes/después y conservar inspection_source original con sus HMAC/deriva/mutación completos. No repetir30guards por chunk. Se mide límite inferior de coste: todavía faltan locks/catálogo/expiraciones/permisos, que añadirían trabajo; no entregar esta vía incompleta. Mismafixture/ABBA20pares/warmups/180s/1worker/kernel. Equivalencia páginas0/14/29 y mutabilidad independiente, fuente completa antes de retornar mismo50filas. Si no hay mejora consistente o regresa mediana>=5%, rechazar integración directa que mantiene contrato de dict completo; no convertir este resultado en imposibilidad universal de un rediseño. SiPASS, continuar contrato explícito paginado y N1/N2/HTTP, no aceptar.
+
+Puerta de consumo terminal20261011-185923-110820be:1PASS73.889s,0fallos/errores/skips. Auditoría independiente1357huellas exactas antes de documentación, procesos y PG/Redis propios ausentes. Funcionalmente las páginas comparadas y objetos independientes coinciden; rendimiento RECHAZADO: fuente411.6953005ms frente manifiesto materializado649.770997ms (+238.0756965ms,+57.827%);0/20victoriaswall, CPU235.5106105→238.620325ms. Esto conserva los HMAC completos/guardas de mutación de inspection_source; faltan todavía locks/catálogo/expiraciones del proveedor alternativo, por lo que su coste es un límite inferior, no integración segura. No conectar ni aceptar. El primer ensayo de50filas no prueba este contrato. Se descarta la integración directa de manifiesto+dict completo; no demuestra imposibilidad del rediseño explícito con inventario de referencias/campos y validación sin materializar valores. Esa estrategia sería candidata diferente y necesitaría sus propios N1/N2/HTTP, no aceptar por acuerdo. Producto previo preservado, cero cambios nuevos apps, migraciones o endpoint. Evidencia mod08-page-manifest-integration-gates-20261011.md.
+
+
+### Deliberación posterior de consumidores — 2026-10-11
+
+Usuario «Adelante» para sala Claude/Notebook tras rechazo integración completa. Cuatro solicitudes: Claude inicial/opinióncorrectiva2éxitos, Notebook1ERRORargumentos inválidos preservado y1éxito tras reducir contexto manualmente. Claude propone ensayo audit-only sin ensamblaroutput, Notebook proponefullchain sin candidata/medidas; no consenso ni PASS. Codex corrige dobledeepcopy,ABpseudoABBA,GCcambiado,source_fingerprintmetadatanocuerpos y ahorrotextos16MiBincorrecto. Próximaúnicahipótesis privadaN1+AA/AB sobrefuenteactualfrío/caliente antes de tocar producto; cerrar si falta beneficio, no inventar siguientechain. Inventario100IDsunchanged, fuentescontextuales exactas yCLIterminales. Deliberación solamente, no nuevoejecutorbench/test ni aceptación. Decisión/gates: [deliberación consumidores](evidencias/mod08-deliberacion-consumidores-20261011.md).
+
+### Herramientas gratuitas de diagnóstico — 2026-10-11
+
+Usuario autoriza instalar y usar herramientas gratuitas para cerrar el bloqueo.
+Se prioriza ahora evidencia del caso completo frente a la microhipótesis de
+contenedores audit-only, que sigue sin aplicar. Instalación aislada de py-spy,
+Scalene y Memray; 80 pruebas de controles/WGSI aprobadas, smoke nativo host y
+contenedor real sin ampliar privilegios. Próxima acción: captura nativa más
+PostgreSQL en el recorrido completo sintético, incluidos un lote tardío y las
+descargas reales. No se ha cambiado producto ni aceptado 2s/5s. Plan y límites:
+[perfiladores locales](evidencias/mod08-perfiladores-locales-20261011.md).
+
+
+### Cierre del diagnóstico nativo gratuito — 2026-10-11
+
+Recorrido completo terminado y recursos retirados: navegación p95 2,565728 s,
+JSON máximo 4,807344 s y binario máximo 5,124024 s. Son resultados diagnósticos
+de una población con instrumentación previa, sin aceptación ni mejora causal
+demostrada. No se añadió optimización productiva. Se corrigió el seguimiento
+de PID y la superposición de perfiladores; probe real PostgreSQL restringido
+1 PASS y comprobaciones locales 82 PASS. Véanse resultados, fallos conservados
+y límites en [la evidencia](evidencias/mod08-perfiladores-locales-20261011.md).
+Los objetivos 2 s/5 s y las lecturas frescas permanecen vigentes.
+
+
+Separación posterior de instrumentos: el modo nativo deja los controles HTTP
+sin hooks locales y las capturas marcadas sin spans, cProfile ni perfil de
+workers. También se desactiva cProfile del controlador y su posvalidación.
+Memray/Scalene no se incorporan al recorrido. Pendiente nueva medición; no
+se atribuyen ahorros a estos cambios del harness.
+
+
+### Medición posterior sin perfiladores — 2026-10-11
+
+Diagnóstico separado terminal 20261011-205904-6d77445d: 1 PASS, diez
+capturas completas sin errores, navegación p95 2,483100 s; no aceptación.
+Escenario normal terminal 20261011-212056-311e7b34: FAIL_DELIVERY_STAGE_LIMITS,
+dos casos concurrentes sin perfiladores, 384 navegaciones y 20 descargas por
+tipo/caso. Peores p95: 3,389665/8,961067/9,033017 s frente a 2/5/5 s.
+Todos los intervalos exigidos se solapan, comprobado independientemente;
+1389 huellas exactas antes de documentación y recursos propios ausentes.
+Se retiró también cProfile de posvalidación del modo normal. No cambios
+productivos ni aceptación; la instrumentación no explicaba todo el exceso.
+[Evidencia y límites](evidencias/mod08-metricas-separadas-20261011.md).
+
+
+### MOD-08 — control profesional y energía, 2026-10-12
+
+Dos HTTP completos pasan etapas locales, sin perfiladores: candidata S3
+1,730212/4,379374/4,657655 s y control original 1,626706/3,864846/3,840579 s.
+No aceptación global/N3. Candidata retirada pese a dos puertas 139 PASS y
+microbeneficio emparejado: no mejora HTTP demostrada. Usuario confirma alternancia
+energética sin correspondencia por ejecución; gran salto causalmente no atribuible.
+Herramientas profesionales aisladas, recursos propios retirados, consumo conservado.
+[Evidencia](evidencias/mod08-s3-profesional-20261012.md).
+
+
+### Medición en batería con rendimiento fijo — 2026-10-12
+
+Usuario autoriza performance en batería y desactivar cambios automáticos de energía.
+Ejecución 20261011-232221-3fc0bca2: 1 PASS en 903,803 s, cero errores/fallos/skips.
+Peores p95 1,576682/4,163148/3,997933 s: pasan etapas locales 2/5/5 s, no global/N3.
+Batería 49→28 %, desconectado al inicio/final; performance mantenido. Sin cambios
+productivos ni perfiladores. 1.405 huellas independientes exactas antes de docs,
+recursos propios ausentes. No atribución causal ni estabilidad entre ejecuciones.
+[Evidencia](evidencias/mod08-bateria-rendimiento-20261012.md).
+
+
+### Preparación de medición VPS — 2026-10-12
+
+Instalador aislado de py-spy/Memray/Scalene/pyperf, lock transitivo con hashes y
+lanzador de preflight/probe/measure/diagnose. Metadatos de entorno inicio/final,
+guarda kernel native-sealed, separación de instrumentos y bloqueo de cargas.
+Instalación local vacía e idempotente verificada; probe PG/Docker real
+20261011-234614-8d848d74: 1 PASS 15,247 s, fuentes sin cambios, limpieza.
+106 pruebas locales PASS, Ruff/shell/documentos PASS. Se conserva error inicial
+de colección corregido. No conexión, instalación ni ejecución remota; no producto,
+proveedores, datos reales, cambios de despliegue o sysctls. Consumo previo intacto.
+[Procedimiento VPS](mod08-vps-medicion.md).
+
+### Verificación local completa del procedimiento VPS — 2026-10-12
+
+Usuario solicita probar aquí antes del servidor y después subir todos los cambios
+para pull remoto. Primera carga ERROR por proceso observado presente en cierre;
+no PASS pese a p95 bajo límites. Init Docker estándar y espera de reaping acotada,
+sin omitir vivos/zombis. Preflight correctivo PASS; carga 20261012-001431-53a220c0:
+1 PASS 909,989 s, p95 1,611558/4,181215/4,166493 s; sólo etapas, no global/N3.
+Probe final PG/py-spy 20261012-003153-2f383fa9: 1 PASS 18,653 s y limpieza.
+109 pruebas locales PASS. 1.411 huellas exactas antes de docs. Usuario confirma
+sólo cable alternante, perfiles cambiaron pese a ajustes; causa no demostrada,
+energía no constante. No despliegue remoto ni nuevos cambios productivos.
+[Evidencia](evidencias/mod08-vps-preparacion-verificada-20261012.md).

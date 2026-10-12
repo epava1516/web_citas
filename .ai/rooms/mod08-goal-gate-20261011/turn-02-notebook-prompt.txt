@@ -1,0 +1,69 @@
+Sala técnica local. Opina sólo sobre el contexto suministrado. Sin herramientas, ediciones ni ejecución. Distingue hechos medidos, hipótesis y evidencia faltante. Las intervenciones son opiniones, nunca PASS ni autorización. No cachear autoridad, omitir comprobaciones frescas ni extrapolar microbenchmarks a p95 contractual. Propón una decisión finita y señala contraejemplos. Máximo 900 palabras.
+
+Goal activo investigaciónacotada: máximo3ciclos trasestabilidad, parar2sinprogreso/nohipótesisnueva. No cumplir rendimiento por acuerdo modelos. No cacheautoridad/cadena, adelantarlecturasmutables, quitarfirmas/autorización/frescura/auditoría. No publicar, proveedores, datosreales, modificarhost. Primerbloque20control+2warmups FINITO TERMINADO. 4PASS (3unit+PGTCP real),1231hashesexactos yPGRedisGunicornpropiosretirados. Código productivo intacto; HEAD7e04016d. No repeticiónporquererPASS.
+Fixture1500revisiones selección16MiB,64POSThistoria548EVENT256reads, clonidénticoporrequest normalcommit,antes548/256después556/260, mismoPID únicoGunicornsync en22requests, canonicalkernelnative-sealedidentidadmanifestigual comprobada enworker fuerareloj. Crypto realFernet+json.loads (no afirmarAESGCM). NoSQLhook/profiler/phase/nextcallbacks. TCPincluyetelemetríaworkerpreclock; WSGIincluyecierresresponse/db;prepararJSONreportdespués,recoleccionesGCcapturadasfuera sinforce/deshabilitar.
+Compuertapredeclara spreadlineal(P90-P10)/mediana≤10%yabs(medprimeras5-medultimas5)/mediana≤10%paraTCPyCPUthread. RESULTADO:TCPmed1556.081ms spread8.064%deriva1.381%;CPUmed877.342msspread11.824%deriva1.684%. NOsuperadaCPU. No tocarumbralni restarGCcomo ganancia. Sinp95contractualni comparacióncausal0.8vs1.6s tandasprevias.
+Muestrasorden TCP/CPUms/gen2colecciones:
+[[1601.694, 909.699, [67, 6, 1]], [1580.754, 876.47, [67, 6, 0]], [1516.179, 887.887, [68, 6, 1]], [1509.09, 844.313, [67, 6, 0]], [1613.813, 911.104, [68, 6, 1]], [1494.695, 809.245, [67, 6, 0]], [1542.285, 903.513, [68, 6, 1]], [1554.501, 878.214, [68, 7, 1]], [1557.66, 863.813, [67, 6, 0]], [1587.899, 894.417, [66, 6, 1]], [1543.882, 848.616, [67, 6, 0]], [1573.017, 894.179, [68, 6, 1]], [1487.213, 811.158, [67, 6, 0]], [1701.483, 983.113, [68, 6, 1]], [1500.885, 826.489, [67, 6, 0]], [1559.267, 873.113, [68, 6, 1]], [1670.021, 947.057, [68, 7, 1]], [1470.752, 801.865, [67, 6, 0]], [1603.338, 903.394, [66, 6, 1]], [1543.451, 821.891, [67, 6, 0]]]
+Gruposposthocgen2correlaciónnocaudal: comprobarlosdatosantesatribuircausa. La carga host loadavg1.54→1.4, RSS202→214MiBpeak235. Sólolectura, otrosservicioshostsin tocar. No profiling concurrente.
+Código: WSGI clocks perf_counter_ns/thread_time_ns rodean original(environ,start)+yieldfromresponse+response.close()+connection.close; antes kernel_identity(),gc.get_stats(),hoststatus; despuésgcstats/reporte. Post individualclonownerscompruebancommit/audits;GCenabledconumbralesoriginales.
+source_copy dicts1500revisiones, SELECTFORUPDATErevisions y5querysetsrelaciones porbatch,contact_data/image_inventory. inspection_source: source_fingerprintantes, sourcecopy,hashcanonical;salidahashsourceenmemoria+fingerprintfresco/confronthashsi cambió, mantener. record/validate_approved_assessment repitenfreshchaintrust/fullvalidation necesaria. Compilesummarycache1por4pages.
+Previo scalarA/A:27163hojas23msconsets,4501pointer6.3ms;sin candidata ni ahorro. No101755dicts. sourceCopyobservedwall405.6/CPU251.4vsTCP1664/CPU939,otros consumidoresproject64.8/compileexcl31.3ms;no coberturaentera. cProfiletriplicóCPU;descartado. SQLinline20porvariante beneficio8msmedpero colaempeoró, revertido;Categoryprimitiveimpacto5msdescartado;memoautoridadprohibida. No reabrirramas sin dato nuevo.
+OpiniónCodex: Compuertrafalla y no se deben compararcandidatas pequeñas. Hay patrón GCgen2distinto que PUEDEexplicarpartedispersiónpero notodoCPUni factor2histórico. Duda entrecerrarinvestigaciónsincandidatajustificada y UNbloque diagnóstico de callbacksGC para medir duraciónCPU/wallpor generación y tiemposdelrequestSINRESTAniGCdesactivado;15? fijar antes máximo20clones+2warmups,nuevoprópositoatribuciónno rerunbuscandoPASS. Sólomerecesi llevaa mecanismoevitable ydatonuevo; noseautoriza tunearGC globalni desactivarcolecciones. Tambiénpodría medirsepocasfasesgrandes pero compuertafallóyno ignorarla.
+Pregunta: decide CERRAR o UNAhipótesis nueva comprobable acotada. SiGCdiagnóstico:qué pruebaqué,coste/limitaciones,criterioderechazo,qué candidataproductivasemánticamente viable podríasugerir sininventardependencias ni prometerganancias. Si no hay candidatajustificableprefierocierre, no consumo en profilinginfinito. Distingueregistro4PASSdelacompuertaFAIL. Máximo550palabras.
+
+CLAUDE OPINIÓN:
+# Decisión: un único bloque diagnóstico de GC y después cierre
+
+Lo justifica un dato nuevo que está en las muestras que diste. No es un rerun para buscar PASS.
+
+## Registro frente a compuerta (separados)
+- **4 PASS** (3 unit + PG TCP real), 1231 hashes exactos y HEAD 7e04016d intacto. Demuestran corrección y trazabilidad, no rendimiento.
+- **Compuerta FAIL:** el spread de CPU es 11.824% frente a un umbral de 10%. El fallo se mantiene. Ningún análisis posterior lo convierte en PASS ni lo reinterpreta, y no se comparan candidatas.
+
+## Hechos que salen de tus muestras (cálculo mío, verificable)
+- **Cadencia de gen2 casi alternante:** 1,0,1,0… con una sola ruptura (muestras 7 y 8, ambas 1). Parece disparada por umbral, no aleatoria.
+- **CPU por grupo:**
+  - gen2=1: n=11, mediana ≈903 ms, media ≈908 ms.
+  - gen2=0: n=9, mediana ≈826 ms, media ≈834 ms.
+  - Diferencia ≈75 ms, ≈8.5% de la mediana global.
+- **Solapamiento casi nulo:** el mínimo con gen2=1 es 873.1 y el máximo con gen2=0 es 876.5.
+- **Spread intragrupo aproximado:** ≈6.7% en gen2=0 y ≈7.6% en gen2=1. La dispersión que hace fallar la compuerta parece venir sobre todo de mezclar dos poblaciones.
+
+## Contraejemplos y límites
+- **Outliers que el conteo no explica:** 983 ms (gen2=1, gen1=6) y 947 ms (gen1=7).
+- **Asociación, no causa:** sin duración por colección, "hubo un gen2" no equivale a "gen2 costó 75 ms".
+- **Factor 2 histórico (0.8 frente a 1.6 s):** queda fuera; ≈75 ms no lo explica.
+
+## Hipótesis
+**H:** las colecciones gen2 que caen dentro del reloj consumen la mayor parte de la diferencia de ≈75 ms entre grupos.
+
+## Prueba (fijada antes de ejecutar)
+- **Tamaño:** 20 clones + 2 warmups, mismo fixture, mismo PID y Gunicorn sync.
+- **Instrumentación:** `gc.callbacks` registra con `perf_counter_ns` y `thread_time_ns` el inicio y fin de cada colección, con su generación, `collected` y `uncollectable`. Los registros se acumulan en un buffer preasignado y el informe se arma fuera del reloj.
+- **Sin cambios en GC:** no se resta GC, no se desactiva, no se fuerza y no se tocan los umbrales. No corre ningún profiler a la vez.
+- **Comprobación previa:** el overhead de unos 75 callbacks por request debería ser pequeño, pero se reporta y no se descuenta.
+
+## Qué mide y qué no
+- **Mide:** tiempo real de GC por generación dentro del reloj, y si la cadencia se reproduce.
+- **No mide:** el coste de asignación, efectos de caché ni el p95 contractual. No es una comparación causal con tandas previas.
+
+## Criterios de rechazo (cualquiera lleva a CERRAR)
+1. La alternancia de gen2 no se reproduce.
+2. La suma de gen2 en CPU por request con gen2 explica menos del 50% de la diferencia intergrupo.
+3. El GC total, sumando todas las generaciones, es menor que el 8% de la mediana de CPU.
+4. No se puede proponer ningún mecanismo evitable sin tocar GC global.
+
+## Candidatas viables si H sobrevive (sin prometer ganancia)
+- **(a) Reducir contenedores transitorios en `source_copy`.** Hoy se materializan 1500 dicts y se generan ~67 gen0 por request. Habría que revisar si existen copias intermedias redundantes que no cambian la semántica, por ejemplo construir directamente la estructura canónica en vez de dict→dict. Menos asignación significa menos disparos de gen1/gen2.
+  - Salvaguardas: mantener el fingerprint fresco, SELECT FOR UPDATE, la validación completa y el hash.
+- **(b) `gc.freeze()` en post_fork del worker.** Es semánticamente viable: los objetos de arranque dejan de escanearse en gen2 y las colecciones siguen activas.
+  - Pero es configuración global de GC, explícitamente no autorizada. Sólo la menciono para que alguien con autoridad decida, no como recomendación.
+
+## Coste y parada
+- **Coste:** un bloque de duración similar al anterior.
+- **Si se rechaza:** cierre inmediato, sin un ciclo más.
+- **Si se confirma:** el siguiente paso es diseñar (a) y validarlo con una compuerta nueva fijada antes. No se re-evalúa este bloque.
+
+Esto es una opinión, no un PASS ni una autorización.
+Codex: grupos posthoc9sinGCgen2CPUmed826.489/TCP1509.09ms,11conGCgen2CPU903.394/TCP1587.899ms. Diferencia~77ms, no causal ni restablececompuerta. La compuerta esheurística10%no modificable. ContrastaClaude: ¿cerrar o diagnóstico nuevo concreto? No inventar causa factor2ni eliminarfrescura. Máximo450palabras.

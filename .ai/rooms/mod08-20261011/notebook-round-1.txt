@@ -1,0 +1,58 @@
+Primera deliberación conjunta MOD08. Codex modera; tu función es revisión independiente sin herramientas.
+HEAD 7e04016d8ece6cf52388e283eb06cf0a6040fd2b. Sólo datos sintéticos. No modificar producto ni iniciar capacidad completa.
+Último diagnóstico: runner20261011-130102-8286f2c3,5PASS98.47s,1176huellas y limpieza comprobadas. PG17/TCP reales,2workers sync calientes; clones idénticos548eventos/256reads tras64POST;3muestras control/perfilada/control con4CoverageRead+8EVENT por commit.
+TCP812.239/1882.635/796.736ms;WSGI811.169/1950.134/795.745;CPU428.554/1563.754/425.883. Gran intrusión cProfile(timer=thread_time), NO p95 ni ahorro; WSGI incluye reporte posterior al yield, TCP puede acabar antes.
+Fixture1500revisiones,selección16777172bytes,originales64MiB no seleccionados,cobertura parcial escalar; sinCaddy/RustFS/cuotas/concurrencia de carga. NO comparable al p95 contractual383lotes~3.75s y objetivo2s. Descargas5s siguen pendientes, no medir aquí.
+En perfil: source_copy1call425.327wall/362.969CPU; batches_next1501calls378.769/319.893; exclusivobatches incluyeORM/adaptación/agrupación no observada, no CPU pura de ORM. SQLexecute423calls404.473wall107.741CPU NO fetch/pipeline.sync niCPUservidor.
+Category/Service/Municipality residualCPU trasSQL observado1.765/1.751/1.889ms(~5.4ms); NO coste exacto ni ahorro, candidata valoresprimitivos cerrada porahora. Model.__init__2010calls21.842ownCPU/72.552incl;from_db1993calls18.858/100.158.
+scalar_fields101755entradas/reanudaciones(incl72978recursivas),101.493own/147.259inclmsperfilados NO101755recorridos completos. pointer_value9002calls33.366own78.634incl; project_selected2calls14.623own184.502incl; compile_coverage1call13.334own240.489incl.
+CandidataSQLinline anterior rechazada tras20muestras/variante clonesABBA:originalmed797.984/p95819.964ms vsinline789.795/829.377ms. Producto restauradoHEAD. MemoJSON no justificó margen; cachechain/autoridad prohibido por frescura/mutaciónpropia/DDL.
+Opinión Codex: medir primero sincProfile los recorridos puros, con conteo estructural independiente y mismo fixture, antesde elegir cambio; no inferir147msahorrables. Posible alternativa menos amplia: compile_coverage sólo consume item['path'], explorar generador especializado de rutas sin construir diccionario de cada hoja, manteniendo orden/validación/error y scalar_fields público. No asumir beneficio ni equivalencia. Otra vía pointer_value separada. Traversaliterativo requiere preservar profundidad/RecursionError/mutación duranteyield/close/throw ademásdeRFC6901; códigoiterativoanteriorNotebook con marco3elementos ytop[3]/top[4] es inválido.
+Debatid: (1) ¿qué vía medir primero y por qué? (2) diseño mínimo finito limpio separando preparación,cronometraje y validación; corpus ancho/profundo/representativo; no tiempos mínimos inventados. (3) contraejemplos de rutas especializadas vsiterativo vsdecoderpunteros; qué fuente adicional falta. (4) decisión y criterio de abandono sin porcentajes asumidos. No entregar parche sin evidencia. Identifica límites del contexto y corrige conjeturas de Codex. Devuelve hechos/objeciones/plan/decisión, máx900palabras.
+
+Claude (respuesta completa preservada localmente): recomienda atribución por llamador antes de especializar compile_coverage; corpus con hojas/contenedores/vacíos/profundidad/suma profundidades/escapes/longitud rutas; candidato privado ansioso sólo conjuntos rutas, no cambiar generador público; ABBA y A/A sinprofiler, validar antes/después; luegoHTTP20/variante sólo sihay señal sobreA/A. Objeta que147ms scalar_fields pueden proceder de otros callers y queproyección ocupa partecompile240ms; apunta suma inclusivos generadores noaditiva. Pide tiposhoja y límite profundidad; no atajar deepcopy porque posibles hojasmutables noJSON. Sugiere diferir memo de decoderpunteros yrechazariterativopúblico ahora. Criterioabandono: discrepanciaerrores/resultados, sinseñalA/A oHTTPsinmejora.
+Codex tras comprobar código: rg encuentra scalar_fields además en coverage_read_gate(countsum),coverage_pages(candidates y conteo),coverage_page(islice),catalog(islice),accesscoverage(values). Por tanto mi hipótesis compile-only noestá demostrada; atribución en perfil existenteNOconservada (top100stats sincallergraph), no fingir quepodemos sacar print_callers. source_copy transforma fechas/IDs/importes enstr pero days/spoken_languages contienenJSON; SECTIONS son accesores listasdictsource. fast_canonical.reference_check impone profundidad>200=>ValueError, tiposJSON admitidos, ocurre sólo alcanonicalizar; no prueba universal de dominio en cada llamada a scalar_fields. Conservar APIpúblico y errores. Corregir Claude: costes inclusivos nose suman pero147 y240 no son necesariamente inconsistentes: project_selected tiene2calls globales, distribución interna desconocida. No prometer quehay incoherenciademedición porcuentasglobales.
+Pregunta a Notebook: actúa como segundo participante, contrasta Codex/Claude con fuentes actuales prioritarias sobrehistorial y devuelve objeciones y una decisión finita. ¿Medir primero llamadas externascompletas porcaller con dosrelojes bajosoverhead en unrequestinstrumentado ycontroles, o microbenchcorpus primero? ¿Qué candidate scope más seguro evitar dicts de hojas en consumidoresdepaths/count sin tocar público? No inventar equivalencia ni ahorro. Indica qué aceptar/rechazar delplanClaude y qué informaciónfaltaría. Máx800palabras,no parche.
+
+apps/safety/rights_portability_catalog.py
+def scalar_fields(value, prefix=""):
+    """Walk individual leaves with RFC6901 paths; containers are never choices."""
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if not isinstance(key, str):
+                raise ValidationError("Invalid portability object key")
+            escaped = key.replace("~", "~0").replace("/", "~1")
+            yield from scalar_fields(child, prefix + "/" + escaped)
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            yield from scalar_fields(child, prefix + "/" + str(index))
+    elif prefix:
+        yield {"path": prefix, "value": value}
+    else:
+        raise ValidationError("Portability row requires an object or list")
+apps/safety/rights_portability_selection.py
+def pointer_value(row, path):
+    if not isinstance(path, str) or not path.startswith("/") or len(path) > 500:
+        raise ValidationError("Invalid portability field path")
+    value = row
+    for segment in path[1:].split("/"):
+        # RFC6901 escape sequences; reject malformed aliases.
+        escaped = segment.replace("~1", "").replace("~0", "")
+        if "~" in escaped:
+            raise ValidationError("Invalid portability field escape")
+        key = segment.replace("~1", "/").replace("~0", "~")
+        if isinstance(value, dict) and key in value:
+            value = value[key]
+        elif (
+            isinstance(value, list)
+            and key.isascii()
+            and key.isdecimal()
+            and str(int(key)) == key
+            and int(key) < len(value)
+        ):
+            value = value[int(key)]
+        else:
+            raise ValidationError("Portability field unavailable")
+    if isinstance(value, (dict, list)):
+        raise ValidationError("Select individual portability fields")
+    return deepcopy(value)

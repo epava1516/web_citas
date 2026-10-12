@@ -1,0 +1,111 @@
+# Cierre correctivo: decisión sobre `validate_only` audit
+
+## Correcciones a mi intervención anterior
+
+- `source_fingerprint` no lee cuerpos. Usa id, xmin y ctid.
+- `_scalar_paths` no serializa bytes ni str.
+- `checked_images` no lee S3. Quien lo hace es `audited_images`.
+- "19/20" eran pares, no bloques.
+- Retiro `gc.collect` entre iteraciones. Debe usarse la misma configuración de GC sin cambios.
+- Retiro el tracer junto a la medida de CPU. Se medirá `thread_time_ns`, y la memoria irá en una pasada separada.
+- Retiro el mínimo de 10⁴ casos de fuzz y la no-inferioridad del 1 %. Con 20 muestras eran umbrales arbitrarios.
+
+## Decisión finita
+
+**Hacer el experimento pequeño, sin bucle.** Se prueba una sola candidata semántica y, como máximo, una corrección por error del instrumento. Si no supera el gate, se cierra la ruta.
+
+Es adecuado sólo como prueba de hipótesis acotada, y la hipótesis es estrecha. La candidata conserva `pointer_value` y su deepcopy. Por tanto, el único ahorro posible es no emitir ni ensamblar contenedores aguas abajo. Si el coste lo domina el deepcopy o el miss de memo, lo esperable es un resultado nulo, y eso también es una respuesta válida.
+
+No propongo ahora una alternativa fullchain. Ni la del notebook ni la mía tienen hoy un objetivo medido que preserve los hashes frescos, los 7 SELECT, los snapshots, el orden, los errores y la attestation DDL.
+
+## Pseudocódigo mínimo
+
+```
+def _validate_selected_audit(doc, paths, ctx):
+    if ctx is None:
+        return ORDINARY(doc, paths, ctx)       # fallback idéntico, la candidata no participa
+    for p in ordered_dedup(paths):              # la MISMA función/orden que ordinary
+        tokens = parse_pointer(p)               # mismos escapes ~0/~1, índice ASCII canónico, out-of-range
+        _ = pointer_value(doc, tokens)          # misma llamada; su deepcopy interno se conserva
+                                                # resultado descartado; SIN segundo deepcopy
+        # excepciones propagan sin capturar: mismo tipo/mensaje/primer error
+    # memo: escribir exactamente lo que escribe ordinary o nada; nunca una entrada "validada sin contenedores"
+    return AUDIT_RESULT_SAME_SHAPE_AS_ORDINARY_WITHOUT_CONTAINERS
+```
+
+Restricciones:
+
+- Es una función privada, sin refactorizar la ruta ordinaria.
+- No hay caché de autoridad nueva, ni persistencia, ni servicios.
+- No se toca `compile_coverage`.
+
+## Contraejemplos que N1 debe incluir
+
+**Datos:**
+- Una tupla que contiene un dict. `pointer_value` sólo rechaza dict y list finales, no tuple. La candidata no puede rechazar ni aceptar distinto.
+- No asumir hojas inmutables.
+- `datetime` o tipos custom, que `reference_check` rechaza. Hay que comprobar su orden frente a un error de puntero.
+- Índices `01`, `-`, dígitos no ASCII y fuera de rango.
+- `~2` y escapes inválidos.
+- Paths duplicados cuyo primer error depende de la deduplicación.
+- Evidencia extra y caso granular.
+
+**Autoridad:**
+- Sentinel hit audit→nonaudit: una entrada de memo poblada por audit no debe servir a nonaudit con forma distinta.
+- Fallback sin contexto.
+
+**Alcance:**
+- Sólo el memo `row_reference` actual en proceso. El resultado no dice nada sobre una caché persistente restaurada, que queda fuera de alcance.
+
+## Gate y descarte
+
+1. **N1:** cero divergencias en resultado, tipo y mensaje de excepción, primer error, orden y estado del memo después de la llamada. Una sola divergencia descarta la candidata. Si la causa es el instrumento, se permite una única corrección.
+2. **Medida:** A/A con 20 pares de baseline caliente, y A/B con 20 pares intercalados en un orden contrabalanceado declarado de antemano. El "ABBA" del notebook era sólo alternancia A/B.
+   - Se mide wall y `thread_time_ns`, con el GC como está.
+   - La memoria va en otra pasada.
+   - No se lanza ningún otro benchmark en paralelo.
+3. **Regímenes:** memo caliente y memo frío (miss), ambos predeclarados. Ambos deben pasar, o se reportan los dos y se cierra. No se elige el favorable a posteriori.
+4. **Criterio de paso:** en cada régimen, ≥15/20 pares favorables tanto en wall como en CPU, y además 4 bloques predefinidos de 5 pares con delta positivo por encima de la dispersión A/A.
+5. **Después del gate:** N2 sólo si se pasa y la ruta ordinaria no se altera. Después, prueba de correctitud por HTTP.
+6. **Alcance del beneficio:** aunque pase, es un beneficio parcial. No es el camino hacia 1,753 s y no permite reclamar SLO ni p95.
+
+## ¿El 15/20 necesita supuestos explícitos sobre los relojes?
+
+Sí.
+
+- **Independencia:** 15/20 equivale a p≈0,021 en un test de signos unilateral, pero sólo si los pares son independientes y no hay empates.
+- **Resolución de `thread_time_ns`:** puede ser gruesa según kernel y clocksource. Hay que declarar los empates como desfavorables y reportar la tasa de empates.
+- **A/A de control:** el A/A debe dar unos 10/20. Si da 15/20 o más, el instrumento tiene sesgo de orden o deriva (frecuencia, térmica) y el A/B no vale.
+- **Wall y CPU correlacionados:** exigir ambos no son dos pruebas independientes.
+- **Magnitud:** 15/20 no mide cuánto se gana. La magnitud se decide sólo frente al ruido A/A.
+
+## Hechos, hipótesis y evidencia faltante
+
+**Hechos aportados:**
+- `reference_check` acepta tipos exactos.
+- `pointer_value` hace deepcopy y no rechaza tuple.
+- Hacer deepcopy de un str no duplica los 16 MiB.
+- El record de audit no convierte la proyección a JSON.
+
+**Hipótesis no medidas:**
+- Que emitir contenedores cueste algo apreciable (el notebook la niega sin medirla; yo no la afirmo).
+- Que el ahorro sobreviva al miss de memo.
+
+**Evidencia faltante:**
+- Reparto del coste entre deepcopy, ensamblaje y miss de memo.
+- Tasa real de acierto del memo en producción.
+- Granularidad del reloj de CPU en esta máquina.
+
+La regresión de 2→4 readers (+11,7 % en JSON, +18,1 % en binario) no informa sobre validate-only.
+
+## Investigación residual y lo que no sabemos
+
+- Si se descarta, la siguiente pregunta es de atribución, no de candidata: qué fracción de los 1,753 s corresponde a cada etapa de la cadena.
+- Sin esa medición, no hay un fullchain real que proponer. Hay que declarar que falta un candidato sólido.
+- La paginación, el inventario de API futura y el digest HMAC siguen siendo hipótesis pendientes:
+  - HMAC: falta probarlo y no se hereda.
+  - DDL, permisos y retención: sin resolver.
+
+No hay consenso con el notebook en la recomendación ni en el pseudocódigo. Sí coincidimos en mantener el error, el orden, el caso granular y el sentinel.
+
+Esto es una opinión, no un PASS ni una autorización.

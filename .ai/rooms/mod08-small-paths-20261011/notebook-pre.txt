@@ -1,0 +1,49 @@
+Nuevo goal usuario «continua con estas nuevas indicaciones»: bajarbeneficiomínimoparaencontrarsolución. Codexinterpreta aceptar mejoras pequeñas/milisegundos, no rebajar2s/5sni seguridad,frescura,auditoría,completitud ni evidencia. Primergoal cerrado sólodictamen; nueva autorizaciónjustificareabrirramacostemodesto. Máximo3ciclosfinito,4turnosexternosciclo; cambiar1variable.
+Hechos: originalA/A corpus1502rows/27163hojas,23msconjuntosrutas;4501punteros6ms/noahorro. Fixture1500revision/16MiBseleccionado,548eventos/256reads enclonescommits4reads8events. Compuerta20originalcontrols1workerTCPmed1556CPU877ms spreadTCP8.064%CPU11.824%,umbral10%:FAIL,no reinterpretar. GCgen2correlación77ms,no duraciónni causafactor2históricoprevio~800ms. Noencontradocandidatosgrandes. Ahora priorizar mejoraetapapurosin depender de compuertarequest;TCPbeneficiono demostrarpor microbenchmark.
+Código EXACTO ORIGINAL:
+def scalar_fields(value, prefix=''):
+ if isinstance(value,dict):
+  for key,child in value.items():
+   if not isinstance(key,str): raise ValidationError('Invalid portability object key')
+   escaped=key.replace('~','~0').replace('/','~1')
+   yield from scalar_fields(child,prefix+'/'+escaped)
+ elif isinstance(value,list):
+  for index,child in enumerate(value):
+   yield from scalar_fields(child,prefix+'/'+str(index))
+ elif prefix: yield {'path':prefix,'value':value}
+ else: raise ValidationError('Portability row requires an object or list')
+
+Únicoconsumidorproductivoquecambia apps/safety/rights_portability_coverage.py compile_coverage:
+for index,row in enumerate(SECTIONS[name](source)):
+ reference=row_reference(name,index,row)
+ paths={item['path'] for item in scalar_fields(row)}
+ selected=selectors.get(reference,set());missing=paths-selected
+ # restoautoridad/decisiones intactas
+Candidata mínima: nuevomóduloprivado rights_portability_paths.py `_scalar_paths` copiaalgoritmorecursivoexacto,únicocambio `elif prefix: yield prefix` envezdict;compile usa set(_scalar_paths(row)). Publicscalar_fields permanece intacta,no cambiar otrosconsumidores ni pointer_value ni límitesrecursiónni freezeGC.
+Justificación: compile sólolee leaf['path'], no valores. Eliminarasignacionesdictporhoja podría mejora parcial. Noasimila27163hojas=101755dicts ni garantiza ahorro.
+Planprevio Codex: pruebasdiferencialescontraoriginalorden/conjuntos/cantidadexcepcionesymomento, badkeys,dict/list/strsubclasses,tuplas/nonfinitefloat/root/prefix/escapes, objetoscustomitems, empty/deep/cyclic, mutacióndict/listmientrasconsume,send/close/throw yRecursionError. Nobenchmarkdeepcopy/punterosporqueintactos.
+Comparaciónpura en corpusREALmaterializado del fixture, fueraDB/servidor:20original20candidata intercaladoABBAx10,2warmups/variante,wall/threadCPU,GCno tocar,resultadosigualantes/después,GCstatsfuera,memoriacallocationsseparado/tracemallocNOtimed. Corpusancho256/profundo64/escapeadicional. No mínimoabsolutomsenaceptación;beneficiomicroreproducible yperfilordenno engaño, reportar4bloquescronológicos.
+N2 afectado conPGreal(familiascoverage/sourcechanges/revocations/idempotencia/purgaraces),másHTTP20porvarianteclonesidénticos usandoaliasconsumeroriginalfallbackenmodooriginalymodoactualcandidata,noautoridadomitida. MismaAPI/digests/freshchecks/commit.20x2=40HTTP+2warmupsmodounworker;prefijartimeout,no repetirporquererwin. Comparaciónmediana/colas/recurso:siCPUstagegana peroTCPno distinguibleruido sólo declarar mejoraETAPA, nodeclarargananciarequest;siempeorarequestconsistenterechazar. Noraise10%puerta
+CLAUDE OPINIÓN:
+# Crítica del plan para `_scalar_paths` (opinión, no PASS)
+
+**Semántica latente: no veo cambio funcional directo, aunque quedan riesgos.**
+
+- **Hecho del código:** `prefix` es siempre `str` base. Incluso con claves subclase de `str`, `replace` devuelve `str`. Por tanto el hash y la igualdad en el `set` coinciden. El original nunca lee `value`, así que valores inhashables o `nan` no alteran el resultado.
+- **Riesgo 1, deriva por duplicación:** si `scalar_fields` cambia (nueva validación o límite), `_scalar_paths` divergirá en silencio. El diferencial debe quedar permanente en CI, no ser una prueba de una sola vez. Conviene un test que compare ambos sobre un generador aleatorio de árboles (property-based) y otro que rompa si cambia el bytecode o el hash del fuente de `scalar_fields`.
+- **Riesgo 2, profundidad de recursión:** comprensión de conjunto frente a `set(gen)` puede desplazar en un frame el punto exacto del `RecursionError`, según la versión de CPython. La versión no consta: es evidencia faltante. Hay que probar en límite−1, límite y límite+1 con ambos consumidores reales, no sólo con los generadores.
+- **Riesgo 3, GC:** eliminar ~27k dicts por corrida cambia el conteo de asignaciones. Eso desplaza cuándo caen las colecciones gen0/1/2, no sólo cuánto cuestan. En HTTP podría mover una pausa gen2 a otra etapa. Ya existe la correlación de 77 ms, así que conviene registrar `gc.get_stats()` por bloque y no sólo al final.
+
+**Pruebas que faltan:**
+
+- Claves `str` con `~` y `/` combinados (`'~1'` frente a `'/'`) para confirmar que el escape es inyectivo en la salida.
+- Clave `''` (ruta `.../`).
+- Subclase de `dict` con `items()` que repite claves: el conjunto colapsa igual, pero hay que verificar el conteo previo.
+- Excepción lanzada desde `items()` a mitad de iteración, comparando el estado parcial del `set`.
+- `send`/`close`/`throw` aportan poco: el consumidor interno nunca los usa. Priorizaría lo anterior.
+
+**Diseño de medición:**
+
+- **Criterio no predeclarado:** "beneficio micro reproducible" sin regla abre caminos bifurcados. Antes de medir, fijar algo como: los 4 bloques a favor de la candidata, IC de la diferencia pareada que excluya 0, y reducción de asignaciones confirmada por tracemalloc.
+- **Potencia HTTP:** con spread TCP del 8 % sobre ~1556 ms, N=20 no detecta ahorros del orden de 1–3 ms. Esa magnitud es mi hipótesis: unos 27k dicts a ~50–100 ns. Las 40 peticiones sólo sirven como prueba de no-inferioridad. El margen de regresión aceptable debe 
+Codex: nueva funciónrecursivamínima mantiene orden/mutaciones/RecursionError,públicaintacta. Oráculo original y memoria medida por separado no mezclar tracemalloccon clocks.20original20variantpureABBAx10y20porvarianteTCPclonesidénticosnormalcommit. No descartarporpocosmsbajonuevoobjetivo; declararbeneficioetapa distinto aTCPsiinconcluyente. Revisa400palabrasmax,sin inventeahorro niumbrales. Losdiagnósticosdealias reconoceránnuevafunciónpara no contarcerofalsamente.

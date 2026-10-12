@@ -270,7 +270,7 @@ Centralizada restricción del gestor para versiones anteriores a rectificación 
 
 ### Historial en colas generales: entrega en verificación
 
-Clasificación SQL central compartida; candidatos y colas ordinarias excluyen historial/preparación. decide/resolve revalidan tras locks; lecturas recargan Photo antes de abrir bytes. Concurrencia3 correctas39.36s; batería45 anterior322.529s sin fallos, no cubre última guarda. Batería47 sesión46996 pendiente, Docker reconstruido/recreación64463 pendiente. No acepta CR09 ni retención/reintroducción/rehabilitación. [Detalle](/home/felidae/proyectos/web_modelos/docs/46-historial-colas-generales.md). Claude3/3; sin delegaciones. Contrato íntegro abierto.
+Clasificación SQL central compartida; candidatos y colas ordinarias excluyen historial/preparación. decide/resolve revalidan tras locks; lecturas recargan Photo antes de abrir bytes. Concurrencia3 correctas39.36s; batería45 anterior322.529s sin fallos, no cubre última guarda. Batería47 sesión46996 pendiente, Docker reconstruido/recreación64463 pendiente. No acepta CR09 ni retención/reintroducción/rehabilitación. [Detalle](../46-historial-colas-generales.md). Claude3/3; sin delegaciones. Contrato íntegro abierto.
 
 
 ### Historial en colas generales: verificación local parcial

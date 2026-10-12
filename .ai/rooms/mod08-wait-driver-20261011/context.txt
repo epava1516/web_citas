@@ -1,0 +1,161 @@
+CONTINUACION MOD08. Usuario acepta mejoras pequeñas, no rebajar frescura/seguridad/SLO. Quiero una candidata fundada en coste nuevo observado, no otra propuesta genérica. Codex ejecuta; revisores sin herramientas.
+Estado: mejora privada rutas conservada (20.391→17.589ms etapa, 126PASS). HTTP beneficio inconcluyente. Retiradas: memo autoridad/cadena, precargar cuerpos assessment mutables/purga, inline lector hashes SQL con cola p95 peor. No reutilizar esas vías.
+Diagnóstico NUEVO terminal runner20261011-153333-078ab072: 4PASS196.69s, 1290 hashes exactos, recursos propios retirados. PostgreSQL17 login runtime separado owner, HTTP real commit verificado, no SQLite, no proveedor real. Fixture1500revisiones/16MiB, historial548eventos256lecturas; cada clon termina556/260. Un worker sync, dos warmups control, controles y observados alternados4+4. Primer arnés sin ServerCursor incompleto preservado; única corrección incluyó Cursor y ServerCursor overrides. Sin cProfile, sin SQL nuevo, sin cambiar GC; GETresolver y conexión de clon previos, scope/install y close incluidos WSGI. Spans ContextVar por función y driver, exclusivos parent-minus-children. Execute/fetch incluyen servidor/red/adaptación/planificador: NO descomposición causal kernel. Pipeline.sync nativo psycopg PostgreSQL, no Redis. No pg_stat_activity, sin medición real bytes TCP. Fetchmany1500 revisiones confirmado. Kernel nativo validado en proceso pytest, no comprobación de identidad independiente por muestra worker en este nuevo arnés. No Caddy/RustFS/cuotas/topología contractual. Historico3.753s navegación NO comparable a estos requests1.6s.
+TCP ms control/observado y CPU WSGI ms:
+control TCP=1675.331 CPU=935.141
+profiled TCP=1563.075 CPU=857.328
+control TCP=1599.547 CPU=885.415
+profiled TCP=1591.386 CPU=870.175
+control TCP=1626.853 CPU=883.687
+profiled TCP=1738.898 CPU=993.994
+control TCP=1556.864 CPU=840.957
+profiled TCP=1631.956 CPU=921.892
+
+source.driver_execute: calls=[20, 20, 20, 20]; wall_ms=[52.636, 56.112, 56.393, 52.642]; cpu_ms=[21.311, 22.674, 22.144, 20.87]; exclusive_wall_ms=[52.636, 56.112, 56.393, 52.642]
+source.driver_fetchmany: calls=[25, 25, 25, 25]; wall_ms=[162.444, 175.59, 185.27, 154.767]; cpu_ms=[55.633, 58.704, 63.226, 51.238]; exclusive_wall_ms=[162.444, 175.59, 185.27, 154.767]
+source: calls=[1, 1, 1, 1]; wall_ms=[295.339, 321.572, 325.128, 285.799]; cpu_ms=[156.331, 169.078, 166.495, 149.465]; exclusive_wall_ms=[80.259, 89.87, 83.465, 78.39]
+runtime_trust: calls=[4, 4, 4, 4]; wall_ms=[36.66, 40.732, 37.811, 37.332]; cpu_ms=[8.634, 8.731, 7.94, 7.854]; exclusive_wall_ms=[1.814, 1.903, 1.76, 1.736]
+chain_sources.pipeline_sync: calls=[4, 4, 4, 4]; wall_ms=[73.503, 68.821, 70.713, 72.067]; cpu_ms=[2.353, 2.046, 2.265, 2.56]; exclusive_wall_ms=[73.503, 68.821, 70.713, 72.067]
+chain_sources: calls=[4, 4, 4, 4]; wall_ms=[79.928, 75.028, 77.461, 79.267]; cpu_ms=[7.252, 7.038, 7.463, 8.405]; exclusive_wall_ms=[2.845, 2.885, 3.07, 3.211]
+validate_chain: calls=[4, 4, 4, 4]; wall_ms=[140.827, 133.688, 140.271, 145.563]; cpu_ms=[26.839, 25.02, 26.448, 29.931]; exclusive_wall_ms=[3.689, 3.36, 3.626, 4.072]
+validate_assessment.driver_execute: calls=[8, 8, 8, 8]; wall_ms=[7.579, 6.902, 8.176, 8.678]; cpu_ms=[1.581, 1.319, 1.618, 1.729]; exclusive_wall_ms=[7.579, 6.902, 8.176, 8.678]
+validate_assessment.driver_fetchmany: calls=[16, 16, 16, 16]; wall_ms=[0.309, 0.278, 0.321, 0.329]; cpu_ms=[0.31, 0.278, 0.321, 0.329]; exclusive_wall_ms=[0.309, 0.278, 0.321, 0.329]
+validate_assessment: calls=[4, 4, 4, 4]; wall_ms=[197.817, 193.155, 199.662, 205.68]; cpu_ms=[49.7, 46.897, 49.394, 53.597]; exclusive_wall_ms=[12.126, 11.263, 12.772, 13.462]
+
+Opinión Codex: existe coste material en fetch source (155–185ms wall,51–63CPU) y pipeline cadena(69–74wall,2–3CPU), pero no demuestra redundancia. Consolidar latest/inspection sólo toca ~8ms SQL explícito de validate_assessment, no toda espera. No memoizar9catálogo ni7tablas ni mover validación fresca. Source servercursor por lotes mantiene memoria ORM acotada; cambiar a clientcursor o subir batch_size puede perder esa garantía. JOINs geográficos traen columnas más allá de code; reducir sólo columnas que jamás consumimos sin cambiar instantánea/punto/bloqueos puede ser candidata pequeña, pero aún sin coste aislado. Catálogo model construction previo ~5ms, no asignar a estos fetch165ms ese coste. Si no hay candidata justificable, pedir UNA medición adicional finita de incertidumbre concreta, no instrumentar todo ni prometer2s.
+Código real:
+def source_copy(person, listing, case=None):
+    if case and case.account_subject_id:
+        from .rights_account_copy import source
+
+        return source(case)
+    # Same account lock as preference writers; held through snapshot generation.
+    if person.subject_id:
+        User.objects.select_for_update(no_key=True).get(pk=person.subject_id)
+    revisions = []
+    if listing:
+        # Profile lock prevents a cooperating editor adding another revision mid-copy.
+        records = (
+            listing.revisions.select_for_update(of=("self",))
+            # Generated search vectors can exceed the source text; copies never use them.
+            .defer("search_document")
+            .select_related("municipality", "postal_code", "zone")
+            .order_by("created_at", "pk")
+        )
+        from .rights_copy_revision_batches import batches
+
+        for revision in batches(records, COPY_REVISION_BATCH_SIZE):
+            revisions.append(
+                {
+                    "revision": str(revision.pk),
+                    "status": revision.status,
+                    "created_at": revision.created_at.isoformat(),
+                    "title": revision.title,
+                    "description": revision.description,
+                    "description_alternative": revision.description_alternative,
+                    "profile_type": revision.profile_type,
+                    "content_language": revision.content_language,
+                    "categories": [item.slug for item in revision.copy_categories],
+                    "services": [item.slug for item in revision.copy_services],
+                    "municipality": revision.municipality.code
+                    if revision.municipality_id
+                    else None,
+                    "postal_code": revision.postal_code.code if revision.postal_code_id else None,
+                    "zone": revision.zone.code if revision.zone_id else None,
+                    "travel_areas": [item.code for item in revision.copy_travel_areas],
+                    "spoken_languages": revision.spoken_languages,
+                    "days": revision.days,
+                    "time_slot": revision.time_slot,
+                    "reception": revision.reception,
+                    "travel": revision.travel,
+                    "contacts": contact_data(person, revision),
+                    "images": image_inventory(revision),
+                    "rates": [
+                        {
+                            "concept": rate.concept,
+                            "mode": rate.mode,
+                            "amount": str(rate.amount) if rate.amount is not None else None,
+                            "currency": rate.currency,
+                            "duration_minutes": rate.duration_minutes,
+                        }
+                        for rate in revision.copy_rates
+                    ],
+                }
+            )
+    subject = subject_data(person)
+    return {
+        "schema": "subject-profile-copy-v2",
+        "partial": True,
+        "simulation": True,
+        "pending_review": [
+            "image_content",
+            "shared_contacts",
+            "additional_rights_information",
+            *([] if subject["subject_account"] else ["unlinked_subject_account"]),
+        ],
+        **subject,
+        "profile": {
+            "alias": person.alias,
+            "created_at": person.created_at.isoformat(),
+            "listing": {
+                "reference": str(listing.pk),
+                "status": listing.status,
+                "created_at": listing.created_at.isoformat(),
+                "published_at": listing.published_at.isoformat() if listing.published_at else None,
+                "expires_at": listing.expires_at.isoformat() if listing.expires_at else None,
+                "available_until": listing.available_until.isoformat()
+                if listing.available_until
+                else None,
+                "approved_revision": str(listing.approved_revision_id)
+                if listing.approved_revision_id
+                else None,
+            }
+            if listing
+            else None,
+        },
+        "revisions": revisions,
+    }
+
+
+@sensitive_variables()
+def reviewed_copy(source, value):
+    # JSONField accepts objects directly and rejects inv
+"""Exact PostgreSQL UUID batches for locked copy rows and their relations."""
+
+from itertools import islice
+
+from django.db.models import F
+from django.db.models.expressions import RawSQL
+
+from apps.catalog.models import Category, Municipality, Service
+from apps.listings.models import Rate
+from apps.mediafiles.models import Photo
+
+
+def batches(records, size):
+    rows = records.iterator(chunk_size=size)
+    while batch := list(islice(rows, size)):
+        # IDs originate in the locked revision cursor; no SQL text interpolation.
+        ids = RawSQL("SELECT unnest(%s::uuid[])", [[row.pk for row in batch]])
+        specs = [
+            ("copy_categories", Category.objects.order_by("slug"), "revision__pk"),
+            ("copy_services", Service.objects.order_by("slug"), "revision__pk"),
+            ("copy_travel_areas", Municipality.objects.order_by("code"), "travel_revisions__pk"),
+            ("copy_rates", Rate.objects.order_by("pk"), "revision_id"),
+            ("copy_photos", Photo.objects.select_related("blob").order_by("created_at", "pk"), "revision_id"),
+        ]
+        for attribute, queryset, relation in specs:
+            grouped = {row.pk: [] for row in batch}
+            for item in queryset.filter(**{relation + "__in": ids}).annotate(copy_parent=F(relation)):
+                grouped[item.copy_parent].append(item)
+            for row in batch:
+                setattr(row, attribute, grouped[row.pk])
+        yield from batch
+
+def _source_rows_pipeline(statements, raw):
+    from contextlib import ExitStack
+
+    actual = {}
+    # Same drain/translation ordering as the validation-seal replay pipeline.
+    # Results are fully consumed in tab
+RESPONDE conciso: (1) qué coste queda localizado sin inferir red/locks; (2) UNA candidata segura con función/statement exacto, trabajo evitado y contraejemplo de frescura/memoria, o ninguna; (3) experimento mínimo/control/criterio rechazo sin cifras de ahorro inventadas. No aceptar SQL directo por wall-CPU ni cambiar objetivos/recursos. Si sugieres narrow only/defer de relaciones requiere enumerar accesos transitivos y asegurar cero lazy-load adicional.

@@ -91,6 +91,17 @@ def test_invalid_launcher_flags_stop_before_output_or_docker(modules, monkeypatc
     assert error.value.code == 2
 
 
+@pytest.mark.parametrize('mode', ['--preflight-only', '--delivery-complete', '--control'])
+def test_native_profiler_cannot_enter_acceptance_or_preflight(modules, tmp_path, mode):
+    binary = tmp_path / 'profiler'
+    binary.write_text('#!/bin/sh\nexit 0\n')
+    binary.chmod(0o700)
+    with pytest.raises(SystemExit) as error:
+        modules[0].parse_options(['--owned-controller', '--object-delivery', mode,
+                                 '--native-profile', str(binary)])
+    assert error.value.code == 2
+
+
 @pytest.mark.parametrize("objects", [False, True])
 def test_normal_and_recovery_inventory_names_all_own_resources(modules, objects):
     _, launcher = modules

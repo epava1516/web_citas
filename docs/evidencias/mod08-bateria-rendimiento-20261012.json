@@ -1,0 +1,71 @@
+{
+  "run": "20261011-232221-3fc0bca2",
+  "result": "DELIVERY_STAGES_PASS_NOT_GLOBAL_CAPACITY_OR_N3",
+  "cases": [
+    {
+      "success": true,
+      "coverage_page_read_p95": 1.57668238900078,
+      "json_download_p95": 4.163148228995851,
+      "binary_download_p95": 3.9913350450005964
+    },
+    {
+      "success": true,
+      "coverage_page_read_p95": 1.572830598001019,
+      "json_download_p95": 4.117723577001016,
+      "binary_download_p95": 3.9979334859963274
+    }
+  ],
+  "errors": [],
+  "duration_seconds": 903.803,
+  "energy_start": {
+    "timestamp": "2026-10-11T23:22:29.642349+00:00",
+    "profile": "performance",
+    "battery_aware": "Dynamic changes from charger and battery events: False",
+    "sysfs": {
+      "/sys/class/power_supply/AC0/online": "0",
+      "/sys/class/power_supply/BAT0/capacity": "49",
+      "/sys/class/power_supply/BAT0/status": "Discharging",
+      "/sys/firmware/acpi/platform_profile": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy11/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy8/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy6/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy4/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy2/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy0/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy9/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy10/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy7/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy5/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy3/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy1/energy_performance_preference": "performance"
+    }
+  },
+  "energy_end": {
+    "timestamp": "2026-10-11T23:39:25.301947+00:00",
+    "profile": "performance",
+    "battery_aware": "Dynamic changes from charger and battery events: False",
+    "sysfs": {
+      "/sys/class/power_supply/AC0/online": "0",
+      "/sys/class/power_supply/BAT0/capacity": "28",
+      "/sys/class/power_supply/BAT0/status": "Discharging",
+      "/sys/firmware/acpi/platform_profile": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy11/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy8/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy6/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy4/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy2/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy0/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy9/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy10/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy7/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy5/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy3/energy_performance_preference": "performance",
+      "/sys/devices/system/cpu/cpufreq/policy1/energy_performance_preference": "performance"
+    }
+  },
+  "limitations": [
+    "Una ejecución; no comparación emparejada contra ahorro energético",
+    "Perfil configurado no garantiza frecuencia constante",
+    "Aceptación sólo de etapas locales"
+  ]
+}

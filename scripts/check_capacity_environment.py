@@ -100,7 +100,19 @@ def parse_options(argv=None):
     parser.add_argument("--diagnostic-baseline-capture", action="store_true")
     parser.add_argument("--diagnostic-baseline-use", type=Path)
     parser.add_argument("--diagnostic-baseline-key", type=Path)
+    parser.add_argument("--native-profile", type=Path,
+                        help="Test-only py-spy binary; native sampling plus owned PG statistics")
+    parser.add_argument("--native-probe-only", action="store_true",
+                        help="Only verify native instrumentation and reconnects; never capacity")
     args = parser.parse_args(argv)
+    if args.native_probe_only and not args.native_profile:
+        parser.error("Native probe requires the explicit native diagnostic mode")
+    if args.native_profile:
+        if not (args.owned_controller and args.delivery_profile_full):
+            parser.error("Native profiling requires owned full diagnostic mode; never acceptance")
+        args.native_profile = args.native_profile.resolve()
+        if not args.native_profile.is_file() or not os.access(args.native_profile, os.X_OK):
+            parser.error("Native profiler must be an executable regular file")
     baseline = args.diagnostic_baseline_capture or args.diagnostic_baseline_use
     if baseline:
         if (args.diagnostic_baseline_capture and args.diagnostic_baseline_use
@@ -373,7 +385,10 @@ def main():
              "-e", "POSTGRES_USER=ci", "-e", "POSTGRES_PASSWORD=ci-synthetic",
              "-e", "POSTGRES_DB=capacity_ci"],
             ["postgres", "-c", "logging_collector=on", "-c", "log_directory=/tmp",
-             "-c", "log_filename=postgresql.log", "-c", "log_rotation_size=0"] if args.owned_controller else [],
+             "-c", "log_filename=postgresql.log", "-c", "log_rotation_size=0",
+             *(["-c", "shared_preload_libraries=pg_stat_statements",
+                "-c", "pg_stat_statements.track=all", "-c", "track_io_timing=on"]
+               if args.native_profile else [])] if args.owned_controller else [],
         )
         container("redis", "redis:7.4-alpine",
                   ["--tmpfs", "/data:size=16777216,uid=999,gid=1000",
@@ -420,13 +435,15 @@ def main():
                        "exec /tmp/caddy-runtime run --config /tmp/Caddyfile --adapter caddyfile "
                        "> /tmp/caddy.log 2>&1"])
         baseline_mounts = []
+        if args.native_profile:
+            baseline_mounts += ["--mount", f"type=bind,src={args.native_profile},dst=/opt/diagnostic-py-spy,readonly"]
         if args.diagnostic_baseline_key:
             baseline_mounts += ["--mount", f"type=bind,src={args.diagnostic_baseline_key},dst={args.diagnostic_baseline_key},readonly"]
         if args.diagnostic_baseline_use:
             baseline_mounts += ["--mount", f"type=bind,src={args.diagnostic_baseline_use},dst={args.diagnostic_baseline_use},readonly"]
         app = container(
             "app", "web-modelos-app:latest",
-            ["--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges",
+            ["--init", "--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges",
              "--user", f"{os.getuid()}:{os.getgid()}", "--workdir", str(ROOT),
              "--mount", f"type=bind,src={ROOT},dst={ROOT},readonly",
              "--mount", f"type=bind,src={python_root},dst={python_root},readonly",
@@ -520,6 +537,7 @@ def main():
                 f"CAPACITY_BASELINE_CAPTURE = {args.diagnostic_baseline_capture!r}\n"
                 f"CAPACITY_BASELINE_INPUT = {str(args.diagnostic_baseline_use or '')!r}\n"
                 f"CAPACITY_BASELINE_KEY = {str(args.diagnostic_baseline_key or '')!r}\n"
+                f"CAPACITY_NATIVE_PROFILE = {bool(args.native_profile)!r}\n"
                 f"CAPACITY_PREFLIGHT_ONLY = {args.preflight_only!r}\n"
                 f"CAPACITY_OBJECT_DELIVERY = {args.object_delivery!r}\n"
                 "MEDIA_ROOT = '/tmp/capacity-media'\n"
@@ -542,6 +560,7 @@ def main():
                  "-o", "DJANGO_SETTINGS_MODULE=capacity_settings", "-o", "junit_family=xunit1",
                  "-p", "no:cacheprovider", "--basetemp=/tmp/capacity-pytest",
                  "--junitxml=/tmp/capacity-control.xml",
+                 "tests/test_capacity_native_probe.py" if args.native_probe_only else
                  "tests/test_capacity_object_preflight.py" if args.preflight_only else
                  "tests/test_capacity_delivery_complete.py" if args.delivery_complete else
                  "tests/test_capacity_source_profile.py" if args.source_profile else
@@ -622,9 +641,15 @@ def main():
                 if args.source_profile:
                     if not json.loads(properties.get("source_profile", "{}")).get("source_copy"):
                         raise RuntimeError("Requested source profile missing: INVALID instrument")
+                elif args.native_probe_only:
+                    if not json.loads(properties.get("native_probe", "{}")).get("reconnect_verified"):
+                        raise RuntimeError("Native reconnect probe evidence missing")
                 elif not json.loads(properties.get("delivery_profile", "{}")).get("server_profiles"):
                     raise RuntimeError("Requested stage profiles missing: INVALID instrument")
                 report["result"] = "PROFILE_DIAGNOSTIC_NOT_CAPACITY"
+                if args.native_probe_only:
+                    report["result"] = "NATIVE_INSTRUMENT_PROBE_NOT_CAPACITY"
+                    report["scope"] = "Own restricted-role PG reconnects and native sampling only; no target workload or capacity acceptance."
                 if args.diagnostic_baseline_capture:
                     captured = json.loads(properties.get("diagnostic_baseline", "{}"))
                     if captured.get("event") != "BASELINE_CAPTURED_DIAGNOSTIC_ONLY":
@@ -801,7 +826,7 @@ def main():
             sink.close()
     print(json.dumps({"result": report["result"], "evidence": str(output)}))
     return 0 if report["result"] in {"READY_NOT_CAPACITY", "CONTROL_PASS_NOT_TARGET_CAPACITY", "FIXTURE_VALID_NOT_CAPACITY", "SELECTION_TCP_PASS_NOT_FULL_CAPACITY", "DELIVERY_STAGES_PASS_NOT_GLOBAL_CAPACITY_OR_N3",
-                                               "PROFILE_DIAGNOSTIC_NOT_CAPACITY"} else 1
+                                               "PROFILE_DIAGNOSTIC_NOT_CAPACITY", "NATIVE_INSTRUMENT_PROBE_NOT_CAPACITY"} else 1
 
 
 if __name__ == "__main__":

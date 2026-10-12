@@ -33,6 +33,65 @@ def outputs(monkeypatch):
     return saved
 
 
+@pytest.mark.parametrize('close_failure', [False, True])
+@pytest.mark.parametrize('stage', ['json_download', 'coverage_page_read'])
+def test_native_mode_avoids_old_profile_hooks_and_preserves_close(monkeypatch, close_failure, stage):
+    import capacity_native_profile
+
+    error = ValueError('native-mode original close failure')
+    response = Response(close_error=error if close_failure else None)
+    order = []
+
+    @contextmanager
+    def capture(stage):
+        order.append('enter')
+        try:
+            yield
+        finally:
+            assert response.closed
+            order.append('leave')
+
+    monkeypatch.setattr(wrapper.settings, 'CAPACITY_NATIVE_PROFILE', True, raising=False)
+    monkeypatch.setattr(capacity_native_profile, 'capture', capture)
+    monkeypatch.setattr(wrapper.cProfile, 'Profile', lambda: pytest.fail('cProfile installed'))
+    monkeypatch.setattr(wrapper, 'scope', lambda: pytest.fail('worker hooks installed'))
+    monkeypatch.setattr(wrapper, 'phase_scope', lambda **kwargs: pytest.fail('phase hooks installed'))
+    monkeypatch.setattr(wrapper, 'observe', lambda *args, **kwargs: pytest.fail('request observer installed'))
+    monkeypatch.setattr(wrapper, 'original', lambda environ, start: response)
+    saved = outputs(monkeypatch)
+    operation = wrapper.application({'HTTP_X_CAPACITY_PROFILE': stage,
+                                     'HTTP_X_CAPACITY_LISTING_SAMPLE': '1'}, lambda *args: None)
+    if close_failure:
+        with pytest.raises(ValueError) as caught:
+            list(operation)
+        assert caught.value is error
+    else:
+        assert list(operation) == [b'original body']
+    assert order == ['enter', 'leave']
+    assert len(saved) == 1 and 'cProfile and worker profile hooks disabled' in next(iter(saved.values()))
+
+
+@pytest.mark.parametrize('close_failure', [False, True])
+def test_native_controls_have_no_in_process_observers(monkeypatch, close_failure):
+    error = ValueError('control close failure')
+    response = Response(close_error=error if close_failure else None)
+    monkeypatch.setattr(wrapper.settings, 'CAPACITY_NATIVE_PROFILE', True, raising=False)
+    monkeypatch.setattr(wrapper, 'original', lambda environ, start: response)
+    monkeypatch.setattr(wrapper, 'observe', lambda *args, **kwargs: pytest.fail('request observer installed'))
+    monkeypatch.setattr(wrapper, 'phase_scope', lambda **kwargs: pytest.fail('phase hooks installed'))
+    monkeypatch.setattr(wrapper, 'scope', lambda: pytest.fail('worker hooks installed'))
+    monkeypatch.setattr(wrapper.cProfile, 'Profile', lambda: pytest.fail('cProfile installed'))
+    saved = outputs(monkeypatch)
+    operation = wrapper.application({'HTTP_X_CAPACITY_LISTING_SAMPLE': '1'}, lambda *args: None)
+    if close_failure:
+        with pytest.raises(ValueError) as caught:
+            list(operation)
+        assert caught.value is error
+    else:
+        assert list(operation) == [b'original body']
+    assert response.closed and saved == {}
+
+
 @pytest.mark.parametrize('marker', ['', 'bad-marker!', 'a' * 41])
 def test_unmarked_or_invalid_request_never_installs_worker_scope(monkeypatch, marker):
     response = Response()

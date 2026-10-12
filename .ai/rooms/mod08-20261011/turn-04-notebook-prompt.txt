@@ -1,0 +1,117 @@
+Sala técnica local. Opina sólo sobre el contexto suministrado. Sin herramientas, ediciones ni ejecución. Distingue hechos medidos, hipótesis y evidencia faltante. Las intervenciones son opiniones, nunca PASS ni autorización. No cachear autoridad, omitir comprobaciones frescas ni extrapolar microbenchmarks a p95 contractual. Propón una decisión finita y señala contraejemplos. Máximo 900 palabras.
+
+Cierre de la sala, Codex modera. Abajo respuesta íntegraClaude2 y códigoexactopointer_value actual. Contrástalos y rectifica tuserrores anteriores; NO iniciar pruebas ni generarpatch. Máx650palabras.
+Correcciones propias:
+1. Claude2 dice pointer_value.deepcopy noverificado porfalta códigoenesta ronda. Round1 recibió códigoexacto, Round2 es invocaciónindependiente sinhistorialpropio yteníaelresumen. Codex síverificó código: return deepcopy(value), serepiteabajo. No confundir falta decontextodeunturno confalta defuente.
+2. Coincido que cProfile147ms y101755 no proporcionahojas/dicts ni ahorro. Tu último generadorpaths NOevitaría101755dicts probados. Corrigeesaafirmación, elumbral70%,5sitios(Losrg6archivos8externos),LIFO/FIFO y parse-memo-frescura: decoderpuroruta noreutilizavalor ydebeestarcotado/erroresenpuntoactual; diferidoporcosteno medido, nomutaciónfila.
+3. No haycota rigurosa quepueda restarse alcosteconsumidor: controles sóloobservan cambio/rangosdeintrusión, no overheadcausal porfase. No descontar diferencia controlinstrumentada, ni presentarcuota exactadeCPUtraversal. Usartimerswall+threadCPU pocos yperímetrosclaros condescuento hijosobservados si anidados; noenvolver creación generadoro cada next para prétender precisión. Comenzar consumidoresactivoscompile_coverage,coverage_page/required_pages si realmenteejecutan, registrar ceros. Nada de cambiar8call sites sinrastreoprevio.
+4. Guardar corpusvíaJSON alteratuplas/subclases/hojas; fixturefuenteJSONpuededumpconcomprobacióntipoequivalente, casosAPIbordes construir/reconstruirenmemoria fuera tiempo, no normalizarlos paraeliminarcontraejemplos.
+5. No comparar valorabsolutoconsumidor frente ruidoTCPpara atribuirahorro; baselinepurecorpus mide coste base, luego una variante necesita diferencial A/A vsA/B comparable, noigualdad simple dep95frágilN20. Observaciones8msinline ruidosas,sinestimar savingsesperadas; p95nearest-rank20 esdato experimentalfrágil,no afirmación robustacolacontractual.
+Plan Codexpropuesto para siguiente tarea (noejecutadoporcrear sala): una campaña diagnóstica finita condescripciónfuente/perímetros; conteo estructuralpasada separada yúnico control-instrumentada-control en clonesmismohistorial con2workerswarm, pocosspansporconsumidor, GCfuera timer; corpus representativocongelado másbordes; microbench baselinepuro A/A alternado número fijo prefijado para caracterizar costeyruido (sin varianteproductiva). Sólo preparar candidate privada rutas si patrón de coste repetible yconsumidorpaths-only verificado. Iterativopúblico/cacheautoridad/rewriteORM/deepcopyeliminación quedanfuera. Ningún corte70%,msinventados. Abandono diagnóstico: instrumentaciónnointerpretable frentecontroles oausenciadecosterelevante enfixture; conclusiónno concluyente tambiénválida. Siaparecesignal desarrollar equivalencia completa+microABBA+HTTP20/varianteclonesconcontroles antesadopción en tarea posterior; no reanudar89min/contractual.
+Pregunta final: ¿Aceptas esteplan corregido? Señala contraejemplos restantes y diferencias de opinión deClaude2; devuelve decisión condicionada, sin asegurarrendimiento. El cierre lo verificaCodex, consenso noesPASS.
+
+Código verificado:
+def pointer_value(row, path):
+    if not isinstance(path, str) or not path.startswith("/") or len(path) > 500:
+        raise ValidationError("Invalid portability field path")
+    value = row
+    for segment in path[1:].split("/"):
+        # RFC6901 escape sequences; reject malformed aliases.
+        escaped = segment.replace("~1", "").replace("~0", "")
+        if "~" in escaped:
+            raise ValidationError("Invalid portability field escape")
+        key = segment.replace("~1", "/").replace("~0", "~")
+        if isinstance(value, dict) and key in value:
+            value = value[key]
+        elif (
+            isinstance(value, list)
+            and key.isascii()
+            and key.isdecimal()
+            and str(int(key)) == key
+            and int(key) < len(value)
+        ):
+            value = value[int(key)]
+        else:
+            raise ValidationError("Portability field unavailable")
+    if isinstance(value, (dict, list)):
+        raise ValidationError("Select individual portability fields")
+    return deepcopy(value)
+Claude ronda2 completa:
+# Revisión ronda 2 MOD08 (opinión, no PASS)
+
+## Hechos que acepto tal como se suministran
+- Perfil guardado: sólo los 100 mayores `getstats`, sin callergraph. No hay atribución por llamador recuperable.
+- `scalar_fields`: 101755 entradas o reanudaciones (72978 recursivas). cProfile cuenta cada reanudación del generador. **No se puede derivar de ahí el número de hojas ni de diccionarios.** Tampoco vale la resta 101755−72978: no da hojas.
+- Intrusión del perfil: control unos 800 ms frente a perfilada unos 1880 ms. Los 240 ms de `compile_coverage` y los 147 ms de `scalar_fields` son cifras perfiladas. **No se pueden escalar a coste real.**
+
+## Errores de NotebookLM (coincido con Codex)
+1. Dice que se crean "101755 diccionarios". Es falso por la razón anterior.
+2. Dice que un wrapper con `perf_counter_ns` da una "distribución exacta". Es falso: envolver la llamada mide la creación del generador, y envolver cada `next` añade distorsión.
+3. Dice que "`pointer_value` ejecuta `deepcopy` en cada extracción". **No aparece en el contexto suministrado.** Es una afirmación no verificada y no debe circular como hecho.
+4. Habla de "5 sitios". Codex reporta 6 archivos, 8 sitios externos y 2 llamadas internas. Además, aparecer en `rg` no implica estar activo en inspect_batch.
+5. Confunde LIFO/FIFO con el orden real del recorrido. Además, sus "70%" y "10 ejecuciones" son inventados.
+6. Matiz sobre el rechazo de inline: un p95 calculado sobre 20 muestras es casi un máximo y es frágil. El rechazo sigue siendo válido porque las medianas tampoco daban margen claro, pero no conviene citar "degradó p95" como hecho robusto.
+
+## Matices a Codex
+- **Timers por consumidor.** Los perímetros deben ser **no solapados**, o hay que contabilizar la exclusividad. Si un consumidor llama a otro instrumentado, se cuenta dos veces. También hay que fijar qué reloj CPU se usa (`thread_time` por worker sync) y mantenerlo igual en todas las variantes.
+- **GC.** Dejar de crear diccionarios por hoja cambia la presión de gen0. Conviene registrar los conteos de colecciones antes y después de cada muestra, fuera del cronometraje, como covariable. Si no, un efecto GC se atribuirá al recorrido.
+- **Memo de segmentos.** Codex tiene razón: no lo invalida la mutación de fila. Pero tiene objeciones propias: crecimiento sin cota, y no cachear excepciones o, si se cachean, reemitir el mismo tipo, mensaje y orden. Sigue diferida, por esa razón y no por frescura.
+- **Generador privado de rutas.** Puede tener exactamente la misma profundidad de frames si replica la estructura de la recursión. Que la cambie es una hipótesis que hay que verificar, no un hecho. `reference_check` (profundidad >200) no acota el dominio de `scalar_fields`.
+
+## Respuesta: ¿diagnóstico de consumidores y corpus antes de candidato?
+Sí, pero en **una sola campaña finita**. Hoy no sabemos si `compile_coverage` es el consumidor dominante sin perfilador, ni si el recorrido supera el ruido A/A del request.
+
+## Plan mínimo verificable
+
+**Fase 0. Preparación (sin cronometrar)**
+- Mismo HEAD, clones idénticos, fixture verificado y workers calientes.
+- Una pasada **sólo de conteo**: invocaciones por sitio activo, hojas producidas y profundidad máxima por consumidor. Esa pasada se descarta para tiempos.
+- Materializar en ese momento las entradas reales de cada consumidor activo y serializarlas.
+
+**Fase 1. Atribución por consumidor**
+- Build diagnóstico, nunca producto.
+- Pocos timers de wall y CPU en perímetros no solapados de los consumidores activos, más el total del request.
+- Intercalar control/instrumentada en ABBA para acotar la intrusión.
+- El número de muestras se fija antes de empezar y se declara como decisión de diseño. Repetir 20 por variante facilita comparar con la campaña de inline.
+- Incluir conteos GC y errores antes y después.
+
+**Fase 2. Corpus y microbenchmark (complemento, no inferencia del request)**
+- Corpus materializado más corpus de bordes:
+  - estructuras vacías;
+  - claves no str;
+  - claves con `~` y `/`;
+  - bool frente a int y floats no finitos;
+  - tuplas;
+  - subclases de dict y str;
+  - profundidad cerca del límite de recursión;
+  - mutación durante el yield, `close` y `throw`;
+  - un ancho y un profundo.
+- Medir el **coste base** de `scalar_fields` consumido sólo por rutas sobre el corpus materializado, para comprobar su orden frente al timer del consumidor de la Fase 1.
+
+## Condición de salida
+La campaña termina cuando hay una tabla con:
+- cuota por consumidor, con la cota de intrusión;
+- conteos estructurales;
+- ruido A/A del request de la misma campaña;
+- coste base en el corpus.
+
+Sin parche.
+
+## Decisión y criterio de abandono
+- Sólo se abre un candidato (ruta privada en el consumidor dominante) si se cumplen las dos condiciones:
+  - el coste de ese consumidor, descontada la cota de intrusión, es **distinguible del ruido A/A medido** en esta campaña;
+  - ese consumidor no usa `value` en ninguna parte, verificado en el código.
+- **Se abandona la línea de recorrido** si:
+  - la intrusión acotada es comparable al coste medido;
+  - o el consumidor no es distinguible del A/A;
+  - o los conteos muestran que el escenario apenas ejecuta ese sitio.
+- `pointer_value` se evalúa sólo con su propia fila en la misma tabla.
+- El iterativo, la caché global y el código nativo quedan fuera.
+- Cualquier candidato posterior exige:
+  - equivalencia de tipos, mensajes y orden del primer error en todo el corpus;
+  - HTTP en clones ABBA con 20 por variante.
+
+Aun así, no constituye aceptación contractual: el p95 de 383 lotes y las descargas de 5 s siguen sin medir.
+
+## Límites
+No he visto el código de `pointer_value`, `compile_coverage` ni los sitios activos. Nada de esto sustituye a la medición.

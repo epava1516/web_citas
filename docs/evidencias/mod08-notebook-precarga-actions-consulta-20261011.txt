@@ -1,0 +1,60 @@
+Revisión técnica MOD08. No implementes ni presupongas seguridad o ahorros. La candidata es añadir SOLO selection_review__selection__action al select_related de inspect_page, manteniendo lecturas frescas User, latest, head/trust y assessment en sus puntos actuales. Responde en español con evidencia y distingue hechos/hipótesis.
+1. ¿Impide el SQL real modificar payload_digest/encrypted_reason de RightsAction? Analiza el test adjunto que explícitamente permite esa mutación y mantiene válido el ChainTicket.
+2. Construye un intercalado READ COMMITTED concreto que compare lectura lazy actual de selection.action con JOIN adelantado. ¿Puede ocultar una corrupción posterior? Identifica el punto de cada validación, objetos independientes en record y alcance real de bloqueos. No asumas que firmas auténticas prueban vigencia.
+3. Dictamina si la candidata conserva exactamente las garantías actuales. Si falta evidencia señala funciones concretas, no inventes un trigger append-only para RightsAction. Propón diagnóstico finito seguro sin cache de autoridad ni nuevas garantías de lock. No propongas implementación productiva sin demostrar equivalencia.
+4. Si no hay optimización justificable dilo explícitamente. No atribuyas automáticamente diferencias wall/CPU a red.
+Estos fragmentos locales prevalecen sobre resúmenes de fuentes del notebook. No se han ejecutado pruebas nuevas; el texto del test es evidencia de diseño, no un resultado de ejecución nuevo.
+
+SQL real:
+CREATE FUNCTION public.rights_evidence_action_scope_guard() RETURNS trigger
+LANGUAGE plpgsql SET search_path = pg_catalog, public AS $$
+DECLARE owner_name text; source_name text; linked boolean;
+BEGIN
+ IF ROW(NEW.request_id,NEW.actor_id,NEW.operation,NEW.expected_version,NEW.key)
+ IS NOT DISTINCT FROM ROW(OLD.request_id,OLD.actor_id,OLD.operation,OLD.expected_version,OLD.key)
+ THEN RETURN NEW; END IF;
+ SELECT pg_get_userbyid(relowner) INTO owner_name FROM pg_class WHERE oid=TG_RELID;
+ IF current_user=owner_name THEN RETURN NEW; END IF;
+ FOREACH source_name IN ARRAY ARRAY[
+  'safety_rightsportabilityread','safety_rightsportabilityreview',
+  'safety_rightsportabilityselectionread','safety_rightsportabilityselectionreview',
+  'safety_rightsportabilityimageread','safety_rightsportabilitycoverageread',
+  'safety_rightsportabilitycoveragereview'] LOOP
+  EXECUTE format('SELECT EXISTS(SELECT 1 FROM public.%I WHERE action_id=$1)',source_name)
+  INTO linked USING OLD.id;
+  IF linked THEN
+   RAISE EXCEPTION 'Immutable rights evidence action scope cannot change' USING ERRCODE='42501';
+  END IF;
+ END LOOP;
+ RETURN NEW;
+END $$;
+
+TEST real (no nueva ejecución):
+def test_runtime_cannot_move_parent_action_scope_but_payload_remains_mutable(base, runtime, field):
+    case, _, _, _, rows = base
+    ticket = validate_chain(case)
+    actor = User.objects.create(
+        username="synthetic-other-chain-actor", email="other-chain-actor@example.invalid"
+    )
+    action = rows[0].action
+    changes = {
+        "request_id": uuid4(),
+        "actor_id": actor.pk,
+        "operation": "changed",
+        "expected_version": 999,
+        "key": uuid4(),
+    }
+    set_role(runtime)
+    with pytest.raises(DatabaseError, match="action scope"), transaction.atomic():
+        RightsAction.objects.filter(pk=action.pk).update(**{field: changes[field]})
+    RightsAction.objects.filter(pk=action.pk).update(
+        payload_digest="0" * 64, encrypted_reason="synthetic changed payload"
+    )
+    assert validate_chain(case, ticket=ticket) == ticket
+    action.refresh_from_db()
+    assert action.payload_digest == "0" * 64
+    assert action.request_id == case.pk
+
+
+
+Contexto: inspect_page carga coverage con select_for_update(of=("self",)) y precarga action, selection_review__selection, selection_review__read__action, selection_review__action. Llama record(_audit_only=True), que carga OTRA instancia selection con action precargada y árbol assessment_review, valida assessment y evidencia de selección. Luego validate_approved_selection usa la instancia selection de coverage y llama validate_selection_evidence(row,row.assessment_review,case). Esta accede row.action.encrypted_reason y row.action.payload_digest. No modificar User ni assessment.

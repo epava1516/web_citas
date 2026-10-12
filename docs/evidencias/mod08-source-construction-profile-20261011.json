@@ -1,0 +1,1087 @@
+{
+  "runner": "20261011-130102-8286f2c3",
+  "gate": {
+    "passed": 5,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "junit_seconds": 98.47,
+    "frozen_files": 1176,
+    "sources_verified_independently": true,
+    "cleanup_verified_independently": true
+  },
+  "report": {
+    "samples": [
+      {
+        "mode": "control",
+        "pid": 175903,
+        "wsgi_wall_ns": 811168982,
+        "wsgi_thread_cpu_ns": 428553614,
+        "source": null,
+        "tcp_ns": 812239466,
+        "response_bytes": 63797,
+        "events_before": 548,
+        "events_after": 556
+      },
+      {
+        "mode": "profiled",
+        "pid": 175903,
+        "wsgi_wall_ns": 1950134443,
+        "wsgi_thread_cpu_ns": 1563754449,
+        "source": {
+          "spans": {
+            "sql_execute_driver": {
+              "calls": 423,
+              "wall_ns": 404472869,
+              "thread_cpu_ns": 107741442,
+              "exclusive_wall_ns": 404472869,
+              "exclusive_thread_cpu_ns": 107741442
+            },
+            "canonical_bytes": {
+              "calls": 1705,
+              "wall_ns": 69731666,
+              "thread_cpu_ns": 69635004,
+              "exclusive_wall_ns": 69731666,
+              "exclusive_thread_cpu_ns": 69635004
+            },
+            "fingerprint": {
+              "calls": 363,
+              "wall_ns": 25534351,
+              "thread_cpu_ns": 25563881,
+              "exclusive_wall_ns": 25534351,
+              "exclusive_thread_cpu_ns": 25563881
+            },
+            "source_fingerprint": {
+              "calls": 2,
+              "wall_ns": 37451156,
+              "thread_cpu_ns": 1742591,
+              "exclusive_wall_ns": 444565,
+              "exclusive_thread_cpu_ns": 442383
+            },
+            "related_materialize_catalog.Category": {
+              "calls": 2,
+              "wall_ns": 13822440,
+              "thread_cpu_ns": 10903273,
+              "exclusive_wall_ns": 1765730,
+              "exclusive_thread_cpu_ns": 1764924
+            },
+            "related_materialize_catalog.Service": {
+              "calls": 2,
+              "wall_ns": 13524067,
+              "thread_cpu_ns": 10772515,
+              "exclusive_wall_ns": 1751359,
+              "exclusive_thread_cpu_ns": 1750667
+            },
+            "related_materialize_catalog.Municipality": {
+              "calls": 2,
+              "wall_ns": 13069507,
+              "thread_cpu_ns": 10903687,
+              "exclusive_wall_ns": 1889626,
+              "exclusive_thread_cpu_ns": 1889247
+            },
+            "related_materialize_listings.Rate": {
+              "calls": 2,
+              "wall_ns": 12980381,
+              "thread_cpu_ns": 10580991,
+              "exclusive_wall_ns": 1587165,
+              "exclusive_thread_cpu_ns": 1586727
+            },
+            "related_materialize_mediafiles.Photo": {
+              "calls": 2,
+              "wall_ns": 16262011,
+              "thread_cpu_ns": 13454859,
+              "exclusive_wall_ns": 4518058,
+              "exclusive_thread_cpu_ns": 4517626
+            },
+            "batches_active_next": {
+              "calls": 1501,
+              "wall_ns": 378768921,
+              "thread_cpu_ns": 319892843,
+              "exclusive_wall_ns": 307827825,
+              "exclusive_thread_cpu_ns": 262915769
+            },
+            "source_copy": {
+              "calls": 1,
+              "wall_ns": 425326836,
+              "thread_cpu_ns": 362968836,
+              "exclusive_wall_ns": 41810707,
+              "exclusive_thread_cpu_ns": 41794222
+            },
+            "source_init": {
+              "calls": 1,
+              "wall_ns": 468332019,
+              "thread_cpu_ns": 387032102,
+              "exclusive_wall_ns": 118791,
+              "exclusive_thread_cpu_ns": 116281
+            },
+            "source_context_enter": {
+              "calls": 1,
+              "wall_ns": 468369428,
+              "thread_cpu_ns": 387069308,
+              "exclusive_wall_ns": 37409,
+              "exclusive_thread_cpu_ns": 37206
+            },
+            "validate_chain": {
+              "calls": 4,
+              "wall_ns": 80186138,
+              "thread_cpu_ns": 28399537,
+              "exclusive_wall_ns": 56193605,
+              "exclusive_thread_cpu_ns": 24713441
+            },
+            "source_context_exit": {
+              "calls": 1,
+              "wall_ns": 26802398,
+              "thread_cpu_ns": 9894501,
+              "exclusive_wall_ns": 114337,
+              "exclusive_thread_cpu_ns": 112516
+            },
+            "render": {
+              "calls": 1,
+              "wall_ns": 34468514,
+              "thread_cpu_ns": 34398692,
+              "exclusive_wall_ns": 34468514,
+              "exclusive_thread_cpu_ns": 34398692
+            }
+          },
+          "cpu_profile": [
+            {
+              "location": "apps/safety/rights_portability_catalog.py",
+              "name": "scalar_fields",
+              "line": 21,
+              "calls": 101755,
+              "recursive_calls": 72978,
+              "own_cpu_seconds": 0.10149317100000001,
+              "total_cpu_seconds": 0.147258503
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method builtins.isinstance>",
+              "line": 0,
+              "calls": 259939,
+              "recursive_calls": 307,
+              "own_cpu_seconds": 0.06350227700000001,
+              "total_cpu_seconds": 0.066494962
+            },
+            {
+              "location": "tests/capacity_chain_diagnostic.py",
+              "name": "span",
+              "line": 21,
+              "calls": 8026,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.046941891,
+              "total_cpu_seconds": 0.056641078000000004
+            },
+            {
+              "location": "apps/safety/rights_portability_selection.py",
+              "name": "pointer_value",
+              "line": 22,
+              "calls": 9002,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.033365615,
+              "total_cpu_seconds": 0.078633689
+            },
+            {
+              "location": "<native>",
+              "name": "<method 'replace' of 'str' objects>",
+              "line": 0,
+              "calls": 118203,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.029921087000000002,
+              "total_cpu_seconds": 0.029921087000000002
+            },
+            {
+              "location": "apps/safety/fast_canonical.py",
+              "name": "_check",
+              "line": 38,
+              "calls": 1705,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.026533463,
+              "total_cpu_seconds": 0.037274891000000004
+            },
+            {
+              "location": "<native>",
+              "name": "<orjson.dumps>",
+              "line": 0,
+              "calls": 1705,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.023495646000000002,
+              "total_cpu_seconds": 0.023495646000000002
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method builtins.getattr>",
+              "line": 0,
+              "calls": 68636,
+              "recursive_calls": 2334,
+              "own_cpu_seconds": 0.02257659,
+              "total_cpu_seconds": 0.033854739
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/base.py",
+              "name": "__init__",
+              "line": 462,
+              "calls": 2010,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.021842340000000002,
+              "total_cpu_seconds": 0.07255191200000001
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method builtins.setattr>",
+              "line": 0,
+              "calls": 57596,
+              "recursive_calls": 1556,
+              "own_cpu_seconds": 0.02041314,
+              "total_cpu_seconds": 0.045478506
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method builtins.next>",
+              "line": 0,
+              "calls": 61232,
+              "recursive_calls": 45684,
+              "own_cpu_seconds": 0.019920450000000003,
+              "total_cpu_seconds": 0.42411021000000004
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/base.py",
+              "name": "from_db",
+              "line": 576,
+              "calls": 1993,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.018858256,
+              "total_cpu_seconds": 0.100158205
+            },
+            {
+              "location": "<native>",
+              "name": "<method 'get' of 'dict' objects>",
+              "line": 0,
+              "calls": 60618,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.018036216,
+              "total_cpu_seconds": 0.01813829
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/types/datetime.py",
+              "name": "_load_iso",
+              "line": 496,
+              "calls": 5845,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.017828585,
+              "total_cpu_seconds": 0.029110680000000003
+            },
+            {
+              "location": "<native>",
+              "name": "<method 'append' of 'list' objects>",
+              "line": 0,
+              "calls": 60780,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.017813317000000002,
+              "total_cpu_seconds": 0.017813317000000002
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/connection.py",
+              "name": "wait",
+              "line": 479,
+              "calls": 443,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.017654523000000002,
+              "total_cpu_seconds": 0.14929810000000002
+            },
+            {
+              "location": "<library>/copy.py",
+              "name": "deepcopy",
+              "line": 118,
+              "calls": 11066,
+              "recursive_calls": 1967,
+              "own_cpu_seconds": 0.016589596,
+              "total_cpu_seconds": 0.030834030000000002
+            },
+            {
+              "location": "apps/safety/rights_portability_selection.py",
+              "name": "project_selected",
+              "line": 49,
+              "calls": 2,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.014622586000000002,
+              "total_cpu_seconds": 0.184502145
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method builtins.len>",
+              "line": 0,
+              "calls": 53467,
+              "recursive_calls": 2323,
+              "own_cpu_seconds": 0.014295466000000001,
+              "total_cpu_seconds": 0.125919227
+            },
+            {
+              "location": "<library>/decoder.py",
+              "name": "raw_decode",
+              "line": 344,
+              "calls": 3366,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.013559376000000001,
+              "total_cpu_seconds": 0.013559376000000001
+            },
+            {
+              "location": "apps/safety/rights_portability_coverage.py",
+              "name": "compile_coverage",
+              "line": 21,
+              "calls": 1,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.013334268000000002,
+              "total_cpu_seconds": 0.240489109
+            },
+            {
+              "location": "apps/safety/rights_copy_revision_batches.py",
+              "name": "batches",
+              "line": 13,
+              "calls": 1501,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.012886442000000001,
+              "total_cpu_seconds": 0.28087594
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+              "name": "__iter__",
+              "line": 87,
+              "calls": 2010,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.011259882,
+              "total_cpu_seconds": 0.583316947
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+              "name": "get_select",
+              "line": 230,
+              "calls": 315,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.011080285,
+              "total_cpu_seconds": 0.103302345
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method builtins.any>",
+              "line": 0,
+              "calls": 9233,
+              "recursive_calls": 1146,
+              "own_cpu_seconds": 0.011020376,
+              "total_cpu_seconds": 0.032424149
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/types/array.py",
+              "name": "dump_list",
+              "line": 161,
+              "calls": 26,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.010555144,
+              "total_cpu_seconds": 0.030228255000000002
+            },
+            {
+              "location": "apps/safety/rights_inspection_source.py",
+              "name": "shared_row_reference",
+              "line": 65,
+              "calls": 4510,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.010546206,
+              "total_cpu_seconds": 0.073235837
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py",
+              "name": "__set__",
+              "line": 91,
+              "calls": 12060,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.010491999,
+              "total_cpu_seconds": 0.019052723
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method builtins.hasattr>",
+              "line": 0,
+              "calls": 30033,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.010435628,
+              "total_cpu_seconds": 0.010504423
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+              "name": "quote_name_unless_alias",
+              "line": 550,
+              "calls": 11755,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.010230340000000001,
+              "total_cpu_seconds": 0.018782287
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/base.py",
+              "name": "_get_pk_val",
+              "line": 655,
+              "calls": 19672,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.010003627000000001,
+              "total_cpu_seconds": 0.014624048
+            },
+            {
+              "location": "apps/safety/fast_canonical.py",
+              "name": "content_reference",
+              "line": 100,
+              "calls": 1502,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.009775604,
+              "total_cpu_seconds": 0.053400192000000006
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method _hashlib.hmac_new>",
+              "line": 0,
+              "calls": 56,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.009742391000000001,
+              "total_cpu_seconds": 0.009742391000000001
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/backends/postgresql/compiler.py",
+              "name": "quote_name_unless_alias",
+              "line": 29,
+              "calls": 11755,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.009681743000000001,
+              "total_cpu_seconds": 0.02846403
+            },
+            {
+              "location": "<library>/inspect.py",
+              "name": "_bind",
+              "line": 3133,
+              "calls": 782,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.009466052,
+              "total_cpu_seconds": 0.016384778000000003
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+              "name": "compile",
+              "line": 572,
+              "calls": 7153,
+              "recursive_calls": 1702,
+              "own_cpu_seconds": 0.008840528,
+              "total_cpu_seconds": 0.09376711400000001
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/_connection_base.py",
+              "name": "_exec_command",
+              "line": 443,
+              "calls": 2003,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.008773087,
+              "total_cpu_seconds": 0.008935549000000001
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/_cursor_base.py",
+              "name": "_maybe_prepare_gen",
+              "line": 275,
+              "calls": 861,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.008768748,
+              "total_cpu_seconds": 0.025236790000000002
+            },
+            {
+              "location": "<native>",
+              "name": "<method 'join' of 'str' objects>",
+              "line": 0,
+              "calls": 7819,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.008558647,
+              "total_cpu_seconds": 0.037589804000000004
+            },
+            {
+              "location": "<native>",
+              "name": "<method 'search' of 're.Pattern' objects>",
+              "line": 0,
+              "calls": 8056,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.008284576,
+              "total_cpu_seconds": 0.008284576
+            },
+            {
+              "location": "<library>/uuid.py",
+              "name": "__hash__",
+              "line": 268,
+              "calls": 16581,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.008093046000000001,
+              "total_cpu_seconds": 0.012160976
+            },
+            {
+              "location": "<native>",
+              "name": "<method 'match' of 're.Pattern' objects>",
+              "line": 0,
+              "calls": 12582,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.008080619,
+              "total_cpu_seconds": 0.008080619
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/_server_cursor_base.py",
+              "name": "_fetch_gen",
+              "line": 165,
+              "calls": 1997,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.008044374,
+              "total_cpu_seconds": 0.039065461
+            },
+            {
+              "location": "apps/safety/rights_exports.py",
+              "name": "source_copy",
+              "line": 65,
+              "calls": 1,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.007432348,
+              "total_cpu_seconds": 0.362943968
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+              "name": "get_default_columns",
+              "line": 982,
+              "calls": 324,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.007316605,
+              "total_cpu_seconds": 0.021042767
+            },
+            {
+              "location": "<library>/decoder.py",
+              "name": "decode",
+              "line": 333,
+              "calls": 3366,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.007297306000000001,
+              "total_cpu_seconds": 0.026431364000000002
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+              "name": "build_filter",
+              "line": 1465,
+              "calls": 492,
+              "recursive_calls": 49,
+              "own_cpu_seconds": 0.0071345950000000005,
+              "total_cpu_seconds": 0.06266081
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/backends/postgresql/psycopg_any.py",
+              "name": "load",
+              "line": 33,
+              "calls": 5845,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.007061951,
+              "total_cpu_seconds": 0.043924291000000004
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py",
+              "name": "__eq__",
+              "line": 674,
+              "calls": 6118,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.0069007190000000005,
+              "total_cpu_seconds": 0.010848676000000002
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+              "name": "as_sql",
+              "line": 755,
+              "calls": 315,
+              "recursive_calls": 24,
+              "own_cpu_seconds": 0.006624082000000001,
+              "total_cpu_seconds": 0.257285808
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/client_cursor.py",
+              "name": "_execute_send",
+              "line": 48,
+              "calls": 423,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.006554182,
+              "total_cpu_seconds": 0.006564981
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+              "name": "clone",
+              "line": 378,
+              "calls": 904,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.006506739,
+              "total_cpu_seconds": 0.017204821000000002
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+              "name": "get_related_selections",
+              "line": 1173,
+              "calls": 132,
+              "recursive_calls": 98,
+              "own_cpu_seconds": 0.006491053,
+              "total_cpu_seconds": 0.023762774
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/types/array.py",
+              "name": "_flatiter",
+              "line": 89,
+              "calls": 15340,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.006425086,
+              "total_cpu_seconds": 0.009731076
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/expressions.py",
+              "name": "as_sql",
+              "line": 1319,
+              "calls": 5601,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.006148535,
+              "total_cpu_seconds": 0.040623115
+            },
+            {
+              "location": "<library>/<frozen importlib._bootstrap>",
+              "name": "parent",
+              "line": 645,
+              "calls": 11123,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.006107181000000001,
+              "total_cpu_seconds": 0.009455429000000001
+            },
+            {
+              "location": "<native>",
+              "name": "<method 'startswith' of 'str' objects>",
+              "line": 0,
+              "calls": 17583,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.006008029000000001,
+              "total_cpu_seconds": 0.006008029000000001
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/expressions.py",
+              "name": "get_db_converters",
+              "line": 1335,
+              "calls": 4497,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.0057999110000000005,
+              "total_cpu_seconds": 0.02007229
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method builtins.hash>",
+              "line": 0,
+              "calls": 20583,
+              "recursive_calls": 28,
+              "own_cpu_seconds": 0.005747444,
+              "total_cpu_seconds": 0.005767583000000001
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/dispatch/dispatcher.py",
+              "name": "send",
+              "line": 159,
+              "calls": 4056,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.005673409000000001,
+              "total_cpu_seconds": 0.016965274000000002
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method binascii.a2b_base64>",
+              "line": 0,
+              "calls": 396,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.005659181,
+              "total_cpu_seconds": 0.005659181
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+              "name": "names_to_path",
+              "line": 1741,
+              "calls": 1544,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.005588031,
+              "total_cpu_seconds": 0.008764304
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+              "name": "get_converters",
+              "line": 1512,
+              "calls": 308,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.005570907,
+              "total_cpu_seconds": 0.02829807
+            },
+            {
+              "location": "apps/safety/rights_portability_selection.py",
+              "name": "row_reference",
+              "line": 13,
+              "calls": 4510,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.005457317000000001,
+              "total_cpu_seconds": 0.082458919
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+              "name": "_order_by_pairs",
+              "line": 336,
+              "calls": 503,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.005452981,
+              "total_cpu_seconds": 0.058315383000000005
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/utils/deconstruct.py",
+              "name": "__new__",
+              "line": 15,
+              "calls": 6128,
+              "recursive_calls": 376,
+              "own_cpu_seconds": 0.005351946000000001,
+              "total_cpu_seconds": 0.007449809000000001
+            },
+            {
+              "location": "apps/safety/rights_operation_fingerprints.py",
+              "name": "fingerprint",
+              "line": 45,
+              "calls": 363,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.005299222,
+              "total_cpu_seconds": 0.022168207000000002
+            },
+            {
+              "location": "apps/safety/rights_portability_selection.py",
+              "name": "<genexpr>",
+              "line": 86,
+              "calls": 12004,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.005132220000000001,
+              "total_cpu_seconds": 0.0071298130000000005
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+              "name": "setup_joins",
+              "line": 1857,
+              "calls": 893,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.005044784,
+              "total_cpu_seconds": 0.018556732000000003
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/expressions.py",
+              "name": "identity",
+              "line": 538,
+              "calls": 782,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004986229,
+              "total_cpu_seconds": 0.036122034000000004
+            },
+            {
+              "location": "<library>/contextlib.py",
+              "name": "__init__",
+              "line": 104,
+              "calls": 5306,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004866368,
+              "total_cpu_seconds": 0.006496727000000001
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method builtins.all>",
+              "line": 0,
+              "calls": 842,
+              "recursive_calls": 69,
+              "own_cpu_seconds": 0.004618860000000001,
+              "total_cpu_seconds": 0.081651295
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/views/decorators/debug.py",
+              "name": "sensitive_variables_wrapper",
+              "line": 69,
+              "calls": 1032,
+              "recursive_calls": 1031,
+              "own_cpu_seconds": 0.004520001,
+              "total_cpu_seconds": 1.4746577900000002
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/expressions.py",
+              "name": "select_format",
+              "line": 493,
+              "calls": 4504,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004494113,
+              "total_cpu_seconds": 0.007399285
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/_queries.py",
+              "name": "<genexpr>",
+              "line": 299,
+              "calls": 1215,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004352353000000001,
+              "total_cpu_seconds": 0.051386055
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/_cursor_base.py",
+              "name": "_select_current_result",
+              "line": 504,
+              "calls": 423,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.0043276750000000004,
+              "total_cpu_seconds": 0.008343307000000001
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py",
+              "name": "get_col",
+              "line": 539,
+              "calls": 5168,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004313404,
+              "total_cpu_seconds": 0.00956737
+            },
+            {
+              "location": "<library>/__init__.py",
+              "name": "loads",
+              "line": 299,
+              "calls": 3366,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004311288,
+              "total_cpu_seconds": 0.032776497
+            },
+            {
+              "location": "<library>/copy.py",
+              "name": "copy",
+              "line": 61,
+              "calls": 980,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004285594,
+              "total_cpu_seconds": 0.015875211
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/backends/postgresql/operations.py",
+              "name": "quote_name",
+              "line": 196,
+              "calls": 5119,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004193512,
+              "total_cpu_seconds": 0.006186153000000001
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/types/array.py",
+              "name": "_find_list_element",
+              "line": 53,
+              "calls": 52,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004192811,
+              "total_cpu_seconds": 0.013967417000000001
+            },
+            {
+              "location": "tests/capacity_source_diagnostic.py",
+              "name": "measured",
+              "line": 14,
+              "calls": 2077,
+              "recursive_calls": 4,
+              "own_cpu_seconds": 0.004154669000000001,
+              "total_cpu_seconds": 0.539066909
+            },
+            {
+              "location": "<library>/contextlib.py",
+              "name": "helper",
+              "line": 299,
+              "calls": 5306,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004143555,
+              "total_cpu_seconds": 0.010640282000000001
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/expressions.py",
+              "name": "_identity",
+              "line": 526,
+              "calls": 2346,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004107752,
+              "total_cpu_seconds": 0.008284527
+            },
+            {
+              "location": "<native>",
+              "name": "<method 'replace' of 'datetime.datetime' objects>",
+              "line": 0,
+              "calls": 5845,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004101981,
+              "total_cpu_seconds": 0.004101981
+            },
+            {
+              "location": "<native>",
+              "name": "<method 'copy' of 'dict' objects>",
+              "line": 0,
+              "calls": 10447,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004065801,
+              "total_cpu_seconds": 0.004065801
+            },
+            {
+              "location": "<library>/contextlib.py",
+              "name": "__enter__",
+              "line": 132,
+              "calls": 5306,
+              "recursive_calls": 1569,
+              "own_cpu_seconds": 0.004056973,
+              "total_cpu_seconds": 0.40044392500000003
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/_connection_base.py",
+              "name": "_connect_gen",
+              "line": 436,
+              "calls": 7,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.004024462,
+              "total_cpu_seconds": 0.004089565
+            },
+            {
+              "location": "<library>/contextlib.py",
+              "name": "__exit__",
+              "line": 141,
+              "calls": 5307,
+              "recursive_calls": 9,
+              "own_cpu_seconds": 0.0039924290000000005,
+              "total_cpu_seconds": 0.033817467000000004
+            },
+            {
+              "location": "apps/safety/canonical_kernel_loader.py",
+              "name": "_validated_state",
+              "line": 187,
+              "calls": 1705,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.00391992,
+              "total_cpu_seconds": 0.007106865
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py",
+              "name": "__set__",
+              "line": 277,
+              "calls": 1565,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.003883805,
+              "total_cpu_seconds": 0.010456349
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/utils/functional.py",
+              "name": "__getattribute__",
+              "line": 276,
+              "calls": 3155,
+              "recursive_calls": 11,
+              "own_cpu_seconds": 0.003763933,
+              "total_cpu_seconds": 0.004450035000000001
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/types/array.py",
+              "name": "_dump_item",
+              "line": 188,
+              "calls": 7644,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.003732547,
+              "total_cpu_seconds": 0.006418516
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/psycopg/types/datetime.py",
+              "name": "load",
+              "line": 493,
+              "calls": 5845,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.0036496790000000003,
+              "total_cpu_seconds": 0.032760359
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/query_utils.py",
+              "name": "select_related_descend",
+              "line": 407,
+              "calls": 4155,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.003594191,
+              "total_cpu_seconds": 0.005550345
+            },
+            {
+              "location": "apps/safety/rights_portability_selection_pages.py",
+              "name": "<genexpr>",
+              "line": 58,
+              "calls": 16380,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.003586582,
+              "total_cpu_seconds": 0.003586582
+            },
+            {
+              "location": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+              "name": "populate",
+              "line": 2742,
+              "calls": 4718,
+              "recursive_calls": 36,
+              "own_cpu_seconds": 0.003425431,
+              "total_cpu_seconds": 0.011565413
+            },
+            {
+              "location": "<native>",
+              "name": "<method 'rpartition' of 'str' objects>",
+              "line": 0,
+              "calls": 11122,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.0033482480000000003,
+              "total_cpu_seconds": 0.0033482480000000003
+            },
+            {
+              "location": "<native>",
+              "name": "<built-in method time.thread_time_ns>",
+              "line": 0,
+              "calls": 8026,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.0033093510000000003,
+              "total_cpu_seconds": 0.0033093510000000003
+            },
+            {
+              "location": "<library>/uuid.py",
+              "name": "__eq__",
+              "line": 240,
+              "calls": 5875,
+              "recursive_calls": 0,
+              "own_cpu_seconds": 0.0032786430000000004,
+              "total_cpu_seconds": 0.004909
+            }
+          ]
+        },
+        "tcp_ns": 1882634931,
+        "response_bytes": 63797,
+        "events_before": 548,
+        "events_after": 556
+      },
+      {
+        "mode": "control",
+        "pid": 175903,
+        "wsgi_wall_ns": 795744536,
+        "wsgi_thread_cpu_ns": 425883221,
+        "source": null,
+        "tcp_ns": 796736252,
+        "response_bytes": 63797,
+        "events_before": 548,
+        "events_after": 556
+      }
+    ],
+    "initial_events": 548,
+    "initial_reads": 256,
+    "warmed_workers": 2,
+    "selected_bytes": 16777172,
+    "samples_per_variant": null,
+    "scope": "finite_source_profile_control_profiled_control_not_capacity",
+    "limits": [
+      "New connection per sample; database clones share schema/statistics/history, not buffer identity",
+      "Partial scalar coverage; no Caddy/RustFS/quotas/concurrent load",
+      "Fresh clone connection cost included in HTTP, SQL observer and CPU profiler only in profiled sample; no outer transaction",
+      "Real warm POSTs on both workers, SQL caches per database/connection may differ"
+    ]
+  },
+  "decision": "no_product_change; simple_relation_values_candidate_not_justified_here",
+  "initial_interrupted_runner": "20261011-125955-bb11e9dd",
+  "limits": [
+    "cProfile CPU and span trees overlap; never sum their exclusive numbers",
+    "Generator profiler call counts include resumes/recursion, not unique whole traversals",
+    "Profiled WSGI includes report preparation after yield; TCP client can finish earlier",
+    "Three samples are not p95, causal overhead estimate or full contract topology"
+  ]
+}

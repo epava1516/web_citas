@@ -58,7 +58,7 @@ def test_owned_target_stage_profiles(request, settings, monkeypatch, record_prop
                                     independent_reviewer=True, include_binary=True, details=context)
             metrics.update(fixture=target[5], build_seconds=target[6], scalar_preparation_seconds=target[7])
             full = getattr(settings, "CAPACITY_DELIVERY_PROFILE_FULL", False)
-            if full:
+            if full and not getattr(settings, 'CAPACITY_NATIVE_PROFILE', False):
                 metrics["fingerprint_sql"] = fingerprint_profile(
                     settings, endpoint, context["profile"], target[0])
             run_case(0, target, context, endpoint, settings, Barrier(1), metrics, diagnostic=True,
@@ -84,8 +84,12 @@ def test_owned_target_stage_profiles(request, settings, monkeypatch, record_prop
             served = {path.name: path.read_text() for path in Path("/tmp").glob("capacity-profile-*.txt")}
             record_property("delivery_profile", json.dumps({
                 "metrics": metrics, "errors": errors, "server_profiles": served,
-                "scope": "One synthetic1500/16MiB/64MiB case; reduced populations; cProfile overhead "
-                         "included; diagnostic of cost attribution only, never compared to limits.",
+                "scope": ("One synthetic1500/16MiB/64MiB case; diagnostic only, never acceptance. "
+                          "Native mode: external HTTP timing controls, marked native/PG captures; "
+                          "no cProfile, worker hooks or phase spans."
+                          if getattr(settings, 'CAPACITY_NATIVE_PROFILE', False) else
+                          "One synthetic1500/16MiB/64MiB case; reduced populations; cProfile overhead "
+                          "included; diagnostic of cost attribution only, never compared to limits."),
             }))
     if baseline_capture and not errors:
         from diagnostic_baseline import capture

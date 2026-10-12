@@ -1,0 +1,293 @@
+"""Finite real TCP history growth; same fixture, no contractual capacity claim."""
+import http.cookiejar
+import json
+import os
+import signal
+import socket
+import subprocess
+import sys
+import time
+import urllib.request
+from contextlib import contextmanager
+from urllib.parse import urlencode
+from uuid import uuid4
+
+import pytest
+import test_rights_portability_export_races as fixtures
+from capacity_runtime_role import _owned_database, runtime_role_environment
+from capacity_target_fixture import PATHS, populate
+from directory_snapshot import _admin, _quiescent
+from django.db import connection, transaction
+from psycopg import sql
+from test_reports import directory, photo_environment  # noqa: F401
+from test_rights_portability_coverage_review_http import login
+
+from apps.core.models import User
+from apps.safety.canonical_kernel_loader import validated_kernel
+from apps.safety.crypto import unseal
+from apps.safety.models import RightsPortabilityCoverageRead
+from apps.safety.rights_copy_inspection import SECTIONS
+from apps.safety.rights_exports import canonical, reviewer_case, source_copy
+from apps.safety.rights_portability_coverage_store import save_coverage
+from apps.safety.rights_portability_selection import project_selected, row_reference
+from apps.safety.rights_portability_selection_review import record
+from apps.safety.rights_portability_selection_store import save_selection
+
+pytestmark = pytest.mark.django_db(transaction=True)
+REASON = 'Diagnose one independently audited synthetic large coverage batch'
+
+
+@contextmanager
+def owned_server(settings, tmp_path):
+    # No baseline fallback and no Celery/export/finish path.
+    name = 'unseal_batch_settings_' + uuid4().hex
+    (tmp_path / (name + '.py')).write_text(
+        'from local_ci_settings import *\n'
+        + f"MEDIA_ROOT = Path({str(settings.MEDIA_ROOT)!r})\n"
+        + "RIGHTS_VERIFICATION_BACKEND = 'simulator'\n"
+        + 'CELERY_TASK_ALWAYS_EAGER = True\n')
+    output = tmp_path / 'one-batch.json'
+    with socket.socket() as reservation:
+        reservation.bind(('127.0.0.1', 0))
+        port = reservation.getsockname()[1]
+    with runtime_role_environment(name) as overrides:
+        env = os.environ.copy()
+        env.update(overrides)
+        env['PYTHONPATH'] = str(tmp_path) + os.pathsep + env['PYTHONPATH']
+        env['CHAIN_DIAGNOSTIC_OUTPUT'] = str(output)
+        with (tmp_path / 'gunicorn.log').open('w') as log:
+            process = subprocess.Popen(
+                [sys.executable, '-m', 'gunicorn', 'tests.capacity_chain_wsgi:application',
+                 '--workers', '2', '--worker-class', 'sync', '--bind', f'127.0.0.1:{port}',
+                 '--timeout', '120', '--logger-class', 'config.gunicorn_logging.SafeAccessLogger'],
+                env=env, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
+            try:
+                endpoint = f'http://127.0.0.1:{port}'
+                deadline = time.monotonic() + 30
+                while True:
+                    if process.poll() is not None:
+                        raise RuntimeError('Owned Gunicorn failed before readiness')
+                    try:
+                        with urllib.request.urlopen(endpoint + '/health/', timeout=2) as response:
+                            assert response.status == 200
+                            break
+                    except OSError:
+                        if time.monotonic() > deadline:
+                            raise RuntimeError('Owned Gunicorn readiness timeout') from None
+                        time.sleep(0.1)
+                yield endpoint, output
+            finally:
+                if process.poll() is None:
+                    os.killpg(process.pid, signal.SIGTERM)
+                    try:
+                        process.wait(timeout=15)
+                    except subprocess.TimeoutExpired:
+                        os.killpg(process.pid, signal.SIGKILL)
+                        process.wait(timeout=10)
+
+
+
+@contextmanager
+def clone_server(settings, tmp_path, application="tests.capacity_chain_inline_wsgi:application", *, workers=2):
+    name = 'inline_settings_' + uuid4().hex
+    (tmp_path / (name + '.py')).write_text(
+        'from local_ci_settings import *\n'
+        + f"MEDIA_ROOT = Path({str(settings.MEDIA_ROOT)!r})\n"
+        + "RIGHTS_VERIFICATION_BACKEND = 'simulator'\nCELERY_TASK_ALWAYS_EAGER = True\n")
+    database = dict(_owned_database())
+    template = 'chain_inline_' + uuid4().hex[:20]
+    clones = []
+    serial = 0
+    allowlist = tmp_path / 'clones.json'
+    allowlist.write_text('[]')
+    output = tmp_path / 'clone-result.json'
+    with socket.socket() as reservation:
+        reservation.bind(('127.0.0.1', 0))
+        port = reservation.getsockname()[1]
+    with runtime_role_environment(name) as overrides:
+        connection.close()
+        with _admin(database) as admin:
+            with admin.cursor() as cursor:
+                _quiescent(cursor, [database['NAME']])
+                cursor.execute(sql.SQL('CREATE DATABASE {} TEMPLATE {}').format(
+                    sql.Identifier(template), sql.Identifier(database['NAME'])))
+                cursor.execute(sql.SQL('ALTER DATABASE {} ALLOW_CONNECTIONS false').format(sql.Identifier(template)))
+            env = os.environ.copy()
+            env.update(overrides)
+            env['PYTHONPATH'] = str(tmp_path) + os.pathsep + env['PYTHONPATH']
+            env['CHAIN_CLONE_ALLOWLIST'] = str(allowlist)
+            env['CHAIN_CLONE_OUTPUT'] = str(output)
+            with (tmp_path / 'inline-gunicorn.log').open('w') as log:
+                process = subprocess.Popen(
+                    [sys.executable, '-m', 'gunicorn', application,
+                     '--workers', str(workers), '--worker-class', 'sync', '--bind', f'127.0.0.1:{port}',
+                     '--timeout', '120', '--logger-class', 'config.gunicorn_logging.SafeAccessLogger'],
+                    env=env, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
+                try:
+                    endpoint = f'http://127.0.0.1:{port}'
+                    deadline = time.monotonic() + 30
+                    while True:
+                        if process.poll() is not None:
+                            raise RuntimeError('Owned inline Gunicorn exited')
+                        try:
+                            with urllib.request.urlopen(endpoint + '/health/', timeout=2) as response:
+                                assert response.status == 200
+                                break
+                        except OSError:
+                            assert time.monotonic() < deadline
+                            time.sleep(.1)
+                    def clone():
+                        nonlocal serial
+                        target = template + '_' + str(serial)
+                        serial += 1
+                        with admin.cursor() as cursor:
+                            _quiescent(cursor, [template])
+                            cursor.execute(sql.SQL('CREATE DATABASE {} TEMPLATE {}').format(
+                                sql.Identifier(target), sql.Identifier(template)))
+                        clones.append(target)
+                        allowlist.write_text(json.dumps(clones))
+                        return target
+                    def release(target):
+                        assert target in clones
+                        with admin.cursor() as cursor:
+                            _quiescent(cursor, [target])
+                            cursor.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(target)))
+                        clones.remove(target)
+                        allowlist.write_text(json.dumps(clones))
+                    yield endpoint, output, clone, release, database
+                finally:
+                    if process.poll() is None:
+                        os.killpg(process.pid, signal.SIGTERM)
+                        try:
+                            process.wait(timeout=15)
+                        except subprocess.TimeoutExpired:
+                            os.killpg(process.pid, signal.SIGKILL)
+                            process.wait(timeout=10)
+                    with admin.cursor() as cursor:
+                        for target in [*clones, template]:
+                            _quiescent(cursor, [target])
+                            cursor.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(target)))
+
+
+def test_inline_committed_http_clones(request, settings, monkeypatch, tmp_path, record_property):
+    assert connection.vendor == 'postgresql' and validated_kernel() is not None
+    request.getfixturevalue('directory')
+    identity = 'chain-inline-synthetic'
+    _, _, _, manifest = populate(identity)
+    original_ready = fixtures.ready
+
+    def ready(*args, **kwargs):
+        return original_ready(*args, **(kwargs | {'subject_username': identity}))
+
+    with monkeypatch.context() as patch:
+        patch.setattr(fixtures, 'ready', ready)
+        case, author, baseline, previous, person, _, _ = fixtures.prepared_selection(
+            request, settings, patch, False)
+    with transaction.atomic():
+        locked, person, listing = reviewer_case(author, case.pk)
+        source = source_copy(person, listing, locked)
+    assert len(source['revisions']) == 1500
+    body = unseal(baseline.encrypted_selection)
+    body['selection']['revisions'] = [
+        {'row': row_reference('revisions', index, row), 'fields': PATHS}
+        for index, row in enumerate(source['revisions'])]
+    selection = save_selection(author, case.pk, case.version, baseline.assessment_review_id,
+                               uuid4(), baseline.version, REASON, body['selection'],
+                               field_evidence=body['field_evidence'])
+    projected = project_selected(source, unseal(selection.assessment_review.assessment.encrypted_assessment),
+                                 body['selection'], field_evidence=body['field_evidence'])
+    selected_bytes = len(canonical(projected).encode())
+    assert abs(selected_bytes - 16 * 1024 * 1024) / (16 * 1024 * 1024) < .01
+    reviewer = User.objects.get(pk=previous.action.actor_id)
+    # Genuine paged reads, no fabricated IDs/approvals; inspect every selected row.
+    for page in range(1, 32):
+        record(reviewer, case.pk, case.version, selection.pk, uuid4(), REASON, page=page)
+    decision, _ = record(reviewer, case.pk, case.version, selection.pk, uuid4(), REASON,
+                         'review', 'approved', _require_pages=True)
+    assert len(decision.page_reads) == 31
+    coverage = save_coverage(author, case.pk, case.version, decision.pk, uuid4(), 0,
+                             REASON, {name: {} for name in SECTIONS}, {}, allow_partial=True)
+    browser = login(reviewer, csrf=True)
+    cookiejar = http.cookiejar.CookieJar()
+    cookiejar.set_cookie(http.cookiejar.Cookie(
+        0, settings.SESSION_COOKIE_NAME, browser.cookies[settings.SESSION_COOKIE_NAME].value,
+        None, False, '127.0.0.1', False, False, '/', True, False, None, True, None, None, {}))
+    client = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookiejar))
+    from apps.safety.evidence_chain_sql_v1 import EVENT
+    # Seed real audited history once, before closing every connection for TEMPLATE.
+    with owned_server(settings, tmp_path) as (endpoint, _):
+        url = endpoint + f'/en/moderation/rights/{case.pk}/portability/coverage/{coverage.pk}/review/'
+        with client.open(url, timeout=60) as response:
+            response.read()
+        csrf = next(cookie.value for cookie in cookiejar if cookie.name == settings.CSRF_COOKIE_NAME)
+        def body():
+            return urlencode({'operation': 'inspect', 'key': str(uuid4()), 'version': case.version,
+                              'reason': REASON, 'dataset': 'revisions', 'row_number': 1,
+                              'field_page': 1, 'page_count': 4}).encode()
+        for _ in range(64):
+            query = urllib.request.Request(url, data=body(), headers={
+                'Content-Type': 'application/x-www-form-urlencoded', 'Referer': url, 'X-CSRFToken': csrf})
+            with client.open(query, timeout=120) as response:
+                assert response.status == 200
+                response.read()
+    with connection.cursor() as cursor:
+        cursor.execute(f'SELECT count(*) FROM public."{EVENT}" WHERE request_id=%s', [case.pk])
+        initial_events = cursor.fetchone()[0]
+    initial_reads = RightsPortabilityCoverageRead.objects.filter(coverage=coverage).count()
+    measurements = []
+    warmed_pids = set()
+    with clone_server(settings, tmp_path) as (endpoint, output, clone, release, database):
+        url = endpoint + f'/en/moderation/rights/{case.pk}/portability/coverage/{coverage.pk}/review/'
+        def post(mode, target):
+            if output.exists():
+                output.unlink()
+            query = urllib.request.Request(url, data=body(), headers={
+                'Content-Type': 'application/x-www-form-urlencoded', 'Referer': url, 'X-CSRFToken': csrf,
+                'X-Chain-Clone': target, 'X-Chain-Variant': mode})
+            wall = time.perf_counter_ns()
+            with client.open(query, timeout=120) as response:
+                assert response.status == 200 and 'no-store' in response.headers['Cache-Control']
+                size = len(response.read())
+                pid = int(response.headers['X-Benchmark-Pid'])
+            tcp = time.perf_counter_ns() - wall
+            deadline = time.monotonic() + 10
+            while not output.exists() and time.monotonic() < deadline:
+                time.sleep(.01)
+            assert output.exists()
+            value = json.loads(output.read_text())
+            assert value['pid'] == pid and value['mode'] == mode
+            value.update(tcp_ns=tcp, response_bytes=size)
+            # Independent owner inspection after normal service commits, never a rollback wrapper.
+            import psycopg
+            with psycopg.connect(dbname=target, user=database['USER'], password=database['PASSWORD'],
+                                 host=database['HOST'], port=database['PORT']) as inspect:
+                with inspect.cursor() as cursor:
+                    cursor.execute(f'SELECT count(*) FROM public."{EVENT}" WHERE request_id=%s', [case.pk])
+                    assert cursor.fetchone() == (initial_events + 8,)
+                    cursor.execute('SELECT count(*) FROM safety_rightsportabilitycoverageread WHERE coverage_id=%s',
+                                   [coverage.pk])
+                    assert cursor.fetchone() == (initial_reads + 4,)
+            release(target)
+            return value
+        # Real POST warmups for both workers; each uses its own identical clone.
+        for number in range(12):
+            value = post('native' if number % 2 == 0 else 'inline', clone())
+            warmed_pids.add(value['pid'])
+            if number >= 3 and len(warmed_pids) == 2:
+                break
+        assert len(warmed_pids) == 2
+        for round_number in range(10):
+            for mode in (('native', 'inline', 'inline', 'native') if round_number % 2 == 0
+                         else ('inline', 'native', 'native', 'inline')):
+                value = post(mode, clone())
+                value.update(round=round_number, events_before=initial_events, events_after=initial_events+8)
+                measurements.append(value)
+                record_property('inline_http_sample', json.dumps(value))
+    report = dict(samples=measurements, initial_events=initial_events, initial_reads=initial_reads,
+                  warmed_workers=len(warmed_pids), selected_bytes=selected_bytes, samples_per_variant=20,
+                  scope='finite_committed_tcp_ABBA_identical_history_not_contract_capacity',
+                  limits=['New connection per sample; database clones share schema/statistics/history, not buffer identity',
+                          'Partial scalar coverage; no Caddy/RustFS/quotas/concurrent load',
+                          'Fresh clone connection cost included in HTTP, no SQL observer or outer transaction',
+                          'Real warm POSTs on both workers, SQL caches per database/connection may differ'])
+    record_property('inline_http_report', json.dumps(report))

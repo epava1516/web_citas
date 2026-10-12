@@ -2,6 +2,8 @@
 
 Actualizado documentalmente: 2026-10-09. Describe la implementación local; [seguimiento17](17-seguimiento-desarrollo.md) fija aceptación y runtime. Decisiones técnicas en [ADR-001](adr/001-base-tecnica.md), comportamiento requerido en [contrato14](14-contrato-funcional-v1.md) y gates en [contrato16](16-contrato-ejecucion-desarrollo.md).
 
+Inventario de versiones y funciones: [tecnologías utilizadas](tecnologias.md).
+
 ## Base acordada
 
 Monolito modular Django con HTML de servidor, plantillas y HTMX local para interacción puntual. PostgreSQL es obligatorio en integración; MongoDB está descartado. No hay una SPA ni una API separada requerida por el contrato.
@@ -56,3 +58,20 @@ La capacidad se afirma solo para el escenario medido y su fuente; un PASS sinté
 ## Historial de diseño
 
 [Copia íntegra anterior](17-historial/2026-10-09-02-arquitectura-antes-organizacion.md): conserva evaluaciones, alternativas y fuentes consultadas desde 2026-10-03, con sus estados originales. No se reabren selecciones del ADR por un candidato histórico. Copia y huella en [inventario](historial-documentacion.json).
+
+
+### Recorrido privado de rutas para cobertura — MOD08, 2026-10-11
+
+`compile_coverage` utiliza `_scalar_paths` para enumerar rutas sin crear diccionarios
+de valores que ese consumidor descarta. Conserva el recorrido recursivo, errores y
+escapes del catálogo público `scalar_fields`, que permanece intacto. Un oráculo
+diferencial permanente comprueba su paridad; autoridad, frescura, digests y auditoría
+no se reutilizan ni se omiten. La [verificación local](evidencias/mod08-small-paths-20261011.md)
+respalda unos 3ms de mejora en la etapa pura del fixture medido, sin beneficio HTTP
+ni aceptación de los objetivos contractuales demostrados.
+
+
+La copia de fuentes mantiene el cursor de servidor y los bloqueos de revisiones, pero difiere siete columnas internas no consumidas además de search_document. Las instancias no salen de source_copy y la salida canónica conserva equivalencia. Beneficio verificado de construcción de modelos, sin mejora HTTP concluyente ni cambios de frescura/autoridad: [evidencia del 2026-10-11](evidencias/mod08-wait-revision-20261011.md).
+
+
+Investigación arquitectónica del2026-10-11: prototipo **sólo tests** de manifiestos autenticados de datos y páginas cifradas ligadas a huella física completa fresca. Hay señal de coste de etapa, pero no sustitución de fuente, autoridad o endpoint en la arquitectura vigente. Diseño/gates y limitaciones: [brainstorming y viabilidad](evidencias/mod08-brainstorm-web-20261011.md).

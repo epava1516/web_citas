@@ -13,6 +13,7 @@ from uuid import uuid4, uuid5
 
 from capacity_delivery_http import open_client, operator, post
 from capacity_request_timing import HEADER
+from django.conf import settings as runtime_settings
 from django.contrib.auth.models import Permission
 from django.db import transaction
 from django.utils.crypto import salted_hmac
@@ -57,7 +58,8 @@ def violation(metrics, name, value, maximum):
 
 def measured(metrics, name, operation, *args, maximum=60, **kwargs):
     profile = None
-    if metrics.get("diagnostic") and name not in metrics.setdefault("profiles", {}):
+    if (metrics.get("diagnostic") and not getattr(runtime_settings, 'CAPACITY_NATIVE_PROFILE', False)
+            and name not in metrics.setdefault("profiles", {})):
         profile = cProfile.Profile()
         profile.enable()
     begin = time.perf_counter()
@@ -260,7 +262,8 @@ def run_case(index, target, context, server, settings, barrier, metrics, diagnos
             {"operation": "inspect", "key": str(key), "version": case.version, "reason": REASON,
              "dataset": "binary" if binary else dataset, "row_number": row + 1,
              "field_page": page, "page_count": len(group)},
-            profile=diagnostic and number == 3,
+            profile=diagnostic and (number == 3 or
+                (getattr(settings, 'CAPACITY_NATIVE_PROFILE', False) and number == 300)),
             request_id=index * 1024 + number + 1)
         for position, coordinates in enumerate(group):
             page_key = key if len(group) == 1 else uuid5(key, f"coverage-batch-page:{position}")
@@ -455,7 +458,14 @@ def finish(index, case, author, reviewer, selection, selected, coverage_review,
     metrics["success"] = not metrics.get("violations")
     # Diagnostic only, after every sample: attribute the download validation chain in-process
     # inside a rolled-back transaction; never a measured stage.
-    metrics["post_validation_profile"] = validation_profile(case, export)
+    metrics["post_validation_profile"] = post_validation_profile(
+        case, export, diagnostic=bool(metrics.get('diagnostic')))
+
+
+def post_validation_profile(case, export, *, diagnostic):
+    if not diagnostic or getattr(runtime_settings, 'CAPACITY_NATIVE_PROFILE', False):
+        return {"status": "disabled", "reason": "Only legacy diagnostic mode permits cProfile"}
+    return validation_profile(case, export)
 
 
 def validation_profile(case, export):

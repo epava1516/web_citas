@@ -1,0 +1,36 @@
+{
+  "runner": "20261011-170322-92aed466",
+  "verification": {
+    "sources_checked": 1348,
+    "mismatches": []
+  },
+  "properties": [
+    {
+      "test": "test_restored_hash_function_does_not_repair_stored_generated_digest",
+      "properties": [
+        {
+          "name": "generated_digest_counterexample",
+          "value": "{\"current_function_definition_restored\": true, \"head_unchanged\": true, \"stored_digest_unchanged\": true, \"fresh_physical_digest_disagrees\": true, \"scope\": \"temporary_owner_DDL_model_not_product_optimization_or_acceptance\"}"
+        }
+      ]
+    },
+    {
+      "test": "test_freeze_and_reindex_preserve_observed_heap_versions_but_schema_can_change",
+      "properties": [
+        {
+          "name": "heap_version_counterexamples",
+          "value": "{\"rows\": 1000, \"freeze_kept_observed_versions\": true, \"reindex_kept_observed_versions\": true, \"fast_default_kept_observed_versions\": true, \"generic_full_row_json_changed_after_schema_change\": true, \"limits\": \"not XID wrap test; not a claim static source_copy reads newly added columns; schema/code binding still required\"}"
+        }
+      ]
+    },
+    {
+      "test": "test_enforcement_rejects_owner_accepts_runtime_and_detects_owner_drift",
+      "properties": []
+    },
+    {
+      "test": "test_owner_drift_detected_even_when_ticket_and_head_unchanged",
+      "properties": []
+    }
+  ],
+  "limits": "architectural risk filter; no product modification or capacity claim"
+}

@@ -1,0 +1,1249 @@
+{
+  "unseal": {
+    "status": "DIAGNOSTIC_NOT_CAPACITY",
+    "calls": 193,
+    "failures": 0,
+    "untracked_calls": 0,
+    "peak_retained_plaintext_bytes": 226836,
+    "alias_count": 46,
+    "groups": [
+      {
+        "group": 1,
+        "bytes": 79,
+        "calls": 153,
+        "repeat_parse_cpu_ns": 1584172,
+        "repeat_parse_wall_ns": 1561003,
+        "decrypt": {
+          "wall_ns": 12794671,
+          "cpu_ns": 12857801
+        },
+        "decode": {
+          "wall_ns": 197313,
+          "cpu_ns": 203947
+        },
+        "parse": {
+          "wall_ns": 1581513,
+          "cpu_ns": 1604759
+        },
+        "compare": {
+          "wall_ns": 814224,
+          "cpu_ns": 833120
+        },
+        "copy_probe": {
+          "wall_ns": 1408793,
+          "cpu_ns": 1424438
+        }
+      },
+      {
+        "group": 2,
+        "bytes": 2672,
+        "calls": 8,
+        "repeat_parse_cpu_ns": 367375,
+        "repeat_parse_wall_ns": 366232,
+        "decrypt": {
+          "wall_ns": 1450617,
+          "cpu_ns": 1453916
+        },
+        "decode": {
+          "wall_ns": 18073,
+          "cpu_ns": 18788
+        },
+        "parse": {
+          "wall_ns": 431687,
+          "cpu_ns": 432740
+        },
+        "compare": {
+          "wall_ns": 92729,
+          "cpu_ns": 80158
+        },
+        "copy_probe": {
+          "wall_ns": 657936,
+          "cpu_ns": 658976
+        }
+      },
+      {
+        "group": 3,
+        "bytes": 77,
+        "calls": 8,
+        "repeat_parse_cpu_ns": 106448,
+        "repeat_parse_wall_ns": 105333,
+        "decrypt": {
+          "wall_ns": 1110279,
+          "cpu_ns": 1084698
+        },
+        "decode": {
+          "wall_ns": 12547,
+          "cpu_ns": 13351
+        },
+        "parse": {
+          "wall_ns": 122958,
+          "cpu_ns": 124101
+        },
+        "compare": {
+          "wall_ns": 56751,
+          "cpu_ns": 57905
+        },
+        "copy_probe": {
+          "wall_ns": 93055,
+          "cpu_ns": 94105
+        }
+      },
+      {
+        "group": 4,
+        "bytes": 75,
+        "calls": 4,
+        "repeat_parse_cpu_ns": 26866,
+        "repeat_parse_wall_ns": 26318,
+        "decrypt": {
+          "wall_ns": 240826,
+          "cpu_ns": 242080
+        },
+        "decode": {
+          "wall_ns": 4630,
+          "cpu_ns": 4794
+        },
+        "parse": {
+          "wall_ns": 34207,
+          "cpu_ns": 34938
+        },
+        "compare": {
+          "wall_ns": 20655,
+          "cpu_ns": 20937
+        },
+        "copy_probe": {
+          "wall_ns": 25458,
+          "cpu_ns": 25789
+        }
+      },
+      {
+        "group": 5,
+        "bytes": 223141,
+        "calls": 16,
+        "repeat_parse_cpu_ns": 29292896,
+        "repeat_parse_wall_ns": 29276176,
+        "decrypt": {
+          "wall_ns": 31939467,
+          "cpu_ns": 31905443
+        },
+        "decode": {
+          "wall_ns": 575464,
+          "cpu_ns": 578684
+        },
+        "parse": {
+          "wall_ns": 31065823,
+          "cpu_ns": 31083157
+        },
+        "compare": {
+          "wall_ns": 802116,
+          "cpu_ns": 807359
+        },
+        "copy_probe": {
+          "wall_ns": 194701177,
+          "cpu_ns": 193305032
+        }
+      },
+      {
+        "group": 6,
+        "bytes": 792,
+        "calls": 4,
+        "repeat_parse_cpu_ns": 87924,
+        "repeat_parse_wall_ns": 87677,
+        "decrypt": {
+          "wall_ns": 506888,
+          "cpu_ns": 508442
+        },
+        "decode": {
+          "wall_ns": 6269,
+          "cpu_ns": 6566
+        },
+        "parse": {
+          "wall_ns": 122131,
+          "cpu_ns": 122553
+        },
+        "compare": {
+          "wall_ns": 35441,
+          "cpu_ns": 35815
+        },
+        "copy_probe": {
+          "wall_ns": 142002,
+          "cpu_ns": 142197
+        }
+      }
+    ],
+    "scope": "thread_request_local_full_plaintext_equality_no_reuse",
+    "limits": {
+      "bytes": 33554432,
+      "entries": 128
+    },
+    "semantics": "decode/parse/decrypt disjoint; compare/copy observer overhead; no HTTP p95"
+  },
+  "phases": {
+    "status": "complete",
+    "incomplete": false,
+    "reason": null,
+    "phases": {
+      "batch": {
+        "calls": 1,
+        "wall_ns": 2178666007,
+        "thread_cpu_ns": 1426213243,
+        "exclusive_wall_ns": 149886501,
+        "exclusive_thread_cpu_ns": 30168036,
+        "sql_count": 14,
+        "sql_wall_ns": 119306304,
+        "sql_thread_cpu_ns": 5070172
+      },
+      "page": {
+        "calls": 4,
+        "wall_ns": 1480913200,
+        "thread_cpu_ns": 1031240763,
+        "exclusive_wall_ns": 231845427,
+        "exclusive_thread_cpu_ns": 126800893,
+        "sql_count": 84,
+        "sql_wall_ns": 127754258,
+        "sql_thread_cpu_ns": 24229526
+      },
+      "record": {
+        "calls": 4,
+        "wall_ns": 631598297,
+        "thread_cpu_ns": 393168377,
+        "exclusive_wall_ns": 241067572,
+        "exclusive_thread_cpu_ns": 128294176,
+        "sql_count": 80,
+        "sql_wall_ns": 134949668,
+        "sql_thread_cpu_ns": 23297668
+      },
+      "baseline": {
+        "calls": 4,
+        "wall_ns": 3119313,
+        "thread_cpu_ns": 3118311,
+        "exclusive_wall_ns": 766268,
+        "exclusive_thread_cpu_ns": 762005,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      },
+      "unseal": {
+        "calls": 193,
+        "wall_ns": 288120332,
+        "thread_cpu_ns": 286588577,
+        "exclusive_wall_ns": 288120332,
+        "exclusive_thread_cpu_ns": 286588577,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      },
+      "source": {
+        "calls": 1,
+        "wall_ns": 426172412,
+        "thread_cpu_ns": 252661513,
+        "exclusive_wall_ns": 426172412,
+        "exclusive_thread_cpu_ns": 252661513,
+        "sql_count": 20,
+        "sql_wall_ns": 78824793,
+        "sql_thread_cpu_ns": 34904141
+      },
+      "compile": {
+        "calls": 1,
+        "wall_ns": 66043573,
+        "thread_cpu_ns": 65347959,
+        "exclusive_wall_ns": 64928972,
+        "exclusive_thread_cpu_ns": 64233415,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      },
+      "authorize": {
+        "calls": 23,
+        "wall_ns": 279364875,
+        "thread_cpu_ns": 158577068,
+        "exclusive_wall_ns": 279364875,
+        "exclusive_thread_cpu_ns": 158577068,
+        "sql_count": 93,
+        "sql_wall_ns": 146130936,
+        "sql_thread_cpu_ns": 26295098
+      },
+      "validate_selection": {
+        "calls": 4,
+        "wall_ns": 271640501,
+        "thread_cpu_ns": 232189262,
+        "exclusive_wall_ns": 77945463,
+        "exclusive_thread_cpu_ns": 57653594,
+        "sql_count": 16,
+        "sql_wall_ns": 25508232,
+        "sql_thread_cpu_ns": 5697282
+      },
+      "validate_assessment": {
+        "calls": 4,
+        "wall_ns": 136969870,
+        "thread_cpu_ns": 52975562,
+        "exclusive_wall_ns": 132314874,
+        "exclusive_thread_cpu_ns": 48350436,
+        "sql_count": 88,
+        "sql_wall_ns": 75954359,
+        "sql_thread_cpu_ns": 17384284
+      },
+      "assessment_evidence": {
+        "calls": 4,
+        "wall_ns": 1985944,
+        "thread_cpu_ns": 1986279,
+        "exclusive_wall_ns": 1221507,
+        "exclusive_thread_cpu_ns": 1221235,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      },
+      "selection_evidence": {
+        "calls": 8,
+        "wall_ns": 176463541,
+        "thread_cpu_ns": 157144551,
+        "exclusive_wall_ns": 50121504,
+        "exclusive_thread_cpu_ns": 31375156,
+        "sql_count": 20,
+        "sql_wall_ns": 25014521,
+        "sql_thread_cpu_ns": 6354665
+      },
+      "audited_images": {
+        "calls": 0,
+        "wall_ns": 0,
+        "thread_cpu_ns": 0,
+        "exclusive_wall_ns": 0,
+        "exclusive_thread_cpu_ns": 0,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      },
+      "checked_images": {
+        "calls": 1,
+        "wall_ns": 1114601,
+        "thread_cpu_ns": 1114544,
+        "exclusive_wall_ns": 1114601,
+        "exclusive_thread_cpu_ns": 1114544,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      },
+      "read_image_blob": {
+        "calls": 0,
+        "wall_ns": 0,
+        "thread_cpu_ns": 0,
+        "exclusive_wall_ns": 0,
+        "exclusive_thread_cpu_ns": 0,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      },
+      "content_digest": {
+        "calls": 0,
+        "wall_ns": 0,
+        "thread_cpu_ns": 0,
+        "exclusive_wall_ns": 0,
+        "exclusive_thread_cpu_ns": 0,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      },
+      "batch_projection": {
+        "calls": 4,
+        "wall_ns": 91901189,
+        "thread_cpu_ns": 91090792,
+        "exclusive_wall_ns": 57548983,
+        "exclusive_thread_cpu_ns": 56751002,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      },
+      "canonical_bytes": {
+        "calls": 1705,
+        "wall_ns": 142522975,
+        "thread_cpu_ns": 142410996,
+        "exclusive_wall_ns": 142522975,
+        "exclusive_thread_cpu_ns": 142410996,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      },
+      "fingerprint": {
+        "calls": 363,
+        "wall_ns": 47642146,
+        "thread_cpu_ns": 47306602,
+        "exclusive_wall_ns": 47642146,
+        "exclusive_thread_cpu_ns": 47306602,
+        "sql_count": 0,
+        "sql_wall_ns": 0,
+        "sql_thread_cpu_ns": 0
+      }
+    },
+    "pages": [
+      {
+        "batch": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "page": {
+          "calls": 1,
+          "wall_ns": 592329860,
+          "thread_cpu_ns": 445771976,
+          "exclusive_wall_ns": 69559785,
+          "exclusive_thread_cpu_ns": 36748555,
+          "sql_count": 21,
+          "sql_wall_ns": 39911458,
+          "sql_thread_cpu_ns": 7536409
+        },
+        "record": {
+          "calls": 1,
+          "wall_ns": 252361426,
+          "thread_cpu_ns": 172083231,
+          "exclusive_wall_ns": 73546019,
+          "exclusive_thread_cpu_ns": 37153756,
+          "sql_count": 20,
+          "sql_wall_ns": 42678867,
+          "sql_thread_cpu_ns": 7038910
+        },
+        "baseline": {
+          "calls": 1,
+          "wall_ns": 904722,
+          "thread_cpu_ns": 904396,
+          "exclusive_wall_ns": 230951,
+          "exclusive_thread_cpu_ns": 229601,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "unseal": {
+          "calls": 48,
+          "wall_ns": 124372017,
+          "thread_cpu_ns": 122971048,
+          "exclusive_wall_ns": 124372017,
+          "exclusive_thread_cpu_ns": 122971048,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "source": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "compile": {
+          "calls": 1,
+          "wall_ns": 66043573,
+          "thread_cpu_ns": 65347959,
+          "exclusive_wall_ns": 64928972,
+          "exclusive_thread_cpu_ns": 64233415,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "authorize": {
+          "calls": 5,
+          "wall_ns": 65882192,
+          "thread_cpu_ns": 35831767,
+          "exclusive_wall_ns": 65882192,
+          "exclusive_thread_cpu_ns": 35831767,
+          "sql_count": 20,
+          "sql_wall_ns": 35968241,
+          "sql_thread_cpu_ns": 6175759
+        },
+        "validate_selection": {
+          "calls": 1,
+          "wall_ns": 72712972,
+          "thread_cpu_ns": 59905386,
+          "exclusive_wall_ns": 21137514,
+          "exclusive_thread_cpu_ns": 14671347,
+          "sql_count": 4,
+          "sql_wall_ns": 7791078,
+          "sql_thread_cpu_ns": 1697051
+        },
+        "validate_assessment": {
+          "calls": 1,
+          "wall_ns": 49908830,
+          "thread_cpu_ns": 18412782,
+          "exclusive_wall_ns": 48726634,
+          "exclusive_thread_cpu_ns": 17260218,
+          "sql_count": 22,
+          "sql_wall_ns": 29904458,
+          "sql_thread_cpu_ns": 5889133
+        },
+        "assessment_evidence": {
+          "calls": 1,
+          "wall_ns": 490353,
+          "thread_cpu_ns": 490248,
+          "exclusive_wall_ns": 304873,
+          "exclusive_thread_cpu_ns": 304581,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "selection_evidence": {
+          "calls": 2,
+          "wall_ns": 41091795,
+          "thread_cpu_ns": 34644662,
+          "exclusive_wall_ns": 15435447,
+          "exclusive_thread_cpu_ns": 9327458,
+          "sql_count": 5,
+          "sql_wall_ns": 8047678,
+          "sql_thread_cpu_ns": 1985091
+        },
+        "audited_images": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "checked_images": {
+          "calls": 1,
+          "wall_ns": 1114601,
+          "thread_cpu_ns": 1114544,
+          "exclusive_wall_ns": 1114601,
+          "exclusive_thread_cpu_ns": 1114544,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "read_image_blob": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "content_digest": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "batch_projection": {
+          "calls": 1,
+          "wall_ns": 91029883,
+          "thread_cpu_ns": 90218831,
+          "exclusive_wall_ns": 56677677,
+          "exclusive_thread_cpu_ns": 55879041,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "canonical_bytes": {
+          "calls": 1552,
+          "wall_ns": 44250828,
+          "thread_cpu_ns": 44095439,
+          "exclusive_wall_ns": 44250828,
+          "exclusive_thread_cpu_ns": 44095439,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "fingerprint": {
+          "calls": 90,
+          "wall_ns": 6162350,
+          "thread_cpu_ns": 5951206,
+          "exclusive_wall_ns": 6162350,
+          "exclusive_thread_cpu_ns": 5951206,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        }
+      },
+      {
+        "batch": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "page": {
+          "calls": 1,
+          "wall_ns": 288803187,
+          "thread_cpu_ns": 191998609,
+          "exclusive_wall_ns": 55328925,
+          "exclusive_thread_cpu_ns": 30271059,
+          "sql_count": 21,
+          "sql_wall_ns": 30048518,
+          "sql_thread_cpu_ns": 5620126
+        },
+        "record": {
+          "calls": 1,
+          "wall_ns": 120263760,
+          "thread_cpu_ns": 73661895,
+          "exclusive_wall_ns": 55135649,
+          "exclusive_thread_cpu_ns": 31126622,
+          "sql_count": 20,
+          "sql_wall_ns": 29395989,
+          "sql_thread_cpu_ns": 5426381
+        },
+        "baseline": {
+          "calls": 1,
+          "wall_ns": 712582,
+          "thread_cpu_ns": 712385,
+          "exclusive_wall_ns": 174639,
+          "exclusive_thread_cpu_ns": 173668,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "unseal": {
+          "calls": 48,
+          "wall_ns": 52421994,
+          "thread_cpu_ns": 52322290,
+          "exclusive_wall_ns": 52421994,
+          "exclusive_thread_cpu_ns": 52322290,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "source": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "compile": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "authorize": {
+          "calls": 5,
+          "wall_ns": 58682584,
+          "thread_cpu_ns": 33349816,
+          "exclusive_wall_ns": 58682584,
+          "exclusive_thread_cpu_ns": 33349816,
+          "sql_count": 20,
+          "sql_wall_ns": 30624980,
+          "sql_thread_cpu_ns": 5519356
+        },
+        "validate_selection": {
+          "calls": 1,
+          "wall_ns": 63193941,
+          "thread_cpu_ns": 54238411,
+          "exclusive_wall_ns": 18069072,
+          "exclusive_thread_cpu_ns": 13566171,
+          "sql_count": 4,
+          "sql_wall_ns": 5647201,
+          "sql_thread_cpu_ns": 1180021
+        },
+        "validate_assessment": {
+          "calls": 1,
+          "wall_ns": 24779286,
+          "thread_cpu_ns": 11361974,
+          "exclusive_wall_ns": 23718198,
+          "exclusive_thread_cpu_ns": 10301331,
+          "sql_count": 22,
+          "sql_wall_ns": 12424779,
+          "sql_thread_cpu_ns": 3631048
+        },
+        "assessment_evidence": {
+          "calls": 1,
+          "wall_ns": 444693,
+          "thread_cpu_ns": 444837,
+          "exclusive_wall_ns": 281548,
+          "exclusive_thread_cpu_ns": 281406,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "selection_evidence": {
+          "calls": 2,
+          "wall_ns": 44493562,
+          "thread_cpu_ns": 40037129,
+          "exclusive_wall_ns": 11625858,
+          "exclusive_thread_cpu_ns": 7397072,
+          "sql_count": 5,
+          "sql_wall_ns": 5703829,
+          "sql_thread_cpu_ns": 1490578
+        },
+        "audited_images": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "checked_images": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "read_image_blob": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "content_digest": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "batch_projection": {
+          "calls": 1,
+          "wall_ns": 301251,
+          "thread_cpu_ns": 301398,
+          "exclusive_wall_ns": 301251,
+          "exclusive_thread_cpu_ns": 301398,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "canonical_bytes": {
+          "calls": 50,
+          "wall_ns": 9598182,
+          "thread_cpu_ns": 9607029,
+          "exclusive_wall_ns": 9598182,
+          "exclusive_thread_cpu_ns": 9607029,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "fingerprint": {
+          "calls": 90,
+          "wall_ns": 3465287,
+          "thread_cpu_ns": 3300747,
+          "exclusive_wall_ns": 3465287,
+          "exclusive_thread_cpu_ns": 3300747,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        }
+      },
+      {
+        "batch": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "page": {
+          "calls": 1,
+          "wall_ns": 298337841,
+          "thread_cpu_ns": 195013177,
+          "exclusive_wall_ns": 52492087,
+          "exclusive_thread_cpu_ns": 28463407,
+          "sql_count": 21,
+          "sql_wall_ns": 28754766,
+          "sql_thread_cpu_ns": 5118739
+        },
+        "record": {
+          "calls": 1,
+          "wall_ns": 129183027,
+          "thread_cpu_ns": 73015678,
+          "exclusive_wall_ns": 59373738,
+          "exclusive_thread_cpu_ns": 30721897,
+          "sql_count": 20,
+          "sql_wall_ns": 34064267,
+          "sql_thread_cpu_ns": 5683874
+        },
+        "baseline": {
+          "calls": 1,
+          "wall_ns": 713595,
+          "thread_cpu_ns": 713448,
+          "exclusive_wall_ns": 172944,
+          "exclusive_thread_cpu_ns": 172227,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "unseal": {
+          "calls": 48,
+          "wall_ns": 54632273,
+          "thread_cpu_ns": 54623102,
+          "exclusive_wall_ns": 54632273,
+          "exclusive_thread_cpu_ns": 54623102,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "source": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "compile": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "authorize": {
+          "calls": 5,
+          "wall_ns": 58202500,
+          "thread_cpu_ns": 33557551,
+          "exclusive_wall_ns": 58202500,
+          "exclusive_thread_cpu_ns": 33557551,
+          "sql_count": 20,
+          "sql_wall_ns": 29742121,
+          "sql_thread_cpu_ns": 5305882
+        },
+        "validate_selection": {
+          "calls": 1,
+          "wall_ns": 67946665,
+          "thread_cpu_ns": 59959805,
+          "exclusive_wall_ns": 18892223,
+          "exclusive_thread_cpu_ns": 15130241,
+          "sql_count": 4,
+          "sql_wall_ns": 5065575,
+          "sql_thread_cpu_ns": 1338880
+        },
+        "validate_assessment": {
+          "calls": 1,
+          "wall_ns": 28954566,
+          "thread_cpu_ns": 10939740,
+          "exclusive_wall_ns": 27808465,
+          "exclusive_thread_cpu_ns": 9793863,
+          "sql_count": 22,
+          "sql_wall_ns": 16392876,
+          "sql_thread_cpu_ns": 3987963
+        },
+        "assessment_evidence": {
+          "calls": 1,
+          "wall_ns": 497451,
+          "thread_cpu_ns": 497661,
+          "exclusive_wall_ns": 306956,
+          "exclusive_thread_cpu_ns": 307052,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "selection_evidence": {
+          "calls": 2,
+          "wall_ns": 44321560,
+          "thread_cpu_ns": 40079101,
+          "exclusive_wall_ns": 11601191,
+          "exclusive_thread_cpu_ns": 7352366,
+          "sql_count": 5,
+          "sql_wall_ns": 5690828,
+          "sql_thread_cpu_ns": 1455232
+        },
+        "audited_images": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "checked_images": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "read_image_blob": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "content_digest": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "batch_projection": {
+          "calls": 1,
+          "wall_ns": 294240,
+          "thread_cpu_ns": 294464,
+          "exclusive_wall_ns": 294240,
+          "exclusive_thread_cpu_ns": 294464,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "canonical_bytes": {
+          "calls": 50,
+          "wall_ns": 10095975,
+          "thread_cpu_ns": 10112289,
+          "exclusive_wall_ns": 10095975,
+          "exclusive_thread_cpu_ns": 10112289,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "fingerprint": {
+          "calls": 90,
+          "wall_ns": 4465249,
+          "thread_cpu_ns": 4484718,
+          "exclusive_wall_ns": 4465249,
+          "exclusive_thread_cpu_ns": 4484718,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        }
+      },
+      {
+        "batch": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "page": {
+          "calls": 1,
+          "wall_ns": 301442312,
+          "thread_cpu_ns": 198457001,
+          "exclusive_wall_ns": 54464630,
+          "exclusive_thread_cpu_ns": 31317872,
+          "sql_count": 21,
+          "sql_wall_ns": 29039516,
+          "sql_thread_cpu_ns": 5954252
+        },
+        "record": {
+          "calls": 1,
+          "wall_ns": 129790084,
+          "thread_cpu_ns": 74407573,
+          "exclusive_wall_ns": 53012166,
+          "exclusive_thread_cpu_ns": 29291901,
+          "sql_count": 20,
+          "sql_wall_ns": 28810545,
+          "sql_thread_cpu_ns": 5148503
+        },
+        "baseline": {
+          "calls": 1,
+          "wall_ns": 788414,
+          "thread_cpu_ns": 788082,
+          "exclusive_wall_ns": 187734,
+          "exclusive_thread_cpu_ns": 186509,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "unseal": {
+          "calls": 48,
+          "wall_ns": 56429481,
+          "thread_cpu_ns": 56407630,
+          "exclusive_wall_ns": 56429481,
+          "exclusive_thread_cpu_ns": 56407630,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "source": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "compile": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "authorize": {
+          "calls": 5,
+          "wall_ns": 59296825,
+          "thread_cpu_ns": 33962187,
+          "exclusive_wall_ns": 59296825,
+          "exclusive_thread_cpu_ns": 33962187,
+          "sql_count": 20,
+          "sql_wall_ns": 30996162,
+          "sql_thread_cpu_ns": 5681418
+        },
+        "validate_selection": {
+          "calls": 1,
+          "wall_ns": 67786923,
+          "thread_cpu_ns": 58085660,
+          "exclusive_wall_ns": 19846654,
+          "exclusive_thread_cpu_ns": 14285835,
+          "sql_count": 4,
+          "sql_wall_ns": 7004378,
+          "sql_thread_cpu_ns": 1481330
+        },
+        "validate_assessment": {
+          "calls": 1,
+          "wall_ns": 33327188,
+          "thread_cpu_ns": 12261066,
+          "exclusive_wall_ns": 32061577,
+          "exclusive_thread_cpu_ns": 10995024,
+          "sql_count": 22,
+          "sql_wall_ns": 17232246,
+          "sql_thread_cpu_ns": 3876140
+        },
+        "assessment_evidence": {
+          "calls": 1,
+          "wall_ns": 553447,
+          "thread_cpu_ns": 553533,
+          "exclusive_wall_ns": 328130,
+          "exclusive_thread_cpu_ns": 328196,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "selection_evidence": {
+          "calls": 2,
+          "wall_ns": 46556624,
+          "thread_cpu_ns": 42383659,
+          "exclusive_wall_ns": 11459008,
+          "exclusive_thread_cpu_ns": 7298260,
+          "sql_count": 5,
+          "sql_wall_ns": 5572186,
+          "sql_thread_cpu_ns": 1423764
+        },
+        "audited_images": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "checked_images": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "read_image_blob": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "content_digest": {
+          "calls": 0,
+          "wall_ns": 0,
+          "thread_cpu_ns": 0,
+          "exclusive_wall_ns": 0,
+          "exclusive_thread_cpu_ns": 0,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "batch_projection": {
+          "calls": 1,
+          "wall_ns": 275815,
+          "thread_cpu_ns": 276099,
+          "exclusive_wall_ns": 275815,
+          "exclusive_thread_cpu_ns": 276099,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "canonical_bytes": {
+          "calls": 50,
+          "wall_ns": 10446289,
+          "thread_cpu_ns": 10458350,
+          "exclusive_wall_ns": 10446289,
+          "exclusive_thread_cpu_ns": 10458350,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        },
+        "fingerprint": {
+          "calls": 90,
+          "wall_ns": 3634003,
+          "thread_cpu_ns": 3649138,
+          "exclusive_wall_ns": 3634003,
+          "exclusive_thread_cpu_ns": 3649138,
+          "sql_count": 0,
+          "sql_wall_ns": 0,
+          "sql_thread_cpu_ns": 0
+        }
+      }
+    ],
+    "sql_count": 423,
+    "sql_totals": {
+      "wall_ns": 743878069,
+      "thread_cpu_ns": 145516733
+    },
+    "omitted_phases": [],
+    "missing_phases": [
+      "content_digest"
+    ],
+    "timing_semantics": "inclusive_overlapping_not_summed_request_wall",
+    "sql_attribution": "innermost_span_only",
+    "exclusive_semantics": "parent_minus_direct_observed_children_includes_SQL_not_native_only"
+  },
+  "wsgi_wall_ns": 2241112962,
+  "wsgi_thread_cpu_ns": 1473748324,
+  "runtime_enforced": true,
+  "scope": "single_instrumented_HTTP_not_p95",
+  "tcp_ns": 2241218946,
+  "response_bytes": 63469,
+  "selected_bytes": 16777586,
+  "fixture": {
+    "candidate_bytes": 16777372,
+    "topic_counts": [
+      19,
+      20
+    ],
+    "longer_revisions": 602,
+    "originals_bytes": 67095030
+  },
+  "selection_read_count": 31,
+  "differences": [
+    "New fixture, not historical snapshot; no baseline fallback",
+    "Originals retained but not selected/reviewed as binary deliveries",
+    "Partial coverage; one four-page scalar batch; no exports",
+    "Local TCP Gunicorn2; no Caddy/RustFS or contractual quotas",
+    "Cython freshly built and validated; no historical binary equivalence"
+  ],
+  "unseal_totals": {
+    "decrypt": {
+      "wall_ns": 48042748,
+      "cpu_ns": 48052380
+    },
+    "decode": {
+      "wall_ns": 814296,
+      "cpu_ns": 826130
+    },
+    "parse": {
+      "wall_ns": 33358319,
+      "cpu_ns": 33402248
+    },
+    "compare": {
+      "wall_ns": 1821916,
+      "cpu_ns": 1835294
+    },
+    "copy_probe": {
+      "wall_ns": 197028421,
+      "cpu_ns": 195650537
+    },
+    "repeat_parse_cpu_ns": 31465681,
+    "repeat_parse_wall_ns": 31422739
+  },
+  "verification": {
+    "run_id": "20261011-113602-59a09648",
+    "result": "PASS",
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "5",
+        "time": "116.956",
+        "timestamp": "2026-10-11T13:36:28.808572+02:00",
+        "hostname": "kali"
+      }
+    ],
+    "source_hash_count": 1161,
+    "mismatches": [],
+    "owned_containers_independently_absent": true,
+    "canonical_binary_sha256": "4a178c247bccc9eae6883d298bd1546d613d0608538c48b959d84cc51bd94c8e",
+    "diagnostic_gunicorn_processes_independently_absent": true
+  },
+  "limitations": [
+    "Single initial batch after approval, no hundreds of prior coverage audits as in historical p95",
+    "Instrumented timings include comparisons/copies/phase overhead, no clean matched control",
+    "No fetch or pipeline.sync exclusive instrumentation yet",
+    "No Caddy/RustFS/contractual quotas; no binarios seleccionados, cobertura parcial",
+    "Not p95 nor capacity acceptance; new fixture and new Cython binary"
+  ],
+  "previous_runs": [
+    {
+      "id": "20261011-112800-6d076bff",
+      "result": "PASS",
+      "scope": "first instrument version; 1 real TCP test, not summed with final tests"
+    },
+    {
+      "id": "20261011-113250-ddd24db2",
+      "result": "FAIL",
+      "tests": 5,
+      "failures": 1,
+      "cause": "cold worker module inventory, batch phase calls missing; not a phase diagnostic result"
+    }
+  ]
+}

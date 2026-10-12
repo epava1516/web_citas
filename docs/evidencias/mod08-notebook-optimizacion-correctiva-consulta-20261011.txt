@@ -1,0 +1,15 @@
+Tus candidatas 1 y 2 violan expresamente las restricciones: cachean author, omiten User.objects.get y baseline_body y omiten verificaciones criptográficas; un lock sobre coverage no inmoviliza assessment ni RightsAction. Retíralas como están. Tu respuesta no incluye ninguna fuente usada/cita y no demuestra ahorro.
+Busca una optimización estrictamente PURA: mantener CADA lectura física, cipher() y Fernet.decrypt en cada llamada; estudiar solo reutilización de json.loads después de obtener de nuevo plaintext autenticado y comparar igualdad completa de bytes. NO memoizar decrypt ni resultados autoritativos. Código exacto apps/safety/crypto.py:
+def unseal(payload):
+    return json.loads(cipher().decrypt(payload.encode()).decode())
+
+def cipher():
+    key = settings.SAFETY_ENCRYPTION_KEY
+    if not key:
+        if settings.PRODUCTION: raise ValueError("Safety encryption key required")
+        key = base64.urlsafe_b64encode(hashlib.sha256((settings.SECRET_KEY + ":dev-safety-v1").encode()).digest())
+    return Fernet(key)
+
+Evalúa SI este enfoque tiene margen o no. Necesita primero contar json.loads repetidos por contenido autenticado, bytes y CPU/wall, después medir coste de igualdad/copia y memoria de diccionarios. Examina mutabilidad del resultado: reutilizar un dict compartido puede cambiar comportamiento si llamadores lo mutan; deepcopy puede anular ahorro. Scope por request/batch, límites bytes/entradas, limpieza excepción/rollback, sin memorizar secretos. No des por segura ni beneficiosa esta hipótesis.
+Para candidata3, inspecciona el código real: coverage_page usa summary para algo más que su retorno? Quitar projection antes podría romper consumidores. El archivo existe: apps/safety/rights_portability_coverage_page.py. Filtrar un dict pequeño probablemente no tenga margen para 1.75s: no afirmes significancia sin medir.
+Entrega SOLO: (a) retirada explícita de variantes inseguras, (b) una instrumentación mínima concreta para decidir si json.loads es candidato útil, con conteo/bytes/tiempo agrupados sin registrar contenido privado, (c) puntos de descarte por mutación/memoria/coste igualdad+copias, (d) referencias verificables de las fuentes. Si no puedes inspeccionar llamadores dilo. No sugieras implementar el cache ahora.

@@ -1,0 +1,95 @@
+SIGUIENTE VÍA: usuario pide seguir deliberando, no iniciar otra carga. Quiero tu revisión adversarial de una sola línea nueva usando evidencia y código fresco que copio abajo. La candidata inline fue retirada exactamenteHEAD:78PASS pero HTTP N20/control797.984ms/inline789.795,p95819.964/829.377,dispersión17.778/33.032ms. No gananciaHTTP fiable, tampoco prueba ausencia absoluta. Fuentes1171exactas/cleanup;helper test-only28PASS posterior. Última respuesta tuya debe corregirse: CPUhiloWSGI y wallTCP no son perímetros idénticos;16.7MiBproyectados no son tráficoPG medido. execute/fetchall no separan servidor/transporte automáticamente.
+DIAGNÓSTICOSYAHECHOS: lote4páginas1500revs/16MiBoriginal64MiB,193unseal perodescriptorselección223141bytes,parseo repetido31.466msCPU frente copia195.651ms(sonda deepcopy intrusiva NOcosteproductivodemostrado): no memoJSON. Fuente exclusiva426mswall/253msCPU en requestINSTRUMENTADOdistinto con31lecturas selección/historialbajo. validatechain132ms allí; crecimiento realchain4calls39→70→179ms para44–58/204–218/620–634eventos, controlesTCP1.337/1.490/1.809 n2/nivel NOcausalidadHTTPexclusiva. SQLplanes8queries(sumamedianas)~28.8→18.817ms, sinspills,calientes,noíndicefaltantedemostrado. Benchmarkclones0.8s NOcomparaciónhistórico3.753s383lotes contopologíacuotas. MOD08generalpausado.
+MI HIPÓTESIS Y PRIORIDAD: dejar ajustes pequeñoschainSQL y localizar coste real dentro source_copy/inspection_source (generadores de batches no aparecen en PHASE_TARGETS), materializaciónORM vsconstrucciónproyeccióncanónica vsrenderHTTP. Yaexisten inspection_source (fuentecompartida+fingerprintfrescoentrada/salida+validaciónmutación), batch_projection (purecomputereuseafterfreshcrypto+deepcopy), operation_fingerprints/content_digests, Cythoncanonicalkernelvalidado. No volver a proponerlos como inéditos; no precargarcamposmutables ni cacheautoridad. No asumir que253msfuenteCPUtodoseaORM, nigapwallseaI/O.
+PROPUESTA DIAGNÓSTICO,NO EJECUTADO: mismahistoriaigualycalentamiento2worker, una muestra limpia anterior/una perfilada/una limpia posterior en clones propios concommit real(+4reads/+8events). CProfile(timer=thread_time) sólo en muestra perfilada parafuncionesCPU/llamadas; spanswall/CPU específicos para generadorbatches en iteración efectiva (no sólo creación), source_fingerprint, _InspectionSource.init y cierrecontexto, canonical yrender. Guardar sólo nombres/cuentas/tiempos sinlocals/SQLargumentos/datos. Fuentes/rules congeladas ycleanup. Reportar overhead observado sinrestarlo ni comparar p95. Ejecutar después únicamente si queda definido un cuello y candidata conganancia posible importante. Cuestiones:1¿puedes priorizar esa vía u otra con evidencia ya disponible?2¿qué barreras ytrabajoNOCPUquedaránsinatribución yqué no puede inferirse de cProfiletimerCPU?3siORMmaterializaciónsalealto, candidata específica segura(minimizarcolumnas/values/pipeline) concondición exacta;siJSON/construcción/render salealto, quéoperación concreta atacarías SINreutilizar autoridad?4¿cuál es el criterio de descarte finito para no encadenar experimentos que nuncaatacanelbloqueo? Distingue hechos/hipótesis, no inventar ahorros ni funciones.
+
+CÓDIGO ACTUAL, fragmentos escogidos:
+"""Exact PostgreSQL UUID batches for locked copy rows and their relations."""
+
+from itertools import islice
+
+from django.db.models import F
+from django.db.models.expressions import RawSQL
+
+from apps.catalog.models import Category, Municipality, Service
+from apps.listings.models import Rate
+from apps.mediafiles.models import Photo
+
+
+def batches(records, size):
+    rows = records.iterator(chunk_size=size)
+    while batch := list(islice(rows, size)):
+        # IDs originate in the locked revision cursor; no SQL text interpolation.
+        ids = RawSQL("SELECT unnest(%s::uuid[])", [[row.pk for row in batch]])
+        specs = [
+            ("copy_categories", Category.objects.order_by("slug"), "revision__pk"),
+            ("copy_services", Service.objects.order_by("slug"), "revision__pk"),
+            ("copy_travel_areas", Municipality.objects.order_by("code"), "travel_revisions__pk"),
+            ("copy_rates", Rate.objects.order_by("pk"), "revision_id"),
+            ("copy_photos", Photo.objects.select_related("blob").order_by("created_at", "pk"), "revision_id"),
+        ]
+        for attribute, queryset, relation in specs:
+            grouped = {row.pk: [] for row in batch}
+            for item in queryset.filter(**{relation + "__in": ids}).annotate(copy_parent=F(relation)):
+                grouped[item.copy_parent].append(item)
+            for row in batch:
+                setattr(row, attribute, grouped[row.pk])
+        yield from batch
+
+_InspectionSource.__init__:
+    def __init__(self, person, listing, case):
+        self.scope = scope(person, listing, case)
+        self.connection = transaction.get_connection()
+        # Taken before the read: a change committed in between makes the exit comparison differ.
+        self.rows_fingerprint = source_fingerprint(person, listing, case)
+        self.source = source_copy(person, listing, case)
+        self.digest = fingerprint(canonical_bytes(self.source))
+        self.row_references = {}
+
+
+Salida real inspection_source:
+        context.get(person, listing, case)
+        # Detect accidental mutation of the shared projection as well as DB drift.
+        if fingerprint(canonical_bytes(context.source)) != context.digest:
+            raise ValidationError("Inspection source changed before return")
+        # Unchanged row versions prove the source rows are those read; otherwise compare in full.
+        if source_fingerprint(person, listing, case) != context.rows_fingerprint and (
+            fingerprint(canonical_bytes(_fresh_source(person, listing, case))) != context.digest
+        ):
+            raise ValidationError("Inspection source changed before return")
+    finally:
+        _current.reset(token)
+
+
+
+Inicio source_copy (resto enumera campos,contacts,image_inventory,rates ysubject_data):
+def source_copy(person, listing, case=None):
+    if case and case.account_subject_id:
+        from .rights_account_copy import source
+
+        return source(case)
+    # Same account lock as preference writers; held through snapshot generation.
+    if person.subject_id:
+        User.objects.select_for_update(no_key=True).get(pk=person.subject_id)
+    revisions = []
+    if listing:
+        # Profile lock prevents a cooperating editor adding another revision mid-copy.
+        records = (
+            listing.revisions.select_for_update(of=("self",))
+            # Generated search vectors can exceed the source text; copies never use them.
+            .defer("search_document")
+            .select_related("municipality", "postal_code", "zone")
+            .order_by("created_at", "pk")
+        )
+        from .rights_copy_revision_batches import batches
+
+        for revision in batches(records, COPY_REVISION_BATCH_SIZE):
+            revisions.append(
+                {
+                    "revision": str(revision.pk),
+                    "status": revision.status,
+                    "created_at": revision.created_at.isoformat(),
+                    "title": revision.title,
+                    "description": revision.description,
+                    "description_alternative": revision.description_alternative,
+                    "profile_

@@ -1,0 +1,120 @@
+### Distinción de hechos medidos, hipótesis y evidencia faltante
+
+**Hechos medidos:**
+- **Resultados de las pruebas de rendimiento (PG17 nativo):** En el Experimento A (página 50 con hash físico fresco de todas las familias), el baseline mejoró de 404.347 ms a 352.524 ms (-12.8%), logrando 19/20 victorias en wall time y 20/20 en CPU [1, 2]. En el Experimento B (recolectar 30 chunks en una sola consulta), el wall time se degradó un +57.83% (411.695 ms → 649.771 ms, 0/20 victorias en wall time) y el tiempo de CPU se incrementó ligeramente (235.511 ms → 238.620 ms) [1, 2]. Los 2 `pytest` en PASS corresponden a experimentos locales y no equivalen a aceptación ni autorización en producción [3, 4]. El rendimiento histórico HTTP muestra 383 lotes en 3.753 s, distante del objetivo contractual de 2 s [4, 5].
+- **Comportamiento del código y consumidores vigentes:**
+  - `project_selected` valida `checked_assessment`, requiere coincidencia exacta de claves elegibles y evidencia granular, e invoca `pointer_value` por cada campo en `references[ref]` [6].
+  - `pointer_value` exige prefijo `/`, valida decodificación RFC 6901 (`~1`/`~0`), verifica que los índices de lista cumplan `str(int(key)) == key` en rango y rechaza contenedores hoja (`containerleaf`) [6]. En CPython, el uso de `deepcopy` sobre escalares `str` no duplica los buffers de bytes subyacentes [6, 7].
+  - `record(_audit_only=True)` y `batch_projection` verifican contexto atómico y autoridad vigentes [1, 7, 8]. Retornan `None` y almacenan el centinela `_VALIDATED_ONLY` (máximo 4 entradas por contexto) [1]. En ejecuciones `non-audit`, la presencia del centinela fuerza la ejecución real de `project_selected` [1].
+  - `compile_coverage` ejecuta `project_selected` y contabiliza omisiones [2]. `inspect_page` almacena el resumen en `_summary_cache` intra-petición y `coverage_page` remueve `projection` antes de entregar la respuesta [2, 9].
+
+**Hipótesis:**
+- Una variante `validate_selected` que ejecute el mismo recorrido de validación que `project_selected` sin instanciar diccionarios/listas de proyección podría ofrecer una reducción marginal en consumo de CPU y allocs de memoria en la fase `_audit_only`.
+- Una API de inventario autenticado index/ref/path evitaría procesar el `fullsource` completo de 16 MiB, pero requiere definir previamente la gestión de permisos DDL, retención y bindings HMAC.
+
+**Evidencia faltante:**
+- Ausencia de mediciones p95 bajo concurrencia real con múltiples workers que demuestren si evitar la construcción de diccionarios de proyección altera la latencia percibida [4, 10].
+- Falta de pruebas que garanticen la ausencia de deriva semántica de validación entre `validate_selected` y `project_selected` [6].
+
+---
+
+### Decisión finita propuesta
+
+**Decisión:** **Cambiar el foco hacia la optimización de `fullchain` (cadena de autoridad, candados y refresco de fuente) y NO invertir recursos en `validate_only` como experimento.**
+
+**Justificación:**
+El costo computacional de instanciar los diccionarios de proyección en `project_selected` es despreciable en comparación con las comprobaciones repetidas de autoridad y lecturas de la fuente [1, 2, 6]. Experimentos anteriores orientados a parches de micro-optimización local (como el enfoque de cuatro lectores) no redujeron el tiempo HTTP p95 y provocaron regresiones en cargas JSON (+11.7%) y binarias (+18.1%) [4]. La brecha hasta la meta contractual de 2 s no se cerrará mediante ahorros de allocs en proyecciones escalares [4, 5].
+
+---
+
+### Candidata mínima, Pseudocódigo, Contraejemplo y N1 Diferencial
+
+#### Pseudocódigo de `validate_selected`:
+```python
+@sensitive_variables()
+def validate_selected(source, assessment, selection, *, field_evidence=None):
+    checked = checked_assessment(assessment)
+    eligible = {name for name, item in checked.items() if item["status"] in {"eligible", "granular"}}
+    if not isinstance(selection, dict) or set(selection) != eligible:
+        raise ValidationError("Select each eligible dataset explicitly")
+    granular = {name for name in eligible if checked[name]["status"] == "granular" and selection[name]}
+    if field_evidence is None:
+        field_evidence = {}
+    if not isinstance(field_evidence, dict) or set(field_evidence) != granular:
+        raise ValidationError("Provide exact field evidence for mixed dataset selections")
+
+    for dataset in sorted(eligible):
+        rows = SECTIONS[dataset](source)
+        references = {row_reference(dataset, index, row): row for index, row in enumerate(rows)}
+        selectors = selection[dataset]
+        if not isinstance(selectors, list):
+            raise ValidationError("Invalid portability row selection")
+        evidence_rows = field_evidence.get(dataset, {})
+        if not isinstance(evidence_rows, dict):
+            raise ValidationError("Invalid mixed row evidence")
+        seen = set()
+        for selector in selectors:
+            if not isinstance(selector, dict) or set(selector) != {"row", "fields"}:
+                raise ValidationError("Invalid portability row selector")
+            reference, paths = selector["row"], selector["fields"]
+            if not isinstance(reference, str) or reference not in references or reference in seen:
+                raise ValidationError("Portability row unavailable or duplicated")
+            if not isinstance(paths, list) or not paths or any(not isinstance(p, str) for p in paths) or len(set(paths)) != len(paths):
+                raise ValidationError("Select unique portability fields")
+            if dataset in granular:
+                evidence = evidence_rows.get(reference)
+                if not isinstance(evidence, dict) or set(evidence) != set(paths):
+                    raise ValidationError("Provide exact evidence for each selected mixed field")
+                for decision in evidence.values():
+                    if not isinstance(decision, dict) or decision.get("status") != "eligible":
+                        raise ValidationError("Selected mixed fields require eligible conditions")
+                    checked_assessment({name: decision for name in DATASETS})
+            seen.add(reference)
+            for path in paths:
+                val = pointer_value(references[reference], path)
+                deepcopy(val)
+        if dataset in granular and set(evidence_rows) != seen:
+            raise ValidationError("Mixed evidence contains unselected rows")
+```
+
+#### Contraejemplo:
+Un payload que contenga un puntero dirigido a un contenedor intermedio (`containerleaf`) o evidencias sobrantes en `evidence_rows` debe fallar con `ValidationError` [6]. Si `validate_selected` omitiera llamar a `pointer_value` o alterara el orden de las comprobaciones, la llamada `_audit_only` marcaría el centinela `_VALIDATED_ONLY` como válido, pero la re-ejecución posterior en modo no-audit dentro del mismo bloque atómico fallaría inesperadamente con `project_selected` [1, 6].
+
+#### N1 Diferencial:
+1. **RFC 6901 y listindex:** `pointer_value` exige `/` inicial, decodifica `~1`/`~0` y valida los índices con `str(int(key)) == key` [6].
+2. **containerleaf:** Si el elemento final es un `dict` o `list`, se rechaza explícitamente [6]. `validate_selected` debe evaluar `pointer_value` para cada ruta sin excepción.
+3. **Granularidad y Duplicados:** Las referencias duplicadas o las evidencias no seleccionadas lanzan un error al finalizar la iteración del dataset [6]. El orden de detección de errores debe mantenerse idéntico.
+4. **Sentinela No-Audit:** La llamada con `_audit_only=True` debe retornar `None` y almacenar `_VALIDATED_ONLY` en el contexto atómico actual [1].
+
+#### Protocolo de Benchmark ABBA (Sin GC / Thread CPU time / Memoria separada):
+```python
+import gc, time, tracemalloc
+
+def abba_benchmark(source, assessment, selection, evidence, iterations=20):
+    gc.disable()
+    times_A, times_B = [], []
+    try:
+        for _ in range(iterations):
+            t0 = time.thread_time_ns()
+            project_selected(source, assessment, selection, field_evidence=evidence)
+            times_A.append(time.thread_time_ns() - t0)
+
+            t1 = time.thread_time_ns()
+            validate_selected(source, assessment, selection, field_evidence=evidence)
+            times_B.append(time.thread_time_ns() - t1)
+    finally:
+        gc.enable()
+    return times_A, times_B
+
+def abba_memory_pass(source, assessment, selection, evidence):
+    tracemalloc.start()
+    project_selected(source, assessment, selection, field_evidence=evidence)
+    _, peak_A = tracemalloc.get_traced_memory()
+    tracemalloc.reset_peak()
+    validate_selected(source, assessment, selection, field_evidence=evidence)
+    _, peak_B = tracemalloc.get_traced_memory()
+    tracemalloc.stop()
+    return peak_A, peak_B
+```
+
+🔍 ¿Quieres que analicemos los cuellos de botella específicos de la cadena de autoridad (`fullchain`) para identificar qué verificaciones de firmas o candados DB pueden reestructurarse?

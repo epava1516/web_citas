@@ -77,7 +77,10 @@ def source_copy(person, listing, case=None):
         records = (
             listing.revisions.select_for_update(of=("self",))
             # Generated search vectors can exceed the source text; copies never use them.
-            .defer("search_document")
+            .defer(
+                "search_document", "source_revision", "step", "edit_version", "telegram",
+                "contact_exposure_accepted", "publisher_acceptance", "updated_at",
+            )
             .select_related("municipality", "postal_code", "zone")
             .order_by("created_at", "pk")
         )

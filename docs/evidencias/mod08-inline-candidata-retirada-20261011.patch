@@ -1,0 +1,44 @@
+diff --git a/apps/safety/evidence_chain.py b/apps/safety/evidence_chain.py
+index 5807d6e..e7f3d6e 100644
+--- a/apps/safety/evidence_chain.py
++++ b/apps/safety/evidence_chain.py
+@@ -203,9 +203,28 @@ def _runtime_is_trusted(cursor):
+     return True
+ 
+ 
++# Read-side equivalents of the version-one SQL functions. Producers keep using
++# the original functions; every validation still reads every event/source row.
++# Qualify builtins so a caller search_path cannot redirect the hash computation.
++_UTC_FORMAT = 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"'
++_SOURCE_HASH_SQL = (
++    "pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to("
++    "pg_catalog.jsonb_set(pg_catalog.to_jsonb(s),'{created_at}',"
++    "pg_catalog.to_jsonb(pg_catalog.to_char(s.created_at AT TIME ZONE 'UTC',"
++    f"'{_UTC_FORMAT}')))::text,'UTF8')),'hex')"
++)
++_EVENT_LINK_SQL = (
++    "pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to("
++    "pg_catalog.jsonb_build_array('rights-evidence-chain-v1',request_id::text,"
++    "sequence,kind,source_table,source_pk,payload_digest,previous_digest,"
++    f"pg_catalog.to_char(created_at AT TIME ZONE 'UTC','{_UTC_FORMAT}'))"
++    "::text,'UTF8')),'hex')"
++)
++
++
+ def _source_statements(request):
+     return [(
+-        "SELECT s.id::text,public.rights_evidence_row_hash(to_jsonb(s)) "
++        f"SELECT s.id::text,{_SOURCE_HASH_SQL} "
+         f"FROM public.{connection.ops.quote_name(table)} s "
+         "JOIN public.safety_rightsaction a ON a.id=s.action_id WHERE a.request_id=%s",
+         [request],
+@@ -276,8 +295,7 @@ def validate_chain(request, ticket=None, count=None):
+         cursor.execute(
+             f'''SELECT sequence,kind,source_table,source_pk,payload_digest,
+             previous_digest,digest,created_at,
+-            public.rights_evidence_link(request_id,sequence,kind,source_table,source_pk,
+-                                      payload_digest,previous_digest,created_at)
++            {_EVENT_LINK_SQL}
+             FROM public."{EVENT}" WHERE request_id=%s ORDER BY sequence''',
+             [request],
+         )

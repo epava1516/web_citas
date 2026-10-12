@@ -1,0 +1,43 @@
+Sala técnica local. Opina sólo sobre el contexto suministrado. Sin herramientas, ediciones ni ejecución. Distingue hechos medidos, hipótesis y evidencia faltante. Las intervenciones son opiniones, nunca PASS ni autorización. No cachear autoridad, omitir comprobaciones frescas ni extrapolar microbenchmarks a p95 contractual. Propón una decisión finita y señala contraejemplos. Máximo 900 palabras.
+
+SegundaopiniónMOD08. Consulta extensa fallóinvalidrequest; reducción deliberada, conservarnegativa. Goal investigaciónacotada máximo3ciclos, detener2sinprogreso/nohipótesisnueva. No cacheautoridad/cadena, alterarlecturasfresh/firmas/auditoría/purga. No tunearGCglobal/desactivar/forzar/freeze ni tocarhost. Código productivo intacto.
+20controles+2warmups TERMINADOS,4PASSPGTCPreal/1231hashesexactos/limpiezaindependiente. Fixture1500revisiones16MiB,548eventos/256reads iniciales,clonidéntico/request,commit4reads8eventsverificado. UnPIDGunicornsync, canonicalnative-sealed comprobado. MedianaTCP1556.081CPUthread877.342ms;compuertapredeclara10%spreadP90-P10y10%derivaTCP/CPU. TCPspread8.064%deriva1.381%;CPUspread11.824%deriva1.684%:compuertaFAIL,no cambiarla ni repeticiónporquererPASS. GCgetstatsfuera reloj,no hooksSQL/profiler/spans.
+Grupospósthoc:9sinGCgen2 CPUmedian826.489TCP1509.09;11conGCgen2CPU903.394TCP1587.899. Correlación~77ms,no causal. Gen0~67porrequest,gen1~6,gen2casi alterna. Regímenesprevios~800msTCP/~425CPUvsactual~1556/~877 permanecensinexplicación,77msnoexplicafactor2.
+ClaudeproponeUNbloqueGCcallbacks20clones+2warmups paraCPU/wallcoleccionespor generación,collected/uncollectable,bufferprealloc,reportefuerar reloj,sinrestarGC comomejora; despuéscierre si nomecanismoevitable. Inventócriterios50%diferenciagrupos/8%CPU;Codexrechazaasumirloscomo hechos,seríanheurísticosnopruebas. CandidataClaude reducircontenedorestransitoriossource_copypero NOubicócopias;otrafreezeNOautorizada descartada.
+Código REAL: source_copy itera batches querysetRevision select_for_update self/defersearchdocument/selectrelatedmunicipality/postalcode/zone; directamente revisions.append(dictcampos+listasrelations+contact_data+image_inventory). contact_data retornaun dictscopephoneflags;image_inventory listdictphoto/blobmetadata. NOdict→dictintermedioobservado ensource_copy. Inspection_sourcehashcanonicalantes/salida+source_fingerprintfresco preservar. Autorizaciónchainfreshrepitenporpage requisito. YaSQLinlineprobado20porvariantecolepeor,revertido;Categoryprimitive~5msdescartado;scalar27163hojasA/A23ms y4501punteros6ms,noahorro,ramacerrada. cProfiletriplicóCPUno usar.
+Codex: hipótesisGCdurationexplica dispersiónes comprobable, pero diagnóstico sóloútilsi provoca nueva decisión. No garantía candidata ni reduccióncontenedores cuando forma ya directa. Alternativa cierreahora sin vía productivajustificada. SiGCdiag,secontaría1ciclo,nueva pregunta NOrepeticióncompuerta,norestas,timersGCsonintrusivosafirmarperímetro. Unbloqueacotado, después reevaluar sinmásperfilautomático.
+Decide CERRAR o UNdiagnósticoGCestrictamentejustificado. Indicaquémediría/cambiaríaladecisión,criterioderechazo,contraejemplos. No prometerganancias ni imaginarcopias. Máximo400palabras.
+
+NOTEBOOKOPINIÓN:
+### Hechos medidos
+* **Fallo de compuerta:** Dispersión de CPU del 11.824% (límite predeclarado <10%). TCP *spread* (8.064%) y derivas (TCP 1.381%, CPU 1.684%) cumplieron.
+* **Separación pósthoc GC gen2:** 11 corridas con gen2 (mediana CPU 903.394 ms) vs 9 sin gen2 (mediana CPU 826.489 ms). Delta medido: ~77 ms CPU.
+* **Código real:** `source_copy` itera QuerySet con `select_for_update`, `defer` y `select_related`, insertando directamente diccionarios a la lista final sin transformaciones intermadias.
+
+### Hipótesis
+* La intermitencia de la recolección gen2 introduce la variabilidad de CPU que invalida la compuerta.
+* La duplicación respecto a regímenes previos (~425 ms CPU / ~800 ms TCP vs ~877 ms CPU / ~1556 ms TCP) obedece a factores del entorno/fixture (16 MiB, 1500 revisiones) y no a GC.
+
+### Evidencia faltante
+* Medición directa e ininterrumpida de la duración (CPU/wall) gastada exclusivamente dentro de los ciclos de GC por request.
+* Causa raíz del salto de factor 2x respecto a regímenes históricos.
+
+---
+
+### Decisión propuesta: CERRAR LA INVESTIGACIÓN
+
+**Justificación:**
+El delta pósthoc de ~77 ms por GC gen2 no explica el salto estructural de ~425 ms a ~877 ms de CPU. Además, como `source_copy` opera de forma directa sin estructuras intermedias prescindibles y el código productivo está congelado, no existe ninguna acción en el código que pueda derivarse de diagnosticar el GC.
+
+*(Si la mesa requiere agotar la verificación antes de concluir, la única alternativa admisible es **UN diagnóstico de GC de 1 ciclo**).*
+
+---
+
+### Evaluación del diagnóstico único (si se opta por ejecutarlo)
+* **Qué mediría:** Duración CPU/wall por colección de GC mediante `gc.callbacks` y objetos recolectados/no recolectados en buffer preasignado fuera del reloj principal.
+* **Qué cambiaría la decisión:** Si el tiempo neto de GC explica completamente la dispersión de CPU, la variabilidad se clasifica como comportamiento esperado del runtime de Python bajo esta carga, descartando regresiones en la lógica.
+* **Criterio de rechazo:** Si el tiempo total acumulado en GC es <30 ms o no correlaciona con las corridas lentas, la hipótesis de GC queda desestimada.
+* **Contraejemplos:**
+  * Dispersión de CPU persistente en pruebas controladas con `gc.disable()` durante el manejo del request.
+  * Tramos de latencia causados por asignación masiva en C (drivers/librerías) no contabilizados por los callbacks del GC de Python.
+CORRECCIÓNCODEX: Has propuestoGC callbacks con reduccióncontenedores NO localizada. Sourcecopy construyeDIRECTAMENTE revisions.append(dict(...)) sin dict→dict. No adoptarfreeze. Tus cortes50/8% inventados no prueban nada. ¿Mantienes utilidad de UNdiagnósticoGC o prefieres cerrar dado que no hay mecanismoevitable? Necesito decisión con contraejemplo, no otroperfilado porcuriosidad. SiGCsugierecandidatadebeubicarse en código suministrado, noimaginar. Máximo300palabras.

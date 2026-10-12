@@ -1,0 +1,1017 @@
+{
+  "samples": [
+    {
+      "mode": "control",
+      "wsgi_wall_ns": 1422679063,
+      "wsgi_thread_cpu_ns": 887313801,
+      "chain": null,
+      "tcp_ns": 1423884922,
+      "response_bytes": 63469,
+      "events_before": 36,
+      "events_after": 44,
+      "seeded_batches": 0,
+      "preceding_measured_batches": 0
+    },
+    {
+      "mode": "instrumented",
+      "wsgi_wall_ns": 1335657775,
+      "wsgi_thread_cpu_ns": 847217926,
+      "chain": {
+        "spans": {
+          "runtime_trust": {
+            "calls": 4,
+            "wall_ns": 33344323,
+            "thread_cpu_ns": 7043606,
+            "exclusive_wall_ns": 33344323,
+            "exclusive_thread_cpu_ns": 7043606
+          },
+          "other_execute": {
+            "calls": 8,
+            "wall_ns": 2765394,
+            "thread_cpu_ns": 864846,
+            "exclusive_wall_ns": 2765394,
+            "exclusive_thread_cpu_ns": 864846
+          },
+          "head_execute": {
+            "calls": 4,
+            "wall_ns": 2610777,
+            "thread_cpu_ns": 588726,
+            "exclusive_wall_ns": 2610777,
+            "exclusive_thread_cpu_ns": 588726
+          },
+          "head_fetchone": {
+            "calls": 4,
+            "wall_ns": 59530,
+            "thread_cpu_ns": 59760,
+            "exclusive_wall_ns": 59530,
+            "exclusive_thread_cpu_ns": 59760
+          },
+          "events_execute": {
+            "calls": 4,
+            "wall_ns": 6978530,
+            "thread_cpu_ns": 1078963,
+            "exclusive_wall_ns": 6978530,
+            "exclusive_thread_cpu_ns": 1078963
+          },
+          "events_fetchall": {
+            "calls": 4,
+            "wall_ns": 1832542,
+            "thread_cpu_ns": 1834077,
+            "exclusive_wall_ns": 1832542,
+            "exclusive_thread_cpu_ns": 1834077
+          },
+          "sources_execute": {
+            "calls": 28,
+            "wall_ns": 1856960,
+            "thread_cpu_ns": 1867123,
+            "exclusive_wall_ns": 1856960,
+            "exclusive_thread_cpu_ns": 1867123
+          },
+          "pipeline_sync": {
+            "calls": 4,
+            "wall_ns": 17406808,
+            "thread_cpu_ns": 689493,
+            "exclusive_wall_ns": 17406808,
+            "exclusive_thread_cpu_ns": 689493
+          },
+          "sources_fetchall": {
+            "calls": 28,
+            "wall_ns": 220791,
+            "thread_cpu_ns": 223607,
+            "exclusive_wall_ns": 220791,
+            "exclusive_thread_cpu_ns": 223607
+          },
+          "source_pipeline": {
+            "calls": 4,
+            "wall_ns": 22461595,
+            "thread_cpu_ns": 5156623,
+            "exclusive_wall_ns": 2977036,
+            "exclusive_thread_cpu_ns": 2376400
+          },
+          "source_rows": {
+            "calls": 4,
+            "wall_ns": 22863020,
+            "thread_cpu_ns": 5554193,
+            "exclusive_wall_ns": 401425,
+            "exclusive_thread_cpu_ns": 397570
+          },
+          "chain": {
+            "calls": 4,
+            "wall_ns": 38892463,
+            "thread_cpu_ns": 11739676,
+            "exclusive_wall_ns": 1782670,
+            "exclusive_thread_cpu_ns": 1759111
+          }
+        },
+        "head_counts": [
+          44,
+          46,
+          48,
+          50
+        ],
+        "event_rows": [
+          44,
+          46,
+          48,
+          50
+        ],
+        "source_row_counts": [
+          1,
+          1,
+          36,
+          2,
+          0,
+          4,
+          0,
+          1,
+          1,
+          37,
+          2,
+          0,
+          5,
+          0,
+          1,
+          1,
+          38,
+          2,
+          0,
+          6,
+          0,
+          1,
+          1,
+          39,
+          2,
+          0,
+          7,
+          0
+        ],
+        "failures": 0,
+        "semantics": "inclusive_overlap; exclusive_parent_minus_children; execute/fetch are application-driver wall/CPU, not server/network isolation; chain residual includes Python verification, transaction and observer overhead"
+      },
+      "tcp_ns": 1327247561,
+      "response_bytes": 63469,
+      "events_before": 44,
+      "events_after": 52,
+      "seeded_batches": 0,
+      "preceding_measured_batches": 1
+    },
+    {
+      "mode": "instrumented",
+      "wsgi_wall_ns": 1281897609,
+      "wsgi_thread_cpu_ns": 851339723,
+      "chain": {
+        "spans": {
+          "runtime_trust": {
+            "calls": 4,
+            "wall_ns": 27432548,
+            "thread_cpu_ns": 5723948,
+            "exclusive_wall_ns": 27432548,
+            "exclusive_thread_cpu_ns": 5723948
+          },
+          "other_execute": {
+            "calls": 8,
+            "wall_ns": 3283747,
+            "thread_cpu_ns": 1075258,
+            "exclusive_wall_ns": 3283747,
+            "exclusive_thread_cpu_ns": 1075258
+          },
+          "head_execute": {
+            "calls": 4,
+            "wall_ns": 2175723,
+            "thread_cpu_ns": 601608,
+            "exclusive_wall_ns": 2175723,
+            "exclusive_thread_cpu_ns": 601608
+          },
+          "head_fetchone": {
+            "calls": 4,
+            "wall_ns": 67372,
+            "thread_cpu_ns": 67967,
+            "exclusive_wall_ns": 67372,
+            "exclusive_thread_cpu_ns": 67967
+          },
+          "events_execute": {
+            "calls": 4,
+            "wall_ns": 6362551,
+            "thread_cpu_ns": 1244711,
+            "exclusive_wall_ns": 6362551,
+            "exclusive_thread_cpu_ns": 1244711
+          },
+          "events_fetchall": {
+            "calls": 4,
+            "wall_ns": 1969892,
+            "thread_cpu_ns": 1971113,
+            "exclusive_wall_ns": 1969892,
+            "exclusive_thread_cpu_ns": 1971113
+          },
+          "sources_execute": {
+            "calls": 28,
+            "wall_ns": 1676273,
+            "thread_cpu_ns": 1668190,
+            "exclusive_wall_ns": 1676273,
+            "exclusive_thread_cpu_ns": 1668190
+          },
+          "pipeline_sync": {
+            "calls": 4,
+            "wall_ns": 16635073,
+            "thread_cpu_ns": 805724,
+            "exclusive_wall_ns": 16635073,
+            "exclusive_thread_cpu_ns": 805724
+          },
+          "sources_fetchall": {
+            "calls": 28,
+            "wall_ns": 218414,
+            "thread_cpu_ns": 220719,
+            "exclusive_wall_ns": 218414,
+            "exclusive_thread_cpu_ns": 220719
+          },
+          "source_pipeline": {
+            "calls": 4,
+            "wall_ns": 22336483,
+            "thread_cpu_ns": 5200066,
+            "exclusive_wall_ns": 3806723,
+            "exclusive_thread_cpu_ns": 2505433
+          },
+          "source_rows": {
+            "calls": 4,
+            "wall_ns": 22739733,
+            "thread_cpu_ns": 5593619,
+            "exclusive_wall_ns": 403250,
+            "exclusive_thread_cpu_ns": 393553
+          },
+          "chain": {
+            "calls": 4,
+            "wall_ns": 38387284,
+            "thread_cpu_ns": 12314576,
+            "exclusive_wall_ns": 1788266,
+            "exclusive_thread_cpu_ns": 1760300
+          }
+        },
+        "head_counts": [
+          52,
+          54,
+          56,
+          58
+        ],
+        "event_rows": [
+          52,
+          54,
+          56,
+          58
+        ],
+        "source_row_counts": [
+          1,
+          1,
+          40,
+          2,
+          0,
+          8,
+          0,
+          1,
+          1,
+          41,
+          2,
+          0,
+          9,
+          0,
+          1,
+          1,
+          42,
+          2,
+          0,
+          10,
+          0,
+          1,
+          1,
+          43,
+          2,
+          0,
+          11,
+          0
+        ],
+        "failures": 0,
+        "semantics": "inclusive_overlap; exclusive_parent_minus_children; execute/fetch are application-driver wall/CPU, not server/network isolation; chain residual includes Python verification, transaction and observer overhead"
+      },
+      "tcp_ns": 1281544647,
+      "response_bytes": 63469,
+      "events_before": 52,
+      "events_after": 60,
+      "seeded_batches": 0,
+      "preceding_measured_batches": 2
+    },
+    {
+      "mode": "control",
+      "wsgi_wall_ns": 1248420779,
+      "wsgi_thread_cpu_ns": 801962904,
+      "chain": null,
+      "tcp_ns": 1249680442,
+      "response_bytes": 63469,
+      "events_before": 60,
+      "events_after": 68,
+      "seeded_batches": 0,
+      "preceding_measured_batches": 3
+    },
+    {
+      "mode": "control",
+      "wsgi_wall_ns": 1436402802,
+      "wsgi_thread_cpu_ns": 847902801,
+      "chain": null,
+      "tcp_ns": 1437734733,
+      "response_bytes": 63469,
+      "events_before": 196,
+      "events_after": 204,
+      "seeded_batches": 16,
+      "preceding_measured_batches": 4
+    },
+    {
+      "mode": "instrumented",
+      "wsgi_wall_ns": 1435213428,
+      "wsgi_thread_cpu_ns": 884615705,
+      "chain": {
+        "spans": {
+          "runtime_trust": {
+            "calls": 4,
+            "wall_ns": 28383974,
+            "thread_cpu_ns": 6621856,
+            "exclusive_wall_ns": 28383974,
+            "exclusive_thread_cpu_ns": 6621856
+          },
+          "other_execute": {
+            "calls": 8,
+            "wall_ns": 3193948,
+            "thread_cpu_ns": 922561,
+            "exclusive_wall_ns": 3193948,
+            "exclusive_thread_cpu_ns": 922561
+          },
+          "head_execute": {
+            "calls": 4,
+            "wall_ns": 1547292,
+            "thread_cpu_ns": 409051,
+            "exclusive_wall_ns": 1547292,
+            "exclusive_thread_cpu_ns": 409051
+          },
+          "head_fetchone": {
+            "calls": 4,
+            "wall_ns": 44938,
+            "thread_cpu_ns": 45085,
+            "exclusive_wall_ns": 44938,
+            "exclusive_thread_cpu_ns": 45085
+          },
+          "events_execute": {
+            "calls": 4,
+            "wall_ns": 17822474,
+            "thread_cpu_ns": 1216093,
+            "exclusive_wall_ns": 17822474,
+            "exclusive_thread_cpu_ns": 1216093
+          },
+          "events_fetchall": {
+            "calls": 4,
+            "wall_ns": 5848182,
+            "thread_cpu_ns": 5828289,
+            "exclusive_wall_ns": 5848182,
+            "exclusive_thread_cpu_ns": 5828289
+          },
+          "sources_execute": {
+            "calls": 28,
+            "wall_ns": 1374243,
+            "thread_cpu_ns": 1379657,
+            "exclusive_wall_ns": 1374243,
+            "exclusive_thread_cpu_ns": 1379657
+          },
+          "pipeline_sync": {
+            "calls": 4,
+            "wall_ns": 37522096,
+            "thread_cpu_ns": 1395202,
+            "exclusive_wall_ns": 37522096,
+            "exclusive_thread_cpu_ns": 1395202
+          },
+          "sources_fetchall": {
+            "calls": 28,
+            "wall_ns": 298988,
+            "thread_cpu_ns": 300981,
+            "exclusive_wall_ns": 298988,
+            "exclusive_thread_cpu_ns": 300981
+          },
+          "source_pipeline": {
+            "calls": 4,
+            "wall_ns": 42715632,
+            "thread_cpu_ns": 5399115,
+            "exclusive_wall_ns": 3520305,
+            "exclusive_thread_cpu_ns": 2323275
+          },
+          "source_rows": {
+            "calls": 4,
+            "wall_ns": 43072028,
+            "thread_cpu_ns": 5748666,
+            "exclusive_wall_ns": 356396,
+            "exclusive_thread_cpu_ns": 349551
+          },
+          "chain": {
+            "calls": 4,
+            "wall_ns": 73730990,
+            "thread_cpu_ns": 16349970,
+            "exclusive_wall_ns": 2202128,
+            "exclusive_thread_cpu_ns": 2180225
+          }
+        },
+        "head_counts": [
+          204,
+          206,
+          208,
+          210
+        ],
+        "event_rows": [
+          204,
+          206,
+          208,
+          210
+        ],
+        "source_row_counts": [
+          1,
+          1,
+          116,
+          2,
+          0,
+          84,
+          0,
+          1,
+          1,
+          117,
+          2,
+          0,
+          85,
+          0,
+          1,
+          1,
+          118,
+          2,
+          0,
+          86,
+          0,
+          1,
+          1,
+          119,
+          2,
+          0,
+          87,
+          0
+        ],
+        "failures": 0,
+        "semantics": "inclusive_overlap; exclusive_parent_minus_children; execute/fetch are application-driver wall/CPU, not server/network isolation; chain residual includes Python verification, transaction and observer overhead"
+      },
+      "tcp_ns": 1434724086,
+      "response_bytes": 63469,
+      "events_before": 204,
+      "events_after": 212,
+      "seeded_batches": 16,
+      "preceding_measured_batches": 5
+    },
+    {
+      "mode": "instrumented",
+      "wsgi_wall_ns": 1426593293,
+      "wsgi_thread_cpu_ns": 877397728,
+      "chain": {
+        "spans": {
+          "runtime_trust": {
+            "calls": 4,
+            "wall_ns": 29825120,
+            "thread_cpu_ns": 6802879,
+            "exclusive_wall_ns": 29825120,
+            "exclusive_thread_cpu_ns": 6802879
+          },
+          "other_execute": {
+            "calls": 8,
+            "wall_ns": 3203135,
+            "thread_cpu_ns": 872422,
+            "exclusive_wall_ns": 3203135,
+            "exclusive_thread_cpu_ns": 872422
+          },
+          "head_execute": {
+            "calls": 4,
+            "wall_ns": 2008792,
+            "thread_cpu_ns": 469648,
+            "exclusive_wall_ns": 2008792,
+            "exclusive_thread_cpu_ns": 469648
+          },
+          "head_fetchone": {
+            "calls": 4,
+            "wall_ns": 42531,
+            "thread_cpu_ns": 42834,
+            "exclusive_wall_ns": 42531,
+            "exclusive_thread_cpu_ns": 42834
+          },
+          "events_execute": {
+            "calls": 4,
+            "wall_ns": 15800982,
+            "thread_cpu_ns": 1185865,
+            "exclusive_wall_ns": 15800982,
+            "exclusive_thread_cpu_ns": 1185865
+          },
+          "events_fetchall": {
+            "calls": 4,
+            "wall_ns": 5438493,
+            "thread_cpu_ns": 5430018,
+            "exclusive_wall_ns": 5438493,
+            "exclusive_thread_cpu_ns": 5430018
+          },
+          "sources_execute": {
+            "calls": 28,
+            "wall_ns": 1565457,
+            "thread_cpu_ns": 1570450,
+            "exclusive_wall_ns": 1565457,
+            "exclusive_thread_cpu_ns": 1570450
+          },
+          "pipeline_sync": {
+            "calls": 4,
+            "wall_ns": 31723424,
+            "thread_cpu_ns": 1316226,
+            "exclusive_wall_ns": 31723424,
+            "exclusive_thread_cpu_ns": 1316226
+          },
+          "sources_fetchall": {
+            "calls": 28,
+            "wall_ns": 253298,
+            "thread_cpu_ns": 254730,
+            "exclusive_wall_ns": 253298,
+            "exclusive_thread_cpu_ns": 254730
+          },
+          "source_pipeline": {
+            "calls": 4,
+            "wall_ns": 36790957,
+            "thread_cpu_ns": 5333311,
+            "exclusive_wall_ns": 3248778,
+            "exclusive_thread_cpu_ns": 2191905
+          },
+          "source_rows": {
+            "calls": 4,
+            "wall_ns": 37116348,
+            "thread_cpu_ns": 5652351,
+            "exclusive_wall_ns": 325391,
+            "exclusive_thread_cpu_ns": 319040
+          },
+          "chain": {
+            "calls": 4,
+            "wall_ns": 65653471,
+            "thread_cpu_ns": 15675581,
+            "exclusive_wall_ns": 2043190,
+            "exclusive_thread_cpu_ns": 2022443
+          }
+        },
+        "head_counts": [
+          212,
+          214,
+          216,
+          218
+        ],
+        "event_rows": [
+          212,
+          214,
+          216,
+          218
+        ],
+        "source_row_counts": [
+          1,
+          1,
+          120,
+          2,
+          0,
+          88,
+          0,
+          1,
+          1,
+          121,
+          2,
+          0,
+          89,
+          0,
+          1,
+          1,
+          122,
+          2,
+          0,
+          90,
+          0,
+          1,
+          1,
+          123,
+          2,
+          0,
+          91,
+          0
+        ],
+        "failures": 0,
+        "semantics": "inclusive_overlap; exclusive_parent_minus_children; execute/fetch are application-driver wall/CPU, not server/network isolation; chain residual includes Python verification, transaction and observer overhead"
+      },
+      "tcp_ns": 1417686336,
+      "response_bytes": 63469,
+      "events_before": 212,
+      "events_after": 220,
+      "seeded_batches": 16,
+      "preceding_measured_batches": 6
+    },
+    {
+      "mode": "control",
+      "wsgi_wall_ns": 1540040654,
+      "wsgi_thread_cpu_ns": 901813643,
+      "chain": null,
+      "tcp_ns": 1541503840,
+      "response_bytes": 63469,
+      "events_before": 220,
+      "events_after": 228,
+      "seeded_batches": 16,
+      "preceding_measured_batches": 7
+    },
+    {
+      "mode": "control",
+      "wsgi_wall_ns": 1859832626,
+      "wsgi_thread_cpu_ns": 1058065333,
+      "chain": null,
+      "tcp_ns": 1861396335,
+      "response_bytes": 63469,
+      "events_before": 612,
+      "events_after": 620,
+      "seeded_batches": 64,
+      "preceding_measured_batches": 8
+    },
+    {
+      "mode": "instrumented",
+      "wsgi_wall_ns": 1954483594,
+      "wsgi_thread_cpu_ns": 1158315320,
+      "chain": {
+        "spans": {
+          "runtime_trust": {
+            "calls": 4,
+            "wall_ns": 32717956,
+            "thread_cpu_ns": 8212502,
+            "exclusive_wall_ns": 32717956,
+            "exclusive_thread_cpu_ns": 8212502
+          },
+          "other_execute": {
+            "calls": 8,
+            "wall_ns": 4043287,
+            "thread_cpu_ns": 1402225,
+            "exclusive_wall_ns": 4043287,
+            "exclusive_thread_cpu_ns": 1402225
+          },
+          "head_execute": {
+            "calls": 4,
+            "wall_ns": 1868976,
+            "thread_cpu_ns": 655734,
+            "exclusive_wall_ns": 1868976,
+            "exclusive_thread_cpu_ns": 655734
+          },
+          "head_fetchone": {
+            "calls": 4,
+            "wall_ns": 61619,
+            "thread_cpu_ns": 61715,
+            "exclusive_wall_ns": 61619,
+            "exclusive_thread_cpu_ns": 61715
+          },
+          "events_execute": {
+            "calls": 4,
+            "wall_ns": 51567811,
+            "thread_cpu_ns": 3173980,
+            "exclusive_wall_ns": 51567811,
+            "exclusive_thread_cpu_ns": 3173980
+          },
+          "events_fetchall": {
+            "calls": 4,
+            "wall_ns": 19733632,
+            "thread_cpu_ns": 18791403,
+            "exclusive_wall_ns": 19733632,
+            "exclusive_thread_cpu_ns": 18791403
+          },
+          "sources_execute": {
+            "calls": 28,
+            "wall_ns": 2103617,
+            "thread_cpu_ns": 2090464,
+            "exclusive_wall_ns": 2103617,
+            "exclusive_thread_cpu_ns": 2090464
+          },
+          "pipeline_sync": {
+            "calls": 4,
+            "wall_ns": 95002890,
+            "thread_cpu_ns": 3506826,
+            "exclusive_wall_ns": 95002890,
+            "exclusive_thread_cpu_ns": 3506826
+          },
+          "sources_fetchall": {
+            "calls": 28,
+            "wall_ns": 1470589,
+            "thread_cpu_ns": 1474950,
+            "exclusive_wall_ns": 1470589,
+            "exclusive_thread_cpu_ns": 1474950
+          },
+          "source_pipeline": {
+            "calls": 4,
+            "wall_ns": 103709850,
+            "thread_cpu_ns": 10960213,
+            "exclusive_wall_ns": 5132754,
+            "exclusive_thread_cpu_ns": 3887973
+          },
+          "source_rows": {
+            "calls": 4,
+            "wall_ns": 104174102,
+            "thread_cpu_ns": 11416237,
+            "exclusive_wall_ns": 464252,
+            "exclusive_thread_cpu_ns": 456024
+          },
+          "chain": {
+            "calls": 4,
+            "wall_ns": 186713029,
+            "thread_cpu_ns": 40723397,
+            "exclusive_wall_ns": 5263602,
+            "exclusive_thread_cpu_ns": 5222103
+          }
+        },
+        "head_counts": [
+          620,
+          622,
+          624,
+          626
+        ],
+        "event_rows": [
+          620,
+          622,
+          624,
+          626
+        ],
+        "source_row_counts": [
+          1,
+          1,
+          324,
+          2,
+          0,
+          292,
+          0,
+          1,
+          1,
+          325,
+          2,
+          0,
+          293,
+          0,
+          1,
+          1,
+          326,
+          2,
+          0,
+          294,
+          0,
+          1,
+          1,
+          327,
+          2,
+          0,
+          295,
+          0
+        ],
+        "failures": 0,
+        "semantics": "inclusive_overlap; exclusive_parent_minus_children; execute/fetch are application-driver wall/CPU, not server/network isolation; chain residual includes Python verification, transaction and observer overhead"
+      },
+      "tcp_ns": 1953421601,
+      "response_bytes": 63469,
+      "events_before": 620,
+      "events_after": 628,
+      "seeded_batches": 64,
+      "preceding_measured_batches": 9
+    },
+    {
+      "mode": "instrumented",
+      "wsgi_wall_ns": 1741488721,
+      "wsgi_thread_cpu_ns": 1034295048,
+      "chain": {
+        "spans": {
+          "runtime_trust": {
+            "calls": 4,
+            "wall_ns": 30926010,
+            "thread_cpu_ns": 6976175,
+            "exclusive_wall_ns": 30926010,
+            "exclusive_thread_cpu_ns": 6976175
+          },
+          "other_execute": {
+            "calls": 8,
+            "wall_ns": 3863222,
+            "thread_cpu_ns": 1171259,
+            "exclusive_wall_ns": 3863222,
+            "exclusive_thread_cpu_ns": 1171259
+          },
+          "head_execute": {
+            "calls": 4,
+            "wall_ns": 2465536,
+            "thread_cpu_ns": 636082,
+            "exclusive_wall_ns": 2465536,
+            "exclusive_thread_cpu_ns": 636082
+          },
+          "head_fetchone": {
+            "calls": 4,
+            "wall_ns": 61812,
+            "thread_cpu_ns": 62092,
+            "exclusive_wall_ns": 61812,
+            "exclusive_thread_cpu_ns": 62092
+          },
+          "events_execute": {
+            "calls": 4,
+            "wall_ns": 45051037,
+            "thread_cpu_ns": 2724843,
+            "exclusive_wall_ns": 45051037,
+            "exclusive_thread_cpu_ns": 2724843
+          },
+          "events_fetchall": {
+            "calls": 4,
+            "wall_ns": 18689481,
+            "thread_cpu_ns": 18681354,
+            "exclusive_wall_ns": 18689481,
+            "exclusive_thread_cpu_ns": 18681354
+          },
+          "sources_execute": {
+            "calls": 28,
+            "wall_ns": 1620222,
+            "thread_cpu_ns": 1627380,
+            "exclusive_wall_ns": 1620222,
+            "exclusive_thread_cpu_ns": 1627380
+          },
+          "pipeline_sync": {
+            "calls": 4,
+            "wall_ns": 87206939,
+            "thread_cpu_ns": 3365038,
+            "exclusive_wall_ns": 87206939,
+            "exclusive_thread_cpu_ns": 3365038
+          },
+          "sources_fetchall": {
+            "calls": 28,
+            "wall_ns": 1052028,
+            "thread_cpu_ns": 1040487,
+            "exclusive_wall_ns": 1052028,
+            "exclusive_thread_cpu_ns": 1040487
+          },
+          "source_pipeline": {
+            "calls": 4,
+            "wall_ns": 95009763,
+            "thread_cpu_ns": 9676796,
+            "exclusive_wall_ns": 5130574,
+            "exclusive_thread_cpu_ns": 3643891
+          },
+          "source_rows": {
+            "calls": 4,
+            "wall_ns": 95466293,
+            "thread_cpu_ns": 10124823,
+            "exclusive_wall_ns": 456530,
+            "exclusive_thread_cpu_ns": 448027
+          },
+          "chain": {
+            "calls": 4,
+            "wall_ns": 170976964,
+            "thread_cpu_ns": 38704350,
+            "exclusive_wall_ns": 5379583,
+            "exclusive_thread_cpu_ns": 5303897
+          }
+        },
+        "head_counts": [
+          628,
+          630,
+          632,
+          634
+        ],
+        "event_rows": [
+          628,
+          630,
+          632,
+          634
+        ],
+        "source_row_counts": [
+          1,
+          1,
+          328,
+          2,
+          0,
+          296,
+          0,
+          1,
+          1,
+          329,
+          2,
+          0,
+          297,
+          0,
+          1,
+          1,
+          330,
+          2,
+          0,
+          298,
+          0,
+          1,
+          1,
+          331,
+          2,
+          0,
+          299,
+          0
+        ],
+        "failures": 0,
+        "semantics": "inclusive_overlap; exclusive_parent_minus_children; execute/fetch are application-driver wall/CPU, not server/network isolation; chain residual includes Python verification, transaction and observer overhead"
+      },
+      "tcp_ns": 1741306145,
+      "response_bytes": 63469,
+      "events_before": 628,
+      "events_after": 636,
+      "seeded_batches": 64,
+      "preceding_measured_batches": 10
+    },
+    {
+      "mode": "control",
+      "wsgi_wall_ns": 1755756464,
+      "wsgi_thread_cpu_ns": 997946497,
+      "chain": null,
+      "tcp_ns": 1757133263,
+      "response_bytes": 63469,
+      "events_before": 636,
+      "events_after": 644,
+      "seeded_batches": 64,
+      "preceding_measured_batches": 11
+    }
+  ],
+  "initial_events": 36,
+  "final_events": 644,
+  "seeded_batches": 64,
+  "selection_read_count": 31,
+  "selected_bytes": 16777586,
+  "original_bytes": null,
+  "experiment_wall_seconds": 127.63736595900082,
+  "scope": "finite_growth_diagnosis_not_p95_or_product_optimization",
+  "limits": [
+    "One synthetic case, no concurrent mutator/load",
+    "Partial scalar coverage, originals not selected as binary deliveries",
+    "Local TCP Gunicorn2 runtime LOGIN, no Caddy/RustFS/contractual quotas",
+    "Control and instrumented requests create new legitimate audit events",
+    "execute/fetch/sync do not isolate server execution or network",
+    "Chain residual includes Python verification, transaction and observer overhead"
+  ],
+  "summary": [
+    {
+      "seeded_batches": 0,
+      "instrumented_head_range": [
+        44,
+        58
+      ],
+      "control_tcp_median_ns": 1336782682.0,
+      "instrumented_span_median_ns": {
+        "chain": 38639873.5,
+        "head_execute": 2393250.0,
+        "events_execute": 6670540.5,
+        "events_fetchall": 1901217.0,
+        "pipeline_sync": 17020940.5,
+        "source_rows": 22801376.5,
+        "runtime_trust": 30388435.5
+      }
+    },
+    {
+      "seeded_batches": 16,
+      "instrumented_head_range": [
+        204,
+        218
+      ],
+      "control_tcp_median_ns": 1489619286.5,
+      "instrumented_span_median_ns": {
+        "chain": 69692230.5,
+        "head_execute": 1778042.0,
+        "events_execute": 16811728.0,
+        "events_fetchall": 5643337.5,
+        "pipeline_sync": 34622760.0,
+        "source_rows": 40094188.0,
+        "runtime_trust": 29104547.0
+      }
+    },
+    {
+      "seeded_batches": 64,
+      "instrumented_head_range": [
+        620,
+        634
+      ],
+      "control_tcp_median_ns": 1809264799.0,
+      "instrumented_span_median_ns": {
+        "chain": 178844996.5,
+        "head_execute": 2167256.0,
+        "events_execute": 48309424.0,
+        "events_fetchall": 19211556.5,
+        "pipeline_sync": 91104914.5,
+        "source_rows": 99820197.5,
+        "runtime_trust": 31821983.0
+      }
+    }
+  ],
+  "verification": {
+    "run": "20261011-114954-9aaaaa72",
+    "head": "7e04016d8ece6cf52388e283eb06cf0a6040fd2b",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "junit_seconds": 207.724,
+    "source_hashes_independently_verified": 1166,
+    "source_hash_manifest_sha256": "20d8b8d912e4dffc8307d570c8482bfbef408b1c2f305aff42abd559501ccc10",
+    "owned_postgres_redis_absent_independently": true,
+    "owned_gunicorn_processes_absent_independently": true,
+    "productive_changes": false
+  }
+}

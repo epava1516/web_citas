@@ -1,0 +1,118 @@
+Sala técnica local. Opina sólo sobre el contexto suministrado. Sólo WebSearch/WebFetch públicos; sin herramientas locales, ediciones ni ejecución. Distingue hechos medidos, hipótesis y evidencia faltante. Las intervenciones son opiniones, nunca PASS ni autorización. No cachear autoridad, omitir comprobaciones frescas ni extrapolar microbenchmarks a p95 contractual. Propón una decisión finita y señala contraejemplos. Máximo 900 palabras.
+
+Deliberación nueva autorizada por usuario: «delibera cómo hacerlo; herramientas profesionales existentes antes que recrearlas; apruebo implementar mejoras; brainstorming entre las tres; después ejecutar». Codex dirige; Claude sólo revisión/investigación pública, sin lectura local/edición (excepción previa vigente). Notebook conserva sus fuentes.
+Hechos nuevos: escenario REAL normal PG17/Django5.2.17/psycopg3.3.6/Gunicorn23, 2 workers sync, Celery2+Beat, RustFS/Caddy; presupuesto total4CPU8GiB, PG1.5CPU3GiB/app1.75CPU3968MiB/objetos.5CPU512MiB/Caddy.1CPU128MiB. Dos casos independientes cada1500revisiones/16MiBJSON/64MiBWEBP. SIN py-spy/cProfile/spans/hooks ni PGstats precargadas. p95 navegación384muestras/caso3.384803/3.389665s (objetivo2); JSON20/caso8.747557/8.961067s, binario20/caso9.033017/8.966103s (objetivo5). Todas las parejas HTTP se solapan; sólo6incumplimientos de tiempo, sin errores de operación, cuerpos/hashes/privacidad comprobados. 1389huellas iguales; cleanup completo. Descargas son partes8MiB, POST303+GET200 con DOS autorizaciones frescas. No compara causalmente con1caso.
+Diagnóstico separado1caso py-spy0.4.2+PGstats: diezcapturas sinerrores; p952.483100s/JSONmax4.649687s/binmax5.422434s; sin fases/cProfile ni workerhooks. Cadena:4llamadas links340filas7.53ms temprano vs9844filas203.60ms tardío; sin Lock observado, ClientRead esbackend esperando cliente. StatsSQL anidados/globales solapan: no sumarlas como ahorro. CPU local hashes/canonical/unseal/decoding/distribuida, no único hotspot probado.
+Herramientas instaladas fuera depsapp: py-spy0.4.2, Memray1.20.0, Scalene2.3.0. Memray smoke unseal16MiB sintético1559alloc196.7MBtotal89.9MBpeak; no fixture/ni ahorro. Scalene instalado no usado. Preferir API/CLI/reportes oficiales, no reconstruirprofiler. No APIpagada/account/publish. Priorizar UNA pregunta y experimento finito para localizar operación reducible; sólo integración después de equivalencia/PG/security y benchmark sinperfiladores.
+Negativos previos: memoautoridad/tickets/catálogo rechazadas por frescura; cadena muta en mismaTx; advisory no bloqueaDDL; precarga assessment.encrypted_assessment oculta purga; crypto válido no frescura. MemoJSON condeepcopy perdió: parse repetido~31msCPU vs~196mscopia; no compartir dictsmutables. InlineSQL cadena HTTP beneficio pequeño/cola peor. Manifiesto paginado al materializar dict completo regresó58%; no reabrir misma candidata. Más workers ya regredió. FuenteNOembebe fotosbase64; bytes64MiB se leen/hash aparte.
+Ya existen: nativecanonicalsealed, memoHMAC32MiB exactfreshbytes+currentSECRET_KEY, memoSHA64MiB exactbytes, inspection_source con freshfingerprint antes/después+canonicalmutación yfallbackfullfresh. No proponer instalarlas como nuevas. Sello replay consulta TODAS las filas actuales/expiración/key/config; no autoridad-cache. Fallback al fullbinding; necesitamos comprobar frecuencia/coste de fallo del sello, no asumir éxito.
+Mi conjetura Codex: observar/explicar fallback frecuente del replayseal y coste de materialización/copia puede ser mejor que sumar más muestreos generales. PGchains incluyen propia auditoría y avanzan, así que holds puede fallar legítimamente; no excluir esas filas para fabricarhits. MemrayTracker sobre UNA autorización real puede identificar volúmenes, Scalene sobre operaciónCPU separada si necesario. Proponer primero análisis del pyspy existente y una capturaMemray acotada, no otro full30min sin pregunta. Alternativas librerías nativas deben mantenertipos/NaN/Unicode/grandesints/excepciones/formato criptográfico; no reemplazarjson a ciegas.
+Solicito: decisión finita para arrancar ahora; herramientaexistente+modo/datos; UNA candidata conservadora sihayfundamento,contraejemplos/gates/abandono; ruta distinta sólo con evidencia nueva. No prometer2/5 ni inventar heurísticos de aceptación. No inferir red de wall-CPU. Puede citar docs oficiales actuales.
+
+Código exacto apps/safety/rights_object_delivery.py
+def _fresh(export_id):
+    initial = RightsExport.objects.select_related("action").get(pk=export_id)
+    case, person, _ = locked_case(initial.action.request_id)
+    export = (
+        RightsExport.objects.select_for_update(of=("self",))
+        .select_related("proof", "action")
+        .get(pk=export_id)
+    )
+    now = timezone.now()
+    if case.account_subject_id:
+        from .rights_account_copy import scope_matches
+
+        scope = scope_matches(case, export)
+    else:
+        scope = bool(
+            person
+            and not export.account_subject_id
+            and not export.proof.account_subject_id
+            and case.person_id == export.person_id == export.proof.person_id
+            and person.manager_version == export.manager_version == case.manager_version
+            and export.subject_snapshot == str(person.subject_id or "")
+            and export.proof.person_rights_version == person.rights_version
+            and export.proof.manager_version == export.manager_version
+        )
+    if case.kind == "access":
+        from .rights_access_close import closure_for_export, validate_closure
+    else:
+        from .rights_portability_close import closure_for_export, validate_closure
+    closure = closure_for_export(case, export)
+    if (
+        not enabled()
+        or not scope
+        or case.kind not in {"access", "portability"}
+        or case.receipt_expires_at <= now
+        or export.expires_at <= now
+        or export.purged_at is not None
+        or not export.encrypted_payload
+        or export.channel_digest != case.receipt_digest
+        or export.proof.provider != "simulator"
+        or export.proof.procedure != PROCEDURE
+        or export.proof.status != "passed"
+        or export.proof.scope != case.kind
+        or export.proof.subject_id_snapshot != export.subject_snapshot
+        or export.proof.channel_digest != export.channel_digest
+        or export.proof.expires_at <= now
+        or export.proof.case_version + 1 != export.case_version
+        or (closure is None and (case.version != export.case_version or case.status != "reviewing"))
+        or (
+            closure is None
+            and case.proofs.order_by("-created_at", "-pk").first().pk != export.proof_id
+        )
+    ):
+        raise Http404
+    validation_case = case
+    if closure is not None:
+        validate_closure(closure, case, person)
+        validation_case = copy(case)
+        validation_case.version = export.case_version
+        validation_case.status = "reviewing"
+    from .rights_information_export import validate_export_binding
+    from .rights_portability_export import validate_export_binding as validate_portability
+
+    validate_export_binding(validation_case, person, export)
+    validate_portability(validation_case, person, export)
+    return case, export
+
+
+
+Código exacto apps/safety/crypto.py
+import base64
+import hashlib
+import json
+
+from cryptography.fernet import Fernet
+from django.conf import settings
+from django.utils.crypto import salted_hmac
+from django.views.decorators.debug import sensitive_variables
+
+
+def cipher():
+    key = settings.SAFETY_ENCRYPTION_KEY
+    if not key:
+        if settings.PRODUCTION:
+            raise ValueError("Safety encryption key required")
+        key = base64.urlsafe_b64encode(
+            hashlib.sha256((settings.SECRET_KEY + ":dev-safety-v1").encode()).digest()
+        )
+    return Fernet(key)
+
+
+@sensitive_variables()
+def seal(payload):
+    return (
+        cipher().encrypt(json.dumps(payload, ensure_ascii=False, sort_keys=True).encode()).decode()
+    )
+
+
+def digest(value):
+    return salted_hmac("safety-report-v1", value, algorithm="sha256").hexdigest()
+
+
+@sensitive_variables()
+def unseal(payload):
+    return json.loads(cipher().decrypt(payload.encode()).decode())
+
+Resumen código sello: holds sóloTx; filtra RightsExportValidationSeal por export,rule_version y caller_digest actuales,expirytimezone.now; unseal SQLs typedparams; reejecutaordered_selects SHA256 fresh enpipeline8 oserial dentro savepoint; comparadigests yexpiry final; falseporInvalidToken/DatabaseError/type/schema. recording _annotatedSELECT añade SHA row_to_json, fetchall+stripsannotations; unsupported SQL writes/volatile/composable/timefilterwithout expiry declineseal. create sólo supported+statements+expiries. _sealed_or_full siholdstrue verificaobjetos+fotosfrescas, sino fullbinding con source_copy/unseal/evidencechain/audit/signatures/validate_transport ycreate si posible.

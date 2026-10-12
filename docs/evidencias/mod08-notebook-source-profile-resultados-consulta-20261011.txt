@@ -1,0 +1,45 @@
+DIAGNÓSTICO TERMINAL fuente/construcción, ejecución autorizada. Runner20261011-130102-8286f2c3:5PASS0fallos/errores/skips98.47sJUnit,1176huellas exactasANTESdocs;PGRedisGunicornpropios retirados independientemente. Historia548eventos/256CoverageRead creada64POSTreales;cada cloneidéntico commit4reads+8events.1500revs/16777172bytesproyectados,31reads selección;partialscalar/sinCaddyRustFScuotas. WarmPOSTambosworkers,3muestras TODASmismoPID175903:controlTCP812.239ms/WSGI811.169/CPUhilo428.554;perfiladoTCP1882.635/WSGI1950.134/CPU1563.754;control796.736/WSGI795.745/CPU425.883. WSGIperfilado incluye salida/serializaciónstats despuésyield yTCPpuedecompletarantes,noigualarperímetros. Profiler muyintrusivo! NOrestar overhead ni convertirperfCPU a baseline.
+Spansperfilados wall/CPUms (inclusivos salvoexclusivo explicitado):source_context_enter468.369/387.069;source_init468.332/387.032;source_copy425.327/362.969(exclusivo41.811/41.794);batches_active_next1501calls378.769/319.893(excl307.828/262.916, incluye cargaRevision yagrupación,no sóloORM);source_fingerprint2calls37.451/1.743;source_context_exit26.802/9.895;canonical_bytes1705calls69.732/69.635;fingerprint363calls25.534/25.564;render34.469/34.399;validate_chain4calls80.186/28.4;sqlExecute423calls404.473/107.741 sóloexecute: nofetch/sync, no PGcpu/red. relatedMaterialize2calls cada Category13.822/10.903 excl1.766/1.765;Service13.524/10.773excl1.751/1.751;Municipality13.070/10.904excl1.890/1.889;Rate12.980/10.581excl1.587/1.587;Photo16.262/13.455excl4.518/4.518. Relacionescategory/service/travel excltotal~5.4ms eninstrumentadoNOgaindemostrable.
+Cprofiletimerthread_time auxiliarCPU own/incl:scalar_fields101755calls(rec72978)101.493/147.259ms;isinstance259939calls63.502msown;observerCollector.span8026calls46.942msown;pointer_value9002calls33.366/78.634ms;Model.__init__2010calls21.842/72.552;Model.from_db1993calls18.858/100.158;project_selected2calls14.623/184.502;compile_coverage1call13.334/240.489. Generadorescallcount sonentradas/reanudaciones,tambiénrecursivas:NO101755recorridoscompletos. ÁrbolCPUcProfile yspansNOsumables ni idénticos.
+MI DICTAMEN: cerrar porahora candidata primitivas3relaciones, poco peso enfixture,no generalizartablasdensas. No tocarproducción. Pista siguientealtafrecuenciageneradores scalar_fields/RFC6901 ypointer_value dentrocompile_coverage/project_selected; necesitamos costeLIBREdeCprofile antesdeoptimizar. NOasimilar147msperfil a147msahorrablesniobjetivo2s histórico.
+Código real scalar_fields:
+"""Audited scalar candidates for guided selection; cataloguing never selects data."""
+
+from itertools import islice
+
+from django.core.exceptions import ValidationError
+from django.db import transaction
+from django.views.decorators.debug import sensitive_variables
+
+from apps.core.models import User
+
+from .rights import fingerprint
+from .rights_copy_inspection import SECTIONS
+from .rights_copy_page_review import fresh_authority
+from .rights_exports import can_prepare, canonical, reviewer_case, source_copy
+from .rights_portability_selection import row_reference
+from .rights_portability_use import consume_approved
+
+FIELD_PAGE_SIZE = 50
+
+
+def scalar_fields(value, prefix=""):
+    """Walk individual leaves with RFC6901 paths; containers are never choices."""
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if not isinstance(key, str):
+                raise ValidationError("Invalid portability object key")
+            escaped = key.replace("~", "~0").replace("/", "~1")
+            yield from scalar_fields(child, prefix + "/" + escaped)
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            yield from scalar_fields(child, prefix + "/" + str(index))
+    elif prefix:
+        yield {"path": prefix, "value": value}
+    else:
+        raise ValidationError("Portability row requires an object or list")
+
+
+
+compile_coverage hace project_selected UNAvez adicional y luego scalar_fields(row) paraenumerarpaths cada fila;project_selected total2calls enrequest, batch_projection ya existe memoria pura acotada(_audit_onlyprimero guardaVALIDATED_ONLY ynooutput). No autoridadcacheable.
+¿Qué conclusión técnica y una candidataCONDICIONAL concreta(algoritmo purono cacheautoridad) propones? ¿TraversaliterativoRFC6901vsrecursión con igualdad orden/tipos/error/momento validación sobrelasmismasfilas puede ser útil sólo si test aisladoSINperfil muestra coste? Evita loops nuevos de requests/perfilescompletos;respuesta brevedistinguir hechoshipótesisperímetros. No iniciarotromedición:esta ejecuciónfinita acabaaquí.
