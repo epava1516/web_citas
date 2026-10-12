@@ -1,0 +1,353 @@
+{
+  "python": "3.12.15",
+  "postgres": "17.11",
+  "scope": "Own partial synthetic table and actual producer function; restricted LOGIN. Not full chain, endpoint, migration or acceptance.",
+  "rows": 2500,
+  "outside_rows": 50,
+  "equality": [
+    {
+      "zone": "UTC",
+      "style": "ISO, MDY",
+      "rows": 2500
+    },
+    {
+      "zone": "UTC",
+      "style": "SQL, DMY",
+      "rows": 2500
+    },
+    {
+      "zone": "UTC",
+      "style": "German, DMY",
+      "rows": 2500
+    },
+    {
+      "zone": "Europe/Madrid",
+      "style": "ISO, MDY",
+      "rows": 2500
+    },
+    {
+      "zone": "Europe/Madrid",
+      "style": "SQL, DMY",
+      "rows": 2500
+    },
+    {
+      "zone": "Europe/Madrid",
+      "style": "German, DMY",
+      "rows": 2500
+    },
+    {
+      "zone": "America/New_York",
+      "style": "ISO, MDY",
+      "rows": 2500
+    },
+    {
+      "zone": "America/New_York",
+      "style": "SQL, DMY",
+      "rows": 2500
+    },
+    {
+      "zone": "America/New_York",
+      "style": "German, DMY",
+      "rows": 2500
+    },
+    {
+      "zone": "Asia/Kathmandu",
+      "style": "ISO, MDY",
+      "rows": 2500
+    },
+    {
+      "zone": "Asia/Kathmandu",
+      "style": "SQL, DMY",
+      "rows": 2500
+    },
+    {
+      "zone": "Asia/Kathmandu",
+      "style": "German, DMY",
+      "rows": 2500
+    }
+  ],
+  "owner_update_detected": true,
+  "helper_properties": [
+    [
+      "search_path=pg_catalog, public"
+    ],
+    "s",
+    false
+  ],
+  "helper_definition": "CREATE FUNCTION public.research_bulk_hashes(case_id uuid)\nRETURNS TABLE(row_id text,digest text)\nLANGUAGE sql STABLE SECURITY INVOKER SET search_path=pg_catalog,public AS $$\nSELECT s.id::text,pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to(\n pg_catalog.jsonb_set(pg_catalog.to_jsonb(s),'{created_at}',\n pg_catalog.to_jsonb(pg_catalog.to_char(s.created_at AT TIME ZONE 'UTC',\n 'YYYY-MM-DD\"T\"HH24:MI:SS.US\"Z\"')))::text,'UTF8')),'hex')\nFROM public.research_rows s WHERE s.case_id=$1 ORDER BY s.id $$",
+  "producer_sha256": "f350043d3bc598e3be1f0ad8abf4659b2992d50b03998ef79aa9d1757c18f338",
+  "samples_ns": {
+    "scalar": [
+      63246066,
+      52637940,
+      55672894,
+      70777044,
+      80106748,
+      61154642,
+      66008884,
+      93859245,
+      58550839,
+      55533438,
+      65199226,
+      58948234,
+      57626340,
+      67709178,
+      57173888,
+      64737358,
+      54753289,
+      61001043,
+      54856564,
+      54072419
+    ],
+    "bulk": [
+      34874769,
+      35863147,
+      34534527,
+      63878901,
+      37942840,
+      40912808,
+      38239789,
+      43062876,
+      35437643,
+      35654304,
+      54421268,
+      36309058,
+      35906138,
+      35925802,
+      36629228,
+      67901751,
+      43493966,
+      34180916,
+      37280357,
+      33399053
+    ],
+    "direct_control": [
+      36781125,
+      32421609,
+      33415091,
+      48141091,
+      34873171,
+      62487089,
+      34846389,
+      55881916,
+      70815947,
+      35023841,
+      64937082,
+      34899921,
+      34040305,
+      37625148,
+      33728668,
+      63857908,
+      31380343,
+      34620382,
+      32915118,
+      33367784
+    ]
+  },
+  "medians_ms": {
+    "scalar": 59.9746385,
+    "bulk": 36.469143,
+    "direct_control": 34.886546
+  },
+  "plans": {
+    "scalar": {
+      "Plan": {
+        "Node Type": "Sort",
+        "Parallel Aware": false,
+        "Async Capable": false,
+        "Startup Cost": 93.21,
+        "Total Cost": 93.24,
+        "Plan Rows": 15,
+        "Plan Width": 80,
+        "Actual Rows": 2500,
+        "Actual Loops": 1,
+        "Sort Key": [
+          "id"
+        ],
+        "Sort Method": "quicksort",
+        "Sort Space Used": 427,
+        "Sort Space Type": "Memory",
+        "Shared Hit Blocks": 52,
+        "Shared Read Blocks": 0,
+        "Shared Dirtied Blocks": 0,
+        "Shared Written Blocks": 0,
+        "Local Hit Blocks": 0,
+        "Local Read Blocks": 0,
+        "Local Dirtied Blocks": 0,
+        "Local Written Blocks": 0,
+        "Temp Read Blocks": 0,
+        "Temp Written Blocks": 0,
+        "Plans": [
+          {
+            "Node Type": "Seq Scan",
+            "Parent Relationship": "Outer",
+            "Parallel Aware": false,
+            "Async Capable": false,
+            "Relation Name": "research_rows",
+            "Alias": "s",
+            "Startup Cost": 0.0,
+            "Total Cost": 92.91,
+            "Plan Rows": 15,
+            "Plan Width": 80,
+            "Actual Rows": 2500,
+            "Actual Loops": 1,
+            "Filter": "(case_id = '00000000-0000-0000-0000-000000000001'::uuid)",
+            "Rows Removed by Filter": 50,
+            "Shared Hit Blocks": 52,
+            "Shared Read Blocks": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0
+          }
+        ]
+      },
+      "Planning": {
+        "Shared Hit Blocks": 0,
+        "Shared Read Blocks": 0,
+        "Shared Dirtied Blocks": 0,
+        "Shared Written Blocks": 0,
+        "Local Hit Blocks": 0,
+        "Local Read Blocks": 0,
+        "Local Dirtied Blocks": 0,
+        "Local Written Blocks": 0,
+        "Temp Read Blocks": 0,
+        "Temp Written Blocks": 0
+      },
+      "Planning Time": 0.113,
+      "Triggers": [],
+      "Execution Time": 57.23
+    },
+    "bulk": {
+      "Plan": {
+        "Node Type": "Function Scan",
+        "Parallel Aware": false,
+        "Async Capable": false,
+        "Function Name": "research_bulk_hashes",
+        "Alias": "research_bulk_hashes",
+        "Startup Cost": 0.25,
+        "Total Cost": 10.25,
+        "Plan Rows": 1000,
+        "Plan Width": 64,
+        "Actual Rows": 2500,
+        "Actual Loops": 1,
+        "Shared Hit Blocks": 52,
+        "Shared Read Blocks": 0,
+        "Shared Dirtied Blocks": 0,
+        "Shared Written Blocks": 0,
+        "Local Hit Blocks": 0,
+        "Local Read Blocks": 0,
+        "Local Dirtied Blocks": 0,
+        "Local Written Blocks": 0,
+        "Temp Read Blocks": 0,
+        "Temp Written Blocks": 0
+      },
+      "Planning": {
+        "Shared Hit Blocks": 0,
+        "Shared Read Blocks": 0,
+        "Shared Dirtied Blocks": 0,
+        "Shared Written Blocks": 0,
+        "Local Hit Blocks": 0,
+        "Local Read Blocks": 0,
+        "Local Dirtied Blocks": 0,
+        "Local Written Blocks": 0,
+        "Temp Read Blocks": 0,
+        "Temp Written Blocks": 0
+      },
+      "Planning Time": 0.035,
+      "Triggers": [],
+      "Execution Time": 31.354
+    },
+    "direct_control": {
+      "Plan": {
+        "Node Type": "Sort",
+        "Parallel Aware": false,
+        "Async Capable": false,
+        "Startup Cost": 89.79,
+        "Total Cost": 89.83,
+        "Plan Rows": 15,
+        "Plan Width": 80,
+        "Actual Rows": 2500,
+        "Actual Loops": 1,
+        "Sort Key": [
+          "id"
+        ],
+        "Sort Method": "quicksort",
+        "Sort Space Used": 427,
+        "Sort Space Type": "Memory",
+        "Shared Hit Blocks": 52,
+        "Shared Read Blocks": 0,
+        "Shared Dirtied Blocks": 0,
+        "Shared Written Blocks": 0,
+        "Local Hit Blocks": 0,
+        "Local Read Blocks": 0,
+        "Local Dirtied Blocks": 0,
+        "Local Written Blocks": 0,
+        "Temp Read Blocks": 0,
+        "Temp Written Blocks": 0,
+        "Plans": [
+          {
+            "Node Type": "Seq Scan",
+            "Parent Relationship": "Outer",
+            "Parallel Aware": false,
+            "Async Capable": false,
+            "Relation Name": "research_rows",
+            "Alias": "s",
+            "Startup Cost": 0.0,
+            "Total Cost": 89.5,
+            "Plan Rows": 15,
+            "Plan Width": 80,
+            "Actual Rows": 2500,
+            "Actual Loops": 1,
+            "Filter": "(case_id = '00000000-0000-0000-0000-000000000001'::uuid)",
+            "Rows Removed by Filter": 50,
+            "Shared Hit Blocks": 52,
+            "Shared Read Blocks": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0
+          }
+        ]
+      },
+      "Planning": {
+        "Shared Hit Blocks": 0,
+        "Shared Read Blocks": 0,
+        "Shared Dirtied Blocks": 0,
+        "Shared Written Blocks": 0,
+        "Local Hit Blocks": 0,
+        "Local Read Blocks": 0,
+        "Local Dirtied Blocks": 0,
+        "Local Written Blocks": 0,
+        "Temp Read Blocks": 0,
+        "Temp Written Blocks": 0
+      },
+      "Planning Time": 0.084,
+      "Triggers": [],
+      "Execution Time": 32.301
+    }
+  },
+  "receipt": {
+    "id": "mod08-sql-helper-research-20261012-120342",
+    "head": "11e33c147b6d7d096297d3fd112fb4a8562c72bf",
+    "cleanup": {
+      "mod08-sql-helper-research-20261012-120342-app": true,
+      "mod08-sql-helper-research-20261012-120342-pg": true,
+      "mod08-sql-helper-research-20261012-120342-net": true
+    },
+    "result_sha256": "2acb9f8e2f5a408a1fb5ce2f5befa66b9bab54af7becbe5e03d95e5034dd0e16",
+    "result": "COMPLETE_SQL_HELPER_PROBE_NOT_HTTP"
+  },
+  "instrument_sha256": {
+    "bench.py": "d9e99d1eb6b7fd7a4b8689151d5e2a826049f0e9b7ec0a582bb0424642081341",
+    "run.py": "93827a16758e691b8d4644b1b4efc00e603a64a0e22aef596bcde5e4c7014097"
+  }
+}

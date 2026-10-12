@@ -204,3 +204,9 @@ Misma estructura de planes por variante,0reads/spills traswarmup. NoHTTPnuevo,
 no aplicacióneditada ni restitución inline retirada. Próximo: sólo candidata
 con beneficioHTTPVPS demostrado o rediseño redundancia con garantías exactas.
 No extrapolar sumasmedianasonline ni atribuir portátil al código. N3pendiente.
+
+Investigación previa a cambios: helper SQL por conjunto en PostgreSQL propio,
+2500 filas parciales/20 rondas, mediana59.975→36.469ms (39.19%consulta, noHTTP),
+12equivalencias fecha/zona y UPDATE fresco PASS. Cleanup y SHA recibo verificados.
+Sin aplicacióneditada, sin aceptación. Diseño/gates/fuentes y evidencia:
+docs/evidencias/mod08-vps-hashes-conjunto-20261012.md.
