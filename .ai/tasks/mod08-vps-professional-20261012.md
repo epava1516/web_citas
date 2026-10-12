@@ -290,3 +290,18 @@ MOD09/v1.9 registra excepción suficiente/mejorable sin modificarFAIL niSLO
 instrumento, no N3/global/producción.7s esporparte;fasesgen+respuesta≈92s,no solicitud
 completa ni ≤60s.1500rev esextremo elegido bajo delegación,noanunciante típico.
 Siguientecola:consolidación CR09/N3 común→CR10→GS01→BF/BB→C, sinperfeccionismoMOD08.
+
+## Continuación CR09/GS01 tras MOD-09
+
+Regresión 20261012-162721-b80af490 ERROR conservado, OOM PG512MiB,
+signal15 por raíz/limpieza exacta/fuentes iguales. No JUnit ni aceptación.
+Tres tareas nativas: cr09_closure_audit sólo lectura; gs01_state_inventory
+writer aislado propietario docs97; gs01_browser_gaps writer aislado propietario
+dos tests móviles. Cero Claude V1 nuevas; consumo anterior intacto.
+Codex sólo integra tests jobs_mobile y docs97 tras revisión; propuesta adicional
+lote móvil no integrada porque existe test ES/EN page_count4. Worktrees candidatos
+conservados. Gate focused reservado con PG1536MiB/Redis128MiB, host cgroup2560MiB
+swap0/CPU0–3, PG1CPU/CPU4, Redis0.2CPU/CPU5; mismo presupuesto global.
+Selección: test_rights_portability_jobs_mobile.py y test_rights_portability_jobs.py.
+Objetivo: Chromium ES/EN estados de generación/revocación y regresión de dominio.
+Condición: terminal/JUnit/huellas/limpieza; no capacidad/N3 desde este gate.

@@ -1,0 +1,55 @@
+{
+  "schema": "cr09-own-ci-interrupted-oom-v1",
+  "id": "20261012-162721-b80af490",
+  "head": "de12d9bd77501943722221f84e69ee927afa58bb",
+  "original_result": "ERROR",
+  "original_error": "signal 15",
+  "classification": "INTERRUPTED_AFTER_CONFIRMED_OWN_POSTGRES_OOM_NOT_FUNCTIONAL_ACCEPTANCE",
+  "postgres_oom_killed": true,
+  "postgres_memory_limit": 536870912,
+  "host_scope_oom_kill": 0,
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261012-162721-b80af490": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261012-162721-b80af490": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "junit_present": false,
+  "excluded": [
+    "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+    "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+    "tests/test_rights_portability_large_history.py",
+    "tests/test_publication_state_tcp.py"
+  ],
+  "workers": 2,
+  "checks_passed": [
+    "start-pg",
+    "start-redis",
+    "dependencies",
+    "ruff",
+    "documentation",
+    "django",
+    "migrations",
+    "native-build"
+  ],
+  "receipts": {
+    "artifacts/local-ci/20261012-162721-b80af490/result.json": "1f8cdcc44478df099a9fcaa9a213b29198358732f5934663803404949f5b6e69",
+    "artifacts/local-ci/20261012-162721-b80af490/source-hashes.json": "3585ac3311b60d51b48f77d6b5d9447f19ea66c3651d83cf821f573f939a1ee3",
+    "artifacts/local-ci/20261012-162721-b80af490/09-pytest.log": "8de45029f5e479539638190de04946385a1a4c13ed4c7ef0122b64c48a880f7a",
+    "artifacts/vps-preparation/cr09-regression/postgres-oom-receipt.json": "9be6c8687c97ad43c1ad8461402071ae9d658455fc777f91aefe79c1594a6152",
+    "artifacts/vps-preparation/cr09-regression/postgres-oom.log": "05c2dfa28c2bebc065e00157f25164d23f998c1ca84811fae014408a1de3f5c3"
+  },
+  "limitations": [
+    "No terminal JUnit; partial dots/F/E are not accepted cases.",
+    "No code defect established from this run; PG OOM/recovery caused disconnections.",
+    "All historical negative evidence retained; no N3/CR09 acceptance."
+  ],
+  "next": "Prepare/review concrete GS01 browser gaps; bounded PG capacity correction within existing own-resource budget, then pertinent gate and common regression."
+}

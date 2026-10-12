@@ -2,6 +2,31 @@
 
 Fecha: 2026-10-10. Redacta: Claude principal (MOD-07). Estado: **BORRADOR, puerta no superada**. Criterios: [contrato16 §6](16-contrato-ejecucion-desarrollo.md#6-puerta-de-separación--gs-01). Estado vigente: [seguimiento17](17-seguimiento-desarrollo.md). Este documento no acepta CR09, CR10 ni GS01; solo prepara el acta para que se emita sobre un único commit integrado cuando las condiciones se cumplan.
 
+## Adenda de ejecución vigente — 2026-10-12
+
+MOD-08 está integrado en el worktree VPS, código funcional `c92fe64`, con
+[medición y excepción MOD-09](evidencias/mod08-lectura-fresca-medicion-20261012.md).
+Los tiempos del escenario extremo están aceptados provisionalmente y quedan
+como deuda mejorable. El FAIL instrumental permanece y no impide por sí solo
+continuar. Por tanto, el paso 1 histórico inferior ya no exige convertir esas
+latencias en PASS: exige consolidar los demás criterios CR09 y su evidencia
+común, preservando las garantías funcionales.
+
+La entrega comercial de CR10 ya dispone de cierre local acotado en el
+[contrato comercial](contratos/11-promociones-preparacion.md#cierre-local-de-la-entrega-comercial-completa).
+Su aceptación de fase requiere contrastar la regresión actual y la dependencia
+CR09; no rehacer sus componentes por las referencias históricas a preparación.
+
+CI propio `20261012-162721-b80af490` terminó ERROR tras OOM del PG de ensayo;
+[negativo conservado](evidencias/cr09-regresion-oom-20261012.json). Perfil regression, sobre
+`de12d9b`, con PostgreSQL/Redis propios y fuentes congeladas. No es N3 y no acredita la regresión: no hubo JUnit terminal.
+Sus exclusiones largas se conservan en el recibo.
+Este borrador sigue sin emitir; la tabla inferior conserva el corte original,
+no el estado vigente de integración ni una aceptación nueva.
+
+El [inventario de pantallas y estados](97-inventario-estados-gs01.md) concreta
+las verificaciones de interfaz y el residual BF/BB; no añade aceptación.
+
 ## Condiciones y estado
 
 | Condición (contrato16 §6) | Estado | Evidencia o bloqueo |

@@ -61,6 +61,64 @@ Correctivas locales b23cde3/4354109: SQL textual seguro exclusivamente para las7
 Actualizado: 2026-10-09. Fuente contractual: [contrato16](16-contrato-ejecucion-desarrollo.md). Este documento mantiene el estado y la única cola de ejecución; evidencias y condiciones de cierre se enlazan desde él.
 
 
+### Revisión de candidatos GS01 — 2026-10-12
+
+Codex integra únicamente la ampliación de `test_rights_portability_jobs_mobile`:
+running y estados terminales rejected/failed, JS/sin JS, fin de polling y acceso
+revocado. Pendiente de gate real; no cambia producto. No integra la ampliación
+de cobertura móvil: ya existe navegador ES/EN `page_count=4` en
+`test_rights_portability_coverage_batch`, junto a límites/lecturas/decisión en
+pruebas de dominio y HTTP. Candidata descartada para integración rutinaria,
+conservada íntegra en su worktree; inventario corregido tras contraste.
+
+### Regresión CR09 terminal negativa — 2026-10-12
+
+CI `20261012-162721-b80af490`, base de12d9b, terminó ERROR «signal 15»
+tras OOM confirmado del PostgreSQL propio limitado a512MiB y recuperación del
+servidor con pérdida de conexiones. Codex detuvo el runner por su ruta de
+limpieza; ambos contenedores ausentes por inspect exacto y fuentes iguales.
+Sin JUnit terminal: no contar los casos parciales como PASS ni atribuir el
+conjunto de fallos al código. [Recibo y huellas](evidencias/cr09-regresion-oom-20261012.json).
+Los checks previos y compilación nativa sí terminaron con exit0 en su alcance.
+
+Siguiente acción: revisar/integrar las pruebas concretas GS01 aisladas, gate
+pertinente con PG dimensionado dentro del presupuesto total y después repetir
+regresión común con fuentes congeladas. Corregir la asignación insuficiente
+al PG de ensayo; no ampliar el presupuesto ni modificar producción. La
+reserva y declaraciones «en curso» inferiores conservan su corte histórico.
+
+### Pruebas de huecos GS01 reservadas en aislamiento — 2026-10-12
+
+Agente nativo `gs01_browser_gaps`, worktree `web_modelos_gs01_browser`, rama
+`codex/gs01-browser-gaps-20261012`, base de12d9b. Propiedad exclusiva de
+`tests/test_rights_portability_jobs_mobile.py` y
+`tests/test_rights_portability_coverage_review_mobile.py`: preparar cobertura
+Chromium ES/EN de running/rejected/failed y formulario de lote múltiple, conservando
+los casos actuales. No modifica producto ni ejecuta pruebas/servicios. Codex
+revisará y sólo integrará tras terminal de la regresión actual; después gate
+pertinente PG/Chromium propio. Condición de salida: pruebas nuevas verificadas,
+contrato/estado actualizados, sin declarar N3 desde esa selección. Tres tareas
+nativas en este ciclo; cero Claude V1, consumo histórico conservado.
+
+### Preparación del inventario GS01 — 2026-10-12
+
+[Inventario finito](97-inventario-estados-gs01.md) preparado por agente nativo
+`gs01_state_inventory` en worktree `web_modelos_gs01_inventory`, propiedad
+exclusiva del documento, base de12d9b. Codex verificó los nombres de rutas con
+AST de URLs y contrastó los mini-flujos MOD08 con plantillas/pruebas antes de
+copiarlo. Sin cambios de código ni pruebas paralelas. Pendientes visuales de
+estados asíncronos y lote múltiple deben contrastarse con recibos; no son un
+nuevo PASS ni aceptación GS01. Dos revisiones nativas en este ciclo, cero nuevas
+invocaciones Claude V1. CI actual y fuentes funcionales permanecen congelados.
+
+### Auditoría finita de cobertura CR09 — 2026-10-12
+
+[Mapa de requisitos y pruebas](evidencias/cr09-auditoria-cobertura-comun-20261012.md)
+contrastado con fuentes por Codex y revisor nativo sólo lectura. No identifica
+un defecto reproducido ni añade PASS; concreta las lagunas de asociación de
+fuentes históricas y comunicaciones. No reabrir optimizaciones ni sustituir
+pendientes por inferencias. Se mantiene la única acción activa inferior.
+
 ### Consolidación CR09 reservada — 2026-10-12
 
 Siguiente acción concreta tras MOD-09: regresión funcional del árbol integrado,
