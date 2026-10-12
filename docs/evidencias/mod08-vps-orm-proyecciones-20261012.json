@@ -1,0 +1,1182 @@
+{
+  "python": "3.12.15",
+  "django": "5.2.17",
+  "scope": "Actual project ORM models and PostgreSQL, partial synthetic schema. Only three relation queries and grouping; no source_copy, seals, authorization, photos, HTTP or acceptance.",
+  "cases": [
+    {
+      "populated": false,
+      "revisions": 1500,
+      "relations_returned": 0,
+      "queries_per_variant": 6,
+      "iterations": 15,
+      "medians": {
+        "models": {
+          "wall_seconds": 0.035111996810883284,
+          "cpu_seconds": 0.022976040999999947
+        },
+        "tuples": {
+          "wall_seconds": 0.03725762525573373,
+          "cpu_seconds": 0.020791393999999963
+        },
+        "full-tuples": {
+          "wall_seconds": 0.03358760243281722,
+          "cpu_seconds": 0.020258894999999777
+        }
+      },
+      "samples": {
+        "models": [
+          [
+            0.029496559873223305,
+            0.019711959999999973
+          ],
+          [
+            0.03690440068021417,
+            0.024986858999999972
+          ],
+          [
+            0.035111996810883284,
+            0.024172950999999943
+          ],
+          [
+            0.04811807116493583,
+            0.03253081899999999
+          ],
+          [
+            0.034303860273212194,
+            0.019099777999999956
+          ],
+          [
+            0.032807030249387026,
+            0.02034975699999997
+          ],
+          [
+            0.05470243934541941,
+            0.026293992000000044
+          ],
+          [
+            0.03817930491641164,
+            0.022976040999999947
+          ],
+          [
+            0.03812628798186779,
+            0.024592768999999848
+          ],
+          [
+            0.034940284211188555,
+            0.02088300899999984
+          ],
+          [
+            0.03243918577209115,
+            0.019590403000000034
+          ],
+          [
+            0.030463004019111395,
+            0.019497317999999986
+          ],
+          [
+            0.03266516886651516,
+            0.020171240000000257
+          ],
+          [
+            0.056739936117082834,
+            0.03144974300000003
+          ],
+          [
+            0.07793311588466167,
+            0.04426980700000005
+          ]
+        ],
+        "tuples": [
+          [
+            0.08858847199007869,
+            0.07307739200000007
+          ],
+          [
+            0.03532492881640792,
+            0.020791393999999963
+          ],
+          [
+            0.028603474143892527,
+            0.017149426999999884
+          ],
+          [
+            0.03725762525573373,
+            0.019909713999999967
+          ],
+          [
+            0.032425003591924906,
+            0.016617783000000053
+          ],
+          [
+            0.025102043990045786,
+            0.01599162800000009
+          ],
+          [
+            0.12262176536023617,
+            0.09255917899999999
+          ],
+          [
+            0.04635100392624736,
+            0.027971517999999973
+          ],
+          [
+            0.04152711294591427,
+            0.029022432000000098
+          ],
+          [
+            0.028064376674592495,
+            0.017206322000000274
+          ],
+          [
+            0.030500177294015884,
+            0.01714651300000014
+          ],
+          [
+            0.032260367181152105,
+            0.017176999999999776
+          ],
+          [
+            0.07502820529043674,
+            0.054809155000000054
+          ],
+          [
+            0.05353445187211037,
+            0.02491152200000002
+          ],
+          [
+            0.05823904508724809,
+            0.031217273000000212
+          ]
+        ],
+        "full-tuples": [
+          [
+            0.032469040248543024,
+            0.019290585000000027
+          ],
+          [
+            0.03358760243281722,
+            0.021779653000000065
+          ],
+          [
+            0.03087881300598383,
+            0.017415395
+          ],
+          [
+            0.030415984336286783,
+            0.017904548999999825
+          ],
+          [
+            0.032392248045653105,
+            0.01707213399999996
+          ],
+          [
+            0.027307257056236267,
+            0.01766403999999988
+          ],
+          [
+            0.03389109065756202,
+            0.022482456999999956
+          ],
+          [
+            0.05607072310522199,
+            0.03214808000000002
+          ],
+          [
+            0.039560710079967976,
+            0.025016619000000073
+          ],
+          [
+            0.03200096311047673,
+            0.020258894999999777
+          ],
+          [
+            0.03321022912859917,
+            0.018723050000000185
+          ],
+          [
+            0.04120752168819308,
+            0.020560424000000133
+          ],
+          [
+            0.04125659493729472,
+            0.016804274000000063
+          ],
+          [
+            0.04677269188687205,
+            0.021028696999999763
+          ],
+          [
+            0.04954878520220518,
+            0.02763212699999995
+          ]
+        ]
+      }
+    },
+    {
+      "populated": true,
+      "revisions": 1500,
+      "relations_returned": 18000,
+      "queries_per_variant": 6,
+      "iterations": 15,
+      "medians": {
+        "models": {
+          "wall_seconds": 0.32105452800169587,
+          "cpu_seconds": 0.24771404999999902
+        },
+        "tuples": {
+          "wall_seconds": 0.14986495207995176,
+          "cpu_seconds": 0.09486786899999977
+        },
+        "full-tuples": {
+          "wall_seconds": 0.12389358086511493,
+          "cpu_seconds": 0.07265260900000037
+        }
+      },
+      "samples": {
+        "models": [
+          [
+            0.4027056242339313,
+            0.30887217799999966
+          ],
+          [
+            0.32105452800169587,
+            0.2566723089999998
+          ],
+          [
+            0.3392378259450197,
+            0.25405403599999943
+          ],
+          [
+            0.29381364583969116,
+            0.23999218900000052
+          ],
+          [
+            0.31236034724861383,
+            0.2467462850000004
+          ],
+          [
+            0.3016837500035763,
+            0.23255459000000034
+          ],
+          [
+            0.3594991057179868,
+            0.2780232490000003
+          ],
+          [
+            0.3465264327824116,
+            0.28042401600000044
+          ],
+          [
+            0.3093101209960878,
+            0.23705798499999986
+          ],
+          [
+            0.33033534325659275,
+            0.2442699639999999
+          ],
+          [
+            0.32484113797545433,
+            0.2584120099999998
+          ],
+          [
+            0.36854638205841184,
+            0.2930360279999995
+          ],
+          [
+            0.2205367679707706,
+            0.1871797500000003
+          ],
+          [
+            0.3182129426859319,
+            0.24771404999999902
+          ],
+          [
+            0.2812911379151046,
+            0.18579103799999963
+          ]
+        ],
+        "tuples": [
+          [
+            0.1324594491161406,
+            0.059988134999999776
+          ],
+          [
+            0.17526617925614119,
+            0.13195392700000053
+          ],
+          [
+            0.13677127286791801,
+            0.06762901399999954
+          ],
+          [
+            0.14170340169221163,
+            0.10829312300000016
+          ],
+          [
+            0.07671276712790132,
+            0.048828294999999855
+          ],
+          [
+            0.1516738017089665,
+            0.09523135199999988
+          ],
+          [
+            0.1056705117225647,
+            0.06586754000000017
+          ],
+          [
+            0.13282080460339785,
+            0.09341446599999959
+          ],
+          [
+            0.09873528126627207,
+            0.05456228999999979
+          ],
+          [
+            0.1612312588840723,
+            0.11401219499999993
+          ],
+          [
+            0.16607218235731125,
+            0.13170782099999911
+          ],
+          [
+            0.14986495207995176,
+            0.09486786899999977
+          ],
+          [
+            0.16786546725779772,
+            0.10193704599999975
+          ],
+          [
+            0.173575839959085,
+            0.10271326199999997
+          ],
+          [
+            0.16616197116672993,
+            0.09295508399999974
+          ]
+        ],
+        "full-tuples": [
+          [
+            0.20062521658837795,
+            0.12674964599999994
+          ],
+          [
+            0.15515192691236734,
+            0.09155898999999934
+          ],
+          [
+            0.18275524396449327,
+            0.10467014299999988
+          ],
+          [
+            0.12389358086511493,
+            0.07976209899999986
+          ],
+          [
+            0.09855754021555185,
+            0.06180982000000057
+          ],
+          [
+            0.09852880099788308,
+            0.06250148200000005
+          ],
+          [
+            0.15380662586539984,
+            0.0852143209999996
+          ],
+          [
+            0.09228654019534588,
+            0.05849167600000005
+          ],
+          [
+            0.11265563312917948,
+            0.07091103300000068
+          ],
+          [
+            0.11244414281100035,
+            0.06551886799999984
+          ],
+          [
+            0.14448677701875567,
+            0.08598619799999874
+          ],
+          [
+            0.10749243618920445,
+            0.06378049199999936
+          ],
+          [
+            0.17826039670035243,
+            0.07265260900000037
+          ],
+          [
+            0.11413392890244722,
+            0.05988647500000077
+          ],
+          [
+            0.15379088558256626,
+            0.0792489009999997
+          ]
+        ]
+      }
+    }
+  ],
+  "revision_case": {
+    "rows": 1500,
+    "source_text_bytes": 16555500,
+    "iterations": 15,
+    "fields": 36,
+    "chunk_size": 1000,
+    "related_values": "All NULL; matches current capacity fixture",
+    "medians": {
+      "models": {
+        "wall_seconds": 0.2189494981430471,
+        "cpu_seconds": 0.12130879999999955
+      },
+      "full-tuples": {
+        "wall_seconds": 0.16252991603687406,
+        "cpu_seconds": 0.07284583400000066
+      }
+    },
+    "samples": {
+      "models": [
+        [
+          0.19977944064885378,
+          0.10555125999999859
+        ],
+        [
+          0.18092828197404742,
+          0.11531777300000101
+        ],
+        [
+          0.19679455598816276,
+          0.10329557300000047
+        ],
+        [
+          0.24028349108994007,
+          0.17027956300000113
+        ],
+        [
+          0.1983962869271636,
+          0.10552745499999894
+        ],
+        [
+          0.2294960836879909,
+          0.0972656409999999
+        ],
+        [
+          0.23960634879767895,
+          0.15562774800000057
+        ],
+        [
+          0.19394012307748199,
+          0.12814033499999944
+        ],
+        [
+          0.22557878820225596,
+          0.1457604460000006
+        ],
+        [
+          0.21370995929464698,
+          0.12130879999999955
+        ],
+        [
+          0.23208935232833028,
+          0.09381709100000002
+        ],
+        [
+          0.2467906903475523,
+          0.16598712899999946
+        ],
+        [
+          0.20779968006536365,
+          0.11157796899999894
+        ],
+        [
+          0.2189494981430471,
+          0.14181915599999861
+        ],
+        [
+          0.2549743209965527,
+          0.14835279399999912
+        ]
+      ],
+      "full-tuples": [
+        [
+          0.2085706740617752,
+          0.14799552800000093
+        ],
+        [
+          0.17806022334843874,
+          0.07697960600000009
+        ],
+        [
+          0.15868336195126176,
+          0.06661455799999949
+        ],
+        [
+          0.18303138995543122,
+          0.06782825900000056
+        ],
+        [
+          0.14325115410611033,
+          0.08732988599999914
+        ],
+        [
+          0.1826813998632133,
+          0.07721066499999907
+        ],
+        [
+          0.18861594516783953,
+          0.09924492100000037
+        ],
+        [
+          0.15841074381023645,
+          0.07284583400000066
+        ],
+        [
+          0.16899448074400425,
+          0.07139087399999866
+        ],
+        [
+          0.15511837229132652,
+          0.06737830800000033
+        ],
+        [
+          0.19390329578891397,
+          0.061661509000000336
+        ],
+        [
+          0.1273867515847087,
+          0.06446371299999853
+        ],
+        [
+          0.16252991603687406,
+          0.05922151800000108
+        ],
+        [
+          0.14025237038731575,
+          0.07928728299999932
+        ],
+        [
+          0.1543422001414001,
+          0.07297677100000044
+        ]
+      ]
+    }
+  },
+  "query_summary": {
+    "categories-models": {
+      "selected_columns": 7,
+      "selected_field_references": [
+        [
+          "catalog_category",
+          "id"
+        ],
+        [
+          "catalog_category",
+          "slug"
+        ],
+        [
+          "catalog_category",
+          "name_es"
+        ],
+        [
+          "catalog_category",
+          "name_en"
+        ],
+        [
+          "catalog_category",
+          "active"
+        ],
+        [
+          "catalog_category",
+          "version"
+        ],
+        [
+          "listings_revision_categories",
+          "revision_id"
+        ]
+      ],
+      "query_sha256": "96e99fd6d39fbe14c1eb1b883bac16e4db84bece4f9e99159d17eac1be7b0d0e",
+      "locks_revisions": false
+    },
+    "services-models": {
+      "selected_columns": 7,
+      "selected_field_references": [
+        [
+          "catalog_service",
+          "id"
+        ],
+        [
+          "catalog_service",
+          "slug"
+        ],
+        [
+          "catalog_service",
+          "category_id"
+        ],
+        [
+          "catalog_service",
+          "name_es"
+        ],
+        [
+          "catalog_service",
+          "name_en"
+        ],
+        [
+          "catalog_service",
+          "active"
+        ],
+        [
+          "listings_revision_services",
+          "revision_id"
+        ]
+      ],
+      "query_sha256": "ad10bd98f6f208bf563859b74be389f0e175549b94d802e971ddde76b4981e49",
+      "locks_revisions": false
+    },
+    "travel_areas-models": {
+      "selected_columns": 7,
+      "selected_field_references": [
+        [
+          "catalog_municipality",
+          "id"
+        ],
+        [
+          "catalog_municipality",
+          "code"
+        ],
+        [
+          "catalog_municipality",
+          "name"
+        ],
+        [
+          "catalog_municipality",
+          "province_id"
+        ],
+        [
+          "catalog_municipality",
+          "source_id"
+        ],
+        [
+          "catalog_municipality",
+          "active"
+        ],
+        [
+          "listings_revision_travel_areas",
+          "revision_id"
+        ]
+      ],
+      "query_sha256": "0d4c9051294596837bf0f9afa17ce32467cfa49c32e49171dcba8ea40ef18c66",
+      "locks_revisions": false
+    },
+    "categories-tuples": {
+      "selected_columns": 2,
+      "selected_field_references": [
+        [
+          "listings_revision_categories",
+          "revision_id"
+        ],
+        [
+          "catalog_category",
+          "slug"
+        ]
+      ],
+      "query_sha256": "806c3a73f35a6170747336663c1d4b8222540e977f11b06839f0891ea203a5d0",
+      "locks_revisions": false
+    },
+    "services-tuples": {
+      "selected_columns": 2,
+      "selected_field_references": [
+        [
+          "listings_revision_services",
+          "revision_id"
+        ],
+        [
+          "catalog_service",
+          "slug"
+        ]
+      ],
+      "query_sha256": "adca36582ab049128f69fadef8bdecc11c9279015445ce476eae11f55a491122",
+      "locks_revisions": false
+    },
+    "travel_areas-tuples": {
+      "selected_columns": 2,
+      "selected_field_references": [
+        [
+          "listings_revision_travel_areas",
+          "revision_id"
+        ],
+        [
+          "catalog_municipality",
+          "code"
+        ]
+      ],
+      "query_sha256": "91272ff3284b7417d19a05b43f697a6a5c2fd1a284f4b3ce11d6e8bb952be0c7",
+      "locks_revisions": false
+    },
+    "categories-full-tuples": {
+      "selected_columns": 7,
+      "selected_field_references": [
+        [
+          "listings_revision_categories",
+          "revision_id"
+        ],
+        [
+          "catalog_category",
+          "slug"
+        ],
+        [
+          "catalog_category",
+          "id"
+        ],
+        [
+          "catalog_category",
+          "name_es"
+        ],
+        [
+          "catalog_category",
+          "name_en"
+        ],
+        [
+          "catalog_category",
+          "active"
+        ],
+        [
+          "catalog_category",
+          "version"
+        ]
+      ],
+      "query_sha256": "07ebdc993899477f2092f0b063b31b56b6c2936f4ab59b4e21adbd8f8254278c",
+      "locks_revisions": false
+    },
+    "services-full-tuples": {
+      "selected_columns": 7,
+      "selected_field_references": [
+        [
+          "listings_revision_services",
+          "revision_id"
+        ],
+        [
+          "catalog_service",
+          "slug"
+        ],
+        [
+          "catalog_service",
+          "id"
+        ],
+        [
+          "catalog_service",
+          "category_id"
+        ],
+        [
+          "catalog_service",
+          "name_es"
+        ],
+        [
+          "catalog_service",
+          "name_en"
+        ],
+        [
+          "catalog_service",
+          "active"
+        ]
+      ],
+      "query_sha256": "d692c04e57fc04687f56eea597887cb28276cb6a01efd5a6c1d195dd2ab255cd",
+      "locks_revisions": false
+    },
+    "travel_areas-full-tuples": {
+      "selected_columns": 7,
+      "selected_field_references": [
+        [
+          "listings_revision_travel_areas",
+          "revision_id"
+        ],
+        [
+          "catalog_municipality",
+          "code"
+        ],
+        [
+          "catalog_municipality",
+          "id"
+        ],
+        [
+          "catalog_municipality",
+          "name"
+        ],
+        [
+          "catalog_municipality",
+          "province_id"
+        ],
+        [
+          "catalog_municipality",
+          "source_id"
+        ],
+        [
+          "catalog_municipality",
+          "active"
+        ]
+      ],
+      "query_sha256": "f72038d197e8504856ba2f12ad9dfc97875dba24fd7d2bae310605e7c7d9700b",
+      "locks_revisions": false
+    },
+    "revisions-models": {
+      "selected_columns": 36,
+      "selected_field_references": [
+        [
+          "listings_revision",
+          "id"
+        ],
+        [
+          "listings_revision",
+          "listing_id"
+        ],
+        [
+          "listings_revision",
+          "manager_version"
+        ],
+        [
+          "listings_revision",
+          "status"
+        ],
+        [
+          "listings_revision",
+          "title"
+        ],
+        [
+          "listings_revision",
+          "description"
+        ],
+        [
+          "listings_revision",
+          "content_language"
+        ],
+        [
+          "listings_revision",
+          "description_alternative"
+        ],
+        [
+          "listings_revision",
+          "profile_type"
+        ],
+        [
+          "listings_revision",
+          "municipality_id"
+        ],
+        [
+          "listings_revision",
+          "postal_code_id"
+        ],
+        [
+          "listings_revision",
+          "zone_id"
+        ],
+        [
+          "listings_revision",
+          "spoken_languages"
+        ],
+        [
+          "listings_revision",
+          "days"
+        ],
+        [
+          "listings_revision",
+          "time_slot"
+        ],
+        [
+          "listings_revision",
+          "reception"
+        ],
+        [
+          "listings_revision",
+          "travel"
+        ],
+        [
+          "listings_revision",
+          "phone"
+        ],
+        [
+          "listings_revision",
+          "whatsapp"
+        ],
+        [
+          "listings_revision",
+          "created_at"
+        ],
+        [
+          "catalog_municipality",
+          "id"
+        ],
+        [
+          "catalog_municipality",
+          "code"
+        ],
+        [
+          "catalog_municipality",
+          "name"
+        ],
+        [
+          "catalog_municipality",
+          "province_id"
+        ],
+        [
+          "catalog_municipality",
+          "source_id"
+        ],
+        [
+          "catalog_municipality",
+          "active"
+        ],
+        [
+          "catalog_postalcode",
+          "id"
+        ],
+        [
+          "catalog_postalcode",
+          "code"
+        ],
+        [
+          "catalog_postalcode",
+          "source_id"
+        ],
+        [
+          "catalog_postalcode",
+          "public_safe"
+        ],
+        [
+          "catalog_zone",
+          "id"
+        ],
+        [
+          "catalog_zone",
+          "code"
+        ],
+        [
+          "catalog_zone",
+          "name"
+        ],
+        [
+          "catalog_zone",
+          "municipality_id"
+        ],
+        [
+          "catalog_zone",
+          "source_id"
+        ],
+        [
+          "catalog_zone",
+          "active"
+        ]
+      ],
+      "query_sha256": "8b556c2d0732afe8e94798c9d8dafd11002af5924750c687dd25f318a5d3a1ce",
+      "locks_revisions": true
+    },
+    "revisions-full-tuples": {
+      "selected_columns": 36,
+      "selected_field_references": [
+        [
+          "listings_revision",
+          "id"
+        ],
+        [
+          "listings_revision",
+          "listing_id"
+        ],
+        [
+          "listings_revision",
+          "manager_version"
+        ],
+        [
+          "listings_revision",
+          "status"
+        ],
+        [
+          "listings_revision",
+          "title"
+        ],
+        [
+          "listings_revision",
+          "description"
+        ],
+        [
+          "listings_revision",
+          "content_language"
+        ],
+        [
+          "listings_revision",
+          "description_alternative"
+        ],
+        [
+          "listings_revision",
+          "profile_type"
+        ],
+        [
+          "listings_revision",
+          "municipality_id"
+        ],
+        [
+          "listings_revision",
+          "postal_code_id"
+        ],
+        [
+          "listings_revision",
+          "zone_id"
+        ],
+        [
+          "listings_revision",
+          "spoken_languages"
+        ],
+        [
+          "listings_revision",
+          "days"
+        ],
+        [
+          "listings_revision",
+          "time_slot"
+        ],
+        [
+          "listings_revision",
+          "reception"
+        ],
+        [
+          "listings_revision",
+          "travel"
+        ],
+        [
+          "listings_revision",
+          "phone"
+        ],
+        [
+          "listings_revision",
+          "whatsapp"
+        ],
+        [
+          "listings_revision",
+          "created_at"
+        ],
+        [
+          "listings_revision",
+          "municipality_id"
+        ],
+        [
+          "catalog_municipality",
+          "code"
+        ],
+        [
+          "catalog_municipality",
+          "name"
+        ],
+        [
+          "catalog_municipality",
+          "province_id"
+        ],
+        [
+          "catalog_municipality",
+          "source_id"
+        ],
+        [
+          "catalog_municipality",
+          "active"
+        ],
+        [
+          "listings_revision",
+          "postal_code_id"
+        ],
+        [
+          "catalog_postalcode",
+          "code"
+        ],
+        [
+          "catalog_postalcode",
+          "source_id"
+        ],
+        [
+          "catalog_postalcode",
+          "public_safe"
+        ],
+        [
+          "listings_revision",
+          "zone_id"
+        ],
+        [
+          "catalog_zone",
+          "code"
+        ],
+        [
+          "catalog_zone",
+          "name"
+        ],
+        [
+          "catalog_zone",
+          "municipality_id"
+        ],
+        [
+          "catalog_zone",
+          "source_id"
+        ],
+        [
+          "catalog_zone",
+          "active"
+        ]
+      ],
+      "query_sha256": "4ae24468ad2cdfb5a9da52568f5b77ead25fd3666e1f3087e7ef3e71bc9f6802",
+      "locks_revisions": true
+    }
+  },
+  "revision_sql_expression_difference": {
+    "models_only": [
+      [
+        "catalog_municipality",
+        "id"
+      ],
+      [
+        "catalog_postalcode",
+        "id"
+      ],
+      [
+        "catalog_zone",
+        "id"
+      ]
+    ],
+    "tuples_only": [],
+    "reason": "Django optimizes joined relation PK projection to the root FK column. All related rows NULL in this benchmark. Output equality does not prove identical seal inputs."
+  },
+  "receipt": {
+    "id": "mod08-orm-research-20261012-104909",
+    "head": "9c237838cac6cee8b425428476da96cbb96830f4",
+    "result": "COMPLETE_LOCAL_QUERY_BENCH_NOT_HTTP",
+    "cleanup": {
+      "mod08-orm-research-20261012-104909-app": true,
+      "mod08-orm-research-20261012-104909-pg": true,
+      "mod08-orm-research-20261012-104909-net": true
+    },
+    "result_sha256": "cc8b77a81edcc6a0d2806f1a150c7bfd2cef7bd6bf6c152135ce3e7dc627e5a0",
+    "benchmark_sha256": "042749688cdcbafa5c2a4d442dc6f48e9d3d3b8f4a96a45760bab07e976b0d78",
+    "runner_sha256": "809bcba8f1e9bfaef94fe223da1dadea09b6872740a8e915bef4fbde910b7847"
+  },
+  "limits": {
+    "application_cpus": 1,
+    "postgres_cpus": 1,
+    "memory_mib_each": 512,
+    "swap_configured_bytes": 0,
+    "published_ports": 0,
+    "network_internal": true
+  },
+  "images": {
+    "pg": "79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+    "application": "ecb4b179802ddef908a86d0379dcb8022fbbf20756d35c2de7ee92be33c0d9b4"
+  },
+  "discarded_attempts": [
+    {
+      "name": "first",
+      "reason": "str(query) was evaluated by setdefault on each timed invocation; SQL rendering overhead included."
+    },
+    {
+      "name": "generated-field-failure",
+      "reason": "Partial schema builder did not handle GeneratedField.output_field; ERROR preserved; cleanup passed."
+    }
+  ],
+  "acceptance_eligible": false
+}

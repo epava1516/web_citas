@@ -118,3 +118,18 @@ no aceptación: JUnit 1PASS1566.464s, dos ventanas COMPLETE y JSON combinado
 validado. Auditoría fuentes1414/limpieza/archivo PASS. Evidencia versionada en
 docs/evidencias/mod08-vps-scalene-cobertura-20261012.md y .json.
 Pendiente análisis causal/corrección y p95 HTTP limpio; global/N3 no aceptado.
+
+
+Investigación primera opción ORM: actual fixture 1500 revisions/16photos sin
+categories/services/travel/rates; prioridad catálogos corregida. Own PG+app
+1CPU512MiB cada uno, red interna sin puertos, root RO/capdrop, tres ensayos
+locales (primero SQLrender ruido descartado, segundo GeneratedField schema
+ERROR preservado, tercero COMPLETE). Cleanup propio confirmado en los tres.
+Evidencia docs/evidencias/mod08-vps-orm-proyecciones-20261012.md/.json.
+15 vueltas alternadas, sin profiler: vacío35.112→33.588ms (ruido), poblado
+18Krows321.055→123.894ms (contrafactual), revisiones218.949→162.530ms
+(prototipo parcial36posiciones con joinPK reemplazados por rootFK). No aceptar
+equivalencia de sellos/bloqueosconcurrentes ni medir HTTP de app sin cambios.
+No aplicación editada, no Claude invocations, consumo anterior intacto.
+Próximo: priorizar costes más grandes o comprobar proyección integral de
+revisiones con migraciones y pruebas negativas; ahorro de segundos no probado.

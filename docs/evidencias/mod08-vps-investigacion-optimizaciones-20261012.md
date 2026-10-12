@@ -98,3 +98,12 @@ completa. Después, preflight/probe/measure según el procedimiento, sin
 perfiladores durante measure. Publicar p95 por caso y cuadro comparativo;
 repetir una vez sólo si cumple. Ninguna hipótesis anterior demuestra que se
 alcance el SLO ni autoriza aceptación global/N3.
+
+
+## Revisión tras la investigación profunda de ORM
+
+La prioridad inicial de proyectar catálogos se corrige para la carga actual:
+las tres relaciones están vacías, por lo que no existen objetos de catálogo
+que evitar. La comprobación local apunta a un ahorro de decenas de ms en la
+lectura principal de revisiones, sin mejora HTTP demostrada.
+[Estudio profundo y límites](mod08-vps-orm-proyecciones-20261012.md).
