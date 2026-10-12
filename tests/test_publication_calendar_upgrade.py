@@ -38,8 +38,10 @@ def test_restore_missing_dates_events_and_reject_corruption(request, settings, m
             assert connection.vendor == "postgresql"
 
             def upgrade_from(target, expected_version):
-                latest = [("safety", "0076_publicationcalendarevent")]
                 executor = MigrationExecutor(connection)
+                # A safety rollback can unapply dependent migrations in other apps.
+                # Restore every current leaf, including publication dirty triggers.
+                latest = executor.loader.graph.leaf_nodes()
                 try:
                     executor.migrate([("safety", target)])
                     historical = executor.loader.project_state([("safety", target)]).apps

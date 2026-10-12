@@ -1,0 +1,215 @@
+{
+  "result": {
+    "id": "20261012-230717-78086016",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261012-230717-78086016",
+          "--label",
+          "web-modelos-local-ci-run=20261012-230717-78086016",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.47162012895569205
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261012-230717-78086016",
+          "--label",
+          "web-modelos-local-ci-run=20261012-230717-78086016",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.6714506600983441
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06766058411449194
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.31913863914087415
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.1214461931958795
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 4.637585383839905
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 2.127828935161233
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-ed7tp7aa/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-ed7tp7aa/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-ed7tp7aa/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.067277489230037
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_cr09_correctives/artifacts/local-ci/20261012-230717-78086016/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_cr09_correctives/artifacts/local-ci/20261012-230717-78086016/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-ed7tp7aa/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_cr09_correctives/artifacts/local-ci/20261012-230717-78086016/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_publication_calendar_upgrade.py",
+          "tests/test_publication_state.py"
+        ],
+        "exit": 0,
+        "seconds": 442.57811556290835
+      }
+    ],
+    "head": "8ae5580626719bd34d7baddaf0e86a91469a7ffe",
+    "excluded": [],
+    "selection": [
+      "tests/test_publication_calendar_upgrade.py",
+      "tests/test_publication_state.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261012-230717-78086016": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261012-230717-78086016": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "29",
+        "time": "439.898",
+        "timestamp": "2026-10-13T01:07:41.349265+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "29",
+    "time": "439.898",
+    "timestamp": "2026-10-13T01:07:41.349265+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "host_limits": {
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/web-modelos-cr09-calendar-corrective-20261012.service",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory.max": "3758096384",
+    "memory.swap.max": "0",
+    "pids.max": "512",
+    "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "terminal_memory_peak": "853753856"
+  },
+  "temporary_absent": true,
+  "scope": "Calendar upgrade and full publication_state file only; not CR09/N3 acceptance."
+}
