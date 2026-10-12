@@ -1144,3 +1144,35 @@ de topología de tests preservados y repetidos en adaptador CI oficial:6PASS,
 fuentes iguales/cleanup real. Sin nueva métricaHTTP ni aceptación todavía.
 [Evidencia, límites y fallos](evidencias/mod08-vps-lectores-conjunto-20261012.md).
 Próximo: preflight8→probe8→measure8 sin editar fuentes; sólo repetir si cumple.
+
+
+## Resultado lectores por conjunto / auditoría ROI, 2026-10-12
+
+SHA388c991: preflight/probe PASS; measure125702-b2d8dd6f FAIL por6límites,
+p95A/Bnav3.251440/3.275722s,JSON6.486092/6.379550s,bin7.064550/7.070781s.
+Reducciónobservada conjunto codec+SQL≈7.7%nav/8.8–9.6%JSON,bin≈igual;
+JUnit2050.766→1960.506s. No atribuciónaislada ni aceptaciónglobal/N3.
+No repetirFAIL; diagnoseSQL304133355-c56f5505 PASS771.444s,comparaciónexacta
+set_hash actual versus scalarcontrol, con sobrecostepequeñocorpus. Fuentes1418,
+archivo y cleanup independientesPASS,todosrunners terminales.
+[Resultados/recibos](evidencias/mod08-vps-medida-lectores-20261012.md),
+[SQL](evidencias/mod08-vps-planes-lectores-20261012.md).
+
+Usuarioautoriza analizar ROI/sobreingeniería:3lecturas nativas independientes,
+rootverifica en código/negativas y RGPD/CEPD. Obligaciones legales ≠ mecanismo
+prescrito. Conservar garantías probadas; trabajoevitable confirmado rewrapsink
+noHTTP; amplitudbytechecks, replayhistoria y gatecada página requieren justificar
+beneficio/contrato, no eliminaciónautomática. [Auditoría](evidencias/mod08-auditoria-roi-20261012.md).
+Siguienteacción técnica: inventario de fronteras de validación y propuesta simple
+con garantía explícita, antes de otra optimización/medición. No caché deautoridad,
+noheadsolo ni datos reales/proveedores/publicación.
+
+
+Simplificación posterior a las mediciones (2026-10-12): rewrap autentica con
+verify sobre la copia cifrada y elimina los dos temporales en claro descartados.
+Conserva autenticación completa, formato y frames; 97 pruebas unitarias PASS
+(10 excluidas: integración RustFS y caminos ajenos), incluidas siete regresiones
+para rotación sin salida ante fallo y almacenamiento temporal sólo cifrado.
+Ruff y documentación verificados. Este cambio de mantenimiento no tiene p95
+HTTP medido: las cifras publicadas siguen correspondiendo al SHA 388c991.
+Las demás candidatas de ROI permanecen propuestas; no se han retirado garantías.

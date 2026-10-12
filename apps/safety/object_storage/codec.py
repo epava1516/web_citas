@@ -230,7 +230,7 @@ def verify(source, ring, context, *, max_bytes=MAX_BYTES):
 
 def rewrap(source, target, old_ring, new_ring, context, *, max_bytes=MAX_BYTES):
     """Authenticate fully first, then replace only the wrapped DEK."""
-    with tempfile.TemporaryFile() as copy, tempfile.TemporaryFile() as sink:
+    with tempfile.TemporaryFile() as copy:
         size = 0
         while block := source.read(MAX_CHUNK):
             size += len(block)
@@ -238,7 +238,7 @@ def rewrap(source, target, old_ring, new_ring, context, *, max_bytes=MAX_BYTES):
                 raise InvalidObject("Ciphertext exceeds size limit")
             copy.write(block)
         copy.seek(0)
-        decrypt(copy, sink, old_ring, context, max_bytes=max_bytes)
+        verify(copy, old_ring, context, max_bytes=max_bytes)
         copy.seek(0)
         meta, dek, _ = _header(copy, old_ring, context)
         _write_header(target, _wrapped(meta, dek, new_ring))

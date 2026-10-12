@@ -121,3 +121,64 @@ def test_size_limit_no_prefix_exposure(ring):
     with pytest.raises(InvalidObject):
         decrypt(io.BytesIO(encoded(ring)), out, ring, b"export:1:subject:2", max_bytes=50)
     assert not out.getvalue()
+
+
+@pytest.mark.parametrize("damage", ["tag", "truncate", "append", "context", "key", "ceiling"])
+def test_rotation_rejects_invalid_object_before_output(ring, damage):
+    value = encoded(ring)
+    context = b"export:1:subject:2"
+    limit = 1000
+    if damage == "tag":
+        value = value[:-1] + bytes([value[-1] ^ 1])
+    elif damage == "truncate":
+        value = value[:-1]
+    elif damage == "append":
+        value += b"extra"
+    elif damage == "context":
+        context = b"export:1:subject:other"
+    elif damage == "key":
+        ring = Keyring({"old": os.urandom(32)}, "old")
+    else:
+        limit = 50
+    target = io.BytesIO()
+    new_ring = Keyring({"new": os.urandom(32)}, "new")
+    with pytest.raises(InvalidObject):
+        rewrap(io.BytesIO(value), target, ring, new_ring, context, max_bytes=limit)
+    assert target.getvalue() == b""
+
+
+def test_rotation_scratch_contains_only_ciphertext(ring, monkeypatch):
+    from apps.safety.object_storage import codec
+
+    original = encoded(ring)
+    writes = []
+    temporary_file = codec.tempfile.TemporaryFile
+
+    class RecordingFile:
+        def __init__(self):
+            self.file = temporary_file()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            self.file.close()
+
+        def write(self, value):
+            writes.append(bytes(value))
+            return self.file.write(value)
+
+        def __getattr__(self, name):
+            return getattr(self.file, name)
+
+    monkeypatch.setattr(codec.tempfile, "TemporaryFile", RecordingFile)
+    target = io.BytesIO()
+    rewrap(
+        io.BytesIO(original),
+        target,
+        ring,
+        Keyring({"new": os.urandom(32)}, "new"),
+        b"export:1:subject:2",
+    )
+    assert b"".join(writes) == original
+    assert target.getvalue()

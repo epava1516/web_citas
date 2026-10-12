@@ -219,3 +219,39 @@ EVENT separado, sealruleversionnuevo. Instrumentos reconocen nuevosfuncs,
 EXPLAIN set_hashactual+scalarcontrolhistórico/fiverounds. Evidencia:
 docs/evidencias/mod08-vps-lectores-conjunto-20261012.md. PendienteHTTP8 limpio;
 comparación incluirá codecprevio, no causalidad aislada ni N3.
+
+Ciclo SHA388c991 completo: preflight125018-e52e94f1 PASS70.575s,probe125409-f94d14dc
+PASS39.980s; measure125702-b2d8dd6f FAIL1960.506s/6breaches,0errores/skips/
+workloaderrors. P95A/B:nav3.251440/3.275722,JSON6.486092/6.379550,
+bin7.064550/7.070781. Conjunto codec+SQL7.7%nav/8.8–9.6%JSON,bin≈igual;
+JUnit−90.260s4.40%, no causalidad aislada. Fuentes1418/manifeste0e8.../archivo/
+cleanup independientesPASS,upper4191248384bytes,swap/OOM0. No repetirFAIL.
+Diagnose SQL304 separado133355-c56f5505 PASS771.444s/launcher0,head36→2468,
+5variants/5rotatedrounds; set_hash actual exacto, nativecontrol anterior.
+Late event38.858→27.188,selection32.369→20.710,coverage36.352→25.111ms;
+familiaspequeñas sobrecoste y FunctionScan propio conservados. NoHTTPnuevo ni N3.
+Usuario pide auditoría sobreingeniería/ROI:3delegaciones nativas lectura (roi_chain,
+roi_crypto,roi_traceability),0ClaudeV1,0ediciones/tests/cargas. Contrato externo
+1.0.1 leído completo antes. Reportes asesoría, formatoscrypto/traceparciales no
+aceptados como gates; root verificó hallazgos en código/pruebas/fuentes legales.
+No cambiar fuentes durante ninguno de los4runners. Draft sólo artifacts y ahora
+versionado docs/evidencias/mod08-auditoria-roi-20261012.md. ConservaClaudeconsumo.
+Conclusión: trabajoevitable rotación plaintextsink; amplitud/repetición/páginas
+candidatas con garantíaaexplicitar, no atajos headni omitirbytesmutable. Mantener
+núcleo autoridad/scope/expiry/integridad/idempotencia. No cambio contractual ni
+aplicación de estas propuestas; evitar ciclos especulativos. Métricas completas:
+docs/evidencias/mod08-vps-medida-lectores-20261012.md y planes-lectores-20261012.md.
+
+Finalcleanup:0ownedcapacityactive; removedonlytemporarylatestifsameecb4ID,
+keptnamedownimage84f1886. Receiptfinalcleanup.json; no prune. Futuretaglatest
+onlyaftercheckstillabsent; no overwriteexternalimage. All codeunchangedafter388.
+
+
+Simplificación posterior a las mediciones (2026-10-12): rewrap autentica con
+verify sobre la copia cifrada y elimina los dos temporales en claro descartados.
+Conserva autenticación completa, formato y frames; 97 pruebas unitarias PASS
+(10 excluidas: integración RustFS y caminos ajenos), incluidas siete regresiones
+para rotación sin salida ante fallo y almacenamiento temporal sólo cifrado.
+Ruff y documentación verificados. Este cambio de mantenimiento no tiene p95
+HTTP medido: las cifras publicadas siguen correspondiendo al SHA 388c991.
+Las demás candidatas de ROI permanecen propuestas; no se han retirado garantías.
