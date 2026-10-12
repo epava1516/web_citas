@@ -93,3 +93,21 @@ No se modifica captura coverage ni aplicación; repetir sólo esta sonda acotada
 | JSON combinado | Ausente | Presente |
 | CPU de aplicación demostrada | No | No; helper únicamente |
 | Nueva aceptación p95 | Ninguna | Ninguna |
+
+
+Sonda reforzada 35b5c97 / 20261012-094755-68d38932 PASS: launcher 0,
+1 test/0 fallos/0 errores/0 skips, 58.595s; JSON combinado incluye CPU positiva
+de fast_canonical, rights_exports y otros módulos de dominio (imports fríos
+incluidos en esta sonda sintética, nunca interpretados como CPU de cobertura).
+Sin AppRegistryNotReady. Auditoría independiente de fuentes y limpieza PASS.
+Esta evidencia valida el instrumento, no capacidad ni SLO. Siguiente acción:
+diagnose separado sin otros perfiladores; medir limpio después de corregir
+con evidencia. Conservado el diagnóstico fallido 090224, sin sustituirlo.
+
+| Sonda | c892c08 | 35b5c97 |
+| --- | --- | --- |
+| Duración de test instrumental | 51.155s | 58.595s |
+| JSON combinado | Presente | Presente |
+| CPU positiva en dominio | No | Sí, incluyendo imports sintéticos |
+| Fallos / errores | 0 / 0 | 0 / 0 |
+| Nueva latencia HTTP aceptable demostrada | No | No |
