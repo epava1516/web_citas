@@ -71,9 +71,12 @@ No repetir esta carga sin un cambio o una pregunta nueva.
 ## Artefactos
 
 - [Resumen estructurado y huellas](mod08-metricas-separadas-20261011.json).
-- [Reporte diagnóstico](../../artifacts/capacity-environment/20261011-205904-6d77445d/report.json).
-- [Reporte normal fallido por límites](../../artifacts/capacity-environment/20261011-212056-311e7b34/report.json).
-- [JUnit normal e intervalos](../../artifacts/capacity-environment/20261011-212056-311e7b34/pytest.xml).
+- Reporte diagnóstico local: `artifacts/capacity-environment/20261011-205904-6d77445d/report.json`.
+- Reporte normal fallido por límites local: `artifacts/capacity-environment/20261011-212056-311e7b34/report.json`.
+- JUnit normal e intervalos locales: `artifacts/capacity-environment/20261011-212056-311e7b34/pytest.xml`.
+
+Estos artefactos ignorados se conservaron en el equipo de origen; no forman
+parte del checkout remoto. El resumen enlazado contiene la evidencia saneada.
 
 El fixture de identidad es simulado; PostgreSQL, HTTP, Celery, RustFS y
 Caddy son reales. No se acredita proveedor externo, producción ni N3.
