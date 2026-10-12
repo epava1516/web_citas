@@ -255,3 +255,8 @@ para rotación sin salida ante fallo y almacenamiento temporal sólo cifrado.
 Ruff y documentación verificados. Este cambio de mantenimiento no tiene p95
 HTTP medido: las cifras publicadas siguen correspondiendo al SHA 388c991.
 Las demás candidatas de ROI permanecen propuestas; no se han retirado garantías.
+
+Investigación posterior solicitada: mapa POST/GET, repetición de replay/objetos/
+originales y alternativas con diferencia de garantía explícita en auditoría ROI.
+Fuentes PostgreSQL17/S3 primarias consultadas. Sin nuevos runners, mediciones,
+agentes ni cambios de contrato. Snapshot/artefacto propuestas, no implementadas.

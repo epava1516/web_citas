@@ -118,3 +118,94 @@ No se ha eliminado ningún control ni modificado el contrato durante esta revisi
 No se afirma ROI numérico por mecanismo ni aceptación global/N3. Alcance principal:
 los caminos MOD08 de revisión/exportación/entrega que motivan la latencia; no es una
 certificación de todos los módulos del proyecto ni de textos/proveedores reales.
+
+
+## Investigación posterior de candidatas, SHA b5de3bc
+
+Revisión directa de fuentes y negativas existentes después de terminar los runners.
+No nuevas medidas HTTP, perfiladores, servicios ni cambios de contrato en esta fase.
+Las pruebas citadas aquí se inspeccionaron: no se afirma una nueva ejecución de
+integración. La simplificación de rotación conserva su gate unitario anterior.
+
+### Frontera principal: POST y GET de una descarga
+
+La ruta concreta es rights_exports.download → validate_portability →
+_sealed_or_full → holds/replay → verify_export_objects + _verify_current_images.
+Después se descifra la parte solicitada y stage_delivery conserva sus bytes.
+El GET de Caddy vuelve a authorize_token → _fresh → validate_portability; por
+último verifica tamaño/SHA del archivo staged y consume el grant de un solo uso.
+Referencias: rights_exports.py:817–975; rights_object_delivery.py:141–146,
+242–297; rights_portability_export.py:294–327.
+
+La operación medida con redirect atraviesa DOS transacciones: el ContextVar de
+one_export_validation se reinicia en cada operación y no evita la segunda
+validación. En la ruta de sello válido ambas fases verifican todas las imágenes
+exportadas, todas las partes externas y todos los originales declarados; el POST
+además descifra el objeto seleccionado para entregar. La descarga JSON también
+paga las comprobaciones del conjunto binario. Esto es amplificación estructural
+confirmada, no una atribución temporal ni prueba de que eliminarla sea equivalente.
+Si el sello no vale, la ruta completa reconstruye proyección/paquetes/transporte.
+
+El GET comprueba hechos que pueden cambiar tras el POST. Las negativas vigentes
+cubren recibo/sujeto/expiración/payload/namespace/grant/archivo/restauración:
+test_rights_object_delivery.py:77–104. El sello válido también debe rechazar
+corrupción exclusivamente externa: test_rights_enforced_validation_seal.py:161–179.
+El archivo staged íntegro NO demuestra que originales u otros objetos permanezcan
+íntegros. Un token con duración corta NO demuestra ausencia de revocación.
+
+### Alternativas y decisión
+
+| Alternativa | Trabajo que evita | Garantía que conserva o cambia | Decisión |
+| --- | --- | --- | --- |
+| Reutilizar sólo el head de la cadena o un TTL | hashes frescos de fuentes/historia | pierde detección de fuente alterada con head intacto | rechazada como sustitución equivalente |
+| Cambiar a REPEATABLE READ para reutilizar resultados | snapshots posteriores | deja de observar commits posteriores al snapshot; no protege bytes externos | no adoptar como arreglo transparente |
+| GET verifica grant, autoridad fresca y archivo staged, sin comprobar todo el origen otra vez | replay histórico y lecturas del conjunto en GET | entrega snapshot validado en POST; ya no exige integridad fresca del origen completo en GET | candidata principal de simplificación arquitectónica; requiere decisión contractual explícita |
+| Validar sólo artefacto pedido y sus dependencias | lecturas de imágenes/partes ajenas en ambas fases | daño ajeno puede no impedir entrega; cambia integridad conjunta por integridad del artefacto | candidata, no equivalente al contrato actual |
+| Fusionar verificación y lectura de la parte seleccionada en POST | segunda lectura/descifrado de esa parte | precisa conservar orden de errores, tombstones antes/después y cuándo se capturan bytes | investigar como alternativa acotada; ahorro global desconocido |
+| Omitir SHA plaintext del codec v1 | pasada SHA de cada frame | modifica construcción criptográfica/formato; redundancia no demostrada | no retirar v1; prioridad inferior al alcance de validación |
+| Completar cobertura por manifiesto + revisión de excepciones | clics/lecturas/auditoría acumulada | cambia evidencia humana de páginas servidas por evidencia automática de completitud | mejora de proceso potencial; necesita criterio de revisión aprobado |
+
+La opción de snapshot NO elimina revocación: el GET seguiría verificando recibo,
+ámbito/sujeto, prueba/expiraciones, purga, generación de recuperación, grant,
+binding, tamaño/digest staged y consumo exclusivo. Habría que enumerar además
+exactamente qué hechos SQL invalidan la aprobación y cómo detectarlos. No basta
+con quitar _fresh ni confiar en la firma del token. La diferencia explícita es
+que alteración de originales/artefactos ajenos posterior al POST no invalidaría
+por sí sola los bytes staged aprobados. Su aceptabilidad aún no está decidida.
+
+### Qué prueba falta antes de implementar
+
+1. Enumerar inputs mutables por aprobación y frontera POST/GET; separar autoridad,
+   integridad del artefacto y vigencia del conjunto. Escribir criterio exacto de
+   éxito/rechazo para cada mutación, incluidas fuentes SQL con head intacto.
+2. Para una candidata de garantía equivalente, conservar todas las negativas;
+   agregar corrupción de objeto no seleccionado, purga entre fases y cambio
+   de original entre POST/GET. Usar PostgreSQL real, LOGIN no propietario,
+   RustFS/Caddy propios y datos sintéticos. No usar mocks como aceptación.
+3. Para snapshot o comprobación por artefacto, revisar primero el contrato y
+   justificar el nuevo resultado protector. No borrar negativas para ocultar la
+   diferencia. Comparar cantidad de lecturas y bytes en diagnose separado;
+   las muestras antiguas no atribuyen segundos a cada capa.
+4. Sólo después de gates funcionales, ejecutar preflight/probe/measure limpio,
+   con límites y tabla por caso; repetir únicamente si pasa. El diagnóstico no
+   acredita p95. No se ha lanzado un ensayo especulativo en esta investigación.
+
+### Fuentes técnicas primarias y límites
+
+PostgreSQL documenta snapshots por sentencia en READ COMMITTED y snapshot estable
+con REPEATABLE READ: la estabilidad cambia qué commits se ven, no equivale a
+comprobar frescura posterior ni cubre el almacenamiento externo.
+[PostgreSQL 17: Transaction Isolation](https://www.postgresql.org/docs/17/transaction-iso.html).
+
+S3 ofrece lecturas condicionales por ETag/fecha y Object Lock por versión; son
+mecanismos del proveedor, no prueba de autenticación AEAD ni del contenido de
+un original separado. La compatibilidad de RustFS, ETag/checksums y límites de
+bypass/retención tendría que probarse localmente. No se ha desplegado Object Lock
+ni se recomienda usarlo para sustituir borrado/purga: retención puede impedirlos.
+[Lecturas condicionales S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-reads.html),
+[Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html).
+
+Conclusión de investigación: priorizar la semántica de entrega y la amplitud de
+validación antes de otra aceleración del intérprete. Está demostrado qué trabajo
+se repite; no está medido cuánto del p95 eliminaría cada alternativa. El contrato
+vigente sigue siendo el criterio de aceptación y permanece incumplido en tiempos.
