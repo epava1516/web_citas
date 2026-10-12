@@ -1,5 +1,6 @@
 """Separation tests plus an explicitly selected real restricted-role instrument probe."""
 
+import hashlib
 import importlib
 import json
 import os
@@ -49,6 +50,7 @@ import django
 django.setup()
 from django.db import connection,close_old_connections
 from capacity_professional_profile import capture
+connection.settings_dict['CONN_MAX_AGE']=0
 seen=[]
 with capture('instrument_probe'):
     for index in range(2):
@@ -67,6 +69,14 @@ print(json.dumps({{'reconnect_verified':True}}))
         result = subprocess.run([sys.executable, '-c', script],
                                 env=os.environ.copy() | credentials, capture_output=True,
                                 text=True, timeout=45)
+        child_reports = {path.name: json.loads(path.read_text()) for path in
+                         Path('/tmp').glob('capacity-professional-instrument_probe-*.json')}
+        record_property('professional_probe_child', json.dumps({
+            'exit_code': result.returncode, 'reports': child_reports,
+            'stderr_bytes': len(result.stderr.encode()),
+            'stderr_sha256': hashlib.sha256(result.stderr.encode()).hexdigest(),
+            'memray_message_present': 'Memray' in result.stderr,
+        }))
         assert result.returncode == 0, 'Restricted-role Memray probe child failed'
     # Exercise the actual Gunicorn WSGI wrapper over HTTP, rather than proving only Tracker import.
     from urllib.error import HTTPError

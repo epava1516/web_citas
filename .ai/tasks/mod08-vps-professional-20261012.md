@@ -24,3 +24,12 @@ Instrumentos aislados reportados e integrados por Codex tras revisión de9archiv
 Agente finalreportpreservado en conversación; worktreeaislado se conserva sincommit
 y sindesplegar. Codex mantiene propiedad de integración/aceptación.
 Siguiente probe real profesional, fuentes congeladas trascommit.
+
+Probe84f1886 inicial074830 INVALID_CONTROLLER_NO_REPORT: faltaban app/RustFS/PG
+imágenes en estadoactual, cleanup8recursos auditado. Se repusoPG/RFS conIDs
+originales, app ecb4b179 recompilada mismas bases Python/uv ydeps; latestantesausente
+(despuésretirar sólo tag propio si sigueigual, no restaurar imagenantigua ausente).
+Probe075119 falla1test41.251s antesHTTP: hijo usa close_old_connections sin
+CONN_MAX_AGE=0, conserva backend. Instrucción nativa ya fuerza0; se corrige
+sólo hijo de sonda y registra resumen previo a assert para conservarfallos.
+Fuentes1414intactas+cleanupverificado ambos; noensayorendimiento niconclusiónapp.
