@@ -392,3 +392,15 @@ cifrado, con 184 pruebas codec/transport y 25 de integración LOGIN/PG/RustFS/Ca
 PASS. Conserva lectura fresca, guards y publicación posterior a integridad completa.
 [Diseño y evidencia funcional](evidencias/mod08-lectura-fresca-integrada-20261012.md).
 Pendiente ciclo HTTP limpio en SHA congelado; no inferir ahorro p95 ni N3.
+
+
+## Decisión posterior MOD-09, 2026-10-12
+
+El usuario acepta provisionalmente los tiempos actuales MOD08 como suficientes
+ymejorables; continuar el resto del contrato. [Resultado final, comparativas,
+recursos, limpieza yalcance](evidencias/mod08-lectura-fresca-medicion-20261012.md).
+Measure150109-89880182 conserva FAIL6p95, 1989.924s; no se modifica el resultado
+ni se cambian umbrales del runner. Diagnose153711-7794fc07 interrumpido por nueva
+prioridad, ERROR1FAIL997.548s preservado yretirada verificada. No más rondas de
+optimización por rutina; objetivos originales quedan como mejora futura según
+[contrato1.9](16-contrato-ejecucion-desarrollo.md). No N3/global ni producción.

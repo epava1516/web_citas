@@ -1,6 +1,6 @@
-# Contrato de ejecución del desarrollo — versión 1.8
+# Contrato de ejecución del desarrollo — versión 1.9
 
-Versión vigente1.8/MOD-08: modernización técnica autorizada (§MOD-08) sobre el relevo directo MOD-07; criterios técnicos anteriores se conservan.
+Versión vigente 1.9/MOD-09: aceptación provisional de los tiempos actuales del escenario MOD-08 y continuación del contrato, por instrucción del usuario del 2026-10-12. La excepción acotada se detalla al final; las garantías y los demás criterios se conservan.
 
 Origen: 2026-10-03. Formulación consolidada: 2026-10-09, **MOD-06**, autorizada por el usuario al solicitar consolidar el contrato y adoptar CI propio sin presupuesto para alojamiento. Tipo: especificación de ejecución y aceptación. El proyecto es nuevo y no tiene producción real.
 
@@ -301,6 +301,7 @@ La vía proyectada anterior y sus pruebas experimentales se retiraron; no se req
 | MOD-03 | 2026-10-06  / 1.3 | Delegación sin máximo numérico; adaptador oficial y consumo acumulado. |
 | MOD-04 | 2026-10-07  / 1.4 | Rendimiento de lectura y criterios de medición; diagnóstico secuencial/prohibición de persistencia sustituidos por arquitectura MOD-05. |
 | MOD-05 | 2026-10-08  / 1.5 | Estado de publicación con garantías, autorización para simplificar lo abandonado en proyecto nuevo. |
+| MOD-09 | 2026-10-12 / 1.9 | Tiempos MOD-08 suficientes provisionalmente y mejorables; continuar contrato sin bloquearse en su optimización. No cambia pruebas históricas ni acepta global/N3/producción. |
 | MOD-08 | 2026-10-10  / 1.8 | Modernización técnica autorizada sin cambiar objetivos ni garantías; sustituciones con equivalencia y N2 propias. |
 | MOD-06 | 2026-10-09  / 1.6 | Formulación operativa consolidada, aceptación local/producción explícita y CI propio sin dependencia de pago. |
 
@@ -323,3 +324,36 @@ conserva como referencia reproducible; un PASS8CPU acredita sólo el perfil8CPU,
 nunca cambia retroactivamente el FAIL4CPU. Tampoco acepta global/N3. Comparar sin
 perfiladores y repetir una vez sólo si cumple, preservando todas las ejecuciones.
 Sin cambios de servicios normales, proveedores, datos reales o despliegue.
+
+
+## MOD-09 — aceptación provisional de rendimiento MOD-08, 2026-10-12
+
+Decisión posterior expresa del usuario: «lo doy por aprobado provisional», con
+perfeccionamiento futuro y continuación del resto del contrato; confirma que
+«el estado actual esta bien, es suficiente, pero marcarlo como mejorable no es malo».
+[Medida y alcance exactos](evidencias/mod08-lectura-fresca-medicion-20261012.md).
+
+Se acepta provisionalmente el rendimiento observado del circuito MOD-08 en el
+VPS sobre código c92fe649a5a2c9e7365118f87fcaa710701857bb: cobertura p95 hasta 3.328 s,
+JSON por paquete hasta 6.717 s y binario por paquete hasta 6.821 s, con escenario extremo
+1500 revisiones/16MiB JSON/64MiB originales por caso y dos casos concurrentes,
+8CPU/8GiB/storage≤20GiB/swap0. Deja de bloquear la continuación por estas latencias;
+se registran como MEJORABLE /DEUDA DE RENDIMIENTO, con objetivos originales 2 s/5 s
+conservados para perfeccionamiento futuro. No convertir el FAIL original en PASS,
+no alterar el instrumento ni repetir cargas para maquillar el resultado.
+
+Los aproximadamente 7 s corresponden al p95 de una parte, no a una solicitud completa.
+Generación observada 42–43 s y acciones finales49s: suma automática 92 s, sin aprobar
+un plazo completo de 7 s o 60 s. Identidad, revisión previa, esperas humanas y descarga
+de todas las partes no están incluidas en esa suma ni acreditadas como plazo total.
+1500 revisiones es caso de resistencia elegido técnicamente, no frecuencia real
+acreditada de anunciantes ni representación del visitante/publicante habitual.
+
+Esta excepción temporal afecta la prioridad/bloqueo de optimización del escenario;
+conserva autoridad fresca, revisión separada, privacidad, contenido íntegro,
+revocación, idempotencia, recuperación, recursos y las pruebas necesarias restantes.
+SLO del directorio/listado/búsqueda/ficha, criterios comunes CR09/N3, CR10, GS01 y
+BF/BB/C no se aceptan por esta decisión. Seguridad, legalidad y producción no se
+infieren de una latencia ni del plazo RGPD. Sin producción, proveedores, gasto,
+publicación o datos reales. Continuar la cola común del contrato; reabrir mejora
+MOD08 si usuario la pide o aparece una regresión/riesgo concreto pertinente.

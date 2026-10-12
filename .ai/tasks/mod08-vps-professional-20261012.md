@@ -275,3 +275,18 @@ Fallos inicial selección interrumpida/103PASS1FAIL assertion2temps conservados;
 actualización a1temporal prevista, sin quitar negativas. Gate fuentes iguales,
 cleanupPGPASS/object-testsabsent. Ruff/docs/120instrument PASS. Evidencia versionada
 mod08-lectura-fresca-integrada-20261012.{json,md}. HTTP pendiente, no N3.
+
+
+Ciclo c92fe64 terminal: preflight145536-689259ce1PASS72.417s; probe145837-4ab8d9f2
+1PASS42.189s; measure150109-898801821FAIL1989.924s,6límites p95 preservados,
+nav3.285302/3.327704 JSON6.701149/6.716520 BIN6.820655/6.705964s. Binario mejora
+3.45–5.16%, resto regresa ligeramente; sin causalidad/reproducibilidad. Integridad,
+intervalos,8CPU8GiBswap0,pico propio4215144448<6GiB,manifest/archivo/cleanupPASS.
+Diagnose153711-7794fc07 lanzado separado, luego usuario aprueba provisionalmente
+rendimiento ymanda resto contrato: SIGINT sólopytest verificado,ERROR1FAIL997.548s
+preservado,manifest/archivo/retiradaPASS. Temporal latest propio retirado; named
+image intacta. No agentes ni Claude nuevos; consumos previos conservados.
+MOD09/v1.9 registra excepción suficiente/mejorable sin modificarFAIL niSLO
+instrumento, no N3/global/producción.7s esporparte;fasesgen+respuesta≈92s,no solicitud
+completa ni ≤60s.1500rev esextremo elegido bajo delegación,noanunciante típico.
+Siguientecola:consolidación CR09/N3 común→CR10→GS01→BF/BB→C, sinperfeccionismoMOD08.

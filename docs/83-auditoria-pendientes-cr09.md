@@ -1,5 +1,11 @@
 # Auditoría de pendientes para aceptación CR-09
 
+**Adenda posterior vigente2026-10-12 /MOD-09:** rendimiento del escenario grande
+MOD08 aceptado provisionalmente por el usuario como suficiente ymejorable; sus
+latencias dejan de bloquear la continuación. [Evidencia completa yexcepción](evidencias/mod08-lectura-fresca-medicion-20261012.md).
+El FAIL histórico permanece; consolidación CR09/N3 yotros criterios siguen
+pendientes. Los cortes anteriores deesta matriz se conservan como historia.
+
 Corte de relevo2026-10-09: goal **pausado**. [N2 final63PASS](evidencias/revision-binaria-candidatos-n2-correctiva-20261009.json) verifica correctiva funcional binaria en su alcance; no modifica aceptación integral, p95 ni N3. P95 binario válido2,372175/2,395124s sigueFAIL frente a2s; etapas posteriores y presupuesto global NOT_PROVEN. Prototipos sin commit y fallo GC de limpieza identificados en [relevo](relevo-claude-20261009.md).
 
 Formulación consolidada:2026-10-09, conforme a [contrato 16 v1.6](16-contrato-ejecucion-desarrollo.md). Esta es la matriz única de requisitos/evidencia pendientes; [seguimiento17](17-seguimiento-desarrollo.md) mantiene estado y cola. Alcances reutilizables: [matriz88](88-matriz-cierre-derechos.md); pesos: [método86](86-medicion-avance-contrato.md).

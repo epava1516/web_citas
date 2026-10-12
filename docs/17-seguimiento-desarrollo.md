@@ -1,5 +1,19 @@
 # Seguimiento de ejecución del contrato
 
+**Estado posterior vigente, 2026-10-12 /MOD-09:** el usuario acepta provisionalmente
+el rendimiento actual MOD08 como suficiente ymejorable, yordena continuar el
+resto del contrato. [Decisión contractual](16-contrato-ejecucion-desarrollo.md#mod-09--aceptación-provisional-de-rendimiento-mod-08-2026-10-12),
+[medida y límites](evidencias/mod08-lectura-fresca-medicion-20261012.md).
+Código c92fe64: preflight/probe pasan; measure conserva FAIL de6p95, sin perfiles,
+fuentes/cuerpos/concurrencia/recursos ylimpieza verificados. No aceptación global/N3.
+El diagnóstico posterior se interrumpió por la nueva prioridad yse conserva
+ERROR/1FAIL, limpio, sin editar fuentes. Todos los runners cerrados.
+Próxima acción única: consolidar escenarios ymatriz deCR09 sobre la versión común,
+identificar selecciones necesarias de N3 yejecutarlas en CI propio sin reabrir por
+rutina componentes aceptados. Después CR10→GS01→BF/BB→C. La perfección deestos
+tiempos queda como deuda no bloqueante. El historial inferior conserva sus cortes.
+
+
 **MOD-08 catálogo runtime verificado (18:50 UTC):** eef4368 agrupa comprobaciones frescas26→9consultas por llamada, sin cachear confianza ni cambiar orden de fases, triggers, permisos o validación de cadena. N2 aislada18460370PASS0skips219,061s, PG17/Redis7.4/S3 reales, fuentes iguales y retirada independiente verificada; incluye LOGIN real,9/18consultas, cambios ACL/owners/triggers entre llamadas y dentro de la fase relevante, más cadena/sello enforced. [Evidencia](evidencias/mod08-catalogo-runtime-20261010.json), [originales](evidencias/mod08-catalogo-runtime-20261010.tar.gz). Continúa nueva captura y perfil con código congelado; no mejora temporal, capacidad/N3 ni CR09 aceptados.
 
 **MOD-08 perfil real posterior a SQL y correctivas de entrega (18:46 UTC):** master58c67b8 integra las optimizaciones SQL. Captura174156 completa las1509páginas; reuso182155 devuelve HIT_DIAGNOSTIC_REUSED_PREPARATION en controlador nuevo y PROFILE_DIAGNOSTIC_NOT_CAPACITY/1PASS. Generación real1intento33,160s, cierre11,525s; descargas JSON3muestras p95 23,539s y binarias8muestras p95 24,374s, superiores al objetivo5s. Comparación parcial de123lotes equivalentes sin perfilador: p95 5,087→4,251s (16,418%); SQL755→515 (31,788%). Ambas ejecuciones conservan fuentes y retiran recursos propios; no aceptación capacidad/N3/CR09 ni p95 de población completa.
