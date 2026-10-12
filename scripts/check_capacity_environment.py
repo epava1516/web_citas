@@ -95,6 +95,8 @@ def parse_options(argv=None):
     parser.add_argument("--delivery-profile-full", action="store_true", help="Diagnostic single-case flow to downloads with stage profiles; requires --delivery-profile")
     parser.add_argument("--source-profile", action="store_true", help="Diagnostic whole-source cost attribution; same allocation as --delivery-profile, which it requires")
     parser.add_argument("--owned-controller", action="store_true", help="Require launcher-enforced controller and whole owned budget")
+    parser.add_argument("--cpu-budget", type=int, choices=(4, 8), default=4,
+                        help="Aggregate owned CPU ceiling; 8 is the authorized VPS comparison")
     parser.add_argument("--object-delivery", action="store_true", help="Real private RustFS and Caddy proxy in the same owned budget; requires owned complete delivery")
     parser.add_argument("--preflight-only", action="store_true", help="Verify owned object/proxy/worker topology only; never run capacity fixtures")
     parser.add_argument("--diagnostic-baseline-capture", action="store_true")
@@ -105,6 +107,8 @@ def parse_options(argv=None):
     parser.add_argument("--native-probe-only", action="store_true",
                         help="Only verify native instrumentation and reconnects; never capacity")
     args = parser.parse_args(argv)
+    if args.cpu_budget == 8 and not (args.owned_controller and args.object_delivery):
+        parser.error("8CPU comparison requires owned object-delivery topology")
     if args.native_probe_only and not args.native_profile:
         parser.error("Native probe requires the explicit native diagnostic mode")
     if args.native_profile:
@@ -114,6 +118,8 @@ def parse_options(argv=None):
         if not args.native_profile.is_file() or not os.access(args.native_profile, os.X_OK):
             parser.error("Native profiler must be an executable regular file")
     baseline = args.diagnostic_baseline_capture or args.diagnostic_baseline_use
+    if args.cpu_budget == 8 and baseline:
+        parser.error("8CPU comparison cannot reuse or capture diagnostic baselines")
     if baseline:
         if (args.diagnostic_baseline_capture and args.diagnostic_baseline_use
             or not args.diagnostic_baseline_key or not args.owned_controller
@@ -181,6 +187,10 @@ def parse_options(argv=None):
                 allocations, args.diagnostic_baseline_use, args.diagnostic_baseline_key)
         except (OSError, ValueError) as error:
             parser.error(str(error))
+    scale = args.cpu_budget // 4
+    args.controller_cpu_quota = 5000 * scale
+    allocations = {role: (quota * scale, memory)
+                   for role, (quota, memory) in allocations.items()}
     return args, allocations, parser
 
 
@@ -221,6 +231,9 @@ def main():
         "result": "ERROR",
         "scope": "Owned topology readiness only; not capacity, browser, N3 or storage budget proof.",
         "allocations": allocations,
+        "cpu_budget_cores": args.cpu_budget,
+        "controller_cpu_quota": args.controller_cpu_quota,
+        "original_four_cpu_profile": args.cpu_budget == 4,
         "private_baseline_input_memory_reservation_bytes": args.baseline_reserved_memory_mib * MIB,
         "steps": [],
         "controls": {},
@@ -348,7 +361,7 @@ def main():
         if args.owned_controller:
             controller_controls = [Path("/sys/fs/cgroup/" + name).read_text().strip()
                                    for name in ["cpu.max", "memory.max", "memory.swap.max"]]
-            if controller_controls != ["5000 100000", str(128 * MIB), "0"]:
+            if controller_controls != [f"{args.controller_cpu_quota} 100000", str(128 * MIB), "0"]:
                 raise RuntimeError("Owned controller kernel quotas unavailable")
             if resource.getrlimit(resource.RLIMIT_FSIZE) != (ARCHIVE_MAX_BYTES, ARCHIVE_MAX_BYTES):
                 raise RuntimeError("Controller kernel file ceiling unavailable")
@@ -358,8 +371,9 @@ def main():
             if probe["rootfs"] != "readonly" or probe["rlimit_fsize_child"] != "efbig" or probe["unbounded_writable"]:
                 raise RuntimeError("Controller kernel storage controls not observed")
             report["writable_tmpfs_bytes"]["controller"] = probe["writable_tmpfs_bytes"]
-            if sum(quota for quota, _ in allocations.values()) + 5000 != 400000:
-                raise RuntimeError("Aggregate CPU reservation differs from4CPU")
+            if (sum(quota for quota, _ in allocations.values()) + args.controller_cpu_quota
+                    != args.cpu_budget * 100000):
+                raise RuntimeError(f"Aggregate CPU reservation differs from{args.cpu_budget}CPU")
             if sum(memory for _, memory in allocations.values()) + 128 + args.baseline_reserved_memory_mib != 8192:
                 raise RuntimeError("Aggregate RAM reservation differs from8GiB")
         report["head"] = run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], "git-head").stdout.strip()

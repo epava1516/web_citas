@@ -203,7 +203,8 @@ runpy.run_path(sys.argv[0], run_name='__main__')
         "--network", "none",
         "--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges",
         "--user", f"{os.getuid()}:{os.getgid()}", "--group-add", str(socket.stat().st_gid),
-        "--cpus", "0.05", "--memory", str(128 * MIB), "--memory-swap", str(128 * MIB),
+        "--cpus", str(options.controller_cpu_quota / 100000),
+        "--memory", str(128 * MIB), "--memory-swap", str(128 * MIB),
         "--pids-limit", "128", "--log-driver", "none", "--workdir", str(ROOT),
         "--mount", f"type=bind,src={ROOT},dst={ROOT},readonly",
         "--mount", f"type=bind,src={archive},dst={archive}",
@@ -228,6 +229,7 @@ runpy.run_path(sys.argv[0], run_name='__main__')
         command += ["--mount", f"type=bind,src={source},dst=/opt/host-tools/{target},readonly"]
     command += ["--entrypoint", str(ROOT / ".venv/bin/python3"), "web-modelos-app:latest", "-c", bootstrap]
     report = {"id": run_id, "controller": name, "head": head, "command": command,
+              "cpu_budget_cores": options.cpu_budget,
               "timeout_seconds": TIMEOUT_SECONDS,
               "source_manifest_sha256": hashlib.sha256(json.dumps(before, sort_keys=True).encode()).hexdigest(),
               "scope": "Owned controller and all its CLI children constrained; host Docker bootstrap/"

@@ -160,3 +160,18 @@ separado PASS. Aplicación sin cambios; energía variable del portátil y CPUvir
 diferente impiden comparación causal de código. [Resultados completos, por caso y
 recibos](evidencias/mod08-vps-medicion-servidor-20261012.md). Usuario autoriza después
 comparar8CPU, manteniendo el resto; implementación y medición de ese perfil pendientes.
+
+## Perfil8CPU autorizado posteriormente
+
+`--cpu-budget 8` duplica sólo CPU de servicios y controlador; default4 permanece
+para reproducir la referencia. RAM8GiB,storage≤20GiB,workers y SLO iguales.
+El host debe exponer8CPU; no se amplía el VPS ni se cambia su configuración.
+
+```bash
+uv run python scripts/run_vps_capacity.py preflight --cpu-budget 8
+uv run python scripts/run_vps_capacity.py probe --cpu-budget 8
+uv run python scripts/run_vps_capacity.py measure --cpu-budget 8
+```
+
+Secuencia/limpieza/datos/perfiladores y criterio de repetición siguen vigentes.
+Un resultado8CPU no acredita4CPU ni N3. [Plan y verificación](evidencias/mod08-vps-perfil-8cpu-20261012.md).

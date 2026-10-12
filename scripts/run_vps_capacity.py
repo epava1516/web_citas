@@ -18,11 +18,14 @@ BASE = ['--selection-tcp', '--selection-concurrent', '--selection-gunicorn',
         '--database-heavy', '--object-delivery']
 
 
-def command(mode, profiler):
+def command(mode, profiler, cpu_budget=4):
+    if cpu_budget not in (4, 8):
+        raise ValueError('Unsupported CPU budget')
+    budget = ['--cpu-budget', str(cpu_budget)] if cpu_budget != 4 else []
     if mode == 'preflight':
         return [sys.executable, str(ROOT / 'scripts/run_capacity_environment.py'),
-                '--object-delivery', '--preflight-only']
-    args = [sys.executable, str(ROOT / 'scripts/run_capacity_environment.py'), *BASE]
+                '--object-delivery', '--preflight-only', *budget]
+    args = [sys.executable, str(ROOT / 'scripts/run_capacity_environment.py'), *BASE, *budget]
     if mode == 'measure':
         return args + ['--delivery-complete']
     args += ['--delivery-profile', '--delivery-profile-full', '--native-profile', str(profiler)]
@@ -58,15 +61,19 @@ def main():
                    str(Path(os.environ.get('XDG_DATA_HOME', str(Path.home() / '.local/share')))
                        / 'web-citas-diagnostics/venv')))
     parser.add_argument('--tools-venv', type=Path, default=default)
+    parser.add_argument('--cpu-budget', type=int, choices=(4, 8), default=4,
+                        help='Aggregate CPU ceiling; 8 is an explicit VPS comparison')
     parser.add_argument('--dry-run', action='store_true', help='Print argv; create no resources')
     args = parser.parse_args()
     profiler = args.tools_venv.resolve() / 'bin/py-spy'
-    argv = command(args.mode, profiler)
+    argv = command(args.mode, profiler, args.cpu_budget)
     if args.dry_run:
         print(json.dumps(argv))
         return 0
     if sys.platform != 'linux' or sys.version_info[:2] != (3, 12):
         parser.error('Requiere Linux y Python 3.12 del proyecto')
+    if len(os.sched_getaffinity(0)) < args.cpu_budget:
+        parser.error('El host no expone suficientes CPU para el perfil solicitado')
     if args.mode in ('probe', 'diagnose') and not profiler.is_file():
         parser.error('Instala los instrumentos antes del diagnóstico')
     if not Path('/var/run/docker.sock').exists():
@@ -91,6 +98,8 @@ def main():
         folder.mkdir()
         before = set((ROOT / 'artifacts/capacity-environment').glob('*'))
         receipt = {'mode': args.mode, 'argv': argv, 'start': snapshot(),
+                   'cpu_budget_cores': args.cpu_budget,
+                   'original_four_cpu_profile': args.cpu_budget == 4,
                    'canonical_kernel': identity,
                    'acceptance_measurement': args.mode == 'measure'}
         if profiler.is_file():

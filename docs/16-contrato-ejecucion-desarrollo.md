@@ -310,3 +310,16 @@ MOD-06 afecta §§1–17, interpretación de cierre en matriz83 y formulación r
 
 
 MOD-07 / v1.7: aclaración del usuario para continuidad principal directa de Claude. Excepción local de atribuciones/ejecutor/aceptación; objetivos y garantías preservados, adaptador/contrato externo intactos. No ejecución, nuevo PASS ni aceptación de fase por esta modificación documental.
+
+## MOD-08 — perfil CPU del VPS autorizado 2026-10-12
+
+Después de medir y conservar un FAIL real con4CPU, el usuario autoriza elevar la
+cuota CPU agregada al máximo8CPU de este VPS. Es el perfil autorizado para la
+siguiente entrega local en el servidor:8CPU/8GiB/storage≤20GiB, swap0, workers,
+dataset, permisos, frescura, integridad y umbrales originales sin cambios.
+Duplicar proporcionalmente cuotas CPU de todos los servicios y controlador;
+verificar los límites kernel reales antes de carga. Perfil4CPU por defecto se
+conserva como referencia reproducible; un PASS8CPU acredita sólo el perfil8CPU,
+nunca cambia retroactivamente el FAIL4CPU. Tampoco acepta global/N3. Comparar sin
+perfiladores y repetir una vez sólo si cumple, preservando todas las ejecuciones.
+Sin cambios de servicios normales, proveedores, datos reales o despliegue.

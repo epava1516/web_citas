@@ -1050,3 +1050,12 @@ código. No global/N3. Evidencia [servidor4CPU](evidencias/mod08-vps-medicion-se
 Usuario autoriza posteriormente8CPU máximas; próxima acción perfil explícito de8CPU
 con RAM/dataset/workers/garantías/SLO conservados,preflight antes de medir y una
 repetición sólo si PASS. Conservar FAIL4CPU;8CPU no acredita contrato4CPU.
+
+MOD-08 VPS8CPU: perfil explícito `--cpu-budget 8` preparado en ejecutor propio;
+aplicación/kernel/images iguales al ciclo4CPU. Cuotas PG3CPU/app3.5/objetos1/
+Redis0.2/proxy0.2/controlador0.1,total8; memoria8GiB,workers/storage/dataset/SLO
+intactos. Default4 conservado;8 rechaza topología ajena y baselines diagnósticas.
+Ruff PASS,120 rápidos PASS/2.91s. Congelar tras commit; secuencia propia exclusiva
+preflight8→probe8→measure8, una repetición sólo si PASS. Verificar todas las cuotas
+kernel, huellas, cero errores/skips, cuerpos/intervalos y limpieza independiente.
+No global/N3 ni PASS4CPU por extrapolación. [Plan8CPU](evidencias/mod08-vps-perfil-8cpu-20261012.md).
