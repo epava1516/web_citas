@@ -133,3 +133,17 @@ equivalencia de sellos/bloqueosconcurrentes ni medir HTTP de app sin cambios.
 No aplicación editada, no Claude invocations, consumo anterior intacto.
 Próximo: priorizar costes más grandes o comprobar proyección integral de
 revisiones con migraciones y pruebas negativas; ahorro de segundos no probado.
+
+
+Segunda opción SQL investigada sin ensayo nuevo/producto: reanálisis offline
+de pg_stat_statements VPS031633 con agrupación userid/queryid/toplevel; fuente
+fija y contadores capturados, scope compartido del rol. Crecimiento4callslink
+340→9844rows/8.450→224.092ms; rowhash familia226→4978/8.902→180.067ms.
+UnknownQuery19calls11.452s dentro6.178s ventana: no atribuir a request ni CPU;
+ClientRead no lock. Planes/inlineHTTP previos encontrados y leídos: inline
+retirado por efecto pequeño y p95 peor en ensayo anterior; índices/pipeline
+ya integrados. No repetir candidato descartado sin nueva evidencia.
+Documentado docs/evidencias/mod08-vps-sql-segunda-opcion-20261012.md/.json.
+Próxima opción dentroSQL: captura finita tardía de consultas exactas/planes en
+VPS separada de workersbackground; no blind index, skipchecks ni reuse stalehead.
+No nueva medición limpia ni aceptaciónN3. Sin invocacionesClaude.
