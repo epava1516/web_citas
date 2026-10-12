@@ -1,0 +1,900 @@
+{
+  "audit": {
+    "id": "20261012-095117-11c3b82a",
+    "head": "8af315a04475485a1bcf8c97f664cca3321d3f1a",
+    "result": "PROFILE_DIAGNOSTIC_NOT_CAPACITY",
+    "launcher_exit": 0,
+    "source_count": 1414,
+    "source_manifest_sha256": "277405524aa941b4df611f1d54e7d08497c5c5e529eca0c8e1fc4a29ec4c63b1",
+    "sources_match": true,
+    "sources_unchanged": true,
+    "independent_cleanup": {
+      "web-modelos-capacity-20261012-095117-11c3b82a-controller": true,
+      "web-modelos-capacity-20261012-095117-11c3b82a-app": true,
+      "web-modelos-capacity-20261012-095117-11c3b82a-redis": true,
+      "web-modelos-capacity-20261012-095117-11c3b82a-pg": true,
+      "web-modelos-capacity-20261012-095117-11c3b82a-caddy": true,
+      "web-modelos-capacity-20261012-095117-11c3b82a-objects": true,
+      "web-modelos-capacity-20261012-095117-11c3b82a-delivery": true,
+      "web-modelos-capacity-20261012-095117-11c3b82a-net": true
+    },
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "1566.464",
+        "timestamp": "2026-10-12T11:52:37.954571+02:00",
+        "hostname": "3585991dc8c7"
+      }
+    ],
+    "archive_problems": [],
+    "memory_verdict": "WITHIN_6GIB_UPPER_BOUND",
+    "owned_memory_upper_bound_bytes": 2920894464,
+    "cgroup_memory": {
+      "pg": {
+        "current_bytes": 232480768,
+        "peak_bytes": 334602240,
+        "swap_peak_bytes": 0,
+        "oom_kill": 0
+      },
+      "redis": {
+        "current_bytes": 4825088,
+        "peak_bytes": 22040576,
+        "swap_peak_bytes": 0,
+        "oom_kill": 0
+      },
+      "app": {
+        "current_bytes": 208039936,
+        "peak_bytes": 2028711936,
+        "swap_peak_bytes": 0,
+        "oom_kill": 0
+      },
+      "objects": {
+        "current_bytes": 269578240,
+        "peak_bytes": 276221952,
+        "swap_peak_bytes": 0,
+        "oom_kill": 0
+      },
+      "caddy": {
+        "current_bytes": 67137536,
+        "peak_bytes": 125100032,
+        "swap_peak_bytes": 0,
+        "oom_kill": 0
+      }
+    },
+    "cgroup_cpu": {
+      "pg": {
+        "usage_usec": 603940391,
+        "user_usec": 406617025,
+        "system_usec": 197323366,
+        "nr_periods": 15079,
+        "nr_throttled": 0,
+        "throttled_usec": 0
+      },
+      "redis": {
+        "usage_usec": 11981972,
+        "user_usec": 10191673,
+        "system_usec": 1790299,
+        "nr_periods": 15058,
+        "nr_throttled": 16,
+        "throttled_usec": 1336965
+      },
+      "app": {
+        "usage_usec": 1106541238,
+        "user_usec": 997429276,
+        "system_usec": 109111962,
+        "nr_periods": 16114,
+        "nr_throttled": 21,
+        "throttled_usec": 3498789
+      },
+      "objects": {
+        "usage_usec": 16989492,
+        "user_usec": 10900694,
+        "system_usec": 6088798,
+        "nr_periods": 2263,
+        "nr_throttled": 4,
+        "throttled_usec": 202202
+      },
+      "caddy": {
+        "usage_usec": 1416516,
+        "user_usec": 881558,
+        "system_usec": 534958,
+        "nr_periods": 167,
+        "nr_throttled": 53,
+        "throttled_usec": 5950152
+      }
+    },
+    "images": {
+      "postgres:17-alpine": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+      "redis:7.4-alpine": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+      "web-modelos-app:latest": "sha256:ecb4b179802ddef908a86d0379dcb8022fbbf20756d35c2de7ee92be33c0d9b4",
+      "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+      "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526"
+    },
+    "stage_violations": null,
+    "delivery_measurements": {},
+    "error": null
+  },
+  "profiles": {
+    "capacity-professional-scalene-all.json": {
+      "instrument": "scalene-cpu-only",
+      "raw_sha256": "6fe931557432594309e7aa50a3e31cbf8055f9650c6b0c6950b38bde89728038",
+      "elapsed_time_sec": 7.790186405181885,
+      "files": {
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/crypto.py": {
+          "percent_cpu_time": 11.238411894161034,
+          "lines": [
+            {
+              "lineno": 14,
+              "n_cpu_percent_python": 0.03810571236386182,
+              "n_cpu_percent_c": 0.10497919584568205,
+              "n_sys_percent": 0.020935216174944066
+            },
+            {
+              "lineno": 17,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.25621162352579563,
+              "n_sys_percent": 0.10922586668068103
+            },
+            {
+              "lineno": 35,
+              "n_cpu_percent_python": 4.040444202800733,
+              "n_cpu_percent_c": 4.873746391170597,
+              "n_sys_percent": 1.794763685598742
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/evidence_chain.py": {
+          "percent_cpu_time": 8.891650935448256,
+          "lines": [
+            {
+              "lineno": 171,
+              "n_cpu_percent_python": 0.13409168801168136,
+              "n_cpu_percent_c": 0.6206512170150204,
+              "n_sys_percent": 0.1912458942053349
+            },
+            {
+              "lineno": 196,
+              "n_cpu_percent_python": 0.16019299528312403,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.14622684099419309
+            },
+            {
+              "lineno": 237,
+              "n_cpu_percent_python": 1.3359545782936306,
+              "n_cpu_percent_c": 0.04007722954657221,
+              "n_sys_percent": 3.641264538284185
+            },
+            {
+              "lineno": 239,
+              "n_cpu_percent_python": 0.05642197706770189,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.06792692888006732
+            },
+            {
+              "lineno": 254,
+              "n_cpu_percent_python": 0.0670489801685234,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.06574177012799642
+            },
+            {
+              "lineno": 276,
+              "n_cpu_percent_python": 0.20228681947914678,
+              "n_cpu_percent_c": 0.131903187459733,
+              "n_sys_percent": 0.7358018934832743
+            },
+            {
+              "lineno": 284,
+              "n_cpu_percent_python": 0.32121078907132256,
+              "n_cpu_percent_c": 0.606273364720841,
+              "n_sys_percent": 0.09739226430224508
+            },
+            {
+              "lineno": 339,
+              "n_cpu_percent_python": 1.4395756205080388e-05,
+              "n_cpu_percent_c": 0.10159597664854768,
+              "n_sys_percent": 0.16832760664891
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/fast_canonical.py": {
+          "percent_cpu_time": 6.135631321254873,
+          "lines": [
+            {
+              "lineno": 46,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.28089248549298834,
+              "n_sys_percent": 0.012869789281309656
+            },
+            {
+              "lineno": 48,
+              "n_cpu_percent_python": 0.37232113516513454,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.031035143341703795
+            },
+            {
+              "lineno": 64,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 1.219426740540001,
+              "n_sys_percent": 0.08774787931356194
+            },
+            {
+              "lineno": 93,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 2.4989078057810508,
+              "n_sys_percent": 0.36628041117257987
+            },
+            {
+              "lineno": 103,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 1.1309450918901527,
+              "n_sys_percent": 0.1352048392763913
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights.py": {
+          "percent_cpu_time": 1.8236740875489814,
+          "lines": [
+            {
+              "lineno": 34,
+              "n_cpu_percent_python": 0.5664984702941617,
+              "n_cpu_percent_c": 1.1649539630331414,
+              "n_sys_percent": 0.09222165422167805
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_copy_revision_batches.py": {
+          "percent_cpu_time": 14.066686772688834,
+          "lines": [
+            {
+              "lineno": 15,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 3.0268465349151574,
+              "n_sys_percent": 5.623186236661739
+            },
+            {
+              "lineno": 23,
+              "n_cpu_percent_python": 0.11276138505533997,
+              "n_cpu_percent_c": 1.1410833748771738,
+              "n_sys_percent": 0.014544306788389541
+            },
+            {
+              "lineno": 26,
+              "n_cpu_percent_python": 0.4775327170229855,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.09062628579559097
+            },
+            {
+              "lineno": 27,
+              "n_cpu_percent_python": 1.2390107304257065,
+              "n_cpu_percent_c": 0.7187100751995078,
+              "n_sys_percent": 0.6718040203052977
+            },
+            {
+              "lineno": 28,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.13954431241186546,
+              "n_sys_percent": 0.040709466783542016
+            },
+            {
+              "lineno": 30,
+              "n_cpu_percent_python": 0.4239718016050248,
+              "n_cpu_percent_c": 0.07423472244408816,
+              "n_sys_percent": 0.27212080239742814
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_exports.py": {
+          "percent_cpu_time": 7.122270273642097,
+          "lines": [
+            {
+              "lineno": 92,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.6505462273511162,
+              "n_sys_percent": 0.04645786493832202
+            },
+            {
+              "lineno": 94,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.9128651936539988,
+              "n_sys_percent": 0.07619038421407111
+            },
+            {
+              "lineno": 1024,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.5830239174774098,
+              "n_sys_percent": 0.20022556553585574
+            },
+            {
+              "lineno": 1029,
+              "n_cpu_percent_python": 0.3057943424341576,
+              "n_cpu_percent_c": 0.031442397117368535,
+              "n_sys_percent": 0.37602253079332615
+            },
+            {
+              "lineno": 1045,
+              "n_cpu_percent_python": 0.019068189520906647,
+              "n_cpu_percent_c": 0.38342897220497324,
+              "n_sys_percent": 0.30963394222831603
+            },
+            {
+              "lineno": 1046,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 1.4353008296474836,
+              "n_sys_percent": 1.7922699165247906
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_inspection_source.py": {
+          "percent_cpu_time": 2.0342699023160282,
+          "lines": [
+            {
+              "lineno": 31,
+              "n_cpu_percent_python": 0.01823537593019737,
+              "n_cpu_percent_c": 0.40530724239675997,
+              "n_sys_percent": 0.08223487871357527
+            },
+            {
+              "lineno": 50,
+              "n_cpu_percent_python": 0.14825586215654116,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.06115782307433749
+            },
+            {
+              "lineno": 65,
+              "n_cpu_percent_python": 0.4192706868952969,
+              "n_cpu_percent_c": 0.0913362172581857,
+              "n_sys_percent": 0.0364887429911278
+            },
+            {
+              "lineno": 73,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.24871825730990155,
+              "n_sys_percent": 0.0
+            },
+            {
+              "lineno": 112,
+              "n_cpu_percent_python": 0.0017325302634311865,
+              "n_cpu_percent_c": 0.4373650533725314,
+              "n_sys_percent": 0.08416723195414205
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_operation_content_digests.py": {
+          "percent_cpu_time": 6.661661053164927,
+          "lines": [
+            {
+              "lineno": 52,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 5.300110056557113,
+              "n_sys_percent": 1.3615509966078143
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_portability_coverage.py": {
+          "percent_cpu_time": 1.5349321122386756,
+          "lines": [
+            {
+              "lineno": 21,
+              "n_cpu_percent_python": 0.6982460051740538,
+              "n_cpu_percent_c": 0.3785275233955017,
+              "n_sys_percent": 0.06634596096339268
+            },
+            {
+              "lineno": 76,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.3591946009129121,
+              "n_sys_percent": 0.032618021792815574
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_portability_coverage_inspection.py": {
+          "percent_cpu_time": 3.815743064268771,
+          "lines": [
+            {
+              "lineno": 68,
+              "n_cpu_percent_python": 1.1326734746562848,
+              "n_cpu_percent_c": 0.12190988454286185,
+              "n_sys_percent": 0.9830054015602717
+            },
+            {
+              "lineno": 80,
+              "n_cpu_percent_python": 0.15533844909784741,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.0
+            },
+            {
+              "lineno": 93,
+              "n_cpu_percent_python": 0.0077848815250850445,
+              "n_cpu_percent_c": 0.08293726088030993,
+              "n_sys_percent": 0.017683544165972922
+            },
+            {
+              "lineno": 119,
+              "n_cpu_percent_python": 0.1563826493041509,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.007139101259519933
+            },
+            {
+              "lineno": 122,
+              "n_cpu_percent_python": 0.11454143612098615,
+              "n_cpu_percent_c": 0.10973554537500266,
+              "n_sys_percent": 0.01161302679997513
+            },
+            {
+              "lineno": 197,
+              "n_cpu_percent_python": 0.22229542825347826,
+              "n_cpu_percent_c": 0.4809615579545625,
+              "n_sys_percent": 0.06261853679064588
+            },
+            {
+              "lineno": 204,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.09606314459652854,
+              "n_sys_percent": 0.05305974138528729
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_portability_coverage_review_views.py": {
+          "percent_cpu_time": 3.49521671479044,
+          "lines": [
+            {
+              "lineno": 123,
+              "n_cpu_percent_python": 0.18994323942273122,
+              "n_cpu_percent_c": 0.0795173885697898,
+              "n_sys_percent": 0.11529871628207627
+            },
+            {
+              "lineno": 173,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.014876603177066098,
+              "n_sys_percent": 0.050392900468528096
+            },
+            {
+              "lineno": 233,
+              "n_cpu_percent_python": 1.6556779766435172,
+              "n_cpu_percent_c": 0.6768505006835898,
+              "n_sys_percent": 0.7126593895431418
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_portability_image_read.py": {
+          "percent_cpu_time": 2.2112886778476724,
+          "lines": [
+            {
+              "lineno": 46,
+              "n_cpu_percent_python": 0.21703199737833567,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.0033467515477982857
+            },
+            {
+              "lineno": 92,
+              "n_cpu_percent_python": 0.0454632134903122,
+              "n_cpu_percent_c": 0.29855698163674993,
+              "n_sys_percent": 0.062343744194516534
+            },
+            {
+              "lineno": 115,
+              "n_cpu_percent_python": 0.014296157545317727,
+              "n_cpu_percent_c": 0.46148828675247794,
+              "n_sys_percent": 0.10685817768946405
+            },
+            {
+              "lineno": 118,
+              "n_cpu_percent_python": 0.7462793798724233,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.25562398774027645
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_portability_images.py": {
+          "percent_cpu_time": 2.261704743335384,
+          "lines": [
+            {
+              "lineno": 35,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.21871313153156882,
+              "n_sys_percent": 0.00057082231587612
+            },
+            {
+              "lineno": 113,
+              "n_cpu_percent_python": 0.03592548601791254,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.003436368153647564
+            },
+            {
+              "lineno": 115,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.3908399550352279,
+              "n_sys_percent": 0.39929059412087015
+            },
+            {
+              "lineno": 116,
+              "n_cpu_percent_python": 0.48984503134356855,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.48998315887086585
+            },
+            {
+              "lineno": 123,
+              "n_cpu_percent_python": 0.004363222609747004,
+              "n_cpu_percent_c": 0.032219665666930415,
+              "n_sys_percent": 0.03891282444893565
+            },
+            {
+              "lineno": 124,
+              "n_cpu_percent_python": 0.10283410998643498,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.054770373233798283
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_portability_paths.py": {
+          "percent_cpu_time": 2.2055245318543317,
+          "lines": [
+            {
+              "lineno": 6,
+              "n_cpu_percent_python": 0.1463702201370794,
+              "n_cpu_percent_c": 0.0732638477686774,
+              "n_sys_percent": 0.004157213090752662
+            },
+            {
+              "lineno": 16,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.6755254434027821,
+              "n_sys_percent": 0.017205032560138226
+            },
+            {
+              "lineno": 17,
+              "n_cpu_percent_python": 0.02372654281926647,
+              "n_cpu_percent_c": 0.07619190497830791,
+              "n_sys_percent": 0.0
+            },
+            {
+              "lineno": 20,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.2695349690632257,
+              "n_sys_percent": 0.0005600314066327289
+            },
+            {
+              "lineno": 22,
+              "n_cpu_percent_python": 0.846999673675261,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.0719896529522081
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_portability_review.py": {
+          "percent_cpu_time": 8.141904351137299,
+          "lines": [
+            {
+              "lineno": 25,
+              "n_cpu_percent_python": 0.06443537593651173,
+              "n_cpu_percent_c": 0.015195139561933205,
+              "n_sys_percent": 0.07614572559332235
+            },
+            {
+              "lineno": 26,
+              "n_cpu_percent_python": 0.7834141951079778,
+              "n_cpu_percent_c": 1.3921608112867452,
+              "n_sys_percent": 1.6033339354706657
+            },
+            {
+              "lineno": 33,
+              "n_cpu_percent_python": 1.812912354101887,
+              "n_cpu_percent_c": 0.7736879331435529,
+              "n_sys_percent": 1.4807694695038884
+            },
+            {
+              "lineno": 258,
+              "n_cpu_percent_python": 0.09322445901930734,
+              "n_cpu_percent_c": 0.024974683216956384,
+              "n_sys_percent": 0.0216502691945509
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_portability_selection.py": {
+          "percent_cpu_time": 2.387477801305061,
+          "lines": [
+            {
+              "lineno": 13,
+              "n_cpu_percent_python": 0.00192225736240499,
+              "n_cpu_percent_c": 0.09367530455787715,
+              "n_sys_percent": 0.0012388689222627425
+            },
+            {
+              "lineno": 26,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.18587894647950384,
+              "n_sys_percent": 0.002249819835240343
+            },
+            {
+              "lineno": 28,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.28844163017611973,
+              "n_sys_percent": 0.0
+            },
+            {
+              "lineno": 33,
+              "n_cpu_percent_python": 0.5353741882071179,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.03288843584471153
+            },
+            {
+              "lineno": 46,
+              "n_cpu_percent_python": 0.1541976932716028,
+              "n_cpu_percent_c": 0.03793761409189564,
+              "n_sys_percent": 0.011587520213414774
+            },
+            {
+              "lineno": 68,
+              "n_cpu_percent_python": 0.08990189540084105,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.0
+            },
+            {
+              "lineno": 78,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.15185827385921113,
+              "n_sys_percent": 0.025605338688514678
+            },
+            {
+              "lineno": 86,
+              "n_cpu_percent_python": 0.10670774308112152,
+              "n_cpu_percent_c": 0.30891279766713803,
+              "n_sys_percent": 0.052451331197416906
+            },
+            {
+              "lineno": 99,
+              "n_cpu_percent_python": 0.17188906125200198,
+              "n_cpu_percent_c": 0.12497930262014294,
+              "n_sys_percent": 0.009779778576521424
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_portability_selection_pages.py": {
+          "percent_cpu_time": 1.2799943886208942,
+          "lines": [
+            {
+              "lineno": 58,
+              "n_cpu_percent_python": 0.42280109219725504,
+              "n_cpu_percent_c": 0.03187662570767026,
+              "n_sys_percent": 0.17616468024156906
+            },
+            {
+              "lineno": 75,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.3210544850511671,
+              "n_sys_percent": 0.10314632450824361
+            },
+            {
+              "lineno": 77,
+              "n_cpu_percent_python": 0.16814048239499613,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.056810698519992785
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_portability_selection_review.py": {
+          "percent_cpu_time": 4.0929366399666876,
+          "lines": [
+            {
+              "lineno": 85,
+              "n_cpu_percent_python": 0.24275864837176586,
+              "n_cpu_percent_c": 0.39156804253744454,
+              "n_sys_percent": 0.550153330494914
+            },
+            {
+              "lineno": 105,
+              "n_cpu_percent_python": 0.07088515310092249,
+              "n_cpu_percent_c": 0.21331125920409952,
+              "n_sys_percent": 0.16555418794376062
+            },
+            {
+              "lineno": 202,
+              "n_cpu_percent_python": 0.09427022177543687,
+              "n_cpu_percent_c": 0.06841142262400865,
+              "n_sys_percent": 0.074549593912527
+            },
+            {
+              "lineno": 203,
+              "n_cpu_percent_python": 0.06643762782737236,
+              "n_cpu_percent_c": 0.0177503112020811,
+              "n_sys_percent": 0.02697477867696451
+            },
+            {
+              "lineno": 226,
+              "n_cpu_percent_python": 0.527380374780321,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.06844480650607748
+            },
+            {
+              "lineno": 265,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.3444280198828271,
+              "n_sys_percent": 0.28562097587515667
+            },
+            {
+              "lineno": 301,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.053910619821982884,
+              "n_sys_percent": 0.041590368844846494
+            },
+            {
+              "lineno": 305,
+              "n_cpu_percent_python": 0.017427425410461828,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.013444717445849212
+            },
+            {
+              "lineno": 323,
+              "n_cpu_percent_python": 0.0,
+              "n_cpu_percent_c": 0.1543796543244097,
+              "n_sys_percent": 0.04118637585171648
+            },
+            {
+              "lineno": 329,
+              "n_cpu_percent_python": 0.032249215435742065,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.00860364867165943
+            },
+            {
+              "lineno": 340,
+              "n_cpu_percent_python": 0.04990263717119838,
+              "n_cpu_percent_c": 0.4128116497066211,
+              "n_sys_percent": 0.030445304548077548
+            },
+            {
+              "lineno": 364,
+              "n_cpu_percent_python": 0.024073753898841803,
+              "n_cpu_percent_c": 0.0022968453665136307,
+              "n_sys_percent": 0.00211566875308777
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_scope.py": {
+          "percent_cpu_time": 4.610753930249834,
+          "lines": [
+            {
+              "lineno": 30,
+              "n_cpu_percent_python": 0.463323629379335,
+              "n_cpu_percent_c": 0.288385294556669,
+              "n_sys_percent": 0.5031844356019932
+            },
+            {
+              "lineno": 56,
+              "n_cpu_percent_python": 0.8379891910826079,
+              "n_cpu_percent_c": 0.22965656352957764,
+              "n_sys_percent": 0.36521507935247755
+            },
+            {
+              "lineno": 96,
+              "n_cpu_percent_python": 0.12581809412025713,
+              "n_cpu_percent_c": 0.03114114509514225,
+              "n_sys_percent": 0.11758363412594205
+            },
+            {
+              "lineno": 114,
+              "n_cpu_percent_python": 0.00285438820738342,
+              "n_cpu_percent_c": 0.10309166172941804,
+              "n_sys_percent": 0.07488657960538722
+            },
+            {
+              "lineno": 124,
+              "n_cpu_percent_python": 0.5054423237711093,
+              "n_cpu_percent_c": 0.07500384992415518,
+              "n_sys_percent": 0.3632144630923562
+            },
+            {
+              "lineno": 125,
+              "n_cpu_percent_python": 0.21320431577013643,
+              "n_cpu_percent_c": 0.1839904407575324,
+              "n_sys_percent": 0.12676884054835388
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_source_fingerprint.py": {
+          "percent_cpu_time": 1.216172524840154,
+          "lines": [
+            {
+              "lineno": 178,
+              "n_cpu_percent_python": 0.23543121814493284,
+              "n_cpu_percent_c": 0.1519855002978087,
+              "n_sys_percent": 0.8287558063974124
+            }
+          ]
+        },
+        "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/rights_verification.py": {
+          "percent_cpu_time": 1.8489341475020717,
+          "lines": [
+            {
+              "lineno": 40,
+              "n_cpu_percent_python": 0.3353769397171935,
+              "n_cpu_percent_c": 0.0,
+              "n_sys_percent": 0.25518825398222234
+            },
+            {
+              "lineno": 43,
+              "n_cpu_percent_python": 0.009495851500800529,
+              "n_cpu_percent_c": 0.022868963050272355,
+              "n_sys_percent": 0.01922184994651595
+            },
+            {
+              "lineno": 113,
+              "n_cpu_percent_python": 0.5632816672282341,
+              "n_cpu_percent_c": 0.20348239588380956,
+              "n_sys_percent": 0.44001822619302305
+            }
+          ]
+        }
+      },
+      "scope": "Merged CPU samples of explicitly marked worker windows; filtered application/helper code. No source text, frame locals or payloads. Not HTTPp95."
+    },
+    "capacity-professional-coverage_page_read-103-3520476595744201.json": {
+      "acceptance_eligible": false,
+      "capture_process_cpu_including_tracker_ns": 2943657655,
+      "capture_wall_including_tracker_ns": 4169905299,
+      "cpu_scope": "Scalene CPU-only marked windows; merged worker samples at master exit. Timers include start/stop/flush; not HTTP p95.",
+      "errors": [],
+      "instrument": {
+        "application_imports": {
+          "cryptography": [
+            "50.0.2",
+            "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/cryptography/__init__.py"
+          ],
+          "numpy": [
+            "2.5.3",
+            "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/numpy/__init__.py"
+          ],
+          "orjson": [
+            "3.13.0",
+            "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/orjson/__init__.py"
+          ]
+        },
+        "python_executable": "/tmp/scalenev079e4bv/python",
+        "python_version": "3.12.15",
+        "scalene": "2.3.0"
+      },
+      "pid": 103,
+      "samples_flushed": true,
+      "schema": "capacity-professional-cpu-v1",
+      "stage": "coverage_page_read",
+      "status": "COMPLETE"
+    },
+    "capacity-professional-coverage_page_read-103-3519598990221028.json": {
+      "acceptance_eligible": false,
+      "capture_process_cpu_including_tracker_ns": 3132799441,
+      "capture_wall_including_tracker_ns": 4095417898,
+      "cpu_scope": "Scalene CPU-only marked windows; merged worker samples at master exit. Timers include start/stop/flush; not HTTP p95.",
+      "errors": [],
+      "instrument": {
+        "application_imports": {
+          "cryptography": [
+            "50.0.2",
+            "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/cryptography/__init__.py"
+          ],
+          "numpy": [
+            "2.5.3",
+            "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/numpy/__init__.py"
+          ],
+          "orjson": [
+            "3.13.0",
+            "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/orjson/__init__.py"
+          ]
+        },
+        "python_executable": "/tmp/scalenev079e4bv/python",
+        "python_version": "3.12.15",
+        "scalene": "2.3.0"
+      },
+      "pid": 103,
+      "samples_flushed": true,
+      "schema": "capacity-professional-cpu-v1",
+      "stage": "coverage_page_read",
+      "status": "COMPLETE"
+    }
+  },
+  "acceptance_eligible": false,
+  "interpretation": "Combined marked early/late coverage windows. CPU attribution includes Python/native/system; not clean HTTP latency, not a sole-cause proof."
+}

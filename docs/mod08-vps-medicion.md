@@ -272,3 +272,10 @@ con evidencia. Conservado el diagnóstico fallido 090224, sin sustituirlo.
 | CPU positiva en dominio | No | Sí, incluyendo imports sintéticos |
 | Fallos / errores | 0 / 0 | 0 / 0 |
 | Nueva latencia HTTP aceptable demostrada | No | No |
+
+
+Diagnose Scalene 8af315a / 20261012-095117-11c3b82a PASS diagnóstico,
+no aceptación: JUnit 1PASS1566.464s, dos ventanas COMPLETE y JSON combinado
+validado. Auditoría fuentes1414/limpieza/archivo PASS. Evidencia versionada en
+docs/evidencias/mod08-vps-scalene-cobertura-20261012.md y .json.
+Pendiente análisis causal/corrección y p95 HTTP limpio; global/N3 no aceptado.
