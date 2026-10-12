@@ -209,3 +209,10 @@ Conclusión de investigación: priorizar la semántica de entrega y la amplitud 
 validación antes de otra aceleración del intérprete. Está demostrado qué trabajo
 se repite; no está medido cuánto del p95 eliminaría cada alternativa. El contrato
 vigente sigue siendo el criterio de aceptación y permanece incumplido en tiempos.
+
+
+Investigación de la fusión de lectura seleccionada: contraejemplo de purga/
+corrupción posterior descarta reutilización temprana como equivalente. Alternativa
+de lectura final streaming evita staging cifrado; 16 contrastes sintéticos pasan,
+pero integración y fallos de scratch pendientes; no adoptada. Véase
+[detalle y límites](mod08-lectura-fresca-investigacion-20261012.md).

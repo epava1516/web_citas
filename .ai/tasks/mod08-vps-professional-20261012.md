@@ -260,3 +260,10 @@ Investigación posterior solicitada: mapa POST/GET, repetición de replay/objeto
 originales y alternativas con diferencia de garantía explícita en auditoría ROI.
 Fuentes PostgreSQL17/S3 primarias consultadas. Sin nuevos runners, mediciones,
 agentes ni cambios de contrato. Snapshot/artefacto propuestas, no implementadas.
+
+Investigación ee42079: dos hipótesis aisladas sobre lectura seleccionada;
+reutilización temprana rechazada por contraejemplos purge/corrupt; lectura final
+streaming prototipo sólo artifacts,16 contrastes nativecrypto+mock PASS. Sin
+servicios, integración, perfiles, HTTP, agentes ni cambios apps. Dos errores de
+preparación registrados. Evidencia compacta docs/evidencias/mod08-lectura-fresca-
+investigacion-20261012.{json,md}; no ahorro temporal/p95 inferido.

@@ -1,0 +1,640 @@
+{
+  "sha": "ee4207907b6c1e9523014a8cfd376f9e9c1eba8e",
+  "scope": "research only; native cryptography with in-memory mocked object transport; no S3/PostgreSQL/HTTP acceptance",
+  "preparation_failures": [
+    "selected-read script: ModuleNotFoundError apps, fixed explicit PYTHONPATH=.",
+    "stream script: importing test module pulled Django fixture imports; ImproperlyConfigured before experiment, fixed AST extraction of three pure helpers"
+  ],
+  "artifacts": {
+    "selected-read-reuse-diagnostic.py": "cf06ea2eb7129505f904a7e2bf88b05be40975879fbf03ce77878851a6999da0",
+    "selected-read-reuse-diagnostic.json": "239624261735ec9151b86acecb0ca68606a6989241323cf9392751fdc8e8eaba",
+    "fresh-stream-read-diagnostic.py": "9f629cbd6c494c89ba45bf7beb09833f86649d919f3e27f41ad447668173e3fd",
+    "fresh-stream-read-diagnostic.json": "0e4a6e81a87d8648d1f66c3cf83ab00ef8510597be87f729b07cd17e03db0855"
+  },
+  "reuse_counterexample": {
+    "scope": "NATIVE_CRYPTO_IN_MEMORY_TRANSPORT_COUNTEREXAMPLE_NOT_INTEGRATION_OR_CAPACITY",
+    "hypothesis": "reuse selected bytes obtained during cohort verification",
+    "verdict": "NOT_EQUIVALENT_FRESHNESS_WINDOW",
+    "results": {
+      "unchanged": {
+        "current": {
+          "outcome": "DELIVERED",
+          "output_bytes": 24,
+          "object_gets": 2,
+          "tombstone_checks": 4
+        },
+        "early_read_reuse": {
+          "outcome": "DELIVERED",
+          "output_bytes": 24,
+          "object_gets": 1,
+          "tombstone_checks": 2
+        }
+      },
+      "purge": {
+        "current": {
+          "outcome": "InvalidObject: Object irreversibly purged",
+          "output_bytes": 0,
+          "object_gets": 1,
+          "tombstone_checks": 3
+        },
+        "early_read_reuse": {
+          "outcome": "DELIVERED",
+          "output_bytes": 24,
+          "object_gets": 1,
+          "tombstone_checks": 2
+        }
+      },
+      "corrupt": {
+        "current": {
+          "outcome": "InvalidObject: Object digest mismatch",
+          "output_bytes": 0,
+          "object_gets": 2,
+          "tombstone_checks": 3
+        },
+        "early_read_reuse": {
+          "outcome": "DELIVERED",
+          "output_bytes": 24,
+          "object_gets": 1,
+          "tombstone_checks": 2
+        }
+      }
+    }
+  },
+  "stream_read_contrast": {
+    "scope": "NATIVE_CRYPTO_MOCK_TRANSPORT_NOT_INTEGRATION_OR_CAPACITY",
+    "verdict": "16_CASE_CONTRAST_PASS_NOT_GENERAL_EQUIVALENCE",
+    "remaining": [
+      "real RustFS",
+      "scratch IO failures",
+      "size ceiling",
+      "cancellation",
+      "target IO failures",
+      "production API design",
+      "HTTP p95"
+    ],
+    "results": {
+      "unchanged": {
+        "current": {
+          "outcome": [
+            "success",
+            2097159
+          ],
+          "target_bytes": 2097159,
+          "target_sha256": "c4a55658f242df944c879aa370c9e958506e2d4bda4994aae90592330b96f917",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 4194706,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "success",
+            2097159
+          ],
+          "target_bytes": 2097159,
+          "target_sha256": "c4a55658f242df944c879aa370c9e958506e2d4bda4994aae90592330b96f917",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097159,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "fragmented": {
+        "current": {
+          "outcome": [
+            "success",
+            2097159
+          ],
+          "target_bytes": 2097159,
+          "target_sha256": "c4a55658f242df944c879aa370c9e958506e2d4bda4994aae90592330b96f917",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 4194706,
+          "physical_read_count": 110399,
+          "physical_read_sequence_sha256": "5617cac2f728bb32496e9e20cf3ba730cecd627ab1a77944427f3d1356c34d74"
+        },
+        "prototype": {
+          "outcome": [
+            "success",
+            2097159
+          ],
+          "target_bytes": 2097159,
+          "target_sha256": "c4a55658f242df944c879aa370c9e958506e2d4bda4994aae90592330b96f917",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097159,
+          "physical_read_count": 110399,
+          "physical_read_sequence_sha256": "5617cac2f728bb32496e9e20cf3ba730cecd627ab1a77944427f3d1356c34d74"
+        }
+      },
+      "magic": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Unsupported object format"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097547,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Unsupported object format"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 0,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "tag": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Block authentication failed"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 4194706,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Block authentication failed"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097159,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "truncated": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Truncated object"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 4194705,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Truncated object"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097159,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "trailing": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Invalid object commitment or trailing bytes"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 4194711,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Invalid object commitment or trailing bytes"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097159,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "context": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Object header authentication failed"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097547,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Object header authentication failed"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 0,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "key": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Object header authentication failed"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097547,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Object header authentication failed"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 0,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "grow": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Object grew"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get"
+          ],
+          "scratch_bytes_written": 2097152,
+          "physical_read_count": 3,
+          "physical_read_sequence_sha256": "90f4e1a3ff20296d48f49300a53eb8de7f63582f27fdb90d356eb33e85414bd3"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Object grew"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get"
+          ],
+          "scratch_bytes_written": 1048576,
+          "physical_read_count": 3,
+          "physical_read_sequence_sha256": "90f4e1a3ff20296d48f49300a53eb8de7f63582f27fdb90d356eb33e85414bd3"
+        }
+      },
+      "size": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Object digest mismatch"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get"
+          ],
+          "scratch_bytes_written": 2097547,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Object digest mismatch"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get"
+          ],
+          "scratch_bytes_written": 2097159,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "digest": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Object digest mismatch"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get"
+          ],
+          "scratch_bytes_written": 2097547,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Object digest mismatch"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get"
+          ],
+          "scratch_bytes_written": 2097159,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "magic-digest": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Object digest mismatch"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get"
+          ],
+          "scratch_bytes_written": 2097547,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Object digest mismatch"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get"
+          ],
+          "scratch_bytes_written": 0,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "magic-io": {
+        "current": {
+          "outcome": [
+            "OSError",
+            "synthetic late IO"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get"
+          ],
+          "scratch_bytes_written": 1048576,
+          "physical_read_count": 2,
+          "physical_read_sequence_sha256": "d97fe726ba8aaa0ad6f61899e9a95959b869963e99cb316b56e47896496af810"
+        },
+        "prototype": {
+          "outcome": [
+            "OSError",
+            "synthetic late IO"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get"
+          ],
+          "scratch_bytes_written": 0,
+          "physical_read_count": 2,
+          "physical_read_sequence_sha256": "d97fe726ba8aaa0ad6f61899e9a95959b869963e99cb316b56e47896496af810"
+        }
+      },
+      "initial-purge": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Object irreversibly purged"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": false,
+          "events": [
+            "tombstone"
+          ],
+          "scratch_bytes_written": 0,
+          "physical_read_count": 0,
+          "physical_read_sequence_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Object irreversibly purged"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": false,
+          "events": [
+            "tombstone"
+          ],
+          "scratch_bytes_written": 0,
+          "physical_read_count": 0,
+          "physical_read_sequence_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+      },
+      "purge": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Object purged during read"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097547,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Object purged during read"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097159,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      },
+      "context-purge": {
+        "current": {
+          "outcome": [
+            "InvalidObject",
+            "Object purged during read"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 2097547,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        },
+        "prototype": {
+          "outcome": [
+            "InvalidObject",
+            "Object purged during read"
+          ],
+          "target_bytes": 0,
+          "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_closed": true,
+          "events": [
+            "tombstone",
+            "get",
+            "tombstone"
+          ],
+          "scratch_bytes_written": 0,
+          "physical_read_count": 4,
+          "physical_read_sequence_sha256": "32d9afa1d519c73a1fad7cbe830090ca8c424bc2050b8c17da4bbb7e97173d18"
+        }
+      }
+    }
+  }
+}
