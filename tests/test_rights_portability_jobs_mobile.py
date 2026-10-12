@@ -6,6 +6,7 @@ import pytest
 from django.conf import settings as django_settings
 from django.contrib.auth.models import Permission
 from django.utils import timezone
+from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import expect, sync_playwright
 from test_reports import directory, photo_environment  # noqa: F401
 from test_reset_localization import db_sync
@@ -210,9 +211,18 @@ def test_mobile_generation_errors_stop_polling_and_offer_no_final_response(
                 )
             )
             for page in pages:
-                denied = page.goto(url)
+                # Chromium treats this empty HTTP403 navigation as a network
+                # error; retain the actual response assertion and privacy check.
+                with page.expect_response(lambda response: response.url == url) as blocked:
+                    try:
+                        page.goto(url)
+                    except PlaywrightError as error:
+                        assert "net::ERR_HTTP_RESPONSE_CODE_FAILURE" in str(error)
+                denied = blocked.value
                 assert denied.status == 403
                 assert "no-store" in denied.headers["cache-control"]
+                private_body = page.request.get(url)
+                assert private_body.status == 403 and private_body.body() == b""
                 expect(page.locator("#portability-job")).to_have_count(0)
         finally:
             browser.close()

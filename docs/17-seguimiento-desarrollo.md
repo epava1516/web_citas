@@ -61,6 +61,22 @@ Correctivas locales b23cde3/4354109: SQL textual seguro exclusivamente para las7
 Actualizado: 2026-10-09. Fuente contractual: [contrato16](16-contrato-ejecucion-desarrollo.md). Este documento mantiene el estado y la única cola de ejecución; evidencias y condiciones de cierre se enlazan desde él.
 
 
+### Gate GS01 browser negativo y correctiva de prueba — 2026-10-12
+
+CI `20261012-164344-dc398289`, fuente0b9cb1b:28PASS/4FAIL,32 casos,
+0 errores/skips,326.096s JUnit, fuentes iguales y limpieza exacta de PG/Redis.
+[Negativo conservado](evidencias/gs01-generacion-browser-negativo-20261012.json).
+Los cuatro fallos son la misma navegación Chromium a403 vacío tras revocar
+execute; las aserciones anteriores de rechazo/fallo/fin de polling sí llegaron
+a completarse. Corrección sólo de test: capturar la respuesta de navegación y
+la excepción exacta del navegador, exigir403/no-store y comprobar cuerpo vacío
+con las mismas cookies. No cambia permisos ni producto.
+
+Repetición reservada: archivo `test_rights_portability_jobs_mobile.py` completo,
+6 casos, PG1536MiB/Redis128MiB propios/host2560MiB/swap0/1worker/nativos.
+Condición:6PASS/0 skips, fuentes iguales/limpieza; después regresión común sobre
+la versión final. Los28PASS previos conservan su alcance, no sumarlos como N3.
+
 ### Revisión de candidatos GS01 — 2026-10-12
 
 Codex integra únicamente la ampliación de `test_rights_portability_jobs_mobile`:

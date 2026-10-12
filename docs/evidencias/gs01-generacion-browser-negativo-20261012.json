@@ -1,0 +1,36 @@
+{
+  "id": "20261012-164344-dc398289",
+  "head": "0b9cb1b639a53c238e8da325b9c44874ecb34e1f",
+  "result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "4",
+      "skipped": "0",
+      "tests": "32",
+      "time": "326.096",
+      "timestamp": "2026-10-12T18:44:03.297797+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261012-164344-dc398289": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261012-164344-dc398289": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "cause": "All four new terminal-state cases reached final revocation check; Chromium Page.goto raised ERR_HTTP_RESPONSE_CODE_FAILURE on empty authorized-denial HTTP403. Test transport handling insufficient, no application code change indicated.",
+  "receipt_hashes": {
+    "artifacts/local-ci/20261012-164344-dc398289/result.json": "51a00e85f6cd358927c150407e47e5efb1e76b400521212e278887cb68d78a0d",
+    "artifacts/local-ci/20261012-164344-dc398289/pytest.xml": "78b572ba870af6b2d1c69f03e544ae5a77884686500963411a501acab6d8b8f9",
+    "artifacts/local-ci/20261012-164344-dc398289/09-pytest.log": "d8c66dafe5bf925949625809db9b565db3775363a9e59a2164cf6e338bd318c9"
+  }
+}

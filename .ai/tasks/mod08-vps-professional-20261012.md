@@ -305,3 +305,10 @@ swap0/CPU0–3, PG1CPU/CPU4, Redis0.2CPU/CPU5; mismo presupuesto global.
 Selección: test_rights_portability_jobs_mobile.py y test_rights_portability_jobs.py.
 Objetivo: Chromium ES/EN estados de generación/revocación y regresión de dominio.
 Condición: terminal/JUnit/huellas/limpieza; no capacidad/N3 desde este gate.
+
+Gate GS01 20261012-164344-dc398289 terminal28PASS/4FAIL/0error/0skip,
+326.096s JUnit, source0b9cb1b unchanged/cleanup true. Cuatro fallos sólo en
+Page.goto de403 vacío tras revocación, pruebas anteriores de estados completadas.
+Codex corrige manejo específico de excepción Chromium y preserva403/no-store/
+cuerpo vacío. Repite archivo jobs_mobile completo6casos; no repite dominio
+28PASS por esta corrección del driver. Regresión común después, no aceptaciónN3.
