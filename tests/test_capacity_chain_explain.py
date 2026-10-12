@@ -9,6 +9,7 @@ import sys
 import time
 import urllib.request
 from contextlib import contextmanager
+from pathlib import Path
 from urllib.parse import urlencode
 from uuid import uuid4
 
@@ -40,7 +41,7 @@ def owned_server(settings, tmp_path):
     # No baseline fallback and no Celery/export/finish path.
     name = 'unseal_batch_settings_' + uuid4().hex
     (tmp_path / (name + '.py')).write_text(
-        'from local_ci_settings import *\n'
+        f"from {os.environ['DJANGO_SETTINGS_MODULE']} import *\n"
         + f"MEDIA_ROOT = Path({str(settings.MEDIA_ROOT)!r})\n"
         + "RIGHTS_VERIFICATION_BACKEND = 'simulator'\n"
         + 'CELERY_TASK_ALWAYS_EAGER = True\n')
@@ -159,16 +160,26 @@ def test_chain_plans_with_real_history(request, settings, monkeypatch, tmp_path,
             assert RightsPortabilityCoverageRead.objects.filter(coverage=coverage).count() == before_reads + 4
             assert events() == before + 8
 
-        for target in (0, 64):
+        final_target = getattr(settings, 'CAPACITY_SQL_PLAN_TARGET', None) or 64
+        assert final_target in (64, 304)
+        record_property('chain_plan_target', str(final_target))
+        for target in (0, final_target):
             while seeded < target:
                 assert time.monotonic() - started_experiment < 420, 'Finite preparation budget exhausted'
                 post()
                 seeded += 1
+                if seeded % 8 == 0:
+                    Path('/tmp/capacity-chain-plan-progress.json').write_text(json.dumps({
+                        'seeded_batches': seeded, 'target': final_target,
+                        'head_count': events(),
+                        'elapsed_seconds': time.monotonic() - started_experiment,
+                        'preparation_budget_seconds': 420,
+                    }))
             before = events()
             # Independent restricted LOGIN, not SET ROLE on an owner connection.
             # Close this child before role/credential cleanup and next HTTP write.
             destination = tmp_path / f'plans-{target}.json'
-            with runtime_role_environment('local_ci_settings') as overrides:
+            with runtime_role_environment(os.environ['DJANGO_SETTINGS_MODULE']) as overrides:
                 env = os.environ.copy()
                 env.update(overrides)
                 result = subprocess.run(

@@ -279,3 +279,30 @@ no aceptación: JUnit 1PASS1566.464s, dos ventanas COMPLETE y JSON combinado
 validado. Auditoría fuentes1414/limpieza/archivo PASS. Evidencia versionada en
 docs/evidencias/mod08-vps-scalene-cobertura-20261012.md y .json.
 Pendiente análisis causal/corrección y p95 HTTP limpio; global/N3 no aceptado.
+
+
+## Diagnóstico SQL tardío aislado, continuación 2026-10-12
+
+Autorizado por «investiga pues». Nuevo parámetro exclusivo:
+`uv run python scripts/run_vps_capacity.py diagnose --cpu-budget 8 --sql-plan-target 304`.
+Usa la misma infraestructura propia y cuotas; no py-spy/Memray/Scalene,
+ni wrappers de tiempo heredados, ni background Celery. Selecciona el test
+finito de planes existente con niveles 0/304; conserva tope 420s de siembra,
+90s por hijo y 15s por SQL. No ampliar si no llega al nivel tardío.
+
+Fixture 1500 revisiones/~16MiB y originales físicos/~64MiB creado por servicios.
+Los 304 lotes son inspecciones escalares repetidas, con commits/auditorías
+normales, no filas de evidencia fabricadas. Flujo parcial; verificador de
+identidad simulado explícitamente, PostgreSQL/HTTP sí reales. Objetos/proxy
+propios disponibles en topología pero este ensayo no acredita su entrega.
+Dos workers Gunicorn sync, roles propios separados. EXPLAIN en login exclusivo
+no propietario, checks de permisos y atestación frescos, cabeza bloqueada;
+comparación exacta de hashes del corpus antes de planes. Se registra ausencia
+de otras conexiones activas de ese mismo login. Las 8 consultas son las actuales
+EVENT+7sources. No cambios de esquema/índices/planner ni candidata inline
+productiva. Relojes separados execute/fetch del driver, SQL hash y planes con
+TIMING OFF/ON y SERIALIZE TEXT. No p95 HTTP ni CPU pura de PostgreSQL.
+
+46 tests rápidos PASS/1.36s, Ruff de los cambios PASS. Sources se congelarán
+antes de ejecutar; registrar resultado/fallo, SHA, versiones y limpieza real.
+No atribuir diferencias del portátil a código ni declarar N3/global.

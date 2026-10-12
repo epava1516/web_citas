@@ -109,7 +109,14 @@ def parse_options(argv=None):
     parser.add_argument("--professional-profile", choices=("memray", "scalene"))
     parser.add_argument("--diagnostic-tools-venv", type=Path)
     parser.add_argument("--professional-probe-only", action="store_true")
+    parser.add_argument('--sql-plan-target', type=int, choices=(64, 304))
     args = parser.parse_args(argv)
+    if args.sql_plan_target is not None and (
+            not args.owned_controller or not args.object_delivery or not args.delivery_profile_full
+            or args.native_profile or args.professional_profile or args.source_profile
+            or args.selection_profile or args.delivery_complete or args.preflight_only
+            or args.diagnose or args.diagnostic_baseline_capture or args.diagnostic_baseline_use):
+        parser.error('SQL plans require exclusive owned full diagnostic topology')
     if args.professional_probe_only and not args.professional_profile:
         parser.error("Professional probe requires explicit professional profiling")
     if args.professional_profile:
@@ -571,6 +578,7 @@ def main():
                 f"CAPACITY_BASELINE_KEY = {str(args.diagnostic_baseline_key or '')!r}\n"
                 f"CAPACITY_NATIVE_PROFILE = {bool(args.native_profile)!r}\n"
                 f"CAPACITY_PROFESSIONAL_PROFILE = {args.professional_profile!r}\n"
+                f"CAPACITY_SQL_PLAN_TARGET = {args.sql_plan_target!r}\n"
                 f"CAPACITY_DIAGNOSTIC_TOOLS_VENV = {str(args.diagnostic_tools_venv or '')!r}\n"
                 f"CAPACITY_PREFLIGHT_ONLY = {args.preflight_only!r}\n"
                 f"CAPACITY_OBJECT_DELIVERY = {args.object_delivery!r}\n"
@@ -594,6 +602,7 @@ def main():
                  "-o", "DJANGO_SETTINGS_MODULE=capacity_settings", "-o", "junit_family=xunit1",
                  "-p", "no:cacheprovider", "--basetemp=/tmp/capacity-pytest",
                  "--junitxml=/tmp/capacity-control.xml",
+                 "tests/test_capacity_chain_explain.py::test_chain_plans_with_real_history" if args.sql_plan_target is not None else
                  "tests/test_capacity_professional_profile.py::test_owned_professional_probe" if args.professional_probe_only else
                  "tests/test_capacity_native_probe.py" if args.native_probe_only else
                  "tests/test_capacity_object_preflight.py" if args.preflight_only else
@@ -670,6 +679,19 @@ def main():
                 raise RuntimeError("Small control did not pass exactly one required test")
             if args.preflight_only:
                 report["result"] = "READY_NOT_CAPACITY"
+            elif args.sql_plan_target is not None:
+                properties = {item.attrib['name']: item.attrib['value']
+                              for suite in suites for item in suite.iter('property')}
+                plans = json.loads(properties.get('chain_explain_report', '{}'))
+                levels = plans.get('levels', [])
+                if (len(levels) != 2 or plans.get('seeded_batches') != args.sql_plan_target
+                        or [level.get('seeded_batches') for level in levels] != [0, args.sql_plan_target]
+                        or any(not level.get('runtime_login_verified') or len(level.get('queries', [])) != 8
+                               for level in levels)):
+                    raise RuntimeError('Complete bounded SQL plan evidence missing')
+                report['sql_plan_summary'] = {'target': args.sql_plan_target,
+                                             'head_counts': [level['head_count'] for level in levels]}
+                report['result'] = 'SQL_PLANS_DIAGNOSTIC_NOT_CAPACITY'
             elif args.delivery_profile:
                 properties = {item.attrib["name"]: item.attrib["value"]
                               for suite in suites for item in suite.iter("property")}

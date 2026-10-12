@@ -1,4 +1,5 @@
 """Owned child LOGIN: finite plans and exact hash controls, no productive changes."""
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -78,6 +79,10 @@ def run(case_id):
         identity = cursor.fetchone()
         assert identity[0] == identity[1] and identity[0].startswith('capacity_runtime_')
         assert not any(identity[2:])
+        cursor.execute("SELECT count(*) FROM pg_stat_activity WHERE usename=current_user "
+                       "AND pid<>pg_backend_pid() AND state='active'")
+        assert cursor.fetchone() == (0,)
+        report['other_active_connections_of_same_login'] = 0
         cursor.execute("SELECT pg_has_role(current_user,pg_get_userbyid(relowner),'MEMBER') "
                        "FROM pg_class WHERE oid='public.safety_rightsevidencehead'::regclass")
         assert cursor.fetchone() == (False,)
@@ -102,8 +107,16 @@ def run(case_id):
             value = {'name': name, 'samples': [], 'timed_native': None, 'serialized_native': None}
             # Equality is checked on fresh full SQL outputs before recording plans.
             # No payloads/IDs/hashes from these rows enter the report.
+            started = perf_counter_ns()
             cursor.execute(variants['native_hash'], [case_id])
+            executed = perf_counter_ns()
             original = cursor.fetchall()
+            consumed = perf_counter_ns()
+            value['native_driver'] = {'execute_ns': executed - started,
+                                      'fetch_ns': consumed - executed,
+                                      'total_ns': consumed - started,
+                                      'scope': 'Single diagnostic query; includes driver/transport, not HTTP p95'}
+            value['native_sql_sha256'] = hashlib.sha256(variants['native_hash'].encode()).hexdigest()
             cursor.execute(variants['inline_hash'], [case_id])
             inline = cursor.fetchall()
             assert (original == inline if name == 'events' else dict(original) == dict(inline))

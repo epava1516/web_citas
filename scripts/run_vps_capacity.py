@@ -18,7 +18,9 @@ BASE = ['--selection-tcp', '--selection-concurrent', '--selection-gunicorn',
         '--database-heavy', '--object-delivery']
 
 
-def command(mode, profiler, cpu_budget=4, professional_profile=None, tools_venv=None):
+def command(mode, profiler, cpu_budget=4, professional_profile=None, tools_venv=None, sql_plan_target=None):
+    if sql_plan_target is not None and (mode != 'diagnose' or professional_profile or sql_plan_target not in (64, 304)):
+        raise ValueError('SQL plans require exclusive diagnose with a fixed history target')
     if professional_profile and (professional_profile not in ("memray", "scalene") or mode not in ("probe", "diagnose")):
         raise ValueError("Professional profiling requires separate probe or diagnose")
     if cpu_budget not in (4, 8):
@@ -30,6 +32,8 @@ def command(mode, profiler, cpu_budget=4, professional_profile=None, tools_venv=
     args = [sys.executable, str(ROOT / 'scripts/run_capacity_environment.py'), *BASE, *budget]
     if mode == 'measure':
         return args + ['--delivery-complete']
+    if sql_plan_target is not None:
+        return args + ['--delivery-profile', '--delivery-profile-full', '--sql-plan-target', str(sql_plan_target)]
     if professional_profile:
         args += ['--delivery-profile', '--delivery-profile-full', '--professional-profile',
                  professional_profile, '--diagnostic-tools-venv', str(tools_venv)]
@@ -70,11 +74,14 @@ def main():
     parser.add_argument('--cpu-budget', type=int, choices=(4, 8), default=4,
                         help='Aggregate CPU ceiling; 8 is an explicit VPS comparison')
     parser.add_argument('--professional-profile', choices=('memray', 'scalene'))
+    parser.add_argument('--sql-plan-target', type=int, choices=(64, 304),
+                        help='Separate finite SQL plans; no profiler or acceptance measurement')
     parser.add_argument('--dry-run', action='store_true', help='Print argv; create no resources')
     args = parser.parse_args()
     profiler = args.tools_venv.resolve() / 'bin/py-spy'
     try:
-        argv = command(args.mode, profiler, args.cpu_budget, args.professional_profile, args.tools_venv.resolve())
+        argv = command(args.mode, profiler, args.cpu_budget, args.professional_profile,
+                       args.tools_venv.resolve(), args.sql_plan_target)
     except ValueError as error:
         parser.error(str(error))
     if args.dry_run:
@@ -84,7 +91,8 @@ def main():
         parser.error('Requiere Linux y Python 3.12 del proyecto')
     if len(os.sched_getaffinity(0)) < args.cpu_budget:
         parser.error('El host no expone suficientes CPU para el perfil solicitado')
-    if args.mode in ('probe', 'diagnose') and not args.professional_profile and not profiler.is_file():
+    if (args.mode in ('probe', 'diagnose') and not args.professional_profile
+            and args.sql_plan_target is None and not profiler.is_file()):
         parser.error('Instala los instrumentos antes del diagnóstico')
     if not Path('/var/run/docker.sock').exists():
         parser.error('Requiere el Docker local del ejecutor existente')
@@ -111,6 +119,7 @@ def main():
                    'cpu_budget_cores': args.cpu_budget,
                    'original_four_cpu_profile': args.cpu_budget == 4,
                    'canonical_kernel': identity, 'professional_profile': args.professional_profile,
+                   'sql_plan_target': args.sql_plan_target,
                    'acceptance_measurement': args.mode == 'measure'}
         if profiler.is_file():
             receipt['profiler_sha256'] = hashlib.sha256(profiler.read_bytes()).hexdigest()
