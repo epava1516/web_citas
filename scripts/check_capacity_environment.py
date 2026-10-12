@@ -106,7 +106,7 @@ def parse_options(argv=None):
                         help="Test-only py-spy binary; native sampling plus owned PG statistics")
     parser.add_argument("--native-probe-only", action="store_true",
                         help="Only verify native instrumentation and reconnects; never capacity")
-    parser.add_argument("--professional-profile", choices=("memray",))
+    parser.add_argument("--professional-profile", choices=("memray", "scalene"))
     parser.add_argument("--diagnostic-tools-venv", type=Path)
     parser.add_argument("--professional-probe-only", action="store_true")
     args = parser.parse_args(argv)
@@ -119,8 +119,8 @@ def parse_options(argv=None):
                 or args.diagnose or args.diagnostic_baseline_capture or args.diagnostic_baseline_use):
             parser.error("Professional profiling requires exclusive owned full diagnostic mode")
         args.diagnostic_tools_venv = args.diagnostic_tools_venv.resolve()
-        if not (args.diagnostic_tools_venv / 'lib/python3.12/site-packages/memray').is_dir():
-            parser.error("Frozen isolated Memray installation missing")
+        if not (args.diagnostic_tools_venv / f'lib/python3.12/site-packages/{args.professional_profile}').is_dir():
+            parser.error("Frozen isolated professional installation missing")
     elif args.diagnostic_tools_venv:
         parser.error("Diagnostic tools mount requires explicit professional mode")
     if args.cpu_budget == 8 and not (args.owned_controller and args.object_delivery):
@@ -684,11 +684,22 @@ def main():
                     captures = [json.loads(value) for key, value in professional.items()
                                 if 'coverage_page_read' in key]
                     if len(captures) != 2 or any(
-                        item.get('status') != 'COMPLETE' or item.get('errors') or not item.get('native_traces')
-                        or item.get('instrument', {}).get('memray') != '1.20.0'
+                        item.get('status') != 'COMPLETE' or item.get('errors')
                         or item.get('capture_process_cpu_including_tracker_ns', 0) <= 0
+                        for item in captures):
+                        raise RuntimeError("Two complete isolated coverage profiles required")
+                    if args.professional_profile == 'memray' and any(
+                        not item.get('native_traces') or item.get('instrument', {}).get('memray') != '1.20.0'
                         or 'total_positive_allocation_bytes' not in item for item in captures):
-                        raise RuntimeError("Two complete isolated coverage allocation profiles required")
+                        raise RuntimeError("Memray allocation profile evidence missing")
+                    if args.professional_profile == 'scalene':
+                        if any(item.get('instrument', {}).get('scalene') != '2.3.0'
+                               or not item.get('samples_flushed') for item in captures):
+                            raise RuntimeError("Scalene frozen window evidence missing")
+                        cpu_profile = json.loads(professional.get('capacity-professional-scalene-all.json', '{}'))
+                        if not any('/apps/safety/' in filename and data.get('percent_cpu_time', 0) > 0
+                                   for filename, data in cpu_profile.get('files', {}).items()):
+                            raise RuntimeError("Merged application CPU samples missing")
                 elif args.native_probe_only:
                     if not json.loads(properties.get("native_probe", "{}")).get("reconnect_verified"):
                         raise RuntimeError("Native reconnect probe evidence missing")

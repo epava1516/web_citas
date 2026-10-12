@@ -16,7 +16,7 @@ MAX_RECORDS = 2_000_000
 APP_MODULES = ('numpy', 'orjson', 'cryptography')
 
 
-def instrument(tools_venv):
+def instrument(tools_venv, kind="memray"):
     """Append tools after application sites and verify imports remain identical."""
     before = {name: (version(name), importlib.import_module(name).__file__) for name in APP_MODULES}
     site = Path(tools_venv) / 'lib/python3.12/site-packages'
@@ -24,13 +24,15 @@ def instrument(tools_venv):
         raise RuntimeError('Isolated diagnostic site missing')
     if str(site) not in sys.path:
         sys.path.append(str(site))
-    module = importlib.import_module('memray')
-    if module.__version__ != '1.20.0' or not Path(module.__file__).resolve().is_relative_to(site.resolve()):
-        raise RuntimeError('Memray frozen version or isolated provenance differs')
+    module = importlib.import_module(kind)
+    expected = {'memray': '1.20.0', 'scalene': '2.3.0'}[kind]
+    actual = version(kind)
+    if actual != expected or not Path(module.__file__).resolve().is_relative_to(site.resolve()):
+        raise RuntimeError('Professional frozen version or isolated provenance differs')
     after = {name: (version(name), importlib.import_module(name).__file__) for name in APP_MODULES}
     if before != after or any(Path(path).resolve().is_relative_to(site.resolve()) for _, path in after.values()):
         raise RuntimeError('Instrument displaced frozen application imports')
-    return module, {'memray': module.__version__, 'application_imports': after,
+    return module, {kind: actual, 'application_imports': after,
                     'python_version': sys.version.split()[0], 'python_executable': sys.executable}
 
 
@@ -75,7 +77,7 @@ def capture(stage):
     from django.conf import settings
     from django.db import connection
 
-    if (settings.CAPACITY_PROFESSIONAL_PROFILE != 'memray'
+    if (settings.CAPACITY_PROFESSIONAL_PROFILE not in ('memray', 'scalene')
             or getattr(settings, 'CAPACITY_NATIVE_PROFILE', False)
             or connection.settings_dict['HOST'] != 'pg'
             or connection.settings_dict['NAME'] != 'test_capacity_ci'):
@@ -84,6 +86,10 @@ def capture(stage):
         yield
         Path(f'/tmp/capacity-profile-{stage}-{os.getpid()}.txt').write_text(
             'Professional diagnostic: this stage was not profiled; captures limited to early/late coverage.\n')
+        return
+    if settings.CAPACITY_PROFESSIONAL_PROFILE == 'scalene':
+        with scalene_capture(stage, settings.CAPACITY_DIAGNOSTIC_TOOLS_VENV):
+            yield
         return
     module, provenance = instrument(settings.CAPACITY_DIAGNOSTIC_TOOLS_VENV)
     stem = Path(f'/tmp/capacity-professional-{stage}-{os.getpid()}-{time.monotonic_ns()}')
@@ -120,3 +126,53 @@ def capture(stage):
         Path(f'/tmp/capacity-profile-{stage}-{os.getpid()}.txt').write_text(
             'Professional Memray diagnostic only; no cProfile, py-spy, SQL timing, phase spans or request timing.\n'
             'Structured bounded summary: ' + stem.with_suffix('.json').name + '\n')
+
+
+@contextmanager
+def scalene_capture(stage, tools_venv):
+    import signal
+
+    from scalene import scalene_profiler
+    from scalene.scalene_profiler import Scalene
+
+    _, provenance = instrument(tools_venv, 'scalene')
+    stem = Path(f'/tmp/capacity-professional-{stage}-{os.getpid()}-{time.monotonic_ns()}')
+    report = {'schema': 'capacity-professional-cpu-v1', 'stage': stage, 'pid': os.getpid(),
+              'instrument': provenance, 'errors': [], 'acceptance_eligible': False,
+              'cpu_scope': 'Scalene CPU-only marked windows; merged worker samples at master exit. Timers include start/stop/flush; not HTTP p95.'}
+    termination = signal.getsignal(signal.SIGTERM)
+    wall, cpu = time.monotonic_ns(), time.process_time_ns()
+    report['status'] = 'CAPTURE_STARTED'
+    stem.with_suffix('.json').write_text(json.dumps(report, sort_keys=True))
+    try:
+        scalene_profiler.start()
+        # Preserve Gunicorn's graceful close while retaining Scalene's CPU timer.
+        signal.signal(signal.SIGTERM, termination)
+        if stage.startswith('instrument_'):
+            # A bounded synthetic CPU window makes a short health probe sampleable.
+            import hashlib
+            end = time.process_time() + .15
+            block = b'synthetic-instrument-proof' * 32768
+            while time.process_time() < end:
+                hashlib.sha256(block).digest()
+        yield
+        report['status'] = 'COMPLETE'
+    except BaseException as error:
+        report['status'] = 'FAIL'
+        report['errors'].append(type(error).__name__)
+        raise
+    finally:
+        try:
+            scalene_profiler.stop()
+            report['samples_flushed'] = Scalene.output_profile()
+            if not report['samples_flushed']:
+                report['status'] = 'FAIL'
+                report['errors'].append('ScaleneSamplesMissing')
+                raise RuntimeError('Marked Scalene window produced no samples')
+        finally:
+            signal.signal(signal.SIGTERM, termination)
+            report['capture_wall_including_tracker_ns'] = time.monotonic_ns() - wall
+            report['capture_process_cpu_including_tracker_ns'] = time.process_time_ns() - cpu
+            stem.with_suffix('.json').write_text(json.dumps(report, sort_keys=True))
+            Path(f'/tmp/capacity-profile-{stage}-{os.getpid()}.txt').write_text(
+                'Professional Scalene CPU-only diagnostic; no Memray, py-spy or legacy profiles.\n')

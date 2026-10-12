@@ -49,3 +49,10 @@ Sin otras invocacionesClaude o cambios a consumoprevio.
 Próximo: probar reducción pura decopias/materialización o instrumentoCPU
 preciso seguro. No aumentar cap2M automáticamente ni repetir ciegamente.
 Fullmeasurelimpio trascorrección comprobada yglobal/N3 siguenpendientes.
+
+Scalene forkprobe actualPy3.12.15 y Gunicorn2sync en own1CPU512MiB prueban
+CLI-off + público start/stop/output_profile + mergecachedchild en maestro.
+PrimerprototypeCLI shutdown-15, siguienteworker143: corregidos PIDhijo ypreservar
+SIGTERM Gunicorn. Rootintegra6archivos + testASTcontext, CPUcompacto ydescendants
+observed, failfastdiagnóstico marcado. No appoptimización nueva.
+127testsPASS3.00s RuffPASS; congelar y ejecutar appPGprobe8CPU antesfullflow.

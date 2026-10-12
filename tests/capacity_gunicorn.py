@@ -83,6 +83,17 @@ def server(settings, record_property):
                '--worker-class', 'sync', '--bind', f'{bind}:{port}', '--timeout', '90',
                '--access-logfile', '-', '--error-logfile', '-',
                '--logger-class', 'config.gunicorn_logging.SafeAccessLogger']
+    scalene_mode = getattr(settings, 'CAPACITY_PROFESSIONAL_PROFILE', None) == 'scalene'
+    if scalene_mode:
+        tools_site = str(Path(settings.CAPACITY_DIAGNOSTIC_TOOLS_VENV) / 'lib/python3.12/site-packages')
+        app_site = str(Path(sys.prefix) / 'lib/python3.12/site-packages')
+        env['PYTHONPATH'] = env.get('PYTHONPATH', '') + ':' + app_site + ':' + tools_site
+        Path('/tmp/capacity_scalene_launcher.py').write_text(
+            "import runpy\nrunpy.run_module('gunicorn', run_name='__main__')\n")
+        command = [sys.executable, '-m', 'scalene', 'run', '--cpu-only', '--off', '--profile-all',
+                   '--profile-only', 'apps/safety,capacity_professional_profile',
+                   '-o', '/tmp/capacity-professional-scalene-all.json',
+                   '/tmp/capacity_scalene_launcher.py', '---', *command[3:]]
     log_path = Path('/tmp/capacity-gunicorn.log')
     stop, peaks = Event(), {}
     owned = []
@@ -99,15 +110,27 @@ def server(settings, record_property):
 
         def sample():
             while not stop.is_set():
+                statuses = {}
                 for path in Path('/proc').iterdir():
                     if not path.name.isdecimal():
                         continue
                     try:
-                        status = dict(line.split(':', 1) for line in (path / 'status').read_text().splitlines() if ':' in line)
-                        if int(path.name) in {item[1].pid for item in owned} or int(status.get('PPid', '-1')) in {item[1].pid for item in owned}:
-                            value = int(status['VmHWM'].split()[0]) * 1024
-                            peaks[path.name] = max(value, peaks.get(path.name, 0))
-                    except (OSError, ValueError, KeyError):
+                        statuses[int(path.name)] = dict(line.split(':', 1) for line in
+                            (path / 'status').read_text().splitlines() if ':' in line)
+                    except (OSError, ValueError):
+                        continue
+                descendants = {item[1].pid for item in owned}
+                changed = True
+                while changed:
+                    before_count = len(descendants)
+                    descendants.update(pid for pid, status in statuses.items()
+                                       if int(status.get('PPid', '-1')) in descendants)
+                    changed = len(descendants) != before_count
+                for pid in descendants:
+                    try:
+                        value = int(statuses[pid]['VmHWM'].split()[0]) * 1024
+                        peaks[str(pid)] = max(value, peaks.get(str(pid), 0))
+                    except (ValueError, KeyError):
                         continue
                 stop.wait(.1)
 
@@ -167,7 +190,10 @@ def server(settings, record_property):
             sampler.join(timeout=2)
             for role, child, _, task_log in reversed(owned):
                 if child.poll() is None:
-                    os.killpg(child.pid, signal.SIGTERM)
+                    if role == 'gunicorn' and scalene_mode:
+                        stop_scalene_master(child)
+                    else:
+                        os.killpg(child.pid, signal.SIGTERM)
                     try:
                         child.wait(timeout=10)
                     except subprocess.TimeoutExpired:
@@ -181,6 +207,7 @@ def server(settings, record_property):
                 'enabled': async_enabled, 'processes': async_logs,
                 'rss_peaks_bytes': peaks,
                 'scope': 'Gunicorn and Celery prefork 2 plus Beat share the same owned app cgroup; sampled 100 ms; process groups terminated.'}))
+            compact_scalene_profile()
             record_property('gunicorn_server', json.dumps({
                 'command': command, 'exit': process.returncode, 'rss_peaks_bytes': peaks,
                 'log': log_path.read_text()[-20000:],
@@ -194,3 +221,53 @@ def server(settings, record_property):
             if async_enabled:
                 assert len(peaks) >= 7, 'Missing Gunicorn/worker prefork 2/Beat RSS observations'
             assert all(value <= 1024 ** 3 for value in peaks.values()), 'App process RSS exceeds1GiB'
+
+
+def stop_scalene_master(process):
+    """Signal the sole owned CLI child; allow CLI to merge and exit normally."""
+    children = []
+    for path in Path('/proc').iterdir():
+        if not path.name.isdecimal():
+            continue
+        try:
+            fields = (path / 'stat').read_text().rsplit(')', 1)[1].split()
+            if int(fields[1]) == process.pid:
+                children.append(int(path.name))
+        except (OSError, ValueError, IndexError):
+            continue
+    if not children and process.poll() is not None:
+        return
+    if len(children) != 1:
+        raise AssertionError('Scalene CLI requires one observed Gunicorn child: ' + str(children))
+    os.kill(children[0], signal.SIGTERM)
+
+
+def compact_scalene_profile():
+    """Bounded CPU evidence; exclude source text and raw sampling arrays."""
+    import hashlib
+    import json
+
+    path = Path('/tmp/capacity-professional-scalene-all.json')
+    if not path.exists():
+        return
+    if path.stat().st_size > 16 * 1024 * 1024:
+        raise RuntimeError('Scalene raw profile exceeds bounded evidence size')
+    raw = path.read_bytes()
+    data = json.loads(raw)
+    kept = {}
+    count = 0
+    fields = ('lineno', 'n_cpu_percent_python', 'n_cpu_percent_c', 'n_sys_percent')
+    for filename, file in data.get('files', {}).items():
+        lines = []
+        for line in file.get('lines', []):
+            if sum(line.get(k, 0) for k in fields[1:]) <= 0:
+                continue
+            count += 1
+            if count > 2000:
+                raise RuntimeError('Scalene CPU line count exceeds diagnostic bound')
+            lines.append({k: line.get(k, 0) for k in fields})
+        if lines:
+            kept[filename] = {'percent_cpu_time': file['percent_cpu_time'], 'lines': lines}
+    path.write_text(json.dumps({'instrument': 'scalene-cpu-only', 'raw_sha256': hashlib.sha256(raw).hexdigest(),
+        'elapsed_time_sec': data.get('elapsed_time_sec'), 'files': kept,
+        'scope': 'Merged CPU samples of explicitly marked worker windows; filtered application/helper code. No source text, frame locals or payloads. Not HTTPp95.'}))

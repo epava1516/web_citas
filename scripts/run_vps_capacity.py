@@ -19,7 +19,7 @@ BASE = ['--selection-tcp', '--selection-concurrent', '--selection-gunicorn',
 
 
 def command(mode, profiler, cpu_budget=4, professional_profile=None, tools_venv=None):
-    if professional_profile and (professional_profile != "memray" or mode not in ("probe", "diagnose")):
+    if professional_profile and (professional_profile not in ("memray", "scalene") or mode not in ("probe", "diagnose")):
         raise ValueError("Professional profiling requires separate probe or diagnose")
     if cpu_budget not in (4, 8):
         raise ValueError('Unsupported CPU budget')
@@ -69,7 +69,7 @@ def main():
     parser.add_argument('--tools-venv', type=Path, default=default)
     parser.add_argument('--cpu-budget', type=int, choices=(4, 8), default=4,
                         help='Aggregate CPU ceiling; 8 is an explicit VPS comparison')
-    parser.add_argument('--professional-profile', choices=('memray',))
+    parser.add_argument('--professional-profile', choices=('memray', 'scalene'))
     parser.add_argument('--dry-run', action='store_true', help='Print argv; create no resources')
     args = parser.parse_args()
     profiler = args.tools_venv.resolve() / 'bin/py-spy'

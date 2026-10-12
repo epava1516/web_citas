@@ -189,7 +189,7 @@ def test_client_pair_ids_align_with_tcp_samples_and_exclude_profiled():
     # Compile only the client sampling function; no fixture/application imports.
     tree = ast.parse(Path(__file__).with_name('capacity_delivery_flow.py').read_text())
     node = next(item for item in tree.body if isinstance(item, ast.FunctionDef) and item.name == 'sampled')
-    namespace = {'HEADER': timing.HEADER}
+    namespace = {'HEADER': timing.HEADER, 'runtime_settings': SimpleNamespace(CAPACITY_PROFESSIONAL_PROFILE=None)}
     seen = []
     def post(client, endpoint, csrf, values, headers):
         seen.append(headers)

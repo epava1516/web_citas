@@ -196,3 +196,31 @@ Revisión independiente:32pruebas rápidas de separación/parser/WSGI PASS0.82s,
 RuffPASS. Resumen sobre traza previa coincide exactamente con `memray stats`
 4940078860bytes,202736registros; no sustituye sonda de contenedor. Evidencia real
 de probe/diagnose pendientes al introducir el adaptador.
+
+### CPU profesional con Scalene2.3.0
+
+Nuevo modo `probe --cpu-budget 8 --professional-profile scalene`, seguido sólo
+tras verificarlo por `diagnose --cpu-budget 8 --professional-profile scalene`.
+Incompatible con Memray, py-spy y perfiles heredados; measure/preflight lo rechazan.
+ScaleneCLI inicializa el maestroGunicorn con --cpu-only --off; sólo ventanas
+marcadas usan start/stop y output_profile públicos. Dos workers sync iguales;
+CLI agrega sus muestras al cerrar. CPU estadística por línea Python/nativo/sistema,
+agregada para ventanas marcadas, no p95 ni porcentajes de pared.
+
+Prueba previa realGunicorn con WSGIsintético en contenedor propio1CPU/512MiB,
+sin redpublicada, pasóHTTP200 yJSONCPU agregado. Primer cierre señaló lanzadorCLI
+intermedio y terminó-15: se corrige señalando su único hijoGunicorn observado.
+Scalene sobreescribía SIGTERM enworker y causaba143; conservar el manejador de
+Gunicorn durante captura corrige ese cierre, workers terminan sinERROR.
+No APIs privadas ni cambios de sysctls/host. --init yobservación de descendientes
+incluyen el lanzadorintermedio para no ocultar procesos/zombis/RSS.
+
+La salidaCPU se compacta a líneas con muestras, números de línea y porcentajes,
+sin source-text/arrayscrudos/locals/payloads, máximo2000líneas yraw16MiB. Hashraw
+registrado. Sonda agrega CPU sintética0.15s para asegurar muestras en /health/;
+ese burn no ocurre en coberturareal y no es prueba de coste de aplicación.
+
+127tests de separación/cierre/parser PASS3.00s, RuffPASS. Un test AST anterior
+falló por depender de runtime_settings reciénintroducido; namespace aislado
+actualizado y nuevos contrastes COMPLETE/FAIL verifican detener flujo inválido.
+Sonda app/PG real pendiente; no inferir aceptación de la prueba WSGIsintética.

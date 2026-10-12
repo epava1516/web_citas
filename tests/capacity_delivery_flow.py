@@ -9,6 +9,7 @@ import pstats
 import time
 import zipfile
 from html.parser import HTMLParser
+from pathlib import Path
 from uuid import uuid4, uuid5
 
 from capacity_delivery_http import open_client, operator, post
@@ -108,9 +109,29 @@ def sampled(metrics, name, barrier, client, endpoint, csrf, values, profile=Fals
             require_private_delivery=False, request_id=None):
     barrier.wait(timeout=120)
     headers = {"X-Capacity-Profile": name} if profile else None
+    professional = profile and name == 'coverage_page_read' and getattr(
+        runtime_settings, 'CAPACITY_PROFESSIONAL_PROFILE', None)
+    previous = set(Path('/tmp').glob('capacity-professional-coverage_page_read-*.json')) if professional else set()
     if not profile and name == 'coverage_page_read' and request_id is not None:
         headers = {HEADER: str(request_id)}
     result = post(client, endpoint, csrf, values, headers=headers)
+    if professional:
+        # The body may finish before the profiler flushes. Do not continue a
+        # full synthetic flow after an invalid diagnostic, as happened with Memray.
+        deadline = time.monotonic() + 30
+        while True:
+            captures = set(Path('/tmp').glob('capacity-professional-coverage_page_read-*.json')) - previous
+            if len(captures) == 1:
+                try:
+                    evidence = json.loads(next(iter(captures)).read_text())
+                except json.JSONDecodeError:
+                    evidence = {}
+                if evidence.get('status') in ('COMPLETE', 'FAIL'):
+                    assert evidence['status'] == 'COMPLETE' and not evidence.get('errors'), evidence
+                    break
+            if time.monotonic() >= deadline:
+                raise AssertionError('Marked professional capture did not complete')
+            time.sleep(.05)
     if profile:
         # Diagnostic only: extra profiled request remains subject to delivery/privacy guards.
         metrics.setdefault(name + "_profiled_seconds", []).append(result.seconds)
