@@ -77,3 +77,19 @@ sin preload ni cambio de arranque de workers; sonda sintética marcada incluye
 rights_exports.canonical para ejercitar imports de dominio durante el merge.
 54 tests rápidos PASS (0.73s), Ruff PASS. Sonda PG real pendiente antes de
 repetir diagnose. No nueva optimización de aplicación ni medición HTTP limpia.
+
+
+Sonda c892c08 20261012-094409-a7b09d5e: launcher 0, 1 PASS/0 fallos,
+51.155s; fuentes 1414 idénticas, memoria superior 1140568064 bytes y limpieza
+independiente verificadas. JSON final presente y sin AppRegistryNotReady,
+pero CPU positiva sólo en helper, no en dominio. No basta para validar el
+merge que falló. Se sustituye el burn SHA de la sonda por canonical con lista
+sintética de 8192 enteros y se exige CPU positiva en /apps/safety/.
+No se modifica captura coverage ni aplicación; repetir sólo esta sonda acotada.
+
+| Evidencia | Diagnose 568ff53 | Sonda c892c08 |
+| --- | --- | --- |
+| Resultado runner | ERROR | PROBE_NOT_CAPACITY |
+| JSON combinado | Ausente | Presente |
+| CPU de aplicación demostrada | No | No; helper únicamente |
+| Nueva aceptación p95 | Ninguna | Ninguna |

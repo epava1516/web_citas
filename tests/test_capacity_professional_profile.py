@@ -121,6 +121,8 @@ print(json.dumps({{'reconnect_verified':True}}))
     else:
         profile = json.loads(Path('/tmp/capacity-professional-scalene-all.json').read_text())
         assert profile['files'] and any(file['percent_cpu_time'] > 0 for file in profile['files'].values())
+        assert any('/apps/safety/' in name and file['percent_cpu_time'] > 0
+                   for name, file in profile['files'].items())
         assert report['samples_flushed'] and http_report['samples_flushed']
     assert not list(Path('/tmp').glob('capacity-professional-instrument_probe-*.bin'))
     record_property('professional_probe', json.dumps({'instrument_verified': True, 'http_hook_verified': True, 'report': report, 'http_report': http_report}))

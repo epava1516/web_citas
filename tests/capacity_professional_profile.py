@@ -150,17 +150,14 @@ def scalene_capture(stage, tools_venv):
         signal.signal(signal.SIGTERM, termination)
         if stage.startswith('instrument_'):
             # A bounded synthetic CPU window makes a short health probe sampleable.
-            import hashlib
-
             from apps.safety.rights_exports import canonical
 
             end = time.process_time() + .15
-            block = b'synthetic-instrument-proof' * 32768
+            payload = {'instrument_probe': list(range(8192))}
             while time.process_time() < end:
-                hashlib.sha256(block).digest()
                 # Include a domain module whose imports require Django's registry;
                 # the final master merge must handle those imports too.
-                canonical({'instrument_probe': [1, 2, 3]})
+                canonical(payload)
         yield
         report['status'] = 'COMPLETE'
     except BaseException as error:
