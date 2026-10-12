@@ -1,5 +1,20 @@
 # Seguimiento de ejecución del contrato
 
+**CR09 regresión común, negativo terminal 2026-10-12 20:04 UTC:**
+`20261012-165613-ee1f4787`, SHA `bd5a81f`, termina ERROR por OOM del cgroup
+de pruebas (2,5 GiB, dos workers), seguido de SIGTERM por systemd. PostgreSQL
+y Redis conservan OOM=false. Último progreso visible 96%; no JUnit ni trazas
+finales, por lo que los marcadores parciales no permiten identificar causas.
+Fuentes iguales, contenedores propios retirados y temporal ausente.
+[Recibo del fallo](evidencias/cr09-regresion-host-oom-20261012.json).
+Correctiva del instrumento: el runner conserva cada reporte en
+`pytest-reports.jsonl`, con fsync de la traza al fallar. El controlador xdist
+registra una sola copia; verificación sintética con uno/dos workers conserva
+un PASS, un FAIL y un SKIP con sus motivos, salida 1 esperada en ambos casos.
+Siguiente acción: ejecución secuencial acotada con un trabajador y registro
+incremental; no modificar producto por conjeturas.
+CR09 y aceptación integral/N3 permanecen abiertos.
+
 **Estado posterior vigente, 2026-10-12 /MOD-09:** el usuario acepta provisionalmente
 el rendimiento actual MOD08 como suficiente ymejorable, yordena continuar el
 resto del contrato. [Decisión contractual](16-contrato-ejecucion-desarrollo.md#mod-09--aceptación-provisional-de-rendimiento-mod-08-2026-10-12),
@@ -60,6 +75,21 @@ Correctivas locales b23cde3/4354109: SQL textual seguro exclusivamente para las7
 
 Actualizado: 2026-10-09. Fuente contractual: [contrato16](16-contrato-ejecucion-desarrollo.md). Este documento mantiene el estado y la única cola de ejecución; evidencias y condiciones de cierre se enlazan desde él.
 
+
+### Conservación de originales históricos comprobada — 2026-10-12
+
+[23 ciphertexts comprobados](evidencias/cr09-origenes-historicos-preservacion-20261012.json):
+22 originales del inventario anterior y captura posterior disponibles, privados
+0600/directorio0700/UID propio, estables y SHA/bytes idénticos a los registros.
+Lectura incremental sólo de ciphertext, sin descifrado/SQL/servicios normales ni
+modificación de originales. No resuelve asociación/contenido/divulgación ni
+custodia independiente; no excluye fuentes ni acepta CR09. Cierra únicamente la
+comprobación de conservación actual de esos originales. La regresión activa
+muestra un fallo aislado pendiente de traceback terminal; PG/Redis sin OOM observado.
+
+[Correspondencia de requisitos y verificación común](cr09-verificacion-comun-20261012.md):
+nodos críticos y límites contrastados por lectura, resultados pendientes del
+JUnit de la ejecución activa. Es método de auditoría, no PASS ni nueva cola.
 
 ### GS01 generación browser verificada y regresión común reservada — 2026-10-12
 

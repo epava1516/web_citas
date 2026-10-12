@@ -1,0 +1,95 @@
+{
+  "run": "20261012-165613-ee1f4787",
+  "sha": "bd5a81f5bebc2159363f0d64509bee360804c03a",
+  "result": "ERROR_HOST_CGROUP_OOM_INTERRUPTED",
+  "runner_error": "signal 15",
+  "systemd_result": "oom-kill",
+  "pytest_seconds": 11268.540304543916,
+  "junit_exists": false,
+  "last_visible_percent": 96,
+  "partial_markers": {
+    "failure": 15,
+    "error": 0,
+    "skip": 4
+  },
+  "host": {
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/web-modelos-cr09-regression-corrective-20261012.service",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory.max": "2684354560",
+    "memory.swap.max": "0",
+    "pids.max": "512",
+    "terminal_memory_events": "low 0\nhigh 0\nmax 6538620\noom 1\noom_kill 1\noom_group_kill 0\n",
+    "terminal_memory_peak": "2684432384"
+  },
+  "containers": [
+    {
+      "name": "web-modelos-ci-pg-20261012-165613-ee1f4787",
+      "state": {
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 4068846,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-12T16:56:13.886594712Z",
+        "FinishedAt": "0001-01-01T00:00:00Z"
+      },
+      "memory": 1610612736,
+      "swap": 1610612736,
+      "cpus": 1000000000
+    },
+    {
+      "name": "web-modelos-ci-redis-20261012-165613-ee1f4787",
+      "state": {
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 4069267,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-12T16:56:16.442130629Z",
+        "FinishedAt": "0001-01-01T00:00:00Z"
+      },
+      "memory": 134217728,
+      "swap": 134217728,
+      "cpus": 200000000
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261012-165613-ee1f4787": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261012-165613-ee1f4787": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "temporary_absent": true,
+  "raw_sha256": {
+    "artifacts/local-ci/20261012-165613-ee1f4787/result.json": "64065fc77fec32d5be77f9bd2866805c6d405d9b0b0ef17e87edfea066e38615",
+    "artifacts/local-ci/20261012-165613-ee1f4787/09-pytest.log": "e670732f15ae8dd32d0fb22499b33e05df50d5de9f8413c09ae81f7f903330dc",
+    "artifacts/vps-preparation/cr09-regression-corrective/host-limits.json": "11cefa11dddafd2235f1fc77bee30b1d87cdc3771dbe4eb393fe39d508fcfdac",
+    "artifacts/vps-preparation/cr09-regression-corrective/activity-2003.json": "cc793fbc37b0bd188427b38c9c836000495ec3b20b509ccef292a6dd2ffca93e"
+  },
+  "limitations": [
+    "Partial markers do not identify failing nodes or final totals.",
+    "No JUnit; no functional PASS, CR09 acceptance or N3.",
+    "Host OOM differs from earlier PostgreSQL OOM; preserve both negatives."
+  ],
+  "next": "Review bounded sequential execution and incremental durable failure reporting before another full run."
+}
