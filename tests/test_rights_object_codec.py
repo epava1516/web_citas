@@ -7,6 +7,45 @@ import pytest
 from apps.safety.object_storage.codec import MAGIC, InvalidObject, Keyring, decrypt, encrypt, rewrap
 
 
+@pytest.mark.parametrize("width", [1, 7, 513, 1026, 1048576])
+@pytest.mark.parametrize("buffer_type", [bytes, bytearray, memoryview])
+@pytest.mark.parametrize("failure_at", [None, 0, 1, 2])
+def test_frame_reader_preserves_fragmented_read_order_and_failures(width, buffer_type, failure_at):
+    from apps.safety.object_storage.codec import _read
+
+    def reference(source, size):
+        # Frozen pre-optimization reader: contrast observable stream behaviour.
+        value = bytearray()
+        while len(value) < size:
+            chunk = source.read(size - len(value))
+            if not chunk:
+                raise InvalidObject("Truncated object")
+            value.extend(chunk)
+        return bytes(value)
+
+    class Reader:
+        def __init__(self, content):
+            self.source = io.BytesIO(content)
+            self.calls = []
+
+        def read(self, size):
+            self.calls.append(size)
+            if len(self.calls) - 1 == failure_at:
+                raise OSError("synthetic stream failure")
+            return buffer_type(self.source.read(min(width, size)))
+
+    for size, content in [(0, b""), (1027, b"s" * 1027), (1027, b"s" * 1026)]:
+        observations = []
+        for function in (reference, _read):
+            source = Reader(content)
+            try:
+                value = function(source, size)
+                observations.append((type(value), value, source.calls, source.source.tell()))
+            except (InvalidObject, OSError) as error:
+                observations.append((type(error), str(error), source.calls, source.source.tell()))
+        assert observations[0] == observations[1]
+
+
 @pytest.fixture
 def ring():
     return Keyring({"old": os.urandom(32)}, "old")

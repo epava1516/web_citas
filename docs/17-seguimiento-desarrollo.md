@@ -1059,3 +1059,15 @@ Ruff PASS,120 rápidos PASS/2.91s. Congelar tras commit; secuencia propia exclus
 preflight8→probe8→measure8, una repetición sólo si PASS. Verificar todas las cuotas
 kernel, huellas, cero errores/skips, cuerpos/intervalos y limpieza independiente.
 No global/N3 ni PASS4CPU por extrapolación. [Plan8CPU](evidencias/mod08-vps-perfil-8cpu-20261012.md).
+
+## MOD-08 VPS8CPU y diagnóstico profesional,2026-10-12
+
+Ciclo8CPU concluido: preflight/probe PASS, measure FAIL con seis incumplimientos,
+diagnose separado PASS, fuentes y limpieza auditadas. Peores p95
+3.547708/7.115129/7.099972s; mejora7.51/33.70/32.01% respecto4CPU con mismaapp.
+[Tabla por caso y recibos](evidencias/mod08-vps-perfil-8cpu-20261012.md).
+Usuario pide investigar con herramientas gratuitas adicionales y corregir.
+Scalene/Memray acotados por separado detectan copias evitables del codec;
+[corrección y evidencia limitada](evidencias/mod08-vps-professional-codec-20261012.md).
+Memray sobre coberturaHTTP real en preparación aislada; sin nueva aceptación
+HTTP/global/N3. Pendiente integración real y medida sin instrumentos trascorrección.

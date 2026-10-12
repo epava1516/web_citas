@@ -1,0 +1,213 @@
+{
+  "scope": "Unprofiled bounded synthetic CPU comparison, not HTTP/capacity; alternating order; 64MiB plus real adapter, fresh AEAD/hash/EOF each iteration",
+  "memray_version": "1.20.0",
+  "scalene_version": "2.3.0",
+  "application_python": "3.12.15",
+  "backend": "_hashlib.HASH",
+  "diagnostics_import": "Application site-packages precedes readonly diagnostic site-packages; no application venv installation change",
+  "before": {
+    "allocation_bytes": 4940078860,
+    "tracked_peak_bytes": 5252230
+  },
+  "candidate": {
+    "allocation_bytes": 3229173652,
+    "tracked_peak_bytes": 4204993
+  },
+  "paired_samples": [
+    {
+      "pair": 0,
+      "kind": "original",
+      "wall_seconds": 0.45315900119021535,
+      "cpu_seconds": 0.445803788
+    },
+    {
+      "pair": 0,
+      "kind": "candidate",
+      "wall_seconds": 0.4544161637313664,
+      "cpu_seconds": 0.4475482479999999
+    },
+    {
+      "pair": 1,
+      "kind": "candidate",
+      "wall_seconds": 0.4574726866558194,
+      "cpu_seconds": 0.45027133899999994
+    },
+    {
+      "pair": 1,
+      "kind": "original",
+      "wall_seconds": 0.4594056708738208,
+      "cpu_seconds": 0.454758961
+    },
+    {
+      "pair": 2,
+      "kind": "original",
+      "wall_seconds": 0.4748199097812176,
+      "cpu_seconds": 0.46947844900000035
+    },
+    {
+      "pair": 2,
+      "kind": "candidate",
+      "wall_seconds": 0.45937971491366625,
+      "cpu_seconds": 0.4542872570000003
+    },
+    {
+      "pair": 3,
+      "kind": "candidate",
+      "wall_seconds": 0.458038920070976,
+      "cpu_seconds": 0.4529620780000001
+    },
+    {
+      "pair": 3,
+      "kind": "original",
+      "wall_seconds": 0.4861071123741567,
+      "cpu_seconds": 0.4812274990000005
+    },
+    {
+      "pair": 4,
+      "kind": "original",
+      "wall_seconds": 0.43611783580854535,
+      "cpu_seconds": 0.43324579600000046
+    },
+    {
+      "pair": 4,
+      "kind": "candidate",
+      "wall_seconds": 0.42373540205881,
+      "cpu_seconds": 0.42108478100000024
+    },
+    {
+      "pair": 5,
+      "kind": "candidate",
+      "wall_seconds": 0.46547180879861116,
+      "cpu_seconds": 0.461797754
+    },
+    {
+      "pair": 5,
+      "kind": "original",
+      "wall_seconds": 0.4308655350469053,
+      "cpu_seconds": 0.42812424900000057
+    },
+    {
+      "pair": 6,
+      "kind": "original",
+      "wall_seconds": 0.48707429878413677,
+      "cpu_seconds": 0.4832054269999997
+    },
+    {
+      "pair": 6,
+      "kind": "candidate",
+      "wall_seconds": 0.417828471865505,
+      "cpu_seconds": 0.4153553720000005
+    },
+    {
+      "pair": 7,
+      "kind": "candidate",
+      "wall_seconds": 0.4582744762301445,
+      "cpu_seconds": 0.4545995359999999
+    },
+    {
+      "pair": 7,
+      "kind": "original",
+      "wall_seconds": 0.4573481590487063,
+      "cpu_seconds": 0.45445839299999946
+    },
+    {
+      "pair": 8,
+      "kind": "original",
+      "wall_seconds": 0.46368116000667214,
+      "cpu_seconds": 0.4595571679999999
+    },
+    {
+      "pair": 8,
+      "kind": "candidate",
+      "wall_seconds": 0.42278727190569043,
+      "cpu_seconds": 0.41823995699999905
+    },
+    {
+      "pair": 9,
+      "kind": "candidate",
+      "wall_seconds": 0.42306116688996553,
+      "cpu_seconds": 0.41997111600000103
+    },
+    {
+      "pair": 9,
+      "kind": "original",
+      "wall_seconds": 0.4497876651585102,
+      "cpu_seconds": 0.44634354199999926
+    },
+    {
+      "pair": 10,
+      "kind": "original",
+      "wall_seconds": 0.4396156519651413,
+      "cpu_seconds": 0.4356023879999995
+    },
+    {
+      "pair": 10,
+      "kind": "candidate",
+      "wall_seconds": 0.5378172569908202,
+      "cpu_seconds": 0.511500418999999
+    },
+    {
+      "pair": 11,
+      "kind": "candidate",
+      "wall_seconds": 0.4713122150860727,
+      "cpu_seconds": 0.46692798700000004
+    },
+    {
+      "pair": 11,
+      "kind": "original",
+      "wall_seconds": 0.5056650200858712,
+      "cpu_seconds": 0.4997097529999994
+    },
+    {
+      "pair": 12,
+      "kind": "original",
+      "wall_seconds": 0.5233906791545451,
+      "cpu_seconds": 0.507094025999999
+    },
+    {
+      "pair": 12,
+      "kind": "candidate",
+      "wall_seconds": 0.4629609868861735,
+      "cpu_seconds": 0.44745036999999854
+    },
+    {
+      "pair": 13,
+      "kind": "candidate",
+      "wall_seconds": 0.4381770365871489,
+      "cpu_seconds": 0.42817311000000124
+    },
+    {
+      "pair": 13,
+      "kind": "original",
+      "wall_seconds": 0.5076724430546165,
+      "cpu_seconds": 0.5012132510000011
+    },
+    {
+      "pair": 14,
+      "kind": "original",
+      "wall_seconds": 0.47645202465355396,
+      "cpu_seconds": 0.4725750409999989
+    },
+    {
+      "pair": 14,
+      "kind": "candidate",
+      "wall_seconds": 0.42113202391192317,
+      "cpu_seconds": 0.41877329699999954
+    },
+    {
+      "pair": 15,
+      "kind": "candidate",
+      "wall_seconds": 0.4296961212530732,
+      "cpu_seconds": 0.4272129819999986
+    },
+    {
+      "pair": 15,
+      "kind": "original",
+      "wall_seconds": 0.4994716593064368,
+      "cpu_seconds": 0.4955693609999994
+    }
+  ],
+  "negative_instrument_evidence": "First memray-reader invocation failed before exercise due Path+str helper error; corrected helper and preserved failure artifact. Memray emits malloc/free symbol correction warnings. Instrumented candidate was slower than baseline; do not infer latency from those captures.",
+  "application_change": "codec._read avoids bytearray growth/copy for one/two complete byte fragments, preserves arbitrary fragmented readers, sequential fetch sizes, exceptions and fresh crypto/EOF/digest guards.",
+  "acceptance": "No HTTP p95 evidence for correction yet; real owned integration and clean measure pending."
+}

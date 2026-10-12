@@ -38,7 +38,23 @@ def _unb64(value):
 
 
 def _read(source, size):
-    value = bytearray()
+    if size <= 0:
+        return b""
+    first = source.read(size)
+    if not first:
+        raise InvalidObject("Truncated object")
+    if len(first) >= size:
+        return bytes(first)
+    second = source.read(size - len(first))
+    if not second:
+        raise InvalidObject("Truncated object")
+    # The bounded object adapter usually splits a frame at one fetch boundary.
+    # Join those two byte strings once instead of growing and copying a bytearray.
+    # Keep fragmented/custom buffer readers on the original bounded accumulator.
+    if isinstance(first, bytes) and isinstance(second, bytes) and len(first) + len(second) >= size:
+        return first + second
+    value = bytearray(first)
+    value.extend(second)
     while len(value) < size:
         chunk = source.read(size - len(value))
         if not chunk:
