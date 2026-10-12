@@ -1,5 +1,17 @@
 # Seguimiento de ejecución del contrato
 
+**CR09 regresión secuencial, negativo terminal por esquema contaminado:**
+`20261012-200723-11216b4a`, SHA `5f64990`, interrumpida mediante SIGTERM al
+confirmar cascada UndefinedTable después de una prueba de rollback/restauración
+parcial de migraciones. 784 casos completados incluidos omitidos/fallos y 44
+reportes fallidos; no aceptación ni batería completa. Fuente igual, recursos
+propios retirados y temporal ausente.
+[Recibo terminal](evidencias/cr09-regresion-esquema-contaminado-20261012.json),
+[diagnóstico](evidencias/cr09-regresion-secuencial-diagnostico-20261012.md).
+Correctivas aisladas en `codex/cr09-instrument-correctives-20261012`; se verifica
+primero calendario más estado publicado con PostgreSQL propio. Deadlock de
+privacidad pendiente de reproducción/corrección. CR09 y N3 abiertos.
+
 **CR09 regresión común, negativo terminal 2026-10-12 20:04 UTC:**
 `20261012-165613-ee1f4787`, SHA `bd5a81f`, termina ERROR por OOM del cgroup
 de pruebas (2,5 GiB, dos workers), seguido de SIGTERM por systemd. PostgreSQL
