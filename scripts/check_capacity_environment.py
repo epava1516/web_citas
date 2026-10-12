@@ -910,7 +910,8 @@ def main():
     print(json.dumps({"result": report["result"], "evidence": str(output)}))
     return 0 if report["result"] in {"READY_NOT_CAPACITY", "CONTROL_PASS_NOT_TARGET_CAPACITY", "FIXTURE_VALID_NOT_CAPACITY", "SELECTION_TCP_PASS_NOT_FULL_CAPACITY", "DELIVERY_STAGES_PASS_NOT_GLOBAL_CAPACITY_OR_N3",
                                                "PROFILE_DIAGNOSTIC_NOT_CAPACITY", "NATIVE_INSTRUMENT_PROBE_NOT_CAPACITY",
-                                               "PROFESSIONAL_INSTRUMENT_PROBE_NOT_CAPACITY"} else 1
+                                               "PROFESSIONAL_INSTRUMENT_PROBE_NOT_CAPACITY",
+                                               "SQL_PLANS_DIAGNOSTIC_NOT_CAPACITY"} else 1
 
 
 if __name__ == "__main__":

@@ -320,3 +320,19 @@ CPU8/RAM8GiB/storage20GiB ni SLO2s/5s. No cambio de aplicación/performance.
 Checkpoints de siembra se registrarán también en JUnit para conservar el último
 estado en cualquier fallo. Ésta es una corrección del instrumento, no una
 reescritura SQL especulativa ni una medida de mejor rendimiento.
+
+
+SQL tardío terminado: db52437 /20261012-112648-cc0ad6f8, JUnit1PASS805.570s,
+0fallos/errores/skips;304lotes/heads36→2468, roles restringidos exclusivos y
+hashes exactos/8consultas/captura, fuentes1415/archivo/cleanup independientesPASS.
+LauncherEXIT1 conservado: nueva etiqueta SQL_PLANS_DIAGNOSTIC_NOT_CAPACITY
+omitida en lista final de éxitos. Fix clasificación, expresión real de exit
+verificada para SQL0/ERROR1/falloSLO1, RuffPASS; sin rerun carga. Resultado
+científico válido, no launcherPASS ficticio ni capacidad. Evidencia versionada
+[evidencias/mod08-vps-planes-tardios-20261012.md](evidencias/mod08-vps-planes-tardios-20261012.md).
+No índicefaltante observado en corpus caliente: tardío eventos33.832ms versus
+controlinline19.661;SelectionRead37.818/21.781;CoverageRead36.060/23.243.
+Misma estructura de planes por variante,0reads/spills traswarmup. NoHTTPnuevo,
+no aplicacióneditada ni restitución inline retirada. Próximo: sólo candidata
+con beneficioHTTPVPS demostrado o rediseño redundancia con garantías exactas.
+No extrapolar sumasmedianasonline ni atribuir portátil al código. N3pendiente.
