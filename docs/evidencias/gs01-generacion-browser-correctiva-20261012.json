@@ -1,0 +1,186 @@
+{
+  "id": "20261012-165211-86da997b",
+  "profile": "focused",
+  "result": "PASS",
+  "steps": [
+    {
+      "name": "start-pg",
+      "command": [
+        "docker",
+        "run",
+        "--pull=never",
+        "-d",
+        "--name",
+        "web-modelos-ci-pg-20261012-165211-86da997b",
+        "--label",
+        "web-modelos-local-ci-run=20261012-165211-86da997b",
+        "-p",
+        "127.0.0.1::5432",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "-e",
+        "POSTGRES_USER=ci",
+        "-e",
+        "POSTGRES_PASSWORD=ci-synthetic",
+        "-e",
+        "POSTGRES_DB=promotion_gate_ci",
+        "postgres:17-alpine"
+      ],
+      "exit": 0,
+      "seconds": 0.46713067265227437
+    },
+    {
+      "name": "start-redis",
+      "command": [
+        "docker",
+        "run",
+        "--pull=never",
+        "-d",
+        "--name",
+        "web-modelos-ci-redis-20261012-165211-86da997b",
+        "--label",
+        "web-modelos-local-ci-run=20261012-165211-86da997b",
+        "-p",
+        "127.0.0.1::6379",
+        "redis:7.4-alpine"
+      ],
+      "exit": 0,
+      "seconds": 0.5277408198453486
+    },
+    {
+      "name": "dependencies",
+      "command": [
+        "uv",
+        "sync",
+        "--locked",
+        "--offline"
+      ],
+      "exit": 0,
+      "seconds": 0.03387721301987767
+    },
+    {
+      "name": "ruff",
+      "command": [
+        "uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 0.11858505988493562
+    },
+    {
+      "name": "documentation",
+      "command": [
+        "uv",
+        "run",
+        "python",
+        "scripts/check_docs.py"
+      ],
+      "exit": 0,
+      "seconds": 0.9686730923131108
+    },
+    {
+      "name": "django",
+      "command": [
+        "uv",
+        "run",
+        "python",
+        "manage.py",
+        "check"
+      ],
+      "exit": 0,
+      "seconds": 1.6723724766634405
+    },
+    {
+      "name": "migrations",
+      "command": [
+        "uv",
+        "run",
+        "python",
+        "manage.py",
+        "makemigrations",
+        "--check",
+        "--dry-run"
+      ],
+      "exit": 0,
+      "seconds": 1.9253056370653212
+    },
+    {
+      "name": "native-build",
+      "command": [
+        "uv",
+        "run",
+        "python",
+        "scripts/prepare_native_test_tools.py",
+        "--source",
+        "/tmp/web-modelos-local-ci-e4vqwlrk/native-source",
+        "--output",
+        "/tmp/web-modelos-local-ci-e4vqwlrk/native-tools",
+        "--env-file",
+        "/tmp/web-modelos-local-ci-e4vqwlrk/native.env"
+      ],
+      "exit": 0,
+      "seconds": 9.120135479141027
+    },
+    {
+      "name": "pytest",
+      "command": [
+        "uv",
+        "run",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "--basetemp=/tmp/web-modelos-local-ci-e4vqwlrk/pytest",
+        "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261012-165211-86da997b/pytest.xml",
+        "-o",
+        "junit_family=xunit1",
+        "tests/test_rights_portability_jobs_mobile.py"
+      ],
+      "exit": 0,
+      "seconds": 133.91941532306373
+    }
+  ],
+  "head": "46c5b9c93b50e48e45ac17643203f658db19cb70",
+  "excluded": [],
+  "selection": [
+    "tests/test_rights_portability_jobs_mobile.py"
+  ],
+  "workers": 1,
+  "fixture_snapshots": false,
+  "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+  "cleanup": {
+    "web-modelos-ci-pg-20261012-165211-86da997b": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261012-165211-86da997b": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "6",
+      "time": "131.543",
+      "timestamp": "2026-10-12T18:52:29.774478+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [],
+  "scope": "GS01 generation UI states Chromium ES/EN, automatic/manual refresh, terminal errors, fresh revocation; not CR09/N3/global/production acceptance",
+  "receipt_hashes": {
+    "artifacts/local-ci/20261012-165211-86da997b/result.json": "421a857acc091ae301d9a8d0db0e8cea50431188f47d4a9c353e933531f9db2e",
+    "artifacts/local-ci/20261012-165211-86da997b/pytest.xml": "96802540959820ab70fd43b815658d76d49116eb73216df2eee28ab74af973b9",
+    "artifacts/local-ci/20261012-165211-86da997b/source-hashes.json": "ec439a83c2f2d4b6b4faf0d0440813ece65c7adad9d08a968bbcb923e9590c59",
+    "artifacts/local-ci/20261012-165211-86da997b/09-pytest.log": "bb5ced92a603f6e7be2341199c2dae899e8de13ab1699e80b9a77cf17f60dea3"
+  }
+}

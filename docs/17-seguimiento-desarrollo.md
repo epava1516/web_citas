@@ -61,6 +61,26 @@ Correctivas locales b23cde3/4354109: SQL textual seguro exclusivamente para las7
 Actualizado: 2026-10-09. Fuente contractual: [contrato16](16-contrato-ejecucion-desarrollo.md). Este documento mantiene el estado y la única cola de ejecución; evidencias y condiciones de cierre se enlazan desde él.
 
 
+### GS01 generación browser verificada y regresión común reservada — 2026-10-12
+
+CI `20261012-165211-86da997b`, fuente46c5b9c:6PASS/0FAIL/error/skip,
+131.543s JUnit, fuentes iguales y PG/Redis ausentes por inspect exacto.
+[Evidencia](evidencias/gs01-generacion-browser-correctiva-20261012.json).
+Estados queued/running/succeeded/rejected/failed ES/EN, polling y sin JS,
+fin de polling/enlace final ausente en error y autoridad revocada403/cuerpo vacío.
+No cambio de producto ni aceptación N3/CR09/GS01. Los fallos anteriores se conservan.
+
+Siguiente gate común: perfil regression,2 workers, nativos fijados, PG/Redis
+propios. Host2560MiB/CPU0–3/swap0; PG1536MiB/1CPU/CPU4, Redis128MiB/0.2CPU/CPU5,
+swap0. PG en tmpfs conserva fsync/durabilidad; WAL256MB/min80MB para reservar
+margen de memoria al tmpfs dentro del presupuesto existente, sin benchmark ni
+cambio de recursos normales. Adaptador aislado captura estado/OOM antes de
+limpieza y eventos/pico del cgroup host. Selección y cuatro exclusiones originales
+intactas: un PASS de regression no sustituye N3 ni carga omitida.
+Condición de salida: terminal/JUnit, fallos/skips revisados, fuentes iguales y
+limpieza exacta; después cerrar los criterios locales realmente acreditados y
+batería común restante según contrato.
+
 ### Gate GS01 browser negativo y correctiva de prueba — 2026-10-12
 
 CI `20261012-164344-dc398289`, fuente0b9cb1b:28PASS/4FAIL,32 casos,

@@ -312,3 +312,10 @@ Page.goto de403 vacío tras revocación, pruebas anteriores de estados completad
 Codex corrige manejo específico de excepción Chromium y preserva403/no-store/
 cuerpo vacío. Repite archivo jobs_mobile completo6casos; no repite dominio
 28PASS por esta corrección del driver. Regresión común después, no aceptaciónN3.
+
+Correctiva GS01 20261012-165211-86da997b:6PASS/0fail/error/skip,131.543s
+JUnit, fuentes46c5b9c iguales y cleanup exacto. Sin cambios de producto.
+Regresión común reservada2workers/host2560MiB/PG1536MiB/Redis128MiB/swap0,
+WAL256MB/min80MB en PG tmpfs con fsync intacto, dentro presupuesto existente.
+Adaptador aislado conserva State/OOM antescleanup y memory.events/peak host.
+No perfiladores/capacidad/N3 desde regression. Fuente congelada siguientecommit.
