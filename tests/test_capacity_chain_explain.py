@@ -162,19 +162,30 @@ def test_chain_plans_with_real_history(request, settings, monkeypatch, tmp_path,
 
         final_target = getattr(settings, 'CAPACITY_SQL_PLAN_TARGET', None) or 64
         assert final_target in (64, 304)
+        # The original 420s budget belongs to the 64-batch experiment. The
+        # explicit late-history diagnostic seeds 4.75 times as many batches;
+        # its finite preparation bound remains within the 9000s owned runner.
+        preparation_budget = 420 if final_target == 64 else 1200
         record_property('chain_plan_target', str(final_target))
+        record_property('chain_preparation_budget_seconds', str(preparation_budget))
         for target in (0, final_target):
             while seeded < target:
-                assert time.monotonic() - started_experiment < 420, 'Finite preparation budget exhausted'
+                if time.monotonic() - started_experiment >= preparation_budget:
+                    record_property('chain_seed_budget_failure', json.dumps({
+                        'seeded_batches': seeded, 'head_count': events(), 'target': final_target,
+                    }))
+                    raise AssertionError('Finite preparation budget exhausted')
                 post()
                 seeded += 1
                 if seeded % 8 == 0:
-                    Path('/tmp/capacity-chain-plan-progress.json').write_text(json.dumps({
+                    checkpoint = {
                         'seeded_batches': seeded, 'target': final_target,
                         'head_count': events(),
                         'elapsed_seconds': time.monotonic() - started_experiment,
-                        'preparation_budget_seconds': 420,
-                    }))
+                        'preparation_budget_seconds': preparation_budget,
+                    }
+                    Path('/tmp/capacity-chain-plan-progress.json').write_text(json.dumps(checkpoint))
+                    record_property('chain_seed_checkpoint', json.dumps(checkpoint))
             before = events()
             # Independent restricted LOGIN, not SET ROLE on an owner connection.
             # Close this child before role/credential cleanup and next HTTP write.

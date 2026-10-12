@@ -174,3 +174,17 @@ TIMING OFF/ON y SERIALIZE TEXT. No p95 HTTP ni CPU pura de PostgreSQL.
 46 tests rápidos PASS/1.36s, Ruff de los cambios PASS. Sources se congelarán
 antes de ejecutar; registrar resultado/fallo, SHA, versiones y limpieza real.
 No atribuir diferencias del portátil a código ni declarar N3/global.
+
+
+Corrección de adaptación, posterior al primer terminal SQL:
+431149c / 20261012-111350-eba253e3 ERROR:1FAIL532.004s, agotado tope
+420s de siembra. Plan temprano36eventos completo, rol exclusivo0otros activos,
+fuentes1415 idénticas, archivos y cleanup auditados; RAMupper1498865664bytes.
+No plan tardío ni aceptación. El límite420 era de la prueba original64lotes;
+se aplicó indebidamente al nuevo tamaño304(4.75veces). Fallo conservado.
+La variante64 retiene420s; la explícita304 tendrá1200s finitos para preparación,
+dentro del tope9000 del runner. No cambia15s por sentencia/90s por hijo,
+CPU8/RAM8GiB/storage20GiB ni SLO2s/5s. No cambio de aplicación/performance.
+Checkpoints de siembra se registrarán también en JUnit para conservar el último
+estado en cualquier fallo. Ésta es una corrección del instrumento, no una
+reescritura SQL especulativa ni una medida de mejor rendimiento.
