@@ -38,3 +38,14 @@ Probe075605-d6e2ac5:1PASS50.115s, realPGreconnect+HTTP200MemrayCOMPLETE,
 fuentes1414+cleanup auditado; launcherexit1por nuevoestado no añadido a lista
 deexitcorrectos. Rootcorrige interfaz, preservafallo, repetiráprobe antesdiagnose.
 Evidencia docs/evidencias/mod08-vps-memray-http-20261012.md/.json.
+
+9b149cb probe080135 PASS49.641s+launcher0+independientepropsvalidado.
+Diagnose080436 falla resumen2M; se conserva traza completa15MB, abortoSIGINT
+pytestpropio, teardown/archivo/cleanup y fuentesauditadas; ERROR1FAIL477.734s.
+Replayoffline cap1CPU512MiB0swap produce estadísticas completas ystacksgrandes.
+No earlylateperfilcompleto: lateausente. Evidencia versionada cobertura-temprana.
+Agente3er encargoreadonly reporta fuentecompartidacorrecta, no89Kmodelos/fallback.
+Sin otras invocacionesClaude o cambios a consumoprevio.
+Próximo: probar reducción pura decopias/materialización o instrumentoCPU
+preciso seguro. No aumentar cap2M automáticamente ni repetir ciegamente.
+Fullmeasurelimpio trascorrección comprobada yglobal/N3 siguenpendientes.

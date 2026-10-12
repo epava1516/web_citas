@@ -1071,3 +1071,9 @@ Scalene/Memray acotados por separado detectan copias evitables del codec;
 [corrección y evidencia limitada](evidencias/mod08-vps-professional-codec-20261012.md).
 Memray sobre coberturaHTTP real en preparación aislada; sin nueva aceptación
 HTTP/global/N3. Pendiente integración real y medida sin instrumentos trascorrección.
+
+Memray HTTP real: probe finalPASS49.641s, diagnóstico posteriorERROR por2M
+registrosenresumenonline; traza tempranacompleta recuperada yreplayofflinepropio
+produce1.906GBasignaciones/176.9MBpico, rutaimágenes939.5MB ycanonical318.7MB.
+[Receipts, límites ycorreccionesdeinterpretación](evidencias/mod08-vps-memray-cobertura-temprana-20261012.md).
+No nueva métricap95 ni reducciónHTTP atribuida alcodec; objetivo sigueactivo.

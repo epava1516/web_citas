@@ -37,3 +37,9 @@ Fuentes1414intactas y cleanup real auditado; memoria1116663808bytes<6GiB,
 sin fallos del archivo. La lista se corrige conservando el resultado histórico.
 Repetición de sonda tras corrección pendiente; sólo luego diagnoseMemray separado
 para dos capturas cobertura temprana/tardía. No cadena de ensayos de rendimiento.
+
+Repetición correctiva20261012-080135-d933f15c pasa1test49.641s, launcher0,
+fuentes1414/cleanup auditados. Validación independiente detecta timings.records=[]
+aunque el diccionario contiene metadatos de esquema; primer assert auxiliar se
+corrigió para verificar muestras reales, sin perfilar HTTP.
+[Diagnóstico posterior y fallo de resumen](mod08-vps-memray-cobertura-temprana-20261012.md).
