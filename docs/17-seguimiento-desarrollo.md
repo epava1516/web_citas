@@ -1,5 +1,15 @@
 # Seguimiento de ejecución del contrato
 
+**CR09 instrumentos corregidos, selección terminal:**
+`20261012-232218-aacfe209`, fuente `87f4854`, 8 PASS/0 FAIL/1 SKIP,
+1638,081 s. Los cinco consumidores HTTP de clones pasan su ejecución y limpieza;
+también limpieza sin terminar clientes, restauración diagnóstica exacta y carga
+HTTP funcional. El omitido es preflight de objetos fuera de su modo exclusivo:
+no acredita su puerta positiva. Fuentes iguales, temporales y contenedores propios
+retirados; sin OOM. [Recibo](evidencias/cr09-instrumentos-correctiva-20261012.json).
+Se integran instrumentos; no aplicación, nueva métrica de contrato ni cierre
+CR09/N3. Siguiente: reproducción dirigida del ciclo de bloqueos de publicación.
+
 **CR09 correctiva de calendario verificada e integrada:** selección propia
 `20261012-230717-78086016`, fuente `8ae5580`, 29 PASS/0 FAIL/0 SKIP,
 439,898 s. Recuperación del calendario seguida de toda la selección de estado

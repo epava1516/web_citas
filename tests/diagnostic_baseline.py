@@ -10,6 +10,7 @@ import tempfile
 from contextlib import contextmanager
 from copy import deepcopy
 from datetime import datetime
+from importlib import import_module
 from pathlib import Path
 from secrets import token_urlsafe
 from uuid import uuid4
@@ -34,6 +35,28 @@ from apps.safety.rights_portability_coverage_use import consume_approved_coverag
 
 ROOT = Path(__file__).resolve().parents[1]
 FORMAT = 'mod08-approved-diagnostic-v1'
+
+
+def _publication_copy_triggers(cursor):
+    """Attest only the publication INSERT markers installed by the migration."""
+    dependencies = import_module('apps.listings.migrations.0015_publication_state').DEPENDENCIES
+    expected = {(table, f'lpd_{table}_i'): f'lpd_{table}' for table in dependencies}
+    cursor.execute(
+        "SELECT c.relname,t.tgname,t.tgenabled,p.proname,"
+        "p.pronamespace='public'::regnamespace FROM pg_trigger t "
+        "JOIN pg_class c ON c.oid=t.tgrelid JOIN pg_proc p ON p.oid=t.tgfoid "
+        "WHERE c.relnamespace='public'::regnamespace AND NOT t.tgisinternal "
+        "AND t.tgname=ANY(%s) ORDER BY c.relname,t.tgname",
+        [[name for _, name in expected]],
+    )
+    rows = cursor.fetchall()
+    if (
+        {(table, name) for table, name, *_ in rows} != set(expected)
+        or any(function != expected[(table, name)] or not public or state not in 'ODRA'
+               for table, name, state, function, public in rows)
+    ):
+        raise ValueError('Diagnostic publication INSERT trigger inventory differs')
+    return [(table, name, state) for table, name, state, *_ in rows]
 
 
 def codec():
@@ -258,6 +281,10 @@ def _restore(source_file, key_file):
                     with _native(config, scratch) as copied:
                         with copied.cursor() as cursor:
                             tables = manifest['tables']
+                            publication_triggers = _publication_copy_triggers(cursor)
+                            for table, name, _ in publication_triggers:
+                                cursor.execute(sql.SQL('ALTER TABLE public.{} DISABLE TRIGGER {}').format(
+                                    sql.Identifier(table), sql.Identifier(name)))
                             cursor.execute(sql.SQL('TRUNCATE {} RESTART IDENTITY CASCADE').format(sql.SQL(',').join(sql.Identifier('public', table) for table in tables)))
                             cursor.execute('SET CONSTRAINTS ALL DEFERRED')
                             for table in TABLES:
@@ -276,6 +303,13 @@ def _restore(source_file, key_file):
                             cursor.execute('SET CONSTRAINTS ALL IMMEDIATE')
                             for table in TABLES:
                                 cursor.execute(sql.SQL('ALTER TABLE public.{} ENABLE TRIGGER rights_evidence_record').format(sql.Identifier(table)))
+                            trigger_modes = {'O': 'ENABLE', 'D': 'DISABLE',
+                                             'R': 'ENABLE REPLICA', 'A': 'ENABLE ALWAYS'}
+                            for table, name, state in publication_triggers:
+                                cursor.execute(sql.SQL('ALTER TABLE public.{} {} TRIGGER {}').format(
+                                    sql.Identifier(table), sql.SQL(trigger_modes[state]), sql.Identifier(name)))
+                            if _publication_copy_triggers(cursor) != publication_triggers:
+                                raise ValueError('Diagnostic publication trigger states were not restored')
                             # COPY does not restore PostgreSQL planner statistics.
                             for table in tables:
                                 cursor.execute(sql.SQL('ANALYZE public.{}').format(sql.Identifier(table)))

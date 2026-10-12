@@ -1,0 +1,293 @@
+{
+  "result": {
+    "id": "20261012-232218-aacfe209",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261012-232218-aacfe209",
+          "--label",
+          "web-modelos-local-ci-run=20261012-232218-aacfe209",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5277365632355213
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261012-232218-aacfe209",
+          "--label",
+          "web-modelos-local-ci-run=20261012-232218-aacfe209",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.475329349283129
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06679146038368344
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.36741144489496946
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.9202217739075422
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 4.783867589198053
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.8239276800304651
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-_cn8w34t/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-_cn8w34t/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-_cn8w34t/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.618048084434122
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_cr09_restore_fixture/artifacts/local-ci/20261012-232218-aacfe209/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_cr09_restore_fixture/artifacts/local-ci/20261012-232218-aacfe209/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-_cn8w34t/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_cr09_restore_fixture/artifacts/local-ci/20261012-232218-aacfe209/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_capacity_clone_cleanup.py",
+          "tests/test_diagnostic_baseline_pg.py",
+          "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[functional]",
+          "tests/test_capacity_object_preflight.py",
+          "tests/test_capacity_chain_inline_http.py",
+          "tests/test_capacity_paths_http.py",
+          "tests/test_capacity_revision_http.py",
+          "tests/test_capacity_scalar_consumers_http.py",
+          "tests/test_capacity_stability_http.py"
+        ],
+        "exit": 0,
+        "seconds": 1640.8798468522727
+      }
+    ],
+    "head": "87f4854bedc7eb26aa01be619f647c14d34883ee",
+    "excluded": [],
+    "selection": [
+      "tests/test_capacity_clone_cleanup.py",
+      "tests/test_diagnostic_baseline_pg.py",
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[functional]",
+      "tests/test_capacity_object_preflight.py",
+      "tests/test_capacity_chain_inline_http.py",
+      "tests/test_capacity_paths_http.py",
+      "tests/test_capacity_revision_http.py",
+      "tests/test_capacity_scalar_consumers_http.py",
+      "tests/test_capacity_stability_http.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261012-232218-aacfe209": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261012-232218-aacfe209": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "1",
+        "tests": "9",
+        "time": "1638.081",
+        "timestamp": "2026-10-13T01:22:40.679607+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": [
+      {
+        "case": "test_owned_object_proxy_and_purge_worker_gate",
+        "reason": "Requires owned capacity runner preflight mode"
+      }
+    ]
+  },
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "1",
+    "tests": "9",
+    "time": "1638.081",
+    "timestamp": "2026-10-13T01:22:40.679607+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "host_limits": {
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/web-modelos-cr09-instruments-prepared-20261012.service",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory.max": "3758096384",
+    "memory.swap.max": "0",
+    "pids.max": "512",
+    "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "terminal_memory_peak": "1577308160"
+  },
+  "container_receipts": [
+    {
+      "name": "web-modelos-ci-pg-20261012-232218-aacfe209",
+      "state": {
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 3254794,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-12T23:22:18.604408162Z",
+        "FinishedAt": "0001-01-01T00:00:00Z"
+      },
+      "memory": 1610612736,
+      "swap": 1610612736,
+      "cpus": 1000000000
+    },
+    {
+      "name": "web-modelos-ci-redis-20261012-232218-aacfe209",
+      "state": {
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 3255250,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-12T23:22:20.6153808Z",
+        "FinishedAt": "0001-01-01T00:00:00Z"
+      },
+      "memory": 134217728,
+      "swap": 134217728,
+      "cpus": 200000000
+    }
+  ],
+  "kernel": {
+    "binary_sha256": "d6af1f66ef10e6c59fd112e4fc42f46124780e44b6925a31b3ccd4b056f02ffb",
+    "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "cache_tag": "cpython-312",
+    "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.15",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  },
+  "temporary_absent": true,
+  "scope": "Eight tests passed. Owned-object preflight skipped because this is not capacity preflight mode; no claim of positive preflight verification or CR09/N3 acceptance. Clone consumers are diagnostics, not contract p95."
+}

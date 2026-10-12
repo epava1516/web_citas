@@ -86,6 +86,16 @@ def test_actual_original_approval_roundtrip_and_config_rejection(request, settin
     key.write_bytes(os.urandom(32))
     key.chmod(0o600)
     encrypted = tmp_path / 'baseline.bin'
+    # Eager refresh may have consumed every marker. Deliberately include dirty
+    # state in this synthetic capture to exercise exact restoration of markers.
+    from apps.listings.publication_state import mark_all
+
+    mark_all()
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT listing_id,generation,marked_at FROM listings_publicationdirty ORDER BY listing_id')
+        publication_before = cursor.fetchall()
+        publication_trigger_states = baseline._publication_copy_triggers(cursor)
+    assert publication_before
     baseline.capture(descriptor, encrypted, key)
     # The same indexed encrypted artifact format is consumed by the controller.
     archive = tmp_path / 'artifacts.tar'
@@ -113,6 +123,9 @@ def test_actual_original_approval_roundtrip_and_config_rejection(request, settin
     with connection.cursor() as cursor:
         cursor.execute('SELECT current_user,session_user')
         assert cursor.fetchone() == ('ci', 'ci')
+        cursor.execute('SELECT listing_id,generation,marked_at FROM listings_publicationdirty ORDER BY listing_id')
+        assert cursor.fetchall() == publication_before
+        assert baseline._publication_copy_triggers(cursor) == publication_trigger_states
         # Restored evidence inserts are enforced and native FK triggers were
         # never disabled to evade deferred-event checks during COPY.
         cursor.execute("SELECT count(*) FROM pg_trigger t JOIN pg_class c ON c.oid=t.tgrelid WHERE c.relname=ANY(%s) AND t.tgname='rights_evidence_record' AND t.tgenabled='O'", [list(baseline.TABLES)])

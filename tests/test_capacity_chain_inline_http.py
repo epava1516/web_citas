@@ -16,7 +16,7 @@ import pytest
 import test_rights_portability_export_races as fixtures
 from capacity_runtime_role import _owned_database, runtime_role_environment
 from capacity_target_fixture import PATHS, populate
-from directory_snapshot import _admin, _quiescent
+from directory_snapshot import SnapshotBusy, _admin, _quiescent
 from django.db import connection, transaction
 from psycopg import sql
 from test_reports import directory, photo_environment  # noqa: F401
@@ -87,6 +87,19 @@ def owned_server(settings, tmp_path):
 
 
 
+def await_clone_quiescent(cursor, target, *, timeout=5):
+    """Wait for owned clients' closed connections to disappear; never terminate them."""
+    deadline = time.monotonic() + timeout
+    while True:
+        try:
+            _quiescent(cursor, [target])
+            return
+        except SnapshotBusy:
+            if time.monotonic() >= deadline:
+                raise
+            time.sleep(min(0.05, max(0, deadline - time.monotonic())))
+
+
 @contextmanager
 def clone_server(settings, tmp_path, application="tests.capacity_chain_inline_wsgi:application", *, workers=2):
     name = 'inline_settings_' + uuid4().hex
@@ -150,7 +163,7 @@ def clone_server(settings, tmp_path, application="tests.capacity_chain_inline_ws
                     def release(target):
                         assert target in clones
                         with admin.cursor() as cursor:
-                            _quiescent(cursor, [target])
+                            await_clone_quiescent(cursor, target)
                             cursor.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(target)))
                         clones.remove(target)
                         allowlist.write_text(json.dumps(clones))
@@ -165,7 +178,7 @@ def clone_server(settings, tmp_path, application="tests.capacity_chain_inline_ws
                             process.wait(timeout=10)
                     with admin.cursor() as cursor:
                         for target in [*clones, template]:
-                            _quiescent(cursor, [target])
+                            await_clone_quiescent(cursor, target)
                             cursor.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(target)))
 
 

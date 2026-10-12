@@ -15,6 +15,7 @@ from capacity_async_preflight import prepare as prepare_async_probe
 from capacity_async_preflight import run as run_async_probe
 from capacity_delivery_http import open_client, post
 from capacity_gunicorn import server
+from django.conf import settings as runtime_settings
 from django.utils import timezone
 from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_exports import make_copy, prepared, url
@@ -24,7 +25,13 @@ from apps.safety.object_storage.factory import repository
 from apps.safety.rights_object_delivery import _signed_url
 from apps.safety.rights_object_models import RightsObjectDelivery
 
-pytestmark = pytest.mark.django_db(transaction=True)
+pytestmark = [
+    pytest.mark.django_db(transaction=True),
+    pytest.mark.skipif(
+        not getattr(runtime_settings, "CAPACITY_PREFLIGHT_ONLY", False),
+        reason="Requires owned capacity runner preflight mode",
+    ),
+]
 
 
 def test_owned_object_proxy_and_purge_worker_gate(request, settings, monkeypatch, record_property):
