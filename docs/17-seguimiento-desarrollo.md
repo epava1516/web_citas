@@ -60,6 +60,24 @@ Correctivas locales b23cde3/4354109: SQL textual seguro exclusivamente para las7
 
 Actualizado: 2026-10-09. Fuente contractual: [contrato16](16-contrato-ejecucion-desarrollo.md). Este documento mantiene el estado y la única cola de ejecución; evidencias y condiciones de cierre se enlazan desde él.
 
+
+### Consolidación CR09 reservada — 2026-10-12
+
+Siguiente acción concreta tras MOD-09: regresión funcional del árbol integrado,
+perfil `regression` del CI propio, PostgreSQL/Redis desechables, librdb fijado y
+2 workers. Se conservan sus cuatro exclusiones largas explícitas: este gate no
+es N3 y no mide rendimiento. Condición de salida: resultado terminal, selección,
+JUnit, skips/fallos, fuentes iguales y limpieza comprobada; resolver defectos
+reproducidos antes de la batería común pendiente. No sumar versiones distintas
+para aceptar CR09.
+
+Recursos del ensayo: host con afinidad CPU 0–3 y cgroup MemoryMax 4 GiB,
+MemorySwapMax 0, TasksMax 512; PG 1 CPU/512 MiB, Redis 0,2 CPU/128 MiB,
+swap deshabilitado en ambos. Adaptador instrumental aislado, sin modificar el
+runner oficial; límites comprobados antes de las pruebas. No toca servicios
+normales. Reutiliza los controles de carga ya aceptados en su alcance y la
+excepción MOD-09; no repite el escenario extremo por rutina.
+
 ## Estado vigente para reanudar
 
 **N1 correctiva3/4 reservada:** `claude/source-version` `5131d03`; archivos completos `test_rights_source_fingerprint.py` y `test_rights_validation_seal.py` (completitud/mutaciones25familias, misma transacción, fresh caller, orden, captura real, parámetros, expiración/configuración y resultado equivalente a validación completa). PG17/Redis7.4/nativos propios,2workers,timeout1800s,detached/fuentes congeladas. Reproducciones anteriores: dos defectos confirmados y un error JSONB incidental; repetición de snapshot tras soporteJSONB confirmó aceptación incorrecta. Corrección usa xmin+ctid, recarga caller ante drift y SHA256 de filas anotadas en el SELECT realmente consumido, con orden preservado/cursor equivalente; expiry y configuración viva, fallback ante inputs no soportados. Salida: todosPASS,0skips,huellas/cleanup; luego N2 conjunta sin afirmar capacidad.
