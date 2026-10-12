@@ -1134,3 +1134,13 @@ Misma estructura de planes por variante,0reads/spills traswarmup. NoHTTPnuevo,
 no aplicacióneditada ni restitución inline retirada. Próximo: sólo candidata
 con beneficioHTTPVPS demostrado o rediseño redundancia con garantías exactas.
 No extrapolar sumasmedianasonline ni atribuir portátil al código. N3pendiente.
+
+
+## Lectores SQL por conjunto autorizados, 2026-10-12
+
+Candidata preparada: migración0118/8helpers invoker/STABLE, productores v1 intactos,
+fresh hashes/8snapshots/bloqueos/guards conservados. 73PASS y29PASS; cinco fallos
+de topología de tests preservados y repetidos en adaptador CI oficial:6PASS,
+fuentes iguales/cleanup real. Sin nueva métricaHTTP ni aceptación todavía.
+[Evidencia, límites y fallos](evidencias/mod08-vps-lectores-conjunto-20261012.md).
+Próximo: preflight8→probe8→measure8 sin editar fuentes; sólo repetir si cumple.

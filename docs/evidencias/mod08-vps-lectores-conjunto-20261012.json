@@ -1,0 +1,111 @@
+{
+  "scope": "Functional gates for set readers; no new HTTP p95",
+  "runs": [
+    {
+      "id": "mod08-sql-bulk-validation-20261012-122328",
+      "head": "b33998adba9ffa277df3eec57cd7b71cefeaf19f",
+      "result": "COMPLETE_SQL_BULK_VALIDATION_NOT_HTTP",
+      "cleanup": {
+        "mod08-sql-bulk-validation-20261012-122328-app": true,
+        "mod08-sql-bulk-validation-20261012-122328-pg": true,
+        "mod08-sql-bulk-validation-20261012-122328-net": true
+      },
+      "sources_unchanged": null,
+      "host_children_maxrss_kib": null,
+      "receipt_sha256": "4cc844a237e466049894a4529632e04f711331cec4d1d1fc9e26d9a441ea35bf",
+      "instrument_sha256": "8e3914a4b67baea39abfc21c943169e82a0d9e19093e982f7f3c0ee9d6f8a86e",
+      "junit_sha256": "e9b14e1b2314c8afeefa3184debd785251d4e17810c81743239795be793702b5",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "73",
+          "time": "368.506",
+          "timestamp": "2026-10-12T14:23:33.320779+02:00",
+          "hostname": "b2a96eeb64d2"
+        }
+      ],
+      "failed_tests": []
+    },
+    {
+      "id": "mod08-sql-bulk-integration-20261012-123213",
+      "head": "b33998adba9ffa277df3eec57cd7b71cefeaf19f",
+      "result": "ERROR",
+      "cleanup": {
+        "mod08-sql-bulk-integration-20261012-123213-app": true,
+        "mod08-sql-bulk-integration-20261012-123213-pg": true,
+        "mod08-sql-bulk-integration-20261012-123213-net": true
+      },
+      "sources_unchanged": null,
+      "host_children_maxrss_kib": null,
+      "receipt_sha256": "7d89b68b6c598a4870d62f3a71ed8d0cdeacbea627f7150b1525c6c5a672bdfe",
+      "instrument_sha256": "c3dca968e60c990f56f58c43babe62e90d0049f0cd551a641ef59ce9ea8f8ae9",
+      "junit_sha256": "c482f9f9df6c82c21709346e40c1cdb7d362151a28c01353ecdb82027b5cb167",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "5",
+          "skipped": "0",
+          "tests": "34",
+          "time": "317.533",
+          "timestamp": "2026-10-12T14:32:18.171570+02:00",
+          "hostname": "1c27f787236d"
+        }
+      ],
+      "failed_tests": [
+        "test_complete_enforced_login_validation_creates_and_replays_seal",
+        "test_current_chain_append_declines_old_seal_and_fully_revalidates",
+        "test_current_tamper_acl_or_proof_expiry_cannot_use_enforced_seal[metadata_tamper]",
+        "test_current_tamper_acl_or_proof_expiry_cannot_use_enforced_seal[acl]",
+        "test_current_tamper_acl_or_proof_expiry_cannot_use_enforced_seal[proof_expiry]"
+      ]
+    },
+    {
+      "id": "20261012-124120-9fcf64f8",
+      "head": "b33998adba9ffa277df3eec57cd7b71cefeaf19f",
+      "result": "ERROR",
+      "cleanup": {
+        "web-modelos-ci-pg-20261012-124120-9fcf64f8": true
+      },
+      "sources_unchanged": true,
+      "host_children_maxrss_kib": null,
+      "receipt_sha256": "fbf04263a10daf3eccc3272a55f57259c59f1d66a140ef3ba4ccd877e556df04",
+      "instrument_sha256": "55d0620565439e85c087d2eaf022e3d6b5c0985937d7eb5f39e2ee4e702af9f7"
+    },
+    {
+      "id": "20261012-124328-d32cfcb2",
+      "head": "b33998adba9ffa277df3eec57cd7b71cefeaf19f",
+      "result": "REAL_LOGIN_SEAL_AND_SQL_CONTROLS_PASS_NOT_CAPACITY",
+      "cleanup": {
+        "web-modelos-ci-pg-20261012-124328-d32cfcb2": true
+      },
+      "sources_unchanged": true,
+      "host_children_maxrss_kib": 310364,
+      "receipt_sha256": "02651c277fa224c078bb047ea77d1d3d1062463fd2512604a3887f29790926d4",
+      "instrument_sha256": "ba973e9dfc3e867f7008ed37e5a0b45c6a60966198e592eff929c5aa0261124a",
+      "junit_sha256": "b49c18fb61dbc8f4c76d952dc5683ba09ddab90215da6d213b6116d6420f8e1b",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "6",
+          "time": "135.547",
+          "timestamp": "2026-10-12T14:43:32.771470+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "failed_tests": []
+    }
+  ],
+  "application_files_sha256": {
+    "apps/safety/evidence_chain.py": "b09f85f2d8e320825dc6a6a502a640f1e16d52ff4f4aaeb378448d55b8ec8f48",
+    "apps/safety/evidence_chain_bulk_sql_v1.py": "d8b7cf8d17ad397868b3eaa030626f37e617e00307d49c4fbeb67458c958bbb9",
+    "apps/safety/evidence_chain_sql_v1.py": "6e5035838d31a0e1be34388e630cfe4aec1a278698fa21769a5235a4b6115d20",
+    "apps/safety/migrations/0118_evidence_set_readers.py": "e7ef2657b163efcbf50091cf7515034707e98b8604ae327eafef2331b313ccd2"
+  }
+}

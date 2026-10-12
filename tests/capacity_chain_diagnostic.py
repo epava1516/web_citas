@@ -62,9 +62,11 @@ class Cursor:
     def execute(self, query, *args, **kwargs):
         text = str(query)
         self.stage = ('head' if 'rights_evidence_locked_head' in text else
-                      'events' if ('rights_evidence_link(request_id' in text or
+                      'events' if ('rights_evidence_events_v1' in text or
+                                   'rights_evidence_link(request_id' in text or
                                    'FROM public."safety_rightsevidenceevent"' in text) else
-                      'sources' if ('rights_evidence_row_hash(to_jsonb(s))' in text or
+                      'sources' if ('rights_evidence_source_' in text or
+                                    'rights_evidence_row_hash(to_jsonb(s))' in text or
                                     ('SELECT s.id::text,' in text and 'WHERE a.request_id=%s' in text))
                       else 'other')
         with self.collector.span(self.stage + '_execute'):

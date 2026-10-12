@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.db import connection, transaction
 from psycopg import sql
 
+from .evidence_chain_bulk_sql_v1 import EVENT_QUERY, SOURCE_FUNCTIONS
 from .evidence_chain_sql_v1 import EVENT, HEAD, TABLES, ZERO, backfill
 
 
@@ -205,11 +206,9 @@ def _runtime_is_trusted(cursor):
 
 def _source_statements(request):
     return [(
-        "SELECT s.id::text,public.rights_evidence_row_hash(to_jsonb(s)) "
-        f"FROM public.{connection.ops.quote_name(table)} s "
-        "JOIN public.safety_rightsaction a ON a.id=s.action_id WHERE a.request_id=%s",
+        f"SELECT row_id,row_digest FROM public.{function}(%s)",
         [request],
-    ) for table in TABLES]
+    ) for function in SOURCE_FUNCTIONS]
 
 
 def _source_rows_serial(statements):
@@ -273,14 +272,7 @@ def validate_chain(request, ticket=None, count=None):
             raise ValidationError("Evidence chain count changed")
         if ticket is not None and _runtime_is_trusted(cursor):
             return current
-        cursor.execute(
-            f'''SELECT sequence,kind,source_table,source_pk,payload_digest,
-            previous_digest,digest,created_at,
-            public.rights_evidence_link(request_id,sequence,kind,source_table,source_pk,
-                                      payload_digest,previous_digest,created_at)
-            FROM public."{EVENT}" WHERE request_id=%s ORDER BY sequence''',
-            [request],
-        )
+        cursor.execute(EVENT_QUERY, [request])
         events = cursor.fetchall()
         previous = ZERO
         rows = {}

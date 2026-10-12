@@ -202,7 +202,7 @@ def test_chain_plans_with_real_history(request, settings, monkeypatch, tmp_path,
             level['seeded_batches'] = seeded
             assert level['head_count'] == before and level['runtime_login_verified']
             assert len(level['queries']) == 8
-            assert all(query['inline_exact'] for query in level['queries'])
+            assert all(query['inline_exact'] and query['set_exact'] for query in level['queries'])
             levels.append(level)
             record_property('chain_explain_level', json.dumps(level))
     report = dict(levels=levels, seeded_batches=seeded, selected_bytes=selected_bytes,
@@ -211,9 +211,9 @@ def test_chain_plans_with_real_history(request, settings, monkeypatch, tmp_path,
                   limits=['New synthetic case, two sequential sizes, warm diagnostic plans only',
                           'Service-approved partial scalar coverage, no binary deliveries or exports',
                           'Runtime LOGIN; HTTP seed Gunicorn2 local; no Caddy/RustFS/contractual quotas',
-                          'TIMING OFF four rotated rounds; one timed native and one SERIALIZE TEXT native',
+                          'TIMING OFF five rotated rounds; one timed native and one SERIALIZE TEXT native',
                           'Projection/width changes may alter plans; shape equality explicitly reported',
-                          'Whole-row/jsonb/inline are test controls, never production validation shortcuts',
+                          'Scalar producer/whole-row/jsonb/inline are test controls; set_hash is the current reader, never production validation shortcuts',
                           'No manual ANALYZE, indexes or planner switches; statistics inventory retained',
                           'EXPLAIN does not send result rows or measure Python result adaptation/network'])
     record_property('chain_explain_report', json.dumps(report))

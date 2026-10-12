@@ -7,11 +7,12 @@ from time import perf_counter_ns
 
 UTC_FORMAT = 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"'
 EVENT_COLUMNS = 'sequence,kind,source_table,source_pk,payload_digest,previous_digest,digest,created_at'
-VARIANTS = ('native_hash', 'whole_row', 'jsonb_payload', 'inline_hash')
+VARIANTS = ('native_hash', 'whole_row', 'jsonb_payload', 'inline_hash', 'set_hash')
 
 
 def statements(case_id):
     from apps.safety.evidence_chain import _source_statements
+    from apps.safety.evidence_chain_bulk_sql_v1 import EVENT_QUERY
     from apps.safety.evidence_chain_sql_v1 import EVENT, TABLES
 
     payload = (
@@ -27,9 +28,11 @@ def statements(case_id):
         'whole_row': f'SELECT {EVENT_COLUMNS},NULL::text' + suffix,
         'jsonb_payload': f'SELECT {EVENT_COLUMNS},{payload}' + suffix,
         'inline_hash': f'SELECT {EVENT_COLUMNS},{inline}' + suffix,
+        'set_hash': EVENT_QUERY,
     })]
-    for table, (native, _) in zip(TABLES, _source_statements(case_id), strict=True):
-        suffix = native[native.index(' FROM '):]
+    for table, (current, _) in zip(TABLES, _source_statements(case_id), strict=True):
+        suffix = (f' FROM public."{table}" s JOIN public.safety_rightsaction a ON a.id=s.action_id '
+                  'WHERE a.request_id=%s')
         normalized = (
             "pg_catalog.jsonb_set(pg_catalog.to_jsonb(s),'{created_at}',"
             f"pg_catalog.to_jsonb(pg_catalog.to_char(s.created_at AT TIME ZONE 'UTC','{UTC_FORMAT}')))::text")
@@ -39,6 +42,7 @@ def statements(case_id):
             'whole_row': 'SELECT s.id::text,s' + suffix,
             'jsonb_payload': 'SELECT s.id::text,pg_catalog.to_jsonb(s)::text' + suffix,
             'inline_hash': f'SELECT s.id::text,{inline}' + suffix,
+            'set_hash': current,
         }))
     return queries
 
@@ -121,7 +125,11 @@ def run(case_id):
             inline = cursor.fetchall()
             assert (original == inline if name == 'events' else dict(original) == dict(inline))
             assert len(original) == len(inline)
-            value.update(rows=len(original), inline_exact=True)
+            cursor.execute(variants['set_hash'], [case_id])
+            current = cursor.fetchall()
+            assert (original == current if name == 'events' else dict(original) == dict(current))
+            assert len(original) == len(current)
+            value.update(rows=len(original), inline_exact=True, set_exact=True)
 
             def explain(statement, *, timing=False, serialize='NONE'):
                 prefix = ('EXPLAIN (ANALYZE,BUFFERS,VERBOSE,SETTINGS,FORMAT JSON,'
@@ -134,8 +142,8 @@ def run(case_id):
             # Warm each projection once. No manual ANALYZE/index/enable_* changes.
             for variant in VARIANTS:
                 explain(variants[variant])
-            # Four counterbalanced rounds, reducing node timer overhead uniformly.
-            for round_number in range(4):
+            # Five counterbalanced rounds, reducing node timer overhead uniformly.
+            for round_number in range(len(VARIANTS)):
                 order = VARIANTS[round_number:] + VARIANTS[:round_number]
                 for variant in order:
                     sample = explain(variants[variant])

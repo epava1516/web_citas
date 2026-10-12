@@ -26,30 +26,33 @@ _EVENT_LINK_SQL = (
 def candidate_functions():
     from apps.safety import evidence_chain as chain
 
-    replacements = {
-        'public.rights_evidence_row_hash(to_jsonb(s))': _SOURCE_HASH_SQL,
-        'public.rights_evidence_link(request_id,sequence,kind,source_table,source_pk,\n'
-        '                                      payload_digest,previous_digest,created_at)': _EVENT_LINK_SQL,
-    }
     class Inline(ast.NodeTransformer):
         def __init__(self):
             self.replaced = 0
 
-        def visit_Constant(self, node):
-            if isinstance(node.value, str):
-                for old, new in replacements.items():
-                    if old in node.value:
-                        node.value = node.value.replace(old, new)
-                        self.replaced += 1
+        def visit_Name(self, node):
+            if node.id == 'EVENT_QUERY':
+                from apps.safety.evidence_chain_sql_v1 import EVENT
+                self.replaced += 1
+                return ast.copy_location(ast.Constant(
+                    'SELECT sequence,kind,source_table,source_pk,payload_digest,'
+                    'previous_digest,digest,created_at,' + _EVENT_LINK_SQL +
+                    f' FROM public."{EVENT}" WHERE request_id=%s ORDER BY sequence'), node)
             return node
+
     namespace = vars(chain).copy()
-    for function in (chain._source_statements, chain.validate_chain.__wrapped__):
+    for function in (chain.validate_chain.__wrapped__,):
         tree = ast.parse(inspect.getsource(function))
         transform = Inline()
         transform.visit(tree)
         assert transform.replaced == 1, 'Original reader changed; review candidate explicitly'
         exec(compile(ast.fix_missing_locations(tree), '<test-only-inline-reader>', 'exec'), namespace)
-    return namespace['_source_statements'], namespace['validate_chain']
+    def source_statements(request):
+        from apps.safety.evidence_chain_sql_v1 import TABLES
+        return [(f'SELECT s.id::text,{_SOURCE_HASH_SQL} FROM public."{table}" s '
+                 'JOIN public.safety_rightsaction a ON a.id=s.action_id WHERE a.request_id=%s',
+                 [request]) for table in TABLES]
+    return source_statements, namespace['validate_chain']
 
 
 @contextmanager

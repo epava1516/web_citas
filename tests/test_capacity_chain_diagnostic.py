@@ -6,7 +6,9 @@ import pytest
 from tests.capacity_chain_diagnostic import Collector, Cursor, observed
 
 
-def test_cursor_forwards_and_reports_only_numeric_event_rows():
+@pytest.mark.parametrize('query', ['SELECT rights_evidence_link(request_id)',
+                                 'SELECT * FROM public.rights_evidence_events_v1(%s)'])
+def test_cursor_forwards_and_reports_only_numeric_event_rows(query):
     class Original:
         def __enter__(self):
             return self
@@ -22,7 +24,7 @@ def test_cursor_forwards_and_reports_only_numeric_event_rows():
 
     collector, original = Collector(), Original()
     with Cursor(original, collector) as cursor:
-        cursor.execute('SELECT rights_evidence_link(request_id)', ['synthetic'])
+        cursor.execute(query, ['synthetic'])
         assert cursor.fetchall() == [(1, 'private-digest'), (2, 'private-digest')]
     assert original.closed
     assert collector.event_rows == [2]

@@ -210,3 +210,12 @@ Investigación previa a cambios: helper SQL por conjunto en PostgreSQL propio,
 12equivalencias fecha/zona y UPDATE fresco PASS. Cleanup y SHA recibo verificados.
 Sin aplicacióneditada, sin aceptación. Diseño/gates/fuentes y evidencia:
 docs/evidencias/mod08-vps-hashes-conjunto-20261012.md.
+
+Usuario «procede»: integra candidata set SQL8helpers sin modificar productores;
+73PASS368.506s+29PASS317.533s;5FAILtopología genérica preservados, lanzamiento
+/timeausente antespytest preservado, repeticiónlogin6PASS135.547s ymanifestigual.
+Cleanup todasPASS. Mig0118, helpers STABLE/invoker, sourcehashfresh/7snapshots,
+EVENT separado, sealruleversionnuevo. Instrumentos reconocen nuevosfuncs,
+EXPLAIN set_hashactual+scalarcontrolhistórico/fiverounds. Evidencia:
+docs/evidencias/mod08-vps-lectores-conjunto-20261012.md. PendienteHTTP8 limpio;
+comparación incluirá codecprevio, no causalidad aislada ni N3.

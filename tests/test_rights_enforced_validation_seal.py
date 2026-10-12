@@ -22,6 +22,7 @@ from test_rights_validation_seal import check, generated
 
 from apps.safety import rights_object_content, rights_portability_export, rights_validation_seal
 from apps.safety.evidence_chain import _runtime_is_trusted, record_tombstone
+from apps.safety.evidence_chain_bulk_sql_v1 import SOURCE_FUNCTIONS
 from apps.safety.evidence_chain_sql_v1 import TABLES
 from apps.safety.models import RightsExportValidationSeal, RightsPortabilityCoverageRead
 
@@ -89,8 +90,8 @@ def warm(case, author, export, states, calls):
     state = states[0]
     assert state["supported"] is True
     assert len(state["statements"]) == len(state["digests"]) > len(TABLES)
-    for table in TABLES:
-        assert any(f'FROM public."{table}" s JOIN public.safety_rightsaction' in statement
+    for function in SOURCE_FUNCTIONS:
+        assert any(f'FROM public.{function}(' in statement
                    for statement, _ in state["statements"])
     seal = RightsExportValidationSeal.objects.get(export=export)
     assert len(seal.result_digests) == len(state["digests"])

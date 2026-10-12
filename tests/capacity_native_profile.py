@@ -38,6 +38,7 @@ def capture(stage):
                 WHERE s.dbid=(SELECT oid FROM pg_database WHERE datname=current_database())
                 AND s.userid<>(SELECT oid FROM pg_roles WHERE rolname=current_user)''')
             known = ('rights_evidence_row_hash', 'rights_evidence_link',
+                     'rights_evidence_source_', 'rights_evidence_events_v1',
                      'rights_evidence_locked_head', 'pg_roles', 'pg_class',
                      'pg_attribute', 'pg_trigger', 'pg_proc', 'listings_revision')
             # SQL is inspected only to emit these fixed code labels, never stored.
