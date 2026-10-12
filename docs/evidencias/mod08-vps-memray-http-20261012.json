@@ -1,0 +1,1348 @@
+{
+  "runs": [
+    {
+      "id": "20261012-074830-8ad5794e",
+      "sha": "84f1886ff326ae19d5843046735571cb716ea80b",
+      "controller_exit": 125,
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-capacity-20261012-074830-8ad5794e-controller": true,
+        "web-modelos-capacity-20261012-074830-8ad5794e-app": true,
+        "web-modelos-capacity-20261012-074830-8ad5794e-redis": true,
+        "web-modelos-capacity-20261012-074830-8ad5794e-pg": true,
+        "web-modelos-capacity-20261012-074830-8ad5794e-caddy": true,
+        "web-modelos-capacity-20261012-074830-8ad5794e-objects": true,
+        "web-modelos-capacity-20261012-074830-8ad5794e-delivery": true,
+        "web-modelos-capacity-20261012-074830-8ad5794e-net": true,
+        "no_labelled_resources": true
+      },
+      "result": "INVALID_CONTROLLER_NO_REPORT"
+    },
+    {
+      "id": "20261012-075119-58515115",
+      "sha": "84f1886ff326ae19d5843046735571cb716ea80b",
+      "controller_exit": 1,
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-capacity-20261012-075119-58515115-controller": true,
+        "web-modelos-capacity-20261012-075119-58515115-app": true,
+        "web-modelos-capacity-20261012-075119-58515115-redis": true,
+        "web-modelos-capacity-20261012-075119-58515115-pg": true,
+        "web-modelos-capacity-20261012-075119-58515115-caddy": true,
+        "web-modelos-capacity-20261012-075119-58515115-objects": true,
+        "web-modelos-capacity-20261012-075119-58515115-delivery": true,
+        "web-modelos-capacity-20261012-075119-58515115-net": true,
+        "no_labelled_resources": true
+      },
+      "result": "ERROR",
+      "error": "RuntimeError: Small control did not pass exactly one required test",
+      "images": {
+        "postgres:17-alpine": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+        "redis:7.4-alpine": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+        "web-modelos-app:latest": "sha256:ecb4b179802ddef908a86d0379dcb8022fbbf20756d35c2de7ee92be33c0d9b4",
+        "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+        "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526"
+      },
+      "source_manifest_sha256": "cd4ff7ea082180e2075a74659ba2266fa188899f09492b53ad76469016093320",
+      "memory_upper_bound_bytes": 783716352,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "41.251",
+          "timestamp": "2026-10-12T09:52:43.490392+02:00",
+          "hostname": "4d53cbfc6838"
+        }
+      ]
+    },
+    {
+      "id": "20261012-075605-67e9ac5d",
+      "sha": "d6e2ac5ecf466e2c8f45ac295d08e9d5b9403420",
+      "controller_exit": 1,
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-capacity-20261012-075605-67e9ac5d-controller": true,
+        "web-modelos-capacity-20261012-075605-67e9ac5d-app": true,
+        "web-modelos-capacity-20261012-075605-67e9ac5d-redis": true,
+        "web-modelos-capacity-20261012-075605-67e9ac5d-pg": true,
+        "web-modelos-capacity-20261012-075605-67e9ac5d-caddy": true,
+        "web-modelos-capacity-20261012-075605-67e9ac5d-objects": true,
+        "web-modelos-capacity-20261012-075605-67e9ac5d-delivery": true,
+        "web-modelos-capacity-20261012-075605-67e9ac5d-net": true,
+        "no_labelled_resources": true
+      },
+      "result": "PROFESSIONAL_INSTRUMENT_PROBE_NOT_CAPACITY",
+      "error": null,
+      "images": {
+        "postgres:17-alpine": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+        "redis:7.4-alpine": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+        "web-modelos-app:latest": "sha256:ecb4b179802ddef908a86d0379dcb8022fbbf20756d35c2de7ee92be33c0d9b4",
+        "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+        "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526"
+      },
+      "source_manifest_sha256": "0e7e4bc96edaa56d6c60251d9f77e1665242495478305c40ad8ed72d2f5b3555",
+      "memory_upper_bound_bytes": 1116663808,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "50.115",
+          "timestamp": "2026-10-12T09:57:25.596674+02:00",
+          "hostname": "e9ed2f22612b"
+        }
+      ],
+      "professional_probe_child": {
+        "exit_code": 0,
+        "reports": {
+          "capacity-professional-instrument_probe-96-3512494720326476.json": {
+            "acceptance_eligible": false,
+            "allocation_churn_top_frames": [
+              {
+                "bytes": 2283149,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_connection_base.py",
+                "function": "_connect_gen",
+                "line": 439
+              },
+              {
+                "bytes": 1065136,
+                "file": "<string>",
+                "function": "<module>",
+                "line": 17
+              },
+              {
+                "bytes": 297055,
+                "file": "<frozen importlib._bootstrap_external>",
+                "function": "_compile_bytecode",
+                "line": 757
+              },
+              {
+                "bytes": 261700,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+                "function": "_optimize_charset",
+                "line": 287
+              },
+              {
+                "bytes": 164288,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+                "function": "_optimize_charset",
+                "line": 375
+              },
+              {
+                "bytes": 159574,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/conninfo.py",
+                "function": "_parse_conninfo",
+                "line": 101
+              },
+              {
+                "bytes": 152040,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 30
+              },
+              {
+                "bytes": 151250,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/socket.py",
+                "function": "getaddrinfo",
+                "line": 978
+              },
+              {
+                "bytes": 131266,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+                "function": "_optimize_charset",
+                "line": 369
+              },
+              {
+                "bytes": 124590,
+                "file": "<frozen importlib._bootstrap_external>",
+                "function": "get_data",
+                "line": 1191
+              },
+              {
+                "bytes": 52179,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+                "function": "get_param_def",
+                "line": 103
+              },
+              {
+                "bytes": 33219,
+                "file": "<frozen importlib._bootstrap_external>",
+                "function": "_fill_cache",
+                "line": 1652
+              },
+              {
+                "bytes": 26736,
+                "file": "<string>",
+                "function": "<lambda>",
+                "line": 1
+              },
+              {
+                "bytes": 24884,
+                "file": "<frozen importlib._bootstrap_external>",
+                "function": "_path_join",
+                "line": 128
+              },
+              {
+                "bytes": 21832,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+                "function": "get_param_def",
+                "line": 105
+              },
+              {
+                "bytes": 16560,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+                "function": "_optimize_charset",
+                "line": 374
+              },
+              {
+                "bytes": 15976,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 439
+              },
+              {
+                "bytes": 11730,
+                "file": "<frozen importlib._bootstrap_external>",
+                "function": "find_spec",
+                "line": 1633
+              },
+              {
+                "bytes": 11634,
+                "file": "<frozen importlib._bootstrap_external>",
+                "function": "_path_stat",
+                "line": 147
+              },
+              {
+                "bytes": 10620,
+                "file": "<frozen importlib._bootstrap_external>",
+                "function": "get_data",
+                "line": 1190
+              },
+              {
+                "bytes": 10560,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+                "function": "_mk_bitmap",
+                "line": 393
+              },
+              {
+                "bytes": 9871,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+                "function": "get_param_def",
+                "line": 106
+              },
+              {
+                "bytes": 8864,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_cursor_base.py",
+                "function": "_maybe_prepare_gen",
+                "line": 312
+              },
+              {
+                "bytes": 8816,
+                "file": "<frozen importlib._bootstrap_external>",
+                "function": "find_spec",
+                "line": 1636
+              },
+              {
+                "bytes": 6917,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+                "function": "get_param_def",
+                "line": 107
+              },
+              {
+                "bytes": 5576,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 397
+              },
+              {
+                "bytes": 5488,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/conninfo.py",
+                "function": "_param_escape",
+                "line": 117
+              },
+              {
+                "bytes": 5128,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+                "function": "_optimize_charset",
+                "line": 381
+              },
+              {
+                "bytes": 4922,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/connection.py",
+                "function": "wait",
+                "line": 495
+              },
+              {
+                "bytes": 4896,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+                "function": "_bytes_to_codes",
+                "line": 401
+              }
+            ],
+            "allocation_records_scanned": 65625,
+            "capture_process_cpu_including_tracker_ns": 174220553,
+            "capture_wall_including_tracker_ns": 192633680,
+            "cpu_scope": "Whole current worker process CPU across marked request plus Tracker startup/flush, including its threads; intrusive, not a CPU attribution profiler.",
+            "errors": [],
+            "high_watermark_top_frames": [
+              {
+                "bytes": 1053896,
+                "file": "<string>",
+                "function": "<module>",
+                "line": 17
+              },
+              {
+                "bytes": 349400,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_connection_base.py",
+                "function": "_connect_gen",
+                "line": 439
+              },
+              {
+                "bytes": 113201,
+                "file": "<frozen importlib._bootstrap_external>",
+                "function": "_compile_bytecode",
+                "line": 757
+              },
+              {
+                "bytes": 36888,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 30
+              },
+              {
+                "bytes": 11536,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 439
+              },
+              {
+                "bytes": 7432,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+                "function": "get_param_def",
+                "line": 105
+              },
+              {
+                "bytes": 4624,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_adapters_map.py",
+                "function": "register_loader",
+                "line": 185
+              },
+              {
+                "bytes": 4400,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_adapters_map.py",
+                "function": "register_dumper",
+                "line": 150
+              },
+              {
+                "bytes": 3608,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_cursor_base.py",
+                "function": "_maybe_prepare_gen",
+                "line": 312
+              },
+              {
+                "bytes": 3209,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+                "function": "get_param_def",
+                "line": 103
+              },
+              {
+                "bytes": 3192,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 397
+              },
+              {
+                "bytes": 3128,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/encodings/idna.py",
+                "function": "<module>",
+                "line": 300
+              },
+              {
+                "bytes": 2832,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 25
+              },
+              {
+                "bytes": 2671,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+                "function": "get_param_def",
+                "line": 106
+              },
+              {
+                "bytes": 2324,
+                "file": "<frozen abc>",
+                "function": "__new__",
+                "line": 106
+              },
+              {
+                "bytes": 2252,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/encodings/idna.py",
+                "function": "<module>",
+                "line": 226
+              },
+              {
+                "bytes": 2200,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/encodings/idna.py",
+                "function": "<module>",
+                "line": 303
+              },
+              {
+                "bytes": 2092,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/encodings/idna.py",
+                "function": "<module>",
+                "line": 154
+              },
+              {
+                "bytes": 2092,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/encodings/idna.py",
+                "function": "<module>",
+                "line": 261
+              },
+              {
+                "bytes": 1932,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/connection.py",
+                "function": "wait",
+                "line": 495
+              },
+              {
+                "bytes": 1877,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+                "function": "get_param_def",
+                "line": 107
+              },
+              {
+                "bytes": 1520,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+                "function": "get_param_def",
+                "line": 110
+              },
+              {
+                "bytes": 1192,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 434
+              },
+              {
+                "bytes": 1112,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 429
+              },
+              {
+                "bytes": 936,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+                "function": "compile",
+                "line": 766
+              },
+              {
+                "bytes": 928,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 398
+              },
+              {
+                "bytes": 912,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_adapters_map.py",
+                "function": "__init__",
+                "line": 91
+              },
+              {
+                "bytes": 888,
+                "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+                "function": "<module>",
+                "line": 424
+              },
+              {
+                "bytes": 760,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_preparing.py",
+                "function": "__init__",
+                "line": 52
+              },
+              {
+                "bytes": 760,
+                "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_connection_base.py",
+                "function": "__init__",
+                "line": 118
+              }
+            ],
+            "instrument": {
+              "application_imports": {
+                "cryptography": [
+                  "50.0.2",
+                  "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/cryptography/__init__.py"
+                ],
+                "numpy": [
+                  "2.5.3",
+                  "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/numpy/__init__.py"
+                ],
+                "orjson": [
+                  "3.13.0",
+                  "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/orjson/__init__.py"
+                ]
+              },
+              "memray": "1.20.0",
+              "python_executable": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python3",
+              "python_version": "3.12.15"
+            },
+            "native_traces": true,
+            "peak_memory_bytes": 1653489,
+            "pid": 96,
+            "positive_allocation_records": 36865,
+            "python_allocators": true,
+            "schema": "capacity-professional-v1",
+            "stage": "instrument_probe",
+            "status": "COMPLETE",
+            "summary_scope": "Positive allocation/reallocation requested bytes (churn, not net/live or CPU cost); high-watermark outstanding bytes separately.",
+            "total_allocations": 65625,
+            "total_positive_allocation_bytes": 5521407,
+            "trace_bytes": 161712,
+            "trace_max_bytes": 268435456
+          }
+        },
+        "stderr_bytes": 277,
+        "stderr_sha256": "009dad0e05fb83dd0f4155bc181703023f967a48ead9d95e556dee60382f9e91",
+        "memray_message_present": true
+      },
+      "professional_probe": {
+        "instrument_verified": true,
+        "http_hook_verified": true,
+        "report": {
+          "acceptance_eligible": false,
+          "allocation_churn_top_frames": [
+            {
+              "bytes": 2283149,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_connection_base.py",
+              "function": "_connect_gen",
+              "line": 439
+            },
+            {
+              "bytes": 1065136,
+              "file": "<string>",
+              "function": "<module>",
+              "line": 17
+            },
+            {
+              "bytes": 297055,
+              "file": "<frozen importlib._bootstrap_external>",
+              "function": "_compile_bytecode",
+              "line": 757
+            },
+            {
+              "bytes": 261700,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+              "function": "_optimize_charset",
+              "line": 287
+            },
+            {
+              "bytes": 164288,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+              "function": "_optimize_charset",
+              "line": 375
+            },
+            {
+              "bytes": 159574,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/conninfo.py",
+              "function": "_parse_conninfo",
+              "line": 101
+            },
+            {
+              "bytes": 152040,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 30
+            },
+            {
+              "bytes": 151250,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/socket.py",
+              "function": "getaddrinfo",
+              "line": 978
+            },
+            {
+              "bytes": 131266,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+              "function": "_optimize_charset",
+              "line": 369
+            },
+            {
+              "bytes": 124590,
+              "file": "<frozen importlib._bootstrap_external>",
+              "function": "get_data",
+              "line": 1191
+            },
+            {
+              "bytes": 52179,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+              "function": "get_param_def",
+              "line": 103
+            },
+            {
+              "bytes": 33219,
+              "file": "<frozen importlib._bootstrap_external>",
+              "function": "_fill_cache",
+              "line": 1652
+            },
+            {
+              "bytes": 26736,
+              "file": "<string>",
+              "function": "<lambda>",
+              "line": 1
+            },
+            {
+              "bytes": 24884,
+              "file": "<frozen importlib._bootstrap_external>",
+              "function": "_path_join",
+              "line": 128
+            },
+            {
+              "bytes": 21832,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+              "function": "get_param_def",
+              "line": 105
+            },
+            {
+              "bytes": 16560,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+              "function": "_optimize_charset",
+              "line": 374
+            },
+            {
+              "bytes": 15976,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 439
+            },
+            {
+              "bytes": 11730,
+              "file": "<frozen importlib._bootstrap_external>",
+              "function": "find_spec",
+              "line": 1633
+            },
+            {
+              "bytes": 11634,
+              "file": "<frozen importlib._bootstrap_external>",
+              "function": "_path_stat",
+              "line": 147
+            },
+            {
+              "bytes": 10620,
+              "file": "<frozen importlib._bootstrap_external>",
+              "function": "get_data",
+              "line": 1190
+            },
+            {
+              "bytes": 10560,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+              "function": "_mk_bitmap",
+              "line": 393
+            },
+            {
+              "bytes": 9871,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+              "function": "get_param_def",
+              "line": 106
+            },
+            {
+              "bytes": 8864,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_cursor_base.py",
+              "function": "_maybe_prepare_gen",
+              "line": 312
+            },
+            {
+              "bytes": 8816,
+              "file": "<frozen importlib._bootstrap_external>",
+              "function": "find_spec",
+              "line": 1636
+            },
+            {
+              "bytes": 6917,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+              "function": "get_param_def",
+              "line": 107
+            },
+            {
+              "bytes": 5576,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 397
+            },
+            {
+              "bytes": 5488,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/conninfo.py",
+              "function": "_param_escape",
+              "line": 117
+            },
+            {
+              "bytes": 5128,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+              "function": "_optimize_charset",
+              "line": 381
+            },
+            {
+              "bytes": 4922,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/connection.py",
+              "function": "wait",
+              "line": 495
+            },
+            {
+              "bytes": 4896,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+              "function": "_bytes_to_codes",
+              "line": 401
+            }
+          ],
+          "allocation_records_scanned": 65625,
+          "capture_process_cpu_including_tracker_ns": 174220553,
+          "capture_wall_including_tracker_ns": 192633680,
+          "cpu_scope": "Whole current worker process CPU across marked request plus Tracker startup/flush, including its threads; intrusive, not a CPU attribution profiler.",
+          "errors": [],
+          "high_watermark_top_frames": [
+            {
+              "bytes": 1053896,
+              "file": "<string>",
+              "function": "<module>",
+              "line": 17
+            },
+            {
+              "bytes": 349400,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_connection_base.py",
+              "function": "_connect_gen",
+              "line": 439
+            },
+            {
+              "bytes": 113201,
+              "file": "<frozen importlib._bootstrap_external>",
+              "function": "_compile_bytecode",
+              "line": 757
+            },
+            {
+              "bytes": 36888,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 30
+            },
+            {
+              "bytes": 11536,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 439
+            },
+            {
+              "bytes": 7432,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+              "function": "get_param_def",
+              "line": 105
+            },
+            {
+              "bytes": 4624,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_adapters_map.py",
+              "function": "register_loader",
+              "line": 185
+            },
+            {
+              "bytes": 4400,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_adapters_map.py",
+              "function": "register_dumper",
+              "line": 150
+            },
+            {
+              "bytes": 3608,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_cursor_base.py",
+              "function": "_maybe_prepare_gen",
+              "line": 312
+            },
+            {
+              "bytes": 3209,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+              "function": "get_param_def",
+              "line": 103
+            },
+            {
+              "bytes": 3192,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 397
+            },
+            {
+              "bytes": 3128,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/encodings/idna.py",
+              "function": "<module>",
+              "line": 300
+            },
+            {
+              "bytes": 2832,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 25
+            },
+            {
+              "bytes": 2671,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+              "function": "get_param_def",
+              "line": 106
+            },
+            {
+              "bytes": 2324,
+              "file": "<frozen abc>",
+              "function": "__new__",
+              "line": 106
+            },
+            {
+              "bytes": 2252,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/encodings/idna.py",
+              "function": "<module>",
+              "line": 226
+            },
+            {
+              "bytes": 2200,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/encodings/idna.py",
+              "function": "<module>",
+              "line": 303
+            },
+            {
+              "bytes": 2092,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/encodings/idna.py",
+              "function": "<module>",
+              "line": 154
+            },
+            {
+              "bytes": 2092,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/encodings/idna.py",
+              "function": "<module>",
+              "line": 261
+            },
+            {
+              "bytes": 1932,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/connection.py",
+              "function": "wait",
+              "line": 495
+            },
+            {
+              "bytes": 1877,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+              "function": "get_param_def",
+              "line": 107
+            },
+            {
+              "bytes": 1520,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_conninfo_utils.py",
+              "function": "get_param_def",
+              "line": 110
+            },
+            {
+              "bytes": 1192,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 434
+            },
+            {
+              "bytes": 1112,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 429
+            },
+            {
+              "bytes": 936,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/re/_compiler.py",
+              "function": "compile",
+              "line": 766
+            },
+            {
+              "bytes": 928,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 398
+            },
+            {
+              "bytes": 912,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_adapters_map.py",
+              "function": "__init__",
+              "line": 91
+            },
+            {
+              "bytes": 888,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/stringprep.py",
+              "function": "<module>",
+              "line": 424
+            },
+            {
+              "bytes": 760,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_preparing.py",
+              "function": "__init__",
+              "line": 52
+            },
+            {
+              "bytes": 760,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/psycopg/_connection_base.py",
+              "function": "__init__",
+              "line": 118
+            }
+          ],
+          "instrument": {
+            "application_imports": {
+              "cryptography": [
+                "50.0.2",
+                "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/cryptography/__init__.py"
+              ],
+              "numpy": [
+                "2.5.3",
+                "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/numpy/__init__.py"
+              ],
+              "orjson": [
+                "3.13.0",
+                "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/orjson/__init__.py"
+              ]
+            },
+            "memray": "1.20.0",
+            "python_executable": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python3",
+            "python_version": "3.12.15"
+          },
+          "native_traces": true,
+          "peak_memory_bytes": 1653489,
+          "pid": 96,
+          "positive_allocation_records": 36865,
+          "python_allocators": true,
+          "schema": "capacity-professional-v1",
+          "stage": "instrument_probe",
+          "status": "COMPLETE",
+          "summary_scope": "Positive allocation/reallocation requested bytes (churn, not net/live or CPU cost); high-watermark outstanding bytes separately.",
+          "total_allocations": 65625,
+          "total_positive_allocation_bytes": 5521407,
+          "trace_bytes": 161712,
+          "trace_max_bytes": 268435456
+        },
+        "http_report": {
+          "acceptance_eligible": false,
+          "allocation_churn_top_frames": [
+            {
+              "bytes": 65938,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "__call__",
+              "line": 129
+            },
+            {
+              "bytes": 34065,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/views.py",
+              "function": "health",
+              "line": 9
+            },
+            {
+              "bytes": 17589,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "__call__",
+              "line": 42
+            },
+            {
+              "bytes": 14600,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/views.py",
+              "function": "health",
+              "line": 10
+            },
+            {
+              "bytes": 13740,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/gunicorn/http/wsgi.py",
+              "function": "process_headers",
+              "line": 265
+            },
+            {
+              "bytes": 12940,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/gunicorn/http/wsgi.py",
+              "function": "process_headers",
+              "line": 259
+            },
+            {
+              "bytes": 11909,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/views.py",
+              "function": "health",
+              "line": 13
+            },
+            {
+              "bytes": 8019,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "process_view",
+              "line": 45
+            },
+            {
+              "bytes": 5760,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/asgiref/local.py",
+              "function": "__getattr__",
+              "line": 157
+            },
+            {
+              "bytes": 3592,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py",
+              "function": "helper",
+              "line": 301
+            },
+            {
+              "bytes": 3265,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/utils/datastructures.py",
+              "function": "__getitem__",
+              "line": 308
+            },
+            {
+              "bytes": 3112,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/gunicorn/util.py",
+              "function": "is_hoppish",
+              "line": 468
+            },
+            {
+              "bytes": 2655,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/gunicorn/http/wsgi.py",
+              "function": "process_headers",
+              "line": 270
+            },
+            {
+              "bytes": 2528,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "__call__",
+              "line": 10
+            },
+            {
+              "bytes": 2464,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py",
+              "function": "__init__",
+              "line": 105
+            },
+            {
+              "bytes": 2317,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/utils/functional.py",
+              "function": "__getattribute__",
+              "line": 280
+            },
+            {
+              "bytes": 2304,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/gunicorn/http/wsgi.py",
+              "function": "process_headers",
+              "line": 284
+            },
+            {
+              "bytes": 2272,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py",
+              "function": "__enter__",
+              "line": 137
+            },
+            {
+              "bytes": 2183,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/gunicorn/http/wsgi.py",
+              "function": "send_headers",
+              "line": 329
+            },
+            {
+              "bytes": 2080,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/gunicorn/http/wsgi.py",
+              "function": "process_headers",
+              "line": 269
+            },
+            {
+              "bytes": 1800,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/gunicorn/http/wsgi.py",
+              "function": "process_headers",
+              "line": 273
+            },
+            {
+              "bytes": 1760,
+              "file": "<frozen _collections_abc>",
+              "function": "__iter__",
+              "line": 894
+            },
+            {
+              "bytes": 1680,
+              "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py",
+              "function": "__exit__",
+              "line": 144
+            },
+            {
+              "bytes": 1646,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "__call__",
+              "line": 7
+            },
+            {
+              "bytes": 1598,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/signing.py",
+              "function": "__init__",
+              "line": 217
+            },
+            {
+              "bytes": 1584,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/asgiref/local.py",
+              "function": "__setattr__",
+              "line": 163
+            },
+            {
+              "bytes": 1537,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "__call__",
+              "line": 29
+            },
+            {
+              "bytes": 1452,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/gunicorn/http/wsgi.py",
+              "function": "send_headers",
+              "line": 327
+            },
+            {
+              "bytes": 1447,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "__call__",
+              "line": 11
+            },
+            {
+              "bytes": 1336,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/asgiref/local.py",
+              "function": "__setattr__",
+              "line": 66
+            }
+          ],
+          "allocation_records_scanned": 5565,
+          "capture_process_cpu_including_tracker_ns": 97520965,
+          "capture_wall_including_tracker_ns": 99724431,
+          "cpu_scope": "Whole current worker process CPU across marked request plus Tracker startup/flush, including its threads; intrusive, not a CPU attribution profiler.",
+          "errors": [],
+          "high_watermark_top_frames": [
+            {
+              "bytes": 6151,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "__call__",
+              "line": 129
+            },
+            {
+              "bytes": 5800,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/views.py",
+              "function": "health",
+              "line": 9
+            },
+            {
+              "bytes": 4145,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/views.py",
+              "function": "health",
+              "line": 10
+            },
+            {
+              "bytes": 3750,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/views.py",
+              "function": "health",
+              "line": 13
+            },
+            {
+              "bytes": 2719,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "__call__",
+              "line": 42
+            },
+            {
+              "bytes": 1096,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "process_view",
+              "line": 45
+            },
+            {
+              "bytes": 1000,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py",
+              "function": "inner",
+              "line": 55
+            },
+            {
+              "bytes": 784,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/contrib/messages/storage/fallback.py",
+              "function": "__init__",
+              "line": 17
+            },
+            {
+              "bytes": 624,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/utils/deprecation.py",
+              "function": "__call__",
+              "line": 120
+            },
+            {
+              "bytes": 456,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+              "function": "__call__",
+              "line": 6
+            },
+            {
+              "bytes": 376,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/handlers/wsgi.py",
+              "function": "__call__",
+              "line": 123
+            },
+            {
+              "bytes": 376,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/contrib/messages/storage/__init__.py",
+              "function": "default_storage",
+              "line": 12
+            },
+            {
+              "bytes": 376,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/signing.py",
+              "function": "get_cookie_signer",
+              "line": 135
+            },
+            {
+              "bytes": 312,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/asgiref/local.py",
+              "function": "__setattr__",
+              "line": 64
+            },
+            {
+              "bytes": 304,
+              "file": "/tmp/capacity_profile_wsgi.py",
+              "function": "application",
+              "line": 29
+            },
+            {
+              "bytes": 288,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/handlers/wsgi.py",
+              "function": "__call__",
+              "line": 124
+            },
+            {
+              "bytes": 280,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/handlers/base.py",
+              "function": "get_response",
+              "line": 140
+            },
+            {
+              "bytes": 232,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/asgiref/local.py",
+              "function": "__setattr__",
+              "line": 66
+            },
+            {
+              "bytes": 216,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/contrib/messages/storage/fallback.py",
+              "function": "__init__",
+              "line": 19
+            },
+            {
+              "bytes": 175,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/signing.py",
+              "function": "_cookie_signer_key",
+              "line": 106
+            },
+            {
+              "bytes": 144,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/handlers/wsgi.py",
+              "function": "__call__",
+              "line": 121
+            },
+            {
+              "bytes": 144,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/asgiref/local.py",
+              "function": "__setattr__",
+              "line": 163
+            },
+            {
+              "bytes": 144,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/dispatch/dispatcher.py",
+              "function": "send",
+              "line": 189
+            },
+            {
+              "bytes": 144,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/utils/deprecation.py",
+              "function": "__call__",
+              "line": 119
+            },
+            {
+              "bytes": 121,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/handlers/wsgi.py",
+              "function": "get_path_info",
+              "line": 151
+            },
+            {
+              "bytes": 120,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/handlers/wsgi.py",
+              "function": "__init__",
+              "line": 78
+            },
+            {
+              "bytes": 112,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/utils/module_loading.py",
+              "function": "import_string",
+              "line": 25
+            },
+            {
+              "bytes": 96,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/signing.py",
+              "function": "get_cookie_signer",
+              "line": 137
+            },
+            {
+              "bytes": 72,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/handlers/wsgi.py",
+              "function": "get_script_name",
+              "line": 162
+            },
+            {
+              "bytes": 72,
+              "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/core/handlers/wsgi.py",
+              "function": "get_script_name",
+              "line": 170
+            }
+          ],
+          "instrument": {
+            "application_imports": {
+              "cryptography": [
+                "50.0.2",
+                "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/cryptography/__init__.py"
+              ],
+              "numpy": [
+                "2.5.3",
+                "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/numpy/__init__.py"
+              ],
+              "orjson": [
+                "3.13.0",
+                "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/orjson/__init__.py"
+              ]
+            },
+            "memray": "1.20.0",
+            "python_executable": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python3",
+            "python_version": "3.12.15"
+          },
+          "native_traces": true,
+          "peak_memory_bytes": 33370,
+          "pid": 116,
+          "positive_allocation_records": 2915,
+          "python_allocators": true,
+          "schema": "capacity-professional-v1",
+          "stage": "instrument_http_probe",
+          "status": "COMPLETE",
+          "summary_scope": "Positive allocation/reallocation requested bytes (churn, not net/live or CPU cost); high-watermark outstanding bytes separately.",
+          "total_allocations": 5565,
+          "total_positive_allocation_bytes": 311395,
+          "trace_bytes": 70694,
+          "trace_max_bytes": 268435456
+        }
+      }
+    }
+  ],
+  "image_repreparation": {
+    "previous_latest": null,
+    "rebuilt_image": "sha256:ecb4b179802ddef908a86d0379dcb8022fbbf20756d35c2de7ee92be33c0d9b4",
+    "baseline_application_image": "sha256:fb009e0c5acd99dc012058bbe25db9e0df114960830710eaea8bb40b7c34f382",
+    "docker-rebuild-84f1886.log_bases": [
+      "FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1",
+      "FROM ghcr.io/astral-sh/uv:0.11.6@sha256:b1e699368d24c57cda93c338a57a8c5a119009ba809305cc8e86986d4a006754",
+      "FROM ghcr.io/astral-sh/uv:0.11.6@sha256:b1e699368d24c57cda93c338a57a8c5a119009ba809305cc8e86986d4a006754"
+    ],
+    "effective_images": {
+      "postgres:17-alpine": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+      "redis:7.4-alpine": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+      "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+      "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+      "web-modelos-app:latest": "sha256:ecb4b179802ddef908a86d0379dcb8022fbbf20756d35c2de7ee92be33c0d9b4"
+    },
+    "original_build_bases": [
+      "FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1",
+      "FROM ghcr.io/astral-sh/uv:0.11.6@sha256:b1e699368d24c57cda93c338a57a8c5a119009ba809305cc8e86986d4a006754"
+    ],
+    "same_base_image_digests": true
+  }
+}

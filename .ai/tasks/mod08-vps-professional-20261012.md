@@ -33,3 +33,8 @@ Probe075119 falla1test41.251s antesHTTP: hijo usa close_old_connections sin
 CONN_MAX_AGE=0, conserva backend. Instrucción nativa ya fuerza0; se corrige
 sólo hijo de sonda y registra resumen previo a assert para conservarfallos.
 Fuentes1414intactas+cleanupverificado ambos; noensayorendimiento niconclusiónapp.
+
+Probe075605-d6e2ac5:1PASS50.115s, realPGreconnect+HTTP200MemrayCOMPLETE,
+fuentes1414+cleanup auditado; launcherexit1por nuevoestado no añadido a lista
+deexitcorrectos. Rootcorrige interfaz, preservafallo, repetiráprobe antesdiagnose.
+Evidencia docs/evidencias/mod08-vps-memray-http-20261012.md/.json.
