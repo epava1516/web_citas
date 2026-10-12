@@ -56,3 +56,10 @@ PrimerprototypeCLI shutdown-15, siguienteworker143: corregidos PIDhijo ypreserva
 SIGTERM Gunicorn. Rootintegra6archivos + testASTcontext, CPUcompacto ydescendants
 observed, failfastdiagnóstico marcado. No appoptimización nueva.
 127testsPASS3.00s RuffPASS; congelar y ejecutar appPGprobe8CPU antesfullflow.
+
+Scalene realprobe252ed1a-085339 ERROR1FAIL43.114s; fuentes1414 ycleanup auditados.
+PGchildScaleneCLI passesCPUwindow/reconnect/appversions; Gunicornstartup fails
+No module named scalene because runtime_role_environment overwritesPYTHONPATH
+after instrumentsetup. RSSmissingassert secondaryfailure preservedfullguniLog.
+Rootmoves isolated appsite/tools append after roleenvupdate; no roleprivilege
+change, no appdependencyinstall. RepeatboundedHTTPprobe beforefullflow.

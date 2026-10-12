@@ -87,7 +87,6 @@ def server(settings, record_property):
     if scalene_mode:
         tools_site = str(Path(settings.CAPACITY_DIAGNOSTIC_TOOLS_VENV) / 'lib/python3.12/site-packages')
         app_site = str(Path(sys.prefix) / 'lib/python3.12/site-packages')
-        env['PYTHONPATH'] = env.get('PYTHONPATH', '') + ':' + app_site + ':' + tools_site
         Path('/tmp/capacity_scalene_launcher.py').write_text(
             "import runpy\nrunpy.run_module('gunicorn', run_name='__main__')\n")
         command = [sys.executable, '-m', 'scalene', 'run', '--cpu-only', '--off', '--profile-all',
@@ -103,6 +102,10 @@ def server(settings, record_property):
         if async_enabled:
             from capacity_runtime_role import runtime_role_environment
             env.update(stack.enter_context(runtime_role_environment()))
+        if scalene_mode:
+            # Runtime-role settings replace PYTHONPATH; append isolated tools
+            # after that replacement, retaining application package precedence.
+            env['PYTHONPATH'] = env.get('PYTHONPATH', '') + ':' + app_site + ':' + tools_site
         log = stack.enter_context(log_path.open('w'))
         process = subprocess.Popen(command, env=env, stdout=log, stderr=subprocess.STDOUT,
                                    start_new_session=True)
