@@ -1014,3 +1014,22 @@ Probe final PG/py-spy 20261012-003153-2f383fa9: 1 PASS 18,653 s y limpieza.
 sólo cable alternante, perfiles cambiaron pese a ajustes; causa no demostrada,
 energía no constante. No despliegue remoto ni nuevos cambios productivos.
 [Evidencia](evidencias/mod08-vps-preparacion-verificada-20261012.md).
+
+### MOD-08 — inicio del relevo VPS, 2026-10-12
+
+Reanudación expresa: servidor OpenStack, worktree aislado
+`codex/mod08-vps-server-20261012`, base c46d0e101e8f260493a53bd4617b54dd4f0171f5;
+checkout original con untracked preservado. Corrección sólo documental 72e6468
+para referencias a artefactos locales ignorados ausentes en el VPS. uv actualizado
+0.11.19→0.13.0 para instalar Python 3.12.15; sync frozen y herramientas con hashes
+instaladas en venv separado. Kernel reconstruido Cython3.0.12/GCC11.5, native-sealed
+SHA256 ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726.
+Ruff PASS, docs PASS, 109 tests rápidos PASS/5.27s. Preparación de imágenes antes
+de cargas; sin reiniciar servicios existentes. Secuencia autorizada y exclusiva:
+preflight→probe→measure; una repetición sólo si PASS. Ante fallo, conservarlo y
+diagnose separado según procedimiento, sin ensayos especulativos. Congelar fuentes
+hasta salida de cada comando. Recibos en artifacts/vps-measurements y
+artifacts/capacity-environment; exigir huellas, cero fallos/errores/skips, cuerpos
+completos, concurrencia y limpieza independiente. Límites 4CPU/8GiB/storage20GiB,
+p95 por caso navegación2s/JSON5s/binario5s. Entrega no acredita global/N3; energía
+variable del portátil impide atribuir diferencias al código. Resultados pendientes.
