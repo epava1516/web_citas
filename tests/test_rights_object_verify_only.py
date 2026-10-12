@@ -167,7 +167,8 @@ def test_real_rustfs_same_three_gets_and_body_close_without_plaintext_tempfile(
     try:
         assert repo.read(ref, Discard(), b"owned") == 9000
         old_gets = list(gets)
-        assert len(old_gets) == 3 and len(temps) == 2
+        # Fresh read stages plaintext only; verify stages neither kind of bytes.
+        assert len(old_gets) == 3 and len(temps) == 1
         gets.clear()
         temps.clear()
         assert repo.verify(ref, b"owned") == 9000

@@ -267,3 +267,11 @@ streaming prototipo sólo artifacts,16 contrastes nativecrypto+mock PASS. Sin
 servicios, integración, perfiles, HTTP, agentes ni cambios apps. Dos errores de
 preparación registrados. Evidencia compacta docs/evidencias/mod08-lectura-fresca-
 investigacion-20261012.{json,md}; no ahorro temporal/p95 inferido.
+
+Procede autorizado: API authenticated_plaintext compartida y read streaming final,
+sin reuso temprano ni alteración de garantías.108unit inicial PASS;184transport
+PASS1DBdeselected;25LOGIN/PG/RustFS/Caddy PASS314.783s1Celerydeselected,0error/skips.
+Fallos inicial selección interrumpida/103PASS1FAIL assertion2temps conservados;
+actualización a1temporal prevista, sin quitar negativas. Gate fuentes iguales,
+cleanupPGPASS/object-testsabsent. Ruff/docs/120instrument PASS. Evidencia versionada
+mod08-lectura-fresca-integrada-20261012.{json,md}. HTTP pendiente, no N3.

@@ -4,12 +4,12 @@ import hashlib
 import json
 import re
 import tempfile
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from uuid import uuid4
 
 from botocore.exceptions import ClientError
 
-from .codec import MAX_CHUNK, InvalidObject, decrypt, encrypt, rewrap, verify
+from .codec import MAX_CHUNK, InvalidObject, authenticated_plaintext, encrypt, rewrap, verify
 
 PREFIX = "wmblob1:"
 KEY = re.compile(r"^encrypted/v1/[0-9a-f]{32}$")
@@ -165,8 +165,36 @@ class ObjectRepository:
             body.close()
 
     def read(self, reference, target, context):
-        with self._verified_ciphertext(reference) as stored:
-            return decrypt(stored, target, self.ring, context)
+        """Fresh physical read; publish only after codec, digest and purge guards.
+
+        Stage only plaintext privately, retaining physical-error priority over
+        codec/scratch errors. Cancellation closes resources without retry/drain.
+        """
+        value = self.descriptor(reference)
+        if self._tombstone(value["key"]):
+            raise InvalidObject("Object irreversibly purged")
+        response = self.client.get_object(Bucket=self.bucket, Key=value["key"])
+        body = response["Body"]
+        try:
+            source = _HashedBodyReader(body, value)
+            with ExitStack() as resources:
+                codec_error = None
+                try:
+                    verified, total = resources.enter_context(
+                        authenticated_plaintext(source, self.ring, context)
+                    )
+                except Exception as error:
+                    codec_error = error
+                source.finish()
+                if self._tombstone(value["key"]):
+                    raise InvalidObject("Object purged during read")
+                if codec_error is not None:
+                    raise codec_error
+                while block := verified.read(MAX_CHUNK):
+                    target.write(block)
+                return total
+        finally:
+            body.close()
 
     def verify(self, reference, context):
         """Authenticate streaming, with physical failures preceding codec failures.

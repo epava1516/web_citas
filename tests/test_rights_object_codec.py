@@ -123,6 +123,22 @@ def test_size_limit_no_prefix_exposure(ring):
     assert not out.getvalue()
 
 
+def test_authenticated_plaintext_bounds_and_closes_private_stream(ring):
+    from apps.safety.object_storage.codec import authenticated_plaintext
+
+    with authenticated_plaintext(io.BytesIO(encoded(ring)), ring, b"export:1:subject:2",
+                                 max_bytes=600) as (stream, total):
+        assert total == 600
+        assert stream.read() == b"secret" * 100
+    assert stream.closed
+    entered = False
+    with pytest.raises(InvalidObject, match="Object exceeds size limit"):
+        with authenticated_plaintext(io.BytesIO(encoded(ring)), ring, b"export:1:subject:2",
+                                     max_bytes=599):
+            entered = True
+    assert not entered
+
+
 @pytest.mark.parametrize("damage", ["tag", "truncate", "append", "context", "key", "ceiling"])
 def test_rotation_rejects_invalid_object_before_output(ring, damage):
     value = encoded(ring)

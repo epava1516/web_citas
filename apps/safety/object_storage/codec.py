@@ -10,6 +10,7 @@ import json
 import os
 import struct
 import tempfile
+from contextlib import contextmanager
 from dataclasses import dataclass
 
 from cryptography.exceptions import InvalidTag
@@ -209,13 +210,24 @@ def _authenticate_frames(source, aes, digest, meta, prefix, max_bytes, verified)
     return total
 
 
-def decrypt(source, target, ring, context, *, max_bytes=MAX_BYTES):
+@contextmanager
+def authenticated_plaintext(source, ring, context, *, max_bytes=MAX_BYTES):
+    """Yield private staged plaintext only after complete codec authentication.
+
+    The repository can finish its physical digest/purge guards before copying
+    this stream to the caller. The stream never outlives this context.
+    """
     meta, dek, prefix = _header(source, ring, context)
     aes, digest = AESGCM(dek), hashlib.sha256()
     # Disk tempfile, no unbounded memory and no authenticated-prefix exposure.
     with tempfile.TemporaryFile() as verified:
         total = _authenticate_frames(source, aes, digest, meta, prefix, max_bytes, verified)
         verified.seek(0)
+        yield verified, total
+
+
+def decrypt(source, target, ring, context, *, max_bytes=MAX_BYTES):
+    with authenticated_plaintext(source, ring, context, max_bytes=max_bytes) as (verified, total):
         while block := verified.read(MAX_CHUNK):
             target.write(block)
     return total

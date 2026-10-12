@@ -1176,3 +1176,10 @@ para rotación sin salida ante fallo y almacenamiento temporal sólo cifrado.
 Ruff y documentación verificados. Este cambio de mantenimiento no tiene p95
 HTTP medido: las cifras publicadas siguen correspondiendo al SHA 388c991.
 Las demás candidatas de ROI permanecen propuestas; no se han retirado garantías.
+
+
+MOD08 lectura final streaming: integrada candidata de eliminación de staging
+cifrado, con 184 pruebas codec/transport y 25 de integración LOGIN/PG/RustFS/Caddy
+PASS. Conserva lectura fresca, guards y publicación posterior a integridad completa.
+[Diseño y evidencia funcional](evidencias/mod08-lectura-fresca-integrada-20261012.md).
+Pendiente ciclo HTTP limpio en SHA congelado; no inferir ahorro p95 ni N3.
