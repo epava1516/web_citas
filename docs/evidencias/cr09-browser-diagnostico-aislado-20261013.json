@@ -1,0 +1,54 @@
+{
+  "result": "PASS",
+  "head": "cb2d6f1bba9984b849eff8b7691c4ba8464f55e4",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "4",
+      "time": "78.582",
+      "timestamp": "2026-10-14T00:07:08.329266+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-220650-bf367167": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-220650-bf367167": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "run": "20261013-220650-bf367167",
+  "cases": [
+    {
+      "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[es]",
+      "outcome": "passed"
+    },
+    {
+      "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[en]",
+      "outcome": "passed"
+    },
+    {
+      "nodeid": "tests/test_promotion_localization.py::test_localized_synthetic_order_preserves_price_and_gates[es]",
+      "outcome": "passed"
+    },
+    {
+      "nodeid": "tests/test_promotion_localization.py::test_localized_synthetic_order_preserves_price_and_gates[en]",
+      "outcome": "passed"
+    }
+  ],
+  "raw_sha256": {
+    "result.json": "c4ff630dcedc1003c62455334f9a1a31087b266c2a02aa8ae391fbf601516f1d",
+    "pytest.xml": "b66a6a1956af196c9785ffc8774a08abb0aea3b3cb67ae6bc9ca0efe33af085d",
+    "pytest-reports.jsonl": "bc178ab958fdae36b7b223bfd17ba55e9af16134ca24347e3d3fd93ebc2593e2"
+  },
+  "scope": "Four instrumented isolated flows pass; original two regression reload failures not reproduced or resolved; no source correction to browser behavior applied."
+}

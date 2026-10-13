@@ -1,0 +1,29 @@
+{
+  "run": "20261013-163331-dc171861",
+  "source_sha": "5b803f675f6277a1daba92faa5c2b51455383ab5",
+  "skips": [
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_snapshot_restores_mutated_database_and_media",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0003376780077815056,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_directory_snapshot.py', 17, 'Skipped: Requires explicit disposable local CI fixture-snapshot environment')"
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_preexisting_test_setup_is_preserved_instead_of_restoring",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0002258019521832466,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_directory_snapshot.py', 90, 'Skipped: Requires explicit disposable local CI fixture-snapshot environment')"
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_occupied_database_falls_back_to_real_seed_without_terminating",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.00020882906392216682,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_directory_snapshot.py', 166, 'Skipped: Requires explicit disposable local CI fixture-snapshot environment')"
+    }
+  ],
+  "follow_up": "Focused test_directory_snapshot.py with --fixture-snapshots, own PostgreSQL, sequential after current run",
+  "scope": "Skips not PASS; snapshot restoration coverage pending explicit run"
+}

@@ -1400,3 +1400,12 @@ La regresión `20261013-000356-b8b57d5c` terminó por timeout de 21600 segundos:
 Correcciones integradas localmente: deduplicación de refrescos mediante callbacks pendientes tras rollback; dos fuentes adicionales en RULE_SOURCES; recuperación aplica el calendario vacío después de registrar todas las tareas; inventario incorpora explícitamente los cuatro modelos añadidos. La verificación aislada produjo 5 PASS (`20261013-060826-c3a6bf9b`) y 34 PASS (`20261013-060954-792ae594`). Preparada la imagen RustFS por su digest exacto, la rama integrada produjo 2 PASS reales (`20261013-061825-002a7f2d`) para corrupción y exportación/descarga/purga S3. Se conservan negativos y positivos en docs/evidencias.
 
 Pendiente: regresión completa sobre el SHA integrado y auditoría de criterios CR09; las selecciones anteriores no se suman para declarar una regresión global aprobada. Mantener límites y ejecutar secuencialmente; una partición determinista deberá cubrir toda la selección sin exclusiones nuevas y registrar cada resultado. CR10, GS01 y el resto del contrato siguen pendientes.
+
+
+### CR09 — regresión y correcciones finales, 2026-10-13
+
+Los cuatro bloques sobre 5b803f6 terminaron: 3217 casos distintos, 3199 PASS, 3 FAIL y 15 SKIP. Los negativos permanecen conservados; no constituyen aceptación. Los bloques 3 y 4 no registraron fallos.
+
+Integrada corrección 5a630c7: cierre natural de conexiones PostgreSQL con espera máxima de un segundo y rechazo de conexiones persistentes sin terminarlas; espera al resultado de formularios comerciales antes de recargar. Control real de cierre natural: FAIL previo conservado. Verificación aislada final sin observadores: 31 PASS, cero fallos/omisiones, fuentes intactas y limpieza confirmada. La causa exacta de los dos errores originales de navegador no se reprodujo; sincronización reforzada, pendiente verificar versión integrada y alcance común. No sumar versiones para N3.
+
+Pendientes: ejecución integrada, requisitos de omisiones/exclusiones y auditoría de CR09, después CR10, GS01, BF/BB y C. No hay nueva métrica p95 ni cambio de aceptación provisional MOD-09.

@@ -1,0 +1,45 @@
+{
+  "run": "20261013-184013-77f8db2d",
+  "source_sha": "5b803f675f6277a1daba92faa5c2b51455383ab5",
+  "result": "PASS",
+  "counts_distinct": {
+    "total": 853,
+    "passed": 847,
+    "failed": 0,
+    "skipped": 6
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "6",
+      "tests": "853",
+      "time": "6367.499",
+      "timestamp": "2026-10-13T20:40:32.670375+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-184013-77f8db2d": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-184013-77f8db2d": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "owned_label_inventory_after_terminal": [],
+  "raw_sha256": {
+    "result.json": "caadf2fd2208b5768d73240dbba4f8187e07ba5bbbfd1e1480c2add2211e398a",
+    "pytest.xml": "9c90abfa3007026e4957e601f26df462f161281ac1beec737e04f50ac97552b6",
+    "source-hashes.json": "8b7b3a5e354703c68d3aae6d0671d7391bb72312665c39a6e53db45d7c643885",
+    "pytest-reports.jsonl": "c847ef7e365d2f994939fc36927ae7b4ec4e8b058179648001e5cd3a9f1aa986",
+    "09-pytest.log": "31f5832d9fcdbb12c5341ac4e7488d102b74ca6e4912cea6f3fcc606d1890619"
+  },
+  "scope": "Partition 3 only; omissions are not PASS; no CR09 or N3 acceptance."
+}

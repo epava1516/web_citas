@@ -1,0 +1,98 @@
+{
+  "result": "PASS",
+  "head": "8f949e5a95f7593fda20348d8a292a4f12786f97",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "87.117",
+      "timestamp": "2026-10-14T00:00:03.114487+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-215943-825f5798": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-215943-825f5798": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "run": "20261013-215943-825f5798",
+  "observations": [
+    {
+      "samples": [
+        {
+          "elapsed_seconds": 0.0072903111577034,
+          "backends": []
+        }
+      ],
+      "result": "removed"
+    },
+    {
+      "samples": [
+        {
+          "elapsed_seconds": 0.007165682036429644,
+          "backends": []
+        }
+      ],
+      "result": "removed"
+    },
+    {
+      "samples": [
+        {
+          "elapsed_seconds": 0.006352882832288742,
+          "backends": []
+        }
+      ],
+      "result": "removed"
+    },
+    {
+      "samples": [
+        {
+          "elapsed_seconds": 0.00788654200732708,
+          "backends": [
+            [
+              148,
+              "idle"
+            ]
+          ]
+        }
+      ],
+      "result": "removed"
+    },
+    {
+      "samples": [
+        {
+          "elapsed_seconds": 0.004882026929408312,
+          "backends": []
+        }
+      ],
+      "result": "removed"
+    },
+    {
+      "samples": [
+        {
+          "elapsed_seconds": 0.004450506996363401,
+          "backends": [
+            [
+              208,
+              "idle"
+            ]
+          ]
+        }
+      ],
+      "result": "removed"
+    }
+  ],
+  "observations_sha256": "64cf8e441b8938c67b911c9ee08bf8e05c689cb8d88715b9c8715de4408ffcbe",
+  "limitation": "Initial observation adds one SQL query and can change race timing. Transient backends observed, original failure not reproduced; no root cause or acceptance claim."
+}

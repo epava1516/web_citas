@@ -1,0 +1,37 @@
+{
+  "run": "20261013-141746-8f8b65e8",
+  "source_sha": "5b803f675f6277a1daba92faa5c2b51455383ab5",
+  "skips": [
+    {
+      "nodeid": "tests/test_capacity_delivery_profile.py::test_owned_target_stage_profiles",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0003836648538708687,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_delivery_profile.py', 26, 'Skipped: Requires owned capacity runner diagnostic profile mode')"
+    },
+    {
+      "nodeid": "tests/test_capacity_object_preflight.py::test_owned_object_proxy_and_purge_worker_gate",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.00029708491638302803,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_object_preflight.py', 37, 'Skipped: Requires owned capacity runner preflight mode')"
+    },
+    {
+      "nodeid": "tests/test_worker_capacity_comparison.py::test_worker_capacity_comparison",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0002354229800403118,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_worker_capacity_comparison.py', 111, 'Skipped: Explicit authorized owned experiment only')"
+    }
+  ],
+  "scope": "Complete terminal inventory: 3 omitted cases, never credited as PASS; applicability and separate opt-in evidence must be reconciled before acceptance.",
+  "terminal_evidence": {
+    "junit_sha256": "1e08cdf9c76b926beaa47a6d647d47263a7cfc0ad870b3ca82cef679f8f391ad",
+    "journal_sha256": "0f707ac4ba59cd750c285fc70706898361a49e7ba8167f5c669e2a5d61ddc062"
+  },
+  "follow_up": {
+    "object_preflight": "Reconcile owned preflight evidence on the integrated version; if missing, run official preflight separately after live regression.",
+    "delivery_profile": "Diagnostic-only profiling, not performance acceptance; reconcile prior diagnostic evidence and necessity without chaining speculative experiments.",
+    "worker_comparison": "Explicit owned historical strategy experiment requiring WORKER_COMPARISON_OUTPUT and frozen-manifest.json; assess applicability to current contract before any repeat; no new speculative comparison authorized by omission alone."
+  }
+}

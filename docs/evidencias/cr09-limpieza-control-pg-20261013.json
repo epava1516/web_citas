@@ -1,0 +1,37 @@
+{
+  "result": "PASS",
+  "head": "06507604554062b0951125b8642e71212f24cc7a",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "39.362",
+      "timestamp": "2026-10-13T23:55:53.255793+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-215530-68ce57d4": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-215530-68ce57d4": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "run": "20261013-215530-68ce57d4",
+  "raw_sha256": {
+    "result.json": "717c65868cca3ee49ce01c2985fdbb2da4e8b3b696fc0c3ebc7628af1b04dcf6",
+    "pytest.xml": "334a6170d58475337ddfa4ab4a44c533f97b951b3b669843f36ce944a7aad6a5",
+    "pytest-reports.jsonl": "a967b75420ff88c87686788bd3fefea987347ca2cce13f9103098128adcbd8ca"
+  },
+  "finding": "Retained connection rejected without termination; same connection remained usable; naturally closed connection allowed verified database removal within diagnostic bound.",
+  "limitation": "This single control does not reproduce or establish the cause of the original restore failure. Timing observations were written to ephemeral pytest tmp_path; not retained as durable timing evidence."
+}

@@ -1,0 +1,83 @@
+{
+  "utc": "2026-10-13T14:18:02.327002+00:00",
+  "source_sha": "5b803f675f6277a1daba92faa5c2b51455383ab5",
+  "status": "All four partitions terminal; partitions 1 and 2 ERROR, partitions 3 and 4 PASS with omissions",
+  "unit": "web-modelos-cr09-final-part1-5b803f6.service",
+  "prior_regression": {
+    "source_sha": "b0d2af0aed0bb0a353b943b8e081d25aba472271",
+    "cases": 3209,
+    "passed": 3188,
+    "failed": 6,
+    "skipped": 15
+  },
+  "focused_correction_verification": "20261013-140532-3208000c: 65 PASS",
+  "negative_configuration_control": "20261013-141510-08231d85: 3 expected FAIL",
+  "remaining": [
+    "Final common-version regression coverage",
+    "Required opt-in omissions and excluded gates",
+    "Requirement-to-evidence audit CR09",
+    "CR10 GS01 BF BB C original scope"
+  ],
+  "scope": "No CR09/N3 acceptance; synthetic own infrastructure only; no concurrent test load",
+  "updated_utc": "2026-10-13T20:28:24.101498+00:00",
+  "partitions": [
+    {
+      "partition": 1,
+      "run": "20261013-141746-8f8b65e8",
+      "status": "ERROR",
+      "completed": 808,
+      "passed": 804,
+      "failed": 1,
+      "skipped": 3,
+      "receipt": "cr09-regresion-final-parte1-terminal-20261013.json"
+    },
+    {
+      "partition": 2,
+      "run": "20261013-163331-dc171861",
+      "status": "ERROR",
+      "completed": 684,
+      "passed": 679,
+      "failed": 2,
+      "skipped": 3,
+      "receipt": "cr09-regresion-final-parte2-terminal-20261013.json"
+    },
+    {
+      "partition": 3,
+      "run": "20261013-184013-77f8db2d",
+      "status": "PASS",
+      "completed": 853,
+      "passed": 847,
+      "failed": 0,
+      "skipped": 6,
+      "receipt": "cr09-regresion-final-parte3-terminal-20261013.json"
+    },
+    {
+      "partition": 4,
+      "run": "20261013-202751-cbf572f5",
+      "result": "PASS",
+      "counts_distinct": {
+        "total": 872,
+        "passed": 869,
+        "failed": 0,
+        "skipped": 3
+      },
+      "receipt": "cr09-regresion-final-parte4-terminal-20261013.json"
+    }
+  ],
+  "unresolved_failure": {
+    "nodeid": "tests/test_diagnostic_baseline_pg.py::test_actual_original_approval_roundtrip_and_config_rejection",
+    "status": "Preserved; static diagnosis and controlled verification plan only",
+    "receipt": "cr09-diagnostico-limpieza-borrador-20261013.json"
+  },
+  "additional_unresolved_failures": {
+    "run": "20261013-163331-dc171861",
+    "scope": "Two terminal negatives in partition 2; cause remains unproved",
+    "cases": [
+      "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[es]",
+      "tests/test_promotion_localization.py::test_localized_synthetic_order_preserves_price_and_gates[es]"
+    ],
+    "receipt": "cr09-regresion-final-parte2-negativo-parcial-20261013.json",
+    "diagnostic_draft": "cr09-catalogo-browser-diagnostico-borrador-20261013.json",
+    "status": "Preserved; no cause proved, source change or retry performed"
+  }
+}

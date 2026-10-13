@@ -1,0 +1,14 @@
+{
+  "run": "20261013-141746-8f8b65e8",
+  "source_sha": "5b803f675f6277a1daba92faa5c2b51455383ab5",
+  "failures": [
+    {
+      "nodeid": "tests/test_diagnostic_baseline_pg.py::test_actual_original_approval_roundtrip_and_config_rejection",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 46.5630549127236,
+      "longrepr": "tests/test_diagnostic_baseline_pg.py:256: in test_actual_original_approval_roundtrip_and_config_rejection\n    with pytest.raises(baseline.BaselineCleanupError, match='LOGIN cleanup failed'):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   AssertionError: Regex pattern did not match.\nE     Expected regex: 'LOGIN cleanup failed'\nE     Actual message: 'Diagnostic scratch occupied; no backends terminated'"
+    }
+  ],
+  "scope": "Observed negative; run remains active; diagnosis and correction pending; no acceptance"
+}

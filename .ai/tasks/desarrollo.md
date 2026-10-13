@@ -851,3 +851,6 @@ nuevas ni servicios contratados. Energía alternante confirmada, no comparación
 constante. Usuario autoriza ahora commit/push de todos los cambios pendientes,
 con fuentes/documentación/deliberaciones y resúmenes; secretos/artefactos ignorados
 siguen fuera del remoto. Consumo y trabajo previos conservados.
+
+
+2026-10-13: Codex conserva regresión terminal 5b803f6 (3217 casos, 3 fallos, 15 omisiones) e integra 5a630c7 tras 31 PASS aislados. Diagnósticos y negativos preservados en docs/evidencias; sin nuevas invocaciones Claude ni consumo externo declarado. Pendientes verificación integrada y criterios CR09→CR10→GS01→BF/BB→C.

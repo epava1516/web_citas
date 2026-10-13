@@ -1,0 +1,45 @@
+{
+  "result": "ERROR",
+  "head": "14ce98ddfdd123a731956e6ad674b3dae5bd28d7",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "1",
+      "time": "37.974",
+      "timestamp": "2026-10-14T00:02:30.609991+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-220212-e410a160": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-220212-e410a160": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "run": "20261013-220212-e410a160",
+  "negative_reports": [
+    {
+      "nodeid": "tests/test_diagnostic_baseline_pg.py::test_scratch_cleanup_waits_for_natural_connection_close",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 0.16313802497461438,
+      "longrepr": "tests/test_diagnostic_baseline_pg.py:60: in test_scratch_cleanup_waits_for_natural_connection_close\n    baseline._drop_scratch(admin, scratch)\ntests/diagnostic_baseline.py:448: in _drop_scratch\n    raise BaselineCleanupError('Diagnostic scratch occupied; no backends terminated')\nE   diagnostic_baseline.BaselineCleanupError: Diagnostic scratch occupied; no backends terminated"
+    }
+  ],
+  "raw_sha256": {
+    "result.json": "9edf18e5ad98228b1bf13ed5eda0be7435c17a2c804cd6656a4989a9386ba3b6",
+    "pytest.xml": "b7c1607a0436a2c108fc7bfbf778ebb0fe72563fe740c9e5ef3ee1b5958d06bc",
+    "pytest-reports.jsonl": "16305ceb194dc9ab89083972b6da2c13224db4c4aa000b4caaaf34eba1ae2e18"
+  },
+  "scope": "Controlled negative proves immediate rejection of naturally closing real connection; original regression causal attribution remains unproved."
+}

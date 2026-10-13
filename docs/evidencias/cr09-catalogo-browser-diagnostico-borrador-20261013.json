@@ -1,0 +1,87 @@
+{
+  "utc": "2026-10-13T17:45:12.589795+00:00",
+  "source_sha": "5b803f675f6277a1daba92faa5c2b51455383ab5",
+  "run": "20261013-163331-dc171861",
+  "status": "Static diagnostic draft; current regression unchanged",
+  "observed_events": [
+    {
+      "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[es]",
+      "when": "setup",
+      "outcome": "passed",
+      "duration": 0.0033387159928679466
+    },
+    {
+      "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[es]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 8.52010005293414,
+      "longrepr": "tests/test_promotion_catalog.py:227: in test_mobile_catalogue_navigation_save_release_reload\n    page.reload()\n.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:9949: in reload\n    self._sync(\n.venv/lib/python3.12/site-packages/playwright/_impl/_page.py:570: in reload\n    await self._channel.send(\n.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:76: in send\n    return await self._connection.wrap_api_call(\n.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:632: in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE   playwright._impl._errors.Error: Page.reload: Protocol error (Page.reload): Not attached to an active page\nE   Call log:\nE     - waiting for navigation until \"load\""
+    },
+    {
+      "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[es]",
+      "when": "teardown",
+      "outcome": "passed",
+      "duration": 1.0921214129775763
+    },
+    {
+      "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[en]",
+      "when": "setup",
+      "outcome": "passed",
+      "duration": 0.0029472648166120052
+    },
+    {
+      "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[en]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 8.911263327114284
+    },
+    {
+      "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[en]",
+      "when": "teardown",
+      "outcome": "passed",
+      "duration": 1.0114692822098732
+    }
+  ],
+  "static_findings": [
+    "Each language launches its own Chromium/browser context; browser.close appears only in finally.",
+    "Failure at page.reload directly after release-configuration click; exact error says page not attached, not an application assertion failure.",
+    "English variant passed in same live partition.",
+    "Owned service memory.events showed no OOM/OOM-kill at observation; this does not rule out a renderer crash or lifecycle race."
+  ],
+  "verification_plan": [
+    "After live workload, reproduce isolated ES/EN on owned PostgreSQL with bounded Chromium trace and page crash/close/browser disconnected/navigation events; synthetic data only, no credentials in evidence.",
+    "Check release POST, redirect and final product state before attributing failure to browser timing or application behavior.",
+    "If navigation ordering is proved, synchronize on actual resulting URL/state before reload; preserve reload and persisted-state assertions.",
+    "If crash/disconnection is proved, correct its cause rather than adding retries, dropping Spanish or weakening assertions."
+  ],
+  "scope": "No cause proved, correction applied, retry run or CR10/CR09 acceptance.",
+  "primary_research": [
+    {
+      "url": "https://playwright.dev/python/docs/navigations#waiting-for-navigation",
+      "finding": "Official guidance recommends waiting for the expected URL after actions that can trigger multiple navigations; supports a conditional synchronization investigation, not proof of the observed failure."
+    },
+    {
+      "url": "https://playwright.dev/python/docs/api/class-browsertype#browser-type-launch",
+      "finding": "Check executable_path browser compatibility against installed Playwright before attributing a protocol error solely to application logic; no version change applied."
+    }
+  ],
+  "related_negative": "tests/test_promotion_localization.py::test_localized_synthetic_order_preserves_price_and_gates[es] also failed at page.reload with the same protocol error; preserved in partial partition-2 negative receipt.",
+  "observed_versions": {
+    "playwright": "1.63.0",
+    "system_executable": "/usr/bin/chromium-browser",
+    "system_version": "Chromium 154.0.8037.92 Built from source for Red Hat Enterprise Linux release 9.8 (Plow)",
+    "package_browser_manifest": [
+      {
+        "name": "chromium",
+        "revision": "1243",
+        "browserVersion": "153.0.8010.12"
+      },
+      {
+        "name": "chromium-headless-shell",
+        "revision": "1243",
+        "browserVersion": "153.0.8010.12"
+      }
+    ],
+    "scope": "Version inventory only; system build compatibility and root cause remain unproved; no installation or upgrade performed."
+  }
+}

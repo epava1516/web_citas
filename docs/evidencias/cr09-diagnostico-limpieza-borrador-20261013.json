@@ -1,0 +1,29 @@
+{
+  "run": "20261013-141746-8f8b65e8",
+  "source_sha": "5b803f675f6277a1daba92faa5c2b51455383ab5",
+  "observed_failure": "Expected LOGIN cleanup failure masked by scratch occupied cleanup error",
+  "static_evidence": [
+    "tests/diagnostic_baseline.py:332-335 closes Django connections then immediately calls _drop_scratch in finally",
+    "tests/diagnostic_baseline.py:441-449 rejects any backend observed in pg_stat_activity without waiting",
+    "tests/diagnostic_baseline.py:399-401 raises LOGIN cleanup error from injected transport error",
+    "tests/test_diagnostic_baseline_pg.py:255-257 injects LOGIN cleanup transport failure and asserts exact error"
+  ],
+  "hypothesis": "Asynchronous PostgreSQL backend shutdown may remain briefly visible after client connection close; immediate occupancy check can mask original error. Not yet reproduced under targeted observation.",
+  "next": "After current regression terminal: isolated bounded cleanup investigation, retain no backend termination and persistent-occupancy rejection; meaningful negative and real PostgreSQL verification before integration",
+  "status": "Static diagnosis only; no source changes or acceptance",
+  "verification_plan": {
+    "environment": "Isolated worktree, owned disposable PostgreSQL, synthetic data, existing resource ceilings; execute after current regression workload terminates.",
+    "baseline": "Preserve original failing test and collect backend pid/state/backend_start for the scratch database immediately after each owned connection closes; exclude SQL text, credentials and user data.",
+    "hypotheses": [
+      "Delayed server-side shutdown after client close",
+      "A connection genuinely retained by the diagnostic restore"
+    ],
+    "controls": [
+      "Hold an owned scratch connection open: cleanup must reject occupancy, preserve that connection and never terminate any backend.",
+      "Close all owned scratch connections: cleanup must prove database absence.",
+      "Inject LOGIN cleanup failure: preserve fail-closed behavior, restored Django configuration, no leftover scratch database, and explicit role cleanup in test teardown."
+    ],
+    "decision": "Only if shutdown latency is observed, consider a bounded monotonic wait for natural backend exit; persistently occupied databases must still fail. A retained connection requires fixing its ownership/lifetime instead.",
+    "integration": "Require real PostgreSQL focused evidence and frozen-source verification before integration; prior failed regression remains failed."
+  }
+}

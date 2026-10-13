@@ -1,0 +1,60 @@
+{
+  "run": "20261013-141746-8f8b65e8",
+  "source_sha": "5b803f675f6277a1daba92faa5c2b51455383ab5",
+  "result": "ERROR",
+  "counts": {
+    "cases": 808,
+    "passed": 804,
+    "failed": 1,
+    "skipped": 3
+  },
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-141746-8f8b65e8": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-141746-8f8b65e8": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "3",
+      "tests": "808",
+      "time": "8045.025",
+      "timestamp": "2026-10-13T16:18:06.687954+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [
+    {
+      "case": "test_owned_target_stage_profiles",
+      "reason": "Requires owned capacity runner diagnostic profile mode"
+    },
+    {
+      "case": "test_owned_object_proxy_and_purge_worker_gate",
+      "reason": "Requires owned capacity runner preflight mode"
+    },
+    {
+      "case": "test_worker_capacity_comparison",
+      "reason": "Explicit authorized owned experiment only"
+    }
+  ],
+  "artifact_sha256": {
+    "result.json": "6180327ea7e9a048f249e78cbdf587e0ff2ea7cb50c9ff004f96c397d881bb95",
+    "pytest.xml": "1e08cdf9c76b926beaa47a6d647d47263a7cfc0ad870b3ca82cef679f8f391ad",
+    "source-hashes.json": "8b7b3a5e354703c68d3aae6d0671d7391bb72312665c39a6e53db45d7c643885",
+    "pytest-reports.jsonl": "0f707ac4ba59cd750c285fc70706898361a49e7ba8167f5c669e2a5d61ddc062",
+    "09-pytest.log": "7001e7928ac1e088479b332f0e08f37a4ba9b89ae61dfe386819741b862ac0c1"
+  },
+  "scope": "Terminal partition 1 at integrated SHA; diagnostic cleanup failure unresolved, not acceptance",
+  "owned_container_inventory_exit": 0,
+  "owned_containers_remaining": []
+}
