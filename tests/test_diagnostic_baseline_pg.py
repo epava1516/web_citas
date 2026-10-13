@@ -36,6 +36,80 @@ from apps.safety.rights_portability_selection import row_reference
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
+def test_scratch_cleanup_waits_for_natural_connection_close():
+    """A closing owned connection must drain naturally, never be terminated."""
+    from threading import Event, Thread
+
+    import diagnostic_baseline as baseline
+
+    config = deepcopy(connection.settings_dict)
+    scratch = config['NAME'] + '_baseline_' + uuid4().hex[:12]
+    release = Event()
+    with baseline._admin(config) as admin:
+        with admin.cursor() as cursor:
+            cursor.execute(baseline.sql.SQL('CREATE DATABASE {}').format(baseline.sql.Identifier(scratch)))
+        retained = baseline._native(config, scratch, autocommit=True)
+
+        def close_naturally():
+            release.wait(0.2)
+            retained.close()
+
+        closer = Thread(target=close_naturally)
+        closer.start()
+        try:
+            baseline._drop_scratch(admin, scratch)
+            with admin.cursor() as cursor:
+                cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [scratch])
+                assert cursor.fetchone() is None
+        finally:
+            release.set()
+            closer.join(5)
+            assert not closer.is_alive()
+            baseline._drop_scratch(admin, scratch)
+
+
+def test_scratch_cleanup_retained_connection_and_natural_close(tmp_path):
+    """Observe real backend shutdown without terminating or ignoring connections."""
+    import time
+
+    import diagnostic_baseline as baseline
+
+    config = deepcopy(connection.settings_dict)
+    scratch = config['NAME'] + '_baseline_' + uuid4().hex[:12]
+    observations = []
+    with baseline._admin(config) as admin:
+        with admin.cursor() as cursor:
+            cursor.execute(baseline.sql.SQL('CREATE DATABASE {}').format(baseline.sql.Identifier(scratch)))
+        retained = baseline._native(config, scratch, autocommit=True)
+        try:
+            with pytest.raises(baseline.BaselineCleanupError, match='scratch occupied'):
+                baseline._drop_scratch(admin, scratch)
+            with retained.cursor() as cursor:
+                cursor.execute('SELECT 1')
+                assert cursor.fetchone() == (1,)
+        finally:
+            retained.close()
+        started = time.monotonic()
+        try:
+            while True:
+                with admin.cursor() as cursor:
+                    cursor.execute('SELECT pid,state FROM pg_stat_activity WHERE datname=%s', [scratch])
+                    backends = cursor.fetchall()
+                observations.append({'elapsed_seconds': time.monotonic() - started,
+                                     'backends': backends})
+                if not backends:
+                    break
+                assert time.monotonic() - started < 5, 'Closed backend remained visible'
+                time.sleep(0.01)
+            baseline._drop_scratch(admin, scratch)
+            with admin.cursor() as cursor:
+                cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [scratch])
+                assert cursor.fetchone() is None
+        finally:
+            (tmp_path / 'backend-close-observations.json').write_text(json.dumps(observations))
+            baseline._drop_scratch(admin, scratch)
+
+
 def test_actual_original_approval_roundtrip_and_config_rejection(request, settings, monkeypatch, object_store, tmp_path):
     import diagnostic_baseline as baseline
 

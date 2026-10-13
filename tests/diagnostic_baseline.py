@@ -7,6 +7,7 @@ import os
 import shutil
 import tarfile
 import tempfile
+import time
 from contextlib import contextmanager
 from copy import deepcopy
 from datetime import datetime
@@ -443,9 +444,16 @@ def _drop_scratch(admin, scratch):
         with admin.cursor() as cursor:
             cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [scratch])
             if cursor.fetchone():
-                cursor.execute('SELECT count(*) FROM pg_stat_activity WHERE datname=%s', [scratch])
-                if cursor.fetchone()[0]:
-                    raise BaselineCleanupError('Diagnostic scratch occupied; no backends terminated')
+                # Client close can precede PostgreSQL backend shutdown. Allow
+                # natural exit briefly; a retained connection still fails closed.
+                deadline = time.monotonic() + 1
+                while True:
+                    cursor.execute('SELECT count(*) FROM pg_stat_activity WHERE datname=%s', [scratch])
+                    if not cursor.fetchone()[0]:
+                        break
+                    if time.monotonic() >= deadline:
+                        raise BaselineCleanupError('Diagnostic scratch occupied; no backends terminated')
+                    time.sleep(0.01)
                 cursor.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(scratch)))
                 cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [scratch])
                 if cursor.fetchone():

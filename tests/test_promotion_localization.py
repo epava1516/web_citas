@@ -118,6 +118,12 @@ def test_localized_synthetic_order_preserves_price_and_gates(
             page.get_by_role(
                 "button", name="Simulate outcome" if english else "Simular resultado", exact=True
             ).click()
+            expect(
+                page.get_by_text(
+                    "Confirmed simulated payment" if english else "Pago simulado confirmado",
+                    exact=True,
+                )
+            ).to_be_visible()
             page.reload()
             expect(
                 page.get_by_text(
