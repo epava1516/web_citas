@@ -13,3 +13,7 @@ Diagnóstico adicional: rules_version estaba memorizada sin argumentos aunque in
 Revisión del borrador: la normalización de líneas AST precede al reemplazo para conservar las ubicaciones del baseline generado. Añadidos controles de límites explícitos frente a cambios del predeterminado y rechazo de valores 0, 257, booleano y cadena. Cinco archivos pasan análisis sintáctico y diff --check; ninguna prueba funcional ejecutada todavía.
 
 Bloque 2 terminal: un fallo AST adicional en test_capacity_revision_equivalence. El baseline limita defer a search_document mientras HEAD ya difiere campos adicionales. Se prepara comparación completa del código cargado con HEAD, seguida de reconstrucción independiente del único defer de referencia. Se conserva la prueba real de igualdad de salida, SQL y filas. Pendiente verificación; no integrado.
+
+## Verificación posterior
+
+Selección completa: 65 PASS, 488,98 s, fuente b680045, PostgreSQL real, fuentes sin cambios y limpieza comprobada. [Evidencia positiva](cr09-correctivas-regresion-positivo-20261013.json). Control con implementación anterior de publication_state.py: las tres variantes de configuración fallan como se esperaba; [evidencia negativa](cr09-configuracion-negativo-20261013.json). No acredita aceptación CR09/N3; integración y cobertura final pendientes.

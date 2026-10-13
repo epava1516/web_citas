@@ -1,0 +1,39 @@
+{
+  "run": "20261013-141510-08231d85",
+  "source_sha": "c8b0ed7d85ccb87b3d32571bcbe66ae13ffbc1b3",
+  "prior_app_source": "b0d2af0:apps/listings/publication_state.py",
+  "result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "3",
+      "skipped": "0",
+      "tests": "3",
+      "time": "39.122",
+      "timestamp": "2026-10-13T16:15:34.058915+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-141510-08231d85": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-141510-08231d85": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "positive_run": "20261013-140532-3208000c",
+  "scope": "Expected negative: three configuration invalidation assertions fail with prior implementation; same tests pass in corrective focused run. No global acceptance.",
+  "sha256": {
+    "result.json": "161e17ed3994a7863c6269c3c9e16ed285d6066ff6b70254ac1eaf25d75b2d50",
+    "pytest.xml": "273a2fff5c51c8edba6039e293a194f839da8a565397976ef60c325766f36c3f",
+    "09-pytest.log": "dba6d70625eab24033335d4480fb6b83564e0a1cb5ee2d0df93835440ea78e66",
+    "source-hashes.json": "2ffcf7450989628d347dcd1a17d75dfc95e641a61f7bf02414ba933c4bba980f"
+  }
+}
