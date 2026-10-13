@@ -1,5 +1,6 @@
 """Source projection: full payload/SQL and alias restoration, PostgreSQL evidence."""
 import ast
+import inspect
 import subprocess
 
 import pytest
@@ -15,11 +16,16 @@ from tests.capacity_revision_candidate import original_tree, variant
 
 def test_original_ast_matches_frozen_git_function():
     baseline = original_tree()
-    calls = [node for node in ast.walk(baseline) if isinstance(node, ast.Call)
-             and isinstance(node.func, ast.Attribute) and node.func.attr == 'defer']
-    calls[0].args = [ast.Constant('search_document')]
     old = ast.parse(subprocess.check_output(['git','show','HEAD:apps/safety/rights_exports.py'], text=True))
     old = next(node for node in old.body if isinstance(node, ast.FunctionDef) and node.name == 'source_copy')
+    current = ast.parse(inspect.getsource(rights_exports.source_copy)).body[0]
+    assert ast.dump(current, include_attributes=False) == ast.dump(old, include_attributes=False)
+    # Reconstruct the original projection independently from the frozen source;
+    # HEAD itself already contains the wider deferred-field optimization.
+    calls = [node for node in ast.walk(old) if isinstance(node, ast.Call)
+             and isinstance(node.func, ast.Attribute) and node.func.attr == 'defer']
+    assert len(calls) == 1 and calls[0].args[0].value == 'search_document'
+    calls[0].args = [ast.Constant('search_document')]
     assert ast.dump(baseline.body[0], include_attributes=False) == ast.dump(old, include_attributes=False)
 
 
