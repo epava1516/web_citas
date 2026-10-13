@@ -1,0 +1,21 @@
+{
+  "id": "20261013-060632-d0f62265",
+  "head": "950ac3eceb7197766eceaedada621ca44cd6d109",
+  "result": "ERROR",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-060632-d0f62265": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-060632-d0f62265": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "scope": "Negative reproduction before publication_signals correction",
+  "summary": "2 failed, 2 passed",
+  "pytest_log": "FF..                                                                     [100%]\n=================================== FAILURES ===================================\n________ test_rollback_does_not_suppress_later_committed_refresh[False] ________\ntests/test_publication_refresh_rollback.py:41: in test_rollback_does_not_suppress_later_committed_refresh\n    assert queued == [1]\nE   assert [] == [1]\nE     \nE     Right contains one more item: 1\nE     Use -v to get more diff\n________ test_rollback_does_not_suppress_later_committed_refresh[True] _________\ntests/test_publication_refresh_rollback.py:41: in test_rollback_does_not_suppress_later_committed_refresh\n    assert queued == [1]\nE   assert [] == [1]\nE     \nE     Right contains one more item: 1\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED tests/test_publication_refresh_rollback.py::test_rollback_does_not_suppress_later_committed_refresh[False]\nFAILED tests/test_publication_refresh_rollback.py::test_rollback_does_not_suppress_later_committed_refresh[True]\n2 failed, 2 passed in 41.52s\n"
+}
