@@ -36,6 +36,37 @@ from apps.safety.rights_portability_selection import row_reference
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
+def test_baseline_guard_retains_rejection_and_allows_natural_close():
+    from threading import Event, Thread
+
+    import diagnostic_baseline as baseline
+
+    config = deepcopy(connection.settings_dict)
+    retained = baseline._native(config, config['NAME'], autocommit=True)
+    release = Event()
+    try:
+        with pytest.raises(ValueError, match='Baseline database occupied'):
+            baseline._guard()
+        with retained.cursor() as cursor:
+            cursor.execute('SELECT 1')
+            assert cursor.fetchone() == (1,)
+
+        def close_naturally():
+            release.wait(0.2)
+            retained.close()
+
+        closer = Thread(target=close_naturally)
+        closer.start()
+        try:
+            assert baseline._guard()['NAME'] == config['NAME']
+        finally:
+            release.set()
+            closer.join(5)
+            assert not closer.is_alive()
+    finally:
+        retained.close()
+
+
 def test_scratch_cleanup_waits_for_natural_connection_close():
     """A closing owned connection must drain naturally, never be terminated."""
     from threading import Event, Thread
