@@ -113,10 +113,21 @@ def _guard():
     with psycopg.connect(dbname='postgres', user=config['USER'], password=config['PASSWORD'],
                          host=config['HOST'], port=config['PORT'], autocommit=True) as admin:
         with admin.cursor() as cursor:
-            cursor.execute('SELECT count(*) FROM pg_stat_activity WHERE datname=%s', [config['NAME']])
-            if cursor.fetchone()[0]:
+            if not _wait_database_idle(cursor, config['NAME']):
                 raise ValueError('Baseline database occupied; no backends terminated')
     return config
+
+
+def _wait_database_idle(cursor, name):
+    """Bound natural backend exit after client close; never terminate a session."""
+    deadline = time.monotonic() + 1
+    while True:
+        cursor.execute('SELECT count(*) FROM pg_stat_activity WHERE datname=%s', [name])
+        if not cursor.fetchone()[0]:
+            return True
+        if time.monotonic() >= deadline:
+            return False
+        time.sleep(0.01)
 
 
 def _object_inventory():
@@ -444,16 +455,8 @@ def _drop_scratch(admin, scratch):
         with admin.cursor() as cursor:
             cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [scratch])
             if cursor.fetchone():
-                # Client close can precede PostgreSQL backend shutdown. Allow
-                # natural exit briefly; a retained connection still fails closed.
-                deadline = time.monotonic() + 1
-                while True:
-                    cursor.execute('SELECT count(*) FROM pg_stat_activity WHERE datname=%s', [scratch])
-                    if not cursor.fetchone()[0]:
-                        break
-                    if time.monotonic() >= deadline:
-                        raise BaselineCleanupError('Diagnostic scratch occupied; no backends terminated')
-                    time.sleep(0.01)
+                if not _wait_database_idle(cursor, scratch):
+                    raise BaselineCleanupError('Diagnostic scratch occupied; no backends terminated')
                 cursor.execute(sql.SQL('DROP DATABASE {}').format(sql.Identifier(scratch)))
                 cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [scratch])
                 if cursor.fetchone():
