@@ -69,6 +69,34 @@ def test_archive_sink_needs_existing_file_and_records_members(tmp_path, monkeypa
         assert [member.name for member in archive] == ["a.log", "a.log", "b.log", "report.json"]
 
 
+def test_archive_explicit_ceiling_survives_default_changes(tmp_path, monkeypatch):
+    path = tmp_path / "explicit.tar"
+    path.touch()
+    monkeypatch.setattr(artifacts, "MAX_FILES", 1)
+    sink = artifacts.ArchiveSink(path, max_files=3)
+    try:
+        sink.write("a", "x")
+        monkeypatch.setattr(artifacts, "MAX_FILES", 100)
+        sink.write("b", "x")
+        with pytest.raises(ValueError, match="count"):
+            sink.write("c", "x")
+        sink.write("report.json", "{}")
+    finally:
+        sink.close()
+
+
+@pytest.mark.parametrize("ceiling", [0, 257, True, "3"])
+def test_artifact_invalid_runtime_default_is_rejected(tmp_path, monkeypatch, ceiling):
+    monkeypatch.setattr(artifacts, "MAX_FILES", ceiling)
+    with pytest.raises(ValueError, match="1..256"):
+        artifacts.write_artifact(tmp_path, "a", "x")
+    path = tmp_path / "invalid.tar"
+    path.touch()
+    with pytest.raises(ValueError, match="1..256"):
+        artifacts.ArchiveSink(path)
+    assert path.read_bytes() == b""
+
+
 def test_archive_ceiling_is_enforced_by_kernel_rlimit(tmp_path):
     path = tmp_path / "artifacts.tar"
     path.touch()

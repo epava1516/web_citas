@@ -304,6 +304,24 @@ def test_rules_version_hashes_source_and_configuration(settings):
     publication_state.rules_version.cache_clear()
 
 
+@pytest.mark.parametrize("name,value", [
+    ("PRODUCTION", True),
+    ("VERIFICATION_PROVIDER", "changed-provider"),
+    ("SECRET_KEY", "synthetic-rotated-key"),
+])
+def test_rules_version_tracks_configuration_without_manual_invalidation(settings, name, value):
+    publication_state.rules_version.cache_clear()
+    previous = getattr(settings, name)
+    first = publication_state.rules_version()
+    replacement = not previous if name == "PRODUCTION" else value
+    assert replacement != previous
+    setattr(settings, name, replacement)
+    assert publication_state.rules_version() != first
+    setattr(settings, name, previous)
+    assert publication_state.rules_version() == first
+    publication_state.rules_version.cache_clear()
+
+
 def test_command_and_task_recompute_everything(request):
     from django.core.management import call_command
 

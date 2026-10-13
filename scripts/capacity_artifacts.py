@@ -14,7 +14,9 @@ VIRTUAL_FILESYSTEMS = {"proc", "sysfs", "cgroup2", "devpts", "mqueue"}
 DOCKER_RUNTIME_FILES = {"/etc/hosts", "/etc/hostname", "/etc/resolv.conf"}
 
 
-def _check(name, data, existing, *, max_files=MAX_FILES):
+def _check(name, data, existing, *, max_files=None):
+    if max_files is None:
+        max_files = MAX_FILES
     if type(max_files) is not int or not 1 <= max_files <= 256:
         raise ValueError('Artifact count ceiling must be within1..256')
     if not name or Path(name).name != name or name in {".", ".."}:
@@ -44,7 +46,9 @@ def write_artifact(directory, name, text):
 class ArchiveSink:
     """Append members to one pre-existing bound tar file; RLIMIT_FSIZE caps it in the kernel."""
 
-    def __init__(self, path, *, max_files=MAX_FILES, format=tarfile.PAX_FORMAT):
+    def __init__(self, path, *, max_files=None, format=tarfile.PAX_FORMAT):
+        if max_files is None:
+            max_files = MAX_FILES
         if type(max_files) is not int or not 1 <= max_files <= 256:
             raise ValueError("Artifact count ceiling must be within1..256")
         self.max_files = max_files

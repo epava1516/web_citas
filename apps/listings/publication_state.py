@@ -71,21 +71,31 @@ RULE_SOURCES = (
 )
 
 
-@lru_cache(maxsize=1)
 def rules_version():
-    """Source text, Django version and configuration of the rule; once per process.
+    """Fingerprint the current rule configuration, reusing unchanged source hashes."""
+    return _rules_version(settings.PRODUCTION, settings.VERIFICATION_PROVIDER, settings.SECRET_KEY)
+
+
+@lru_cache(maxsize=1)
+def _rules_version(production, provider, secret_key):
+    """Source text, Django version and configuration; cached per configuration.
 
     Hashing source rather than bytecode keeps the version stable across Python builds.
     """
     digest = hashlib.sha256()
     for name in RULE_SOURCES:
         digest.update(name.encode() + b"\0" + (settings.BASE_DIR / name).read_bytes() + b"\0")
-    material = [django.get_version(), str(settings.PRODUCTION), settings.VERIFICATION_PROVIDER]
+    material = [django.get_version(), str(production), provider]
     digest.update("|".join(material).encode())
     # Conditional photo authorization fingerprints use salted_hmac with SECRET_KEY.
     # A key rotation invalidates those decisions; never trust the previous result.
-    digest.update(b"\0rights-fingerprint-key\0" + settings.SECRET_KEY.encode())
+    digest.update(b"\0rights-fingerprint-key\0" + secret_key.encode())
     return digest.hexdigest()
+
+
+# Source edits still require explicit invalidation; configuration changes form
+# part of the cache key automatically, including test override restoration.
+rules_version.cache_clear = _rules_version.cache_clear
 
 
 def eligible_ignoring_expiry(listing, context):

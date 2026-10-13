@@ -1,0 +1,31 @@
+{
+  "base_sha": "b0d2af0aed0bb0a353b943b8e081d25aba472271",
+  "status": "Prepared; not executed or integrated",
+  "synthetic_only": true,
+  "postgresql_required": true,
+  "sequential_after_active_regression": true,
+  "focused_profile": "focused",
+  "selection": [
+    "tests/test_capacity_artifacts.py",
+    "tests/test_capacity_paths_candidate.py",
+    "tests/test_publication_state.py",
+    "tests/test_publication_state_conditional.py",
+    "tests/test_publication_state_upload.py",
+    "tests/test_reading_common.py"
+  ],
+  "required_evidence": [
+    "Frozen source SHA and hashes unchanged",
+    "All checks and selected tests with real PostgreSQL",
+    "Reproduce rules configuration invalidation negative on parent before crediting fix",
+    "Record failures and skips without accepting unresolved scope",
+    "Own containers and temporary files cleanup receipts",
+    "Final regression coverage reconciliation at common final SHA"
+  ],
+  "not_acceptance": [
+    "CR09",
+    "CR10",
+    "GS01",
+    "N3"
+  ],
+  "constraints": "No concurrent test load; existing bounded official runner and native source; no production, real data or providers"
+}
