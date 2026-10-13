@@ -1,0 +1,57 @@
+{
+  "id": "20261013-062143-b6d804f0",
+  "result": "ERROR",
+  "head": "b0d2af0aed0bb0a353b943b8e081d25aba472271",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-062143-b6d804f0": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-062143-b6d804f0": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "scope": "Regression partition 1, terminal negative; no acceptance",
+  "failures": [
+    {
+      "nodeid": "tests/test_reading_common.py::test_actual_routes_keep_native_presentation_equivalence[production]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 5.814761493820697,
+      "longrepr": "tests/test_reading_common.py:46: in test_actual_routes_keep_native_presentation_equivalence\n    assert candidate.wsgi_request._publication_route == original.wsgi_request._publication_route\nE   AssertionError: assert {'route': 'fa...uard_changed'} == {'route': 'st...e_unknown': 2}\nE     \nE     Differing items:\nE     {'reason': 'state_page_guard_changed'} != {'reason': 'trusted_state'}\nE     {'route': 'fallback'} != {'route': 'state'}\nE     Right contains 1 more item:\nE     {'native_unknown': 2}\nE     Use -v to get more diff"
+    },
+    {
+      "nodeid": "tests/test_capacity_artifacts.py::test_artifact_limits_count_utf8_bytes_and_allow_replacing_owned_file",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 0.0035196272656321526,
+      "longrepr": "tests/test_capacity_artifacts.py:23: in test_artifact_limits_count_utf8_bytes_and_allow_replacing_owned_file\n    with pytest.raises(ValueError, match=\"count\"):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ValueError"
+    },
+    {
+      "nodeid": "tests/test_capacity_artifacts.py::test_artifact_returns_fingerprint_and_reserves_report_slot",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 0.002006254158914089,
+      "longrepr": "tests/test_capacity_artifacts.py:47: in test_artifact_returns_fingerprint_and_reserves_report_slot\n    with pytest.raises(ValueError, match=\"count\"):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ValueError"
+    },
+    {
+      "nodeid": "tests/test_capacity_artifacts.py::test_archive_sink_needs_existing_file_and_records_members",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 0.0022497926838696003,
+      "longrepr": "tests/test_capacity_artifacts.py:62: in test_archive_sink_needs_existing_file_and_records_members\n    with pytest.raises(ValueError, match=\"count\"):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ValueError"
+    },
+    {
+      "nodeid": "tests/test_capacity_paths_candidate.py::test_original_compiler_matches_head_function",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 0.1592275919392705,
+      "longrepr": "tests/test_capacity_paths_candidate.py:23: in test_original_compiler_matches_head_function\n    assert ast.dump(current)==ast.dump(original)\nE   AssertionError: assert 'FunctionDef(...pe_params=[])' == 'FunctionDef(...pe_params=[])'\nE     \nE     Skipping 6984 identical leading characters in diff, use -v to show\nE     - tComp(elt=Name(id='path', ctx=Load()), generators=[comprehension(target=Name(id='path', ctx=Store()), iter=Call(func=Name(id='_scalar_paths', ctx=Load()), args=[Name(id='row', ctx=Load())], keywords=[]), ifs=[], is_async=0)])), Assign(targets=[Name(id='selected', ctx=Store())], value=Call(func=Attribute(value=Name(id='selectors', ctx=Load()), attr='get', ctx=Load()), args=[Name(id='reference', ctx=Load()), Call(func=Name(id='set', ctx=Load()), args=[], keywords=[])], keywords=[])), Assign(targets=[Name(...\nE     \nE     ...Full output truncated (4 lines hidden), use '-vv' to show"
+    }
+  ],
+  "summary": "792 passed, 5 failed, 3 skipped"
+}

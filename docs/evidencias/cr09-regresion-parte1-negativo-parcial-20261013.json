@@ -1,0 +1,14 @@
+{
+  "observed_at": "2026-10-13T07:24:36.971498+00:00",
+  "run": "20261013-062143-b6d804f0",
+  "scope": "Partial negative, part 1 still running; no acceptance",
+  "failures": [
+    {
+      "nodeid": "tests/test_reading_common.py::test_actual_routes_keep_native_presentation_equivalence[production]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 5.814761493820697,
+      "longrepr": "tests/test_reading_common.py:46: in test_actual_routes_keep_native_presentation_equivalence\n    assert candidate.wsgi_request._publication_route == original.wsgi_request._publication_route\nE   AssertionError: assert {'route': 'fa...uard_changed'} == {'route': 'st...e_unknown': 2}\nE     \nE     Differing items:\nE     {'reason': 'state_page_guard_changed'} != {'reason': 'trusted_state'}\nE     {'route': 'fallback'} != {'route': 'state'}\nE     Right contains 1 more item:\nE     {'native_unknown': 2}\nE     Use -v to get more diff"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "observed_at": "2026-10-13T13:07:19.838267+00:00",
+  "run": "20261013-123816-3271c270",
+  "sha": "b0d2af0aed0bb0a353b943b8e081d25aba472271",
+  "skips": [
+    {
+      "nodeid": "tests/test_capacity_native_probe.py::test_owned_native_reconnect_probe",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0002705603837966919,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_native_probe.py', 21, 'Skipped: Requires owned native diagnostic controller')"
+    },
+    {
+      "nodeid": "tests/test_capacity_selection_tcp.py::test_target_selection_page_tcp",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.00025571277365088463,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_selection_tcp.py', 146, 'Skipped: Requires owned capacity runner with verified kernel limits')"
+    },
+    {
+      "nodeid": "tests/test_publication_route_coverage.py::test_route_coverage_matrix",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.00024229101836681366,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_publication_route_coverage.py', 30, 'Skipped: Explicit coverage run only')"
+    }
+  ],
+  "scope": "Intermediate explicit omissions; no PASS credit. Verify each prerequisite and required isolated run before scope acceptance.",
+  "terminal": false
+}

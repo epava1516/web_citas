@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-10-13T09:28:14.675637+00:00",
+  "sha": "b0d2af0aed0bb0a353b943b8e081d25aba472271",
+  "scope": "Static diagnosis only; no corrective execution or acceptance",
+  "artifact_count_failures": {
+    "count": 3,
+    "cause": "_check and ArchiveSink.__init__ capture MAX_FILES=100 at import; tests monkeypatch the module constant afterward. write_artifact does not supply an explicit ceiling.",
+    "production_limit": "Default remains bounded at 100; this evidence does not demonstrate unlimited production writes.",
+    "next": "Resolve default at call/constructor time while preserving explicit ceilings, validation and reserved report slot; verify after live regression."
+  },
+  "paths_candidate_failure": {
+    "cause": "test_original_compiler_matches_head_function rewrites the optimized paths assignment into scalar_fields, then compares to HEAD which already contains _scalar_paths. The reconstruction and current HEAD are intentionally different.",
+    "next": "Verify the generated baseline differs from HEAD only at the intended assignment, without weakening the full function/alias controls; test after live regression."
+  },
+  "reading_route_failure": {
+    "status": "Unresolved; state_page_guard_changed fallback differs from comparison request under production override; response content equality passed. No privacy or presentation regression inferred without reproduction."
+  },
+  "live_run": "20261013-082419-1bb598f5",
+  "live_source_preserved": true
+}

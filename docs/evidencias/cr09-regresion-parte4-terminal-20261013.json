@@ -1,0 +1,62 @@
+{
+  "recorded_utc": "2026-10-13T14:03:47.913382+00:00",
+  "run_id": "20261013-123816-3271c270",
+  "source_sha": "b0d2af0aed0bb0a353b943b8e081d25aba472271",
+  "summary": {
+    "distinct_cases": 872,
+    "passed": 869,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 3
+  },
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-123816-3271c270": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-123816-3271c270": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "owned_container_inventory_exit": 0,
+  "owned_containers_remaining": [],
+  "skipped": [
+    {
+      "case": "test_owned_native_reconnect_probe",
+      "reason": "Requires owned native diagnostic controller"
+    },
+    {
+      "case": "test_target_selection_page_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "case": "test_route_coverage_matrix",
+      "reason": "Explicit coverage run only"
+    }
+  ],
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "3",
+      "tests": "872",
+      "time": "5081.539",
+      "timestamp": "2026-10-13T14:38:35.857863+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "artifact_sha256": {
+    "result.json": "197594015bf210f47f237ac74ccd31fd0d7d0a3f5c6b8214049a386ce69feac4",
+    "pytest.xml": "1e1cfe77682cd32fbd5b4d4909d7afd8f6bf400928926510063cbf962a6d5496",
+    "pytest-reports.jsonl": "b5ae15479f9506a8ffeee8d5a9d831caea0a52aaf65c6e8ee2d4defc301579a8",
+    "source-hashes.json": "721ce0d6b4edb92e17d8a708e7c0ebfb75df7f568581ddf2edd825e82bb41fe3",
+    "runner.json": "4a9fc1a92d7986f2300fb28d1bf2792748b28a3ef5ae16e0cc04322cd057b285",
+    "09-pytest.log": "6892f7437ae14e147169860e850be461f7d6d4d275cfc2bf428c23ddce202d31"
+  },
+  "scope": "Partition 4 terminal evidence at frozen SHA; not global CR09/N3 acceptance."
+}

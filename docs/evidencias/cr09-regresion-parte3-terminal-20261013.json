@@ -1,0 +1,82 @@
+{
+  "observed_at": "2026-10-13T12:38:15.936211+00:00",
+  "run": "20261013-102805-a77d3c4e",
+  "sha": "b0d2af0aed0bb0a353b943b8e081d25aba472271",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "6",
+      "tests": "853",
+      "time": "7762.632",
+      "timestamp": "2026-10-13T12:28:25.060534+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-102805-a77d3c4e": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-102805-a77d3c4e": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "skips": [
+    {
+      "nodeid": "tests/test_capacity_delivery_complete.py::test_owned_complete_target_delivery",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0004058210179209709,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_delivery_complete.py', 23, 'Skipped: Requires owned capacity runner with verified kernel limits')"
+    },
+    {
+      "nodeid": "tests/test_capacity_professional_profile.py::test_owned_professional_probe",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0003094067797064781,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_professional_profile.py', 44, 'Skipped: Requires explicit own professional instrument probe')"
+    },
+    {
+      "nodeid": "tests/test_capacity_selection_concurrent_tcp.py::test_two_target_selection_pages_overlapping_tcp",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0004083588719367981,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_selection_concurrent_tcp.py', 32, 'Skipped: Requires owned capacity runner with verified kernel limits')"
+    },
+    {
+      "nodeid": "tests/test_capacity_source_profile.py::test_target_source_cost_attribution",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.00021283188834786415,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_source_profile.py', 51, 'Skipped: Requires owned capacity runner diagnostic profile mode')"
+    },
+    {
+      "nodeid": "tests/test_owned_refresh_topology.py::test_owned_worker_beat_refresh_wiring",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.00020434614270925522,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_refresh_topology.py', 35, 'Skipped: Explicit owned wiring check only')"
+    },
+    {
+      "nodeid": "tests/test_resource_service_checkpoint.py::test_resource_checkpoint",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.00023976899683475494,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_resource_service_checkpoint.py', 47, 'Skipped: Explicit owned resource diagnosis only')"
+    }
+  ],
+  "failures": [],
+  "artifact_hashes": {
+    "result.json": "c3bf0fa2169283c31fb941c732ad2f1129671935978fa504f2c8dd130e25ab56",
+    "pytest.xml": "d9ff15052a50548c070a529347428fc5f4281b4fd1037243918c8dfd2c7a038c",
+    "09-pytest.log": "871edb240d39509aceb8c45649347ea1d0863d57d2a9b38b634b5eb2a9881374"
+  },
+  "acceptance": false
+}

@@ -1,0 +1,54 @@
+{
+  "observed_at": "2026-10-13T10:28:04.938475+00:00",
+  "run": "20261013-082419-1bb598f5",
+  "sha": "b0d2af0aed0bb0a353b943b8e081d25aba472271",
+  "result": "ERROR",
+  "summary": {
+    "passed": 680,
+    "failed": 1,
+    "skipped": 3,
+    "distinct_junit_cases": 684
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "3",
+      "tests": "688",
+      "time": "7358.024",
+      "timestamp": "2026-10-13T10:24:38.703812+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-082419-1bb598f5": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-082419-1bb598f5": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "failures": [
+    {
+      "nodeid": "tests/test_capacity_revision_equivalence.py::test_original_ast_matches_frozen_git_function",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 0.11827561212703586,
+      "longrepr": "tests/test_capacity_revision_equivalence.py:23: in test_original_ast_matches_frozen_git_function\n    assert ast.dump(baseline.body[0], include_attributes=False) == ast.dump(old, include_attributes=False)\nE   AssertionError: assert 'FunctionDef(...pe_params=[])' == 'FunctionDef(...pe_params=[])'\nE     \nE     Skipping 1618 identical leading characters in diff, use -v to show\nE     - document'), Constant(value='source_revision'), Constant(value='step'), Constant(value='edit_version'), Constant(value='telegram'), Constant(value='contact_exposure_accepted'), Constant(value='publisher_acceptance'), Constant(value='updated_at')], keywords=[]), attr='select_related', ctx=Load()), args=[Constant(value='municipality'), Constant(value='postal_code'), Constant(value='zone')], keywords=[]), attr='order_by', ctx=Load()), args=[Constant(value='created_at'), Constant(value='pk')], keywords=[])),...\nE     \nE     ...Full output truncated (3 lines hidden), use '-vv' to show"
+    }
+  ],
+  "artifact_hashes": {
+    "result.json": "9ff1b256b5de9b36d26827afd6de457a113a065b97eb7bf1435d8ed53d6f7d7e",
+    "pytest.xml": "2365260bea0ef97ae191b98a2313fe4ce5644c114daaab833107f51d355b6b3c",
+    "09-pytest.log": "704e52719306fa05043416ae46866ad4208b2e2456f9ed9cbb68c296ef61700d"
+  },
+  "acceptance": false,
+  "reconciliation_note": "Earlier 684 PASS /688 total incorrectly included four passing subtests as independent cases. Pytest summary and distinct JUnit testcase elements confirm 680 PASS,1 FAIL,3 SKIP,4 passing subtests. Raw testsuite aggregate counts and logs preserved.",
+  "passing_subtests": 4
+}
