@@ -1,5 +1,16 @@
 # Seguimiento de ejecución del contrato
 
+**CR09 regresión común posterior a correctivas, activa:**
+`20261013-000356-b8b57d5c`, fuente congelada `3f1a66f`, un trabajador,
+timeout por comando 21600 s y las mismas cuatro exclusiones del perfil oficial.
+Recopilación sin ejecutar tests, con el entorno del proceso pytest propio y esas
+exclusiones: 3205 nodos distintos, salida 0. Originales en
+`artifacts/vps-preparation/cr09-regression-verified-correctives/collection-exact.{log,json}`.
+El recuento con config.settings era distinto y no representa esta ejecución.
+No editar fuentes ni sumar selecciones anteriores como resultado común.
+Reportes incrementales y resultado terminal quedan en su directorio local-ci.
+Sin aceptación CR09/N3 antes de comprobar alcance, fallos, omitidos y limpieza.
+
 **CR09 deadlock de refresco, correctiva dirigida verificada:**
 `20261013-000152-c7daead2`, SHA `5c006fe`, 3 PASS/0 FAIL/0 SKIP,
 58,578 s. Listing y Revision bloqueadas dejan dirty intacto; el escritor termina
@@ -1380,3 +1391,12 @@ cifrado, con 184 pruebas codec/transport y 25 de integración LOGIN/PG/RustFS/Ca
 PASS. Conserva lectura fresca, guards y publicación posterior a integridad completa.
 [Diseño y evidencia funcional](evidencias/mod08-lectura-fresca-integrada-20261012.md).
 Pendiente ciclo HTTP limpio en SHA congelado; no inferir ahorro p95 ni N3.
+
+
+### CR09 — correcciones verificadas el 2026-10-13
+
+La regresión `20261013-000356-b8b57d5c` terminó por timeout de 21600 segundos: 1831/3205 casos terminados, seis fallos funcionales/inventario y dos errores de preparación de RustFS. Fuentes intactas y limpieza propia confirmadas; no constituye aceptación.
+
+Correcciones integradas localmente: deduplicación de refrescos mediante callbacks pendientes tras rollback; dos fuentes adicionales en RULE_SOURCES; recuperación aplica el calendario vacío después de registrar todas las tareas; inventario incorpora explícitamente los cuatro modelos añadidos. La verificación aislada produjo 5 PASS (`20261013-060826-c3a6bf9b`) y 34 PASS (`20261013-060954-792ae594`). Preparada la imagen RustFS por su digest exacto, la rama integrada produjo 2 PASS reales (`20261013-061825-002a7f2d`) para corrupción y exportación/descarga/purga S3. Se conservan negativos y positivos en docs/evidencias.
+
+Pendiente: regresión completa sobre el SHA integrado y auditoría de criterios CR09; las selecciones anteriores no se suman para declarar una regresión global aprobada. Mantener límites y ejecutar secuencialmente; una partición determinista deberá cubrir toda la selección sin exclusiones nuevas y registrar cada resultado. CR10, GS01 y el resto del contrato siguen pendientes.
