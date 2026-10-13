@@ -1,0 +1,215 @@
+{
+  "result": {
+    "id": "20261013-000152-c7daead2",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261013-000152-c7daead2",
+          "--label",
+          "web-modelos-local-ci-run=20261013-000152-c7daead2",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.4668926536105573
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261013-000152-c7daead2",
+          "--label",
+          "web-modelos-local-ci-run=20261013-000152-c7daead2",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.41761644883081317
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06699220184236765
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11575994314625859
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.1683876598253846
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.6207459829747677
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 2.1229674839414656
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-g7c7_c16/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-g7c7_c16/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-g7c7_c16/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.493578559253365
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261013-000152-c7daead2/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261013-000152-c7daead2/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-g7c7_c16/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261013-000152-c7daead2/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_publication_refresh_lock_order.py",
+          "tests/test_privacy_publication_holds.py::test_approval_race_cannot_republish_held_profile"
+        ],
+        "exit": 0,
+        "seconds": 60.90224228100851
+      }
+    ],
+    "head": "5c006fe738d2bd2174934111f23994085c2638f1",
+    "excluded": [],
+    "selection": [
+      "tests/test_publication_refresh_lock_order.py",
+      "tests/test_privacy_publication_holds.py::test_approval_race_cannot_republish_held_profile"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261013-000152-c7daead2": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261013-000152-c7daead2": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "3",
+        "time": "58.578",
+        "timestamp": "2026-10-13T02:02:11.594015+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "3",
+    "time": "58.578",
+    "timestamp": "2026-10-13T02:02:11.594015+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "temporary_absent": true,
+  "host_limits": {
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/web-modelos-cr09-lock-test-corrective-20261013.service",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory.max": "3758096384",
+    "memory.swap.max": "0",
+    "pids.max": "512",
+    "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "terminal_memory_peak": "318021632"
+  },
+  "scope": "Both deterministic locked FK reference cases and original privacy race pass on corrected tests. Previous 38 positives separate version. Common regression/N3/CR09 still pending; no aggregate 40-pass claim."
+}

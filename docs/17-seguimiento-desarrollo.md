@@ -1,5 +1,14 @@
 # Seguimiento de ejecución del contrato
 
+**CR09 deadlock de refresco, correctiva dirigida verificada:**
+`20261013-000152-c7daead2`, SHA `5c006fe`, 3 PASS/0 FAIL/0 SKIP,
+58,578 s. Listing y Revision bloqueadas dejan dirty intacto; el escritor termina
+y el refresco posterior consume la nueva generación. La carrera original de
+privacidad pasa. Fuentes iguales y recursos propios retirados.
+[Recibo](evidencias/cr09-refresco-bloqueos-correctiva-20261013.json).
+La selección anterior conserva 38 PASS/2 FAIL por lookup incorrecto del test;
+no sumar versiones como 40 PASS. Sigue regresión común; no cierre CR09/N3.
+
 **CR09 instrumentos corregidos, selección terminal:**
 `20261012-232218-aacfe209`, fuente `87f4854`, 8 PASS/0 FAIL/1 SKIP,
 1638,081 s. Los cinco consumidores HTTP de clones pasan su ejecución y limpieza;
