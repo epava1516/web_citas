@@ -1,0 +1,24 @@
+{
+  "id": "20261013-061825-002a7f2d",
+  "head": "1a9383feab746847c175bd1910a62528270ab25e",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-061825-002a7f2d": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-061825-002a7f2d": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "selection": [
+    "tests/test_rights_enforced_validation_seal.py::test_enforced_held_seal_still_rejects_real_external_object_corruption",
+    "tests/test_rights_object_store.py::test_actual_export_data_packages_download_and_purge_s3"
+  ],
+  "scope": "Real RustFS corruption rejection and S3 export/download/purge; no global acceptance",
+  "pytest_log": "..                                                                       [100%]\n2 passed in 69.85s (0:01:09)\n"
+}
