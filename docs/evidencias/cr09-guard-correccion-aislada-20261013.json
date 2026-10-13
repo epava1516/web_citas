@@ -1,0 +1,36 @@
+{
+  "result": "PASS",
+  "head": "983c1b067e58c3f5242703f0f07b6c86095db931",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "4",
+      "time": "93.811",
+      "timestamp": "2026-10-14T00:27:57.360285+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-222738-3d47f699": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-222738-3d47f699": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "run": "20261013-222738-3d47f699",
+  "raw_sha256": {
+    "result.json": "a2e487a3bd54a91fd0daf83c6d9c78ca72dc4aa1f97273af334c56c34176a841",
+    "pytest.xml": "cf767b70ecf0d5e2f1ca549a47760f0bc785d37295d9f9dfe248896a92e653ba",
+    "pytest-reports.jsonl": "e9a9a0216969d37435ec1629a8ae5e1573c7adba6364d4ad298cf927f500732b"
+  },
+  "scope": "Four real PostgreSQL correction cases; integrated verification still required; not CR09 acceptance."
+}

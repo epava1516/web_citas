@@ -1,0 +1,15 @@
+{
+  "run": "20261013-222009-b0492fbe",
+  "partial": true,
+  "negative_reports": [
+    {
+      "nodeid": "tests/test_diagnostic_baseline_pg.py::test_actual_original_approval_roundtrip_and_config_rejection",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 31.381561697926372,
+      "longrepr": "tests/test_diagnostic_baseline_pg.py:265: in test_actual_original_approval_roundtrip_and_config_rejection\n    with pytest.raises(ValueError, match='CACHE_REJECTED: OperationalError'):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   AssertionError: Regex pattern did not match.\nE     Expected regex: 'CACHE_REJECTED: OperationalError'\nE     Actual message: 'Baseline database occupied; no backends terminated'"
+    }
+  ],
+  "journal_sha256_at_observation": "b05642c5c8075e08cfcdf9a09339388a8929c2fa05378b327c0b5600d9877c53",
+  "scope": "Integrated negative preserved; no acceptance or source edit during execution."
+}

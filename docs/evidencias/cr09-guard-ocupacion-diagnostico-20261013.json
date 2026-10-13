@@ -1,0 +1,8 @@
+{
+  "run": "20261013-222009-b0492fbe",
+  "failure_stage": "_guard before restore, not _drop_scratch after restore",
+  "source": "tests/diagnostic_baseline.py:106",
+  "observed_behavior": "connections.close_all then immediate pg_stat_activity count of original fixture database; rejects any backend",
+  "next_control": "Real owned retained and naturally closing connections against _guard; preserve require_diagnostic and no termination; only apply bounded natural drain after controlled negative",
+  "scope": "Static inspected path; does not prove backend identity or original failure cause. Integrated test process remains running, sources frozen."
+}

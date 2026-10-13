@@ -1,0 +1,44 @@
+{
+  "result": "ERROR",
+  "head": "3f95f62eea43c0cae41122f3c6c09b525608205f",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "1",
+      "time": "38.523",
+      "timestamp": "2026-10-14T00:25:43.200922+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-222524-344afb96": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-222524-344afb96": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "run": "20261013-222524-344afb96",
+  "negative_reports": [
+    {
+      "nodeid": "tests/test_diagnostic_baseline_pg.py::test_baseline_guard_retains_rejection_and_allows_natural_close",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 0.1528156171552837,
+      "longrepr": "tests/test_diagnostic_baseline_pg.py:61: in test_baseline_guard_retains_rejection_and_allows_natural_close\n    assert baseline._guard()['NAME'] == config['NAME']\n           ^^^^^^^^^^^^^^^^^\ntests/diagnostic_baseline.py:118: in _guard\n    raise ValueError('Baseline database occupied; no backends terminated')\nE   ValueError: Baseline database occupied; no backends terminated"
+    }
+  ],
+  "raw_sha256": {
+    "result.json": "e23aad468ecc3cd22060963b95d08552c449f27a6c321fbd20808b84416d314d",
+    "pytest.xml": "4e12852720df38d4e385af57294cfb33d26ed68aff77e9946b6d3bb663ba8713",
+    "pytest-reports.jsonl": "8d5162ceb967544614859e28cb42d3d9f566da15e952902bd8a03fba03c7e965"
+  }
+}

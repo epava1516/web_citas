@@ -1,0 +1,36 @@
+{
+  "result": "PASS",
+  "head": "c3fd1b05341aabdf6d51a8016283cbc42e02b7b0",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "4",
+      "time": "90.919",
+      "timestamp": "2026-10-14T00:30:04.315318+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-222945-b5e9a950": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-222945-b5e9a950": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "run": "20261013-222945-b5e9a950",
+  "raw_sha256": {
+    "result.json": "afa843b1ca495cd0b45fc5b83d2df45e53255e13aa1a63b7b684bea5a4afa2c8",
+    "pytest.xml": "161e5dc47bbe09c335e9766eeedcea7546e5c28bc0c483235a528f8ad577b15e",
+    "pytest-reports.jsonl": "d1860bb204149f058b77ec7c94d3cc6dd66117e2b1dd55c93710dd330f27311e"
+  },
+  "scope": "Four integrated PostgreSQL tests pass; historical negatives preserved; full common-version regression and contract requirements pending."
+}
