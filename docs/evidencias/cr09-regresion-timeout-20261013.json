@@ -1,0 +1,82 @@
+{
+  "observed_at": "2026-10-13T06:04:48.316060+00:00",
+  "run": "20261013-000356-b8b57d5c",
+  "source_sha": "3f1a66fbd763ac4e258c53dd617cba1c22fafa1f",
+  "result": "ERROR",
+  "reason": "pytest timeout at 21600 seconds",
+  "selected": 3205,
+  "completed": 1831,
+  "failures": [
+    {
+      "nodeid": "tests/test_publication_state.py::test_every_project_source_executed_by_the_native_rule_is_versioned",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 7.189316015224904,
+      "longrepr": "tests/test_publication_state.py:365: in test_every_project_source_executed_by_the_native_rule_is_versioned\n    assert executed <= set(publication_state.RULE_SOURCES), executed - set(publication_state.RULE_SOURCES)\nE   AssertionError: {'apps/safety/rights_validation_seal.py'}\nE   assert {'apps/core/v...tate.py', ...} <= {'apps/catalo...dels.py', ...}\nE     \nE     Extra items in the left set:\nE     'apps/safety/rights_validation_seal.py'"
+    },
+    {
+      "nodeid": "tests/test_publication_state_conditional.py::test_conditional_decision_write_preserves_exact_count[decision]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 7.976464402861893,
+      "longrepr": "tests/test_publication_state_conditional.py:88: in test_conditional_decision_write_preserves_exact_count\n    assert not missing, missing\nE   AssertionError: ['apps/safety/rights_operation_fingerprints.py', 'apps/safety/rights_validation_seal.py']\nE   assert not ['apps/safety/rights_operation_fingerprints.py', 'apps/safety/rights_validation_seal.py']"
+    },
+    {
+      "nodeid": "tests/test_publication_state_conditional.py::test_conditional_decision_write_preserves_exact_count[proof]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 7.805437253322452,
+      "longrepr": "tests/test_publication_state_conditional.py:88: in test_conditional_decision_write_preserves_exact_count\n    assert not missing, missing\nE   AssertionError: ['apps/safety/rights_operation_fingerprints.py', 'apps/safety/rights_validation_seal.py']\nE   assert not ['apps/safety/rights_operation_fingerprints.py', 'apps/safety/rights_validation_seal.py']"
+    },
+    {
+      "nodeid": "tests/test_publication_state_upload.py::test_upload_processing_leaves_no_unrefreshed_mark",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 4.446502759121358,
+      "longrepr": "tests/test_publication_state_upload.py:32: in test_upload_processing_leaves_no_unrefreshed_mark\n    assert queued and not PublicationDirty.objects.exists()\nE   assert ([])"
+    },
+    {
+      "nodeid": "tests/test_purpose_inventory_dependencies.py::test_same_procedure_excluded_other_procedure_visible_and_opaque_cipher_changes_detected",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 10.319933745078743,
+      "longrepr": "tests/test_purpose_inventory_dependencies.py:27: in test_same_procedure_excluded_other_procedure_visible_and_opaque_cipher_changes_detected\n    assert len(rows) == 82\nE   AssertionError: assert 86 == 82\nE    +  where 86 = len({'core.User': {'model': 'core.User', 'purpose': 'account', 'count': 1, 'state_digest': 'fd9c7ef7ee74cbac11b8b693a6561d...references', 'count': 1, 'state_digest': 'd44af48b53633468f3a7901e8011305f0eec1e224e9ebe98f80f04ad31b517a0', ...}, ...})"
+    },
+    {
+      "nodeid": "tests/test_recovery_task_gate.py::test_actual_beat_removes_prior_schedule_during_recovery",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 3.406734034884721,
+      "longrepr": "tests/test_recovery_task_gate.py:155: in test_actual_beat_removes_prior_schedule_during_recovery\n    assert process.poll() is None, log.read_text()[-1000:]\nE   AssertionError: Traceback (most recent call last):\nE       File \"<frozen runpy>\", line 198, in _run_module_as_main\nE       File \"<frozen runpy>\", line 88, in _run_code\nE       File \"/home/felidae/proyectos/web_modelos_mod08_vps/scripts/probe_recovery_task_gate.py\", line 80, in <module>\nE         main()\nE       File \"/home/felidae/proyectos/web_modelos_mod08_vps/scripts/probe_recovery_task_gate.py\", line 44, in main\nE         assert not app.conf.beat_schedule\nE                ^^^^^^^^^^^^^^^^^^^^^^^^^^\nE     AssertionError\nE     \nE   assert 1 is None\nE    +  where 1 = poll()\nE    +    where poll = <Popen: returncode: 1 args: ['/home/felidae/proyectos/web_modelos_mod08_vps/...>.poll"
+    },
+    {
+      "nodeid": "tests/test_rights_enforced_validation_seal.py::test_enforced_held_seal_still_rejects_real_external_object_corruption",
+      "when": "setup",
+      "outcome": "failed",
+      "duration": 0.13147255824878812,
+      "longrepr": "tests/test_rights_object_store.py:31: in object_store\n    subprocess.run(\n../../.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/subprocess.py:571: in run\n    raise CalledProcessError(retcode, process.args,\nE   subprocess.CalledProcessError: Command '['docker', 'run', '--pull=never', '-d', '--name', 'web-modelos-object-test-69a2e1bb17b3', '--label', 'web-modelos-object-tests', '--cpus', '0.5', '--memory', '512m', '--memory-swap', '512m', '--log-driver', 'none', '--tmpfs', '/data:size=128m,uid=10001,gid=10001', '-p', '127.0.0.1::9000', '--tmpfs', '/logs:size=16m,uid=10001,gid=10001', '-e', 'RUSTFS_ACCESS_KEY', '-e', 'RUSTFS_SECRET_KEY', '-e', 'RUSTFS_CONSOLE_ENABLE', 'rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c']' returned non-zero exit status 125."
+    },
+    {
+      "nodeid": "tests/test_rights_object_store.py::test_actual_export_data_packages_download_and_purge_s3",
+      "when": "setup",
+      "outcome": "failed",
+      "duration": 0.15551081812009215,
+      "longrepr": "tests/test_rights_object_store.py:31: in object_store\n    subprocess.run(\n../../.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/subprocess.py:571: in run\n    raise CalledProcessError(retcode, process.args,\nE   subprocess.CalledProcessError: Command '['docker', 'run', '--pull=never', '-d', '--name', 'web-modelos-object-test-cd2bd734efcb', '--label', 'web-modelos-object-tests', '--cpus', '0.5', '--memory', '512m', '--memory-swap', '512m', '--log-driver', 'none', '--tmpfs', '/data:size=128m,uid=10001,gid=10001', '-p', '127.0.0.1::9000', '--tmpfs', '/logs:size=16m,uid=10001,gid=10001', '-e', 'RUSTFS_ACCESS_KEY', '-e', 'RUSTFS_SECRET_KEY', '-e', 'RUSTFS_CONSOLE_ENABLE', 'rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c']' returned non-zero exit status 125."
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-000356-b8b57d5c": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-000356-b8b57d5c": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "acceptance": false,
+  "raw_result": "/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261013-000356-b8b57d5c/result.json"
+}

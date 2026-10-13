@@ -222,11 +222,6 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-if RECOVERY_MODE:
-    CELERY_BEAT_SCHEDULE = {}
-    # Beat otherwise installs backend_cleanup even with an empty schedule.
-    CELERY_RESULT_EXPIRES = None
-
 MEDIA_STORAGE_PROVIDER = os.getenv("MEDIA_STORAGE_PROVIDER", "local")
 if MEDIA_STORAGE_PROVIDER == "s3":
     STORAGES = {
@@ -312,3 +307,9 @@ CELERY_IMPORTS += ("apps.safety.rights_object_content",)
 
 # Requires the separate runtime role; all domain guards still run.
 RIGHTS_EVIDENCE_ENFORCED = os.getenv("RIGHTS_EVIDENCE_ENFORCED", "0") == "1"
+
+# Apply after every task registration, including private object and export jobs.
+if RECOVERY_MODE:
+    CELERY_BEAT_SCHEDULE = {}
+    # Beat otherwise installs backend_cleanup even with an empty schedule.
+    CELERY_RESULT_EXPIRES = None

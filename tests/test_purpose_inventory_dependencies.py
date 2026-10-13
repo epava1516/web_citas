@@ -24,7 +24,18 @@ def test_same_procedure_excluded_other_procedure_visible_and_opaque_cipher_chang
     case, _, _, plan, _, proposal, _, _ = approved(request, settings, monkeypatch)
     current = snapshot(case.pk)
     rows = {item["model"]: item for item in current["entries"]}
-    assert len(rows) == 82
+    assert len(rows) == 86
+    # Private object delivery, asynchronous exports and the integrity chain
+    # are durable dependencies added after the original inventory fixture.
+    for name in [
+        "RightsObjectDelivery",
+        "RightsPortabilityExportJob",
+        "RightsEvidenceHead",
+        "RightsEvidenceEvent",
+    ]:
+        assert rows["safety." + name]["purpose"] == "dependent_evidence"
+    for name in ["RightsObjectDelivery", "RightsPortabilityExportJob"]:
+        assert rows["safety." + name]["count"] == 0
     for name in [
         "PromotionOrder",
         "PromotionPaymentAttempt",

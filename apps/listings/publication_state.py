@@ -66,6 +66,8 @@ RULE_SOURCES = (
     "apps/safety/photo_dispositions.py",
     "apps/safety/photo_reintroduction_review.py",
     "apps/safety/rights.py",
+    "apps/safety/rights_operation_fingerprints.py",
+    "apps/safety/rights_validation_seal.py",
 )
 
 
