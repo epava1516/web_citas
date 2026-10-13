@@ -26,7 +26,7 @@ def test_locked_reference_defers_refresh_without_losing_dirty_generation(request
     assert listing is not None
     PublicationState.objects.filter(listing=listing).delete()
     publication_state.mark([listing.pk])
-    generation = PublicationDirty.objects.get(listing=listing).generation
+    generation = PublicationDirty.objects.get(listing_id=listing.pk).generation
     locked, refreshed = Event(), Event()
 
     def write():
@@ -46,12 +46,12 @@ def test_locked_reference_defers_refresh_without_losing_dirty_generation(request
         try:
             assert locked.wait(10)
             assert publication_state.refresh(1) == 0
-            assert PublicationDirty.objects.get(listing=listing).generation == generation
+            assert PublicationDirty.objects.get(listing_id=listing.pk).generation == generation
             assert not PublicationState.objects.filter(listing=listing).exists()
         finally:
             refreshed.set()
         assert writing.result(timeout=15)
-    assert PublicationDirty.objects.get(listing=listing).generation > generation
+    assert PublicationDirty.objects.get(listing_id=listing.pk).generation > generation
     assert publication_state.refresh(1) == 1
-    assert not PublicationDirty.objects.filter(listing=listing).exists()
+    assert not PublicationDirty.objects.filter(listing_id=listing.pk).exists()
     assert PublicationState.objects.filter(listing=listing).exists()
