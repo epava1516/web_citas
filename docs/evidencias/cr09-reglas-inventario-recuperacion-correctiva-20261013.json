@@ -1,0 +1,26 @@
+{
+  "id": "20261013-060954-792ae594",
+  "head": "9b70e9ead1d4d5cd7d358ab93125580d511fc631",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261013-060954-792ae594": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261013-060954-792ae594": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "selection": [
+    "tests/test_publication_state.py",
+    "tests/test_publication_state_conditional.py",
+    "tests/test_purpose_inventory_dependencies.py",
+    "tests/test_recovery_task_gate.py"
+  ],
+  "scope": "34 PostgreSQL tests: publication state, conditional writes, purpose inventory and actual recovery task gates; not global acceptance",
+  "pytest_log": "..................................                                       [100%]\n34 passed in 442.69s (0:07:22)\n"
+}
