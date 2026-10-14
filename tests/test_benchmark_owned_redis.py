@@ -11,7 +11,7 @@ from scripts import run_local_ci
 
 @pytest.mark.parametrize("damage", [
     None, "run", "name", "label", "port", "host", "database", "stopped",
-    "unscoped", "missing_override", "credentials", "query",
+    "unscoped", "missing_override", "credentials", "query", "ci_missing_scope",
 ])
 def test_ci_broker_identity_is_checked_before_redis_client(monkeypatch, damage):
     run = "20261014-120000-12345678"
@@ -45,6 +45,10 @@ def test_ci_broker_identity_is_checked_before_redis_client(monkeypatch, damage):
         monkeypatch.delenv("LOCAL_CI_BENCHMARK_RUN")
     elif damage == "missing_override":
         monkeypatch.delenv("WEB_MODELOS_BENCHMARK_OWNED_REDIS_URL")
+    elif damage == "ci_missing_scope":
+        monkeypatch.setenv("LOCAL_CI_POSTGRES_CONTAINER", f"web-modelos-ci-pg-{run}")
+        monkeypatch.delenv("WEB_MODELOS_BENCHMARK_OWNED_REDIS_URL")
+        monkeypatch.delenv("LOCAL_CI_BENCHMARK_RUN")
     monkeypatch.setattr(benchmark, "OWNED_REDIS", url)
     inspected, connected = [], []
 

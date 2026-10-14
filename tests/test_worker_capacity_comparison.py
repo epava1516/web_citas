@@ -59,6 +59,8 @@ def owned_redis():
 
     override = os.environ.get("WEB_MODELOS_BENCHMARK_OWNED_REDIS_URL")
     run = os.environ.get("LOCAL_CI_BENCHMARK_RUN")
+    if os.environ.get("LOCAL_CI_POSTGRES_CONTAINER"):
+        assert override and run, "CI benchmark must not fall back to the normal Redis broker"
     if override or run:
         assert run and re.fullmatch(r"\d{8}-\d{6}-[0-9a-f]{8}", run), "Owned CI run required"
         name = os.environ.get("LOCAL_CI_BENCHMARK_REDIS_CONTAINER")
