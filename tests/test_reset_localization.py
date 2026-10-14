@@ -4,7 +4,7 @@ import shutil
 from concurrent.futures import ThreadPoolExecutor
 
 import pytest
-from django.db import close_old_connections, connection
+from django.db import close_old_connections, connection, connections
 from django.test import Client
 from playwright.sync_api import expect, sync_playwright
 from test_accounts import email_path, legal_docs, verified_user  # noqa: F401
@@ -22,7 +22,8 @@ def db_sync(operation):
         try:
             return operation()
         finally:
-            close_old_connections()
+            # This executor thread is retiring; release healthy persistent connections too.
+            connections.close_all()
     with ThreadPoolExecutor(max_workers=1) as executor:
         return executor.submit(isolated).result()
 
