@@ -1729,3 +1729,28 @@ Almacenes propios: `20261014-151650-b7e62a38`, SHA2d4a922,9PASS/0omitidos, fuent
 
 
 Política del escenario productor: `20261014-152024-21b3ce27`, SHAe06d049,9PASS/0omitidos, fuentes intactas/limpieza independiente. Ejecutorexplícito snapshotsTrue; escenarioFalse y seedrealparaobservarcredencialesfueraMEDIA_ROOT. Ampliación almacenes y políticaproductor integradas65d4916. No ausencia global/histórica; censo incompleto e inclusión/retención/revisiónpendientes. [Terminal](evidencias/cr09-productor-snapshots-politica-terminal-20261014.json).
+
+
+### CR09 — capturador integrado, 2026-10-14
+
+HEAD1bea2f7, run20261014-152914-05de7a6d: 9PASS/0FAIL/0ERROR/0SKIP;
+fuentes intactas y limpieza independiente de dos contenedores/raíz temporal.
+Arranque previo exit2 por PATH sin uv conservado. Adaptador sin límite CPU/RAM
+de contenedores: verificación funcional, no capacidad contractual. Controlador
+CPU0–3/3584MiB/swap0/512tareas. Cobertura del censo sigue false, no aceptación
+CR09/N3 ni nueva métrica p95.
+[Evidencia](evidencias/cr09-productores-head-terminal-20261014.json).
+
+
+### CR09 — fuentes de retención configuradas, 2026-10-14
+
+Run20261014-153232-8fc08b77: 9PASS/0FAIL/0ERROR/0SKIP, fuentes intactas.
+Capturador registra log_driver y volúmenes exactos, más CONFIG GET de cinco
+campos de persistencia exclusivamente en Redis propio. Ambos contenedores usan
+json-file; Redis tiene save="3600 1 300 100 60 10000", appendonly=no y 16 bases.
+DB0 vacío no acredita ausencia de snapshots ni datos en otras bases. No se
+inspeccionó contenido histórico ni se acreditó asociación/divulgación.
+Limpieza independiente confirma dos contenedores, raíz temporal y el volumen
+anónimo propio ausentes; ningún volumen ajeno eliminado. Alcance funcional,
+sin cuotas de contenedores en este adaptador; no nueva métrica HTTP/capacidad.
+[Evidencia](evidencias/cr09-retencion-configuracion-terminal-20261014.json).

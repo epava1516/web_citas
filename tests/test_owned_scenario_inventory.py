@@ -23,6 +23,11 @@ def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_bind
     runner = Path(artifact).parent / "runner.json"
     manifest = capture(runner, [tmp_path, settings.MEDIA_ROOT], seed_credentials=tmp_path / "credentials.json")
     assert len(manifest["containers"]) == 2
+    assert all("log_driver" in item for item in manifest["containers"])
+    assert all("volume_name" in mount for item in manifest["containers"] for mount in item["mounts"])
+    assert set(manifest["runtime_stores"]["owned_redis_persistence_configuration"]) == {
+        "save", "appendonly", "appendfilename", "dbfilename", "databases"}
+    assert "not inspected" in manifest["runtime_stores"]["redis_history_scope"]
     assert manifest["runtime_stores"]["database"].startswith("test_promotion_gate_")
     assert manifest["runtime_stores"]["owned_redis_db0_keys"] == 0
     assert manifest["runtime_stores"]["celery_eager"] is True

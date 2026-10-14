@@ -44,7 +44,10 @@ def capture(runner_path, roots, *, seed_credentials=None):
             redis_port = int(bindings[0]["HostPort"])
         containers.append({"name": name, "id": info["Id"], "image_id": info["Image"],
                            "created": info["Created"], "ports": info["NetworkSettings"]["Ports"],
-                           "mounts": [{"type": m["Type"], "destination": m["Destination"]}
+                           "log_driver": info["HostConfig"]["LogConfig"]["Type"],
+                           "log_content_scope": "not_captured; subject association pending",
+                           "mounts": [{"type": m["Type"], "destination": m["Destination"],
+                                       "volume_name": m.get("Name"), "read_write": m["RW"]}
                                       for m in info["Mounts"]]})
     files = []
     seen = set()
@@ -222,6 +225,8 @@ def observe_runtime_stores(redis_port):
                          socket_connect_timeout=3, socket_timeout=3)
     try:
         keys = client.dbsize()
+        persistence = {key: client.config_get(key)[key]
+                       for key in ("save", "appendonly", "appendfilename", "dbfilename", "databases")}
     finally:
         client.close()
     return {"database": database, "database_role": role, "sessions": sessions,
@@ -229,4 +234,6 @@ def observe_runtime_stores(redis_port):
             "locmem_mail_count": len(mail.outbox) if hasattr(mail, "outbox") else None,
             "celery_eager": settings.CELERY_TASK_ALWAYS_EAGER,
             "owned_redis_db0_keys": keys,
+            "owned_redis_persistence_configuration": persistence,
+            "redis_history_scope": "Configuration observed only; files, other DBs and past snapshots not inspected",
             "limits": "Point observations; no log/archive/backup inspection, no cache value decoding, no global absence or recipient coverage claim."}
