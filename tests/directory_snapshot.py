@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import logging
 import os
 import re
 import shutil
@@ -14,6 +15,8 @@ from django.apps import apps
 from django.conf import settings
 from django.db import connections
 from psycopg import sql
+
+logger = logging.getLogger(__name__)
 
 _CACHE = {}
 _VERIFIED_CONTAINERS = set()
@@ -134,9 +137,18 @@ class SnapshotBusy(RuntimeError):
 
 
 def _quiescent(cursor, names):
-    cursor.execute("SELECT datname FROM pg_stat_activity WHERE datname = ANY(%s)", [names])
-    if cursor.fetchall():
-        raise SnapshotBusy("Fixture snapshot database has live connections; none were terminated")
+    cursor.execute(
+        "SELECT datname, pid, state, backend_type, backend_start "
+        "FROM pg_stat_activity WHERE datname = ANY(%s) ORDER BY datname, pid",
+        [names],
+    )
+    occupied = cursor.fetchall()
+    if occupied:
+        # Diagnostic metadata only: never SQL text, credentials or application data.
+        raise SnapshotBusy(
+            "Fixture snapshot database has live connections; none were terminated; "
+            f"backends={occupied!r}"
+        )
 
 
 def _empty_fixture_database():
@@ -198,7 +210,8 @@ def seed_or_restore(seed):
                         sql.Identifier(template)
                     )
                 )
-        except SnapshotBusy:
+        except SnapshotBusy as error:
+            logger.warning("Fixture snapshot capture fallback: %s", error)
             # seed already produced the real baseline. Preserve occupied test
             # services and their connections; do not attempt DROP or clone.
             shutil.rmtree(media)
@@ -224,7 +237,8 @@ def seed_or_restore(seed):
                     sql.Identifier(target), sql.Identifier(snapshot.template)
                 )
             )
-    except SnapshotBusy:
+    except SnapshotBusy as error:
+        logger.warning("Fixture snapshot restore fallback: %s", error)
         # A live_server can already have a legitimate connection to this test
         # database. Run the original bootstrap instead of destroying its DB.
         seed()
