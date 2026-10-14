@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-def capture(runner_path, roots):
+def capture(runner_path, roots, *, seed_credentials=None):
     runner_path = Path(runner_path)
     runner = json.loads(runner_path.read_text())
     run = runner["id"]
@@ -63,6 +63,8 @@ def capture(runner_path, roots):
             files.append({"relative_path": str(path.relative_to(temporary)), "size": size,
                           "sha256": digest.hexdigest(), "subject_binding": "not_established"})
     bind_media_files(files, temporary)
+    if seed_credentials is not None:
+        bind_seed_credentials(files, temporary, seed_credentials)
     return {"schema": "owned-scenario-observation-v1", "run": run, "head": runner["head"],
             "captured_at": datetime.now(timezone.utc).isoformat(), "containers": containers,
             "roots": [str(Path(root).relative_to(temporary)) for root in roots], "files": files,
@@ -101,3 +103,37 @@ def bind_media_files(files, temporary):
                 "source": "Photo.revision.listing.person; Photo.blob FileField path",
             })
             row["subject_binding"] = "explicit_database_relation"
+
+
+def bind_seed_credentials(files, temporary, declared_path):
+    """Explicit seed-demo recipe mapping; never export credential values."""
+    from apps.core.management.commands import seed_demo
+    from apps.core.models import User
+
+    path = Path(declared_path).resolve(strict=True)
+    if not path.is_relative_to(temporary):
+        raise RuntimeError("Declared credentials are outside the disposable scenario")
+    row = next((item for item in files if item["relative_path"] == str(path.relative_to(temporary))), None)
+    if row is None or row["size"] > 65536:
+        raise RuntimeError("Credential producer artifact missing or oversized")
+    content = path.read_bytes()
+    if hashlib.sha256(content).hexdigest() != row["sha256"]:
+        raise RuntimeError("Credential artifact changed after observation")
+    body = json.loads(content)
+    if body.get("synthetic_only") is not True or set(body) != {"synthetic_only", "password", "accounts"}:
+        raise RuntimeError("Unexpected synthetic credential producer schema")
+    if set(body["accounts"]) != set(seed_demo.NAMES):
+        raise RuntimeError("Credential producer account set changed")
+    subjects = []
+    for name in seed_demo.NAMES:
+        # This is the producer's explicit key-to-username recipe, not a search
+        # for matching text or UUIDs in arbitrary retained material.
+        user = User.objects.get(username=f"fixture-v1-{name}")
+        if body["accounts"][name]["email"] != user.email:
+            raise RuntimeError("Credential producer mapping differs from current account")
+        subjects.append(user.pk)
+    row.update(subject_binding="explicit_seed_producer_mapping", account_subjects=subjects,
+               producer_source="apps/core/management/commands/seed_demo.py",
+               producer_sha256=hashlib.sha256(Path(seed_demo.__file__).read_bytes()).hexdigest(),
+               excluded_fields=["password", "accounts.*.totp_secret"],
+               retention_decision="pending_independent_review")

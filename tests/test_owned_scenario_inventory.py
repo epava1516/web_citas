@@ -18,15 +18,22 @@ def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_bind
         pytest.skip("Requires explicit disposable CI producer inventory")
     request.getfixturevalue("directory")
     runner = Path(artifact).parent / "runner.json"
-    manifest = capture(runner, [tmp_path, settings.MEDIA_ROOT])
+    manifest = capture(runner, [tmp_path, settings.MEDIA_ROOT], seed_credentials=tmp_path / "credentials.json")
     assert len(manifest["containers"]) == 2
     assert any(item["relative_path"].endswith("credentials.json") for item in manifest["files"])
     media = [item for item in manifest["files"] if item.get("database_references")]
     assert media and all(item["subject_binding"] == "explicit_database_relation" for item in media)
     credentials = [item for item in manifest["files"] if item["relative_path"].endswith("credentials.json")]
-    assert len(credentials) == 1 and credentials[0]["subject_binding"] == "not_established"
+    assert len(credentials) == 1 and credentials[0]["subject_binding"] == "explicit_seed_producer_mapping"
+    assert len(credentials[0]["account_subjects"]) == 8
+    assert credentials[0]["excluded_fields"] == ["password", "accounts.*.totp_secret"]
     assert manifest["coverage_complete"] is False and manifest["pending"]
     (Path(artifact).parent / "owned-scenario-inventory.json").write_text(json.dumps(manifest, indent=2))
+    credential_values = json.loads((tmp_path / "credentials.json").read_text())
+    exported = json.dumps(manifest)
+    assert credential_values["password"] not in exported
+    assert all(not value["totp_secret"] or value["totp_secret"] not in exported
+               for value in credential_values["accounts"].values())
     metadata = json.loads(runner.read_text())
     original = next(item for item in media if any(
         ref["field"] == "original" for ref in item["database_references"]))
@@ -35,6 +42,6 @@ def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_bind
     try:
         path.write_bytes(previous + b"synthetic-content-alteration")
         with pytest.raises(RuntimeError, match="Observed original differs"):
-            capture(runner, [tmp_path, settings.MEDIA_ROOT])
+            capture(runner, [tmp_path, settings.MEDIA_ROOT], seed_credentials=tmp_path / "credentials.json")
     finally:
         path.write_bytes(previous)
