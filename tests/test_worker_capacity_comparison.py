@@ -14,7 +14,7 @@ import time
 import urllib.error
 import urllib.request
 from pathlib import Path
-from urllib.parse import quote, unquote
+from urllib.parse import quote, unquote, urlsplit
 from uuid import uuid4
 
 import psycopg
@@ -45,7 +45,9 @@ pytestmark = pytest.mark.django_db(transaction=True)
 # leave marks that nothing refreshes. The second is the deployed MOD05 topology.
 EAGER = "without_worker_beat_eager_signal"
 NORMAL = "normal_worker_beat"
-OWNED_REDIS = "redis://127.0.0.1:56379/15"
+OWNED_REDIS = os.environ.get(
+    "WEB_MODELOS_BENCHMARK_OWNED_REDIS_URL", "redis://127.0.0.1:56379/15"
+)
 # Owned runtime settings load the task observer only when its output is set; process
 # commands stay identical to compose.yaml.
 OBSERVER_SETTINGS = ('import os as _os\nif _os.environ.get("WEB_MODELOS_CELERY_OBSERVER_DIR"):\n'
@@ -55,6 +57,22 @@ OBSERVER_SETTINGS = ('import os as _os\nif _os.environ.get("WEB_MODELOS_CELERY_O
 def owned_redis():
     import redis
 
+    override = os.environ.get("WEB_MODELOS_BENCHMARK_OWNED_REDIS_URL")
+    run = os.environ.get("LOCAL_CI_BENCHMARK_RUN")
+    if override or run:
+        assert run and re.fullmatch(r"\d{8}-\d{6}-[0-9a-f]{8}", run), "Owned CI run required"
+        name = os.environ.get("LOCAL_CI_BENCHMARK_REDIS_CONTAINER")
+        assert name == f"web-modelos-ci-redis-{run}", "Owned Redis container required"
+        url = urlsplit(OWNED_REDIS)
+        assert override == OWNED_REDIS and url.scheme == "redis"
+        assert url.hostname == "127.0.0.1" and url.path == "/0"
+        assert not (url.username or url.password or url.query or url.fragment)
+        info = json.loads(subprocess.check_output(["docker", "inspect", name], text=True))[0]
+        assert info["State"]["Running"]
+        assert info["Config"]["Labels"].get("web-modelos-local-ci-run") == run
+        assert info["NetworkSettings"]["Ports"]["6379/tcp"] == [
+            {"HostIp": "127.0.0.1", "HostPort": str(url.port)}
+        ], "Owned Redis port mismatch"
     return redis.Redis.from_url(OWNED_REDIS)
 
 

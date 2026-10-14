@@ -167,6 +167,14 @@ def main():
     )
     parser.add_argument("--timeout", type=int, default=7200, help="Seconds per command")
     parser.add_argument(
+        "--benchmark-normal-refresh", action="store_true",
+        help="Use actual worker/Beat with this run's owned Redis for an explicit focused HTTP gate",
+    )
+    parser.add_argument(
+        "--benchmark-generator-freeze", action="store_true",
+        help="Apply the documented GC preparation to the benchmark client only",
+    )
+    parser.add_argument(
         "--workers",
         type=int,
         default=6,
@@ -182,6 +190,18 @@ def main():
         help="Mark dead runs without a terminal result as INTERRUPTED and remove their declared resources",
     )
     args = parser.parse_args()
+    if (args.benchmark_normal_refresh or args.benchmark_generator_freeze) and (
+        args.profile != "focused" or args.workers != 1
+    ):
+        parser.error("Benchmark switches require focused selection and --workers 1")
+    if args.benchmark_normal_refresh and (
+        not args.test or any(
+            not (item == "tests/test_contract_http_load.py"
+                 or item.startswith("tests/test_contract_http_load.py::"))
+            for item in args.test
+        )
+    ):
+        parser.error("Normal benchmark refresh requires the explicit contract HTTP test")
     if args.recover:
         return recover()
     if (args.profile == "focused") != bool(args.test):
@@ -217,6 +237,8 @@ def main():
         "selection": {"smoke": SMOKE, "rights": RIGHTS, "focused": args.test}.get(args.profile, []),
         "workers": args.workers,
         "fixture_snapshots": args.fixture_snapshots,
+        "benchmark_normal_refresh": args.benchmark_normal_refresh,
+        "benchmark_generator_freeze": args.benchmark_generator_freeze,
         "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
     }
     before = hashes()
@@ -336,6 +358,15 @@ def main():
                     if service == "pg"
                     else {"REDIS_URL": f"redis://127.0.0.1:{port}/0"}
                 )
+                if service == "redis" and args.benchmark_normal_refresh:
+                    env.update(
+                        WEB_MODELOS_REFRESH_MODE="normal_worker_beat",
+                        WEB_MODELOS_BENCHMARK_OWNED_REDIS_URL=env["REDIS_URL"],
+                        LOCAL_CI_BENCHMARK_RUN=run_id,
+                        LOCAL_CI_BENCHMARK_REDIS_CONTAINER=name,
+                    )
+                if args.benchmark_generator_freeze:
+                    env["WEB_MODELOS_GENERATOR_GC_FREEZE"] = "1"
                 probe = (
                     ["pg_isready", "-U", "ci", "-d", "promotion_gate_ci"]
                     if service == "pg"
