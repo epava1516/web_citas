@@ -49,7 +49,33 @@ def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_bind
         "save", "appendonly", "appendfilename", "dbfilename", "databases"}
     assert "not inspected" in manifest["runtime_stores"]["redis_history_scope"]
     assert manifest["runtime_stores"]["database"].startswith("test_promotion_gate_")
-    assert manifest["runtime_stores"]["owned_redis_db0_keys"] == 0
+    # Earlier scenarios may retain legitimate broker keys in this own instance.
+    # Verify observation with one explicitly owned marker; never clear existing keys.
+    from uuid import uuid4
+
+    import redis
+
+    endpoint = next(item for item in manifest["containers"] if "-redis-" in item["name"])
+    port = int(endpoint["ports"]["6379/tcp"][0]["HostPort"])
+    client = redis.Redis(host="127.0.0.1", port=port, db=0,
+                         socket_connect_timeout=3, socket_timeout=3)
+    marker = "owned-inventory-probe-" + uuid4().hex
+    value = b"synthetic-retained-probe"
+    try:
+        before = client.dbsize()
+        assert manifest["runtime_stores"]["owned_redis_db0_keys"] == before
+        assert client.set(marker, value, nx=True)
+        populated = capture(runner, [tmp_path, settings.MEDIA_ROOT],
+                            seed_credentials=tmp_path / "credentials.json")
+        assert populated["runtime_stores"]["owned_redis_db0_keys"] == before + 1
+        assert client.get(marker) == value
+        assert populated["coverage_complete"] is False and populated["pending"]
+    finally:
+        try:
+            if client.get(marker) == value:
+                client.delete(marker)
+        finally:
+            client.close()
     assert manifest["runtime_stores"]["celery_eager"] is True
     assert any(item["relative_path"].endswith("credentials.json") for item in manifest["files"])
     media = [item for item in manifest["files"] if item.get("database_references")]
