@@ -68,6 +68,30 @@ def observe(monkeypatch):
     states, full_calls = [], []
     native_recording = rights_validation_seal.recording
     native_full = rights_portability_export._validate_export_binding
+    native_holds = rights_validation_seal.holds
+    native_replay = rights_validation_seal._replay
+
+    def replay(statements):
+        actual = native_replay(statements)
+        if states:
+            states[-1]["replay_mismatches"] = [
+                index for index, (recorded, replayed) in enumerate(
+                    zip(states[-1]["digests"], actual, strict=True)
+                ) if recorded != replayed
+            ]
+        return actual
+
+    def holds(export, caller):
+        if states:
+            candidate = RightsExportValidationSeal.objects.filter(export=export).latest("pk")
+            states[-1]["reuse_inputs"] = {
+                "rule_matches": candidate.rule_version == rights_validation_seal.rule_version(),
+                "caller_matches": candidate.caller_digest == rights_validation_seal.caller_digest(
+                    *caller.values()
+                ),
+                "unexpired": candidate.valid_until > timezone.now(),
+            }
+        return native_holds(export, caller)
 
     @contextmanager
     def recording():
@@ -80,6 +104,8 @@ def observe(monkeypatch):
         return native_full(*args, **kwargs)
 
     monkeypatch.setattr(rights_validation_seal, "recording", recording)
+    monkeypatch.setattr(rights_validation_seal, "holds", holds)
+    monkeypatch.setattr(rights_validation_seal, "_replay", replay)
     monkeypatch.setattr(rights_portability_export, "_validate_export_binding", full)
     return states, full_calls
 
@@ -96,7 +122,10 @@ def warm(case, author, export, states, calls):
     seal = RightsExportValidationSeal.objects.get(export=export)
     assert len(seal.result_digests) == len(state["digests"])
     assert seal.valid_until > timezone.now()
-    assert check(case, author, export) is True
+    assert check(case, author, export) is True, {
+        "reuse_inputs": state.get("reuse_inputs"),
+        "replay_mismatches": state.get("replay_mismatches"),
+    }
     assert len(calls) == len(states) == 1
     return seal
 
