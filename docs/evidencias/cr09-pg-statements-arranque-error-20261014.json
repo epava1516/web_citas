@@ -1,0 +1,66 @@
+{
+  "result": {
+    "id": "20261014-135828-eee2fc89",
+    "profile": "focused",
+    "result": "ERROR",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-135828-eee2fc89",
+          "--label",
+          "web-modelos-local-ci-run=20261014-135828-eee2fc89",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine",
+          "postgres",
+          "-c",
+          "shared_preload_libraries=pg_stat_statements",
+          "-c",
+          "pg_stat_statements.track_planning=on"
+        ],
+        "exit": 0,
+        "seconds": 0.46890714578330517
+      }
+    ],
+    "head": "046eb6ed474dfe46fbe9189d5636f26cab27f788",
+    "excluded": [],
+    "selection": [
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "benchmark_pg_statements": true,
+    "benchmark_http_processes": 8,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": true,
+    "benchmark_generator_freeze": true,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "error": "pg readiness timeout",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-135828-eee2fc89": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true
+  },
+  "independent_cleanup": {
+    "web-modelos-ci-pg-20261014-135828-eee2fc89": true
+  },
+  "root_cause": "Adapter appends postgres executable after already-present explicit postgres command; command assembly corrected separately. No HTTP load executed."
+}

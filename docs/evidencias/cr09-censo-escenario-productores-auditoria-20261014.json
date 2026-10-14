@@ -1,0 +1,42 @@
+{
+  "scenario": "Local rights-access close for a freshly seeded account/profile in disposable PostgreSQL; exact test node to be selected after producer manifest is prepared.",
+  "acceptance_not_claimed": true,
+  "inspected_sources": {
+    "tests/test_rights_access_recipient_payload.py": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+    "tests/test_discovery.py": "e90a1bdad0d933423ae65d3afe0ecf0da23f990053081b600cfe68f35bfbdedc",
+    "tests/test_photos.py": "5ddceb800d932164f76e7cbd45c2ec1abd15cdfeccf670ef894ecfdfb772e8df",
+    "scripts/run_local_ci.py": "41c873ffb4e035a4324a4f0a30405583fe652f26c1d750bfde77b2c794d8bcf7",
+    "apps/safety/rights_access_delivery.py": "ec17bb43b52fa27e54dcc91151db88dfa941ba332d6b37ce015ce82d69506611",
+    "scripts/collect_access_resource_logs.py": "3af7861ee0e6205d9dd129160c9ce147af0ad6ab4fc83fb8d0ba56fffe55fc01"
+  },
+  "findings": [
+    {
+      "source": "tests/test_rights_access_recipient_payload.py:synthetic_resource_census",
+      "fact": "Fixture declares configuration_inspection origins and empty records for all categories; its own docstring explicitly denies real host coverage."
+    },
+    {
+      "source": "apps/safety/rights_access_delivery.py:retained_resource_records",
+      "fact": "Verifier checks integrity/scope and explicitly does not verify census truth."
+    },
+    {
+      "source": "tests/test_discovery.py:directory",
+      "fact": "Seed producer writes a credentials artifact; that artifact must be accounted for in any actual scenario census, not silently treated as absent."
+    },
+    {
+      "source": "scripts/run_local_ci.py",
+      "fact": "Runtime declares disposable media path and isolated PG/Redis. Declaration alone does not classify every retained historical origin."
+    },
+    {
+      "source": "scripts/collect_access_resource_logs.py:collect",
+      "fact": "Existing collector targets fixed Compose normal-service names. It must not be invoked for the owned CI scenario."
+    }
+  ],
+  "required_producer_manifest": [
+    "Exact own runner/process/container/image identities and fresh storage lifecycle",
+    "Every fixture input/generated file including credential artifact, with bounded roots/hash/provenance",
+    "Actual log/mail/session/queue/cache/backup/unlinked-record stores, subject-binding and retention or justified absence",
+    "Links to scoped case/inventory/cutoff/dependency fingerprints and independent review",
+    "Per historical capture link/no-link/indeterminate backed by provenance; no decryption or textual matching"
+  ],
+  "next_action": "Prepare owned-scenario capture via explicit runner metadata and producer artifacts; do not reuse fixed normal-stack collector or upgrade empty synthetic fixture to actual coverage."
+}

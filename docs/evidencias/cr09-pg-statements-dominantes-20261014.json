@@ -1,0 +1,61 @@
+{
+  "run_id": "20261014-140100-992f8fb2",
+  "top": [
+    {
+      "kind": "selection",
+      "search": true,
+      "calls": 386,
+      "plan_ms": 1199.4149040000013,
+      "execution_ms": 89729.97139599998,
+      "rows": 9264,
+      "shared_hits": 546388,
+      "shared_reads": 0,
+      "pattern_tail": "gs_listing\".\"id\" IN (SELECT U0.\"listing_id\" AS \"listing_id\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"rules_version\" = $?))) ORDER BY ts_rank(\"listings_revision\".\"search_document\", (websearch_to_tsquery($?::regconfig, $?) || websearch_to_tsquery($?::regconfig, $?))) DESC, \"listings_listing\".\"published_at\" DESC, ? ASC LIMIT $?"
+    },
+    {
+      "kind": "count",
+      "search": true,
+      "calls": 386,
+      "plan_ms": 873.1716389999999,
+      "execution_ms": 53492.12901700001,
+      "rows": 386,
+      "shared_hits": 547442,
+      "shared_reads": 0,
+      "pattern_tail": "es_at\" > $?::timestamptz AND \"listings_listing\".\"status\" = $? AND \"listings_revision\".\"search_document\" @@ (websearch_to_tsquery($?::regconfig, $?) || websearch_to_tsquery($?::regconfig, $?)) AND \"listings_listing\".\"id\" IN (SELECT U0.\"listing_id\" AS \"listing_id\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"rules_version\" = $?)))"
+    },
+    {
+      "kind": "hydration",
+      "search": false,
+      "calls": 800,
+      "plan_ms": 35179.150282999966,
+      "execution_ms": 17762.488796999976,
+      "rows": 19200,
+      "shared_hits": 807118,
+      "shared_reads": 0,
+      "pattern_tail": "ore_phoneclaim\" ON (\"core_person\".\"phone_claim_id\" = \"core_phoneclaim\".\"id\") WHERE \"listings_listing\".\"id\" IN ($?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid, $?::uuid)"
+    },
+    {
+      "kind": "count",
+      "search": false,
+      "calls": 385,
+      "plan_ms": 852.0954829999994,
+      "execution_ms": 45268.74879100006,
+      "rows": 385,
+      "shared_hits": 545288,
+      "shared_reads": 0,
+      "pattern_tail": "listing\".\"approved_revision_id\" = \"listings_revision\".\"id\") WHERE (\"listings_revision\".\"status\" = $? AND \"listings_listing\".\"expires_at\" > $?::timestamptz AND \"listings_listing\".\"status\" = $? AND \"listings_listing\".\"id\" IN (SELECT U0.\"listing_id\" AS \"listing_id\" FROM \"listings_publicationstate\" U0 WHERE (U0.\"eligible\" AND U0.\"rules_version\" = $?)))"
+    },
+    {
+      "kind": "state_census",
+      "search": false,
+      "calls": 771,
+      "plan_ms": 555.5391520000001,
+      "execution_ms": 13684.692723000016,
+      "rows": 771,
+      "shared_hits": 381098,
+      "shared_reads": 0,
+      "pattern_tail": "SELECT NOT EXISTS (SELECT $? FROM listings_listing l LEFT JOIN listings_publicationstate s ON s.listing_id = l.id WHERE s.listing_id IS NULL OR s.rules_version <> $?)"
+    }
+  ],
+  "limits": "Aggregate wall under instrumented concurrent load includes wait/overhead; not per-query CPU. Ranking does not prove improvement. Timing cannot compare to clean short as code regression."
+}

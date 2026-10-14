@@ -1,0 +1,3130 @@
+{
+  "head_current": "5d9acba667d2a15fd11d09cbcea92e5d069bdd72",
+  "contract_sources": [
+    "docs/83-auditoria-pendientes-cr09.md",
+    "docs/88-matriz-cierre-derechos.md"
+  ],
+  "status": "Partial requirement index grounded in actual call receipts and source assertions; not criterion acceptance/common N3.",
+  "rights": {
+    "access": {
+      "sources": [
+        {
+          "source": "tests/test_rights_access_coverage_store.py",
+          "sha256": "748b389b0af92be11048609fc49fe2156434e6452d7572b2b08d29886f6ccce1",
+          "test_functions": [
+            {
+              "function": "test_audited_coverage_preserves_open_request_and_rejects_stale_replay",
+              "line": 27,
+              "assertions": [
+                {
+                  "line": 165,
+                  "expression": "invoke().pk == row.pk"
+                },
+                {
+                  "line": 166,
+                  "expression": "reason not in row.encrypted_coverage"
+                },
+                {
+                  "line": 167,
+                  "expression": "unseal(row.encrypted_coverage)['bound_references']"
+                },
+                {
+                  "line": 184,
+                  "expression": "inspected.pk == row.pk and body['accounting']"
+                },
+                {
+                  "line": 189,
+                  "expression": "record(verifier, case.pk, case.version, row.pk, audited_read.pk, decision_key, reason, 'approved').pk == approved.pk"
+                },
+                {
+                  "line": 212,
+                  "expression": "path in other.get(inspection_path).content.decode()"
+                },
+                {
+                  "line": 213,
+                  "expression": "path not in staff.get(inspection_path).content.decode()"
+                },
+                {
+                  "line": 215,
+                  "expression": "other.get(path).status_code == 200"
+                },
+                {
+                  "line": 216,
+                  "expression": "'Synthetic declaration awaiting' not in other.get(path).content.decode()"
+                },
+                {
+                  "line": 217,
+                  "expression": "RightsAction.objects.count() == before"
+                },
+                {
+                  "line": 218,
+                  "expression": "staff.get(path).status_code == 403"
+                },
+                {
+                  "line": 219,
+                  "expression": "Client().get(path).status_code == 302"
+                },
+                {
+                  "line": 222,
+                  "expression": "csrf.post(path, {}).status_code == 403"
+                },
+                {
+                  "line": 226,
+                  "expression": "response.status_code == 200 and 'Synthetic declaration awaiting' in response.content.decode()"
+                },
+                {
+                  "line": 241,
+                  "expression": "response.status_code == 200 and 'Synthetic declaration awaiting' not in response.content.decode()"
+                },
+                {
+                  "line": 301,
+                  "expression": "used.pk == approved.pk and evidence_body['evidence_bodies']"
+                },
+                {
+                  "line": 302,
+                  "expression": "consume(author, case.pk, case.version, case.response_version, approved.pk, use_key, reason)[0].pk == approved.pk"
+                },
+                {
+                  "line": 327,
+                  "expression": "response_draft.coverage_review_id == approved.pk"
+                },
+                {
+                  "line": 342,
+                  "expression": "response_page.status_code == 200"
+                },
+                {
+                  "line": 343,
+                  "expression": "response_text not in response_page.content.decode()"
+                },
+                {
+                  "line": 881,
+                  "expression": "(case.version, case.response_version, case.status) == original"
+                },
+                {
+                  "line": 882,
+                  "expression": "RightsAccessCoverage.objects.count() == 1"
+                },
+                {
+                  "line": 891,
+                  "expression": "purge_expired_access_coverage() == 1"
+                },
+                {
+                  "line": 892,
+                  "expression": "purge_expired_access_coverage() == 0"
+                },
+                {
+                  "line": 894,
+                  "expression": "row.purged_at and (not row.encrypted_coverage)"
+                },
+                {
+                  "line": 159,
+                  "expression": "RightsAction.objects.filter(key=key, operation='access_coverage').exists()"
+                },
+                {
+                  "line": 294,
+                  "expression": "RightsAction.objects.filter(key=use_key, operation='access_cover_use').exists()"
+                },
+                {
+                  "line": 345,
+                  "expression": "validate_draft(response_draft, case, None if account_only else case.person)['text'] == response_text"
+                },
+                {
+                  "line": 431,
+                  "expression": "not original_scope['blocked']"
+                },
+                {
+                  "line": 432,
+                  "expression": "len(original_scope['groups']['operations.LogEvent']) == 1"
+                },
+                {
+                  "line": 433,
+                  "expression": "not original_scope['log_origins']['unprojected_candidates']"
+                },
+                {
+                  "line": 470,
+                  "expression": "package_page.status_code == 200"
+                },
+                {
+                  "line": 471,
+                  "expression": "package_page.context['package_preview'] == original_scope"
+                },
+                {
+                  "line": 472,
+                  "expression": "'Original access package' in package_page.content.decode()"
+                },
+                {
+                  "line": 478,
+                  "expression": "spanish_page.status_code == 200"
+                },
+                {
+                  "line": 479,
+                  "expression": "'Paquete original de acceso' in spanish_page.content.decode()"
+                },
+                {
+                  "line": 480,
+                  "expression": "spanish_page.context['package_preview'] == original_scope"
+                },
+                {
+                  "line": 481,
+                  "expression": "RightsAccessResponseDraft.objects.count() == drafts_before"
+                },
+                {
+                  "line": 482,
+                  "expression": "not RightsAction.objects.filter(key=preview_key, operation='access_draft').exists()"
+                },
+                {
+                  "line": 483,
+                  "expression": "staff.post(response_path, preview_values).status_code == 200"
+                },
+                {
+                  "line": 484,
+                  "expression": "other.post(response_path, preview_values).status_code == 403"
+                },
+                {
+                  "line": 487,
+                  "expression": "page_reload.status_code == 200"
+                },
+                {
+                  "line": 488,
+                  "expression": "page_reload.context['package_preview'] is None"
+                },
+                {
+                  "line": 489,
+                  "expression": "RightsAction.objects.count() == action_count"
+                },
+                {
+                  "line": 545,
+                  "expression": "package_body['access_package']['pending'] == expected_pending"
+                },
+                {
+                  "line": 560,
+                  "expression": "redacted_row['data'][redacted_field] == original_value"
+                },
+                {
+                  "line": 565,
+                  "expression": "inspected_package['access_package'] == package_body['access_package']"
+                },
+                {
+                  "line": 653,
+                  "expression": "completed_scope['resource_scope']['pending'] == []"
+                },
+                {
+                  "line": 679,
+                  "expression": "completed_body['access_package']['pending'] == []"
+                },
+                {
+                  "line": 680,
+                  "expression": "completed_body['access_package']['partial'] is False"
+                },
+                {
+                  "line": 693,
+                  "expression": "other.get(close_path).status_code == 403"
+                },
+                {
+                  "line": 695,
+                  "expression": "staff.get(close_path).status_code == 200"
+                },
+                {
+                  "line": 696,
+                  "expression": "RightsAction.objects.count() == action_count"
+                },
+                {
+                  "line": 796,
+                  "expression": "staff.post(close_path, close_values).status_code == 200"
+                },
+                {
+                  "line": 797,
+                  "expression": "staff.post(close_path, close_values | {'key': uuid4()}).status_code == 409"
+                },
+                {
+                  "line": 799,
+                  "expression": "(case.version, case.response_version, case.status) == (original[0] + 1, original[1] + 1, 'resolved')"
+                },
+                {
+                  "line": 804,
+                  "expression": "RightsAccessClosure.objects.count() == 1"
+                },
+                {
+                  "line": 805,
+                  "expression": "(RightsResponse.objects.count(), RightsNotice.objects.count()) == (before[0] + 1, before[1] + 1)"
+                },
+                {
+                  "line": 810,
+                  "expression": "downloaded.status_code == 200"
+                },
+                {
+                  "line": 811,
+                  "expression": "downloaded.json() == recipient_payload(completed_body)"
+                },
+                {
+                  "line": 812,
+                  "expression": "downloaded.json()['simulation'] is True"
+                },
+                {
+                  "line": 825,
+                  "expression": "'review_material' not in downloaded.content.decode()"
+                },
+                {
+                  "line": 826,
+                  "expression": "'origin_digest' not in downloaded.content.decode()"
+                },
+                {
+                  "line": 827,
+                  "expression": "public.post(url(receipt, export), {'key': uuid4()}).json() == downloaded.json()"
+                },
+                {
+                  "line": 830,
+                  "expression": "[item['id'] for item in case_export_forms(case)] == [export.pk]"
+                },
+                {
+                  "line": 841,
+                  "expression": "public.post(url(receipt, export), {'key': uuid4()}).status_code == 404"
+                },
+                {
+                  "line": 843,
+                  "expression": "public.post(url(receipt, export), {'key': uuid4()}).json() == downloaded.json()"
+                },
+                {
+                  "line": 272,
+                  "expression": "'Synthetic declaration awaiting' not in page.locator('body').inner_text()"
+                },
+                {
+                  "line": 277,
+                  "expression": "'Synthetic declaration awaiting' in page.locator('body').inner_text()"
+                },
+                {
+                  "line": 281,
+                  "expression": "page.evaluate('document.documentElement.scrollWidth <= innerWidth')"
+                },
+                {
+                  "line": 283,
+                  "expression": "'Synthetic declaration awaiting' not in page.locator('body').inner_text()"
+                },
+                {
+                  "line": 416,
+                  "expression": "cli.returncode == 0"
+                },
+                {
+                  "line": 417,
+                  "expression": "cli.stdout.strip() == str(expected_path)"
+                },
+                {
+                  "line": 419,
+                  "expression": "duplicate.returncode == 2 and 'no accepted artifact' in duplicate.stderr"
+                },
+                {
+                  "line": 435,
+                  "expression": "len(original_scope['log_origins']['projected_mail']) == 1"
+                },
+                {
+                  "line": 436,
+                  "expression": "any((row['data']['body'].endswith('[redacted]') for row in original_scope['groups']['operations.Mail']))"
+                },
+                {
+                  "line": 557,
+                  "expression": "redacted_field not in delivered_row['data']"
+                },
+                {
+                  "line": 559,
+                  "expression": "delivered_row['data'][redacted_field] == redacted_value"
+                },
+                {
+                  "line": 725,
+                  "expression": "all((status == 200 for (status, _) in results))"
+                },
+                {
+                  "line": 815,
+                  "expression": "any((row['expired_at_cutoff'] and row.get('language') == 'en' for row in session_copy))"
+                },
+                {
+                  "line": 818,
+                  "expression": "retained_session.session_key not in downloaded.content.decode()"
+                },
+                {
+                  "line": 819,
+                  "expression": "'synthetic-expired-capability-not-for-delivery' not in downloaded.content.decode()"
+                },
+                {
+                  "line": 823,
+                  "expression": "'Single-use link' in downloaded.content.decode()"
+                },
+                {
+                  "line": 824,
+                  "expression": "'/account/token/' not in downloaded.content.decode()"
+                },
+                {
+                  "line": 795,
+                  "expression": "closing.status_code == 200"
+                },
+                {
+                  "line": 835,
+                  "expression": "public.post(url(receipt, export), {'key': uuid4()}).status_code == 404"
+                },
+                {
+                  "line": 775,
+                  "expression": "not public_page.evaluate('() => document.documentElement.scrollWidth > window.innerWidth')"
+                },
+                {
+                  "line": 788,
+                  "expression": "json.loads(Path(downloaded_file.value.path()).read_text()) == recipient_payload(completed_body)"
+                }
+              ]
+            },
+            {
+              "function": "test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture",
+              "line": 899,
+              "assertions": []
+            },
+            {
+              "function": "test_integrated_access_concurrent_closure_has_one_response_and_notice",
+              "line": 917,
+              "assertions": []
+            },
+            {
+              "function": "test_integrated_access_includes_retained_expired_session_without_capabilities",
+              "line": 934,
+              "assertions": []
+            },
+            {
+              "function": "test_integrated_access_includes_console_mail_without_authentication_link",
+              "line": 951,
+              "assertions": []
+            },
+            {
+              "function": "test_historical_log_selection_uses_audited_package_review_and_blocks_full_close",
+              "line": 968,
+              "assertions": []
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[es-False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[es-True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[en-False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[en-True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_concurrent_closure_has_one_response_and_notice[False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_concurrent_closure_has_one_response_and_notice[True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_retained_expired_session_without_capabilities[False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_retained_expired_session_without_capabilities[True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_historical_log_selection_uses_audited_package_review_and_blocks_full_close[False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_coverage_store.py::test_historical_log_selection_uses_audited_package_review_and_blocks_full_close[True]",
+              "outcome": "passed"
+            }
+          ]
+        },
+        {
+          "source": "tests/test_rights_access_recipient_payload.py",
+          "sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+          "test_functions": [
+            {
+              "function": "test_recipient_projection_keeps_copy_without_private_review_envelope",
+              "line": 68,
+              "assertions": [
+                {
+                  "line": 72,
+                  "expression": "payload['copy'] == body['access_package']['copy']"
+                },
+                {
+                  "line": 73,
+                  "expression": "payload['response'] == body['text']"
+                },
+                {
+                  "line": 74,
+                  "expression": "'private-review-only' not in str(payload)"
+                },
+                {
+                  "line": 75,
+                  "expression": "'private-decision-only' not in str(payload)"
+                },
+                {
+                  "line": 76,
+                  "expression": "'private-source-only' not in str(payload)"
+                },
+                {
+                  "line": 78,
+                  "expression": "body == original"
+                }
+              ]
+            },
+            {
+              "function": "test_recipient_projection_rejects_incomplete_or_unknown_copy",
+              "line": 82,
+              "assertions": []
+            },
+            {
+              "function": "test_session_scope_reads_owned_records_without_exposing_authentication_material",
+              "line": 98,
+              "assertions": [
+                {
+                  "line": 107,
+                  "expression": "connection.vendor == 'postgresql'"
+                },
+                {
+                  "line": 124,
+                  "expression": "[row['fields'] for row in captured['blocked']] == [['expired_subject_data']]"
+                },
+                {
+                  "line": 125,
+                  "expression": "len(captured['copy']) == len(captured['evidence']) == 2"
+                },
+                {
+                  "line": 127,
+                  "expression": "active_copy['language'] == 'en'"
+                },
+                {
+                  "line": 128,
+                  "expression": "sum((row['expired_at_cutoff'] for row in captured['copy'])) == 1"
+                },
+                {
+                  "line": 129,
+                  "expression": "captured['copy'][0]['authenticated'] is True"
+                },
+                {
+                  "line": 130,
+                  "expression": "own.session_key not in str(captured)"
+                },
+                {
+                  "line": 131,
+                  "expression": "other.session_key not in str(captured)"
+                },
+                {
+                  "line": 132,
+                  "expression": "'synthetic-authentication-material' not in str(captured)"
+                },
+                {
+                  "line": 133,
+                  "expression": "'other-subject-only' not in str(captured)"
+                },
+                {
+                  "line": 134,
+                  "expression": "'expired-only' not in str(captured)"
+                },
+                {
+                  "line": 139,
+                  "expression": "{row['reference']: row['content'] for row in changed['evidence']} != previous"
+                },
+                {
+                  "line": 140,
+                  "expression": "{tuple(row['fields']) for row in changed['blocked']} == {('unknown_personal_data',), ('expired_subject_data',)}"
+                },
+                {
+                  "line": 144,
+                  "expression": "'requires-an-adapter' not in str(changed)"
+                },
+                {
+                  "line": 150,
+                  "expression": "len(retained['copy']) == 1 and (not retained['copy'][0]['expired_at_cutoff'])"
+                },
+                {
+                  "line": 151,
+                  "expression": "len(retained['blocked']) == 1"
+                },
+                {
+                  "line": 152,
+                  "expression": "other.session_key not in str(retained)"
+                },
+                {
+                  "line": 154,
+                  "expression": "session_records(101, cutoff)['blocked'] == [{'resource': 'sessions', 'reason': 'unsupported_session_store'}]"
+                }
+              ]
+            },
+            {
+              "function": "test_broker_scope_reads_actual_owned_queued_and_reserved_messages_without_consuming",
+              "line": 159,
+              "assertions": [
+                {
+                  "line": 201,
+                  "expression": "not read['blocked']"
+                },
+                {
+                  "line": 202,
+                  "expression": "len(read['copy']) == 2"
+                },
+                {
+                  "line": 203,
+                  "expression": "{row['state'] for row in read['copy']} == {'queued'}"
+                },
+                {
+                  "line": 204,
+                  "expression": "own not in str(read) and other not in str(read)"
+                },
+                {
+                  "line": 205,
+                  "expression": "client.lrange(key, 0, -1) == before"
+                },
+                {
+                  "line": 206,
+                  "expression": "client.lrange(key + '\\x06\\x16' + '3', 0, -1) == priority_before"
+                },
+                {
+                  "line": 208,
+                  "expression": "reserved.payload[0] == [own]"
+                },
+                {
+                  "line": 210,
+                  "expression": "before_unacked"
+                },
+                {
+                  "line": 212,
+                  "expression": "not second['blocked']"
+                },
+                {
+                  "line": 213,
+                  "expression": "len(second['copy']) == 2"
+                },
+                {
+                  "line": 214,
+                  "expression": "{row['state'] for row in second['copy']} == {'queued', 'reserved'}"
+                },
+                {
+                  "line": 215,
+                  "expression": "client.hgetall(prefix + 'unacked') == before_unacked"
+                },
+                {
+                  "line": 216,
+                  "expression": "len(second['evidence']) == 2"
+                },
+                {
+                  "line": 218,
+                  "expression": "broker_records({own})['blocked'][0]['reason'] == 'unsupported_message'"
+                },
+                {
+                  "line": 223,
+                  "expression": "broker_records({own})['blocked'] == [{'resource': 'queues', 'reason': 'bounded_read_bytes'}]"
+                },
+                {
+                  "line": 226,
+                  "expression": "client.lpop(key) == oversized"
+                },
+                {
+                  "line": 229,
+                  "expression": "broker_records({own})['blocked'] == [{'resource': 'queues', 'reason': 'bounded_read_bytes'}]"
+                },
+                {
+                  "line": 232,
+                  "expression": "client.hget(unacked_key, 'oversized-fixture') == oversized"
+                },
+                {
+                  "line": 241,
+                  "expression": "broker_records({own})['blocked'] == [{'resource': 'queues', 'reason': 'bounded_read_bytes'}]"
+                },
+                {
+                  "line": 244,
+                  "expression": "(client.llen(key), client.llen(priority_key)) == length_before"
+                },
+                {
+                  "line": 251,
+                  "expression": "broker_records({own})['blocked'] == [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+                },
+                {
+                  "line": 246,
+                  "expression": "client.lpop(key) == aggregate"
+                },
+                {
+                  "line": 248,
+                  "expression": "client.lpop(priority_key) == aggregate"
+                }
+              ]
+            },
+            {
+              "function": "test_log_origin_reader_keeps_candidates_private_and_rejects_stale_or_altered_files",
+              "line": 265,
+              "assertions": [
+                {
+                  "line": 287,
+                  "expression": "len(read['origins']) == 6"
+                },
+                {
+                  "line": 288,
+                  "expression": "len(read['candidates']) == 1"
+                },
+                {
+                  "line": 289,
+                  "expression": "read['pending'] == body['pending']"
+                },
+                {
+                  "line": 290,
+                  "expression": "'sensitive-original-log-only' not in str(read)"
+                },
+                {
+                  "line": 291,
+                  "expression": "'later-event-only' not in str(read)"
+                },
+                {
+                  "line": 292,
+                  "expression": "'other-subject-only' not in str(read)"
+                },
+                {
+                  "line": 293,
+                  "expression": "own not in str(read)"
+                },
+                {
+                  "line": 317,
+                  "expression": "len(typed['projected']) == 2"
+                },
+                {
+                  "line": 318,
+                  "expression": "typed['projected'][0]['reference'] != typed['projected'][1]['reference']"
+                },
+                {
+                  "line": 319,
+                  "expression": "len(typed['unprojected_candidates']) == 6"
+                },
+                {
+                  "line": 320,
+                  "expression": "all((row['data']['operation'] == 'profile_updated' for row in typed['projected']))"
+                },
+                {
+                  "line": 321,
+                  "expression": "'unadapted-private-only' not in str(typed)"
+                },
+                {
+                  "line": 322,
+                  "expression": "'subject_id' not in str(typed['projected'][0]['data'])"
+                }
+              ]
+            },
+            {
+              "function": "test_group_projection_preserves_unmodified_data_and_original_review_material",
+              "line": 340,
+              "assertions": [
+                {
+                  "line": 373,
+                  "expression": "records[0]['data'] == {'description': 'Own text; [redacted]', 'metadata': {'language': 'es'}}"
+                },
+                {
+                  "line": 377,
+                  "expression": "len(exclusions) == 2"
+                },
+                {
+                  "line": 378,
+                  "expression": "all(('third party' not in str(row.get('value', '')) for row in exclusions))"
+                },
+                {
+                  "line": 380,
+                  "expression": "rows == original"
+                }
+              ]
+            },
+            {
+              "function": "test_group_projection_rejects_changes_without_exact_origin",
+              "line": 384,
+              "assertions": []
+            },
+            {
+              "function": "test_mail_scope_accounts_for_owned_and_shared_messages_without_releasing_credentials",
+              "line": 410,
+              "assertions": [
+                {
+                  "line": 423,
+                  "expression": "message.send() == 1"
+                },
+                {
+                  "line": 429,
+                  "expression": "len(read['records']) == 2"
+                },
+                {
+                  "line": 430,
+                  "expression": "read['records'][0]['attachment_count'] == 1"
+                },
+                {
+                  "line": 431,
+                  "expression": "read['records'][1]['shared_recipients'] is True"
+                },
+                {
+                  "line": 432,
+                  "expression": "read['pending'] == ['mail_body_headers_and_attachments_projection']"
+                },
+                {
+                  "line": 433,
+                  "expression": "'private-credential' not in str(read)"
+                },
+                {
+                  "line": 434,
+                  "expression": "'private-attachment-content' not in str(read)"
+                },
+                {
+                  "line": 435,
+                  "expression": "'other-subject-content' not in str(read)"
+                },
+                {
+                  "line": 438,
+                  "expression": "mail_records(own)['records'][0]['content'] != previous"
+                },
+                {
+                  "line": 447,
+                  "expression": "len(captured_mime['records']) == 3"
+                },
+                {
+                  "line": 448,
+                  "expression": "'private-mime-attachment' not in str(captured_mime)"
+                },
+                {
+                  "line": 451,
+                  "expression": "mail_records(own)['records'][-1]['content'] != prior_mime"
+                },
+                {
+                  "line": 453,
+                  "expression": "mail_records(own)['pending'] == ['mail_backend_content_accounting']"
+                }
+              ]
+            },
+            {
+              "function": "test_account_mail_projection_checks_database_owner_and_never_releases_link",
+              "line": 457,
+              "assertions": [
+                {
+                  "line": 489,
+                  "expression": "read['pending'] == []"
+                },
+                {
+                  "line": 490,
+                  "expression": "read['projected'][0]['data']['body'] == prefix + '[redacted]'"
+                },
+                {
+                  "line": 491,
+                  "expression": "read['projected'][0]['data']['purpose'] == 'reset'"
+                },
+                {
+                  "line": 492,
+                  "expression": "raw not in str(read)"
+                },
+                {
+                  "line": 493,
+                  "expression": "str(token.pk) not in str(read)"
+                },
+                {
+                  "line": 494,
+                  "expression": "token.digest not in str(read)"
+                },
+                {
+                  "line": 495,
+                  "expression": "mail_records(owner.email, owner=other.pk)['projected'] == []"
+                },
+                {
+                  "line": 504,
+                  "expression": "mail_records(owner.email, owner=owner.pk)['projected'] == []"
+                },
+                {
+                  "line": 508,
+                  "expression": "mail_records(owner.email, owner=owner.pk)['projected'] == []"
+                },
+                {
+                  "line": 500,
+                  "expression": "rejected['projected'] == []"
+                },
+                {
+                  "line": 501,
+                  "expression": "rejected['pending'] == ['mail_body_headers_and_attachments_projection']"
+                }
+              ]
+            },
+            {
+              "function": "test_resource_census_binds_actual_required_records_and_rejects_scope_or_digest_changes",
+              "line": 562,
+              "assertions": [
+                {
+                  "line": 610,
+                  "expression": "not read['pending']"
+                },
+                {
+                  "line": 611,
+                  "expression": "len(read['groups']) == 1"
+                },
+                {
+                  "line": 612,
+                  "expression": "read['groups'][0]['data']['content'] == row['content']"
+                },
+                {
+                  "line": 613,
+                  "expression": "'synthetic-foreign-resource-private-content' not in str(read)"
+                },
+                {
+                  "line": 614,
+                  "expression": "all(('subject_id' not in item['data'] for item in read['groups']))"
+                },
+                {
+                  "line": 615,
+                  "expression": "len(read['origins']) == 5"
+                },
+                {
+                  "line": 619,
+                  "expression": "retained_resource_records(case, None, inventory, body['dependencies'], required)['pending'] == ['logs:unaccounted_retained_records']"
+                }
+              ]
+            },
+            {
+              "function": "test_resource_copy_never_delivers_unreviewed_originals_or_closes_on_generic_assessment",
+              "line": 637,
+              "assertions": [
+                {
+                  "line": 687,
+                  "expression": "package['partial'] is False"
+                },
+                {
+                  "line": 688,
+                  "expression": "package['pending'] == []"
+                },
+                {
+                  "line": 689,
+                  "expression": "'private-secret' not in str(package['copy'])"
+                },
+                {
+                  "line": 690,
+                  "expression": "'origin_digest' not in str(package['copy'])"
+                },
+                {
+                  "line": 691,
+                  "expression": "original['groups']['operations.RetainedResource'][0]['data']['content'] == 'Own event private-secret'"
+                },
+                {
+                  "line": 696,
+                  "expression": "compile_package(inventory, export, original, decisions, cutoff=cutoff, projected={})['pending'] == ['infrastructure_content_accounting']"
+                }
+              ]
+            },
+            {
+              "function": "test_private_resource_directory_retains_independent_origins_for_two_cases",
+              "line": 701,
+              "assertions": [
+                {
+                  "line": 743,
+                  "expression": "all((not item['pending'] for item in reads))"
+                },
+                {
+                  "line": 744,
+                  "expression": "reads[0]['digest'] != reads[1]['digest']"
+                },
+                {
+                  "line": 748,
+                  "expression": "retained_resource_records(cases[0], None, inventories[0], artifacts[0][1]['dependencies'], {'logs': {}, 'mail': {}}) == reads[0]"
+                }
+              ]
+            },
+            {
+              "function": "test_private_log_directory_writes_scoped_immutable_archives",
+              "line": 773,
+              "assertions": [
+                {
+                  "line": 799,
+                  "expression": "paths[0] != paths[1]"
+                },
+                {
+                  "line": 795,
+                  "expression": "len(read['candidates']) == 1"
+                },
+                {
+                  "line": 796,
+                  "expression": "'private-scoped-log' not in str(read)"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_account_mail_projection_checks_database_owner_and_never_releases_link",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_session_scope_reads_owned_records_without_exposing_authentication_material",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_recipient_projection_keeps_copy_without_private_review_envelope",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_recipient_projection_rejects_incomplete_or_unknown_copy[partial]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_recipient_projection_rejects_incomplete_or_unknown_copy[pending]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_recipient_projection_rejects_incomplete_or_unknown_copy[unknown_copy_member]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_recipient_projection_rejects_incomplete_or_unknown_copy[legacy]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_broker_scope_reads_actual_owned_queued_and_reserved_messages_without_consuming",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_log_origin_reader_keeps_candidates_private_and_rejects_stale_or_altered_files",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_group_projection_preserves_unmodified_data_and_original_review_material",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_group_projection_rejects_changes_without_exact_origin[record]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_group_projection_rejects_changes_without_exact_origin[field]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_group_projection_rejects_changes_without_exact_origin[foreign_text]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_group_projection_rejects_changes_without_exact_origin[unchanged]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_group_projection_rejects_changes_without_exact_origin[numeric]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_mail_scope_accounts_for_owned_and_shared_messages_without_releasing_credentials",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_resource_census_binds_actual_required_records_and_rejects_scope_or_digest_changes",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_resource_copy_never_delivers_unreviewed_originals_or_closes_on_generic_assessment",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_private_resource_directory_retains_independent_origins_for_two_cases",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_access_recipient_payload.py::test_private_log_directory_writes_scoped_immutable_archives",
+              "outcome": "passed"
+            }
+          ]
+        },
+        {
+          "source": "tests/test_access_close_localization.py",
+          "sha256": "ebc0a7d3e41c225d2b110c72ca313846a8ecb039bab0446965a7a5f571fd9e68",
+          "test_functions": [
+            {
+              "function": "test_close_labels_invalid_partial_and_revocation",
+              "line": 72,
+              "assertions": [
+                {
+                  "line": 89,
+                  "expression": "denied.status_code == 403"
+                },
+                {
+                  "line": 90,
+                  "expression": "denied.content.decode() == ('Forbidden' if language == 'en' else 'Acceso denegado')"
+                },
+                {
+                  "line": 172,
+                  "expression": "(case.status, case.version, case.response_version, draft.encrypted_response, RightsAction.objects.filter(request=case).count()) == before"
+                },
+                {
+                  "line": 114,
+                  "expression": "response.status == 200"
+                },
+                {
+                  "line": 116,
+                  "expression": "TEXT not in page.content()"
+                },
+                {
+                  "line": 127,
+                  "expression": "response.value.status == 400"
+                },
+                {
+                  "line": 138,
+                  "expression": "response.value.status == 409"
+                },
+                {
+                  "line": 141,
+                  "expression": "TEXT not in page.content()"
+                },
+                {
+                  "line": 142,
+                  "expression": "db_sync(lambda : RightsResponse.objects.filter(request=case).count()) == 0"
+                },
+                {
+                  "line": 143,
+                  "expression": "db_sync(lambda : RightsAccessClosure.objects.filter(action__request=case).count()) == 0"
+                },
+                {
+                  "line": 147,
+                  "expression": "db_sync(lambda : RightsAction.objects.filter(request=case).count()) == before[-1]"
+                },
+                {
+                  "line": 158,
+                  "expression": "response.status == 403"
+                },
+                {
+                  "line": 159,
+                  "expression": "page.locator('body').inner_text() == ('Forbidden' if language == 'en' else 'Acceso denegado')"
+                },
+                {
+                  "line": 162,
+                  "expression": "'no-store' in response.headers['cache-control']"
+                },
+                {
+                  "line": 166,
+                  "expression": "response.status == 403"
+                },
+                {
+                  "line": 167,
+                  "expression": "response.text() == ('Forbidden' if language == 'en' else 'Acceso denegado')"
+                }
+              ]
+            },
+            {
+              "function": "test_close_form_values_legacy",
+              "line": 182,
+              "assertions": [
+                {
+                  "line": 190,
+                  "expression": "form.is_valid()"
+                },
+                {
+                  "line": 191,
+                  "expression": "form.cleaned_data == data"
+                },
+                {
+                  "line": 192,
+                  "expression": "not CloseForm({**data, 'reason': 'short'}, language=language).is_valid()"
+                },
+                {
+                  "line": 193,
+                  "expression": "CloseForm().fields['reason'].label == CloseForm.base_fields['reason'].label"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_access_close_localization.py::test_close_labels_invalid_partial_and_revocation[False-es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_access_close_localization.py::test_close_labels_invalid_partial_and_revocation[False-en]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_access_close_localization.py::test_close_labels_invalid_partial_and_revocation[True-es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_access_close_localization.py::test_close_labels_invalid_partial_and_revocation[True-en]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_access_close_localization.py::test_close_form_values_legacy[es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_access_close_localization.py::test_close_form_values_legacy[en]",
+              "outcome": "passed"
+            }
+          ]
+        }
+      ],
+      "remaining": "Map assertions to every lifecycle/finality/authority/coverage/notice/retention/closure criterion, including partial vs integral. Check fixture provenance and common-runtime validity; shared mechanism is not integral acceptance."
+    },
+    "portability": {
+      "sources": [
+        {
+          "source": "tests/test_rights_portability_close.py",
+          "sha256": "a78603b3ae2937adda1826284582987b1f4ca546947b737d89e83ccd4f264292",
+          "test_functions": [
+            {
+              "function": "test_final_response_closes_only_exact_approval_and_replays_without_effects",
+              "line": 20,
+              "assertions": [
+                {
+                  "line": 55,
+                  "expression": "staff.get(path).status_code == 200 and TEXT not in staff.get(path).content.decode()"
+                },
+                {
+                  "line": 56,
+                  "expression": "RightsAction.objects.count() == before"
+                },
+                {
+                  "line": 57,
+                  "expression": "path in staff.get(reverse('rights_portability_response_prepare', args=[case.pk])).content.decode()"
+                },
+                {
+                  "line": 70,
+                  "expression": "result.status_code == 200 and 'no-store' in result['Cache-Control']"
+                },
+                {
+                  "line": 71,
+                  "expression": "TEXT not in result.content.decode()"
+                },
+                {
+                  "line": 72,
+                  "expression": "staff.post(path, data).status_code == 200"
+                },
+                {
+                  "line": 73,
+                  "expression": "Client().get(path).status_code == 302"
+                },
+                {
+                  "line": 76,
+                  "expression": "csrf.post(path, data).status_code == 403"
+                },
+                {
+                  "line": 78,
+                  "expression": "unseal(response.encrypted_response) == {'text': TEXT, 'simulation': True}"
+                },
+                {
+                  "line": 79,
+                  "expression": "close(author, case.pk, original[0], original[1], decision.pk, key, REASON).pk == response.pk"
+                },
+                {
+                  "line": 82,
+                  "expression": "RightsResponse.objects.count() == RightsNotice.objects.count() == RightsPortabilityClosure.objects.count() == 1"
+                },
+                {
+                  "line": 89,
+                  "expression": "case.status == 'resolved' and case.scope_status == 'unverified'"
+                },
+                {
+                  "line": 90,
+                  "expression": "(case.version, case.response_version, case.initial_due_at) == (original[0] + 1, original[1] + 1, original[2])"
+                },
+                {
+                  "line": 104,
+                  "expression": "client.post(url(receipt, export), {'key': uuid4()}).status_code == 200"
+                },
+                {
+                  "line": 105,
+                  "expression": "client.post(url(receipt, export), {'key': uuid4()}).json() == payload"
+                },
+                {
+                  "line": 106,
+                  "expression": "[item['id'] for item in case_export_forms(case)] == [export.pk]"
+                },
+                {
+                  "line": 107,
+                  "expression": "TEXT in client.get(receipt).content.decode()"
+                },
+                {
+                  "line": 136,
+                  "expression": "inventory_before['count'] == 1"
+                },
+                {
+                  "line": 140,
+                  "expression": "closure_inventory()['state_digest'] != inventory_before['state_digest']"
+                },
+                {
+                  "line": 142,
+                  "expression": "client.post(url(receipt, export), {'key': uuid4()}).status_code == 404"
+                },
+                {
+                  "line": 143,
+                  "expression": "RightsExportDownload.objects.count() == downloads"
+                },
+                {
+                  "line": 146,
+                  "expression": "closure_inventory() == inventory_before"
+                },
+                {
+                  "line": 147,
+                  "expression": "client.post(url(receipt, export), {'key': uuid4()}).status_code == 200"
+                },
+                {
+                  "line": 34,
+                  "expression": "RightsResponse.objects.count() == RightsNotice.objects.count() == RightsPortabilityClosure.objects.count() == 0"
+                },
+                {
+                  "line": 41,
+                  "expression": "case.status == 'reviewing' and (case.version, case.response_version, case.initial_due_at) == original"
+                },
+                {
+                  "line": 127,
+                  "expression": "TEXT not in str(manifest)"
+                },
+                {
+                  "line": 128,
+                  "expression": "draft.encrypted_response not in str(manifest)"
+                }
+              ]
+            },
+            {
+              "function": "test_final_response_does_not_change_historical_fifty_response_read_boundary",
+              "line": 155,
+              "assertions": [
+                {
+                  "line": 212,
+                  "expression": "response.response_version == 51"
+                },
+                {
+                  "line": 213,
+                  "expression": "close(author, case.pk, version, 50, decision.pk, key, REASON).pk == response.pk"
+                },
+                {
+                  "line": 215,
+                  "expression": "case.status == 'resolved' and case.response_version == 51"
+                }
+              ]
+            },
+            {
+              "function": "test_closed_portability_delivers_exact_image_and_package_and_rolls_back_tampering",
+              "line": 218,
+              "assertions": [
+                {
+                  "line": 239,
+                  "expression": "payload.status_code == 200"
+                },
+                {
+                  "line": 245,
+                  "expression": "response.status_code == 200 and 'no-store' in response['Cache-Control']"
+                },
+                {
+                  "line": 246,
+                  "expression": "hashlib.sha256(response.content).hexdigest() == payload.json()['images'][0]['sha256']"
+                },
+                {
+                  "line": 248,
+                  "expression": "package.status_code == 200"
+                },
+                {
+                  "line": 262,
+                  "expression": "client.post(image_path, {'key': uuid4()}).content == response.content"
+                },
+                {
+                  "line": 263,
+                  "expression": "client.post(part_path, {'key': uuid4()}).content == package.content"
+                },
+                {
+                  "line": 250,
+                  "expression": "archive.namelist() == [str(image.pk) + '.webp']"
+                },
+                {
+                  "line": 251,
+                  "expression": "archive.read(archive.namelist()[0]) == response.content"
+                },
+                {
+                  "line": 259,
+                  "expression": "RightsExportDownload.objects.count() == before"
+                },
+                {
+                  "line": 258,
+                  "expression": "client.post(path, {'key': uuid4()}).status_code == 404"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close.py::test_final_response_closes_only_exact_approval_and_replays_without_effects[approved-False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close.py::test_final_response_closes_only_exact_approval_and_replays_without_effects[approved-True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close.py::test_final_response_closes_only_exact_approval_and_replays_without_effects[rejected-False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close.py::test_final_response_closes_only_exact_approval_and_replays_without_effects[rejected-True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close.py::test_final_response_does_not_change_historical_fifty_response_read_boundary",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close.py::test_closed_portability_delivers_exact_image_and_package_and_rolls_back_tampering",
+              "outcome": "passed"
+            }
+          ]
+        },
+        {
+          "source": "tests/test_rights_portability_close_races.py",
+          "sha256": "4381472cd63a3da1c47bafa1aca2d39217a0f7e44e18ed4dc0dbbdc95eee38cb",
+          "test_functions": [
+            {
+              "function": "test_closure_revalidates_after_observed_lock_wait",
+              "line": 50,
+              "assertions": [
+                {
+                  "line": 114,
+                  "expression": "results[0] is not None and results[0] == results[1]"
+                },
+                {
+                  "line": 115,
+                  "expression": "counts == [1, 1, 1]"
+                },
+                {
+                  "line": 116,
+                  "expression": "RightsAction.objects.filter(request=case).count() == baseline + 1"
+                },
+                {
+                  "line": 117,
+                  "expression": "(case.version, case.response_version, case.status, case.initial_due_at) == (original[0] + 1, original[1] + 1, 'resolved', original[3])"
+                },
+                {
+                  "line": 124,
+                  "expression": "results == [None, None]"
+                },
+                {
+                  "line": 125,
+                  "expression": "counts == [0, 0, 0]"
+                },
+                {
+                  "line": 126,
+                  "expression": "RightsAction.objects.filter(request=case).count() == baseline"
+                },
+                {
+                  "line": 127,
+                  "expression": "(case.version, case.response_version, case.status, case.initial_due_at) == original"
+                },
+                {
+                  "line": 83,
+                  "expression": "len(set(workers + [holder])) == 3"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[replay]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[author_permission]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[author_session]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[author_mfa]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[reviewer_permission]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[reviewer_session]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[reviewer_mfa]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[proof]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[source]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[ciphertext]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[expiry]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[decision]",
+              "outcome": "passed"
+            }
+          ]
+        },
+        {
+          "source": "tests/test_portability_close_localization.py",
+          "sha256": "ebde505dd8200b8459f0698bce405ad4350dcc286bc2876fe31f65ff5beab85c",
+          "test_functions": [
+            {
+              "function": "test_native_approved_close_caption_errors_permission_replay",
+              "line": 30,
+              "assertions": [
+                {
+                  "line": 137,
+                  "expression": "unseal(response.encrypted_response) == {'text': TEXT, 'simulation': True}"
+                },
+                {
+                  "line": 139,
+                  "expression": "closure.review.draft_id == draft.pk and closure.response_id == response.pk"
+                },
+                {
+                  "line": 141,
+                  "expression": "case.status == 'resolved' and case.scope_status == 'unverified'"
+                },
+                {
+                  "line": 142,
+                  "expression": "(case.version, case.response_version, case.initial_due_at) == (original[0] + 1, original[1] + 1, original[2])"
+                },
+                {
+                  "line": 74,
+                  "expression": "page.goto(url).status == 200"
+                },
+                {
+                  "line": 76,
+                  "expression": "TEXT not in page.locator('body').inner_text()"
+                },
+                {
+                  "line": 82,
+                  "expression": "invalid.value.status == 400"
+                },
+                {
+                  "line": 84,
+                  "expression": "TEXT not in page.content() and db_sync(counts) == [0, 0, 0]"
+                },
+                {
+                  "line": 92,
+                  "expression": "response.status == 403 and page.locator('body').inner_text() == ('Forbidden' if language == 'en' else 'Acceso denegado')"
+                },
+                {
+                  "line": 95,
+                  "expression": "'no-store' in response.headers['cache-control']"
+                },
+                {
+                  "line": 97,
+                  "expression": "response.status == 403 and response.text() == ('Forbidden' if language == 'en' else 'Acceso denegado')"
+                },
+                {
+                  "line": 100,
+                  "expression": "db_sync(counts) == [0, 0, 0]"
+                },
+                {
+                  "line": 106,
+                  "expression": "page.goto(url).status == 200"
+                },
+                {
+                  "line": 115,
+                  "expression": "issued.value.status == 200"
+                },
+                {
+                  "line": 121,
+                  "expression": "TEXT not in page.content() and db_sync(counts) == [1, 1, 1]"
+                },
+                {
+                  "line": 123,
+                  "expression": "response.status == 200 and TEXT not in response.text()"
+                },
+                {
+                  "line": 124,
+                  "expression": "db_sync(counts) == [1, 1, 1]"
+                },
+                {
+                  "line": 127,
+                  "expression": "TEXT not in page.content() and page.locator('form').count() == 0"
+                }
+              ]
+            },
+            {
+              "function": "test_close_schema_literal_default",
+              "line": 150,
+              "assertions": [
+                {
+                  "line": 155,
+                  "expression": "form.is_valid() and form.cleaned_data['reason'] == raw"
+                },
+                {
+                  "line": 156,
+                  "expression": "form.fields['reason'].max_length == 200 and form.fields['reason'].min_length == 20"
+                },
+                {
+                  "line": 157,
+                  "expression": "form.fields['version'].min_value == 1 and form.fields['response_version'].min_value == 0"
+                },
+                {
+                  "line": 159,
+                  "expression": "CloseForm().fields[name].label == field.label"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_portability_close_localization.py::test_native_approved_close_caption_errors_permission_replay[False-es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_portability_close_localization.py::test_native_approved_close_caption_errors_permission_replay[False-en]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_portability_close_localization.py::test_native_approved_close_caption_errors_permission_replay[True-es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_portability_close_localization.py::test_native_approved_close_caption_errors_permission_replay[True-en]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_portability_close_localization.py::test_close_schema_literal_default[es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_portability_close_localization.py::test_close_schema_literal_default[en]",
+              "outcome": "passed"
+            }
+          ]
+        }
+      ],
+      "remaining": "Map assertions to every lifecycle/finality/authority/coverage/notice/retention/closure criterion, including partial vs integral. Check fixture provenance and common-runtime validity; shared mechanism is not integral acceptance."
+    },
+    "rectification": {
+      "sources": [
+        {
+          "source": "tests/test_rectification_final_localization.py",
+          "sha256": "21ec9ba601161e21dba737b11c1ac7ebd65b317a1fa6b3bb4c44a5822b68a471",
+          "test_functions": [
+            {
+              "function": "test_rectification_recipient_review_and_close_requirements",
+              "line": 62,
+              "assertions": [
+                {
+                  "line": 64,
+                  "expression": "field.clean('1') == 1"
+                },
+                {
+                  "line": 69,
+                  "expression": "not form.is_valid()"
+                },
+                {
+                  "line": 70,
+                  "expression": "form.errors == {'review': ['Required for this action' if language == 'en' else 'Obligatorio para esta acción']}"
+                },
+                {
+                  "line": 76,
+                  "expression": "form.is_valid() and form.cleaned_data['operation'] == 'close'"
+                },
+                {
+                  "line": 77,
+                  "expression": "not form.fields['confirmed'].required"
+                },
+                {
+                  "line": 78,
+                  "expression": "form.fields['text'].min_length == 50 and form.fields['text'].max_length == 4000"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rectification_final_localization.py::test_rectification_recipient_review_and_close_requirements[es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rectification_final_localization.py::test_rectification_recipient_review_and_close_requirements[en]",
+              "outcome": "passed"
+            }
+          ]
+        },
+        {
+          "source": "tests/test_rectification_final_denial_localization.py",
+          "sha256": "1a30679c64592648fc6cdc9fd9b1101ae86a7296c6a12f8cb276fcf76d4f6d06",
+          "test_functions": [
+            {
+              "function": "test_rectification_final_denial_private_and_effect_free",
+              "line": 17,
+              "assertions": [
+                {
+                  "line": 20,
+                  "expression": "connection.vendor == 'postgresql'"
+                },
+                {
+                  "line": 33,
+                  "expression": "token is not None"
+                },
+                {
+                  "line": 67,
+                  "expression": "(case.version, case.response_version, case.status, case.initial_due_at, RightsAction.objects.count(), RightsResponse.objects.count()) == before"
+                },
+                {
+                  "line": 56,
+                  "expression": "response.status == 403 and page.locator('body').inner_text() == expected"
+                },
+                {
+                  "line": 60,
+                  "expression": "posted.status == 403 and posted.text() == expected"
+                },
+                {
+                  "line": 62,
+                  "expression": "item.headers['cache-control'] == 'private, no-store'"
+                },
+                {
+                  "line": 63,
+                  "expression": "item.headers['x-robots-tag'] == 'noindex, nofollow'"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rectification_final_denial_localization.py::test_rectification_final_denial_private_and_effect_free[es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rectification_final_denial_localization.py::test_rectification_final_denial_private_and_effect_free[en]",
+              "outcome": "passed"
+            }
+          ]
+        }
+      ],
+      "remaining": "Map assertions to every lifecycle/finality/authority/coverage/notice/retention/closure criterion, including partial vs integral. Check fixture provenance and common-runtime validity; shared mechanism is not integral acceptance."
+    },
+    "erasure": {
+      "sources": [
+        {
+          "source": "tests/test_account_erasure_execution.py",
+          "sha256": "b6e42d37b4a27b6fde1f723bc7522616cbc2aaae1b75eb9d69ebaa41ec2239fd",
+          "test_functions": [
+            {
+              "function": "test_account_scoped_execution_preserves_evidence_and_procedural_channel",
+              "line": 98,
+              "assertions": [
+                {
+                  "line": 117,
+                  "expression": "staff.get(path).status_code == 200"
+                },
+                {
+                  "line": 118,
+                  "expression": "'publication' not in {value for (value, _) in staff.get(path).context['form'].fields['purposes'].choices}"
+                },
+                {
+                  "line": 121,
+                  "expression": "Client(enforce_csrf_checks=True).post(path, data).status_code == 403"
+                },
+                {
+                  "line": 123,
+                  "expression": "response.status_code == 200"
+                },
+                {
+                  "line": 124,
+                  "expression": "staff.post(path, data).status_code == 200"
+                },
+                {
+                  "line": 126,
+                  "expression": "execution.person_id is None and execution.account_subject_id == subject.pk"
+                },
+                {
+                  "line": 128,
+                  "expression": "result['schema'] == 'account-erasure-execution-v1' and result['partial']"
+                },
+                {
+                  "line": 129,
+                  "expression": "result['tokens_deleted'] == result['recovery_codes_deleted'] == result['favorites_deleted'] == result['copies_cleared'] == 1"
+                },
+                {
+                  "line": 136,
+                  "expression": "not AccountToken.objects.filter(user=subject).exists()"
+                },
+                {
+                  "line": 137,
+                  "expression": "not RecoveryCode.objects.filter(user=subject).exists()"
+                },
+                {
+                  "line": 138,
+                  "expression": "not Favorite.objects.filter(user=subject).exists()"
+                },
+                {
+                  "line": 140,
+                  "expression": "copy.encrypted_payload == '' and copy.purged_at"
+                },
+                {
+                  "line": 141,
+                  "expression": "LegalAcceptance.objects.filter(pk=acceptance.pk).exists()"
+                },
+                {
+                  "line": 142,
+                  "expression": "list(Person.objects.order_by('pk').values()) == profiles"
+                },
+                {
+                  "line": 143,
+                  "expression": "list(Agency.objects.order_by('pk').values()) == agencies"
+                },
+                {
+                  "line": 145,
+                  "expression": "(subject.session_version, subject.mfa_version) == (before[2] + 1, before[3] + 1)"
+                },
+                {
+                  "line": 156,
+                  "expression": "case.version == data['version'] + 1 and case.status == 'reviewing' and (case.scope_status == 'unverified')"
+                },
+                {
+                  "line": 162,
+                  "expression": "staff.post(f'/en/moderation/rights/{case.pk}/response/', values(case)).status_code == 302"
+                },
+                {
+                  "line": 163,
+                  "expression": "public.get(receipt).status_code == 200"
+                },
+                {
+                  "line": 147,
+                  "expression": "(subject.email, subject.password) == before[:2] and (not subject.account_erased_at)"
+                },
+                {
+                  "line": 149,
+                  "expression": "subject.account_erased_at and (not subject.is_active) and (not subject.has_usable_password())"
+                },
+                {
+                  "line": 154,
+                  "expression": "subject.email != before[0] and (not subject.first_name) and (not subject.last_name)"
+                },
+                {
+                  "line": 166,
+                  "expression": "fresh.account_subject_id == subject.pk and fresh.status == 'pending'"
+                }
+              ]
+            },
+            {
+              "function": "test_account_execution_denies_unreviewed_editorial_stale_and_production_scopes",
+              "line": 174,
+              "assertions": [
+                {
+                  "line": 204,
+                  "expression": "not ErasureExecution.objects.exists()"
+                },
+                {
+                  "line": 205,
+                  "expression": "not RightsAction.objects.filter(operation='erasure_execute').exists()"
+                },
+                {
+                  "line": 208,
+                  "expression": "(subject.email, subject.password, subject.session_version, subject.mfa_version) == original"
+                },
+                {
+                  "line": 214,
+                  "expression": "stored.encrypted_payload and (not stored.purged_at)"
+                },
+                {
+                  "line": 215,
+                  "expression": "AccountToken.objects.filter(user=subject).count() == RecoveryCode.objects.filter(user=subject).count() == 1"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_account_erasure_execution.py::test_account_scoped_execution_preserves_evidence_and_procedural_channel[False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_account_erasure_execution.py::test_account_scoped_execution_preserves_evidence_and_procedural_channel[True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_account_erasure_execution.py::test_account_execution_denies_unreviewed_editorial_stale_and_production_scopes",
+              "outcome": "passed"
+            }
+          ]
+        },
+        {
+          "source": "tests/test_partial_response_localization.py",
+          "sha256": "64cff157c99baf78117d581b971600c03a8c57887404517a8fc6622bc0248ea7",
+          "test_functions": [
+            {
+              "function": "test_partial_response_effective_execution_type",
+              "line": 64,
+              "assertions": [
+                {
+                  "line": 77,
+                  "expression": "not execution.required"
+                },
+                {
+                  "line": 78,
+                  "expression": "form.fields['text'].min_length == 50 and form.fields['text'].max_length == 4000"
+                },
+                {
+                  "line": 68,
+                  "expression": "isinstance(execution, forms.UUIDField)"
+                },
+                {
+                  "line": 69,
+                  "expression": "execution.clean(str(uuid4())).version == 4"
+                },
+                {
+                  "line": 73,
+                  "expression": "isinstance(execution, forms.IntegerField) and execution.min_value == 1"
+                },
+                {
+                  "line": 74,
+                  "expression": "execution.clean('1') == 1"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_partial_response_localization.py::test_partial_response_effective_execution_type[FinalForm-es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_partial_response_localization.py::test_partial_response_effective_execution_type[FinalForm-en]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_partial_response_localization.py::test_partial_response_effective_execution_type[ProcessingForm-es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_partial_response_localization.py::test_partial_response_effective_execution_type[ProcessingForm-en]",
+              "outcome": "passed"
+            }
+          ]
+        }
+      ],
+      "remaining": "Map assertions to every lifecycle/finality/authority/coverage/notice/retention/closure criterion, including partial vs integral. Check fixture provenance and common-runtime validity; shared mechanism is not integral acceptance."
+    },
+    "restriction": {
+      "sources": [
+        {
+          "source": "tests/test_processing_execution.py",
+          "sha256": "d96dc0373b0d39466d8056f22e9c85cbcf531b7bd3cdc27e2ae843eee022306a",
+          "test_functions": [
+            {
+              "function": "test_http_execution_preserves_favorites_blocks_ordinary_use_and_keeps_rights",
+              "line": 59,
+              "assertions": [
+                {
+                  "line": 70,
+                  "expression": "own.get(reverse('favorites')).status_code == 200"
+                },
+                {
+                  "line": 80,
+                  "expression": "Client(enforce_csrf_checks=True).post(path, payload).status_code == 403"
+                },
+                {
+                  "line": 81,
+                  "expression": "staff.post(path, payload).status_code == 200 and staff.post(path, payload).status_code == 200"
+                },
+                {
+                  "line": 85,
+                  "expression": "ProcessingExecution.objects.count() == PurposeRestriction.objects.count() == 1"
+                },
+                {
+                  "line": 86,
+                  "expression": "Favorite.objects.filter(pk=favorite.pk).exists()"
+                },
+                {
+                  "line": 87,
+                  "expression": "own.get(reverse('favorites')).status_code == 409"
+                },
+                {
+                  "line": 88,
+                  "expression": "own.post(reverse('favorite_add', kwargs={'listing_id': favorite.listing_id})).status_code == 409"
+                },
+                {
+                  "line": 92,
+                  "expression": "own.post(reverse('favorite_remove', kwargs={'favorite_id': favorite.pk})).status_code == 409"
+                },
+                {
+                  "line": 95,
+                  "expression": "reviewer.get(reverse('favorites')).status_code == 200"
+                },
+                {
+                  "line": 96,
+                  "expression": "own.get(reverse('rights_create')).status_code == 200"
+                },
+                {
+                  "line": 99,
+                  "expression": "(case.initial_due_at, subject.email, subject.is_active, subject.session_version) == original"
+                },
+                {
+                  "line": 105,
+                  "expression": "case.status == 'reviewing' and case.scope_status == 'unverified'"
+                },
+                {
+                  "line": 107,
+                  "expression": "result['data_deleted'] is False and result['partial'] is True"
+                },
+                {
+                  "line": 111,
+                  "expression": "own.get(reverse('favorites')).status_code == 409"
+                },
+                {
+                  "line": 110,
+                  "expression": "restricted(subject, 'account_preferences')"
+                }
+              ]
+            },
+            {
+              "function": "test_unsupported_purpose_rolls_back_without_restrictions",
+              "line": 114,
+              "assertions": [
+                {
+                  "line": 127,
+                  "expression": "not ProcessingExecution.objects.exists() and (not PurposeRestriction.objects.exists())"
+                }
+              ]
+            },
+            {
+              "function": "test_new_erasure_cannot_delete_restricted_preferences",
+              "line": 130,
+              "assertions": [
+                {
+                  "line": 145,
+                  "expression": "public.post('/en/safety/rights/', data(public, kind='erase')).status_code == 302"
+                },
+                {
+                  "line": 200,
+                  "expression": "not ErasureExecution.objects.exists() and Favorite.objects.filter(pk=favorite.pk).exists()"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-100901-11fd8ef6",
+              "head": "79db96478f509ac5eb3f5163d4ab430cf9868dc6",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution.py::test_http_execution_preserves_favorites_blocks_ordinary_use_and_keeps_rights",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-100901-11fd8ef6",
+              "head": "79db96478f509ac5eb3f5163d4ab430cf9868dc6",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution.py::test_unsupported_purpose_rolls_back_without_restrictions",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-100901-11fd8ef6",
+              "head": "79db96478f509ac5eb3f5163d4ab430cf9868dc6",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution.py::test_new_erasure_cannot_delete_restricted_preferences",
+              "outcome": "passed"
+            }
+          ]
+        },
+        {
+          "source": "tests/test_processing_execution_races.py",
+          "sha256": "7216c6b6513a36dcf0932565f286509f7a54f70c8d049b71581120927cdeaadf",
+          "test_functions": [
+            {
+              "function": "test_favorite_route_waiting_on_account_observes_new_restriction",
+              "line": 27,
+              "assertions": [
+                {
+                  "line": 78,
+                  "expression": "Favorite.objects.filter(pk=favorite.pk).exists() and PurposeRestriction.objects.count() == 1"
+                },
+                {
+                  "line": 77,
+                  "expression": "future.result(timeout=20) == 409"
+                },
+                {
+                  "line": 66,
+                  "expression": "not future.done()"
+                }
+              ]
+            },
+            {
+              "function": "test_execution_replay_after_wait_is_unique",
+              "line": 83,
+              "assertions": [
+                {
+                  "line": 118,
+                  "expression": "ProcessingExecution.objects.count() == PurposeRestriction.objects.count() == 1"
+                },
+                {
+                  "line": 117,
+                  "expression": "first.result(timeout=20) == second.result(timeout=20)"
+                }
+              ]
+            },
+            {
+              "function": "test_permission_revoked_during_execution_wait_rolls_back",
+              "line": 121,
+              "assertions": [
+                {
+                  "line": 155,
+                  "expression": "case.version == version and (not ProcessingExecution.objects.exists()) and (not PurposeRestriction.objects.exists())"
+                },
+                {
+                  "line": 153,
+                  "expression": "future.result(timeout=20) == 'denied'"
+                },
+                {
+                  "line": 130,
+                  "expression": "user.has_perm('safety.execute_rights_request')"
+                }
+              ]
+            },
+            {
+              "function": "test_proof_revoked_while_waiting_for_approval_row_prevents_execution",
+              "line": 162,
+              "assertions": [
+                {
+                  "line": 209,
+                  "expression": "case.version == version and (not ProcessingExecution.objects.exists()) and (not PurposeRestriction.objects.exists())"
+                },
+                {
+                  "line": 207,
+                  "expression": "future.result(timeout=20) == 'denied'"
+                },
+                {
+                  "line": 204,
+                  "expression": "not future.done()"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution_races.py::test_favorite_route_waiting_on_account_observes_new_restriction[index]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution_races.py::test_favorite_route_waiting_on_account_observes_new_restriction[add]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution_races.py::test_favorite_route_waiting_on_account_observes_new_restriction[remove]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution_races.py::test_execution_replay_after_wait_is_unique",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution_races.py::test_permission_revoked_during_execution_wait_rolls_back",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution_races.py::test_proof_revoked_while_waiting_for_approval_row_prevents_execution",
+              "outcome": "passed"
+            }
+          ]
+        },
+        {
+          "source": "tests/test_processing_execution_mobile.py",
+          "sha256": "a56318402bb919ec89d9642e288c02350de409d56c56f954d9be736a926a4c6e",
+          "test_functions": [
+            {
+              "function": "test_mobile_apply_and_subject_favorites_block",
+              "line": 20,
+              "assertions": [
+                {
+                  "line": 103,
+                  "expression": "(case.initial_due_at, subject.session_version, subject.is_active) == original"
+                },
+                {
+                  "line": 104,
+                  "expression": "case.status == 'reviewing' and Favorite.objects.filter(pk=favorite.pk).exists()"
+                },
+                {
+                  "line": 105,
+                  "expression": "PurposeRestriction.objects.get().active is True"
+                },
+                {
+                  "line": 77,
+                  "expression": "reason not in page.content()"
+                },
+                {
+                  "line": 78,
+                  "expression": "page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')"
+                },
+                {
+                  "line": 91,
+                  "expression": "response.status == 409"
+                },
+                {
+                  "line": 98,
+                  "expression": "own.goto(live_server.url + f'/{language}/safety/rights/').status == 200"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution_mobile.py::test_mobile_apply_and_subject_favorites_block[es]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_processing_execution_mobile.py::test_mobile_apply_and_subject_favorites_block[en]",
+              "outcome": "passed"
+            }
+          ]
+        }
+      ],
+      "remaining": "Map assertions to every lifecycle/finality/authority/coverage/notice/retention/closure criterion, including partial vs integral. Check fixture provenance and common-runtime validity; shared mechanism is not integral acceptance."
+    },
+    "opposition": {
+      "sources": [
+        {
+          "source": "tests/test_purpose_exception_opposition.py",
+          "sha256": "33931127d53c7bc307dffd15fdc37dbdc4a7857206a1275d24429bce46fd2fd6",
+          "test_functions": [
+            {
+              "function": "test_opposition_cessation_exception_consumes_without_resuming_ordinary_processing",
+              "line": 14,
+              "assertions": [
+                {
+                  "line": 36,
+                  "expression": "measure.mode == 'cease' and measure.execution.action.request.kind == 'object'"
+                },
+                {
+                  "line": 38,
+                  "expression": "PurposeExceptionReview.objects.get(proposal=proposal).consumed_action_id == result.action_id"
+                },
+                {
+                  "line": 41,
+                  "expression": "not Favorite.objects.filter(pk=favorite.pk).exists()"
+                },
+                {
+                  "line": 44,
+                  "expression": "measure.active and measure.mode == 'cease' and subject.is_active"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-060122-dbd4addb",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_purpose_exception_opposition.py::test_opposition_cessation_exception_consumes_without_resuming_ordinary_processing",
+              "outcome": "passed"
+            }
+          ]
+        }
+      ],
+      "remaining": "Map assertions to every lifecycle/finality/authority/coverage/notice/retention/closure criterion, including partial vs integral. Check fixture provenance and common-runtime validity; shared mechanism is not integral acceptance."
+    },
+    "communications_shared": {
+      "sources": [
+        {
+          "source": "tests/test_rights_response_acknowledgement.py",
+          "sha256": "e899e4fd33ef83bbb4d21ea851331fbf50a3e121e9feaf7529fb63bc519ca069",
+          "test_functions": [
+            {
+              "function": "test_explicit_receipt_is_private_idempotent_and_changes_no_authorization",
+              "line": 32,
+              "assertions": [
+                {
+                  "line": 45,
+                  "expression": "client.get(receipt).status_code == 200"
+                },
+                {
+                  "line": 46,
+                  "expression": "not RightsResponseAcknowledgement.objects.exists()"
+                },
+                {
+                  "line": 47,
+                  "expression": "client.get(path).status_code == 405"
+                },
+                {
+                  "line": 48,
+                  "expression": "client.post(path, {}).status_code == 400"
+                },
+                {
+                  "line": 49,
+                  "expression": "not RightsResponseAcknowledgement.objects.exists()"
+                },
+                {
+                  "line": 50,
+                  "expression": "client.post(path, {'received': 'yes'}).status_code == 302"
+                },
+                {
+                  "line": 53,
+                  "expression": "ack.channel_digest == case.receipt_digest"
+                },
+                {
+                  "line": 54,
+                  "expression": "client.post(path, {'received': 'yes'}).status_code == 302"
+                },
+                {
+                  "line": 56,
+                  "expression": "(ack.pk, ack.created_at, ack.channel_digest) == initial"
+                },
+                {
+                  "line": 58,
+                  "expression": "body['Cache-Control'] == 'private, no-store' and body['X-Robots-Tag'] == 'noindex, nofollow'"
+                },
+                {
+                  "line": 61,
+                  "expression": "b'Receipt recorded' in body.content"
+                },
+                {
+                  "line": 62,
+                  "expression": "b'Record response receipt' not in body.content"
+                },
+                {
+                  "line": 64,
+                  "expression": "(case.version, case.response_version, case.status, case.scope_status, case.received_at, case.initial_due_at) == original"
+                },
+                {
+                  "line": 72,
+                  "expression": "response.rightsnotice.status == 'queued'"
+                }
+              ]
+            },
+            {
+              "function": "test_invalid_or_expired_receipt_and_foreign_response_cannot_acknowledge",
+              "line": 75,
+              "assertions": [
+                {
+                  "line": 80,
+                  "expression": "client.post(path.replace(secret, 'x' * 43), {'received': 'yes'}).status_code == 404"
+                },
+                {
+                  "line": 81,
+                  "expression": "client.post(path.replace(f'/response/{response.pk}/', f'/response/{response.pk + 1}/'), {'received': 'yes'}).status_code == 404"
+                },
+                {
+                  "line": 88,
+                  "expression": "Client(enforce_csrf_checks=True).post(path, {'received': 'yes'}).status_code == 403"
+                },
+                {
+                  "line": 91,
+                  "expression": "client.post(path, {'received': 'yes'}).status_code == 404"
+                },
+                {
+                  "line": 92,
+                  "expression": "not RightsResponseAcknowledgement.objects.exists()"
+                }
+              ]
+            },
+            {
+              "function": "test_two_postgresql_connections_keep_one_receipt_record",
+              "line": 95,
+              "assertions": [
+                {
+                  "line": 110,
+                  "expression": "RightsResponseAcknowledgement.objects.count() == 1"
+                },
+                {
+                  "line": 109,
+                  "expression": "[job.result(timeout=30) for job in jobs] == [302, 302]"
+                }
+              ]
+            },
+            {
+              "function": "test_mobile_receipt_confirmation_persists_without_account",
+              "line": 113,
+              "assertions": [
+                {
+                  "line": 135,
+                  "expression": "RightsResponseAcknowledgement.objects.count() == 1"
+                },
+                {
+                  "line": 130,
+                  "expression": "page.get_by_role('button', name='Record response receipt', exact=True).count() == 0"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_response_acknowledgement.py::test_explicit_receipt_is_private_idempotent_and_changes_no_authorization",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_response_acknowledgement.py::test_invalid_or_expired_receipt_and_foreign_response_cannot_acknowledge",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_response_acknowledgement.py::test_two_postgresql_connections_keep_one_receipt_record",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_response_acknowledgement.py::test_mobile_receipt_confirmation_persists_without_account",
+              "outcome": "passed"
+            }
+          ]
+        },
+        {
+          "source": "tests/test_rights_communications.py",
+          "sha256": "2994c96e3351eb1d293c82b1f30e163b0a5e37a720ae61e7dd9a1aa056278225",
+          "test_functions": [
+            {
+              "function": "test_review_is_independent_exact_audited_and_never_implies_delivery",
+              "line": 25,
+              "assertions": [
+                {
+                  "line": 83,
+                  "expression": "source['kind'] == kind and source['complete'] is False"
+                },
+                {
+                  "line": 84,
+                  "expression": "not source['manager_notices'] and source['pending']"
+                },
+                {
+                  "line": 118,
+                  "expression": "inspected_source == source and source_audit.operation == 'rights_comms_source'"
+                },
+                {
+                  "line": 123,
+                  "expression": "communications.propose(actor, *common, execution.pk, key, 'Assess recipients of the executed right', decisions).pk == proposal.pk"
+                },
+                {
+                  "line": 149,
+                  "expression": "body['decisions'] == decisions"
+                },
+                {
+                  "line": 154,
+                  "expression": "communications.review(reviewer, *common, proposal.pk, audit.pk, review_key, 'approved', REASON).pk == accepted.pk"
+                },
+                {
+                  "line": 160,
+                  "expression": "original_checked(accepted.encrypted_reason)['pending'] is True"
+                },
+                {
+                  "line": 162,
+                  "expression": "reviewer.has_perm('safety.review_recipient_assessment')"
+                },
+                {
+                  "line": 169,
+                  "expression": "case.status == 'reviewing' and case.version == common[1]"
+                },
+                {
+                  "line": 172,
+                  "expression": "staff.get(path).status_code == 200"
+                },
+                {
+                  "line": 173,
+                  "expression": "b'Read exact recipient' not in staff.get(path).content"
+                },
+                {
+                  "line": 174,
+                  "expression": "Client(enforce_csrf_checks=True).post(path).status_code == 403"
+                },
+                {
+                  "line": 185,
+                  "expression": "accessed.status_code == 200 and accessed.context['decisions']"
+                },
+                {
+                  "line": 201,
+                  "expression": "posted.status_code == 302"
+                },
+                {
+                  "line": 212,
+                  "expression": "seen.status_code == 200 and seen.context['inspected']['decisions'] == decisions"
+                },
+                {
+                  "line": 213,
+                  "expression": "other.get(path).context['inspected'] is None"
+                },
+                {
+                  "line": 226,
+                  "expression": "recorded.status_code == 302"
+                },
+                {
+                  "line": 249,
+                  "expression": "sent.status_code == 302"
+                },
+                {
+                  "line": 252,
+                  "expression": "notices.count() == len(body['source']['notice_targets'])"
+                },
+                {
+                  "line": 253,
+                  "expression": "delivery.operation == 'rights_comms_deliver'"
+                },
+                {
+                  "line": 269,
+                  "expression": "receiving.get(inbox).status_code == 200"
+                },
+                {
+                  "line": 270,
+                  "expression": "receiving.get(inbox).context['payload'] is None"
+                },
+                {
+                  "line": 283,
+                  "expression": "inspected_notice.status_code == 200"
+                },
+                {
+                  "line": 284,
+                  "expression": "inspected_notice.context['payload']['kind'] == kind"
+                },
+                {
+                  "line": 285,
+                  "expression": "set(inspected_notice.context['payload']) == {'schema', 'kind', 'execution', 'purposes', 'simulation', 'complete'}"
+                },
+                {
+                  "line": 294,
+                  "expression": "receiving.post(inbox, {'operation': 'ack', 'notice': notice.pk, 'read': notice_read}).status_code == 302"
+                },
+                {
+                  "line": 306,
+                  "expression": "acknowledged.acknowledged_at and acknowledged.acknowledged_action_id"
+                },
+                {
+                  "line": 307,
+                  "expression": "RightsAction.objects.filter(request=case, operation='rights_notice_ack').count() == 1"
+                },
+                {
+                  "line": 308,
+                  "expression": "deliver(actor, *common, approval.pk, delivery_key).pk == delivery.pk"
+                },
+                {
+                  "line": 353,
+                  "expression": "summary['state'] == 'reviewed_partial' and summary['acknowledged'] == 1"
+                },
+                {
+                  "line": 354,
+                  "expression": "summary['outcomes']['communicated'] >= 1 and summary['pending'] is True"
+                },
+                {
+                  "line": 360,
+                  "expression": "backend.issue(actor, *common, final_review.pk, response_key).pk == response.pk"
+                },
+                {
+                  "line": 362,
+                  "expression": "set(projected) == {'state', 'pending', 'outcomes', 'delivered', 'acknowledged'}"
+                },
+                {
+                  "line": 363,
+                  "expression": "projected['acknowledged'] == 1 and projected['pending'] is True"
+                },
+                {
+                  "line": 365,
+                  "expression": "case.status == 'reviewing'"
+                },
+                {
+                  "line": 140,
+                  "expression": "RightsAction.objects.filter(request=case, actor=reviewer, operation='rights_comms_read').exists()"
+                }
+              ]
+            },
+            {
+              "function": "test_same_execution_delivery_serializes_and_old_authority_cannot_read",
+              "line": 368,
+              "assertions": [
+                {
+                  "line": 435,
+                  "expression": "results[0] == results[1]"
+                },
+                {
+                  "line": 436,
+                  "expression": "RightsAction.objects.filter(request=case, operation='rights_comms_deliver').count() == 1"
+                },
+                {
+                  "line": 437,
+                  "expression": "RightsRecipientNotice.objects.filter(request=case).count() == len(source['notice_targets'])"
+                },
+                {
+                  "line": 451,
+                  "expression": "RightsAction.objects.filter(request=case, operation='rights_notice_read').count() == before"
+                }
+              ]
+            },
+            {
+              "function": "test_agency_own_account_notice_does_not_include_owned_models",
+              "line": 456,
+              "assertions": [
+                {
+                  "line": 475,
+                  "expression": "source['person'] is None and source['account_subject'] == str(subject.pk)"
+                },
+                {
+                  "line": 476,
+                  "expression": "source['notice_targets'] == [{'recipient': str(subject.pk), 'authorization_version': 'account'}]"
+                },
+                {
+                  "line": 479,
+                  "expression": "all((candidate['kind'] == 'account' for candidate in source['candidates']))"
+                },
+                {
+                  "line": 480,
+                  "expression": "all((evidence['basis'] not in {'representation_history', 'submission_actor', 'publishing_acceptance'} for candidate in source['candidates'] for evidence in candidate['evidence']))"
+                }
+              ]
+            },
+            {
+              "function": "test_mobile_recipient_assessment_source_is_audited_in_both_languages",
+              "line": 488,
+              "assertions": [
+                {
+                  "line": 532,
+                  "expression": "page.locator('fieldset').count() == 0"
+                },
+                {
+                  "line": 539,
+                  "expression": "negative.value.status == 400"
+                },
+                {
+                  "line": 544,
+                  "expression": "page.locator('fieldset').count() == 0"
+                },
+                {
+                  "line": 550,
+                  "expression": "page.locator('fieldset').count() >= 5"
+                },
+                {
+                  "line": 552,
+                  "expression": "page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')"
+                },
+                {
+                  "line": 554,
+                  "expression": "page.locator('fieldset').count() == 0"
+                },
+                {
+                  "line": 561,
+                  "expression": "page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[erase]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[restriction]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[object]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_communications.py::test_same_execution_delivery_serializes_and_old_authority_cannot_read",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_communications.py::test_agency_own_account_notice_does_not_include_owned_models",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-043416-8212d054",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_communications.py::test_mobile_recipient_assessment_source_is_audited_in_both_languages",
+              "outcome": "passed"
+            }
+          ]
+        },
+        {
+          "source": "tests/test_rights_responses_revocation_races.py",
+          "sha256": "08aade35be6de738fcedad620db93563860d0cda03b788220d410fec6bc4227d",
+          "test_functions": [
+            {
+              "function": "test_legacy_response_denies_authority_revoked_during_observed_wait",
+              "line": 22,
+              "assertions": [
+                {
+                  "line": 66,
+                  "expression": "result is None"
+                },
+                {
+                  "line": 67,
+                  "expression": "(RightsResponse.objects.count(), RightsNotice.objects.count()) == baseline"
+                },
+                {
+                  "line": 69,
+                  "expression": "(case.version, case.response_version, case.status, case.initial_due_at) == original"
+                },
+                {
+                  "line": 71,
+                  "expression": "RightsResponse.objects.get(pk=existing.pk).key == data['key']"
+                },
+                {
+                  "line": 38,
+                  "expression": "actor.has_perm('safety.review_rights_request')"
+                },
+                {
+                  "line": 39,
+                  "expression": "actor.has_perm('safety.respond_rights_request')"
+                },
+                {
+                  "line": 58,
+                  "expression": "worker != holder"
+                }
+              ]
+            }
+          ],
+          "terminal_calls": [
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[permission-False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[permission-True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[session-False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[session-True]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[mfa-False]",
+              "outcome": "passed"
+            },
+            {
+              "run": "20261014-004012-e8dd0ef9",
+              "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+              "runner_result": "PASS",
+              "source_integrity": true,
+              "nodeid": "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[mfa-True]",
+              "outcome": "passed"
+            }
+          ]
+        }
+      ],
+      "remaining": "Map assertions to every lifecycle/finality/authority/coverage/notice/retention/closure criterion, including partial vs integral. Check fixture provenance and common-runtime validity; shared mechanism is not integral acceptance."
+    }
+  }
+}

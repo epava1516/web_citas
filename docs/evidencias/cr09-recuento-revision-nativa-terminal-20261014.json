@@ -1,0 +1,12 @@
+{
+  "reviewer": "/root/cr09_count_sql_review",
+  "kind": "native read-only; not Claude V1",
+  "files_changed_by_reviewer": [],
+  "proposal": "Revision(id) partial status approved; unchanged filters/joins",
+  "root_verification_run": "20261014-135043-5025760a",
+  "candidate_head": "1d368d1",
+  "decision": "Rejected for target COUNT: planner retained Seq Scan over10001Revision/911blocks. Page index-only requires24heapfetches; no useful COUNT improvement demonstrated.",
+  "candidate_revert": "6c1f3fa",
+  "main_application_index": "Only listing_public_page_order integrated; Revision index never integrated.",
+  "external_claude_invocations_new": 0
+}

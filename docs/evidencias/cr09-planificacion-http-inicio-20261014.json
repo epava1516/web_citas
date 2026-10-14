@@ -1,0 +1,38 @@
+{
+  "observed_at": "2026-10-14T14:30:49.444787+00:00",
+  "runner": {
+    "id": "20261014-143026-da830c7c",
+    "pid": 4122606,
+    "start_ticks": 370883588,
+    "command": [
+      "artifacts/vps-preparation/cr09-block3-localization-reproduction/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+      "--benchmark-normal-refresh",
+      "--benchmark-generator-freeze",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "900"
+    ],
+    "head": "5d9acba667d2a15fd11d09cbcea92e5d069bdd72",
+    "containers": [
+      "web-modelos-ci-pg-20261014-143026-da830c7c",
+      "web-modelos-ci-redis-20261014-143026-da830c7c"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-143026-da830c7c",
+    "temporary": "/tmp/web-modelos-local-ci-m5c3rtlm",
+    "child": {
+      "pid": 4125023,
+      "start_ticks": 370885356,
+      "step": "pytest"
+    }
+  },
+  "live_identity_verified": true,
+  "comparison_baseline": "20261014-132652-7fe487a9",
+  "scope": "Four-process short HTTP, normal refresh, generator preparation, no application/SQL observers. Not contractual acceptance."
+}

@@ -872,3 +872,25 @@ No pagos, publicación, datos reales, proveedores ni cambios de servicios normal
 
 
 2026-10-14, continuación local CR09: carga contractual FAIL conservada (18k solicitudes,89,022%timeouts); diagnóstico WSGI ubica espera antes de entrada, sin declarar causa TCPexacta. Índice público0fdf6d7 integrado tras44PASS sin omisiones; short p9537,235→25,410s, aúnFAIL. Ocho procesos y recursos sólo en candidato aislado: p9512,070/12,751s, aúnFAIL; PG0,9406CPU media durante carga+drenaje, sinthrottling/OOM. Lecturas de presentación posteriores conservadas por frescura. Nueva revisión nativa cr09_count_sql_review, sólolectura, no ClaudeV1 ni invocaciones externas nuevas; consumo anterior intacto. Quedan recuento/capacidadpertinente/N3común y matrizhistórica, despuésCR10→GS01→BF/BB→C.
+
+
+2026-10-14, consolidación CR09 posterior a e764872: integrada política local de
+planificación de hidratación (5d9acba), verificada con 17 PASS PG; HTTP corto
+p95 25,409551→23,529265 s, aún FAIL y sin repetición contractual de 15 minutos.
+Candidatos de índice Revision, búsqueda tipada y censo EXCEPT rechazados;
+negativos y decisiones conservados. Agente nativo cr09_count_sql_review realizó
+además auditorías de cierre y seguridad del capturador, exclusivamente de lectura.
+Sus observaciones de endpoint y apertura de archivos se corrigieron y verificaron
+con ocho controles negativos y escenario PG propio. Cero invocaciones externas
+Claude nuevas; consumo anterior intacto.
+
+Capturador integrado hasta 65d4916: origen explícito de ocho medios y un archivo
+de credenciales sintéticas, sin exportar secretos; sesiones/cache/correo/Redis
+observados puntualmente. Último candidato e06d049: 9 PASS, ejecución fresca del
+productor con snapshots desactivados sólo en ese escenario; limpieza registrada.
+Última comprobación integrada anterior 9063594: 9 PASS. No extrapolarla al HEAD
+actual. Cobertura del censo sigue false: logs, backups, históricos pertinentes y
+decisiones separadas de inclusión/redacción/conservación pendientes. No cierre
+CR09/N3 ni nuevo porcentaje. Próximo paso: vincular inventario verificable al
+recorrido real de derechos y consolidar regresión en versión común; después
+CR10→GS01→BF/BB→C. Sin producción, proveedores ni publicación.

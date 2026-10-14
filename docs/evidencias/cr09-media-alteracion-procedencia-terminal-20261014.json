@@ -1,0 +1,232 @@
+{
+  "id": "20261014-150004-0237e841",
+  "head": "6c4cbc1d7dd3c515e620c94d2daead04543588a3",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "42.587",
+      "timestamp": "2026-10-14T17:00:23.250253+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-150004-0237e841": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-150004-0237e841": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "cleanup_recheck": {
+    "web-modelos-ci-pg-20261014-150004-0237e841": true,
+    "web-modelos-ci-redis-20261014-150004-0237e841": true
+  },
+  "inventory": {
+    "schema": "owned-scenario-observation-v1",
+    "run": "20261014-150004-0237e841",
+    "head": "6c4cbc1d7dd3c515e620c94d2daead04543588a3",
+    "captured_at": "2026-10-14T15:01:05.206658+00:00",
+    "containers": [
+      {
+        "name": "web-modelos-ci-pg-20261014-150004-0237e841",
+        "id": "e1495ab650d62166196bc85619c0818c8b6311c762f60a6ab549ff220487d924",
+        "image_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+        "created": "2026-10-14T15:00:04.983826568Z",
+        "ports": {
+          "5432/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "33451"
+            }
+          ]
+        },
+        "mounts": []
+      },
+      {
+        "name": "web-modelos-ci-redis-20261014-150004-0237e841",
+        "id": "cbcde6fd6633f4fa805923e8b584c0e07c78d077650a1390f392fb22962bb655",
+        "image_id": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+        "created": "2026-10-14T15:00:07.345996639Z",
+        "ports": {
+          "6379/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "33452"
+            }
+          ]
+        },
+        "mounts": [
+          {
+            "type": "volume",
+            "destination": "/data"
+          }
+        ]
+      }
+    ],
+    "roots": [
+      "pytest/test_seeded_fixture_resources_0",
+      "pytest/test_seeded_fixture_resources_0/private"
+    ],
+    "files": [
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/credentials.json",
+        "size": 991,
+        "sha256": "e8a590d720a06086efc55d1379d5c7c63eef75b483206f10ee45f54f9d272937",
+        "subject_binding": "not_established"
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/040a158c-81a9-4288-a2fe-34de1e031604.webp",
+        "size": 10516,
+        "sha256": "a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "fb20c7ba-a05e-452e-bdb5-316590e0cf0c",
+            "blob": "f612bba9-1980-40d7-b0af-f09bed20692b",
+            "revision": "adc7e055-b5e0-4d82-84f4-1bd1f57aade9",
+            "person": "55a6507b-ea4b-4b2c-bd5f-38d136c322c2",
+            "account_subject": 3,
+            "field": "derivative",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/300311d7-465d-4338-986a-2c2faceb172a.webp",
+        "size": 11110,
+        "sha256": "31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "f46d9816-5419-42b2-8f69-97c6baaed821",
+            "blob": "b259ab9b-ff4b-4268-a860-88f0ac73527f",
+            "revision": "c7fc1f2c-5ddb-4bfe-bac4-9223ee117788",
+            "person": "e66051ba-da4a-4d4d-8930-e1cd63c1ba97",
+            "account_subject": 1,
+            "field": "derivative",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/5f1ce492-2e3f-4f7c-aa89-a0d478d3d837.webp",
+        "size": 10314,
+        "sha256": "744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "9eb0370d-4fd9-4e5b-952d-a6442f6def43",
+            "blob": "1b5fb38f-8376-4626-b286-e99d56b935d4",
+            "revision": "f26491a9-b893-4bc4-af1a-c5bab10f4ecf",
+            "person": "87539fd1-2bc4-4429-ae14-a29b5368dcda",
+            "account_subject": 4,
+            "field": "derivative",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/61ad9184-6996-43a3-8f66-cbbb44a1e54d.webp",
+        "size": 10218,
+        "sha256": "a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "b299389f-3419-4c66-abca-e8d9dec973fc",
+            "blob": "71daeaad-b887-4f3f-8bda-f2e13aaeab0e",
+            "revision": "93223d0c-54f3-4b04-9275-b00df68983dd",
+            "person": "80d8d3b7-80dc-4841-a77a-07f735b345b8",
+            "account_subject": 8,
+            "field": "derivative",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/042a9be9-d1d8-437b-a572-6e0615d3de22",
+        "size": 4657,
+        "sha256": "1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "9eb0370d-4fd9-4e5b-952d-a6442f6def43",
+            "blob": "1b5fb38f-8376-4626-b286-e99d56b935d4",
+            "revision": "f26491a9-b893-4bc4-af1a-c5bab10f4ecf",
+            "person": "87539fd1-2bc4-4429-ae14-a29b5368dcda",
+            "account_subject": 4,
+            "field": "original",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/5c0ddc97-fa0c-48ba-8d73-3d57ec589e64",
+        "size": 4641,
+        "sha256": "99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "b299389f-3419-4c66-abca-e8d9dec973fc",
+            "blob": "71daeaad-b887-4f3f-8bda-f2e13aaeab0e",
+            "revision": "93223d0c-54f3-4b04-9275-b00df68983dd",
+            "person": "80d8d3b7-80dc-4841-a77a-07f735b345b8",
+            "account_subject": 8,
+            "field": "original",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/5eea8fef-794a-4c9a-b46b-dcd6ccabe943",
+        "size": 4640,
+        "sha256": "17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "fb20c7ba-a05e-452e-bdb5-316590e0cf0c",
+            "blob": "f612bba9-1980-40d7-b0af-f09bed20692b",
+            "revision": "adc7e055-b5e0-4d82-84f4-1bd1f57aade9",
+            "person": "55a6507b-ea4b-4b2c-bd5f-38d136c322c2",
+            "account_subject": 3,
+            "field": "original",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/632f3167-a76d-4a10-9a5f-2d6b601adc76",
+        "size": 4679,
+        "sha256": "b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "f46d9816-5419-42b2-8f69-97c6baaed821",
+            "blob": "b259ab9b-ff4b-4268-a860-88f0ac73527f",
+            "revision": "c7fc1f2c-5ddb-4bfe-bac4-9223ee117788",
+            "person": "e66051ba-da4a-4d4d-8930-e1cd63c1ba97",
+            "account_subject": 1,
+            "field": "original",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      }
+    ],
+    "coverage_complete": false,
+    "pending": [
+      "subject association and inclusion/redaction decisions",
+      "logs/mail/cache/backups outside declared roots",
+      "historical import/restore provenance"
+    ],
+    "scope": "Observed live own CI containers and declared fixture file roots only. No content bodies exported; hashes do not prove subject ownership or global exhaustiveness."
+  }
+}

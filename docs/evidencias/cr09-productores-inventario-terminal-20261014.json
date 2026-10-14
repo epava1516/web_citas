@@ -1,0 +1,144 @@
+{
+  "run_id": "20261014-145157-3faa8717",
+  "head": "209dbddacd571c06d1047821cfc362f7639881e8",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "42.772",
+      "timestamp": "2026-10-14T16:52:16.020055+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-145157-3faa8717": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-145157-3faa8717": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "inventory": {
+    "schema": "owned-scenario-observation-v1",
+    "run": "20261014-145157-3faa8717",
+    "head": "209dbddacd571c06d1047821cfc362f7639881e8",
+    "captured_at": "2026-10-14T14:52:58.212627+00:00",
+    "containers": [
+      {
+        "name": "web-modelos-ci-pg-20261014-145157-3faa8717",
+        "id": "0f69df99cf61276854b7adde9e5abac6901ae261709263f081a31cd810d173d3",
+        "image_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+        "created": "2026-10-14T14:51:57.901000373Z",
+        "ports": {
+          "5432/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "33447"
+            }
+          ]
+        },
+        "mounts": []
+      },
+      {
+        "name": "web-modelos-ci-redis-20261014-145157-3faa8717",
+        "id": "56c78adad57226d929bac54d466f4986bf9b8a28a6d8f281e05d9cc1a9622a1f",
+        "image_id": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+        "created": "2026-10-14T14:52:00.331876595Z",
+        "ports": {
+          "6379/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "33448"
+            }
+          ]
+        },
+        "mounts": [
+          {
+            "type": "volume",
+            "destination": "/data"
+          }
+        ]
+      }
+    ],
+    "roots": [
+      "pytest/test_seeded_fixture_resources_0",
+      "pytest/test_seeded_fixture_resources_0/private"
+    ],
+    "files": [
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/credentials.json",
+        "size": 991,
+        "sha256": "bea2dae98ef31cf73af105fd1af653fdbf109f74775122afc44a489df8316504",
+        "subject_binding": "not_established"
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/7922bc6b-629c-4434-a27f-fd1678e4c85a.webp",
+        "size": 11110,
+        "sha256": "31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05",
+        "subject_binding": "not_established"
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/e1b872a3-de9d-4322-bf78-8b3e48e1ca1f.webp",
+        "size": 10218,
+        "sha256": "a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d",
+        "subject_binding": "not_established"
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/e68fd984-be41-441c-bb86-4b97a5b0d681.webp",
+        "size": 10314,
+        "sha256": "744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378",
+        "subject_binding": "not_established"
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/f58ed6f3-ffc0-486f-a3bc-542da5bb5534.webp",
+        "size": 10516,
+        "sha256": "a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96",
+        "subject_binding": "not_established"
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/219b02d4-8d8f-42da-ba8a-8695c8cf6f1f",
+        "size": 4657,
+        "sha256": "1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee",
+        "subject_binding": "not_established"
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/7dd174d2-13ed-4692-a5cb-e4c5a61b440d",
+        "size": 4641,
+        "sha256": "99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f",
+        "subject_binding": "not_established"
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/b4642ece-c7d3-4e73-b427-9dbefc5ebd5c",
+        "size": 4679,
+        "sha256": "b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643",
+        "subject_binding": "not_established"
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/ca69e321-10d8-4847-9de8-d0f4e322ffbc",
+        "size": 4640,
+        "sha256": "17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31",
+        "subject_binding": "not_established"
+      }
+    ],
+    "coverage_complete": false,
+    "pending": [
+      "subject association and inclusion/redaction decisions",
+      "logs/mail/cache/backups outside declared roots",
+      "historical import/restore provenance"
+    ],
+    "scope": "Observed live own CI containers and declared fixture file roots only. No content bodies exported; hashes do not prove subject ownership or global exhaustiveness."
+  },
+  "cleanup_recheck": {
+    "web-modelos-ci-pg-20261014-145157-3faa8717": true,
+    "web-modelos-ci-redis-20261014-145157-3faa8717": true
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "20261014-142416-16c1d4ad",
+  "head": "b8bbb01f0029d86b0e3e558a1b1a7c61f6d43134",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "17",
+      "time": "245.719",
+      "timestamp": "2026-10-14T16:24:34.734806+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-142416-16c1d4ad": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-142416-16c1d4ad": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "selection": [
+    "tests/test_publication_page_planning_scope.py",
+    "tests/test_public_validation_context.py",
+    "tests/test_public_validation_dependencies.py",
+    "tests/test_publication_state_membership.py"
+  ],
+  "cleanup_recheck": {
+    "web-modelos-ci-pg-20261014-142416-16c1d4ad": true,
+    "web-modelos-ci-redis-20261014-142416-16c1d4ad": true
+  }
+}

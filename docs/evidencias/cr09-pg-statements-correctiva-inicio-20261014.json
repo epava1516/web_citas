@@ -1,0 +1,52 @@
+{
+  "runner": {
+    "id": "20261014-140100-992f8fb2",
+    "pid": 3944216,
+    "start_ticks": 370706955,
+    "command": [
+      "artifacts/vps-preparation/cr09-owned-broker-focused/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+      "--benchmark-normal-refresh",
+      "--benchmark-generator-freeze",
+      "--benchmark-http-processes",
+      "8",
+      "--benchmark-pg-statements",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "900"
+    ],
+    "head": "046eb6ed474dfe46fbe9189d5636f26cab27f788",
+    "containers": [
+      "web-modelos-ci-pg-20261014-140100-992f8fb2",
+      "web-modelos-ci-redis-20261014-140100-992f8fb2"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-140100-992f8fb2",
+    "temporary": "/tmp/web-modelos-local-ci-cz6bqx91",
+    "child": {
+      "pid": 3946675,
+      "start_ticks": 370708753,
+      "step": "pytest"
+    }
+  },
+  "pytest_live_identity": true,
+  "postgres_command": [
+    "postgres",
+    "-c",
+    "shared_preload_libraries=pg_stat_statements",
+    "-c",
+    "pg_stat_statements.track_planning=on",
+    "-c",
+    "max_wal_size=256MB",
+    "-c",
+    "min_wal_size=80MB"
+  ],
+  "postgres_running": true,
+  "adapter_sha256": "b749850c85c7929bfaf4168c7e4f85a2ec1fa39853bbe3ffbbd7260ba8c921a4",
+  "assembly_controls": "2 PASS with process double; not real service proof. Actual ownPG running/migrations passed separately."
+}

@@ -1638,3 +1638,94 @@ Reducción observada del request 52.497 %, sin cumplir0,8s; servicio más lento 
 | Grupo aplicación CPU media | No medido | 1,925966 CPU |
 
 PostgreSQL cpuset4/quota1CPU; delta nr_throttled=0, no OOM en ninguno de los grupos. Consumo cercano al CPU asignado orienta reducción de demanda SQL, sin prueba directa de waits/causalidad ni atribución específica por consulta. Pico cgroup incluye preparación: aplicación1.263.939.584B, PG428.158.976B. No aumentar recursos ni procesos de forma especulativa. Próximo foco: recuento de población y joins, preservando elegibilidad/frescura/exactitud; no aceptación N3/CR09. [Evidencia](evidencias/cr09-ocho-procesos-recursos-terminal-20261014.json).
+
+
+### CR09 — candidato índice Revision rechazado, 2026-10-14
+
+Revisión nativa exclusivamente de lectura propone índice parcial aprobado sin retirar filtros/joins. Root verifica `20261014-135043-5025760a`, SHA1d368d1: 1 PASS diagnóstico, fuentes intactas/limpieza independiente.
+
+| EXPLAIN SQL aislado | Índice orden público | Más índice Revision |
+|---|---:|---:|
+| COUNT ejecución | 31,649 ms | 38,497 ms |
+| Selección página | 0,563 ms | 0,438 ms |
+| Hydratación ejecución | 6,861 ms | 5,064 ms |
+
+Una muestra por versión; no afirmar regresión temporal causal. COUNT conserva Seq Scan10001revisiones/911bloques: el índice no resuelve su objetivo. Selección usaindex-only pero requiere24Heap Fetches. Candidato retirado con revert6c1f3fa, conservando commit y evidencia; nunca integrado. Sin nueva métrica HTTP/capacidad ni aceptación. [Planes](evidencias/cr09-indice-revision-planes-terminal-20261014.json), [revisión y decisión](evidencias/cr09-recuento-revision-nativa-terminal-20261014.json).
+
+
+### CR09 — atribución PostgreSQL bajo carga, 2026-10-14
+
+Primer intento135828eee2fc89 ERROR arranque por comando duplicado del adaptador; conservado/limpieza comprobada. Adaptador corregido (dos controles de ensamblado), arranque real verificado. `20261014-140100-992f8fb2`, SHA046eb6e, FAIL latencia, captura completa sin dealloc, fuentes intactas/limpieza independiente. Planificación total57,254s/ejecución235,317s sumadas entre sentencias/conexiones, no CPU ni fases exclusivas. Selección búsqueda386calls ejecución89,730s; recuentos386/385calls53,492/45,269s; hidratación800calls planificación35,179s ejecución17,762s. Orienta análisis de ranking/recuentos y planificación, no aceptación.
+
+| p95 corto | Ocho sin pg_stat_statements | Instrumentado SQL |
+|---|---:|---:|
+| Request completo | 12,751099 s | 17,078848 s |
+
+Instrumentación de planificación altera costes; no atribuir incremento a aplicación ni usarlo como p95 de aceptación. [Captura terminal](evidencias/cr09-pg-statements-terminal-20261014.json), [consultas dominantes](evidencias/cr09-pg-statements-dominantes-20261014.json).
+
+
+### CR09 — hipótesis búsqueda tipada descartada, 2026-10-14
+
+Candidato aislado c356d86: equivalencia8PASS y páginas2PASS (`20261014-140817-2df0355a`). Control de configuración original `20261014-141246-42f31e95`, SHAef79a7b, 3PASS, sin omisiones, fuentes intactas/limpieza independiente. Ambas consultas generan exactamente el mismo tsquery constante/filtro/orden; hipótesis de resolución repetida del diccionario queda contradicha por el plan original.
+
+| EXPLAIN búsqueda, un caso | Configuración original | Tipada |
+|---|---:|---:|
+| Recuento ejecución | 29,660 ms | 32,551 ms |
+| Selección ejecución | 32,115 ms | 35,856 ms |
+
+No atribuir variación a regresión causal; sin ganancia acreditada, candidato retirado de aplicación en14c2c9d, nunca integrado. [Comparación](evidencias/cr09-search-config-comparacion-terminal-20261014.json), [decisión](evidencias/cr09-search-config-decision-20261014.json).
+
+
+### CR09 — planificación acotada de hidratación, 2026-10-14
+
+`20261014-141931-572bfde7`, SHA5265bcb, 1PASS diagnóstico, fuentes intactas/limpieza independiente. Mismo SQL/params en misma preparación sintética: baseline y join_collapse_limit1. Se restaura configuración antes del request ordinario.
+
+| Hidratación EXPLAIN, un caso | Habitual | join_collapse_limit1 |
+|---|---:|---:|
+| Planificación | 10,985 ms | 4,915 ms |
+| Ejecución | 6,105 ms | 3,285 ms |
+| Filas | 24 | 24 |
+
+Una muestra y orden habitual→limitado, no reproducibilidad ni mejora HTTP. Candidato local aún no implementado: conservar SQL/guardas, restauración success/error/nested y comparar IDs/annotations con baseline, datos heterogéneos antes de integrar. [Evidencia](evidencias/cr09-joins-planificacion-terminal-20261014.json).
+
+
+### CR09 — planificación local integrada y HTTP corto, 2026-10-14
+
+Candidato b8bbb01:17PASS sin omisiones, rollback/restauración scope y equivalencia/dependencias/membership; fuentes intactas/limpieza. Integrado5d9acba. `20261014-143026-da830c7c` HTTPshort4procesos, sin observers: FAIL preservado,1.200correctas/0timeouts, generadorválido, fuentes intactas/limpieza independiente.
+
+| p95 | Índice solo | Índice + planificación local |
+|---|---:|---:|
+| Request completo | 25.409552s | 23.529265s |
+| Servicio Gunicorn | 0.501308s | 0.485515s |
+
+Reducción observada7.400%, una ejecución por versión; no reproducibilidad ni cumplimiento0,8s. Carga15min no repetida por esteFAILshort; capacidad/N3/CR09abiertos. [Terminal](evidencias/cr09-planificacion-http-terminal-20261014.json), [comparación](evidencias/cr09-planificacion-http-comparacion-20261014.json).
+
+
+### CR09 — censo global alternativo descartado, 2026-10-14
+
+`20261014-143806-93d4f3c2`, SHA7fcc591, 1PASS diagnóstico, fuentes intactas/limpieza independiente. Respuesta igual en población sana completa; no prueba de todas anomalías.
+
+| Censo EXPLAIN, un caso | Anti-join actual | EXCEPT |
+|---|---:|---:|
+| Ejecución | 19,396ms | 27,272ms |
+| Planificación | 1,172ms | 0,219ms |
+| Bloques compartidos | 480 | 480 |
+
+Sin reducción del trabajo ni ganancia; no cambiar aplicación. No atribuir variación aislada a regresión causal. [Resultado](evidencias/cr09-censo-planes-terminal-20261014.json), [decisión](evidencias/cr09-censo-planes-decision-20261014.json). Capacidad/N3 y restantes criterios contractuales siguen abiertos.
+
+
+### CR09 — procedencia observada de archivos propios, 2026-10-14
+
+Inventario inicial1451573faa8717:1PASS. Asociación ORM `20261014-145646-d7a33bab`, SHAfb1c662, 1PASS sin omisiones, fuentes intactas/limpieza independiente:2contenedores propios/9archivos;8media vinculados mediante Photo→Blob/Revision→Listing→Person y comparación hash del original. Credenciales permanecen no asociadas, cobertura_completeFalse. No asociación por nombre/UUID/subcadena ni exclusión de23capturas. Faltan decisiones/censo fuera de raíces/importacioneshistóricas. [Inventario inicial](evidencias/cr09-productores-inventario-terminal-20261014.json), [media asociada](evidencias/cr09-media-procedencia-terminal-20261014.json). Control de alteración física preparado por separado, pendiente resultado.
+
+
+Credenciales de escenario: `20261014-150334-cf386b8d`, SHA564d030, 1PASS/0omitidos, fuentes intactas/limpieza independiente. Nueve archivos observados:8media relacionesORM/hash original y1credenciales receta explícita seed_demo→8UserIDs. Valores password/TOTP ausentes del inventario verificado. Alteración física de original rechazada (control previo1500040237e841 y mismo control incluido). No censo completo: logs/mail/cache/backups fuera de raíces y procedencia histórica continúan pendientes; no23capturas excluidas. Capturador aún aislado, revisión nativa de seguridad solicitada antesdeintegrar. [Terminal credenciales](evidencias/cr09-credenciales-procedencia-terminal-20261014.json), [alteración física](evidencias/cr09-media-alteracion-procedencia-terminal-20261014.json).
+
+
+Capturador: revisión nativa detectó endpointPG no ligado y lectura vulnerable a sustitución/cambio. Correctiva61ca7ee validaHOST/PORT contraDockerantesORM y leecomponentes/descriptorconO_NOFOLLOW, regularidad, identidad/tamaño/mtime/ctime antes/después y límitebytesdurantelectura. Ocho controles negativosunitariosPASS; selecciónPGreal `20261014-151010-b4b34822`9PASS/0omitidos, fuentes intactas/limpieza independiente. Sólo capturador+tests integrados9063594; opcionesbenchmark8/pgstatementsaisladas. Verificación integrada iniciada, terminalpendiente. Sin snapshot comúnORM ni hash esperado dederivados;límitesexplícitos. CoveragecompleteFalse e históricosindeterminados. [Correctiva terminal](evidencias/cr09-productores-correctiva-terminal-20261014.json).
+
+
+Almacenes propios: `20261014-151650-b7e62a38`, SHA2d4a922,9PASS/0omitidos, fuentes intactas/limpieza independiente. Corte observado después de seed: sesiones0,locmemcorreo0,RedisDB0keys0,cachéDummyCache,CeleryeagerTrue, conexión PostgreSQL propia verificada. No ausencia histórica/global ni exhaustividadlogs/backups, coveragecompleteFalse. Ampliación aún aislada. Capturador previo integrado `20261014-151223-0639352e`9PASS, fuentes intactas/limpieza. [Integrado](evidencias/cr09-productores-integrado-terminal-20261014.json), [almacenes](evidencias/cr09-almacenes-runtime-terminal-20261014.json).
+
+
+Política del escenario productor: `20261014-152024-21b3ce27`, SHAe06d049,9PASS/0omitidos, fuentes intactas/limpieza independiente. Ejecutorexplícito snapshotsTrue; escenarioFalse y seedrealparaobservarcredencialesfueraMEDIA_ROOT. Ampliación almacenes y políticaproductor integradas65d4916. No ausencia global/histórica; censo incompleto e inclusión/retención/revisiónpendientes. [Terminal](evidencias/cr09-productor-snapshots-politica-terminal-20261014.json).

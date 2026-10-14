@@ -1,0 +1,41 @@
+{
+  "observed_at": "2026-10-14T14:24:41.379445+00:00",
+  "runner": {
+    "id": "20261014-142416-16c1d4ad",
+    "pid": 4079718,
+    "start_ticks": 370846625,
+    "command": [
+      "artifacts/vps-preparation/cr09-owned-broker-focused/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_publication_page_planning_scope.py",
+      "--test",
+      "tests/test_public_validation_context.py",
+      "--test",
+      "tests/test_public_validation_dependencies.py",
+      "--test",
+      "tests/test_publication_state_membership.py",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "1800"
+    ],
+    "head": "b8bbb01f0029d86b0e3e558a1b1a7c61f6d43134",
+    "containers": [
+      "web-modelos-ci-pg-20261014-142416-16c1d4ad",
+      "web-modelos-ci-redis-20261014-142416-16c1d4ad"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-142416-16c1d4ad",
+    "temporary": "/tmp/web-modelos-local-ci-hr_yckbx",
+    "child": {
+      "pid": 4081860,
+      "start_ticks": 370848320,
+      "step": "pytest"
+    }
+  },
+  "live_identity_verified": true,
+  "scope": "Candidate page hydration planner policy; equivalence, database-error rollback, dependencies, membership. No capacity acceptance."
+}

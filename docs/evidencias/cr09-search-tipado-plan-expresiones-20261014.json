@@ -1,0 +1,19 @@
+{
+  "run_id": "20261014-140817-2df0355a",
+  "expressions": [
+    {
+      "Filter": "((search_document @@ '''photography'' | ''photographi'''::tsquery) AND ((status)::text = 'approved'::text))"
+    },
+    {
+      "Sort Key": [
+        "(ts_rank(listings_revision.search_document, '''photography'' | ''photographi'''::tsquery)) DESC",
+        "listings_listing.published_at DESC",
+        "listings_listing.id"
+      ]
+    },
+    {
+      "Filter": "((search_document @@ '''photography'' | ''photographi'''::tsquery) AND ((status)::text = 'approved'::text))"
+    }
+  ],
+  "scope": "Planner expression inspection, no timing improvement claim."
+}
