@@ -60,6 +60,23 @@ def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_bind
     assert credentials[0]["excluded_fields"] == ["password", "accounts.*.totp_secret"]
     assert manifest["coverage_complete"] is False and manifest["pending"]
     (Path(artifact).parent / "owned-scenario-inventory.json").write_text(json.dumps(manifest, indent=2))
+    # Captured originals are not a reviewed, request-bound retained census.
+    from types import SimpleNamespace
+
+    from django.core.exceptions import ValidationError
+    from django.utils import timezone
+
+    from apps.safety.rights_access_delivery import retained_resource_records
+
+    observed = manifest["log_origins"][0]
+    monkeypatch.setattr(settings, "ACCESS_RESOURCE_ORIGIN_BUNDLE",
+                        str(Path(artifact).parent / observed["archive"]))
+    case = SimpleNamespace(pk="unreviewed-own-scenario",
+                           account_subject_id=credentials[0]["account_subjects"][0])
+    scoped_inventory = SimpleNamespace(pk=1, source_digest="unreviewed-observation",
+                                       created_at=timezone.now())
+    with pytest.raises(ValidationError, match="census unavailable"):
+        retained_resource_records(case, None, scoped_inventory, {}, {})
     credential_values = json.loads((tmp_path / "credentials.json").read_text())
     exported = json.dumps(manifest)
     assert credential_values["password"] not in exported

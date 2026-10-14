@@ -1810,3 +1810,12 @@ Negativos cubren destino existente/symlink, padre redirigido, publicación falli
 y truncamiento autenticado. Intervalos distintos no son un snapshot común;
 censo/divulgación y CR09/N3 siguen pendientes, sin nueva métrica p95.
 [Evidencia](evidencias/cr09-logs-publicacion-correctiva-terminal-20261014.json).
+
+
+CR09 run20261014-154423-864bf4a6:15PASS/0FAIL/0ERROR/0SKIP, fuentes intactas
+y limpieza independiente. Archivo cifrado real capturado en servicios propios
+es rechazado por retained_resource_records al intentar usarlo como censo
+revisado. Request/inventory de este negativo son objetos de adaptador: no
+acredita recorrido integral de derechos ni su cierre. Huellas de selección
+común actualizadas tras correctivas de logs.
+[Evidencia](evidencias/cr09-censo-original-no-revisado-rechazo-terminal-20261014.json).
