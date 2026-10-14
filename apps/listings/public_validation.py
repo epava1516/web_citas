@@ -168,10 +168,11 @@ def publication_query(query, document):
     )
 
 
-def read_publication_values(query):
+def read_publication_values(query, *, bounded_joins=False):
     """Materialize the captured scalar SELECT with a request-scoped JIT policy.
 
-    Only the explicitly selected read uses jit=off. Its SQL/parameters and READ COMMITTED statement
+    Only the explicitly selected read uses jit=off; page hydration also bounds
+    explicit join planning. Its SQL/parameters and READ COMMITTED statement
     semantics stay native; no server/session policy is cached or changed.
     Restore explicitly on success for an enclosing transaction. Atomic rollback
     restores the local setting/savepoint on errors, without querying a broken
@@ -179,13 +180,23 @@ def read_publication_values(query):
     """
     with transaction.atomic():
         with connection.cursor() as cursor:
-            cursor.execute("SHOW jit")
-            previous = cursor.fetchone()[0]
-            cursor.execute("SET LOCAL jit=off")
+            if bounded_joins:
+                cursor.execute("SELECT current_setting('jit'), current_setting('join_collapse_limit')")
+                previous, previous_joins = cursor.fetchone()
+                cursor.execute("SELECT set_config('jit', 'off', true), set_config('join_collapse_limit', '1', true)")
+            else:
+                cursor.execute("SHOW jit")
+                previous = cursor.fetchone()[0]
+                cursor.execute("SET LOCAL jit=off")
         rows = list(query)
         with connection.cursor() as cursor:
-            cursor.execute("SELECT set_config('jit', %s, true)", [previous])
+            if bounded_joins:
+                cursor.execute("SELECT set_config('jit', %s, true), set_config('join_collapse_limit', %s, true)",
+                               [previous, previous_joins])
+            else:
+                cursor.execute("SELECT set_config('jit', %s, true)", [previous])
         return rows
+
 
 
 def memoize_publication_field_clean(field, stats):
@@ -375,7 +386,7 @@ class PublicationContext:
         # Page hydration can trigger JIT for its correlated annotations even
         # with only 24 actual rows. Reuse the restoring local policy there;
         # ordinary native population reads retain their existing configuration.
-        self.rows = read_publication_values(query) if page_read else list(query)
+        self.rows = read_publication_values(query, bounded_joins=True) if page_read else list(query)
         self.by_revision = {row.approved_revision_id: row for row in self.rows}
         ids = {
             name: set()
