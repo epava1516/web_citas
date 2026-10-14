@@ -1531,3 +1531,22 @@ vacío; inspección posterior confirma contenedores retirados. Fuentes intactas.
 Se verifica candidata para integración local de harness; no capacidad contractual,
 N3 ni aceptación CR09 por este functional. Carga pertinente siguiente mantiene
 criterios y recursos originales y se ejecuta secuencialmente sin perfiladores.
+
+
+Harness verificado integrado localmente:88066a3 tras conservar evidencia en
+71d868e. Código de apps/config/scripts/tests/deps/contenedor idéntico byte a
+byte a candidata c80dd2c probada; cambios posteriores son documentación/log.
+No modificación de servicios normales ni publicación.
+
+Gate contractual de directorio registrado antes de arranque: focused1,
+test_contract_http_load[measured], normal_worker_beat/GC cliente explícitos;
+10.000 anuncios sintéticos,20 llegadas/s por900s,18.000 dinámicas ES/EN y15
+uploads propios, mismos criterios de generador/contabilidad/errores/p95800ms,
+timeout65s/drain70s del instrumento original. Sin perfiles/observadores de
+request ni ensayos simultáneos. Límite controlador3584M/swap0/Tasks512/CPU0–3,
+PG1CPU/1536M enCPU4, Redis0,2CPU/128M enCPU5; native sourcev2.4.0 congelada.
+Ejecutor registra SHA final después de este commit documental. Resultado y
+limpieza terminales obligatorios; un FAIL se conserva y sólo después se usa
+diagnóstico separado. Si cumple, comprobar reproducibilidad una vez. Esta carga
+no sustituye N3 común/restauración/cobertura ni acepta CR09 por sí sola. La deuda
+pesada MOD09 de exportaciones permanece provisionalmente aceptada, sin reapertura.

@@ -1,0 +1,33 @@
+{
+  "base_integrated": "88066a3",
+  "candidate_verified": "c80dd2c",
+  "source_equivalence": "git diff --exit-code apps/config/scripts/tests/dependencies/container =0",
+  "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+  "refresh_mode": "normal_worker_beat",
+  "generator_freeze": true,
+  "workers_pytest": 1,
+  "dataset": 10000,
+  "arrival_rps": 20,
+  "seconds": 900,
+  "expected_dynamic": 18000,
+  "uploads": 15,
+  "criteria": "Original POLICY and strict generator/accounting/latency/error assertions; no changes.",
+  "limits": {
+    "controller_memory_bytes": 3758096384,
+    "swap": 0,
+    "tasks": 512,
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "pg_memory_bytes": 1610612736,
+    "pg_cpus": 1,
+    "redis_memory_bytes": 134217728,
+    "redis_cpus": 0.2
+  },
+  "native_source": "/tmp/web-modelos-librdb-v2.4.0",
+  "uv_lock_sha256": "563cc6a2d4de19be8155999ad3da7990c6f152eaf2fafffa2411df1435a7dce5",
+  "acceptance": "Unproven; preserve result and require cleanup, repeat once only if criteria pass."
+}
