@@ -1906,3 +1906,15 @@ Se inició una [ejecución diagnóstica con metadatos de conexiones](evidencias/
 ### CR09: integración del censo observado parcial (2026-10-14)
 
 Integrado `1e02e53` como `14e9988`: adaptador de productores observados y recorrido de derechos parcial para perfil/cuenta, con rechazo explícito del cierre y conservación del estado. [Evidencia de integración](evidencias/cr09-censo-observado-integracion-20261014.json). Los 16 casos previos aprobados pertenecen al candidato aislado; en la versión integrada pasan Ruff y diff, y queda pendiente la comprobación funcional secuencial. La procedencia observada no acredita contenido exhaustivo, asociación completa ni aprobación de entrega.
+
+
+### CR09: defecto de limpieza de conexiones demostrado y correctiva (2026-10-14)
+
+La [secuencia diagnóstica original de 78 casos](evidencias/cr09-snapshot-metadatos-terminal-20261014.json) aprobó sin fallos ni omisiones en `b5fbf69`, con fuentes intactas y limpieza independiente. No reprodujo la ocupación intermitente; no establece su causa. No se encadenó otra repetición especulativa.
+
+Un ensayo directo y separado sobre PostgreSQL demostró que `db_sync` dejaba abierta una conexión sana al terminar su hilo temporal, tanto si la operación devolvía su resultado como si lanzaba excepción: [dos fallos conservados](evidencias/cr09-hilos-conexion-baseline-terminal-20261014.json). Los controles retienen el objeto de conexión real para no depender del recolector, y lo cierran al finalizar incluso si falla la aserción. Integrada correctiva `4f9d051`: `connections.close_all()` dentro del `finally` del propio hilo, sin cambiar persistencia ni configuración de la aplicación. Ruff y diff pasan. Verificación integrada `20261014-224616-49a0c326` en marcha con ambos controles, instantáneas, recuperación de contraseña y censo observado. Se mantiene abierta la causalidad del fallo original y la aceptación de CR09/N3.
+
+
+Verificación integrada de la correctiva `4f9d051`: [30 aprobadas, sin fallos ni omisiones](evidencias/cr09-hilos-censo-integrado-terminal-20261014.json), JUnit 172.756 s; fuentes intactas y limpieza independiente. Incluye cierre de conexiones sano/excepción, instantáneas y su negativa con conexión legítima ocupada, contraseña ES/EN y censo observado parcial de perfil/cuenta. No demuestra causalidad del fallo intermitente original. Se integra diagnóstico de metadatos `187e281` para conservar evidencia si reaparece. Próxima carga secuencial: bloque 2 completo con fuentes congeladas y límites propios.
+
+[Plan de particiones actualizado](evidencias/cr09-regresion-version-comun-plan-v2-20261014.json): incorpora los dos archivos nuevos una sola vez, conserva los dos archivos largos separados y las exclusiones HTTP del ejecutor oficial. Es planificación, no ejecución ni aceptación. La [comparación de alcance entre versiones](evidencias/cr09-regresion-reutilizacion-alcance-20261014.json) es anterior a la correctiva del helper; no justifica omitir la regresión de sus consumidores.

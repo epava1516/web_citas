@@ -1,0 +1,213 @@
+{
+  "recorded_at": "2026-10-14T22:49:49.352823+00:00",
+  "result": {
+    "id": "20261014-224616-49a0c326",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-224616-49a0c326",
+          "--label",
+          "web-modelos-local-ci-run=20261014-224616-49a0c326",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.4667144496925175
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-224616-49a0c326",
+          "--label",
+          "web-modelos-local-ci-run=20261014-224616-49a0c326",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5723135881125927
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.07371930591762066
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11727754585444927
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.0195712093263865
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.4209246910177171
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.8224565633572638
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-4osv9hih/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-4osv9hih/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-4osv9hih/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.174458099063486
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-224616-49a0c326/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-224616-49a0c326/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-4osv9hih/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-224616-49a0c326/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_browser_db_sync_cleanup.py",
+          "tests/test_directory_snapshot.py",
+          "tests/test_reset_localization.py",
+          "tests/test_owned_rights_resource_census.py",
+          "tests/test_rights_access_coverage_store.py::test_observed_owned_producer_census_keeps_reviewed_access_partial"
+        ],
+        "exit": 0,
+        "seconds": 174.9819961762987
+      }
+    ],
+    "head": "4f9d051904ce9e19364c67fec2702e33428c0de7",
+    "excluded": [],
+    "selection": [
+      "tests/test_browser_db_sync_cleanup.py",
+      "tests/test_directory_snapshot.py",
+      "tests/test_reset_localization.py",
+      "tests/test_owned_rights_resource_census.py",
+      "tests/test_rights_access_coverage_store.py::test_observed_owned_producer_census_keeps_reviewed_access_partial"
+    ],
+    "workers": 1,
+    "fixture_snapshots": true,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-224616-49a0c326": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-224616-49a0c326": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "30",
+        "time": "172.756",
+        "timestamp": "2026-10-15T00:46:34.979252+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "independent_cleanup": {
+    "web-modelos-ci-pg-20261014-224616-49a0c326": {
+      "absent": true,
+      "stderr": "error: no such object: web-modelos-ci-pg-20261014-224616-49a0c326"
+    },
+    "web-modelos-ci-redis-20261014-224616-49a0c326": {
+      "absent": true,
+      "stderr": "error: no such object: web-modelos-ci-redis-20261014-224616-49a0c326"
+    },
+    "temporary_absent": true,
+    "runner_absent": true
+  },
+  "acceptance": false,
+  "scope": "30 focused real PostgreSQL checks; 2 direct connection regressions fixed. Does not establish original intermittent SnapshotBusy cause or full CR09 closure."
+}

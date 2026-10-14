@@ -1,0 +1,207 @@
+{
+  "recorded_at": "2026-10-14T22:46:16.598932+00:00",
+  "result": {
+    "id": "20261014-224500-55213f04",
+    "profile": "focused",
+    "result": "ERROR",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-224500-55213f04",
+          "--label",
+          "web-modelos-local-ci-run=20261014-224500-55213f04",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5168245318345726
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-224500-55213f04",
+          "--label",
+          "web-modelos-local-ci-run=20261014-224500-55213f04",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5194309293292463
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03404994495213032
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.06584854377433658
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.9687218447215855
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.6694762320257723
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 2.0235786619596183
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-7dcbzxb3/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-7dcbzxb3/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-7dcbzxb3/native.env"
+        ],
+        "exit": 0,
+        "seconds": 10.116790130268782
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-224500-55213f04/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-224500-55213f04/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-7dcbzxb3/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-224500-55213f04/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_browser_db_sync_cleanup.py"
+        ],
+        "exit": 1,
+        "seconds": 41.10038525285199
+      }
+    ],
+    "head": "b1564ff894c0893426ea493d7c9ce5117331a910",
+    "excluded": [],
+    "selection": [
+      "tests/test_browser_db_sync_cleanup.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": true,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "error": "pytest failed; inspect its log",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-224500-55213f04": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-224500-55213f04": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "tests": "2",
+        "time": "39.179",
+        "timestamp": "2026-10-15T00:45:19.820989+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "pytest_log": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n__________ test_temporary_browser_orm_thread_closes_connection[False] __________\ntests/test_browser_db_sync_cleanup.py:33: in test_temporary_browser_orm_thread_closes_connection\n    assert observed[0][0].closed, \"Retiring ORM thread left its PostgreSQL connection open\"\nE   AssertionError: Retiring ORM thread left its PostgreSQL connection open\nE   assert False\nE    +  where False = <psycopg.Connection [IDLE] (host=127.0.0.1 port=33511 user=ci database=test_promotion_gate_ci) at 0x7fb1e5f183e0>.closed\n__________ test_temporary_browser_orm_thread_closes_connection[True] ___________\ntests/test_browser_db_sync_cleanup.py:33: in test_temporary_browser_orm_thread_closes_connection\n    assert observed[0][0].closed, \"Retiring ORM thread left its PostgreSQL connection open\"\nE   AssertionError: Retiring ORM thread left its PostgreSQL connection open\nE   assert False\nE    +  where False = <psycopg.Connection [IDLE] (host=127.0.0.1 port=33511 user=ci database=test_promotion_gate_ci) at 0x7fb1e595c290>.closed\n=========================== short test summary info ============================\nFAILED tests/test_browser_db_sync_cleanup.py::test_temporary_browser_orm_thread_closes_connection[False]\nFAILED tests/test_browser_db_sync_cleanup.py::test_temporary_browser_orm_thread_closes_connection[True]\n2 failed in 39.31s\n",
+  "independent_cleanup": {
+    "web-modelos-ci-pg-20261014-224500-55213f04": {
+      "absent": true,
+      "stderr": "error: no such object: web-modelos-ci-pg-20261014-224500-55213f04"
+    },
+    "web-modelos-ci-redis-20261014-224500-55213f04": {
+      "absent": true,
+      "stderr": "error: no such object: web-modelos-ci-redis-20261014-224500-55213f04"
+    },
+    "temporary_absent": true,
+    "runner_absent": true
+  },
+  "acceptance": false,
+  "conclusion": "Real healthy PostgreSQL connection remains open after the temporary thread finishes, for successful and raising operations. Does not establish original intermittent snapshot causality."
+}
