@@ -84,7 +84,7 @@ def test_ci_broker_identity_is_checked_before_redis_client(monkeypatch, damage):
     ["--workers", "1", "--benchmark-generator-freeze"],
     ["--profile", "focused", "--workers", "1", "--benchmark-normal-refresh"],
 ])
-def test_invalid_benchmark_selection_stops_before_service_commands(monkeypatch, arguments):
+def test_invalid_benchmark_selection_stops_before_service_commands(monkeypatch, capsys, arguments):
     monkeypatch.setattr("sys.argv", ["run_local_ci.py", *arguments])
     commands = []
 
@@ -98,3 +98,8 @@ def test_invalid_benchmark_selection_stops_before_service_commands(monkeypatch, 
         run_local_ci.main()
     assert error.value.code == 2
     assert commands == []
+    message = capsys.readouterr().err
+    assert (
+        "Benchmark switches require focused selection and --workers 1" in message
+        or "Normal benchmark refresh requires the explicit contract HTTP test" in message
+    )
