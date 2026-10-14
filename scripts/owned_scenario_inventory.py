@@ -45,15 +45,25 @@ def capture(runner_path, roots, *, seed_credentials=None, capture_logs=False):
             if len(bindings) != 1 or bindings[0]["HostIp"] != "127.0.0.1":
                 raise RuntimeError("Redis inventory endpoint is not exclusive loopback")
             redis_port = int(bindings[0]["HostPort"])
+        mounts = []
+        for mount in info["Mounts"]:
+            row = {"type": mount["Type"], "destination": mount["Destination"],
+                   "volume_name": mount.get("Name"), "read_write": mount["RW"]}
+            if mount["Type"] == "volume":
+                volume = json.loads(subprocess.check_output(
+                    ["docker", "volume", "inspect", mount["Name"]], text=True))[0]
+                if volume["Name"] != mount["Name"]:
+                    raise RuntimeError("Owned volume identity changed")
+                row["volume_created"] = volume["CreatedAt"]
+                row["volume_driver"] = volume["Driver"]
+            mounts.append(row)
         containers.append({"name": name, "id": info["Id"], "image_id": info["Image"],
                            "created": info["Created"], "ports": info["NetworkSettings"]["Ports"],
                            "resource_limits": {key: info["HostConfig"][key] for key in
                                                ("Memory", "MemorySwap", "NanoCpus", "CpusetCpus", "PidsLimit")},
                            "log_driver": info["HostConfig"]["LogConfig"]["Type"],
                            "log_content_scope": "not_captured; subject association pending",
-                           "mounts": [{"type": m["Type"], "destination": m["Destination"],
-                                       "volume_name": m.get("Name"), "read_write": m["RW"]}
-                                      for m in info["Mounts"]]})
+                           "mounts": mounts})
     log_origins = []
     if capture_logs:
         expected = Path(__file__).resolve().parents[1] / "artifacts" / "local-ci" / run
@@ -70,7 +80,7 @@ def capture(runner_path, roots, *, seed_credentials=None, capture_logs=False):
                        "until": started_at,
                        "streams": {key: value.decode("utf-8", errors="strict")
                                    for key, value in streams.items()}}
-            destination = runner_path.parent / (container["name"] + "-logs.encrypted")
+            destination = runner_path.parent / (container["name"] + "-logs-" + uuid.uuid4().hex + ".encrypted")
             ciphertext = seal(archive).encode()
             publication = publish_private_archive(destination.parent, destination.name, ciphertext)
             container["log_content_scope"] = "captured_encrypted_original; subject association pending"
@@ -143,6 +153,7 @@ def bind_media_files(files, temporary):
                 "photo": str(photo.pk), "blob": str(photo.blob_id),
                 "revision": str(photo.revision_id), "person": str(person.pk),
                 "account_subject": person.subject_id, "field": field,
+                "created_at": photo.created_at.isoformat(),
                 "source": "Photo.revision.listing.person; Photo.blob FileField path",
             })
             row["subject_binding"] = "explicit_database_relation"
@@ -168,6 +179,7 @@ def bind_seed_credentials(files, temporary, declared_path):
     if set(body["accounts"]) != set(seed_demo.NAMES):
         raise RuntimeError("Credential producer account set changed")
     subjects = []
+    subject_created_at = {}
     for name in seed_demo.NAMES:
         # This is the producer's explicit key-to-username recipe, not a search
         # for matching text or UUIDs in arbitrary retained material.
@@ -175,7 +187,8 @@ def bind_seed_credentials(files, temporary, declared_path):
         if body["accounts"][name]["email"] != user.email:
             raise RuntimeError("Credential producer mapping differs from current account")
         subjects.append(user.pk)
-    row.update(subject_binding="explicit_seed_producer_mapping", account_subjects=subjects,
+        subject_created_at[str(user.pk)] = user.date_joined.isoformat()
+    row.update(account_subject_created_at=subject_created_at, subject_binding="explicit_seed_producer_mapping", account_subjects=subjects,
                producer_source="apps/core/management/commands/seed_demo.py",
                producer_sha256=hashlib.sha256(Path(seed_demo.__file__).read_bytes()).hexdigest(),
                excluded_fields=["password", "accounts.*.totp_secret"],
@@ -192,14 +205,25 @@ def verify_database_endpoint(info):
         raise RuntimeError("Django database endpoint differs from owned PostgreSQL")
 
 
-def hash_regular_file(root, relative, budget):
-    """Anchor every path component; verify the same regular descriptor throughout."""
+def hash_regular_file(root, relative, budget, *, include_content=False, require_private=False):
+    """Read a stable bounded descriptor; optionally return the exact observed bytes.
+
+    Content callers must keep these originals private: credential/capability and
+    third party bytes are review material, never a recipient projection.
+    """
     relative = Path(relative)
     if relative.is_absolute() or ".." in relative.parts or not relative.parts:
         raise RuntimeError("Unscoped inventory file path")
-    directory = os.open(root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    root = Path(root).absolute()
+    if ".." in root.parts:
+        raise RuntimeError("Unscoped inventory root")
+    directory = os.open("/", os.O_RDONLY | os.O_DIRECTORY)
     descriptor = None
     try:
+        for part in root.parts[1:]:
+            following = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=directory)
+            os.close(directory)
+            directory = following
         for part in relative.parts[:-1]:
             following = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=directory)
             os.close(directory)
@@ -208,19 +232,25 @@ def hash_regular_file(root, relative, budget):
         before = os.fstat(descriptor)
         if not stat.S_ISREG(before.st_mode):
             raise RuntimeError("Inventory file is not regular")
+        if require_private and (before.st_uid != os.geteuid() or stat.S_IMODE(before.st_mode) != 0o600):
+            raise RuntimeError("Private review file must be owned and mode 0600")
         count = 0
         digest = hashlib.sha256()
+        chunks = [] if include_content else None
         while chunk := os.read(descriptor, 65536):
             count += len(chunk)
             if count > budget:
                 raise RuntimeError("Bounded scenario inventory exceeded")
             digest.update(chunk)
+            if chunks is not None:
+                chunks.append(chunk)
         after = os.fstat(descriptor)
         def identity(value):
             return (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns, value.st_ctime_ns)
         if identity(before) != identity(after) or count != before.st_size:
             raise RuntimeError("Inventory file changed during observation")
-        return count, digest.hexdigest()
+        result = (count, digest.hexdigest())
+        return (*result, b"".join(chunks)) if chunks is not None else result
     finally:
         if descriptor is not None:
             os.close(descriptor)

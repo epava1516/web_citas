@@ -39,7 +39,29 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
     retained_console_mail=False,
     historical_logs=False,
     observed_census=False,
+    complete_owned_census=None,
 ):
+    owned_registration = None
+    if complete_owned_census is not None:
+        import test_discovery
+
+        from scripts.owned_rights_resource_content import process_inputs, register_scenario
+
+        artifact = request.config.getoption("--gate-timings-output", default=None)
+        if not artifact:
+            pytest.fail("Complete owned census requires the actual disposable runner")
+        monkeypatch.setenv("LOCAL_CI_FIXTURE_SNAPSHOTS", "0")
+        request.getfixturevalue("photo_environment")
+        settings.MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
+        owned_registration = register_scenario(Path(artifact).parent / "runner.json", [tmp_path])
+        real_seed_or_restore = test_discovery.seed_or_restore
+
+        def observed_seed(seed):
+            branch = real_seed_or_restore(seed)
+            owned_registration["seed_execution"] = {"branch": branch, "inputs": process_inputs()}
+            return branch
+
+        monkeypatch.setattr(test_discovery, "seed_or_restore", observed_seed)
     case, author, staff, public, receipt, _, _, _, decision, _, _ = approved_information(
         request, settings, monkeypatch, account_only
     )
@@ -369,58 +391,59 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             write_bundle,
         )
 
-        event_time = inventory.created_at
-        if historical_logs:
-            from datetime import timedelta
+        if complete_owned_census is None:
+            event_time = inventory.created_at
+            if historical_logs:
+                from datetime import timedelta
 
-            event_time -= timedelta(seconds=2)
-        event = signed_subject_log_event(
-            "account" if account_only else "person",
-            case.account_subject_id if account_only else case.person_id,
-            "profile_updated",
-            "succeeded",
-            event_time,
-        )
-        log_content = "".join(
-            f"{inventory.created_at.isoformat()} {line}\n" for line in console_output.splitlines()
-        )
-        log_content += f"{event_time.isoformat()} {json.dumps(event)}\n"
-        log_content += f"{event_time.isoformat()} {json.dumps(event | {'subject_id': str(uuid4())})}\n"
-        archive_directory = tmp_path / "operational-fixture"
-        archive_directory.mkdir(mode=0o700)
-        archive_path = write_bundle(
-            archive_directory,
-            synthetic_log_bundle(timezone.now(), log_content),
-            case_id=case.pk,
-            inventory_id=inventory.pk,
-        )
-        if historical_logs:
-            historical_body = unseal(archive_path.read_text())
-            historical_body["captured_at"] = (inventory.created_at - timedelta(seconds=1)).isoformat()
-            for service_record in historical_body["records"]:
-                service_record["container_created_at"] = event_time.isoformat()
-            archive_path.write_text(module.seal(historical_body))
-            selected = tmp_path / "selected-history"
-            selected.mkdir(mode=0o700)
-            import os
-            import subprocess
-            import sys
+                event_time -= timedelta(seconds=2)
+            event = signed_subject_log_event(
+                "account" if account_only else "person",
+                case.account_subject_id if account_only else case.person_id,
+                "profile_updated",
+                "succeeded",
+                event_time,
+            )
+            log_content = "".join(
+                f"{inventory.created_at.isoformat()} {line}\n" for line in console_output.splitlines()
+            )
+            log_content += f"{event_time.isoformat()} {json.dumps(event)}\n"
+            log_content += f"{event_time.isoformat()} {json.dumps(event | {'subject_id': str(uuid4())})}\n"
+            archive_directory = tmp_path / "operational-fixture"
+            archive_directory.mkdir(mode=0o700)
+            archive_path = write_bundle(
+                archive_directory,
+                synthetic_log_bundle(timezone.now(), log_content),
+                case_id=case.pk,
+                inventory_id=inventory.pk,
+            )
+            if historical_logs:
+                historical_body = unseal(archive_path.read_text())
+                historical_body["captured_at"] = (inventory.created_at - timedelta(seconds=1)).isoformat()
+                for service_record in historical_body["records"]:
+                    service_record["container_created_at"] = event_time.isoformat()
+                archive_path.write_text(module.seal(historical_body))
+                selected = tmp_path / "selected-history"
+                selected.mkdir(mode=0o700)
+                import os
+                import subprocess
+                import sys
 
-            from django.db import connection
+                from django.db import connection
 
-            expected_path = selected / scoped_origin_name("logs", case.pk, inventory.pk)
-            cli_env = os.environ.copy()
-            cli_env["POSTGRES_DB"] = connection.settings_dict["NAME"]
-            command = [sys.executable, "-m", "scripts.scope_retained_log_origins", "--origin", str(archive_path),
-                       "--output-directory", str(selected), "--request", str(case.pk), "--inventory", str(inventory.pk)]
-            cli = subprocess.run(command, env=cli_env, capture_output=True, text=True, timeout=30)
-            assert cli.returncode == 0, cli.stderr
-            assert cli.stdout.strip() == str(expected_path)
-            duplicate = subprocess.run(command, env=cli_env, capture_output=True, text=True, timeout=30)
-            assert duplicate.returncode == 2 and "no accepted artifact" in duplicate.stderr
-            archive_path = expected_path
-            archive_directory = selected
-        settings.ACCESS_LOG_ORIGIN_BUNDLE = str(archive_directory)
+                expected_path = selected / scoped_origin_name("logs", case.pk, inventory.pk)
+                cli_env = os.environ.copy()
+                cli_env["POSTGRES_DB"] = connection.settings_dict["NAME"]
+                command = [sys.executable, "-m", "scripts.scope_retained_log_origins", "--origin", str(archive_path),
+                           "--output-directory", str(selected), "--request", str(case.pk), "--inventory", str(inventory.pk)]
+                cli = subprocess.run(command, env=cli_env, capture_output=True, text=True, timeout=30)
+                assert cli.returncode == 0, cli.stderr
+                assert cli.stdout.strip() == str(expected_path)
+                duplicate = subprocess.run(command, env=cli_env, capture_output=True, text=True, timeout=30)
+                assert duplicate.returncode == 2 and "no accepted artifact" in duplicate.stderr
+                archive_path = expected_path
+                archive_directory = selected
+            settings.ACCESS_LOG_ORIGIN_BUNDLE = str(archive_directory)
         with transaction.atomic():
             original_scope = snapshot(
                 case,
@@ -430,8 +453,11 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
                 projected=evidence_body["delivered"],
             )
         assert not original_scope["blocked"], original_scope["blocked"]
-        assert len(original_scope["groups"]["operations.LogEvent"]) == 1
-        assert not original_scope["log_origins"]["unprojected_candidates"]
+        if complete_owned_census is None:
+            assert len(original_scope["groups"]["operations.LogEvent"]) == 1
+            assert not original_scope["log_origins"]["unprojected_candidates"]
+        else:
+            assert original_scope["log_origins"]["configured"] is False
         if retained_console_mail:
             assert len(original_scope["log_origins"]["projected_mail"]) == 1
             assert any(
@@ -574,43 +600,44 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             reason,
             "approved",
         )
-        import hashlib
+        if complete_owned_census is None:
+            import hashlib
 
-        original_archive = archive_path.read_text()
-        if historical_logs:
-            changed_identity = unseal(original_archive)
-            changed_identity["origins"][0]["ciphertext_sha256"] = "0" * 64
-            archive_path.write_text(module.seal(changed_identity))
-            with transaction.atomic(), pytest.raises(ValidationError, match="package contents|original records"):
+            original_archive = archive_path.read_text()
+            if historical_logs:
+                changed_identity = unseal(original_archive)
+                changed_identity["origins"][0]["ciphertext_sha256"] = "0" * 64
+                archive_path.write_text(module.seal(changed_identity))
+                with transaction.atomic(), pytest.raises(ValidationError, match="package contents|original records"):
+                    validate_draft(package_draft, case, None if account_only else case.person)
+                archive_path.write_text(original_archive)
+            changed_archive = unseal(original_archive)
+            changed_capture = changed_archive["origins"][0]["capture"] if historical_logs else changed_archive
+            changed_lines = []
+            for line in changed_capture["records"][0]["stdout"].splitlines():
+                timestamp, content = line.split(" ", 1)
+                try:
+                    changed_event = json.loads(content)
+                except ValueError:
+                    # Preserve captured MIME lines when testing signed-event drift.
+                    changed_lines.append(line + "\n")
+                    continue
+                changed_event["outcome"] = "failed"
+                changed_event["signature"] = subject_log_signature(changed_event)
+                changed_lines.append(f"{timestamp} {json.dumps(changed_event)}\n")
+            changed_capture["records"][0]["stdout"] = "".join(changed_lines)
+            changed_capture["records"][0]["stdout_sha256"] = hashlib.sha256(
+                changed_capture["records"][0]["stdout"].encode()
+            ).hexdigest()
+            if historical_logs:
+                changed_archive["origins"][0]["capture_sha256"] = hashlib.sha256(canonical(changed_capture).encode()).hexdigest()
+            archive_path.write_text(module.seal(changed_archive))
+            with (
+                transaction.atomic(),
+                pytest.raises(ValidationError, match="package contents|original records"),
+            ):
                 validate_draft(package_draft, case, None if account_only else case.person)
             archive_path.write_text(original_archive)
-        changed_archive = unseal(original_archive)
-        changed_capture = changed_archive["origins"][0]["capture"] if historical_logs else changed_archive
-        changed_lines = []
-        for line in changed_capture["records"][0]["stdout"].splitlines():
-            timestamp, content = line.split(" ", 1)
-            try:
-                changed_event = json.loads(content)
-            except ValueError:
-                # Preserve captured MIME lines when testing signed-event drift.
-                changed_lines.append(line + "\n")
-                continue
-            changed_event["outcome"] = "failed"
-            changed_event["signature"] = subject_log_signature(changed_event)
-            changed_lines.append(f"{timestamp} {json.dumps(changed_event)}\n")
-        changed_capture["records"][0]["stdout"] = "".join(changed_lines)
-        changed_capture["records"][0]["stdout_sha256"] = hashlib.sha256(
-            changed_capture["records"][0]["stdout"].encode()
-        ).hexdigest()
-        if historical_logs:
-            changed_archive["origins"][0]["capture_sha256"] = hashlib.sha256(canonical(changed_capture).encode()).hexdigest()
-        archive_path.write_text(module.seal(changed_archive))
-        with (
-            transaction.atomic(),
-            pytest.raises(ValidationError, match="package contents|original records"),
-        ):
-            validate_draft(package_draft, case, None if account_only else case.person)
-        archive_path.write_text(original_archive)
         with pytest.raises(ValidationError, match="Complete reviewed access delivery"):
             close(
                 author,
@@ -657,6 +684,33 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             (Path(artifact).parent / f"owned-rights-observation-{inventory.pk}.json").write_text(
                 json.dumps(observation, indent=2)
             )
+        elif complete_owned_census is not None:
+            from scripts.owned_rights_resource_census import reviewed_content_census
+            from scripts.owned_rights_resource_content import capture_content
+            from scripts.owned_scenario_inventory import publish_private_archive
+
+            material = capture_content(
+                owned_registration, Path(artifact).parent / "runner.json", [tmp_path],
+                seed_credentials=tmp_path / "credentials.json",
+            )
+            # This callback represents an external source review, not an app
+            # action. Tests must preserve exact originals and proposed reasons
+            # for root's independent semantic acceptance after execution.
+            external_review = complete_owned_census(
+                case, inventory, original_scope, material, author, verifier
+            )
+            if len(external_review) not in {2, 3}:
+                raise ValueError("Exact source and disclosure review required")
+            source_reviews, history_review = external_review[:2]
+            resource_content_decisions = external_review[2] if len(external_review) == 3 else None
+            private = {"material": material, "source_reviews": source_reviews,
+                       "history_review": history_review,
+                       "resource_content_decisions": resource_content_decisions}
+            publish_private_archive(Path(artifact).parent,
+                f"owned-content-and-external-review-{inventory.pk}.encrypted", module.seal(private).encode())
+            census_body = reviewed_content_census(
+                case, inventory, original_scope, material, source_reviews, history_review
+            )
         else:
             census_body = synthetic_resource_census(case, inventory, original_scope)
         census_path = tmp_path / scoped_origin_name("resources", case.pk, inventory.pk)
@@ -689,6 +743,23 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
                 "operations.RetainedResource": {
                     "status": "omitted",
                     "reason": "Producer provenance remains private pending content and disclosure review; this response stays partial.",
+                },
+            }
+        if complete_owned_census is not None and completed_scope["resource_scope"]["groups"]:
+            # Every proposed content value needs a concrete external disclosure
+            # decision; the existing app still validates redaction and reviews it.
+            retained = completed_scope["resource_scope"]["groups"]
+            expected_content = {fingerprint(row["data"]["content"]) for row in retained}
+            if (not isinstance(resource_content_decisions, dict)
+                    or set(resource_content_decisions) != expected_content
+                    or any(not isinstance(item, dict) or item.get("status") not in {"redacted", "omitted"}
+                           for item in resource_content_decisions.values())):
+                raise ValueError("Exact retained-content redaction or omission decisions required")
+            completed_decisions["models"] = decisions["models"] | {
+                "operations.RetainedResource": {
+                    "status": "redacted", "reason": reason,
+                    "changes": {row["reference"]: {"content": resource_content_decisions[
+                        fingerprint(row["data"]["content"])]} for row in retained},
                 },
             }
         completed_draft = prepare_response(
@@ -1031,3 +1102,54 @@ def test_historical_log_selection_uses_audited_package_review_and_blocks_full_cl
         request, settings, monkeypatch, account_only, live_server, False, tmp_path,
         historical_logs=True,
     )
+
+
+@pytest.mark.parametrize("account_only", [False, True])
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_owned_content_external_review_closes_and_downloads_exact_payload(
+    request, settings, monkeypatch, account_only, language, live_server, tmp_path
+):
+    """Explicit interactive operator gate; no waiting in ordinary regression."""
+    from scripts.owned_rights_resource_content import await_external_review
+
+    selected_explicitly = any(
+        "::test_owned_content_external_review_closes_and_downloads_exact_payload" in str(argument)
+        for argument in request.config.args
+    )
+    if not selected_explicitly:
+        pytest.skip("Explicit isolated operator review required; no coverage acceptance from this skip")
+    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
+        request, settings, monkeypatch, account_only, live_server, False, tmp_path,
+        finish=True, finish_mode="browser", finish_language=language,
+        complete_owned_census=await_external_review,
+    )
+
+
+@pytest.mark.parametrize("account_only", [False, True])
+def test_owned_content_omitted_source_never_creates_final_response(
+    request, settings, monkeypatch, account_only, live_server, tmp_path
+):
+    """Real owned producers, rejected before final response side effects."""
+    from apps.safety.models import RightsAccessClosure, RightsNotice, RightsResponse
+
+    if not any("::test_owned_content_omitted_source_never_creates_final_response" in str(argument)
+               for argument in request.config.args):
+        pytest.skip("Explicit isolated actual-content negative scenario required")
+    before = {}
+
+    def omit_actual_sources(case, inventory, scope, material, author, reviewer):
+        assert material["sources"]
+        assert author.pk != reviewer.pk
+        before["counts"] = (RightsResponse.objects.count(), RightsNotice.objects.count(), RightsAccessClosure.objects.count())
+        before["case"] = case
+        before["state"] = (case.version, case.response_version, case.status)
+        return {}, {}
+
+    with pytest.raises(ValueError, match="Every actual source"):
+        test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
+            request, settings, monkeypatch, account_only, live_server, False, tmp_path,
+            finish=True, complete_owned_census=omit_actual_sources,
+        )
+    assert before["counts"] == (RightsResponse.objects.count(), RightsNotice.objects.count(), RightsAccessClosure.objects.count())
+    before["case"].refresh_from_db()
+    assert (before["case"].version, before["case"].response_version, before["case"].status) == before["state"]

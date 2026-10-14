@@ -109,3 +109,38 @@ def test_private_archive_publication_failure_removes_temporary(tmp_path, monkeyp
     with pytest.raises(OSError, match="synthetic publication"):
         inventory.publish_private_archive(tmp_path, "archive", b"new")
     assert not list(tmp_path.iterdir())
+
+
+def test_private_content_uses_the_same_bounded_descriptor_as_its_hash(tmp_path):
+    import hashlib
+
+    private = b"synthetic-capability\x00not-for-public-observation"
+    (tmp_path / "private").write_bytes(private)
+    size, digest, original = inventory.hash_regular_file(
+        tmp_path, "private", len(private), include_content=True
+    )
+    assert size == len(private)
+    assert digest == hashlib.sha256(private).hexdigest()
+    assert original == private
+    assert inventory.hash_regular_file(tmp_path, "private", len(private)) == (size, digest)
+    with pytest.raises(RuntimeError, match="inventory exceeded"):
+        inventory.hash_regular_file(tmp_path, "private", len(private) - 1, include_content=True)
+
+
+def test_private_content_rejects_post_read_mutation(tmp_path, monkeypatch):
+    target = tmp_path / "private"
+    target.write_bytes(b"synthetic-original")
+    read = inventory.os.read
+    changed = False
+
+    def mutate(descriptor, count):
+        nonlocal changed
+        content = read(descriptor, count)
+        if content and not changed:
+            changed = True
+            target.write_bytes(b"synthetic-altered!")
+        return content
+
+    monkeypatch.setattr(inventory.os, "read", mutate)
+    with pytest.raises(RuntimeError, match="changed during observation"):
+        inventory.hash_regular_file(tmp_path, "private", 1024, include_content=True)
