@@ -27,6 +27,7 @@ def capture(runner_path, roots, *, seed_credentials=None):
     if temporary.parent != Path("/tmp") or not temporary.name.startswith("web-modelos-local-ci-"):
         raise RuntimeError("Unrecognized disposable resource root")
     containers = []
+    redis_port = None
     for service in ["pg", "redis"]:
         name = f"web-modelos-ci-{service}-{run}"
         if name not in runner["containers"]:
@@ -36,6 +37,11 @@ def capture(runner_path, roots, *, seed_credentials=None):
             raise RuntimeError("Container identity mismatch")
         if service == "pg":
             verify_database_endpoint(info)
+        else:
+            bindings = info["NetworkSettings"]["Ports"].get("6379/tcp") or []
+            if len(bindings) != 1 or bindings[0]["HostIp"] != "127.0.0.1":
+                raise RuntimeError("Redis inventory endpoint is not exclusive loopback")
+            redis_port = int(bindings[0]["HostPort"])
         containers.append({"name": name, "id": info["Id"], "image_id": info["Image"],
                            "created": info["Created"], "ports": info["NetworkSettings"]["Ports"],
                            "mounts": [{"type": m["Type"], "destination": m["Destination"]}
@@ -66,6 +72,7 @@ def capture(runner_path, roots, *, seed_credentials=None):
         bind_seed_credentials(files, temporary, seed_credentials)
     return {"schema": "owned-scenario-observation-v1", "run": run, "head": runner["head"],
             "captured_at": datetime.now(timezone.utc).isoformat(), "containers": containers,
+            "runtime_stores": observe_runtime_stores(redis_port),
             "roots": [str(Path(root).relative_to(temporary)) for root in roots], "files": files,
             "coverage_complete": False,
             "pending": ["subject association and inclusion/redaction decisions", "logs/mail/cache/backups outside declared roots", "historical import/restore provenance"],
@@ -181,3 +188,44 @@ def hash_regular_file(root, relative, budget):
         if descriptor is not None:
             os.close(descriptor)
         os.close(directory)
+
+
+def observe_runtime_stores(redis_port):
+    """Only observed metadata; counts never stand for complete retained coverage."""
+    import redis
+    from django.conf import settings
+    from django.contrib.sessions.models import Session
+    from django.core import mail
+    from django.core.cache import caches
+    from django.db import connection
+
+    sessions = []
+    for session in Session.objects.all():
+        decoded = session.get_decoded()
+        sessions.append({"key_sha256": hashlib.sha256(session.session_key.encode()).hexdigest(),
+                         "auth_user_id": decoded.get("_auth_user_id"),
+                         "expires_at": session.expire_date.isoformat(),
+                         "scope": "Signed Django session subject field; authority/expiry not inferred"})
+    backend = caches["default"]
+    cache = {"backend": type(backend).__module__ + "." + type(backend).__name__,
+             "content_scope": "not_inspected"}
+    if cache["backend"] == "django.core.cache.backends.locmem.LocMemCache":
+        with backend._lock:
+            cache["observed_key_hashes"] = [hashlib.sha256(str(key).encode()).hexdigest()
+                                            for key in backend._cache]
+        cache["content_scope"] = "key metadata only; values and subject association pending"
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT current_database(), current_user")
+        database, role = cursor.fetchone()
+    client = redis.Redis(host="127.0.0.1", port=redis_port, db=0,
+                         socket_connect_timeout=3, socket_timeout=3)
+    try:
+        keys = client.dbsize()
+    finally:
+        client.close()
+    return {"database": database, "database_role": role, "sessions": sessions,
+            "cache": cache, "mail_backend": settings.EMAIL_BACKEND,
+            "locmem_mail_count": len(mail.outbox) if hasattr(mail, "outbox") else None,
+            "celery_eager": settings.CELERY_TASK_ALWAYS_EAGER,
+            "owned_redis_db0_keys": keys,
+            "limits": "Point observations; no log/archive/backup inspection, no cache value decoding, no global absence or recipient coverage claim."}

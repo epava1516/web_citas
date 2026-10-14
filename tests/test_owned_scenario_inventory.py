@@ -20,6 +20,9 @@ def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_bind
     runner = Path(artifact).parent / "runner.json"
     manifest = capture(runner, [tmp_path, settings.MEDIA_ROOT], seed_credentials=tmp_path / "credentials.json")
     assert len(manifest["containers"]) == 2
+    assert manifest["runtime_stores"]["database"].startswith("test_promotion_gate_")
+    assert manifest["runtime_stores"]["owned_redis_db0_keys"] == 0
+    assert manifest["runtime_stores"]["celery_eager"] is True
     assert any(item["relative_path"].endswith("credentials.json") for item in manifest["files"])
     media = [item for item in manifest["files"] if item.get("database_references")]
     assert media and all(item["subject_binding"] == "explicit_database_relation" for item in media)
