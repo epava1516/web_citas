@@ -62,9 +62,42 @@ def capture(runner_path, roots):
                     digest.update(chunk)
             files.append({"relative_path": str(path.relative_to(temporary)), "size": size,
                           "sha256": digest.hexdigest(), "subject_binding": "not_established"})
+    bind_media_files(files, temporary)
     return {"schema": "owned-scenario-observation-v1", "run": run, "head": runner["head"],
             "captured_at": datetime.now(timezone.utc).isoformat(), "containers": containers,
             "roots": [str(Path(root).relative_to(temporary)) for root in roots], "files": files,
             "coverage_complete": False,
             "pending": ["subject association and inclusion/redaction decisions", "logs/mail/cache/backups outside declared roots", "historical import/restore provenance"],
             "scope": "Observed live own CI containers and declared fixture file roots only. No content bodies exported; hashes do not prove subject ownership or global exhaustiveness."}
+
+
+def bind_media_files(files, temporary):
+    """Bind observed bytes through current ORM references, never filename patterns."""
+    from django.db import connection
+
+    from apps.mediafiles.models import Photo
+
+    if not connection.settings_dict["NAME"].startswith("test_promotion_gate_"):
+        raise RuntimeError("Media provenance requires disposable test database")
+    observed = {row["relative_path"]: row for row in files}
+    for photo in Photo.objects.select_related("blob", "revision__listing__person"):
+        person = photo.revision.listing.person
+        for field in ["original", "derivative"]:
+            stored = getattr(photo.blob, field)
+            if not stored:
+                continue
+            path = Path(stored.path).resolve(strict=True)
+            if not path.is_relative_to(temporary):
+                raise RuntimeError("Referenced media is outside the disposable scenario")
+            row = observed.get(str(path.relative_to(temporary)))
+            if row is None:
+                raise RuntimeError("Referenced media absent from declared inventory roots")
+            if field == "original" and row["sha256"] != photo.blob.sha256:
+                raise RuntimeError("Observed original differs from database content hash")
+            row.setdefault("database_references", []).append({
+                "photo": str(photo.pk), "blob": str(photo.blob_id),
+                "revision": str(photo.revision_id), "person": str(person.pk),
+                "account_subject": person.subject_id, "field": field,
+                "source": "Photo.revision.listing.person; Photo.blob FileField path",
+            })
+            row["subject_binding"] = "explicit_database_relation"

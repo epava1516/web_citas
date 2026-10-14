@@ -21,6 +21,9 @@ def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_bind
     manifest = capture(runner, [tmp_path, settings.MEDIA_ROOT])
     assert len(manifest["containers"]) == 2
     assert any(item["relative_path"].endswith("credentials.json") for item in manifest["files"])
-    assert manifest["files"] and all(item["subject_binding"] == "not_established" for item in manifest["files"])
+    media = [item for item in manifest["files"] if item.get("database_references")]
+    assert media and all(item["subject_binding"] == "explicit_database_relation" for item in media)
+    credentials = [item for item in manifest["files"] if item["relative_path"].endswith("credentials.json")]
+    assert len(credentials) == 1 and credentials[0]["subject_binding"] == "not_established"
     assert manifest["coverage_complete"] is False and manifest["pending"]
     (Path(artifact).parent / "owned-scenario-inventory.json").write_text(json.dumps(manifest, indent=2))
