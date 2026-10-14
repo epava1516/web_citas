@@ -6,6 +6,8 @@ import pytest
 import redis
 import test_worker_capacity_comparison as benchmark
 
+from scripts import run_local_ci
+
 
 @pytest.mark.parametrize("damage", [
     None, "run", "name", "label", "port", "host", "database", "stopped",
@@ -66,3 +68,33 @@ def test_ci_broker_identity_is_checked_before_redis_client(monkeypatch, damage):
         with pytest.raises(AssertionError):
             benchmark.owned_redis()
         assert connected == []
+
+
+@pytest.mark.parametrize("arguments", [
+    ["--profile", "regression", "--workers", "1", "--benchmark-normal-refresh"],
+    ["--profile", "focused", "--test", "tests/test_benchmark_owned_redis.py",
+     "--workers", "1", "--benchmark-normal-refresh"],
+    ["--profile", "focused", "--test", "tests/test_contract_http_load.py",
+     "--workers", "2", "--benchmark-normal-refresh"],
+    ["--profile", "focused", "--test", "tests/test_contract_http_load.py",
+     "--workers", "2", "--benchmark-generator-freeze"],
+    ["--profile", "focused", "--test", "tests/test_contract_http_load.py",
+     "--test", "tests/test_benchmark_owned_redis.py", "--workers", "1",
+     "--benchmark-normal-refresh"],
+    ["--workers", "1", "--benchmark-generator-freeze"],
+    ["--profile", "focused", "--workers", "1", "--benchmark-normal-refresh"],
+])
+def test_invalid_benchmark_selection_stops_before_service_commands(monkeypatch, arguments):
+    monkeypatch.setattr("sys.argv", ["run_local_ci.py", *arguments])
+    commands = []
+
+    def forbidden(command, *args, **kwargs):
+        commands.append(command)
+        raise AssertionError("No service command allowed before selection validation")
+
+    for name in ("run", "check_output", "Popen"):
+        monkeypatch.setattr(run_local_ci.subprocess, name, forbidden)
+    with pytest.raises(SystemExit) as error:
+        run_local_ci.main()
+    assert error.value.code == 2
+    assert commands == []

@@ -16,7 +16,7 @@ Docker Running/etiqueta y puerto publicado exactos antes de construir cliente.
 Se usa ese mismo helper antes de worker/Beat y en la limpieza de su broker.
 No se conecta al Redis normal del puerto fijo desde la nueva vía CI.
 
-Doce controles unitarios preparados: identidad propia válida y rechazo de run,
+Doce controles de identidad preparados: identidad propia válida y rechazo de run,
 nombre, etiqueta, puerto, host, DB, detenido, ausencia de ámbito/override,
 credenciales y query. Docker/Redis son observados con dobles en esos controles;
 no se declaran verificación real de servicios. Ruff y diff --check PASS.
@@ -25,3 +25,13 @@ Todavía no se ejecutó pytest ni gate HTTP de esta correctiva.
 Condición de salida: controles y gate funcional con servicios propios reales,
 fuentes congeladas y limpieza; luego gate contractual pertinente, secuencial,
 sin perfiles ni cambios especulativos. No rebaja criterios ni acepta N3.
+
+
+Revisión nativa sólo lectura de 0045214: no encontró defecto bloqueante.
+Root comprobó orden de validación antes de Popen worker/Beat y reutilización
+del helper en limpieza. Revisión estática no demuestra ejecución real.
+Se añaden siete negativos CLI: perfil incorrecto, archivo incompatible,
+workers paralelos, selección mixta, ausencia de selección y GC fuera de
+focused. Comprueban SystemExit2 antes de cualquier comando de servicio.
+Total preparado 19 controles; pytest sigue pendiente. Propagación y limpieza
+reales requieren gate functional con los switches nuevos, no otro mock.
