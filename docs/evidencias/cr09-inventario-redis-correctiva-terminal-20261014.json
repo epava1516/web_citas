@@ -1,0 +1,205 @@
+{
+  "recorded_at": "2026-10-14T19:21:00.298800+00:00",
+  "result": {
+    "id": "20261014-191932-dedacd3a",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-191932-dedacd3a",
+          "--label",
+          "web-modelos-local-ci-run=20261014-191932-dedacd3a",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5233835261315107
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-191932-dedacd3a",
+          "--label",
+          "web-modelos-local-ci-run=20261014-191932-dedacd3a",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.6693475181236863
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06790504092350602
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11743971286341548
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.1230655810795724
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.4709950047545135
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.7695576851256192
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-gc5dprz3/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-gc5dprz3/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-gc5dprz3/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.719608595129102
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_cr09_snapshot_quiescence/artifacts/local-ci/20261014-191932-dedacd3a/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_cr09_snapshot_quiescence/artifacts/local-ci/20261014-191932-dedacd3a/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-gc5dprz3/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_cr09_snapshot_quiescence/artifacts/local-ci/20261014-191932-dedacd3a/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_organization_review.py::test_invalid_input_and_production_simulation_blocked",
+          "tests/test_organization_review.py::test_concurrent_decisions_keep_one_record",
+          "tests/test_owned_scenario_inventory.py",
+          "tests/test_owned_scenario_inventory_guards.py"
+        ],
+        "exit": 0,
+        "seconds": 49.03640091372654
+      }
+    ],
+    "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+    "excluded": [],
+    "selection": [
+      "tests/test_organization_review.py::test_invalid_input_and_production_simulation_blocked",
+      "tests/test_organization_review.py::test_concurrent_decisions_keep_one_record",
+      "tests/test_owned_scenario_inventory.py",
+      "tests/test_owned_scenario_inventory_guards.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": true,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-191932-dedacd3a": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-191932-dedacd3a": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "17",
+        "time": "47.230",
+        "timestamp": "2026-10-14T21:19:51.493300+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "independent_container_absence": {
+    "web-modelos-ci-pg-20261014-191932-dedacd3a": true,
+    "web-modelos-ci-redis-20261014-191932-dedacd3a": true
+  },
+  "temporary_absent": true,
+  "corrective_sha256": "0dce1b466bd8be04b269168a724203b3b8310a3b536b43320416677952f6af40",
+  "scope": "Actual own PostgreSQL/Redis inventory with synthetic marker, predecessor cases and security guards. Does not resolve snapshot failure or full CR09 acceptance.",
+  "acceptance": false
+}

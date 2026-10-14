@@ -1,0 +1,19 @@
+{
+  "run": "20261014-154625-25b4deed",
+  "status": "running_partial",
+  "omissions": [
+    {
+      "nodeid": "tests/test_capacity_delivery_profile.py::test_owned_target_stage_profiles",
+      "guard": "CAPACITY_DELIVERY_PROFILE",
+      "classification": "Explicit diagnostic instrumentation; excluded from unprofiled measurement. Not a PASS.",
+      "source_sha256": "2246e932d31da7da1e669985cfea5638f5ba95aa0b51a13297a120ea155b5bfe"
+    },
+    {
+      "nodeid": "tests/test_capacity_object_preflight.py::test_owned_object_proxy_and_purge_worker_gate",
+      "guard": "CAPACITY_PREFLIGHT_ONLY",
+      "classification": "Specific owned object/proxy/purge preflight; requires separate current-scope evidence. Prior instrumentation corrective also skipped it; not proof of coverage.",
+      "source_sha256": "a66da59c85d3fc04b60f47dccd5911f736c6e738a18d2858833c7d88a9cc7122"
+    }
+  ],
+  "limits": "Partial source inspection, no terminal run result or global acceptance; no omission counted as PASS."
+}

@@ -1,0 +1,211 @@
+{
+  "result": {
+    "id": "20261014-154625-25b4deed",
+    "profile": "regression",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-154625-25b4deed",
+          "--label",
+          "web-modelos-local-ci-run=20261014-154625-25b4deed",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5201670140959322
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-154625-25b4deed",
+          "--label",
+          "web-modelos-local-ci-run=20261014-154625-25b4deed",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5205789860337973
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03487876383587718
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.0670962636359036
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.9685449372045696
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.570241372101009
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.7796038510277867
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-07ebagql/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-07ebagql/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-07ebagql/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.552071860991418
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-154625-25b4deed/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-154625-25b4deed/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-07ebagql/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-154625-25b4deed/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "--deselect=tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+          "--deselect=tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+          "--ignore=tests/test_rights_portability_large_history.py",
+          "--ignore=tests/test_publication_state_tcp.py"
+        ],
+        "exit": 0,
+        "seconds": 5419.048644408118
+      }
+    ],
+    "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+    "excluded": [
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+      "tests/test_rights_portability_large_history.py",
+      "tests/test_publication_state_tcp.py"
+    ],
+    "selection": [],
+    "workers": 1,
+    "fixture_snapshots": true,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-154625-25b4deed": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-154625-25b4deed": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "3",
+        "tests": "811",
+        "time": "5412.493",
+        "timestamp": "2026-10-14T17:46:44.243677+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": [
+      {
+        "case": "test_owned_target_stage_profiles",
+        "reason": "Requires owned capacity runner diagnostic profile mode"
+      },
+      {
+        "case": "test_owned_object_proxy_and_purge_worker_gate",
+        "reason": "Requires owned capacity runner preflight mode"
+      },
+      {
+        "case": "test_worker_capacity_comparison",
+        "reason": "Explicit authorized owned experiment only"
+      }
+    ]
+  },
+  "independent_containers_and_temporary_absent": true,
+  "scope": "125 files/811 nodes, 808PASS and3SKIP; no full N3/CR09 acceptance. Remaining common parts, census and capacity criteria pending."
+}

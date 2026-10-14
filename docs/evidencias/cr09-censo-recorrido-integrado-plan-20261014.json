@@ -1,0 +1,26 @@
+{
+  "status": "source_verified_plan_not_implemented",
+  "scenario": "Existing integrated access review/closure/replay/download with own producer census",
+  "verified_sources": {
+    "tests/test_rights_access_coverage_store.py": "748b389b0af92be11048609fc49fe2156434e6452d7572b2b08d29886f6ccce1",
+    "tests/test_rights_access_recipient_payload.py": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+    "scripts/owned_scenario_inventory.py": "06ce17cd2cdd4905acf5470828dd83fb9354270cc236eb07a6b937a579e90a4e"
+  },
+  "existing_path": "tests/test_rights_access_coverage_store.py:634-691 and test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture",
+  "finding": "finish=True currently constructs synthetic_resource_census with empty retained records; integrated workflow positive does not attest actual source exhaustiveness.",
+  "next_required_steps": [
+    "Add explicit census provider to existing complete workflow while retaining current adapter fixtures.",
+    "Observe necessary own producer artifacts with request/inventory/source/cutoff/dependencies and justified periods.",
+    "Incomplete or unassociated necessary origins must leave package partial and reject closure.",
+    "Separate reviewer reads exact originals and decides inclusion/redaction/exclusion; changed origin invalidates review.",
+    "Only after required source census is verified exercise closure/replay/recipient exact download and authority negatives."
+  ],
+  "unresolved_sources": [
+    "cache/mail content",
+    "Redis other databases and persistence files when relevant",
+    "own logs subject association/disclosure",
+    "backup/restore dependencies",
+    "23 historical sources provenance remains indeterminate unless dependency demonstrated"
+  ],
+  "limits": "No new scenario execution, accepted rights closure, N3 or global acceptance. Native review was source-only and independently checked by root."
+}

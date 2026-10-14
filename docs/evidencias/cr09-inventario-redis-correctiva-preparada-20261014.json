@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-10-14T18:22:19.482019+00:00",
+  "scope": "isolated test corrective; not integrated; functional verification pending",
+  "worktree": "/home/felidae/proyectos/web_modelos_cr09_snapshot_quiescence",
+  "base_sha": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+  "file": "tests/test_owned_scenario_inventory.py",
+  "sha256": "0dce1b466bd8be04b269168a724203b3b8310a3b536b43320416677952f6af40",
+  "change": "Observe existing own Redis keys and add/remove only a unique synthetic marker; close client even if marker cleanup raises. No flush or deletion of pre-existing keys.",
+  "verification": {
+    "ruff": "passed",
+    "git_diff_check": "passed",
+    "functional": "not executed while common regression part 2 is active"
+  },
+  "acceptance": false
+}

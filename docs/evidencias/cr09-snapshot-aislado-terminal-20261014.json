@@ -1,0 +1,198 @@
+{
+  "recorded_at": "2026-10-14T19:17:46.889974+00:00",
+  "result": {
+    "id": "20261014-191548-acc13aa5",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-191548-acc13aa5",
+          "--label",
+          "web-modelos-local-ci-run=20261014-191548-acc13aa5",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.46922025410458446
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-191548-acc13aa5",
+          "--label",
+          "web-modelos-local-ci-run=20261014-191548-acc13aa5",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.519598051905632
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03404100937768817
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.26848586834967136
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 0.918344606179744
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 4.828510565683246
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 2.125273789279163
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-aefm8s7g/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-aefm8s7g/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-aefm8s7g/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.462952840141952
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_cr09_snapshot_quiescence/artifacts/local-ci/20261014-191548-acc13aa5/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_cr09_snapshot_quiescence/artifacts/local-ci/20261014-191548-acc13aa5/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-aefm8s7g/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_cr09_snapshot_quiescence/artifacts/local-ci/20261014-191548-acc13aa5/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_directory_snapshot.py::test_snapshot_restores_mutated_database_and_media"
+        ],
+        "exit": 0,
+        "seconds": 50.32419291185215
+      }
+    ],
+    "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+    "excluded": [],
+    "selection": [
+      "tests/test_directory_snapshot.py::test_snapshot_restores_mutated_database_and_media"
+    ],
+    "workers": 1,
+    "fixture_snapshots": true,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-191548-acc13aa5": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-191548-acc13aa5": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "47.857",
+        "timestamp": "2026-10-14T21:16:11.716904+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "independent_container_absence": {
+    "web-modelos-ci-pg-20261014-191548-acc13aa5": true,
+    "web-modelos-ci-redis-20261014-191548-acc13aa5": true
+  },
+  "temporary_absent": true,
+  "interpretation": "Unmodified snapshot node passed alone; original shared-suite failure remains. Exact predecessor prefix reproduction follows.",
+  "acceptance": false
+}

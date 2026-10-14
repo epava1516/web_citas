@@ -1819,3 +1819,90 @@ revisado. Request/inventory de este negativo son objetos de adaptador: no
 acredita recorrido integral de derechos ni su cierre. Huellas de selección
 común actualizadas tras correctivas de logs.
 [Evidencia](evidencias/cr09-censo-original-no-revisado-rechazo-terminal-20261014.json).
+
+
+CR09 siguiente integración del censo: revisión nativa y contraste de fuentes por
+root identifican coverage_store finish=True como recorrido existente de revisión
+separada/cierre/replay/descarga. Hoy usa censo vacío de adaptador; el positivo no
+acredita exhaustividad real. Añadir proveedor explícito de productores observados
+y variante incompleta con rechazo de cierre; no modificar las fuentes durante
+regresión común en curso. Las23fuentes históricas permanecen indeterminadas salvo
+prueba de dependencia/procedencia.
+[Plan acotado](evidencias/cr09-censo-recorrido-integrado-plan-20261014.json).
+
+
+Continuación CR09: preparación aislada del censo observado en worktree
+web_modelos_cr09_observed_census, base7ac517c, agente nativo
+cr09_count_sql_review. Propiedad: test_rights_access_coverage_store.py y dos
+nuevos auxiliares/pruebas de censo propio. Sin servicios, pruebas o commits
+delegados; root verifica e integra después de la regresión actual. El primer
+recorrido debe preservar pending y rechazo de cierre si falta una fuente
+necesaria; no convertir captura en censo aprobado ni excluir23históricos por
+conveniencia. Fuentes de integración siguen congeladas; cero ClaudeV1 nuevo.
+
+
+### CR09 — regresión común bloque1 terminal, 2026-10-14
+
+Run20261014-154625-25b4deed, SHA7ac517c:808PASS/0FAIL/0ERROR/3SKIP,
+811nodos, fuentes intactas; contenedores y raíz temporal ausentes comprobados
+aparte. Omisiones: perfil diagnóstico, preflight específico de objetos y
+comparación autorizada de workers; ninguna se cuenta como PASS.
+
+| Bloque1 | Último registro parcial | Terminal |
+| --- | ---: | ---: |
+| Aprobados | 598 | 808 |
+| Fallos/errores | 0/0 | 0/0 |
+| Omisiones | 2 | 3 |
+
+Quedan bloques comunes2/3/4, censo observado/revisión y capacidad pertinente;
+no aceptación global/N3/CR09 ni cambio de porcentaje. Siguiente carga secuencial:
+verificación aislada del proveedor de censo preparado, antes de integrarlo.
+[Terminal](evidencias/cr09-regresion-comun-parte1-terminal-20261014.json).
+
+
+### CR09 — censo observado enlazado al recorrido parcial, 2026-10-14
+
+Primera ejecución172023-bcfe8710:1PASS/1FAIL, conservada. Cuenta creada por
+test_rights_account_linking.account no figura en el productor seed_demo, y el
+assert de grupos propios detectó esa omisión. Root añade fuente explícita
+RightsRequest.account_subject→User persistida, sin inventar credenciales de seed
+ni eliminar aserción. Correctiva172555-1aee4fee:16PASS/0FAIL/0ERROR/0SKIP
+(14controles de adaptador y2recorridos reales de perfil/cuenta), fuentes intactas,
+limpieza independiente y2observaciones con coverage_complete=false.
+
+| Recorrido observado | Primera ejecución | Correctiva |
+| --- | --- | --- |
+| Perfil | PASS | PASS |
+| Cuenta posterior al seed | FAIL sin grupos propios | PASS con relación persistida |
+
+Commit aislado1e02e53 conserva proveedor/pruebas y hook parcial; aún no integrado
+en versión común7ac517c. Ambas variantes preservan revisión separada y rechazan
+cierre sin nuevos response/notice/closure; no censo completo ni aceptación de
+derechos/CR09/N3. Faltan contenidos/decisiones/fuentes históricas pertinentes.
+Continuar bloque2 común sin cambiar versión ensayada.
+[Negativo](evidencias/cr09-censo-observado-recorrido-negativo-terminal-20261014.json),
+[correctiva](evidencias/cr09-censo-observado-correctiva-terminal-20261014.json).
+
+
+Actualización CR09 del 2026-10-14: la regresión común sobre `7ac517c` terminó el bloque 2 con 724 pruebas aprobadas, 2 fallos, 0 errores de pytest y 0 omisiones. El ejecutor conserva `ERROR` por salida no cero; no es aceptación. Se verificó independientemente la ausencia de sus dos contenedores y del directorio temporal. Evidencia: [resultado terminal del bloque 2](evidencias/cr09-regresion-comun-parte2-terminal-20261014.json).
+
+El snapshot sin cambios pasó solo (1 prueba) y con sus tres predecesores inmediatos (4 pruebas); estos resultados no explican ni eliminan el fallo original de la batería. Evidencia: [snapshot aislado](evidencias/cr09-snapshot-aislado-terminal-20261014.json) y [secuencia previa](evidencias/cr09-snapshot-prefijo-terminal-20261014.json). La corrección de la prueba de inventario Redis sustituye la suposición de almacén vacío por observación y un marcador sintético propio, sin borrar claves anteriores. Sus casos previos, inventario y controles pasaron 17 pruebas sin fallos; la limpieza se verificó. Se integró el commit aislado `d45b411`; falta repetir la batería común sobre la versión final y resolver el fallo de snapshot. Evidencia: [correctiva Redis](evidencias/cr09-inventario-redis-correctiva-terminal-20261014.json). Los bloques 3 y 4 actuales siguen pendientes. CR09, N3 y el contrato completo permanecen abiertos.
+
+
+### CR09: cierre de la regresión común, bloque 4 (2026-10-14)
+
+El bloque 4 terminó en `36aa2882d2e5c8ee4e30ef88254a329635493fa9`: **869 aprobadas, 0 fallos, 0 errores y 3 omitidas** (872 casos; JUnit 3550.540 s). Las fuentes permanecieron sin cambios y se verificó independientemente la ausencia del proceso, ambos contenedores propios y su directorio temporal. Véase [evidencia terminal](evidencias/cr09-regresion-comun-parte4-terminal-20261014.json). Las omisiones requieren sus procedimientos específicos y no cuentan como aprobaciones.
+
+Balance de los cuatro bloques: 1 = 808 aprobadas/3 omitidas; 2 = 724 aprobadas/2 fallos; 3 = 849 aprobadas/6 omitidas; 4 = 869 aprobadas/3 omitidas. Los bloques 1–2 usaron `7ac517c` y 3–4 `36aa288`; esta suma no demuestra una regresión íntegra de una misma versión. La corrección del inventario Redis pasó 17 casos focalizados, pero falta verificar de nuevo el bloque 2. El fallo intermitente de instantáneas sigue sin causa demostrada. No se declara cierre de CR09 ni aceptación global/N3.
+
+
+### CR09: diagnóstico causal de instantáneas pendiente (2026-10-14)
+
+La reproducción con los 78 casos originales previos al fallo dio [72 aprobadas y 6 fallos sin el kernel canónico preparado](evidencias/cr09-snapshot-prefijo-sin-kernel-terminal-20261014.json). Cinco fallos correspondían al requisito de kernel de los casos de capacidad y el sexto reprodujo `seed_busy_database`. Tras preparar el kernel `native-sealed` con el entorno de compilación aislado, la misma selección dio [78 aprobadas sin fallos](evidencias/cr09-snapshot-prefijo-nativo-terminal-20261014.json). Esto no demuestra que el kernel corrigiera la ocupación intermitente: su causa sigue abierta.
+
+Se inició una [ejecución diagnóstica con metadatos de conexiones](evidencias/cr09-snapshot-metadatos-inicio-20261014.json), versión aislada `b5fbf69826a9ccf5701c69b5d257c7de29694585`, sin modificar las decisiones de clonación ni terminar conexiones. El helper `db_sync` de `test_reset_localization.py` usa hilos temporales y `close_old_connections()`; el código de Django instalado confirma que esta llamada puede conservar conexiones sanas antes de su caducidad. Es una debilidad concreta de limpieza y una hipótesis causal pendiente de observación, no una corrección ni cierre del fallo.
+
+
+### CR09: integración del censo observado parcial (2026-10-14)
+
+Integrado `1e02e53` como `14e9988`: adaptador de productores observados y recorrido de derechos parcial para perfil/cuenta, con rechazo explícito del cierre y conservación del estado. [Evidencia de integración](evidencias/cr09-censo-observado-integracion-20261014.json). Los 16 casos previos aprobados pertenecen al candidato aislado; en la versión integrada pasan Ruff y diff, y queda pendiente la comprobación funcional secuencial. La procedencia observada no acredita contenido exhaustivo, asociación completa ni aprobación de entrega.

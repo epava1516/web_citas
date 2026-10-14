@@ -1,0 +1,210 @@
+{
+  "recorded_at": "2026-10-14T22:24:41.237449+00:00",
+  "scope": "Explicit diagnostic/capacity omissions in common regression, not functional failures",
+  "items": [
+    {
+      "block": 1,
+      "case": "test_owned_target_stage_profiles",
+      "reason": "Requires owned capacity runner diagnostic profile mode",
+      "source": [
+        {
+          "path": "tests/test_capacity_delivery_profile.py",
+          "line": 27,
+          "decorators": [
+            "pytest.mark.usefixtures('photo_environment')"
+          ]
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte1-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 1,
+      "case": "test_owned_object_proxy_and_purge_worker_gate",
+      "reason": "Requires owned capacity runner preflight mode",
+      "source": [
+        {
+          "path": "tests/test_capacity_object_preflight.py",
+          "line": 37,
+          "decorators": []
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte1-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 1,
+      "case": "test_worker_capacity_comparison",
+      "reason": "Explicit authorized owned experiment only",
+      "source": [
+        {
+          "path": "tests/test_worker_capacity_comparison.py",
+          "line": 132,
+          "decorators": [
+            "pytest.mark.skipif(not os.getenv('WORKER_COMPARISON_OUTPUT'), reason='Explicit authorized owned experiment only')"
+          ]
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte1-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 3,
+      "case": "test_owned_complete_target_delivery",
+      "reason": "Requires owned capacity runner with verified kernel limits",
+      "source": [
+        {
+          "path": "tests/test_capacity_delivery_complete.py",
+          "line": 24,
+          "decorators": [
+            "pytest.mark.usefixtures('photo_environment')"
+          ]
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte3-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 3,
+      "case": "test_owned_professional_probe",
+      "reason": "Requires explicit own professional instrument probe",
+      "source": [
+        {
+          "path": "tests/test_capacity_professional_profile.py",
+          "line": 42,
+          "decorators": [
+            "pytest.mark.django_db(transaction=True)"
+          ]
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte3-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 3,
+      "case": "test_two_target_selection_pages_overlapping_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits",
+      "source": [
+        {
+          "path": "tests/test_capacity_selection_concurrent_tcp.py",
+          "line": 33,
+          "decorators": [
+            "pytest.mark.usefixtures('photo_environment')"
+          ]
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte3-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 3,
+      "case": "test_target_source_cost_attribution",
+      "reason": "Requires owned capacity runner diagnostic profile mode",
+      "source": [
+        {
+          "path": "tests/test_capacity_source_profile.py",
+          "line": 52,
+          "decorators": [
+            "pytest.mark.usefixtures('photo_environment')"
+          ]
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte3-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 3,
+      "case": "test_owned_worker_beat_refresh_wiring",
+      "reason": "Explicit owned wiring check only",
+      "source": [
+        {
+          "path": "tests/test_owned_refresh_topology.py",
+          "line": 36,
+          "decorators": [
+            "pytest.mark.skipif(not os.getenv('OWNED_REFRESH_TOPOLOGY_OUTPUT'), reason='Explicit owned wiring check only')"
+          ]
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte3-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 3,
+      "case": "test_resource_checkpoint",
+      "reason": "Explicit owned resource diagnosis only",
+      "source": [
+        {
+          "path": "tests/test_resource_service_checkpoint.py",
+          "line": 48,
+          "decorators": [
+            "pytest.mark.skipif(not os.getenv('RESOURCE_CHECKPOINT_OUTPUT'), reason='Explicit owned resource diagnosis only')"
+          ]
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte3-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 4,
+      "case": "test_owned_native_reconnect_probe",
+      "reason": "Requires owned native diagnostic controller",
+      "source": [
+        {
+          "path": "tests/test_capacity_native_probe.py",
+          "line": 21,
+          "decorators": []
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte4-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 4,
+      "case": "test_target_selection_page_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits",
+      "source": [
+        {
+          "path": "tests/test_capacity_selection_tcp.py",
+          "line": 147,
+          "decorators": [
+            "pytest.mark.usefixtures('photo_environment')"
+          ]
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte4-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    },
+    {
+      "block": 4,
+      "case": "test_route_coverage_matrix",
+      "reason": "Explicit coverage run only",
+      "source": [
+        {
+          "path": "tests/test_publication_route_coverage.py",
+          "line": 31,
+          "decorators": [
+            "pytest.mark.skipif(not os.getenv('ROUTE_COVERAGE_OUTPUT'), reason='Explicit coverage run only')"
+          ]
+        }
+      ],
+      "terminal_receipt": "cr09-regresion-comun-parte4-terminal-20261014.json",
+      "status": "SKIP retained; specific evidence reconciliation pending",
+      "accepted_as_pass": false
+    }
+  ],
+  "count": 12,
+  "acceptance": false,
+  "next": "Use exact specialized controller and owned isolated services if required evidence is missing; do not blanket-enable profile flags in regression. Existing accepted evidence must be inspected before deciding reruns.",
+  "redis_constraint": "Worker/Beat diagnostics require verified dedicated Redis override; never use ordinary Redis at 127.0.0.1:56379."
+}

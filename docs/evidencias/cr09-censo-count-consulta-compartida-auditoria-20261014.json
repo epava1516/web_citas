@@ -1,0 +1,21 @@
+{
+  "status": "source_review_not_implemented",
+  "source_sha256": {
+    "apps/listings/publication_state.py": "5450813dfd6776a1ad1e1a8922a4bdb940aec2bcaa8f78f3971106bf9890ffb8",
+    "apps/listings/discovery.py": "51ed3433035199a344f53b08ab0b6ad0bac540017793b0f923215767dec523da"
+  },
+  "verified_facts": [
+    "all_state_current scans all Listing identities, including invisible/unmatched rows, for missing/current-version state.",
+    "_state_page skips global census when dirty nonempty, evaluates unknown natively and only then constructs final population.",
+    "Candidates excludes nonpublished/nonapproved/expired before additional filters; aggregate over candidates cannot replace global census."
+  ],
+  "decision": "Reject naive aggregate over candidate population. One statement with independent subqueries does not demonstrate scan/CPU reduction. Shared global-universe rewrite remains unproven and must preserve all filters and native branches.",
+  "required_negatives": [
+    "missing state outside visible population/filter/page",
+    "zero listings versus zero candidates with global missing state",
+    "dirty native fallback",
+    "M2M duplicates/all-service filters",
+    "snapshot/current page guard"
+  ],
+  "performance_claim": "None; no plan, test or measurement executed for this proposal."
+}

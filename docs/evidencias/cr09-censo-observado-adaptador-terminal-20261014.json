@@ -1,0 +1,192 @@
+{
+  "result": {
+    "id": "20261014-171918-d8f39823",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-171918-d8f39823",
+          "--label",
+          "web-modelos-local-ci-run=20261014-171918-d8f39823",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.6871375311166048
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-171918-d8f39823",
+          "--label",
+          "web-modelos-local-ci-run=20261014-171918-d8f39823",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5731318071484566
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.0665977499447763
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.3675464652478695
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.0710594258271158
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 4.479081823024899
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.8719735997729003
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-ryjs8xdc/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-ryjs8xdc/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-ryjs8xdc/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.56090330099687
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_cr09_observed_census/artifacts/local-ci/20261014-171918-d8f39823/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_cr09_observed_census/artifacts/local-ci/20261014-171918-d8f39823/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-ryjs8xdc/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_cr09_observed_census/artifacts/local-ci/20261014-171918-d8f39823/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_owned_rights_resource_census.py"
+        ],
+        "exit": 0,
+        "seconds": 2.8393392767757177
+      }
+    ],
+    "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+    "excluded": [],
+    "selection": [
+      "tests/test_owned_rights_resource_census.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-171918-d8f39823": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-171918-d8f39823": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "14",
+        "time": "0.634",
+        "timestamp": "2026-10-14T19:19:42.149868+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "independent_containers_and_temporary_absent": true,
+  "scope": "Adapter binding/negative tests with metadata doubles; no actual producer lifecycle or complete census acceptance."
+}

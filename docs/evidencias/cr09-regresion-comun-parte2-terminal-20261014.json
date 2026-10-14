@@ -1,0 +1,218 @@
+{
+  "recorded_at": "2026-10-14T19:15:14.460823+00:00",
+  "run": "20261014-173130-47304d7c",
+  "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+  "result": {
+    "id": "20261014-173130-47304d7c",
+    "profile": "regression",
+    "result": "ERROR",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-173130-47304d7c",
+          "--label",
+          "web-modelos-local-ci-run=20261014-173130-47304d7c",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5700886235572398
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-173130-47304d7c",
+          "--label",
+          "web-modelos-local-ci-run=20261014-173130-47304d7c",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5250900932587683
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06859181728214025
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.06624245783314109
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.070376229006797
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.5232744496315718
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.922968097962439
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-l1tuiij4/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-l1tuiij4/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-l1tuiij4/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.2111403811723
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-173130-47304d7c/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-173130-47304d7c/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-l1tuiij4/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-173130-47304d7c/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "--deselect=tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+          "--deselect=tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+          "--ignore=tests/test_rights_portability_large_history.py",
+          "--ignore=tests/test_publication_state_tcp.py"
+        ],
+        "exit": 1,
+        "seconds": 6186.74386940198
+      }
+    ],
+    "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+    "excluded": [
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+      "tests/test_rights_portability_large_history.py",
+      "tests/test_publication_state_tcp.py"
+    ],
+    "selection": [],
+    "workers": 1,
+    "fixture_snapshots": true,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "error": "pytest failed; inspect its log",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-173130-47304d7c": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-173130-47304d7c": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "tests": "726",
+        "time": "6181.189",
+        "timestamp": "2026-10-14T19:31:48.542613+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "independent_cleanup": {
+    "web-modelos-ci-pg-20261014-173130-47304d7c": {
+      "inspect_exit": 1,
+      "absent": true
+    },
+    "web-modelos-ci-redis-20261014-173130-47304d7c": {
+      "inspect_exit": 1,
+      "absent": true
+    }
+  },
+  "temporary_absent": true,
+  "runner_absent": true,
+  "artifacts": {
+    "result.json": "9cb033af57bf32551b687772f2ae6c37bcc06c6bf65653f90534d69261a8d6d1",
+    "pytest.xml": "75fa45f7fc5a20fcf020cfa93bcfcaa663fb3cc473c61360ad4725c804aa607f",
+    "pytest-reports.jsonl": "ae24e80d4fa2affd539041becd31a89b18e178306adaa767a2a50386a548f9cf"
+  },
+  "acceptance": false
+}

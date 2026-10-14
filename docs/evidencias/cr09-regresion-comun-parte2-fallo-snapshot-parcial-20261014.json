@@ -1,0 +1,14 @@
+{
+  "run": "20261014-173130-47304d7c",
+  "status": "running_partial_negative",
+  "failures": [
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_snapshot_restores_mutated_database_and_media",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 5.152047418989241,
+      "longrepr": "tests/test_directory_snapshot.py:37: in test_snapshot_restores_mutated_database_and_media\n    assert first in {\"seed_snapshot\", \"restore_snapshot\"}\nE   AssertionError: assert 'seed_busy_database' in {'restore_snapshot', 'seed_snapshot'}"
+    }
+  ],
+  "scope": "No terminal result; snapshot guard fallback seed_busy_database rejected by restore-equivalence test. Sources frozen; cause not yet established. No acceptance or permission to terminate foreign connections."
+}

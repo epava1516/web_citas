@@ -1,0 +1,23 @@
+{
+  "recorded_at": "2026-10-14T22:23:10.595564+00:00",
+  "integrated_head": "14e99880e9d2d4d9ec8845c8de747ce7a3726cc7",
+  "candidate": "1e02e5366b37881cfd643f3cda34b62599cc4aa6",
+  "files": [
+    "scripts/owned_rights_resource_census.py",
+    "tests/test_owned_rights_resource_census.py",
+    "tests/test_rights_access_coverage_store.py"
+  ],
+  "prior_evidence": "cr09-censo-observado-correctiva-terminal-20261014.json",
+  "prior_scope": "16 focused passes in isolated candidate, including 2 real owned partial rights lifecycles",
+  "integrated_static_checks": [
+    "ruff PASS",
+    "git diff --check PASS"
+  ],
+  "integrated_runtime_verification": "Pending until active snapshot diagnostic finishes; resource loads remain sequential",
+  "acceptance": false,
+  "limitations": [
+    "Metadata provenance is not exhaustive content or disclosure review",
+    "All resource categories retain explicit pending items",
+    "Partial package cannot close the rights request"
+  ]
+}

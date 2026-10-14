@@ -908,3 +908,8 @@ Revisión nativa de logs reportada: no invalida originales privados acotados;
 señala metadatos, corte y destino. Root aplica correctivas y verifica15PASS
 PG propio con limpieza, run20261014-154056-ae3b2720. Revisión aceptada como
 insumo, no evidencia de ejecución. Sin nuevas invocaciones externas Claude.
+
+
+2026-10-14, consolidación posterior: regresión particionada 499 archivos; bloques 1/2 en 7ac517c: 808 PASS/3 SKIP y 724 PASS/2 FAIL; bloques 3/4 en 36aa288: 849 PASS/6 SKIP y 869 PASS/3 SKIP. Fuentes y limpieza verificadas en sus recibos; versiones distintas no equivalen a N3 común. Correctiva Redis integrada 36aa288 tras 17 PASS focalizados. Censo observado parcial del escritor nativo integrado 14e9988 desde 1e02e53, tras 16 PASS del candidato; verificación funcional integrada pendiente. No elimina pendientes ni permite cerrar entrega parcial.
+
+Revisión nativa de SQL censo/COUNT conservada como auditoría; no se adoptó agregación que altere el universo global. Revisión del snapshot no demostró causa: aislado 1 PASS, prefijo inmediato 4 PASS, prefijo 78 sin kernel 72 PASS/6 FAIL, con kernel 78 PASS. Codex añadió exclusivamente metadatos de backend en worktree snapshot b5fbf69; diagnóstico 20261014-221850-cd31670f activo, sin correctiva causal declarada. Auditoría de 12 omisiones conserva SKIP y separa procedimientos específicos. Cero invocaciones Claude V1 nuevas; consumo anterior intacto. Contrato completo CR09→CR10→GS01→BF/BB→C abierto.

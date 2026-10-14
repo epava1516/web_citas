@@ -1,0 +1,229 @@
+{
+  "recorded_at": "2026-10-14T21:17:58.529479+00:00",
+  "result": {
+    "id": "20261014-195810-1ead9c09",
+    "profile": "regression",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-195810-1ead9c09",
+          "--label",
+          "web-modelos-local-ci-run=20261014-195810-1ead9c09",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.6179519006982446
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-195810-1ead9c09",
+          "--label",
+          "web-modelos-local-ci-run=20261014-195810-1ead9c09",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.47347251372411847
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03498277626931667
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11746603110805154
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.1204518051818013
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.8243053453043103
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.8699739379808307
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-2xflukw1/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-2xflukw1/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-2xflukw1/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.377850510179996
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-195810-1ead9c09/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-195810-1ead9c09/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-2xflukw1/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-195810-1ead9c09/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "--deselect=tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+          "--deselect=tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+          "--ignore=tests/test_rights_portability_large_history.py",
+          "--ignore=tests/test_publication_state_tcp.py"
+        ],
+        "exit": 0,
+        "seconds": 4743.647520026192
+      }
+    ],
+    "head": "36aa2882d2e5c8ee4e30ef88254a329635493fa9",
+    "excluded": [
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+      "tests/test_rights_portability_large_history.py",
+      "tests/test_publication_state_tcp.py"
+    ],
+    "selection": [],
+    "workers": 1,
+    "fixture_snapshots": true,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-195810-1ead9c09": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-195810-1ead9c09": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "6",
+        "tests": "855",
+        "time": "4738.573",
+        "timestamp": "2026-10-14T21:58:30.074529+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": [
+      {
+        "case": "test_owned_complete_target_delivery",
+        "reason": "Requires owned capacity runner with verified kernel limits"
+      },
+      {
+        "case": "test_owned_professional_probe",
+        "reason": "Requires explicit own professional instrument probe"
+      },
+      {
+        "case": "test_two_target_selection_pages_overlapping_tcp",
+        "reason": "Requires owned capacity runner with verified kernel limits"
+      },
+      {
+        "case": "test_target_source_cost_attribution",
+        "reason": "Requires owned capacity runner diagnostic profile mode"
+      },
+      {
+        "case": "test_owned_worker_beat_refresh_wiring",
+        "reason": "Explicit owned wiring check only"
+      },
+      {
+        "case": "test_resource_checkpoint",
+        "reason": "Explicit owned resource diagnosis only"
+      }
+    ]
+  },
+  "independent_cleanup": {
+    "web-modelos-ci-pg-20261014-195810-1ead9c09": true,
+    "web-modelos-ci-redis-20261014-195810-1ead9c09": true
+  },
+  "temporary_absent": true,
+  "runner_absent": true,
+  "acceptance": false
+}

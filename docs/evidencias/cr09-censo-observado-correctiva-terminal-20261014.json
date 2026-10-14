@@ -1,0 +1,813 @@
+{
+  "result": {
+    "id": "20261014-172555-1aee4fee",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-172555-1aee4fee",
+          "--label",
+          "web-modelos-local-ci-run=20261014-172555-1aee4fee",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5749796321615577
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-172555-1aee4fee",
+          "--label",
+          "web-modelos-local-ci-run=20261014-172555-1aee4fee",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5795150096528232
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.0337776318192482
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11696381587535143
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.0200842707417905
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.5704329339787364
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.6239140122197568
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-b41dna8v/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-b41dna8v/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-b41dna8v/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.265722811687738
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_cr09_observed_census/artifacts/local-ci/20261014-172555-1aee4fee/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_cr09_observed_census/artifacts/local-ci/20261014-172555-1aee4fee/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-b41dna8v/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_cr09_observed_census/artifacts/local-ci/20261014-172555-1aee4fee/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_rights_access_coverage_store.py::test_observed_owned_producer_census_keeps_reviewed_access_partial",
+          "tests/test_owned_rights_resource_census.py"
+        ],
+        "exit": 0,
+        "seconds": 142.42532565630972
+      }
+    ],
+    "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+    "excluded": [],
+    "selection": [
+      "tests/test_rights_access_coverage_store.py::test_observed_owned_producer_census_keeps_reviewed_access_partial",
+      "tests/test_owned_rights_resource_census.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-172555-1aee4fee": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-172555-1aee4fee": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "16",
+        "time": "140.267",
+        "timestamp": "2026-10-14T19:26:13.765474+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "observations": [
+    {
+      "schema": "owned-scenario-observation-v1",
+      "run": "20261014-172555-1aee4fee",
+      "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+      "captured_at": "2026-10-14T17:27:35.457201+00:00",
+      "containers": [
+        {
+          "name": "web-modelos-ci-pg-20261014-172555-1aee4fee",
+          "id": "66a9b56a8b9859b13b9f24f9fbd4764c9244887c354f598ecb6e924971ad4d64",
+          "image_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+          "created": "2026-10-14T17:25:55.414832272Z",
+          "ports": {
+            "5432/tcp": [
+              {
+                "HostIp": "127.0.0.1",
+                "HostPort": "33481"
+              }
+            ]
+          },
+          "resource_limits": {
+            "Memory": 1610612736,
+            "MemorySwap": 1610612736,
+            "NanoCpus": 1000000000,
+            "CpusetCpus": "4",
+            "PidsLimit": 128
+          },
+          "log_driver": "json-file",
+          "log_content_scope": "not_captured; subject association pending",
+          "mounts": []
+        },
+        {
+          "name": "web-modelos-ci-redis-20261014-172555-1aee4fee",
+          "id": "0a51ab3f8172a1a6c3a9a248f9ebf71954ba5aa3f29968885e30072ed373b780",
+          "image_id": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "created": "2026-10-14T17:25:58.089449751Z",
+          "ports": {
+            "6379/tcp": [
+              {
+                "HostIp": "127.0.0.1",
+                "HostPort": "33482"
+              }
+            ]
+          },
+          "resource_limits": {
+            "Memory": 134217728,
+            "MemorySwap": 134217728,
+            "NanoCpus": 200000000,
+            "CpusetCpus": "5",
+            "PidsLimit": 64
+          },
+          "log_driver": "json-file",
+          "log_content_scope": "not_captured; subject association pending",
+          "mounts": [
+            {
+              "type": "volume",
+              "destination": "/data",
+              "volume_name": "7dca7360e0764b5555705272577e5302c8af7265af9b8e1d6f07965f22a03049",
+              "read_write": true
+            }
+          ]
+        }
+      ],
+      "runtime_stores": {
+        "database": "test_promotion_gate_ci",
+        "database_role": "ci",
+        "sessions": [
+          {
+            "key_sha256": "847a2f0d2203bdaa6b0d405cc3ee2c9887a96c970c2a38e247056c0dfae2d5ae",
+            "auth_user_id": "6",
+            "expires_at": "2026-10-15T05:26:57.658605+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "48fe9c43bb899af439f858a3c76cc57adc6db1958590391e805c21cee19a6ad7",
+            "auth_user_id": "7",
+            "expires_at": "2026-10-15T05:26:58.452043+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "c0bdd2d4b97154de74fd6133b5553b101823f5a01d03215f4e1aad3c348cd100",
+            "auth_user_id": "7",
+            "expires_at": "2026-10-15T05:26:59.126368+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "d616f62be1a6c2ac96fa12a438bdd141ab9c8615d2b558f6a7d1798e80c31a40",
+            "auth_user_id": "7",
+            "expires_at": "2026-10-15T05:27:00.189913+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "7a02ac156c27d1b5eb5aa0fd78a5aa35324dfffec42c8c2384bce6eb6600e3fd",
+            "auth_user_id": "7",
+            "expires_at": "2026-10-15T05:27:00.859002+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "b87d84d17958e0896bdc3288d1e0b838325d082344f37727bdba6a88d115c00b",
+            "auth_user_id": "7",
+            "expires_at": "2026-10-15T05:27:02.838635+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "5760231135744ef1ece63298531d98ec59b107548ce95d05be26c4f891229ac1",
+            "auth_user_id": "7",
+            "expires_at": "2026-10-15T05:27:03.195022+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          }
+        ],
+        "cache": {
+          "backend": "django.core.cache.backends.dummy.DummyCache",
+          "content_scope": "not_inspected"
+        },
+        "mail_backend": "django.core.mail.backends.locmem.EmailBackend",
+        "locmem_mail_count": 0,
+        "celery_eager": true,
+        "owned_redis_db0_keys": 0,
+        "owned_redis_persistence_configuration": {
+          "save": "3600 1 300 100 60 10000",
+          "appendonly": "no",
+          "appendfilename": "appendonly.aof",
+          "dbfilename": "dump.rdb",
+          "databases": "16"
+        },
+        "redis_history_scope": "Configuration observed only; files, other DBs and past snapshots not inspected",
+        "limits": "Point observations; no log/archive/backup inspection, no cache value decoding, no global absence or recipient coverage claim."
+      },
+      "log_origins": [],
+      "roots": [
+        "pytest/test_observed_owned_producer_c0",
+        "pytest/test_observed_owned_producer_c0/private"
+      ],
+      "files": [
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c0/credentials.json",
+          "size": 991,
+          "sha256": "5ab11c3f3ecaac8cfed686c77903bd75ee52dbb89011acf8c05df7e1f7ac1f82",
+          "subject_binding": "explicit_seed_producer_mapping",
+          "account_subjects": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "producer_source": "apps/core/management/commands/seed_demo.py",
+          "producer_sha256": "46eae18aff4d0ddfc3167bbb52ceecc2e6974ac841e88acfea41e95e8e895afa",
+          "excluded_fields": [
+            "password",
+            "accounts.*.totp_secret"
+          ],
+          "retention_decision": "pending_independent_review"
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c0/operational-fixture/access-logs-782d2ae7-50e6-4dce-b275-690024d062ba-1.encrypted",
+          "size": 4260,
+          "sha256": "0a53862b920f57524daec769a5827a2125d703aabe61bb0f1a5801ad10243270",
+          "subject_binding": "not_established"
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c0/private/derivatives/038798b1-4576-4f08-bb32-3d824793fcdc.webp",
+          "size": 10218,
+          "sha256": "a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "17086cf2-7b16-4801-8c83-17717cc21de0",
+              "blob": "a740b0e9-c8e0-4c54-b8b5-b98f3b339f68",
+              "revision": "4a0cd9cd-4df4-4cfc-89f3-935a38e1bb93",
+              "person": "68888864-adc6-4a2e-9c3d-2e32f983fc83",
+              "account_subject": 8,
+              "field": "derivative",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c0/private/derivatives/76491ede-63ff-45e1-b70a-cbb7e53a9c39.webp",
+          "size": 11110,
+          "sha256": "31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "fb6d6189-37f0-4cde-a7d1-4270d318eb5c",
+              "blob": "5ea84863-d871-467b-91f8-7f4453eef382",
+              "revision": "44b3462f-03ec-4ba6-bc25-557392fa7c3b",
+              "person": "94797b22-3a1a-4213-a3f0-8b7cbcd4e565",
+              "account_subject": 1,
+              "field": "derivative",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c0/private/derivatives/88ab0846-12f9-4538-b78e-d02087426980.webp",
+          "size": 10314,
+          "sha256": "744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "b7dc0570-dc99-4ceb-bc35-bcb6331d5c93",
+              "blob": "d71e5de7-e7dd-432a-b0df-6d67922f2743",
+              "revision": "89c239d0-b61b-4256-9002-bef4441fd91f",
+              "person": "bcd0aa20-ff5c-47f8-a6e4-47e5eea82cb2",
+              "account_subject": 4,
+              "field": "derivative",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c0/private/derivatives/ce591712-5e20-4a42-95b3-c805680eae78.webp",
+          "size": 10516,
+          "sha256": "a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "8461bab4-104e-4de7-b72a-fba2838aa763",
+              "blob": "68cc272a-6c6b-47c5-a10e-d812208b9e54",
+              "revision": "f131e8ac-806a-430e-ba80-a39c923224da",
+              "person": "6875c615-fff5-46ea-8b5a-99055aa5390a",
+              "account_subject": 3,
+              "field": "derivative",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c0/private/originals/2730fe03-9723-4738-b305-22c79ce7cc57",
+          "size": 4640,
+          "sha256": "17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "8461bab4-104e-4de7-b72a-fba2838aa763",
+              "blob": "68cc272a-6c6b-47c5-a10e-d812208b9e54",
+              "revision": "f131e8ac-806a-430e-ba80-a39c923224da",
+              "person": "6875c615-fff5-46ea-8b5a-99055aa5390a",
+              "account_subject": 3,
+              "field": "original",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c0/private/originals/38d4791f-256f-4c60-b167-af9972f04493",
+          "size": 4679,
+          "sha256": "b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "fb6d6189-37f0-4cde-a7d1-4270d318eb5c",
+              "blob": "5ea84863-d871-467b-91f8-7f4453eef382",
+              "revision": "44b3462f-03ec-4ba6-bc25-557392fa7c3b",
+              "person": "94797b22-3a1a-4213-a3f0-8b7cbcd4e565",
+              "account_subject": 1,
+              "field": "original",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c0/private/originals/bd73d61b-fe0a-4d1a-a6b1-8f197139cab2",
+          "size": 4657,
+          "sha256": "1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "b7dc0570-dc99-4ceb-bc35-bcb6331d5c93",
+              "blob": "d71e5de7-e7dd-432a-b0df-6d67922f2743",
+              "revision": "89c239d0-b61b-4256-9002-bef4441fd91f",
+              "person": "bcd0aa20-ff5c-47f8-a6e4-47e5eea82cb2",
+              "account_subject": 4,
+              "field": "original",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c0/private/originals/c8de055c-07fb-4e71-9235-8f52e7a6aaa8",
+          "size": 4641,
+          "sha256": "99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "17086cf2-7b16-4801-8c83-17717cc21de0",
+              "blob": "a740b0e9-c8e0-4c54-b8b5-b98f3b339f68",
+              "revision": "4a0cd9cd-4df4-4cfc-89f3-935a38e1bb93",
+              "person": "68888864-adc6-4a2e-9c3d-2e32f983fc83",
+              "account_subject": 8,
+              "field": "original",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        }
+      ],
+      "fixture_snapshot_enabled": false,
+      "coverage_complete": false,
+      "pending": [
+        "subject association and inclusion/redaction decisions",
+        "logs/mail/cache/backups outside declared roots",
+        "historical import/restore provenance"
+      ],
+      "scope": "Observed live own CI containers and declared fixture file roots only. Original hash verified; derivative hash is observation only. ORM references have no common snapshot guarantee. No content bodies in this manifest; optional encrypted log archives retain originals. No common capture cutoff or global exhaustiveness."
+    },
+    {
+      "schema": "owned-scenario-observation-v1",
+      "run": "20261014-172555-1aee4fee",
+      "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+      "captured_at": "2026-10-14T17:28:23.604761+00:00",
+      "containers": [
+        {
+          "name": "web-modelos-ci-pg-20261014-172555-1aee4fee",
+          "id": "66a9b56a8b9859b13b9f24f9fbd4764c9244887c354f598ecb6e924971ad4d64",
+          "image_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+          "created": "2026-10-14T17:25:55.414832272Z",
+          "ports": {
+            "5432/tcp": [
+              {
+                "HostIp": "127.0.0.1",
+                "HostPort": "33481"
+              }
+            ]
+          },
+          "resource_limits": {
+            "Memory": 1610612736,
+            "MemorySwap": 1610612736,
+            "NanoCpus": 1000000000,
+            "CpusetCpus": "4",
+            "PidsLimit": 128
+          },
+          "log_driver": "json-file",
+          "log_content_scope": "not_captured; subject association pending",
+          "mounts": []
+        },
+        {
+          "name": "web-modelos-ci-redis-20261014-172555-1aee4fee",
+          "id": "0a51ab3f8172a1a6c3a9a248f9ebf71954ba5aa3f29968885e30072ed373b780",
+          "image_id": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "created": "2026-10-14T17:25:58.089449751Z",
+          "ports": {
+            "6379/tcp": [
+              {
+                "HostIp": "127.0.0.1",
+                "HostPort": "33482"
+              }
+            ]
+          },
+          "resource_limits": {
+            "Memory": 134217728,
+            "MemorySwap": 134217728,
+            "NanoCpus": 200000000,
+            "CpusetCpus": "5",
+            "PidsLimit": 64
+          },
+          "log_driver": "json-file",
+          "log_content_scope": "not_captured; subject association pending",
+          "mounts": [
+            {
+              "type": "volume",
+              "destination": "/data",
+              "volume_name": "7dca7360e0764b5555705272577e5302c8af7265af9b8e1d6f07965f22a03049",
+              "read_write": true
+            }
+          ]
+        }
+      ],
+      "runtime_stores": {
+        "database": "test_promotion_gate_ci",
+        "database_role": "ci",
+        "sessions": [
+          {
+            "key_sha256": "3211bbe62d3644803671869bc7a9d906416acaa34ced608c7f7f07cf1c561895",
+            "auth_user_id": "14",
+            "expires_at": "2026-10-15T05:27:52.475427+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "d2bdc5f817129ebadaae5a4a6a34061fab14ace313a35615d4fa6d6f87900886",
+            "auth_user_id": "15",
+            "expires_at": "2026-10-15T05:27:52.930040+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "569f49d11ddd5d6da036a5266ad2ae7f6d63756ae68991ff01c8b23596178aea",
+            "auth_user_id": "15",
+            "expires_at": "2026-10-15T05:27:53.358414+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "8859fc9ec51974bd00eaefcf4bc05b13826b79407c29aeae346de85b6f98797a",
+            "auth_user_id": "15",
+            "expires_at": "2026-10-15T05:27:54.111980+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "007fd120d4310bb6ed3a12c922d1fd929a8c23b4a442cc58700116635e1e645c",
+            "auth_user_id": "15",
+            "expires_at": "2026-10-15T05:27:54.789215+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "a329567816b2dd2045a1ca5154fb92dba3a46f83878ef635a8ec402fa77939ea",
+            "auth_user_id": "15",
+            "expires_at": "2026-10-15T05:27:56.254569+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          },
+          {
+            "key_sha256": "8cc816d96d339abb3ae30fedfff4b3aa9fb273f68a2527105951a8fd28d50ec2",
+            "auth_user_id": "15",
+            "expires_at": "2026-10-15T05:27:56.527218+00:00",
+            "scope": "Signed Django session subject field; authority/expiry not inferred"
+          }
+        ],
+        "cache": {
+          "backend": "django.core.cache.backends.dummy.DummyCache",
+          "content_scope": "not_inspected"
+        },
+        "mail_backend": "django.core.mail.backends.locmem.EmailBackend",
+        "locmem_mail_count": 0,
+        "celery_eager": true,
+        "owned_redis_db0_keys": 0,
+        "owned_redis_persistence_configuration": {
+          "save": "3600 1 300 100 60 10000",
+          "appendonly": "no",
+          "appendfilename": "appendonly.aof",
+          "dbfilename": "dump.rdb",
+          "databases": "16"
+        },
+        "redis_history_scope": "Configuration observed only; files, other DBs and past snapshots not inspected",
+        "limits": "Point observations; no log/archive/backup inspection, no cache value decoding, no global absence or recipient coverage claim."
+      },
+      "log_origins": [],
+      "roots": [
+        "pytest/test_observed_owned_producer_c1",
+        "pytest/test_observed_owned_producer_c1/private"
+      ],
+      "files": [
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c1/credentials.json",
+          "size": 991,
+          "sha256": "19a99e4ecb2fb3dc24a5f0ceca8907437224d05ae469134cb88c8040df698c2a",
+          "subject_binding": "explicit_seed_producer_mapping",
+          "account_subjects": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "producer_source": "apps/core/management/commands/seed_demo.py",
+          "producer_sha256": "46eae18aff4d0ddfc3167bbb52ceecc2e6974ac841e88acfea41e95e8e895afa",
+          "excluded_fields": [
+            "password",
+            "accounts.*.totp_secret"
+          ],
+          "retention_decision": "pending_independent_review"
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c1/operational-fixture/access-logs-f39652a4-bda8-4c51-80a8-9b9a49ee1473-2.encrypted",
+          "size": 4216,
+          "sha256": "1bc364a7d86c35e96eb9ab8e9bf4c2706b3463f6149570cd4aa7c7e349383dcd",
+          "subject_binding": "not_established"
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c1/private/derivatives/4494b08e-b198-46d2-9333-b72db400ccf5.webp",
+          "size": 10314,
+          "sha256": "744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "9048a844-4310-4204-9f78-4d56ca1cb1cf",
+              "blob": "c3e8d1ac-47eb-4e20-a068-238d8229f09e",
+              "revision": "63a65736-aed5-4845-9f4f-56be31dd7d79",
+              "person": "33218461-5a23-42a1-9f37-947119568897",
+              "account_subject": 12,
+              "field": "derivative",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c1/private/derivatives/6045e180-a152-401d-8dba-19cd591c6854.webp",
+          "size": 10218,
+          "sha256": "a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "cfe8f21a-2d82-468e-b6cc-689c8dab8064",
+              "blob": "6ff2c5d4-532a-4f67-b023-1d831d8fce7a",
+              "revision": "08f51f66-24db-43b6-81b3-57b7f3bfd50f",
+              "person": "0dc5e489-6ef6-400c-a5fd-1c7f1a495f7b",
+              "account_subject": 16,
+              "field": "derivative",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c1/private/derivatives/67c02720-d0da-434e-93ab-66206a8312ce.webp",
+          "size": 11110,
+          "sha256": "31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "729f9a9c-82a7-4e93-b29d-f4dd8b27e719",
+              "blob": "e85765d1-8b21-4f2a-9a71-d85af8c1f348",
+              "revision": "bc609a09-9352-4140-b180-796f528211d0",
+              "person": "ba446add-006e-4d0a-a3e9-8d9d3ff01097",
+              "account_subject": 9,
+              "field": "derivative",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c1/private/derivatives/8f529234-eed1-4f1e-bcce-a9372a7cb414.webp",
+          "size": 10516,
+          "sha256": "a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "5174b28e-bad3-443a-b2ba-c0ca66b0d91d",
+              "blob": "c9391b99-3c39-4bdd-aca2-6c03ff171bcc",
+              "revision": "e172617e-f967-44ec-a3bc-4c7472a92cfc",
+              "person": "84c16a84-a42c-464c-9f35-1706eff7813c",
+              "account_subject": 11,
+              "field": "derivative",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c1/private/originals/2776110a-6eb9-43b9-85d0-24ea285331a1",
+          "size": 4657,
+          "sha256": "1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "9048a844-4310-4204-9f78-4d56ca1cb1cf",
+              "blob": "c3e8d1ac-47eb-4e20-a068-238d8229f09e",
+              "revision": "63a65736-aed5-4845-9f4f-56be31dd7d79",
+              "person": "33218461-5a23-42a1-9f37-947119568897",
+              "account_subject": 12,
+              "field": "original",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c1/private/originals/27dc2916-9778-4181-9eff-06291ea07d94",
+          "size": 4679,
+          "sha256": "b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "729f9a9c-82a7-4e93-b29d-f4dd8b27e719",
+              "blob": "e85765d1-8b21-4f2a-9a71-d85af8c1f348",
+              "revision": "bc609a09-9352-4140-b180-796f528211d0",
+              "person": "ba446add-006e-4d0a-a3e9-8d9d3ff01097",
+              "account_subject": 9,
+              "field": "original",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c1/private/originals/7e7c448c-6e55-4397-82c2-fdbcd11445f8",
+          "size": 4641,
+          "sha256": "99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "cfe8f21a-2d82-468e-b6cc-689c8dab8064",
+              "blob": "6ff2c5d4-532a-4f67-b023-1d831d8fce7a",
+              "revision": "08f51f66-24db-43b6-81b3-57b7f3bfd50f",
+              "person": "0dc5e489-6ef6-400c-a5fd-1c7f1a495f7b",
+              "account_subject": 16,
+              "field": "original",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        },
+        {
+          "relative_path": "pytest/test_observed_owned_producer_c1/private/originals/d6093074-4241-49d8-99fe-14dc7f84db16",
+          "size": 4640,
+          "sha256": "17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31",
+          "subject_binding": "explicit_database_relation",
+          "database_references": [
+            {
+              "photo": "5174b28e-bad3-443a-b2ba-c0ca66b0d91d",
+              "blob": "c9391b99-3c39-4bdd-aca2-6c03ff171bcc",
+              "revision": "e172617e-f967-44ec-a3bc-4c7472a92cfc",
+              "person": "84c16a84-a42c-464c-9f35-1706eff7813c",
+              "account_subject": 11,
+              "field": "original",
+              "source": "Photo.revision.listing.person; Photo.blob FileField path"
+            }
+          ]
+        }
+      ],
+      "fixture_snapshot_enabled": false,
+      "coverage_complete": false,
+      "pending": [
+        "subject association and inclusion/redaction decisions",
+        "logs/mail/cache/backups outside declared roots",
+        "historical import/restore provenance"
+      ],
+      "scope": "Observed live own CI containers and declared fixture file roots only. Original hash verified; derivative hash is observation only. ORM references have no common snapshot guarantee. No content bodies in this manifest; optional encrypted log archives retain originals. No common capture cutoff or global exhaustiveness."
+    }
+  ],
+  "independent_containers_and_temporary_absent": true,
+  "correction": "Account-only fixture creates a new User after seed. Producer now verifies persisted RightsRequest.account_subject relation before adding account metadata, rather than pretending seed credentials cover that user.",
+  "scope": "14 adapter negatives/bindings and2 actual partial lifecycle variants pass. Content census, separate disclosure decisions and full closure remain pending; not integrated/global/N3."
+}

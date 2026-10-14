@@ -1,0 +1,228 @@
+{
+  "observed_at": "2026-10-14T22:18:13.035063+00:00",
+  "run": "20261014-211759-770fe328",
+  "head": "36aa2882d2e5c8ee4e30ef88254a329635493fa9",
+  "result": {
+    "id": "20261014-211759-770fe328",
+    "profile": "regression",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-211759-770fe328",
+          "--label",
+          "web-modelos-local-ci-run=20261014-211759-770fe328",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5163688259199262
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-211759-770fe328",
+          "--label",
+          "web-modelos-local-ci-run=20261014-211759-770fe328",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5761747979559004
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03517335606738925
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.1161555889993906
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.070120230782777
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.5724793691188097
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.7737045511603355
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-dg90p4ij/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-dg90p4ij/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-dg90p4ij/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.30650712409988
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-211759-770fe328/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-211759-770fe328/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-dg90p4ij/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-211759-770fe328/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "--deselect=tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+          "--deselect=tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+          "--ignore=tests/test_rights_portability_large_history.py",
+          "--ignore=tests/test_publication_state_tcp.py"
+        ],
+        "exit": 0,
+        "seconds": 3555.991994807031
+      }
+    ],
+    "head": "36aa2882d2e5c8ee4e30ef88254a329635493fa9",
+    "excluded": [
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+      "tests/test_rights_portability_large_history.py",
+      "tests/test_publication_state_tcp.py"
+    ],
+    "selection": [],
+    "workers": 1,
+    "fixture_snapshots": true,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-211759-770fe328": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-211759-770fe328": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "3",
+        "tests": "872",
+        "time": "3550.540",
+        "timestamp": "2026-10-14T23:18:19.044642+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": [
+      {
+        "case": "test_owned_native_reconnect_probe",
+        "reason": "Requires owned native diagnostic controller"
+      },
+      {
+        "case": "test_target_selection_page_tcp",
+        "reason": "Requires owned capacity runner with verified kernel limits"
+      },
+      {
+        "case": "test_route_coverage_matrix",
+        "reason": "Explicit coverage run only"
+      }
+    ]
+  },
+  "independent_cleanup": {
+    "web-modelos-ci-pg-20261014-211759-770fe328": {
+      "absent": true,
+      "exit": 1,
+      "stderr": "Error response from daemon: No such container: web-modelos-ci-pg-20261014-211759-770fe328"
+    },
+    "web-modelos-ci-redis-20261014-211759-770fe328": {
+      "absent": true,
+      "exit": 1,
+      "stderr": "Error response from daemon: No such container: web-modelos-ci-redis-20261014-211759-770fe328"
+    },
+    "runner_absent": true,
+    "temporary_absent": true
+  },
+  "acceptance": false,
+  "scope": "Block 4 regression only; omissions and exclusions are not passes or global acceptance."
+}
