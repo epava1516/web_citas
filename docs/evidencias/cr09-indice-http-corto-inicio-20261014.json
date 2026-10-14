@@ -1,0 +1,37 @@
+{
+  "observed_at": "2026-10-14T13:27:19.701093+00:00",
+  "runner": {
+    "id": "20261014-132652-7fe487a9",
+    "pid": 3745691,
+    "start_ticks": 370502143,
+    "command": [
+      "artifacts/vps-preparation/cr09-block3-localization-reproduction/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+      "--benchmark-normal-refresh",
+      "--benchmark-generator-freeze",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "900"
+    ],
+    "head": "0fdf6d7163dba0a22efb7d68ea570fff009fabd9",
+    "containers": [
+      "web-modelos-ci-pg-20261014-132652-7fe487a9",
+      "web-modelos-ci-redis-20261014-132652-7fe487a9"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-132652-7fe487a9",
+    "temporary": "/tmp/web-modelos-local-ci-6grxtz2r",
+    "child": {
+      "pid": 3748079,
+      "start_ticks": 370503877,
+      "step": "pytest"
+    }
+  },
+  "live_identity_verified": true,
+  "scope": "Short HTTP comparison after ordering index; no observer, no capacity acceptance."
+}

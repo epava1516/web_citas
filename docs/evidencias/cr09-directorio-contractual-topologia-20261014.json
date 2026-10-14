@@ -1,0 +1,66 @@
+{
+  "observed_at": "2026-10-14T12:35:49.328185+00:00",
+  "run_id": "20261014-122905-8330752a",
+  "head": "3611b559f9dfe9c4653275c2a1a392eb3b3ccb05",
+  "containers": {
+    "web-modelos-ci-pg-20261014-122905-8330752a": {
+      "running": true,
+      "image": "postgres:17-alpine",
+      "image_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+      "labels": {
+        "web-modelos-local-ci-run": "20261014-122905-8330752a"
+      },
+      "limits": {
+        "NanoCpus": 1000000000,
+        "CpusetCpus": "4",
+        "Memory": 1610612736,
+        "MemorySwap": 1610612736,
+        "PidsLimit": 128
+      },
+      "ports": {
+        "5432/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "33410"
+          }
+        ]
+      }
+    },
+    "web-modelos-ci-redis-20261014-122905-8330752a": {
+      "running": true,
+      "image": "redis:7.4-alpine",
+      "image_id": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+      "labels": {
+        "web-modelos-local-ci-run": "20261014-122905-8330752a"
+      },
+      "limits": {
+        "NanoCpus": 200000000,
+        "CpusetCpus": "5",
+        "Memory": 134217728,
+        "MemorySwap": 134217728,
+        "PidsLimit": 64
+      },
+      "ports": {
+        "6379/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "33411"
+          }
+        ]
+      }
+    }
+  },
+  "runner": {
+    "pid": 3395516,
+    "start_ticks": 370155528,
+    "identity_matches": true,
+    "state": "S"
+  },
+  "child": {
+    "pid": 3397586,
+    "start_ticks": 370157292,
+    "identity_matches": true,
+    "state": "S"
+  },
+  "result_present": false
+}

@@ -869,3 +869,6 @@ Auxiliar de registro de limpieza sensible a mayúsculas falló, corregido; ambos
 contenedores ausentes. Pendientes: integración de harness verificado, carga
 pertinente/N3 común, matriz de dependencias históricos y CR09→CR10→GS01→BF/BB→C.
 No pagos, publicación, datos reales, proveedores ni cambios de servicios normales.
+
+
+2026-10-14, continuación local CR09: carga contractual FAIL conservada (18k solicitudes,89,022%timeouts); diagnóstico WSGI ubica espera antes de entrada, sin declarar causa TCPexacta. Índice público0fdf6d7 integrado tras44PASS sin omisiones; short p9537,235→25,410s, aúnFAIL. Ocho procesos y recursos sólo en candidato aislado: p9512,070/12,751s, aúnFAIL; PG0,9406CPU media durante carga+drenaje, sinthrottling/OOM. Lecturas de presentación posteriores conservadas por frescura. Nueva revisión nativa cr09_count_sql_review, sólolectura, no ClaudeV1 ni invocaciones externas nuevas; consumo anterior intacto. Quedan recuento/capacidadpertinente/N3común y matrizhistórica, despuésCR10→GS01→BF/BB→C.

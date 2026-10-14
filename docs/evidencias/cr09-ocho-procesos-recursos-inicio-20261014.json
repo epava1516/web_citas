@@ -1,0 +1,39 @@
+{
+  "observed_at": "2026-10-14T13:41:34.830082+00:00",
+  "runner": {
+    "id": "20261014-134101-2ece2e60",
+    "pid": 3827226,
+    "start_ticks": 370587121,
+    "command": [
+      "artifacts/vps-preparation/cr09-owned-broker-focused/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+      "--benchmark-normal-refresh",
+      "--benchmark-generator-freeze",
+      "--benchmark-http-processes",
+      "8",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "900"
+    ],
+    "head": "2db48841a82baa8c4a20428d36cd90defaaa2f5f",
+    "containers": [
+      "web-modelos-ci-pg-20261014-134101-2ece2e60",
+      "web-modelos-ci-redis-20261014-134101-2ece2e60"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-134101-2ece2e60",
+    "temporary": "/tmp/web-modelos-local-ci-vxv7y3jn",
+    "child": {
+      "pid": 3829548,
+      "start_ticks": 370588832,
+      "step": "pytest"
+    }
+  },
+  "live_identity_verified": true,
+  "scope": "Same eight-process short diagnostic with CPU/memory counters bracketing arrivals plus drain; not clean contractual measurement."
+}

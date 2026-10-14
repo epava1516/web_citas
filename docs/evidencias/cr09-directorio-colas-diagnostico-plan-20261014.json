@@ -1,0 +1,11 @@
+{
+  "negative_run": "20261014-122905-8330752a",
+  "question": "Does delay accumulate before WSGI entry or inside request execution during the first minute?",
+  "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+  "duration_seconds": 60,
+  "arrival_rps": 20,
+  "dataset": 10000,
+  "observer": "existing worker observer; WSGI/phase/SQL wall and thread CPU; synthetic request IDs",
+  "limits": "same controller CPU0-3 memory3584M swap0 tasks512; owned PG CPU4 quota1 RAM1536M; owned Redis CPU5 quota0.2 RAM128M",
+  "scope": "Diagnostic only. Cannot prove TCP accept queue directly or replace contractual measurement. No application modifications. Preserve FAIL."
+}

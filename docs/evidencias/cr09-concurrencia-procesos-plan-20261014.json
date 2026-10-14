@@ -1,0 +1,31 @@
+{
+  "baseline_run": "20261014-132652-7fe487a9",
+  "baseline_head": "0fdf6d7163dba0a22efb7d68ea570fff009fabd9",
+  "question": "Can eight independent synchronous Gunicorn processes remove pre-WSGI accumulation under unchanged CPU/memory/database limits?",
+  "basis": {
+    "observed_service_mean_seconds_before_index": 0.32844525451073425,
+    "observed_request_thread_cpu_mean_seconds_before_index": 0.1200075940825,
+    "baseline_short_p95_after_index_seconds": 25.40955189988017,
+    "fresh_presentation_reads": "Intentionally later than publication guard; reuse would change freshness semantics."
+  },
+  "candidate": "Explicit short-only diagnostic option for Gunicorn processes 8; default and measured remain4 until independently verified deployment decision. No thread model changes.",
+  "unchanged_limits": {
+    "controller_cpu_affinity": "0-3",
+    "controller_memory_bytes": 3758096384,
+    "swap": 0,
+    "tasks": 512,
+    "postgres_cpu": 1,
+    "postgres_memory_bytes": 1610612736,
+    "redis_cpu": 0.2,
+    "redis_memory_bytes": 134217728
+  },
+  "required_evidence": [
+    "Reject topology override for measured/functional/unscoped selections before service creation",
+    "Manifest actual Gunicorn process count and command",
+    "One sequential short diagnostic; preserve negative, no variant sweep",
+    "Resource peak and CPU quota/throttling must be observed in diagnostic only before drawing resource conclusions",
+    "If short meets objectives, verify deployment configuration and run original clean contractual gate; no acceptance from short"
+  ],
+  "primary_reference": "https://docs.gunicorn.org/en/stable/design.html",
+  "limits": "Increasing workers is a hypothesis, not established remedy. SQL waiting wall is not DB CPU; more concurrency can move saturation to PostgreSQL. No capacity acceptance or claim of free speed."
+}

@@ -1,0 +1,25 @@
+{
+  "scope": "Read-only equivalence audit before COUNT optimization",
+  "head": "0fdf6d7163dba0a22efb7d68ea570fff009fabd9",
+  "findings": [
+    {
+      "source": "apps/listings/discovery.py:candidates",
+      "fact": "Population requires Listing published, approved Revision status, current expiry, optional revision filters/search and many-valued DISTINCT."
+    },
+    {
+      "source": "apps/listings/publication_state.py:_state_page",
+      "fact": "Dirty and bounded unknown are natively evaluated; exact count/page include current-version eligible state plus validated native IDs in one REPEATABLE READ snapshot."
+    },
+    {
+      "source": "apps/listings/presentation_reads.py",
+      "fact": "Later presentation SELECT intentionally does not consume earlier guard prefetch; removing it changes freshness."
+    }
+  ],
+  "rejected_shortcuts": [
+    "Cross-request count cache without full invalidation proof",
+    "Approximate count or reducing dataset/rps",
+    "Removing approved revision predicate solely from current timing evidence",
+    "Reusing early guard presentation snapshot"
+  ],
+  "next": "Native bounded read-only SQL equivalence review; root will verify proposals before implementation. No current load or application mutation."
+}

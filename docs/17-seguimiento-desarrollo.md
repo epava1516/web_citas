@@ -1550,3 +1550,91 @@ limpieza terminales obligatorios; un FAIL se conserva y sólo después se usa
 diagnóstico separado. Si cumple, comprobar reproducibilidad una vez. Esta carga
 no sustituye N3 común/restauración/cobertura ni acepta CR09 por sí sola. La deuda
 pesada MOD09 de exportaciones permanece provisionalmente aceptada, sin reapertura.
+
+
+### CR09 — carga contractual terminal negativa, 2026-10-14
+
+Ejecución `20261014-122905-8330752a`, SHA `3611b559f9dfe9c4653275c2a1a392eb3b3ccb05`: pytest 1 FAIL, 0 ERROR, 0 SKIP; runner ERROR por pytest negativo y veredicto de carga FAIL, sin razones de invalidez del generador. Fuentes intactas; contenedores propios retirados y ausencia comprobada independientemente. PostgreSQL y Redis exclusivos verificados por Docker; el texto legado del manifiesto que describe PostgreSQL compartido es incorrecto para esta topología.
+
+| Métrica | Límite contractual | Resultado |
+|---|---:|---:|
+| p95 observable, incluyendo timeouts | <0,800 s | 65,001238 s |
+| Errores sobre emitidas | <1 % | 89,022222 % |
+| Solicitudes emitidas | 18.000 | 18.000 |
+| p95 retraso del generador | ≤0,010 s | 0,001624 s |
+| Subidas correctas | 15 | 2 |
+
+Servicio Gunicorn p95 0,514598 s sobre 12.362 filas completadas registradas: población distinta, excluye solicitudes no registradas/interrumpidas y no sustituye el p95 observable. Esta discrepancia orienta el diagnóstico de colas/aceptación/transporte; no prueba causa ni mejora de código. No se repite por reproducibilidad un FAIL. Siguiente: diagnóstico separado y dirigido, conservando este negativo y los límites. CR09/N3 permanecen abiertos. Evidencia: [resultado completo](evidencias/cr09-directorio-contractual-terminal-20261014.json), [topología real](evidencias/cr09-directorio-contractual-topologia-20261014.json).
+
+
+### CR09 — diagnóstico de espera previa a WSGI, 2026-10-14
+
+La primera selección corta `20261014-125041-dd2d4680` completó 1.200 requests, p95 37,235130 s, FAIL y fuentes intactas/limpieza comprobada. El observador quedó desactivado porque CI sanea variables heredadas: no aporta instrumentación. Correctiva de infraestructura `79588dd` añade opción explícita exclusiva del nodo short; diez controles negativos PASS y ruff PASS, sin cambios de aplicación.
+
+Diagnóstico instrumentado `20261014-125640-946aedc7`: 1.200 requests correlacionados por ID, cero errores de parseo; FAIL por latencia, fuentes intactas y limpieza independiente confirmada.
+
+| Métrica p95 | Corto sin observador | Corto instrumentado |
+|---|---:|---:|
+| Request completo | 37,235130 s | 37,363298 s |
+| Emisión a entrada WSGI | No medido | 37,073534 s |
+| Dentro de WSGI | No medido | 0,520272 s |
+
+La espera dominante ocurre antes de WSGI. Incluye conexión/cabeceras/cola/socket/planificación; no equivale a medición directa de accept TCP. Los percentiles no son sumables. Analizar demanda media de servicio y límites de los cuatro workers síncronos antes de proponer cambios: observador altera coste y esta prueba no acepta capacidad. [Evidencia terminal](evidencias/cr09-directorio-colas-observado-terminal-20261014.json), [demanda de servicio](evidencias/cr09-directorio-colas-demanda-servicio-20261014.json).
+
+
+### CR09 — SQL de página stored-state, 2026-10-14
+
+Diagnóstico aislado `20261014-130509-f1ee2d12`, SHA `5b4eeead9619242aea9f861e32c33010abe52ccc`: 1 PASS, 0 omitidos, fuentes intactas, retirada de servicios comprobada independientemente. Se confirma `trusted_state`, cero unknown, 10.000 anuncios/24 filas. 39 llamadas SQL, 0,138787 s de ejecución SQL de un request instrumentado sin carga (no comparable directamente al promedio SQL bajo concurrencia). Las consultas principales son hidratación nativa de las 24 filas, COUNT de población elegible y selección ordenada de IDs; no se ha demostrado aún ahorro por retirar catálogos. No desactivar frescura/guardas ni cambiar capacidad por este PASS diagnóstico. [Evidencia](evidencias/cr09-pagina-sql-diagnostico-terminal-20261014.json).
+
+
+### CR09 — índice de orden público, candidato aislado, 2026-10-14
+
+Candidato `7211fc1`: índice parcial `listing_public_page_order` sobre published_at DESC/id ASC para status published, sin alterar filtros/guardas ni resultados. `20261014-131333-f7df0d9c` 1 PASS, migraciones coherentes, fuentes intactas y limpieza independiente. PostgreSQL utiliza el índice y lee 24 entradas para la selección, frente a joins/ordenación de 10.000 filas.
+
+| EXPLAIN ejecución, un caso | Antes | Candidato |
+|---|---:|---:|
+| Selección IDs página | 32,317 ms | 0,563 ms |
+| Recuento | 25,078 ms | 31,649 ms |
+| Hidratación | 3,978 ms | 6,861 ms |
+
+Variación entre ejecuciones aisladas; no reducción p95 HTTP ni aceptación capacidad. Candidato pendiente de pruebas de estado/filtros/orden/revocación e integración. [Evidencia](evidencias/cr09-indice-orden-pagina-terminal-20261014.json).
+
+
+Índice público: regresión dirigida `20261014-131655-a4602f59` 44 PASS/0 FAIL/0 ERROR/0 SKIP, SHA candidato 7211fc1, fuentes intactas/limpieza independiente. Integrado como `0fdf6d7`. Siguiente única selección: HTTP short sin observador, normal worker/Beat, preparación GC explícita, 10.000 anuncios, 20 req/s, 60 s; mismos recursos y criterios, sin aceptación contractual desde short. [Regresión terminal](evidencias/cr09-indice-orden-regresion-terminal-20261014.json).
+
+
+HTTP short posterior al índice: `20261014-132652-7fe487a9`, SHA 0fdf6d7, FAIL preservado; fuentes intactas y limpieza independiente. 1.200/1.200 emitidas y correctas, cero timeouts.
+
+| Métrica | Antes del índice | Después |
+|---|---:|---:|
+| p95 observable | 37.235130 s | 25.409552 s |
+| p95 servicio Gunicorn | 0.517788 s | 0.501308 s |
+| Errores | 0 % | 0 % |
+
+Reducción observada p95 short 31.759 %, una ejecución por versión; no reproducibilidad ni aceptación contractual. Generador válido, falla latencia y acumulación al cierre. No repetir aún carga de15 minutos: diagnosticar coste restante antes de siguiente cambio. [Terminal](evidencias/cr09-indice-http-corto-terminal-20261014.json), [comparación](evidencias/cr09-indice-http-comparacion-20261014.json).
+
+
+### CR09 — concurrencia de ocho procesos, diagnóstico terminal, 2026-10-14
+
+Opción explícita aislada `1c588b7`, exclusiva de short y comprobada por 13 controles de rechazo; default/medición siguen4. `20261014-133523-902d3e1d` FAIL preservado, 1.200/1.200 solicitudes correctas, generador válido, fuentes intactas y limpieza independiente.
+
+| p95 short | 4 procesos + índice | 8 procesos + índice |
+|---|---:|---:|
+| Request completo | 25,409552 s | 12,070378 s |
+| Servicio Gunicorn completado | 0,501308 s | 0,851701 s |
+| Errores/timeouts | 0/0 | 0/0 |
+
+Reducción observada del request 52.497 %, sin cumplir0,8s; servicio más lento con concurrencia. No variar más procesos ni declarar capacidad. Los contadores parciales de cgroup permiten límites/picos observados, pero no consumo específico de toda la ventana ni pico final PG tras retirada: [recursos observados](evidencias/cr09-ocho-procesos-recursos-20261014.jsonl). CPU SQL no deducible de wall. Pendiente localizar contención en diagnóstico con ventana de recursos sincronizada; no integrar ocho como solución aceptada. [Terminal](evidencias/cr09-ocho-procesos-terminal-20261014.json).
+
+
+### CR09 — recursos sincronizados, 2026-10-14
+
+`20261014-134101-2ece2e60`, SHA2db4884, diagnóstico ocho procesos con contadores cgroup antes/después de arrivals+drain: FAIL, 1.200 correctas/0timeouts; fuentes intactas/limpieza independiente.
+
+| Métrica | Ocho procesos anterior | Ocho con contadores |
+|---|---:|---:|
+| p95 request completo | 12,070378 s | 12,751099 s |
+| PostgreSQL CPU media, ventana con drenaje | No medido | 0,940605 CPU |
+| Grupo aplicación CPU media | No medido | 1,925966 CPU |
+
+PostgreSQL cpuset4/quota1CPU; delta nr_throttled=0, no OOM en ninguno de los grupos. Consumo cercano al CPU asignado orienta reducción de demanda SQL, sin prueba directa de waits/causalidad ni atribución específica por consulta. Pico cgroup incluye preparación: aplicación1.263.939.584B, PG428.158.976B. No aumentar recursos ni procesos de forma especulativa. Próximo foco: recuento de población y joins, preservando elegibilidad/frescura/exactitud; no aceptación N3/CR09. [Evidencia](evidencias/cr09-ocho-procesos-recursos-terminal-20261014.json).

@@ -1,0 +1,48 @@
+{
+  "observed_at": "2026-10-14T12:57:04.415660+00:00",
+  "runner": {
+    "id": "20261014-125640-946aedc7",
+    "pid": 3552004,
+    "start_ticks": 370321033,
+    "command": [
+      "artifacts/vps-preparation/cr09-block3-localization-reproduction/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+      "--benchmark-normal-refresh",
+      "--benchmark-generator-freeze",
+      "--benchmark-observe-workers",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "900"
+    ],
+    "head": "79588dd409a940fe90d79b1e29bd9f76b9f844a1",
+    "containers": [
+      "web-modelos-ci-pg-20261014-125640-946aedc7",
+      "web-modelos-ci-redis-20261014-125640-946aedc7"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-125640-946aedc7",
+    "temporary": "/tmp/web-modelos-local-ci-kr03xf_z",
+    "child": {
+      "pid": 3554375,
+      "start_ticks": 370322891,
+      "step": "pytest"
+    }
+  },
+  "process_identity": {
+    "runner": {
+      "pid": 3552004,
+      "start_ticks": 370321033,
+      "state": "S"
+    },
+    "child": {
+      "pid": 3554375,
+      "start_ticks": 370322891,
+      "state": "S"
+    }
+  }
+}

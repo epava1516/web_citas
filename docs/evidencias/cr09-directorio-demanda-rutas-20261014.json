@@ -1,0 +1,60 @@
+{
+  "run_id": "20261014-125640-946aedc7",
+  "routes": {
+    "search": {
+      "count": 400,
+      "mean_wall": 0.446111909088213,
+      "mean_thread_cpu": 0.14809123302749994,
+      "mean_sql_wall": 0.2810604667069856,
+      "mean_sql_calls": 39.345,
+      "stages": {
+        "context": {
+          "mean_wall": 0.1500861066870857
+        },
+        "validation": {
+          "mean_wall": 0.029186957080382853
+        },
+        "render": {
+          "mean_wall": 0.06112230560393073
+        }
+      }
+    },
+    "list": {
+      "count": 400,
+      "mean_wall": 0.413536631205352,
+      "mean_thread_cpu": 0.15373558085499994,
+      "mean_sql_wall": 0.2446209705923684,
+      "mean_sql_calls": 39.345,
+      "stages": {
+        "context": {
+          "mean_wall": 0.14665633141761647
+        },
+        "validation": {
+          "mean_wall": 0.031195127471582963
+        },
+        "render": {
+          "mean_wall": 0.056190819332841785
+        }
+      }
+    },
+    "detail": {
+      "count": 400,
+      "mean_wall": 0.12568722323863768,
+      "mean_thread_cpu": 0.05819596836500003,
+      "mean_sql_wall": 0.06934272028272971,
+      "mean_sql_calls": 39,
+      "stages": {
+        "context": {
+          "mean_wall": 0
+        },
+        "validation": {
+          "mean_wall": 0.07757450918550603
+        },
+        "render": {
+          "mean_wall": 0.010098721773829311
+        }
+      }
+    }
+  },
+  "limits": "Inclusive overlapping phase costs; absent stages treated as absent observed phase, not proven zero native cost. Instrumented synthetic diagnostic."
+}

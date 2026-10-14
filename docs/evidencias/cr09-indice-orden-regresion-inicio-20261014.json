@@ -1,0 +1,39 @@
+{
+  "observed_at": "2026-10-14T13:18:23.890059+00:00",
+  "runner": {
+    "id": "20261014-131655-a4602f59",
+    "pid": 3670920,
+    "start_ticks": 370442441,
+    "command": [
+      "artifacts/vps-preparation/cr09-owned-broker-focused/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_publication_state.py",
+      "--test",
+      "tests/test_discovery.py",
+      "--test",
+      "tests/test_public_validation_dependencies.py",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "1800"
+    ],
+    "head": "7211fc1a8310178da28ac9fd7cc2e61a2e018d17",
+    "containers": [
+      "web-modelos-ci-pg-20261014-131655-a4602f59",
+      "web-modelos-ci-redis-20261014-131655-a4602f59"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-131655-a4602f59",
+    "temporary": "/tmp/web-modelos-local-ci-xqh3e4tb",
+    "child": {
+      "pid": 3673286,
+      "start_ticks": 370444236,
+      "step": "pytest"
+    }
+  },
+  "pytest_live_identity": true,
+  "scope": "Focused publication/search/dependency regression for partial ordering index; not global N3."
+}

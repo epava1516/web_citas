@@ -1,0 +1,34 @@
+{
+  "runner": {
+    "id": "20261014-130509-f1ee2d12",
+    "pid": 3601874,
+    "start_ticks": 370371916,
+    "command": [
+      "artifacts/vps-preparation/cr09-owned-broker-focused/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_publication_page_cost_diagnostic.py",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "900"
+    ],
+    "head": "5b4eeead9619242aea9f861e32c33010abe52ccc",
+    "containers": [
+      "web-modelos-ci-pg-20261014-130509-f1ee2d12",
+      "web-modelos-ci-redis-20261014-130509-f1ee2d12"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-130509-f1ee2d12",
+    "temporary": "/tmp/web-modelos-local-ci-ovx5p9co",
+    "child": {
+      "pid": 3604178,
+      "start_ticks": 370373707,
+      "step": "pytest"
+    }
+  },
+  "pytest_live_identity": true,
+  "scope": "One explicit diagnostic stored-state request; no capacity acceptance. Isolated test only; app unchanged."
+}
