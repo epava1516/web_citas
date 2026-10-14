@@ -1,0 +1,32 @@
+{
+  "result": "PASS",
+  "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "2",
+      "time": "57.532",
+      "timestamp": "2026-10-14T10:08:36.378507+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-080817-da45ec4d": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-080817-da45ec4d": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "selection": [
+    "tests/test_promotion_catalog_localization.py"
+  ]
+}

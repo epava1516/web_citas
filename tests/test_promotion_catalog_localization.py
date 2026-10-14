@@ -91,6 +91,12 @@ def test_localized_mobile_catalogue_navigation_save_release_reload(
             page.get_by_role(
                 "button", name=("Release configuration" if english else "Publicar configuración")
             ).click()
+            expect(
+                page.get_by_role(
+                    "button",
+                    name=("Release configuration" if english else "Publicar configuración"),
+                )
+            ).to_have_count(0)
             page.reload()
             expect(
                 page.get_by_role(
