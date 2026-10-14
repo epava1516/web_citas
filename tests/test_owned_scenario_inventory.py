@@ -29,7 +29,15 @@ def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_bind
     for origin in manifest["log_origins"]:
         archive = Path(artifact).parent / origin["archive"]
         assert archive.stat().st_mode & 0o777 == 0o600
-        original = unseal(archive.read_text())
+        ciphertext = archive.read_bytes()
+        assert len(ciphertext) == origin["publication"]["ciphertext_bytes"]
+        assert hashlib.sha256(ciphertext).hexdigest() == origin["publication"]["ciphertext_sha256"]
+        original = unseal(ciphertext.decode())
+        assert original["until"] == origin["until"]
+        assert original["capture_started_at"] <= original["capture_finished_at"]
+        from cryptography.fernet import InvalidToken
+        with pytest.raises(InvalidToken):
+            unseal(ciphertext[:-1].decode())
         assert original["container_id"] == origin["container_id"]
         for stream, content in original["streams"].items():
             assert hashlib.sha256(content.encode()).hexdigest() == origin["streams"][stream]["sha256"]

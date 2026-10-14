@@ -75,3 +75,37 @@ def test_process_capture_rejects_timeout_and_nonzero_exit():
         inventory.bounded_process_output([sys.executable, "-c", "import time; time.sleep(2)"], timeout=0.05)
     with pytest.raises(RuntimeError, match="command failed"):
         inventory.bounded_process_output([sys.executable, "-c", "raise SystemExit(1)"])
+
+
+@pytest.mark.parametrize("symlink", [False, True])
+def test_private_archive_never_replaces_existing_destination(tmp_path, symlink):
+    existing = tmp_path / "archive"
+    original = tmp_path / "original"
+    original.write_bytes(b"preserve")
+    if symlink:
+        existing.symlink_to(original)
+    else:
+        existing.write_bytes(b"preserve")
+    with pytest.raises(FileExistsError):
+        inventory.publish_private_archive(tmp_path, "archive", b"new")
+    assert existing.read_bytes() == b"preserve"
+    assert not list(tmp_path.glob(".private-*"))
+
+
+def test_private_archive_rejects_redirected_parent(tmp_path):
+    actual = tmp_path / "actual"
+    actual.mkdir()
+    linked = tmp_path / "linked"
+    linked.symlink_to(actual, target_is_directory=True)
+    with pytest.raises(OSError):
+        inventory.publish_private_archive(linked, "archive", b"new")
+    assert not list(actual.iterdir())
+
+
+def test_private_archive_publication_failure_removes_temporary(tmp_path, monkeypatch):
+    def fail(*args, **kwargs):
+        raise OSError("synthetic publication failure")
+    monkeypatch.setattr(inventory.os, "link", fail)
+    with pytest.raises(OSError, match="synthetic publication"):
+        inventory.publish_private_archive(tmp_path, "archive", b"new")
+    assert not list(tmp_path.iterdir())

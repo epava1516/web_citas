@@ -1796,3 +1796,17 @@ carga explícitamente separados, necesarios según cobertura contractual. No
 cambiar la versión durante ejecución; auditoría nativa de captura de logs en
 curso, sin nuevas invocaciones Claude externas.
 [Plan con huellas](evidencias/cr09-regresion-version-comun-plan-20261014.json).
+
+
+### CR09 — correctiva de publicación privada de logs, 2026-10-14
+
+Run20261014-154056-ae3b2720: 15PASS/0FAIL/0ERROR/0SKIP; fuentes intactas,
+limpieza independiente de contenedores/raíz temporal. Tras revisión nativa,
+root verifica y corrige metadatos de captura, --until por contenedor, intervalos
+y destino exacto del runner. Directorio anclado sin symlinks, propiedad/permisos
+comprobados; temporal0600 sincronizado y publicación exclusiva por enlace, sin
+sobrescritura. Huella/tamaño de ciphertext e identidad del directorio registrados.
+Negativos cubren destino existente/symlink, padre redirigido, publicación fallida
+y truncamiento autenticado. Intervalos distintos no son un snapshot común;
+censo/divulgación y CR09/N3 siguen pendientes, sin nueva métrica p95.
+[Evidencia](evidencias/cr09-logs-publicacion-correctiva-terminal-20261014.json).

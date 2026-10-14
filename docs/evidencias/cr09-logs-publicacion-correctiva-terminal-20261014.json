@@ -1,0 +1,520 @@
+{
+  "result": {
+    "id": "20261014-154056-ae3b2720",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261014-154056-ae3b2720",
+          "--label",
+          "web-modelos-local-ci-run=20261014-154056-ae3b2720",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5681164618581533
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261014-154056-ae3b2720",
+          "--label",
+          "web-modelos-local-ci-run=20261014-154056-ae3b2720",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.6730004781857133
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03379317885264754
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.06841435329988599
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.0708904387429357
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.527862603776157
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.723512778058648
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-ceklhl_1/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-ceklhl_1/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-ceklhl_1/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.766650728881359
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-154056-ae3b2720/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-154056-ae3b2720/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-ceklhl_1/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261014-154056-ae3b2720/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_owned_scenario_inventory.py",
+          "tests/test_owned_scenario_inventory_guards.py"
+        ],
+        "exit": 0,
+        "seconds": 44.45796325337142
+      }
+    ],
+    "head": "36d5c6f8bb4e63219bc78652144d9ca7d313e7ad",
+    "excluded": [],
+    "selection": [
+      "tests/test_owned_scenario_inventory.py",
+      "tests/test_owned_scenario_inventory_guards.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261014-154056-ae3b2720": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261014-154056-ae3b2720": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "15",
+        "time": "42.431",
+        "timestamp": "2026-10-14T17:41:15.519938+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "inventory": {
+    "schema": "owned-scenario-observation-v1",
+    "run": "20261014-154056-ae3b2720",
+    "head": "36d5c6f8bb4e63219bc78652144d9ca7d313e7ad",
+    "captured_at": "2026-10-14T15:41:56.898385+00:00",
+    "containers": [
+      {
+        "name": "web-modelos-ci-pg-20261014-154056-ae3b2720",
+        "id": "b1648a2946e38c3e304722298b007dfd88aa4dfa78affe2aae80a6216fb6c3d7",
+        "image_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+        "created": "2026-10-14T15:40:56.445950591Z",
+        "ports": {
+          "5432/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "33469"
+            }
+          ]
+        },
+        "resource_limits": {
+          "Memory": 1610612736,
+          "MemorySwap": 1610612736,
+          "NanoCpus": 1000000000,
+          "CpusetCpus": "4",
+          "PidsLimit": 128
+        },
+        "log_driver": "json-file",
+        "log_content_scope": "captured_encrypted_original; subject association pending",
+        "mounts": []
+      },
+      {
+        "name": "web-modelos-ci-redis-20261014-154056-ae3b2720",
+        "id": "4348bf6495dab7f9c753153ca5b728e1d37b706b90b12d82c209d0a35415fcbc",
+        "image_id": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+        "created": "2026-10-14T15:40:59.026801872Z",
+        "ports": {
+          "6379/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "33470"
+            }
+          ]
+        },
+        "resource_limits": {
+          "Memory": 134217728,
+          "MemorySwap": 134217728,
+          "NanoCpus": 200000000,
+          "CpusetCpus": "5",
+          "PidsLimit": 64
+        },
+        "log_driver": "json-file",
+        "log_content_scope": "captured_encrypted_original; subject association pending",
+        "mounts": [
+          {
+            "type": "volume",
+            "destination": "/data",
+            "volume_name": "e8aca3ef2f4b3c1d319c934870716e82accb0fbac528cc18f3a0a1208aac07ac",
+            "read_write": true
+          }
+        ]
+      }
+    ],
+    "runtime_stores": {
+      "database": "test_promotion_gate_ci",
+      "database_role": "ci",
+      "sessions": [],
+      "cache": {
+        "backend": "django.core.cache.backends.dummy.DummyCache",
+        "content_scope": "not_inspected"
+      },
+      "mail_backend": "django.core.mail.backends.locmem.EmailBackend",
+      "locmem_mail_count": 0,
+      "celery_eager": true,
+      "owned_redis_db0_keys": 0,
+      "owned_redis_persistence_configuration": {
+        "save": "3600 1 300 100 60 10000",
+        "appendonly": "no",
+        "appendfilename": "appendonly.aof",
+        "dbfilename": "dump.rdb",
+        "databases": "16"
+      },
+      "redis_history_scope": "Configuration observed only; files, other DBs and past snapshots not inspected",
+      "limits": "Point observations; no log/archive/backup inspection, no cache value decoding, no global absence or recipient coverage claim."
+    },
+    "log_origins": [
+      {
+        "container_id": "b1648a2946e38c3e304722298b007dfd88aa4dfa78affe2aae80a6216fb6c3d7",
+        "archive": "web-modelos-ci-pg-20261014-154056-ae3b2720-logs.encrypted",
+        "capture_started_at": "2026-10-14T15:41:56.796919+00:00",
+        "capture_finished_at": "2026-10-14T15:41:56.827515+00:00",
+        "until": "2026-10-14T15:41:56.796919+00:00",
+        "command": [
+          "docker",
+          "logs",
+          "--timestamps",
+          "--until",
+          "2026-10-14T15:41:56.796919+00:00",
+          "b1648a2946e38c3e304722298b007dfd88aa4dfa78affe2aae80a6216fb6c3d7"
+        ],
+        "publication": {
+          "ciphertext_bytes": 7332,
+          "ciphertext_sha256": "b67afb5636602f86b638a54ca52769d72dc0ce1d9bd08ed1350cfb7882cccb70",
+          "directory_device": 2052,
+          "directory_inode": 320494862
+        },
+        "streams": {
+          "stdout": {
+            "bytes": 3822,
+            "sha256": "d8c653b779251fc3a666df983919532ddee2427f595facbfa9f4be9d40794bfb"
+          },
+          "stderr": {
+            "bytes": 1207,
+            "sha256": "ffa671f99c6e651b08164bfc1efe2e4aa381dda9ebd4e473e350e662bfba71f1"
+          }
+        },
+        "subject_binding": "not_established",
+        "scope": "Own live container logs at capture; no interleaving or historical exhaustiveness"
+      },
+      {
+        "container_id": "4348bf6495dab7f9c753153ca5b728e1d37b706b90b12d82c209d0a35415fcbc",
+        "archive": "web-modelos-ci-redis-20261014-154056-ae3b2720-logs.encrypted",
+        "capture_started_at": "2026-10-14T15:41:56.829621+00:00",
+        "capture_finished_at": "2026-10-14T15:41:56.863637+00:00",
+        "until": "2026-10-14T15:41:56.829621+00:00",
+        "command": [
+          "docker",
+          "logs",
+          "--timestamps",
+          "--until",
+          "2026-10-14T15:41:56.829621+00:00",
+          "4348bf6495dab7f9c753153ca5b728e1d37b706b90b12d82c209d0a35415fcbc"
+        ],
+        "publication": {
+          "ciphertext_bytes": 2444,
+          "ciphertext_sha256": "b2b0d39c92983b7d12f1066d5600aa85d4a6fce4ced90fabceb752d894566589",
+          "directory_device": 2052,
+          "directory_inode": 320494862
+        },
+        "streams": {
+          "stdout": {
+            "bytes": 1434,
+            "sha256": "f943d87ede9456d61a1af0745464e63f0c2eb69e425de212c2f9136202b7fa4d"
+          },
+          "stderr": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "subject_binding": "not_established",
+        "scope": "Own live container logs at capture; no interleaving or historical exhaustiveness"
+      }
+    ],
+    "roots": [
+      "pytest/test_seeded_fixture_resources_0",
+      "pytest/test_seeded_fixture_resources_0/private"
+    ],
+    "files": [
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/credentials.json",
+        "size": 991,
+        "sha256": "37999b7ab397ba4b436deefda24f88e91938b37f15e0c4603770895e7bca8238",
+        "subject_binding": "explicit_seed_producer_mapping",
+        "account_subjects": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "producer_source": "apps/core/management/commands/seed_demo.py",
+        "producer_sha256": "46eae18aff4d0ddfc3167bbb52ceecc2e6974ac841e88acfea41e95e8e895afa",
+        "excluded_fields": [
+          "password",
+          "accounts.*.totp_secret"
+        ],
+        "retention_decision": "pending_independent_review"
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/1e5b3983-8fb6-4e34-b7f7-d92de64796da.webp",
+        "size": 10218,
+        "sha256": "a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "970bcd94-8478-4263-9ad4-d25e553ce0f0",
+            "blob": "d44195c5-0fa5-4d1b-b727-7996892e8407",
+            "revision": "8ce88722-b81f-4344-ad72-bce93681c177",
+            "person": "311d5f88-1b80-453d-b4e3-da2aa67f99bf",
+            "account_subject": 8,
+            "field": "derivative",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/5a938764-7df8-4df1-a16a-710fa8d51c85.webp",
+        "size": 11110,
+        "sha256": "31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "fe6125cf-c10d-47b7-bfd7-8e6f88cd7fa9",
+            "blob": "242acf75-2647-4ead-98ae-dc7d42ab9a81",
+            "revision": "4e2bb396-d860-474b-a9f6-5d4acb3f2f63",
+            "person": "e4e95646-c022-4985-95ea-de27f17d740d",
+            "account_subject": 1,
+            "field": "derivative",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/8a976290-a1f2-428f-bc77-ba1d68a23a42.webp",
+        "size": 10516,
+        "sha256": "a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "b1aba28a-434c-4f94-a21b-7780077c1bee",
+            "blob": "4f990ee0-32e3-4475-a55e-6b897f14d397",
+            "revision": "c4c11650-96ae-442f-88f7-650a1eafb8bb",
+            "person": "1bcaa22c-b0e3-4ac0-8915-7e55bbcc03b2",
+            "account_subject": 3,
+            "field": "derivative",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/derivatives/9f94e8cd-f62f-4625-bbea-b0b3eb814289.webp",
+        "size": 10314,
+        "sha256": "744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "8fdadab1-3b07-4649-ad54-67f45aeccf3d",
+            "blob": "6322c444-da5d-414d-8840-06af5d89d6d0",
+            "revision": "f5c4dfbf-01a5-4453-8e75-447fd40bca91",
+            "person": "fe87b492-01cb-4c4c-9442-c4ea40bcf526",
+            "account_subject": 4,
+            "field": "derivative",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/17996cea-3338-4eda-9dde-5ac5e463877f",
+        "size": 4657,
+        "sha256": "1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "8fdadab1-3b07-4649-ad54-67f45aeccf3d",
+            "blob": "6322c444-da5d-414d-8840-06af5d89d6d0",
+            "revision": "f5c4dfbf-01a5-4453-8e75-447fd40bca91",
+            "person": "fe87b492-01cb-4c4c-9442-c4ea40bcf526",
+            "account_subject": 4,
+            "field": "original",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/49127b87-dff3-416c-a719-ba67c7e81190",
+        "size": 4641,
+        "sha256": "99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "970bcd94-8478-4263-9ad4-d25e553ce0f0",
+            "blob": "d44195c5-0fa5-4d1b-b727-7996892e8407",
+            "revision": "8ce88722-b81f-4344-ad72-bce93681c177",
+            "person": "311d5f88-1b80-453d-b4e3-da2aa67f99bf",
+            "account_subject": 8,
+            "field": "original",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/ba39ab35-e61e-471b-9f1e-6c96a02cb799",
+        "size": 4640,
+        "sha256": "17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "b1aba28a-434c-4f94-a21b-7780077c1bee",
+            "blob": "4f990ee0-32e3-4475-a55e-6b897f14d397",
+            "revision": "c4c11650-96ae-442f-88f7-650a1eafb8bb",
+            "person": "1bcaa22c-b0e3-4ac0-8915-7e55bbcc03b2",
+            "account_subject": 3,
+            "field": "original",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      },
+      {
+        "relative_path": "pytest/test_seeded_fixture_resources_0/private/originals/fb4d4471-34d4-4a41-8956-05e4fdfa5bf8",
+        "size": 4679,
+        "sha256": "b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643",
+        "subject_binding": "explicit_database_relation",
+        "database_references": [
+          {
+            "photo": "fe6125cf-c10d-47b7-bfd7-8e6f88cd7fa9",
+            "blob": "242acf75-2647-4ead-98ae-dc7d42ab9a81",
+            "revision": "4e2bb396-d860-474b-a9f6-5d4acb3f2f63",
+            "person": "e4e95646-c022-4985-95ea-de27f17d740d",
+            "account_subject": 1,
+            "field": "original",
+            "source": "Photo.revision.listing.person; Photo.blob FileField path"
+          }
+        ]
+      }
+    ],
+    "fixture_snapshot_enabled": false,
+    "coverage_complete": false,
+    "pending": [
+      "subject association and inclusion/redaction decisions",
+      "logs/mail/cache/backups outside declared roots",
+      "historical import/restore provenance"
+    ],
+    "scope": "Observed live own CI containers and declared fixture file roots only. Original hash verified; derivative hash is observation only. ORM references have no common snapshot guarantee. No content bodies in this manifest; optional encrypted log archives retain originals. No common capture cutoff or global exhaustiveness."
+  },
+  "independent_containers_and_temporary_absent": true,
+  "scope": "Own logs only, per-container cutoff. Encrypted originals not in receipt. Review content association/disclosure and historical dependencies pending."
+}

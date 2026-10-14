@@ -6,6 +6,7 @@ import selectors
 import stat
 import subprocess
 import time
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -55,17 +56,27 @@ def capture(runner_path, roots, *, seed_credentials=None, capture_logs=False):
                                       for m in info["Mounts"]]})
     log_origins = []
     if capture_logs:
+        expected = Path(__file__).resolve().parents[1] / "artifacts" / "local-ci" / run
+        if runner_path.absolute().parent != expected:
+            raise RuntimeError("Log archive directory differs from own runner artifact root")
         for container in containers:
-            streams = bounded_process_output(["docker", "logs", "--timestamps", container["id"]])
+            started_at = datetime.now(timezone.utc).isoformat()
+            command = ["docker", "logs", "--timestamps", "--until", started_at, container["id"]]
+            streams = bounded_process_output(command)
+            finished_at = datetime.now(timezone.utc).isoformat()
             from apps.safety.crypto import seal
             archive = {"container_id": container["id"], "run": run,
+                       "capture_started_at": started_at, "capture_finished_at": finished_at,
+                       "until": started_at,
                        "streams": {key: value.decode("utf-8", errors="strict")
                                    for key, value in streams.items()}}
             destination = runner_path.parent / (container["name"] + "-logs.encrypted")
-            descriptor = os.open(destination, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
-            with os.fdopen(descriptor, "w") as output:
-                output.write(seal(archive))
+            ciphertext = seal(archive).encode()
+            publication = publish_private_archive(destination.parent, destination.name, ciphertext)
+            container["log_content_scope"] = "captured_encrypted_original; subject association pending"
             log_origins.append({"container_id": container["id"], "archive": destination.name,
+                                "capture_started_at": started_at, "capture_finished_at": finished_at,
+                                "until": started_at, "command": command, "publication": publication,
                                 "streams": {key: {"bytes": len(value),
                                                   "sha256": hashlib.sha256(value).hexdigest()}
                                             for key, value in streams.items()},
@@ -102,7 +113,7 @@ def capture(runner_path, roots, *, seed_credentials=None, capture_logs=False):
             "fixture_snapshot_enabled": os.environ.get("LOCAL_CI_FIXTURE_SNAPSHOTS") == "1",
             "coverage_complete": False,
             "pending": ["subject association and inclusion/redaction decisions", "logs/mail/cache/backups outside declared roots", "historical import/restore provenance"],
-            "scope": "Observed live own CI containers and declared fixture file roots only. Original hash verified; derivative hash is observation only. ORM references have no common snapshot guarantee. No content bodies exported; no global exhaustiveness."}
+            "scope": "Observed live own CI containers and declared fixture file roots only. Original hash verified; derivative hash is observation only. ORM references have no common snapshot guarantee. No content bodies in this manifest; optional encrypted log archives retain originals. No common capture cutoff or global exhaustiveness."}
 
 
 def bind_media_files(files, temporary):
@@ -296,3 +307,38 @@ def bounded_process_output(command, *, max_bytes=8 * 1024 * 1024, timeout=15):
         process.wait()
         process.stdout.close()
         process.stderr.close()
+
+
+def publish_private_archive(directory, filename, ciphertext):
+    """Anchor every directory component; publish complete bytes without replacement."""
+    directory = Path(directory).absolute()
+    if Path(filename).name != filename or filename in {"", ".", ".."}:
+        raise RuntimeError("Archive filename must be a single component")
+    descriptor = os.open("/", os.O_RDONLY | os.O_DIRECTORY)
+    temporary = ".private-" + uuid.uuid4().hex
+    created = False
+    try:
+        for component in directory.parts[1:]:
+            child = os.open(component, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=descriptor)
+            os.close(descriptor)
+            descriptor = child
+        metadata = os.fstat(descriptor)
+        if metadata.st_uid != os.geteuid() or stat.S_IMODE(metadata.st_mode) & 0o022:
+            raise RuntimeError("Archive directory must be owned and not externally writable")
+        target = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                         0o600, dir_fd=descriptor)
+        created = True
+        with os.fdopen(target, "wb") as stream:
+            stream.write(ciphertext)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.link(temporary, filename, src_dir_fd=descriptor, dst_dir_fd=descriptor, follow_symlinks=False)
+        os.unlink(temporary, dir_fd=descriptor)
+        created = False
+        os.fsync(descriptor)
+        return {"ciphertext_bytes": len(ciphertext), "ciphertext_sha256": hashlib.sha256(ciphertext).hexdigest(),
+                "directory_device": metadata.st_dev, "directory_inode": metadata.st_ino}
+    finally:
+        if created:
+            os.unlink(temporary, dir_fd=descriptor)
+        os.close(descriptor)
