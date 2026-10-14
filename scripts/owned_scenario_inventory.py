@@ -34,6 +34,8 @@ def capture(runner_path, roots, *, seed_credentials=None):
         info = json.loads(subprocess.check_output(["docker", "inspect", name], text=True))[0]
         if not info["State"]["Running"] or info["Config"]["Labels"].get("web-modelos-local-ci-run") != run:
             raise RuntimeError("Container identity mismatch")
+        if service == "pg":
+            verify_database_endpoint(info)
         containers.append({"name": name, "id": info["Id"], "image_id": info["Image"],
                            "created": info["Created"], "ports": info["NetworkSettings"]["Ports"],
                            "mounts": [{"type": m["Type"], "destination": m["Destination"]}
@@ -52,16 +54,13 @@ def capture(runner_path, roots, *, seed_credentials=None):
             if not stat.S_ISREG(mode) or path in seen:
                 continue
             seen.add(path)
-            size = path.stat().st_size
+            size, digest = hash_regular_file(temporary, path.relative_to(temporary),
+                                             128 * 1024 * 1024 - total_bytes)
             total_bytes += size
-            if len(files) >= 10000 or total_bytes > 128 * 1024 * 1024:
+            if len(files) >= 10000:
                 raise RuntimeError("Bounded scenario inventory exceeded")
-            digest = hashlib.sha256()
-            with path.open("rb") as stream:
-                for chunk in iter(lambda: stream.read(65536), b""):
-                    digest.update(chunk)
             files.append({"relative_path": str(path.relative_to(temporary)), "size": size,
-                          "sha256": digest.hexdigest(), "subject_binding": "not_established"})
+                          "sha256": digest, "subject_binding": "not_established"})
     bind_media_files(files, temporary)
     if seed_credentials is not None:
         bind_seed_credentials(files, temporary, seed_credentials)
@@ -70,7 +69,7 @@ def capture(runner_path, roots, *, seed_credentials=None):
             "roots": [str(Path(root).relative_to(temporary)) for root in roots], "files": files,
             "coverage_complete": False,
             "pending": ["subject association and inclusion/redaction decisions", "logs/mail/cache/backups outside declared roots", "historical import/restore provenance"],
-            "scope": "Observed live own CI containers and declared fixture file roots only. No content bodies exported; hashes do not prove subject ownership or global exhaustiveness."}
+            "scope": "Observed live own CI containers and declared fixture file roots only. Original hash verified; derivative hash is observation only. ORM references have no common snapshot guarantee. No content bodies exported; no global exhaustiveness."}
 
 
 def bind_media_files(files, temporary):
@@ -137,3 +136,48 @@ def bind_seed_credentials(files, temporary, declared_path):
                producer_sha256=hashlib.sha256(Path(seed_demo.__file__).read_bytes()).hexdigest(),
                excluded_fields=["password", "accounts.*.totp_secret"],
                retention_decision="pending_independent_review")
+
+
+def verify_database_endpoint(info):
+    from django.db import connection
+
+    db = connection.settings_dict
+    ports = info["NetworkSettings"]["Ports"].get("5432/tcp") or []
+    matches = [p for p in ports if p["HostIp"] == "127.0.0.1" and p["HostPort"] == str(db["PORT"])]
+    if db["HOST"] != "127.0.0.1" or not matches or not db["NAME"].startswith("test_promotion_gate_"):
+        raise RuntimeError("Django database endpoint differs from owned PostgreSQL")
+
+
+def hash_regular_file(root, relative, budget):
+    """Anchor every path component; verify the same regular descriptor throughout."""
+    relative = Path(relative)
+    if relative.is_absolute() or ".." in relative.parts or not relative.parts:
+        raise RuntimeError("Unscoped inventory file path")
+    directory = os.open(root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    descriptor = None
+    try:
+        for part in relative.parts[:-1]:
+            following = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=directory)
+            os.close(directory)
+            directory = following
+        descriptor = os.open(relative.parts[-1], os.O_RDONLY | os.O_NOFOLLOW, dir_fd=directory)
+        before = os.fstat(descriptor)
+        if not stat.S_ISREG(before.st_mode):
+            raise RuntimeError("Inventory file is not regular")
+        count = 0
+        digest = hashlib.sha256()
+        while chunk := os.read(descriptor, 65536):
+            count += len(chunk)
+            if count > budget:
+                raise RuntimeError("Bounded scenario inventory exceeded")
+            digest.update(chunk)
+        after = os.fstat(descriptor)
+        def identity(value):
+            return (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns, value.st_ctime_ns)
+        if identity(before) != identity(after) or count != before.st_size:
+            raise RuntimeError("Inventory file changed during observation")
+        return count, digest.hexdigest()
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+        os.close(directory)
