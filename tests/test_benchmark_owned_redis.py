@@ -75,6 +75,9 @@ def test_ci_broker_identity_is_checked_before_redis_client(monkeypatch, damage):
 
 
 @pytest.mark.parametrize("arguments", [
+    ["--profile", "focused", "--test", "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]", "--workers", "1", "--benchmark-observe-workers"],
+    ["--profile", "focused", "--test", "tests/test_contract_http_load.py", "--workers", "1", "--benchmark-observe-workers"],
+    ["--profile", "focused", "--test", "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]", "--workers", "2", "--benchmark-observe-workers"],
     ["--profile", "regression", "--workers", "1", "--benchmark-normal-refresh"],
     ["--profile", "focused", "--test", "tests/test_benchmark_owned_redis.py",
      "--workers", "1", "--benchmark-normal-refresh"],
@@ -104,6 +107,7 @@ def test_invalid_benchmark_selection_stops_before_service_commands(monkeypatch, 
     assert commands == []
     message = capsys.readouterr().err
     assert (
-        "Benchmark switches require focused selection and --workers 1" in message
+        "Worker observer requires the explicit short HTTP diagnostic" in message
+        or "Benchmark switches require focused selection and --workers 1" in message
         or "Normal benchmark refresh requires the explicit contract HTTP test" in message
     )

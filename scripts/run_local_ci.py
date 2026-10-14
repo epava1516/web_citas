@@ -175,6 +175,10 @@ def main():
         help="Apply the documented GC preparation to the benchmark client only",
     )
     parser.add_argument(
+        "--benchmark-observe-workers", action="store_true",
+        help="Enable existing worker instrumentation only for the explicit short HTTP diagnostic",
+    )
+    parser.add_argument(
         "--workers",
         type=int,
         default=6,
@@ -190,7 +194,7 @@ def main():
         help="Mark dead runs without a terminal result as INTERRUPTED and remove their declared resources",
     )
     args = parser.parse_args()
-    if (args.benchmark_normal_refresh or args.benchmark_generator_freeze) and (
+    if (args.benchmark_normal_refresh or args.benchmark_generator_freeze or args.benchmark_observe_workers) and (
         args.profile != "focused" or args.workers != 1
     ):
         parser.error("Benchmark switches require focused selection and --workers 1")
@@ -202,6 +206,10 @@ def main():
         )
     ):
         parser.error("Normal benchmark refresh requires the explicit contract HTTP test")
+    if args.benchmark_observe_workers and args.test != [
+        "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]"
+    ]:
+        parser.error("Worker observer requires the explicit short HTTP diagnostic")
     if args.recover:
         return recover()
     if (args.profile == "focused") != bool(args.test):
@@ -237,6 +245,7 @@ def main():
         "selection": {"smoke": SMOKE, "rights": RIGHTS, "focused": args.test}.get(args.profile, []),
         "workers": args.workers,
         "fixture_snapshots": args.fixture_snapshots,
+        "benchmark_observe_workers": args.benchmark_observe_workers,
         "benchmark_normal_refresh": args.benchmark_normal_refresh,
         "benchmark_generator_freeze": args.benchmark_generator_freeze,
         "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
@@ -365,6 +374,8 @@ def main():
                         LOCAL_CI_BENCHMARK_RUN=run_id,
                         LOCAL_CI_BENCHMARK_REDIS_CONTAINER=name,
                     )
+                if args.benchmark_observe_workers:
+                    env["WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS"] = "1"
                 if args.benchmark_generator_freeze:
                     env["WEB_MODELOS_GENERATOR_GC_FREEZE"] = "1"
                 probe = (
