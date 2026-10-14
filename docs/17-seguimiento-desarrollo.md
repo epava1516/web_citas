@@ -1776,3 +1776,23 @@ timeout y exit no cero aprobados. Sin leer servicios normales, logs del host
 ni archivos históricos. Asociación al sujeto permanece not_established; no
 exhaustividad ni cierre de derechos/CR09/N3. No nuevo p95.
 [Evidencia](evidencias/cr09-logs-propios-cifrados-terminal-20261014.json).
+
+
+### CR09 — plan de regresión común actualizado, 2026-10-14
+
+La inspección AST de los cuatro adaptadores históricos demuestra que cuatro
+archivos nuevos quedaban elegibles en todos los bloques. Plan nuevo conserva
+asignaciones históricas únicas y asigna esos cuatro una vez: 499 archivos en
+125/125/125/124, sin solapamientos ni faltantes dentro de este conjunto.
+
+| Distribución por archivo | Anterior | Plan actualizado |
+| --- | ---: | ---: |
+| Archivos cubiertos una sola vez | 495 | 499 |
+| Bloques 1/2/3/4 | 125/122/124/124 | 125/125/125/124 |
+
+Plan no ejecutado: recogida de nodos, condiciones, omisiones y SHA común deben
+verificarse antes de acreditar N3. Conserva dos archivos largos y dos nodos de
+carga explícitamente separados, necesarios según cobertura contractual. No
+cambiar la versión durante ejecución; auditoría nativa de captura de logs en
+curso, sin nuevas invocaciones Claude externas.
+[Plan con huellas](evidencias/cr09-regresion-version-comun-plan-20261014.json).
