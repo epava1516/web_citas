@@ -27,3 +27,14 @@ def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_bind
     assert len(credentials) == 1 and credentials[0]["subject_binding"] == "not_established"
     assert manifest["coverage_complete"] is False and manifest["pending"]
     (Path(artifact).parent / "owned-scenario-inventory.json").write_text(json.dumps(manifest, indent=2))
+    metadata = json.loads(runner.read_text())
+    original = next(item for item in media if any(
+        ref["field"] == "original" for ref in item["database_references"]))
+    path = Path(metadata["temporary"]) / original["relative_path"]
+    previous = path.read_bytes()
+    try:
+        path.write_bytes(previous + b"synthetic-content-alteration")
+        with pytest.raises(RuntimeError, match="Observed original differs"):
+            capture(runner, [tmp_path, settings.MEDIA_ROOT])
+    finally:
+        path.write_bytes(previous)
