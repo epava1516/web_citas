@@ -434,5 +434,45 @@
     "exit": 2,
     "reason": "Missing prerequisite uv in systemd PATH; no scenario executed"
   },
-  "limitation": "Adapter does not limit container CPU/RAM. Functional verification only, not contractual capacity."
+  "limitation": "Functional verification with actual bounded containers, not a contractual capacity scenario. Logged commands precede adapter flag injection; inspect receipts prove CPU/memory limits.",
+  "verified_container_limits_before_cleanup": [
+    {
+      "name": "web-modelos-ci-pg-20261014-152914-05de7a6d",
+      "state": {
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 266977,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-14T15:29:14.919973388Z",
+        "FinishedAt": "0001-01-01T00:00:00Z"
+      },
+      "memory": 1610612736,
+      "swap": 1610612736,
+      "cpus": 1000000000
+    },
+    {
+      "name": "web-modelos-ci-redis-20261014-152914-05de7a6d",
+      "state": {
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 267414,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-14T15:29:17.081941676Z",
+        "FinishedAt": "0001-01-01T00:00:00Z"
+      },
+      "memory": 134217728,
+      "swap": 134217728,
+      "cpus": 200000000
+    }
+  ]
 }

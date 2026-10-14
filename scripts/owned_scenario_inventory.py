@@ -44,6 +44,8 @@ def capture(runner_path, roots, *, seed_credentials=None):
             redis_port = int(bindings[0]["HostPort"])
         containers.append({"name": name, "id": info["Id"], "image_id": info["Image"],
                            "created": info["Created"], "ports": info["NetworkSettings"]["Ports"],
+                           "resource_limits": {key: info["HostConfig"][key] for key in
+                                               ("Memory", "MemorySwap", "NanoCpus", "CpusetCpus", "PidsLimit")},
                            "log_driver": info["HostConfig"]["LogConfig"]["Type"],
                            "log_content_scope": "not_captured; subject association pending",
                            "mounts": [{"type": m["Type"], "destination": m["Destination"],

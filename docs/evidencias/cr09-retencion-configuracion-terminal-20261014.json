@@ -441,5 +441,45 @@
   "independent_volumes_absent": [
     "941e52c8c2078743b94c2b1effeb97e922cf09f882054c59d1196cbf574fa6dc"
   ],
-  "limitation": "Functional verification only; container resource quotas not set by this adapter. No retained log/history content or subject disclosure attested."
+  "limitation": "Functional verification with actual bounded containers, not a contractual capacity scenario. Logged commands precede adapter flag injection; inspect receipts prove CPU/memory limits.",
+  "verified_container_limits_before_cleanup": [
+    {
+      "name": "web-modelos-ci-pg-20261014-153232-8fc08b77",
+      "state": {
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 287725,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-14T15:32:32.781027282Z",
+        "FinishedAt": "0001-01-01T00:00:00Z"
+      },
+      "memory": 1610612736,
+      "swap": 1610612736,
+      "cpus": 1000000000
+    },
+    {
+      "name": "web-modelos-ci-redis-20261014-153232-8fc08b77",
+      "state": {
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 288225,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-14T15:32:35.284935504Z",
+        "FinishedAt": "0001-01-01T00:00:00Z"
+      },
+      "memory": 134217728,
+      "swap": 134217728,
+      "cpus": 200000000
+    }
+  ]
 }

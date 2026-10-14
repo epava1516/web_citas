@@ -1735,8 +1735,9 @@ Política del escenario productor: `20261014-152024-21b3ce27`, SHAe06d049,9PASS/
 
 HEAD1bea2f7, run20261014-152914-05de7a6d: 9PASS/0FAIL/0ERROR/0SKIP;
 fuentes intactas y limpieza independiente de dos contenedores/raíz temporal.
-Arranque previo exit2 por PATH sin uv conservado. Adaptador sin límite CPU/RAM
-de contenedores: verificación funcional, no capacidad contractual. Controlador
+Arranque previo exit2 por PATH sin uv conservado. Inspecciones reales previas a limpieza confirman cuotas de contenedores:
+PG1CPU/1536MiB y Redis0,2CPU/128MiB, sin swap adicional. Verificación
+funcional, no escenario de capacidad contractual. Controlador
 CPU0–3/3584MiB/swap0/512tareas. Cobertura del censo sigue false, no aceptación
 CR09/N3 ni nueva métrica p95.
 [Evidencia](evidencias/cr09-productores-head-terminal-20261014.json).
@@ -1752,5 +1753,13 @@ DB0 vacío no acredita ausencia de snapshots ni datos en otras bases. No se
 inspeccionó contenido histórico ni se acreditó asociación/divulgación.
 Limpieza independiente confirma dos contenedores, raíz temporal y el volumen
 anónimo propio ausentes; ningún volumen ajeno eliminado. Alcance funcional,
-sin cuotas de contenedores en este adaptador; no nueva métrica HTTP/capacidad.
+con cuotas reales PG1CPU/1536MiB y Redis0,2CPU/128MiB; no nueva métrica HTTP/capacidad.
 [Evidencia](evidencias/cr09-retencion-configuracion-terminal-20261014.json).
+
+
+Correctiva de evidencia: los comandos en result.json se registran antes de la
+inyección del adaptador Popen. No prueban ausencia de cuotas. Las inspecciones
+Docker previas a limpieza de ambas ejecuciones confirman Memory/MemorySwap
+1610612736 y NanoCpus1000000000 en PG; 134217728 y 200000000 en Redis.
+Se corrige la atribución anterior sin cambiar resultados ni alcance funcional.
+El capturador incorpora ahora límites reales de HostConfig en próximas capturas.
