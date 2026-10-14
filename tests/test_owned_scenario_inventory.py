@@ -12,10 +12,13 @@ from scripts.owned_scenario_inventory import capture
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_binding(request, tmp_path):
+def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_binding(request, tmp_path, monkeypatch):
     artifact = request.config.getoption("--gate-timings-output", default=None)
     if not artifact:
         pytest.skip("Requires explicit disposable CI producer inventory")
+    # This scenario observes actual producer artifacts, including credentials
+    # outside MEDIA_ROOT, so it must execute the seed rather than restore a clone.
+    monkeypatch.setenv("LOCAL_CI_FIXTURE_SNAPSHOTS", "0")
     request.getfixturevalue("directory")
     runner = Path(artifact).parent / "runner.json"
     manifest = capture(runner, [tmp_path, settings.MEDIA_ROOT], seed_credentials=tmp_path / "credentials.json")

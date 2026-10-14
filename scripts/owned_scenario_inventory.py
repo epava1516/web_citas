@@ -74,6 +74,7 @@ def capture(runner_path, roots, *, seed_credentials=None):
             "captured_at": datetime.now(timezone.utc).isoformat(), "containers": containers,
             "runtime_stores": observe_runtime_stores(redis_port),
             "roots": [str(Path(root).relative_to(temporary)) for root in roots], "files": files,
+            "fixture_snapshot_enabled": os.environ.get("LOCAL_CI_FIXTURE_SNAPSHOTS") == "1",
             "coverage_complete": False,
             "pending": ["subject association and inclusion/redaction decisions", "logs/mail/cache/backups outside declared roots", "historical import/restore provenance"],
             "scope": "Observed live own CI containers and declared fixture file roots only. Original hash verified; derivative hash is observation only. ORM references have no common snapshot guarantee. No content bodies exported; no global exhaustiveness."}
