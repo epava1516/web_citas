@@ -38,6 +38,7 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
     retained_expired_session=False,
     retained_console_mail=False,
     historical_logs=False,
+    observed_census=False,
 ):
     case, author, staff, public, receipt, _, _, _, decision, _, _ = approved_information(
         request, settings, monkeypatch, account_only
@@ -637,7 +638,27 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
         from apps.safety.models import RightsAccessClosure, RightsNotice, RightsResponse
         from apps.safety.rights_access_delivery import recipient_payload
 
-        census_body = synthetic_resource_census(case, inventory, original_scope)
+        if observed_census:
+            from django.conf import settings as runtime_settings
+
+            from scripts.owned_rights_resource_census import capture_census
+
+            artifact = request.config.getoption("--gate-timings-output", default=None)
+            if not artifact:
+                pytest.fail("Observed census requires explicit owned CI runner evidence")
+            census_body, observation = capture_census(
+                case, inventory, original_scope, Path(artifact).parent / "runner.json",
+                [tmp_path, runtime_settings.MEDIA_ROOT],
+                seed_credentials=tmp_path / "credentials.json",
+            )
+            assert observation["coverage_complete"] is False
+            assert census_body["categories"]["unlinked_records"]["origins"][0]["records"]
+            assert all(category["pending"] for category in census_body["categories"].values())
+            (Path(artifact).parent / f"owned-rights-observation-{inventory.pk}.json").write_text(
+                json.dumps(observation, indent=2)
+            )
+        else:
+            census_body = synthetic_resource_census(case, inventory, original_scope)
         census_path = tmp_path / scoped_origin_name("resources", case.pk, inventory.pk)
         census_path.write_text(module.seal(census_body))
         census_path.chmod(0o600)
@@ -650,7 +671,11 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
                 cutoff=inventory.created_at,
                 projected=evidence_body["delivered"],
             )
-        assert completed_scope["resource_scope"]["pending"] == []
+        if observed_census:
+            assert completed_scope["resource_scope"]["pending"]
+            assert completed_scope["resource_scope"]["groups"]
+        else:
+            assert completed_scope["resource_scope"]["pending"] == []
         completed_decisions = decisions | {
             "resources": {
                 "status": "reviewed",
@@ -658,6 +683,14 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
                 "origin_digest": completed_scope["resource_scope"]["digest"],
             },
         }
+        if observed_census:
+            assert "operations.RetainedResource" in completed_scope["groups"]
+            completed_decisions["models"] = decisions["models"] | {
+                "operations.RetainedResource": {
+                    "status": "omitted",
+                    "reason": "Producer provenance remains private pending content and disclosure review; this response stays partial.",
+                },
+            }
         completed_draft = prepare_response(
             author,
             case.pk,
@@ -676,8 +709,12 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
         _, completed_body = inspect_response(
             verifier, case.pk, case.version, completed_draft.pk, completed_read_key, reason
         )
-        assert completed_body["access_package"]["pending"] == []
-        assert completed_body["access_package"]["partial"] is False
+        if observed_census:
+            assert "infrastructure_content_accounting" in completed_body["access_package"]["pending"]
+            assert completed_body["access_package"]["partial"] is True
+        else:
+            assert completed_body["access_package"]["pending"] == []
+            assert completed_body["access_package"]["partial"] is False
         completed_review = review_response(
             verifier,
             case.pk,
@@ -688,6 +725,16 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             reason,
             "approved",
         )
+        if observed_census:
+            before = RightsResponse.objects.count(), RightsNotice.objects.count(), RightsAccessClosure.objects.count()
+            case_before = case.status, case.version, case.response_version
+            with pytest.raises(ValidationError, match="Complete reviewed access delivery"):
+                close(author, case.pk, case.version, case.response_version,
+                      completed_review.pk, uuid4(), reason)
+            assert before == (RightsResponse.objects.count(), RightsNotice.objects.count(), RightsAccessClosure.objects.count())
+            case.refresh_from_db()
+            assert (case.status, case.version, case.response_version) == case_before
+            return
         close_path = reverse("rights_access_close", args=[case.pk, completed_review.pk])
         before = RightsResponse.objects.count(), RightsNotice.objects.count()
         assert other.get(close_path).status_code == 403
@@ -910,6 +957,18 @@ def test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixtu
         finish=True,
         finish_mode="browser",
         finish_language=language,
+    )
+
+
+@pytest.mark.parametrize("account_only", [False, True])
+def test_observed_owned_producer_census_keeps_reviewed_access_partial(
+    request, settings, monkeypatch, account_only, live_server, tmp_path
+):
+    # Execute the seed producer: a restored clone does not produce credentials.
+    monkeypatch.setenv("LOCAL_CI_FIXTURE_SNAPSHOTS", "0")
+    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
+        request, settings, monkeypatch, account_only, live_server, False, tmp_path,
+        finish=True, observed_census=True,
     )
 
 
