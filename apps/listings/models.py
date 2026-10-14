@@ -32,6 +32,13 @@ class Listing(models.Model):
     available_until = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        indexes = [
+            models.Index(fields=["-published_at", "id"],
+                         condition=models.Q(status="published"),
+                         name="listing_public_page_order"),
+        ]
+
 
 class Revision(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
