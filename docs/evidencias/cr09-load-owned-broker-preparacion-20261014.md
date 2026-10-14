@@ -35,3 +35,9 @@ workers paralelos, selección mixta, ausencia de selección y GC fuera de
 focused. Comprueban SystemExit2 antes de cualquier comando de servicio.
 Total preparado 19 controles; pytest sigue pendiente. Propagación y limpieza
 reales requieren gate functional con los switches nuevos, no otro mock.
+
+Salvaguarda posterior: si LOCAL_CI_POSTGRES_CONTAINER identifica una ejecución
+CI, owned_redis exige override y run antes de cualquier fallback. Nuevo negativo
+ci_missing_scope; total actual 20 controles preparados. Fuera del CI propio se
+conserva el contexto histórico del experimento; esta entrega sólo ejecutará la
+vía CI verificada. Ruff/diff-check PASS, pruebas reales pendientes.
