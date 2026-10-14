@@ -21,7 +21,19 @@ def test_seeded_fixture_resources_have_owned_provenance_and_pending_subject_bind
     monkeypatch.setenv("LOCAL_CI_FIXTURE_SNAPSHOTS", "0")
     request.getfixturevalue("directory")
     runner = Path(artifact).parent / "runner.json"
-    manifest = capture(runner, [tmp_path, settings.MEDIA_ROOT], seed_credentials=tmp_path / "credentials.json")
+    manifest = capture(runner, [tmp_path, settings.MEDIA_ROOT], seed_credentials=tmp_path / "credentials.json", capture_logs=True)
+    assert len(manifest["log_origins"]) == 2
+    import hashlib
+
+    from apps.safety.crypto import unseal
+    for origin in manifest["log_origins"]:
+        archive = Path(artifact).parent / origin["archive"]
+        assert archive.stat().st_mode & 0o777 == 0o600
+        original = unseal(archive.read_text())
+        assert original["container_id"] == origin["container_id"]
+        for stream, content in original["streams"].items():
+            assert hashlib.sha256(content.encode()).hexdigest() == origin["streams"][stream]["sha256"]
+        assert origin["subject_binding"] == "not_established"
     assert len(manifest["containers"]) == 2
     assert all("log_driver" in item for item in manifest["containers"])
     assert all("volume_name" in mount for item in manifest["containers"] for mount in item["mounts"])

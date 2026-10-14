@@ -1763,3 +1763,16 @@ Docker previas a limpieza de ambas ejecuciones confirman Memory/MemorySwap
 1610612736 y NanoCpus1000000000 en PG; 134217728 y 200000000 en Redis.
 Se corrige la atribución anterior sin cambiar resultados ni alcance funcional.
 El capturador incorpora ahora límites reales de HostConfig en próximas capturas.
+
+
+### CR09 — originales de logs propios cifrados, 2026-10-14
+
+Run20261014-153610-87c00c8b: 11PASS/0FAIL/0ERROR/0SKIP; fuentes intactas y
+limpieza independiente. Captura opcional por ID de los dos contenedores propios
+previamente verificados, stdout/stderr separados, 8MiB y 15s por contenedor,
+archivo exclusivo cifrado0600. Inventario sólo contiene huellas/tamaños; prueba
+descifra el archivo privado y verifica ambas huellas. Controles de exceso,
+timeout y exit no cero aprobados. Sin leer servicios normales, logs del host
+ni archivos históricos. Asociación al sujeto permanece not_established; no
+exhaustividad ni cierre de derechos/CR09/N3. No nuevo p95.
+[Evidencia](evidencias/cr09-logs-propios-cifrados-terminal-20261014.json).

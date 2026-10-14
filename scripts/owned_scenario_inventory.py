@@ -2,13 +2,15 @@
 import hashlib
 import json
 import os
+import selectors
 import stat
 import subprocess
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 
-def capture(runner_path, roots, *, seed_credentials=None):
+def capture(runner_path, roots, *, seed_credentials=None, capture_logs=False):
     runner_path = Path(runner_path)
     runner = json.loads(runner_path.read_text())
     run = runner["id"]
@@ -51,6 +53,24 @@ def capture(runner_path, roots, *, seed_credentials=None):
                            "mounts": [{"type": m["Type"], "destination": m["Destination"],
                                        "volume_name": m.get("Name"), "read_write": m["RW"]}
                                       for m in info["Mounts"]]})
+    log_origins = []
+    if capture_logs:
+        for container in containers:
+            streams = bounded_process_output(["docker", "logs", "--timestamps", container["id"]])
+            from apps.safety.crypto import seal
+            archive = {"container_id": container["id"], "run": run,
+                       "streams": {key: value.decode("utf-8", errors="strict")
+                                   for key, value in streams.items()}}
+            destination = runner_path.parent / (container["name"] + "-logs.encrypted")
+            descriptor = os.open(destination, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+            with os.fdopen(descriptor, "w") as output:
+                output.write(seal(archive))
+            log_origins.append({"container_id": container["id"], "archive": destination.name,
+                                "streams": {key: {"bytes": len(value),
+                                                  "sha256": hashlib.sha256(value).hexdigest()}
+                                            for key, value in streams.items()},
+                                "subject_binding": "not_established",
+                                "scope": "Own live container logs at capture; no interleaving or historical exhaustiveness"})
     files = []
     seen = set()
     total_bytes = 0
@@ -77,7 +97,7 @@ def capture(runner_path, roots, *, seed_credentials=None):
         bind_seed_credentials(files, temporary, seed_credentials)
     return {"schema": "owned-scenario-observation-v1", "run": run, "head": runner["head"],
             "captured_at": datetime.now(timezone.utc).isoformat(), "containers": containers,
-            "runtime_stores": observe_runtime_stores(redis_port),
+            "runtime_stores": observe_runtime_stores(redis_port), "log_origins": log_origins,
             "roots": [str(Path(root).relative_to(temporary)) for root in roots], "files": files,
             "fixture_snapshot_enabled": os.environ.get("LOCAL_CI_FIXTURE_SNAPSHOTS") == "1",
             "coverage_complete": False,
@@ -239,3 +259,40 @@ def observe_runtime_stores(redis_port):
             "owned_redis_persistence_configuration": persistence,
             "redis_history_scope": "Configuration observed only; files, other DBs and past snapshots not inspected",
             "limits": "Point observations; no log/archive/backup inspection, no cache value decoding, no global absence or recipient coverage claim."}
+
+
+def bounded_process_output(command, *, max_bytes=8 * 1024 * 1024, timeout=15):
+    """Drain both streams concurrently; kill/reap on overflow, timeout or error."""
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    streams = {"stdout": bytearray(), "stderr": bytearray()}
+    deadline = time.monotonic() + timeout
+    total = 0
+    try:
+        with selectors.DefaultSelector() as selector:
+            for key in streams:
+                selector.register(getattr(process, key), selectors.EVENT_READ, key)
+            while selector.get_map():
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise RuntimeError("Own log capture timed out")
+                for event, _ in selector.select(remaining):
+                    chunk = os.read(event.fileobj.fileno(), min(65536, max_bytes - total + 1))
+                    if not chunk:
+                        selector.unregister(event.fileobj)
+                        continue
+                    total += len(chunk)
+                    if total > max_bytes:
+                        raise RuntimeError("Own log capture exceeded byte budget")
+                    streams[event.data].extend(chunk)
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise RuntimeError("Own log capture timed out")
+            if process.wait(timeout=remaining):
+                raise RuntimeError("Own log capture command failed")
+        return {key: bytes(value) for key, value in streams.items()}
+    finally:
+        if process.poll() is None:
+            process.kill()
+        process.wait()
+        process.stdout.close()
+        process.stderr.close()

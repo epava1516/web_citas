@@ -59,3 +59,19 @@ def test_file_budget_is_enforced_during_read(tmp_path):
     (tmp_path / "file").write_bytes(b"synthetic-over-budget")
     with pytest.raises(RuntimeError, match="inventory exceeded"):
         inventory.hash_regular_file(tmp_path, "file", 4)
+
+
+def test_process_capture_drains_both_streams_and_rejects_overflow():
+    import sys
+    command = [sys.executable, "-c", "import os; os.write(1,b'own'); os.write(2,b'log')"]
+    assert inventory.bounded_process_output(command, max_bytes=6) == {"stdout": b"own", "stderr": b"log"}
+    with pytest.raises(RuntimeError, match="byte budget"):
+        inventory.bounded_process_output(command, max_bytes=5)
+
+
+def test_process_capture_rejects_timeout_and_nonzero_exit():
+    import sys
+    with pytest.raises(RuntimeError, match="timed out"):
+        inventory.bounded_process_output([sys.executable, "-c", "import time; time.sleep(2)"], timeout=0.05)
+    with pytest.raises(RuntimeError, match="command failed"):
+        inventory.bounded_process_output([sys.executable, "-c", "raise SystemExit(1)"])
