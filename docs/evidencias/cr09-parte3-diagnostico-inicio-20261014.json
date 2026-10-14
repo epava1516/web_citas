@@ -1,0 +1,34 @@
+{
+  "observed_at": "2026-10-14T10:10:01.735876+00:00",
+  "unit": "web-modelos-cr09-part3-seal-diagnostic.service",
+  "runner": {
+    "id": "20261014-100901-11fd8ef6",
+    "pid": 2396851,
+    "start_ticks": 369315118,
+    "command": [
+      "artifacts/vps-preparation/cr09-regression-part-3/run.py",
+      "--profile",
+      "regression",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "14400"
+    ],
+    "head": "79db96478f509ac5eb3f5163d4ab430cf9868dc6",
+    "containers": [
+      "web-modelos-ci-pg-20261014-100901-11fd8ef6",
+      "web-modelos-ci-redis-20261014-100901-11fd8ef6"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-100901-11fd8ef6",
+    "temporary": "/tmp/web-modelos-local-ci-iksuxmrw",
+    "child": {
+      "pid": 2399336,
+      "start_ticks": 369316883,
+      "step": "pytest"
+    }
+  },
+  "purpose": "Full block 3 reproduction with seal mismatch diagnostics; no application behavior change.",
+  "terminal": false
+}

@@ -1,0 +1,32 @@
+{
+  "runner": {
+    "id": "20261014-043416-8212d054",
+    "pid": 4019551,
+    "start_ticks": 367306603,
+    "command": [
+      "artifacts/vps-preparation/cr09-regression-part-4/run.py",
+      "--profile",
+      "regression",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "21600"
+    ],
+    "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+    "containers": [
+      "web-modelos-ci-pg-20261014-043416-8212d054",
+      "web-modelos-ci-redis-20261014-043416-8212d054"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-043416-8212d054",
+    "temporary": "/tmp/web-modelos-local-ci-4x1zsnvc",
+    "child": {
+      "pid": 4020698,
+      "start_ticks": 367307298,
+      "step": "migrations"
+    }
+  },
+  "alive_verified": true,
+  "observed_at": "2026-10-14T04:34:24.449742+00:00"
+}

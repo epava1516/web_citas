@@ -1,0 +1,28 @@
+{
+  "historical_receipt": "docs/evidencias/conservacion-borradores-finales0109-worker-beat.json",
+  "historical_source": "72ff79a",
+  "comparisons": [
+    {
+      "path": "scripts/probe_final_draft_retention_worker.py",
+      "current_sha256": "0d1d91f4c84af4e7c6b01ecdec50955405a40bd6ad1436058af0d7fda45e6649",
+      "historical_sha256": null,
+      "same_bytes": null,
+      "recorded_probe_matches": true
+    },
+    {
+      "path": "apps/safety/tasks.py",
+      "current_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+      "historical_sha256": "12810b884eddd449eb9c057bec8fd85dcbb54ef151749082bd05855647ef1254",
+      "same_bytes": false
+    },
+    {
+      "path": "config/settings.py",
+      "current_sha256": "232a18ed6fae8800ba747bc61dfbbd05f41925e5e802d1e7b1012f50717fc412",
+      "historical_sha256": "2cf3f13ca8e3efc4484bf55449ef2624ffd8e98554c73e40ca1b2386eb7fc530",
+      "same_bytes": false
+    }
+  ],
+  "scope": "Source comparison only. Changed sources require behavioral diff review; do not declare current worker/Beat from historical receipt alone.",
+  "task_ast_unchanged": true,
+  "beat_entry_ast_unchanged": true
+}

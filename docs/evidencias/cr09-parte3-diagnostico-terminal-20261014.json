@@ -1,0 +1,77 @@
+{
+  "id": "20261014-100901-11fd8ef6",
+  "head": "79db96478f509ac5eb3f5163d4ab430cf9868dc6",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-100901-11fd8ef6": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-100901-11fd8ef6": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "6",
+      "tests": "853",
+      "time": "6285.503",
+      "timestamp": "2026-10-14T12:09:20.702389+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [
+    {
+      "case": "test_owned_complete_target_delivery",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "case": "test_owned_professional_probe",
+      "reason": "Requires explicit own professional instrument probe"
+    },
+    {
+      "case": "test_two_target_selection_pages_overlapping_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "case": "test_target_source_cost_attribution",
+      "reason": "Requires owned capacity runner diagnostic profile mode"
+    },
+    {
+      "case": "test_owned_worker_beat_refresh_wiring",
+      "reason": "Explicit owned wiring check only"
+    },
+    {
+      "case": "test_resource_checkpoint",
+      "reason": "Explicit owned resource diagnosis only"
+    }
+  ],
+  "observed_at": "2026-10-14T11:59:37.261584+00:00",
+  "independent_container_recheck": {
+    "web-modelos-ci-pg-20261014-100901-11fd8ef6": {
+      "exit": 1,
+      "absent": true,
+      "error": "error: no such object: web-modelos-ci-pg-20261014-100901-11fd8ef6"
+    },
+    "web-modelos-ci-redis-20261014-100901-11fd8ef6": {
+      "exit": 1,
+      "absent": true,
+      "error": "error: no such object: web-modelos-ci-redis-20261014-100901-11fd8ef6"
+    }
+  },
+  "distinct_counts": {
+    "total": 853,
+    "passed": 847,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 6
+  },
+  "auxiliary_check_initial_error": "Case-sensitive expected Docker message failed; actual no-such-object output was lowercase. No actual cleanup failure; independently rechecked."
+}

@@ -1,0 +1,21 @@
+{
+  "worktree": "/home/felidae/proyectos/web_modelos_cr09_load_owned",
+  "branch": "codex/cr09-load-owned-broker-20261014",
+  "base": "79db964",
+  "head": "c80dd2c18b258392ed04efa0da16b60c3a927381",
+  "commits": [
+    "0045214",
+    "0f97ef8",
+    "b97beb8",
+    "3fda474",
+    "c80dd2c"
+  ],
+  "changes": "Explicit normal benchmark switches, owned Redis identity/port guards, 12 broker identity cases and 7 CLI negative cases with rejection reason.",
+  "static_checks": "Ruff and diff --check PASS",
+  "executed_tests": [],
+  "integration": "Pending until active regression terminal; do not change its frozen sources.",
+  "next_real_check": "20 unit controls, functional normal_worker_beat HTTP with owned Redis, cleanup, then pertinent contractual gate sequentially.",
+  "acceptance": false,
+  "prepared_controls": 20,
+  "followup": "CI detected via owned PostgreSQL container refuses missing broker scope instead of falling back to normal Redis."
+}

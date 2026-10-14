@@ -1,0 +1,446 @@
+{
+  "restore": {
+    "source": "tests/test_recovery_pg_restore.py",
+    "source_sha256": "eb9f641b1e215b7578e958519d9b96be0bebabc68ec9afacf6e2d368f7cb0e73",
+    "evidence": [
+      {
+        "run": "20261014-004012-e8dd0ef9",
+        "reports": [
+          {
+            "nodeid": "tests/test_recovery_pg_restore.py::test_old_pg_dump_and_media_cannot_reintroduce_erased_data",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.002475365065038204
+          },
+          {
+            "nodeid": "tests/test_recovery_pg_restore.py::test_old_pg_dump_and_media_cannot_reintroduce_erased_data",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 14.101637446321547
+          },
+          {
+            "nodeid": "tests/test_recovery_pg_restore.py::test_old_pg_dump_and_media_cannot_reintroduce_erased_data",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.4938290109857917
+          }
+        ]
+      }
+    ],
+    "closure": "Partial mapping only; inspect assertions and common-version scope before acceptance."
+  },
+  "urgent": {
+    "source": "tests/test_urgent_report_drill.py",
+    "source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69",
+    "evidence": [
+      {
+        "run": "20261014-004012-e8dd0ef9",
+        "reports": [
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[es]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0025207288563251495
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[es]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 6.140688037965447
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[es]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.5101396567188203
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[en]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.003007743041962385
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[en]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 6.110373146831989
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[en]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.5661664078943431
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-permission]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.002072060015052557
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-permission]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.527491321321577
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-permission]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 1.1495956690050662
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-session]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0016577178612351418
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-session]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.476033974904567
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-session]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 1.2152792811393738
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-mfa]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0019548488780856133
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-mfa]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.220350566785783
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-mfa]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.9921124991960824
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-active]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0022308011539280415
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-active]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.083615775685757
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-active]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.9604199640452862
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-permission]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0016178889200091362
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-permission]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 6.317075192928314
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-permission]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.5380671308375895
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-session]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0033671241253614426
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-session]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.277235095854849
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-session]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.559710799716413
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-mfa]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.002978912089020014
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-mfa]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.171691108960658
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-mfa]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.5553526640869677
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-active]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0021582641638815403
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-active]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.090370868798345
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-active]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.56782793905586
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-permission]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.003430288750678301
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-permission]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.246844919398427
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-permission]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.5164867350831628
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-session]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.002695574890822172
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-session]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.125392240006477
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-session]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.6004835567437112
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-mfa]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0024847257882356644
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-mfa]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.446494766976684
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-mfa]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.6636951752007008
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-active]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0029449211433529854
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-active]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.316200596280396
+          },
+          {
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-active]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.5112787010148168
+          }
+        ]
+      }
+    ],
+    "closure": "Partial mapping only; inspect assertions and common-version scope before acceptance."
+  },
+  "communications": {
+    "source": "tests/test_rights_communications.py",
+    "source_sha256": "2994c96e3351eb1d293c82b1f30e163b0a5e37a720ae61e7dd9a1aa056278225",
+    "evidence": [
+      {
+        "run": "20261014-043416-8212d054",
+        "reports": [
+          {
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[erase]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.002071669790893793
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[erase]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 15.404463321901858
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[erase]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.5390901616774499
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[restriction]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.002602662891149521
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[restriction]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 13.983821894973516
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[restriction]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.4924987438134849
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[object]",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.001788001973181963
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[object]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 13.477612060960382
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[object]",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.46096772979944944
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_same_execution_delivery_serializes_and_old_authority_cannot_read",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0015231878496706486
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_same_execution_delivery_serializes_and_old_authority_cannot_read",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 9.070156253874302
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_same_execution_delivery_serializes_and_old_authority_cannot_read",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.4848821968771517
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_agency_own_account_notice_does_not_include_owned_models",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0018399711698293686
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_agency_own_account_notice_does_not_include_owned_models",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 6.474910195916891
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_agency_own_account_notice_does_not_include_owned_models",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.4552472038194537
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_mobile_recipient_assessment_source_is_audited_in_both_languages",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0027981470339000225
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_mobile_recipient_assessment_source_is_audited_in_both_languages",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 14.697753418702632
+          },
+          {
+            "nodeid": "tests/test_rights_communications.py::test_mobile_recipient_assessment_source_is_audited_in_both_languages",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.5917705120518804
+          }
+        ]
+      }
+    ],
+    "closure": "Partial mapping only; inspect assertions and common-version scope before acceptance."
+  },
+  "large_closed_flow": {
+    "source": "tests/test_portability_large_closed_flow.py",
+    "source_sha256": "7dcbb025d88939efeebf0b3a1b536b887c741c2c1ed5de8f7c531b17d89b3360",
+    "evidence": [
+      {
+        "run": "20261014-004012-e8dd0ef9",
+        "reports": [
+          {
+            "nodeid": "tests/test_portability_large_closed_flow.py::test_large_history_native_approval_closure_and_binary_delivery",
+            "when": "setup",
+            "outcome": "passed",
+            "duration": 0.0037652133032679558
+          },
+          {
+            "nodeid": "tests/test_portability_large_closed_flow.py::test_large_history_native_approval_closure_and_binary_delivery",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1612.7996272076853
+          },
+          {
+            "nodeid": "tests/test_portability_large_closed_flow.py::test_large_history_native_approval_closure_and_binary_delivery",
+            "when": "teardown",
+            "outcome": "passed",
+            "duration": 0.4608184192329645
+          }
+        ]
+      }
+    ],
+    "closure": "Partial mapping only; inspect assertions and common-version scope before acceptance."
+  }
+}

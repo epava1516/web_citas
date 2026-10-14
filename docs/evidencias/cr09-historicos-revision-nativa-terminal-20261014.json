@@ -1,0 +1,20 @@
+{
+  "agent": "/root/owned_broker_review",
+  "task": "cr09-historical-scope-review-20261014",
+  "status": "complete",
+  "scope": "Read-only native proposal; root verified source/test guards and observed owned CI metadata, no tests/services/decryption by reviewer.",
+  "findings": [
+    "Historical selection forces historical_log_capture_coverage and preserves partial package even with complete resource census.",
+    "Fixture closure via scoped reviewed census exists; it does not establish coverage of 23 legacy captures.",
+    "Dependency/provenance matrix relating legacy producer/runtime/DB/imports to target scenario is missing."
+  ],
+  "root_evidence": [
+    "apps/safety/rights_access_delivery.py log_records and package pending propagation",
+    "tests/test_rights_access_coverage_store.py fixture closure and historical full-close rejection",
+    "cr09-escenario-actual-procedencia-20261014.json",
+    "cr09-historicos-dependencias-matriz-20261014.json"
+  ],
+  "recommendation": "Preserve required unknowns. Classify dependencies using new producer/runtime/import evidence before any historical re-read or exclusion.",
+  "new_claude_invocations": 0,
+  "acceptance": false
+}

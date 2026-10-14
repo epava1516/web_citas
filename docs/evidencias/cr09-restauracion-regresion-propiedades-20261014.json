@@ -1,0 +1,37 @@
+{
+  "run": "20261014-004012-e8dd0ef9",
+  "case": {
+    "classname": "tests.test_recovery_pg_restore",
+    "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data",
+    "file": "tests/test_recovery_pg_restore.py",
+    "line": "165",
+    "time": "14.598"
+  },
+  "properties": {
+    "independent_authority_verified": "True",
+    "wrong_authority_rejected_without_effects": "True",
+    "real_restore": "True",
+    "effects_applied": "True",
+    "media_deleted": "True",
+    "peer_preserved": "True",
+    "old_session_rejected": "True",
+    "replay_idempotent": "True",
+    "publication_authorized": "False",
+    "backup_bytes": "1051871",
+    "backup_sha256": "bf499263151557afdfbdcf7f3b9a038ea85fbd1e73ec3e03b89e48822c16b2ac",
+    "backup_cutoff_unix": "1791943365.9607553",
+    "backup_media_manifest": "{\"derivatives/24c87e40-e0e8-4246-8bb0-dbae5f49fe9a.webp\": \"a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96\", \"derivatives/6e73cffc-2382-4fb5-885b-9e5d6deb78de.webp\": \"744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378\", \"derivatives/989b772f-ac4d-4bee-b065-535a5df474e9.webp\": \"a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d\", \"derivatives/e7cd258c-4a0f-439c-8bd0-84450e574d3f.webp\": \"31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05\", \"originals/14b1a629-0f32-4952-b46a-86fdcb186e61\": \"1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee\", \"originals/3f8cb743-43d1-4e9c-891b-8d249ffcef08\": \"b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643\", \"originals/c610874b-1c78-41a1-a9dd-506cb2bf26e7\": \"99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f\", \"originals/cb4f343f-b663-4bf8-84f6-5756d3d46513\": \"17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31\"}",
+    "media_manifest_sha256": "d09a69058bc4e27c4d45aab0daaedea37931f0c02cbe1eb7c8982b51509f6f69",
+    "restored_media_integrity_verified": "True",
+    "backup_seconds": "0.9016602509655058",
+    "restore_and_reconcile_seconds": "5.129507052246481",
+    "backup_age_upper_bound_seconds": "7.02110481262207",
+    "mod05_stale_state_invalidated": "True",
+    "mod05_restored_triggers_active": "True",
+    "mod05_required_refresh_command_verified": "True",
+    "restored_database_name": "recovery_restore_bdef42a98624",
+    "restored_database_removed": "True"
+  },
+  "source": "tests/test_recovery_pg_restore.py",
+  "scope": "Real owned PG/media restore with synthetic independent checkpoint. Not production RPO/RTO, nor whole CR09 acceptance."
+}

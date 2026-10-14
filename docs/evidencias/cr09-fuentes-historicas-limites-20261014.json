@@ -1,0 +1,51 @@
+{
+  "evidence_reused": {
+    "logs-historicos-inventario0110.json": {
+      "unique_origins": 22,
+      "declared_sources_inventoried": true,
+      "subject_association_verified": false,
+      "partial": true,
+      "phase_accepted": false,
+      "pending": [
+        "capture_metadata_and_original_content_validation",
+        "historical_content_differences_and_subject_association",
+        "independent_disclosure_review",
+        "other_retained_host_mail_cache_backup_sources",
+        "retention_authority"
+      ]
+    },
+    "logs-historicos-contenido0110.json": {
+      "sources": 22,
+      "partial": true,
+      "phase_accepted": false,
+      "pending": [
+        "subject_association_and_content_differences",
+        "independent_disclosure_review",
+        "other_host_mail_backup_sources",
+        "retention_authority"
+      ],
+      "original_sources_preserved": true
+    },
+    "logs-historicos-formatos0110.json": {
+      "sources": 23,
+      "subject_association_verified": false,
+      "partial": true,
+      "phase_accepted": false,
+      "pending": [
+        "structured_format_does_not_accredit_subject_or_disclosure",
+        "unstructured_or_unknown_content_association_and_accounting",
+        "other_host_mail_cache_backup_sources",
+        "retention_authority_and_independent_custody"
+      ],
+      "classes": {
+        "unstructured_or_unrecognized": 238684,
+        "empty_payload": 322,
+        "json_object_without_subject_protocol": 473
+      },
+      "console_mime": {},
+      "sources_preserved": true
+    }
+  },
+  "decision": "Historical subject association remains unproven; preserve pending coverage. Do not infer it from UUIDs, equality, substrings, or passing parser tests. Do not reread retained originals without new provenance.",
+  "global_acceptance": false
+}

@@ -1,0 +1,36 @@
+{
+  "observed_at": "2026-10-14T08:14:02.352566+00:00",
+  "run_id": "20261014-081348-78888303",
+  "runner": {
+    "id": "20261014-081348-78888303",
+    "pid": 1536974,
+    "start_ticks": 368623793,
+    "command": [
+      "artifacts/vps-preparation/cr09-regression-part-3/run.py",
+      "--profile",
+      "regression",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "21600"
+    ],
+    "head": "8ebacc39b1c5b82164b489820428aff1556d029f",
+    "containers": [
+      "web-modelos-ci-pg-20261014-081348-78888303",
+      "web-modelos-ci-redis-20261014-081348-78888303"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-081348-78888303",
+    "temporary": "/tmp/web-modelos-local-ci-omj5edsl",
+    "child": {
+      "pid": 1538170,
+      "start_ticks": 368624640,
+      "step": "native-build"
+    }
+  },
+  "runner_alive_verified": true,
+  "head": "8ebacc39b1c5b82164b489820428aff1556d029f",
+  "unit": "web-modelos-cr09-corrected-part3-repeat.service",
+  "global_acceptance": false
+}

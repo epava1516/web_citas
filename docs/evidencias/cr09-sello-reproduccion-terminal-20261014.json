@@ -1,0 +1,33 @@
+{
+  "run_id": "20261014-095941-a879ffc0",
+  "result": "PASS",
+  "head": "8ebacc39b1c5b82164b489820428aff1556d029f",
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "57.879",
+      "timestamp": "2026-10-14T12:00:00.743563+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-095941-a879ffc0": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-095941-a879ffc0": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "selection": [
+    "tests/test_rights_enforced_validation_seal.py::test_current_tamper_acl_or_proof_expiry_cannot_use_enforced_seal[proof_expiry]"
+  ]
+}

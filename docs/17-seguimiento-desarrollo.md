@@ -1412,3 +1412,122 @@ Pendientes: ejecución integrada, requisitos de omisiones/exclusiones y auditor�
 
 
 CR09, corrección adicional: 20261013-222009-b0492fbe terminó negativo (30 PASS, 1 FAIL) por rechazo inicial de base ocupada. Control real negativo 20261013-222524-344afb96 conservado. c3fd1b0 aplica espera natural máxima de un segundo compartida por guarda y limpieza; mantiene rechazo de conexión persistente sin terminar procesos. 4 PASS aislados y 4 PASS integrados 20261013-222945-b5e9a950, limpieza e integridad confirmadas. Pendiente regresión común sobre versión corregida, omisiones/exclusiones y auditoría contractual. No aceptación CR09/N3.
+
+
+### CR09 — resultados terminales y diagnóstico del sello, 2026-10-14
+
+| Bloque corregido | SHA | PASS | FAIL | ERROR | SKIP | Resultado oficial |
+|---|---|---:|---:|---:|---:|---|
+| 1, repetición | 9b0353f | 808 | 0 | 0 | 3 | PASS |
+| 2 | 9b0353f | 681 | 0 | 0 | 3 | PASS |
+| 3, repetición | 8ebacc3 | 846 | 1 | 0 | 6 | ERROR |
+| 4 | 9b0353f | 869 | 0 | 0 | 3 | PASS |
+
+Conteos distintos, sin sumar subpruebas JUnit del bloque 2. Fuentes intactas y
+limpieza PG/Redis verificadas en los resultados terminales de cada bloque.
+La primera ejecución corregida del bloque 1 sigue INVALID por un recibo creado
+fuera de docs; su repetición válida no elimina esa evidencia negativa.
+El primer bloque 3 negativo conserva 823 PASS, 2 FAIL, 22 ERROR y 6 SKIP.
+La repetición confirma corregida la sincronización de recarga ES/EN y disponible
+la imagen RustFS exacta; queda un fallo de reutilización del sello antes de
+alterar la caducidad del comprobante. El caso aislado pasó y el diagnóstico de
+seis casos pasó (158,750 s), sin demostrar corrección del fallo completo.
+
+79db964 incorpora observación de entradas y huellas del sello en la prueba,
+sin modificar validación ni respuestas. El bloque 3 diagnóstico
+20261014-100901-11fd8ef6 está iniciado, pendiente de resultado terminal.
+[Diagnóstico y límites](evidencias/cr09-sello-diagnostico-20261014.md).
+
+Cola concreta: resolver o explicar el fallo del sello con evidencia del bloque
+completo; verificar las tres pruebas de snapshot mediante opt-in propio;
+reconciliar las exclusiones de carga/historial/TCP y omisiones de perfiles
+especiales con las evidencias contractuales. Diagnósticos opt-in no equivalen
+a requisitos funcionales omitidos; la cobertura Client 10.000 no prueba TCP.
+Después consolidar requisito→versión→prueba→evidencia y N3 de versión común,
+y continuar CR10→GS01→BF/BB→C. CR09 sigue abierto; sin cambio de porcentaje
+ni nueva aceptación global, p95 o N3 por sumar estas ejecuciones.
+
+
+Auditoría parcial CR09 2026-10-14: restauración PG/medios del bloque 2 contiene
+propiedades JUnit verificadas (reconciliación 5,129507 s, antigüedad de backup
+7,021105 s, retirada de base confirmada); urgencias ES/EN y 12 revocaciones
+pasaron, con resolución automatizada 0,894869/1,051245 s frente al plazo
+sintético 300 s. No RPO/RTO productivos ni SLA humano. Buzón real local verifica
+lectura auditada, acuse exacto, privacidad y autoridad vigente; adapters externos
+siguen explícitamente simulados. Véanse auditorías de restauración/comunicaciones
+y urgencias 20261014 en docs/evidencias.
+
+Pendiente concreto adicional: inventarios históricos de logs conservan
+subject_association_verified=false; el diagnóstico final comprende 23 fuentes,
+238.684 observaciones no estructuradas, 473 JSON sin protocolo de sujeto y
+322 vacías. Inventario y PASS de parsers no acreditan asociación/divulgación.
+No releer originales sin procedencia nueva ni inferir pertenencia por UUID,
+substrings, igualdad de copias o conteos. Este alcance debe reconciliarse con
+el escenario local requerido antes de aceptar la fila de recursos y CR09;
+no se convierte toda la operación de un host ajeno en requisito local.
+[Evidencia de límites](evidencias/cr09-fuentes-historicas-limites-20261014.json).
+
+Comparación contra cinco manifiestos iniciales: 541 archivos de apps/config/
+scripts/dependencias/contendor coinciden byte a byte con el runtime actual.
+Los dos cambios de pruebas siguen identificados y requieren su evidencia;
+la igualdad de runtime no declara por sí sola N3 de versión común.
+
+
+Actualización intermedia 2026-10-14: los seis casos de
+`test_rights_enforced_validation_seal.py` completaron setup/call/teardown PASS
+en el bloque 3 diagnóstico 20261014-100901-11fd8ef6, incluido proof_expiry
+que falló en la repetición anterior. [Reports exactos](evidencias/cr09-sello-bloque3-diagnostico-casos-20261014.json).
+No se aplicó corrección a validación; el fallo previo sigue conservado y su
+causa no está atribuida. La hipótesis de orden no se declara demostrada por
+un PASS. Batería completa todavía viva; resultado, integridad y limpieza
+terminales pendientes. No aceptar CR09/N3 desde esta selección parcial.
+
+
+Bloque 3 diagnóstico TERMINAL PASS: 20261014-100901-11fd8ef6, 79db964,
+853 casos distintos: 847 PASS, 0 FAIL, 0 ERROR, 6 SKIP; JUnit 6285,503 s.
+Fuentes intactas, retirada PG/Redis verificada por runner e inspección posterior.
+[Evidencia terminal](evidencias/cr09-parte3-diagnostico-terminal-20261014.json).
+Auxiliar de registro falló por comparación sensible a mayúsculas del mensaje
+Docker; no por contenedor restante. Corregido y revalidado sin reiniciar batería.
+El fallo anterior del sello se conserva; no se aplicó correctiva de aplicación
+ni se declara su causa resuelta. Los cuatro bloques tienen resultados positivos
+pertinentes, con versiones distintas identificadas; no N3 común ni aceptación
+CR09 por sumarlos. Cola contractual y omisiones siguen pendientes.
+
+Siguiente comprobación: candidata aislada c80dd2c del broker CI,
+20 controles unitarios y test_directory_snapshot.py con --fixture-snapshots,
+focused/1 worker, PG/Redis propios, afinidad0–3, MemoryMax3584M/swap0/Tasks512,
+PG1CPU/1536M, Redis0,2CPU/128M, native source /tmp/web-modelos-librdb-v2.4.0.
+Preparada en el recibo de candidata antes del arranque; registro central
+completado después de subsanar el auxiliar de escritura. Run
+20261014-115716-db45ce8a iniciado, resultado terminal aún pendiente.
+Salida exigida: controles necesarios sin SKIP, fuentes congeladas y limpieza.
+Mocks no son prueba de servicios. Después gate functional HTTP
+normal_worker_beat para broker/procesos/limpieza y carga pertinente secuencial
+con criterios originales. Sin aceptación de fase ni nuevo p95 por estos tests.
+
+
+Candidata broker/snapshots N2 pertinente: 20261014-115716-db45ce8a c80dd2c,
+30 PASS/0 FAIL/0 ERROR/0 SKIP, JUnit54,427s. Fuentes congeladas y retirada
+PG/Redis verificada por runner e inspección posterior. [Resultado](evidencias/cr09-broker-snapshots-terminal-20261014.json).
+20 controles broker/CLI usan dobles; los tres opt-in de snapshot sí verifican
+PG/medios reales propios. No llamar worker/Beat real al mock.
+
+Siguiente gate registrado antes de arranque: c80dd2c, focused1,
+test_contract_http_load[functional], --benchmark-normal-refresh y
+--benchmark-generator-freeze, mismo ejecutor limitado/PG/Redis/native source.
+Salida: generador válido, HTTP/archivo funcional, worker/Beat propios,
+broker efímero identidad/puerto comprobados, procesos y recursos retirados,
+fuentes intactas. No p95 contractual ni aceptación N3 desde functional.
+Si falla, conservar terminal y diagnosticar por separado antes de repetir.
+
+
+Gate functional normal TERMINAL PASS:20261014-120145-d70afdcb c80dd2c,
+1PASS/0omisiones, JUnit86,096s. Flags explícitos normal refresh/GC cliente,
+worker/Beat reales, Redis de ejecución efímero, PG propio. Artefacto confirma
+Gunicorn/worker/Beat detenidos, todos los PIDs de Celery ausentes, broker propio
+vacío; inspección posterior confirma contenedores retirados. Fuentes intactas.
+[Resultado y límites](evidencias/cr09-broker-normal-functional-terminal-20261014.json).
+Se verifica candidata para integración local de harness; no capacidad contractual,
+N3 ni aceptación CR09 por este functional. Carga pertinente siguiente mantiene
+criterios y recursos originales y se ejecuta secuencialmente sin perfiladores.

@@ -1,0 +1,34 @@
+{
+  "run": "20261014-004012-e8dd0ef9",
+  "cases": [
+    {
+      "case": {
+        "classname": "tests.test_urgent_report_drill",
+        "name": "test_urgent_owner_revocation_escalates_to_authorized_substitute[es]",
+        "file": "tests/test_urgent_report_drill.py",
+        "line": "19",
+        "time": "6.653"
+      },
+      "properties": {
+        "synthetic_deadline_seconds": "300",
+        "observed_resolution_seconds": "0.894869",
+        "internal_queue_chronology": "[{\"stage\": \"received\", \"at\": \"2026-10-14T02:44:18.212180+00:00\"}, {\"stage\": \"acknowledged\", \"at\": \"2026-10-14T02:44:18.328095+00:00\"}, {\"stage\": \"primary_assigned\", \"at\": \"2026-10-14T02:44:18.462047+00:00\"}, {\"stage\": \"primary_revoked\", \"at\": \"2026-10-14T02:44:18.468580+00:00\"}, {\"stage\": \"escalated_unassigned\", \"at\": \"2026-10-14T02:44:18.737182+00:00\"}, {\"stage\": \"substitute_assigned\", \"at\": \"2026-10-14T02:44:18.848670+00:00\"}, {\"stage\": \"evidence_read\", \"at\": \"2026-10-14T02:44:18.962999+00:00\"}, {\"stage\": \"resolved\", \"at\": \"2026-10-14T02:44:19.035971+00:00\"}]"
+      }
+    },
+    {
+      "case": {
+        "classname": "tests.test_urgent_report_drill",
+        "name": "test_urgent_owner_revocation_escalates_to_authorized_substitute[en]",
+        "file": "tests/test_urgent_report_drill.py",
+        "line": "19",
+        "time": "6.680"
+      },
+      "properties": {
+        "synthetic_deadline_seconds": "300",
+        "observed_resolution_seconds": "1.051245",
+        "internal_queue_chronology": "[{\"stage\": \"received\", \"at\": \"2026-10-14T02:44:24.681110+00:00\"}, {\"stage\": \"acknowledged\", \"at\": \"2026-10-14T02:44:24.849418+00:00\"}, {\"stage\": \"primary_assigned\", \"at\": \"2026-10-14T02:44:25.008158+00:00\"}, {\"stage\": \"primary_revoked\", \"at\": \"2026-10-14T02:44:25.014295+00:00\"}, {\"stage\": \"escalated_unassigned\", \"at\": \"2026-10-14T02:44:25.288712+00:00\"}, {\"stage\": \"substitute_assigned\", \"at\": \"2026-10-14T02:44:25.402143+00:00\"}, {\"stage\": \"evidence_read\", \"at\": \"2026-10-14T02:44:25.531843+00:00\"}, {\"stage\": \"resolved\", \"at\": \"2026-10-14T02:44:25.645236+00:00\"}]"
+      }
+    }
+  ],
+  "scope": "Synthetic local HTTP escalation and actual application authority checks. Not human SLA or external delivery."
+}

@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-10-14T06:23:53.322482+00:00",
+  "source": "tests/test_promotion_catalog_localization.py",
+  "source_sha256": "dfb5e2219e87f7e18e12ebf08c66dfec85edbff5f2162995a39ff2344bed1964",
+  "verified_pattern": "Release configuration click immediately followed by page.reload before release-button absence assertion",
+  "hypothesis": "Reload may overlap the publication navigation; not yet proven for these failures",
+  "next_diagnostic": "After current frozen regression terminates, reproduce both languages in isolated PostgreSQL/browser gate; inspect navigation completion and verify publication state before true reload",
+  "acceptance_invariants": [
+    "Actual browser reload retained",
+    "Published version current and not sellable",
+    "Amount remains None",
+    "English name preserved",
+    "Both es and en verified"
+  ],
+  "changes_applied": false,
+  "current_regression_unchanged": true,
+  "reference_has_pre_reload_wait": true
+}

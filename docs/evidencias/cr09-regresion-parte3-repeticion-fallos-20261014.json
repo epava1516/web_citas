@@ -1,0 +1,12 @@
+{
+  "run_id": "20261014-081348-78888303",
+  "reports": [
+    {
+      "nodeid": "tests/test_rights_enforced_validation_seal.py::test_current_tamper_acl_or_proof_expiry_cannot_use_enforced_seal[proof_expiry]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 19.368853881955147,
+      "longrepr": "tests/test_rights_enforced_validation_seal.py:136: in test_current_tamper_acl_or_proof_expiry_cannot_use_enforced_seal\n    warm(case, author, export, states, calls)\ntests/test_rights_enforced_validation_seal.py:99: in warm\n    assert check(case, author, export) is True\nE   assert False is True\nE    +  where False = check(<RightsRequest: RightsRequest object (03604471-bb7e-451a-9f62-710e00ddf1dc)>, <User: fixture-v1-moderator>, <RightsExport: RightsExport object (344197ef-ef15-4f34-aa81-b6b91c158d41)>)"
+    }
+  ]
+}

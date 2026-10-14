@@ -1,0 +1,51 @@
+{
+  "id": "20261014-004012-e8dd0ef9",
+  "result": "PASS",
+  "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-004012-e8dd0ef9": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-004012-e8dd0ef9": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "3",
+      "tests": "688",
+      "time": "7514.512",
+      "timestamp": "2026-10-14T02:40:33.042235+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [
+    {
+      "case": "test_snapshot_restores_mutated_database_and_media",
+      "reason": "Requires explicit disposable local CI fixture-snapshot environment"
+    },
+    {
+      "case": "test_preexisting_test_setup_is_preserved_instead_of_restoring",
+      "reason": "Requires explicit disposable local CI fixture-snapshot environment"
+    },
+    {
+      "case": "test_occupied_database_falls_back_to_real_seed_without_terminating",
+      "reason": "Requires explicit disposable local CI fixture-snapshot environment"
+    }
+  ],
+  "distinct_counts": {
+    "total": 684,
+    "passed": 681,
+    "failed": 0,
+    "skipped": 3
+  },
+  "result_sha256": "90333096449f212610dada4452980c8380090a69ecac761a2faec5562fc2e161"
+}

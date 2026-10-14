@@ -1,0 +1,19 @@
+{
+  "source_sha": "9b0353f",
+  "status": "Preparation only; no concurrent tests",
+  "items": [
+    {
+      "cases": "tests/test_directory_snapshot.py (three previously skipped cases)",
+      "activation": "Official run_local_ci --profile focused --fixture-snapshots --test tests/test_directory_snapshot.py",
+      "purpose": "Real PostgreSQL/media fixture restore, preservation of existing setup and occupied database fallback",
+      "next": "Separate sequential focused verification after active regression ends."
+    },
+    {
+      "case": "tests/test_publication_route_coverage.py::test_route_coverage_matrix",
+      "activation": "ROUTE_COVERAGE_OUTPUT (filtered by normal runner; isolated diagnostic adapter required if applicable)",
+      "purpose": "In-process 10000-listing route/native equivalence and costs, explicitly not TCP/capacity",
+      "next": "Reconcile with already accepted MOD-04 evidence before deciding a rerun; SKIP cannot support acceptance."
+    }
+  ],
+  "scope": "Audit preparation; no omitted case relabeled PASS; does not reopen accepted capacity objectives."
+}

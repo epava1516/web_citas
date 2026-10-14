@@ -1,0 +1,37 @@
+{
+  "source": "apps/safety/evidence_chain.py",
+  "queries": [
+    {
+      "line": 128,
+      "sql": "SELECT relname, pg_get_userbyid(relowner), has_table_privilege(current_user,oid,'UPDATE'), has_table_privilege(current_user,oid,'DELETE'), has_table_privilege(current_user,oid,'TRUNCATE') FROM pg_class WHERE relnamespace='public'::regnamespace AND relname=ANY(%s)",
+      "has_explicit_order": false
+    },
+    {
+      "line": 139,
+      "sql": "SELECT c.relname,a.attname FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid WHERE c.relnamespace='public'::regnamespace AND c.relname=ANY(%s) AND a.attnum>0 AND NOT a.attisdropped AND has_column_privilege(current_user,c.oid,a.attnum,'UPDATE')",
+      "has_explicit_order": false
+    },
+    {
+      "line": 158,
+      "sql": "SELECT pg_has_role(current_user,pg_get_userbyid(relowner),'MEMBER') FROM pg_class WHERE oid='public.safety_rightsaction'::regclass",
+      "has_explicit_order": false
+    },
+    {
+      "line": 164,
+      "sql": "SELECT p.proname,t.tgenabled,p.prosecdef,p.pronamespace='public'::regnamespace FROM pg_trigger t JOIN pg_proc p ON p.oid=t.tgfoid WHERE t.tgrelid='public.safety_rightsaction'::regclass AND t.tgname='rights_evidence_action_scope'",
+      "has_explicit_order": false
+    },
+    {
+      "line": 172,
+      "sql": "SELECT c.relname,t.tgname,p.proname,t.tgenabled,p.prosecdef,p.pronamespace='public'::regnamespace FROM pg_trigger t JOIN pg_proc p ON p.oid=t.tgfoid JOIN pg_class c ON c.oid=t.tgrelid WHERE c.relnamespace='public'::regnamespace AND c.relname=ANY(%s) AND NOT t.tgisinternal",
+      "has_explicit_order": false
+    }
+  ],
+  "finding": "Some catalogue result sets have no explicit row ordering although the seal digest records row order. Trust checks consume tables/triggers as sets or dictionaries; planner row-order drift could decline a valid seal and fall back to full validation.",
+  "status": "Hypothesis only; no runtime mismatch attributed, no application correction applied. Await full-block diagnostic before targeted diagnosis.",
+  "primary_reference": {
+    "url": "https://www.postgresql.org/docs/17/queries-order.html",
+    "verified_claim": "Without explicit sorting, result ordering is unspecified and depends on scan/join plans and disk order.",
+    "limit": "This supports the possible mechanism; it does not prove the cause of the recorded full-block failure."
+  }
+}

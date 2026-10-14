@@ -1,0 +1,48 @@
+{
+  "id": "20261014-115716-db45ce8a",
+  "head": "c80dd2c18b258392ed04efa0da16b60c3a927381",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-115716-db45ce8a": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-115716-db45ce8a": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "30",
+      "time": "54.427",
+      "timestamp": "2026-10-14T13:57:40.482702+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [],
+  "fixture_snapshots": true,
+  "selection": [
+    "tests/test_benchmark_owned_redis.py",
+    "tests/test_directory_snapshot.py"
+  ],
+  "independent_cleanup_recheck": {
+    "web-modelos-ci-pg-20261014-115716-db45ce8a": {
+      "absent": true,
+      "exit": 1
+    },
+    "web-modelos-ci-redis-20261014-115716-db45ce8a": {
+      "absent": true,
+      "exit": 1
+    }
+  },
+  "observed_at": "2026-10-14T12:01:44.400943+00:00",
+  "scope": "20 broker/CLI unit controls with doubles and10 snapshot tests, including three actual owned PG/media opt-in controls. Not actual HTTP worker/Beat or N3 acceptance."
+}

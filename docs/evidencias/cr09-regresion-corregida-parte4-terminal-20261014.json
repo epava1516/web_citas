@@ -1,0 +1,45 @@
+{
+  "id": "20261014-043416-8212d054",
+  "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-043416-8212d054": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-043416-8212d054": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "3",
+      "tests": "872",
+      "time": "5158.832",
+      "timestamp": "2026-10-14T06:34:36.556357+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [
+    {
+      "case": "test_owned_native_reconnect_probe",
+      "reason": "Requires owned native diagnostic controller"
+    },
+    {
+      "case": "test_target_selection_page_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "case": "test_route_coverage_matrix",
+      "reason": "Explicit coverage run only"
+    }
+  ],
+  "error": null
+}

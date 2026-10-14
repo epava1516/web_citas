@@ -1,0 +1,15 @@
+{
+  "agent": "/root/owned_broker_review",
+  "role": "adversarial-review",
+  "base": "79db964",
+  "candidate": "0045214",
+  "worktree": "/home/felidae/proyectos/web_modelos_cr09_load_owned",
+  "owned_files": [
+    "scripts/run_local_ci.py",
+    "tests/test_worker_capacity_comparison.py",
+    "tests/test_benchmark_owned_redis.py"
+  ],
+  "scope": "Native read-only review; no edits, tests, services, external invocations or acceptance. Root independently verifies findings.",
+  "contract": "AI_ENGINEERING1.0.1 read in full before delegation; project later authorization uses native agents, not Claude V1.",
+  "claude_invocations_added": 0
+}

@@ -854,3 +854,18 @@ siguen fuera del remoto. Consumo y trabajo previos conservados.
 
 
 2026-10-13: Codex conserva regresión terminal 5b803f6 (3217 casos, 3 fallos, 15 omisiones) e integra 5a630c7 tras 31 PASS aislados. Diagnósticos y negativos preservados en docs/evidencias; sin nuevas invocaciones Claude ni consumo externo declarado. Pendientes verificación integrada y criterios CR09→CR10→GS01→BF/BB→C.
+
+
+2026-10-14 Codex: cuatro particiones con resultados positivos pertinentes
+(1/2/4 9b0353f, 3 diagnóstico79db964); no suma de versiones como N3.
+Bloque3 final847PASS/0FAIL/0ERROR/6SKIP, fuentes intactas y limpieza.
+Fallo previo del sello preservado, no causa atribuida ni correctiva de app.
+Candidata aislada brokerc80dd2c:30PASS sin omisiones (20guardas unitarias y
+snapshot10), functional HTTP1PASS con worker/Beat/Redis efímero reales y limpieza.
+Dos tareas nuevas de revisión nativa sobre broker y alcance histórico, sólo
+lectura, mismo agente; cero invocaciones Claude externas nuevas y consumo previo
+intacto. Propuestas verificadas por fuentes, no usadas como PASS de servicios.
+Auxiliar de registro de limpieza sensible a mayúsculas falló, corregido; ambos
+contenedores ausentes. Pendientes: integración de harness verificado, carga
+pertinente/N3 común, matriz de dependencias históricos y CR09→CR10→GS01→BF/BB→C.
+No pagos, publicación, datos reales, proveedores ni cambios de servicios normales.

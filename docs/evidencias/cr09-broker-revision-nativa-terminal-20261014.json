@@ -1,0 +1,19 @@
+{
+  "agent": "/root/owned_broker_review",
+  "candidate_reviewed": "0045214",
+  "status": "review_complete",
+  "blocking_findings": [],
+  "files_changed": [],
+  "tests_run": [],
+  "scope": "Native read-only review, not Claude V1 or actual-services acceptance.",
+  "recommendations": [
+    "Check runner environment propagation and broker/process cleanup in real functional HTTP gate.",
+    "Negative CLI selection controls before services."
+  ],
+  "root_verified": [
+    "owned_redis validation before worker Popen",
+    "same helper before broker cleanup",
+    "run/port/label passed explicitly from sanitized runner environment"
+  ],
+  "followup": "0f97ef8 adds seven negative CLI controls; Ruff passed, pytest pending. Full block 3 still running on 79db964."
+}

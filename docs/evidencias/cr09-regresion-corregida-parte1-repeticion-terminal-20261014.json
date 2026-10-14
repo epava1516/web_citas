@@ -1,0 +1,49 @@
+{
+  "observed_at": "2026-10-14T08:07:29.557386+00:00",
+  "run_id": "20261014-060122-dbd4addb",
+  "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+  "official_result": "PASS",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-060122-dbd4addb": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-060122-dbd4addb": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "3",
+      "tests": "811",
+      "time": "7516.467",
+      "timestamp": "2026-10-14T08:01:41.246554+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [
+    {
+      "case": "test_owned_target_stage_profiles",
+      "reason": "Requires owned capacity runner diagnostic profile mode"
+    },
+    {
+      "case": "test_owned_object_proxy_and_purge_worker_gate",
+      "reason": "Requires owned capacity runner preflight mode"
+    },
+    {
+      "case": "test_worker_capacity_comparison",
+      "reason": "Explicit authorized owned experiment only"
+    }
+  ],
+  "owned_container_recheck": {
+    "web-modelos-ci-pg-20261014-060122-dbd4addb": 1,
+    "web-modelos-ci-redis-20261014-060122-dbd4addb": 1
+  }
+}

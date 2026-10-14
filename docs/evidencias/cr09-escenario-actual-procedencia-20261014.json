@@ -1,0 +1,66 @@
+{
+  "observed_at": "2026-10-14T11:32:49.658722+00:00",
+  "run": "20261014-100901-11fd8ef6",
+  "head": "79db96478f509ac5eb3f5163d4ab430cf9868dc6",
+  "temporary": "/tmp/web-modelos-local-ci-iksuxmrw",
+  "services": [
+    {
+      "name": "web-modelos-ci-pg-20261014-100901-11fd8ef6",
+      "id": "77058b4b889cdcce4a99d1d78dcdef37635e79fb73a368b69d42442808920e77",
+      "created": "2026-10-14T10:09:02.000785859Z",
+      "image_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+      "image_reference": "postgres:17-alpine",
+      "running": true,
+      "ports": {
+        "5432/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "33400"
+          }
+        ]
+      },
+      "labels": {
+        "web-modelos-local-ci-run": "20261014-100901-11fd8ef6"
+      },
+      "mounts": []
+    },
+    {
+      "name": "web-modelos-ci-redis-20261014-100901-11fd8ef6",
+      "id": "dd6d5b33843d6a4e5862a8489f3bbd61b559a4a4df8a476caefa39f8175f45d9",
+      "created": "2026-10-14T10:09:04.103276027Z",
+      "image_id": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+      "image_reference": "redis:7.4-alpine",
+      "running": true,
+      "ports": {
+        "6379/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "33401"
+          }
+        ]
+      },
+      "labels": {
+        "web-modelos-local-ci-run": "20261014-100901-11fd8ef6"
+      },
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/data"
+        }
+      ]
+    }
+  ],
+  "runner_child_environment": {
+    "LOCAL_CI_POSTGRES_CONTAINER": "web-modelos-ci-pg-20261014-100901-11fd8ef6",
+    "REDIS_URL": "redis://127.0.0.1:33401/0",
+    "DJANGO_SETTINGS_MODULE": "local_ci_settings",
+    "PYTHONPATH": "/tmp/web-modelos-local-ci-iksuxmrw:/home/felidae/proyectos/web_modelos_mod08_vps"
+  },
+  "origin_variables_present_in_child_environment": {
+    "ACCESS_LOG_ORIGIN_BUNDLE": false,
+    "ACCESS_RESOURCE_ORIGIN_BUNDLE": false,
+    "ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE": false
+  },
+  "root_dotenv_exists": false,
+  "scope": "Observed owned CI resources and startup environment only. Individual tests can override settings and create synthetic historical fixtures. Does not prove absence of all dependencies or association of legacy captures."
+}

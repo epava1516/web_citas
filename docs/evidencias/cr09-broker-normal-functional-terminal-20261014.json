@@ -1,0 +1,71 @@
+{
+  "id": "20261014-120145-d70afdcb",
+  "head": "c80dd2c18b258392ed04efa0da16b60c3a927381",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-120145-d70afdcb": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-120145-d70afdcb": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "86.096",
+      "timestamp": "2026-10-14T14:02:03.164095+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [],
+  "benchmark_normal_refresh": true,
+  "benchmark_generator_freeze": true,
+  "independent_cleanup_recheck": {
+    "web-modelos-ci-pg-20261014-120145-d70afdcb": {
+      "absent": true,
+      "exit": 1
+    },
+    "web-modelos-ci-redis-20261014-120145-d70afdcb": {
+      "absent": true,
+      "exit": 1
+    }
+  },
+  "runtime_summary": {
+    "refresh_mode": "normal_worker_beat",
+    "scope": "Synthetic local server capacity; external production/identity/CDN excluded. Owned Celery worker (concurrency 2) and Beat as deployed; upload processing and MOD05 refresh in the worker.",
+    "verdict": "FAIL",
+    "invalid_reasons": [],
+    "counts": {
+      "scheduled": 60,
+      "emitted": 60,
+      "not_emitted": 0,
+      "successful": 60,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "gunicorn_stopped": true,
+    "celery_worker_stopped": true,
+    "celery_beat_stopped": true,
+    "celery_pid_absence": {
+      "3258392": true,
+      "3258621": true,
+      "3258680": true,
+      "3258393": true
+    },
+    "owned_redis_empty": true
+  },
+  "scope": "Actual owned worker/Beat, HTTP functional calibration and broker cleanup; not contractual capacity or whole N3."
+}

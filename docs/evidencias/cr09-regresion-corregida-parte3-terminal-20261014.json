@@ -1,0 +1,56 @@
+{
+  "run": "20261014-024646-0d6b2a87",
+  "head": "9b0353fc0cd9280faee36d52da597647cd67c8e8",
+  "official_result": "ERROR",
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261014-024646-0d6b2a87": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-024646-0d6b2a87": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "22",
+      "failures": "2",
+      "skipped": "6",
+      "tests": "853",
+      "time": "6349.733",
+      "timestamp": "2026-10-14T04:47:05.412474+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "skipped": [
+    {
+      "case": "test_owned_complete_target_delivery",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "case": "test_owned_professional_probe",
+      "reason": "Requires explicit own professional instrument probe"
+    },
+    {
+      "case": "test_two_target_selection_pages_overlapping_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "case": "test_target_source_cost_attribution",
+      "reason": "Requires owned capacity runner diagnostic profile mode"
+    },
+    {
+      "case": "test_owned_worker_beat_refresh_wiring",
+      "reason": "Explicit owned wiring check only"
+    },
+    {
+      "case": "test_resource_checkpoint",
+      "reason": "Explicit owned resource diagnosis only"
+    }
+  ]
+}
