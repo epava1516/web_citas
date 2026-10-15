@@ -1,6 +1,6 @@
 # Diagnóstico actual: espera acumulada y pico inicial dentro del worker
 
-Run223005-7347b70d, SHA35babb0, producto3ba2ec4, **FAIL185.50s instrumentado**. [Recibo](cr09-query-structure-ingress-terminal-20261015.json). Mismascondiciones nominales/cuotas propias, ingresssinimportshandlers yWSGI/SQL/GC, CPUcgroups1Hz.1200IDs cliente/WSGI/servicio emparejadosexactos,0parseerrors,1200status200,0errores/timeouts/omisiones,1subida302. Fuentes congeladas exactas,10PIDsworker/Celery ausentes yroot/child/temporal/contenedorespropiosretirados; unidadMainPID0/ControlGroupvacío. Consumoobservadores/heapoverhead no cuantificados.
+Run223005-7347b70d, SHA35babb0, producto3ba2ec4, **FAIL185.50s instrumentado**. [Recibo](cr09-query-structure-ingress-terminal-20261015.json). Mismascondiciones nominales/cuotas propias, ingresssinimportshandlers yWSGI/SQL/GC, CPUcgroups1Hz.1200IDs cliente/WSGI/servicio emparejadosexactos,0parseerrors,1200status200,0errores/timeouts/omisiones,1subida302. Fuentes congeladas exactas,7PIDsworker/Celery ausentes yroot/child/temporal/contenedorespropiosretirados; unidadMainPID0/ControlGroupvacío. Consumoobservadores/heapoverhead no cuantificados.
 
 p95instrumentado1.123788s, no ganancia/regresión comparable con limpio1.218890s.152casos>=0.8s:93emitidos0–5s,59entre5–10s,ningunodespués. Workers289/282/319/310requests, cuatroprimerasentradas antes0.102s; no worker ausente durante todoarranque.
 
