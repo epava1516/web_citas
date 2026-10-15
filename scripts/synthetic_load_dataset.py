@@ -73,9 +73,20 @@ def populate(count):
     for listing, revision in zip(listings, revisions, strict=True):
         listing.approved_revision = revision
     Listing.objects.bulk_update(listings, ['approved_revision'], batch_size=250)
+    # This bulk load is still inside its transaction: autovacuum cannot yet
+    # analyze the new rows. Previous small-fixture/flush statistics can choose
+    # pathological joins even for validation of one listing. Keep validation
+    # native, but give its planner statistics for the actual synthetic data.
+    analyzed_tables = ['listings_listing', 'listings_revision', 'mediafiles_photo',
+                       'mediafiles_match', 'safety_rightsrectificationexecution']
+    with connection.cursor() as cursor:
+        for table in analyzed_tables:
+            cursor.execute('ANALYZE ' + connection.ops.quote_name(table))
     assert Listing.objects.filter(status='published').count() == count
     for listing in [baseline, *listings[:1], *listings[-1:]]:
         assert publicly_visible(Listing.objects.select_related('person', 'approved_revision').get(pk=listing.pk))
     return {'published': count, 'synthetic': True, 'shared_synthetic_photo_fixture': True,
+            'planner_statistics': {'method': 'ANALYZE after bulk, before native validation',
+                                   'tables': analyzed_tables, 'scope': 'Owned synthetic preparation only'},
             'sample_ids': [str(listing.pk) for listing in [baseline, *listings[:20]]],
             'limits': 'State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.'}

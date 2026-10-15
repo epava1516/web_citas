@@ -1,0 +1,1336 @@
+{
+  "run_id": "20261015-203639-b60bd9f6",
+  "runner": {
+    "id": "20261015-203639-b60bd9f6",
+    "pid": 2294562,
+    "start_ticks": 381720880,
+    "command": [
+      "artifacts/vps-preparation/cr09-private-guard-20261015/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_publication_page_planning_scope.py",
+      "--test",
+      "tests/test_owned_native_conflict_plan.py",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "600"
+    ],
+    "head": "cdc428f6cd5f6ecab9927d5be630fd1bf3804df1",
+    "containers": [
+      "web-modelos-ci-pg-20261015-203639-b60bd9f6",
+      "web-modelos-ci-redis-20261015-203639-b60bd9f6"
+    ],
+    "label": "web-modelos-local-ci-run=20261015-203639-b60bd9f6",
+    "temporary": "/tmp/web-modelos-local-ci-y50b5b9u",
+    "child": {
+      "pid": 2296738,
+      "start_ticks": 381722628,
+      "step": "pytest"
+    }
+  },
+  "result": "9PASS141.06s",
+  "source_hashes_verified": true,
+  "cleanup_verified": true,
+  "worktree": "/home/felidae/proyectos/web_modelos_cr09_native_prep_repro_20261015",
+  "diagnostic": {
+    "precondition": "Native statistics after original eight controls; no ANALYZE",
+    "initial_estimates": [
+      [
+        "listings_revision",
+        0,
+        1
+      ],
+      [
+        "mediafiles_match",
+        -1,
+        0
+      ],
+      [
+        "mediafiles_photo",
+        0,
+        1
+      ],
+      [
+        "safety_rightsrectificationexecution",
+        -1,
+        0
+      ]
+    ],
+    "queries": [
+      {
+        "fingerprint": "247c8e43f547668c08b2292c52429170fdca8b40f8ccad98539251baf3bc4bfb",
+        "query_bytes": 2676,
+        "parameter_count": 9,
+        "phase": "execute",
+        "outcome": "completed",
+        "settings": {
+          "jit": "on",
+          "join_collapse_limit": "8",
+          "plan_cache_mode": "auto"
+        },
+        "plan": {
+          "Node Type": "Limit",
+          "Total Cost": 39.51,
+          "Plan Rows": 1,
+          "Plans": [
+            {
+              "Node Type": "Nested Loop",
+              "Join Type": "Left",
+              "Total Cost": 65.04,
+              "Plan Rows": 3,
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Join Type": "Left",
+                  "Total Cost": 48.69,
+                  "Plan Rows": 2,
+                  "Plans": [
+                    {
+                      "Node Type": "Nested Loop",
+                      "Join Type": "Inner",
+                      "Total Cost": 40.52,
+                      "Plan Rows": 1,
+                      "Plans": [
+                        {
+                          "Node Type": "Nested Loop",
+                          "Join Type": "Inner",
+                          "Total Cost": 38.5,
+                          "Plan Rows": 1,
+                          "Plans": [
+                            {
+                              "Node Type": "Nested Loop",
+                              "Join Type": "Inner",
+                              "Total Cost": 36.49,
+                              "Plan Rows": 1,
+                              "Plans": [
+                                {
+                                  "Node Type": "Seq Scan",
+                                  "Relation Name": "mediafiles_photo",
+                                  "Total Cost": 13.14,
+                                  "Plan Rows": 1,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Nested Loop",
+                                      "Join Type": "Semi",
+                                      "Total Cost": 12.14,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Nested Loop",
+                                          "Join Type": "Inner",
+                                          "Total Cost": 3.01,
+                                          "Plan Rows": 1,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Seq Scan",
+                                              "Relation Name": "listings_revision",
+                                              "Total Cost": 2.0,
+                                              "Plan Rows": 1
+                                            },
+                                            {
+                                              "Node Type": "Seq Scan",
+                                              "Relation Name": "listings_listing",
+                                              "Total Cost": 1.0,
+                                              "Plan Rows": 1
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Node Type": "Nested Loop",
+                                          "Join Type": "Inner",
+                                          "Total Cost": 9.09,
+                                          "Plan Rows": 2,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Nested Loop",
+                                              "Join Type": "Inner",
+                                              "Total Cost": 8.8,
+                                              "Plan Rows": 1,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Join Type": "Inner",
+                                                  "Total Cost": 8.49,
+                                                  "Plan Rows": 1,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Index Scan",
+                                                      "Index Name": "safety_rightsrectificationproposal_person_id_279c4e80",
+                                                      "Relation Name": "safety_rightsrectificationproposal",
+                                                      "Total Cost": 8.17,
+                                                      "Plan Rows": 1
+                                                    },
+                                                    {
+                                                      "Node Type": "Index Scan",
+                                                      "Index Name": "safety_rightsrectificationreview_proposal_id_key",
+                                                      "Relation Name": "safety_rightsrectificationreview",
+                                                      "Total Cost": 0.32,
+                                                      "Plan Rows": 1
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Node Type": "Index Scan",
+                                                  "Index Name": "safety_rightsrectificationnotification_review_id_key",
+                                                  "Relation Name": "safety_rightsrectificationnotification",
+                                                  "Total Cost": 0.31,
+                                                  "Plan Rows": 1
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Node Type": "Index Scan",
+                                              "Index Name": "safety_rightsrectificationexecution_notification_id_key",
+                                              "Relation Name": "safety_rightsrectificationexecution",
+                                              "Total Cost": 0.29,
+                                              "Plan Rows": 1
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Nested Loop",
+                                  "Join Type": "Inner",
+                                  "Total Cost": 23.34,
+                                  "Plan Rows": 1,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Seq Scan",
+                                      "Relation Name": "mediafiles_photo",
+                                      "Total Cost": 13.14,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Nested Loop",
+                                          "Join Type": "Semi",
+                                          "Total Cost": 12.14,
+                                          "Plan Rows": 1,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Nested Loop",
+                                              "Join Type": "Inner",
+                                              "Total Cost": 3.01,
+                                              "Plan Rows": 1,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Relation Name": "listings_revision",
+                                                  "Total Cost": 2.0,
+                                                  "Plan Rows": 1
+                                                },
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Relation Name": "listings_listing",
+                                                  "Total Cost": 1.0,
+                                                  "Plan Rows": 1
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Node Type": "Nested Loop",
+                                              "Join Type": "Inner",
+                                              "Total Cost": 9.09,
+                                              "Plan Rows": 2,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Join Type": "Inner",
+                                                  "Total Cost": 8.8,
+                                                  "Plan Rows": 1,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Nested Loop",
+                                                      "Join Type": "Inner",
+                                                      "Total Cost": 8.49,
+                                                      "Plan Rows": 1,
+                                                      "Plans": [
+                                                        {
+                                                          "Node Type": "Index Scan",
+                                                          "Index Name": "safety_rightsrectificationproposal_person_id_279c4e80",
+                                                          "Relation Name": "safety_rightsrectificationproposal",
+                                                          "Total Cost": 8.17,
+                                                          "Plan Rows": 1
+                                                        },
+                                                        {
+                                                          "Node Type": "Index Scan",
+                                                          "Index Name": "safety_rightsrectificationreview_proposal_id_key",
+                                                          "Relation Name": "safety_rightsrectificationreview",
+                                                          "Total Cost": 0.32,
+                                                          "Plan Rows": 1
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Node Type": "Index Scan",
+                                                      "Index Name": "safety_rightsrectificationnotification_review_id_key",
+                                                      "Relation Name": "safety_rightsrectificationnotification",
+                                                      "Total Cost": 0.31,
+                                                      "Plan Rows": 1
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Node Type": "Index Scan",
+                                                  "Index Name": "safety_rightsrectificationexecution_notification_id_key",
+                                                  "Relation Name": "safety_rightsrectificationexecution",
+                                                  "Total Cost": 0.29,
+                                                  "Plan Rows": 1
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Index Name": "photo_candidate_once",
+                                      "Relation Name": "mediafiles_match",
+                                      "Total Cost": 10.18,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Seq Scan",
+                                          "Relation Name": "mediafiles_photo",
+                                          "Total Cost": 1.0,
+                                          "Plan Rows": 1
+                                        },
+                                        {
+                                          "Node Type": "Seq Scan",
+                                          "Relation Name": "mediafiles_photo",
+                                          "Total Cost": 1.0,
+                                          "Plan Rows": 1
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Node Type": "Seq Scan",
+                              "Relation Name": "listings_revision",
+                              "Total Cost": 2.0,
+                              "Plan Rows": 1
+                            }
+                          ]
+                        },
+                        {
+                          "Node Type": "Seq Scan",
+                          "Relation Name": "listings_revision",
+                          "Total Cost": 2.0,
+                          "Plan Rows": 1
+                        }
+                      ]
+                    },
+                    {
+                      "Node Type": "Index Scan",
+                      "Index Name": "safety_rightsrectificationphotoupload_photo_id_key",
+                      "Relation Name": "safety_rightsrectificationphotoupload",
+                      "Total Cost": 8.17,
+                      "Plan Rows": 1
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Index Scan",
+                  "Index Name": "safety_rightsrectificationphotoupload_photo_id_key",
+                  "Relation Name": "safety_rightsrectificationphotoupload",
+                  "Total Cost": 8.17,
+                  "Plan Rows": 1
+                }
+              ]
+            }
+          ]
+        },
+        "jit": null,
+        "explain_seconds": 0.008929948322474957,
+        "execute_seconds": 0.005232604220509529
+      },
+      {
+        "fingerprint": "247c8e43f547668c08b2292c52429170fdca8b40f8ccad98539251baf3bc4bfb",
+        "query_bytes": 2676,
+        "parameter_count": 9,
+        "phase": "execute",
+        "outcome": "completed",
+        "settings": {
+          "jit": "on",
+          "join_collapse_limit": "8",
+          "plan_cache_mode": "auto"
+        },
+        "plan": {
+          "Node Type": "Limit",
+          "Total Cost": 3286.76,
+          "Plan Rows": 1,
+          "Plans": [
+            {
+              "Node Type": "Nested Loop",
+              "Join Type": "Left",
+              "Total Cost": 3286.76,
+              "Plan Rows": 1,
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Join Type": "Left",
+                  "Total Cost": 3269.56,
+                  "Plan Rows": 1,
+                  "Plans": [
+                    {
+                      "Node Type": "Nested Loop",
+                      "Join Type": "Inner",
+                      "Total Cost": 3252.36,
+                      "Plan Rows": 1,
+                      "Plans": [
+                        {
+                          "Node Type": "Nested Loop",
+                          "Join Type": "Inner",
+                          "Total Cost": 3251.29,
+                          "Plan Rows": 1,
+                          "Plans": [
+                            {
+                              "Node Type": "Nested Loop",
+                              "Join Type": "Inner",
+                              "Total Cost": 3250.21,
+                              "Plan Rows": 1,
+                              "Plans": [
+                                {
+                                  "Node Type": "Nested Loop",
+                                  "Join Type": "Inner",
+                                  "Total Cost": 1637.49,
+                                  "Plan Rows": 1,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Index Name": "mediafiles_match_candidate_id_b1b623e9",
+                                      "Relation Name": "mediafiles_match",
+                                      "Total Cost": 24.76,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Index Scan",
+                                          "Index Name": "one_blob_per_revision",
+                                          "Relation Name": "mediafiles_photo",
+                                          "Total Cost": 8.3,
+                                          "Plan Rows": 1
+                                        },
+                                        {
+                                          "Node Type": "Index Scan",
+                                          "Index Name": "one_blob_per_revision",
+                                          "Relation Name": "mediafiles_photo",
+                                          "Total Cost": 8.3,
+                                          "Plan Rows": 1
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Index Name": "mediafiles_photo_pkey",
+                                      "Relation Name": "mediafiles_photo",
+                                      "Total Cost": 1612.72,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Hash Join",
+                                          "Join Type": "Semi",
+                                          "Total Cost": 1604.41,
+                                          "Plan Rows": 1,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Hash Join",
+                                              "Join Type": "Inner",
+                                              "Total Cost": 1569.33,
+                                              "Plan Rows": 10002,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Relation Name": "listings_revision",
+                                                  "Total Cost": 1011.02,
+                                                  "Plan Rows": 10002
+                                                },
+                                                {
+                                                  "Node Type": "Hash",
+                                                  "Total Cost": 407.02,
+                                                  "Plan Rows": 10002,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Seq Scan",
+                                                      "Relation Name": "listings_listing",
+                                                      "Total Cost": 407.02,
+                                                      "Plan Rows": 10002
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Node Type": "Hash",
+                                              "Total Cost": 8.82,
+                                              "Plan Rows": 1,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Join Type": "Inner",
+                                                  "Total Cost": 8.82,
+                                                  "Plan Rows": 1,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Nested Loop",
+                                                      "Join Type": "Inner",
+                                                      "Total Cost": 8.5,
+                                                      "Plan Rows": 1,
+                                                      "Plans": [
+                                                        {
+                                                          "Node Type": "Nested Loop",
+                                                          "Join Type": "Inner",
+                                                          "Total Cost": 8.21,
+                                                          "Plan Rows": 1,
+                                                          "Plans": [
+                                                            {
+                                                              "Node Type": "Seq Scan",
+                                                              "Relation Name": "safety_rightsrectificationexecution",
+                                                              "Total Cost": 0.0,
+                                                              "Plan Rows": 1
+                                                            },
+                                                            {
+                                                              "Node Type": "Index Scan",
+                                                              "Index Name": "safety_rightsrectificationnotification_pkey",
+                                                              "Relation Name": "safety_rightsrectificationnotification",
+                                                              "Total Cost": 8.17,
+                                                              "Plan Rows": 1
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "Node Type": "Index Scan",
+                                                          "Index Name": "safety_rightsrectificationreview_pkey",
+                                                          "Relation Name": "safety_rightsrectificationreview",
+                                                          "Total Cost": 0.29,
+                                                          "Plan Rows": 1
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Node Type": "Index Scan",
+                                                      "Index Name": "safety_rightsrectificationproposal_pkey",
+                                                      "Relation Name": "safety_rightsrectificationproposal",
+                                                      "Total Cost": 0.31,
+                                                      "Plan Rows": 1
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Index Scan",
+                                  "Index Name": "mediafiles_photo_pkey",
+                                  "Relation Name": "mediafiles_photo",
+                                  "Total Cost": 1612.72,
+                                  "Plan Rows": 1,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Hash Join",
+                                      "Join Type": "Semi",
+                                      "Total Cost": 1604.41,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Hash Join",
+                                          "Join Type": "Inner",
+                                          "Total Cost": 1569.33,
+                                          "Plan Rows": 10002,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Seq Scan",
+                                              "Relation Name": "listings_revision",
+                                              "Total Cost": 1011.02,
+                                              "Plan Rows": 10002
+                                            },
+                                            {
+                                              "Node Type": "Hash",
+                                              "Total Cost": 407.02,
+                                              "Plan Rows": 10002,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Relation Name": "listings_listing",
+                                                  "Total Cost": 407.02,
+                                                  "Plan Rows": 10002
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Node Type": "Hash",
+                                          "Total Cost": 8.82,
+                                          "Plan Rows": 1,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Nested Loop",
+                                              "Join Type": "Inner",
+                                              "Total Cost": 8.82,
+                                              "Plan Rows": 1,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Join Type": "Inner",
+                                                  "Total Cost": 8.5,
+                                                  "Plan Rows": 1,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Nested Loop",
+                                                      "Join Type": "Inner",
+                                                      "Total Cost": 8.21,
+                                                      "Plan Rows": 1,
+                                                      "Plans": [
+                                                        {
+                                                          "Node Type": "Seq Scan",
+                                                          "Relation Name": "safety_rightsrectificationexecution",
+                                                          "Total Cost": 0.0,
+                                                          "Plan Rows": 1
+                                                        },
+                                                        {
+                                                          "Node Type": "Index Scan",
+                                                          "Index Name": "safety_rightsrectificationnotification_pkey",
+                                                          "Relation Name": "safety_rightsrectificationnotification",
+                                                          "Total Cost": 8.17,
+                                                          "Plan Rows": 1
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Node Type": "Index Scan",
+                                                      "Index Name": "safety_rightsrectificationreview_pkey",
+                                                      "Relation Name": "safety_rightsrectificationreview",
+                                                      "Total Cost": 0.29,
+                                                      "Plan Rows": 1
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Node Type": "Index Scan",
+                                                  "Index Name": "safety_rightsrectificationproposal_pkey",
+                                                  "Relation Name": "safety_rightsrectificationproposal",
+                                                  "Total Cost": 0.31,
+                                                  "Plan Rows": 1
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Node Type": "Index Scan",
+                              "Index Name": "listings_revision_pkey",
+                              "Relation Name": "listings_revision",
+                              "Total Cost": 1.08,
+                              "Plan Rows": 1
+                            }
+                          ]
+                        },
+                        {
+                          "Node Type": "Index Scan",
+                          "Index Name": "listings_revision_pkey",
+                          "Relation Name": "listings_revision",
+                          "Total Cost": 1.08,
+                          "Plan Rows": 1
+                        }
+                      ]
+                    },
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "safety_rightsrectificationphotoupload",
+                      "Total Cost": 13.2,
+                      "Plan Rows": 320
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Seq Scan",
+                  "Relation Name": "safety_rightsrectificationphotoupload",
+                  "Total Cost": 13.2,
+                  "Plan Rows": 320
+                }
+              ]
+            }
+          ]
+        },
+        "jit": null,
+        "explain_seconds": 0.009501314256340265,
+        "execute_seconds": 0.00804703263565898
+      },
+      {
+        "fingerprint": "247c8e43f547668c08b2292c52429170fdca8b40f8ccad98539251baf3bc4bfb",
+        "query_bytes": 2676,
+        "parameter_count": 9,
+        "phase": "execute",
+        "outcome": "completed",
+        "settings": {
+          "jit": "on",
+          "join_collapse_limit": "8",
+          "plan_cache_mode": "auto"
+        },
+        "plan": {
+          "Node Type": "Limit",
+          "Total Cost": 3286.76,
+          "Plan Rows": 1,
+          "Plans": [
+            {
+              "Node Type": "Nested Loop",
+              "Join Type": "Left",
+              "Total Cost": 3286.76,
+              "Plan Rows": 1,
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Join Type": "Left",
+                  "Total Cost": 3269.56,
+                  "Plan Rows": 1,
+                  "Plans": [
+                    {
+                      "Node Type": "Nested Loop",
+                      "Join Type": "Inner",
+                      "Total Cost": 3252.36,
+                      "Plan Rows": 1,
+                      "Plans": [
+                        {
+                          "Node Type": "Nested Loop",
+                          "Join Type": "Inner",
+                          "Total Cost": 3251.29,
+                          "Plan Rows": 1,
+                          "Plans": [
+                            {
+                              "Node Type": "Nested Loop",
+                              "Join Type": "Inner",
+                              "Total Cost": 3250.21,
+                              "Plan Rows": 1,
+                              "Plans": [
+                                {
+                                  "Node Type": "Nested Loop",
+                                  "Join Type": "Inner",
+                                  "Total Cost": 1637.49,
+                                  "Plan Rows": 1,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Index Name": "mediafiles_match_candidate_id_b1b623e9",
+                                      "Relation Name": "mediafiles_match",
+                                      "Total Cost": 24.76,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Index Scan",
+                                          "Index Name": "one_blob_per_revision",
+                                          "Relation Name": "mediafiles_photo",
+                                          "Total Cost": 8.3,
+                                          "Plan Rows": 1
+                                        },
+                                        {
+                                          "Node Type": "Index Scan",
+                                          "Index Name": "one_blob_per_revision",
+                                          "Relation Name": "mediafiles_photo",
+                                          "Total Cost": 8.3,
+                                          "Plan Rows": 1
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Index Name": "mediafiles_photo_pkey",
+                                      "Relation Name": "mediafiles_photo",
+                                      "Total Cost": 1612.72,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Hash Join",
+                                          "Join Type": "Semi",
+                                          "Total Cost": 1604.41,
+                                          "Plan Rows": 1,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Hash Join",
+                                              "Join Type": "Inner",
+                                              "Total Cost": 1569.33,
+                                              "Plan Rows": 10002,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Relation Name": "listings_revision",
+                                                  "Total Cost": 1011.02,
+                                                  "Plan Rows": 10002
+                                                },
+                                                {
+                                                  "Node Type": "Hash",
+                                                  "Total Cost": 407.02,
+                                                  "Plan Rows": 10002,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Seq Scan",
+                                                      "Relation Name": "listings_listing",
+                                                      "Total Cost": 407.02,
+                                                      "Plan Rows": 10002
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Node Type": "Hash",
+                                              "Total Cost": 8.82,
+                                              "Plan Rows": 1,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Join Type": "Inner",
+                                                  "Total Cost": 8.82,
+                                                  "Plan Rows": 1,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Nested Loop",
+                                                      "Join Type": "Inner",
+                                                      "Total Cost": 8.5,
+                                                      "Plan Rows": 1,
+                                                      "Plans": [
+                                                        {
+                                                          "Node Type": "Nested Loop",
+                                                          "Join Type": "Inner",
+                                                          "Total Cost": 8.21,
+                                                          "Plan Rows": 1,
+                                                          "Plans": [
+                                                            {
+                                                              "Node Type": "Seq Scan",
+                                                              "Relation Name": "safety_rightsrectificationexecution",
+                                                              "Total Cost": 0.0,
+                                                              "Plan Rows": 1
+                                                            },
+                                                            {
+                                                              "Node Type": "Index Scan",
+                                                              "Index Name": "safety_rightsrectificationnotification_pkey",
+                                                              "Relation Name": "safety_rightsrectificationnotification",
+                                                              "Total Cost": 8.17,
+                                                              "Plan Rows": 1
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "Node Type": "Index Scan",
+                                                          "Index Name": "safety_rightsrectificationreview_pkey",
+                                                          "Relation Name": "safety_rightsrectificationreview",
+                                                          "Total Cost": 0.29,
+                                                          "Plan Rows": 1
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Node Type": "Index Scan",
+                                                      "Index Name": "safety_rightsrectificationproposal_pkey",
+                                                      "Relation Name": "safety_rightsrectificationproposal",
+                                                      "Total Cost": 0.31,
+                                                      "Plan Rows": 1
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Index Scan",
+                                  "Index Name": "mediafiles_photo_pkey",
+                                  "Relation Name": "mediafiles_photo",
+                                  "Total Cost": 1612.72,
+                                  "Plan Rows": 1,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Hash Join",
+                                      "Join Type": "Semi",
+                                      "Total Cost": 1604.41,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Hash Join",
+                                          "Join Type": "Inner",
+                                          "Total Cost": 1569.33,
+                                          "Plan Rows": 10002,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Seq Scan",
+                                              "Relation Name": "listings_revision",
+                                              "Total Cost": 1011.02,
+                                              "Plan Rows": 10002
+                                            },
+                                            {
+                                              "Node Type": "Hash",
+                                              "Total Cost": 407.02,
+                                              "Plan Rows": 10002,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Relation Name": "listings_listing",
+                                                  "Total Cost": 407.02,
+                                                  "Plan Rows": 10002
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Node Type": "Hash",
+                                          "Total Cost": 8.82,
+                                          "Plan Rows": 1,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Nested Loop",
+                                              "Join Type": "Inner",
+                                              "Total Cost": 8.82,
+                                              "Plan Rows": 1,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Join Type": "Inner",
+                                                  "Total Cost": 8.5,
+                                                  "Plan Rows": 1,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Nested Loop",
+                                                      "Join Type": "Inner",
+                                                      "Total Cost": 8.21,
+                                                      "Plan Rows": 1,
+                                                      "Plans": [
+                                                        {
+                                                          "Node Type": "Seq Scan",
+                                                          "Relation Name": "safety_rightsrectificationexecution",
+                                                          "Total Cost": 0.0,
+                                                          "Plan Rows": 1
+                                                        },
+                                                        {
+                                                          "Node Type": "Index Scan",
+                                                          "Index Name": "safety_rightsrectificationnotification_pkey",
+                                                          "Relation Name": "safety_rightsrectificationnotification",
+                                                          "Total Cost": 8.17,
+                                                          "Plan Rows": 1
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Node Type": "Index Scan",
+                                                      "Index Name": "safety_rightsrectificationreview_pkey",
+                                                      "Relation Name": "safety_rightsrectificationreview",
+                                                      "Total Cost": 0.29,
+                                                      "Plan Rows": 1
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Node Type": "Index Scan",
+                                                  "Index Name": "safety_rightsrectificationproposal_pkey",
+                                                  "Relation Name": "safety_rightsrectificationproposal",
+                                                  "Total Cost": 0.31,
+                                                  "Plan Rows": 1
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Node Type": "Index Scan",
+                              "Index Name": "listings_revision_pkey",
+                              "Relation Name": "listings_revision",
+                              "Total Cost": 1.08,
+                              "Plan Rows": 1
+                            }
+                          ]
+                        },
+                        {
+                          "Node Type": "Index Scan",
+                          "Index Name": "listings_revision_pkey",
+                          "Relation Name": "listings_revision",
+                          "Total Cost": 1.08,
+                          "Plan Rows": 1
+                        }
+                      ]
+                    },
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "safety_rightsrectificationphotoupload",
+                      "Total Cost": 13.2,
+                      "Plan Rows": 320
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Seq Scan",
+                  "Relation Name": "safety_rightsrectificationphotoupload",
+                  "Total Cost": 13.2,
+                  "Plan Rows": 320
+                }
+              ]
+            }
+          ]
+        },
+        "jit": null,
+        "explain_seconds": 0.01528445491567254,
+        "execute_seconds": 0.007712201680988073
+      },
+      {
+        "fingerprint": "247c8e43f547668c08b2292c52429170fdca8b40f8ccad98539251baf3bc4bfb",
+        "query_bytes": 2676,
+        "parameter_count": 9,
+        "phase": "execute",
+        "outcome": "completed",
+        "settings": {
+          "jit": "on",
+          "join_collapse_limit": "8",
+          "plan_cache_mode": "auto"
+        },
+        "plan": {
+          "Node Type": "Limit",
+          "Total Cost": 3286.76,
+          "Plan Rows": 1,
+          "Plans": [
+            {
+              "Node Type": "Nested Loop",
+              "Join Type": "Left",
+              "Total Cost": 3286.76,
+              "Plan Rows": 1,
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Join Type": "Left",
+                  "Total Cost": 3269.56,
+                  "Plan Rows": 1,
+                  "Plans": [
+                    {
+                      "Node Type": "Nested Loop",
+                      "Join Type": "Inner",
+                      "Total Cost": 3252.36,
+                      "Plan Rows": 1,
+                      "Plans": [
+                        {
+                          "Node Type": "Nested Loop",
+                          "Join Type": "Inner",
+                          "Total Cost": 3251.29,
+                          "Plan Rows": 1,
+                          "Plans": [
+                            {
+                              "Node Type": "Nested Loop",
+                              "Join Type": "Inner",
+                              "Total Cost": 3250.21,
+                              "Plan Rows": 1,
+                              "Plans": [
+                                {
+                                  "Node Type": "Nested Loop",
+                                  "Join Type": "Inner",
+                                  "Total Cost": 1637.49,
+                                  "Plan Rows": 1,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Index Name": "mediafiles_match_candidate_id_b1b623e9",
+                                      "Relation Name": "mediafiles_match",
+                                      "Total Cost": 24.76,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Index Scan",
+                                          "Index Name": "one_blob_per_revision",
+                                          "Relation Name": "mediafiles_photo",
+                                          "Total Cost": 8.3,
+                                          "Plan Rows": 1
+                                        },
+                                        {
+                                          "Node Type": "Index Scan",
+                                          "Index Name": "one_blob_per_revision",
+                                          "Relation Name": "mediafiles_photo",
+                                          "Total Cost": 8.3,
+                                          "Plan Rows": 1
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Index Name": "mediafiles_photo_pkey",
+                                      "Relation Name": "mediafiles_photo",
+                                      "Total Cost": 1612.72,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Hash Join",
+                                          "Join Type": "Semi",
+                                          "Total Cost": 1604.41,
+                                          "Plan Rows": 1,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Hash Join",
+                                              "Join Type": "Inner",
+                                              "Total Cost": 1569.33,
+                                              "Plan Rows": 10002,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Relation Name": "listings_revision",
+                                                  "Total Cost": 1011.02,
+                                                  "Plan Rows": 10002
+                                                },
+                                                {
+                                                  "Node Type": "Hash",
+                                                  "Total Cost": 407.02,
+                                                  "Plan Rows": 10002,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Seq Scan",
+                                                      "Relation Name": "listings_listing",
+                                                      "Total Cost": 407.02,
+                                                      "Plan Rows": 10002
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Node Type": "Hash",
+                                              "Total Cost": 8.82,
+                                              "Plan Rows": 1,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Join Type": "Inner",
+                                                  "Total Cost": 8.82,
+                                                  "Plan Rows": 1,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Nested Loop",
+                                                      "Join Type": "Inner",
+                                                      "Total Cost": 8.5,
+                                                      "Plan Rows": 1,
+                                                      "Plans": [
+                                                        {
+                                                          "Node Type": "Nested Loop",
+                                                          "Join Type": "Inner",
+                                                          "Total Cost": 8.21,
+                                                          "Plan Rows": 1,
+                                                          "Plans": [
+                                                            {
+                                                              "Node Type": "Seq Scan",
+                                                              "Relation Name": "safety_rightsrectificationexecution",
+                                                              "Total Cost": 0.0,
+                                                              "Plan Rows": 1
+                                                            },
+                                                            {
+                                                              "Node Type": "Index Scan",
+                                                              "Index Name": "safety_rightsrectificationnotification_pkey",
+                                                              "Relation Name": "safety_rightsrectificationnotification",
+                                                              "Total Cost": 8.17,
+                                                              "Plan Rows": 1
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "Node Type": "Index Scan",
+                                                          "Index Name": "safety_rightsrectificationreview_pkey",
+                                                          "Relation Name": "safety_rightsrectificationreview",
+                                                          "Total Cost": 0.29,
+                                                          "Plan Rows": 1
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Node Type": "Index Scan",
+                                                      "Index Name": "safety_rightsrectificationproposal_pkey",
+                                                      "Relation Name": "safety_rightsrectificationproposal",
+                                                      "Total Cost": 0.31,
+                                                      "Plan Rows": 1
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Index Scan",
+                                  "Index Name": "mediafiles_photo_pkey",
+                                  "Relation Name": "mediafiles_photo",
+                                  "Total Cost": 1612.72,
+                                  "Plan Rows": 1,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Hash Join",
+                                      "Join Type": "Semi",
+                                      "Total Cost": 1604.41,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Hash Join",
+                                          "Join Type": "Inner",
+                                          "Total Cost": 1569.33,
+                                          "Plan Rows": 10002,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Seq Scan",
+                                              "Relation Name": "listings_revision",
+                                              "Total Cost": 1011.02,
+                                              "Plan Rows": 10002
+                                            },
+                                            {
+                                              "Node Type": "Hash",
+                                              "Total Cost": 407.02,
+                                              "Plan Rows": 10002,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Relation Name": "listings_listing",
+                                                  "Total Cost": 407.02,
+                                                  "Plan Rows": 10002
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Node Type": "Hash",
+                                          "Total Cost": 8.82,
+                                          "Plan Rows": 1,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Nested Loop",
+                                              "Join Type": "Inner",
+                                              "Total Cost": 8.82,
+                                              "Plan Rows": 1,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Join Type": "Inner",
+                                                  "Total Cost": 8.5,
+                                                  "Plan Rows": 1,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Nested Loop",
+                                                      "Join Type": "Inner",
+                                                      "Total Cost": 8.21,
+                                                      "Plan Rows": 1,
+                                                      "Plans": [
+                                                        {
+                                                          "Node Type": "Seq Scan",
+                                                          "Relation Name": "safety_rightsrectificationexecution",
+                                                          "Total Cost": 0.0,
+                                                          "Plan Rows": 1
+                                                        },
+                                                        {
+                                                          "Node Type": "Index Scan",
+                                                          "Index Name": "safety_rightsrectificationnotification_pkey",
+                                                          "Relation Name": "safety_rightsrectificationnotification",
+                                                          "Total Cost": 8.17,
+                                                          "Plan Rows": 1
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Node Type": "Index Scan",
+                                                      "Index Name": "safety_rightsrectificationreview_pkey",
+                                                      "Relation Name": "safety_rightsrectificationreview",
+                                                      "Total Cost": 0.29,
+                                                      "Plan Rows": 1
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Node Type": "Index Scan",
+                                                  "Index Name": "safety_rightsrectificationproposal_pkey",
+                                                  "Relation Name": "safety_rightsrectificationproposal",
+                                                  "Total Cost": 0.31,
+                                                  "Plan Rows": 1
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Node Type": "Index Scan",
+                              "Index Name": "listings_revision_pkey",
+                              "Relation Name": "listings_revision",
+                              "Total Cost": 1.08,
+                              "Plan Rows": 1
+                            }
+                          ]
+                        },
+                        {
+                          "Node Type": "Index Scan",
+                          "Index Name": "listings_revision_pkey",
+                          "Relation Name": "listings_revision",
+                          "Total Cost": 1.08,
+                          "Plan Rows": 1
+                        }
+                      ]
+                    },
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "safety_rightsrectificationphotoupload",
+                      "Total Cost": 13.2,
+                      "Plan Rows": 320
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Seq Scan",
+                  "Relation Name": "safety_rightsrectificationphotoupload",
+                  "Total Cost": 13.2,
+                  "Plan Rows": 320
+                }
+              ]
+            }
+          ]
+        },
+        "jit": null,
+        "explain_seconds": 0.021138404961675406,
+        "execute_seconds": 0.0201739389449358
+      }
+    ],
+    "scope": "Diagnostic only,5s statement limit. EXPLAIN without ANALYZE adds planning overhead; no HTTP/CPU/p95 claim. No SQL/parameters/filter expressions retained."
+  },
+  "change": "Only synthetic_load_dataset ANALYZE5ownedfixturetables afterbulk/beforeunchanged nativechecks. Same8scopecontrols/nootherpolicychange.",
+  "limitation": "Preparationfix, not requestcodeoptimization or globalN3/p95; originalfailure preserved.",
+  "acceptance": false,
+  "source_delta_from_reproduced_failure": [
+    "scripts/synthetic_load_dataset.py"
+  ],
+  "integration_note": "Verified exactbuilderfix transferred to main; additional returnmetadata describes preparation in subsequent benchmarkmanifest. No prototypeappcode integrated."
+}
