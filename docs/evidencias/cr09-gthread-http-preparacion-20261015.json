@@ -1,0 +1,17 @@
+{
+  "sha": "0ceda3f930db884a2b5e117f2a885b2ec862adaa",
+  "selection": [
+    "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]"
+  ],
+  "baseline_clean_run": "20261015-105821-81ed5e4a",
+  "baseline_p95_seconds": 21.84551043389365,
+  "baseline_topology": "4sync x1thread",
+  "candidate_topology": "4gthread x2threads",
+  "prerequisite": "20261015-112505-74aa8b6e realTCP54bodyparityPASS; actual2samePIDoverlap, sourcefreeze and independentcleanup;6pureconfiguration/referencecontrolsPASS",
+  "sole_candidate_change": "Gunicorn worker class/thread count; same product code,20rps60s10k synthetic withlimitedupload, normalownedworkerBeat, generatorfreezeprearrival. Template/rule/authority/caches/SQL not changed. Default deployedDocker remains unchanged.",
+  "instrumentation": "No profiler/workerobserver/CPUobserver; normal existing asyncledger and clientGC callbacks only, like cleanreference",
+  "limits": "Same controller4CPU3584MiB swap0 pids512;PG1CPUon4 1536MiB swap1536 pids128;Redis0.2CPUon5 128MiB swap128 pids64. NoPGmaxconnection increase orprovider",
+  "required": "Generatorvalid,all1200requestsreconciled,p95strict<0.8,errorfraction<0.01,windowpending<=20,finalpending0,upload302,drainpolicy. PreserveFAIL; no chained alternates ifno benefit. ShortPASS isnot900sec/N3/globalacceptance. Report actualtopology/versions/sourcefreeze/independentcleanup.",
+  "adapter_sha256": "b54b58bce4a0a96d2bb1980fe28cf3fe8bb4b0976da46b45cd1f4c5cdb3ee82a",
+  "acceptance": false
+}

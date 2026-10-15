@@ -2163,3 +2163,16 @@ PG cuota100000/100000,afinidadCPU4; controlador afinidad0–3, cpu.max/cpuset de
 | Cuerpos concurrentes contra nativo | Sin prueba de esta candidata |24PASS, más30secuenciales |
 
 No capacidad/SLO, ni cierre concurrente de derechos o aceptación global desde paridad pública. Elegible una carga corta limpia posterior con mismos recursos/workerBeat, sin cambiarworkload/límites; adopción eventual requiere alinear runtime real y completar gates. Referencias [Gunicorn](https://docs.gunicorn.org/en/stable/design.html), [Django5.2](https://docs.djangoproject.com/en/5.2/ref/databases/#caveats): conexión porhilo, política60s actual sin modificar.
+
+2026-10-15: [gthread carga limpia](evidencias/cr09-gthread-http-terminal-20261015.json), run20261015-112831-ae568c61,0ceda3f:FAIL generador válido,1200completadas/0errores/timeouts,subida302,fuentes/limpieza independientes. No perfiladores/observadores; mismas cuotas4CPU/PG1CPU/Redis0.2CPU y workerBeat.
+
+| Métrica limpia |4sync conjoin |4gthread x2hilos |
+| --- | --- | --- |
+| p50,s |13.049334 |4.316412 |
+| p95,s |21.845510 |21.693805 |
+| Servicio Gunicorn p95,s |0.493911 |0.852662 |
+| Pendientes alsegundo60 |343 |227 |
+| Completadas trasdrenaje |1200 |1200 |
+| Errores/timeouts |0 |0 |
+
+p95 observado apenas0.694%menos, comparación única no causal/reproducible; la mejora de mediana no sustituye requisito p95<0.8s. Topología queda experimental CI, no adoptada ni Docker modificado; no repetir ni ejecutar900s. Revisar admisión/distribución porPID y cola previa mediante diagnóstico separado antes de nuevos parámetros. Fallos anteriores y criterios completos intactos.
