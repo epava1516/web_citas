@@ -69,7 +69,9 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     if topology["threads"] > 1:
         assert scenario in {"functional", "short"}, "Threaded candidate is not a contractual measurement"
     observe_workers = os.environ.get("WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS") == "1"
+    ingress_only = os.environ.get("WEB_MODELOS_BENCHMARK_INGRESS_ONLY") == "1"
     resource_only = os.environ.get("WEB_MODELOS_BENCHMARK_RESOURCE_ONLY") == "1"
+    assert not ingress_only or (observe_workers and not resource_only and topology["threads"] == 1)
     assert not resource_only or observe_workers, "Resource-only mode requires explicit diagnostic observer"
     refresh_mode = os.environ.get("WEB_MODELOS_REFRESH_MODE", EAGER)
     assert refresh_mode in (EAGER, NORMAL)
@@ -203,6 +205,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         environment["WEB_MODELOS_BENCHMARK_OBSERVER_DIR"] = str(observer_folder)
         module = ("scripts.benchmark_gthread_observer" if topology["worker_class"] == "gthread"
                   else "scripts.benchmark_resource_observer") if resource_only else "scripts.benchmark_worker_observer"
+        if ingress_only:
+            module = "scripts.benchmark_ingress_observer"
         observer_args = ["--config", "python:" + module]
     manifest = {
         "refresh_mode": refresh_mode,
@@ -234,6 +238,15 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     }
     if observe_workers and os.environ.get("WEB_MODELOS_BENCHMARK_ROUTE_ONLY") == "1":
         manifest["worker_observer"]["scope"] = "Route events after Django get_response; native handlers distinguished from discovery projection/fallback; WSGI start/end/render/SQL wall and threadCPU. No wrappers on native rules; context/validation not_measured. Requests without Django response/route event remain not_measured, never inferred from HTTP status. Partial work lower bounds; causal overhead not_measured."
+    if ingress_only:
+        manifest["worker_observer"].update(
+            mode="ingress_sql_gc_no_handler_imports",
+            scope="WSGI entry/end/threadCPU, SQL execute wall/threadCPU and GC only. "
+                  "No eager imports or wrappers of handlers/rules/render; context/validation/render "
+                  "not measured separately. SQL and GC overlap WSGI and each other. "
+                  "Emission→WSGI includes client/TCP/scheduling/admission, not exact socket queue. "
+                  "Observer overhead not measured causally; not a clean p95.",
+        )
     if observe_workers:
         manifest["instrumentation"] += "; opt-in isolated worker observer as described in worker_observer, thread CPU scoped to WSGI request; opt-in workerGC intervals without policy changes, overlapping stages not additive; no per-request DB CPU/RSS sampling"
     if resource_only:
@@ -560,7 +573,15 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             ]
         summary["cold_probes"] = cold
         if accessfile.exists():
-            server_rows = [line.split() for line in accessfile.read_text().splitlines()]
+            from scripts.benchmark_server_samples import parse_service_samples
+
+            server_lines = accessfile.read_text().splitlines()
+            retained = parse_service_samples(server_lines)
+            service_path = artifact_folder / "benchmark-server-service.json"
+            service_path.write_text(json.dumps(retained, indent=2))
+            summary["gunicorn_service_artifact"] = service_path.name
+            summary["gunicorn_service_parse_errors"] = retained["parse_errors"]
+            server_rows = [line.split() for line in server_lines]
             dynamic_server = [
                 row for row in server_rows if len(row) == 4 and row[3].startswith("d-")
             ]
