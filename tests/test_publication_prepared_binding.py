@@ -24,10 +24,10 @@ def test_binding_restores_attributes_on_error_and_nested_scope(monkeypatch):
     monkeypatch.setattr(public_validation, 'connection', fake)
     with pytest.raises(RuntimeError, match='probe'):
         with public_validation._prepared_page_binding(enabled=True):
-            assert raw.prepare_threshold == 5
+            assert raw.prepare_threshold == 0
             assert raw.cursor_factory is public_validation._PageReadCursor
             with public_validation._prepared_page_binding(enabled=True):
-                assert raw.prepare_threshold == 5
+                assert raw.prepare_threshold == 0
             assert raw.cursor_factory is public_validation._PageReadCursor
             raise RuntimeError('probe')
     assert raw.cursor_factory is factory and raw.prepare_threshold is None
@@ -132,3 +132,39 @@ def test_full_population_read_keeps_client_binding_for_wide_parameters(record_pr
     assert read_publication_values(
         WideRead(), bounded_joins=True, prepared_page=prepared_page,
     ) == [1]
+
+
+@pytest.mark.django_db(transaction=True)
+@pytest.mark.parametrize('existing_threshold', [None, 2])
+def test_real_binding_restores_after_sql_error_and_nested_scope(existing_threshold):
+    from django.db import DataError, connection, transaction
+
+    connection.close()
+    connection.ensure_connection()
+    raw = connection.connection
+    raw.prepare_threshold = existing_threshold
+    factory = raw.cursor_factory
+    with connection.cursor() as cursor:
+        cursor.execute('SHOW plan_cache_mode')
+        mode = cursor.fetchone()[0]
+    try:
+        with pytest.raises(DataError):
+            with transaction.atomic():
+                with public_validation._prepared_page_binding(enabled=True):
+                    assert raw.prepare_threshold == (0 if existing_threshold is None else 2)
+                    with connection.cursor() as cursor:
+                        cursor.execute('SELECT %s::integer + 10', [7])
+                        assert cursor.fetchone()[0] == 17
+                    with public_validation._prepared_page_binding(enabled=True):
+                        with connection.cursor() as cursor:
+                            cursor.execute('SELECT %s::integer / %s::integer', [1, 0])
+        assert raw.cursor_factory is factory
+        assert raw.prepare_threshold == existing_threshold
+        assert not connection.in_atomic_block
+        with connection.cursor() as cursor:
+            cursor.execute('SHOW plan_cache_mode')
+            assert cursor.fetchone()[0] == mode
+            cursor.execute('SELECT %s::integer + 10', [8])
+            assert cursor.fetchone()[0] == 18
+    finally:
+        connection.close()

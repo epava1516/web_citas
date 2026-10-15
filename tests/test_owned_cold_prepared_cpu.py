@@ -20,7 +20,8 @@ from scripts.synthetic_load_dataset import populate
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def test_owned_cold_prepared_cpu(request, record_property):
+@pytest.mark.parametrize('candidate', ['eager_generic', 'eager_auto'])
+def test_owned_cold_prepared_cpu(request, record_property, candidate):
     if not any(str(x).split('::')[0] == 'tests/test_owned_cold_prepared_cpu.py'
                for x in request.config.args):
         pytest.skip('Explicit cold backend diagnostic only')
@@ -38,7 +39,7 @@ def test_owned_cold_prepared_cpu(request, record_property):
               (f'/es/listing/{listing.pk}/', {}), (f'/en/listing/{listing.pk}/', {})]
     bodies, results = {}, []
     for block in range(3):
-        arms = ('current', 'eager_generic') if block % 2 == 0 else ('eager_generic', 'current')
+        arms = ('current', candidate) if block % 2 == 0 else (candidate, 'current')
         for arm in arms:
             connection.close()
             connection.ensure_connection()
@@ -59,7 +60,9 @@ def test_owned_cold_prepared_cpu(request, record_property):
                 if arm == 'eager_generic':
                     with connection.cursor() as cursor:
                         cursor.execute("SET plan_cache_mode = force_generic_plan")
-                    raw.prepare_threshold = 0
+                # ClientCursor never prepares; these fixed arm thresholds apply
+                # only when the product helper selects its server-binding cursor.
+                raw.prepare_threshold = 5 if arm == 'current' else 0
                 expected_threshold = raw.prepare_threshold
                 rows = []
                 for index in range(30):
@@ -104,7 +107,7 @@ def test_owned_cold_prepared_cpu(request, record_property):
     record_property('cold_prepared_cpu', results)
     record_property('scope', '180 sequential actual synthetic requests, fresh physical backend per arm/block. '
                     'Two fixed arms, 3 alternating blocks, no warmup or omitted first requests. '
-                    'Eager generic is experimental session configuration, not product implementation: '
+                    'Candidate ' + candidate + ' is experimental session configuration, not product implementation: '
                     'future scoped SET/restore overhead is excluded. Python process/database buffers remain warm; '
                     'not actual cold Gunicorn workers, p95/capacity, or causal attribution of load transient. '
                     'CPU backend 100Hz counters; app timings include test-client request execution. '

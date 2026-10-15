@@ -1,0 +1,64 @@
+{
+  "run_id": "20261015-193716-b5dcab2e",
+  "base_sha": "f8c1286c0e5711d6871574833433edcecaadcec2",
+  "patch": "Scoped helper defaults threshold0 only if previousNone; preserves explicit threshold, cursor and plan_cache_mode. New real SQLerror+nested transaction rollback controls.",
+  "result": "17PASS134.29s",
+  "source_hashes_verified": true,
+  "cleanup_verified": true,
+  "runner": {
+    "id": "20261015-193716-b5dcab2e",
+    "pid": 1923214,
+    "start_ticks": 381364589,
+    "command": [
+      "artifacts/vps-preparation/cr09-private-guard-20261015/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_publication_prepared_binding.py",
+      "--test",
+      "tests/test_public_detail_prepared_guard.py",
+      "--test",
+      "tests/test_publication_projection.py",
+      "--test",
+      "tests/test_publication_projection_lifecycle.py",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "900"
+    ],
+    "head": "f8c1286c0e5711d6871574833433edcecaadcec2",
+    "containers": [
+      "web-modelos-ci-pg-20261015-193716-b5dcab2e",
+      "web-modelos-ci-redis-20261015-193716-b5dcab2e"
+    ],
+    "label": "web-modelos-local-ci-run=20261015-193716-b5dcab2e",
+    "temporary": "/tmp/web-modelos-local-ci-ec0cma36",
+    "child": {
+      "pid": 1925570,
+      "start_ticks": 381366394,
+      "step": "pytest"
+    }
+  },
+  "cases": [
+    "tests.test_publication_prepared_binding::test_prepared_pages_match_native_binding_and_observe_revoked_catalog",
+    "tests.test_publication_prepared_binding::test_full_population_read_keeps_client_binding_for_wide_parameters[False]",
+    "tests.test_publication_prepared_binding::test_full_population_read_keeps_client_binding_for_wide_parameters[True]",
+    "tests.test_publication_prepared_binding::test_real_binding_restores_after_sql_error_and_nested_scope[None]",
+    "tests.test_publication_prepared_binding::test_real_binding_restores_after_sql_error_and_nested_scope[2]",
+    "tests.test_public_detail_prepared_guard::test_prepared_detail_guard_parity_freshness_and_callsite_scope",
+    "tests.test_publication_projection::test_projection_copies_source_and_updates_without_unnecessary_rewrites",
+    "tests.test_publication_projection::test_projection_matches_original_population_html_pages_and_rank",
+    "tests.test_publication_projection::test_projection_is_closed_for_filters_clones_dirty_stale_and_inherited_transactions",
+    "tests.test_publication_projection::test_sweep_detects_projection_fields_even_when_eligibility_has_not_changed",
+    "tests.test_publication_projection::test_projection_reader_snapshot_then_committed_text_change_stays_dirty_and_fresh",
+    "tests.test_publication_projection_lifecycle::test_installed_projection_upgrade_invalidates_existing_states_before_use",
+    "tests.test_publication_projection_lifecycle::test_projection_strict_expiry_cutoff_and_expiry_during_guard_falls_back",
+    "tests.test_publication_projection_lifecycle::test_refresher_copy_precedes_waiting_writer_and_keeps_new_generation",
+    "tests.test_publication_prepared_binding::test_disabled_binding_does_not_touch_connection",
+    "tests.test_publication_prepared_binding::test_binding_restores_attributes_on_error_and_nested_scope",
+    "tests.test_publication_prepared_binding::test_existing_prepare_threshold_is_preserved"
+  ],
+  "acceptance": false
+}

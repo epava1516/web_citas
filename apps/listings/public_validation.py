@@ -205,7 +205,9 @@ def _prepared_page_binding(*, enabled):
     try:
         raw.cursor_factory = _PageReadCursor
         if previous_threshold is None:
-            raw.prepare_threshold = 5
+            # Avoid a second warmup before PostgreSQL starts its own auto-plan
+            # selection. The driver cache remains bounded; no results are cached.
+            raw.prepare_threshold = 0
         yield
     finally:
         raw.cursor_factory = previous_factory
