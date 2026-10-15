@@ -1,0 +1,20 @@
+{
+  "recorded_at": "2026-10-15T09:33:47.841206+00:00",
+  "prior_diagnostic": "cr09-directorio-consultas-diagnostico-terminal-20261015.json",
+  "question": "What PostgreSQL plan makes exact directory count and page selection dominate SQL time?",
+  "selection": "tests/test_directory_query_plans.py::test_owned_directory_count_and_page_plans",
+  "source_sha256": "3eed8ca5b59c72b851c188e3e59f57733ad786dde89ea45c4e9b473f7dfd8058",
+  "fixture": "10000 own synthetic published rows, refresh_publication_state, actual native state route; list plus photography/synthetic search",
+  "procedure": "Capture only exact eligible-state count/page SELECT SQL and parameters in process memory; sequential EXPLAIN ANALYZE BUFFERS FORMAT JSON for six queries. Persist structural plan fields only, no SQL/params/expressions; no load generator.",
+  "limits": "Unchanged own CI resources, one worker, timeout900, no normal services or production. Previous diagnostic terminal and independent cleanup verified.",
+  "required_exit": "Preserve result and plans, source stability and independent cleanup before any product correction. No chained speculative variants.",
+  "acceptance": false,
+  "original_launch_failure": {
+    "unit": "web-modelos-cr09-directory-sql-plans-20261015.service",
+    "exit": 2,
+    "reason": "Focused selections must name existing Python tests under tests/",
+    "pytest_started": false,
+    "services_started": false
+  },
+  "instrument_location": "Tracked explicit-only diagnostic, default regression skips; no runner guard bypass"
+}

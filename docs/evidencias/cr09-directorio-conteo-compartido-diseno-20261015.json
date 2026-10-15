@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-10-15T09:38:31.966719+00:00",
+  "based_on": "cr09-directorio-planes-terminal-20261015.json",
+  "candidate": "Exact total count window on unique search populations, sharing count/page join scan. Preserve native paginator for listing index path and any multivalued join/DISTINCT population.",
+  "reference": "https://www.postgresql.org/docs/17/tutorial-window.html",
+  "requirements": [
+    "Keep same REPEATABLE READ READ ONLY transaction, complete eligibility membership, dirty/native merge, exact total, full ranking/tie order and 24 rows.",
+    "Only search populations proven unique; do not apply COUNT OVER before DISTINCT.",
+    "Preserve empty first page and out-of-range errors; missing offset row must not masquerade as zero population.",
+    "Keep existing native page guard, triggers, fresh authority and no-store.",
+    "Verify equivalence across pages, filters, joins, unknown/dirty/revoked/stale states; measure candidate plans before a single clean short trial.",
+    "If no benefit demonstrated, preserve evidence and do not chain speculative load trials."
+  ],
+  "acceptance": false
+}
