@@ -1,0 +1,127 @@
+{
+  "recorded_at": "2026-10-15T09:59:05.099990+00:00",
+  "head": "c70c0ffef169aa378cc95f703539104285b46bd3",
+  "historical_run": "20261012-150109-89880182",
+  "historical_head": "c92fe649a5a2c9e7365118f87fcaa710701857bb",
+  "raw_junit_sha256_verified": true,
+  "source_checks": [
+    {
+      "file": "apps/safety/rights_portability_jobs.py",
+      "current_sha256": "81224ce3f37c06b27dbce6037b0705033be5ae7f4dccc11b840b1da7a007f9fa",
+      "recorded_sha256": "81224ce3f37c06b27dbce6037b0705033be5ae7f4dccc11b840b1da7a007f9fa",
+      "equal": true
+    },
+    {
+      "file": "apps/safety/tasks.py",
+      "current_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+      "recorded_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+      "equal": true
+    },
+    {
+      "file": "config/celery.py",
+      "current_sha256": "5539cdd4d342640802e3304483c31eaf6a16a3899218a4de20c3ccb2ce030d56",
+      "recorded_sha256": "5539cdd4d342640802e3304483c31eaf6a16a3899218a4de20c3ccb2ce030d56",
+      "equal": true
+    },
+    {
+      "file": "tests/capacity_gunicorn.py",
+      "current_sha256": "da1fe8f93cd6fe1f1bdf38d7b694b7c15ceab5aa5eebe186beae9a507d69b821",
+      "recorded_sha256": "da1fe8f93cd6fe1f1bdf38d7b694b7c15ceab5aa5eebe186beae9a507d69b821",
+      "equal": true
+    },
+    {
+      "file": "uv.lock",
+      "current_sha256": "563cc6a2d4de19be8155999ad3da7990c6f152eaf2fafffa2411df1435a7dce5",
+      "recorded_sha256": "563cc6a2d4de19be8155999ad3da7990c6f152eaf2fafffa2411df1435a7dce5",
+      "equal": true
+    },
+    {
+      "file": "apps/safety/rights_portability_export.py",
+      "current_sha256": "d16fe2baa7cc5df6fa4b0b1bc3ef7d9b581d571a190af2a02b704a0d84e67c15",
+      "recorded_sha256": "d16fe2baa7cc5df6fa4b0b1bc3ef7d9b581d571a190af2a02b704a0d84e67c15",
+      "equal": true
+    },
+    {
+      "file": "apps/safety/rights_portability_covered_export.py",
+      "current_sha256": "562336fa4a1c83b7bb495ccc4baefcb036665f12c7e1b5bf080451bae952c994",
+      "recorded_sha256": "562336fa4a1c83b7bb495ccc4baefcb036665f12c7e1b5bf080451bae952c994",
+      "equal": true
+    },
+    {
+      "file": "apps/safety/rights_portability_export_views.py",
+      "current_sha256": "ac6d6b4e5a6cab7e74e9cf10f8dae2476c7e3963b13610f70f4a630c80afc127",
+      "recorded_sha256": "ac6d6b4e5a6cab7e74e9cf10f8dae2476c7e3963b13610f70f4a630c80afc127",
+      "equal": true
+    },
+    {
+      "file": "apps/safety/models.py",
+      "current_sha256": "e2eb6206cef2ae3be75e10be51acc6bdb56b119762940d008752fd657903bff2",
+      "recorded_sha256": "e2eb6206cef2ae3be75e10be51acc6bdb56b119762940d008752fd657903bff2",
+      "equal": true
+    }
+  ],
+  "jobs": [
+    {
+      "id": "4159ee38-6aff-441b-a4b5-28ae47748c60",
+      "state": "succeeded",
+      "export": "85a12483-5abf-400d-b6fd-19d21cb4c6d3",
+      "attempts": 1,
+      "worker_scope": "Real Celery worker in the same constrained app cgroup"
+    },
+    {
+      "id": "5af0a70e-2278-454f-aed9-e40a930646cc",
+      "state": "succeeded",
+      "export": "6ba504f2-4a08-451a-aaf6-761c3259ae4b",
+      "attempts": 1,
+      "worker_scope": "Real Celery worker in the same constrained app cgroup"
+    }
+  ],
+  "worker": {
+    "enabled": true,
+    "exit": 0,
+    "pool": "prefork concurrency2, observed worker log",
+    "eager_false": "tests/capacity_gunicorn.py generated runtime settings; exact source fingerprint verified",
+    "task_id_event_correlation": "Not recorded; terminal committed job/export observed through real HTTP/DB and fixture source only"
+  },
+  "changed_runtime_setting": {
+    "path": "config/settings.py",
+    "difference": "Recovery-mode schedule clearing moved after all task registration. Ordinary non-recovery generation settings unchanged; recovery behavior covered separately by integrated regression."
+  },
+  "historical_topology_cleanup": {
+    "web-modelos-capacity-20261012-150109-89880182-app": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261012-150109-89880182-caddy": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261012-150109-89880182-objects": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261012-150109-89880182-redis": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261012-150109-89880182-pg": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261012-150109-89880182-delivery": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261012-150109-89880182-net": {
+      "absent": true
+    },
+    "labelled_remaining": []
+  },
+  "decision": "Reuse scoped actual worker export execution evidence together with current integrated browser/domain tests. No heavy rerun solely to claim real worker; do not infer task-ID event correlation or all current-version capacity.",
+  "limits": [
+    "Historical stage performance FAIL remains; MOD09 export performance provisional only.",
+    "Browser fixture alone still does not demonstrate worker execution.",
+    "Current ordinary worker mechanism unchanged; not full transitive semantic equivalence, production, GS01/N3 or CR09 acceptance."
+  ],
+  "acceptance": false
+}

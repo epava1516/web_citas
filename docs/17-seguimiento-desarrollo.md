@@ -2055,3 +2055,6 @@ Equivalencia conteo compartido `20261015-093943-5ab64c62`: [9 PASS/1 FAIL](evide
 
 
 [GS-S02: evidencia integrada conciliada](evidencias/gs01-async-batch-integrado-20261015.json), misma fuente de producto que v3 y huellas exactas de tests de navegador/jobs/lotes. No repetir esos recorridos por commits documentales. Continúa pendiente enlace separado de exportador Celery real, inventario integral y GS-S01/GS-S03; no convertir fixture en ejecución real ni aceptar GS01 antes de CR09/CR10.
+
+
+[Exportador Celery real: evidencia reutilizable](evidencias/gs01-exportador-celery-correspondencia-20261015.json). Hash JUnit bruto de MOD08 verificado contra reporte, dos jobs succeeded con export persistido observados por HTTP/DB, worker prefork2 terminado exit0 y eagerFalse en harness exacto. Nueve fuentes/dependencias críticas coinciden; diferencia settings sólo mueve vaciado Beat en modo recuperación, registrada sin ocultarla. No task-ID correlacionado por eventos ni toda semántica transitiva/capacidad actual. Complementa navegador de fixture; evita repetición pesada por falta supuesta de cualquier worker real. CR09/CR10/GS01/N3 siguen pendientes.
