@@ -1,0 +1,35 @@
+{
+  "run_id": "20261015-155446-a991901a",
+  "head": "a8eff639b5550e7216e7e9ad2a6c6bf25d8b3a48",
+  "result": "1FAIL1PASS53.88s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "cases": [
+    {
+      "case": {
+        "classname": "tests.test_publication_projection_erasure",
+        "name": "test_projection_erasure_matches_selected_purpose_when_refresher_is_unavailable[True]",
+        "file": "tests/test_publication_projection_erasure.py",
+        "line": "13",
+        "time": "44.947"
+      },
+      "failure": {
+        "message": "AssertionError: Publication text/date copy must not survive selected erasure awaiting a worker\nassert False\n +  where False = all(<generator object test_projection_erasure_matches_selected_purpose_when_refresher_is_unavailable.<locals>.<genexpr> at 0x7f1f1d5aa330>)"
+      }
+    },
+    {
+      "case": {
+        "classname": "tests.test_publication_projection_erasure",
+        "name": "test_projection_erasure_matches_selected_purpose_when_refresher_is_unavailable[False]",
+        "file": "tests/test_publication_projection_erasure.py",
+        "line": "13",
+        "time": "8.266"
+      },
+      "failure": null
+    }
+  ],
+  "finding": "New maintainedcopy survives reviewedpublication erasure whenrefresherunavailable; unrelatedpurpose retentioncontrolPASS",
+  "scope": "Actual ownPostgreSQL/HTTP/domain/triggers, only queuedtask intentionally unavailable; not realdispatchproof",
+  "next": "Scoped synchronous derivedstate deletion inside existing atomic publicationpurpose; rerun newcontrols plus existing fullerasureexecution tests before any load",
+  "acceptance": false
+}

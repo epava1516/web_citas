@@ -1,0 +1,136 @@
+{
+  "run_id": "20261015-155640-2fc119fd",
+  "head": "a8eff639b5550e7216e7e9ad2a6c6bf25d8b3a48",
+  "candidate": "Uncommitted scoped erasure_execution PublicationState deletion; newtest identical tored run",
+  "result": "17PASS194.75s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "selection": [
+    "tests/test_publication_projection_erasure.py",
+    "tests/test_erasure_execution.py"
+  ],
+  "testcases": [
+    {
+      "classname": "tests.test_publication_projection_erasure",
+      "name": "test_projection_erasure_matches_selected_purpose_when_refresher_is_unavailable[True]",
+      "file": "tests/test_publication_projection_erasure.py",
+      "line": "13",
+      "time": "46.623"
+    },
+    {
+      "classname": "tests.test_publication_projection_erasure",
+      "name": "test_projection_erasure_matches_selected_purpose_when_refresher_is_unavailable[False]",
+      "file": "tests/test_publication_projection_erasure.py",
+      "line": "13",
+      "time": "8.466"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_actual_scoped_deletion_replay_isolated_sources_and_sessions",
+      "file": "tests/test_erasure_execution.py",
+      "line": "110",
+      "time": "8.125"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_no_deletion_with_stale_plan_review_choice_scope_csrf_or_production",
+      "file": "tests/test_erasure_execution.py",
+      "line": "173",
+      "time": "8.229"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_execution_concurrent_same_key_has_one_effect",
+      "file": "tests/test_erasure_execution.py",
+      "line": "199",
+      "time": "8.360"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_mobile_partial_execution_reports_open_request[selected_purposes0]",
+      "file": "tests/test_erasure_execution.py",
+      "line": "224",
+      "time": "12.599"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_mobile_partial_execution_reports_open_request[selected_purposes1]",
+      "file": "tests/test_erasure_execution.py",
+      "line": "224",
+      "time": "12.282"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_mobile_partial_execution_reports_open_request[selected_purposes2]",
+      "file": "tests/test_erasure_execution.py",
+      "line": "224",
+      "time": "11.706"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_mobile_partial_execution_reports_open_request[selected_purposes3]",
+      "file": "tests/test_erasure_execution.py",
+      "line": "224",
+      "time": "11.731"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_inflight_favorite_cannot_recreate_erased_preferences",
+      "file": "tests/test_erasure_execution.py",
+      "line": "279",
+      "time": "9.037"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_person_privacy_version_revokes_other_case_preview",
+      "file": "tests/test_erasure_execution.py",
+      "line": "322",
+      "time": "6.532"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_person_privacy_version_revokes_existing_copy_download",
+      "file": "tests/test_erasure_execution.py",
+      "line": "337",
+      "time": "6.403"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_publication_and_alias_erasure_preserves_other_model_and_blocks_republication",
+      "file": "tests/test_erasure_execution.py",
+      "line": "352",
+      "time": "8.335"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_publication_requires_erase_decision_and_profile_requires_publication",
+      "file": "tests/test_erasure_execution.py",
+      "line": "428",
+      "time": "8.480"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_inflight_draft_creation_is_denied_after_publication_erasure",
+      "file": "tests/test_erasure_execution.py",
+      "line": "442",
+      "time": "8.728"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_response_receipt_invalidates_source_without_changing_case_and_requires_new_review",
+      "file": "tests/test_erasure_execution.py",
+      "line": "491",
+      "time": "9.934"
+    },
+    {
+      "classname": "tests.test_erasure_execution",
+      "name": "test_unselected_copy_parts_and_their_audit_are_preserved",
+      "file": "tests/test_erasure_execution.py",
+      "line": "542",
+      "time": "8.500"
+    }
+  ],
+  "scope": "New realPG/HTTP publication-purpose deletion withrefresher unavailable, unrelatedpurpose/peer preservation, emptyineligible recreation, pluscomplete existingerasureexecution tests including replay/authority/CSRF/production/scopes/concurrency/browser/sourceinvalidations. Pausedtask is intentional availability simulation, not actualworkerdispatch proof.",
+  "application_delta_since_expanded92": "Only apps/safety/erasure_execution.py scopedpublication block; model/discovery/state maintenance unchanged. Expanded92 receipt retained as scoped evidence, not a globalgate reinterpreted.",
+  "remaining": "Current integratedCPU then justified cleanload; overallCR09/commonN3 and laterphases remainopen"
+}

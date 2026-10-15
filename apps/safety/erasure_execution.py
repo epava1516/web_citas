@@ -21,7 +21,7 @@ from apps.core.models import (
     RepresentationInvitation,
     User,
 )
-from apps.listings.models import Favorite, Listing, Rate, Revision
+from apps.listings.models import Favorite, Listing, PublicationState, Rate, Revision
 from apps.mediafiles.models import Blob, MediaErasure, Photo
 
 from .crypto import seal, unseal
@@ -394,6 +394,11 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, e
                     expires_at=None,
                     lifecycle_version=models.F("lifecycle_version") + 1,
                 )
+                # This state now includes copied publication text/dates. Clear
+                # it in the same erasure transaction even if workers are down.
+                # Dirty markers remain: refresh may recreate only a source-
+                # consistent ineligible row with no publication content.
+                PublicationState.objects.filter(listing__person=person).delete()
                 person.publication_erased_at = timezone.now()
                 person.save(update_fields=["publication_erased_at"])
             if "profile" in purposes:

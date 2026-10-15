@@ -1,0 +1,13 @@
+{
+  "run_id": "20261015-155446-a991901a",
+  "unit": "cr09-projection-erasure-reproduction-20261015.service",
+  "head": "a8eff63",
+  "status": "running",
+  "source_change": "New scope-erasure regression only; application not corrected yet",
+  "selection": "tests/test_publication_projection_erasure.py",
+  "scenario": "Real ownPG domain, triggers, inventory/reviewedplan/HTTP erasure and replay; only refresher task execution intentionally unavailable",
+  "variants": "publication+profile deletion must clear copiedtext/dates synchronously and preserve peerstate; unrelatedpurposes mustretainpublicationcopy",
+  "criteria": "Preserve observed failure before scopedfix; independent sourcefreeze/cleanup. Worker availability condition is simulated explicitly, not real worker dispatch proof.",
+  "last_clean_p95_seconds": 5.004965654108673,
+  "acceptance": false
+}
