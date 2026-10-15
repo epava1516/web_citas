@@ -449,9 +449,15 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             target = ticks[-1] + BEAT_PHASE_SECONDS
             while target < time.monotonic() + 1:
                 target += 30
-            time.sleep(target - time.monotonic())
             summary["beat_alignment"] = {"observed_tick_monotonic": ticks[-1], "load_start_target": target,
                                          "phase_seconds": BEAT_PHASE_SECONDS}
+            # Persist the existing schedule before waiting, so external diagnostics
+            # can attach without adding hooks/imports or warmup inside the workers.
+            (artifact_folder / "benchmark-arrival-alignment.json").write_text(json.dumps({
+                "run": artifact_folder.name, **summary["beat_alignment"],
+                "recorded_monotonic": time.monotonic(),
+            }))
+            time.sleep(target - time.monotonic())
             summary["dirty_before_load"] = PublicationDirty.objects.count()
             summary["celery_cpu_ticks_before"] = cpu_ticks(
                 [pid for pids in summary["celery_pids"].values() for pid in pids])
