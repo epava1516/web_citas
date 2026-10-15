@@ -1,0 +1,45 @@
+{
+  "run_id": "20261015-115814-c7306a1e",
+  "base_sha": "5f7e96d",
+  "candidate_file": "tests/test_directory_current_rule_profile.py",
+  "unit": "cr09-current-rule-profile-20261015.service",
+  "purpose": "Sequential current stored-state page guard rule attribution; three cases, one control and one instrumented request each",
+  "criteria": [
+    "PostgreSQL synthetic10000",
+    "state route both requests",
+    "same ordered24IDs and count",
+    "48 bound validations and48 Revision.full_clean calls per instrumented page",
+    "source freeze and independent cleanup at terminal"
+  ],
+  "limits": {
+    "controller_cpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "controller_memory_mib": 3584,
+    "pg_cpu": 1,
+    "pg_cpuset": [
+      4
+    ],
+    "pg_memory_mib": 1536,
+    "redis_cpu": 0.2,
+    "redis_cpuset": [
+      5
+    ],
+    "redis_memory_mib": 128
+  },
+  "not_measured": [
+    "operational p95",
+    "concurrent capacity",
+    "DB CPU and waits",
+    "causal overhead"
+  ],
+  "historical_trace": {
+    "value_kernel_added": "e0eea09",
+    "projected_caller_removed": "be4130b",
+    "current_context_value_model": false
+  },
+  "status": "running"
+}

@@ -2188,3 +2188,13 @@ p95 observado apenas0.694%menos, comparación única no causal/reproducible; la 
 | WSGI |0.878885s |
 
 No sumar percentiles; enqueueinterval incluye init/submission/scheduling, no reloj exclusivo decola; conexióncreada no syscallaccept exacta. Reparto porPID359/217/252/372: dos procesos sinactividadWSGI dinámica últimos10s mientras otros mantienen1.71/1.98slots de2. Confirma retraso de despacho local y desequilibrio en esa ejecución, no garantía de que corregirlo baste. PG0.949núcleos durante59.064s de llegadas,afinidad1CPU,0throttled; controlador1.827núcleos agregado. PG cerca de capacidad deCPU y servicio p95ya0.879s son restricciones adicionales. No sustituye p95limpio21.693805s ni aceptaN3. Antes de modificaradmisión: revisar límiteworker_connections con socketsno legibles/sinfutures, no fijarlociegamente athreads. Comparar solución estándar8sync con evidenciahistórica y condiciones cambiadas, sin repetir ensayoidéntico ni encadenar parámetros.
+
+CR09 diagnóstico actual de guardia nativa, 2026-10-15: run `20261015-115814-c7306a1e`, base `5f7e96d` más test explícito congelado, 1PASS/85.37s; fuentes intactas y limpieza independiente de PID raíz/hijo, temporal y PG/Redis propios. Tres solicitudes control seguidas de una instrumentada por caso, población sintética10000, ruta state, mismos24IDs ordenados/conteo,48bindings/48Revision.full_clean. Atribución RuleProfile wall/threadCPU sin argumentos/SQL/payloads. No carga ni p95 ni overhead causal.
+
+| Caso | Wall instrumentado | CPU exclusiva contexto | CPU exclusiva Revision.full_clean |
+|---|---:|---:|---:|
+| Listado |200.582ms|54.918ms|1.757ms|
+| photography |236.738ms|57.332ms|2.607ms|
+| synthetic |371.279ms|191.385ms|1.541ms|
+
+Exclusiva sólo descuenta hijos instrumentados; contexto incluye hidratación ORM/prefetch/catálogos y no identifica aún subcausa.39cursor_execute por caso, wall71.187/94.506/107.103ms inclusivo; no DB CPU. Render exclusivoCPU32.374/29.626/28.310ms. El coste de modelo no justifica habilitar value_model: el caller proyectado fue retirado enbe4130b, PublicationContext conserva la ruta completa deliberadamente. Siguiente diagnóstico acotado debe desglosar construcción/hidratación del contexto antes de cambiar reglas o encadenar cargas; 191ms es una muestra, no causalidad de búsqueda. Recibos `evidencias/cr09-validacion-pagina-actual-{preparacion,terminal}-20261015.json`. CR09/N3 abiertos, p95 limpio integrado21.845510s sin actualización.
