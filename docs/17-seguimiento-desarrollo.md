@@ -2176,3 +2176,15 @@ No capacidad/SLO, ni cierre concurrente de derechos o aceptación global desde p
 | Errores/timeouts |0 |0 |
 
 p95 observado apenas0.694%menos, comparación única no causal/reproducible; la mejora de mediana no sustituye requisito p95<0.8s. Topología queda experimental CI, no adoptada ni Docker modificado; no repetir ni ejecutar900s. Revisar admisión/distribución porPID y cola previa mediante diagnóstico separado antes de nuevos parámetros. Fallos anteriores y criterios completos intactos.
+
+2026-10-15: [diagnóstico admisión gthread](evidencias/cr09-gthread-admision-diagnostico-terminal-20261015.json), run20261015-114049-0b417486.1200dinámicas/1subida con ciclo único completo, PID/cadena temporal exactos;20controlespurosPASS y fuentes/limpieza independientes. Instrumentación de conexión/encolado/handler+WSGI/route/threadCPU y contadoresCPUpropios; sinSQL/render/rulewrappers/profilers, sus buckets0 son NOT_MEASURED. WorkloadFAIL y generadorválido conservados.
+
+| Tramo diagnóstico |p95 |
+| --- | --- |
+| Emisión→objeto conexión |0.001558s |
+| Conexión→llamadaenqueue |0.001492s |
+| Enqueue→handler |21.369258s |
+| Handler→WSGI |0.000349s |
+| WSGI |0.878885s |
+
+No sumar percentiles; enqueueinterval incluye init/submission/scheduling, no reloj exclusivo decola; conexióncreada no syscallaccept exacta. Reparto porPID359/217/252/372: dos procesos sinactividadWSGI dinámica últimos10s mientras otros mantienen1.71/1.98slots de2. Confirma retraso de despacho local y desequilibrio en esa ejecución, no garantía de que corregirlo baste. PG0.949núcleos durante59.064s de llegadas,afinidad1CPU,0throttled; controlador1.827núcleos agregado. PG cerca de capacidad deCPU y servicio p95ya0.879s son restricciones adicionales. No sustituye p95limpio21.693805s ni aceptaN3. Antes de modificaradmisión: revisar límiteworker_connections con socketsno legibles/sinfutures, no fijarlociegamente athreads. Comparar solución estándar8sync con evidenciahistórica y condiciones cambiadas, sin repetir ensayoidéntico ni encadenar parámetros.

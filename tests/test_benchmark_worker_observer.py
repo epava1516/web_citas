@@ -118,3 +118,41 @@ def test_sql_attribution_is_bounded_private_and_keeps_failed_calls(tmp_path):
     assert not any(
         value in json.dumps(events) for value in ("private-query", "secret", "private-error")
     )
+
+
+def test_wsgi_context_and_finish_are_isolated_between_concurrent_threads(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Barrier
+
+    observer = WorkerObserver(tmp_path)
+    barrier = Barrier(2)
+
+    def native(environ, start_response):
+        identity = environ["HTTP_X_BENCHMARK_ID"]
+        assert _CURRENT.get()["id"] == identity
+        barrier.wait(timeout=5)
+        assert _CURRENT.get()["id"] == identity
+        start_response("200 OK", [])
+        return [identity.encode()]
+
+    app = observer.wsgi(native)
+
+    def request(identity):
+        response = app({"HTTP_X_BENCHMARK_ID": identity}, lambda *args: None)
+        try:
+            assert b"".join(response) == identity.encode()
+        finally:
+            response.close()
+        assert _CURRENT.get() is None
+
+    try:
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            list(pool.map(request, ["d-1", "d-2"]))
+    finally:
+        observer.close()
+    observed = collect_events(tmp_path)
+    assert observed["parse_errors"] == []
+    for identity in ("d-1", "d-2"):
+        events = [e for e in observed["events"] if e["id"] == identity]
+        assert [e["event"] for e in events] == ["wsgi_start", "wsgi_end"]
+        assert events[-1]["status"] == 200 and events[-1]["error_type"] is None

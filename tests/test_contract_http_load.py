@@ -69,6 +69,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     if topology["threads"] > 1:
         assert scenario in {"functional", "short"}, "Threaded candidate is not a contractual measurement"
     observe_workers = os.environ.get("WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS") == "1"
+    resource_only = os.environ.get("WEB_MODELOS_BENCHMARK_RESOURCE_ONLY") == "1"
+    assert not resource_only or observe_workers, "Resource-only mode requires explicit diagnostic observer"
     refresh_mode = os.environ.get("WEB_MODELOS_REFRESH_MODE", EAGER)
     assert refresh_mode in (EAGER, NORMAL)
     assert not (observe_workers and scenario == "measured"), "Worker observer is diagnostic only"
@@ -199,7 +201,9 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     if observe_workers:
         observer_folder.mkdir(mode=0o700)
         environment["WEB_MODELOS_BENCHMARK_OBSERVER_DIR"] = str(observer_folder)
-        observer_args = ["--config", "python:scripts.benchmark_worker_observer"]
+        module = ("scripts.benchmark_gthread_observer" if topology["worker_class"] == "gthread"
+                  else "scripts.benchmark_resource_observer") if resource_only else "scripts.benchmark_worker_observer"
+        observer_args = ["--config", "python:" + module]
     manifest = {
         "refresh_mode": refresh_mode,
         "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
@@ -232,6 +236,15 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         manifest["worker_observer"]["scope"] = "Route events after Django get_response; native handlers distinguished from discovery projection/fallback; WSGI start/end/render/SQL wall and threadCPU. No wrappers on native rules; context/validation not_measured. Requests without Django response/route event remain not_measured, never inferred from HTTP status. Partial work lower bounds; causal overhead not_measured."
     if observe_workers:
         manifest["instrumentation"] += "; opt-in isolated worker observer as described in worker_observer, thread CPU scoped to WSGI request; no DB CPU/RSS sampling"
+    if resource_only:
+        manifest["worker_observer"].update(
+            mode="resource_gthread_admission" if topology["worker_class"] == "gthread" else "resource_light",
+            scope="WSGI start/end/threadCPU and route; gthread includes connection-created/enqueue-call/handler-entry timestamps. No SQL/render/rule wrappers. SQL/stages not_measured, not zero. Same-host monotonic; enqueue interval includes setup/submission, not exact exclusive queue; causal overhead not_measured.",
+        )
+        manifest["instrumentation"] = (
+            "Existing asyncledger/clientGC and lightweight WSGI/route/threadCPU only; "
+            "no SQL/render/rule wrappers or profiler; ownCPU cgroup collector separately documented."
+        )
     if scenario == "short":
         assert manifest["policy"]["request_timeout_seconds"] == 65
         assert manifest["policy"]["drain_seconds"] == 70

@@ -1,0 +1,459 @@
+{
+  "run": "20261015-114049-0b417486",
+  "sha": "b82d5c046e4f11b5b4f4ae90d63bfdc0c2ac96b2",
+  "mode": "separate admission/CPU diagnosis, not clean p95",
+  "workload_result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "1",
+      "time": "202.829",
+      "timestamp": "2026-10-15T13:41:09.477932+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged_independent": true,
+  "cleanup_independent": {
+    "pids_absent": {
+      "3294977": true,
+      "3297347": true
+    },
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-114049-0b417486": true,
+      "web-modelos-ci-redis-20261015-114049-0b417486": true
+    },
+    "celery_pids_absent": {
+      "3305334": true,
+      "3305467": true,
+      "3305468": true,
+      "3305335": true
+    },
+    "wsgi_worker_pids_absent": {
+      "3305543": true,
+      "3305544": true,
+      "3305545": true,
+      "3305546": true
+    }
+  },
+  "matched_dynamic": 1200,
+  "matched_identified_including_upload": 1201,
+  "aggregate_seconds": {
+    "emit_to_created": {
+      "mean": 0.0006654510685863594,
+      "p95": 0.0015576370060443878
+    },
+    "created_to_enqueue": {
+      "mean": 0.0005879177890407543,
+      "p95": 0.0014920160174369812
+    },
+    "enqueue_to_handler": {
+      "mean": 8.279176867544496,
+      "p95": 21.369258350227028
+    },
+    "handler_to_wsgi": {
+      "mean": 0.0002596456716613223,
+      "p95": 0.0003492808900773525
+    },
+    "service": {
+      "mean": 0.44962896525044926,
+      "p95": 0.8788850409910083
+    },
+    "thread_cpu": {
+      "mean": 0.11088195238583334,
+      "p95": 0.2095068970000007
+    }
+  },
+  "workers": {
+    "3305543": {
+      "requests": 359,
+      "maximum_dynamic_wsgi_overlap": 2,
+      "mean_active_slots": 1.959453855571615,
+      "mean_active_slots_last10seconds": 1.7082482939586043,
+      "seconds": {
+        "emit_to_created": {
+          "mean": 0.0006406815984600268,
+          "p95": 0.001494122203439474
+        },
+        "created_to_enqueue": {
+          "mean": 0.00049490136454987,
+          "p95": 0.0012365770526230335
+        },
+        "enqueue_to_handler": {
+          "mean": 12.780684129765625,
+          "p95": 22.146025561261922
+        },
+        "handler_to_wsgi": {
+          "mean": 0.0002690554132119527,
+          "p95": 0.0005156686529517174
+        },
+        "service": {
+          "mean": 0.4399526797216853,
+          "p95": 0.8667593938298523
+        },
+        "thread_cpu": {
+          "mean": 0.10955498467130924,
+          "p95": 0.20631520200000075
+        }
+      }
+    },
+    "3305544": {
+      "requests": 217,
+      "maximum_dynamic_wsgi_overlap": 2,
+      "mean_active_slots": 1.2950625147422583,
+      "mean_active_slots_last10seconds": 0.0,
+      "seconds": {
+        "emit_to_created": {
+          "mean": 0.0006977708877197333,
+          "p95": 0.001778910867869854
+        },
+        "created_to_enqueue": {
+          "mean": 0.00046348078219297294,
+          "p95": 0.0019078850746154785
+        },
+        "enqueue_to_handler": {
+          "mean": 0.5984827125367755,
+          "p95": 1.8647915800102055
+        },
+        "handler_to_wsgi": {
+          "mean": 0.0002691492133597899,
+          "p95": 0.000340891070663929
+        },
+        "service": {
+          "mean": 0.48105681835660874,
+          "p95": 0.9016221691854298
+        },
+        "thread_cpu": {
+          "mean": 0.11191716517972355,
+          "p95": 0.2095068970000007
+        }
+      }
+    },
+    "3305545": {
+      "requests": 252,
+      "maximum_dynamic_wsgi_overlap": 2,
+      "mean_active_slots": 1.4559523268533734,
+      "mean_active_slots_last10seconds": 0.0,
+      "seconds": {
+        "emit_to_created": {
+          "mean": 0.0007854629814299563,
+          "p95": 0.0018445290625095367
+        },
+        "created_to_enqueue": {
+          "mean": 0.00043427177505301576,
+          "p95": 0.0014852466993033886
+        },
+        "enqueue_to_handler": {
+          "mean": 0.7596193569424075,
+          "p95": 3.0017948411405087
+        },
+        "handler_to_wsgi": {
+          "mean": 0.0002557630318083933,
+          "p95": 0.0004642917774617672
+        },
+        "service": {
+          "mean": 0.46570616750423577,
+          "p95": 0.8916356000117958
+        },
+        "thread_cpu": {
+          "mean": 0.11118619970634917,
+          "p95": 0.20818911200000123
+        }
+      }
+    },
+    "3305546": {
+      "requests": 372,
+      "maximum_dynamic_wsgi_overlap": 2,
+      "mean_active_slots": 1.9832915263591857,
+      "mean_active_slots_last10seconds": 1.9792822397314012,
+      "seconds": {
+        "emit_to_created": {
+          "mean": 0.0005892033185509424,
+          "p95": 0.0011643581092357635
+        },
+        "created_to_enqueue": {
+          "mean": 0.000854354677221147,
+          "p95": 0.0015221289359033108
+        },
+        "enqueue_to_handler": {
+          "mean": 13.509279064240776,
+          "p95": 21.222332894802094
+        },
+        "handler_to_wsgi": {
+          "mean": 0.0002476512078916834,
+          "p95": 0.0003201877698302269
+        },
+        "service": {
+          "mean": 0.4297431787258134,
+          "p95": 0.8757229689508677
+        },
+        "thread_cpu": {
+          "mean": 0.11135257041935484,
+          "p95": 0.2295512879999997
+        }
+      }
+    }
+  },
+  "cpu_phases": {
+    "arrivals": {
+      "postgres": {
+        "elapsed_seconds": 59.063690894749016,
+        "execution_cpu_cores": 0.9486438817351543,
+        "counter_delta": {
+          "usage_usec": 56030409,
+          "user_usec": 40161843,
+          "system_usec": 15868566,
+          "nr_periods": 591,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        },
+        "samples": 60,
+        "cpu.max": "100000 100000",
+        "cpuset": "4",
+        "first_monotonic": 3785197.777812626,
+        "last_monotonic": 3785256.841503521
+      },
+      "controller": {
+        "elapsed_seconds": 59.06378215877339,
+        "execution_cpu_cores": 1.8266769254629227,
+        "counter_delta": {
+          "usage_usec": 107890448,
+          "user_usec": 102881379,
+          "system_usec": 5009070
+        },
+        "samples": 60,
+        "cpu.max": "not_exposed",
+        "cpuset": "not_exposed",
+        "first_monotonic": 3785197.777251292,
+        "last_monotonic": 3785256.841033451
+      }
+    },
+    "drain": {
+      "postgres": {
+        "elapsed_seconds": 19.018092055339366,
+        "execution_cpu_cores": 0.6387289516031969,
+        "counter_delta": {
+          "usage_usec": 12147406,
+          "user_usec": 8817538,
+          "system_usec": 3329869,
+          "nr_periods": 190,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        },
+        "samples": 20,
+        "cpu.max": "100000 100000",
+        "cpuset": "4",
+        "first_monotonic": 3785257.842546812,
+        "last_monotonic": 3785276.860638867
+      },
+      "controller": {
+        "elapsed_seconds": 19.017979428637773,
+        "execution_cpu_cores": 1.4264678380684932,
+        "counter_delta": {
+          "usage_usec": 27128536,
+          "user_usec": 25849831,
+          "system_usec": 1278705
+        },
+        "samples": 20,
+        "cpu.max": "not_exposed",
+        "cpuset": "not_exposed",
+        "first_monotonic": 3785257.842096526,
+        "last_monotonic": 3785276.860075955
+      }
+    }
+  },
+  "cpu_observer": {
+    "run": "20261015-114049-0b417486",
+    "samples": 223,
+    "error_type": null,
+    "groups": {
+      "controller": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/cr09-owned-cpu-diagnose-gthread-20261015.service",
+      "postgres": "/sys/fs/cgroup/system.slice/docker-28ab77613e65206425d61d3e3a9d28e3e1d19f749df77d8c8483c8577086cf15.scope"
+    },
+    "scope": "Own leaf cgroups only; controller includes generator/pytest/Celery/app/collector. No request attribution or causal profiling overhead measured.",
+    "collector_thread_cpu_seconds": 0.223115521
+  },
+  "load": {
+    "server_topology": {
+      "worker_class": "gthread",
+      "workers": 4,
+      "threads": 2
+    },
+    "counts": {
+      "scheduled": 1200,
+      "emitted": 1200,
+      "not_emitted": 0,
+      "successful": 1200,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "invalid_reasons": [],
+    "window_close": {
+      "dynamic": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 946,
+        "failed": 0,
+        "pending": 254,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 1,
+        "emitted": 1,
+        "not_emitted": 0,
+        "successful": 1,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "observed_at_seconds": 60.00276109017432
+    },
+    "actual_elapsed_seconds": 80.6056297631003,
+    "monotonic_origin_seconds": 3785197.095544877,
+    "frozen_manifest": {
+      "refresh_mode": "normal_worker_beat",
+      "source_commit": "b82d5c046e4f11b5b4f4ae90d63bfdc0c2ac96b2",
+      "server_topology": {
+        "worker_class": "gthread",
+        "workers": 4,
+        "threads": 2
+      },
+      "dataset": {
+        "published": 10000,
+        "synthetic": true,
+        "shared_synthetic_photo_fixture": true,
+        "sample_ids": [
+          "17d2116d-f2ff-4447-910a-cc2f913a077c",
+          "90489484-899a-4971-abcf-da651aed058c",
+          "36cf6973-585b-4d9c-8023-9daffb6085fb",
+          "3de40319-e810-4576-8762-51b631726057",
+          "5818bf5a-50d7-41f3-ad6d-81d05950d3a0",
+          "dd2abd80-5cb7-41fc-a921-d74d6262b34c",
+          "2b1241c1-51a9-4ac7-95d7-6a2f1f68375a",
+          "605b9940-25c3-4864-905c-bfc408231636",
+          "667a9075-6e9d-4f34-afbd-0c10d9be3567",
+          "54d68d5b-6708-47b7-b806-ef1d94cb6e0c",
+          "ee6526e7-f13f-41c5-b3b4-a9e5f2c519d8",
+          "14e1685c-ede8-4517-abf2-c6bf34098173",
+          "40da9f9d-439d-4c4b-bddb-be321d279058",
+          "012ee783-c18e-4866-b694-b71efd4b4ada",
+          "ada19112-736f-44d2-8a5d-863a1d1fd363",
+          "00943a2e-d60b-4d07-8fe3-b518b16cfa83",
+          "8bb1a686-5e75-4f74-b42d-3f5d698c039b",
+          "a3f6dd78-6e72-4de6-ab34-c4d43c864128",
+          "504f0deb-57e0-4310-ad50-3b374a2245a7",
+          "aacad0b4-51b4-4036-be0f-1d968bc15b80",
+          "cc3f4b47-fc1b-48ee-957e-66c9cd35a2bd"
+        ],
+        "limits": "State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.",
+        "deployment_step": "Publication state current for rules 2e8b1955d86a: 9998 recomputed",
+        "deployment_step_after_fixture": "Publication state current for rules 2e8b1955d86a: 1 recomputed"
+      },
+      "fixture": "seed_demo; deterministic photo seed1, upload seed782134; UUID identities/time-relative validity vary per isolated run",
+      "resources": {
+        "os": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+        "cpu_count": 8,
+        "cpu_affinity_count": 4,
+        "postgres_version": "17.11",
+        "gunicorn_version": "23.0.0",
+        "django_version": "5.2.17",
+        "python_version": "3.12.15",
+        "pg_server_shared": true,
+        "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+        "memory_total": "MemTotal:       23760928 kB"
+      },
+      "routes": [
+        "/es/",
+        "/en/",
+        "/es/?q=photography",
+        "/en/?q=synthetic",
+        "/es/listing/17d2116d-f2ff-4447-910a-cc2f913a077c/",
+        "/en/listing/cc3f4b47-fc1b-48ee-957e-66c9cd35a2bd/"
+      ],
+      "mix": {
+        "listing": "1/3",
+        "search": "1/3",
+        "detail": "1/3",
+        "languages": "ES/EN alternating",
+        "uploads": "separate1/minute,15 for contractual run"
+      },
+      "policy": {
+        "generator_p95_seconds_max": 0.01,
+        "generator_p99_seconds_max": 0.025,
+        "generator_max_seconds_max": 0.1,
+        "not_emitted_fraction_max": 0.0,
+        "request_timeout_seconds": 65.0,
+        "drain_seconds": 70.0,
+        "latency_p95_seconds_strict_max": 0.8,
+        "error_fraction_strict_max": 0.01,
+        "late_emission": "Never emit after the arrival window; count as not emitted",
+        "final_pending": "Classify as failed/timeout at fixed drain deadline",
+        "emission": "Async coroutine begins whole HTTP transaction, before connection/open/read; event-loop scheduling wait included in generator delay",
+        "justification": "20rps gives 50ms intervals: p95 jitter 1/5 interval, p99 1/2 interval, max two intervals; zero missing arrivals preserves full18000. Drain70s=timeout65s+5s margin.",
+        "request_timeout_scope": "65s total across connection, headers and body",
+        "client_concurrency": "No pending-request cap; per-request65s timeout bounds outstanding lifetime"
+      },
+      "duration_seconds": 60,
+      "arrival_rps": 20,
+      "scheduled_dynamic": 1200,
+      "uploads_separate": 1,
+      "state": "Fresh Gunicorn/DB fixture; six cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
+      "error_policy": "Every non200 dynamic response, transport error or timeout is failed; uploads require302; final drain expiry classified failed/timeout",
+      "instrumentation": "Existing asyncledger/clientGC and lightweight WSGI/route/threadCPU only; no SQL/render/rule wrappers or profiler; ownCPU cgroup collector separately documented.",
+      "scope": "60s concurrent diagnostic only; not contractual capacity",
+      "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
+      "client_fixture_preparation": "One gc.collect(2) after fixture/auth/upload construction, before arrival clock; enabled/thresholds unchanged, automatic GC remains active during load. Previous observed client GC321.913ms overlaps273.107ms of273.462ms maximum emission delay; no backend improvement attributed to this preparation",
+      "worker_observer": {
+        "enabled": true,
+        "mode": "resource_gthread_admission",
+        "scope": "WSGI start/end/threadCPU and route; gthread includes connection-created/enqueue-call/handler-entry timestamps. No SQL/render/rule wrappers. SQL/stages not_measured, not zero. Same-host monotonic; enqueue interval includes setup/submission, not exact exclusive queue; causal overhead not_measured.",
+        "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
+        "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition"
+      },
+      "diagnostic_criteria": {
+        "valid_generator_and_reconciled_accounting": true,
+        "p95_seconds_strict_below": 0.8,
+        "error_ratio_strict_below": 0.01,
+        "uploads_expected_status": 302,
+        "dynamic_pending_at_window_max": 20,
+        "final_pending": 0,
+        "request_timeout_seconds": 65,
+        "drain_seconds_max": 70,
+        "verdict_scope": "Complete diagnostic gate, transport verdict retained separately",
+        "reason": "Existing latency/error objectives plus at most one second of arrivals outstanding as accumulation filter; generator numeric policy unchanged. No capacity acceptance."
+      }
+    },
+    "owned_redis_empty": true
+  },
+  "finding": "Dominant observed preWSGI delay lies between enqueue call and handler entry, p9521.369s; connection creation and readiness-to-enqueue p95 around1.5ms. Two workers have0dynamicWSGI activity during final10s while two remain active with already accepted/enqueued work. Confirms per-process queued dispatch imbalance in this gthread run. PG arrival execution0.949cores on single pinnedCPU, noCFS throttle; near CPU capacity is a separate constraint, not waived by queue diagnosis.",
+  "limits": [
+    "Enqueue-to-handler includes native connection initialization/submission/scheduling, not exact exclusive executor-queue timer",
+    "Connection-created after accept return is not precise TCPaccept timestamp; no payload/SQL collected",
+    "SQL/stage zero buckets are not_measured; no claim of zeroSQL",
+    "Instrumented timing not cleanrepeat/acceptance; percentiles not additive and causalobserveroverhead not_measured",
+    "Only identified requests foroccupancy; complete1Hz sampleintervals within windows forCPU; controller includes generator/pytest/Celery/app/collector",
+    "Does not prove that fixing queue alone meets0.8s: observed servicep950.879s andPG close singleCPU capacity remain"
+  ],
+  "next": "Choose safe bounded admission/global balancing with source review; no blind worker_connections=threads because unreadable connections/no futures can stop poller atcap. Compare standard8sync already explored historically versus safe admission changes; code/resource conditions and safety must be justified before any new trial.",
+  "artifacts_sha256": {
+    "result.json": "8064af61513d984608f71aaf86a23dd3bb7cf5113a63f40b9df11f69f506313b",
+    "pytest.xml": "4fcec944a380ebbc34822dc6a76b66e7d527fc0bbfb63e3961a760f7b544ec72",
+    "source-hashes.json": "9ee2400ec8f51ed2d786f84d211d8af8321e94675093df33394758abf48f968e",
+    "benchmark-worker-events.json": "cd6896e49e27344192bafb2bd47c16c58584c3a21e1acf9726914156939faa3d",
+    "benchmark-samples.json": "1373a51208c61d18d2114375837f0db414cc06d2a5418fc0df80cdf55ac1d407",
+    "owned-cpu-samples.jsonl": "830b383573c4e899d14f8894e87496d6af84da2d85f9ddd0c6240200931c05ba",
+    "owned-cpu-samples.summary.json": "db33ffbbb02435bc7ac1d125c196bc0fd3d803ff0aa8e1190464bc4f4331d525"
+  },
+  "acceptance": false
+}

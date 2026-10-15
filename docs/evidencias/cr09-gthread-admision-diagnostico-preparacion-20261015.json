@@ -1,0 +1,23 @@
+{
+  "base_sha": "b82d5c046e4f11b5b4f4ae90d63bfdc0c2ac96b2",
+  "mode": "Separate gthread admission/CPU diagnosis, not clean measurement",
+  "trigger": "20261015-112831-ae568c61 clean gthreadFAIL p9521.693805s,median4.316s,227pending; cannot infer process distribution from aggregate clean summary",
+  "selection": [
+    "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]"
+  ],
+  "unchanged": "Same4gthread x2threads/default1000workerconnections,10k20rps60s+limitedupload,normalownworkerBeat,generatorfreeze. AllCPU/memory/Redis/PG/pid quotas unchanged; no serverparametercandidate.",
+  "observation": "Light WSGI/route/threadCPU, connection-object-created/enqueue-call/handler-entry timestamps in own workers, external1Hz own-leaf CPU counters. NoSQL/render/rule wrappers/pyspy/Memray/Scalene. SQL/stage zero buckets are NOT_MEASURED.",
+  "required": "1200exactunique lifecycle pairs with samePID and ordered timestamps; compare pre-object/enqueue-to-handler/handler-toWSGI/WSGI perPID and windows. Enqueueinterval includes parser setup/submission; objectcreated not exactacceptsyscall. ClientConnectionclose verified in transport. Missingevents explicit, not zero. Sourcefreeze/cleanup independently. Preserve workloadFAIL; no capacity/N3 or causal p95claim.",
+  "prechecks": "20pure observer/context/ownership/topology controlsPASS including concurrent context reset, exactdelegation and exceptionpreservation;Gunicorn23TConn no slots supports diagnosticattrs. Actualpurecontrols not realcapacity evidence.",
+  "source_sha256": {
+    "scripts/benchmark_gthread_observer.py": "ceb8f11b3d30c54f84e9a2757dba79c9f5be2f6f89d609aa72c676bed3036bf9",
+    "scripts/benchmark_resource_observer.py": "eb16eacaec65f117ddfe3d2c674e53b5c025b0f359dab8bd13361be4510ae060",
+    "scripts/benchmark_owned_cpu_observer.py": "d60da0d2ae9c8edb6b243e94087d28957d0734c501c2fc62907fd4c55a40a009",
+    "tests/test_contract_http_load.py": "582ab3c22e1689cd7493354c8e9915fccec77894e764f2d5c05d479d6f03f22a",
+    "tests/test_benchmark_gthread_observer.py": "dc8692d2afd5ced52738282610705f1ec5fda5fbd5645c69cce0452790af8935",
+    "tests/test_benchmark_worker_observer.py": "7b872f401e867c1976aaa7b27c016bc4b380b5c9fd1cb541aeff5932a257e78c",
+    "artifacts/vps-preparation/cr09-gthread-admission-diagnose-20261015/run.py": "800a1e8b32c5ced42c90096de7bd91e5b8ba58cfde7d2699a3fe0aa1eedb5065"
+  },
+  "limits": "Same boundedcontroller4CPU3584MiB swap0pids512;PG1CPUon4 1536MiBswap1536pids128;Redis0.2CPUon5 128MiBswap128pids64;onepytestworker,no snapshots,timeout900",
+  "acceptance": false
+}
