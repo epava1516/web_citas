@@ -1,0 +1,13 @@
+{
+  "run_id": "20261015-142404-dd21a941",
+  "unit": "cr09-prepared-page-http-20261015.service",
+  "head": "82289ea",
+  "status": "running",
+  "prerequisite": "60PASS expanded plus8PASS corrective; same currentCPUfamilies diagnostic warmedhydration14\u201315\u21925\u20135.833ms; source/cleanupverified",
+  "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+  "profile": "20rps60s10k,4sync,normalownworkerBeat,oneupload,unprofiled,noPGtracker,noobserver,generatorfreeze",
+  "resources": "Unchanged bounded normal CI adapter; own synthetic PG/Redis only; no competing workload",
+  "criteria": "Strictp95<0.8s plus generator/errors/pending/upload/drain/cleanup gates; short is not15min/N3",
+  "decision_rule": "IfFAIL preservefailure and diagnose separately,no repetition/sweep; ifmeets repeatonce for reproducibility",
+  "acceptance": false
+}
