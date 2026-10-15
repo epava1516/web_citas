@@ -1,0 +1,14 @@
+{
+  "run_id": "20261015-160640-172e26bf",
+  "unit": "cr09-maintained-projection-http-20261015.service",
+  "head": "f93c183",
+  "status": "running",
+  "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+  "prerequisites": "Projection5controls/3lifecycle/expanded92 and scopedpublicationerasure17PASS; integratedCPU160205-09336c6a1PASS,mean50.694\u219233.889ms; sourcecleanup individuallyverified",
+  "profile": "Same boundedownPG1CPU/controller4cores/Redis0.2CPU,4sync20rps60s10k,normalownworkerBeat,oneupload,generatorfreeze,noobserver/PGtracker/profilers",
+  "baseline": "20261015-145835-6830fbfc cleanp955.004965654108673FAIL",
+  "criteria": "Strictp95<0.8 plusallshort generator/error/pending/upload/drain checks; not15min/N3",
+  "decision_rule": "Ifmeets repeatonceunchanged forreproducibility; ifFAIL preservefailure anddiagnose separately,no repeatedFAILorparametersweep",
+  "metadata_note": "Legacy pg_server_shared/staticnormalstack text in summary is not ownership evidence. runner/adapter exactownname-label/resource limits establish disposable services; preserve rawsummary and annotate ifneeded.",
+  "acceptance": false
+}
