@@ -2061,3 +2061,12 @@ Equivalencia conteo compartido `20261015-093943-5ab64c62`: [9 PASS/1 FAIL](evide
 
 
 [Frentes existentes conciliados](evidencias/cr10-correspondencia-integrada-20261015.json): rama claude/bf-design-system ya integrada por ascendencia Git y limpia en su worktree; no hay commits BF pendientes de incorporar. Selección comercial ligada a journals v3 actuales y huellas exactas, sin diferencias de producto comercial desde8fb4cf1; no rehacer mecanismos cerrados del contrato11. CR10 formal sigue condicionado a CR09/gates comunes. Preparación independiente de GS01/BF no acepta fases.
+
+
+[BF: tema oscuro/contraste prerregistrado](evidencias/bf-temas-contraste-preparacion-20261015.json). CSS tiene prefers-color-scheme dark y no había contexto dark en pruebas; ampliar casos existentes ES/EN móvil/escritorio, estados200/400/409, mismos umbrales y medición de fondos soportados. Capturas privadas opt-in para revisión; sin cambio de producto. Una selección focused contraste+teclado, mismas cuotas/snapshots y timeout1800. Conservar fallos, terminal/limpieza y revisar capturas; no aceptación BF/GS01/WCAG global.
+
+
+[BF contraste: negativa preservada](evidencias/bf-temas-contraste-negativa-20261015.json), `20261015-100237-9861261a`:7PASS/4FAIL, fuentes intactas y limpieza independiente. Cuatro fallos públicos por lectura media directa antes de terminar navegación400; privados claro/oscuro y teclado pasan. [Correctiva afectada prerregistrada](evidencias/bf-temas-contraste-correctiva-preparacion-20261015.json): esperar error renderizado y load, mismos umbrales/sin retries, repetir sólo cuatro casos públicos. Nuevas capturas separadas, originales preservados; mismas cuotas.
+
+
+[BF contraste corregido terminal](evidencias/bf-temas-contraste-terminal-20261015.json):4PASS públicos, fuentes intactas y limpieza independiente, con7PASS privados/referencia/teclado conservados; reconstrucción de fuente demuestra cambio limitado a dos esperas públicas. Capturas24 en archivo con SHA256, cuatro vistas inspeccionadas sin recortes/solapamientos observados. Umbrales soportados pasan; selectores ausentes siguen not_measured, no cumplimiento WCAG ni BF integral. Producto sin cambios; fallo de sincronización inicial preservado.

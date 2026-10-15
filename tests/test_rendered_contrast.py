@@ -1,8 +1,10 @@
 """Finite computed-style contrast measurements over native PostgreSQL HTTP pages."""
 
 import json
+import os
 import re
 import shutil
+from pathlib import Path
 
 import pytest
 from django.core.management import call_command
@@ -94,6 +96,14 @@ def measured(locator, selector, kind="text"):
 
 
 def collect(page, language, width, state):
+    color_scheme = (
+        "dark" if page.evaluate("matchMedia('(prefers-color-scheme: dark)').matches") else "light"
+    )
+    folder = os.environ.get("BF_SCREENSHOT_OUTPUT")
+    if folder:
+        target = Path(folder) / f"{language}-{color_scheme}-{width}-{state}.png"
+        page.screenshot(path=str(target), full_page=True)
+        target.chmod(0o600)
     rows = []
     for selector in [
         "h1",
@@ -137,12 +147,13 @@ def collect(page, language, width, state):
         for index, node in enumerate(page.locator(selector).all()):
             rows.append(measured(node, f"{selector}[{index}]", "border"))
     for row in rows:
-        row.update(language=language, width=width, state=state)
+        row.update(language=language, width=width, state=state, color_scheme=color_scheme)
     return rows
 
 
 @pytest.mark.parametrize("language", ["es", "en"])
-def test_public_rendered_contrast(live_server, language, record_property):
+@pytest.mark.parametrize("color_scheme", ["light", "dark"])
+def test_public_rendered_contrast(live_server, language, color_scheme, record_property):
     call_command("bootstrap")
     rows = []
     with sync_playwright() as pw:
@@ -151,7 +162,9 @@ def test_public_rendered_contrast(live_server, language, record_property):
         )
         try:
             for width, height in [(390, 844), (1280, 900)]:
-                page = browser.new_page(viewport={"width": width, "height": height})
+                page = browser.new_page(
+                    viewport={"width": width, "height": height}, color_scheme=color_scheme
+                )
                 response = page.goto(live_server.url + f"/{language}/account/login/")
                 assert response.status == 200
                 rows.extend(collect(page, language, width, "public_initial"))
@@ -162,6 +175,8 @@ def test_public_rendered_contrast(live_server, language, record_property):
                 with page.expect_response(lambda r: r.request.method == "POST") as rejected:
                     page.keyboard.press("Enter")
                 assert rejected.value.status == 400
+                expect(page.locator(".errorlist").first).to_be_visible()
+                page.wait_for_load_state("load")
                 rows.extend(collect(page, language, width, "public_required_400"))
                 page.close()
         finally:
@@ -172,7 +187,10 @@ def test_public_rendered_contrast(live_server, language, record_property):
 
 
 @pytest.mark.parametrize("language", ["es", "en"])
-def test_private_rendered_contrast(request, settings, live_server, language, record_property):
+@pytest.mark.parametrize("color_scheme", ["light", "dark"])
+def test_private_rendered_contrast(
+    request, settings, live_server, language, color_scheme, record_property
+):
     settings.DEBUG = True
     case, _, staff, _, _, _ = prepared(request, settings)
     before = (case.status, case.version, case.initial_due_at)
@@ -183,7 +201,9 @@ def test_private_rendered_contrast(request, settings, live_server, language, rec
         )
         try:
             for width, height in [(390, 844), (1280, 900)]:
-                context = browser.new_context(viewport={"width": width, "height": height})
+                context = browser.new_context(
+                    viewport={"width": width, "height": height}, color_scheme=color_scheme
+                )
                 context.add_cookies(
                     [
                         {
