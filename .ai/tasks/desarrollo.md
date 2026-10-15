@@ -1090,3 +1090,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-15: capturaPGpropio233806-75cf5a0aSHA cbdaba3,1832muestras100ms0errores;FAIL185,75s,p95instrumentado0,954280990s,1200completas0errores. NoLock/IO activo muestreado,noatribuciónCPU/noaceptación. Mismoslímites,fuentecongelada,controlador/hijo/8workers/Celery/temp/containersretiradosverificados. SinllamadasClaude niotrascuentas. Evidencia/instrumentos en docs/evidencias/cr09-pg-waits*. Goalabierto.
+
+
+2026-10-15: contrasteverificaciónagrupada234338-54b9df2f,72lecturas,1PASS104,08speroREJECTED:252,279→263,468ms/CPU119,353→127,328. Noappcambiada,nocargaHTTPnueva. Testaislado56ae6f6,hashesoriginalesverificadosantesdecommit,cleanuprealcompleto. SininvocacionesClaude/costeexterno;consumopreviointacto. GoalCR09ysiguientesabierto.

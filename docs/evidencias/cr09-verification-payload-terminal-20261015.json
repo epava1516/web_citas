@@ -1,0 +1,85 @@
+{
+  "run": "20261015-234338-54b9df2f",
+  "sha": "cbdaba36ac8bdf84d7ad006bb2443ebd1725aee5",
+  "n": 72,
+  "cases": [
+    {
+      "dirty": false,
+      "search": false,
+      "native": {
+        "wall_ms": 202.3421433340344,
+        "cpu_ms": 97.75580544444296
+      },
+      "packed": {
+        "wall_ms": 196.67756360852056,
+        "cpu_ms": 99.67746999999842
+      }
+    },
+    {
+      "dirty": false,
+      "search": true,
+      "native": {
+        "wall_ms": 184.85876891968977,
+        "cpu_ms": 86.36594800000017
+      },
+      "packed": {
+        "wall_ms": 226.80355836119918,
+        "cpu_ms": 113.35385955555604
+      }
+    },
+    {
+      "dirty": true,
+      "search": false,
+      "native": {
+        "wall_ms": 340.4765329323709,
+        "cpu_ms": 176.03252088888942
+      },
+      "packed": {
+        "wall_ms": 306.8665692893167,
+        "cpu_ms": 148.10308666666413
+      }
+    },
+    {
+      "dirty": true,
+      "search": true,
+      "native": {
+        "wall_ms": 281.43767008764877,
+        "cpu_ms": 117.25777100000003
+      },
+      "packed": {
+        "wall_ms": 323.5258683562279,
+        "cpu_ms": 148.1784819999995
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "native": 252.9378570228194,
+      "packed": 231.26283400536826
+    },
+    {
+      "native": 256.6828266329442,
+      "packed": 269.56865556227666
+    },
+    {
+      "native": 247.21565279954424,
+      "packed": 289.57368014380336
+    }
+  ],
+  "cleanup_source_freeze": "independently verified PASS",
+  "overall": {
+    "native": {
+      "wall_ms": 252.27877881843597,
+      "cpu_ms": 119.35301133333314
+    },
+    "packed": {
+      "wall_ms": 263.4683899038161,
+      "cpu_ms": 127.32822455555454
+    }
+  },
+  "verdict": "REJECTED_NO_CONSISTENT_BENEFIT",
+  "test_result": "1 PASS /104.08s",
+  "source_commit_after_run": "56ae6f6",
+  "source_sha256": "fbd017ce5762419dfe28e9f42df5f7d644ef9100b8e20a68e49ecfbd69b9a445",
+  "limitations": "Sequential synthetic fixture only; no historical/timestamp tie equivalence proof, no HTTP p95. Source untracked during execution included in source hashes; committed later."
+}

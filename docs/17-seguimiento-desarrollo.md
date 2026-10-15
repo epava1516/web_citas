@@ -2374,3 +2374,6 @@ Desglose SQL sintético `233344-af8d3970`:1PASS87,69s,272SELECT/39formas. Huella
 
 
 CapturaPGpropio233806-75cf5a0a:1832muestras100ms/0errores,1FAIL185,75s instrumentado0,954280990s(ningunamejoracausal). Sinwait_eventLock/IOactivo observado;noexcluyeesperasbreves niidentificaCPU.1200IDs exactos0errores,76lentasemitidasprimeros5s. Fuentes/limpiezaverificadas. Vercr09-pg-waits-20261015.md. No repetirclean niintegrar8sync;persistenciaconexionesyaexistente60s.
+
+
+Candidato última verificación agrupada descartado:234338-54b9df2f,1PASS104,08s,72lecturas;media252,279→263,468ms yCPU119,353→127,328ms. No beneficio consistente, nointegración/HTTP. Testaislado56ae6f6; evidencia cr09-verification-payload-20261015.md,fuentesyrecursoslimpiosverificados. RendimientoCR09abierto; noencadenarmicrocambios.
