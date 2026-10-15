@@ -1,0 +1,10 @@
+{
+  "selection": [
+    "tests/test_directory_query_plans.py"
+  ],
+  "prerequisite": "20261015-104009-460e9083 6PASS source freeze/independent cleanup",
+  "baseline": "20261015-103530-5d6e356c exact same diagnostic test and own resources",
+  "required": "10k exact counts, actual count/page/hydration plans, compare structural elimination of redundant revision join; timings sequential only",
+  "limits": "Existing bounded own CI,oneworker,no snapshots,timeout1800",
+  "acceptance": false
+}

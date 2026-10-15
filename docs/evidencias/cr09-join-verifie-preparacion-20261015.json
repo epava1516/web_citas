@@ -1,0 +1,16 @@
+{
+  "candidate": "Omit redundant approved revision status join in state population only. Native query carries identical sibling with same filters/timestamps/order; QuerySet clones lose hint and retain full predicate. Trusted current non-dirty eligibility attests approval; dirty/unknown IDs originate from original approved-only native query. No cache or guard removal.",
+  "selection": [
+    "tests/test_publication_state.py::test_trusted_population_omitted_join_keeps_native_membership",
+    "tests/test_publication_state.py::test_state_route_matches_native_before_and_after_refresh"
+  ],
+  "source_sha256": {
+    "apps/listings/discovery.py": "bb4f16836e1ee9faf7eb89c8b6d2b4a68ea5c94d7d0b105635a4928017840802",
+    "apps/listings/publication_state.py": "93e47251dae0c815e54977bc6dfbe2c4dddd26a3949469ff10022a97a3e80311",
+    "tests/test_publication_state.py": "0ea98275b3e06f31b729843a9b91a140df402d09a8b2650312c02f6187af7a25"
+  },
+  "required": "Native equality normal/production before-after refresh, missing/obsolete revision, paused/expired listing, dirty and refreshed paths, text/check filters; narrower caller clone must not use broader sibling. Preserve all historical failures.",
+  "limits": "Existing bounded own CI PG/Redis/controller,oneworker,no snapshots,timeout1800",
+  "followup": "Only after functional PASS inspect same synthetic10k plans. No speculative HTTP load before evidence supports it. Candidate not accepted; retain or withdraw based on evidence.",
+  "acceptance": false
+}

@@ -2111,3 +2111,13 @@ Equivalencia conteo compartido `20261015-093943-5ab64c62`: [9 PASS/1 FAIL](evide
 | synthetic |43.944 |54.253 |12.901 |
 
 Mediciones secuenciales EXPLAIN, no p95 HTTP ni mejora causal frente a runs anteriores. No cambio de producto. El plan de hidratación no exhibe escaneo interno repetido mayor de2ms; mantener foco en población/conteo y joins antes de otra candidata/carga. SLO previo FAIL conservado.
+
+2026-10-15: candidata de join redundante, [funcional](evidencias/cr09-join-verifie-funcional-terminal-20261015.json)6PASS; [planes](evidencias/cr09-join-verifie-planes-terminal-20261015.json)1PASS, counts exactos10k, fuentes/limpieza independientes. `candidates` conserva query nativa aprobada y una hermana con idénticos filtros/cortes/orden, usada sólo tras pertenencia state vigente no sucio o IDs nativos validados. Clones pierden hint y conservan predicado nativo. Expiry/guard/autoridad/triggers sin eliminar.
+
+| Conteo ejecución, ms | Base | Candidata |
+| --- | --- | --- |
+| Listado |30.621 |11.057 |
+| photography |20.465 |22.405 |
+| synthetic |43.944 |27.819 |
+
+Listado elimina estructuralmente join de revisión; búsqueda lo conserva para tsvector. Tiempos secuenciales variables, también cambia hidratación intacta: no causalidad ni p95 demostrado. Candidata pendiente de revisión y paridad ampliada de dependencias/filtros multivaluados antes de una carga corta limpia; no aceptación CR09/N3.

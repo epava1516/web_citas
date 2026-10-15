@@ -190,7 +190,7 @@ class SearchForm(forms.Form):
 
 def candidates(data, *, stored_search=True):
     query = Listing.objects.filter(
-        status="published", approved_revision__status="approved", expires_at__gt=timezone.now()
+        status="published", expires_at__gt=timezone.now()
     ).select_related("approved_revision__municipality", "person__agency", "person__phone_claim")
     paths = {
         "profile": "profile_type__in",
@@ -247,7 +247,15 @@ def candidates(data, *, stored_search=True):
         )
     else:
         query = query.order_by("-published_at", "pk")
-    return query.distinct()
+    population = query.distinct()
+    native = population.filter(approved_revision__status="approved")
+    # A sibling query with identical filters, timestamps and ordering. The state
+    # path may omit the revision-status join only after exact trusted/native
+    # membership. Unknown rows and every fallback still use `native` below.
+    # QuerySet cloning drops this hint: further caller filters safely retain the
+    # full native predicate rather than reusing an unfiltered sibling.
+    native._publication_state_population = population
+    return native
 
 
 def matches_checks(person, selected):

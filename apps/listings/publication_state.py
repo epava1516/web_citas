@@ -389,7 +389,11 @@ def _state_page(query, number, checked, observation, stale):
     trusted_visible = Q(pk__in=eligible_ids) & ~Q(pk__in=dirty)
     # Narrow rows: identifiers plus the ordering columns the DISTINCT requires; the page
     # rows are hydrated afterwards through the native context of these 24 listings only.
-    population = query.select_related(None).filter(trusted_visible | Q(pk__in=native))
+    # Current eligible state already attests the approved revision's status;
+    # dirty/unknown native IDs passed the original candidate predicate above.
+    # Keep expiry and all user filters in the exact sibling built by candidates.
+    population_query = getattr(query, "_publication_state_population", query)
+    population = population_query.select_related(None).filter(trusted_visible | Q(pk__in=native))
     if not multiplies_rows(population):
         # DISTINCT only removes duplicates created by many-valued joins; none are present.
         population.query.distinct = False

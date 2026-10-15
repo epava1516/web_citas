@@ -416,3 +416,33 @@ def test_read_repair_only_acts_when_marks_age(request):
     publication_state.repair()
     assert listing.pk not in dirty_ids()
     assert_state_current(listing.pk)
+
+
+@pytest.mark.parametrize("change", ["revision_obsolete", "revision_missing", "listing_paused", "expired"])
+def test_trusted_population_omitted_join_keeps_native_membership(request, monkeypatch, change):
+    client = request.getfixturevalue("directory")
+    drain()
+    listing = published()
+    query = candidates({})
+    assert hasattr(query, "_publication_state_population")
+    # A caller adding a restriction must not accidentally retain the wider hint.
+    narrowed = query.filter(pk=listing.pk)
+    assert not hasattr(narrowed, "_publication_state_population")
+    assert {row.pk for row in publication_state.state_page(narrowed, 1)} <= {listing.pk}
+    if change == "revision_obsolete":
+        Revision.objects.filter(pk=listing.approved_revision_id).update(status="obsolete")
+    elif change == "revision_missing":
+        Listing.objects.filter(pk=listing.pk).update(approved_revision=None)
+    elif change == "listing_paused":
+        Listing.objects.filter(pk=listing.pk).update(status="paused")
+    else:
+        Listing.objects.filter(pk=listing.pk).update(expires_at=timezone.now() - timedelta(seconds=1))
+    for refresh in (False, True):
+        if refresh:
+            drain()
+        for params in ({}, {"q": "photography"}, {"checked": ["age"]}):
+            candidate = client.get("/en/", params)
+            original = native(client, monkeypatch, "/en/", params)
+            assert candidate.status_code == original.status_code == 200
+            assert candidate.content == original.content
+            assert listing.pk not in {row.pk for row in candidate.context["page"]}
