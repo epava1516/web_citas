@@ -1,0 +1,19 @@
+{
+  "unit": "cr09-prepared-public-reads-expanded-20261015.service",
+  "run_id": "20261015-144001-999aff71",
+  "candidate_sha": "05e5f44",
+  "status": "running",
+  "selection": [
+    "tests/test_publication_state.py",
+    "tests/test_discovery.py",
+    "tests/test_public_validation_dependencies.py",
+    "tests/test_page_presentation.py",
+    "tests/test_publication_state_coverage.py",
+    "tests/test_listing_moderation.py",
+    "tests/test_native_submission_relation_reads.py"
+  ],
+  "prerequisites": "143712-0b4800fe9PASS; source/cleanupverified; raw diagnostic143135-640797151PASS precedes product change",
+  "required": "All selected completefiles PASS with no necessaryskips, sourcefreeze and independentcleanup; not globalCR09/N3",
+  "next": "Afterterminal review integratedCPU demand before any new cleanload; preserve allFAILs, fixedresources",
+  "acceptance": false
+}

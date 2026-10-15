@@ -1,0 +1,503 @@
+{
+  "run_id": "20261015-144001-999aff71",
+  "head": "05e5f44dc27ccdbf87151e8840fe8fa92989dc57",
+  "result": "69PASS629.77s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "selection": [
+    "tests/test_publication_state.py",
+    "tests/test_discovery.py",
+    "tests/test_public_validation_dependencies.py",
+    "tests/test_page_presentation.py",
+    "tests/test_publication_state_coverage.py",
+    "tests/test_listing_moderation.py",
+    "tests/test_native_submission_relation_reads.py"
+  ],
+  "testcases": [
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_state_route_matches_native_before_and_after_refresh[normal]",
+      "file": "tests/test_publication_state.py",
+      "line": "72",
+      "time": "50.857"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_state_route_matches_native_before_and_after_refresh[production]",
+      "file": "tests/test_publication_state.py",
+      "line": "72",
+      "time": "12.359"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[age_failed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.317"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[agency_pending]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "14.145"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[blob_failed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.525"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[category_inactive]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.377"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[category_removed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.706"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[check_failed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "14.397"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[city_inactive]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.462"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[consent_revoked]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.721"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[expired]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.984"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[grant_removed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.480"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[invalid_rate]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.367"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[listing_paused]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.786"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[phone_unverified]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.760"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[photo_removed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.936"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[publishing_terms_replaced]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.500"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[text_with_url]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "14.304"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_every_table_read_by_the_native_rule_has_an_invalidation_trigger",
+      "file": "tests/test_publication_state.py",
+      "line": "163",
+      "time": "5.798"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_safety_dependency_rows_mark_the_affected_listing",
+      "file": "tests/test_publication_state.py",
+      "line": "185",
+      "time": "5.268"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_concurrent_change_during_refresh_keeps_listing_dirty",
+      "file": "tests/test_publication_state.py",
+      "line": "245",
+      "time": "16.312"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_signal_tables_match_installed_triggers",
+      "file": "tests/test_publication_state.py",
+      "line": "287",
+      "time": "5.805"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_rules_version_hashes_source_and_configuration",
+      "file": "tests/test_publication_state.py",
+      "line": "296",
+      "time": "1.110"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_rules_version_tracks_configuration_without_manual_invalidation[PRODUCTION-True]",
+      "file": "tests/test_publication_state.py",
+      "line": "306",
+      "time": "0.964"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_rules_version_tracks_configuration_without_manual_invalidation[VERIFICATION_PROVIDER-changed-provider]",
+      "file": "tests/test_publication_state.py",
+      "line": "306",
+      "time": "0.974"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_rules_version_tracks_configuration_without_manual_invalidation[SECRET_KEY-synthetic-rotated-key]",
+      "file": "tests/test_publication_state.py",
+      "line": "306",
+      "time": "1.025"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_command_and_task_recompute_everything",
+      "file": "tests/test_publication_state.py",
+      "line": "324",
+      "time": "6.144"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_geography_import_switches_state_atomically",
+      "file": "tests/test_publication_state.py",
+      "line": "339",
+      "time": "9.695"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_every_project_source_executed_by_the_native_rule_is_versioned",
+      "file": "tests/test_publication_state.py",
+      "line": "355",
+      "time": "8.141"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_sweep_marks_divergent_state_and_reads_stay_exact",
+      "file": "tests/test_publication_state.py",
+      "line": "385",
+      "time": "11.117"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_read_repair_only_acts_when_marks_age",
+      "file": "tests/test_publication_state.py",
+      "line": "406",
+      "time": "5.864"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_trusted_population_omitted_join_keeps_native_membership[revision_obsolete]",
+      "file": "tests/test_publication_state.py",
+      "line": "420",
+      "time": "8.349"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_trusted_population_omitted_join_keeps_native_membership[revision_missing]",
+      "file": "tests/test_publication_state.py",
+      "line": "420",
+      "time": "7.621"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_trusted_population_omitted_join_keeps_native_membership[listing_paused]",
+      "file": "tests/test_publication_state.py",
+      "line": "420",
+      "time": "8.336"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_trusted_population_omitted_join_keeps_native_membership[expired]",
+      "file": "tests/test_publication_state.py",
+      "line": "420",
+      "time": "7.943"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot[False]",
+      "file": "tests/test_publication_state.py",
+      "line": "450",
+      "time": "7.373"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot[True]",
+      "file": "tests/test_publication_state.py",
+      "line": "450",
+      "time": "7.862"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_search_approved_text_language_and_hidden_revisions",
+      "file": "tests/test_discovery.py",
+      "line": "26",
+      "time": "7.022"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_service_any_all_geo_json_and_private_postal_filters",
+      "file": "tests/test_discovery.py",
+      "line": "48",
+      "time": "7.251"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_pagination_invalid_and_out_of_range_preserve_filter_semantics",
+      "file": "tests/test_discovery.py",
+      "line": "76",
+      "time": "6.182"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_public_detail_localizes_attributes_rates_and_selected_contacts",
+      "file": "tests/test_discovery.py",
+      "line": "89",
+      "time": "6.742"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_simulation_provenance_survives_provider_switch_and_blocks_production",
+      "file": "tests/test_discovery.py",
+      "line": "139",
+      "time": "6.806"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_geography_checks_postal_and_zone_ancestry_without_selected_city",
+      "file": "tests/test_discovery.py",
+      "line": "172",
+      "time": "6.447"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_positive_pagination_has_no_duplicates_stable_ties_and_private_counts",
+      "file": "tests/test_discovery.py",
+      "line": "260",
+      "time": "19.232"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_search_title_weight_precedes_newer_description_and_private_text",
+      "file": "tests/test_discovery.py",
+      "line": "281",
+      "time": "6.361"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_specific_real_checks_exclude_simulated_or_obsolete_proofs",
+      "file": "tests/test_discovery.py",
+      "line": "312",
+      "time": "7.377"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_contact_and_agency_checks_are_specific_and_require_current_evidence",
+      "file": "tests/test_discovery.py",
+      "line": "352",
+      "time": "6.874"
+    },
+    {
+      "classname": "tests.test_public_validation_dependencies",
+      "name": "test_revision_version_does_not_cover_related_content_dependencies",
+      "file": "tests/test_public_validation_dependencies.py",
+      "line": "63",
+      "time": "28.569"
+    },
+    {
+      "classname": "tests.test_public_validation_dependencies",
+      "name": "test_fresh_context_observes_concurrent_committed_catalog_change",
+      "file": "tests/test_public_validation_dependencies.py",
+      "line": "165",
+      "time": "7.420"
+    },
+    {
+      "classname": "tests.test_public_validation_dependencies",
+      "name": "test_native_model_rule_change_is_not_covered_by_data_version",
+      "file": "tests/test_public_validation_dependencies.py",
+      "line": "198",
+      "time": "7.608"
+    },
+    {
+      "classname": "tests.test_page_presentation",
+      "name": "test_photo_and_check_selection_ties_absence_and_current_status",
+      "file": "tests/test_page_presentation.py",
+      "line": "26",
+      "time": "6.914"
+    },
+    {
+      "classname": "tests.test_page_presentation",
+      "name": "test_grouped_public_bodies_order_count_and_pages_match_individual",
+      "file": "tests/test_page_presentation.py",
+      "line": "87",
+      "time": "13.122"
+    },
+    {
+      "classname": "tests.test_page_presentation",
+      "name": "test_committed_changes_after_guard_precede_presentation_reads[False]",
+      "file": "tests/test_page_presentation.py",
+      "line": "112",
+      "time": "6.293"
+    },
+    {
+      "classname": "tests.test_page_presentation",
+      "name": "test_committed_changes_after_guard_precede_presentation_reads[True]",
+      "file": "tests/test_page_presentation.py",
+      "line": "112",
+      "time": "6.239"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[none-True]",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "17",
+      "time": "5.636"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[ineligible-True]",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "17",
+      "time": "5.876"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[missing-False]",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "17",
+      "time": "6.091"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[stale-False]",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "17",
+      "time": "6.277"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_empty_committed_population_has_complete_coverage",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "38",
+      "time": "1.046"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_deferred_orphan_cannot_cancel_missing_state_in_inherited_transaction",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "47",
+      "time": "5.693"
+    },
+    {
+      "classname": "tests.test_listing_moderation",
+      "name": "test_approval_exposes_exact_revision_and_only_derivative",
+      "file": "tests/test_listing_moderation.py",
+      "line": "55",
+      "time": "4.211"
+    },
+    {
+      "classname": "tests.test_listing_moderation",
+      "name": "test_approval_revalidates_current_prerequisites[consent]",
+      "file": "tests/test_listing_moderation.py",
+      "line": "85",
+      "time": "3.388"
+    },
+    {
+      "classname": "tests.test_listing_moderation",
+      "name": "test_approval_revalidates_current_prerequisites[age]",
+      "file": "tests/test_listing_moderation.py",
+      "line": "85",
+      "time": "3.494"
+    },
+    {
+      "classname": "tests.test_listing_moderation",
+      "name": "test_approval_revalidates_current_prerequisites[matches]",
+      "file": "tests/test_listing_moderation.py",
+      "line": "85",
+      "time": "4.101"
+    },
+    {
+      "classname": "tests.test_listing_moderation",
+      "name": "test_approval_revalidates_current_prerequisites[version]",
+      "file": "tests/test_listing_moderation.py",
+      "line": "85",
+      "time": "3.644"
+    },
+    {
+      "classname": "tests.test_listing_moderation",
+      "name": "test_permission_mfa_self_review_rejection_and_concurrency",
+      "file": "tests/test_listing_moderation.py",
+      "line": "112",
+      "time": "3.777"
+    },
+    {
+      "classname": "tests.test_native_submission_relation_reads",
+      "name": "test_native_validation_does_not_read_each_input_membership_twice",
+      "file": "tests/test_native_submission_relation_reads.py",
+      "line": "13",
+      "time": "5.886"
+    },
+    {
+      "classname": "tests.test_native_submission_relation_reads",
+      "name": "test_native_validation_still_observes_catalog_change_after_initialization[categories]",
+      "file": "tests/test_native_submission_relation_reads.py",
+      "line": "36",
+      "time": "5.631"
+    },
+    {
+      "classname": "tests.test_native_submission_relation_reads",
+      "name": "test_native_validation_still_observes_catalog_change_after_initialization[services]",
+      "file": "tests/test_native_submission_relation_reads.py",
+      "line": "36",
+      "time": "5.658"
+    }
+  ],
+  "scope": "Seven complete files; exact selected population/filter/order/dirty/fallback/revocation/native moderation and M2M behavior. Not all rights/application/security/N3 acceptance.",
+  "next": "Affected public-detail withdrawal/privacy checks, then integratedCPU; no cleanload before review"
+}

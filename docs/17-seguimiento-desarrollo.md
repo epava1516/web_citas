@@ -1,5 +1,30 @@
 # Seguimiento de ejecución del contrato
 
+## Estado vigente de continuación — 2026-10-15
+
+Codex continúa el objetivo completo **CR09 → CR10 → GS01 → BF/BB → C**. CR09 y aceptación integral/N3 siguen abiertos. Los cortes anteriores de «regresión activa» que aparecen más abajo son históricos: no describen procesos vivos actuales.
+
+Los cuatro bloques v3 de base `8fb4cf1` terminaron. Se conservan fallos/errores originales y sus recuperaciones afectadas; [cola consolidada](evidencias/cr09-cola-cierre-consolidada-20261014.md) y [matriz83](83-auditoria-pendientes-cr09.md) recogen alcance/omisiones. Los cambios posteriores de aplicación requieren verificar dependencias y aplicabilidad común; no sumar versiones distintas como N3.
+
+Última carga corta limpia: `20261015-142404-dd21a941`, SHA `82289ea`, 4 sync,20rps durante60s,10k datos sintéticos,worker/Beat propios y una subida. Sin perfiladores ni observadores; fuentes y limpieza verificadas. [Resultado completo y p95 por caso](evidencias/cr09-preparacion-pagina-http-20261015.md).
+
+| Métrica | Anterior | Última carga |
+|---|---:|---:|
+| p95 completo |16.572804s|7.423942s|
+| Pendientes al cerrar60s |280|140|
+| Completadas finales |1200|1200|
+| Errores/timeouts |0|0|
+
+Mejora observada55.2041%, no causal ni reproducida; continúa FAIL frente al límite estricto<0.8s. No hay aceptación del directorio, ensayo15min ni N3. La aprobación provisional MOD09 de expedientes grandes conserva su alcance separado y no se convierte en excepción del directorio.
+
+Candidata actual `05e5f44`: preparación temporal de lecturas de la página seleccionada y de la guardia nativa de la ficha pública. Diagnóstico de consultas aisladas seguido de9controles PostgreSQL reales PASS, incluidos HTML/destinos firmados ES/EN, revocación catálogo/blob, restauración y límites de parámetros. [Controles](evidencias/cr09-preparacion-lecturas-publicas-controles-terminal-20261015.json). No nueva métrica HTTP desde esa ampliación.
+
+Próxima acción única: verificar retirada y privacidad después de la [regresión ampliada de siete archivos](evidencias/cr09-preparacion-lecturas-publicas-ampliada-preparacion-20261015.json), run `20261015-144001-999aff71`, terminal69PASS629.77s sin omisiones, fuentes y limpieza independientes verificadas; [recibo](evidencias/cr09-preparacion-lecturas-publicas-ampliada-terminal-20261015.json). Una sola ejecución propia a la vez. Revisar CPU integrada después de los controles afectados, antes de decidir una carga limpia. Si cumple, una repetición de reproducibilidad; si falla, conservar el fallo y diagnosticar aparte, sin barridos especulativos ni cambio de cuotas.
+
+Trazabilidad contractual: [matriz88](88-matriz-cierre-derechos.md), [recibos por derecho](evidencias/cr09-derechos-recibos-version-comun-20261015.json) y [criterios de representación/progreso](evidencias/cr09-representacion-progreso-criterios-20261015.md). Progreso no equivale a cierre integral; denegación de permiso no equivale a resolución de no actuación. Sin porcentaje de aceptación nuevo ni omisión de pendientes necesarios.
+
+## Cortes anteriores — históricos
+
 **CR09 regresión común posterior a correctivas, activa:**
 `20261013-000356-b8b57d5c`, fuente congelada `3f1a66f`, un trabajador,
 timeout por comando 21600 s y las mismas cuatro exclusiones del perfil oficial.

@@ -1,5 +1,7 @@
 # Matriz de ejecución y cierre por derecho — CR09
 
+**Continuación vigente2026-10-15:** objetivo activo, CR09 abierto; el corte de pausa inferior es histórico. [Matriz83](83-auditoria-pendientes-cr09.md) conserva los pendientes y la excepción provisional MOD09. [Conciliación de recibos v3 por derecho](evidencias/cr09-derechos-recibos-version-comun-20261015.json) y [criterios de representación/progreso](evidencias/cr09-representacion-progreso-criterios-20261015.md) añaden trazabilidad, sin sumar componentes como aceptación integral. Los cambios posteriores de lecturas públicas requieren verificar su aplicabilidad a seguridad y versión final; el último p95 limpio sigue FAIL7.423942s.
+
 Corte de relevo2026-10-09: goal **pausado**. [N2 final63PASS](evidencias/revision-binaria-candidatos-n2-correctiva-20261009.json) verifica correctiva funcional binaria en su alcance; no modifica aceptación integral, p95 ni N3. P95 binario válido2,372175/2,395124s sigueFAIL frente a2s; etapas posteriores y presupuesto global NOT_PROVEN. Prototipos sin commit y fallo GC de limpieza identificados en [relevo](relevo-claude-20261009.md).
 
 Actualizado documentalmente: 2026-10-09. Catálogo de componentes/recorridos que se reutilizan, con alcance y versión de evidencia. La [matriz83](83-auditoria-pendientes-cr09.md) concentra insumos faltantes y condiciones de cierre; [seguimiento17](17-seguimiento-desarrollo.md) mantiene estado y única cola. Cerrado localmente no significa aceptado el derecho integral, CR09, GS01 o producción.
