@@ -673,12 +673,28 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             artifact = request.config.getoption("--gate-timings-output", default=None)
             if not artifact:
                 pytest.fail("Observed census requires explicit owned CI runner evidence")
+            # Keep a real private archive in this owned scenario. Its subject
+            # association is deliberately unreviewed and must remain pending.
+            import hashlib
+
+            retained_archive = tmp_path / "prior-private-review.encrypted"
+            retained_archive.write_text(module.seal({
+                "request": str(case.pk), "inventory": inventory.pk,
+                "private_review": "Synthetic retained original; association review pending",
+            }))
+            retained_archive.chmod(0o600)
+            retained_digest = hashlib.sha256(retained_archive.read_bytes()).hexdigest()
             census_body, observation = capture_census(
                 case, inventory, original_scope, Path(artifact).parent / "runner.json",
                 [tmp_path, runtime_settings.MEDIA_ROOT],
                 seed_credentials=tmp_path / "credentials.json",
             )
             assert observation["coverage_complete"] is False
+            retained_files = [row for row in observation["files"]
+                              if row["sha256"] == retained_digest]
+            assert len(retained_files) == 1
+            assert retained_files[0]["subject_binding"] == "not_established"
+            assert retained_archive.name in retained_files[0]["relative_path"]
             assert census_body["categories"]["unlinked_records"]["origins"][0]["records"]
             assert all(category["pending"] for category in census_body["categories"].values())
             (Path(artifact).parent / f"owned-rights-observation-{inventory.pk}.json").write_text(
@@ -805,6 +821,20 @@ def test_audited_coverage_preserves_open_request_and_rejects_stale_replay(
             assert before == (RightsResponse.objects.count(), RightsNotice.objects.count(), RightsAccessClosure.objects.count())
             case.refresh_from_db()
             assert (case.status, case.version, case.response_version) == case_before
+            close_path = reverse("rights_access_close", args=[case.pk, completed_review.pk])
+            actions_before = RightsAction.objects.count()
+            response = staff.post(close_path, {
+                "key": uuid4(), "version": case.version,
+                "response_version": case.response_version, "reason": reason,
+            })
+            assert response.status_code == 409
+            assert b"Complete reviewed access delivery" in response.content
+            assert "no-store" in response.headers["Cache-Control"]
+            assert before == (RightsResponse.objects.count(), RightsNotice.objects.count(), RightsAccessClosure.objects.count())
+            assert RightsAction.objects.count() == actions_before
+            case.refresh_from_db()
+            assert (case.status, case.version, case.response_version) == case_before
+            assert hashlib.sha256(retained_archive.read_bytes()).hexdigest() == retained_digest
             return
         close_path = reverse("rights_access_close", args=[case.pk, completed_review.pk])
         before = RightsResponse.objects.count(), RightsNotice.objects.count()

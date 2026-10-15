@@ -2094,3 +2094,10 @@ Equivalencia conteo compartido `20261015-093943-5ab64c62`: [9 PASS/1 FAIL](evide
 | --- | --- | --- |
 | Archivo privado→adaptador→guard | Sin caso específico | Caso mecánico PASS; recorrido HTTP específico pendiente |
 | Suite afectada actual | No ejecutada con este control |40PASS, sin fallos ni omisiones |
+
+2026-10-15: [archivo privado y rechazo HTTP](evidencias/cr09-archivo-privado-http-terminal-20261015.json), run20261015-103044-55758465,2PASS/0FAIL/0ERROR/0SKIP. Perfil/cuenta con archivo real cifrado sintético recogido por SHA256 y asociación no establecida; censo observado permanece pendiente, revisión no habilita cierre, POST autenticado409/no-store sin respuesta/aviso/cierre/acción adicional ni cambio de expediente/archivo. Fuentes intactas y limpieza independiente. Otros pendientes coexisten: no atribuir causalidad exclusiva al archivo ni declarar lector/divulgación positiva, asociación histórica general o N3.
+
+| Control | Evidencia anterior | Evidencia nueva |
+| --- | --- | --- |
+| Archivo retenido con cobertura pendiente |40PASS mecánicos adaptador/guard |2PASS perfil/cuenta con rechazo HTTP409 y sin efectos |
+| Rendimiento | Último SLO directorio FAIL | Sin nueva medición |
