@@ -5,8 +5,13 @@ from apps.core.verification_services import real_checks
 _UNSET = object()
 
 
-def describe(listing, language, *, age=_UNSET):
+def describe(listing, language, *, age=_UNSET, relations=None):
     revision = listing.approved_revision
+    def related(name):
+        if relations is not None and name in relations:
+            return relations[name]
+        return getattr(revision, name).all()
+
     english = language == "en"
     translated = revision.content_language != language and bool(revision.description_alternative)
     description = revision.description_alternative if translated else revision.description
@@ -76,8 +81,8 @@ def describe(listing, language, *, age=_UNSET):
         "description": description,
         "description_language": description_language,
         "profile_type": profile_names[revision.profile_type][int(english)],
-        "categories": names(revision.categories.all()),
-        "services": names(revision.services.all()),
+        "categories": names(related("categories")),
+        "services": names(related("services")),
         "languages": [language_names[value][int(english)] for value in revision.spoken_languages],
         "days": [day_names[int(value) - 1][int(english)] for value in revision.days],
         "time_slot": slots.get(revision.time_slot, ("", ""))[int(english)],
@@ -88,5 +93,5 @@ def describe(listing, language, *, age=_UNSET):
         "telegram_url": "https://t.me/" + revision.telegram.lstrip("@").strip()
         if revision.telegram
         else "",
-        "rates": list(revision.rates.all()),
+        "rates": list(related("rates")),
     }

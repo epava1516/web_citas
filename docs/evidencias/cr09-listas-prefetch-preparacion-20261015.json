@@ -1,0 +1,33 @@
+{
+  "run_id": "20261015-120633-4f058c02",
+  "base_sha": "6190a21",
+  "unit": "cr09-list-prefetch-n2-20261015.service",
+  "status": "running",
+  "candidate_files": [
+    "apps/listings/public_validation.py",
+    "apps/listings/presentation.py",
+    "apps/listings/presentation_reads.py",
+    "tests/test_page_presentation.py"
+  ],
+  "intervention": "Prefetch four validation relations directly to existing private lists; presentation explicitly consumes identical relation snapshots; native standalone describe remains unchanged by default",
+  "selection": [
+    "tests/test_page_presentation.py",
+    "tests/test_publication_state.py",
+    "tests/test_public_validation_dependencies.py",
+    "tests/test_discovery.py"
+  ],
+  "criteria": [
+    "All selected tests pass without necessary skips",
+    "PostgreSQL real synthetic own resources",
+    "Order and body equivalence ES EN",
+    "Postguard photo/check freshness preserved",
+    "Related category rename matches former prefetched manager snapshot",
+    "Source freeze and independent cleanup"
+  ],
+  "limits": "Existing controller4CPU3584MiB; PG1CPU1536MiB; Redis0.2CPU128MiB; no parallel loads",
+  "not_claimed": [
+    "performance improvement",
+    "capacity",
+    "N3 acceptance"
+  ]
+}

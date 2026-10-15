@@ -54,10 +54,18 @@ class PagePresentation:
         ).first()
 
     def describe(self, listing, language):
+        # Preserve the guard snapshot for these relations, as the former
+        # manager prefetch caches did. Photos/checks above stay fresh reads.
+        revision = listing.approved_revision
+        relations = {
+            name: getattr(revision, "_pv_" + name)
+            for name in ("categories", "services", "rates")
+            if hasattr(revision, "_pv_" + name)
+        }
         checks = self.checks[listing.person_id]
         if len(checks) == 1:
             self.stats["check_selected"] += 1
-            return describe(listing, language, age=checks[0])
+            return describe(listing, language, age=checks[0], relations=relations)
         self.stats["check_native"] += 1
         # Includes the native second lookup in real_checks when age is absent.
-        return describe(listing, language)
+        return describe(listing, language, relations=relations)

@@ -148,3 +148,29 @@ def test_committed_changes_after_guard_precede_presentation_reads(request, monke
     assert 'Age: check not accredited' in card['public']['checks']
     record_property('post_guard_committed_change', {'grouped':grouped,'photo':None,'latest_check':'failed',
         'scope':'Both baseline and candidate read changes committed after guard, never old prefetch. READ COMMITTED; not a request-wide snapshot or a new authority guarantee after the guard.'})
+
+
+def test_list_prefetch_preserves_relation_snapshot_against_manager_prefetch(request):
+    from apps.catalog.models import Category
+    from apps.listings.discovery import candidates
+    from apps.listings.models import Listing
+    from apps.listings.public_validation import PublicationContext
+
+    request.getfixturevalue('directory')
+    context = PublicationContext(candidates({}), page_read=True)
+    row = context.rows[0]
+    legacy = Listing.objects.select_related('approved_revision', 'person__phone_claim').prefetch_related(
+        'approved_revision__categories', 'approved_revision__services',
+        'approved_revision__travel_areas', 'approved_revision__rates',
+    ).get(pk=row.pk)
+    for name in ('categories', 'services', 'travel_areas', 'rates'):
+        actual = getattr(row.approved_revision, '_pv_' + name)
+        assert isinstance(actual, list)
+        assert [x.pk for x in actual] == [x.pk for x in getattr(legacy.approved_revision, name).all()]
+    category = legacy.approved_revision.categories.all()[0]
+    Category.objects.filter(pk=category.pk).update(name_es='Nombre posterior', name_en='Later name')
+    for language in ('es', 'en'):
+        assert PagePresentation([row]).describe(row, language) == describe(legacy, language)
+    fresh = Listing.objects.select_related('approved_revision', 'person__phone_claim').get(pk=row.pk)
+    assert 'Later name' in describe(fresh, 'en')['categories']
+    assert 'Later name' not in PagePresentation([row]).describe(row, 'en')['categories']
