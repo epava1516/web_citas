@@ -311,9 +311,9 @@ def capture_content(registration, runner_path, roots, *, seed_credentials):
     for path in sorted(artifact_root.rglob("*")):
         if path.is_symlink():
             raise ValueError("Runner artifact symlink requires separate provenance")
-        if not path.is_file() or path.name in archive_names:
-            continue
         relative = str(path.relative_to(artifact_root))
+        if not path.is_file() or relative in archive_names:
+            continue
         size, digest, content = hash_regular_file(artifact_root, relative, MAX_BYTES - total,
                                                 include_content=True)
         total += size

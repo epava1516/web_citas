@@ -170,6 +170,42 @@ def test_finite_content_registration_precedes_seed_and_preserves_private_origina
     assert material["pending"]  # This test is observation, not close acceptance.
 
 
+def test_runner_artifact_with_log_archive_basename_is_not_omitted(monkeypatch, tmp_path):
+    """Unit capture with synthetic inputs; actual files, no runtime census claim."""
+    import base64
+    import hashlib
+    import json
+
+    from apps.safety.crypto import seal
+    from scripts import owned_rights_resource_content as content
+    from scripts import owned_scenario_inventory
+
+    runner = tmp_path / "runner.json"
+    runner.write_text(json.dumps({"temporary": str(tmp_path)}))
+    archive = tmp_path / "owned-log.encrypted"
+    encrypted = seal({"stdout": "synthetic infrastructure event", "stderr": ""}).encode()
+    archive.write_bytes(encrypted)
+    archive.chmod(0o600)
+    nested = tmp_path / "nested"
+    nested.mkdir()
+    different_content = b"synthetic distinct retained runner artifact"
+    (nested / archive.name).write_bytes(different_content)
+    observation = {"run": "unit-owned", "head": "unit-sha", "containers": [], "roots": [], "files": [],
+                   "log_origins": [{"archive": archive.name, "container_id": "unit-container",
+                       "publication": {"ciphertext_sha256": hashlib.sha256(encrypted).hexdigest(),
+                                       "ciphertext_bytes": len(encrypted)}}]}
+    monkeypatch.setattr(content, "process_inputs", lambda: {})
+    monkeypatch.setattr(content, "_runtime_originals", lambda observation: ([], []))
+    monkeypatch.setattr(owned_scenario_inventory, "capture", lambda *args, **kwargs: observation)
+    registration = {"producer_sources": {}, "inputs": {}, "baseline": observation}
+    material = content.capture_content(registration, runner, [], seed_credentials=tmp_path / "unused")
+    observed = {source["reference"]: source for source in material["sources"]}
+    assert "runner-artifact:" + archive.name not in observed
+    retained = observed["runner-artifact:nested/" + archive.name]
+    assert base64.b64decode(retained["content"], validate=True) == different_content
+    assert retained["producer"]["sha256"] == hashlib.sha256(different_content).hexdigest()
+
+
 def reviewed_metadata_fixture(monkeypatch):
     """Mechanical review bindings only; no runtime coverage or semantic approval."""
     from apps.safety.rights import fingerprint
