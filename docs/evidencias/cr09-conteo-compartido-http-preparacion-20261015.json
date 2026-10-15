@@ -1,0 +1,14 @@
+{
+  "recorded_at": "2026-10-15T09:49:49.118376+00:00",
+  "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+  "purpose": "Single clean short screening of exact shared search count/page candidate after equivalence and plan checks",
+  "baseline_clean_run": "20261014-143026-da830c7c",
+  "baseline_p95_seconds": 23.529264735989273,
+  "duration_seconds": 60,
+  "arrival_rps": 20,
+  "dataset": 10000,
+  "limits": "Same controller CPU0-3 memory3584MiB swap0 tasks512; PG1CPU1536MiB Redis0.2CPU128MiB; normal own worker/Beat,4 sync Gunicorn workers,timeout900",
+  "instrumentation": "No worker observer, SQL EXPLAIN, py-spy or profiler. Existing generator GC preparation/policy unchanged.",
+  "required_exit": "Keep outcome even FAIL; reconcile arrivals/errors/timeouts/generator validity; stable sources and independent cleanup. If short gate fails, do not chain speculative loads. Does not substitute15min capacity/N3; repeat only after demonstrated pass under applicable procedure.",
+  "acceptance": false
+}

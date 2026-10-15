@@ -2037,3 +2037,15 @@ Revisión posterior a los cuatro bloques: [correspondencia estática scheduler�
 
 
 [Planes SQL terminales](evidencias/cr09-directorio-planes-terminal-20261015.json), `20261015-093507-3472da87`: 1 PASS, fuentes intactas y limpieza independiente; intento inicial fuera de tests rechazado antes de servicios conservado en preparación. Conteos recorren 10k filas; búsquedas repiten joins completos para ordenar la página; listado sin búsqueda ya selecciona24 por índice. [Diseño de conteo compartido](evidencias/cr09-directorio-conteo-compartido-diseno-20261015.json): ventana de total exacto sólo para búsqueda sin multiplicación de filas, conservando snapshot/orden/guardas y fallback de vacío/fuera de rango. Hipótesis pendiente de implementación/equivalencia/medición; no beneficio demostrado ni aceptación.
+
+
+Conteo compartido implementado para búsqueda sin DISTINCT/multiplicación: COUNT(*) OVER() conserva orden y total en misma transacción; listado sin búsqueda mantiene índice/paginador previo. Vacío primera página total0; offset vacío conserva validación exacta del paginador. [Equivalencia prerregistrada](evidencias/cr09-conteo-compartido-equivalencia-preparacion-20261015.json): cinco archivos con controles nativos de contenido/guardas/páginas, fuentes congeladas y mismas cuotas. No carga nueva ni beneficio afirmado antes de equivalencia/planes.
+
+
+Equivalencia conteo compartido `20261015-093943-5ab64c62`: [9 PASS/1 FAIL](evidencias/cr09-conteo-compartido-equivalencia-negativa-20261015.json), fuentes intactas y limpieza independiente. Fallo del test nuevo por exigir cabecera no-store ausente también en404 nativo; estado/cuerpo coincidían. Corregida expectativa: cabeceras iguales en todos los estados y no-store obligatorio en200. Sin cambios adicionales de producto. Repetición afectada prerregistrada de ese archivo, mismas cuotas/snapshots y timeout1800; conserva negativa y9PASS anteriores.
+
+
+[Correctiva de límites terminal](evidencias/cr09-conteo-compartido-correctiva-terminal-20261015.json): 1 PASS, fuentes intactas y limpieza independiente; conserva9PASS anteriores y negativa por expectativa errónea. [Planes candidatos prerregistrados](evidencias/cr09-conteo-compartido-planes-preparacion-20261015.json): mismo10k/consultas y cuotas, comparación estructural con baseline antes de carga limpia. No afirmar reducción p95 desde equivalencia.
+
+
+[Planes candidatos terminales](evidencias/cr09-conteo-compartido-planes-terminal-20261015.json): 1 PASS, total10k conservado, consultas de búsqueda2→1; fuentes intactas y limpieza independiente. Sumas planificación/ejecución muestran74.062→62.165ms y66.222→50.450ms en muestras aisladas; listado sin cambio también varía, sin causalidad/reproducibilidad/p95 atribuida. [Prerregistro de único screening HTTP limpio](evidencias/cr09-conteo-compartido-http-preparacion-20261015.json), mismos60s20rps10k/cuotas/4workers y normal refresh, sin observador/profiler, timeout900. Conservar FAIL y no encadenar variantes; no aceptaciónN3.

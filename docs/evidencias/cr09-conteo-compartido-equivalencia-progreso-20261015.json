@@ -1,0 +1,30 @@
+{
+  "observed_at": "2026-10-15T09:41:57.702055+00:00",
+  "run": "20261015-093943-5ab64c62",
+  "runner_live_verified": true,
+  "terminal": false,
+  "counts": {
+    "setup:passed": 4,
+    "call:failed": 1,
+    "teardown:passed": 3,
+    "call:passed": 2
+  },
+  "failed": [
+    {
+      "nodeid": "tests/test_publication_search_count_page.py::test_shared_search_count_matches_native_pages_and_empty_ranges",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 18.887435285840183,
+      "longrepr": "tests/test_publication_search_count_page.py:38: in test_shared_search_count_matches_native_pages_and_empty_ranges\n    assert actual[\"Cache-Control\"] == native[\"Cache-Control\"] == \"no-store\"\n           ^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/django/http/response.py:204: in __getitem__\n    return self.headers[header]\n           ^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/django/utils/datastructures.py:308: in __getitem__\n    return self._store[key.lower()][1]\n           ^^^^^^^^^^^^^^^^^^^^^^^^\nE   KeyError: 'cache-control'"
+    }
+  ],
+  "last": [
+    {
+      "nodeid": "tests/test_publication_state_membership.py::test_membership_preserves_native_population_at_trust_boundary[dirty_eligible]",
+      "when": "setup",
+      "outcome": "passed",
+      "duration": 0.0023627160117030144
+    }
+  ],
+  "acceptance": false
+}

@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-10-15T09:39:42.864349+00:00",
+  "design": "cr09-directorio-conteo-compartido-diseno-20261015.json",
+  "selection": [
+    "tests/test_publication_search_count_page.py",
+    "tests/test_publication_state_membership.py",
+    "tests/test_publication_state_conditional.py",
+    "tests/test_publication_state_upgrade.py",
+    "tests/test_search_document_sql_proof.py"
+  ],
+  "source_sha256": "2f7e163f7b2c1d96e8c3b6953ddcabc9510b950406e7a306a703c6b9b3417957",
+  "required_exit": "Exact native content/count/order including pages1/2, empty and out-of-range, dirty/stale/revoked/missing states, filters/multivalued joins and search source equivalence. Preserve failures, sources frozen during run, independent cleanup.",
+  "limits": "Existing own controller/PG/Redis limits, one worker, fixture snapshots, timeout3600",
+  "acceptance": false
+}

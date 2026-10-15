@@ -1,0 +1,95 @@
+{
+  "recorded_at": "2026-10-15T09:44:28.754810+00:00",
+  "run": "20261015-093943-5ab64c62",
+  "head": "b70a5226baab56526d7141a3b133334034338aca",
+  "result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "10",
+      "time": "195.082",
+      "timestamp": "2026-10-15T11:40:01.157787+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "independent_cleanup": {
+    "runner_absent": true,
+    "child_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-093943-5ab64c62": true,
+      "web-modelos-ci-redis-20261015-093943-5ab64c62": true
+    }
+  },
+  "failed": [
+    {
+      "nodeid": "tests/test_publication_search_count_page.py::test_shared_search_count_matches_native_pages_and_empty_ranges",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 18.887435285840183,
+      "longrepr": "tests/test_publication_search_count_page.py:38: in test_shared_search_count_matches_native_pages_and_empty_ranges\n    assert actual[\"Cache-Control\"] == native[\"Cache-Control\"] == \"no-store\"\n           ^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/django/http/response.py:204: in __getitem__\n    return self.headers[header]\n           ^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/django/utils/datastructures.py:308: in __getitem__\n    return self._store[key.lower()][1]\n           ^^^^^^^^^^^^^^^^^^^^^^^^\nE   KeyError: 'cache-control'"
+    }
+  ],
+  "passed": [
+    {
+      "nodeid": "tests/test_publication_state_membership.py::test_membership_preserves_native_population_at_trust_boundary[missing]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 20.128636314999312
+    },
+    {
+      "nodeid": "tests/test_publication_state_membership.py::test_membership_preserves_native_population_at_trust_boundary[old_version]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 19.480568127706647
+    },
+    {
+      "nodeid": "tests/test_publication_state_membership.py::test_membership_preserves_native_population_at_trust_boundary[dirty_eligible]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 20.39730946207419
+    },
+    {
+      "nodeid": "tests/test_publication_state_membership.py::test_membership_preserves_native_population_at_trust_boundary[dirty_revoked]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 19.12729756301269
+    },
+    {
+      "nodeid": "tests/test_publication_state_conditional.py::test_conditional_decision_write_preserves_exact_count[decision]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 17.295910818036646
+    },
+    {
+      "nodeid": "tests/test_publication_state_conditional.py::test_conditional_decision_write_preserves_exact_count[proof]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 17.438222070690244
+    },
+    {
+      "nodeid": "tests/test_publication_state_conditional.py::test_rules_version_changes_with_fingerprint_key",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.0037727318704128265
+    },
+    {
+      "nodeid": "tests/test_publication_state_upgrade.py::test_conditional_migration_invalidates_existing_state",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 1.783456529956311
+    },
+    {
+      "nodeid": "tests/test_search_document_sql_proof.py::test_generated_search_tracks_mutations_and_preserves_population_pages",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 12.345167112071067
+    }
+  ],
+  "finding": "New test incorrectly demanded no-store on both native/shared HTTP404 responses. HTTP status/body equality passed before KeyError. Keep no-store assertion for successful responses and require equal native/error headers for404; application unchanged by this test correction.",
+  "acceptance": false
+}

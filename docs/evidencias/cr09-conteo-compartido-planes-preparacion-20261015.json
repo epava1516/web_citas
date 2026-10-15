@@ -1,0 +1,8 @@
+{
+  "recorded_at": "2026-10-15T09:46:52.698028+00:00",
+  "selection": "tests/test_directory_query_plans.py::test_owned_directory_count_and_page_plans",
+  "purpose": "Same six baseline query roles and own10k fixture; candidate search shares count/page. Compare structural plans and sum execution+planning per route, not p95.",
+  "limits": "Existing bounded own CI one worker timeout900, no competing tests",
+  "required_exit": "Preserve candidate result and compare with cr09-directorio-planes-terminal-20261015.json; cleanup verified before clean HTTP measurement.",
+  "acceptance": false
+}

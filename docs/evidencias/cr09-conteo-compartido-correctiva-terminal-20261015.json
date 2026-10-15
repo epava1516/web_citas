@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-10-15T09:46:52.697281+00:00",
+  "run": "20261015-094428-6e7aceb9",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "58.676",
+      "timestamp": "2026-10-15T11:44:48.339043+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "independent_cleanup": {
+    "runner_absent": true,
+    "child_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-094428-6e7aceb9": true,
+      "web-modelos-ci-redis-20261015-094428-6e7aceb9": true
+    }
+  },
+  "prior_negative": "cr09-conteo-compartido-equivalencia-negativa-20261015.json",
+  "scope": "Affected header expectation corrected; full boundary loop now PASS. Nine other integrated candidate controls remain PASS with identical product source. Original failure retained, no N3 acceptance.",
+  "acceptance": false
+}

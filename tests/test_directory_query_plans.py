@@ -70,7 +70,7 @@ def test_owned_directory_count_and_page_plans(request, record_property):
             response = client.get("/es/", params)
         assert response.status_code == 200
         assert response.wsgi_request._publication_route["route"] == "state"
-        assert len(captured) == 2, len(captured)
+        assert 1 <= len(captured) <= 2, len(captured)
         rows = []
         for sql, values in captured:
             with connection.cursor() as cursor:
@@ -78,7 +78,7 @@ def test_owned_directory_count_and_page_plans(request, record_property):
                 plan = cursor.fetchone()[0][0]
             rows.append(
                 {
-                    "kind": "count" if "COUNT(" in sql else "page",
+                    "kind": "count_and_page" if "OVER ()" in sql else ("count" if "COUNT(" in sql else "page"),
                     "fingerprint": hashlib.sha256(sql.encode()).hexdigest(),
                     "planning_ms": plan["Planning Time"],
                     "execution_ms": plan["Execution Time"],
