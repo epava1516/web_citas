@@ -2286,3 +2286,22 @@ CR09 coberturaestados diagnósticoSQL131206-61a6f67e1PASS/89.58s,basea524d7c,18p
 | BúsquedaEN |15.660485ms|4.515550ms|
 
 Ficha no llama comprobaciónglobal. Planificacióncorrespondiente0.45–0.61→0.22–0.30ms,tiemposSQLinstrumentadosnoCPU. CPUagregadaPGsiguevariableporcontexto/mantenimiento,ningúntecho20rpsdemostrado.56PASSyreducciónestructuraldeljoinconequivalenciacontraFKaplazadajustificanúnicocortolimpio4sync,10ksintético20rps60s+subida,workerBeatnormal,generatorfreezeantesdereloj,mismas cuotas,sinobserver/perfiladores. Baselineúltimo123801-4c68ee8cp9519.666012s;retirarcandidatasi nohaybeneficiopersuasivo,conservarnegativos, no15min/N3antesdepasar. Recibo `evidencias/cr09-cobertura-estados-sql-terminal-20261015.json`.
+
+CR09 coberturaestados únicoensayolimpio131500-4255c4e6(basee749bcf)FAIL200.70sJUnit,generadorválido1200programadas/emitidas/completadas,0errores/timeouts/finalpending,subida302. Misma4sync/10k/20rps60s,workerBeatnormal,generatorfreeze,sinobserver/perfiladores/preloadestadísticas;fuentesintactasyretiradaindependientePIDraíz/hijo/Gunicorn/Celery/Beat,temporalesyPG/Redispropios.
+
+| Métrica | Referencia123801-4c68ee8c | Candidata131500-4255c4e6 |
+|---|---:|---:|
+| p95global |19.666012s|16.572804s|
+| p50global |11.253812s|9.951848s|
+| Pendientesal60s |315|280|
+| Completadasfinales |1200|1200|
+| Errores/timeouts |0/0|0/0|
+| ServicioGunicornp95 |0.488249s|0.474938s|
+| p95listadoES |19.626143s|16.519808s|
+| p95listadoEN |19.635103s|16.468016s|
+| p95búsquedaES |19.749432s|16.598714s|
+| p95búsquedaEN |19.815972s|16.771010s|
+| p95fichaES |19.622136s|16.413698s|
+| p95fichaEN |19.541324s|16.386960s|
+
+Porcaso200peticiones,nearest-rankceil(n*.95)-1,duraciónended-emitted,todasterminadassinfiltrarsóloéxitos. Mejoraobservadaglobal15.7287%/3.093209s,sincausalidadoreproducibilidad. Candidataretenidaprovisionalpor56PASSincluidoFKaplazada,SQLreducidoycortolimpiofavorable;SLO<0.8ssigueFAIL. Sinrepeticiónrutina,15min/N3noaceptados. Próximo diagnóstico separado priorizar búsqueda/count/página yviabilidad porrecurso, sinreactivarwindow/gthreadfallidosa ciegas. Recibos `evidencias/cr09-cobertura-estados-http-{preparacion,terminal}-20261015.json`. ObjetivoíntegroCR09→CR10→GS01→BF/BB→Cactivo.

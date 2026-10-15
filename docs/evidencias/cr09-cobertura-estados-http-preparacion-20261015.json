@@ -1,0 +1,14 @@
+{
+  "candidate_sha": "e749bcf",
+  "unit": "cr09-state-coverage-http-20261015.service",
+  "status": "running",
+  "baseline_run": "20261015-123801-4c68ee8c",
+  "baseline_p95_seconds": 19.66601249575615,
+  "prerequisites": [
+    "56PASS complete4files including inherited deferredFK counterexample",
+    "1PASS identical SQL tracker with lower global coverage execution",
+    "Source freeze and cleanup independently verified both"
+  ],
+  "conditions": "BoundedownCI4sync,10ksynthetic,20rps60s1200dynamic+upload,normalworkerBeat,generatorfreeze beforearrival only; no observer/profiler or pg_stat_statements preload",
+  "required": "Valid generator, full accounting, strict p95<0.8s, errors/pending/upload preserved; source freeze and independent cleanup. Short not15min/N3. Withdraw candidate product if no persuasive end-to-end benefit; no speculative chained loads."
+}

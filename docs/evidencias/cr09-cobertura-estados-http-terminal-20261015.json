@@ -1,0 +1,1237 @@
+{
+  "run_id": "20261015-131500-4255c4e6",
+  "head": "e749bcf6aa36f6f76997cfda6df976017151d4f1",
+  "result": "FAIL",
+  "duration_seconds": 200.7,
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "absent_pids": [
+    3904037,
+    3906515,
+    3914401,
+    3914402,
+    3914646,
+    3914647
+  ],
+  "summary": {
+    "refresh_mode": "normal_worker_beat",
+    "dataset": {
+      "published": 10000,
+      "synthetic": true,
+      "shared_synthetic_photo_fixture": true,
+      "sample_ids": [
+        "01c59213-1288-4b1c-86a3-0b3802a7c87a",
+        "3f11c160-9851-4217-9321-73ee7cf1b816",
+        "203353de-c452-4f2e-b537-ff89825308e5",
+        "82b48736-48b1-42b3-9797-370a2b95937f",
+        "1184969a-9b6d-4bb5-9979-ec20d10e8909",
+        "c705293d-7f15-48c7-9062-82f5501f6e49",
+        "b00bb763-c0e7-407b-8e80-d0790d5a4670",
+        "cdc7b649-7c6b-4ca5-82c2-81889cffc3dd",
+        "a96cbb2f-3d8a-404e-abe6-805f79ca47e7",
+        "9d2f3b60-b769-4431-b0e7-190a4d33ed8b",
+        "751bc59d-2460-42ac-b58d-4464ca9b0bda",
+        "973496df-e993-4267-9f22-f4a63859c760",
+        "e98615c9-cce3-4c28-8a29-d99c885c750e",
+        "293e441e-f598-4fee-ac1f-c3a0947af288",
+        "2dd4b3a6-6078-4852-9b64-4a09b04cddd5",
+        "c12b5c87-2b3c-42af-a838-09a09a5c5e04",
+        "8a2f8de4-d725-4479-9acd-39a6c7a9bada",
+        "94b1656f-2e74-4d35-8b9e-542c7ab9f16e",
+        "e7a2a652-8936-47b8-91e8-d504db28f82d",
+        "94fdd3cd-1e15-4aa1-a4a5-786ae5f3e105",
+        "7f733140-b7b4-44a5-a3fe-11defe3533d5"
+      ],
+      "limits": "State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.",
+      "deployment_step": "Publication state current for rules 1beaeafc54db: 9998 recomputed",
+      "deployment_step_after_fixture": "Publication state current for rules 1beaeafc54db: 1 recomputed"
+    },
+    "resources": {
+      "os": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+      "cpu_count": 8,
+      "cpu_affinity_count": 4,
+      "postgres_version": "17.11",
+      "gunicorn_version": "23.0.0",
+      "django_version": "5.2.17",
+      "python_version": "3.12.15",
+      "pg_server_shared": true,
+      "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+      "memory_total": "MemTotal:       23760928 kB"
+    },
+    "success": false,
+    "duration_seconds": 60,
+    "arrival_rps": 20,
+    "server": "Gunicorn4 sync workers, 1 threads each, local TCP",
+    "server_topology": {
+      "worker_class": "sync",
+      "workers": 4,
+      "threads": 1
+    },
+    "scope": "Synthetic local server capacity; external production/identity/CDN excluded. Owned Celery worker (concurrency 2) and Beat as deployed; upload processing and MOD05 refresh in the worker.",
+    "verdict": "FAIL",
+    "invalid_reasons": [],
+    "policy": {
+      "generator_p95_seconds_max": 0.01,
+      "generator_p99_seconds_max": 0.025,
+      "generator_max_seconds_max": 0.1,
+      "not_emitted_fraction_max": 0.0,
+      "request_timeout_seconds": 65.0,
+      "drain_seconds": 70.0,
+      "latency_p95_seconds_strict_max": 0.8,
+      "error_fraction_strict_max": 0.01,
+      "late_emission": "Never emit after the arrival window; count as not emitted",
+      "final_pending": "Classify as failed/timeout at fixed drain deadline",
+      "emission": "Async coroutine begins whole HTTP transaction, before connection/open/read; event-loop scheduling wait included in generator delay",
+      "justification": "20rps gives 50ms intervals: p95 jitter 1/5 interval, p99 1/2 interval, max two intervals; zero missing arrivals preserves full18000. Drain70s=timeout65s+5s margin.",
+      "request_timeout_scope": "65s total across connection, headers and body",
+      "client_concurrency": "No pending-request cap; per-request65s timeout bounds outstanding lifetime"
+    },
+    "mix": {
+      "listing": "1/3",
+      "search": "1/3",
+      "detail": "1/3",
+      "languages": "ES/EN alternating",
+      "uploads": "separate1/minute,15 for contractual run"
+    },
+    "not_measured": [
+      "app/DB CPU",
+      "DB connections/waits/locks/IO",
+      "worker/PostgreSQL RSS baseline/peak/final",
+      "CPU/request",
+      "allocations/request",
+      "generator process CPU/RSS/scheduling outside observed GC intervals",
+      "causal client GC callback overhead"
+    ],
+    "frozen_manifest": {
+      "refresh_mode": "normal_worker_beat",
+      "source_commit": "e749bcf6aa36f6f76997cfda6df976017151d4f1",
+      "server_topology": {
+        "worker_class": "sync",
+        "workers": 4,
+        "threads": 1
+      },
+      "dataset": {
+        "published": 10000,
+        "synthetic": true,
+        "shared_synthetic_photo_fixture": true,
+        "sample_ids": [
+          "01c59213-1288-4b1c-86a3-0b3802a7c87a",
+          "3f11c160-9851-4217-9321-73ee7cf1b816",
+          "203353de-c452-4f2e-b537-ff89825308e5",
+          "82b48736-48b1-42b3-9797-370a2b95937f",
+          "1184969a-9b6d-4bb5-9979-ec20d10e8909",
+          "c705293d-7f15-48c7-9062-82f5501f6e49",
+          "b00bb763-c0e7-407b-8e80-d0790d5a4670",
+          "cdc7b649-7c6b-4ca5-82c2-81889cffc3dd",
+          "a96cbb2f-3d8a-404e-abe6-805f79ca47e7",
+          "9d2f3b60-b769-4431-b0e7-190a4d33ed8b",
+          "751bc59d-2460-42ac-b58d-4464ca9b0bda",
+          "973496df-e993-4267-9f22-f4a63859c760",
+          "e98615c9-cce3-4c28-8a29-d99c885c750e",
+          "293e441e-f598-4fee-ac1f-c3a0947af288",
+          "2dd4b3a6-6078-4852-9b64-4a09b04cddd5",
+          "c12b5c87-2b3c-42af-a838-09a09a5c5e04",
+          "8a2f8de4-d725-4479-9acd-39a6c7a9bada",
+          "94b1656f-2e74-4d35-8b9e-542c7ab9f16e",
+          "e7a2a652-8936-47b8-91e8-d504db28f82d",
+          "94fdd3cd-1e15-4aa1-a4a5-786ae5f3e105",
+          "7f733140-b7b4-44a5-a3fe-11defe3533d5"
+        ],
+        "limits": "State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.",
+        "deployment_step": "Publication state current for rules 1beaeafc54db: 9998 recomputed",
+        "deployment_step_after_fixture": "Publication state current for rules 1beaeafc54db: 1 recomputed"
+      },
+      "fixture": "seed_demo; deterministic photo seed1, upload seed782134; UUID identities/time-relative validity vary per isolated run",
+      "resources": {
+        "os": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+        "cpu_count": 8,
+        "cpu_affinity_count": 4,
+        "postgres_version": "17.11",
+        "gunicorn_version": "23.0.0",
+        "django_version": "5.2.17",
+        "python_version": "3.12.15",
+        "pg_server_shared": true,
+        "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+        "memory_total": "MemTotal:       23760928 kB"
+      },
+      "routes": [
+        "/es/",
+        "/en/",
+        "/es/?q=photography",
+        "/en/?q=synthetic",
+        "/es/listing/01c59213-1288-4b1c-86a3-0b3802a7c87a/",
+        "/en/listing/7f733140-b7b4-44a5-a3fe-11defe3533d5/"
+      ],
+      "mix": {
+        "listing": "1/3",
+        "search": "1/3",
+        "detail": "1/3",
+        "languages": "ES/EN alternating",
+        "uploads": "separate1/minute,15 for contractual run"
+      },
+      "policy": {
+        "generator_p95_seconds_max": 0.01,
+        "generator_p99_seconds_max": 0.025,
+        "generator_max_seconds_max": 0.1,
+        "not_emitted_fraction_max": 0.0,
+        "request_timeout_seconds": 65.0,
+        "drain_seconds": 70.0,
+        "latency_p95_seconds_strict_max": 0.8,
+        "error_fraction_strict_max": 0.01,
+        "late_emission": "Never emit after the arrival window; count as not emitted",
+        "final_pending": "Classify as failed/timeout at fixed drain deadline",
+        "emission": "Async coroutine begins whole HTTP transaction, before connection/open/read; event-loop scheduling wait included in generator delay",
+        "justification": "20rps gives 50ms intervals: p95 jitter 1/5 interval, p99 1/2 interval, max two intervals; zero missing arrivals preserves full18000. Drain70s=timeout65s+5s margin.",
+        "request_timeout_scope": "65s total across connection, headers and body",
+        "client_concurrency": "No pending-request cap; per-request65s timeout bounds outstanding lifetime"
+      },
+      "duration_seconds": 60,
+      "arrival_rps": 20,
+      "scheduled_dynamic": 1200,
+      "uploads_separate": 1,
+      "state": "Fresh Gunicorn/DB fixture; six cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
+      "error_policy": "Every non200 dynamic response, transport error or timeout is failed; uploads require302; final drain expiry classified failed/timeout",
+      "instrumentation": "Monotonic per-request timestamps/async ledger; client-process GC callbacks during arrivals/drain with monotonic intervals and collector-thread CPU; event overlap reviewed after drain, causal callback overhead not_measured; GC policy unchanged; Gunicorn access logs; no app CPU/DB/RSS sampling",
+      "scope": "60s concurrent diagnostic only; not contractual capacity",
+      "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
+      "client_fixture_preparation": "One gc.collect(2) after fixture/auth/upload construction, before arrival clock; enabled/thresholds unchanged, automatic GC remains active during load. Previous observed client GC321.913ms overlaps273.107ms of273.462ms maximum emission delay; no backend improvement attributed to this preparation",
+      "worker_observer": {
+        "enabled": false,
+        "mode": "legacy_wrapped_phases",
+        "scope": "Synthetic IDs already emitted by client; WSGI entry/end, inclusive context/validation/render and SQL execute wall/thread CPU; validation snapshots each1000calls, partial events retained; no real URI/SQL/parameters; not TCP accept or exact queue time; causal overhead not_measured",
+        "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
+        "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition"
+      },
+      "diagnostic_criteria": {
+        "valid_generator_and_reconciled_accounting": true,
+        "p95_seconds_strict_below": 0.8,
+        "error_ratio_strict_below": 0.01,
+        "uploads_expected_status": 302,
+        "dynamic_pending_at_window_max": 20,
+        "final_pending": 0,
+        "request_timeout_seconds": 65,
+        "drain_seconds_max": 70,
+        "verdict_scope": "Complete diagnostic gate, transport verdict retained separately",
+        "reason": "Existing latency/error objectives plus at most one second of arrivals outstanding as accumulation filter; generator numeric policy unchanged. No capacity acceptance."
+      }
+    },
+    "celery_pids": {
+      "worker": [
+        3914401,
+        3914646,
+        3914647
+      ],
+      "beat": [
+        3914402
+      ]
+    },
+    "cold_probes": [
+      {
+        "path": "/es/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 25278,
+        "unexpected": false,
+        "seconds": 0.5483966073952615
+      },
+      {
+        "path": "/en/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 24075,
+        "unexpected": false,
+        "seconds": 0.6214521848596632
+      },
+      {
+        "path": "/es/?q=photography",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 25118,
+        "unexpected": false,
+        "seconds": 0.4895584601908922
+      },
+      {
+        "path": "/en/?q=synthetic",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 23911,
+        "unexpected": false,
+        "seconds": 0.27182665932923555
+      },
+      {
+        "path": "/es/listing/01c59213-1288-4b1c-86a3-0b3802a7c87a/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 3725,
+        "unexpected": false,
+        "seconds": 0.5933154528029263
+      },
+      {
+        "path": "/en/listing/7f733140-b7b4-44a5-a3fe-11defe3533d5/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 3487,
+        "unexpected": false,
+        "seconds": 0.10901339491829276
+      }
+    ],
+    "cold_latency_seconds": {
+      "p95": 0.6214521848596632,
+      "population": 6
+    },
+    "beat_alignment": {
+      "observed_tick_monotonic": 3790842.110990919,
+      "load_start_target": 3790847.110990919,
+      "phase_seconds": 5
+    },
+    "dirty_before_load": 0,
+    "celery_cpu_ticks_before": {
+      "3914401": 209,
+      "3914646": 15,
+      "3914647": 11,
+      "3914402": 192
+    },
+    "client_gc_preparation": {
+      "collected_gc_objects": 48817,
+      "frozen_after_collect": true,
+      "frozen_objects": 186960,
+      "wall_seconds": 0.21862340392544866,
+      "collector_thread_cpu_seconds": 0.21372697900000048,
+      "completed_at_monotonic": 3790847.337375866,
+      "policy_before": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "policy_after": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "scope": "One full collection in test-client preparation after fixture/auth/upload construction, before asyncio arrival clock. No gc.disable or threshold mutation; collector stays active during load. Objects aren't ORM models or SQL rows; source provenance of individual collected objects not_measured. Backend/Gunicorn processes unaffected."
+    },
+    "client_gc": {
+      "events": [
+        {
+          "generation": 0,
+          "wall_seconds": 3.6026351153850555e-05,
+          "collector_thread_cpu_seconds": 3.4133999996299735e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790847.338336074,
+          "monotonic_end": 3790847.338366877
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 3.243284299969673e-05,
+          "collector_thread_cpu_seconds": 3.164900000030002e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790847.339612721,
+          "monotonic_end": 3790847.339642361
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00015731994062662125,
+          "collector_thread_cpu_seconds": 0.00015576999999922236,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790848.339832453,
+          "monotonic_end": 3790848.339985367
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00026093004271388054,
+          "collector_thread_cpu_seconds": 0.00025934399999982816,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790850.289524714,
+          "monotonic_end": 3790850.289782137
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00036425376310944557,
+          "collector_thread_cpu_seconds": 0.00035442899999793553,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790852.889704791,
+          "monotonic_end": 3790852.890065736
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0004588598385453224,
+          "collector_thread_cpu_seconds": 0.000448816000002239,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790855.289566004,
+          "monotonic_end": 3790855.290021399
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0007154839113354683,
+          "collector_thread_cpu_seconds": 0.0006997220000002358,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790857.689597202,
+          "monotonic_end": 3790857.690311408
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0005577290430665016,
+          "collector_thread_cpu_seconds": 0.0005471760000048675,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790859.490916579,
+          "monotonic_end": 3790859.491472831
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0006067878566682339,
+          "collector_thread_cpu_seconds": 0.0006056189999981143,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790861.739270279,
+          "monotonic_end": 3790861.739874362
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00046781590208411217,
+          "collector_thread_cpu_seconds": 0.0004591380000036338,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790863.839769644,
+          "monotonic_end": 3790863.840233569
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0005101030692458153,
+          "collector_thread_cpu_seconds": 0.0005092009999998481,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790865.93932684,
+          "monotonic_end": 3790865.939834948
+        },
+        {
+          "generation": 1,
+          "wall_seconds": 0.0013767038471996784,
+          "collector_thread_cpu_seconds": 0.0013655360000015548,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790868.793224048,
+          "monotonic_end": 3790868.794599583
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0005805720575153828,
+          "collector_thread_cpu_seconds": 0.000576049999999384,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790871.440230589,
+          "monotonic_end": 3790871.440808851
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00037957727909088135,
+          "collector_thread_cpu_seconds": 0.00037710499999832336,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790873.189507908,
+          "monotonic_end": 3790873.189882276
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00043537095189094543,
+          "collector_thread_cpu_seconds": 0.000433217999997737,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790875.189522472,
+          "monotonic_end": 3790875.189953548
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00044593773782253265,
+          "collector_thread_cpu_seconds": 0.00044410400000316486,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790876.98951679,
+          "monotonic_end": 3790876.989957806
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0006324290297925472,
+          "collector_thread_cpu_seconds": 0.0006154950000052395,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790878.940992451,
+          "monotonic_end": 3790878.94161698
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0004925141111016273,
+          "collector_thread_cpu_seconds": 0.0004911349999972003,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790881.039319557,
+          "monotonic_end": 3790881.039808758
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0006694779731333256,
+          "collector_thread_cpu_seconds": 0.0006701579999983664,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790883.390126871,
+          "monotonic_end": 3790883.390798023
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0008940729312598705,
+          "collector_thread_cpu_seconds": 0.0008781800000008388,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790886.73972811,
+          "monotonic_end": 3790886.740619008
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0007434738799929619,
+          "collector_thread_cpu_seconds": 0.0007425089999983925,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790889.090108942,
+          "monotonic_end": 3790889.090851875
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0006891358643770218,
+          "collector_thread_cpu_seconds": 0.000678855000003864,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790891.189627559,
+          "monotonic_end": 3790891.190314711
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0008927760645747185,
+          "collector_thread_cpu_seconds": 0.0008822570000006635,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790894.03993059,
+          "monotonic_end": 3790894.040821727
+        },
+        {
+          "generation": 1,
+          "wall_seconds": 0.003249197266995907,
+          "collector_thread_cpu_seconds": 0.0032068630000026133,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790896.190289705,
+          "monotonic_end": 3790896.193538117
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0007159458473324776,
+          "collector_thread_cpu_seconds": 0.000705094000011286,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790899.089423926,
+          "monotonic_end": 3790899.090138269
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0005931491032242775,
+          "collector_thread_cpu_seconds": 0.00058340599998985,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790901.639501811,
+          "monotonic_end": 3790901.640091925
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0005599199794232845,
+          "collector_thread_cpu_seconds": 0.0005583939999951326,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790904.139295434,
+          "monotonic_end": 3790904.139851876
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0009930040687322617,
+          "collector_thread_cpu_seconds": 0.0009877040000105808,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790906.840252201,
+          "monotonic_end": 3790906.841250342
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00023462017998099327,
+          "collector_thread_cpu_seconds": 0.0002329000000003134,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790907.341512056,
+          "monotonic_end": 3790907.34174298
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 5.5830925703048706e-05,
+          "collector_thread_cpu_seconds": 5.507500000589971e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790907.342062553,
+          "monotonic_end": 3790907.342116173
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 5.233893170952797e-05,
+          "collector_thread_cpu_seconds": 5.19240000045329e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790907.342379148,
+          "monotonic_end": 3790907.34243052
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 5.2483752369880676e-05,
+          "collector_thread_cpu_seconds": 5.2369000002272514e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3790907.342692626,
+          "monotonic_end": 3790907.342744767
+        }
+      ],
+      "calls_by_generation": {
+        "0": 30,
+        "1": 2
+      },
+      "wall_seconds": 0.0189062743447721,
+      "collector_thread_cpu_seconds": 0.018693329000029735,
+      "max_wall_seconds": 0.003249197266995907,
+      "max_collector_thread_cpu_seconds": 0.0032068630000026133,
+      "collections_stats_delta": [
+        30,
+        2,
+        0
+      ],
+      "policy_before": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "policy_after": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "unfinished_events": 0,
+      "scope": "gc.callbacks start/stop intervals of this process; CPU is collector thread only. Includes callback overhead and wall scheduling, not allocations or SQL/ORM rows. Events overlap enclosing rule/request intervals; never add or subtract them as an independent phase. Policy unchanged, no gc.collect/disable/threshold mutation. Causal callback overhead not_measured; no attribution to other processes or earlier runs."
+    },
+    "celery_cpu_ticks_after": {
+      "3914401": 226,
+      "3914646": 65,
+      "3914647": 111,
+      "3914402": 204
+    },
+    "clock_ticks_per_second": 100,
+    "client_gc_emission_overlap": {
+      "emitted_population": 1200,
+      "requests_with_gc_overlap": 0,
+      "largest_delay": {
+        "id": "d-1079",
+        "delay_seconds": 0.009511553868648548,
+        "gc_overlap_seconds": 0
+      },
+      "overlapping_delays": [],
+      "scope": "Union of client GC intervals intersected with scheduled-to-emitted delays, same monotonic origin. Overlap measured, not sole causal attribution; CPU/scheduling/network/other processes remain separate. GC events before the arrival clock or during drain do not imply arrival delay. No thresholds or collector policy changed."
+    },
+    "counts": {
+      "scheduled": 1200,
+      "emitted": 1200,
+      "not_emitted": 0,
+      "successful": 1200,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "generator_delay_seconds": {
+      "p50": 0.0008298037573695183,
+      "p90": 0.0014812367036940444,
+      "p95": 0.002048447635026207,
+      "p99": 0.0031147120520458316,
+      "max": 0.009511553868648548,
+      "population": 1200
+    },
+    "observable_latency_seconds": {
+      "p50": 9.951848499942571,
+      "p90": 15.694976340979338,
+      "p95": 16.572803906165063,
+      "p99": 17.36811750056222,
+      "max": 17.53490475937724,
+      "population": 1200
+    },
+    "total_delay_seconds": {
+      "p50": 9.953041878808289,
+      "p90": 15.695684717968106,
+      "p95": 16.573521482013163,
+      "p99": 17.369603391643615,
+      "max": 17.535996194090693,
+      "population": 1200
+    },
+    "error_fraction_emitted": 0.0,
+    "not_emitted_fraction_scheduled": 0.0,
+    "requested_rps": 20,
+    "emitted_per_window_second": 20.0,
+    "completed_per_window_second": 15.333333333333334,
+    "arrival_second_bins": [
+      {
+        "second": 0,
+        "emitted": 20,
+        "completed": 5
+      },
+      {
+        "second": 1,
+        "emitted": 20,
+        "completed": 12
+      },
+      {
+        "second": 2,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 3,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 4,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 5,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 6,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 7,
+        "emitted": 20,
+        "completed": 14
+      },
+      {
+        "second": 8,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 9,
+        "emitted": 20,
+        "completed": 14
+      },
+      {
+        "second": 10,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 11,
+        "emitted": 20,
+        "completed": 12
+      },
+      {
+        "second": 12,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 13,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 14,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 15,
+        "emitted": 20,
+        "completed": 14
+      },
+      {
+        "second": 16,
+        "emitted": 20,
+        "completed": 12
+      },
+      {
+        "second": 17,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 18,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 19,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 20,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 21,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 22,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 23,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 24,
+        "emitted": 20,
+        "completed": 13
+      },
+      {
+        "second": 25,
+        "emitted": 20,
+        "completed": 14
+      },
+      {
+        "second": 26,
+        "emitted": 20,
+        "completed": 14
+      },
+      {
+        "second": 27,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 28,
+        "emitted": 20,
+        "completed": 11
+      },
+      {
+        "second": 29,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 30,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 31,
+        "emitted": 20,
+        "completed": 14
+      },
+      {
+        "second": 32,
+        "emitted": 20,
+        "completed": 13
+      },
+      {
+        "second": 33,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 34,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 35,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 36,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 37,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 38,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 39,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 40,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 41,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 42,
+        "emitted": 20,
+        "completed": 14
+      },
+      {
+        "second": 43,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 44,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 45,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 46,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 47,
+        "emitted": 20,
+        "completed": 13
+      },
+      {
+        "second": 48,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 49,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 50,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 51,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 52,
+        "emitted": 20,
+        "completed": 14
+      },
+      {
+        "second": 53,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 54,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 55,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 56,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 57,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 58,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 59,
+        "emitted": 20,
+        "completed": 15
+      }
+    ],
+    "percentile_population": "All emitted terminated requests, including errors/timeouts; no successful-only filter",
+    "window_close": {
+      "dynamic": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 920,
+        "failed": 0,
+        "pending": 280,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 1,
+        "emitted": 1,
+        "not_emitted": 0,
+        "successful": 1,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "observed_at_seconds": 60.00163962971419
+    },
+    "final_before_deadline_classification": {
+      "dynamic": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 1200,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 1,
+        "emitted": 1,
+        "not_emitted": 0,
+        "successful": 1,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      }
+    },
+    "final_upload_counts": {
+      "scheduled": 1,
+      "emitted": 1,
+      "not_emitted": 0,
+      "successful": 1,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "uploads": [
+      {
+        "id": "u-0",
+        "path": "/es/draft/d2c38954-ee0f-4741-b4a7-efa788f73506/photos/upload/",
+        "scheduled_at": 0,
+        "emitted_at": 0.0008315937593579292,
+        "ended_at": 0.32407915592193604,
+        "expected": 302,
+        "status": 302,
+        "bytes": 0,
+        "unexpected": false,
+        "timeout": false
+      }
+    ],
+    "actual_elapsed_seconds": 77.41514909593388,
+    "monotonic_origin_seconds": 3790847.338693295,
+    "drain_deadline_seconds": 130.0,
+    "clock": "asyncio loop.time monotonic; all timestamps relative to same start",
+    "emitter": "Async tasks, no pending-request cap; whole-request timeout bounds lifetime",
+    "trial_resource_stopped": false,
+    "request_samples_artifact": "/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261015-131500-4255c4e6/benchmark-samples.json",
+    "transport_verdict": "FAIL",
+    "diagnostic_checks": {
+      "validity": true,
+      "latency_and_errors": false,
+      "pending_at_window": false,
+      "final_pending": true,
+      "upload": true,
+      "timeout_policy": true,
+      "drain": true
+    },
+    "diagnostic_continue_contract": false,
+    "gunicorn_stopped": true,
+    "celery_worker_stopped": true,
+    "celery_beat_stopped": true,
+    "celery_pid_absence": {
+      "3914401": true,
+      "3914646": true,
+      "3914647": true,
+      "3914402": true
+    },
+    "owned_redis_keys_removed": 1,
+    "owned_redis_empty": true,
+    "startup_error_types": [],
+    "gunicorn_dynamic_service_p95_seconds": 0.474938,
+    "gunicorn_dynamic_service_population": 1200,
+    "gunicorn_dynamic_service_limits": "Completed Gunicorn log rows only; interrupted/unlogged/timeouts excluded here, included in observable latency/failed population. Health/cold/uploads excluded."
+  },
+  "per_case_comparison": {
+    "baseline": {
+      "es:listing": {
+        "n": 200,
+        "p95_seconds": 19.626142722088844
+      },
+      "en:listing": {
+        "n": 200,
+        "p95_seconds": 19.635103162843734
+      },
+      "es:search": {
+        "n": 200,
+        "p95_seconds": 19.74943165620789
+      },
+      "en:search": {
+        "n": 200,
+        "p95_seconds": 19.815971923992038
+      },
+      "es:detail": {
+        "n": 200,
+        "p95_seconds": 19.62213589111343
+      },
+      "en:detail": {
+        "n": 200,
+        "p95_seconds": 19.54132404597476
+      }
+    },
+    "candidate": {
+      "es:listing": {
+        "n": 200,
+        "p95_seconds": 16.51980816060677
+      },
+      "en:listing": {
+        "n": 200,
+        "p95_seconds": 16.468015504069626
+      },
+      "es:search": {
+        "n": 200,
+        "p95_seconds": 16.598714326974005
+      },
+      "en:search": {
+        "n": 200,
+        "p95_seconds": 16.771010352298617
+      },
+      "es:detail": {
+        "n": 200,
+        "p95_seconds": 16.413697903044522
+      },
+      "en:detail": {
+        "n": 200,
+        "p95_seconds": 16.386960388626903
+      }
+    }
+  },
+  "per_case_method": "All emitted terminated dynamic requests byroute/language,nearest-rank ceil(n*.95)-1,ended-emitted; no successful-only filter",
+  "decision": "Retain candidate provisionally:56PASS exactness/deferredFK plus lower sequentialSQL and cleanp95 observation; no causal/reproducibility claim, no SLO/N3 acceptance, no repeat because SLOFAIL. Diagnose separately before next intervention."
+}
