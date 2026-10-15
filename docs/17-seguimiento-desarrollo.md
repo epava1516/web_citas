@@ -2130,3 +2130,15 @@ Listado elimina estructuralmente join de revisión; búsqueda lo conserva para t
 | Carrera off-page RC |1FAIL/1PASS |2PASS; selección correctiva total8PASS |
 
 El producto base previo a candidata coincide exactamente con5d9acba en apps/config/templates/static/dependencias, por diff Git; elegible comparación con carga corta limpia20261014-143026-da830c7c. Sin nueva carga todavía.
+
+2026-10-15: carga corta limpia de candidata a532597, [terminal](evidencias/cr09-join-verifie-http-terminal-20261015.json), run20261015-105821-81ed5e4a:FAIL conservado, generador válido,1200programadas/emitidas/completadas,0errores/timeouts/pendientes finales, subida302. Fuentes y limpieza independientes, Redis propio vacío y procesos Celery ausentes. Sin perfiladores/observer; mismos límites y mezcla.
+
+| Métrica | Base limpia20261014-143026-da830c7c | Candidata |
+| --- | --- | --- |
+| p95 observable request,s |23.529265 |21.845510 |
+| p95 servicio Gunicorn,s |0.485515 |0.493911 |
+| Pendientes al segundo60 |363 |343 |
+| Completadas tras drenaje |1200 |1200 |
+| Errores/timeouts |0 |0 |
+
+Reducción observada1.683754s/7.156%; comparación única, no causalidad ni reproducibilidad. Objetivo estricto0.8s y acumulación pendiente incumplidos. Candidata retenida provisionalmente para diagnóstico separado, no aceptada como solución; sin repetir carga/15min ni encadenar ensayos especulativos. Los planes SQL no identifican por sí solos CPU PostgreSQL ni espera en cola; obtener atribución separada antes de otra candidata. No CR09/N3.

@@ -1,0 +1,17 @@
+{
+  "candidate_sha": "a532597d52ccf5e5e6ab8638fb5b9e6264346514",
+  "baseline_clean_run": "20261014-143026-da830c7c",
+  "baseline_p95_seconds": 23.529264735989273,
+  "baseline_product_identity": "git diff5d9acba..13c45cc empty for apps/config/templates/static/uv.lock/pyproject.toml; candidate only discovery and publication_state product changes",
+  "selection": [
+    "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]"
+  ],
+  "conditions": "Same10k synthetic20rps60s1200requests+limitedupload,4workers normalworkerBeat, generatorfreeze pre-arrival only,observer off,no profiler,existing bounded ownCI PG1CPU1536MiB Redis0.2CPU128MiB controller4CPU3584MiB",
+  "prerequisites": [
+    "49PASS expanded affected files",
+    "8PASS corrective including deterministic concurrent regression",
+    "independent source/cleanup verified each run"
+  ],
+  "required": "Preserve actual failure if SLO unmet; validate generator/scheduled-emitted-completed/errors/pending and own cleanup, source freeze. Short not15min capacity/N3. No speculative chained load. If no persuasive end-to-end benefit withdraw candidate product changes, preserve tests/reports.",
+  "acceptance": false
+}
