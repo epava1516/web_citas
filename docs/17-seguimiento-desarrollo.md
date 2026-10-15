@@ -2380,3 +2380,6 @@ Candidato última verificación agrupada descartado:234338-54b9df2f,1PASS104,08s
 
 
 Revalidación pertinente por cambio posterior de erasure_execution/publicación frente a8fb4cf1:run234759-542fcdbb,SHA790f26c,11PASS132,71s/0omisiones en cuenta supresión,medios ylimitación. Sinaplicaciónnueva. Aserciones/casos/recibos encr09-current-erasure-processing-20261015.md. Fuentes ycleanupindependientes,unitexit0/ControlGroupvacío. Resuelve aplicabilidad deestaselección, nofinalidad/schedulingintegral/rendimiento/N3.
+
+
+Conservación:mapaestático18tareas/18implementacionesshared_task,sinconfigefectiva/transporteinferidos. Huecoconcretoexpire_listingscubierto:test3a6e1a6,run235228-0735477e,1PASS43,73s(PGpropio),selecciónpublicadovencido/preservaciónpausadoynovencido/auditoríaidempotente. Fuente/limpiezaverificadas. Vercr09-retention-task-map-20261015.md. Pendientefinalidades/excepciones/registroydespacho/N3,norendimientonuevo.

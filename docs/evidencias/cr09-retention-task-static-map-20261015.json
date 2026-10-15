@@ -1,0 +1,1043 @@
+{
+  "sha": "3a6e1a62b71dfb4cdeb7b4944bbaaf1677968f58",
+  "entries": [
+    {
+      "entry": "purge-access-field-decisions",
+      "task": "apps.safety.tasks.purge_expired_access_field_decision",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 230,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_rights_access_field_decision.py": [
+          "apps.safety.tasks.purge_expired_access_field_decision"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "reconcile-retention-reviews",
+      "task": "apps.safety.tasks.reconcile_retention_reviews",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 57,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_retention_reviews.py": [
+          "apps.safety.tasks.reconcile_retention_reviews"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "cleanup-prepared-private-media",
+      "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/mediafiles/tasks.py",
+      "implementation_line": 41,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_preparation_cleanup.py": [
+          "apps.mediafiles.preparation_cleanup.cleanup_due_preparations"
+        ]
+      },
+      "task_module_sha256": "4fe3a5d32dae065c9489a70eaf29a2e64517df5d9ac761bd8140994bb8f0c104"
+    },
+    {
+      "entry": "erase-private-media",
+      "task": "apps.mediafiles.tasks.erase_media_files",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/mediafiles/tasks.py",
+      "implementation_line": 34,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_erasure_final.py": [
+          "apps.mediafiles.erasure.erase_due_media"
+        ],
+        "tests/test_media_erasure.py": [
+          "apps.mediafiles.erasure.erase_due_media"
+        ],
+        "tests/test_recovery_outbox.py": [
+          "apps.mediafiles.erasure.erase_due_media"
+        ],
+        "tests/test_recovery_pg_restore.py": [
+          "apps.mediafiles.erasure.erase_due_media"
+        ],
+        "tests/test_shared_media_redaction.py": [
+          "apps.mediafiles.erasure.erase_due_media"
+        ]
+      },
+      "task_module_sha256": "4fe3a5d32dae065c9489a70eaf29a2e64517df5d9ac761bd8140994bb8f0c104"
+    },
+    {
+      "entry": "purge-expired-account-confirmation-delivery",
+      "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 50,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_account_email_confirmation.py": [
+          "apps.safety.account_email_confirmation.purge_expired_delivery",
+          "apps.safety.tasks.purge_expired_account_confirmation_delivery"
+        ],
+        "tests/test_account_execution_races.py": [
+          "apps.safety.account_email_confirmation.purge_expired_delivery"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "purge-expired-access-scope-inventory",
+      "task": "apps.safety.tasks.purge_expired_access_scope_inventory",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 212,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_rights_access_scope_inventory.py": [
+          "apps.safety.tasks.purge_expired_access_scope_inventory"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "purge-expired-access-coverage",
+      "task": "apps.safety.tasks.purge_expired_access_coverage",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 194,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_rights_access_coverage_store.py": [
+          "apps.safety.models.RightsAccessCoverage",
+          "apps.safety.tasks.purge_expired_access_coverage"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "purge-expired-access-response-drafts",
+      "task": "apps.safety.tasks.purge_expired_access_response_drafts",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 172,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_rights_access_response_draft.py": [
+          "apps.safety.models.RightsAccessResponseDraft",
+          "apps.safety.tasks.purge_expired_access_response_drafts"
+        ],
+        "tests/test_rights_access_response_mobile.py": [
+          "apps.safety.models.RightsAccessResponseDraft"
+        ],
+        "tests/test_rights_final_draft_retention.py": [
+          "apps.safety.tasks.purge_expired_access_response_drafts"
+        ],
+        "tests/test_rights_access_coverage_store.py": [
+          "apps.safety.models.RightsAccessResponseDraft"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "purge-expired-portability-response-drafts",
+      "task": "apps.safety.tasks.purge_expired_portability_response_drafts",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 154,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_rights_portability_close_races.py": [
+          "apps.safety.models.RightsPortabilityResponseDraft"
+        ],
+        "tests/test_rights_portability_response_draft.py": [
+          "apps.safety.models.RightsPortabilityResponseDraft",
+          "apps.safety.tasks.purge_expired_portability_response_drafts"
+        ],
+        "tests/test_rights_portability_response_mobile.py": [
+          "apps.safety.models.RightsPortabilityResponseDraft"
+        ],
+        "tests/test_rights_portability_response_races.py": [
+          "apps.safety.models.RightsPortabilityResponseDraft"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "purge-expired-portability-coverage",
+      "task": "apps.safety.tasks.purge_expired_portability_coverage",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 136,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_rights_evidence_chain.py": [
+          "apps.safety.models.RightsPortabilityCoverage"
+        ],
+        "tests/test_rights_portability_coverage_http.py": [
+          "apps.safety.models.RightsPortabilityCoverage"
+        ],
+        "tests/test_rights_portability_coverage_images.py": [
+          "apps.safety.models.RightsPortabilityCoverage"
+        ],
+        "tests/test_rights_portability_coverage_mobile.py": [
+          "apps.safety.models.RightsPortabilityCoverage"
+        ],
+        "tests/test_rights_portability_coverage_pages.py": [
+          "apps.safety.models.RightsPortabilityCoverage"
+        ],
+        "tests/test_rights_portability_coverage_races.py": [
+          "apps.safety.models.RightsPortabilityCoverage"
+        ],
+        "tests/test_rights_portability_coverage_store.py": [
+          "apps.safety.models.RightsPortabilityCoverage",
+          "apps.safety.tasks.purge_expired_portability_coverage"
+        ],
+        "tests/test_rights_portability_covered_export_races.py": [
+          "apps.safety.models.RightsPortabilityCoverage"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "purge-expired-portability-selections",
+      "task": "apps.safety.tasks.purge_expired_portability_selections",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 118,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_portability_binary_save_shared_source.py": [
+          "apps.safety.models.RightsPortabilitySelection"
+        ],
+        "tests/test_rights_evidence_chain.py": [
+          "apps.safety.models.RightsPortabilitySelection"
+        ],
+        "tests/test_rights_portability_image_selection.py": [
+          "apps.safety.models.RightsPortabilitySelection"
+        ],
+        "tests/test_rights_portability_mixed_fields.py": [
+          "apps.safety.models.RightsPortabilitySelection"
+        ],
+        "tests/test_rights_portability_page_selection.py": [
+          "apps.safety.models.RightsPortabilitySelection",
+          "apps.safety.tasks.purge_expired_portability_selections"
+        ],
+        "tests/test_rights_portability_review.py": [
+          "apps.safety.models.RightsPortabilitySelection",
+          "apps.safety.tasks.purge_expired_portability_selections"
+        ],
+        "tests/test_rights_validation_seal.py": [
+          "apps.safety.models.RightsPortabilitySelection"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "purge-expired-portability-assessments",
+      "task": "apps.safety.tasks.purge_expired_portability_assessments",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 100,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_portability_selection_pagination.py": [
+          "apps.safety.models.RightsPortabilityAssessment"
+        ],
+        "tests/test_rights_evidence_chain.py": [
+          "apps.safety.models.RightsPortabilityAssessment"
+        ],
+        "tests/test_rights_portability.py": [
+          "apps.safety.models.RightsPortabilityAssessment",
+          "apps.safety.tasks.purge_expired_portability_assessments"
+        ],
+        "tests/test_rights_portability_mobile.py": [
+          "apps.safety.models.RightsPortabilityAssessment"
+        ],
+        "tests/test_rights_portability_races.py": [
+          "apps.safety.models.RightsPortabilityAssessment"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "purge-expired-copy-information",
+      "task": "apps.safety.tasks.purge_expired_copy_information",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 82,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_copy_information_localization.py": [
+          "apps.safety.models.RightsCopyInformation"
+        ],
+        "tests/test_rights_copy_information.py": [
+          "apps.safety.models.RightsCopyInformation",
+          "apps.safety.tasks.purge_expired_copy_information"
+        ],
+        "tests/test_rights_copy_information_mobile.py": [
+          "apps.safety.models.RightsCopyInformation"
+        ],
+        "tests/test_rights_copy_information_races.py": [
+          "apps.safety.models.RightsCopyInformation"
+        ],
+        "tests/test_rights_information_review.py": [
+          "apps.safety.models.RightsCopyInformation"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "purge-expired-copy-page-reviews",
+      "task": "apps.safety.tasks.purge_expired_copy_page_reviews",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 64,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_access_copy_operation_errors_localization.py": [
+          "apps.safety.models.RightsCopyPageReview"
+        ],
+        "tests/test_access_copy_page_errors_localization.py": [
+          "apps.safety.models.RightsCopyPageReview"
+        ],
+        "tests/test_access_copy_preparation_localization.py": [
+          "apps.safety.models.RightsCopyPageReview"
+        ],
+        "tests/test_copy_page_label_association.py": [
+          "apps.safety.models.RightsCopyPageReview"
+        ],
+        "tests/test_reflow_320.py": [
+          "apps.safety.models.RightsCopyPageReview"
+        ],
+        "tests/test_reviewed_copy_errors_localization.py": [
+          "apps.safety.models.RightsCopyPageReview"
+        ],
+        "tests/test_rights_copy_compilation.py": [
+          "apps.safety.models.RightsCopyPageReview"
+        ],
+        "tests/test_rights_copy_page_review.py": [
+          "apps.safety.models.RightsCopyPageReview",
+          "apps.safety.tasks.purge_expired_copy_page_reviews"
+        ],
+        "tests/test_rights_copy_page_review_races.py": [
+          "apps.safety.models.RightsCopyPageReview"
+        ],
+        "tests/test_rights_access_coverage_store.py": [
+          "apps.safety.models.RightsCopyPageReview"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "purge-expired-private-copies",
+      "task": "apps.safety.tasks.purge_expired_exports",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/tasks.py",
+      "implementation_line": 31,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_account_only_exports.py": [
+          "apps.safety.tasks.purge_expired_exports"
+        ],
+        "tests/test_rights_data_parts.py": [
+          "apps.safety.tasks.purge_expired_exports"
+        ],
+        "tests/test_rights_export_retention.py": [
+          "apps.safety.tasks.purge_expired_exports"
+        ],
+        "tests/test_rights_images.py": [
+          "apps.safety.tasks.purge_expired_exports"
+        ],
+        "tests/test_rights_object_delivery.py": [
+          "apps.safety.tasks.purge_expired_exports"
+        ],
+        "tests/test_rights_part_delivery.py": [
+          "apps.safety.tasks.purge_expired_exports"
+        ],
+        "tests/test_rights_portability_image_storage.py": [
+          "apps.safety.tasks.purge_expired_exports"
+        ]
+      },
+      "task_module_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+    },
+    {
+      "entry": "expire-public-listings",
+      "task": "apps.listings.tasks.expire_listings",
+      "settings_line": 147,
+      "schedule": "60.0",
+      "conditional_guards": [],
+      "implementation": "apps/listings/tasks.py",
+      "implementation_line": 41,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_listing_expiry_dispatch.py": [
+          "apps.listings.tasks.expire_listings"
+        ]
+      },
+      "task_module_sha256": "bd5f71dfd4ac81e5c6a56216d3e1d1475b19821300381d845bf8460e5274f121"
+    },
+    {
+      "entry": "purge-rights-object-deliveries",
+      "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+      "settings_line": 288,
+      "schedule": "10.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/rights_object_delivery.py",
+      "implementation_line": 313,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_rights_object_delivery.py": [
+          "apps.safety.rights_object_delivery.purge_object_deliveries"
+        ]
+      },
+      "task_module_sha256": "3f34e91071709a12cb30b05f32c22bdde492853d277c94be95d0c5fff12c5d8a"
+    },
+    {
+      "entry": "purge-orphan-export-objects",
+      "task": "apps.safety.rights_object_content.purge_orphan_export_objects",
+      "settings_line": 302,
+      "schedule": "3600.0",
+      "conditional_guards": [],
+      "implementation": "apps/safety/rights_object_content.py",
+      "implementation_line": 185,
+      "shared_task_decorator": true,
+      "direct_import_test_candidates": {
+        "tests/test_acceptance_localization.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_account_destination_localization.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_account_email_confirmation.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_account_erasure.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_account_erasure_execution.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_account_erasure_inventory.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_account_erasure_mobile.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_account_erasure_races.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_account_execution_races.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_account_inventory_dependencies.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_account_mail_projection_templates.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_account_only_exports.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_accounts.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_agencies_mfa.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_agency_appeals.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_appeals.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_browser_accounts.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_capacity_object_preflight.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_capacity_page_manifest_consumers.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_capacity_page_manifest_physical.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_capacity_page_manifest_prototype.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_capacity_selection_tcp.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_clarification_localization.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_complaint_intake.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_complaint_localization.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_console_mail_projection.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_contact_erasure.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_discovery.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_drafts.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_erasure_execution.py": [
+          "apps.safety.models.RightsExportImage",
+          "apps.safety.models.RightsExportPart",
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_erasure_final.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_erasure_plans.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_favorites.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_lifecycle.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_listing_moderation.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_login_localization.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_manager_appeals.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_match_review.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_media_erasure.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_mfa_localization.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_notice_delivery.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_notice_operations.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_organization_review.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_page_presentation.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_photo_appeals.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_photo_disposition_authority.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_photo_edit_localization.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_photos.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_portability_binary_save_shared_source.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_preparation_cleanup.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_privacy_publication_holds.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_private_logging.py": [
+          "datetime.timedelta"
+        ],
+        "tests/test_processing_execution.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_processing_final.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_processing_mobile.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_processing_plans.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_processing_profile.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_processing_publication.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_promotion_bump_races.py": [
+          "datetime.timedelta"
+        ],
+        "tests/test_promotion_exposure.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_promotion_order_inventory.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_promotion_orders.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_promotion_recovery.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_public_structured_data.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_public_validation_context.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_public_validation_dependencies.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_publication_calendar_mobile.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_publication_calendar_upgrade.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_publication_positive_coverage.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_publication_purpose_calendar.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_publication_state_membership.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_purpose_calendar.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_purpose_calendar_mobile.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_purpose_calendar_races.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_purpose_exception_consumption_races.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_purpose_exception_late_authority.py": [
+          "datetime.timedelta"
+        ],
+        "tests/test_purpose_exception_preparation.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_purpose_exception_profile.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_purpose_filter_localization.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_purpose_followup_localization.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_recovery_media.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rectification_account.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rectification_photos.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rectification_review.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rectification_uploads.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_redis_history_scope.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_report_localization.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_reports.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_restriction_filter_localization.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_retention_calendar.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_retention_localization.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_retention_mobile.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_retention_reviews.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_access_field_decision.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_access_recipient_payload.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_access_response_draft.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_access_response_mobile.py": [
+          "datetime.timedelta"
+        ],
+        "tests/test_rights_access_scope_inventory.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_account_linking.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_assignment.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_attention.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_communications.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_copy_compilation.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_copy_information.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_copy_information_races.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_copy_page_review.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_copy_personal_contacts.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_copy_scope.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_data_parts.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_enforced_validation_seal.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_evidence_chain.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_export_retention.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_exports.py": [
+          "apps.safety.models.RightsExportPart",
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_extensions.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_final_draft_retention.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_images.py": [
+          "apps.safety.models.RightsExportImage",
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_information_export.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_information_policy.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_information_review.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_intake.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_intake_localization.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_object_delivery.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_part_delivery.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_batch_projection.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_close_races.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_coverage_races.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_coverage_store.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_covered_export_races.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_export_races.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_image_read_bulk.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_image_selection.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_image_storage.py": [
+          "apps.safety.models.RightsExportImage",
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_jobs.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_jobs_mobile.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_page_selection.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_response_draft.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_response_races.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_portability_review.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_priority.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_proxy_validation_scope.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_rectification.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_response_acknowledgement.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_validation_seal.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_validation_seal_pipeline.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_withdrawal.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_scoped_log_history_origins.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_scoped_redis_history_origins.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_search_document_sql_proof.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_signup_localization.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_sitemaps.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_submissions.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_urgent_alert_pagination.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_urgent_report_drill.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_verification.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_publication_state.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_publication_query_structure.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_diagnostic_baseline_pg.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_owned_scenario_inventory.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_rights_access_coverage_store.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_owned_rights_resource_census.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_publication_state_coverage.py": [
+          "django.utils.timezone"
+        ],
+        "tests/test_publication_projection.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_publication_projection_lifecycle.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ],
+        "tests/test_listing_expiry_dispatch.py": [
+          "datetime.timedelta",
+          "django.utils.timezone"
+        ]
+      },
+      "task_module_sha256": "39ae841d803d67c306977a658040cba743e9f5bbf182931e70a2ebb08edd5fca"
+    }
+  ],
+  "limits": "Static declared schedules only, not effective settings. Imported symbols are candidate trace links, not call/branch assertions or executed reports. No worker/Beat delivery or complete retention policy proven."
+}

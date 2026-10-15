@@ -1096,3 +1096,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-15: revalidaciónactualsupresión/limitación234759-542fcdbbSHA790f26c,11PASS132,71s0fail/errors/skips;motivocambioerasure_executionposterioraregresióncomún. Fuentecongeladaycleanuprealindependientes. Casos/asercionesreciboactual, sinappnueva/sinaceptaciónN3. NollamadasClaude niproveedores,consumopreviointacto.
+
+
+2026-10-15:auditoríaestática18tareasconservación,coberturacandidata18/18noaceptada comoejecución. Controlfaltanteexpire_listingsañadido3a6e1a6:235228-0735477e1PASS43,73s,caducidad/negativos/idempotenciaenPGpropio;fuentesyrecursosretiradosverificados. Noproveedores/nollamadasClaude,nocambiodeapp. Evidenciacr09-retention-task-map-20261015.md. Goalabierto.
