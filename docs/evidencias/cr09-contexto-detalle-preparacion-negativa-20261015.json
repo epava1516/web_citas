@@ -1,0 +1,106 @@
+{
+  "run_id": "20261015-120146-82197a55",
+  "result": {
+    "id": "20261015-120146-82197a55",
+    "profile": "focused",
+    "result": "ERROR",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261015-120146-82197a55",
+          "--label",
+          "web-modelos-local-ci-run=20261015-120146-82197a55",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.4693437027744949
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261015-120146-82197a55",
+          "--label",
+          "web-modelos-local-ci-run=20261015-120146-82197a55",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.4687860864214599
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.0358829153701663
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 1,
+        "seconds": 0.06668889103457332
+      }
+    ],
+    "head": "b4c9a764d1e4fb3f81922ac0fd8d8d90319d6b1e",
+    "excluded": [],
+    "selection": [
+      "tests/test_directory_current_rule_profile.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "benchmark_observe_workers": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "error": "ruff failed; inspect its log",
+    "cleanup": {
+      "web-modelos-ci-pg-20261015-120146-82197a55": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261015-120146-82197a55": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true
+  },
+  "source_verified": true,
+  "cleanup_verified": true,
+  "cause": "Ruff import ordering; no pytest or load executed",
+  "correction": "Sort imports before a separately identified run"
+}

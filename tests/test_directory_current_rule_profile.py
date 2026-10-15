@@ -1,15 +1,17 @@
 """Explicit sequential attribution of the current stored-state page guard."""
 
+import gc
 import time
 
 import pytest
 from django.core.management import call_command
-from django.db import connection
+from django.db import connection, models
+from django.db.models import query as query_module
 from django.forms import models as form_models
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
-from apps.listings import discovery, publication_state
+from apps.listings import discovery, public_validation, publication_state
 from apps.listings.forms import ContactsForm
 from apps.listings.models import Revision
 from apps.listings.public_validation import PublicationContext, SnapshotDetails
@@ -46,7 +48,25 @@ def test_owned_current_page_rule_attribution(request, monkeypatch, record_proper
             (SnapshotDetails, '_post_clean'),
             (ContactsForm, '_post_clean'),
             (Revision, 'full_clean'),
+            (models.Model, '__init__'),
+            (models.QuerySet, '_fetch_all'),
+            (query_module, 'prefetch_related_objects'),
+            (public_validation, 'read_publication_values'),
         ]
+        collections, gc_started = [], {}
+
+        def observe_gc(phase, info):
+            generation = info['generation']
+            if phase == 'start':
+                gc_started[generation] = (time.perf_counter(), time.thread_time(),
+                                          [frame['rule'] for frame in profile.stack.get()])
+            elif generation in gc_started:
+                wall_start, cpu_start, parents = gc_started.pop(generation)
+                collections.append({'generation': generation,
+                                    'wall_seconds': time.perf_counter() - wall_start,
+                                    'thread_cpu_seconds': time.thread_time() - cpu_start,
+                                    'parents': parents})
+
         with monkeypatch.context() as patches:
             for owner, name in targets:
                 patches.setattr(owner, name, profile.wrap(owner.__name__ + '.' + name,
@@ -56,8 +76,12 @@ def test_owned_current_page_rule_attribution(request, monkeypatch, record_proper
                 return profile.wrap('sql.cursor_execute', execute)(sql, values, many, context)
 
             started, cpu = time.perf_counter(), time.thread_time()
-            with connection.execute_wrapper(sql_event):
-                response = client.get('/es/', params)
+            gc.callbacks.append(observe_gc)
+            try:
+                with connection.execute_wrapper(sql_event):
+                    response = client.get('/es/', params)
+            finally:
+                gc.callbacks.remove(observe_gc)
             wall, cpu = time.perf_counter() - started, time.thread_time() - cpu
         assert response.status_code == 200
         assert response.wsgi_request._publication_route['route'] == 'state'
@@ -69,10 +93,13 @@ def test_owned_current_page_rule_attribution(request, monkeypatch, record_proper
         assert by_rule['PublicationContext._bound_validation']['calls'] == 48
         assert by_rule['Revision.full_clean']['calls'] == 48
         results.append({'params': params, 'count': expected_count, 'page_size': 24,
-                        'wall_seconds': wall, 'thread_cpu_seconds': cpu, 'rules': rows})
+                        'wall_seconds': wall, 'thread_cpu_seconds': cpu, 'rules': rows,
+                        'gc_collections': collections})
     record_property('current_page_rule_attribution', results)
     record_property('scope', 'One control then instrumented sequential request per case; '
                     'current stored-state route and native 24-row guard, PostgreSQL synthetic10k. '
                     'No arguments, SQL text, parameters or response bodies recorded. '
+                    'Model construction/fetch/prefetch wrappers and GC start-stop callbacks add overhead. '
+                    'GC intervals overlap rule events; do not sum them. No GC policy changes. '
                     'Nested exclusive times discount observed direct children only. '
                     'No concurrent load, operational p95, DB CPU/waits or causal overhead measurement.')

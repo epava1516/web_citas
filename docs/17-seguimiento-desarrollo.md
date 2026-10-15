@@ -2198,3 +2198,13 @@ CR09 diagnóstico actual de guardia nativa, 2026-10-15: run `20261015-115814-c73
 | synthetic |371.279ms|191.385ms|1.541ms|
 
 Exclusiva sólo descuenta hijos instrumentados; contexto incluye hidratación ORM/prefetch/catálogos y no identifica aún subcausa.39cursor_execute por caso, wall71.187/94.506/107.103ms inclusivo; no DB CPU. Render exclusivoCPU32.374/29.626/28.310ms. El coste de modelo no justifica habilitar value_model: el caller proyectado fue retirado enbe4130b, PublicationContext conserva la ruta completa deliberadamente. Siguiente diagnóstico acotado debe desglosar construcción/hidratación del contexto antes de cambiar reglas o encadenar cargas; 191ms es una muestra, no causalidad de búsqueda. Recibos `evidencias/cr09-validacion-pagina-actual-{preparacion,terminal}-20261015.json`. CR09/N3 abiertos, p95 limpio integrado21.845510s sin actualización.
+
+CR09 desglose contexto2026-10-15: preparación20261015-120146-82197a55ERROR por ordenimportsRuff antes de pytest, fuentes/limpieza contrastadas; corrección de imports y ejecución separada20261015-120212-6084a2d8,1PASS/86.23s. Misma selección explícita sintética10k/24filas, sin cambios de producto, cuotas niGC. Instrumentación adicional Model.__init__/QuerySet._fetch_all/prefetch/read_publication_values y callbacksGC con retiradafinally; fuentes intactas y limpieza independiente.
+
+| Caso | Wall instrumentado | CPU total | CPU contexto inclusiva | CPU fetch exclusiva | CPU prefetch exclusiva | Modelos creados |
+|---|---:|---:|---:|---:|---:|---:|
+| Listado |217.892ms|134.299ms|64.381ms|33.766ms|10.890ms|279|
+| photography |306.954ms|174.580ms|96.290ms|44.224ms|17.823ms|279|
+| synthetic |302.497ms|179.774ms|98.360ms|50.228ms|16.072ms|279|
+
+352_fetch_all y39cursor_execute en cada caso; fetch incluye compilación/conversión/materialización, no DB CPU ni sólo construcción. Nuevos hijos cambian definición de exclusiva: no comparar exclusivas con diagnóstico anterior ni sumar inclusivas. Ninguna recoleccióngen2 observada; mayorescolecciones1CPU1.020/2.387/2.747ms, superpuestas a reglas, no explican ni excluyen outlier191ms anterior. Hallazgo acotado: costeORM/prefetch sustancial, construir279modelos sólo3–4msCPU exclusivo; no justifica kernelvalor ni desactivarGC. Siguiente inspeccionar creación repetida deQuerySets de relaciones ya precargadas y compilación de consultas de catálogo; mantener semántica fresca/revocación. No p95nuevo, mejora demostrada o aceptaciónCR09/N3. Recibos `evidencias/cr09-contexto-detalle-{preparacion-negativa,terminal}-20261015.json`.
