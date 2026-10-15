@@ -1,6 +1,6 @@
 # Seguimiento de ejecución del contrato
 
-Estado de investigación actual: la corrección de ciclos del memoizador y el selector EXISTS de medios están integrados. Última carga limpia FAIL1.118772s; tarea real de foto0.971466s frente10.094089s anterior. Se conserva mejora del proceso y falloHTTP por separado. [Evidencia actual](evidencias/cr09-media-exists-http-20261015.md). Prototipo de proyección limpia+dirty nativo sólo en worktree aislado, sin ejecutar/aceptar; ningún proceso de prueba activo al iniciar esta revisión. Usuario reitera reanálisis descompuesto antes de otra decisión. CR09/N3 abiertos.
+Estado de investigación actual: la corrección de ciclos del memoizador y el selector EXISTS de medios están integrados. Última carga limpia FAIL1.118772s; tarea real de foto0.971466s frente10.094089s anterior. Se conserva mejora del proceso y falloHTTP por separado. [Evidencia actual](evidencias/cr09-media-exists-http-20261015.md). Prototipo de proyección limpia+dirty nativo sólo en worktree aislado, sin ejecutar/aceptar; ningún proceso de prueba activo al iniciar esta revisión. Usuario reitera reanálisis descompuesto antes de otra decisión. CR09/N3 abiertos. [Reanálisis descompuesto y decisión](evidencias/cr09-reanalisis-desmontaje-20261015.md).
 
 ## Estado vigente de continuación — 2026-10-15
 
