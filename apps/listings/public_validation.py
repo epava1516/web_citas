@@ -11,6 +11,7 @@ from django.db.models import Case, CharField, Exists, OuterRef, Prefetch, Q, Sub
 from django.db.models.functions import Cast
 from django.forms.models import model_to_dict
 from django.utils.translation import get_language
+from psycopg import ClientCursor
 
 from apps.catalog.models import Municipality
 from apps.core.models import LegalAcceptance, RepresentationAction, VerificationCheck
@@ -170,6 +171,22 @@ def publication_query(query, document):
     )
 
 
+class _PageReadCursor(ServerBindingCursor):
+    """Keep oversized SELECTs compatible even before domain validation.
+
+    A selected page bounds listing IDs, but corrupt/excess child rows are
+    rejected only after prefetch. Driver interpolation avoids the extended
+    protocol's parameter ceiling without truncating data or skipping checks.
+    """
+
+    def execute(self, query, params=None, *, prepare=None, binary=None):
+        if params is not None and len(params) > 65535:
+            with ClientCursor(self.connection) as native:
+                query = native.mogrify(query, params)
+            params, prepare = None, False
+        return super().execute(query, params, prepare=prepare, binary=binary)
+
+
 @contextmanager
 def _prepared_page_binding(*, enabled):
     """Prepare only page-read SELECTs on this thread's physical connection.
@@ -185,7 +202,7 @@ def _prepared_page_binding(*, enabled):
     raw = connection.connection  # The enclosing atomic block has connected.
     previous_factory, previous_threshold = raw.cursor_factory, raw.prepare_threshold
     try:
-        raw.cursor_factory = ServerBindingCursor
+        raw.cursor_factory = _PageReadCursor
         if previous_threshold is None:
             raw.prepare_threshold = 5
         yield
@@ -194,7 +211,7 @@ def _prepared_page_binding(*, enabled):
         raw.prepare_threshold = previous_threshold
 
 
-def read_publication_values(query, *, bounded_joins=False):
+def read_publication_values(query, *, bounded_joins=False, prepared_page=False):
     """Materialize the captured scalar SELECT with a request-scoped JIT policy.
 
     Only the explicitly selected read uses jit=off; page hydration also bounds
@@ -215,7 +232,7 @@ def read_publication_values(query, *, bounded_joins=False):
                 cursor.execute("SHOW jit")
                 previous = cursor.fetchone()[0]
                 cursor.execute("SET LOCAL jit=off")
-        with _prepared_page_binding(enabled=bounded_joins):
+        with _prepared_page_binding(enabled=bounded_joins and prepared_page):
             rows = list(query)
         with connection.cursor() as cursor:
             if bounded_joins:
@@ -381,7 +398,7 @@ def validate_publication_binding(prototype, data, revision, *, value_model=False
 
 
 class PublicationContext:
-    def __init__(self, query, *, page_read=False):
+    def __init__(self, query, *, page_read=False, prepared_page=False):
         self.document = current_publishing_document()
         self.rate_checks = {}
         self._validation_prototypes = {}
@@ -414,7 +431,10 @@ class PublicationContext:
         # Page hydration can trigger JIT for its correlated annotations even
         # with only 24 actual rows. Reuse the restoring local policy there;
         # ordinary native population reads retain their existing configuration.
-        self.rows = read_publication_values(query, bounded_joins=True) if page_read else list(query)
+        self.rows = (
+            read_publication_values(query, bounded_joins=True, prepared_page=prepared_page)
+            if page_read else list(query)
+        )
         self.by_revision = {row.approved_revision_id: row for row in self.rows}
         ids = {
             name: set()

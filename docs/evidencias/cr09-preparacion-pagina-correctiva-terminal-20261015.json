@@ -1,0 +1,66 @@
+{
+  "run_id": "20261015-140553-1402ee09",
+  "head": "798cfbec72d8d3f4b86f3738c1e21ed8c75af604",
+  "result": "8 PASS",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "testcases": [
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_prepared_pages_match_native_binding_and_observe_revoked_catalog",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "45",
+      "time": "48.538"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_full_population_read_keeps_client_binding_for_wide_parameters[False]",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "105",
+      "time": "1.436"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_full_population_read_keeps_client_binding_for_wide_parameters[True]",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "105",
+      "time": "1.491"
+    },
+    {
+      "classname": "tests.test_publication_page_planning_scope",
+      "name": "test_page_planning_policy_restores_enclosing_transaction[False]",
+      "file": "tests/test_publication_page_planning_scope.py",
+      "line": "19",
+      "time": "5.781"
+    },
+    {
+      "classname": "tests.test_publication_page_planning_scope",
+      "name": "test_page_planning_policy_restores_enclosing_transaction[True]",
+      "file": "tests/test_publication_page_planning_scope.py",
+      "line": "19",
+      "time": "5.612"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_disabled_binding_does_not_touch_connection",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "12",
+      "time": "0.003"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_binding_restores_attributes_on_error_and_nested_scope",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "18",
+      "time": "0.003"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_existing_prepare_threshold_is_preserved",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "36",
+      "time": "0.084"
+    }
+  ],
+  "scope": "Selected-page-only binding plus wideSELECT65536fallback in both modes; actual prepared/native/emptydispatch, HTML/catalogrevocation/plans, options/GUCrestoration afterSQLerror. Not expandedN2/performance/N3 acceptance."
+}

@@ -1,0 +1,23 @@
+{
+  "candidate_sha": "798cfbe",
+  "unit": "cr09-prepared-page-expanded-20261015.service",
+  "status": "running",
+  "selection": [
+    "tests/test_publication_state.py",
+    "tests/test_discovery.py",
+    "tests/test_public_validation_dependencies.py",
+    "tests/test_page_presentation.py",
+    "tests/test_publication_state_coverage.py"
+  ],
+  "prerequisite": "134917-08ddd5896PASS plus3purecontrols, source/cleanup verified",
+  "required": [
+    "Complete selectedfiles PASS without necessary skips",
+    "Publication and dependency changes/dirty/fallback/isolation/order/native-body equivalence unchanged",
+    "Presentation postguard freshness and deferredFKcoverage preserved",
+    "Source freeze and independent cleanup"
+  ],
+  "limits": "Same bounded own PostgreSQL synthetic CI; one execution, no competing load",
+  "acceptance": false,
+  "next": "After terminal+cleanup preserve current result; reproduce >65535param fallback; refine domain to selected bounded page, preserve legacy full-population binding; verify corrective controls and affected integration before CPU or load.",
+  "design_review_finding": "Current candidate enables server binding for all page_read population materializations, including large nativefallback. PostgreSQL bound parameter limit65535 plus up to8photos/listing and10klistings can exceed limit in blob prefetch. After current frozen run terminal+cleanup, reproduce wide-query failure and restrict preparation to selected bounded24row hydration only. Current expandedPASS alone cannot accept broader candidate."
+}

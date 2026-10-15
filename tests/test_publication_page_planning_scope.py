@@ -31,10 +31,10 @@ def test_page_planning_policy_restores_enclosing_transaction(request, failure):
         if failure:
             query = candidates({}).annotate(diagnostic_failure=RawSQL("1/0", []))
             with pytest.raises(DatabaseError):
-                read_publication_values(query, bounded_joins=True)
+                read_publication_values(query, bounded_joins=True, prepared_page=True)
         else:
             ordinary = PublicationContext(candidates({}))
-            scoped = PublicationContext(candidates({}), page_read=True)
+            scoped = PublicationContext(candidates({}), page_read=True, prepared_page=True)
             assert [(r.pk, r.approved_revision_id, r._pv_grant, r._pv_check_status,
                      r._pv_check_manager, r._pv_check_subject) for r in scoped.rows] == [
                         (r.pk, r.approved_revision_id, r._pv_grant, r._pv_check_status,

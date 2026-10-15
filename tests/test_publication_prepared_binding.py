@@ -25,10 +25,10 @@ def test_binding_restores_attributes_on_error_and_nested_scope(monkeypatch):
     with pytest.raises(RuntimeError, match='probe'):
         with public_validation._prepared_page_binding(enabled=True):
             assert raw.prepare_threshold == 5
-            assert raw.cursor_factory is public_validation.ServerBindingCursor
+            assert raw.cursor_factory is public_validation._PageReadCursor
             with public_validation._prepared_page_binding(enabled=True):
                 assert raw.prepare_threshold == 5
-            assert raw.cursor_factory is public_validation.ServerBindingCursor
+            assert raw.cursor_factory is public_validation._PageReadCursor
             raise RuntimeError('probe')
     assert raw.cursor_factory is factory and raw.prepare_threshold is None
     assert calls == [True, True]
@@ -71,7 +71,19 @@ def test_prepared_pages_match_native_binding_and_observe_revoked_catalog(request
 
     def compare():
         for language in ('es', 'en'):
-            prepared = client.get('/' + language + '/')
+            bindings = []
+
+            def observe_binding(execute, sql, values, many, context):
+                if '"_pv_history"' in sql:
+                    bindings.append(isinstance(context['cursor'].cursor,
+                                               public_validation._PageReadCursor))
+                return execute(sql, values, many, context)
+
+            with connection.execute_wrapper(observe_binding):
+                prepared = client.get('/' + language + '/')
+            state_route = prepared.wsgi_request._publication_route['route'] == 'state'
+            expected_bindings = [] if state_route and not prepared.context['page'].object_list else [state_route]
+            assert bindings == expected_bindings
             with monkeypatch.context() as patch:
                 patch.setattr(public_validation, '_prepared_page_binding',
                               lambda **kwargs: nullcontext())
@@ -89,3 +101,25 @@ def test_prepared_pages_match_native_binding_and_observe_revoked_catalog(request
     assert compare() < before_count
     refresh_all()
     assert compare() < before_count
+
+
+@pytest.mark.django_db(transaction=True)
+@pytest.mark.parametrize('prepared_page', [False, True])
+def test_full_population_read_keeps_client_binding_for_wide_parameters(record_property, prepared_page):
+    from django.db import connection
+
+    from apps.listings.public_validation import read_publication_values
+
+    count = 65536
+    record_property('wide_parameter_count', count)
+
+    class WideRead:
+        def __iter__(self):
+            query = 'SELECT 1 WHERE 1 IN (' + ','.join(['%s'] * count) + ')'
+            with connection.cursor() as cursor:
+                cursor.execute(query, [1] * count)
+                yield cursor.fetchone()[0]
+
+    assert read_publication_values(
+        WideRead(), bounded_joins=True, prepared_page=prepared_page,
+    ) == [1]

@@ -1,0 +1,67 @@
+{
+  "run_id": "20261015-140259-48331ca7",
+  "head": "798cfbec72d8d3f4b86f3738c1e21ed8c75af604",
+  "result": "7 PASS/1 FAIL",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "cause": "New binding observer expected hydration SQL after refresh even when selected page is empty; empty IN compiler correctly emits no hydration SQL. Correct expected binding list only for empty state route.",
+  "wide_queries": "Both prepared_page=False/True >65535 parameter controls PASS",
+  "testcases": [
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_prepared_pages_match_native_binding_and_observe_revoked_catalog",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "45",
+      "time": "48.317"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_full_population_read_keeps_client_binding_for_wide_parameters[False]",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "103",
+      "time": "1.649"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_full_population_read_keeps_client_binding_for_wide_parameters[True]",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "103",
+      "time": "1.750"
+    },
+    {
+      "classname": "tests.test_publication_page_planning_scope",
+      "name": "test_page_planning_policy_restores_enclosing_transaction[False]",
+      "file": "tests/test_publication_page_planning_scope.py",
+      "line": "19",
+      "time": "6.151"
+    },
+    {
+      "classname": "tests.test_publication_page_planning_scope",
+      "name": "test_page_planning_policy_restores_enclosing_transaction[True]",
+      "file": "tests/test_publication_page_planning_scope.py",
+      "line": "19",
+      "time": "5.997"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_disabled_binding_does_not_touch_connection",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "12",
+      "time": "0.002"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_binding_restores_attributes_on_error_and_nested_scope",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "18",
+      "time": "0.002"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_existing_prepare_threshold_is_preserved",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "36",
+      "time": "0.113"
+    }
+  ]
+}
