@@ -6,8 +6,8 @@ import time
 from pathlib import Path
 
 import pytest
-from psycopg import Error as PsycopgError
 from django.db import DatabaseError, connection
+from psycopg import Error as PsycopgError
 from test_directory_query_plans import stripped
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
