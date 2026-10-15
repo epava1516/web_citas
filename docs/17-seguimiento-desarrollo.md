@@ -2252,3 +2252,22 @@ CR09 candidata membresía nativaúnica2026-10-15: ficha39SQL(30guardia) condujo 
 | Zonas de desplazamiento |2|1|
 
 Cuatroarchivos completos native_submission_relation_reads/submissions/discovery/public_validation_dependencies run123307-558c829d:28PASS/215.38s,sinomisiones,fuentes/limpieza independientes. Incluye categorías/serviciosdesactivados despuésdeinicialización rechazadosporlimpiezafresca. No asumirlatencia desdeconteo; justificacióndirectaparaúnicocortolimpio4sync,20rps60s10k+subida,workerBeatnormal,generatorfreezeantesdereloj,sinobservadores/perfiladores,mismoslímites. Baseline21.845510s;retirarcandidataproducto si nohaybeneficiopersuasivo,conservandoreproducciónypruebas. Sin barridodeparámetros,15min/N3noanticipados. Recibos `evidencias/cr09-membresia-nativa-{reproduccion,correctiva-preparacion,correctiva-terminal}-20261015.json`.
+
+CR09 membresíanativa únicoensayolimpio123801-4c68ee8c(baseb8dd91e)FAIL204.81sJUnit,generadorválido1200programadas/emitidas/completadas,0errores/timeouts/finalpending,subida302. Misma4sync/10k/20rps60s,workerBeatnormal,generatorfreeze,sinobserver/perfiladores;fuentesintactasyretiradaindependientePIDraíz/hijo/Gunicorn/Celery/Beat,temporalesyPG/Redispropios.
+
+| Métrica | Baseline105821-81ed5e4a | Candidata123801-4c68ee8c |
+|---|---:|---:|
+| p95global |21.845510s|19.666012s|
+| p50global |13.049334s|11.253812s|
+| Pendingal60s |343|315|
+| Completadas finales |1200|1200|
+| Errores/timeouts |0/0|0/0|
+| ServicioGunicornp95 |0.493911s|0.488249s|
+| p95listadoES |21.823959s|19.626143s|
+| p95listadoEN |21.782652s|19.635103s|
+| p95búsquedaES |21.909538s|19.749432s|
+| p95búsquedaEN |22.047962s|19.815972s|
+| p95fichaES |21.722080s|19.622136s|
+| p95fichaEN |21.670822s|19.541324s|
+
+Porcaso200peticiones cadauno,nearest-rankceil(n*.95)-1,duraciónended-emitted,todasterminadassinfiltrarsóloéxitos. Mejoraobservadaglobal9.9769%/2.179498s,sin causalidad/reproducibilidad: candidataretenidaprovisionalmente porlecturasduplicadasdirectamenteeliminadas+28PASSyensayolimpiofavorable. No repetirporrutina: SLO<0.8s sigueFAIL,ensayo60sno15min/N3. Conservarfalloydiagnosticarporseparadoantesdeotraintervención. Genericpg_server_shareddelharnessnoacreditaserviciocompartido:PGpropio/cuotasverificadosporadaptador/retirada. Recibos `evidencias/cr09-membresia-nativa-http-{preparacion,terminal}-20261015.json`. AlcanceCR09→CR10→GS01→BF/BB→Cíntegroactivo.
