@@ -1,0 +1,105 @@
+{
+  "run": "20261015-222515-91a6b5da",
+  "sha": "e7e68cd33fbb500458cabac33772d315f492f93b",
+  "product_commit": "3ba2ec4",
+  "result": "FAIL186.21s",
+  "source_freeze_verified": true,
+  "cleanup_verified": true,
+  "unit": "MainPID=0;ControlGroup=;ActiveState=failed",
+  "counts": {
+    "scheduled": 1200,
+    "emitted": 1200,
+    "not_emitted": 0,
+    "successful": 1200,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "latency": {
+    "p50": 0.22826678911224008,
+    "p90": 0.874879423994571,
+    "p95": 1.218890056014061,
+    "p99": 1.4194211312569678,
+    "max": 1.4716696897521615,
+    "population": 1200
+  },
+  "generator": {
+    "p50": 0.0008176279254250574,
+    "p90": 0.0013372948393225725,
+    "p95": 0.0018086571246378469,
+    "p99": 0.003224918060004356,
+    "max": 0.021250456012786856,
+    "population": 1200
+  },
+  "checks": {
+    "validity": true,
+    "latency_and_errors": false,
+    "pending_at_window": true,
+    "final_pending": true,
+    "upload": true,
+    "timeout_policy": true,
+    "drain": true
+  },
+  "service_p95": 0.303526,
+  "cohorts": [
+    {
+      "from": 0,
+      "before": 5,
+      "n": 100,
+      "p95": 1.4419235861860216,
+      "slow": 95,
+      "mean_service": 0.22886476,
+      "mean_client_minus_service": 0.9657163420024121
+    },
+    {
+      "from": 5,
+      "before": 10,
+      "n": 100,
+      "p95": 1.0407170951366425,
+      "slow": 37,
+      "mean_service": 0.17327608,
+      "mean_client_minus_service": 0.5289788911773172
+    },
+    {
+      "from": 10,
+      "before": 15,
+      "n": 100,
+      "p95": 0.368736875243485,
+      "slow": 0,
+      "mean_service": 0.16620107,
+      "mean_client_minus_service": 0.044899312395088674
+    },
+    {
+      "from": 15,
+      "before": 60,
+      "n": 900,
+      "p95": 0.3641261230222881,
+      "slow": 0,
+      "mean_service": 0.18027628222222222,
+      "mean_client_minus_service": 0.02954267613175336
+    }
+  ],
+  "cases": [
+    {
+      "case": "listing",
+      "n": 400,
+      "p95": 1.2679489660076797
+    },
+    {
+      "case": "search",
+      "n": 400,
+      "p95": 1.2329333699308336
+    },
+    {
+      "case": "detail",
+      "n": 400,
+      "p95": 1.149303144775331
+    }
+  ],
+  "resource_note": "raw manifest legacy pg_server_shared wording incorrect; bounded adapter ran uniquely labeled own PG/Redis; no normal services touched",
+  "scope": "clean short no profiler or worker observers; same existing bounds; single run no causality/reproducibility claim",
+  "media_task_wall": 1.4859498012810946,
+  "media_task_thread_cpu": 0.64697993
+}
