@@ -1,0 +1,13 @@
+{
+  "run_id": "20261015-204103-c1ea755d",
+  "unit": "cr09-analyzed-fixture-http-20261015.service",
+  "head": "1dd8041",
+  "status": "running",
+  "prerequisites": "Sameoriginal8controls+boundednativeprepare8PASS1FAIL reproduced, onlybuilderANALYZE5tables9PASS141.06s, source+cleanup independentlyverified.",
+  "change": "Synthetic preparation only: ANALYZE afterbulk before nativevalidation; records planner_statistics in datasetmanifest. Apps/config/templates/static unchanged from0ab41bf.",
+  "baseline": "200612-84c1b59a cleanp95.961136843FAIL beforeexplicitfixturestatistics",
+  "comparability": "Newfixturepreparation reference, neverattribute difference to requestcode/runtime/laptop. Originalfailuresretained. No clientwarmup added or initialrequests dropped.",
+  "profile": "SameboundedownPG1CPU/controller4cores/Redis.2CPU/4sync20rps60s10k/normalownworkerBeat/1upload/generatorfreeze/noobserver/profilers/pgtracker.",
+  "decision_rule": "IfallshortchecksPASS repeatunchangedonce forreproducibility. IfFAIL preserve anddiagnose separately,no repeatFAILorloadparametersweep. Not15min/N3.",
+  "acceptance": false
+}
