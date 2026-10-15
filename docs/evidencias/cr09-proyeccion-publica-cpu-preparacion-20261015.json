@@ -1,0 +1,15 @@
+{
+  "run_id": "20261015-151258-1e4327aa",
+  "unit": "cr09-public-projection-cpu-20261015.service",
+  "head": "6229f90",
+  "status": "running",
+  "source_change": "Explicit diagnostic only; application models/queries unchanged",
+  "hypothesis": "Count/page search spends CPU joining listing/state/revision twice. A compact temporary projection may reduce that cost; measure before designing persistent maintenance.",
+  "selection": "tests/test_owned_public_projection_cpu.py",
+  "design": "Own sessionTEMPnamespace validated;staticcopycurrentstates listingexpiry/order+revisionvector;currentpopulation vsprojection count/orderedIDs eachoperation,7cases,readonlyRRpercase,4warmups+3alternatingblocks8each",
+  "limitations": "Static syntheticcopy no mutations; no freshness/invalidation/maintenance/filtergeneral/outofrange proof; no model/schema product change or HTTPload",
+  "resources": "Unchanged own boundedCI,noPGtracker/nootherload,sourcefreeze/cleanuprequired",
+  "last_clean_p95_seconds": 5.004965654108673,
+  "decision_rule": "If material benefit demonstrated, investigate exact existing trigger/refresher maintenance and narrow activation before any product candidate. Never accept static projection as live readiness.",
+  "acceptance": false
+}
