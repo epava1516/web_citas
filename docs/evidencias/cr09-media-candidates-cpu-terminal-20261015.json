@@ -1,0 +1,69 @@
+{
+  "run": "20261015-213949-b87873e3",
+  "head": "065635799d26f6d5bf6dd19c15fd7551908e4189",
+  "result": "1 PASS94.26s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "probe": {
+    "results": [
+      {
+        "block": 0,
+        "arm": "native",
+        "n": 4,
+        "body_sha256": "04bd1dcbe33c35669c45ef49aeb86aad36dd903e2892f6072078d19309fe54b6",
+        "wall": 2.8522136411629617,
+        "python_cpu": 0.0073864749999899,
+        "backend_cpu": 2.54
+      },
+      {
+        "block": 0,
+        "arm": "exists",
+        "n": 4,
+        "body_sha256": "04bd1dcbe33c35669c45ef49aeb86aad36dd903e2892f6072078d19309fe54b6",
+        "wall": 0.01240066671743989,
+        "python_cpu": 0.007258585000002427,
+        "backend_cpu": 0.0
+      },
+      {
+        "block": 1,
+        "arm": "exists",
+        "n": 4,
+        "body_sha256": "04bd1dcbe33c35669c45ef49aeb86aad36dd903e2892f6072078d19309fe54b6",
+        "wall": 0.021561766043305397,
+        "python_cpu": 0.007047831999997811,
+        "backend_cpu": 0.0
+      },
+      {
+        "block": 1,
+        "arm": "native",
+        "n": 4,
+        "body_sha256": "04bd1dcbe33c35669c45ef49aeb86aad36dd903e2892f6072078d19309fe54b6",
+        "wall": 2.4941602111794055,
+        "python_cpu": 0.008121840000001157,
+        "backend_cpu": 2.46
+      },
+      {
+        "block": 2,
+        "arm": "native",
+        "n": 4,
+        "body_sha256": "04bd1dcbe33c35669c45ef49aeb86aad36dd903e2892f6072078d19309fe54b6",
+        "wall": 2.4794525830075145,
+        "python_cpu": 0.00856899500000452,
+        "backend_cpu": 2.44
+      },
+      {
+        "block": 2,
+        "arm": "exists",
+        "n": 4,
+        "body_sha256": "04bd1dcbe33c35669c45ef49aeb86aad36dd903e2892f6072078d19309fe54b6",
+        "wall": 0.009912795852869749,
+        "python_cpu": 0.003819091000011099,
+        "backend_cpu": 0.0
+      }
+    ],
+    "native_sql_fingerprint": "bedc4d09fc64d364f4b1a39d0cf074f25bea8167786be468f5371aa8e4d42329",
+    "photos": 10002,
+    "blobs": 5,
+    "scope": "3 alternating blocks, same full Blob columns and iterator; own synthetic DB, exact body hashes. No JIT/session-policy change. Counter/wrapper overhead unquantified, backend CPU100Hz; not HTTP capacity or complete proof of every exclusion/lifecycle/race."
+  }
+}

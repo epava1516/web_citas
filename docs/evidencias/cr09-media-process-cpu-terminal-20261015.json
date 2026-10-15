@@ -1,0 +1,363 @@
+{
+  "run": "20261015-213605-007f9523",
+  "head": "065635799d26f6d5bf6dd19c15fd7551908e4189",
+  "result": "1 PASS91.26s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "probe": {
+    "run": "20261015-213605-007f9523",
+    "jit": "on",
+    "backend_identity": {
+      "pid": 2667317,
+      "user_ticks": 0,
+      "system_ticks": 0,
+      "start_ticks": 382087872,
+      "monotonic": 3820878.828871846,
+      "container_id": "9069609b5339ef817d8f6e35823545eb11cb9a3953681f031152e762e89edfc7",
+      "sql_pid": 94,
+      "cgroup": "/sys/fs/cgroup/system.slice/docker-9069609b5339ef817d8f6e35823545eb11cb9a3953681f031152e762e89edfc7.scope"
+    },
+    "scope": "Real process(blob) function directly, own PostgreSQL and synthetic image. No HTTP, concurrency or Celery execution claim. Preparatory model signals publish only to owned broker; no worker consumes them. Backend counters100Hz and wrappers perturb timing; zero ticks do not mean zero cost.",
+    "process_wall": 4.716136828996241,
+    "process_python_cpu": 0.412329218999993,
+    "completed": true,
+    "hottest_select": {
+      "fingerprint": "bedc4d09fc64d364f4b1a39d0cf074f25bea8167786be468f5371aa8e4d42329",
+      "verb": "SELECT",
+      "wall": 4.181155036203563,
+      "python_cpu": 0.0029476740000049517,
+      "backend_cpu": 3.89
+    },
+    "post_execution_estimated_plan": {
+      "Node Type": "Unique",
+      "Total Cost": 1899.28,
+      "Startup Cost": 1897.98,
+      "Plan Rows": 3,
+      "Plans": [
+        {
+          "Node Type": "Incremental Sort",
+          "Total Cost": 1898.66,
+          "Startup Cost": 1897.98,
+          "Plan Rows": 19,
+          "Plans": [
+            {
+              "Node Type": "Merge Join",
+              "Total Cost": 1898.11,
+              "Startup Cost": 1897.78,
+              "Plan Rows": 19,
+              "Plans": [
+                {
+                  "Node Type": "Sort",
+                  "Total Cost": 1896.76,
+                  "Startup Cost": 1896.7,
+                  "Plan Rows": 25,
+                  "Plans": [
+                    {
+                      "Node Type": "Nested Loop",
+                      "Total Cost": 1896.12,
+                      "Startup Cost": 1885.11,
+                      "Plan Rows": 25,
+                      "Plans": [
+                        {
+                          "Node Type": "Aggregate",
+                          "Total Cost": 1885.08,
+                          "Startup Cost": 1884.83,
+                          "Plan Rows": 25,
+                          "Plans": [
+                            {
+                              "Node Type": "Nested Loop",
+                              "Total Cost": 1884.76,
+                              "Startup Cost": 1595.95,
+                              "Plan Rows": 25,
+                              "Plans": [
+                                {
+                                  "Node Type": "Hash Join",
+                                  "Total Cost": 1857.85,
+                                  "Startup Cost": 1595.67,
+                                  "Plan Rows": 25,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Seq Scan",
+                                      "Relation Name": "mediafiles_photo",
+                                      "Total Cost": 1844.69,
+                                      "Startup Cost": 1595.65,
+                                      "Plan Rows": 5002,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Hash Join",
+                                          "Total Cost": 1595.65,
+                                          "Startup Cost": 532.1,
+                                          "Plan Rows": 1,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Hash Join",
+                                              "Total Cost": 1569.34,
+                                              "Startup Cost": 532.04,
+                                              "Plan Rows": 10003,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Relation Name": "listings_revision",
+                                                  "Total Cost": 1011.03,
+                                                  "Startup Cost": 0.0,
+                                                  "Plan Rows": 10003
+                                                },
+                                                {
+                                                  "Node Type": "Hash",
+                                                  "Total Cost": 407.02,
+                                                  "Startup Cost": 407.02,
+                                                  "Plan Rows": 10002,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Seq Scan",
+                                                      "Relation Name": "listings_listing",
+                                                      "Total Cost": 407.02,
+                                                      "Startup Cost": 0.0,
+                                                      "Plan Rows": 10002
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Node Type": "Hash",
+                                              "Total Cost": 0.04,
+                                              "Startup Cost": 0.04,
+                                              "Plan Rows": 1,
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Nested Loop",
+                                                  "Total Cost": 0.04,
+                                                  "Startup Cost": 0.0,
+                                                  "Plan Rows": 1,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Nested Loop",
+                                                      "Total Cost": 0.03,
+                                                      "Startup Cost": 0.0,
+                                                      "Plan Rows": 1,
+                                                      "Plans": [
+                                                        {
+                                                          "Node Type": "Nested Loop",
+                                                          "Total Cost": 0.01,
+                                                          "Startup Cost": 0.0,
+                                                          "Plan Rows": 1,
+                                                          "Plans": [
+                                                            {
+                                                              "Node Type": "Seq Scan",
+                                                              "Relation Name": "safety_rightsrectificationexecution",
+                                                              "Total Cost": 0.0,
+                                                              "Startup Cost": 0.0,
+                                                              "Plan Rows": 1
+                                                            },
+                                                            {
+                                                              "Node Type": "Seq Scan",
+                                                              "Relation Name": "safety_rightsrectificationnotification",
+                                                              "Total Cost": 0.0,
+                                                              "Startup Cost": 0.0,
+                                                              "Plan Rows": 1
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "Node Type": "Seq Scan",
+                                                          "Relation Name": "safety_rightsrectificationreview",
+                                                          "Total Cost": 0.0,
+                                                          "Startup Cost": 0.0,
+                                                          "Plan Rows": 1
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Node Type": "Seq Scan",
+                                                      "Relation Name": "safety_rightsrectificationproposal",
+                                                      "Total Cost": 0.0,
+                                                      "Startup Cost": 0.0,
+                                                      "Plan Rows": 1
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Node Type": "Hash",
+                                      "Total Cost": 0.0,
+                                      "Startup Cost": 0.0,
+                                      "Plan Rows": 1,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Seq Scan",
+                                          "Relation Name": "safety_rightsrectificationphotoupload",
+                                          "Total Cost": 0.0,
+                                          "Startup Cost": 0.0,
+                                          "Plan Rows": 1
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Index Scan",
+                                  "Relation Name": "listings_revision",
+                                  "Total Cost": 1.08,
+                                  "Startup Cost": 0.29,
+                                  "Plan Rows": 1
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Node Type": "Index Scan",
+                          "Relation Name": "mediafiles_photo",
+                          "Total Cost": 0.44,
+                          "Startup Cost": 0.29,
+                          "Plan Rows": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Sort",
+                  "Total Cost": 1.09,
+                  "Startup Cost": 1.08,
+                  "Plan Rows": 3,
+                  "Plans": [
+                    {
+                      "Node Type": "Seq Scan",
+                      "Relation Name": "mediafiles_blob",
+                      "Total Cost": 1.06,
+                      "Startup Cost": 0.0,
+                      "Plan Rows": 3
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "post_execution_estimated_jit": null,
+    "plan_limit": "EXPLAIN without ANALYZE after process; no executed loops/JIT timing proof",
+    "queries": [
+      {
+        "fingerprint": "924bd552c09824deeb639d979c41c9b9a32e39b7b17a0b9d94afa20a129c1020",
+        "verb": "SELECT",
+        "wall": 0.005534116178750992,
+        "python_cpu": 0.0004967160000006743,
+        "backend_cpu": 0.0
+      },
+      {
+        "fingerprint": "f2b47e2ae505c1add93d61c8c7124ac59ad22d72990674eef1ac8b2db65bb4e9",
+        "verb": "UPDATE",
+        "wall": 0.02039958257228136,
+        "python_cpu": 0.0004410460000059402,
+        "backend_cpu": 0.02
+      },
+      {
+        "fingerprint": "924bd552c09824deeb639d979c41c9b9a32e39b7b17a0b9d94afa20a129c1020",
+        "verb": "SELECT",
+        "wall": 0.0022694761864840984,
+        "python_cpu": 0.0003132499999978222,
+        "backend_cpu": 0.0
+      },
+      {
+        "fingerprint": "5e9036386c7321390e3c7bad6a2d14263a65dcf1c479b650643891f3dc62dfe9",
+        "verb": "UPDATE",
+        "wall": 0.01327948085963726,
+        "python_cpu": 0.0007576989999975581,
+        "backend_cpu": 0.01
+      },
+      {
+        "fingerprint": "422b9d847bff738c733bdf31b221dd67a9b78821781e01ad6482206784a2102e",
+        "verb": "SELECT",
+        "wall": 0.0016303039155900478,
+        "python_cpu": 0.00020862499999907413,
+        "backend_cpu": 0.0
+      },
+      {
+        "fingerprint": "d372da64b577da4440761bace46263ae88ee58d5538c82549bf9c315568707f7",
+        "verb": "SELECT",
+        "wall": 0.025019240099936724,
+        "python_cpu": 0.0003664570000054823,
+        "backend_cpu": 0.02
+      },
+      {
+        "fingerprint": "1df9df26abe55e708d6b5ec29057ec07b3724cf8535db8958576ceae93e5a875",
+        "verb": "SELECT",
+        "wall": 0.008733844850212336,
+        "python_cpu": 0.0004818610000043577,
+        "backend_cpu": 0.02
+      },
+      {
+        "fingerprint": "19a164f42bdc695d14bc87c535e0dad963ccbcc830dd74b6e349db0ef594a2f1",
+        "verb": "SELECT",
+        "wall": 0.001439952291548252,
+        "python_cpu": 0.00028697700000179793,
+        "backend_cpu": 0.0
+      },
+      {
+        "fingerprint": "834c72d0fbe0beb5942c85975fe3cfeb0ede3d06dd153be5fb7472631280b761",
+        "verb": "SELECT",
+        "wall": 0.016478079836815596,
+        "python_cpu": 0.00045906900000147743,
+        "backend_cpu": 0.0
+      },
+      {
+        "fingerprint": "68c293db7fe8170f7a6caa000250c84a39dbcf908281945635f14f35d4e1f583",
+        "verb": "SELECT",
+        "wall": 0.003588434774428606,
+        "python_cpu": 0.0003316230000010023,
+        "backend_cpu": 0.0
+      },
+      {
+        "fingerprint": "6f2ee09bb9977d932e66531fbe3ed9261f69693c99402b549d8674abc42c86c8",
+        "verb": "SELECT",
+        "wall": 0.0023690308444201946,
+        "python_cpu": 0.00024893700000205854,
+        "backend_cpu": 0.01
+      },
+      {
+        "fingerprint": "169d1f800a5b5fc0f268981f367ebcfc389f9219d9362e65e9285deeece51f89",
+        "verb": "SELECT",
+        "wall": 0.0033697248436510563,
+        "python_cpu": 0.00021242200000415323,
+        "backend_cpu": 0.0
+      },
+      {
+        "fingerprint": "b16641422b3562d0b5de01c91bf93194a4d16ecc0cfd34f7a5b0c54985879762",
+        "verb": "SELECT",
+        "wall": 0.0039144959300756454,
+        "python_cpu": 0.00024266299999453622,
+        "backend_cpu": 0.0
+      },
+      {
+        "fingerprint": "82589d3c3924b85424975488c7ee32ad9489301c6d95bdfcb2b1dd000fe73499",
+        "verb": "SELECT",
+        "wall": 0.006297987885773182,
+        "python_cpu": 0.00032002700000077766,
+        "backend_cpu": 0.01
+      },
+      {
+        "fingerprint": "bedc4d09fc64d364f4b1a39d0cf074f25bea8167786be468f5371aa8e4d42329",
+        "verb": "SELECT",
+        "wall": 4.181155036203563,
+        "python_cpu": 0.0029476740000049517,
+        "backend_cpu": 3.89
+      },
+      {
+        "fingerprint": "b5452998ec6ea100fab473105b623dd142bfd5c258f92deb41346d2f869e7960",
+        "verb": "UPDATE",
+        "wall": 0.003586428239941597,
+        "python_cpu": 0.00018553200000326342,
+        "backend_cpu": 0.0
+      }
+    ]
+  }
+}

@@ -10,6 +10,7 @@ import imagehash
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.db import transaction
+from django.db.models import Exists, OuterRef
 from django.utils import timezone
 from django.views.decorators.debug import sensitive_variables
 from PIL import Image, ImageOps, UnidentifiedImageError
@@ -236,9 +237,12 @@ def detect_matches(blob_id):
             record_match(photo, candidate, {"method": "sha256"})
     image = None
     for other in (
-        Blob.objects.filter(status="ready", photos__in=candidates)
+        # Membership is existential: one admissible photo makes its Blob a
+        # candidate. Avoid joining every reused photo and DISTINCT on wide Blob
+        # rows; preserve all candidate-photo exclusions and the streaming read.
+        Blob.objects.filter(status="ready")
+        .filter(Exists(candidates.filter(blob_id=OuterRef("pk"))))
         .exclude(pk=blob.pk)
-        .distinct()
         .iterator()
     ):
         other_signature = stored_signature(other)

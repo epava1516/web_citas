@@ -1,0 +1,353 @@
+{
+  "run": "20261015-212543-8e32a890",
+  "head": "065635799d26f6d5bf6dd19c15fd7551908e4189",
+  "result": "FAIL185.42s, diagnostic instrumented",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "pids_absent": [
+    2598974,
+    2601434,
+    2609426,
+    2609765,
+    2609767,
+    2609427,
+    2609868,
+    2609861,
+    2609854,
+    2609855
+  ],
+  "containers_absent": [
+    "web-modelos-ci-pg-20261015-212543-8e32a890",
+    "web-modelos-ci-redis-20261015-212543-8e32a890"
+  ],
+  "temporary_absent": true,
+  "unit": "MainPID=0\nControlGroup=\nActiveState=failed\n",
+  "summary": {
+    "counts": {
+      "scheduled": 1200,
+      "emitted": 1200,
+      "not_emitted": 0,
+      "successful": 1200,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "observable_latency_seconds": {
+      "p50": 0.2507451162673533,
+      "p90": 0.4810917628929019,
+      "p95": 0.8027193252928555,
+      "p99": 1.0497353747487068,
+      "max": 1.1823947899974883,
+      "population": 1200
+    },
+    "diagnostic_checks": {
+      "validity": true,
+      "latency_and_errors": false,
+      "pending_at_window": true,
+      "final_pending": true,
+      "upload": true,
+      "timeout_policy": true,
+      "drain": true
+    },
+    "celery_pid_absence": {
+      "2609426": true,
+      "2609765": true,
+      "2609767": true,
+      "2609427": true
+    }
+  },
+  "mode": {
+    "enabled": true,
+    "mode": "ingress_sql_gc_no_handler_imports",
+    "scope": "WSGI entry/end/threadCPU, SQL execute wall/threadCPU and GC only. No eager imports or wrappers of handlers/rules/render; context/validation/render not measured separately. SQL and GC overlap WSGI and each other. Emission\u2192WSGI includes client/TCP/scheduling/admission, not exact socket queue. Observer overhead not measured causally; not a clean p95.",
+    "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
+    "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition"
+  },
+  "analysis": {
+    "run": "20261015-212543-8e32a890",
+    "n_matched": 1200,
+    "parse_errors": 0,
+    "slow": 62,
+    "cohorts": {
+      "0_5": {
+        "n": 100,
+        "slow": 62,
+        "http_p95": 1.1065120440907776,
+        "http_mean": 0.8394623244786635,
+        "pre_mean": 0.622942723147571,
+        "post_mean": -0.0002566204499453306,
+        "wsgi_mean": 0.21676666564308106,
+        "cpu_mean": 0.11286788264000001,
+        "sql_mean": 0.09378192050848157,
+        "sql_cpu_mean": 0.008459633900000166,
+        "gc_mean": 0.010873577944003045,
+        "gc_cpu_mean": 0.00935877712000001,
+        "service_mean": 0.21642787,
+        "sql_calls_mean": 40.11
+      },
+      "5_10": {
+        "n": 100,
+        "slow": 0,
+        "http_p95": 0.5793900429271162,
+        "http_mean": 0.32704901058226826,
+        "pre_mean": 0.15052675545215607,
+        "post_mean": -0.0002865436021238565,
+        "wsgi_mean": 0.17679859504569323,
+        "cpu_mean": 0.10615454946999997,
+        "sql_mean": 0.06370099113322794,
+        "sql_cpu_mean": 0.007422830239999873,
+        "gc_mean": 0.007025886373594403,
+        "gc_cpu_mean": 0.006604909839999831,
+        "service_mean": 0.17644183,
+        "sql_calls_mean": 38.9
+      },
+      "10_15": {
+        "n": 100,
+        "slow": 0,
+        "http_p95": 0.3494870071299374,
+        "http_mean": 0.21385950590483843,
+        "pre_mean": 0.03353501713369042,
+        "post_mean": -0.0003890441684052348,
+        "wsgi_mean": 0.18070293739903717,
+        "cpu_mean": 0.10240918881999984,
+        "sql_mean": 0.06555237327702343,
+        "sql_cpu_mean": 0.006953528669999978,
+        "gc_mean": 0.008583399369381368,
+        "gc_cpu_mean": 0.007883335430000162,
+        "service_mean": 0.18027827,
+        "sql_calls_mean": 37.98
+      },
+      "15_60": {
+        "n": 900,
+        "slow": 0,
+        "http_p95": 0.4012591908685863,
+        "http_mean": 0.24453040616069402,
+        "pre_mean": 0.05500373334261692,
+        "post_mean": -0.00022487213679899773,
+        "wsgi_mean": 0.18973915330134333,
+        "cpu_mean": 0.10674209352000001,
+        "sql_mean": 0.0731303525245231,
+        "sql_cpu_mean": 0.00723706280333351,
+        "gc_mean": 0.00820438010721571,
+        "gc_cpu_mean": 0.0077498599977777775,
+        "service_mean": 0.1894191011111111,
+        "sql_calls_mean": 38
+      },
+      "slow": {
+        "n": 62,
+        "slow": 62,
+        "http_p95": 1.1159978066571057,
+        "http_mean": 0.9568661864876987,
+        "pre_mean": 0.7141554518753002,
+        "post_mean": -0.0002786200042934187,
+        "wsgi_mean": 0.24297982050977165,
+        "cpu_mean": 0.12581181258064517,
+        "sql_mean": 0.1038858228918886,
+        "sql_cpu_mean": 0.009240183870968026,
+        "gc_mean": 0.01610514709365464,
+        "gc_cpu_mean": 0.013850995870967652,
+        "service_mean": 0.24261906451612902,
+        "sql_calls_mean": 40.91935483870968
+      }
+    },
+    "cpu_groups": {
+      "0_5": {
+        "postgres": {
+          "samples": 5,
+          "cpu_cores": 0.9232396494978351,
+          "periods": 50,
+          "throttled_periods": 0
+        },
+        "controller": {
+          "samples": 5,
+          "cpu_cores": 2.3085299803447628,
+          "periods": 0,
+          "throttled_periods": 0
+        }
+      },
+      "5_10": {
+        "postgres": {
+          "samples": 5,
+          "cpu_cores": 0.8326161655107382,
+          "periods": 50,
+          "throttled_periods": 0
+        },
+        "controller": {
+          "samples": 5,
+          "cpu_cores": 2.3369780218402108,
+          "periods": 0,
+          "throttled_periods": 0
+        }
+      },
+      "15_60": {
+        "postgres": {
+          "samples": 44,
+          "cpu_cores": 0.4692776195930022,
+          "periods": 441,
+          "throttled_periods": 0
+        },
+        "controller": {
+          "samples": 44,
+          "cpu_cores": 2.18472771933399,
+          "periods": 0,
+          "throttled_periods": 0
+        }
+      }
+    },
+    "sql_families": {
+      "0_5": [
+        {
+          "caller": "apps/listings/public_validation.py:251",
+          "wall_per_request": 0.020849770233035088,
+          "cpu_per_request": 0.0017384478499999335,
+          "calls_per_request": 7.25
+        },
+        {
+          "caller": "apps/listings/publication_state.py:447",
+          "wall_per_request": 0.011499157976359128,
+          "cpu_per_request": 0.00017018606999998908,
+          "calls_per_request": 0.68
+        },
+        {
+          "caller": "overflow_or_unknown",
+          "wall_per_request": 0.009396772515028715,
+          "cpu_per_request": 0.001993371780000035,
+          "calls_per_request": 5.66
+        },
+        {
+          "caller": "apps/listings/public_validation.py:497",
+          "wall_per_request": 0.004868514682166278,
+          "cpu_per_request": 0.0006026442100000095,
+          "calls_per_request": 3.85
+        },
+        {
+          "caller": "apps/listings/publication_state.py:444",
+          "wall_per_request": 0.0038008644292131066,
+          "cpu_per_request": 0.00014858524000000318,
+          "calls_per_request": 0.59
+        },
+        {
+          "caller": "apps/listings/publication_state.py:388",
+          "wall_per_request": 0.003715760465711355,
+          "cpu_per_request": 3.114333999999719e-05,
+          "calls_per_request": 0.09
+        },
+        {
+          "caller": "apps/listings/publication_state.py:305",
+          "wall_per_request": 0.0037030293745920063,
+          "cpu_per_request": 9.622456000002666e-05,
+          "calls_per_request": 0.59
+        },
+        {
+          "caller": "apps/listings/publication_state.py:446",
+          "wall_per_request": 0.003192253727465868,
+          "cpu_per_request": 3.0485170000003058e-05,
+          "calls_per_request": 0.09
+        },
+        {
+          "caller": "apps/listings/submissions.py:18",
+          "wall_per_request": 0.00262199504300952,
+          "cpu_per_request": 0.0002158226399999985,
+          "calls_per_request": 1.09
+        },
+        {
+          "caller": "apps/listings/forms.py:170",
+          "wall_per_request": 0.0022090147761628033,
+          "cpu_per_request": 0.00025350315000000957,
+          "calls_per_request": 1.6
+        }
+      ],
+      "15_60": [
+        {
+          "caller": "apps/listings/public_validation.py:251",
+          "wall_per_request": 0.016823128235733342,
+          "cpu_per_request": 0.0016329075100001253,
+          "calls_per_request": 6.666666666666667
+        },
+        {
+          "caller": "overflow_or_unknown",
+          "wall_per_request": 0.00905091674791442,
+          "cpu_per_request": 0.0010136226644445617,
+          "calls_per_request": 4.666666666666667
+        },
+        {
+          "caller": "apps/listings/publication_state.py:447",
+          "wall_per_request": 0.005980279852843119,
+          "cpu_per_request": 0.00016532102666662102,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/publication_state.py:305",
+          "wall_per_request": 0.004925725991423759,
+          "cpu_per_request": 0.00011593088333333846,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/publication_state.py:444",
+          "wall_per_request": 0.004670536409960025,
+          "cpu_per_request": 0.00017777338222221595,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/public_validation.py:497",
+          "wall_per_request": 0.003614133775441183,
+          "cpu_per_request": 0.0005198176522223068,
+          "calls_per_request": 3.3333333333333335
+        },
+        {
+          "caller": "apps/listings/presentation_reads.py:36",
+          "wall_per_request": 0.0021153237748270234,
+          "cpu_per_request": 0.0002054808366667101,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/public_validation.py:564",
+          "wall_per_request": 0.0020160166991667616,
+          "cpu_per_request": 0.00028385975222221894,
+          "calls_per_request": 2.0
+        },
+        {
+          "caller": "apps/listings/forms.py:170",
+          "wall_per_request": 0.001930813839038213,
+          "cpu_per_request": 0.0002494503722221037,
+          "calls_per_request": 1.6666666666666667
+        },
+        {
+          "caller": "apps/listings/submissions.py:144",
+          "wall_per_request": 0.0018285054382350709,
+          "cpu_per_request": 0.0002906075899998485,
+          "calls_per_request": 2.0
+        }
+      ]
+    },
+    "workers": {
+      "2609868": {
+        "requests": 320,
+        "first_wsgi": 0.1012163832783699,
+        "first6_cpu_mean": 0.15693462366666658
+      },
+      "2609861": {
+        "requests": 271,
+        "first_wsgi": 0.009006560314446688,
+        "first6_cpu_mean": 0.13585893499999993
+      },
+      "2609854": {
+        "requests": 313,
+        "first_wsgi": 0.0016757282428443432,
+        "first6_cpu_mean": 0.15570725099999996
+      },
+      "2609855": {
+        "requests": 296,
+        "first_wsgi": 0.052482862025499344,
+        "first6_cpu_mean": 0.11354202883333342
+      }
+    },
+    "negative_pre": 0,
+    "negative_post": 1116,
+    "post_min": -0.015277380589395761,
+    "diagnostic_p95": 0.8027193252928555,
+    "scope": "Same diagnostic only; inclusive WSGI/SQL/GC are not additive; post may be negative because WSGI response.close occurs after body reception. Controller includes generator/Celery/observer. SQL wall not backend CPU."
+  }
+}

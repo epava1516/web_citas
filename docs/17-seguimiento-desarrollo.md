@@ -2,6 +2,8 @@
 
 Actualización de investigación: grafo renovado antes de recorrer requests; startup collect descartado tras diagnóstico aislado. Corregidos ciclos evitables del memoizador de validación con prueba roja y 18 controles PASS; corto posterior FAIL0.919814s, mejora observada no causal18.37%. [Evidencia y límites](evidencias/cr09-grafo-recorrido-solucion-20261015.md). El último p95 limpio publicado es FAIL0.919814s; CR09/N3 abiertos.
 
+Investigación descompuesta posterior: observación por ID localiza espera con4workers ocupados y cargaSQL de medios. Selector JOIN+DISTINCT deBlob concentraCPUbackend; EXISTS devuelve los mismos datos y reduce selector aislado2.609→0.014625s en3tandas. Integración19PASS, [evidencia](evidencias/cr09-ingress-diagnostico-20261015.md); efectoHTTP pendiente de corto limpio único. No cambia el último FAIL0.919814s ni aceptaCR09/N3.
+
 ## Estado vigente de continuación — 2026-10-15
 
 Codex continúa el objetivo completo **CR09 → CR10 → GS01 → BF/BB → C**. CR09 y aceptación integral/N3 siguen abiertos. Los cortes anteriores de «regresión activa» que aparecen más abajo son históricos: no describen procesos vivos actuales.
