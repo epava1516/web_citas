@@ -1,0 +1,1025 @@
+{
+  "scope": "Authenticated encrypted header/provenance extraction only; no stream content output or subject association/no-link inference. Existing files only, no DB/Redis/Docker/runtime calls.",
+  "origins": [
+    {
+      "ciphertext_sha256": "aa3274784be3f9907d363d92cb62d041f9cda9b2ae374c6083e6ef77bbbfaf1e",
+      "captured_at": "2026-10-06T17:14:07.788411+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "26b45a6a1525372e9263764db40779ed81a478701970fc5b38c498b8336364a0",
+          "image": "sha256:3d2a27e7643b431aec6e690825c2e8ce08225a008d6b33ff582bff650f8317c2",
+          "container_created_at": "2026-10-06T16:30:03.108542728Z"
+        },
+        {
+          "service": "worker",
+          "container": "d5339c9af51a9b444ac4a4eabaad38b5013ca8773470b41f2e184c9c348b152a",
+          "image": "sha256:d0e22db504feaf0565e6815f7731ef5fd6bc5f47f03595966b97b8366ea2f112",
+          "container_created_at": "2026-10-06T16:30:03.106660617Z"
+        },
+        {
+          "service": "beat",
+          "container": "a816a65f4958645ea713bd9a0d2ec110160c2db5abd79742b79229d5beefedbd",
+          "image": "sha256:d8304b2dcf05d52326b8ebf0af4a2e8701035606bbbd56f96810b0a339d1d06e",
+          "container_created_at": "2026-10-06T16:30:03.106205462Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "fac768e758ed1023a8453f7f5271bf0e0e746bdc2ffa61b2ed5b368c3980f078",
+      "captured_at": "2026-10-06T17:46:29.487993+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "33ec41b81b54765ffa14a8d2d976e29f22917544542d3a872aa9da56f9a82450",
+          "image": "sha256:0dda7e2ae6f7ed6f5f1da5d7c1969216aae4a838828877aaeef6332cef254369",
+          "container_created_at": "2026-10-06T17:30:35.216724526Z"
+        },
+        {
+          "service": "worker",
+          "container": "a53fbc3532f2043333442497914c7377462ccdeba43608bc98be53d6198c5d52",
+          "image": "sha256:a8bad1e764b7fef09e852b6a2596cf6c34a271ce237becb866a24b5df3f32626",
+          "container_created_at": "2026-10-06T17:30:35.21454022Z"
+        },
+        {
+          "service": "beat",
+          "container": "e9f9b09641cc785bd04b37634738d84d87b2d0d85dee9cdb28e52a50202a0b91",
+          "image": "sha256:7657993ce301039b310271f9e5510efb89f92a9f69e3234e2c24939735f1b4c9",
+          "container_created_at": "2026-10-06T17:30:35.21397633Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "2ab78da7baac5c7a6aabb9eb417dad9c5bfbfba49f86149268f65be028f220d5",
+      "captured_at": "2026-10-06T21:35:55.308401+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "4ca3efb7510363236dcc1baa35333e3a9376307343bb923d32099b8bb6356139",
+          "image": "sha256:7d95456ac83d1dfb272d8668fb701c55e23efea7dc876c90064d271cce8c8f67",
+          "container_created_at": "2026-10-06T21:19:34.220513929Z"
+        },
+        {
+          "service": "worker",
+          "container": "058d658c91d18c3a838f3c79769a746c62d6c43634af0dda20cd8bd74b382e38",
+          "image": "sha256:34e9c0c983ece466e78b00e7b1e80da55209e3f4a0352ead685bea79ac159bd4",
+          "container_created_at": "2026-10-06T21:19:34.218955768Z"
+        },
+        {
+          "service": "beat",
+          "container": "ccab0961b94780bee583043aa199fff95ad504a3dbf3ede5d685e5dd3b338979",
+          "image": "sha256:571305816af283a735742dc422ed8254870abcfc42af920dcee878f8fb0c6c52",
+          "container_created_at": "2026-10-06T21:19:34.217030817Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "ff017815bb3defe83117560108260d91e56ba12b0ab1ad09bca8a2c9535f97e9",
+      "captured_at": "2026-10-06T22:47:02.497098+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "2b62eb110c587a7fb63de1b64ad371d19ba14111f1a2cba118389e52531661c5",
+          "image": "sha256:daf875116a6b83e403b20d7ab9ef99caeea908a0ace85a583fb8af551a06063b",
+          "container_created_at": "2026-10-06T22:25:32.301570767Z"
+        },
+        {
+          "service": "worker",
+          "container": "f37659f24a53484fedaa14164116011097f74a481f2b467f5b0cf8e4cc2e2f27",
+          "image": "sha256:0ee6ebc0a3d32a14e2aff5f3bc64b275934873d0b2d22e32d0385036f2fe7036",
+          "container_created_at": "2026-10-06T22:25:32.299469515Z"
+        },
+        {
+          "service": "beat",
+          "container": "d02ba30ef51be878971886b8f6bd9515665fa8f1a45f57028dd29d77edd8be8e",
+          "image": "sha256:283e3190498d555149a97ca88f768b6fdbcbed0985871d894be368965cd9edb5",
+          "container_created_at": "2026-10-06T22:25:32.298997259Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "db4a2573dceb31d635aaedc58b62cc8cf88ab8f5bc4ce9ada2a4a5aad95e4469",
+      "captured_at": "2026-10-06T22:25:19.025123+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "94e02275fd70bb847f42ca9a4957fce18c14f3ecaf8aeeb28865968ca1b9a0e5",
+          "image": "sha256:20638e59ecb358937aa5df4b482eea26e38805ec89fbaadd9d33192b87dfc9cd",
+          "container_created_at": "2026-10-06T21:55:42.15352533Z"
+        },
+        {
+          "service": "worker",
+          "container": "0c942e9dbc16b6fa2c95be2e7e88c4f944e0b0fe3ce4eee4d30f82d05adb2e9a",
+          "image": "sha256:f54825804dbdddf7c2b430d25f7e5dc42971a914abe0299c72384a7dd898e8ca",
+          "container_created_at": "2026-10-06T21:55:42.152784366Z"
+        },
+        {
+          "service": "beat",
+          "container": "3cff69a34f64540d462c5e3e4e591e25ca76d5301edc8d82b06a46dae5fdef90",
+          "image": "sha256:3c29ea07ef330388aadbdef91eba15553a971426bc2e8a32c47b5a620f63ea31",
+          "container_created_at": "2026-10-06T21:55:42.153874641Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "4deb0b748b1237997cc28e87965e36eae5031d8ff7f43bd19f2ed9b6ed27d609",
+      "captured_at": "2026-10-06T23:04:27.291376+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "025bb3e894af9dca671cdb6ddbf199f330b935aee487beace93e4f1aa897c65a",
+          "image": "sha256:c84c1ea0435e56cca134f3669746cd13169e5bfc636967d1f128c2633e1637f3",
+          "container_created_at": "2026-10-06T22:47:16.209384281Z"
+        },
+        {
+          "service": "worker",
+          "container": "1a8f6ae30eea68a7a745d5ab361cbc65c608c842b9a5a1e120b517e2d59fc533",
+          "image": "sha256:780584c58854527ff677a652609e5c3b63b24b70d585ed501372b0c4308bf3d6",
+          "container_created_at": "2026-10-06T22:47:16.207144975Z"
+        },
+        {
+          "service": "beat",
+          "container": "470de42af5c70c6aaa692aaf9bc9aae2d14f7200737960be358e7c1765d4031b",
+          "image": "sha256:419080ab833b035c806315421653edf0e95ac24f0f3a1bd899c492ab51141c3f",
+          "container_created_at": "2026-10-06T22:47:16.206893118Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "e5490c2de71e3f0dac7fe1c2e1e64b79e4d5828433d70e46c9fea0ce9a581c2e",
+      "captured_at": "2026-10-06T21:55:29.104746+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "5a7fbb36d67936f08138dc74847e925a42c712a969bc19eed98827d3c43f7e63",
+          "image": "sha256:9be2932fc860d6c0f4fa4ace5537bdf348866a93e64dbf00dad15c7c2cff6940",
+          "container_created_at": "2026-10-06T21:44:09.153051627Z"
+        },
+        {
+          "service": "worker",
+          "container": "e8ca39925af78914bc3dde7fcc9a50a759a9b7e21c5134ba2cf50185cf8d3c0f",
+          "image": "sha256:e524846582163ef896b2de0f13e8efea77d9b347a181745c2e88fc248c2fe34a",
+          "container_created_at": "2026-10-06T21:44:09.148098986Z"
+        },
+        {
+          "service": "beat",
+          "container": "12a3c7d68cbc4676a2b956b8bb42e7725082b1d4b06a10a9a092340714ac9f49",
+          "image": "sha256:201f223e5c0c829f9b1b29be653fbd68faaf451a7377989fbd2fed506d0d85d1",
+          "container_created_at": "2026-10-06T21:44:09.149249624Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "8291f411eaa5e13a4e7a524aefc56ad2a2f448ef50ad7d65151e22d67397f2af",
+      "captured_at": "2026-10-06T11:51:22.580205+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "3cd6defd1560d125979d5c9083ac62ce3f7edad02a4779e5f8dc86ae364200d8",
+          "image": "sha256:8aa88af56c8bd33b1f0aea8d229eb219f771384528d20b97b5301e8d32ccf45f",
+          "container_created_at": "2026-10-06T11:05:14.589481003Z"
+        },
+        {
+          "service": "worker",
+          "container": "439607d52d42cb8d25e171141b88624bff899a2be3bc1ab0781319524d5f1c13",
+          "image": "sha256:e5a3d52b9fb397cad4e7b04e2985525ca72aaf51de65988a1735646390d8b0c4",
+          "container_created_at": "2026-10-06T11:05:14.587715539Z"
+        },
+        {
+          "service": "beat",
+          "container": "081de162a3084ff5e79f82166a736492bf4bf60c21584204a32811d90df7a295",
+          "image": "sha256:a3c2be5090fbc774f24e4dbd26c6b5c956341dff79f13a2054a1035aa5e7f99c",
+          "container_created_at": "2026-10-06T11:05:14.586449534Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "d424f322d4aa8efa4022b9958c1dc3e4a9cd4c7da765cf25d4b02292b6d87cc0",
+      "captured_at": "2026-10-06T12:42:36.669186+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "56c6c898440a1a238ed8707066faaefbc9b07c7600aa2ff392a263b29afc344c",
+          "image": "sha256:29fdd1fde299fdac102a95482bb71b45f07a423e9c15e11b3c756d90a80f10ba",
+          "container_created_at": "2026-10-06T12:35:02.503695589Z"
+        },
+        {
+          "service": "worker",
+          "container": "032b25fa14a5f6e526c4b7de645989725b4a6774cd99f3de89debed40ac892ab",
+          "image": "sha256:8c693e0ab8d4a430d55ecd2c4b2d84f39dc1c3f3132fe336e2719334e6046abf",
+          "container_created_at": "2026-10-06T12:35:02.50286761Z"
+        },
+        {
+          "service": "beat",
+          "container": "1b3fdadcdcbefae222d6ab557d84fdcdc0c8400243fe2c17a54b3992e8efc62b",
+          "image": "sha256:ba83ea16977ccfaf42afff703c8ecf08837639127596380fa60a4792df6e1bed",
+          "container_created_at": "2026-10-06T12:35:02.502040123Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "1e1855b59db503238585676d1e8dc898b9ac9131050dfec53095ecdefc5feeb3",
+      "captured_at": "2026-10-06T12:34:39.512797+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "3a40d97e2fc8f8424c864f21827074e13e2134119703058e938494596aee1722",
+          "image": "sha256:2b386c9fb800d8ea248494852f33c689ea42763d534c9e473514a22510b93a07",
+          "container_created_at": "2026-10-06T12:12:22.972003822Z"
+        },
+        {
+          "service": "worker",
+          "container": "a8d8ae22654c55ad11431c1158a345f1a9a234c4618eb833db922d6333ae5dcc",
+          "image": "sha256:ae7838c4139f70d000c9d9f0ec09cce2ba3706a4542082584cd7098f727cbef8",
+          "container_created_at": "2026-10-06T12:12:22.970405928Z"
+        },
+        {
+          "service": "beat",
+          "container": "2adac81f1d5a2b3c7ecd9bdce769d825885e6568ce631c819b6d0520aa49ef0e",
+          "image": "sha256:1f8d9b9bf4b25c7bac8d384d56498151fd384ef17c1eddb948796743cade4fd9",
+          "container_created_at": "2026-10-06T12:12:22.966915803Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "6e4f4abbd007c8fe39413559c510f5c828c62d8de07d88eb18da803aa8f153e6",
+      "captured_at": "2026-10-06T19:53:27.826672+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "955a0fe0dfb91fce99aece1413d5b040d62d221016fee62a57de6838f96a7bda",
+          "image": "sha256:bacff9394c5fb0438799f8d8891e2568ad7fffb586b4db4c682b9ff9c08bb359",
+          "container_created_at": "2026-10-06T17:57:00.188822668Z"
+        },
+        {
+          "service": "worker",
+          "container": "b087c48d4b3d04ec862045f4095a4a41de0a0d530ff055dca110b686eb9ab34b",
+          "image": "sha256:d4a7b003e97777d88136744b18eb68dbc7c0b85e49e9916a2759ece83e29bc85",
+          "container_created_at": "2026-10-06T17:57:00.187843708Z"
+        },
+        {
+          "service": "beat",
+          "container": "708c08ddd0cb2fb4bd3c3e68358e40c33e5fc0bbf00474172d69a44b3df4b8ff",
+          "image": "sha256:04e65ed1b8dc10913123531903910e33b2c3ea3e19ac254cf8fd3ccc12435fc1",
+          "container_created_at": "2026-10-06T17:57:00.18851742Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "abc5379990e404d31eca843a01b9082630e62c1566013c253812ed6bfe1d6208",
+      "captured_at": "2026-10-06T12:12:03.455948+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "ef8b1ab62fae44fbd09ce918c7322c4deb1a99155349b11d0f571b6cbf076091",
+          "image": "sha256:9ab65b2dcede249f2d537ce4f712a32fac5d9eb76b943c93daf2ad5b45b1de81",
+          "container_created_at": "2026-10-06T11:51:49.106057282Z"
+        },
+        {
+          "service": "worker",
+          "container": "236a26e50b0dc1cdc612c2eaffc680daab8d0661077ddbf455db976e60fd928c",
+          "image": "sha256:166dace45f596c291bcb446e01066b77fee15528e5844f402d465020aee70a54",
+          "container_created_at": "2026-10-06T11:51:49.115671803Z"
+        },
+        {
+          "service": "beat",
+          "container": "dcaa023dcea1b8de4b60a3026f69e47505397754f7a36f0ce2efb0ea1421cb32",
+          "image": "sha256:bbc900009f548a3eb12ea9693ba9816f083d25cc16f95968366e12491d61205b",
+          "container_created_at": "2026-10-06T11:51:49.101869655Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "63b0c4a5a89fc6c87c4ce13bcb94fe0136b745d0ba0078a3471b4af516f276c6",
+      "captured_at": "2026-10-06T20:14:47.684718+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "ff04a4eec38df73ad0a1fdd5d72e0ce52387b1e8a5eec9330846a6985289c0f8",
+          "image": "sha256:f75a8dacf125896ddf5937452d5dc1745dc32166fc0cfae51b90104dcb764bb0",
+          "container_created_at": "2026-10-06T19:53:35.974256873Z"
+        },
+        {
+          "service": "worker",
+          "container": "8670eb54a797290ecd3d05bce32d7852646a13ef1e45b0e81bfc4926a2c90317",
+          "image": "sha256:3a3b6aa4d48c63cecade2f68c720b4a8f00af9c0e333e294c9c4ac9b49bfd356",
+          "container_created_at": "2026-10-06T19:53:35.975347004Z"
+        },
+        {
+          "service": "beat",
+          "container": "3e5309f7ecf6b9277c03db0c73398ef24eb9dffbab1cb7bb3d951e07411d2d93",
+          "image": "sha256:6889bfa04885e1ff930765946ca6e961ff0d5bab70d75f9e4c5d9bffe56b61d6",
+          "container_created_at": "2026-10-06T19:53:35.970991701Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "18bf5f13fb4cb7d51a0f07fb0b6884c5e2d9fe9bf968e90b5816b438ad66e6a9",
+      "captured_at": "2026-10-06T21:19:21.041057+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "d1d28d333dd194350bf3ea928f05dd6258372aaa3dde013e5a4fba30b267f85b",
+          "image": "sha256:f6ec30323adb8c1d16430c6b022f180794a487cfb40ec51aa895f0c86c80a10c",
+          "container_created_at": "2026-10-06T21:18:30.113232983Z"
+        },
+        {
+          "service": "worker",
+          "container": "eafef311ae117a5a89782e1b6542f83b790799c39bcaf2127c13faba0386fc55",
+          "image": "sha256:98d457858ad7e13f812615c65ba9e1d2084d7fee19ae8a2fe98196d4468c1e2a",
+          "container_created_at": "2026-10-06T21:18:30.112360865Z"
+        },
+        {
+          "service": "beat",
+          "container": "bfd79c51ebae29fef4a9be398f8c9048ace130acb31933d2b5b7f2a60335fc05",
+          "image": "sha256:52149df2e82b2f7561d65b31707866d4c5cf54ff3d617ebccc0c37a19778dff1",
+          "container_created_at": "2026-10-06T21:18:30.111968906Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "e6b31ecf04cb9eb95ff67bf1f950a5118a23eed325e01d588142cb3985270805",
+      "captured_at": "2026-10-06T11:01:49.035896+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "73396393b167ae7d53bf439088ad0cdc9e3640ea80cfa5abc6b20e48aed1bf91",
+          "image": "sha256:cfea996d77063e9b56fc17a897a4b2bed7a489346245af9abf69bddc8a07b452",
+          "container_created_at": "2026-10-06T10:05:22.647499212Z"
+        },
+        {
+          "service": "worker",
+          "container": "646f6f83b832526789617f3ebd0b1ce466fe9be8e530a14a71e8cc4f39395f30",
+          "image": "sha256:a0433ee48c164a7d7ea967bf4f20571ba550b90b7cf1ccf89b7cf7cef8be4487",
+          "container_created_at": "2026-10-06T10:05:22.646337593Z"
+        },
+        {
+          "service": "beat",
+          "container": "99059d03b11cbc7c82f6add4bc9b185b981888c6f9b9ab488dd2bd522a0ca891",
+          "image": "sha256:fd7eaba6837a2c23bb893deb02b96adef0a0267f3a21a85de2faf930bceb74d7",
+          "container_created_at": "2026-10-06T10:05:22.644999666Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "77dd1bd4937ea405b31115dc7c9e2fb7c662a67ccc609f21a5f7d942f15049e6",
+      "captured_at": "2026-10-06T16:29:56.380083+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "7df7b26b2c3cca187b84fcd48e60e294a77ca59c78ff3790e6dde260df25cb5e",
+          "image": "sha256:985627edc6e2d3a9f90cbea17980578f663cf294a49178f6cfbda256f606584d",
+          "container_created_at": "2026-10-06T16:11:41.068729982Z"
+        },
+        {
+          "service": "worker",
+          "container": "5afbec9af562a664b3b8a02a41e23e8328f844a8d21559980eeca8cc87c84b16",
+          "image": "sha256:5cbdcdc9b4435f5210c054f1c00258bf189a1ad7bec40b5bb730a4f8fcac9010",
+          "container_created_at": "2026-10-06T16:11:41.068965759Z"
+        },
+        {
+          "service": "beat",
+          "container": "b4117ee9a8961cc7c8fc898b333c1730abc5633073bb9fea75ee132c080ae306",
+          "image": "sha256:93697d1a877083cf4a07cca8445411e64769fc4109439a21e8cde45fed3af7c5",
+          "container_created_at": "2026-10-06T16:11:41.067309609Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "a61f79a76e2676690ee4186f3fba3303646e80ac06256001f35902741453a5aa",
+      "captured_at": "2026-10-06T15:47:09.406186+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "9fcfe16e9825ef25463b840440be828825aab8e393259c5ef4a5299eb6f77e12",
+          "image": "sha256:85d28dca4d9bbb3d1aa2c973017cb96a8f73e4d770672f669662c9cf0f9e2de0",
+          "container_created_at": "2026-10-06T15:32:33.481320721Z"
+        },
+        {
+          "service": "worker",
+          "container": "b33ed6b455216971f2daf518e8b6e49fd78b8f0194bba64b4d7ab735e80360e2",
+          "image": "sha256:5f1686d884fe9f2a1454bd1b61aa3d3d55afdbabce47611400916d9a8af6b62a",
+          "container_created_at": "2026-10-06T15:32:33.462140359Z"
+        },
+        {
+          "service": "beat",
+          "container": "8727d34d3c1f8ef04c90ef9f868c755b333a53cf9514255c2aa41ae402c71ff9",
+          "image": "sha256:4448d45fb783e6a991a1b59a57941d20756d5aef24ac4c140298c8eb4db1f259",
+          "container_created_at": "2026-10-06T15:32:33.461233517Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "b3e4352cf8931b09f47f3baf2b957b2735d12788c1dd5f7fa3f202625a809712",
+      "captured_at": "2026-10-06T15:32:26.510126+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "3fec34f7c365e8d5ae12867f0ec50de639022428bf927f19890735454bab2758",
+          "image": "sha256:7fed46bd3e1a7b362120397f8b55a7d95e395ef4d1ab7d0b6aa5e1b7dbc64480",
+          "container_created_at": "2026-10-06T15:11:33.886716457Z"
+        },
+        {
+          "service": "worker",
+          "container": "b2fd92e59e9105a35a39b53280b7dd33a02d940409a96370af8bc61b5e35e351",
+          "image": "sha256:9fcea27cf7089114288d389e237fad0d231bb911c2ddc9e9ed8040414096954c",
+          "container_created_at": "2026-10-06T15:11:33.885643234Z"
+        },
+        {
+          "service": "beat",
+          "container": "c31bb84e90652f0a26615e638dfc159de30515be55919b2fc13cdd139d96152f",
+          "image": "sha256:42d346ce07916bb2361b34b14c10f6828cc499c75310495336ef7d6038b69437",
+          "container_created_at": "2026-10-06T15:11:33.884971043Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "2f74f53e14025cdeaa2355cfbb200407339b2f555f8a23e4ad211b06edac6d44",
+      "captured_at": "2026-10-06T21:43:56.789416+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "bd006ede97323020443240cacd723ee296523276b0c4e8aa9f953767b8c24215",
+          "image": "sha256:44afcab9083d2f268c29328315f569af7215276c613ac4974eab8558bcfe2517",
+          "container_created_at": "2026-10-06T21:36:08.005842978Z"
+        },
+        {
+          "service": "worker",
+          "container": "973b12efc9f18140802cdcde1312bae5ff277ee3db8806cc5d1926648237d9b4",
+          "image": "sha256:a869a229d98eb947300e6d57c1b909e4369bfb9060aa3b48e77261c25043545c",
+          "container_created_at": "2026-10-06T21:36:08.00376546Z"
+        },
+        {
+          "service": "beat",
+          "container": "01888d1242a50857e098a4db4af3d761ce85e6572e30f3a21d0bc790d125e4f3",
+          "image": "sha256:508d8e058ae06eff93772daf658025ca81b0adf680806a186966a4f655c5a9ba",
+          "container_created_at": "2026-10-06T21:36:08.003456329Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "09015b24a38499c32392b3f33b47f0297c0e361a4cefaa6ac0d253495ab71653",
+      "captured_at": "2026-10-06T16:11:33.408984+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "9576caa3792a94b5cfaed8767fcdcc9898452bdbeceaf5860afd8b4febd7e7bd",
+          "image": "sha256:c3a1e2bdd346a7bc3250839cc95a9ffab8d6bcd42fc4a6e21063ef8424113c92",
+          "container_created_at": "2026-10-06T15:47:16.128709243Z"
+        },
+        {
+          "service": "worker",
+          "container": "95758e273b467532ed544a0bba89443eb6214a7b25af7c55e0ef7091086f23d7",
+          "image": "sha256:10289be588b7f15b0bcfa1c4ff2091cc11327949a571937b114d116e94ef665a",
+          "container_created_at": "2026-10-06T15:47:16.12421385Z"
+        },
+        {
+          "service": "beat",
+          "container": "a87b783ad189b4b52b1c705b7d371e35abcd9eb07c4ff51ce6d42510b9bfb3d8",
+          "image": "sha256:75ef5837640dea3691d3a1e2f1bc3b096f8e2a34e337055f604e29c54326ab72",
+          "container_created_at": "2026-10-06T15:47:16.123657901Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "88a4bcdb370806920a4ecb12f0ca2447e421da11848770ff7f4afb279a73c69a",
+      "captured_at": "2026-10-06T17:56:53.604237+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "8fceb426a56d3fecb84ed20be99dd602ad23cb5b7b0b1b329476555c491f71aa",
+          "image": "sha256:72d43c6d4dd67ec10ccefa385041ce19b4d643c651d506ee2396bece5140bb3e",
+          "container_created_at": "2026-10-06T17:46:36.24921651Z"
+        },
+        {
+          "service": "worker",
+          "container": "5d2d7862cc9cdb0aabc2f22d857d4b516ab776ff7acc5023c99d46de80e912fa",
+          "image": "sha256:b58fab1ee42826b9fa9dd20f50f0f7717ea2dc9e22b8c70fa581da873a255eee",
+          "container_created_at": "2026-10-06T17:46:36.248808609Z"
+        },
+        {
+          "service": "beat",
+          "container": "74e5cd3c728747ded26c2e8d7ea34ad7c19b5104dbd0529276eb159dd2b71936",
+          "image": "sha256:901c487030b421ea1ecb35c52bef834ff789271a24345ae3b92849a5744299a3",
+          "container_created_at": "2026-10-06T17:46:36.246749852Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "3898a0d616a64d440e95d0aaae7b40153caff34f310b2890f321ea16f2577829",
+      "captured_at": "2026-10-06T17:30:28.004228+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "afdc8f927f7cf4b5e256230313fdcb65becce0367ecb5752a0591337cd7b0c3e",
+          "image": "sha256:fc3be3968fb904f1773ac5f40ddf235e914505b855d4ac7009775b2f5a4ae2c0",
+          "container_created_at": "2026-10-06T17:14:15.979974149Z"
+        },
+        {
+          "service": "worker",
+          "container": "df03d932b7f95fe2f63d55832401dc2cb20a62a93c14ca0c3703545cd87b7bb8",
+          "image": "sha256:05dae58477588ea98713860df8913c308c32cf33395b4188ec58f07f362bfeae",
+          "container_created_at": "2026-10-06T17:14:15.980598181Z"
+        },
+        {
+          "service": "beat",
+          "container": "549903d04028a0028530877ac4ad7467980aaa094ea43b7d98eeaca398ed419a",
+          "image": "sha256:23f9a7cb25c8fc75fc28a50668876905f72328dfdfb7a425e4536a322e89040e",
+          "container_created_at": "2026-10-06T17:14:15.977353951Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    },
+    {
+      "ciphertext_sha256": "4c52fa4c09385b0e43d0ac89faccef011e2a17ec10e98ff45630bbd5266a8189",
+      "captured_at": "2026-10-06T23:28:12.150905+00:00",
+      "schema": "local-access-log-origins-v1",
+      "project": "web-modelos",
+      "services": [
+        {
+          "service": "app",
+          "container": "aeb9042248db0b8f2951401aab3c20833a8c01dc68ccbaea408ab0fc6e0a99ca",
+          "image": "sha256:14005683b1ad491395f135cb2b7586c893a5585c95a50ddd6785905e5bb9c666",
+          "container_created_at": "2026-10-06T23:04:41.047315798Z"
+        },
+        {
+          "service": "worker",
+          "container": "438b547e060500063c8e268d44a0aa554f787fe78179f54ef9593c746b5ea7bd",
+          "image": "sha256:ae843e9cda8b6dd7429c0c70c411de386bb82bad7de1f7a9b912f07b6b8052f1",
+          "container_created_at": "2026-10-06T23:04:41.047563354Z"
+        },
+        {
+          "service": "beat",
+          "container": "08715fe0dcf75c47ccc573e4b482ee8dfbaa0f9ab1f5ba4aba78f2d8e0b58189",
+          "image": "sha256:561648c4d9deff7e1c424f8bc9daf42a0bc806439fecdc419c3bae75848c2039",
+          "container_created_at": "2026-10-06T23:04:41.046103586Z"
+        },
+        {
+          "service": "caddy",
+          "container": "72f84db9b03157ef9f63aed9375c897ca92cd44d6b0c740bd32b31cb78ba01c1",
+          "image": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+          "container_created_at": "2026-10-03T15:25:43.823196762Z"
+        },
+        {
+          "service": "db",
+          "container": "865236b154b96936f56758ee3a62651860f73c613912ed8a966fcc503f4b700f",
+          "image": "sha256:cc4c61127125de9f69aa50f7d78b54686576d5d3d835de03128b064d12b97154",
+          "container_created_at": "2026-10-03T15:15:06.885101315Z"
+        },
+        {
+          "service": "redis",
+          "container": "19cafaa9240d8a04037d2ab129c3ee1a666d2023995c121905d692e74572a123",
+          "image": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+          "container_created_at": "2026-10-03T15:15:06.884985417Z"
+        }
+      ]
+    }
+  ],
+  "acceptance": false,
+  "recorded_at": "2026-10-15T10:15:23.868782+00:00",
+  "known_23_hashes_exactly_covered": true,
+  "source_of_metadata": "scripts/collect_access_resource_logs.py retains container/image/creation in authenticated originals; historical format summary omitted them",
+  "limits": [
+    "Header provenance is not subject association or disclosure review. No general no-link decision from different container IDs alone.",
+    "No current normal containers, DB, Redis or mail read; historical encrypted files only."
+  ]
+}
