@@ -1,0 +1,15 @@
+{
+  "run_id": "20261015-145150-5c072bd1",
+  "unit": "cr09-prepared-public-reads-privacy-20261015.service",
+  "head": "d042fc3",
+  "selection": [
+    "tests/test_rights_withdrawal.py",
+    "tests/test_privacy_publication_holds.py"
+  ],
+  "prerequisites": "9specificPASS plus69expandedPASS, ownsourcefreeze/cleanupverified",
+  "reason": "public_detail guard cursor scope changed; real withdrawal/privacy holds HTTP404 and separation/authority/race/lifecycle tests are affected security evidence",
+  "criteria": "Complete files withoutnecessaryskips, realPostgreSQL/Chromium, sourcefreeze/cleanup; no simulatorasrealidentity",
+  "status": "running",
+  "next": "IntegratedCPU currentcandidate, then cleanloadonlyifjustified; no duplicate load now",
+  "acceptance": false
+}

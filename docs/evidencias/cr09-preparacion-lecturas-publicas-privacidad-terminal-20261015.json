@@ -1,0 +1,92 @@
+{
+  "run_id": "20261015-145150-5c072bd1",
+  "head": "d042fc3bd39cd63cf0aec581c85e631c917eba47",
+  "result": "11PASS125.28s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "selection": [
+    "tests/test_rights_withdrawal.py",
+    "tests/test_privacy_publication_holds.py"
+  ],
+  "testcases": [
+    {
+      "classname": "tests.test_rights_withdrawal",
+      "name": "test_no_account_withdrawal_hides_only_scoped_profile_and_revokes_representation",
+      "file": "tests/test_rights_withdrawal.py",
+      "line": "43",
+      "time": "45.401"
+    },
+    {
+      "classname": "tests.test_rights_withdrawal",
+      "name": "test_execution_permission_current_read_and_proof_required",
+      "file": "tests/test_rights_withdrawal.py",
+      "line": "113",
+      "time": "7.358"
+    },
+    {
+      "classname": "tests.test_rights_withdrawal",
+      "name": "test_failed_storage_rolls_back_case_and_person",
+      "file": "tests/test_rights_withdrawal.py",
+      "line": "132",
+      "time": "5.842"
+    },
+    {
+      "classname": "tests.test_rights_withdrawal",
+      "name": "test_concurrent_exact_withdrawal_only_mutates_once",
+      "file": "tests/test_rights_withdrawal.py",
+      "line": "156",
+      "time": "6.588"
+    },
+    {
+      "classname": "tests.test_rights_withdrawal",
+      "name": "test_mobile_reviewer_withdraws_scoped_anonymous_representation",
+      "file": "tests/test_rights_withdrawal.py",
+      "line": "181",
+      "time": "11.976"
+    },
+    {
+      "classname": "tests.test_privacy_publication_holds",
+      "name": "test_hold_removes_exposure_and_blocks_forced_status_and_manager_lifecycle",
+      "file": "tests/test_privacy_publication_holds.py",
+      "line": "56",
+      "time": "7.612"
+    },
+    {
+      "classname": "tests.test_privacy_publication_holds",
+      "name": "test_ground_and_proof_scope_are_checked_and_case_stays_open[object-objection_pending]",
+      "file": "tests/test_privacy_publication_holds.py",
+      "line": "100",
+      "time": "6.720"
+    },
+    {
+      "classname": "tests.test_privacy_publication_holds",
+      "name": "test_ground_and_proof_scope_are_checked_and_case_stays_open[rectify-accuracy]",
+      "file": "tests/test_privacy_publication_holds.py",
+      "line": "100",
+      "time": "6.727"
+    },
+    {
+      "classname": "tests.test_privacy_publication_holds",
+      "name": "test_approval_race_cannot_republish_held_profile",
+      "file": "tests/test_privacy_publication_holds.py",
+      "line": "123",
+      "time": "8.244"
+    },
+    {
+      "classname": "tests.test_privacy_publication_holds",
+      "name": "test_transfer_preserves_hold_and_guards_permissions_proof_and_csrf",
+      "file": "tests/test_privacy_publication_holds.py",
+      "line": "166",
+      "time": "6.552"
+    },
+    {
+      "classname": "tests.test_privacy_publication_holds",
+      "name": "test_mobile_hold_persists_after_reload_without_closing_request",
+      "file": "tests/test_privacy_publication_holds.py",
+      "line": "230",
+      "time": "11.635"
+    }
+  ],
+  "scope": "Real PostgreSQL/browser withdrawal/hold HTTP and native current eligibility, forced status, identity/permissions/CSRF, races/lifecycle separation. No externalidentity/delivery, global rights or N3 acceptance.",
+  "next": "IntegratedCPU same current diagnostic before cleanload decision"
+}
