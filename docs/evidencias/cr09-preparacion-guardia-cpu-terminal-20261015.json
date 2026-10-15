@@ -1,0 +1,755 @@
+{
+  "run_id": "20261015-143135-64079715",
+  "head": "d4580b9b9818162a60b16c753caa61dc544fd649",
+  "result": "1PASS90.08s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "data": {
+    "cases": [
+      {
+        "kind": "listing",
+        "family": "catalog",
+        "queries_per_set": [
+          17,
+          17
+        ],
+        "blocks": [
+          {
+            "block": 0,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.06,
+              "delta": {
+                "user_ticks": 4,
+                "system_ticks": 2
+              },
+              "elapsed_seconds": 0.1700634891167283
+            }
+          },
+          {
+            "block": 0,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.06,
+              "delta": {
+                "user_ticks": 5,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.14091794611886144
+            }
+          },
+          {
+            "block": 0,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.07350226165726781
+            }
+          },
+          {
+            "block": 1,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.05,
+              "delta": {
+                "user_ticks": 4,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.13741930667310953
+            }
+          },
+          {
+            "block": 1,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.08774589328095317
+            }
+          },
+          {
+            "block": 1,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.07,
+              "delta": {
+                "user_ticks": 5,
+                "system_ticks": 2
+              },
+              "elapsed_seconds": 0.14845632715150714
+            }
+          },
+          {
+            "block": 2,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.0929812011308968
+            }
+          },
+          {
+            "block": 2,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.08,
+              "delta": {
+                "user_ticks": 6,
+                "system_ticks": 2
+              },
+              "elapsed_seconds": 0.2710715467110276
+            }
+          },
+          {
+            "block": 2,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.08,
+              "delta": {
+                "user_ticks": 5,
+                "system_ticks": 3
+              },
+              "elapsed_seconds": 0.20149302715435624
+            }
+          }
+        ]
+      },
+      {
+        "kind": "listing",
+        "family": "media",
+        "queries_per_set": [
+          3,
+          3
+        ],
+        "blocks": [
+          {
+            "block": 0,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.04567551892250776
+            }
+          },
+          {
+            "block": 0,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.05440032668411732
+            }
+          },
+          {
+            "block": 0,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.01,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.03026443999260664
+            }
+          },
+          {
+            "block": 1,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.01,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.04569646716117859
+            }
+          },
+          {
+            "block": 1,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.032804690301418304
+            }
+          },
+          {
+            "block": 1,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.01,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.04217756912112236
+            }
+          },
+          {
+            "block": 2,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.01,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.026454917155206203
+            }
+          },
+          {
+            "block": 2,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.05104857822880149
+            }
+          },
+          {
+            "block": 2,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.04847348015755415
+            }
+          }
+        ]
+      },
+      {
+        "kind": "detail",
+        "family": "catalog",
+        "queries_per_set": [
+          15,
+          15
+        ],
+        "blocks": [
+          {
+            "block": 0,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.04,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.09306268114596605
+            }
+          },
+          {
+            "block": 0,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.04,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.08937777113169432
+            }
+          },
+          {
+            "block": 0,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.06722650304436684
+            }
+          },
+          {
+            "block": 1,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.09326257789507508
+            }
+          },
+          {
+            "block": 1,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.01,
+              "delta": {
+                "user_ticks": 0,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.06069425819441676
+            }
+          },
+          {
+            "block": 1,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 2,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.08725272212177515
+            }
+          },
+          {
+            "block": 2,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.01,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.0454447939991951
+            }
+          },
+          {
+            "block": 2,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 2,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.10124290082603693
+            }
+          },
+          {
+            "block": 2,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.04,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.08668748894706368
+            }
+          }
+        ]
+      },
+      {
+        "kind": "detail",
+        "family": "media",
+        "queries_per_set": [
+          5,
+          5
+        ],
+        "blocks": [
+          {
+            "block": 0,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.08,
+              "delta": {
+                "user_ticks": 6,
+                "system_ticks": 2
+              },
+              "elapsed_seconds": 0.12554957391694188
+            }
+          },
+          {
+            "block": 0,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.11,
+              "delta": {
+                "user_ticks": 7,
+                "system_ticks": 4
+              },
+              "elapsed_seconds": 0.15771156689152122
+            }
+          },
+          {
+            "block": 0,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.01,
+              "delta": {
+                "user_ticks": 0,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.047072887886315584
+            }
+          },
+          {
+            "block": 1,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.11,
+              "delta": {
+                "user_ticks": 8,
+                "system_ticks": 3
+              },
+              "elapsed_seconds": 0.20897361496463418
+            }
+          },
+          {
+            "block": 1,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.01,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.04661598429083824
+            }
+          },
+          {
+            "block": 1,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.09,
+              "delta": {
+                "user_ticks": 6,
+                "system_ticks": 3
+              },
+              "elapsed_seconds": 0.21062266873195767
+            }
+          },
+          {
+            "block": 2,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.039996772073209286
+            }
+          },
+          {
+            "block": 2,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.09,
+              "delta": {
+                "user_ticks": 6,
+                "system_ticks": 3
+              },
+              "elapsed_seconds": 0.1581191709265113
+            }
+          },
+          {
+            "block": 2,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.11,
+              "delta": {
+                "user_ticks": 8,
+                "system_ticks": 3
+              },
+              "elapsed_seconds": 0.1485648569650948
+            }
+          }
+        ]
+      },
+      {
+        "kind": "detail",
+        "family": "rights",
+        "queries_per_set": [
+          3,
+          3
+        ],
+        "blocks": [
+          {
+            "block": 0,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.01,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.02896283334121108
+            }
+          },
+          {
+            "block": 0,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 2,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.02683449164032936
+            }
+          },
+          {
+            "block": 0,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.0,
+              "delta": {
+                "user_ticks": 0,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.010223155375570059
+            }
+          },
+          {
+            "block": 1,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.026410960126668215
+            }
+          },
+          {
+            "block": 1,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.0,
+              "delta": {
+                "user_ticks": 0,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.01138640521094203
+            }
+          },
+          {
+            "block": 1,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.01,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.030471528880298138
+            }
+          },
+          {
+            "block": 2,
+            "variant": "server_prepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.0,
+              "delta": {
+                "user_ticks": 0,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.012993354350328445
+            }
+          },
+          {
+            "block": 2,
+            "variant": "client_native",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 1,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.026213245000690222
+            }
+          },
+          {
+            "block": 2,
+            "variant": "server_unprepared",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 2,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.02700896095484495
+            }
+          }
+        ]
+      }
+    ],
+    "prepared_count": 36,
+    "generic_plan_uses": 1747,
+    "custom_plan_uses": 145,
+    "backend_host_pid": 195058,
+    "psycopg_version": "3.3.6"
+  },
+  "summary": [
+    {
+      "kind": "listing",
+      "family": "catalog",
+      "queries_per_set": [
+        17,
+        17
+      ],
+      "client_native_cpu_ms": 5.833333333333334,
+      "server_unprepared_cpu_ms": 5.277777777777778,
+      "server_prepared_cpu_ms": 1.6666666666666665
+    },
+    {
+      "kind": "listing",
+      "family": "media",
+      "queries_per_set": [
+        3,
+        3
+      ],
+      "client_native_cpu_ms": 1.3888888888888888,
+      "server_unprepared_cpu_ms": 1.3888888888888888,
+      "server_prepared_cpu_ms": 1.1111111111111112
+    },
+    {
+      "kind": "detail",
+      "family": "catalog",
+      "queries_per_set": [
+        15,
+        15
+      ],
+      "client_native_cpu_ms": 2.7777777777777777,
+      "server_unprepared_cpu_ms": 3.055555555555556,
+      "server_prepared_cpu_ms": 1.1111111111111112
+    },
+    {
+      "kind": "detail",
+      "family": "media",
+      "queries_per_set": [
+        5,
+        5
+      ],
+      "client_native_cpu_ms": 7.222222222222222,
+      "server_unprepared_cpu_ms": 9.166666666666666,
+      "server_prepared_cpu_ms": 1.1111111111111112
+    },
+    {
+      "kind": "detail",
+      "family": "rights",
+      "queries_per_set": [
+        3,
+        3
+      ],
+      "client_native_cpu_ms": 1.1111111111111112,
+      "server_unprepared_cpu_ms": 1.9444444444444446,
+      "server_prepared_cpu_ms": 0.0
+    }
+  ],
+  "scope": "Captured catalog/media/rights SELECTs from two current list pages and two current details; exact raw rows compared every replay in own readonlyRR. Three variants,3rotating blocks12replays after8warmups each, CPU100Hz. Factory unchanged, threshold restored, no query/result export or product patch. Replays omit ORM/HTTP/mutations; not full guard parity, p95, capacity or N3.",
+  "decision": "Measured catalog/detail-media CPU savings justify studying an explicit read-only callsite candidate. Do not change default publicly_visible used by writer/other flows or global cursor settings. Require HTML/fresh invalidation/error restoration and actual prepared route controls before any cleanload."
+}

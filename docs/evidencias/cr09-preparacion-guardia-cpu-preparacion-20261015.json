@@ -1,0 +1,13 @@
+{
+  "run_id": "20261015-143135-64079715",
+  "unit": "cr09-prepared-guard-reads-cpu-20261015.service",
+  "base_head": "d4580b9",
+  "source_change": "New explicit diagnostic test only; no product changes",
+  "hypothesis": "Current catalog/media/rights families include nontrivial CPU outside already-prepared selected hydration. Does server preparation reduce these real SELECT costs enough to warrant a bounded candidate?",
+  "selection": "tests/test_owned_prepared_guard_reads_cpu.py",
+  "design": "Two listpages/two details, captured own synthetic SQL, readonlyRR replay with raw row equality per operation;clientnative/serverunprepared/serverprepared;8warmups+3rotatingblocks12iterations each family",
+  "limits": "Existing bounded ownCI; noPGtracker/nootherload; no source/results/SQL exported",
+  "not_proven": "No full guard/HTML/mutation proof or p95/capacity; retained cleanFAIL7.423942 unchanged",
+  "decision_rule": "Review measured benefit first; do not broaden product scope merely because replaypasses; record failedcontrols before correction",
+  "status": "running"
+}
