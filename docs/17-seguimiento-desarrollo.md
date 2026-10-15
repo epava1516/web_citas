@@ -2233,3 +2233,12 @@ CR09 listasPrefetch RETIRADA2026-10-15: únicoensayolimpio122029-b6218e55(base81
 | ServicioGunicornp95 |0.493911s|0.492163s|
 
 p95observado+2.17%,sin atribucióncausal ni reproducibilidad. Menosfetches noacredita menoslatencia; no mantenercomplejidadsinbeneficio. Restaurados exactamente public_validation/presentation/presentation_reads/test_page_presentation de6190a21; candidato ytestespecífico conservados encommita67a73c,diagnósticos55PASS/1PASS yFAIL intactos. No repetirni900s ni encadenarparámetros. Baseline limpio adoptadosigue21.845510s. Próximo diagnóstico debepriorizar trabajoSQLreal/conteo/página ypreservar guardia; ni kernelvalorni listasprobaron beneficio. CR09/N3abiertos. Recibos `evidencias/cr09-listas-prefetch-http-{preparacion,terminal}-20261015.json`.
+
+CR09 ficha individual diagnóstico2026-10-15: tercio demezcla HTTP previamente sin desgloseactual. Selección explícita test_owned_detail_rule_attribution,run122645-a53a9cc8,1PASS/84.91s,base8a5798a+test; PostgreSQL sintético10kES/EN,fuentesintactasylimpiezaindependiente. Controlvsinstrumentada conservadatos públicos,fotosordenadas,destinofirmado de denuncia,200/no-store y2Revision.full_clean. AgrupaciónSQLporpila guardia sintexto/parámetros/resultados.
+
+| Caso | Wall instrumentado | CPU petición | SQL guardia/otras | Wall SQL guardia/otras |
+|---|---:|---:|---:|---:|
+| FichaES |88.916ms|58.112ms|30/9|29.449/7.313ms|
+| FichaEN |119.087ms|62.474ms|30/9|55.003/8.492ms|
+
+44fetches y29modelosporficha. GuardiaCPUinclusive45.639/50.180ms;renderCPUinclusive5.390/5.387ms. IntervalosSQLsolapanreglas; no sumarinclusivas ni asumirDBCPU. SinGCatribuidoni overheadcausal/p95/capacidad. Confirma39SQLporficha y30envalidación, no causalidadglobal. Próxima inspección debe localizarlecturasrepetidasenvalidate_submission/model_to_dict/camposrelacionados, comparar solucionesrequest-localconoracleactualantesdecambiarflujo; no aplicarcontexto24filas automáticamenteaficha. Recibo `evidencias/cr09-ficha-reglas-terminal-20261015.json`. CR09/N3abiertos,p95adoptado21.845510s.

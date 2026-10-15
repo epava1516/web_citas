@@ -1,0 +1,382 @@
+{
+  "run_id": "20261015-122645-a53a9cc8",
+  "head": "8a5798a32f0ceb8149b89ab0316f1b46836a50d8",
+  "result": "1 PASS",
+  "duration_seconds": 84.91,
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "command": [
+    "artifacts/vps-preparation/cr09-private-guard-20261015/run.py",
+    "--profile",
+    "focused",
+    "--test",
+    "tests/test_directory_current_rule_profile.py::test_owned_detail_rule_attribution",
+    "--native-source",
+    "/tmp/web-modelos-librdb-v2.4.0",
+    "--workers",
+    "1",
+    "--timeout",
+    "1200"
+  ],
+  "cases": [
+    {
+      "language": "es",
+      "wall_seconds": 0.0889161336235702,
+      "thread_cpu_seconds": 0.05811193400000292,
+      "sql_groups": {
+        "other": {
+          "calls": 9,
+          "wall_seconds": 0.007313407026231289,
+          "thread_cpu_seconds": 0.0014517619999949716
+        },
+        "guard": {
+          "calls": 30,
+          "wall_seconds": 0.029449284076690674,
+          "thread_cpu_seconds": 0.005187509999998952
+        }
+      },
+      "rules": [
+        {
+          "rule": "QuerySet._fetch_all",
+          "calls": 44,
+          "inclusive_time": 0.044342640321701765,
+          "exclusive_time": 0.043644408229738474,
+          "max_exclusive_time": 0.005510636139661074,
+          "instrumented_children": {
+            "Model.__init__": 0.0006982320919632912
+          },
+          "inclusive_thread_cpu_time": 0.023622597999953143,
+          "exclusive_thread_cpu_time": 0.022948455999923567,
+          "max_exclusive_thread_cpu_time": 0.0025513450000005378,
+          "instrumented_children_thread_cpu": {
+            "Model.__init__": 0.0006741420000295761
+          },
+          "mean_exclusive_time": 0.0009919183688576925,
+          "mean_exclusive_thread_cpu_time": 0.000521555818180081
+        },
+        {
+          "rule": "apps.listings.moderation.validate_submission",
+          "calls": 1,
+          "inclusive_time": 0.05790269793942571,
+          "exclusive_time": 0.01838971395045519,
+          "max_exclusive_time": 0.01838971395045519,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.025688587222248316,
+            "apps.listings.submissions.publication_ready": 0.0011056987568736076,
+            "DetailsForm.__init__": 0.007716466672718525,
+            "BaseModelForm._post_clean": 0.00500223133713007
+          },
+          "inclusive_thread_cpu_time": 0.03786654299999981,
+          "exclusive_thread_cpu_time": 0.014340721000053236,
+          "max_exclusive_thread_cpu_time": 0.014340721000053236,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.013742249999950218,
+            "apps.listings.submissions.publication_ready": 0.0007390889999996375,
+            "DetailsForm.__init__": 0.004869147999997381,
+            "BaseModelForm._post_clean": 0.004175334999999336
+          },
+          "mean_exclusive_time": 0.01838971395045519,
+          "mean_exclusive_thread_cpu_time": 0.014340721000053236
+        },
+        {
+          "rule": "apps.listings.moderation_views.publicly_visible",
+          "calls": 1,
+          "inclusive_time": 0.07049603620544076,
+          "exclusive_time": 0.012593338266015053,
+          "max_exclusive_time": 0.012593338266015053,
+          "instrumented_children": {
+            "apps.listings.moderation.validate_submission": 0.05790269793942571
+          },
+          "inclusive_thread_cpu_time": 0.045638757999995505,
+          "exclusive_thread_cpu_time": 0.007772214999995697,
+          "max_exclusive_thread_cpu_time": 0.007772214999995697,
+          "instrumented_children_thread_cpu": {
+            "apps.listings.moderation.validate_submission": 0.03786654299999981
+          },
+          "mean_exclusive_time": 0.012593338266015053,
+          "mean_exclusive_thread_cpu_time": 0.007772214999995697
+        },
+        {
+          "rule": "apps.listings.moderation_views.render",
+          "calls": 1,
+          "inclusive_time": 0.0072023747488856316,
+          "exclusive_time": 0.003456385340541601,
+          "max_exclusive_time": 0.003456385340541601,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.0037459894083440304
+          },
+          "inclusive_thread_cpu_time": 0.005389704000002382,
+          "exclusive_thread_cpu_time": 0.0031230179999965912,
+          "max_exclusive_thread_cpu_time": 0.0031230179999965912,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.002266686000005791
+          },
+          "mean_exclusive_time": 0.003456385340541601,
+          "mean_exclusive_thread_cpu_time": 0.0031230179999965912
+        },
+        {
+          "rule": "BaseModelForm._post_clean",
+          "calls": 3,
+          "inclusive_time": 0.00500223133713007,
+          "exclusive_time": 0.0033476254902780056,
+          "max_exclusive_time": 0.002886934671550989,
+          "instrumented_children": {
+            "Revision.full_clean": 0.0016546058468520641
+          },
+          "inclusive_thread_cpu_time": 0.004175334999999336,
+          "exclusive_thread_cpu_time": 0.00291895099999806,
+          "max_exclusive_thread_cpu_time": 0.002458344000004331,
+          "instrumented_children_thread_cpu": {
+            "Revision.full_clean": 0.001256384000001276
+          },
+          "mean_exclusive_time": 0.0011158751634260018,
+          "mean_exclusive_thread_cpu_time": 0.00097298366666602
+        },
+        {
+          "rule": "DetailsForm.__init__",
+          "calls": 1,
+          "inclusive_time": 0.007716466672718525,
+          "exclusive_time": 0.0019336175173521042,
+          "max_exclusive_time": 0.0019336175173521042,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.005782849155366421
+          },
+          "inclusive_thread_cpu_time": 0.004869147999997381,
+          "exclusive_thread_cpu_time": 0.0019082090000068774,
+          "max_exclusive_thread_cpu_time": 0.0019082090000068774,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.0029609389999905034
+          },
+          "mean_exclusive_time": 0.0019336175173521042,
+          "mean_exclusive_thread_cpu_time": 0.0019082090000068774
+        },
+        {
+          "rule": "Revision.full_clean",
+          "calls": 2,
+          "inclusive_time": 0.0016546058468520641,
+          "exclusive_time": 0.0016546058468520641,
+          "max_exclusive_time": 0.001620205119252205,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.001256384000001276,
+          "exclusive_thread_cpu_time": 0.001256384000001276,
+          "max_exclusive_thread_cpu_time": 0.0012229370000014228,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 0.0008273029234260321,
+          "mean_exclusive_thread_cpu_time": 0.000628192000000638
+        },
+        {
+          "rule": "Model.__init__",
+          "calls": 29,
+          "inclusive_time": 0.0006982320919632912,
+          "exclusive_time": 0.0006982320919632912,
+          "max_exclusive_time": 3.5149045288562775e-05,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.0006741420000295761,
+          "exclusive_thread_cpu_time": 0.0006741420000295761,
+          "max_exclusive_thread_cpu_time": 3.424199999813027e-05,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 2.407696868838935e-05,
+          "mean_exclusive_thread_cpu_time": 2.3246275863088832e-05
+        },
+        {
+          "rule": "apps.listings.submissions.publication_ready",
+          "calls": 1,
+          "inclusive_time": 0.0011056987568736076,
+          "exclusive_time": 0.00023753102868795395,
+          "max_exclusive_time": 0.00023753102868795395,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.0008681677281856537
+          },
+          "inclusive_thread_cpu_time": 0.0007390889999996375,
+          "exclusive_thread_cpu_time": 0.00023170299999719646,
+          "max_exclusive_thread_cpu_time": 0.00023170299999719646,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.000507386000002441
+          },
+          "mean_exclusive_time": 0.00023753102868795395,
+          "mean_exclusive_thread_cpu_time": 0.00023170299999719646
+        }
+      ]
+    },
+    {
+      "language": "en",
+      "wall_seconds": 0.11908680386841297,
+      "thread_cpu_seconds": 0.06247446599999762,
+      "sql_groups": {
+        "other": {
+          "calls": 9,
+          "wall_seconds": 0.00849202461540699,
+          "thread_cpu_seconds": 0.0014692779999876393
+        },
+        "guard": {
+          "calls": 30,
+          "wall_seconds": 0.05500347027555108,
+          "thread_cpu_seconds": 0.006057129000019756
+        }
+      },
+      "rules": [
+        {
+          "rule": "QuerySet._fetch_all",
+          "calls": 44,
+          "inclusive_time": 0.06840232294052839,
+          "exclusive_time": 0.06762487022206187,
+          "max_exclusive_time": 0.010627215262502432,
+          "instrumented_children": {
+            "Model.__init__": 0.0007774527184665203
+          },
+          "inclusive_thread_cpu_time": 0.027214156999974648,
+          "exclusive_thread_cpu_time": 0.026454688999976383,
+          "max_exclusive_thread_cpu_time": 0.00397916900000439,
+          "instrumented_children_thread_cpu": {
+            "Model.__init__": 0.0007594679999982645
+          },
+          "mean_exclusive_time": 0.0015369288686832244,
+          "mean_exclusive_thread_cpu_time": 0.0006012429318176451
+        },
+        {
+          "rule": "apps.listings.moderation.validate_submission",
+          "calls": 1,
+          "inclusive_time": 0.0876704016700387,
+          "exclusive_time": 0.02518825838342309,
+          "max_exclusive_time": 0.02518825838342309,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.047506782691925764,
+            "apps.listings.submissions.publication_ready": 0.001717468723654747,
+            "DetailsForm.__init__": 0.008138108067214489,
+            "BaseModelForm._post_clean": 0.00511978380382061
+          },
+          "inclusive_thread_cpu_time": 0.042547885000004726,
+          "exclusive_thread_cpu_time": 0.01698012200000676,
+          "max_exclusive_thread_cpu_time": 0.01698012200000676,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.016926696999995272,
+            "apps.listings.submissions.publication_ready": 0.0009017479999968714,
+            "DetailsForm.__init__": 0.004987590000006037,
+            "BaseModelForm._post_clean": 0.002751727999999787
+          },
+          "mean_exclusive_time": 0.02518825838342309,
+          "mean_exclusive_thread_cpu_time": 0.01698012200000676
+        },
+        {
+          "rule": "apps.listings.moderation_views.publicly_visible",
+          "calls": 1,
+          "inclusive_time": 0.09965293807908893,
+          "exclusive_time": 0.011982536409050226,
+          "max_exclusive_time": 0.011982536409050226,
+          "instrumented_children": {
+            "apps.listings.moderation.validate_submission": 0.0876704016700387
+          },
+          "inclusive_thread_cpu_time": 0.05017967799999923,
+          "exclusive_thread_cpu_time": 0.007631792999994502,
+          "max_exclusive_thread_cpu_time": 0.007631792999994502,
+          "instrumented_children_thread_cpu": {
+            "apps.listings.moderation.validate_submission": 0.042547885000004726
+          },
+          "mean_exclusive_time": 0.011982536409050226,
+          "mean_exclusive_thread_cpu_time": 0.007631792999994502
+        },
+        {
+          "rule": "BaseModelForm._post_clean",
+          "calls": 3,
+          "inclusive_time": 0.00511978380382061,
+          "exclusive_time": 0.0038546244613826275,
+          "max_exclusive_time": 0.0035668862983584404,
+          "instrumented_children": {
+            "Revision.full_clean": 0.0012651593424379826
+          },
+          "inclusive_thread_cpu_time": 0.002751727999999787,
+          "exclusive_thread_cpu_time": 0.0018405209999983185,
+          "max_exclusive_thread_cpu_time": 0.001554628999997476,
+          "instrumented_children_thread_cpu": {
+            "Revision.full_clean": 0.0009112070000014683
+          },
+          "mean_exclusive_time": 0.0012848748204608758,
+          "mean_exclusive_thread_cpu_time": 0.0006135069999994395
+        },
+        {
+          "rule": "apps.listings.moderation_views.render",
+          "calls": 1,
+          "inclusive_time": 0.007192314136773348,
+          "exclusive_time": 0.0035175136290490627,
+          "max_exclusive_time": 0.0035175136290490627,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.003674800507724285
+          },
+          "inclusive_thread_cpu_time": 0.005387235999997131,
+          "exclusive_thread_cpu_time": 0.0030701180000036743,
+          "max_exclusive_thread_cpu_time": 0.0030701180000036743,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.0023171179999934566
+          },
+          "mean_exclusive_time": 0.0035175136290490627,
+          "mean_exclusive_thread_cpu_time": 0.0030701180000036743
+        },
+        {
+          "rule": "DetailsForm.__init__",
+          "calls": 1,
+          "inclusive_time": 0.008138108067214489,
+          "exclusive_time": 0.0018848222680389881,
+          "max_exclusive_time": 0.0018848222680389881,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.006253285799175501
+          },
+          "inclusive_thread_cpu_time": 0.004987590000006037,
+          "exclusive_thread_cpu_time": 0.0018798710000069718,
+          "max_exclusive_thread_cpu_time": 0.0018798710000069718,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.003107718999999065
+          },
+          "mean_exclusive_time": 0.0018848222680389881,
+          "mean_exclusive_thread_cpu_time": 0.0018798710000069718
+        },
+        {
+          "rule": "Revision.full_clean",
+          "calls": 2,
+          "inclusive_time": 0.0012651593424379826,
+          "exclusive_time": 0.0012651593424379826,
+          "max_exclusive_time": 0.0012459279969334602,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.0009112070000014683,
+          "exclusive_thread_cpu_time": 0.0009112070000014683,
+          "max_exclusive_thread_cpu_time": 0.0008922419999990439,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 0.0006325796712189913,
+          "mean_exclusive_thread_cpu_time": 0.00045560350000073413
+        },
+        {
+          "rule": "Model.__init__",
+          "calls": 29,
+          "inclusive_time": 0.0007774527184665203,
+          "exclusive_time": 0.0007774527184665203,
+          "max_exclusive_time": 5.70700503885746e-05,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.0007594679999982645,
+          "exclusive_thread_cpu_time": 0.0007594679999982645,
+          "max_exclusive_thread_cpu_time": 5.5944000003194105e-05,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 2.680871442988001e-05,
+          "mean_exclusive_thread_cpu_time": 2.6188551724078086e-05
+        },
+        {
+          "rule": "apps.listings.submissions.publication_ready",
+          "calls": 1,
+          "inclusive_time": 0.001717468723654747,
+          "exclusive_time": 0.00027192989364266396,
+          "max_exclusive_time": 0.00027192989364266396,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.001445538830012083
+          },
+          "inclusive_thread_cpu_time": 0.0009017479999968714,
+          "exclusive_thread_cpu_time": 0.00027113600000205906,
+          "max_exclusive_thread_cpu_time": 0.00027113600000205906,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.0006306119999948123
+          },
+          "mean_exclusive_time": 0.00027192989364266396,
+          "mean_exclusive_thread_cpu_time": 0.00027113600000205906
+        }
+      ]
+    }
+  ],
+  "limits": "Same bounded own CI; sequential synthetic10k ES/EN control then instrumented detail. No production, load, p95, DB CPU/waits, GC attribution or causal overhead."
+}
