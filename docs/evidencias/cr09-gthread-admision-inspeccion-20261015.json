@@ -1,0 +1,14 @@
+{
+  "version": "23.0.0",
+  "module_sha256": "9a8c9c090a094bad36bb753b819128a18c6a44ff3a4eae5b9909e2a4be1ae3f7",
+  "worker_connections_default": 1000,
+  "thread_pool_source": "    def get_thread_pool(self):\n        \"\"\"Override this method to customize how the thread pool is created\"\"\"\n        return futures.ThreadPoolExecutor(max_workers=self.cfg.threads)\n",
+  "source_findings": [
+    "enqueue_req submits accepted readable connections to a per-process ThreadPoolExecutor",
+    "run accepts while nr_conns < worker_connections; default1000 is distinct from tested2executionthreads",
+    "Clean candidate stored no perPID WSGI events, so current inter-process admission imbalance cannot be proved from its aggregate p95/ledger",
+    "Any lower admission limit needs independent interleaving/slowheader review: accepted unreadable sockets and active futures are separate counters, so worker_connections=threads is not automatically a safe fix"
+  ],
+  "next": "One separate lightweight perPID WSGI/ownCPU diagnostic of samegthread4x2, no further configuration candidate until distribution and CPU effects observed. Do not treat oldsync occupancy as currentgthread proof.",
+  "acceptance": false
+}
