@@ -1,0 +1,24 @@
+{
+  "run_id": "20261015-194749-a0cface7",
+  "unit": "cr09-owned-cpu-diagnose-startup-20261015.service",
+  "head": "8724a6b",
+  "status": "running",
+  "prerequisites": "Worker+GCobserver11PASS0.76s, source/cleanup verified. Product threshold0 candidate17PASS and cleanFAILp95.897765506 retained.",
+  "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+  "profile": "Same ownboundedPG1CPU/controller4cores/Redis.2CPU,4sync20rps60s10k,normalworkerBeat,1upload,generatorfreeze. Separate diagnostic only with existing phase/SQLwall/appthreadCPU observer plus GCcallbacks/cgroup1Hz. No profiler, no PGstatementtracker, no policy change.",
+  "questions": [
+    "Does time/CPU inflate in first requests per actualworker vs samecases later?",
+    "Is observed GC a material overlapping interval, or phaseSQLwall/context/render?",
+    "Do ownPG and controller CPU counters show transient utilization?",
+    "Is residual delay before WSGI entry (not exact socketqueue) or within request?"
+  ],
+  "limits": [
+    "Instrumentation overhead not causally measured. Never use diagnostic p95 as clean acceptance.",
+    "SQLwall includes waits and CPU outsidebackend; not PGCPU.",
+    "GC overlaps stages/SQL; never add as independent partition.",
+    "cgroupcontroller includes generator/Celery/app/collector, not pure app demand.",
+    "Compare same-run cohorts/cases; no exclusion of cold requests from acceptance."
+  ],
+  "decision_rule": "Preserve terminal regardlessPASSFAIL, independently check source+cleanup and coverage of worker IDs. Choose intervention only from mechanism; no repeated load sweeps.",
+  "acceptance": false
+}
