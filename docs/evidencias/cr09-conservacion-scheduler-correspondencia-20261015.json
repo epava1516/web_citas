@@ -1,0 +1,277 @@
+{
+  "recorded_at": "2026-10-15T09:16:39.017888+00:00",
+  "head": "6d25ad4",
+  "source_sha256": {
+    "config/settings.py": "232a18ed6fae8800ba747bc61dfbbd05f41925e5e802d1e7b1012f50717fc412",
+    "apps/safety/tasks.py": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0"
+  },
+  "schedule": {
+    "purge-access-field-decisions": {
+      "task": "apps.safety.tasks.purge_expired_access_field_decision",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_access_field_decision.py::test_typed_field_decisions_and_independent_review[False]"
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_access_field_decision.py::test_typed_field_decisions_and_independent_review[True]"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "reconcile-retention-reviews": {
+      "task": "apps.safety.tasks.reconcile_retention_reviews",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_retention_reviews.py::test_plan_schedules_all_retained_purposes_and_reconciliation_is_idempotent"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_retention_reviews.py::test_tampered_plan_is_not_displayed_or_scheduled"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_retention_reviews.py::test_reconciliation_repairs_partial_calendar_without_overwriting_existing_followup"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-account-confirmation-delivery": {
+      "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_account_email_confirmation.py::test_expired_confirmation_delivery_is_purged_without_erasing_audit"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-access-scope-inventory": {
+      "task": "apps.safety.tasks.purge_expired_access_scope_inventory",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_access_scope_inventory.py::test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes[False]"
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_access_scope_inventory.py::test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes[True]"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-access-coverage": {
+      "task": "apps.safety.tasks.purge_expired_access_coverage",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-False]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-True]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-False]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-True]"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-access-response-drafts": {
+      "task": "apps.safety.tasks.purge_expired_access_response_drafts",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_response_draft.py::test_access_draft_requires_fresh_proof_and_does_not_close[False]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_response_draft.py::test_access_draft_requires_fresh_proof_and_does_not_close[True]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[unused]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[issued]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[legacy_issued]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_unused_draft_cleanup_is_bounded_and_continues_on_next_run"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-portability-response-drafts": {
+      "task": "apps.safety.tasks.purge_expired_portability_response_drafts",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[approved-False]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[approved-True]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[rejected-False]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[rejected-True]"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-portability-coverage": {
+      "task": "apps.safety.tasks.purge_expired_portability_coverage",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_portability_coverage_store.py::test_coverage_is_bound_cifred_replayable_and_purged_without_closing[False]"
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_portability_coverage_store.py::test_coverage_is_bound_cifred_replayable_and_purged_without_closing[True]"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-portability-selections": {
+      "task": "apps.safety.tasks.purge_expired_portability_selections",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_portability_page_selection.py::test_page_selection_preserves_other_pages_and_rejects_stale_or_foreign_forms"
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_review.py::test_portability_independent_review_requires_read_and_resolved_datasets[False]"
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_review.py::test_portability_independent_review_requires_read_and_resolved_datasets[True]"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-portability-assessments": {
+      "task": "apps.safety.tasks.purge_expired_portability_assessments",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability.py::test_expired_assessment_purge_preserves_audit_and_blocks_read"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-copy-information": {
+      "task": "apps.safety.tasks.purge_expired_copy_information",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_copy_information.py::test_information_drafts_are_encrypted_versioned_replayable_and_purged"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-copy-page-reviews": {
+      "task": "apps.safety.tasks.purge_expired_copy_page_reviews",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_copy_page_review.py::test_encrypted_page_decisions_version_replay_and_purge_do_not_approve_copy"
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_copy_page_review.py::test_erasure_inventory_tracks_page_content_and_purge_without_disclosing_it"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    },
+    "purge-expired-private-copies": {
+      "task": "apps.safety.tasks.purge_expired_exports",
+      "schedule": 60.0,
+      "direct_call_pass_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[False-access]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[False-portability]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[True-access]"
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[True-portability]"
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_data_parts.py::test_reviewed_large_copy_manifest_receipt_download_and_purge"
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_export_retention.py::test_expired_content_removed_without_deleting_source_or_audit"
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_export_retention.py::test_locked_copy_skipped_then_purged_on_next_scan"
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_object_delivery.py::test_export_purge_removes_proxy_plaintext_immediately_before_worker"
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_part_delivery.py::test_reviewed_part_download_is_scoped_audited_and_purged"
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_portability_image_storage.py::test_binary_declarations_require_inspection_approval_and_private_delivery[False]"
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_portability_image_storage.py::test_binary_declarations_require_inspection_approval_and_private_delivery[True]"
+        }
+      ],
+      "runtime_scheduler_proof": false
+    }
+  },
+  "limits": [
+    "AST direct-call index only; helper calls may add coverage and missing direct calls do not prove missing behavior.",
+    "Schedule declaration plus passing direct call does not establish actual Beat dispatch; historical worker receipts require separate version/dependency comparison.",
+    "No execution or configuration changes made."
+  ],
+  "acceptance": false,
+  "existing_historical_comparison": "cr09-conservacion-worker-reutilizacion-20261014.json",
+  "next_review": "Use existing comparison: final-draft purge task AST and Beat entry unchanged, probe hash matches recorded evidence. Compare transitive helper dependencies and scoped runtime changes before deciding whether a targeted scheduling check is required; do not repeat all tasks merely because whole settings/tasks files differ."
+}

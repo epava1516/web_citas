@@ -2010,3 +2010,6 @@ Espera explícita de navegación validada `20261015-091217-431200db`: [2 PASS ES
 
 
 [Conciliación integrada de mecanismos](evidencias/cr09-mecanismos-conciliacion-integrada-20261015.md): reports reales v3 y huellas actuales verificadas para conservación, comunicaciones, restauración y urgencias; aserciones indexadas, sin nuevas pruebas ni aceptación del criterio por conteos. Sustituye espera de ejecución integrada de esas selecciones, conservando faltantes concretos de completitud y N3. No se repiten recorridos ya demostrados sin defecto o riesgo nuevo.
+
+
+Revisión posterior a los cuatro bloques: [correspondencia estática scheduler→tarea→reports](evidencias/cr09-conservacion-scheduler-correspondencia-20261015.json) liga las trece tareas safety de conservación del diccionario inicial Beat con llamadas directas PASS de la versión integrada, sin inferir ejecución real de scheduler. Reutilización histórica ya registra AST de tarea y entrada Beat de borradores sin cambios; falta contraste transitivo antes de decidir un ensayo afectado. Las 23 fuentes históricas conservan clasificación indeterminada; los productores nuevos y el aislamiento no se convierten en clasificación general. No nuevas cargas ni cambio de criterios.
