@@ -117,16 +117,11 @@ def validate_submission(revision, person, *, context=None):
         for name in DetailsForm.Meta.fields
         if not Revision._meta.get_field(name).many_to_many
     }
-    data.update(
-        {
-            name: (
-                [item.pk for item in getattr(revision, "_pv_" + name)]
-                if context
-                else list(getattr(revision, name).values_list("pk", flat=True))
-            )
+    if context:
+        data.update({
+            name: [item.pk for item in getattr(revision, "_pv_" + name)]
             for name in ["categories", "services", "travel_areas"]
-        }
-    )
+        })
     data.update(
         region=city.province.region_id,
         province=city.province_id,
@@ -134,11 +129,20 @@ def validate_submission(revision, person, *, context=None):
         postal_code=revision.postal_code_id or "",
         zone=revision.zone_id or "",
     )
-    if not (
-        context.details_valid(data, revision)
-        if context
-        else DetailsForm(data, instance=revision).is_valid()
-    ):
+    if context:
+        details_valid = context.details_valid(data, revision)
+    else:
+        # Native ModelForm initialization already reads each selected M2M
+        # membership into initial. Populate the same bound data dictionary
+        # from that snapshot instead of making a separate values_list read.
+        # Field/model cleaning still runs normally against the current catalog.
+        details = DetailsForm(data, instance=revision)
+        data.update({
+            name: [item.pk for item in details.initial[name]]
+            for name in ["categories", "services", "travel_areas"]
+        })
+        details_valid = details.is_valid()
+    if not details_valid:
         raise ValidationError("Corrige datos y ubicación / Correct details and location")
     contact_data = {
         "whatsapp": revision.whatsapp,

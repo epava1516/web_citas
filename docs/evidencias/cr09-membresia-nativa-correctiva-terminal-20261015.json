@@ -1,0 +1,212 @@
+{
+  "run_id": "20261015-123307-558c829d",
+  "head": "9b1c0059a350acd6578a55187d70de9e9c5ec70a",
+  "result": "28 PASS",
+  "duration_seconds": 215.38,
+  "membership_read_counts": {
+    "listings_revision_categories": 1,
+    "listings_revision_services": 1,
+    "listings_revision_travel_areas": 1
+  },
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "testcases": [
+    {
+      "classname": "tests.test_native_submission_relation_reads",
+      "name": "test_native_validation_does_not_read_each_input_membership_twice",
+      "file": "tests/test_native_submission_relation_reads.py",
+      "line": "13",
+      "time": "42.743"
+    },
+    {
+      "classname": "tests.test_native_submission_relation_reads",
+      "name": "test_native_validation_still_observes_catalog_change_after_initialization[categories]",
+      "file": "tests/test_native_submission_relation_reads.py",
+      "line": "36",
+      "time": "5.933"
+    },
+    {
+      "classname": "tests.test_native_submission_relation_reads",
+      "name": "test_native_validation_still_observes_catalog_change_after_initialization[services]",
+      "file": "tests/test_native_submission_relation_reads.py",
+      "line": "36",
+      "time": "5.543"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_frozen_idempotent_and_private",
+      "file": "tests/test_submissions.py",
+      "line": "42",
+      "time": "3.986"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_rejects_invalid_or_pending_state[age]",
+      "file": "tests/test_submissions.py",
+      "line": "77",
+      "time": "3.284"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_rejects_invalid_or_pending_state[consent]",
+      "file": "tests/test_submissions.py",
+      "line": "77",
+      "time": "3.100"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_rejects_invalid_or_pending_state[photo]",
+      "file": "tests/test_submissions.py",
+      "line": "77",
+      "time": "2.869"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_rejects_invalid_or_pending_state[phone]",
+      "file": "tests/test_submissions.py",
+      "line": "77",
+      "time": "2.905"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_rejects_invalid_or_pending_state[legal]",
+      "file": "tests/test_submissions.py",
+      "line": "77",
+      "time": "3.058"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_rejects_invalid_or_pending_state[catalog]",
+      "file": "tests/test_submissions.py",
+      "line": "77",
+      "time": "2.880"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_rejects_invalid_or_pending_state[version]",
+      "file": "tests/test_submissions.py",
+      "line": "77",
+      "time": "3.080"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_rejects_invalid_or_pending_state[declaration]",
+      "file": "tests/test_submissions.py",
+      "line": "77",
+      "time": "2.886"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_rejects_invalid_or_pending_state[manager_snapshot]",
+      "file": "tests/test_submissions.py",
+      "line": "77",
+      "time": "2.871"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_submission_csrf_and_concurrent_retry",
+      "file": "tests/test_submissions.py",
+      "line": "128",
+      "time": "3.392"
+    },
+    {
+      "classname": "tests.test_submissions",
+      "name": "test_updated_terms_require_new_acceptance_and_direct_grant",
+      "file": "tests/test_submissions.py",
+      "line": "152",
+      "time": "3.673"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_search_approved_text_language_and_hidden_revisions",
+      "file": "tests/test_discovery.py",
+      "line": "26",
+      "time": "6.583"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_service_any_all_geo_json_and_private_postal_filters",
+      "file": "tests/test_discovery.py",
+      "line": "48",
+      "time": "6.900"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_pagination_invalid_and_out_of_range_preserve_filter_semantics",
+      "file": "tests/test_discovery.py",
+      "line": "76",
+      "time": "6.200"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_public_detail_localizes_attributes_rates_and_selected_contacts",
+      "file": "tests/test_discovery.py",
+      "line": "89",
+      "time": "6.858"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_simulation_provenance_survives_provider_switch_and_blocks_production",
+      "file": "tests/test_discovery.py",
+      "line": "139",
+      "time": "6.400"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_geography_checks_postal_and_zone_ancestry_without_selected_city",
+      "file": "tests/test_discovery.py",
+      "line": "172",
+      "time": "6.166"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_positive_pagination_has_no_duplicates_stable_ties_and_private_counts",
+      "file": "tests/test_discovery.py",
+      "line": "260",
+      "time": "17.651"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_search_title_weight_precedes_newer_description_and_private_text",
+      "file": "tests/test_discovery.py",
+      "line": "281",
+      "time": "6.268"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_specific_real_checks_exclude_simulated_or_obsolete_proofs",
+      "file": "tests/test_discovery.py",
+      "line": "312",
+      "time": "6.728"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_contact_and_agency_checks_are_specific_and_require_current_evidence",
+      "file": "tests/test_discovery.py",
+      "line": "352",
+      "time": "6.509"
+    },
+    {
+      "classname": "tests.test_public_validation_dependencies",
+      "name": "test_revision_version_does_not_cover_related_content_dependencies",
+      "file": "tests/test_public_validation_dependencies.py",
+      "line": "63",
+      "time": "29.076"
+    },
+    {
+      "classname": "tests.test_public_validation_dependencies",
+      "name": "test_fresh_context_observes_concurrent_committed_catalog_change",
+      "file": "tests/test_public_validation_dependencies.py",
+      "line": "165",
+      "time": "8.739"
+    },
+    {
+      "classname": "tests.test_public_validation_dependencies",
+      "name": "test_native_model_rule_change_is_not_covered_by_data_version",
+      "file": "tests/test_public_validation_dependencies.py",
+      "line": "198",
+      "time": "8.331"
+    }
+  ],
+  "scope": "Four complete files; fresh catalog revocation controls and native membership reads, no performance/N3 acceptance"
+}

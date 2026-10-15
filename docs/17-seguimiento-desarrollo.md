@@ -2242,3 +2242,13 @@ CR09 ficha individual diagnóstico2026-10-15: tercio demezcla HTTP previamente s
 | FichaEN |119.087ms|62.474ms|30/9|55.003/8.492ms|
 
 44fetches y29modelosporficha. GuardiaCPUinclusive45.639/50.180ms;renderCPUinclusive5.390/5.387ms. IntervalosSQLsolapanreglas; no sumarinclusivas ni asumirDBCPU. SinGCatribuidoni overheadcausal/p95/capacidad. Confirma39SQLporficha y30envalidación, no causalidadglobal. Próxima inspección debe localizarlecturasrepetidasenvalidate_submission/model_to_dict/camposrelacionados, comparar solucionesrequest-localconoracleactualantesdecambiarflujo; no aplicarcontexto24filas automáticamenteaficha. Recibo `evidencias/cr09-ficha-reglas-terminal-20261015.json`. CR09/N3abiertos,p95adoptado21.845510s.
+
+CR09 candidata membresía nativaúnica2026-10-15: ficha39SQL(30guardia) condujo inspección de3lecturasinputM2M seguidas de3lecturas nativasModelForminitial. Reproducción123034-48053778:1FAIL esperado,2SELECTporcada tabla categories/services/travel_areas,fuentes/limpieza independientes. Correcciónsolonocontexto: construirDetailsFormcon diccionarioescalarnovacioyaenlazado,completarM2Mdesdeinitial nativoydespuésejecutaris_validnormal. Model/fieldvalidation/catálogovigentes sin cambios;contextobatchedintacto,sin cachépersistente.
+
+| Lecturas de membresía por validación | Antes | Candidata |
+|---|---:|---:|
+| Categorías |2|1|
+| Servicios |2|1|
+| Zonas de desplazamiento |2|1|
+
+Cuatroarchivos completos native_submission_relation_reads/submissions/discovery/public_validation_dependencies run123307-558c829d:28PASS/215.38s,sinomisiones,fuentes/limpieza independientes. Incluye categorías/serviciosdesactivados despuésdeinicialización rechazadosporlimpiezafresca. No asumirlatencia desdeconteo; justificacióndirectaparaúnicocortolimpio4sync,20rps60s10k+subida,workerBeatnormal,generatorfreezeantesdereloj,sinobservadores/perfiladores,mismoslímites. Baseline21.845510s;retirarcandidataproducto si nohaybeneficiopersuasivo,conservandoreproducciónypruebas. Sin barridodeparámetros,15min/N3noanticipados. Recibos `evidencias/cr09-membresia-nativa-{reproduccion,correctiva-preparacion,correctiva-terminal}-20261015.json`.

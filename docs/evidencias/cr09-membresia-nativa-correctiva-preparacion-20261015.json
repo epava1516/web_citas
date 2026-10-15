@@ -1,0 +1,22 @@
+{
+  "run_id": "20261015-123307-558c829d",
+  "base_sha": "9b1c005",
+  "unit": "cr09-native-membership-green-20261015.service",
+  "status": "running",
+  "candidate": "Native DetailsForm receives existing nonempty bound scalar dictionary; after native initialization populate its M2M input from native initial membership, then unchanged is_valid. Context path unchanged. No persisted or cross-request reuse.",
+  "reproduction": "20261015-123034-48053778 expected1FAIL: all three membership tables read2times; source and cleanup independently verified",
+  "selection": [
+    "tests/test_native_submission_relation_reads.py",
+    "tests/test_submissions.py",
+    "tests/test_discovery.py",
+    "tests/test_public_validation_dependencies.py"
+  ],
+  "required": [
+    "Native input memberships once each",
+    "Category/service deactivation after form initialization still rejected by fresh field cleaning",
+    "Selected complete files PASS without necessary skips",
+    "Source freeze and independent cleanup"
+  ],
+  "limits": "Existing bounded own PostgreSQL CI with synthetic data; no parallel test/load",
+  "acceptance": false
+}
