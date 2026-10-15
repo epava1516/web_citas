@@ -1,0 +1,13 @@
+{
+  "run_id": "20261015-145504-091e1959",
+  "unit": "cr09-prepared-public-reads-cpu-20261015.service",
+  "head": "8232613",
+  "selection": "tests/test_owned_backend_cpu_families.py",
+  "status": "running",
+  "prerequisites": "9specific+69expanded+11withdrawal/privacyPASS, sources/cleanupverified individually; scopes not globalacceptance",
+  "design": "Unchanged72requests6cases12each plusfirstcontrol; ownbackend CPUidentityguards perexecute,noPGtracker",
+  "comparison": "20261015-142111-875169c8 currentnormal diagnostic beforeexpandedpublicreads",
+  "limits": "SameownPG1CPU pinned4/controller4cores/Redis0.2CPU; no concurrentload or profiling; instrumentation notcleanp95",
+  "decision_rule": "Review current demand before cleanload; no speculative repeats; lastclean7.423942FAILpreserved",
+  "acceptance": false
+}

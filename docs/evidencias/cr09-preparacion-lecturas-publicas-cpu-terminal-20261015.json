@@ -1,0 +1,471 @@
+{
+  "run_id": "20261015-145504-091e1959",
+  "head": "8232613d50eb4a8c6d5255956d77024de2f83e42",
+  "result": "1PASS101.27s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "cases": [
+    {
+      "kind": "listing",
+      "language": "es",
+      "requests": 12,
+      "backend_host_pid": 370156,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.72,
+        "delta": {
+          "user_ticks": 55,
+          "system_ticks": 17
+        },
+        "elapsed_seconds": 3.2555641178041697
+      },
+      "unattributed_backend_cpu_seconds": 0.010000000000000009,
+      "postgres_cpu_usec": 713533,
+      "client_thread_cpu_seconds": 2.053878032,
+      "wall_seconds": 3.2552847606129944,
+      "families": {
+        "other": {
+          "calls": 168,
+          "cpu_seconds": 0.060000000000000005,
+          "wall_seconds": 0.24188654124736786
+        },
+        "dirty": {
+          "calls": 12,
+          "cpu_seconds": 0.0,
+          "wall_seconds": 0.014549769461154938
+        },
+        "state_current": {
+          "calls": 12,
+          "cpu_seconds": 0.10999999999999999,
+          "wall_seconds": 0.09695453150197864
+        },
+        "listing_count": {
+          "calls": 12,
+          "cpu_seconds": 0.18,
+          "wall_seconds": 0.399981752038002
+        },
+        "listing_page": {
+          "calls": 12,
+          "cpu_seconds": 0.02,
+          "wall_seconds": 0.027123357634991407
+        },
+        "hydration": {
+          "calls": 12,
+          "cpu_seconds": 0.18,
+          "wall_seconds": 0.25597391836345196
+        },
+        "catalog": {
+          "calls": 204,
+          "cpu_seconds": 0.12999999999999998,
+          "wall_seconds": 0.3455275911837816
+        },
+        "media": {
+          "calls": 36,
+          "cpu_seconds": 0.03,
+          "wall_seconds": 0.08531672926619649
+        }
+      }
+    },
+    {
+      "kind": "listing",
+      "language": "en",
+      "requests": 12,
+      "backend_host_pid": 370156,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.53,
+        "delta": {
+          "user_ticks": 37,
+          "system_ticks": 16
+        },
+        "elapsed_seconds": 2.7128788148984313
+      },
+      "unattributed_backend_cpu_seconds": 0.030000000000000027,
+      "postgres_cpu_usec": 786245,
+      "client_thread_cpu_seconds": 1.8260865180000039,
+      "wall_seconds": 2.712606561370194,
+      "families": {
+        "other": {
+          "calls": 168,
+          "cpu_seconds": 0.08,
+          "wall_seconds": 0.20666916389018297
+        },
+        "dirty": {
+          "calls": 12,
+          "cpu_seconds": 0.0,
+          "wall_seconds": 0.01169044990092516
+        },
+        "state_current": {
+          "calls": 12,
+          "cpu_seconds": 0.05,
+          "wall_seconds": 0.0836939038708806
+        },
+        "listing_count": {
+          "calls": 12,
+          "cpu_seconds": 0.19000000000000003,
+          "wall_seconds": 0.18273852858692408
+        },
+        "listing_page": {
+          "calls": 12,
+          "cpu_seconds": 0.01,
+          "wall_seconds": 0.030838291626423597
+        },
+        "hydration": {
+          "calls": 12,
+          "cpu_seconds": 0.06999999999999999,
+          "wall_seconds": 0.10321241756901145
+        },
+        "catalog": {
+          "calls": 204,
+          "cpu_seconds": 0.09,
+          "wall_seconds": 0.28654130222275853
+        },
+        "media": {
+          "calls": 36,
+          "cpu_seconds": 0.01,
+          "wall_seconds": 0.06594909774139524
+        }
+      }
+    },
+    {
+      "kind": "search",
+      "language": "es",
+      "requests": 12,
+      "backend_host_pid": 370156,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.98,
+        "delta": {
+          "user_ticks": 81,
+          "system_ticks": 17
+        },
+        "elapsed_seconds": 3.97105312300846
+      },
+      "unattributed_backend_cpu_seconds": 0.010000000000000009,
+      "postgres_cpu_usec": 995820,
+      "client_thread_cpu_seconds": 2.4167685860000034,
+      "wall_seconds": 3.970552803017199,
+      "families": {
+        "other": {
+          "calls": 168,
+          "cpu_seconds": 0.08,
+          "wall_seconds": 0.24491939414292574
+        },
+        "dirty": {
+          "calls": 12,
+          "cpu_seconds": 0.0,
+          "wall_seconds": 0.012491029687225819
+        },
+        "state_current": {
+          "calls": 12,
+          "cpu_seconds": 0.060000000000000005,
+          "wall_seconds": 0.08159973425790668
+        },
+        "search_count": {
+          "calls": 12,
+          "cpu_seconds": 0.27,
+          "wall_seconds": 0.34745187452062964
+        },
+        "search_page": {
+          "calls": 12,
+          "cpu_seconds": 0.3999999999999999,
+          "wall_seconds": 0.45598157634958625
+        },
+        "hydration": {
+          "calls": 12,
+          "cpu_seconds": 0.060000000000000005,
+          "wall_seconds": 0.08913803892210126
+        },
+        "catalog": {
+          "calls": 204,
+          "cpu_seconds": 0.07,
+          "wall_seconds": 0.3623996456153691
+        },
+        "media": {
+          "calls": 36,
+          "cpu_seconds": 0.03,
+          "wall_seconds": 0.07696201046928763
+        }
+      }
+    },
+    {
+      "kind": "search",
+      "language": "en",
+      "requests": 12,
+      "backend_host_pid": 370156,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.98,
+        "delta": {
+          "user_ticks": 82,
+          "system_ticks": 16
+        },
+        "elapsed_seconds": 3.5879083699546754
+      },
+      "unattributed_backend_cpu_seconds": 0.009999999999999898,
+      "postgres_cpu_usec": 978075,
+      "client_thread_cpu_seconds": 2.173535997000002,
+      "wall_seconds": 3.587546401191503,
+      "families": {
+        "other": {
+          "calls": 168,
+          "cpu_seconds": 0.04,
+          "wall_seconds": 0.24995215376839042
+        },
+        "dirty": {
+          "calls": 12,
+          "cpu_seconds": 0.0,
+          "wall_seconds": 0.01211480051279068
+        },
+        "state_current": {
+          "calls": 12,
+          "cpu_seconds": 0.07,
+          "wall_seconds": 0.07585127279162407
+        },
+        "search_count": {
+          "calls": 12,
+          "cpu_seconds": 0.30000000000000004,
+          "wall_seconds": 0.33554271748289466
+        },
+        "search_page": {
+          "calls": 12,
+          "cpu_seconds": 0.39,
+          "wall_seconds": 0.4366205274127424
+        },
+        "hydration": {
+          "calls": 12,
+          "cpu_seconds": 0.04,
+          "wall_seconds": 0.0712365391664207
+        },
+        "catalog": {
+          "calls": 204,
+          "cpu_seconds": 0.07,
+          "wall_seconds": 0.2834675647318363
+        },
+        "media": {
+          "calls": 36,
+          "cpu_seconds": 0.060000000000000005,
+          "wall_seconds": 0.06842237943783402
+        }
+      }
+    },
+    {
+      "kind": "detail",
+      "language": "es",
+      "requests": 12,
+      "backend_host_pid": 370156,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.3,
+        "delta": {
+          "user_ticks": 21,
+          "system_ticks": 9
+        },
+        "elapsed_seconds": 1.3853661688044667
+      },
+      "unattributed_backend_cpu_seconds": 0.0,
+      "postgres_cpu_usec": 287677,
+      "client_thread_cpu_seconds": 0.9018714949999946,
+      "wall_seconds": 1.3835391029715538,
+      "families": {
+        "other": {
+          "calls": 156,
+          "cpu_seconds": 0.07,
+          "wall_seconds": 0.19820558605715632
+        },
+        "media": {
+          "calls": 60,
+          "cpu_seconds": 0.10999999999999999,
+          "wall_seconds": 0.21196209965273738
+        },
+        "rights": {
+          "calls": 36,
+          "cpu_seconds": 0.03,
+          "wall_seconds": 0.05796827608719468
+        },
+        "catalog": {
+          "calls": 180,
+          "cpu_seconds": 0.09,
+          "wall_seconds": 0.19621132919564843
+        }
+      }
+    },
+    {
+      "kind": "detail",
+      "language": "en",
+      "requests": 12,
+      "backend_host_pid": 370156,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.14,
+        "delta": {
+          "user_ticks": 8,
+          "system_ticks": 6
+        },
+        "elapsed_seconds": 1.2801606161519885
+      },
+      "unattributed_backend_cpu_seconds": 0.0,
+      "postgres_cpu_usec": 144223,
+      "client_thread_cpu_seconds": 0.9334783890000011,
+      "wall_seconds": 1.2799040954560041,
+      "families": {
+        "other": {
+          "calls": 156,
+          "cpu_seconds": 0.060000000000000005,
+          "wall_seconds": 0.2054525283165276
+        },
+        "media": {
+          "calls": 60,
+          "cpu_seconds": 0.04,
+          "wall_seconds": 0.08656618697568774
+        },
+        "rights": {
+          "calls": 36,
+          "cpu_seconds": 0.0,
+          "wall_seconds": 0.035180999897420406
+        },
+        "catalog": {
+          "calls": 180,
+          "cpu_seconds": 0.04,
+          "wall_seconds": 0.2039721952751279
+        }
+      }
+    }
+  ],
+  "comparison": [
+    {
+      "case": "listing es",
+      "before_cpu_ms": 56.66666666666667,
+      "after_cpu_ms": 60.0,
+      "family_comparison": {
+        "catalog": {
+          "before_cpu_ms": 10.833333333333332,
+          "after_cpu_ms": 10.833333333333332
+        },
+        "media": {
+          "before_cpu_ms": 2.5,
+          "after_cpu_ms": 2.5
+        },
+        "hydration": {
+          "before_cpu_ms": 14.166666666666666,
+          "after_cpu_ms": 15.0
+        }
+      }
+    },
+    {
+      "case": "listing en",
+      "before_cpu_ms": 38.333333333333336,
+      "after_cpu_ms": 44.166666666666664,
+      "family_comparison": {
+        "catalog": {
+          "before_cpu_ms": 8.333333333333334,
+          "after_cpu_ms": 7.5
+        },
+        "media": {
+          "before_cpu_ms": 2.5,
+          "after_cpu_ms": 0.8333333333333334
+        },
+        "hydration": {
+          "before_cpu_ms": 5.0,
+          "after_cpu_ms": 5.833333333333333
+        }
+      }
+    },
+    {
+      "case": "search es",
+      "before_cpu_ms": 81.66666666666667,
+      "after_cpu_ms": 81.66666666666667,
+      "family_comparison": {
+        "catalog": {
+          "before_cpu_ms": 8.333333333333334,
+          "after_cpu_ms": 5.833333333333334
+        },
+        "media": {
+          "before_cpu_ms": 1.6666666666666667,
+          "after_cpu_ms": 2.5
+        },
+        "hydration": {
+          "before_cpu_ms": 5.833333333333334,
+          "after_cpu_ms": 5.0
+        },
+        "search_count": {
+          "before_cpu_ms": 25.000000000000004,
+          "after_cpu_ms": 22.500000000000004
+        },
+        "search_page": {
+          "before_cpu_ms": 29.166666666666664,
+          "after_cpu_ms": 33.33333333333333
+        }
+      }
+    },
+    {
+      "case": "search en",
+      "before_cpu_ms": 82.5,
+      "after_cpu_ms": 81.66666666666667,
+      "family_comparison": {
+        "catalog": {
+          "before_cpu_ms": 5.0,
+          "after_cpu_ms": 5.833333333333334
+        },
+        "media": {
+          "before_cpu_ms": 2.5,
+          "after_cpu_ms": 5.0
+        },
+        "hydration": {
+          "before_cpu_ms": 5.0,
+          "after_cpu_ms": 3.3333333333333335
+        },
+        "search_count": {
+          "before_cpu_ms": 24.16666666666667,
+          "after_cpu_ms": 25.000000000000004
+        },
+        "search_page": {
+          "before_cpu_ms": 32.5,
+          "after_cpu_ms": 32.5
+        }
+      }
+    },
+    {
+      "case": "detail es",
+      "before_cpu_ms": 27.5,
+      "after_cpu_ms": 24.999999999999996,
+      "family_comparison": {
+        "catalog": {
+          "before_cpu_ms": 5.0,
+          "after_cpu_ms": 7.5
+        },
+        "media": {
+          "before_cpu_ms": 12.499999999999998,
+          "after_cpu_ms": 9.166666666666664
+        },
+        "rights": {
+          "before_cpu_ms": 2.5,
+          "after_cpu_ms": 2.5
+        }
+      }
+    },
+    {
+      "case": "detail en",
+      "before_cpu_ms": 22.500000000000004,
+      "after_cpu_ms": 11.666666666666668,
+      "family_comparison": {
+        "catalog": {
+          "before_cpu_ms": 5.0,
+          "after_cpu_ms": 3.3333333333333335
+        },
+        "media": {
+          "before_cpu_ms": 12.499999999999996,
+          "after_cpu_ms": 3.3333333333333335
+        },
+        "rights": {
+          "before_cpu_ms": 0.8333333333333334,
+          "after_cpu_ms": 0.0
+        }
+      }
+    }
+  ],
+  "mean_before_ms": 51.52777777777778,
+  "mean_after_ms": 50.69444444444444,
+  "scope": "72 sequential synthetic requests, no PostgreSQL statement/planning tracking. Each cursor.execute bracketed by exact own backend proc counters with identity guards. 100Hz quantization applies; family sums exclude work outside execute and parallel/background processes. Application CPU/wall includes many proc reads and test assertions, not clean WSGI performance. No SQL/parameters/bodies exported. Not p95, capacity, causal overhead or N3.",
+  "decision": "One clean short load to decide retaining/withdrawing candidate: 9specific+69expanded+11privacyPASS, isolated3arm CPU result and integrated warmed detailEN22.5\u219211.667ms. Aggregate51.528\u219250.694ms small, othercases variable; no causal/global CPU benefit claim. FirstcaseofeachnewSQL family includes preparation warmup. Do not chainloads or sweep parameters."
+}
