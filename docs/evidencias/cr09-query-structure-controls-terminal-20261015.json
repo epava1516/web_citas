@@ -1,0 +1,25 @@
+{
+  "base": "61c2353",
+  "candidate": "bf2f13f230f5d4639bdc2028524b5eb4ffdb7290",
+  "runs": [
+    {
+      "id": "20261015-221841-5ff87269",
+      "result": "23PASS236.07s",
+      "source_freeze_verified": true,
+      "cleanup_verified": true,
+      "limitation": "new document rotation test omitted language; strengthened afterward"
+    },
+    {
+      "id": "20261015-222313-c770ad83",
+      "result": "2PASS50.35s",
+      "source_freeze_verified": true,
+      "cleanup_verified": true,
+      "scope": "correct language and deactivate/replace/restore active legal documents; concurrent query isolation and bounded retention"
+    }
+  ],
+  "product_source_unchanged_between_controls": true,
+  "unique_test_cases": 23,
+  "production": false,
+  "data": "synthetic; own PostgreSQL/Redis",
+  "acceptance": "functional scoped evidence only; HTTP and CR09/N3 not accepted"
+}
