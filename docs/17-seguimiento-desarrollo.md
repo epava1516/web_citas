@@ -2052,3 +2052,6 @@ Equivalencia conteo compartido `20261015-093943-5ab64c62`: [9 PASS/1 FAIL](evide
 
 
 [Screening HTTP de conteo compartido terminado FAIL](evidencias/cr09-conteo-compartido-http-terminal-20261015.json): `20261015-095002-71ecaeb0`, fuentes intactas, limpieza independiente runner/child/PG/Redis/temporal/Celery.1200 programadas/emitidas/correctas, cero errores/timeouts; generador válido. p95 limpio23.662815s frente23.529265s anterior, una muestra por versión sin causalidad/reproducibilidad. No beneficio end-to-end demostrado: retirada candidata, restauración exacta de publication_state.py de b70a522 y retirada de su test exclusivo; commit/evidencias de candidata preservados. No nueva carga especulativa ni aceptaciónN3. La mejora aislada de planes no se convierte en reducción del request.
+
+
+[GS-S02: evidencia integrada conciliada](evidencias/gs01-async-batch-integrado-20261015.json), misma fuente de producto que v3 y huellas exactas de tests de navegador/jobs/lotes. No repetir esos recorridos por commits documentales. Continúa pendiente enlace separado de exportador Celery real, inventario integral y GS-S01/GS-S03; no convertir fixture en ejecución real ni aceptar GS01 antes de CR09/CR10.

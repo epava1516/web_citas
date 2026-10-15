@@ -70,3 +70,8 @@ Cerrar este mini-flujo exige demostrar: formulario de lote válido e inválido, 
 ## Límite de esta entrega
 
 No se ha modificado código, ejecutado pytest, compilado, instalado herramientas, iniciado servicios ni usado SQL/Docker. La existencia de mensajes/plantillas y tests queda comprobada por lectura de archivos; los resultados PASS históricos deben verificarse en sus recibos y los resultados actuales en la regresión terminal. El inventario no acredita cumplimiento global WCAG, preparación jurídica ni producción, y no congela contratos que todavía tienen cambios coordinados conocidos.
+
+
+## Conciliación integrada de mini-flujos — 2026-10-15
+
+[Reports de generación asíncrona/lote sobre producto integrado](evidencias/gs01-async-batch-integrado-20261015.json): comprobadas huellas de los cuatro archivos de pruebas y ausencia de diferencias de apps/config/templates/static/dependencias respecto a `8fb4cf1`, después de retirar la candidata de conteo. La evidencia visual/dominio de estos mini-flujos ya no depende sólo de resultados históricos de versiones diferentes. Conserva el límite de transiciones ejecutadas por fixture y no prueba worker Celery real desde el navegador. Falta ligar la ejecución del exportador real y completar GS-S01/GS-S03 antes de emitir el acta; no aceptación GS01 ni CR09/N3.

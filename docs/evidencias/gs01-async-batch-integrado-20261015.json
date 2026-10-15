@@ -1,0 +1,359 @@
+{
+  "recorded_at": "2026-10-15T09:57:07.131741+00:00",
+  "head": "05c8cd1275af3d3503bbf5e1029fc0a120b9dfc9",
+  "integrated_test_product_base": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "product_equivalence_checked": [
+    "apps/",
+    "config/",
+    "templates/",
+    "static/",
+    "pyproject.toml",
+    "uv.lock"
+  ],
+  "product_diff_empty": true,
+  "files": {
+    "tests/test_rights_portability_jobs_mobile.py": {
+      "sha256": "5e363262849e2ae8d8aba58b2feda57e63789ed1a4441b84d733690a7d06ea5a",
+      "calls": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_polling_and_no_javascript_fallback[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 12.36360502615571
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_polling_and_no_javascript_fallback[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.006435506045818
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_errors_stop_polling_and_offer_no_final_response[rejected-es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 10.39896958693862
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_errors_stop_polling_and_offer_no_final_response[rejected-en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 9.736742936074734
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_errors_stop_polling_and_offer_no_final_response[failed-es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 10.316311172675341
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_errors_stop_polling_and_offer_no_final_response[failed-en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 9.674697468057275
+        }
+      ]
+    },
+    "tests/test_rights_portability_jobs.py": {
+      "sha256": "e4a9bb9634cfab3ff94c38de7a3ec313a5542d912a90505c58bb276c4e50e340",
+      "calls": [
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_durable_replay_and_conflicts[False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.60216653207317
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_durable_replay_and_conflicts[True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 2.8840595590882003
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[session]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.390002543106675
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[mfa]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.03095986507833
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[permission]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.1206354796886444
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[assignment]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.614143264014274
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[proof]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.121364103630185
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[source]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.5964861284010112
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[expiry]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.5436960300430655
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_retries_roll_back_partial_generation",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 5.352684299927205
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_lease_recovery",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.122940781991929
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_expired_job_is_purged_by_reconciler",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.1868251622654498
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_two_workers_generate_once",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.441187607124448
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_post_queues_and_status_requires_fresh_original_authority[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.308809543028474
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_post_queues_and_status_requires_fresh_original_authority[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.646409281063825
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_post_without_execute_permission_creates_no_job",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.2232852056622505
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_broker_schema_is_typed_and_scoped",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.002208136022090912
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_real_broker_worker_uses_only_job_identifier",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.363433046732098
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_broker_outage_preserves_durable_job_and_reconciles",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.21519751381129
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_technical_retries_are_bounded_and_clear_private_reason",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.875382201280445
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_worker_limits_allow_the_generation_objective_within_the_lease",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.00031265895813703537
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_worker_rechecks_after_observed_postgresql_wait[permission]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.3392790369689465
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_worker_rechecks_after_observed_postgresql_wait[proof]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.3525279769673944
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_positive_job_inventory_and_scoped_live_broker[False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.475464059971273
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_positive_job_inventory_and_scoped_live_broker[True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 2.601152121089399
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_jobs.py::test_job_historical_broker_projection_is_explicit_and_pure",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.003111431375145912
+        }
+      ]
+    },
+    "tests/test_rights_portability_coverage_batch.py": {
+      "sha256": "93999d4be3154cb5505a0a6d8fb4e24cbeabce11d2b8bd759f6cf6c5b5207685",
+      "calls": [
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_preserves_page_audits_and_idempotency",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 6.703418823890388
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_rolls_back_all_reads_if_a_later_page_fails",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.1534972069785
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_rejects_unbounded_count[0]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.024898964911699295
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_rejects_unbounded_count[5]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.01804627710953355
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_rejects_unbounded_count[True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.028631066903471947
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_rejects_unbounded_count[4]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.014955564867705107
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_private_http_batch_requires_post_and_renders_all_pages[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 5.307210651226342
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_private_http_batch_requires_post_and_renders_all_pages[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 5.494869254063815
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_mobile_batch_displays_multiple_individual_pages[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.334852795116603
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_mobile_batch_displays_multiple_individual_pages[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.839261975605041
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_revocation_before_batch_return_rolls_back_every_read",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.8377626170404255
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_coverage_batch.py::test_binary_batch_stops_after_last_image_page",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.883356128819287
+        }
+      ]
+    },
+    "tests/test_portability_coverage_batch_validation.py": {
+      "sha256": "c02096be4a5b65ecae4a96fc28f2ee23c520d80c13bd0d70bdb4c287960a4338",
+      "calls": [
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_portability_coverage_batch_validation.py::test_approval_replay_does_not_rebuild_full_source_per_read",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.474978595972061
+        }
+      ]
+    }
+  },
+  "scope": "Actual integrated v3 browser/domain/batch evidence, not sum of historical different product versions. Original block3 preparation errors/block4 browser failure remain preserved; scoped passes do not rewrite their verdict.",
+  "limits": [
+    "Browser jobs transition through fixture execution, not a real Celery worker; preserve this limitation.",
+    "No acceptance of GS-S01/GS-S03/GS01/N3/CR09 from these cases.",
+    "Finite UI/server evidence can be reused without rerunning solely because documentation commits changed SHA."
+  ],
+  "next": "Bind separate actual export task dispatch/execution evidence and full UI inventory; do not invent worker proof from browser fixture.",
+  "acceptance": false
+}
