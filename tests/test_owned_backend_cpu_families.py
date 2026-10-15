@@ -50,6 +50,8 @@ def test_owned_backend_cpu_by_family(request, record_property):
     for index, (path, params) in enumerate(routes):
         control = client.get(path, params)
         assert control.status_code == 200
+        if index < 4:
+            assert control.wsgi_request._publication_route['population'] == 'projection'
         with connection.cursor() as cursor:
             cursor.execute('SELECT pg_backend_pid()')
             sql_pid = cursor.fetchone()[0]
@@ -81,6 +83,7 @@ def test_owned_backend_cpu_by_family(request, record_property):
                 assert response['Cache-Control'] == 'no-store'
                 if index < 4:
                     assert response.wsgi_request._publication_route['route'] == 'state'
+                    assert response.wsgi_request._publication_route['population'] == 'projection'
                     assert response.context['page'].paginator.count == control.context['page'].paginator.count
                     assert [x.pk for x in response.context['page']] == [x.pk for x in control.context['page']]
                 else:
@@ -102,6 +105,7 @@ def test_owned_backend_cpu_by_family(request, record_property):
         assert attributed <= phase['cpu_seconds'] + 1e-9
         cases.append({'kind': 'listing' if index < 2 else 'search' if index < 4 else 'detail',
                       'language': path.split('/')[1], 'requests': 12,
+                      'population': 'projection' if index < 4 else 'native_detail',
                       'backend_host_pid': identity['pid'], 'backend_cpu': phase,
                       'unattributed_backend_cpu_seconds': phase['cpu_seconds'] - attributed,
                       'postgres_cpu_usec': after_pg['cpu_stat']['usage_usec'] - before_pg['cpu_stat']['usage_usec'],
