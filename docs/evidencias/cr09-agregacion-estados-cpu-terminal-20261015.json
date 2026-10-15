@@ -1,0 +1,765 @@
+{
+  "run_id": "20261015-150653-5082a7f3",
+  "head": "fe5b4c5e3d00d5382c78f1cc294d8f961a2ef2ab",
+  "result": "1PASS85.64s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "data": {
+    "cases": [
+      {
+        "kind": "current",
+        "expected": true,
+        "blocks": [
+          {
+            "block": 0,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.038739660289138556
+            }
+          },
+          {
+            "block": 0,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.03904398903250694
+            }
+          },
+          {
+            "block": 1,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.04,
+              "delta": {
+                "user_ticks": 4,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.07871274603530765
+            }
+          },
+          {
+            "block": 1,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.04,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.05412770435214043
+            }
+          },
+          {
+            "block": 2,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.04376172926276922
+            }
+          },
+          {
+            "block": 2,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.038228931836783886
+            }
+          }
+        ],
+        "plans": [
+          {
+            "variant": "original",
+            "planning_ms": 0.111,
+            "execution_ms": 3.84,
+            "scans": [
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 0,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_listing",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              }
+            ]
+          },
+          {
+            "variant": "one_pass",
+            "planning_ms": 0.088,
+            "execution_ms": 3.934,
+            "scans": [
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_listing",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "ineligible",
+        "expected": true,
+        "blocks": [
+          {
+            "block": 0,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.03934821207076311
+            }
+          },
+          {
+            "block": 0,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.04899163404479623
+            }
+          },
+          {
+            "block": 1,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.038223270792514086
+            }
+          },
+          {
+            "block": 1,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.03963426733389497
+            }
+          },
+          {
+            "block": 2,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.04098814120516181
+            }
+          },
+          {
+            "block": 2,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.038504524156451225
+            }
+          }
+        ],
+        "plans": [
+          {
+            "variant": "original",
+            "planning_ms": 0.108,
+            "execution_ms": 3.782,
+            "scans": [
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 0,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_listing",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              }
+            ]
+          },
+          {
+            "variant": "one_pass",
+            "planning_ms": 0.076,
+            "execution_ms": 4.214,
+            "scans": [
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_listing",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "stale",
+        "expected": false,
+        "blocks": [
+          {
+            "block": 0,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 2,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.030322019942104816
+            }
+          },
+          {
+            "block": 0,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 2,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.03569450415670872
+            }
+          },
+          {
+            "block": 1,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.03471898101270199
+            }
+          },
+          {
+            "block": 1,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 2,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.02795293414965272
+            }
+          },
+          {
+            "block": 2,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.02,
+              "delta": {
+                "user_ticks": 2,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.030428200960159302
+            }
+          },
+          {
+            "block": 2,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.03708051098510623
+            }
+          }
+        ],
+        "plans": [
+          {
+            "variant": "original",
+            "planning_ms": 0.122,
+            "execution_ms": 1.163,
+            "scans": [
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 1,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 0,
+                "Actual Loops": 0
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_listing",
+                "Actual Rows": 0,
+                "Actual Loops": 0
+              }
+            ]
+          },
+          {
+            "variant": "one_pass",
+            "planning_ms": 0.082,
+            "execution_ms": 4.069,
+            "scans": [
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_listing",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "missing",
+        "expected": false,
+        "blocks": [
+          {
+            "block": 0,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.04,
+              "delta": {
+                "user_ticks": 4,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.057683445047587156
+            }
+          },
+          {
+            "block": 0,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.04,
+              "delta": {
+                "user_ticks": 4,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.048639748711138964
+            }
+          },
+          {
+            "block": 1,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.04,
+              "delta": {
+                "user_ticks": 4,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.050828229170292616
+            }
+          },
+          {
+            "block": 1,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.03,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.044122346211224794
+            }
+          },
+          {
+            "block": 2,
+            "variant": "original",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.04,
+              "delta": {
+                "user_ticks": 4,
+                "system_ticks": 0
+              },
+              "elapsed_seconds": 0.05891112890094519
+            }
+          },
+          {
+            "block": 2,
+            "variant": "one_pass",
+            "iterations": 12,
+            "backend_cpu": {
+              "ticks_per_second": 100,
+              "cpu_seconds": 0.04,
+              "delta": {
+                "user_ticks": 3,
+                "system_ticks": 1
+              },
+              "elapsed_seconds": 0.03966519935056567
+            }
+          }
+        ],
+        "plans": [
+          {
+            "variant": "original",
+            "planning_ms": 0.135,
+            "execution_ms": 4.306,
+            "scans": [
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 0,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 10001,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_listing",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              }
+            ]
+          },
+          {
+            "variant": "one_pass",
+            "planning_ms": 0.091,
+            "execution_ms": 4.115,
+            "scans": [
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_listing",
+                "Actual Rows": 10002,
+                "Actual Loops": 1
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Relation Name": "listings_publicationstate",
+                "Actual Rows": 10001,
+                "Actual Loops": 1
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "backend_host_pid": 438724,
+    "empty_population_correct": true
+  },
+  "summary": [
+    {
+      "case": "current",
+      "original_cpu_ms": 2.7777777777777777,
+      "one_pass_cpu_ms": 2.7777777777777777,
+      "plans": [
+        {
+          "variant": "original",
+          "planning_ms": 0.111,
+          "execution_ms": 3.84,
+          "scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 0,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_listing",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            }
+          ]
+        },
+        {
+          "variant": "one_pass",
+          "planning_ms": 0.088,
+          "execution_ms": 3.934,
+          "scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_listing",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "ineligible",
+      "original_cpu_ms": 2.5,
+      "one_pass_cpu_ms": 2.5,
+      "plans": [
+        {
+          "variant": "original",
+          "planning_ms": 0.108,
+          "execution_ms": 3.782,
+          "scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 0,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_listing",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            }
+          ]
+        },
+        {
+          "variant": "one_pass",
+          "planning_ms": 0.076,
+          "execution_ms": 4.214,
+          "scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_listing",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "stale",
+      "original_cpu_ms": 1.6666666666666665,
+      "one_pass_cpu_ms": 2.2222222222222223,
+      "plans": [
+        {
+          "variant": "original",
+          "planning_ms": 0.122,
+          "execution_ms": 1.163,
+          "scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 1,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 0,
+              "Actual Loops": 0
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_listing",
+              "Actual Rows": 0,
+              "Actual Loops": 0
+            }
+          ]
+        },
+        {
+          "variant": "one_pass",
+          "planning_ms": 0.082,
+          "execution_ms": 4.069,
+          "scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_listing",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "missing",
+      "original_cpu_ms": 3.055555555555556,
+      "one_pass_cpu_ms": 3.333333333333333,
+      "plans": [
+        {
+          "variant": "original",
+          "planning_ms": 0.135,
+          "execution_ms": 4.306,
+          "scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 0,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 10001,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_listing",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            }
+          ]
+        },
+        {
+          "variant": "one_pass",
+          "planning_ms": 0.091,
+          "execution_ms": 4.115,
+          "scans": [
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_listing",
+              "Actual Rows": 10002,
+              "Actual Loops": 1
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Relation Name": "listings_publicationstate",
+              "Actual Rows": 10001,
+              "Actual Loops": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Owned 10k synthetic committed FK-consistent population; current/ineligible/stale/missing states and separate empty control, original vs combined aggregate. Same own readonlyRR snapshot per case,8warmups+3alternating blocks12iterations, raw booleans checked every operation against original join; CPU100Hz. No product replacement, inherited transaction guarantee, load, p95 or N3.",
+  "decision": "Reject one-pass aggregate as product candidate: CPU unchanged current/ineligible, worse stale/missing; smaller scan count not meaningful cost improvement. No product patch, no load/repeat, lastclean5.004966FAIL unchanged. Next structural search/population investigation must be separate."
+}

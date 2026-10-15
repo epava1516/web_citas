@@ -1,0 +1,14 @@
+{
+  "run_id": "20261015-150653-5082a7f3",
+  "unit": "cr09-state-aggregate-cpu-20261015.service",
+  "head": "fe5b4c5",
+  "source_change": "Explicit diagnostic only; product unchanged",
+  "selection": "tests/test_owned_state_aggregate_cpu.py",
+  "hypothesis": "Existing exact trusted coverage scans states for mismatch and count separately. Combine bool_and(version=current) and count in one aggregate, retain full listingcount; test actualCPU and scans before product decision.",
+  "cases": "Empty; own committed current/ineligible/stale/missing10k populations, readonlyRR same snapshot percomparison",
+  "design": "Original vsonepass,8warmups+3alternatingblocks12iterations; comparebooleansagainstnativejoin everyoperation, inspectactualplans withoutSQL/params export",
+  "source_reference": "https://www.postgresql.org/docs/17/functions-aggregate.html",
+  "limits": "ExistingboundedownCI,nootherload/noPGtracker; notinherited/deferredFKguarantee/p95/capacity/N3",
+  "status": "running",
+  "acceptance": false
+}
