@@ -1084,3 +1084,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-15: diagnóstico separado nativo8sync232822-f60cfe0d,SHA3a88118,1FAIL185,85s.1200IDs exactos0errores, p95instrumentado1,152858585s; no capacidad/mejora causal. EsperapreWSGI747msinicial/1msestable,WSGI438/216,SQL272/90inclusivo; investigar principal/prefetch yplanes. Fuentecongelada yretirocontrolador/hijo/8workers/Celery/containers/temp/unidad verificados. Instrumentos/recibodocumentados. Sin nuevas llamadasClaude ni consumoexterno; nointegración8sync,noreensayociego.
+
+
+2026-10-15: planes sintéticos233344-af8d3970,1PASS87,69s,272SELECT39formas; testcbdaba3 posterior alrun, fuenteincluidaenhashesoriginales. Consulta hidrataciónprincipal identificada porhuella; replay5,330msplanning5,550msexecution, noatribucióncausalHTTP. Fuentesyrecursospropioslimpiosverificados. Noproducción,nollamadasClaude,nuevop95noobtenido. Siguientediagnóstico: actividadwait_eventPGpropiocorrelacionada.

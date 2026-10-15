@@ -1,0 +1,254 @@
+{
+  "run": "20261015-233344-af8d3970",
+  "head_at_execution": "3a881187bc5510096e106851a5e84d9ddbf0f960",
+  "diagnostic_source_commit_after_execution": "cbdaba3",
+  "diagnostic_source_sha256": "0e8d35c432414206fc35b2e6e8bfbec146132c59ed4d9e6d665d98deb918b277",
+  "result": "1 PASS / 87.69s",
+  "statements": 272,
+  "shapes": 39,
+  "plans": {
+    "366afdf7aa4023a2973d80183f93a3e6706704655fdf4a034a5ff14bc27b4ac8": {
+      "planning_ms": 0.09,
+      "execution_ms": 0.848,
+      "root": "Limit",
+      "actual_rows": 0
+    },
+    "6f6ca1c05cd7813eef98b2816058cb68dd002ab3cd833b8fe0f6c1df6ea7f9ea": {
+      "planning_ms": 0.18,
+      "execution_ms": 9.63,
+      "root": "Result",
+      "actual_rows": 1
+    },
+    "2e7313759aa50ab261ab9f2442c52678f593877714bb5357a54d3305aaaa5b1f": {
+      "planning_ms": 0.094,
+      "execution_ms": 4.366,
+      "root": "Aggregate",
+      "actual_rows": 1
+    },
+    "121abc444dbfc8103ab84647d4316e164b76de9d74312b895b81c7edcd5ade69": {
+      "planning_ms": 0.077,
+      "execution_ms": 5.216,
+      "root": "Limit",
+      "actual_rows": 24
+    },
+    "37daa791c33729d3a8e70dd4c2a6a2fc377fd23a05079f3e6716744488ba38db": {
+      "planning_ms": 0.095,
+      "execution_ms": 0.074,
+      "root": "Limit",
+      "actual_rows": 1
+    },
+    "c3bd64c17018a42cc71da5d3b95221434cba83225b8717746f9c94acf330d97b": {
+      "planning_ms": 0.011,
+      "execution_ms": 0.009,
+      "root": "Result",
+      "actual_rows": 1
+    },
+    "f37ec8625a3cac656183fa8ea57714e31bf06f6e06e1f760ee4fb08caedfb199": {
+      "planning_ms": 0.009,
+      "execution_ms": 0.009,
+      "root": "Result",
+      "actual_rows": 1
+    },
+    "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134": {
+      "planning_ms": 5.33,
+      "execution_ms": 5.55,
+      "root": "Nested Loop",
+      "actual_rows": 24
+    },
+    "f8b229f0a18e91ee9c1c559136c45ccf996a894f30776760e0ca62785b50fa4a": {
+      "planning_ms": 0.045,
+      "execution_ms": 0.02,
+      "root": "Index Scan",
+      "actual_rows": 1
+    },
+    "d96c7506d17d95881ec41bfcd73f0855edcb124a6739a57b194877451dcb94de": {
+      "planning_ms": 0.13,
+      "execution_ms": 0.031,
+      "root": "Nested Loop",
+      "actual_rows": 1
+    },
+    "7cbc02c2313626ddf6b12b69308b4a787e99641b4aa1420a12cca2f1b13c4278": {
+      "planning_ms": 0.17,
+      "execution_ms": 0.039,
+      "root": "Nested Loop",
+      "actual_rows": 1
+    },
+    "e6ef59e2934914d2cd462bfe363ce921f3b3fd80455460b2a4927bf80a7b0002": {
+      "planning_ms": 0.14,
+      "execution_ms": 0.208,
+      "root": "Hash Join",
+      "actual_rows": 24
+    },
+    "0de7b81d0bf1eaaaad0c6579d5c4fcb539a55fc13efcd6e4465f92b43f8542b4": {
+      "planning_ms": 0.145,
+      "execution_ms": 0.218,
+      "root": "Hash Join",
+      "actual_rows": 24
+    },
+    "cd2d5426021ac76a5d1b0cd7a683542b5fd6443059d33dc75989641dd348f3b0": {
+      "planning_ms": 0.152,
+      "execution_ms": 0.032,
+      "root": "Hash Join",
+      "actual_rows": 0
+    },
+    "f9a397ec20487d4842a69ae20448228c8acb379e4decc6521588d070df6f179c": {
+      "planning_ms": 0.064,
+      "execution_ms": 2.361,
+      "root": "Seq Scan",
+      "actual_rows": 24
+    },
+    "af631d1eba4a308983688d9d51ea279a28b30df3545b5983a2821df7fa5ff73d": {
+      "planning_ms": 0.17,
+      "execution_ms": 0.197,
+      "root": "Sort",
+      "actual_rows": 24
+    },
+    "b9815775fa48fceb68cb8ba93d0afffdba4dcf0505b5f7e9964e52b37bb5a7a1": {
+      "planning_ms": 0.097,
+      "execution_ms": 0.042,
+      "root": "Index Scan",
+      "actual_rows": 1
+    },
+    "125429e5d98c70d64ae9efd205b1cdc5997b8a9f04e76962c58671ea6a76be80": {
+      "planning_ms": 0.014,
+      "execution_ms": 0.015,
+      "root": "Result",
+      "actual_rows": 1
+    },
+    "215d32f3ef64d84d3d5e8c8dd956431f969609b7ed86909da89e9df6e482e8b6": {
+      "planning_ms": 0.094,
+      "execution_ms": 0.036,
+      "root": "Index Scan",
+      "actual_rows": 1
+    },
+    "b3c729a26826dcf138bb7cdb4c7865d00135d53a337ff3da350057a52b981dd9": {
+      "planning_ms": 0.087,
+      "execution_ms": 0.036,
+      "root": "Index Scan",
+      "actual_rows": 1
+    },
+    "19cd87cf4ea353b238ab056b4cd3b33d974d50e992a0bc922bc8c24a09d1730c": {
+      "planning_ms": 0.254,
+      "execution_ms": 0.067,
+      "root": "Nested Loop",
+      "actual_rows": 1
+    },
+    "873ed195f9e302f02662324c0a5627a2316c6f67e8be7952b2c3ebd126867318": {
+      "planning_ms": 0.05,
+      "execution_ms": 0.018,
+      "root": "Index Scan",
+      "actual_rows": 1
+    },
+    "ac5e7c7e3530ef3fe121964f3087e5761591be165bc8776be991ba419ce667cf": {
+      "planning_ms": 0.078,
+      "execution_ms": 0.026,
+      "root": "Index Scan",
+      "actual_rows": 1
+    },
+    "83cb3ef1459b9e0975afae64fe981cfe47bc40342fcc0a7ca1ecb3e396a8fffa": {
+      "planning_ms": 0.027,
+      "execution_ms": 0.008,
+      "root": "Result",
+      "actual_rows": 1
+    },
+    "60d7b5b93034451de40e00bf909b0f7dfa76406ac192b02f6ef11662e8f9b4c3": {
+      "planning_ms": 0.206,
+      "execution_ms": 7.377,
+      "root": "Aggregate",
+      "actual_rows": 1
+    },
+    "3cce9d94b8a66e7f7e795bf8d24b2b35ffc4241d16019ccaabe20f8365053762": {
+      "planning_ms": 0.615,
+      "execution_ms": 11.408,
+      "root": "Limit",
+      "actual_rows": 24
+    },
+    "69be304c0bbfcfa82312d6520f8319d8ea699235a10b35b1dfdd4a5e31a37d8d": {
+      "planning_ms": 0.572,
+      "execution_ms": 21.752,
+      "root": "Limit",
+      "actual_rows": 1
+    },
+    "3edd8491a90ef769bd8d7a487505cadfd3e9c9e29dd81f232fdae03c92012c5c": {
+      "planning_ms": 10.985,
+      "execution_ms": 2.252,
+      "root": "Unique",
+      "actual_rows": 1
+    },
+    "f39b3f33a10cb511a95db175d4b030d14e8287f48da59ff0ea01ba846c1425c8": {
+      "planning_ms": 0.168,
+      "execution_ms": 0.112,
+      "root": "Hash Join",
+      "actual_rows": 1
+    },
+    "9d17bbb661fed7911b1bd95384925cd16bdf6576f1782a1698d094f8e2bb9827": {
+      "planning_ms": 0.157,
+      "execution_ms": 0.111,
+      "root": "Hash Join",
+      "actual_rows": 1
+    },
+    "a0d0326a936b2f40470fd028bee6ce51532fc47454a72c711f0c79e0c7b36251": {
+      "planning_ms": 0.172,
+      "execution_ms": 0.065,
+      "root": "Hash Join",
+      "actual_rows": 0
+    },
+    "1a5e991f5f5abbc1672c357a71cf4a988d31f353357686e3dffe3d88c6d15a8d": {
+      "planning_ms": 0.054,
+      "execution_ms": 0.033,
+      "root": "Bitmap Heap Scan",
+      "actual_rows": 1
+    },
+    "85e8a3815051c7b89b93e47cf27d11007a5bb1181dc068d184dbc5a62c33e97f": {
+      "planning_ms": 0.092,
+      "execution_ms": 0.039,
+      "root": "Sort",
+      "actual_rows": 1
+    },
+    "decd30e8876494ac689a1969e685b4c5a405bb1db9cbfb72bfe1f359e01cfa52": {
+      "planning_ms": 0.195,
+      "execution_ms": 15.694,
+      "root": "Aggregate",
+      "actual_rows": 1
+    },
+    "163d2ae480ea35f1085d51bc378923c03c81e95afdcc526b7fb1a48e5ce04eac": {
+      "planning_ms": 0.222,
+      "execution_ms": 8.53,
+      "root": "Limit",
+      "actual_rows": 24
+    },
+    "167b7e0744f5fd0bd9e9234250fbca89fd47191050a9266f79adf9782a47581f": {
+      "planning_ms": 0.598,
+      "execution_ms": 24.379,
+      "root": "Limit",
+      "actual_rows": 1
+    },
+    "c4da8d77b8e25adc38038a2b666d644e3e4ea854595bef18cf5c3474499afb88": {
+      "planning_ms": 8.946,
+      "execution_ms": 2.866,
+      "root": "Unique",
+      "actual_rows": 1
+    },
+    "c3f3a3458537ee21ed76dfda5b47a0b946acc65ea87b14fc85100540de116c9b": {
+      "planning_ms": 0.503,
+      "execution_ms": 22.801,
+      "root": "Aggregate",
+      "actual_rows": 1
+    },
+    "95c3d997be6abb325232bd42d33ccfdb86f7470e331ff5e623dfc7bdd20c3545": {
+      "planning_ms": 0.797,
+      "execution_ms": 30.268,
+      "root": "Limit",
+      "actual_rows": 24
+    }
+  },
+  "cleanup": {
+    "source_hash_equality": true,
+    "controller_child_absent": true,
+    "owned_containers_absent": true,
+    "temporary_absent": true,
+    "systemd_MainPID": 0,
+    "systemd_ControlGroup": ""
+  },
+  "limitations": "Sequential replay, jit off/join collapse 1, one plan per shape; no concurrency causal attribution, no HTTP p95. Test source untracked at execution and preserved by source hashes, committed afterwards."
+}

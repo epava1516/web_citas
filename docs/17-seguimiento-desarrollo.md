@@ -2368,3 +2368,6 @@ Resultado posterior: corto nativo `232322-b808066f` **FAIL**, p95 1,792941386 s,
 
 
 Diagnóstico separado ocho sync nativo `232822-f60cfe0d`:1200IDs emparejados sin errores; FAIL instrumentado1,152858585s, no mejora comparable. Inicial vsestable: espera antesWSGI747/1ms, WSGI438/216ms ySQL272/90ms inclusivo. Los8workers atienden desdeinicio; PG0,863/0,483cores sinthrottle. Caller263 agrupa hidratación+prefetch, requiere desagregación/planes antesde modificaciónSQL. Fuentes/limpieza verificadas. Ver `docs/evidencias/cr09-eight-native-ingress-20261015.md`. Sin ensayo limpio nuevo ni aceptación.
+
+
+Desglose SQL sintético `233344-af8d3970`:1PASS87,69s,272SELECT/39formas. Huella principal de hidratación identificada; media concurrente por entradaWSGI53,891msinicial/11,782msestable; replay aislado planificación5,330/ejecución5,550ms. No explica causalmente amplificación de arranque ni justifica otro cambio de app. Falta actividad/wait_event dePGpropio durante ese mismo intervalo. Evidencia `cr09-hydration-plans-20261015.md`; fuentes/limpieza verificadas; test explícito preservado cbdaba3.
