@@ -2,6 +2,7 @@
 
 from contextlib import contextmanager
 from copy import copy
+from functools import lru_cache
 from weakref import WeakMethod
 
 from django import forms
@@ -111,14 +112,25 @@ class SnapshotDetails(DetailsForm):
 
 
 def publication_query(query, document):
-    """Shared fresh authority/history annotations for both read representations."""
+    """Read fresh authority/history values using reusable query structure only."""
+    return query.annotate(**_publication_annotations(document.version if document else ""))
+
+
+@lru_cache(maxsize=8)
+def _publication_annotations(document_version):
+    """Unevaluated expressions only; annotate resolves independent copies per query.
+
+    No people, documents, rows, decisions, timestamps or query results are stored.
+    The active document is still read by each context; its version is the only
+    variable parameter of this SQL structure. Bound retention across versions.
+    """
     grant = RepresentationAction.objects.filter(
         person_id=OuterRef("person_id"),
         subject_id=OuterRef("person__subject_id"),
         manager_version=OuterRef("person__manager_version"),
         action="grant",
         document__slug="publishing",
-        document__version=document.version if document else "",
+        document__version=document_version,
         manager_kind=Case(
             When(person__agency_id__isnull=False, then=Value("agency")),
             default=Value("individual"),
@@ -144,7 +156,7 @@ def publication_query(query, document):
             decision="conflict",
         )
     )
-    return query.annotate(
+    return dict(
         _pv_history=Exists(
             rectification_history_ids().filter(pk=OuterRef("approved_revision_id"))
         ),
