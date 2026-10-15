@@ -1,5 +1,7 @@
 # Seguimiento de ejecución del contrato
 
+Actualización de investigación: grafo renovado antes de recorrer requests; startup collect descartado tras diagnóstico aislado. Corregidos ciclos evitables del memoizador de validación con prueba roja y 18 controles PASS; efecto p95 aún pendiente de corto limpio. [Evidencia y límites](evidencias/cr09-grafo-recorrido-solucion-20261015.md). El último p95 limpio publicado continúa FAIL1.126776s; CR09/N3 abiertos.
+
 ## Estado vigente de continuación — 2026-10-15
 
 Codex continúa el objetivo completo **CR09 → CR10 → GS01 → BF/BB → C**. CR09 y aceptación integral/N3 siguen abiertos. Los cortes anteriores de «regresión activa» que aparecen más abajo son históricos: no describen procesos vivos actuales.

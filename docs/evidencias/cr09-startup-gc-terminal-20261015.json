@@ -1,0 +1,75 @@
+{
+  "run": "20261015-210315-f19b2774",
+  "head": "c2114cdfddb333c88ef6e526c6bd22b6d06c3e09",
+  "source_unchanged": true,
+  "root_child_temporary_containers_absent": true,
+  "containers": [
+    "web-modelos-ci-pg-20261015-210315-f19b2774",
+    "web-modelos-ci-redis-20261015-210315-f19b2774"
+  ],
+  "summary": {
+    "current": {
+      "first6_cpu_ms": 190.8315072777778,
+      "all_cpu_ms": 120.37248742222225,
+      "first6_wall_ms": 290.61006084601917,
+      "all_wall_ms": 190.13163779034383,
+      "gen2_count": 9,
+      "gc_cpu_ms": 1019.7845539999965,
+      "startup_collect_cpu_ms": 0,
+      "initial_freeze_count": [
+        375,
+        375,
+        375
+      ],
+      "blocks": [
+        {
+          "block": 0,
+          "first6_cpu_ms": 199.2680926666667,
+          "all_cpu_ms": 120.22552636666667
+        },
+        {
+          "block": 1,
+          "first6_cpu_ms": 179.60608166666665,
+          "all_cpu_ms": 124.19176286666674
+        },
+        {
+          "block": 2,
+          "first6_cpu_ms": 193.62034750000004,
+          "all_cpu_ms": 116.70017303333334
+        }
+      ]
+    },
+    "collect": {
+      "first6_cpu_ms": 178.1828653888889,
+      "all_cpu_ms": 117.90136741111111,
+      "first6_wall_ms": 278.2110235809038,
+      "all_wall_ms": 186.0165805141959,
+      "gen2_count": 6,
+      "gc_cpu_ms": 850.9918830000005,
+      "startup_collect_cpu_ms": 41.415105666666655,
+      "initial_freeze_count": [
+        375,
+        375,
+        375
+      ],
+      "blocks": [
+        {
+          "block": 0,
+          "first6_cpu_ms": 171.0357066666667,
+          "all_cpu_ms": 118.86448456666666
+        },
+        {
+          "block": 1,
+          "first6_cpu_ms": 186.19052299999996,
+          "all_cpu_ms": 120.50846229999998
+        },
+        {
+          "block": 2,
+          "first6_cpu_ms": 177.32236649999996,
+          "all_cpu_ms": 114.3311553666667
+        }
+      ]
+    }
+  },
+  "scope": "180 sequential actual Django WSGI test-client requests; six fresh Python processes, three alternating blocks. No concurrent admission, HTTP socket or capacity proof. All first requests included; only startup collect differs. Callbacks add unmeasured overhead. Freeze count unchanged; no policy change. Child exceptions retain only type/frames, never SQL/credentials. Initialization timer covers get_wsgi_application, not full Python boot. Django Client uses its own handler; this is not a real Gunicorn worker."
+}

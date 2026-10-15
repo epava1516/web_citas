@@ -2,6 +2,7 @@
 
 from contextlib import contextmanager
 from copy import copy
+from weakref import WeakMethod
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -258,19 +259,27 @@ def read_publication_values(query, *, bounded_joins=False, prepared_page=False):
 
 
 
+def _publication_memo_key(value):
+    # Module-level recursion avoids a self-referencing closure for every field.
+    if value is None or type(value) in (str, bool, int):
+        return (type(value), value)
+    if type(value) in (list, tuple):
+        return (type(value), tuple(_publication_memo_key(item) for item in value))
+    raise TypeError("Unsupported field input remains natively validated")
+
+
 def memoize_publication_field_clean(field, stats):
     # Field.clean receives only value; instance/cross-field/model/authority
     # checks are outside it and still run for every fresh binding. Audited
     # field definitions/catalog/language are fixed in this prototype only.
-    original = field.clean
+    # The prototype owns its fields. Holding a bound method here would add
+    # field -> clean closure -> bound method -> field and retain the memo/catalog
+    # until cyclic GC. Keep a strong method only during each invocation.
+    try:
+        original_ref = WeakMethod(field.clean)
+    except TypeError:
+        return  # Unknown callable/lifetime semantics retain native validation.
     memo = {}
-
-    def freeze(value):
-        if value is None or type(value) in (str, bool, int):
-            return (type(value), value)
-        if type(value) in (list, tuple):
-            return (type(value), tuple(freeze(item) for item in value))
-        raise TypeError("Unsupported field input remains natively validated")
 
     def independent(value):
         if isinstance(value, list):
@@ -281,9 +290,12 @@ def memoize_publication_field_clean(field, stats):
         return value
 
     def clean(value):
+        original = original_ref()
+        if original is None:
+            raise ReferenceError("Publication field binding no longer exists")
         stats["calls"] += 1
         try:
-            key = freeze(value)
+            key = _publication_memo_key(value)
         except TypeError:
             stats["misses"] += 1
             return original(value)
