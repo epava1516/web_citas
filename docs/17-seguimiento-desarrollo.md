@@ -2377,3 +2377,6 @@ CapturaPGpropio233806-75cf5a0a:1832muestras100ms/0errores,1FAIL185,75s instrumen
 
 
 Candidato última verificación agrupada descartado:234338-54b9df2f,1PASS104,08s,72lecturas;media252,279→263,468ms yCPU119,353→127,328ms. No beneficio consistente, nointegración/HTTP. Testaislado56ae6f6; evidencia cr09-verification-payload-20261015.md,fuentesyrecursoslimpiosverificados. RendimientoCR09abierto; noencadenarmicrocambios.
+
+
+Revalidación pertinente por cambio posterior de erasure_execution/publicación frente a8fb4cf1:run234759-542fcdbb,SHA790f26c,11PASS132,71s/0omisiones en cuenta supresión,medios ylimitación. Sinaplicaciónnueva. Aserciones/casos/recibos encr09-current-erasure-processing-20261015.md. Fuentes ycleanupindependientes,unitexit0/ControlGroupvacío. Resuelve aplicabilidad deestaselección, nofinalidad/schedulingintegral/rendimiento/N3.

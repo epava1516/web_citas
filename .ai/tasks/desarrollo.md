@@ -1093,3 +1093,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-15: contrasteverificaciónagrupada234338-54b9df2f,72lecturas,1PASS104,08speroREJECTED:252,279→263,468ms/CPU119,353→127,328. Noappcambiada,nocargaHTTPnueva. Testaislado56ae6f6,hashesoriginalesverificadosantesdecommit,cleanuprealcompleto. SininvocacionesClaude/costeexterno;consumopreviointacto. GoalCR09ysiguientesabierto.
+
+
+2026-10-15: revalidaciónactualsupresión/limitación234759-542fcdbbSHA790f26c,11PASS132,71s0fail/errors/skips;motivocambioerasure_executionposterioraregresióncomún. Fuentecongeladaycleanuprealindependientes. Casos/asercionesreciboactual, sinappnueva/sinaceptaciónN3. NollamadasClaude niproveedores,consumopreviointacto.

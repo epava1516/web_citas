@@ -1,0 +1,480 @@
+{
+  "run": "20261015-234759-542fcdbb",
+  "sha": "790f26cdf377467f5931e6872924263b9988ab2f",
+  "result": "11 PASS /132.71s",
+  "cases": [
+    {
+      "classname": "tests.test_account_erasure_execution",
+      "name": "test_account_scoped_execution_preserves_evidence_and_procedural_channel[False]",
+      "seconds": "45.958",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "classname": "tests.test_account_erasure_execution",
+      "name": "test_account_scoped_execution_preserves_evidence_and_procedural_channel[True]",
+      "seconds": "7.543",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "classname": "tests.test_account_erasure_execution",
+      "name": "test_account_execution_denies_unreviewed_editorial_stale_and_production_scopes",
+      "seconds": "7.419",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "classname": "tests.test_media_erasure",
+      "name": "test_files_and_fingerprints_erased_durably_without_worker_resurrection",
+      "seconds": "8.333",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "classname": "tests.test_media_erasure",
+      "name": "test_shared_file_cannot_be_erased_by_another_person",
+      "seconds": "7.769",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "classname": "tests.test_media_erasure",
+      "name": "test_partial_storage_failure_keeps_retry_state_and_repeats_missing_file",
+      "seconds": "8.305",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "classname": "tests.test_media_erasure",
+      "name": "test_inflight_processing_cannot_write_derivative_after_erasure",
+      "seconds": "9.629",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "classname": "tests.test_media_erasure",
+      "name": "test_distinct_blob_with_shared_storage_path_prevents_file_deletion",
+      "seconds": "7.815",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "classname": "tests.test_processing_execution",
+      "name": "test_http_execution_preserves_favorites_blocks_ordinary_use_and_keeps_rights",
+      "seconds": "10.463",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "classname": "tests.test_processing_execution",
+      "name": "test_unsupported_purpose_rolls_back_without_restrictions",
+      "seconds": "8.466",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "classname": "tests.test_processing_execution",
+      "name": "test_new_erasure_cannot_delete_restricted_preferences",
+      "seconds": "10.131",
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    }
+  ],
+  "source_integrity_independent": true,
+  "cleanup": {
+    "controller_child_absent": true,
+    "temporary_absent": true,
+    "owned_containers_absent": true,
+    "unit": "MainPID=0\nExecMainStatus=0\nControlGroup=\nActiveState=inactive\n"
+  },
+  "artifact_sha256": {
+    "source-hashes.json": "7d2bc95b5d2301c6c5b9e16d664820b162b9a6d2293a87dbe8b31ebbd31a0d58",
+    "pytest.xml": "b9afe4853008f962503d1cb3e3af73cc870b8649aa8ceb185633cb565f243560",
+    "result.json": "21f8c04cdc8b90d3268b6c67481fa4ef50cf8ea26d8202b8b66800de86142de8"
+  },
+  "limits": "Selected erasure/processing checks only. Not whole rights coverage, performance or N3.",
+  "source_assertions": [
+    {
+      "source": "tests/test_account_erasure_execution.py",
+      "function": "test_account_scoped_execution_preserves_evidence_and_procedural_channel",
+      "line": 98,
+      "assertions": [
+        {
+          "line": 117,
+          "expression": "staff.get(path).status_code == 200"
+        },
+        {
+          "line": 118,
+          "expression": "'publication' not in {value for (value, _) in staff.get(path).context['form'].fields['purposes'].choices}"
+        },
+        {
+          "line": 121,
+          "expression": "Client(enforce_csrf_checks=True).post(path, data).status_code == 403"
+        },
+        {
+          "line": 123,
+          "expression": "response.status_code == 200"
+        },
+        {
+          "line": 124,
+          "expression": "staff.post(path, data).status_code == 200"
+        },
+        {
+          "line": 126,
+          "expression": "execution.person_id is None and execution.account_subject_id == subject.pk"
+        },
+        {
+          "line": 128,
+          "expression": "result['schema'] == 'account-erasure-execution-v1' and result['partial']"
+        },
+        {
+          "line": 129,
+          "expression": "result['tokens_deleted'] == result['recovery_codes_deleted'] == result['favorites_deleted'] == result['copies_cleared'] == 1"
+        },
+        {
+          "line": 136,
+          "expression": "not AccountToken.objects.filter(user=subject).exists()"
+        },
+        {
+          "line": 137,
+          "expression": "not RecoveryCode.objects.filter(user=subject).exists()"
+        },
+        {
+          "line": 138,
+          "expression": "not Favorite.objects.filter(user=subject).exists()"
+        },
+        {
+          "line": 140,
+          "expression": "copy.encrypted_payload == '' and copy.purged_at"
+        },
+        {
+          "line": 141,
+          "expression": "LegalAcceptance.objects.filter(pk=acceptance.pk).exists()"
+        },
+        {
+          "line": 142,
+          "expression": "list(Person.objects.order_by('pk').values()) == profiles"
+        },
+        {
+          "line": 143,
+          "expression": "list(Agency.objects.order_by('pk').values()) == agencies"
+        },
+        {
+          "line": 145,
+          "expression": "(subject.session_version, subject.mfa_version) == (before[2] + 1, before[3] + 1)"
+        },
+        {
+          "line": 156,
+          "expression": "case.version == data['version'] + 1 and case.status == 'reviewing' and (case.scope_status == 'unverified')"
+        },
+        {
+          "line": 162,
+          "expression": "staff.post(f'/en/moderation/rights/{case.pk}/response/', values(case)).status_code == 302"
+        },
+        {
+          "line": 163,
+          "expression": "public.get(receipt).status_code == 200"
+        },
+        {
+          "line": 147,
+          "expression": "(subject.email, subject.password) == before[:2] and (not subject.account_erased_at)"
+        },
+        {
+          "line": 149,
+          "expression": "subject.account_erased_at and (not subject.is_active) and (not subject.has_usable_password())"
+        },
+        {
+          "line": 154,
+          "expression": "subject.email != before[0] and (not subject.first_name) and (not subject.last_name)"
+        },
+        {
+          "line": 166,
+          "expression": "fresh.account_subject_id == subject.pk and fresh.status == 'pending'"
+        }
+      ]
+    },
+    {
+      "source": "tests/test_account_erasure_execution.py",
+      "function": "test_account_execution_denies_unreviewed_editorial_stale_and_production_scopes",
+      "line": 174,
+      "assertions": [
+        {
+          "line": 204,
+          "expression": "not ErasureExecution.objects.exists()"
+        },
+        {
+          "line": 205,
+          "expression": "not RightsAction.objects.filter(operation='erasure_execute').exists()"
+        },
+        {
+          "line": 208,
+          "expression": "(subject.email, subject.password, subject.session_version, subject.mfa_version) == original"
+        },
+        {
+          "line": 214,
+          "expression": "stored.encrypted_payload and (not stored.purged_at)"
+        },
+        {
+          "line": 215,
+          "expression": "AccountToken.objects.filter(user=subject).count() == RecoveryCode.objects.filter(user=subject).count() == 1"
+        }
+      ]
+    },
+    {
+      "source": "tests/test_media_erasure.py",
+      "function": "test_files_and_fingerprints_erased_durably_without_worker_resurrection",
+      "line": 31,
+      "assertions": [
+        {
+          "line": 38,
+          "expression": "storage.exists(original) and storage.exists(derivative)"
+        },
+        {
+          "line": 42,
+          "expression": "blob.status == 'erasing' and blob.sha256 != sha"
+        },
+        {
+          "line": 43,
+          "expression": "not blob.phash and (not blob.signature) and (not blob.regional_hashes)"
+        },
+        {
+          "line": 44,
+          "expression": "unseal(execution.encrypted_result)['media_jobs_queued'] >= 1"
+        },
+        {
+          "line": 45,
+          "expression": "not Photo.objects.filter(revision__listing__person=person, removed_at__isnull=True).exists()"
+        },
+        {
+          "line": 48,
+          "expression": "storage.exists(original) and storage.exists(derivative)"
+        },
+        {
+          "line": 50,
+          "expression": "erase_due_media() >= 1"
+        },
+        {
+          "line": 51,
+          "expression": "not storage.exists(original) and (not storage.exists(derivative))"
+        },
+        {
+          "line": 54,
+          "expression": "blob.status == 'erased' and (not blob.original) and (not blob.derivative)"
+        },
+        {
+          "line": 55,
+          "expression": "job.status == 'completed' and job.completed_at and (not job.encrypted_paths)"
+        },
+        {
+          "line": 56,
+          "expression": "not erase_one(job.pk)"
+        },
+        {
+          "line": 59,
+          "expression": "blob.status == 'erased' and (not blob.derivative)"
+        },
+        {
+          "line": 60,
+          "expression": "Photo.objects.filter(blob=blob).exists()"
+        },
+        {
+          "line": 62,
+          "expression": "case.status == 'reviewing'"
+        }
+      ]
+    },
+    {
+      "source": "tests/test_media_erasure.py",
+      "function": "test_shared_file_cannot_be_erased_by_another_person",
+      "line": 65,
+      "assertions": [
+        {
+          "line": 73,
+          "expression": "blob.status == 'ready' and blob.original.storage.exists(original)"
+        },
+        {
+          "line": 74,
+          "expression": "not MediaErasure.objects.exists()"
+        },
+        {
+          "line": 75,
+          "expression": "Photo.objects.filter(blob=blob, removed_at__isnull=True).count() >= 2"
+        }
+      ]
+    },
+    {
+      "source": "tests/test_media_erasure.py",
+      "function": "test_partial_storage_failure_keeps_retry_state_and_repeats_missing_file",
+      "line": 78,
+      "assertions": [
+        {
+          "line": 94,
+          "expression": "not erase_one(job.pk)"
+        },
+        {
+          "line": 96,
+          "expression": "job.status == 'failed' and job.attempts == 1 and job.encrypted_paths"
+        },
+        {
+          "line": 97,
+          "expression": "not storage.exists(original) and storage.exists(derivative)"
+        },
+        {
+          "line": 98,
+          "expression": "not erase_one(job.pk)"
+        },
+        {
+          "line": 101,
+          "expression": "erase_one(job.pk)"
+        },
+        {
+          "line": 102,
+          "expression": "not storage.exists(derivative)"
+        },
+        {
+          "line": 104,
+          "expression": "job.attempts == 2 and job.status == 'completed'"
+        }
+      ]
+    },
+    {
+      "source": "tests/test_media_erasure.py",
+      "function": "test_inflight_processing_cannot_write_derivative_after_erasure",
+      "line": 107,
+      "assertions": [
+        {
+          "line": 149,
+          "expression": "blob.status == 'erased' and (not blob.derivative) and (not blob.signature)"
+        },
+        {
+          "line": 117,
+          "expression": "resume.wait(timeout=30)"
+        },
+        {
+          "line": 132,
+          "expression": "reached.wait(timeout=15)"
+        }
+      ]
+    },
+    {
+      "source": "tests/test_media_erasure.py",
+      "function": "test_distinct_blob_with_shared_storage_path_prevents_file_deletion",
+      "line": 152,
+      "assertions": [
+        {
+          "line": 160,
+          "expression": "blob.status == 'ready' and blob.derivative.storage.exists(alias.original.name)"
+        },
+        {
+          "line": 161,
+          "expression": "not MediaErasure.objects.exists()"
+        }
+      ]
+    },
+    {
+      "source": "tests/test_processing_execution.py",
+      "function": "test_http_execution_preserves_favorites_blocks_ordinary_use_and_keeps_rights",
+      "line": 59,
+      "assertions": [
+        {
+          "line": 70,
+          "expression": "own.get(reverse('favorites')).status_code == 200"
+        },
+        {
+          "line": 80,
+          "expression": "Client(enforce_csrf_checks=True).post(path, payload).status_code == 403"
+        },
+        {
+          "line": 81,
+          "expression": "staff.post(path, payload).status_code == 200 and staff.post(path, payload).status_code == 200"
+        },
+        {
+          "line": 85,
+          "expression": "ProcessingExecution.objects.count() == PurposeRestriction.objects.count() == 1"
+        },
+        {
+          "line": 86,
+          "expression": "Favorite.objects.filter(pk=favorite.pk).exists()"
+        },
+        {
+          "line": 87,
+          "expression": "own.get(reverse('favorites')).status_code == 409"
+        },
+        {
+          "line": 88,
+          "expression": "own.post(reverse('favorite_add', kwargs={'listing_id': favorite.listing_id})).status_code == 409"
+        },
+        {
+          "line": 92,
+          "expression": "own.post(reverse('favorite_remove', kwargs={'favorite_id': favorite.pk})).status_code == 409"
+        },
+        {
+          "line": 95,
+          "expression": "reviewer.get(reverse('favorites')).status_code == 200"
+        },
+        {
+          "line": 96,
+          "expression": "own.get(reverse('rights_create')).status_code == 200"
+        },
+        {
+          "line": 99,
+          "expression": "(case.initial_due_at, subject.email, subject.is_active, subject.session_version) == original"
+        },
+        {
+          "line": 105,
+          "expression": "case.status == 'reviewing' and case.scope_status == 'unverified'"
+        },
+        {
+          "line": 107,
+          "expression": "result['data_deleted'] is False and result['partial'] is True"
+        },
+        {
+          "line": 111,
+          "expression": "own.get(reverse('favorites')).status_code == 409"
+        },
+        {
+          "line": 110,
+          "expression": "restricted(subject, 'account_preferences')"
+        }
+      ]
+    },
+    {
+      "source": "tests/test_processing_execution.py",
+      "function": "test_unsupported_purpose_rolls_back_without_restrictions",
+      "line": 114,
+      "assertions": [
+        {
+          "line": 127,
+          "expression": "not ProcessingExecution.objects.exists() and (not PurposeRestriction.objects.exists())"
+        }
+      ]
+    },
+    {
+      "source": "tests/test_processing_execution.py",
+      "function": "test_new_erasure_cannot_delete_restricted_preferences",
+      "line": 130,
+      "assertions": [
+        {
+          "line": 145,
+          "expression": "public.post('/en/safety/rights/', data(public, kind='erase')).status_code == 302"
+        },
+        {
+          "line": 200,
+          "expression": "not ErasureExecution.objects.exists() and Favorite.objects.filter(pk=favorite.pk).exists()"
+        }
+      ]
+    }
+  ]
+}
