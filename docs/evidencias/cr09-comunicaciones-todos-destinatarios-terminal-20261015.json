@@ -1,0 +1,72 @@
+{
+  "recorded_at": "2026-10-15T09:24:06.659147+00:00",
+  "run": "20261015-092133-69b50022",
+  "base_head": "50b97efe2a1b01fc133ad4a8912a053d59c4be90",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "6",
+      "time": "96.456",
+      "timestamp": "2026-10-15T11:21:53.012605+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged_during_run": true,
+  "independent_cleanup": {
+    "runner_absent": true,
+    "child_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-092133-69b50022": true,
+      "web-modelos-ci-redis-20261015-092133-69b50022": true
+    }
+  },
+  "source_delta_from_last_focused_run": [
+    "tests/test_rights_communications.py"
+  ],
+  "tested_source_sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+  "call_reports": [
+    {
+      "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[erase]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 18.195457363966852
+    },
+    {
+      "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[restriction]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 8.85296324826777
+    },
+    {
+      "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[object]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 9.579108105041087
+    },
+    {
+      "nodeid": "tests/test_rights_communications.py::test_same_execution_delivery_serializes_and_old_authority_cannot_read",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 5.3115418292582035
+    },
+    {
+      "nodeid": "tests/test_rights_communications.py::test_agency_own_account_notice_does_not_include_owned_models",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 2.659751611761749
+    },
+    {
+      "nodeid": "tests/test_rights_communications.py::test_mobile_recipient_assessment_source_is_audited_in_both_languages",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 10.16875024791807
+    }
+  ],
+  "scope": "Existing complete communications file: all six cases pass; agency erasure owner/editor exact recipient set, cross-recipient HTTP403, each audited private read and ack/replay, final summary acknowledges all, tampered ack still rejected and response remains partial. Account restriction/opposition and other original assertions retained. Real own PostgreSQL; synthetic identities, no external messaging or full CR09/N3 acceptance.",
+  "acceptance": false
+}

@@ -2019,3 +2019,9 @@ Revisión posterior a los cuatro bloques: [correspondencia estática scheduler�
 
 
 [Comunicaciones: variantes reales y pendientes delimitados](evidencias/cr09-comunicaciones-variantes-conciliacion-20261015.json). El recorrido erase ya usa perfil de agencia con editor por la cadena plan_fixture→seed_demo; restriction/object usan cuentas. No crear test duplicado de agencia por falta de esa palabra en el nombre. Receptor ajeno, candidata histórica ajena, ausencia de autoridad pasada, acuse sin lectura y alteración de acuse tienen controles PASS ligados a journals v3 y fuentes exactas. El acuse de un aviso no prueba recepción de todos los destinatarios; asociación histórica y correspondencia completa/N3 siguen pendientes.
+
+
+[Verificación afectada de todos los destinatarios](evidencias/cr09-comunicaciones-todos-destinatarios-preparacion-20261015.json): se amplía el recorrido existente, sin cambiar producto, para leer/acusar cada aviso, denegar acceso al aviso de otro gestor y comprobar recuento total en respuesta privada, manteniendo controles previos y parcialidad. Prerregistrado archivo completo focused, mismas cuotas y timeout1800; sin carga concurrente. Exige terminal, limpieza independiente y conservar negativas.
+
+
+[Todos los destinatarios internos verificados](evidencias/cr09-comunicaciones-todos-destinatarios-terminal-20261015.json): `20261015-092133-69b50022`, 6 PASS/0 FAIL/0 ERROR/0 SKIP, fuentes intactas durante ejecución y limpieza independiente. Propietario/editor de agencia reciben sus avisos exactos, cada uno consulta/acusa con auditoría y se deniega acceso cruzado HTTP403; resumen final refleja ambos acuses y mantiene parcialidad. Se conservan controles anteriores de alteración/replay y variantes account restriction/object. Sólo test cambiado desde ejecución focused previa; producto intacto. Resuelve la laguna de acuse de todos los destinatarios de ese escenario; no recepción externa ni variantes no ensayadas/N3/CR09 global.

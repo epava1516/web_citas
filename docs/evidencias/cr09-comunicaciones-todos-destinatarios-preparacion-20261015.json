@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-10-15T09:21:33.177887+00:00",
+  "base_head": "50b97ef",
+  "changed_test_sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+  "selection": [
+    "tests/test_rights_communications.py"
+  ],
+  "purpose": "Close demonstrated test coverage gap: each intended agency manager receives/reads/acks exact private notice; cross-manager notice access denied; account variants and full original tests retained. Preserve existing partial final response and evidence-tampering/replay checks.",
+  "limits": "Same bounded own CI controller CPU0-3 memory3584MiB swap0 tasks512; PG1CPU1536MiB Redis0.2CPU128MiB; one worker snapshots timeout1800",
+  "required_exit": "Terminal, preserve any failure, source stability during run, independent cleanup. Does not accept CR09/N3 or external delivery.",
+  "adapter_sha256": "92e808bb2ec25b4e00879f0d8835b20cbc007192bf7196db09ac82e470e0b0a0",
+  "acceptance": false
+}

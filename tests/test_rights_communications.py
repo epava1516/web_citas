@@ -255,57 +255,80 @@ def test_review_is_independent_exact_audited_and_never_implies_delivery(
         backend.inspect(
             reviewer, *common, old_final.pk, "Inspect draft after recipient delivery changed"
         )
-    notice = notices.first()
-    receiver = User.objects.get(pk=notice.recipient_id)
-    receiver.mfa_enabled = True
-    receiver.mfa_version = 1
-    receiver.save(update_fields=["mfa_enabled", "mfa_version"])
-    receiving = Client()
-    receiving.force_login(receiver)
-    session = receiving.session
-    session["mfa_version"] = receiver.mfa_version
-    session.save()
-    inbox = "/en/account/rights-notices/"
-    assert receiving.get(inbox).status_code == 200
-    assert receiving.get(inbox).context["payload"] is None
-    with pytest.raises(ValidationError, match="Read the exact"):
-        acknowledge(receiver, notice.pk, 0)
-    with pytest.raises(PermissionDenied):
-        inspect_notice(reviewer, notice.pk, "Attempt access by another recipient account")
-    inspected_notice = receiving.post(
-        inbox,
-        {
-            "operation": "inspect",
-            "notice": notice.pk,
-            "purpose": "Inspect exact private execution notification",
-        },
-    )
-    assert inspected_notice.status_code == 200
-    assert inspected_notice.context["payload"]["kind"] == kind
-    assert set(inspected_notice.context["payload"]) == {
-        "schema",
-        "kind",
-        "execution",
-        "purposes",
-        "simulation",
-        "complete",
-    }
-    notice_read = inspected_notice.context["form"].initial["read"]
-    assert (
-        receiving.post(
+    if kind == "erase":
+        assert set(notices.values_list("recipient__username", flat=True)) == {
+            "fixture-v1-agency",
+            "fixture-v1-editor",
+        }
+    received_accounts = set()
+    for index, notice in enumerate(notices.order_by("pk"), 1):
+        receiver = User.objects.get(pk=notice.recipient_id)
+        receiver.mfa_enabled = True
+        receiver.mfa_version = 1
+        receiver.save(update_fields=["mfa_enabled", "mfa_version"])
+        receiving = Client()
+        receiving.force_login(receiver)
+        session = receiving.session
+        session["mfa_version"] = receiver.mfa_version
+        session.save()
+        inbox = "/en/account/rights-notices/"
+        for foreign_notice in notices.exclude(recipient_id=receiver.pk):
+            assert (
+                receiving.post(
+                    inbox,
+                    {
+                        "operation": "inspect",
+                        "notice": foreign_notice.pk,
+                        "purpose": "Attempt another manager's private execution notification",
+                    },
+                ).status_code
+                == 403
+            )
+        assert receiving.get(inbox).status_code == 200
+        assert receiving.get(inbox).context["payload"] is None
+        with pytest.raises(ValidationError, match="Read the exact"):
+            acknowledge(receiver, notice.pk, 0)
+        with pytest.raises(PermissionDenied):
+            inspect_notice(reviewer, notice.pk, "Attempt access by another recipient account")
+        inspected_notice = receiving.post(
             inbox,
             {
-                "operation": "ack",
+                "operation": "inspect",
                 "notice": notice.pk,
-                "read": notice_read,
+                "purpose": "Inspect exact private execution notification",
             },
-        ).status_code
-        == 302
-    )
-    acknowledged = acknowledge(receiver, notice.pk, notice_read)
-    assert acknowledged.acknowledged_at and acknowledged.acknowledged_action_id
-    assert RightsAction.objects.filter(request=case, operation="rights_notice_ack").count() == 1
-    assert deliver(actor, *common, approval.pk, delivery_key).pk == delivery.pk
+        )
+        assert inspected_notice.status_code == 200
+        assert inspected_notice.context["payload"]["kind"] == kind
+        assert set(inspected_notice.context["payload"]) == {
+            "schema",
+            "kind",
+            "execution",
+            "purposes",
+            "simulation",
+            "complete",
+        }
+        notice_read = inspected_notice.context["form"].initial["read"]
+        assert (
+            receiving.post(
+                inbox,
+                {
+                    "operation": "ack",
+                    "notice": notice.pk,
+                    "read": notice_read,
+                },
+            ).status_code
+            == 302
+        )
+        acknowledged = acknowledge(receiver, notice.pk, notice_read)
+        assert acknowledged.acknowledged_at and acknowledged.acknowledged_action_id
+        assert (
+            RightsAction.objects.filter(request=case, operation="rights_notice_ack").count()
+            == index
+        )
+        assert deliver(actor, *common, approval.pk, delivery_key).pk == delivery.pk
+        received_accounts.add(str(receiver.pk))
+    assert notices.filter(acknowledged_at__isnull=True).count() == 0
     # An unsigned timestamp edit must never become communication evidence.
     timestamp = acknowledged.acknowledged_at
     RightsRecipientNotice.objects.filter(pk=notice.pk).update(
@@ -324,7 +347,7 @@ def test_review_is_independent_exact_audited_and_never_implies_delivery(
             "outcome": "communicated"
             if candidate
             and candidate["kind"] in {"account", "individual"}
-            and candidate["reference"] == str(receiver.pk)
+            and candidate["reference"] in received_accounts
             else "pending",
             "reason": REASON,
             "evidence": REASON,
@@ -350,7 +373,7 @@ def test_review_is_independent_exact_audited_and_never_implies_delivery(
         reviewer, *common, final.pk, "Read exact response and reviewed communication outcome"
     )
     summary = exact["material"]["communications"]
-    assert summary["state"] == "reviewed_partial" and summary["acknowledged"] == 1
+    assert summary["state"] == "reviewed_partial" and summary["acknowledged"] == notices.count()
     assert summary["outcomes"]["communicated"] >= 1 and summary["pending"] is True
     final_review = backend.review(
         reviewer, *common, final.pk, final_read.pk, uuid4(), "approved", REASON
@@ -360,7 +383,7 @@ def test_review_is_independent_exact_audited_and_never_implies_delivery(
     assert backend.issue(actor, *common, final_review.pk, response_key).pk == response.pk
     projected = unseal(response.encrypted_response)["communications"]
     assert set(projected) == {"state", "pending", "outcomes", "delivered", "acknowledged"}
-    assert projected["acknowledged"] == 1 and projected["pending"] is True
+    assert projected["acknowledged"] == notices.count() and projected["pending"] is True
     case.refresh_from_db()
     assert case.status == "reviewing"
 
