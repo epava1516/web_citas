@@ -1,0 +1,68 @@
+{
+  "recorded_at": "2026-10-14T23:22:46.961922+00:00",
+  "worktree": "/home/felidae/proyectos/web_modelos_cr09_census_complete",
+  "status": "Isolated draft committed after static review; functional verification pending",
+  "findings": [
+    {
+      "source": "tests/test_rights_access_coverage_store.py",
+      "defect": "Complete-owned branch proposed operations.RetainedResource status=included, which existing compile_package rejects without explicit content redaction/omission.",
+      "root_correction": "External encrypted response may carry resource_content_decisions keyed by exact content fingerprint. Helper requires complete exact coverage of retained contents and redacted/omitted decisions, then passes those exact proposals to existing app validation and independent review. Application guard unchanged."
+    }
+  ],
+  "checks": [
+    "Original six delivered file hashes verified before root correction",
+    "Independent Ruff PASS",
+    "AST parse PASS before root correction",
+    "Ruff and diff-check PASS after correction"
+  ],
+  "current_file_sha256": {
+    "scripts/owned_scenario_inventory.py": "10ddbb25b65580ca59c8d23358e2ee2f53b7c73dd80c3082b286dd2b5c00adb3",
+    "scripts/owned_rights_resource_content.py": "5b0faf66e385b0cf2bd4e63ed2df9d4e8a52e81a8cde2436754b73e1123b5a4b",
+    "scripts/owned_rights_resource_census.py": "d9a53d7717df6d0de0051a8be21bc3f33711cadd7731e3237798a54ab135bb32",
+    "tests/test_owned_rights_resource_census.py": "a0c4fd6b64de0c048251118141954dc4d2664cd6939501626c25d364bc68a0b3",
+    "tests/test_owned_scenario_inventory_guards.py": "4bd6550be3149f481c5899dd1737bdf77dd573c53f894cac3394b2e96cbff027",
+    "tests/test_rights_access_coverage_store.py": "4e6d5103fc3d3c718321125888ceb0d6064f5b1a027fcc922122b4185f8f8005"
+  },
+  "prepared_extra_case": "Encrypted external review can transport explicit content disclosure decisions; test not executed",
+  "acceptance": false,
+  "remaining": [
+    "Run focused owned PG checks after block2 terminal",
+    "Review private original contents and exact per-content disclosure proposals",
+    "Exercise complete account/profile ES/EN flow and negative mutations",
+    "Confirm no necessary source remains unknown before accepting closure"
+  ],
+  "isolated_commit": "6b69e41",
+  "existing_session_guard": "apps/safety/rights_access_delivery.py:99 already marks unsupported session stores blocked; no duplicate application change",
+  "updated_at": "2026-10-14T23:23:53.606864+00:00",
+  "additional_static_review": {
+    "observed_at": "2026-10-14T23:35:20.830705+00:00",
+    "candidate_commit": "6b69e41",
+    "scope": [
+      "register_scenario and capture_content identity/input/source bindings",
+      "private review envelope exact material/scope binding",
+      "reviewed_content_census per-source decisions and unresolved requirement preservation",
+      "explicit full and omitted-source scenario selectors"
+    ],
+    "findings": [
+      "Raw inclusion remains forbidden: explicit retained-content redaction/omission is required by the helper and existing application guard.",
+      "Unknown physical formats and undeclared sources remain pending; a reason or digest does not waive typed-content requirements.",
+      "Full interactive cases require exact selectors and private operator response; ordinary regression skips are not approvals.",
+      "Actual seed wrapper intercepts test_discovery.seed_or_restore; snapshots are disabled before directory fixture creation, and the returned branch plus effective inputs are bound to registration. Runtime confirmation remains pending."
+    ],
+    "runtime_verified": false,
+    "acceptance": false
+  },
+  "nested_artifact_omission_fix": {
+    "commit": "287ea2333faabcc921e7a3420648b547c723d283",
+    "problem": "Basename-only exclusion could omit a distinct nested runner artifact whose name matches a captured log archive.",
+    "change": "Exclude only the exact relative archive path; added actual-file synthetic unit guard.",
+    "ruff": "PASS",
+    "diff_check": "PASS",
+    "runtime_tests": "NOT_EXECUTED; main block remains active",
+    "source_sha256": {
+      "scripts/owned_rights_resource_content.py": "b7969a977b3e780d631d5387246b2ab1b96ab86f07341bfe1358d68e9b777f46",
+      "tests/test_owned_rights_resource_census.py": "dc0ccdbb8eff7fa7f9dbc1999b64605e8e0bb17dde3c3060cbd18407333dbf56"
+    },
+    "acceptance": false
+  }
+}

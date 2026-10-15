@@ -1,0 +1,55 @@
+{
+  "recorded_at": "2026-10-14T22:50:24.226421+00:00",
+  "runner": {
+    "id": "20261014-225007-4dce621a",
+    "pid": 2860253,
+    "start_ticks": 373881687,
+    "command": [
+      "artifacts/vps-preparation/cr09-common-v2-20261014-part-2/run.py",
+      "--profile",
+      "regression",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--fixture-snapshots",
+      "--timeout",
+      "21600"
+    ],
+    "head": "64dfae2890caada59d7a6b3ef49348ac2b8a3222",
+    "containers": [
+      "web-modelos-ci-pg-20261014-225007-4dce621a",
+      "web-modelos-ci-redis-20261014-225007-4dce621a"
+    ],
+    "label": "web-modelos-local-ci-run=20261014-225007-4dce621a",
+    "temporary": "/tmp/web-modelos-local-ci-lxrbdt4r",
+    "child": {
+      "pid": 2861632,
+      "start_ticks": 373882530,
+      "step": "native-build"
+    }
+  },
+  "runner_live_verified": true,
+  "counts": {},
+  "containers_actual": [
+    {
+      "name": "web-modelos-ci-pg-20261014-225007-4dce621a",
+      "running": true,
+      "NanoCpus": 1000000000,
+      "CpusetCpus": "4",
+      "Memory": 1610612736,
+      "MemorySwap": 1610612736,
+      "PidsLimit": 128
+    },
+    {
+      "name": "web-modelos-ci-redis-20261014-225007-4dce621a",
+      "running": true,
+      "NanoCpus": 200000000,
+      "CpusetCpus": "5",
+      "Memory": 134217728,
+      "MemorySwap": 134217728,
+      "PidsLimit": 64
+    }
+  ],
+  "acceptance": false
+}

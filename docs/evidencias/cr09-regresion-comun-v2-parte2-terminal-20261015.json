@@ -1,0 +1,41 @@
+{
+  "recorded_at": "2026-10-15T00:33:32.025067+00:00",
+  "run": "20261014-225007-4dce621a",
+  "head": "64dfae2890caada59d7a6b3ef49348ac2b8a3222",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "726",
+      "time": "6162.271",
+      "timestamp": "2026-10-15T00:50:26.383404+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "runner_cleanup": {
+    "web-modelos-ci-pg-20261014-225007-4dce621a": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261014-225007-4dce621a": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "independent_cleanup": {
+    "runner_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261014-225007-4dce621a": true,
+      "web-modelos-ci-redis-20261014-225007-4dce621a": true
+    }
+  },
+  "scope": "Full common block 2 v2 only. Other blocks on final version, specialized omissions and full CR09/N3 criteria remain open.",
+  "acceptance": false
+}

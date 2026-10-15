@@ -916,3 +916,8 @@ Revisión nativa de SQL censo/COUNT conservada como auditoría; no se adoptó ag
 
 
 2026-10-14: Codex demuestra fuga de conexión en helper temporal con 2 FAIL reales conservados; aplica 4f9d051 y verifica 30 PASS/0 FAIL/0 ERROR/0 SKIP, servicios propios y limpieza independiente. Integra metadatos diagnósticos 187e281. Prefijo original diagnóstico 78 PASS no reproduce fallo intermitente; causalidad no declarada. Sin delegaciones nuevas ni invocaciones externas Claude; consumo anterior intacto. Siguiente: bloque 2 completo sobre fuentes congeladas, seguido del alcance de consumidores y criterios CR09 restantes.
+
+
+2026-10-15: bloque 2 común v2 `20261014-225007-4dce621a` en `64dfae2`: 726 PASS/0 FAIL/0 ERROR/0 SKIP, fuentes intactas y limpieza independiente. Ambos fallos previos y caso largo 1511 páginas pasan; causalidad histórica del snapshot no demostrada. Grafo actualizado localmente en 64dfae2 por petición del usuario; revisión de consumidores afecta los cuatro bloques, confirma dos consumidores indirectos y descarta dos candidatos de presentación. No aceptación N3 ni ahorro de tiempo medido.
+
+Escritor nativo cr09_census_complete_writer, propiedad explícita de seis archivos en worktree aislado: preparación del censo real/contenido y gate privado, commit 6b69e41 revisado por Codex; revisión nativa de sólo lectura cr09_count_sql_review usada como insumo y contrastada. Codex añade decisiones de redacción/omisión exigidas por aplicación y correctiva de omisión por basename 287ea23 con control sintético, Ruff/diff PASS. Ninguna prueba runtime del candidato ejecutada todavía. Cero invocaciones externas Claude nuevas; consumo anterior conservado, sin inventar tokens de agentes nativos. Continúa CR09→CR10→GS01→BF/BB→C.

@@ -1,0 +1,1610 @@
+{
+  "recorded_at": "2026-10-14T23:15:00.760424+00:00",
+  "graph_head": "64dfae2890caada59d7a6b3ef49348ac2b8a3222",
+  "graph_sha256": "c1315522f53b1c75e272454c8ef72578b007041058b80c51d1f9e01e9b84214e",
+  "graph_nodes": 10596,
+  "graph_edges": 42965,
+  "old_graph_nodes": 6787,
+  "old_graph_edges": 32151,
+  "scope": "Current code and structural Markdown, excludes raw JSON evidence and .ai; no semantic LLM extraction",
+  "limitations": [
+    "Two token-named templates skipped by detector",
+    "Two SQL files lack optional tree_sitter_sql extractor",
+    "Graph relationships require source confirmation and are not execution evidence",
+    "Native census draft is isolated and not part of this integrated graph"
+  ],
+  "helper_source": "tests/test_reset_localization.py:L19",
+  "graph_paths": [
+    {
+      "depth": 1,
+      "source": "tests_test_acceptance_localization_test_localized_acceptance_preserves_stale_version_and_missing_document_gates",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_acceptance_localization.py",
+      "source_location": "L50"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_close_localization_test_close_labels_invalid_partial_and_revocation",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_access_close_localization.py",
+      "source_location": "L142"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_copy_image_localization_test_native_image_popup_and_private_denials",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_access_copy_image_localization.py",
+      "source_location": "L79"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_copy_operation_errors_localization_test_rejected_operations_preserve_native_gates",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_access_copy_operation_errors_localization.py",
+      "source_location": "L77"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_copy_page_errors_localization_test_page_read_errors_preserve_native_gates",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_access_copy_page_errors_localization.py",
+      "source_location": "L115"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_copy_preparation_localization_test_audited_preparation_and_page_decisions",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_access_copy_preparation_localization.py",
+      "source_location": "L94"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_coverage_review_localization_test_native_coverage_review_private_and_current",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_access_coverage_review_localization.py",
+      "source_location": "L176"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_supplement_localization_test_supplement_labels_errors_audit_privacy",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_access_supplement_localization.py",
+      "source_location": "L137"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_account_destination_localization_test_localized_destination_confirmation_preserves_token_and_account",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_account_destination_localization.py",
+      "source_location": "L47"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_age_simulator_localization_test_localized_age_simulator_preserves_explicit_scope_and_current_events",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_age_simulator_localization.py",
+      "source_location": "L86"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_agency_setup_localization_test_localized_agency_setup_preserves_private_membership",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_agency_setup_localization.py",
+      "source_location": "L59"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_appeal_localization_test_localized_appeal_and_independent_review_preserve_authority_and_state",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_appeal_localization.py",
+      "source_location": "L75"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_audited_access_localization_test_audited_access_localization_preserves_private_post_read",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_audited_access_localization.py",
+      "source_location": "L72"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_browser_db_sync_cleanup_test_temporary_browser_orm_thread_closes_connection",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_browser_db_sync_cleanup.py",
+      "source_location": "L29"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_calendar_rejection_localization_test_localized_calendar_rejections_private_and_without_effects",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_calendar_rejection_localization.py",
+      "source_location": "L77"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_clarification_localization_test_private_clarification_localized_without_changing_capability_contract",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_clarification_localization.py",
+      "source_location": "L62"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_complaint_localization_test_anonymous_complaint_localization_preserves_private_intake",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_complaint_localization.py",
+      "source_location": "L51"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_complaint_resolution_localization_test_resolution_localization_preserves_private_response_and_exact_replay",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_complaint_resolution_localization.py",
+      "source_location": "L103"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_consent_transfer_localization_test_localized_grant_and_transfer_preserve_current_authority",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_consent_transfer_localization.py",
+      "source_location": "L101"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_copy_information_localization_test_guided_information_save_read_privacy",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_copy_information_localization.py",
+      "source_location": "L116"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_copy_page_label_association_test_native_page_labels_error_save_and_replay",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_copy_page_label_association.py",
+      "source_location": "L118"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_exception_localization_test_localized_account_exception_proposal_preserves_scope_and_restriction",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_exception_localization.py",
+      "source_location": "L107"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_field_review_invalid_localization_test_invalid_inspection_and_decision_preserve_language",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_field_review_invalid_localization.py",
+      "source_location": "L132"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_form_error_focus_test_private_native_conflict_focus",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_form_error_focus.py",
+      "source_location": "L136"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_listing_actions_localization_test_localized_moderation_records_exact_public_revision",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_listing_actions_localization.py",
+      "source_location": "L155"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_listing_actions_localization_test_localized_publication_actions_persist_and_preserve_guards",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_listing_actions_localization.py",
+      "source_location": "L82"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_match_localization_test_localized_match_review_preserves_pair_authority_and_state",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_match_localization.py",
+      "source_location": "L97"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_measure_denial_localization_test_private_measure_denials_localized_and_effect_free",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_measure_denial_localization.py",
+      "source_location": "L82"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_mfa_localization_test_mfa_localization_and_real_enrollment_challenge_recovery",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_mfa_localization.py",
+      "source_location": "L68"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_organization_manager_localization_test_localized_current_review_preserves_authority_and_simulation",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_organization_manager_localization.py",
+      "source_location": "L126"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_phone_localization_test_localized_phone_confirmation_preserves_consumption",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_phone_localization.py",
+      "source_location": "L65"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_photo_edit_localization_test_photo_edit_rejects_localized_and_effects_preserved",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_photo_edit_localization.py",
+      "source_location": "L71"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_portability_close_localization_test_native_approved_close_caption_errors_permission_replay",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_portability_close_localization.py",
+      "source_location": "L84"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_portability_export_localization_test_native_covered_export_captions_privacy_and_permission",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_portability_export_localization.py",
+      "source_location": "L126"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_processing_denial_localization_test_processing_private_rejections_localized",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_processing_denial_localization.py",
+      "source_location": "L67"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_promotion_conflict_localization_test_three_native_conflicts_localized",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_promotion_conflict_localization.py",
+      "source_location": "L107"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_promotion_localization_test_localized_synthetic_order_preserves_price_and_gates",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_promotion_localization.py",
+      "source_location": "L70"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_purpose_followup_localization_test_localized_mobile_calendar_follow_up_reload_and_audit",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_purpose_followup_localization.py",
+      "source_location": "L98"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rectification_final_localization_check_missing_preparation",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rectification_final_localization.py",
+      "source_location": "L48"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rectification_proposal_localization_check_missing_selection",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rectification_proposal_localization.py",
+      "source_location": "L98"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rectification_review_localization_test_review_error_audit_raw_value_and_revoked_permission",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rectification_review_localization.py",
+      "source_location": "L103"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_reflow_320_test_private_reflow_content_controls_and_native_conflict",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_reflow_320.py",
+      "source_location": "L194"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_report_localization_test_report_presentation_and_formal_exception_preserve_private_intake",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_report_localization.py",
+      "source_location": "L56"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_reset_localization_test_reset_localization_preserves_token_and_session_contract",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_reset_localization.py",
+      "source_location": "L55"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_restriction_filter_localization_test_localized_per_case_filters_keep_measures_and_authority",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_restriction_filter_localization.py",
+      "source_location": "L115"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_retention_localization_test_localized_retention_review_preserves_plan_authority_and_dates",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_retention_localization.py",
+      "source_location": "L98"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_reviewed_copy_errors_localization_test_reviewed_copy_errors_preserve_native_gates",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_reviewed_copy_errors_localization.py",
+      "source_location": "L95"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_access_response_mobile_test_mobile_final_response_preparation_and_independent_decision",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_access_response_mobile.py",
+      "source_location": "L242"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_intake_localization_test_rights_intake_localization_preserves_unverified_private_requests",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_intake_localization.py",
+      "source_location": "L47"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_coverage_mobile_test_mobile_guided_coverage_save_and_clean_get",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_portability_coverage_mobile.py",
+      "source_location": "L81"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_coverage_review_mobile_test_mobile_independent_coverage_approval",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_portability_coverage_review_mobile.py",
+      "source_location": "L158"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_jobs_mobile_test_mobile_generation_errors_stop_polling_and_offer_no_final_response",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_portability_jobs_mobile.py",
+      "source_location": "L167"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_jobs_mobile_test_mobile_generation_polling_and_no_javascript_fallback",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_portability_jobs_mobile.py",
+      "source_location": "L84"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_mobile_test_mobile_pending_portability_assessment",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_portability_mobile.py",
+      "source_location": "L75"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_response_mobile_test_mobile_final_response_preparation_and_independent_decision",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_portability_response_mobile.py",
+      "source_location": "L99"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_review_mobile_test_mobile_independent_portability_review",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_portability_review_mobile.py",
+      "source_location": "L107"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_selection_mobile_test_mobile_independent_portability_selection_review",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_portability_selection_mobile.py",
+      "source_location": "L376"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_response_localization_test_generic_response_screen_and_revocation",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_rights_response_localization.py",
+      "source_location": "L106"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_signup_localization_test_signup_localized_document_gates_email_token_and_account_limits",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_signup_localization.py",
+      "source_location": "L42"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_triage_localization_test_triage_localization_preserves_assignment_replay_and_authority",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_triage_localization.py",
+      "source_location": "L137"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_upload_localization_test_upload_missing_and_rate_localized_without_effects",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "calls",
+      "source_file": "tests/test_upload_localization.py",
+      "source_location": "L59"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_acceptance_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_acceptance_localization.py",
+      "source_location": "L10"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_close_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_access_close_localization.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_copy_image_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_access_copy_image_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_copy_operation_errors_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_access_copy_operation_errors_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_copy_page_errors_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_access_copy_page_errors_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_copy_preparation_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_access_copy_preparation_localization.py",
+      "source_location": "L16"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_coverage_review_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_access_coverage_review_localization.py",
+      "source_location": "L11"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_access_supplement_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_access_supplement_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_account_destination_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_account_destination_localization.py",
+      "source_location": "L11"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_age_simulator_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_age_simulator_localization.py",
+      "source_location": "L11"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_agency_setup_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_agency_setup_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_appeal_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_appeal_localization.py",
+      "source_location": "L19"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_audited_access_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_audited_access_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_browser_db_sync_cleanup",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_browser_db_sync_cleanup.py",
+      "source_location": "L5"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_calendar_rejection_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_calendar_rejection_localization.py",
+      "source_location": "L11"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_clarification_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_clarification_localization.py",
+      "source_location": "L15"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_complaint_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_complaint_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_complaint_resolution_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_complaint_resolution_localization.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_consent_transfer_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_consent_transfer_localization.py",
+      "source_location": "L15"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_copy_information_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_copy_information_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_copy_page_label_association",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_copy_page_label_association.py",
+      "source_location": "L15"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_exception_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_exception_localization.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_field_review_invalid_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_field_review_invalid_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_form_error_focus",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_form_error_focus.py",
+      "source_location": "L10"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_listing_actions_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_listing_actions_localization.py",
+      "source_location": "L16"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_match_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_match_localization.py",
+      "source_location": "L14"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_measure_denial_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_measure_denial_localization.py",
+      "source_location": "L11"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_mfa_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_mfa_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_organization_manager_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_organization_manager_localization.py",
+      "source_location": "L14"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_phone_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_phone_localization.py",
+      "source_location": "L14"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_photo_edit_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_photo_edit_localization.py",
+      "source_location": "L11"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_portability_close_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_portability_close_localization.py",
+      "source_location": "L10"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_portability_export_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_portability_export_localization.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_processing_denial_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_processing_denial_localization.py",
+      "source_location": "L10"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_promotion_conflict_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_promotion_conflict_localization.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_promotion_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_promotion_localization.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_purpose_followup_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_purpose_followup_localization.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rectification_final_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rectification_final_localization.py",
+      "source_location": "L8"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rectification_proposal_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rectification_proposal_localization.py",
+      "source_location": "L8"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rectification_review_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rectification_review_localization.py",
+      "source_location": "L11"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_reflow_320",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_reflow_320.py",
+      "source_location": "L10"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_report_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_report_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_restriction_filter_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_restriction_filter_localization.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_retention_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_retention_localization.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_reviewed_copy_errors_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_reviewed_copy_errors_localization.py",
+      "source_location": "L14"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_access_response_mobile",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rights_access_response_mobile.py",
+      "source_location": "L239"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_intake_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rights_intake_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_coverage_mobile",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rights_portability_coverage_mobile.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_coverage_review_mobile",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rights_portability_coverage_review_mobile.py",
+      "source_location": "L14"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_jobs_mobile",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rights_portability_jobs_mobile.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_mobile",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rights_portability_mobile.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_response_mobile",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rights_portability_response_mobile.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_review_mobile",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rights_portability_review_mobile.py",
+      "source_location": "L14"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_portability_selection_mobile",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rights_portability_selection_mobile.py",
+      "source_location": "L18"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_rights_response_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_rights_response_localization.py",
+      "source_location": "L10"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_signup_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_signup_localization.py",
+      "source_location": "L14"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_triage_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_triage_localization.py",
+      "source_location": "L13"
+    },
+    {
+      "depth": 1,
+      "source": "tests_test_upload_localization",
+      "target": "tests_test_reset_localization_db_sync",
+      "relation": "imports",
+      "source_file": "tests/test_upload_localization.py",
+      "source_location": "L10"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_signup_localization",
+      "target": "tests_test_acceptance_localization",
+      "relation": "imports_from",
+      "source_file": "tests/test_signup_localization.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_age_simulator_localization",
+      "target": "tests_test_consent_transfer_localization",
+      "relation": "imports_from",
+      "source_file": "tests/test_age_simulator_localization.py",
+      "source_location": "L10"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_agency_setup_localization",
+      "target": "tests_test_consent_transfer_localization",
+      "relation": "imports_from",
+      "source_file": "tests/test_agency_setup_localization.py",
+      "source_location": "L11"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rights_information_review_mobile",
+      "target": "tests_test_copy_information_localization",
+      "relation": "imports_from",
+      "source_file": "tests/test_rights_information_review_mobile.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rights_portability_review_mobile",
+      "target": "tests_test_copy_information_localization",
+      "relation": "imports_from",
+      "source_file": "tests/test_rights_portability_review_mobile.py",
+      "source_location": "L12"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rights_portability_selection_mobile",
+      "target": "tests_test_copy_information_localization",
+      "relation": "imports_from",
+      "source_file": "tests/test_rights_portability_selection_mobile.py",
+      "source_location": "L14"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rights_portability_selection_mobile",
+      "target": "tests_test_portability_export_localization",
+      "relation": "imports_from",
+      "source_file": "tests/test_rights_portability_selection_mobile.py",
+      "source_location": "L16"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rectification_review_test_mobile_independent_source_and_proposal_review",
+      "target": "tests_test_rectification_final_localization_check_missing_preparation",
+      "relation": "calls",
+      "source_file": "tests/test_rectification_review.py",
+      "source_location": "L737"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rectification_review",
+      "target": "tests_test_rectification_final_localization_check_missing_preparation",
+      "relation": "imports",
+      "source_file": "tests/test_rectification_review.py",
+      "source_location": "L725"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rectification_account_test_mobile_account_proposal_login_mfa_audited_source_and_reload",
+      "target": "tests_test_rectification_proposal_localization_check_missing_selection",
+      "relation": "calls",
+      "source_file": "tests/test_rectification_account.py",
+      "source_location": "L223"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rights_rectification_test_mobile_source_review_and_field_proposal",
+      "target": "tests_test_rectification_proposal_localization_check_missing_selection",
+      "relation": "calls",
+      "source_file": "tests/test_rights_rectification.py",
+      "source_location": "L194"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rectification_account",
+      "target": "tests_test_rectification_proposal_localization_check_missing_selection",
+      "relation": "imports",
+      "source_file": "tests/test_rectification_account.py",
+      "source_location": "L186"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rights_rectification",
+      "target": "tests_test_rectification_proposal_localization_check_missing_selection",
+      "relation": "imports",
+      "source_file": "tests/test_rights_rectification.py",
+      "source_location": "L134"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rights_access_response_mobile_test_mobile_aux_inspection_requires_exact_metadata_review_and_stays_partial",
+      "target": "tests_test_rights_access_response_mobile_test_mobile_final_response_preparation_and_independent_decision",
+      "relation": "calls",
+      "source_file": "tests/test_rights_access_response_mobile.py",
+      "source_location": "L344"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rights_access_response_mobile_test_mobile_historical_logs_use_existing_private_review_and_stay_partial",
+      "target": "tests_test_rights_access_response_mobile_test_mobile_final_response_preparation_and_independent_decision",
+      "relation": "calls",
+      "source_file": "tests/test_rights_access_response_mobile.py",
+      "source_location": "L363"
+    },
+    {
+      "depth": 2,
+      "source": "tests_test_rights_access_response_mobile_test_mobile_physical_census_uses_existing_review_and_independent_decision",
+      "target": "tests_test_rights_access_response_mobile_test_mobile_final_response_preparation_and_independent_decision",
+      "relation": "calls",
+      "source_file": "tests/test_rights_access_response_mobile.py",
+      "source_location": "L353"
+    }
+  ],
+  "direct_ast_consumers": [
+    "tests/test_acceptance_localization.py",
+    "tests/test_access_close_localization.py",
+    "tests/test_access_copy_image_localization.py",
+    "tests/test_access_copy_operation_errors_localization.py",
+    "tests/test_access_copy_page_errors_localization.py",
+    "tests/test_access_copy_preparation_localization.py",
+    "tests/test_access_coverage_review_localization.py",
+    "tests/test_access_supplement_localization.py",
+    "tests/test_account_destination_localization.py",
+    "tests/test_age_simulator_localization.py",
+    "tests/test_agency_setup_localization.py",
+    "tests/test_appeal_localization.py",
+    "tests/test_audited_access_localization.py",
+    "tests/test_browser_db_sync_cleanup.py",
+    "tests/test_calendar_rejection_localization.py",
+    "tests/test_clarification_localization.py",
+    "tests/test_complaint_localization.py",
+    "tests/test_complaint_resolution_localization.py",
+    "tests/test_consent_transfer_localization.py",
+    "tests/test_copy_information_localization.py",
+    "tests/test_copy_page_label_association.py",
+    "tests/test_exception_localization.py",
+    "tests/test_field_review_invalid_localization.py",
+    "tests/test_form_error_focus.py",
+    "tests/test_listing_actions_localization.py",
+    "tests/test_match_localization.py",
+    "tests/test_measure_denial_localization.py",
+    "tests/test_mfa_localization.py",
+    "tests/test_organization_manager_localization.py",
+    "tests/test_phone_localization.py",
+    "tests/test_photo_edit_localization.py",
+    "tests/test_portability_close_localization.py",
+    "tests/test_portability_export_localization.py",
+    "tests/test_processing_denial_localization.py",
+    "tests/test_promotion_conflict_localization.py",
+    "tests/test_promotion_localization.py",
+    "tests/test_purpose_followup_localization.py",
+    "tests/test_rectification_final_localization.py",
+    "tests/test_rectification_proposal_localization.py",
+    "tests/test_rectification_review_localization.py",
+    "tests/test_reflow_320.py",
+    "tests/test_report_localization.py",
+    "tests/test_restriction_filter_localization.py",
+    "tests/test_retention_localization.py",
+    "tests/test_reviewed_copy_errors_localization.py",
+    "tests/test_rights_access_response_mobile.py",
+    "tests/test_rights_intake_localization.py",
+    "tests/test_rights_portability_coverage_mobile.py",
+    "tests/test_rights_portability_coverage_review_mobile.py",
+    "tests/test_rights_portability_jobs_mobile.py",
+    "tests/test_rights_portability_mobile.py",
+    "tests/test_rights_portability_response_mobile.py",
+    "tests/test_rights_portability_review_mobile.py",
+    "tests/test_rights_portability_selection_mobile.py",
+    "tests/test_rights_response_localization.py",
+    "tests/test_signup_localization.py",
+    "tests/test_triage_localization.py",
+    "tests/test_upload_localization.py"
+  ],
+  "graph_additions_beyond_direct_imports": [
+    "tests/test_rectification_account.py",
+    "tests/test_rectification_review.py",
+    "tests/test_rights_information_review_mobile.py",
+    "tests/test_rights_rectification.py"
+  ],
+  "historical_receipts_review": [
+    {
+      "block": 1,
+      "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+      "result": "PASS",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "3",
+          "tests": "811",
+          "time": "5412.493",
+          "timestamp": "2026-10-14T17:46:44.243677+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "affected_helper_files": [
+        "tests/test_acceptance_localization.py",
+        "tests/test_access_copy_page_errors_localization.py",
+        "tests/test_account_destination_localization.py",
+        "tests/test_age_simulator_localization.py",
+        "tests/test_agency_setup_localization.py",
+        "tests/test_calendar_rejection_localization.py",
+        "tests/test_clarification_localization.py",
+        "tests/test_field_review_invalid_localization.py",
+        "tests/test_listing_actions_localization.py",
+        "tests/test_organization_manager_localization.py",
+        "tests/test_portability_close_localization.py",
+        "tests/test_rights_portability_jobs_mobile.py",
+        "tests/test_rights_portability_mobile.py",
+        "tests/test_rights_portability_review_mobile.py",
+        "tests/test_rights_rectification.py"
+      ],
+      "current_version_status": "Historical pass; helper consumers need current-version verification"
+    },
+    {
+      "block": 2,
+      "head": "7ac517c699839212c4141fe425fb71a7bf2805fb",
+      "result": "ERROR",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "tests": "726",
+          "time": "6181.189",
+          "timestamp": "2026-10-14T19:31:48.542613+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "affected_helper_files": [
+        "tests/test_access_close_localization.py",
+        "tests/test_access_copy_preparation_localization.py",
+        "tests/test_access_supplement_localization.py",
+        "tests/test_appeal_localization.py",
+        "tests/test_complaint_localization.py",
+        "tests/test_consent_transfer_localization.py",
+        "tests/test_copy_information_localization.py",
+        "tests/test_exception_localization.py",
+        "tests/test_form_error_focus.py",
+        "tests/test_match_localization.py",
+        "tests/test_photo_edit_localization.py",
+        "tests/test_processing_denial_localization.py",
+        "tests/test_promotion_localization.py",
+        "tests/test_rectification_final_localization.py",
+        "tests/test_report_localization.py",
+        "tests/test_reset_localization.py",
+        "tests/test_retention_localization.py",
+        "tests/test_reviewed_copy_errors_localization.py",
+        "tests/test_rights_access_response_mobile.py",
+        "tests/test_rights_intake_localization.py",
+        "tests/test_rights_portability_coverage_review_mobile.py",
+        "tests/test_rights_portability_response_mobile.py",
+        "tests/test_triage_localization.py"
+      ],
+      "current_version_status": "Running full block 2 on64dfae2"
+    },
+    {
+      "block": 3,
+      "head": "36aa2882d2e5c8ee4e30ef88254a329635493fa9",
+      "result": "PASS",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "6",
+          "tests": "855",
+          "time": "4738.573",
+          "timestamp": "2026-10-14T21:58:30.074529+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "affected_helper_files": [
+        "tests/test_access_copy_image_localization.py",
+        "tests/test_access_coverage_review_localization.py",
+        "tests/test_copy_page_label_association.py",
+        "tests/test_mfa_localization.py",
+        "tests/test_phone_localization.py",
+        "tests/test_portability_export_localization.py",
+        "tests/test_purpose_followup_localization.py",
+        "tests/test_rectification_review_localization.py",
+        "tests/test_rights_response_localization.py",
+        "tests/test_signup_localization.py",
+        "tests/test_upload_localization.py"
+      ],
+      "current_version_status": "Historical pass; helper consumers need current-version verification"
+    },
+    {
+      "block": 4,
+      "head": "36aa2882d2e5c8ee4e30ef88254a329635493fa9",
+      "result": "PASS",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "3",
+          "tests": "872",
+          "time": "3550.540",
+          "timestamp": "2026-10-14T23:18:19.044642+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "affected_helper_files": [
+        "tests/test_access_copy_operation_errors_localization.py",
+        "tests/test_audited_access_localization.py",
+        "tests/test_browser_db_sync_cleanup.py",
+        "tests/test_complaint_resolution_localization.py",
+        "tests/test_measure_denial_localization.py",
+        "tests/test_promotion_conflict_localization.py",
+        "tests/test_rectification_account.py",
+        "tests/test_rectification_proposal_localization.py",
+        "tests/test_reflow_320.py",
+        "tests/test_restriction_filter_localization.py",
+        "tests/test_rights_portability_coverage_mobile.py",
+        "tests/test_rights_portability_selection_mobile.py"
+      ],
+      "current_version_status": "Historical pass; helper consumers need current-version verification"
+    }
+  ],
+  "acceptance": false,
+  "decision": "Current helper affects all four partitions; block2 rerun stays active. Other current-version helper consumers require verification; do not equate historical PASSs to current N3.",
+  "graph_candidate_files": [
+    "tests/test_acceptance_localization.py",
+    "tests/test_access_close_localization.py",
+    "tests/test_access_copy_image_localization.py",
+    "tests/test_access_copy_operation_errors_localization.py",
+    "tests/test_access_copy_page_errors_localization.py",
+    "tests/test_access_copy_preparation_localization.py",
+    "tests/test_access_coverage_review_localization.py",
+    "tests/test_access_supplement_localization.py",
+    "tests/test_account_destination_localization.py",
+    "tests/test_age_simulator_localization.py",
+    "tests/test_agency_setup_localization.py",
+    "tests/test_appeal_localization.py",
+    "tests/test_audited_access_localization.py",
+    "tests/test_browser_db_sync_cleanup.py",
+    "tests/test_calendar_rejection_localization.py",
+    "tests/test_clarification_localization.py",
+    "tests/test_complaint_localization.py",
+    "tests/test_complaint_resolution_localization.py",
+    "tests/test_consent_transfer_localization.py",
+    "tests/test_copy_information_localization.py",
+    "tests/test_copy_page_label_association.py",
+    "tests/test_exception_localization.py",
+    "tests/test_field_review_invalid_localization.py",
+    "tests/test_form_error_focus.py",
+    "tests/test_listing_actions_localization.py",
+    "tests/test_match_localization.py",
+    "tests/test_measure_denial_localization.py",
+    "tests/test_mfa_localization.py",
+    "tests/test_organization_manager_localization.py",
+    "tests/test_phone_localization.py",
+    "tests/test_photo_edit_localization.py",
+    "tests/test_portability_close_localization.py",
+    "tests/test_portability_export_localization.py",
+    "tests/test_processing_denial_localization.py",
+    "tests/test_promotion_conflict_localization.py",
+    "tests/test_promotion_localization.py",
+    "tests/test_purpose_followup_localization.py",
+    "tests/test_rectification_account.py",
+    "tests/test_rectification_final_localization.py",
+    "tests/test_rectification_proposal_localization.py",
+    "tests/test_rectification_review.py",
+    "tests/test_rectification_review_localization.py",
+    "tests/test_reflow_320.py",
+    "tests/test_report_localization.py",
+    "tests/test_reset_localization.py",
+    "tests/test_restriction_filter_localization.py",
+    "tests/test_retention_localization.py",
+    "tests/test_reviewed_copy_errors_localization.py",
+    "tests/test_rights_access_response_mobile.py",
+    "tests/test_rights_information_review_mobile.py",
+    "tests/test_rights_intake_localization.py",
+    "tests/test_rights_portability_coverage_mobile.py",
+    "tests/test_rights_portability_coverage_review_mobile.py",
+    "tests/test_rights_portability_jobs_mobile.py",
+    "tests/test_rights_portability_mobile.py",
+    "tests/test_rights_portability_response_mobile.py",
+    "tests/test_rights_portability_review_mobile.py",
+    "tests/test_rights_portability_selection_mobile.py",
+    "tests/test_rights_rectification.py",
+    "tests/test_rights_response_localization.py",
+    "tests/test_signup_localization.py",
+    "tests/test_triage_localization.py",
+    "tests/test_upload_localization.py"
+  ],
+  "graph_candidate_per_part": {
+    "1": [
+      "tests/test_acceptance_localization.py",
+      "tests/test_access_copy_page_errors_localization.py",
+      "tests/test_account_destination_localization.py",
+      "tests/test_age_simulator_localization.py",
+      "tests/test_agency_setup_localization.py",
+      "tests/test_calendar_rejection_localization.py",
+      "tests/test_clarification_localization.py",
+      "tests/test_field_review_invalid_localization.py",
+      "tests/test_listing_actions_localization.py",
+      "tests/test_organization_manager_localization.py",
+      "tests/test_portability_close_localization.py",
+      "tests/test_rights_portability_jobs_mobile.py",
+      "tests/test_rights_portability_mobile.py",
+      "tests/test_rights_portability_review_mobile.py",
+      "tests/test_rights_rectification.py"
+    ],
+    "2": [
+      "tests/test_access_close_localization.py",
+      "tests/test_access_copy_preparation_localization.py",
+      "tests/test_access_supplement_localization.py",
+      "tests/test_appeal_localization.py",
+      "tests/test_complaint_localization.py",
+      "tests/test_consent_transfer_localization.py",
+      "tests/test_copy_information_localization.py",
+      "tests/test_exception_localization.py",
+      "tests/test_form_error_focus.py",
+      "tests/test_match_localization.py",
+      "tests/test_photo_edit_localization.py",
+      "tests/test_processing_denial_localization.py",
+      "tests/test_promotion_localization.py",
+      "tests/test_rectification_final_localization.py",
+      "tests/test_rectification_review.py",
+      "tests/test_report_localization.py",
+      "tests/test_reset_localization.py",
+      "tests/test_retention_localization.py",
+      "tests/test_reviewed_copy_errors_localization.py",
+      "tests/test_rights_access_response_mobile.py",
+      "tests/test_rights_information_review_mobile.py",
+      "tests/test_rights_intake_localization.py",
+      "tests/test_rights_portability_coverage_review_mobile.py",
+      "tests/test_rights_portability_response_mobile.py",
+      "tests/test_triage_localization.py"
+    ],
+    "3": [
+      "tests/test_access_copy_image_localization.py",
+      "tests/test_access_coverage_review_localization.py",
+      "tests/test_copy_page_label_association.py",
+      "tests/test_mfa_localization.py",
+      "tests/test_phone_localization.py",
+      "tests/test_portability_export_localization.py",
+      "tests/test_purpose_followup_localization.py",
+      "tests/test_rectification_review_localization.py",
+      "tests/test_rights_response_localization.py",
+      "tests/test_signup_localization.py",
+      "tests/test_upload_localization.py"
+    ],
+    "4": [
+      "tests/test_access_copy_operation_errors_localization.py",
+      "tests/test_audited_access_localization.py",
+      "tests/test_browser_db_sync_cleanup.py",
+      "tests/test_complaint_resolution_localization.py",
+      "tests/test_measure_denial_localization.py",
+      "tests/test_promotion_conflict_localization.py",
+      "tests/test_rectification_account.py",
+      "tests/test_rectification_proposal_localization.py",
+      "tests/test_reflow_320.py",
+      "tests/test_restriction_filter_localization.py",
+      "tests/test_rights_portability_coverage_mobile.py",
+      "tests/test_rights_portability_selection_mobile.py"
+    ]
+  },
+  "source_review_confirmed_indirect_consumers": [
+    "tests/test_rectification_account.py",
+    "tests/test_rights_rectification.py"
+  ],
+  "source_review_rejected_module_only_candidates": {
+    "tests/test_rectification_review.py": "Imports assert_form presentation helper; inspected function does not call db_sync. Graph module association alone is insufficient.",
+    "tests/test_rights_information_review_mobile.py": "Imports review_captions presentation helper; inspected function does not call db_sync. Graph module association alone is insufficient."
+  },
+  "source_review_confirmed_file_scope": [
+    "tests/test_acceptance_localization.py",
+    "tests/test_access_close_localization.py",
+    "tests/test_access_copy_image_localization.py",
+    "tests/test_access_copy_operation_errors_localization.py",
+    "tests/test_access_copy_page_errors_localization.py",
+    "tests/test_access_copy_preparation_localization.py",
+    "tests/test_access_coverage_review_localization.py",
+    "tests/test_access_supplement_localization.py",
+    "tests/test_account_destination_localization.py",
+    "tests/test_age_simulator_localization.py",
+    "tests/test_agency_setup_localization.py",
+    "tests/test_appeal_localization.py",
+    "tests/test_audited_access_localization.py",
+    "tests/test_browser_db_sync_cleanup.py",
+    "tests/test_calendar_rejection_localization.py",
+    "tests/test_clarification_localization.py",
+    "tests/test_complaint_localization.py",
+    "tests/test_complaint_resolution_localization.py",
+    "tests/test_consent_transfer_localization.py",
+    "tests/test_copy_information_localization.py",
+    "tests/test_copy_page_label_association.py",
+    "tests/test_exception_localization.py",
+    "tests/test_field_review_invalid_localization.py",
+    "tests/test_form_error_focus.py",
+    "tests/test_listing_actions_localization.py",
+    "tests/test_match_localization.py",
+    "tests/test_measure_denial_localization.py",
+    "tests/test_mfa_localization.py",
+    "tests/test_organization_manager_localization.py",
+    "tests/test_phone_localization.py",
+    "tests/test_photo_edit_localization.py",
+    "tests/test_portability_close_localization.py",
+    "tests/test_portability_export_localization.py",
+    "tests/test_processing_denial_localization.py",
+    "tests/test_promotion_conflict_localization.py",
+    "tests/test_promotion_localization.py",
+    "tests/test_purpose_followup_localization.py",
+    "tests/test_rectification_account.py",
+    "tests/test_rectification_final_localization.py",
+    "tests/test_rectification_proposal_localization.py",
+    "tests/test_rectification_review_localization.py",
+    "tests/test_reflow_320.py",
+    "tests/test_report_localization.py",
+    "tests/test_reset_localization.py",
+    "tests/test_restriction_filter_localization.py",
+    "tests/test_retention_localization.py",
+    "tests/test_reviewed_copy_errors_localization.py",
+    "tests/test_rights_access_response_mobile.py",
+    "tests/test_rights_intake_localization.py",
+    "tests/test_rights_portability_coverage_mobile.py",
+    "tests/test_rights_portability_coverage_review_mobile.py",
+    "tests/test_rights_portability_jobs_mobile.py",
+    "tests/test_rights_portability_mobile.py",
+    "tests/test_rights_portability_response_mobile.py",
+    "tests/test_rights_portability_review_mobile.py",
+    "tests/test_rights_portability_selection_mobile.py",
+    "tests/test_rights_rectification.py",
+    "tests/test_rights_response_localization.py",
+    "tests/test_signup_localization.py",
+    "tests/test_triage_localization.py",
+    "tests/test_upload_localization.py"
+  ],
+  "confirmed_scope_per_part": {
+    "1": [
+      "tests/test_acceptance_localization.py",
+      "tests/test_access_copy_page_errors_localization.py",
+      "tests/test_account_destination_localization.py",
+      "tests/test_age_simulator_localization.py",
+      "tests/test_agency_setup_localization.py",
+      "tests/test_calendar_rejection_localization.py",
+      "tests/test_clarification_localization.py",
+      "tests/test_field_review_invalid_localization.py",
+      "tests/test_listing_actions_localization.py",
+      "tests/test_organization_manager_localization.py",
+      "tests/test_portability_close_localization.py",
+      "tests/test_rights_portability_jobs_mobile.py",
+      "tests/test_rights_portability_mobile.py",
+      "tests/test_rights_portability_review_mobile.py",
+      "tests/test_rights_rectification.py"
+    ],
+    "2": [
+      "tests/test_access_close_localization.py",
+      "tests/test_access_copy_preparation_localization.py",
+      "tests/test_access_supplement_localization.py",
+      "tests/test_appeal_localization.py",
+      "tests/test_complaint_localization.py",
+      "tests/test_consent_transfer_localization.py",
+      "tests/test_copy_information_localization.py",
+      "tests/test_exception_localization.py",
+      "tests/test_form_error_focus.py",
+      "tests/test_match_localization.py",
+      "tests/test_photo_edit_localization.py",
+      "tests/test_processing_denial_localization.py",
+      "tests/test_promotion_localization.py",
+      "tests/test_rectification_final_localization.py",
+      "tests/test_report_localization.py",
+      "tests/test_reset_localization.py",
+      "tests/test_retention_localization.py",
+      "tests/test_reviewed_copy_errors_localization.py",
+      "tests/test_rights_access_response_mobile.py",
+      "tests/test_rights_intake_localization.py",
+      "tests/test_rights_portability_coverage_review_mobile.py",
+      "tests/test_rights_portability_response_mobile.py",
+      "tests/test_triage_localization.py"
+    ],
+    "3": [
+      "tests/test_access_copy_image_localization.py",
+      "tests/test_access_coverage_review_localization.py",
+      "tests/test_copy_page_label_association.py",
+      "tests/test_mfa_localization.py",
+      "tests/test_phone_localization.py",
+      "tests/test_portability_export_localization.py",
+      "tests/test_purpose_followup_localization.py",
+      "tests/test_rectification_review_localization.py",
+      "tests/test_rights_response_localization.py",
+      "tests/test_signup_localization.py",
+      "tests/test_upload_localization.py"
+    ],
+    "4": [
+      "tests/test_access_copy_operation_errors_localization.py",
+      "tests/test_audited_access_localization.py",
+      "tests/test_browser_db_sync_cleanup.py",
+      "tests/test_complaint_resolution_localization.py",
+      "tests/test_measure_denial_localization.py",
+      "tests/test_promotion_conflict_localization.py",
+      "tests/test_rectification_account.py",
+      "tests/test_rectification_proposal_localization.py",
+      "tests/test_reflow_320.py",
+      "tests/test_restriction_filter_localization.py",
+      "tests/test_rights_portability_coverage_mobile.py",
+      "tests/test_rights_portability_selection_mobile.py"
+    ]
+  },
+  "source_checks": {
+    "tests/test_rectification_proposal_localization.py:97": "check_missing_selection calls db_sync and is invoked from both confirmed indirect consumer files",
+    "tests/test_rectification_review_localization.py:19": "assert_form is presentation only",
+    "tests/test_copy_information_localization.py:54": "review_captions is presentation only"
+  },
+  "scope_verified_at": "2026-10-14T23:15:46.507751+00:00",
+  "concurrent_build": {
+    "authorized_by_user": true,
+    "cpus": "6-7",
+    "cpu_quota": "100%",
+    "memory_max_bytes": 1610612736,
+    "swap_max": 0,
+    "tasks_max": 128,
+    "during_run": "20261014-225007-4dce621a",
+    "limits": "Shared-host resource isolation is not total; these regression durations are not clean performance measurements."
+  }
+}

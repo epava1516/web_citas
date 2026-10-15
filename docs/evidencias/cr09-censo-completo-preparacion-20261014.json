@@ -1,0 +1,29 @@
+{
+  "recorded_at": "2026-10-14T23:18:40.696084+00:00",
+  "worktree": "/home/felidae/proyectos/web_modelos_cr09_census_complete",
+  "base": "64dfae2890caada59d7a6b3ef49348ac2b8a3222",
+  "status": "Preparation only; no services or tests started",
+  "native_artifact_source": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/safety/_canonical_native",
+  "native_artifact_sha256": {
+    "_canonical_kernel.c": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "_canonical_kernel.cpython-312-x86_64-linux-gnu.so": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+    "manifest.json": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74"
+  },
+  "bounded_adapter": "/home/felidae/proyectos/web_modelos_cr09_census_complete/artifacts/vps-preparation/cr09-census-complete/run.py",
+  "adapter_sha256": "2a6cada69c74e652a4c1bf78b75030e6a4a07f1844e6c032babe5691fe79ff59",
+  "explicit_scenario_cases": [
+    "tests/test_owned_rights_resource_census.py::test_reviewed_content_binding_rejects_omissions_and_mutations",
+    "tests/test_owned_scenario_inventory_guards.py::test_private_content_uses_the_same_bounded_descriptor_as_its_hash",
+    "tests/test_owned_scenario_inventory_guards.py::test_private_content_rejects_post_read_mutation",
+    "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload",
+    "tests/test_rights_access_coverage_store.py::test_owned_content_omitted_source_never_creates_final_response"
+  ],
+  "acceptance": false,
+  "required_before_acceptance": [
+    "Independent code review",
+    "Focused real PG negatives",
+    "Private original review with exact encrypted response",
+    "Four profile/account and ES/EN end-to-end cases",
+    "Terminal results, source integrity and cleanup"
+  ]
+}

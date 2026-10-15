@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-10-14T22:56:49.461253+00:00",
+  "status": "design decision, implementation and runtime verification pending",
+  "source": "apps/safety/rights_access_delivery.py",
+  "sha256": "ec17bb43b52fa27e54dcc91151db88dfa941ba332d6b37ce015ce82d69506611",
+  "facts": [
+    "retained_resource_records accepts logs/mail/caches/backups/unlinked_records, scoped inventory/source/cutoff/dependencies and original content digests",
+    "snapshot binds generic census to the observed log/mail/session/queue dependencies",
+    "compile_package requires independent reviewed resource decision and explicit redaction or omission of retained resource contents",
+    "Historical log pending propagates if historical_log_capture_coverage is actually selected; this guard remains unchanged"
+  ],
+  "decision": "Use existing generic resource census for actual owned producers rather than forcing a fake six-service Compose log bundle or adding another application API",
+  "conditions": [
+    "Real source contents must be captured and reviewed, never ignored by disabling a configured source",
+    "Birth, input, settings and copy/restore dependencies must prove the finite scenario boundary",
+    "Historical capture dependencies remain unknown unless per-source evidence proves link or no-link",
+    "Unclassifiable content or omitted necessary producer keeps delivery partial"
+  ],
+  "acceptance": false,
+  "new_application_code_required": false
+}

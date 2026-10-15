@@ -1918,3 +1918,31 @@ Un ensayo directo y separado sobre PostgreSQL demostró que `db_sync` dejaba abi
 Verificación integrada de la correctiva `4f9d051`: [30 aprobadas, sin fallos ni omisiones](evidencias/cr09-hilos-censo-integrado-terminal-20261014.json), JUnit 172.756 s; fuentes intactas y limpieza independiente. Incluye cierre de conexiones sano/excepción, instantáneas y su negativa con conexión legítima ocupada, contraseña ES/EN y censo observado parcial de perfil/cuenta. No demuestra causalidad del fallo intermitente original. Se integra diagnóstico de metadatos `187e281` para conservar evidencia si reaparece. Próxima carga secuencial: bloque 2 completo con fuentes congeladas y límites propios.
 
 [Plan de particiones actualizado](evidencias/cr09-regresion-version-comun-plan-v2-20261014.json): incorpora los dos archivos nuevos una sola vez, conserva los dos archivos largos separados y las exclusiones HTTP del ejecutor oficial. Es planificación, no ejecución ni aceptación. La [comparación de alcance entre versiones](evidencias/cr09-regresion-reutilizacion-alcance-20261014.json) es anterior a la correctiva del helper; no justifica omitir la regresión de sus consumidores.
+
+
+### CR09: siguiente entrega independiente preparada — censo real completo
+
+Requisito y salida de la unidad: sobre el escenario propio finito de acceso perfil/cuenta, acreditar productores, contenido retenido, asociación y decisiones independientes ligadas al corte/huellas; preparar, inspeccionar, revisar, cerrar, repetir y descargar el contenido exacto. Fuentes omitidas, desconocidas o alteradas impiden cerrar. No basta otro capturador parcial. [Asignación y propiedad del escritor nativo](evidencias/cr09-censo-completo-escritor-inicio-20261014.json), base `64dfae2`, worktree aislado; sin servicios, pruebas de carga ni cambios en el checkout congelado. La verificación real e integración corresponden a Codex tras la carga activa.
+
+[Decisión de arquitectura contrastada en código](evidencias/cr09-censo-completo-via-generica-decision-20261014.json): usar `ACCESS_RESOURCE_ORIGIN_BUNDLE` y la categoría logs del censo genérico para los productores reales. El adaptador Compose de seis servicios no representa este escenario propio; no fabricar esos servicios ni ocultar una fuente que sí se use. Las capturas históricas mantienen su guarda y sólo se clasifican por dependencias comprobadas, sin asociación por texto o identificadores. No se incorpora un requisito nuevo de parseo físico de WAL: cualquier fuente adicional necesita dependencia/riesgo concreto del escenario. Preparación y revisión estática no acreditan el cierre.
+
+
+### CR09: grafo actualizado y revisión de los cuatro bloques (2026-10-14)
+
+Por instrucción expresa del usuario, se reconstruyó el grafo mientras seguía el bloque 2, con CPU 6–7, cuota 100%, MemoryMax 1536 MiB, swap cero y 128 tareas. Grafo de `64dfae2` en `graphify-out/`: código y estructura Markdown, sin recibos JSON históricos ni `.ai`; no extracción semántica externa. Las dos plantillas token y dos archivos SQL sin extractor quedan fuera. El grafo original del 8 de octubre se conserva. Esta concurrencia no prueba aislamiento total del host ni convierte duraciones de regresión en rendimiento limpio.
+
+[Revisión reproducible de grafo, fuentes y recibos](evidencias/cr09-grafo-bloques-revision-20261014.json): la corrección de `db_sync` alcanza los cuatro bloques. Se confirmaron además consumidores indirectos a través de `check_missing_selection` en rectificación de cuenta y perfil; dos candidatos debidos sólo a importaciones de helpers de presentación se descartaron tras leer sus cuerpos. Los bloques 1/3/4 anteriores siguen siendo PASS históricos, no aceptación de la versión corregida; bloque 2 actual continúa. El grafo orienta dependencias y no sustituye pruebas ni acredita N3.
+
+
+### CR09: bloque 2 corregido, hitos parciales (2026-10-14)
+
+La ejecución `20261014-225007-4dce621a`, fuentes congeladas `64dfae2`, sigue activa. Los [dos casos que fallaron anteriormente pasan en esta batería](evidencias/cr09-regresion-comun-v2-negativos-previos-pass-20261014.json): restauración de snapshot e inventario Redis. Se conserva la negativa anterior; este resultado no prueba la causalidad histórica del snapshot ni acepta el bloque. El [caso largo funcional terminó correctamente](evidencias/cr09-regresion-comun-v2-historial-cierre-pass-20261014.json), con 1511 páginas y etapas de aprobación, generación, inspección, cierre/repetición y descargas manifest/imagen/ZIP. No es una medición p95 ni capacidad.
+
+Preparada la [secuencia independiente de verificación del censo completo](evidencias/cr09-censo-completo-verificacion-secuencia-20261014.json), candidato aislado `6b69e419dce8654d9e479e84ecf586397207bb2a`: primero controles/negativas reales, después cuatro recorridos perfil/cuenta ES/EN con inspección privada de originales y decisiones motivadas. No iniciada; exige terminal y limpieza independiente de la carga activa. La [revisión estática de Codex](evidencias/cr09-censo-completo-revision-root-20261014.json) no sustituye esa ejecución ni acepta entrega o CR09/N3.
+
+
+### CR09: bloque 2 v2 terminado y siguiente verificación (2026-10-15)
+
+[Terminal del bloque 2](evidencias/cr09-regresion-comun-v2-parte2-terminal-20261015.json): `64dfae2`, 726 PASS/0 FAIL/0 ERROR/0 SKIP, JUnit 6162.271 s, fuentes intactas; ausencia del proceso, ambos contenedores propios y temporal comprobada independientemente. Sustituye el estado activo anterior para esta ejecución, sin borrar su historial. Ambos fallos previos pasan, sin atribuir causalidad histórica al snapshot. Los bloques 1/3/4 siguen siendo resultados históricos de otras versiones, no N3 común.
+
+Candidato del censo actualizado a `287ea2333faabcc921e7a3420648b547c723d283`: excluye originales de logs por ruta relativa exacta, evitando omitir otro archivo anidado con el mismo nombre. Control sintético añadido; Ruff/diff PASS, ejecución pendiente. Ver [revisión de Codex](evidencias/cr09-censo-completo-revision-root-20261014.json) y [secuencia de verificación actualizada](evidencias/cr09-censo-completo-verificacion-secuencia-20261014.json). No integración ni aceptación de censo, CR09 o N3 por preparación.

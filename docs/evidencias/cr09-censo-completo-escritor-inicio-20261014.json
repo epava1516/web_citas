@@ -1,0 +1,28 @@
+{
+  "created_at": "2026-10-14T22:55:03.886676+00:00",
+  "task": "cr09-census-complete-20261014",
+  "agent": "/root/cr09_census_complete_writer",
+  "kind": "native isolated writer, not Claude V1",
+  "worktree": "/home/felidae/proyectos/web_modelos_cr09_census_complete",
+  "base": "64dfae2890caada59d7a6b3ef49348ac2b8a3222",
+  "status": "running; no acceptance",
+  "ownership": [
+    "scripts/owned_scenario_inventory.py",
+    "scripts/owned_rights_resource_census.py",
+    "scripts/owned_rights_resource_content.py",
+    "tests/test_owned_scenario_inventory.py",
+    "tests/test_owned_scenario_inventory_guards.py",
+    "tests/test_owned_rights_resource_census.py",
+    "tests/test_rights_access_coverage_store.py"
+  ],
+  "restrictions": [
+    "No tests/services/load or installation until root schedules separately",
+    "No app/config/runner/governance changes",
+    "No commits or integration",
+    "No decryption of unproven historical captures",
+    "Unknown resources remain pending; no fabricated exclusions"
+  ],
+  "review_input": "Native read-only review identifies required full content census and independent disclosure review. Review itself is not runtime evidence.",
+  "external_claude_invocations_new": 0,
+  "acceptance": false
+}

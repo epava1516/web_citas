@@ -1,0 +1,82 @@
+{
+  "recorded_at": "2026-10-14T23:35:54.734271+00:00",
+  "worktree": "/home/felidae/proyectos/web_modelos_cr09_census_complete",
+  "candidate_sha": "287ea2333faabcc921e7a3420648b547c723d283",
+  "state": "PREPARED_NOT_EXECUTED",
+  "prerequisite": "Current main block 2 is terminal and independent cleanup verified. No simultaneous test loads.",
+  "controller_limits": {
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory_bytes": 3758096384,
+    "swap_bytes": 0,
+    "tasks": 512
+  },
+  "fixture_snapshots": false,
+  "stages": [
+    {
+      "name": "focused guards and actual omitted-source negative",
+      "argv": [
+        "uv",
+        "run",
+        "python",
+        "artifacts/vps-preparation/cr09-census-complete/run.py",
+        "--profile",
+        "focused",
+        "--native-source",
+        "/tmp/web-modelos-librdb-v2.4.0",
+        "--workers",
+        "1",
+        "--timeout",
+        "7200",
+        "--test",
+        "tests/test_owned_rights_resource_census.py",
+        "--test",
+        "tests/test_owned_scenario_inventory_guards.py",
+        "--test",
+        "tests/test_rights_access_coverage_store.py::test_owned_content_omitted_source_never_creates_final_response"
+      ],
+      "gate": "All selected cases terminal, source integrity and independent cleanup; preserve any failure and diagnose separately."
+    },
+    {
+      "name": "actual private content review and end-to-end delivery",
+      "argv": [
+        "uv",
+        "run",
+        "python",
+        "artifacts/vps-preparation/cr09-census-complete/run.py",
+        "--profile",
+        "focused",
+        "--native-source",
+        "/tmp/web-modelos-librdb-v2.4.0",
+        "--workers",
+        "1",
+        "--timeout",
+        "7200",
+        "--test",
+        "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload"
+      ],
+      "gate": "Only after first stage passes. Inspect actual encrypted synthetic originals and provenance separately for each of four cases, then publish motivated exact-bound encrypted decisions within bounded callback. No automatic approvals."
+    }
+  ],
+  "acceptance": false,
+  "remaining_after_stages": [
+    "Independent review of runtime evidence and disclosure semantics",
+    "Integration only after verified outcome",
+    "Graph refresh and common-version regression scope reconciliation",
+    "CR09 full criteria and subsequent original contract scope remain open"
+  ],
+  "private_original_review_checklist": [
+    "Validate exact owned run, current PID start ticks, disposable container IDs/labels/mounts and effective endpoints before reading any original.",
+    "Read the exact private envelope with descriptor/no-follow/private-owner checks and verify ciphertext publication digest, material digest and scope digest.",
+    "Inspect baseline and current contents per source, including decoded sessions, retained MIME mail, media producer relations, credentials projection, actual container logs and runner artifacts. Never copy capabilities/passwords/TOTP into recipient content or public evidence.",
+    "Keep unsupported nonempty cache/Redis/persistence, unknown associations and undeclared sources unresolved; do not substitute hashes or long explanations for a typed reader.",
+    "Validate each historical no-link decision from observed producer inputs, actual creation/mounts, executed seed branch, effective configuration and absence of restore/import. No old-original decryption based only on UUID or text matching.",
+    "Provide source-specific motivated decisions with truthful distinct actor identities and explicit content redaction/omission for each associated retained row. No automatic blanket approval.",
+    "Confirm application separate review, exact final recipient payload, replay/idempotency, browser ES/EN, profile/account and independent cleanup from terminal evidence."
+  ],
+  "candidate_updated_at": "2026-10-15T00:06:25.188356+00:00"
+}
