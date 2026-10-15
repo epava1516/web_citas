@@ -1,0 +1,125 @@
+{
+  "source_run": "20261015-092729-f18e6975",
+  "source_sha": "daf15ca527f296b580f1a0c57194920054bd94bc",
+  "kind": "historical instrumented pairing, no new load",
+  "matched_dynamic": 1200,
+  "duration_seconds": 90.50102786812931,
+  "worker_occupancy_fractions": {
+    "2508833": 0.9954981470113957,
+    "2508838": 0.9953022324738581,
+    "2508848": 0.9950909475168122,
+    "2508849": 0.9974481480503782
+  },
+  "mean_active_identified_requests": 3.9833394750524445,
+  "minimum_same_pid_gaps_seconds": {
+    "2508833": 0.0004269680939614773,
+    "2508838": 0.0004192362539470196,
+    "2508848": 0.0004408792592585087,
+    "2508849": 0.000446392223238945
+  },
+  "by_case": {
+    "all": {
+      "population": 1200,
+      "seconds": {
+        "pre_wsgi": {
+          "mean": 15.604302075653493,
+          "p95": 28.47115628886968
+        },
+        "service": {
+          "mean": 0.29993351406922253,
+          "p95": 0.5096841100603342
+        },
+        "cpu": {
+          "mean": 0.12154902061249995,
+          "p95": 0.20853506799999622
+        },
+        "sql": {
+          "mean": 0.1678126040865512,
+          "p95": 0.3193370415829122
+        }
+      }
+    },
+    "list": {
+      "population": 400,
+      "seconds": {
+        "pre_wsgi": {
+          "mean": 15.55314106466365,
+          "p95": 28.24406784400344
+        },
+        "service": {
+          "mean": 0.3369037561002187,
+          "p95": 0.4446897371672094
+        },
+        "cpu": {
+          "mean": 0.15169477010750002,
+          "p95": 0.2311020690000003
+        },
+        "sql": {
+          "mean": 0.17082864158554004,
+          "p95": 0.23394035082310438
+        }
+      }
+    },
+    "search": {
+      "population": 400,
+      "seconds": {
+        "pre_wsgi": {
+          "mean": 15.569239705520449,
+          "p95": 28.21035449206829
+        },
+        "service": {
+          "mean": 0.43439433148945683,
+          "p95": 0.550698759034276
+        },
+        "cpu": {
+          "mean": 0.14983426373249994,
+          "p95": 0.22071688600000172
+        },
+        "sql": {
+          "mean": 0.26650540370261294,
+          "p95": 0.3617478054948151
+        }
+      }
+    },
+    "detail": {
+      "population": 400,
+      "seconds": {
+        "pre_wsgi": {
+          "mean": 15.690525456776378,
+          "p95": 28.550475698895752
+        },
+        "service": {
+          "mean": 0.12850245461799203,
+          "p95": 0.18395241489633918
+        },
+        "cpu": {
+          "mean": 0.06311802799749987,
+          "p95": 0.07957967999999482
+        },
+        "sql": {
+          "mean": 0.0661037669715006,
+          "p95": 0.10579738346859813
+        }
+      }
+    }
+  },
+  "artifacts_sha256": {
+    "pytest.xml": "b68e2862a958ce9e5e1692f10a6c8148a5ea77454eec92a7719e28d298464243",
+    "benchmark-samples.json": "5f658c85d733dd13bcfd44fc3f9dbbe2f1be0e5ce3eb42f1c9fd8bead46cb06a",
+    "benchmark-worker-events.json": "eca4d99b6fcc5a2ecbd840adfccd59bd69c78a5f2c570aab7a7b4e2d2b777af6",
+    "source-hashes.json": "069cee59a94d6e168ffafb9da2deff687934f93214c1d1f0cf701bb58b4a12c2"
+  },
+  "limits": [
+    "Older pre-approval-join candidate, diagnostic wrappers add unmeasured causal overhead; not current clean p95",
+    "PreWSGI includes client/network/dispatch/scheduling; not exact socket queue",
+    "Percentiles not additive; SQL inclusive and overlaps stages/threadCPU",
+    "Occupancy is identified dynamic/upload intervals clipped to observed arrival+drain, excludes unobserved requests",
+    "Does not prove changing workers fixes current performance or CPU availability"
+  ],
+  "next": "Bounded gthread4processes x2threads candidate, fixed CPU/memory/container quotas; first real TCP concurrent response/signature/route parity, then single clean short if functional PASS",
+  "references": [
+    "https://docs.gunicorn.org/en/stable/design.html",
+    "https://docs.djangoproject.com/en/5.2/ref/databases/#caveats"
+  ],
+  "acceptance": false
+}

@@ -1,0 +1,24 @@
+{
+  "base": "a1a572f",
+  "selection": [
+    "tests/test_publication_state_tcp.py::test_current_matrix_tcp[repeated-100]"
+  ],
+  "rationale": "Historical1200paired four sync workers99.5-99.7percent busy, preWSGI p9528.47s vsservice0.51; current ownCPU counters noPGthrottling. Hypothesis of request-slot constraint; not claimed proven current cause.",
+  "candidate": "Own-CI-only gthread4workers x2threads; all existing CPU/memory/PG/Redis/pid quotas kept; no deployedDocker config/product rule change. Explicit mode forbidden measured case, normal defaults sync. Django connection perthread, existing60s reuse policy unchanged.",
+  "required": "100synthetic population, ESEN list/search/detail native fullbody parity; signed report target normalized only after signature/exactlisting/revision verification.24parallel requests with8clients plus30sequential controls; prove actual samePID WSGI overlap and exact state routes; preserve errors/sourcefreeze/cleanup. Not capacity orSLO.",
+  "prechecks": "6pure topology/legacy-adapter controlsPASS; explicitnormalresources/wrongmode rejection. Legacy frozen5argument reference gets snapshot-keyword adapter, archivedsource/hash untouched.",
+  "source_sha256": {
+    "scripts/benchmark_server_topology.py": "d0259e4ac8ab8a20bbb91e98dfe27d0a87294ceebebf4a658c2f8382bf55fc17",
+    "scripts/publication_order_benchmark.py": "b1cf5070d75c28c187eb4af7b9550664e5a66223958889779024f7937a8d5ac8",
+    "tests/test_benchmark_server_topology.py": "baf532536923464479577e179a183e2c23ae696d8ee7785ff87f235bdd0da375",
+    "tests/test_contract_http_load.py": "a7cba89994d3e5dc6ae7dc2a2527c41b5c2005dd8383fd82a4ca92a8a955c819",
+    "tests/test_publication_state_tcp.py": "bca000b89182e83f8964a681f730338d822f735fa1f2a12ff550958de69e3867",
+    "artifacts/vps-preparation/cr09-gthread-parity-20261015/run.py": "b54b58bce4a0a96d2bb1980fe28cf3fe8bb4b0976da46b45cd1f4c5cdb3ee82a"
+  },
+  "limits": "Same bounded ownCI controller4CPU3584MiB,PG1CPU1536MiB,Redis0.2CPU128MiB;onepytestworker,no snapshots,timeout1800",
+  "references": [
+    "https://docs.gunicorn.org/en/stable/design.html",
+    "https://docs.djangoproject.com/en/5.2/ref/databases/#caveats"
+  ],
+  "acceptance": false
+}

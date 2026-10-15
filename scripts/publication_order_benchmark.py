@@ -8,6 +8,13 @@ from django.db import connection
 from apps.listings import publication_state
 
 
+def compatible_order_reference(reference):
+    """Keep the frozen five-argument reference intact after the snapshot guard."""
+    def call(query, number, checked, observation, stale, *, trusted_snapshot=False):
+        return reference(query, number, checked, observation, stale)
+    return call
+
+
 class OrderVariantMiddleware:
     def __init__(self, get_response):
         if not connection.settings_dict['NAME'].startswith('test_promotion_gate_'):
@@ -17,7 +24,7 @@ class OrderVariantMiddleware:
             raise RuntimeError('Frozen reference digest mismatch')
         namespace = vars(publication_state).copy()
         exec(compile(source, settings.PUBLICATION_ORDER_REFERENCE, 'exec'), namespace)
-        self.variants = {'before':namespace['_ordered_reference'], 'after':publication_state._state_page}
+        self.variants = {'before':compatible_order_reference(namespace['_ordered_reference']), 'after':publication_state._state_page}
         self.get_response = get_response
 
     def __call__(self, request):

@@ -32,8 +32,16 @@ pytestmark = pytest.mark.django_db(transaction=True)
 @pytest.mark.parametrize("count", [100, 1000, 10000])
 @pytest.mark.parametrize("fixture", ["repeated", "diverse"])
 def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
+    from scripts.benchmark_server_topology import server_topology
+
+    topology = server_topology(os.environ)
+    threaded = topology["threads"] > 1
+    if threaded:
+        assert (count, fixture) == (100, "repeated"), "Bounded explicit threaded parity only"
     membership_contrast = os.environ.get("PUBLICATION_TCP_MEMBERSHIP_CONTRAST") == "1"
     order_contrast = membership_contrast or os.environ.get("PUBLICATION_TCP_ORDER_CONTRAST") == "1"
+    if threaded:
+        assert not order_contrast and os.environ.get("PUBLICATION_TCP_DIRTY_CONTRAST") != "1"
     repeats = 10 if membership_contrast else 5
     client = request.getfixturevalue("directory")
     prepare_population(count, fixture)
@@ -85,7 +93,9 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                     "--workers",
                     "4",
                     "--worker-class",
-                    "sync",
+                    topology["worker_class"],
+                    "--threads",
+                    str(topology["threads"]),
                     "--timeout",
                     "65",
                     "--config",
@@ -135,6 +145,28 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                 assert warm.status == 200 and canonical_hash(warm.read(), path) == expected[path], (
                     path
                 )
+        if threaded:
+            from concurrent.futures import ThreadPoolExecutor
+
+            from django.db import connections
+
+            def parallel_probe(item):
+                index, path = item
+                rid = f"d-{1000000 + index}"
+                emission = time.monotonic()
+                try:
+                    req = urllib.request.Request(origin + path, headers={"X-Benchmark-ID": rid})
+                    with urllib.request.urlopen(req, timeout=65) as response:
+                        body, status = response.read(), response.status
+                    end = time.monotonic()
+                    assert status == 200 and canonical_hash(body, path) == expected[path]
+                    return {"id": rid, "path": path, "emission": emission, "end": end,
+                            "status": status, "phase": "parallel", "block": -1}
+                finally:
+                    connections.close_all()
+
+            with ThreadPoolExecutor(max_workers=8) as pool:
+                samples.extend(pool.map(parallel_probe, enumerate(paths * 4)))
         contrast = os.environ.get("PUBLICATION_TCP_DIRTY_CONTRAST") == "1"
         page_ids = [row.pk for row in client.get("/es/", HTTP_HOST=f"127.0.0.1:{port}").context["page"].object_list]
         target = Listing.objects.filter(status="published", person__agency__isnull=False).exclude(pk__in=page_ids).first() if contrast or order_contrast else None
@@ -146,8 +178,11 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
             reference_namespace = vars(publication_state).copy()
             exec(compile(reference.read_bytes(), str(reference), "exec"), reference_namespace)
             candidate_function = publication_state._state_page
+            from scripts.publication_order_benchmark import compatible_order_reference
+
+            reference_function = compatible_order_reference(reference_namespace["_ordered_reference"])
             plans = []
-            for variant, function in [("before", reference_namespace["_ordered_reference"]), ("after", candidate_function)]:
+            for variant, function in [("before", reference_function), ("after", candidate_function)]:
                 captured = []
                 def capture(execute, query, params, many, context):
                     if not query.lstrip().upper().startswith("SELECT") or " FROM " not in query.upper():
@@ -252,8 +287,14 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                 assert event["order_variant"] == sample["phase"]
             if "/listing/" not in sample["path"]:
                 assert event["route"]["route"] == "state" and event["route"]["native_unknown"] == (1 if order_contrast or sample["phase"] == "dirty" else 0)
+        if threaded:
+            parallel_events = [byid[row["id"]] for row in samples if row["phase"] == "parallel"]
+            assert any(a["pid"] == b["pid"] and a["entry"] < b["exit"] and b["entry"] < a["exit"]
+                       for i, a in enumerate(parallel_events) for b in parallel_events[i + 1:]), (
+                "Prove actual overlapping WSGI requests in one worker process"
+            )
         report = []
-        for phase, path in [(phase, path) for phase in sorted(set(phases)) for path in paths]:
+        for phase, path in [(phase, path) for phase in sorted({r["phase"] for r in samples}) for path in paths]:
             rows = [r for r in samples if r["path"] == path and r["phase"] == phase]
             report.append(
                 {
@@ -279,6 +320,8 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
                     "samples": samples,
                     "wsgi_events": events,
                     "workers": 4,
+                    "server_topology": topology,
+                    "concurrent_client_limit": 8 if threaded else 1,
                     "dirty_contrast": contrast,
                     "order_contrast": order_contrast,
                     "membership_contrast": membership_contrast,
@@ -289,7 +332,8 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
         )
         record_property(
             "limits",
-            f"Sequential HTTP TCP controls, {repeats} per route/block after warmup; own four sync workers; lightweight one event write/transaction plus route metadata middleware, no SQL/rule profiler, overhead not causally quantified. Same-host monotonic clocks; HTTP receipt can precede final WSGI close, no end>=exit assumption. No upload/concurrency/SLO capacity. CPU/resources not_measured; matrix populations not saturated historical populations. Effect acceptance requires independent prefixed review.",
+            ("Own gthread4x2,24 concurrent body parity controls with8 clients and proven same-PID WSGI overlap; "
+             if threaded else "") + f"Sequential HTTP TCP controls, {repeats} per route/block after warmup; own four {topology['worker_class']} workers; lightweight one event write/transaction plus route metadata middleware, no SQL/rule profiler, overhead not causally quantified. Same-host monotonic clocks; HTTP receipt can precede final WSGI close, no end>=exit assumption. No upload/concurrency/SLO capacity. CPU/resources not_measured; matrix populations not saturated historical populations. Effect acceptance requires independent prefixed review.",
         )
     finally:
         if process is not None and process.poll() is None:

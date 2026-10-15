@@ -2151,3 +2151,15 @@ Reducción observada1.683754s/7.156%; comparación única, no causalidad ni repr
 | Drenaje,22.024s internos |0.731 |0/221 |1.668 |
 
 PG cuota100000/100000,afinidadCPU4; controlador afinidad0–3, cpu.max/cpuset de hoja no expuestos. Contador global del controlador incluye app/generador/pytest/Celery/colector; no CPU web exclusiva.225muestras, CPU hilo colector0.212s en toda ejecución, overhead causal no medido. No atribuir FAIL exclusivamente a cuota PG: no throttling en ventanas. Tampoco inferir CPU disponible: scheduler/steal/límites ancestros no medidos. p95 instrumentado22.005792s no sustituye última métrica limpia21.845510s ni acredita reproducibilidad. Siguiente: inspeccionar eventos WSGI/transporte/ocupación de4workers sync antes de cambiar concurrencia/cuotas; ninguna nueva candidata/carga encadenada. Referencia [kernel cgroupv2](https://cdn.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html).
+
+2026-10-15: [ocupación histórica conciliada](evidencias/cr09-ocupacion-workers-conciliacion-20261015.json),1200IDs únicos emparejados en diagnóstico anterior092729-f18e6975,4sync sin solapamientos porPID: ocupación99.5–99.7%, media3.983activos. PreWSGI p9528.471s frente servicio0.510s; no sumar percentiles ni llamar cola exacta; fuente prejoin instrumentada, no métrica actual limpia. Justifica hipótesis de slots, no causalidad final.
+
+[Paridad gthread](evidencias/cr09-gthread-paridad-terminal-20261015.json), run20261015-112505-74aa8b6e,1PASS,100fixtures,54controles de cuerpo nativo ESEN/listado/búsqueda/detalle (24concurrentes con8clientes y30secuenciales), firmas/destinoexacto y rutas vigentes verificados. SolapamientoWSGI real2porPID, límites/CPU/memoria iguales, fuentes/limpieza independientes.6controles puros de modo/recursos/referencia históricaPASS. Sólo adaptador CI explícito activa4procesos x2hilos; defaultsync y Docker desplegable no se cambian. Compatibilidad de referencia archivada5args con keyword de snapshot mediante shim, fuente/hash histórico intactos.
+
+| Control local | Antes | Candidata |
+| --- | --- | --- |
+| Topología |4sync x1hilo |4gthread x2hilos |
+| Solapamiento porPID observado |1histórico |2en prueba TCP |
+| Cuerpos concurrentes contra nativo | Sin prueba de esta candidata |24PASS, más30secuenciales |
+
+No capacidad/SLO, ni cierre concurrente de derechos o aceptación global desde paridad pública. Elegible una carga corta limpia posterior con mismos recursos/workerBeat, sin cambiarworkload/límites; adopción eventual requiere alinear runtime real y completar gates. Referencias [Gunicorn](https://docs.gunicorn.org/en/stable/design.html), [Django5.2](https://docs.djangoproject.com/en/5.2/ref/databases/#caveats): conexión porhilo, política60s actual sin modificar.

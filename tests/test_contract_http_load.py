@@ -63,6 +63,11 @@ def percentile(values, ratio):
 
 @pytest.mark.parametrize("scenario", ["functional", "short", "measured"])
 def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, record_property, scenario):
+    from scripts.benchmark_server_topology import server_topology
+
+    topology = server_topology(os.environ)
+    if topology["threads"] > 1:
+        assert scenario in {"functional", "short"}, "Threaded candidate is not a contractual measurement"
     observe_workers = os.environ.get("WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS") == "1"
     refresh_mode = os.environ.get("WEB_MODELOS_REFRESH_MODE", EAGER)
     assert refresh_mode in (EAGER, NORMAL)
@@ -149,7 +154,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "success": False,
         "duration_seconds": {"functional": 3, "short": 60, "measured": 900}[scenario],
         "arrival_rps": 20,
-        "server": "Gunicorn4 sync workers local TCP",
+        "server": f"Gunicorn4 {topology['worker_class']} workers, {topology['threads']} threads each, local TCP",
+        "server_topology": topology,
         "scope": "Synthetic local server capacity; external production/identity/CDN excluded. "
         + ("Upload processing eager in request, no real worker throughput claim." if refresh_mode == EAGER
            else "Owned Celery worker (concurrency 2) and Beat as deployed; upload processing and MOD05 refresh in the worker."),
@@ -197,6 +203,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     manifest = {
         "refresh_mode": refresh_mode,
         "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+        "server_topology": topology,
         "dataset": dataset,
         "fixture": "seed_demo; deterministic photo seed1, upload seed782134; UUID identities/time-relative validity vary per isolated run",
         "resources": resources,
@@ -317,6 +324,10 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                     f"127.0.0.1:{port}",
                     "--workers",
                     "4",
+                    "--worker-class",
+                    topology["worker_class"],
+                    "--threads",
+                    str(topology["threads"]),
                     "--timeout",
                     "60",
                     "--access-logfile",

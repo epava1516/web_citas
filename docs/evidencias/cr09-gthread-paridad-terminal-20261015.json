@@ -1,0 +1,58 @@
+{
+  "run": "20261015-112505-74aa8b6e",
+  "base_sha": "a1a572f9f1c10418519d62dbd49f3148da30bd13",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "58.140",
+      "timestamp": "2026-10-15T13:25:24.799687+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged_independent": true,
+  "cleanup_independent": {
+    "pids_absent": {
+      "3206810": true,
+      "3209220": true
+    },
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-112505-74aa8b6e": true,
+      "web-modelos-ci-redis-20261015-112505-74aa8b6e": true
+    },
+    "server_pids_absent": {
+      "3213393": true,
+      "3213365": true,
+      "3213387": true,
+      "3213372": true,
+      "3213388": true
+    }
+  },
+  "server_topology": {
+    "worker_class": "gthread",
+    "workers": 4,
+    "threads": 2
+  },
+  "parallel_controls": 24,
+  "sequential_controls": 30,
+  "actual_wsgipids_max_overlap": {
+    "3213393": 2,
+    "3213387": 2,
+    "3213372": 2,
+    "3213388": 2
+  },
+  "proved": "54fullbody nativeHTTP parity checks across ESEN list/search/detail; signed report targets verified against exactlisting/revision before normalization; actual samePID concurrentWSGI overlap and state routes. No capacity/SLO or private rights concurrent workflow acceptance.",
+  "artifacts_sha256": {
+    "result.json": "3a870a10f4750361e900c83e21c6602ad81299bdefe50ada611ed93207017d12",
+    "pytest.xml": "438fabe75fedfbda14019905e550e175f59ae30dc6600b055d4ed7bfb8f93ebe",
+    "source-hashes.json": "e25bfc4b38425c959133f31dad47f08fc7354d333aa6734627b5aa87cbea57c3",
+    "matrix-tcp-repeated-100/gunicorn.log": "18335c4d986f8839cb7dcac285a9b41a1f7c35d070a16edf2f3428bd27e54797"
+  },
+  "next": "Eligible for one preregistered clean60s short of gthread4x2 in same quotas and normalworkerBeat. No observer/profiler and no speculative chained alternatives. DeployedDocker config unchanged; if accepted later actual runtime must match tested topology.",
+  "acceptance": false
+}
