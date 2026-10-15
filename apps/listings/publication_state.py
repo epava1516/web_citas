@@ -15,10 +15,11 @@ from functools import lru_cache
 
 import django
 from django.conf import settings
+from django.contrib.postgres.search import SearchQuery, SearchRank
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.db import DatabaseError, connection, transaction
-from django.db.models import Exists, OuterRef, Q
+from django.db.models import Exists, F, OuterRef, Q
 from django.utils import timezone
 
 from apps.core.models import VerificationCheck
@@ -138,19 +139,26 @@ def expected_states(ids, version):
             revision_id=listing.approved_revision_id,
             rules_version=version,
             computed_at=now,
+            expires_at=listing.expires_at,
+            published_at=listing.published_at,
+            search_document=listing.approved_revision.search_document,
             **{"check_" + name: bool(checks.get(name)) for name in CHECKS},
         )
-    existing = set(Listing.objects.filter(pk__in=ids).values_list("pk", flat=True))
-    for listing_id in existing - set(states):
-        states[listing_id] = PublicationState(
-            listing_id=listing_id, eligible=False, revision_id=None,
+    for row in Listing.objects.filter(pk__in=ids).values(
+        "pk", "expires_at", "published_at",
+    ):
+        if row["pk"] in states:
+            continue
+        states[row["pk"]] = PublicationState(
+            listing_id=row["pk"], eligible=False, revision_id=None,
             rules_version=version, computed_at=now,
+            expires_at=row["expires_at"], published_at=row["published_at"], search_document=None,
         )
     return states
 
 
 STATE_COLUMNS = ("eligible", "revision_id", "rules_version", "check_age", "check_contact",
-                 "check_agency")
+                 "check_agency", "expires_at", "published_at", "search_document")
 
 
 def store(states):
@@ -226,7 +234,7 @@ def sweep(batch=500):
     through the normal refresh, so a concurrent change cannot be overwritten.
     """
     version = rules_version()
-    fields = ("eligible", *("check_" + name for name in CHECKS))
+    fields = STATE_COLUMNS
     divergent, last = [], None
     while True:
         page = Listing.objects.order_by("pk")
@@ -375,7 +383,8 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
             observation.update(route="fallback", reason="state_dirty_over_limit")
         return None
     unknown = []
-    if dirty or not all_state_current(trusted_snapshot=trusted_snapshot):
+    complete = not dirty and all_state_current(trusted_snapshot=trusted_snapshot)
+    if not complete:
         unknown = list(
             query.filter(~Exists(trusted_state()) | Q(pk__in=dirty)).values_list("pk", flat=True)[
                 : NATIVE_UNKNOWN_LIMIT + 1
@@ -416,7 +425,25 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
     if not multiplies_rows(population):
         # DISTINCT only removes duplicates created by many-valued joins; none are present.
         population.query.distinct = False
-    page = Paginator(population.values_list("pk", flat=True), 24).page(number)
+    projection = getattr(query, "_publication_projection", None)
+    projected = trusted_snapshot and complete and not checked and projection is not None
+    if projected:
+        expires_after, text = projection
+        population = PublicationState.objects.filter(
+            eligible=True, rules_version=rules_version(), expires_at__gt=expires_after,
+        )
+        if text:
+            search = SearchQuery(text, config="spanish", search_type="websearch") | SearchQuery(
+                text, config="english", search_type="websearch"
+            )
+            population = population.filter(search_document=search).annotate(
+                relevance=SearchRank(F("search_document"), search),
+            ).order_by("-relevance", "-published_at", "listing_id")
+        else:
+            population = population.order_by("-published_at", "listing_id")
+        page = Paginator(population.values_list("listing_id", flat=True), 24).page(number)
+    else:
+        page = Paginator(population.values_list("pk", flat=True), 24).page(number)
     selected = list(page.object_list)
     # Hydration through the native context doubles as the page guard. The rows were
     # already selected by the filters; the guard depends only on the listing itself.
@@ -438,7 +465,8 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
         return None
     page.object_list = [rows[pk] for pk in selected]
     if observation is not None:
-        observation.update(route="state", reason="trusted_state", native_unknown=len(unknown))
+        observation.update(route="state", reason="trusted_state", native_unknown=len(unknown),
+                           population="projection" if projected else "native_query")
     return page
 
 

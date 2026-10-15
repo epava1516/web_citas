@@ -189,8 +189,9 @@ class SearchForm(forms.Form):
 
 
 def candidates(data, *, stored_search=True):
+    expires_after = timezone.now()
     query = Listing.objects.filter(
-        status="published", expires_at__gt=timezone.now()
+        status="published", expires_at__gt=expires_after
     ).select_related("approved_revision__municipality", "person__agency", "person__phone_claim")
     paths = {
         "profile": "profile_type__in",
@@ -255,6 +256,11 @@ def candidates(data, *, stored_search=True):
     # QuerySet cloning drops this hint: further caller filters safely retain the
     # full native predicate rather than reusing an unfiltered sibling.
     native._publication_state_population = population
+    # Only these exact original candidates can use the maintained projection.
+    # Active filters and cloned querysets retain the existing population path.
+    if (stored_search and set(data) <= set(SearchForm.base_fields)
+            and not any(value for name, value in data.items() if name not in {"q", "services_mode"})):
+        native._publication_projection = (expires_after, data.get("q") or "")
     return native
 
 

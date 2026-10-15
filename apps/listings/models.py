@@ -1,5 +1,6 @@
 import uuid
 
+from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
 from django.db import models
 
@@ -191,6 +192,16 @@ class PublicationState(models.Model):
     check_contact = models.BooleanField(default=False)
     check_agency = models.BooleanField(default=False)
     computed_at = models.DateTimeField()
+    # Copied by the same versioned refresher, never interpreted as live authority.
+    expires_at = models.DateTimeField(null=True)
+    published_at = models.DateTimeField(null=True)
+    search_document = SearchVectorField(null=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["-published_at", "listing"], name="pub_state_page_order"),
+            GinIndex(fields=["search_document"], name="pub_state_search_doc_gin"),
+        ]
 
 
 class PublicationDirty(models.Model):
