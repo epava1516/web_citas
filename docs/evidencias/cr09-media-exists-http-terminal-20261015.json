@@ -1,0 +1,129 @@
+{
+  "run": "20261015-214838-7c455fc1",
+  "head": "f9f404d8818cef35b326c2285c1d2f6f35a06e76",
+  "result": "FAIL184.82s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "pids_absent": [
+    2736610,
+    2738909,
+    2747311,
+    2747357,
+    2747358,
+    2747312
+  ],
+  "unit": "MainPID=0\nControlGroup=\nActiveState=failed\n",
+  "summary": {
+    "counts": {
+      "scheduled": 1200,
+      "emitted": 1200,
+      "not_emitted": 0,
+      "successful": 1200,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "observable_latency_seconds": {
+      "p50": 0.2349718976765871,
+      "p90": 0.7303285030648112,
+      "p95": 1.1187720689922571,
+      "p99": 1.2594248806126416,
+      "max": 1.3649445939809084,
+      "population": 1200
+    },
+    "diagnostic_checks": {
+      "validity": true,
+      "latency_and_errors": false,
+      "pending_at_window": true,
+      "final_pending": true,
+      "upload": true,
+      "timeout_policy": true,
+      "drain": true
+    },
+    "final_upload_counts": {
+      "scheduled": 1,
+      "emitted": 1,
+      "not_emitted": 0,
+      "successful": 1,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "window_close": {
+      "dynamic": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 1197,
+        "failed": 0,
+        "pending": 3,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 1,
+        "emitted": 1,
+        "not_emitted": 0,
+        "successful": 1,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "observed_at_seconds": 60.002510271035135
+    },
+    "gunicorn_dynamic_service_p95_seconds": 0.313042
+  },
+  "media_tasks": [
+    {
+      "wall": 0.9714662348851562,
+      "thread_cpu": 0.557831938,
+      "state": "SUCCESS"
+    }
+  ],
+  "cohorts": [
+    {
+      "from": 0,
+      "before": 5,
+      "n": 100,
+      "p95": 1.2810483258217573,
+      "slow": 91,
+      "mean_service": 0.22782736,
+      "mean_client_minus_service": 0.8585475113489622
+    },
+    {
+      "from": 5,
+      "before": 10,
+      "n": 100,
+      "p95": 0.881253520026803,
+      "slow": 17,
+      "mean_service": 0.17747659999999998,
+      "mean_client_minus_service": 0.459188072838524
+    },
+    {
+      "from": 10,
+      "before": 15,
+      "n": 100,
+      "p95": 0.3835501093417406,
+      "slow": 0,
+      "mean_service": 0.1797992,
+      "mean_client_minus_service": 0.056052498559708896
+    },
+    {
+      "from": 15,
+      "before": 60,
+      "n": 900,
+      "p95": 0.38714220374822617,
+      "slow": 0,
+      "mean_service": 0.18178569666666666,
+      "mean_client_minus_service": 0.03198131308385932
+    }
+  ],
+  "scope": "Clean short; per-ID service retained. Client minus service not exact queue. Single run per version, no causal/reproducibility claim."
+}
