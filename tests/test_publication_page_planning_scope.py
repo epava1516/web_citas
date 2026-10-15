@@ -21,6 +21,8 @@ def settings_now():
 def test_page_planning_policy_restores_enclosing_transaction(request, failure):
     request.getfixturevalue("directory")
     initial = settings_now()
+    raw = connection.connection
+    previous_factory, previous_threshold = raw.cursor_factory, raw.prepare_threshold
     with transaction.atomic():
         with connection.cursor() as cursor:
             cursor.execute("SET LOCAL jit=on")
@@ -37,5 +39,7 @@ def test_page_planning_policy_restores_enclosing_transaction(request, failure):
                      r._pv_check_manager, r._pv_check_subject) for r in scoped.rows] == [
                         (r.pk, r.approved_revision_id, r._pv_grant, r._pv_check_status,
                          r._pv_check_manager, r._pv_check_subject) for r in ordinary.rows]
+        assert raw.cursor_factory is previous_factory
+        assert raw.prepare_threshold == previous_threshold
         assert settings_now() == before
     assert settings_now() == initial

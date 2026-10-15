@@ -1,0 +1,52 @@
+{
+  "run_id": "20261015-134917-08ddd589",
+  "head": "40264ae1c363d06ace1976ca57be56d5bbb8e56d",
+  "result": "6 PASS",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "testcases": [
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_prepared_pages_match_native_binding_and_observe_revoked_catalog",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "45",
+      "time": "48.908"
+    },
+    {
+      "classname": "tests.test_publication_page_planning_scope",
+      "name": "test_page_planning_policy_restores_enclosing_transaction[False]",
+      "file": "tests/test_publication_page_planning_scope.py",
+      "line": "19",
+      "time": "5.889"
+    },
+    {
+      "classname": "tests.test_publication_page_planning_scope",
+      "name": "test_page_planning_policy_restores_enclosing_transaction[True]",
+      "file": "tests/test_publication_page_planning_scope.py",
+      "line": "19",
+      "time": "5.863"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_disabled_binding_does_not_touch_connection",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "12",
+      "time": "0.001"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_binding_restores_attributes_on_error_and_nested_scope",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "18",
+      "time": "0.001"
+    },
+    {
+      "classname": "tests.test_publication_prepared_binding",
+      "name": "test_existing_prepare_threshold_is_preserved",
+      "file": "tests/test_publication_prepared_binding.py",
+      "line": "36",
+      "time": "0.048"
+    }
+  ],
+  "scope": "Scoped binding option restoration including realSQLerror/plannerGUCrollback; preparedgenericplan repeatedpage row/body equality and postprepare catalog revocation before/afterrefresh. Not expandedN2/performance/N3 acceptance."
+}

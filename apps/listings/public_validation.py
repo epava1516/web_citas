@@ -1,10 +1,12 @@
-"""Current-request publication validation; no persistent or cross-request cache."""
+"""Current-request validation; no cross-request publication data/result cache."""
 
+from contextlib import contextmanager
 from copy import copy
 
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db import connection, transaction
+from django.db.backends.postgresql.base import ServerBindingCursor
 from django.db.models import Case, CharField, Exists, OuterRef, Prefetch, Q, Subquery, Value, When
 from django.db.models.functions import Cast
 from django.forms.models import model_to_dict
@@ -168,12 +170,37 @@ def publication_query(query, document):
     )
 
 
+@contextmanager
+def _prepared_page_binding(*, enabled):
+    """Prepare only page-read SELECTs on this thread's physical connection.
+
+    PostgreSQL caches query plans, never publication results. Each execution
+    reads its current transaction snapshot. Restore cursor/threshold on every
+    exit; other reads, writes and schema operations keep their native binding.
+    """
+    if not enabled:
+        yield
+        return
+    connection.validate_thread_sharing()
+    raw = connection.connection  # The enclosing atomic block has connected.
+    previous_factory, previous_threshold = raw.cursor_factory, raw.prepare_threshold
+    try:
+        raw.cursor_factory = ServerBindingCursor
+        if previous_threshold is None:
+            raw.prepare_threshold = 5
+        yield
+    finally:
+        raw.cursor_factory = previous_factory
+        raw.prepare_threshold = previous_threshold
+
+
 def read_publication_values(query, *, bounded_joins=False):
     """Materialize the captured scalar SELECT with a request-scoped JIT policy.
 
     Only the explicitly selected read uses jit=off; page hydration also bounds
     explicit join planning. Its SQL/parameters and READ COMMITTED statement
-    semantics stay native; no server/session policy is cached or changed.
+    semantics stay native. Page reads use scoped server binding/preparation;
+    cursor configuration and planner settings are restored afterwards.
     Restore explicitly on success for an enclosing transaction. Atomic rollback
     restores the local setting/savepoint on errors, without querying a broken
     transaction. Callers perform authority checks/hydration outside this scope.
@@ -188,7 +215,8 @@ def read_publication_values(query, *, bounded_joins=False):
                 cursor.execute("SHOW jit")
                 previous = cursor.fetchone()[0]
                 cursor.execute("SET LOCAL jit=off")
-        rows = list(query)
+        with _prepared_page_binding(enabled=bounded_joins):
+            rows = list(query)
         with connection.cursor() as cursor:
             if bounded_joins:
                 cursor.execute("SELECT set_config('jit', %s, true), set_config('join_collapse_limit', %s, true)",
