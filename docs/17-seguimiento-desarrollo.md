@@ -1,3 +1,5 @@
+Siguientecontrasteacotado8syncdentrodelasmismas4CPU enworktreeaislado:54positivas+24negativasconparidadycupo8acreditados1PASS60.99s, falloDEBUGprevio/limpiezaconservados. [Preparación](evidencias/cr09-eight-sync-current-20261015.md). Procedeauncortolimpio; defaultmain4syncyúltimop951.218890FAILsiguen vigentes.
+
 Muestreoexterno posterior: capturaalineada224937−1.218a+18.269s,9026muestras/965errores, diagnósticoFAILno limpio. PilasORM/hidratación/validación/render yesperaSQL, sinúnicocálculo identificado. [Evidencia y limitaciones](evidencias/cr09-external-stacks-20261015.md). Producto3ba2ec4/últimolimpio1.218890sFAILvigentes; no procesosactivos. Cambiosposteriores sóloinstrumentos/marcadorBeat8898026, no nuevoproducto. CR09/N3abiertos.
 
 Diagnóstico223005 actual terminado FAILinstrumentado1.123788s,1200IDs emparejados; dominaesperapreWSGI yseidentificapicod-1WSGI1.208s/CPU.602s/SQL.513s. [Evidencia y siguiente contraste](evidencias/cr09-query-structure-ingress-20261015.md). Últimolimpio1.218890sFAIL; ningúnprocesoactivo.

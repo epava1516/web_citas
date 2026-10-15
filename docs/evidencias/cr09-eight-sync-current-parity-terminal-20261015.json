@@ -1,0 +1,63 @@
+{
+  "run": "20261015-230849-565d78b5",
+  "head": "ddf2d192e226c0b16fca81c6d90f48d8ed02fc01",
+  "result": "1PASS60.99s",
+  "source_freeze_verified": true,
+  "cleanup_verified": true,
+  "topology": {
+    "worker_class": "sync",
+    "workers": 8,
+    "threads": 1
+  },
+  "worker_pids_absent": [
+    3230070,
+    3230073,
+    3230074,
+    3230079,
+    3230080,
+    3230081,
+    3230082,
+    3230083
+  ],
+  "positive_samples": 54,
+  "parallel_peak": 8,
+  "negative": {
+    "cases": 24,
+    "statuses": [
+      200,
+      200,
+      200,
+      200,
+      404,
+      404,
+      200,
+      200,
+      200,
+      200,
+      404,
+      404,
+      200,
+      200,
+      200,
+      200,
+      404,
+      404,
+      200,
+      200,
+      200,
+      200,
+      404,
+      404
+    ],
+    "exact_native_bodies": true
+  },
+  "preserved_failure": {
+    "run": "20261015-230607-e1533152",
+    "head": "60c8e26",
+    "result": "1FAIL60.26s",
+    "source_freeze_verified": true,
+    "cleanup_verified": true,
+    "finding": "Both revocation detail responses404, body mismatch; runner DJANGO_DEBUG1 versus pytest DEBUGFalse. Corrected only TCP runtime fixture DJANGO_DEBUG0, no weakened body assertion."
+  },
+  "pure_topology_tests": "7PASS0.18s; unsupported --no-cov invocation rejected before tests, no dependency installed"
+}

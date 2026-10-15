@@ -1,0 +1,13 @@
+# Contraste fijo8sync del producto actual dentro de4CPU
+
+Prototipoaislado web_modelos_cr09_eight_sync_current_20261015, base6332348, commits60c8e26/ddf2d19. Sin integración ni cambioDocker/servicionormal. SóloselectorCI explícitoSYNC8 exclusivo aPGpropio ytests; default4sync permanece. No gthread ni cambio worker_connections, dependencias, CPU/memoria/PG/Redis/tasks/swap.8procesos **no son8CPU**.
+
+Justificación previa: actualingress PG≈0.603coresinitial/0.466steady sinthrottle, controller≈2.11/2.05deafinidad4, WSGImedio0.230/0.184s yCPUthread0.110/0.100. Las pilasexternasobservanesperaSQL. Con4sync cada petición ocupaunslot duranteIO; secontrasta unúnico8syncestándar, cuyo dispatch comparte socketkernel yno colaThreadPoolporproceso. [FuenteGunicorn23](https://github.com/benoitc/gunicorn/blob/23.0.0/docs/source/design.rst). No garantíadebeneficio nibypassproxy/defensasnecesarias. HistóricoFAIL8sync conproductomuchomáscostoso se conserva, noextrapolarcapacidadactual. No barrido deparámetros.
+
+Prechecks7PASS0.18s: default4 intacto, SYNC8sólo1/PGpropio, rechaza gthreadmezclado yservicionormal; preservareferenciafirmadadeorden. Primercomando con --no-cov fue rechazado antesdetests(pluginnoinstalado); retiradoargumento, sininstalardependencias.
+
+[Paridad real](cr09-eight-sync-current-parity-terminal-20261015.json):230607FAIL60.26s por404distinto (mismostatus404, DEBUG1runtimeCI vsDEBUGFalsepytest), fuente/limpiezaverificadas. FixtureTCP corregidaexplícitamenteDJANGO_DEBUG0 como elbenchlimpioyausaba; no cambiaappoaflojaasserthash. Reejecución230849-565d78b5SHA ddf2d19 **1PASS60.99s**.54positivas(30secuenciales/24paralelas)ESENlist/search/detail conhashbodyexactoyfirma/vínculodenuncia comprobados;24negativastrasrevocarconsentimiento(16listas200sinexposición/8fichas404), cuerposnativos exactos. Los8PIDssirven, pico8WSGIactivos,nooverlapenunmismoprocesosync. Fuentecongeladaexacta, root/UVchild/8workersausentes,temporal/containerspropiosretirados,MainPID0/ControlGroupvacío.
+
+## Ensayo preregistrado
+
+Uncorto60s/20rps/10k/1subida/Celery2+Beat, reglas existentes deBeat5s/generadorfreeze/seisprobes sin cambios,8sync con mismos4CPUafinidad0–3/controller3584MiBswap0pids512;PG1CPUafinidad4/1536MiBsinwap/pids128;Redis0.2CPUafinidad5/128MiBsinwap/pids64. MismoPy3.12.15/Django5.2.17/Gunicorn23/PG17.11/kernel; sinperfiladores/observadoresworkers. SiFAILpreservar/separardiagnóstico,norepetirciego. SiPASSrepetiruna vez sin cambios antesdelcontrato15min. No aceptarCR09/N3porpuertasdedelivery. RuntimeDocker2predeterminado vsbenchmark4/8requierecoherencia antesdeaceptaciónreal; aun noresuelto por estetexto.
