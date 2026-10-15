@@ -12,6 +12,7 @@ from django.db import connection
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
+from scripts.benchmark_owned_backend_cpu import backend_delta, backend_snapshot, owned_backend
 from scripts.benchmark_owned_cpu_observer import group_path, owned_pg_pid, read_group
 from scripts.synthetic_load_dataset import populate
 
@@ -78,9 +79,11 @@ def test_owned_statement_ranking(request, record_property):
                                '(SELECT oid FROM pg_database WHERE datname=current_database()), 0)')
                 cursor.execute('SELECT pg_backend_pid()')
                 backend_before = cursor.fetchone()[0]
+            backend_identity = owned_backend(run, inspection, backend_before)
+            backend_cpu_before = backend_snapshot(backend_identity)
             before = read_group(pg_group)
             started, cpu = time.perf_counter(), time.thread_time()
-            for _ in range(3):
+            for _ in range(12):
                 response = client.get(path, params)
                 assert response.status_code == 200
                 assert response['Cache-Control'] == 'no-store'
@@ -90,12 +93,14 @@ def test_owned_statement_ranking(request, record_property):
                     assert [x.pk for x in response.context['page']] == [x.pk for x in control.context['page']]
             elapsed, cpu = time.perf_counter() - started, time.thread_time() - cpu
             after = read_group(pg_group)
+            backend_cpu_after = backend_snapshot(backend_identity)
             with connection.cursor() as cursor:
                 cursor.execute('SELECT pg_backend_pid()')
                 backend_after = cursor.fetchone()[0]
                 cursor.execute(STATISTICS)
                 columns = [x.name for x in cursor.description]
                 statements = [dict(zip(columns, row, strict=True)) for row in cursor.fetchall()]
+            assert backend_before == backend_after
             assert statements and any(x['plans'] > 0 for x in statements)
             families = {x['family'] for x in statements}
             if index >= 4:
@@ -107,17 +112,22 @@ def test_owned_statement_ranking(request, record_property):
             assert all(x['family'] != 'observer' or x['calls'] <= 3 for x in statements)
             cases.append({'case': index, 'language': path.split('/')[1],
                           'kind': 'listing' if index < 2 else 'search' if index < 4 else 'detail',
-                          'requests': 3, 'wall_seconds': elapsed, 'thread_cpu_seconds': cpu,
+                          'requests': 12, 'wall_seconds': elapsed, 'thread_cpu_seconds': cpu,
                           'postgres_cpu_usec': after['cpu_stat']['usage_usec'] - before['cpu_stat']['usage_usec'],
                           'backend_pid_unchanged': backend_before == backend_after,
+                          'backend_cpu': backend_delta(backend_cpu_before, backend_cpu_after),
+                          'backend_host_pid': backend_identity['pid'],
                           'statements': [x for x in statements if x['family'] != 'observer']})
     finally:
         with connection.cursor() as cursor:
             cursor.execute("SELECT set_config('pg_stat_statements.track_planning', %s, false)", [previous])
     record_property('owned_pg_statement_ranking', cases)
-    record_property('scope', '18 sequential synthetic requests, six cases, three per case after warm control; '
+    record_property('scope', '72 sequential synthetic requests, six cases, twelve per case after warm control; '
                     'no Celery/Beat background load asserted. Own label-verified PostgreSQL only, '
                     'database-specific statistics reset. Planning/exec elapsed are not CPU; cgroup CPU '
                     'includes own database maintenance, no background subtraction or causal attribution. '
+                    'Backend utime/stime measured for SQL-identified PID mapped only through owned Docker top '
+                    'and verified cgroup/NSpid/starttime; excludes other PG processes/parallel workers, '
+                    'tick quantization applies and planning instrumentation adds CPU. '
                     'Client Django thread CPU includes ORM/render/test transport, not WSGI-only. '
                     'Tracking planning adds overhead; no clean p95/capacity/N3. SQL/parameters not exported.')
