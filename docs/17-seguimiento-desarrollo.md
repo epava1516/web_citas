@@ -1,6 +1,6 @@
 # Seguimiento de ejecución del contrato
 
-Actualización de investigación: grafo renovado antes de recorrer requests; startup collect descartado tras diagnóstico aislado. Corregidos ciclos evitables del memoizador de validación con prueba roja y 18 controles PASS; efecto p95 aún pendiente de corto limpio. [Evidencia y límites](evidencias/cr09-grafo-recorrido-solucion-20261015.md). El último p95 limpio publicado continúa FAIL1.126776s; CR09/N3 abiertos.
+Actualización de investigación: grafo renovado antes de recorrer requests; startup collect descartado tras diagnóstico aislado. Corregidos ciclos evitables del memoizador de validación con prueba roja y 18 controles PASS; corto posterior FAIL0.919814s, mejora observada no causal18.37%. [Evidencia y límites](evidencias/cr09-grafo-recorrido-solucion-20261015.md). El último p95 limpio publicado es FAIL0.919814s; CR09/N3 abiertos.
 
 ## Estado vigente de continuación — 2026-10-15
 
@@ -8,17 +8,17 @@ Codex continúa el objetivo completo **CR09 → CR10 → GS01 → BF/BB → C**.
 
 Los cuatro bloques v3 de base `8fb4cf1` terminaron. Se conservan fallos/errores originales y sus recuperaciones afectadas; [cola consolidada](evidencias/cr09-cola-cierre-consolidada-20261014.md) y [matriz83](83-auditoria-pendientes-cr09.md) recogen alcance/omisiones. Los cambios posteriores de aplicación requieren verificar dependencias y aplicabilidad común; no sumar versiones distintas como N3.
 
-Última carga corta limpia: `20261015-204103-c1ea755d`, SHA `1dd8041`, 4sync/20rps60s/10k sintéticos,worker/Beat propios y una subida. Sin perfiladores/observadores; fuentes y limpieza independientes. [Recibo y p95 por caso](evidencias/cr09-estadisticas-fixture-http-20261015.md). Sólo cambió preparación estadística del builder, metadata en dataset; código de requests igual a0ab41bf.
+Última carga corta limpia: `20261015-211213-04ef9338`, SHA `392c2c8`, 4sync/20rps60s/10k sintéticos,worker/Beat propios y una subida. Sin perfiladores/observadores; fuentes y limpieza independientes. [Comparación y p95 por caso](evidencias/cr09-memo-lifetime-http-20261015.md). Cambio: elimina ciclos añadidos por el memoizador; startup collect descartado, preparación del builder conservada.
 
-| Métrica | Anterior | Última carga |
+|Métrica|Anterior|Última carga|
 |---|---:|---:|
-|p95 completo|0.961137s|1.126776s|
-|p50 completo|0.242461s|0.232267s|
-|Pendientesal60s|5|3|
-|Completadasfinales|1200|1200|
+|p95 completo|1.126776s|0.919814s|
+|p50 completo|0.232267s|0.262638s|
+|Pendientes al60s|3|3|
+|Completadas finales|1200|1200|
 |Errores/timeouts|0|0|
 
-FAIL frente<0.8s, sin mejora p95 observada; no atribuir diferencias al runtime o al portátil. No repetirFAIL/ensayo15min/N3.106peticiones>=0.8s emitidas0–10s, ninguna después. El atasco de preparación separado sí tiene correctiva9PASS; no equivale a rendimiento de requests. MOD09 expedientes grandes conserva aprobación provisional separada.
+FAIL frente<0.8s, reducción observada18.37% sin causalidad/reproducibilidad; no atribuir diferencias al portátil. No repetirFAIL/15min/N3.79peticiones>=0.8s emitidas0–5s, ninguna después. Ciclo reproducido1FAIL y correctiva18PASS, sin cuello único demostrado. Preparación corregida separada9PASS. MOD09 grandes conserva aprobación provisional. Usuario solicita reanálisis descompuesto/investigación antes de otra intervención.
 
 Candidata de proyección mantenida `54be315`: PublicationState copia fechas y vector persistido mediante el mismo refresco versionado. Sólo candidatos originales de listado/q, cobertura completa, dirty vacío y snapshot propio RR; guardia y fallback nativos conservados. [Controles iniciales5PASS](evidencias/cr09-proyeccion-mantenida-controles-terminal-20261015.json), [ciclo/migración3PASS](evidencias/cr09-proyeccion-mantenida-ciclo-terminal-20261015.json) y [ampliada92PASS](evidencias/cr09-proyeccion-mantenida-ampliada-terminal-20261015.json), terminales sin omisiones con fuentes/limpieza verificadas en sus alcances. La ampliada ya incluye los tres controles de ciclo: no sumar duplicados como aceptación global. Primera carga limpia posterior:FAIL1.361793s, sin aceptación global.
 

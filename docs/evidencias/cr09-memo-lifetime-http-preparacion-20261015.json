@@ -1,0 +1,123 @@
+{
+  "refresh_mode": "normal_worker_beat",
+  "source_commit": "392c2c870719082e9c50277a8b55ec6d8a32bde3",
+  "server_topology": {
+    "worker_class": "sync",
+    "workers": 4,
+    "threads": 1
+  },
+  "dataset": {
+    "published": 10000,
+    "synthetic": true,
+    "shared_synthetic_photo_fixture": true,
+    "planner_statistics": {
+      "method": "ANALYZE after bulk, before native validation",
+      "tables": [
+        "listings_listing",
+        "listings_revision",
+        "mediafiles_photo",
+        "mediafiles_match",
+        "safety_rightsrectificationexecution"
+      ],
+      "scope": "Owned synthetic preparation only"
+    },
+    "sample_ids": [
+      "5f6d30ef-4527-40dd-a0f9-ff0601a4bd94",
+      "592f6097-81ca-4946-9dff-e10076842354",
+      "7e84f874-4bd7-40fe-9674-d6143a852ade",
+      "a4747905-d32a-42b6-ae0a-4982241fadc7",
+      "1212e067-77c6-4224-b5cf-3aa2051fe2da",
+      "0587f457-942c-41b6-91af-0e80b4673bee",
+      "595a640a-4395-4ac8-ad56-0c74e8cc5156",
+      "e1667fa5-8361-45ea-8078-df1a0516981e",
+      "aad0cf84-43e9-4ae3-bebb-8d26de92fa13",
+      "2efd554d-7f1e-4f25-94c2-34929aa33f72",
+      "fe0b802d-a419-4a98-8e56-e51715852460",
+      "3e74f13b-60cb-4dad-b448-bce068ebea78",
+      "a15dda25-f222-496c-bd6d-d86727c1a4ef",
+      "0fd8e6a7-a713-4e90-8526-f01770522388",
+      "3a580a56-89b7-4291-b9ae-002b4a9bfbbe",
+      "eb380b9a-08fb-4d39-838f-00540bb74877",
+      "8ab32e81-a319-407d-8648-863b6b886ae0",
+      "7f803802-3092-49d6-babe-c6d4472ae642",
+      "80322faa-2c52-4bd8-92f8-59b5f32c4e23",
+      "58a37fa0-05e2-46bc-9731-85b10104ef1c",
+      "8b5e22b0-9c43-4099-8f05-dc287824bfbe"
+    ],
+    "limits": "State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.",
+    "deployment_step": "Publication state current for rules fec17ecbb498: 9998 recomputed"
+  },
+  "fixture": "seed_demo; deterministic photo seed1, upload seed782134; UUID identities/time-relative validity vary per isolated run",
+  "resources": {
+    "os": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+    "cpu_count": 8,
+    "cpu_affinity_count": 4,
+    "postgres_version": "17.11",
+    "gunicorn_version": "23.0.0",
+    "django_version": "5.2.17",
+    "python_version": "3.12.15",
+    "pg_server_shared": true,
+    "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+    "memory_total": "MemTotal:       23760928 kB"
+  },
+  "routes": [
+    "/es/",
+    "/en/",
+    "/es/?q=photography",
+    "/en/?q=synthetic",
+    "/es/listing/5f6d30ef-4527-40dd-a0f9-ff0601a4bd94/",
+    "/en/listing/8b5e22b0-9c43-4099-8f05-dc287824bfbe/"
+  ],
+  "mix": {
+    "listing": "1/3",
+    "search": "1/3",
+    "detail": "1/3",
+    "languages": "ES/EN alternating",
+    "uploads": "separate1/minute,15 for contractual run"
+  },
+  "policy": {
+    "generator_p95_seconds_max": 0.01,
+    "generator_p99_seconds_max": 0.025,
+    "generator_max_seconds_max": 0.1,
+    "not_emitted_fraction_max": 0.0,
+    "request_timeout_seconds": 65.0,
+    "drain_seconds": 70.0,
+    "latency_p95_seconds_strict_max": 0.8,
+    "error_fraction_strict_max": 0.01,
+    "late_emission": "Never emit after the arrival window; count as not emitted",
+    "final_pending": "Classify as failed/timeout at fixed drain deadline",
+    "emission": "Async coroutine begins whole HTTP transaction, before connection/open/read; event-loop scheduling wait included in generator delay",
+    "justification": "20rps gives 50ms intervals: p95 jitter 1/5 interval, p99 1/2 interval, max two intervals; zero missing arrivals preserves full18000. Drain70s=timeout65s+5s margin.",
+    "request_timeout_scope": "65s total across connection, headers and body",
+    "client_concurrency": "No pending-request cap; per-request65s timeout bounds outstanding lifetime"
+  },
+  "duration_seconds": 60,
+  "arrival_rps": 20,
+  "scheduled_dynamic": 1200,
+  "uploads_separate": 1,
+  "state": "Fresh Gunicorn/DB fixture; six cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
+  "error_policy": "Every non200 dynamic response, transport error or timeout is failed; uploads require302; final drain expiry classified failed/timeout",
+  "instrumentation": "Monotonic per-request timestamps/async ledger; client-process GC callbacks during arrivals/drain with monotonic intervals and collector-thread CPU; event overlap reviewed after drain, causal callback overhead not_measured; GC policy unchanged; Gunicorn access logs; no app CPU/DB/RSS sampling",
+  "scope": "60s concurrent diagnostic only; not contractual capacity",
+  "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
+  "client_fixture_preparation": "One gc.collect(2) after fixture/auth/upload construction, before arrival clock; enabled/thresholds unchanged, automatic GC remains active during load. Previous observed client GC321.913ms overlaps273.107ms of273.462ms maximum emission delay; no backend improvement attributed to this preparation",
+  "worker_observer": {
+    "enabled": false,
+    "mode": "legacy_wrapped_phases",
+    "scope": "Synthetic IDs already emitted by client; WSGI entry/end, inclusive context/validation/render and SQL execute wall/thread CPU; validation snapshots each1000calls, partial events retained; no real URI/SQL/parameters; not TCP accept or exact queue time; causal overhead not_measured",
+    "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
+    "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition"
+  },
+  "diagnostic_criteria": {
+    "valid_generator_and_reconciled_accounting": true,
+    "p95_seconds_strict_below": 0.8,
+    "error_ratio_strict_below": 0.01,
+    "uploads_expected_status": 302,
+    "dynamic_pending_at_window_max": 20,
+    "final_pending": 0,
+    "request_timeout_seconds": 65,
+    "drain_seconds_max": 70,
+    "verdict_scope": "Complete diagnostic gate, transport verdict retained separately",
+    "reason": "Existing latency/error objectives plus at most one second of arrivals outstanding as accumulation filter; generator numeric policy unchanged. No capacity acceptance."
+  }
+}
