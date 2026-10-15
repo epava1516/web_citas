@@ -1,0 +1,1116 @@
+{
+  "run_id": "20261015-121729-a5c6f44e",
+  "head": "a67a73cdff415ddd8271dde63fb722c80c6eaea6",
+  "result": "1 PASS",
+  "duration_seconds": 82.83,
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "baseline_run": "20261015-120212-6084a2d8",
+  "cases": [
+    {
+      "params": {},
+      "count": 10000,
+      "page_size": 24,
+      "wall_seconds": 0.39036388974636793,
+      "thread_cpu_seconds": 0.290814644000001,
+      "rules": [
+        {
+          "rule": "sql.cursor_execute",
+          "calls": 42,
+          "inclusive_time": 0.24553037714213133,
+          "exclusive_time": 0.24553037714213133,
+          "max_exclusive_time": 0.17229956714436412,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.15596588599998995,
+          "exclusive_thread_cpu_time": 0.15596588599998995,
+          "max_exclusive_thread_cpu_time": 0.1460341339999971,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 0.005845961360526937,
+          "mean_exclusive_thread_cpu_time": 0.003713473476190237
+        },
+        {
+          "rule": "QuerySet._fetch_all",
+          "calls": 64,
+          "inclusive_time": 0.29451051354408264,
+          "exclusive_time": 0.046225947327911854,
+          "max_exclusive_time": 0.02195614017546177,
+          "instrumented_children": {
+            "django.db.models.query.prefetch_related_objects": 0.04188618017360568,
+            "sql.cursor_execute": 0.2032836158759892,
+            "Model.__init__": 0.0031147701665759087
+          },
+          "inclusive_thread_cpu_time": 0.2294289100000313,
+          "exclusive_thread_cpu_time": 0.0452897409999764,
+          "max_exclusive_thread_cpu_time": 0.021566169999992724,
+          "instrumented_children_thread_cpu": {
+            "django.db.models.query.prefetch_related_objects": 0.02827600800000596,
+            "sql.cursor_execute": 0.1528048330000047,
+            "Model.__init__": 0.0030583280000442414
+          },
+          "mean_exclusive_time": 0.0007222804269986227,
+          "mean_exclusive_thread_cpu_time": 0.0007076522031246313
+        },
+        {
+          "rule": "apps.listings.discovery.render",
+          "calls": 1,
+          "inclusive_time": 0.04951921524479985,
+          "exclusive_time": 0.03857085341587663,
+          "max_exclusive_time": 0.03857085341587663,
+          "instrumented_children": {
+            "sql.cursor_execute": 0.007443332113325596,
+            "Model.__init__": 0.0002609044313430786,
+            "QuerySet._fetch_all": 0.003244125284254551
+          },
+          "inclusive_thread_cpu_time": 0.035624209999994605,
+          "exclusive_thread_cpu_time": 0.03199385499998186,
+          "max_exclusive_thread_cpu_time": 0.03199385499998186,
+          "instrumented_children_thread_cpu": {
+            "sql.cursor_execute": 0.0014035409999948456,
+            "Model.__init__": 0.0002538500000213162,
+            "QuerySet._fetch_all": 0.00197296399999658
+          },
+          "mean_exclusive_time": 0.03857085341587663,
+          "mean_exclusive_thread_cpu_time": 0.03199385499998186
+        },
+        {
+          "rule": "PublicationContext.__init__",
+          "calls": 1,
+          "inclusive_time": 0.260551935993135,
+          "exclusive_time": 0.01577874831855297,
+          "max_exclusive_time": 0.01577874831855297,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.006928391754627228,
+            "apps.listings.public_validation.read_publication_values": 0.23784479591995478
+          },
+          "inclusive_thread_cpu_time": 0.2155702140000031,
+          "exclusive_thread_cpu_time": 0.0154935810000012,
+          "max_exclusive_thread_cpu_time": 0.0154935810000012,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.003788425000003315,
+            "apps.listings.public_validation.read_publication_values": 0.19628820799999858
+          },
+          "mean_exclusive_time": 0.01577874831855297,
+          "mean_exclusive_thread_cpu_time": 0.0154935810000012
+        },
+        {
+          "rule": "PublicationContext._bound_validation",
+          "calls": 48,
+          "inclusive_time": 0.020879911724478006,
+          "exclusive_time": 0.009356596507132053,
+          "max_exclusive_time": 0.0013819648884236813,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.003988096956163645,
+            "SnapshotDetails._post_clean": 0.004681822378188372,
+            "ContactsForm._post_clean": 0.0028533958829939365
+          },
+          "inclusive_thread_cpu_time": 0.018544516999988048,
+          "exclusive_thread_cpu_time": 0.009307511999999463,
+          "max_exclusive_thread_cpu_time": 0.0013765099999929475,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.0022197710000071424,
+            "SnapshotDetails._post_clean": 0.004608260999994229,
+            "ContactsForm._post_clean": 0.0024089729999872134
+          },
+          "mean_exclusive_time": 0.00019492909389858445,
+          "mean_exclusive_thread_cpu_time": 0.0001939064999999888
+        },
+        {
+          "rule": "django.db.models.query.prefetch_related_objects",
+          "calls": 5,
+          "inclusive_time": 0.04188618017360568,
+          "exclusive_time": 0.009012273047119379,
+          "max_exclusive_time": 0.007708696182817221,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.0328739071264863
+          },
+          "inclusive_thread_cpu_time": 0.02827600800000596,
+          "exclusive_thread_cpu_time": 0.008840735000006816,
+          "max_exclusive_thread_cpu_time": 0.007543183000002784,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.019435272999999142
+          },
+          "mean_exclusive_time": 0.0018024546094238757,
+          "mean_exclusive_thread_cpu_time": 0.0017681470000013634
+        },
+        {
+          "rule": "apps.listings.publication_state.publicly_visible",
+          "calls": 24,
+          "inclusive_time": 0.02635087026283145,
+          "exclusive_time": 0.0043120733462274075,
+          "max_exclusive_time": 0.0019295504316687584,
+          "instrumented_children": {
+            "PublicationContext._bound_validation": 0.020879911724478006,
+            "django.forms.models.construct_instance": 1.861201599240303e-05,
+            "sql.cursor_execute": 0.0011402731761336327
+          },
+          "inclusive_thread_cpu_time": 0.023168556999998202,
+          "exclusive_thread_cpu_time": 0.004288991000009901,
+          "max_exclusive_thread_cpu_time": 0.0019080759999994257,
+          "instrumented_children_thread_cpu": {
+            "PublicationContext._bound_validation": 0.018544516999988048,
+            "django.forms.models.construct_instance": 1.72679999934644e-05,
+            "sql.cursor_execute": 0.0003177810000067893
+          },
+          "mean_exclusive_time": 0.00017966972275947532,
+          "mean_exclusive_thread_cpu_time": 0.00017870795833374586
+        },
+        {
+          "rule": "Model.__init__",
+          "calls": 281,
+          "inclusive_time": 0.0033756745979189873,
+          "exclusive_time": 0.0033756745979189873,
+          "max_exclusive_time": 5.560088902711868e-05,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.0033121780000655576,
+          "exclusive_thread_cpu_time": 0.0033121780000655576,
+          "max_exclusive_thread_cpu_time": 5.4815999995128095e-05,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 1.2013076860921663e-05,
+          "mean_exclusive_thread_cpu_time": 1.1787110320517999e-05
+        },
+        {
+          "rule": "django.forms.models.construct_instance",
+          "calls": 49,
+          "inclusive_time": 0.002023792825639248,
+          "exclusive_time": 0.002023792825639248,
+          "max_exclusive_time": 7.648998871445656e-05,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.0020032149999806848,
+          "exclusive_thread_cpu_time": 0.0020032149999806848,
+          "max_exclusive_thread_cpu_time": 7.697899999925539e-05,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 4.1301894400800976e-05,
+          "mean_exclusive_thread_cpu_time": 4.088193877511602e-05
+        },
+        {
+          "rule": "Revision.full_clean",
+          "calls": 48,
+          "inclusive_time": 0.0019795047119259834,
+          "exclusive_time": 0.0019795047119259834,
+          "max_exclusive_time": 0.0002138027921319008,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.001834769000055303,
+          "exclusive_thread_cpu_time": 0.001834769000055303,
+          "max_exclusive_thread_cpu_time": 0.00021417700000370132,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 4.123968149845799e-05,
+          "mean_exclusive_thread_cpu_time": 3.822435416781881e-05
+        },
+        {
+          "rule": "SnapshotDetails._post_clean",
+          "calls": 24,
+          "inclusive_time": 0.004681822378188372,
+          "exclusive_time": 0.0019492828287184238,
+          "max_exclusive_time": 0.00011307140812277794,
+          "instrumented_children": {
+            "django.forms.models.construct_instance": 0.0013480396009981632,
+            "Revision.full_clean": 0.0013844999484717846
+          },
+          "inclusive_thread_cpu_time": 0.004608260999994229,
+          "exclusive_thread_cpu_time": 0.0018879509999720767,
+          "max_exclusive_thread_cpu_time": 9.621899998535355e-05,
+          "instrumented_children_thread_cpu": {
+            "django.forms.models.construct_instance": 0.0013442980000064608,
+            "Revision.full_clean": 0.0013760120000156917
+          },
+          "mean_exclusive_time": 8.122011786326766e-05,
+          "mean_exclusive_thread_cpu_time": 7.866462499883653e-05
+        },
+        {
+          "rule": "ContactsForm._post_clean",
+          "calls": 24,
+          "inclusive_time": 0.0028533958829939365,
+          "exclusive_time": 0.001601249910891056,
+          "max_exclusive_time": 0.00021466799080371857,
+          "instrumented_children": {
+            "django.forms.models.construct_instance": 0.0006571412086486816,
+            "Revision.full_clean": 0.0005950047634541988
+          },
+          "inclusive_thread_cpu_time": 0.0024089729999872134,
+          "exclusive_thread_cpu_time": 0.0013085669999668426,
+          "max_exclusive_thread_cpu_time": 7.835600000305476e-05,
+          "instrumented_children_thread_cpu": {
+            "django.forms.models.construct_instance": 0.0006416489999807595,
+            "Revision.full_clean": 0.0004587570000396113
+          },
+          "mean_exclusive_time": 6.671874628712733e-05,
+          "mean_exclusive_thread_cpu_time": 5.452362499861844e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.read_publication_values",
+          "calls": 1,
+          "inclusive_time": 0.23784479591995478,
+          "exclusive_time": 0.0006608865223824978,
+          "max_exclusive_time": 0.0006608865223824978,
+          "instrumented_children": {
+            "sql.cursor_execute": 0.0032886662520468235,
+            "QuerySet._fetch_all": 0.23389524314552546
+          },
+          "inclusive_thread_cpu_time": 0.19628820799999858,
+          "exclusive_thread_cpu_time": 0.0006499120000142966,
+          "max_exclusive_thread_cpu_time": 0.0006499120000142966,
+          "instrumented_children_thread_cpu": {
+            "sql.cursor_execute": 0.0006963709999894263,
+            "QuerySet._fetch_all": 0.19494192499999485
+          },
+          "mean_exclusive_time": 0.0006608865223824978,
+          "mean_exclusive_thread_cpu_time": 0.0006499120000142966
+        },
+        {
+          "rule": "apps.listings.publication_state.all_state_current",
+          "calls": 1,
+          "inclusive_time": 0.01466715568676591,
+          "exclusive_time": 0.0001958739012479782,
+          "max_exclusive_time": 0.0001958739012479782,
+          "instrumented_children": {
+            "sql.cursor_execute": 0.014471281785517931
+          },
+          "inclusive_thread_cpu_time": 0.0004340879999986669,
+          "exclusive_thread_cpu_time": 0.00019550599999718088,
+          "max_exclusive_thread_cpu_time": 0.00019550599999718088,
+          "instrumented_children_thread_cpu": {
+            "sql.cursor_execute": 0.000238582000001486
+          },
+          "mean_exclusive_time": 0.0001958739012479782,
+          "mean_exclusive_thread_cpu_time": 0.00019550599999718088
+        }
+      ],
+      "gc_collections": [
+        {
+          "generation": 0,
+          "wall_seconds": 0.0001980578526854515,
+          "thread_cpu_seconds": 0.0001981899999989878,
+          "parents": [
+            "QuerySet._fetch_all"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00015107309445738792,
+          "thread_cpu_seconds": 0.000142488000001606,
+          "parents": [
+            "PublicationContext.__init__"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 8.477317169308662e-05,
+          "thread_cpu_seconds": 8.345399999853953e-05,
+          "parents": [
+            "PublicationContext.__init__"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 9.725382551550865e-05,
+          "thread_cpu_seconds": 9.562500000015461e-05,
+          "parents": [
+            "PublicationContext.__init__"
+          ]
+        },
+        {
+          "generation": 1,
+          "wall_seconds": 0.0017528957687318325,
+          "thread_cpu_seconds": 0.001722899000000666,
+          "parents": [
+            "PublicationContext.__init__"
+          ]
+        },
+        {
+          "generation": 2,
+          "wall_seconds": 0.14639843627810478,
+          "thread_cpu_seconds": 0.14490399900000028,
+          "parents": [
+            "PublicationContext.__init__",
+            "apps.listings.public_validation.read_publication_values",
+            "QuerySet._fetch_all",
+            "sql.cursor_execute"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00019241776317358017,
+          "thread_cpu_seconds": 0.00019254099999699292,
+          "parents": [
+            "PublicationContext.__init__",
+            "apps.listings.public_validation.read_publication_values",
+            "QuerySet._fetch_all",
+            "django.db.models.query.prefetch_related_objects",
+            "QuerySet._fetch_all"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00018601072952151299,
+          "thread_cpu_seconds": 0.00014105600000391405,
+          "parents": [
+            "PublicationContext.__init__",
+            "apps.listings.public_validation.read_publication_values",
+            "QuerySet._fetch_all",
+            "django.db.models.query.prefetch_related_objects",
+            "QuerySet._fetch_all"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00015065260231494904,
+          "thread_cpu_seconds": 0.0001512719999965384,
+          "parents": [
+            "apps.listings.publication_state.publicly_visible",
+            "PublicationContext._bound_validation",
+            "SnapshotDetails._post_clean",
+            "Revision.full_clean"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0001123589463531971,
+          "thread_cpu_seconds": 0.0001120809999974881,
+          "parents": [
+            "apps.listings.discovery.render"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0001988029107451439,
+          "thread_cpu_seconds": 0.0001981809999946904,
+          "parents": [
+            "apps.listings.discovery.render",
+            "QuerySet._fetch_all"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00011683208867907524,
+          "thread_cpu_seconds": 0.00011548999999888565,
+          "parents": [
+            "apps.listings.discovery.render"
+          ]
+        }
+      ]
+    },
+    {
+      "params": {
+        "q": "photography"
+      },
+      "count": 10000,
+      "page_size": 24,
+      "wall_seconds": 0.3124690600670874,
+      "thread_cpu_seconds": 0.169020481000004,
+      "rules": [
+        {
+          "rule": "sql.cursor_execute",
+          "calls": 42,
+          "inclusive_time": 0.14495446160435677,
+          "exclusive_time": 0.14495446160435677,
+          "max_exclusive_time": 0.037780913058668375,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.012917254999997851,
+          "exclusive_thread_cpu_time": 0.012917254999997851,
+          "max_exclusive_thread_cpu_time": 0.0008814939999979288,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 0.003451296704865637,
+          "mean_exclusive_thread_cpu_time": 0.00030755369047613933
+        },
+        {
+          "rule": "apps.listings.discovery.render",
+          "calls": 1,
+          "inclusive_time": 0.07010172726586461,
+          "exclusive_time": 0.05173787148669362,
+          "max_exclusive_time": 0.05173787148669362,
+          "instrumented_children": {
+            "sql.cursor_execute": 0.013797979336231947,
+            "Model.__init__": 0.00036978302523493767,
+            "QuerySet._fetch_all": 0.004196093417704105
+          },
+          "inclusive_thread_cpu_time": 0.04884091899999987,
+          "exclusive_thread_cpu_time": 0.043823674000023516,
+          "max_exclusive_thread_cpu_time": 0.043823674000023516,
+          "instrumented_children_thread_cpu": {
+            "sql.cursor_execute": 0.0020776270000055774,
+            "Model.__init__": 0.0003607949999704374,
+            "QuerySet._fetch_all": 0.002578823000000341
+          },
+          "mean_exclusive_time": 0.05173787148669362,
+          "mean_exclusive_thread_cpu_time": 0.043823674000023516
+        },
+        {
+          "rule": "QuerySet._fetch_all",
+          "calls": 64,
+          "inclusive_time": 0.1741488822735846,
+          "exclusive_time": 0.0423886370845139,
+          "max_exclusive_time": 0.014265462756156921,
+          "instrumented_children": {
+            "django.db.models.query.prefetch_related_objects": 0.045292912516742945,
+            "sql.cursor_execute": 0.08118372084572911,
+            "Model.__init__": 0.005283611826598644
+          },
+          "inclusive_thread_cpu_time": 0.08887805999999188,
+          "exclusive_thread_cpu_time": 0.041433887000046354,
+          "max_exclusive_thread_cpu_time": 0.0140322600000502,
+          "instrumented_children_thread_cpu": {
+            "django.db.models.query.prefetch_related_objects": 0.03359457399999144,
+            "sql.cursor_execute": 0.008740962999986834,
+            "Model.__init__": 0.005108635999967248
+          },
+          "mean_exclusive_time": 0.0006623224544455297,
+          "mean_exclusive_thread_cpu_time": 0.0006474044843757243
+        },
+        {
+          "rule": "PublicationContext.__init__",
+          "calls": 1,
+          "inclusive_time": 0.09828975377604365,
+          "exclusive_time": 0.01623517507687211,
+          "max_exclusive_time": 0.01623517507687211,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.011614756658673286,
+            "apps.listings.public_validation.read_publication_values": 0.07043982204049826
+          },
+          "inclusive_thread_cpu_time": 0.06787227199999535,
+          "exclusive_thread_cpu_time": 0.015845792000007464,
+          "max_exclusive_thread_cpu_time": 0.015845792000007464,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.005942244999985746,
+            "apps.listings.public_validation.read_publication_values": 0.04608423500000214
+          },
+          "mean_exclusive_time": 0.01623517507687211,
+          "mean_exclusive_thread_cpu_time": 0.015845792000007464
+        },
+        {
+          "rule": "PublicationContext._bound_validation",
+          "calls": 48,
+          "inclusive_time": 0.02762391371652484,
+          "exclusive_time": 0.013143645599484444,
+          "max_exclusive_time": 0.0019451454281806946,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.005596871487796307,
+            "SnapshotDetails._post_clean": 0.005814267788082361,
+            "ContactsForm._post_clean": 0.003069128841161728
+          },
+          "inclusive_thread_cpu_time": 0.024878221000008693,
+          "exclusive_thread_cpu_time": 0.012660604000004128,
+          "max_exclusive_thread_cpu_time": 0.0019111819999935165,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.003488679000000161,
+            "SnapshotDetails._post_clean": 0.0057179570000087665,
+            "ContactsForm._post_clean": 0.0030109809999956383
+          },
+          "mean_exclusive_time": 0.00027382594998925924,
+          "mean_exclusive_thread_cpu_time": 0.00026376258333341934
+        },
+        {
+          "rule": "django.db.models.query.prefetch_related_objects",
+          "calls": 5,
+          "inclusive_time": 0.045292912516742945,
+          "exclusive_time": 0.010081505868583918,
+          "max_exclusive_time": 0.007625309284776449,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.03521140664815903
+          },
+          "inclusive_thread_cpu_time": 0.03359457399999144,
+          "exclusive_thread_cpu_time": 0.009754235000009714,
+          "max_exclusive_thread_cpu_time": 0.007379077000017276,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.023840338999981725
+          },
+          "mean_exclusive_time": 0.0020163011737167834,
+          "mean_exclusive_thread_cpu_time": 0.0019508470000019428
+        },
+        {
+          "rule": "apps.listings.publication_state.publicly_visible",
+          "calls": 24,
+          "inclusive_time": 0.03571800980716944,
+          "exclusive_time": 0.006258764769881964,
+          "max_exclusive_time": 0.003075818996876478,
+          "instrumented_children": {
+            "PublicationContext._bound_validation": 0.02762391371652484,
+            "django.forms.models.construct_instance": 3.358302637934685e-05,
+            "sql.cursor_execute": 0.0018017482943832874
+          },
+          "inclusive_thread_cpu_time": 0.03152180500001123,
+          "exclusive_thread_cpu_time": 0.00614670000000217,
+          "max_exclusive_thread_cpu_time": 0.003012265999998931,
+          "instrumented_children_thread_cpu": {
+            "PublicationContext._bound_validation": 0.024878221000008693,
+            "django.forms.models.construct_instance": 3.237600000005614e-05,
+            "sql.cursor_execute": 0.0004645080000003077
+          },
+          "mean_exclusive_time": 0.00026078186541174847,
+          "mean_exclusive_thread_cpu_time": 0.0002561125000000904
+        },
+        {
+          "rule": "Model.__init__",
+          "calls": 281,
+          "inclusive_time": 0.005653394851833582,
+          "exclusive_time": 0.005653394851833582,
+          "max_exclusive_time": 0.0022971509024500847,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.0054694309999376856,
+          "exclusive_thread_cpu_time": 0.0054694309999376856,
+          "max_exclusive_thread_cpu_time": 0.0022806580000036547,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 2.011884288908748e-05,
+          "mean_exclusive_thread_cpu_time": 1.9464167259564718e-05
+        },
+        {
+          "rule": "django.forms.models.construct_instance",
+          "calls": 49,
+          "inclusive_time": 0.0026518013328313828,
+          "exclusive_time": 0.0026518013328313828,
+          "max_exclusive_time": 0.00015031732618808746,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.002615233999968325,
+          "exclusive_thread_cpu_time": 0.002615233999968325,
+          "max_exclusive_thread_cpu_time": 0.0001449279999974351,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 5.411839454757924e-05,
+          "mean_exclusive_thread_cpu_time": 5.337212244833316e-05
+        },
+        {
+          "rule": "SnapshotDetails._post_clean",
+          "calls": 24,
+          "inclusive_time": 0.005814267788082361,
+          "exclusive_time": 0.0025131283327937126,
+          "max_exclusive_time": 0.00020799273625016212,
+          "instrumented_children": {
+            "django.forms.models.construct_instance": 0.0017647179774940014,
+            "Revision.full_clean": 0.0015364214777946472
+          },
+          "inclusive_thread_cpu_time": 0.0057179570000087665,
+          "exclusive_thread_cpu_time": 0.002445514000008586,
+          "max_exclusive_thread_cpu_time": 0.00020356900000706446,
+          "instrumented_children_thread_cpu": {
+            "django.forms.models.construct_instance": 0.0017352949999960288,
+            "Revision.full_clean": 0.0015371480000041515
+          },
+          "mean_exclusive_time": 0.00010471368053307135,
+          "mean_exclusive_thread_cpu_time": 0.00010189641666702443
+        },
+        {
+          "rule": "Revision.full_clean",
+          "calls": 48,
+          "inclusive_time": 0.002068723551928997,
+          "exclusive_time": 0.002068723551928997,
+          "max_exclusive_time": 0.0001439480111002922,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.00207281400001591,
+          "exclusive_thread_cpu_time": 0.00207281400001591,
+          "max_exclusive_thread_cpu_time": 0.00013518099999743072,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 4.3098407331854105e-05,
+          "mean_exclusive_thread_cpu_time": 4.318362500033146e-05
+        },
+        {
+          "rule": "ContactsForm._post_clean",
+          "calls": 24,
+          "inclusive_time": 0.003069128841161728,
+          "exclusive_time": 0.0016833264380693436,
+          "max_exclusive_time": 0.00011556781828403473,
+          "instrumented_children": {
+            "django.forms.models.construct_instance": 0.0008535003289580345,
+            "Revision.full_clean": 0.0005323020741343498
+          },
+          "inclusive_thread_cpu_time": 0.0030109809999956383,
+          "exclusive_thread_cpu_time": 0.0016277520000116397,
+          "max_exclusive_thread_cpu_time": 0.00011319899999051586,
+          "instrumented_children_thread_cpu": {
+            "django.forms.models.construct_instance": 0.00084756299997224,
+            "Revision.full_clean": 0.0005356660000117586
+          },
+          "mean_exclusive_time": 7.013860158622265e-05,
+          "mean_exclusive_thread_cpu_time": 6.782300000048498e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.read_publication_values",
+          "calls": 1,
+          "inclusive_time": 0.07043982204049826,
+          "exclusive_time": 0.0006779711693525314,
+          "max_exclusive_time": 0.0006779711693525314,
+          "instrumented_children": {
+            "sql.cursor_execute": 0.002630514558404684,
+            "QuerySet._fetch_all": 0.06713133631274104
+          },
+          "inclusive_thread_cpu_time": 0.04608423500000214,
+          "exclusive_thread_cpu_time": 0.0006786440000041694,
+          "max_exclusive_thread_cpu_time": 0.0006786440000041694,
+          "instrumented_children_thread_cpu": {
+            "sql.cursor_execute": 0.0007494709999988913,
+            "QuerySet._fetch_all": 0.04465611999999908
+          },
+          "mean_exclusive_time": 0.0006779711693525314,
+          "mean_exclusive_thread_cpu_time": 0.0006786440000041694
+        },
+        {
+          "rule": "apps.listings.publication_state.all_state_current",
+          "calls": 1,
+          "inclusive_time": 0.014081350062042475,
+          "exclusive_time": 0.00015247706323862076,
+          "max_exclusive_time": 0.00015247706323862076,
+          "instrumented_children": {
+            "sql.cursor_execute": 0.013928872998803854
+          },
+          "inclusive_thread_cpu_time": 0.00036774199999456414,
+          "exclusive_thread_cpu_time": 0.0001515239999960727,
+          "max_exclusive_thread_cpu_time": 0.0001515239999960727,
+          "instrumented_children_thread_cpu": {
+            "sql.cursor_execute": 0.00021621799999849145
+          },
+          "mean_exclusive_time": 0.00015247706323862076,
+          "mean_exclusive_thread_cpu_time": 0.0001515239999960727
+        }
+      ],
+      "gc_collections": [
+        {
+          "generation": 0,
+          "wall_seconds": 0.00037989113479852676,
+          "thread_cpu_seconds": 0.0003796869999987962,
+          "parents": []
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00025355443358421326,
+          "thread_cpu_seconds": 0.0002489490000030514,
+          "parents": [
+            "PublicationContext.__init__"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0001267576590180397,
+          "thread_cpu_seconds": 0.0001253209999987348,
+          "parents": [
+            "PublicationContext.__init__"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00012020021677017212,
+          "thread_cpu_seconds": 0.00011847100000039745,
+          "parents": [
+            "PublicationContext.__init__"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0003461088053882122,
+          "thread_cpu_seconds": 0.00034600000000040154,
+          "parents": [
+            "PublicationContext.__init__",
+            "apps.listings.public_validation.read_publication_values",
+            "QuerySet._fetch_all"
+          ]
+        },
+        {
+          "generation": 1,
+          "wall_seconds": 0.0022710440680384636,
+          "thread_cpu_seconds": 0.002256242999997937,
+          "parents": [
+            "PublicationContext.__init__",
+            "apps.listings.public_validation.read_publication_values",
+            "QuerySet._fetch_all",
+            "django.db.models.query.prefetch_related_objects",
+            "QuerySet._fetch_all",
+            "Model.__init__"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0003014528192579746,
+          "thread_cpu_seconds": 0.00030064900000326134,
+          "parents": [
+            "apps.listings.publication_state.publicly_visible",
+            "PublicationContext._bound_validation"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00021871598437428474,
+          "thread_cpu_seconds": 0.0002081420000052958,
+          "parents": [
+            "apps.listings.discovery.render"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00021135900169610977,
+          "thread_cpu_seconds": 0.00021294700000140665,
+          "parents": [
+            "apps.listings.discovery.render",
+            "QuerySet._fetch_all",
+            "sql.cursor_execute"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0001866971142590046,
+          "thread_cpu_seconds": 0.0001853040000057149,
+          "parents": [
+            "apps.listings.discovery.render"
+          ]
+        }
+      ]
+    },
+    {
+      "params": {
+        "q": "synthetic"
+      },
+      "count": 10000,
+      "page_size": 24,
+      "wall_seconds": 0.28530579013749957,
+      "thread_cpu_seconds": 0.16032635500000225,
+      "rules": [
+        {
+          "rule": "sql.cursor_execute",
+          "calls": 42,
+          "inclusive_time": 0.127935241907835,
+          "exclusive_time": 0.127935241907835,
+          "max_exclusive_time": 0.02995268115773797,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.012387834999991298,
+          "exclusive_thread_cpu_time": 0.012387834999991298,
+          "max_exclusive_thread_cpu_time": 0.0013740220000002523,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 0.003046077188281786,
+          "mean_exclusive_thread_cpu_time": 0.0002949484523807452
+        },
+        {
+          "rule": "QuerySet._fetch_all",
+          "calls": 64,
+          "inclusive_time": 0.17055698484182358,
+          "exclusive_time": 0.04506836645305157,
+          "max_exclusive_time": 0.016456202138215303,
+          "instrumented_children": {
+            "django.db.models.query.prefetch_related_objects": 0.04602432809770107,
+            "sql.cursor_execute": 0.07553814817219973,
+            "Model.__init__": 0.003926142118871212
+          },
+          "inclusive_thread_cpu_time": 0.0887606089999835,
+          "exclusive_thread_cpu_time": 0.043480484999989244,
+          "max_exclusive_thread_cpu_time": 0.015553491000027009,
+          "instrumented_children_thread_cpu": {
+            "django.db.models.query.prefetch_related_objects": 0.032461886000000106,
+            "sql.cursor_execute": 0.009027623000001483,
+            "Model.__init__": 0.0037906149999926697
+          },
+          "mean_exclusive_time": 0.0007041932258289307,
+          "mean_exclusive_thread_cpu_time": 0.0006793825781248319
+        },
+        {
+          "rule": "apps.listings.discovery.render",
+          "calls": 1,
+          "inclusive_time": 0.05532706202939153,
+          "exclusive_time": 0.044716482516378164,
+          "max_exclusive_time": 0.044716482516378164,
+          "instrumented_children": {
+            "sql.cursor_execute": 0.006432672962546349,
+            "Model.__init__": 0.00027494411915540695,
+            "QuerySet._fetch_all": 0.0039029624313116074
+          },
+          "inclusive_thread_cpu_time": 0.04287447099999753,
+          "exclusive_thread_cpu_time": 0.038674364999998545,
+          "max_exclusive_thread_cpu_time": 0.038674364999998545,
+          "instrumented_children_thread_cpu": {
+            "sql.cursor_execute": 0.0013999339999983818,
+            "Model.__init__": 0.0002685989999946514,
+            "QuerySet._fetch_all": 0.002531573000005949
+          },
+          "mean_exclusive_time": 0.044716482516378164,
+          "mean_exclusive_thread_cpu_time": 0.038674364999998545
+        },
+        {
+          "rule": "PublicationContext.__init__",
+          "calls": 1,
+          "inclusive_time": 0.10091484105214477,
+          "exclusive_time": 0.015562092419713736,
+          "max_exclusive_time": 0.015562092419713736,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.008937237318605185,
+            "apps.listings.public_validation.read_publication_values": 0.07641551131382585
+          },
+          "inclusive_thread_cpu_time": 0.06893616200000707,
+          "exclusive_thread_cpu_time": 0.015408530000016185,
+          "max_exclusive_thread_cpu_time": 0.015408530000016185,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.004659933999988652,
+            "apps.listings.public_validation.read_publication_values": 0.048867698000002235
+          },
+          "mean_exclusive_time": 0.015562092419713736,
+          "mean_exclusive_thread_cpu_time": 0.015408530000016185
+        },
+        {
+          "rule": "django.db.models.query.prefetch_related_objects",
+          "calls": 5,
+          "inclusive_time": 0.04602432809770107,
+          "exclusive_time": 0.010423005558550358,
+          "max_exclusive_time": 0.00861218711361289,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.035601322539150715
+          },
+          "inclusive_thread_cpu_time": 0.032461886000000106,
+          "exclusive_thread_cpu_time": 0.010266285000007258,
+          "max_exclusive_thread_cpu_time": 0.008475667000006126,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.02219560099999285
+          },
+          "mean_exclusive_time": 0.0020846011117100715,
+          "mean_exclusive_thread_cpu_time": 0.0020532570000014517
+        },
+        {
+          "rule": "PublicationContext._bound_validation",
+          "calls": 48,
+          "inclusive_time": 0.024530249647796154,
+          "exclusive_time": 0.010372326709330082,
+          "max_exclusive_time": 0.0015737051144242287,
+          "instrumented_children": {
+            "QuerySet._fetch_all": 0.006823407951742411,
+            "SnapshotDetails._post_clean": 0.004876378923654556,
+            "ContactsForm._post_clean": 0.002458136063069105
+          },
+          "inclusive_thread_cpu_time": 0.020497696999925097,
+          "exclusive_thread_cpu_time": 0.010282879999955696,
+          "max_exclusive_thread_cpu_time": 0.0015695660000076828,
+          "instrumented_children_thread_cpu": {
+            "QuerySet._fetch_all": 0.0030587439999933963,
+            "SnapshotDetails._post_clean": 0.004753602999976181,
+            "ContactsForm._post_clean": 0.0024024699999998234
+          },
+          "mean_exclusive_time": 0.00021609013977771005,
+          "mean_exclusive_thread_cpu_time": 0.00021422666666574366
+        },
+        {
+          "rule": "apps.listings.publication_state.publicly_visible",
+          "calls": 24,
+          "inclusive_time": 0.03094301652163267,
+          "exclusive_time": 0.0048103779554367065,
+          "max_exclusive_time": 0.0022180951200425625,
+          "instrumented_children": {
+            "PublicationContext._bound_validation": 0.024530249647796154,
+            "django.forms.models.construct_instance": 3.163190558552742e-05,
+            "sql.cursor_execute": 0.0015707570128142834
+          },
+          "inclusive_thread_cpu_time": 0.025635865000005253,
+          "exclusive_thread_cpu_time": 0.004773484000075712,
+          "max_exclusive_thread_cpu_time": 0.002216086000004225,
+          "instrumented_children_thread_cpu": {
+            "PublicationContext._bound_validation": 0.020497696999925097,
+            "django.forms.models.construct_instance": 2.3870000006809278e-05,
+            "sql.cursor_execute": 0.0003408139999976356
+          },
+          "mean_exclusive_time": 0.00020043241480986276,
+          "mean_exclusive_thread_cpu_time": 0.00019889516666982132
+        },
+        {
+          "rule": "Model.__init__",
+          "calls": 281,
+          "inclusive_time": 0.004201086238026619,
+          "exclusive_time": 0.004201086238026619,
+          "max_exclusive_time": 0.0005041291005909443,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.004059213999987321,
+          "exclusive_thread_cpu_time": 0.004059213999987321,
+          "max_exclusive_thread_cpu_time": 0.000495789999995111,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 1.4950484832834944e-05,
+          "mean_exclusive_thread_cpu_time": 1.4445601423442425e-05
+        },
+        {
+          "rule": "django.forms.models.construct_instance",
+          "calls": 49,
+          "inclusive_time": 0.0022293664515018463,
+          "exclusive_time": 0.0022293664515018463,
+          "max_exclusive_time": 0.00010394398123025894,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.0022107639999973117,
+          "exclusive_thread_cpu_time": 0.0022107639999973117,
+          "max_exclusive_thread_cpu_time": 0.00010552999999902113,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 4.5497274520445846e-05,
+          "mean_exclusive_thread_cpu_time": 4.511763265300636e-05
+        },
+        {
+          "rule": "SnapshotDetails._post_clean",
+          "calls": 24,
+          "inclusive_time": 0.004876378923654556,
+          "exclusive_time": 0.0020232750102877617,
+          "max_exclusive_time": 0.0001191580668091774,
+          "instrumented_children": {
+            "django.forms.models.construct_instance": 0.0015058941207826138,
+            "Revision.full_clean": 0.0013472097925841808
+          },
+          "inclusive_thread_cpu_time": 0.004753602999976181,
+          "exclusive_thread_cpu_time": 0.0019583049999880586,
+          "max_exclusive_thread_cpu_time": 0.000114310000000728,
+          "instrumented_children_thread_cpu": {
+            "django.forms.models.construct_instance": 0.0014999119999998811,
+            "Revision.full_clean": 0.0012953859999882411
+          },
+          "mean_exclusive_time": 8.430312542865674e-05,
+          "mean_exclusive_thread_cpu_time": 8.159604166616911e-05
+        },
+        {
+          "rule": "Revision.full_clean",
+          "calls": 48,
+          "inclusive_time": 0.0017733946442604065,
+          "exclusive_time": 0.0017733946442604065,
+          "max_exclusive_time": 0.00012803589925169945,
+          "instrumented_children": {},
+          "inclusive_thread_cpu_time": 0.0017235449999901675,
+          "exclusive_thread_cpu_time": 0.0017235449999901675,
+          "max_exclusive_thread_cpu_time": 7.715699999977232e-05,
+          "instrumented_children_thread_cpu": {},
+          "mean_exclusive_time": 3.694572175542513e-05,
+          "mean_exclusive_thread_cpu_time": 3.590718749979516e-05
+        },
+        {
+          "rule": "ContactsForm._post_clean",
+          "calls": 24,
+          "inclusive_time": 0.002458136063069105,
+          "exclusive_time": 0.0013401107862591743,
+          "max_exclusive_time": 0.00010563479736447334,
+          "instrumented_children": {
+            "django.forms.models.construct_instance": 0.0006918404251337051,
+            "Revision.full_clean": 0.00042618485167622566
+          },
+          "inclusive_thread_cpu_time": 0.0024024699999998234,
+          "exclusive_thread_cpu_time": 0.0012873290000072757,
+          "max_exclusive_thread_cpu_time": 0.00010487200000142138,
+          "instrumented_children_thread_cpu": {
+            "django.forms.models.construct_instance": 0.0006869819999906213,
+            "Revision.full_clean": 0.0004281590000019264
+          },
+          "mean_exclusive_time": 5.5837949427465596e-05,
+          "mean_exclusive_thread_cpu_time": 5.363870833363649e-05
+        },
+        {
+          "rule": "apps.listings.public_validation.read_publication_values",
+          "calls": 1,
+          "inclusive_time": 0.07641551131382585,
+          "exclusive_time": 0.0005128220655024052,
+          "max_exclusive_time": 0.0005128220655024052,
+          "instrumented_children": {
+            "sql.cursor_execute": 0.0025802324526011944,
+            "QuerySet._fetch_all": 0.07332245679572225
+          },
+          "inclusive_thread_cpu_time": 0.048867698000002235,
+          "exclusive_thread_cpu_time": 0.0005101570000149991,
+          "max_exclusive_thread_cpu_time": 0.0005101570000149991,
+          "instrumented_children_thread_cpu": {
+            "sql.cursor_execute": 0.0006277199999900063,
+            "QuerySet._fetch_all": 0.04772982099999723
+          },
+          "mean_exclusive_time": 0.0005128220655024052,
+          "mean_exclusive_thread_cpu_time": 0.0005101570000149991
+        },
+        {
+          "rule": "apps.listings.publication_state.all_state_current",
+          "calls": 1,
+          "inclusive_time": 0.013295008800923824,
+          "exclusive_time": 0.00020218500867486,
+          "max_exclusive_time": 0.00020218500867486,
+          "instrumented_children": {
+            "sql.cursor_execute": 0.013092823792248964
+          },
+          "inclusive_thread_cpu_time": 0.0004961169999972981,
+          "exclusive_thread_cpu_time": 0.00020043099999611513,
+          "max_exclusive_thread_cpu_time": 0.00020043099999611513,
+          "instrumented_children_thread_cpu": {
+            "sql.cursor_execute": 0.00029568600000118295
+          },
+          "mean_exclusive_time": 0.00020218500867486,
+          "mean_exclusive_thread_cpu_time": 0.00020043099999611513
+        }
+      ],
+      "gc_collections": [
+        {
+          "generation": 0,
+          "wall_seconds": 0.00044257286936044693,
+          "thread_cpu_seconds": 0.0004325459999989789,
+          "parents": []
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00015801191329956055,
+          "thread_cpu_seconds": 0.0001577059999959829,
+          "parents": [
+            "PublicationContext.__init__"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0001305127516388893,
+          "thread_cpu_seconds": 0.00012981100000075685,
+          "parents": [
+            "PublicationContext.__init__"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00016488973051309586,
+          "thread_cpu_seconds": 0.00016432900000040718,
+          "parents": [
+            "PublicationContext.__init__"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00046545080840587616,
+          "thread_cpu_seconds": 0.0004588440000006244,
+          "parents": [
+            "PublicationContext.__init__",
+            "apps.listings.public_validation.read_publication_values",
+            "QuerySet._fetch_all",
+            "Model.__init__"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0001548738218843937,
+          "thread_cpu_seconds": 0.00015429399999788984,
+          "parents": [
+            "PublicationContext.__init__",
+            "apps.listings.public_validation.read_publication_values",
+            "QuerySet._fetch_all",
+            "django.db.models.query.prefetch_related_objects",
+            "QuerySet._fetch_all"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0002385028637945652,
+          "thread_cpu_seconds": 0.00023820699999532735,
+          "parents": [
+            "apps.listings.publication_state.publicly_visible",
+            "PublicationContext._bound_validation"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00011328700929880142,
+          "thread_cpu_seconds": 0.00011282199999840259,
+          "parents": [
+            "apps.listings.discovery.render"
+          ]
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0002213609404861927,
+          "thread_cpu_seconds": 0.0002210759999954348,
+          "parents": [
+            "apps.listings.discovery.render",
+            "QuerySet._fetch_all",
+            "django.db.models.query.prefetch_related_objects"
+          ]
+        },
+        {
+          "generation": 1,
+          "wall_seconds": 0.0019267858006060123,
+          "thread_cpu_seconds": 0.0017005809999943722,
+          "parents": [
+            "apps.listings.discovery.render"
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Sequential instrumented samples, identical diagnostic source; not causal improvement, operational p95 or N3."
+}
