@@ -8,11 +8,12 @@ from pathlib import Path
 
 import pytest
 from django.core.management import call_command
-from django.db import connection
+from django.db import connection, transaction
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 from test_public_detail_prepared_guard import canonical_body
 
+from apps.listings import public_validation
 from apps.listings.models import Listing
 from scripts.benchmark_owned_backend_cpu import backend_delta, backend_snapshot, owned_backend
 from scripts.synthetic_load_dataset import populate
@@ -20,8 +21,8 @@ from scripts.synthetic_load_dataset import populate
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-@pytest.mark.parametrize('candidate', ['eager_generic', 'eager_auto'])
-def test_owned_cold_prepared_cpu(request, record_property, candidate):
+@pytest.mark.parametrize('candidate', ['eager_generic', 'eager_auto', 'hydration_generic'])
+def test_owned_cold_prepared_cpu(request, record_property, candidate, monkeypatch):
     if not any(str(x).split('::')[0] == 'tests/test_owned_cold_prepared_cpu.py'
                for x in request.config.args):
         pytest.skip('Explicit cold backend diagnostic only')
@@ -37,6 +38,23 @@ def test_owned_cold_prepared_cpu(request, record_property, candidate):
     routes = [('/es/', {}), ('/en/', {}),
               ('/es/', {'q': 'photography'}), ('/en/', {'q': 'synthetic'}),
               (f'/es/listing/{listing.pk}/', {}), (f'/en/listing/{listing.pk}/', {})]
+    native_read = public_validation.read_publication_values
+
+    def generic_hydration(query, *, bounded_joins=False, prepared_page=False):
+        if not (bounded_joins and prepared_page):
+            return native_read(query, bounded_joins=bounded_joins, prepared_page=prepared_page)
+        # Diagnostic wrapper includes extra savepoint/SHOW/SET/restore cost.
+        # On error, atomic rollback restores GUC without querying a broken TX.
+        with transaction.atomic():
+            with connection.cursor() as cursor:
+                cursor.execute('SHOW plan_cache_mode')
+                previous = cursor.fetchone()[0]
+                cursor.execute('SET LOCAL plan_cache_mode=force_generic_plan')
+            rows = native_read(query, bounded_joins=bounded_joins, prepared_page=prepared_page)
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT set_config(%s, %s, true)', ['plan_cache_mode', previous])
+            return rows
+
     bodies, results = {}, []
     for block in range(3):
         arms = ('current', candidate) if block % 2 == 0 else (candidate, 'current')
@@ -62,7 +80,10 @@ def test_owned_cold_prepared_cpu(request, record_property, candidate):
                         cursor.execute("SET plan_cache_mode = force_generic_plan")
                 # ClientCursor never prepares; these fixed arm thresholds apply
                 # only when the product helper selects its server-binding cursor.
-                raw.prepare_threshold = 5 if arm == 'current' else 0
+                baseline_threshold = 0 if candidate == 'hydration_generic' else 5
+                raw.prepare_threshold = baseline_threshold if arm == 'current' else 0
+                monkeypatch.setattr(public_validation, 'read_publication_values',
+                                    generic_hydration if arm == 'hydration_generic' else native_read)
                 expected_threshold = raw.prepare_threshold
                 rows = []
                 for index in range(30):
@@ -92,6 +113,8 @@ def test_owned_cold_prepared_cpu(request, record_property, candidate):
                                        'FROM pg_prepared_statements')
                         pid, count, generic, custom = cursor.fetchone()
                         assert pid == sql_pid
+                        cursor.execute('SHOW plan_cache_mode')
+                        assert cursor.fetchone()[0] == ('force_generic_plan' if arm == 'eager_generic' else 'auto')
                     rows.append({'request_index': index, 'case': case,
                                  'backend_cpu_seconds': backend_delta(before, after)['cpu_seconds'],
                                  'app_cpu_seconds': app_cpu, 'wall_seconds': elapsed,
@@ -100,6 +123,7 @@ def test_owned_cold_prepared_cpu(request, record_property, candidate):
                 results.append({'block': block, 'arm': arm, 'backend_host_pid': identity['pid'],
                                 'rows': rows})
             finally:
+                monkeypatch.setattr(public_validation, 'read_publication_values', native_read)
                 raw.cursor_factory, raw.prepare_threshold = factory, threshold
                 with connection.cursor() as cursor:
                     cursor.execute('SELECT set_config(%s, %s, false)', ['plan_cache_mode', previous_mode])
@@ -108,7 +132,8 @@ def test_owned_cold_prepared_cpu(request, record_property, candidate):
     record_property('scope', '180 sequential actual synthetic requests, fresh physical backend per arm/block. '
                     'Two fixed arms, 3 alternating blocks, no warmup or omitted first requests. '
                     'Candidate ' + candidate + ' is experimental session configuration, not product implementation: '
-                    'future scoped SET/restore overhead is excluded. Python process/database buffers remain warm; '
-                    'not actual cold Gunicorn workers, p95/capacity, or causal attribution of load transient. '
+                    'Whole-session eager modes exclude future scoped SET/restore overhead; hydration_generic includes '
+                    'extra savepoint/SHOW/SET/restore cost and uses threshold0 in both arms. '
+                    'Python process/database buffers warm; not cold Gunicorn, p95/capacity or causal transient proof. '
                     'CPU backend 100Hz counters; app timings include test-client request execution. '
                     'Exact full HTML parity; signed detail target verified then timestamp canonicalized.')

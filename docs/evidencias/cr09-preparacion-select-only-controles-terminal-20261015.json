@@ -1,0 +1,387 @@
+{
+  "run_id": "20261015-200124-12ab52db",
+  "runner": {
+    "id": "20261015-200124-12ab52db",
+    "pid": 2075322,
+    "start_ticks": 381509396,
+    "command": [
+      "artifacts/vps-preparation/cr09-private-guard-20261015/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_publication_prepared_binding.py",
+      "--test",
+      "tests/test_publication_page_planning_scope.py",
+      "--test",
+      "tests/test_public_detail_prepared_guard.py",
+      "--test",
+      "tests/test_publication_projection.py",
+      "--test",
+      "tests/test_publication_projection_lifecycle.py",
+      "--test",
+      "tests/test_owned_backend_cpu_families.py",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "900"
+    ],
+    "head": "8f915537e7c641dc08dcbd616fc4d7d698e2dff8",
+    "containers": [
+      "web-modelos-ci-pg-20261015-200124-12ab52db",
+      "web-modelos-ci-redis-20261015-200124-12ab52db"
+    ],
+    "label": "web-modelos-local-ci-run=20261015-200124-12ab52db",
+    "temporary": "/tmp/web-modelos-local-ci-nvmmzkbe",
+    "child": {
+      "pid": 2077768,
+      "start_ticks": 381511224,
+      "step": "pytest"
+    }
+  },
+  "result": "21PASS218.72s",
+  "source_hashes_verified": true,
+  "cleanup_verified": true,
+  "prepared_utility_census": {
+    "savepoint": 0,
+    "release": 0,
+    "select": 1
+  },
+  "cpu_families": [
+    {
+      "kind": "listing",
+      "language": "es",
+      "requests": 12,
+      "population": "projection",
+      "backend_host_pid": 2096764,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.46,
+        "delta": {
+          "user_ticks": 34,
+          "system_ticks": 12
+        },
+        "elapsed_seconds": 2.995427251327783
+      },
+      "unattributed_backend_cpu_seconds": 5.551115123125783e-17,
+      "postgres_cpu_usec": 472954,
+      "client_thread_cpu_seconds": 2.0908467279999883,
+      "wall_seconds": 2.9950672746635973,
+      "families": {
+        "other": {
+          "calls": 168,
+          "cpu_seconds": 0.060000000000000005,
+          "wall_seconds": 0.22887805104255676
+        },
+        "dirty": {
+          "calls": 12,
+          "cpu_seconds": 0.0,
+          "wall_seconds": 0.011527079623192549
+        },
+        "state_current": {
+          "calls": 12,
+          "cpu_seconds": 0.10999999999999999,
+          "wall_seconds": 0.10529871983453631
+        },
+        "listing_count": {
+          "calls": 12,
+          "cpu_seconds": 0.03,
+          "wall_seconds": 0.08592160744592547
+        },
+        "listing_page": {
+          "calls": 12,
+          "cpu_seconds": 0.01,
+          "wall_seconds": 0.021405153907835484
+        },
+        "hydration": {
+          "calls": 12,
+          "cpu_seconds": 0.11999999999999998,
+          "wall_seconds": 0.1393385105766356
+        },
+        "catalog": {
+          "calls": 204,
+          "cpu_seconds": 0.10999999999999999,
+          "wall_seconds": 0.3110261457040906
+        },
+        "media": {
+          "calls": 36,
+          "cpu_seconds": 0.02,
+          "wall_seconds": 0.07090159459039569
+        }
+      }
+    },
+    {
+      "kind": "listing",
+      "language": "en",
+      "requests": 12,
+      "population": "projection",
+      "backend_host_pid": 2096764,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.42,
+        "delta": {
+          "user_ticks": 31,
+          "system_ticks": 11
+        },
+        "elapsed_seconds": 2.7322162208147347
+      },
+      "unattributed_backend_cpu_seconds": 0.009999999999999953,
+      "postgres_cpu_usec": 413640,
+      "client_thread_cpu_seconds": 1.949209403999987,
+      "wall_seconds": 2.7318593789823353,
+      "families": {
+        "other": {
+          "calls": 168,
+          "cpu_seconds": 0.05,
+          "wall_seconds": 0.20215634489431977
+        },
+        "dirty": {
+          "calls": 12,
+          "cpu_seconds": 0.0,
+          "wall_seconds": 0.011329293251037598
+        },
+        "state_current": {
+          "calls": 12,
+          "cpu_seconds": 0.09,
+          "wall_seconds": 0.10936129512265325
+        },
+        "listing_count": {
+          "calls": 12,
+          "cpu_seconds": 0.07,
+          "wall_seconds": 0.07958617294207215
+        },
+        "listing_page": {
+          "calls": 12,
+          "cpu_seconds": 0.0,
+          "wall_seconds": 0.01743571273982525
+        },
+        "hydration": {
+          "calls": 12,
+          "cpu_seconds": 0.08,
+          "wall_seconds": 0.09173502586781979
+        },
+        "catalog": {
+          "calls": 204,
+          "cpu_seconds": 0.09,
+          "wall_seconds": 0.2931047813035548
+        },
+        "media": {
+          "calls": 36,
+          "cpu_seconds": 0.03,
+          "wall_seconds": 0.07130209542810917
+        }
+      }
+    },
+    {
+      "kind": "search",
+      "language": "es",
+      "requests": 12,
+      "population": "projection",
+      "backend_host_pid": 2096764,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.57,
+        "delta": {
+          "user_ticks": 47,
+          "system_ticks": 10
+        },
+        "elapsed_seconds": 3.1194740901701152
+      },
+      "unattributed_backend_cpu_seconds": 0.04999999999999993,
+      "postgres_cpu_usec": 721133,
+      "client_thread_cpu_seconds": 2.1721330830000056,
+      "wall_seconds": 3.1191009399481118,
+      "families": {
+        "other": {
+          "calls": 168,
+          "cpu_seconds": 0.04,
+          "wall_seconds": 0.2129435515962541
+        },
+        "dirty": {
+          "calls": 12,
+          "cpu_seconds": 0.01,
+          "wall_seconds": 0.016824357211589813
+        },
+        "state_current": {
+          "calls": 12,
+          "cpu_seconds": 0.09999999999999999,
+          "wall_seconds": 0.10912513779476285
+        },
+        "search_count": {
+          "calls": 12,
+          "cpu_seconds": 0.07,
+          "wall_seconds": 0.108034354634583
+        },
+        "search_page": {
+          "calls": 12,
+          "cpu_seconds": 0.15,
+          "wall_seconds": 0.1610193531960249
+        },
+        "hydration": {
+          "calls": 12,
+          "cpu_seconds": 0.05,
+          "wall_seconds": 0.09121679933741689
+        },
+        "catalog": {
+          "calls": 204,
+          "cpu_seconds": 0.07,
+          "wall_seconds": 0.2975411587394774
+        },
+        "media": {
+          "calls": 36,
+          "cpu_seconds": 0.03,
+          "wall_seconds": 0.08043754892423749
+        }
+      }
+    },
+    {
+      "kind": "search",
+      "language": "en",
+      "requests": 12,
+      "population": "projection",
+      "backend_host_pid": 2096764,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.65,
+        "delta": {
+          "user_ticks": 53,
+          "system_ticks": 12
+        },
+        "elapsed_seconds": 3.3539385432377458
+      },
+      "unattributed_backend_cpu_seconds": 0.010000000000000009,
+      "postgres_cpu_usec": 651495,
+      "client_thread_cpu_seconds": 2.2852839749999987,
+      "wall_seconds": 3.3535580970346928,
+      "families": {
+        "other": {
+          "calls": 168,
+          "cpu_seconds": 0.03,
+          "wall_seconds": 0.22775267949327826
+        },
+        "dirty": {
+          "calls": 12,
+          "cpu_seconds": 0.0,
+          "wall_seconds": 0.012996335979551077
+        },
+        "state_current": {
+          "calls": 12,
+          "cpu_seconds": 0.07,
+          "wall_seconds": 0.11563285999000072
+        },
+        "search_count": {
+          "calls": 12,
+          "cpu_seconds": 0.09999999999999999,
+          "wall_seconds": 0.13663382176309824
+        },
+        "search_page": {
+          "calls": 12,
+          "cpu_seconds": 0.2,
+          "wall_seconds": 0.2073116172105074
+        },
+        "hydration": {
+          "calls": 12,
+          "cpu_seconds": 0.11,
+          "wall_seconds": 0.09040439454838634
+        },
+        "catalog": {
+          "calls": 204,
+          "cpu_seconds": 0.060000000000000005,
+          "wall_seconds": 0.33828021632507443
+        },
+        "media": {
+          "calls": 36,
+          "cpu_seconds": 0.07,
+          "wall_seconds": 0.07990458467975259
+        }
+      }
+    },
+    {
+      "kind": "detail",
+      "language": "es",
+      "requests": 12,
+      "population": "native_detail",
+      "backend_host_pid": 2096764,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.34,
+        "delta": {
+          "user_ticks": 21,
+          "system_ticks": 13
+        },
+        "elapsed_seconds": 1.556266576051712
+      },
+      "unattributed_backend_cpu_seconds": 5.551115123125783e-17,
+      "postgres_cpu_usec": 338217,
+      "client_thread_cpu_seconds": 0.9632281370000015,
+      "wall_seconds": 1.5560136940330267,
+      "families": {
+        "other": {
+          "calls": 156,
+          "cpu_seconds": 0.12,
+          "wall_seconds": 0.28426458267495036
+        },
+        "media": {
+          "calls": 60,
+          "cpu_seconds": 0.09999999999999999,
+          "wall_seconds": 0.19007200002670288
+        },
+        "rights": {
+          "calls": 36,
+          "cpu_seconds": 0.01,
+          "wall_seconds": 0.06740161590278149
+        },
+        "catalog": {
+          "calls": 180,
+          "cpu_seconds": 0.10999999999999999,
+          "wall_seconds": 0.25666538579389453
+        }
+      }
+    },
+    {
+      "kind": "detail",
+      "language": "en",
+      "requests": 12,
+      "population": "native_detail",
+      "backend_host_pid": 2096764,
+      "backend_cpu": {
+        "ticks_per_second": 100,
+        "cpu_seconds": 0.16,
+        "delta": {
+          "user_ticks": 10,
+          "system_ticks": 6
+        },
+        "elapsed_seconds": 1.411716160364449
+      },
+      "unattributed_backend_cpu_seconds": 0.0,
+      "postgres_cpu_usec": 168428,
+      "client_thread_cpu_seconds": 1.0155893480000202,
+      "wall_seconds": 1.411434625275433,
+      "families": {
+        "other": {
+          "calls": 156,
+          "cpu_seconds": 0.05,
+          "wall_seconds": 0.23902812041342258
+        },
+        "media": {
+          "calls": 60,
+          "cpu_seconds": 0.01,
+          "wall_seconds": 0.11192537099123001
+        },
+        "rights": {
+          "calls": 36,
+          "cpu_seconds": 0.01,
+          "wall_seconds": 0.04039755370467901
+        },
+        "catalog": {
+          "calls": 180,
+          "cpu_seconds": 0.09,
+          "wall_seconds": 0.20392144564539194
+        }
+      }
+    }
+  ],
+  "scope": "Whole binding/planning scope/detail/projection/lifecycle controls plus72request CPU diagnostic. Not whole regression/N3/p95. Only productdelta skips preparation for nonSELECT SQL; execution/binding/options unchanged. Generic hydration experimental only, not product.",
+  "acceptance": false
+}

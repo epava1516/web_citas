@@ -180,6 +180,17 @@ class _PageReadCursor(ServerBindingCursor):
     """
 
     def execute(self, query, params=None, *, prepare=None, binary=None):
+        # Atomic scopes issue uniquely named SAVEPOINT/RELEASE commands while
+        # this cursor is active. They cannot be reused and must not evict reads
+        # from the bounded prepared-statement cache. Unknown SQL objects also
+        # keep native execution without preparation.
+        is_select = (
+            isinstance(query, str) and query.lstrip().upper().startswith("SELECT")
+        ) or (
+            isinstance(query, bytes) and query.lstrip().upper().startswith(b"SELECT")
+        )
+        if not is_select:
+            prepare = False
         if params is not None and len(params) > 65535:
             with ClientCursor(self.connection) as native:
                 query = native.mogrify(query, params)

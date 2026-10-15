@@ -1,0 +1,2117 @@
+{
+  "run_id": "20261015-195606-7ccd05d2",
+  "base_sha": "8f915537e7c641dc08dcbd616fc4d7d698e2dff8",
+  "result": "1PASS122.24s",
+  "source_hashes_verified": true,
+  "cleanup_verified": true,
+  "runner": {
+    "id": "20261015-195606-7ccd05d2",
+    "pid": 2042243,
+    "start_ticks": 381477599,
+    "command": [
+      "artifacts/vps-preparation/cr09-private-guard-20261015/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_owned_cold_prepared_cpu.py::test_owned_cold_prepared_cpu[hydration_generic]",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "600"
+    ],
+    "head": "8f915537e7c641dc08dcbd616fc4d7d698e2dff8",
+    "containers": [
+      "web-modelos-ci-pg-20261015-195606-7ccd05d2",
+      "web-modelos-ci-redis-20261015-195606-7ccd05d2"
+    ],
+    "label": "web-modelos-local-ci-run=20261015-195606-7ccd05d2",
+    "temporary": "/tmp/web-modelos-local-ci-if8kjoot",
+    "child": {
+      "pid": 2044399,
+      "start_ticks": 381479292,
+      "step": "pytest"
+    }
+  },
+  "scope": "180 sequential actual synthetic requests, fresh physical backend per arm/block. Two fixed arms, 3 alternating blocks, no warmup or omitted first requests. Candidate hydration_generic is experimental session configuration, not product implementation: Whole-session eager modes exclude future scoped SET/restore overhead; hydration_generic includes extra savepoint/SHOW/SET/restore cost and uses threshold0 in both arms. Python process/database buffers warm; not cold Gunicorn, p95/capacity or causal transient proof. CPU backend 100Hz counters; app timings include test-client request execution. Exact full HTML parity; signed detail target verified then timestamp canonicalized.",
+  "measurements": [
+    {
+      "block": 0,
+      "arm": "current",
+      "backend_host_pid": 2052680,
+      "rows": [
+        {
+          "request_index": 0,
+          "case": 0,
+          "backend_cpu_seconds": 0.14,
+          "app_cpu_seconds": 0.7354754589999999,
+          "wall_seconds": 0.9233024613931775,
+          "plans": 21,
+          "generic": 4,
+          "custom": 17
+        },
+        {
+          "request_index": 1,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12484437100000889,
+          "wall_seconds": 0.19091552635654807,
+          "plans": 23,
+          "generic": 8,
+          "custom": 34
+        },
+        {
+          "request_index": 2,
+          "case": 2,
+          "backend_cpu_seconds": 0.09,
+          "app_cpu_seconds": 0.16501778699999647,
+          "wall_seconds": 0.277027087751776,
+          "plans": 25,
+          "generic": 12,
+          "custom": 51
+        },
+        {
+          "request_index": 3,
+          "case": 3,
+          "backend_cpu_seconds": 0.1,
+          "app_cpu_seconds": 0.16017502300000785,
+          "wall_seconds": 0.2965288460254669,
+          "plans": 27,
+          "generic": 16,
+          "custom": 68
+        },
+        {
+          "request_index": 4,
+          "case": 4,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.23532457800000373,
+          "wall_seconds": 0.32734496518969536,
+          "plans": 50,
+          "generic": 16,
+          "custom": 95
+        },
+        {
+          "request_index": 5,
+          "case": 5,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.07692120800000168,
+          "wall_seconds": 0.1404460738413036,
+          "plans": 50,
+          "generic": 19,
+          "custom": 119
+        },
+        {
+          "request_index": 6,
+          "case": 0,
+          "backend_cpu_seconds": 0.07,
+          "app_cpu_seconds": 0.1859551229999994,
+          "wall_seconds": 0.28294430719688535,
+          "plans": 52,
+          "generic": 26,
+          "custom": 133
+        },
+        {
+          "request_index": 7,
+          "case": 1,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.13168566999999598,
+          "wall_seconds": 0.19328748900443316,
+          "plans": 54,
+          "generic": 47,
+          "custom": 133
+        },
+        {
+          "request_index": 8,
+          "case": 2,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.13640444099999627,
+          "wall_seconds": 0.22171074990183115,
+          "plans": 56,
+          "generic": 68,
+          "custom": 133
+        },
+        {
+          "request_index": 9,
+          "case": 3,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.13245795200000998,
+          "wall_seconds": 0.20433799782767892,
+          "plans": 58,
+          "generic": 89,
+          "custom": 133
+        },
+        {
+          "request_index": 10,
+          "case": 4,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.04839151999999558,
+          "wall_seconds": 0.09632341377437115,
+          "plans": 58,
+          "generic": 93,
+          "custom": 156
+        },
+        {
+          "request_index": 11,
+          "case": 5,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.048085351000011656,
+          "wall_seconds": 0.10459558991715312,
+          "plans": 58,
+          "generic": 98,
+          "custom": 178
+        },
+        {
+          "request_index": 12,
+          "case": 0,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.11996299199999783,
+          "wall_seconds": 0.1739286077208817,
+          "plans": 60,
+          "generic": 119,
+          "custom": 178
+        },
+        {
+          "request_index": 13,
+          "case": 1,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.1423724280000016,
+          "wall_seconds": 0.22509790305048227,
+          "plans": 62,
+          "generic": 140,
+          "custom": 178
+        },
+        {
+          "request_index": 14,
+          "case": 2,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.12834372499999347,
+          "wall_seconds": 0.2074420154094696,
+          "plans": 64,
+          "generic": 161,
+          "custom": 178
+        },
+        {
+          "request_index": 15,
+          "case": 3,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12941484700000672,
+          "wall_seconds": 0.18786433385685086,
+          "plans": 66,
+          "generic": 182,
+          "custom": 178
+        },
+        {
+          "request_index": 16,
+          "case": 4,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.057256447999989746,
+          "wall_seconds": 0.0955880512483418,
+          "plans": 66,
+          "generic": 187,
+          "custom": 200
+        },
+        {
+          "request_index": 17,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.059292956999996704,
+          "wall_seconds": 0.08962253294885159,
+          "plans": 66,
+          "generic": 214,
+          "custom": 200
+        },
+        {
+          "request_index": 18,
+          "case": 0,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.15297398699999576,
+          "wall_seconds": 0.19993639597669244,
+          "plans": 68,
+          "generic": 235,
+          "custom": 200
+        },
+        {
+          "request_index": 19,
+          "case": 1,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.17065593400000978,
+          "wall_seconds": 0.21058714902028441,
+          "plans": 70,
+          "generic": 256,
+          "custom": 200
+        },
+        {
+          "request_index": 20,
+          "case": 2,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.29146811699999375,
+          "wall_seconds": 0.3642870429903269,
+          "plans": 72,
+          "generic": 277,
+          "custom": 200
+        },
+        {
+          "request_index": 21,
+          "case": 3,
+          "backend_cpu_seconds": 0.08,
+          "app_cpu_seconds": 0.142979799999992,
+          "wall_seconds": 0.22937782341614366,
+          "plans": 74,
+          "generic": 298,
+          "custom": 200
+        },
+        {
+          "request_index": 22,
+          "case": 4,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.049722350999999776,
+          "wall_seconds": 0.08901325426995754,
+          "plans": 74,
+          "generic": 325,
+          "custom": 200
+        },
+        {
+          "request_index": 23,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.06097478099999876,
+          "wall_seconds": 0.08223566086962819,
+          "plans": 74,
+          "generic": 352,
+          "custom": 200
+        },
+        {
+          "request_index": 24,
+          "case": 0,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.1358987799999909,
+          "wall_seconds": 0.17226571822538972,
+          "plans": 76,
+          "generic": 373,
+          "custom": 200
+        },
+        {
+          "request_index": 25,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.13399743300000466,
+          "wall_seconds": 0.19840004900470376,
+          "plans": 78,
+          "generic": 394,
+          "custom": 200
+        },
+        {
+          "request_index": 26,
+          "case": 2,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.13976746499999138,
+          "wall_seconds": 0.23577990708872676,
+          "plans": 80,
+          "generic": 415,
+          "custom": 200
+        },
+        {
+          "request_index": 27,
+          "case": 3,
+          "backend_cpu_seconds": 0.07,
+          "app_cpu_seconds": 0.13610112800000707,
+          "wall_seconds": 0.2390538197942078,
+          "plans": 82,
+          "generic": 436,
+          "custom": 200
+        },
+        {
+          "request_index": 28,
+          "case": 4,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.05950924900000132,
+          "wall_seconds": 0.09548963978886604,
+          "plans": 82,
+          "generic": 463,
+          "custom": 200
+        },
+        {
+          "request_index": 29,
+          "case": 5,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.04594987800000183,
+          "wall_seconds": 0.07162060588598251,
+          "plans": 82,
+          "generic": 490,
+          "custom": 200
+        }
+      ]
+    },
+    {
+      "block": 0,
+      "arm": "hydration_generic",
+      "backend_host_pid": 2053145,
+      "rows": [
+        {
+          "request_index": 0,
+          "case": 0,
+          "backend_cpu_seconds": 0.08,
+          "app_cpu_seconds": 0.13546573899999714,
+          "wall_seconds": 0.26885311491787434,
+          "plans": 26,
+          "generic": 20,
+          "custom": 6
+        },
+        {
+          "request_index": 1,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12206694800001117,
+          "wall_seconds": 0.18995808996260166,
+          "plans": 30,
+          "generic": 40,
+          "custom": 12
+        },
+        {
+          "request_index": 2,
+          "case": 2,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.1265932740000011,
+          "wall_seconds": 0.2501932457089424,
+          "plans": 34,
+          "generic": 60,
+          "custom": 18
+        },
+        {
+          "request_index": 3,
+          "case": 3,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.12915994900001238,
+          "wall_seconds": 0.20972777623683214,
+          "plans": 38,
+          "generic": 80,
+          "custom": 24
+        },
+        {
+          "request_index": 4,
+          "case": 4,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.054558607000004145,
+          "wall_seconds": 0.13045521592721343,
+          "plans": 61,
+          "generic": 80,
+          "custom": 51
+        },
+        {
+          "request_index": 5,
+          "case": 5,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.04970704500000522,
+          "wall_seconds": 0.09914171462878585,
+          "plans": 61,
+          "generic": 83,
+          "custom": 75
+        },
+        {
+          "request_index": 6,
+          "case": 0,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.3618981679999962,
+          "wall_seconds": 0.45059139281511307,
+          "plans": 65,
+          "generic": 106,
+          "custom": 78
+        },
+        {
+          "request_index": 7,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.14024359399999753,
+          "wall_seconds": 0.20748297404497862,
+          "plans": 69,
+          "generic": 132,
+          "custom": 78
+        },
+        {
+          "request_index": 8,
+          "case": 2,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.1359379880000091,
+          "wall_seconds": 0.18948604818433523,
+          "plans": 73,
+          "generic": 158,
+          "custom": 78
+        },
+        {
+          "request_index": 9,
+          "case": 3,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.1248748360000036,
+          "wall_seconds": 0.18185422709211707,
+          "plans": 77,
+          "generic": 184,
+          "custom": 78
+        },
+        {
+          "request_index": 10,
+          "case": 4,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.05094194500000526,
+          "wall_seconds": 0.08755381172522902,
+          "plans": 77,
+          "generic": 188,
+          "custom": 101
+        },
+        {
+          "request_index": 11,
+          "case": 5,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.06501054900000725,
+          "wall_seconds": 0.09850494703277946,
+          "plans": 77,
+          "generic": 193,
+          "custom": 123
+        },
+        {
+          "request_index": 12,
+          "case": 0,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.11511537799999871,
+          "wall_seconds": 0.15691131819039583,
+          "plans": 81,
+          "generic": 219,
+          "custom": 123
+        },
+        {
+          "request_index": 13,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.14525677000000314,
+          "wall_seconds": 0.21841237600892782,
+          "plans": 85,
+          "generic": 245,
+          "custom": 123
+        },
+        {
+          "request_index": 14,
+          "case": 2,
+          "backend_cpu_seconds": 0.07,
+          "app_cpu_seconds": 0.15615142400000082,
+          "wall_seconds": 0.24633226124569774,
+          "plans": 89,
+          "generic": 271,
+          "custom": 123
+        },
+        {
+          "request_index": 15,
+          "case": 3,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.13153124000000105,
+          "wall_seconds": 0.19845380587503314,
+          "plans": 93,
+          "generic": 297,
+          "custom": 123
+        },
+        {
+          "request_index": 16,
+          "case": 4,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.09661024499999371,
+          "wall_seconds": 0.1580458409152925,
+          "plans": 93,
+          "generic": 302,
+          "custom": 145
+        },
+        {
+          "request_index": 17,
+          "case": 5,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.09943415400000788,
+          "wall_seconds": 0.15265705808997154,
+          "plans": 93,
+          "generic": 329,
+          "custom": 145
+        },
+        {
+          "request_index": 18,
+          "case": 0,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.16432728999998858,
+          "wall_seconds": 0.26813250593841076,
+          "plans": 97,
+          "generic": 355,
+          "custom": 145
+        },
+        {
+          "request_index": 19,
+          "case": 1,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.1362468270000079,
+          "wall_seconds": 0.19469619914889336,
+          "plans": 100,
+          "generic": 380,
+          "custom": 145
+        },
+        {
+          "request_index": 20,
+          "case": 2,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.27009906100001047,
+          "wall_seconds": 0.31980988197028637,
+          "plans": 100,
+          "generic": 402,
+          "custom": 145
+        },
+        {
+          "request_index": 21,
+          "case": 3,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.12171519500000727,
+          "wall_seconds": 0.1795783480629325,
+          "plans": 100,
+          "generic": 424,
+          "custom": 145
+        },
+        {
+          "request_index": 22,
+          "case": 4,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.04926180600000407,
+          "wall_seconds": 0.0730466297827661,
+          "plans": 100,
+          "generic": 451,
+          "custom": 145
+        },
+        {
+          "request_index": 23,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.04963248399999998,
+          "wall_seconds": 0.07947333296760917,
+          "plans": 100,
+          "generic": 478,
+          "custom": 145
+        },
+        {
+          "request_index": 24,
+          "case": 0,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12600848499999984,
+          "wall_seconds": 0.19520593574270606,
+          "plans": 100,
+          "generic": 500,
+          "custom": 145
+        },
+        {
+          "request_index": 25,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.1261988400000007,
+          "wall_seconds": 0.19209213787689805,
+          "plans": 100,
+          "generic": 522,
+          "custom": 145
+        },
+        {
+          "request_index": 26,
+          "case": 2,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12959711199999902,
+          "wall_seconds": 0.19803956104442477,
+          "plans": 100,
+          "generic": 544,
+          "custom": 145
+        },
+        {
+          "request_index": 27,
+          "case": 3,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12755448299999728,
+          "wall_seconds": 0.1883226791396737,
+          "plans": 100,
+          "generic": 566,
+          "custom": 145
+        },
+        {
+          "request_index": 28,
+          "case": 4,
+          "backend_cpu_seconds": 0.0,
+          "app_cpu_seconds": 0.04680274900000825,
+          "wall_seconds": 0.064884586725384,
+          "plans": 100,
+          "generic": 593,
+          "custom": 145
+        },
+        {
+          "request_index": 29,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.04555174200000067,
+          "wall_seconds": 0.06286429474130273,
+          "plans": 100,
+          "generic": 620,
+          "custom": 145
+        }
+      ]
+    },
+    {
+      "block": 1,
+      "arm": "hydration_generic",
+      "backend_host_pid": 2053918,
+      "rows": [
+        {
+          "request_index": 0,
+          "case": 0,
+          "backend_cpu_seconds": 0.09,
+          "app_cpu_seconds": 0.1364953000000071,
+          "wall_seconds": 0.25468007288873196,
+          "plans": 26,
+          "generic": 20,
+          "custom": 6
+        },
+        {
+          "request_index": 1,
+          "case": 1,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.1264437629999975,
+          "wall_seconds": 0.18426806293427944,
+          "plans": 30,
+          "generic": 40,
+          "custom": 12
+        },
+        {
+          "request_index": 2,
+          "case": 2,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.11509794799999895,
+          "wall_seconds": 0.201348511967808,
+          "plans": 34,
+          "generic": 60,
+          "custom": 18
+        },
+        {
+          "request_index": 3,
+          "case": 3,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.14065763499999662,
+          "wall_seconds": 0.21650059893727303,
+          "plans": 38,
+          "generic": 80,
+          "custom": 24
+        },
+        {
+          "request_index": 4,
+          "case": 4,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.054386700000009114,
+          "wall_seconds": 0.09291367512196302,
+          "plans": 61,
+          "generic": 80,
+          "custom": 51
+        },
+        {
+          "request_index": 5,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.048236076999998545,
+          "wall_seconds": 0.07894898997619748,
+          "plans": 61,
+          "generic": 83,
+          "custom": 75
+        },
+        {
+          "request_index": 6,
+          "case": 0,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.3195222630000103,
+          "wall_seconds": 0.38912750082090497,
+          "plans": 65,
+          "generic": 106,
+          "custom": 78
+        },
+        {
+          "request_index": 7,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.13636646300000166,
+          "wall_seconds": 0.21133079985156655,
+          "plans": 69,
+          "generic": 132,
+          "custom": 78
+        },
+        {
+          "request_index": 8,
+          "case": 2,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.1175473629999999,
+          "wall_seconds": 0.1913093882612884,
+          "plans": 73,
+          "generic": 158,
+          "custom": 78
+        },
+        {
+          "request_index": 9,
+          "case": 3,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.11426708400000507,
+          "wall_seconds": 0.17572453385218978,
+          "plans": 77,
+          "generic": 184,
+          "custom": 78
+        },
+        {
+          "request_index": 10,
+          "case": 4,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.06073485899999298,
+          "wall_seconds": 0.12415271019563079,
+          "plans": 77,
+          "generic": 188,
+          "custom": 101
+        },
+        {
+          "request_index": 11,
+          "case": 5,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.06899787700000104,
+          "wall_seconds": 0.14221509685739875,
+          "plans": 77,
+          "generic": 193,
+          "custom": 123
+        },
+        {
+          "request_index": 12,
+          "case": 0,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.15925733900000694,
+          "wall_seconds": 0.2496879301033914,
+          "plans": 81,
+          "generic": 219,
+          "custom": 123
+        },
+        {
+          "request_index": 13,
+          "case": 1,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.12157232600000611,
+          "wall_seconds": 0.17761054122820497,
+          "plans": 85,
+          "generic": 245,
+          "custom": 123
+        },
+        {
+          "request_index": 14,
+          "case": 2,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.16181511999999998,
+          "wall_seconds": 0.2689987709745765,
+          "plans": 89,
+          "generic": 271,
+          "custom": 123
+        },
+        {
+          "request_index": 15,
+          "case": 3,
+          "backend_cpu_seconds": 0.07,
+          "app_cpu_seconds": 0.13798109699999372,
+          "wall_seconds": 0.24092619819566607,
+          "plans": 93,
+          "generic": 297,
+          "custom": 123
+        },
+        {
+          "request_index": 16,
+          "case": 4,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.054784869000002345,
+          "wall_seconds": 0.11762400576844811,
+          "plans": 93,
+          "generic": 302,
+          "custom": 145
+        },
+        {
+          "request_index": 17,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.06917454799999234,
+          "wall_seconds": 0.12019817810505629,
+          "plans": 93,
+          "generic": 329,
+          "custom": 145
+        },
+        {
+          "request_index": 18,
+          "case": 0,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.16961693300000036,
+          "wall_seconds": 0.26225064834579825,
+          "plans": 97,
+          "generic": 355,
+          "custom": 145
+        },
+        {
+          "request_index": 19,
+          "case": 1,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.11702301399999726,
+          "wall_seconds": 0.1960610249079764,
+          "plans": 100,
+          "generic": 380,
+          "custom": 145
+        },
+        {
+          "request_index": 20,
+          "case": 2,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.271057342000006,
+          "wall_seconds": 0.3770563048310578,
+          "plans": 100,
+          "generic": 402,
+          "custom": 145
+        },
+        {
+          "request_index": 21,
+          "case": 3,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.13537593899999933,
+          "wall_seconds": 0.21519877994433045,
+          "plans": 100,
+          "generic": 424,
+          "custom": 145
+        },
+        {
+          "request_index": 22,
+          "case": 4,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.052186996000003205,
+          "wall_seconds": 0.07688082382082939,
+          "plans": 100,
+          "generic": 451,
+          "custom": 145
+        },
+        {
+          "request_index": 23,
+          "case": 5,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.05166587499999764,
+          "wall_seconds": 0.0763860959559679,
+          "plans": 100,
+          "generic": 478,
+          "custom": 145
+        },
+        {
+          "request_index": 24,
+          "case": 0,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.12651415699998836,
+          "wall_seconds": 0.18346843589097261,
+          "plans": 100,
+          "generic": 500,
+          "custom": 145
+        },
+        {
+          "request_index": 25,
+          "case": 1,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.1239987809999974,
+          "wall_seconds": 0.20240437658503652,
+          "plans": 100,
+          "generic": 522,
+          "custom": 145
+        },
+        {
+          "request_index": 26,
+          "case": 2,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.1568117620000038,
+          "wall_seconds": 0.26568755600601435,
+          "plans": 100,
+          "generic": 544,
+          "custom": 145
+        },
+        {
+          "request_index": 27,
+          "case": 3,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.12199322700000437,
+          "wall_seconds": 0.19779805280268192,
+          "plans": 100,
+          "generic": 566,
+          "custom": 145
+        },
+        {
+          "request_index": 28,
+          "case": 4,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.05257960899999148,
+          "wall_seconds": 0.08147173933684826,
+          "plans": 100,
+          "generic": 593,
+          "custom": 145
+        },
+        {
+          "request_index": 29,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.04951175000000774,
+          "wall_seconds": 0.07200327515602112,
+          "plans": 100,
+          "generic": 620,
+          "custom": 145
+        }
+      ]
+    },
+    {
+      "block": 1,
+      "arm": "current",
+      "backend_host_pid": 2054507,
+      "rows": [
+        {
+          "request_index": 0,
+          "case": 0,
+          "backend_cpu_seconds": 0.1,
+          "app_cpu_seconds": 0.13655807400000697,
+          "wall_seconds": 0.27026474429294467,
+          "plans": 21,
+          "generic": 4,
+          "custom": 17
+        },
+        {
+          "request_index": 1,
+          "case": 1,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.12501570300000253,
+          "wall_seconds": 0.19897361379116774,
+          "plans": 23,
+          "generic": 8,
+          "custom": 34
+        },
+        {
+          "request_index": 2,
+          "case": 2,
+          "backend_cpu_seconds": 0.09,
+          "app_cpu_seconds": 0.13175252999999998,
+          "wall_seconds": 0.24335355311632156,
+          "plans": 25,
+          "generic": 12,
+          "custom": 51
+        },
+        {
+          "request_index": 3,
+          "case": 3,
+          "backend_cpu_seconds": 0.08,
+          "app_cpu_seconds": 0.14349428699999578,
+          "wall_seconds": 0.2614954225718975,
+          "plans": 27,
+          "generic": 16,
+          "custom": 68
+        },
+        {
+          "request_index": 4,
+          "case": 4,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.050840553000000455,
+          "wall_seconds": 0.12229726882651448,
+          "plans": 50,
+          "generic": 16,
+          "custom": 95
+        },
+        {
+          "request_index": 5,
+          "case": 5,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.04786635399999284,
+          "wall_seconds": 0.08637780789285898,
+          "plans": 50,
+          "generic": 19,
+          "custom": 119
+        },
+        {
+          "request_index": 6,
+          "case": 0,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.25929295099999194,
+          "wall_seconds": 0.3400464840233326,
+          "plans": 52,
+          "generic": 26,
+          "custom": 133
+        },
+        {
+          "request_index": 7,
+          "case": 1,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.14246951899998805,
+          "wall_seconds": 0.2326181409880519,
+          "plans": 54,
+          "generic": 47,
+          "custom": 133
+        },
+        {
+          "request_index": 8,
+          "case": 2,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12062477699998908,
+          "wall_seconds": 0.1879096059128642,
+          "plans": 56,
+          "generic": 68,
+          "custom": 133
+        },
+        {
+          "request_index": 9,
+          "case": 3,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.13739823799998874,
+          "wall_seconds": 0.23406107677146792,
+          "plans": 58,
+          "generic": 89,
+          "custom": 133
+        },
+        {
+          "request_index": 10,
+          "case": 4,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.06188645299999962,
+          "wall_seconds": 0.12115819798782468,
+          "plans": 58,
+          "generic": 93,
+          "custom": 156
+        },
+        {
+          "request_index": 11,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.08358085400000448,
+          "wall_seconds": 0.14415901387110353,
+          "plans": 58,
+          "generic": 98,
+          "custom": 178
+        },
+        {
+          "request_index": 12,
+          "case": 0,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.17581339999999557,
+          "wall_seconds": 0.253421091940254,
+          "plans": 60,
+          "generic": 119,
+          "custom": 178
+        },
+        {
+          "request_index": 13,
+          "case": 1,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.12333410100001174,
+          "wall_seconds": 0.20915285404771566,
+          "plans": 62,
+          "generic": 140,
+          "custom": 178
+        },
+        {
+          "request_index": 14,
+          "case": 2,
+          "backend_cpu_seconds": 0.07,
+          "app_cpu_seconds": 0.14494733700000495,
+          "wall_seconds": 0.2636003280058503,
+          "plans": 64,
+          "generic": 161,
+          "custom": 178
+        },
+        {
+          "request_index": 15,
+          "case": 3,
+          "backend_cpu_seconds": 0.07,
+          "app_cpu_seconds": 0.16837000099999955,
+          "wall_seconds": 0.28242695704102516,
+          "plans": 66,
+          "generic": 182,
+          "custom": 178
+        },
+        {
+          "request_index": 16,
+          "case": 4,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.06144387300000176,
+          "wall_seconds": 0.12395326374098659,
+          "plans": 66,
+          "generic": 187,
+          "custom": 200
+        },
+        {
+          "request_index": 17,
+          "case": 5,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.07978328899999099,
+          "wall_seconds": 0.1425777799449861,
+          "plans": 66,
+          "generic": 214,
+          "custom": 200
+        },
+        {
+          "request_index": 18,
+          "case": 0,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.1614409480000063,
+          "wall_seconds": 0.2333225468173623,
+          "plans": 68,
+          "generic": 235,
+          "custom": 200
+        },
+        {
+          "request_index": 19,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12114841700000056,
+          "wall_seconds": 0.19862457970157266,
+          "plans": 70,
+          "generic": 256,
+          "custom": 200
+        },
+        {
+          "request_index": 20,
+          "case": 2,
+          "backend_cpu_seconds": 0.07,
+          "app_cpu_seconds": 0.26573777799998766,
+          "wall_seconds": 0.35211283760145307,
+          "plans": 72,
+          "generic": 277,
+          "custom": 200
+        },
+        {
+          "request_index": 21,
+          "case": 3,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.12317496400000039,
+          "wall_seconds": 0.22113361489027739,
+          "plans": 74,
+          "generic": 298,
+          "custom": 200
+        },
+        {
+          "request_index": 22,
+          "case": 4,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.057452877999992324,
+          "wall_seconds": 0.09241176024079323,
+          "plans": 74,
+          "generic": 325,
+          "custom": 200
+        },
+        {
+          "request_index": 23,
+          "case": 5,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.05446232899998904,
+          "wall_seconds": 0.08592142211273313,
+          "plans": 74,
+          "generic": 352,
+          "custom": 200
+        },
+        {
+          "request_index": 24,
+          "case": 0,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.1258833410000051,
+          "wall_seconds": 0.19257833901792765,
+          "plans": 76,
+          "generic": 373,
+          "custom": 200
+        },
+        {
+          "request_index": 25,
+          "case": 1,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.13457572899999093,
+          "wall_seconds": 0.17835080018267035,
+          "plans": 78,
+          "generic": 394,
+          "custom": 200
+        },
+        {
+          "request_index": 26,
+          "case": 2,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.14812506699999517,
+          "wall_seconds": 0.24510052194818854,
+          "plans": 80,
+          "generic": 415,
+          "custom": 200
+        },
+        {
+          "request_index": 27,
+          "case": 3,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.14215541000000087,
+          "wall_seconds": 0.2423927797935903,
+          "plans": 82,
+          "generic": 436,
+          "custom": 200
+        },
+        {
+          "request_index": 28,
+          "case": 4,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.05459101499999974,
+          "wall_seconds": 0.09123181318864226,
+          "plans": 82,
+          "generic": 463,
+          "custom": 200
+        },
+        {
+          "request_index": 29,
+          "case": 5,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.049188409999999294,
+          "wall_seconds": 0.07924163900315762,
+          "plans": 82,
+          "generic": 490,
+          "custom": 200
+        }
+      ]
+    },
+    {
+      "block": 2,
+      "arm": "current",
+      "backend_host_pid": 2054930,
+      "rows": [
+        {
+          "request_index": 0,
+          "case": 0,
+          "backend_cpu_seconds": 0.09,
+          "app_cpu_seconds": 0.1343202009999942,
+          "wall_seconds": 0.2918508811853826,
+          "plans": 21,
+          "generic": 4,
+          "custom": 17
+        },
+        {
+          "request_index": 1,
+          "case": 1,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.11861452300000508,
+          "wall_seconds": 0.18894419772550464,
+          "plans": 23,
+          "generic": 8,
+          "custom": 34
+        },
+        {
+          "request_index": 2,
+          "case": 2,
+          "backend_cpu_seconds": 0.08,
+          "app_cpu_seconds": 0.1352559919999976,
+          "wall_seconds": 0.25357212498784065,
+          "plans": 25,
+          "generic": 12,
+          "custom": 51
+        },
+        {
+          "request_index": 3,
+          "case": 3,
+          "backend_cpu_seconds": 0.07,
+          "app_cpu_seconds": 0.15575969500000042,
+          "wall_seconds": 0.2652770718559623,
+          "plans": 27,
+          "generic": 16,
+          "custom": 68
+        },
+        {
+          "request_index": 4,
+          "case": 4,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.04788205900000264,
+          "wall_seconds": 0.09285702183842659,
+          "plans": 50,
+          "generic": 16,
+          "custom": 95
+        },
+        {
+          "request_index": 5,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.04412317700000301,
+          "wall_seconds": 0.07449651695787907,
+          "plans": 50,
+          "generic": 19,
+          "custom": 119
+        },
+        {
+          "request_index": 6,
+          "case": 0,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.2674003500000026,
+          "wall_seconds": 0.3341136942617595,
+          "plans": 52,
+          "generic": 26,
+          "custom": 133
+        },
+        {
+          "request_index": 7,
+          "case": 1,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.11817524900000365,
+          "wall_seconds": 0.21344305435195565,
+          "plans": 54,
+          "generic": 47,
+          "custom": 133
+        },
+        {
+          "request_index": 8,
+          "case": 2,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.13596097700001053,
+          "wall_seconds": 0.21128360694274306,
+          "plans": 56,
+          "generic": 68,
+          "custom": 133
+        },
+        {
+          "request_index": 9,
+          "case": 3,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.12749790799999516,
+          "wall_seconds": 0.18402497796341777,
+          "plans": 58,
+          "generic": 89,
+          "custom": 133
+        },
+        {
+          "request_index": 10,
+          "case": 4,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.05563228600000514,
+          "wall_seconds": 0.11727837892249227,
+          "plans": 58,
+          "generic": 93,
+          "custom": 156
+        },
+        {
+          "request_index": 11,
+          "case": 5,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.05902412199999674,
+          "wall_seconds": 0.10733617283403873,
+          "plans": 58,
+          "generic": 98,
+          "custom": 178
+        },
+        {
+          "request_index": 12,
+          "case": 0,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.128529204000003,
+          "wall_seconds": 0.17976406821981072,
+          "plans": 60,
+          "generic": 119,
+          "custom": 178
+        },
+        {
+          "request_index": 13,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.1339609440000089,
+          "wall_seconds": 0.19938084809109569,
+          "plans": 62,
+          "generic": 140,
+          "custom": 178
+        },
+        {
+          "request_index": 14,
+          "case": 2,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.12580900000000383,
+          "wall_seconds": 0.2336790468543768,
+          "plans": 64,
+          "generic": 161,
+          "custom": 178
+        },
+        {
+          "request_index": 15,
+          "case": 3,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.12533385499999383,
+          "wall_seconds": 0.19039957784116268,
+          "plans": 66,
+          "generic": 182,
+          "custom": 178
+        },
+        {
+          "request_index": 16,
+          "case": 4,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.055351889999997184,
+          "wall_seconds": 0.10791631182655692,
+          "plans": 66,
+          "generic": 187,
+          "custom": 200
+        },
+        {
+          "request_index": 17,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.05481860900000868,
+          "wall_seconds": 0.08665304584428668,
+          "plans": 66,
+          "generic": 214,
+          "custom": 200
+        },
+        {
+          "request_index": 18,
+          "case": 0,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.11965772199999947,
+          "wall_seconds": 0.1779637518338859,
+          "plans": 68,
+          "generic": 235,
+          "custom": 200
+        },
+        {
+          "request_index": 19,
+          "case": 1,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.11217675200001054,
+          "wall_seconds": 0.1689051790162921,
+          "plans": 70,
+          "generic": 256,
+          "custom": 200
+        },
+        {
+          "request_index": 20,
+          "case": 2,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.2790515820000081,
+          "wall_seconds": 0.38838198920711875,
+          "plans": 72,
+          "generic": 277,
+          "custom": 200
+        },
+        {
+          "request_index": 21,
+          "case": 3,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.12747355600001242,
+          "wall_seconds": 0.1926734340377152,
+          "plans": 74,
+          "generic": 298,
+          "custom": 200
+        },
+        {
+          "request_index": 22,
+          "case": 4,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.05094115600000748,
+          "wall_seconds": 0.08138970471918583,
+          "plans": 74,
+          "generic": 325,
+          "custom": 200
+        },
+        {
+          "request_index": 23,
+          "case": 5,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.05170398399999954,
+          "wall_seconds": 0.06886301189661026,
+          "plans": 74,
+          "generic": 352,
+          "custom": 200
+        },
+        {
+          "request_index": 24,
+          "case": 0,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.14092478499999572,
+          "wall_seconds": 0.20134445605799556,
+          "plans": 76,
+          "generic": 373,
+          "custom": 200
+        },
+        {
+          "request_index": 25,
+          "case": 1,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.1201885370000042,
+          "wall_seconds": 0.19454781617969275,
+          "plans": 78,
+          "generic": 394,
+          "custom": 200
+        },
+        {
+          "request_index": 26,
+          "case": 2,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.11960700800000268,
+          "wall_seconds": 0.19936403213068843,
+          "plans": 80,
+          "generic": 415,
+          "custom": 200
+        },
+        {
+          "request_index": 27,
+          "case": 3,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12041096100000459,
+          "wall_seconds": 0.21544120414182544,
+          "plans": 82,
+          "generic": 436,
+          "custom": 200
+        },
+        {
+          "request_index": 28,
+          "case": 4,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.048627118999988284,
+          "wall_seconds": 0.08173286123201251,
+          "plans": 82,
+          "generic": 463,
+          "custom": 200
+        },
+        {
+          "request_index": 29,
+          "case": 5,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.057672567000011554,
+          "wall_seconds": 0.11628387263044715,
+          "plans": 82,
+          "generic": 490,
+          "custom": 200
+        }
+      ]
+    },
+    {
+      "block": 2,
+      "arm": "hydration_generic",
+      "backend_host_pid": 2055522,
+      "rows": [
+        {
+          "request_index": 0,
+          "case": 0,
+          "backend_cpu_seconds": 0.17,
+          "app_cpu_seconds": 0.21003739599998994,
+          "wall_seconds": 0.4658036190085113,
+          "plans": 26,
+          "generic": 20,
+          "custom": 6
+        },
+        {
+          "request_index": 1,
+          "case": 1,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.1198589490000046,
+          "wall_seconds": 0.20126272179186344,
+          "plans": 30,
+          "generic": 40,
+          "custom": 12
+        },
+        {
+          "request_index": 2,
+          "case": 2,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.12567290600000547,
+          "wall_seconds": 0.22137943468987942,
+          "plans": 34,
+          "generic": 60,
+          "custom": 18
+        },
+        {
+          "request_index": 3,
+          "case": 3,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.15892751500000202,
+          "wall_seconds": 0.2636166657321155,
+          "plans": 38,
+          "generic": 80,
+          "custom": 24
+        },
+        {
+          "request_index": 4,
+          "case": 4,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.0879533659999936,
+          "wall_seconds": 0.17003664001822472,
+          "plans": 61,
+          "generic": 80,
+          "custom": 51
+        },
+        {
+          "request_index": 5,
+          "case": 5,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.07740098200000034,
+          "wall_seconds": 0.13687210995703936,
+          "plans": 61,
+          "generic": 83,
+          "custom": 75
+        },
+        {
+          "request_index": 6,
+          "case": 0,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.2904550279999967,
+          "wall_seconds": 0.4116154471412301,
+          "plans": 65,
+          "generic": 106,
+          "custom": 78
+        },
+        {
+          "request_index": 7,
+          "case": 1,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.11852655699999559,
+          "wall_seconds": 0.17235644720494747,
+          "plans": 69,
+          "generic": 132,
+          "custom": 78
+        },
+        {
+          "request_index": 8,
+          "case": 2,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.1108212970000011,
+          "wall_seconds": 0.16126540768891573,
+          "plans": 73,
+          "generic": 158,
+          "custom": 78
+        },
+        {
+          "request_index": 9,
+          "case": 3,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.12761951299999907,
+          "wall_seconds": 0.2070392807945609,
+          "plans": 77,
+          "generic": 184,
+          "custom": 78
+        },
+        {
+          "request_index": 10,
+          "case": 4,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.06247754499999303,
+          "wall_seconds": 0.12594837928190827,
+          "plans": 77,
+          "generic": 188,
+          "custom": 101
+        },
+        {
+          "request_index": 11,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.048474301999988256,
+          "wall_seconds": 0.09264972200617194,
+          "plans": 77,
+          "generic": 193,
+          "custom": 123
+        },
+        {
+          "request_index": 12,
+          "case": 0,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.11052411699999709,
+          "wall_seconds": 0.17018989473581314,
+          "plans": 81,
+          "generic": 219,
+          "custom": 123
+        },
+        {
+          "request_index": 13,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12507807800000137,
+          "wall_seconds": 0.22105085104703903,
+          "plans": 85,
+          "generic": 245,
+          "custom": 123
+        },
+        {
+          "request_index": 14,
+          "case": 2,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.11366880200000651,
+          "wall_seconds": 0.19697367819026113,
+          "plans": 89,
+          "generic": 271,
+          "custom": 123
+        },
+        {
+          "request_index": 15,
+          "case": 3,
+          "backend_cpu_seconds": 0.08,
+          "app_cpu_seconds": 0.14158989899999597,
+          "wall_seconds": 0.26794819394126534,
+          "plans": 93,
+          "generic": 297,
+          "custom": 123
+        },
+        {
+          "request_index": 16,
+          "case": 4,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.08939823099998989,
+          "wall_seconds": 0.14299735007807612,
+          "plans": 93,
+          "generic": 302,
+          "custom": 145
+        },
+        {
+          "request_index": 17,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.05044253200000526,
+          "wall_seconds": 0.08306247368454933,
+          "plans": 93,
+          "generic": 329,
+          "custom": 145
+        },
+        {
+          "request_index": 18,
+          "case": 0,
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.11634481600000868,
+          "wall_seconds": 0.17073530610650778,
+          "plans": 97,
+          "generic": 355,
+          "custom": 145
+        },
+        {
+          "request_index": 19,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.12106146600000045,
+          "wall_seconds": 0.19868411496281624,
+          "plans": 100,
+          "generic": 380,
+          "custom": 145
+        },
+        {
+          "request_index": 20,
+          "case": 2,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.26439775900000484,
+          "wall_seconds": 0.35875781904906034,
+          "plans": 100,
+          "generic": 402,
+          "custom": 145
+        },
+        {
+          "request_index": 21,
+          "case": 3,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.11701188700000387,
+          "wall_seconds": 0.17289027897641063,
+          "plans": 100,
+          "generic": 424,
+          "custom": 145
+        },
+        {
+          "request_index": 22,
+          "case": 4,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.0634415259999912,
+          "wall_seconds": 0.0936734382994473,
+          "plans": 100,
+          "generic": 451,
+          "custom": 145
+        },
+        {
+          "request_index": 23,
+          "case": 5,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.06894795799999542,
+          "wall_seconds": 0.10396417696028948,
+          "plans": 100,
+          "generic": 478,
+          "custom": 145
+        },
+        {
+          "request_index": 24,
+          "case": 0,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.15526475500000458,
+          "wall_seconds": 0.2083778539672494,
+          "plans": 100,
+          "generic": 500,
+          "custom": 145
+        },
+        {
+          "request_index": 25,
+          "case": 1,
+          "backend_cpu_seconds": 0.04,
+          "app_cpu_seconds": 0.13263850900000307,
+          "wall_seconds": 0.20170779712498188,
+          "plans": 100,
+          "generic": 522,
+          "custom": 145
+        },
+        {
+          "request_index": 26,
+          "case": 2,
+          "backend_cpu_seconds": 0.06,
+          "app_cpu_seconds": 0.15730298500000117,
+          "wall_seconds": 0.26285793213173747,
+          "plans": 100,
+          "generic": 544,
+          "custom": 145
+        },
+        {
+          "request_index": 27,
+          "case": 3,
+          "backend_cpu_seconds": 0.05,
+          "app_cpu_seconds": 0.11721474300000523,
+          "wall_seconds": 0.18763263057917356,
+          "plans": 100,
+          "generic": 566,
+          "custom": 145
+        },
+        {
+          "request_index": 28,
+          "case": 4,
+          "backend_cpu_seconds": 0.02,
+          "app_cpu_seconds": 0.04528767200000061,
+          "wall_seconds": 0.0711072632111609,
+          "plans": 100,
+          "generic": 593,
+          "custom": 145
+        },
+        {
+          "request_index": 29,
+          "case": 5,
+          "backend_cpu_seconds": 0.01,
+          "app_cpu_seconds": 0.04437101800000676,
+          "wall_seconds": 0.06623872509226203,
+          "plans": 100,
+          "generic": 620,
+          "custom": 145
+        }
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "arm": "current",
+      "slice": [
+        0,
+        6
+      ],
+      "blocks": [
+        {
+          "backend_cpu_seconds": 0.07666666666666667,
+          "app_cpu_seconds": 0.2496264043333364,
+          "wall_seconds": 0.35926082675966126
+        },
+        {
+          "backend_cpu_seconds": 0.06666666666666667,
+          "app_cpu_seconds": 0.10592125016666643,
+          "wall_seconds": 0.19712706841528416
+        },
+        {
+          "backend_cpu_seconds": 0.05666666666666667,
+          "app_cpu_seconds": 0.10599260783333382,
+          "wall_seconds": 0.1944996357584993
+        }
+      ],
+      "means": {
+        "backend_cpu_seconds": 0.06666666666666667,
+        "app_cpu_seconds": 0.15384675411111223,
+        "wall_seconds": 0.2502958436444816
+      }
+    },
+    {
+      "arm": "current",
+      "slice": [
+        6,
+        18
+      ],
+      "blocks": [
+        {
+          "backend_cpu_seconds": 0.04083333333333333,
+          "app_cpu_seconds": 0.10996862116666624,
+          "wall_seconds": 0.17356191598810256
+        },
+        {
+          "backend_cpu_seconds": 0.04750000000000001,
+          "app_cpu_seconds": 0.12991206608333053,
+          "wall_seconds": 0.2112570661896219
+        },
+        {
+          "backend_cpu_seconds": 0.03666666666666667,
+          "app_cpu_seconds": 0.11562453283333578,
+          "wall_seconds": 0.18043939866280803
+        }
+      ],
+      "means": {
+        "backend_cpu_seconds": 0.041666666666666664,
+        "app_cpu_seconds": 0.11850174002777751,
+        "wall_seconds": 0.1884194602801775
+      }
+    },
+    {
+      "arm": "current",
+      "slice": [
+        18,
+        30
+      ],
+      "blocks": [
+        {
+          "backend_cpu_seconds": 0.03666666666666667,
+          "app_cpu_seconds": 0.12666657524999891,
+          "wall_seconds": 0.18233725552757582
+        },
+        {
+          "backend_cpu_seconds": 0.035833333333333335,
+          "app_cpu_seconds": 0.11982802383333062,
+          "wall_seconds": 0.1843685545415307
+        },
+        {
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.11236964408333705,
+          "wall_seconds": 0.1739076094236225
+        }
+      ],
+      "means": {
+        "backend_cpu_seconds": 0.03416666666666667,
+        "app_cpu_seconds": 0.11962141438888886,
+        "wall_seconds": 0.180204473164243
+      }
+    },
+    {
+      "arm": "current",
+      "slice": [
+        0,
+        30
+      ],
+      "blocks": [
+        {
+          "backend_cpu_seconds": 0.04633333333333334,
+          "app_cpu_seconds": 0.14457935943333336,
+          "wall_seconds": 0.2142118339582036
+        },
+        {
+          "backend_cpu_seconds": 0.04666666666666667,
+          "app_cpu_seconds": 0.12108028599999775,
+          "wall_seconds": 0.19767566197551786
+        },
+        {
+          "backend_cpu_seconds": 0.038,
+          "app_cpu_seconds": 0.11239619233333589,
+          "wall_seconds": 0.18063873038627207
+        }
+      ],
+      "means": {
+        "backend_cpu_seconds": 0.043666666666666666,
+        "app_cpu_seconds": 0.126018612588889,
+        "wall_seconds": 0.1975087421066645
+      }
+    },
+    {
+      "arm": "hydration_generic",
+      "slice": [
+        0,
+        6
+      ],
+      "blocks": [
+        {
+          "backend_cpu_seconds": 0.055,
+          "app_cpu_seconds": 0.10292526033333853,
+          "wall_seconds": 0.19138819289704165
+        },
+        {
+          "backend_cpu_seconds": 0.043333333333333335,
+          "app_cpu_seconds": 0.10355290383333464,
+          "wall_seconds": 0.1714433186377088
+        },
+        {
+          "backend_cpu_seconds": 0.06833333333333334,
+          "app_cpu_seconds": 0.129975185666666,
+          "wall_seconds": 0.24316186519960561
+        }
+      ],
+      "means": {
+        "backend_cpu_seconds": 0.05555555555555556,
+        "app_cpu_seconds": 0.11215111661111306,
+        "wall_seconds": 0.20199779224478534
+      }
+    },
+    {
+      "arm": "hydration_generic",
+      "slice": [
+        6,
+        18
+      ],
+      "blocks": [
+        {
+          "backend_cpu_seconds": 0.03416666666666667,
+          "app_cpu_seconds": 0.13525052425000203,
+          "wall_seconds": 0.19552383843498924
+        },
+        {
+          "backend_cpu_seconds": 0.0375,
+          "app_cpu_seconds": 0.1268351006666677,
+          "wall_seconds": 0.20074213785119355
+        },
+        {
+          "backend_cpu_seconds": 0.03666666666666667,
+          "app_cpu_seconds": 0.11575632508333082,
+          "wall_seconds": 0.1877580938162282
+        }
+      ],
+      "means": {
+        "backend_cpu_seconds": 0.036111111111111115,
+        "app_cpu_seconds": 0.12594731666666684,
+        "wall_seconds": 0.19467469003413698
+      }
+    },
+    {
+      "arm": "hydration_generic",
+      "slice": [
+        18,
+        30
+      ],
+      "blocks": [
+        {
+          "backend_cpu_seconds": 0.03,
+          "app_cpu_seconds": 0.11608300616666867,
+          "wall_seconds": 0.16801217442844063
+        },
+        {
+          "backend_cpu_seconds": 0.035833333333333335,
+          "app_cpu_seconds": 0.11902794874999974,
+          "wall_seconds": 0.18388892613196126
+        },
+        {
+          "backend_cpu_seconds": 0.03166666666666667,
+          "app_cpu_seconds": 0.11694042450000215,
+          "wall_seconds": 0.17471894470509142
+        }
+      ],
+      "means": {
+        "backend_cpu_seconds": 0.0325,
+        "app_cpu_seconds": 0.11735045980555685,
+        "wall_seconds": 0.17554001508849779
+      }
+    },
+    {
+      "arm": "hydration_generic",
+      "slice": [
+        0,
+        30
+      ],
+      "blocks": [
+        {
+          "backend_cpu_seconds": 0.03666666666666667,
+          "app_cpu_seconds": 0.12111846423333598,
+          "wall_seconds": 0.1836920437247803
+        },
+        {
+          "backend_cpu_seconds": 0.038000000000000006,
+          "app_cpu_seconds": 0.11905580053333391,
+          "wall_seconds": 0.18814108932080367
+        },
+        {
+          "backend_cpu_seconds": 0.041,
+          "app_cpu_seconds": 0.11907373696666639,
+          "wall_seconds": 0.19362318844844897
+        }
+      ],
+      "means": {
+        "backend_cpu_seconds": 0.03855555555555556,
+        "app_cpu_seconds": 0.11974933391111209,
+        "wall_seconds": 0.18848544049801097
+      }
+    }
+  ],
+  "acceptance": false
+}

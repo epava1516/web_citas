@@ -1,0 +1,43 @@
+{
+  "run_id": "20261015-195937-fcdecd99",
+  "runner": {
+    "id": "20261015-195937-fcdecd99",
+    "pid": 2064494,
+    "start_ticks": 381498731,
+    "command": [
+      "artifacts/vps-preparation/cr09-private-guard-20261015/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_publication_prepared_binding.py::test_scoped_preparation_does_not_cache_unique_savepoints",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "600"
+    ],
+    "head": "8f915537e7c641dc08dcbd616fc4d7d698e2dff8",
+    "containers": [
+      "web-modelos-ci-pg-20261015-195937-fcdecd99",
+      "web-modelos-ci-redis-20261015-195937-fcdecd99"
+    ],
+    "label": "web-modelos-local-ci-run=20261015-195937-fcdecd99",
+    "temporary": "/tmp/web-modelos-local-ci-sa9rmi3p",
+    "child": {
+      "pid": 2066544,
+      "start_ticks": 381500410,
+      "step": "pytest"
+    }
+  },
+  "result": "1FAIL37.41s",
+  "source_hashes_verified": true,
+  "cleanup_verified": true,
+  "prepared_statement_census": {
+    "savepoint": 12,
+    "release": 12,
+    "select": 1
+  },
+  "finding": "Scoped server cursor withthreshold0 prepares uniqueSAVEPOINT/RELEASEnames;12nestedtransactions create24uselesspreparedutilityplans, only1reusableSELECT. Not productionresultcache/leak, but avoidableplancacheoccupancy/overhead.",
+  "acceptance": false
+}

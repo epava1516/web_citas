@@ -168,3 +168,34 @@ def test_real_binding_restores_after_sql_error_and_nested_scope(existing_thresho
             assert cursor.fetchone()[0] == 18
     finally:
         connection.close()
+
+
+@pytest.mark.django_db(transaction=True)
+def test_scoped_preparation_does_not_cache_unique_savepoints(record_property):
+    from django.db import connection, transaction
+
+    connection.close()
+    connection.ensure_connection()
+    raw = connection.connection
+    factory, threshold = raw.cursor_factory, raw.prepare_threshold
+    try:
+        with transaction.atomic():
+            for index in range(12):
+                with public_validation._prepared_page_binding(enabled=True):
+                    with transaction.atomic():
+                        with connection.cursor() as cursor:
+                            cursor.execute('SELECT %s::integer + 10', [index])
+                            assert cursor.fetchone()[0] == index + 10
+                assert raw.cursor_factory is factory and raw.prepare_threshold == threshold
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT count(*) FILTER (WHERE statement LIKE 'SAVEPOINT %%'), "
+                               "count(*) FILTER (WHERE statement LIKE 'RELEASE SAVEPOINT %%'), "
+                               "count(*) FILTER (WHERE statement LIKE 'SELECT %%') "
+                               "FROM pg_prepared_statements", [])
+                savepoints, releases, selects = cursor.fetchone()
+            record_property('prepared_utility_census', {'savepoint': savepoints,
+                                                       'release': releases, 'select': selects})
+            assert selects >= 1
+            assert savepoints == releases == 0
+    finally:
+        connection.close()
