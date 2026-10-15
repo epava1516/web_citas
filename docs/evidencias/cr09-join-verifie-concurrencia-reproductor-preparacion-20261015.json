@@ -1,0 +1,11 @@
+{
+  "selection": [
+    "tests/test_publication_state.py::test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot"
+  ],
+  "base": "cdd02c7",
+  "expected": "Normal outermost RR PASS; existing outeratomic RC should FAIL count because revision obsolete committed after dirty capture is outside first24, before mitigation. No product fix yet.",
+  "source_sha256": "d034241d400cbcae65da28922c8d5ff555df884cbb1ffe6d66070244e4a28912",
+  "limits": "Existing bounded own CI PG/Redis/controller,oneworker,no snapshots,timeout1800",
+  "required": "Deterministic independent writer commit and exact off-page count assertion. Preserve real failing baseline before minimal conditional sibling gate. Cleanup/source freeze independently.",
+  "acceptance": false
+}

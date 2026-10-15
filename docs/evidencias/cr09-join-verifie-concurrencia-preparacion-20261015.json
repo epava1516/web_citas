@@ -1,0 +1,9 @@
+{
+  "candidate_base": "cdd02c7",
+  "source_finding": "state_page only establishes REPEATABLE READ when outermost; omitted approval predicate can newly inflate count inside existing READ COMMITTED transaction if another connection obsoletes an off-page revision after dirty capture",
+  "reproducer_plan": "Own synthetic50 rows, target outside first24. Pause after dirty list execute then commit obsolete update in independent connection. Outer normal RR must preserve old snapshot; outer atomic READ COMMITTED must reject candidate sibling and exclude obsolete target from count. Include SQL predicate/pagination assertions, preserve failing baseline before minimal mitigation.",
+  "mitigation_plan": "Use sibling only in outermost call that establishes RR; nested transactions retain original candidate queryset. No claim to fix inherited generic READ COMMITTED snapshot limitations.",
+  "current_live_run": "20261015-104635-bfdb5fb4 expanded source freeze; no code edits until terminal/independent cleanup",
+  "scope": "Review source proposal verified by root inspection; runtime counterexample not yet executed",
+  "acceptance": false
+}

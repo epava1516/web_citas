@@ -332,8 +332,9 @@ def repair():
 def state_page(query, number, *, checked=(), observation=None):
     """Exact page of the native population; None asks the caller for the native path.
 
-    All reads share one REPEATABLE READ snapshot, so the dirty set, the stored state,
-    the native evaluation of unknown rows, the count and the page are mutually consistent.
+    When opening the transaction, all reads share one REPEATABLE READ snapshot.
+    Inside an existing transaction we retain the original candidate predicates;
+    its caller controls isolation, so the sibling population shortcut is disabled.
     """
     stale = []
     outermost = not connection.in_atomic_block
@@ -343,13 +344,13 @@ def state_page(query, number, *, checked=(), observation=None):
         if outermost:  # Only the first statement of a new transaction may set its isolation.
             with connection.cursor() as cursor:
                 cursor.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
-        page = _state_page(query, number, checked, observation, stale)
+        page = _state_page(query, number, checked, observation, stale, trusted_snapshot=outermost)
     if stale:
         mark(stale)
     return page
 
 
-def _state_page(query, number, checked, observation, stale):
+def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=False):
     # The dirty set is small; read it once instead of a correlated anti-join per candidate,
     # whose plan degrades with the dead tuples a high-churn table accumulates.
     dirty = list(PublicationDirty.objects.values_list("listing_id", flat=True)[: DIRTY_LIMIT + 1])
@@ -392,7 +393,9 @@ def _state_page(query, number, checked, observation, stale):
     # Current eligible state already attests the approved revision's status;
     # dirty/unknown native IDs passed the original candidate predicate above.
     # Keep expiry and all user filters in the exact sibling built by candidates.
-    population_query = getattr(query, "_publication_state_population", query)
+    population_query = (
+        getattr(query, "_publication_state_population", query) if trusted_snapshot else query
+    )
     population = population_query.select_related(None).filter(trusted_visible | Q(pk__in=native))
     if not multiplies_rows(population):
         # DISTINCT only removes duplicates created by many-valued joins; none are present.

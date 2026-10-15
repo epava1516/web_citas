@@ -1,0 +1,15 @@
+{
+  "selection": [
+    "tests/test_publication_state.py::test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot",
+    "tests/test_publication_state.py::test_trusted_population_omitted_join_keeps_native_membership",
+    "tests/test_publication_state.py::test_state_route_matches_native_before_and_after_refresh"
+  ],
+  "negative_run": "20261015-105307-ec182e8a 1FAIL1PASS preserved",
+  "change": "Sibling hint only when state_page outermost establishes RR. Nested caller retains full native approval predicate; no claim to repair inherited generic RC multistatement limitations.",
+  "source_sha256": {
+    "apps/listings/publication_state.py": "8aa276def47b85ba42b8f8ac7070549e5dc677ac4e39f20c95b1409c019ae0c5",
+    "tests/test_publication_state.py": "d034241d400cbcae65da28922c8d5ff555df884cbb1ffe6d66070244e4a28912"
+  },
+  "required": "Exact race regression 2PASS plus6existingfocused cases, original assertions unchanged; own bounds/no snapshots/oneworker; source freeze and independent cleanup",
+  "acceptance": false
+}

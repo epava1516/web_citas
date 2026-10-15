@@ -1,0 +1,37 @@
+{
+  "run": "20261015-105307-ec182e8a",
+  "base_sha": "cdd02c771d2131b461f2b37986a027909c777afb",
+  "result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "2",
+      "time": "51.089",
+      "timestamp": "2026-10-15T12:53:27.008390+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged_independent": true,
+  "cleanup_independent": {
+    "pids_absent": {
+      "3017281": true,
+      "3019604": true
+    },
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-105307-ec182e8a": true,
+      "web-modelos-ci-redis-20261015-105307-ec182e8a": true
+    }
+  },
+  "files": {
+    "result.json": "4d33a6f4a1d3dd52b0960a043b0d77db5fb445464674a8190375afb001ec01b0",
+    "pytest.xml": "2fd8cd1fddf49d230979001f04fb0ba090b93af351638c7075faa602b3495e85",
+    "source-hashes.json": "c1562b8e14a7af4d82c1cb926bcd12679a16363b9a6c6733f3efd28884052cc6"
+  },
+  "finding": "1PASS ownRR;1FAIL existingRC after independent commit obsoletes offpage revision immediately after dirty capture. Actual count50 expected49. Independent source review counterexample reproduced; original failure retained.",
+  "next": "Gate sibling population on outermost call establishing ownRR. Nested transaction uses original native approval filter. Then exact affected test rerun; no weakening assertion.",
+  "acceptance": false
+}

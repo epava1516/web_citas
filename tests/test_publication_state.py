@@ -446,3 +446,56 @@ def test_trusted_population_omitted_join_keeps_native_membership(request, monkey
             assert candidate.status_code == original.status_code == 200
             assert candidate.content == original.content
             assert listing.pk not in {row.pk for row in candidate.context["page"]}
+
+
+@pytest.mark.parametrize("outer_atomic", [False, True])
+def test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot(
+    request, outer_atomic
+):
+    from concurrent.futures import ThreadPoolExecutor
+    from contextlib import nullcontext
+
+    from django.db import connections
+
+    from scripts.synthetic_load_dataset import populate
+
+    request.getfixturevalue("directory")
+    populate(50)
+    drain()
+    initial = publication_state.state_page(candidates({}), 1)
+    total = initial.paginator.count
+    assert total > 24
+    target = candidates({}).order_by("published_at", "-pk").first()
+    assert target.pk not in {row.pk for row in initial}
+    triggered = False
+
+    def mutate():
+        try:
+            return Revision.objects.filter(pk=target.approved_revision_id).update(status="obsolete")
+        finally:
+            connections.close_all()
+
+    def interleave(execute, sql, params, many, context):
+        nonlocal triggered
+        result = execute(sql, params, many, context)
+        if not triggered and sql.lstrip().upper().startswith("SELECT") and '"listings_publicationdirty"' in sql:
+            triggered = True
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                assert pool.submit(mutate).result(timeout=15) == 1
+        return result
+
+    with transaction.atomic() if outer_atomic else nullcontext():
+        if outer_atomic:
+            with connection.cursor() as cursor:
+                cursor.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED")
+        with connection.execute_wrapper(interleave):
+            page = publication_state.state_page(candidates({}), 1)
+        assert triggered
+        assert page is not None
+        # Own RR sees the original committed snapshot. Existing RC must retain
+        # the approval predicate and exclude the concurrently obsolete row.
+        assert page.paginator.count == total - int(outer_atomic)
+    fresh = publication_state.state_page(candidates({}), 1)
+    assert fresh.paginator.count == total - 1
+    last = publication_state.state_page(candidates({}), fresh.paginator.num_pages)
+    assert target.pk not in {row.pk for row in last}

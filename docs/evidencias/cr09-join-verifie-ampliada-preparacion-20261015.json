@@ -1,0 +1,21 @@
+{
+  "base": "cdd02c7",
+  "selection": [
+    "tests/test_publication_state.py",
+    "tests/test_discovery.py",
+    "tests/test_search_document_sql_proof.py",
+    "tests/test_public_validation_dependencies.py"
+  ],
+  "source_sha256": {
+    "tests/test_publication_state.py": "0ea98275b3e06f31b729843a9b91a140df402d09a8b2650312c02f6187af7a25",
+    "tests/test_discovery.py": "e90a1bdad0d933423ae65d3afe0ecf0da23f990053081b600cfe68f35bfbdedc",
+    "tests/test_search_document_sql_proof.py": "ccd2a2be888fda77441bad36161340638454849af59bafa9230d6f79173461a1",
+    "tests/test_public_validation_dependencies.py": "803649a3503c42845119aed59e66d46b4f93dcbc8b27d7a39c187619434c20ed",
+    "apps/listings/discovery.py": "bb4f16836e1ee9faf7eb89c8b6d2b4a68ea5c94d7d0b105635a4928017840802",
+    "apps/listings/publication_state.py": "93e47251dae0c815e54977bc6dfbe2c4dddd26a3949469ff10022a97a3e80311"
+  },
+  "required": "Full affected publicationstate dependency/triggers/concurrency/version/sweep/repair suite; discovery multivalued any/all/geography/pagination/ranking/authority; bilingual generated search multi-page mutation parity; fresh native dependency checks. Preserve any failure, source freeze and independent cleanup.",
+  "limits": "Existing bounded own CI PostgreSQL/Redis/controller,oneworker,verified fixture snapshots,timeout1800",
+  "independent_audit": "Native isolated documentation writer running; no edits to root frozen sources",
+  "acceptance": false
+}

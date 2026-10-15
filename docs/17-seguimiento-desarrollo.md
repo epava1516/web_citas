@@ -2121,3 +2121,12 @@ Mediciones secuenciales EXPLAIN, no p95 HTTP ni mejora causal frente a runs ante
 | synthetic |43.944 |27.819 |
 
 Listado elimina estructuralmente join de revisión; búsqueda lo conserva para tsvector. Tiempos secuenciales variables, también cambia hidratación intacta: no causalidad ni p95 demostrado. Candidata pendiente de revisión y paridad ampliada de dependencias/filtros multivaluados antes de una carga corta limpia; no aceptación CR09/N3.
+
+2026-10-15: candidata join, [ampliada](evidencias/cr09-join-verifie-ampliada-terminal-20261015.json)49PASS sin fallos/omisiones. [Auditoría nativa](evidencias/cr09-join-verificado-auditoria-20261015.md) identifica carrera en atomic exterior READ COMMITTED; Codex reproduce [negativa](evidencias/cr09-join-verifie-concurrencia-negativa-20261015.json):1PASS RR/1FAIL RC, count50 en vez49 con revisión obsolete fuera de página tras leer dirty. Fallo conservado. Se limita hint a llamada outermost que establece RR; nested retiene query nativa aprobada. [Correctiva](evidencias/cr09-join-verifie-concurrencia-correctiva-terminal-20261015.json)8PASS, incluido mismo reproductor sin cambiar aserciones. Fuentes y limpieza independientes verificadas en cada run. No se afirma corregir limitaciones RC previas ni N3.
+
+| Verificación | Antes | Después |
+| --- | --- | --- |
+| Batería afectada ampliada |6PASS focales |49PASS,0fallos/omisiones |
+| Carrera off-page RC |1FAIL/1PASS |2PASS; selección correctiva total8PASS |
+
+El producto base previo a candidata coincide exactamente con5d9acba en apps/config/templates/static/dependencias, por diff Git; elegible comparación con carga corta limpia20261014-143026-da830c7c. Sin nueva carga todavía.
