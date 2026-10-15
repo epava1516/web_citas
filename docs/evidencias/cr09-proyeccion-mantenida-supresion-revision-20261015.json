@@ -1,0 +1,14 @@
+{
+  "base_sha": "b009eb9",
+  "status": "Static affected-path finding; realPG reproduction/correction pending after activefreeze",
+  "source_facts": [
+    "apps/safety/erasure_inventory.py source_manifest includes all fields of subject-linked listings.PublicationState under publication purpose",
+    "apps/safety/erasure_execution.py publication block clears Revision title/descriptions and Listing approved_revision/dates, but contains no synchronous clearing/deletion of the newly copied state vector/dates",
+    "publication_signals queues refresher on commit; worker/Beat eventual refresh cannot alone establish immediate removal when unavailable"
+  ],
+  "requirement": "Preserve existing actual scoped publication-content erasure for newly introduced derivedcopy, without changing representationwithdrawal/hold or otherpurposes",
+  "next": "Real ownPG test with genuine modeldata and task enqueue intentionally unavailable; reviewed publication erasure/replay must leave no copiedtext/dates, peer state intact; refresh later safe. Preserve any reproducedfailure before fix.",
+  "candidate_fix_to_review": "Delete only subject-owned derived PublicationState in existing atomic publication-erasure block after domain writes; existing dirty/refresher recreates ineligible row. No newmodels/workers/queues/permissions.",
+  "freeze": "Do not change product/tests/.ai during currentrun153711-635becfe; docs-only finding now",
+  "acceptance": false
+}

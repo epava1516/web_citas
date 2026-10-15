@@ -1,0 +1,30 @@
+{
+  "run_id": "20261015-153711-635becfe",
+  "unit": "cr09-maintained-projection-expanded-20261015.service",
+  "head": "b009eb9",
+  "status": "running",
+  "selection": [
+    "tests/test_publication_state.py",
+    "tests/test_discovery.py",
+    "tests/test_public_validation_dependencies.py",
+    "tests/test_page_presentation.py",
+    "tests/test_publication_state_coverage.py",
+    "tests/test_publication_state_conditional.py",
+    "tests/test_publication_state_membership.py",
+    "tests/test_publication_state_inventory.py",
+    "tests/test_publication_state_upgrade.py",
+    "tests/test_publication_refresh_rollback.py",
+    "tests/test_publication_refresh_lock_order.py",
+    "tests/test_search_document_sql_proof.py",
+    "tests/test_erasure_inventory.py",
+    "tests/test_public_validation_context.py",
+    "tests/test_publication_projection_lifecycle.py",
+    "tests/test_publication_state_matrix.py::test_current_stored_route_matrix[diverse-100]"
+  ],
+  "prerequisites": "Initial5PASS and lifecycle3PASS with independentfreeze/cleanup; oldupgrade test now historicalmodels, pending this gate",
+  "criteria": "All15completefiles plusselecteddiverse100node PASS no necessaryskips; terminalsourcefreeze+independentcleanup; preservefailures",
+  "scope": "Exact publication/filter/nativeguard/state membership/relateddependencies, projection/source search, lifecycle/upgrades, inventory field inclusion/privacy/authority, heterogeneous fixture. Matrix6casefullprofile not claimed.",
+  "next": "Review terminalfailed orpassed evidence; integrateddemand/maintenance beforecleanload. No quota/criteria changes or newp95 claimed.",
+  "last_clean_p95_seconds": 5.004965654108673,
+  "acceptance": false
+}
