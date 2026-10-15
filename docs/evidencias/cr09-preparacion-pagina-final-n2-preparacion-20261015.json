@@ -1,0 +1,27 @@
+{
+  "candidate_sha": "616c3e4",
+  "unit": "cr09-prepared-page-final-n2-20261015.service",
+  "status": "running",
+  "selection": [
+    "tests/test_publication_state.py",
+    "tests/test_discovery.py",
+    "tests/test_public_validation_dependencies.py",
+    "tests/test_page_presentation.py",
+    "tests/test_publication_state_coverage.py"
+  ],
+  "prerequisite": "140553-1402ee098PASS with source/cleanup; wide65536in both binding modes, fallback/emptydispatch, HTML/revocation/options/GUCerror restoration",
+  "required": "Complete selectedfilesPASS without necessary skips; native publication/filter/order/dirty/unknown/RR/deferredFK/presentation semantics; source freeze and independent cleanup",
+  "limits": "Existing bounded own PostgreSQL synthetic CI, no competing load",
+  "next": "After finalN2 only, measure current CPU families before cleanload decision",
+  "acceptance": false,
+  "independent_native_writer": {
+    "task": "cr09_prepared_read_audit_20261015",
+    "base_sha": "616c3e4",
+    "worktree": "/home/felidae/proyectos/web_modelos_cr09_prepared_read_audit_20261015",
+    "owned_file": "docs/evidencias/cr09-preparacion-lecturas-auditoria-20261015.md",
+    "status": "static_report_delivered_root_reviewed",
+    "scope": "Read-only sources plus sole doc write; no tests/Git/services/product changes; root verification required",
+    "invocations": "One native writer in this tranche; prior usage/counts preserved; no new externalClaude",
+    "root_verification": "Checked current callsite, helper/finally, installed Psycopg adapter inheritance and Django create_cursor timezone loader. No product blocker demonstrated; no execution evidence inferred. UUID wide-prefetch case remains uncovered specifically; existing wide integer control retained."
+  }
+}
