@@ -2058,3 +2058,6 @@ Equivalencia conteo compartido `20261015-093943-5ab64c62`: [9 PASS/1 FAIL](evide
 
 
 [Exportador Celery real: evidencia reutilizable](evidencias/gs01-exportador-celery-correspondencia-20261015.json). Hash JUnit bruto de MOD08 verificado contra reporte, dos jobs succeeded con export persistido observados por HTTP/DB, worker prefork2 terminado exit0 y eagerFalse en harness exacto. Nueve fuentes/dependencias críticas coinciden; diferencia settings sólo mueve vaciado Beat en modo recuperación, registrada sin ocultarla. No task-ID correlacionado por eventos ni toda semántica transitiva/capacidad actual. Complementa navegador de fixture; evita repetición pesada por falta supuesta de cualquier worker real. CR09/CR10/GS01/N3 siguen pendientes.
+
+
+[Frentes existentes conciliados](evidencias/cr10-correspondencia-integrada-20261015.json): rama claude/bf-design-system ya integrada por ascendencia Git y limpia en su worktree; no hay commits BF pendientes de incorporar. Selección comercial ligada a journals v3 actuales y huellas exactas, sin diferencias de producto comercial desde8fb4cf1; no rehacer mecanismos cerrados del contrato11. CR10 formal sigue condicionado a CR09/gates comunes. Preparación independiente de GS01/BF no acepta fases.

@@ -1,0 +1,551 @@
+{
+  "recorded_at": "2026-10-15T10:00:47.342459+00:00",
+  "head": "620f207e762c01b9ef50d68d12369634f682f2d6",
+  "product_base": "8fb4cf1",
+  "files": {
+    "tests/test_promotion_audit_inventory.py": {
+      "source_sha256": "4a14c952f30c0498f6173dd0c39639741ba1ce010e44697475e77ee924982beb",
+      "reports": [
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_promotion_audit_inventory.py::test_operator_audit_is_scoped_and_changes_invalidate_inventory[account]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.50742617296055
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_promotion_audit_inventory.py::test_operator_audit_is_scoped_and_changes_invalidate_inventory[profile]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 9.237495929002762
+        }
+      ]
+    },
+    "tests/test_promotion_bump_races.py": {
+      "source_sha256": "658d08c6fe0554d37a4f37ef5ea28ed173ad331835b009792d02618d4aaee30f",
+      "reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_bump_races.py::test_observed_person_wait_prevents_bump_after_eligibility_revocation[management-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.338976080995053
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_bump_races.py::test_observed_person_wait_prevents_bump_after_eligibility_revocation[management-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.5685400529764593
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_bump_races.py::test_observed_person_wait_prevents_bump_after_eligibility_revocation[withdrawal-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.1241845837794244
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_bump_races.py::test_observed_person_wait_prevents_bump_after_eligibility_revocation[withdrawal-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.2549619348719716
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_bump_races.py::test_observed_person_wait_prevents_bump_after_eligibility_revocation[inactive_buyer-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.4394000750035048
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_bump_races.py::test_observed_person_wait_prevents_bump_after_eligibility_revocation[inactive_buyer-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.433763103093952
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_bump_races.py::test_two_concurrent_bumps_grant_one_window_only",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.8182496149092913
+        }
+      ]
+    },
+    "tests/test_promotion_catalog.py": {
+      "source_sha256": "7b9b25e571f6be9acaabd943d22330e8f1b626eb02a8aef2bccb181f4743bf32",
+      "reports": [
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_incomplete_preview_release_new_version_and_csrf[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.120077921077609
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_incomplete_preview_release_new_version_and_csrf[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.1496310369111598
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_cached_actor_revocation_denies_without_catalogue_effects[permission]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.6500488379970193
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_cached_actor_revocation_denies_without_catalogue_effects[session]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.6766566256992519
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_cached_actor_revocation_denies_without_catalogue_effects[mfa]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.6293638357892632
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_invalid_values_stale_edit_and_released_payload_preserved",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.1651276941411197
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_concurrent_new_versions_serialize_on_product",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.8229773417115211
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.524675854016095
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 3.8940059021115303
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_audit_is_atomic_minimal_and_release_replay_does_not_duplicate",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.9069880349561572
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[permission-create]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.6395452260039747
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[permission-update]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.5993219241499901
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[permission-publish]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.725356409791857
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[permission-replay]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.7833519158884883
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[session-create]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.6007852707989514
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[session-update]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.7197814392857254
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[session-publish]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.7402504361234605
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[session-replay]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.7174246469512582
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[mfa-create]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.7429145658388734
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[mfa-update]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.7012445731088519
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[mfa-publish]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.7152960519306362
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[mfa-replay]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.8704784479923546
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_direct_routes_deny_unprivileged_account_and_get_has_no_effect[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.9737605713307858
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_direct_routes_deny_unprivileged_account_and_get_has_no_effect[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.9255342367105186
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_invalid_http_form_returns_error_without_mutating_draft",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.8017161567695439
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_catalog.py::test_concurrent_releases_preserve_one_current_version_and_both_snapshots",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.9032914279960096
+        }
+      ]
+    },
+    "tests/test_promotion_catalog_localization.py": {
+      "source_sha256": "8bdcc76c7330a6f6a79045ffaea2c616d96e0799927e97bac9fddefd9727e617",
+      "reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_promotion_catalog_localization.py::test_localized_mobile_catalogue_navigation_save_release_reload[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.253555564209819
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_promotion_catalog_localization.py::test_localized_mobile_catalogue_navigation_save_release_reload[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.150760257150978
+        }
+      ]
+    },
+    "tests/test_promotion_conflict_localization.py": {
+      "source_sha256": "4a631f6bd06da6d074d94f189fb7544ca385a814ba4bb1e47f6e2fa8cee255d6",
+      "reports": [
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_promotion_conflict_localization.py::test_three_native_conflicts_localized[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.726910944096744
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_promotion_conflict_localization.py::test_three_native_conflicts_localized[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 5.016721215099096
+        }
+      ]
+    },
+    "tests/test_promotion_exposure.py": {
+      "source_sha256": "3d3895b7d894372be915fbcd5d28593addb4a22c0fae9916ac703b3648273e27",
+      "reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_exposure.py::test_sponsorship_uses_filtered_visible_set_and_never_reintroduces_withdrawn_listing",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 2.6186288646422327
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_exposure.py::test_bump_window_quota_replay_and_editorial_state_preserved",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.8539507840760052
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_exposure.py::test_task_bounded_scan_advances_past_one_hundred_ineligible_entitlements",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.774103294126689
+        }
+      ]
+    },
+    "tests/test_promotion_localization.py": {
+      "source_sha256": "826dac7054500fd0c66129d8f49c51f4477dc724e186319b2e522e8d9047ea03",
+      "reports": [
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_localization.py::test_localized_synthetic_order_preserves_price_and_gates[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.840281062759459
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_localization.py::test_localized_synthetic_order_preserves_price_and_gates[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.61164854420349
+        }
+      ]
+    },
+    "tests/test_promotion_order_http.py": {
+      "source_sha256": "63d60b9453aadadc6662b3162a561a1957f6f95acc88f1745e3a5d06a2d8a4cc",
+      "reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_promotion_order_http.py::test_private_order_form_simulation_reload_and_ownership[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 2.138589223846793
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_promotion_order_http.py::test_private_order_form_simulation_reload_and_ownership[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.9064847761765122
+        }
+      ]
+    },
+    "tests/test_promotion_order_inventory.py": {
+      "source_sha256": "5bd33a6ed2982c24ea566d81cca97ce20b80dbedfbd92f446563f105814d2424",
+      "reports": [
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_promotion_order_inventory.py::test_commercial_records_are_scoped_and_mutations_invalidate_both_inventories[account]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.076258606277406
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_promotion_order_inventory.py::test_commercial_records_are_scoped_and_mutations_invalidate_both_inventories[profile]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 9.315466299187392
+        }
+      ]
+    },
+    "tests/test_promotion_order_mobile_agency.py": {
+      "source_sha256": "48b9a2a66870a3d5b6b2993dbd8cf672ab15a3219676b9e77ec5d1498882bea9",
+      "reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_order_mobile_agency.py::test_mobile_dashboard_order_simulation_reload_and_layout[es]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.612377090845257
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_order_mobile_agency.py::test_mobile_dashboard_order_simulation_reload_and_layout[en]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 4.435542610939592
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_order_mobile_agency.py::test_agency_buyer_authority_and_revocation_remove_sponsorship[owner]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.2039091908372939
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_promotion_order_mobile_agency.py::test_agency_buyer_authority_and_revocation_remove_sponsorship[editor]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.3316853670403361
+        }
+      ]
+    },
+    "tests/test_promotion_order_races.py": {
+      "source_sha256": "f52dd491fb969d27c31c871bc7b2d2f357eeb18c27a0abccf004db23da7838d5",
+      "reports": [
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[session-create]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.6517061926424503
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[session-event]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.0693921949714422
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[session-replay]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.2547880210913718
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[mfa-create]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.6064798976294696
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[mfa-event]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.8701341841369867
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[mfa-replay]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.2987066344358027
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[management-create]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.6706366743892431
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[management-event]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.1158014507964253
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[management-replay]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.193361857905984
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_concurrent_identical_payment_event_has_one_entitlement_and_one_event",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.6066687908023596
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_promotion_order_races.py::test_audit_failure_rolls_back_order_and_payment_grant",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.9331277487799525
+        }
+      ]
+    },
+    "tests/test_promotion_orders.py": {
+      "source_sha256": "c5ddd2d990280395e2a4a21610a82a5bf3a02e6d3baaa2ff0b82db625a929967",
+      "reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_promotion_orders.py::test_order_snapshot_replay_pending_failed_success_and_event_conflicts",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 2.2662320830859244
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_promotion_orders.py::test_invalid_events_foreign_actor_and_revoked_session_never_grant",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.9123300779610872
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_promotion_orders.py::test_disabled_production_incomplete_product_and_withdrawn_listing_reject",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.0412418651394546
+        }
+      ]
+    },
+    "tests/test_promotion_recovery.py": {
+      "source_sha256": "94b1c443dd5ede244198ffcf59357d8fef490f7b7dd4311372364f53a24e1419",
+      "reports": [
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_promotion_recovery.py::test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 9.921243673190475
+        }
+      ]
+    }
+  },
+  "commercial_product_diff_from_v3_empty": true,
+  "prior_local_delivery_contract": "docs/contratos/11-promociones-preparacion.md#cierre-local-de-la-entrega-comercial-completa",
+  "bf_branch_already_integrated": "claude/bf-design-system, ancestor HEAD; no missing commit to cherry-pick",
+  "decision": "Reuse actual common-v3 commercial calls and completed local mechanisms for criteria1-7 correspondence. No duplicate BF merge or commercial rebuild. Formal CR10 remains conditional on CR09/common gates; no real payments/production enabled.",
+  "remaining": [
+    "Complete criterion-by-criterion mapping including cross-cutting recovery/runtime receipts.",
+    "CR09 and full common N3/capacity remain unaccepted.",
+    "GS01 residual and BF/BB/C final gates remain open."
+  ],
+  "acceptance": false
+}

@@ -27,3 +27,6 @@ conservada y verifica que promoción de sujeto suprimido no se reactiva.
 
 Siguiente: terminar CR09 y reconciliar este mapa con todos los criterios/
 evidencias, sin activar ventas ni sustituir ensayos completos con inspección.
+
+
+Actualización integrada2026-10-15: [reports v3 y huellas exactas](cr10-correspondencia-integrada-20261015.json) enlazan la selección comercial a las particiones del mismo producto `8fb4cf1`; fuentes comerciales actuales sin diferencias. La rama BF existente ya es antecesora de HEAD y no necesita otra integración. Se conserva cierre local de mecanismos del contrato11; aceptación formal CR10 condicionada a CR09/gates comunes y correspondencia integral, sin pagos reales.
