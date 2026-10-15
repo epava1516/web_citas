@@ -2275,3 +2275,14 @@ Porcaso200peticiones cadauno,nearest-rankceil(n*.95)-1,duraciónended-emitted,to
 CR09 candidata coberturaestados2026-10-15: comprobaciónglobal eninstantáneapropiaREADONLY/RR usaausenciadeversionesviejas ycardinalidadigual listing/state;PKuniqueFKnon-nullcomprometidas garantizanqueestadoessubconjuntodeanuncios. Transaccionesheredadas/defaultconservanLEFTJOINoriginal:FKaplazada puedepermitirhuérfanoquecanceleunestadoausenteenconteo. Sin migración, nueva caché o cambiosguardia/filtros/dirty.6controlesnuevos cubrenactual/ineligible/missing/stale/emptyycontraejemplohuérfano;4archivoscompletos publication_state_coverage/publication_state/public_validation_dependencies/discovery run130140-e5b9acef56PASS/557.78s,sinomisiones,fuentesintactasyretiradaindependienteraíz/hijo/temporal/PG/Redis. PendientecomparaciónSQLantesdecargalimpia;noaceptaciónSLO/CR09/N3. Recibos `evidencias/cr09-cobertura-estados-{preparacion,terminal}-20261015.json`.
 
 Actualizadadocs83conadendaactual: objetivoactivo, mecanismo/restauración/urgenciaejecutadosdistinguidosdeaceptacióncomún,recursosfinitosylímitesvigentes,p95limpio19.666012FAIL. Cortesanterioresypausahistóricaconservados;pesos/gradosinalterados,nosincronizaciónfalsadeversiones.
+
+CR09 coberturaestados diagnósticoSQL131206-61a6f67e1PASS/89.58s,basea524d7c,18peticionesmismodiagnóstico,fuentes/limpieza independientes. No cambiodeinstrumentaciónrespectoreferencia125636-6ce78a00.
+
+| Ejecuciónstate_current porpetición | Referencia | Candidata |
+|---|---:|---:|
+| ListadoES |13.214699ms|6.684912ms|
+| ListadoEN |11.538217ms|6.072215ms|
+| BúsquedaES |9.190201ms|3.069990ms|
+| BúsquedaEN |15.660485ms|4.515550ms|
+
+Ficha no llama comprobaciónglobal. Planificacióncorrespondiente0.45–0.61→0.22–0.30ms,tiemposSQLinstrumentadosnoCPU. CPUagregadaPGsiguevariableporcontexto/mantenimiento,ningúntecho20rpsdemostrado.56PASSyreducciónestructuraldeljoinconequivalenciacontraFKaplazadajustificanúnicocortolimpio4sync,10ksintético20rps60s+subida,workerBeatnormal,generatorfreezeantesdereloj,mismas cuotas,sinobserver/perfiladores. Baselineúltimo123801-4c68ee8cp9519.666012s;retirarcandidatasi nohaybeneficiopersuasivo,conservarnegativos, no15min/N3antesdepasar. Recibo `evidencias/cr09-cobertura-estados-sql-terminal-20261015.json`.
