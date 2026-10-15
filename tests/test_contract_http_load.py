@@ -235,7 +235,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     if observe_workers and os.environ.get("WEB_MODELOS_BENCHMARK_ROUTE_ONLY") == "1":
         manifest["worker_observer"]["scope"] = "Route events after Django get_response; native handlers distinguished from discovery projection/fallback; WSGI start/end/render/SQL wall and threadCPU. No wrappers on native rules; context/validation not_measured. Requests without Django response/route event remain not_measured, never inferred from HTTP status. Partial work lower bounds; causal overhead not_measured."
     if observe_workers:
-        manifest["instrumentation"] += "; opt-in isolated worker observer as described in worker_observer, thread CPU scoped to WSGI request; no DB CPU/RSS sampling"
+        manifest["instrumentation"] += "; opt-in isolated worker observer as described in worker_observer, thread CPU scoped to WSGI request; opt-in workerGC intervals without policy changes, overlapping stages not additive; no per-request DB CPU/RSS sampling"
     if resource_only:
         manifest["worker_observer"].update(
             mode="resource_gthread_admission" if topology["worker_class"] == "gthread" else "resource_light",

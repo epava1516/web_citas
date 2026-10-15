@@ -15,13 +15,20 @@ _ID = re.compile(r"[du]-[0-9]+\Z")
 
 
 class WorkerObserver:
-    def __init__(self, folder):
+    def __init__(self, folder, *, observe_gc=False):
         self.pid = os.getpid()
         self.fd = os.open(
             Path(folder) / f"worker-{self.pid}.jsonl",
             os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_APPEND,
             0o600,
         )
+
+        self.gc_observer = None
+        if observe_gc:
+            from scripts.benchmark_gc_observer import GCObserver
+
+            self.gc_observer = GCObserver(monotonic_clock=time.monotonic)
+            self.gc_observer.__enter__()
 
     def write(self, state, event, **values):
         record = {
@@ -115,6 +122,8 @@ class WorkerObserver:
                 "stages": {},
                 "sql": {"calls": 0, "wall": 0.0, "thread_cpu": 0.0},
             }
+            if self.gc_observer is not None:
+                state["gc_start"] = len(self.gc_observer.events)
             token = _CURRENT.set(state)
             self.write(state, "wsgi_start", started=state["started"])
 
@@ -132,6 +141,20 @@ class WorkerObserver:
         return application
 
     def finish(self, state, token, error=None):
+        extra = {}
+        if self.gc_observer is not None:
+            events = self.gc_observer.events[state["gc_start"]:]
+            own = [e for e in events if e["on_observer_thread"]]
+            extra["gc"] = {
+                "events_count": len(events),
+                "on_worker_thread_count": len(own),
+                "wall_seconds": sum(e["wall_seconds"] for e in own),
+                "thread_cpu_seconds": sum(e["collector_thread_cpu_seconds"] for e in own),
+                "largest_events": sorted(own, key=lambda e: e["wall_seconds"], reverse=True)[:16],
+                "scope": "GC intervals overlap request/stages/SQL; never add as independent cost. "
+                         "Other-thread collections excluded from sums. Policy unchanged, no forced GC. "
+                         "Callback overhead not measured; only16largest intervals retained per request.",
+            }
         try:
             self.write(
                 state,
@@ -142,12 +165,17 @@ class WorkerObserver:
                 thread_cpu=time.thread_time() - state["cpu_started"],
                 stages=state["stages"],
                 sql=state["sql"],
+                **extra,
             )
         finally:
             _CURRENT.reset(token)
 
     def close(self):
-        os.close(self.fd)
+        try:
+            if self.gc_observer is not None:
+                self.gc_observer.__exit__()
+        finally:
+            os.close(self.fd)
 
 
 class ObservedResponse:
@@ -198,7 +226,7 @@ def post_worker_init(worker):
         or not connection.settings_dict["NAME"].startswith("test_promotion_gate_")
     ):
         raise RuntimeError("Observer requires an owned synthetic PostgreSQL runner")
-    observer = WorkerObserver(folder)
+    observer = WorkerObserver(folder, observe_gc=True)
     worker._benchmark_observer = observer
     route_only = os.environ.get("WEB_MODELOS_BENCHMARK_ROUTE_ONLY") == "1"
     if not route_only:

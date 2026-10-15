@@ -156,3 +156,32 @@ def test_wsgi_context_and_finish_are_isolated_between_concurrent_threads(tmp_pat
         events = [e for e in observed["events"] if e["id"] == identity]
         assert [e["event"] for e in events] == ["wsgi_start", "wsgi_end"]
         assert events[-1]["status"] == 200 and events[-1]["error_type"] is None
+
+
+def test_opt_in_gc_records_real_collection_and_removes_callback(tmp_path):
+    import gc
+
+    callbacks, enabled, thresholds = list(gc.callbacks), gc.isenabled(), gc.get_threshold()
+    observer = WorkerObserver(tmp_path, observe_gc=True)
+
+    def native(environ, start_response):
+        gc.collect(2)  # Test stimulus only; observer never forces collection.
+        start_response('200 OK', [])
+        return [b'ok']
+
+    try:
+        response = observer.wsgi(native)({'HTTP_X_BENCHMARK_ID': 'd-0'}, lambda *a: None)
+        assert b''.join(response) == b'ok'
+        response.close()
+    finally:
+        observer.close()
+    assert gc.callbacks == callbacks
+    assert gc.isenabled() == enabled and gc.get_threshold() == thresholds
+    data = collect_events(tmp_path)
+    assert not data['parse_errors']
+    measured = data['events'][-1]['gc']
+    assert measured['events_count'] >= 1
+    assert measured['on_worker_thread_count'] >= 1
+    assert measured['wall_seconds'] >= measured['thread_cpu_seconds'] * 0.5
+    assert any(e['generation'] == 2 for e in measured['largest_events'])
+    assert _CURRENT.get() is None

@@ -1,0 +1,118 @@
+{
+  "run_id": "20261015-194646-ac539d20",
+  "runner": {
+    "id": "20261015-194646-ac539d20",
+    "pid": 1985766,
+    "start_ticks": 381421612,
+    "command": [
+      "artifacts/vps-preparation/cr09-private-guard-20261015/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_benchmark_worker_observer.py",
+      "--test",
+      "tests/test_benchmark_gc_observer.py",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "600"
+    ],
+    "head": "7b1fdc2091197b6fce4941e6db82caf62c5bdaf6",
+    "containers": [
+      "web-modelos-ci-pg-20261015-194646-ac539d20",
+      "web-modelos-ci-redis-20261015-194646-ac539d20"
+    ],
+    "label": "web-modelos-local-ci-run=20261015-194646-ac539d20",
+    "temporary": "/tmp/web-modelos-local-ci-8hs_kfqo",
+    "child": {
+      "pid": 1988286,
+      "start_ticks": 381423437,
+      "step": "pytest"
+    }
+  },
+  "source_hashes_verified": true,
+  "cleanup_verified": true,
+  "testcases": [
+    {
+      "classname": "tests.test_benchmark_worker_observer",
+      "name": "test_wsgi_observer_preserves_body_close_status_and_context",
+      "file": "tests/test_benchmark_worker_observer.py",
+      "line": "9",
+      "time": "0.003"
+    },
+    {
+      "classname": "tests.test_benchmark_worker_observer",
+      "name": "test_worker_exception_retains_partial_work_and_resets_context",
+      "file": "tests/test_benchmark_worker_observer.py",
+      "line": "48",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.test_benchmark_worker_observer",
+      "name": "test_unidentified_requests_not_captured_and_truncation_explicit",
+      "file": "tests/test_benchmark_worker_observer.py",
+      "line": "70",
+      "time": "0.002"
+    },
+    {
+      "classname": "tests.test_benchmark_worker_observer",
+      "name": "test_sql_attribution_is_bounded_private_and_keeps_failed_calls",
+      "file": "tests/test_benchmark_worker_observer.py",
+      "line": "84",
+      "time": "0.006"
+    },
+    {
+      "classname": "tests.test_benchmark_worker_observer",
+      "name": "test_wsgi_context_and_finish_are_isolated_between_concurrent_threads",
+      "file": "tests/test_benchmark_worker_observer.py",
+      "line": "122",
+      "time": "0.004"
+    },
+    {
+      "classname": "tests.test_benchmark_worker_observer",
+      "name": "test_opt_in_gc_records_real_collection_and_removes_callback",
+      "file": "tests/test_benchmark_worker_observer.py",
+      "line": "160",
+      "time": "0.051"
+    },
+    {
+      "classname": "tests.test_benchmark_gc_observer",
+      "name": "test_gc_observer_records_real_collection_and_preserves_policy",
+      "file": "tests/test_benchmark_gc_observer.py",
+      "line": "9",
+      "time": "0.049"
+    },
+    {
+      "classname": "tests.test_benchmark_gc_observer",
+      "name": "test_gc_observer_removes_only_its_callback_after_exception",
+      "file": "tests/test_benchmark_gc_observer.py",
+      "line": "33",
+      "time": "0.001"
+    },
+    {
+      "classname": "tests.test_benchmark_gc_observer",
+      "name": "test_generator_overlap_unions_events_and_ignores_unemitted_requests",
+      "file": "tests/test_benchmark_gc_observer.py",
+      "line": "40",
+      "time": "0.001"
+    },
+    {
+      "classname": "tests.test_benchmark_gc_observer",
+      "name": "test_gc_timestamps_share_standard_generator_monotonic_origin",
+      "file": "tests/test_benchmark_gc_observer.py",
+      "line": "53",
+      "time": "0.155"
+    },
+    {
+      "classname": "tests.test_benchmark_gc_observer",
+      "name": "test_client_preparation_reclaims_cycles_without_changing_load_policy",
+      "file": "tests/test_benchmark_gc_observer.py",
+      "line": "75",
+      "time": "0.072"
+    }
+  ],
+  "scope": "Observer protocol, body/close/errors/thread isolation/privacy and opt-in real GC callbacks cleanup; no capacity proof. Product unchanged.",
+  "acceptance": false
+}
