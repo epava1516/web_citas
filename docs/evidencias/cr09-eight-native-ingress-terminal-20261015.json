@@ -1,0 +1,321 @@
+{
+  "run": "20261015-232822-f60cfe0d",
+  "n_matched": 1200,
+  "parse_errors": 0,
+  "slow": 86,
+  "cohorts": {
+    "0_5": {
+      "n": 100,
+      "slow": 80,
+      "http_p95": 1.7666543759405613,
+      "http_mean": 1.1849349465966226,
+      "pre_mean": 0.747214300390333,
+      "post_mean": -0.0001800572918727994,
+      "wsgi_mean": 0.4378909791400656,
+      "cpu_mean": 0.12402259568,
+      "sql_mean": 0.272175815589726,
+      "sql_cpu_mean": 0.009973712529999994,
+      "gc_mean": 0.01336599761620164,
+      "gc_cpu_mean": 0.010729773650000064,
+      "service_mean": 0.43755894,
+      "sql_calls_mean": 42.64
+    },
+    "5_10": {
+      "n": 100,
+      "slow": 6,
+      "http_p95": 0.816465730778873,
+      "http_mean": 0.32968107220716775,
+      "pre_mean": 0.11880105020478368,
+      "post_mean": -0.00027929181698709726,
+      "wsgi_mean": 0.21114839457906784,
+      "cpu_mean": 0.09678253815000003,
+      "sql_mean": 0.09372506625950336,
+      "sql_cpu_mean": 0.007245333079999945,
+      "gc_mean": 0.005660205390304327,
+      "gc_cpu_mean": 0.004752909899999951,
+      "service_mean": 0.21078009,
+      "sql_calls_mean": 37.98
+    },
+    "10_15": {
+      "n": 100,
+      "slow": 0,
+      "http_p95": 0.3435355257242918,
+      "http_mean": 0.19881606466136872,
+      "pre_mean": 0.0010825180448591708,
+      "post_mean": -0.0001655634492635727,
+      "wsgi_mean": 0.19788943183142693,
+      "cpu_mean": 0.10157578715999999,
+      "sql_mean": 0.0784986900165677,
+      "sql_cpu_mean": 0.007276997749999689,
+      "gc_mean": 0.008145678886212409,
+      "gc_cpu_mean": 0.006984951060000136,
+      "service_mean": 0.19752311,
+      "sql_calls_mean": 37.98
+    },
+    "15_60": {
+      "n": 900,
+      "slow": 0,
+      "http_p95": 0.3658540570177138,
+      "http_mean": 0.21721235364520303,
+      "pre_mean": 0.0011199165715111627,
+      "post_mean": -0.0002698069634950823,
+      "wsgi_mean": 0.21635245331666536,
+      "cpu_mean": 0.10329264871888894,
+      "sql_mean": 0.09036400547768507,
+      "sql_cpu_mean": 0.007624474932222048,
+      "gc_mean": 0.008206690918240282,
+      "gc_cpu_mean": 0.006974941794444465,
+      "service_mean": 0.21601540555555557,
+      "sql_calls_mean": 38
+    },
+    "slow": {
+      "n": 86,
+      "slow": 86,
+      "http_p95": 1.8744722800329328,
+      "http_mean": 1.3261143268941533,
+      "pre_mean": 0.8731944081156926,
+      "post_mean": -0.00019945819364037624,
+      "wsgi_mean": 0.453109826963005,
+      "cpu_mean": 0.1252491596744186,
+      "sql_mean": 0.28276852006634134,
+      "sql_cpu_mean": 0.010006909848837205,
+      "gc_mean": 0.013959492150650815,
+      "gc_cpu_mean": 0.01096810946511632,
+      "service_mean": 0.4527807441860465,
+      "sql_calls_mean": 43.51162790697674
+    }
+  },
+  "cpu_groups": {
+    "0_5": {
+      "postgres": {
+        "samples": 5,
+        "cpu_cores": 0.8627688040899065,
+        "periods": 50,
+        "throttled_periods": 0
+      },
+      "controller": {
+        "samples": 5,
+        "cpu_cores": 2.434962069397214,
+        "periods": 0,
+        "throttled_periods": 0
+      }
+    },
+    "5_10": {
+      "postgres": {
+        "samples": 5,
+        "cpu_cores": 0.5346079170490367,
+        "periods": 50,
+        "throttled_periods": 0
+      },
+      "controller": {
+        "samples": 5,
+        "cpu_cores": 2.3542555039292736,
+        "periods": 0,
+        "throttled_periods": 0
+      }
+    },
+    "15_60": {
+      "postgres": {
+        "samples": 45,
+        "cpu_cores": 0.48314838722633885,
+        "periods": 451,
+        "throttled_periods": 0
+      },
+      "controller": {
+        "samples": 45,
+        "cpu_cores": 2.1188295264562043,
+        "periods": 0,
+        "throttled_periods": 0
+      }
+    }
+  },
+  "sql_families": {
+    "0_5": [
+      {
+        "caller": "apps/listings/public_validation.py:263",
+        "wall_per_request": 0.08723367275670171,
+        "cpu_per_request": 0.0021604757100000273,
+        "calls_per_request": 7.8
+      },
+      {
+        "caller": "apps/listings/publication_state.py:447",
+        "wall_per_request": 0.03763870013412088,
+        "cpu_per_request": 0.00019887145999998744,
+        "calls_per_request": 0.68
+      },
+      {
+        "caller": "overflow_or_unknown",
+        "wall_per_request": 0.02091148856561631,
+        "cpu_per_request": 0.0022954192700000474,
+        "calls_per_request": 6.76
+      },
+      {
+        "caller": "apps/listings/publication_state.py:388",
+        "wall_per_request": 0.01962102544028312,
+        "cpu_per_request": 7.489245000000144e-05,
+        "calls_per_request": 0.2
+      },
+      {
+        "caller": "apps/listings/publication_state.py:446",
+        "wall_per_request": 0.017585798786021768,
+        "cpu_per_request": 6.510820999998446e-05,
+        "calls_per_request": 0.2
+      },
+      {
+        "caller": "apps/listings/public_validation.py:509",
+        "wall_per_request": 0.010642143618315458,
+        "cpu_per_request": 0.0007432894100000187,
+        "calls_per_request": 4.4
+      },
+      {
+        "caller": "apps/listings/submissions.py:18",
+        "wall_per_request": 0.0075928578292950985,
+        "cpu_per_request": 0.0002694025400000255,
+        "calls_per_request": 1.2
+      },
+      {
+        "caller": "apps/listings/publication_state.py:444",
+        "wall_per_request": 0.006901677371934057,
+        "cpu_per_request": 0.00013909728999999204,
+        "calls_per_request": 0.48
+      },
+      {
+        "caller": "apps/listings/publication_state.py:305",
+        "wall_per_request": 0.0066152939945459364,
+        "cpu_per_request": 8.747388000000189e-05,
+        "calls_per_request": 0.48
+      },
+      {
+        "caller": "apps/listings/forms.py:170",
+        "wall_per_request": 0.0052713468158617615,
+        "cpu_per_request": 0.0002962519600000069,
+        "calls_per_request": 1.6
+      }
+    ],
+    "15_60": [
+      {
+        "caller": "apps/listings/public_validation.py:263",
+        "wall_per_request": 0.022742515919833547,
+        "cpu_per_request": 0.0017928692977777563,
+        "calls_per_request": 6.666666666666667
+      },
+      {
+        "caller": "overflow_or_unknown",
+        "wall_per_request": 0.011446474608447816,
+        "cpu_per_request": 0.0010555770988887462,
+        "calls_per_request": 4.666666666666667
+      },
+      {
+        "caller": "apps/listings/publication_state.py:447",
+        "wall_per_request": 0.005814806607862314,
+        "cpu_per_request": 0.00015507642444445875,
+        "calls_per_request": 0.6666666666666666
+      },
+      {
+        "caller": "apps/listings/public_validation.py:509",
+        "wall_per_request": 0.004753395987985035,
+        "cpu_per_request": 0.0005396105533332829,
+        "calls_per_request": 3.3333333333333335
+      },
+      {
+        "caller": "apps/listings/publication_state.py:305",
+        "wall_per_request": 0.004631982782545189,
+        "cpu_per_request": 0.00011403933444443028,
+        "calls_per_request": 0.6666666666666666
+      },
+      {
+        "caller": "apps/listings/publication_state.py:444",
+        "wall_per_request": 0.004445941283160614,
+        "cpu_per_request": 0.00017192732444444204,
+        "calls_per_request": 0.6666666666666666
+      },
+      {
+        "caller": "apps/listings/submissions.py:144",
+        "wall_per_request": 0.0028927160292449923,
+        "cpu_per_request": 0.000345943427777819,
+        "calls_per_request": 2.0
+      },
+      {
+        "caller": "apps/listings/public_validation.py:576",
+        "wall_per_request": 0.0027939095865521166,
+        "cpu_per_request": 0.00028737775000002504,
+        "calls_per_request": 2.0
+      },
+      {
+        "caller": "apps/listings/forms.py:170",
+        "wall_per_request": 0.0027181470735619466,
+        "cpu_per_request": 0.0002682427944444132,
+        "calls_per_request": 1.6666666666666667
+      },
+      {
+        "caller": "apps/listings/presentation_reads.py:36",
+        "wall_per_request": 0.0026529071386903525,
+        "cpu_per_request": 0.00021838738666663145,
+        "calls_per_request": 0.6666666666666666
+      }
+    ]
+  },
+  "workers": {
+    "3351077": {
+      "requests": 161,
+      "first_wsgi": 0.012598603032529354,
+      "first6_cpu_mean": 0.13471711883333334
+    },
+    "3351078": {
+      "requests": 143,
+      "first_wsgi": 0.3021495179273188,
+      "first6_cpu_mean": 0.20319836083333334
+    },
+    "3351015": {
+      "requests": 168,
+      "first_wsgi": 0.0528234732337296,
+      "first6_cpu_mean": 0.11888636516666666
+    },
+    "3351016": {
+      "requests": 146,
+      "first_wsgi": 0.20191371021792293,
+      "first6_cpu_mean": 0.16256697166666664
+    },
+    "3351081": {
+      "requests": 139,
+      "first_wsgi": 0.012159318197518587,
+      "first6_cpu_mean": 0.212771701
+    },
+    "3351018": {
+      "requests": 150,
+      "first_wsgi": 0.1023837779648602,
+      "first6_cpu_mean": 0.12211973483333331
+    },
+    "3351079": {
+      "requests": 148,
+      "first_wsgi": 0.25263047218322754,
+      "first6_cpu_mean": 0.12483882550000003
+    },
+    "3351057": {
+      "requests": 145,
+      "first_wsgi": 0.15170953515917063,
+      "first6_cpu_mean": 0.12743576333333329
+    }
+  },
+  "negative_pre": 0,
+  "negative_post": 1091,
+  "post_min": -0.01510949106886983,
+  "diagnostic_p95": 1.1528585851192474,
+  "scope": "Same diagnostic only; inclusive WSGI/SQL/GC are not additive; post may be negative because WSGI response.close occurs after body reception. Controller includes generator/Celery/observer. SQL wall not backend CPU.",
+  "cleanup": {
+    "independent_source_hash_equality": true,
+    "controller_and_child_absent": true,
+    "eight_worker_pids_absent": true,
+    "celery_pids_absent": true,
+    "temporary_absent": true,
+    "owned_pg_redis_absent": true,
+    "systemd_MainPID": 0,
+    "systemd_ControlGroup": ""
+  },
+  "sha": "3a881187bc5510096e106851a5e84d9ddbf0f960",
+  "kernel_mode": "native-sealed",
+  "instrument_files": {
+    "run.py": "a010ccee222497b8f1db647c98ba89cf49c73edd29e3ea0e31d5c5af2dfe0e87",
+    "analyze.py": "a80be13bdfd16b756a0f271b81957738472d8bd1c8784d3dd04b676fcea35532"
+  }
+}

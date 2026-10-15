@@ -1,0 +1,101 @@
+"""Bound the official own-CI runner without changing its test selection."""
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+root = Path(__file__).resolve().parents[3]
+out = Path(__file__).resolve().parent
+sys.path.insert(0, str(root / "scripts"))
+import run_local_ci
+sys.path.insert(0, str(root))
+from apps.safety.canonical_kernel_loader import kernel_identity
+canonical = kernel_identity()
+assert canonical["mode"] == "native-sealed", canonical
+(out / "canonical-environment.json").write_text(json.dumps(canonical, indent=2))
+from benchmark_owned_cpu_observer import OwnedCPUObserver
+observers = []
+original = subprocess.Popen
+limits = []
+class BoundedPopen(original):
+    def __init__(self, args, *a, **kw):
+        self.owned_pg_start = None
+        if isinstance(args, list) and args[:3] == ["uv", "run", "pytest"]:
+            kw["env"] = dict(kw["env"], WEB_MODELOS_BENCHMARK_SYNC8="1")
+        if isinstance(args, list) and args[:2] == ["docker", "run"] and "--name" in args:
+            proposed = args[args.index("--name") + 1]
+            if proposed.startswith("web-modelos-ci-pg-"):
+                self.owned_pg_start = proposed
+        if isinstance(args, list) and args[:2] == ["docker", "run"]:
+            name = args[args.index("--name") + 1]
+            if name.startswith("web-modelos-ci-pg-"):
+                flags = ["--cpus", "1", "--cpuset-cpus", "4", "--memory", "1536m", "--memory-swap", "1536m", "--pids-limit", "128"]
+            elif name.startswith("web-modelos-ci-redis-"):
+                flags = ["--cpus", "0.2", "--cpuset-cpus", "5", "--memory", "128m", "--memory-swap", "128m", "--pids-limit", "64"]
+            else:
+                flags = []
+            if flags:
+                args = args[:2] + flags + args[2:]
+                if name.startswith("web-modelos-ci-pg-"):
+                    args += ["postgres", "-c", "max_wal_size=256MB", "-c", "min_wal_size=80MB"]
+                limits.append({"name": name, "flags": flags})
+                (out / "container-limits.json").write_text(json.dumps(limits, indent=2))
+        if isinstance(args, list) and args[:2] == ["docker", "rm"]:
+            name = args[-1]
+            if name.startswith("web-modelos-ci-pg-"):
+                for observer in observers:
+                    observer.close()
+            if name.startswith(("web-modelos-ci-pg-", "web-modelos-ci-redis-")):
+                try:
+                    info = json.loads(subprocess.check_output(["docker", "inspect", name], text=True))[0]
+                    expected = name.split("-pg-", 1)[-1] if "-pg-" in name else name.split("-redis-", 1)[-1]
+                    assert info["Config"]["Labels"]["web-modelos-local-ci-run"] == expected
+                    state = {"name": name, "state": info["State"],
+                             "memory": info["HostConfig"]["Memory"],
+                             "swap": info["HostConfig"]["MemorySwap"],
+                             "cpus": info["HostConfig"]["NanoCpus"]}
+                    (out / (name + "-before-cleanup.json")).write_text(json.dumps(state, indent=2))
+                except Exception as error:
+                    (out / (name + "-probe-error.txt")).write_text(type(error).__name__ + ": " + str(error))
+        super().__init__(args, *a, **kw)
+    def wait(self, timeout=None):
+        result = super().wait(timeout=timeout)
+        name = self.owned_pg_start
+        self.owned_pg_start = None
+        if result == 0 and name is not None:
+            assert not observers
+            run_id = name.removeprefix("web-modelos-ci-pg-")
+            run_folder = root / "artifacts/local-ci" / run_id
+            run = json.loads((run_folder / "runner.json").read_text())
+            info = json.loads(subprocess.check_output(["docker", "inspect", name], text=True))[0]
+            try:
+                observer = OwnedCPUObserver(run_folder / "owned-cpu-samples.jsonl", run, info)
+                observer.start()
+                observers.append(observer)
+            except Exception as error:
+                (run_folder / "owned-cpu-startup-error.json").write_text(json.dumps({
+                    "type": type(error).__name__, "message": str(error),
+                    "controller_cgroup": Path("/proc/self/cgroup").read_text(),
+                    "owned_pg_cgroup": Path(f"/proc/{info['State']['Pid']}/cgroup").read_text(),
+                }, indent=2))
+                raise
+        return result
+subprocess.Popen = BoundedPopen
+cg = Path("/sys/fs/cgroup") / Path("/proc/self/cgroup").read_text().strip().split("::",1)[1].lstrip("/")
+receipt = {"cgroup": str(cg), "affinity": sorted(os.sched_getaffinity(0))}
+for key in ["memory.max", "memory.swap.max", "pids.max"]:
+    receipt[key] = (cg / key).read_text().strip()
+(out / "host-limits.json").write_text(json.dumps(receipt, indent=2))
+assert receipt["memory.max"] == str(3584*1024**2)
+assert receipt["memory.swap.max"] == "0"
+assert receipt["pids.max"] == "512"
+assert receipt["affinity"] == [0,1,2,3]
+try:
+    exit_code = run_local_ci.main()
+finally:
+    for observer in observers:
+        observer.close()
+receipt["terminal_memory_events"] = (cg / "memory.events").read_text()
+receipt["terminal_memory_peak"] = (cg / "memory.peak").read_text().strip()
+(out / "host-limits.json").write_text(json.dumps(receipt, indent=2))
+sys.exit(exit_code)
