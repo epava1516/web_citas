@@ -1,0 +1,38 @@
+{
+  "mode": "separate owned CPU diagnosis, not clean p95",
+  "base_sha": "42f9bae2f9353582486770bdef26b073f58b5b83",
+  "trigger_failure": "20261015-105821-81ed5e4a clean short FAIL p9521.845510s,343pending at60s",
+  "hypotheses": [
+    "PG own1CPU quota saturated/throttled while app/controller has spare CPU",
+    "Application/controller exhausts4affine CPUs; PG quota not binding",
+    "Neither CPU group saturated: different waiting requires separate evidence"
+  ],
+  "selection": [
+    "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]"
+  ],
+  "conditions": "Identical own10k synthetic20rps60s+upload, normalworkerBeat, generatorfreezeprearrival, observerwrappers off. Added external1Hz leafCPU counters only; no SQL/params/process enumeration/profiler. Sameexistingresourcequotas/CPUaffinity/memory/pids.",
+  "source_sha256": {
+    "scripts/benchmark_owned_cpu_observer.py": "19486521b518f09f361a400bcc82209d91af037a2a3a4312d21710bf9d06401e",
+    "tests/test_benchmark_owned_cpu_observer.py": "c9e4ddd53a43f2866ddc4331d3dbac11f6add0e13ce2149ee2a3f2852a12ca2e",
+    "artifacts/vps-preparation/cr09-owned-cpu-diagnose-20261015/run.py": "d3bd14989a9687a11cf33358ecf4a73f172399161dcf89353d763915d3e6efb7"
+  },
+  "prechecks": "6pure ownership/counter controls PASS; ruff/diffPASS; sampler checks exact CI run/container label,controllerPID/startticks,dedicatedcgroupandcontainerID,then fixedfiles before test startup",
+  "required": "Compare OS execution/quota only over actual arrival/drain window using same monotonicclock; no inference from full setup lifetime. Report cpu.max,affinity,CPUcores,period/throttle deltas,collectioncost,missing/error fields. Sourcefreeze/independentcleanup, preserve originalFAIL; no capacity/N3 or causal p95 interpretation.",
+  "limits": "controllerCPU0-3 3584MiB swap0 pids512;PG1CPU on4 1536MiB swap1536 pids128;Redis0.2CPU on5 128MiB swap128 pids64",
+  "reference": "https://cdn.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html",
+  "excluded": "Do not execute existing test_resource_service_checkpoint hardcoded normal web-modelos-db-1. No normal resources inspected/restarted/read viaSQL. No provider/production/realdata.",
+  "acceptance": false,
+  "preparation_retry": {
+    "previous": "20261015-110757-bc2bec6c ERROR before load, preserved and independently cleaned",
+    "change": "Capture sanitized observer startup error before legacy runner masks it with completed process kill",
+    "adapter_sha256": "b68637fe6d9167773f0e6831e298162afe8bdf3cc635954549f83ab698f36bd0"
+  },
+  "optional_interface_correction": {
+    "previous": "20261015-110900-20aba597 ERROR before pytest/load, preserved and cleaned",
+    "cause": "cpu.max absent in controller leaf; read optional files as not_exposed, require cpu.stat usage",
+    "prechecks": "7purecontrolsPASS including optional missing interface and mandatory cpu.stat rejection",
+    "observer_sha256": "d60da0d2ae9c8edb6b243e94087d28957d0734c501c2fc62907fd4c55a40a009",
+    "tests_sha256": "1271701d00888337bdd03b2070fbc4c9eb5c7896a224f300a30c93f5e171c489",
+    "new_server_settings": "none"
+  }
+}

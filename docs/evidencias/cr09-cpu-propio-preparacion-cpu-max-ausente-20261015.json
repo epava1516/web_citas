@@ -1,0 +1,22 @@
+{
+  "run": "20261015-110900-20aba597",
+  "result": "ERROR before pytest/load",
+  "startup_error": {
+    "type": "FileNotFoundError",
+    "message": "[Errno 2] No such file or directory: '/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/cr09-owned-cpu-diagnose-fixed-20261015.service/cpu.max'",
+    "controller_cgroup": "0::/user.slice/user-1002.slice/user@1002.service/app.slice/cr09-owned-cpu-diagnose-fixed-20261015.service\n",
+    "owned_pg_cgroup": "0::/system.slice/docker-8cb2a771ed2d83b59fe904a97294cb6f41ccbf8a6e611f64202207e7eb306d80.scope\n"
+  },
+  "cause": "Controller leaf does not expose cpu.max; CPU accounting cpu.stat is separate. Record missing optional interfaces explicitly; do not enable/change CPU controller.",
+  "cleanup_independent": {
+    "pid_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-110900-20aba597": true,
+      "web-modelos-ci-redis-20261015-110900-20aba597": true
+    }
+  },
+  "sources_unchanged_independent": true,
+  "result_sha256": "1dddf8fbd473a3e5121f067e4d70f194e80478b486171ad7e22492a8dd2a6d52",
+  "acceptance": false
+}

@@ -1,0 +1,18 @@
+{
+  "run": "20261015-110757-bc2bec6c",
+  "result": "ERROR",
+  "phase": "start-pg before any pytest/load",
+  "reported_error": "[Errno 3] No such process",
+  "finding": "Observer startup exception masked by existing runner killpg of completed docker CLI; add sanitized startup error capture before retrying preparation only",
+  "cleanup_independent": {
+    "controller_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-110757-bc2bec6c": true,
+      "web-modelos-ci-redis-20261015-110757-bc2bec6c": true
+    }
+  },
+  "sources_unchanged_independent": true,
+  "result_sha256": "39066469238dad87498385a8d8c3e9d17b4d1873491133bb33a8a5b52073f3dc",
+  "acceptance": false
+}

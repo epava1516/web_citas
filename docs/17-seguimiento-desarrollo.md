@@ -2142,3 +2142,12 @@ El producto base previo a candidata coincide exactamente con5d9acba en apps/conf
 | Errores/timeouts |0 |0 |
 
 Reducción observada1.683754s/7.156%; comparación única, no causalidad ni reproducibilidad. Objetivo estricto0.8s y acumulación pendiente incumplidos. Candidata retenida provisionalmente para diagnóstico separado, no aceptada como solución; sin repetir carga/15min ni encadenar ensayos especulativos. Los planes SQL no identifican por sí solos CPU PostgreSQL ni espera en cola; obtener atribución separada antes de otra candidata. No CR09/N3.
+
+2026-10-15: [diagnóstico CPU propio](evidencias/cr09-cpu-propio-diagnostico-terminal-20261015.json), run20261015-111000-bcc11105. Observador nuevo de sólo lectura, propiedad exacta CI/etiqueta/PID/startticks/cgroup,7controles purosPASS, sin enumerar procesos/SQL ni observar pila normal. Dos errores de preparación antes de carga preservados: inicial enmascarado por killpg del runner y cpu.max ausente en controlador; interfaces opcionales quedan not_exposed sin cambiar kernel/cgroup. Carga diagnóstica única válida1200completadas/0errores, FAIL conservado, fuentes y limpieza independientes.
+
+| Ventana observada | PostgreSQL CPU media (núcleos) | Periodos throttled PG | Controlador CPU media (núcleos) |
+| --- | --- | --- | --- |
+| Llegadas,59.061s internos de60s |0.787 |0/590 |1.668 |
+| Drenaje,22.024s internos |0.731 |0/221 |1.668 |
+
+PG cuota100000/100000,afinidadCPU4; controlador afinidad0–3, cpu.max/cpuset de hoja no expuestos. Contador global del controlador incluye app/generador/pytest/Celery/colector; no CPU web exclusiva.225muestras, CPU hilo colector0.212s en toda ejecución, overhead causal no medido. No atribuir FAIL exclusivamente a cuota PG: no throttling en ventanas. Tampoco inferir CPU disponible: scheduler/steal/límites ancestros no medidos. p95 instrumentado22.005792s no sustituye última métrica limpia21.845510s ni acredita reproducibilidad. Siguiente: inspeccionar eventos WSGI/transporte/ocupación de4workers sync antes de cambiar concurrencia/cuotas; ninguna nueva candidata/carga encadenada. Referencia [kernel cgroupv2](https://cdn.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html).

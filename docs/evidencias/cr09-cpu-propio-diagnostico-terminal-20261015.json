@@ -1,0 +1,237 @@
+{
+  "run": "20261015-111000-bcc11105",
+  "sha": "42f9bae2f9353582486770bdef26b073f58b5b83",
+  "mode": "separate own CPU diagnosis, not clean measurement",
+  "workload_result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "1",
+      "time": "205.765",
+      "timestamp": "2026-10-15T13:10:20.634696+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged_independent": true,
+  "cleanup_independent": {
+    "pids_absent": {
+      "3121822": true,
+      "3124426": true
+    },
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-111000-bcc11105": true,
+      "web-modelos-ci-redis-20261015-111000-bcc11105": true
+    },
+    "celery_pids_absent": {
+      "3132013": true,
+      "3132458": true,
+      "3132459": true,
+      "3132014": true
+    }
+  },
+  "observer": {
+    "run": "20261015-111000-bcc11105",
+    "samples": 225,
+    "error_type": null,
+    "groups": {
+      "controller": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/cr09-owned-cpu-diagnose-observed-20261015.service",
+      "postgres": "/sys/fs/cgroup/system.slice/docker-a0af5d2eb0f1d52908880e3efb4486ffd7ceb5c09023d79a2467fb71dc77f2db.scope"
+    },
+    "scope": "Own leaf cgroups only; controller includes generator/pytest/Celery/app/collector. No request attribution or causal profiling overhead measured.",
+    "collector_thread_cpu_seconds": 0.21214338000000002
+  },
+  "phases": {
+    "arrivals": {
+      "postgres": {
+        "elapsed_seconds": 59.06061708694324,
+        "execution_cpu_cores": 0.7873505779925257,
+        "counter_delta": {
+          "usage_usec": 46501411,
+          "user_usec": 33745601,
+          "system_usec": 12755811,
+          "nr_periods": 590,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        },
+        "samples": 60,
+        "first_monotonic": 3783349.11957547,
+        "last_monotonic": 3783408.180192557,
+        "cpu.max_values": [
+          "100000 100000"
+        ],
+        "cpuset_values": [
+          "4"
+        ],
+        "first_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "last_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+      },
+      "controller": {
+        "elapsed_seconds": 59.060744936112314,
+        "execution_cpu_cores": 1.667610256296966,
+        "counter_delta": {
+          "usage_usec": 98490304,
+          "user_usec": 92953411,
+          "system_usec": 5536892
+        },
+        "samples": 60,
+        "first_monotonic": 3783349.119042385,
+        "last_monotonic": 3783408.179787321,
+        "cpu.max_values": [
+          "not_exposed"
+        ],
+        "cpuset_values": [
+          "not_exposed"
+        ],
+        "first_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "last_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+      }
+    },
+    "drain": {
+      "postgres": {
+        "elapsed_seconds": 22.02418688684702,
+        "execution_cpu_cores": 0.7306773268261079,
+        "counter_delta": {
+          "usage_usec": 16092574,
+          "user_usec": 11779287,
+          "system_usec": 4313287,
+          "nr_periods": 221,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        },
+        "samples": 23,
+        "first_monotonic": 3783409.180990075,
+        "last_monotonic": 3783431.205176962,
+        "cpu.max_values": [
+          "100000 100000"
+        ],
+        "cpuset_values": [
+          "4"
+        ],
+        "first_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "last_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+      },
+      "controller": {
+        "elapsed_seconds": 22.024138316046447,
+        "execution_cpu_cores": 1.6684532885096919,
+        "counter_delta": {
+          "usage_usec": 36746246,
+          "user_usec": 34841001,
+          "system_usec": 1905244
+        },
+        "samples": 23,
+        "first_monotonic": 3783409.180630749,
+        "last_monotonic": 3783431.204769065,
+        "cpu.max_values": [
+          "not_exposed"
+        ],
+        "cpuset_values": [
+          "not_exposed"
+        ],
+        "first_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "last_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+      }
+    }
+  },
+  "load": {
+    "resources": {
+      "os": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+      "cpu_count": 8,
+      "cpu_affinity_count": 4,
+      "postgres_version": "17.11",
+      "gunicorn_version": "23.0.0",
+      "django_version": "5.2.17",
+      "python_version": "3.12.15",
+      "pg_server_shared": true,
+      "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+      "memory_total": "MemTotal:       23760928 kB"
+    },
+    "refresh_mode": "normal_worker_beat",
+    "counts": {
+      "scheduled": 1200,
+      "emitted": 1200,
+      "not_emitted": 0,
+      "successful": 1200,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "window_close": {
+      "dynamic": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 857,
+        "failed": 0,
+        "pending": 343,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 1,
+        "emitted": 1,
+        "not_emitted": 0,
+        "successful": 1,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "observed_at_seconds": 60.00194401014596
+    },
+    "invalid_reasons": [],
+    "diagnostic_checks": {
+      "validity": true,
+      "latency_and_errors": false,
+      "pending_at_window": false,
+      "final_pending": true,
+      "upload": true,
+      "timeout_policy": true,
+      "drain": true
+    },
+    "observable_latency_seconds": {
+      "p50": 13.022403169889003,
+      "p90": 21.0249380543828,
+      "p95": 22.00579247996211,
+      "p99": 22.93662381079048,
+      "max": 23.43559347698465,
+      "population": 1200
+    },
+    "gunicorn_dynamic_service_p95_seconds": 0.510109,
+    "owned_redis_empty": true,
+    "actual_elapsed_seconds": 83.33709116000682,
+    "monotonic_origin_seconds": 3783348.727721499,
+    "clock": "asyncio loop.time monotonic; all timestamps relative to same start",
+    "server": "Gunicorn4 sync workers local TCP"
+  },
+  "effective_topology": "Exact own localCI PG/Redis containers from runner identities/labels and adapter fixed limits. Generic legacy resource field pg_server_shared in test summary is not authoritative for actual isolated container topology. No normal resource accessed.",
+  "clean_reference": {
+    "run": "20261015-105821-81ed5e4a",
+    "p95_seconds": 21.84551043389365
+  },
+  "finding": "PG own quota1CPU not exhausted:0nr_throttled and0throttled_usec over observed arrival/drain intervals; execution averages0.787/0.731cores. Controller aggregate1.668cores, affinity4CPUs in bounded launcher; CPUquota interfaces not exposed there, not assumed unlimited. Current FAIL cannot be attributed solely to observed PG bandwidth throttling.",
+  "limits": [
+    "Whole own controller includes pytest/generator/Celery/app/collector, not web-only CPU",
+    "No ancestor CPU limits, runnable/scheduler wait, hypervisor steal, SQL-wait or exact socket queue measured; low execution does not prove available CPU",
+    "Only complete sample intervals inside each window, no extrapolation to unobserved edges",
+    "Instrumented p95 not a clean repeat or acceptance; collectorCPU is measured but causal overhead is not",
+    "Four sync workers and outstanding-request queue remain a concurrency hypothesis, not causal proof"
+  ],
+  "next": "Inspect existing WSGI/transport events and per-worker service occupancy; determine whether scheduling or blocking prevents four sync workers serving20rps before changing concurrency/quotas. No speculative candidate or immediate repeated load.",
+  "reference": "https://cdn.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html",
+  "artifacts_sha256": {
+    "result.json": "ca9907d442aca7edccbe43c5cd3fc979a9f365bdf718836c30673c84a8a44b88",
+    "pytest.xml": "45355a9ceb5943c2180933660f7e3afbaa5a745152eb2364ee58ccf7b5cfefe2",
+    "source-hashes.json": "1560b2cbeec9a6e7d8c81e18e6a90a62f6fb6059dbcb6f0f5b89bdd4cf04a174",
+    "owned-cpu-samples.jsonl": "0c957cd36ba12b1e69fb887154b0128dad62969636c8bc426fa56f6ff3e90a42",
+    "owned-cpu-samples.summary.json": "7f48ca0adcd3e9bd6b945826453d7a20e3b8dae5166a1f5f8a3bb0fd48420a18"
+  },
+  "acceptance": false
+}
