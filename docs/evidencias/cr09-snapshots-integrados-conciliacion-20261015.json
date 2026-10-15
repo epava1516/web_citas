@@ -1,0 +1,79 @@
+{
+  "recorded_at": "2026-10-15T10:22:19.356228+00:00",
+  "run": "20261015-024508-162c33cd",
+  "terminal_receipt": "cr09-regresion-comun-v3-parte2-terminal-20261015.json",
+  "source_matches": {
+    "tests/test_directory_snapshot.py": "f96414fdc05cc11dce6b938072c17b981bb9bbe0ec30ff18e3fab5f4fca82ebb",
+    "tests/directory_snapshot.py": "ad871a23c7b7ec7e1fa5371ec0a1dcaf7e8ee7ac8f29bf1b9f1617edc8f7ebc9"
+  },
+  "call_reports": [
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_snapshot_restores_mutated_database_and_media",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 2.4416684499010444
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_preexisting_test_setup_is_preserved_instead_of_restoring",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.26390597224235535
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_occupied_database_falls_back_to_real_seed_without_terminating",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 5.792260843329132
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_snapshot_falls_back_without_ci_optin",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.00027413712814450264
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_snapshot_refuses_unowned_environment",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.00047110021114349365
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_snapshot_rejects_normal_database_alias",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.00034312624484300613
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_snapshot_refuses_container_label_or_port_mismatch[label]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.0005240128375589848
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_snapshot_refuses_container_label_or_port_mismatch[port]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.0005719768814742565
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_snapshot_container_identity_is_cached_only_for_same_worker_and_port",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.0003924742341041565
+    },
+    {
+      "nodeid": "tests/test_directory_snapshot.py::test_seed_password_changes_cache_identity_without_exposing_password",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.14508774923160672
+    }
+  ],
+  "three_required_opt_in_nodes_pass": [
+    "test_snapshot_restores_mutated_database_and_media",
+    "test_preexisting_test_setup_is_preserved_instead_of_restoring",
+    "test_occupied_database_falls_back_to_real_seed_without_terminating"
+  ],
+  "skips": [],
+  "decision": "Resolve fixture-cache applicability wait: actual common-v3 part2 ran all snapshot controls with explicit opt-in, exact helper/test sources. Reuse terminal and independent cleanup; no new run needed. Does not establish restore/recovery contract or whole N3.",
+  "acceptance": false
+}

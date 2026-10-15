@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-15",
+  "kind": "source_inspection_not_runtime",
+  "acceptance": false,
+  "sources": {
+    "apps/safety/rights_access_close.py": "fe97ee944f7ed470529868b9837b6a6fefd303557c06594a5d603e29bbb2e7a2",
+    "tests/test_rights_access_coverage_store.py": "4e6d5103fc3d3c718321125888ceb0d6064f5b1a027fcc922122b4185f8f8005"
+  },
+  "established": [
+    "require_complete_delivery rejects partial != False or pending != [] at rights_access_close.py:241-252",
+    "observed producer scenario asserts ValidationError and no response/notice/closure or case-state effects at test_rights_access_coverage_store.py:799-807",
+    "shared archive run was rejected during external review before this application assertion; it is not terminal proof of the same archive reaching the application guard"
+  ],
+  "remaining": "Trace a small necessary retained private archive through census into pending application delivery and assert closure denial, without automatically approving unknown content, increasing limits, or replacing any required positive scenario. First inspect reusable runtime journal for observed producer case.",
+  "limits": [
+    "No new runtime test or load executed",
+    "Four isolated positive scenarios and shared negative retained separately",
+    "Directory SLO FAIL unchanged"
+  ]
+}
