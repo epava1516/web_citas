@@ -1,0 +1,141 @@
+{
+  "recorded_at": "2026-10-15T01:05:50.805654+00:00",
+  "candidate_sha": "287ea2333faabcc921e7a3420648b547c723d283",
+  "scenarios": [
+    {
+      "recorded_at": "2026-10-15T00:53:43.374348+00:00",
+      "run": "20261015-004843-e61513d6",
+      "head": "287ea2333faabcc921e7a3420648b547c723d283",
+      "case": "profile_es",
+      "result": "PASS",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "241.345",
+          "timestamp": "2026-10-15T02:49:02.591146+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "independent_cleanup": {
+        "runner_absent": true,
+        "temporary_absent": true,
+        "containers_absent": {
+          "web-modelos-ci-pg-20261015-004843-e61513d6": true,
+          "web-modelos-ci-redis-20261015-004843-e61513d6": true
+        }
+      },
+      "scope": "Finite real owned profile ES scenario, private actual-content/provenance root review, independent application review, close/replay and exact browser download. Other three variants remain pending; not CR09/N3/global acceptance.",
+      "acceptance": false
+    },
+    {
+      "recorded_at": "2026-10-15T00:58:34.501494+00:00",
+      "run": "20261015-005354-cf63c837",
+      "head": "287ea2333faabcc921e7a3420648b547c723d283",
+      "case": "account_es",
+      "result": "PASS",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "237.330",
+          "timestamp": "2026-10-15T02:54:13.521603+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "independent_cleanup": {
+        "runner_absent": true,
+        "temporary_absent": true,
+        "containers_absent": {
+          "web-modelos-ci-pg-20261015-005354-cf63c837": true,
+          "web-modelos-ci-redis-20261015-005354-cf63c837": true
+        }
+      },
+      "scope": "Finite owned account ES real workflow with root source review, independent application review, close/replay and exact browser download; no CR09/N3 acceptance.",
+      "acceptance": false
+    },
+    {
+      "recorded_at": "2026-10-15T01:02:12.694337+00:00",
+      "run": "20261015-005835-fdbd0981",
+      "head": "287ea2333faabcc921e7a3420648b547c723d283",
+      "case": "profile_en",
+      "result": "PASS",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "163.963",
+          "timestamp": "2026-10-15T02:58:53.975526+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "independent_cleanup": {
+        "runner_absent": true,
+        "temporary_absent": true,
+        "containers_absent": {
+          "web-modelos-ci-pg-20261015-005835-fdbd0981": true,
+          "web-modelos-ci-redis-20261015-005835-fdbd0981": true
+        }
+      },
+      "scope": "Finite owned profile EN only; full contract and CR09/N3 not accepted.",
+      "acceptance": false
+    },
+    {
+      "recorded_at": "2026-10-15T01:05:33.496795+00:00",
+      "run": "20261015-010219-74be61fb",
+      "head": "287ea2333faabcc921e7a3420648b547c723d283",
+      "case": "account_en",
+      "result": "PASS",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "156.170",
+          "timestamp": "2026-10-15T03:02:38.637059+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "independent_cleanup": {
+        "runner_absent": true,
+        "temporary_absent": true,
+        "containers_absent": {
+          "web-modelos-ci-pg-20261015-010219-74be61fb": true,
+          "web-modelos-ci-redis-20261015-010219-74be61fb": true
+        }
+      },
+      "scope": "Finite own account EN scenario only; identity simulator identified. CR09/N3/global acceptance not claimed.",
+      "acceptance": false
+    }
+  ],
+  "decision": "Eligible for local integration of bounded owned-scenario tooling; no app guard/schema/contract changes.",
+  "preserved_negative": "cr09-censo-completo-entrega-conjunta-terminal-20261015.json",
+  "scope_limits": [
+    "Identity verification is an explicitly identified simulator.",
+    "Fresh one-case runner only; preexisting private archives remain unsupported/pending in shared-run scope.",
+    "External root review is a procedure distinct from audited application review.",
+    "General historical original classification remains indeterminate; only finite-scenario dependency absence reviewed.",
+    "No p95/capacity/N3/CR09/global or production acceptance."
+  ],
+  "remaining": [
+    "Integrate candidate with unchanged reviewed sources",
+    "Refresh graph and reconcile same-version regression",
+    "Resolve original CR09 and subsequent contract criteria"
+  ],
+  "acceptance": false
+}

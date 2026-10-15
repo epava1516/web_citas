@@ -1,0 +1,52 @@
+{
+  "recorded_at": "2026-10-15T00:48:31.947046+00:00",
+  "run": "20261015-003740-b245a87b",
+  "head": "287ea2333faabcc921e7a3420648b547c723d283",
+  "runner_result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "3",
+      "skipped": "0",
+      "tests": "4",
+      "time": "571.760",
+      "timestamp": "2026-10-15T02:37:59.159178+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "cases": [
+    {
+      "node": "test_owned_content_external_review_closes_and_downloads_exact_payload[es-False]",
+      "outcome": "PASS",
+      "failure_message": null
+    },
+    {
+      "node": "test_owned_content_external_review_closes_and_downloads_exact_payload[es-True]",
+      "outcome": "FAIL",
+      "failure_message": "AssertionError: assert ['backups:his...ication', ...] == []\n  \n  Left contains 72 more items, first extra item: 'backups:historical_dependency_provenance'\n  Use -v to get more diff"
+    },
+    {
+      "node": "test_owned_content_external_review_closes_and_downloads_exact_payload[en-False]",
+      "outcome": "FAIL",
+      "failure_message": "AssertionError: assert ['backups:his...ication', ...] == []\n  \n  Left contains 84 more items, first extra item: 'backups:historical_dependency_provenance'\n  Use -v to get more diff"
+    },
+    {
+      "node": "test_owned_content_external_review_closes_and_downloads_exact_payload[en-True]",
+      "outcome": "FAIL",
+      "failure_message": "RuntimeError: Bounded scenario inventory exceeded"
+    }
+  ],
+  "sources_unchanged": true,
+  "independent_cleanup": {
+    "runner_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-003740-b245a87b": true,
+      "web-modelos-ci-redis-20261015-003740-b245a87b": true
+    }
+  },
+  "diagnosis": "First finite scenario passes. Next two explicitly rejected by root because previous private scenario review artifacts are retained; complete-source pending assertion fails. Fourth hits existing bounded inventory size before review, from accumulating nested private evidence. No limit relaxed or archive removed.",
+  "next_action": "Sequential single explicit case per fresh owned CI run, same candidate; inspect each original separately. Shared-run failure retained, no blanket acceptance.",
+  "acceptance": false
+}

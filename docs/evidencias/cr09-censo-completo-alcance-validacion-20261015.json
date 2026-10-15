@@ -1,0 +1,20 @@
+{
+  "recorded_at": "2026-10-15T01:03:36.553684+00:00",
+  "candidate_sha": "287ea2333faabcc921e7a3420648b547c723d283",
+  "source": "tests/test_rights_access_coverage_store.py",
+  "verified_source_assertions": [
+    "Browser mobile ES/EN close and private download equals recipient_payload(completed_body)",
+    "HTTP download equality and replay equality",
+    "Exactly one closure and one new response/notice",
+    "Fresh close key conflicts; prior close key replays",
+    "Author/reviewer session or MFA epoch mutation denies download",
+    "Changed census original invalidates download"
+  ],
+  "limits": [
+    "Identity/provenance fixture includes simulator; downloaded simulation flag is explicitly true. Real PG/Redis/browser do not turn this external adapter into a real provider.",
+    "Root operator actual-content inspection is external procedure; application independent review does not audit root reading.",
+    "Exact payload equality alone does not establish semantic exhaustiveness; source/content/provenance decisions require separate review.",
+    "Shared-run retained private archive failure remains unresolved for that scope; isolated scenarios only prove their finite sources."
+  ],
+  "acceptance": false
+}

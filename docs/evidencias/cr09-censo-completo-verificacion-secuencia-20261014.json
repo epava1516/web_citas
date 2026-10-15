@@ -2,7 +2,7 @@
   "recorded_at": "2026-10-14T23:35:54.734271+00:00",
   "worktree": "/home/felidae/proyectos/web_modelos_cr09_census_complete",
   "candidate_sha": "287ea2333faabcc921e7a3420648b547c723d283",
-  "state": "PREPARED_NOT_EXECUTED",
+  "state": "FOCUSED_AND_FOUR_ISOLATED_SCENARIOS_PASS_NOT_GLOBAL_ACCEPTANCE",
   "prerequisite": "Current main block 2 is terminal and independent cleanup verified. No simultaneous test loads.",
   "controller_limits": {
     "cpu_affinity": [
@@ -78,5 +78,125 @@
     "Provide source-specific motivated decisions with truthful distinct actor identities and explicit content redaction/omission for each associated retained row. No automatic blanket approval.",
     "Confirm application separate review, exact final recipient payload, replay/idempotency, browser ES/EN, profile/account and independent cleanup from terminal evidence."
   ],
-  "candidate_updated_at": "2026-10-15T00:06:25.188356+00:00"
+  "candidate_updated_at": "2026-10-15T00:06:25.188356+00:00",
+  "shared_run_observation": {
+    "run": "20261015-003740-b245a87b",
+    "first_case": "PASS",
+    "later_cases": "Retained prior private review artifacts; explicit root rejection, no source deletion or nonpersonal relabeling.",
+    "terminal": "ERROR: 1 PASS, 3 FAIL; independent cleanup verified; fourth case bounded inventory exceeded before callback"
+  },
+  "isolated_case_followup": {
+    "prepared_at": "2026-10-15T00:47:21.901137+00:00",
+    "requires": "Shared run terminal and independently clean. Same candidate SHA frozen; sequential fresh owned resources and artifact root for each case.",
+    "reason": "Scenario operator review artifacts produced after one case persist into the next in a shared runner. Single-case ownership prevents importing unrelated test evidence into another finite scenario without hiding any source inside its own run.",
+    "scope_limit": "Does not prove classification of previous private review archives or general production/history coverage; unsupported archives remain pending.",
+    "cases": [
+      {
+        "selector": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[es-False]",
+        "argv": [
+          "/home/felidae/.local/bin/uv",
+          "run",
+          "python",
+          "artifacts/vps-preparation/cr09-census-complete/run.py",
+          "--profile",
+          "focused",
+          "--native-source",
+          "/tmp/web-modelos-librdb-v2.4.0",
+          "--workers",
+          "1",
+          "--timeout",
+          "7200",
+          "--test",
+          "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[es-False]"
+        ]
+      },
+      {
+        "selector": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[es-True]",
+        "argv": [
+          "/home/felidae/.local/bin/uv",
+          "run",
+          "python",
+          "artifacts/vps-preparation/cr09-census-complete/run.py",
+          "--profile",
+          "focused",
+          "--native-source",
+          "/tmp/web-modelos-librdb-v2.4.0",
+          "--workers",
+          "1",
+          "--timeout",
+          "7200",
+          "--test",
+          "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[es-True]"
+        ]
+      },
+      {
+        "selector": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[en-False]",
+        "argv": [
+          "/home/felidae/.local/bin/uv",
+          "run",
+          "python",
+          "artifacts/vps-preparation/cr09-census-complete/run.py",
+          "--profile",
+          "focused",
+          "--native-source",
+          "/tmp/web-modelos-librdb-v2.4.0",
+          "--workers",
+          "1",
+          "--timeout",
+          "7200",
+          "--test",
+          "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[en-False]"
+        ]
+      },
+      {
+        "selector": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[en-True]",
+        "argv": [
+          "/home/felidae/.local/bin/uv",
+          "run",
+          "python",
+          "artifacts/vps-preparation/cr09-census-complete/run.py",
+          "--profile",
+          "focused",
+          "--native-source",
+          "/tmp/web-modelos-librdb-v2.4.0",
+          "--workers",
+          "1",
+          "--timeout",
+          "7200",
+          "--test",
+          "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[en-True]"
+        ]
+      }
+    ],
+    "executed": "All four isolated cases terminal PASS, sources unchanged, independent cleanup verified",
+    "acceptance": false,
+    "started_case": null,
+    "started_at": "2026-10-15T01:02:19.796722+00:00",
+    "completed_cases": [
+      {
+        "selector": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[es-False]",
+        "run": "20261015-004843-e61513d6",
+        "result": "PASS",
+        "independent_cleanup": true
+      },
+      {
+        "selector": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[es-True]",
+        "run": "20261015-005354-cf63c837",
+        "result": "PASS",
+        "independent_cleanup": true
+      },
+      {
+        "selector": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[en-False]",
+        "run": "20261015-005835-fdbd0981",
+        "result": "PASS",
+        "independent_cleanup": true
+      },
+      {
+        "selector": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[en-True]",
+        "run": "20261015-010219-74be61fb",
+        "result": "PASS",
+        "independent_cleanup": true
+      }
+    ]
+  }
 }

@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-10-15T00:45:51.894790+00:00",
+  "run": "20261015-003740-b245a87b",
+  "head": "287ea2333faabcc921e7a3420648b547c723d283",
+  "status": "ACTIVE_WITH_PRESERVED_FAILURE",
+  "confirmed_results": {
+    "profile_es": "PASS",
+    "account_es": "FAIL after explicit unresolved external review"
+  },
+  "finding": "Second scenario actual content census includes previous scenario encrypted originals, source reviews and disclosure decisions. These contain personal synthetic content and cannot be classified as nonpersonal runner output.",
+  "review_action": "External root review explicitly rejected completeness and retained all decisions unresolved; no previous artifacts removed, no source silently excluded.",
+  "scope_limit": "First scenario scoped PASS does not prove four-case completion or CR09/N3. Current selected run remains active; do not start another test load.",
+  "next_action": "After terminal and independent cleanup, execute each finite profile/account and ES/EN scenario in a separate owned CI run. Preserve shared-run negative; no application guard relaxation or automatic approval.",
+  "acceptance": false
+}
