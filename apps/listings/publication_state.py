@@ -283,15 +283,31 @@ def mark(listing_ids):
         cursor.execute("SELECT listings_publication_mark(%s::uuid[])", [list(listing_ids)])
 
 
-def all_state_current():
-    """Every listing has a state computed under the current rules version."""
+def all_state_current(*, trusted_snapshot=False):
+    """Every listing has a state computed under the current rules version.
+
+    Only our new READ ONLY snapshot contains committed FK-consistent rows with
+    no caller writes. There, non-null unique state.listing_id and its FK imply
+    that equal cardinalities mean complete coverage. Other callers retain the
+    join: deferred FK violations in inherited write transactions can otherwise
+    let an orphan cancel a missing state in the counts.
+    """
     with connection.cursor() as cursor:
-        cursor.execute(
-            "SELECT NOT EXISTS (SELECT 1 FROM listings_listing l LEFT JOIN "
-            "listings_publicationstate s ON s.listing_id = l.id "
-            "WHERE s.listing_id IS NULL OR s.rules_version <> %s)",
-            [rules_version()],
-        )
+        if trusted_snapshot:
+            cursor.execute(
+                "SELECT NOT EXISTS (SELECT 1 FROM listings_publicationstate "
+                "WHERE rules_version <> %s) AND "
+                "(SELECT COUNT(*) FROM listings_publicationstate) = "
+                "(SELECT COUNT(*) FROM listings_listing)",
+                [rules_version()],
+            )
+        else:
+            cursor.execute(
+                "SELECT NOT EXISTS (SELECT 1 FROM listings_listing l LEFT JOIN "
+                "listings_publicationstate s ON s.listing_id = l.id "
+                "WHERE s.listing_id IS NULL OR s.rules_version <> %s)",
+                [rules_version()],
+            )
         return cursor.fetchone()[0]
 
 
@@ -359,7 +375,7 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
             observation.update(route="fallback", reason="state_dirty_over_limit")
         return None
     unknown = []
-    if dirty or not all_state_current():
+    if dirty or not all_state_current(trusted_snapshot=trusted_snapshot):
         unknown = list(
             query.filter(~Exists(trusted_state()) | Q(pk__in=dirty)).values_list("pk", flat=True)[
                 : NATIVE_UNKNOWN_LIMIT + 1

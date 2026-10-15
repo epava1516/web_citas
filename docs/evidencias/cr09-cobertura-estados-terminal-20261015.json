@@ -1,0 +1,403 @@
+{
+  "run_id": "20261015-130140-e5b9acef",
+  "head": "b41efeff2679edf0f700e3ba4c21b281164df6de",
+  "result": "56 PASS",
+  "duration_seconds": 557.78,
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "testcases": [
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[none-True]",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "17",
+      "time": "40.954"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[ineligible-True]",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "17",
+      "time": "5.915"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[missing-False]",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "17",
+      "time": "5.837"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[stale-False]",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "17",
+      "time": "5.870"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_empty_committed_population_has_complete_coverage",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "38",
+      "time": "1.055"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_deferred_orphan_cannot_cancel_missing_state_in_inherited_transaction",
+      "file": "tests/test_publication_state_coverage.py",
+      "line": "47",
+      "time": "5.456"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_state_route_matches_native_before_and_after_refresh[normal]",
+      "file": "tests/test_publication_state.py",
+      "line": "72",
+      "time": "14.051"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_state_route_matches_native_before_and_after_refresh[production]",
+      "file": "tests/test_publication_state.py",
+      "line": "72",
+      "time": "13.420"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[age_failed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "14.305"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[agency_pending]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "14.301"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[blob_failed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "14.076"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[category_inactive]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.811"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[category_removed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.467"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[check_failed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "14.383"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[city_inactive]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.797"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[consent_revoked]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.142"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[expired]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.961"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[grant_removed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.585"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[invalid_rate]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "12.533"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[listing_paused]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.144"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[phone_unverified]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.705"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[photo_removed]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "14.559"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[publishing_terms_replaced]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "13.468"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_dependency_change_is_reflected_without_refresh[text_with_url]",
+      "file": "tests/test_publication_state.py",
+      "line": "129",
+      "time": "14.470"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_every_table_read_by_the_native_rule_has_an_invalidation_trigger",
+      "file": "tests/test_publication_state.py",
+      "line": "163",
+      "time": "6.239"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_safety_dependency_rows_mark_the_affected_listing",
+      "file": "tests/test_publication_state.py",
+      "line": "185",
+      "time": "5.872"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_concurrent_change_during_refresh_keeps_listing_dirty",
+      "file": "tests/test_publication_state.py",
+      "line": "245",
+      "time": "16.548"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_signal_tables_match_installed_triggers",
+      "file": "tests/test_publication_state.py",
+      "line": "287",
+      "time": "6.203"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_rules_version_hashes_source_and_configuration",
+      "file": "tests/test_publication_state.py",
+      "line": "296",
+      "time": "0.982"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_rules_version_tracks_configuration_without_manual_invalidation[PRODUCTION-True]",
+      "file": "tests/test_publication_state.py",
+      "line": "306",
+      "time": "0.929"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_rules_version_tracks_configuration_without_manual_invalidation[VERIFICATION_PROVIDER-changed-provider]",
+      "file": "tests/test_publication_state.py",
+      "line": "306",
+      "time": "0.899"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_rules_version_tracks_configuration_without_manual_invalidation[SECRET_KEY-synthetic-rotated-key]",
+      "file": "tests/test_publication_state.py",
+      "line": "306",
+      "time": "1.198"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_command_and_task_recompute_everything",
+      "file": "tests/test_publication_state.py",
+      "line": "324",
+      "time": "6.845"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_geography_import_switches_state_atomically",
+      "file": "tests/test_publication_state.py",
+      "line": "339",
+      "time": "9.662"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_every_project_source_executed_by_the_native_rule_is_versioned",
+      "file": "tests/test_publication_state.py",
+      "line": "355",
+      "time": "8.872"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_sweep_marks_divergent_state_and_reads_stay_exact",
+      "file": "tests/test_publication_state.py",
+      "line": "385",
+      "time": "11.560"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_read_repair_only_acts_when_marks_age",
+      "file": "tests/test_publication_state.py",
+      "line": "406",
+      "time": "6.005"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_trusted_population_omitted_join_keeps_native_membership[revision_obsolete]",
+      "file": "tests/test_publication_state.py",
+      "line": "420",
+      "time": "7.921"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_trusted_population_omitted_join_keeps_native_membership[revision_missing]",
+      "file": "tests/test_publication_state.py",
+      "line": "420",
+      "time": "8.123"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_trusted_population_omitted_join_keeps_native_membership[listing_paused]",
+      "file": "tests/test_publication_state.py",
+      "line": "420",
+      "time": "7.984"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_trusted_population_omitted_join_keeps_native_membership[expired]",
+      "file": "tests/test_publication_state.py",
+      "line": "420",
+      "time": "7.870"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot[False]",
+      "file": "tests/test_publication_state.py",
+      "line": "450",
+      "time": "7.207"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot[True]",
+      "file": "tests/test_publication_state.py",
+      "line": "450",
+      "time": "7.537"
+    },
+    {
+      "classname": "tests.test_public_validation_dependencies",
+      "name": "test_revision_version_does_not_cover_related_content_dependencies",
+      "file": "tests/test_public_validation_dependencies.py",
+      "line": "63",
+      "time": "22.352"
+    },
+    {
+      "classname": "tests.test_public_validation_dependencies",
+      "name": "test_fresh_context_observes_concurrent_committed_catalog_change",
+      "file": "tests/test_public_validation_dependencies.py",
+      "line": "165",
+      "time": "7.278"
+    },
+    {
+      "classname": "tests.test_public_validation_dependencies",
+      "name": "test_native_model_rule_change_is_not_covered_by_data_version",
+      "file": "tests/test_public_validation_dependencies.py",
+      "line": "198",
+      "time": "8.285"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_search_approved_text_language_and_hidden_revisions",
+      "file": "tests/test_discovery.py",
+      "line": "26",
+      "time": "6.889"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_service_any_all_geo_json_and_private_postal_filters",
+      "file": "tests/test_discovery.py",
+      "line": "48",
+      "time": "6.405"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_pagination_invalid_and_out_of_range_preserve_filter_semantics",
+      "file": "tests/test_discovery.py",
+      "line": "76",
+      "time": "6.296"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_public_detail_localizes_attributes_rates_and_selected_contacts",
+      "file": "tests/test_discovery.py",
+      "line": "89",
+      "time": "7.776"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_simulation_provenance_survives_provider_switch_and_blocks_production",
+      "file": "tests/test_discovery.py",
+      "line": "139",
+      "time": "6.738"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_geography_checks_postal_and_zone_ancestry_without_selected_city",
+      "file": "tests/test_discovery.py",
+      "line": "172",
+      "time": "6.617"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_positive_pagination_has_no_duplicates_stable_ties_and_private_counts",
+      "file": "tests/test_discovery.py",
+      "line": "260",
+      "time": "19.731"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_search_title_weight_precedes_newer_description_and_private_text",
+      "file": "tests/test_discovery.py",
+      "line": "281",
+      "time": "6.271"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_specific_real_checks_exclude_simulated_or_obsolete_proofs",
+      "file": "tests/test_discovery.py",
+      "line": "312",
+      "time": "7.426"
+    },
+    {
+      "classname": "tests.test_discovery",
+      "name": "test_contact_and_agency_checks_are_specific_and_require_current_evidence",
+      "file": "tests/test_discovery.py",
+      "line": "352",
+      "time": "7.104"
+    }
+  ],
+  "scope": "Four complete files with6new coverage/deferredFK controls; candidate not yet measured or globally accepted."
+}

@@ -1,5 +1,26 @@
 # Auditoría de pendientes para aceptación CR-09
 
+**Estado vigente de continuación2026-10-15:** objetivo activo, dirigido por Codex;
+el texto de pausa del corte2026-10-09 de abajo es histórico. CR09 sigue abierto.
+Esta conciliación actualiza la lectura de la matriz; no cambia pesos ni acepta
+la suma de selecciones como N3. La [cola consolidada](evidencias/cr09-cola-cierre-consolidada-20261014.md)
+y seguimiento17 conservan el detalle de ejecuciones/correctivas.
+
+| Fila contractual | Evidencia actual y pendiente concreto |
+|---|---|
+| Portabilidad/respuesta privada | Cuatro escenarios propios aislados perfil/cuenta ES/EN y revisión finita de procedencia; [23 originales](evidencias/cr09-historicos-escenarios-revisiones-20261015.json). [Archivo privado pendiente bloquea cierre HTTP sin efectos](evidencias/cr09-archivo-privado-http-terminal-20261015.json). Falta consolidar cobertura por escenario; no existe prueba general de lector/asociación de todo archivo anterior. |
+| Derechos/finalidad/autoridad | Matriz de aserciones y conciliación de fuentes ya existen; terminar requisito→aserción→ejecución aplicable sin aceptar un derecho completo por ejemplos parciales. |
+| Conservación | [Selección integrada y aserciones](evidencias/cr09-mecanismos-conciliacion-integrada-20261015.md) verificadas. [Beat→worker](evidencias/cr09-worker-beat-integrado-terminal-20261015.json) acredita refresco específico; no implica despacho probado de todas las purgas. Completar finalidad/excepción/tarea y alcance N3. |
+| Restauración | Restauración real PG/medios ejecutada en bloque2 v3 y conciliada en [mecanismos](evidencias/cr09-mecanismos-conciliacion-integrada-20261015.json). Falta aplicabilidad a versión final/N3; no repetir por rutina ni confundir con cadencia/custodia productiva. |
+| Recursos históricos | Revisión finita de23fuentes para cuatro escenarios contrastada; negativa conjunta y límites de archivos privados conservados. Resolver sólo fuentes necesarias y pertinentes restantes, sin exigir inventario ajeno al escenario. |
+| Comunicaciones | Selección integrada y [todos los gestores ES/EN](evidencias/cr09-comunicaciones-todos-destinatarios-terminal-20261015.json) verificadas; completar matriz por derecho/canal/fallo/revocación. Buzón local no acredita recepción externa. |
+| Urgencia/escalado | Simulacro y negativos de revocación conciliados en [mecanismos](evidencias/cr09-mecanismos-conciliacion-integrada-20261015.json); no sigue pendiente ejecutarlos por primera vez. Falta aplicabilidad común/N3, sin reabrir alcance local por rutina. |
+| Expedientes grandes | Aprobación provisional MOD09 del usuario vigente; latencias mejorables no bloquean continuación. Se conserva FAIL histórico y límites de alcance; no extrapolar a SLO del directorio. |
+| Aceptación integral | Cuatro bloques v3 terminaron; errores de preparación y fallo de navegador preservados con recuperaciones afectadas. Cambios posteriores requieren conciliación con versión final. Último [corto limpio del directorio](evidencias/cr09-membresia-nativa-http-terminal-20261015.json): p9519.666012s, FAIL frente<0.8s; no ensayo15min ni N3. Candidata de consulta global en pruebas, sin aceptación ni métrica nueva. |
+
+La regresión v3 integra base8fb4cf1. Inspección actual `git diff8fb4cf1 -- apps config templates static uv.lock pyproject.toml` sólo muestra discovery.py, publication_state.py y submissions.py; es una delimitación del cambio, no prueba automática de que ningún otro flujo dependa de ellos. Las comprobaciones de seguridad y consistencia deben seguir sus dependencias reales.
+
+
 **Adenda posterior vigente2026-10-12 /MOD-09:** rendimiento del escenario grande
 MOD08 aceptado provisionalmente por el usuario como suficiente ymejorable; sus
 latencias dejan de bloquear la continuación. [Evidencia completa yexcepción](evidencias/mod08-lectura-fresca-medicion-20261012.md).

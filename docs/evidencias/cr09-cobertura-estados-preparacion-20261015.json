@@ -1,0 +1,28 @@
+{
+  "base_sha": "b41efef",
+  "unit": "cr09-state-coverage-n2-20261015.service",
+  "status": "running",
+  "candidate_files": [
+    "apps/listings/publication_state.py",
+    "tests/test_publication_state_coverage.py"
+  ],
+  "change": "Committed own READ ONLY RR snapshot only: NOT EXISTS stale state AND equal state/listing counts; non-null unique FK implies complete membership. Inherited transactions/default callers retain original LEFT JOIN. No schema migration, eligibility cache or page guard changes.",
+  "required": [
+    "Committed current/ineligible/missing/stale/empty equivalence",
+    "Deferred orphan cancels missing counts but inherited state_page must retain original query",
+    "Full publication_state/dependencies/discovery coverage without necessary skips",
+    "Source freeze and independent cleanup"
+  ],
+  "selection": [
+    "tests/test_publication_state_coverage.py",
+    "tests/test_publication_state.py",
+    "tests/test_public_validation_dependencies.py",
+    "tests/test_discovery.py"
+  ],
+  "limits": "Existing bounded own PostgreSQL synthetic CI; one test execution, no competing load",
+  "not_claimed": [
+    "Performance improvement",
+    "Capacity",
+    "CR09/N3 acceptance"
+  ]
+}
