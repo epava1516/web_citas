@@ -1,0 +1,14 @@
+{
+  "run_id": "20261015-145835-6830fbfc",
+  "unit": "cr09-prepared-public-reads-http-20261015.service",
+  "head": "9e54bb7",
+  "status": "running",
+  "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+  "prerequisites": "9specific+69expanded+11privacyPASS; integratedCPU145504-091e1959mixed, isolated+warmed detail benefit; source/cleanupverified",
+  "purpose": "One full request cleanload to decide retaining or withdrawing expandedselectedcatalog/publicdetailreadpreparation",
+  "profile": "Same own bounded normalCI,4sync20rps60s10k,normalworkerBeat,oneupload,generatorfreeze,noobserver/pgtracker/profilers",
+  "baseline": "20261015-142404-dd21a941 p957.423942FAIL",
+  "criteria": "Strictp95<0.8s plus all shortgates; not15min/N3",
+  "decision_rule": "IfFAIL preserve and diagnose separately,no repeatsweep; ifmeets repeatonce for reproducibility",
+  "acceptance": false
+}
