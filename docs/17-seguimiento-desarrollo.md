@@ -2101,3 +2101,13 @@ Equivalencia conteo compartido `20261015-093943-5ab64c62`: [9 PASS/1 FAIL](evide
 | --- | --- | --- |
 | Archivo retenido con cobertura pendiente |40PASS mecánicos adaptador/guard |2PASS perfil/cuenta con rechazo HTTP409 y sin efectos |
 | Rendimiento | Último SLO directorio FAIL | Sin nueva medición |
+
+2026-10-15: [planes de hidratación](evidencias/cr09-hidratacion-planes-terminal-20261015.json), run20261015-103530-5d6e356c,1PASS, fuente/limpieza independientes verificadas. Diagnóstico opt-in incluye ahora consulta de24filas con jit=off/join_collapse_limit=1 como aplicación. Sin SQL/params ni contenido privado en recibo.
+
+| Caso | Conteo ejecución ms | Página ejecución ms | Hidratación planificación+ejecución ms |
+| --- | --- | --- | --- |
+| Listado |30.621 |0.471 |13.647 |
+| photography |20.465 |27.072 |8.286 |
+| synthetic |43.944 |54.253 |12.901 |
+
+Mediciones secuenciales EXPLAIN, no p95 HTTP ni mejora causal frente a runs anteriores. No cambio de producto. El plan de hidratación no exhibe escaneo interno repetido mayor de2ms; mantener foco en población/conteo y joins antes de otra candidata/carga. SLO previo FAIL conservado.

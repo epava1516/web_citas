@@ -1,0 +1,10 @@
+{
+  "selection": [
+    "tests/test_directory_query_plans.py"
+  ],
+  "reason": "Prior SQL attribution hydration materialization20.516% aggregate SQL elapsed; prior EXPLAIN omitted it. Diagnose exact hydration SQL for same 10k synthetic cases, jit off/join_collapse_limit1 as application, whitelisted plan output only. No product change/load/p95 or profiler.",
+  "required": "Existing population plans plus exactly one hydration query each case, actual app policy, sanitized structural plan, source freeze and independent cleanup",
+  "source_sha256": "bf3d7aea8a770919bbeefcdf5b2c11c9891536f0969c1a615b55a6340c99934c",
+  "limits": "Existing bounded own CI resources, one worker, no snapshots, timeout1800",
+  "acceptance": false
+}
