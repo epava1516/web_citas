@@ -16,9 +16,9 @@ from functools import lru_cache
 import django
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.paginator import Page, Paginator
+from django.core.paginator import Paginator
 from django.db import DatabaseError, connection, transaction
-from django.db.models import Count, Exists, OuterRef, Q, Window
+from django.db.models import Exists, OuterRef, Q
 from django.utils import timezone
 
 from apps.core.models import VerificationCheck
@@ -393,7 +393,7 @@ def _state_page(query, number, checked, observation, stale):
     if not multiplies_rows(population):
         # DISTINCT only removes duplicates created by many-valued joins; none are present.
         population.query.distinct = False
-    page = population_page(population, number)
+    page = Paginator(population.values_list("pk", flat=True), 24).page(number)
     selected = list(page.object_list)
     # Hydration through the native context doubles as the page guard. The rows were
     # already selected by the filters; the guard depends only on the listing itself.
@@ -410,25 +410,6 @@ def _state_page(query, number, checked, observation, stale):
     if observation is not None:
         observation.update(route="state", reason="trusted_state", native_unknown=len(unknown))
     return page
-
-
-def population_page(population, number):
-    """Share a search's full-population scan without changing count or ordering."""
-    paginator = Paginator(population.values_list("pk", flat=True), 24)
-    if (population.query.distinct or "relevance" not in population.query.annotations
-            or not isinstance(number, int) or number < 1):
-        return paginator.page(number)
-    offset = (number - 1) * paginator.per_page
-    selected = list(
-        population.annotate(_publication_total=Window(Count("*")))
-        .values_list("pk", "_publication_total")[offset:offset + paginator.per_page]
-    )
-    if not selected and number != 1:
-        # An empty offset says nothing about total size; retain exact range errors.
-        return paginator.page(number)
-    paginator.count = selected[0][1] if selected else 0
-    number = paginator.validate_number(number)
-    return Page([pk for pk, _ in selected], number, paginator)
 
 
 def multiplies_rows(queryset):
