@@ -1,0 +1,1177 @@
+{
+  "recorded_at": "2026-10-15T10:19:03.944531+00:00",
+  "historical_metadata_receipt": "cr09-historicos-metadatos-originales-20261015.json",
+  "scenarios": [
+    {
+      "run": "20261015-004843-e61513d6",
+      "original_ciphertext_sha256": "92987399e757634468aa97ea234a75519a8e3444e9eca4836b7a1aba5a9facc6",
+      "review_ciphertext_sha256": "4b63a6da7305cb0ba9f5506d27218bd329aa9cb966701a5fdad3017936fc0e9a",
+      "registration_digest_recomputed_and_equal": true,
+      "registration_digest": "d4ed602c248dcc4dbe5b8b3aa1e25b137f2b94eeb7497bb8a1b7c513d1262b5e",
+      "recorded_review_origins_exact_known_23": true,
+      "operator_reviewer_distinct": true,
+      "fixture_snapshots": false,
+      "selected_retained_origin_inputs": false,
+      "registration_time": "2026-10-15T00:49:40.988218+00:00",
+      "seed_branch": "seed",
+      "containers": [
+        {
+          "name": "web-modelos-ci-pg-20261015-004843-e61513d6",
+          "id": "60f549a4fe3f95e9ca504109336321af94122751da7fc9de7325e36b05dedf36",
+          "created": "2026-10-15T00:48:44.046364632Z",
+          "mounts": []
+        },
+        {
+          "name": "web-modelos-ci-redis-20261015-004843-e61513d6",
+          "id": "1ba6034dede988bdc9176a1cdabbd55a15bd44f3e7d5522737982d70ae231290",
+          "created": "2026-10-15T00:48:47.043552196Z",
+          "mounts": [
+            {
+              "destination": "/data",
+              "read_write": true,
+              "type": "volume",
+              "volume_created": "2026-10-15T00:48:47Z",
+              "volume_driver": "local",
+              "volume_name": "1cb0cc6c6da9833b5ad35397535acec7fe4cdf56097b35bda220c767fb78268f"
+            }
+          ]
+        }
+      ],
+      "historical_producer_ids_disjoint": true,
+      "per_origin_recorded_decisions": {
+        "09015b24a38499c32392b3f33b47f0297c0e361a4cefaa6ac0d253495ab71653": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 20 from 2026-10-06T16:11:33.408984+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "18bf5f13fb4cb7d51a0f07fb0b6884c5e2d9fe9bf968e90b5816b438ad66e6a9": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 14 from 2026-10-06T21:19:21.041057+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "1e1855b59db503238585676d1e8dc898b9ac9131050dfec53095ecdefc5feeb3": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 10 from 2026-10-06T12:34:39.512797+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "2ab78da7baac5c7a6aabb9eb417dad9c5bfbfba49f86149268f65be028f220d5": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 3 from 2026-10-06T21:35:55.308401+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "2f74f53e14025cdeaa2355cfbb200407339b2f555f8a23e4ad211b06edac6d44": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 19 from 2026-10-06T21:43:56.789416+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "3898a0d616a64d440e95d0aaae7b40153caff34f310b2890f321ea16f2577829": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 22 from 2026-10-06T17:30:28.004228+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "4c52fa4c09385b0e43d0ac89faccef011e2a17ec10e98ff45630bbd5266a8189": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 23 from 2026-10-06T23:28:12.150905+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "4deb0b748b1237997cc28e87965e36eae5031d8ff7f43bd19f2ed9b6ed27d609": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 6 from 2026-10-06T23:04:27.291376+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "63b0c4a5a89fc6c87c4ce13bcb94fe0136b745d0ba0078a3471b4af516f276c6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 13 from 2026-10-06T20:14:47.684718+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "6e4f4abbd007c8fe39413559c510f5c828c62d8de07d88eb18da803aa8f153e6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 11 from 2026-10-06T19:53:27.826672+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "77dd1bd4937ea405b31115dc7c9e2fb7c662a67ccc609f21a5f7d942f15049e6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 16 from 2026-10-06T16:29:56.380083+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "8291f411eaa5e13a4e7a524aefc56ad2a2f448ef50ad7d65151e22d67397f2af": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 8 from 2026-10-06T11:51:22.580205+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "88a4bcdb370806920a4ecb12f0ca2447e421da11848770ff7f4afb279a73c69a": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 21 from 2026-10-06T17:56:53.604237+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "a61f79a76e2676690ee4186f3fba3303646e80ac06256001f35902741453a5aa": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 17 from 2026-10-06T15:47:09.406186+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "aa3274784be3f9907d363d92cb62d041f9cda9b2ae374c6083e6ef77bbbfaf1e": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 1 from 2026-10-06T17:14:07.788411+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "abc5379990e404d31eca843a01b9082630e62c1566013c253812ed6bfe1d6208": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 12 from 2026-10-06T12:12:03.455948+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "b3e4352cf8931b09f47f3baf2b957b2735d12788c1dd5f7fa3f202625a809712": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 18 from 2026-10-06T15:32:26.510126+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "d424f322d4aa8efa4022b9958c1dc3e4a9cd4c7da765cf25d4b02292b6d87cc0": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 9 from 2026-10-06T12:42:36.669186+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "db4a2573dceb31d635aaedc58b62cc8cf88ab8f5bc4ce9ada2a4a5aad95e4469": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 5 from 2026-10-06T22:25:19.025123+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "e5490c2de71e3f0dac7fe1c2e1e64b79e4d5828433d70e46c9fea0ce9a581c2e": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 7 from 2026-10-06T21:55:29.104746+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "e6b31ecf04cb9eb95ff67bf1f950a5118a23eed325e01d588142cb3985270805": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 15 from 2026-10-06T11:01:49.035896+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "fac768e758ed1023a8453f7f5271bf0e0e746bdc2ffa61b2ed5b368c3980f078": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 2 from 2026-10-06T17:46:29.487993+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "ff017815bb3defe83117560108260d91e56ba12b0ab1ad09bca8a2c9535f97e9": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 4 from 2026-10-06T22:47:02.497098+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        }
+      }
+    },
+    {
+      "run": "20261015-005354-cf63c837",
+      "original_ciphertext_sha256": "45e5b3e7901092a8f6ea421dcaf1406d5aad25dd54eddc56eb9f245de05b2659",
+      "review_ciphertext_sha256": "f3cfc8f1fe061a04301720918b6b0846e3094f65d14b815b8298a69b2ad20191",
+      "registration_digest_recomputed_and_equal": true,
+      "registration_digest": "439ecfe7eced0364973fd14a1e69be0dd5a6c087ae1b059c6728265bee52fa52",
+      "recorded_review_origins_exact_known_23": true,
+      "operator_reviewer_distinct": true,
+      "fixture_snapshots": false,
+      "selected_retained_origin_inputs": false,
+      "registration_time": "2026-10-15T00:54:53.584330+00:00",
+      "seed_branch": "seed",
+      "containers": [
+        {
+          "name": "web-modelos-ci-pg-20261015-005354-cf63c837",
+          "id": "da82217d23020901aa55244d753cb9db3ec76630bbe61cef39eeeed31f681a08",
+          "created": "2026-10-15T00:53:55.183938588Z",
+          "mounts": []
+        },
+        {
+          "name": "web-modelos-ci-redis-20261015-005354-cf63c837",
+          "id": "cc0daeec32c2b364486101081c08dbf8dda7ec8934a9cd96f6b54b0adc39ca07",
+          "created": "2026-10-15T00:53:57.689885701Z",
+          "mounts": [
+            {
+              "destination": "/data",
+              "read_write": true,
+              "type": "volume",
+              "volume_created": "2026-10-15T00:53:57Z",
+              "volume_driver": "local",
+              "volume_name": "f75fe3c0797d336d2e7031231a82f0ef00e59048367c393235c769d0b5b59bfb"
+            }
+          ]
+        }
+      ],
+      "historical_producer_ids_disjoint": true,
+      "per_origin_recorded_decisions": {
+        "09015b24a38499c32392b3f33b47f0297c0e361a4cefaa6ac0d253495ab71653": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 20 captured 2026-10-06T16:11:33.408984+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "18bf5f13fb4cb7d51a0f07fb0b6884c5e2d9fe9bf968e90b5816b438ad66e6a9": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 14 captured 2026-10-06T21:19:21.041057+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "1e1855b59db503238585676d1e8dc898b9ac9131050dfec53095ecdefc5feeb3": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 10 captured 2026-10-06T12:34:39.512797+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "2ab78da7baac5c7a6aabb9eb417dad9c5bfbfba49f86149268f65be028f220d5": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 3 captured 2026-10-06T21:35:55.308401+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "2f74f53e14025cdeaa2355cfbb200407339b2f555f8a23e4ad211b06edac6d44": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 19 captured 2026-10-06T21:43:56.789416+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "3898a0d616a64d440e95d0aaae7b40153caff34f310b2890f321ea16f2577829": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 22 captured 2026-10-06T17:30:28.004228+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "4c52fa4c09385b0e43d0ac89faccef011e2a17ec10e98ff45630bbd5266a8189": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 23 captured 2026-10-06T23:28:12.150905+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "4deb0b748b1237997cc28e87965e36eae5031d8ff7f43bd19f2ed9b6ed27d609": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 6 captured 2026-10-06T23:04:27.291376+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "63b0c4a5a89fc6c87c4ce13bcb94fe0136b745d0ba0078a3471b4af516f276c6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 13 captured 2026-10-06T20:14:47.684718+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "6e4f4abbd007c8fe39413559c510f5c828c62d8de07d88eb18da803aa8f153e6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 11 captured 2026-10-06T19:53:27.826672+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "77dd1bd4937ea405b31115dc7c9e2fb7c662a67ccc609f21a5f7d942f15049e6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 16 captured 2026-10-06T16:29:56.380083+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "8291f411eaa5e13a4e7a524aefc56ad2a2f448ef50ad7d65151e22d67397f2af": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 8 captured 2026-10-06T11:51:22.580205+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "88a4bcdb370806920a4ecb12f0ca2447e421da11848770ff7f4afb279a73c69a": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 21 captured 2026-10-06T17:56:53.604237+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "a61f79a76e2676690ee4186f3fba3303646e80ac06256001f35902741453a5aa": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 17 captured 2026-10-06T15:47:09.406186+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "aa3274784be3f9907d363d92cb62d041f9cda9b2ae374c6083e6ef77bbbfaf1e": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 1 captured 2026-10-06T17:14:07.788411+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "abc5379990e404d31eca843a01b9082630e62c1566013c253812ed6bfe1d6208": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 12 captured 2026-10-06T12:12:03.455948+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "b3e4352cf8931b09f47f3baf2b957b2735d12788c1dd5f7fa3f202625a809712": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 18 captured 2026-10-06T15:32:26.510126+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "d424f322d4aa8efa4022b9958c1dc3e4a9cd4c7da765cf25d4b02292b6d87cc0": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 9 captured 2026-10-06T12:42:36.669186+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "db4a2573dceb31d635aaedc58b62cc8cf88ab8f5bc4ce9ada2a4a5aad95e4469": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 5 captured 2026-10-06T22:25:19.025123+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "e5490c2de71e3f0dac7fe1c2e1e64b79e4d5828433d70e46c9fea0ce9a581c2e": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 7 captured 2026-10-06T21:55:29.104746+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "e6b31ecf04cb9eb95ff67bf1f950a5118a23eed325e01d588142cb3985270805": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 15 captured 2026-10-06T11:01:49.035896+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "fac768e758ed1023a8453f7f5271bf0e0e746bdc2ffa61b2ed5b368c3980f078": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 2 captured 2026-10-06T17:46:29.487993+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "ff017815bb3defe83117560108260d91e56ba12b0ab1ad09bca8a2c9535f97e9": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 4 captured 2026-10-06T22:47:02.497098+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        }
+      }
+    },
+    {
+      "run": "20261015-005835-fdbd0981",
+      "original_ciphertext_sha256": "1df716b06ca22813f3e94f9a661d4f415a7219722aebeebbf03710fbada35da5",
+      "review_ciphertext_sha256": "bbe3dff237e5246e22d2f212dd556177d50ff0a84fd62d62c872e80c9bc11ab6",
+      "registration_digest_recomputed_and_equal": true,
+      "registration_digest": "a7903d6947085fd20dcc6f6a6d4154226e2dff7216f06cac3852a5ae4cabb2ab",
+      "recorded_review_origins_exact_known_23": true,
+      "operator_reviewer_distinct": true,
+      "fixture_snapshots": false,
+      "selected_retained_origin_inputs": false,
+      "registration_time": "2026-10-15T00:59:32.087447+00:00",
+      "seed_branch": "seed",
+      "containers": [
+        {
+          "name": "web-modelos-ci-pg-20261015-005835-fdbd0981",
+          "id": "9a64a17c8b7e4d1cb8f223738f5836ad7d694e620208641248eba845eabc8b70",
+          "created": "2026-10-15T00:58:35.599014119Z",
+          "mounts": []
+        },
+        {
+          "name": "web-modelos-ci-redis-20261015-005835-fdbd0981",
+          "id": "84b367ae5dbca142eed1b5635543bf50219b932a4cad25ad32efecde2821365f",
+          "created": "2026-10-15T00:58:37.602502969Z",
+          "mounts": [
+            {
+              "destination": "/data",
+              "read_write": true,
+              "type": "volume",
+              "volume_created": "2026-10-15T00:58:37Z",
+              "volume_driver": "local",
+              "volume_name": "1ffe1465c928ba10e7351585efe30cf02ef6a879c4680c4d4d862e48918ef99a"
+            }
+          ]
+        }
+      ],
+      "historical_producer_ids_disjoint": true,
+      "per_origin_recorded_decisions": {
+        "09015b24a38499c32392b3f33b47f0297c0e361a4cefaa6ac0d253495ab71653": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 20 from 2026-10-06T16:11:33.408984+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "18bf5f13fb4cb7d51a0f07fb0b6884c5e2d9fe9bf968e90b5816b438ad66e6a9": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 14 from 2026-10-06T21:19:21.041057+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "1e1855b59db503238585676d1e8dc898b9ac9131050dfec53095ecdefc5feeb3": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 10 from 2026-10-06T12:34:39.512797+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "2ab78da7baac5c7a6aabb9eb417dad9c5bfbfba49f86149268f65be028f220d5": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 3 from 2026-10-06T21:35:55.308401+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "2f74f53e14025cdeaa2355cfbb200407339b2f555f8a23e4ad211b06edac6d44": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 19 from 2026-10-06T21:43:56.789416+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "3898a0d616a64d440e95d0aaae7b40153caff34f310b2890f321ea16f2577829": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 22 from 2026-10-06T17:30:28.004228+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "4c52fa4c09385b0e43d0ac89faccef011e2a17ec10e98ff45630bbd5266a8189": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 23 from 2026-10-06T23:28:12.150905+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "4deb0b748b1237997cc28e87965e36eae5031d8ff7f43bd19f2ed9b6ed27d609": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 6 from 2026-10-06T23:04:27.291376+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "63b0c4a5a89fc6c87c4ce13bcb94fe0136b745d0ba0078a3471b4af516f276c6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 13 from 2026-10-06T20:14:47.684718+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "6e4f4abbd007c8fe39413559c510f5c828c62d8de07d88eb18da803aa8f153e6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 11 from 2026-10-06T19:53:27.826672+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "77dd1bd4937ea405b31115dc7c9e2fb7c662a67ccc609f21a5f7d942f15049e6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 16 from 2026-10-06T16:29:56.380083+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "8291f411eaa5e13a4e7a524aefc56ad2a2f448ef50ad7d65151e22d67397f2af": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 8 from 2026-10-06T11:51:22.580205+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "88a4bcdb370806920a4ecb12f0ca2447e421da11848770ff7f4afb279a73c69a": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 21 from 2026-10-06T17:56:53.604237+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "a61f79a76e2676690ee4186f3fba3303646e80ac06256001f35902741453a5aa": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 17 from 2026-10-06T15:47:09.406186+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "aa3274784be3f9907d363d92cb62d041f9cda9b2ae374c6083e6ef77bbbfaf1e": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 1 from 2026-10-06T17:14:07.788411+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "abc5379990e404d31eca843a01b9082630e62c1566013c253812ed6bfe1d6208": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 12 from 2026-10-06T12:12:03.455948+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "b3e4352cf8931b09f47f3baf2b957b2735d12788c1dd5f7fa3f202625a809712": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 18 from 2026-10-06T15:32:26.510126+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "d424f322d4aa8efa4022b9958c1dc3e4a9cd4c7da765cf25d4b02292b6d87cc0": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 9 from 2026-10-06T12:42:36.669186+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "db4a2573dceb31d635aaedc58b62cc8cf88ab8f5bc4ce9ada2a4a5aad95e4469": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 5 from 2026-10-06T22:25:19.025123+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "e5490c2de71e3f0dac7fe1c2e1e64b79e4d5828433d70e46c9fea0ce9a581c2e": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 7 from 2026-10-06T21:55:29.104746+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "e6b31ecf04cb9eb95ff67bf1f950a5118a23eed325e01d588142cb3985270805": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 15 from 2026-10-06T11:01:49.035896+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "fac768e758ed1023a8453f7f5271bf0e0e746bdc2ffa61b2ed5b368c3980f078": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 2 from 2026-10-06T17:46:29.487993+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        },
+        "ff017815bb3defe83117560108260d91e56ba12b0ab1ad09bca8a2c9535f97e9": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified current owned container identities and creation on 2026-10-15, no external PostgreSQL data mount, a newly created Redis local volume, and current temporary media roots.",
+            "effective_settings": "Checked owned loopback PostgreSQL/Redis endpoints, local media, eager tasks, locmem mail, db sessions and all three retained bundle settings empty.",
+            "no_restore_or_import": "Reviewed executed runner/fixture/seed paths with current source hashes: no historical file, database restore, retained bundle or import producer feeds this finite seed. Earlier capture content was not inferred from UUIDs and was not decrypted.",
+            "producer_inputs": "Checked pinned seed_demo source and actual effective inputs: local synthetic seed only, no retained-origin inputs or external import producers.",
+            "seed_execution": "Actual registration preceded all accounts with empty baseline; intercepted seed_or_restore returned seed with identical effective settings. No snapshot branch executed."
+          },
+          "reason": "Historical capture 4 from 2026-10-06T22:47:02.497098+00:00 is outside this newly created, independently seeded finite scenario. This classifies only scenario dependencies; the general historical classification stays indeterminate."
+        }
+      }
+    },
+    {
+      "run": "20261015-010219-74be61fb",
+      "original_ciphertext_sha256": "e23335d30a1cf07937c3fbdac4dc5a960b32e5be4a4d5d7398cf289741fbd36e",
+      "review_ciphertext_sha256": "0d343615a4bdbb803d76a3a63ceca0595feef3356bf5dc46abd72172ef0643f8",
+      "registration_digest_recomputed_and_equal": true,
+      "registration_digest": "4f57613a53012ea4a60560ac7d4cf0a7305e8dd92506659839f071d5c132a435",
+      "recorded_review_origins_exact_known_23": true,
+      "operator_reviewer_distinct": true,
+      "fixture_snapshots": false,
+      "selected_retained_origin_inputs": false,
+      "registration_time": "2026-10-15T01:03:16.677183+00:00",
+      "seed_branch": "seed",
+      "containers": [
+        {
+          "name": "web-modelos-ci-pg-20261015-010219-74be61fb",
+          "id": "d0dc75eb4b9866e67efbabf5b311383395210a26f05b21898d086cd8936f4ae4",
+          "created": "2026-10-15T01:02:20.123298699Z",
+          "mounts": []
+        },
+        {
+          "name": "web-modelos-ci-redis-20261015-010219-74be61fb",
+          "id": "52bb3704c0e31e2bd965db12ee3935b4fb4dd38b662f38930790174d4c618730",
+          "created": "2026-10-15T01:02:22.626102877Z",
+          "mounts": [
+            {
+              "destination": "/data",
+              "read_write": true,
+              "type": "volume",
+              "volume_created": "2026-10-15T01:02:22Z",
+              "volume_driver": "local",
+              "volume_name": "0fc7978473ceba2c7fb1720d5daf55737b17b28f81457d0cbd3ebc12afca760e"
+            }
+          ]
+        }
+      ],
+      "historical_producer_ids_disjoint": true,
+      "per_origin_recorded_decisions": {
+        "09015b24a38499c32392b3f33b47f0297c0e361a4cefaa6ac0d253495ab71653": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 20 captured 2026-10-06T16:11:33.408984+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "18bf5f13fb4cb7d51a0f07fb0b6884c5e2d9fe9bf968e90b5816b438ad66e6a9": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 14 captured 2026-10-06T21:19:21.041057+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "1e1855b59db503238585676d1e8dc898b9ac9131050dfec53095ecdefc5feeb3": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 10 captured 2026-10-06T12:34:39.512797+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "2ab78da7baac5c7a6aabb9eb417dad9c5bfbfba49f86149268f65be028f220d5": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 3 captured 2026-10-06T21:35:55.308401+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "2f74f53e14025cdeaa2355cfbb200407339b2f555f8a23e4ad211b06edac6d44": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 19 captured 2026-10-06T21:43:56.789416+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "3898a0d616a64d440e95d0aaae7b40153caff34f310b2890f321ea16f2577829": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 22 captured 2026-10-06T17:30:28.004228+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "4c52fa4c09385b0e43d0ac89faccef011e2a17ec10e98ff45630bbd5266a8189": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 23 captured 2026-10-06T23:28:12.150905+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "4deb0b748b1237997cc28e87965e36eae5031d8ff7f43bd19f2ed9b6ed27d609": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 6 captured 2026-10-06T23:04:27.291376+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "63b0c4a5a89fc6c87c4ce13bcb94fe0136b745d0ba0078a3471b4af516f276c6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 13 captured 2026-10-06T20:14:47.684718+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "6e4f4abbd007c8fe39413559c510f5c828c62d8de07d88eb18da803aa8f153e6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 11 captured 2026-10-06T19:53:27.826672+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "77dd1bd4937ea405b31115dc7c9e2fb7c662a67ccc609f21a5f7d942f15049e6": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 16 captured 2026-10-06T16:29:56.380083+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "8291f411eaa5e13a4e7a524aefc56ad2a2f448ef50ad7d65151e22d67397f2af": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 8 captured 2026-10-06T11:51:22.580205+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "88a4bcdb370806920a4ecb12f0ca2447e421da11848770ff7f4afb279a73c69a": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 21 captured 2026-10-06T17:56:53.604237+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "a61f79a76e2676690ee4186f3fba3303646e80ac06256001f35902741453a5aa": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 17 captured 2026-10-06T15:47:09.406186+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "aa3274784be3f9907d363d92cb62d041f9cda9b2ae374c6083e6ef77bbbfaf1e": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 1 captured 2026-10-06T17:14:07.788411+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "abc5379990e404d31eca843a01b9082630e62c1566013c253812ed6bfe1d6208": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 12 captured 2026-10-06T12:12:03.455948+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "b3e4352cf8931b09f47f3baf2b957b2735d12788c1dd5f7fa3f202625a809712": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 18 captured 2026-10-06T15:32:26.510126+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "d424f322d4aa8efa4022b9958c1dc3e4a9cd4c7da765cf25d4b02292b6d87cc0": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 9 captured 2026-10-06T12:42:36.669186+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "db4a2573dceb31d635aaedc58b62cc8cf88ab8f5bc4ce9ada2a4a5aad95e4469": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 5 captured 2026-10-06T22:25:19.025123+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "e5490c2de71e3f0dac7fe1c2e1e64b79e4d5828433d70e46c9fea0ce9a581c2e": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 7 captured 2026-10-06T21:55:29.104746+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "e6b31ecf04cb9eb95ff67bf1f950a5118a23eed325e01d588142cb3985270805": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 15 captured 2026-10-06T11:01:49.035896+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "fac768e758ed1023a8453f7f5271bf0e0e746bdc2ffa61b2ed5b368c3980f078": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 2 captured 2026-10-06T17:46:29.487993+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        },
+        "ff017815bb3defe83117560108260d91e56ba12b0ab1ad09bca8a2c9535f97e9": {
+          "classification": "no_link",
+          "evidence": {
+            "creation_and_mounts": "Verified owned container IDs, run labels and new creation times; baseline lists no external PostgreSQL data mount and newly created Redis volume and temporary media roots.",
+            "effective_settings": "Observed local-only PostgreSQL/Redis endpoints, eager tasks, local media, db sessions and locmem mail; every retained-origin bundle setting is empty.",
+            "no_restore_or_import": "Reviewed current runner/fixture/seed execution path and hashes: no historical database restore, retained bundle import or previous scenario artifact enters this run. Historical originals were not decrypted or associated by UUID matching.",
+            "producer_inputs": "Pinned seed and fixture source hashes match; current producer creates local synthetic accounts and no retained-origin input is configured.",
+            "seed_execution": "Registration occurs before accounts with empty runtime baseline; actual intercepted branch is seed, not restore, with identical effective settings."
+          },
+          "reason": "Historical origin 4 captured 2026-10-06T22:47:02.497098+00:00 does not feed this independently seeded account-9 scenario. This is only a finite-scenario dependency decision; general historical classification remains indeterminate."
+        }
+      }
+    }
+  ],
+  "finding": "Existing externally recorded per-origin no_link reviews are bound to exact finite registrations, not a new blanket exclusion. Authenticated old producer metadata supplies additional provenance beyond earlier summary. Registrations prohibit retained bundles/snapshots and undeclared external mounts; fresh seed recorded before content review.",
+  "decision": "Finite scenario dependency absence can be reconciled with preserved four PASS deliveries and negative unknown/import controls. General old-subject association/content disclosure remains indeterminate; shared-run retained archive negative unchanged. Do not state all historical logs contain no personal data.",
+  "acceptance": false
+}
