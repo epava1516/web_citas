@@ -420,9 +420,14 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
     selected = list(page.object_list)
     # Hydration through the native context doubles as the page guard. The rows were
     # already selected by the filters; the guard depends only on the listing itself.
-    context = PublicationContext(
-        Listing.objects.filter(pk__in=selected), page_read=True, prepared_page=True,
-    )
+    from .public_validation import _prepared_page_binding
+
+    # Include this page's fresh catalog reads, not only its initial hydration.
+    # The inner hydration scope nests/restores the same physical configuration.
+    with _prepared_page_binding(enabled=True):
+        context = PublicationContext(
+            Listing.objects.filter(pk__in=selected), page_read=True, prepared_page=True,
+        )
     rows = {row.pk: row for row in context.rows}
     stale.extend(
         pk for pk in selected if pk not in rows or not publicly_visible(rows[pk], context=context)

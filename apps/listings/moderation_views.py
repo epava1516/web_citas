@@ -157,13 +157,17 @@ def review_photo(request, photo_id):
 
 
 def public_detail(request, listing_id):
+    from .public_validation import _prepared_page_binding
     from .seo import listing_metadata
 
     listing = get_object_or_404(
         Listing.objects.select_related("person__agency", "approved_revision"), pk=listing_id
     )
-    if not publicly_visible(listing):
-        raise Http404
+    # Only the native read guard; render and every other caller retain their
+    # connection settings. get_object_or_404 above already connected this thread.
+    with _prepared_page_binding(enabled=True):
+        if not publicly_visible(listing):
+            raise Http404
     response = render(
         request,
         "listings/public_detail.html",

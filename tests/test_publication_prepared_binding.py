@@ -72,11 +72,15 @@ def test_prepared_pages_match_native_binding_and_observe_revoked_catalog(request
     def compare():
         for language in ('es', 'en'):
             bindings = []
+            catalog_bindings = []
 
             def observe_binding(execute, sql, values, many, context):
                 if '"_pv_history"' in sql:
                     bindings.append(isinstance(context['cursor'].cursor,
                                                public_validation._PageReadCursor))
+                if '"catalog_' in sql:
+                    catalog_bindings.append(isinstance(context['cursor'].cursor,
+                                                       public_validation._PageReadCursor))
                 return execute(sql, values, many, context)
 
             with connection.execute_wrapper(observe_binding):
@@ -84,6 +88,11 @@ def test_prepared_pages_match_native_binding_and_observe_revoked_catalog(request
             state_route = prepared.wsgi_request._publication_route['route'] == 'state'
             expected_bindings = [] if state_route and not prepared.context['page'].object_list else [state_route]
             assert bindings == expected_bindings
+            if state_route and prepared.context['page'].object_list:
+                # Selected context catalogs prepare; search form/render stay native.
+                assert any(catalog_bindings) and not all(catalog_bindings)
+            else:
+                assert not any(catalog_bindings)
             with monkeypatch.context() as patch:
                 patch.setattr(public_validation, '_prepared_page_binding',
                               lambda **kwargs: nullcontext())

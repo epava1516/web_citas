@@ -189,11 +189,12 @@ class _PageReadCursor(ServerBindingCursor):
 
 @contextmanager
 def _prepared_page_binding(*, enabled):
-    """Prepare only page-read SELECTs on this thread's physical connection.
+    """Prepare explicit public-read SELECTs on this thread's physical connection.
 
     PostgreSQL caches query plans, never publication results. Each execution
     reads its current transaction snapshot. Restore cursor/threshold on every
-    exit; other reads, writes and schema operations keep their native binding.
+    exit. Callers already connected and scope only the selected page or public
+    detail guard; other reads, writes and schema keep their native binding.
     """
     if not enabled:
         yield
