@@ -1,0 +1,35 @@
+{
+  "recorded_at": "2026-10-15T09:14:08.402922+00:00",
+  "run": "20261015-091217-431200db",
+  "base_head": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "2",
+      "time": "61.350",
+      "timestamp": "2026-10-15T11:12:35.971598+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged_during_run": true,
+  "independent_cleanup": {
+    "runner_absent": true,
+    "child_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-091217-431200db": true,
+      "web-modelos-ci-redis-20261015-091217-431200db": true
+    }
+  },
+  "source_delta_from_original_block4": [
+    "tests/test_restriction_filter_localization.py"
+  ],
+  "tested_source_sha256": "16a67ebdd614f6743de74d6ef5b305ebb260ab5778e6d93692d85fae4b360162",
+  "original_failure_preserved": "cr09-regresion-comun-v3-parte4-terminal-20261015.json",
+  "interpretation": "Navigation synchronization strengthened and both language cases pass; original cause remains unproven. Product sources equal original block4; one test source differs. No whole-version N3 acceptance.",
+  "acceptance": false
+}

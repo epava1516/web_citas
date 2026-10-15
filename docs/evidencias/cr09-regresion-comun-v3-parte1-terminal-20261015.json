@@ -1,0 +1,74 @@
+{
+  "recorded_at": "2026-10-15T02:42:03.524440+00:00",
+  "run": "20261015-010758-a635c22e",
+  "head": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "result": "PASS",
+  "sources_unchanged": true,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "9",
+      "tests": "858",
+      "time": "5599.358",
+      "timestamp": "2026-10-15T03:08:19.049201+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "passed": 849,
+  "skipped": [
+    {
+      "case": "test_owned_target_stage_profiles",
+      "reason": "Requires owned capacity runner diagnostic profile mode"
+    },
+    {
+      "case": "test_owned_object_proxy_and_purge_worker_gate",
+      "reason": "Requires owned capacity runner preflight mode"
+    },
+    {
+      "case": "test_owned_content_external_review_closes_and_downloads_exact_payload[es-False]",
+      "reason": "Explicit isolated operator review required; no coverage acceptance from this skip"
+    },
+    {
+      "case": "test_owned_content_external_review_closes_and_downloads_exact_payload[es-True]",
+      "reason": "Explicit isolated operator review required; no coverage acceptance from this skip"
+    },
+    {
+      "case": "test_owned_content_external_review_closes_and_downloads_exact_payload[en-False]",
+      "reason": "Explicit isolated operator review required; no coverage acceptance from this skip"
+    },
+    {
+      "case": "test_owned_content_external_review_closes_and_downloads_exact_payload[en-True]",
+      "reason": "Explicit isolated operator review required; no coverage acceptance from this skip"
+    },
+    {
+      "case": "test_owned_content_omitted_source_never_creates_final_response[False]",
+      "reason": "Explicit isolated actual-content negative scenario required"
+    },
+    {
+      "case": "test_owned_content_omitted_source_never_creates_final_response[True]",
+      "reason": "Explicit isolated actual-content negative scenario required"
+    },
+    {
+      "case": "test_worker_capacity_comparison",
+      "reason": "Explicit authorized owned experiment only"
+    }
+  ],
+  "excluded": [
+    "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+    "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
+    "tests/test_rights_portability_large_history.py",
+    "tests/test_publication_state_tcp.py"
+  ],
+  "independent_cleanup": {
+    "runner_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-010758-a635c22e": true,
+      "web-modelos-ci-redis-20261015-010758-a635c22e": true
+    }
+  },
+  "scope": "Common v3 partition1, actual owned PostgreSQL/Redis/native tools. Not full common N3 or CR09 acceptance.",
+  "acceptance": false
+}

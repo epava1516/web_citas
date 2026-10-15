@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-10-15T09:08:54.641053+00:00",
+  "head": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "prerequisite_terminal": "artifacts/local-ci/20261015-081053-9720829d/result.json",
+  "independent_cleanup": {
+    "runner_absent": true,
+    "child_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-081053-9720829d": true,
+      "web-modelos-ci-redis-20261015-081053-9720829d": true
+    }
+  },
+  "adapter_sha256": "92e808bb2ec25b4e00879f0d8835b20cbc007192bf7196db09ac82e470e0b0a0",
+  "selection": [
+    "tests/test_restriction_filter_localization.py"
+  ],
+  "purpose": "One bounded baseline diagnostic for the observed reload protocol failure, both ES/EN and original assertions unchanged. No claim of cause or flaky status if baseline passes. No speculative repeated attempts.",
+  "limits": "Controller CPU0-3 memory3584MiB swap0 tasks512; PG1CPU1536MiB; Redis0.2CPU128MiB; one worker own synthetic PG/Redis; timeout1800",
+  "acceptance": false
+}

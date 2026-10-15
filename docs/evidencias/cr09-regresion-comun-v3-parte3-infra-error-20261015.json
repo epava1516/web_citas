@@ -1,0 +1,27 @@
+{
+  "recorded_at": "2026-10-15T06:45:47.503826+00:00",
+  "run": "20261015-064455-86c7f0c9",
+  "head": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "result": "ERROR",
+  "sources_unchanged": true,
+  "cause": "Required local postgres:17-alpine image missing; docker run --pull=never exited125 before pytest",
+  "tests_executed": false,
+  "independent_cleanup": {
+    "runner_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-064455-86c7f0c9": true,
+      "web-modelos-ci-redis-20261015-064455-86c7f0c9": true
+    }
+  },
+  "preparation_restored": {
+    "command": "docker pull postgres:17-alpine",
+    "image_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+    "repo_digests": [
+      "postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24"
+    ],
+    "historical_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+    "historical_id_equal": true
+  },
+  "acceptance": false
+}

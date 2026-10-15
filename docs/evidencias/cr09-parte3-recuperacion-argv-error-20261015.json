@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-10-15T08:06:26.773748+00:00",
+  "run": "20261015-080555-c1dacdc0",
+  "result": "ERROR",
+  "error": "[Errno 7] Argument list too long: 'uv'",
+  "head": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "sources_unchanged": true,
+  "independent_cleanup": {
+    "runner_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-080555-c1dacdc0": true,
+      "web-modelos-ci-redis-20261015-080555-c1dacdc0": true
+    }
+  },
+  "cause": "Linux per-argument limit exceeded by >1MB parametrized pytest node ID; pytest did not start. Root launch selection mistake; use complete affected files instead.",
+  "acceptance": false
+}

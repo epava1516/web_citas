@@ -2,6 +2,7 @@
 
 import shutil
 from datetime import timedelta
+from urllib.parse import parse_qs, urlsplit
 
 import pytest
 from django.db import connection
@@ -99,6 +100,12 @@ def test_localized_per_case_filters_keep_measures_and_authority(
             expect(link).to_have_count(0)
             page.locator("[name=due]").select_option("")
             button.click()
+            page.wait_for_url(
+                lambda target: urlsplit(target).path == path
+                and parse_qs(urlsplit(target).query, keep_blank_values=True)
+                == {"state": ["active"], "due": [""], "purpose": ["account_preferences"]},
+                wait_until="load",
+            )
             page.reload()
             expect(link).to_have_count(1)
             expect(page.locator("[name=state]")).to_have_value("active")

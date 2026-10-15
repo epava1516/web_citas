@@ -1,0 +1,155 @@
+{
+  "recorded_at": "2026-10-15T02:44:49.612851+00:00",
+  "run": "20261015-024215-b7fd60c2",
+  "head": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "77.497",
+      "timestamp": "2026-10-15T04:42:34.441462+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "independent_cleanup": {
+    "runner_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-024215-b7fd60c2": true,
+      "web-modelos-ci-redis-20261015-024215-b7fd60c2": true
+    }
+  },
+  "scope": "Specific actual owned Beat publication to worker execution and dirty refresh assertion; not capacity or whole N3/CR09.",
+  "acceptance": false,
+  "wiring": {
+    "generation": "t966d71b163504817ae7da2e647b387f",
+    "pids": {
+      "worker": [
+        104832,
+        105011,
+        105030
+      ],
+      "beat": [
+        104833
+      ]
+    },
+    "cleared_after_ready_seconds": 29.133984352927655,
+    "pid_absence": {
+      "104832": true,
+      "105011": true,
+      "105030": true,
+      "104833": true
+    },
+    "owned_redis_keys_removed": 1,
+    "owned_redis_empty": true,
+    "observer": [
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "09b9141b-9695-4621-ab88-0cf575578df1",
+        "role": "beat",
+        "pid": 104833,
+        "monotonic": 3752818.092811175
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "79c5f145-64c0-4141-837a-d4a2ea700ad8",
+        "role": "beat",
+        "pid": 104833,
+        "monotonic": 3752828.083453385
+      },
+      {
+        "event": "publish",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "id": "d5c6d2d5-0e65-492e-8c1d-fc0a4ce51c6b",
+        "role": "beat",
+        "pid": 104833,
+        "monotonic": 3752838.082917267
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "cf21df06-87e2-4308-827f-7ffec9f77b6a",
+        "role": "beat",
+        "pid": 104833,
+        "monotonic": 3752838.085513814
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "09b9141b-9695-4621-ab88-0cf575578df1",
+        "role": "worker",
+        "pid": 105011,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3752818.103865063,
+        "end_monotonic": 3752818.194235349,
+        "wall": 0.0903702862560749,
+        "thread_cpu": 0.025364102,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "79c5f145-64c0-4141-837a-d4a2ea700ad8",
+        "role": "worker",
+        "pid": 105011,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3752828.090516514,
+        "end_monotonic": 3752828.144346907,
+        "wall": 0.05383039265871048,
+        "thread_cpu": 0.018548972999999996,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "id": "d5c6d2d5-0e65-492e-8c1d-fc0a4ce51c6b",
+        "role": "worker",
+        "pid": 105011,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3752838.087104695,
+        "end_monotonic": 3752838.31773256,
+        "wall": 0.2306278650648892,
+        "thread_cpu": 0.081276772,
+        "result": 1,
+        "dirty_before": 1,
+        "dirty_after": 0,
+        "cleared": 1,
+        "db_wall": 0.19639015197753906,
+        "mark_to_clear_seconds": [
+          31.9358332157135
+        ]
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "cf21df06-87e2-4308-827f-7ffec9f77b6a",
+        "role": "worker",
+        "pid": 105030,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3752838.091691363,
+        "end_monotonic": 3752838.17736889,
+        "wall": 0.08567752689123154,
+        "thread_cpu": 0.04545171900000001,
+        "result": 0
+      }
+    ]
+  },
+  "wiring_artifact_sha256": "062de7996cdb85728d93fff50207c80d3cd7d6ec1e11e3537b70efd810e499b1",
+  "independent_worker_beat_pid_absence": {
+    "104832": true,
+    "105011": true,
+    "105030": true,
+    "104833": true
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "observed_at": "2026-10-15T09:08:16.489770+00:00",
+  "run": "20261015-081053-9720829d",
+  "head": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "runner_live_verified": false,
+  "counts": {
+    "setup:passed": 871,
+    "call:passed": 870,
+    "teardown:passed": 874,
+    "setup:skipped": 3,
+    "call:failed": 1
+  },
+  "last": [
+    {
+      "nodeid": "tests/test_vps_capacity_handoff.py::test_eight_cpu_rejects_non_owned_topology",
+      "when": "teardown",
+      "outcome": "passed",
+      "duration": 0.08795047178864479
+    }
+  ],
+  "terminal": true,
+  "containers": [
+    {
+      "name": "web-modelos-ci-pg-20261015-081053-9720829d",
+      "running": true,
+      "label_verified": true,
+      "image_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+      "limits": {
+        "NanoCpus": 1000000000,
+        "CpusetCpus": "4",
+        "Memory": 1610612736,
+        "MemorySwap": 1610612736,
+        "PidsLimit": 128
+      }
+    },
+    {
+      "name": "web-modelos-ci-redis-20261015-081053-9720829d",
+      "running": true,
+      "label_verified": true,
+      "image_id": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+      "limits": {
+        "NanoCpus": 200000000,
+        "CpusetCpus": "5",
+        "Memory": 134217728,
+        "MemorySwap": 134217728,
+        "PidsLimit": 64
+      }
+    }
+  ],
+  "acceptance": false
+}

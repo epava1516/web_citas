@@ -1,0 +1,16 @@
+{
+  "prepared_at": "2026-10-15T01:13:54.485475+00:00",
+  "head": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "status": "PREPARED_NOT_EXECUTED",
+  "requirement": "Actual matching Beat publish\u2192worker execution of refresh task and dirty mark clearance plus independent process/broker cleanup",
+  "selector": "tests/test_owned_refresh_topology.py::test_owned_worker_beat_refresh_wiring",
+  "adapter": "artifacts/vps-preparation/cr09-owned-wiring-20261015/run.py",
+  "sha256": "cf48e5b6f92782118f7b11fb04d2a5746dbf8e1e151646cfa90f5d1fd573aae0",
+  "base_adapter": "/home/felidae/proyectos/web_modelos_cr09_census_complete/artifacts/vps-preparation/cr09-census-complete/run.py",
+  "limits": "Existing bounded own controller/PG/Redis limits unchanged",
+  "guard": "Only pytest child env receives actual runner Redis URL/ID; rejects normal port56379; owned_redis verifies live container label/port; no env inherited from normal services.",
+  "prerequisite": "Current block1 terminal and independently clean. No concurrent load.",
+  "acceptance": false,
+  "reviewed_at": "2026-10-15T01:16:35.810631+00:00",
+  "pre_execution_correction": "Initial draft inherited obsolete 512MiB PG/4GiB controller values. Rebased on verified current 1536MiB PG/3584MiB controller/WAL-limited adapter before any execution; same Redis limits."
+}

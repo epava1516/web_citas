@@ -1,0 +1,41 @@
+{
+  "observed_at": "2026-10-15T02:45:30.204252+00:00",
+  "run": "20261015-010758-a635c22e",
+  "head": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "runner_live_verified": false,
+  "counts": {
+    "call:passed": 849,
+    "call:skipped": 6,
+    "setup:skipped": 3
+  },
+  "last": [],
+  "terminal": true,
+  "acceptance": false,
+  "containers": [
+    {
+      "name": "web-modelos-ci-pg-20261015-010758-a635c22e",
+      "running": true,
+      "label_verified": true,
+      "limits": {
+        "NanoCpus": 1000000000,
+        "CpusetCpus": "4",
+        "Memory": 1610612736,
+        "MemorySwap": 1610612736,
+        "PidsLimit": 128
+      }
+    },
+    {
+      "name": "web-modelos-ci-redis-20261015-010758-a635c22e",
+      "running": true,
+      "label_verified": true,
+      "limits": {
+        "NanoCpus": 200000000,
+        "CpusetCpus": "5",
+        "Memory": 134217728,
+        "MemorySwap": 134217728,
+        "PidsLimit": 64
+      }
+    }
+  ],
+  "terminal_receipt": "cr09-regresion-comun-v3-parte1-terminal-20261015.json"
+}
