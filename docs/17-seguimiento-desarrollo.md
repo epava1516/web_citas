@@ -1,3 +1,5 @@
+Diagnóstico223005 actual terminado FAILinstrumentado1.123788s,1200IDs emparejados; dominaesperapreWSGI yseidentificapicod-1WSGI1.208s/CPU.602s/SQL.513s. [Evidencia y siguiente contraste](evidencias/cr09-query-structure-ingress-20261015.md). Últimolimpio1.218890sFAIL; ningúnprocesoactivo.
+
 Último resultado limpio222515, SHAe7e68cd/producto3ba2ec4: **p951.218890sFAIL**,1200completadas0errores;132lentas0–10s. Estructura SQL conserva beneficioaislado, no resuelveatasco. [Evidencia actual](evidencias/cr09-query-structure-http-20261015.md). Próximo diagnóstico ingress separado; no repetirFAIL/15min/N3.
 
 Estado posterior: candidata de estructura SQL sin resultados bf2f13f integrada localmente tras comparación1PASS,23controlesPASS y2controles reforzadosPASS. [Evidencia](evidencias/cr09-query-structure-20261015.md). Pendiente corto limpio; p95vigente sigue1.118772sFAIL, CR09/N3 abiertos.

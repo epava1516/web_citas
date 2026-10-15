@@ -1,0 +1,303 @@
+{
+  "run": "20261015-223005-7347b70d",
+  "sha": "35babb0",
+  "result": "FAIL185.50s instrumented",
+  "source_freeze_verified": true,
+  "cleanup_verified": true,
+  "pids_absent": [
+    3006241,
+    3006286,
+    3006344,
+    3006595,
+    3006596,
+    3006598,
+    3006599
+  ],
+  "unit": "MainPID=0;ControlGroup=;ActiveState=failed",
+  "analysis": {
+    "run": "20261015-223005-7347b70d",
+    "n_matched": 1200,
+    "parse_errors": 0,
+    "slow": 152,
+    "cohorts": {
+      "0_5": {
+        "n": 100,
+        "slow": 93,
+        "http_p95": 1.2943288809619844,
+        "http_mean": 1.1022640398330987,
+        "pre_mean": 0.8721660413127392,
+        "post_mean": -0.00027516046073287724,
+        "wsgi_mean": 0.23029807621613144,
+        "cpu_mean": 0.11002190901999999,
+        "sql_mean": 0.10575509445741772,
+        "sql_cpu_mean": 0.008078051839999965,
+        "gc_mean": 0.007122901491820812,
+        "gc_cpu_mean": 0.006495034659999989,
+        "service_mean": 0.22995828,
+        "sql_calls_mean": 39.88
+      },
+      "5_10": {
+        "n": 100,
+        "slow": 59,
+        "http_p95": 1.0420412942767143,
+        "http_mean": 0.8267756485426798,
+        "pre_mean": 0.6471629182482138,
+        "post_mean": -0.0002176309609785676,
+        "wsgi_mean": 0.17981978653464467,
+        "cpu_mean": 0.09781895156000003,
+        "sql_mean": 0.07187405901029706,
+        "sql_cpu_mean": 0.007212392659999716,
+        "gc_mean": 0.00716789816506207,
+        "gc_cpu_mean": 0.006733441570000021,
+        "service_mean": 0.17949744,
+        "sql_calls_mean": 37.98
+      },
+      "10_15": {
+        "n": 100,
+        "slow": 0,
+        "http_p95": 0.5117215639911592,
+        "http_mean": 0.2838889846485108,
+        "pre_mean": 0.10852090951055288,
+        "post_mean": -0.00020248296204954385,
+        "wsgi_mean": 0.17556067924946547,
+        "cpu_mean": 0.09857181435000001,
+        "sql_mean": 0.0681947600375861,
+        "sql_cpu_mean": 0.007117825620000105,
+        "gc_mean": 0.00800575957633555,
+        "gc_cpu_mean": 0.0074997171400001325,
+        "service_mean": 0.17526505,
+        "sql_calls_mean": 37.98
+      },
+      "15_60": {
+        "n": 900,
+        "slow": 0,
+        "http_p95": 0.357414186000824,
+        "http_mean": 0.2153606847140731,
+        "pre_mean": 0.031271936951929494,
+        "post_mean": -0.00021280984808173445,
+        "wsgi_mean": 0.18428856996871118,
+        "cpu_mean": 0.09995381871555559,
+        "sql_mean": 0.07361304394849058,
+        "sql_cpu_mean": 0.00729531755111118,
+        "gc_mean": 0.007123027561853329,
+        "gc_cpu_mean": 0.006560391643333174,
+        "service_mean": 0.18398065444444445,
+        "sql_calls_mean": 38
+      },
+      "slow": {
+        "n": 152,
+        "slow": 152,
+        "http_p95": 1.2824449581094086,
+        "http_mean": 1.061564846561707,
+        "pre_mean": 0.8476983539968435,
+        "post_mean": -0.00020457924907340815,
+        "wsgi_mean": 0.21406118112836817,
+        "cpu_mean": 0.10817333692105263,
+        "sql_mean": 0.09313518295714043,
+        "sql_cpu_mean": 0.00778659171052609,
+        "gc_mean": 0.0081053394150283,
+        "gc_cpu_mean": 0.007530092374999982,
+        "service_mean": 0.213726875,
+        "sql_calls_mean": 39
+      }
+    },
+    "cpu_groups": {
+      "0_5": {
+        "postgres": {
+          "samples": 5,
+          "cpu_cores": 0.6029928239560005,
+          "periods": 50,
+          "throttled_periods": 0
+        },
+        "controller": {
+          "samples": 5,
+          "cpu_cores": 2.109895516226477,
+          "periods": 0,
+          "throttled_periods": 0
+        }
+      },
+      "5_10": {
+        "postgres": {
+          "samples": 5,
+          "cpu_cores": 0.48272018707282177,
+          "periods": 50,
+          "throttled_periods": 0
+        },
+        "controller": {
+          "samples": 5,
+          "cpu_cores": 2.191295610306549,
+          "periods": 0,
+          "throttled_periods": 0
+        }
+      },
+      "15_60": {
+        "postgres": {
+          "samples": 45,
+          "cpu_cores": 0.4657842952000023,
+          "periods": 451,
+          "throttled_periods": 0
+        },
+        "controller": {
+          "samples": 45,
+          "cpu_cores": 2.046989960712888,
+          "periods": 0,
+          "throttled_periods": 0
+        }
+      }
+    },
+    "sql_families": {
+      "0_5": [
+        {
+          "caller": "apps/listings/public_validation.py:263",
+          "wall_per_request": 0.02744347658008337,
+          "cpu_per_request": 0.0018787517099999951,
+          "calls_per_request": 7.2
+        },
+        {
+          "caller": "overflow_or_unknown",
+          "wall_per_request": 0.011882434030994773,
+          "cpu_per_request": 0.001233300749999995,
+          "calls_per_request": 5.56
+        },
+        {
+          "caller": "apps/listings/publication_state.py:447",
+          "wall_per_request": 0.009639906673692166,
+          "cpu_per_request": 0.0001689335699999983,
+          "calls_per_request": 0.68
+        },
+        {
+          "caller": "apps/listings/publication_state.py:444",
+          "wall_per_request": 0.004788235481828451,
+          "cpu_per_request": 0.00016474747999999816,
+          "calls_per_request": 0.6
+        },
+        {
+          "caller": "apps/listings/publication_state.py:305",
+          "wall_per_request": 0.004550624890252947,
+          "cpu_per_request": 9.839581000001596e-05,
+          "calls_per_request": 0.6
+        },
+        {
+          "caller": "apps/listings/public_validation.py:509",
+          "wall_per_request": 0.004507850701920688,
+          "cpu_per_request": 0.0005964224800000361,
+          "calls_per_request": 3.8
+        },
+        {
+          "caller": "apps/listings/publication_state.py:388",
+          "wall_per_request": 0.004415485132485628,
+          "cpu_per_request": 3.147926000000245e-05,
+          "calls_per_request": 0.08
+        },
+        {
+          "caller": "apps/listings/forms.py:170",
+          "wall_per_request": 0.0029597287811338902,
+          "cpu_per_request": 0.00026214559000001356,
+          "calls_per_request": 1.6
+        },
+        {
+          "caller": "apps/listings/publication_state.py:446",
+          "wall_per_request": 0.0028391527431085705,
+          "cpu_per_request": 2.4130620000000214e-05,
+          "calls_per_request": 0.08
+        },
+        {
+          "caller": "apps/listings/submissions.py:18",
+          "wall_per_request": 0.002762175309471786,
+          "cpu_per_request": 0.00021335555000000505,
+          "calls_per_request": 1.08
+        }
+      ],
+      "15_60": [
+        {
+          "caller": "apps/listings/public_validation.py:263",
+          "wall_per_request": 0.017682185480371117,
+          "cpu_per_request": 0.0017123267766666612,
+          "calls_per_request": 6.666666666666667
+        },
+        {
+          "caller": "overflow_or_unknown",
+          "wall_per_request": 0.008828823506935602,
+          "cpu_per_request": 0.001008361983333176,
+          "calls_per_request": 4.666666666666667
+        },
+        {
+          "caller": "apps/listings/publication_state.py:447",
+          "wall_per_request": 0.0056117629275346794,
+          "cpu_per_request": 0.00015962850666665238,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/publication_state.py:305",
+          "wall_per_request": 0.004918661180676686,
+          "cpu_per_request": 0.00011668211444444804,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/publication_state.py:444",
+          "wall_per_request": 0.004560114750638604,
+          "cpu_per_request": 0.00018529670444438257,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/public_validation.py:509",
+          "wall_per_request": 0.003968214509594771,
+          "cpu_per_request": 0.0005199750755555065,
+          "calls_per_request": 3.3333333333333335
+        },
+        {
+          "caller": "apps/listings/presentation_reads.py:36",
+          "wall_per_request": 0.002133331970932583,
+          "cpu_per_request": 0.00020466943333338132,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/public_validation.py:576",
+          "wall_per_request": 0.0020844462969236903,
+          "cpu_per_request": 0.0002743485111112381,
+          "calls_per_request": 2.0
+        },
+        {
+          "caller": "apps/listings/forms.py:170",
+          "wall_per_request": 0.001978078213416868,
+          "cpu_per_request": 0.00024865215999998665,
+          "calls_per_request": 1.6666666666666667
+        },
+        {
+          "caller": "apps/listings/submissions.py:144",
+          "wall_per_request": 0.0019298836169764398,
+          "cpu_per_request": 0.0002978732333333885,
+          "calls_per_request": 2.0
+        }
+      ]
+    },
+    "workers": {
+      "3006595": {
+        "requests": 289,
+        "first_wsgi": 0.0016947928816080093,
+        "first6_cpu_mean": 0.10533234383333345
+      },
+      "3006596": {
+        "requests": 282,
+        "first_wsgi": 0.10115203587338328,
+        "first6_cpu_mean": 0.12871397250000002
+      },
+      "3006598": {
+        "requests": 319,
+        "first_wsgi": 0.052036588080227375,
+        "first6_cpu_mean": 0.2188218791666666
+      },
+      "3006599": {
+        "requests": 310,
+        "first_wsgi": 0.0013786759227514267,
+        "first6_cpu_mean": 0.12801129366666666
+      }
+    },
+    "negative_pre": 0,
+    "negative_post": 1120,
+    "post_min": -0.006624429952353239,
+    "diagnostic_p95": 1.1237877449020743,
+    "scope": "Same diagnostic only; inclusive WSGI/SQL/GC are not additive; post may be negative because WSGI response.close occurs after body reception. Controller includes generator/Celery/observer. SQL wall not backend CPU."
+  },
+  "scope": "ingress WSGI/SQL/GC plus owned cgroups1Hz; overhead unquantified, not clean p95"
+}
