@@ -1,0 +1,16 @@
+{
+  "selection": [
+    "tests/test_owned_rights_resource_census.py"
+  ],
+  "source_sha256": "45f721feb9d00ddbc719bfbce64eb5f6dd932868656e2663ff5c40910ff71c96",
+  "purpose": "Mechanical encrypted retained archive -> unresolved reader/association -> real resource adapter -> completion guard denial; synthetic metadata doubles explicitly, not full HTTP closure",
+  "limits": "existing own PG1CPU1536MiB Redis0.2CPU128MiB controllerCPU0-3 3584MiB swap0 pids512",
+  "acceptance": false,
+  "prelaunch_failure": {
+    "unit": "cr09-private-guard-20261015",
+    "exit": 2,
+    "reason": "systemd PATH lacks uv; rejected by prerequisites before run allocation/services",
+    "independent_cleanup": "MainPID=0, no new local-ci run, no labeled CI container running",
+    "correction": "Supply explicit PATH including /home/felidae/.local/bin; same code/selection/limits"
+  }
+}

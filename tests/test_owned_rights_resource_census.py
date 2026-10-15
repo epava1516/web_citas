@@ -410,3 +410,48 @@ def test_only_exact_producer_bound_credential_projection_is_eligible(monkeypatch
     else:
         with pytest.raises(ValueError, match="producer association/projection"):
             reviewed_content_census(case, inventory, scope, material, reviews, history)
+
+
+def test_unread_private_archive_pending_survives_adapter_and_completion_guard(
+    monkeypatch, settings, tmp_path
+):
+    """Mechanical negative; no claim of a full HTTP closure or semantic review."""
+    import base64
+
+    from apps.safety.rights import fingerprint
+    from apps.safety.rights_access_close import require_complete_delivery
+    from apps.safety.rights_exports import canonical
+    from scripts.owned_rights_resource_census import reviewed_content_census
+
+    case, inventory, scope, material, reviews, history = reviewed_metadata_fixture(monkeypatch)
+    archive = tmp_path / "prior-private-originals.encrypted"
+    archive.write_text(seal({"synthetic_subject": "retained-account", "private_review": "unresolved"}))
+    archive.chmod(0o600)
+    reference = "runner-artifact:" + archive.name
+    source = {"reference": reference, "category": "unlinked_records",
+              "content": base64.b64encode(archive.read_bytes()).decode(),
+              "producer": {"subject_binding": "not_established"},
+              "requirements": ["typed_content_reader", "producer_association"]}
+    material["sources"].append(source)
+    material["content_digest"] = fingerprint(canonical(material["sources"]))
+    reviews[reference] = {"operator": "synthetic-author", "reviewer": "synthetic-independent-reviewer",
+        "original_digest": fingerprint(canonical(source)), "decision": "unresolved",
+        "reason": "Retained private original has no supported typed reader or established subject association.",
+        "records": [], "records_digest": fingerprint(canonical([]))}
+    census = reviewed_content_census(case, inventory, scope, material, reviews, history)
+    path = tmp_path / "census.encrypted"
+    path.write_text(seal(census))
+    path.chmod(0o600)
+    settings.ACCESS_RESOURCE_ORIGIN_BUNDLE = str(path)
+    resources = retained_resource_records(
+        case, None, inventory, scope_dependencies(scope), {"logs": {}, "mail": {}}
+    )
+    assert any(reference + ":typed_content_reader" in item for item in resources["pending"])
+    assert any(reference + ":producer_association" in item for item in resources["pending"])
+    draft = SimpleNamespace(coverage_review_id=1, export_id="synthetic-export")
+    # Exercise both independent completion predicates with provider-derived pending.
+    for partial in (True, False):
+        package = {"schema": "access-delivery-v1", "export": str(draft.export_id),
+                   "partial": partial, "pending": resources["pending"]}
+        with pytest.raises(ValidationError, match="Complete reviewed access delivery"):
+            require_complete_delivery(draft, {"access_package": package})

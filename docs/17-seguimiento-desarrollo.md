@@ -2087,3 +2087,10 @@ Equivalencia conteo compartido `20261015-093943-5ab64c62`: [9 PASS/1 FAIL](evide
 [Omisión de caché de fixtures resuelta por evidencia integrada](evidencias/cr09-snapshots-integrados-conciliacion-20261015.json): bloque2 v3 ejecutó10controles del snapshot, incluidos los tres opt-in restauración DB/medios, preservación de setup y fallback sin terminar conexión ajena; cero SKIP. Huellas de test y helper actuales coinciden, terminal/limpieza ya verificados. Retirada espera obsoleta de cola, sin repetir tests ni aceptar restauración contractual desde caché.
 
 2026-10-15: auditoría nativa acotada contrastada con docs83 y guard real. El rechazo de revisión del archivo compartido no prueba por sí solo denegación terminal de aplicación. Existe aserción de cierre denegado sin efectos para censo observado pendiente (tests/test_rights_access_coverage_store.py:799–807); falta correspondencia específica con archivo retenido. Inspección y huellas: [recibo](evidencias/cr09-guard-cobertura-inspeccion-20261015.json); [auditoría](evidencias/cr09-alcance-auditoria-independiente-20261015.md). Sin nuevas cargas ni aceptación.
+
+2026-10-15: [guard de archivo privado](evidencias/cr09-archivo-privado-guard-terminal-20261015.json), run20261015-102750-5f94986a:40PASS/0FAIL/0ERROR/0SKIP, fuentes y limpieza independiente verificadas. Nuevo control mecánico pasa bytes cifrados sintéticos por censo revisado pendiente, proveedor real y predicado de cierre, incluso partial=False con pendientes. Dobles de metadatos/procedencia explícitos; no prueba HTTP del archivo ni aceptación CR09/N3. Primer arranque systemd rechazado por PATH sin uv antes de servicios, preservado en preparación.
+
+| Evidencia | Antes | Ahora |
+| --- | --- | --- |
+| Archivo privado→adaptador→guard | Sin caso específico | Caso mecánico PASS; recorrido HTTP específico pendiente |
+| Suite afectada actual | No ejecutada con este control |40PASS, sin fallos ni omisiones |
