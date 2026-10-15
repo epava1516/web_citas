@@ -372,9 +372,7 @@ class PublicationContext:
             ),
         )
         for name in ["categories", "services", "travel_areas", "rates"]:
-            query = query.prefetch_related(Prefetch(
-                "approved_revision__" + name, to_attr="_pv_" + name,
-            ))
+            query = query.prefetch_related(Prefetch("approved_revision__" + name))
         query = query.prefetch_related(
             Prefetch(
                 "approved_revision__photos",
@@ -405,6 +403,8 @@ class PublicationContext:
         }
         for row in self.rows:
             revision = row.approved_revision
+            for relation in ["categories", "services", "travel_areas", "rates"]:
+                setattr(revision, "_pv_" + relation, list(getattr(revision, relation).all()))
             for name in ["categories", "services", "travel_areas"]:
                 ids[name].update(item.pk for item in getattr(revision, "_pv_" + name))
             city = revision.municipality

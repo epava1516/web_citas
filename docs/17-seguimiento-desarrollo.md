@@ -2215,8 +2215,21 @@ CR09 coste candidataprecarga run20261015-121729-a5c6f44e:1PASS/82.83s,fuentes/li
 
 | Caso | Wall anterior/candidata | CPU anterior/candidata |
 |---|---:|---:|
-| Listado |217.892/390.359ms|134.299/290.811ms|
-| photography |306.954/312.469ms|174.580/169.017ms|
-| synthetic |302.497/285.312ms|179.774/160.331ms|
+| Listado |217.892/390.364ms|134.299/290.815ms|
+| photography |306.954/312.469ms|174.580/169.020ms|
+| synthetic |302.497/285.306ms|179.774/160.326ms|
 
 Redondeos descriptivos; recibo JSON conserva exactos. GCgen2observadoCPU144.9ms enprimerlistado durantecursor_execute,intervalosuperpuesto sin descontar. No extrapolar muestras aisladas ni declarar mejora causal.55PASSfuncionales y reducciónestructural defetchjustifican únicoensayocorto limpio4sync conlímites/dataset/carga habituales;sinperfiladores/observer. Baseline integrado105821-81ed5e4ap9521.845510s,20rps60s10k,subida/workerBeat/generatorfreeze. Si no haybeneficiopersuasivo, retirarproducto candidata y conservarpruebas/evidencias;sin barridoespeculativo ni15minantesdepasar. CR09/N3siguenabiertos.
+
+CR09 listasPrefetch RETIRADA2026-10-15: únicoensayolimpio122029-b6218e55(base81ea980)FAIL,206.47sJUnit,generadorválido1200emitidas/completadas,0errores/timeouts/finalpending,subida302. Fuentesintactas,PIDraíz/hijo/Gunicorn/Celery/Beat,temporalyPG/Redis propiosausentesverificadosindependientemente.
+
+| Métrica | Baseline105821-81ed5e4a | Candidata122029-b6218e55 |
+|---|---:|---:|
+| p95 limpio |21.845510s|22.319698s|
+| p50 limpio |13.049334s|13.138959s|
+| Pendientes al60s |343|346|
+| Completadas finales |1200|1200|
+| Errores/timeouts |0/0|0/0|
+| ServicioGunicornp95 |0.493911s|0.492163s|
+
+p95observado+2.17%,sin atribucióncausal ni reproducibilidad. Menosfetches noacredita menoslatencia; no mantenercomplejidadsinbeneficio. Restaurados exactamente public_validation/presentation/presentation_reads/test_page_presentation de6190a21; candidato ytestespecífico conservados encommita67a73c,diagnósticos55PASS/1PASS yFAIL intactos. No repetirni900s ni encadenarparámetros. Baseline limpio adoptadosigue21.845510s. Próximo diagnóstico debepriorizar trabajoSQLreal/conteo/página ypreservar guardia; ni kernelvalorni listasprobaron beneficio. CR09/N3abiertos. Recibos `evidencias/cr09-listas-prefetch-http-{preparacion,terminal}-20261015.json`.
