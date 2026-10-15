@@ -1,0 +1,90 @@
+{
+  "run": "20261015-220642-5af6161c",
+  "base": "85a5abe",
+  "preserved_experiment_commit": "c48002c",
+  "result": "1PASS168.23s",
+  "source_freeze_verified": true,
+  "cleanup_verified": true,
+  "unit": "MainPID=0;ControlGroup=;ActiveState=inactive",
+  "python": "3.12.15",
+  "data": "synthetic10000",
+  "cases": 40,
+  "alternating_blocks": 3,
+  "summary": {
+    "cases": 40,
+    "rows": [
+      {
+        "mutation": "date",
+        "cases": 8,
+        "reference": {
+          "n": 24,
+          "wall_mean": 0.34739549009827897,
+          "thread_cpu_mean": 0.14484416212499993
+        },
+        "prototype": {
+          "n": 24,
+          "wall_mean": 0.34990052399613586,
+          "thread_cpu_mean": 0.16211014329166554
+        }
+      },
+      {
+        "mutation": "hide",
+        "cases": 8,
+        "reference": {
+          "n": 24,
+          "wall_mean": 0.2590179468388669,
+          "thread_cpu_mean": 0.11089512291666696
+        },
+        "prototype": {
+          "n": 24,
+          "wall_mean": 0.24405233492143452,
+          "thread_cpu_mean": 0.11234787991666668
+        }
+      },
+      {
+        "mutation": "null_date",
+        "cases": 8,
+        "reference": {
+          "n": 24,
+          "wall_mean": 0.3475719755127405,
+          "thread_cpu_mean": 0.14992762441666643
+        },
+        "prototype": {
+          "n": 24,
+          "wall_mean": 0.3319047073018737,
+          "thread_cpu_mean": 0.15923417787499852
+        }
+      },
+      {
+        "mutation": "reveal",
+        "cases": 8,
+        "reference": {
+          "n": 24,
+          "wall_mean": 0.31657439078359556,
+          "thread_cpu_mean": 0.13850019895833357
+        },
+        "prototype": {
+          "n": 24,
+          "wall_mean": 0.2980739141542775,
+          "thread_cpu_mean": 0.14839861274999855
+        }
+      },
+      {
+        "mutation": "text",
+        "cases": 8,
+        "reference": {
+          "n": 24,
+          "wall_mean": 0.38633609607738134,
+          "thread_cpu_mean": 0.17522620241666687
+        },
+        "prototype": {
+          "n": 24,
+          "wall_mean": 0.36258700158214197,
+          "thread_cpu_mean": 0.1650725344166665
+        }
+      }
+    ]
+  },
+  "scope": "isolated state_page; no HTTP/p95 or capacity; does not cover full revocation/concurrency/language matrix",
+  "decision": "not_integrated_insufficient_consistent_benefit"
+}

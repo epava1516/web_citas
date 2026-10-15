@@ -1,0 +1,336 @@
+{
+  "run": "20261015-221105-624e1d8e",
+  "head": "c48002c",
+  "reference_reader": "85a5abe",
+  "result": "1PASS91.11s",
+  "source_freeze_verified": true,
+  "cleanup_verified": true,
+  "unit": "MainPID=0;ControlGroup=;ActiveState=inactive",
+  "data": "synthetic10000 dirty1",
+  "profile": "cProfile timer=time.thread_time; six real state_page reads; no concurrent HTTP; inclusive overlaps; overhead unquantified",
+  "sql_count": 232,
+  "sql_wall": 1.2442671596072614,
+  "sql_thread_cpu": 0.13518142399986743,
+  "top": [
+    {
+      "file": "/home/felidae/proyectos/web_modelos_cr09_dirty_projection_20261015/apps/listings/publication_state.py",
+      "line": 356,
+      "function": "state_page",
+      "calls": 6,
+      "own_thread_cpu": 0.0009328740000000001,
+      "cumulative_thread_cpu": 3.587025409
+    },
+    {
+      "file": "<preserved-reader-85a5abe>",
+      "line": 377,
+      "function": "_state_page",
+      "calls": 6,
+      "own_thread_cpu": 0.007470768000000001,
+      "cumulative_thread_cpu": 3.520230263
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_cr09_dirty_projection_20261015/apps/listings/public_validation.py",
+      "line": 427,
+      "function": "__init__",
+      "calls": 10,
+      "own_thread_cpu": 0.009609542,
+      "cumulative_thread_cpu": 2.6349058170000004
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 371,
+      "function": "__iter__",
+      "calls": 630,
+      "own_thread_cpu": 0.0027599480000000003,
+      "cumulative_thread_cpu": 1.5481635630000001
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 1952,
+      "function": "_fetch_all",
+      "calls": 1154,
+      "own_thread_cpu": 0.006094244,
+      "cumulative_thread_cpu": 1.5458110600000001
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_cr09_dirty_projection_20261015/apps/listings/public_validation.py",
+      "line": 229,
+      "function": "read_publication_values",
+      "calls": 10,
+      "own_thread_cpu": 0.0009357670000000001,
+      "cumulative_thread_cpu": 1.25934169
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 87,
+      "function": "__iter__",
+      "calls": 754,
+      "own_thread_cpu": 0.012434546000000001,
+      "cumulative_thread_cpu": 1.120592413
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "line": 1593,
+      "function": "execute_sql",
+      "calls": 204,
+      "own_thread_cpu": 0.004263994,
+      "cumulative_thread_cpu": 1.0549914630000001
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_cr09_dirty_projection_20261015/apps/listings/public_validation.py",
+      "line": 113,
+      "function": "publication_query",
+      "calls": 10,
+      "own_thread_cpu": 0.003539621,
+      "cumulative_thread_cpu": 0.9913889800000001
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "line": 755,
+      "function": "as_sql",
+      "calls": 372,
+      "own_thread_cpu": 0.018018369000000003,
+      "cumulative_thread_cpu": 0.850276463
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/expressions.py",
+      "line": 279,
+      "function": "resolve_expression",
+      "calls": 3834,
+      "own_thread_cpu": 0.034363949000000005,
+      "cumulative_thread_cpu": 0.729541098
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 1328,
+      "function": "_prefetch_related_objects",
+      "calls": 28,
+      "own_thread_cpu": 0.000331171,
+      "cumulative_thread_cpu": 0.673358376
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 2307,
+      "function": "prefetch_related_objects",
+      "calls": 28,
+      "own_thread_cpu": 0.015294342,
+      "cumulative_thread_cpu": 0.6731232970000001
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_cr09_dirty_projection_20261015/apps/listings/moderation.py",
+      "line": 123,
+      "function": "publicly_visible",
+      "calls": 100,
+      "own_thread_cpu": 0.002307787,
+      "cumulative_thread_cpu": 0.662359145
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_cr09_dirty_projection_20261015/apps/listings/submissions.py",
+      "line": 22,
+      "function": "validate_submission",
+      "calls": 100,
+      "own_thread_cpu": 0.012512761,
+      "cumulative_thread_cpu": 0.653605761
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "line": 79,
+      "function": "pre_sql_setup",
+      "calls": 372,
+      "own_thread_cpu": 0.006317107000000001,
+      "cumulative_thread_cpu": 0.648326818
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 2541,
+      "function": "prefetch_one_level",
+      "calls": 72,
+      "own_thread_cpu": 0.009707646,
+      "cumulative_thread_cpu": 0.625685767
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+      "line": 1238,
+      "function": "resolve_expression",
+      "calls": 318,
+      "own_thread_cpu": 0.009577228,
+      "cumulative_thread_cpu": 0.599772541
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 1505,
+      "function": "_filter_or_exclude",
+      "calls": 848,
+      "own_thread_cpu": 0.006142189,
+      "cumulative_thread_cpu": 0.5876047000000001
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "line": 572,
+      "function": "compile",
+      "calls": 7040,
+      "own_thread_cpu": 0.035135360000000004,
+      "cumulative_thread_cpu": 0.5862529040000001
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+      "line": 1630,
+      "function": "add_q",
+      "calls": 496,
+      "own_thread_cpu": 0.005995656,
+      "cumulative_thread_cpu": 0.584735391
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+      "line": 1659,
+      "function": "_add_q",
+      "calls": 634,
+      "own_thread_cpu": 0.016450682,
+      "cumulative_thread_cpu": 0.571731412
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'extend' of 'list' objects>",
+      "calls": 10022,
+      "own_thread_cpu": 0.014059573,
+      "cumulative_thread_cpu": 0.5624852290000001
+    },
+    {
+      "file": "<preserved-reader-85a5abe>",
+      "line": 459,
+      "function": "<genexpr>",
+      "calls": 6,
+      "own_thread_cpu": 0.0008752380000000001,
+      "cumulative_thread_cpu": 0.548446454
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "line": 71,
+      "function": "setup_query",
+      "calls": 378,
+      "own_thread_cpu": 0.005101994,
+      "cumulative_thread_cpu": 0.5366220500000001
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "line": 230,
+      "function": "get_select",
+      "calls": 378,
+      "own_thread_cpu": 0.028139609000000003,
+      "cumulative_thread_cpu": 0.530996168
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_cr09_dirty_projection_20261015/apps/listings/public_validation.py",
+      "line": 519,
+      "function": "_bound_validation",
+      "calls": 200,
+      "own_thread_cpu": 0.003121247,
+      "cumulative_thread_cpu": 0.5307471770000001
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+      "line": 1465,
+      "function": "build_filter",
+      "calls": 896,
+      "own_thread_cpu": 0.03849114,
+      "cumulative_thread_cpu": 0.516008875
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 1648,
+      "function": "annotate",
+      "calls": 44,
+      "own_thread_cpu": 0.00040029000000000003,
+      "cumulative_thread_cpu": 0.511197876
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+      "line": 1217,
+      "function": "add_annotation",
+      "calls": 292,
+      "own_thread_cpu": 0.002498526,
+      "cumulative_thread_cpu": 0.510625858
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 1663,
+      "function": "_annotate",
+      "calls": 44,
+      "own_thread_cpu": 0.0044282620000000005,
+      "cumulative_thread_cpu": 0.5105873710000001
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 1516,
+      "function": "_filter_or_exclude_inplace",
+      "calls": 448,
+      "own_thread_cpu": 0.004907010000000001,
+      "cumulative_thread_cpu": 0.502738896
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/forms/forms.py",
+      "line": 204,
+      "function": "is_valid",
+      "calls": 208,
+      "own_thread_cpu": 0.0007898600000000001,
+      "cumulative_thread_cpu": 0.480106847
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/forms/forms.py",
+      "line": 197,
+      "function": "errors",
+      "calls": 208,
+      "own_thread_cpu": 0.000721164,
+      "cumulative_thread_cpu": 0.479316987
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/forms/forms.py",
+      "line": 324,
+      "function": "full_clean",
+      "calls": 208,
+      "own_thread_cpu": 0.0025007140000000002,
+      "cumulative_thread_cpu": 0.47859582300000003
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_cr09_dirty_projection_20261015/apps/listings/public_validation.py",
+      "line": 364,
+      "function": "validate_publication_binding",
+      "calls": 200,
+      "own_thread_cpu": 0.003728757,
+      "cumulative_thread_cpu": 0.434686346
+    },
+    {
+      "file": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/copy.py",
+      "line": 61,
+      "function": "copy",
+      "calls": 6081,
+      "own_thread_cpu": 0.08048184900000001,
+      "cumulative_thread_cpu": 0.42227701100000004
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/query.py",
+      "line": 1489,
+      "function": "filter",
+      "calls": 758,
+      "own_thread_cpu": 0.003904475,
+      "cumulative_thread_cpu": 0.41762893
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/expressions.py",
+      "line": 442,
+      "function": "copy",
+      "calls": 5320,
+      "own_thread_cpu": 0.015693552,
+      "cumulative_thread_cpu": 0.40562999000000005
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_cr09_dirty_projection_20261015/apps/listings/public_validation.py",
+      "line": 552,
+      "function": "details_valid",
+      "calls": 100,
+      "own_thread_cpu": 0.00035457500000000004,
+      "cumulative_thread_cpu": 0.391730552
+    }
+  ]
+}
