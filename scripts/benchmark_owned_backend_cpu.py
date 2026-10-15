@@ -74,3 +74,24 @@ def backend_delta(before, after, ticks_per_second=None):
         raise ValueError('Invalid backend CPU interval')
     return {'ticks_per_second': hz, 'cpu_seconds': sum(delta.values()) / hz,
             'delta': delta, 'elapsed_seconds': after['monotonic'] - before['monotonic']}
+
+
+def statement_family(sql):
+    """Labels only for known generated SQL; never retain SQL or parameters."""
+    if '"_pv_history"' in sql:
+        return 'hydration'
+    if '"search_document"' in sql and '@@' in sql:
+        return 'search_count' if 'COUNT(' in sql else 'search_page'
+    if 'listings_publicationstate' in sql and '"eligible"' in sql:
+        return 'listing_count' if 'COUNT(' in sql else 'listing_page'
+    if 'listings_publicationdirty' in sql:
+        return 'dirty'
+    if 'listings_publicationstate' in sql:
+        return 'state_current'
+    if '"catalog_' in sql:
+        return 'catalog'
+    if '"mediafiles_' in sql:
+        return 'media'
+    if '"safety_' in sql:
+        return 'rights'
+    return 'other'

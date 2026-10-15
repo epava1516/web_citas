@@ -65,3 +65,13 @@ def test_backend_mapping_is_scoped_and_rejects_reused_or_moved_pid(monkeypatch):
         observer.backend_snapshot(identity | {'start_ticks': 200})
     with pytest.raises(ValueError, match='backend changed'):
         observer.backend_snapshot(identity | {'cgroup': '/other'})
+
+
+def test_sql_family_distinguishes_detail_column_from_actual_search():
+    from scripts.benchmark_owned_backend_cpu import statement_family
+
+    assert statement_family('SELECT "search_document" FROM "listings_revision"') == 'other'
+    assert statement_family('SELECT "search_document" FROM x WHERE "search_document" @@ x') == 'search_page'
+    assert statement_family('SELECT COUNT(*) FROM x WHERE "search_document" @@ x') == 'search_count'
+    assert statement_family('SELECT COUNT(*) FROM listings_publicationstate WHERE rules_version <> x') == 'state_current'
+    assert statement_family('SELECT "_pv_history" FROM x') == 'hydration'
