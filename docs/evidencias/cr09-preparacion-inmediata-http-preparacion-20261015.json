@@ -1,0 +1,14 @@
+{
+  "run_id": "20261015-194053-34109fbe",
+  "unit": "cr09-eager-auto-http-20261015.service",
+  "head": "3594311",
+  "status": "running",
+  "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+  "prerequisites": "eagerauto diagnostic1PASS180requests, CPU45.111\u219238.000ms; scoped candidate17PASS134.29s, sources+cleanup independently checked",
+  "profile": "Own bounded PG1CPU/controller4cores/Redis0.2CPU,4sync20rps60s10k,normalownworkerBeat,oneupload,generatorfreeze,noobserver/PGtracker/profilers",
+  "baseline": "20261015-160640-172e26bf cleanp951.3617929541505873FAIL",
+  "criteria": "Strictp95<0.8 and allshortchecks; not15min/N3",
+  "decision_rule": "If meets repeatonce unchanged forreproducibility. IfFAIL preserve and diagnose separately, no speculative load sweeps.",
+  "metadata_note": "Rawsummary may contain legacy pg_server_shared/staticnormalstack text; ownership proven by exact own runner name/label/bounded adapter, not this static string.",
+  "acceptance": false
+}

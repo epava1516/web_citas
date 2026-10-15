@@ -6,20 +6,21 @@ Codex continúa el objetivo completo **CR09 → CR10 → GS01 → BF/BB → C**.
 
 Los cuatro bloques v3 de base `8fb4cf1` terminaron. Se conservan fallos/errores originales y sus recuperaciones afectadas; [cola consolidada](evidencias/cr09-cola-cierre-consolidada-20261014.md) y [matriz83](83-auditoria-pendientes-cr09.md) recogen alcance/omisiones. Los cambios posteriores de aplicación requieren verificar dependencias y aplicabilidad común; no sumar versiones distintas como N3.
 
-Última carga corta limpia: `20261015-160640-172e26bf`, SHA `f93c183`, 4 sync,20rps durante60s,10k datos sintéticos,worker/Beat propios y una subida. Sin perfiladores ni observadores; fuentes y limpieza verificadas. [Resultado completo y p95 por caso](evidencias/cr09-proyeccion-mantenida-http-20261015.md).
+Última carga corta limpia: `20261015-194053-34109fbe`, SHA `3594311`, 4sync/20rps60s/10k sintéticos, worker/Beat propios y una subida. Sin perfiladores/observadores; fuentes y limpieza independientes. [Recibo y p95 por caso](evidencias/cr09-preparacion-inmediata-http-20261015.md).
 
 | Métrica | Anterior | Última carga |
 |---|---:|---:|
-| p95 completo |5.004966s|1.361793s|
-| Pendientes al cerrar60s |97|4|
-| Completadas finales |1200|1200|
+| p95completo |1.361793s|0.897766s|
+| p50completo |0.283530s|0.224888s|
+| Pendientesal60s |4|5|
+| Completadasfinales |1200|1200|
 | Errores/timeouts |0|0|
 
-Mejora observada72.7912%, no causal ni reproducida; continúa FAIL frente al límite estricto<0.8s. No hay aceptación del directorio, ensayo15min ni N3. La aprobación provisional MOD09 de expedientes grandes conserva su alcance separado y no se convierte en excepción del directorio.
+Mejora observada34.075%, no causal/reproducida; FAIL frente<0.8s. No repetirFAIL/ensayo15min/N3. Todas71peticiones>=0.8s emitidas0–5s; restantes1100máximo0.661192s. No excluirarranque ni alterarcriterio. MOD09expedientesgrandes conserva aceptaciónprovisional separada.
 
 Candidata de proyección mantenida `54be315`: PublicationState copia fechas y vector persistido mediante el mismo refresco versionado. Sólo candidatos originales de listado/q, cobertura completa, dirty vacío y snapshot propio RR; guardia y fallback nativos conservados. [Controles iniciales5PASS](evidencias/cr09-proyeccion-mantenida-controles-terminal-20261015.json), [ciclo/migración3PASS](evidencias/cr09-proyeccion-mantenida-ciclo-terminal-20261015.json) y [ampliada92PASS](evidencias/cr09-proyeccion-mantenida-ampliada-terminal-20261015.json), terminales sin omisiones con fuentes/limpieza verificadas en sus alcances. La ampliada ya incluye los tres controles de ciclo: no sumar duplicados como aceptación global. Primera carga limpia posterior:FAIL1.361793s, sin aceptación global.
 
-Diagnóstico frío separado completado: [180peticiones/1PASS](evidencias/cr09-preparacion-fria-cpu-20261015.md), configuración actual frente preparación inmediata y plan genérico. CPU PG media43.556→35.556ms, primeras6porconexión59.444→51.111ms; no nueva carga ni atribución del transitorio. Próxima acción: aislar el efecto del umbral inmediato manteniendo plan_cache_mode=auto y comprobar restauración/semántica antes de intervenir. Mismas1200muestras sitúan todas248>=0.8s en emisiones0–15s; no atribuir aún causa ni excluir arranque. [Reproducción de supresión](evidencias/cr09-proyeccion-supresion-reproduccion-terminal-20261015.json) conserva1FAIL/1PASS: sin refresco quedaba la nueva copia. Corrección acotada elimina sólo el estado derivado propio dentro de la transacción de supresión de publicación. [Correctiva17PASS](evidencias/cr09-proyeccion-supresion-correctiva-terminal-20261015.json),194.75s, sin omisiones y con fuentes/limpieza independientes; incluye nuevos controles y archivo completo de supresión. Se preservan pares y finalidades no seleccionadas, y el refresco recrea estado vacío/no elegible. No sumar esta selección con92como N3; carga limpia y diagnósticoCPU posteriores conservan sus límites.
+Diagnóstico separado [threshold0/auto](evidencias/cr09-preparacion-inmediata-auto-cpu-20261015.md)1PASS180peticiones y candidato17PASS: CPU PG45.111→38.000ms, factory/umbralexplícito restaurados incluso trasSQLerrorreal; no fuerza planesgenéricos. Candidato3594311medido limpioFAIL0.897766s. Próxima acción: atribuir el transitorio0–5s en procesoswebreales antes de otra intervención; mantener límites/carga/arranque. [Reproducción de supresión](evidencias/cr09-proyeccion-supresion-reproduccion-terminal-20261015.json) conserva1FAIL/1PASS: sin refresco quedaba la nueva copia. Corrección acotada elimina sólo el estado derivado propio dentro de la transacción de supresión de publicación. [Correctiva17PASS](evidencias/cr09-proyeccion-supresion-correctiva-terminal-20261015.json),194.75s, sin omisiones y con fuentes/limpieza independientes; incluye nuevos controles y archivo completo de supresión. Se preservan pares y finalidades no seleccionadas, y el refresco recrea estado vacío/no elegible. No sumar esta selección con92como N3; carga limpia y diagnósticoCPU posteriores conservan sus límites.
 
 Trazabilidad contractual: [matriz88](88-matriz-cierre-derechos.md), [recibos por derecho](evidencias/cr09-derechos-recibos-version-comun-20261015.json) y [criterios de representación/progreso](evidencias/cr09-representacion-progreso-criterios-20261015.md). Progreso no equivale a cierre integral; denegación de permiso no equivale a resolución de no actuación. Sin porcentaje de aceptación nuevo ni omisión de pendientes necesarios.
 
