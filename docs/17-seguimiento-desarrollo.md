@@ -2013,3 +2013,6 @@ Espera explícita de navegación validada `20261015-091217-431200db`: [2 PASS ES
 
 
 Revisión posterior a los cuatro bloques: [correspondencia estática scheduler→tarea→reports](evidencias/cr09-conservacion-scheduler-correspondencia-20261015.json) liga las trece tareas safety de conservación del diccionario inicial Beat con llamadas directas PASS de la versión integrada, sin inferir ejecución real de scheduler. Reutilización histórica ya registra AST de tarea y entrada Beat de borradores sin cambios; falta contraste transitivo antes de decidir un ensayo afectado. Las 23 fuentes históricas conservan clasificación indeterminada; los productores nuevos y el aislamiento no se convierten en clasificación general. No nuevas cargas ni cambio de criterios.
+
+
+[Reutilización acotada Beat/worker de purga de borradores](evidencias/cr09-conservacion-worker-dependencias-20261015.json): comparación contra `72ff79a` confirma tarea, helper de purga, digest/canónica/descifrado y cuatro modelos sin cambio AST; config Celery y crypto idénticos, siete dependencias congeladas conservan versión. Entrada Beat ya comparada idéntica en recibo anterior. Reutilizar ese runtime histórico junto a los controles v3 actuales; no repetir por cambios ajenos de archivos completos. Alcance explícito: no acredita otras tareas, N3 ni conservación integral.

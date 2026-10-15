@@ -1,0 +1,103 @@
+{
+  "recorded_at": "2026-10-15T09:18:10.251085+00:00",
+  "head": "f013077958c3e4e1ece6db3190427ade47435f15",
+  "historical_source": "72ff79a",
+  "historical_receipt": "conservacion-borradores-finales0109-worker-beat.json",
+  "prior_comparison": "cr09-conservacion-worker-reutilizacion-20261014.json",
+  "symbols": [
+    {
+      "file": "apps/safety/tasks.py",
+      "symbol": "purge_expired_access_response_drafts",
+      "ast_equal": true
+    },
+    {
+      "file": "apps/safety/rights_final_response.py",
+      "symbol": "purge_unissued_drafts",
+      "ast_equal": true
+    },
+    {
+      "file": "apps/safety/rights_final_response.py",
+      "symbol": "_digest",
+      "ast_equal": true
+    },
+    {
+      "file": "apps/safety/rights_access_response_draft.py",
+      "symbol": "checked_body",
+      "ast_equal": true
+    },
+    {
+      "file": "apps/safety/erasure_inventory.py",
+      "symbol": "canonical",
+      "ast_equal": true
+    },
+    {
+      "file": "apps/safety/models.py",
+      "symbol": "RightsAction",
+      "ast_equal": true
+    },
+    {
+      "file": "apps/safety/models.py",
+      "symbol": "RightsRequest",
+      "ast_equal": true
+    },
+    {
+      "file": "apps/safety/models.py",
+      "symbol": "RightsResponse",
+      "ast_equal": true
+    },
+    {
+      "file": "apps/safety/models.py",
+      "symbol": "RightsAccessResponseDraft",
+      "ast_equal": true
+    },
+    {
+      "file": "config/celery.py",
+      "symbol": "RecoveryAwareTask",
+      "ast_equal": true
+    }
+  ],
+  "exact_file_equal": {
+    "config/celery.py": true,
+    "apps/safety/crypto.py": true
+  },
+  "locked_versions": {
+    "celery": {
+      "before": "5.6.3",
+      "current": "5.6.3",
+      "equal": true
+    },
+    "django": {
+      "before": "5.2.17",
+      "current": "5.2.17",
+      "equal": true
+    },
+    "redis": {
+      "before": "6.4.0",
+      "current": "6.4.0",
+      "equal": true
+    },
+    "psycopg": {
+      "before": "3.3.6",
+      "current": "3.3.6",
+      "equal": true
+    },
+    "kombu": {
+      "before": "5.6.2",
+      "current": "5.6.2",
+      "equal": true
+    },
+    "billiard": {
+      "before": "4.3.0",
+      "current": "4.3.0",
+      "equal": true
+    },
+    "cryptography": {
+      "before": "50.0.2",
+      "current": "50.0.2",
+      "equal": true
+    }
+  },
+  "decision": "Reuse historical Beat/worker runtime evidence for this unchanged purge path together with actual common-v3 task tests. No new scheduling run justified solely by unrelated whole-file edits. Does not assert all other purge tasks or whole-version N3.",
+  "remaining": "Other purpose/exceptions/backups and communications correspondence; required source provenance and common N3/load gates still pending.",
+  "acceptance": false
+}
