@@ -2016,3 +2016,6 @@ Revisión posterior a los cuatro bloques: [correspondencia estática scheduler�
 
 
 [Reutilización acotada Beat/worker de purga de borradores](evidencias/cr09-conservacion-worker-dependencias-20261015.json): comparación contra `72ff79a` confirma tarea, helper de purga, digest/canónica/descifrado y cuatro modelos sin cambio AST; config Celery y crypto idénticos, siete dependencias congeladas conservan versión. Entrada Beat ya comparada idéntica en recibo anterior. Reutilizar ese runtime histórico junto a los controles v3 actuales; no repetir por cambios ajenos de archivos completos. Alcance explícito: no acredita otras tareas, N3 ni conservación integral.
+
+
+[Comunicaciones: variantes reales y pendientes delimitados](evidencias/cr09-comunicaciones-variantes-conciliacion-20261015.json). El recorrido erase ya usa perfil de agencia con editor por la cadena plan_fixture→seed_demo; restriction/object usan cuentas. No crear test duplicado de agencia por falta de esa palabra en el nombre. Receptor ajeno, candidata histórica ajena, ausencia de autoridad pasada, acuse sin lectura y alteración de acuse tienen controles PASS ligados a journals v3 y fuentes exactas. El acuse de un aviso no prueba recepción de todos los destinatarios; asociación histórica y correspondencia completa/N3 siguen pendientes.
