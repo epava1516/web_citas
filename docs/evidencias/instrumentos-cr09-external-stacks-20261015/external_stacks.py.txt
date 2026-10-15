@@ -1,0 +1,132 @@
+"""Finite external sampling of this controller's uniquely owned Gunicorn only."""
+import hashlib
+import json
+import os
+import subprocess
+import threading
+import time
+from pathlib import Path
+
+
+class ExternalStacks:
+    def __init__(self, root, out):
+        self.root, self.out = root, out
+        self.controller = os.getpid()
+        self.cg = Path('/proc/self/cgroup').read_text()
+        assert 'cr09-external-stacks-' in self.cg
+        self.binary = Path('/home/felidae/.local/share/web-citas-diagnostics/venv/bin/py-spy')
+        self.receipt = {'controller': self.controller, 'py_spy_sha256': hashlib.sha256(self.binary.read_bytes()).hexdigest(),
+                        'version': subprocess.check_output([str(self.binary), '--version'], text=True).strip(),
+                        'scope': 'external sampled stacks with idle/nonblocking, not CPU time or clean p95; no locals/app hooks'}
+        assert self.receipt['version'] == 'py-spy 0.4.2'
+        self.stop = threading.Event()
+        self.process = None
+        self.thread = threading.Thread(target=self.run, daemon=True)
+        self.thread.start()
+
+    def save(self):
+        (self.out / 'capture-receipt.json').write_text(json.dumps(self.receipt, indent=2))
+
+    @staticmethod
+    def identity(pid):
+        return Path(f'/proc/{pid}/stat').read_text().rsplit(')', 1)[1].split()[19]
+
+    @staticmethod
+    def descendants(pid):
+        todo, seen = [pid], set()
+        while todo:
+            current = todo.pop(0)
+            if current in seen:
+                continue
+            seen.add(current)
+            for task in Path(f'/proc/{current}/task').glob('*'):
+                try:
+                    todo.extend(int(x) for x in (task / 'children').read_text().split())
+                except FileNotFoundError:
+                    pass
+            if current != pid:
+                yield current
+
+    def pressure(self):
+        cg = Path('/sys/fs/cgroup') / self.cg.strip().split('::', 1)[1].lstrip('/')
+        return {'monotonic': time.monotonic(), 'host_cpu_ticks': Path('/proc/stat').read_text().splitlines()[0],
+                'controller_cpu_pressure': (cg / 'cpu.pressure').read_text() if (cg / 'cpu.pressure').is_file() else None,
+                'pressure_note': 'Missing PSI is unavailable, never zero or a lost target',
+                'controller_cpu_stat': (cg / 'cpu.stat').read_text()}
+
+    def run(self):
+        try:
+            deadline = time.monotonic() + 260
+            while not self.stop.is_set() and time.monotonic() < deadline:
+                for pid in self.descendants(self.controller):
+                    try:
+                        cmd = Path(f'/proc/{pid}/cmdline').read_bytes().split(bytes([0]))
+                        if b'gunicorn' not in cmd or b'config.wsgi:application' not in cmd:
+                            continue
+                        assert b'-m' in cmd and b'--bind' in cmd
+                        assert cmd[cmd.index(b'--bind') + 1].startswith(b'127.0.0.1:')
+                        assert Path(f'/proc/{pid}/cgroup').read_text() == self.cg
+                        env = dict(x.split(b'=', 1) for x in Path(f'/proc/{pid}/environ').read_bytes().split(bytes([0])) if b'=' in x)
+                        name = env[b'LOCAL_CI_POSTGRES_CONTAINER'].decode()
+                        assert name.startswith('web-modelos-ci-pg-')
+                        run_id = name.removeprefix('web-modelos-ci-pg-')
+                        folder = self.root / 'artifacts/local-ci' / run_id
+                        run = json.loads((folder / 'runner.json').read_text())
+                        assert run['pid'] == self.controller and name in run['containers']
+                        alignment_path = folder / 'benchmark-arrival-alignment.json'
+                        alignment_deadline = time.monotonic() + 90
+                        while not alignment_path.exists() and not self.stop.is_set():
+                            if time.monotonic() >= alignment_deadline:
+                                raise RuntimeError('No arrival alignment marker within bounded wait')
+                            self.stop.wait(.02)
+                        if self.stop.is_set():
+                            return
+                        alignment = json.loads(alignment_path.read_text())
+                        assert alignment['run'] == run_id and alignment['phase_seconds'] == 5
+                        self.receipt['alignment'] = alignment
+                        attach_at = alignment['load_start_target'] - 1
+                        self.stop.wait(max(0, attach_at-time.monotonic()))
+                        if self.stop.is_set():
+                            return
+                        ticks = self.identity(pid)
+                        self.receipt.update(run=run_id, target_pid=pid, target_start_ticks=ticks,
+                                            ancestry_verified=True, cgroup_verified=True)
+                        argv = [str(self.binary), 'record', '--pid', str(pid), '--subprocesses', '--idle',
+                                '--nonblocking', '--threads', '--rate', '100', '--duration', '20',
+                                '--format', 'speedscope', '--full-filenames',
+                                '--output', str(folder / 'early-gunicorn-stacks.json')]
+                        assert self.identity(pid) == ticks
+                        self.receipt['pressure_before'] = self.pressure()
+                        self.receipt['capture_launch_monotonic'] = time.monotonic()
+                        self.save()
+                        with (folder / 'early-gunicorn-stacks.log').open('w') as output:
+                            self.process = subprocess.Popen(argv, stdout=output, stderr=output)
+                            self.receipt['sampler_pid'] = self.process.pid
+                            self.save()
+                            code = self.process.wait(timeout=35)
+                        self.receipt['capture_end_monotonic'] = time.monotonic()
+                        self.receipt['pressure_after'] = self.pressure()
+                        self.receipt['sampler_exit_code'] = code
+                        self.receipt['profile_exists'] = (folder / 'early-gunicorn-stacks.json').is_file()
+                        self.receipt['target_descendants_observed'] = list(self.descendants(pid))
+                        self.save()
+                        return
+                    except (FileNotFoundError, ProcessLookupError):
+                        continue
+                self.stop.wait(.05)
+            self.receipt['error'] = 'No uniquely owned Gunicorn observed before stop/deadline'
+        except Exception as error:
+            self.receipt['error'] = type(error).__name__ + ': ' + str(error)
+        finally:
+            self.save()
+
+    def close(self):
+        self.stop.set()
+        if self.process is not None and self.process.poll() is None:
+            self.process.terminate()
+        self.thread.join(timeout=40)
+        assert not self.thread.is_alive()
+        if self.process is not None:
+            self.process.wait(timeout=5)
+        self.receipt['sampler_terminal'] = self.process is None or self.process.poll() is not None
+        self.save()

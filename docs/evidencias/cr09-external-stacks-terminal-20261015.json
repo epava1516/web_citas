@@ -1,0 +1,245 @@
+{
+  "runs": [
+    {
+      "run": "20261015-223808-a88b1380",
+      "source_commit": "08c22ddc9f0498173337e9ce5141cbdb52d631c0",
+      "source_freeze_verified": true,
+      "cleanup_verified": true,
+      "root_pid": 3042632,
+      "child_pid": 3045078,
+      "capture": {
+        "controller": 3042632,
+        "py_spy_sha256": "9b4d1f39b2a47ae44f4c6a46f615dcc0287d7755beba5065f32391951e07d594",
+        "version": "py-spy 0.4.2",
+        "scope": "external sampled stacks with idle/nonblocking, not CPU time or clean p95; no locals/app hooks",
+        "run": "20261015-223808-a88b1380",
+        "target_pid": 3053493,
+        "target_start_ticks": "382460454",
+        "ancestry_verified": true,
+        "cgroup_verified": true,
+        "error": "No uniquely owned Gunicorn observed before stop/deadline",
+        "sampler_terminal": true
+      },
+      "outcome": "CI FAIL185.15s; no stacks, optional PSI FileNotFound masked as vanished target; no performance acceptance"
+    },
+    {
+      "run": "20261015-224224-07950cd5",
+      "source_commit": "08c22ddc9f0498173337e9ce5141cbdb52d631c0",
+      "source_freeze_verified": true,
+      "cleanup_verified": true,
+      "root_pid": 3069363,
+      "child_pid": 3071893,
+      "capture": {
+        "controller": 3069363,
+        "py_spy_sha256": "9b4d1f39b2a47ae44f4c6a46f615dcc0287d7755beba5065f32391951e07d594",
+        "version": "py-spy 0.4.2",
+        "scope": "external sampled stacks with idle/nonblocking, not CPU time or clean p95; no locals/app hooks",
+        "error": "No uniquely owned Gunicorn observed before stop/deadline",
+        "sampler_terminal": true
+      },
+      "outcome": "Cancelled through runner SIGTERM cleanup before target; no stacks; no performance acceptance"
+    },
+    {
+      "run": "20261015-224418-767bdd30",
+      "source_commit": "08c22ddc9f0498173337e9ce5141cbdb52d631c0",
+      "source_freeze_verified": true,
+      "cleanup_verified": true,
+      "root_pid": 3082355,
+      "child_pid": 3084726,
+      "p95_instrumented": 0.8640217860229313,
+      "counts": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 1200,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "cases": [
+        {
+          "case": "listing",
+          "n": 400,
+          "p95": 0.8765196218155324
+        },
+        {
+          "case": "search",
+          "n": 400,
+          "p95": 0.8797311182133853
+        },
+        {
+          "case": "detail",
+          "n": 400,
+          "p95": 0.7638019621372223
+        }
+      ],
+      "capture": {
+        "controller": 3082355,
+        "py_spy_sha256": "9b4d1f39b2a47ae44f4c6a46f615dcc0287d7755beba5065f32391951e07d594",
+        "version": "py-spy 0.4.2",
+        "scope": "external sampled stacks with idle/nonblocking, not CPU time or clean p95; no locals/app hooks",
+        "run": "20261015-224418-767bdd30",
+        "target_pid": 3093225,
+        "target_start_ticks": "382497392",
+        "ancestry_verified": true,
+        "cgroup_verified": true,
+        "pressure_before": {
+          "monotonic": 3824973.977042101,
+          "host_cpu_ticks": "cpu  542488493 982451 348588861 2025438171 64450104 35820489 14899639 1062174 0 0",
+          "controller_cpu_pressure": null,
+          "pressure_note": "Missing PSI is unavailable, never zero or a lost target",
+          "controller_cpu_stat": "usage_usec 94778455\nuser_usec 87893702\nsystem_usec 6884752\ncore_sched.force_idle_usec 0\n"
+        },
+        "capture_launch_monotonic": 3824973.977604053,
+        "sampler_pid": 3093227,
+        "capture_end_monotonic": 3824993.766374356,
+        "pressure_after": {
+          "monotonic": 3824993.766508779,
+          "host_cpu_ticks": "cpu  542492666 982451 348591425 2025446848 64450118 35820669 14899714 1062178 0 0",
+          "controller_cpu_pressure": null,
+          "pressure_note": "Missing PSI is unavailable, never zero or a lost target",
+          "controller_cpu_stat": "usage_usec 114276639\nuser_usec 98226084\nsystem_usec 16050555\ncore_sched.force_idle_usec 0\n"
+        },
+        "sampler_exit_code": 0,
+        "profile_exists": true,
+        "target_descendants_observed": [
+          3093235,
+          3093237,
+          3093240,
+          3093242
+        ],
+        "sampler_terminal": true
+      },
+      "outcome": "CI FAIL184.65s; valid startup stacks, capture -33.745 to -13.956s relative arrivals; misses target window"
+    },
+    {
+      "run": "20261015-224937-9792e0a6",
+      "source_commit": "8898026061cdc08dc6ed8d2d1e179b42815157a4",
+      "source_freeze_verified": true,
+      "cleanup_verified": true,
+      "root_pid": 3113485,
+      "child_pid": 3115839,
+      "p95_instrumented": 1.8562938659451902,
+      "counts": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 1200,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "cases": [
+        {
+          "case": "listing",
+          "n": 400,
+          "p95": 1.8600437762215734
+        },
+        {
+          "case": "search",
+          "n": 400,
+          "p95": 1.8875162629410625
+        },
+        {
+          "case": "detail",
+          "n": 400,
+          "p95": 1.7495306893251836
+        }
+      ],
+      "capture": {
+        "controller": 3113485,
+        "py_spy_sha256": "9b4d1f39b2a47ae44f4c6a46f615dcc0287d7755beba5065f32391951e07d594",
+        "version": "py-spy 0.4.2",
+        "scope": "external sampled stacks with idle/nonblocking, not CPU time or clean p95; no locals/app hooks",
+        "alignment": {
+          "run": "20261015-224937-9792e0a6",
+          "observed_tick_monotonic": 3825322.481335708,
+          "load_start_target": 3825327.481335708,
+          "phase_seconds": 5,
+          "recorded_monotonic": 3825322.523285562
+        },
+        "run": "20261015-224937-9792e0a6",
+        "target_pid": 3124619,
+        "target_start_ticks": "382529369",
+        "ancestry_verified": true,
+        "cgroup_verified": true,
+        "pressure_before": {
+          "monotonic": 3825326.482203374,
+          "host_cpu_ticks": "cpu  542568765 982452 348621368 2025598832 64452112 35823237 14901319 1062255 0 0",
+          "controller_cpu_pressure": null,
+          "pressure_note": "Missing PSI is unavailable, never zero or a lost target",
+          "controller_cpu_stat": "usage_usec 102557193\nuser_usec 94450537\nsystem_usec 8106655\ncore_sched.force_idle_usec 0\n"
+        },
+        "capture_launch_monotonic": 3825326.482685154,
+        "sampler_pid": 3127386,
+        "capture_end_monotonic": 3825345.969273769,
+        "pressure_after": {
+          "monotonic": 3825345.969316723,
+          "host_cpu_ticks": "cpu  542575731 982452 348624384 2025603800 64452241 35823420 14901550 1062257 0 0",
+          "controller_cpu_pressure": null,
+          "pressure_note": "Missing PSI is unavailable, never zero or a lost target",
+          "controller_cpu_stat": "usage_usec 152052487\nuser_usec 131622608\nsystem_usec 20429879\ncore_sched.force_idle_usec 0\n"
+        },
+        "sampler_exit_code": 0,
+        "profile_exists": true,
+        "target_descendants_observed": [
+          3124621,
+          3124622,
+          3124623,
+          3124630
+        ],
+        "sampler_terminal": true
+      },
+      "outcome": "CI FAIL185.98s; valid partial stacks capture -1.218 to +18.269s relative arrivals; no clean timing acceptance"
+    }
+  ],
+  "sampling_counts": {
+    "startup": {
+      "samples": 9756,
+      "errors": 142
+    },
+    "arrivals_aligned": {
+      "samples": 9026,
+      "errors": 965,
+      "worker_samples": 7027,
+      "groups_inclusive_overlapping": {
+        "with_accept_wait": 342,
+        "with_psycopg": 3483,
+        "with_ORM": 4993,
+        "with_templates": 1301
+      }
+    }
+  },
+  "tool_files_sha256": {
+    "run.py": "2361a2c9a6265a0076e1b10149eca8ee6c31794fac0a54468a1fc1fb989909bd",
+    "external_stacks.py": "1502e4ec6ffd98c3f96912980e8190bed01b66897a76ca91d4836a8b53fc8b91",
+    "probe.py": "38345ea8050819970719212574c1df0bbcfe867e0c098294f884a7724c0b124f"
+  },
+  "probe": {
+    "result": "PASS",
+    "child_terminal": true,
+    "pressure": {
+      "monotonic": 3824853.596301671,
+      "host_cpu_ticks": "cpu  542459738 982451 348578072 2025383816 64449741 35819582 14899251 1062150 0 0",
+      "controller_cpu_pressure": null,
+      "pressure_note": "Missing PSI is unavailable, never zero or a lost target",
+      "controller_cpu_stat": "usage_usec 83452\nuser_usec 65976\nsystem_usec 17476\ncore_sched.force_idle_usec 0\n"
+    },
+    "profile_count": 1
+  },
+  "environment": {
+    "python": "3.12.15",
+    "django": "5.2.17",
+    "gunicorn": "23.0.0",
+    "postgres": "17.11",
+    "py_spy": "0.4.2",
+    "controller": "4CPU affinity0-3/3584MiB/swap0/Tasks512",
+    "postgres_own": "1CPU affinity4/1536MiB/swap0/pids128",
+    "redis_own": ".2CPU affinity5/128MiB/swap0/pids64"
+  },
+  "scope": "sample counts are not CPU time; --idle and --nonblocking, incomplete data; speedscope compresses missed sample times, no exact per-request/PID timing alignment; last clean p951.218890 FAIL unchanged"
+}
