@@ -17,10 +17,15 @@ def test_conditional_migration_invalidates_existing_state(request, record_proper
     while publication_state.refresh(500):
         pass
     ids = set(Listing.objects.values_list("pk", flat=True))
-    states = list(PublicationState.objects.order_by("listing_id").values())
-    assert ids and states and not PublicationDirty.objects.exists()
     executor = MigrationExecutor(connection)
     latest = executor.loader.graph.leaf_nodes()
+    previous = [("listings", "0016_drop_text_proof_indexes")]
+    historical = executor.loader.project_state(previous).apps.get_model("listings", "PublicationState")
+    fields = [field.attname for field in historical._meta.concrete_fields]
+    # Preserve the fields that existed at this upgrade, not later projections
+    # deliberately dropped/rebuilt by traversing subsequent migrations.
+    states = list(PublicationState.objects.order_by("listing_id").values(*fields))
+    assert ids and states and not PublicationDirty.objects.exists()
     added = {"safety_rightsproof", "safety_rightsphotoreintroductiondecision"}
 
     def triggers():
@@ -30,16 +35,17 @@ def test_conditional_migration_invalidates_existing_state(request, record_proper
             return {r[0] for r in cursor.fetchall()}
 
     try:
-        executor.migrate([("listings", "0016_drop_text_proof_indexes")])
+        executor.migrate(previous)
         assert not added & triggers()
         PublicationDirty.objects.all().delete()
-        assert list(PublicationState.objects.order_by("listing_id").values()) == states
+        assert list(historical.objects.order_by("listing_id").values(*fields)) == states
         MigrationExecutor(connection).migrate(latest)
         assert added <= triggers()
         assert set(PublicationDirty.objects.values_list("listing_id", flat=True)) == ids
-        assert list(PublicationState.objects.order_by("listing_id").values()) == states
+        assert list(PublicationState.objects.order_by("listing_id").values(*fields)) == states
         record_property("upgrade", {"existing_listings_invalidated": len(ids),
                                      "stored_states_preserved": len(states),
+                                     "preserved_fields": fields,
                                      "conditional_triggers_restored": True})
     finally:
         MigrationExecutor(connection).migrate(latest)

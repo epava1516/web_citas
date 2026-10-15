@@ -1,0 +1,32 @@
+{
+  "run_id": "20261015-153300-9f2a245d",
+  "head": "54be315011cefe96361938fa5c8c39c13e4ed338",
+  "result": "3PASS57.79s",
+  "source_freeze_verified": true,
+  "independent_cleanup_verified": true,
+  "testcases": [
+    {
+      "classname": "tests.test_publication_projection_lifecycle",
+      "name": "test_installed_projection_upgrade_invalidates_existing_states_before_use",
+      "file": "tests/test_publication_projection_lifecycle.py",
+      "line": "22",
+      "time": "44.083"
+    },
+    {
+      "classname": "tests.test_publication_projection_lifecycle",
+      "name": "test_projection_strict_expiry_cutoff_and_expiry_during_guard_falls_back",
+      "file": "tests/test_publication_projection_lifecycle.py",
+      "line": "50",
+      "time": "6.509"
+    },
+    {
+      "classname": "tests.test_publication_projection_lifecycle",
+      "name": "test_refresher_copy_precedes_waiting_writer_and_keeps_new_generation",
+      "file": "tests/test_publication_projection_lifecycle.py",
+      "line": "81",
+      "time": "6.896"
+    }
+  ],
+  "scope": "Installed0018\u21920019marksoldstates, fallbackbefore/fullprojectionafterrefresh;strictclockexpiry/guardfailure;actualPGblocking_pids proveswriterblockedonrefresher andnewdirtygeneration survivescommit",
+  "remaining": "Complete affectedregression, maintenance andintegratedcostbefore cleanload; noN3/performanceacceptance"
+}
