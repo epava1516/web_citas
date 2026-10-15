@@ -1,8 +1,6 @@
 # Seguimiento de ejecución del contrato
 
-Actualización de investigación: grafo renovado antes de recorrer requests; startup collect descartado tras diagnóstico aislado. Corregidos ciclos evitables del memoizador de validación con prueba roja y 18 controles PASS; corto posterior FAIL0.919814s, mejora observada no causal18.37%. [Evidencia y límites](evidencias/cr09-grafo-recorrido-solucion-20261015.md). El último p95 limpio publicado es FAIL0.919814s; CR09/N3 abiertos.
-
-Investigación descompuesta posterior: observación por ID localiza espera con4workers ocupados y cargaSQL de medios. Selector JOIN+DISTINCT deBlob concentraCPUbackend; EXISTS devuelve los mismos datos y reduce selector aislado2.609→0.014625s en3tandas. Integración19PASS, [evidencia](evidencias/cr09-ingress-diagnostico-20261015.md); efectoHTTP pendiente de corto limpio único. No cambia el último FAIL0.919814s ni aceptaCR09/N3.
+Estado de investigación actual: la corrección de ciclos del memoizador y el selector EXISTS de medios están integrados. Última carga limpia FAIL1.118772s; tarea real de foto0.971466s frente10.094089s anterior. Se conserva mejora del proceso y falloHTTP por separado. [Evidencia actual](evidencias/cr09-media-exists-http-20261015.md). Prototipo de proyección limpia+dirty nativo sólo en worktree aislado, sin ejecutar/aceptar; ningún proceso de prueba activo al iniciar esta revisión. Usuario reitera reanálisis descompuesto antes de otra decisión. CR09/N3 abiertos.
 
 ## Estado vigente de continuación — 2026-10-15
 
@@ -10,17 +8,18 @@ Codex continúa el objetivo completo **CR09 → CR10 → GS01 → BF/BB → C**.
 
 Los cuatro bloques v3 de base `8fb4cf1` terminaron. Se conservan fallos/errores originales y sus recuperaciones afectadas; [cola consolidada](evidencias/cr09-cola-cierre-consolidada-20261014.md) y [matriz83](83-auditoria-pendientes-cr09.md) recogen alcance/omisiones. Los cambios posteriores de aplicación requieren verificar dependencias y aplicabilidad común; no sumar versiones distintas como N3.
 
-Última carga corta limpia: `20261015-211213-04ef9338`, SHA `392c2c8`, 4sync/20rps60s/10k sintéticos,worker/Beat propios y una subida. Sin perfiladores/observadores; fuentes y limpieza independientes. [Comparación y p95 por caso](evidencias/cr09-memo-lifetime-http-20261015.md). Cambio: elimina ciclos añadidos por el memoizador; startup collect descartado, preparación del builder conservada.
+Última carga corta limpia: `20261015-214838-7c455fc1`, SHA `f9f404d`,4sync/20rps60s/10k sintéticos,worker/Beat propios yuna subida. Sin perfiladores/observadores; fuentes y limpieza independientes. [Comparación y evidencia](evidencias/cr09-media-exists-http-20261015.md). Cambio de app: selector EXISTS para blobs candidatos, conservando filtros y guardas;19controlesPASS.
 
-|Métrica|Anterior|Última carga|
+|Métrica limpia|Anterior392c2c8|Últimaf9f404d|
 |---|---:|---:|
-|p95 completo|1.126776s|0.919814s|
-|p50 completo|0.232267s|0.262638s|
-|Pendientes al60s|3|3|
-|Completadas finales|1200|1200|
-|Errores/timeouts|0|0|
+|p95completo|0.919814s|1.118772s|
+|p50completo|0.262638s|0.234972s|
+|Taskfoto real|10.094089s|0.971466s|
+|Completadasfinales|1200|1200|
+|Errores/timeouts|0/0|0/0|
+|Requests>=0.8s|79|108|
 
-FAIL frente<0.8s, reducción observada18.37% sin causalidad/reproducibilidad; no atribuir diferencias al portátil. No repetirFAIL/15min/N3.79peticiones>=0.8s emitidas0–5s, ninguna después. Ciclo reproducido1FAIL y correctiva18PASS, sin cuello único demostrado. Preparación corregida separada9PASS. MOD09 grandes conserva aprobación provisional. Usuario solicita reanálisis descompuesto/investigación antes de otra intervención.
+FAIL frente<0.8s, mejora del proceso de imagen90.38% y empeoramiento de p9521.63% observados, no causalidad/reproducibilidad global. No repetirFAIL/15min/N3.91lentasemitidas0–5s y17en5–10s, ninguna después. [Diagnóstico emparejado anterior](evidencias/cr09-ingress-diagnostico-20261015.md) localiza espera con4workers ocupados y transición de proyección aSQLgeneral condirty. Prototipo de mezcla limpia+dirty aislado de integración yno medido; nueva revisión actual solicitada. MOD09 grandes conserva aprobación provisional separada.
 
 Candidata de proyección mantenida `54be315`: PublicationState copia fechas y vector persistido mediante el mismo refresco versionado. Sólo candidatos originales de listado/q, cobertura completa, dirty vacío y snapshot propio RR; guardia y fallback nativos conservados. [Controles iniciales5PASS](evidencias/cr09-proyeccion-mantenida-controles-terminal-20261015.json), [ciclo/migración3PASS](evidencias/cr09-proyeccion-mantenida-ciclo-terminal-20261015.json) y [ampliada92PASS](evidencias/cr09-proyeccion-mantenida-ampliada-terminal-20261015.json), terminales sin omisiones con fuentes/limpieza verificadas en sus alcances. La ampliada ya incluye los tres controles de ciclo: no sumar duplicados como aceptación global. Primera carga limpia posterior:FAIL1.361793s, sin aceptación global.
 
