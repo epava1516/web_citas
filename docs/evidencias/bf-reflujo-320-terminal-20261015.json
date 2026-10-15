@@ -1,0 +1,409 @@
+{
+  "recorded_at": "2026-10-15T10:12:48.768551+00:00",
+  "run": "20261015-100951-9262ecd3",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "6",
+      "time": "89.497",
+      "timestamp": "2026-10-15T12:10:10.516153+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "independent_cleanup": {
+    "runner_absent": true,
+    "child_absent": true,
+    "temporary_absent": true,
+    "containers_absent": {
+      "web-modelos-ci-pg-20261015-100951-9262ecd3": true,
+      "web-modelos-ci-redis-20261015-100951-9262ecd3": true
+    }
+  },
+  "cases": [
+    {
+      "case": "test_skip_link_moves_focus_and_navigation_is_localized[es]",
+      "properties": {
+        "keyboard_navigation": [
+          {
+            "language": "es",
+            "viewport": [
+              320,
+              800
+            ],
+            "path": "/es/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "q",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          },
+          {
+            "language": "es",
+            "viewport": [
+              320,
+              800
+            ],
+            "path": "/es/account/login/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "email",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          },
+          {
+            "language": "es",
+            "viewport": [
+              390,
+              844
+            ],
+            "path": "/es/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "q",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          },
+          {
+            "language": "es",
+            "viewport": [
+              390,
+              844
+            ],
+            "path": "/es/account/login/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "email",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          },
+          {
+            "language": "es",
+            "viewport": [
+              1280,
+              900
+            ],
+            "path": "/es/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "q",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          },
+          {
+            "language": "es",
+            "viewport": [
+              1280,
+              900
+            ],
+            "path": "/es/account/login/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "email",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "test_skip_link_moves_focus_and_navigation_is_localized[en]",
+      "properties": {
+        "keyboard_navigation": [
+          {
+            "language": "en",
+            "viewport": [
+              320,
+              800
+            ],
+            "path": "/en/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "q",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          },
+          {
+            "language": "en",
+            "viewport": [
+              320,
+              800
+            ],
+            "path": "/en/account/login/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "email",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          },
+          {
+            "language": "en",
+            "viewport": [
+              390,
+              844
+            ],
+            "path": "/en/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "q",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          },
+          {
+            "language": "en",
+            "viewport": [
+              390,
+              844
+            ],
+            "path": "/en/account/login/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "email",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          },
+          {
+            "language": "en",
+            "viewport": [
+              1280,
+              900
+            ],
+            "path": "/en/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "q",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          },
+          {
+            "language": "en",
+            "viewport": [
+              1280,
+              900
+            ],
+            "path": "/en/account/login/",
+            "skip_focus": true,
+            "main_focus": true,
+            "next_field": "email",
+            "reload_restores_navigation": true,
+            "horizontal_overflow": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "test_public_field_and_nonfield_error_focus[es]",
+      "properties": {
+        "error_focus_observed": [
+          {
+            "tag": "UL",
+            "id": "id_email_error",
+            "text": "Este campo es obligatorio.",
+            "language": "es",
+            "viewport": [
+              320,
+              800
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Credenciales no válidas",
+            "language": "es",
+            "viewport": [
+              320,
+              800
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "id_email_error",
+            "text": "Este campo es obligatorio.",
+            "language": "es",
+            "viewport": [
+              390,
+              844
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Credenciales no válidas",
+            "language": "es",
+            "viewport": [
+              390,
+              844
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "id_email_error",
+            "text": "Este campo es obligatorio.",
+            "language": "es",
+            "viewport": [
+              1280,
+              900
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Credenciales no válidas",
+            "language": "es",
+            "viewport": [
+              1280,
+              900
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case": "test_public_field_and_nonfield_error_focus[en]",
+      "properties": {
+        "error_focus_observed": [
+          {
+            "tag": "UL",
+            "id": "id_email_error",
+            "text": "This field is required.",
+            "language": "en",
+            "viewport": [
+              320,
+              800
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Invalid credentials",
+            "language": "en",
+            "viewport": [
+              320,
+              800
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "id_email_error",
+            "text": "This field is required.",
+            "language": "en",
+            "viewport": [
+              390,
+              844
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Invalid credentials",
+            "language": "en",
+            "viewport": [
+              390,
+              844
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "id_email_error",
+            "text": "This field is required.",
+            "language": "en",
+            "viewport": [
+              1280,
+              900
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Invalid credentials",
+            "language": "en",
+            "viewport": [
+              1280,
+              900
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case": "test_private_native_conflict_focus[es]",
+      "properties": {
+        "error_focus_observed": [
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Revisa primero todas las páginas de las secciones actuales",
+            "language": "es",
+            "viewport": [
+              320,
+              800
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Revisa primero todas las páginas de las secciones actuales",
+            "language": "es",
+            "viewport": [
+              390,
+              844
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Revisa primero todas las páginas de las secciones actuales",
+            "language": "es",
+            "viewport": [
+              1280,
+              900
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case": "test_private_native_conflict_focus[en]",
+      "properties": {
+        "error_focus_observed": [
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Review every current section page first",
+            "language": "en",
+            "viewport": [
+              320,
+              800
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Review every current section page first",
+            "language": "en",
+            "viewport": [
+              390,
+              844
+            ]
+          },
+          {
+            "tag": "UL",
+            "id": "",
+            "text": "Review every current section page first",
+            "language": "en",
+            "viewport": [
+              1280,
+              900
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "scope": "Six existing native ES/EN keyboard and error-focus cases now include320/390/1280CSSpx, no horizontal overflow and privacy/authority assertions retained. No product changes or full WCAG/BF/GS01/N3 acceptance.",
+  "acceptance": false
+}

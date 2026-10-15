@@ -20,7 +20,7 @@ def test_skip_link_moves_focus_and_navigation_is_localized(directory, live_serve
             executable_path=shutil.which('chromium-browser'), args=['--no-sandbox']
         )
         try:
-            for width, height in [(390, 844), (1280, 900)]:
+            for width, height in [(320, 800), (390, 844), (1280, 900)]:
                 context = browser.new_context(viewport={'width': width, 'height': height})
                 page = context.new_page()
                 for path, first_field in [(f'/{language}/', 'q'), (f'/{language}/account/login/', 'email')]:

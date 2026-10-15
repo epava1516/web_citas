@@ -43,7 +43,7 @@ def test_public_field_and_nonfield_error_focus(live_server, language, record_pro
     with sync_playwright() as pw:
         b = browser(pw)
         try:
-            for width, height in [(390, 844), (1280, 900)]:
+            for width, height in [(320, 800), (390, 844), (1280, 900)]:
                 context = b.new_context(viewport={"width": width, "height": height})
                 page = context.new_page()
                 path = live_server.url + f"/{language}/account/login/"
@@ -57,7 +57,7 @@ def test_public_field_and_nonfield_error_focus(live_server, language, record_pro
                 with page.expect_response(lambda r: r.request.method == "POST") as denied:
                     page.keyboard.press("Enter")
                 assert denied.value.status == 400
-                measurements.append(check_error_focus(page, "#id_email"))
+                measurements.append({**check_error_focus(page, "#id_email"), "language": language, "viewport": [width, height]})
                 email = page.locator("#id_email")
                 expect(email).to_have_attribute("aria-invalid", "true")
                 description = email.get_attribute("aria-describedby")
@@ -72,7 +72,7 @@ def test_public_field_and_nonfield_error_focus(live_server, language, record_pro
                     page.keyboard.press("Enter")
                 assert rejected.value.status == 400
                 assert "script-src 'self'" in rejected.value.headers["content-security-policy"]
-                measurements.append(check_error_focus(page, "#id_email"))
+                measurements.append({**check_error_focus(page, "#id_email"), "language": language, "viewport": [width, height]})
                 expect(page.locator("#id_password")).to_have_value("")
                 assert "Synthetic-not-a-real-password!719" not in page.content()
                 page.goto(path)
@@ -103,7 +103,7 @@ def test_private_native_conflict_focus(request, settings, live_server, language,
     with sync_playwright() as pw:
         b = browser(pw)
         try:
-            for width, height in [(390, 844), (1280, 900)]:
+            for width, height in [(320, 800), (390, 844), (1280, 900)]:
                 context = b.new_context(viewport={"width": width, "height": height})
                 context.add_cookies(
                     [
@@ -131,7 +131,7 @@ def test_private_native_conflict_focus(request, settings, live_server, language,
                     rejected.value.status == 409
                     and "no-store" in rejected.value.headers["cache-control"]
                 )
-                measurements.append(check_error_focus(page, "#id_operation"))
+                measurements.append({**check_error_focus(page, "#id_operation"), "language": language, "viewport": [width, height]})
                 assert page.locator("#id_reason").input_value() == RAW
                 assert db_sync(counts) == original
                 page.goto(path)

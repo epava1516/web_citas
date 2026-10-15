@@ -2070,3 +2070,9 @@ Equivalencia conteo compartido `20261015-093943-5ab64c62`: [9 PASS/1 FAIL](evide
 
 
 [BF contraste corregido terminal](evidencias/bf-temas-contraste-terminal-20261015.json):4PASS públicos, fuentes intactas y limpieza independiente, con7PASS privados/referencia/teclado conservados; reconstrucción de fuente demuestra cambio limitado a dos esperas públicas. Capturas24 en archivo con SHA256, cuatro vistas inspeccionadas sin recortes/solapamientos observados. Umbrales soportados pasan; selectores ausentes siguen not_measured, no cumplimiento WCAG ni BF integral. Producto sin cambios; fallo de sincronización inicial preservado.
+
+
+[BF reflujo320 prerregistrado](evidencias/bf-reflujo-320-preparacion-20261015.json): criterio de ingeniería WCAG/reflow relacionado con320CSSpx; recorridos existentes de teclado/foco/errores sólo390/1280. Añadido320 a los mismos casos ES/EN públicos/privados sin cambiar producto; evidencia foco ligada a viewport. Mismas cuotas/snapshots, timeout1800. Exige no desbordamiento, autoridad/efectos/privacidad conservados y terminal/limpieza independiente; no aceptación global.
+
+
+[BF reflujo320 terminal](evidencias/bf-reflujo-320-terminal-20261015.json): seis casos PASS sin errores/omisiones; fuentes intactas y limpieza independiente. Recorridos nativos ES/EN de teclado, errores campo/no-campo y conflicto privado incluyen320/390/1280, foco/aria/navegación y no desbordamiento, privacidad en recarga y ausencia de efectos preservadas. Sin cambio de producto ni aceptación global. Los cuatro bloques v3 están terminales; negativas originales y recuperaciones posteriores permanecen diferenciadas.
