@@ -1,0 +1,100 @@
+{
+  "run": "20261015-232322-b808066f",
+  "sha": "3a881187bc5510096e106851a5e84d9ddbf0f960",
+  "verdict": "FAIL",
+  "latency": {
+    "p50": 0.21247844165191054,
+    "p90": 0.9023025557398796,
+    "p95": 1.7929413858801126,
+    "p99": 2.3073974531143904,
+    "max": 2.648332464043051,
+    "population": 1200
+  },
+  "counts": {
+    "scheduled": 1200,
+    "emitted": 1200,
+    "not_emitted": 0,
+    "successful": 1200,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "validity": true,
+  "cohorts": [
+    {
+      "from_s": 0,
+      "to_s": 5,
+      "n": 100,
+      "p95_s": 2.4173980029299855,
+      "slow_ge_0_8": 95
+    },
+    {
+      "from_s": 5,
+      "to_s": 10,
+      "n": 100,
+      "p95_s": 1.2801700360141695,
+      "slow_ge_0_8": 30
+    },
+    {
+      "from_s": 10,
+      "to_s": 15,
+      "n": 100,
+      "p95_s": 0.3176951976493001,
+      "slow_ge_0_8": 0
+    },
+    {
+      "from_s": 15,
+      "to_s": 60,
+      "n": 900,
+      "p95_s": 0.36564349196851254,
+      "slow_ge_0_8": 0
+    }
+  ],
+  "cases": {
+    "listing": {
+      "n": 400,
+      "p95_s": 1.8334673177450895
+    },
+    "search": {
+      "n": 400,
+      "p95_s": 1.9161749021150172
+    },
+    "detail": {
+      "n": 400,
+      "p95_s": 1.5776382298208773
+    }
+  },
+  "canonical_kernel": {
+    "binary_sha256": "40e0d739839f0b56f9057b15685b363e2963493a6822bf45bba48e4215b60d19",
+    "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "cache_tag": "cpython-312",
+    "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "manifest_sha256": "71700ea5da3b66ae9fbfcd744591dd334015dc41ba2194156bad558fcd513373",
+    "mode": "native-sealed",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.15",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  },
+  "cleanup": {
+    "independent_source_hash_equality": true,
+    "controller_and_child_absent": true,
+    "temporary_absent": true,
+    "owned_containers_absent": true,
+    "celery_pids_absent": true,
+    "systemd_MainPID": 0,
+    "systemd_ControlGroup": ""
+  },
+  "limitation": "Single short trial; not causal comparison or contractual acceptance. Legacy pg_server_shared metadata is inaccurate: actual containers owned and bounded."
+}
