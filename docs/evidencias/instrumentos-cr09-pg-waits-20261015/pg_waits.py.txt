@@ -1,0 +1,64 @@
+"""Bounded activity snapshots of one verified owned PostgreSQL only."""
+import json
+import threading
+import time
+from pathlib import Path
+import psycopg
+
+class PGWaits:
+    def __init__(self, output, env, info, run):
+        name = 'web-modelos-ci-pg-' + run['id']
+        assert env['LOCAL_CI_POSTGRES_CONTAINER'] == name
+        assert info['Name'] == '/' + name
+        assert info['Config']['Labels']['web-modelos-local-ci-run'] == run['id']
+        binding = info['NetworkSettings']['Ports']['5432/tcp']
+        assert any(b['HostIp'] == '127.0.0.1' and b['HostPort'] == env['DB_PORT'] for b in binding)
+        assert env['DB_HOST'] == '127.0.0.1' and env['POSTGRES_DB'] == 'promotion_gate_ci'
+        self.output, self.env = Path(output), env
+        assert not self.output.exists()
+        self.stop = threading.Event()
+        self.ready = threading.Event()
+        self.error = None
+        self.samples = 0
+        self.thread = threading.Thread(target=self.run, daemon=True, name='owned-pg-waits')
+        self.thread.start()
+        assert self.ready.wait(5), 'PostgreSQL observer startup timeout'
+        if self.error:
+            raise RuntimeError(self.error)
+
+    def run(self):
+        started = time.thread_time()
+        try:
+            e = self.env
+            with psycopg.connect(host=e['DB_HOST'], port=e['DB_PORT'], dbname=e['POSTGRES_DB'],
+                                  user=e['POSTGRES_USER'], password=e['POSTGRES_PASSWORD'],
+                                  connect_timeout=3, autocommit=True,
+                                  application_name='owned_pg_waits', options='-c statement_timeout=1000') as db:
+                self.ready.set()
+                with self.output.open('x') as stream:
+                    for _ in range(9000):
+                        clock = time.monotonic()
+                        rows = db.execute("""SELECT pid,state,wait_event_type,wait_event,
+                            EXTRACT(EPOCH FROM clock_timestamp()-query_start)::float8
+                            FROM pg_stat_activity WHERE datname LIKE 'test_promotion_gate_%%'
+                            AND backend_type='client backend' AND pid<>%s""", [db.info.backend_pid]).fetchall()
+                        stream.write(json.dumps({'monotonic': clock, 'rows': rows,
+                                                 'sample_wall_s':time.monotonic()-clock})+'\n')
+                        stream.flush()
+                        self.samples += 1
+                        if self.stop.wait(.1):
+                            break
+                    else:
+                        raise RuntimeError('PostgreSQL observation bound exceeded')
+        except Exception as exc:
+            self.error = type(exc).__name__
+            self.ready.set()
+        finally:
+            self.output.with_suffix('.summary.json').write_text(json.dumps({
+                'samples':self.samples,'error':self.error,'collector_thread_cpu_s':time.thread_time()-started,
+                'scope':'Own synthetic PostgreSQL only; 100ms sampled state, no query text/parameters; not exact time accounting or backend CPU.'},indent=2))
+
+    def close(self):
+        self.stop.set()
+        self.thread.join(5)
+        assert not self.thread.is_alive(), 'PostgreSQL observer remains live'

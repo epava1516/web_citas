@@ -1,0 +1,47 @@
+import json,math,statistics,collections
+from pathlib import Path
+p=Path('artifacts/local-ci/20261015-233806-75cf5a0a');d=json.loads((p/'load-summary-parsed.json').read_text());data=json.loads((p/'benchmark-samples.json').read_text());raw=json.loads((p/'benchmark-worker-events.json').read_text());service=json.loads((p/'benchmark-server-service.json').read_text());origin=d['monotonic_origin_seconds']
+assert not raw['parse_errors'] and not service['parse_errors']
+starts={};ends={}
+for e in raw['events']:
+ target=starts if e['event']=='wsgi_start' else ends
+ assert e['id'] not in target
+ target[e['id']]=e
+services={x['id']:x for x in service['samples']}
+rows=[]
+for x in data['dynamic']:
+ i=x['id'];a=starts[i];b=ends[i];ss=services[i]
+ assert x['status']==b['status']==ss['status']==200 and a['pid']==b['pid']
+ pre=a['started']-(origin+x['emitted_at']);wall=b['wall'];post=origin+x['ended_at']-b['monotonic'];http=x['ended_at']-x['emitted_at']
+ assert abs((b['monotonic']-a['started'])+pre+post-http)<1e-7
+ rows.append({'id':i,'pid':b['pid'],'emitted_at':x['emitted_at'],'http':http,'pre':pre,'post':post,'wsgi':wall,'cpu':b['thread_cpu'],'sql':b['sql']['wall'],'sql_cpu':b['sql']['thread_cpu'],'sql_calls':b['sql']['calls'],'gc':b.get('gc',{}).get('wall_seconds',0),'gc_cpu':b.get('gc',{}).get('thread_cpu_seconds',0),'service':ss['service_seconds'],'queries':b['sql']['queries']})
+assert len(rows)==1200 and len(services)==1200
+mean=lambda a: statistics.mean(a) if a else None
+pct=lambda a: sorted(a)[math.ceil(.95*len(a))-1] if a else None
+stats={}
+for label,chosen in [('0_5',[x for x in rows if x['emitted_at']<5]),('5_10',[x for x in rows if 5<=x['emitted_at']<10]),('10_15',[x for x in rows if 10<=x['emitted_at']<15]),('15_60',[x for x in rows if x['emitted_at']>=15]),('slow',[x for x in rows if x['http']>=.8])]:
+ q={'n':len(chosen),'slow':sum(x['http']>=.8 for x in chosen),'http_p95':pct([x['http'] for x in chosen])}
+ for key in ['http','pre','post','wsgi','cpu','sql','sql_cpu','gc','gc_cpu','service','sql_calls']:q[key+'_mean']=mean([x[key] for x in chosen])
+ stats[label]=q
+families={}
+for label in ['0_5','15_60']:
+ chosen=[x for x in rows if x['emitted_at']<5] if label=='0_5' else [x for x in rows if x['emitted_at']>=15]
+ sums=collections.defaultdict(lambda:dict(wall=0,cpu=0,calls=0))
+ for x in chosen:
+  for fingerprint,q in x['queries'].items():
+   caller=q.get('caller','overflow_or_unknown');sums[caller]['wall']+=q['wall'];sums[caller]['cpu']+=q['thread_cpu'];sums[caller]['calls']+=q['calls']
+ families[label]=sorted([dict(caller=k,wall_per_request=v['wall']/len(chosen),cpu_per_request=v['cpu']/len(chosen),calls_per_request=v['calls']/len(chosen)) for k,v in sums.items()],key=lambda x:-x['wall_per_request'])[:10]
+cpu=[json.loads(l) for l in (p/'owned-cpu-samples.jsonl').read_text().splitlines()];groups={}
+for lo,hi in [(0,5),(5,10),(15,60)]:
+ g={}
+ for role in ['postgres','controller']:
+  pairs=[]
+  for a,b in zip(cpu,cpu[1:]):
+   a,b=a[role],b[role];mid=(a['monotonic']+b['monotonic'])/2-origin;dt=b['monotonic']-a['monotonic']
+   if lo<=mid<hi:
+    pairs.append({'dt':dt,'usage':b['cpu_stat']['usage_usec']-a['cpu_stat']['usage_usec'],'periods':b['cpu_stat'].get('nr_periods',0)-a['cpu_stat'].get('nr_periods',0),'throttled_periods':b['cpu_stat'].get('nr_throttled',0)-a['cpu_stat'].get('nr_throttled',0)})
+  g[role]={'samples':len(pairs),'cpu_cores':sum(x['usage'] for x in pairs)/1e6/sum(x['dt'] for x in pairs),'periods':sum(x['periods'] for x in pairs),'throttled_periods':sum(x['throttled_periods'] for x in pairs)}
+ groups[f'{lo}_{hi}']=g
+workers={str(pid):{'requests':sum(x['pid']==pid for x in rows),'first_wsgi':min(e['started']-origin for e in starts.values() if e['pid']==pid),'first6_cpu_mean':mean([x['cpu'] for x in rows if x['pid']==pid][:6])} for pid in {x['pid'] for x in rows}}
+result={'run':p.name,'n_matched':len(rows),'parse_errors':0,'slow':sum(x['http']>=.8 for x in rows),'cohorts':stats,'cpu_groups':groups,'sql_families':families,'workers':workers,'negative_pre':sum(x['pre']<0 for x in rows),'negative_post':sum(x['post']<0 for x in rows),'post_min':min(x['post'] for x in rows),'diagnostic_p95':d['observable_latency_seconds']['p95'],'scope':'Same diagnostic only; inclusive WSGI/SQL/GC are not additive; post may be negative because WSGI response.close occurs after body reception. Controller includes generator/Celery/observer. SQL wall not backend CPU.'}
+(p/'paired-ingress-analysis.json').write_text(json.dumps(result,indent=2));print(json.dumps(result,indent=2))

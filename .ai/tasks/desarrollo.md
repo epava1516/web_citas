@@ -1087,3 +1087,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-15: planes sintéticos233344-af8d3970,1PASS87,69s,272SELECT39formas; testcbdaba3 posterior alrun, fuenteincluidaenhashesoriginales. Consulta hidrataciónprincipal identificada porhuella; replay5,330msplanning5,550msexecution, noatribucióncausalHTTP. Fuentesyrecursospropioslimpiosverificados. Noproducción,nollamadasClaude,nuevop95noobtenido. Siguientediagnóstico: actividadwait_eventPGpropiocorrelacionada.
+
+
+2026-10-15: capturaPGpropio233806-75cf5a0aSHA cbdaba3,1832muestras100ms0errores;FAIL185,75s,p95instrumentado0,954280990s,1200completas0errores. NoLock/IO activo muestreado,noatribuciónCPU/noaceptación. Mismoslímites,fuentecongelada,controlador/hijo/8workers/Celery/temp/containersretiradosverificados. SinllamadasClaude niotrascuentas. Evidencia/instrumentos en docs/evidencias/cr09-pg-waits*. Goalabierto.

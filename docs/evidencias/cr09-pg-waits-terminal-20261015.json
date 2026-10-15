@@ -1,0 +1,389 @@
+{
+  "run": "20261015-233806-75cf5a0a",
+  "sha": "cbdaba36ac8bdf84d7ad006bb2443ebd1725aee5",
+  "p95_instrumented": 0.9542809901759028,
+  "counts": {
+    "scheduled": 1200,
+    "emitted": 1200,
+    "not_emitted": 0,
+    "successful": 1200,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "validity": true,
+  "pg_waits": {
+    "initial": {
+      "snapshots": 49,
+      "backend_observations": 508,
+      "states": {
+        "('idle', 'Client', 'ClientRead')": 235,
+        "('active', None, None)": 135,
+        "('idle in transaction', 'Client', 'ClientRead')": 135,
+        "('idle in transaction', None, None)": 3
+      },
+      "active_events": {
+        "(None, None)": 135
+      },
+      "max_sample_wall_s": 0.012761658057570457
+    },
+    "recovery": {
+      "snapshots": 49,
+      "backend_observations": 490,
+      "states": {
+        "('idle', 'Client', 'ClientRead')": 341,
+        "('idle in transaction', 'Client', 'ClientRead')": 114,
+        "('active', None, None)": 31,
+        "('idle', None, None)": 4
+      },
+      "active_events": {
+        "(None, None)": 31
+      },
+      "max_sample_wall_s": 0.005958335939794779
+    },
+    "steady": {
+      "snapshots": 441,
+      "backend_observations": 4413,
+      "states": {
+        "('idle', 'Client', 'ClientRead')": 3405,
+        "('idle in transaction', 'Client', 'ClientRead')": 745,
+        "('idle in transaction', None, None)": 22,
+        "('active', None, None)": 223,
+        "('idle', None, None)": 17,
+        "(None, None, None)": 1
+      },
+      "active_events": {
+        "(None, None)": 223
+      },
+      "max_sample_wall_s": 0.013516045175492764
+    }
+  },
+  "observer": {
+    "samples": 1832,
+    "error": null,
+    "collector_thread_cpu_s": 1.012876927,
+    "scope": "Own synthetic PostgreSQL only; 100ms sampled state, no query text/parameters; not exact time accounting or backend CPU."
+  },
+  "cleanup": {
+    "source_hash_equal": true,
+    "controller_child_absent": true,
+    "temporary_absent": true,
+    "containers_absent": true,
+    "eight_workers_absent": true,
+    "celery_absent": true,
+    "systemd_MainPID": 0,
+    "systemd_ControlGroup": ""
+  },
+  "paired_ingress": {
+    "run": "20261015-233806-75cf5a0a",
+    "n_matched": 1200,
+    "parse_errors": 0,
+    "slow": 76,
+    "cohorts": {
+      "0_5": {
+        "n": 100,
+        "slow": 76,
+        "http_p95": 1.6286889230832458,
+        "http_mean": 1.0616147616738454,
+        "pre_mean": 0.6451743831345812,
+        "post_mean": -0.00037961293011903765,
+        "wsgi_mean": 0.41679913580883293,
+        "cpu_mean": 0.12442771849000005,
+        "sql_mean": 0.24136749693658202,
+        "sql_cpu_mean": 0.009069955009999991,
+        "gc_mean": 0.015205048611387611,
+        "gc_cpu_mean": 0.010981864719999996,
+        "service_mean": 0.41631513,
+        "sql_calls_mean": 41.95
+      },
+      "5_10": {
+        "n": 100,
+        "slow": 0,
+        "http_p95": 0.5140345906838775,
+        "http_mean": 0.27367887542117386,
+        "pre_mean": 0.03448365437332541,
+        "post_mean": -0.0002587979240342975,
+        "wsgi_mean": 0.23944354708772153,
+        "cpu_mean": 0.10212719429,
+        "sql_mean": 0.1072853368986398,
+        "sql_cpu_mean": 0.0075158562400000715,
+        "gc_mean": 0.009444507560692728,
+        "gc_cpu_mean": 0.007194035390000075,
+        "service_mean": 0.23906007,
+        "sql_calls_mean": 37.98
+      },
+      "10_15": {
+        "n": 100,
+        "slow": 0,
+        "http_p95": 0.3049752078950405,
+        "http_mean": 0.19202137683983891,
+        "pre_mean": 0.000979779027402401,
+        "post_mean": -8.300850167870521e-05,
+        "wsgi_mean": 0.19111534989904613,
+        "cpu_mean": 0.09660929131,
+        "sql_mean": 0.07760143927298487,
+        "sql_cpu_mean": 0.007138286580000144,
+        "gc_mean": 0.006428025071509183,
+        "gc_cpu_mean": 0.005452347580000012,
+        "service_mean": 0.19081431,
+        "sql_calls_mean": 37.98
+      },
+      "15_60": {
+        "n": 900,
+        "slow": 0,
+        "http_p95": 0.3560810051858425,
+        "http_mean": 0.20419422109870033,
+        "pre_mean": 0.001083834639026059,
+        "post_mean": -0.00022928750038974814,
+        "wsgi_mean": 0.2033296261422543,
+        "cpu_mean": 0.10210710915333335,
+        "sql_mean": 0.0818484588753846,
+        "sql_cpu_mean": 0.0075327154066664025,
+        "gc_mean": 0.008298589111719695,
+        "gc_cpu_mean": 0.007046912380000155,
+        "service_mean": 0.20297749555555555,
+        "sql_calls_mean": 38
+      },
+      "slow": {
+        "n": 76,
+        "slow": 76,
+        "http_p95": 1.6793825631029904,
+        "http_mean": 1.1970811955091591,
+        "pre_mean": 0.7398563045395636,
+        "post_mean": -0.00036254854211093565,
+        "wsgi_mean": 0.45757785862875416,
+        "cpu_mean": 0.13424851705263163,
+        "sql_mean": 0.27171682451214446,
+        "sql_cpu_mean": 0.009498794868421041,
+        "gc_mean": 0.019212391576729715,
+        "gc_cpu_mean": 0.013779114631578937,
+        "service_mean": 0.45707330263157897,
+        "sql_calls_mean": 43.35526315789474
+      }
+    },
+    "cpu_groups": {
+      "0_5": {
+        "postgres": {
+          "samples": 5,
+          "cpu_cores": 0.8300025013280959,
+          "periods": 50,
+          "throttled_periods": 0
+        },
+        "controller": {
+          "samples": 5,
+          "cpu_cores": 2.498097899655919,
+          "periods": 0,
+          "throttled_periods": 0
+        }
+      },
+      "5_10": {
+        "postgres": {
+          "samples": 5,
+          "cpu_cores": 0.5108134642479785,
+          "periods": 50,
+          "throttled_periods": 0
+        },
+        "controller": {
+          "samples": 5,
+          "cpu_cores": 2.3014699641494185,
+          "periods": 0,
+          "throttled_periods": 0
+        }
+      },
+      "15_60": {
+        "postgres": {
+          "samples": 45,
+          "cpu_cores": 0.4689147192728055,
+          "periods": 451,
+          "throttled_periods": 0
+        },
+        "controller": {
+          "samples": 45,
+          "cpu_cores": 2.0990260070017923,
+          "periods": 0,
+          "throttled_periods": 0
+        }
+      }
+    },
+    "sql_families": {
+      "0_5": [
+        {
+          "caller": "apps/listings/public_validation.py:263",
+          "wall_per_request": 0.0722058149985969,
+          "cpu_per_request": 0.0021508033100000024,
+          "calls_per_request": 7.65
+        },
+        {
+          "caller": "apps/listings/publication_state.py:447",
+          "wall_per_request": 0.03175086559727788,
+          "cpu_per_request": 0.00019281804999999208,
+          "calls_per_request": 0.68
+        },
+        {
+          "caller": "overflow_or_unknown",
+          "wall_per_request": 0.018617901387624442,
+          "cpu_per_request": 0.0014713861600000055,
+          "calls_per_request": 6.46
+        },
+        {
+          "caller": "apps/listings/publication_state.py:388",
+          "wall_per_request": 0.017006932538934053,
+          "cpu_per_request": 6.466465999999783e-05,
+          "calls_per_request": 0.17
+        },
+        {
+          "caller": "apps/listings/publication_state.py:446",
+          "wall_per_request": 0.011324620069935919,
+          "cpu_per_request": 5.398506999999997e-05,
+          "calls_per_request": 0.17
+        },
+        {
+          "caller": "apps/listings/public_validation.py:509",
+          "wall_per_request": 0.010619755983352661,
+          "cpu_per_request": 0.0007735647400000079,
+          "calls_per_request": 4.25
+        },
+        {
+          "caller": "apps/listings/publication_state.py:444",
+          "wall_per_request": 0.007174838106147945,
+          "cpu_per_request": 0.00016805931999998912,
+          "calls_per_request": 0.51
+        },
+        {
+          "caller": "apps/listings/submissions.py:18",
+          "wall_per_request": 0.00555621612817049,
+          "cpu_per_request": 0.00025669533000000853,
+          "calls_per_request": 1.17
+        },
+        {
+          "caller": "apps/listings/publication_state.py:305",
+          "wall_per_request": 0.005321907075121999,
+          "cpu_per_request": 9.065608999998975e-05,
+          "calls_per_request": 0.51
+        },
+        {
+          "caller": "apps/listings/forms.py:170",
+          "wall_per_request": 0.0052237877715379,
+          "cpu_per_request": 0.0002924656299999939,
+          "calls_per_request": 1.6
+        }
+      ],
+      "15_60": [
+        {
+          "caller": "apps/listings/public_validation.py:263",
+          "wall_per_request": 0.020058671601841018,
+          "cpu_per_request": 0.0017655870933332512,
+          "calls_per_request": 6.666666666666667
+        },
+        {
+          "caller": "overflow_or_unknown",
+          "wall_per_request": 0.01053853280066202,
+          "cpu_per_request": 0.0010420897688888154,
+          "calls_per_request": 4.666666666666667
+        },
+        {
+          "caller": "apps/listings/publication_state.py:447",
+          "wall_per_request": 0.005318897118688458,
+          "cpu_per_request": 0.00015985178888887496,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/publication_state.py:305",
+          "wall_per_request": 0.0047098273313086894,
+          "cpu_per_request": 0.00011519398888887879,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/public_validation.py:509",
+          "wall_per_request": 0.004306554944357938,
+          "cpu_per_request": 0.000538694477777732,
+          "calls_per_request": 3.3333333333333335
+        },
+        {
+          "caller": "apps/listings/publication_state.py:444",
+          "wall_per_request": 0.003973344942140911,
+          "cpu_per_request": 0.0001730855800000164,
+          "calls_per_request": 0.6666666666666666
+        },
+        {
+          "caller": "apps/listings/forms.py:170",
+          "wall_per_request": 0.002576227234159079,
+          "cpu_per_request": 0.00026869328666666114,
+          "calls_per_request": 1.6666666666666667
+        },
+        {
+          "caller": "apps/listings/submissions.py:144",
+          "wall_per_request": 0.002562356989623772,
+          "cpu_per_request": 0.0003307290199999525,
+          "calls_per_request": 2.0
+        },
+        {
+          "caller": "apps/listings/public_validation.py:576",
+          "wall_per_request": 0.002517126779485908,
+          "cpu_per_request": 0.00028486688444446644,
+          "calls_per_request": 2.0
+        },
+        {
+          "caller": "apps/listings/presentation_reads.py:36",
+          "wall_per_request": 0.0024071344355535177,
+          "cpu_per_request": 0.00021014016111109768,
+          "calls_per_request": 0.6666666666666666
+        }
+      ]
+    },
+    "workers": {
+      "3409478": {
+        "requests": 164,
+        "first_wsgi": 0.10959277907386422,
+        "first6_cpu_mean": 0.13950959233333335
+      },
+      "3409482": {
+        "requests": 132,
+        "first_wsgi": 0.015801994130015373,
+        "first6_cpu_mean": 0.12259068383333338
+      },
+      "3409490": {
+        "requests": 143,
+        "first_wsgi": 0.002223808318376541,
+        "first6_cpu_mean": 0.17324122116666674
+      },
+      "3409497": {
+        "requests": 151,
+        "first_wsgi": 0.20213115820661187,
+        "first6_cpu_mean": 0.12656134700000007
+      },
+      "3409498": {
+        "requests": 159,
+        "first_wsgi": 0.052853739354759455,
+        "first6_cpu_mean": 0.19897873133333333
+      },
+      "3409499": {
+        "requests": 151,
+        "first_wsgi": 0.25882147904485464,
+        "first6_cpu_mean": 0.17232173850000007
+      },
+      "3409501": {
+        "requests": 149,
+        "first_wsgi": 0.15237786108627915,
+        "first6_cpu_mean": 0.1491576846666666
+      },
+      "3409502": {
+        "requests": 151,
+        "first_wsgi": 0.3015043130144477,
+        "first6_cpu_mean": 0.1510971588333334
+      }
+    },
+    "negative_pre": 0,
+    "negative_post": 1035,
+    "post_min": -0.012811704073101282,
+    "diagnostic_p95": 0.9542809901759028,
+    "scope": "Same diagnostic only; inclusive WSGI/SQL/GC are not additive; post may be negative because WSGI response.close occurs after body reception. Controller includes generator/Celery/observer. SQL wall not backend CPU."
+  },
+  "instrument_sha256": {
+    "run.py": "e19d445d917f4e3bb61474ba33ea1ae08521130f71b1e88603b2bbde2c9b5bcd",
+    "pg_waits.py": "4e62cb5ab733ed42060eb0349d2925f0dcc24df6d70a3ae48f1a09994b834849",
+    "analyze.py": "bd643a612f96e8a6643e21dee14e62506fd035ae2a3b50c12a88c99a81d736c2"
+  }
+}

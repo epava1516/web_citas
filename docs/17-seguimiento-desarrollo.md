@@ -2371,3 +2371,6 @@ Diagnóstico separado ocho sync nativo `232822-f60cfe0d`:1200IDs emparejados sin
 
 
 Desglose SQL sintético `233344-af8d3970`:1PASS87,69s,272SELECT/39formas. Huella principal de hidratación identificada; media concurrente por entradaWSGI53,891msinicial/11,782msestable; replay aislado planificación5,330/ejecución5,550ms. No explica causalmente amplificación de arranque ni justifica otro cambio de app. Falta actividad/wait_event dePGpropio durante ese mismo intervalo. Evidencia `cr09-hydration-plans-20261015.md`; fuentes/limpieza verificadas; test explícito preservado cbdaba3.
+
+
+CapturaPGpropio233806-75cf5a0a:1832muestras100ms/0errores,1FAIL185,75s instrumentado0,954280990s(ningunamejoracausal). Sinwait_eventLock/IOactivo observado;noexcluyeesperasbreves niidentificaCPU.1200IDs exactos0errores,76lentasemitidasprimeros5s. Fuentes/limpiezaverificadas. Vercr09-pg-waits-20261015.md. No repetirclean niintegrar8sync;persistenciaconexionesyaexistente60s.
