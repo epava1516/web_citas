@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-10-15T09:27:21.824447+00:00",
+  "question": "Which bounded SQL fingerprints and application call sites dominate service cost of directory requests under existing contractual short load?",
+  "selection": "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
+  "duration_seconds": 60,
+  "arrival_rps": 20,
+  "dataset": 10000,
+  "limits": "Existing controller CPU0-3 memory3584MiB swap0 tasks512; PG1CPU on4 memory1536MiB; Redis0.2CPU on5 memory128MiB; existing normal-refresh own worker/Beat",
+  "instrument": "Existing isolated WorkerObserver extended with at most32 query SHA256 buckets plus overflow per request, wall/threadCPU and app caller site; no SQL/params/content stored. Four unit controls PASS including exception accounting/privacy/bounds.",
+  "required_exit": "One diagnostic only; preserve verdict/failures, inspect actual accounting and overflow, verify source freeze and independent cleanup before action. No speculative chained trials.",
+  "scope": "Instrumented diagnostic cannot establish clean p95 or acceptance; original FAIL and MOD09 export-only provisional exception retained. No profiler during final measurements.",
+  "acceptance": false
+}

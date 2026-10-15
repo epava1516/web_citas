@@ -1,8 +1,10 @@
 """Opt-in Gunicorn diagnostics, restricted to disposable synthetic test databases."""
 
+import hashlib
 import json
 import os
 import re
+import sys
 import time
 from contextvars import ContextVar
 from functools import wraps
@@ -15,12 +17,20 @@ _ID = re.compile(r"[du]-[0-9]+\Z")
 class WorkerObserver:
     def __init__(self, folder):
         self.pid = os.getpid()
-        self.fd = os.open(Path(folder) / f"worker-{self.pid}.jsonl",
-                          os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_APPEND, 0o600)
+        self.fd = os.open(
+            Path(folder) / f"worker-{self.pid}.jsonl",
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_APPEND,
+            0o600,
+        )
 
     def write(self, state, event, **values):
-        record = {"id": state["id"], "pid": self.pid, "event": event,
-                  "monotonic": time.monotonic(), **values}
+        record = {
+            "id": state["id"],
+            "pid": self.pid,
+            "event": event,
+            "monotonic": time.monotonic(),
+            **values,
+        }
         payload = (json.dumps(record, separators=(",", ":")) + "\n").encode()
         if os.write(self.fd, payload) != len(payload):
             raise OSError("Incomplete diagnostic event write")
@@ -42,8 +52,14 @@ class WorkerObserver:
                 bucket["wall"] += time.monotonic() - wall
                 bucket["thread_cpu"] += time.thread_time() - cpu
                 if not progress or bucket["calls"] % 1000 == 0:
-                    self.write(state, "stage_progress" if progress else "stage_end",
-                               stage=name, stages=state["stages"], sql=state["sql"])
+                    self.write(
+                        state,
+                        "stage_progress" if progress else "stage_end",
+                        stage=name,
+                        stages=state["stages"],
+                        sql=state["sql"],
+                    )
+
         return call
 
     def sql(self, execute, sql, params, many, context):
@@ -54,18 +70,51 @@ class WorkerObserver:
         try:
             return execute(sql, params, many, context)
         finally:
+            elapsed, used_cpu = time.monotonic() - wall, time.thread_time() - cpu
             state["sql"]["calls"] += 1
-            state["sql"]["wall"] += time.monotonic() - wall
-            state["sql"]["thread_cpu"] += time.thread_time() - cpu
+            state["sql"]["wall"] += elapsed
+            state["sql"]["thread_cpu"] += used_cpu
+            # Bounded diagnostic attribution; never retain SQL or parameter values.
+            fingerprint = hashlib.sha256(str(sql).encode()).hexdigest()
+            queries = state["sql"].setdefault("queries", {})
+            key = fingerprint if fingerprint in queries or len(queries) < 32 else "overflow"
+            if key not in queries and key != "overflow":
+                root = str(Path(__file__).resolve().parents[1]) + os.sep
+                frame = sys._getframe(1)
+                try:
+                    for _ in range(32):
+                        if frame is None:
+                            break
+                        filename = frame.f_code.co_filename
+                        if filename.startswith(root + "apps" + os.sep):
+                            queries[key] = {
+                                "calls": 0,
+                                "wall": 0.0,
+                                "thread_cpu": 0.0,
+                                "caller": filename[len(root) :] + ":" + str(frame.f_lineno),
+                            }
+                            break
+                        frame = frame.f_back
+                finally:
+                    del frame
+            bucket = queries.setdefault(key, {"calls": 0, "wall": 0.0, "thread_cpu": 0.0})
+            bucket["calls"] += 1
+            bucket["wall"] += elapsed
+            bucket["thread_cpu"] += used_cpu
 
     def wsgi(self, original):
         def application(environ, start_response):
             identity = environ.get("HTTP_X_BENCHMARK_ID", "")
             if not _ID.fullmatch(identity):
                 return original(environ, start_response)
-            state = {"id": identity, "started": time.monotonic(),
-                     "cpu_started": time.thread_time(), "status": None,
-                     "stages": {}, "sql": {"calls": 0, "wall": 0.0, "thread_cpu": 0.0}}
+            state = {
+                "id": identity,
+                "started": time.monotonic(),
+                "cpu_started": time.thread_time(),
+                "status": None,
+                "stages": {},
+                "sql": {"calls": 0, "wall": 0.0, "thread_cpu": 0.0},
+            }
             token = _CURRENT.set(state)
             self.write(state, "wsgi_start", started=state["started"])
 
@@ -79,14 +128,21 @@ class WorkerObserver:
                 self.finish(state, token, type(error).__name__)
                 raise
             return ObservedResponse(self, response, state, token)
+
         return application
 
     def finish(self, state, token, error=None):
         try:
-            self.write(state, "wsgi_end", status=state["status"], error_type=error,
-                       wall=time.monotonic() - state["started"],
-                       thread_cpu=time.thread_time() - state["cpu_started"],
-                       stages=state["stages"], sql=state["sql"])
+            self.write(
+                state,
+                "wsgi_end",
+                status=state["status"],
+                error_type=error,
+                wall=time.monotonic() - state["started"],
+                thread_cpu=time.thread_time() - state["cpu_started"],
+                stages=state["stages"],
+                sql=state["sql"],
+            )
         finally:
             _CURRENT.reset(token)
 
@@ -135,15 +191,21 @@ def post_worker_init(worker):
     from apps.listings.public_validation import PublicationContext
 
     folder = os.environ.get("WEB_MODELOS_BENCHMARK_OBSERVER_DIR")
-    if (not folder or not Path(folder).is_dir() or connection.vendor != "postgresql"
-            or not connection.settings_dict["NAME"].startswith("test_promotion_gate_")):
+    if (
+        not folder
+        or not Path(folder).is_dir()
+        or connection.vendor != "postgresql"
+        or not connection.settings_dict["NAME"].startswith("test_promotion_gate_")
+    ):
         raise RuntimeError("Observer requires an owned synthetic PostgreSQL runner")
     observer = WorkerObserver(folder)
     worker._benchmark_observer = observer
     route_only = os.environ.get("WEB_MODELOS_BENCHMARK_ROUTE_ONLY") == "1"
     if not route_only:
         PublicationContext.__init__ = observer.measured("context", PublicationContext.__init__)
-        moderation.validate_submission = observer.measured("validation", moderation.validate_submission, progress=True)
+        moderation.validate_submission = observer.measured(
+            "validation", moderation.validate_submission, progress=True
+        )
     else:
         original_response = worker.wsgi.get_response
 
@@ -177,6 +239,11 @@ def collect_events(folder):
             try:
                 events.append(json.loads(line))
             except json.JSONDecodeError:
-                errors.append({"file": path.name, "line": number, "error": "truncated_or_invalid_json"})
-    return {"events": events, "parse_errors": errors,
-            "scope": "WSGI entry/end and phase snapshots of identified synthetic requests. Partial snapshots are lower-bound observed work, not inferred zeros. Phase/SQL/thread CPU timings include instrumentation and overlap, never sum as a request partition. WSGI entry is not TCP accept; end includes response.close. No raw URI, headers, body, SQL or parameters stored; PostgreSQL CPU/rows/RSS/waits/locks/IO and causal observer overhead not_measured."}
+                errors.append(
+                    {"file": path.name, "line": number, "error": "truncated_or_invalid_json"}
+                )
+    return {
+        "events": events,
+        "parse_errors": errors,
+        "scope": "WSGI entry/end and phase snapshots of identified synthetic requests. Partial snapshots are lower-bound observed work, not inferred zeros. Phase/SQL/thread CPU timings include instrumentation and overlap, never sum as a request partition. WSGI entry is not TCP accept; end includes response.close. No raw URI, headers, body, SQL or parameters stored; PostgreSQL CPU/rows/RSS/waits/locks/IO and causal observer overhead not_measured.",
+    }

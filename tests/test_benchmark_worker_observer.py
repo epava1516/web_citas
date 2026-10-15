@@ -15,7 +15,9 @@ def test_wsgi_observer_preserves_body_close_status_and_context(tmp_path):
         def close(self):
             closed.append(True)
 
-    work = observer.measured("context", lambda: observer.sql(lambda *a: 17, "secret-sql", ["secret-param"], False, {}))
+    work = observer.measured(
+        "context", lambda: observer.sql(lambda *a: 17, "secret-sql", ["secret-param"], False, {})
+    )
 
     def native(environ, start_response):
         assert work() == 17
@@ -24,7 +26,9 @@ def test_wsgi_observer_preserves_body_close_status_and_context(tmp_path):
 
     try:
         statuses = []
-        response = observer.wsgi(native)({"HTTP_X_BENCHMARK_ID": "d-4"}, lambda s,h,e: statuses.append(s))
+        response = observer.wsgi(native)(
+            {"HTTP_X_BENCHMARK_ID": "d-4"}, lambda s, h, e: statuses.append(s)
+        )
         assert list(response) == [b"first", b"second"]
         response.close()
         response.close()
@@ -67,10 +71,50 @@ def test_worker_exception_retains_partial_work_and_resets_context(tmp_path):
 def test_unidentified_requests_not_captured_and_truncation_explicit(tmp_path):
     observer = WorkerObserver(tmp_path)
     try:
-        assert observer.wsgi(lambda e,s: [b"native"])({"HTTP_X_BENCHMARK_ID": "private-value"}, None) == [b"native"]
+        assert observer.wsgi(lambda e, s: [b"native"])(
+            {"HTTP_X_BENCHMARK_ID": "private-value"}, None
+        ) == [b"native"]
         assert _CURRENT.get() is None
     finally:
         observer.close()
     assert collect_events(tmp_path)["events"] == []
     (tmp_path / "worker-torn.jsonl").write_text('{"event":')
     assert collect_events(tmp_path)["parse_errors"][0]["error"] == "truncated_or_invalid_json"
+
+
+def test_sql_attribution_is_bounded_private_and_keeps_failed_calls(tmp_path):
+    observer = WorkerObserver(tmp_path)
+
+    def native(environ, start_response):
+        for index in range(40):
+            observer.sql(lambda *args: None, f"private-query-{index}", ["secret"], False, {})
+        with pytest.raises(ValueError):
+            observer.sql(
+                lambda *args: (_ for _ in ()).throw(ValueError("private-error")),
+                "private-query-0",
+                ["secret"],
+                False,
+                {},
+            )
+        start_response("200 OK", [])
+        return [b"ok"]
+
+    try:
+        response = observer.wsgi(native)({"HTTP_X_BENCHMARK_ID": "d-0"}, lambda *args: None)
+        assert list(response) == [b"ok"]
+        response.close()
+    finally:
+        observer.close()
+    events = collect_events(tmp_path)["events"]
+    sql = events[-1]["sql"]
+    assert sql["calls"] == 41
+    assert len(sql["queries"]) == 33
+    assert sql["queries"]["overflow"]["calls"] == 8
+    assert sum(row["calls"] for row in sql["queries"].values()) == sql["calls"]
+    assert sum(row["wall"] for row in sql["queries"].values()) == pytest.approx(sql["wall"])
+    assert sum(row["thread_cpu"] for row in sql["queries"].values()) == pytest.approx(
+        sql["thread_cpu"]
+    )
+    assert not any(
+        value in json.dumps(events) for value in ("private-query", "secret", "private-error")
+    )
