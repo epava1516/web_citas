@@ -52,19 +52,27 @@ def test_owned_public_projection_cpu(request, monkeypatch, record_property):
         with connection.cursor() as cursor:
             cursor.execute(
                 f'CREATE TEMP TABLE {table} AS '
-                'SELECT s.listing_id, s.eligible, s.rules_version, '
+                'SELECT s.*, '
                 'l.expires_at, l.published_at, r.search_document '
                 'FROM listings_publicationstate s '
                 'JOIN listings_listing l ON l.id=s.listing_id '
                 'LEFT JOIN listings_revision r ON r.id=s.revision_id'
             )
+            cursor.execute(f'CREATE UNIQUE INDEX ON {table} (listing_id)')
+            cursor.execute(f'CREATE INDEX ON {table} (revision_id)')
             cursor.execute(f'CREATE INDEX ON {table} (published_at DESC, listing_id)')
+            cursor.execute(f'CREATE INDEX ON {table} USING gin (search_document)')
             cursor.execute(f'ANALYZE {table}')
             cursor.execute('SELECT c.relpersistence, n.nspname FROM pg_class c '
                            'JOIN pg_namespace n ON n.oid=c.relnamespace WHERE c.oid=%s::regclass',
                            [table])
             persistence, namespace = cursor.fetchone()
             assert persistence == 't' and namespace.startswith('pg_temp_')
+            cursor.execute('SELECT pg_relation_size(%s::regclass), pg_total_relation_size(%s::regclass), '
+                           'pg_relation_size(%s::regclass), pg_total_relation_size(%s::regclass)',
+                           ['listings_publicationstate', 'listings_publicationstate', table, table])
+            sizes = dict(zip(('native_heap_bytes', 'native_total_bytes', 'projected_heap_bytes',
+                              'projected_total_bytes'), cursor.fetchone(), strict=True))
         for term, number in [('', 1), ('', 2), ('photography', 1), ('photography', 2),
                              ('synthetic', 1), ('synthetic', 2), ('zzznomatchproof', 1)]:
             captured = []
@@ -95,11 +103,18 @@ def test_owned_public_projection_cpu(request, monkeypatch, record_property):
                 rank_values = [term, term]
 
             def original():
+                assert publication_state.all_state_current(trusted_snapshot=True)
                 page = Paginator(population.all(), 24).page(number)
                 return list(page.object_list), page.paginator.count
 
             def projected():
                 with connection.cursor() as cursor:
+                    cursor.execute(
+                        f'SELECT NOT EXISTS (SELECT 1 FROM {table} WHERE rules_version <> %s) '
+                        f'AND (SELECT COUNT(*) FROM {table}) = (SELECT COUNT(*) FROM listings_listing)',
+                        [publication_state.rules_version()],
+                    )
+                    assert cursor.fetchone()[0] is True
                     cursor.execute(f'SELECT COUNT(*) FROM {table} WHERE ' + where, values)
                     count = cursor.fetchone()[0]
                     cursor.execute(f'SELECT listing_id FROM {table} WHERE ' + where
@@ -130,10 +145,13 @@ def test_owned_public_projection_cpu(request, monkeypatch, record_property):
         with connection.cursor() as cursor:
             cursor.execute(f'DROP TABLE IF EXISTS pg_temp.{table}')
     record_property('public_projection_cpu', {'cases': cases, 'backend_host_pid': identity['pid'],
-                    'temporary_table_removed': True})
+                    'temporary_table_removed': True, 'relation_sizes': sizes,
+                    'includes_global_coverage': True})
     record_property('scope', 'Static synthetic10k parent/state/revision data copied once into own '
                     'session temporary table; paired exact count+orderedIDs vs current guarded '
-                    'population for7finite cases. Same readonlyRR percase;4warmups+3alternating '
+                    'population for7finite cases, including each representation globalcoverage. '
+                    'All existing state columns copied, PK/FK-equivalent indexes plus order/GIN. '
+                    'Same readonlyRR percase;4warmups+3alternating '
                     'blocks8operations each, CPU100Hz. No mutations between copy/read. '
                     'No maintenance/freshness/race/filter-general proof, model/migration, product '
                     'replacement, p95, capacity or N3. A static projection alone is unsafe for live data.')
