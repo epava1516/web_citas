@@ -2007,3 +2007,6 @@ Refuerzo acotado del test tras diagnóstico terminal y limpieza: esperar URL/rut
 
 
 Espera explícita de navegación validada `20261015-091217-431200db`: [2 PASS ES/EN](evidencias/cr09-parte4-sincronizacion-terminal-20261015.json), JUnit61.350s, fuentes intactas durante ejecución, limpieza independiente. Comparación completa de source-hashes con bloque4: sólo difiere `tests/test_restriction_filter_localization.py`; producto sin cambios. No se deduce causa original ni N3 por este control. Los cuatro bloques tienen terminal; no hay carga propia activa y se conserva todo fallo/omisión. Continúa conciliación contractual CR09 y resto CR10→GS01→BF/BB→C.
+
+
+[Conciliación integrada de mecanismos](evidencias/cr09-mecanismos-conciliacion-integrada-20261015.md): reports reales v3 y huellas actuales verificadas para conservación, comunicaciones, restauración y urgencias; aserciones indexadas, sin nuevas pruebas ni aceptación del criterio por conteos. Sustituye espera de ejecución integrada de esas selecciones, conservando faltantes concretos de completitud y N3. No se repiten recorridos ya demostrados sin defecto o riesgo nuevo.

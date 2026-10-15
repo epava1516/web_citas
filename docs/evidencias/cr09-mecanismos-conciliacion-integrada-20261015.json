@@ -1,0 +1,2029 @@
+{
+  "recorded_at": "2026-10-15T09:15:01.456434+00:00",
+  "head": "3708aa8",
+  "integrated_product_test_base": "8fb4cf128f5f3d8052bd1ddd2d664bcfd595eea5",
+  "groups": {
+    "conservation": {
+      "tests/test_retention_reviews.py": {
+        "source_sha256": "7693b80a778dec47199e4a76ede07368ba0df5413af16a15e17fb0af0b2d19de",
+        "source_matches_executed_run": {
+          "20261015-010758-a635c22e": true
+        },
+        "passed_calls": 6,
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_retention_reviews.py::test_plan_schedules_all_retained_purposes_and_reconciliation_is_idempotent",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 2.3911153520457447
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_retention_reviews.py::test_private_audited_independent_followup_preserves_original_plan_and_deadlines",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 2.994915584102273
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_retention_reviews.py::test_calendar_and_followup_survive_erased_account_without_mutating_data",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 3.565844012890011
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_retention_reviews.py::test_tampered_plan_is_not_displayed_or_scheduled",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 2.12627234775573
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_retention_reviews.py::test_history_pages_are_required_and_inspection_replay_keeps_its_original_snapshot",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 2.3846196583472192
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_retention_reviews.py::test_reconciliation_repairs_partial_calendar_without_overwriting_existing_followup",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 2.074800041038543
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 70,
+            "expression": "set(rows.values_list('purpose', flat=True)) == expected"
+          },
+          {
+            "line": 71,
+            "expression": "all((row.initial_review_on == row.next_review_on == plan.review_on and row.responsible_id == plan.action.actor_id for row in rows))"
+          },
+          {
+            "line": 76,
+            "expression": "reconcile_retention_reviews() == {'plans': 0, 'scheduled': 0, 'failed': 0}"
+          },
+          {
+            "line": 78,
+            "expression": "reconcile_retention_reviews() == {'plans': 1, 'scheduled': len(expected), 'failed': 0}"
+          },
+          {
+            "line": 79,
+            "expression": "reconcile_retention_reviews() == {'plans': 0, 'scheduled': 0, 'failed': 0}"
+          },
+          {
+            "line": 80,
+            "expression": "not RetentionReviewEvent.objects.exists()"
+          },
+          {
+            "line": 82,
+            "expression": "case.status == 'reviewing'"
+          },
+          {
+            "line": 101,
+            "expression": "Client().get(path).status_code == 302"
+          },
+          {
+            "line": 102,
+            "expression": "client.get(path).status_code == 200 and BASIS.encode() not in client.get(path).content"
+          },
+          {
+            "line": 103,
+            "expression": "client.get(path)['Cache-Control'] == 'private, no-store'"
+          },
+          {
+            "line": 104,
+            "expression": "Client(enforce_csrf_checks=True).post(path, values(case, review)).status_code == 403"
+          },
+          {
+            "line": 109,
+            "expression": "response.status_code == 200 and response.context['decision']['basis'] == BASIS"
+          },
+          {
+            "line": 110,
+            "expression": "client.post(path, inspected).status_code == 200"
+          },
+          {
+            "line": 111,
+            "expression": "RetentionReviewEvent.objects.filter(operation='inspect').count() == 1"
+          },
+          {
+            "line": 113,
+            "expression": "client.post(path, followup).status_code == client.post(path, followup).status_code == 200"
+          },
+          {
+            "line": 115,
+            "expression": "review.version == 2 and review.responsible_id == reviewer.pk and review.last_reviewed_at"
+          },
+          {
+            "line": 116,
+            "expression": "review.next_review_on == followup['next_review_on'] and review.initial_review_on == original[1]"
+          },
+          {
+            "line": 120,
+            "expression": "RetentionReviewEvent.objects.filter(operation='follow_up').count() == 1"
+          },
+          {
+            "line": 121,
+            "expression": "BASIS.encode() not in client.get(path).content and REASON.encode() not in client.get(path).content"
+          },
+          {
+            "line": 128,
+            "expression": "(plan.encrypted_decisions, plan.review_on, case.version, case.initial_due_at, subject.email, subject.session_version) == original"
+          },
+          {
+            "line": 168,
+            "expression": "subject.account_erased_at"
+          },
+          {
+            "line": 183,
+            "expression": "page.status_code == 200 and len(page.context['page']) > 0"
+          },
+          {
+            "line": 184,
+            "expression": "subject.email.encode() not in page.content and BASIS.encode() not in page.content"
+          },
+          {
+            "line": 187,
+            "expression": "(subject.email, subject.password, subject.session_version, case.version, case.initial_due_at) == original"
+          },
+          {
+            "line": 194,
+            "expression": "list(Person.objects.order_by('pk').values()) == profiles"
+          },
+          {
+            "line": 203,
+            "expression": "client.post(path, values(case, review)).status_code == 409"
+          },
+          {
+            "line": 204,
+            "expression": "not RetentionReviewEvent.objects.exists()"
+          },
+          {
+            "line": 206,
+            "expression": "reconcile_retention_reviews() == {'plans': 1, 'scheduled': 0, 'failed': 1}"
+          },
+          {
+            "line": 235,
+            "expression": "len(first['follow_up_history']) == 50 and first['next_history_before']"
+          },
+          {
+            "line": 241,
+            "expression": "len(second['follow_up_history']) == 1 and second['next_history_before'] is None"
+          },
+          {
+            "line": 245,
+            "expression": "replayed == first and newer_reason not in str(replayed)"
+          },
+          {
+            "line": 247,
+            "expression": "review.version == 53"
+          },
+          {
+            "line": 248,
+            "expression": "RetentionReviewEvent.objects.filter(review=review, operation='inspect').count() == 2"
+          },
+          {
+            "line": 266,
+            "expression": "reconcile_retention_reviews() == {'plans': 1, 'scheduled': 1, 'failed': 0}"
+          },
+          {
+            "line": 268,
+            "expression": "(retained.next_review_on, retained.version, retained.responsible_id, retained.last_reviewed_at) == original"
+          },
+          {
+            "line": 274,
+            "expression": "RetentionReview.objects.filter(plan=plan).count() == plan.retention_purpose_count"
+          },
+          {
+            "line": 275,
+            "expression": "reconcile_retention_reviews() == {'plans': 0, 'scheduled': 0, 'failed': 0}"
+          }
+        ]
+      },
+      "tests/test_retention_review_races.py": {
+        "source_sha256": "c0cd871b6d64aa69a811235b4a26dd1f8c869f6940da37b041ef754cfffa2067",
+        "source_matches_executed_run": {
+          "20261015-081053-9720829d": true
+        },
+        "passed_calls": 2,
+        "reports": [
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_retention_review_races.py::test_permission_revoked_during_observed_wait_prevents_disclosure",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 2.317397759296
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_retention_review_races.py::test_followup_same_key_waits_and_updates_once",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 2.5022101276554167
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 55,
+            "expression": "not RetentionReviewEvent.objects.exists()"
+          },
+          {
+            "line": 57,
+            "expression": "review.version == 1 and review.last_reviewed_at is None"
+          },
+          {
+            "line": 90,
+            "expression": "review.version == 2 and review.next_review_on == payload['next_review_on']"
+          },
+          {
+            "line": 91,
+            "expression": "RetentionReviewEvent.objects.filter(review=review, operation='follow_up').count() == 1"
+          },
+          {
+            "line": 54,
+            "expression": "future.result(timeout=15) == 'denied'"
+          },
+          {
+            "line": 88,
+            "expression": "first.result(timeout=20) == second.result(timeout=20)"
+          },
+          {
+            "line": 33,
+            "expression": "actor.has_perm('safety.review_retention')"
+          },
+          {
+            "line": 87,
+            "expression": "not first.done() and (not second.done())"
+          }
+        ]
+      },
+      "tests/test_retention_calendar.py": {
+        "source_sha256": "234c165f6f2720b97f6829549ce8a8e13e3a45a8f5720233c27b82c1e81e19e9",
+        "source_matches_executed_run": {
+          "20261015-010758-a635c22e": true
+        },
+        "passed_calls": 2,
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_retention_calendar.py::test_calendar_bounds_loading_and_preserves_navigation_and_scope",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.25775479292497
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_retention_calendar.py::test_calendar_date_filters_and_cursor_expiry",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 2.3962995461188257
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 50,
+            "expression": "first.status_code == 200"
+          },
+          {
+            "line": 51,
+            "expression": "50 <= len(loaded) <= 100"
+          },
+          {
+            "line": 54,
+            "expression": "first_ids == expected[:50]"
+          },
+          {
+            "line": 55,
+            "expression": "not page.has_previous() and page.has_next()"
+          },
+          {
+            "line": 59,
+            "expression": "[row.pk for row in second_page] == expected[50:100]"
+          },
+          {
+            "line": 61,
+            "expression": "[row.pk for row in back.context['page']] == first_ids"
+          },
+          {
+            "line": 69,
+            "expression": "collected == expected"
+          },
+          {
+            "line": 70,
+            "expression": "client.get(path, {'cursor': second_page.previous_cursor + 'x'}).status_code == 400"
+          },
+          {
+            "line": 71,
+            "expression": "client.get(path, {'cursor': second_page.previous_cursor, 'attention': 'all'}).status_code == 400"
+          },
+          {
+            "line": 75,
+            "expression": "client.get(path, {'page': '2'}).status_code == 400"
+          },
+          {
+            "line": 79,
+            "expression": "hidden.status_code == 200 and len(hidden.context['page']) == 0"
+          },
+          {
+            "line": 80,
+            "expression": "b'calendar_fixture_' not in hidden.content"
+          },
+          {
+            "line": 102,
+            "expression": "all((row.next_review_on <= today for row in due))"
+          },
+          {
+            "line": 104,
+            "expression": "all((row.next_review_on <= today + timedelta(days=7) for row in soon))"
+          },
+          {
+            "line": 111,
+            "expression": "client.get(path, {'attention': 'all', 'cursor': foreign}).status_code == 400"
+          },
+          {
+            "line": 116,
+            "expression": "client.get(path, {'attention': 'all', 'cursor': all_page.next_cursor}).status_code == 400"
+          },
+          {
+            "line": 65,
+            "expression": "response.status_code == 200"
+          }
+        ]
+      },
+      "tests/test_retention_mobile.py": {
+        "source_sha256": "168fb0ab18fbd44cc28a2ead00baa582640ba4b4716738e2ed6ba4670fe8a532",
+        "source_matches_executed_run": {
+          "20261015-064606-07f98b78": true
+        },
+        "passed_calls": 2,
+        "reports": [
+          {
+            "run": "20261015-064606-07f98b78",
+            "nodeid": "tests/test_retention_mobile.py::test_mobile_independent_retention_followup[es]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 6.110011864453554
+          },
+          {
+            "run": "20261015-064606-07f98b78",
+            "nodeid": "tests/test_retention_mobile.py::test_mobile_independent_retention_followup[en]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 7.448492659255862
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 101,
+            "expression": "review.version == 2 and review.responsible_id == reviewer.pk"
+          },
+          {
+            "line": 102,
+            "expression": "RetentionReviewEvent.objects.filter(review=review, operation='follow_up').count() == 1"
+          },
+          {
+            "line": 103,
+            "expression": "(plan.encrypted_decisions, plan.review_on, case.version, case.initial_due_at) == original"
+          },
+          {
+            "line": 70,
+            "expression": "BASIS not in page.content()"
+          },
+          {
+            "line": 88,
+            "expression": "BASIS not in page.content() and reason not in page.content()"
+          },
+          {
+            "line": 95,
+            "expression": "page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')"
+          }
+        ]
+      },
+      "tests/test_retention_localization.py": {
+        "source_sha256": "1a3b1d79470934d06ef3988da58f01562949507ee5d1898b8e53362b6dfca4e7",
+        "source_matches_executed_run": {
+          "20261015-024508-162c33cd": true
+        },
+        "passed_calls": 2,
+        "reports": [
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_retention_localization.py::test_localized_retention_review_preserves_plan_authority_and_dates[es]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.430115913972259
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_retention_localization.py::test_localized_retention_review_preserves_plan_authority_and_dates[en]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 6.538714087102562
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 25,
+            "expression": "connection.vendor == 'postgresql'"
+          },
+          {
+            "line": 154,
+            "expression": "review.version == 2 and review.next_review_on == next_date and (review.initial_review_on == original[1])"
+          },
+          {
+            "line": 159,
+            "expression": "(plan.encrypted_decisions, plan.review_on, case.version, case.initial_due_at, subject.email, subject.session_version) == original"
+          },
+          {
+            "line": 167,
+            "expression": "RetentionReviewEvent.objects.count() == 2"
+          },
+          {
+            "line": 88,
+            "expression": "BASIS not in page.content()"
+          },
+          {
+            "line": 97,
+            "expression": "r.value.status == 400"
+          },
+          {
+            "line": 98,
+            "expression": "db_sync(lambda : RetentionReviewEvent.objects.count()) == 0"
+          },
+          {
+            "line": 106,
+            "expression": "r.value.status == 200"
+          },
+          {
+            "line": 119,
+            "expression": "r.value.status == 200"
+          },
+          {
+            "line": 126,
+            "expression": "page.request.post(url, form=stale | {'key': str(uuid4()), 'operation': 'follow_up', 'reason': REASON, 'next_review_on': next_date.isoformat()}).status == 409"
+          },
+          {
+            "line": 140,
+            "expression": "BASIS not in page.content() and REASON not in page.content()"
+          },
+          {
+            "line": 141,
+            "expression": "db_sync(lambda : list(RetentionReviewEvent.objects.order_by('pk').values_list('operation', flat=True))) == ['inspect', 'follow_up']"
+          },
+          {
+            "line": 147,
+            "expression": "page.goto(url).status == 403"
+          },
+          {
+            "line": 75,
+            "expression": "page.locator('[name=operation] option').evaluate_all('xs=>xs.map(e=>[e.value,e.textContent])') == [['inspect', 'Inspect purpose' if english else 'Consultar finalidad'], ['follow_up', 'Record review and follow-up' if english else 'Registrar revisión y seguimiento']]"
+          }
+        ]
+      },
+      "tests/test_rights_final_draft_retention.py": {
+        "source_sha256": "53e9e5b26457ac3f7a31ba67e70010473ce0392447802ec936c2abea487293f3",
+        "source_matches_executed_run": {
+          "20261015-010758-a635c22e": true
+        },
+        "passed_calls": 4,
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[unused]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 3.613415090367198
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[issued]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 4.5317716980353
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[legacy_issued]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.524092401843518
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_rights_final_draft_retention.py::test_unused_draft_cleanup_is_bounded_and_continues_on_next_run",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 4.9785565682686865
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 94,
+            "expression": "count == (1 if state == 'unused' else 0)"
+          },
+          {
+            "line": 95,
+            "expression": "(draft.payload_digest, draft.key, draft.expected_version) == original[1:]"
+          },
+          {
+            "line": 105,
+            "expression": "purge_expired_access_response_drafts() == 0"
+          },
+          {
+            "line": 141,
+            "expression": "purge_expired_access_response_drafts() == 100"
+          },
+          {
+            "line": 142,
+            "expression": "rows.filter(purged_at__isnull=False, encrypted_reason='').count() == 100"
+          },
+          {
+            "line": 143,
+            "expression": "rows.filter(purged_at__isnull=True).count() == 1"
+          },
+          {
+            "line": 144,
+            "expression": "purge_expired_access_response_drafts() == 1"
+          },
+          {
+            "line": 145,
+            "expression": "purge_expired_access_response_drafts() == 0"
+          },
+          {
+            "line": 146,
+            "expression": "rows.count() == 101"
+          },
+          {
+            "line": 97,
+            "expression": "draft.encrypted_reason == '' and draft.purged_at"
+          },
+          {
+            "line": 99,
+            "expression": "draft.encrypted_reason == original[0] and (not draft.purged_at)"
+          },
+          {
+            "line": 100,
+            "expression": "draft.final_response_id == response.pk"
+          },
+          {
+            "line": 101,
+            "expression": "issue(*arguments, approval.pk, key).pk == response.pk"
+          },
+          {
+            "line": 104,
+            "expression": "fresh.encrypted_reason and (not fresh.purged_at)"
+          }
+        ]
+      },
+      "tests/test_rights_export_retention.py": {
+        "source_sha256": "062cc0abe91b2ca7b6df8e2a5d20ce65bdb6907d3b5dd1b04287d3d33291b2bc",
+        "source_matches_executed_run": {
+          "20261015-024508-162c33cd": true
+        },
+        "passed_calls": 2,
+        "reports": [
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_rights_export_retention.py::test_expired_content_removed_without_deleting_source_or_audit",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 2.1820868849754333
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_rights_export_retention.py::test_locked_copy_skipped_then_purged_on_next_scan",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.9503894206136465
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 22,
+            "expression": "purge_expired_exports() == 0"
+          },
+          {
+            "line": 26,
+            "expression": "purge_expired_exports() == 1"
+          },
+          {
+            "line": 28,
+            "expression": "export.encrypted_payload == '' and export.purged_at is not None"
+          },
+          {
+            "line": 29,
+            "expression": "export.proof_id == original_proof and RightsAction.objects.filter(pk=export.action_id).exists()"
+          },
+          {
+            "line": 33,
+            "expression": "person.listing.revisions.count() == source_count"
+          },
+          {
+            "line": 35,
+            "expression": "purge_expired_exports() == 0"
+          },
+          {
+            "line": 37,
+            "expression": "export.purged_at == date"
+          },
+          {
+            "line": 40,
+            "expression": "client.post(url(receipt, export), {'key': uuid.uuid4()}).status_code == 404"
+          },
+          {
+            "line": 41,
+            "expression": "not client.get(receipt).context['exports']"
+          },
+          {
+            "line": 63,
+            "expression": "purge_expired_exports() == 1"
+          },
+          {
+            "line": 62,
+            "expression": "RightsExport.objects.get(pk=export.pk).encrypted_payload"
+          },
+          {
+            "line": 61,
+            "expression": "executor.submit(scan).result(timeout=10) == 0"
+          }
+        ]
+      }
+    },
+    "communications": {
+      "tests/test_notice_delivery.py": {
+        "source_sha256": "fe31785e9e21527004a15e03e8cd1361f59af38bd5b0c2ad23533e8e9817db9c",
+        "source_matches_executed_run": {
+          "20261015-081053-9720829d": true
+        },
+        "passed_calls": 6,
+        "reports": [
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_notice_delivery.py::test_due_outbox_exactly_once_private_receipt_and_production_disabled",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.714900012128055
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_notice_delivery.py::test_retry_backoff_dead_state_and_no_exception_details_persisted",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.538613229058683
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_notice_delivery.py::test_two_workers_claim_one_notice_without_duplicate_simulation",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.3020812422037125
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_notice_delivery.py::test_locked_notice_is_skipped_then_recovered_and_backend_disabled_is_inert",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.3972557531669736
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_notice_delivery.py::test_report_and_complaint_outboxes_share_bounded_processing_without_duplicates",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.5389647637493908
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_notice_delivery.py::test_mobile_receipt_status_changes_only_to_explicit_simulation",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 3.55502010602504
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 35,
+            "expression": "staff.post(path, data).status_code == 302"
+          },
+          {
+            "line": 42,
+            "expression": "process_outbox()['disabled']"
+          },
+          {
+            "line": 44,
+            "expression": "notice.status == 'queued' and notice.attempts == 0"
+          },
+          {
+            "line": 47,
+            "expression": "result['simulated'] == 1 and result['processed'] == 1"
+          },
+          {
+            "line": 48,
+            "expression": "process_outbox()['processed'] == 0"
+          },
+          {
+            "line": 50,
+            "expression": "notice.attempts == 1 and notice.simulated_at"
+          },
+          {
+            "line": 51,
+            "expression": "SimulatedComplaintNoticeDelivery.objects.count() == 1"
+          },
+          {
+            "line": 53,
+            "expression": "b'Simulated notice; no real delivery' in body"
+          },
+          {
+            "line": 54,
+            "expression": "b'own-channel@example.invalid' not in body"
+          },
+          {
+            "line": 83,
+            "expression": "process_outbox()['processed'] == 0"
+          },
+          {
+            "line": 84,
+            "expression": "'SECRET BODY' not in caplog.text"
+          },
+          {
+            "line": 85,
+            "expression": "b'Notification attempt failed' in Client().get(receipt).content"
+          },
+          {
+            "line": 103,
+            "expression": "SimulatedComplaintNoticeDelivery.objects.count() == 1"
+          },
+          {
+            "line": 104,
+            "expression": "ComplaintNotice.objects.get().attempts == 1"
+          },
+          {
+            "line": 122,
+            "expression": "process_outbox()['disabled']"
+          },
+          {
+            "line": 124,
+            "expression": "notice.attempts == 0"
+          },
+          {
+            "line": 126,
+            "expression": "process_outbox()['simulated'] == 1"
+          },
+          {
+            "line": 136,
+            "expression": "staff.post(path, data).status_code == 302"
+          },
+          {
+            "line": 142,
+            "expression": "staff.post(path, data).status_code == 302"
+          },
+          {
+            "line": 143,
+            "expression": "ReportNotice.objects.count() == 2"
+          },
+          {
+            "line": 145,
+            "expression": "first['processed'] == 2 and first['simulated'] == 2"
+          },
+          {
+            "line": 146,
+            "expression": "SimulatedComplaintNoticeDelivery.objects.count() == 1"
+          },
+          {
+            "line": 147,
+            "expression": "SimulatedNoticeDelivery.objects.count() == 1"
+          },
+          {
+            "line": 148,
+            "expression": "process_outbox()['simulated'] == 1"
+          },
+          {
+            "line": 149,
+            "expression": "process_outbox()['processed'] == 0"
+          },
+          {
+            "line": 150,
+            "expression": "list(ReportNotice.objects.values_list('attempts', flat=True)) == [1, 1]"
+          },
+          {
+            "line": 71,
+            "expression": "notice.attempts == attempt and notice.error_code == 'adapter_failure'"
+          },
+          {
+            "line": 72,
+            "expression": "not SimulatedComplaintNoticeDelivery.objects.exists()"
+          },
+          {
+            "line": 102,
+            "expression": "sum((job.result()['simulated'] for job in jobs)) == 1"
+          },
+          {
+            "line": 74,
+            "expression": "result['retry'] == 1 and notice.next_attempt_at >= before + timedelta(seconds=60 * 2 ** (attempt - 1))"
+          },
+          {
+            "line": 77,
+            "expression": "process_outbox()['processed'] == 0"
+          },
+          {
+            "line": 82,
+            "expression": "result['failed'] == 1 and notice.next_attempt_at is None"
+          },
+          {
+            "line": 120,
+            "expression": "executor.submit(worker).result(timeout=10)['processed'] == 0"
+          },
+          {
+            "line": 183,
+            "expression": "'own-channel@example.invalid' not in page.content()"
+          },
+          {
+            "line": 178,
+            "expression": "executor.submit(worker).result(timeout=10)['simulated'] == 1"
+          }
+        ]
+      },
+      "tests/test_notice_operations.py": {
+        "source_sha256": "b599d4b3dd886647b45871b87b5777ca925856134599ca0fb0fe8fc0f6f58974",
+        "source_matches_executed_run": {
+          "20261015-010758-a635c22e": true
+        },
+        "passed_calls": 7,
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_notice_operations.py::test_recovery_preserves_history_replays_and_case_decision",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.207491401117295
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_notice_operations.py::test_permission_mfa_expiry_and_conflict_are_revalidated",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.9971098401583731
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_notice_operations.py::test_complaint_recovery_requires_own_scope_and_preserves_resolution",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.4881398458965123
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_notice_operations.py::test_two_connections_recover_only_once",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.9414471872150898
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_notice_operations.py::test_mobile_queue_recovery_and_reload",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 4.1900976579636335
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_notice_operations.py::test_scoped_pagination_invalid_identifiers_and_global_key_conflict",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.1879228218458593
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_notice_operations.py::test_complete_recovery_history_and_csrf_input_guards",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.547664100304246
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 59,
+            "expression": "response.status_code == 200 and response['Cache-Control'] == 'private, no-store'"
+          },
+          {
+            "line": 60,
+            "expression": "b'private@example.invalid' not in response.content"
+          },
+          {
+            "line": 62,
+            "expression": "staff.post(path, first).status_code == 302"
+          },
+          {
+            "line": 64,
+            "expression": "(notice.status, notice.attempts, notice.recovery_version) == ('queued', 0, 1)"
+          },
+          {
+            "line": 66,
+            "expression": "action.previous_attempts == 5 and unseal(action.encrypted_reason)['reason'] == first['reason']"
+          },
+          {
+            "line": 70,
+            "expression": "first['reason'] not in action.encrypted_reason"
+          },
+          {
+            "line": 71,
+            "expression": "notice.report.status == 'received' and notice.report.version == 1"
+          },
+          {
+            "line": 72,
+            "expression": "staff.post(path, first).status_code == 302"
+          },
+          {
+            "line": 73,
+            "expression": "NoticeRecovery.objects.count() == 1"
+          },
+          {
+            "line": 75,
+            "expression": "process_outbox()['simulated'] == 1"
+          },
+          {
+            "line": 78,
+            "expression": "staff.post(path, first).status_code == 302"
+          },
+          {
+            "line": 80,
+            "expression": "notice.status == 'failed' and notice.attempts == 5"
+          },
+          {
+            "line": 81,
+            "expression": "staff.post(path, data()).status_code == 409"
+          },
+          {
+            "line": 82,
+            "expression": "staff.post(path, data(1)).status_code == 302"
+          },
+          {
+            "line": 83,
+            "expression": "NoticeRecovery.objects.count() == 2"
+          },
+          {
+            "line": 89,
+            "expression": "Client().post(path, data()).status_code == 302"
+          },
+          {
+            "line": 91,
+            "expression": "staff.get(path).status_code == 403"
+          },
+          {
+            "line": 96,
+            "expression": "staff.post(path, data()).status_code == 302"
+          },
+          {
+            "line": 102,
+            "expression": "staff.post(path, data()).status_code == 409"
+          },
+          {
+            "line": 103,
+            "expression": "not NoticeRecovery.objects.exists()"
+          },
+          {
+            "line": 106,
+            "expression": "staff.get(path).status_code == 403"
+          },
+          {
+            "line": 107,
+            "expression": "not staff.get('/en/moderation/notices/').context['items']"
+          },
+          {
+            "line": 123,
+            "expression": "staff.get(path).status_code == 200"
+          },
+          {
+            "line": 124,
+            "expression": "staff.post(path, data()).status_code == 302"
+          },
+          {
+            "line": 125,
+            "expression": "NoticeRecovery.objects.get().complaint_notice_id == notice.pk"
+          },
+          {
+            "line": 127,
+            "expression": "notice.resolution.complaint.status == 'resolved'"
+          },
+          {
+            "line": 128,
+            "expression": "b'Notification delivery not confirmed' in Client().get(receipt).content"
+          },
+          {
+            "line": 131,
+            "expression": "staff.post(path, data(1)).status_code == 403"
+          },
+          {
+            "line": 132,
+            "expression": "not staff.get('/en/moderation/notices/?kind=complaint').context['items']"
+          },
+          {
+            "line": 155,
+            "expression": "NoticeRecovery.objects.count() == 1"
+          },
+          {
+            "line": 157,
+            "expression": "notice.recovery_version == 1 and notice.attempts == 0"
+          },
+          {
+            "line": 204,
+            "expression": "len(response.context['items']) == 50 and response.context['cursor']"
+          },
+          {
+            "line": 207,
+            "expression": "len(tail.context['items']) == 2 and (not tail.context['cursor'])"
+          },
+          {
+            "line": 208,
+            "expression": "all((item['notice'].pk > cursor for item in tail.context['items']))"
+          },
+          {
+            "line": 212,
+            "expression": "response.status_code == 404 and response['X-Robots-Tag'] == 'noindex, nofollow'"
+          },
+          {
+            "line": 213,
+            "expression": "staff.put('/en/moderation/notices/').status_code == 405"
+          },
+          {
+            "line": 222,
+            "expression": "other.status == 'failed' and other.recovery_version == 0"
+          },
+          {
+            "line": 223,
+            "expression": "NoticeRecovery.objects.count() == 1"
+          },
+          {
+            "line": 225,
+            "expression": "malformed.status_code == 400 and NoticeRecovery.objects.count() == 1"
+          },
+          {
+            "line": 236,
+            "expression": "csrf.post(path, data()).status_code == 403"
+          },
+          {
+            "line": 237,
+            "expression": "not NoticeRecovery.objects.exists()"
+          },
+          {
+            "line": 238,
+            "expression": "staff.post(path, data() | {'reason': 'bad'}).status_code == 400"
+          },
+          {
+            "line": 239,
+            "expression": "not NoticeRecovery.objects.exists()"
+          },
+          {
+            "line": 245,
+            "expression": "len(page.context['history']) == 50 and page.context['history_cursor']"
+          },
+          {
+            "line": 247,
+            "expression": "len(tail.context['history']) == 2 and (not tail.context['history_cursor'])"
+          },
+          {
+            "line": 248,
+            "expression": "{item.pk for item in page.context['history']}.isdisjoint({item.pk for item in tail.context['history']})"
+          },
+          {
+            "line": 251,
+            "expression": "b'Synthetic operational repair reviewed' not in page.content"
+          },
+          {
+            "line": 252,
+            "expression": "staff.get(path + '?before=0').status_code == 400"
+          },
+          {
+            "line": 254,
+            "expression": "staff.get(path).status_code == 403"
+          },
+          {
+            "line": 255,
+            "expression": "not staff.get('/en/moderation/notices/').context['items']"
+          },
+          {
+            "line": 112,
+            "expression": "response.status_code == 404 and response['Cache-Control'] == 'private, no-store'"
+          },
+          {
+            "line": 154,
+            "expression": "sorted((f.result(timeout=20) for f in futures)) == ['conflict', 'recovered']"
+          },
+          {
+            "line": 210,
+            "expression": "staff.get('/en/moderation/notices/?' + query).status_code == 400"
+          },
+          {
+            "line": 186,
+            "expression": "'private@example.invalid' not in page.content()"
+          },
+          {
+            "line": 187,
+            "expression": "'Synthetic failure investigated' not in page.content()"
+          }
+        ]
+      },
+      "tests/test_rights_notice_inventory.py": {
+        "source_sha256": "347d894929baf4839779777562b33102ca70a6a6eb07ec45925b54830c9cad3d",
+        "source_matches_executed_run": {
+          "20261015-024508-162c33cd": true
+        },
+        "passed_calls": 2,
+        "reports": [
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_rights_notice_inventory.py::test_census_includes_owned_notice_evidence_and_opaque_changes_only[profile]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 8.32697489624843
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_rights_notice_inventory.py::test_census_includes_owned_notice_evidence_and_opaque_changes_only[account]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 7.29298194590956
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 96,
+            "expression": "initial['count'] == 2"
+          },
+          {
+            "line": 98,
+            "expression": "access['count'] == 1"
+          },
+          {
+            "line": 99,
+            "expression": "'Synthetic private notice' not in str(access)"
+          },
+          {
+            "line": 100,
+            "expression": "own.encrypted_payload not in str(access)"
+          },
+          {
+            "line": 102,
+            "expression": "{'encrypted_payload', 'acknowledged_action_id', 'acknowledged_read_id'} <= set(fields)"
+          },
+          {
+            "line": 106,
+            "expression": "changed['count'] == 1 and changed['digest'] != access['digest']"
+          },
+          {
+            "line": 109,
+            "expression": "inventory(case, access=True) == changed"
+          },
+          {
+            "line": 112,
+            "expression": "inventory(case, access=True) == changed"
+          },
+          {
+            "line": 115,
+            "expression": "inventory(case)['count'] == 1"
+          }
+        ]
+      },
+      "tests/test_rights_communications_localization.py": {
+        "source_sha256": "906e885701f1da4b287e69b329f4d3875844cf5c43dfb4d036a0cf97c59ee917",
+        "source_matches_executed_run": {
+          "20261015-010758-a635c22e": true
+        },
+        "passed_calls": 2,
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_rights_communications_localization.py::test_operation_requirements_and_legacy[es]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.0045449379831552505
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "nodeid": "tests/test_rights_communications_localization.py::test_operation_requirements_and_legacy[en]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.011835601180791855
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 57,
+            "expression": "form.is_valid()"
+          },
+          {
+            "line": 58,
+            "expression": "form.cleaned_data['purpose'] == values['purpose']"
+          },
+          {
+            "line": 59,
+            "expression": "form.fields['notice'].label == ('Notice' if language == 'en' else 'Notificación')"
+          },
+          {
+            "line": 50,
+            "expression": "not form.is_valid()"
+          },
+          {
+            "line": 51,
+            "expression": "set(form.errors) == set(required)"
+          },
+          {
+            "line": 52,
+            "expression": "all((errors == [labels[2]] for errors in form.errors.values()))"
+          },
+          {
+            "line": 53,
+            "expression": "form.fields['operation'].label == labels[0]"
+          },
+          {
+            "line": 54,
+            "expression": "form.fields['outcome'].label == labels[1]"
+          },
+          {
+            "line": 62,
+            "expression": "not invalid.is_valid()"
+          },
+          {
+            "line": 63,
+            "expression": "invalid.errors[field] == [labels[2]]"
+          },
+          {
+            "line": 67,
+            "expression": "legacy.fields[name].label == field.label"
+          },
+          {
+            "line": 69,
+            "expression": "list(legacy.fields[name].choices) == list(field.choices)"
+          }
+        ]
+      },
+      "tests/test_rights_response_acknowledgement.py": {
+        "source_sha256": "e899e4fd33ef83bbb4d21ea851331fbf50a3e121e9feaf7529fb63bc519ca069",
+        "source_matches_executed_run": {
+          "20261015-024508-162c33cd": true
+        },
+        "passed_calls": 4,
+        "reports": [
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_rights_response_acknowledgement.py::test_explicit_receipt_is_private_idempotent_and_changes_no_authorization",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.617300362791866
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_rights_response_acknowledgement.py::test_invalid_or_expired_receipt_and_foreign_response_cannot_acknowledge",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.7659924048930407
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_rights_response_acknowledgement.py::test_two_postgresql_connections_keep_one_receipt_record",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.6469198539853096
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_rights_response_acknowledgement.py::test_mobile_receipt_confirmation_persists_without_account",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 4.441615661140531
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 45,
+            "expression": "client.get(receipt).status_code == 200"
+          },
+          {
+            "line": 46,
+            "expression": "not RightsResponseAcknowledgement.objects.exists()"
+          },
+          {
+            "line": 47,
+            "expression": "client.get(path).status_code == 405"
+          },
+          {
+            "line": 48,
+            "expression": "client.post(path, {}).status_code == 400"
+          },
+          {
+            "line": 49,
+            "expression": "not RightsResponseAcknowledgement.objects.exists()"
+          },
+          {
+            "line": 50,
+            "expression": "client.post(path, {'received': 'yes'}).status_code == 302"
+          },
+          {
+            "line": 53,
+            "expression": "ack.channel_digest == case.receipt_digest"
+          },
+          {
+            "line": 54,
+            "expression": "client.post(path, {'received': 'yes'}).status_code == 302"
+          },
+          {
+            "line": 56,
+            "expression": "(ack.pk, ack.created_at, ack.channel_digest) == initial"
+          },
+          {
+            "line": 58,
+            "expression": "body['Cache-Control'] == 'private, no-store' and body['X-Robots-Tag'] == 'noindex, nofollow'"
+          },
+          {
+            "line": 61,
+            "expression": "b'Receipt recorded' in body.content"
+          },
+          {
+            "line": 62,
+            "expression": "b'Record response receipt' not in body.content"
+          },
+          {
+            "line": 64,
+            "expression": "(case.version, case.response_version, case.status, case.scope_status, case.received_at, case.initial_due_at) == original"
+          },
+          {
+            "line": 72,
+            "expression": "response.rightsnotice.status == 'queued'"
+          },
+          {
+            "line": 80,
+            "expression": "client.post(path.replace(secret, 'x' * 43), {'received': 'yes'}).status_code == 404"
+          },
+          {
+            "line": 81,
+            "expression": "client.post(path.replace(f'/response/{response.pk}/', f'/response/{response.pk + 1}/'), {'received': 'yes'}).status_code == 404"
+          },
+          {
+            "line": 88,
+            "expression": "Client(enforce_csrf_checks=True).post(path, {'received': 'yes'}).status_code == 403"
+          },
+          {
+            "line": 91,
+            "expression": "client.post(path, {'received': 'yes'}).status_code == 404"
+          },
+          {
+            "line": 92,
+            "expression": "not RightsResponseAcknowledgement.objects.exists()"
+          },
+          {
+            "line": 110,
+            "expression": "RightsResponseAcknowledgement.objects.count() == 1"
+          },
+          {
+            "line": 135,
+            "expression": "RightsResponseAcknowledgement.objects.count() == 1"
+          },
+          {
+            "line": 109,
+            "expression": "[job.result(timeout=30) for job in jobs] == [302, 302]"
+          },
+          {
+            "line": 130,
+            "expression": "page.get_by_role('button', name='Record response receipt', exact=True).count() == 0"
+          }
+        ]
+      },
+      "tests/test_rights_communications.py": {
+        "source_sha256": "2994c96e3351eb1d293c82b1f30e163b0a5e37a720ae61e7dd9a1aa056278225",
+        "source_matches_executed_run": {
+          "20261015-081053-9720829d": true
+        },
+        "passed_calls": 6,
+        "reports": [
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[erase]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 11.73675285000354
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[restriction]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 9.28211766993627
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[object]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 10.410542964935303
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_rights_communications.py::test_same_execution_delivery_serializes_and_old_authority_cannot_read",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 5.088995849248022
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_rights_communications.py::test_agency_own_account_notice_does_not_include_owned_models",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 2.7847680202685297
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "nodeid": "tests/test_rights_communications.py::test_mobile_recipient_assessment_source_is_audited_in_both_languages",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 10.416502289939672
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 83,
+            "expression": "source['kind'] == kind and source['complete'] is False"
+          },
+          {
+            "line": 84,
+            "expression": "not source['manager_notices'] and source['pending']"
+          },
+          {
+            "line": 118,
+            "expression": "inspected_source == source and source_audit.operation == 'rights_comms_source'"
+          },
+          {
+            "line": 123,
+            "expression": "communications.propose(actor, *common, execution.pk, key, 'Assess recipients of the executed right', decisions).pk == proposal.pk"
+          },
+          {
+            "line": 149,
+            "expression": "body['decisions'] == decisions"
+          },
+          {
+            "line": 154,
+            "expression": "communications.review(reviewer, *common, proposal.pk, audit.pk, review_key, 'approved', REASON).pk == accepted.pk"
+          },
+          {
+            "line": 160,
+            "expression": "original_checked(accepted.encrypted_reason)['pending'] is True"
+          },
+          {
+            "line": 162,
+            "expression": "reviewer.has_perm('safety.review_recipient_assessment')"
+          },
+          {
+            "line": 169,
+            "expression": "case.status == 'reviewing' and case.version == common[1]"
+          },
+          {
+            "line": 172,
+            "expression": "staff.get(path).status_code == 200"
+          },
+          {
+            "line": 173,
+            "expression": "b'Read exact recipient' not in staff.get(path).content"
+          },
+          {
+            "line": 174,
+            "expression": "Client(enforce_csrf_checks=True).post(path).status_code == 403"
+          },
+          {
+            "line": 185,
+            "expression": "accessed.status_code == 200 and accessed.context['decisions']"
+          },
+          {
+            "line": 201,
+            "expression": "posted.status_code == 302"
+          },
+          {
+            "line": 212,
+            "expression": "seen.status_code == 200 and seen.context['inspected']['decisions'] == decisions"
+          },
+          {
+            "line": 213,
+            "expression": "other.get(path).context['inspected'] is None"
+          },
+          {
+            "line": 226,
+            "expression": "recorded.status_code == 302"
+          },
+          {
+            "line": 249,
+            "expression": "sent.status_code == 302"
+          },
+          {
+            "line": 252,
+            "expression": "notices.count() == len(body['source']['notice_targets'])"
+          },
+          {
+            "line": 253,
+            "expression": "delivery.operation == 'rights_comms_deliver'"
+          },
+          {
+            "line": 269,
+            "expression": "receiving.get(inbox).status_code == 200"
+          },
+          {
+            "line": 270,
+            "expression": "receiving.get(inbox).context['payload'] is None"
+          },
+          {
+            "line": 283,
+            "expression": "inspected_notice.status_code == 200"
+          },
+          {
+            "line": 284,
+            "expression": "inspected_notice.context['payload']['kind'] == kind"
+          },
+          {
+            "line": 285,
+            "expression": "set(inspected_notice.context['payload']) == {'schema', 'kind', 'execution', 'purposes', 'simulation', 'complete'}"
+          },
+          {
+            "line": 294,
+            "expression": "receiving.post(inbox, {'operation': 'ack', 'notice': notice.pk, 'read': notice_read}).status_code == 302"
+          },
+          {
+            "line": 306,
+            "expression": "acknowledged.acknowledged_at and acknowledged.acknowledged_action_id"
+          },
+          {
+            "line": 307,
+            "expression": "RightsAction.objects.filter(request=case, operation='rights_notice_ack').count() == 1"
+          },
+          {
+            "line": 308,
+            "expression": "deliver(actor, *common, approval.pk, delivery_key).pk == delivery.pk"
+          },
+          {
+            "line": 353,
+            "expression": "summary['state'] == 'reviewed_partial' and summary['acknowledged'] == 1"
+          },
+          {
+            "line": 354,
+            "expression": "summary['outcomes']['communicated'] >= 1 and summary['pending'] is True"
+          },
+          {
+            "line": 360,
+            "expression": "backend.issue(actor, *common, final_review.pk, response_key).pk == response.pk"
+          },
+          {
+            "line": 362,
+            "expression": "set(projected) == {'state', 'pending', 'outcomes', 'delivered', 'acknowledged'}"
+          },
+          {
+            "line": 363,
+            "expression": "projected['acknowledged'] == 1 and projected['pending'] is True"
+          },
+          {
+            "line": 365,
+            "expression": "case.status == 'reviewing'"
+          },
+          {
+            "line": 435,
+            "expression": "results[0] == results[1]"
+          },
+          {
+            "line": 436,
+            "expression": "RightsAction.objects.filter(request=case, operation='rights_comms_deliver').count() == 1"
+          },
+          {
+            "line": 437,
+            "expression": "RightsRecipientNotice.objects.filter(request=case).count() == len(source['notice_targets'])"
+          },
+          {
+            "line": 451,
+            "expression": "RightsAction.objects.filter(request=case, operation='rights_notice_read').count() == before"
+          },
+          {
+            "line": 475,
+            "expression": "source['person'] is None and source['account_subject'] == str(subject.pk)"
+          },
+          {
+            "line": 476,
+            "expression": "source['notice_targets'] == [{'recipient': str(subject.pk), 'authorization_version': 'account'}]"
+          },
+          {
+            "line": 479,
+            "expression": "all((candidate['kind'] == 'account' for candidate in source['candidates']))"
+          },
+          {
+            "line": 480,
+            "expression": "all((evidence['basis'] not in {'representation_history', 'submission_actor', 'publishing_acceptance'} for candidate in source['candidates'] for evidence in candidate['evidence']))"
+          },
+          {
+            "line": 140,
+            "expression": "RightsAction.objects.filter(request=case, actor=reviewer, operation='rights_comms_read').exists()"
+          },
+          {
+            "line": 532,
+            "expression": "page.locator('fieldset').count() == 0"
+          },
+          {
+            "line": 539,
+            "expression": "negative.value.status == 400"
+          },
+          {
+            "line": 544,
+            "expression": "page.locator('fieldset').count() == 0"
+          },
+          {
+            "line": 550,
+            "expression": "page.locator('fieldset').count() >= 5"
+          },
+          {
+            "line": 552,
+            "expression": "page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')"
+          },
+          {
+            "line": 554,
+            "expression": "page.locator('fieldset').count() == 0"
+          },
+          {
+            "line": 561,
+            "expression": "page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')"
+          }
+        ]
+      }
+    },
+    "restore": {
+      "tests/test_recovery_pg_restore.py": {
+        "source_sha256": "eb9f641b1e215b7578e958519d9b96be0bebabc68ec9afacf6e2d368f7cb0e73",
+        "source_matches_executed_run": {
+          "20261015-024508-162c33cd": true
+        },
+        "passed_calls": 1,
+        "reports": [
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_recovery_pg_restore.py::test_old_pg_dump_and_media_cannot_reintroduce_erased_data",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 9.733356293756515
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 58,
+            "expression": "shutil.which(tool)"
+          },
+          {
+            "line": 192,
+            "expression": "source_database.startswith('test_')"
+          },
+          {
+            "line": 193,
+            "expression": "AccountToken.objects.filter(user=subject).exists()"
+          },
+          {
+            "line": 208,
+            "expression": "media_inventory(backup_media) == media_manifest"
+          },
+          {
+            "line": 223,
+            "expression": "export_batch(store) == 1"
+          },
+          {
+            "line": 224,
+            "expression": "erase_due_media() >= 1"
+          },
+          {
+            "line": 228,
+            "expression": "media_inventory(restored_media) == media_manifest"
+          },
+          {
+            "line": 54,
+            "expression": "re.fullmatch('web-modelos-ci-pg-\\\\d{8}-\\\\d{6}-[0-9a-f]{8}', container)"
+          },
+          {
+            "line": 56,
+            "expression": "mapped == f\"{db['HOST']}:{db['PORT']}\""
+          },
+          {
+            "line": 292,
+            "expression": "result.returncode == 0"
+          },
+          {
+            "line": 294,
+            "expression": "proof['real_restore'] and (not proof['publication_authorized'])"
+          },
+          {
+            "line": 295,
+            "expression": "proof['independent_authority_verified']"
+          },
+          {
+            "line": 296,
+            "expression": "proof['wrong_authority_rejected_without_effects']"
+          },
+          {
+            "line": 311,
+            "expression": "hashlib.sha256(backup.read_bytes()).hexdigest() == backup_sha256"
+          },
+          {
+            "line": 312,
+            "expression": "proof['restore_and_reconcile_seconds'] <= 28800"
+          },
+          {
+            "line": 313,
+            "expression": "proof['backup_age_upper_bound_seconds'] <= 3600"
+          },
+          {
+            "line": 319,
+            "expression": "not admin.execute('SELECT 1 FROM pg_database WHERE datname=%s', (database,)).fetchone()"
+          }
+        ]
+      }
+    },
+    "urgent": {
+      "tests/test_urgent_report_drill.py": {
+        "source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69",
+        "source_matches_executed_run": {
+          "20261015-024508-162c33cd": true
+        },
+        "passed_calls": 14,
+        "reports": [
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[es]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.9204821060411632
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[en]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 1.759049640968442
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-permission]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.703971927985549
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-session]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.7612134250812232
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-mfa]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.775125659070909
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-active]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.6573565667495131
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-permission]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.7123312712647021
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-session]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.7364239227026701
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-mfa]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.7113253390416503
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-active]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.8015304813161492
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-permission]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.6564613357186317
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-session]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.6568533242680132
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-mfa]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.8206102456897497
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-active]",
+            "when": "call",
+            "outcome": "passed",
+            "duration": 0.7477931082248688
+          }
+        ],
+        "nonpassing": [],
+        "source_assertions": [
+          {
+            "line": 56,
+            "expression": "report.priority == 0"
+          },
+          {
+            "line": 57,
+            "expression": "staff.post(alert_path, {'report_id': report.pk}).status_code == 302"
+          },
+          {
+            "line": 61,
+            "expression": "report.status == 'received' and report.assigned_to_id is None"
+          },
+          {
+            "line": 62,
+            "expression": "not ReportAccess.objects.filter(report=report).exists()"
+          },
+          {
+            "line": 63,
+            "expression": "report.pk in followed(staff)"
+          },
+          {
+            "line": 64,
+            "expression": "operate(staff, 'claim')[2].status_code == 302"
+          },
+          {
+            "line": 67,
+            "expression": "report.assigned_to_id == primary.pk and report.status == 'reviewing'"
+          },
+          {
+            "line": 70,
+            "expression": "staff.get(inspect_path).status_code == 403"
+          },
+          {
+            "line": 71,
+            "expression": "staff.post(inspect_path, {'purpose': 'Revoked primary must not inspect evidence'}).status_code == 403"
+          },
+          {
+            "line": 77,
+            "expression": "other.get(alert_path).status_code == 200"
+          },
+          {
+            "line": 79,
+            "expression": "operate(other, 'unassign')[2].status_code == 403"
+          },
+          {
+            "line": 80,
+            "expression": "ReportAction.objects.filter(report=report).count() == before"
+          },
+          {
+            "line": 82,
+            "expression": "operate(other, 'unassign')[2].status_code == 302"
+          },
+          {
+            "line": 85,
+            "expression": "report.status == 'received' and report.assigned_to_id is None"
+          },
+          {
+            "line": 86,
+            "expression": "report.pk in followed(other)"
+          },
+          {
+            "line": 87,
+            "expression": "operate(other, 'claim')[2].status_code == 302"
+          },
+          {
+            "line": 90,
+            "expression": "report.assigned_to_id == substitute.pk"
+          },
+          {
+            "line": 91,
+            "expression": "operate(other, 'dismiss')[2].status_code == 409"
+          },
+          {
+            "line": 92,
+            "expression": "not ReportAccess.objects.filter(report=report, actor=substitute).exists()"
+          },
+          {
+            "line": 93,
+            "expression": "other.post(inspect_path, {'purpose': 'Review synthetic urgent evidence before substitute decision'}).status_code == 200"
+          },
+          {
+            "line": 100,
+            "expression": "ReportAccess.objects.filter(report=report, actor=substitute, case_version=report.version).exists()"
+          },
+          {
+            "line": 104,
+            "expression": "response.status_code == 302"
+          },
+          {
+            "line": 107,
+            "expression": "report.status == 'dismissed' and report.assigned_to_id == substitute.pk"
+          },
+          {
+            "line": 109,
+            "expression": "other.post(path, values).status_code == 302"
+          },
+          {
+            "line": 111,
+            "expression": "report.version == version"
+          },
+          {
+            "line": 112,
+            "expression": "ReportAction.objects.filter(report=report).count() == 4"
+          },
+          {
+            "line": 113,
+            "expression": "report.pk not in followed(other)"
+          },
+          {
+            "line": 115,
+            "expression": "(final_ack.acknowledged_by_id, final_ack.acknowledged_at) == (primary.pk, original_ack.acknowledged_at)"
+          },
+          {
+            "line": 120,
+            "expression": "notices.count() == 2 and set(notices.values_list('status', flat=True)) == {'queued'}"
+          },
+          {
+            "line": 128,
+            "expression": "0 <= seconds <= 300"
+          },
+          {
+            "line": 186,
+            "expression": "changed"
+          },
+          {
+            "line": 187,
+            "expression": "ReportAction.objects.filter(report=report).count() == before"
+          },
+          {
+            "line": 189,
+            "expression": "report.status == ('reviewing' if replay else 'received')"
+          },
+          {
+            "line": 51,
+            "expression": "response.status_code == 200"
+          },
+          {
+            "line": 52,
+            "expression": "response['Cache-Control'] == 'private, no-store'"
+          },
+          {
+            "line": 53,
+            "expression": "b'private@example.invalid' not in response.content"
+          },
+          {
+            "line": 122,
+            "expression": "unseal(notice.encrypted_payload)['recipient'] == 'private@example.invalid'"
+          },
+          {
+            "line": 123,
+            "expression": "values['reason'] not in unseal(notice.encrypted_payload)['body']"
+          }
+        ]
+      }
+    }
+  },
+  "scope": "Selected local mechanisms now linked to actual common-v3 call journals and exact unchanged test sources. Assertions indexed for review; counts or source assertions alone do not prove criterion completeness. All four original terminal results and exclusions retained. Test-only later navigation change remains separate.",
+  "remaining": [
+    "Compare per-purpose exceptions/backups and actual purge scheduling coverage; refresh wiring does not establish all purge tasks.",
+    "Complete per-right communications correspondence and required channel limitations.",
+    "Full common N3 and directory SLO remain open; no acceptance from partitions.",
+    "Necessary historical source association/content decisions still require resolution."
+  ],
+  "acceptance": false
+}
