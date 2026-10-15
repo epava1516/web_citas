@@ -1,0 +1,13 @@
+{
+  "run_id": "20261015-200612-84c1b59a",
+  "unit": "cr09-select-only-http-20261015.service",
+  "head": "0ab41bf",
+  "status": "running",
+  "prerequisites": "Utility defect reproduced1FAIL; corrected21PASS218.72s including realnestedSQLerror/planningrestore/projectioncycle/72requestCPU. Source/cleanup independently verified.",
+  "product_delta": "_PageReadCursor prepares textual SELECTs only; other commands execute withprepareFalse, samefactory/threshold/GUC/params/widefallback. No genericplanpolicy applied.",
+  "baseline": "194053-34109fbe cleanp95.897765506FAIL",
+  "cpu_note": "SelectedfamilyCPUmean36.111ms vs33.889 prior beforeeagerauto; changedversion/runcontext,cold/fixtureorder differ, notcausal/improvementclaim. Retain boundedcachecorrection justified by24uselessutilityplans\u21920; cleanrun decidesp95.",
+  "profile": "Same ownbounded PG1CPU/controller4core/Redis.2CPU/4sync20rps60s10k/normalworkerBeat/1upload/generatorfreeze. No observers/profilers/pgtracker.",
+  "decision_rule": "Singlecandidatecleanrun; ifPASS repeatunchangedonce. IfFAIL preserve anddiagnose separately,no speculativesweeps. Not15min/N3.",
+  "acceptance": false
+}
