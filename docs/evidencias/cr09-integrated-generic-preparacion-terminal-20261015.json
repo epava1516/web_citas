@@ -1,0 +1,91 @@
+{
+  "run_id": "20261015-201228-c483dd66",
+  "result": "Interrupted preparation after8PASS scope controls, no measured CPU arms completed",
+  "runner": {
+    "id": "20261015-201228-c483dd66",
+    "pid": 2145290,
+    "start_ticks": 381575747,
+    "command": [
+      "artifacts/vps-preparation/cr09-private-guard-20261015/run.py",
+      "--profile",
+      "focused",
+      "--test",
+      "tests/test_publication_page_planning_scope.py",
+      "--test",
+      "tests/test_owned_cold_prepared_cpu.py::test_owned_cold_prepared_cpu[hydration_generic]",
+      "--native-source",
+      "/tmp/web-modelos-librdb-v2.4.0",
+      "--workers",
+      "1",
+      "--timeout",
+      "900"
+    ],
+    "head": "cdc428f6cd5f6ecab9927d5be630fd1bf3804df1",
+    "containers": [
+      "web-modelos-ci-pg-20261015-201228-c483dd66",
+      "web-modelos-ci-redis-20261015-201228-c483dd66"
+    ],
+    "label": "web-modelos-local-ci-run=20261015-201228-c483dd66",
+    "temporary": "/tmp/web-modelos-local-ci-uaslb99a",
+    "child": {
+      "pid": 2147691,
+      "start_ticks": 381577543,
+      "step": "pytest"
+    }
+  },
+  "source_freeze_verified": true,
+  "cleanup_verified": true,
+  "tests": [
+    {
+      "nodeid": "tests/test_publication_page_planning_scope.py::test_page_planning_policy_restores_enclosing_transaction[False]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 5.36793577298522
+    },
+    {
+      "nodeid": "tests/test_publication_page_planning_scope.py::test_page_planning_policy_restores_enclosing_transaction[True]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 5.091451894957572
+    },
+    {
+      "nodeid": "tests/test_publication_page_planning_scope.py::test_explicit_generic_scope_restores_custom_policy_and_sql_errors[True-True-False]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 5.233895542100072
+    },
+    {
+      "nodeid": "tests/test_publication_page_planning_scope.py::test_explicit_generic_scope_restores_custom_policy_and_sql_errors[True-True-True]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 5.093741128221154
+    },
+    {
+      "nodeid": "tests/test_publication_page_planning_scope.py::test_explicit_generic_scope_restores_custom_policy_and_sql_errors[True-False-False]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 5.24986742483452
+    },
+    {
+      "nodeid": "tests/test_publication_page_planning_scope.py::test_explicit_generic_scope_restores_custom_policy_and_sql_errors[True-False-True]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 5.085585240740329
+    },
+    {
+      "nodeid": "tests/test_publication_page_planning_scope.py::test_explicit_generic_scope_restores_custom_policy_and_sql_errors[False-True-False]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 5.27106136828661
+    },
+    {
+      "nodeid": "tests/test_publication_page_planning_scope.py::test_explicit_generic_scope_restores_custom_policy_and_sql_errors[False-True-True]",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 4.349337032996118
+    }
+  ],
+  "remaining": "Native synthetic populate conflict lookup took>129s; own py-spy stack proves before newcandidateactivation. Root interruption, runner resultERROR preserved.",
+  "decision": "Keep generic option defaultFalse. Run diagnostic node alone fresh own DB to separate preceding test preparation effects; preserve original and investigate fixture sensitivity separately, not productcapacity acceptance.",
+  "acceptance": false
+}

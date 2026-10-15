@@ -1,0 +1,144 @@
+diff --git a/apps/listings/public_validation.py b/apps/listings/public_validation.py
+index b87b135..ab62675 100644
+--- a/apps/listings/public_validation.py
++++ b/apps/listings/public_validation.py
+@@ -225,7 +225,8 @@ def _prepared_page_binding(*, enabled):
+         raw.prepare_threshold = previous_threshold
+ 
+ 
+-def read_publication_values(query, *, bounded_joins=False, prepared_page=False):
++def read_publication_values(query, *, bounded_joins=False, prepared_page=False,
++                            generic_page_plan=False):
+     """Materialize the captured scalar SELECT with a request-scoped JIT policy.
+ 
+     Only the explicitly selected read uses jit=off; page hydration also bounds
+@@ -236,9 +237,17 @@ def read_publication_values(query, *, bounded_joins=False, prepared_page=False):
+     restores the local setting/savepoint on errors, without querying a broken
+     transaction. Callers perform authority checks/hydration outside this scope.
+     """
++    generic = bounded_joins and prepared_page and generic_page_plan
+     with transaction.atomic():
+         with connection.cursor() as cursor:
+-            if bounded_joins:
++            if generic:
++                cursor.execute("SELECT current_setting('jit'), current_setting('join_collapse_limit'), "
++                               "current_setting('plan_cache_mode')")
++                previous, previous_joins, previous_plan = cursor.fetchone()
++                cursor.execute("SELECT set_config('jit', 'off', true), "
++                               "set_config('join_collapse_limit', '1', true), "
++                               "set_config('plan_cache_mode', 'force_generic_plan', true)")
++            elif bounded_joins:
+                 cursor.execute("SELECT current_setting('jit'), current_setting('join_collapse_limit')")
+                 previous, previous_joins = cursor.fetchone()
+                 cursor.execute("SELECT set_config('jit', 'off', true), set_config('join_collapse_limit', '1', true)")
+@@ -249,7 +258,12 @@ def read_publication_values(query, *, bounded_joins=False, prepared_page=False):
+         with _prepared_page_binding(enabled=bounded_joins and prepared_page):
+             rows = list(query)
+         with connection.cursor() as cursor:
+-            if bounded_joins:
++            if generic:
++                cursor.execute("SELECT set_config('jit', %s, true), "
++                               "set_config('join_collapse_limit', %s, true), "
++                               "set_config('plan_cache_mode', %s, true)",
++                               [previous, previous_joins, previous_plan])
++            elif bounded_joins:
+                 cursor.execute("SELECT set_config('jit', %s, true), set_config('join_collapse_limit', %s, true)",
+                                [previous, previous_joins])
+             else:
+diff --git a/tests/test_owned_cold_prepared_cpu.py b/tests/test_owned_cold_prepared_cpu.py
+index 4cafded..71ad68e 100644
+--- a/tests/test_owned_cold_prepared_cpu.py
++++ b/tests/test_owned_cold_prepared_cpu.py
+@@ -8,7 +8,7 @@ from pathlib import Path
+ 
+ import pytest
+ from django.core.management import call_command
+-from django.db import connection, transaction
++from django.db import connection
+ from test_discovery import directory  # noqa: F401
+ from test_photos import photo_environment  # noqa: F401
+ from test_public_detail_prepared_guard import canonical_body
+@@ -41,19 +41,8 @@ def test_owned_cold_prepared_cpu(request, record_property, candidate, monkeypatc
+     native_read = public_validation.read_publication_values
+ 
+     def generic_hydration(query, *, bounded_joins=False, prepared_page=False):
+-        if not (bounded_joins and prepared_page):
+-            return native_read(query, bounded_joins=bounded_joins, prepared_page=prepared_page)
+-        # Diagnostic wrapper includes extra savepoint/SHOW/SET/restore cost.
+-        # On error, atomic rollback restores GUC without querying a broken TX.
+-        with transaction.atomic():
+-            with connection.cursor() as cursor:
+-                cursor.execute('SHOW plan_cache_mode')
+-                previous = cursor.fetchone()[0]
+-                cursor.execute('SET LOCAL plan_cache_mode=force_generic_plan')
+-            rows = native_read(query, bounded_joins=bounded_joins, prepared_page=prepared_page)
+-            with connection.cursor() as cursor:
+-                cursor.execute('SELECT set_config(%s, %s, true)', ['plan_cache_mode', previous])
+-            return rows
++        return native_read(query, bounded_joins=bounded_joins, prepared_page=prepared_page,
++                           generic_page_plan=True)
+ 
+     bodies, results = {}, []
+     for block in range(3):
+@@ -133,7 +122,8 @@ def test_owned_cold_prepared_cpu(request, record_property, candidate, monkeypatc
+                     'Two fixed arms, 3 alternating blocks, no warmup or omitted first requests. '
+                     'Candidate ' + candidate + ' is experimental session configuration, not product implementation: '
+                     'Whole-session eager modes exclude future scoped SET/restore overhead; hydration_generic includes '
+-                    'extra savepoint/SHOW/SET/restore cost and uses threshold0 in both arms. '
++                    'integrated GUC capture/SET/restore cost, no extra transaction or SQL roundtrip, '
++                    'and uses threshold0 in both arms. '
+                     'Python process/database buffers warm; not cold Gunicorn, p95/capacity or causal transient proof. '
+                     'CPU backend 100Hz counters; app timings include test-client request execution. '
+                     'Exact full HTML parity; signed detail target verified then timestamp canonicalized.')
+diff --git a/tests/test_publication_page_planning_scope.py b/tests/test_publication_page_planning_scope.py
+index 9be965d..816e1d4 100644
+--- a/tests/test_publication_page_planning_scope.py
++++ b/tests/test_publication_page_planning_scope.py
+@@ -13,7 +13,8 @@ pytestmark = pytest.mark.django_db(transaction=True)
+ 
+ def settings_now():
+     with connection.cursor() as cursor:
+-        cursor.execute("SELECT current_setting('jit'), current_setting('join_collapse_limit')")
++        cursor.execute("SELECT current_setting('jit'), current_setting('join_collapse_limit'), "
++                       "current_setting('plan_cache_mode')")
+         return cursor.fetchone()
+ 
+ 
+@@ -43,3 +44,37 @@ def test_page_planning_policy_restores_enclosing_transaction(request, failure):
+         assert raw.prepare_threshold == previous_threshold
+         assert settings_now() == before
+     assert settings_now() == initial
++
++
++@pytest.mark.parametrize('failure', [False, True])
++@pytest.mark.parametrize('bounded,prepared', [(True, True), (True, False), (False, True)])
++def test_explicit_generic_scope_restores_custom_policy_and_sql_errors(request, failure, bounded, prepared):
++    request.getfixturevalue('directory')
++    initial = settings_now()
++    raw = connection.connection
++    factory, threshold = raw.cursor_factory, raw.prepare_threshold
++    with transaction.atomic():
++        with connection.cursor() as cursor:
++            cursor.execute('SET LOCAL jit=on')
++            cursor.execute('SET LOCAL join_collapse_limit=6')
++            cursor.execute('SET LOCAL plan_cache_mode=force_custom_plan')
++        before = settings_now()
++        query = candidates({}).annotate(observed_mode=RawSQL(
++            "current_setting('plan_cache_mode')", []))
++        if failure:
++            query = query.annotate(diagnostic_failure=RawSQL('1/0', []))
++            with pytest.raises(DatabaseError):
++                read_publication_values(query, bounded_joins=bounded, prepared_page=prepared,
++                                        generic_page_plan=True)
++        else:
++            rows = read_publication_values(query, bounded_joins=bounded, prepared_page=prepared,
++                                           generic_page_plan=True)
++            assert rows
++            assert {r.observed_mode for r in rows} == {
++                'force_generic_plan' if bounded and prepared else 'force_custom_plan'}
++        assert settings_now() == before
++        assert raw.cursor_factory is factory and raw.prepare_threshold == threshold
++        with connection.cursor() as cursor:
++            cursor.execute('SELECT 1')
++            assert cursor.fetchone()[0] == 1
++    assert settings_now() == initial
