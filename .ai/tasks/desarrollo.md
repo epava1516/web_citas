@@ -3,7 +3,7 @@ Objetivo: BASE → CR-01…CR-10 → GS-01 → B-F/B-B → C, sin reducir alcanc
 Baseline: carpeta con 18 documentos; sin código ni repositorio Git antes del inicio. Documentos preservados.
 Responsable: Codex; Claude propone tareas acotadas, sin escritura ni ejecución.
 Dependencias: contratos docs/14,15,16 y seguridad/operación vinculadas.
-Estado del plan: pending (continuación suspendida por orden del usuario2026-10-09). Goal automático: paused. Inicio autorizado2026-10-03.
+Estado del plan: running. Goal activo confirmado el 2026-10-16; Codex dirige la continuación MOD-08 autorizada el 2026-10-10. La pausa del 2026-10-09 se conserva como antecedente, no como estado vigente. Inicio autorizado2026-10-03.
 Invocaciones Claude consumidas: 8 acumuladas, sin máximo numérico vigente. La tercera fue automática fuera del adaptador (incidencia Graphify), cuyo registro se conserva. Política modificada por autorización explícita del usuario el2026-10-06: límite de3 eliminado, contador no reiniciado. Nuevas invocaciones mediante scripts/claude-task del contrato adoptado; Claude propone, Codex aplica y verifica. Las referencias3/3 o restricciones de nuevas llamadas en la cronología inferior describen la política histórica, no la vigente.
 Próximo paso: CR-09. BASE y CR-01…CR-08 verificados localmente;166 comunes passed450.45s y dos límites finales14.47s; Docker privado/worker/Beat verificados.
 Producción: dependencias externas conocidas en docs/17, sin autorización de contratación/publicación.
@@ -1318,3 +1318,5 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 2026-10-16:incomingretention0711081PASS89,42sreproducenegativa/SCC6contextoexternoidentificadoconcaminoPageListing,fuentescleanupverificados; noappchange/p95/Claude,consumopreviointacto/CR09abierto.
 
 2026-10-16:contextprototype0716131FAIL90,97s peroListing0/Revision1trasclose,0refscriterionintacto/frozencleanupverificados;RateFormboundfieldcyclehipótesispendiente. Ruff071456falloprecheckpreservado. Sinapp/Claude/consumopreviointacto/N3abierto.
+
+2026-10-16: reanálisis profundo solicitado por usuario, base89e0756. Tres revisores nativos aislados deep_batch_logic_20261016/deep_measurement_20261016/deep_contract_graph_20261016, propietarios exclusivos de sus informes docs/evidencias en worktrees propios; reportados, no aceptación de integración. Contrato externo leído completo; sin ClaudeV1 ni nuevos proveedores, contadorClaude8 y consumo anterior intactos; tokens nativos no reportados. Grafo AST21archivos+semántica24nodos/28relaciones con ubicaciones verificadas, alcance parcial explícito. N2prototipo9PASS verificado por Codex; revisión plantea alias by_revision y fanout offpage. ReproPG de alias siguiente antesintegración/p95. Fuentes sin batching productivo, objetivoCR09→CR10→GS01→BFBB→C abierto.

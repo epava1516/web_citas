@@ -1,0 +1,65 @@
+{
+  "STATUS": "complete",
+  "SUMMARY": "Revisión adversarial estática completada, sin ejecutar pruebas. La contención de IDs tiene prueba condicional sólida y fallback defensivo, pero se identifica un contraejemplo de alias de Revision al ampliar PublicationContext y una expansión real de fanout fuera de la página. No constituye aceptación del prototipo.",
+  "FILES_CHANGED": ["docs/evidencias/cr09-deep-logic-agent-20261016.json"],
+  "IMPLEMENTATION_NOTES": [
+    "Base comunicada 89e0756; lectura local en worktree propio. Se leyeron AGENTS.md, AI_ENGINEERING 1.0.1, contrato16, fuentes del prototipo y reglas, pruebas N1/edges, recibo N2 parcial y se inspeccionó la cobertura existente. No modificaciones de fuentes ni Git.",
+    "Prueba de contención: sea C la subsecuencia de candidatos limpios elegibles/vigentes y U los unknown que pasan regla nativa. Con censo actual, snapshot común, protocolo exacto sin filtros/checked y proyección vigente, la población ordenada es merge(C,U). Todo c perteneciente al prefijo24 del merge tiene rango en C <=24; todo u pertenece al conjunto unknown hidratado. Por tanto selected subset unknown union top24(C). La prueba no depende de la intercalación ni de cuántos unknown son elegibles. El fallback tests/owned_first_page_batch.py:63-72 vuelve a hidratar selected si la contención falla; la selección/count nunca usan preview.",
+    "Orden: ambos lados usan relevance DESC cuando hay texto, published_at DESC y UUID ascendente. Los DESC tienen el mismo NULLS FIRST implícito de PostgreSQL; listing_id y pk representan el mismo UUID. SearchQuery bilingüe y SearchRank usan el mismo search_document mantenido. Requiere invalidación completa para published_at, expires_at y vector. N1 prueba published_at NULL en dirty, pero no NULL en clean ni empate controlado en la frontera24.",
+    "Snapshot: state_page abre RR READ ONLY sólo fuera de atomic; el censo de cardinalidad es válido allí por FK comprometida y unicidad no-null. Las escrituras concurrentes posteriores no entran en dicho snapshot. En atomic heredado trusted_snapshot=False impide batching y conserva consulta original. all_state_current identifica versiones y cobertura; unknown49 retorna antes del constructor experimental. QuerySet clones pierden protocolo; checked, filtros y páginas posteriores no entran. Los controles existentes cubren estas puertas parcialmente y el código no las debilita.",
+    "Mutación de primera validación: validate_submission usa ModelForms con instance=revision. Details limpia whitespace, normaliza escalares/listas y asigna objetos de catálogo; Contacts quita @ de telegram; RateForm modifica el rate validado. El batch reutiliza estas instancias donde baseline rehidrata. En los formularios actuales, sobre entradas aceptadas, whitespace stripping, telegram lstrip(@) y coerciones son idempotentes; el segundo pase no parece cambiar elegibilidad ni salida. Phone/authority se comprueban antes y no son normalizados por Details/Contacts. Las consultas de selección/search siguen leyendo DB, no el objeto normalizado. Rate memo es por valores e impide compartir el booleano entre inputs distintos; no se detectó bypass actual por la mutación. Esto es una comprobación de reglas actuales, no una prueba general de pureza de ModelForm.",
+    "Expiración: candidates captura expires_after una vez y preview usa exactamente ese umbral. publicly_visible además consulta reloj vivo en cada guard, también en baseline. RR no congela timezone.now; un anuncio que vence durante la petición puede provocar guard fallback. El prototipo no elimina ese guard. Diferencias de tiempo entre variantes pueden producir cuerpos distintos cerca del vencimiento aunque no haya bug de snapshot; faltan controles con reloj fijado para separar esos fenómenos."
+  ],
+  "TESTS_RUN": [],
+  "TEST_RESULTS": [
+    "No se ejecutaron tests, DB, Docker, servicios, red ni cargas por restricción de la tarea. Las conclusiones son pruebas lógicas y lectura de código; ninguna se declara reproducción PostgreSQL.",
+    "El recibo existente cr09-first-page-batch-edges-20261016.json declara 9 PASS; sólo se leyó. No constituye nueva verificación independiente ni aceptación del producto."
+  ],
+  "ASSUMPTIONS": [
+    "La fuente de verdad vigente conserva sus reglas actuales y los triggers mantienen Dirty en todas las tablas dependientes.",
+    "Una FK Listing.approved_revision válida no implica pertenencia: models.py:28 define ForeignKey, sin unique ni restricción que imponga Revision.listing_id=Listing.pk. La regla nativa verifica explícitamente esa pertenencia.",
+    "La iteración ORM del batch Listing.objects.filter(pk__in=batch_ids) carece de order_by/default ordering. No puede suponerse qué duplicado de approved_revision_id queda al final."
+  ],
+  "RISKS": [
+    {
+      "id": "LOGIC-01",
+      "priority": "high",
+      "classification": "contraejemplo demostrado por código condicionado al orden de materialización; falta reproducción PG",
+      "locations": ["tests/owned_first_page_batch.py:45", "apps/listings/public_validation.py:476", "apps/listings/public_validation.py:519", "apps/listings/moderation.py:128", "apps/listings/models.py:28"],
+      "mechanism": "PublicationContext.by_revision indexa sólo por revision.pk y row() exige identidad de la instancia. Batch puede reunir un unknown inválido B y su clean owner A que baseline mantiene separados. El FK de B puede apuntar a la revisión aprobada R de A; B es rechazado por publicly_visible antes de consultar context.row. Si B aparece después de A en batch.rows, by_revision[R]=B; al guardar A seleccionado row(A.approved_revision) encuentra B y levanta ValueError, que publicly_visible no captura. El control set(selected)<=ids no detecta este alias.",
+      "counterexample": "Preparar A y B publicados válidos, refresh_all; actualizar solamente Listing B.approved_revision_id=R de A. El trigger marca B (no exige invalidación perdida). Elegir A dentro de top24 clean. Baseline valida B=False y rehidrata A sin B, por lo que A pasa; batch valida B=False pero, para la materialización A antes de B permitida por SQL sin ORDER BY, el guard de A falla con ValueError/HTTP500. Si B queda antes de A, ese orden oculta el defecto. La mayoría de las pruebas actuales usa approved_revision propia y no alcanza la colisión.",
+      "necessary_conditions": ["A limpio vigente y seleccionado", "B unknown con revision ajena R de A", "B materializado después de A", "censo/versiones/protocolo permiten batch"],
+      "recommendation": "Antes de integrar, reproducir en PG el caso con orden controlado sólo en test y también sin control en ambos arreglos de UUID/posición; exigir baseline200 y candidato200 con mismo cuerpo y rechazo B. Resolver conservando rechazo nativo de revisión ajena y evitando alias de context.row: separar/fallback si IDs de revisión se duplican o definir un índice seguro por identidad/listing. No basta capturar ValueError y ocultar A. Revisar alcance compartido antes de cambiar PublicationContext."
+    },
+    {
+      "id": "LOGIC-02",
+      "priority": "medium",
+      "classification": "expansión demostrada del dominio de trabajo; magnitud y regresión no medidas",
+      "locations": ["tests/owned_first_page_batch.py:41", "apps/listings/public_validation.py:457", "apps/listings/public_validation.py:490", "apps/listings/forms.py:146"],
+      "mechanism": "La cota72 sólo limita padres. Si 24 unknown elegibles preceden a todos los clean en el orden, selected=esos24 unknown. Baseline hidrata unknown y selected, sin materializar clean. Batch agrega 24 clean descartados por la paginación y materializa íntegros sus hijos/catálogos. Las relaciones travel_areas/categories/services no tienen cota de cardinalidad en estos modelos/formularios; un clean con muchos travel_areas válidos basta para ampliar memoria y trabajo sin corrupción de estado ni triggers ausentes.",
+      "counterexample": "24 dirty válidos nuevos, selected cubierto íntegramente por ellos, y primer clean desplazado con fanout M grande de municipios válidos. Batch procesa M relaciones adicionales; baseline no las lee en esta petición. Fotos/rates corruptos masivos no son necesarios y, si una escritura los cambia después del refresh, su Dirty normalmente impide considerarlos clean.",
+      "recommendation": "Control PG acotado que fuerce desplazamiento completo y fanout heterogéneo legítimo; registrar padres, hijos materializados, bytes/memoria y latencia por variante fuera de instrumentación intrusiva. Decidir explícitamente si conservar esta optimización ante ese coste o limitar preview mediante política con fallback correcto. No declarar que padres72 viola página24 ni inventar una cota de bytes existente."
+    },
+    {
+      "id": "LOGIC-03",
+      "priority": "medium",
+      "classification": "huecos de prueba, sin bug de orden demostrado",
+      "locations": ["tests/test_owned_first_page_batch_parity.py:48", "tests/test_owned_first_page_batch_edges.py:112", "tests/owned_first_page_batch.py:25"],
+      "mechanism": "Las pruebas de límites marcan primeros IDs por pk y comprueban batch_sizes; no fuerzan intercalación que deje clean exactamente en posición24/25. N1 cambia published_at a NULL del dirty, no del clean usado por preview. No se fuerza igualdad de rank y published_at con desempate UUID. Estos errores, si aparecen al extraer helper productivo o evolucionar orden, pueden quedar invisibles en el fixture homogéneo; el fallback protege selección pero puede esconder pérdida de reutilización.",
+      "recommendation": "Añadir casos dirigidos: top24 dominado por unknown, todos unknown inválidos, mezcla justo frontera24, clean con published_at NULL y ties NULL/fecha, búsqueda con ranks distintos y rank igual+fecha igual+UUID opuesto; comparar cuerpos/count/IDs y afirmar reuse cuando la prueba de contención lo exige."
+    }
+  ],
+  "UNRESOLVED_ISSUES": [
+    "LOGIC-01 necesita reproducción independiente antes de decidir implementación; es un defecto condicionado por orden, no un fallo ya observado en PostgreSQL.",
+    "No se evaluó empíricamente coste/memoria de fanout fuera de selected ni p95.",
+    "Faltan controles específicos del batch en PRODUCTION y cambios de catálogo/documento/representación, combinación de normalizaciones y expiración controlada; pruebas baseline no demuestran automáticamente equivalencia de contexto ampliado.",
+    "Si se integra, estos archivos owned se saltan salvo selección explícita; los controles relevantes deben quedar en suite normal sobre la implementación definitiva."
+  ],
+  "RECOMMENDATIONS": [
+    "Bloquear adopción automática y verificar primero LOGIC-01 en PostgreSQL con caso mínimo y control del orden de hidratación. Mantener evidencia negativa si reproduce.",
+    "No retirar guards, no ampliar exclusiones de Dirty, no cambiar fuente de verdad ni contrato de snapshot para rescatar ROI.",
+    "Priorizar fanout heterogéneo/desplazamiento y ties/NULL clean antes de matriz de integración; reutilizar evidencia válida para puertas que no cambian.",
+    "Documentar prueba de contención y sus hipótesis junto al helper final; conservar fallback por selected no cubierto como defensa y observar su frecuencia.",
+    "N2 parcial y ROI secuencial no aceptan p95, N3 ni contrato completo. STATUS complete sólo significa informe entregado."
+  ]
+}

@@ -473,7 +473,13 @@ class PublicationContext:
             read_publication_values(query, bounded_joins=True, prepared_page=prepared_page)
             if page_read else list(query)
         )
-        self.by_revision = {row.approved_revision_id: row for row in self.rows}
+        # A malformed foreign approved_revision FK must not replace its real
+        # owner when both listings are hydrated in the same request context.
+        self.by_revision = {
+            row.approved_revision_id: row
+            for row in self.rows
+            if row.approved_revision.listing_id == row.pk
+        }
         ids = {
             name: set()
             for name in [
@@ -517,8 +523,8 @@ class PublicationContext:
         self.details_fields = SnapshotDetails.fields_for_catalog(self.catalog)
 
     def row(self, revision):
-        row = self.by_revision[revision.pk]
-        if row.approved_revision is not revision:
+        row = self.by_revision.get(revision.pk)
+        if row is None or row.approved_revision is not revision:
             raise ValueError("Publication context requires its own current revision instance")
         return row
 

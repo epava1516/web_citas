@@ -1,0 +1,39 @@
+{
+  "run": "artifacts/local-ci/20261016-083744-7fd9798c",
+  "head": "89e07566376d5b4ea9a3e7d629ee666b3f4c59ba",
+  "result": "confirmed candidate HTTP 500; baseline HTTP 200",
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "product_batch_integrated": false,
+  "corrective": {
+    "run": "artifacts/local-ci/20261016-084035-d87f27ed",
+    "result": "11 PASS",
+    "both_hydration_orders": true,
+    "freeze_verified": true,
+    "cleanup_independently_verified": true,
+    "scope": "alias identity and existing nine batch edges; not p95 or full integration"
+  },
+  "standard_regression": {
+    "run": "artifacts/local-ci/20261016-084447-32c7773e",
+    "result": "14 PASS",
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "14",
+        "time": "160.657",
+        "timestamp": "2026-10-16T10:45:06.250937+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "freeze_verified": true,
+    "cleanup_independently_verified": true
+  },
+  "intermediate_lint_failure": {
+    "run": "artifacts/local-ci/20261016-084413-944f88b9",
+    "reason": "F811 fixture import shadowing in new standard test; corrected before retry",
+    "pytest_executed": false
+  }
+}

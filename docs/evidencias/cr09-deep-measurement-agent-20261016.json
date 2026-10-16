@@ -1,0 +1,539 @@
+{
+  "STATUS": "complete",
+  "SUMMARY": "Auditoría offline: el prototipo muestra una reducción grande y consistente de media WSGI en dirty1 controlado, suficiente para continuar verificación funcional N2; no demuestra mejora HTTP concurrente, frecuencia real del camino ni aceptación CR09/N3. Último clean 1.013029795 s FAIL permanece.",
+  "FILES_CHANGED": [
+    "docs/evidencias/cr09-deep-measurement-agent-20261016.json"
+  ],
+  "IMPLEMENTATION_NOTES": "Sólo lectura de fuentes y artefactos existentes, cálculos Python stdlib y escritura de este informe. Sin Git, tests, DB, Docker, red, nuevas dependencias ni subagentes. Graphify leído como guía; no ejecutado por alcance que prohíbe otras escrituras/herramientas nuevas. Datos y fórmulas incluidos para reproducción.",
+  "TESTS_RUN": [],
+  "TEST_RESULTS": "No ejecutados por contrato de revisión. Los resultados históricos se contrastaron con sus muestras; no se reclasificó ningún ensayo.",
+  "ASSUMPTIONS": [
+    "El artefacto primario representa el run declarado; SHA256 incluido para fijar la entrada leída. No se afirma custodia independiente del proceso original.",
+    "La fuente del test en el worktree y el recibo describen el instrumento del run; no se reejecutó ni se modificó."
+  ],
+  "RISKS": [
+    "No hay batching integrado en producto en esta base; eligible_for_integration es etiqueta interna del experimento y no autorización de aceptación.",
+    "El preregistro utiliza A/A agregado por ruta; un bloque ES excede 10% sin incumplir ese criterio agregado. No convertirlo retrospectivamente en INVALID.",
+    "Sólo un run, tres bloques cronológicos por ruta, 16 observaciones correlacionadas por brazo/bloque; no son 288 replicaciones independientes del entorno.",
+    "Dirty1 permanente puede sobrerrepresentar el beneficio temporal frente a uploads/Beat reales; páginas posteriores, detalle, limpio, frontera de48pendientes, fallback y PRODUCTION no medidos aquí."
+  ],
+  "UNRESOLVED_ISSUES": [
+    "N2 parcial9PASS comunicado por coordinador no fue auditado en este alcance; falta reconciliar cobertura completa antes de integrar.",
+    "CPUDB, wait/locks/IO, RSS porrequest y overhead causal del contador SQL no medidos; no inferirlos de wall ni thread_time.",
+    "No se dispone aquí de comparación pareada same-source HTTP A/B con mezcla normal_worker_beat y manifest previo."
+  ],
+  "RECOMMENDATIONS": [
+    {
+      "priority": 1,
+      "action": "Completar sólo negativas/fronteras/concurrencia N2 realmente pendientes, reconciliando9PASS previos; preservar elegibilidad/autoridad/revocación/privacidad/filtros/orden/count/paginación. No ejecutar rendimiento antes de cerrar equivalencia pertinente."
+    },
+    {
+      "priority": 2,
+      "action": "Tras integrar localmente con gates, comparación mínima actual/candidato sobre misma fixture clonada, seed y tiempo lógico; mismos límites y worker topology, versiones/kernel, calentamiento y conexiones, instrumentación y política GC. Prerregistrar rutas, primera/páginas posteriores, limpio/dirty1 y escenarios dirty relevantes; alternar orden equilibrado por bloques. Conservar A/A, muestras y SQL; medir HTTP completo sin profiler además del instrumento interno separado, sin inventar CPUDB."
+    },
+    {
+      "priority": 3,
+      "action": "Reutilizar matriz100/1000/10000 válida sólo donde fuente/escenario/instrumento sean comparables; completar celdas faltantes tras integración con mismo método. Registrar efectos por ruta/estado en vez de acumular mejoras de versiones distintas. Elegir nueva instrumentación únicamente para una incertidumbre concreta."
+    },
+    {
+      "priority": 4,
+      "action": "Si equivalencia y comparación justifican avanzar, corto vigente20RPS60s normal_worker_beat conforme escenario autorizado, cuatro workers/recursos sin escalado, mezcla real6rutas y upload separado, Beat fase/invalidaciones propias y límites parent/hijos explícitos. Prerregistrar generatorp95<=10ms,p99<=25ms,max<=100ms,not_emitted0%,timeout65s,drain<=70s,pendingventana<=20/final0,p95todasemitidasterminadas<800ms,errores<1%,upload302. Sólo PASS completo habilita900s; no extrapolar medias o simular p95."
+    }
+  ],
+  "EVIDENCE": {
+    "roi_source": "/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-081246-01e6b6a8/first-page-batch-roi.json",
+    "roi_sha256": "55d40b21adc9775e0c8662769ae34ab3b915057c6bc501b8d9b5c8f03ba47ffd",
+    "formulas": {
+      "means": "arithmetic mean of16reads per arm/block;48 per arm/route",
+      "aa": "abs(meanA-meanB)/((meanA+meanB)/2)",
+      "reduction": "1-meanC/((meanA+meanB)/2)",
+      "load_p95": "sorted(all terminated emitted latency)[ceil(.95*N)-1]"
+    },
+    "recalculated_aggregates_and_blocks": [
+      {
+        "route": "/en/?q=synthetic",
+        "block": null,
+        "n_per_arm": 48,
+        "means_seconds": {
+          "A": {
+            "wall": 0.3529619004014724,
+            "cpu": 0.18916695356249966
+          },
+          "B": {
+            "wall": 0.3593981740511178,
+            "cpu": 0.1979163576874988
+          },
+          "C": {
+            "wall": 0.28728718211641535,
+            "cpu": 0.1505129617291671
+          }
+        },
+        "aa_symmetric_disagreement": {
+          "wall": 0.018070281815249993,
+          "cpu": 0.04520682690630555
+        },
+        "candidate_reduction": {
+          "wall": 0.19342143834442194,
+          "cpu": 0.22232265068148072
+        },
+        "sql_per_request": {
+          "A": [
+            64
+          ],
+          "B": [
+            64
+          ],
+          "C": [
+            44
+          ]
+        },
+        "gc_collections_generation_0_1_2": {
+          "A": [
+            528,
+            48,
+            3
+          ],
+          "B": [
+            528,
+            48,
+            3
+          ],
+          "C": [
+            396,
+            36,
+            0
+          ]
+        }
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "block": 0,
+        "n_per_arm": 16,
+        "means_seconds": {
+          "A": {
+            "wall": 0.3345094423275441,
+            "cpu": 0.1791115987500005
+          },
+          "B": {
+            "wall": 0.34903728641802445,
+            "cpu": 0.18691527281249964
+          },
+          "C": {
+            "wall": 0.29920253838645294,
+            "cpu": 0.1578768901875005
+          }
+        },
+        "aa_symmetric_disagreement": {
+          "wall": 0.0425072448730508,
+          "cpu": 0.042639897061036706
+        },
+        "candidate_reduction": {
+          "wall": 0.12455864155609808,
+          "cpu": 0.13734808860587944
+        },
+        "sql_per_request": {
+          "A": [
+            64
+          ],
+          "B": [
+            64
+          ],
+          "C": [
+            44
+          ]
+        },
+        "gc_collections_generation_0_1_2": {
+          "A": [
+            176,
+            16,
+            1
+          ],
+          "B": [
+            176,
+            16,
+            1
+          ],
+          "C": [
+            132,
+            12,
+            0
+          ]
+        }
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "block": 1,
+        "n_per_arm": 16,
+        "means_seconds": {
+          "A": {
+            "wall": 0.34360175096662715,
+            "cpu": 0.18068621731249923
+          },
+          "B": {
+            "wall": 0.33799246660782956,
+            "cpu": 0.18918606637499913
+          },
+          "C": {
+            "wall": 0.2817497451615054,
+            "cpu": 0.14550577431250034
+          }
+        },
+        "aa_symmetric_disagreement": {
+          "wall": 0.016459307353747735,
+          "cpu": 0.045960994848055936
+        },
+        "candidate_reduction": {
+          "wall": 0.1732625133935285,
+          "cpu": 0.21321071770040056
+        },
+        "sql_per_request": {
+          "A": [
+            64
+          ],
+          "B": [
+            64
+          ],
+          "C": [
+            44
+          ]
+        },
+        "gc_collections_generation_0_1_2": {
+          "A": [
+            176,
+            16,
+            1
+          ],
+          "B": [
+            176,
+            16,
+            1
+          ],
+          "C": [
+            132,
+            12,
+            0
+          ]
+        }
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "block": 2,
+        "n_per_arm": 16,
+        "means_seconds": {
+          "A": {
+            "wall": 0.38077450791024603,
+            "cpu": 0.20770304462499922
+          },
+          "B": {
+            "wall": 0.3911647691274993,
+            "cpu": 0.21764773387499758
+          },
+          "C": {
+            "wall": 0.2809092628012877,
+            "cpu": 0.14815622068750045
+          }
+        },
+        "aa_symmetric_disagreement": {
+          "wall": 0.0269198926037941,
+          "cpu": 0.04675994380482102
+        },
+        "candidate_reduction": {
+          "wall": 0.27219854940079147,
+          "cpu": 0.3033692275821164
+        },
+        "sql_per_request": {
+          "A": [
+            64
+          ],
+          "B": [
+            64
+          ],
+          "C": [
+            44
+          ]
+        },
+        "gc_collections_generation_0_1_2": {
+          "A": [
+            176,
+            16,
+            1
+          ],
+          "B": [
+            176,
+            16,
+            1
+          ],
+          "C": [
+            132,
+            12,
+            0
+          ]
+        }
+      },
+      {
+        "route": "/es/",
+        "block": null,
+        "n_per_arm": 48,
+        "means_seconds": {
+          "A": {
+            "wall": 0.30708959889792214,
+            "cpu": 0.1794453672499993
+          },
+          "B": {
+            "wall": 0.28676466446874355,
+            "cpu": 0.17184713681249994
+          },
+          "C": {
+            "wall": 0.21539694875051887,
+            "cpu": 0.13013812237499867
+          }
+        },
+        "aa_symmetric_disagreement": {
+          "wall": 0.06845091694367207,
+          "cpu": 0.04325871090120122
+        },
+        "candidate_reduction": {
+          "wall": 0.27457976800774264,
+          "cpu": 0.2590896710289867
+        },
+        "sql_per_request": {
+          "A": [
+            64
+          ],
+          "B": [
+            64
+          ],
+          "C": [
+            44
+          ]
+        },
+        "gc_collections_generation_0_1_2": {
+          "A": [
+            525,
+            48,
+            3
+          ],
+          "B": [
+            525,
+            48,
+            3
+          ],
+          "C": [
+            396,
+            36,
+            0
+          ]
+        }
+      },
+      {
+        "route": "/es/",
+        "block": 0,
+        "n_per_arm": 16,
+        "means_seconds": {
+          "A": {
+            "wall": 0.3110432071262039,
+            "cpu": 0.18528539137500033
+          },
+          "B": {
+            "wall": 0.2963902606861666,
+            "cpu": 0.1770518946875006
+          },
+          "C": {
+            "wall": 0.22434125357540324,
+            "cpu": 0.13362109468749672
+          }
+        },
+        "aa_symmetric_disagreement": {
+          "wall": 0.04824543663294981,
+          "cpu": 0.04544658805044703
+        },
+        "candidate_reduction": {
+          "wall": 0.2613470759740891,
+          "cpu": 0.2624491056962439
+        },
+        "sql_per_request": {
+          "A": [
+            64
+          ],
+          "B": [
+            64
+          ],
+          "C": [
+            44
+          ]
+        },
+        "gc_collections_generation_0_1_2": {
+          "A": [
+            175,
+            16,
+            1
+          ],
+          "B": [
+            175,
+            16,
+            1
+          ],
+          "C": [
+            132,
+            12,
+            0
+          ]
+        }
+      },
+      {
+        "route": "/es/",
+        "block": 1,
+        "n_per_arm": 16,
+        "means_seconds": {
+          "A": {
+            "wall": 0.30773258552653715,
+            "cpu": 0.17835703968749872
+          },
+          "B": {
+            "wall": 0.30478521244367585,
+            "cpu": 0.17928087037499907
+          },
+          "C": {
+            "wall": 0.238107015757123,
+            "cpu": 0.14185803349999926
+          }
+        },
+        "aa_symmetric_disagreement": {
+          "wall": 0.009623795725212988,
+          "cpu": 0.005166290605707364
+        },
+        "candidate_reduction": {
+          "wall": 0.22253029529534663,
+          "cpu": 0.20669465116150942
+        },
+        "sql_per_request": {
+          "A": [
+            64
+          ],
+          "B": [
+            64
+          ],
+          "C": [
+            44
+          ]
+        },
+        "gc_collections_generation_0_1_2": {
+          "A": [
+            175,
+            16,
+            1
+          ],
+          "B": [
+            175,
+            16,
+            1
+          ],
+          "C": [
+            132,
+            12,
+            0
+          ]
+        }
+      },
+      {
+        "route": "/es/",
+        "block": 2,
+        "n_per_arm": 16,
+        "means_seconds": {
+          "A": {
+            "wall": 0.3024930040410254,
+            "cpu": 0.17469367068749886
+          },
+          "B": {
+            "wall": 0.25911852027638815,
+            "cpu": 0.15920864537500012
+          },
+          "C": {
+            "wall": 0.1837425769190304,
+            "cpu": 0.11493523893750002
+          }
+        },
+        "aa_symmetric_disagreement": {
+          "wall": 0.15446436508707653,
+          "cpu": 0.09275182930806798
+        },
+        "candidate_reduction": {
+          "wall": 0.3456595209923715,
+          "cpu": 0.3115636914840283
+        },
+        "sql_per_request": {
+          "A": [
+            64
+          ],
+          "B": [
+            64
+          ],
+          "C": [
+            44
+          ]
+        },
+        "gc_collections_generation_0_1_2": {
+          "A": [
+            175,
+            16,
+            1
+          ],
+          "B": [
+            175,
+            16,
+            1
+          ],
+          "C": [
+            132,
+            12,
+            0
+          ]
+        }
+      }
+    ],
+    "historical_instrumented_load": {
+      "run": "20261016-031208-ec0fd4c3",
+      "source": "/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-031208-ec0fd4c3/benchmark-samples.json",
+      "sha256": "fe363d6d4248544ae06ea80fe31406b07875f8aef2e5cd086fcdfd35c7607193",
+      "scheduled": 1200,
+      "emitted_terminated": 1200,
+      "unexpected": 0,
+      "p95_seconds": 1.1007274431176484,
+      "scope": "Instrumented diagnostic FAIL; separate from clean1.013029795FAIL, no new measurement."
+    },
+    "method_findings": [
+      {
+        "source": "tests/test_owned_first_page_batch_roi.py:37-39; scripts/synthetic_load_dataset.py:89-92",
+        "finding": "Target sample_ids[0] is baseline agency listing, not a random or representative synthetic listing. ENq=synthetic and ESlisting have different candidate/content population; no claim both exercise identical pending membership. Dirty global marker unchanged does not itself prove same perroute membership."
+      },
+      {
+        "source": "tests/test_owned_first_page_batch_roi.py:83-104",
+        "finding": "ABC/BCA/CAB places each arm once in every position perroute. Routes fixedESthenEN, no independent randomization. Perarm connection.close, gc.collect outsideclock,6warmups then16reads; 18distinct backendPID and19preparedstatements each. Warm connection/plan is demonstrated; cache/stationarity of host not proved."
+      },
+      {
+        "source": "tests/test_owned_first_page_batch_roi.py:105-126",
+        "finding": "Wall includes WSGI handler/body join/response.close and execute_wrapper; excludes RequestFactory construction before handler? factory.get(route).environ occurs inside call and therefore inside timed call. BodySHA comparison is after timed section; header/status assertions inside. CPU is callingthreadCPU only, not DB/wholeapp CPU. NormalautomaticGC remains enabled."
+      },
+      {
+        "source": "primaryROI samples; tests/test_owned_first_page_batch_roi.py:112-125",
+        "finding": "GC gen2 totals A/B3 each perroute,C0; fewer allocations/collections may mediate effect. No GC durations measured, cannot apportion savings to GC or SQL. SQL64->44 proves20fewer calls/request (31.25%), not31.25% less serverwork."
+      },
+      {
+        "source": "tests/test_owned_first_page_batch_roi.py:132-168",
+        "finding": "Aggregate A/A passes bothwall/CPUroutes. ESblock2wallA/A15.4464% shows residual drift. All sixrouteblocks improveCwall; lowestENblock12.4559%. Aggregate evidence supports selectedfixture effect without causal decomposition or stableconfidence bound."
+      },
+      {
+        "source": "docs/evidencias/cr09-refresh-ingress-reanalysis-20261016.md:3-21",
+        "finding": "Historical cleanup tasks ended~1.104/2.084s and58later1Hzsamplesdirty0. 258emissions between2.084and15s include103latencies>=.8s. Briefdirtyevents may be missed; backlog can persist after cleanup. Cannot claim dirty persisted15s or that eliminating dirty ensuresSLO."
+      },
+      {
+        "source": "scripts/benchmark_accounting.py:26-30,59-65,82-92; scripts/benchmark_async_transport.py:116-138,176-206",
+        "finding": "Nearest-rankp95 uses all emitted terminated includingerrors/timeouts; no successfilter. 65stotaltransaction timeout and fixeddrain terminal classification are explicit. Concurrent ledger not comparable to sequentialROI means. Windowpending gate is additional diagnostic layer, not automatically established by transportreview alone."
+      },
+      {
+        "source": "081246runner.json; artifacts/vps-preparation/cr09-private-guard-20261015/run.py:17-20,43-53;031208benchmark-manifest.json",
+        "finding": "ROI --workers1 is test runner option, not4GunicornHTTPworkers. Guard checks parentaffinity0-3,memory3584MiB,swap0,pids512;PGseparateCPU4quota1/memory1536MiB/pids128;RedisCPU5quota.2/memory128MiB/pids64. Parent4CPUaffinity is not independent proof of quota4 nor totalhostisolation; PGandRedis are outsideparentCPUset and must be recorded separately. Historical031208manifest describesPGservice/hostshared and unobservednormalstackload; do not equate resource envelope withROI or cleanrun without frozenreceipts."
+      }
+    ]
+  }
+}

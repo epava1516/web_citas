@@ -1,0 +1,206 @@
+{
+  "STATUS": "complete",
+  "SUMMARY": "Auditoría documental reportada; CR09 sigue abierto. No aceptación, ejecución nueva ni cambio contractual.",
+  "FILES_CHANGED": [
+    "docs/evidencias/cr09-deep-contract-agent-20261016.json",
+    "docs/evidencias/cr09-deep-graph-semantic-20261016.json"
+  ],
+  "IMPLEMENTATION_NOTES": "Nueve familias de matriz83 transcritas con criterio, evidencia, límite productivo y siguiente paso. MOD09 prevalece sobre bloqueo histórico de latencia grande. Artefactos semánticos limitados a relaciones EXTRACTED.",
+  "TESTS_RUN": [],
+  "TEST_RESULTS": "No se ejecutaron pruebas, carga, DB, Docker, red o Git conforme al alcance. Evidencias citadas son documentos existentes, no verificaciones nuevas.",
+  "ASSUMPTIONS": [
+    "Base89e0756 declarada por el principal; no se verifica mediante Git por prohibición del encargo."
+  ],
+  "RISKS": [
+    "Citas reflejan el corte del worktree; cambios posteriores requieren reconciliar aplicabilidad.",
+    "PASS de un diagnóstico no equivale a elegibilidad, integración, p95, N3 ni aceptación."
+  ],
+  "UNRESOLVED_ISSUES": [
+    "N2 del batch no ejecutado en estas fuentes.",
+    "Versión común/N3/carga contractual y consolidación integral pendientes."
+  ],
+  "RECOMMENDATIONS": [
+    "Verificar independientemente las citas y el alcance antes de integrar."
+  ],
+  "contract_inventory": [
+    {
+      "family": "Portabilidad y respuesta privada /15%",
+      "acceptance_criterion_exact": "Censo finito de fuentes sintéticas propias con origen/corte/huella/formato/período, asociación explícita al sujeto, inclusión/redacción/exclusión motivada y revisión separada. Cubrir preparación/revisión/generación/respuesta/cierre/replay/descarga, variantes del derecho y rechazo de terceros, identidad inválida/revocada y cobertura necesaria pendiente. Reutilizar recorridos válidos; consolidar cobertura/evidencia pendiente sobre la versión común.",
+      "reusable_evidence_exact": "[matriz88](88-matriz-cierre-derechos.md), [binario cerrado](evidencias/portabilidad-binario-cerrado-tcp0110.json), [JSON cerrado](evidencias/portabilidad-json-cerrado-tcp0110.json).",
+      "production_entry_separate_exact": "Operador/custodio y revisor: inventario real aprobado y procedimiento de identidad autorizado. No acreditar cobertura real desde fixture.",
+      "source_file": "docs/83-auditoria-pendientes-cr09.md",
+      "source_location": 47,
+      "current_evidence_and_limit_exact": "[Revalidación actual24PASS](evidencias/cr09-portability-current-20261016.md): cierre exacto, replay, entrega íntegra/manipulación,12carrerasPG y localización de acceso compartido ESEN; alcance parcial, no N3. Cuatro escenarios propios aislados perfil/cuenta ES/EN y revisión finita de procedencia; [23 originales](evidencias/cr09-historicos-escenarios-revisiones-20261015.json). [Archivo privado pendiente bloquea cierre HTTP sin efectos](evidencias/cr09-archivo-privado-http-terminal-20261015.json). Falta consolidar cobertura por escenario; no existe prueba general de lector/asociación de todo archivo anterior.",
+      "current_source_location": 14,
+      "next_step": "Consolidar cobertura por escenario y versión común; conservar pending de archivo privado necesario.",
+      "status": "pending_integral_acceptance"
+    },
+    {
+      "family": "Denuncias y derechos por finalidad, verificación y autoridad /20%",
+      "acceptance_criterion_exact": "Escenarios sintéticos por derecho/finalidad con prueba, vigencia, representación/revocación y autoridad explícitas. Verificar decisiones motivadas, denegaciones/fallos, concurrencia y acceso mínimo en flujos reales de aplicación. Definir la selección pendiente a partir de evidencia existente; resultado parcial no cierra un derecho completo.",
+      "reusable_evidence_exact": "[recorridos88](88-matriz-cierre-derechos.md#recorridos-y-aceptación).",
+      "production_entry_separate_exact": "Operador/revisor jurídico y de identidad: procedimientos, evidencias admisibles y proveedor real cuando necesario/autorizado.",
+      "source_file": "docs/83-auditoria-pendientes-cr09.md",
+      "source_location": 48,
+      "current_evidence_and_limit_exact": "Matriz de aserciones y conciliación de fuentes ya existen; [delta de cuatro requisitos de avisos de cuenta](evidencias/cr09-communications-traceability-20261016.md) liga aserciones y20recibos setup/call/teardown, con21fuentes anteriores idénticas en23registros. Terminar los demás requisitos→aserción→ejecución aplicable sin aceptar un derecho completo por ejemplos parciales.",
+      "current_source_location": 15,
+      "next_step": "Completar requisitos→aserción→ejecución aplicable fuera del delta de avisos de cuenta.",
+      "status": "pending_integral_acceptance"
+    },
+    {
+      "family": "Conservación y destrucción por finalidad /10%",
+      "acceptance_criterion_exact": "Configuraciones de ensayo explícitas por finalidad/artefacto, inicio/plazo/estado, excepciones/reserva e historial/backups sintéticos. Verificar vencimiento, retención debida, destrucción autorizada de fixtures, reintentos e idempotencia; contrastar cobertura pendiente con planes/disparadores existentes. Parámetros de prueba no son plazos legales definitivos. Selección actual de planes/autoridad/calendario/seguimiento/purga/reintentos y UI verificada N2; integrar esta evidencia en el N3 común, sin extrapolar destrucción jurídica o scheduling productivo.",
+      "reusable_evidence_exact": "[matriz88](88-matriz-cierre-derechos.md), [purga worker/Beat](evidencias/conservacion-borradores-finales0109-worker-beat.json); [consolidación N2 en CI propio](evidencias/conservacion-finalidad-ci-propio-20261009.json),43 PASS.",
+      "production_entry_separate_exact": "Operador/revisor jurídico: fundamento, duración y excepciones definitivas, autoridad de destrucción y política de backups. No ejecutar destrucción real.",
+      "source_file": "docs/83-auditoria-pendientes-cr09.md",
+      "source_location": 49,
+      "current_evidence_and_limit_exact": "[Selección integrada y aserciones](evidencias/cr09-mecanismos-conciliacion-integrada-20261015.md) verificadas. [Beat→worker](evidencias/cr09-worker-beat-integrado-terminal-20261015.json) acredita refresco específico; no implica despacho probado de todas las purgas. Completar finalidad/excepción/tarea y alcance N3.",
+      "current_source_location": 16,
+      "next_step": "Completar finalidad/excepción/tarea y aplicabilidad común; despacho17tareas no prueba contenido de todas las purgas.",
+      "status": "pending_integral_acceptance"
+    },
+    {
+      "family": "Restauración de datos y medios /15%",
+      "acceptance_criterion_exact": "Inventario de backups sintéticos propios, corte esperado, huellas y restauración completa PG/medios en entorno desechable; validar checkpoint, restricciones, invalidación MOD05 y coherencia de fuentes. Registrar tiempos y pérdida de datos contra objetivos de diseño vigentes RPO 1 h/RTO 8 h de docs14 §10, en el alcance ensayado; Fixture real local final con inventario/huellas, checkpoint independiente sintético, supresión/medios/otro sujeto/comercial, triggers restaurados y comando MOD05 verificados. Falta incluir este alcance en la versión integrada y ensayo común N3 pertinente; capacidad/cadencia/custodia productivas no se extrapolan.",
+      "reusable_evidence_exact": "[operación85](85-operacion-registro-recuperacion.md), [checkpoint PG real](evidencias/recuperacion-checkpoint-pg-real0110.json); [restauración CI propia/MOD05 N2](evidencias/restauracion-ci-mod05-final-20261009.json),2 PASS finales.",
+      "production_entry_separate_exact": "Titular/operador/custodio: entorno real, custodia/inventario, configuración de backups y acta; comprobar RPO/RTO en esa topología sin extrapolar desde local.",
+      "source_file": "docs/83-auditoria-pendientes-cr09.md",
+      "source_location": 50,
+      "current_evidence_and_limit_exact": "Restauración real PG/medios ejecutada en bloque2 v3 y conciliada en [mecanismos](evidencias/cr09-mecanismos-conciliacion-integrada-20261015.json). Falta aplicabilidad a versión final/N3; no repetir por rutina ni confundir con cadencia/custodia productiva.",
+      "current_source_location": 17,
+      "next_step": "Incluir restauración ejecutada en versión final/N3 pertinente, sin repetición rutinaria.",
+      "status": "pending_integral_acceptance"
+    },
+    {
+      "family": "Sesiones, cachés, colas, logs y recursos externos /10%",
+      "acceptance_criterion_exact": "Delimitar las 23 fuentes conocidas pertinentes al escenario local y revisar asociación/contenido/diferencias/divulgación; añadir otra fuente solo por dependencia concreta demostrada. Fuentes necesarias desconocidas o no leídas mantienen cobertura local pendiente. No inferir asociación por UUID/substrings/conteos. El inventario de servicios ajenos no se exige para un escenario técnico que no los usa.",
+      "reusable_evidence_exact": "[recursos87](87-recursos-locales-recuperacion.md), [orígenes91](91-origenes-redis-rdb-aof.md), [logs integrados](evidencias/logs-historicos-integrado0110.json).",
+      "production_entry_separate_exact": "Operador/custodio/revisor: censo autorizado de recursos reales host/correo/backups y asociación/divulgación aprobadas, incluyendo las fuentes necesarias descubiertas allí.",
+      "source_file": "docs/83-auditoria-pendientes-cr09.md",
+      "source_location": 51,
+      "current_evidence_and_limit_exact": "Revisión finita de23fuentes para cuatro escenarios contrastada; negativa conjunta y límites de archivos privados conservados. Resolver sólo fuentes necesarias y pertinentes restantes, sin exigir inventario ajeno al escenario.",
+      "current_source_location": 18,
+      "next_step": "Resolver sólo fuentes necesarias y pertinentes restantes mediante asociación y lectura verificables.",
+      "status": "pending_integral_acceptance"
+    },
+    {
+      "family": "Comunicaciones y destinatarios /8%",
+      "acceptance_criterion_exact": "Matriz sintética por derecho de destinatario/rol/autorización, canal, contenido mínimo, acuse, fallos/reintentos/revocación y efecto en cierre. Probar buzón real local y adaptadores simulados identificados donde corresponda; demostrar ausencia de filtraciones y tratamiento de fallo. Un aviso emitido no se registra como recepción externa real.",
+      "reusable_evidence_exact": "[docs90](90-comunicaciones-derechos-ejecutados.md), [evidencia](evidencias/comunicaciones-derechos-integradas0110.json).",
+      "production_entry_separate_exact": "Operador/responsable del canal: destinatarios reales, autorización y servicio; evidencia verificable de entrega/fallo externo cuando exigible.",
+      "source_file": "docs/83-auditoria-pendientes-cr09.md",
+      "source_location": 52,
+      "current_evidence_and_limit_exact": "[Diez variantes actuales de revocación tras bloqueo PG](evidencias/cr09-recipient-revocation-20261016.md) verifican lectura/acuse denegados antes de descifrar, sin efectos; alcance buzón local de perfil. [Veinte controles de cuenta](evidencias/cr09-account-recipient-revocation-20261016.md) verifican limitación/oposición, lectura/acuse ycinco revocaciones traswaitUser, con denegación antes de descifrar; [Seis controles de editor activo](evidencias/cr09-editor-recipient-revocation-20261016.md) acreditan pérdida de asignación/membresía/manager_version después de waitPerson sin revocar credenciales. Servicio local, no todos los derechos/canales. Selección integrada y [todos los gestores ES/EN](evidencias/cr09-comunicaciones-todos-destinatarios-terminal-20261015.json) verificadas; completar matriz por derecho/canal/fallo/revocación. Buzón local no acredita recepción externa.",
+      "current_source_location": 19,
+      "next_step": "Completar matriz por derecho/canal/fallo/revocación; no extender buzón local a entrega externa.",
+      "status": "pending_integral_acceptance"
+    },
+    {
+      "family": "Atención urgente y escalado /7%",
+      "acceptance_criterion_exact": "Roles/usuarios y cobertura de ensayo, prioridad, escalado, canal, plazo sintético y criterio de resolución explícitos. Simulacro local con cronología, asignación/suplencia, actuación y resultado; reconocer no equivale a resolver. Simulacro HTTP ES/EN completado en su alcance técnico interno con primario revocado, suplencia autorizada, consulta auditada, decisión terminal y replay; [protocolo](37-alertas-denuncias-urgentes.md#simulacro-técnico-local-de-suplencia-2026-10-09). Falta consolidarlo en la versión común y N3; no repetirlo sin riesgo concreto.",
+      "reusable_evidence_exact": "[docs37](37-alertas-denuncias-urgentes.md), [operación12](12-operacion-seguridad.md); [simulacro de suplencia y revocación N2](evidencias/cr09-correo-autoridad-urgencias-correctiva-20261009.json),73 PASS conjuntos.",
+      "production_entry_separate_exact": "Responsable operativo: personas/suplentes, cobertura, SLA decidido, autoridad y simulacro operativo real. No prometer atención humana desde fixtures.",
+      "source_file": "docs/83-auditoria-pendientes-cr09.md",
+      "source_location": 53,
+      "current_evidence_and_limit_exact": "Simulacro y negativos de revocación conciliados en [mecanismos](evidencias/cr09-mecanismos-conciliacion-integrada-20261015.json); no sigue pendiente ejecutarlos por primera vez. Falta aplicabilidad común/N3, sin reabrir alcance local por rutina.",
+      "current_source_location": 20,
+      "next_step": "Consolidar simulacro existente en versión común y N3 sin repetir por rutina.",
+      "status": "pending_integral_acceptance"
+    },
+    {
+      "family": "Rendimiento de expedientes grandes /5%",
+      "acceptance_criterion_exact": "Objetivos locales fijados por delegación: dos expedientes simultáneos de1.500 revisiones,16MiB JSON y64MiB imágenes cada uno; presupuesto4CPU/8GiB/20GiB y [límites por etapa](propuesta-cierre-pendientes-locales.md). El [fixture completo](evidencias/capacidad-fixture-objetivo-20261009.json) está validado; [consulta/aprobación escalar](evidencias/capacidad-seleccion-completa-versiones-20261009.json) cumple en su variante. El [flujo con16imágenes incluidas](evidencias/capacidad-entrega-binaria-revision-inicial-20261009.json) cumple guardado, pero falla revisión de páginas frente a2s; etapas posteriores NOT_PROVEN. La [correctiva funcional63PASS](evidencias/revision-binaria-candidatos-n2-correctiva-20261009.json) no se midió de nuevo en el escenario p95. Falta verificar ese recorrido cambiado, generación/cierre/descargas y presupuesto global (controlador/almacenamiento), preservando contenido, autoridad y límites; prototipo del controlador sin commit y no ejecutado. Resultados parciales no acreditan capacidad integral ni N3 común; el SLO del directorio no sustituye estos criterios.",
+      "reusable_evidence_exact": "[docs67](67-copias-datos-volumen.md), [docs80](80-portabilidad-contenido-imagenes.md), [docs82](82-portabilidad-cobertura-entrega-cierre.md).",
+      "production_entry_separate_exact": "Titular/operador: validar objetivos y capacidad en recursos de producción; no asumir equivalencia de host/topología.",
+      "source_file": "docs/83-auditoria-pendientes-cr09.md",
+      "source_location": 54,
+      "current_evidence_and_limit_exact": "Aprobación provisional MOD09 del usuario vigente; latencias mejorables no bloquean continuación. Se conserva FAIL histórico y límites de alcance; no extrapolar a SLO del directorio.",
+      "current_source_location": 21,
+      "next_step": "Aplicar MOD09: tiempos provisionales no bloquean; mantener garantías, recuperación, presupuesto y pruebas necesarias.",
+      "status": "pending_integral_acceptance"
+    },
+    {
+      "family": "Aceptación integral CR09 /5%",
+      "acceptance_criterion_exact": "Codex consolida los criterios locales anteriores, revisión técnica de seguridad y trazabilidad requisito→versión→prueba→evidencia. Ejecutar N3 sobre una versión integrada común con PG real y [CI propio](ci-local.md), carga/recuperación pertinentes y resultado terminal sin omisiones necesarias; no sumar runs separados ni usar smoke como N3. Sigue pendiente.",
+      "reusable_evidence_exact": "Contratos, matrices y alcances locales ya cerrados, sin reapertura rutinaria.",
+      "production_entry_separate_exact": "Titular/revisor independiente: evaluación externa de seguridad y remediaciones antes de producción, además de entradas operativas anteriores. No exigir CI alojado/pago para aceptación local.",
+      "source_file": "docs/83-auditoria-pendientes-cr09.md",
+      "source_location": 55,
+      "current_evidence_and_limit_exact": "Cuatro bloques v3 terminales, errores/fallos originales y recuperaciones conservados; cambios posteriores requieren aplicabilidad común. Último [corto limpio](evidencias/cr09-query-structure-http-terminal-20261015.json) SHAe7e68cd/producto3ba2ec4 FAILp951.218890s frente<0.8s;1200completadas0errores. Ciclos de memoizador corregidos18PASS; selector de medios EXISTS con paridad aislada y19PASS de fotos/supresión/rectificación/races, taskfoto10.094→0.971s pero no resuelve p95. No repetirFAIL/15min/N3. Proyección dirty aislada con paridad40casos pero ahorro irregular/CPUmayor, no integrada. EstructuraSQLLRU8sinresultados integrada con16SQLparams exactos/23controles y2reforzados; ahorroaislado, no cumplep95. Diagnósticoingressactual terminado1200IDs, FAILinstrumentado1.123788s; esperapreWSGI ypicoinicialrequieren atribuciónexterna, sinotrocandidato niaceptación. Conservación/comunicaciones/históricos/versiónfinal mantienen pendientes de esta matriz.",
+      "current_source_location": 22,
+      "next_step": "Consolidar trazabilidad y ejecutar N3 común sólo con requisitos previos satisfechos; no sumar selecciones ni repetir cargas trasFAIL sin corrección respaldada.",
+      "status": "pending_integral_acceptance"
+    }
+  ],
+  "performance": {
+    "last_clean_p95_s": 1.013029795,
+    "target_p95_s_strictly_less_than": 0.8,
+    "source_file": "docs/83-auditoria-pendientes-cr09.md",
+    "source_location": 10,
+    "short_gate_exact": "| Corto | 10.000 anuncios, 20 RPS durante 60 s, 1.200 dinámicas y 1 upload separado; drain ≤70 s, pendientes al cierre ≤20 y finales 0; p95 observable de todas las dinámicas emitidas terminadas, incluidos errores/timeouts, <800 ms; errores <1%; upload 302 conforme. |",
+    "contractual_gate_exact": "| Contractual | 10.000 anuncios, 20 RPS durante 900 s, 18.000 dinámicas; mezcla 1/3 listado, 1/3 búsqueda, 1/3 ficha ES/EN; 15 uploads separados, uno/minuto; p95 observable <800 ms, errores <1%, generador/drain/política contable vigentes y uploads conformes. |",
+    "stop_rule_exact": "Marco completo: [criterios de carga](criterios-revision-benchmark-carga.md). Conservar veredicto de transporte y gate completo separados. INVALID por escenario/generador/contabilidad inválidos; FAIL por criterio incumplido en ensayo válido; PASS solo al cumplir todos. FAIL/INVALID corto bloquean contractual. No cambiar clasificaciones históricas ni trasladar retroactivamente criterios.",
+    "limit": "Medias secuenciales ROI de288requests no sustituyen corto limpio,900s ni N3."
+  },
+  "candidate_states": [
+    {
+      "name": "first-page-batch",
+      "state": "eligible_for_N2_only",
+      "source_file": "docs/evidencias/cr09-first-page-batch-roi-20261016.md",
+      "source_location": 29,
+      "next_step_exact": "Siguiente N2: negativas de elegibilidad y nativa repetida, catálogo/autoridad/normalización pertinentes, límite/bypass/fallback y escritura concurrente dentro de RR; después integración y matriz comparable, corto limpio y contractual sólo tras PASS. CR09/N3 siguen abiertos; último p95 limpio permanece 1,013029795 s."
+    },
+    {
+      "name": "dirty-projection",
+      "state": "do_not_integrate_insufficient_ROI",
+      "source_file": "docs/evidencias/cr09-dirty-projection-roi-20261016.md",
+      "source_location": 20
+    },
+    {
+      "name": "wsgi-release",
+      "state": "do_not_integrate_insufficient_ROI",
+      "source_file": "docs/evidencias/cr09-wsgi-release-roi-20261016.md",
+      "source_location": 16
+    },
+    {
+      "name": "RateForm",
+      "state": "private_fix_remains_product_no_temporal_saving_proven",
+      "source_file": "docs/evidencias/cr09-wsgi-release-roi-20261016.md",
+      "source_location": 5
+    }
+  ],
+  "later_contract": [
+    {
+      "stage": "CR10",
+      "criterion_exact": "| CR-10 | Promociones preparadas | Administración de productos, etiquetas/previsualización, ranking y pedidos/pagos solo en pruebas | Productos sin tarifa no se venden; promoción nunca evita moderación; reintentos no duplican derechos y patrocinio no falsea fecha editorial |",
+      "evidence_limit": "Preparación comercial N2 ya documentada; faseCR10 no aceptada.",
+      "source_file": "docs/88-matriz-cierre-derechos.md",
+      "source_location": 59
+    },
+    {
+      "stage": "GS01",
+      "criterion_exact": "No separar frontend/backend por fecha o por porcentaje subjetivo. Se puede pasar a fase B únicamente cuando:\n\n- CR-01 a CR-10 tienen recorrido real y sus pruebas esenciales pasan.\n- Todas las pantallas de MVP tienen operaciones/estados servidor conocidos y contratos documentados.\n- No quedan cambios coordinados conocidos en modelo, permisos, campos, estados, rutas, tareas o presentación de resultados.\n- Errores de permisos, publicación, datos privados y cargas introducidos están corregidos.\n- Se han probado estados de carga/vacío/error/pendiente y variaciones de rol/idioma; no se necesita un endpoint nuevo para terminar UI.\n- Integraciones externas pendientes están aisladas y no implican que se haya cumplido el gate de producción.\n- Inventario residual asigna cada tarea a frontend o backend y prueba que no requiere cambiar el contrato compartido.\n\nEntregar acta GS-01 con commit, pruebas, contratos congelados e inventario residual. Congelado significa cambios controlados y versionados, no imposibilidad de corregir errores.",
+      "source_file": "docs/16-contrato-ejecucion-desarrollo.md",
+      "source_location": 86
+    },
+    {
+      "stage": "BF",
+      "criterion_exact": "Criterio: no inventar nuevos datos o quitar estados necesarios para simplificar diseño; pasa pruebas navegador y accesibilidad de flujos de MVP. El objetivo de accesibilidad no acredita cumplimiento legal automáticamente.",
+      "source_file": "docs/16-contrato-ejecucion-desarrollo.md",
+      "source_location": 115
+    },
+    {
+      "stage": "BB",
+      "criterion_exact": "Criterio: conserva contratos GS-01, pasa pruebas de integridad/permisos/tareas, carga y recuperación; documenta bloqueos externos sin activar integraciones simuladas como reales.",
+      "source_file": "docs/16-contrato-ejecucion-desarrollo.md",
+      "source_location": 129
+    },
+    {
+      "stage": "C",
+      "criterion_exact": "1. Ejecutar conjunto completo de pruebas unitarias necesarias, integración PostgreSQL, navegador, permisos y seguridad sobre un mismo commit.\n2. Probar ES/EN, móvil/escritorio y roles; recorrer particular y agencia hasta publicación, búsqueda, denuncia y retirada.\n3. Prueba de carga y objetivos del contrato funcional con recursos y dataset documentados; medir imágenes/CDN por separado.\n4. Ensayo local de despliegue, migración, recuperación/rollback y restauración completa con recursos propios y datos sintéticos; simulacros OP técnicos. Los objetivos de restauración de docs14 §10 siguen vigentes en el alcance ensayado.\n5. Revisión técnica de seguridad, permisos y privacidad por Codex, corrección de hallazgos y pruebas afectadas. La revisión independiente externa previa a producción se registra por separado y no se declara realizada desde esta revisión.\n6. Revisar versiones ES/EN y mecanismos de aceptación contra flujos implementados, con textos/datos de prueba explícitos. Textos definitivos, identidad real del operador y revisión jurídica son requisitos de producción.\n7. Emitir acta de entrega técnica local con evidencias comunes y, por separado, estado de preparación de producción G-01 a G-08; la segunda acta puede permanecer pendiente.\n\nNo hacer un último merge sin pruebas después de terminar áreas. Si falla algo, corregirlo y revisar impacto; no declarar terminado solo por acabar el backlog de ambas áreas.",
+      "source_file": "docs/16-contrato-ejecucion-desarrollo.md",
+      "source_location": 133
+    }
+  ],
+  "acceptance_authority": "complete significa reportado, no aceptado; verificación/integración/aceptación corresponde al principal."
+}
