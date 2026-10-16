@@ -1,0 +1,52 @@
+{
+  "contract_version": 1,
+  "task_id": "cr09-cold-cost-review-20261016",
+  "status": "reported_complete_not_accepted",
+  "source_cut": "e625870",
+  "method": "Read-only static inspection of owned worktree source and retained evidence; no DB, Docker, tests, network, loads, agents or commits.",
+  "decision": "insufficient_evidence_for_new_product_candidate",
+  "observations": [
+    {
+      "sources": ["config/worker_startup.py:4-20", "gunicorn.conf.py:3", "docs/evidencias/cr09-static-startup-audit-20261016.md", "docs/evidencias/cr09-startup-runtime-20261016.md"],
+      "finding": "The implemented hook resolves both languages and compiles the three public templates before serving. Actual four-worker execution was verified. Recommending imports, URL resolution or these template compilations again would duplicate integrated work. Compilation is not rendering; this distinction alone does not establish that remaining rendering setup is material."
+    },
+    {
+      "sources": ["apps/listings/publication_state.py:75-99", "apps/listings/publication_state.py:294-319"],
+      "finding": "Rules-version computation reads and hashes source bytes once per effective configuration per process, then uses a bounded LRU. This is genuine cold-only work, but there is no retained attribution showing it occurs during arrivals or materially contributes. Preludes may already consume it. Moving this to startup would be another preparation policy, not a justified new request optimization. No saving is claimed."
+    },
+    {
+      "sources": ["apps/listings/public_validation.py:215-269", "docs/evidencias/cr09-detail-dirty-plans-20261016.md"],
+      "finding": "Scoped prepared binding already starts preparation immediately when the native threshold is disabled, restores cursor state, and scopes JIT/join policy. Subsequent sequential plans have planning 0.162-3.348 ms and no shared reads; they do not demonstrate original first-use planning, I/O or wait costs. They do not justify reopening forced-generic policy."
+    },
+    {
+      "sources": ["docs/evidencias/cr09-detail-ingress-20261016.md", "docs/evidencias/cr09-detail-repro-20261016.md"],
+      "finding": "The observed initial extra cost is predominantly SQL wall, with overlapping worker CPU and GC. All workers had prelude SQL. SQL wall is not PostgreSQL CPU, and before-WSGI is not a measured exact queue. The 134-call SQL overflow aggregate totals 377.909 ms and prevents an exhaustive statement ranking. A cold worker, dirty-population branch, concurrent upload and accumulated admission delay are different possible contributions; current retained summary does not causally separate them."
+    }
+  ],
+  "excluded_prior_options": [
+    "COUNT(*) OVER(): stable A/A but listing +2.39% wall, search -1.19%, insufficient ROI; do not integrate.",
+    "Six native route warmups: first-six saving 17.78% below preregistered 20%, lifecycle increased; do not recast as an untested solution.",
+    "Dirty projection UNION, membership UNION, global forced generic and hydration-only generic already tested/rejected; no recommendation to sweep parameter variants.",
+    "No GC disabling, freezing, threshold changes, increased CPU/workers, relaxed SLO or removal of upload/initial arrivals."
+  ],
+  "next_evidence_action": {
+    "type": "offline_reconciliation_before_any_new_candidate",
+    "procedure": [
+      "Use retained worker events and exact request-ID joins; stratify by PID, exact route, ordinal request on that worker, arrival cohort and observed publication branch/dirty state where those fields actually exist. Mark missing branch/parameter data unknown rather than infer it from normalized SQL hashes.",
+      "Compare the same query structure and parameter cardinality, including number of hydrated listing IDs, when available. Separate route-mix and dirty-branch work from first-use cost; an arbitrary first-second versus stable average mixes these factors.",
+      "Account for overflow coverage and upload occupation before declaring the largest avoidable component. Do not sum overlapping SQL/CPU/GC or subtract percentile summaries."
+    ],
+    "if_existing_data_insufficient": "A single separately preregistered diagnostic may add bounded SQL fingerprint coverage and parameter cardinalities for early requests on owned resources, without logging values or changing product/correctness. Keep an identical observer in every arm if a causal candidate is subsequently justified. Do not run another clean acceptance attempt or optimization variant solely because attribution is absent.",
+    "minimal_causal_experiment_now": null,
+    "reason": "There is no sufficiently attributed new mechanism to choose a treatment. A causal A/B without one would be another speculative variant."
+  },
+  "correctness_constraints": [
+    "Preserve actual public-detail outer repeatable-read read-only transaction and native inherited-transaction fallback.",
+    "Keep request-local authority, current legal document, revocations, conflict checks, native page guards and exact count/ordering semantics.",
+    "Never move DB reads into the existing immutable-only startup hook or retain authority/data across requests under the label of static preparation.",
+    "Any future query-structure optimization must independently prove snapshot equivalence, empty and boundary populations, mutations and runtime restoration before ROI."
+  ],
+  "acceptance": "Clean p95 0.675688 PASS then 0.880357 FAIL remains non-reproducible. No new p95, integration approval, N3 or CR09 acceptance is supplied.",
+  "graph_scope": "The isolated worktree has no graphify-out/graph.json; no graph rebuild was authorized or run. Primary source inspection supplies this report.",
+  "usage": "Native agent token consumption not independently measured; no external invocation."
+}

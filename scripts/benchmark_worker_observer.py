@@ -15,7 +15,8 @@ _ID = re.compile(r"[du]-[0-9]+\Z")
 
 
 class WorkerObserver:
-    def __init__(self, folder, *, observe_gc=False, observe_prelude=False):
+    def __init__(self, folder, *, observe_gc=False, observe_prelude=False, observe_sql_shapes=False):
+        self.observe_sql_shapes = observe_sql_shapes
         self.prelude_remaining = 32 if observe_prelude else 0
         self.pid = os.getpid()
         self.fd = os.open(
@@ -85,7 +86,7 @@ class WorkerObserver:
             # Bounded diagnostic attribution; never retain SQL or parameter values.
             fingerprint = hashlib.sha256(str(sql).encode()).hexdigest()
             queries = state["sql"].setdefault("queries", {})
-            key = fingerprint if fingerprint in queries or len(queries) < 32 else "overflow"
+            key = fingerprint if fingerprint in queries or len(queries) < (128 if self.observe_sql_shapes else 32) else "overflow"
             if key not in queries and key != "overflow":
                 root = str(Path(__file__).resolve().parents[1]) + os.sep
                 frame = sys._getframe(1)
@@ -106,6 +107,18 @@ class WorkerObserver:
                 finally:
                     del frame
             bucket = queries.setdefault(key, {"calls": 0, "wall": 0.0, "thread_cpu": 0.0})
+            if self.observe_sql_shapes:
+                # Cardinalities only: never repr(), SQL text, keys or parameter values.
+                sequence = params if isinstance(params, (list, tuple)) else ()
+                shape = json.dumps({
+                    "count": len(params) if params is not None else 0,
+                    "nested_lengths": [len(v) if isinstance(v, (list, tuple)) else None
+                                       for v in sequence[:64]],
+                    "truncated": len(sequence) > 64,
+                }, sort_keys=True)
+                shapes = bucket.setdefault("parameter_shapes", {})
+                shape_key = shape if shape in shapes or len(shapes) < 8 else "overflow"
+                shapes[shape_key] = shapes.get(shape_key, 0) + 1
             bucket["calls"] += 1
             bucket["wall"] += elapsed
             bucket["thread_cpu"] += used_cpu
@@ -131,7 +144,11 @@ class WorkerObserver:
             if self.gc_observer is not None:
                 state["gc_start"] = len(self.gc_observer.events)
             token = _CURRENT.set(state)
-            self.write(state, "wsgi_start", started=state["started"], prelude=prelude)
+            metadata = {}
+            if self.observe_sql_shapes:
+                route = environ.get("PATH_INFO", "") + "?" + environ.get("QUERY_STRING", "")
+                metadata["route_sha256"] = hashlib.sha256(route.encode()).hexdigest()
+            self.write(state, "wsgi_start", started=state["started"], prelude=prelude, **metadata)
 
             def status(response_status, headers, exc_info=None):
                 state["status"] = int(response_status.split()[0])

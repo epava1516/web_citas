@@ -209,3 +209,36 @@ def test_prelude_is_bounded_private_and_does_not_modify_request(tmp_path):
     assert len({e['id'] for e in starts}) == 32
     assert seen == [env] * 34 and 'secret' not in json.dumps(events)
     assert _CURRENT.get() is None
+
+
+def test_sql_shapes_are_opt_in_bounded_cardinalities_without_values(tmp_path):
+    observer = WorkerObserver(tmp_path, observe_sql_shapes=True)
+
+    def native(environ, start_response):
+        for i in range(140):
+            observer.sql(lambda *args: None, f'secret-sql-{i}', [['secret'] * 3, 'hidden'], False, {})
+        for size in range(12):
+            observer.sql(lambda *args: None, 'secret-sql-0', [['hidden'] * size], False, {})
+        start_response('200 OK', [])
+        return [b'ok']
+
+    try:
+        response = observer.wsgi(native)(
+            {'HTTP_X_BENCHMARK_ID': 'd-0', 'PATH_INFO': '/secret/', 'QUERY_STRING': 'hidden=secret'},
+            lambda *args: None,
+        )
+        assert list(response) == [b'ok']
+        response.close()
+    finally:
+        observer.close()
+    events = collect_events(tmp_path)['events']
+    queries = events[-1]['sql']['queries']
+    assert len(queries) == 129 and queries['overflow']['calls'] == 12
+    assert sum(x['calls'] for x in queries.values()) == 152
+    bucket = next(x for x in queries.values() if x['calls'] == 13)
+    assert len(bucket['parameter_shapes']) == 9
+    assert sum(bucket['parameter_shapes'].values()) == bucket['calls']
+    assert any(json.loads(key).get('nested_lengths') == [3, None]
+               for key in bucket['parameter_shapes'] if key != 'overflow')
+    assert len(events[0]['route_sha256']) == 64
+    assert not any(value in json.dumps(events) for value in ['secret', 'hidden'])

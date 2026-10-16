@@ -17,7 +17,8 @@ def post_worker_init(worker):
         from config.worker_startup import post_worker_init as prepare_worker
 
         prepare_worker(worker)
-    observer = WorkerObserver(folder, observe_gc=True, observe_prelude=True)
+    observer = WorkerObserver(folder, observe_gc=True, observe_prelude=True,
+                              observe_sql_shapes=os.environ.get("WEB_MODELOS_BENCHMARK_SQL_SHAPES") == "1")
     if os.environ.get('WEB_MODELOS_BENCHMARK_PREPARE_STATIC') == '1':
         observer.write({"id": "startup"}, "static_ready")
     worker._benchmark_observer = observer
